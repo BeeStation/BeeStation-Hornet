@@ -123,6 +123,11 @@
 	strip_delay = 60
 	dog_fashion = null
 
+/obj/item/clothing/head/soft/sec/brig_phys
+	name = "security medic cap"
+	icon_state = "secmedsoft"
+	item_color = "secmed"
+
 /obj/item/clothing/head/soft/emt
 	name = "EMT cap"
 	desc = "It's a baseball hat with a dark turquoise color and a reflective cross on the top."

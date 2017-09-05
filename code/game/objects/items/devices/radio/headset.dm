@@ -107,6 +107,12 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "sec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sec
 
+/obj/item/radio/headset/headset_medsec
+	name = "medical-security radio headset"
+	desc = "Used to hear how many security officers need to be stiched back together."
+	icon_state = "medsec_headset"
+	keyslot = new /obj/item/encryptionkey/headset_medsec
+
 /obj/item/radio/headset/headset_sec/alt
 	name = "security bowman headset"
 	desc = "This is used by your elite security force. Protects ears from flashbangs."
