@@ -177,3 +177,19 @@
 		var/obj/item/clothing/head/helmet/justice/escape/helmet = new(src)
 		equip_to_slot_or_del(helmet,SLOT_HEAD)
 		helmet.attack_self(src) // todo encapsulate toggle
+
+
+//Special monkeycube subtype to track the number of them and prevent spam
+/mob/living/carbon/monkey/cube/Initialize()
+	. = ..()
+	GLOB.total_cube_monkeys++
+
+/mob/living/carbon/monkey/cube/death(gibbed)
+	GLOB.total_cube_monkeys--
+	..()
+
+//In case admins delete them before they die
+/mob/living/carbon/monkey/cube/Destroy()
+	if(stat != DEAD)
+		GLOB.total_cube_monkeys--
+	return ..()

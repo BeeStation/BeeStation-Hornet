@@ -230,7 +230,7 @@
 #define GALOSHES_DONT_HELP		(1<<2)
 #define SLIDE_ICE				(1<<3)
 
-#define MAX_CHICKENS 50
+
 
 
 #define INCORPOREAL_MOVE_BASIC 1

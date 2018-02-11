@@ -156,7 +156,7 @@
 	cats_deployed = 1
 	for(var/cat_type in family)
 		if(family[cat_type] > 0)
-			for(var/i in 1 to min(family[cat_type],100)) //Limits to about 500 cats, you wouldn't think this would be needed (BUT IT IS)
+			for(var/i in 1 to min(family[cat_type],25)) //Limits to about 25 cats, whoever thought leaving the max at 500 was a genius. Prevents catsplosions.
 				new cat_type(loc)
 
 /mob/living/simple_animal/pet/cat/Proc

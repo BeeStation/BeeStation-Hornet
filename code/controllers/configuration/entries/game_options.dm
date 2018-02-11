@@ -384,3 +384,11 @@
 	min_val = 0
 
 /datum/config_entry/flag/allow_crew_objectives
+
+//Mob spam prevention
+CONFIG_DEF(number/max_cube_monkeys)
+	value = 100
+CONFIG_DEF(number/max_chickens)
+	value = 100
+CONFIG_DEF(number/max_slimes)
+	value = 100
