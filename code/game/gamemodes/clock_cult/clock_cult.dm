@@ -141,6 +141,7 @@ Credit where due:
 	announce_text = "Servants of Ratvar are trying to summon the Justiciar!\n\
 	<span class='brass'>Servants</span>: Construct defenses to protect the Ark. Sabotage the station!\n\
 	<span class='notice'>Crew</span>: Stop the servants before they can summon the Clockwork Justiciar."
+	title_icon = "clockcult"
 	var/servants_to_serve = list()
 	var/roundstart_player_count
 	var/ark_time //In minutes, how long the Ark waits before activation; this is equal to 30 + (number of players / 5) (max 40 mins.)
@@ -354,3 +355,20 @@ Credit where due:
 	if(!is_servant_of_ratvar(user) && !isobserver(user))
 		to_chat(user, "<span class='danger'>You can't understand any of the words on [src].</span>")
 	..()
+
+/datum/game_mode/clockwork_cult/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	round_credits += "<center><h1>The Servants of Ratvar:</h1></center>"
+	len_before_addition = round_credits.len
+	for(var/datum/mind/servant in servants_of_ratvar)
+		round_credits += "<center><h2>[servant.name] as a faithful servant of Ratvar</h2>"
+	if(GLOB.ratvar_awakens)
+		round_credits += "<center><h2>Ratvar as himself, returned at last</h2>"
+	if(len_before_addition == round_credits.len)
+		round_credits += list("<center><h2>The servants were cast astray in the void!</h2>", "<center><h2>None shall remember their names!</h2>")
+	round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits
