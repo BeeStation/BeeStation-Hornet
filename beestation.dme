@@ -2749,6 +2749,7 @@
 #include "code\modules\VR\vr_sleeper.dm"
 #include "code\modules\zombie\items.dm"
 #include "code\modules\zombie\organs.dm"
+#include "interface\fullscreen.dm"
 #include "interface\interface.dm"
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"

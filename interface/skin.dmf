@@ -1,4 +1,8 @@
 macro "default"
+	elem 
+		name = "Escape"
+		command = "Toggle-Fullscreen"
+
 
 menu "menu"
 	elem 
@@ -13,6 +17,11 @@ menu "menu"
 	elem 
 		name = "&Save screenshot as...\tShift+F2"
 		command = ".screenshot"
+		category = "&File"
+		saved-params = "is-checked"
+	elem 
+		name = "Toggle Fullscreen (ESC)"
+		command = "Toggle-Fullscreen"
 		category = "&File"
 		saved-params = "is-checked"
 	elem 
