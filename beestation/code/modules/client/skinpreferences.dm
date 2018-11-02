@@ -6,7 +6,7 @@ client/New()
 client/verb/ToggleFullscreen()
 
     set name = "Toggle Fullscreen"
-    set category = "Preferences"
+    set category = "OOC"
 
     fullscreen = !fullscreen
     if(fullscreen)
