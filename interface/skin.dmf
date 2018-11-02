@@ -1,7 +1,7 @@
 macro "default"
 	elem 
 		name = "Escape"
-		command = "Toggle-Fullscreen"
+		command = "Toggle Fullscreen"
 
 
 menu "menu"
@@ -21,7 +21,7 @@ menu "menu"
 		saved-params = "is-checked"
 	elem 
 		name = "Toggle Fullscreen (ESC)"
-		command = "Toggle-Fullscreen"
+		command = "Toggle Fullscreen"
 		category = "&File"
 		saved-params = "is-checked"
 	elem 

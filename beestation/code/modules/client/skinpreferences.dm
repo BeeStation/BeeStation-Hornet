@@ -4,7 +4,10 @@ client/New()
     ToggleFullscreen()
 
 client/verb/ToggleFullscreen()
-    set name = "Toggle-Fullscreen"
+
+    set name = "Toggle Fullscreen"
+    set category = "Preferences"
+
     fullscreen = !fullscreen
     if(fullscreen)
         winset(src, "mainwindow", "is-maximized=false;can-resize=false;titlebar=false;menu=")
