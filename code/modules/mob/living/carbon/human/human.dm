@@ -602,8 +602,6 @@
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	rad_act(current_size * 3)
-	if(mob_negates_gravity())
-		return
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/C)
 	CHECK_DNA_AND_SPECIES(C)
@@ -769,6 +767,7 @@
 				hud_used.healthdoll.icon_state = "healthdoll_DEAD"
 
 /mob/living/carbon/human/fully_heal(admin_revive = 0)
+	dna?.species.spec_fully_heal(src)
 	if(admin_revive)
 		regenerate_limbs()
 		regenerate_organs()
@@ -852,17 +851,31 @@
 				if(!riding_datum.equip_buckle_inhands(M, 2))	//MAKE SURE THIS IS LAST!!
 					M.visible_message("<span class='warning'>[M] can't climb onto [src]!</span>")
 					return
-			. = ..(M, force, check_loc)
 			stop_pulling()
+			. = ..(M, force, check_loc)
 		else
 			visible_message("<span class='warning'>[M] fails to climb onto [src]!</span>")
 	else
-		. = ..(M,force,check_loc)
 		stop_pulling()
+		. = ..(M,force,check_loc)
 
 /mob/living/carbon/human/do_after_coefficent()
 	. = ..()
 	. *= physiology.do_after_speed
+
+/mob/living/carbon/human/updatehealth()
+	. = ..()
+	dna?.species.spec_updatehealth(src)
+
+/mob/living/carbon/human/adjust_nutrition(var/change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
+	if(has_trait(TRAIT_NOHUNGER))
+		return FALSE
+	return ..()
+
+/mob/living/carbon/human/set_nutrition(var/change) //Seriously fuck you oldcoders.
+	if(has_trait(TRAIT_NOHUNGER))
+		return FALSE
+	return ..()
 
 /mob/living/carbon/human/species
 	var/race = null
@@ -972,6 +985,9 @@
 
 /mob/living/carbon/human/species/lizard
 	race = /datum/species/lizard
+
+/mob/living/carbon/human/species/ethereal
+	race = /datum/species/ethereal
 
 /mob/living/carbon/human/species/lizard/ashwalker
 	race = /datum/species/lizard/ashwalker

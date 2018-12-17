@@ -118,9 +118,9 @@
 		to_chat(user, "<span class='info'>It can be upgraded with a <b>proximity sensor</b>.</span>")
 
 	if(!status)
-		to_chat(user, "<span class='info'>Its current deactivated.</span>")
+		to_chat(user, "<span class='info'>It's currently deactivated.</span>")
 		if(!panel_open && powered())
-			to_chat(user, "<span class='notice'>You'll need to open it's maintenance panel with a <b>screwdriver</b> to turn it back on.</span>")
+			to_chat(user, "<span class='notice'>You'll need to open its maintenance panel with a <b>screwdriver</b> to turn it back on.</span>")
 	if(panel_open)
 		to_chat(user, "<span class='info'>Its maintenance panel is currently open.</span>")
 		if(!status && powered())
@@ -202,7 +202,7 @@
 
 	setViewRange((view_range == initial(view_range)) ? short_range : initial(view_range))
 	to_chat(user, "<span class='notice'>You [(view_range == initial(view_range)) ? "restore" : "mess up"] the camera's focus.</span>")
-	return
+	return TRUE
 
 /obj/machinery/camera/welder_act(mob/living/user, obj/item/I)
 	if(!panel_open)

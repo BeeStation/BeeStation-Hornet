@@ -78,8 +78,8 @@
 		if(!brainmob.stored_dna)
 			brainmob.stored_dna = new /datum/dna/stored(brainmob)
 		C.dna.copy_dna(brainmob.stored_dna)
-		if(L.has_trait(TRAIT_NOCLONE))
-			brainmob.status_traits[TRAIT_NOCLONE] = L.status_traits[TRAIT_NOCLONE]
+		if(L.has_trait(TRAIT_BADDNA))
+			brainmob.status_traits[TRAIT_BADDNA] = L.status_traits[TRAIT_BADDNA]
 		var/obj/item/organ/zombie_infection/ZI = L.getorganslot(ORGAN_SLOT_ZOMBIE)
 		if(ZI)
 			brainmob.set_species(ZI.old_species)	//For if the brain is cloned
@@ -108,7 +108,7 @@
 			to_chat(user, "<span class='warning'>You failed to pour [O] onto [src]!</span>")
 			return
 
-		user.visible_message("[user] pours the contents of [O] onto [src], causing it to reform it's original shape and turn a slightly brighter shade of pink.", "<span class='notice'>You pour the contents of [O] onto [src], causing it to reform it's original shape and turn a slightly brighter shade of pink.</span>")
+		user.visible_message("[user] pours the contents of [O] onto [src], causing it to reform its original shape and turn a slightly brighter shade of pink.", "<span class='notice'>You pour the contents of [O] onto [src], causing it to reform its original shape and turn a slightly brighter shade of pink.</span>")
 		damaged_brain = FALSE //heal the superficial damage.
 
 		O.reagents.clear_reagents()
