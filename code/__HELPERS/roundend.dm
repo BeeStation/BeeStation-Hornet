@@ -289,8 +289,6 @@
 	parts += medal_report()
 	//Station Goals
 	parts += goal_report()
-	//crew objectives
-	parts += crew_objective_report()
 
 	listclearnulls(parts)
 
@@ -448,23 +446,6 @@
 			parts += com
 		return "<div class='panel stationborder'>[parts.Join("<br>")]</div>"
 	return ""
-
-/datum/controller/subsystem/ticker/proc/crew_objective_report()
-	if(!CONFIG_GET(flag/allow_crew_objectives))
-		return
-	var/list/result = list()
-	result += "<div class='panel crewborder'>"
-	result += "<br><b>Crew Objectives:</b>"
-	for(var/mind in SSticker.minds)
-		var/datum/mind/M = mind
-		if(M.current && LAZYLEN(M.crew_objectives))
-			for(var/datum/objective/crew/CO in M.crew_objectives)
-				if(CO.check_completion())
-					result += "<br><B>[key_name(M.current, 0, 1)]</B>: [CO.explanation_text]: <span class='greentext'><B>Success!</B></span><br>"
-				else
-					result += "<br><B>[key_name(M.current, 0, 1)]</B>: [CO.explanation_text]: <span class='redtext'><B>Fail!</B></span><br>"
-	result += "</div>"
-	return result
 
 /datum/controller/subsystem/ticker/proc/antag_report()
 	var/list/result = list()
