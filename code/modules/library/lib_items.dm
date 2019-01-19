@@ -196,18 +196,62 @@
 	var/unique = 0		//0 - Normal book, 1 - Should not be treated as normal book, unable to be copied, unable to be modified
 	var/title			//The real name of the book.
 	var/window_size = null // Specific window size for the book, i.e: "1920x1080", Size x Width
+	var/list/pages = list()
+	var/currentPage = 1
+	var/datum/oracle_ui/themed/paper/ui
 
+/obj/item/book/Initialize()
+	. = ..()
+	if(dat)
+		pages += dat
+	ui = new /datum/oracle_ui/themed/paper(src, 700, 800, "book")
+
+/obj/item/book/oui_canview(mob/user)
+	if(is_blind(user) || ismonkey(user))
+		return FALSE
+	return ..()
+
+/obj/item/book/oui_data(mob/user)
+	var/list/data = list()
+	//<a href="#" class="prevPage" title="Previous Page"></a>
+	data["prevPage"] = ui.act("", user, "prevPage", list(), "prevPage", currentPage <= 1)
+	data["nextPage"] = ui.act("", user, "nextPage", list(), "nextPage", currentPage >= pages.len)
+	data["footer"] = ui.act("[currentPage] of [pages.len]", user, "gotoPage", list(), "plainHref")
+	data["title"] = ui.act(title, user, "navigate", list("page" = 1), "plainHref")
+	data["body"] = replacetext(pages[currentPage], "#NAVIGATE;", ui.href(user, "navigate"))
+	return data
+
+/obj/item/book/oui_act(mob/user, action, list/params)
+	if(..())
+		return
+	switch(action)
+		if("prevPage")
+			if(currentPage > 1)
+				currentPage--
+				turn_page()
+		if("nextPage")
+			if(currentPage < pages.len)
+				currentPage++
+				turn_page()
+		if("navigate")
+			currentPage = text2num(params["page"])
+			turn_page()
+		if("gotoPage")
+			var/pgnum = input(user, "What page do you want to go to?", "Goto Page") as num|null
+			if(pgnum != null && pgnum >= 1 && pgnum <= pages.len)
+				currentPage = pgnum
+				turn_page()
+
+/obj/item/book/proc/turn_page()
+	ui.render_all()
+	playsound(src.loc, pick('sound/effects/pageturn1.ogg', 'sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg'), 50, 1)
 
 /obj/item/book/attack_self(mob/user)
 	if(!user.can_read(src))
 		return
-	if(dat)
-		user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book[window_size != null ? ";size=[window_size]" : ""]")
-		user.visible_message("[user] opens a book titled \"[title]\" and begins reading intently.")
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "book_nerd", /datum/mood_event/book_nerd)
-		onclose(user, "book")
-	else
-		to_chat(user, "<span class='notice'>This book is completely blank!</span>")
+	ui.render(user)
+	user.visible_message("[user] opens a book titled \"[title]\" and begins reading intently.")
+	onclose(user, "book")
 
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)

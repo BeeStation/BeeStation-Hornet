@@ -67,5 +67,16 @@
 	icon_state = "stamp-clown"
 	item_color = "clown"
 
+/obj/item/stamp/nanotrasen
+	name = "nanotrasen rubber stamp"
+	icon_state = "stamp-cent"
+	item_color = "captain"
+
+/obj/item/stamp/syndicate
+	name = "syndicate rubber stamp"
+	desc = "Even evil has to do paperwork at times. "
+	icon_state = "stamp-syndicate"
+	item_color = "hosred"
+
 /obj/item/stamp/attack_paw(mob/user)
 	return attack_hand(user)
