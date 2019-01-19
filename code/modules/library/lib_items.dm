@@ -214,8 +214,9 @@
 /obj/item/book/oui_data(mob/user)
 	var/list/data = list()
 	//<a href="#" class="prevPage" title="Previous Page"></a>
-	data["prevPage"] = ui.act("", user, "prevPage", list(), "prevPage", currentPage <= 1)
-	data["nextPage"] = ui.act("", user, "nextPage", list(), "nextPage", currentPage >= pages.len)
+	if(pages && pages.len)
+		data["prevPage"] = ui.act("", user, "prevPage", list(), "prevPage", currentPage <= 1)
+		data["nextPage"] = ui.act("", user, "nextPage", list(), "nextPage", currentPage >= pages.len)
 	data["footer"] = ui.act("[currentPage] of [pages.len]", user, "gotoPage", list(), "plainHref")
 	data["title"] = ui.act(title, user, "navigate", list("page" = 1), "plainHref")
 	data["body"] = replacetext(pages[currentPage], "#NAVIGATE;", ui.href(user, "navigate"))
