@@ -238,52 +238,37 @@
 	var/page_link = ""
 	window_size = "970x710"
 
-/obj/item/book/manual/wiki/Initialize()
-	. = ..()
-	initialize_wikibook()
-
-GLOBAL_LIST_EMPTY(cached_wiki_pages)
+/obj/item/book/manual/wiki/attack_self()
+	if(!dat)
+		initialize_wikibook()
+	return ..()
 
 /obj/item/book/manual/wiki/proc/initialize_wikibook()
+	var/wikiurl = CONFIG_GET(string/wikiurl)
+	if(wikiurl)
+		dat = {"
 
-	pages = GLOB.cached_wiki_pages[page_link]
+			<html><head>
+			<style>
+				iframe {
+					display: none;
+				}
+			</style>
+			</head>
+			<body>
+			<script type="text/javascript">
+				function pageloaded(myframe) {
+					document.getElementById("loading").style.display = "none";
+					myframe.style.display = "inline";
+    			}
+			</script>
+			<p id='loading'>You start skimming through the manual...</p>
+			<iframe width='100%' height='97%' onload="pageloaded(this)" src="[wikiurl]/[page_link]?printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
+			</body>
 
-	if (!pages)
-		var/http[] = world.Export("[CONFIG_GET(string/wikibookurl)]wiki/[page_link]?action=render")
+			</html>
 
-		if(!http)
-			return FALSE
-
-		var/html = http["CONTENT"]
-		dat = file2text(html)
-		dat = replacetext(dat, "<a href=", "<a nolink=")
-		dat = replacetext(dat, "src=\"/w", "src=\"[CONFIG_GET(string/wikiurl)]/w")
-		var/list/split = splittext(dat, "<hr />")
-
-		if(split.len > 1)
-			var/regex/title_find = new ("<h\\d>(.*)</h\\d>")
-			var/tableOfContents = {"<h1>Table of Contents</h1>
-<ol>
-"}
-			var/i = 1
-			for(var/page in split)
-				var/result = title_find.Find(page)
-				if(result)
-					var/header = title_find.group[1]
-					if(i == 1)
-						header = "Table of Contents"
-					tableOfContents += "<li><a href=\"#NAVIGATE;page=[i]\">[header]</a></li>\n"
-				i++
-			tableOfContents += "</ol>"
-			split[1] = tableOfContents
-
-		pages = split
-
-		GLOB.cached_wiki_pages[page_link] = pages
-
-	dat = "PAGES"
-
-	return TRUE
+			"}
 
 /obj/item/book/manual/wiki/chemistry
 	name = "Chemistry Textbook"
@@ -319,7 +304,7 @@ GLOBAL_LIST_EMPTY(cached_wiki_pages)
 	icon_state = "bookSpaceLaw"
 	author = "Nanotrasen"
 	title = "Space Law"
-	page_link = "Ingame_Space_Law"
+	page_link = "Space_Law"
 
 /obj/item/book/manual/wiki/security_space_law/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] pretends to read \the [src] intently... then promptly dies of laughter!</span>")

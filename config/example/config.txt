@@ -246,9 +246,6 @@ CHECK_RANDOMIZER
 ## Wiki address
 # WIKIURL http://www.tgstation13.org/wiki
 
-## Wikibook address (for populating manuals)
-# WIKIBOOKURL http://www.tgstation13.org/wiki
-
 ## Rules address
 # RULESURL http://www.tgstation13.org/wiki/Rules
 

@@ -13,7 +13,4 @@
 		"sui-paper-common.js"					= 'html/oracle_ui/themes/paper/sui-paper-common.js',
 		// Stylesheets
 		"sui-paper-common.css"				= 'html/oracle_ui/themes/paper/sui-paper-common.css',
-		// Images
-		"curl-left.png"								= 'html/oracle_ui/themes/paper/curl-left.png',
-		"curl-right.png"							= 'html/oracle_ui/themes/paper/curl-right.png',
 	)
