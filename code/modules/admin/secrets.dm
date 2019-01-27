@@ -434,6 +434,7 @@
 		if("healall")
 			if(!check_rights(R_FUN))
 				return
+			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Heal Everyone"))
 			message_admins("[key_name_admin(usr)] healed all mobs")
 			for(var/mob/living/M in world)
 				M.revive(TRUE, TRUE)
