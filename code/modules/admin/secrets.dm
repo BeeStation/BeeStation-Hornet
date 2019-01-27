@@ -64,6 +64,7 @@
 			<A href='?src=[REF(src)];[HrefToken()];secrets=ancap'>Anarcho-Capitalist Station Mode</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=blackout'>Break all lights</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=whiteout'>Fix all lights</A><BR>
+			<A href='?src=[REF(src)];[HrefToken()];secrets=healall'>Revive Everyone</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=floorlava'>The floor is lava! (DANGEROUS: extremely lame)</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=customportal'>Spawn a custom portal storm</A><BR>
 			<BR>
@@ -429,6 +430,14 @@
 			message_admins("[key_name_admin(usr)] fixed all lights")
 			for(var/obj/machinery/light/L in GLOB.machines)
 				L.fix()
+		
+		if("healall")
+			if(!check_rights(R_FUN))
+				return
+			message_admins("[key_name_admin(usr)] healed all mobs")
+			for(var/mob/living/M in world)
+				M.revive(TRUE, TRUE)
+			to_chat(world, "<b>The gods have miraculously given everyone new life!</b>")
 
 		if("floorlava")
 			SSweather.run_weather(/datum/weather/floor_is_lava)
