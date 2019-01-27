@@ -62,7 +62,6 @@
 		if((confused || is_blind()) && stat == CONSCIOUS && m_intent=="run")
 			playsound(get_turf(src), "punch", 25, 1, -1)
 			visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [A]!</span>")
-			to_chat(src, "<span class='warning'>You just [pick("ran", "slammed")] into \the [A]!</span>")
 			apply_damage(5, BRUTE)
 			Paralyze(40)
 
