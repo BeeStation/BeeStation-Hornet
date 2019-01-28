@@ -1,4 +1,4 @@
-/client/proc/healall(area/A in GLOB.sortedAreas)
+/client/proc/healall()
     set name = "Heal Everybody"
     set desc = "Heals every mob in the game"
     set category = "Fun"
