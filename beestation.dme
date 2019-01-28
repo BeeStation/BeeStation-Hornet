@@ -15,6 +15,7 @@
 #include "tgstation.dme"
 
 // BEGIN_INCLUDE
+#include "beestation\code\modules\admin\verbs\healall.dm"
 #include "beestation\code\modules\client\skinpreferences.dm"
 #include "beestation\code\modules\client\verbs\looc.dm"
 // END_INCLUDE
