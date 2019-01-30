@@ -16,3 +16,4 @@
 	new /obj/item/pneumatic_cannon/pie(src)
 	new /obj/item/reagent_containers/food/snacks/pie/cream(src)
 	new /obj/item/storage/crayons(src)
+	new /obj/item/soundsynth(src)
