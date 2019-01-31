@@ -19,4 +19,5 @@
 #include "beestation\code\modules\admin\verbs\healall.dm"
 #include "beestation\code\modules\client\skinpreferences.dm"
 #include "beestation\code\modules\client\verbs\looc.dm"
+#include "beestation\code\modules\mob\dead\new_player\new_player.dm"
 // END_INCLUDE
