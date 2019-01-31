@@ -31,6 +31,7 @@
     "Countdown" = "selected_sound=sound/ambience/countdown.ogg&shiftpitch=0&volume=55",
     "Creepy Whisper" = "selected_sound=sound/hallucinations/turn_around1.ogg&shiftpitch=1&volume=50",
     "Ding" = "selected_sound=sound/machines/ding.ogg&shiftpitch=1&volume=50",
+    "Bwoink" = "selected_sound=sound/effects/adminhelp.ogg&shiftpitch=1&volume=50",
     "Double Beep" = "selected_sound=sound/machines/twobeep.ogg&shiftpitch=1&volume=50",
     "Flush" = "selected_sound=sound/machines/disposalflush.ogg&shiftpitch=1&volume=40",
     "Kawaii" = "selected_sound=sound/AI/animes.ogg&shiftpitch=0&volume=60",
