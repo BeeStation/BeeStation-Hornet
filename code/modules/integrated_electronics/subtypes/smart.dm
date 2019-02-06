@@ -196,7 +196,6 @@
 		set_pin_data(IC_OUTPUT, 1, WEAKREF(null))
 		if(installed_brain.brainmob)
 			installed_brain.brainmob.remote_control = null
-	..()
 
 
 //Brain changes
@@ -326,7 +325,6 @@
 		installed_pai.forceMove(drop_location())
 		set_pin_data(IC_OUTPUT, 1, WEAKREF(null))
 		installed_pai.pai.remote_control = null
-	..()
 
 
 //pAI changes
