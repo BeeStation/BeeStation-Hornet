@@ -16,6 +16,29 @@
 			return
 	..()
 
+/obj/item/clothing/mask/muzzle/ballgag
+	name = "ball gag"
+	desc = "A lockable gag to stop that *awful* moaning~"
+	icon_state = "gag"
+	item_state = "gag"
+
+/obj/item/clothing/mask/muzzle/ballgag/attack_self(mob/user)
+	if(mask_adjusted == 0)
+		to_chat(user, "<span class='warning'>You engage the electrical lock!</span>")
+		mask_adjusted = 1
+	else
+		to_chat(user, "<span class='notice'>You disengage the electrical lock.</span>")
+		mask_adjusted = 0
+
+/obj/item/clothing/mask/muzzle/ballgag/attack_hand(mob/user)
+	if(mask_adjusted == 1)
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			if(src == C.wear_mask)
+				to_chat(user, "<span class='warning'>You need help taking this off!</span>")
+				return
+	..()
+
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"
 	desc = "A sterile mask designed to help prevent the spread of diseases."
