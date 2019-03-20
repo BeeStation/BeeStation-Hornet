@@ -30027,6 +30027,7 @@
 	pixel_x = -30;
 	pixel_y = 1
 	},
+/obj/item/clothing/mask/muzzle/ballgag,
 /turf/open/floor/carpet,
 /area/crew_quarters/heads/captain/private)
 "bfz" = (
@@ -30211,6 +30212,7 @@
 /area/crew_quarters/heads/chief)
 "bfS" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/item/clothing/mask/muzzle/ballgag,
 /turf/open/floor/plasteel/dark,
 /area/aisat)
 "bfT" = (
@@ -39835,12 +39837,6 @@
 /area/crew_quarters/heads/captain/private)
 "byp" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/carpet,
-/area/crew_quarters/heads/captain/private)
-"byq" = (
-/obj/structure/chair/comfy/brown{
-	dir = 4
-	},
 /turf/open/floor/carpet,
 /area/crew_quarters/heads/captain/private)
 "byr" = (
@@ -58972,6 +58968,7 @@
 "ckR" = (
 /obj/item/reagent_containers/glass/rag,
 /obj/structure/table/wood,
+/obj/item/clothing/mask/muzzle/ballgag,
 /turf/open/floor/wood{
 	icon_state = "wood-broken4"
 	},
@@ -69691,9 +69688,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cFj" = (
@@ -71407,9 +71401,6 @@
 "cHT" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
@@ -114802,7 +114793,7 @@ bqW
 btd
 buH
 bwC
-byq
+bfA
 bfA
 bcj
 bDu

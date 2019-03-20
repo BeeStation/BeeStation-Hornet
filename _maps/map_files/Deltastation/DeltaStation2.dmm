@@ -5308,6 +5308,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/clothing/mask/muzzle/ballgag,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/starboard/fore)
 "aoA" = (
@@ -64764,6 +64765,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/item/clothing/mask/muzzle/ballgag,
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/heads/captain/private)
 "ceF" = (
@@ -104535,6 +104537,7 @@
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/mask/muzzle/ballgag,
 /turf/open/floor/plating,
 /area/crew_quarters/abandoned_gambling_den)
 "dul" = (
@@ -110813,6 +110816,7 @@
 /obj/item/clothing/head/kitty,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/mask/muzzle/ballgag,
 /turf/open/floor/plating,
 /area/crew_quarters/theatre/abandoned)
 "dFl" = (
@@ -119929,6 +119933,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/clothing/mask/muzzle/ballgag,
 /turf/open/floor/plating,
 /area/library/abandoned)
 "dUS" = (
@@ -150943,7 +150948,7 @@ dpS
 dod
 duh
 dvV
-dsW
+dmk
 dsW
 dmj
 dod

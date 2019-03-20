@@ -28339,6 +28339,7 @@
 	},
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/item/reagent_containers/food/drinks/flask/gold,
+/obj/item/clothing/mask/muzzle/ballgag,
 /turf/open/floor/carpet,
 /area/crew_quarters/heads/captain)
 "bpm" = (
@@ -30065,13 +30066,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/teleporter)
-"btJ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/bluespace_beacon,
-/turf/open/floor/plasteel,
-/area/teleporter)
 "btK" = (
 /obj/machinery/holopad,
 /obj/structure/cable{
@@ -30606,9 +30600,6 @@
 /turf/open/floor/plasteel,
 /area/science/research)
 "buV" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /turf/open/floor/plasteel,
 /area/teleporter)
 "buW" = (
@@ -39770,6 +39761,7 @@
 /area/maintenance/port/aft)
 "bRf" = (
 /obj/structure/table/wood,
+/obj/item/clothing/mask/muzzle/ballgag,
 /turf/open/floor/wood{
 	icon_state = "wood-broken5"
 	},
@@ -56798,6 +56790,10 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/engine/engineering)
+"oFt" = (
+/obj/item/clothing/mask/muzzle/ballgag,
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "oHU" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
@@ -80818,7 +80814,7 @@ aoV
 aoV
 aaH
 bdV
-aaH
+oFt
 aaf
 aaf
 aaf
@@ -89526,7 +89522,7 @@ bmx
 bmx
 bqH
 bsk
-btJ
+btL
 buV
 bws
 bqH
