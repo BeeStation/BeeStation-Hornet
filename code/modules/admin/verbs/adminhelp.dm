@@ -515,6 +515,41 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 	new /datum/admin_help(msg, src, FALSE)
 
+/client/verb/mentorhelp(msg as text)
+	set category = "Mentor"
+	set name = "Mentorhelp"
+
+	if(GLOB.say_disabled)	//This is here to try to identify lag problems
+		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
+		return
+
+	//handle muting and automuting
+	if(prefs.muted & MUTE_ADMINHELP)
+		to_chat(src, "<span class='danger'>Error: Admin-PM: You cannot send mentorhelps (Muted).</span>")
+		return
+	if(handle_spam_prevention(msg,MUTE_ADMINHELP))
+		return
+
+	msg = trim(msg)
+
+	if(!msg)
+		return
+
+	SSblackbox.record_feedback("tally", "mentor_verb", 1, "Mentorhelp") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	if(current_ticket)
+		if(alert(usr, "You already have a ticket open. Is this for the same issue?",,"Yes","No") != "No")
+			if(current_ticket)
+				current_ticket.MessageNoRecipient(msg)
+				current_ticket.TimeoutVerb()
+				return
+			else
+				to_chat(usr, "<span class='warning'>Ticket not found, creating new one...</span>")
+		else
+			current_ticket.AddInteraction("[key_name_admin(usr)] opened a new ticket.")
+			current_ticket.Close()
+
+	new /datum/admin_help(msg, src, FALSE)
+
 //
 // LOGGING
 //
