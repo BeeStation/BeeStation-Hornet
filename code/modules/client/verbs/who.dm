@@ -56,9 +56,9 @@
 	msg += "<b>Total Players: [length(Lines)]</b>"
 	to_chat(src, msg)
 
-/client/verb/adminwho()
+/client/verb/staffwho()
 	set category = "Admin"
-	set name = "Adminwho"
+	set name = "Staffwho"
 
 	var/msg = "<b>Current Admins:</b>\n"
 	if(holder)
@@ -78,12 +78,31 @@
 			if(C.is_afk())
 				msg += " (AFK)"
 			msg += "\n"
+		for(var/client/C in GLOB.mentors)
+			msg += "\t[C] is a mentor"
+
+			if(isobserver(C.mob))
+				msg += " - Observing"
+			else if(isnewplayer(C.mob))
+				msg += " - Lobby"
+			else
+				msg += " - Playing"
+
+			if(C.is_afk())
+				msg += " (AFK)"
+			msg += "\n"
 	else
 		for(var/client/C in GLOB.admins)
 			if(C.is_afk())
 				continue //Don't show afk admins to adminwho
 			if(!C.holder.fakekey)
 				msg += "\t[C] is a [C.holder.rank]\n"
+		for(var/client/C in GLOB.mentors)
+			if(C.is_afk())
+				continue //Don't show afk admins to adminwho
+			if(!C.holder.fakekey)
+				msg += "\t[C] is a mentor\n"
+
 		msg += "<span class='info'>Adminhelps are also sent to IRC. If no admins are available in game adminhelp anyways and an admin on IRC will see it and respond.</span>"
 	to_chat(src, msg)
 
