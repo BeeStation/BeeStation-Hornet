@@ -78,6 +78,7 @@
 			if(C.is_afk())
 				msg += " (AFK)"
 			msg += "\n"
+		msg += "<b>Current Mentors:</b>\n"
 		for(var/client/C in GLOB.mentors)
 			msg += "\t[C] is a mentor"
 
@@ -97,6 +98,7 @@
 				continue //Don't show afk admins to adminwho
 			if(!C.holder.fakekey)
 				msg += "\t[C] is a [C.holder.rank]\n"
+		msg += "<b>Current Mentors:</b>\n"
 		for(var/client/C in GLOB.mentors)
 			if(C.is_afk())
 				continue //Don't show afk admins to adminwho
@@ -110,7 +112,7 @@
 	set category = "Mentor"
 	set name = "Mentorwho"
 
-	var/msg = "<b>Current Mentors:</b>\n"
+	var/msg = "<b>Current Admins:</b>\n"
 	if(holder)
 		for(var/client/C in GLOB.admins)
 			msg += "\t[C] is a [C.holder.rank]"
@@ -128,6 +130,7 @@
 			if(C.is_afk())
 				msg += " (AFK)"
 			msg += "\n"
+		msg += "<b>Current Mentors:</b>\n"
 		for(var/client/C in GLOB.mentors)
 			msg += "\t[C] is a mentor"
 
@@ -147,6 +150,7 @@
 				continue //Don't show afk admins to adminwho
 			if(!C.holder.fakekey)
 				msg += "\t[C] is a [C.holder.rank]\n"
+		msg += "<b>Current Mentors:</b>\n"
 		for(var/client/C in GLOB.mentors)
 			if(C.is_afk())
 				continue //Don't show afk admins to adminwho
