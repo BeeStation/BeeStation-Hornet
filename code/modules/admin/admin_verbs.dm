@@ -72,7 +72,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
 	/client/proc/resetasaycolor,
 	/client/proc/toggleadminhelpsound,
 	/client/proc/respawn_character,
-	/datum/admins/proc/open_borgopanel
+	/datum/admins/proc/open_borgopanel,
+	/client/proc/fix_say
 	)
 GLOBAL_PROTECT(admin_verbs_ban)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
@@ -291,7 +292,8 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 		/*Debug verbs added by "show debug verbs"*/
 		GLOB.admin_verbs_debug_mapping,
 		/client/proc/disable_debug_verbs,
-		/client/proc/readmin
+		/client/proc/readmin,
+		/client/proc/fix_say
 		)
 
 /client/proc/hide_most_verbs()//Allows you to keep some functionality while hiding some verbs
@@ -368,6 +370,14 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
 			to_chat(mob, "<span class='adminnotice'><b>Invisimin on. You are now as invisible as a ghost.</b></span>")
+
+/client/proc/fix_say()
+	set name = "FIX SAY"
+	set category = "Admin"
+	set desc = "fixes bug where people can't say shid"
+	for(var/x in GLOB.player_list)
+		if(isnull(x))
+			GLOB.player_list -= x
 
 /client/proc/check_antagonists()
 	set name = "Check Antagonists"
