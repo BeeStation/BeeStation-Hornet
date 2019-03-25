@@ -15,15 +15,15 @@
 	var/spin_delay = 10
 	var/recent_spin = 0
 
-/obj/item/gun/ballistic/revolver/chamber_round(spin = 1)
-	if(spin)
-		chambered = magazine.get_round(1)
+/obj/item/gun/ballistic/revolver/chamber_round(spin_cylinder = TRUE)
+	if(spin_cylinder)
+		chambered = magazine.get_round(TRUE)
 	else
 		chambered = magazine.stored_ammo[1]
 
 /obj/item/gun/ballistic/revolver/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	..()
-	chamber_round(1)
+	chamber_round(TRUE)
 
 /obj/item/gun/ballistic/revolver/AltClick(mob/user)
 	..()
@@ -54,7 +54,7 @@
 	. = istype(C)
 	if(.)
 		C.spin()
-		chamber_round(0)
+		chamber_round(FALSE)
 
 /obj/item/gun/ballistic/revolver/get_ammo(countchambered = FALSE, countempties = TRUE)
 	var/boolets = 0 //mature var names for mature people
@@ -160,17 +160,20 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rus357
 	var/spun = FALSE
 
+/obj/item/gun/ballistic/revolver/russian/do_spin()
+	..()
+	spun = TRUE
+
 /obj/item/gun/ballistic/revolver/russian/attackby(obj/item/A, mob/user, params)
 	..()
 	if(get_ammo() > 0)
 		spin()
-		spun = TRUE
 	update_icon()
 	A.update_icon()
 	return
 
 /obj/item/gun/ballistic/revolver/russian/attack_self(mob/user)
-	if(!spun && can_shoot())
+	if(!spun)
 		spin()
 		spun = TRUE
 		return
@@ -195,7 +198,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!spun)
-			to_chat(user, "<span class='warning'>You need to spin the revolver's chamber first!</span>")
+			to_chat(user, "<span class='warning'>You need to spin \the [src]'s chamber first!</span>")
 			return
 
 		spun = FALSE
@@ -215,6 +218,11 @@
 
 		user.visible_message("<span class='danger'>*click*</span>")
 		playsound(src, dry_fire_sound, 30, TRUE)
+
+/obj/item/gun/ballistic/revolver/russian/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	add_fingerprint(user)
+	playsound(src, dry_fire_sound, 30, TRUE)
+	user.visible_message("<span class='danger'>[user.name] tries to fire \the [src] at the same time, but only succeeds at looking like an idiot.</span>", "<span class='danger'>\The [src]'s anti-combat mechanism prevents you from firing it at the same time!</span>")
 
 /obj/item/gun/ballistic/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
 	user.apply_damage(300, BRUTE, affecting)
