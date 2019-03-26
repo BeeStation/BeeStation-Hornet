@@ -3,7 +3,7 @@
 
 **Website:** http://beestation13.com
 **Code:** https://github.com/beestation/beestation-hornet
-**Wiki** https://tgstation13.org/wiki/Main_Page
+**Wiki:** https://tgstation13.org/wiki/Main_Page
 
 
 ## DOWNLOADING
