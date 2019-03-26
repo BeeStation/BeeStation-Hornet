@@ -422,7 +422,7 @@ GLOBAL_LIST_EMPTY(floor_cluwnes_in_world)
 	Acquire_Victim()
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/force_target(var/mob/living/H)
-	if(!istype(H))		return
+	if(!istype(H) || !H.client)		return  // if theyre not human or they're afk
 	current_victim = H
 	target = H
 	loc = H.loc // so it doesnt choose another victim
