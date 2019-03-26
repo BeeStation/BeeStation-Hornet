@@ -73,6 +73,7 @@
 #define ADMIN_PUNISHMENT_SUPPLYPOD "Supply Pod"
 #define ADMIN_PUNISHMENT_MAZING "Puzzle"
 #define ADMIN_PUNISHMENT_FLOORCLUWNE "Floor Cluwne"
+#define ADMIN_PUNISHMENT_CLUWNE "Make Cluwne"
 
 #define AHELP_ACTIVE 1
 #define AHELP_CLOSED 2
