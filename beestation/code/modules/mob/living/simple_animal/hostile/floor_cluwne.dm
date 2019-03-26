@@ -1,4 +1,6 @@
 GLOBAL_VAR_INIT(floor_cluwnes, 0)
+GLOBAL_LIST_EMPTY(floor_cluwnes_in_world)
+
 
 #define STAGE_HAUNT 1
 #define STAGE_SPOOK 2
@@ -35,6 +37,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	var/manifested = FALSE
 	var/switch_stage = 60
 	var/stage = STAGE_HAUNT
+	var/delete_after_target_killed = FALSE
 	var/interest = 0
 	var/target_area
 	var/invalid_area_typecache = list(/area/space, /area/lavaland, /area/centcom, /area/reebe, /area/shuttle/syndicate)
@@ -56,6 +59,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	if(!current_victim)
 		Acquire_Victim()
 	poi = new(src)
+	GLOB.floor_cluwnes_in_world += src
 
 /mob/living/simple_animal/hostile/floor_cluwne/med_hud_set_health()
 	return //we use a different hud
@@ -410,9 +414,18 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	for(var/mob/M in GLOB.player_list)
 		M.playsound_local(get_turf(M), 'beestation/sound/misc/honk_echo_distant.ogg', 50, 1, pressure_affected = FALSE)
 
+	if(delete_after_target_killed)
+		qdel(src)
+
 	interest = 0
 	stage = STAGE_HAUNT
 	Acquire_Victim()
+
+/mob/living/simple_animal/hostile/floor_cluwne/proc/force_target(var/mob/living/H)
+	if(!istype(H))		return
+	current_victim = H
+	target = H
+	loc = H.loc // so it doesnt choose another victim
 
 //manifestation animation
 /obj/effect/temp_visual/fcluwne_manifest

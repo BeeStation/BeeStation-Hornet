@@ -12,7 +12,9 @@
 	if(target && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
-		FC.Acquire_Victim(H)
+		FC.force_target(H)
+		if(alert("Delete self after target is dead, or keep looking for targets?",,"Delete","More targets")=="Delete")
+			FC.delete_after_target_killed = TRUE
 	else
 		new /mob/living/simple_animal/hostile/floor_cluwne(T)
 	log_admin("[key_name(usr)] spawned floor cluwne.")
