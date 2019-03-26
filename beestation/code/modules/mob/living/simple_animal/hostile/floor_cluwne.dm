@@ -1,5 +1,4 @@
 GLOBAL_VAR_INIT(floor_cluwnes, 0)
-GLOBAL_LIST_EMPTY(floor_cluwnes_in_world)
 
 
 #define STAGE_HAUNT 1
@@ -59,7 +58,6 @@ GLOBAL_LIST_EMPTY(floor_cluwnes_in_world)
 	if(!current_victim)
 		Acquire_Victim()
 	poi = new(src)
-	GLOB.floor_cluwnes_in_world += src
 
 /mob/living/simple_animal/hostile/floor_cluwne/med_hud_set_health()
 	return //we use a different hud
