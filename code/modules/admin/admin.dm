@@ -140,6 +140,11 @@
 				body += "<A href='?_src_=holder;[HrefToken()];makealien=[REF(M)]'>Make Alien</A> | "
 				body += "<A href='?_src_=holder;[HrefToken()];makeslime=[REF(M)]'>Make Slime</A> | "
 				body += "<A href='?_src_=holder;[HrefToken()];makeblob=[REF(M)]'>Make Blob</A> | "
+			
+			if(istype(M, /mob/living/simple_animal/cluwne))
+				body += "<B>Is a Cluwne</B> "
+			else if(ishuman(M))
+				body += "<A href='?_src_=holder;[HrefToken()];makecluwne=[REF(M)]'>Make Cluwne</A> | "
 
 			//Simple Animals
 			if(isanimal(M))

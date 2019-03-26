@@ -896,6 +896,15 @@
 
 		usr.client.cmd_admin_blobize(H)
 
+	else if(href_list["makecluwne"])
+		if(!check_rights(R_SPAWN))
+			return
+		var/mob/living/carbon/human/H = locate(href_list["makecluwne"])
+		if(!istype(H))
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human.")
+			return
+		message_admins("[usr] cluwned [H]")
+		H.cluwne()
 
 	else if(href_list["makerobot"])
 		if(!check_rights(R_SPAWN))
