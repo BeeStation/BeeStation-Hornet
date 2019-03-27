@@ -261,10 +261,11 @@ h1.alert, h2.alert		{color: #000000;}
 em						{font-style: normal;	font-weight: bold;}
 
 .ooc					{color: #002eb8;	font-weight: bold;}
+.looc					{color: #2e57d1;	font-weight: bold;}
 .adminobserverooc		{color: #0099cc;	font-weight: bold;}
 .adminooc				{color: #700038;	font-weight: bold;}
 
-.adminsay   			{color: #ff0000;	font-weight: bold;}
+.adminsay   			{color: #5b6321;	font-weight: bold;}
 .admin					{color: #4473ff;	font-weight: bold;}
 
 .name					{					font-weight: bold;}

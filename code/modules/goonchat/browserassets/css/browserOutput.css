@@ -264,16 +264,17 @@ h1.alert, h2.alert		{color: #8ba5c4;}
 em						{font-style: normal;	font-weight: bold;}
 
 .ooc					{color: #cca300;	font-weight: bold;}
+.looc 					{color: #ffde5c;	font-weight: bold;}
 .adminobserverooc		{color: #0099cc;	font-weight: bold;}
 .adminooc				{color: #3d5bc3;	font-weight: bold;}
 
-.adminsay   			{color: #ff0000;	font-weight: bold;}
-.admin					{color: #5975da;	font-weight: bold;}
+.adminsay   			{color: #b6c653;	font-weight: bold;}
+.admin					{color: #243fa3;	font-weight: bold;}
 
 .name					{					font-weight: bold;}
 
 .say					{}
-.deadsay				{color: #e2c1ff}
+.deadsay				{color: #b866ff}
 .binarysay    			{color: #20c20e; background-color: #000000; display: block;}
 .binarysay a  			{color: #00ff00;}
 .binarysay a:active, .binarysay a:visited {color: #88ff88;}
