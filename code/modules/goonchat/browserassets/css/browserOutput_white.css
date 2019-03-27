@@ -268,6 +268,10 @@ em						{font-style: normal;	font-weight: bold;}
 .adminsay   			{color: #5b6321;	font-weight: bold;}
 .admin					{color: #4473ff;	font-weight: bold;}
 
+.mentorfrom 			{color: #7e1c82;}
+.mentorto				{color: #1d861d;}
+.mentorhelp				{color: #0e2aaa;}
+
 .name					{					font-weight: bold;}
 
 .say					{}
