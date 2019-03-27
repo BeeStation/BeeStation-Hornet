@@ -1316,6 +1316,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 		if(ADMIN_PUNISHMENT_FLOORCLUWNE)
 			var/turf/T = get_turf(target)
 			var/mob/living/simple_animal/hostile/floor_cluwne/FC = new(T)
+			FC.invalid_area_typecache = list()  // works anywhere
 			FC.delete_after_target_killed = TRUE
 			FC.force_target(target)
 			FC.stage = 4
