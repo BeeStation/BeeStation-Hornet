@@ -19,6 +19,7 @@
 #include "beestation\code\game\objects\items\devices\sound_synth.dm"
 #include "beestation\code\modules\admin\verbs\cluwneplayer.dm"
 #include "beestation\code\modules\admin\verbs\healall.dm"
+#include "beestation\code\modules\admin\verbs\mentors_edit.dm"
 #include "beestation\code\modules\admin\verbs\spawnfloorcluwne.dm"
 #include "beestation\code\modules\client\verbs\looc.dm"
 #include "beestation\code\modules\clothing\mask.dm"
