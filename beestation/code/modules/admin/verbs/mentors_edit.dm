@@ -23,8 +23,10 @@ its mentors, not actual dangerous perms
     query_mentor_list.Execute()
     while(query_mentor_list.NextRow())
         html += "<tr><td>[query_mentor_list.item[1]]</td><td><A HREF='?mentor_edit=remove;mentor_ckey=[query_mentor_list.item[1]]'>X</A></td></tr>\n"
-    
+
     html += "</table>"
+
+    usr << browse("<!DOCTYPE html><html>[html]</html>","window=editmentors;size=1000x650")
 
 /datum/admins/proc/edit_mentors_topic(list/href_list)
     if(!check_rights(R_PERMISSIONS))
