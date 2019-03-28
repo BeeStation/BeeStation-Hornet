@@ -26,7 +26,7 @@ its mentors, not actual dangerous perms
     
     html += "</table>"
 
-    src << browse("<!DOCTYPE html><html>[jointext(html, "")]</html>","window=editmentors;size=1000x650")
+    usr << browse("<!DOCTYPE html><html>[html]</html>","window=editmentors;size=1000x650")
 
 /datum/admins/proc/edit_mentors_topic(list/href_list)
     if(!check_rights(R_PERMISSIONS))
