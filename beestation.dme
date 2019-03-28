@@ -17,6 +17,7 @@
 // BEGIN_INCLUDE
 #include "beestation\code\datums\mutations.dm"
 #include "beestation\code\game\objects\items\devices\sound_synth.dm"
+#include "beestation\code\modules\admin\verbs\adminhelp.dm"
 #include "beestation\code\modules\admin\verbs\cluwneplayer.dm"
 #include "beestation\code\modules\admin\verbs\healall.dm"
 #include "beestation\code\modules\admin\verbs\mentors_edit.dm"
