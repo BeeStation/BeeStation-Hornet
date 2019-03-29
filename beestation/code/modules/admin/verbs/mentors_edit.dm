@@ -16,7 +16,7 @@ its mentors, not actual dangerous perms
     
     var/html = "<h1>Mentor Panel</h1>\n"
     html += "<A HREF='?mentor_edit=add'>Add a Mentor</A>\n"
-    html += "<table style='width: 100%'>\n"
+    html += "<table style='width: 100%' border=1>\n"
     html += "<tr><th>Mentor Ckey</th><th>Remove</th></tr>\n"
 
     var/datum/DBQuery/query_mentor_list = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor")]")
@@ -28,7 +28,7 @@ its mentors, not actual dangerous perms
 
     usr << browse("<!DOCTYPE html><html>[html]</html>","window=editmentors;size=1000x650")
 
-/datum/admins/proc/edit_mentors_topic(list/href_list)
+/client/proc/edit_mentors_topic(list/href_list)
     message_admins("[key_name(usr)] is editing mentors")
 
     if(!check_rights(R_PERMISSIONS))
