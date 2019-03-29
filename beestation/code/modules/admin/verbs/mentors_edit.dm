@@ -29,6 +29,8 @@ its mentors, not actual dangerous perms
     usr << browse("<!DOCTYPE html><html>[html]</html>","window=editmentors;size=1000x650")
 
 /datum/admins/proc/edit_mentors_topic(list/href_list)
+    message_admins("[key_name(usr)] is editing mentors")
+
     if(!check_rights(R_PERMISSIONS))
         message_admins("[key_name_admin(usr)] attempted to edit mentor permissions without sufficient rights.")
         log_admin("[key_name(usr)] attempted to edit mentor permissions without sufficient rights.")
