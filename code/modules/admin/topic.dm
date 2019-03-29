@@ -201,9 +201,6 @@
 	else if(href_list["editrights"])
 		edit_rights_topic(href_list)
 
-	else if(href_list["mentor_edit"])
-		edit_mentors_topic(href_list)
-
 	else if(href_list["call_shuttle"])
 		if(!check_rights(R_ADMIN))
 			return
