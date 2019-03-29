@@ -3528,7 +3528,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "gP" = (
-/obj/structure/chair/office,
+/obj/structure/chair/office/dark,
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
 	},

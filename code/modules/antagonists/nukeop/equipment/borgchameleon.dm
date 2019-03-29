@@ -16,7 +16,6 @@
 	var/disguise = "engineer"
 	var/datum/component/mobhook // need this to deal with unregistration properly
 	var/mob/living/silicon/robot/user // needed for process()
-	var/animation_playing = FALSE
 
 /obj/item/borg_chameleon/Initialize()
 	. = ..()
@@ -49,10 +48,6 @@
 		to_chat(user, "<span class='notice'>You deactivate \the [src].</span>")
 		deactivate(user)
 	else
-		if(animation_playing)
-			to_chat(user, "<span class='notice'>\the [src] is recharging.</span>")
-			return
-		animation_playing = TRUE
 		to_chat(user, "<span class='notice'>You activate \the [src].</span>")
 		playsound(src, 'sound/effects/seedling_chargeup.ogg', 100, 1, -6)
 		var/start = user.filters.len
@@ -79,7 +74,6 @@
 				f = user.filters[start+i]
 				animate(f)
 		user.filters = null
-		animation_playing = FALSE
 
 /obj/item/borg_chameleon/process()
 	if (user)

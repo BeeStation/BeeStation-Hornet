@@ -12,7 +12,6 @@
 	default_price = 25
 	extra_price = 50
 	payment_department = ACCOUNT_SRV
-
 /obj/item/vending_refill/games
 	machine_name = "\improper Good Clean Fun"
 	icon_state = "refill_games"

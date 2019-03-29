@@ -30,5 +30,11 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		quirk_points[initial(T.name)] = initial(T.value)
 
 /datum/controller/subsystem/processing/quirks/proc/AssignQuirks(mob/living/user, client/cli, spawn_effects)
-	for(var/V in cli.prefs.all_quirks)
+	GenerateQuirks(cli)
+	for(var/V in cli.prefs.character_quirks)
 		user.add_quirk(V, spawn_effects)
+
+/datum/controller/subsystem/processing/quirks/proc/GenerateQuirks(client/user)
+	if(user.prefs.character_quirks.len)
+		return
+	user.prefs.character_quirks = user.prefs.all_quirks

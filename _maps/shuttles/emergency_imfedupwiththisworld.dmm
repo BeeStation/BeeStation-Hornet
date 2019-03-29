@@ -133,7 +133,7 @@
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "v" = (
-/obj/structure/chair/office,
+/obj/structure/chair/office/dark,
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "w" = (

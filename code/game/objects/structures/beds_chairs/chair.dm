@@ -204,7 +204,6 @@
 	anchored = FALSE
 	buildstackamount = 5
 	item_chair = null
-	icon_state = "officechair_dark"
 
 
 /obj/structure/chair/office/Moved()
@@ -214,6 +213,9 @@
 
 /obj/structure/chair/office/light
 	icon_state = "officechair_white"
+
+/obj/structure/chair/office/dark
+	icon_state = "officechair_dark"
 
 //Stool
 
