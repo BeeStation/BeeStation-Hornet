@@ -20,4 +20,8 @@
 
     l.put_in_hands(i)
 
+/mob/living/carbon/human/CtrlShiftClickOn(var/mob/living/carbon/human/l in view(1))
+    ..()
+    src.give(l)
+
     
