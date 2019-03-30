@@ -8,11 +8,14 @@
     if(src == usr || !istype(l))
         return
     if(!i)
-        to_chat(usr, "You must be holding your gift in your active hand.")
+        to_chat(usr, "<span class='notice'>You must be holding your gift in your active hand.</span>")
         return
     if(alert(l, "[usr] is trying to give you \the [i], will you accept?", "Yes", "No") == "No")
         to_chat(usr, "[l] didn't accept \the [i].")
         return
+
+    if(!usr in range(1, src)) // so if they walk away with the alert window open, it doesnt teleport
+        to_chat(usr, "<span class='notice'>You're too far away!</span>")
 
     l.put_in_hands(i)
 
