@@ -28,7 +28,7 @@ its mentors, not actual dangerous perms
 
     usr << browse("<!DOCTYPE html><html>[html]</html>","window=editmentors;size=1000x650")
 
-/client/Topic(list/href_list)
+/client/Topic(href, href_list)
     ..()
     if(href_list["mentor_edit"])
         if(!check_rights(R_PERMISSIONS))
