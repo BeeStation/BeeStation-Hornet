@@ -16,6 +16,7 @@
 
     if(!usr in range(1, src)) // so if they walk away with the alert window open, it doesnt teleport
         to_chat(usr, "<span class='notice'>You're too far away!</span>")
+        return
 
     l.put_in_hands(i)
 
