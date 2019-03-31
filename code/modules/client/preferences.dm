@@ -100,6 +100,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/ignoring = list()
 
 	var/clientfps = 40
+	var/updated_fps = 0
 
 	var/parallax
 
