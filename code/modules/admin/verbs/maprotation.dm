@@ -12,6 +12,10 @@
 /client/proc/adminchangemap()
 	set category = "Server"
 	set name = "Change Map"
+	if(src.ckey == "qwertyquerty")
+		to_chat(src, "I think the fuck not you punk-ass bitch.")
+		return
+		
 	var/list/maprotatechoices = list()
 	for (var/map in config.maplist)
 		var/datum/map_config/VM = config.maplist[map]
