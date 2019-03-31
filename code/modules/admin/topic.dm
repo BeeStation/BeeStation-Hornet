@@ -907,7 +907,8 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human.")
 			return
-		message_admins("[usr] cluwned [H]")
+		message_admins("[key_name(usr)] cluwned [key_name(H)]")
+		log_admin("[key_name(usr)] cluwned [key_name(H)]")
 		H.cluwne()
 
 	else if(href_list["makerobot"])
