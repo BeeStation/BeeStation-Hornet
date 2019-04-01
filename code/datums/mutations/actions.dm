@@ -120,7 +120,7 @@
 	name = "Fire Breath"
 	desc = "You can breathe fire at a target."
 	school = "evocation"
-	charge_max = 600
+	charge_max = 300
 	clothes_req = FALSE
 	range = 20
 	projectile_type = /obj/item/projectile/magic/aoe/fireball/firebreath
