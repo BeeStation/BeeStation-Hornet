@@ -9,6 +9,7 @@ proc/msg2url(var/msg as text)
     "\[qmark]"="?",
     "\[space]"=" ",
     "\[quote]"="\"",
+    "\[nl]" = "\n",
     "@" = "(a)" // no @ abuse
     )
     for(var/c in conversions)

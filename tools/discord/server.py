@@ -22,7 +22,9 @@ def url2msg(msg):
     "[bslash]": "\\",
     "[qmark]": "?",
     "[space]": " ",
-    "[quote]": "\""
+    "[quote]": "\"",
+    "@": "(a)", # no @ abuse
+    "[nl]": "\n"
     }
     for x in conversions:
         msg = msg.replace(x, conversions[x])
