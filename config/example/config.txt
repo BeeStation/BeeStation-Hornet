@@ -25,6 +25,9 @@ STATIONNAME Space Station 13
 ## Put on byond hub: Uncomment this to put your server on the byond hub.
 #HUB
 
+## Uncomment and set the config in tools/discord/config.yml to enable sending stuff to discord's webhooks
+# USING_DISCORD
+
 ## Lobby time: This is the amount of time between rounds that players have to setup their characters and be ready.
 LOBBY_COUNTDOWN 120
 

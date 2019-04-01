@@ -20,3 +20,8 @@
     log_admin_private(msg)
     AddInteraction("Told to mentorhelp by [key_name].")
     Close(silent = TRUE)
+
+/datum/admin_help/New(msg, client/C, is_bwoink)
+    ..()
+    if(!is_bwoink)
+        discordsendmsg("ahelp", "**ADMINHELP: [C.key]: ** \"[msg]\" [heard_by_no_admins ? "**(NO ADMINS)**" : "" ]")
