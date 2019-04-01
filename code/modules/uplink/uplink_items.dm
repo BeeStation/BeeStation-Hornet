@@ -1534,6 +1534,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/flashlight/lantern/syndicate
 	restricted_species = list("moth")
 
+/datum/uplink_item/race_restricted/fireinjector
+	name = "Fire Breath Injector"
+	desc = "Unlock the secret inner-fire of your lizard body with this one-use DNA injector! Warning: Do not wear anything over your mouth when utilizing said inner-fire."
+	cost = 6
+	item = /obj/item/storage/box/syndie_kit/inj_firebreath
+	restricted_species = list("lizard")
+
 // Role-specific items
 /datum/uplink_item/role_restricted
 	category = "Role-Restricted"
