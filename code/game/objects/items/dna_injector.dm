@@ -423,6 +423,11 @@
 	name = "\improper DNA injector (Anti-Thermal Vision)"
 	remove_mutations = list(THERMAL)
 
+/obj/item/dnainjector/firebreath
+	name = "\improper DNA injector (Fire Breath)"
+	desc = "Gives you the ability to shoot a weak fireball from your mouth."
+	add_mutations = list(FIREBREATH)
+
 /obj/item/dnainjector/timed
 	var/duration = 600
 
