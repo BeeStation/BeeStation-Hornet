@@ -208,6 +208,12 @@
 /datum/config_entry/string/githuburl
 	config_entry_value = "https://www.github.com/tgstation/-tg-station"
 
+/datum/config_entry/string/donateurl
+	config_entry_value = "https://www.patreon.com/user?u=10639001"
+
+/datum/config_entry/string/discordurl
+	config_entry_value = "https://discord.gg/zUe34rs"
+
 /datum/config_entry/string/roundstatsurl
 
 /datum/config_entry/string/gamelogurl

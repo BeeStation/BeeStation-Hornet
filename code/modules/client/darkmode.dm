@@ -41,6 +41,8 @@ Thanks to spacemaniac and mcdonald for help with the JS side of this.
 	winset(src, "github", "text-color = [COLOR_DARKMODE_TEXT];text-color = #000000")
 	winset(src, "report-issue", "background-color = #492020;background-color = none")
 	winset(src, "report-issue", "text-color = [COLOR_DARKMODE_TEXT];text-color = #000000")
+	winset(src, "donate", "background-color = #492020;background-color = none")
+	winset(src, "discord", "background-color = #492020;background-color = none")
 	//Status and verb tabs
 	winset(src, "output", "background-color = [COLOR_DARKMODE_BACKGROUND];background-color = none")
 	winset(src, "output", "text-color = [COLOR_DARKMODE_TEXT];text-color = #000000")
@@ -91,6 +93,8 @@ Thanks to spacemaniac and mcdonald for help with the JS side of this.
 	winset(src, "github", "text-color = #000000;text-color = [COLOR_DARKMODE_TEXT]")
 	winset(src, "report-issue", "background-color = none;background-color = #492020")
 	winset(src, "report-issue", "text-color = #000000;text-color = [COLOR_DARKMODE_TEXT]")
+	winset(src, "discord", "background-color = none;background-color = #494949")
+	winset(src, "donate", "background-color = none;background-color = #494949")
 	//Status and verb tabs
 	winset(src, "output", "background-color = none;background-color = [COLOR_DARKMODE_DARKBACKGROUND]")
 	winset(src, "output", "text-color = #000000;text-color = [COLOR_DARKMODE_TEXT]")

@@ -31,6 +31,7 @@ its mentors, not actual dangerous perms
 /client/Topic(href, href_list)
     ..()
     if(href_list["mentor_edit"])
+        message_admins("[key_name_admin(usr)] is editing mentors")
         if(!check_rights(R_PERMISSIONS))
             message_admins("[key_name_admin(usr)] attempted to edit mentor permissions without sufficient rights.")
             log_admin("[key_name(usr)] attempted to edit mentor permissions without sufficient rights.")
