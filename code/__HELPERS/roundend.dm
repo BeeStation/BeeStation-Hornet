@@ -82,7 +82,7 @@
 	.[POPCOUNT_ESCAPEES] = num_escapees
 	.[POPCOUNT_SHUTTLE_ESCAPEES] = num_shuttle_escapees
 	.["station_integrity"] = station_integrity
-	discordsendmsg("ooc", "-------------\n**ROUND END:**\nRound ID: [GLOB.round_id]\nPlayers: [GLOB.player_list.len]\nGamemode: [SSticker.mode.name]-------------\n")
+	discordsendmsg("ooc", "-------------\n**ROUND END:**\nRound ID: [GLOB.round_id]\nPlayers: [GLOB.player_list.len]\nGamemode: [SSticker.mode.name]\n-------------\n")
 
 /datum/controller/subsystem/ticker/proc/gather_antag_data()
 	var/team_gid = 1
