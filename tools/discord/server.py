@@ -1,6 +1,8 @@
 from flask import Flask, request
 import requests
 import yaml
+import html
+
 """
 This is a Flask webpage designed to be called from byond with Export, which then
 triggers webhooks for discord.
@@ -10,9 +12,13 @@ It needs to be filled out correctly to work, duh
 Also this was made by CthulhuOnIce
 """
 
-valid = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;= "
+valid = "<>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;= "
+
+def HTMLEntitiesToUnicode(text):
+   return html.unescape(text)
 
 def url2msg(msg):
+    msg = HTMLEntitiesToUnicode(msg)
     for x in msg:
         if x not in valid:
             msg = msg.replace(x, "")
@@ -24,7 +30,7 @@ def url2msg(msg):
     "[space]": " ",
     "[quote]": "\"",
     "@": "(a)", # no @ abuse
-    "[nl]": "\n"
+    "[nl]": "\n",
     }
     for x in conversions:
         msg = msg.replace(x, conversions[x])
