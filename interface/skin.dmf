@@ -1,5 +1,6 @@
 macro "default"
 
+
 menu "menu"
 	elem 
 		name = "&File"
@@ -12,11 +13,6 @@ menu "menu"
 		saved-params = "is-checked"
 	elem 
 		name = "&Save screenshot as...\tShift+F2"
-		command = ".screenshot"
-		category = "&File"
-		saved-params = "is-checked
-	elem 
-		name = ""
 		command = ""
 		category = "&File"
 		saved-params = "is-checked"
@@ -49,7 +45,7 @@ menu "menu"
 window "mainwindow"
 	elem "mainwindow"
 		type = MAIN
-		pos = 0,0
+		pos = 281,0
 		size = 640x440
 		anchor1 = none
 		anchor2 = none
@@ -150,73 +146,103 @@ window "mapwindow"
 window "infowindow"
 	elem "infowindow"
 		type = MAIN
-		pos = 0,0
+		pos = 281,0
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
+		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
+	elem "discord"
+		type = BUTTON
+		pos = 603,3
+		size = 20x20
+		anchor1 = 94,0
+		anchor2 = 97,0
+		background-color = none
+		saved-params = "is-checked"
+		text = ""
+		image = 'icons\\discord.png'
+		command = "discord"
+	elem "donate"
+		type = BUTTON
+		pos = 579,3
+		size = 20x20
+		anchor1 = 90,0
+		anchor2 = 94,0
+		background-color = none
+		saved-params = "is-checked"
+		text = ""
+		image = 'icons\\patreon.png'
+		command = "donate"
 	elem "info"
 		type = CHILD
-		pos = 0,30
+		pos = 0,32
 		size = 640x445
 		anchor1 = 0,0
 		anchor2 = 100,100
+		background-color = none
 		saved-params = "splitter"
 		left = "statwindow"
 		right = "outputwindow"
 		is-vert = false
 	elem "changelog"
 		type = BUTTON
-		pos = 16,5
-		size = 104x20
-		anchor1 = 3,0
-		anchor2 = 19,0
+		pos = 11,3
+		size = 85x20
+		anchor1 = 2,0
+		anchor2 = 15,0
+		background-color = none
 		saved-params = "is-checked"
 		text = "Changelog"
 		command = "changelog"
 	elem "rules"
 		type = BUTTON
-		pos = 120,5
-		size = 100x20
-		anchor1 = 19,0
-		anchor2 = 34,0
+		pos = 96,3
+		size = 86x20
+		anchor1 = 15,0
+		anchor2 = 28,0
+		background-color = none
 		saved-params = "is-checked"
 		text = "Rules"
 		command = "rules"
 	elem "wiki"
 		type = BUTTON
-		pos = 220,5
-		size = 100x20
-		anchor1 = 34,0
-		anchor2 = 50,0
+		pos = 183,3
+		size = 88x20
+		anchor1 = 29,0
+		anchor2 = 42,0
+		background-color = none
 		saved-params = "is-checked"
 		text = "Wiki"
 		command = "wiki"
 	elem "forum"
 		type = BUTTON
-		pos = 320,5
-		size = 100x20
-		anchor1 = 50,0
-		anchor2 = 66,0
+		pos = 272,3
+		size = 84x20
+		anchor1 = 43,0
+		anchor2 = 56,0
+		background-color = none
 		saved-params = "is-checked"
 		text = "Forum"
 		command = "forum"
 	elem "github"
 		type = BUTTON
-		pos = 420,5
-		size = 100x20
-		anchor1 = 66,0
-		anchor2 = 81,0
+		pos = 357,3
+		size = 96x20
+		anchor1 = 56,0
+		anchor2 = 71,0
+		background-color = none
 		saved-params = "is-checked"
 		text = "Github"
 		command = "github"
 	elem "report-issue"
 		type = BUTTON
-		pos = 520,5
-		size = 100x20
-		anchor1 = 81,0
-		anchor2 = 97,0
+		pos = 453,3
+		size = 120x20
+		anchor1 = 71,0
+		anchor2 = 90,0
+		background-color = none
 		saved-params = "is-checked"
 		text = "Report Issue"
 		command = "report-issue"
@@ -257,7 +283,6 @@ window "preferences_window"
 		size = 1120x1000
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		is-visible = false
 		saved-params = "pos;size;is-minimized;is-maximized"
 		statusbar = false
@@ -267,7 +292,6 @@ window "preferences_window"
 		size = 896x1008
 		anchor1 = 0,0
 		anchor2 = 90,100
-		background-color = none
 		saved-params = ""
 	elem "character_preview_map"
 		type = MAP
