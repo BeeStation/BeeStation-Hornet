@@ -20,7 +20,7 @@
     log_admin_private(msg)
     AddInteraction("Told to mentorhelp by [key_name].")
     if(!bwoink)
-        discordsendmsg("ahelp", "Ticket #[id] told to mentorhelp by [key_name]")
+        discordsendmsg("ahelp", "Ticket #[id] told to mentorhelp by [key_name(usr, include_link=0)]")
     Close(silent = TRUE)
 
 /datum/admin_help/var/bwoink // var to tell whether it's a bwoink or not
@@ -34,18 +34,18 @@
 /datum/admin_help/Resolve(key_name = key_name_admin(usr), silent = FALSE)
     ..()
     if(!bwoink)
-        discordsendmsg("ahelp", "Ticket #[id] resolved by [key_name]")
+        discordsendmsg("ahelp", "Ticket #[id] resolved by [key_name(usr, include_link=0)]")
 
 /datum/admin_help/Close(key_name = key_name_admin(usr), silent = FALSE)
     ..()
     if(!bwoink)
-        discordsendmsg("ahelp", "Ticket #[id] closed by [key_name]")
+        discordsendmsg("ahelp", "Ticket #[id] closed by [key_name(usr, include_link=0)]")
 
 /datum/admin_help/Reject(key_name = key_name_admin(usr))
     ..()
     if(!bwoink)
-        discordsendmsg("ahelp", "Ticket #[id] rejected by [key_name]")
+        discordsendmsg("ahelp", "Ticket #[id] rejected by [key_name(usr, include_link=0)]")
 
 /datum/admin_help/ICIssue(key_name = key_name_admin(usr))
     if(!bwoink)
-        discordsendmsg("ahelp", "Ticket #[id] marked as IC by [key_name]")
+        discordsendmsg("ahelp", "Ticket #[id] marked as IC by [key_name(usr, include_link=0)]")
