@@ -455,6 +455,7 @@ SUBSYSTEM_DEF(timer)
 		. = "[callBack.object.type]"
 
 /proc/addtimer(datum/callback/callback, wait = 0, flags = 0)
+	
 	if (!callback)
 		CRASH("addtimer called without a callback")
 
