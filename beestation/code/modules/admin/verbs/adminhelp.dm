@@ -23,6 +23,12 @@
         discordsendmsg("ahelp", "Ticket #[id] told to mentorhelp by [key_name(usr, include_link=0)]")
     Close(silent = TRUE)
 
+/datum/admin_help/Action(action)
+    . = ..()
+    switch(action)
+        if("mhelp")
+	        MHelpThis()
+
 /datum/admin_help/var/bwoink // var to tell whether it's a bwoink or not
 /datum/admin_help/New(msg, client/C, is_bwoink)
     ..()
