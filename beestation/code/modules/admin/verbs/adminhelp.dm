@@ -38,7 +38,7 @@
 
 /datum/admin_help/Close(key_name = key_name_admin(usr), silent = FALSE)
     ..()
-    if(!bwoink)
+    if(!bwoink && !silent)
         discordsendmsg("ahelp", "Ticket #[id] closed by [key_name(usr, include_link=0)]")
 
 /datum/admin_help/Reject(key_name = key_name_admin(usr))
