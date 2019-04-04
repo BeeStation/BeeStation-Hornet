@@ -53,5 +53,6 @@
         discordsendmsg("ahelp", "Ticket #[id] rejected by [key_name(usr, include_link=0)]")
 
 /datum/admin_help/ICIssue(key_name = key_name_admin(usr))
+    ..()
     if(!bwoink)
         discordsendmsg("ahelp", "Ticket #[id] marked as IC by [key_name(usr, include_link=0)]")
