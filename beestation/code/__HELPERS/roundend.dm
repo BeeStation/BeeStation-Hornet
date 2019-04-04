@@ -1,13 +1,12 @@
-/datum/controller/subsystem/ticker/gather_roundend_feedback()
-    ..()
+/datum/controller/subsystem/ticker/proc/sendtodiscord(var/survivors, var/escapees, var/integrity)
     var/list/discordmsg = list()
     discordmsg += "--------------ROUND END--------------"
     discordmsg += "Round Number: [GLOB.round_id]"
     discordmsg += "Duration:     [DisplayTimeText(world.time - SSticker.round_start_time)]"
     discordmsg += "Players:      [GLOB.player_list.len]"
-    discordmsg += "Survivors:    [.[POPCOUNT_SURVIVORS]]"
-    discordmsg += "Escapees:     [.[POPCOUNT_ESCAPEES]]"
-    discordmsg += "Integrity:    [.["station_integrity"]]"
+    discordmsg += "Survivors:    [survivors]"
+    discordmsg += "Escapees:     [escapees]"
+    discordmsg += "Integrity:    [integrity]"
     discordmsg += "Gamemode:     [SSticker.mode.name]"
     var/list/ded = SSblackbox.first_death
     if(ded)
