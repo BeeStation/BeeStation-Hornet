@@ -8,8 +8,8 @@
     discordmsg += "Escapees: [escapees]\n"
     discordmsg += "Integrity: [integrity]\n"
     discordmsg += "Gamemode: [SSticker.mode.name]\n"
-	discordsendmsg("ooc", discordmsg)
-	discordmsg = ""
+    discordsendmsg("ooc", discordmsg)
+    discordmsg = ""
     var/list/ded = SSblackbox.first_death
     if(ded)
         discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
