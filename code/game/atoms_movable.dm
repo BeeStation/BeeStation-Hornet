@@ -211,8 +211,8 @@
 	for(var/atom/movable/AM in buckled_mobs)
 		AM.set_glide_size(target)
 
-	if(pulling)
-		pulling.set_glide_size(target)
+	//if(pulling)
+		//pulling.set_glide_size(target)
 
 ////////////////////////////////////////
 // Here's where we rewrite how byond handles movement except slightly different
