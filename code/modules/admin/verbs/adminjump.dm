@@ -151,7 +151,7 @@
 	for(var/mob/M in GLOB.player_list)
 		if(M)
 			var/turf/T = get_turf(M)
-			if (T.z == 2)
+			if is_station_level(T.z)
 				M.forceMove(get_turf(usr))
 				usr.forceMove(M.loc)
 			
