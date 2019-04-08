@@ -1,0 +1,6 @@
+name: mattroks101
+delete-after: true
+changes:
+  - add: Cigarette lighters and flashlights make a sound when turned on and off.
+  - add: Cigarettes now make a sound when they are lit up and put out.
+  - add: Matches now make a sound when they are lit.

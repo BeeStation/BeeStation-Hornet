@@ -73,14 +73,14 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
 //                        display_name = "[holder.fakekey]/([src.key])"
 //                else
 //                    display_name = holder.fakekey
-            to_chat(C,"<font color='#697326'><span class='ooc'><span class='prefix'>LOOC:</span> <EM>[src.mob.name]:</EM> <span class='message'>[msg]</span></span></font>")
+            to_chat(C,"<span class='looc'><span class='prefix'>LOOC:</span> <EM>[src.mob.name]:</EM> <span class='message'>[msg]</span></span>")
 
     for(var/client/C in GLOB.admins)
         if(C.prefs.toggles & CHAT_OOC)
             var/prefix = "(R)LOOC"
             if (C.mob in heard)
                 prefix = "LOOC"
-            to_chat(C,"<font color='#697326'><span class='ooc'>[ADMIN_FLW(usr)]<span class='prefix'>[prefix]:</span> <EM>[src.key]/[src.mob.name]:</EM> <span class='message'>[msg]</span></span></font>")
+            to_chat(C,"<span class='looc'>[ADMIN_FLW(usr)]<span class='prefix'>[prefix]:</span> <EM>[src.key]/[src.mob.name]:</EM> <span class='message'>[msg]</span></span>")
 
     /*for(var/mob/dead/observer/G in world)
         if(!G.client)

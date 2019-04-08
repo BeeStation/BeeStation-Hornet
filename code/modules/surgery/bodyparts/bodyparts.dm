@@ -174,9 +174,8 @@
 	var/total_damage = brute + burn
 
 	if(total_damage > can_inflict)
-		var/excess = total_damage - can_inflict
-		brute = round(brute * (excess / total_damage),DAMAGE_PRECISION)
-		burn = round(burn * (excess / total_damage),DAMAGE_PRECISION)
+		brute = round(brute * (can_inflict / total_damage),DAMAGE_PRECISION)
+		burn = round(burn * (can_inflict / total_damage),DAMAGE_PRECISION)
 
 	brute_dam += brute
 	burn_dam += burn
@@ -445,6 +444,11 @@
 	stam_damage_coeff = 1
 	max_stamina_damage = 100
 	var/obj/item/cavity_item
+
+/obj/item/bodypart/chest/can_dismember(obj/item/I)
+	if(!((owner.stat == DEAD) || owner.InFullCritical()))
+		return FALSE
+	return ..()
 
 /obj/item/bodypart/chest/Destroy()
 	QDEL_NULL(cavity_item)

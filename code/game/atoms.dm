@@ -74,16 +74,19 @@
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
-	if (light_power && light_range)
+	if(light_power && light_range)
 		update_light()
 
-	if (opacity && isturf(loc))
+	if(opacity && isturf(loc))
 		var/turf/T = loc
 		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guaranteed to be on afterwards anyways.
 
-	if (canSmoothWith)
+	if(canSmoothWith)
 		canSmoothWith = typelist("canSmoothWith", canSmoothWith)
 
+	if(datum_outputs)
+		for(var/i in 1 to length(datum_outputs))
+			datum_outputs[i] = SSoutputs.outputs[datum_outputs[i]]
 	ComponentInitialize()
 
 	return INITIALIZE_HINT_NORMAL
@@ -265,7 +268,7 @@
 	. = "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]"
 
 /atom/proc/examine(mob/user)
-	to_chat(user, get_examine_string(user, TRUE))
+	to_chat(user, "[get_examine_string(user, TRUE)].")
 
 	if(desc)
 		to_chat(user, desc)
@@ -694,7 +697,7 @@ Proc for attack log creation, because really why not
 
 	var/sobject = ""
 	if(object)
-		sobject = " with [key_name(object)]"
+		sobject = " with [object]"
 	var/saddition = ""
 	if(addition)
 		saddition = " [addition]"
