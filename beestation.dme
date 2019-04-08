@@ -16,6 +16,7 @@
 
 // BEGIN_INCLUDE
 #include "beestation\code\game\objects\items\devices\sound_synth.dm"
+#include "beestation\code\modules\admin\verbs\getallplayersfromstation.dm"
 #include "beestation\code\modules\admin\verbs\healall.dm"
 #include "beestation\code\modules\client\skinpreferences.dm"
 #include "beestation\code\modules\client\verbs\looc.dm"
