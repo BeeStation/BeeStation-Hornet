@@ -516,6 +516,8 @@
 		if(prob(20))
 			var/text = pick(";HELP!","I'm losing control of the situation!!","Get me outta here!")
 			target.say(text, forced = "panic")
+		if(prob(1))
+			SEND_SOUND(target, sound('sound/effects/adminhelp.ogg'))
 		var/effect = rand(1,4)
 		switch(effect)
 			if(1)
@@ -727,7 +729,7 @@
 	for(var/mob/living/carbon/C in targets)
 		if(!is_hivehost(C))
 			continue
-		if(C.InCritical())
+		if(C.InCritical() || (C.stat == DEAD && C?.mind.last_death + 150 >= world.time) )
 			C.gib()
 			hive.track_bonus += TRACKER_BONUS_LARGE
 			hive.size_mod += 5

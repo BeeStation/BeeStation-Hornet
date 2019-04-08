@@ -25,6 +25,9 @@ STATIONNAME Space Station 13
 ## Put on byond hub: Uncomment this to put your server on the byond hub.
 #HUB
 
+## Uncomment and set the config in tools/discord/config.yml to enable sending stuff to discord's webhooks
+# USING_DISCORD
+
 ## Lobby time: This is the amount of time between rounds that players have to setup their characters and be ready.
 LOBBY_COUNTDOWN 120
 
@@ -246,6 +249,12 @@ CHECK_RANDOMIZER
 ## Github address
 # GITHUBURL https://www.github.com/tgstation/tgstation
 
+## Donation URL
+# DONATEURL https://www.patreon.com/user?u=10639001
+
+## Discord Invite
+# DISCORDURL https://discord.gg/zUe34rs
+
 ## Round specific stats address
 ## Link to round specific parsed logs; IE statbus. It is appended with the RoundID automatically by ticker/Reboot()
 ## This will take priority over the game logs address during reboot.
@@ -332,6 +341,9 @@ HARD_POPCAP_MESSAGE The server is currently serving a high number of users, You 
 
 ## Message for extreme cap
 EXTREME_POPCAP_MESSAGE The server is currently serving a high number of users, find alternative servers.
+
+## Uncomment to allow BYOND subscribers to bypassing server connection population cap. (Living player population cap still applies.)
+BYOND_MEMBER_BYPASS_POPCAP
 
 ## Notify admins when a new player connects for the first x days a player's been around. (0 for first connection only, -1 for never)
 ##	Requres database

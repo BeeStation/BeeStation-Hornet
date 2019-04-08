@@ -265,12 +265,12 @@ em						{font-style: normal;	font-weight: bold;}
 .adminobserverooc		{color: #0099cc;	font-weight: bold;}
 .adminooc				{color: #700038;	font-weight: bold;}
 
-.adminsay   			{color: #5b6321;	font-weight: bold;}
+.adminsay   			{color: #5b6321}
 .admin					{color: #4473ff;	font-weight: bold;}
 
 .mentorfrom 			{color: #7e1c82;}
 .mentorto				{color: #1d861d;}
-.mentorhelp				{color: #0e2aaa;}
+.mentorhelp				{color: #4400c2;}
 
 .name					{					font-weight: bold;}
 
@@ -283,7 +283,7 @@ em						{font-style: normal;	font-weight: bold;}
 .sciradio				{color: #993399;}
 .comradio				{color: #948f02;}
 .secradio				{color: #a30000;}
-.medradio				{color: #337296;}
+.medradio				{color: #94acb9;}
 .engradio				{color: #fb5613;}
 .suppradio				{color: #a8732b;}
 .servradio				{color: #6eaa2c;}
