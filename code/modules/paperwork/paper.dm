@@ -132,8 +132,13 @@
 	var/locid = 0
 	var/laststart = 1
 	var/textindex = 1
+	var/limit = 0
 	while(1)	//I know this can cause infinite loops and fuck up the whole server, but the if(istart==0) should be safe as fuck
 		var/istart = 0
+		limit = limit + 1 //hippie
+		if (limit > 20) //hippie
+			break //fuck off ruskies
+			
 		if(links)
 			istart = findtext(info_links, "<span class=\"paper_field\">", laststart)
 		else
@@ -250,6 +255,10 @@
 		openhelp(usr)
 		return
 	if(href_list["write"])
+		if (length(info) > 300)
+			return
+		if (length(name) > 300)
+			return
 		var/id = href_list["write"]
 		var/t =  stripped_multiline_input("Enter what you want to write:", "Write", no_trim=TRUE)
 		if(!t || !usr.canUseTopic(src, BE_CLOSE, literate))
