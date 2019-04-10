@@ -417,6 +417,18 @@
 			aux = image(limb.icon, "[species_id]_[aux_zone]", -aux_layer, image_dir)
 			. += aux
 
+	else
+		limb.icon = icon
+		if(should_draw_gender)
+			limb.icon_state = "[body_zone]_[icon_gender]"
+		else
+			limb.icon_state = "[body_zone]"
+		if(aux_zone)
+			aux = image(limb.icon, "[aux_zone]", -aux_layer, image_dir)
+			. += aux
+		return
+
+
 	if(should_draw_greyscale)
 		var/draw_color = mutation_color || species_color || (skin_tone && skintone2hex(skin_tone))
 		if(draw_color)
