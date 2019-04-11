@@ -153,6 +153,16 @@ window "infowindow"
 		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
+	elem "current-map"
+		type = BUTTON
+		pos = 445,3
+		size = 133x20
+		anchor1 = 70,0
+		anchor2 = 90,0
+		background-color = none
+		saved-params = "is-checked"
+		text = "Current Map:"
+		command = "map"
 	elem "discord"
 		type = BUTTON
 		pos = 603,3
@@ -189,59 +199,59 @@ window "infowindow"
 	elem "changelog"
 		type = BUTTON
 		pos = 11,3
-		size = 85x20
+		size = 61x20
 		anchor1 = 2,0
-		anchor2 = 15,0
+		anchor2 = 11,0
 		background-color = none
 		saved-params = "is-checked"
 		text = "Changelog"
 		command = "changelog"
 	elem "rules"
 		type = BUTTON
-		pos = 96,3
-		size = 86x20
-		anchor1 = 15,0
-		anchor2 = 28,0
+		pos = 73,3
+		size = 72x20
+		anchor1 = 11,0
+		anchor2 = 23,0
 		background-color = none
 		saved-params = "is-checked"
 		text = "Rules"
 		command = "rules"
 	elem "wiki"
 		type = BUTTON
-		pos = 183,3
-		size = 88x20
-		anchor1 = 29,0
-		anchor2 = 42,0
+		pos = 146,3
+		size = 73x20
+		anchor1 = 23,0
+		anchor2 = 34,0
 		background-color = none
 		saved-params = "is-checked"
 		text = "Wiki"
 		command = "wiki"
 	elem "forum"
 		type = BUTTON
-		pos = 272,3
-		size = 84x20
-		anchor1 = 43,0
-		anchor2 = 56,0
+		pos = 221,3
+		size = 75x20
+		anchor1 = 35,0
+		anchor2 = 46,0
 		background-color = none
 		saved-params = "is-checked"
 		text = "Forum"
 		command = "forum"
 	elem "github"
 		type = BUTTON
-		pos = 357,3
-		size = 96x20
-		anchor1 = 56,0
-		anchor2 = 71,0
+		pos = 296,3
+		size = 67x20
+		anchor1 = 46,0
+		anchor2 = 57,0
 		background-color = none
 		saved-params = "is-checked"
 		text = "Github"
 		command = "github"
 	elem "report-issue"
 		type = BUTTON
-		pos = 453,3
-		size = 120x20
-		anchor1 = 71,0
-		anchor2 = 90,0
+		pos = 364,3
+		size = 79x20
+		anchor1 = 57,0
+		anchor2 = 69,0
 		background-color = none
 		saved-params = "is-checked"
 		text = "Report Issue"
