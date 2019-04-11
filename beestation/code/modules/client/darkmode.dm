@@ -1,0 +1,11 @@
+/client/force_dark_theme()
+	. = ..()
+	winset(src, "discord", "background-color = none;background-color = #494949")
+	winset(src, "donate", "background-color = none;background-color = #494949")
+	winset(src, "current-map", "background-color = none;background-color = #494949; text-color = [COLOR_DARKMODE_TEXT]")
+
+/client/force_white_theme()
+	. = ..()
+	winset(src, "donate", "background-color = #492020;background-color = none")
+	winset(src, "discord", "background-color = #492020;background-color = none")
+	winset(src, "current-map", "background-color = #492020;background-color = none; text-color = [COLOR_DARKMODE_TEXT];text-color = #000000"")
