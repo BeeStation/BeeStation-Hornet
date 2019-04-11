@@ -8,4 +8,4 @@
 	. = ..()
 	winset(src, "donate", "background-color = #492020;background-color = none")
 	winset(src, "discord", "background-color = #492020;background-color = none")
-	winset(src, "current-map", "background-color = #492020;background-color = none; text-color = [COLOR_DARKMODE_TEXT];text-color = #000000"")
+	winset(src, "current-map", "background-color = #492020;background-color = none; text-color = [COLOR_DARKMODE_TEXT];text-color = #000000")
