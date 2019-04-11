@@ -204,10 +204,6 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		GLOB.preferences_datums[ckey] = prefs
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
-	if(!prefs.updated_fps)  // if this is their first time joining since the new movement
-		prefs.clientfps = 40
-		prefs.updated_fps = TRUE
-		prefs.save_preferences()
 	fps = prefs.clientfps
 
 	if(fexists(roundend_report_file()))
