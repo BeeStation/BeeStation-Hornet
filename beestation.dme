@@ -34,6 +34,7 @@
 #include "beestation\code\modules\clothing\shoes.dm"
 #include "beestation\code\modules\clothing\under.dm"
 #include "beestation\code\modules\discord\discord.dm"
+#include "beestation\code\modules\discord\from_discord.dm"
 #include "beestation\code\modules\mentor\config.dm"
 #include "beestation\code\modules\mentor\follow.dm"
 #include "beestation\code\modules\mentor\mentor.dm"
