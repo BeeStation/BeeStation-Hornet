@@ -406,7 +406,7 @@
 			else
 				limb.icon_state = "[species_id]_[body_zone]"
 		// species beestation icon folder code start
-		if(should_draw_bee)
+		if(bee_species())
 			limb.icon = 'beestation/icons/mob/human_parts_greyscale.dmi'
 			if(should_draw_gender)
 				limb.icon_state = "[species_id]_[body_zone]_[icon_gender]"
