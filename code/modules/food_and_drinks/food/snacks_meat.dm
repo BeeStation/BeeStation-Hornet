@@ -311,11 +311,3 @@
 	icon_state = "doubleratkebab"
 	tastes = list("rat meat" = 2, "metal" = 1)
 	bonus_reagents = list("nutriment" = 6, "vitamin" = 2)
-
-/obj/item/reagent_containers/food/snacks/meat/steak/ashflake
-	name = "ashflaked steak"
-	desc = "A common delicacy among miners."
-	icon_state = "ashsteak"
-	bonus_reagents = list("vitfro" = 2)
-	tastes = list("tough meat" = 2, "bubblegum" = 1)
-	foodtype = MEAT
