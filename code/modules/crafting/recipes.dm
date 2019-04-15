@@ -683,13 +683,3 @@
 	category = CAT_MISC
 	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
 
-/datum/crafting_recipe/shank
-	name = "Shank"
-	reqs = list(/obj/item/shard = 1,
-					/obj/item/stack/cable_coil = 10)
-	result = /obj/item/melee/shank
-	tools = list(TOOL_WIRECUTTER)
-	time = 20
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-	always_availible = TRUE

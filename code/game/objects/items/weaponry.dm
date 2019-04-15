@@ -666,25 +666,3 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		to_chat(user, "<span class='warning'>[M] is too close to use [src] on.</span>")
 		return
 	M.attack_hand(user)
-
-/obj/item/melee/shank
-	name = "Shank"
-	desc = "A crude knife fashioned by wrapping some cable around a glass shard. It looks like it could be thrown with some force.. and stick. I guess it's better than nothing... "
-	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "shank"
-	item_state = "switchblade_ext"
-	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	force = 8
-	throwforce = 8
-	throw_speed = 5
-	armour_penetration = 10
-	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 40, "embedded_fall_chance" = 5)
-	attack_verb = list("stuck", "shanked")
-	w_class = WEIGHT_CLASS_SMALL
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
-
-/obj/item/melee/shank/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shank! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (BRUTELOSS)
