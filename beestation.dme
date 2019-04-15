@@ -21,6 +21,7 @@
 #include "beestation\code\datums\mutations.dm"
 #include "beestation\code\game\objects\items\cigs_lighters.dm"
 #include "beestation\code\game\objects\items\flashlight.dm"
+#include "beestation\code\game\objects\items\weaponry.dm"
 #include "beestation\code\game\objects\items\devices\sound_synth.dm"
 #include "beestation\code\modules\admin\verbs\adminhelp.dm"
 #include "beestation\code\modules\admin\verbs\cluwneplayer.dm"
@@ -35,6 +36,7 @@
 #include "beestation\code\modules\clothing\mask.dm"
 #include "beestation\code\modules\clothing\shoes.dm"
 #include "beestation\code\modules\clothing\under.dm"
+#include "beestation\code\modules\crafting\recipes.dm"
 #include "beestation\code\modules\discord\discord.dm"
 #include "beestation\code\modules\discord\from_discord.dm"
 #include "beestation\code\modules\mentor\config.dm"
@@ -56,4 +58,5 @@
 #include "beestation\code\modules\mob\living\simple_animal\hostile\floor_cluwne.dm"
 #include "beestation\code\modules\mob\living\verbs\give.dm"
 #include "beestation\interface\interface.dm"
+#include "code\game\objects\items\weaponry.dm"
 // END_INCLUDE
