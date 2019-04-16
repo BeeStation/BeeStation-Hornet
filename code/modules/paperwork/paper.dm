@@ -132,13 +132,8 @@
 	var/locid = 0
 	var/laststart = 1
 	var/textindex = 1
-	var/limit = 0
-	while(1)	//I know this can cause infinite loops and fuck up the whole server, but the if(istart==0) should be safe as fuck
+	while(locid < 15)	//hey whoever decided a while(1) was a good idea here, i hate you
 		var/istart = 0
-		limit = limit + 1 //hippie
-		if (limit > 20) //hippie
-			break //fuck off ruskies
-			
 		if(links)
 			istart = findtext(info_links, "<span class=\"paper_field\">", laststart)
 		else
@@ -173,7 +168,7 @@
 
 /obj/item/paper/proc/updateinfolinks()
 	info_links = info
-	for(var/i in 1 to min(fields, 3))
+	for(var/i in 1 to min(fields, 15))
 		addtofield(i, "<font face=\"[PEN_FONT]\"><A href='?src=[REF(src)];write=[i]'>write</A></font>", 1)
 	info_links = info_links + "<font face=\"[PEN_FONT]\"><A href='?src=[REF(src)];write=end'>write</A></font>"
 
@@ -201,7 +196,7 @@
 
 	// Count the fields
 	var/laststart = 1
-	while(1)
+	while(fields < 15)
 		var/i = findtext(t, "<span class=\"paper_field\">", laststart)
 		if(i == 0)
 			break
@@ -213,7 +208,7 @@
 /obj/item/paper/proc/reload_fields() // Useful if you made the paper programicly and want to include fields. Also runs updateinfolinks() for you.
 	fields = 0
 	var/laststart = 1
-	while(1)
+	while(fields < 15)
 		var/i = findtext(info, "<span class=\"paper_field\">", laststart)
 		if(i == 0)
 			break
@@ -255,10 +250,6 @@
 		openhelp(usr)
 		return
 	if(href_list["write"])
-		if (length(info) > 300)
-			return
-		if (length(name) > 300)
-			return
 		var/id = href_list["write"]
 		var/t =  stripped_multiline_input("Enter what you want to write:", "Write", no_trim=TRUE)
 		if(!t || !usr.canUseTopic(src, BE_CLOSE, literate))
@@ -273,6 +264,7 @@
 		if(!in_range(src, usr) && loc != usr && !istype(loc, /obj/item/clipboard) && loc.loc != usr && usr.get_active_held_item() != i)	//Some check to see if he's allowed to write
 			return
 
+		log_paper("[key_name(usr)] writing to paper [t]")
 		t = parsepencode(t, i, usr, iscrayon) // Encode everything from pencode to html
 
 		if(t != null)	//No input from the user means nothing needs to be added
