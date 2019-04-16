@@ -406,17 +406,10 @@
 			else
 				limb.icon_state = "[species_id]_[body_zone]"
 		// species beestation icon folder code start
-		if(bee_species())
-	
-			if(should_draw_greyscale)
-				limb.icon = 'beestation/icons/mob/human_parts_greyscale.dmi'
-			else
-				limb.icon = 'beestation/icons/mob/human_parts.dmi'
-
+		if(should_draw_bee)
+			limb.icon = 'beestation/icons/mob/human_parts_greyscale.dmi'
 			if(should_draw_gender)
 				limb.icon_state = "[species_id]_[body_zone]_[icon_gender]"
-			else if(use_digitigrade)
-				limb.icon_state = "digitigrade_[use_digitigrade]_[body_zone]"
 			else
 				limb.icon_state = "[species_id]_[body_zone]"
 		// species beestation icon folder code end

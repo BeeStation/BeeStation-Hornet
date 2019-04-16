@@ -34,17 +34,17 @@
 
 
 /obj/machinery/power/proc/can_terminal_dismantle()
-	. = FALSE
+	. = 0
 
 /obj/machinery/power/apc/can_terminal_dismantle()
-	. = FALSE
+	. = 0
 	if(opened)
-		. = TRUE
+		. = 1
 
 /obj/machinery/power/smes/can_terminal_dismantle()
-	. = FALSE
+	. = 0
 	if(panel_open)
-		. = TRUE
+		. = 1
 
 
 /obj/machinery/power/terminal/proc/dismantle(mob/living/user, obj/item/I)

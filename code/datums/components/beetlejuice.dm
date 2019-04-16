@@ -6,7 +6,6 @@
 	var/min_count = 3
 	var/cooldown = 30 SECONDS //Delay between teleports
 	var/active = TRUE
-	var/case_sensitive = FALSE
 	var/regex/R
 
 /datum/component/beetlejuice/Initialize()
@@ -26,11 +25,11 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/say_react)
 
 /datum/component/beetlejuice/proc/update_regex()
-	R = regex("[REGEX_QUOTE(keyword)]","g[case_sensitive ? "" : "i"]")
+	R = regex("[REGEX_QUOTE(keyword)]","g")
 
 /datum/component/beetlejuice/vv_edit_var(var_name, var_value)
 	. = ..()
-	if (var_name == NAMEOF(src, keyword) || var_name == NAMEOF(src, case_sensitive))
+	if (var_name == NAMEOF(src, keyword))
 		update_regex()
 
 /datum/component/beetlejuice/proc/say_react(datum/source, mob/speaker,message)

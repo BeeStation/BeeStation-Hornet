@@ -1,2 +1,2 @@
 /datum/preferences
-	var/agree_rules = 0
+	var/rules_agree = 0

@@ -243,9 +243,9 @@
 
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "cup ramen"
-	desc = "Just add 5ml of water, self heats! A taste that reminds you of your school years. Now new with salty flavour!"
+	desc = "Just add 5ml of water, self heats! A taste that reminds you of your school years."
 	icon_state = "ramen"
-	list_reagents = list("dry_ramen" = 15, "sodiumchloride" = 3)
+	list_reagents = list("dry_ramen" = 15)
 	foodtype = GRAIN
 	isGlass = FALSE
 	custom_price = 38

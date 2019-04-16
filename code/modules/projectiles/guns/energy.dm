@@ -57,8 +57,7 @@
 	fire_delay = shot.delay
 
 /obj/item/gun/energy/Destroy()
-	if (cell)
-		QDEL_NULL(cell)
+	QDEL_NULL(cell)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
