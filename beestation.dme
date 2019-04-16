@@ -57,6 +57,7 @@
 #include "beestation\code\modules\mob\living\simple_animal\cluwne\cluwne.dm"
 #include "beestation\code\modules\mob\living\simple_animal\hostile\floor_cluwne.dm"
 #include "beestation\code\modules\mob\living\verbs\give.dm"
+#include "beestation\code\modules\reagants\chemistry\recipe\others.dm"
 #include "beestation\interface\interface.dm"
 #include "code\game\objects\items\weaponry.dm"
 // END_INCLUDE
