@@ -1,4 +1,4 @@
-/mob/living/carbon/human/proc/cluwne()
+/mob/living/proc/cluwne()
     for(var/obj/item/W in src)  // they drop everything they have
         if(!dropItemToGround(W))
             qdel(W)
