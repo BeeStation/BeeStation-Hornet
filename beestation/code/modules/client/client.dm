@@ -1,5 +1,6 @@
 /client/New()
 	. = ..()
+<<<<<<< HEAD
 	if(!prefs.rules_agree)  // if this is their first time joining since the new movement
 		warning("By playing here, you agree to follow the rules stated by the rules button.")
 		prefs.rules_agree = TRUE
@@ -25,3 +26,9 @@
 		qdel(query_set_antag_tokens)
 		return
 	qdel(query_set_antag_tokens)
+=======
+	if(!prefs.agree_rules)  // if this is their first time joining since the new movement
+		alert("By playing here, you agree to follow the rules stated by the rules button.")
+		prefs.agree_rules = TRUE
+		prefs.save_preferences()
+>>>>>>> a06b69f9673adf7f8f65c8ee8bea4e803bcd83b9
