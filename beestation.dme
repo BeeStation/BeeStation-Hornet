@@ -24,7 +24,6 @@
 #include "beestation\code\game\objects\items\weaponry.dm"
 #include "beestation\code\game\objects\items\devices\sound_synth.dm"
 #include "beestation\code\modules\admin\topic.dm"
-#include "beestation\code\game\objects\misc\cursed_necklace.dm"
 #include "beestation\code\modules\admin\verbs\adminhelp.dm"
 #include "beestation\code\modules\admin\verbs\cluwneplayer.dm"
 #include "beestation\code\modules\admin\verbs\getallplayersfromstation.dm"
