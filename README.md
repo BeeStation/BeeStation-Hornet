@@ -95,12 +95,14 @@ https://github.com/tgstation/tgstation-server
 
 ## MAPS
 
-BeeStation currently comes equipped with four maps.
+BeeStation currently comes equipped with  maps
+maps.
 
 * [BoxStation (default)](https://tgstation13.org/wiki/Boxstation)
 * [MetaStation](https://tgstation13.org/wiki/MetaStation)
 * [DeltaStation](https://tgstation13.org/wiki/DeltaStation)
 * [PubbyStation](https://tgstation13.org/wiki/PubbyStation)
+* [DonutStation](https://tgstation13.org/wiki/DonutStation)
 
 
 All maps have their own code file that is in the base of the _maps directory. Maps are loaded dynamically when the game starts. Follow this guideline when adding your own map, to your fork, for easy compatibility.
