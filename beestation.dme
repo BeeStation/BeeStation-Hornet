@@ -39,6 +39,8 @@
 #include "beestation\code\modules\crafting\recipes.dm"
 #include "beestation\code\modules\discord\discord.dm"
 #include "beestation\code\modules\discord\from_discord.dm"
+#include "beestation\code\modules\food_and_drinks\food\snacks_meat.dm"
+#include "beestation\code\modules\food_and_drinks\recipies\recipies_meat.dm"
 #include "beestation\code\modules\mentor\config.dm"
 #include "beestation\code\modules\mentor\follow.dm"
 #include "beestation\code\modules\mentor\mentor.dm"
