@@ -14,4 +14,4 @@
 
 		if (result == 1)
 			for(var/client/C in GLOB.clients)
-				to_chat(C, "<span class='greenannounce'><B>[C.key] earned the medal: [medal]</B></span>")
+				to_chat(C, "<span class='greenannounce'><B>[player.key] earned the medal: [medal]</B></span>")
