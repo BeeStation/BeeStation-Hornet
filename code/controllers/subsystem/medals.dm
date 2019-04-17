@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(medals)
 	name = "Medals"
 	flags = SS_NO_FIRE
 	var/hub_enabled = FALSE
+	var/fails = 0
 
 /datum/controller/subsystem/medals/Initialize(timeofday)
 	if(CONFIG_GET(string/medal_hub_address) && CONFIG_GET(string/medal_hub_password))
@@ -13,7 +14,9 @@ SUBSYSTEM_DEF(medals)
 	if(!medal || !hub_enabled)
 		return
 	if(isnull(world.SetMedal(medal, player, CONFIG_GET(string/medal_hub_address), CONFIG_GET(string/medal_hub_password))))
-		hub_enabled = FALSE
+		fails += 1
+		if (fails>=20)
+			hub_enabled = FALSE
 		log_game("MEDAL ERROR: Could not contact hub to award medal:[medal] player:[player.key]")
 		message_admins("Error! Failed to contact hub to award [medal] medal to [player.key]!")
 		return
