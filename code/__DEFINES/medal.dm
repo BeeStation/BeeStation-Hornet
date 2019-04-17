@@ -30,3 +30,7 @@
 #define MEDAL_RODSUPLEX "Feat of Strength"
 #define MEDAL_CLOWNCARKING "Round and Full"
 #define MEDAL_THANKSALOT "The Best Driver"
+
+//[BEGIN BEE EDIT]
+#define MEDAL_GHOSTS "G-G-Ghosts?" // die
+//[END BEE EDIT]
