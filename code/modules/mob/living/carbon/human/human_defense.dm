@@ -238,7 +238,7 @@
 					"<span class='userdanger'>[M] disarmed [src]!</span>")
 		else if(!M.client || prob(5)) // only natural monkeys get to stun reliably, (they only do it occasionaly)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-			if (src.IsKnockdown() && !src.IsParalyzed()) 
+			if (src.IsKnockdown() && !src.IsParalyzed())
 				Paralyze(40)
 				log_combat(M, src, "pinned")
 				visible_message("<span class='danger'>[M] has pinned down [src]!</span>", \
@@ -660,6 +660,12 @@
 
 /mob/living/carbon/human/singularity_act()
 	var/gain = 20
+
+	//[BEGIN BEE EDIT]
+	if (client)
+		SSmedals.UnlockMedal(MEDAL_SINGULARITY_DEATH,client)
+	//[END BEE EDIT]
+
 	if(mind)
 		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
 			gain = 100
@@ -667,6 +673,7 @@
 			gain = rand(-1000, 1000)
 	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_SINGULO) //Oh that's where the clown ended up!
 	gib()
+
 	return(gain)
 
 /mob/living/carbon/human/help_shake_act(mob/living/carbon/M)

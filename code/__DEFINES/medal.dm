@@ -33,4 +33,5 @@
 
 //[BEGIN BEE EDIT]
 #define MEDAL_GHOSTS "G-G-Ghosts?" // die
+#define MEDAL_SINGULARITY_DEATH "Crossing the Horizon" // get eaten by a singularity
 //[END BEE EDIT]
