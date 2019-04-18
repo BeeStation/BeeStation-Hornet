@@ -7,7 +7,7 @@
 		var/result = world.SetMedal(medal, player, CONFIG_GET(string/medal_hub_address), CONFIG_GET(string/medal_hub_password))
 
 		if(isnull(result))
-			hub_enabled = FALSE
+			//hub_enabled = FALSE
 			log_game("MEDAL ERROR: Could not contact hub to award medal:[medal] player:[player.key]")
 			message_admins("Error! Failed to contact hub to award [medal] medal to [player.key]!")
 			return
