@@ -108,11 +108,26 @@
 				team_ids[T] = team_gid++
 			antag_info["team"]["id"] = team_ids[T]
 
+		//[BEGIN BEE EDIT]
+		var/greentexted = TRUE
+		//[END BEE EDIT]
 		if(A.objectives.len)
 			for(var/datum/objective/O in A.objectives)
 				var/result = O.check_completion() ? "SUCCESS" : "FAIL"
+				//[BEGIN BEE EDIT]
+				if (result == "FAIL")
+					greentexted = FALSE
+				//[END BEE EDIT]
 				antag_info["objectives"] += list(list("objective_type"=O.type,"text"=O.explanation_text,"result"=result))
 		SSblackbox.record_feedback("associative", "antagonists", 1, antag_info)
+		//[BEGIN BEE EDIT]
+		if (greentexted)
+			if (A.owner && A.owner.key)
+				var/client/C = GLOB.directory[ckey(A.owner.key)]
+				if (C)
+					SSmedals.UnlockMedal(MEDAL_COMPLETE_ALL_OBJECTIVES,C)
+		//[END BEE EDIT]
+
 
 /datum/controller/subsystem/ticker/proc/record_nuke_disk_location()
 	var/obj/item/disk/nuclear/N = locate() in GLOB.poi_list
@@ -416,7 +431,7 @@
 		if(!A.members)
 			continue
 		all_teams |= A
-	
+
 	for(var/datum/antagonist/A in GLOB.antagonists)
 		if(!A.owner)
 			continue
