@@ -1,5 +1,5 @@
 /datum/job/atmos
-	total_positions = 4
+	total_positions = 5
 	spawn_positions = 3
 
 /datum/job/bartender
@@ -7,15 +7,15 @@
 	spawn_positions = 1
 
 /datum/job/hydro
-	total_positions = 4
+	total_positions = 5
 	spawn_positions = 3
 
 /datum/job/cargo_tech
-	total_positions = 4
+	total_positions = 5
 	spawn_positions = 3
 
 /datum/job/chemist
-	total_positions = 4
+	total_positions = 5
 	spawn_positions = 3
 
 /datum/job/cook
@@ -23,7 +23,7 @@
 	spawn_positions = 1
 
 /datum/job/geneticist
-	total_positions = 4
+	total_positions = 5
 	spawn_positions = 3
 
 /datum/job/janitor
@@ -43,7 +43,7 @@
 	spawn_positions = 4
 
 /datum/job/mining
-	total_positions = 5
+	total_positions = 6
 	spawn_positions = 4
 
 /datum/job/engineer
