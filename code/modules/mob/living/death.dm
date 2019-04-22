@@ -82,6 +82,10 @@
 
 	if (client)
 		client.move_delay = initial(client.move_delay)
+		
+		//[BEGIN BEE EDIT]
+		SSmedals.UnlockMedal(MEDAL_GHOSTS,client)
+		//[END BEE EDIT]
 
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
