@@ -55,3 +55,6 @@
 	visible_message("<span class='danger'>[src]'s body glows green, the glow dissipating only to leave behind a cluwne formerly known as [src]!</span>", \
 					"<span class='danger'>Your brain feels like it's being torn apart, there is only the honkmother now.</span>")
 	flash_act()
+
+	if (client)
+		SSmedals.UnlockMedal(MEDAL_GET_CLUWNED,client)
