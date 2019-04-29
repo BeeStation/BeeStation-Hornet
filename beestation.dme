@@ -37,6 +37,7 @@
 #include "beestation\code\modules\client\darkmode.dm"
 #include "beestation\code\modules\client\preferences.dm"
 #include "beestation\code\modules\client\verbs\looc.dm"
+#include "beestation\code\modules\client\verbs\medals.dm"
 #include "beestation\code\modules\clothing\mask.dm"
 #include "beestation\code\modules\clothing\shoes.dm"
 #include "beestation\code\modules\clothing\under.dm"
