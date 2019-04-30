@@ -378,6 +378,11 @@
 			parts += aiPlayer.laws.get_law_list(include_zeroth=TRUE)
 
 		parts += "<b>Total law changes: [aiPlayer.law_change_counter]</b>"
+		//[BEGIN BEE EDIT]
+		if(aiPlayer.law_change_counter >= 15)
+			if (aiPlayer.client)
+				SSmedals.UnlockMedal(MEDAL_15_AI_LAW_CHANGES,aiPlayer.client)
+		//[END BEE EDIT]
 
 		if (aiPlayer.connected_robots.len)
 			var/borg_num = aiPlayer.connected_robots.len
