@@ -27,7 +27,6 @@
 #include "beestation\code\modules\admin\topic.dm"
 #include "beestation\code\modules\admin\verbs\adminhelp.dm"
 #include "beestation\code\modules\admin\verbs\cluwneplayer.dm"
-#include "beestation\code\modules\admin\verbs\getallplayersfromstation.dm"
 #include "beestation\code\modules\admin\verbs\healall.dm"
 #include "beestation\code\modules\admin\verbs\mentors_edit.dm"
 #include "beestation\code\modules\admin\verbs\modify_antag_tokens.dm"
