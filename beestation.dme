@@ -34,7 +34,6 @@
 #include "beestation\code\modules\admin\verbs\spawnfloorcluwne.dm"
 #include "beestation\code\modules\client\client.dm"
 #include "beestation\code\modules\client\darkmode.dm"
-#include "beestation\code\modules\client\preferences.dm"
 #include "beestation\code\modules\client\verbs\looc.dm"
 #include "beestation\code\modules\client\verbs\medals.dm"
 #include "beestation\code\modules\clothing\mask.dm"
