@@ -152,11 +152,13 @@
 	remove_movespeed_modifier(MOVESPEED_ID_SLIME_HEALTHMOD, FALSE)
 	var/health_deficiency = (100 - health)
 	var/mod = 0
-	if(health_deficiency >= 45)
-		mod += (health_deficiency / 25)
-	if(health <= 0)
-		mod += 2
-	add_movespeed_modifier(MOVESPEED_ID_SLIME_HEALTHMOD, TRUE, 100, multiplicative_slowdown = mod)
+	if(!HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
+		var/health_deficiency = (maxHealth - health)
+		if(health_deficiency >= 45)
+			mod += (health_deficiency / 25)
+		if(health <= 0)
+			mod += 2
+	add_movespeed_modifier(MOVESPEED_ID_SLIME_HEALTHMOD, TRUE, 100, multiplicative_slowdown = mod, override = TRUE)
 
 /mob/living/simple_animal/slime/adjust_bodytemperature()
 	. = ..()
