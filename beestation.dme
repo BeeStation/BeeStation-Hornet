@@ -19,6 +19,7 @@
 #include "beestation\code\__HELPERS\roundend.dm"
 #include "beestation\code\_globalvars\lists\names.dm"
 #include "beestation\code\controllers\subsystem\medals.dm"
+#include "beestation\code\controllers\subsystem\vote.dm"
 #include "beestation\code\datums\mutations.dm"
 #include "beestation\code\game\objects\items\cigs_lighters.dm"
 #include "beestation\code\game\objects\items\flashlight.dm"
