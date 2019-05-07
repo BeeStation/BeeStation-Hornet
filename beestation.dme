@@ -67,4 +67,5 @@
 #include "beestation\code\modules\reagants\chemistry\recipe\others.dm"
 #include "beestation\interface\interface.dm"
 #include "code\game\objects\items\weaponry.dm"
+#include "code\modules\better_exempt\exempt_but_better.dm"
 // END_INCLUDE
