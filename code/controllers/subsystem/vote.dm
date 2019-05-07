@@ -139,7 +139,13 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/proc/submit_vote(vote)
 	if(mode)
+<<<<<<< HEAD
 		if(CONFIG_GET(flag/no_dead_vote) && usr.stat == DEAD && !usr.client.holder)
+=======
+		//[BEGIN BEE EDIT]
+		if(CONFIG_GET(flag/no_dead_vote) && (usr.stat == DEAD && !isnewplayer(usr)) && !usr.client.holder)
+		//[END BEE EDIT]
+>>>>>>> 7abca3a207e6407908aa06d1944825ab351693e8
 			return 0
 		if(!(usr.ckey in voted))
 			if(vote && 1<=vote && vote<=choices.len)
