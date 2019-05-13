@@ -33,6 +33,8 @@
 		return
 	if(_directory)
 		directory = _directory
+		if(!fexists("[directory]/config.txt") && fexists("[directory]/example/config.txt"))
+			directory = "[directory]/example"
 	if(entries)
 		CRASH("/datum/controller/configuration/Load() called more than once!")
 	InitEntries()
