@@ -33,8 +33,10 @@
 		return
 	if(_directory)
 		directory = _directory
+		//[BEGIN BEE EDIT]
 		if(!fexists("[directory]/config.txt") && fexists("[directory]/example/config.txt"))
 			directory = "[directory]/example"
+		//[END BEE EDIT]
 	if(entries)
 		CRASH("/datum/controller/configuration/Load() called more than once!")
 	InitEntries()
