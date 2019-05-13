@@ -92,6 +92,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if(!message || message == "")
 		return
+	//[BEGIN BEE EDIT]
+	var/static/regex/netspeak = regex("lol|brb|wtf|idk|omg")
+	if(findtext(message, netspeak))
+		to_chat(src, "<span class='warning'>Netspeak is not permitted in character!</span>")
+		return
+	//[END BEE EDIT]
 
 	var/datum/saymode/saymode = SSradio.saymodes[talk_key]
 	var/message_mode = get_message_mode(message)
