@@ -12,6 +12,10 @@
 #define DEBUG
 // END_PREFERENCES
 
+// BERGIN STUFF THAT MUST COMPILE FIRST
+#include "beestation\code\__DEFINES\beecoin.dm"
+// END STUFF THAT MUST COMPILE FIRST
+
 #include "tgstation.dme"
 
 // BEGIN_INCLUDE
@@ -65,6 +69,7 @@
 #include "beestation\code\modules\mob\living\simple_animal\hostile\floor_cluwne.dm"
 #include "beestation\code\modules\mob\living\verbs\give.dm"
 #include "beestation\code\modules\power\singularity\toddsie.dm"
+#include "beestation\code\modules\qwerty\beecoin\beecoin.dm"
 #include "beestation\code\modules\reagants\chemistry\recipe\others.dm"
 #include "beestation\interface\interface.dm"
 #include "code\game\objects\items\weaponry.dm"
