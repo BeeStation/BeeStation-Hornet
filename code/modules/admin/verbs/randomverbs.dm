@@ -1441,10 +1441,16 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 		to_chat(usr, "<span class='danger'>ERROR: Unable read player flags from database. Please check logs.</span>")
 	var/dbflags = C.prefs.db_flags
 	var/newstate = FALSE
-	if(dbflags & DB_FLAG_EXEMPT)
+	// BEE EDIT BEGIN
+	if(dbflags & DB_FLAG_EXEMPT || C.prefs.job_exempt)
+	// BEE EDIT END
 		newstate = FALSE
 	else
 		newstate = TRUE
+
+	// BEE EDIT BEGIN
+	C.prefs.job_exempt = newstate
+	// BEE EDIT END
 
 	if(C.update_flag_db(DB_FLAG_EXEMPT, newstate))
 		to_chat(usr, "<span class='danger'>ERROR: Unable to update player flags. Please check logs.</span>")

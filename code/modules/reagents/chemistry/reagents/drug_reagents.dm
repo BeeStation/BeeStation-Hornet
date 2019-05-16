@@ -179,6 +179,10 @@
 /datum/reagent/drug/methamphetamine/on_mob_add(mob/living/L)
 	..()
 	L.add_movespeed_modifier(id, update=TRUE, priority=100, multiplicative_slowdown=-2, blacklisted_movetypes=(FLYING|FLOATING))
+	//[BEGIN BEE EDIT]
+	if (L.client)
+		SSmedals.UnlockMedal(MEDAL_APPLY_REAGENT_METH,L.client)
+	//[END BEE EDIT]
 
 /datum/reagent/drug/methamphetamine/on_mob_delete(mob/living/L)
 	L.remove_movespeed_modifier(id)
