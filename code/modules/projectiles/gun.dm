@@ -78,11 +78,16 @@
 	build_zooming()
 
 /obj/item/gun/Destroy()
-	QDEL_NULL(pin)
-	QDEL_NULL(gun_light)
-	QDEL_NULL(bayonet)
-	QDEL_NULL(chambered)
-	QDEL_NULL(azoom)
+	if(pin)
+		QDEL_NULL(pin)
+	if(gun_light)
+		QDEL_NULL(gun_light)
+	if(bayonet)
+		QDEL_NULL(bayonet)
+	if(chambered) //Not all guns are chambered (EMP'ed energy guns etc)
+		QDEL_NULL(chambered)
+	if(azoom)
+		QDEL_NULL(azoom)
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/A)
@@ -261,7 +266,7 @@
 			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (randomized_gun_spread + randomized_bonus_spread))
 		else //Smart spread
 			sprd = round((((rand_spr/burst_size) * iteration) - (0.5 + (rand_spr * 0.25))) * (randomized_gun_spread + randomized_bonus_spread))
-
+		before_firing(target,user)
 		if(!chambered.fire_casing(target, user, params, ,suppressed, zone_override, sprd))
 			shoot_with_empty_chamber(user)
 			firing_burst = FALSE
@@ -307,6 +312,7 @@
 					to_chat(user, "<span class='notice'> [src] is lethally chambered! You don't want to risk harming anyone...</span>")
 					return
 			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (randomized_gun_spread + randomized_bonus_spread))
+			before_firing(target,user)
 			if(!chambered.fire_casing(target, user, params, , suppressed, zone_override, sprd))
 				shoot_with_empty_chamber(user)
 				return
@@ -530,6 +536,10 @@
 	if(pin)
 		qdel(pin)
 	pin = new /obj/item/firing_pin
+
+//Happens before the actual projectile creation
+/obj/item/gun/proc/before_firing(atom/target,mob/user)
+	return
 
 /////////////
 // ZOOMING //

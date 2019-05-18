@@ -153,7 +153,7 @@
 		skipcatch = TRUE
 		blocked = TRUE
 	else if(I)
-		if((I.throw_speed >= EMBED_THROWSPEED_THRESHOLD) || I.embedding.embedded_ignore_throwspeed_threshold)
+		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedding.embedded_ignore_throwspeed_threshold)
 			if(can_embed(I))
 				if(prob(I.embedding.embed_chance) && !has_trait(TRAIT_PIERCEIMMUNE))
 					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
@@ -459,7 +459,7 @@
 
 
 //Added a safety check in case you want to shock a human mob directly through electrocute_act.
-/mob/living/carbon/human/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, override = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
+/mob/living/carbon/human/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = 0, override = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
 	if(tesla_shock)
 		var/total_coeff = 1
 		if(gloves)

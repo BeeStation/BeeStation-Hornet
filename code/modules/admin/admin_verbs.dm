@@ -48,7 +48,6 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/datum/admins/proc/access_news_network,	/*allows access of newscasters*/
 	/client/proc/jumptocoord,			/*we ghost and jump to a coordinate*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
-	/client/proc/GetAllPlayersFromStation, /*teleports all mobs from the station level to our location*/
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
 //	/client/proc/sendmob,				/*sends a mob somewhere*/ -Removed due to it needing two sorting procs to work, which were executed every time an admin right-clicked. ~Errorage
 	/client/proc/jumptoarea,

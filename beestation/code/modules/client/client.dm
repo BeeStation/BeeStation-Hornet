@@ -1,10 +1,3 @@
-/client/New()
-	. = ..()
-	if(!prefs.agree_rules)  // if this is their first time joining since the new movement
-		warning("By playing here, you agree to follow the rules stated by the rules button.")
-		prefs.agree_rules = TRUE
-		prefs.save_preferences()
-
 /client/proc/get_antag_token_count()
 	var/datum/DBQuery/query_get_antag_tokens = SSdbcore.NewQuery("SELECT antag_tokens FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 	var/token_count = 0
