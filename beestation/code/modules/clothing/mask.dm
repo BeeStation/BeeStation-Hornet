@@ -14,7 +14,7 @@
 
 /obj/item/clothing/mask/bee/cluwne/Initialize()
     .=..()
-    add_trait(TRAIT_NODROP, CURSED_ITEM_TRAIT)
+    ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
 /obj/item/clothing/mask/bee/cluwne/proc/play_laugh1()
     if(world.time - delay > last_sound)
