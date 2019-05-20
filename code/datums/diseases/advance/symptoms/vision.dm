@@ -29,7 +29,7 @@ Bonus
 	symptom_delay_min = 25
 	symptom_delay_max = 80
 	var/remove_eyes = FALSE
-	threshold_desc = "<b>Resistance 12:</b> Weakens extraocular muscles, eventually leading to complete detachment of the eyes.<br>\
+	threshold_desc = "<b>Resistance 11:</b> Weakens extraocular muscles, eventually leading to complete detachment of the eyes.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/visionloss/Start(datum/disease/advance/A)
@@ -37,7 +37,7 @@ Bonus
 		return
 	if(A.properties["stealth"] >= 4)
 		suppress_warning = TRUE
-	if(A.properties["resistance"] >= 12) //goodbye eyes
+	if(A.properties["resistance"] >= 11) //goodbye eyes
 		remove_eyes = TRUE
 
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)
