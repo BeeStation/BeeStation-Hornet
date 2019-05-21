@@ -15,7 +15,7 @@ Bonus
 
 //////////////////////////////////////
 */
-
+//[BEGIN BEE EDIT]
 /datum/symptom/sneeze
 	name = "Sneezing"
 	desc = "The virus causes irritation of the nasal cavity, making the host sneeze occasionally."
@@ -31,6 +31,11 @@ Bonus
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/sneeze/Start(datum/disease/advance/A)
+
+	if(A.properties["stealth"] >= 4)
+		suppress_warning = TRUE
+
+/datum/symptom/sneeze/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	if(A.properties["transmittable"] >= 9)
@@ -44,14 +49,4 @@ Bonus
 			M.emote("sneeze")
 			if(M.CanSpreadAirborneDisease()) //don't spread germs if they covered their mouth
 				A.spread(4 + power)
-	if(A.properties["stealth"] >= 4)
-		suppress_warning = TRUE
-
-/datum/symptom/sneeze/Activate(datum/disease/advance/A)
-	if(!..())
-		return
-	var/mob/living/M = A.affected_mob
-	switch(A.stage)
-		if(1, 2, 3)
-			if(!suppress_warning)
-				M.emote("sniff")
+				//[END BEE EDIT]
