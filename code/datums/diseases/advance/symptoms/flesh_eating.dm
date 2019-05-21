@@ -41,19 +41,19 @@ Bonus
 	if(A.properties["transmittable"] >= 8) //extra stamina damage
 		pain = TRUE
 		//[BEGIN BEE EDIT]
-	if(A.properties["stealth"] >= 4)
-		power = .25
-	if(A.properties["stealth"] >= 2)
-		power = .5
 	if(A.properties["stealth"] >= 0)
-		power = .75
-	if(A.properties["stealth"] >= -2)
+		power = 0.75
+	if(A.properties["stealth"] >= 2)
+		power = 0.5
+	if(A.properties["stealth"] >= 4)
+		power = 0.25
+	if(A.properties["stealth"] <= -2)
 		power = 1
-	if(A.properties["stealth"] >= -4)
+	if(A.properties["stealth"] <= -4)
 		power = 1.25
-	if(A.properties["stealth"] >= -6)
+	if(A.properties["stealth"] <= -6)
 		power = 1.5
-	if(A.properties["stage_rate"] >= -8)
+	if(A.properties["stealth"] <= -8)
 		power = 1.75
 		//[END BEE EDIT]
 
