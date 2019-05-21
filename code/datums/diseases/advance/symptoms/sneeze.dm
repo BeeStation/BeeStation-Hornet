@@ -38,7 +38,7 @@ Bonus
 /datum/symptom/sneeze/Activate(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 9)
+	if(!A.properties["transmittable"] >= 9)
 		return
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
