@@ -40,6 +40,22 @@ Bonus
 		bleed = TRUE
 	if(A.properties["transmittable"] >= 8) //extra stamina damage
 		pain = TRUE
+		//[BEGIN BEE EDIT]
+	if(A.properties["stealth"] >= 4)
+		power = .25
+	if(A.properties["stealth"] >= 2)
+		power = .5
+	if(A.properties["stealth"] >= 0)
+		power = .75
+	if(A.properties["stealth"] >= -2)
+		power = 1
+	if(A.properties["stealth"] >= -4)
+		power = 1.25
+	if(A.properties["stealth"] >= -6)
+		power = 1.5
+	if(A.properties["stage_rate"] >= -8)
+		power = 1.75
+		//[END BEE EDIT]
 
 /datum/symptom/flesh_eating/Activate(datum/disease/advance/A)
 	if(!..())
