@@ -12,13 +12,10 @@
 #define DEBUG
 // END_PREFERENCES
 
-// BERGIN STUFF THAT MUST COMPILE FIRST
-#include "beestation\code\__DEFINES\beecoin.dm"
-// END STUFF THAT MUST COMPILE FIRST
-
 #include "tgstation.dme"
 
 // BEGIN_INCLUDE
+#include "beestation\code\__DEFINES\beecoin.dm"
 #include "beestation\code\__HELPERS\names.dm"
 #include "beestation\code\__HELPERS\roundend.dm"
 #include "beestation\code\_globalvars\lists\names.dm"
