@@ -95754,7 +95754,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "deD" = (
@@ -95780,7 +95780,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "deG" = (

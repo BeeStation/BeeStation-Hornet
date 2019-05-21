@@ -31368,7 +31368,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "bwD" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "bwE" = (
@@ -32993,7 +32993,7 @@
 	network = list("ss13","medbay");
 	dir = 8
 	},
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "bAr" = (

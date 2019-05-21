@@ -17954,7 +17954,7 @@
 	dir = 1;
 	network = list("ss13","Medical")
 	},
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "aQi" = (
@@ -19415,7 +19415,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "aTD" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "aTE" = (
@@ -21874,7 +21874,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "aYp" = (
@@ -56886,7 +56886,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "wMM" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /obj/machinery/airalarm{
 	pixel_y = 25
 	},

@@ -59065,7 +59065,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "cle" = (
@@ -59119,7 +59119,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "cli" = (

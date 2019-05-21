@@ -2256,7 +2256,7 @@
 /turf/open/floor/plasteel/white,
 /area/awaymission/spacebattle/cruiser)
 "im" = (
-/obj/machinery/sleep_console,
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel/white,
 /area/awaymission/spacebattle/cruiser)
 "io" = (
@@ -2273,7 +2273,7 @@
 	},
 /area/awaymission/spacebattle/cruiser)
 "iq" = (
-/obj/machinery/sleep_console,
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel/white/side{
 	dir = 1
 	},
