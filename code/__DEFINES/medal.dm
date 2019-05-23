@@ -38,4 +38,9 @@
 #define MEDAL_USE_WEIGHT_MACHINE "Survival of the Fittest"
 #define MEDAL_UNWRENCH_HIGH_PRESSURE "WHOOSH!"
 #define MEDAL_COMPLETE_ALL_OBJECTIVES "Greentext"
+#define MEDAL_APPLY_REAGENT_METH "NYOOOOM"
+#define MEDAL_APPLY_REAGENT_SOYMILK "Soyboy"
+#define MEDAL_15_AI_LAW_CHANGES "Dave, my mind is going"
+#define MEDAL_DETONATE_WELDERBOMB "That was stupid of you."
+#define MEDAL_SUCCUMB "Please just end the pain"
 //[END BEE EDIT]

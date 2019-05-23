@@ -125,6 +125,7 @@
 			if (A.owner && A.owner.key)
 				var/client/C = GLOB.directory[ckey(A.owner.key)]
 				if (C)
+					C.inc_beecoin_count(BEECOIN_GREENTEXT_REWARD)
 					SSmedals.UnlockMedal(MEDAL_COMPLETE_ALL_OBJECTIVES,C)
 		//[END BEE EDIT]
 
@@ -180,6 +181,7 @@
 	set waitfor = FALSE
 
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
+	log_game("The round has ended.")
 	if(LAZYLEN(GLOB.round_end_notifiees))
 		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
 
@@ -192,6 +194,20 @@
 		if(!C.credits)
 			C.RollCredits()
 		C.playtitlemusic(40)
+		//[BEGIN BEE EDIT]
+		var/mob/M = C.mob
+		if(M.mind && !isnewplayer(M))
+			if(M.stat != DEAD && !isbrain(M))
+				if(EMERGENCY_ESCAPED_OR_ENDGAMED)
+					if(!M.onCentCom() && !M.onSyndieBase())
+						C.inc_beecoin_count(BEECOIN_SURVIVE_REWARD)
+					else
+						C.inc_beecoin_count(BEECOIN_ESCAPE_REWARD)
+				else
+					C.inc_beecoin_count(BEECOIN_ESCAPE_REWARD)
+			else
+				C.inc_beecoin_count(BEECOIN_NOTSURVIVE_REWARD)
+		//[END BEE EDIT]
 
 	var/popcount = gather_roundend_feedback()
 	display_report(popcount)
@@ -378,6 +394,11 @@
 			parts += aiPlayer.laws.get_law_list(include_zeroth=TRUE)
 
 		parts += "<b>Total law changes: [aiPlayer.law_change_counter]</b>"
+		//[BEGIN BEE EDIT]
+		if(aiPlayer.law_change_counter >= 15)
+			if (aiPlayer.client)
+				SSmedals.UnlockMedal(MEDAL_15_AI_LAW_CHANGES,aiPlayer.client)
+		//[END BEE EDIT]
 
 		if (aiPlayer.connected_robots.len)
 			var/borg_num = aiPlayer.connected_robots.len
