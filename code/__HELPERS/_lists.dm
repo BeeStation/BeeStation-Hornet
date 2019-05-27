@@ -343,6 +343,11 @@
 	GLOB.cmp_field = field
 	return sortTim(L, order >= 0 ? /proc/cmp_records_asc : /proc/cmp_records_dsc)
 
+//Specifically for keybind datums in a list.
+/proc/sortKeybindings(list/L, order = 1)
+	return sortTim(L, order >= 0 ? /proc/cmp_keybinding_asc : /proc/cmp_keybinding_dsc)
+
+
 //any value in a list
 /proc/sortList(list/L, cmp=/proc/cmp_text_asc)
 	return sortTim(L.Copy(), cmp)

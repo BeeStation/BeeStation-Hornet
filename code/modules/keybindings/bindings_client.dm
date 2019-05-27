@@ -26,6 +26,11 @@
 			mob.button_pressed_F12()
 			return
 
+	for (var/i in prefs.key_bindings[_key])
+		var/datum/keybinding/kb = i
+		if (kb.down(src))
+			break
+
 	if(holder)
 		holder.key_down(_key, src)
 	if(mob.focus)
@@ -39,6 +44,11 @@
 	var/movement = SSinput.movement_keys[_key]
 	if(!(next_move_dir_add & movement))
 		next_move_dir_sub |= movement
+
+	for (var/i in prefs.key_bindings[_key])
+		var/datum/keybinding/kb = i
+		if (kb.up(src))
+			break
 
 	if(holder)
 		holder.key_up(_key, src)

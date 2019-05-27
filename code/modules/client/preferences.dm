@@ -46,6 +46,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/pda_style = MONO
 	var/pda_color = "#808000"
 
+	// Custom Keybindings
+	var/list/key_bindings = null
+
+
 	var/uses_glasses_colour = 0
 
 	//character preferences
@@ -563,6 +567,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'>[(toggles & SOUND_LOBBY) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>See Pull Requests:</b> <a href='?_src_=prefs;preference=pull_requests'>[(chat_toggles & CHAT_PULLR) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<br>"
+			dat += "<div><span><a href='?_src_=prefs;preference=keybindings_menu'>Keybindings</a></span></div>"
 
 
 			if(user.client)
@@ -767,6 +772,70 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	popup.set_content(HTML)
 	popup.open(FALSE)
 
+
+/datum/preferences/proc/ShowKeybindings(mob/user)
+	// Create an inverted list of keybindings -> key
+	var/list/user_binds = list()
+	for (var/key in key_bindings)
+		for (var/i in key_bindings[key])
+			var/datum/keybinding/kb = i
+			user_binds[kb.name] = key
+
+	var/list/kb_categories = list()
+	// Group keybinds by category
+	for (var/name in GLOB.keybindings_by_name)
+		var/datum/keybinding/kb = GLOB.keybindings_by_name[name]
+		if (!(kb.category in kb_categories))
+			kb_categories[kb.category] = list()
+		kb_categories[kb.category] += list(kb)
+
+	var/HTML = "<style>label { display: inline-block; width: 200px; }</style><body>"
+
+	for (var/category in kb_categories)
+		HTML += "<h3>[category]</h3>"
+		for (var/i in kb_categories[category])
+			var/datum/keybinding/kb = i
+			var/bound_key = user_binds[kb.name]
+			bound_key = (bound_key) ? bound_key : "Unbound"
+
+			HTML += "<label>[kb.full_name]</label> <a href ='?_src_=prefs;preference=keybindings_capture;keybinding=[kb.name];old_key=[bound_key]'>[bound_key] Default: ( [kb.key] )</a>"
+			HTML += "<br>"
+
+	HTML += "<br><br>"
+	HTML += "<a href ='?_src_=prefs;preference=keybindings_done'>\[Close\]</a>"
+	HTML += "<a href ='?_src_=prefs;preference=keybindings_reset'>\[Reset to default\]</a>"
+	HTML += "</body>"
+
+	winshow(user, "keybindings", TRUE)
+	var/datum/browser/popup = new(user, "keybindings", "<div align='center'>Keybindings</div>", 500, 900)
+	popup.set_content(HTML)
+	popup.open(FALSE)
+	onclose(user, "keybindings", src)
+
+
+/datum/preferences/proc/CaptureKeybinding(mob/user, datum/keybinding/kb, var/old_key)
+	var/HTML = {"
+	<div id='focus' style="outline: 0;" tabindex=0>Keybinding: [kb.full_name]<br>[kb.description]<br><br><b>Press any key to change<br>Press ESC to clear</b></div>
+	<script>
+	document.onkeyup = function(e) {
+		var shift = e.shiftKey ? 1 : 0;
+		var alt = e.altKey ? 1 : 0;
+		var ctrl = e.ctrlKey ? 1 : 0;
+		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
+		var escPressed = e.keyCode == 27 ? 1 : 0;
+		var url = 'byond://?_src_=prefs;preference=keybindings_set;keybinding=[kb];old_key=[old_key];clear_key='+escPressed+';key='+e.key+';shift='+shift+';alt='+alt+';ctrl='+ctrl+';numpad='+numpad+';key_code='+e.keyCode;
+		window.location=url;
+	}
+	document.getElementById('focus').focus();
+	</script>
+	"}
+	winshow(user, "capturekeypress", TRUE)
+	var/datum/browser/popup = new(user, "capturekeypress", "<div align='center'>Keybindings</div>", 350, 300)
+	popup.set_content(HTML)
+	popup.open(FALSE)
+	onclose(user, "capturekeypress", src)
+
+
 /datum/preferences/proc/SetJobPreferenceLevel(datum/job/job, level)
 	if (!job)
 		return FALSE
@@ -780,6 +849,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	job_preferences[job.title] = level
 	return TRUE
+
+
+
 
 /datum/preferences/proc/UpdateJobPreference(mob/user, role, desiredLvl)
 	if(!SSjob || SSjob.occupations.len <= 0)
@@ -1470,6 +1542,63 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("tab")
 					if (href_list["tab"])
 						current_tab = text2num(href_list["tab"])
+
+				if("keybindings_menu")
+					ShowKeybindings(user)
+					return
+
+				if("keybindings_capture")
+					var/datum/keybinding/kb = GLOB.keybindings_by_name[href_list["keybinding"]]
+					var/old_key = href_list["old_key"]
+					CaptureKeybinding(user, kb, old_key)
+					return
+
+				if("keybindings_set")
+					var/datum/keybinding/kb = GLOB.keybindings_by_name[href_list["keybinding"]]
+					if(!istype(kb))
+						user << browse(null, "window=capturekeypress")
+						ShowKeybindings(user)
+						return
+
+					var/clear_key = text2num(href_list["clear_key"])
+					var/old_key = href_list["old_key"]
+					if (clear_key)
+						if (old_key != "Unbound") // if it was already set
+							key_bindings[old_key] -= kb
+						user << browse(null, "window=capturekeypress")
+						ShowKeybindings(user)
+						return
+
+					var/key = href_list["key"]
+					var/numpad = text2num(href_list["numpad"])
+					// TODO: Handle holding shift or alt down
+					// var/shift = text2num(href_list["shift"])
+					// var/alt = text2num(href_list["alt"])
+					// var/ctrl = text2num(href_list["ctrl"])
+					// var/key_code = text2num(href_list["key_code"])
+
+					var/new_key = uppertext(key)
+					// NumpadX, and Space are special cases and doesn't work just uppercase
+					new_key = new_key == "SPACEBAR" ? "Space" : new_key
+					if (numpad)
+						new_key = "Numpad[new_key]"
+					key_bindings[new_key] += list(kb)
+					key_bindings[new_key] = sortKeybindings(key_bindings[new_key])
+
+					if (old_key != "Unbound")
+						key_bindings[old_key] -= kb
+
+					user << browse(null, "window=capturekeypress")
+					ShowKeybindings(user)
+					return
+
+				if("keybindings_done")
+					user << browse(null, "window=keybindings")
+
+				if("keybindings_reset")
+					key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+					ShowKeybindings(user)
+					return
 
 	ShowChoices(user)
 	return 1
