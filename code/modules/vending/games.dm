@@ -11,8 +11,8 @@
 					/obj/item/hourglass = 2)
 	contraband = list(/obj/item/dice/fudge = 9)
 	refill_canister = /obj/item/vending_refill/games
-	default_price = 25
-	extra_price = 50
+	default_price = 10
+	extra_price = 25
 	payment_department = ACCOUNT_SRV
 
 /obj/item/vending_refill/games
