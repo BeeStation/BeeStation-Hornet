@@ -125,8 +125,7 @@
 			if (A.owner && A.owner.key)
 				var/client/C = GLOB.directory[ckey(A.owner.key)]
 				if (C)
-					C.inc_beecoin_count(BEECOIN_GREENTEXT_REWARD)
-					SSmedals.UnlockMedal(MEDAL_COMPLETE_ALL_OBJECTIVES,C)
+					C.bee_process_greentext()
 		//[END BEE EDIT]
 
 
@@ -195,18 +194,7 @@
 			C.RollCredits()
 		C.playtitlemusic(40)
 		//[BEGIN BEE EDIT]
-		var/mob/M = C.mob
-		if(M.mind && !isnewplayer(M))
-			if(M.stat != DEAD && !isbrain(M))
-				if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-					if(!M.onCentCom() && !M.onSyndieBase())
-						C.inc_beecoin_count(BEECOIN_SURVIVE_REWARD)
-					else
-						C.inc_beecoin_count(BEECOIN_ESCAPE_REWARD)
-				else
-					C.inc_beecoin_count(BEECOIN_ESCAPE_REWARD)
-			else
-				C.inc_beecoin_count(BEECOIN_NOTSURVIVE_REWARD)
+		C.process_endround_beecoins()
 		//[END BEE EDIT]
 
 	var/popcount = gather_roundend_feedback()

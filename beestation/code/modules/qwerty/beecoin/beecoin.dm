@@ -1,3 +1,25 @@
+/client/proc/process_endround_beecoins()
+	if(!mob)	return
+	var/mob/M = mob
+	if(M.mind && !isnewplayer(M))
+		if(M.stat != DEAD && !isbrain(M))
+			if(EMERGENCY_ESCAPED_OR_ENDGAMED)
+				if(!M.onCentCom() && !M.onSyndieBase())
+					inc_beecoin_count(BEECOIN_SURVIVE_REWARD)
+				else
+					inc_beecoin_count(BEECOIN_ESCAPE_REWARD)
+			else
+				inc_beecoin_count(BEECOIN_ESCAPE_REWARD)
+		else
+			inc_beecoin_count(BEECOIN_NOTSURVIVE_REWARD)
+
+/client/proc/bee_process_greentext()
+	inc_beecoin_count(BEECOIN_GREENTEXT_REWARD)
+	SSmedals.UnlockMedal(MEDAL_COMPLETE_ALL_OBJECTIVES,src)
+
+/client/proc/bee_process_tml()
+	inc_beecoin_count(BEECOIN_TENMINUTELIVING_REWARD, FALSE)
+
 /client/proc/get_beecoin_count()
 	var/datum/DBQuery/query_get_beecoins = SSdbcore.NewQuery("SELECT beecoins FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 	var/bc_count = 0
