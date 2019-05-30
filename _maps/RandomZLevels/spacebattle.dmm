@@ -2255,10 +2255,6 @@
 /obj/machinery/sleeper,
 /turf/open/floor/plasteel/white,
 /area/awaymission/spacebattle/cruiser)
-"im" = (
-/obj/machinery/sleeper,
-/turf/open/floor/plasteel/white,
-/area/awaymission/spacebattle/cruiser)
 "io" = (
 /obj/structure/sink{
 	dir = 4;
@@ -2267,12 +2263,6 @@
 /turf/open/floor/plasteel/freezer,
 /area/awaymission/spacebattle/cruiser)
 "ip" = (
-/obj/machinery/sleeper,
-/turf/open/floor/plasteel/white/side{
-	dir = 1
-	},
-/area/awaymission/spacebattle/cruiser)
-"iq" = (
 /obj/machinery/sleeper,
 /turf/open/floor/plasteel/white/side{
 	dir = 1
@@ -31323,9 +31313,9 @@ gH
 gH
 kh
 gH
-im
+il
 gH
-iq
+ip
 bT
 cc
 cc
@@ -32094,9 +32084,9 @@ gH
 gH
 gH
 gH
-im
+il
 gH
-iq
+ip
 bT
 cc
 cc
@@ -32865,9 +32855,9 @@ hI
 hZ
 ie
 gH
-im
+il
 gH
-iq
+ip
 bT
 cc
 cc
