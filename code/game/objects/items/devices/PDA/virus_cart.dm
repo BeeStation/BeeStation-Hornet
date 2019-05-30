@@ -71,7 +71,7 @@
 				difficulty++ //if cartridge has manifest access it has extra snowflake difficulty
 			else
 				difficulty += 2
-		GET_COMPONENT_FROM(hidden_uplink, /datum/component/uplink, target)
+		var/datum/component/uplink/hidden_uplink = target.GetComponent(/datum/component/uplink)
 		if(!target.detonatable || prob(difficulty * 15) || (hidden_uplink))
 			U.show_message("<span class='danger'>An error flashes on your [src].</span>", 1)
 		else
