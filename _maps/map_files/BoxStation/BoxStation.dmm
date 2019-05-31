@@ -6204,6 +6204,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
+"amu" = (
+/obj/machinery/sleeper{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/medical/sleeper)
 "amv" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
@@ -6247,6 +6253,17 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
+"amB" = (
+/obj/machinery/camera{
+	c_tag = "Medbay Treatment Center";
+	network = list("ss13","medbay");
+	dir = 8
+	},
+/obj/machinery/sleeper{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/medical/sleeper)
 "amC" = (
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
@@ -8908,13 +8925,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Door"
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
-"aua" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
@@ -31367,10 +31377,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
-"bwD" = (
-/obj/machinery/stasis,
-/turf/open/floor/plasteel,
-/area/medical/sleeper)
 "bwE" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -32986,15 +32992,6 @@
 	pixel_x = -24
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/sleeper)
-"bAq" = (
-/obj/machinery/camera{
-	c_tag = "Medbay Treatment Center";
-	network = list("ss13","medbay");
-	dir = 8
-	},
-/obj/machinery/stasis,
-/turf/open/floor/plasteel,
 /area/medical/sleeper)
 "bAr" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -93992,7 +93989,7 @@ aaf
 arj
 clO
 asZ
-aua
+clO
 clO
 awB
 axY
@@ -94290,10 +94287,10 @@ bhh
 bsx
 bsr
 bvh
-bwD
+amu
 bDR
 bDR
-bAq
+amB
 bvj
 bCQ
 bDW

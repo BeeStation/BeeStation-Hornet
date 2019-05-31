@@ -302,6 +302,28 @@
 /obj/effect/mapping_helpers/dead_body_placer,
 /turf/open/floor/plasteel,
 /area/medical/morgue)
+"aaI" = (
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/medical/medbay/central)
+"aaJ" = (
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/sleeper{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/medical/medbay/central)
 "aaO" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -75101,12 +75123,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
-"cwi" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/fitness/recreation)
 "cwj" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -95747,13 +95763,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/medical)
-"deC" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
-/obj/machinery/stasis,
-/turf/open/floor/plasteel,
-/area/medical/medbay/central)
 "deD" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -95769,16 +95778,6 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
-"deF" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/stasis,
-/turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "deG" = (
 /obj/structure/table/wood,
@@ -175085,7 +175084,7 @@ cRe
 cZH
 cPo
 cXI
-deC
+aaI
 cNz
 dhp
 diJ
@@ -176113,7 +176112,7 @@ cRe
 cZK
 dbu
 ddg
-deF
+aaJ
 cNz
 dhj
 diz
@@ -184059,7 +184058,7 @@ ajr
 aad
 cuM
 twt
-cwi
+twt
 czm
 cAF
 cCq

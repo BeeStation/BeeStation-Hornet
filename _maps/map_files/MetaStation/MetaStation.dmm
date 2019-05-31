@@ -3908,8 +3908,22 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "ahg" = (
-/turf/open/floor/plasteel,
-/area/crew_quarters/fitness/recreation)
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
 "ahh" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 2
@@ -3936,11 +3950,25 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "ahl" = (
-/obj/effect/turf_decal/tile/neutral{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/fitness/recreation)
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
 "ahm" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/plasteel,
@@ -59051,20 +59079,6 @@
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
-"cld" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/machinery/stasis,
-/turf/open/floor/plasteel/white,
-/area/medical/sleeper)
 "cle" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
@@ -59100,23 +59114,6 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
-/area/medical/sleeper)
-"clh" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/machinery/stasis,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "cli" = (
@@ -105577,7 +105574,7 @@ cfG
 cgP
 cie
 cjE
-cld
+ahg
 cev
 cnu
 coH
@@ -106605,7 +106602,7 @@ cfK
 cgT
 cii
 cjI
-clh
+ahl
 cev
 cny
 coL
@@ -119893,12 +119890,12 @@ aaa
 acQ
 afu
 agu
-ahg
-ahg
-ahg
+etr
+etr
+etr
 ajR
-ahg
-ahg
+etr
+etr
 anG
 aoU
 aqd
@@ -121435,7 +121432,7 @@ aaa
 acP
 acP
 agy
-ahl
+vlx
 ahY
 aiV
 aiV

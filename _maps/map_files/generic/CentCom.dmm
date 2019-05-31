@@ -1118,7 +1118,10 @@
 /obj/structure/window{
 	dir = 8
 	},
-/obj/machinery/stasis,
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 1
+	},
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
@@ -1130,7 +1133,10 @@
 	},
 /area/holodeck/rec_center/medical)
 "dd" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 1
+	},
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
@@ -6512,12 +6518,6 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
-"oV" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/centcom/holding)
 "oW" = (
 /obj/structure/flora/bush,
 /obj/effect/light_emitter{
@@ -12993,9 +12993,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/centcom/evac)
-"CT" = (
-/turf/open/floor/wood,
-/area/centcom/holding)
 "CV" = (
 /obj/structure/chair/stool,
 /turf/open/floor/wood,
@@ -13188,9 +13185,6 @@
 "Di" = (
 /turf/closed/indestructible/riveted,
 /area/ai_multicam_room)
-"Dj" = (
-/turf/open/floor/wood,
-/area/centcom/holding)
 "Dq" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/turf_decal/stripes/line{
@@ -15154,10 +15148,6 @@
 	},
 /turf/open/space,
 /area/space)
-"HH" = (
-/obj/machinery/light,
-/turf/open/floor/wood,
-/area/centcom/holding)
 "HI" = (
 /obj/structure/sink{
 	dir = 8;
@@ -17529,9 +17519,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/four)
-"Px" = (
-/turf/open/floor/wood,
-/area/centcom/holding)
 "Pz" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/pamphlet/centcom/visitor_info,
@@ -17542,9 +17529,6 @@
 	dir = 4
 	},
 /turf/open/floor/carpet/black,
-/area/centcom/holding)
-"PF" = (
-/turf/open/floor/wood,
 /area/centcom/holding)
 "PI" = (
 /obj/machinery/biogenerator,
@@ -17650,12 +17634,6 @@
 /obj/singularity/wizard/mapped,
 /turf/open/indestructible/binary,
 /area/fabric_of_reality)
-"Qu" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/centcom/holding)
 "QA" = (
 /obj/machinery/deepfryer,
 /turf/open/floor/plasteel/cafeteria,
@@ -42985,12 +42963,12 @@ UV
 CV
 Xk
 NT
-CT
-oV
-CT
-CT
-oV
-CT
+Xk
+Yo
+Xk
+Xk
+Yo
+Xk
 Nd
 aa
 aa
@@ -43500,9 +43478,9 @@ CV
 Xk
 NT
 Xk
-PF
 Xk
-Px
+Xk
+Xk
 Xk
 Zt
 Nd
@@ -43757,11 +43735,11 @@ Xk
 Xk
 WY
 Xk
-PF
 Xk
-Px
 Xk
-PF
+Xk
+Xk
+Xk
 Nd
 aa
 aa
@@ -44014,9 +43992,9 @@ CV
 Xk
 NT
 Xk
-PF
 Xk
-Px
+Xk
+Xk
 Xk
 Zt
 Nd
@@ -44527,12 +44505,12 @@ Ym
 CV
 Xk
 NT
-Dj
-Qu
-Dj
-Dj
-Qu
-Dj
+Xk
+Xx
+Xk
+Xk
+Xx
+Xk
 Nd
 aa
 aa
@@ -44778,7 +44756,7 @@ Xk
 Xk
 Xk
 Xk
-HH
+Zt
 Nd
 Xk
 Xk
@@ -45806,7 +45784,7 @@ Xk
 Xk
 Xk
 Xk
-HH
+Zt
 Nd
 UJ
 Ud

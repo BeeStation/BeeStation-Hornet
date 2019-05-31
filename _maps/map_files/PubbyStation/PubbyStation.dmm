@@ -33,6 +33,40 @@
 /obj/structure/closet/secure_closet/atmospherics,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal/incinerator)
+"aaf" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/camera{
+	network = list("ss13","medbay");
+	dir = 4
+	},
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/medical/sleeper)
+"aag" = (
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/medical/sleeper)
 "abf" = (
 /obj/structure/bed,
 /turf/open/floor/plating,
@@ -8729,9 +8763,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
-"avk" = (
-/turf/open/floor/plasteel,
-/area/crew_quarters/dorms)
 "avl" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -9305,12 +9336,6 @@
 /area/crew_quarters/dorms)
 "awu" = (
 /obj/machinery/holopad,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/dorms)
-"awv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -33221,30 +33246,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/zone2)
-"bzP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/machinery/camera{
-	network = list("ss13","medbay");
-	dir = 4
-	},
-/obj/machinery/stasis,
-/turf/open/floor/plasteel,
-/area/medical/sleeper)
 "bzQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -34465,20 +34466,6 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
-/area/medical/sleeper)
-"bCj" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/machinery/stasis,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "bCl" = (
@@ -88933,8 +88920,8 @@ bub
 bvj
 bwF
 byo
-bzP
-bCj
+aaf
+aag
 bCi
 bDr
 bEv
@@ -101473,13 +101460,13 @@ aaa
 apX
 apX
 aul
-avk
+dbi
 awu
 axq
 ayo
 azx
 aAP
-avk
+dbi
 aDg
 aEc
 aEY
@@ -101730,13 +101717,13 @@ aaa
 ash
 ash
 ash
-avk
-awv
+dbi
+fIu
 axr
 ayq
 azy
 aAQ
-avk
+dbi
 aDh
 aEd
 aEd
@@ -101987,8 +101974,8 @@ aqY
 asi
 atk
 izB
-avk
-awv
+dbi
+fIu
 axt
 coj
 cok
@@ -102244,13 +102231,13 @@ aaa
 asj
 atl
 aum
-avk
-awv
+dbi
+fIu
 axu
 ays
 azA
-avk
-avk
+dbi
+dbi
 aDj
 aEe
 aFa

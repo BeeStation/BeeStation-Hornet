@@ -5,6 +5,18 @@
 "aab" = (
 /turf/closed/wall,
 /area/space/nearstation)
+"aac" = (
+/obj/machinery/camera{
+	c_tag = "Medical - Sleeper Bay";
+	dir = 1;
+	network = list("ss13","Medical")
+	},
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/medical/sleeper)
 "aad" = (
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
@@ -93,6 +105,13 @@
 	dir = 4
 	},
 /area/hallway/secondary/exit/departure_lounge)
+"aan" = (
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/medical/sleeper)
 "aap" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -1398,12 +1417,6 @@
 /area/science/mixing)
 "adO" = (
 /turf/closed/wall,
-/area/crew_quarters/fitness)
-"adP" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "adQ" = (
 /obj/machinery/door/firedoor/heavy,
@@ -17948,15 +17961,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
-"aQh" = (
-/obj/machinery/camera{
-	c_tag = "Medical - Sleeper Bay";
-	dir = 1;
-	network = list("ss13","Medical")
-	},
-/obj/machinery/stasis,
-/turf/open/floor/plasteel,
-/area/medical/sleeper)
 "aQi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -19414,10 +19418,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"aTD" = (
-/obj/machinery/stasis,
-/turf/open/floor/plasteel,
-/area/medical/sleeper)
 "aTE" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -21874,7 +21874,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "aYp" = (
@@ -56886,7 +56886,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "wMM" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /obj/machinery/airalarm{
 	pixel_y = 25
 	},
@@ -79517,7 +79517,7 @@ aGQ
 wMM
 bdI
 bdP
-aQh
+aac
 aIu
 aGE
 bxv
@@ -80031,7 +80031,7 @@ aGQ
 aYo
 aJb
 aHP
-aTD
+aan
 aGQ
 aTY
 bAF
@@ -83065,7 +83065,7 @@ avi
 avi
 avi
 avi
-adP
+aei
 aei
 aej
 auk
@@ -83322,7 +83322,7 @@ bQr
 bkB
 aCD
 adO
-adP
+aei
 aej
 aet
 asd
@@ -83836,7 +83836,7 @@ bQr
 bkB
 bjR
 adO
-adP
+aei
 aej
 bql
 asd
@@ -84093,7 +84093,7 @@ bQr
 bkB
 bQB
 adO
-adP
+aei
 aes
 auw
 ase
