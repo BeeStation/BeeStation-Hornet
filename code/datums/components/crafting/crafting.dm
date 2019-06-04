@@ -302,6 +302,9 @@
 		Deletion.Cut(Deletion.len)
 		qdel(DL)
 
+/datum/component/personal_crafting/proc/component_ui_interact(obj/screen/crafting/image, location, control, params, user)
+	if(user == parent)
+		ui_interact(user)
 /datum/component/personal_crafting/proc/component_ui_interact(obj/screen/craft/image, location, control, params, user)
 	if(user == parent)
 		ui_interact(user)
