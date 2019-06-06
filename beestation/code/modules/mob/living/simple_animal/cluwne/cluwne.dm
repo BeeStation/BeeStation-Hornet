@@ -20,7 +20,7 @@
 
 /mob/living/simple_animal/cluwne/Initialize()
     . = ..()
-    playsound(src, 'beestation/sound/misc/honk_echo_distant.ogg', 90, 2) // loud
+    playsound(src, 'sound/misc/honk_echo_distant.ogg', 90, 2) // loud
     var/newname = pick(GLOB.clown_names)
     name = newname
     real_name = newname

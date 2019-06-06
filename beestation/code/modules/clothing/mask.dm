@@ -18,17 +18,17 @@
 
 /obj/item/clothing/mask/bee/cluwne/proc/play_laugh1()
     if(world.time - delay > last_sound)
-        playsound (src, 'beestation/sound/voice/cluwnelaugh1.ogg', 30, 1)
+        playsound (src, 'sound/voice/cluwnelaugh1.ogg', 30, 1)
         last_sound = world.time
 
 /obj/item/clothing/mask/bee/cluwne/proc/play_laugh2()
     if(world.time - delay > last_sound)
-        playsound (src, 'beestation/sound/voice/cluwnelaugh2.ogg', 30, 1)
+        playsound (src, 'sound/voice/cluwnelaugh2.ogg', 30, 1)
         last_sound = world.time
 
 /obj/item/clothing/mask/bee/cluwne/proc/play_laugh3()
     if(world.time - delay > last_sound)
-        playsound (src, 'beestation/sound/voice/cluwnelaugh3.ogg', 30, 1)
+        playsound (src, 'sound/voice/cluwnelaugh3.ogg', 30, 1)
         last_sound = world.time
 
 /obj/item/clothing/mask/bee/cluwne/equipped(mob/user, slot) //when you put it on
