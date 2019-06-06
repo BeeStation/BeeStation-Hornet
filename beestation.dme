@@ -15,7 +15,6 @@
 #include "tgstation.dme"
 
 // BEGIN_INCLUDE
-#include "beestation\code\datums\mutations.dm"
 #include "beestation\code\game\objects\items\cigs_lighters.dm"
 #include "beestation\code\game\objects\items\flashlight.dm"
 #include "beestation\code\game\objects\items\weaponry.dm"

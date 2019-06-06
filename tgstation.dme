@@ -478,6 +478,7 @@
 #include "code\datums\mutations\antenna.dm"
 #include "code\datums\mutations\body.dm"
 #include "code\datums\mutations\chameleon.dm"
+#include "code\datums\mutations\cluwne.dm"
 #include "code\datums\mutations\cold.dm"
 #include "code\datums\mutations\hulk.dm"
 #include "code\datums\mutations\radioactive.dm"
