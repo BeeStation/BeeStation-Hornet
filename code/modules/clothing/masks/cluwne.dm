@@ -1,4 +1,4 @@
-/obj/item/clothing/mask/bee/cluwne
+/obj/item/clothing/mask/cluwne
     name = "clown wig and mask"
     desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
     flags_cover = MASKCOVERSEYES
@@ -12,32 +12,32 @@
     var/last_sound = 0
     var/delay = 15
 
-/obj/item/clothing/mask/bee/cluwne/Initialize()
+/obj/item/clothing/mask/cluwne/Initialize()
     .=..()
     ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
-/obj/item/clothing/mask/bee/cluwne/proc/play_laugh1()
+/obj/item/clothing/mask/cluwne/proc/play_laugh1()
     if(world.time - delay > last_sound)
         playsound (src, 'sound/voice/cluwnelaugh1.ogg', 30, 1)
         last_sound = world.time
 
-/obj/item/clothing/mask/bee/cluwne/proc/play_laugh2()
+/obj/item/clothing/mask/cluwne/proc/play_laugh2()
     if(world.time - delay > last_sound)
         playsound (src, 'sound/voice/cluwnelaugh2.ogg', 30, 1)
         last_sound = world.time
 
-/obj/item/clothing/mask/bee/cluwne/proc/play_laugh3()
+/obj/item/clothing/mask/cluwne/proc/play_laugh3()
     if(world.time - delay > last_sound)
         playsound (src, 'sound/voice/cluwnelaugh3.ogg', 30, 1)
         last_sound = world.time
 
-/obj/item/clothing/mask/bee/cluwne/equipped(mob/user, slot) //when you put it on
+/obj/item/clothing/mask/cluwne/equipped(mob/user, slot) //when you put it on
     var/mob/living/carbon/C = user
     if((C.wear_mask == src) && (voicechange))
         play_laugh1()
     return ..()
 
-/obj/item/clothing/mask/bee/cluwne/speechModification(message) //whenever you speak
+/obj/item/clothing/mask/cluwne/speechModification(message) //whenever you speak
     if(voicechange)
         if(prob(5)) //the brain isnt fully gone yet...
             message = pick("HELP ME!!","PLEASE KILL ME!!","I WANT TO DIE!!", "END MY SUFFERING", "I CANT TAKE THIS ANYMORE!!" ,"SOMEBODY STOP ME!!")
@@ -50,7 +50,7 @@
             play_laugh1()
     return message
 
-/obj/item/clothing/mask/bee/cluwne/equipped(mob/user, slot)
+/obj/item/clothing/mask/cluwne/equipped(mob/user, slot)
     if(!ishuman(user))
         return
     if(slot == SLOT_WEAR_MASK)
@@ -58,7 +58,7 @@
         H.dna.add_mutation(CLUWNEMUT)
     return
 
-/obj/item/clothing/mask/bee/cluwne/happy_cluwne
+/obj/item/clothing/mask/cluwne/happy_cluwne
     name = "Happy Cluwne Mask"
     desc = "The mask of a poor cluwne that has been scrubbed of its curse by the Nanotrasen supernatural machinations division. Guaranteed to be %99 curse free and %99.9 not haunted. "
     flags_1 = MASKINTERNALS
@@ -67,7 +67,7 @@
     var/is_cursed = FALSE //i don't care that this is *slightly* memory wasteful, it's just one more byte and it's not like some madman is going to spawn thousands of these
     var/is_very_cursed = FALSE
 
-/obj/item/clothing/mask/bee/cluwne/happy_cluwne/Initialize()
+/obj/item/clothing/mask/cluwne/happy_cluwne/Initialize()
     .=..()
     if(prob(1)) //this function pre-determines the logic of the cluwne mask. applying and reapplying the mask does not alter or change anything
         is_cursed = TRUE
@@ -76,13 +76,13 @@
         is_cursed = FALSE
         is_very_cursed = TRUE
 
-/obj/item/clothing/mask/bee/cluwne/happy_cluwne/attack_self(mob/user)
+/obj/item/clothing/mask/cluwne/happy_cluwne/attack_self(mob/user)
     voicechange = !voicechange
     to_chat(user, "<span class='notice'>You turn the voice box [voicechange ? "on" : "off"]!</span>")
     if(voicechange)
         play_laugh1()
 
-/obj/item/clothing/mask/bee/cluwne/happy_cluwne/equipped(mob/user, slot)
+/obj/item/clothing/mask/cluwne/happy_cluwne/equipped(mob/user, slot)
     if(!ishuman(user))
         return
     var/mob/living/carbon/human/H = user

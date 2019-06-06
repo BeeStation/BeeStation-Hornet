@@ -1,7 +1,3 @@
-/datum/antagonist/on_gain()
-	..()
-	greeting_popup()
-
 /datum/antagonist/proc/greeting_popup()
 	if (popup_title && owner && owner.current)
 		var/body = "<h1 align='center' style='font-size: 35px;'>[popup_title]</h1><br>"

@@ -1,19 +1,19 @@
 /******************************************
 It's like permissions panel, but for mentors,
-also probably less secure, but honestly dude 
+also probably less secure, but honestly dude
 its mentors, not actual dangerous perms
 ******************************************/
 /client/proc/edit_mentors()
     set category = "Admin"
     set name = "Mentor Panel"
     set desc = "Edit mentors"
-    
+
     if(!check_rights(R_PERMISSIONS))
         return
     if(!SSdbcore.IsConnected())
         to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
         return
-    
+
     var/html = "<h1>Mentor Panel</h1>\n"
     html += "<A HREF='?mentor_edit=add'>Add a Mentor</A>\n"
     html += "<table style='width: 100%' border=1>\n"
@@ -54,5 +54,3 @@ its mentors, not actual dangerous perms
             message_admins("[key_name(usr)] de-mentored [href_list["mentor_ckey"]]")
             log_admin("[key_name(usr)] de-mentored [href_list["mentor_ckey"]]")
             return
-
-

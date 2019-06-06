@@ -14,18 +14,18 @@
 
 	var/mob/living/carbon/human/H = owner
 
-	if(!istype(H.wear_mask, /obj/item/clothing/mask/bee/cluwne))
+	if(!istype(H.wear_mask, /obj/item/clothing/mask/cluwne))
 		if(!H.doUnEquip(H.wear_mask))
 			qdel(H.wear_mask)
-		H.equip_to_slot_or_del(new /obj/item/clothing/mask/bee/cluwne(H), SLOT_WEAR_MASK)
-	if(!istype(H.w_uniform, /obj/item/clothing/under/bee/cluwne))
+		H.equip_to_slot_or_del(new /obj/item/clothing/mask/cluwne(H), SLOT_WEAR_MASK)
+	if(!istype(H.w_uniform, /obj/item/clothing/under/cluwne))
 		if(!H.doUnEquip(H.w_uniform))
 			qdel(H.w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/bee/cluwne(H), SLOT_W_UNIFORM)
-	if(!istype(H.shoes, /obj/item/clothing/shoes/bee/cluwne))
+		H.equip_to_slot_or_del(new /obj/item/clothing/under/cluwne(H), SLOT_W_UNIFORM)
+	if(!istype(H.shoes, /obj/item/clothing/shoes/cluwne))
 		if(!H.doUnEquip(H.shoes))
 			qdel(H.shoes)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/bee/cluwne(H), SLOT_SHOES)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/cluwne(H), SLOT_SHOES)
 
 	owner.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/white(owner), SLOT_GLOVES) // this is purely for cosmetic purposes incase they aren't wearing anything in that slot
 	owner.equip_to_slot_or_del(new /obj/item/storage/backpack/clown(owner), SLOT_BACK) // ditto
