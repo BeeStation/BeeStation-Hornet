@@ -29,13 +29,11 @@
 			log_text = "Set to [num2text(msg)]"
 			C.set_antag_token_count(max(ANTAG_TOKENS_MINIMUM, min(msg, ANTAG_TOKENS_MAXIMUM)))
 		else if(operation == "add")
-			var/token_count = C.get_antag_token_count()
 			log_text = "Added [num2text(msg)]"
-			C.set_antag_token_count(max(ANTAG_TOKENS_MINIMUM, min(token_count+msg, ANTAG_TOKENS_MAXIMUM)))
+			C.inc_antag_token_count(msg)
 		else if(operation == "subtract")
-			var/token_count = C.get_antag_token_count()
 			log_text = "Subtracted [num2text(msg)]"
-			C.set_antag_token_count(max(ANTAG_TOKENS_MINIMUM, min(token_count-msg, ANTAG_TOKENS_MAXIMUM)))
+			C.inc_antag_token_count(-msg)
 		else
 			to_chat(src, "Invalid operation for antag token modification: [operation] by user [key_name(usr)]")
 			return
