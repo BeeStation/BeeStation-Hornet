@@ -214,9 +214,9 @@ GLOBAL_PROTECT(exp_to_update)
 		if(mob.stat != DEAD)
 			var/rolefound = FALSE
 			play_records[EXP_TYPE_LIVING] += minutes
-			//[BEGIN BEE EDIT]
+			
 			bee_process_tml()
-			//[END BEE EDIT]
+			
 			if(announce_changes)
 				to_chat(src,"<span class='notice'>You got: [minutes] Living EXP!</span>")
 			if(mob.mind.assigned_role)

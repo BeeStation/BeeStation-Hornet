@@ -339,10 +339,10 @@
 /mob/living/singularity_act()
 	var/gain = 20
 
-	//[BEGIN BEE EDIT]
+	
 	if (client)
 		SSmedals.UnlockMedal(MEDAL_SINGULARITY_DEATH,client)
-	//[END BEE EDIT]
+	
 
 	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_SINGULO) //Oh that's where the clown ended up!
 	gib()

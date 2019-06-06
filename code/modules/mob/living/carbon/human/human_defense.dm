@@ -655,10 +655,10 @@
 /mob/living/carbon/human/singularity_act()
 	var/gain = 20
 
-	//[BEGIN BEE EDIT]
+	
 	if (client)
 		SSmedals.UnlockMedal(MEDAL_SINGULARITY_DEATH,client)
-	//[END BEE EDIT]
+	
 
 	if(mind)
 		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )

@@ -108,25 +108,25 @@
 				team_ids[T] = team_gid++
 			antag_info["team"]["id"] = team_ids[T]
 
-		//[BEGIN BEE EDIT]
+		
 		var/greentexted = TRUE
-		//[END BEE EDIT]
+		
 		if(A.objectives.len)
 			for(var/datum/objective/O in A.objectives)
 				var/result = O.check_completion() ? "SUCCESS" : "FAIL"
-				//[BEGIN BEE EDIT]
+				
 				if (result == "FAIL")
 					greentexted = FALSE
-				//[END BEE EDIT]
+				
 				antag_info["objectives"] += list(list("objective_type"=O.type,"text"=O.explanation_text,"result"=result))
 		SSblackbox.record_feedback("associative", "antagonists", 1, antag_info)
-		//[BEGIN BEE EDIT]
+		
 		if (greentexted)
 			if (A.owner && A.owner.key)
 				var/client/C = GLOB.directory[ckey(A.owner.key)]
 				if (C)
 					C.bee_process_greentext()
-		//[END BEE EDIT]
+		
 
 
 /datum/controller/subsystem/ticker/proc/record_nuke_disk_location()
@@ -193,9 +193,9 @@
 		if(!C.credits)
 			C.RollCredits()
 		C.playtitlemusic(40)
-		//[BEGIN BEE EDIT]
+		
 		C.process_endround_beecoins()
-		//[END BEE EDIT]
+		
 
 	var/popcount = gather_roundend_feedback()
 	display_report(popcount)
@@ -382,11 +382,11 @@
 			parts += aiPlayer.laws.get_law_list(include_zeroth=TRUE)
 
 		parts += "<b>Total law changes: [aiPlayer.law_change_counter]</b>"
-		//[BEGIN BEE EDIT]
+		
 		if(aiPlayer.law_change_counter >= 15)
 			if (aiPlayer.client)
 				SSmedals.UnlockMedal(MEDAL_15_AI_LAW_CHANGES,aiPlayer.client)
-		//[END BEE EDIT]
+		
 
 		if (aiPlayer.connected_robots.len)
 			var/borg_num = aiPlayer.connected_robots.len

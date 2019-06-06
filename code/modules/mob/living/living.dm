@@ -387,10 +387,10 @@
 		updatehealth()
 		if(!whispered)
 			to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
-		//[BEGIN BEE EDIT]
+		
 		if (src.client)
 			SSmedals.UnlockMedal(MEDAL_SUCCUMB,src.client)
-		//[END BEE EDIT]
+		
 		death()
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE, ignore_stasis = FALSE)
