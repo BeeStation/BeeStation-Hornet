@@ -4,7 +4,6 @@
     desc = "A cluwne. A barely-human monstrosity that pissed off the gods."
     friendly = "bops"
     turns_per_move = 10
-    icon = 'beestation/icons/mob/animal.dmi'
     icon_state = "cluwne"
     icon_living = "cluwne"
     icon_dead = "cluwne_dead"

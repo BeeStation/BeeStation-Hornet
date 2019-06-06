@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 /mob/living/simple_animal/hostile/floor_cluwne
 	name = "???"
 	desc = "...."
-	icon = 'beestation/icons/obj/clothing/masks.dmi'
+	icon = 'icons/obj/clothing/masks.dmi'
 	icon_state = "cluwne"
 	icon_living = "cluwne"
 	icon_gib = "clown_gib"
@@ -427,7 +427,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 //manifestation animation
 /obj/effect/temp_visual/fcluwne_manifest
-	icon = 'beestation/icons/turf/floors.dmi'
+	icon = 'icons/turf/floors.dmi'
 	icon_state = "fcluwne_open"
 	layer = TURF_LAYER
 	duration = 600

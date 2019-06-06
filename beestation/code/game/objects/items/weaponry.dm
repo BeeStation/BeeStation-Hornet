@@ -2,11 +2,11 @@
 /obj/item/melee/shank
 	name = "Shank"
 	desc = "A crude knife fashioned by wrapping some cable around a glass shard. It looks like it could be thrown with some force.. and stick. Good to throw at someone chasing you"
-	icon = 'beestation/icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "shank"
 	item_state = "shank" //Kind of a placeholder, but im ass with sprites and I doubt someone will notice its a recoloured switchblade :')
-	lefthand_file = 'beestation/icons/mob/inhands/weapons/swords_lefthand.dmi'
-	righthand_file = 'beestation/icons/mob/inhands/weapons/swords_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 8 // 3 more than base glass shard
 	throwforce = 8
 	throw_speed = 5 //yeets

@@ -13,7 +13,7 @@
 	cooldown_min = 75
 	selection_type = "range"
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
-	action_icon = 'beestation/icons/mob/actions.dmi'
+	action_icon = 'icons/mob/actions.dmi'
 	action_icon_state = "cluwne"
 
 /obj/effect/proc_holder/spell/targeted/cluwnecurse/cast(list/targets, mob/user = usr)

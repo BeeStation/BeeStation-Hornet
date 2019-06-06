@@ -1,6 +1,6 @@
 /obj/singularity/narsie/toddsie
 	name = "Todd'Sie's Avatar"
-	icon = 'beestation/icons/obj/toddsie.dmi'
+	icon = 'icons/obj/toddsie.dmi'
 	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees. You realize for some reason you want to buy Skyrim."
 	pixel_x = -236
 	pixel_y = -256
