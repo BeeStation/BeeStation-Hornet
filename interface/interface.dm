@@ -225,18 +225,18 @@ Any-Mode: (hotkey doesn't need to be on)
 
 
 
-	/client/verb/donate()
-		set name = "donate"
-		set desc = "Donate to the server"
-		set hidden = 1
-		var/donateurl = CONFIG_GET(string/donateurl)
-		if(donateurl)
-			if(alert("This will open the Doantion page in your browser. Are you sure?",,"Yes","No")!="Yes")
-				return
-			src << link(donateurl)
-		else
-			to_chat(src, "<span class='danger'>The Donation URL is not set in the server configuration.</span>")
-		return
+/client/verb/donate()
+	set name = "donate"
+	set desc = "Donate to the server"
+	set hidden = 1
+	var/donateurl = CONFIG_GET(string/donateurl)
+	if(donateurl)
+		if(alert("This will open the Doantion page in your browser. Are you sure?",,"Yes","No")!="Yes")
+			return
+		src << link(donateurl)
+	else
+		to_chat(src, "<span class='danger'>The Donation URL is not set in the server configuration.</span>")
+	return
 
 /client/verb/discord()
 	set name = "discord"
