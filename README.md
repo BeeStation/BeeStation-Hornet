@@ -95,12 +95,12 @@ https://github.com/tgstation/tgstation-server
 
 ## MAPS
 
-BeeStation currently comes equipped with  maps
+BeeStation currently comes equipped with these
 maps.
 
-* [BoxStation (default)](https://tgstation13.org/wiki/Boxstation)
+* [DeltaStation (default)](https://tgstation13.org/wiki/DeltaStation)
+* [BoxStation](https://tgstation13.org/wiki/Boxstation)
 * [MetaStation](https://tgstation13.org/wiki/MetaStation)
-* [DeltaStation](https://tgstation13.org/wiki/DeltaStation)
 * [PubbyStation](https://tgstation13.org/wiki/PubbyStation)
 * [DonutStation](https://tgstation13.org/wiki/Donutstation)
 

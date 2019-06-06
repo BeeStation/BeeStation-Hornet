@@ -5,6 +5,18 @@
 "aab" = (
 /turf/closed/wall,
 /area/space/nearstation)
+"aac" = (
+/obj/machinery/camera{
+	c_tag = "Medical - Sleeper Bay";
+	dir = 1;
+	network = list("ss13","Medical")
+	},
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/medical/sleeper)
 "aad" = (
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
@@ -93,6 +105,13 @@
 	dir = 4
 	},
 /area/hallway/secondary/exit/departure_lounge)
+"aan" = (
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/medical/sleeper)
 "aap" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -1398,13 +1417,6 @@
 /area/science/mixing)
 "adO" = (
 /turf/closed/wall,
-/area/crew_quarters/fitness)
-"adP" = (
-/obj/machinery/vr_sleeper,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "adQ" = (
 /obj/machinery/door/firedoor/heavy,
@@ -4613,7 +4625,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "alw" = (
-/obj/machinery/vr_sleeper,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -14613,12 +14624,6 @@
 /obj/machinery/vending/wardrobe/viro_wardrobe,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"aIf" = (
-/obj/machinery/sleeper{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/medical/sleeper)
 "aIg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -17956,17 +17961,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
-"aQh" = (
-/obj/machinery/sleeper{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Medical - Sleeper Bay";
-	dir = 1;
-	network = list("ss13","Medical")
-	},
-/turf/open/floor/plasteel,
-/area/medical/sleeper)
 "aQi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -21877,10 +21871,10 @@
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "aYo" = (
-/obj/machinery/sleeper,
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "aYp" = (
@@ -48517,7 +48511,7 @@
 	empty = 1;
 	name = "First-Aid (empty)"
 	},
-/obj/item/circuitboard/machine/sleeper,
+/obj/item/circuitboard/machine/stasis,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "bZY" = (
@@ -79523,7 +79517,7 @@ aGQ
 wMM
 bdI
 bdP
-aQh
+aac
 aIu
 aGE
 bxv
@@ -80037,7 +80031,7 @@ aGQ
 aYo
 aJb
 aHP
-aIf
+aan
 aGQ
 aTY
 bAF
@@ -83071,7 +83065,7 @@ avi
 avi
 avi
 avi
-adP
+aei
 aei
 aej
 auk
@@ -83328,7 +83322,7 @@ bQr
 bkB
 aCD
 adO
-adP
+aei
 aej
 aet
 asd
@@ -83842,7 +83836,7 @@ bQr
 bkB
 bjR
 adO
-adP
+aei
 aej
 bql
 asd
@@ -84099,7 +84093,7 @@ bQr
 bkB
 bQB
 adO
-adP
+aei
 aes
 auw
 ase

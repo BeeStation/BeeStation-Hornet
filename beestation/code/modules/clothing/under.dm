@@ -10,7 +10,7 @@
 
 /obj/item/clothing/under/bee/cluwne/Initialize()
     .=..()
-    add_trait(TRAIT_NODROP, CURSED_ITEM_TRAIT)
+    ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
 /obj/item/clothing/under/bee/cluwne/equipped(mob/living/carbon/user, slot)
     if(!ishuman(user))
