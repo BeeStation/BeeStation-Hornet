@@ -15,9 +15,7 @@
 #include "tgstation.dme"
 
 // BEGIN_INCLUDE
-#include "beestation\code\__DEFINES\beecoin.dm"
-#include "beestation\code\__HELPERS\names.dm"
-#include "beestation\code\__HELPERS\roundend.dm"
+#include "code\__DEFINES\beecoin.dm"
 #include "beestation\code\_globalvars\lists\names.dm"
 #include "beestation\code\controllers\subsystem\medals.dm"
 #include "beestation\code\controllers\subsystem\vote.dm"

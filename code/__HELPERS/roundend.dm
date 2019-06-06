@@ -108,25 +108,25 @@
 				team_ids[T] = team_gid++
 			antag_info["team"]["id"] = team_ids[T]
 
-		
+
 		var/greentexted = TRUE
-		
+
 		if(A.objectives.len)
 			for(var/datum/objective/O in A.objectives)
 				var/result = O.check_completion() ? "SUCCESS" : "FAIL"
-				
+
 				if (result == "FAIL")
 					greentexted = FALSE
-				
+
 				antag_info["objectives"] += list(list("objective_type"=O.type,"text"=O.explanation_text,"result"=result))
 		SSblackbox.record_feedback("associative", "antagonists", 1, antag_info)
-		
+
 		if (greentexted)
 			if (A.owner && A.owner.key)
 				var/client/C = GLOB.directory[ckey(A.owner.key)]
 				if (C)
 					C.bee_process_greentext()
-		
+
 
 
 /datum/controller/subsystem/ticker/proc/record_nuke_disk_location()
@@ -193,9 +193,9 @@
 		if(!C.credits)
 			C.RollCredits()
 		C.playtitlemusic(40)
-		
+
 		C.process_endround_beecoins()
-		
+
 
 	var/popcount = gather_roundend_feedback()
 	display_report(popcount)
@@ -382,11 +382,11 @@
 			parts += aiPlayer.laws.get_law_list(include_zeroth=TRUE)
 
 		parts += "<b>Total law changes: [aiPlayer.law_change_counter]</b>"
-		
+
 		if(aiPlayer.law_change_counter >= 15)
 			if (aiPlayer.client)
 				SSmedals.UnlockMedal(MEDAL_15_AI_LAW_CHANGES,aiPlayer.client)
-		
+
 
 		if (aiPlayer.connected_robots.len)
 			var/borg_num = aiPlayer.connected_robots.len
@@ -616,3 +616,26 @@
 				return
 			qdel(query_update_everything_ranks)
 		qdel(query_check_everything_ranks)
+
+
+/datum/controller/subsystem/ticker/proc/sendtodiscord(var/survivors, var/escapees, var/integrity)
+    var/discordmsg = ""
+    discordmsg += "--------------ROUND END--------------\n"
+    discordmsg += "Round Number: [GLOB.round_id]\n"
+    discordmsg += "Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]\n"
+    discordmsg += "Players: [GLOB.player_list.len]\n"
+    discordmsg += "Survivors: [survivors]\n"
+    discordmsg += "Escapees: [escapees]\n"
+    discordmsg += "Integrity: [integrity]\n"
+    discordmsg += "Gamemode: [SSticker.mode.name]\n"
+    discordsendmsg("ooc", discordmsg)
+    discordmsg = ""
+    var/list/ded = SSblackbox.first_death
+    if(ded)
+        discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
+        var/last_words = ded["last_words"] ? "Their last words were: \"[ded["last_words"]]\"\n" : "They had no last words.\n"
+        discordmsg += "[last_words]\n"
+    else
+        discordmsg += "Nobody died!\n"
+    discordmsg += "--------------------------------------\n"
+    discordsendmsg("ooc", discordmsg)
