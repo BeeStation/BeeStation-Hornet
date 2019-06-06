@@ -60,6 +60,7 @@
 	var/dimension_x = 32
 	var/dimension_y = 32
 	var/center = FALSE	//Should we center the sprite?
+	var/beecoin_locked = FALSE // if it needs to be bought with beecoins to have it
 
 //////////////////////
 // Hair Definitions //
@@ -1851,3 +1852,12 @@
 /datum/sprite_accessory/moth_wings/snow
 	name = "Snow"
 	icon_state = "snow"
+
+/datum/sprite_accessory/moth_wings/angel
+	name = "Angel"
+	icon_state = "angel"
+	color_src = 0
+	dimension_x = 46
+	center = TRUE
+	dimension_y = 34
+	beecoin_locked = TRUE
