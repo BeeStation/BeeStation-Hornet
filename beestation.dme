@@ -19,6 +19,7 @@
 #include "tgstation.dme"
 
 // BEGIN_INCLUDE
+#include "beestation\code\__DEFINES\beecoin.dm"
 #include "beestation\code\__HELPERS\names.dm"
 #include "beestation\code\__HELPERS\roundend.dm"
 #include "beestation\code\_globalvars\lists\names.dm"
@@ -63,6 +64,7 @@
 #include "beestation\code\modules\mentor\misc_hippiementors.dm"
 #include "beestation\code\modules\mob\mob.dm"
 #include "beestation\code\modules\mob\dead\new_player\new_player.dm"
+#include "beestation\code\modules\mob\dead\new_player\sprite_accessories.dm"
 #include "beestation\code\modules\mob\living\carbon\human\species_types\species.dm"
 #include "beestation\code\modules\mob\living\carbon\human\species_types\squidpeople.dm"
 #include "beestation\code\modules\mob\living\simple_animal\cluwne\cluwne.dm"
@@ -70,6 +72,8 @@
 #include "beestation\code\modules\mob\living\verbs\give.dm"
 #include "beestation\code\modules\power\singularity\toddsie.dm"
 #include "beestation\code\modules\qwerty\beecoin\beecoin.dm"
+#include "beestation\code\modules\qwerty\beecoin\beecoin_items.dm"
+#include "beestation\code\modules\qwerty\beecoin\beecoin_shop.dm"
 #include "beestation\code\modules\reagants\chemistry\recipe\others.dm"
 #include "beestation\interface\interface.dm"
 #include "code\game\objects\items\weaponry.dm"
