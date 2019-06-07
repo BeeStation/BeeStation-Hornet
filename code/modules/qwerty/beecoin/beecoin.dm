@@ -13,11 +13,11 @@
 		else
 			inc_beecoin_count(BEECOIN_NOTSURVIVE_REWARD)
 
-/client/proc/bee_process_greentext()
+/client/proc/process_greentext()
 	inc_beecoin_count(BEECOIN_GREENTEXT_REWARD)
 	SSmedals.UnlockMedal(MEDAL_COMPLETE_ALL_OBJECTIVES,src)
 
-/client/proc/bee_process_tml()
+/client/proc/process_ten_minute_living()
 	inc_beecoin_count(BEECOIN_TENMINUTELIVING_REWARD, FALSE)
 
 /client/proc/get_beecoin_count()
