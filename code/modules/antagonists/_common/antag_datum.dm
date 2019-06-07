@@ -75,6 +75,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 			replace_banned_player()
 		else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.toggles & DEADMIN_ANTAGONIST))
 			owner.current.client.holder.auto_deadmin()
+	greeting_popup()
 
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)

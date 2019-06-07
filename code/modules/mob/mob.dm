@@ -595,6 +595,9 @@
 		add_spells_to_statpanel(mind.spell_list)
 	add_spells_to_statpanel(mob_spell_list)
 
+	winset(src, "current-map", "text = 'Map: [SSmapping.config?.map_name || "Loading..."]'")
+
+
 /mob/proc/add_spells_to_statpanel(list/spells)
 	for(var/obj/effect/proc_holder/spell/S in spells)
 		if(S.can_be_cast_by(src))

@@ -237,13 +237,13 @@
 	glass_name = "glass of soy milk"
 	glass_desc = "White and nutritious soy goodness!"
 
-//[BEGIN BEE EDIT]
+
 /datum/reagent/consumable/soymilk/on_mob_add(mob/living/L)
 	..()
 
 	if (L.client)
 		SSmedals.UnlockMedal(MEDAL_APPLY_REAGENT_SOYMILK,L.client)
-//[END BEE EDIT]
+
 
 /datum/reagent/consumable/soymilk/on_mob_life(mob/living/carbon/M)
 	if(M.getBruteLoss() && prob(20))

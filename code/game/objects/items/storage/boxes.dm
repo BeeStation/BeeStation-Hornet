@@ -618,6 +618,7 @@
 /obj/item/storage/box/matches/attackby(obj/item/match/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/match))
 		W.matchignite()
+		playsound(src.loc, 'sound/items/matchstick_lit.ogg', 100, 1)
 
 /obj/item/storage/box/lights
 	name = "box of replacement bulbs"

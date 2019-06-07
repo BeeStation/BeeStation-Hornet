@@ -774,7 +774,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(job_preferences[j] == JP_HIGH)
 				job_preferences[j] = JP_MEDIUM
 				//technically break here
-	
+
 	job_preferences[job.title] = level
 	return TRUE
 
@@ -792,7 +792,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		to_chat(user, "<span class='danger'>UpdateJobPreference - desired level was not a number. Please notify coders!</span>")
 		ShowChoices(user)
 		return
-	
+
 	var/jpval = null
 	switch(desiredLvl)
 		if(3)
@@ -807,7 +807,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			jpval = null
 		else
 			jpval = JP_LOW
-	
+
 	SetJobPreferenceLevel(job, jpval)
 	SetChoices(user)
 
@@ -1245,9 +1245,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("moth_wings")
 					var/new_moth_wings
-					//[BEGIN BEE EDIT]
+
 					new_moth_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in user.client.filter_unpurchased_items(GLOB.moth_wings_list, "moth_wings")
-					//[END BEE EDIT]
+
 					if(new_moth_wings)
 						features["moth_wings"] = new_moth_wings
 

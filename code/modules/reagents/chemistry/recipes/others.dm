@@ -600,3 +600,9 @@
 	id = "pax"
 	results = list("pax" = 3)
 	required_reagents  = list("mindbreaker" = 1, "synaptizine" = 1, "water" = 1)
+
+/datum/chemical_reaction/felinid
+	name = "felinid mutation toxin"
+	id = "felinidmutationtoxin"
+	results = list("felinidmutationtoxin" = 5)
+	required_reagents = list("lizardmutationtoxin" = 2, "mulligan" = 1, "strange_reagent" = 10)

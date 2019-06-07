@@ -160,6 +160,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 	var/static/ticket_counter = 0
 
+	var/bwoink // is the ahelp player to admin (not bwoink) or admin to player (bwoink)
+
 //call this on its own to create a ticket, don't manually assign current_ticket
 //msg is the title of the ticket: usually the ahelp text
 //is_bwoink is TRUE if this ticket was started by an admin PM
@@ -204,6 +206,11 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 	GLOB.ahelp_tickets.active_tickets += src
 
+	bwoink = is_bwoink
+	if(!bwoink)
+		discordsendmsg("ahelp", "**ADMINHELP: (#[id]) [C.key]: ** \"[msg]\" [heard_by_no_admins ? "**(NO ADMINS)**" : "" ]")
+
+
 /datum/admin_help/Destroy()
 	RemoveActive()
 	GLOB.ahelp_tickets.closed_tickets -= src
@@ -237,6 +244,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=icissue'>IC</A>)"
 	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=close'>CLOSE</A>)"
 	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=resolve'>RSLVE</A>)"
+	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=mhelp'>MHELP</A>)"
 
 //private
 /datum/admin_help/proc/LinkedReplyName(ref_src)
@@ -325,6 +333,10 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		message_admins(msg)
 		log_admin_private(msg)
 
+	if(!bwoink && !silent)
+		discordsendmsg("ahelp", "Ticket #[id] closed by [key_name(usr, include_link=0)]")
+
+
 //Mark open ticket as resolved/legitimate, returns ahelp verb
 /datum/admin_help/proc/Resolve(key_name = key_name_admin(usr), silent = FALSE)
 	if(state != AHELP_ACTIVE)
@@ -342,6 +354,10 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		var/msg = "Ticket [TicketHref("#[id]")] resolved by [key_name]"
 		message_admins(msg)
 		log_admin_private(msg)
+
+	if(!bwoink)
+		discordsendmsg("ahelp", "Ticket #[id] resolved by [key_name(usr, include_link=0)]")
+
 
 //Close and return ahelp verb, use if ticket is incoherent
 /datum/admin_help/proc/Reject(key_name = key_name_admin(usr))
@@ -364,6 +380,10 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	AddInteraction("Rejected by [key_name].")
 	Close(silent = TRUE)
 
+	if(!bwoink)
+		discordsendmsg("ahelp", "Ticket #[id] rejected by [key_name(usr, include_link=0)]")
+
+
 //Resolve ticket with IC Issue message
 /datum/admin_help/proc/ICIssue(key_name = key_name_admin(usr))
 	if(state != AHELP_ACTIVE)
@@ -382,6 +402,32 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	log_admin_private(msg)
 	AddInteraction("Marked as IC issue by [key_name]")
 	Resolve(silent = TRUE)
+
+	if(!bwoink)
+		discordsendmsg("ahelp", "Ticket #[id] marked as IC by [key_name(usr, include_link=0)]")
+
+
+/datum/admin_help/proc/MHelpThis(key_name = key_name_admin(usr))
+	if(state != AHELP_ACTIVE)
+		return
+
+	if(initiator)
+		initiator.giveadminhelpverb()
+
+		SEND_SOUND(initiator, sound('sound/effects/adminhelp.ogg'))
+
+		to_chat(initiator, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
+		to_chat(initiator, "<font color='red'>This question may regard <b>game mechanics or how-tos</b>. Such questions should be asked with <b>Mentorhelp</b>.</font>")
+
+	SSblackbox.record_feedback("tally", "ahelp_stats", 1, "mhelp this")
+	var/msg = "Ticket [TicketHref("#[id]")] told to mentorhelp by [key_name]"
+	message_admins(msg)
+	log_admin_private(msg)
+	AddInteraction("Told to mentorhelp by [key_name].")
+	if(!bwoink)
+		discordsendmsg("ahelp", "Ticket #[id] told to mentorhelp by [key_name(usr, include_link=0)]")
+	Close(silent = TRUE)
+
 
 //Show the ticket panel
 /datum/admin_help/proc/TicketPanel()
@@ -445,7 +491,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			Resolve()
 		if("reopen")
 			Reopen()
-
+		if("mhelp")
+			MHelpThis()
 //
 // TICKET STATCLICK
 //
