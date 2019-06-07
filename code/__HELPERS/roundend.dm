@@ -89,6 +89,8 @@
 	var/team_gid = 1
 	var/list/team_ids = list()
 
+	var/list/greentexters = list()
+
 	for(var/datum/antagonist/A in GLOB.antagonists)
 		if(!A.owner)
 			continue
@@ -123,9 +125,13 @@
 
 		if (greentexted)
 			if (A.owner && A.owner.key)
-				var/client/C = GLOB.directory[ckey(A.owner.key)]
-				if (C)
-					C.bee_process_greentext()
+				if (A.type != /datum/antagonist/custom)
+					var/client/C = GLOB.directory[ckey(A.owner.key)]
+					if (C)
+						greentexters |= C
+
+	for (var/client/C in greentexters)
+		C.process_greentext()
 
 
 
