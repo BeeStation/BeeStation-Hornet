@@ -67,7 +67,7 @@
 /datum/beecoin_shop_item/only_one/moth_wings/angel
 	id = "Angel"
 	name = "Angel Moth Wings"
-	cost = 1000
+	cost = 5000
 	enabled = TRUE
 
 	icon = 'icons/mob/wings.dmi'
