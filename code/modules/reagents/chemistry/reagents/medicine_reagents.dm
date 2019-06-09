@@ -1153,6 +1153,7 @@
 	description = "Increases depletion rates for most stimulating/hallucinogenic drugs. Reduces druggy effects and jitteriness. Severe stamina regeneration penalty, causes drowsiness. Small chance of brain damage."
 	reagent_state = LIQUID
 	color = "#27870a"
+	overdose_threshold = 25
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/carbon/M)
@@ -1166,6 +1167,17 @@
 	if(prob(20))
 		M.adjustBrainLoss(1*REM, 50)
 	M.adjustStaminaLoss(2.5*REM, 0)
+	..()
+	return TRUE
+
+/datum/reagent/medicine/haloperidol/overdose_process(mob/living/M)
+	M.adjustToxLoss(0.5*REM, 0)
+	M.adjustBrainLoss(3*REM, 80)
+	M.adjustStaminaLoss(1.2*REM, 0)
+	if(prob(2))
+	 M.visible_message("<span class='danger'>[M] starts having a seizure!</span>", "<span class='userdanger'>You have a seizure!</span>")
+	 M.Unconscious(100)
+	 M.Jitter(350)
 	..()
 	return TRUE
 
