@@ -287,7 +287,7 @@
 	activate_pin(2)
 
 // Required for making the connector port script work
-obj/item/integrated_circuit/atmospherics/connector/proc/portableConnectorReturnAir()
+obj/item/integrated_circuit/atmospherics/connector/proc/portableConnectorReturnAirC()
 	return air_contents
 
 
