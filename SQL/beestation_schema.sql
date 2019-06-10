@@ -320,6 +320,7 @@ CREATE TABLE `SS13_player` (
   `lastadminrank` varchar(32) NOT NULL DEFAULT 'Player',
   `accountjoindate` DATE DEFAULT NULL,
   `flags` smallint(5) unsigned DEFAULT '0' NOT NULL,
+  `beecoins` int(10) unsigned DEFAULT '0' NOT NULL
   PRIMARY KEY (`ckey`),
   KEY `idx_player_cid_ckey` (`computerid`,`ckey`),
   KEY `idx_player_ip_ckey` (`ip`,`ckey`)
@@ -513,7 +514,29 @@ CREATE TABLE `SS13_stickyban_matched_cid` (
 	PRIMARY KEY (`stickyban`, `matched_cid`)
 ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS ``
 
+CREATE TABLE `SS13_mentor_memo` (
+  `ckey` varchar(32) NOT NULL,
+  `memotext` text NOT NULL,
+  `timestamp` datetime NOT NULL,
+  `last_editor` varchar(32) DEFAULT NULL,
+  `edits` text,
+  PRIMARY KEY (`ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `SS13_mentor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ckey` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `SS13_beecoin_item_purchases` (
+	`ckey` varchar(32) NOT NULL,
+	`purchase_date` datetime NOT NULL,
+	`item_id` varchar(50) NOT NULL,
+	`item_class` varchar(50) NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
