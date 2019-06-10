@@ -58,7 +58,6 @@ SUBSYSTEM_DEF(ticker)
 	var/end_state = "undefined"
 
 	//Crew Objective stuff
-	var/list/successfulCrew = list()
 	var/list/crewobjlist = list()
 	var/list/crewobjjobs = list()
 

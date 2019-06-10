@@ -289,6 +289,8 @@
 	parts += medal_report()
 	//Station Goals
 	parts += goal_report()
+	//crew objectives
+	parts += crew_objective_report()
 
 	listclearnulls(parts)
 
@@ -367,8 +369,7 @@
 				for(var/datum/objective/crew/CO in M.mind.crew_objectives)
 					if(CO.check_completion())
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='greentext'><B>Success!</B></span><br>"
-						SSticker.successfulCrew += "<B>[M.mind.current.real_name]</B> (Played by: <B>[M.mind.key]</B>)<BR><B>Optional Objective</B>: [CO.explanation_text] <span class='green'><B>Success!</B></span>"
-						C.inc_beecoin_count(30)
+						C.inc_beecoin_count(BEECOIN_CO_REWARD)
 					else
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='redtext'><B>Failed.</B></span><br>"
 	
@@ -447,6 +448,22 @@
 			parts += com
 		return "<div class='panel stationborder'>[parts.Join("<br>")]</div>"
 	return ""
+
+/datum/controller/subsystem/ticker/proc/crew_objective_report()
+	if(!CONFIG_GET(flag/allow_crew_objectives))
+		return
+	var/list/result = list()
+	result += "<div class='panel crewborder'>"
+	result += "<br><b>Crew Objectives:</b>"
+	for(var/datum/mind/M in SSticker.minds)
+		if(M.current && LAZYLEN(M.crew_objectives))
+			for(var/datum/objective/crew/CO in M.crew_objectives)
+				if(CO.check_completion())
+					result += "<br><B>[key_name(M.current, 0, 1)]</B>: [CO.explanation_text]: <span class='greentext'><B>Success!</B></span><br>"
+				else
+					result += "<br><B>[key_name(M.current, 0, 1)]</B>: [CO.explanation_text]: <span class='redtext'><B>Fail!</B></span><br>"
+	result += "</div>"
+	return result
 
 /datum/controller/subsystem/ticker/proc/antag_report()
 	var/list/result = list()
