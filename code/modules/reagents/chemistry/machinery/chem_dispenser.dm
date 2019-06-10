@@ -20,56 +20,60 @@
 	var/has_panel_overlay = TRUE
 	var/macroresolution = 1
 	var/obj/item/reagent_containers/beaker = null
-	var/list/dispensable_reagents = list(
-		"hydrogen",
-		"lithium",
-		"carbon",
-		"nitrogen",
-		"oxygen",
-		"fluorine",
-		"sodium",
-		"aluminium",
-		"silicon",
-		"phosphorus",
-		"sulfur",
-		"chlorine",
-		"potassium",
-		"iron",
-		"copper",
-		"mercury",
-		"radium",
-		"water",
-		"ethanol",
-		"sugar",
-		"sacid",
-		"welding_fuel",
-		"silver",
-		"iodine",
-		"bromine",
-		"stable_plasma"
+	var/list/dispensable_reagents = list(	
+		/datum/reagent/aluminium,
+		/datum/reagent/bromine,
+		/datum/reagent/carbon,
+		/datum/reagent/chlorine,
+		/datum/reagent/copper,
+		/datum/reagent/consumable/ethanol,
+		/datum/reagent/fluorine,
+		/datum/reagent/hydrogen,
+		/datum/reagent/iodine,
+		/datum/reagent/iron,
+		/datum/reagent/lithium,
+		/datum/reagent/mercury,
+		/datum/reagent/nitrogen,
+		/datum/reagent/oxygen,
+		/datum/reagent/phosphorus,
+		/datum/reagent/potassium,
+		/datum/reagent/uranium/radium,
+		/datum/reagent/silicon,
+		/datum/reagent/silver,
+		/datum/reagent/sodium,
+		/datum/reagent/stable_plasma,
+		/datum/reagent/consumable/sugar,
+		/datum/reagent/sulfur,
+		/datum/reagent/toxin/acid,
+		/datum/reagent/water,
+		/datum/reagent/fuel
 	)
 	//these become available once the manipulator has been upgraded to tier 4 (femto)
 	var/list/upgrade_reagents = list(
-		"oil",
-		"ash",
-		"acetone",
-		"saltpetre",
-		"ammonia",
-		"diethylamine"
+		/datum/reagent/acetone,
+		/datum/reagent/ammonia,
+		/datum/reagent/ash,
+		/datum/reagent/diethylamine,
+		/datum/reagent/oil,
+		/datum/reagent/saltpetre
 	)
 	var/list/emagged_reagents = list(
-		"space_drugs",
-		"morphine",
-		"carpotoxin",
-		"mine_salve",
-		"toxin"
+		/datum/reagent/toxin/carpotoxin,
+		/datum/reagent/medicine/mine_salve,
+		/datum/reagent/medicine/morphine,
+		/datum/reagent/drug/space_drugs,
+		/datum/reagent/toxin
 	)
 
 	var/list/saved_recipes = list()
 
 /obj/machinery/chem_dispenser/Initialize()
 	. = ..()
-	dispensable_reagents = sortList(dispensable_reagents)
+	dispensable_reagents = sortList(dispensable_reagents, /proc/cmp_reagents_asc)
+	if(emagged_reagents)
+		emagged_reagents = sortList(emagged_reagents, /proc/cmp_reagents_asc)
+	if(upgrade_reagents)
+		upgrade_reagents = sortList(upgrade_reagents, /proc/cmp_reagents_asc)
 	update_icon()
 
 /obj/machinery/chem_dispenser/Destroy()
