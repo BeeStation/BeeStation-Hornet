@@ -37,10 +37,8 @@ Bonus
 		return
 	if(A.properties["stealth"] >= 4)
 		suppress_warning = TRUE
-		//[BEGIN BEE EDIT]
 	if(A.properties["resistance"] >= 11) //goodbye eyes
 		remove_eyes = TRUE
-//[END BEE EDIT]
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)
 	if(!..())
 		return
