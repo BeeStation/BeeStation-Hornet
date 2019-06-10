@@ -455,7 +455,8 @@
 	var/list/result = list()
 	result += "<div class='panel crewborder'>"
 	result += "<br><b>Crew Objectives:</b>"
-	for(var/datum/mind/M in SSticker.minds)
+	for(var/mind in SSticker.minds)
+		var/datum/mind/M = mind
 		if(M.current && LAZYLEN(M.crew_objectives))
 			for(var/datum/objective/crew/CO in M.crew_objectives)
 				if(CO.check_completion())
