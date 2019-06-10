@@ -361,6 +361,16 @@
 		else
 			parts += "<div class='panel redborder'>"
 			parts += "<span class='redtext'>You did not survive the events on [station_name()]...</span>"
+		
+		if(CONFIG_GET(flag/allow_crew_objectives))
+			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
+				for(var/datum/objective/crew/CO in M.mind.crew_objectives)
+					if(CO.check_completion())
+						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='green'><B>Success!</B></span><br>"
+						SSticker.successfulCrew += "<B>[M.mind.current.real_name]</B> (Played by: <B>[M.mind.key]</B>)<BR><B>Optional Objective</B>: [CO.explanation_text] <span class='green'><B>Success!</B></span>"
+					else
+						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='danger'><B>Failed.</B></span><br>"
+	
 	else
 		parts += "<div class='panel stationborder'>"
 	parts += "<br>"
