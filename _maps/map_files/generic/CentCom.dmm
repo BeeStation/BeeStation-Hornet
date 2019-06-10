@@ -6518,6 +6518,15 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
+"oV" = (
+/obj/structure/chair/stool,
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/effect/landmark/start/nukeop,
+/turf/open/floor/plasteel,
+/area/syndicate_mothership/control)
 "oW" = (
 /obj/structure/flora/bush,
 /obj/effect/light_emitter{
@@ -8307,12 +8316,10 @@
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
 "sh" = (
-/obj/structure/chair/stool,
-/obj/effect/landmark/start/nukeop,
-/obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/bar,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
 "si" = (
@@ -8823,13 +8830,8 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/item/stack/telecrystal/five,
 /turf/open/floor/plasteel,
-/area/syndicate_mothership/control)
-"tg" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
 "th" = (
 /obj/structure/closet/cardboard,
@@ -9518,12 +9520,6 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/syndicate_mothership/control)
-"uM" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
 "uO" = (
 /obj/machinery/door/airlock/centcom{
@@ -36243,8 +36239,8 @@ nz
 pZ
 pZ
 pZ
-rf
-rf
+oV
+oV
 pZ
 rf
 vv
@@ -37014,8 +37010,8 @@ pF
 qa
 pZ
 rg
-rf
-rf
+oV
+oV
 pZ
 pZ
 vx
@@ -37528,10 +37524,10 @@ kt
 ku
 qL
 pZ
-sh
-sh
-sh
-sh
+pZ
+pZ
+pZ
+pZ
 pZ
 pZ
 wY
@@ -37785,10 +37781,10 @@ ma
 ku
 qM
 pZ
-si
-tg
-tg
-uM
+sh
+sh
+sh
+sh
 pZ
 wp
 ku
