@@ -1,5 +1,6 @@
 #define BEECOIN_GREENTEXT_REWARD        200
 #define BEECOIN_MEDAL_REWARD            100
+#define BEECOIN_CO_REWARD				40
 #define BEECOIN_ESCAPE_REWARD           30
 #define BEECOIN_SURVIVE_REWARD          20
 #define BEECOIN_NOTSURVIVE_REWARD       10

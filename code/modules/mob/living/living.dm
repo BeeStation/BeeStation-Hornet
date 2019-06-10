@@ -492,6 +492,14 @@
 		ret |= F.contents
 	return ret
 
+/mob/living/proc/check_contents_for(A)
+	var/list/L = get_contents()
+
+	for(var/obj/B in L)
+		if(B.type == A)
+			return TRUE
+	return FALSE
+
 // Living mobs use can_inject() to make sure that the mob is not syringe-proof in general.
 /mob/living/proc/can_inject()
 	return TRUE

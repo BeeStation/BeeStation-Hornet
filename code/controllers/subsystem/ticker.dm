@@ -57,6 +57,10 @@ SUBSYSTEM_DEF(ticker)
 	var/mode_result = "undefined"
 	var/end_state = "undefined"
 
+	//Crew Objective stuff
+	var/list/crewobjlist = list()
+	var/list/crewobjjobs = list()
+
 /datum/controller/subsystem/ticker/Initialize(timeofday)
 	load_mode()
 
@@ -126,6 +130,14 @@ SUBSYSTEM_DEF(ticker)
 		gametime_offset = rand(0, 23) HOURS
 	else if(CONFIG_GET(flag/shift_time_realtime))
 		gametime_offset = world.timeofday
+
+	crewobjlist = typesof(/datum/objective/crew)
+	for(var/hooray in crewobjlist) //taken from old Hippie's "job2obj" proc with adjustments.
+		var/datum/objective/crew/obj = hooray
+		var/list/availableto = splittext(initial(obj.jobs),",")
+		for(var/job in availableto)
+			crewobjjobs["[job]"] += list(obj)
+
 	return ..()
 
 /datum/controller/subsystem/ticker/fire()
