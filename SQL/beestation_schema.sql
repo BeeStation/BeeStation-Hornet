@@ -514,8 +514,6 @@ CREATE TABLE `SS13_stickyban_matched_cid` (
 	PRIMARY KEY (`stickyban`, `matched_cid`)
 ) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS ``
-
 CREATE TABLE `SS13_mentor_memo` (
   `ckey` varchar(32) NOT NULL,
   `memotext` text NOT NULL,
