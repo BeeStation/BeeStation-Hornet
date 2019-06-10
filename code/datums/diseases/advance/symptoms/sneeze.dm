@@ -15,7 +15,6 @@ Bonus
 
 //////////////////////////////////////
 */
-//[BEGIN BEE EDIT]
 /datum/symptom/sneeze
 	name = "Sneezing"
 	desc = "The virus causes irritation of the nasal cavity, making the host sneeze occasionally."
@@ -51,4 +50,4 @@ Bonus
 			M.emote("sneeze")
 			if(M.CanSpreadAirborneDisease()) //don't spread germs if they covered their mouth
 				A.spread(4 + power)
-				//[END BEE EDIT]
+			
