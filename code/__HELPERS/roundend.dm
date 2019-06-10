@@ -369,7 +369,7 @@
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='green'><B>Success!</B></span><br>"
 						SSticker.successfulCrew += "<B>[M.mind.current.real_name]</B> (Played by: <B>[M.mind.key]</B>)<BR><B>Optional Objective</B>: [CO.explanation_text] <span class='green'><B>Success!</B></span>"
 					else
-						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='danger'><B>Failed.</B></span><br>"
+						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='redtext'><B>Failed.</B></span><br>"
 	
 	else
 		parts += "<div class='panel stationborder'>"
