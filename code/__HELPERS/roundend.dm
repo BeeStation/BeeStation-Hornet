@@ -366,8 +366,9 @@
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
 				for(var/datum/objective/crew/CO in M.mind.crew_objectives)
 					if(CO.check_completion())
-						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='green'><B>Success!</B></span><br>"
+						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='greentext'><B>Success!</B></span><br>"
 						SSticker.successfulCrew += "<B>[M.mind.current.real_name]</B> (Played by: <B>[M.mind.key]</B>)<BR><B>Optional Objective</B>: [CO.explanation_text] <span class='green'><B>Success!</B></span>"
+						C.inc_beecoin_count(30)
 					else
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='redtext'><B>Failed.</B></span><br>"
 	
