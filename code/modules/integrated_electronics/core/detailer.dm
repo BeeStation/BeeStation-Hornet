@@ -45,4 +45,4 @@
 	if(!in_range(src, user))
 		return
 	detail_color = color_list[color_choice]
-  update_icon()
+	update_icon()
