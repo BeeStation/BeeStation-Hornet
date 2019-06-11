@@ -451,6 +451,7 @@ SUBSYSTEM_DEF(job)
 	var/tries = 5
 	while(!M.mind.crew_objectives.len && M.mind && tries)
 		SSticker.give_crew_objective(M.mind)
+		tries -= 1
 
 	return H
 
