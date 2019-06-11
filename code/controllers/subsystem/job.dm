@@ -448,7 +448,8 @@ SUBSYSTEM_DEF(job)
 	if(job && H)
 		job.after_spawn(H, M, joined_late) // note: this happens before the mob has a key! M will always have a client, H might not.
 
-	if(M.mind)
+	var/tries = 5
+	while(!M.mind.crew_objectives.len && M.mind && tries)
 		SSticker.give_crew_objective(M.mind)
 
 	return H
