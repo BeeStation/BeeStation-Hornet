@@ -60,6 +60,7 @@
 			<A href='?src=[REF(src)];[HrefToken()];secrets=onlyone'>There can only be one!</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=delayed_onlyone'>There can only be one! (40-second delay)</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=retardify'>Make all players retarded</A><BR>
+			<A href='?src=[REF(src)];[HrefToken()];secrets=aussify'>Make all players Australian</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=eagles'>Egalitarian Station Mode</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=ancap'>Anarcho-Capitalist Station Mode</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=blackout'>Break all lights</A><BR>
@@ -460,6 +461,18 @@
 				to_chat(H, "<span class='boldannounce'>You suddenly feel stupid.</span>")
 				H.adjustBrainLoss(60, 80)
 			message_admins("[key_name_admin(usr)] made everybody retarded")
+
+		if("aussify") //for rimjobtide
+			if(!check_rights(R_FUN))
+				return
+			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Australian"))
+			var/s = sound('sound/misc/downunder.ogg')
+			for(var/mob/living/carbon/human/H in GLOB.player_list)
+				to_chat(H, "<span class='boldannounce'>You suddenly feel crikey.</span>")
+				var/matrix/M = H.transform
+				H.transform = M.Scale(1,-1) //flip em upside down
+				SEND_SOUND(H, s)
+			message_admins("[key_name_admin(usr)] made everybody australian")
 
 		if("eagles")//SCRAW
 			if(!check_rights(R_FUN))
