@@ -382,6 +382,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/EquipRank(mob/M, rank, joined_late = FALSE)
 	var/mob/dead/new_player/N
 	var/mob/living/H
+
 	if(!joined_late)
 		N = M
 		H = N.new_character
@@ -446,6 +447,11 @@ SUBSYSTEM_DEF(job)
 		H.add_memory("Your account ID is [wageslave.account_id].")
 	if(job && H)
 		job.after_spawn(H, M, joined_late) // note: this happens before the mob has a key! M will always have a client, H might not.
+
+	var/tries = 5
+	while(M.mind && !M.mind.crew_objectives.len && tries)
+		SSticker.give_crew_objective(M.mind)
+		tries--
 
 	return H
 

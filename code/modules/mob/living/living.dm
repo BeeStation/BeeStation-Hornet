@@ -306,6 +306,8 @@
 				var/mob/living/carbon/C = L
 				if(HAS_TRAIT(src, TRAIT_STRONG_GRABBER))
 					C.grippedby(src)
+			
+			update_pull_movespeed()
 
 		set_pull_offsets(M, state)
 
@@ -361,6 +363,7 @@
 	if(ismob(pulling))
 		reset_pull_offsets(pulling)
 	..()
+	update_pull_movespeed()
 	update_pull_hud_icon()
 
 /mob/living/verb/stop_pulling1()
@@ -489,6 +492,14 @@
 		ret |= F.contents
 	return ret
 
+/mob/living/proc/check_contents_for(A)
+	var/list/L = get_contents()
+
+	for(var/obj/B in L)
+		if(B.type == A)
+			return TRUE
+	return FALSE
+
 // Living mobs use can_inject() to make sure that the mob is not syringe-proof in general.
 /mob/living/proc/can_inject()
 	return TRUE
@@ -608,6 +619,10 @@
 
 	var/old_direction = dir
 	var/turf/T = loc
+
+	if(pulling)
+		update_pull_movespeed()
+
 	. = ..()
 
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1 && (pulledby != moving_from_pull))//separated from our puller and not in the middle of a diagonal move.

@@ -51,7 +51,7 @@ Regenerative extracts:
 	colour = "purple"
 
 /obj/item/slimecross/regenerative/purple/core_effect(mob/living/target, mob/user)
-	target.reagents.add_reagent("regen_jelly",10)
+	target.reagents.add_reagent(/datum/reagent/medicine/regen_jelly,10)
 
 /obj/item/slimecross/regenerative/blue
 	colour = "blue"
@@ -174,7 +174,7 @@ Regenerative extracts:
 
 /obj/item/slimecross/regenerative/red/core_effect(mob/living/target, mob/user)
 	to_chat(target, "<span class='notice'>You feel... <i>faster.</i></span>")
-	target.reagents.add_reagent("ephedrine",3)
+	target.reagents.add_reagent(/datum/reagent/medicine/ephedrine,3)
 
 /obj/item/slimecross/regenerative/green
 	colour = "green"
@@ -185,7 +185,7 @@ Regenerative extracts:
 		var/mob/living/simple_animal/slime/S = target
 		S.random_colour()
 	if(isjellyperson(target))
-		target.reagents.add_reagent("slime_toxin",5)
+		target.reagents.add_reagent(/datum/reagent/slime_toxin,5)
 
 
 /obj/item/slimecross/regenerative/pink
@@ -193,7 +193,7 @@ Regenerative extracts:
 
 /obj/item/slimecross/regenerative/pink/core_effect(mob/living/target, mob/user)
 	to_chat(target, "<span class='notice'>You feel more calm.</span>")
-	target.reagents.add_reagent("krokodil",4)
+	target.reagents.add_reagent(/datum/reagent/drug/krokodil,4)
 
 /obj/item/slimecross/regenerative/gold
 	colour = "gold"

@@ -568,3 +568,6 @@ MONKEYCAP 64
 
 ## Enable the capitalist agenda on your server.
 ECONOMY
+
+## Crew objectives
+ALLOW_CREW_OBJECTIVES
