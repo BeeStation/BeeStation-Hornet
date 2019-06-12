@@ -21,9 +21,9 @@
 	name = "\improper hamster"
 	real_name = "hamster"
 	desc = "It's a hamster."
-	icon_state = "corgi"
-	icon_living = "corgi"
-	icon_dead = "corgi_dead"
+	icon_state = "hamster"
+	icon_living = "hamster"
+	icon_dead = "hamster_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/hamster = 1)
 	childtype = /mob/living/simple_animal/pet/hamster
 	animal_species = /mob/living/simple_animal/pet/hamster
@@ -37,7 +37,7 @@
 
 /mob/living/simple_animal/pet/hamster/vector/Initialize()
 	. = ..()
-	if(prob(1))
+	if(prob(5))
 		var/datum/disease/disease = pick(/datum/disease/cold, /datum/disease/flu, /datum/disease/fluspanish)
 		vector_disease = new disease
 
@@ -46,3 +46,4 @@
 		var/mob/living/L = M
 		if(!L.HasDisease(vector_disease)) //I'm not actually sure if this check is needed, but better to be safe than sorry
 			L.ContactContractDisease(vector_disease)
+	..()
