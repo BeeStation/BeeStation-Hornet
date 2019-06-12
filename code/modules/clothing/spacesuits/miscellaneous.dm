@@ -68,8 +68,8 @@ Contains:
 /obj/item/clothing/suit/space/officer
 	name = "officer's jacket"
 	desc = "An armored, space-proof jacket used in special operations."
-	icon_state = "detective"
-	item_state = "det_suit"
+	icon_state = "specops"
+	item_state = "specops"
 	blood_overlay_type = "coat"
 	slowdown = 0
 	flags_inv = 0
