@@ -38,5 +38,11 @@
 /mob/living/simple_animal/pet/hamster/vector/Initialize()
 	. = ..()
 	if(prob(1))
-		vector_disease = pick(/datum/disease/cold, /datum/disease/flu, /datum/disease/fluspanish)
-		AddComponent(/datum/component/infective, vector_disease)
+		var/datum/disease/disease = pick(/datum/disease/cold, /datum/disease/flu, /datum/disease/fluspanish)
+		vector_disease = new disease
+
+/mob/living/simple_animal/pet/hamster/vector/Crossed(M as mob)
+	if(isliving(M) && !isnull(vector_disease) && prob(20))
+		var/mob/living/L = M
+		if(!L.HasDisease(vector_disease)) //I'm not actually sure if this check is needed, but better to be safe than sorry
+			L.ContactContractDisease(vector_disease)
