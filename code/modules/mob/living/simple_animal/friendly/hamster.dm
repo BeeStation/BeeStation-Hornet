@@ -40,6 +40,8 @@
 	if(prob(5))
 		var/datum/disease/disease = pick(/datum/disease/cold, /datum/disease/flu, /datum/disease/fluspanish)
 		vector_disease = new disease
+		message_admins("Vector was roundstart infected with [vector_disease.name]. Don't lynch the virologist!")
+		log_game("Vector was roundstart infected with [vector_disease.name].")
 
 /mob/living/simple_animal/pet/hamster/vector/Crossed(M as mob)
 	if(isliving(M) && !isnull(vector_disease) && prob(20))
