@@ -173,6 +173,12 @@
 	desc = "Tastes like... well you know..."
 	foodtype = RAW | MEAT | GROSS
 
+/obj/item/reagent_containers/food/snacks/meat/slab/hamster
+	name = "hamster meat"
+	desc = "A slab of hamster meat."
+	tastes = list("meat" = 4, "fluffly adorableness" = 1)
+	foodtype = RAW | MEAT | GROSS
+
 /obj/item/reagent_containers/food/snacks/meat/slab/killertomato
 	name = "killer tomato meat"
 	desc = "A slice from a huge tomato."
