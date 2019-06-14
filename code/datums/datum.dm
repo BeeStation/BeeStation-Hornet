@@ -34,7 +34,6 @@
 
 	/// A weak reference to another datum
 	var/datum/weakref/weak_reference
-	var/list/datum_outputs
 
 #ifdef TESTING
 	var/running_find_references
