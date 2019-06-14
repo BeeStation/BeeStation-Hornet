@@ -5,7 +5,7 @@
 	materials = list(/datum/material/iron=800, /datum/material/glass=200)
 	attachable = TRUE
 
-	var/scanning = FALSE
+	var/scanning = TRUE
 	var/health_scan
 	var/alarm_health = HEALTH_THRESHOLD_CRIT
 
