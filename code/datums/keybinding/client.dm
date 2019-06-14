@@ -10,7 +10,7 @@
     description = "Ask an admin or mentor for help."
 
 /datum/keybinding/client/get_help/down(client/user)
-    user.choosehelp()
+    user.get_adminhelp()
     return TRUE
 
 
@@ -19,7 +19,18 @@
     name = "screenshot"
     full_name = "Screenshot"
     description = "Take a screenshot."
-    
+
 /datum/keybinding/client/screenshot/down(client/user)
-    winset(src, null, "command=.screenshot [!user.keys_held["shift"] ? "auto" : ""]")
+    winset(user, null, "command=.screenshot [!user.keys_held["shift"] ? "auto" : ""]")
+    return TRUE
+
+
+/datum/keybinding/client/toggleminimalhud
+    key = "F12"
+    name = "toggleminimalhud"
+    full_name = "Toggle Minimal HUD"
+    description = "Toggle the minimalized state of your hud."
+
+/datum/keybinding/client/toggleminimalhud/down(client/user)
+    user.mob.button_pressed_F12()
     return TRUE

@@ -62,10 +62,10 @@
 		GLOB.keybindings_by_name[initial(instance.name)] = instance
 		if (!(initial(instance.key) in GLOB.keybinding_list_by_key))
 			GLOB.keybinding_list_by_key[initial(instance.key)] = list()
-		GLOB.keybinding_list_by_key[initial(instance.key)] += instance
+		GLOB.keybinding_list_by_key[initial(instance.key)] += instance.name
 	// Sort all the keybindings by their weight
 	for(var/key in GLOB.keybinding_list_by_key)
-		GLOB.keybinding_list_by_key[key] = sortKeybindings(GLOB.keybinding_list_by_key[key])
+		GLOB.keybinding_list_by_key[key] = sortList(GLOB.keybinding_list_by_key[key])
 
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)

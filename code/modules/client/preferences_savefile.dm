@@ -75,10 +75,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		S["job_engsec_med"]		>> job_engsec_med
 		S["job_engsec_low"]		>> job_engsec_low
 
-	if(current_version < 23)
-		S["key_bindings"] << deepCopyList(GLOB.keybinding_list_by_key)
-
-
 		//Can't use SSjob here since this happens right away on login
 		for(var/job in subtypesof(/datum/job))
 			var/datum/job/J = job
@@ -108,6 +104,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 						new_value = JP_LOW
 			if(new_value)
 				job_preferences[initial(J.title)] = new_value
+
+	if(current_version < 23)
+		WRITE_FILE(S["key_bindings"], deepCopyList(GLOB.keybinding_list_by_key))
+
 
 /datum/preferences/proc/load_path(ckey,filename="preferences.sav")
 	if(!ckey)

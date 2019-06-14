@@ -2,14 +2,14 @@
 	category = CATEGORY_CARBON
 	weight = WEIGHT_MOB
 
-	
+
 /datum/keybinding/carbon/toggle_throw_mode
 	key = "R"
 	name = "toggle_throw_mode"
 	full_name = "Toggle throw mode"
 	description = "Toggle throwing the current item or not."
 	category = CATEGORY_CARBON
-	
+
 /datum/keybinding/carbon/toggle_throw_mode/down(client/user)
 	if (!iscarbon(user.mob))
 		return FALSE
@@ -24,7 +24,7 @@
 	full_name = "Select help intent"
 	description = ""
 	category = CATEGORY_CARBON
-	
+
 /datum/keybinding/carbon/select_help_intent/down(client/user)
 	user.mob?.a_intent_change(INTENT_HELP)
 	return TRUE
@@ -36,7 +36,7 @@
 	full_name = "Select disarm intent"
 	description = ""
 	category = CATEGORY_CARBON
-	
+
 /datum/keybinding/carbon/select_disarm_intent/down(client/user)
 	user.mob?.a_intent_change(INTENT_DISARM)
 	return TRUE
@@ -48,7 +48,7 @@
 	full_name = "Select grab intent"
 	description = ""
 	category = CATEGORY_CARBON
-	
+
 /datum/keybinding/carbon/select_grab_intent/down(client/user)
 	user.mob?.a_intent_change(INTENT_GRAB)
 	return TRUE
@@ -60,7 +60,7 @@
 	full_name = "Select harm intent"
 	description = ""
 	category = CATEGORY_CARBON
-	
+
 /datum/keybinding/carbon/select_harm_intent/down(client/user)
 	user.mob?.a_intent_change(INTENT_HARM)
 	return TRUE

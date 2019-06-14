@@ -3,6 +3,52 @@
     weight = WEIGHT_MOB
 
 
+/datum/keybinding/mob/face_north
+	key = "Ctrl-W"
+	name = "face_north"
+	full_name = "Face North"
+	description = ""
+
+/datum/keybinding/mob/face_north/down(client/user)
+	var/mob/M = user.mob
+	M.northface()
+	return TRUE
+
+
+/datum/keybinding/mob/face_east
+	key = "Ctrl-D"
+	name = "face_east"
+	full_name = "Face East"
+	description = ""
+
+/datum/keybinding/mob/face_east/down(client/user)
+	var/mob/M = user.mob
+	M.eastface()
+	return TRUE
+
+
+/datum/keybinding/mob/face_south
+	key = "Ctrl-S"
+	name = "face_south"
+	full_name = "Face South"
+	description = ""
+
+/datum/keybinding/mob/face_south/down(client/user)
+	var/mob/M = user.mob
+	M.southface()
+	return TRUE
+
+/datum/keybinding/mob/face_west
+	key = "Ctrl-A"
+	name = "face_west"
+	full_name = "Face West"
+	description = ""
+
+/datum/keybinding/mob/face_west/down(client/user)
+	var/mob/M = user.mob
+	M.westface()
+	return TRUE
+
 /datum/keybinding/mob/stop_pulling
     key = "Delete"
     name = "stop_pulling"
@@ -11,7 +57,7 @@
 
 /datum/keybinding/mob/stop_pulling/down(client/user)
     var/mob/M = user.mob
-    if (M.pulling)
+    if (!M.pulling)
         to_chat(user, "<span class='notice'>You are not pulling anything.</span>")
     else
         M.stop_pulling()
@@ -20,7 +66,7 @@
 /datum/keybinding/mob/cycle_intent_right
     key = "Home"
     name = "cycle_intent_right"
-    full_name = "cycle_intent_right"
+    full_name = "Cycle Intent Right"
     description = ""
 
 /datum/keybinding/mob/cycle_intent_right/down(client/user)
@@ -31,7 +77,7 @@
 /datum/keybinding/mob/cycle_intent_left
     key = "Insert"
     name = "cycle_intent_left"
-    full_name = "cycle_intent_left"
+    full_name = "Cycle Intent Left"
     description = ""
 
 /datum/keybinding/mob/cycle_intent_left/down(client/user)
@@ -46,7 +92,7 @@
     description = ""
 
 /datum/keybinding/mob/swap_hands/down(client/user)
-    user.swap_hand()
+    user.mob.swap_hand()
     return TRUE
 
 /datum/keybinding/mob/activate_inhand
