@@ -269,7 +269,7 @@ Chilling extracts:
 	addtimer(CALLBACK(src, .proc/boom), 50)
 
 /obj/item/slimecross/chilling/oil/proc/boom()
-	explosion(get_turf(src), -1, -1, 3, 10) //Large radius, but mostly light damage.
+	explosion(get_turf(src), -1, -1, 10, 0) //Large radius, but mostly light damage, and no flash.
 	qdel(src)
 
 /obj/item/slimecross/chilling/black
