@@ -8,23 +8,23 @@
 	attack_verb = "slap"
 	say_mod = "slurs"
 	coldmod = 0.5 //snails only come out when its cold and wet
-	burnmod = 2
-	speedmod = 6
-	punchdamagehigh = 0.5 //snails are soft and squishy
+	burnmod = 1.5
+	speedmod = 2
+	punchdamagehigh = 5 //snails are soft and squishy
 	siemens_coeff = 2 //snails are mostly water
-	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	sexes = FALSE //snails are hermaphrodites
 	var/shell_type = /obj/item/storage/backpack/snail
 
 	mutanteyes = /obj/item/organ/eyes/snail
 	mutanttongue = /obj/item/organ/tongue/snail
-	exotic_blood = /datum/reagent/lube
+	exotic_blood = "lube"
 
 /datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	if(istype(chem,/datum/reagent/consumable/sodiumchloride))
+	if(chem.id == "sodiumchloride")
 		H.adjustFireLoss(2)
 		playsound(H, 'sound/weapons/sear.ogg', 30, 1)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+		H.reagents.remove_reagent(chem.id, REAGENTS_METABOLISM)
 		return 1
 
 /datum/species/snail/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
@@ -54,7 +54,7 @@
 	item_state = "snailshell"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
