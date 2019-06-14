@@ -5,7 +5,7 @@
 //	You do not need to raise this if you are adding new values that have sane defaults.
 //	Only raise this value when changing the meaning/format/name/layout of an existing value
 //	where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX	23
+#define SAVEFILE_VERSION_MAX	25
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -105,8 +105,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			if(new_value)
 				job_preferences[initial(J.title)] = new_value
 
-	if(current_version < 23)
-		WRITE_FILE(S["key_bindings"], deepCopyList(GLOB.keybinding_list_by_key))
+	if(current_version < 25)
+		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+		WRITE_FILE(S["key_bindings"], key_bindings)
 
 
 /datum/preferences/proc/load_path(ckey,filename="preferences.sav")
@@ -199,6 +200,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	pda_color		= sanitize_hexcolor(pda_color, 6, 1, initial(pda_color))
 
 	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
+	if (!key_bindings)
+		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
 
 	return 1
 
@@ -245,6 +248,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["tip_delay"], tip_delay)
 	WRITE_FILE(S["pda_style"], pda_style)
 	WRITE_FILE(S["pda_color"], pda_color)
+
+	if (!key_bindings)
+		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
 	WRITE_FILE(S["key_bindings"], key_bindings)
 	return 1
 

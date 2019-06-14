@@ -1567,8 +1567,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if(old_key != "Unbound") // if it was already set
 							key_bindings[old_key] -= kb_name
 							key_bindings["Unbound"] += list(kb_name)
-						user << browse(null, "window=capturekeypress")
 						save_preferences()
+						user << browse(null, "window=capturekeypress")
 						ShowKeybindings(user)
 						return
 
@@ -1594,12 +1594,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						new_key = "Numpad[new_key]"
 
 					var/full_key = "[AltMod][CtrlMod][ShiftMod][new_key]"
-					key_bindings[old_key] -= kb_name
+					if(old_key)
+						key_bindings[old_key] -= kb_name
 					key_bindings[full_key] += list(kb_name)
 					key_bindings[full_key] = sortList(key_bindings[full_key])
 
-					user << browse(null, "window=capturekeypress")
 					save_preferences()
+					user << browse(null, "window=capturekeypress")
 					ShowKeybindings(user)
 					return
 
