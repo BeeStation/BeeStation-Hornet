@@ -75,6 +75,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 //more carbon mobs
 #define ismonkey(A) (istype(A, /mob/living/carbon/monkey))
 
+#define isxeno(A) (istype(A, /mob/living/carbon/xenomorph))
+
 #define isalien(A) (istype(A, /mob/living/carbon/alien))
 
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
