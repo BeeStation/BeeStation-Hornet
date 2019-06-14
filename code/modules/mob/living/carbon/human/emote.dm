@@ -50,7 +50,6 @@
 	key_third_person = "screams"
 	message = "screams!"
 	emote_type = EMOTE_AUDIBLE
-	only_forced_audio = TRUE
 	vary = TRUE
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
@@ -61,11 +60,9 @@
 		return
 	if(ishumanbasic(H) || iscatperson(H))
 		if(user.gender == FEMALE)
-			return pick('sound/voice/human/femalescream_1.ogg', 'sound/voice/human/femalescream_2.ogg', 'sound/voice/human/femalescream_3.ogg', 'sound/voice/human/femalescream_4.ogg', 'sound/voice/human/femalescream_5.ogg')
+			return pick('sound/voice/human/femalescream_1.ogg', 'sound/voice/human/femalescream_2.ogg', 'sound/voice/human/femalescream_3.ogg')
 		else
-			if(prob(1))
-				return 'sound/voice/human/wilhelm_scream.ogg'
-			return pick('sound/voice/human/malescream_1.ogg', 'sound/voice/human/malescream_2.ogg', 'sound/voice/human/malescream_3.ogg', 'sound/voice/human/malescream_4.ogg', 'sound/voice/human/malescream_5.ogg')
+			return pick('sound/voice/human/malescream_1.ogg', 'sound/voice/human/malescream_2.ogg', 'sound/voice/human/malescream_3.ogg', 'sound/voice/human/malescream_4.ogg')
 	else if(ismoth(H))
 		return 'sound/voice/moth/scream_moth.ogg'
 
@@ -170,5 +167,18 @@
 	if(isturf(loc))
 		var/turf/T = loc
 		T.Entered(src)
+
+
+/datum/emote/living/carbon/human/fart
+	key = "fart"
+	key_third_person = "farts"
+	message = "farts!"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+
+/datum/emote/living/carbon/human/fart/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	return 'sound/misc/fart1.ogg'
 
 //Ayy lmao
