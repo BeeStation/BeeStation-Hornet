@@ -1,4 +1,5 @@
-## BeeStation 13 codebase
+<h1 align="center">BeeStation 13 Codebase</h1>
+
 [![forthebadge](https://forthebadge.com/images/badges/built-with-resentment.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/contains-technical-debt.svg)](https://user-images.githubusercontent.com/8171642/50290880-ffef5500-043a-11e9-8270-a2e5b697c86c.png) [![forinfinityandbyond](https://user-images.githubusercontent.com/5211576/29499758-4efff304-85e6-11e7-8267-62919c3688a9.gif)](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a)
 [![Build Status](https://travis-ci.com/BeeStation/BeeStation-Hornet.svg?branch=master)](https://travis-ci.com/BeeStation/BeeStation-Hornet)
 
@@ -42,7 +43,8 @@ beestation.dmb - 0 errors, 0 warnings
 
 If you see any errors or warnings, something has gone wrong - possibly a corrupt
 download or the files extracted wrong. If problems persist, ask for assistance
-in irc://irc.rizon.net/coderbus
+in https://discord.gg/Vh8TJp9 or https://discord.gg/3p38hNm
+
 
 Once that's done, open up the config folder. You'll want to edit config.txt to
 set the probabilities for different gamemodes in Secret and to set your server

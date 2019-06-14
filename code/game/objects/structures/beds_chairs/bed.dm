@@ -190,6 +190,11 @@
 	name = "Runtime's bed"
 	anchored = TRUE
 
+/obj/structure/bed/dogbed/vector
+	desc = "Vector's bed! Wait... Do hamsters normally have beds...?"
+	name = "Vector's bed"
+	anchored = TRUE
+
 /obj/structure/bed/dogbed/proc/update_owner(mob/living/M)
 	owner = M
 	name = "[M]'s bed"
