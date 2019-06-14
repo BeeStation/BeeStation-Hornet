@@ -199,6 +199,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	pda_color		= sanitize_hexcolor(pda_color, 6, 1, initial(pda_color))
 
 	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
+	if (!key_bindings)
+		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
 
 	return 1
 
@@ -245,6 +247,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["tip_delay"], tip_delay)
 	WRITE_FILE(S["pda_style"], pda_style)
 	WRITE_FILE(S["pda_color"], pda_color)
+
+	if (!key_bindings)
+		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
 	WRITE_FILE(S["key_bindings"], key_bindings)
 	return 1
 
