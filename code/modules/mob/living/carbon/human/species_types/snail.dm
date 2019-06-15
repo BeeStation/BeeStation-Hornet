@@ -8,11 +8,11 @@
 	attack_verb = "slap"
 	say_mod = "slurs"
 	coldmod = 0.5 //snails only come out when its cold and wet
-	burnmod = 2
-	speedmod = 6
-	punchdamagehigh = 0.5 //snails are soft and squishy
+	burnmod = 1.5
+	speedmod = 2
+	punchdamagehigh = 5 //snails are soft and squishy
 	siemens_coeff = 2 //snails are mostly water
-	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	sexes = FALSE //snails are hermaphrodites
 	var/shell_type = /obj/item/storage/backpack/snail
 
@@ -33,7 +33,6 @@
 	if(!istype(bag, /obj/item/storage/backpack/snail))
 		if(C.dropItemToGround(bag)) //returns TRUE even if its null
 			C.equip_to_slot_or_del(new /obj/item/storage/backpack/snail(C), SLOT_BACK)
-	C.AddComponent(/datum/component/snailcrawl)
 	ADD_TRAIT(C, TRAIT_NOSLIPALL, SPECIES_TRAIT)
 
 /datum/species/snail/on_species_loss(mob/living/carbon/C)
@@ -54,7 +53,7 @@
 	item_state = "snailshell"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
