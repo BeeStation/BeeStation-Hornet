@@ -202,6 +202,14 @@
 
 		C.process_endround_beecoins()
 
+		if(CONFIG_GET(flag/allow_crew_objectives))
+			var/mob/M = C.mob
+			if(M && M.mind.current && LAZYLEN(M.mind.crew_objectives))
+				for(var/datum/objective/crew/CO in M.mind.crew_objectives)
+					if(CO.check_completion())
+						C.inc_beecoin_count(BEECOIN_CO_REWARD)
+						break
+
 
 	var/popcount = gather_roundend_feedback()
 	display_report(popcount)
@@ -361,16 +369,15 @@
 		else
 			parts += "<div class='panel redborder'>"
 			parts += "<span class='redtext'>You did not survive the events on [station_name()]...</span>"
-		
+
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
 				for(var/datum/objective/crew/CO in M.mind.crew_objectives)
 					if(CO.check_completion())
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='greentext'><B>Success!</B></span><br>"
-						C.inc_beecoin_count(BEECOIN_CO_REWARD)
 					else
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='redtext'><B>Failed.</B></span><br>"
-	
+
 	else
 		parts += "<div class='panel stationborder'>"
 	parts += "<br>"
