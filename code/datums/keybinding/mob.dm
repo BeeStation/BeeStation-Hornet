@@ -54,7 +54,7 @@
 	return TRUE
 
 /datum/keybinding/mob/stop_pulling
-	key = "Delete"
+	key = "H"
 	name = "stop_pulling"
 	full_name = "Stop pulling"
 	description = ""
