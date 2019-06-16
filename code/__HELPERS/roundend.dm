@@ -205,7 +205,7 @@
 
 			if(CONFIG_GET(flag/allow_crew_objectives))
 				var/mob/M = C.mob
-				if(M && M.mind && M.mind.current && LAZYLEN(M.mind.crew_objectives))
+				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
 					for(var/datum/objective/crew/CO in M.mind.crew_objectives)
 						if(CO.check_completion())
 							C.inc_beecoin_count(BEECOIN_CO_REWARD)
