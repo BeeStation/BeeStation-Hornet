@@ -196,19 +196,20 @@
 	LAZYCLEARLIST(round_end_events)
 
 	for(var/client/C in GLOB.clients)
-		if(!C.credits)
-			C.RollCredits()
-		C.playtitlemusic(40)
+		if(C)
+			if(!C.credits)
+				C.RollCredits()
+			C.playtitlemusic(40)
 
-		C.process_endround_beecoins()
+			C.process_endround_beecoins()
 
-		if(CONFIG_GET(flag/allow_crew_objectives))
-			var/mob/M = C.mob
-			if(M && M.mind.current && LAZYLEN(M.mind.crew_objectives))
-				for(var/datum/objective/crew/CO in M.mind.crew_objectives)
-					if(CO.check_completion())
-						C.inc_beecoin_count(BEECOIN_CO_REWARD)
-						break
+			if(CONFIG_GET(flag/allow_crew_objectives))
+				var/mob/M = C.mob
+				if(M && M.mind && M.mind.current && LAZYLEN(M.mind.crew_objectives))
+					for(var/datum/objective/crew/CO in M.mind.crew_objectives)
+						if(CO.check_completion())
+							C.inc_beecoin_count(BEECOIN_CO_REWARD)
+							break
 
 
 	var/popcount = gather_roundend_feedback()
