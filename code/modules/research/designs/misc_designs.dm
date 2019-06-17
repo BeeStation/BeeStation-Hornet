@@ -206,7 +206,7 @@
 	build_path = /obj/item/locator
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-	
+
 /datum/design/quantum_keycard
 	name = "Quantum Keycard"
 	desc = "Allows for the construction of a quantum keycard."
