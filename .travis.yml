@@ -1,6 +1,7 @@
 language: generic
+dist: trusty
 sudo: false
-branches:
+dist: xenial
   except:
   - ___TGS3TempBranch
   - ___TGSTempBranch
@@ -43,7 +44,8 @@ matrix:
             - gcc-multilib
             - g++-7
             - g++-7-multilib
-            - libmariadbclient-dev:i386
+            - libmariadb-client-lgpl-dev:i386
+            - libmariadbd-dev
       cache:
         directories:
           - $HOME/.cargo
