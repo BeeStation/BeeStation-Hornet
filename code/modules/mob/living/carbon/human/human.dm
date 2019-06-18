@@ -838,7 +838,7 @@
 /mob/living/carbon/human/MouseDrop(mob/over)
 	. = ..()
 	if(ishuman(over))
-		var/mob/living/carbon/human/T = over
+		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
 		if(!src.is_busy && src.zone_selected == BODY_ZONE_HEAD && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align, time to curbstomp
 			src.is_busy = TRUE
 
