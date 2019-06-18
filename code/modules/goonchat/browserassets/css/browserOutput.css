@@ -250,7 +250,7 @@ a.popt {text-decoration: none;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover {color: #a4bad6;}
 
 /* ADD HERE FOR BOLD */
-.bold, .name, .prefix, .ooc, .looc, .adminooc, .admin, .medal, .yell {font-weight: bold;}
+.bold, .name, .prefix, .ooc, .dooc, .looc, .adminooc, .admin, .medal, .yell {font-weight: bold;}
 
 /* ADD HERE FOR ITALIC */
 .italic, .italics,  .emote {font-style: italic;}
@@ -264,6 +264,7 @@ h1.alert, h2.alert		{color: #a4bad6;}
 em						{font-style: normal;	font-weight: bold;}
 
 .ooc					{color: #cca300;	font-weight: bold;}
+.dooc					{color: #d543e9;	font-weight: bold;}
 .looc 					{color: #ffde5c;	font-weight: bold;}
 .adminobserverooc		{color: #0099cc;	font-weight: bold;}
 .adminooc				{color: #3d5bc3;	font-weight: bold;}
