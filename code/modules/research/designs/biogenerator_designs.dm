@@ -74,6 +74,14 @@
 	materials = list(MAT_BIOMASS = 250)
 	build_path = /obj/item/reagent_containers/food/snacks/monkeycube
 	category = list("initial", "Food")
+	
+/datum/design/strange_seeds
+	name = "Pack of Strange Seeds"
+	id = "random"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 5000)
+	build_path = /obj/item/seeds/random
+	category = list("initial", "Food")
 
 /datum/design/ez_nut
 	name = "E-Z Nutrient"
