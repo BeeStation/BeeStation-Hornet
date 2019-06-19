@@ -299,7 +299,9 @@
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user)
 
 /atom/examine(mob/user)
-	user.visible_message("<span class='examine'><span class='name'>\The [user]</span> looks at \the [src].</span>")
+	var/turf/T = get_turf(src)
+	if(T == loc || isturf(src))  // we're not inside something
+		user.visible_message("<span class='examine'><span class='name'>\The [user]</span> looks at \the [src].</span>")
 	..()
 
 /atom/proc/relaymove(mob/user)
