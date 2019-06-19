@@ -301,7 +301,7 @@
 /atom/examine(mob/user)
 	var/turf/T = get_turf(src)
 	if(T == loc || isturf(src))  // we're not inside something
-		user.visible_message("<span class='examine'><span class='name'>\The [user]</span> looks at \the [src].</span>")
+		visible_message("<span class='examine'><span class='name'>\The [user]</span> looks at \the [src].</span>")
 	..()
 
 /atom/proc/relaymove(mob/user)
