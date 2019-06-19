@@ -62,7 +62,7 @@ h1.alert, h2.alert		{color: #000000;}
 .emote					{					font-style: italic;}
 .selecteddna			{color: #ffffff; 	background-color: #001B1B}
 
-.examine 				{font-size: 7pt;}
+.examine 				{font-size: 8pt;}
 
 .attack					{color: #ff0000;}
 .disarm					{color: #990000;}
