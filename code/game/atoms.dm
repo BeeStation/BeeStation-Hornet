@@ -298,6 +298,10 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user)
 
+/atom/examine(mob/user)
+	user.visible_message("<span class='examine'><span class='name'>\The [user]</span> looks at \the [src].</span>")
+	..()
+
 /atom/proc/relaymove(mob/user)
 	if(buckle_message_cooldown <= world.time)
 		buckle_message_cooldown = world.time + 50
