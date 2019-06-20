@@ -49,8 +49,8 @@ if [ $BUILD_TOOLS = false ] && [ $BUILD_TESTING = false ]; then
         rm -rf /tmp/extract
 
         wget http://mirrors.edge.kernel.org/ubuntu/pool/universe/m/mariadb-connector-c/libmariadb-dev-compat_3.0.3-1build1_i386.deb
-        dpkg -x libmariadb-dev_2.3.3-1_i386.deb /tmp/extract
-        rm libmariadb-dev_2.3.3-1_i386.deb
+        dpkg -x libmariadb-dev-compat_3.0.3-1build1_i386.deb /tmp/extract
+        rm libmariadb-dev-compat_3.0.3-1build1_i386.deb
         mv /tmp/extract/usr/include $HOME/MariaDB/
         #fuck what is this even?
         mv $HOME/MariaDB/include/mariadb $HOME/MariaDB/include/mysql
