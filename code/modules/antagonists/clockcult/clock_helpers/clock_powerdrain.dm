@@ -40,7 +40,7 @@
 		charge = use(.)
 		update_icon()
 
-/mob/living/silicon/robot/power_drain(clockcult_user)
+/mob/living/silicon/cyborg/power_drain(clockcult_user)
 	if((!clockcult_user || !is_servant_of_ratvar(src)) && cell && cell.charge)
 		. = min(cell.charge, MIN_CLOCKCULT_POWER*4)
 		cell.use(.)

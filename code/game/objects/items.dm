@@ -345,7 +345,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		//If the item is part of a cyborg module, equip it
 		if(!iscyborg(user))
 			return
-		var/mob/living/silicon/robot/R = user
+		var/mob/living/silicon/cyborg/R = user
 		if(!R.low_power_mode) //can't equip modules with an empty cell.
 			R.activate_module(src)
 			R.hud_used.update_robot_modules_display()

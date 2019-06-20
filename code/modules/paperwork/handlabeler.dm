@@ -94,7 +94,7 @@
 	if(!iscyborg(user))
 		return
 
-	var/mob/living/silicon/robot/borgy = user
+	var/mob/living/silicon/cyborg/borgy = user
 
 	var/starting_labels = initial(labels_left)
 	var/diff = starting_labels - labels_left

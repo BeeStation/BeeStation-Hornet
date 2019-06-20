@@ -11,7 +11,7 @@
 
 /datum/keybinding/robot/toggle_module_1/down(client/user)
 	if(!iscyborg(user.mob)) return
-	var/mob/living/silicon/robot/M = user.mob
+	var/mob/living/silicon/cyborg/M = user.mob
 	M.toggle_module(1)
 	return TRUE
 
@@ -23,7 +23,7 @@
 
 /datum/keybinding/robot/toggle_module_2/down(client/user)
 	if(!iscyborg(user.mob)) return
-	var/mob/living/silicon/robot/M = user.mob
+	var/mob/living/silicon/cyborg/M = user.mob
 	M.toggle_module(2)
 	return TRUE
 
@@ -36,7 +36,7 @@
 
 /datum/keybinding/robot/toggle_module_3/down(client/user)
 	if(!iscyborg(user.mob)) return
-	var/mob/living/silicon/robot/M = user.mob
+	var/mob/living/silicon/cyborg/M = user.mob
 	M.toggle_module(3)
 	return TRUE
 
@@ -48,7 +48,7 @@
 
 /datum/keybinding/robot/change_intent_robot/down(client/user)
 	if(!iscyborg(user.mob)) return
-	var/mob/living/silicon/robot/M = user.mob
+	var/mob/living/silicon/cyborg/M = user.mob
 	M.a_intent_change(INTENT_HOTKEY_LEFT)
 	return TRUE
 
@@ -61,6 +61,6 @@
 
 /datum/keybinding/robot/unequip_module/down(client/user)
 	if(!iscyborg(user.mob)) return
-	var/mob/living/silicon/robot/M = user.mob
+	var/mob/living/silicon/cyborg/M = user.mob
 	M.uneq_active()
 	return TRUE

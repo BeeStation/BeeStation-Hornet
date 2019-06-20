@@ -244,7 +244,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 //Returns a list of unslaved cyborgs
 /proc/active_free_borgs()
 	. = list()
-	for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
+	for(var/mob/living/silicon/cyborg/R in GLOB.alive_mob_list)
 		if(R.connected_ai || R.shell)
 			continue
 		if(R.stat == DEAD)
@@ -334,7 +334,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 		moblist.Add(M)
 	for(var/mob/living/silicon/pai/M in sortmob)
 		moblist.Add(M)
-	for(var/mob/living/silicon/robot/M in sortmob)
+	for(var/mob/living/silicon/cyborg/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/carbon/human/M in sortmob)
 		moblist.Add(M)

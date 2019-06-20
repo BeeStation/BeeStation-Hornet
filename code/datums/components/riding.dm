@@ -256,7 +256,7 @@
 	if(user.incapacitated())
 		var/kick = TRUE
 		if(iscyborg(AM))
-			var/mob/living/silicon/robot/R = AM
+			var/mob/living/silicon/cyborg/R = AM
 			if(R.module && R.module.ride_allow_incapacitated)
 				kick = FALSE
 		if(kick)
@@ -289,7 +289,7 @@
 		for(var/mob/living/M in AM.buckled_mobs)
 			M.setDir(AM.dir)
 			if(iscyborg(AM))
-				var/mob/living/silicon/robot/R = AM
+				var/mob/living/silicon/cyborg/R = AM
 				if(istype(R.module))
 					M.pixel_x = R.module.ride_offset_x[dir2text(AM.dir)]
 					M.pixel_y = R.module.ride_offset_y[dir2text(AM.dir)]

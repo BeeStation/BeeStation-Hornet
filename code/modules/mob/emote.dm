@@ -39,7 +39,7 @@
 		user.spin(20, 1)
 
 		if(iscyborg(user) && user.has_buckled_mobs())
-			var/mob/living/silicon/robot/R = user
+			var/mob/living/silicon/cyborg/R = user
 			GET_COMPONENT_FROM(riding_datum, /datum/component/riding, R)
 			if(riding_datum)
 				for(var/mob/M in R.buckled_mobs)

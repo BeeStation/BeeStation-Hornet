@@ -54,7 +54,7 @@
 	var/printcost = 2
 
 /obj/item/camera/siliconcam/robot_camera/after_picture(mob/user, datum/picture/picture, proximity_flag)
-	var/mob/living/silicon/robot/C = loc
+	var/mob/living/silicon/cyborg/C = loc
 	if(istype(C) && istype(C.connected_ai))
 		var/number = C.connected_ai.aicamera.stored.len
 		picture.picture_name = "Image [number] (taken by [loc.name])"
@@ -67,7 +67,7 @@
 		to_chat(usr, "<span class='unconscious'>Image recorded and saved to local storage. Upload will happen automatically if unit is lawsynced.</span>")
 
 /obj/item/camera/siliconcam/robot_camera/selectpicture(mob/user)
-	var/mob/living/silicon/robot/R = loc
+	var/mob/living/silicon/cyborg/R = loc
 	if(istype(R) && R.connected_ai)
 		R.picturesync()
 		return R.connected_ai.aicamera.selectpicture(user)
@@ -83,7 +83,7 @@
 	borgprint(usr)
 
 /obj/item/camera/siliconcam/robot_camera/proc/borgprint(mob/user)
-	var/mob/living/silicon/robot/C = loc
+	var/mob/living/silicon/cyborg/C = loc
 	if(!istype(C) || C.toner < 20)
 		to_chat(user, "<span class='warning'>Insufficent toner to print image.</span>")
 		return

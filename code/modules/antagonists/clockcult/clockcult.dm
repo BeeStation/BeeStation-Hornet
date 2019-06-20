@@ -56,7 +56,7 @@
 	owner.current.log_message("has been converted to the cult of Ratvar!", LOG_ATTACK, color="#BE8700")
 	if(issilicon(current))
 		if(iscyborg(current) && !silent)
-			var/mob/living/silicon/robot/R = current
+			var/mob/living/silicon/cyborg/R = current
 			if(R.connected_ai && !is_servant_of_ratvar(R.connected_ai))
 				to_chat(R, "<span class='boldwarning'>You have been desynced from your master AI.<br>\
 				In addition, your onboard camera is no longer active and you have gained additional equipment, including a limited clockwork slab.</span>")
@@ -83,7 +83,7 @@
 	if(issilicon(current))
 		var/mob/living/silicon/S = current
 		if(iscyborg(S))
-			var/mob/living/silicon/robot/R = S
+			var/mob/living/silicon/cyborg/R = S
 			if(!R.shell)
 				R.UnlinkSelf()
 			R.module.rebuild_modules()
@@ -99,7 +99,7 @@
 				A.ai_restore_power()
 			if(A.eyeobj)
 				A.eyeobj.relay_speech = TRUE
-			for(var/mob/living/silicon/robot/R in A.connected_robots)
+			for(var/mob/living/silicon/cyborg/R in A.connected_robots)
 				if(R.connected_ai == A)
 					add_servant_of_ratvar(R)
 		S.laws = new/datum/ai_laws/ratvar
@@ -147,7 +147,7 @@
 	var/mob/living/temp_owner = current
 	..()
 	if(iscyborg(temp_owner))
-		var/mob/living/silicon/robot/R = temp_owner
+		var/mob/living/silicon/cyborg/R = temp_owner
 		R.module.rebuild_modules()
 	if(temp_owner)
 		temp_owner.update_action_buttons_icon() //because a few clockcult things are action buttons and we may be wearing/holding them, we need to update buttons

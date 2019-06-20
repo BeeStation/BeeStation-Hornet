@@ -158,7 +158,7 @@
 /mob/living/silicon/IsAdvancedToolUser()
 	return TRUE
 
-/proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
+/proc/islinked(mob/living/silicon/cyborg/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
 		return FALSE
 	if(bot.connected_ai == ai)

@@ -14,7 +14,7 @@
 	// if module is reset
 	var/one_use = FALSE
 
-/obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/proc/action(mob/living/silicon/cyborg/R, user = usr)
 	if(R.stat == DEAD)
 		to_chat(user, "<span class='notice'>[src] will not function on a deceased cyborg.</span>")
 		return FALSE
@@ -24,7 +24,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/borg/upgrade/proc/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/proc/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	if (!(src in R.upgrades))
 		return FALSE
 	return TRUE
@@ -39,7 +39,7 @@
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
 	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
 
-/obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/rename/action(mob/living/silicon/cyborg/R)
 	. = ..()
 	if(.)
 		var/oldname = R.real_name
@@ -54,7 +54,7 @@
 	icon_state = "cyborg_upgrade1"
 	one_use = TRUE
 
-/obj/item/borg/upgrade/restart/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/restart/action(mob/living/silicon/cyborg/R, user = usr)
 	if(R.health < 0)
 		to_chat(user, "<span class='warning'>You have to repair the cyborg before using this module!</span>")
 		return FALSE
@@ -71,7 +71,7 @@
 	icon_state = "cyborg_upgrade2"
 	require_module = 1
 
-/obj/item/borg/upgrade/vtec/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/vtec/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		if(R.speed < 0)
@@ -81,7 +81,7 @@
 
 		R.speed = -2 // Gotta go fast.
 
-/obj/item/borg/upgrade/vtec/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/vtec/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		R.speed = initial(R.speed)
@@ -93,7 +93,7 @@
 	require_module = 1
 	module_type = /obj/item/robot_module/security
 
-/obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
@@ -107,7 +107,7 @@
 
 		T.charge_delay = max(2 , T.charge_delay - 4)
 
-/obj/item/borg/upgrade/disablercooler/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/disablercooler/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
@@ -120,7 +120,7 @@
 	desc = "An energy-operated thruster system for cyborgs."
 	icon_state = "cyborg_upgrade3"
 
-/obj/item/borg/upgrade/thrusters/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/thrusters/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		if(R.ionpulse)
@@ -129,7 +129,7 @@
 
 		R.ionpulse = TRUE
 
-/obj/item/borg/upgrade/thrusters/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/thrusters/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		R.ionpulse = FALSE
@@ -141,7 +141,7 @@
 	require_module = 1
 	module_type = /obj/item/robot_module/miner
 
-/obj/item/borg/upgrade/ddrill/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/ddrill/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		for(var/obj/item/pickaxe/drill/cyborg/D in R.module)
@@ -153,7 +153,7 @@
 		R.module.basic_modules += DD
 		R.module.add_module(DD, FALSE, TRUE)
 
-/obj/item/borg/upgrade/ddrill/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/ddrill/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		for(var/obj/item/pickaxe/drill/cyborg/diamond/DD in R.module)
@@ -173,7 +173,7 @@
 	require_module = 1
 	module_type = /obj/item/robot_module/miner
 
-/obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/soh/action(mob/living/silicon/cyborg/R)
 	. = ..()
 	if(.)
 		for(var/obj/item/storage/bag/ore/cyborg/S in R.module)
@@ -183,7 +183,7 @@
 		R.module.basic_modules += H
 		R.module.add_module(H, FALSE, TRUE)
 
-/obj/item/borg/upgrade/soh/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/soh/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		for(var/obj/item/storage/bag/ore/holding/H in R.module)
@@ -200,7 +200,7 @@
 	require_module = 1
 	module_type = /obj/item/robot_module/janitor
 
-/obj/item/borg/upgrade/tboh/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/tboh/action(mob/living/silicon/cyborg/R)
 	. = ..()
 	if(.)
 		for(var/obj/item/storage/bag/trash/cyborg/TB in R.module.modules)
@@ -210,7 +210,7 @@
 		R.module.basic_modules += B
 		R.module.add_module(B, FALSE, TRUE)
 
-/obj/item/borg/upgrade/tboh/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/tboh/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		for(var/obj/item/storage/bag/trash/bluespace/cyborg/B in R.module.modules)
@@ -227,7 +227,7 @@
 	require_module = 1
 	module_type = /obj/item/robot_module/janitor
 
-/obj/item/borg/upgrade/amop/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/amop/action(mob/living/silicon/cyborg/R)
 	. = ..()
 	if(.)
 		for(var/obj/item/mop/cyborg/M in R.module.modules)
@@ -237,7 +237,7 @@
 	R.module.basic_modules += A
 	R.module.add_module(A, FALSE, TRUE)
 
-/obj/item/borg/upgrade/amop/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/amop/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		for(var/obj/item/mop/advanced/cyborg/A in R.module.modules)
@@ -253,7 +253,7 @@
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
 
-/obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/syndicate/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		if(R.emagged)
@@ -263,7 +263,7 @@
 
 		return TRUE
 
-/obj/item/borg/upgrade/syndicate/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/syndicate/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		R.SetEmagged(FALSE)
@@ -276,12 +276,12 @@
 	require_module = 1
 	module_type = /obj/item/robot_module/miner
 
-/obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		R.weather_immunities += "lava"
 
-/obj/item/borg/upgrade/lavaproof/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/lavaproof/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		R.weather_immunities -= "lava"
@@ -296,10 +296,10 @@
 	var/msg_cooldown = 0
 	var/on = FALSE
 	var/powercost = 10
-	var/mob/living/silicon/robot/cyborg
+	var/mob/living/silicon/cyborg/cyborg
 	var/datum/action/toggle_action
 
-/obj/item/borg/upgrade/selfrepair/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/selfrepair/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		var/obj/item/borg/upgrade/selfrepair/U = locate() in R
@@ -312,7 +312,7 @@
 		toggle_action = new /datum/action/item_action/toggle(src)
 		toggle_action.Grant(R)
 
-/obj/item/borg/upgrade/selfrepair/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/selfrepair/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		toggle_action.Remove(cyborg)
@@ -406,7 +406,7 @@
 	module_type = /obj/item/robot_module/medical
 	var/list/additional_reagents = list()
 
-/obj/item/borg/upgrade/hypospray/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/hypospray/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
@@ -414,7 +414,7 @@
 				for(var/re in additional_reagents)
 					H.add_reagent(re)
 
-/obj/item/borg/upgrade/hypospray/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/hypospray/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
@@ -436,7 +436,7 @@
 		pierce armor and thick material."
 	icon_state = "cyborg_upgrade3"
 
-/obj/item/borg/upgrade/piercing_hypospray/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/piercing_hypospray/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		var/found_hypo = FALSE
@@ -447,7 +447,7 @@
 		if(!found_hypo)
 			return FALSE
 
-/obj/item/borg/upgrade/piercing_hypospray/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/piercing_hypospray/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
@@ -461,14 +461,14 @@
 	require_module = 1
 	module_type = /obj/item/robot_module/medical
 
-/obj/item/borg/upgrade/defib/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/defib/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		var/obj/item/twohanded/shockpaddles/cyborg/S = new(R.module)
 		R.module.basic_modules += S
 		R.module.add_module(S, FALSE, TRUE)
 
-/obj/item/borg/upgrade/defib/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/defib/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		var/obj/item/twohanded/shockpaddles/cyborg/S = locate() in R.module
@@ -483,14 +483,14 @@
 	require_module = 1
 	module_type = /obj/item/robot_module/medical
 
-/obj/item/borg/upgrade/processor/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/processor/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		var/obj/item/surgical_processor/SP = new(R.module)
 		R.module.basic_modules += SP
 		R.module.add_module(SP, FALSE, TRUE)
 
-/obj/item/borg/upgrade/processor/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/processor/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		var/obj/item/surgical_processor/SP = locate() in R.module
@@ -501,7 +501,7 @@
 	desc = "Bluespace Optimized Remote Intelligence Synchronization. An uplink device which takes the place of an MMI in cyborg endoskeletons, creating a robotic shell controlled by an AI."
 	icon_state = "boris"
 
-/obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/ai/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		if(R.shell)
@@ -513,7 +513,7 @@
 
 		R.make_shell(src)
 
-/obj/item/borg/upgrade/ai/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/ai/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		if(R.shell)
@@ -525,7 +525,7 @@
 	desc = "A cyborg resizer, it makes a cyborg huge."
 	icon_state = "cyborg_upgrade3"
 
-/obj/item/borg/upgrade/expand/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/expand/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 
@@ -552,7 +552,7 @@
 		R.hasExpanded = TRUE
 		R.update_transform()
 
-/obj/item/borg/upgrade/expand/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/expand/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		if (R.hasExpanded)
@@ -568,7 +568,7 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
 
-/obj/item/borg/upgrade/rped/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/rped/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 
@@ -581,7 +581,7 @@
 		R.module.basic_modules += RPED
 		R.module.add_module(RPED, FALSE, TRUE)
 
-/obj/item/borg/upgrade/rped/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/rped/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		var/obj/item/storage/part_replacer/cyborg/RPED = locate() in R.module
@@ -596,7 +596,7 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 
-/obj/item/borg/upgrade/pinpointer/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/pinpointer/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 
@@ -609,7 +609,7 @@
 		R.module.basic_modules += PP
 		R.module.add_module(PP, FALSE, TRUE)
 
-/obj/item/borg/upgrade/pinpointer/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/pinpointer/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		var/obj/item/pinpointer/crew/PP = locate() in R.module
@@ -622,7 +622,7 @@
 	icon_state = "cyborg_upgrade3"
 	var/obj/item/robot_module/new_module = /obj/item/robot_module/standard
 
-/obj/item/borg/upgrade/transform/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/transform/action(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if(.)
 		R.module.transform_to(new_module)

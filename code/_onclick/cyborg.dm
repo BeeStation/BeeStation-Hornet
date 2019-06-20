@@ -6,7 +6,7 @@
 	adjacency code.
 */
 
-/mob/living/silicon/robot/ClickOn(var/atom/A, var/params)
+/mob/living/silicon/cyborg/ClickOn(var/atom/A, var/params)
 	if(world.time <= next_click)
 		return
 	next_click = world.time + 1
@@ -86,73 +86,73 @@
 				return
 
 //Middle click cycles through selected modules.
-/mob/living/silicon/robot/MiddleClickOn(atom/A)
+/mob/living/silicon/cyborg/MiddleClickOn(atom/A)
 	cycle_modules()
 	return
 
 //Give cyborgs hotkey clicks without breaking existing uses of hotkey clicks
 // for non-doors/apcs
-/mob/living/silicon/robot/CtrlShiftClickOn(atom/A)
+/mob/living/silicon/cyborg/CtrlShiftClickOn(atom/A)
 	A.BorgCtrlShiftClick(src)
-/mob/living/silicon/robot/ShiftClickOn(atom/A)
+/mob/living/silicon/cyborg/ShiftClickOn(atom/A)
 	A.BorgShiftClick(src)
-/mob/living/silicon/robot/CtrlClickOn(atom/A)
+/mob/living/silicon/cyborg/CtrlClickOn(atom/A)
 	A.BorgCtrlClick(src)
-/mob/living/silicon/robot/AltClickOn(atom/A)
+/mob/living/silicon/cyborg/AltClickOn(atom/A)
 	A.BorgAltClick(src)
 
-/atom/proc/BorgCtrlShiftClick(mob/living/silicon/robot/user) //forward to human click if not overridden
+/atom/proc/BorgCtrlShiftClick(mob/living/silicon/cyborg/user) //forward to human click if not overridden
 	CtrlShiftClick(user)
 
-/obj/machinery/door/airlock/BorgCtrlShiftClick(mob/living/silicon/robot/user) // Sets/Unsets Emergency Access Override Forwards to AI code.
+/obj/machinery/door/airlock/BorgCtrlShiftClick(mob/living/silicon/cyborg/user) // Sets/Unsets Emergency Access Override Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)
 		AICtrlShiftClick()
 	else
 		..()
 
 
-/atom/proc/BorgShiftClick(mob/living/silicon/robot/user) //forward to human click if not overridden
+/atom/proc/BorgShiftClick(mob/living/silicon/cyborg/user) //forward to human click if not overridden
 	ShiftClick(user)
 
-/obj/machinery/door/airlock/BorgShiftClick(mob/living/silicon/robot/user)  // Opens and closes doors! Forwards to AI code.
+/obj/machinery/door/airlock/BorgShiftClick(mob/living/silicon/cyborg/user)  // Opens and closes doors! Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)
 		AIShiftClick()
 	else
 		..()
 
 
-/atom/proc/BorgCtrlClick(mob/living/silicon/robot/user) //forward to human click if not overridden
+/atom/proc/BorgCtrlClick(mob/living/silicon/cyborg/user) //forward to human click if not overridden
 	CtrlClick(user)
 
-/obj/machinery/door/airlock/BorgCtrlClick(mob/living/silicon/robot/user) // Bolts doors. Forwards to AI code.
+/obj/machinery/door/airlock/BorgCtrlClick(mob/living/silicon/cyborg/user) // Bolts doors. Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)
 		AICtrlClick()
 	else
 		..()
 
-/obj/machinery/power/apc/BorgCtrlClick(mob/living/silicon/robot/user) // turns off/on APCs. Forwards to AI code.
+/obj/machinery/power/apc/BorgCtrlClick(mob/living/silicon/cyborg/user) // turns off/on APCs. Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)
 		AICtrlClick()
 	else
 		..()
 
-/obj/machinery/turretid/BorgCtrlClick(mob/living/silicon/robot/user) //turret control on/off. Forwards to AI code.
+/obj/machinery/turretid/BorgCtrlClick(mob/living/silicon/cyborg/user) //turret control on/off. Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)
 		AICtrlClick()
 	else
 		..()
 
-/atom/proc/BorgAltClick(mob/living/silicon/robot/user)
+/atom/proc/BorgAltClick(mob/living/silicon/cyborg/user)
 	AltClick(user)
 	return
 
-/obj/machinery/door/airlock/BorgAltClick(mob/living/silicon/robot/user) // Eletrifies doors. Forwards to AI code.
+/obj/machinery/door/airlock/BorgAltClick(mob/living/silicon/cyborg/user) // Eletrifies doors. Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)
 		AIAltClick()
 	else
 		..()
 
-/obj/machinery/turretid/BorgAltClick(mob/living/silicon/robot/user) //turret lethal on/off. Forwards to AI code.
+/obj/machinery/turretid/BorgAltClick(mob/living/silicon/cyborg/user) //turret lethal on/off. Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)
 		AIAltClick()
 	else
@@ -166,9 +166,9 @@
 	clicks, you can do so here, but you will have to
 	change attack_robot() above to the proper function
 */
-/mob/living/silicon/robot/UnarmedAttack(atom/A)
+/mob/living/silicon/cyborg/UnarmedAttack(atom/A)
 	A.attack_robot(src)
-/mob/living/silicon/robot/RangedAttack(atom/A)
+/mob/living/silicon/cyborg/RangedAttack(atom/A)
 	A.attack_robot(src)
 
 /atom/proc/attack_robot(mob/user)

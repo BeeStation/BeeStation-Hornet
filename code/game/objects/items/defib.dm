@@ -650,7 +650,7 @@
 
 /obj/item/twohanded/shockpaddles/cyborg/attack(mob/M, mob/user)
 	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
+		var/mob/living/silicon/cyborg/R = user
 		if(R.emagged)
 			combat = TRUE
 		else

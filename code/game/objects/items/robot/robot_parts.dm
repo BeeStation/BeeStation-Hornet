@@ -270,7 +270,7 @@
 			if(!user.temporarilyRemoveItemFromInventory(W))
 				return
 
-			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc))
+			var/mob/living/silicon/cyborg/O = new /mob/living/silicon/cyborg(get_turf(loc))
 			if(!O)
 				return
 
@@ -341,7 +341,7 @@
 				to_chat(user, "<span class='warning'>[M] is stuck to your hand!</span>")
 				return
 			qdel(M)
-			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot/shell(get_turf(src))
+			var/mob/living/silicon/cyborg/O = new /mob/living/silicon/cyborg/shell(get_turf(src))
 
 			if(!aisync)
 				lawsync = FALSE

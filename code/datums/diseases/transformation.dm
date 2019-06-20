@@ -167,7 +167,7 @@
 	stage3	= list("<span class='danger'>Your joints feel very stiff.</span>", "Your skin feels loose.", "<span class='danger'>You can feel something move...inside.</span>")
 	stage4	= list("<span class='danger'>Your skin feels very loose.</span>", "<span class='danger'>You can feel... something...inside you.</span>")
 	stage5	= list("<span class='danger'>Your skin feels as if it's about to burst off!</span>")
-	new_form = /mob/living/silicon/robot
+	new_form = /mob/living/silicon/cyborg
 	infectable_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_ROBOTIC)
 	bantype = "Cyborg"
 

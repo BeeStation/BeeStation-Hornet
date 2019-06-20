@@ -10,7 +10,7 @@
 	req_access = list(ACCESS_ROBOTICS)
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/cyborgrecharger
-	occupant_typecache = list(/mob/living/silicon/robot, /mob/living/carbon/human)
+	occupant_typecache = list(/mob/living/silicon/cyborg, /mob/living/carbon/human)
 	var/recharge_speed
 	var/repairs
 
@@ -107,7 +107,7 @@
 	if(!occupant)
 		return
 	if(iscyborg(occupant))
-		var/mob/living/silicon/robot/R = occupant
+		var/mob/living/silicon/cyborg/R = occupant
 		restock_modules()
 		if(repairs)
 			R.heal_bodypart_damage(repairs, repairs - 1)
@@ -121,7 +121,7 @@
 
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)
-		var/mob/living/silicon/robot/R = occupant
+		var/mob/living/silicon/cyborg/R = occupant
 		if(R && R.module)
 			var/coeff = recharge_speed * 0.005
 			R.module.respawn_consumable(R, coeff)

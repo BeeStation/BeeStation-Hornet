@@ -385,7 +385,7 @@
 			if("monkey")
 				M.change_mob_type( /mob/living/carbon/monkey , null, null, delmob )
 			if("robot")
-				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob )
+				M.change_mob_type( /mob/living/silicon/cyborg , null, null, delmob )
 			if("cat")
 				M.change_mob_type( /mob/living/simple_animal/pet/cat , null, null, delmob )
 			if("runtime")
@@ -1401,7 +1401,7 @@
 								var/obj/item/I = O
 								L.put_in_hands(I)
 								if(iscyborg(L))
-									var/mob/living/silicon/robot/R = L
+									var/mob/living/silicon/cyborg/R = L
 									if(R.module)
 										R.module.add_module(I, TRUE, TRUE)
 										R.activate_module(I)

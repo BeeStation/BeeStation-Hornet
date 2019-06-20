@@ -55,7 +55,7 @@
 	message = "blares an alarm!"
 	sound = 'sound/machines/warning-buzzer.ogg'
 
-/mob/living/silicon/robot/verb/powerwarn()
+/mob/living/silicon/cyborg/verb/powerwarn()
 	set category = "Robot Commands"
 	set name = "Power Warning"
 

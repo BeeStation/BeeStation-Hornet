@@ -208,7 +208,7 @@
 	else if(get_clockwork_power())
 		to_chat(L, "<span class='brass'>You feel a slight, static shock.</span>")
 
-/obj/effect/clockwork/sigil/transmission/proc/charge_cyborg(mob/living/silicon/robot/cyborg)
+/obj/effect/clockwork/sigil/transmission/proc/charge_cyborg(mob/living/silicon/cyborg/cyborg)
 	if(!cyborg_checks(cyborg))
 		return
 	to_chat(cyborg, "<span class='brass'>You start to charge from the [sigil_name]...</span>")
@@ -223,7 +223,7 @@
 		animate(cyborg, color = previous_color, time = 100)
 		addtimer(CALLBACK(cyborg, /atom/proc/update_atom_colour), 100)
 
-/obj/effect/clockwork/sigil/transmission/proc/cyborg_checks(mob/living/silicon/robot/cyborg, silent)
+/obj/effect/clockwork/sigil/transmission/proc/cyborg_checks(mob/living/silicon/cyborg/cyborg, silent)
 	if(!cyborg.cell)
 		if(!silent)
 			to_chat(cyborg, "<span class='warning'>You have no cell!</span>")

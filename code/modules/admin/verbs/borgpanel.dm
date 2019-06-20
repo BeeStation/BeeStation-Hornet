@@ -6,9 +6,9 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	if (!istype(borgo, /mob/living/silicon/robot))
+	if (!istype(borgo, /mob/living/silicon/cyborg))
 		borgo = input("Select a borg", "Select a borg", null, null) as null|anything in GLOB.silicon_mobs
-	if (!istype(borgo, /mob/living/silicon/robot))
+	if (!istype(borgo, /mob/living/silicon/cyborg))
 		to_chat(usr, "<span class='warning'>Borg is required for borgpanel</span>")
 
 	var/datum/borgpanel/borgpanel = new(usr, borgo)
@@ -18,10 +18,10 @@
 
 
 /datum/borgpanel
-	var/mob/living/silicon/robot/borg
+	var/mob/living/silicon/cyborg/borg
 	var/user
 
-/datum/borgpanel/New(to_user, mob/living/silicon/robot/to_borg)
+/datum/borgpanel/New(to_user, mob/living/silicon/cyborg/to_borg)
 	if(!istype(to_borg))
 		CRASH("Borg panel is only available for borgs")
 		qdel(src)

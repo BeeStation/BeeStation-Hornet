@@ -150,7 +150,7 @@
 			playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
 			return 0
 	if(iscyborg(loc))
-		var/mob/living/silicon/robot/R = loc
+		var/mob/living/silicon/cyborg/R = loc
 		if(!R || !R.cell || !R.cell.use(hitcost))
 			return 0
 	else

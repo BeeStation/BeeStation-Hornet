@@ -96,7 +96,7 @@
 		return TRUE
 
 	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
+		var/mob/living/silicon/cyborg/R = user
 		var/obj/item/surgical_processor/SP = locate() in R.module.modules
 		if(!SP)
 			return FALSE

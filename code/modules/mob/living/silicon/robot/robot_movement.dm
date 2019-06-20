@@ -1,4 +1,4 @@
-/mob/living/silicon/robot/Process_Spacemove(movement_dir = 0)
+/mob/living/silicon/cyborg/Process_Spacemove(movement_dir = 0)
 	. = ..()
 	if(.)
 		return TRUE
@@ -6,12 +6,12 @@
 		return TRUE
 	return FALSE
 
-/mob/living/silicon/robot/mob_negates_gravity()
+/mob/living/silicon/cyborg/mob_negates_gravity()
 	return magpulse
 
-/mob/living/silicon/robot/mob_has_gravity()
+/mob/living/silicon/cyborg/mob_has_gravity()
 	return ..() || mob_negates_gravity()
 
-/mob/living/silicon/robot/experience_pressure_difference(pressure_difference, direction)
+/mob/living/silicon/cyborg/experience_pressure_difference(pressure_difference, direction)
 	if(!magpulse)
 		return ..()

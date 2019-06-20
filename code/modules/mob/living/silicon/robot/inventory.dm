@@ -2,13 +2,13 @@
 //as they handle all relevant stuff like adding it to the player's screen and such
 
 //Returns the thing in our active hand (whatever is in our active module-slot, in this case)
-/mob/living/silicon/robot/get_active_held_item()
+/mob/living/silicon/cyborg/get_active_held_item()
 	return module_active
 
 /obj/item/proc/cyborg_unequip(mob/user)
 	return
 
-/mob/living/silicon/robot/proc/uneq_module(obj/item/O)
+/mob/living/silicon/cyborg/proc/uneq_module(obj/item/O)
 	if(!O)
 		return 0
 	O.mouse_opacity = MOUSE_OPACITY_OPAQUE
@@ -43,7 +43,7 @@
 	hud_used.update_robot_modules_display()
 	return 1
 
-/mob/living/silicon/robot/proc/activate_module(obj/item/O)
+/mob/living/silicon/cyborg/proc/activate_module(obj/item/O)
 	. = FALSE
 	if(!(O in module.modules))
 		return
@@ -77,7 +77,7 @@
 			update_sight()
 
 
-/mob/living/silicon/robot/proc/observer_screen_update(obj/item/I,add = TRUE)
+/mob/living/silicon/cyborg/proc/observer_screen_update(obj/item/I,add = TRUE)
 	if(observers && observers.len)
 		for(var/M in observers)
 			var/mob/dead/observe = M
@@ -92,14 +92,14 @@
 					observers = null
 					break
 
-/mob/living/silicon/robot/proc/uneq_active()
+/mob/living/silicon/cyborg/proc/uneq_active()
 	uneq_module(module_active)
 
-/mob/living/silicon/robot/proc/uneq_all()
+/mob/living/silicon/cyborg/proc/uneq_all()
 	for(var/obj/item/I in held_items)
 		uneq_module(I)
 
-/mob/living/silicon/robot/proc/activated(obj/item/O)
+/mob/living/silicon/cyborg/proc/activated(obj/item/O)
 	if(O in held_items)
 		return TRUE
 	return FALSE
@@ -108,11 +108,11 @@
 //These are hackish but they help clean up code elsewhere.
 
 //module_selected(module) - Checks whether the module slot specified by "module" is currently selected.
-/mob/living/silicon/robot/proc/module_selected(module) //Module is 1-3
+/mob/living/silicon/cyborg/proc/module_selected(module) //Module is 1-3
 	return module == get_selected_module()
 
 //module_active(module) - Checks whether there is a module active in the slot specified by "module".
-/mob/living/silicon/robot/proc/module_active(module) //Module is 1-3
+/mob/living/silicon/cyborg/proc/module_active(module) //Module is 1-3
 	if(module < 1 || module > 3)
 		return FALSE
 
@@ -122,14 +122,14 @@
 	return FALSE
 
 //get_selected_module() - Returns the slot number of the currently selected module.  Returns 0 if no modules are selected.
-/mob/living/silicon/robot/proc/get_selected_module()
+/mob/living/silicon/cyborg/proc/get_selected_module()
 	if(module_active)
 		return held_items.Find(module_active)
 
 	return 0
 
 //select_module(module) - Selects the module slot specified by "module"
-/mob/living/silicon/robot/proc/select_module(module) //Module is 1-3
+/mob/living/silicon/cyborg/proc/select_module(module) //Module is 1-3
 	if(module < 1 || module > 3)
 		return
 
@@ -155,7 +155,7 @@
 	module_active = held_items[module]
 
 //deselect_module(module) - Deselects the module slot specified by "module"
-/mob/living/silicon/robot/proc/deselect_module(module) //Module is 1-3
+/mob/living/silicon/cyborg/proc/deselect_module(module) //Module is 1-3
 	if(module < 1 || module > 3)
 		return
 
@@ -175,7 +175,7 @@
 	module_active = null
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
-/mob/living/silicon/robot/proc/toggle_module(module) //Module is 1-3
+/mob/living/silicon/cyborg/proc/toggle_module(module) //Module is 1-3
 	if(module < 1 || module > 3)
 		return
 
@@ -189,7 +189,7 @@
 	return
 
 //cycle_modules() - Cycles through the list of selected modules.
-/mob/living/silicon/robot/proc/cycle_modules()
+/mob/living/silicon/cyborg/proc/cycle_modules()
 	var/slot_start = get_selected_module()
 	if(slot_start)
 		deselect_module(slot_start) //Only deselect if we have a selected slot.
@@ -211,5 +211,5 @@
 
 
 
-/mob/living/silicon/robot/swap_hand()
+/mob/living/silicon/cyborg/swap_hand()
 	cycle_modules()

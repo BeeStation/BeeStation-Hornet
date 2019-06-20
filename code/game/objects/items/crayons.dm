@@ -691,7 +691,7 @@
 		qdel(src)
 		return FALSE
 
-	var/mob/living/silicon/robot/borgy = user
+	var/mob/living/silicon/cyborg/borgy = user
 
 	if(!diff)
 		return

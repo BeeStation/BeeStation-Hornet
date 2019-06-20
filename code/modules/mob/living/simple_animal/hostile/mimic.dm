@@ -192,7 +192,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	if(the_target == creator) // Don't attack our creator AI.
 		return 0
 	if(iscyborg(the_target))
-		var/mob/living/silicon/robot/R = the_target
+		var/mob/living/silicon/cyborg/R = the_target
 		if(R.connected_ai == creator) // Only attack robots that aren't synced to our creator AI.
 			return 0
 	return ..()

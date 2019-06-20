@@ -1,5 +1,5 @@
 /datum/wires/robot
-	holder_type = /mob/living/silicon/robot
+	holder_type = /mob/living/silicon/cyborg
 	randomize = TRUE
 
 /datum/wires/robot/New(atom/holder)
@@ -12,12 +12,12 @@
 	..()
 
 /datum/wires/robot/interactable(mob/user)
-	var/mob/living/silicon/robot/R = holder
+	var/mob/living/silicon/cyborg/R = holder
 	if(R.wiresexposed)
 		return TRUE
 
 /datum/wires/robot/get_status()
-	var/mob/living/silicon/robot/R = holder
+	var/mob/living/silicon/cyborg/R = holder
 	var/list/status = list()
 	status += "The law sync module is [R.lawupdate ? "on" : "off"]."
 	status += "The intelligence link display shows [R.connected_ai ? R.connected_ai.name : "NULL"]."
@@ -27,7 +27,7 @@
 	return status
 
 /datum/wires/robot/on_pulse(wire, user)
-	var/mob/living/silicon/robot/R = holder
+	var/mob/living/silicon/cyborg/R = holder
 	switch(wire)
 		if(WIRE_AI) // Pulse to pick a new AI.
 			if(!R.emagged)
@@ -60,7 +60,7 @@
 				R.visible_message("[R]'s module servos twitch.", "Your module display flickers.")
 
 /datum/wires/robot/on_cut(wire, mend)
-	var/mob/living/silicon/robot/R = holder
+	var/mob/living/silicon/cyborg/R = holder
 	switch(wire)
 		if(WIRE_AI) // Cut the AI wire to reset AI control.
 			if(!mend)

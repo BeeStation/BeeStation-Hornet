@@ -75,7 +75,7 @@
 	if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum
 		if(iscyborg(D.thrower))
-			var/mob/living/silicon/robot/R = D.thrower
+			var/mob/living/silicon/cyborg/R = D.thrower
 			if(!R.emagged)
 				hurt = FALSE
 	if(hit_atom.density && isturf(hit_atom))

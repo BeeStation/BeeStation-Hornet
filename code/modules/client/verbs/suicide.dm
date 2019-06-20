@@ -13,7 +13,7 @@
 	if(B)
 		B.suicided = suicide_state
 
-/mob/living/silicon/robot/set_suicide(suicide_state)
+/mob/living/silicon/cyborg/set_suicide(suicide_state)
 	. = ..()
 	if(mmi)
 		if(mmi.brain)
@@ -162,7 +162,7 @@
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		death(FALSE)
 
-/mob/living/silicon/robot/verb/suicide()
+/mob/living/silicon/cyborg/verb/suicide()
 	set hidden = 1
 	if(!canSuicide())
 		return

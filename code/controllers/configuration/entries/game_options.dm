@@ -261,7 +261,7 @@
 /datum/config_entry/number/outdated_movedelay/human_delay
 	movedelay_type = /mob/living/carbon/human
 /datum/config_entry/number/outdated_movedelay/robot_delay
-	movedelay_type = /mob/living/silicon/robot
+	movedelay_type = /mob/living/silicon/cyborg
 /datum/config_entry/number/outdated_movedelay/monkey_delay
 	movedelay_type = /mob/living/carbon/monkey
 /datum/config_entry/number/outdated_movedelay/alien_delay

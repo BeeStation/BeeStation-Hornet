@@ -506,7 +506,7 @@
 	else if (href_list["silicon"])
 		switch(href_list["silicon"])
 			if("unemag")
-				var/mob/living/silicon/robot/R = current
+				var/mob/living/silicon/cyborg/R = current
 				if (istype(R))
 					R.SetEmagged(0)
 					message_admins("[key_name_admin(usr)] has unemag'ed [R].")
@@ -515,7 +515,7 @@
 			if("unemagcyborgs")
 				if(isAI(current))
 					var/mob/living/silicon/ai/ai = current
-					for (var/mob/living/silicon/robot/R in ai.connected_robots)
+					for (var/mob/living/silicon/cyborg/R in ai.connected_robots)
 						R.SetEmagged(0)
 					message_admins("[key_name_admin(usr)] has unemag'ed [ai]'s Cyborgs.")
 					log_admin("[key_name(usr)] has unemag'ed [ai]'s Cyborgs.")
@@ -725,7 +725,7 @@
 	mind.assigned_role = "AI"
 
 //BORG
-/mob/living/silicon/robot/mind_initialize()
+/mob/living/silicon/cyborg/mind_initialize()
 	..()
 	mind.assigned_role = "Cyborg"
 

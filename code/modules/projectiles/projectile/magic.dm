@@ -159,7 +159,7 @@
 	var/list/contents = M.contents.Copy()
 
 	if(iscyborg(M))
-		var/mob/living/silicon/robot/Robot = M
+		var/mob/living/silicon/cyborg/Robot = M
 		if(Robot.mmi)
 			qdel(Robot.mmi)
 		Robot.notify_ai(NEW_BORG)
@@ -176,17 +176,17 @@
 			new_mob = new /mob/living/carbon/monkey(M.loc)
 
 		if("robot")
-			var/robot = pick(200;/mob/living/silicon/robot,
-							/mob/living/silicon/robot/modules/syndicate,
-							/mob/living/silicon/robot/modules/syndicate/medical,
-							/mob/living/silicon/robot/modules/syndicate/saboteur,
+			var/robot = pick(200;/mob/living/silicon/cyborg,
+							/mob/living/silicon/cyborg/modules/syndicate,
+							/mob/living/silicon/cyborg/modules/syndicate/medical,
+							/mob/living/silicon/cyborg/modules/syndicate/saboteur,
 							200;/mob/living/simple_animal/drone/polymorphed)
 			new_mob = new robot(M.loc)
 			if(issilicon(new_mob))
 				new_mob.gender = M.gender
 				new_mob.invisibility = 0
 				new_mob.job = "Cyborg"
-				var/mob/living/silicon/robot/Robot = new_mob
+				var/mob/living/silicon/cyborg/Robot = new_mob
 				Robot.lawupdate = FALSE
 				Robot.connected_ai = null
 				Robot.mmi.transfer_identity(M)	//Does not transfer key/client.

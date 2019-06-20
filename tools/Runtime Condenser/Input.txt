@@ -657,17 +657,17 @@ the storage1 (/obj/screen): DblClick(null, null, null)
 the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")
 Fri Jul 13 21:43:15 2012
 runtime error: unexpected stat
-proc name: Stat (/mob/living/silicon/robot/Stat)
+proc name: Stat (/mob/living/silicon/cyborg/Stat)
   source file: robot.dm,227
   usr: Michigan Slim (/mob/living/carbon/human)
-  src: Engineering Cyborg -133 (/mob/living/silicon/robot)
+  src: Engineering Cyborg -133 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -133 (/mob/living/silicon/robot): Stat()
-Borg module reset board (/obj/item/borg/upgrade/reset): action(Engineering Cyborg -133 (/mob/living/silicon/robot))
-Borg module reset board (/obj/item/borg/upgrade/reset): action(Engineering Cyborg -133 (/mob/living/silicon/robot))
-Engineering Cyborg -133 (/mob/living/silicon/robot): attackby(Borg module reset board (/obj/item/borg/upgrade/reset), Michigan Slim (/mob/living/carbon/human))
-Engineering Cyborg -133 (/mob/living/silicon/robot): DblClick(the floor (95,85,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=14;icon-y=18;left=1;scr...")
-Engineering Cyborg -133 (/mob/living/silicon/robot): Click(the floor (95,85,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=14;icon-y=18;left=1;scr...")
+Engineering Cyborg -133 (/mob/living/silicon/cyborg): Stat()
+Borg module reset board (/obj/item/borg/upgrade/reset): action(Engineering Cyborg -133 (/mob/living/silicon/cyborg))
+Borg module reset board (/obj/item/borg/upgrade/reset): action(Engineering Cyborg -133 (/mob/living/silicon/cyborg))
+Engineering Cyborg -133 (/mob/living/silicon/cyborg): attackby(Borg module reset board (/obj/item/borg/upgrade/reset), Michigan Slim (/mob/living/carbon/human))
+Engineering Cyborg -133 (/mob/living/silicon/cyborg): DblClick(the floor (95,85,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=14;icon-y=18;left=1;scr...")
+Engineering Cyborg -133 (/mob/living/silicon/cyborg): Click(the floor (95,85,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=14;icon-y=18;left=1;scr...")
 runtime error: undefined proc or verb /obj/machinery/portable_atmospherics/canister/toxins/attack().
 
 proc name: attackby (/mob/attackby)
@@ -685,17 +685,17 @@ proc name: Topic (/obj/machinery/computer/cloning/Topic)
 Cloning console (/obj/machinery/computer/cloning): Topic("src=\[0x2005ab9];clone=\[0x210...", /list (/list))
 LordGeneralCastor (/client): Topic("src=\[0x2005ab9];clone=\[0x210...", /list (/list), Cloning console (/obj/machinery/computer/cloning))
 runtime error: unexpected stat
-proc name: Stat (/mob/living/silicon/robot/Stat)
+proc name: Stat (/mob/living/silicon/cyborg/Stat)
   source file: robot.dm,214
   usr: Kingston Sommer (/mob/living/carbon/human)
-  src: Miner Cyborg 133 (/mob/living/silicon/robot)
+  src: Miner Cyborg 133 (/mob/living/silicon/cyborg)
   call stack:
-Miner Cyborg 133 (/mob/living/silicon/robot): Stat()
-Borg module reset board (/obj/item/borg/upgrade/reset): action(Miner Cyborg 133 (/mob/living/silicon/robot))
-Borg module reset board (/obj/item/borg/upgrade/reset): action(Miner Cyborg 133 (/mob/living/silicon/robot))
-Miner Cyborg 133 (/mob/living/silicon/robot): attackby(Borg module reset board (/obj/item/borg/upgrade/reset), Kingston Sommer (/mob/living/carbon/human))
-Miner Cyborg 133 (/mob/living/silicon/robot): DblClick(the floor (97,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=14;icon-y=9;left=1;scre...")
-Miner Cyborg 133 (/mob/living/silicon/robot): Click(the floor (97,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=14;icon-y=9;left=1;scre...")
+Miner Cyborg 133 (/mob/living/silicon/cyborg): Stat()
+Borg module reset board (/obj/item/borg/upgrade/reset): action(Miner Cyborg 133 (/mob/living/silicon/cyborg))
+Borg module reset board (/obj/item/borg/upgrade/reset): action(Miner Cyborg 133 (/mob/living/silicon/cyborg))
+Miner Cyborg 133 (/mob/living/silicon/cyborg): attackby(Borg module reset board (/obj/item/borg/upgrade/reset), Kingston Sommer (/mob/living/carbon/human))
+Miner Cyborg 133 (/mob/living/silicon/cyborg): DblClick(the floor (97,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=14;icon-y=9;left=1;scre...")
+Miner Cyborg 133 (/mob/living/silicon/cyborg): Click(the floor (97,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=14;icon-y=9;left=1;scre...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
@@ -837,17 +837,17 @@ the id (/obj/screen): attack hand(Sprigg Spooly (/mob/living/carbon/human), 0)
 the id (/obj/screen): DblClick(null, null, null)
 the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=14;left=1;scr...")
 runtime error: unexpected stat
-proc name: Stat (/mob/living/silicon/robot/Stat)
+proc name: Stat (/mob/living/silicon/cyborg/Stat)
   source file: robot.dm,227
   usr: Sprigg Spooly as (Matthew Hoff... (/mob/living/carbon/human)
-  src: Engineering Cyborg -952 (/mob/living/silicon/robot)
+  src: Engineering Cyborg -952 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -952 (/mob/living/silicon/robot): Stat()
-Borg VTEC Module (/obj/item/borg/upgrade/vtec): action(Engineering Cyborg -952 (/mob/living/silicon/robot))
-Borg VTEC Module (/obj/item/borg/upgrade/vtec): action(Engineering Cyborg -952 (/mob/living/silicon/robot))
-Engineering Cyborg -952 (/mob/living/silicon/robot): attackby(Borg VTEC Module (/obj/item/borg/upgrade/vtec), Sprigg Spooly as (Matthew Hoff... (/mob/living/carbon/human))
-Engineering Cyborg -952 (/mob/living/silicon/robot): DblClick(the floor (101,86,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=17;left=1;scr...")
-Engineering Cyborg -952 (/mob/living/silicon/robot): Click(the floor (101,86,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=17;left=1;scr...")
+Engineering Cyborg -952 (/mob/living/silicon/cyborg): Stat()
+Borg VTEC Module (/obj/item/borg/upgrade/vtec): action(Engineering Cyborg -952 (/mob/living/silicon/cyborg))
+Borg VTEC Module (/obj/item/borg/upgrade/vtec): action(Engineering Cyborg -952 (/mob/living/silicon/cyborg))
+Engineering Cyborg -952 (/mob/living/silicon/cyborg): attackby(Borg VTEC Module (/obj/item/borg/upgrade/vtec), Sprigg Spooly as (Matthew Hoff... (/mob/living/carbon/human))
+Engineering Cyborg -952 (/mob/living/silicon/cyborg): DblClick(the floor (101,86,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=17;left=1;scr...")
+Engineering Cyborg -952 (/mob/living/silicon/cyborg): Click(the floor (101,86,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=17;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1083
@@ -3374,29 +3374,29 @@ the i_clothing (/obj/screen): DblClick(null, null, null)
 the i_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=13;icon-y=18;left=1;scr...")
 Sun Jul 15 00:17:04 2012
 runtime error: unexpected stat
-proc name: Stat (/mob/living/silicon/robot/Stat)
+proc name: Stat (/mob/living/silicon/cyborg/Stat)
   source file: robot.dm,227
   usr: Iroquois Pliskin (/mob/living/carbon/human)
-  src: Miner Cyborg -770 (/mob/living/silicon/robot)
+  src: Miner Cyborg -770 (/mob/living/silicon/cyborg)
   call stack:
-Miner Cyborg -770 (/mob/living/silicon/robot): Stat()
-Borg module reset board (/obj/item/borg/upgrade/reset): action(Miner Cyborg -770 (/mob/living/silicon/robot))
-Borg module reset board (/obj/item/borg/upgrade/reset): action(Miner Cyborg -770 (/mob/living/silicon/robot))
-Miner Cyborg -770 (/mob/living/silicon/robot): attackby(Borg module reset board (/obj/item/borg/upgrade/reset), Iroquois Pliskin (/mob/living/carbon/human))
-Miner Cyborg -770 (/mob/living/silicon/robot): DblClick(the floor (98,88,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=10;left=1;scr...")
-Miner Cyborg -770 (/mob/living/silicon/robot): Click(the floor (98,88,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=10;left=1;scr...")
+Miner Cyborg -770 (/mob/living/silicon/cyborg): Stat()
+Borg module reset board (/obj/item/borg/upgrade/reset): action(Miner Cyborg -770 (/mob/living/silicon/cyborg))
+Borg module reset board (/obj/item/borg/upgrade/reset): action(Miner Cyborg -770 (/mob/living/silicon/cyborg))
+Miner Cyborg -770 (/mob/living/silicon/cyborg): attackby(Borg module reset board (/obj/item/borg/upgrade/reset), Iroquois Pliskin (/mob/living/carbon/human))
+Miner Cyborg -770 (/mob/living/silicon/cyborg): DblClick(the floor (98,88,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=10;left=1;scr...")
+Miner Cyborg -770 (/mob/living/silicon/cyborg): Click(the floor (98,88,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=10;left=1;scr...")
 runtime error: unexpected stat
-proc name: Stat (/mob/living/silicon/robot/Stat)
+proc name: Stat (/mob/living/silicon/cyborg/Stat)
   source file: robot.dm,227
   usr: Iroquois Pliskin (/mob/living/carbon/human)
-  src: Engineering Cyborg 770 (/mob/living/silicon/robot)
+  src: Engineering Cyborg 770 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg 770 (/mob/living/silicon/robot): Stat()
-Borg VTEC Module (/obj/item/borg/upgrade/vtec): action(Engineering Cyborg 770 (/mob/living/silicon/robot))
-Borg VTEC Module (/obj/item/borg/upgrade/vtec): action(Engineering Cyborg 770 (/mob/living/silicon/robot))
-Engineering Cyborg 770 (/mob/living/silicon/robot): attackby(Borg VTEC Module (/obj/item/borg/upgrade/vtec), Iroquois Pliskin (/mob/living/carbon/human))
-Engineering Cyborg 770 (/mob/living/silicon/robot): DblClick(the floor (98,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=12;left=1;scr...")
-Engineering Cyborg 770 (/mob/living/silicon/robot): Click(the floor (98,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=12;left=1;scr...")
+Engineering Cyborg 770 (/mob/living/silicon/cyborg): Stat()
+Borg VTEC Module (/obj/item/borg/upgrade/vtec): action(Engineering Cyborg 770 (/mob/living/silicon/cyborg))
+Borg VTEC Module (/obj/item/borg/upgrade/vtec): action(Engineering Cyborg 770 (/mob/living/silicon/cyborg))
+Engineering Cyborg 770 (/mob/living/silicon/cyborg): attackby(Borg VTEC Module (/obj/item/borg/upgrade/vtec), Iroquois Pliskin (/mob/living/carbon/human))
+Engineering Cyborg 770 (/mob/living/silicon/cyborg): DblClick(the floor (98,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=12;left=1;scr...")
+Engineering Cyborg 770 (/mob/living/silicon/cyborg): Click(the floor (98,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=12;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1083
@@ -4213,132 +4213,132 @@ the storage1 (/obj/screen): attack hand(Dat Bass (/mob/living/carbon/human), 0)
 the storage1 (/obj/screen): DblClick(null, null, null)
 the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=9;left=1;scre...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=9;left=1;scre...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=12;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
+proc name: radio menu (/mob/living/silicon/cyborg/proc/radio_menu)
   source file: robot.dm,857
-  usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
-  src: Engineering Cyborg -432 (/mob/living/silicon/robot)
+  usr: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
+  src: Engineering Cyborg -432 (/mob/living/silicon/cyborg)
   call stack:
-Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
+Engineering Cyborg -432 (/mob/living/silicon/cyborg): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -4360,7 +4360,7 @@ runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142
 runtime error: Cannot modify null.status.
-proc name: death (/mob/living/silicon/robot/death)
+proc name: death (/mob/living/silicon/cyborg/death)
   source file: death.dm,51
 runtime error: Cannot create objects of type null.
 proc name: Topic (/obj/machinery/computer/rdconsole/Topic)
@@ -4382,29 +4382,29 @@ Rebooted server.
 Running TG Revision Number: 4060.
 Sun Jul 15 13:06:40 2012
 runtime error: unexpected stat
-proc name: Stat (/mob/living/silicon/robot/Stat)
+proc name: Stat (/mob/living/silicon/cyborg/Stat)
   source file: robot.dm,227
   usr: Bill Kerman (/mob/living/carbon/human)
-  src: Miner Cyborg -734 (/mob/living/silicon/robot)
+  src: Miner Cyborg -734 (/mob/living/silicon/cyborg)
   call stack:
-Miner Cyborg -734 (/mob/living/silicon/robot): Stat()
-Mining Borg Jetpack (/obj/item/borg/upgrade/jetpack): action(Miner Cyborg -734 (/mob/living/silicon/robot))
-Mining Borg Jetpack (/obj/item/borg/upgrade/jetpack): action(Miner Cyborg -734 (/mob/living/silicon/robot))
-Miner Cyborg -734 (/mob/living/silicon/robot): attackby(Mining Borg Jetpack (/obj/item/borg/upgrade/jetpack), Bill Kerman (/mob/living/carbon/human))
-Miner Cyborg -734 (/mob/living/silicon/robot): DblClick(the floor (100,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=16;left=1;scr...")
-Miner Cyborg -734 (/mob/living/silicon/robot): Click(the floor (100,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=16;left=1;scr...")
+Miner Cyborg -734 (/mob/living/silicon/cyborg): Stat()
+Mining Borg Jetpack (/obj/item/borg/upgrade/jetpack): action(Miner Cyborg -734 (/mob/living/silicon/cyborg))
+Mining Borg Jetpack (/obj/item/borg/upgrade/jetpack): action(Miner Cyborg -734 (/mob/living/silicon/cyborg))
+Miner Cyborg -734 (/mob/living/silicon/cyborg): attackby(Mining Borg Jetpack (/obj/item/borg/upgrade/jetpack), Bill Kerman (/mob/living/carbon/human))
+Miner Cyborg -734 (/mob/living/silicon/cyborg): DblClick(the floor (100,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=16;left=1;scr...")
+Miner Cyborg -734 (/mob/living/silicon/cyborg): Click(the floor (100,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=16;left=1;scr...")
 runtime error: unexpected stat
-proc name: Stat (/mob/living/silicon/robot/Stat)
+proc name: Stat (/mob/living/silicon/cyborg/Stat)
   source file: robot.dm,227
   usr: Bill Kerman (/mob/living/carbon/human)
-  src: Miner Cyborg -734 (/mob/living/silicon/robot)
+  src: Miner Cyborg -734 (/mob/living/silicon/cyborg)
   call stack:
-Miner Cyborg -734 (/mob/living/silicon/robot): Stat()
-Borg VTEC Module (/obj/item/borg/upgrade/vtec): action(Miner Cyborg -734 (/mob/living/silicon/robot))
-Borg VTEC Module (/obj/item/borg/upgrade/vtec): action(Miner Cyborg -734 (/mob/living/silicon/robot))
-Miner Cyborg -734 (/mob/living/silicon/robot): attackby(Borg VTEC Module (/obj/item/borg/upgrade/vtec), Bill Kerman (/mob/living/carbon/human))
-Miner Cyborg -734 (/mob/living/silicon/robot): DblClick(the floor (99,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=19;left=1;scr...")
-Miner Cyborg -734 (/mob/living/silicon/robot): Click(the floor (99,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=19;left=1;scr...")
+Miner Cyborg -734 (/mob/living/silicon/cyborg): Stat()
+Borg VTEC Module (/obj/item/borg/upgrade/vtec): action(Miner Cyborg -734 (/mob/living/silicon/cyborg))
+Borg VTEC Module (/obj/item/borg/upgrade/vtec): action(Miner Cyborg -734 (/mob/living/silicon/cyborg))
+Miner Cyborg -734 (/mob/living/silicon/cyborg): attackby(Borg VTEC Module (/obj/item/borg/upgrade/vtec), Bill Kerman (/mob/living/carbon/human))
+Miner Cyborg -734 (/mob/living/silicon/cyborg): DblClick(the floor (99,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=19;left=1;scr...")
+Miner Cyborg -734 (/mob/living/silicon/cyborg): Click(the floor (99,87,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1142

@@ -1,4 +1,4 @@
-/mob/living/silicon/robot/verb/cmd_show_laws()
+/mob/living/silicon/cyborg/verb/cmd_show_laws()
 	set category = "Robot Commands"
 	set name = "Show Laws"
 
@@ -6,7 +6,7 @@
 		return //won't work if dead
 	show_laws()
 
-/mob/living/silicon/robot/show_laws(everyone = 0)
+/mob/living/silicon/cyborg/show_laws(everyone = 0)
 	laws_sanity_check()
 	var/who
 
@@ -38,7 +38,7 @@
 		to_chat(who, "<b>Remember, you are not bound to any AI, you are not required to listen to them.</b>")
 
 
-/mob/living/silicon/robot/proc/lawsync()
+/mob/living/silicon/cyborg/proc/lawsync()
 	laws_sanity_check()
 	var/datum/ai_laws/master = connected_ai ? connected_ai.laws : null
 	var/temp

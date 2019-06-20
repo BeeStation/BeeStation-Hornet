@@ -7,7 +7,7 @@
 	var/braintype = "Cyborg"
 	var/obj/item/radio/radio = null //Let's give it a radio.
 	var/mob/living/brain/brainmob = null //The current occupant.
-	var/mob/living/silicon/robot = null //Appears unused.
+	var/mob/living/silicon/cyborg = null //Appears unused.
 	var/obj/mecha = null //This does not appear to be used outside of reference in mecha.dm.
 	var/obj/item/organ/brain/brain = null //The actual brain
 	var/datum/ai_laws/laws = new()
@@ -172,7 +172,7 @@
 
 /obj/item/mmi/Destroy()
 	if(iscyborg(loc))
-		var/mob/living/silicon/robot/borg = loc
+		var/mob/living/silicon/cyborg/borg = loc
 		borg.mmi = null
 	if(brainmob)
 		qdel(brainmob)

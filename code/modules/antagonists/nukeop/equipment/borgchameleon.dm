@@ -15,7 +15,7 @@
 	var/activationUpkeep = 50
 	var/disguise = "engineer"
 	var/datum/component/mobhook // need this to deal with unregistration properly
-	var/mob/living/silicon/robot/user // needed for process()
+	var/mob/living/silicon/cyborg/user // needed for process()
 	var/animation_playing = FALSE
 
 /obj/item/borg_chameleon/Initialize()
@@ -34,7 +34,7 @@
 	. = ..()
 	disrupt(user)
 
-/obj/item/borg_chameleon/attack_self(mob/living/silicon/robot/user)
+/obj/item/borg_chameleon/attack_self(mob/living/silicon/cyborg/user)
 	if (user && user.cell && user.cell.charge >  activationCost)
 		if (isturf(user.loc))
 			toggle(user)
@@ -43,7 +43,7 @@
 	else
 		to_chat(user, "<span class='warning'>You need at least [activationCost] charge in your cell to use [src]!</span>")
 
-/obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/user)
+/obj/item/borg_chameleon/proc/toggle(mob/living/silicon/cyborg/user)
 	if(active)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, -6)
 		to_chat(user, "<span class='notice'>You deactivate \the [src].</span>")
@@ -88,7 +88,7 @@
 	else
 		return PROCESS_KILL
 
-/obj/item/borg_chameleon/proc/activate(mob/living/silicon/robot/user)
+/obj/item/borg_chameleon/proc/activate(mob/living/silicon/cyborg/user)
 	START_PROCESSING(SSobj, src)
 	src.user = user
 	savedName = user.name
@@ -110,7 +110,7 @@
 			))
 	user.update_icons()
 
-/obj/item/borg_chameleon/proc/deactivate(mob/living/silicon/robot/user)
+/obj/item/borg_chameleon/proc/deactivate(mob/living/silicon/cyborg/user)
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(mobhook)
 	do_sparks(5, FALSE, user)
@@ -120,7 +120,7 @@
 	user.update_icons()
 	src.user = user
 
-/obj/item/borg_chameleon/proc/disrupt(mob/living/silicon/robot/user)
+/obj/item/borg_chameleon/proc/disrupt(mob/living/silicon/cyborg/user)
 	if(active)
 		to_chat(user, "<span class='danger'>Your chameleon field deactivates.</span>")
 		deactivate(user)

@@ -87,7 +87,7 @@
 		return
 	if(use_cyborg_cell && !no_cyborg_drain)
 		if(iscyborg(loc))
-			var/mob/living/silicon/robot/R = loc
+			var/mob/living/silicon/cyborg/R = loc
 			if(R.cell)
 				var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
 				if(R.cell.use(shot.e_cost)) 		//Take power from the borg...

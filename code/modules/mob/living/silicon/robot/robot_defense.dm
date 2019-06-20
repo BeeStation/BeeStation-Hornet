@@ -1,4 +1,4 @@
-/mob/living/silicon/robot/attackby(obj/item/I, mob/living/user)
+/mob/living/silicon/cyborg/attackby(obj/item/I, mob/living/user)
 	if(hat_offset != INFINITY && user.a_intent == INTENT_HELP && is_type_in_typecache(I, equippable_hats))
 		if(!(I.slot_flags & ITEM_SLOT_HEAD))
 			to_chat(user, "<span class='warning'>You can't quite fit [I] onto [src]'s head.</span>")
@@ -13,7 +13,7 @@
 		spark_system.start()
 	return ..()
 
-/mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M)
+/mob/living/silicon/cyborg/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if (M.a_intent == INTENT_DISARM)
 		if(mobility_flags & MOBILITY_STAND)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
@@ -34,7 +34,7 @@
 		..()
 	return
 
-/mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/silicon/cyborg/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime shock
 		flash_act()
 		var/stunprob = M.powerlevel * 7 + 10
@@ -54,7 +54,7 @@
 	return
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
+/mob/living/silicon/cyborg/attack_hand(mob/living/carbon/human/user)
 	add_fingerprint(user)
 	if(opened && !wiresexposed && !issilicon(user))
 		if(cell)
@@ -74,12 +74,12 @@
 				sleep(3)
 				step_away(src,user,15)
 
-/mob/living/silicon/robot/fire_act()
+/mob/living/silicon/cyborg/fire_act()
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them
 		IgniteMob()
 
 
-/mob/living/silicon/robot/emp_act(severity)
+/mob/living/silicon/cyborg/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
@@ -90,7 +90,7 @@
 			Stun(60)
 
 
-/mob/living/silicon/robot/emag_act(mob/user)
+/mob/living/silicon/cyborg/emag_act(mob/user)
 	if(user == src)//To prevent syndieborgs from emagging themselves
 		return
 	if(!opened)//Cover is closed
@@ -157,14 +157,14 @@
 	update_icons()
 
 
-/mob/living/silicon/robot/blob_act(obj/structure/blob/B)
+/mob/living/silicon/cyborg/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
 		adjustBruteLoss(30)
 	else
 		gib()
 	return TRUE
 
-/mob/living/silicon/robot/ex_act(severity, target)
+/mob/living/silicon/cyborg/ex_act(severity, target)
 	switch(severity)
 		if(1)
 			gib()
@@ -177,7 +177,7 @@
 			if (stat != DEAD)
 				adjustBruteLoss(30)
 
-/mob/living/silicon/robot/bullet_act(var/obj/item/projectile/Proj, def_zone)
+/mob/living/silicon/cyborg/bullet_act(var/obj/item/projectile/Proj, def_zone)
 	. = ..()
 	updatehealth()
 	if(prob(75) && Proj.damage > 0)

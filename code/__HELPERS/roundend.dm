@@ -39,7 +39,7 @@
 					if(isAI(L))
 						mob_data += list("module" = "pAI")
 					if(iscyborg(L))
-						var/mob/living/silicon/robot/R = L
+						var/mob/living/silicon/cyborg/R = L
 						mob_data += list("module" = R.module)
 			else
 				category = "others"
@@ -415,7 +415,7 @@
 		if (aiPlayer.connected_robots.len)
 			var/borg_num = aiPlayer.connected_robots.len
 			var/robolist = "<br><b>[aiPlayer.real_name]</b>'s minions were: "
-			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
+			for(var/mob/living/silicon/cyborg/robo in aiPlayer.connected_robots)
 				borg_num--
 				if(robo.mind)
 					robolist += "<b>[robo.name]</b> (Played by: <b>[robo.mind.key]</b>)[robo.stat == DEAD ? " <span class='redtext'>(Deactivated)</span>" : ""][borg_num ?", ":""]<br>"
@@ -423,7 +423,7 @@
 		if(!borg_spacer)
 			borg_spacer = TRUE
 
-	for (var/mob/living/silicon/robot/robo in GLOB.silicon_mobs)
+	for (var/mob/living/silicon/cyborg/robo in GLOB.silicon_mobs)
 		if (!robo.connected_ai && robo.mind)
 			parts += "[borg_spacer?"<br>":""]<b>[robo.name]</b> (Played by: <b>[robo.mind.key]</b>) [(robo.stat != DEAD)? "<span class='greentext'>survived</span> as an AI-less borg!" : "was <span class='redtext'>unable to survive</span> the rigors of being a cyborg without an AI."] Its laws were:"
 

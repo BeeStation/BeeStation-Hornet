@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(traumas)
 					   "lizards"  = typecacheof(list(/mob/living/simple_animal/hostile/lizard)),
 					   "skeletons" = typecacheof(list(/mob/living/simple_animal/hostile/skeleton)),
 					   "snakes"   = typecacheof(list(/mob/living/simple_animal/hostile/retaliate/poison/snake)),
-					   "robots"   = typecacheof(list(/mob/living/silicon/robot, /mob/living/silicon/ai,
+					   "robots"   = typecacheof(list(/mob/living/silicon/cyborg, /mob/living/silicon/ai,
 					   /mob/living/simple_animal/drone, /mob/living/simple_animal/bot, /mob/living/simple_animal/hostile/swarmer)),
 					   "doctors"   = typecacheof(list(/mob/living/simple_animal/bot/medbot)),
 					   "the supernatural"   = typecacheof(list(/mob/living/simple_animal/hostile/construct,

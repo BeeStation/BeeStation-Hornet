@@ -1,4 +1,4 @@
-/mob/living/silicon/robot/examine(mob/user)
+/mob/living/silicon/cyborg/examine(mob/user)
 	var/msg = "<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!\n"
 	if(desc)
 		msg += "[desc]\n"

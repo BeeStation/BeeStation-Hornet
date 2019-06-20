@@ -95,7 +95,7 @@
 	sleep(5)
 
 	use_power(5000) // Use a lot of power.
-	var/mob/living/silicon/robot/R = H.Robotize()
+	var/mob/living/silicon/cyborg/R = H.Robotize()
 	R.cell = new /obj/item/stock_parts/cell/upgraded/plus(R, robot_cell_charge)
 
  	// So he can't jump out the gate right away.
@@ -106,7 +106,7 @@
 		R.lawupdate = 1
 	addtimer(CALLBACK(src, .proc/unlock_new_robot, R), 50)
 
-/obj/machinery/transformer/proc/unlock_new_robot(mob/living/silicon/robot/R)
+/obj/machinery/transformer/proc/unlock_new_robot(mob/living/silicon/cyborg/R)
 	playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 	sleep(30)
 	if(R)

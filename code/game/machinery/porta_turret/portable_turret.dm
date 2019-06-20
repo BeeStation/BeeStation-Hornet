@@ -384,7 +384,7 @@
 				continue
 
 			if(iscyborg(sillycone))
-				var/mob/living/silicon/robot/sillyconerobot = A
+				var/mob/living/silicon/cyborg/sillyconerobot = A
 				if(LAZYLEN(faction) && (ROLE_SYNDICATE in faction) && sillyconerobot.emagged == TRUE)
 					continue
 

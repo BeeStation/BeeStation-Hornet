@@ -129,7 +129,7 @@
 			return
 
 		if(iscyborg(AM))
-			var/mob/living/silicon/robot/S = AM
+			var/mob/living/silicon/cyborg/S = AM
 			qdel(S.mmi)
 
 		falling_atoms -= AM

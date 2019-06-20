@@ -17,7 +17,7 @@
 			playsound(M, 'sound/weapons/genhit.ogg', 50, 1)
 			return FALSE
 	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
+		var/mob/living/silicon/cyborg/R = user
 		if(!R.cell.use(charge_cost))
 			return
 
@@ -44,7 +44,7 @@
 
 /obj/item/borg/cyborghug/attack_self(mob/living/user)
 	if(iscyborg(user))
-		var/mob/living/silicon/robot/P = user
+		var/mob/living/silicon/cyborg/P = user
 		if(P.emagged&&shockallowed == 1)
 			if(mode < 3)
 				mode++
@@ -64,7 +64,7 @@
 		if(3)
 			to_chat(user, "ERROR: ARM ACTUATORS OVERLOADED.")
 
-/obj/item/borg/cyborghug/attack(mob/living/M, mob/living/silicon/robot/user)
+/obj/item/borg/cyborghug/attack(mob/living/M, mob/living/silicon/cyborg/user)
 	if(M == user)
 		return
 	switch(mode)
@@ -169,7 +169,7 @@
 	to_chat(user, "<span class='notice'>You toggle [src] to \"[mode]\" mode.</span>")
 	update_icon()
 
-/obj/item/borg/charger/afterattack(obj/item/target, mob/living/silicon/robot/user, proximity_flag)
+/obj/item/borg/charger/afterattack(obj/item/target, mob/living/silicon/cyborg/user, proximity_flag)
 	. = ..()
 	if(!proximity_flag || !iscyborg(user))
 		return
@@ -293,7 +293,7 @@
 		return
 
 	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
+		var/mob/living/silicon/cyborg/R = user
 		if(!R.cell || R.cell.charge < 1200)
 			to_chat(user, "<font color='red'>You don't have enough charge to do this!</font>")
 			return
@@ -313,7 +313,7 @@
 		cooldown = world.time + 200
 		log_game("[key_name(user)] used a Cyborg Harm Alarm in [AREACOORD(user)]")
 		if(iscyborg(user))
-			var/mob/living/silicon/robot/R = user
+			var/mob/living/silicon/cyborg/R = user
 			to_chat(R.connected_ai, "<br><span class='notice'>NOTICE - Peacekeeping 'HARM ALARM' used by: [user]</span><br>")
 
 		return
@@ -450,7 +450,7 @@
 	. = ..()
 	check_amount()
 	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
+		var/mob/living/silicon/cyborg/R = user
 		if(!R.cell.use(12))
 			to_chat(user, "<span class='warning'>Not enough power.</span>")
 			return FALSE
@@ -551,7 +551,7 @@
 	var/energy_recharge = 7.5
 	var/energy_recharge_cyborg_drain_coefficient = 0.4
 	var/cyborg_cell_critical_percentage = 0.05
-	var/mob/living/silicon/robot/host = null
+	var/mob/living/silicon/cyborg/host = null
 	var/datum/proximity_monitor/advanced/dampening_field
 	var/projectile_damage_coefficient = 0.5
 	var/projectile_damage_tick_ecost_coefficient = 2	//Lasers get half their damage chopped off, drains 50 power/tick. Note that fields are processed 5 times per second.
@@ -602,7 +602,7 @@
 	if(istype(dampening_field))
 		QDEL_NULL(dampening_field)
 	dampening_field = make_field(/datum/proximity_monitor/advanced/peaceborg_dampener, list("current_range" = field_radius, "host" = src, "projector" = src))
-	var/mob/living/silicon/robot/owner = get_host()
+	var/mob/living/silicon/cyborg/owner = get_host()
 	if(owner)
 		owner.module.allow_riding = FALSE
 	active = TRUE
@@ -614,7 +614,7 @@
 		restore_projectile(P)
 	active = FALSE
 
-	var/mob/living/silicon/robot/owner = get_host()
+	var/mob/living/silicon/cyborg/owner = get_host()
 	if(owner)
 		owner.module.allow_riding = TRUE
 

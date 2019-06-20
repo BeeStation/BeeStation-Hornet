@@ -158,7 +158,7 @@
 	icon_state = "power_regen"
 
 /datum/status_effect/cyborg_power_regen/tick()
-	var/mob/living/silicon/robot/cyborg = owner
+	var/mob/living/silicon/cyborg/cyborg = owner
 	if(!istype(cyborg) || !cyborg.cell)
 		qdel(src)
 		return

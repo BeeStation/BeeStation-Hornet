@@ -187,7 +187,7 @@
 			AM.emp_act(EMP_LIGHT)
 
 		if(iscyborg(AM))
-			var/mob/living/silicon/robot/borg = AM
+			var/mob/living/silicon/cyborg/borg = AM
 			if(!borg.lamp_cooldown)
 				borg.update_headlamp(TRUE, INFINITY)
 				to_chat(borg, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")

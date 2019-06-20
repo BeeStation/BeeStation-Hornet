@@ -374,7 +374,7 @@
 	for(var/t in bodyparts)
 		qdel(t)
 
-	var/mob/living/silicon/robot/R = new /mob/living/silicon/robot(loc)
+	var/mob/living/silicon/cyborg/R = new /mob/living/silicon/cyborg(loc)
 
 	R.gender = gender
 	R.invisibility = 0

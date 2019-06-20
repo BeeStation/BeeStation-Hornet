@@ -12,7 +12,7 @@
 /obj/screen/robot/module/Click()
 	if(..())
 		return
-	var/mob/living/silicon/robot/R = usr
+	var/mob/living/silicon/cyborg/R = usr
 	if(R.module.type != /obj/item/robot_module)
 		R.hud_used.toggle_show_robot_modules()
 		return 1
@@ -25,7 +25,7 @@
 /obj/screen/robot/module1/Click()
 	if(..())
 		return
-	var/mob/living/silicon/robot/R = usr
+	var/mob/living/silicon/cyborg/R = usr
 	R.toggle_module(1)
 
 /obj/screen/robot/module2
@@ -35,7 +35,7 @@
 /obj/screen/robot/module2/Click()
 	if(..())
 		return
-	var/mob/living/silicon/robot/R = usr
+	var/mob/living/silicon/cyborg/R = usr
 	R.toggle_module(2)
 
 /obj/screen/robot/module3
@@ -45,7 +45,7 @@
 /obj/screen/robot/module3/Click()
 	if(..())
 		return
-	var/mob/living/silicon/robot/R = usr
+	var/mob/living/silicon/cyborg/R = usr
 	R.toggle_module(3)
 
 /obj/screen/robot/radio
@@ -55,7 +55,7 @@
 /obj/screen/robot/radio/Click()
 	if(..())
 		return
-	var/mob/living/silicon/robot/R = usr
+	var/mob/living/silicon/cyborg/R = usr
 	R.radio.interact(R)
 
 /obj/screen/robot/store
@@ -65,7 +65,7 @@
 /obj/screen/robot/store/Click()
 	if(..())
 		return
-	var/mob/living/silicon/robot/R = usr
+	var/mob/living/silicon/cyborg/R = usr
 	R.uneq_active()
 
 /obj/screen/robot/lamp
@@ -75,7 +75,7 @@
 /obj/screen/robot/lamp/Click()
 	if(..())
 		return
-	var/mob/living/silicon/robot/R = usr
+	var/mob/living/silicon/cyborg/R = usr
 	R.control_headlamp()
 
 /obj/screen/robot/thrusters
@@ -85,7 +85,7 @@
 /obj/screen/robot/thrusters/Click()
 	if(..())
 		return
-	var/mob/living/silicon/robot/R = usr
+	var/mob/living/silicon/cyborg/R = usr
 	R.toggle_ionpulse()
 
 /datum/hud/robot
@@ -93,7 +93,7 @@
 
 /datum/hud/robot/New(mob/owner)
 	..()
-	var/mob/living/silicon/robot/mymobR = mymob
+	var/mob/living/silicon/cyborg/mymobR = mymob
 	var/obj/screen/using
 
 	using = new/obj/screen/language_menu
@@ -183,7 +183,7 @@
 	if(!iscyborg(mymob))
 		return
 
-	var/mob/living/silicon/robot/R = mymob
+	var/mob/living/silicon/cyborg/R = mymob
 
 	R.shown_robot_modules = !R.shown_robot_modules
 	update_robot_modules_display()
@@ -192,7 +192,7 @@
 	if(!iscyborg(mymob))
 		return
 
-	var/mob/living/silicon/robot/R = mymob
+	var/mob/living/silicon/cyborg/R = mymob
 
 	var/mob/screenmob = viewer || R
 
@@ -248,7 +248,7 @@
 /datum/hud/robot/persistent_inventory_update(mob/viewer)
 	if(!mymob)
 		return
-	var/mob/living/silicon/robot/R = mymob
+	var/mob/living/silicon/cyborg/R = mymob
 
 	var/mob/screenmob = viewer || R
 

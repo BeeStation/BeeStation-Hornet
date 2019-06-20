@@ -81,7 +81,7 @@
 	else
 		to_chat(user, "[current.name] selected for law changes.")
 
-/obj/machinery/computer/upload/borg/can_upload_to(mob/living/silicon/robot/B)
+/obj/machinery/computer/upload/borg/can_upload_to(mob/living/silicon/cyborg/B)
 	if(!B || !iscyborg(B))
 		return FALSE
 	if(B.scrambledcodes || B.emagged)

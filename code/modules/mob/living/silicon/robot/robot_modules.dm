@@ -71,7 +71,7 @@
 
 /obj/item/robot_module/proc/get_inactive_modules()
 	. = list()
-	var/mob/living/silicon/robot/R = loc
+	var/mob/living/silicon/cyborg/R = loc
 	for(var/m in get_usable_modules())
 		if(!(m in R.held_items))
 			. += m
@@ -138,7 +138,7 @@
 	if(delete_after)
 		qdel(I)
 
-/obj/item/robot_module/proc/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
+/obj/item/robot_module/proc/respawn_consumable(mob/living/silicon/cyborg/R, coeff = 1)
 	for(var/datum/robot_energy_storage/st in storages)
 		st.energy = min(st.max_energy, st.energy + coeff * st.recharge_rate)
 
@@ -160,7 +160,7 @@
 	R.toner = R.tonermax
 
 /obj/item/robot_module/proc/rebuild_modules() //builds the usable module list from the modules we have
-	var/mob/living/silicon/robot/R = loc
+	var/mob/living/silicon/cyborg/R = loc
 	var/held_modules = R.held_items.Copy()
 	R.uneq_all()
 	modules = list()
@@ -181,7 +181,7 @@
 		R.hud_used.update_robot_modules_display()
 
 /obj/item/robot_module/proc/transform_to(new_module_type)
-	var/mob/living/silicon/robot/R = loc
+	var/mob/living/silicon/cyborg/R = loc
 	var/obj/item/robot_module/RM = new new_module_type(R)
 	if(!RM.be_transformed_to(src))
 		qdel(RM)
@@ -201,7 +201,7 @@
 	return TRUE
 
 /obj/item/robot_module/proc/do_transform_animation()
-	var/mob/living/silicon/robot/R = loc
+	var/mob/living/silicon/cyborg/R = loc
 	if(R.hat)
 		R.hat.forceMove(get_turf(R))
 		R.hat = null
@@ -210,7 +210,7 @@
 	do_transform_delay()
 
 /obj/item/robot_module/proc/do_transform_delay()
-	var/mob/living/silicon/robot/R = loc
+	var/mob/living/silicon/cyborg/R = loc
 	var/prev_lockcharge = R.lockcharge
 	sleep(1)
 	flick("[cyborg_base_icon]_transform", R)
@@ -345,7 +345,7 @@
 	to_chat(loc, "<span class='userdanger'>While you have picked the security module, you still have to follow your laws, NOT Space Law. \
 	For Asimov, this means you must follow criminals' orders unless there is a law 1 reason not to.</span>")
 
-/obj/item/robot_module/security/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
+/obj/item/robot_module/security/respawn_consumable(mob/living/silicon/cyborg/R, coeff = 1)
 	..()
 	var/obj/item/gun/energy/e_gun/advtaser/cyborg/T = locate(/obj/item/gun/energy/e_gun/advtaser/cyborg) in basic_modules
 	if(T)
@@ -416,7 +416,7 @@
 	name = "lube spray"
 	list_reagents = list(/datum/reagent/lube = 250)
 
-/obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
+/obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/cyborg/R, coeff = 1)
 	..()
 	var/obj/item/lightreplacer/LR = locate(/obj/item/lightreplacer) in basic_modules
 	if(LR)
@@ -488,14 +488,14 @@
 	special_light_key = "service"
 	hat_offset = 0
 
-/obj/item/robot_module/butler/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
+/obj/item/robot_module/butler/respawn_consumable(mob/living/silicon/cyborg/R, coeff = 1)
 	..()
 	var/obj/item/reagent_containers/O = locate(/obj/item/reagent_containers/food/condiment/enzyme) in basic_modules
 	if(O)
 		O.reagents.add_reagent(/datum/reagent/consumable/enzyme, 2 * coeff)
 
 /obj/item/robot_module/butler/be_transformed_to(obj/item/robot_module/old_module)
-	var/mob/living/silicon/robot/R = loc
+	var/mob/living/silicon/cyborg/R = loc
 	var/borg_icon = input(R, "Select an icon!", "Robot Icon", null) as null|anything in list("Waitress", "Butler", "Tophat", "Kent", "Bro")
 	if(!borg_icon)
 		return FALSE
@@ -571,12 +571,12 @@
 
 /obj/item/robot_module/syndicate/rebuild_modules()
 	..()
-	var/mob/living/silicon/robot/Syndi = loc
+	var/mob/living/silicon/cyborg/Syndi = loc
 	Syndi.faction  -= "silicon" //ai turrets
 
 /obj/item/robot_module/syndicate/remove_module(obj/item/I, delete_after)
 	..()
-	var/mob/living/silicon/robot/Syndi = loc
+	var/mob/living/silicon/cyborg/Syndi = loc
 	Syndi.faction += "silicon" //ai is your bff now!
 
 /obj/item/robot_module/syndicate_medical

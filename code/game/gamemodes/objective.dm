@@ -359,7 +359,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		if(!M.current || !isAI(M.current))
 			continue
 		var/mob/living/silicon/ai/A = M.current
-		for(var/mob/living/silicon/robot/R in A.connected_robots)
+		for(var/mob/living/silicon/cyborg/R in A.connected_robots)
 			if(R.stat != DEAD)
 				counter++
 	return counter >= 8

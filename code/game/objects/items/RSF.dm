@@ -66,7 +66,7 @@ RSF
 		return
 
 	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
+		var/mob/living/silicon/cyborg/R = user
 		if(!R.cell || R.cell.charge < 200)
 			to_chat(user, "<span class='warning'>You do not have enough power to use [src].</span>")
 			return
@@ -100,7 +100,7 @@ RSF
 
 /obj/item/rsf/proc/use_matter(charge, mob/user)
 	if (iscyborg(user))
-		var/mob/living/silicon/robot/R = user
+		var/mob/living/silicon/cyborg/R = user
 		R.cell.charge -= charge
 	else
 		matter--
@@ -135,7 +135,7 @@ RSF
 		toxin = 0
 
 /obj/item/cookiesynth/attack_self(mob/user)
-	var/mob/living/silicon/robot/P = null
+	var/mob/living/silicon/cyborg/P = null
 	if(iscyborg(user))
 		P = user
 	if((obj_flags & EMAGGED)&&!toxin)
@@ -164,7 +164,7 @@ RSF
 		to_chat(user, "<span class='warning'>[src] doesn't have enough matter left. Wait for it to recharge!</span>")
 		return
 	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
+		var/mob/living/silicon/cyborg/R = user
 		if(!R.cell || R.cell.charge < 400)
 			to_chat(user, "<span class='warning'>You do not have enough power to use [src].</span>")
 			return
@@ -175,7 +175,7 @@ RSF
 	if(toxin)
 		S.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 10)
 	if (iscyborg(user))
-		var/mob/living/silicon/robot/R = user
+		var/mob/living/silicon/cyborg/R = user
 		R.cell.charge -= 100
 	else
 		matter--

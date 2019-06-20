@@ -244,7 +244,7 @@
 	else
 		..()
 
-/obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/modkit/action(mob/living/silicon/cyborg/R)
 	. = ..()
 	if (.)
 		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/H in R.module.modules)
@@ -281,7 +281,7 @@
 		to_chat(user, "<span class='notice'>You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits.</span>")
 		. = FALSE
 
-/obj/item/borg/upgrade/modkit/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/modkit/deactivate(mob/living/silicon/cyborg/R, user = usr)
 	. = ..()
 	if (.)
 		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/KA in R.module.modules)

@@ -80,7 +80,7 @@ Credit where due:
 	C.show_in_roundend = create_team //tutorial scarabs begone
 
 	if(iscyborg(L))
-		var/mob/living/silicon/robot/R = L
+		var/mob/living/silicon/cyborg/R = L
 		if(R.deployed)
 			var/mob/living/silicon/ai/AI = R.mainframe
 			R.undeploy()
