@@ -58,7 +58,7 @@ matrix:
 install:
   - tools/travis/install_build_tools.sh
   - if [ $BUILD_TOOLS = false ] && [ $BUILD_TESTING = false ]; then mysql -u root -e 'CREATE DATABASE bee_travis;'; fi
-  - if [ $BUILD_TOOLS = false ] && [ $BUILD_TESTING = false ]; then mysql -u root tg_travis < SQL/beestation_schema.sql; fi
+  - if [ $BUILD_TOOLS = false ] && [ $BUILD_TESTING = false ]; then mysql -u root bee_travis < SQL/beestation_schema.sql; fi
 
 before_script:
   - tools/travis/before_build_tools.sh
