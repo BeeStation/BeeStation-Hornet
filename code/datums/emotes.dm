@@ -54,7 +54,7 @@
 	msg = replace_pronoun(user, msg)
 
 	var/end = copytext(msg, lentext(message))
-	if(!(end in list("!", ".", "?", ":", "\"")))
+	if(!(end in list("!", ".", "?", ":", "\"", "-")))
 		msg += "."
 
 	if(isliving(user))
