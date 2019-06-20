@@ -62,3 +62,4 @@
 	rename_team = "Janitor"
 	mission = "Clean up EVERYTHING."
 	polldesc = "a Nanotrasen Janitorial Response Team"
+	

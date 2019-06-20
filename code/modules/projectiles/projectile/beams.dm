@@ -184,3 +184,30 @@
 		var/mob/living/carbon/M = target
 		M.visible_message("<span class='danger'>[M] explodes into a shower of gibs!</span>")
 		M.gib()
+
+/obj/item/projectile/beam/pulse/sniper
+	name = "pulse_sniper"
+	icon_state = "u_laser_sniper"
+	damage = 80
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = COLOR_PURPLE
+	tracer_type = /obj/effect/projectile/tracer/pulse
+	muzzle_type = /obj/effect/projectile/muzzle/pulse
+	impact_type = /obj/effect/projectile/impact/pulse
+
+	/obj/item/projectile/beam/sniper
+	name = "laser_sniper"
+	icon_state = "heavylaser"
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	damage = 35
+	light_range = 2
+	damage_type = BURN
+	hitsound = 'sound/weapons/sear.ogg'
+	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
+	flag = "laser"
+	eyeblur = 3
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
+	light_color = LIGHT_COLOR_RED
+	ricochets_max = 50	//Honk!
+	ricochet_chance = 80
+	reflectable = REFLECT_NORMAL

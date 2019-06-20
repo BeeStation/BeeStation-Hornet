@@ -68,3 +68,14 @@
 	projectile_type = /obj/item/projectile/beam/mindflayer
 	select_name = "MINDFUCK"
 	fire_sound = 'sound/weapons/laser.ogg'
+
+/obj/item/ammo_casing/energy/laser/pulse/sniper
+	projectile_type = /obj/item/projectile/beam/pulse
+	e_cost = 400
+	select_name = "DESTROY"
+	fire_sound = 'sound/weapons/pulse.ogg'
+
+/obj/item/ammo_casing/energy/laser/sniper
+	projectile_type = /obj/item/projectile/beam/sniper
+	e_cost = 100
+	select_name = "kill"

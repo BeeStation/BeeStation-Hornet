@@ -76,3 +76,23 @@
 	icon_state = "m1911"
 	item_state = "gun"
 	cell_type = "/obj/item/stock_parts/cell/infinite"
+
+/obj/item/gun/energy/pulse/sniper
+	name = "pulse sniper rifle"
+	desc = "An heavy Pulse Based Sniper Rifle capable of devestating targets, comes with 2 fire modes: Destroy and Kill"
+	icon = 'icons/obj/guns/energy.dmi'
+	icon_state = "pulse_sniper"
+	item_state = null
+	w_class = WEIGHT_CLASS_HUGE
+	force = 10
+	modifystate = TRUE
+	flags_1 = CONDUCT_1
+	slot_flags = ITEM_SLOT_BACK
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse/sniper, /obj/item/ammo_casing/energy/laser/sniper)
+	cell_type = "/obj/item/stock_parts/cell/pulse"
+	zoomable = TRUE
+	zoom_amt = 10
+	zoom_out_amt = 13
+	fire_delay = 20
+	pin = /obj/item/firing_pin/implant/mindshield
+	
