@@ -357,6 +357,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(cultslurring)
 		message = cultslur(message)
 
+	// check for and apply punctuation
+	var/end = copytext(message, lentext(message))
+	if(!(end in list("!", ".", "?", ":", "\"", "-")))
+		message += "."
+
 	message = capitalize(message)
 
 	return message
