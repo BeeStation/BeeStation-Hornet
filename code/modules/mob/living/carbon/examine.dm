@@ -6,6 +6,10 @@
 	var/t_has = p_have()
 	var/t_is = p_are()
 
+	var/turf/T = get_turf(src)
+	if((T == loc || isturf(src)) && !isobserver(user))  // we're not inside something
+		user.visible_message("<span class='examine'><span class='name'>\The [user]</span> looks at \the [src].</span>")
+
 	var/msg = "<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!\n"
 	var/list/obscured = check_obscured_slots()
 
