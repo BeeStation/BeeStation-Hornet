@@ -38,7 +38,7 @@
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/ammo_casing/energy/laser/pulse
-	projectile_type = /obj/item/projectile/beam/pulse/sniper
+	projectile_type = /obj/item/projectile/beam/pulse
 	e_cost = 200
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
@@ -70,7 +70,7 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 
 /obj/item/ammo_casing/energy/laser/pulse/sniper
-	projectile_type = /obj/item/projectile/beam/pulse
+	projectile_type = /obj/item/projectile/beam/pulse/sniper
 	e_cost = 400
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
