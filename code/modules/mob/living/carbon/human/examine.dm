@@ -12,11 +12,7 @@
 		var/mob/living/L = user
 		if(HAS_TRAIT(L, TRAIT_PROSOPAGNOSIA))
 			obscure_name = TRUE
-
-	var/turf/T = get_turf(src)
-	if((T == loc || isturf(src)) && !isobserver(user))  // we're not inside something
-		user.visible_message("<span class='examine'><span class='name'>\The [user]</span> looks at \the [!obscure_name ? name : "Unknown"].</span>")
-
+			
 	var/msg = "<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"]</EM>!\n"
 
 	var/list/obscured = check_obscured_slots()

@@ -298,12 +298,6 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user)
 
-/atom/examine(mob/user)
-	var/turf/T = get_turf(src)
-	if((T == loc || isturf(src)) && !isobserver(user))  // we're not inside something
-		user.visible_message("<span class='examine'><span class='name'>\The [user]</span> looks at \the [src].</span>")
-	..()
-
 /atom/proc/relaymove(mob/user)
 	if(buckle_message_cooldown <= world.time)
 		buckle_message_cooldown = world.time + 50
