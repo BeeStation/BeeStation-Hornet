@@ -36,6 +36,7 @@
 #define MED_BOT				(1<<4)	// Medibots
 #define HONK_BOT			(1<<5)	// Honkbots & ED-Honks
 #define FIRE_BOT			(1<<6)  // Firebots
+#define TURTLE_BOT		(1<<7)  // Turtlebots
 
 //AI notification defines
 #define		NEW_BORG     1
