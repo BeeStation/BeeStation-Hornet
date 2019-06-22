@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SERVANT_OF_RATVAR = /datum/game_mode/clockwork_cult,
 	ROLE_OVERTHROW = /datum/game_mode/overthrow,
 	ROLE_HIVE = /datum/game_mode/hivemind,
-	ROLE_INTERNAL_AFFAIRS = /datum/game_mode/traitor/internal_affairs,
+	ROLE_BEECOIN_ASSASIN = /datum/game_mode/traitor/beecoin_assasin,
 	ROLE_SENTIENCE
 ))
 
