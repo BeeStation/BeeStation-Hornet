@@ -39,6 +39,11 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 	next_hallucination = world.time + rand(100, 600)
 
+	if(hallucination >= 50)
+		process_extreme_hall()
+	else
+		end_all_extreme_halls()
+
 /mob/living/carbon/proc/set_screwyhud(hud_type)
 	hal_screwyhud = hud_type
 	update_health_hud()
@@ -1290,7 +1295,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		qdel(src)
 		return
 	var/turf/start = pick(startlocs)
-	var/proj_type = pick(subtypesof(/obj/item/projectile/hallucination))
+	var/proj_type = /obj/item/projectile/hallucination
 	feedback_details += "Type: [proj_type]"
 	var/obj/item/projectile/hallucination/H = new proj_type(start)
 	target.playsound_local(start, H.hal_fire_sound, 60, 1)
@@ -1298,3 +1303,45 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	H.preparePixelProjectile(target, start)
 	H.fire()
 	qdel(src)
+
+/**********************************
+Extreme hallucinations
+***********************************/
+	
+/mob/living/carbon/proc/end_all_extreme_halls()
+	clear_fullscreen("extreme_hallucination_bg", 10)
+	clear_fullscreen("extreme_hallucination_fg", 10)
+	stop_sound_channel(CHANNEL_EXTREME_HALL)
+
+/mob/living/carbon/proc/process_extreme_hall()
+	if(screens["extreme_hallucination_bg"])
+		if(prob(25))
+			clear_fullscreen("extreme_hallucination_bg")
+			overlay_fullscreen("extreme_hallucination_bg", /obj/screen/fullscreen/extremehall/bg, initial=0)
+	else
+		overlay_fullscreen("extreme_hallucination_bg", /obj/screen/fullscreen/extremehall/bg, initial=0)
+	
+	if(screens["extreme_hallucination_fg"]) // this one needs to tile
+		if(prob(25))
+			clear_fullscreen("extreme_hallucination_fg")
+			overlay_fullscreen("extreme_hallucination_fg", /obj/screen/fullscreen/extremehall/fg, initial=0)
+	else
+		overlay_fullscreen("extreme_hallucination_fg", /obj/screen/fullscreen/extremehall/fg, initial=0)
+
+/obj/screen/fullscreen/extremehall/bg
+	icon = 'icons/mob/hall_bg.dmi'
+	icon_state = "hall"
+
+/obj/screen/fullscreen/extremehall/bg/New()
+	icon_state = pick(icon_states(icon))
+	alpha = rand(30, 150)
+
+/obj/screen/fullscreen/extremehall/fg
+	icon = 'icons/mob/hall_fg.dmi'
+	icon_state = "hall"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+
+/obj/screen/fullscreen/extremehall/fg/New()
+	icon_state = pick(icon_states(icon))
+	color = pick("red", "green", "blue", "yellow", "violet")
+	alpha = rand(50, 150)

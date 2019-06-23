@@ -2,7 +2,7 @@
 /mob
 	var/list/screens = list()
 
-/mob/proc/overlay_fullscreen(category, type, severity)
+/mob/proc/overlay_fullscreen(category, type, severity, initial=1)
 	var/obj/screen/fullscreen/screen = screens[category]
 	if (!screen || screen.type != type)
 		// needs to be recreated
@@ -11,8 +11,8 @@
 	else if ((!severity || severity == screen.severity) && (!client || screen.screen_loc != "CENTER-7,CENTER-7" || screen.view == client.view))
 		// doesn't need to be updated
 		return screen
-
-	screen.icon_state = "[initial(screen.icon_state)][severity]"
+	if(initial)
+		screen.icon_state = "[initial(screen.icon_state)][severity]"
 	screen.severity = severity
 	if (client && screen.should_show_to(src))
 		screen.update_for_view(client.view)
