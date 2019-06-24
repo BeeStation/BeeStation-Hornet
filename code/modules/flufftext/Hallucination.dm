@@ -1295,7 +1295,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		qdel(src)
 		return
 	var/turf/start = pick(startlocs)
-	var/proj_type = /obj/item/projectile/hallucination
+	var/proj_type = pick(subtypesof(/obj/item/projectile/hallucination))
 	feedback_details += "Type: [proj_type]"
 	var/obj/item/projectile/hallucination/H = new proj_type(start)
 	target.playsound_local(start, H.hal_fire_sound, 60, 1)
