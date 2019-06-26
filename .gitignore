@@ -212,3 +212,5 @@ tools/MapAtmosFixer/MapAtmosFixer/bin/*
 
 # config
 config/*
+.vs/VSWorkspaceState.json
+.vs/slnx.sqlite
