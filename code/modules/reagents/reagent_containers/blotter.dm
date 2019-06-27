@@ -7,7 +7,8 @@
 		"Blank" = "default",
 		"Clown" = "clown",
 		"Happy" = "smile",
-		"Syndie" = "syndicate"
+		"Syndie" = "syndicate",
+		"Coins" = "coin"
 	)
 
 /obj/item/reagent_containers/pill/blotter/attackby(obj/item/pen/P, mob/living/User)
