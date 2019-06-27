@@ -13,7 +13,6 @@
 
 /obj/item/reagent_containers/pill/blotter/attackby(obj/item/I, mob/living/User)
 	if(istype(I, /obj/item/pen))
-		var/obj/item/pen/P = I
 		var/choice = alert(User, "Rename or Redesign", "", "Rename", "Redesign", "Cancel")
 		switch(choice)
 			if("Cancel")
