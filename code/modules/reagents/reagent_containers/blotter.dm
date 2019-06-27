@@ -20,7 +20,8 @@
 			var/new_sprite = input("Pick a design:", null) as null|anything in alternate_sprites
 			if(new_sprite)
 				var/status = alternate_sprites[new_sprite]
-				icon_state = "blotter-[status]"
+				if(status)
+					icon_state = "blotter-[status]"
 			return
 		if("Rename")
 			var/str = stripped_input(User, "New name:", "Rename", "", MAX_NAME_LEN)
