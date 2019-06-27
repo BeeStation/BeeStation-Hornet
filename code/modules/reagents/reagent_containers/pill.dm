@@ -211,7 +211,7 @@
 /obj/item/reagent_containers/pill/lsd
 	name = "sunshine pill"
 	desc = "Engraved on this split-coloured pill is a half-sun, half-moon."
-	list_reagents = list(/datum/reagent/drug/mushroomhallucinogen = 15, /datum/reagent/toxin/lsd = 15)
+	list_reagents = list(/datum/reagent/drug/mushroomhallucinogen = 15, /datum/reagent/drug/lsd = 15)
 	icon_state = "pill14"
 
 
