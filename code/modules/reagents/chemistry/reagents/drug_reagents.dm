@@ -376,10 +376,11 @@
 	..()
 	ADD_TRAIT(L, TRAIT_FEARLESS, type)
 	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug)
-
 /datum/reagent/drug/happiness/on_mob_delete(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_FEARLESS, type)
 	SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "happiness_drug")
+	if(L.client)
+		L.client.color = null
 	..()
 
 /datum/reagent/drug/happiness/on_mob_life(mob/living/carbon/M)
@@ -387,6 +388,11 @@
 	M.confused = 0
 	M.disgust = 0
 	M.adjustBrainLoss(0.2)
+	if(M.client)
+		degree = rand(2, volume/20)
+		var/list/saturation = color_matrix_saturation(degree)
+		M.client.color = color_matrix_add(saturation, M.client.color)
+
 	..()
 	. = 1
 
@@ -440,14 +446,14 @@
 	..()
 	. = 1
 
-/datum/reagent/drug/acid
-	name = "Acid"
+/datum/reagent/drug/lsd
+	name = "LSD"
 	description = "A strong psychedelic drug."
 	reagent_state = LIQUID
 	color = "#B0B0B0"
 	taste_description = "bitterness"
 
-/datum/reagent/drug/acid/on_mob_life(mob/living/M)
+/datum/reagent/drug/lsd/on_mob_life(mob/living/M)
 	if(prob(30)) // a chance of not change anything
 		return
 
@@ -455,10 +461,10 @@
 		
 		var/list/final
 		if(volume >= 30)
-			var/degree = rand(2, volume/10)
+			var/degree = rand(2, volume/14)
 			var/list/contrast = color_matrix_contrast(degree)
 		
-			degree = rand(2, volume/10)
+			degree = rand(2, volume/14)
 			var/list/saturation = color_matrix_saturation(degree)
 	
 			degree = rand(60, ((36/1000)*volume))
@@ -473,11 +479,10 @@
 			final = color_matrix_rotate_hue(degree)
 
 
-		M.client.color = final
+		M.client.color = color_matrix_add(final, M.client.color)
 
 	return ..()
 
-/datum/reagent/drug/acid/on_mob_delete(mob/living/M)
+/datum/reagent/drug/lsd/on_mob_delete(mob/living/M)
 	if(M.client)
 		M.client.color = null
-	

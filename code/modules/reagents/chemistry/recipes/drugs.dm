@@ -50,6 +50,6 @@
 
 /datum/chemical_reaction/acid
 	name = "Acid"
-	id = /datum/reagent/drug/acid
-	results = list(/datum/reagent/drug/acid = 3)
+	id = /datum/reagent/drug/lsd
+	results = list(/datum/reagent/drug/lsd = 3)
 	required_reagents = list(/datum/reagent/drug/space_drugs = 1, /datum/reagent/carbon = 1, /datum/reagent/nitrogen = 1) 

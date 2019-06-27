@@ -384,6 +384,13 @@
 			M.set_drugginess(40)
 			if(prob(30))
 				M.emote(pick("twitch","giggle"))
+	if(M.client)
+		M.client.color = color_matrix_add(color_matrix_rotate_hue(rand(100, 360)), M.client.color)
+	..()
+
+/datum/reagent/drug/mushroomhallucinogen/on_mob_delete(mob/living/M)
+	if(M.client)
+		M.client.color = null
 	..()
 
 /datum/reagent/consumable/garlic //NOTE: having garlic in your blood stops vampires from biting you.
