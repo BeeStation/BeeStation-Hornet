@@ -31,9 +31,9 @@
 
 	else if(istype(I, /obj/item/reagent_containers))
 		var/obj/item/reagent_containers/R = I
-		if(!I.spillable)
+		if(!R.spillable)
 			return
-		I.reagents.trans_to(src, I.amount_per_transfer_from_this)
+		R.reagents.trans_to(src, R.amount_per_transfer_from_this)
 		color = mix_color_from_reagents(reagents.reagent_list)
 		return
 
