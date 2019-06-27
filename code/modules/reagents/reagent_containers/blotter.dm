@@ -42,5 +42,4 @@
 
 /obj/item/reagent_containers/pill/blotter/proc/generate_name()
 	if(reagents.total_volume)
-		var/datum/reagent/R = max(reagents.reagent_list)
-		name = "Blotter - [R.name] ([reagents.total_volume]u)"
+		name = "Blotter - [reagents.get_master_reagent_name()] ([reagents.total_volume]u)"
