@@ -324,7 +324,8 @@
 
 		I.reagents.trans_to(R, CLAMP(I.amount_per_transfer_from_this, 0, 50)) // dont transfer up to 50, which is the max
 		R.color = mix_color_from_reagents(R.reagents.reagent_list)
-		
+		R.generate_name()
+
 		qdel(src)
 
 	if(P.is_hot())
