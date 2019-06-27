@@ -385,7 +385,7 @@
 			if(prob(30))
 				M.emote(pick("twitch","giggle"))
 	if(M.client)
-		M.client.color = color_matrix_add(color_matrix_rotate_hue(rand(100, 360)), M.client.color)
+		M.client.color = color_matrix_rotate_hue(rand(100, 360))
 	..()
 
 /datum/reagent/drug/mushroomhallucinogen/on_mob_delete(mob/living/M)
