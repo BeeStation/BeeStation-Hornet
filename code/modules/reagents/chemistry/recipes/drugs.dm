@@ -47,3 +47,9 @@
 	results = list(/datum/reagent/drug/happiness = 4)
 	required_reagents = list(/datum/reagent/nitrous_oxide = 2, /datum/reagent/medicine/epinephrine = 1, /datum/reagent/consumable/ethanol = 1)
 	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
+
+/datum/chemical_reaction/acid
+	name = "Acid"
+	id = /datum/reagent/drug/acid
+	results = list(/datum/reagent/drug/acid = 3)
+	required_reagents = list(/datum/reagent/drug/space_drugs = 1, /datum/reagent/carbon = 1, /datum/reagent/nitrogen = 1) 

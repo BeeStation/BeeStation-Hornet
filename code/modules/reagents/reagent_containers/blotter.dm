@@ -8,7 +8,9 @@
 		"Clown" = "clown",
 		"Happy" = "smile",
 		"Syndie" = "syndicate",
-		"Coins" = "coin"
+		"Coins" = "coin",
+		"D-20" = "d20",
+		"Space" = "space",
 	)
 
 /obj/item/reagent_containers/pill/blotter/attackby(obj/item/I, mob/living/User)
@@ -34,6 +36,7 @@
 			return
 		R.reagents.trans_to(src, R.amount_per_transfer_from_this)
 		color = mix_color_from_reagents(reagents.reagent_list)
+		// generate_name()
 		return
 
 

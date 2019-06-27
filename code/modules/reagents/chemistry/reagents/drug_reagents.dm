@@ -448,6 +448,9 @@
 	taste_description = "bitterness"
 
 /datum/reagent/drug/acid/on_mob_life(mob/living/M)
+	if(prob(30)) // a chance of not change anything
+		return
+
 	if(M.client) // this is kind of expensive, so dont waste it
 		
 		var/list/final
@@ -465,9 +468,9 @@
 			final = color_matrix_add(hue_rotation, color_matrix_add(contrast, saturation))
 
 		else
-			var/div = rand(10,20)
-			var/contrast = min(volume/div, 1.1) // dont let things gray out, it always needs to be slightly contrasted
-			final = color_matrix_contrast(contrast)
+			var/degree = rand(5,volume)
+			if(prob(50))	degree = -degree
+			final = color_matrix_rotate_hue(degree)
 
 
 		M.client.color = final
