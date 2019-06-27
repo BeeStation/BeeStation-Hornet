@@ -439,3 +439,42 @@
 		M.emote(pick("twitch","laugh","frown"))
 	..()
 	. = 1
+
+/datum/reagent/drug/acid
+	name = "Acid"
+	description = "A strong psychedelic drug."
+	reagent_state = LIQUID
+	color = "#B0B0B0"
+	taste_description = "bitterness"
+
+/datum/reagent/drug/acid/on_mob_life(mob/living/M)
+	if(M.client) // this is kind of expensive, so dont waste it
+		
+		var/list/final
+		if(volume >= 30)
+			var/degree = rand(2, volume/10)
+			var/list/contrast = color_matrix_contrast(degree)
+		
+			degree = rand(2, volume/10)
+			var/list/saturation = color_matrix_saturation(degree)
+	
+			degree = rand(60, ((36/1000)*volume))
+			if(prob(50))	degree = -degree
+			var/list/hue_rotation = color_matrix_rotate_hue(degree)
+
+			final = color_matrix_add(hue_rotation, color_matrix_add(contrast, saturation))
+
+		else
+			var/div = rand(10,20)
+			var/contrast = volume/div < 1.1 ? volume/div : 1.1 // dont let things gray out, it always needs to be slightly contrasted
+			final = color_matrix_contrast(contrast)
+
+
+		M.client.color = final
+
+	return ..()
+
+/datum/reagent/drug/acid/on_mob_delete(mob/living/M)
+	if(M.client)
+		M.client.color = null
+	

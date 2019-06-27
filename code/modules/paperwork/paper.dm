@@ -165,7 +165,6 @@
 		info = before + text + after
 		updateinfolinks()
 
-
 /obj/item/paper/proc/updateinfolinks()
 	info_links = info
 	for(var/i in 1 to min(fields, 15))
@@ -311,6 +310,22 @@
 		add_overlay(stampoverlay)
 
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
+
+	else if(istype(P, /obj/item/reagent_containers))
+		var/obj/item/reagent_containers/I = P
+		if(!I.spillable)
+			return
+
+		if(!I.reagents.reagent_list.len)
+			to_chat(user, "<span class='notice'>There must be reagents in the container to make blotter!</span>")
+			return
+
+		var/obj/item/reagent_containers/pill/blotter/R = new(src.loc)
+
+		I.reagents.trans_to(R, CLAMP(I.amount_per_transfer_from_this, 0, 50)) // dont transfer up to 50, which is the max
+		R.color = mix_color_from_reagents(R.reagents.reagent_list)
+		
+		qdel(src)
 
 	if(P.is_hot())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
