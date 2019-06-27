@@ -389,7 +389,7 @@
 	M.disgust = 0
 	M.adjustBrainLoss(0.2)
 	if(M.client)
-		degree = rand(2, volume/20)
+		var/degree = rand(2, volume/20)
 		var/list/saturation = color_matrix_saturation(degree)
 		M.client.color = color_matrix_add(saturation, M.client.color)
 
