@@ -322,7 +322,7 @@
 
 		var/obj/item/reagent_containers/pill/blotter/R = new(src.loc)
 
-		I.reagents.trans_to(R, CLAMP(I.amount_per_transfer_from_this, 0, 50)) // dont transfer up to 50, which is the max
+		I.reagents.trans_to(R, I.amount_per_transfer_from_this) // dont transfer up to 50, which is the max
 		R.color = mix_color_from_reagents(R.reagents.reagent_list)
 		R.generate_name()
 
