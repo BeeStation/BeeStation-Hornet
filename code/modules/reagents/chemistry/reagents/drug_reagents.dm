@@ -466,7 +466,7 @@
 
 		else
 			var/div = rand(10,20)
-			var/contrast = volume/div < 1.1 ? volume/div : 1.1 // dont let things gray out, it always needs to be slightly contrasted
+			var/contrast = min(volume/div, 1.1) // dont let things gray out, it always needs to be slightly contrasted
 			final = color_matrix_contrast(contrast)
 
 
