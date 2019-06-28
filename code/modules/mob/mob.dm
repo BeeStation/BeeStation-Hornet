@@ -906,13 +906,13 @@
 		return 1
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		if(H.head && istype(H.head, /obj/item/clothing))
+		if(H.head && isclothing(H.head))
 			var/obj/item/clothing/CL = H.head
 			if(CL.scan_reagents)
 				return 1
 		if(H.wear_mask && H.wear_mask.scan_reagents)
 			return 1
-		if(H.glasses && istype(H.glasses, /obj/item/clothing))
+		if(H.glasses && isclothing(H.glasses))
 			var/obj/item/clothing/CL = H.glasses
 			if(CL.scan_reagents)
 				return 1

@@ -1,46 +1,30 @@
 
 /mob/living/carbon/get_eye_protection()
-	var/number = ..()
-
-	if(istype(src.head, /obj/item/clothing/head))			//are they wearing something on their head
-		var/obj/item/clothing/head/HFP = src.head			//if yes gets the flash protection value from that item
-		number += HFP.flash_protect
-
-	if(istype(src.glasses, /obj/item/clothing/glasses))		//glasses
-		var/obj/item/clothing/glasses/GFP = src.glasses
-		number += GFP.flash_protect
-
-	if(istype(src.wear_mask, /obj/item/clothing/mask))		//mask
-		var/obj/item/clothing/mask/MFP = src.wear_mask
-		number += MFP.flash_protect
-
+	. = ..()
 	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 	if(!E)
-		number = INFINITY //Can't get flashed without eyes
-	else
-		number += E.flash_protect
-
-	return number
+		return INFINITY //Can't get flashed without eyes
+	. += E.flash_protect
+	if(isclothing(head)) //Adds head protection
+		. += head.flash_protect
+	if(isclothing(glasses)) //Glasses
+		. += glasses.flash_protect
+	if(isclothing(wear_mask)) //Mask
+		. += wear_mask.flash_protect
 
 /mob/living/carbon/get_ear_protection()
-	var/number = ..()
-	if(istype(src.head, /obj/item/clothing/head))			//are they wearing something on their head
-		var/obj/item/clothing/head/HHP = src.head			//if yes gets the flash protection value from that item
-		number += HHP.bang_protect
-
-	if(istype(src.ears, /obj/item/radio/headset))		//headset
-		var/obj/item/radio/headset/RHP = src.ears
-		number += RHP.bang_protect
-
-	if(istype(src.ears, /obj/item/clothing/ears))		//ear slot. This is different from headset because headset is a subtype of radio
-		var/obj/item/clothing/ears/EHP = src.ears
-		number += EHP.bang_protect
+	. = ..()
 	var/obj/item/organ/ears/E = getorganslot(ORGAN_SLOT_EARS)
 	if(!E)
-		number = INFINITY
-	else
-		number += E.bang_protect
-	return number
+		return INFINITY
+	. += E.bang_protect
+	if(isclothing(head)) //Adds head protection
+		. += head.bang_protect
+	if(isclothing(ears)) //ear slot
+		. += ears.bang_protect
+	else if(istype(ears, /obj/item/radio/headset))
+		var/obj/item/radio/headset/headset_in_ear = ears
+		. += headset_in_ear.bang_protect
 
 /mob/living/carbon/is_mouth_covered(head_only = 0, mask_only = 0)
 	if( (!mask_only && head && (head.flags_cover & HEADCOVERSMOUTH)) || (!head_only && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH)) )

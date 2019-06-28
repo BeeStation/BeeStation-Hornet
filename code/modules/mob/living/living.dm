@@ -189,7 +189,7 @@
 		return TRUE
 	//anti-riot equipment is also anti-push
 	for(var/obj/item/I in M.held_items)
-		if(!istype(M, /obj/item/clothing))
+		if(!isclothing(M))
 			if(I.block_power >= 50)
 				return
 

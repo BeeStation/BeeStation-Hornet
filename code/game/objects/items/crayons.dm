@@ -661,7 +661,7 @@
 	if(isobj(target))
 		if(actually_paints)
 			if(color_hex2num(paint_color) < 350 && !istype(target, /obj/structure/window)) //Colors too dark are rejected
-				if(istype(target, /obj/item/clothing))
+				if(isclothing(target))
 					var/obj/item/clothing/C = target
 					if(((C.flags_cover & HEADCOVERSEYES) || (C.flags_cover & MASKCOVERSEYES) || (C.flags_cover & GLASSESCOVERSEYES)) && !HAS_TRAIT(C, TRAIT_SPRAYPAINTED))
 						C.flash_protect += 1

@@ -85,7 +85,7 @@
 			return TRUE
 
 	// CLOTHING
-	else if(istype(I, /obj/item/clothing))
+	else if(isclothing(I))
 		var/obj/item/clothing/C = I
 		monkeyDrop(C)
 		addtimer(CALLBACK(src, .proc/pickup_and_wear, C), 5)
