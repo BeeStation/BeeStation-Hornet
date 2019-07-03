@@ -251,7 +251,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access("Special Ops Officer")
+	W.access += get_centcom_access("Admiral")
 	W.assignment = "Admiral"
 	W.registered_name = H.real_name
 	W.update_label()
