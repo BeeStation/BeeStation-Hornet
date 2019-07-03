@@ -228,8 +228,8 @@
 	W.registered_name = H.real_name
 	W.update_label()
 
-/datum/outfit/spec_ops
-	name = "Special Ops Officer"
+/datum/outfit/admiral
+	name = "Admiral"
 
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/officer
@@ -244,7 +244,7 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id
 
-/datum/outfit/spec_ops/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admiral/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
@@ -252,7 +252,7 @@
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
 	W.access += get_centcom_access("Special Ops Officer")
-	W.assignment = "Special Ops Officer"
+	W.assignment = "Admiral"
 	W.registered_name = H.real_name
 	W.update_label()
 
