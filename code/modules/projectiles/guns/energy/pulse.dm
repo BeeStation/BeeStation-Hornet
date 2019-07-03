@@ -95,4 +95,3 @@
 	zoom_out_amt = 13
 	fire_delay = 20
 	pin = /obj/item/firing_pin/implant/mindshield
-	
