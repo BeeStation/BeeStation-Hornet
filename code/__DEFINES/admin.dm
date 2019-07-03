@@ -8,17 +8,6 @@
 #define MUTE_DEADCHAT	(1<<4)
 #define MUTE_ALL		(~0)
 
-//Some constants for DB_Ban
-#define BANTYPE_PERMA		1
-#define BANTYPE_TEMP		2
-#define BANTYPE_JOB_PERMA	3
-#define BANTYPE_JOB_TEMP	4
-#define BANTYPE_ANY_FULLBAN	5 //used to locate stuff to unban.
-
-#define BANTYPE_ADMIN_PERMA	7
-#define BANTYPE_ADMIN_TEMP	8
-#define BANTYPE_ANY_JOB		9 //used to remove jobbans
-
 //Admin Permissions
 #define R_BUILD		(1<<0)
 #define R_ADMIN			(1<<1)

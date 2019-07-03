@@ -1,7 +1,3 @@
-#define SIZE_DOESNT_MATTER 	-1
-#define BABIES_ONLY			0
-#define ADULTS_ONLY			1
-
 #define NO_GROWTH_NEEDED	0
 #define GROWTH_NEEDED		1
 

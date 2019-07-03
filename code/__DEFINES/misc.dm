@@ -155,8 +155,6 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 #define TURF_WET_ICE 4
 #define TURF_WET_LUBE	8
 
-#define IS_WET_OPEN_TURF(O) O.GetComponent(/datum/component/wet_floor)
-
 //Maximum amount of time, (in deciseconds) a tile can be wet for.
 #define MAXIMUM_WET_TIME 5 MINUTES
 
@@ -219,29 +217,6 @@ GLOBAL_LIST_INIT(ghost_others_options, list(GHOST_OTHERS_SIMPLE, GHOST_OTHERS_DE
 
 GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 
-/////////////////////////////////////
-// atom.appearence_flags shortcuts //
-/////////////////////////////////////
-
-/*
-
-// Disabling certain features
-#define APPEARANCE_IGNORE_TRANSFORM			RESET_TRANSFORM
-#define APPEARANCE_IGNORE_COLOUR			RESET_COLOR
-#define	APPEARANCE_IGNORE_CLIENT_COLOUR		NO_CLIENT_COLOR
-#define APPEARANCE_IGNORE_COLOURING			(RESET_COLOR|NO_CLIENT_COLOR)
-#define APPEARANCE_IGNORE_ALPHA				RESET_ALPHA
-#define APPEARANCE_NORMAL_GLIDE				~LONG_GLIDE
-
-// Enabling certain features
-#define APPEARANCE_CONSIDER_TRANSFORM		~RESET_TRANSFORM
-#define APPEARANCE_CONSIDER_COLOUR			~RESET_COLOUR
-#define APPEARANCE_CONSIDER_CLIENT_COLOUR	~NO_CLIENT_COLOR
-#define APPEARANCE_CONSIDER_COLOURING		(~RESET_COLOR|~NO_CLIENT_COLOR)
-#define APPEARANCE_CONSIDER_ALPHA			~RESET_ALPHA
-#define APPEARANCE_LONG_GLIDE				LONG_GLIDE
-
-*/
 
 // Consider these images/atoms as part of the UI/HUD
 #define APPEARANCE_UI_IGNORE_ALPHA			(RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA|PIXEL_SCALE)
@@ -281,8 +256,6 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define debug_usr(msg) if (GLOB.Debug2&&usr) to_chat(usr, "DEBUG: [msg]")
 #define debug_admins(msg) if (GLOB.Debug2) to_chat(GLOB.admins, "DEBUG: [msg]")
 #define debug_world_log(msg) if (GLOB.Debug2) log_world("DEBUG: [msg]")
-
-#define INCREMENT_TALLY(L, stat) if(L[stat]){L[stat]++}else{L[stat] = 1}
 
 //TODO Move to a pref
 #define STATION_GOAL_BUDGET  1
