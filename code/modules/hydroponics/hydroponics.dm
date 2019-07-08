@@ -589,7 +589,7 @@
 		if(!(myseed.resistance_flags & FIRE_PROOF))
 			adjustHealth(-round(S.get_reagent_amount(/datum/reagent/napalm) * 6))
 			adjustToxic(round(S.get_reagent_amount(/datum/reagent/napalm) * 7))
-			adjustWeeds(-rand(5,9))
+		adjustWeeds(-rand(5,9)) //At least give them a small reward if they bother.
 
 	//Weed Spray
 	if(S.has_reagent(/datum/reagent/toxin/plantbgone/weedkiller, 1))
@@ -694,6 +694,10 @@
 		var/transfer_amount
 
 		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/pill))
+			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks))
+				var/obj/item/reagent_containers/food/snacks/R = reagent_source
+				if (R.trash)
+					R.generate_trash(get_turf(user))
 			visi_msg="[user] composts [reagent_source], spreading it through [target]"
 			transfer_amount = reagent_source.reagents.total_volume
 		else
