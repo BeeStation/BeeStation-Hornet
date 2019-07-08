@@ -17,7 +17,8 @@ export function css () {
       s.opacity,
       s.rgba({oldie: true}),
       s.plsfilters({oldIE: true}),
-      s.fontweights
+      s.fontweights,
+      ... f.min ? [s.cssnano()] : [],
     ]))
     .pipe(g.bytediff.start())
     .pipe(g.if(f.min, g.cssnano({autoprefixer: false})))
