@@ -170,4 +170,5 @@ All assets including icons and sound are under a [Creative Commons 3.0 BY-SA lic
 # Other Codebase Credits
 - /tg/, for the codebase.
 - CEV Eris, for the PDA sprites
+- TGMC, for the custom keybinds base
 
