@@ -17,7 +17,7 @@ body {
     line-height: 1.2;
 	overflow-x: hidden;
 	overflow-y: scroll;
-	word-wrap: break-word;		
+	word-wrap: break-word;
 	scrollbar-face-color:#1A1A1A;
 	scrollbar-track-color:#171717;
 	scrollbar-highlight-color:#171717;
@@ -250,7 +250,7 @@ a.popt {text-decoration: none;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover {color: #a4bad6;}
 
 /* ADD HERE FOR BOLD */
-.bold, .name, .prefix, .ooc, .looc, .adminooc, .admin, .medal, .yell {font-weight: bold;}
+.bold, .name, .prefix, .ooc, .dooc, .looc, .adminooc, .admin, .medal, .yell {font-weight: bold;}
 
 /* ADD HERE FOR ITALIC */
 .italic, .italics,  .emote {font-style: italic;}
@@ -264,6 +264,7 @@ h1.alert, h2.alert		{color: #a4bad6;}
 em						{font-style: normal;	font-weight: bold;}
 
 .ooc					{color: #cca300;	font-weight: bold;}
+.dooc					{color: #d543e9;	font-weight: bold;}
 .looc 					{color: #ffde5c;	font-weight: bold;}
 .adminobserverooc		{color: #0099cc;	font-weight: bold;}
 .adminooc				{color: #3d5bc3;	font-weight: bold;}
@@ -303,6 +304,8 @@ em						{font-style: normal;	font-weight: bold;}
 .emote					{					font-style: italic;}
 .selecteddna			{color: #ffffff; 	background-color: #001B1B}
 
+.examine				{font-size: 8pt;}
+
 .attack					{color: #e01c1c;}
 .disarm					{color: #b42525;}
 .passive				{color: #a00f0f;}
@@ -310,6 +313,7 @@ em						{font-style: normal;	font-weight: bold;}
 .userdanger				{color: #c51e1e;	font-weight: bold; font-size: 24px;}
 .danger					{color: #c51e1e;}
 .warning				{color: #c51e1e;	font-style: italic;}
+.alertwarning           {color: #FF0000;    font-weight: bold}
 .boldwarning			{color: #c51e1e;	font-style: italic;	font-weight: bold}
 .announce 				{color: #c51e1e;	font-weight: bold;}
 .boldannounce			{color: #c51e1e;	font-weight: bold;}
@@ -323,6 +327,8 @@ em						{font-style: normal;	font-weight: bold;}
 .unconscious			{color: #a4bad6;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #059223;}
+.red                    {color: #FF0000}
+.blue                   {color: #215cff}
 .nicegreen				{color: #059223;}
 .shadowling				{color: #8e8a99;}
 .cult					{color: #aa1c1c;}

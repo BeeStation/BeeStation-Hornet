@@ -1,3 +1,6 @@
+/mob/living/silicon/robot/modules/borgi
+	set_module = /obj/item/robot_module/borgi
+
 /obj/item/robot_module
 	name = "Default"
 	icon = 'icons/obj/module.dmi'
@@ -30,7 +33,7 @@
 
 	var/list/ride_offset_x = list("north" = 0, "south" = 0, "east" = -6, "west" = 6)
 	var/list/ride_offset_y = list("north" = 4, "south" = 4, "east" = 3, "west" = 3)
-	var/ride_allow_incapacitated = FALSE
+	var/ride_allow_incapacitated = TRUE
 	var/allow_riding = TRUE
 	var/canDispose = FALSE // Whether the borg can stuff itself into disposal
 
@@ -410,11 +413,11 @@
 /obj/item/reagent_containers/spray/cyborg_drying
 	name = "drying agent spray"
 	color = "#A000A0"
-	list_reagents = list(/datum/reagent/drying_agent = 250)
+	list_reagents = list("drying_agent" = 250)
 
 /obj/item/reagent_containers/spray/cyborg_lube
 	name = "lube spray"
-	list_reagents = list(/datum/reagent/lube = 250)
+	list_reagents = list("lube" = 250)
 
 /obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
 	..()
@@ -425,11 +428,11 @@
 
 	var/obj/item/reagent_containers/spray/cyborg_drying/CD = locate(/obj/item/reagent_containers/spray/cyborg_drying) in basic_modules
 	if(CD)
-		CD.reagents.add_reagent(/datum/reagent/drying_agent, 5 * coeff)
+		CD.reagents.add_reagent("drying_agent", 5 * coeff)
 
 	var/obj/item/reagent_containers/spray/cyborg_lube/CL = locate(/obj/item/reagent_containers/spray/cyborg_lube) in emag_modules
 	if(CL)
-		CL.reagents.add_reagent(/datum/reagent/lube, 2 * coeff)
+		CL.reagents.add_reagent("lube", 2 * coeff)
 
 /obj/item/robot_module/clown
 	name = "Clown"
@@ -492,7 +495,7 @@
 	..()
 	var/obj/item/reagent_containers/O = locate(/obj/item/reagent_containers/food/condiment/enzyme) in basic_modules
 	if(O)
-		O.reagents.add_reagent(/datum/reagent/consumable/enzyme, 2 * coeff)
+		O.reagents.add_reagent("enzyme", 2 * coeff)
 
 /obj/item/robot_module/butler/be_transformed_to(obj/item/robot_module/old_module)
 	var/mob/living/silicon/robot/R = loc
@@ -515,6 +518,18 @@
 			special_light_key = null
 			hat_offset = INFINITY //He is already wearing a hat
 	return ..()
+
+/obj/item/robot_module/borgi
+	name = "Borgi"
+	basic_modules = list(
+		/obj/item/assembly/flash/cyborg,
+		/obj/item/borg/cyborghug/peacekeeper)
+	ratvar_modules = list(
+		/obj/item/clockwork/slab/cyborg,
+		/obj/item/clockwork/weapon/ratvarian_spear,
+		/obj/item/clockwork/replica_fabricator/cyborg)
+	cyborg_base_icon = "borgi"
+	moduleselect_icon = "standard"
 
 /obj/item/robot_module/miner
 	name = "Miner"

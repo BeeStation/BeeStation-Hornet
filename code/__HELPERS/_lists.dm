@@ -369,8 +369,6 @@
 
 	return r
 
-// Returns the key based on the index
-#define KEYBYINDEX(L, index) (((index <= length(L)) && (index > 0)) ? L[index] : null)
 
 /proc/count_by_type(list/L, type)
 	var/i = 0
@@ -531,9 +529,6 @@
 	. = list()
 	for(var/thing in flat_list)
 		.[thing] = TRUE
-
-//Picks from the list, with some safeties, and returns the "default" arg if it fails
-#define DEFAULTPICK(L, default) ((islist(L) && length(L)) ? pick(L) : default)
 
 /* Definining a counter as a series of key -> numeric value entries
 

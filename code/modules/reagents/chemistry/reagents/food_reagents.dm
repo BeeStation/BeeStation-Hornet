@@ -416,7 +416,7 @@
 	taste_description = "childhood whimsy"
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/carbon/M)
-	if(HAS_TRAIT(M, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		M.heal_bodypart_damage(1,1, 0)
 		. = 1
 	..()
@@ -652,7 +652,7 @@
 /datum/reagent/consumable/tinlux/reaction_mob(mob/living/M)
 	M.set_light(2)
 
-/datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
+/datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/M)
 	M.set_light(-2)
 
 /datum/reagent/consumable/vitfro

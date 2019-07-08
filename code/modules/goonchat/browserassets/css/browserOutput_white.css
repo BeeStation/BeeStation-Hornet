@@ -247,7 +247,7 @@ a.popt {text-decoration: none;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover {color: #638500;}
 
 /* ADD HERE FOR BOLD */
-.bold, .name, .prefix, .ooc, .looc, .adminooc, .admin, .medal, .yell {font-weight: bold;}
+.bold, .name, .prefix, .ooc, .dooc, .looc, .adminooc, .admin, .medal, .yell {font-weight: bold;}
 
 /* ADD HERE FOR ITALIC */
 .italic, .italics,  .emote {font-style: italic;}
@@ -261,6 +261,7 @@ h1.alert, h2.alert		{color: #000000;}
 em						{font-style: normal;	font-weight: bold;}
 
 .ooc					{color: #002eb8;	font-weight: bold;}
+.dooc					{color: #830094;	font-weight: bold;}
 .looc					{color: #2e57d1;	font-weight: bold;}
 .adminobserverooc		{color: #0099cc;	font-weight: bold;}
 .adminooc				{color: #700038;	font-weight: bold;}
@@ -301,6 +302,8 @@ h1.alert, h2.alert		{color: #000000;}
 .emote					{					font-style: italic;}
 .selecteddna			{color: #ffffff; 	background-color: #001B1B}
 
+.examine				{font-size: 8pt;}
+
 .attack					{color: #ff0000;}
 .disarm					{color: #990000;}
 .passive				{color: #660000;}
@@ -308,6 +311,7 @@ h1.alert, h2.alert		{color: #000000;}
 .userdanger				{color: #ff0000;	font-weight: bold; font-size: 24px;}
 .danger					{color: #ff0000;}
 .warning				{color: #ff0000;	font-style: italic;}
+.alertwarning           {color: #FF0000;    font-weight: bold}
 .boldwarning			{color: #ff0000;	font-style: italic;	font-weight: bold}
 .announce 				{color: #228b22;	font-weight: bold;}
 .boldannounce			{color: #ff0000;	font-weight: bold;}
@@ -321,7 +325,9 @@ h1.alert, h2.alert		{color: #000000;}
 .unconscious			{color: #0000ff;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03ff39;}
-.nicegreen					{color: #14a833;}
+.red                    {color: #FF0000}
+.blue                   {color: #0000FF}
+.nicegreen				{color: #14a833;}
 .shadowling				{color: #3b2769;}
 .cult					{color: #960000;}
 

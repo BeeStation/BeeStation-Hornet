@@ -105,7 +105,7 @@
 
 /datum/antagonist/ert/deathsquad/leader
 	name = "Deathsquad Officer"
-	outfit = /datum/outfit/death_commando
+	outfit = /datum/outfit/death_commando/officer
 	role = "Officer"
 
 /datum/antagonist/ert/create_team(datum/team/ert/new_team)

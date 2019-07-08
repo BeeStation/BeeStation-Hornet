@@ -835,6 +835,49 @@
 			return
 	. = ..()
 
+/mob/living/carbon/human/MouseDrop(mob/over)
+	. = ..()
+	if(ishuman(over))
+		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
+		if(!src.is_busy && src.zone_selected == BODY_ZONE_HEAD && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align, time to curbstomp
+			src.is_busy = TRUE
+
+			if (!do_mob(src,T,25) || src.zone_selected != BODY_ZONE_HEAD || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP) //wait 30ds and make sure the stars still align
+				src.is_busy = FALSE
+				return
+
+			T.Stun(6)
+
+			var/increment = (T.lying/90)-2
+			setDir(increment > 0 ? WEST : EAST)
+			for(var/i in 1 to 5)
+				src.pixel_y += 8-i
+				src.pixel_x -= increment
+				sleep(0.2)
+			for(var/i in 1 to 5)
+				src.pixel_y -= 8-i
+				src.pixel_x -= increment
+				sleep(0.2)
+
+			playsound(src, 'sound/effects/hit_kick.ogg', 80, 1, -1)
+			playsound(src, 'sound/weapons/punch2.ogg', 80, 1, -1)
+
+			var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_HEAD)
+			if(BP)
+				BP.receive_damage(36) //so 3 toolbox hits
+
+			T.visible_message("<span class='warning'>[src] curbstomps [T]!</span>", "<span class='warning'>[src] curbstomps you!</span>")
+
+			for(var/i in 1 to 10)
+				src.pixel_x = src.pixel_x + increment
+				sleep(0.1)
+
+			src.pixel_x = 0
+			src.pixel_y = 0 //just to make sure
+
+			log_combat(src, T, "curbstomped")
+			src.is_busy = FALSE
+
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
 	return (istype(target) && target.stat == CONSCIOUS)
@@ -844,7 +887,7 @@
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	if(can_be_firemanned(target))
-		visible_message("<span class='notice'>[src] starts lifting [target] onto their back...</span>", 
+		visible_message("<span class='notice'>[src] starts lifting [target] onto their back...</span>",
 			"<span class='notice'>You start lifting [target] onto your back...</span>")
 		if(do_after(src, 50, TRUE, target))
 			//Second check to make sure they're still valid to be carried
@@ -890,14 +933,14 @@
 
 	if(hands_needed || target_hands_needed)
 		if(hands_needed && !equipped_hands_self)
-			src.visible_message("<span class='warning'>[src] can't get a grip on [target] because their hands are full!</span>", 
+			src.visible_message("<span class='warning'>[src] can't get a grip on [target] because their hands are full!</span>",
 				"<span class='warning'>You can't get a grip on [target] because your hands are full!</span>")
 			return
 		else if(target_hands_needed && !equipped_hands_target)
 			target.visible_message("<span class='warning'>[target] can't get a grip on [src] because their hands are full!</span>",
 				"<span class='warning'>You can't get a grip on [src] because your hands are full!</span>")
 			return
-	
+
 	stop_pulling()
 	riding_datum.handle_vehicle_layer()
 	. = ..(target, force, check_loc)

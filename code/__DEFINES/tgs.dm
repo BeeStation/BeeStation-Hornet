@@ -51,21 +51,6 @@
 #define TGS_EVENT_PORT_SWAP -2	//before a port change is about to happen, extra parameter is new port
 #define TGS_EVENT_REBOOT_MODE_CHANGE -1	//before a reboot mode change, extras parameters are the current and new reboot mode enums
 
-//See the descriptions for these codes here: https://github.com/tgstation/tgstation-server/blob/master/src/Tgstation.Server.Host/Components/EventType.cs
-#define TGS_EVENT_REPO_RESET_ORIGIN 0
-#define TGS_EVENT_REPO_CHECKOUT 1
-#define TGS_EVENT_REPO_FETCH 2
-#define TGS_EVENT_REPO_MERGE_PULL_REQUEST 3
-#define TGS_EVENT_REPO_PRE_SYNCHRONIZE 4
-#define TGS_EVENT_BYOND_INSTALL_START 5
-#define TGS_EVENT_BYOND_INSTALL_FAIL 6
-#define TGS_EVENT_BYOND_ACTIVE_VERSION_CHANGE 7
-#define TGS_EVENT_COMPILE_START 8
-#define TGS_EVENT_COMPILE_CANCELLED 9
-#define TGS_EVENT_COMPILE_FAILURE 10
-#define TGS_EVENT_COMPILE_COMPLETE 11
-#define TGS_EVENT_INSTANCE_AUTO_UPDATE_START 12
-#define TGS_EVENT_REPO_MERGE_CONFLICT 13
 
 //OTHER ENUMS
 

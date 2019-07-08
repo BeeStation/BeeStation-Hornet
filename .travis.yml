@@ -2,8 +2,6 @@ language: generic
 dist: trusty
 sudo: false
 dist: xenial
-sudo: false
-
 branches:
   except:
   - ___TGS3TempBranch
@@ -59,7 +57,16 @@ matrix:
       addons:
         mariadb: '10.2'
         apt:
-@@ -51,23 +56,22 @@ matrix:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - libstdc++6:i386
+            - libssl-dev:i386
+            - gcc-multilib
+            - g++-7
+            - g++-7-multilib
+            - libmariadb-client-lgpl-dev:i386
+            - libmariadbd-dev
       cache:
         directories:
           - $HOME/.cargo
@@ -81,19 +88,3 @@ script:
   - tools/travis/build_tools.sh || travis_terminate 1
   - tools/travis/build_dependencies.sh || travis_terminate 1
   - tools/travis/build_byond.sh
-          - $HOME/BYOND
-          - $HOME/libmariadb
-      install:
-        - tools/travis/install_byond.sh
-        - source $HOME/BYOND/byond/bin/byondsetup
-        - tools/travis/install_libmariadb.sh
-        - curl https://sh.rustup.rs -sSf | sh -s -- -y --default-host i686-unknown-linux-gnu
-        - source ~/.cargo/env
-      before_script:
-        - mysql -u root -e 'CREATE DATABASE bee_travis;'
-        - mysql -u root bee_travis < SQL/beestation_schema.sql
-        - tools/travis/build_rust_g.sh
-        - tools/travis/build_bsql.sh
-      script:
-        - tools/travis/dm.sh -DTRAVISBUILDING beestation.dme || travis_terminate 1
-        - tools/travis/run_server.sh
