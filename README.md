@@ -97,8 +97,7 @@ https://github.com/tgstation/tgstation-server
 
 ## MAPS
 
-BeeStation currently comes equipped with these
-maps.
+BeeStation currently comes equipped with these maps.
 
 * [DeltaStation (default)](https://tgstation13.org/wiki/DeltaStation)
 * [BoxStation](https://tgstation13.org/wiki/Boxstation)
