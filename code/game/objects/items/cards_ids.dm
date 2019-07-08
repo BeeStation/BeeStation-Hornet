@@ -289,6 +289,35 @@ update_label("John Doe", "Clowny")
 	name = "agent card"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
+	
+	var/static/list/available_icon_states = list(
+		"id",
+		"orange",
+		"serv",
+		"chap",
+		"lawyer",
+		"gold",
+		"silver",
+		"ce",
+		"engi",
+		"atmos",
+		"cmo",
+		"med",
+		"hos",
+		"warden",
+		"detective",
+		"sec",
+		"rd",
+		"sci",
+		"qm",
+		"cargo",
+		"miner",
+		"clown",
+		"mime",
+		"ert",
+		"centcom",
+		"syndicate",
+	)
 
 /obj/item/card/id/syndicate/Initialize()
 	. = ..()
@@ -329,41 +358,13 @@ update_label("John Doe", "Clowny")
 			assignment = u
 			update_label()
 
-			if("i") //icon_states.
-				var/list/i = list(
-				"id",
-				"orange",
-				"serv",
-				"chap",
-				"lawyer",
-				"gold",
-				"silver",
-				"ce",
-				"engi",
-				"atmos",
-				"cmo",
-				"med",
-				"hos",
-				"warden",
-				"detective",
-				"sec",
-				"rd",
-				"sci",
-				"qm",
-				"cargo",
-				"miner",
-				"clown",
-				"mime",
-				"ert",
-				"centcom",
-				"syndicate",
-				)
-				var/choice = input(user) in i
-				if(!Adjacent(user))
-					return
-				if(!choice)
-					return
-				icon_state = choice
+			var/choice = input(user) in available_icon_states
+			if(!Adjacent(user))
+				return
+			if(!choice)
+				return
+			icon_state = choice
+
 			to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
 
 	return ..()
