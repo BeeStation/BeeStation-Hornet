@@ -111,5 +111,5 @@
 	wikilink = "https://tgstation13.org/wiki/Wizard"
 	popup_title = "You are a space wizard!"
 /datum/antagonist/gang
-	wikilink = "https://tgstation13.org/wiki/Wizard"
+	wikilink = "https://wiki.hippiestation.com/index.php/Gang_War"
 	popup_title = "You are a gangster!"
