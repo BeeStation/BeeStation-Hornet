@@ -26,10 +26,11 @@
 		to_chat(user, "<span class='warning'>A braindead gangster is an useless gangster!</span>")
 		return
 	var/datum/team/gang/gang = L.gang
-	add_gangster(user, gang, M.mind)
+	if(!add_gangster(user, gang, M.mind))
+		return
 	cooldown = TRUE
 	icon_state = "pen_blink"
-	var/cooldown_time = 600+(600*gang.leaders.len)
+	var/cooldown_time = 600/gang.leaders.len
 	addtimer(CALLBACK(src, .proc/cooldown), cooldown_time)
 
 /obj/item/pen/gang/proc/cooldown()
@@ -58,4 +59,5 @@
 	H.silent = max(H.silent, 5)
 	H.Knockdown(100)
 
-	gangster_mind.add_antag_datum(/datum/antagonist/gang, gang) 
+	gangster_mind.add_antag_datum(/datum/antagonist/gang, gang)
+	return TRUE

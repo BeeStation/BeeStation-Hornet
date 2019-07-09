@@ -61,7 +61,7 @@
 			dat += "This device is not authorized to promote.<br>"
 	else
 		if(gang.domination_time != NOT_DOMINATING)
-			dat += "<center><font color='red'>Takeover In Progress:<br><B>[gang.domination_time] seconds remain</B></font></center>"
+			dat += "<center><font color='red'>Takeover In Progress:<br><B>[DisplayTimeText(gang.domination_time_remaining() * 10)] remain</B></font></center>"
 
 		dat += "Registration: <B>[gang.name] Gang Boss</B><br>"
 		dat += "Organization Size: <B>[gang.members.len]</B> | Station Control: <B>[gang.territories.len] territories under control.</B> | Influence: <B>[gang.influence]</B><br>"
@@ -138,7 +138,10 @@
 		to_chat(user, "<span class='info'>[icon2html(src, user)]Error: Station out of range.</span>")
 		return
 	if(gang.members.len)
-		var/ping = "<span class='danger'><B><i>[gang.name] [(user.mind in gang.leaders) ? "Leader" : "Gangster"]</i>: [message]</B></span>"
+		var/datum/antagonist/gang/G = user.mind.has_antag_datum(/datum/antagonist/gang)
+		if(!G)
+			return
+		var/ping = "<span class='danger'><B><i>[gang.name] [G.message_name] [user.real_name]</i>: [message]</B></span>"
 		for(var/datum/mind/ganger in gang.members)
 			if(ganger.current && is_station_level(ganger.current.z) && (ganger.current.stat == CONSCIOUS))
 				to_chat(ganger.current, ping)

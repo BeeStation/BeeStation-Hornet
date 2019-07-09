@@ -49,7 +49,7 @@
 ///////////////////
 
 /datum/gang_item/clothing
-	category = "Purchase Influence-Enhancing Clothes:"
+	category = "Purchase Gang Clothes (Only the jumpsuit and suit give you added influence):"
 
 /datum/gang_item/clothing/under
 	name = "Gang Uniform"
@@ -279,7 +279,7 @@
 /datum/gang_item/equipment/pen
 	name = "Recruitment Pen"
 	id = "pen"
-	cost = 50
+	cost = 10
 	item_path = /obj/item/pen/gang
 	spawn_msg = "<span class='notice'>More <b>recruitment pens</b> will allow you to recruit gangsters faster. Only gang leaders can recruit with pens.</span>"
 
