@@ -779,7 +779,7 @@
 				return FALSE
 			gang_mode = TRUE
 			instant = FALSE
-			. = "gang graffiti"
+			. = "graffiti"
 	// discontinue if we're not in gang modethe area isn't valid for tagging because gang "honour"
 	if(gang_mode && (!can_claim_for_gang(user, target)))
 		return FALSE
