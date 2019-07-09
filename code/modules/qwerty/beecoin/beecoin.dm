@@ -80,7 +80,7 @@
 
 	qdel(query_get_beecoin_purchases)
 
-/client/proc/filter_unpurchased_items(list/L, class=null)
+/client/proc/filter_unpurchased_items(list/datum/sprite_accessory/L, class=null)
 	var/list/purchased
 	if (class)
 		purchased = beecoin_items_sorted[class]
@@ -93,7 +93,7 @@
 		filtered[key] = L[key]
 	return filtered
 
-/proc/filter_beecoin_sprite_accessories(list/L)
+/proc/filter_beecoin_sprite_accessories(list/datum/sprite_accessory/L)
 	var/list/filtered = list()
 	for (var/k in L)
 		if (L[k].beecoin_locked)

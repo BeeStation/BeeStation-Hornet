@@ -234,8 +234,8 @@
 
 	brainholder.do_work(6)
 
-/mob/living/brain/canUseTopic()
-	return	check_bot_self
+/mob/living/brain/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+	return check_bot_self
 
 /obj/item/integrated_circuit/smart/advanced_pathfinder/proc/hippie_xor_decrypt()
 	var/Ps = get_pin_data(IC_INPUT, 4)
@@ -366,5 +366,5 @@
 
 	paiholder.do_work(6)
 
-/mob/living/silicon/pai/canUseTopic()
-	return	check_bot_self
+/mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+	return check_bot_self
