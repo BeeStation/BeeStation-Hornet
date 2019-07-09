@@ -186,6 +186,7 @@
 		. |= CB.InvokeAsync(arglist(arguments))
 
 /datum/proc/GetComponent(c_type)
+	RETURN_TYPE(c_type)
 	var/list/dc = datum_components
 	if(!dc)
 		return null

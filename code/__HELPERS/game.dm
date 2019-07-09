@@ -9,6 +9,7 @@
 #define CULT_POLL_WAIT 2400
 
 /proc/get_area(atom/A)
+	RETURN_TYPE(/area)
 	if(isarea(A))
 		return A
 	var/turf/T = get_turf(A)
