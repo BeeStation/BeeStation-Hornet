@@ -449,8 +449,8 @@
 
 	//Research Director hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/rd
-	name = "prototype hardsuit helmet"
-	desc = "A prototype helmet designed for research in a hazardous, low pressure environment. Scientific data flashes across the visor."
+	name = "Hazardous Envoirment Suit Helmet"
+	desc = "An Hardsuit designed after an Old-Earth type exosuit renewed by Nanotrasen"
 	icon_state = "hardsuit0-rd"
 	item_color = "rd"
 	resistance_flags = ACID_PROOF | FIRE_PROOF
@@ -478,8 +478,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/rd
 	icon_state = "hardsuit-rd"
-	name = "prototype hardsuit"
-	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives and dangerous research materials."
+	name = "hazardous envoirment suit"
+	desc = "An hardsuit designed after an Old-earth type exosuit, renewed by Nanotrasen."
 	item_state = "hardsuit-rd"
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
