@@ -12,4 +12,3 @@ then
     echo "File DIR was ticked, please untick it, see: https://tgstation13.org/phpBB/viewtopic.php?f=5&t=321 for more"
     exit 1
 fi
-
