@@ -64,7 +64,10 @@
 /obj/item/storage/wallet/update_icon()
 	var/new_state = "wallet"
 	if(front_id)
-		new_state = "wallet_[front_id.icon_state]"
+		if("wallet_[front_id.icon_state]" in icon(src.icon).IconStates()) //fixes the bug that would make your wallet disappear with the new ids
+			new_state = "wallet_[front_id.icon_state]"
+		else
+			new_state = "wallet_id"
 	if(new_state != icon_state)		//avoid so many icon state changes.
 		icon_state = new_state
 
