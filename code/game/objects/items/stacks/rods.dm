@@ -5,9 +5,9 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	))
 
 /obj/item/stack/rods
-	name = "metal rod"
+	name = "iron rod"
 	desc = "Some rods. Can be used for building or something."
-	singular_name = "metal rod"
+	singular_name = "iron rod"
 	icon_state = "rods"
 	item_state = "rods"
 	flags_1 = CONDUCT_1
@@ -16,7 +16,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	materials = list(MAT_METAL=1000)
+	materials = list(MAT_IRON=1000)
 	max_amount = 50
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
@@ -46,9 +46,9 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 			return
 
 		if(W.use_tool(src, user, 0, volume=40))
-			var/obj/item/stack/sheet/metal/new_item = new(usr.loc)
-			user.visible_message("[user.name] shaped [src] into metal with [W].", \
-						 "<span class='notice'>You shape [src] into metal with [W].</span>", \
+			var/obj/item/stack/sheet/iron/new_item = new(usr.loc)
+			user.visible_message("[user.name] shaped [src] into iron with [W].", \
+						 "<span class='notice'>You shape [src] into iron with [W].</span>", \
 						 "<span class='italics'>You hear welding.</span>")
 			var/obj/item/stack/rods/R = src
 			src = null

@@ -177,7 +177,7 @@
 	return primary_mat
 
 //For consuming material
-//mats is a list of types of material to use and the corresponding amounts, example: list(MAT_METAL=100, MAT_GLASS=200)
+//mats is a list of types of material to use and the corresponding amounts, example: list(MAT_IRON=100, MAT_GLASS=200)
 /datum/component/material_container/proc/use_amount(list/mats, multiplier=1)
 	if(!mats || !mats.len)
 		return FALSE
@@ -329,10 +329,10 @@
 	var/sheet_type = null
 	var/coin_type = null
 
-/datum/material/metal
-	name = "Metal"
-	id = MAT_METAL
-	sheet_type = /obj/item/stack/sheet/metal
+/datum/material/iron
+	name = "Iron"
+	id = MAT_IRON
+	sheet_type = /obj/item/stack/sheet/iron
 	coin_type = /obj/item/coin/iron
 
 /datum/material/glass

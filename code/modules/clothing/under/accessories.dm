@@ -112,7 +112,7 @@
 	desc = "A bronze medal."
 	icon_state = "bronze"
 	item_color = "bronze"
-	materials = list(MAT_METAL=1000)
+	materials = list(MAT_IRON=1000)
 	resistance_flags = FIRE_PROOF
 	var/medaltype = "medal" //Sprite used for medalbox
 	var/commended = FALSE

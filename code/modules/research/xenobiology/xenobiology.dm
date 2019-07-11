@@ -170,7 +170,7 @@
 			return 150
 
 		if(SLIME_ACTIVATE_MAJOR)
-			var/obj/item/stack/sheet/metal/O = new(null, 5)
+			var/obj/item/stack/sheet/iron/O = new(null, 5)
 			if(!user.put_in_active_hand(O))
 				O.forceMove(user.drop_location())
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
@@ -980,7 +980,7 @@
 	icon_state = "tile-bluespace"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
-	materials = list(MAT_METAL=500)
+	materials = list(MAT_IRON=500)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
@@ -996,7 +996,7 @@
 	icon_state = "tile-sepia"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
-	materials = list(MAT_METAL=500)
+	materials = list(MAT_IRON=500)
 	throwforce = 10
 	throw_speed = 0.1
 	throw_range = 28

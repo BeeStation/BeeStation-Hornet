@@ -150,7 +150,7 @@
 	force = 1
 	throwforce = 1
 	amount_per_transfer_from_this = 5
-	materials = list(MAT_METAL=100)
+	materials = list(MAT_IRON=100)
 	possible_transfer_amounts = list()
 	volume = 5
 	flags_1 = CONDUCT_1
@@ -189,7 +189,7 @@
 	force = 5
 	throwforce = 4
 	amount_per_transfer_from_this = 10
-	materials = list(MAT_METAL=400)
+	materials = list(MAT_IRON=400)
 	volume = 25
 
 ///////////////////////////////////////////////Drinks
@@ -363,7 +363,7 @@
 	name = "shaker"
 	desc = "A metal shaker to mix drinks in."
 	icon_state = "shaker"
-	materials = list(MAT_METAL=1500)
+	materials = list(MAT_IRON=1500)
 	amount_per_transfer_from_this = 10
 	volume = 100
 	isGlass = FALSE
@@ -373,7 +373,7 @@
 	desc = "Every good spaceman knows it's a good idea to bring along a couple of pints of whiskey wherever they go."
 	custom_price = 30
 	icon_state = "flask"
-	materials = list(MAT_METAL=250)
+	materials = list(MAT_IRON=250)
 	volume = 60
 	isGlass = FALSE
 

@@ -157,8 +157,8 @@
 	canSmoothWith = list(/turf/closed/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/closed/wall/mineral/wood/nonmetal)
 
 /turf/closed/wall/mineral/iron
-	name = "rough metal wall"
-	desc = "A wall with rough metal plating."
+	name = "rough iron wall"
+	desc = "A wall with rough iron plating."
 	icon = 'icons/turf/walls/iron_wall.dmi'
 	icon_state = "iron"
 	sheet_type = /obj/item/stack/rods

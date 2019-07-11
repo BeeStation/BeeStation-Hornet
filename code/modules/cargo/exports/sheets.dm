@@ -57,11 +57,11 @@
 // For base materials, see materials.dm
 
 /datum/export/stack/plasteel
-	cost = 155 // 2000u of plasma + 2000u of metal.
+	cost = 155 // 2000u of plasma + 2000u of iron.
 	message = "of plasteel"
 	export_types = list(/obj/item/stack/sheet/plasteel)
 
-// 1 glass + 0.5 metal, cost is rounded up.
+// 1 glass + 0.5 iron, cost is rounded up.
 /datum/export/stack/rglass
 	cost = 8
 	message = "of reinforced glass"

@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(all_scripture) //a list containing scripture instances; not us
 
 #define POWER_ROD (CLOCKCULT_POWER_UNIT*0.01) //how much power is in one rod
 
-#define POWER_METAL (CLOCKCULT_POWER_UNIT*0.02) //how much power is in one sheet of metal
+#define POWER_IRON (CLOCKCULT_POWER_UNIT*0.02) //how much power is in one sheet of iron
 
 #define POWER_PLASTEEL (CLOCKCULT_POWER_UNIT*0.05) //how much power is in one sheet of plasteel
 

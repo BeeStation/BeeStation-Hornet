@@ -550,7 +550,7 @@
 /area/ai_monitored/turret_protected/ai)
 "ade" = (
 /obj/structure/table/glass,
-/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/iron,
 /obj/item/stack/sheet/glass{
 	amount = 20;
 	pixel_x = 3;
@@ -16850,7 +16850,7 @@
 /area/storage/art)
 "aOv" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 20;
 	layer = 3.1
 	},
@@ -17908,7 +17908,7 @@
 	},
 /obj/item/stack/cable_coil,
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "aQW" = (
@@ -17934,8 +17934,8 @@
 /area/storage/eva)
 "aQZ" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/crowbar,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -17972,7 +17972,7 @@
 /area/storage/eva)
 "aRc" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/rglass{
 	amount = 50
 	},
@@ -21482,7 +21482,7 @@
 /area/maintenance/department/cargo)
 "aYF" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 10
 	},
 /obj/item/stack/rods{
@@ -27344,12 +27344,12 @@
 	pixel_x = 3;
 	pixel_y = -4
 	},
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
 	},
@@ -28946,7 +28946,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -40686,8 +40686,8 @@
 /area/engine/atmos)
 "bOX" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty{
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty{
 	pixel_x = 2;
 	pixel_y = 2
 	},
@@ -44478,8 +44478,8 @@
 /area/engine/engineering)
 "bXl" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/rods/fifty,
 /obj/item/stack/cable_coil,
 /obj/machinery/power/apc/highcap/ten_k{
@@ -44489,7 +44489,7 @@
 	pixel_x = -25
 	},
 /obj/structure/cable,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/cable_coil,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -46490,7 +46490,7 @@
 /area/engine/engineering)
 "ccR" = (
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/rods/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/electronics/airlock,
@@ -48281,7 +48281,7 @@
 /obj/item/stack/sheet/glass/fifty{
 	layer = 4
 	},
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 20;
 	layer = 3.1
 	},
@@ -54703,7 +54703,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/wrench,
 /obj/item/crowbar,
 /obj/item/clothing/glasses/welding,
@@ -55981,7 +55981,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "jBn" = (
@@ -57562,8 +57562,8 @@
 /area/engine/engineering)
 "nsy" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/plasteel{
 	amount = 10
@@ -57837,8 +57837,8 @@
 /area/maintenance/department/security/brig)
 "nQc" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/machinery/light/small{
 	dir = 1
@@ -59484,7 +59484,7 @@
 /area/crew_quarters/kitchen)
 "rzp" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/rods/fifty,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating{
@@ -61305,7 +61305,7 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/rods/fifty,
 /obj/item/clothing/glasses/welding,
 /obj/effect/turf_decal/tile/yellow,

@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 
 			"Building Supplies",
 			"Spawn 50 Wood"                     = "hsbwood",
-			"Spawn 50 Metal"					= "hsbmetal",
+			"Spawn 50 Iron"						= "hsbiron",
 			"Spawn 50 Plasteel"					= "hsbplasteel",
 			"Spawn 50 Reinforced Glass"         = "hsbrglass",
 			"Spawn 50 Glass"					= "hsbglass",
@@ -189,8 +189,8 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 			if("hsbrglass")
 				new/obj/item/stack/sheet/rglass{amount=50}(usr.loc)
 
-			if("hsbmetal")
-				new/obj/item/stack/sheet/metal{amount=50}(usr.loc)
+			if("hsbiron")
+				new/obj/item/stack/sheet/iron{amount=50}(usr.loc)
 
 			if("hsbplasteel")
 				new/obj/item/stack/sheet/plasteel{amount=50}(usr.loc)

@@ -7,7 +7,7 @@ For the materials datum, it assumes you need reagents unless specified otherwise
 you use one of the material IDs below. These are NOT ids in the usual sense (they aren't defined in the object or part of a datum),
 they are simply references used as part of a "has materials?" type proc. They all start with a $ to denote that they aren't reagents.
 The currently supporting non-reagent materials. All material amounts are set as the define MINERAL_MATERIAL_AMOUNT, which defaults to 2000
-- MAT_METAL (/obj/item/stack/metal).
+- MAT_IRON (/obj/item/stack/iron).
 - MAT_GLASS (/obj/item/stack/glass).
 - MAT_PLASMA (/obj/item/stack/plasma).
 - MAT_SILVER (/obj/item/stack/silver).
@@ -17,11 +17,11 @@ The currently supporting non-reagent materials. All material amounts are set as 
 - MAT_BANANIUM (/obj/item/stack/bananium).
 (Insert new ones here)
 
-Don't add new keyword/IDs if they are made from an existing one (such as rods which are made from metal). Only add raw materials.
+Don't add new keyword/IDs if they are made from an existing one (such as rods which are made from iron). Only add raw materials.
 
 Design Guidelines
 - When adding new designs, check rdreadme.dm to see what kind of things have already been made and where new stuff is needed.
-- A single sheet of anything is 2000 units of material. Materials besides metal/glass require help from other jobs (mining for
+- A single sheet of anything is 2000 units of material. Materials besides iron/glass require help from other jobs (mining for
 other types of metals and chemistry for reagents).
 - Add the AUTOLATHE tag to
 */
@@ -70,7 +70,7 @@ other types of metals and chemistry for reagents).
 	name = "Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."
 	icon_state = "datadisk1"
-	materials = list(MAT_METAL=300, MAT_GLASS=100)
+	materials = list(MAT_IRON=300, MAT_GLASS=100)
 	var/list/blueprints = list()
 	var/max_blueprints = 1
 
@@ -84,5 +84,5 @@ other types of metals and chemistry for reagents).
 /obj/item/disk/design_disk/adv
 	name = "Advanced Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes. This one has extra storage space."
-	materials = list(MAT_METAL=300, MAT_GLASS=100, MAT_SILVER = 50)
+	materials = list(MAT_IRON=300, MAT_GLASS=100, MAT_SILVER = 50)
 	max_blueprints = 5

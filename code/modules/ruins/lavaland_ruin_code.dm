@@ -34,7 +34,7 @@
 	desc = "Allows for the construction of a Golem Shell."
 	id = "golem"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 40000)
+	materials = list(MAT_IRON = 40000)
 	build_path = /obj/item/golem_shell
 	category = list("Imported")
 
@@ -50,7 +50,7 @@
 /obj/item/golem_shell/attackby(obj/item/I, mob/user, params)
 	..()
 	var/static/list/golem_shell_species_types = list(
-		/obj/item/stack/sheet/metal	                = /datum/species/golem,
+		/obj/item/stack/sheet/iron	                = /datum/species/golem,
 		/obj/item/stack/sheet/glass 	            = /datum/species/golem/glass,
 		/obj/item/stack/sheet/plasteel 	            = /datum/species/golem/plasteel,
 		/obj/item/stack/sheet/mineral/sandstone	    = /datum/species/golem/sand,

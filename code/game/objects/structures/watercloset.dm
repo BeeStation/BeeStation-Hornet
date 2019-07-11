@@ -335,7 +335,7 @@
 		return ..()
 
 /obj/structure/sink/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/metal (loc, 3)
+	new /obj/item/stack/sheet/iron (loc, 3)
 	qdel(src)
 
 
