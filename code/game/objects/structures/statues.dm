@@ -1,6 +1,6 @@
 /obj/structure/statue
 	name = "statue"
-	desc = "Placeholder. Yell at Firecage if you SOMEHOW see this."
+	desc = "Placeholder. Yell at Qwerty if you SOMEHOW see this."
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
 	density = TRUE
@@ -281,3 +281,20 @@
 	name = "snowman"
 	desc = "Several lumps of snow put together to form a snowman."
 	icon_state = "snowman"
+
+
+
+
+//////////////////////////copper///////////////////////////////////////
+
+/obj/structure/statue/copper
+	max_integrity = 350
+	material_drop_type = /obj/item/stack/sheet/mineral/copper
+	desc = "This is a statue made from copper."
+
+/obj/structure/statue/copper/dimas
+	name = "statue of dimas valzok"
+	desc = "This is a statue of the legendary Dimas Valzok. You feel the need to bow before it."
+	max_integrity = 400 //dimas is stronger
+	icon_state = "dimas"
+	oreAmount = 10 //dimas b dense
