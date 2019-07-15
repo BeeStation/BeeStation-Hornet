@@ -97,8 +97,7 @@ https://github.com/tgstation/tgstation-server
 
 ## MAPS
 
-BeeStation currently comes equipped with these
-maps.
+BeeStation currently comes equipped with these maps.
 
 * [DeltaStation (default)](https://tgstation13.org/wiki/DeltaStation)
 * [BoxStation](https://tgstation13.org/wiki/Boxstation)
@@ -170,4 +169,5 @@ All assets including icons and sound are under a [Creative Commons 3.0 BY-SA lic
 # Other Codebase Credits
 - /tg/, for the codebase.
 - CEV Eris, for the PDA sprites
+- TGMC, for the custom keybinds base
 

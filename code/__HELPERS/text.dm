@@ -793,3 +793,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 			rearranged += cword
 	message = "[prefix][jointext(rearranged," ")]"
 	. = message
+
+
+#define is_alpha(X) ((text2ascii(X) <= 122) && (text2ascii(X) >= 97))
+#define is_digit(X) ((length(X) == 1) && (length(text2num(X)) == 1))
