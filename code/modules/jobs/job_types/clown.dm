@@ -4,8 +4,8 @@
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
 	faction = "Station"
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 9999
+	spawn_positions = 5
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 
