@@ -7400,6 +7400,9 @@
 	},
 /obj/item/stock_parts/scanning_module,
 /obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "asl" = (
@@ -11626,6 +11629,9 @@
 /area/maintenance/fore)
 "aBH" = (
 /obj/machinery/rnd/production/techfab/department/service,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "aBJ" = (
@@ -32217,6 +32223,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "bsD" = (
@@ -44834,6 +44843,9 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bRx" = (
@@ -45162,6 +45174,9 @@
 /obj/item/seeds/random,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/scythe,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "bSe" = (
@@ -45332,6 +45347,9 @@
 /obj/structure/sign/poster/contraband/fun_police{
 	pixel_y = -32
 	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "bSB" = (
@@ -45449,6 +45467,9 @@
 "bSQ" = (
 /obj/structure/closet/crate{
 	icon_state = "crateopen"
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -48260,6 +48281,9 @@
 "bZz" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "bZA" = (
@@ -52334,6 +52358,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
+"hLz" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "hLL" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 5
@@ -84675,7 +84710,7 @@ aqa
 bWY
 stN
 sMe
-sMe
+hLz
 sMe
 sMe
 xWi

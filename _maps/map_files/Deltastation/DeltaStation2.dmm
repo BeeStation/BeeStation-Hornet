@@ -4235,6 +4235,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/fore)
 "amD" = (
@@ -7014,6 +7017,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 10
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "arA" = (
@@ -7217,6 +7223,9 @@
 	},
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/three,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "arV" = (
@@ -17781,6 +17790,9 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 10
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
@@ -28599,6 +28611,9 @@
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -48595,6 +48610,9 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 10
+	},
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
 "bGl" = (
@@ -91914,6 +91932,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
 	},
@@ -93596,6 +93617,9 @@
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
@@ -98637,6 +98661,7 @@
 "djo" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plating,
 /area/science/research/abandoned)
 "djp" = (
@@ -105530,6 +105555,7 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/bot,
+/obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plasteel,
 /area/science/research/abandoned)
 "dwa" = (
@@ -109653,6 +109679,7 @@
 /obj/item/stack/cable_coil/white,
 /obj/item/flashlight/seclite,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plating,
 /area/science/research/abandoned)
 "dDh" = (
@@ -111738,6 +111765,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
@@ -114502,6 +114532,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
 	},
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
@@ -127736,6 +127769,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plasteel,
 /area/science/research/abandoned)
 "qcx" = (

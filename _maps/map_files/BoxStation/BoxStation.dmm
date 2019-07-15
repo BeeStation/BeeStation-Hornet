@@ -6747,6 +6747,7 @@
 "anL" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "anN" = (
@@ -7462,6 +7463,9 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stock_parts/capacitor,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
 "apM" = (
@@ -7754,6 +7758,12 @@
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "aqA" = (
@@ -8763,6 +8773,11 @@
 /area/maintenance/starboard/fore)
 "atA" = (
 /obj/structure/table,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "atB" = (
@@ -8786,6 +8801,16 @@
 	amount = 10
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/electrical)
 "atD" = (
@@ -9775,6 +9800,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "awd" = (
@@ -25135,6 +25163,9 @@
 	pixel_x = -2;
 	pixel_y = -1
 	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "bhF" = (
@@ -25640,6 +25671,9 @@
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
 	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
@@ -46765,6 +46799,9 @@
 "ciF" = (
 /obj/structure/table,
 /obj/item/cartridge/medical,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "ciG" = (
@@ -49279,6 +49316,9 @@
 "cpX" = (
 /obj/structure/table,
 /obj/item/stack/rods/fifty,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cpY" = (
@@ -55705,6 +55745,12 @@
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "gjb" = (
@@ -55984,6 +56030,19 @@
 	},
 /turf/open/floor/engine,
 /area/science/misc_lab)
+"iyD" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "iBZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -57026,6 +57085,14 @@
 /obj/item/nanite_remote,
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
+"pKz" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "pLn" = (
 /obj/machinery/conveyor/inverted{
 	dir = 5;
@@ -57213,6 +57280,31 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"rFX" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/obj/item/stack/sheet/mineral/copper,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "rHZ" = (
 /obj/structure/rack,
 /obj/item/wrench,
@@ -57555,6 +57647,11 @@
 /obj/effect/turf_decal/loading_area,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/kitchen)
+"tOw" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/mineral/copper,
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "tVp" = (
 /obj/structure/lattice,
 /obj/structure/lattice/catwalk,
@@ -57996,6 +58093,9 @@
 "wUY" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bucket,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "wXs" = (
@@ -76515,7 +76615,7 @@ alU
 arN
 atU
 alU
-atU
+iyD
 amC
 atJ
 atO
@@ -81704,7 +81804,7 @@ bAx
 bTE
 bCq
 bHD
-bJe
+rFX
 bCq
 bLu
 bHE
@@ -97586,7 +97686,7 @@ aag
 alO
 arp
 alO
-awD
+tOw
 anf
 anf
 awD
@@ -99906,7 +100006,7 @@ aoP
 auF
 azr
 anf
-atw
+pKz
 alP
 alP
 aFo

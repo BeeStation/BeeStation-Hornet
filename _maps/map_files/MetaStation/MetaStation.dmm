@@ -7329,6 +7329,9 @@
 	pixel_y = -3
 	},
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "anb" = (
@@ -32675,6 +32678,9 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bko" = (
@@ -38303,6 +38309,9 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel/dark/corner,
 /area/engine/storage_shared)
 "bvi" = (
@@ -46615,6 +46624,9 @@
 /area/storage/tcom)
 "bLX" = (
 /obj/structure/closet,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -59328,6 +59340,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "clA" = (
@@ -65624,6 +65639,9 @@
 /obj/item/tank/internals/air,
 /obj/item/wrench,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg2"
 	},
@@ -72188,6 +72206,9 @@
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/wrench,
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "cJs" = (
@@ -73709,6 +73730,9 @@
 	pixel_y = -4
 	},
 /obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/aft/secondary)
 "cMm" = (
@@ -80859,6 +80883,9 @@
 	dir = 4
 	},
 /obj/item/poster/random_official,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/port)
 "dip" = (

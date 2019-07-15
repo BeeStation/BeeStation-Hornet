@@ -16158,6 +16158,9 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/crowbar,
 /obj/machinery/light/small,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "aMA" = (
@@ -21370,6 +21373,9 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "aYr" = (
@@ -21478,6 +21484,9 @@
 /obj/item/assembly/igniter,
 /obj/item/assembly/igniter,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "aYF" = (
@@ -35917,6 +35926,9 @@
 	},
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "bER" = (
@@ -40826,6 +40838,9 @@
 /obj/structure/table,
 /obj/item/paper,
 /obj/item/pen,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/engine)
 "bPs" = (
@@ -42966,6 +42981,9 @@
 /obj/structure/table,
 /obj/item/storage/box/mousetraps,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "bUa" = (
@@ -46113,6 +46131,9 @@
 "cbo" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cbp" = (
@@ -54707,6 +54728,9 @@
 /obj/item/wrench,
 /obj/item/crowbar,
 /obj/item/clothing/glasses/welding,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "gGy" = (
@@ -57936,6 +57960,9 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating{
 	luminosity = 2
 	},
@@ -58280,6 +58307,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -61354,6 +61384,9 @@
 /area/maintenance/department/engine)
 "wfc" = (
 /obj/structure/ore_box,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "wfs" = (
