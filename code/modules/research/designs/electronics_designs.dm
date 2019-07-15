@@ -8,7 +8,7 @@
 	desc = "Allows for the construction of an intellicard."
 	id = "intellicard"
 	build_type = PROTOLATHE
-	materials = list(MAT_GLASS = 1000, MAT_GOLD = 200)
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 200, MAT_COPPER = 300)
 	build_path = /obj/item/aicard
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -18,7 +18,7 @@
 	desc = "Allows for the construction of a pAI Card."
 	id = "paicard"
 	build_type = PROTOLATHE
-	materials = list(MAT_GLASS = 500, MAT_METAL = 500)
+	materials = list(MAT_GLASS = 500, MAT_IRON = 500, MAT_COPPER = 300)
 	build_path = /obj/item/paicard
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
@@ -28,7 +28,7 @@
 	desc = "A software package that will allow an artificial intelligence to 'hear' from its cameras via lip reading."
 	id = "ai_cam_upgrade"
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_GOLD = 15000, MAT_SILVER = 15000, MAT_DIAMOND = 20000, MAT_PLASMA = 10000)
+	materials = list(MAT_IRON = 5000, MAT_GLASS = 5000, MAT_GOLD = 15000, MAT_SILVER = 15000, MAT_DIAMOND = 20000, MAT_PLASMA = 10000, MAT_COPPER = 3000)
 	build_path = /obj/item/surveillance_upgrade
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -41,7 +41,7 @@
 	desc = "Allows for the construction of a nanite remote."
 	id = "nanite_remote"
 	build_type = PROTOLATHE
-	materials = list(MAT_GLASS = 500, MAT_METAL = 500)
+	materials = list(MAT_GLASS = 500, MAT_IRON = 500, MAT_COPPER = 200)
 	build_path = /obj/item/nanite_remote
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -51,7 +51,7 @@
 	desc = "Allows for the construction of a nanite scanner."
 	id = "nanite_scanner"
 	build_type = PROTOLATHE
-	materials = list(MAT_GLASS = 500, MAT_METAL = 500)
+	materials = list(MAT_GLASS = 500, MAT_IRON = 500, MAT_COPPER = 300)
 	build_path = /obj/item/nanite_scanner
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -64,7 +64,7 @@
 	desc = "This machine provides all necessary things for circuitry."
 	id = "icprinter"
 	build_type = PROTOLATHE
-	materials = list(MAT_GLASS = 5000, MAT_METAL = 10000)
+	materials = list(MAT_GLASS = 5000, MAT_IRON = 10000, MAT_COPPER = 2000)
 	build_path = /obj/item/integrated_circuit_printer
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -74,7 +74,7 @@
 	desc = "This disk allows for integrated circuit printers to print advanced circuitry designs."
 	id = "icupgadv"
 	build_type = PROTOLATHE
-	materials = list(MAT_GLASS = 10000, MAT_METAL = 10000)
+	materials = list(MAT_GLASS = 10000, MAT_IRON = 10000, MAT_COPPER = 4000)
 	build_path = /obj/item/disk/integrated_circuit/upgrade/advanced
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -84,7 +84,7 @@
 	desc = "This disk allows for integrated circuit printers to clone designs instantaneously."
 	id = "icupgclo"
 	build_type = PROTOLATHE
-	materials = list(MAT_GLASS = 10000, MAT_METAL = 10000)
+	materials = list(MAT_GLASS = 10000, MAT_IRON = 10000, MAT_COPPER = 4000)
 	build_path = /obj/item/disk/integrated_circuit/upgrade/clone
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -98,7 +98,7 @@
 	desc = "Produce additional disks for storing device designs."
 	id = "design_disk"
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
+	materials = list(MAT_IRON = 300, MAT_GLASS = 100, MAT_COPPER = 100)
 	build_path = /obj/item/disk/design_disk
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -108,7 +108,7 @@
 	desc = "Produce additional disks for storing device designs."
 	id = "design_disk_adv"
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 300, MAT_GLASS = 100, MAT_SILVER=50)
+	materials = list(MAT_IRON = 300, MAT_GLASS = 100, MAT_SILVER=50, MAT_COPPER = 200)
 	build_path = /obj/item/disk/design_disk/adv
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -118,7 +118,7 @@
 	desc = "Produce additional disks for storing technology data."
 	id = "tech_disk"
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
+	materials = list(MAT_IRON = 300, MAT_GLASS = 100, MAT_COPPER = 100)
 	build_path = /obj/item/disk/tech_disk
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -128,7 +128,7 @@
 	desc = "Stores nanite programs."
 	id = "nanite_disk"
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
+	materials = list(MAT_IRON = 300, MAT_GLASS = 100, MAT_COPPER = 100)
 	build_path = /obj/item/disk/nanite_program
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

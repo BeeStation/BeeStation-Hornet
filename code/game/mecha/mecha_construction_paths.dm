@@ -161,7 +161,7 @@
 
 		//15
 		list(
-			"key" = /obj/item/stack/sheet/metal,
+			"key" = /obj/item/stack/sheet/iron,
 			"amount" = 5,
 			"back_key" = TOOL_SCREWDRIVER,
 			"desc" = "The power cell is secured."
@@ -436,7 +436,7 @@
 
 		//17
 		list(
-			"key" = /obj/item/stack/sheet/metal,
+			"key" = /obj/item/stack/sheet/iron,
 			"amount" = 5,
 			"back_key" = TOOL_SCREWDRIVER,
 			"desc" = "The power cell is secured."
@@ -1156,7 +1156,7 @@
 
 		//17
 		list(
-			"key" = /obj/item/stack/sheet/metal,
+			"key" = /obj/item/stack/sheet/iron,
 			"amount" = 5,
 			"back_key" = TOOL_SCREWDRIVER,
 			"desc" = "The power cell is secured."
@@ -1791,7 +1791,7 @@
 
 		//12
 		list(
-			"key" = /obj/item/stack/sheet/metal,
+			"key" = /obj/item/stack/sheet/iron,
 			"amount" = 5,
 			"back_key" = TOOL_SCREWDRIVER,
 			"desc" = "The power cell is secured."

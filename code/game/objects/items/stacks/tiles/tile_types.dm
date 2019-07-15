@@ -37,10 +37,10 @@
 				qdel(src)
 				return
 
-			if (mineralType == "metal")
-				var/obj/item/stack/sheet/metal/new_item = new(user.loc)
-				user.visible_message("[user.name] shaped [src] into metal with the welding tool.", \
-							 "<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
+			if (mineralType == "iron")
+				var/obj/item/stack/sheet/iron/new_item = new(user.loc)
+				user.visible_message("[user.name] shaped [src] into iron with the welding tool.", \
+							 "<span class='notice'>You shaped [src] into iron with the welding tool.</span>", \
 							 "<span class='italics'>You hear welding.</span>")
 				var/obj/item/stack/rods/R = src
 				src = null
@@ -204,16 +204,16 @@
 	desc = "Those could work as a pretty decent throwing weapon."
 	icon_state = "tile"
 	force = 6
-	materials = list(MAT_METAL=500)
+	materials = list(MAT_IRON=500)
 	throwforce = 10
 	flags_1 = CONDUCT_1
 	turf_type = /turf/open/floor/plasteel
-	mineralType = "metal"
+	mineralType = "iron"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/tile/plasteel/cyborg
 	desc = "The ground you walk on." //Not the usual floor tile desc as that refers to throwing, Cyborgs can't do that - RR
-	materials = list() // All other Borg versions of items have no Metal or Glass - RR
+	materials = list() // All other Borg versions of items have no Iron or Glass - RR
 	is_cyborg = 1
 	cost = 125

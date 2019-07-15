@@ -378,7 +378,7 @@
 
 /obj/structure/window/reinforced
 	name = "reinforced window"
-	desc = "A window that is reinforced with metal rods."
+	desc = "A window that is reinforced with iron rods."
 	icon_state = "rwindow"
 	reinf = TRUE
 	heat_resistance = 1600

@@ -2,13 +2,13 @@
 
 /obj/item/integrated_circuit_printer
 	name = "integrated circuit printer"
-	desc = "A portable(ish) machine made to print tiny modular circuitry out of metal."
+	desc = "A portable(ish) machine made to print tiny modular circuitry out of iron."
 	icon = 'icons/obj/assemblies/electronic_tools.dmi'
 	icon_state = "circuit_printer"
 	w_class = WEIGHT_CLASS_BULKY
 	var/upgraded = FALSE		// When hit with an upgrade disk, will turn true, allowing it to print the higher tier circuits.
 	var/can_clone = TRUE		// Allows the printer to clone circuits, either instantly or over time depending on upgrade. Set to FALSE to disable entirely.
-	var/fast_clone = FALSE		// If this is false, then cloning will take an amount of deciseconds equal to the metal cost divided by 100.
+	var/fast_clone = FALSE		// If this is false, then cloning will take an amount of deciseconds equal to the iron cost divided by 100.
 	var/debug = FALSE			// If it's upgraded and can clone, even without config settings.
 	var/current_category = null
 	var/cloning = FALSE			// If the printer is currently creating a circuit
@@ -34,7 +34,7 @@
 
 /obj/item/integrated_circuit_printer/Initialize()
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL), MINERAL_MATERIAL_AMOUNT * 25, TRUE, list(/obj/item/stack, /obj/item/integrated_circuit, /obj/item/electronic_assembly))
+	AddComponent(/datum/component/material_container, list(MAT_IRON), MINERAL_MATERIAL_AMOUNT * 25, TRUE, list(/obj/item/stack, /obj/item/integrated_circuit, /obj/item/electronic_assembly))
 
 /obj/item/integrated_circuit_printer/proc/print_program(mob/user)
 	if(!cloning)
@@ -142,7 +142,7 @@
 	if(debug)
 		HTML += "<center><h3>DEBUG PRINTER -- Infinite materials. Cloning available.</h3></center>"
 	else
-		HTML += "Metal: [materials.total_amount]/[materials.max_amount].<br><br>"
+		HTML += "Iron: [materials.total_amount]/[materials.max_amount].<br><br>"
 
 	HTML += "Identity-lock: "
 	if(idlock)
@@ -219,17 +219,17 @@
 		var/cost = 400
 		if(ispath(build_type, /obj/item/electronic_assembly))
 			var/obj/item/electronic_assembly/E = SScircuit.cached_assemblies[build_type]
-			cost = E.materials[MAT_METAL]
+			cost = E.materials[MAT_IRON]
 		else if(ispath(build_type, /obj/item/integrated_circuit))
 			var/obj/item/integrated_circuit/IC = SScircuit.cached_components[build_type]
-			cost = IC.materials[MAT_METAL]
+			cost = IC.materials[MAT_IRON]
 		else if(!build_type in SScircuit.circuit_fabricator_recipe_list["Tools"])
 			return
 
 		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 
-		if(!debug && !materials.use_amount_type(cost, MAT_METAL))
-			to_chat(usr, "<span class='warning'>You need [cost] metal to build that!</span>")
+		if(!debug && !materials.use_amount_type(cost, MAT_IRON))
+			to_chat(usr, "<span class='warning'>You need [cost] iron to build that!</span>")
 			return TRUE
 
 		var/obj/item/built = new build_type(drop_location())
@@ -286,7 +286,7 @@
 						to_chat(usr, "<span class='warning'>This program uses components not supported by the specified assembly. Please change the assembly type in the save file to a supported one.</span>")
 					to_chat(usr, "<span class='notice'>Used space: [program["used_space"]]/[program["max_space"]].</span>")
 					to_chat(usr, "<span class='notice'>Complexity: [program["complexity"]]/[program["max_complexity"]].</span>")
-					to_chat(usr, "<span class='notice'>Metal cost: [program["metal_cost"]].</span>")
+					to_chat(usr, "<span class='notice'>Iron cost: [program["iron_cost"]].</span>")
 
 			if("print")
 				if(!program || cloning)
@@ -300,17 +300,17 @@
 					return
 				else if(fast_clone)
 					var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-					if(debug || materials.use_amount_type(program["metal_cost"], MAT_METAL))
+					if(debug || materials.use_amount_type(program["iron_cost"], MAT_IRON))
 						cloning = TRUE
 						print_program(usr)
 					else
-						to_chat(usr, "<span class='warning'>You need [program["metal_cost"]] metal to build that!</span>")
+						to_chat(usr, "<span class='warning'>You need [program["iron_cost"]] iron to build that!</span>")
 				else
 					var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-					if(!materials.use_amount_type(program["metal_cost"], MAT_METAL))
-						to_chat(usr, "<span class='warning'>You need [program["metal_cost"]] metal to build that!</span>")
+					if(!materials.use_amount_type(program["iron_cost"], MAT_IRON))
+						to_chat(usr, "<span class='warning'>You need [program["iron_cost"]] iron to build that!</span>")
 						return
-					var/cloning_time = round(program["metal_cost"] / 15)
+					var/cloning_time = round(program["iron_cost"] / 15)
 					cloning_time = min(cloning_time, MAX_CIRCUIT_CLONE_TIME)
 					cloning = TRUE
 					to_chat(usr, "<span class='notice'>You begin printing a custom assembly. This will take approximately [DisplayTimeText(cloning_time)]. You can still print \
@@ -322,10 +322,10 @@
 				if(!cloning || !program)
 					return
 
-				to_chat(usr, "<span class='notice'>Cloning has been canceled. Metal cost has been refunded.</span>")
+				to_chat(usr, "<span class='notice'>Cloning has been canceled. Iron cost has been refunded.</span>")
 				cloning = FALSE
 				var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-				materials.use_amount_type(-program["metal_cost"], MAT_METAL) //use negative amount to regain the cost
+				materials.use_amount_type(-program["iron_cost"], MAT_IRON) //use negative amount to regain the cost
 
 
 	interact(usr)

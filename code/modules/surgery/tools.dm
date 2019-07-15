@@ -3,7 +3,7 @@
 	desc = "Retracts stuff."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "retractor"
-	materials = list(MAT_METAL=6000, MAT_GLASS=3000)
+	materials = list(MAT_IRON=6000, MAT_GLASS=3000)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 
@@ -13,7 +13,7 @@
 	desc = "Micro-mechanical manipulator for retracting stuff."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "retractor"
-	materials = list(MAT_METAL=6000, MAT_GLASS=3000)
+	materials = list(MAT_IRON=6000, MAT_GLASS=3000)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.5
@@ -24,7 +24,7 @@
 	desc = "You think you have seen this before."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "hemostat"
-	materials = list(MAT_METAL=5000, MAT_GLASS=2500)
+	materials = list(MAT_IRON=5000, MAT_GLASS=2500)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb = list("attacked", "pinched")
@@ -35,7 +35,7 @@
 	desc = "Tiny servos power a pair of pincers to stop bleeding."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "hemostat"
-	materials = list(MAT_METAL=5000, MAT_GLASS=2500)
+	materials = list(MAT_IRON=5000, MAT_GLASS=2500)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.5
@@ -47,7 +47,7 @@
 	desc = "This stops bleeding."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "cautery"
-	materials = list(MAT_METAL=2500, MAT_GLASS=750)
+	materials = list(MAT_IRON=2500, MAT_GLASS=750)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb = list("burnt")
@@ -58,7 +58,7 @@
 	desc = "A heated element that cauterizes wounds."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "cautery"
-	materials = list(MAT_METAL=2500, MAT_GLASS=750)
+	materials = list(MAT_IRON=2500, MAT_GLASS=750)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.5
@@ -73,7 +73,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
+	materials = list(MAT_IRON=10000, MAT_GLASS=6000)
 	flags_1 = CONDUCT_1
 	force = 15
 	w_class = WEIGHT_CLASS_NORMAL
@@ -86,7 +86,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "drill"
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
+	materials = list(MAT_IRON=10000, MAT_GLASS=6000)
 	flags_1 = CONDUCT_1
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
@@ -107,7 +107,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	materials = list(MAT_METAL=4000, MAT_GLASS=1000)
+	materials = list(MAT_IRON=4000, MAT_GLASS=1000)
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP_ACCURATE
@@ -127,7 +127,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	materials = list(MAT_METAL=4000, MAT_GLASS=1000)
+	materials = list(MAT_IRON=4000, MAT_GLASS=1000)
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	toolspeed = 0.5
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -153,7 +153,7 @@
 	throwforce = 9
 	throw_speed = 2
 	throw_range = 5
-	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
+	materials = list(MAT_IRON=10000, MAT_GLASS=6000)
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	sharpness = IS_SHARP
 
@@ -174,7 +174,7 @@
 	throwforce = 9
 	throw_speed = 2
 	throw_range = 5
-	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
+	materials = list(MAT_IRON=10000, MAT_GLASS=6000)
 	toolspeed = 0.5
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	sharpness = IS_SHARP

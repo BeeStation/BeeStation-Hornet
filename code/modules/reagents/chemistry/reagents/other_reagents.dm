@@ -656,8 +656,8 @@
 	taste_description = "metal"
 
 /datum/reagent/copper/reaction_obj(obj/O, reac_volume)
-	if(istype(O, /obj/item/stack/sheet/metal))
-		var/obj/item/stack/sheet/metal/M = O
+	if(istype(O, /obj/item/stack/sheet/iron))
+		var/obj/item/stack/sheet/iron/M = O
 		reac_volume = min(reac_volume, M.amount)
 		new/obj/item/stack/tile/bronze(get_turf(M), reac_volume)
 		M.use(reac_volume)

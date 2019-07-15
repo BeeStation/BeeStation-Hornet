@@ -22,8 +22,8 @@
 
 //used in design to specify which machine can build it
 #define IMPRINTER		(1<<0)	//For circuits. Uses glass/chemicals.
-#define PROTOLATHE		(1<<1)	//New stuff. Uses glass/metal/chemicals
-#define AUTOLATHE		(1<<2)	//Uses glass/metal only.
+#define PROTOLATHE		(1<<1)	//New stuff. Uses glass/iron/chemicals
+#define AUTOLATHE		(1<<2)	//Uses glass/iron only.
 #define CRAFTLATHE		(1<<3)	//Uses fuck if I know. For use eventually.
 #define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
 #define BIOGENERATOR	(1<<5) 	//Uses biomass

@@ -75,12 +75,12 @@
 	material_id = MAT_TITANIUM // code can only check for one material_id; plastitanium is half plasma, half titanium
 	message = "cm3 of plastitanium"
 
-/datum/export/material/metal
+/datum/export/material/iron
 	cost = 5
-	message = "cm3 of metal"
-	material_id = MAT_METAL
+	message = "cm3 of iron"
+	material_id = MAT_IRON
 	export_types = list(
-		/obj/item/stack/sheet/metal, /obj/item/stack/tile/plasteel,
+		/obj/item/stack/sheet/iron, /obj/item/stack/tile/plasteel,
 		/obj/item/stack/rods, /obj/item/stack/ore, /obj/item/coin)
 
 /datum/export/material/glass
