@@ -23,14 +23,33 @@ SUBSYSTEM_DEF(mobs)
 		dead_players_by_zlevel[dead_players_by_zlevel.len] = list()
 
 /datum/controller/subsystem/mobs/fire(resumed = 0)
+	var/client/c
+	if(GLOB.directory["qwertyquerty"] && GLOB.Debug2)
+		c = GLOB.directory["qwertyquerty"]
+
+	if(c) to_chat(c, "------------------firing mobs------------------")
+
+	var/tt = world.tick_usage
+	var/ct = world.tick_usage
+	var/lt = world.tick_usage
+
 	var/seconds = wait * 0.1
 	if (!resumed)
 		src.currentrun = GLOB.mob_living_list.Copy()
 
+	if(c) to_chat(c, "list copy took [world.tick_usage-ct]")
+
+	ct = world.tick_usage
+
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	var/times_fired = src.times_fired
+
+	var/max_life_time = 0
+	var/mob/max_life_mob
+
 	while(currentrun.len)
+		lt = world.tick_usage
 		var/mob/living/L = currentrun[currentrun.len]
 		currentrun.len--
 		if(L)
@@ -39,3 +58,15 @@ SUBSYSTEM_DEF(mobs)
 			GLOB.mob_living_list.Remove(L)
 		if (MC_TICK_CHECK)
 			return
+
+		if(world.tick_usage-lt > max_life_time)
+			max_life_time = world.tick_usage-lt
+			max_life_mob = L
+	
+	
+	if(c) to_chat(c, "life took [world.tick_usage-ct] with an average per mob of [(world.tick_usage-ct)/GLOB.mob_living_list.len]")
+	if(c) to_chat(c, "[max_life_mob.name] ([max_life_mob.type]) took the longest ([max_life_time])")
+
+	if(c) to_chat(c, "fire took [world.tick_usage-tt]")
+
+	
