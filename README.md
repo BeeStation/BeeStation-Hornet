@@ -8,7 +8,6 @@
 **Wiki:** https://tgstation13.org/wiki/Main_Page
 
 
-
 ## DOWNLOADING
 
 There are a number of ways to download the source code. Some are described here, an alternative all-inclusive guide is also located at https://www.tgstation13.org/wiki/Downloading_the_source_code
@@ -171,4 +170,4 @@ All assets including icons and sound are under a [Creative Commons 3.0 BY-SA lic
 - /tg/, for the codebase.
 - CEV Eris, for the PDA sprites
 - TGMC, for the custom keybinds base
-
+- Citadel, for their beautiful lighting
