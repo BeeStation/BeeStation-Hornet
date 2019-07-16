@@ -132,5 +132,3 @@
 			continue
 
 		corners[i] = new/datum/lighting_corner(src, GLOB.LIGHTING_CORNER_DIAGONAL[i])
-
-

@@ -28,11 +28,11 @@
 		S.update_starlight()
 
 	needs_update = TRUE
-	SSlighting.objects_queue += src
+	GLOB.lighting_update_objects += src
 
 /atom/movable/lighting_object/Destroy(var/force)
 	if (force)
-		SSlighting.objects_queue -= src
+		GLOB.lighting_update_objects     -= src
 		if (loc != myturf)
 			var/turf/oldturf = get_turf(myturf)
 			var/turf/newturf = get_turf(loc)
@@ -100,7 +100,7 @@
 	#if LIGHTING_SOFT_THRESHOLD != 0
 	var/set_luminosity = max > LIGHTING_SOFT_THRESHOLD
 	#else
-	// Because of floating pointsâ„¢?, it won't even be a flat 0.
+	// Because of floating points?, it won't even be a flat 0.
 	// This number is mostly arbitrary.
 	var/set_luminosity = max > 1e-6
 	#endif
