@@ -326,6 +326,26 @@
 	moduleselect_icon = "engineer"
 	magpulsing = TRUE
 	hat_offset = -4
+	
+/obj/item/robot_module/deathsquad
+	name = "Centcom"
+	basic_modules = list(
+		/obj/item/assembly/flash/cyborg,
+		/obj/item/restraints/handcuffs/cable/zipties,
+		/obj/item/melee/baton/loaded,
+		/obj/item/shield/riot/tele,
+		/obj/item/gun/energy/disabler/cyborg,
+		/obj/item/melee/transforming/energy/sword/cyborg,
+		/obj/item/gun/energy/pulse/carbine/cyborg,
+		/obj/item/clothing/mask/gas/sechailer/cyborg)
+	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
+	ratvar_modules = list(/obj/item/clockwork/slab/cyborg/security,
+		/obj/item/clockwork/weapon/ratvarian_spear)
+	cyborg_base_icon = "centcom"
+	moduleselect_icon = "malf"
+	can_be_pushed = FALSE
+	hat_offset = 3
+
 
 /obj/item/robot_module/security
 	name = "Security"
