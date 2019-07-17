@@ -5,6 +5,7 @@
 	product_slogans = "Carts to go!"
 	icon_state = "cart"
 	icon_deny = "cart-deny"
+	light_color = LIGHT_COLOR_WHITE
 	products = list(/obj/item/cartridge/medical = 10,
 					/obj/item/cartridge/engineering = 10,
 					/obj/item/cartridge/security = 10,
