@@ -4,6 +4,7 @@
 	desc = "Everything you need for do-it-yourself station repair."
 	icon_state = "engi"
 	icon_deny = "engi-deny"
+	light_color = LIGHT_COLOR_SLIME_LAMP
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	products = list(/obj/item/clothing/under/rank/chief_engineer = 4,
 		            /obj/item/clothing/under/rank/engineer = 4,
