@@ -5,16 +5,16 @@
 		if(M.stat != DEAD && !isbrain(M))
 			if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 				if(!M.onCentCom() && !M.onSyndieBase())
-					inc_beecoin_count(BEECOIN_SURVIVE_REWARD)
+					inc_beecoin_count(BEECOIN_SURVIVE_REWARD, reason="Survived the shift.")
 				else
-					inc_beecoin_count(BEECOIN_ESCAPE_REWARD)
+					inc_beecoin_count(BEECOIN_ESCAPE_REWARD, reason="Survived the shift and escaped!")
 			else
-				inc_beecoin_count(BEECOIN_ESCAPE_REWARD)
+				inc_beecoin_count(BEECOIN_ESCAPE_REWARD, reason="Survived the shift.")
 		else
-			inc_beecoin_count(BEECOIN_NOTSURVIVE_REWARD)
+			inc_beecoin_count(BEECOIN_NOTSURVIVE_REWARD, reason="You tried.")
 
 /client/proc/process_greentext()
-	inc_beecoin_count(BEECOIN_GREENTEXT_REWARD)
+	inc_beecoin_count(BEECOIN_GREENTEXT_REWARD, reason="Greentext!")
 	SSmedals.UnlockMedal(MEDAL_COMPLETE_ALL_OBJECTIVES,src)
 
 /client/proc/process_ten_minute_living()
@@ -37,16 +37,15 @@
 	if(ann)
 		to_chat(src, "<span class='rose bold'>Your new beecoin balance is [bc_count]!</span>")
 
-/client/proc/inc_beecoin_count(bc_count, ann=TRUE)
+/client/proc/inc_beecoin_count(bc_count, ann=TRUE, reason=null)
 	var/datum/DBQuery/query_inc_beecoins = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET beecoins = beecoins + '[bc_count]' WHERE ckey = '[ckey]'")
 	query_inc_beecoins.warn_execute()
 	qdel(query_inc_beecoins)
 	if(ann)
-		if(bc_count >= 0)
-			to_chat(src, "<span class='rose bold'>[bc_count] beecoins have been deposited to your account!</span>")
+		if(reason)
+			to_chat(src, "<span class='rose bold'>[abs(bc_count)] beecoins have been [bc_count >= 0 ? "deposited to" : "withdrawn from"] your account! Reason: [reason]</span>")
 		else
-			to_chat(src, "<span class='rose bold'>[abs(bc_count)] beecoins have been withdrawn from your account!</span>")
-
+			to_chat(src, "<span class='rose bold'>[abs(bc_count)] beecoins have been [bc_count >= 0 ? "deposited to" : "withdrawn from"] your account!</span>")
 
 
 

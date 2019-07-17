@@ -18,7 +18,7 @@
 	if (beecoins < cost)
 		to_chat(C, "<span class='rose bold'>You do not have enough beecoins to buy the [name]!</span>")
 		return
-	C.inc_beecoin_count(-cost)
+	C.inc_beecoin_count(-cost, reason="Shop purchase.")
 	after_buy(C)
 	to_chat(C, "<span class='rose bold'>You bought the [name] for [cost] beecoins!</span>")
 

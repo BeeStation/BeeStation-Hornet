@@ -208,7 +208,7 @@
 				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
 					for(var/datum/objective/crew/CO in M.mind.crew_objectives)
 						if(CO.check_completion())
-							C.inc_beecoin_count(BEECOIN_CO_REWARD)
+							C.inc_beecoin_count(BEECOIN_CO_REWARD, reason="Completed your crew objective!")
 							break
 
 
