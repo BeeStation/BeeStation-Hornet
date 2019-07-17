@@ -7,7 +7,7 @@
 				if(!M.onCentCom() && !M.onSyndieBase())
 					inc_beecoin_count(BEECOIN_SURVIVE_REWARD, reason="Survived the shift.")
 				else
-					inc_beecoin_count(BEECOIN_ESCAPE_REWARD, reason="Survived the shift.")
+					inc_beecoin_count(BEECOIN_ESCAPE_REWARD, reason="Survived the shift and escaped!")
 			else
 				inc_beecoin_count(BEECOIN_ESCAPE_REWARD, reason="Survived the shift.")
 		else
