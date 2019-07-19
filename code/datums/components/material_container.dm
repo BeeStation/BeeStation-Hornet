@@ -233,7 +233,7 @@
 /datum/component/material_container/proc/can_use_amount(amt, id, list/mats)
 	if(amt && id)
 		var/datum/material/M = materials[id]
-		if(M?.amount >= amt)
+		if(M && M.amount >= amt)
 			return TRUE
 	else if(istype(mats))
 		for(var/M in mats)

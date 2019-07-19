@@ -243,7 +243,7 @@
 
 /obj/item/organ/eyes/robotic/glow/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE)
 	. = ..()
-	if (mobhook?.parent != M)
+	if (mobhook && mobhook.parent != M)
 		QDEL_NULL(mobhook)
 	if (!mobhook)
 		mobhook = M.AddComponent(/datum/component/redirect, list(COMSIG_ATOM_DIR_CHANGE = CALLBACK(src, .proc/update_visuals)))

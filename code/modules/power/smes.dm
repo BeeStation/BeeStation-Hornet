@@ -85,7 +85,7 @@
 		terminal = null
 		var/turf/T = get_step(src, dir)
 		for(var/obj/machinery/power/terminal/term in T)
-			if(term?.dir == turn(dir, 180))
+			if(term && term.dir == turn(dir, 180))
 				terminal = term
 				terminal.master = src
 				to_chat(user, "<span class='notice'>Terminal found.</span>")

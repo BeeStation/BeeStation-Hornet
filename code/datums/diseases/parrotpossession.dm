@@ -24,7 +24,7 @@
 			affected_mob.say(pick(parrot.speech_buffer), forced = "parrot possession")
 
 /datum/disease/parrot_possession/cure()
-	if(parrot?.loc == affected_mob)
+	if(parrot && parrot.loc == affected_mob)
 		parrot.forceMove(affected_mob.drop_location())
 		affected_mob.visible_message("<span class='danger'>[parrot] is violently driven out of [affected_mob]!</span>", "<span class='userdanger'>[parrot] bursts out of your chest!</span>")
 	..()

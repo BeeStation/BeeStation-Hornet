@@ -120,7 +120,7 @@
 /datum/reagent/consumable/cooking_oil/reaction_mob(mob/living/M, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
 	if(!istype(M))
 		return
-	if(holder?.chem_temp >= fry_temperature)
+	if(holder && holder.chem_temp >= fry_temperature)
 		boiling = TRUE
 	if(method == VAPOR || method == TOUCH) //Directly coats the mob, and doesn't go into their bloodstream
 		if(boiling)
