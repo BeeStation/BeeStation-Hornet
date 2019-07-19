@@ -63,7 +63,7 @@
 
 	ore_buffer -= O
 
-	if(O && O.refined_type)
+	if(O?.refined_type)
 		points += O.points * point_upgrade * O.amount
 
 	var/material_amount = mat_container.get_item_material_amount(O)

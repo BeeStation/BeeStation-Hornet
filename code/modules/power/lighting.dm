@@ -347,7 +347,7 @@
 		var/PO = bulb_power
 		var/CO = bulb_colour
 		var/area/A = get_area(src)
-		if (A && A.fire)
+		if (A?.fire)
 			CO = bulb_emergency_colour
 		else if (nightshift_enabled)
 			BR = nightshift_brightness

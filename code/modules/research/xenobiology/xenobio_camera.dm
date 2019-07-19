@@ -12,7 +12,7 @@
 
 /mob/camera/aiEye/remote/xenobio/setLoc(var/t)
 	var/area/new_area = get_area(t)
-	if(new_area && new_area.name == allowed_area || new_area && new_area.xenobiology_compatible)
+	if(new_area?.name == allowed_area || new_area?.xenobiology_compatible)
 		return ..()
 	else
 		return

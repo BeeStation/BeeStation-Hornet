@@ -1370,7 +1370,7 @@
 		return 0
 
 /obj/machinery/power/apc/proc/setsubsystem(val)
-	if(cell && cell.charge > 0)
+	if(cell?.charge > 0)
 		return (val==1) ? 0 : val
 	else if(val == 3)
 		return 1

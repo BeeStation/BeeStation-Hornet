@@ -17,7 +17,7 @@
 	var/clonable = TRUE // will this transfer if the brain is cloned?
 
 /datum/brain_trauma/Destroy()
-	if(brain && brain.traumas)
+	if(brain?.traumas)
 		brain.traumas -= src
 	if(owner)
 		on_lose()

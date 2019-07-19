@@ -283,7 +283,7 @@
 
 			if("doorjack")
 				if(href_list["jack"])
-					if(cable && cable.machine)
+					if(cable?.machine)
 						hackdoor = cable.machine
 						hackloop()
 				if(href_list["cancel"])

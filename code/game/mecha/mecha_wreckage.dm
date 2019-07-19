@@ -68,7 +68,7 @@
 				to_chat(user, "<span class='warning'>You fail to salvage anything valuable from [src]!</span>")
 
 	else if(I.tool_behaviour == TOOL_CROWBAR)
-		if(crowbar_salvage && crowbar_salvage.len)
+		if(crowbar_salvage?.len)
 			var/obj/S = pick(crowbar_salvage)
 			if(S)
 				S.forceMove(user.drop_location())

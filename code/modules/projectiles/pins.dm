@@ -176,7 +176,7 @@
 
 /obj/item/firing_pin/dna/auth_fail(mob/living/carbon/user)
 	if(!unique_enzymes)
-		if(user && user.dna && user.dna.unique_enzymes)
+		if(user?.dna?.unique_enzymes)
 			unique_enzymes = user.dna.unique_enzymes
 			to_chat(user, "<span class='notice'>DNA-LOCK SET.</span>")
 	else

@@ -289,7 +289,7 @@
 			if(a_type == target_turf.type)
 				return target_turf
 			A = locate(a_type) in target_turf
-			if(A && A.type == a_type)
+			if(A?.type == a_type)
 				return A
 		return null
 	else

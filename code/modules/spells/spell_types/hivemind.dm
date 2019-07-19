@@ -415,7 +415,7 @@
 		backseat = new /mob/living/passenger()
 		if(vessel && vessel.mind && backseat)
 			var/obj/effect/proc_holder/spell/target_hive/hive_see/the_spell = locate(/obj/effect/proc_holder/spell/target_hive/hive_see) in user.mind.spell_list
-			if(the_spell && the_spell.active) //Uncast Hive Sight just to make things easier when casting during mind control
+			if(the_spell?.active) //Uncast Hive Sight just to make things easier when casting during mind control
 				the_spell.perform(,user)
 
 			message_admins("[ADMIN_LOOKUPFLW(vessel)] has been temporarily taken over by [ADMIN_LOOKUPFLW(user)] (Hivemind Host).")

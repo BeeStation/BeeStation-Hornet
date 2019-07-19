@@ -140,7 +140,7 @@
 			"<span class='notice'>You insert [tool] into [target]'s [parse_zone(target_zone)].</span>")
 
 	else if(current_type == "extract")
-		if(I && I.owner == target)
+		if(I?.owner == target)
 			user.visible_message("[user] successfully extracts [I] from [target]'s [parse_zone(target_zone)]!",
 				"<span class='notice'>You successfully extract [I] from [target]'s [parse_zone(target_zone)].</span>")
 			log_combat(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
