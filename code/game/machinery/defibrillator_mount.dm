@@ -33,7 +33,7 @@
 			to_chat(user, "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>")
 
 /obj/machinery/defibrillator_mount/process()
-	if(defib && defib.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
+	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
 		use_power(200)
 		defib.cell.give(180) //90% efficiency, slightly better than the cell charger's 87.5%
 		update_icon()

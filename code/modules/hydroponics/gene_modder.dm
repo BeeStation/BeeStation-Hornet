@@ -183,7 +183,7 @@
 		dat += "Empty Disk"
 	else
 		dat += disk.gene.get_name()
-	if(disk && disk.read_only)
+	if(disk?.read_only)
 		dat += " (RO)"
 	dat += "</a></div></div>"
 

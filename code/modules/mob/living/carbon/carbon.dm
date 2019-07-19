@@ -365,7 +365,7 @@
 			handcuffed.forceMove(drop_location())
 			handcuffed.dropped(src)
 			handcuffed = null
-			if(buckled && buckled.buckle_requires_restraints)
+			if(buckled?.buckle_requires_restraints)
 				buckled.unbuckle_mob(src)
 			update_handcuffed()
 			return

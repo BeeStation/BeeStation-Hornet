@@ -1046,7 +1046,7 @@
 		icon_state = initial(icon_state)+"-open"
 		setDir(dir_in)
 
-	if(L && L.client)
+	if(L?.client)
 		L.update_mouse_pointer()
 		L.client.change_view(CONFIG_GET(string/default_view))
 		zoom_mode = 0

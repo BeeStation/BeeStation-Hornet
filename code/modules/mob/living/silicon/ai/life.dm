@@ -104,7 +104,7 @@
 	sleep(50)
 	var/turf/T = get_turf(src)
 	var/area/AIarea = get_area(src)
-	if(AIarea && AIarea.power_equip)
+	if(AIarea?.power_equip)
 		if(!isspaceturf(T))
 			ai_restore_power()
 			return

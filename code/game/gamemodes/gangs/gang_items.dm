@@ -290,12 +290,12 @@
 	return FALSE
 
 /datum/gang_item/equipment/pen/get_cost(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(gangtool && gangtool.free_pen)
+	if(gangtool?.free_pen)
 		return 0
 	return ..()
 
 /datum/gang_item/equipment/pen/get_cost_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(gangtool && gangtool.free_pen)
+	if(gangtool?.free_pen)
 		return "(GET ONE FREE)"
 	return ..()
 

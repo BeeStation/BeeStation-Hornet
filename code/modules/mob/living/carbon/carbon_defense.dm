@@ -229,7 +229,7 @@
 	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 		return FALSE
 	shock_damage *= siemens_coeff
-	if(dna && dna.species)
+	if(dna?.species)
 		shock_damage *= dna.species.siemens_coeff
 	if(shock_damage<1 && !override)
 		return 0

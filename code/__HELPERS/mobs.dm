@@ -407,7 +407,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	message = "<span class='linkify'>[message]</span>"
 	for(var/mob/M in GLOB.player_list)
 		var/datum/preferences/prefs
-		if(M.client && M.client.prefs)
+		if(M.client?.prefs)
 			prefs = M.client.prefs
 		else
 			prefs = new

@@ -891,7 +891,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		to_chat(user, "<span class='warning'>A [paicard] is already inserted!</span>")
 	else if(allow_pai && !key)
 		if(!locked && !open)
-			if(card.pai && card.pai.mind)
+			if(card.pai?.mind)
 				if(!user.transferItemToLoc(card, src))
 					return
 				paicard = card

@@ -28,7 +28,7 @@
 
 /obj/item/modular_computer/get_cell()
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
-	if(battery_module && battery_module.battery)
+	if(battery_module?.battery)
 		return battery_module.battery
 
 // Used in following function to reduce copypaste

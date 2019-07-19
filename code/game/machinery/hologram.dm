@@ -84,7 +84,7 @@ Possible to do for anyone motivated enough:
 		return
 	if(replay_mode)
 		replay_stop()
-	else if(disk && disk.record)
+	else if(disk?.record)
 		replay_start()
 
 /obj/machinery/holopad/tutorial/HasProximity(atom/movable/AM)

@@ -679,7 +679,7 @@ Code:
 		menu += "Mode: [active_bot.get_mode()]"
 		if(active_bot.allow_pai)
 			menu += "<BR>pAI: "
-			if(active_bot.paicard && active_bot.paicard.pai)
+			if(active_bot.paicard?.pai)
 				menu += "[active_bot.paicard.pai.name]"
 				if(active_bot.bot_core.allowed(usr))
 					menu += " (<A href='byond://?src=[REF(src)];op=ejectpai'><i>eject</i></A>)"

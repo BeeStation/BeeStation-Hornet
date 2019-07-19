@@ -11,7 +11,7 @@
 		if(M.handcuffed == src)
 			M.handcuffed = null
 			M.update_handcuffed()
-			if(M.buckled && M.buckled.buckle_requires_restraints)
+			if(M.buckled?.buckle_requires_restraints)
 				M.buckled.unbuckle_mob(M)
 		if(M.legcuffed == src)
 			M.legcuffed = null

@@ -171,5 +171,5 @@ GLOBAL_LIST_EMPTY(exports_list)
 /proc/setupExports()
 	for(var/subtype in subtypesof(/datum/export))
 		var/datum/export/E = new subtype
-		if(E.export_types && E.export_types.len) // Exports without a type are invalid/base types
+		if(E.export_types?.len) // Exports without a type are invalid/base types
 			GLOB.exports_list += E

@@ -214,7 +214,7 @@
 		var/list/all_channels[0]
 		for(var/C in SSnetworks.station_network.chat_channels)
 			var/datum/ntnet_conversation/conv = C
-			if(conv && conv.title)
+			if(conv?.title)
 				all_channels.Add(list(list(
 					"chan" = conv.title,
 					"id" = conv.id

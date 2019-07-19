@@ -12,7 +12,7 @@
 	return 0
 
 /obj/machinery/power/apc/power_drain(clockcult_user)
-	if(cell && cell.charge)
+	if(cell?.charge)
 		playsound(src, "sparks", 50, 1)
 		flick("apc-spark", src)
 		. = min(cell.charge, MIN_CLOCKCULT_POWER*3)

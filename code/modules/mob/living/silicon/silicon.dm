@@ -221,7 +221,7 @@
 	var/number = 1
 	sleep(10)
 
-	if (laws.devillaws && laws.devillaws.len)
+	if (laws.devillaws?.len)
 		for(var/index = 1, index <= laws.devillaws.len, index++)
 			if (force || devillawcheck[index] == "Yes")
 				say("[radiomod] 666. [laws.devillaws[index]]")

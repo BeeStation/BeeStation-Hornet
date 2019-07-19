@@ -397,7 +397,7 @@
 		log_message("[equip_ready?"Dea":"A"]ctivated.", LOG_MECHA)
 		return
 	if(href_list["cut"])
-		if(cable && cable.amount)
+		if(cable?.amount)
 			var/m = round(input(chassis.occupant,"Please specify the length of cable to cut","Cut cable",min(cable.amount,30)) as num, 1)
 			m = min(m, cable.amount)
 			if(m)

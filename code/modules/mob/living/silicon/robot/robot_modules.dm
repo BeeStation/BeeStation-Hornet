@@ -116,7 +116,7 @@
 			S.cost = 1
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/beacon)
 
-		if(S && S.source)
+		if(S?.source)
 			S.materials = list()
 			S.is_cyborg = 1
 

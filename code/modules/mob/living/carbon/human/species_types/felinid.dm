@@ -68,7 +68,7 @@
 
 	if(ears)
 		var/obj/item/organ/ears/NE
-		if(new_species && new_species.mutantears)
+		if(new_species?.mutantears)
 			// Roundstart cat ears override new_species.mutantears, reset it here.
 			new_species.mutantears = initial(new_species.mutantears)
 			if(new_species.mutantears)

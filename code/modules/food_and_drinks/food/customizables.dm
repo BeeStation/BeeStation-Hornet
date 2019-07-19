@@ -318,7 +318,7 @@
 
 /obj/item/reagent_containers/glass/bowl/update_icon()
 	cut_overlays()
-	if(reagents && reagents.total_volume)
+	if(reagents?.total_volume)
 		var/mutable_appearance/filling = mutable_appearance('icons/obj/food/soupsalad.dmi', "fullbowl")
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		add_overlay(filling)

@@ -476,7 +476,7 @@
 
 /datum/action/innate/integrate_extract/ApplyIcon(obj/screen/movable/action_button/current_button, force)
 	..(current_button, TRUE)
-	if(species && species.current_extract)
+	if(species?.current_extract)
 		current_button.add_overlay(mutable_appearance(species.current_extract.icon, species.current_extract.icon_state))
 
 /datum/action/innate/integrate_extract/Activate()

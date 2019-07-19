@@ -8,7 +8,7 @@
 
 /obj/effect/spawner/bundle/Initialize(mapload)
 	..()
-	if(items && items.len)
+	if(items?.len)
 		var/turf/T = get_turf(src)
 		for(var/path in items)
 			new path(T)

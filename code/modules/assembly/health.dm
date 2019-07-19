@@ -44,7 +44,7 @@
 		return
 
 	var/atom/A = src
-	if(connected && connected.holder)
+	if(connected?.holder)
 		A = connected.holder
 
 	for(A, A && !ismob(A), A=A.loc);

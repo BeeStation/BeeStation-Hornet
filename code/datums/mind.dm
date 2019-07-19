@@ -274,7 +274,7 @@
 
 	var/obj/item/uplink_loc
 
-	if(traitor_mob.client && traitor_mob.client.prefs)
+	if(traitor_mob.client?.prefs)
 		switch(traitor_mob.client.prefs.uplink_spawn_loc)
 			if(UPLINK_PDA)
 				uplink_loc = PDA

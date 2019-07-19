@@ -243,7 +243,7 @@
 
 /obj/machinery/smartfridge/drying_rack/Initialize()
 	. = ..()
-	if(component_parts && component_parts.len)
+	if(component_parts?.len)
 		component_parts.Cut()
 	component_parts = null
 

@@ -483,7 +483,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 /datum/antagonist/devil/proc/update_hud()
 	if(iscarbon(owner.current))
 		var/mob/living/C = owner.current
-		if(C.hud_used && C.hud_used.devilsouldisplay)
+		if(C.hud_used?.devilsouldisplay)
 			C.hud_used.devilsouldisplay.update_counter(SOULVALUE)
 
 /datum/antagonist/devil/greet()

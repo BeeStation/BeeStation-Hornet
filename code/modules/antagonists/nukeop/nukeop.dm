@@ -164,7 +164,7 @@
 
 /datum/antagonist/nukeop/leader/memorize_code()
 	..()
-	if(nuke_team && nuke_team.memorized_code)
+	if(nuke_team?.memorized_code)
 		var/obj/item/paper/P = new
 		P.info = "The nuclear authorization code is: <b>[nuke_team.memorized_code]</b>"
 		P.name = "nuclear bomb code"
