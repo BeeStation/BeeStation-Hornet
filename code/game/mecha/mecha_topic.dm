@@ -261,7 +261,7 @@
 
 	if(href_list["select_equip"])
 		var/obj/item/mecha_parts/mecha_equipment/equip = locate(href_list["select_equip"]) in src
-		if(equip && equip.selectable)
+		if(equip?.selectable)
 			selected = equip
 			occupant_message("You switch to [equip]")
 			visible_message("[src] raises [equip]")

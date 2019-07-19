@@ -54,7 +54,7 @@
 
 	//Search for shielding first
 	for(var/obj/machinery/am_shielding/AMS in cardinalrange(src))
-		if(AMS && AMS.control_unit && link_control(AMS.control_unit))
+		if(AMS?.control_unit && link_control(AMS.control_unit))
 			break
 
 	if(!control_unit)//No other guys nearby look for a control unit

@@ -72,7 +72,7 @@
 	explanation_text = "Have at least [target_amount] mining points on your ID at the end of the shift."
 
 /datum/objective/crew/fatstacks/check_completion()
-	if(owner && owner.current)
+	if(owner?.current)
 		var/mob/living/carbon/human/H = owner.current
 		var/obj/item/card/id/theID = H.get_idcard()
 		if(istype(theID))

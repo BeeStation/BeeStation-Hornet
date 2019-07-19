@@ -258,7 +258,7 @@
 
 				dat += "</span><br />"
 
-				if(diskette && diskette.fields)
+				if(diskette?.fields)
 					dat += "<div class='block'>"
 					dat += "<h4>Inserted Disk</h4>"
 					dat += "<b>Contents:</b> "

@@ -91,7 +91,7 @@
 			endWhen = activeFor + 1
 
 /datum/round_event/shuttle_loan/end()
-	if(SSshuttle.shuttle_loan && SSshuttle.shuttle_loan.dispatched)
+	if(SSshuttle.shuttle_loan?.dispatched)
 		//make sure the shuttle was dispatched in time
 		SSshuttle.shuttle_loan = null
 

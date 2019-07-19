@@ -11,14 +11,14 @@
 /mob/living/silicon/robot/proc/handle_robot_cell()
 	if(stat != DEAD)
 		if(low_power_mode)
-			if(cell && cell.charge)
+			if(cell?.charge)
 				low_power_mode = 0
 				update_headlamp()
 		else if(stat == CONSCIOUS)
 			use_power()
 
 /mob/living/silicon/robot/proc/use_power()
-	if(cell && cell.charge)
+	if(cell?.charge)
 		if(cell.charge <= 100)
 			uneq_all()
 		var/amt = CLAMP((lamp_intensity - 2) * 2,1,cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.

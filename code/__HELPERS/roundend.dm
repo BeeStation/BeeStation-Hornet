@@ -11,7 +11,7 @@
 	var/num_escapees = 0
 	var/num_shuttle_escapees = 0
 	var/list/area/shuttle_areas
-	if(SSshuttle && SSshuttle.emergency)
+	if(SSshuttle?.emergency)
 		shuttle_areas = SSshuttle.emergency.shuttle_areas
 	for(var/mob/m in GLOB.mob_list)
 		var/escaped

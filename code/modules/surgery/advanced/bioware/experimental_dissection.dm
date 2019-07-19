@@ -37,7 +37,7 @@
 		return 1000
 	else if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(H.dna && H.dna.species)
+		if(H.dna?.species)
 			if(isabductor(H))
 				return 8000
 			if(isgolem(H) || iszombie(H))

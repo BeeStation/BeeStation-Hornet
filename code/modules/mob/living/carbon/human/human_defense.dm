@@ -36,7 +36,7 @@
 	return protection
 
 /mob/living/carbon/human/on_hit(obj/item/projectile/P)
-	if(dna && dna.species)
+	if(dna?.species)
 		dna.species.on_hit(P, src)
 
 

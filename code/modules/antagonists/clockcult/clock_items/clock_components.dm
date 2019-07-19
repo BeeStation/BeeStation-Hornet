@@ -26,7 +26,7 @@
 	..()
 	if(iscultist(user) || (user.mind && user.mind.isholy))
 		to_chat(user, "<span class='[message_span]'>[cultist_message]</span>")
-		if(user.mind && user.mind.isholy)
+		if(user.mind?.isholy)
 			to_chat(user, "<span class='boldannounce'>The power of your faith melts away [src]!</span>")
 			var/obj/item/stack/ore/slag/wrath = new /obj/item/stack/ore/slag
 			qdel(src)

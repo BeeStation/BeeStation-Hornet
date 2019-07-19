@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 //Proc called when the datum is given to a mind.
 /datum/antagonist/proc/on_gain()
-	if(owner && owner.current)
+	if(owner?.current)
 		if(!silent)
 			greet()
 		apply_innate_effects()

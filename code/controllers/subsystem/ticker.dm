@@ -354,7 +354,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/collect_minds()
 	for(var/mob/dead/new_player/P in GLOB.player_list)
-		if(P.new_character && P.new_character.mind)
+		if(P.new_character?.mind)
 			SSticker.minds += P.new_character.mind
 		CHECK_TICK
 

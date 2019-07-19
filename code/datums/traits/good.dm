@@ -154,7 +154,7 @@
 /datum/quirk/spiritual/on_process()
 	var/comforted = FALSE
 	for(var/mob/living/L in oview(5, quirk_holder))
-		if(L.mind && L.mind.isholy && L.stat == CONSCIOUS)
+		if(L.mind?.isholy && L.stat == CONSCIOUS)
 			comforted = TRUE
 			break
 	if(comforted)

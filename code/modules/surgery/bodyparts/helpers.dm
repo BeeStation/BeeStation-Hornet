@@ -133,7 +133,7 @@
 	var/list/disabled = list()
 	for(var/zone in full)
 		var/obj/item/bodypart/affecting = get_bodypart(zone)
-		if(affecting && affecting.disabled)
+		if(affecting?.disabled)
 			disabled += zone
 	return disabled
 

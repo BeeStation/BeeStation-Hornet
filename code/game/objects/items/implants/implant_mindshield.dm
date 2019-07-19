@@ -31,7 +31,7 @@
 			var/datum/mind/M = host.owner
 			if(M)
 				var/obj/effect/proc_holder/spell/target_hive/hive_control/the_spell = locate(/obj/effect/proc_holder/spell/target_hive/hive_control) in M.spell_list
-				if(the_spell && the_spell.active)
+				if(the_spell?.active)
 					the_spell.release_control()
 
 		if(target.mind.has_antag_datum(/datum/antagonist/rev/head) || target.mind.has_antag_datum(/datum/antagonist/hivemind) || target.mind.unconvertable)

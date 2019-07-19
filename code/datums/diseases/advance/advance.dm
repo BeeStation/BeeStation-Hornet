@@ -79,7 +79,7 @@
 	if(carrier)
 		return
 
-	if(symptoms && symptoms.len)
+	if(symptoms?.len)
 
 		if(!processing)
 			processing = TRUE

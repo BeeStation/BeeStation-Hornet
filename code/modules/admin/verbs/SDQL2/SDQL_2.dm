@@ -1006,7 +1006,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 			if("src")
 				v = source
 			if("marked")
-				if(usr.client && usr.client.holder && usr.client.holder.marked_datum)
+				if(usr.client?.holder?.marked_datum)
 					v = usr.client.holder.marked_datum
 				else
 					return null

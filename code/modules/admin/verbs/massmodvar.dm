@@ -8,7 +8,7 @@
 	if(!check_rights(R_VAREDIT))
 		return
 
-	if(A && A.type)
+	if(A?.type)
 		method = vv_subtype_prompt(A.type)
 
 	src.massmodify_variables(A, var_name, method)
