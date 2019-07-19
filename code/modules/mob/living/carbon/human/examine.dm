@@ -149,7 +149,7 @@
 	var/l_limbs_missing = 0
 	var/r_limbs_missing = 0
 	for(var/t in missing)
-		if(t==BODY_ZONE_HEAD)
+		if(t == BODY_ZONE_HEAD)
 			msg += "<span class='deadsay'><B>[t_His] [parse_zone(t)] is missing!</B><span class='warning'>\n"
 			continue
 		if(t == BODY_ZONE_L_ARM || t == BODY_ZONE_L_LEG)
@@ -179,7 +179,7 @@
 		if(temp)
 			if(temp < 25)
 				msg += "[t_He] [t_has] minor burns.\n"
-			else if (temp < 50)
+			else if(temp < 50)
 				msg += "[t_He] [t_has] <b>moderate</b> burns!\n"
 			else
 				msg += "<B>[t_He] [t_has] severe burns!</B>\n"
@@ -253,19 +253,19 @@
 				msg += "[t_He] [t_is] a shitfaced, slobbering wreck.\n"
 
 	if(HAS_TRAIT(user, TRAIT_EMPATH) && !appears_dead && (src != user))
-		if (a_intent != INTENT_HELP)
+		if(a_intent != INTENT_HELP)
 			msg += "[t_He] seem[p_s()] to be on guard.\n"
-		if (getOxyLoss() >= 10)
+		if(getOxyLoss() >= 10)
 			msg += "[t_He] seem[p_s()] winded.\n"
-		if (getToxLoss() >= 10)
+		if(getToxLoss() >= 10)
 			msg += "[t_He] seem[p_s()] sickly.\n"
 		GET_COMPONENT_FROM(mood, /datum/component/mood, src)
 		if(mood.sanity <= SANITY_DISTURBED)
 			msg += "[t_He] seem[p_s()] distressed.\n"
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "empath", /datum/mood_event/sad_empath, src)
-		if (HAS_TRAIT(src, TRAIT_BLIND))
+		if(HAS_TRAIT(src, TRAIT_BLIND))
 			msg += "[t_He] appear[p_s()] to be staring off into space.\n"
-		if (HAS_TRAIT(src, TRAIT_DEAF))
+		if(HAS_TRAIT(src, TRAIT_DEAF))
 			msg += "[t_He] appear[p_s()] to not be responding to noises.\n"
 
 	msg += "</span>"

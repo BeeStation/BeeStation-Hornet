@@ -227,7 +227,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(reagents.total_volume)
 		if(iscarbon(loc))
 			var/mob/living/carbon/C = loc
-			if (src == C.wear_mask) // if it's in the human/monkey mouth, transfer reagents to the mob
+			if(src == C.wear_mask) // if it's in the human/monkey mouth, transfer reagents to the mob
 				var/fraction = min(REAGENTS_METABOLISM/reagents.total_volume, 1)
 				reagents.reaction(C, INGEST, fraction)
 				if(!reagents.trans_to(C, REAGENTS_METABOLISM))
@@ -549,7 +549,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	set_lit(FALSE)
 
 /obj/item/lighter/suicide_act(mob/living/carbon/user)
-	if (lit)
+	if(lit)
 		user.visible_message("<span class='suicide'>[user] begins holding \the [src]'s flame up to [user.p_their()] face! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		playsound(src, 'sound/items/welder.ogg', 50, 1)
 		return FIRELOSS
@@ -844,7 +844,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(reagents.total_volume)
 		if(iscarbon(loc))
 			var/mob/living/carbon/C = loc
-			if (src == C.wear_mask) // if it's in the human/monkey mouth, transfer reagents to the mob
+			if(src == C.wear_mask) // if it's in the human/monkey mouth, transfer reagents to the mob
 				var/fraction = min(REAGENTS_METABOLISM/reagents.total_volume, 1) //this will react instantly, making them a little more dangerous than cigarettes
 				reagents.reaction(C, INGEST, fraction)
 				if(!reagents.trans_to(C, REAGENTS_METABOLISM))

@@ -75,7 +75,7 @@
 
 		if(C && C.holder && C.holder.fakekey)
 			. += "Administrator"
-		else if (char_name_only && CONFIG_GET(flag/mentors_mobname_only))
+		else if(char_name_only && CONFIG_GET(flag/mentors_mobname_only))
 			if(istype(C.mob,/mob/dead/new_player) || istype(C.mob, /mob/dead/observer)) //If they're in the lobby or observing, display their ckey
 				. += key
 			else if(C?.mob) //If they're playing/in the round, only show the mob name

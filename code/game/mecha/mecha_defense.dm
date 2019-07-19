@@ -113,7 +113,7 @@
 
 
 /obj/mecha/bullet_act(obj/item/projectile/Proj) //wrapper
-	if (!enclosed && occupant && !silicon_pilot && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST)) //allows bullets to hit the pilot of open-canopy mechs
+	if(!enclosed && occupant && !silicon_pilot && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST)) //allows bullets to hit the pilot of open-canopy mechs
 		occupant.bullet_act(Proj) //If the sides are open, the occupant can be hit
 		return BULLET_ACT_HIT
 	log_message("Hit by projectile. Type: [Proj.name]([Proj.flag]).", LOG_MECHA, color="red")
@@ -145,7 +145,7 @@
 
 /obj/mecha/emp_act(severity)
 	. = ..()
-	if (. & EMP_PROTECT_SELF)
+	if(. & EMP_PROTECT_SELF)
 		return
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
@@ -183,18 +183,18 @@
 		else
 			to_chat(user, "<span class='warning'>Maintenance protocols disabled by operator.</span>")
 	else if(W.tool_behaviour == TOOL_WRENCH)
-		if(state==1)
+		if(state == 1)
 			state = 2
 			to_chat(user, "<span class='notice'>You undo the securing bolts.</span>")
-		else if(state==2)
+		else if(state == 2)
 			state = 1
 			to_chat(user, "<span class='notice'>You tighten the securing bolts.</span>")
 		return
 	else if(W.tool_behaviour == TOOL_CROWBAR)
-		if(state==2)
+		if(state == 2)
 			state = 3
 			to_chat(user, "<span class='notice'>You open the hatch to the power unit.</span>")
-		else if(state==3)
+		else if(state == 3)
 			state=2
 			to_chat(user, "<span class='notice'>You close the hatch to the power unit.</span>")
 		return
@@ -211,19 +211,19 @@
 		if(internal_damage & MECHA_INT_TEMP_CONTROL)
 			clearInternalDamage(MECHA_INT_TEMP_CONTROL)
 			to_chat(user, "<span class='notice'>You repair the damaged temperature controller.</span>")
-		else if(state==3 && cell)
+		else if(state == 3 && cell)
 			cell.forceMove(loc)
 			cell = null
 			state = 4
 			to_chat(user, "<span class='notice'>You unscrew and pry out the powercell.</span>")
 			log_message("Powercell removed", LOG_MECHA)
-		else if(state==4 && cell)
+		else if(state == 4 && cell)
 			state=3
 			to_chat(user, "<span class='notice'>You screw the cell in place.</span>")
 		return
 
 	else if(istype(W, /obj/item/stock_parts/cell))
-		if(state==4)
+		if(state == 4)
 			if(!cell)
 				if(!user.transferItemToLoc(W, src))
 					return
@@ -239,7 +239,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(obj_integrity < max_integrity)
 			if(W.use_tool(src, user, 0, volume=50, amount=1))
-				if (internal_damage & MECHA_INT_TANK_BREACH)
+				if(internal_damage & MECHA_INT_TANK_BREACH)
 					clearInternalDamage(MECHA_INT_TANK_BREACH)
 					to_chat(user, "<span class='notice'>You repair the damaged gas tank.</span>")
 				else

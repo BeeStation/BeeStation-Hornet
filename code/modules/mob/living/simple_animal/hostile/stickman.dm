@@ -60,4 +60,4 @@
 /mob/living/simple_animal/hostile/stickman/death()
 	..()
 	if(summoned_by_wizard == 1)
-		changesummons.summoned_minions --
+		changesummons.summoned_minions--

@@ -8,7 +8,7 @@
 
 	var/mob/living/simple_animal/cluwne/newmob =  new(get_turf(src))
 
-	if (client)
+	if(client)
 		SSmedals.UnlockMedal(MEDAL_GET_CLUWNED,client)
 
 	M.transfer_to(newmob)

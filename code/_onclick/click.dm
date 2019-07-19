@@ -184,7 +184,7 @@
 
 	var/list/closed = list()
 	var/list/checking = list(ultimate_target)
-	while (checking.len && depth > 0)
+	while(checking.len && depth > 0)
 		var/list/next = list()
 		--depth
 
@@ -196,7 +196,7 @@
 				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
 
-			if (!target.loc)
+			if(!target.loc)
 				continue
 
 			if(!(SEND_SIGNAL(target.loc, COMSIG_ATOM_CANREACH, next) & COMPONENT_BLOCK_REACH))

@@ -427,7 +427,7 @@
 	var/mob/living/carbon/human/H = user
 	user.visible_message("<span class='suicide'>[user] starts dancing to the Rhumba Beat! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
-	if (!QDELETED(H))
+	if(!QDELETED(H))
 		H.emote("spin")
 		sleep(20)
 		for(var/obj/item/W in H)

@@ -263,11 +263,11 @@
 
 /mob/living/silicon/robot/proc/robot_alerts()
 	var/dat = ""
-	for (var/cat in alarms)
+	for(var/cat in alarms)
 		dat += text("<B>[cat]</B><BR>\n")
 		var/list/L = alarms[cat]
-		if (L.len)
-			for (var/alarm in L)
+		if(L.len)
+			for(var/alarm in L)
 				var/list/alm = L[alarm]
 				var/area/A = alm[1]
 				dat += "<NOBR>"
@@ -333,20 +333,20 @@
 	if(stat == DEAD)
 		return 1
 	var/list/L = alarms[class]
-	for (var/I in L)
-		if (I == A.name)
+	for(var/I in L)
+		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/sources = alarm[3]
-			if (!(alarmsource in sources))
+			if(!(alarmsource in sources))
 				sources += alarmsource
 			return 1
 	var/obj/machinery/camera/C = null
 	var/list/CL = null
-	if (O && istype(O, /list))
+	if(O && istype(O, /list))
 		CL = O
-		if (CL.len == 1)
+		if(CL.len == 1)
 			C = CL[1]
-	else if (O && istype(O, /obj/machinery/camera))
+	else if(O && istype(O, /obj/machinery/camera))
 		C = O
 	L[A.name] = list(A, (C) ? C : O, list(alarmsource))
 	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
@@ -355,35 +355,35 @@
 /mob/living/silicon/robot/cancelAlarm(class, area/A, obj/origin)
 	var/list/L = alarms[class]
 	var/cleared = 0
-	for (var/I in L)
-		if (I == A.name)
+	for(var/I in L)
+		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/srcs  = alarm[3]
-			if (origin in srcs)
+			if(origin in srcs)
 				srcs -= origin
-			if (srcs.len == 0)
+			if(srcs.len == 0)
 				cleared = 1
 				L -= I
-	if (cleared)
+	if(cleared)
 		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
 	return !cleared
 
 /mob/living/silicon/robot/can_interact_with(atom/A)
-	if (low_power_mode)
+	if(low_power_mode)
 		return FALSE
 	var/turf/T0 = get_turf(src)
 	var/turf/T1 = get_turf(A)
-	if (!T0 || ! T1)
+	if(!T0 || ! T1)
 		return FALSE
 	return ISINRANGE(T1.x, T0.x - interaction_range, T0.x + interaction_range) && ISINRANGE(T1.y, T0.y - interaction_range, T0.y + interaction_range)
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM || user == src))
 		user.changeNext_move(CLICK_CD_MELEE)
-		if (!getBruteLoss())
+		if(!getBruteLoss())
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
 			return
-		if (!W.tool_start_check(user, amount=0)) //The welder has 1u of fuel consumed by it's afterattack, so we don't need to worry about taking any away.
+		if(!W.tool_start_check(user, amount=0)) //The welder has 1u of fuel consumed by it's afterattack, so we don't need to worry about taking any away.
 			return
 		if(src == user)
 			to_chat(user, "<span class='notice'>You start fixing yourself...</span>")
@@ -399,12 +399,12 @@
 	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
 		user.changeNext_move(CLICK_CD_MELEE)
 		var/obj/item/stack/cable_coil/coil = W
-		if (getFireLoss() > 0 || getToxLoss() > 0)
+		if(getFireLoss() > 0 || getToxLoss() > 0)
 			if(src == user)
 				to_chat(user, "<span class='notice'>You start fixing yourself...</span>")
 				if(!do_after(user, 50, target = src))
 					return
-			if (coil.use(1))
+			if(coil.use(1))
 				adjustFireLoss(-30)
 				adjustToxLoss(-30)
 				updatehealth()
@@ -441,7 +441,7 @@
 		diag_hud_set_borgcell()
 
 	else if(is_wire_tool(W))
-		if (wiresexposed)
+		if(wiresexposed)
 			wires.interact(user)
 		else
 			to_chat(user, "<span class='warning'>You can't reach the wiring!</span>")
@@ -500,7 +500,7 @@
 		else
 			to_chat(user, "<span class='warning'>Unable to locate a radio!</span>")
 
-	else if (istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
+	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
 		if(opened)
 			to_chat(user, "<span class='warning'>You must close the cover to swipe an ID card!</span>")
 		else
@@ -737,7 +737,7 @@
 
 /mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)
-	if (robot_suit)
+	if(robot_suit)
 		robot_suit.forceMove(T)
 		robot_suit.l_leg.forceMove(T)
 		robot_suit.l_leg = null
@@ -770,10 +770,10 @@
 		new /obj/item/bodypart/r_arm/robot(T)
 		new /obj/item/bodypart/head/robot(T)
 		var/b
-		for(b=0, b!=2, b++)
+		for(b=0, b != 2, b++)
 			var/obj/item/assembly/flash/handheld/F = new /obj/item/assembly/flash/handheld(T)
 			F.burn_out()
-	if (cell) //Sanity check.
+	if(cell) //Sanity check.
 		cell.forceMove(T)
 		cell = null
 	qdel(src)
@@ -999,7 +999,7 @@
 	if(hud_used)
 		hud_used.update_robot_modules_display()
 
-	if (hasExpanded)
+	if(hasExpanded)
 		resize = 0.5
 		hasExpanded = FALSE
 		update_transform()
@@ -1170,7 +1170,7 @@
 			M.visible_message("<span class='boldwarning'>Unfortunately, [M] just can't seem to hold onto [src]!</span>")
 			return
 	if(iscarbon(M) && (!riding_datum.equip_buckle_inhands(M, 1)))
-		if (M.get_num_arms() <= 0)
+		if(M.get_num_arms() <= 0)
 			M.visible_message("<span class='boldwarning'>[M] can't climb onto [src] because [M.p_they()] don't have any usable arms!</span>")
 		else
 			M.visible_message("<span class='boldwarning'>[M] can't climb onto [src] because [M.p_their()] hands are full!</span>")

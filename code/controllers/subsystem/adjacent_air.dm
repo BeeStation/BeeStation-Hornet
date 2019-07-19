@@ -22,7 +22,7 @@ SUBSYSTEM_DEF(adjacent_air)
 
 	var/list/queue = src.queue
 
-	while (length(queue))
+	while(length(queue))
 		var/turf/currT = queue[1]
 		queue.Cut(1,2)
 

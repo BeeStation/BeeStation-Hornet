@@ -99,7 +99,7 @@
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
 
 /obj/machinery/power/emitter/proc/can_be_rotated(mob/user,rotation_type)
-	if (anchored)
+	if(anchored)
 		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
 		return FALSE
 	return TRUE
@@ -218,7 +218,7 @@
 		last_shot = world.time
 		if(shot_number < 3)
 			fire_delay = 20
-			shot_number ++
+			shot_number++
 		else
 			fire_delay = rand(minimum_fire_delay,maximum_fire_delay)
 			shot_number = 0
@@ -503,7 +503,7 @@
 		E.charge -= 10
 		E.fire_beam(user)
 		delay = world.time + 10
-	else if (E.charge < 10)
+	else if(E.charge < 10)
 		playsound(src,'sound/machines/buzz-sigh.ogg', 50, TRUE)
 
 

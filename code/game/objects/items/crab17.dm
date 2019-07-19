@@ -18,7 +18,7 @@
 		if(dumped || QDELETED(src)) //Prevents fuckers from cheesing alert
 			return FALSE
 		var/turf/targetturf = get_safe_random_station_turf()
-		if (!targetturf)
+		if(!targetturf)
 			return FALSE
 		new /obj/effect/dumpeetTarget(targetturf, user)
 		dumped = TRUE
@@ -45,7 +45,7 @@
 /obj/structure/checkoutmachine/proc/check_if_finished()
 	for(var/i in accounts_to_rob)
 		var/datum/bank_account/B = i
-		if (B.being_dumped)
+		if(B.being_dumped)
 			return FALSE
 	return TRUE
 
@@ -168,7 +168,7 @@
 			continue
 		var/amount = B.account_balance * percentage_lost
 		var/datum/bank_account/account = bogdanoff.get_bank_account()
-		if (account) // get_bank_account() may return FALSE
+		if(account) // get_bank_account() may return FALSE
 			account.transfer_money(B, amount)
 			B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src).name].")
 	addtimer(CALLBACK(src, .proc/dump), 150) //Drain every 15 seconds

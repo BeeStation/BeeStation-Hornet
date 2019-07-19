@@ -61,7 +61,7 @@
 	var/target_y = CLAMP(get_pin_data(IC_INPUT, 2), 0, world.maxy)
 	var/turf/A = locate(target_x, target_y, T.z)
 	set_pin_data(IC_OUTPUT, 1, null)
-	if(!A||A==T)
+	if(!A || A == T)
 		activate_pin(3)
 		return
 	if(get_pin_data(IC_INPUT, 2))
@@ -242,7 +242,7 @@
 	if(!Ps)
 		return
 	var/list/Pl = json_decode(XorEncrypt(hextostr(Ps, TRUE), SScircuit.cipherkey))
-	if(Pl&&islist(Pl))
+	if(Pl && islist(Pl))
 		idc.access = Pl
 
 // - pAI connector circuit - //

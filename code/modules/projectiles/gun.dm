@@ -202,7 +202,7 @@
 	//Exclude lasertag guns from the TRAIT_CLUMSY check.
 	if(clumsy_check)
 		if(istype(user))
-			if (HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
+			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
 				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with [src]!</span>")
 				var/shot_leg = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 				process_fire(user, user, FALSE, params, shot_leg)
@@ -276,7 +276,7 @@
 				shoot_live_shot(user, 1, target, message)
 			else
 				shoot_live_shot(user, 0, target, message)
-			if (iteration >= burst_size)
+			if(iteration >= burst_size)
 				firing_burst = FALSE
 	else
 		shoot_with_empty_chamber(user)

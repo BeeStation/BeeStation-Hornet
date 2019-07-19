@@ -26,7 +26,7 @@
 					polltype = POLLTYPE_OPTION
 				if(null)
 					return
-		if ("Instant Runoff Voting")
+		if("Instant Runoff Voting")
 			polltype = POLLTYPE_IRV
 		else
 			return 0

@@ -1,7 +1,7 @@
 
 
 /obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/U, params)
-	if(U!=affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
+	if(U != affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
 		return ..()
 
 	if(istype(I, /obj/item/reagent_containers/glass))//If it's a glass beaker.
@@ -21,7 +21,7 @@
 		var/obj/item/stock_parts/cell/CELL = I
 		if(CELL.maxcharge > cell.maxcharge && n_gloves && n_gloves.candrain)
 			to_chat(U, "<span class='notice'>Higher maximum capacity detected.\nUpgrading...</span>")
-			if (n_gloves?.candrain && do_after(U,s_delay, target = src))
+			if(n_gloves?.candrain && do_after(U,s_delay, target = src))
 				U.transferItemToLoc(CELL, src)
 				CELL.charge = min(CELL.charge+cell.charge, CELL.maxcharge)
 				var/obj/item/stock_parts/cell/old_cell = cell

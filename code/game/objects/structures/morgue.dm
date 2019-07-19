@@ -88,11 +88,11 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 			to_chat(user, "<span class='notice'>You scribble illegibly on the side of [src]!</span>")
 			return
 		var/t = stripped_input(user, "What would you like the label to be?", text("[]", name), null)
-		if (user.get_active_held_item() != P)
+		if(user.get_active_held_item() != P)
 			return
 		if(!user.canUseTopic(src, BE_CLOSE))
 			return
-		if (t)
+		if(t)
 			name = text("[]- '[]'", initial(name), t)
 		else
 			name = initial(name)
@@ -170,7 +170,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	to_chat(user, "<span class='notice'>You turn the speaker function [beeper ? "on" : "off"].</span>")
 
 /obj/structure/bodycontainer/morgue/update_icon()
-	if (!connected || connected.loc != src) // Open or tray is gone.
+	if(!connected || connected.loc != src) // Open or tray is gone.
 		icon_state = "morgue0"
 	else
 		if(contents.len == 1)  // Empty
@@ -257,7 +257,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		update_icon()
 
 		for(var/mob/living/M in conts)
-			if (M.stat != DEAD)
+			if(M.stat != DEAD)
 				M.emote("scream")
 			if(user)
 				log_combat(user, M, "cremated")
@@ -329,7 +329,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	. = ..()
 	if(.)
 		return
-	if (src.connected)
+	if(src.connected)
 		connected.close()
 		add_fingerprint(user)
 	else
@@ -352,7 +352,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		if(!(L.mobility_flags & MOBILITY_STAND))
 			return
 	O.forceMove(src.loc)
-	if (user != O)
+	if(user != O)
 		visible_message("<span class='warning'>[user] stuffs [O] into [src].</span>")
 	return
 

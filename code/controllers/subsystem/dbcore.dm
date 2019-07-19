@@ -89,7 +89,7 @@ SUBSYSTEM_DEF(dbcore)
 		UNTIL(connectOperation.IsComplete())
 		error = connectOperation.GetError()
 	. = !error
-	if (!.)
+	if(!.)
 		last_error = error
 		log_sql("Connect() failed | [error]")
 		++failed_connections
@@ -124,7 +124,7 @@ SUBSYSTEM_DEF(dbcore)
 	query_round_initialize.Execute(async = FALSE)
 	qdel(query_round_initialize)
 	var/tries = 0
-	while (tries < 10 && !GLOB.round_id)
+	while(tries < 10 && !GLOB.round_id)
 		var/datum/DBQuery/query_round_last_id = SSdbcore.NewQuery("SELECT LAST_INSERT_ID()")
 		query_round_last_id.Execute(async = FALSE)
 		if(query_round_last_id.NextRow(async = FALSE))
@@ -181,22 +181,22 @@ SUBSYSTEM_DEF(dbcore)
 	return new /datum/DBQuery(sql_query, connection)
 
 /datum/controller/subsystem/dbcore/proc/QuerySelect(list/querys, warn = FALSE, qdel = FALSE)
-	if (!islist(querys))
-		if (!istype(querys, /datum/DBQuery))
+	if(!islist(querys))
+		if(!istype(querys, /datum/DBQuery))
 			CRASH("Invalid query passed to QuerySelect: [querys]")
 		querys = list(querys)
 
-	for (var/thing in querys)
+	for(var/thing in querys)
 		var/datum/DBQuery/query = thing
-		if (warn)
+		if(warn)
 			INVOKE_ASYNC(query, /datum/DBQuery.proc/warn_execute)
 		else
 			INVOKE_ASYNC(query, /datum/DBQuery.proc/Execute)
 
-	for (var/thing in querys)
+	for(var/thing in querys)
 		var/datum/DBQuery/query = thing
 		UNTIL(!query.in_progress)
-		if (qdel)
+		if(qdel)
 			qdel(query)
 
 
@@ -214,17 +214,17 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	It does not work with duplicate_key and the mysql server ignores it in those cases
 */
 /datum/controller/subsystem/dbcore/proc/MassInsert(table, list/rows, duplicate_key = FALSE, ignore_errors = FALSE, delayed = FALSE, warn = FALSE, async = TRUE)
-	if (!table || !rows || !istype(rows))
+	if(!table || !rows || !istype(rows))
 		return
 	var/list/columns = list()
 	var/list/sorted_rows = list()
 
-	for (var/list/row in rows)
+	for(var/list/row in rows)
 		var/list/sorted_row = list()
 		sorted_row.len = columns.len
-		for (var/column in row)
+		for(var/column in row)
 			var/idx = columns[column]
-			if (!idx)
+			if(!idx)
 				idx = columns.len + 1
 				columns[column] = idx
 				sorted_row.len = columns.len
@@ -232,37 +232,37 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 			sorted_row[idx] = row[column]
 		sorted_rows[++sorted_rows.len] = sorted_row
 
-	if (duplicate_key == TRUE)
+	if(duplicate_key == TRUE)
 		var/list/column_list = list()
-		for (var/column in columns)
+		for(var/column in columns)
 			column_list += "[column] = VALUES([column])"
 		duplicate_key = "ON DUPLICATE KEY UPDATE [column_list.Join(", ")]\n"
-	else if (duplicate_key == FALSE)
+	else if(duplicate_key == FALSE)
 		duplicate_key = null
 
-	if (ignore_errors)
+	if(ignore_errors)
 		ignore_errors = " IGNORE"
 	else
 		ignore_errors = null
 
-	if (delayed)
+	if(delayed)
 		delayed = " DELAYED"
 	else
 		delayed = null
 
 	var/list/sqlrowlist = list()
 	var/len = columns.len
-	for (var/list/row in sorted_rows)
-		if (length(row) != len)
+	for(var/list/row in sorted_rows)
+		if(length(row) != len)
 			row.len = len
-		for (var/value in row)
-			if (value == null)
+		for(var/value in row)
+			if(value == null)
 				value = "NULL"
 		sqlrowlist += "([row.Join(", ")])"
 
 	sqlrowlist = "	[sqlrowlist.Join(",\n	")]"
 	var/datum/DBQuery/Query = NewQuery("INSERT[delayed][ignore_errors] INTO [table]\n([columns.Join(", ")])\nVALUES\n[sqlrowlist]\n[duplicate_key]")
-	if (warn)
+	if(warn)
 		. = Query.warn_execute(async)
 	else
 		. = Query.Execute(async)

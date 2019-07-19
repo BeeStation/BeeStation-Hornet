@@ -37,15 +37,15 @@
 		GLOB.deliverybeacontags += location
 
 /obj/machinery/navbeacon/Destroy()
-	if (GLOB.navbeacons["[z]"])
+	if(GLOB.navbeacons["[z]"])
 		GLOB.navbeacons["[z]"] -= src //Remove from beacon list, if in one.
 	GLOB.deliverybeacons -= src
 	return ..()
 
 /obj/machinery/navbeacon/onTransitZ(old_z, new_z)
-	if (GLOB.navbeacons["[old_z]"])
+	if(GLOB.navbeacons["[old_z]"])
 		GLOB.navbeacons["[old_z]"] -= src
-	if (GLOB.navbeacons["[new_z]"])
+	if(GLOB.navbeacons["[new_z]"])
 		GLOB.navbeacons["[new_z]"] += src
 	..()
 
@@ -96,9 +96,9 @@
 
 		update_icon()
 
-	else if (istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
+	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(open)
-			if (src.allowed(user))
+			if(src.allowed(user))
 				src.locked = !src.locked
 				to_chat(user, "<span class='notice'>Controls are now [src.locked ? "locked" : "unlocked"].</span>")
 			else
@@ -137,7 +137,7 @@ Transponder Codes:<UL>"}
 
 		for(var/key in codes)
 			t += "<LI>[key] ... [codes[key]]"
-		t+= "<UL></TT>"
+		t += "<UL></TT>"
 
 	else
 
@@ -153,7 +153,7 @@ Transponder Codes:<UL>"}
 			t += "	<A href='byond://?src=[REF(src)];edit=1;code=[key]'>Edit</A>"
 			t += "	<A href='byond://?src=[REF(src)];delete=1;code=[key]'>Delete</A><BR>"
 		t += "	<A href='byond://?src=[REF(src)];add=1;'>Add New</A><BR>"
-		t+= "<UL></TT>"
+		t += "<UL></TT>"
 
 	var/datum/browser/popup = new(user, "navbeacon", "Navigation Beacon", 300, 400)
 	popup.set_content(t)

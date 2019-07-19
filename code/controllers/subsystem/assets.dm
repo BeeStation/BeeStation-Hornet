@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(assets)
 /datum/controller/subsystem/assets/Initialize(timeofday)
 	for(var/type in typesof(/datum/asset))
 		var/datum/asset/A = type
-		if (type != initial(A._abstract))
+		if(type != initial(A._abstract))
 			get_asset_datum(type)
 
 	preload = cache.Copy() //don't preload assets generated during the round

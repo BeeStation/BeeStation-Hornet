@@ -203,7 +203,7 @@
 
 /datum/quirk/neet/on_process()
 	var/mob/living/carbon/human/H = quirk_holder
-	if (H.hygiene <= HYGIENE_LEVEL_DIRTY)
+	if(H.hygiene <= HYGIENE_LEVEL_DIRTY)
 		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "NEET", /datum/mood_event/happy_neet)
 	else
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "NEET")

@@ -102,7 +102,7 @@
 	set_nutrition(700)
 
 /mob/living/simple_animal/slime/Destroy()
-	for (var/A in actions)
+	for(var/A in actions)
 		var/datum/action/AC = A
 		AC.Remove(src)
 	return ..()
@@ -188,7 +188,7 @@
 		if(prob(probab))
 			if(istype(O, /obj/structure/window) || istype(O, /obj/structure/grille))
 				if(nutrition <= get_hunger_nutrition() && !Atkcool)
-					if (is_adult || prob(5))
+					if(is_adult || prob(5))
 						O.attack_slime(src)
 						Atkcool = 1
 						spawn(45)
@@ -331,7 +331,7 @@
 				if(S.next_step(user,user.a_intent))
 					return 1
 	if(istype(W, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
-		if (user in Friends)
+		if(user in Friends)
 			++Friends[user]
 		else
 			Friends[user] = 1
@@ -409,14 +409,14 @@
 /mob/living/simple_animal/slime/examine(mob/user)
 
 	var/msg = "<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!\n"
-	if (src.stat == DEAD)
+	if(src.stat == DEAD)
 		msg += "<span class='deadsay'>It is limp and unresponsive.</span>\n"
 	else
-		if (stat == UNCONSCIOUS) // Slime stasis
+		if(stat == UNCONSCIOUS) // Slime stasis
 			msg += "<span class='deadsay'>It appears to be alive but unresponsive.</span>\n"
-		if (src.getBruteLoss())
+		if(src.getBruteLoss())
 			msg += "<span class='warning'>"
-			if (src.getBruteLoss() < 40)
+			if(src.getBruteLoss() < 40)
 				msg += "It has some punctures in its flesh!"
 			else
 				msg += "<B>It has severe punctures and tears in its flesh!</B>"

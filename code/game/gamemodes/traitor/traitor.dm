@@ -48,7 +48,7 @@
 		num_traitors = max(1, min(num_players(), traitors_possible))
 
 	for(var/j = 0, j < num_traitors, j++)
-		if (!antag_candidates.len)
+		if(!antag_candidates.len)
 			break
 		var/datum/mind/traitor = antag_pick(antag_candidates)
 		pre_traitors += traitor

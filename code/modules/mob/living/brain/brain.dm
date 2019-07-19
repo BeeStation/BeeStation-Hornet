@@ -25,7 +25,7 @@
 
 /mob/living/brain/Destroy()
 	if(key)				//If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
-		if(stat!=DEAD)	//If not dead.
+		if(stat != DEAD)	//If not dead.
 			death(1)	//Brains can die again. AND THEY SHOULD AHA HA HA HA HA HA
 		if(mind)	//You aren't allowed to return to brains that don't exist
 			mind.current = null
@@ -74,27 +74,27 @@
 /mob/living/brain/forceMove(atom/destination)
 	if(container)
 		return container.forceMove(destination)
-	else if (istype(loc, /obj/item/organ/brain))
+	else if(istype(loc, /obj/item/organ/brain))
 		var/obj/item/organ/brain/B = loc
 		B.forceMove(destination)
-	else if (istype(destination, /obj/item/organ/brain))
+	else if(istype(destination, /obj/item/organ/brain))
 		doMove(destination)
-	else if (istype(destination, /obj/item/mmi))
+	else if(istype(destination, /obj/item/mmi))
 		doMove(destination)
 	else
 		CRASH("Brainmob without a container [src] attempted to move to [destination].")
 
 /mob/living/brain/update_mouse_pointer()
-	if (!client)
+	if(!client)
 		return
 	client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 	if(!container)
 		return
-	if (container.mecha)
+	if(container.mecha)
 		var/obj/mecha/M = container.mecha
 		if(M.mouse_pointer)
 			client.mouse_pointer_icon = M.mouse_pointer
-	if (client && ranged_ability && ranged_ability.ranged_mousepointer)
+	if(client && ranged_ability && ranged_ability.ranged_mousepointer)
 		client.mouse_pointer_icon = ranged_ability.ranged_mousepointer
 
 /mob/living/brain/proc/get_traumas()

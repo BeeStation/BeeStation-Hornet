@@ -20,7 +20,7 @@
 	if(_added_armor)
 		if(islist(_added_armor))
 			added_armor = getArmor(arglist(_added_armor))
-		else if (istype(_added_armor, /datum/armor))
+		else if(istype(_added_armor, /datum/armor))
 			added_armor = _added_armor
 		else
 			stack_trace("Invalid type [_added_armor.type] passed as _armor_item argument to armorplate component")

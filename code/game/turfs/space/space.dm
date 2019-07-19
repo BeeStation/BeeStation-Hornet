@@ -40,10 +40,10 @@
 	if(requires_activation)
 		SSair.add_to_active(src)
 
-	if (light_power && light_range)
+	if(light_power && light_range)
 		update_light()
 
-	if (opacity)
+	if(opacity)
 		has_opaque_atom = TRUE
 
 	ComponentInitialize()
@@ -132,7 +132,7 @@
 
 /turf/open/space/Entered(atom/movable/A)
 	..()
-	if ((!(A) || src != A.loc))
+	if((!(A) || src != A.loc))
 		return
 
 	if(destination_z && destination_x && destination_y && !(A.pulledby || !A.can_be_z_moved))
@@ -141,14 +141,14 @@
 		var/turf/DT = locate(tx, ty, destination_z)
 		var/itercount = 0
 		while(DT.density || istype(DT.loc,/area/shuttle)) // Extend towards the center of the map, trying to look for a better place to arrive
-			if (itercount++ >= 100)
+			if(itercount++ >= 100)
 				log_game("SPACE Z-TRANSIT ERROR: Could not find a safe place to land [A] within 100 iterations.")
 				break
-			if (tx < 128)
+			if(tx < 128)
 				tx++
 			else
 				tx--
-			if (ty < 128)
+			if(ty < 128)
 				ty++
 			else
 				ty--

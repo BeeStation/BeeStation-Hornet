@@ -157,7 +157,7 @@
 			locked = FALSE
 		return TRUE
 	if(locked)
-		if (!user.unlock(unlock_amount))
+		if(!user.unlock(unlock_amount))
 			charge_counter = charge_max
 			return FALSE
 		name = "[initial(name)] ([cast_amount]E)"

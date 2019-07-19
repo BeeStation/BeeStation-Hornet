@@ -4,7 +4,7 @@
 #define POWER_RESTORATION_APC_FOUND 3
 
 /mob/living/silicon/ai/Life()
-	if (stat == DEAD)
+	if(stat == DEAD)
 		return
 	else //I'm not removing that shitton of tabs, unneeded as they are. -- Urist
 		//Being dead doesn't mean your temperature never changes
@@ -28,15 +28,15 @@
 		// Handle power damage (oxy)
 		if(aiRestorePowerRoutine)
 			// Lost power
-			if (!battery)
+			if(!battery)
 				to_chat(src, "<span class='warning'>Your backup battery's output drops below usable levels. It takes only a moment longer for your systems to fail, corrupted and unusable.</span>")
 				adjustOxyLoss(200)
 			else
-				battery --
+				battery--
 		else
 			// Gain Power
-			if (battery < 200)
-				battery ++
+			if(battery < 200)
+				battery++
 
 		if(!lacks_power())
 			var/area/home = get_area(src)
@@ -122,15 +122,15 @@
 	var/obj/machinery/power/apc/theAPC = null
 
 	var/PRP //like ERP with the code, at least this stuff is no more 4x sametext
-	for (PRP=1, PRP<=4, PRP++)
+	for(PRP=1, PRP <= 4, PRP++)
 		T = get_turf(src)
 		AIarea = get_area(src)
 		if(AIarea)
-			for (var/obj/machinery/power/apc/APC in AIarea)
-				if (!(APC.stat & BROKEN))
+			for(var/obj/machinery/power/apc/APC in AIarea)
+				if(!(APC.stat & BROKEN))
 					theAPC = APC
 					break
-		if (!theAPC)
+		if(!theAPC)
 			switch(PRP)
 				if(1)
 					to_chat(src, "Unable to locate APC!")
@@ -143,13 +143,13 @@
 				ai_restore_power()
 				return
 		switch(PRP)
-			if (1)
+			if(1)
 				to_chat(src, "APC located. Optimizing route to APC to avoid needless power waste.")
-			if (2)
+			if(2)
 				to_chat(src, "Best route identified. Hacking offline APC power port.")
-			if (3)
+			if(3)
 				to_chat(src, "Power port upload access confirmed. Loading control program into APC power port software.")
-			if (4)
+			if(4)
 				to_chat(src, "Transfer complete. Forcing APC to execute program.")
 				sleep(50)
 				to_chat(src, "Receiving control information from APC.")

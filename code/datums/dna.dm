@@ -90,7 +90,7 @@
 	. = ""
 	var/list/L = new /list(DNA_UNI_IDENTITY_BLOCKS)
 
-	L[DNA_GENDER_BLOCK] = construct_block((holder.gender!=MALE)+1, 2)
+	L[DNA_GENDER_BLOCK] = construct_block((holder.gender != MALE)+1, 2)
 	if(ishuman(holder))
 		var/mob/living/carbon/human/H = holder
 		if(!GLOB.hair_styles_list.len)
@@ -104,7 +104,7 @@
 		L[DNA_SKIN_TONE_BLOCK] = construct_block(GLOB.skin_tones.Find(H.skin_tone), GLOB.skin_tones.len)
 		L[DNA_EYE_COLOR_BLOCK] = sanitize_hexcolor(H.eye_color)
 
-	for(var/i=1, i<=DNA_UNI_IDENTITY_BLOCKS, i++)
+	for(var/i=1, i <= DNA_UNI_IDENTITY_BLOCKS, i++)
 		if(L[i])
 			. += L[i]
 		else
@@ -178,7 +178,7 @@
 		if(DNA_EYE_COLOR_BLOCK)
 			setblock(uni_identity, blocknumber, sanitize_hexcolor(H.eye_color))
 		if(DNA_GENDER_BLOCK)
-			setblock(uni_identity, blocknumber, construct_block((H.gender!=MALE)+1, 2))
+			setblock(uni_identity, blocknumber, construct_block((H.gender != MALE)+1, 2))
 		if(DNA_FACIAL_HAIR_STYLE_BLOCK)
 			setblock(uni_identity, blocknumber, construct_block(GLOB.facial_hair_styles_list.Find(H.facial_hair_style), GLOB.facial_hair_styles_list.len))
 		if(DNA_HAIR_STYLE_BLOCK)
@@ -533,12 +533,12 @@
 	if(!M.has_dna())
 		return 0
 	if(se)
-		for(var/i=1, i<=DNA_MUTATION_BLOCKS, i++)
+		for(var/i=1, i <= DNA_MUTATION_BLOCKS, i++)
 			if(prob(probability))
 				M.dna.generate_dna_blocks()
 		M.domutcheck()
 	if(ui)
-		for(var/i=1, i<=DNA_UNI_IDENTITY_BLOCKS, i++)
+		for(var/i=1, i <= DNA_UNI_IDENTITY_BLOCKS, i++)
 			if(prob(probability))
 				M.dna.uni_identity = setblock(M.dna.uni_identity, i, random_string(DNA_BLOCK_SIZE, GLOB.hex_characters))
 		M.updateappearance(mutations_overlay_update=1)

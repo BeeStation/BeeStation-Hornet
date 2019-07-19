@@ -766,7 +766,7 @@ What a mess.*/
 	return P
 
 /obj/machinery/computer/secure_data/proc/print_photo(icon/temp, person_name)
-	if (printing)
+	if(printing)
 		return
 	printing = TRUE
 	sleep(20)

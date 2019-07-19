@@ -291,7 +291,7 @@
 
 		check_times -= AM
 		return
-	else if (payees[AM] > 0)
+	else if(payees[AM] > 0)
 		for(var/obj/I in counted_money)
 			qdel(I)
 		if(!check_times[AM] || check_times[AM] < world.time) //Let's not spam the message

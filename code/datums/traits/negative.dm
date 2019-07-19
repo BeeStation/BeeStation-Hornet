@@ -28,7 +28,7 @@
 	if(NOBLOOD in H.dna.species.species_traits) //can't lose blood if your species doesn't have any
 		return
 	else
-		if (H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
+		if(H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
 			H.blood_volume -= 0.275
 
 /datum/quirk/blindness
@@ -434,23 +434,23 @@
 /datum/quirk/junkie/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	reagent_id = pick(drug_list)
-	if (!reagent_type)
+	if(!reagent_type)
 		var/datum/reagent/prot_holder = GLOB.chemical_reagents_list[reagent_id]
 		reagent_type = prot_holder.type
 	reagent_instance = new reagent_type()
 	H.reagents.addiction_list.Add(reagent_instance)
 	var/current_turf = get_turf(quirk_holder)
-	if (!drug_container_type)
+	if(!drug_container_type)
 		drug_container_type = /obj/item/storage/pill_bottle
 	drug_instance = new drug_container_type(current_turf)
-	if (istype(drug_instance, /obj/item/storage/pill_bottle))
+	if(istype(drug_instance, /obj/item/storage/pill_bottle))
 		var/pill_state = "pill[rand(1,20)]"
 		for(var/i in 1 to 7)
 			var/obj/item/reagent_containers/pill/P = new(drug_instance)
 			P.icon_state = pill_state
 			P.reagents.add_reagent(reagent_id, 1)
 
-	if (accessory_type)
+	if(accessory_type)
 		accessory_instance = new accessory_type(current_turf)
 	var/list/slots = list(
 		"in your left pocket" = SLOT_L_STORE,
@@ -458,7 +458,7 @@
 		"in your backpack" = SLOT_IN_BACKPACK
 	)
 	where_drug = H.equip_in_one_of_slots(drug_instance, slots, FALSE) || "at your feet"
-	if (accessory_instance)
+	if(accessory_instance)
 		where_accessory = H.equip_in_one_of_slots(accessory_instance, slots, FALSE) || "at your feet"
 	announce_drugs()
 
@@ -472,9 +472,9 @@
 
 /datum/quirk/junkie/on_process()
 	var/mob/living/carbon/human/H = quirk_holder
-	if (tick_counter == 60) //Halfassed optimization, increase this if there's slowdown due to this quirk
+	if(tick_counter == 60) //Halfassed optimization, increase this if there's slowdown due to this quirk
 		var/in_list = FALSE
-		for (var/datum/reagent/entry in H.reagents.addiction_list)
+		for(var/datum/reagent/entry in H.reagents.addiction_list)
 			if(istype(entry, reagent_type))
 				in_list = TRUE
 				break
@@ -516,7 +516,7 @@
 	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/I = H.get_item_by_slot(SLOT_WEAR_MASK)
-	if (istype(I, /obj/item/clothing/mask/cigarette))
+	if(istype(I, /obj/item/clothing/mask/cigarette))
 		var/obj/item/storage/fancy/cigarettes/C = drug_instance
 		if(istype(I, C.spawn_type))
 			SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "wrong_cigs")

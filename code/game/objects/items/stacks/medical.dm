@@ -54,13 +54,13 @@
 			return
 
 	if(user)
-		if (M != user)
-			if (isanimal(M))
+		if(M != user)
+			if(isanimal(M))
 				var/mob/living/simple_animal/critter = M
-				if (!(critter.healable))
+				if(!(critter.healable))
 					to_chat(user, "<span class='notice'> You cannot use [src] on [M]!</span>")
 					return
-				else if (critter.health == critter.maxHealth)
+				else if(critter.health == critter.maxHealth)
 					to_chat(user, "<span class='notice'> [M] is at full health.</span>")
 					return
 				else if(src.heal_brute < 1)

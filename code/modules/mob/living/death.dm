@@ -80,7 +80,7 @@
 
 	. = ..()
 
-	if (client)
+	if(client)
 		client.move_delay = initial(client.move_delay)
 		
 		

@@ -110,7 +110,7 @@ Maintenance panel panel is [open ? "opened" : "closed"]<BR>"},
 
 "<A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A>" )
 
-	if(!locked || issilicon(user)|| IsAdminGhost(user))
+	if(!locked || issilicon(user) || IsAdminGhost(user))
 		if(!lasercolor)
 			dat += text({"<BR>
 Arrest Unidentifiable Persons: []<BR>
@@ -206,7 +206,7 @@ Auto Patrol[]"},
 		set_weapon()
 
 /mob/living/simple_animal/bot/ed209/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj , /obj/item/projectile/beam/laser)||istype(Proj, /obj/item/projectile/bullet))
+	if(istype(Proj , /obj/item/projectile/beam/laser) || istype(Proj, /obj/item/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health && ishuman(Proj.firer))
 				retaliate(Proj.firer)
@@ -343,7 +343,7 @@ Auto Patrol[]"},
 	anchored = FALSE
 	threatlevel = 0
 	var/judgement_criteria = judgement_criteria()
-	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
+	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
 
@@ -466,18 +466,18 @@ Auto Patrol[]"},
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	if (severity >= 2)
+	if(severity >= 2)
 		new /obj/effect/temp_visual/emp(loc)
 		var/list/mob/living/carbon/targets = new
 		for(var/mob/living/carbon/C in view(12,src))
-			if(C.stat==DEAD)
+			if(C.stat == DEAD)
 				continue
 			targets += C
 		if(targets.len)
 			if(prob(50))
 				var/mob/toshoot = pick(targets)
 				if(toshoot)
-					targets-=toshoot
+					targets -= toshoot
 					if(prob(50) && emagged < 2)
 						emagged = 2
 						set_weapon()

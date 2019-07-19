@@ -42,7 +42,7 @@
 /obj/machinery/computer/bank_machine/process()
 	..()
 	if(siphoning)
-		if (stat & (BROKEN|NOPOWER))
+		if(stat & (BROKEN|NOPOWER))
 			say("Insufficient power. Halting siphon.")
 			end_syphon()
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)

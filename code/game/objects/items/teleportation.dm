@@ -29,7 +29,7 @@
 /obj/item/locator/attack_self(mob/user)
 	user.set_machine(src)
 	var/dat
-	if (temp)
+	if(temp)
 		dat = "[temp]<BR><BR><A href='byond://?src=[REF(src)];temp=1'>Clear</A>"
 	else
 		dat = {"
@@ -41,7 +41,7 @@
 
 /obj/item/locator/Topic(href, href_list)
 	..()
-	if (usr.stat || usr.restrained())
+	if(usr.stat || usr.restrained())
 		return
 	var/turf/current_location = get_turf(usr)//What turf is the user on?
 	if(!current_location || is_centcom_level(current_location.z))//If turf was not found or they're on CentCom
@@ -49,48 +49,48 @@
 		return
 	if(usr.contents.Find(src) || (in_range(src, usr) && isturf(loc)))
 		usr.set_machine(src)
-		if (href_list["refresh"])
+		if(href_list["refresh"])
 			temp = "<B>Persistent Signal Locator</B><HR>"
 			var/turf/sr = get_turf(src)
 
-			if (sr)
+			if(sr)
 				temp += "<B>Beacon Signals:</B><BR>"
 				for(var/obj/item/beacon/W in GLOB.teleportbeacons)
-					if (!W.renamed)
+					if(!W.renamed)
 						continue
 					var/turf/tr = get_turf(W)
-					if (tr.z == sr.z && tr)
+					if(tr.z == sr.z && tr)
 						var/direct = max(abs(tr.x - sr.x), abs(tr.y - sr.y))
-						if (direct < 5)
+						if(direct < 5)
 							direct = "very strong"
 						else
-							if (direct < 10)
+							if(direct < 10)
 								direct = "strong"
 							else
-								if (direct < 20)
+								if(direct < 20)
 									direct = "weak"
 								else
 									direct = "very weak"
 						temp += "[W.name]-[dir2text(get_dir(sr, tr))]-[direct]<BR>"
 
 				temp += "<B>Implant Signals:</B><BR>"
-				for (var/obj/item/implant/tracking/W in GLOB.tracked_implants)
-					if (!W.imp_in || !isliving(W.loc))
+				for(var/obj/item/implant/tracking/W in GLOB.tracked_implants)
+					if(!W.imp_in || !isliving(W.loc))
 						continue
 					else
 						var/mob/living/M = W.loc
-						if (M.stat == DEAD)
-							if (M.timeofdeath + W.lifespan_postmortem < world.time)
+						if(M.stat == DEAD)
+							if(M.timeofdeath + W.lifespan_postmortem < world.time)
 								continue
 
 					var/turf/tr = get_turf(W)
-					if (tr.z == sr.z && tr)
+					if(tr.z == sr.z && tr)
 						var/direct = max(abs(tr.x - sr.x), abs(tr.y - sr.y))
-						if (direct < 20)
-							if (direct < 5)
+						if(direct < 20)
+							if(direct < 5)
 								direct = "very strong"
 							else
-								if (direct < 10)
+								if(direct < 10)
 									direct = "strong"
 								else
 									direct = "weak"
@@ -100,13 +100,13 @@
 			else
 				temp += "<B><FONT color='red'>Processing Error:</FONT></B> Unable to locate orbital position.<BR>"
 		else
-			if (href_list["temp"])
+			if(href_list["temp"])
 				temp = null
-		if (ismob(src.loc))
+		if(ismob(src.loc))
 			attack_self(src.loc)
 		else
 			for(var/mob/M in viewers(1, src))
-				if (M.client)
+				if(M.client)
 					src.attack_self(M)
 	return
 
@@ -182,7 +182,7 @@
 	if(turfs.len)
 		L["None (Dangerous)"] = pick(turfs)
 	var/t1 = input(user, "Please select a teleporter to lock in on.", "Hand Teleporter") as null|anything in L
-	if (!t1 || user.get_active_held_item() != src || user.incapacitated())
+	if(!t1 || user.get_active_held_item() != src || user.incapacitated())
 		return
 	if(active_portal_pairs.len >= max_portal_pairs)
 		user.show_message("<span class='notice'>\The [src] is recharging!</span>")

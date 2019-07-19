@@ -47,7 +47,7 @@
 	. = ..()
 	if(id != null)
 		for(var/obj/machinery/door/window/brigdoor/M in urange(20, src))
-			if (M.id == id)
+			if(M.id == id)
 				targets += M
 
 		for(var/obj/machinery/flasher/F in urange(20, src))

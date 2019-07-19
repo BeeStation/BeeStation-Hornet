@@ -323,7 +323,7 @@
 			return FALSE //no mood events for nutrition
 	switch(L.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
-			if (!HAS_TRAIT(L, TRAIT_VORACIOUS))
+			if(!HAS_TRAIT(L, TRAIT_VORACIOUS))
 				add_event(null, "nutrition", /datum/mood_event/fat)
 			else
 				add_event(null, "nutrition", /datum/mood_event/wellfed) // round and full
@@ -356,7 +356,7 @@
 
 /datum/component/mood/proc/HygieneMiasma(mob/living/carbon/human/H)
 	// Properly stored humans shouldn't create miasma
-	if(istype(H.loc, /obj/structure/closet/crate/coffin)|| istype(H.loc, /obj/structure/closet/body_bag) || istype(H.loc, /obj/structure/bodycontainer))
+	if(istype(H.loc, /obj/structure/closet/crate/coffin) || istype(H.loc, /obj/structure/closet/body_bag) || istype(H.loc, /obj/structure/bodycontainer))
 		return
 
 	var/turf/T = get_turf(H)

@@ -3,7 +3,7 @@
 GLOBAL_LIST_EMPTY(beecoin_shop_items_list)
 
 /proc/init_beecoin_shop_items_list()
-	for (var/item_type in subtypesof(/datum/beecoin_shop_item))
+	for(var/item_type in subtypesof(/datum/beecoin_shop_item))
 		var/datum/beecoin_shop_item/I = new item_type
 		GLOB.beecoin_shop_items_list |= I
 
@@ -24,11 +24,11 @@ GLOBAL_LIST_EMPTY(beecoin_shop_items_list)
 	body += ".disabled {cursor: not-allowed !important; opacity: 0.8; filter: grayscale(100%); -webkit-filter: grayscale(100%); background-color:#666;} .disabled:hover{margin:6px !important;border:solid 2px !important;}"
 	body += "</style>"
 
-	if (!GLOB.beecoin_shop_items_list.len)
+	if(!GLOB.beecoin_shop_items_list.len)
 		init_beecoin_shop_items_list()
 
 	for(var/datum/beecoin_shop_item/I in GLOB.beecoin_shop_items_list)
-		if (I.enabled)
+		if(I.enabled)
 			body += "<div class='item [(I.id in src.beecoin_items) ? "disabled" : ""]' onclick='window.location=\"?beecoin_buy=[I.id]\"'><div class='icon-wrapper'>[I.get_icon(src)]</div><div style='text-align:center;user-select:none; -ms-user-select:none;'>[I.name]</div><div style='text-align:center;font-weight:bold;font-size:18px;user-select:none; -ms-user-select:none;'>[I.cost]bc</div></div>"
 	body += "</div>"
 	body += "<br></body>"

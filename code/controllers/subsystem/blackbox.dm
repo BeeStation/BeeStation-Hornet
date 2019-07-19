@@ -73,10 +73,10 @@ SUBSYSTEM_DEF(blackbox)
 //Recorded on subsystem shutdown
 /datum/controller/subsystem/blackbox/proc/FinalFeedback()
 	record_feedback("tally", "ahelp_stats", GLOB.ahelp_tickets.active_tickets.len, "unresolved")
-	for (var/obj/machinery/telecomms/message_server/MS in GLOB.telecomms_list)
-		if (MS.pda_msgs.len)
+	for(var/obj/machinery/telecomms/message_server/MS in GLOB.telecomms_list)
+		if(MS.pda_msgs.len)
 			record_feedback("tally", "radio_usage", MS.pda_msgs.len, "PDA")
-		if (MS.rc_msgs.len)
+		if(MS.rc_msgs.len)
 			record_feedback("tally", "radio_usage", MS.rc_msgs.len, "request console")
 
 	for(var/player_key in GLOB.player_details)
@@ -87,18 +87,18 @@ SUBSYSTEM_DEF(blackbox)
 	sealed = FALSE
 	FinalFeedback()
 
-	if (!SSdbcore.Connect())
+	if(!SSdbcore.Connect())
 		return
 
 	var/list/sqlrowlist = list()
 
-	for (var/datum/feedback_variable/FV in feedback)
+	for(var/datum/feedback_variable/FV in feedback)
 		var/sqlversion = 1
 		if(FV.key in versions)
 			sqlversion = versions[FV.key]
 		sqlrowlist += list(list("datetime" = "Now()", "round_id" = GLOB.round_id, "key_name" =  "'[sanitizeSQL(FV.key)]'", "key_type" = "'[FV.key_type]'", "version" = "[sqlversion]", "json" = "'[sanitizeSQL(json_encode(FV.json))]'"))
 
-	if (!length(sqlrowlist))
+	if(!length(sqlrowlist))
 		return
 
 	SSdbcore.MassInsert(format_table_name("feedback"), sqlrowlist, ignore_errors = TRUE, delayed = TRUE)

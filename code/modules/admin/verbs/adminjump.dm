@@ -60,7 +60,7 @@
 	set category = "Admin"
 	set name = "Jump to Coordinate"
 
-	if (!holder)
+	if(!holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
 

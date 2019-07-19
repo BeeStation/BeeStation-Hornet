@@ -188,7 +188,7 @@
 /mob/camera/aiEye/remote/setLoc(T)
 	if(eye_user)
 		T = get_turf(T)
-		if (T)
+		if(T)
 			forceMove(T)
 		else
 			moveToNullspace()
@@ -246,7 +246,7 @@
 
 	var/list/L = list()
 
-	for (var/obj/machinery/camera/cam in GLOB.cameranet.cameras)
+	for(var/obj/machinery/camera/cam in GLOB.cameranet.cameras)
 		if(origin.z_lock.len && !(cam.z in origin.z_lock))
 			continue
 		L.Add(cam)
@@ -255,9 +255,9 @@
 
 	var/list/T = list()
 
-	for (var/obj/machinery/camera/netcam in L)
+	for(var/obj/machinery/camera/netcam in L)
 		var/list/tempnetwork = netcam.network & origin.networks
-		if (tempnetwork.len)
+		if(tempnetwork.len)
 			T["[netcam.c_tag][netcam.can_use() ? null : " (Deactivated)"]"] = netcam
 
 	playsound(origin, 'sound/machines/terminal_prompt.ogg', 25, 0)

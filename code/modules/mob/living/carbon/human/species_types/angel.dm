@@ -107,7 +107,7 @@
 		step(buckled_obj, olddir)
 	else
 		for(var/i=1, i<5, i++)
-			spawn (i)
+			spawn(i)
 				step(H, olddir)
 				H.spin(1,1)
 	return 1

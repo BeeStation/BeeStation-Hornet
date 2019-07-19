@@ -39,9 +39,9 @@
 
 /obj/machinery/hydroponics/constructable/RefreshParts()
 	var/tmp_capacity = 0
-	for (var/obj/item/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		tmp_capacity += M.rating
-	for (var/obj/item/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		rating = M.rating
 	maxwater = tmp_capacity * 50 // Up to 300
 	maxnutri = tmp_capacity * 5 // Up to 30
@@ -59,7 +59,7 @@
 	return ..()
 
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
-	if (user.a_intent != INTENT_HARM)
+	if(user.a_intent != INTENT_HARM)
 		// handle opening the panel
 		if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
 			return
@@ -214,20 +214,20 @@
 			else
 				weedinvasion() // Weed invasion into empty tray
 			needs_update = 1
-		if (needs_update)
+		if(needs_update)
 			update_icon()
 	return
 
 /obj/machinery/hydroponics/proc/nutrimentMutation()
-	if (mutmod == 0)
+	if(mutmod == 0)
 		return
-	if (mutmod == 1)
+	if(mutmod == 1)
 		if(prob(80))		//80%
 			mutate()
 		else if(prob(75))	//15%
 			hardmutate()
 		return
-	if (mutmod == 2)
+	if(mutmod == 2)
 		if(prob(50))		//50%
 			mutate()
 		else if(prob(50))	//25%
@@ -303,11 +303,11 @@
 	..()
 	if(myseed)
 		to_chat(user, "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>")
-		if (dead)
+		if(dead)
 			to_chat(user, "<span class='warning'>It's dead!</span>")
-		else if (harvest)
+		else if(harvest)
 			to_chat(user, "<span class='info'>It's ready to harvest.</span>")
-		else if (plant_health <= (myseed.endurance / 2))
+		else if(plant_health <= (myseed.endurance / 2))
 			to_chat(user, "<span class='warning'>It looks unhealthy.</span>")
 	else
 		to_chat(user, "<span class='info'>It's empty.</span>")
@@ -618,8 +618,8 @@
 	if(S.has_reagent(/datum/reagent/saltpetre, 1))
 		var/salt = S.get_reagent_amount(/datum/reagent/saltpetre)
 		adjustHealth(round(salt * 0.25))
-		if (myseed)
-			myseed.adjust_production(-round(salt/100)-prob(salt%100))
+		if(myseed)
+			myseed.adjust_production(-round(salt/100)-prob(salt % 100))
 			myseed.adjust_potency(round(salt*0.5))
 	// Ash is also used IRL in gardening, as a fertilizer enhancer and weed killer
 	if(S.has_reagent(/datum/reagent/ash, 1))
@@ -696,7 +696,7 @@
 		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/pill))
 			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks))
 				var/obj/item/reagent_containers/food/snacks/R = reagent_source
-				if (R.trash)
+				if(R.trash)
 					R.generate_trash(get_turf(user))
 			visi_msg="[user] composts [reagent_source], spreading it through [target]"
 			transfer_amount = reagent_source.reagents.total_volume
@@ -720,7 +720,7 @@
 
 		if(irrigate && transfer_amount > 30 && reagent_source.reagents.total_volume >= 30 && using_irrigation)
 			trays = FindConnected()
-			if (trays.len > 1)
+			if(trays.len > 1)
 				visi_msg += ", setting off the irrigation system"
 
 		if(visi_msg)
@@ -796,7 +796,7 @@
 		return
 
 	else if((O.tool_behaviour == TOOL_WIRECUTTER) && unwrenchable)
-		if (!anchored)
+		if(!anchored)
 			to_chat(user, "<span class='warning'>Anchor the tray first!</span>")
 			return
 		using_irrigation = !using_irrigation
@@ -829,11 +829,11 @@
 		return ..()
 
 /obj/machinery/hydroponics/can_be_unfasten_wrench(mob/user, silent)
-	if (!unwrenchable)  // case also covered by NODECONSTRUCT checks in default_unfasten_wrench
+	if(!unwrenchable)  // case also covered by NODECONSTRUCT checks in default_unfasten_wrench
 		return CANT_UNFASTEN
 
-	if (using_irrigation)
-		if (!silent)
+	if(using_irrigation)
+		if(!silent)
 			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
 		return FAILED_UNFASTEN
 

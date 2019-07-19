@@ -76,10 +76,10 @@ Borg Hypospray
 	var/datum/reagents/TRG
 	for(var/i in 1 to reagent_ids.len)
 		TRG = reagent_list[i]
-		if (TRG.has_reagent(reagent))
+		if(TRG.has_reagent(reagent))
 			RG = TRG
 			break
-	if (RG)
+	if(RG)
 		reagent_list -= RG
 		RG.del_reagent(reagent)
 

@@ -108,11 +108,11 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 
 /obj/item/storage/book/bible/attack(mob/living/M, mob/living/carbon/human/user, heal_mode = TRUE)
 
-	if (!user.IsAdvancedToolUser())
+	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 
-	if (HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='danger'>[src] slips out of your hand and hits your head.</span>")
 		user.take_bodypart_damage(10)
 		user.Unconscious(400)
@@ -127,12 +127,12 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 		user.take_bodypart_damage(0,10)
 		return
 
-	if (!heal_mode)
+	if(!heal_mode)
 		return ..()
 
 	var/smack = 1
 
-	if (M.stat != DEAD)
+	if(M.stat != DEAD)
 		if(chaplain && user == M)
 			to_chat(user, "<span class='warning'>You can't heal yourself!</span>")
 			return
@@ -234,7 +234,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 	var/uses = 1
 
 /obj/item/storage/book/bible/syndicate/attack_self(mob/living/carbon/human/H)
-	if (uses)
+	if(uses)
 		H.mind.isholy = TRUE
 		uses -= 1
 		to_chat(H, "<span class='userdanger'>You try to open the book AND IT BITES YOU!</span>")
@@ -245,7 +245,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 		desc += "<span class='warning'>The name [ownername] is written in blood inside the cover.</span>"
 
 /obj/item/storage/book/bible/syndicate/attack(mob/living/M, mob/living/carbon/human/user, heal_mode = TRUE)
-	if (user.a_intent == INTENT_HELP)
+	if(user.a_intent == INTENT_HELP)
 		return ..()
 	else
 		return ..(M,user,heal_mode = FALSE)

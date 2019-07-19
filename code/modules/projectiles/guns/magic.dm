@@ -43,7 +43,7 @@
 	return charges
 
 /obj/item/gun/magic/recharge_newshot()
-	if (charges && chambered && !chambered.BB)
+	if(charges && chambered && !chambered.BB)
 		chambered.newshot()
 
 /obj/item/gun/magic/process_chamber()
@@ -88,6 +88,6 @@
 
 /obj/item/gun/magic/vv_edit_var(var_name, var_value)
 	. = ..()
-	switch (var_name)
-		if ("charges")
+	switch(var_name)
+		if("charges")
 			recharge_newshot()

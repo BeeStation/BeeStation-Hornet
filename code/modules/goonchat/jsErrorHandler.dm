@@ -21,15 +21,15 @@
 	)
 
 /datum/debugFileOutput/proc/error(fileName, message, client/C)
-	if (!fileName || !message)
+	if(!fileName || !message)
 		return 0
 
-	if (!(fileName in src.validFiles))
+	if(!(fileName in src.validFiles))
 		CRASH("Debug log file '[fileName].[src.ext]' is not a valid path.")
 
 	var/logFile = file("[src.directory]/[fileName].[src.ext]")
 	var/fileSize = length(logFile)
-	if (fileSize >= src.logFileLimit)
+	if(fileSize >= src.logFileLimit)
 		CRASH("Debug Error Handling encountered an error! This is highly ironic! File: '[fileName]' has exceeded the filesize limit of: [src.logFileLimit] bytes")
 
 	message = "\[[time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")]\] Client: \[[C && C.key ? C.key : "Unknown Client"]\] triggered: [message]"
@@ -37,13 +37,13 @@
 	return 1
 
 /datum/debugFileOutput/proc/clear(fileName)
-	if (!fileName)
+	if(!fileName)
 		return 0
 
-	if (!fexists("[src.directory]/[fileName].[src.ext]"))
+	if(!fexists("[src.directory]/[fileName].[src.ext]"))
 		CRASH("Debug log file '[fileName].[src.ext]' does not exist.")
 
-	if (!(fileName in src.validFiles))
+	if(!(fileName in src.validFiles))
 		CRASH("Debug log file '[fileName].[src.ext]' is not a valid path.")
 
 	fdel("[src.directory]/[fileName].[src.ext]")
@@ -51,8 +51,8 @@
 
 /datum/debugFileOutput/proc/clearAll()
 	var/list/deleted = new()
-	for (var/fileName in src.validFiles)
-		if (fexists("[src.directory]/[fileName].[src.ext]"))
+	for(var/fileName in src.validFiles)
+		if(fexists("[src.directory]/[fileName].[src.ext]"))
 			fdel("[src.directory]/[fileName].[src.ext]")
 		deleted += fileName
 
@@ -64,7 +64,7 @@ GLOBAL_DATUM_INIT(debugFileOutput, /datum/debugFileOutput, new)
 /client/Topic(href, href_list)
 	..()
 
-	if (href_list["action"] && href_list["action"] == "debugFileOutput" && href_list["file"] && href_list["message"])
+	if(href_list["action"] && href_list["action"] == "debugFileOutput" && href_list["file"] && href_list["message"])
 		var/file = href_list["file"]
 		var/message = href_list["message"]
 		GLOB.debugFileOutput.error(file, message, src)
@@ -76,7 +76,7 @@ GLOBAL_DATUM_INIT(debugFileOutput, /datum/debugFileOutput, new)
 	set popup_menu = 0
 	if(!holder)
 		return
-	if (!fileName)
+	if(!fileName)
 		return
 
 	GLOB.debugFileOutput.clear(fileName)
@@ -92,7 +92,7 @@ GLOBAL_DATUM_INIT(debugFileOutput, /datum/debugFileOutput, new)
 	if(!holder)
 		return
 
-	if (alert("Are you really sure you want to delete every single JS logfile?", "No", "Yes") == "No")
+	if(alert("Are you really sure you want to delete every single JS logfile?", "No", "Yes") == "No")
 		return
 
 	var/list/summary = GLOB.debugFileOutput.clearAll()

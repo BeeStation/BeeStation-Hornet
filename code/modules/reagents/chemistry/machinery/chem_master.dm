@@ -28,7 +28,7 @@
 	//Calculate the span tags and ids fo all the available pill icons
 	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
 	pillStyles = list()
-	for (var/x in 1 to PILL_STYLE_COUNT)
+	for(var/x in 1 to PILL_STYLE_COUNT)
 		var/list/SL = list()
 		SL["id"] = x
 		SL["htmltag"] = assets.icon_tag("pill[x]")
@@ -68,7 +68,7 @@
 
 /obj/machinery/chem_master/update_icon()
 	cut_overlays()
-	if (stat & BROKEN)
+	if(stat & BROKEN)
 		add_overlay("waitlight")
 	if(beaker)
 		icon_state = "mixer1"
@@ -76,7 +76,7 @@
 		icon_state = "mixer0"
 
 /obj/machinery/chem_master/blob_act(obj/structure/blob/B)
-	if (prob(50))
+	if(prob(50))
 		qdel(src)
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
@@ -205,19 +205,19 @@
 			if(beaker)
 				var/reagent = GLOB.name2reagent[params["id"]]
 				var/amount = text2num(params["amount"])
-				if (amount > 0)
+				if(amount > 0)
 					beaker.reagents.trans_id_to(src, reagent, amount)
 					. = TRUE
-				else if (amount == -1) // -1 means custom amount
+				else if(amount == -1) // -1 means custom amount
 					useramount = input("Enter the Amount you want to transfer:", name, useramount) as num|null
-					if (useramount > 0)
+					if(useramount > 0)
 						beaker.reagents.trans_id_to(src, reagent, useramount)
 						. = TRUE
 
 		if("transferFromBuffer")
 			var/reagent = GLOB.name2reagent[params["id"]]
 			var/amount = text2num(params["amount"])
-			if (amount > 0)
+			if(amount > 0)
 				if(mode)
 					reagents.trans_id_to(beaker, reagent, amount)
 					. = TRUE
@@ -379,12 +379,12 @@
 
 
 /obj/machinery/chem_master/adjust_item_drop_location(atom/movable/AM) // Special version for chemmasters and condimasters
-	if (AM == beaker)
+	if(AM == beaker)
 		AM.pixel_x = -8
 		AM.pixel_y = 8
 		return null
-	else if (AM == bottle)
-		if (length(bottle.contents))
+	else if(AM == bottle)
+		if(length(bottle.contents))
 			AM.pixel_x = -13
 		else
 			AM.pixel_x = -7
@@ -392,7 +392,7 @@
 		return null
 	else
 		var/md5 = md5(AM.name)
-		for (var/i in 1 to 32)
+		for(var/i in 1 to 32)
 			. += hex2num(md5[i])
 		. = . % 9
 		AM.pixel_x = ((.%3)*6)

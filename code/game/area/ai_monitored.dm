@@ -7,7 +7,7 @@
 /area/ai_monitored/Initialize(mapload)
 	. = ..()
 	if(mapload)
-		for (var/obj/machinery/camera/M in src)
+		for(var/obj/machinery/camera/M in src)
 			if(M.isMotion())
 				motioncameras.Add(M)
 				M.area_motion = src
@@ -16,7 +16,7 @@
 
 /area/ai_monitored/Entered(atom/movable/O)
 	..()
-	if (ismob(O) && motioncameras.len)
+	if(ismob(O) && motioncameras.len)
 		for(var/X in motioncameras)
 			var/obj/machinery/camera/cam = X
 			cam.newTarget(O)
@@ -24,7 +24,7 @@
 
 /area/ai_monitored/Exited(atom/movable/O)
 	..()
-	if (ismob(O) && motioncameras.len)
+	if(ismob(O) && motioncameras.len)
 		for(var/X in motioncameras)
 			var/obj/machinery/camera/cam = X
 			cam.lostTargetRef(WEAKREF(O))

@@ -19,12 +19,12 @@
 
 /obj/structure/closet/body_bag/Destroy()
 	// If we have a stored bag, and it's in nullspace (not in someone's hand), delete it.
-	if (foldedbag_instance && !foldedbag_instance.loc)
+	if(foldedbag_instance && !foldedbag_instance.loc)
 		QDEL_NULL(foldedbag_instance)
 	return ..()
 
 /obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
-	if (istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
+	if(istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
 		if(!user.is_literate())
 			to_chat(user, "<span class='notice'>You scribble illegibly on [src]!</span>")
 			return
@@ -48,7 +48,7 @@
 
 /obj/structure/closet/body_bag/update_icon()
 	..()
-	if (tagged)
+	if(tagged)
 		add_overlay("bodybag_label")
 
 /obj/structure/closet/body_bag/open(mob/living/user)

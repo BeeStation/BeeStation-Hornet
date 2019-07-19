@@ -34,7 +34,7 @@
 	return C
 
 /datum/supply_pack/proc/fill(obj/structure/closet/crate/C)
-	if (admin_spawned)
+	if(admin_spawned)
 		for(var/item in contains)
 			var/atom/A = new item(C)
 			A.flags_1 |= ADMIN_SPAWNED_1

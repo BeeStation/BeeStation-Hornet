@@ -129,11 +129,11 @@
 	return armorval*0.5
 
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
-	if (istype(O, /obj/item/razor))
-		if (shaved)
+	if(istype(O, /obj/item/razor))
+		if(shaved)
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
 			return
-		if (nofur)
+		if(nofur)
 			to_chat(user, "<span class='warning'> You can't shave this corgi, it doesn't have a fur coat!</span>")
 			return
 		user.visible_message("[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
@@ -444,13 +444,13 @@
 				step_to(src,movement_target,1)
 
 				if(movement_target)		//Not redundant due to sleeps, Item can be gone in 6 decisecomds
-					if (movement_target.loc.x < src.x)
+					if(movement_target.loc.x < src.x)
 						setDir(WEST)
-					else if (movement_target.loc.x > src.x)
+					else if(movement_target.loc.x > src.x)
 						setDir(EAST)
-					else if (movement_target.loc.y < src.y)
+					else if(movement_target.loc.y < src.y)
 						setDir(SOUTH)
-					else if (movement_target.loc.y > src.y)
+					else if(movement_target.loc.y > src.y)
 						setDir(NORTH)
 					else
 						setDir(SOUTH)

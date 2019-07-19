@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	
 /obj/machinery/monkey_recycler/Initialize(mapload)
 	. = ..()
-	if (mapload)
+	if(mapload)
 		GLOB.monkey_recyclers += src
 
 /obj/machinery/monkey_recycler/Destroy()

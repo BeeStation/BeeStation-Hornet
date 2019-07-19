@@ -55,7 +55,7 @@
 		return
 	if(ishuman(target))
 		var/mob/living/carbon/human/humantarget = target
-		if (!humantarget.can_inject(user, 1))
+		if(!humantarget.can_inject(user, 1))
 			return
 	log_combat(user, target, "attempted to inject", src)
 

@@ -46,7 +46,7 @@
 	if(. || !check_rights(R_ADMIN, FALSE) || !usr.client.holder.CheckAdminHref(href, href_list))
 		return
 
-	if (href_list["show"])
+	if(href_list["show"])
 		show_to(usr)
 
 

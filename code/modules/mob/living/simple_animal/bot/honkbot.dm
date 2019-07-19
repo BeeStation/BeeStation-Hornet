@@ -136,7 +136,7 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 		update_icon()
 
 /mob/living/simple_animal/bot/honkbot/bullet_act(obj/item/projectile/Proj)
-	if((istype(Proj,/obj/item/projectile/beam)) || (istype(Proj,/obj/item/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
+	if((istype(Proj,/obj/item/projectile/beam)) || (istype(Proj,/obj/item/projectile/bullet) && (Proj.damage_type == BURN)) || (Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
 		retaliate(Proj.firer)
 	return ..()
 
@@ -145,13 +145,13 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		if (emagged <= 1)
+		if(emagged <= 1)
 			honk_attack(A)
 		else
 			if(!C.IsParalyzed() || arrest_type)
 				stun_attack(A)
 		..()
-	else if (!spam_flag) //honking at the ground
+	else if(!spam_flag) //honking at the ground
 		bike_horn(A)
 
 
@@ -165,14 +165,14 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 	..()
 
 /mob/living/simple_animal/bot/honkbot/proc/bike_horn() //use bike_horn
-	if (emagged <= 1)
-		if (!spam_flag)
+	if(emagged <= 1)
+		if(!spam_flag)
 			playsound(src, honksound, 50, TRUE, -1)
 			spam_flag = TRUE //prevent spam
 			sensor_blink()
 			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntimehorn)
-	else if (emagged == 2) //emagged honkbots will spam short and memorable sounds.
-		if (!spam_flag)
+	else if(emagged == 2) //emagged honkbots will spam short and memorable sounds.
+		if(!spam_flag)
 			playsound(src, "honkbot_e", 50, 0)
 			spam_flag = TRUE // prevent spam
 			icon_state = "honkbot-e"
@@ -199,7 +199,7 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 			var/mob/living/carbon/human/H = C
 			if(client) //prevent spam from players..
 				spam_flag = TRUE
-			if (emagged <= 1) //HONK once, then leave
+			if(emagged <= 1) //HONK once, then leave
 				var/judgement_criteria = judgement_criteria()
 				threatlevel = H.assess_threat(judgement_criteria)
 				threatlevel -= 6
@@ -289,7 +289,7 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 
 /mob/living/simple_animal/bot/honkbot/proc/look_for_perp()
 	anchored = FALSE
-	for (var/mob/living/carbon/C in view(7,src))
+	for(var/mob/living/carbon/C in view(7,src))
 		if((C.stat) || (C.handcuffed))
 			continue
 

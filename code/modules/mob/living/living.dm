@@ -56,10 +56,10 @@
 /mob/living/Bump(atom/A)
 	if(..()) //we are thrown onto something
 		return
-	if (buckled || now_pushing)
+	if(buckled || now_pushing)
 		return
 	if(!ismovableatom(A) || is_blocked_turf(A))  // ported from VORE, sue me
-		if((confused || is_blind()) && stat == CONSCIOUS && m_intent=="run")
+		if((confused || is_blind()) && stat == CONSCIOUS && m_intent == "run")
 			playsound(get_turf(src), "punch", 25, 1, -1)
 			visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [A]!</span>")
 			apply_damage(5, BRUTE)
@@ -224,7 +224,7 @@
 	if((AM.anchored && !push_anchored) || (force < (AM.move_resist * MOVE_FORCE_PUSH_RATIO)))
 		now_pushing = FALSE
 		return
-	if (istype(AM, /obj/structure/window))
+	if(istype(AM, /obj/structure/window))
 		var/obj/structure/window/W = AM
 		if(W.fulltile)
 			for(var/obj/structure/window/win in get_step(W,t))
@@ -384,14 +384,14 @@
 
 /mob/living/verb/succumb(whispered as null)
 	set hidden = TRUE
-	if (InCritical())
+	if(InCritical())
 		log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] while in [InFullCritical() ? "hard":"soft"] critical with [round(health, 0.1)] points of health!", LOG_ATTACK)
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		updatehealth()
 		if(!whispered)
 			to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 		
-		if (src.client)
+		if(src.client)
 			SSmedals.UnlockMedal(MEDAL_SUCCUMB,src.client)
 		
 		death()
@@ -401,7 +401,7 @@
 		return TRUE
 
 /mob/living/canUseStorage()
-	if (get_num_arms() <= 0)
+	if(get_num_arms() <= 0)
 		return FALSE
 	return TRUE
 
@@ -513,7 +513,7 @@
 /mob/living/proc/get_organ_target()
 	var/mob/shooter = src
 	var/t = shooter.zone_selected
-	if ((t in list( BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH )))
+	if((t in list( BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH )))
 		t = BODY_ZONE_HEAD
 	var/def_zone = ran_zone(t)
 	return def_zone
@@ -596,7 +596,7 @@
 	slurring = 0
 	jitteriness = 0
 	GET_COMPONENT(mood, /datum/component/mood)
-	if (mood)
+	if(mood)
 		mood.remove_temp_moods(admin_revive)
 	update_mobility()
 	stop_sound_channel(CHANNEL_HEARTBEAT)
@@ -611,8 +611,8 @@
 	return
 
 /mob/living/Move(atom/newloc, direct)
-	if (buckled && buckled.loc != newloc) //not updating position
-		if (!buckled.anchored)
+	if(buckled && buckled.loc != newloc) //not updating position
+		if(!buckled.anchored)
 			return buckled.Move(newloc, direct)
 		else
 			return 0
@@ -690,7 +690,7 @@
 
 	if(has_limbs)
 		var/turf/T = get_step(src, angle2dir(dir2angle(direction)+90))
-		if (T)
+		if(T)
 			turfs_to_check += T
 
 		T = get_step(src, angle2dir(dir2angle(direction)-90))
@@ -702,8 +702,8 @@
 			if(T.density)
 				pressure_resistance_prob_delta -= 20
 				continue
-			for (var/atom/movable/AM in T)
-				if (AM.density && AM.anchored)
+			for(var/atom/movable/AM in T)
+				if(AM.density && AM.anchored)
 					pressure_resistance_prob_delta -= 20
 					break
 	if(!force_moving)
@@ -1233,15 +1233,15 @@
 		update_mobility() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
-	if (registered_z != new_z)
-		if (registered_z)
+	if(registered_z != new_z)
+		if(registered_z)
 			SSmobs.clients_by_zlevel[registered_z] -= src
-		if (client)
-			if (new_z)
+		if(client)
+			if(new_z)
 				SSmobs.clients_by_zlevel[new_z] += src
-				for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+				for(var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
 					var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
-					if (SA)
+					if(SA)
 						SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
 					else
 						SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
@@ -1319,13 +1319,13 @@
 
 /mob/living/update_mouse_pointer()
 	..()
-	if (client && ranged_ability && ranged_ability.ranged_mousepointer)
+	if(client && ranged_ability && ranged_ability.ranged_mousepointer)
 		client.mouse_pointer_icon = ranged_ability.ranged_mousepointer
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
-		if ("maxHealth")
-			if (!isnum(var_value) || var_value <= 0)
+		if("maxHealth")
+			if(!isnum(var_value) || var_value <= 0)
 				return FALSE
 		if("stat")
 			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life

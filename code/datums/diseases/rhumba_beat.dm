@@ -31,7 +31,7 @@
 				to_chat(affected_mob, "<span class='danger'>You feel the need to chick chicky boom...</span>")
 		if(4)
 			if(prob(20))
-				if (prob(50))
+				if(prob(50))
 					affected_mob.adjust_fire_stacks(2)
 					affected_mob.IgniteMob()
 				else

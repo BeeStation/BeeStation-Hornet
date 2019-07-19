@@ -41,7 +41,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/Destroy()
 	var/area/A = get_area(src)
-	if (A)
+	if(A)
 		A.air_vent_names -= id_tag
 		A.air_vent_info -= id_tag
 
@@ -125,7 +125,7 @@
 			var/transfer_moles = pressure_delta * air_contents.volume / (environment.temperature * R_IDEAL_GAS_EQUATION)
 
 			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
-			if (isnull(removed)) // in space
+			if(isnull(removed)) // in space
 				return
 
 			air_contents.merge(removed)
@@ -168,8 +168,8 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/atmosinit()
 	//some vents work his own spesial way
-	radio_filter_in = frequency==FREQ_ATMOS_CONTROL?(RADIO_FROM_AIRALARM):null
-	radio_filter_out = frequency==FREQ_ATMOS_CONTROL?(RADIO_TO_AIRALARM):null
+	radio_filter_in = frequency == FREQ_ATMOS_CONTROL ? (RADIO_FROM_AIRALARM) : null
+	radio_filter_out = frequency == FREQ_ATMOS_CONTROL ? (RADIO_TO_AIRALARM) : null
 	if(frequency)
 		set_frequency(frequency)
 	broadcast_status()
@@ -179,7 +179,7 @@
 	if(!is_operational())
 		return
 	// log_admin("DEBUG \[[world.timeofday]\]: /obj/machinery/atmospherics/components/unary/vent_pump/receive_signal([signal.debug_print()])")
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"] != "command"))
 		return
 
 	var/atom/signal_sender = signal.data["user"]

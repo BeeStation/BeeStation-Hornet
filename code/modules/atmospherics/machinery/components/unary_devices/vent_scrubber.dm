@@ -41,7 +41,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/Destroy()
 	var/area/A = get_area(src)
-	if (A)
+	if(A)
 		A.air_scrub_names -= id_tag
 		A.air_scrub_info -= id_tag
 
@@ -125,8 +125,8 @@
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/atmosinit()
-	radio_filter_in = frequency==initial(frequency)?(RADIO_FROM_AIRALARM):null
-	radio_filter_out = frequency==initial(frequency)?(RADIO_TO_AIRALARM):null
+	radio_filter_in = frequency == initial(frequency) ? (RADIO_FROM_AIRALARM) : null
+	radio_filter_out = frequency == initial(frequency) ? (RADIO_TO_AIRALARM) : null
 	if(frequency)
 		set_frequency(frequency)
 	broadcast_status()
@@ -215,7 +215,7 @@
 		adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir = 1)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/receive_signal(datum/signal/signal)
-	if(!is_operational() || !signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
+	if(!is_operational() || !signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"] != "command"))
 		return 0
 
 	var/atom/signal_sender = signal.data["user"]

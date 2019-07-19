@@ -22,12 +22,12 @@
 /obj/item/paicard/Destroy()
 	//Will stop people throwing friend pAIs into the singularity so they can respawn
 	SSpai.pai_card_list -= src
-	if (!QDELETED(pai))
+	if(!QDELETED(pai))
 		QDEL_NULL(pai)
 	return ..()
 
 /obj/item/paicard/attack_self(mob/user)
-	if (!in_range(src, user))
+	if(!in_range(src, user))
 		return
 	user.set_machine(src)
 	var/dat = "<TT><B>Personal AI Device</B><BR>"
@@ -160,7 +160,7 @@
 
 /obj/item/paicard/emp_act(severity)
 	. = ..()
-	if (. & EMP_PROTECT_SELF)
+	if(. & EMP_PROTECT_SELF)
 		return
 	if(pai && !pai.holoform)
 		pai.emp_act(severity)

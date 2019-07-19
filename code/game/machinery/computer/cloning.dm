@@ -108,7 +108,7 @@
 		scannerf = locate(/obj/machinery/dna_scannernew, get_step(src, direction))
 
 		// If found and operational, return the scanner
-		if (!isnull(scannerf) && scannerf.is_operational())
+		if(!isnull(scannerf) && scannerf.is_operational())
 			return scannerf
 
 	// If no scanner was found, it will return null
@@ -120,7 +120,7 @@
 	for(var/direction in GLOB.cardinals)
 
 		podf = locate(/obj/machinery/clonepod, get_step(src, direction))
-		if (!isnull(podf) && podf.is_operational())
+		if(!isnull(podf) && podf.is_operational())
 			AttachCloner(podf)
 
 /obj/machinery/computer/cloning/proc/AttachCloner(obj/machinery/clonepod/pod)
@@ -134,8 +134,8 @@
 
 /obj/machinery/computer/cloning/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/disk/data)) //INSERT SOME DISKETTES
-		if (!diskette)
-			if (!user.transferItemToLoc(W,src))
+		if(!diskette)
+			if(!user.transferItemToLoc(W,src))
 				return
 			diskette = W
 			to_chat(user, "<span class='notice'>You insert [W].</span>")
@@ -183,16 +183,16 @@
 	switch(menu)
 		if(1)
 			// Modules
-			if (isnull(scanner) || !LAZYLEN(pods))
+			if(isnull(scanner) || !LAZYLEN(pods))
 				dat += "<h3>Modules</h3>"
 				//dat += "<a href='byond://?src=[REF(src)];relmodules=1'>Reload Modules</a>"
-				if (isnull(scanner))
+				if(isnull(scanner))
 					dat += "<font class='bad'>ERROR: No Scanner detected!</font><br>"
-				if (!LAZYLEN(pods))
+				if(!LAZYLEN(pods))
 					dat += "<font class='bad'>ERROR: No Pod detected</font><br>"
 
 			// Scanner
-			if (!isnull(scanner))
+			if(!isnull(scanner))
 				var/mob/living/scanner_occupant = get_mob_or_brainmob(scanner.occupant)
 
 				dat += "<h3>Scanner Functions</h3>"
@@ -217,11 +217,11 @@
 
 			// Database
 			dat += "<h3>Database Functions</h3>"
-			if (records.len && records.len > 0)
+			if(records.len && records.len > 0)
 				dat += "<a href='byond://?src=[REF(src)];menu=2'>View Records ([records.len])</a><br>"
 			else
 				dat += "<span class='linkOff'>View Records (0)</span><br>"
-			if (diskette)
+			if(diskette)
 				dat += "<a href='byond://?src=[REF(src)];disk=eject'>Eject Disk</a><br>"
 
 
@@ -235,7 +235,7 @@
 			dat += "<h3>Selected Record</h3>"
 			dat += "<a href='byond://?src=[REF(src)];menu=2'><< Back</a><br>"
 
-			if (!active_record)
+			if(!active_record)
 				dat += "<font class='bad'>Record not found.</font>"
 			else
 				dat += "<h4>[active_record.fields["name"]]</h4>"
@@ -243,7 +243,7 @@
 
 				var/obj/item/implant/health/H = locate(active_record.fields["imp"])
 
-				if ((H) && (istype(H)))
+				if((H) && (istype(H)))
 					dat += "<b>Health Implant Data:</b><br />[H.sensehealth()]<br><br />"
 				else
 					dat += "<font class='bad'>Unable to locate Health Implant.</font><br /><br />"
@@ -254,7 +254,7 @@
 					if(key != RACEMUT)
 						var/val = active_record.fields["SE"][key]
 						var/alias = GLOB.all_mutations[key].alias
-						dat +="[alias]: [val]<br />"
+						dat += "[alias]: [val]<br />"
 
 				dat += "</span><br />"
 
@@ -302,7 +302,7 @@
 				dat += "<font size=1><a href='byond://?src=[REF(src)];del_rec=1'>Delete Record</a></font>"
 
 		if(4)
-			if (!active_record)
+			if(!active_record)
 				menu = 2
 				ui_interact(user)
 				return
@@ -345,7 +345,7 @@
 			if("exclude_ue")
 				include_ue = FALSE
 
-	else if ((href_list["scan"]) && !isnull(scanner) && scanner.is_operational())
+	else if((href_list["scan"]) && !isnull(scanner) && scanner.is_operational())
 		scantemp = ""
 
 		loading = TRUE
@@ -362,8 +362,8 @@
 
 
 		//No locking an open scanner.
-	else if ((href_list["lock"]) && !isnull(scanner) && scanner.is_operational())
-		if ((!scanner.locked) && (scanner.occupant))
+	else if((href_list["lock"]) && !isnull(scanner) && scanner.is_operational())
+		if((!scanner.locked) && (scanner.occupant))
 			scanner.locked = TRUE
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		else
@@ -378,10 +378,10 @@
 		else
 			temp = "Record missing."
 
-	else if (href_list["del_rec"])
-		if ((!active_record) || (menu < 3))
+	else if(href_list["del_rec"])
+		if((!active_record) || (menu < 3))
 			return
-		if (menu == 3) //If we are viewing a record, confirm deletion
+		if(menu == 3) //If we are viewing a record, confirm deletion
 			var/has_access = FALSE
 			if(ishuman(usr))
 				var/mob/living/carbon/human/user = usr
@@ -399,7 +399,7 @@
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 
 
-		else if (menu == 4)
+		else if(menu == 4)
 			log_cloning("[key_name(usr)] deleted [key_name(active_record.fields["mindref"])]'s cloning records from [src] at [AREACOORD(src)].")
 			temp = "[active_record.fields["name"]] => Record deleted."
 			records.Remove(active_record)
@@ -407,17 +407,17 @@
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 			menu = 2
 
-	else if (href_list["disk"]) //Load or eject.
+	else if(href_list["disk"]) //Load or eject.
 		switch(href_list["disk"])
 			if("load")
 
 
-				if (!diskette || !istype(diskette.fields))
+				if(!diskette || !istype(diskette.fields))
 					temp = "<font class='bad'>Load error.</font>"
 					updateUsrDialog()
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 					return
-				if (!active_record)
+				if(!active_record)
 					temp = "<font class='bad'>Record error.</font>"
 					menu = 1
 					updateUsrDialog()
@@ -455,11 +455,11 @@
 				temp = "Save successful."
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
-	else if (href_list["refresh"])
+	else if(href_list["refresh"])
 		updateUsrDialog()
 		playsound(src, "terminal_type", 25, 0)
 
-	else if (href_list["clone"])
+	else if(href_list["clone"])
 		var/datum/data/record/C = find_record("id", href_list["clone"], records)
 		//Look for that player! They better be dead!
 		if(C)
@@ -502,7 +502,7 @@
 			temp = "<font class='bad'>Data corruption.</font>"
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 
-	else if (href_list["menu"])
+	else if(href_list["menu"])
 		menu = text2num(href_list["menu"])
 		playsound(src, "terminal_type", 25, 0)
 
@@ -543,7 +543,7 @@
 		scantemp = "<font class='bad'>Subject's DNA is damaged beyond any hope of recovery.</font>"
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return
-	if (isnull(mob_occupant.mind))
+	if(isnull(mob_occupant.mind))
 		scantemp = "<font class='bad'>Mental interface failure.</font>"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return

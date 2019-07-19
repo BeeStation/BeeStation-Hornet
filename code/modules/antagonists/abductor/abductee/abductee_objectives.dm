@@ -11,21 +11,21 @@
 
 /datum/objective/abductee/steal/New()
 	var/target = pick(list("pets","lights","monkeys","fruits","shoes","bars of soap", "weapons", "computers", "organs"))
-	explanation_text+=" [target]."
+	explanation_text += " [target]."
 
 /datum/objective/abductee/paint
 	explanation_text = "The station is hideous. You must color it all"
 
 /datum/objective/abductee/paint/New()
 	var/color = pick(list("red", "blue", "green", "yellow", "orange", "purple", "black", "in rainbows", "in blood"))
-	explanation_text+= " [color]!"
+	explanation_text += " [color]!"
 
 /datum/objective/abductee/speech
 	explanation_text = "Your brain is broken... you can only communicate in"
 
 /datum/objective/abductee/speech/New()
 	var/style = pick(list("pantomime", "rhyme", "haiku", "extended metaphors", "riddles", "extremely literal terms", "sound effects", "military jargon", "three word sentences"))
-	explanation_text+= " [style]."
+	explanation_text += " [style]."
 
 /datum/objective/abductee/capture
 	explanation_text = "Capture"

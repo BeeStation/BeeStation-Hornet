@@ -30,7 +30,7 @@
 
 /mob/living/simple_animal/pet/gondola/Initialize()
 	. = ..()
-	if (!(istype(src, /mob/living/simple_animal/pet/gondola/gondolapod)))
+	if(!(istype(src, /mob/living/simple_animal/pet/gondola/gondolapod)))
 		CreateGondola()
 
 /mob/living/simple_animal/pet/gondola/proc/CreateGondola()

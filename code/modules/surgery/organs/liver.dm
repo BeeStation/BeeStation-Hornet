@@ -34,7 +34,7 @@
 				//handle liver toxin filtration
 				for(var/datum/reagent/toxin/T in C.reagents.reagent_list)
 					var/thisamount = C.reagents.get_reagent_amount(T.type)
-					if (thisamount && thisamount <= toxTolerance)
+					if(thisamount && thisamount <= toxTolerance)
 						C.reagents.remove_reagent(T.type, 1)
 					else
 						damage += (thisamount*toxLethality)
@@ -101,6 +101,6 @@
 		return
 	switch(severity)
 		if(1)
-			damage+=100
+			damage += 100
 		if(2)
-			damage+=50
+			damage += 50

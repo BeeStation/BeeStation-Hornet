@@ -370,7 +370,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 				if(!can_make_pipe)
 					return ..()
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
-				if (recipe.type == /datum/pipe_info/meter)
+				if(recipe.type == /datum/pipe_info/meter)
 					to_chat(user, "<span class='notice'>You start building a meter...</span>")
 					if(do_after(user, atmos_build_speed, target = A))
 						activate()

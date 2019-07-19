@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 					miscboxes[D.account_holder] = new /obj/structure/closet/crate/secure/owned(pick_n_take(empty_turfs), SO.paying_account)
 					miscboxes[D.account_holder].name = "small items crate - purchased by [D.account_holder]"
 					misc_contents[D.account_holder] = list()
-				for (var/item in SO.pack.contains)
+				for(var/item in SO.pack.contains)
 					misc_contents[D.account_holder] += item
 				misc_order_num[D.account_holder] = "[misc_order_num[D.account_holder]]#[SO.id]  "
 			else //No private payment, so we just stuff it all into a generic crate
@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 					miscboxes["Cargo"].name = "small items crate"
 					misc_contents["Cargo"] = list()
 					miscboxes["Cargo"].req_access = list()
-				for (var/item in SO.pack.contains)
+				for(var/item in SO.pack.contains)
 					misc_contents["Cargo"] += item
 					//new item(miscboxes["Cargo"])
 				if(SO.pack.access)

@@ -139,9 +139,9 @@ GLOBAL_LIST_INIT(freqtospan, list(
 
 /proc/say_test(text)
 	var/ending = copytext(text, length(text))
-	if (ending == "?")
+	if(ending == "?")
 		return "1"
-	else if (ending == "!")
+	else if(ending == "!")
 		return "2"
 	return "0"
 
@@ -173,7 +173,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/virtualspeaker)
 	. = ..()
 	radio = radio
 	source = M
-	if (istype(M))
+	if(istype(M))
 		name = M.GetVoice()
 		verb_say = M.verb_say
 		verb_ask = M.verb_ask

@@ -1,17 +1,17 @@
 /client/proc/reestablish_db_connection()
 	set category = "Special Verbs"
 	set name = "Reestablish DB Connection"
-	if (!CONFIG_GET(flag/sql_enabled))
+	if(!CONFIG_GET(flag/sql_enabled))
 		to_chat(usr, "<span class='adminnotice'>The Database is not enabled!</span>")
 		return
 
-	if (SSdbcore.IsConnected())
-		if (!check_rights(R_DEBUG,0))
+	if(SSdbcore.IsConnected())
+		if(!check_rights(R_DEBUG,0))
 			alert("The database is already connected! (Only those with +debug can force a reconnection)", "The database is already connected!")
 			return
 
 		var/reconnect = alert("The database is already connected! If you *KNOW* that this is incorrect, you can force a reconnection", "The database is already connected!", "Force Reconnect", "Cancel")
-		if (reconnect != "Force Reconnect")
+		if(reconnect != "Force Reconnect")
 			return
 
 		SSdbcore.Disconnect()

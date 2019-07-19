@@ -175,10 +175,10 @@
 #define SDQL2_VALID_OPTION_TYPES list("proccall", "select", "priority", "autogc")
 #define SDQL2_VALID_OPTION_VALUES list("async", "blocking", "force_nulls", "skip_nulls", "high", "normal", "keep_alive")
 
-#define SDQL2_OPTION_SELECT_OUTPUT_SKIP_NULLS			(1<<0)
-#define SDQL2_OPTION_BLOCKING_CALLS						(1<<1)
-#define SDQL2_OPTION_HIGH_PRIORITY						(1<<2)		//High priority SDQL query, allow using almost all of the tick.
-#define SDQL2_OPTION_DO_NOT_AUTOGC						(1<<3)
+#define SDQL2_OPTION_SELECT_OUTPUT_SKIP_NULLS			(1 << 0)
+#define SDQL2_OPTION_BLOCKING_CALLS						(1 << 1)
+#define SDQL2_OPTION_HIGH_PRIORITY						(1 << 2)		//High priority SDQL query, allow using almost all of the tick.
+#define SDQL2_OPTION_DO_NOT_AUTOGC						(1 << 3)
 
 #define SDQL2_OPTIONS_DEFAULT		(SDQL2_OPTION_SELECT_OUTPUT_SKIP_NULLS)
 
@@ -529,18 +529,18 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 
 	// 1 and 2 are type and FROM.
 	var/i = 3
-	while (i <= tree.len)
+	while(i <= tree.len)
 		var/key = tree[i++]
 		var/list/expression = tree[i++]
-		switch (key)
-			if ("map")
+		switch(key)
+			if("map")
 				for(var/j = 1 to objs.len)
 					var/x = objs[j]
 					objs[j] = SDQL_expression(x, expression)
 					SDQL2_TICK_CHECK
 					SDQL2_HALT_CHECK
 
-			if ("where")
+			if("where")
 				where_switched = TRUE
 				var/list/out = list()
 				obj_count_eligible = out
@@ -711,12 +711,12 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 		var/list/L = object
 		var/first = TRUE
 		text_list += "\["
-		for (var/x in L)
-			if (!first)
+		for(var/x in L)
+			if(!first)
 				text_list += ", "
 			first = FALSE
 			SDQL_print(x, text_list)
-			if (!isnull(x) && !isnum(x) && L[x] != null)
+			if(!isnull(x) && !isnum(x) && L[x] != null)
 				text_list += " -> "
 				SDQL_print(L[L[x]])
 		text_list += "]<br>"
@@ -974,7 +974,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 	if(is_proper_datum(object))
 		D = object
 
-	if (object == world && (!long || expression[start + 1] == ".") && !(expression[start] in exclude))
+	if(object == world && (!long || expression[start + 1] == ".") && !(expression[start] in exclude))
 		to_chat(usr, "<span class='danger'>World variables are not allowed to be accessed. Use global.</span>")
 		return null
 

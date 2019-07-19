@@ -65,7 +65,7 @@
 		if(DUEL_PREPARATION)
 			if(check_positioning())
 				confirm_positioning()
-			else if (!get_duelist(gun_A) && !get_duelist(gun_B))
+			else if(!get_duelist(gun_A) && !get_duelist(gun_B))
 				end()
 		if(DUEL_READY)
 			if(!check_positioning())

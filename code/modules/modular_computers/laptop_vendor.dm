@@ -228,7 +228,7 @@
 		return 0
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, ui_key, "computer_fabricator", "Personal Computer Vendor", 500, 400, state = state)
 		ui.open()
 		ui.set_autoupdate(state = 1)

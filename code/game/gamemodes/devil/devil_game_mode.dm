@@ -35,7 +35,7 @@
 		num_devils = max(minimum_devils, min(num_players(), traitors_possible))
 
 	for(var/j = 0, j < num_devils, j++)
-		if (!antag_candidates.len)
+		if(!antag_candidates.len)
 			break
 		var/datum/mind/devil = antag_pick(antag_candidates)
 		devils += devil

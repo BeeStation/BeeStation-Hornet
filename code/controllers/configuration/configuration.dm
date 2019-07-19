@@ -277,30 +277,30 @@
 		if(!command)
 			continue
 
-		if (!currentmap && command != "map")
+		if(!currentmap && command != "map")
 			continue
 
-		switch (command)
-			if ("map")
+		switch(command)
+			if("map")
 				currentmap = load_map_config("_maps/[data].json")
 				if(currentmap.defaulted)
 					log_config("Failed to load map config for [data]!")
 					currentmap = null
-			if ("minplayers","minplayer")
+			if("minplayers","minplayer")
 				currentmap.config_min_users = text2num(data)
-			if ("maxplayers","maxplayer")
+			if("maxplayers","maxplayer")
 				currentmap.config_max_users = text2num(data)
-			if ("weight","voteweight")
+			if("weight","voteweight")
 				currentmap.voteweight = text2num(data)
-			if ("default","defaultmap")
+			if("default","defaultmap")
 				defaultmap = currentmap
-			if ("votable")
+			if("votable")
 				currentmap.votable = TRUE
-			if ("endmap")
+			if("endmap")
 				LAZYINITLIST(maplist)
 				maplist[currentmap.map_name] = currentmap
 				currentmap = null
-			if ("disabled")
+			if("disabled")
 				currentmap = null
 			else
 				log_config("Unknown command in map vote config: '[command]'")
@@ -328,7 +328,7 @@
 		if(!(M.config_tag in modes))
 			qdel(M)
 			continue
-		if(probabilities[M.config_tag]<=0)
+		if(probabilities[M.config_tag] <= 0)
 			qdel(M)
 			continue
 		if(min_pop[M.config_tag])
@@ -357,7 +357,7 @@
 		if(!(M.config_tag in modes))
 			qdel(M)
 			continue
-		if(probabilities[M.config_tag]<=0)
+		if(probabilities[M.config_tag] <= 0)
 			qdel(M)
 			continue
 		if(min_pop[M.config_tag])

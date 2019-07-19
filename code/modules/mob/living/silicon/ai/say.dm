@@ -37,7 +37,7 @@
 
 	message = trim(message)
 
-	if (!message)
+	if(!message)
 		return
 
 	var/obj/machinery/holopad/T = current

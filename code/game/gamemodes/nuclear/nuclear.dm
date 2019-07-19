@@ -55,7 +55,7 @@
 	nukes_left--
 
 /datum/game_mode/nuclear/check_win()
-	if (nukes_left == 0)
+	if(nukes_left == 0)
 		return TRUE
 	return ..()
 

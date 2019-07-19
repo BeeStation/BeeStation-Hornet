@@ -39,7 +39,7 @@
 
 /obj/item/device/gangtool/attack_self(mob/user)
 	..()
-	if (!can_use(user))
+	if(!can_use(user))
 		return
 	var/datum/antagonist/gang/boss/L = user.mind.has_antag_datum(/datum/antagonist/gang/boss)
 	var/dat

@@ -36,26 +36,26 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "[global.con
 
 	if(!Lines.len)
 		return
-	for (var/t in Lines)
-		if (!t)
+	for(var/t in Lines)
+		if(!t)
 			continue
 
 		t = trim(t)
-		if (length(t) == 0)
+		if(length(t) == 0)
 			continue
-		else if (copytext(t, 1, 2) == "#")
+		else if(copytext(t, 1, 2) == "#")
 			continue
 
 		var/pos = findtext(t, " ")
 		var/name = null
 
-		if (pos)
+		if(pos)
 			name = lowertext(copytext(t, 1, pos))
 
 		else
 			name = lowertext(t)
 
-		if (!name)
+		if(!name)
 			continue
 
 		. += t

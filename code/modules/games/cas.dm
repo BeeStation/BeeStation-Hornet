@@ -39,7 +39,7 @@
 	if(possiblecards.len < decksize) // sanity check
 		decksize = (possiblecards.len - 1)
 	var/list/randomcards = list()
-	while (randomcards.len < decksize)
+	while(randomcards.len < decksize)
 		randomcards += pick_n_take(possiblecards)
 	for(var/i=1 to randomcards.len)
 		var/cardtext = randomcards[i]
@@ -71,7 +71,7 @@
 		return
 	var/obj/item/toy/cards/singlecard/cas/H = new/obj/item/toy/cards/singlecard/cas(user.loc)
 	var/datum/playingcard/choice = cards[1]
-	if (choice.name == "Blank Card")
+	if(choice.name == "Blank Card")
 		H.blank = 1
 	H.name = choice.name
 	H.buffertext = choice.name
@@ -114,9 +114,9 @@
 
 /obj/item/toy/cards/singlecard/cas/examine(mob/user)
 	..()
-	if (flipped)
+	if(flipped)
 		to_chat(user, "<span class='notice'>The card is face down.</span>")
-	else if (blank)
+	else if(blank)
 		to_chat(user, "<span class='notice'>The card is blank. Write on it with a pen.</span>")
 	else
 		to_chat(user, "<span class='notice'>The card reads: [name]</span>")

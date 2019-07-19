@@ -4,7 +4,7 @@
 	..()
 	switch(M.a_intent)
 		if("help")
-			if (health > 0)
+			if(health > 0)
 				visible_message("<span class='notice'>[M] [response_help] [src].</span>")
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
@@ -42,8 +42,8 @@
 			var/damage = rand(1, 3)
 			attack_threshold_check(damage)
 			return 1
-	if (M.a_intent == INTENT_HELP)
-		if (health > 0)
+	if(M.a_intent == INTENT_HELP)
+		if(health > 0)
 			visible_message("<span class='notice'>[M.name] [response_help] [src].</span>")
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
@@ -114,14 +114,14 @@
 		return
 	..()
 	var/bomb_armor = getarmor(null, "bomb")
-	switch (severity)
-		if (1)
+	switch(severity)
+		if(1)
 			if(prob(bomb_armor))
 				adjustBruteLoss(500)
 			else
 				gib()
 				return
-		if (2)
+		if(2)
 			var/bloss = 60
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5

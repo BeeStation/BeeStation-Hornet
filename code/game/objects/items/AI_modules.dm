@@ -234,7 +234,7 @@ AI MODULES
 		return
 	if(newpos < 15)
 		var/response = alert("Error: The law priority of [newpos] is invalid,  Law priorities below 14 are reserved for core laws,  Would you like to change that that to 15?", "Invalid law priority", "Change to 15", "Cancel")
-		if (!response || response == "Cancel")
+		if(!response || response == "Cancel")
 			return
 		newpos = 15
 	lawpos = min(newpos, 50)
@@ -603,7 +603,7 @@ AI MODULES
 
 /obj/item/aiModule/core/full/damaged/install(datum/ai_laws/law_datum, mob/user)
 	laws += generate_ion_law()
-	while (prob(75))
+	while(prob(75))
 		laws += generate_ion_law()
 	..()
 	laws = list()

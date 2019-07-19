@@ -10,18 +10,18 @@
 
 /obj/structure/ladder/Initialize(mapload, obj/structure/ladder/up, obj/structure/ladder/down)
 	..()
-	if (up)
+	if(up)
 		src.up = up
 		up.down = src
 		up.update_icon()
-	if (down)
+	if(down)
 		src.down = down
 		down.up = src
 		down.update_icon()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/structure/ladder/Destroy(force)
-	if ((resistance_flags & INDESTRUCTIBLE) && !force)
+	if((resistance_flags & INDESTRUCTIBLE) && !force)
 		return QDEL_HINT_LETMELIVE
 	disconnect()
 	return ..()
@@ -31,15 +31,15 @@
 	var/turf/T = get_turf(src)
 	var/obj/structure/ladder/L
 
-	if (!down)
+	if(!down)
 		L = locate() in SSmapping.get_turf_below(T)
-		if (L)
+		if(L)
 			down = L
 			L.up = src  // Don't waste effort looping the other way
 			L.update_icon()
-	if (!up)
+	if(!up)
 		L = locate() in SSmapping.get_turf_above(T)
-		if (L)
+		if(L)
 			up = L
 			L.down = src  // Don't waste effort looping the other way
 			L.update_icon()
@@ -69,7 +69,7 @@
 		icon_state = "ladder00"
 
 /obj/structure/ladder/singularity_pull()
-	if (!(resistance_flags & INDESTRUCTIBLE))
+	if(!(resistance_flags & INDESTRUCTIBLE))
 		visible_message("<span class='danger'>[src] is torn to pieces by the gravitational pull!</span>")
 		qdel(src)
 
@@ -88,12 +88,12 @@
 		user.start_pulling(AM)
 
 /obj/structure/ladder/proc/use(mob/user, is_ghost=FALSE)
-	if (!is_ghost && !in_range(src, user))
+	if(!is_ghost && !in_range(src, user))
 		return
 
-	if (up && down)
+	if(up && down)
 		var/result = alert("Go up or down [src]?", "Ladder", "Up", "Down", "Cancel")
-		if (!is_ghost && !in_range(src, user))
+		if(!is_ghost && !in_range(src, user))
 			return  // nice try
 		switch(result)
 			if("Up")
@@ -154,30 +154,30 @@
 
 /obj/structure/ladder/unbreakable/Destroy()
 	. = ..()
-	if (. != QDEL_HINT_LETMELIVE)
+	if(. != QDEL_HINT_LETMELIVE)
 		GLOB.ladders -= src
 
 /obj/structure/ladder/unbreakable/LateInitialize()
 	// Override the parent to find ladders based on being height-linked
-	if (!id || (up && down))
+	if(!id || (up && down))
 		update_icon()
 		return
 
-	for (var/O in GLOB.ladders)
+	for(var/O in GLOB.ladders)
 		var/obj/structure/ladder/unbreakable/L = O
-		if (L.id != id)
+		if(L.id != id)
 			continue  // not one of our pals
-		if (!down && L.height == height - 1)
+		if(!down && L.height == height - 1)
 			down = L
 			L.up = src
 			L.update_icon()
-			if (up)
+			if(up)
 				break  // break if both our connections are filled
-		else if (!up && L.height == height + 1)
+		else if(!up && L.height == height + 1)
 			up = L
 			L.down = src
 			L.update_icon()
-			if (down)
+			if(down)
 				break  // break if both our connections are filled
 
 	update_icon()
@@ -205,10 +205,10 @@
 
 /obj/structure/ladder/unbreakable/binary/proc/getTargetTurf()
 	var/list/turfList = get_area_turfs(area_to_place)
-	while (turfList.len && !.)
+	while(turfList.len && !.)
 		var/i = rand(1, turfList.len)
 		var/turf/potentialTurf = turfList[i]
-		if (is_centcom_level(potentialTurf.z)) // These ladders don't lead to centcom.
+		if(is_centcom_level(potentialTurf.z)) // These ladders don't lead to centcom.
 			turfList.Cut(i,i+1)
 			continue
 		if(!istype(potentialTurf, /turf/open/lava) && !potentialTurf.density)			// Or inside dense turfs or lava
@@ -219,7 +219,7 @@
 					break
 			if(clear)
 				. = potentialTurf
-		if (!.)
+		if(!.)
 			turfList.Cut(i,i+1)
 
 /obj/structure/ladder/unbreakable/binary/space

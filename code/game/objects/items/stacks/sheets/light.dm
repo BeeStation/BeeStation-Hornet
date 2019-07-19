@@ -16,7 +16,7 @@
 /obj/item/stack/light_w/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/sheet/iron))
 		var/obj/item/stack/sheet/iron/M = O
-		if (M.use(1))
+		if(M.use(1))
 			var/obj/item/L = new /obj/item/stack/tile/light(user.drop_location())
 			to_chat(user, "<span class='notice'>You make a light tile.</span>")
 			L.add_fingerprint(user)

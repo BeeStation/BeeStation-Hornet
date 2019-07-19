@@ -137,7 +137,7 @@
 			if(user.transferItemToLoc(O, src))
 				to_chat(user, "<span class='info'>You put [O.name] in [src.name]</span>")
 		return TRUE //no afterattack
-	else if (istype(O, /obj/item/disk/design_disk))
+	else if(istype(O, /obj/item/disk/design_disk))
 		user.visible_message("[user] begins to load \the [O] in \the [src]...",
 			"You begin to load a design from \the [O]...",
 			"You hear the chatter of a floppy drive.")
@@ -205,9 +205,9 @@
 	popup.open()
 
 /obj/machinery/biogenerator/proc/activate()
-	if (usr.stat != CONSCIOUS)
+	if(usr.stat != CONSCIOUS)
 		return
-	if (src.stat != NONE) //NOPOWER etc
+	if(src.stat != NONE) //NOPOWER etc
 		return
 	if(processing)
 		to_chat(usr, "<span class='warning'>The biogenerator is in the process of working.</span>")
@@ -234,7 +234,7 @@
 /obj/machinery/biogenerator/proc/check_cost(list/materials, multiplier = 1, remove_points = 1)
 	if(materials.len != 1 || materials[1] != MAT_BIOMASS)
 		return FALSE
-	if (materials[MAT_BIOMASS]*multiplier/efficiency > points)
+	if(materials[MAT_BIOMASS]*multiplier/efficiency > points)
 		menustat = "nopoints"
 		return FALSE
 	else

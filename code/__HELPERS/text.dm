@@ -67,7 +67,7 @@
 	if(length(text) > max_length)
 		return			//message too long
 	var/non_whitespace = 0
-	for(var/i=1, i<=length(text), i++)
+	for(var/i=1, i <= length(text), i++)
 		switch(text2ascii(text,i))
 			if(62,60,92,47)
 				return			//rejects the text if it contains these bad characters: <, >, \ or /
@@ -108,7 +108,7 @@
 	var/last_char_group			= 0
 	var/t_out = ""
 
-	for(var/i=1, i<=length(t_in), i++)
+	for(var/i=1, i <= length(t_in), i++)
 		var/ascii_char = text2ascii(t_in,i)
 		switch(ascii_char)
 			// A  .. Z
@@ -231,7 +231,7 @@
 
 //Adds 'u' number of zeros ahead of the text 't'
 /proc/add_zero(t, u)
-	while (length(t) < u)
+	while(length(t) < u)
 		t = "0[t]"
 	return t
 
@@ -249,15 +249,15 @@
 
 //Returns a string with reserved characters and spaces before the first letter removed
 /proc/trim_left(text)
-	for (var/i = 1 to length(text))
-		if (text2ascii(text, i) > 32)
+	for(var/i = 1 to length(text))
+		if(text2ascii(text, i) > 32)
 			return copytext(text, i)
 	return ""
 
 //Returns a string with reserved characters and spaces after the last letter removed
 /proc/trim_right(text)
-	for (var/i = length(text), i > 0, i--)
-		if (text2ascii(text, i) > 32)
+	for(var/i = length(text), i > 0, i--)
+		if(text2ascii(text, i) > 32)
 			return copytext(text, 1, i + 1)
 
 	return ""
@@ -342,12 +342,12 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 GLOBAL_LIST_INIT(binary, list("0","1"))
 /proc/random_string(length, list/characters)
 	. = ""
-	for(var/i=1, i<=length, i++)
+	for(var/i=1, i <= length, i++)
 		. += pick(characters)
 
 /proc/repeat_string(times, string="")
 	. = ""
-	for(var/i=1, i<=times, i++)
+	for(var/i=1, i <= times, i++)
 		. += string
 
 /proc/random_short_color()
@@ -358,10 +358,10 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 
 /proc/add_zero2(t, u)
 	var/temp1
-	while (length(t) < u)
+	while(length(t) < u)
 		t = "0[t]"
 	temp1 = t
-	if (length(t) > u)
+	if(length(t) > u)
 		temp1 = copytext(t,2,u+1)
 	return temp1
 
@@ -407,7 +407,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 /proc/findchar(haystack, needles, start=1, end=0)
 	var/temp
 	var/len = length(needles)
-	for(var/i=1, i<=len, i++)
+	for(var/i=1, i <= len, i++)
 		temp = findtextEx(haystack, ascii2text(text2ascii(needles,i)), start, end)	//Note: ascii2text(text2ascii) is faster than copytext()
 		if(temp)
 			end = temp
@@ -782,7 +782,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 
 	var/list/words = splittext(message," ")
 	var/list/rearranged = list()
-	for(var/i=1;i<=words.len;i++)
+	for(var/i=1;i <= words.len;i++)
 		var/cword = pick(words)
 		words.Remove(cword)
 		var/suffix = copytext(cword,length(cword)-1,length(cword))

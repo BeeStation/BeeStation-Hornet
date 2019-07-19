@@ -11,7 +11,7 @@
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
 	This proc checks if the current directory of the savefile S needs updating
 	It is to be used by the load_character and load_preferences procs.
-	(S.cd=="/" is preferences, S.cd=="/character[integer]" is a character slot, etc)
+	(S.cd == "/" is preferences, S.cd == "/character[integer]" is a character slot, etc)
 
 	if the current directory's version is below SAVEFILE_VERSION_MIN it will simply wipe everything in that directory
 	(if we're at root "/" then it'll just wipe the entire savefile, for instance.)
@@ -145,27 +145,27 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["crew_objectives"]	>> crew_objectives
 
 
-	S["default_slot"]		>> default_slot
-	S["chat_toggles"]		>> chat_toggles
-	S["toggles"]			>> toggles
-	S["ghost_form"]			>> ghost_form
-	S["ghost_orbit"]		>> ghost_orbit
-	S["ghost_accs"]			>> ghost_accs
-	S["ghost_others"]		>> ghost_others
-	S["preferred_map"]		>> preferred_map
-	S["ignoring"]			>> ignoring
-	S["ghost_hud"]			>> ghost_hud
-	S["inquisitive_ghost"]	>> inquisitive_ghost
-	S["uses_glasses_colour"]>> uses_glasses_colour
-	S["clientfps"]			>> clientfps
-	S["parallax"]			>> parallax
-	S["ambientocclusion"]	>> ambientocclusion
-	S["auto_fit_viewport"]	>> auto_fit_viewport
-	S["menuoptions"]		>> menuoptions
-	S["enable_tips"]		>> enable_tips
-	S["tip_delay"]			>> tip_delay
-	S["pda_style"]			>> pda_style
-	S["pda_color"]			>> pda_color
+	S["default_slot"]		 >> default_slot
+	S["chat_toggles"]		 >> chat_toggles
+	S["toggles"]			 >> toggles
+	S["ghost_form"]			 >> ghost_form
+	S["ghost_orbit"]		 >> ghost_orbit
+	S["ghost_accs"]			 >> ghost_accs
+	S["ghost_others"]		 >> ghost_others
+	S["preferred_map"]		 >> preferred_map
+	S["ignoring"]			 >> ignoring
+	S["ghost_hud"]			 >> ghost_hud
+	S["inquisitive_ghost"]	 >> inquisitive_ghost
+	S["uses_glasses_colour"] >> uses_glasses_colour
+	S["clientfps"]			 >> clientfps
+	S["parallax"]			 >> parallax
+	S["ambientocclusion"]	 >> ambientocclusion
+	S["auto_fit_viewport"]	 >> auto_fit_viewport
+	S["menuoptions"]		 >> menuoptions
+	S["enable_tips"]		 >> enable_tips
+	S["tip_delay"]			 >> tip_delay
+	S["pda_style"]			 >> pda_style
+	S["pda_color"]			 >> pda_color
 
 	S["key_bindings"]		>> key_bindings
 
@@ -200,7 +200,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	pda_color		= sanitize_hexcolor(pda_color, 6, 1, initial(pda_color))
 
 	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
-	if (!key_bindings)
+	if(!key_bindings)
 		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
 
 	return 1
@@ -249,7 +249,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["pda_style"], pda_style)
 	WRITE_FILE(S["pda_color"], pda_color)
 
-	if (!key_bindings)
+	if(!key_bindings)
 		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
 	WRITE_FILE(S["key_bindings"], key_bindings)
 	return 1

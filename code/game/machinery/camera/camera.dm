@@ -76,7 +76,7 @@
 		assembly.state = 4 //STATE_FINISHED
 	GLOB.cameranet.cameras += src
 	GLOB.cameranet.addCamera(src)
-	if (isturf(loc))
+	if(isturf(loc))
 		myarea = get_area(src)
 		LAZYADD(myarea.cameras, src)
 	proximity_monitor = new(src, 1)
@@ -154,7 +154,7 @@
 						addtimer(CALLBACK(src, .proc/cancelCameraAlarm), 100)
 			for(var/i in GLOB.player_list)
 				var/mob/M = i
-				if (M.client.eye == src)
+				if(M.client.eye == src)
 					M.unset_machine()
 					M.reset_perspective(null)
 					to_chat(M, "The screen bursts into static.")
@@ -174,7 +174,7 @@
 	user.electrocute_act(10, src)
 
 /obj/machinery/camera/singularity_pull(S, current_size)
-	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
+	if(status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
 		toggle_cam(null, 0)
 	..()
 
@@ -281,7 +281,7 @@
 				else
 					to_chat(AI, "<b><a href='?src=[REF(AI)];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				AI.last_paper_seen = "<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
-			else if (O.client && O.client.eye == src)
+			else if(O.client && O.client.eye == src)
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
 				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
 		return
@@ -338,7 +338,7 @@
 		xray_module = "xray"
 	if(!status)
 		icon_state = "[xray_module][default_camera_icon]_off"
-	else if (stat & EMPED)
+	else if(stat & EMPED)
 		icon_state = "[xray_module][default_camera_icon]_emp"
 	else
 		icon_state = "[xray_module][default_camera_icon][in_use_lights ? "_in_use" : ""]"
@@ -347,7 +347,7 @@
 	status = !status
 	if(can_use())
 		GLOB.cameranet.addCamera(src)
-		if (isturf(loc))
+		if(isturf(loc))
 			myarea = get_area(src)
 			LAZYADD(myarea.cameras, src)
 		else
@@ -355,7 +355,7 @@
 	else
 		set_light(0)
 		GLOB.cameranet.removeCamera(src)
-		if (isarea(myarea))
+		if(isarea(myarea))
 			LAZYREMOVE(myarea.cameras, src)
 	GLOB.cameranet.updateChunk(x, y, z)
 	var/change_msg = "deactivates"
@@ -377,7 +377,7 @@
 	//Apparently, this will disconnect anyone even if the camera was re-activated.
 	//I guess that doesn't matter since they can't use it anyway?
 	for(var/mob/O in GLOB.player_list)
-		if (O.client && O.client.eye == src)
+		if(O.client && O.client.eye == src)
 			O.unset_machine()
 			O.reset_perspective(null)
 			to_chat(O, "The screen bursts into static.")

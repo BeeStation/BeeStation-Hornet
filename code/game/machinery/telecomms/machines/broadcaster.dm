@@ -33,7 +33,7 @@ GLOBAL_VAR_INIT(message_delay, 0) // To make sure restarting the recentmessages 
 		original.data["compression"] = signal.data["compression"]
 
 	var/turf/T = get_turf(src)
-	if (T)
+	if(T)
 		signal.levels |= T.z
 
 	var/signal_message = "[signal.frequency]:[signal.data["message"]]:[signal.data["name"]]"

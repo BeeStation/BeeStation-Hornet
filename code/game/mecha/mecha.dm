@@ -1,8 +1,8 @@
-#define MECHA_INT_FIRE			(1<<0)
-#define MECHA_INT_TEMP_CONTROL	(1<<1)
-#define MECHA_INT_SHORT_CIRCUIT	(1<<2)
-#define MECHA_INT_TANK_BREACH	(1<<3)
-#define MECHA_INT_CONTROL_LOST	(1<<4)
+#define MECHA_INT_FIRE			(1 << 0)
+#define MECHA_INT_TEMP_CONTROL	(1 << 1)
+#define MECHA_INT_SHORT_CIRCUIT	(1 << 2)
+#define MECHA_INT_TANK_BREACH	(1 << 3)
+#define MECHA_INT_CONTROL_LOST	(1 << 4)
 
 #define MELEE 1
 #define RANGED 2
@@ -137,7 +137,7 @@
 	icon_state += "-open"
 	add_radio()
 	add_cabin()
-	if (enclosed)
+	if(enclosed)
 		add_airtank()
 	spark_system.set_up(2, 0, src)
 	spark_system.attach(src)
@@ -157,7 +157,7 @@
 	diag_hud_set_mechtracking()
 
 /obj/mecha/update_icon()
-	if (silicon_pilot && silicon_icon_state)
+	if(silicon_pilot && silicon_icon_state)
 		icon_state = silicon_icon_state
 	. = ..()
 
@@ -404,8 +404,8 @@
 		var/atom/checking = occupant.loc
 		// recursive check to handle all cases regarding very nested occupants,
 		// such as brainmob inside brainitem inside MMI inside mecha
-		while (!isnull(checking))
-			if (isturf(checking))
+		while(!isnull(checking))
+			if(isturf(checking))
 				// hit a turf before hitting the mecha, seems like they have
 				// been moved out
 				occupant.clear_alert("charge")
@@ -413,7 +413,7 @@
 				RemoveActions(occupant, human_occupant=1)
 				occupant = null
 				break
-			else if (checking == src)
+			else if(checking == src)
 				break  // all good
 			checking = checking.loc
 
@@ -433,8 +433,8 @@
 
 /obj/mecha/fire_act() //Check if we should ignite the pilot of an open-canopy mech
 	. = ..()
-	if (occupant && !enclosed && !silicon_pilot)
-		if (occupant.fire_stacks < 5)
+	if(occupant && !enclosed && !silicon_pilot)
+		if(occupant.fire_stacks < 5)
 			occupant.fire_stacks += 1
 		occupant.IgniteMob()
 
@@ -524,7 +524,7 @@
 	. = ..()
 	if(.)
 		events.fireEvent("onMove",get_turf(src))
-	if (internal_tank?.disconnect()) // Something moved us and broke connection
+	if(internal_tank?.disconnect()) // Something moved us and broke connection
 		occupant_message("<span class='warning'>Air port connection teared off!</span>")
 		log_message("Lost connection to gas port.", LOG_MECHA)
 
@@ -862,7 +862,7 @@
 	if(!ishuman(user)) // no silicons or drones in mechas.
 		return
 	log_message("[user] tries to move in.", LOG_MECHA)
-	if (occupant)
+	if(occupant)
 		to_chat(usr, "<span class='warning'>The [name] is already occupied!</span>")
 		log_message("Permission denied (Occupied).", LOG_MECHA)
 		return
@@ -870,9 +870,9 @@
 		var/passed = FALSE
 		if(user.has_dna())
 			var/mob/living/carbon/C = user
-			if(C.dna.unique_enzymes==dna_lock)
+			if(C.dna.unique_enzymes == dna_lock)
 				passed = TRUE
-		if (!passed)
+		if(!passed)
 			to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
 			log_message("Permission denied (DNA LOCK).", LOG_MECHA)
 			return
@@ -1085,7 +1085,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 ///////////////////////
 
 /obj/mecha/proc/has_charge(amount)
-	return (get_charge()>=amount)
+	return (get_charge() >= amount)
 
 /obj/mecha/proc/get_charge()
 	for(var/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/R in equipment)

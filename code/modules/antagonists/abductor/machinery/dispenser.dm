@@ -18,7 +18,7 @@
 	gland_types = shuffle(gland_types)
 	gland_colors = new/list(gland_types.len)
 	amounts = new/list(gland_types.len)
-	for(var/i=1,i<=gland_types.len,i++)
+	for(var/i=1,i <= gland_types.len,i++)
 		gland_colors[i] = random_color()
 		amounts[i] = rand(1,5)
 
@@ -44,13 +44,13 @@
 	</style>"}
 	var/dat = ""
 	var/item_count = 0
-	for(var/i=1,i<=gland_colors.len,i++)
+	for(var/i=1,i <= gland_colors.len,i++)
 		item_count++
 		var/g_color = gland_colors[i]
 		var/amount = amounts[i]
 		dat += "<a class='box gland' style='background-color:[g_color]' href='?src=[REF(src)];dispense=[i]'>[amount]</a>"
 		if(item_count == 4) // Four boxes per line
-			dat +="</br></br>"
+			dat += "</br></br>"
 			item_count = 0
 	var/datum/browser/popup = new(user, "glands", "Gland Dispenser", 200, 200)
 	popup.add_head_content(box_css)
@@ -62,7 +62,7 @@
 	if(istype(W, /obj/item/organ/heart/gland))
 		if(!user.transferItemToLoc(W, src))
 			return
-		for(var/i=1,i<=gland_colors.len,i++)
+		for(var/i=1,i <= gland_colors.len,i++)
 			if(gland_types[i] == W.type)
 				amounts[i]++
 	else

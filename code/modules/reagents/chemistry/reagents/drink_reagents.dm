@@ -224,7 +224,7 @@
 /datum/reagent/consumable/soymilk/on_mob_add(mob/living/L)
 	..()
 
-	if (L.client)
+	if(L.client)
 		SSmedals.UnlockMedal(MEDAL_APPLY_REAGENT_SOYMILK,L.client)
 
 
@@ -397,7 +397,7 @@
 /datum/reagent/consumable/nuka_cola/on_mob_life(mob/living/carbon/M)
 	M.Jitter(20)
 	M.set_drugginess(30)
-	M.dizziness +=1.5
+	M.dizziness += 1.5
 	M.drowsyness = 0
 	M.AdjustSleeping(-40, FALSE)
 	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
@@ -424,7 +424,7 @@
 
 /datum/reagent/consumable/grey_bull/on_mob_life(mob/living/carbon/M)
 	M.Jitter(20)
-	M.dizziness +=1
+	M.dizziness += 1
 	M.drowsyness = 0
 	M.AdjustSleeping(-40, FALSE)
 	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)

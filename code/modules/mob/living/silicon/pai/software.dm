@@ -554,7 +554,7 @@
 	var/dat = "<h3>Atmospheric Sensor</h4>"
 
 	var/turf/T = get_turf(loc)
-	if (isnull(T))
+	if(isnull(T))
 		dat += "Unable to obtain a reading.<br>"
 	else
 		var/datum/gas_mixture/environment = T.return_air()
@@ -565,7 +565,7 @@
 
 		dat += "Air Pressure: [round(pressure,0.1)] kPa<br>"
 
-		if (total_moles)
+		if(total_moles)
 			for(var/id in env_gases)
 				var/gas_level = env_gases[id][MOLES]/total_moles
 				if(gas_level > 0.01)
@@ -639,8 +639,8 @@
 	[(aiPDA.silent) ? "<font color='red'>\[Off\]</font>" : "<font color='green'>\[On\]</font>"]</a><br><br>"}
 	dat += "<ul>"
 	if(!aiPDA.toff)
-		for (var/obj/item/pda/P in sortNames(get_viewable_pdas()))
-			if (P == aiPDA)
+		for(var/obj/item/pda/P in sortNames(get_viewable_pdas()))
+			if(P == aiPDA)
 				continue
 			dat += "<li><a href='byond://?src=[REF(src)];software=pdamessage;target=[REF(P)]'>[P]</a>"
 			dat += "</li>"

@@ -45,7 +45,7 @@
 
 /datum/world_topic/ping/Run(list/input)
 	. = 0
-	for (var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.clients)
 		++.
 
 /datum/world_topic/playing

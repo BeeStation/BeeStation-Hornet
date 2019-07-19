@@ -56,5 +56,5 @@
 					"<span class='danger'>Your brain feels like it's being torn apart, there is only the honkmother now.</span>")
 	flash_act()
 
-	if (client)
+	if(client)
 		SSmedals.UnlockMedal(MEDAL_GET_CLUWNED,client)

@@ -47,7 +47,7 @@
 
 /obj/item/documents/photocopy/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/toy/crayon/red) || istype(O, /obj/item/toy/crayon/blue))
-		if (forgedseal)
+		if(forgedseal)
 			to_chat(user, "<span class='warning'>You have already forged a seal on [src]!</span>")
 		else
 			var/obj/item/toy/crayon/C = O

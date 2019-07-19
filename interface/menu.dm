@@ -19,14 +19,14 @@ GLOBAL_LIST_EMPTY(menulist)
 /datum/verbs/menu/HandleVerb(list/entry, verbpath, client/C)
 	var/datum/verbs/menu/verb_true_parent = GLOB.menulist[verblist[verbpath]]
 	var/true_checkbox = verb_true_parent.checkbox
-	if (true_checkbox != CHECKBOX_NONE)
+	if(true_checkbox != CHECKBOX_NONE)
 		var/checkedverb = verb_true_parent.Get_checked(C)
-		if (true_checkbox == CHECKBOX_GROUP)
-			if (verbpath == checkedverb)
+		if(true_checkbox == CHECKBOX_GROUP)
+			if(verbpath == checkedverb)
 				entry["is-checked"] = TRUE
 			else
 				entry["is-checked"] = FALSE
-		else if (true_checkbox == CHECKBOX_TOGGLE)
+		else if(true_checkbox == CHECKBOX_TOGGLE)
 			entry["is-checked"] = checkedverb
 
 		entry["command"] = ".updatemenuchecked \"[verb_true_parent.type]\" \"[verbpath]\"\n[entry["command"]]"
@@ -41,10 +41,10 @@ GLOBAL_LIST_EMPTY(menulist)
 	return
 
 /datum/verbs/menu/proc/Set_checked(client/C, verbpath)
-	if (checkbox == CHECKBOX_GROUP)
+	if(checkbox == CHECKBOX_GROUP)
 		C.prefs.menuoptions[type] = verbpath
 		C.prefs.save_preferences()
-	else if (checkbox == CHECKBOX_TOGGLE)
+	else if(checkbox == CHECKBOX_TOGGLE)
 		var/checked = Get_checked(C)
 		C.prefs.menuoptions[type] = !checked
 		C.prefs.save_preferences()
@@ -54,22 +54,22 @@ GLOBAL_LIST_EMPTY(menulist)
 	set name = ".updatemenuchecked"
 	menutype = text2path(menutype)
 	verbpath = text2path(verbpath)
-	if (!menutype || !verbpath)
+	if(!menutype || !verbpath)
 		return
 	var/datum/verbs/menu/M = GLOB.menulist[menutype]
-	if (!M)
+	if(!M)
 		return
-	if (!(verbpath in typesof("[menutype]/verb")))
+	if(!(verbpath in typesof("[menutype]/verb")))
 		return
 	M.Set_checked(src, verbpath)
 
 
 /datum/verbs/menu/Icon/Load_checked(client/C) //So we can be lazy, we invoke the "checked" menu item on menu load.
 	var/procpath/verbpath = Get_checked(C)
-	if (!verbpath || !(verbpath in typesof("[type]/verb")))
+	if(!verbpath || !(verbpath in typesof("[type]/verb")))
 		return
 
-	if (copytext(verbpath.name,1,2) == "@")
+	if(copytext(verbpath.name,1,2) == "@")
 		winset(C, null, list2params(list("command" = copytext(verbpath.name,2))))
 	else
 		winset(C, null, list2params(list("command" = replacetext(verbpath.name, " ", "-"))))

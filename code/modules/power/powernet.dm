@@ -51,13 +51,13 @@
 		else
 			C.powernet.remove_cable(C) //..remove it
 	C.powernet = src
-	cables +=C
+	cables += C
 
 //remove a power machine from the current powernet
 //if the powernet is then empty, delete it
 //Warning : this proc DON'T check if the machine exists
 /datum/powernet/proc/remove_machine(obj/machinery/power/M)
-	nodes -=M
+	nodes -= M
 	M.powernet = null
 	if(is_empty())//the powernet is now empty...
 		qdel(src)///... delete it

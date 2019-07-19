@@ -47,7 +47,7 @@
 		dat += "<a href='byond://?src=[REF(src)];aipic=1'>Print photo from database</a><BR><BR>"
 	dat += "Current toner level: [toner]"
 	if(!toner)
-		dat +="<BR>Please insert a new toner cartridge!"
+		dat += "<BR>Please insert a new toner cartridge!"
 	user << browse(dat, "window=copier")
 	onclose(user, "copier")
 
@@ -104,7 +104,7 @@
 			for(var/i = 0, i < copies, i++)
 				if(toner > 5 && !busy && doccopy)
 					new /obj/item/documents/photocopy(loc, doccopy)
-					toner-= 6 // the sprite shows 6 papers, yes I checked
+					toner -= 6 // the sprite shows 6 papers, yes I checked
 					busy = TRUE
 					sleep(15)
 					busy = FALSE
@@ -259,7 +259,7 @@
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
-	if (!istype(target) || target.anchored || target.buckled || !Adjacent(target) || !user.canUseTopic(src, BE_CLOSE) || target == ass || copier_blocked())
+	if(!istype(target) || target.anchored || target.buckled || !Adjacent(target) || !user.canUseTopic(src, BE_CLOSE) || target == ass || copier_blocked())
 		return
 	src.add_fingerprint(user)
 	if(target == user)

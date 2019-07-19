@@ -48,7 +48,7 @@
 
 /obj/item/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
-	if (active)
+	if(active)
 		force = 30
 		icon_state = "sword[item_color]"
 		w_class = WEIGHT_CLASS_BULKY
@@ -124,7 +124,7 @@
 		..()
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if (isitem(AM) && !istype(AM,/obj/item/projectile))
+	if(isitem(AM) && !istype(AM,/obj/item/projectile))
 		if(prob(50))
 			AM.forceMove(get_turf(src))
 			visible_message("<span class='warning'>Swish! [AM] lands in [src].</span>")
@@ -190,7 +190,7 @@
 	var/numready = 0
 	for(var/obj/machinery/readybutton/button in currentarea)
 		numbuttons++
-		if (button.ready)
+		if(button.ready)
 			numready++
 
 	if(numbuttons == numready)

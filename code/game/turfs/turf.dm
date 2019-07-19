@@ -65,7 +65,7 @@
 		CALCULATE_ADJACENT_TURFS(src)
 		SSair.add_to_active(src)
 
-	if (light_power && light_range)
+	if(light_power && light_range)
 		update_light()
 
 	var/turf/T = SSmapping.get_turf_above(src)
@@ -77,7 +77,7 @@
 		T.multiz_turf_new(src, UP)
 		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
 
-	if (opacity)
+	if(opacity)
 		has_opaque_atom = TRUE
 
 	ComponentInitialize()
@@ -261,7 +261,7 @@
 		AM.ex_act(explosion_level)
 
 	// If an opaque movable atom moves around we need to potentially update visibility.
-	if (AM.opacity)
+	if(AM.opacity)
 		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
 		reconsider_lights()
 
@@ -346,7 +346,7 @@
 
 /turf/proc/phase_damage_creatures(damage,mob/U = null)//>Ninja Code. Hurts and knocks out creatures on this turf //NINJACODE
 	for(var/mob/living/M in src)
-		if(M==U)
+		if(M == U)
 			continue//Will not harm U. Since null != M, can be excluded to kill everyone.
 		M.adjustBruteLoss(damage)
 		M.Unconscious(damage * 4)
@@ -367,7 +367,7 @@
 
 	var/list/things = src_object.contents()
 	var/datum/progressbar/progress = new(user, things.len, src)
-	while (do_after(usr, 10, TRUE, src, FALSE, CALLBACK(src_object, /datum/component/storage.proc/mass_remove_from_storage, src, things, progress)))
+	while(do_after(usr, 10, TRUE, src, FALSE, CALLBACK(src_object, /datum/component/storage.proc/mass_remove_from_storage, src, things, progress)))
 		stoplag(1)
 	qdel(progress)
 
@@ -533,7 +533,7 @@
 /turf/proc/add_vomit_floor(mob/living/carbon/M, toxvomit = NONE)
 	var/obj/effect/decal/cleanable/vomit/V = new /obj/effect/decal/cleanable/vomit(src, M.get_static_viruses())
 	// If the vomit combined, apply toxicity and reagents to the old vomit
-	if (QDELETED(V))
+	if(QDELETED(V))
 		V = locate() in src
 	if(!V)
 		return

@@ -180,7 +180,7 @@
 		var/locname = A.map_name
 
 		gang = tempgang
-		gang.dom_attempts --
+		gang.dom_attempts--
 		priority_announce("Network breach detected in [locname]. The [gang.name] Gang is attempting to seize control of the station!","Network Alert")
 		gang.domination()
 		SSshuttle.registerHostileEnvironment(src)

@@ -78,7 +78,7 @@
 		to_chat(user, "<span class='notice'>You dedicate your module to [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>You grab [src] with both hands.</span>")
-	if (wieldsound)
+	if(wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
 	O.name = "[name] - offhand"
@@ -150,9 +150,9 @@
 
 /obj/item/twohanded/offhand/attack_self(mob/living/carbon/user)		//You should never be able to do this in standard use of two handed items. This is a backup for lingering offhands.
 	var/obj/item/twohanded/O = user.get_inactive_held_item()
-	if (istype(O) && !istype(O, /obj/item/twohanded/offhand/))		//If you have a proper item in your other hand that the offhand is for, do nothing. This should never happen.
+	if(istype(O) && !istype(O, /obj/item/twohanded/offhand/))		//If you have a proper item in your other hand that the offhand is for, do nothing. This should never happen.
 		return
-	if (QDELETED(src))
+	if(QDELETED(src))
 		return
 	qdel(src)																//If it's another offhand, or literally anything else, qdel. If I knew how to add logging messages I'd put one here.
 
@@ -304,7 +304,7 @@
 				randdir = pick(GLOB.alldirs)
 				user.Move(get_step(user, randdir),randdir)
 				user.emote("spin")
-				if (i == 3 && myhead)
+				if(i == 3 && myhead)
 					myhead.drop_limb()
 				sleep(3)
 			else
@@ -363,7 +363,7 @@
 
 /obj/item/twohanded/dualsaber/proc/impale(mob/living/user)
 	to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
-	if (force_wielded)
+	if(force_wielded)
 		user.take_bodypart_damage(20,25,check_armor = TRUE)
 	else
 		user.adjustStaminaLoss(25)
@@ -492,7 +492,7 @@
 
 /obj/item/twohanded/spear/CheckParts(list/parts_list)
 	var/obj/item/shard/tip = locate() in parts_list
-	if (istype(tip, /obj/item/shard/plasma))
+	if(istype(tip, /obj/item/shard/plasma))
 		force_wielded = 19
 		force_unwielded = 11
 		throwforce = 21
@@ -517,7 +517,7 @@
 
 /obj/item/twohanded/spear/explosive/Initialize(mapload, obj/item/grenade/G)
 	. = ..()
-	if (!G)
+	if(!G)
 		G = new /obj/item/grenade/iedcasing() //For admin-spawned explosive lances
 	G.forceMove(src)
 	explosive = G

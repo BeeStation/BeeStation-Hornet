@@ -8,7 +8,7 @@
 
 	var/chosen = pick_closest_path(object, make_types_fancy(subtypesof(/obj)))
 
-	if (!chosen)
+	if(!chosen)
 		return
 
 	var/mob/living/simple_animal/hostile/mimic/copy/basemob = /mob/living/simple_animal/hostile/mimic/copy
@@ -31,38 +31,38 @@
 	)
 
 	var/list/prefreturn = presentpreflikepicker(usr,"Customize mob", "Customize mob", Button1="Ok", width = 450, StealFocus = 1,Timeout = 0, settings=settings)
-	if (prefreturn["button"] == 1)
+	if(prefreturn["button"] == 1)
 		settings = prefreturn["settings"]
 		var/mainsettings = settings["mainsettings"]
 		chosen_obj = text2path(mainsettings["objtype"]["value"])
 
 		basemob = text2path(mainsettings["mobtype"]["value"])
-		if (!ispath(basemob, /mob/living/simple_animal/hostile/mimic/copy) || !ispath(chosen_obj, /obj))
+		if(!ispath(basemob, /mob/living/simple_animal/hostile/mimic/copy) || !ispath(chosen_obj, /obj))
 			to_chat(usr, "Mob or object path invalid")
 
 		basemob = new basemob(get_turf(usr), new chosen_obj(get_turf(usr)), usr, mainsettings["dropitem"]["value"] == "Yes" ? FALSE : TRUE, (mainsettings["googlyeyes"]["value"] == "Yes" ? FALSE : TRUE))
 
-		if (mainsettings["disableai"]["value"] == "Yes")
+		if(mainsettings["disableai"]["value"] == "Yes")
 			basemob.toggle_ai(AI_OFF)
 
-		if (mainsettings["idledamage"]["value"] == "No")
+		if(mainsettings["idledamage"]["value"] == "No")
 			basemob.idledamage = FALSE
 
-		if (mainsettings["access"])
+		if(mainsettings["access"])
 			var/newaccess = text2path(mainsettings["access"]["value"])
-			if (ispath(newaccess))
+			if(ispath(newaccess))
 				basemob.access_card = new newaccess
 
-		if (mainsettings["maxhealth"]["value"])
-			if (!isnum(mainsettings["maxhealth"]["value"]))
+		if(mainsettings["maxhealth"]["value"])
+			if(!isnum(mainsettings["maxhealth"]["value"]))
 				mainsettings["maxhealth"]["value"] = text2num(mainsettings["maxhealth"]["value"])
-			if (mainsettings["maxhealth"]["value"] > 0)
+			if(mainsettings["maxhealth"]["value"] > 0)
 				basemob.maxHealth = basemob.maxHealth =  mainsettings["maxhealth"]["value"]
 
-		if (mainsettings["name"]["value"])
+		if(mainsettings["name"]["value"])
 			basemob.name = basemob.real_name = html_decode(mainsettings["name"]["value"])
 
-		if (mainsettings["ckey"]["value"] != "none")
+		if(mainsettings["ckey"]["value"] != "none")
 			basemob.ckey = mainsettings["ckey"]["value"]
 
 

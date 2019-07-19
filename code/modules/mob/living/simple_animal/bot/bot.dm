@@ -228,10 +228,10 @@
 /mob/living/simple_animal/bot/handle_automated_action() //Master process which handles code common across most bots.
 	diag_hud_set_botmode()
 
-	if (ignorelistcleanuptimer % 300 == 0) // Every 300 actions, clean up the ignore list from old junk
+	if(ignorelistcleanuptimer % 300 == 0) // Every 300 actions, clean up the ignore list from old junk
 		for(var/ref in ignore_list)
 			var/atom/referredatom = locate(ref)
-			if (!referredatom || !istype(referredatom) || QDELETED(referredatom))
+			if(!referredatom || !istype(referredatom) || QDELETED(referredatom))
 				ignore_list -= ref
 		ignorelistcleanuptimer = 1
 	else
@@ -291,7 +291,7 @@
 		else
 			to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
 			if(do_after(user, 30, target = src))
-				if (paicard)
+				if(paicard)
 					user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
 					ejectpai(user)
 	else
@@ -425,7 +425,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 				var/final_result = checkscan(deepscan,scan_type,old_target)
 				if(final_result)
 					return final_result
-	for (var/scan in shuffle(view(scan_range, src))-adjacent) //Search for something in range!
+	for(var/scan in shuffle(view(scan_range, src))-adjacent) //Search for something in range!
 		var/final_result = checkscan(scan,scan_type,old_target)
 		if(final_result)
 			return final_result

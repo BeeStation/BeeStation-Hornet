@@ -49,7 +49,7 @@ Bonus
 			sleep_level = 0
 			sleepy_ticks = 0
 
-	if(sleepy_ticks && A.stage>=5)
+	if(sleepy_ticks && A.stage >= 5)
 		sleep_level++
 		sleepy_ticks--
 	else

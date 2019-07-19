@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 			if(!(locate(/obj/structure/grille) in T))
 				var/window_check = 0
 				for(var/obj/structure/window/W in T)
-					if (W.dir == turn(C1.dir,180) || W.dir in list(5,6,9,10) )
+					if(W.dir == turn(C1.dir,180) || W.dir in list(5,6,9,10) )
 						window_check = 1
 						break
 				if(!window_check)
@@ -158,7 +158,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 		for(var/obj/item/radio/intercom/I in world)
 			for(var/turf/T in orange(7,I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
-				if (!(F in view(7,I.loc)))
+				if(!(F in view(7,I.loc)))
 					qdel(F)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Intercom Range") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -330,20 +330,20 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 	var/max_y = -INFINITY
 
 	for(var/z in 1 to max(world.maxz, z_list.len))
-		if (z > z_list.len)
+		if(z > z_list.len)
 			messages += "<b>[z]</b>: Unmanaged (out of bounds)<br>"
 			continue
 		var/datum/space_level/S = z_list[z]
-		if (!S)
+		if(!S)
 			messages += "<b>[z]</b>: Unmanaged (null)<br>"
 			continue
 		var/linkage
-		switch (S.linkage)
-			if (UNAFFECTED)
+		switch(S.linkage)
+			if(UNAFFECTED)
 				linkage = "no linkage"
-			if (SELFLOOPING)
+			if(SELFLOOPING)
 				linkage = "self-looping"
-			if (CROSSLINKED)
+			if(CROSSLINKED)
 				linkage = "linked at ([S.xi], [S.yi])"
 				linked_levels += S
 				min_x = min(min_x, S.xi)
@@ -354,11 +354,11 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 				linkage = "unknown linkage '[S.linkage]'"
 
 		messages += "<b>[z]</b>: [S.name], [linkage], traits: [json_encode(S.traits)]<br>"
-		if (S.z_value != z)
+		if(S.z_value != z)
 			messages += "-- z_value is [S.z_value], should be [z]<br>"
-		if (S.name == initial(S.name))
+		if(S.name == initial(S.name))
 			messages += "-- name not set<br>"
-		if (z > world.maxz)
+		if(z > world.maxz)
 			messages += "-- exceeds max z"
 
 	var/grid[max_x - min_x + 1][max_y - min_y + 1]

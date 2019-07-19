@@ -112,7 +112,7 @@
 	var/turf/T = get_turf(user)
 	var/list/levels = SSmapping.levels_by_trait(ZTRAIT_SPACE_RUINS)
 	var/turf/dest
-	if (levels.len)
+	if(levels.len)
 		dest = locate(T.x, T.y, pick(levels))
 
 	T.ChangeTurf(/turf/open/chasm)

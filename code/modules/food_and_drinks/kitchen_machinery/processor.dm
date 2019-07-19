@@ -27,19 +27,19 @@
 		to_chat(user, "<span class='notice'>The status display reads: Outputting <b>[rating_amount]</b> item(s) at <b>[rating_speed*100]%</b> speed.<span>")
 
 /obj/machinery/processor/proc/process_food(datum/food_processor_process/recipe, atom/movable/what)
-	if (recipe.output && loc && !QDELETED(src))
+	if(recipe.output && loc && !QDELETED(src))
 		for(var/i = 0, i < rating_amount, i++)
 			new recipe.output(drop_location())
-	if (ismob(what))
+	if(ismob(what))
 		var/mob/themob = what
 		themob.gib(TRUE,TRUE,TRUE)
 	else
 		qdel(what)
 
 /obj/machinery/processor/proc/select_recipe(X)
-	for (var/type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
+	for(var/type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
 		var/datum/food_processor_process/recipe = new type()
-		if (!istype(X, recipe.input) || !istype(src, recipe.required_machine))
+		if(!istype(X, recipe.input) || !istype(src, recipe.required_machine))
 			continue
 		return recipe
 
@@ -110,7 +110,7 @@
 	var/total_time = 0
 	for(var/O in src.contents)
 		var/datum/food_processor_process/P = select_recipe(O)
-		if (!P)
+		if(!P)
 			log_admin("DEBUG: [O] in processor doesn't have a suitable recipe. How did it get in there? Please report it immediately!!!")
 			continue
 		total_time += P.time
@@ -119,7 +119,7 @@
 	sleep(total_time / rating_speed)
 	for(var/atom/movable/O in src.contents)
 		var/datum/food_processor_process/P = select_recipe(O)
-		if (!P)
+		if(!P)
 			log_admin("DEBUG: [O] in processor doesn't have a suitable recipe. How do you put it in?")
 			continue
 		process_food(P, O)
@@ -145,9 +145,9 @@
 	user.visible_message("<span class='notice'>[user] crawls free of the processor!</span>")
 
 /obj/machinery/processor/proc/empty()
-	for (var/obj/O in src)
+	for(var/obj/O in src)
 		O.forceMove(drop_location())
-	for (var/mob/M in src)
+	for(var/mob/M in src)
 		M.forceMove(drop_location())
 
 /obj/machinery/processor/slime
@@ -164,12 +164,12 @@
 	var/i = 0
 	if(!(i = slimecores.Find(AM.type))) // If the item is not found
 		return
-	if (i <= 16) // If in the first 12 slots
-		AM.pixel_x = -12 + ((i%4)*8)
+	if(i <= 16) // If in the first 12 slots
+		AM.pixel_x = -12 + ((i % 4)*8)
 		AM.pixel_y = -12 + (round(i/4)*8)
 		return i
 	var/ii = i - 16
-	AM.pixel_x = -8 + ((ii%3)*8)
+	AM.pixel_x = -8 + ((ii % 3)*8)
 	AM.pixel_y = -8 + (round(ii/3)*8)
 	return i
 
@@ -187,7 +187,7 @@
 	if(!picked_slime)
 		return
 	var/datum/food_processor_process/P = select_recipe(picked_slime)
-	if (!P)
+	if(!P)
 		return
 
 	visible_message("[picked_slime] is sucked into [src].")
@@ -195,7 +195,7 @@
 
 /obj/machinery/processor/slime/process_food(datum/food_processor_process/recipe, atom/movable/what)
 	var/mob/living/simple_animal/slime/S = what
-	if (istype(S))
+	if(istype(S))
 		var/C = S.cores
 		if(S.stat != DEAD)
 			S.forceMove(drop_location())

@@ -96,10 +96,10 @@
 		if("swipeidseclevel")
 			var/mob/M = usr
 			var/obj/item/card/id/I = M.get_active_held_item()
-			if (istype(I, /obj/item/pda))
+			if(istype(I, /obj/item/pda))
 				var/obj/item/pda/pda = I
 				I = pda.id
-			if (I && istype(I))
+			if(I && istype(I))
 				if(ACCESS_CAPTAIN in I.access)
 					var/old_level = GLOB.security_level
 					if(!tmp_alertlevel)
@@ -128,12 +128,12 @@
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 
 		if("announce")
-			if(authenticated==2)
+			if(authenticated == 2)
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 50, 0)
 				make_announcement(usr)
 
 		if("crossserver")
-			if(authenticated==2)
+			if(authenticated == 2)
 				if(!checkCCcooldown())
 					to_chat(usr, "<span class='warning'>Arrays recycling.  Please stand by.</span>")
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
@@ -153,7 +153,7 @@
 			state = STATE_PURCHASE
 
 		if("buyshuttle")
-			if(authenticated==2)
+			if(authenticated == 2)
 				var/list/shuttles = flatten_list(SSmapping.shuttle_templates)
 				var/datum/map_template/shuttle/S = locate(href_list["chosen_shuttle"]) in shuttles
 				if(S && istype(S))
@@ -209,7 +209,7 @@
 			state = STATE_MESSAGELIST
 		if("viewmessage")
 			state = STATE_VIEWMESSAGE
-			if (!currmsg)
+			if(!currmsg)
 				if(href_list["message-num"])
 					var/msgnum = text2num(href_list["message-num"])
 					currmsg = messages[msgnum]
@@ -322,7 +322,7 @@
 			updateDialog()
 
 		if("nukerequest") //When there's no other way
-			if(authenticated==2)
+			if(authenticated == 2)
 				if(!checkCCcooldown())
 					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
 					return
@@ -350,7 +350,7 @@
 			aistate = STATE_MESSAGELIST
 		if("ai-viewmessage")
 			aistate = STATE_VIEWMESSAGE
-			if (!aicurrmsg)
+			if(!aicurrmsg)
 				if(href_list["message-num"])
 					var/msgnum = text2num(href_list["message-num"])
 					aicurrmsg = messages[msgnum]
@@ -436,7 +436,7 @@
 
 /obj/machinery/computer/communications/ui_interact(mob/user)
 	. = ..()
-	if (z > 6)
+	if(z > 6)
 		to_chat(user, "<span class='boldannounce'>Unable to establish a connection</span>: \black You're too far away from the station!")
 		return
 
@@ -459,7 +459,7 @@
 
 	switch(state)
 		if(STATE_DEFAULT)
-			if (authenticated)
+			if(authenticated)
 				if(SSshuttle.emergencyCallAmount)
 					if(SSshuttle.emergencyLastCallLoc)
 						dat += "Most recent shuttle call/recall traced to: <b>[format_text(SSshuttle.emergencyLastCallLoc.name)]</b><BR>"
@@ -477,7 +477,7 @@
 						dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=cancelshuttle'>Cancel Shuttle Call</A> \]"
 
 				dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=status'>Set Status Display</A> \]"
-				if (authenticated==2)
+				if(authenticated == 2)
 					dat += "<BR><BR><B>Captain Functions</B>"
 					dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=announce'>Make a Captain's Announcement</A> \]"
 					var/cross_servers_count = length(CONFIG_GET(keyed_list/cross_server))
@@ -508,7 +508,7 @@
 				dat += "<BR><A HREF='?src=[REF(src)];operation=viewmessage;message-num=[i]'>[M.title]</A>"
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 		if(STATE_VIEWMESSAGE)
-			if (currmsg)
+			if(currmsg)
 				dat += "<B>[currmsg.title]</B><BR><BR>[currmsg.content]"
 				if(!currmsg.answered && currmsg.possible_answers.len)
 					for(var/i in 1 to currmsg.possible_answers.len)
@@ -523,7 +523,7 @@
 				attack_hand(user)
 				return
 		if(STATE_DELMESSAGE)
-			if (currmsg)
+			if(currmsg)
 				dat += "Are you sure you want to delete this message? \[ <A HREF='?src=[REF(src)];operation=delmessage2'>OK</A> | <A HREF='?src=[REF(src)];operation=viewmessage'>Cancel</A> \]"
 			else
 				state = STATE_MESSAGELIST
@@ -650,7 +650,7 @@
 				var/datum/comm_message/M = messages[i]
 				dat += "<BR><A HREF='?src=[REF(src)];operation=ai-viewmessage;message-num=[i]'>[M.title]</A>"
 		if(STATE_VIEWMESSAGE)
-			if (aicurrmsg)
+			if(aicurrmsg)
 				dat += "<B>[aicurrmsg.title]</B><BR><BR>[aicurrmsg.content]"
 				if(!aicurrmsg.answered && aicurrmsg.possible_answers.len)
 					for(var/i in 1 to aicurrmsg.possible_answers.len)

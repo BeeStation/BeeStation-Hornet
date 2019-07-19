@@ -53,11 +53,11 @@
 /obj/machinery/computer/security/interact(mob/user)
 	if(stat)
 		return
-	if (!network)
+	if(!network)
 		user.unset_machine()
 		CRASH("No camera network")
 		return
-	if (!(islist(network)))
+	if(!(islist(network)))
 		user.unset_machine()
 		CRASH("Camera network is not a list")
 		return
@@ -128,7 +128,7 @@
 //returns the list of cameras accessible from this computer
 /obj/machinery/computer/security/proc/get_available_cameras()
 	var/list/L = list()
-	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		if((is_away_level(z) || is_away_level(C.z)) && (C.z != z))//if on away mission, can only receive feed from same z_level cameras
 			continue
 		L.Add(C)

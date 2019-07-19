@@ -9,9 +9,9 @@
 	var/msg = "<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!\n"
 	var/list/obscured = check_obscured_slots()
 
-	if (handcuffed)
+	if(handcuffed)
 		msg += "<span class='warning'>[t_He] [t_is] [icon2html(handcuffed, user)] handcuffed!</span>\n"
-	if (head)
+	if(head)
 		msg += "[t_He] [t_is] wearing [head.get_examine_string(user)] on [t_his] head. \n"
 	if(wear_mask && !(SLOT_WEAR_MASK in obscured))
 		msg += "[t_He] [t_is] wearing [wear_mask.get_examine_string(user)] on [t_his] face.\n"
@@ -22,10 +22,10 @@
 		if(!(I.item_flags & ABSTRACT))
 			msg += "[t_He] [t_is] holding [I.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(I))].\n"
 
-	if (back)
+	if(back)
 		msg += "[t_He] [t_has] [back.get_examine_string(user)] on [t_his] back.\n"
 	var/appears_dead = 0
-	if (stat == DEAD)
+	if(stat == DEAD)
 		appears_dead = 1
 		if(getorgan(/obj/item/organ/brain))
 			msg += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive, with no signs of life.</span>\n"
@@ -34,7 +34,7 @@
 
 	var/list/missing = get_missing_limbs()
 	for(var/t in missing)
-		if(t==BODY_ZONE_HEAD)
+		if(t == BODY_ZONE_HEAD)
 			msg += "<span class='deadsay'><B>[t_His] [parse_zone(t)] is missing!</B></span>\n"
 			continue
 		msg += "<span class='warning'><B>[t_His] [parse_zone(t)] is missing!</B></span>\n"
@@ -43,18 +43,18 @@
 	var/temp = getBruteLoss()
 	if(!(user == src && src.hal_screwyhud == SCREWYHUD_HEALTHY)) //fake healthy
 		if(temp)
-			if (temp < 25)
+			if(temp < 25)
 				msg += "[t_He] [t_has] minor bruising.\n"
-			else if (temp < 50)
+			else if(temp < 50)
 				msg += "[t_He] [t_has] <b>moderate</b> bruising!\n"
 			else
 				msg += "<B>[t_He] [t_has] severe bruising!</B>\n"
 
 		temp = getFireLoss()
 		if(temp)
-			if (temp < 25)
+			if(temp < 25)
 				msg += "[t_He] [t_has] minor burns.\n"
-			else if (temp < 50)
+			else if(temp < 50)
 				msg += "[t_He] [t_has] <b>moderate</b> burns!\n"
 			else
 				msg += "<B>[t_He] [t_has] severe burns!</B>\n"
@@ -63,7 +63,7 @@
 		if(temp)
 			if(temp < 25)
 				msg += "[t_He] [t_is] slightly deformed.\n"
-			else if (temp < 50)
+			else if(temp < 50)
 				msg += "[t_He] [t_is] <b>moderately</b> deformed!\n"
 			else
 				msg += "<b>[t_He] [t_is] severely deformed!</b>\n"

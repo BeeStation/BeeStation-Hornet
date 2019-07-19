@@ -380,10 +380,10 @@
 			send_signal(device_id, list("[action]" = params["val"]), usr)
 			. = TRUE
 		if("excheck")
-			send_signal(device_id, list("checks" = text2num(params["val"])^1), usr)
+			send_signal(device_id, list("checks" = text2num(params["val"]) ^ 1), usr)
 			. = TRUE
 		if("incheck")
-			send_signal(device_id, list("checks" = text2num(params["val"])^2), usr)
+			send_signal(device_id, list("checks" = text2num(params["val"]) ^ 2), usr)
 			. = TRUE
 		if("set_external_pressure", "set_internal_pressure")
 			var/area/A = get_area(src)
@@ -451,7 +451,7 @@
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start() //sparks always.
-	if (electrocute_mob(user, get_area(src), src, 1, TRUE))
+	if(electrocute_mob(user, get_area(src), src, 1, TRUE))
 		return 1
 	else
 		return 0
@@ -683,11 +683,11 @@
 		"zone" = get_area_name(src),
 		"type" = "Atmospheric"
 	))
-	if(alert_level==2)
+	if(alert_level == 2)
 		alert_signal.data["alert"] = "severe"
-	else if (alert_level==1)
+	else if(alert_level == 1)
 		alert_signal.data["alert"] = "minor"
-	else if (alert_level==0)
+	else if(alert_level == 0)
 		alert_signal.data["alert"] = "clear"
 
 	frequency.post_signal(src, alert_signal, range = -1)
@@ -697,7 +697,7 @@
 
 	var/new_area_danger_level = 0
 	for(var/obj/machinery/airalarm/AA in A)
-		if (!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
+		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
 			new_area_danger_level = max(new_area_danger_level,AA.danger_level)
 	if(A.atmosalert(new_area_danger_level,src)) //if area was in normal state or if area was in alert state
 		post_alert(new_area_danger_level)
@@ -731,8 +731,8 @@
 				user.visible_message("[user.name] removes the electronics from [src.name].",\
 									"<span class='notice'>You start prying out the circuit...</span>")
 				W.play_tool_sound(src)
-				if (W.use_tool(src, user, 20))
-					if (buildstage == 1)
+				if(W.use_tool(src, user, 20))
+					if(buildstage == 1)
 						to_chat(user, "<span class='notice'>You remove the air alarm electronics.</span>")
 						new /obj/item/electronics/airalarm( src.loc )
 						playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -747,8 +747,8 @@
 					return
 				user.visible_message("[user.name] wires the air alarm.", \
 									"<span class='notice'>You start wiring the air alarm...</span>")
-				if (do_after(user, 20, target = src))
-					if (cable.get_amount() >= 5 && buildstage == 1)
+				if(do_after(user, 20, target = src))
+					if(cable.get_amount() >= 5 && buildstage == 1)
 						cable.use(5)
 						to_chat(user, "<span class='notice'>You wire the air alarm.</span>")
 						wires.repair()

@@ -117,7 +117,7 @@
 		L["id"] = M.id
 		L["timer"] = M.timer
 		L["timeleft"] = M.getTimerStr()
-		if (timeleft > 1 HOURS)
+		if(timeleft > 1 HOURS)
 			L["timeleft"] = "Infinity"
 		L["can_fast_travel"] = M.timer && timeleft >= 50
 		L["can_fly"] = TRUE
@@ -125,7 +125,7 @@
 			L["can_fly"] = FALSE
 		else if(!M.destination)
 			L["can_fast_travel"] = FALSE
-		if (M.mode != SHUTTLE_IDLE)
+		if(M.mode != SHUTTLE_IDLE)
 			L["mode"] = capitalize(shuttlemode2str(M.mode))
 		L["status"] = M.getDbgStatusText()
 		if(M == existing_shuttle)
@@ -311,10 +311,10 @@
 	var/list/options = list()
 
 	for(var/port in SSshuttle.stationary)
-		if (istype(port, /obj/docking_port/stationary/transit))
+		if(istype(port, /obj/docking_port/stationary/transit))
 			continue  // please don't do this
 		var/obj/docking_port/stationary/S = port
-		if (canDock(S) == SHUTTLE_CAN_DOCK)
+		if(canDock(S) == SHUTTLE_CAN_DOCK)
 			options[S.name || S.id] = S
 
 	options += "--------"
@@ -359,10 +359,10 @@
 	var/list/options = list()
 
 	for(var/port in SSshuttle.stationary)
-		if (istype(port, /obj/docking_port/stationary/transit))
+		if(istype(port, /obj/docking_port/stationary/transit))
 			continue  // please don't do this
 		var/obj/docking_port/stationary/S = port
-		if (canDock(S) == SHUTTLE_CAN_DOCK)
+		if(canDock(S) == SHUTTLE_CAN_DOCK)
 			options[S.name || S.id] = S
 
 	var/selection = input(user, "Select the new arrivals destination:", "Fly Shuttle") as null|anything in options

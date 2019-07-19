@@ -16,8 +16,8 @@
 
 	var/z = location.z
 
-	for(var/i = lowBoundX,i<=hiBoundX,i++)
-		for(var/j = lowBoundY,j<=hiBoundY,j++)
+	for(var/i = lowBoundX,i <= hiBoundX,i++)
+		for(var/j = lowBoundY,j <= hiBoundY,j++)
 			var/turf/T = locate(i,j,z)
 			if(i == lowBoundX || i == hiBoundX || j == lowBoundY || j == hiBoundY)
 				T.PlaceOnTop(/turf/closed/wall/vault)

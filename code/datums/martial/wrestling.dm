@@ -138,34 +138,34 @@
 	A.visible_message("<span class = 'danger'><B>[A] starts spinning around with [D]!</B></span>")
 	A.emote("scream")
 
-	for (var/i = 0, i < 20, i++)
+	for(var/i = 0, i < 20, i++)
 		var/delay = 5
-		switch (i)
-			if (17 to INFINITY)
+		switch(i)
+			if(17 to INFINITY)
 				delay = 0.25
-			if (14 to 16)
+			if(14 to 16)
 				delay = 0.5
-			if (9 to 13)
+			if(9 to 13)
 				delay = 1
-			if (5 to 8)
+			if(5 to 8)
 				delay = 2
-			if (0 to 4)
+			if(0 to 4)
 				delay = 3
 
-		if (A && D)
+		if(A && D)
 
-			if (get_dist(A, D) > 1)
+			if(get_dist(A, D) > 1)
 				to_chat(A, "[D] is too far away!")
 				return 0
 
-			if (!isturf(A.loc) || !isturf(D.loc))
+			if(!isturf(A.loc) || !isturf(D.loc))
 				to_chat(A, "You can't throw [D] from here!")
 				return 0
 
 			A.setDir(turn(A.dir, 90))
 			var/turf/T = get_step(A, A.dir)
 			var/turf/S = D.loc
-			if ((S && isturf(S) && S.Exit(D)) && (T && isturf(T) && T.Enter(A)))
+			if((S && isturf(S) && S.Exit(D)) && (T && isturf(T) && T.Enter(A)))
 				D.forceMove(T)
 				D.setDir(get_dir(D, A))
 		else
@@ -173,14 +173,14 @@
 
 		sleep(delay)
 
-	if (A && D)
+	if(A && D)
 		// These are necessary because of the sleep call.
 
-		if (get_dist(A, D) > 1)
+		if(get_dist(A, D) > 1)
 			to_chat(A, "[D] is too far away!")
 			return 0
 
-		if (!isturf(A.loc) || !isturf(D.loc))
+		if(!isturf(A.loc) || !isturf(D.loc))
 			to_chat(A, "You can't throw [D] from here!")
 			return 0
 
@@ -189,8 +189,8 @@
 		A.visible_message("<span class = 'danger'><B>[A] throws [D]!</B></span>")
 		playsound(A.loc, "swing_hit", 50, 1)
 		var/turf/T = get_edge_target_turf(A, A.dir)
-		if (T && isturf(T))
-			if (!D.stat)
+		if(T && isturf(T))
+			if(!D.stat)
 				D.emote("scream")
 			D.throw_at(T, 10, 4, A, TRUE, TRUE, callback = CALLBACK(D, /mob/living/carbon/human.proc/Paralyze, 20))
 	log_combat(A, D, "has thrown with wrestling")
@@ -198,10 +198,10 @@
 
 /datum/martial_art/wrestling/proc/FlipAnimation(mob/living/carbon/human/D)
 	set waitfor = FALSE
-	if (D)
+	if(D)
 		animate(D, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
 	sleep(15)
-	if (D)
+	if(D)
 		animate(D, transform = null, time = 1, loop = 0)
 
 /datum/martial_art/wrestling/proc/slam(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -218,24 +218,24 @@
 
 	FlipAnimation()
 
-	for (var/i = 0, i < 3, i++)
-		if (A && D)
+	for(var/i = 0, i < 3, i++)
+		if(A && D)
 			A.pixel_y += 3
 			D.pixel_y += 3
 			A.setDir(turn(A.dir, 90))
 			D.setDir(turn(D.dir, 90))
 
-			switch (A.dir)
-				if (NORTH)
+			switch(A.dir)
+				if(NORTH)
 					D.pixel_x = A.pixel_x
-				if (SOUTH)
+				if(SOUTH)
 					D.pixel_x = A.pixel_x
-				if (EAST)
+				if(EAST)
 					D.pixel_x = A.pixel_x - 8
-				if (WEST)
+				if(WEST)
 					D.pixel_x = A.pixel_x + 8
 
-			if (get_dist(A, D) > 1)
+			if(get_dist(A, D) > 1)
 				to_chat(A, "[D] is too far away!")
 				A.pixel_x = 0
 				A.pixel_y = 0
@@ -243,7 +243,7 @@
 				D.pixel_y = 0
 				return 0
 
-			if (!isturf(A.loc) || !isturf(D.loc))
+			if(!isturf(A.loc) || !isturf(D.loc))
 				to_chat(A, "You can't slam [D] here!")
 				A.pixel_x = 0
 				A.pixel_y = 0
@@ -251,27 +251,27 @@
 				D.pixel_y = 0
 				return 0
 		else
-			if (A)
+			if(A)
 				A.pixel_x = 0
 				A.pixel_y = 0
-			if (D)
+			if(D)
 				D.pixel_x = 0
 				D.pixel_y = 0
 			return 0
 
 		sleep(1)
 
-	if (A && D)
+	if(A && D)
 		A.pixel_x = 0
 		A.pixel_y = 0
 		D.pixel_x = 0
 		D.pixel_y = 0
 
-		if (get_dist(A, D) > 1)
+		if(get_dist(A, D) > 1)
 			to_chat(A, "[D] is too far away!")
 			return 0
 
-		if (!isturf(A.loc) || !isturf(D.loc))
+		if(!isturf(A.loc) || !isturf(D.loc))
 			to_chat(A, "You can't slam [D] here!")
 			return 0
 
@@ -279,21 +279,21 @@
 
 		var/fluff = "body-slam"
 		switch(pick(2,3))
-			if (2)
+			if(2)
 				fluff = "turbo [fluff]"
-			if (3)
+			if(3)
 				fluff = "atomic [fluff]"
 
 		A.visible_message("<span class = 'danger'><B>[A] [fluff] [D]!</B></span>")
 		playsound(A.loc, "swing_hit", 50, 1)
-		if (!D.stat)
+		if(!D.stat)
 			D.emote("scream")
 			D.Paralyze(40)
 
 			switch(rand(1,3))
-				if (2)
+				if(2)
 					D.adjustBruteLoss(rand(20,30))
-				if (3)
+				if(3)
 					D.ex_act(EXPLODE_LIGHT)
 				else
 					D.adjustBruteLoss(rand(10,20))
@@ -301,10 +301,10 @@
 			D.ex_act(EXPLODE_LIGHT)
 
 	else
-		if (A)
+		if(A)
 			A.pixel_x = 0
 			A.pixel_y = 0
-		if (D)
+		if(D)
 			D.pixel_x = 0
 			D.pixel_y = 0
 
@@ -313,15 +313,15 @@
 	return 0
 
 /datum/martial_art/wrestling/proc/CheckStrikeTurf(mob/living/carbon/human/A, turf/T)
-	if (A && (T && isturf(T) && get_dist(A, T) <= 1))
+	if(A && (T && isturf(T) && get_dist(A, T) <= 1))
 		A.forceMove(T)
 
 /datum/martial_art/wrestling/proc/strike(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D)
 		return
 	var/turf/T = get_turf(A)
-	if (T && isturf(T) && D && isturf(D.loc))
-		for (var/i = 0, i < 4, i++)
+	if(T && isturf(T) && D && isturf(D.loc))
+		for(var/i = 0, i < 4, i++)
 			A.setDir(turn(A.dir, 90))
 
 		A.forceMove(D.loc)
@@ -345,7 +345,7 @@
 	D.adjustBruteLoss(rand(10,20))
 
 	var/turf/T = get_edge_target_turf(A, get_dir(A, get_step_away(D, A)))
-	if (T && isturf(T))
+	if(T && isturf(T))
 		D.Paralyze(20)
 		D.throw_at(T, 3, 2)
 	log_combat(A, D, "roundhouse-kicked")
@@ -357,39 +357,39 @@
 	var/turf/ST = null
 	var/falling = 0
 
-	for (var/obj/O in oview(1, A))
-		if (O.density == 1)
-			if (O == A)
+	for(var/obj/O in oview(1, A))
+		if(O.density == 1)
+			if(O == A)
 				continue
-			if (O == D)
+			if(O == D)
 				continue
-			if (O.opacity)
+			if(O.opacity)
 				continue
 			else
 				surface = O
 				ST = get_turf(O)
 				break
 
-	if (surface && (ST && isturf(ST)))
+	if(surface && (ST && isturf(ST)))
 		A.forceMove(ST)
 		A.visible_message("<span class = 'danger'><B>[A] climbs onto [surface]!</b></span>")
 		A.pixel_y = 10
 		falling = 1
 		sleep(10)
 
-	if (A && D)
+	if(A && D)
 		// These are necessary because of the sleep call.
 
-		if ((falling == 0 && get_dist(A, D) > 1) || (falling == 1 && get_dist(A, D) > 2)) // We climbed onto stuff.
+		if((falling == 0 && get_dist(A, D) > 1) || (falling == 1 && get_dist(A, D) > 2)) // We climbed onto stuff.
 			A.pixel_y = 0
-			if (falling == 1)
+			if(falling == 1)
 				A.visible_message("<span class = 'danger'><B>...and dives head-first into the ground, ouch!</b></span>")
 				A.adjustBruteLoss(rand(10,20))
 				A.Paralyze(60)
 			to_chat(A, "[D] is too far away!")
 			return 0
 
-		if (!isturf(A.loc) || !isturf(D.loc))
+		if(!isturf(A.loc) || !isturf(D.loc))
 			A.pixel_y = 0
 			to_chat(A, "You can't drop onto [D] from here!")
 			return 0
@@ -406,8 +406,8 @@
 		playsound(A.loc, "swing_hit", 50, 1)
 		A.emote("scream")
 
-		if (falling == 1)
-			if (prob(33) || D.stat)
+		if(falling == 1)
+			if(prob(33) || D.stat)
 				D.ex_act(EXPLODE_LIGHT)
 			else
 				D.adjustBruteLoss(rand(20,30))
@@ -419,7 +419,7 @@
 		A.pixel_y = 0
 
 	else
-		if (A)
+		if(A)
 			A.pixel_y = 0
 	log_combat(A, D, "leg-dropped")
 	return

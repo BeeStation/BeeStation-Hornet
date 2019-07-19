@@ -126,9 +126,9 @@
 		access = text2access(access_txt)
 
 /obj/item/card/id/Destroy()
-	if (registered_account)
+	if(registered_account)
 		registered_account.bank_cards -= src
-	if (my_store && my_store.my_card == src)
+	if(my_store && my_store.my_card == src)
 		my_store.my_card = null
 	return ..()
 
@@ -205,7 +205,7 @@
 		to_chat(user, "<span class='warning'>The account ID number provided is invalid.</span>")
 		return
 
-	if (world.time < registered_account.withdrawDelay)
+	if(world.time < registered_account.withdrawDelay)
 		registered_account.bank_card_talk("<span class='warning'>ERROR: UNABLE TO LOGIN DUE TO SCHEDULED MAINTENANCE. MAINTENANCE IS SCHEDULED TO COMPLETE IN [(registered_account.withdrawDelay - world.time)/10] SECONDS.</span>", TRUE)
 		return
 
@@ -346,7 +346,7 @@ update_label("John Doe", "Clowny")
 		if(alert(user, "Action", "Agent ID", "Show", "Forge") == "Forge")
 			var/t = copytext(sanitize(input(user, "What name would you like to put on this card?", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name))as text | null),1,26)
 			if(!t || t == "Unknown" || t == "floor" || t == "wall" || t == "r-wall") //Same as mob/dead/new_player/prefrences.dm
-				if (t)
+				if(t)
 					alert("Invalid name.")
 				return
 			registered_name = t

@@ -220,12 +220,12 @@
 			continue
 		GL += P.return_air()
 		for(var/atmosmch in P.other_atmosmch)
-			if (istype(atmosmch, /obj/machinery/atmospherics/components/binary/valve))
+			if(istype(atmosmch, /obj/machinery/atmospherics/components/binary/valve))
 				var/obj/machinery/atmospherics/components/binary/valve/V = atmosmch
 				if(V.on)
 					PL |= V.parents[1]
 					PL |= V.parents[2]
-			else if (istype(atmosmch, /obj/machinery/atmospherics/components/unary/portables_connector))
+			else if(istype(atmosmch, /obj/machinery/atmospherics/components/unary/portables_connector))
 				var/obj/machinery/atmospherics/components/unary/portables_connector/C = atmosmch
 				if(C.connected_device)
 					GL += C.portableConnectorReturnAir()

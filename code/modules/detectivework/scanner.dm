@@ -127,7 +127,7 @@
 			found_something = 1
 
 		// Blood
-		if (length(blood))
+		if(length(blood))
 			sleep(30)
 			add_log("<span class='info'><B>Blood:</B></span>")
 			found_something = 1

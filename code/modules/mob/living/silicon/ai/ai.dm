@@ -3,10 +3,10 @@
 //Not sure why this is necessary...
 /proc/AutoUpdateAI(obj/subject)
 	var/is_in_use = 0
-	if (subject!=null)
+	if(subject != null)
 		for(var/A in GLOB.ai_list)
 			var/mob/living/silicon/ai/M = A
-			if ((M.client && M.machine == subject))
+			if((M.client && M.machine == subject))
 				is_in_use = 1
 				subject.attack_ai(M)
 	return is_in_use
@@ -254,27 +254,27 @@
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
 	dat += "<A HREF='?src=[REF(src)];mach_close=aialerts'>Close</A><BR><BR>"
-	for (var/cat in alarms)
+	for(var/cat in alarms)
 		dat += text("<B>[]</B><BR>\n", cat)
 		var/list/L = alarms[cat]
-		if (L.len)
-			for (var/alarm in L)
+		if(L.len)
+			for(var/alarm in L)
 				var/list/alm = L[alarm]
 				var/area/A = alm[1]
 				var/C = alm[2]
 				var/list/sources = alm[3]
 				dat += "<NOBR>"
-				if (C && istype(C, /list))
+				if(C && istype(C, /list))
 					var/dat2 = ""
-					for (var/obj/machinery/camera/I in C)
-						dat2 += text("[]<A HREF=?src=[REF(src)];switchcamera=[REF(I)]>[]</A>", (dat2=="") ? "" : " | ", I.c_tag)
-					dat += text("-- [] ([])", A.name, (dat2!="") ? dat2 : "No Camera")
-				else if (C && istype(C, /obj/machinery/camera))
+					for(var/obj/machinery/camera/I in C)
+						dat2 += text("[]<A HREF=?src=[REF(src)];switchcamera=[REF(I)]>[]</A>", (dat2 == "") ? "" : " | ", I.c_tag)
+					dat += text("-- [] ([])", A.name, (dat2 != "") ? dat2 : "No Camera")
+				else if(C && istype(C, /obj/machinery/camera))
 					var/obj/machinery/camera/Ctmp = C
 					dat += text("-- [] (<A HREF=?src=[REF(src)];switchcamera=[REF(C)]>[]</A>)", A.name, Ctmp.c_tag)
 				else
 					dat += text("-- [] (No Camera)", A.name)
-				if (sources.len > 1)
+				if(sources.len > 1)
 					dat += text("- [] sources", sources.len)
 				dat += "</NOBR><BR>\n"
 		else
@@ -307,17 +307,17 @@
 	. = ..()
 	var/turf/ai = get_turf(src)
 	var/turf/target = get_turf(A)
-	if (.)
+	if(.)
 		return
 
 	if(!target)
 		return
 
-	if ((ai.z != target.z) && !is_station_level(ai.z))
+	if((ai.z != target.z) && !is_station_level(ai.z))
 		return FALSE
 
-	if (istype(loc, /obj/item/aicard))
-		if (!ai || !target)
+	if(istype(loc, /obj/item/aicard))
+		if(!ai || !target)
 			return FALSE
 		return ISINRANGE(target.x, ai.x - interaction_range, ai.x + interaction_range) && ISINRANGE(target.y, ai.y - interaction_range, ai.y + interaction_range)
 	else
@@ -369,15 +369,15 @@
 	if(usr != src || incapacitated())
 		return
 	..()
-	if (href_list["mach_close"])
-		if (href_list["mach_close"] == "aialerts")
+	if(href_list["mach_close"])
+		if(href_list["mach_close"] == "aialerts")
 			viewalerts = 0
 		var/t1 = text("window=[]", href_list["mach_close"])
 		unset_machine()
 		src << browse(null, t1)
-	if (href_list["switchcamera"])
+	if(href_list["switchcamera"])
 		switchCamera(locate(href_list["switchcamera"]) in GLOB.cameranet.cameras)
-	if (href_list["showalerts"])
+	if(href_list["showalerts"])
 		ai_alerts()
 #ifdef AI_VOX
 	if(href_list["say_word"])
@@ -430,9 +430,9 @@
 		botcall()
 		return
 
-	if (href_list["ai_take_control"]) //Mech domination
+	if(href_list["ai_take_control"]) //Mech domination
 		var/obj/mecha/M = locate(href_list["ai_take_control"]) in GLOB.mechas_list
-		if (!M)
+		if(!M)
 			return
 
 		var/mech_has_controlbeacon = FALSE
@@ -487,7 +487,7 @@
 	d += "<A HREF=?src=[REF(src)];botrefresh=1>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='30%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
-	for (Bot in GLOB.alive_mob_list)
+	for(Bot in GLOB.alive_mob_list)
 		if(Bot.z == ai_Zlevel && !Bot.remote_disabled) //Only non-emagged bots on the same Z-level are detected!
 			var/bot_mode = Bot.get_mode()
 			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!)</span>" : ""] [Bot.name]</A> ([Bot.model])</td>"
@@ -531,29 +531,29 @@
 	if(alarmsource.z != z)
 		return
 	var/list/L = alarms[class]
-	for (var/I in L)
-		if (I == A.name)
+	for(var/I in L)
+		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/sources = alarm[3]
-			if (!(alarmsource in sources))
+			if(!(alarmsource in sources))
 				sources += alarmsource
 			return 1
 	var/obj/machinery/camera/C = null
 	var/list/CL = null
-	if (O && istype(O, /list))
+	if(O && istype(O, /list))
 		CL = O
-		if (CL.len == 1)
+		if(CL.len == 1)
 			C = CL[1]
-	else if (O && istype(O, /obj/machinery/camera))
+	else if(O && istype(O, /obj/machinery/camera))
 		C = O
 	L[A.name] = list(A, (C) ? C : O, list(alarmsource))
-	if (O)
-		if (C && C.can_use())
+	if(O)
+		if(C && C.can_use())
 			queueAlarm("--- [class] alarm detected in [A.name]! (<A HREF=?src=[REF(src)];switchcamera=[REF(C)]>[C.c_tag]</A>)", class)
-		else if (CL?.len)
+		else if(CL?.len)
 			var/foo = 0
 			var/dat2 = ""
-			for (var/obj/machinery/camera/I in CL)
+			for(var/obj/machinery/camera/I in CL)
 				dat2 += text("[]<A HREF=?src=[REF(src)];switchcamera=[REF(I)]>[]</A>", (!foo) ? "" : " | ", I.c_tag)	//I'm not fixing this shit...
 				foo = 1
 			queueAlarm(text ("--- [] alarm detected in []! ([])", class, A.name, dat2), class)
@@ -561,24 +561,24 @@
 			queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, A.name), class)
 	else
 		queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, A.name), class)
-	if (viewalerts) ai_alerts()
+	if(viewalerts) ai_alerts()
 	return 1
 
 /mob/living/silicon/ai/cancelAlarm(class, area/A, obj/origin)
 	var/list/L = alarms[class]
 	var/cleared = 0
-	for (var/I in L)
-		if (I == A.name)
+	for(var/I in L)
+		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/srcs  = alarm[3]
-			if (origin in srcs)
+			if(origin in srcs)
 				srcs -= origin
-			if (srcs.len == 0)
+			if(srcs.len == 0)
 				cleared = 1
 				L -= I
-	if (cleared)
+	if(cleared)
 		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
-		if (viewalerts) ai_alerts()
+		if(viewalerts) ai_alerts()
 	return !cleared
 
 //Replaces /mob/living/silicon/ai/verb/change_network() in ai.dm & camera.dm
@@ -596,7 +596,7 @@
 
 	var/mob/living/silicon/ai/U = usr
 
-	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		var/list/tempnetwork = C.network
 		if(!(is_station_level(C.z) || is_mining_level(C.z) || ("ss13" in tempnetwork)))
 			continue
@@ -641,11 +641,11 @@
 		return
 	var/list/ai_emotions = list("Very Happy", "Happy", "Neutral", "Unsure", "Confused", "Sad", "BSOD", "Blank", "Problems?", "Awesome", "Facepalm", "Thinking", "Friend Computer", "Dorfy", "Blue Glow", "Red Glow")
 	var/emote = input("Please, select a status!", "AI Status", null, null) in ai_emotions
-	for (var/each in GLOB.ai_status_displays) //change status of displays
+	for(var/each in GLOB.ai_status_displays) //change status of displays
 		var/obj/machinery/status_display/ai/M = each
 		M.emotion = emote
 		M.update()
-	if (emote == "Friend Computer")
+	if(emote == "Friend Computer")
 		var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
 
 		if(!frequency)
@@ -740,10 +740,10 @@
 /mob/living/silicon/ai/proc/toggle_camera_light()
 	camera_light_on = !camera_light_on
 
-	if (!camera_light_on)
+	if(!camera_light_on)
 		to_chat(src, "Camera lights deactivated.")
 
-		for (var/obj/machinery/camera/C in lit_cameras)
+		for(var/obj/machinery/camera/C in lit_cameras)
 			C.set_light(0)
 			lit_cameras = list()
 
@@ -759,19 +759,19 @@
 	var/list/obj/machinery/camera/add = list()
 	var/list/obj/machinery/camera/remove = list()
 	var/list/obj/machinery/camera/visible = list()
-	for (var/datum/camerachunk/CC in eyeobj.visibleCameraChunks)
-		for (var/obj/machinery/camera/C in CC.cameras)
-			if (!C.can_use() || get_dist(C, eyeobj) > 7 || !C.internal_light)
+	for(var/datum/camerachunk/CC in eyeobj.visibleCameraChunks)
+		for(var/obj/machinery/camera/C in CC.cameras)
+			if(!C.can_use() || get_dist(C, eyeobj) > 7 || !C.internal_light)
 				continue
 			visible |= C
 
 	add = visible - lit_cameras
 	remove = lit_cameras - visible
 
-	for (var/obj/machinery/camera/C in remove)
+	for(var/obj/machinery/camera/C in remove)
 		lit_cameras -= C //Removed from list before turning off the light so that it doesn't check the AI looking away.
 		C.Togglelight(0)
-	for (var/obj/machinery/camera/C in add)
+	for(var/obj/machinery/camera/C in add)
 		C.Togglelight(1)
 		lit_cameras |= C
 
@@ -784,7 +784,7 @@
 		return
 
 	to_chat(src, "Accessing Subspace Transceiver control...")
-	if (radio)
+	if(radio)
 		radio.interact(src)
 
 /mob/living/silicon/ai/proc/set_syndie_radio()
@@ -856,7 +856,7 @@
 	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart
 
-	if (iscarbon(speaker))
+	if(iscarbon(speaker))
 		var/mob/living/carbon/S = speaker
 		if(S.job)
 			jobpart = "[S.job]"
@@ -964,7 +964,7 @@
 
 	for(var/borgie in GLOB.available_ai_shells)
 		var/mob/living/silicon/robot/R = borgie
-		if(R.shell && !R.deployed && (R.stat != DEAD) && (!R.connected_ai ||(R.connected_ai == src)))
+		if(R.shell && !R.deployed && (R.stat != DEAD) && (!R.connected_ai || (R.connected_ai == src)))
 			possible += R
 
 	if(!LAZYLEN(possible))
@@ -973,7 +973,7 @@
 	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid
 		target = input(src, "Which body to control?") as null|anything in possible
 
-	if (!target || target.stat == DEAD || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)))
+	if(!target || target.stat == DEAD || target.deployed || !(!target.connected_ai || (target.connected_ai == src)))
 		return
 
 	else if(mind)

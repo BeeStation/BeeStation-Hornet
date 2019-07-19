@@ -55,7 +55,7 @@
 /obj/machinery/computer/upload/ai/interact(mob/user)
 	current = select_active_ai(user)
 
-	if (!current)
+	if(!current)
 		to_chat(user, "<span class='caution'>No active AIs detected!</span>")
 	else
 		to_chat(user, "[current.name] selected for law changes.")

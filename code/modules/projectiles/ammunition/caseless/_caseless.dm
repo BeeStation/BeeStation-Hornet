@@ -4,7 +4,7 @@
 	heavy_metal = FALSE
 
 /obj/item/ammo_casing/caseless/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread)
-	if (..()) //successfully firing
+	if(..()) //successfully firing
 		moveToNullspace()
 		QDEL_NULL(src)
 		return TRUE

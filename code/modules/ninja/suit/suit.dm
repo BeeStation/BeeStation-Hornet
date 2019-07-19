@@ -123,7 +123,7 @@ Contents:
 	return TRUE
 
 /obj/item/clothing/suit/space/space_ninja/proc/lockIcons(mob/living/carbon/human/H)
-	icon_state = H.gender==FEMALE ? "s-ninjanf" : "s-ninjan"
+	icon_state = H.gender == FEMALE ? "s-ninjanf" : "s-ninjan"
 	H.gloves.icon_state = "s-ninjan"
 	H.gloves.item_state = "s-ninjan"
 
@@ -152,7 +152,7 @@ Contents:
 	if(s_initialized)
 		if(user == affecting)
 			to_chat(user, "All systems operational. Current energy capacity: <B>[DisplayEnergy(cell.charge)]</B>.")
-			to_chat(user, "The CLOAK-tech device is <B>[stealth?"active":"inactive"]</B>.")
+			to_chat(user, "The CLOAK-tech device is <B>[stealth ? "active" : "inactive"]</B>.")
 			to_chat(user, "There are <B>[s_bombs]</B> smoke bomb\s remaining.")
 			to_chat(user, "There are <B>[a_boost]</B> adrenaline booster\s remaining.")
 

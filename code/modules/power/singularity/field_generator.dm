@@ -179,7 +179,7 @@ field_generator power level display
 	active = FG_OFFLINE
 	spawn(1)
 		cleanup()
-		while (warming_up>0 && !active)
+		while(warming_up>0 && !active)
 			sleep(50)
 			warming_up--
 			update_icon()
@@ -187,7 +187,7 @@ field_generator power level display
 /obj/machinery/field/generator/proc/turn_on()
 	active = FG_CHARGING
 	spawn(1)
-		while (warming_up<3 && active)
+		while(warming_up<3 && active)
 			sleep(50)
 			warming_up++
 			update_icon()
@@ -311,7 +311,7 @@ field_generator power level display
 
 /obj/machinery/field/generator/proc/cleanup()
 	clean_up = 1
-	for (var/F in fields)
+	for(var/F in fields)
 		qdel(F)
 
 	for(var/CG in connected_gens)

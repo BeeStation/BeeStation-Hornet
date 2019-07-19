@@ -399,7 +399,7 @@
 				qdel(src)
 			if(I.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, "You adjust [src]'s arm slots to mount extra weapons")
-				build_step ++
+				build_step++
 				return
 			if(istype(I, /obj/item/toy/sword))
 				if(toyswordamt < 3 && swordamt <= 0)
@@ -410,7 +410,7 @@
 					icon_state = "grievous_assembly"
 					to_chat(user, "<span class='notice'>You superglue [I] onto one of [src]'s arm slots.</span>")
 					qdel(I)
-					toyswordamt ++
+					toyswordamt++
 				else
 					if(!can_finish_build(I, user))
 						return
@@ -443,7 +443,7 @@
 					icon_state = "grievous_assembly"
 					to_chat(user, "<span class='notice'>You bolt [I] onto one of [src]'s arm slots.</span>")
 					qdel(I)
-					swordamt ++
+					swordamt++
 				else
 					if(!can_finish_build(I, user))
 						return

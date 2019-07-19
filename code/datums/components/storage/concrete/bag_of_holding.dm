@@ -34,7 +34,7 @@
 		for(var/fabricarea in get_areas(/area/fabric_of_reality))
 			var/area/fabric_of_reality/R = fabricarea
 			R.origin = loccheck
-		for (var/obj/structure/ladder/unbreakable/binary/ladder in GLOB.ladders)
+		for(var/obj/structure/ladder/unbreakable/binary/ladder in GLOB.ladders)
 			ladder.ActivateAlmonds()
 		qdel(A)
 		return

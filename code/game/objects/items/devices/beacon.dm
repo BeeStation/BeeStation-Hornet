@@ -11,7 +11,7 @@
 
 /obj/item/beacon/Initialize()
 	. = ..()
-	if (enabled)
+	if(enabled)
 		GLOB.teleportbeacons += src
 	else 
 		icon_state = "beacon-off"
@@ -22,7 +22,7 @@
 
 /obj/item/beacon/attack_self(mob/user)
 	enabled = !enabled
-	if (enabled)
+	if(enabled)
 		icon_state = "beacon"
 		GLOB.teleportbeacons += src
 	else 

@@ -10,7 +10,7 @@
 
 /datum/outfit/vr/post_equip(mob/living/carbon/human/H)
 	var/obj/item/card/id/id = H.wear_id
-	if (istype(id))
+	if(istype(id))
 		id.access |= get_all_accesses()
 
 /datum/outfit/vr/syndicate

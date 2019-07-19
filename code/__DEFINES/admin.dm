@@ -1,33 +1,33 @@
 //A set of constants used to determine which type of mute an admin wishes to apply:
 //Please read and understand the muting/automuting stuff before changing these. MUTE_IC_AUTO etc = (MUTE_IC << 1)
 //Therefore there needs to be a gap between the flags for the automute flags
-#define MUTE_IC			(1<<0)
-#define MUTE_OOC		(1<<1)
-#define MUTE_PRAY		(1<<2)
-#define MUTE_ADMINHELP	(1<<3)
-#define MUTE_DEADCHAT	(1<<4)
+#define MUTE_IC			(1 << 0)
+#define MUTE_OOC		(1 << 1)
+#define MUTE_PRAY		(1 << 2)
+#define MUTE_ADMINHELP	(1 << 3)
+#define MUTE_DEADCHAT	(1 << 4)
 #define MUTE_ALL		(~0)
 
 //Admin Permissions
-#define R_BUILD		(1<<0)
-#define R_ADMIN			(1<<1)
-#define R_BAN			(1<<2)
-#define R_FUN			(1<<3)
-#define R_SERVER		(1<<4)
-#define R_DEBUG			(1<<5)
-#define R_POSSESS		(1<<6)
-#define R_PERMISSIONS	(1<<7)
-#define R_STEALTH		(1<<8)
-#define R_POLL			(1<<9)
-#define R_VAREDIT		(1<<10)
-#define R_SOUND		(1<<11)
-#define R_SPAWN			(1<<12)
-#define R_AUTOADMIN		(1<<13)
-#define R_DBRANKS		(1<<14)
+#define R_BUILD		(1 << 0)
+#define R_ADMIN			(1 << 1)
+#define R_BAN			(1 << 2)
+#define R_FUN			(1 << 3)
+#define R_SERVER		(1 << 4)
+#define R_DEBUG			(1 << 5)
+#define R_POSSESS		(1 << 6)
+#define R_PERMISSIONS	(1 << 7)
+#define R_STEALTH		(1 << 8)
+#define R_POLL			(1 << 9)
+#define R_VAREDIT		(1 << 10)
+#define R_SOUND		(1 << 11)
+#define R_SPAWN			(1 << 12)
+#define R_AUTOADMIN		(1 << 13)
+#define R_DBRANKS		(1 << 14)
 
 #define R_DEFAULT R_AUTOADMIN
 
-#define R_EVERYTHING (1<<15)-1 //the sum of all other rank permissions, used for +EVERYTHING
+#define R_EVERYTHING (1 << 15)-1 //the sum of all other rank permissions, used for +EVERYTHING
 
 #define ADMIN_QUE(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(user)]'>?</a>)"
 #define ADMIN_FLW(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(user)]'>FLW</a>)"

@@ -243,19 +243,19 @@
 
 /datum/techweb/proc/update_tiers(datum/techweb_node/base)
 	var/list/current = list(base)
-	while (current.len)
+	while(current.len)
 		var/list/next = list()
-		for (var/node_ in current)
+		for(var/node_ in current)
 			var/datum/techweb_node/node = node_
 			var/tier = 0
-			if (!researched_nodes[node.id])  // researched is tier 0
-				for (var/id in node.prereq_ids)
+			if(!researched_nodes[node.id])  // researched is tier 0
+				for(var/id in node.prereq_ids)
 					var/prereq_tier = tiers[id]
 					tier = max(tier, prereq_tier + 1)
 
-			if (tier != tiers[node.id])
+			if(tier != tiers[node.id])
 				tiers[node.id] = tier
-				for (var/id in node.unlock_ids)
+				for(var/id in node.unlock_ids)
 					next += SSresearch.techweb_node_by_id(id)
 		current = next
 

@@ -4,7 +4,7 @@
 
 /mob/living/carbon/damage_eyes(amount)
 	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
-	if (!eyes)
+	if(!eyes)
 		return
 	if(amount>0)
 		eyes.eye_damage = amount
@@ -16,7 +16,7 @@
 
 /mob/living/carbon/set_eye_damage(amount)
 	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
-	if (!eyes)
+	if(!eyes)
 		return
 	eyes.eye_damage = max(amount,0)
 	if(eyes.eye_damage > 20)
@@ -29,7 +29,7 @@
 
 /mob/living/carbon/adjust_eye_damage(amount)
 	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
-	if (!eyes)
+	if(!eyes)
 		return
 	eyes.eye_damage = max(eyes.eye_damage+amount, 0)
 	if(eyes.eye_damage > 20)

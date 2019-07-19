@@ -9,8 +9,8 @@
  * Misc
  */
 
-#define LAZYINITLIST(L) if (!L) L = list()
-#define UNSETEMPTY(L) if (L && !length(L)) L = null
+#define LAZYINITLIST(L) if(!L) L = list()
+#define UNSETEMPTY(L) if(L && !length(L)) L = null
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!length(L)) { L = null; } }
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
 #define LAZYOR(L, I) if(!L) { L = list(); } L |= I;
@@ -53,17 +53,17 @@
 //Returns a list in plain english as a string
 /proc/english_list(list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
 	var/total = input.len
-	if (!total)
+	if(!total)
 		return "[nothing_text]"
-	else if (total == 1)
+	else if(total == 1)
 		return "[input[1]]"
-	else if (total == 2)
+	else if(total == 2)
 		return "[input[1]][and_text][input[2]]"
 	else
 		var/output = ""
 		var/index = 1
-		while (index < total)
-			if (index == total - 1)
+		while(index < total)
+			if(index == total - 1)
 				comma_text = final_comma_text
 
 			output += "[input[index]][comma_text]"
@@ -128,7 +128,7 @@
 	. = list()
 	for(var/thing in atoms)
 		var/atom/A = thing
-		if (typecache[A.type])
+		if(typecache[A.type])
 			. += A
 
 /proc/typecache_filter_list_reverse(list/atoms, list/typecache)
@@ -228,15 +228,15 @@
 /proc/pickweight(list/L)
 	var/total = 0
 	var/item
-	for (item in L)
-		if (!L[item])
+	for(item in L)
+		if(!L[item])
 			L[item] = 1
 		total += L[item]
 
 	total = rand(1, total)
-	for (item in L)
-		total -=L [item]
-		if (total <= 0)
+	for(item in L)
+		total -= L[item]
+		if(total <= 0)
 			return item
 
 	return null
@@ -244,15 +244,15 @@
 /proc/pickweightAllowZero(list/L) //The original pickweight proc will sometimes pick entries with zero weight.  I'm not sure if changing the original will break anything, so I left it be.
 	var/total = 0
 	var/item
-	for (item in L)
-		if (!L[item])
+	for(item in L)
+		if(!L[item])
 			L[item] = 0
 		total += L[item]
 
 	total = rand(0, total)
-	for (item in L)
-		total -=L [item]
-		if (total <= 0 && L[item])
+	for(item in L)
+		total -= L[item]
+		if(total <= 0 && L[item])
 			return item
 
 	return null
@@ -332,7 +332,7 @@
 	var/temp = L.Copy()
 	L.len = 0
 	for(var/key in temp)
-		if (isnum(key))
+		if(isnum(key))
 			L |= key
 		else
 			L[key] = temp[key]
@@ -361,12 +361,12 @@
 	if(islist(wordlist))
 		var/max = min(wordlist.len,16)
 		var/bit = 1
-		for(var/i=1, i<=max, i++)
+		for(var/i=1, i <= max, i++)
 			if(bitfield & bit)
 				r += wordlist[i]
 			bit = bit << 1
 	else
-		for(var/bit=1, bit<=65535, bit = bit << 1)
+		for(var/bit=1, bit <= 65535, bit = bit << 1)
 			if(bitfield & bit)
 				r += bit
 

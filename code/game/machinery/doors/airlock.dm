@@ -123,7 +123,7 @@
 
 /obj/machinery/door/airlock/LateInitialize()
 	. = ..()
-	if (cyclelinkeddir)
+	if(cyclelinkeddir)
 		cyclelinkairlock()
 	if(abandoned)
 		var/outcome = rand(1,100)
@@ -159,10 +159,10 @@
 			break
 
 /obj/machinery/door/airlock/proc/cyclelinkairlock()
-	if (cyclelinkedairlock)
+	if(cyclelinkedairlock)
 		cyclelinkedairlock.cyclelinkedairlock = null
 		cyclelinkedairlock = null
-	if (!cyclelinkeddir)
+	if(!cyclelinkeddir)
 		return
 	var/limit = world.view
 	var/turf/T = get_turf(src)
@@ -170,11 +170,11 @@
 	do
 		T = get_step(T, cyclelinkeddir)
 		FoundDoor = locate() in T
-		if (FoundDoor && FoundDoor.cyclelinkeddir != get_dir(FoundDoor, src))
+		if(FoundDoor && FoundDoor.cyclelinkeddir != get_dir(FoundDoor, src))
 			FoundDoor = null
 		limit--
 	while(!FoundDoor && limit)
-	if (!FoundDoor)
+	if(!FoundDoor)
 		log_mapping("[src] at [AREACOORD(src)] failed to find a valid airlock to cyclelink with!")
 		return
 	FoundDoor.cyclelinkedairlock = src
@@ -182,8 +182,8 @@
 
 /obj/machinery/door/airlock/vv_edit_var(var_name)
 	. = ..()
-	switch (var_name)
-		if ("cyclelinkeddir")
+	switch(var_name)
+		if("cyclelinkeddir")
 			cyclelinkairlock()
 
 /obj/machinery/door/airlock/check_access_ntnet(datum/netdata/data)
@@ -293,8 +293,8 @@
 		qdel(charge)
 		charge = null
 	QDEL_NULL(electronics)
-	if (cyclelinkedairlock)
-		if (cyclelinkedairlock.cyclelinkedairlock == src)
+	if(cyclelinkedairlock)
+		if(cyclelinkedairlock.cyclelinkedairlock == src)
 			cyclelinkedairlock.cyclelinkedairlock = null
 		cyclelinkedairlock = null
 	if(id_tag)
@@ -327,8 +327,8 @@
 				if(G.siemens_coefficient)//not insulated
 					new /datum/hallucination/shock(H)
 					return
-	if (cyclelinkedairlock)
-		if (!shuttledocked && !emergency && !cyclelinkedairlock.shuttledocked && !cyclelinkedairlock.emergency && allowed(user))
+	if(cyclelinkedairlock)
+		if(!shuttledocked && !emergency && !cyclelinkedairlock.shuttledocked && !cyclelinkedairlock.emergency && allowed(user))
 			if(cyclelinkedairlock.operating)
 				cyclelinkedairlock.delayed_close_requested = TRUE
 			else
@@ -344,7 +344,7 @@
 	return ((aiControlDisabled != 1) && !isAllPowerCut())
 
 /obj/machinery/door/airlock/proc/canAIHack()
-	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerCut()));
+	return ((aiControlDisabled == 1) && (!hackProof) && (!isAllPowerCut()));
 
 /obj/machinery/door/airlock/hasPower()
 	return ((!secondsMainPowerLost || !secondsBackupPowerLost) && !(stat & NOPOWER))
@@ -363,7 +363,7 @@
 
 /obj/machinery/door/airlock/proc/handlePowerRestore()
 	var/cont = TRUE
-	while (cont)
+	while(cont)
 		sleep(10)
 		if(QDELETED(src))
 			return
@@ -767,7 +767,7 @@
 	return ..()
 
 /obj/machinery/door/airlock/proc/electrified_loop()
-	while (secondsElectrified > MACHINE_NOT_ELECTRIFIED)
+	while(secondsElectrified > MACHINE_NOT_ELECTRIFIED)
 		sleep(10)
 		if(QDELETED(src))
 			return
@@ -1528,7 +1528,7 @@
 		if("light-on")
 			if(wires.is_cut(WIRE_LIGHT))
 				to_chat(usr, "Control to door bolt lights has been severed.")
-			else if (!lights)
+			else if(!lights)
 				lights = TRUE
 				update_icon()
 			else
@@ -1537,7 +1537,7 @@
 		if("light-off")
 			if(wires.is_cut(WIRE_LIGHT))
 				to_chat(usr, "Control to door bolt lights has been severed.")
-			else if (lights)
+			else if(lights)
 				lights = FALSE
 				update_icon()
 			else
@@ -1546,7 +1546,7 @@
 		if("safe-on")
 			if(wires.is_cut(WIRE_SAFETY))
 				to_chat(usr, "Control to door sensors is disabled.")
-			else if (!safe)
+			else if(!safe)
 				safe = TRUE
 			else
 				to_chat(usr, "Firmware reports safeties already in place.")
@@ -1554,7 +1554,7 @@
 		if("safe-off")
 			if(wires.is_cut(WIRE_SAFETY))
 				to_chat(usr, "Control to door sensors is disabled.")
-			else if (safe)
+			else if(safe)
 				safe = FALSE
 			else
 				to_chat(usr, "Firmware reports safeties already overridden.")
@@ -1562,7 +1562,7 @@
 		if("speed-on")
 			if(wires.is_cut(WIRE_TIMING))
 				to_chat(usr, "Control to door timing circuitry has been severed.")
-			else if (!normalspeed)
+			else if(!normalspeed)
 				normalspeed = 1
 			else
 				to_chat(usr,"Door timing circuitry currently operating normally.")
@@ -1570,7 +1570,7 @@
 		if("speed-off")
 			if(wires.is_cut(WIRE_TIMING))
 				to_chat(usr, "Control to door timing circuitry has been severed.")
-			else if (normalspeed)
+			else if(normalspeed)
 				normalspeed = 0
 			else
 				to_chat(usr, "Door timing circuitry already accelerated.")
@@ -1610,7 +1610,7 @@
 /obj/machinery/door/airlock/proc/emergency_on(mob/user)
 	if(!user_allowed(user))
 		return
-	if (!emergency)
+	if(!emergency)
 		emergency = TRUE
 		update_icon()
 	else
@@ -1619,7 +1619,7 @@
 /obj/machinery/door/airlock/proc/emergency_off(mob/user)
 	if(!user_allowed(user))
 		return
-	if (emergency)
+	if(emergency)
 		emergency = FALSE
 		update_icon()
 	else

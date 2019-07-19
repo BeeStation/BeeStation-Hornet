@@ -32,13 +32,13 @@
 	if(!prob(prb))
 		return FALSE
 	do_sparks(5, TRUE, src)
-	if (electrocute_mob(user, get_area(src), src, 0.7, TRUE))
+	if(electrocute_mob(user, get_area(src), src, 0.7, TRUE))
 		return TRUE
 	else
 		return FALSE
 
 /obj/machinery/rnd/attackby(obj/item/O, mob/user, params)
-	if (default_deconstruction_screwdriver(user, "[initial(icon_state)]_t", initial(icon_state), O))
+	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]_t", initial(icon_state), O))
 		if(linked_console)
 			disconnect_console()
 		return

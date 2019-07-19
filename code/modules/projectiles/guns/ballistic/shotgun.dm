@@ -86,7 +86,7 @@
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/Initialize()
 	. = ..()
-	if (!alternate_magazine)
+	if(!alternate_magazine)
 		alternate_magazine = new mag_type(src)
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/attack_self(mob/living/user)

@@ -33,7 +33,7 @@
 	drop_stuff(AM)
 
 /datum/component/chasm/process()
-	if (!drop_stuff())
+	if(!drop_stuff())
 		STOP_PROCESSING(SSobj, src)
 
 /datum/component/chasm/proc/is_safe()
@@ -49,13 +49,13 @@
 
 /datum/component/chasm/proc/drop_stuff(AM)
 	. = 0
-	if (is_safe())
+	if(is_safe())
 		return FALSE
 
 	var/atom/parent = src.parent
 	var/to_check = AM ? list(AM) : parent.contents
-	for (var/thing in to_check)
-		if (droppable(thing))
+	for(var/thing in to_check)
+		if(droppable(thing))
 			. = 1
 			INVOKE_ASYNC(src, .proc/drop, thing)
 
@@ -107,7 +107,7 @@
 	else
 		// send to oblivion
 		AM.visible_message("<span class='boldwarning'>[AM] falls into [parent]!</span>", "<span class='userdanger'>[oblivion_message]</span>")
-		if (isliving(AM))
+		if(isliving(AM))
 			var/mob/living/L = AM
 			L.notransform = TRUE
 			L.Stun(200)

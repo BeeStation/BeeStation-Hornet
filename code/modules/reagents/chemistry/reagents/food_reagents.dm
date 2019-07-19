@@ -24,15 +24,15 @@
 
 /datum/reagent/consumable/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == INGEST)
-		if (quality && !HAS_TRAIT(M, TRAIT_AGEUSIA))
+		if(quality && !HAS_TRAIT(M, TRAIT_AGEUSIA))
 			switch(quality)
-				if (DRINK_NICE)
+				if(DRINK_NICE)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_nice)
-				if (DRINK_GOOD)
+				if(DRINK_GOOD)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_good)
-				if (DRINK_VERYGOOD)
+				if(DRINK_VERYGOOD)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
-				if (DRINK_FANTASTIC)
+				if(DRINK_FANTASTIC)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
 	return ..()
 
@@ -277,9 +277,9 @@
 		var/eyes_covered = victim.is_eyes_covered()
 
 		//actually handle the pepperspray effects
-		if ( eyes_covered && mouth_covered )
+		if( eyes_covered && mouth_covered )
 			return
-		else if ( mouth_covered )	// Reduced effects if partially protected
+		else if( mouth_covered )	// Reduced effects if partially protected
 			if(prob(5))
 				victim.emote("scream")
 			victim.blur_eyes(3)
@@ -288,7 +288,7 @@
 			victim.damageoverlaytemp = 60
 			victim.Paralyze(60)
 			return
-		else if ( eyes_covered ) // Eye cover is better than mouth cover
+		else if( eyes_covered ) // Eye cover is better than mouth cover
 			victim.blur_eyes(3)
 			victim.damageoverlaytemp = 30
 			return
@@ -378,7 +378,7 @@
 			M.set_drugginess(35)
 			if(prob(20))
 				M.emote(pick("twitch","giggle"))
-		if (10 to INFINITY)
+		if(10 to INFINITY)
 			M.Jitter(20)
 			M.Dizzy(20)
 			M.set_drugginess(40)
@@ -429,7 +429,7 @@
 	taste_description = "slime"
 
 /datum/reagent/consumable/cornoil/reaction_turf(turf/open/T, reac_volume)
-	if (!istype(T))
+	if(!istype(T))
 		return
 	T.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = reac_volume*2 SECONDS)
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)

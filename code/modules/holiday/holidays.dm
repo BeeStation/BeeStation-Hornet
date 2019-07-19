@@ -467,7 +467,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 */
 
 /datum/holiday/ramadan/shouldCelebrate(dd, mm, yy, ww, ddd)
-	if (round(((world.realtime - 285984000) / 864000) % 354.373435326843) == 0)
+	if(round(((world.realtime - 285984000) / 864000) % 354.373435326843) == 0)
 		return TRUE
 	return FALSE
 
@@ -478,7 +478,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	name = "End of Ramadan"
 
 /datum/holiday/ramadan/end/shouldCelebrate(dd, mm, yy, ww, ddd)
-	if (round(((world.realtime - 312768000) / 864000) % 354.373435326843) == 0)
+	if(round(((world.realtime - 312768000) / 864000) % 354.373435326843) == 0)
 		return TRUE
 	return FALSE
 

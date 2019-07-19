@@ -15,7 +15,7 @@
 		to_chat(owner, "<span class='warning'>You can't use [name] while you're incapacitated.</span>")
 		return
 	var/mob/living/carbon/human/H = owner
-	if (H.mind.martial_art.streak == "neck_chop")
+	if(H.mind.martial_art.streak == "neck_chop")
 		owner.visible_message("<span class='danger'>[owner] assumes a neutral stance.</span>", "<b><i>Your next attack is cleared.</i></b>")
 		H.mind.martial_art.streak = ""
 	else
@@ -32,7 +32,7 @@
 		to_chat(owner, "<span class='warning'>You can't use [name] while you're incapacitated.</span>")
 		return
 	var/mob/living/carbon/human/H = owner
-	if (H.mind.martial_art.streak == "leg_sweep")
+	if(H.mind.martial_art.streak == "leg_sweep")
 		owner.visible_message("<span class='danger'>[owner] assumes a neutral stance.</span>", "<b><i>Your next attack is cleared.</i></b>")
 		H.mind.martial_art.streak = ""
 	else
@@ -49,7 +49,7 @@
 		to_chat(owner, "<span class='warning'>You can't use [name] while you're incapacitated.</span>")
 		return
 	var/mob/living/carbon/human/H = owner
-	if (H.mind.martial_art.streak == "quick_choke")
+	if(H.mind.martial_art.streak == "quick_choke")
 		owner.visible_message("<span class='danger'>[owner] assumes a neutral stance.</span>", "<b><i>Your next attack is cleared.</i></b>")
 		H.mind.martial_art.streak = ""
 	else

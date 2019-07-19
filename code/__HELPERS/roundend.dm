@@ -117,20 +117,20 @@
 			for(var/datum/objective/O in A.objectives)
 				var/result = O.check_completion() ? "SUCCESS" : "FAIL"
 
-				if (result == "FAIL")
+				if(result == "FAIL")
 					greentexted = FALSE
 
 				antag_info["objectives"] += list(list("objective_type"=O.type,"text"=O.explanation_text,"result"=result))
 		SSblackbox.record_feedback("associative", "antagonists", 1, antag_info)
 
-		if (greentexted)
-			if (A.owner && A.owner.key)
-				if (A.type != /datum/antagonist/custom)
+		if(greentexted)
+			if(A.owner && A.owner.key)
+				if(A.type != /datum/antagonist/custom)
 					var/client/C = GLOB.directory[ckey(A.owner.key)]
-					if (C)
+					if(C)
 						greentexters |= C
 
-	for (var/client/C in greentexters)
+	for(var/client/C in greentexters)
 		C.process_greentext()
 
 
@@ -315,7 +315,7 @@
 	parts += "[GLOB.TAB]Station Integrity: <B>[mode.station_was_nuked ? "<span class='redtext'>Destroyed</span>" : "[popcount["station_integrity"]]%"]</B>"
 	var/total_players = GLOB.joined_player_list.len
 	if(total_players)
-		parts+= "[GLOB.TAB]Total Population: <B>[total_players]</B>"
+		parts += "[GLOB.TAB]Total Population: <B>[total_players]</B>"
 		if(station_evacuated)
 			parts += "<BR>[GLOB.TAB]Evacuation Rate: <B>[popcount[POPCOUNT_ESCAPEES]] ([PERCENT(popcount[POPCOUNT_ESCAPEES]/total_players)]%)</B>"
 			parts += "[GLOB.TAB](on emergency shuttle): <B>[popcount[POPCOUNT_SHUTTLE_ESCAPEES]] ([PERCENT(popcount[POPCOUNT_SHUTTLE_ESCAPEES]/total_players)]%)</B>"
@@ -399,7 +399,7 @@
 	var/list/parts = list()
 	var/borg_spacer = FALSE //inserts an extra linebreak to seperate AIs from independent borgs, and then multiple independent borgs.
 	//Silicon laws report
-	for (var/i in GLOB.ai_list)
+	for(var/i in GLOB.ai_list)
 		var/mob/living/silicon/ai/aiPlayer = i
 		if(aiPlayer.mind)
 			parts += "<b>[aiPlayer.name]</b> (Played by: <b>[aiPlayer.mind.key]</b>)'s laws [aiPlayer.stat != DEAD ? "at the end of the round" : "when it was <span class='redtext'>deactivated</span>"] were:"
@@ -408,24 +408,24 @@
 		parts += "<b>Total law changes: [aiPlayer.law_change_counter]</b>"
 
 		if(aiPlayer.law_change_counter >= 15)
-			if (aiPlayer.client)
+			if(aiPlayer.client)
 				SSmedals.UnlockMedal(MEDAL_15_AI_LAW_CHANGES,aiPlayer.client)
 
 
-		if (aiPlayer.connected_robots.len)
+		if(aiPlayer.connected_robots.len)
 			var/borg_num = aiPlayer.connected_robots.len
 			var/robolist = "<br><b>[aiPlayer.real_name]</b>'s minions were: "
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				borg_num--
 				if(robo.mind)
-					robolist += "<b>[robo.name]</b> (Played by: <b>[robo.mind.key]</b>)[robo.stat == DEAD ? " <span class='redtext'>(Deactivated)</span>" : ""][borg_num ?", ":""]<br>"
+					robolist += "<b>[robo.name]</b> (Played by: <b>[robo.mind.key]</b>)[robo.stat == DEAD ? " <span class='redtext'>(Deactivated)</span>" : ""][borg_num ? ", " : ""]<br>"
 			parts += "[robolist]"
 		if(!borg_spacer)
 			borg_spacer = TRUE
 
-	for (var/mob/living/silicon/robot/robo in GLOB.silicon_mobs)
-		if (!robo.connected_ai && robo.mind)
-			parts += "[borg_spacer?"<br>":""]<b>[robo.name]</b> (Played by: <b>[robo.mind.key]</b>) [(robo.stat != DEAD)? "<span class='greentext'>survived</span> as an AI-less borg!" : "was <span class='redtext'>unable to survive</span> the rigors of being a cyborg without an AI."] Its laws were:"
+	for(var/mob/living/silicon/robot/robo in GLOB.silicon_mobs)
+		if(!robo.connected_ai && robo.mind)
+			parts += "[borg_spacer ? "<br>" : ""]<b>[robo.name]</b> (Played by: <b>[robo.mind.key]</b>) [(robo.stat != DEAD)? "<span class='greentext'>survived</span> as an AI-less borg!" : "was <span class='redtext'>unable to survive</span> the rigors of being a cyborg without an AI."] Its laws were:"
 
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				parts += robo.laws.get_law_list(include_zeroth=TRUE)
@@ -450,7 +450,7 @@
 	if(GLOB.commendations.len)
 		var/list/parts = list()
 		parts += "<span class='header'>Medal Commendations:</span>"
-		for (var/com in GLOB.commendations)
+		for(var/com in GLOB.commendations)
 			parts += com
 		return "<div class='panel stationborder'>[parts.Join("<br>")]</div>"
 	return ""
@@ -609,7 +609,7 @@
 		var/datum/admins/A = GLOB.admin_datums[i]
 		if(!A)
 			A = GLOB.deadmins[i]
-			if (!A)
+			if(!A)
 				continue
 		file_data["admins"]["[i]"] = A.rank.name
 	fdel(json_file)

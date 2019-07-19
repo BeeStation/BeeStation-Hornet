@@ -133,7 +133,7 @@
 /obj/item/nuke_core/supermatter_sliver/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/hemostat/supermatter))
 		var/obj/item/hemostat/supermatter/tongs = W
-		if (tongs.sliver)
+		if(tongs.sliver)
 			to_chat(user, "<span class='notice'>\The [tongs] is already holding a supermatter sliver!</span>")
 			return FALSE
 		forceMove(tongs)
@@ -254,7 +254,7 @@
 	else
 		investigate_log("has consumed [AM].", "supermatter")
 		qdel(AM)
-	if (user)
+	if(user)
 		user.visible_message("<span class='danger'>As [user] touches [AM] with \the [src], both flash into dust and silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")

@@ -27,7 +27,7 @@
 /obj/machinery/computer/gulag_teleporter_computer/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/card/id/prisoner))
 		if(!id)
-			if (!user.transferItemToLoc(W,src))
+			if(!user.transferItemToLoc(W,src))
 				return
 			id = W
 			to_chat(user, "<span class='notice'>You insert [W].</span>")
@@ -106,7 +106,7 @@
 				return
 			if(!new_goal)
 				new_goal = default_goal
-			if (new_goal > 1000)
+			if(new_goal > 1000)
 				to_chat(usr, "The entered amount of points is too large. Points have instead been set to the maximum allowed amount.")
 			id.goal = CLAMP(new_goal, 0, 1000) //maximum 1000 points
 		if("toggle_open")

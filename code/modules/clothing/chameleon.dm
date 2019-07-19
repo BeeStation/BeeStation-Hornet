@@ -10,10 +10,10 @@
 		return
 
 	// Damn our lack of abstract interfeces
-	if (istype(target, /obj/item/clothing/head/chameleon/drone))
+	if(istype(target, /obj/item/clothing/head/chameleon/drone))
 		var/obj/item/clothing/head/chameleon/drone/X = target
 		X.chameleon_action.random_look(owner)
-	if (istype(target, /obj/item/clothing/mask/chameleon/drone))
+	if(istype(target, /obj/item/clothing/mask/chameleon/drone))
 		var/obj/item/clothing/mask/chameleon/drone/Z = target
 		Z.chameleon_action.random_look(owner)
 
@@ -27,9 +27,9 @@
 /datum/action/item_action/chameleon/drone/togglehatmask/New()
 	..()
 
-	if (istype(target, /obj/item/clothing/head/chameleon/drone))
+	if(istype(target, /obj/item/clothing/head/chameleon/drone))
 		button_icon_state = "drone_camogear_helm"
-	if (istype(target, /obj/item/clothing/mask/chameleon/drone))
+	if(istype(target, /obj/item/clothing/mask/chameleon/drone))
 		button_icon_state = "drone_camogear_mask"
 
 /datum/action/item_action/chameleon/drone/togglehatmask/Trigger()

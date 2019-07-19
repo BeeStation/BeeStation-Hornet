@@ -16,7 +16,7 @@
 
 	. = air_gases[/datum/gas/oxygen]
 	var/oxy = . ? .[MOLES] : 0
-	if (oxy < 0.5)
+	if(oxy < 0.5)
 		return
 	. = air_gases[/datum/gas/plasma]
 	var/tox = . ? .[MOLES] : 0
@@ -222,7 +222,7 @@
 		var/turf/T = loc
 		if(T.to_be_destroyed && !T.changing_turf)
 			var/chance_of_deletion
-			if (T.heat_capacity) //beware of division by zero
+			if(T.heat_capacity) //beware of division by zero
 				chance_of_deletion = T.max_fire_temperature_sustained / T.heat_capacity * 8 //there is no problem with prob(23456), min() was redundant --rastaf0
 			else
 				chance_of_deletion = 100

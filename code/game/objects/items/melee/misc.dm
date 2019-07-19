@@ -103,7 +103,7 @@
 				continue
 			if(bodypart.body_part & ARMS)
 				arms += bodypart
-			else if (bodypart.body_part & LEGS)
+			else if(bodypart.body_part & LEGS)
 				legs += bodypart
 
 		limbs_to_dismember = arms + legs
@@ -162,7 +162,7 @@
 		return
 	if(!isliving(target))
 		return
-	if (user.a_intent == INTENT_HARM)
+	if(user.a_intent == INTENT_HARM)
 		if(!..())
 			return
 		if(!iscyborg(target))
@@ -171,7 +171,7 @@
 		if(cooldown <= world.time)
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target
-				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
+				if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 					return
 				if(check_martial_counter(H, user))
 					return
@@ -212,7 +212,7 @@
 		playsound(src, 'sound/weapons/batonextend.ogg', 50, 1)
 		add_fingerprint(user)
 	sleep(3)
-	if (!QDELETED(H))
+	if(!QDELETED(H))
 		if(!QDELETED(B))
 			H.internal_organs -= B
 			qdel(B)
@@ -375,7 +375,7 @@
 
 /obj/item/melee/roastingstick/Initialize()
 	. = ..()
-	if (!ovens)
+	if(!ovens)
 		ovens = typecacheof(list(/obj/singularity, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire, /obj/structure/destructible/clockwork/massive/ratvar))
 
 /obj/item/melee/roastingstick/attack_self(mob/user)
@@ -383,7 +383,7 @@
 	if(on)
 		extend(user)
 	else
-		if (held_sausage)
+		if(held_sausage)
 			to_chat(user, "<span class='warning'>You can't retract [src] while [held_sausage] is attached!</span>")
 			return
 		retract(user)
@@ -393,14 +393,14 @@
 
 /obj/item/melee/roastingstick/attackby(atom/target, mob/user)
 	..()
-	if (istype(target, /obj/item/reagent_containers/food/snacks/sausage))
-		if (!on)
+	if(istype(target, /obj/item/reagent_containers/food/snacks/sausage))
+		if(!on)
 			to_chat(user, "<span class='warning'>You must extend [src] to attach anything to it!</span>")
 			return
-		if (held_sausage)
+		if(held_sausage)
 			to_chat(user, "<span class='warning'>[held_sausage] is already attached to [src]!</span>")
 			return
-		if (user.transferItemToLoc(target, src))
+		if(user.transferItemToLoc(target, src))
 			held_sausage = target
 		else
 			to_chat(user, "<span class='warning'>[target] doesn't seem to want to get on [src]!</span>")
@@ -408,7 +408,7 @@
 
 /obj/item/melee/roastingstick/attack_hand(mob/user)
 	..()
-	if (held_sausage)
+	if(held_sausage)
 		user.put_in_hands(held_sausage)
 		held_sausage = null
 	update_icon()
@@ -416,7 +416,7 @@
 /obj/item/melee/roastingstick/update_icon()
 	. = ..()
 	cut_overlays()
-	if (held_sausage)
+	if(held_sausage)
 		var/mutable_appearance/sausage = mutable_appearance(icon, "roastingstick_sausage")
 		add_overlay(sausage)
 
@@ -433,23 +433,23 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/melee/roastingstick/handle_atom_del(atom/target)
-	if (target == held_sausage)
+	if(target == held_sausage)
 		held_sausage = null
 		update_icon()
 
 /obj/item/melee/roastingstick/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	if (!on)
+	if(!on)
 		return
-	if (is_type_in_typecache(target, ovens))
-		if (held_sausage?.roasted)
+	if(is_type_in_typecache(target, ovens))
+		if(held_sausage?.roasted)
 			to_chat("Your [held_sausage] has already been cooked.")
 			return
-		if (istype(target, /obj/singularity) && get_dist(user, target) < 10)
+		if(istype(target, /obj/singularity) && get_dist(user, target) < 10)
 			to_chat(user, "You send [held_sausage] towards [target].")
 			playsound(src, 'sound/items/rped.ogg', 50, 1)
 			beam = user.Beam(target,icon_state="rped_upgrade",time=100)
-		else if (user.Adjacent(target))
+		else if(user.Adjacent(target))
 			to_chat(user, "You extend [src] towards [target].")
 			playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
 		else

@@ -73,7 +73,7 @@
 
 	var/dat = "<center><table>"
 	var/i
-	for(i=contents.len, i>=1, i--)
+	for(i=contents.len, i >= 1, i--)
 		var/obj/item/P = contents[i]
 		dat += "<tr><td><a href='?src=[REF(src)];retrieve=[REF(P)]'>[P.name]</a></td></tr>"
 	dat += "</table></center>"

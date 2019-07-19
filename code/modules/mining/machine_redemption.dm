@@ -55,7 +55,7 @@
 
 /obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/stack/ore/O)
 	var/datum/component/material_container/mat_container = materials.mat_container
-	if (!mat_container)
+	if(!mat_container)
 		return
 		
 	if(O.refined_type == null)
@@ -78,7 +78,7 @@
 		var/mats = O.materials & mat_container.materials
 		var/amount = O.amount
 		var/id = inserted_id && inserted_id.registered_name
-		if (id)
+		if(id)
 			id = " (ID: [id])"
 		mat_container.insert_item(O, sheet_per_ore) //insert it
 		materials.silo_log(src, "smelted", amount, "ores[id]", mats)
@@ -197,7 +197,7 @@
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/multitool_act(mob/living/user, obj/item/multitool/I)
-	if (panel_open)
+	if(panel_open)
 		input_dir = turn(input_dir, -90)
 		output_dir = turn(output_dir, -90)
 		to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
@@ -218,7 +218,7 @@
 
 	data["materials"] = list()
 	var/datum/component/material_container/mat_container = materials.mat_container
-	if (mat_container)
+	if(mat_container)
 		for(var/mat_id in mat_container.materials)
 			var/datum/material/M = mat_container.materials[mat_id]
 			var/sheet_amount = M.amount ? M.amount / MINERAL_MATERIAL_AMOUNT : "0"
@@ -229,11 +229,11 @@
 			var/datum/design/D = SSresearch.techweb_design_by_id(v)
 			data["alloys"] += list(list("name" = D.name, "id" = D.id, "amount" = can_smelt_alloy(D)))
 
-	if (!mat_container)
+	if(!mat_container)
 		data["disconnected"] = "local mineral storage is unavailable"
-	else if (!materials.silo)
+	else if(!materials.silo)
 		data["disconnected"] = "no ore silo connection is available; storing locally"
-	else if (materials.on_hold())
+	else if(materials.on_hold())
 		data["disconnected"] = "mineral withdrawal is on hold"
 
 	data["diskDesigns"] = list()
@@ -241,7 +241,7 @@
 		data["hasDisk"] = TRUE
 		if(inserted_disk.blueprints.len)
 			var/index = 1
-			for (var/datum/design/thisdesign in inserted_disk.blueprints)
+			for(var/datum/design/thisdesign in inserted_disk.blueprints)
 				if(thisdesign)
 					data["diskDesigns"] += list(list("name" = thisdesign.name, "index" = index, "canupload" = thisdesign.build_type&SMELTER))
 				index++
@@ -290,7 +290,7 @@
 					return
 
 				var/desired = 0
-				if (params["sheets"])
+				if(params["sheets"])
 					desired = text2num(params["sheets"])
 				else
 					desired = input("How many sheets?", "How many sheets would you like to smelt?", 1) as null|num
@@ -331,7 +331,7 @@
 			if((check_access(inserted_id) || allowed(usr)) && alloy)
 				var/smelt_amount = can_smelt_alloy(alloy)
 				var/desired = 0
-				if (params["sheets"])
+				if(params["sheets"])
 					desired = text2num(params["sheets"])
 				else
 					desired = input("How many sheets?", "How many sheets would you like to smelt?", 1) as null|num

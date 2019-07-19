@@ -213,9 +213,9 @@
 
 /obj/item/geiger_counter/cyborg/equipped(mob/user)
 	. = ..()
-	if (mobhook && mobhook.parent != user)
+	if(mobhook && mobhook.parent != user)
 		QDEL_NULL(mobhook)
-	if (!mobhook)
+	if(!mobhook)
 		mobhook = user.AddComponent(/datum/component/redirect, list(COMSIG_ATOM_RAD_ACT = CALLBACK(src, .proc/redirect_rad_act)))
 
 /obj/item/geiger_counter/cyborg/proc/redirect_rad_act(datum/source, amount)

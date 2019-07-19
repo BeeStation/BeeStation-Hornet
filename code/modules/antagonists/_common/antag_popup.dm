@@ -1,10 +1,10 @@
 /datum/antagonist/proc/greeting_popup()
-	if (popup_title && owner && owner.current)
+	if(popup_title && owner && owner.current)
 		var/body = "<h1 align='center' style='font-size: 35px;'>[popup_title]</h1><br>"
 		body += "<div>Congratulations, you have been assigned to an antagonist role! For more information, scroll up in your chat.</div><br>"
 		body += "<div>To view your objectives, either scroll up in chat, or use the <b>Notes</b> verb in the IC tab.</div><br>"
 		body += "<div>If you are confused, feel free to ask an mentor or admin for help using the <b>Mentorhelp</b> or <b>Adminhelp</b> verb.</div><br>"
-		if (wikilink)
+		if(wikilink)
 			body += "<div><b>More in depth information about this antagonist role can be found <a href='?action=openLink&link=[url_encode(wikilink)]'>here</a></b></div>"
 		var/datum/browser/popup = new(owner.current, "antagpopup-[REF(src)]", "<h1 align='center' style='font-size: 28px;'>Antagonist!</h1>", 700, 350)
 		popup.set_content(body)

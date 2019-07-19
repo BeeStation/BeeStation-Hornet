@@ -13,7 +13,7 @@
 /datum/action/changeling/augmented_eyesight/on_purchase(mob/user) //The ability starts inactive, so we should be protected from flashes.
 	..()
 	var/obj/item/organ/eyes/E = user.getorganslot(ORGAN_SLOT_EYES)
-	if (E)
+	if(E)
 		E.flash_protect = 2 //Adjust the user's eyes' flash protection
 		to_chat(user, "We adjust our eyes to protect them from bright lights.")
 	else
@@ -44,7 +44,7 @@
 /datum/action/changeling/augmented_eyesight/Remove(mob/user) //Get rid of x-ray vision and flash protection when the user refunds this ability
 	var/obj/item/organ/eyes/E = user.getorganslot(ORGAN_SLOT_EYES)
 	if(E)
-		if (active)
+		if(active)
 			E.sight_flags ^= SEE_MOBS | SEE_OBJS | SEE_TURFS
 		else
 			E.flash_protect = 0

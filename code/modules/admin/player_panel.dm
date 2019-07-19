@@ -29,7 +29,7 @@
 
 						var maintable_data = document.getElementById('maintable_data');
 						var ltr = maintable_data.getElementsByTagName("tr");
-						for ( var i = 0; i < ltr.length; ++i )
+						for( var i = 0; i < ltr.length; ++i )
 						{
 							try{
 								var tr = ltr\[i\];
@@ -40,7 +40,7 @@
 								var td = ltd\[0\];
 								var lsearch = td.getElementsByClassName("filter_data");
 								var search = lsearch\[0\];
-								if ( search.innerText.toLowerCase().indexOf(filter) == -1 )
+								if( search.innerText.toLowerCase().indexOf(filter) == -1 )
 								{
 									tr.innerHTML = "";
 									i--;
@@ -75,7 +75,7 @@
 					body += "<a href='?_src_=holder;[HrefToken()];showmessageckey="+ckey+"'>N</a> - "
 					body += "<a href='?_src_=vars;[HrefToken()];Vars="+ref+"'>VV</a> - "
 					body += "<a href='?_src_=holder;[HrefToken()];traitor="+ref+"'>TP</a> - "
-					if (job == "Cyborg")
+					if(job == "Cyborg")
 						body += "<a href='?_src_=holder;[HrefToken()];borgpanel="+ref+"'>BP</a> - "
 					body += "<a href='?priv_msg="+ckey+"'>PM</a> - "
 					body += "<a href='?_src_=holder;[HrefToken()];subtlemessage="+ref+"'>SM</a> - "
@@ -97,13 +97,13 @@
 
 						var id = span.getAttribute("id");
 
-						if(!id || !(id.indexOf("item")==0))
+						if(!id || !(id.indexOf("item") == 0))
 							continue;
 
 						var pass = 1;
 
 						for(var j = 0; j < locked_tabs.length; j++){
-							if(locked_tabs\[j\]==id){
+							if(locked_tabs\[j\] == id){
 								pass = 0;
 								break;
 							}
@@ -132,7 +132,7 @@
 
 					var pass = 1;
 					for(var j = 0; j < locked_tabs.length; j++){
-						if(locked_tabs\[j\]==id){
+						if(locked_tabs\[j\] == id){
 							pass = 0;
 							break;
 						}
@@ -153,7 +153,7 @@
 					var index = 0;
 					var pass = 0;
 					for(var j = 0; j < locked_tabs.length; j++){
-						if(locked_tabs\[j\]==id){
+						if(locked_tabs\[j\] == id){
 							pass = 1;
 							index = j;
 							break;
@@ -212,7 +212,7 @@
 		if(M.ckey)
 
 			var/color = "#e6e6e6"
-			if(i%2 == 0)
+			if(i % 2 == 0)
 				color = "#f2f2f2"
 			var/is_antagonist = is_special_character(M)
 

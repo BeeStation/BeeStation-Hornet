@@ -13,9 +13,9 @@
 	var/list/cameras = GLOB.cameranet.cameras.Copy()
 	while(prob(round(100/iterations)))
 		var/obj/machinery/camera/C = pick_n_take(cameras)
-		if (!C)
+		if(!C)
 			break
-		if (!("ss13" in C.network))
+		if(!("ss13" in C.network))
 			continue
 		if(C.status)
 			C.toggle_cam(null, 0)

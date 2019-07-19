@@ -83,7 +83,7 @@
 				break
 			++loaded
 			add_seed(G)
-		if (loaded)
+		if(loaded)
 			to_chat(user, "<span class='notice'>You put as many seeds from \the [O.name] into [src] as you can.</span>")
 		else
 			to_chat(user, "<span class='notice'>There are no seeds in \the [O.name].</span>")
@@ -92,7 +92,7 @@
 	else if(seedify(O,-1, src, user))
 		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
 		return
-	else if (istype(O, /obj/item/seeds))
+	else if(istype(O, /obj/item/seeds))
 		if(add_seed(O))
 			to_chat(user, "<span class='notice'>You add [O] to [src.name].</span>")
 			updateUsrDialog()
@@ -124,16 +124,16 @@
 
 /obj/machinery/seed_extractor/ui_interact(mob/user)
 	. = ..()
-	if (stat)
+	if(stat)
 		return FALSE
 
 	var/dat = "<b>Stored seeds:</b><br>"
 
-	if (contents.len == 0)
+	if(contents.len == 0)
 		dat += "<font color='red'>No seeds</font>"
 	else
 		dat += "<table cellpadding='3' style='text-align:center;'><tr><td>Name</td><td>Lifespan</td><td>Endurance</td><td>Maturation</td><td>Production</td><td>Yield</td><td>Potency</td><td>Stock</td></tr>"
-		for (var/datum/seed_pile/O in piles)
+		for(var/datum/seed_pile/O in piles)
 			dat += "<tr><td>[O.name]</td><td>[O.lifespan]</td><td>[O.endurance]</td><td>[O.maturation]</td>"
 			dat += "<td>[O.production]</td><td>[O.yield]</td><td>[O.potency]</td><td>"
 			dat += "<a href='byond://?src=[REF(src)];name=[O.name];li=[O.lifespan];en=[O.endurance];ma=[O.maturation];pr=[O.production];yi=[O.yield];pot=[O.potency]'>Vend</a> ([O.amount] left)</td></tr>"
@@ -155,19 +155,19 @@
 	href_list["yi"] = text2num(href_list["yi"])
 	href_list["pot"] = text2num(href_list["pot"])
 
-	for (var/datum/seed_pile/N in piles)//Find the pile we need to reduce...
-		if (href_list["name"] == N.name && href_list["li"] == N.lifespan && href_list["en"] == N.endurance && href_list["ma"] == N.maturation && href_list["pr"] == N.production && href_list["yi"] == N.yield && href_list["pot"] == N.potency)
+	for(var/datum/seed_pile/N in piles)//Find the pile we need to reduce...
+		if(href_list["name"] == N.name && href_list["li"] == N.lifespan && href_list["en"] == N.endurance && href_list["ma"] == N.maturation && href_list["pr"] == N.production && href_list["yi"] == N.yield && href_list["pot"] == N.potency)
 			if(N.amount <= 0)
 				return
 			N.amount = max(N.amount - 1, 0)
-			if (N.amount <= 0)
+			if(N.amount <= 0)
 				piles -= N
 				qdel(N)
 			break
 
-	for (var/obj/T in contents)//Now we find the seed we need to vend
+	for(var/obj/T in contents)//Now we find the seed we need to vend
 		var/obj/item/seeds/O = T
-		if (O.plantname == href_list["name"] && O.lifespan == href_list["li"] && O.endurance == href_list["en"] && O.maturation == href_list["ma"] && O.production == href_list["pr"] && O.yield == href_list["yi"] && O.potency == href_list["pot"])
+		if(O.plantname == href_list["name"] && O.lifespan == href_list["li"] && O.endurance == href_list["en"] && O.maturation == href_list["ma"] && O.production == href_list["pr"] && O.yield == href_list["yi"] && O.potency == href_list["pot"])
 			O.forceMove(drop_location())
 			break
 
@@ -189,8 +189,8 @@
 			return FALSE
 
 	. = TRUE
-	for (var/datum/seed_pile/N in piles)
-		if (O.plantname == N.name && O.lifespan == N.lifespan && O.endurance == N.endurance && O.maturation == N.maturation && O.production == N.production && O.yield == N.yield && O.potency == N.potency)
+	for(var/datum/seed_pile/N in piles)
+		if(O.plantname == N.name && O.lifespan == N.lifespan && O.endurance == N.endurance && O.maturation == N.maturation && O.production == N.production && O.yield == N.yield && O.potency == N.potency)
 			++N.amount
 			return
 

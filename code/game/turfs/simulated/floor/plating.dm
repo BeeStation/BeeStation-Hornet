@@ -30,9 +30,9 @@
 		to_chat(user, "<span class='notice'>You might be able to build ontop of it with some <i>tiles</i>...</span>")
 
 /turf/open/floor/plating/Initialize()
-	if (!broken_states)
+	if(!broken_states)
 		broken_states = list("platingdmg1", "platingdmg2", "platingdmg3")
-	if (!burnt_states)
+	if(!burnt_states)
 		burnt_states = list("panelscorched")
 	. = ..()
 	if(!attachment_holes || (!broken && !burnt))
@@ -54,13 +54,13 @@
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
 			return
 		var/obj/item/stack/rods/R = C
-		if (R.get_amount() < 2)
+		if(R.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
 			return
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
 			if(do_after(user, 30, target = src))
-				if (R.get_amount() >= 2 && !istype(src, /turf/open/floor/engine))
+				if(R.get_amount() >= 2 && !istype(src, /turf/open/floor/engine))
 					PlaceOnTop(/turf/open/floor/engine)
 					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
 					R.use(2)

@@ -158,19 +158,19 @@
 		if(user.canUseTopic(src, BE_CLOSE))
 			var/list/sanitised = list()
 			var/sanitycheck = 1
-			for(var/i=1,i<=length(input),i++) //put the guess into a list
+			for(var/i=1,i <= length(input),i++) //put the guess into a list
 				sanitised += text2num(copytext(input,i,i+1))
-			for(var/i=1,i<=(length(input)-1),i++) //compare each digit in the guess to all those following it
-				for(var/j=(i+1),j<=length(input),j++)
+			for(var/i=1,i <= (length(input)-1),i++) //compare each digit in the guess to all those following it
+				for(var/j=(i+1),j <= length(input),j++)
 					if(sanitised[i] == sanitised[j])
 						sanitycheck = null //if a digit is repeated, reject the input
-			if (input == code)
+			if(input == code)
 				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
 				locked = FALSE
 				cut_overlays()
 				add_overlay("securecrateg")
 				tamperproof = 0 // set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
-			else if (input == null || sanitycheck == null || length(input) != codelen)
+			else if(input == null || sanitycheck == null || length(input) != codelen)
 				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")
 			else
 				to_chat(user, "<span class='warning'>A red light flashes.</span>")
@@ -199,9 +199,9 @@
 				var/list/answer = list()
 				var/bulls = 0
 				var/cows = 0
-				for(var/i=1,i<=length(lastattempt),i++)
+				for(var/i=1,i <= length(lastattempt),i++)
 					guess += text2num(copytext(lastattempt,i,i+1))
-				for(var/i=1,i<=length(lastattempt),i++)
+				for(var/i=1,i <= length(lastattempt),i++)
 					answer += text2num(copytext(code,i,i+1))
 				for(var/i = 1, i < codelen + 1, i++) // Go through list and count matches
 					if( answer.Find(guess[i],1,codelen+1))

@@ -87,7 +87,7 @@
 		usr.set_machine(src)
 
 		if(href_list["id"])
-			if(href_list["id"] =="insert" && !inserted_id)
+			if(href_list["id"] == "insert" && !inserted_id)
 				var/obj/item/card/id/prisoner/I = usr.is_holding_item_of_type(/obj/item/card/id/prisoner)
 				if(I)
 					if(!usr.transferItemToLoc(I, src))

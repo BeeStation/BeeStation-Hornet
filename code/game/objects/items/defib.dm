@@ -147,7 +147,7 @@
 	. = ..()
 	if(cell && !(. & EMP_PROTECT_CONTENTS))
 		deductcharge(1000 / severity)
-	if (. & EMP_PROTECT_SELF)
+	if(. & EMP_PROTECT_SELF)
 		return
 	if(safety)
 		safety = FALSE
@@ -300,9 +300,9 @@
 /obj/item/twohanded/shockpaddles/equipped(mob/user, slot)
 	. = ..()
 	if(req_defib)
-		if (mobhook && mobhook.parent != user)
+		if(mobhook && mobhook.parent != user)
 			QDEL_NULL(mobhook)
-		if (!mobhook)
+		if(!mobhook)
 			mobhook = user.AddComponent(/datum/component/redirect, list(COMSIG_MOVABLE_MOVED = CALLBACK(src, .proc/check_range)))
 
 /obj/item/twohanded/shockpaddles/Moved()
@@ -360,7 +360,7 @@
 /obj/item/twohanded/shockpaddles/dropped(mob/user)
 	if(!req_defib)
 		return ..()
-	if (mobhook)
+	if(mobhook)
 		QDEL_NULL(mobhook)
 	if(user)
 		var/obj/item/twohanded/offhand/O = user.get_inactive_held_item()
@@ -380,7 +380,7 @@
 /obj/item/twohanded/shockpaddles/proc/check_defib_exists(mainunit, mob/living/carbon/M, obj/O)
 	if(!req_defib)
 		return TRUE //If it doesn't need a defib, just say it exists
-	if (!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns
+	if(!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns
 		qdel(O)
 		return FALSE
 	else
@@ -569,13 +569,13 @@
 				shock_touching(30, H)
 				var/failed
 
-				if (H.suiciding)
+				if(H.suiciding)
 					failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Recovery of patient impossible. Further attempts futile.</span>"
-				else if (H.hellbound)
+				else if(H.hellbound)
 					failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's soul appears to be on another plane of existence.  Further attempts futile.</span>"
-				else if (tplus > tlimit)
+				else if(tplus > tlimit)
 					failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Body has decayed for too long. Further attempts futile.</span>"
-				else if (!H.getorgan(/obj/item/organ/heart))
+				else if(!H.getorgan(/obj/item/organ/heart))
 					failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's heart is missing.</span>"
 				else if(total_burn >= MAX_REVIVE_FIRE_DAMAGE || total_brute >= MAX_REVIVE_BRUTE_DAMAGE || HAS_TRAIT(H, TRAIT_HUSK))
 					failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Severe tissue damage makes recovery of patient impossible via defibrillator. Further attempts futile.</span>"
@@ -598,7 +598,7 @@
 					playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
 				else
 					//If the body has been fixed so that they would not be in crit when defibbed, give them oxyloss to put them back into crit
-					if (H.health > HALFWAYCRITDEATH)
+					if(H.health > HALFWAYCRITDEATH)
 						H.adjustOxyLoss(H.health - HALFWAYCRITDEATH, 0)
 					else
 						var/overall_damage = total_brute + total_burn + H.getToxLoss() + H.getOxyLoss()
@@ -626,7 +626,7 @@
 					defib.cooldowncheck(user)
 				else
 					recharge(60)
-			else if (!H.getorgan(/obj/item/organ/heart))
+			else if(!H.getorgan(/obj/item/organ/heart))
 				user.visible_message("<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Patient's heart is missing. Operation aborted.</span>")
 				playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
 			else if(H.undergoing_cardiac_arrest())

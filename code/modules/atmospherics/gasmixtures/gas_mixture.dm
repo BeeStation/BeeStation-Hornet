@@ -33,7 +33,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 
 /datum/gas_mixture/New(volume)
 	gases = new
-	if (!isnull(volume))
+	if(!isnull(volume))
 		src.volume = volume
 	reaction_results = new
 
@@ -345,7 +345,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	if(length(cached_gases ^ sharer_gases)) //if all gases were present in both mixtures, we know that no gases are 0
 		garbage_collect(cached_gases - sharer_gases) //any gases the sharer had, we are guaranteed to have. gases that it didn't have we are not.
 		sharer.garbage_collect(sharer_gases - cached_gases) //the reverse is equally true
-	if (initial(sharer.gc_share))
+	if(initial(sharer.gc_share))
 		sharer.garbage_collect()
 	if(temperature_delta > MINIMUM_TEMPERATURE_TO_MOVE || abs(moved_moles) > MINIMUM_MOLES_DELTA_TO_MOVE)
 		var/our_moles
@@ -424,7 +424,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 				continue
 
 			for(var/id in min_reqs)
-				if (id == "TEMP" || id == "ENER")
+				if(id == "TEMP" || id == "ENER")
 					continue
 				if(!cached_gases[id] || cached_gases[id][MOLES] < min_reqs[id])
 					continue reaction_loop
@@ -432,7 +432,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 			//at this point, all requirements for the reaction are satisfied. we can now react()
 			
 			. |= reaction.react(src, holder)
-			if (. & STOP_REACTIONS)
+			if(. & STOP_REACTIONS)
 				break
 	if(.)
 		garbage_collect()

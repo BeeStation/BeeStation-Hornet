@@ -148,7 +148,7 @@
 				var/max = format_frequency(freerange ? MAX_FREE_FREQ : MAX_FREQ)
 				tune = input("Tune frequency ([min]-[max]):", name, format_frequency(frequency)) as null|num
 				if(!isnull(tune) && !..())
-					if (tune < MIN_FREE_FREQ && tune <= MAX_FREE_FREQ / 10)
+					if(tune < MIN_FREE_FREQ && tune <= MAX_FREE_FREQ / 10)
 						// allow typing 144.7 to get 1447
 						tune *= 10
 					. = TRUE
@@ -224,7 +224,7 @@
 		if(channel == MODE_DEPARTMENT)
 			channel = channels[1]
 		freq = secure_radio_connections[channel]
-		if (!channels[channel]) // if the channel is turned off, don't broadcast
+		if(!channels[channel]) // if the channel is turned off, don't broadcast
 			return
 	else
 		freq = frequency
@@ -245,7 +245,7 @@
 	var/datum/signal/subspace/vocal/signal = new(src, freq, speaker, language, message, spans)
 
 	// Independent radios, on the CentCom frequency, reach all independent radios
-	if (independent && (freq == FREQ_CENTCOM || freq == FREQ_CTF_RED || freq == FREQ_CTF_BLUE))
+	if(independent && (freq == FREQ_CENTCOM || freq == FREQ_CTF_RED || freq == FREQ_CTF_BLUE))
 		signal.data["compression"] = 0
 		signal.transmission_method = TRANSMISSION_SUPERSPACE
 		signal.levels = list(0)  // reaches all Z-levels
@@ -256,7 +256,7 @@
 	signal.send_to_receivers()
 
 	// If the radio is subspace-only, that's all it can do
-	if (subspace_transmission)
+	if(subspace_transmission)
 		return
 
 	// Non-subspace radios will check in a couple of seconds, and if the signal
@@ -265,7 +265,7 @@
 
 /obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
 	var/turf/T = get_turf(src)
-	if (signal.data["done"] && (T.z in signal.levels))
+	if(signal.data["done"] && (T.z in signal.levels))
 		return
 
 	// Okay, the signal was never processed, send a mundane broadcast.
@@ -284,11 +284,11 @@
 		raw_message = stars(raw_message)
 	else if(message_mode == MODE_L_HAND || message_mode == MODE_R_HAND)
 		// try to avoid being heard double
-		if (loc == speaker && ismob(speaker))
+		if(loc == speaker && ismob(speaker))
 			var/mob/M = speaker
 			var/idx = M.get_held_index_of_item(src)
 			// left hands are odd slots
-			if (idx && (idx % 2) == (message_mode == MODE_L_HAND))
+			if(idx && (idx % 2) == (message_mode == MODE_L_HAND))
 				return
 
 	talk_into(speaker, raw_message, , spans, language=message_language)
@@ -296,19 +296,19 @@
 // Checks if this radio can receive on the given frequency.
 /obj/item/radio/proc/can_receive(freq, level)
 	// deny checks
-	if (!on || !listening || wires.is_cut(WIRE_RX))
+	if(!on || !listening || wires.is_cut(WIRE_RX))
 		return FALSE
-	if (freq == FREQ_SYNDICATE && !syndie)
+	if(freq == FREQ_SYNDICATE && !syndie)
 		return FALSE
-	if (freq == FREQ_CENTCOM)
+	if(freq == FREQ_CENTCOM)
 		return independent  // hard-ignores the z-level check
-	if (!(0 in level))
+	if(!(0 in level))
 		var/turf/position = get_turf(src)
 		if(!position || !(position.z in level))
 			return FALSE
 
 	// allow checks: are we listening on that frequency?
-	if (freq == frequency)
+	if(freq == frequency)
 		return TRUE
 	for(var/ch_name in channels)
 		if(channels[ch_name] & FREQ_LISTENING)
@@ -320,9 +320,9 @@
 
 /obj/item/radio/examine(mob/user)
 	..()
-	if (frequency && in_range(src, user))
+	if(frequency && in_range(src, user))
 		to_chat(user, "<span class='notice'>It is set to broadcast over the [frequency/10] frequency.</span>")
-	if (unscrewed)
+	if(unscrewed)
 		to_chat(user, "<span class='notice'>It can be attached and modified.</span>")
 	else
 		to_chat(user, "<span class='notice'>It cannot be modified or attached.</span>")
@@ -340,21 +340,21 @@
 
 /obj/item/radio/emp_act(severity)
 	. = ..()
-	if (. & EMP_PROTECT_SELF)
+	if(. & EMP_PROTECT_SELF)
 		return
 	emped++ //There's been an EMP; better count it
 	var/curremp = emped //Remember which EMP this was
-	if (listening && ismob(loc))	// if the radio is turned on and on someone's person they notice
+	if(listening && ismob(loc))	// if the radio is turned on and on someone's person they notice
 		to_chat(loc, "<span class='warning'>\The [src] overloads.</span>")
 	broadcasting = FALSE
 	listening = FALSE
-	for (var/ch_name in channels)
+	for(var/ch_name in channels)
 		channels[ch_name] = 0
 	on = FALSE
 	spawn(200)
 		if(emped == curremp) //Don't fix it if it's been EMP'd again
 			emped = 0
-			if (!istype(src, /obj/item/radio/intercom)) // intercoms will turn back on on their own
+			if(!istype(src, /obj/item/radio/intercom)) // intercoms will turn back on on their own
 				on = TRUE
 
 ///////////////////////////////

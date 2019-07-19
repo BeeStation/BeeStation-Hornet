@@ -38,7 +38,7 @@
 	icon_state = "pen"
 	var/mob/M = loc
 	if(istype(M))
-		to_chat(M, "<span class='notice'>[icon2html(src, M)] [src][(loc == M)?(""):(" in your [loc]")] vibrates softly. It is ready to be used again.</span>")
+		to_chat(M, "<span class='notice'>[icon2html(src, M)] [src][(loc == M) ? ("") : (" in your [loc]")] vibrates softly. It is ready to be used again.</span>")
 
 /obj/item/pen/gang/proc/add_gangster(mob/user, datum/team/gang/gang, datum/mind/gangster_mind, check = TRUE) // Basically a wrapper to add_antag_datum.
 	var/datum/antagonist/dudegang = gangster_mind.has_antag_datum(/datum/antagonist/gang)

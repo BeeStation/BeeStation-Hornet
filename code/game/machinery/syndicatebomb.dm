@@ -146,7 +146,7 @@
 				payload = null
 			else
 				to_chat(user, "<span class='warning'>There isn't anything in here to remove!</span>")
-		else if (open_panel)
+		else if(open_panel)
 			to_chat(user, "<span class='warning'>The wires connecting the shell to the explosives are holding it down!</span>")
 		else
 			to_chat(user, "<span class='warning'>The cover is screwed on, it won't pry off!</span>")
@@ -437,7 +437,7 @@
 /obj/item/bombcore/chemical/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR && beakers.len > 0)
 		I.play_tool_sound(src)
-		for (var/obj/item/B in beakers)
+		for(var/obj/item/B in beakers)
 			B.forceMove(drop_location())
 			beakers -= B
 		return

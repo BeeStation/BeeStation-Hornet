@@ -32,7 +32,7 @@
 		return
 	if(href_list["send_message"])
 		var/obj/item/mecha_parts/mecha_tracking/MT = locate(href_list["send_message"])
-		if (!istype(MT))
+		if(!istype(MT))
 			return
 		var/message = stripped_input(usr,"Input message","Transmit message")
 		var/obj/mecha/M = MT.in_mecha()
@@ -41,7 +41,7 @@
 		return
 	if(href_list["shock"])
 		var/obj/item/mecha_parts/mecha_tracking/MT = locate(href_list["shock"])
-		if (istype(MT))
+		if(istype(MT))
 			MT.shock()
 
 	updateUsrDialog()
@@ -64,9 +64,9 @@
 <b>Integrity:</b> [round((M.obj_integrity/M.max_integrity*100), 0.01)]%<br>
 <b>Cell Charge:</b> [isnull(cell_charge)?"Not Found":"[M.cell.percent()]%"]<br>
 <b>Airtank:</b> [M.internal_tank?"[round(M.return_pressure(), 0.01)]":"Not Equipped"] kPa<br>
-<b>Pilot:</b> [M.occupant||"None"]<br>
-<b>Location:</b> [get_area_name(M, TRUE)||"Unknown"]<br>
-<b>Active Equipment:</b> [M.selected||"None"]"}
+<b>Pilot:</b> [M.occupant || "None"]<br>
+<b>Location:</b> [get_area_name(M, TRUE) || "Unknown"]<br>
+<b>Active Equipment:</b> [M.selected || "None"]"}
 	if(istype(M, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/RM = M
 		answer += "<br><b>Used Cargo Space:</b> [round((RM.cargo.len/RM.cargo_capacity*100), 0.01)]%"

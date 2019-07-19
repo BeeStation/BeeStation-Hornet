@@ -42,7 +42,7 @@ GLOBAL_VAR(antag_prototypes)
 
 /datum/antagonist/proc/antag_panel_objectives()
 	var/result = "<i><b>Objectives</b></i>:<br>"
-	if (objectives.len == 0)
+	if(objectives.len == 0)
 		result += "EMPTY<br>"
 	else
 		var/obj_count = 1
@@ -69,9 +69,9 @@ GLOBAL_VAR(antag_prototypes)
 			common_commands += "<a href='?src=[REF(src)];silicon=Unemag'>Unemag</a>"
 	else if(isAI(current))
 		var/mob/living/silicon/ai/A = current
-		if (A.connected_robots.len)
-			for (var/mob/living/silicon/robot/R in A.connected_robots)
-				if (R.emagged)
+		if(A.connected_robots.len)
+			for(var/mob/living/silicon/robot/R in A.connected_robots)
+				if(R.emagged)
 					common_commands += "<a href='?src=[REF(src)];silicon=unemagcyborgs'>Unemag slaved cyborgs</a>"
 					break
 	return common_commands
@@ -85,7 +85,7 @@ GLOBAL_VAR(antag_prototypes)
 	//Move these to mob
 	if(iscyborg(current))
 		var/mob/living/silicon/robot/robot = current
-		if (robot.emagged)
+		if(robot.emagged)
 			result += "<span class='bad'>Emagged</span>"
 	return result.Join(" | ")
 
@@ -97,8 +97,8 @@ GLOBAL_VAR(antag_prototypes)
 		alert("This mind doesn't have a mob, or is deleted! For some reason!", "Edit Memory")
 		return
 
-	var/out = "<B>[name]</B>[(current && (current.real_name!=name))?" (as [current.real_name])":""]<br>"
-	out += "Mind currently owned by key: [key] [active?"(synced)":"(not synced)"]<br>"
+	var/out = "<B>[name]</B>[(current && (current.real_name != name)) ? " (as [current.real_name])" : ""]<br>"
+	out += "Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]<br>"
 	out += "Assigned role: [assigned_role]. <a href='?src=[REF(src)];role_edit=1'>Edit</a><br>"
 	out += "Faction and special role: <b><font color='red'>[special_role]</font></b><br>"
 
@@ -194,7 +194,7 @@ GLOBAL_VAR(antag_prototypes)
 		var/datum/component/uplink/U = find_syndicate_uplink()
 		if(U)
 			uplink_info += "<a href='?src=[REF(src)];common=takeuplink'>take</a>"
-			if (check_rights(R_FUN, 0))
+			if(check_rights(R_FUN, 0))
 				uplink_info += ", <a href='?src=[REF(src)];common=crystals'>[U.telecrystals]</a> TC"
 			else
 				uplink_info += ", [U.telecrystals] TC"

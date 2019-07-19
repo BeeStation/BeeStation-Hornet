@@ -88,7 +88,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	d2 = text2num( copytext( icon_state, dash+1 ) )
 
 	var/turf/T = get_turf(src)			// hide if turf is not intact
-	if(level==1)
+	if(level == 1)
 		hide(T.intact)
 	GLOB.cable_list += src //add it to the global cable list
 
@@ -145,7 +145,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(T.intact)
 		return
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
-		if (shock(user, 50))
+		if(shock(user, 50))
 			return
 		user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
 		stored.add_fingerprint(user)
@@ -155,7 +155,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
-		if (coil.get_amount() < 1)
+		if(coil.get_amount() < 1)
 			to_chat(user, "<span class='warning'>Not enough cable!</span>")
 			return
 		coil.cable_join(src, user)
@@ -188,7 +188,7 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/proc/shock(mob/user, prb, siemens_coeff = 1)
 	if(!prob(prb))
 		return 0
-	if (electrocute_mob(user, powernet, src, siemens_coeff))
+	if(electrocute_mob(user, powernet, src, siemens_coeff))
 		do_sparks(5, TRUE, src)
 		return 1
 	else
@@ -253,7 +253,7 @@ By design, d1 is the smallest direction and d2 is the highest
 ////////////////////////////////////////////////
 
 //handles merging diagonally matching cables
-//for info : direction^3 is flipping horizontally, direction^12 is flipping vertically
+//for info : direction ^ 3 is flipping horizontally, direction ^ 12 is flipping vertically
 /obj/structure/cable/proc/mergeDiagonalsNetworks(direction)
 
 	//search for and merge diagonally matching cables from the first direction component (north/south)
@@ -267,7 +267,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		if(src == C)
 			continue
 
-		if(C.d1 == (direction^3) || C.d2 == (direction^3)) //we've got a diagonally matching cable
+		if(C.d1 == (direction ^ 3) || C.d2 == (direction ^ 3)) //we've got a diagonally matching cable
 			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
 				var/datum/powernet/newPN = new()
 				newPN.add_cable(C)
@@ -287,7 +287,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 		if(src == C)
 			continue
-		if(C.d1 == (direction^12) || C.d2 == (direction^12)) //we've got a diagonally matching cable
+		if(C.d1 == (direction ^ 12) || C.d2 == (direction ^ 12)) //we've got a diagonally matching cable
 			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
 				var/datum/powernet/newPN = new()
 				newPN.add_cable(C)
@@ -675,7 +675,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	// one end of the clicked cable is pointing towards us and no direction was supplied
 	if((C.d1 == dirn || C.d2 == dirn) && !forceddir)
 		if(!U.can_have_cabling())						//checking if it's a plating or catwalk
-			if (showerror)
+			if(showerror)
 				to_chat(user, "<span class='warning'>You can only lay cables on catwalks and plating!</span>")
 			return
 		if(U.intact)						//can't place a cable if it's a plating with a tile on it
@@ -689,7 +689,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 			for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
 				if(LC.d1 == fdirn || LC.d2 == fdirn)
-					if (showerror)
+					if(showerror)
 						to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
 					return
 
@@ -712,8 +712,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 			use(1)
 
-			if (NC.shock(user, 50))
-				if (prob(50)) //fail
+			if(NC.shock(user, 50))
+				if(prob(50)) //fail
 					NC.deconstruct()
 
 			return
@@ -734,7 +734,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 			if(LC == C)			// skip the cable we're interacting with
 				continue
 			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1) )	// make sure no cable matches either direction
-				if (showerror)
+				if(showerror)
 					to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
 
 				return
@@ -764,8 +764,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 		use(1)
 
-		if (C.shock(user, 50))
-			if (prob(50)) //fail
+		if(C.shock(user, 50))
+			if(prob(50)) //fail
 				C.deconstruct()
 				return
 

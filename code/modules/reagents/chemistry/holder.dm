@@ -239,9 +239,9 @@
 
 /datum/reagents/proc/trans_id_to(obj/target, reagent, amount=1, preserve_data=1)//Not sure why this proc didn't exist before. It does now! /N
 	var/list/cached_reagents = reagent_list
-	if (!target)
+	if(!target)
 		return
-	if (!target.reagents || src.total_volume<=0 || !src.get_reagent_amount(reagent))
+	if(!target.reagents || src.total_volume <= 0 || !src.get_reagent_amount(reagent))
 		return
 	if(amount < 0)
 		return
@@ -251,7 +251,7 @@
 		amount = src.get_reagent_amount(reagent)
 	amount = min(amount, R.maximum_volume-R.total_volume)
 	var/trans_data = null
-	for (var/CR in cached_reagents)
+	for(var/CR in cached_reagents)
 		var/datum/reagent/current_reagent = CR
 		if(current_reagent.type == reagent)
 			if(preserve_data)
@@ -407,7 +407,7 @@
 					else
 						if(cached_my_atom.type == C.required_container)
 							matching_container = 1
-					if (isliving(cached_my_atom) && !C.mob_react) //Makes it so certain chemical reactions don't occur in mobs
+					if(isliving(cached_my_atom) && !C.mob_react) //Makes it so certain chemical reactions don't occur in mobs
 						return
 					if(!C.required_other)
 						matching_other = 1
@@ -608,7 +608,7 @@
 	//add the reagent to the existing if it exists
 	for(var/A in cached_reagents)
 		var/datum/reagent/R = A
-		if (R.type == reagent)
+		if(R.type == reagent)
 			R.volume += amount
 			update_total()
 			if(my_atom)
@@ -658,7 +658,7 @@
 
 	for(var/A in cached_reagents)
 		var/datum/reagent/R = A
-		if (R.type == reagent)
+		if(R.type == reagent)
 			//clamp the removal amount to be between current reagent amount
 			//and zero, to prevent removing more than the holder has stored
 			amount = CLAMP(amount, 0, R.volume)
@@ -676,7 +676,7 @@
 	var/list/cached_reagents = reagent_list
 	for(var/_reagent in cached_reagents)
 		var/datum/reagent/R = _reagent
-		if (R.type == reagent)
+		if(R.type == reagent)
 			if(!amount)
 				if(needs_metabolizing && !R.metabolizing)
 					return
@@ -695,7 +695,7 @@
 	var/list/cached_reagents = reagent_list
 	for(var/_reagent in cached_reagents)
 		var/datum/reagent/R = _reagent
-		if (R.type == reagent)
+		if(R.type == reagent)
 			return round(R.volume, CHEMICAL_QUANTISATION_LEVEL)
 
 	return 0

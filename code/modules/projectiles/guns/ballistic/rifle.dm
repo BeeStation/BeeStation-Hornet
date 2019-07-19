@@ -20,7 +20,7 @@ obj/item/gun/ballistic/rifle/update_icon()
 	add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
 
 obj/item/gun/ballistic/rifle/rack(mob/user = null)
-	if (bolt_locked == FALSE)
+	if(bolt_locked == FALSE)
 		to_chat(user, "<span class='notice'>You open the bolt of \the [src]</span>")
 		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
 		process_chamber(FALSE, FALSE, FALSE)
@@ -30,12 +30,12 @@ obj/item/gun/ballistic/rifle/rack(mob/user = null)
 	drop_bolt(user)
 
 obj/item/gun/ballistic/rifle/can_shoot()
-	if (bolt_locked)
+	if(bolt_locked)
 		return FALSE
 	return ..()
 
 obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
-	if (!bolt_locked)
+	if(!bolt_locked)
 		to_chat(user, "<span class='notice'>The bolt is closed!</span>")
 		return
 	return ..()

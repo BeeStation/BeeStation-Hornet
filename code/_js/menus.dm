@@ -15,10 +15,10 @@ function dropdowns() {
         }
     }
     for(var i=0;i<headers.length;i++){
-        if(typeof(links\[i\])!== 'undefined' && links\[i\]!=null) {
+        if(typeof(links\[i\])!== 'undefined' && links\[i\] != null) {
             headers\[i\].onclick = (function(elem) {
                 return function() {
-                    if(elem.className.search('visible')>=0) {
+                    if(elem.className.search('visible') >= 0) {
                         elem.className = elem.className.replace('visible','hidden');
                         this.className = this.className.replace('open','closed');
                         this.innerHTML = this.innerHTML.replace('-','+');

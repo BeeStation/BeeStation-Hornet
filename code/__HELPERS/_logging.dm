@@ -35,35 +35,35 @@
 /* Items with ADMINPRIVATE prefixed are stripped from public logs. */
 /proc/log_admin(text)
 	GLOB.admin_log.Add(text)
-	if (CONFIG_GET(flag/log_admin))
+	if(CONFIG_GET(flag/log_admin))
 		WRITE_LOG(GLOB.world_game_log, "ADMIN: [text]")
 
 /proc/log_admin_private(text)
 	GLOB.admin_log.Add(text)
-	if (CONFIG_GET(flag/log_admin))
+	if(CONFIG_GET(flag/log_admin))
 		WRITE_LOG(GLOB.world_game_log, "ADMINPRIVATE: [text]")
 
 /proc/log_adminsay(text)
 	GLOB.admin_log.Add(text)
-	if (CONFIG_GET(flag/log_adminchat))
+	if(CONFIG_GET(flag/log_adminchat))
 		WRITE_LOG(GLOB.world_game_log, "ADMINPRIVATE: ASAY: [text]")
 
 /proc/log_dsay(text)
-	if (CONFIG_GET(flag/log_adminchat))
+	if(CONFIG_GET(flag/log_adminchat))
 		WRITE_LOG(GLOB.world_game_log, "ADMIN: DSAY: [text]")
 
 
 /* All other items are public. */
 /proc/log_game(text)
-	if (CONFIG_GET(flag/log_game))
+	if(CONFIG_GET(flag/log_game))
 		WRITE_LOG(GLOB.world_game_log, "GAME: [text]")
 
 /proc/log_mecha(text)
-	if (CONFIG_GET(flag/log_mecha))
+	if(CONFIG_GET(flag/log_mecha))
 		WRITE_LOG(GLOB.world_mecha_log, "MECHA: [text]")
 
 /proc/log_virus(text)
-	if (CONFIG_GET(flag/log_virus))
+	if(CONFIG_GET(flag/log_virus))
 		WRITE_LOG(GLOB.world_virus_log, "VIRUS: [text]")
 
 /proc/log_cloning(text, mob/initiator)
@@ -77,19 +77,19 @@
 	WRITE_LOG(GLOB.world_asset_log, "ASSET: [text]")
 
 /proc/log_access(text)
-	if (CONFIG_GET(flag/log_access))
+	if(CONFIG_GET(flag/log_access))
 		WRITE_LOG(GLOB.world_game_log, "ACCESS: [text]")
 
 /proc/log_law(text)
-	if (CONFIG_GET(flag/log_law))
+	if(CONFIG_GET(flag/log_law))
 		WRITE_LOG(GLOB.world_game_log, "LAW: [text]")
 
 /proc/log_attack(text)
-	if (CONFIG_GET(flag/log_attack))
+	if(CONFIG_GET(flag/log_attack))
 		WRITE_LOG(GLOB.world_attack_log, "ATTACK: [text]")
 
 /proc/log_manifest(ckey, datum/mind/mind,mob/body, latejoin = FALSE)
-	if (CONFIG_GET(flag/log_manifest))
+	if(CONFIG_GET(flag/log_manifest))
 		WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"]")
 
 /proc/log_bomber(atom/user, details, atom/bomb, additional_details, message_admins = TRUE)
@@ -107,45 +107,45 @@
 		message_admins("[user ? "[ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(user)] " : ""][details][bomb ? " [bomb.name] at [ADMIN_VERBOSEJMP(bomb)]": ""][additional_details ? " [additional_details]" : ""].")
 
 /proc/log_say(text)
-	if (CONFIG_GET(flag/log_say))
+	if(CONFIG_GET(flag/log_say))
 		WRITE_LOG(GLOB.world_game_log, "SAY: [text]")
 
 /proc/log_ooc(text)
-	if (CONFIG_GET(flag/log_ooc))
+	if(CONFIG_GET(flag/log_ooc))
 		WRITE_LOG(GLOB.world_game_log, "OOC: [text]")
 
 /proc/log_whisper(text)
-	if (CONFIG_GET(flag/log_whisper))
+	if(CONFIG_GET(flag/log_whisper))
 		WRITE_LOG(GLOB.world_game_log, "WHISPER: [text]")
 
 /proc/log_emote(text)
-	if (CONFIG_GET(flag/log_emote))
+	if(CONFIG_GET(flag/log_emote))
 		WRITE_LOG(GLOB.world_game_log, "EMOTE: [text]")
 
 /proc/log_prayer(text)
-	if (CONFIG_GET(flag/log_prayer))
+	if(CONFIG_GET(flag/log_prayer))
 		WRITE_LOG(GLOB.world_game_log, "PRAY: [text]")
 
 /proc/log_pda(text)
-	if (CONFIG_GET(flag/log_pda))
+	if(CONFIG_GET(flag/log_pda))
 		WRITE_LOG(GLOB.world_pda_log, "PDA: [text]")
 
 /proc/log_comment(text)
-	if (CONFIG_GET(flag/log_pda))
+	if(CONFIG_GET(flag/log_pda))
 		//reusing the PDA option because I really don't think news comments are worth a config option
 		WRITE_LOG(GLOB.world_pda_log, "COMMENT: [text]")
 
 /proc/log_telecomms(text)
-	if (CONFIG_GET(flag/log_telecomms))
+	if(CONFIG_GET(flag/log_telecomms))
 		WRITE_LOG(GLOB.world_telecomms_log, "TCOMMS: [text]")
 
 /proc/log_chat(text)
-	if (CONFIG_GET(flag/log_pda))
+	if(CONFIG_GET(flag/log_pda))
 		//same thing here
 		WRITE_LOG(GLOB.world_pda_log, "CHAT: [text]")
 
 /proc/log_vote(text)
-	if (CONFIG_GET(flag/log_vote))
+	if(CONFIG_GET(flag/log_vote))
 		WRITE_LOG(GLOB.world_game_log, "VOTE: [text]")
 
 
@@ -165,7 +165,7 @@
 	WRITE_LOG(GLOB.query_debug_log, "SQL: [text]")
 
 /proc/log_job_debug(text)
-	if (CONFIG_GET(flag/log_job_debug))
+	if(CONFIG_GET(flag/log_job_debug))
 		WRITE_LOG(GLOB.world_job_debug_log, "JOB: [text]")
 
 /* Log to both DD and the logfile. */
@@ -287,7 +287,7 @@
 		return "(INVALID LOCATION)"
 
 	var/turf/T = A
-	if (!istype(T))
+	if(!istype(T))
 		T = get_turf(A)
 
 	if(istype(T))

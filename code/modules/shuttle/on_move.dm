@@ -109,7 +109,7 @@ All ShuttleMove procs go here
 /atom/movable/proc/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 
 	var/turf/newT = get_turf(src)
-	if (newT.z != oldT.z)
+	if(newT.z != oldT.z)
 		onTransitZ(oldT.z, newT.z)
 
 	if(light)
@@ -279,7 +279,7 @@ All ShuttleMove procs go here
 /obj/machinery/power/terminal/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
 	var/turf/T = src.loc
-	if(level==1)
+	if(level == 1)
 		hide(T.intact)
 
 /************************************Item move procs************************************/
@@ -289,7 +289,7 @@ All ShuttleMove procs go here
 	// If the pod was launched, the storage will always open. The CentCom check
 	// ignores the movement of the shuttle from the staging area on CentCom to
 	// the station as it is loaded in.
-	if (oldT && !is_centcom_level(oldT.z))
+	if(oldT && !is_centcom_level(oldT.z))
 		unlocked = TRUE
 
 /************************************Mob move procs************************************/
@@ -347,7 +347,7 @@ All ShuttleMove procs go here
 /obj/structure/cable/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
 	var/turf/T = loc
-	if(level==1)
+	if(level == 1)
 		hide(T.intact)
 	mergeConnectedNetworks(d1)
 	mergeConnectedNetworks(d2)
@@ -359,16 +359,16 @@ All ShuttleMove procs go here
 
 /obj/structure/ladder/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()
-	if (!(resistance_flags & INDESTRUCTIBLE))
+	if(!(resistance_flags & INDESTRUCTIBLE))
 		disconnect()
 
 /obj/structure/ladder/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
-	if (!(resistance_flags & INDESTRUCTIBLE))
+	if(!(resistance_flags & INDESTRUCTIBLE))
 		LateInitialize()
 
 /obj/structure/ladder/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock)
-	if (resistance_flags & INDESTRUCTIBLE)
+	if(resistance_flags & INDESTRUCTIBLE)
 		// simply don't be moved
 		return FALSE
 	return ..()

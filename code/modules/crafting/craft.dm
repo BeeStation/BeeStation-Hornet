@@ -58,7 +58,7 @@
 			var/needed_amount = R.reqs[A]
 			for(var/B in contents)
 				if(ispath(B, A))
-					if (R.blacklist.Find(B))
+					if(R.blacklist.Find(B))
 						continue
 					if(contents[B] >= R.reqs[A])
 						continue main_loop
@@ -299,7 +299,7 @@
 	var/list/subs = list()
 	var/cur_subcategory = CAT_NONE
 	var/cur_category = categories[viewing_category]
-	if (islist(subcategories[viewing_category]))
+	if(islist(subcategories[viewing_category]))
 		subs = subcategories[viewing_category]
 		cur_subcategory = subs[viewing_subcategory]
 	data["busy"] = busy
@@ -369,7 +369,7 @@
 
 //Next works nicely with modular arithmetic
 /datum/personal_crafting/proc/next_cat(readonly = TRUE)
-	if (!readonly)
+	if(!readonly)
 		viewing_subcategory = 1
 	. = viewing_category % categories.len + 1
 
@@ -381,7 +381,7 @@
 
 //Previous can go fuck itself
 /datum/personal_crafting/proc/prev_cat(readonly = TRUE)
-	if (!readonly)
+	if(!readonly)
 		viewing_subcategory = 1
 	if(viewing_category == categories.len)
 		. = viewing_category-1

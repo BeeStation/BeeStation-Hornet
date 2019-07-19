@@ -136,7 +136,7 @@
 		return TRUE
 	else
 		for(var/mob/living/C in orange(2, get_turf(user))) //Can also phase in when nearby a potential buyer.
-			if (C.owns_soul())
+			if(C.owns_soul())
 				return TRUE
 	return FALSE
 

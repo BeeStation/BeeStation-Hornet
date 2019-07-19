@@ -9,8 +9,8 @@
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	C.add_blood_DNA(return_blood_DNA())
-	if (bloodiness)
-		if (C.bloodiness < MAX_SHOE_BLOODINESS)
+	if(bloodiness)
+		if(C.bloodiness < MAX_SHOE_BLOODINESS)
 			C.bloodiness += bloodiness
 	return ..()
 
@@ -159,7 +159,7 @@
 		if(S && S.bloody_shoes[blood_state])
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			shoe_types |= S.type
-			if (!(entered_dirs & H.dir))
+			if(!(entered_dirs & H.dir))
 				entered_dirs |= H.dir
 				update_icon()
 
@@ -171,7 +171,7 @@
 		if(S && S.bloody_shoes[blood_state])
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			shoe_types  |= S.type
-			if (!(exited_dirs & H.dir))
+			if(!(exited_dirs & H.dir))
 				exited_dirs |= H.dir
 				update_icon()
 

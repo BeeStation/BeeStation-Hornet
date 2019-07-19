@@ -58,7 +58,7 @@
 
 /datum/mapGeneratorModule/border/proc/is_border(turf/T)
 	for(var/direction in list(SOUTH,EAST,WEST,NORTH))
-		if (get_step(T,direction) in mother.map)
+		if(get_step(T,direction) in mother.map)
 			continue
 		return 1
 	return 0

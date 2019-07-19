@@ -76,7 +76,7 @@
 
 /datum/signal/subspace/proc/mark_done()
 	var/datum/signal/subspace/current = src
-	while (current)
+	while(current)
 		current.data["done"] = TRUE
 		current = current.original
 
@@ -141,26 +141,26 @@
 
 	// Assemble the list of radios
 	var/list/radios = list()
-	switch (transmission_method)
-		if (TRANSMISSION_SUBSPACE)
+	switch(transmission_method)
+		if(TRANSMISSION_SUBSPACE)
 			// Reaches any radios on the levels
 			for(var/obj/item/radio/R in GLOB.all_radios["[frequency]"])
 				if(R.can_receive(frequency, levels))
 					radios += R
 
 			// Syndicate radios can hear all well-known radio channels
-			if (num2text(frequency) in GLOB.reverseradiochannels)
+			if(num2text(frequency) in GLOB.reverseradiochannels)
 				for(var/obj/item/radio/R in GLOB.all_radios["[FREQ_SYNDICATE]"])
 					if(R.can_receive(FREQ_SYNDICATE, list(R.z)))
 						radios |= R
 
-		if (TRANSMISSION_RADIO)
+		if(TRANSMISSION_RADIO)
 			// Only radios not currently in subspace mode
 			for(var/obj/item/radio/R in GLOB.all_radios["[frequency]"])
 				if(!R.subspace_transmission && R.can_receive(frequency, levels))
 					radios += R
 
-		if (TRANSMISSION_SUPERSPACE)
+		if(TRANSMISSION_SUPERSPACE)
 			// Only radios which are independent
 			for(var/obj/item/radio/R in GLOB.all_radios["[frequency]"])
 				if(R.independent && R.can_receive(frequency, levels))
@@ -171,7 +171,7 @@
 
 	// Cut out mobs with clients who are admins and have radio chatter disabled.
 	for(var/mob/R in receive)
-		if (R.client && R.client.holder && !(R.client.prefs.chat_toggles & CHAT_RADIO))
+		if(R.client && R.client.holder && !(R.client.prefs.chat_toggles & CHAT_RADIO))
 			receive -= R
 
 	// Add observers who have ghost radio enabled.

@@ -43,20 +43,20 @@
 	set name = "Radio report"
 
 	var/output = "<b>Radio Report</b><hr>"
-	for (var/fq in SSradio.frequencies)
+	for(var/fq in SSradio.frequencies)
 		output += "<b>Freq: [fq]</b><br>"
 		var/datum/radio_frequency/fqs = SSradio.frequencies[fq]
-		if (!fqs)
+		if(!fqs)
 			output += "&nbsp;&nbsp;<b>ERROR</b><br>"
 			continue
-		for (var/filter in fqs.devices)
+		for(var/filter in fqs.devices)
 			var/list/f = fqs.devices[filter]
-			if (!f)
+			if(!f)
 				output += "&nbsp;&nbsp;[filter]: ERROR<br>"
 				continue
 			output += "&nbsp;&nbsp;[filter]: [f.len]<br>"
-			for (var/device in f)
-				if (istype(device, /atom))
+			for(var/device in f)
+				if(istype(device, /atom))
 					var/atom/A = device
 					output += "&nbsp;&nbsp;&nbsp;&nbsp;[device] ([AREACOORD(A)])<br>"
 				else
@@ -73,7 +73,7 @@
 		return
 
 	var/confirm = alert(src, "Are you sure you want to reload all admins?", "Confirm", "Yes", "No")
-	if(confirm !="Yes")
+	if(confirm != "Yes")
 		return
 
 	load_admins()

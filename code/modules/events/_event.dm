@@ -59,7 +59,7 @@
 		return EVENT_CANT_RUN
 
 	triggering = TRUE
-	if (alert_observers)
+	if(alert_observers)
 		message_admins("Random Event triggering in 10 seconds: [name] (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>)")
 		sleep(100)
 		var/gamemode = SSticker.mode.config_tag
@@ -94,7 +94,7 @@
 	testing("[time2text(world.time, "hh:mm:ss")] [E.type]")
 	if(random)
 		log_game("Random Event triggering: [name] ([typepath])")
-	if (alert_observers)
+	if(alert_observers)
 		deadchat_broadcast("<span class='deadsay'><b>[name]</b> has just been[random ? " randomly" : ""] triggered!</span>") //STOP ASSUMING IT'S BADMINS!
 	return E
 
@@ -135,7 +135,7 @@
 //Only called once.
 /datum/round_event/proc/announce_to_ghosts(atom/atom_of_interest)
 	if(control.alert_observers)
-		if (atom_of_interest)
+		if(atom_of_interest)
 			notify_ghosts("[control.name] has an object of interest: [atom_of_interest]!", source=atom_of_interest, action=NOTIFY_ORBIT, header="Something's Interesting!")
 	return
 

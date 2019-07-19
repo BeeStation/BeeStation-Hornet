@@ -53,9 +53,9 @@
 			if(pad_exists(i))
 				var/obj/machinery/launchpad/pad = get_pad(i)
 				if(pad.stat & NOPOWER)
-					t+= "<span class='linkOff'>[pad.display_name]</span>"
+					t += "<span class='linkOff'>[pad.display_name]</span>"
 				else
-					t+= "<A href='?src=[REF(src)];choose_pad=1;pad=[i]'>[pad.display_name]</A>"
+					t += "<A href='?src=[REF(src)];choose_pad=1;pad=[i]'>[pad.display_name]</A>"
 			else
 				launchpads -= get_pad(i)
 		t += "<BR>"

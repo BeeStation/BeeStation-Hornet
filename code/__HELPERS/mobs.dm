@@ -94,7 +94,7 @@
 
 /proc/random_unique_name(gender, attempts_to_find_unique_name=10)
 	for(var/i in 1 to attempts_to_find_unique_name)
-		if(gender==FEMALE)
+		if(gender == FEMALE)
 			. = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 		else
 			. = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
@@ -186,15 +186,15 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	var/holding = user.get_active_held_item()
 	var/datum/progressbar/progbar
-	if (progress)
+	if(progress)
 		progbar = new(user, time, target)
 
 	var/endtime = world.time+time
 	var/starttime = world.time
 	. = 1
-	while (world.time < endtime)
+	while(world.time < endtime)
 		stoplag(1)
-		if (progress)
+		if(progress)
 			progbar.update(world.time - starttime)
 		if(QDELETED(user) || QDELETED(target))
 			. = 0
@@ -209,7 +209,7 @@ GLOBAL_LIST_EMPTY(species_list)
 		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_held_item() != holding || user.incapacitated() || (extra_checks && !extra_checks.Invoke()))
 			. = 0
 			break
-	if (progress)
+	if(progress)
 		qdel(progbar)
 
 
@@ -249,15 +249,15 @@ GLOBAL_LIST_EMPTY(species_list)
 	delay *= user.do_after_coefficent()
 
 	var/datum/progressbar/progbar
-	if (progress)
+	if(progress)
 		progbar = new(user, delay, target)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
 	. = 1
-	while (world.time < endtime)
+	while(world.time < endtime)
 		stoplag(1)
-		if (progress)
+		if(progress)
 			progbar.update(world.time - starttime)
 
 		if(drifting && !user.inertia_dir)
@@ -289,7 +289,7 @@ GLOBAL_LIST_EMPTY(species_list)
 			if(user.get_active_held_item() != holding)
 				. = 0
 				break
-	if (progress)
+	if(progress)
 		qdel(progbar)
 
 /mob/proc/do_after_coefficent() // This gets added to the delay on a do_after, default 1
@@ -366,7 +366,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	var/atom/X
 	for(var/j in 1 to amount)
 		X = new spawn_type(arglist(new_args))
-		if (admin_spawn)
+		if(admin_spawn)
 			X.flags_1 |= ADMIN_SPAWNED_1
 	return X //return the last mob spawned
 
@@ -381,13 +381,13 @@ GLOBAL_LIST_EMPTY(species_list)
 	for(var/j in 1 to amount)
 		var/atom/movable/X
 
-		if (istype(spawn_type, /list))
+		if(istype(spawn_type, /list))
 			var/mob_type = pick(spawn_type)
 			X = new mob_type(T)
 		else
 			X = new spawn_type(T)
 
-		if (admin_spawn)
+		if(admin_spawn)
 			X.flags_1 |= ADMIN_SPAWNED_1
 
 		spawned_mobs[j] = X

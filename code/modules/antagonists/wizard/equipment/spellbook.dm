@@ -99,7 +99,7 @@
 		dat += " Cooldown:[S.charge_max/10]"
 	dat += " Cost:[cost]<br>"
 	dat += "<i>[S.desc][desc]</i><br>"
-	dat += "[S.clothes_req?"Requires wizard garb.":"Can be cast without wizard garb."]<br>"
+	dat += "[S.clothes_req ? "Requires wizard garb." : "Can be cast without wizard garb."]<br>"
 	return dat
 
 /datum/spellbook_entry/fireball
@@ -283,7 +283,7 @@
 	dat += "<b>[name]</b>"
 	dat += " Cost:[cost]<br>"
 	dat += "<i>[desc]</i><br>"
-	if(surplus>=0)
+	if(surplus >= 0)
 		dat += "[surplus] left.<br>"
 	return dat
 
@@ -644,7 +644,7 @@
 
 /obj/item/spellbook/proc/wrap(content)
 	var/dat = ""
-	dat +="<html><head><title>Spellbook</title></head>"
+	dat += "<html><head><title>Spellbook</title></head>"
 	dat += {"
 	<head>
 		<style type="text/css">
@@ -677,28 +677,28 @@
 	var/list/cat_dat = list()
 	for(var/category in categories)
 		cat_dat[category] = "<hr>"
-		dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[REF(src)];page=[category]'>[category]</a></li>"
+		dat += "<li><a [tab == category ? "class=selected" : ""] href='byond://?src=[REF(src)];page=[category]'>[category]</a></li>"
 
 	dat += "<li><a><b>Points remaining : [uses]</b></a></li>"
 	dat += "</ul>"
 
 	var/datum/spellbook_entry/E
-	for(var/i=1,i<=entries.len,i++)
+	for(var/i=1,i <= entries.len,i++)
 		var/spell_info = ""
 		E = entries[i]
 		spell_info += E.GetInfo()
 		if(E.CanBuy(user,src))
-			spell_info+= "<a href='byond://?src=[REF(src)];buy=[i]'>[E.buy_word]</A><br>"
+			spell_info += "<a href='byond://?src=[REF(src)];buy=[i]'>[E.buy_word]</A><br>"
 		else
-			spell_info+= "<span>Can't [E.buy_word]</span><br>"
+			spell_info += "<span>Can't [E.buy_word]</span><br>"
 		if(E.CanRefund(user,src))
-			spell_info+= "<a href='byond://?src=[REF(src)];refund=[i]'>Refund</A><br>"
+			spell_info += "<a href='byond://?src=[REF(src)];refund=[i]'>Refund</A><br>"
 		spell_info += "<hr>"
 		if(cat_dat[E.category])
 			cat_dat[E.category] += spell_info
 
 	for(var/category in categories)
-		dat += "<div class=\"[tab==category?"tabContent":"tabContent hide"]\" id=\"[category]\">"
+		dat += "<div class=\"[tab == category ? "tabContent" : "tabContent hide"]\" id=\"[category]\">"
 		dat += GetCategoryHeader(category)
 		dat += cat_dat[category]
 		dat += "</div>"

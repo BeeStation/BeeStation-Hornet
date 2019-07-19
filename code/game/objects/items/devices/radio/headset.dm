@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	return ..()
 
 /obj/item/radio/headset/talk_into(mob/living/M, message, channel, list/spans,datum/language/language)
-	if (!listening)
+	if(!listening)
 		return ITALICS | REDUCE_RANGE
 	return ..()
 
@@ -330,7 +330,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 			translate_binary = TRUE
 		if(keyslot2.syndie)
 			syndie = TRUE
-		if (keyslot2.independent)
+		if(keyslot2.independent)
 			independent = TRUE
 
 	for(var/ch_name in channels)
@@ -339,6 +339,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/AltClick(mob/living/user)
 	if(!istype(user) || !Adjacent(user) || user.incapacitated())
 		return
-	if (command)
+	if(command)
 		use_command = !use_command
 		to_chat(user, "<span class='notice'>You toggle high-volume mode [use_command ? "on" : "off"].</span>")

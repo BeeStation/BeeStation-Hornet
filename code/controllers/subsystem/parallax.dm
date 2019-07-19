@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(parallax)
 	planet_x_offset = rand(100, 160)
 
 /datum/controller/subsystem/parallax/fire(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = GLOB.clients.Copy()
 
 	//cache for sanic speed (lists are references anyways)
@@ -23,14 +23,14 @@ SUBSYSTEM_DEF(parallax)
 	while(length(currentrun))
 		var/client/C = currentrun[currentrun.len]
 		currentrun.len--
-		if (!C || !C.eye)
-			if (MC_TICK_CHECK)
+		if(!C || !C.eye)
+			if(MC_TICK_CHECK)
 				return
 			continue
 		var/atom/movable/A = C.eye
 		if(!istype(A))
 			continue
-		for (A; isloc(A.loc) && !isturf(A.loc); A = A.loc);
+		for(A; isloc(A.loc) && !isturf(A.loc); A = A.loc);
 
 		if(A != C.movingmob)
 			if(C.movingmob != null)
@@ -39,6 +39,6 @@ SUBSYSTEM_DEF(parallax)
 			LAZYINITLIST(A.client_mobs_in_contents)
 			A.client_mobs_in_contents += C.mob
 			C.movingmob = A
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
 	currentrun = null

@@ -254,10 +254,10 @@
 #define PIPING_LAYER_P_Y 5
 #define PIPING_LAYER_LCHANGE 0.05
 
-#define PIPING_ALL_LAYER				(1<<0)	//intended to connect with all layers, check for all instead of just one.
-#define PIPING_ONE_PER_TURF				(1<<1) 	//can only be built if nothing else with this flag is on the tile already.
-#define PIPING_DEFAULT_LAYER_ONLY		(1<<2)	//can only exist at PIPING_LAYER_DEFAULT
-#define PIPING_CARDINAL_AUTONORMALIZE	(1<<3)	//north/south east/west doesn't matter, auto normalize on build.
+#define PIPING_ALL_LAYER				(1 << 0)	//intended to connect with all layers, check for all instead of just one.
+#define PIPING_ONE_PER_TURF				(1 << 1) 	//can only be built if nothing else with this flag is on the tile already.
+#define PIPING_DEFAULT_LAYER_ONLY		(1 << 2)	//can only exist at PIPING_LAYER_DEFAULT
+#define PIPING_CARDINAL_AUTONORMALIZE	(1 << 3)	//north/south east/west doesn't matter, auto normalize on build.
 
 //HELPERS
 #define PIPING_LAYER_SHIFT(T, PipingLayer) \
@@ -277,7 +277,7 @@
 #define ADD_GAS(gas_id, out_list)\
 	var/list/tmp_gaslist = GLOB.gaslist_cache[gas_id]; out_list[gas_id] = tmp_gaslist.Copy();
 
-#define ASSERT_GAS(gas_id, gas_mixture) if (!gas_mixture.gases[gas_id]) { ADD_GAS(gas_id, gas_mixture.gases) };
+#define ASSERT_GAS(gas_id, gas_mixture) if(!gas_mixture.gases[gas_id]) { ADD_GAS(gas_id, gas_mixture.gases) };
 
 //prefer this to gas_mixture/total_moles in performance critical areas
 #define TOTAL_MOLES(cached_gases, out_var)\
@@ -287,7 +287,7 @@
 	}
 #ifdef TESTING
 GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
-#define CALCULATE_ADJACENT_TURFS(T) if (SSadjacent_air.queue[T]) { GLOB.atmos_adjacent_savings[1] += 1 } else { GLOB.atmos_adjacent_savings[2] += 1; SSadjacent_air.queue[T] = 1 }
+#define CALCULATE_ADJACENT_TURFS(T) if(SSadjacent_air.queue[T]) { GLOB.atmos_adjacent_savings[1] += 1 } else { GLOB.atmos_adjacent_savings[2] += 1; SSadjacent_air.queue[T] = 1 }
 #else
 #define CALCULATE_ADJACENT_TURFS(T) SSadjacent_air.queue[T] = 1
 #endif

@@ -200,7 +200,7 @@ Auto Patrol: []"},
 		update_icon()
 
 /mob/living/simple_animal/bot/secbot/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj , /obj/item/projectile/beam)||istype(Proj, /obj/item/projectile/bullet))
+	if(istype(Proj , /obj/item/projectile/beam) || istype(Proj, /obj/item/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health && ishuman(Proj.firer))
 				retaliate(Proj.firer)
@@ -371,7 +371,7 @@ Auto Patrol: []"},
 /mob/living/simple_animal/bot/secbot/proc/look_for_perp()
 	anchored = FALSE
 	var/judgement_criteria = judgement_criteria()
-	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
+	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
 

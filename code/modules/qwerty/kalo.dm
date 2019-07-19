@@ -55,10 +55,10 @@
 					step_to(src,movement_target,1)
 
 				if(movement_target)		//Not redundant due to sleeps
-					if (movement_target.loc.x < src.x) setDir(WEST)
-					else if (movement_target.loc.x > src.x) setDir(EAST)
-					else if (movement_target.loc.y < src.y) setDir(SOUTH)
-					else if (movement_target.loc.y > src.y) setDir(NORTH)
+					if(movement_target.loc.x < src.x) setDir(WEST)
+					else if(movement_target.loc.x > src.x) setDir(EAST)
+					else if(movement_target.loc.y < src.y) setDir(SOUTH)
+					else if(movement_target.loc.y > src.y) setDir(NORTH)
 					else setDir(SOUTH)
 
 					if(!Adjacent(movement_target)) //can't reach food through windows.
@@ -80,17 +80,17 @@
 			else //if we don't see a better snack, lick up nearby blood
 				var/obj/effect/decal/cleanable/blood/B
 				for(var/obj/effect/decal/cleanable/blood/O in oview(src,2))
-					if (!istype(O, /obj/effect/decal/cleanable/blood/gibs) && !istype(O, /obj/effect/decal/cleanable/blood/innards)) //dont lick up gibs or innards
+					if(!istype(O, /obj/effect/decal/cleanable/blood/gibs) && !istype(O, /obj/effect/decal/cleanable/blood/innards)) //dont lick up gibs or innards
 						B = O
 						break
 				if(B)
 					stop_automated_movement = 1
 					step_to(src,B,1) //get up right next to it
 					sleep(5)
-					if (B.loc.x < src.x) setDir(WEST)
-					else if (B.loc.x > src.x) setDir(EAST)
-					else if (B.loc.y < src.y) setDir(SOUTH)
-					else if (B.loc.y > src.y) setDir(NORTH)
+					if(B.loc.x < src.x) setDir(WEST)
+					else if(B.loc.x > src.x) setDir(EAST)
+					else if(B.loc.y < src.y) setDir(SOUTH)
+					else if(B.loc.y > src.y) setDir(NORTH)
 					else setDir(SOUTH)
 					if(Adjacent(B))
 						sleep(30) //take your time
@@ -110,7 +110,7 @@
 
 /mob/living/simple_animal/kalo/attack_hand(mob/living/carbon/human/M)
 	..()
-	if (M.a_intent == "help")
+	if(M.a_intent == "help")
 		if(prob(20))
 			emote("me", 1, pick("chirps","squeaks")) //yes lizards chirp I googled it it must be true
 		turns_since_move = 0

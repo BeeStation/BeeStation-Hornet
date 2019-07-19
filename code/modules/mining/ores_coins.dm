@@ -25,7 +25,7 @@
 		return
 	else if(difference < 0 && LAZYLEN(stack_overlays))			//amount < stack_overlays, remove excess.
 		cut_overlays()
-		if (LAZYLEN(stack_overlays)-difference <= 0)
+		if(LAZYLEN(stack_overlays)-difference <= 0)
 			stack_overlays = null;
 		else
 			stack_overlays.len += difference
@@ -36,7 +36,7 @@
 			newore.pixel_x = rand(-8,8)
 			newore.pixel_y = rand(-8,8)
 			LAZYADD(stack_overlays, newore)
-	if (stack_overlays)
+	if(stack_overlays)
 		add_overlay(stack_overlays)
 
 /obj/item/stack/ore/welder_act(mob/living/user, obj/item/I)
@@ -113,7 +113,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	qdel(src)
 
 /obj/item/stack/ore/glass/ex_act(severity, target)
-	if (severity == EXPLODE_NONE)
+	if(severity == EXPLODE_NONE)
 		return
 	qdel(src)
 
@@ -297,7 +297,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	pixel_y = rand(0,8)-8
 
 /obj/item/stack/ore/ex_act(severity, target)
-	if (!severity || severity >= 2)
+	if(!severity || severity >= 2)
 		return
 	qdel(src)
 
@@ -327,7 +327,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] contemplates suicide with \the [src]!</span>")
-	if (!attack_self(user))
+	if(!attack_self(user))
 		user.visible_message("<span class='suicide'>[user] couldn't flip \the [src]!</span>")
 		return SHAME
 	addtimer(CALLBACK(src, .proc/manual_suicide, user), 10)//10 = time takes for flip animation
@@ -335,7 +335,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/proc/manual_suicide(mob/living/user)
 	var/index = sideslist.Find(coinflip)
-	if (index==2)//tails
+	if(index == 2)//tails
 		user.visible_message("<span class='suicide'>\the [src] lands on [coinflip]! [user] promptly falls over, dead!</span>")
 		user.adjustOxyLoss(200)
 		user.death(0)
@@ -447,7 +447,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			to_chat(user, "<span class='warning'>There already is a string attached to this coin!</span>")
 			return
 
-		if (CC.use(1))
+		if(CC.use(1))
 			add_overlay("coin_string_overlay")
 			string_attached = 1
 			to_chat(user, "<span class='notice'>You attach a string to the coin.</span>")

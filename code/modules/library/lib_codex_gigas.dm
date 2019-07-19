@@ -59,7 +59,7 @@
 	inUse = FALSE
 
 /obj/item/book/codex_gigas/proc/display_devil(datum/antagonist/devil/devil, mob/reader, devilName)
-	reader << browse("Information on [devilName]<br><br><br>[GLOB.lawlorify[LORE][devil.ban]]<br>[GLOB.lawlorify[LORE][devil.bane]]<br>[GLOB.lawlorify[LORE][devil.obligation]]<br>[GLOB.lawlorify[LORE][devil.banish]]<br>[devil.ascendable?"This devil may ascend given enough souls.":""]", "window=book[window_size != null ? ";size=[window_size]" : ""]")
+	reader << browse("Information on [devilName]<br><br><br>[GLOB.lawlorify[LORE][devil.ban]]<br>[GLOB.lawlorify[LORE][devil.bane]]<br>[GLOB.lawlorify[LORE][devil.obligation]]<br>[GLOB.lawlorify[LORE][devil.banish]]<br>[devil.ascendable ? "This devil may ascend given enough souls." : ""]", "window=book[window_size != null ? ";size=[window_size]" : ""]")
 
 /obj/item/book/codex_gigas/proc/ask_name(mob/reader)
 	ui_interact(reader)
@@ -83,7 +83,7 @@
 	else if(GLOB.devil_title.Find(action))
 		currentSection = SYLLABLE
 	else if(GLOB.devil_syllable.Find(action))
-		if (currentSection>=SYLLABLE)
+		if(currentSection >= SYLLABLE)
 			currentSection = MULTIPLE_SYLLABLE
 		else
 			currentSection = SYLLABLE

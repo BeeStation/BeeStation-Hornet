@@ -47,7 +47,7 @@
 		output += "<p>[LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)]</p>"
 
 	if(!IsGuestKey(src.key))
-		if (SSdbcore.Connect())
+		if(SSdbcore.Connect())
 			var/isadmin = 0
 			if(src.client?.holder)
 				isadmin = 1
@@ -232,11 +232,11 @@
 								break
 				to_chat(usr, "<span class='notice'>Vote successful.</span>")
 			if(POLLTYPE_IRV)
-				if (!href_list["IRVdata"])
+				if(!href_list["IRVdata"])
 					to_chat(src, "<span class='danger'>No ordering data found. Please try again or contact an administrator.</span>")
 					return
 				var/list/votelist = splittext(href_list["IRVdata"], ",")
-				if (!vote_on_irv_poll(pollid, votelist))
+				if(!vote_on_irv_poll(pollid, votelist))
 					to_chat(src, "<span class='danger'>Vote failed, please try again or contact an administrator.</span>")
 					return
 				to_chat(src, "<span class='notice'>Vote successful.</span>")
@@ -262,7 +262,7 @@
 	close_spawn_windows()
 	var/obj/effect/landmark/observer_start/O = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
 	to_chat(src, "<span class='notice'>Now teleporting.</span>")
-	if (O)
+	if(O)
 		observer.forceMove(O.loc)
 	else
 		to_chat(src, "<span class='notice'>Teleporting failed. Ahelp an admin please</span>")

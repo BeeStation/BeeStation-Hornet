@@ -89,10 +89,10 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 	var/list/unreceived = asset_list - (client.cache + client.sending)
 	if(!unreceived || !unreceived.len)
 		return 0
-	if (unreceived.len >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
+	if(unreceived.len >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
 		to_chat(client, "Sending Resources...")
 	for(var/asset in unreceived)
-		if (asset in SSassets.cache)
+		if(asset in SSassets.cache)
 			log_asset("Sending asset [asset] to client [client]")
 			client << browse_rsc(SSassets.cache[asset], asset)
 
@@ -127,11 +127,11 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 /proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 	var/concurrent_tracker = 1
 	for(var/file in files)
-		if (!client)
+		if(!client)
 			break
-		if (register_asset)
+		if(register_asset)
 			register_asset(file, files[file])
-		if (concurrent_tracker >= ASSET_CACHE_PRELOAD_CONCURRENT)
+		if(concurrent_tracker >= ASSET_CACHE_PRELOAD_CONCURRENT)
 			concurrent_tracker = 1
 			send_asset(client, file)
 		else
@@ -221,7 +221,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/verify = FALSE
 
 /datum/asset/spritesheet/register()
-	if (!name)
+	if(!name)
 		CRASH("spritesheet [type] cannot register without a name")
 	ensure_stripped()
 
@@ -237,7 +237,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		register_asset("[name]_[size_id].png", size[SPRSZ_STRIPPED])
 
 /datum/asset/spritesheet/send(client/C)
-	if (!name)
+	if(!name)
 		return
 	var/all = list("spritesheet_[name].css")
 	for(var/size_id in sizes)
@@ -247,7 +247,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/spritesheet/proc/ensure_stripped(sizes_to_strip = sizes)
 	for(var/size_id in sizes_to_strip)
 		var/size = sizes[size_id]
-		if (size[SPRSZ_STRIPPED])
+		if(size[SPRSZ_STRIPPED])
 			continue
 
 		// save flattened version
@@ -262,12 +262,12 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/spritesheet/proc/generate_css()
 	var/list/out = list()
 
-	for (var/size_id in sizes)
+	for(var/size_id in sizes)
 		var/size = sizes[size_id]
 		var/icon/tiny = size[SPRSZ_ICON]
 		out += ".[name][size_id]{display:inline-block;width:[tiny.Width()]px;height:[tiny.Height()]px;background:url('[name]_[size_id].png') no-repeat;}"
 
-	for (var/sprite_id in sprites)
+	for(var/sprite_id in sprites)
 		var/sprite = sprites[sprite_id]
 		var/size_id = sprite[SPR_SIZE]
 		var/idx = sprite[SPR_IDX]
@@ -285,15 +285,15 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/spritesheet/proc/Insert(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
 	I = icon(I, icon_state=icon_state, dir=dir, frame=frame, moving=moving)
-	if (!I || !length(icon_states(I)))  // that direction or state doesn't exist
+	if(!I || !length(icon_states(I)))  // that direction or state doesn't exist
 		return
 	var/size_id = "[I.Width()]x[I.Height()]"
 	var/size = sizes[size_id]
 
-	if (sprites[sprite_name])
+	if(sprites[sprite_name])
 		CRASH("duplicate sprite \"[sprite_name]\" in sheet [name] ([type])")
 
-	if (size)
+	if(size)
 		var/position = size[SPRSZ_COUNT]++
 		var/icon/sheet = size[SPRSZ_ICON]
 		size[SPRSZ_STRIPPED] = null
@@ -304,14 +304,14 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		sprites[sprite_name] = list(size_id, 0)
 
 /datum/asset/spritesheet/proc/InsertAll(prefix, icon/I, list/directions)
-	if (length(prefix))
+	if(length(prefix))
 		prefix = "[prefix]-"
 
-	if (!directions)
+	if(!directions)
 		directions = list(SOUTH)
 
-	for (var/icon_state_name in icon_states(I))
-		for (var/direction in directions)
+	for(var/icon_state_name in icon_states(I))
+		for(var/direction in directions)
 			var/prefix2 = (directions.len > 1) ? "[dir2text(direction)]-" : ""
 			Insert("[prefix][prefix2][icon_state_name]", I, icon_state=icon_state_name, dir=direction)
 
@@ -320,7 +320,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/spritesheet/proc/icon_tag(sprite_name)
 	var/sprite = sprites[sprite_name]
-	if (!sprite)
+	if(!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
 	return {"<span class="[name][size_id] [sprite_name]"></span>"}
@@ -337,7 +337,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/list/assets
 
 /datum/asset/spritesheet/simple/register()
-	for (var/key in assets)
+	for(var/key in assets)
 		Insert(key, assets[key])
 	..()
 
@@ -358,12 +358,12 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for(var/icon_state_name in icon_states(_icon))
 		for(var/direction in directions)
 			var/asset = icon(_icon, icon_state_name, direction, frame, movement_states)
-			if (!asset)
+			if(!asset)
 				continue
 			asset = fcopy_rsc(asset) //dedupe
 			var/prefix2 = (directions.len > 1) ? "[dir2text(direction)]." : ""
 			var/asset_name = sanitize_filename("[prefix].[prefix2][icon_state_name].png")
-			if (generic_icon_names)
+			if(generic_icon_names)
 				asset_name = "[generate_asset_name(asset)].png"
 
 			register_asset(asset_name, asset)
@@ -543,7 +543,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for(var/path in typesof(/datum/language))
 		var/datum/language/L = path
 		var/icon = initial(L.icon)
-		if (icon != 'icons/misc/language.dmi')
+		if(icon != 'icons/misc/language.dmi')
 			var/icon_state = initial(L.icon_state)
 			Insert("language-[icon_state]", icon, icon_state=icon_state)
 
@@ -600,7 +600,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	name = "pipes"
 
 /datum/asset/spritesheet/pipes/register()
-	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi'))
+	for(var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi'))
 		InsertAll("", each, GLOB.alldirs)
 	..()
 
@@ -609,7 +609,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	name = "design"
 
 /datum/asset/spritesheet/research_designs/register()
-	for (var/path in subtypesof(/datum/design))
+	for(var/path in subtypesof(/datum/design))
 		var/datum/design/D = path
 
 		var/icon_file
@@ -627,18 +627,18 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		else
 			// construct the icon and slap it into the resource cache
 			var/atom/item = initial(D.build_path)
-			if (!ispath(item, /atom))
+			if(!ispath(item, /atom))
 				// biogenerator outputs to beakers by default
-				if (initial(D.build_type) & BIOGENERATOR)
+				if(initial(D.build_type) & BIOGENERATOR)
 					item = /obj/item/reagent_containers/glass/beaker/large
 				else
 					continue  // shouldn't happen, but just in case
 
 			// circuit boards become their resulting machines or computers
-			if (ispath(item, /obj/item/circuitboard))
+			if(ispath(item, /obj/item/circuitboard))
 				var/obj/item/circuitboard/C = item
 				var/machine = initial(C.build_path)
-				if (machine)
+				if(machine)
 					item = machine
 
 			icon_file = initial(item.icon)
@@ -650,14 +650,14 @@ GLOBAL_LIST_EMPTY(asset_datums)
 			I = icon(icon_file, icon_state, SOUTH)
 
 			// computers (and snowflakes) get their screen and keyboard sprites
-			if (ispath(item, /obj/machinery/computer) || ispath(item, /obj/machinery/power/solar_control))
+			if(ispath(item, /obj/machinery/computer) || ispath(item, /obj/machinery/power/solar_control))
 				var/obj/machinery/computer/C = item
 				var/screen = initial(C.icon_screen)
 				var/keyboard = initial(C.icon_keyboard)
 				var/all_states = icon_states(icon_file)
-				if (screen && (screen in all_states))
+				if(screen && (screen in all_states))
 					I.Blend(icon(icon_file, screen, SOUTH), ICON_OVERLAY)
-				if (keyboard && (keyboard in all_states))
+				if(keyboard && (keyboard in all_states))
 					I.Blend(icon(icon_file, keyboard, SOUTH), ICON_OVERLAY)
 
 		Insert(initial(D.id), I)
@@ -667,7 +667,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	name = "vending"
 
 /datum/asset/spritesheet/vending/register()
-	for (var/k in GLOB.vending_products)
+	for(var/k in GLOB.vending_products)
 		var/atom/item = k
 
 
@@ -676,7 +676,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		var/icon/I
 
 
-		if (!ispath(item, /atom))
+		if(!ispath(item, /atom))
 			continue
 
 		icon_file = initial(item.icon)
@@ -685,7 +685,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		if(icon_state in icon_states(icon_file))
 			I = icon(icon_file, icon_state, SOUTH)
 			var/c = initial(item.color)
-			if (!isnull(c) && c != "#FFFFFF")
+			if(!isnull(c) && c != "#FFFFFF")
 				I.Blend(initial(c), ICON_MULTIPLY)
 		else
 			item = new item()

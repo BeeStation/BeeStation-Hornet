@@ -36,7 +36,7 @@
 	if(M.mind == target && !M.owns_soul())
 		if(user.mind && (user.mind.assigned_role == "Lawyer"))
 			deconvert = TRUE
-		else if (user.mind && (user.mind.assigned_role =="Head of Personnel") || (user.mind.assigned_role == "CentCom Commander"))
+		else if(user.mind && (user.mind.assigned_role == "Head of Personnel") || (user.mind.assigned_role == "CentCom Commander"))
 			deconvert = prob (25) // the HoP doesn't have AS much legal training
 		else
 			deconvert = prob (5)
@@ -206,20 +206,20 @@
 		to_chat(user, "<span class='notice'>You quickly scrawl 'your name' on the contract.</span>")
 		signIncorrectly()
 		return 0
-	if (contractType == CONTRACT_REVIVE)
+	if(contractType == CONTRACT_REVIVE)
 		to_chat(user, "<span class='notice'>You are already alive, this contract would do nothing.</span>")
 		return 0
 	else
 		to_chat(user, "<span class='notice'>You quickly scrawl your name on the contract</span>")
-		if(fulfillContract(target.current, blood)<=0)
+		if(fulfillContract(target.current, blood) <= 0)
 			to_chat(user, "<span class='notice'>But it seemed to have no effect, perhaps even Hell itself cannot grant this boon?</span>")
 		return 1
 
 
 
 /obj/item/paper/contract/infernal/revive/attack(mob/M, mob/living/user)
-	if (target == M.mind && M.stat == DEAD && M.mind.soulOwner == M.mind)
-		if (cooldown)
+	if(target == M.mind && M.stat == DEAD && M.mind.soulOwner == M.mind)
+		if(cooldown)
 			to_chat(user, "<span class='notice'>Give [M] a chance to think through the contract, don't rush [M.p_them()].</span>")
 			return 0
 		cooldown = TRUE

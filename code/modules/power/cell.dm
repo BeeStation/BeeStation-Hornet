@@ -28,7 +28,7 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	create_reagents(5, INJECTABLE | DRAINABLE)
-	if (override_maxcharge)
+	if(override_maxcharge)
 		maxcharge = override_maxcharge
 	charge = maxcharge
 	if(ratingdesc)
@@ -60,7 +60,7 @@
 		add_overlay(image('icons/obj/power.dmi',"grown_wires"))
 	if(charge < 0.01)
 		return
-	else if(charge/maxcharge >=0.995)
+	else if(charge/maxcharge >= 0.995)
 		add_overlay("cell-o2")
 	else
 		add_overlay("cell-o1")
@@ -109,13 +109,13 @@
 
 /obj/item/stock_parts/cell/proc/explode()
 	var/turf/T = get_turf(src.loc)
-	if (charge==0)
+	if(charge == 0)
 		return
 	var/devastation_range = -1 //round(charge/11000)
 	var/heavy_impact_range = round(sqrt(charge)/60)
 	var/light_impact_range = round(sqrt(charge)/30)
 	var/flash_range = light_impact_range
-	if (light_impact_range==0)
+	if(light_impact_range == 0)
 		rigged = FALSE
 		corrupt()
 		return
@@ -126,7 +126,7 @@
 /obj/item/stock_parts/cell/proc/corrupt()
 	charge /= 2
 	maxcharge = max(maxcharge/2, chargerate)
-	if (prob(10))
+	if(prob(10))
 		rigged = TRUE //broken batterys are dangerous
 
 /obj/item/stock_parts/cell/emp_act(severity)
@@ -134,7 +134,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	charge -= 1000 / severity
-	if (charge < 0)
+	if(charge < 0)
 		charge = 0
 
 /obj/item/stock_parts/cell/ex_act(severity, target)

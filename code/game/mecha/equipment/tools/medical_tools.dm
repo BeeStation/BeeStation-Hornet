@@ -117,7 +117,7 @@
 	if(href_list["inject"])
 		var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/SG = locate() in chassis
 		var/datum/reagent/R = locate(href_list["inject"]) in SG.reagents.reagent_list
-		if (istype(R))
+		if(istype(R))
 			inject_reagent(R, SG)
 	return
 
@@ -300,7 +300,7 @@
 	if(!syringes.len)
 		occupant_message("<span class=\"alert\">No syringes loaded.</span>")
 		return
-	if(reagents.total_volume<=0)
+	if(reagents.total_volume <= 0)
 		occupant_message("<span class=\"alert\">No available reagents to load syringe with.</span>")
 		return
 	var/turf/trg = get_turf(target)
@@ -353,16 +353,16 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Topic(href,href_list)
 	..()
-	if (href_list["toggle_mode"])
+	if(href_list["toggle_mode"])
 		mode = !mode
 		update_equip_info()
 		return
-	if (href_list["select_reagents"])
+	if(href_list["select_reagents"])
 		processed_reagents.len = 0
 		var/m = 0
 		var/message
 		for(var/i=1 to known_reagents.len)
-			if(m>=synth_speed)
+			if(m >= synth_speed)
 				break
 			var/reagent = href_list["reagent_[i]"]
 			if(reagent && (reagent in known_reagents))
@@ -376,14 +376,14 @@
 			occupant_message("Reagent processing started.")
 			log_message("Reagent processing started.", LOG_MECHA)
 		return
-	if (href_list["show_reagents"])
+	if(href_list["show_reagents"])
 		chassis.occupant << browse(get_reagents_page(),"window=msyringegun")
-	if (href_list["purge_reagent"])
+	if(href_list["purge_reagent"])
 		var/reagent = href_list["purge_reagent"]
 		if(reagent)
 			reagents.del_reagent(reagent)
 		return
-	if (href_list["purge_all"])
+	if(href_list["purge_all"])
 		reagents.clear_reagents()
 		return
 	return

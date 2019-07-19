@@ -157,7 +157,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	dat += "<br><center><h3>[temp]</h3></center>"
 	dat += "<br><center>Health: [player_hp] | Magic: [player_mp] | Enemy Health: [enemy_hp]</center>"
 
-	if (gameover)
+	if(gameover)
 		dat += "<center><b><a href='byond://?src=[REF(src)];newgame=1'>New Game</a>"
 	else
 		dat += "<center><b><a href='byond://?src=[REF(src)];attack=1'>Attack</a> | "
@@ -174,8 +174,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	if(..())
 		return
 
-	if (!blocked && !gameover)
-		if (href_list["attack"])
+	if(!blocked && !gameover)
+		if(href_list["attack"])
 			blocked = TRUE
 			var/attackamt = rand(2,6)
 			temp = "You attack for [attackamt] damage!"
@@ -188,7 +188,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			enemy_hp -= attackamt
 			arcade_action(usr)
 
-		else if (href_list["heal"])
+		else if(href_list["heal"])
 			blocked = TRUE
 			var/pointamt = rand(1,3)
 			var/healamt = rand(6,8)
@@ -204,7 +204,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			updateUsrDialog()
 			arcade_action(usr)
 
-		else if (href_list["charge"])
+		else if(href_list["charge"])
 			blocked = TRUE
 			var/chargeamt = rand(4,7)
 			temp = "You regain [chargeamt] points"
@@ -217,11 +217,11 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			sleep(10)
 			arcade_action(usr)
 
-	if (href_list["close"])
+	if(href_list["close"])
 		usr.unset_machine()
 		usr << browse(null, "window=arcade")
 
-	else if (href_list["newgame"]) //Reset everything
+	else if(href_list["newgame"]) //Reset everything
 		temp = "New Round"
 		player_hp = 30
 		player_mp = 10
@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	return
 
 /obj/machinery/computer/arcade/battle/proc/arcade_action(mob/user)
-	if ((enemy_mp <= 0) || (enemy_hp <= 0))
+	if((enemy_mp <= 0) || (enemy_hp <= 0))
 		if(!gameover)
 			gameover = TRUE
 			temp = "[enemy_name] has fallen! Rejoice!"
@@ -257,20 +257,20 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			SSblackbox.record_feedback("nested tally", "arcade_results", 1, list("win", (obj_flags & EMAGGED ? "emagged":"normal")))
 
 
-	else if ((obj_flags & EMAGGED) && (turtle >= 4))
+	else if((obj_flags & EMAGGED) && (turtle >= 4))
 		var/boomamt = rand(5,10)
 		temp = "[enemy_name] throws a bomb, exploding you for [boomamt] damage!"
 		playsound(loc, 'sound/arcade/boom.ogg', 50, 1, extrarange = -3, falloff = 10)
 		player_hp -= boomamt
 
-	else if ((enemy_mp <= 5) && (prob(70)))
+	else if((enemy_mp <= 5) && (prob(70)))
 		var/stealamt = rand(2,3)
 		temp = "[enemy_name] steals [stealamt] of your power!"
 		playsound(loc, 'sound/arcade/steal.ogg', 50, 1, extrarange = -3, falloff = 10)
 		player_mp -= stealamt
 		updateUsrDialog()
 
-		if (player_mp <= 0)
+		if(player_mp <= 0)
 			gameover = TRUE
 			sleep(10)
 			temp = "You have been drained! GAME OVER"
@@ -279,7 +279,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 				usr.gib()
 			SSblackbox.record_feedback("nested tally", "arcade_results", 1, list("loss", "mana", (obj_flags & EMAGGED ? "emagged":"normal")))
 
-	else if ((enemy_hp <= 10) && (enemy_mp > 4))
+	else if((enemy_hp <= 10) && (enemy_mp > 4))
 		temp = "[enemy_name] heals for 4 health!"
 		playsound(loc, 'sound/arcade/heal.ogg', 50, 1, extrarange = -3, falloff = 10)
 		enemy_hp += 4
@@ -291,7 +291,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		playsound(loc, 'sound/arcade/hit.ogg', 50, 1, extrarange = -3, falloff = 10)
 		player_hp -= attackamt
 
-	if ((player_mp <= 0) || (player_hp <= 0))
+	if((player_mp <= 0) || (player_hp <= 0))
 		gameover = TRUE
 		temp = "You have been crushed! GAME OVER"
 		playsound(loc, 'sound/arcade/lose.ogg', 50, 1, extrarange = -3, falloff = 10)
@@ -429,7 +429,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 /obj/machinery/computer/arcade/orion_trail/ui_interact(mob/user)
 	. = ..()
-	if(fuel <= 0 || food <=0 || settlers.len == 0)
+	if(fuel <= 0 || food <= 0 || settlers.len == 0)
 		gameStatus = ORION_STATUS_GAMEOVER
 		event = null
 	var/dat = ""
@@ -500,7 +500,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		return
 	busy = TRUE
 
-	if (href_list["continue"]) //Continue your travels
+	if(href_list["continue"]) //Continue your travels
 		if(gameStatus == ORION_STATUS_NORMAL && !event && turns != 7)
 			if(turns >= ORION_TRAIL_WINTURN)
 				win(usr)
@@ -725,7 +725,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 						if(obj_flags & EMAGGED)
 							say("WEEWOO! WEEWOO! Spaceport security en route!")
 							playsound(src, 'sound/items/weeoo1.ogg', 100, FALSE)
-							for(var/i, i<=3, i++)
+							for(var/i, i <= 3, i++)
 								var/mob/living/simple_animal/hostile/syndicate/ranged/smg/orion/O = new/mob/living/simple_animal/hostile/syndicate/ranged/smg/orion(get_turf(src))
 								O.target = usr
 
@@ -1140,7 +1140,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		chopchop.dismember()
 		qdel(chopchop)
 		playsound(loc, 'sound/arcade/win.ogg', 50, 1, extrarange = -3, falloff = 10)
-		for(var/i=1; i<=rand(3,5); i++)
+		for(var/i=1; i <= rand(3,5); i++)
 			prizevend(user)
 	else
 		to_chat(c_user, "<span class='notice'>You (wisely) decide against putting your hand in the machine.</span>")

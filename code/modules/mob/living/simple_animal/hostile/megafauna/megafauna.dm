@@ -129,11 +129,11 @@
 	return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/ex_act(severity, target)
-	switch (severity)
-		if (1)
+	switch(severity)
+		if(1)
 			adjustBruteLoss(250)
 
-		if (2)
+		if(2)
 			adjustBruteLoss(100)
 
 		if(3)

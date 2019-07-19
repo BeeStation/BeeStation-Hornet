@@ -56,7 +56,7 @@
 		return
 
 	var/datum/signal/signal = new
-	if (active)
+	if(active)
 		signal.data["command"] = "alert"
 		signal.data["picture_state"] = "radiation"
 	else

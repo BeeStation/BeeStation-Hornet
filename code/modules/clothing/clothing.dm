@@ -103,10 +103,10 @@
 
 /obj/item/clothing/equipped(mob/user, slot)
 	..()
-	if (!istype(user))
+	if(!istype(user))
 		return
 	if(slot_flags & slotdefine2slotbit(slot)) //Was equipped to a valid slot for this item?
-		if (LAZYLEN(user_vars_to_edit))
+		if(LAZYLEN(user_vars_to_edit))
 			for(var/variable in user_vars_to_edit)
 				if(variable in user.vars)
 					LAZYSET(user_vars_remembered, variable, user.vars[variable])
@@ -180,9 +180,9 @@ BLIND     // can't see anything
 	set category = "Object"
 	set src in usr
 	var/mob/M = usr
-	if (istype(M, /mob/dead/))
+	if(istype(M, /mob/dead/))
 		return
-	if (!can_use(M))
+	if(!can_use(M))
 		return
 	if(src.has_sensor == LOCKED_SENSORS)
 		to_chat(usr, "The controls are locked.")
@@ -201,7 +201,7 @@ BLIND     // can't see anything
 		return
 	sensor_mode = modes.Find(switchMode) - 1
 
-	if (src.loc == usr)
+	if(src.loc == usr)
 		switch(sensor_mode)
 			if(0)
 				to_chat(usr, "<span class='notice'>You disable your suit's remote sensing equipment.</span>")

@@ -208,7 +208,7 @@
 
 // returns a list of all power-related objects (nodes, cable, junctions) in turf,
 // excluding source, that match the direction d
-// if unmarked==1, only return those with no powernet
+// if unmarked == 1, only return those with no powernet
 /proc/power_list(turf/T, source, d, unmarked=0, cable_only = 0)
 	. = list()
 
@@ -243,9 +243,9 @@
 	var/index = 1
 	var/obj/P = null
 
-	worklist+=O //start propagating from the passed object
+	worklist += O //start propagating from the passed object
 
-	while(index<=worklist.len) //until we've exhausted all power objects
+	while(index <= worklist.len) //until we've exhausted all power objects
 		P = worklist[index] //get the next power object found
 		index++
 
@@ -330,23 +330,23 @@
 	else if(istype(power_source, /obj/machinery/power/apc))
 		var/obj/machinery/power/apc/apc = power_source
 		cell = apc.cell
-		if (apc.terminal)
+		if(apc.terminal)
 			PN = apc.terminal.powernet
-	else if (!power_source)
+	else if(!power_source)
 		return 0
 	else
 		log_admin("ERROR: /proc/electrocute_mob([M], [power_source], [source]): wrong power_source")
 		return 0
-	if (!cell && !PN)
+	if(!cell && !PN)
 		return 0
 	var/PN_damage = 0
 	var/cell_damage = 0
-	if (PN)
+	if(PN)
 		PN_damage = PN.get_electrocute_damage()
-	if (cell)
+	if(cell)
 		cell_damage = cell.get_electrocute_damage()
 	var/shock_damage = 0
-	if (PN_damage>=cell_damage)
+	if(PN_damage >= cell_damage)
 		power_source = PN
 		shock_damage = PN_damage
 	else
@@ -357,12 +357,12 @@
 
 	var/drained_energy = drained_hp*20
 
-	if (source_area)
+	if(source_area)
 		source_area.use_power(drained_energy/GLOB.CELLRATE)
-	else if (istype(power_source, /datum/powernet))
+	else if(istype(power_source, /datum/powernet))
 		var/drained_power = drained_energy/GLOB.CELLRATE //convert from "joules" to "watts"
 		PN.delayedload += (min(drained_power, max(PN.newavail - PN.delayedload, 0)))
-	else if (istype(power_source, /obj/item/stock_parts/cell))
+	else if(istype(power_source, /obj/item/stock_parts/cell))
 		cell.use(drained_energy)
 	return drained_energy
 

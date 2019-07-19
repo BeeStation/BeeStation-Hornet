@@ -85,7 +85,7 @@ FLOOR SAFES
 	dat += "<a href='?src=[REF(src)];open=1'>[open ? "Close" : "Open"] [src]</a> | <a href='?src=[REF(src)];decrement=1'>-</a> [dial] <a href='?src=[REF(src)];increment=1'>+</a>"
 	if(open)
 		dat += "<table>"
-		for(var/i = contents.len, i>=1, i--)
+		for(var/i = contents.len, i >= 1, i--)
 			var/obj/item/P = contents[i]
 			dat += "<tr><td><a href='?src=[REF(src)];retrieve=[REF(P)]'>[P.name]</a></td></tr>"
 		dat += "</table></center>"

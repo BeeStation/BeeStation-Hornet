@@ -39,10 +39,10 @@
 	heat_gen /= max(1, tot_rating)
 
 /obj/machinery/rnd/server/update_icon()
-	if (stat & EMPED || stat & NOPOWER)
+	if(stat & EMPED || stat & NOPOWER)
 		icon_state = "RD-server-off"
 		return
-	if (research_disabled)
+	if(research_disabled)
 		icon_state = "RD-server-halt"
 		return
 	icon_state = "RD-server-on"
@@ -149,7 +149,7 @@
 		return
 
 	add_fingerprint(usr)
-	if (href_list["toggle"])
+	if(href_list["toggle"])
 		if(allowed(usr) || obj_flags & EMAGGED)
 			var/obj/machinery/rnd/server/S = locate(href_list["toggle"]) in SSresearch.servers
 			S.toggle_disable()
@@ -166,7 +166,7 @@
 	dat += "<b>Connected Servers:</b>"
 	dat += "<table><tr><td style='width:25%'><b>Server</b></td><td style='width:25%'><b>Operating Temp</b></td><td style='width:25%'><b>Status</b></td>"
 	for(var/obj/machinery/rnd/server/S in GLOB.machines)
-		dat += "<tr><td style='width:25%'>[S.name]</td><td style='width:25%'>[S.current_temp]</td><td style='width:25%'>[S.stat & EMPED || stat & NOPOWER?"Offline":"<A href='?src=[REF(src)];toggle=[REF(S)]'>([S.research_disabled? "<font color=red>Disabled" : "<font color=lightgreen>Online"]</font>)</A>"]</td><BR>"
+		dat += "<tr><td style='width:25%'>[S.name]</td><td style='width:25%'>[S.current_temp]</td><td style='width:25%'>[S.stat & EMPED || stat & NOPOWER ? "Offline" : "<A href='?src=[REF(src)];toggle=[REF(S)]'>([S.research_disabled? "<font color=red>Disabled" : "<font color=lightgreen>Online"]</font>)</A>"]</td><BR>"
 	dat += "</table></br>"
 
 	dat += "<b>Research Log</b></br>"
@@ -179,7 +179,7 @@
 			dat += "<tr><td>[i]</td>"
 			for(var/j in stored_research.research_logs[i])
 				dat += "<td>[j]</td>"
-			dat +="</tr>"
+			dat += "</tr>"
 		dat += "</table>"
 
 	else

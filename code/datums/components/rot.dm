@@ -43,7 +43,7 @@
 		return
 
 	// Properly stored corpses shouldn't create miasma
-	if(istype(C.loc, /obj/structure/closet/crate/coffin)|| istype(C.loc, /obj/structure/closet/body_bag) || istype(C.loc, /obj/structure/bodycontainer))
+	if(istype(C.loc, /obj/structure/closet/crate/coffin) || istype(C.loc, /obj/structure/closet/body_bag) || istype(C.loc, /obj/structure/bodycontainer))
 		return
 
 	// No decay if formaldehyde in corpse or when the corpse is charred

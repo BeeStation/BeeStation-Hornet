@@ -200,7 +200,7 @@
 		return 1
 	if(usr.incapacitated() || isobserver(usr))
 		return 1
-	if (ismecha(usr.loc)) // stops inventory actions in a mech
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return 1
 
 	if(hud.mymob.active_hand_index == held_index)
@@ -250,16 +250,16 @@
 		var/_x = text2num(params2list(params)["icon-x"])
 		var/_y = text2num(params2list(params)["icon-y"])
 
-		if(_x<=16 && _y<=16)
+		if(_x <= 16 && _y <= 16)
 			usr.a_intent_change(INTENT_HARM)
 
-		else if(_x<=16 && _y>=17)
+		else if(_x <= 16 && _y >= 17)
 			usr.a_intent_change(INTENT_HELP)
 
-		else if(_x>=17 && _y<=16)
+		else if(_x >= 17 && _y <= 16)
 			usr.a_intent_change(INTENT_GRAB)
 
-		else if(_x>=17 && _y>=17)
+		else if(_x >= 17 && _y >= 17)
 			usr.a_intent_change(INTENT_DISARM)
 	else
 		return ..()
@@ -423,7 +423,7 @@
 		return TRUE
 	if(usr.incapacitated())
 		return TRUE
-	if (ismecha(usr.loc)) // stops inventory actions in a mech
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
 	if(master)
 		var/obj/item/I = usr.get_active_held_item()
@@ -457,7 +457,7 @@
 	var/icon_x = text2num(PL["icon-x"])
 	var/icon_y = text2num(PL["icon-y"])
 	var/choice = get_zone_at(icon_x, icon_y)
-	if (!choice)
+	if(!choice)
 		return 1
 
 	return set_selected_zone(choice, usr)
@@ -646,7 +646,7 @@
 	screen_loc = ui_healthdoll
 
 /obj/screen/healthdoll/Click()
-	if (ishuman(usr))
+	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
 		H.check_self_for_injuries()
 

@@ -7,11 +7,11 @@
 //Inverts the colour of an HTML string
 /proc/invertHTML(HTMLstring)
 
-	if (!( istext(HTMLstring) ))
+	if(!( istext(HTMLstring) ))
 		CRASH("Given non-text argument!")
 		return
 	else
-		if (length(HTMLstring) != 7)
+		if(length(HTMLstring) != 7)
 			CRASH("Given non-HTML argument!")
 			return
 	var/textr = copytext(HTMLstring, 2, 4)
@@ -34,7 +34,7 @@
 	dy=(32*end.y+end.pixel_y)-(32*start.y+start.pixel_y)
 	dx=(32*end.x+end.pixel_x)-(32*start.x+start.pixel_x)
 	if(!dy)
-		return (dx>=0)?90:270
+		return (dx >= 0) ? 90 : 270
 	.=arctan(dx/dy)
 	if(dy<0)
 		.+=180
@@ -43,7 +43,7 @@
 
 /proc/Get_Pixel_Angle(var/y, var/x)//for getting the angle when animating something's pixel_x and pixel_y
 	if(!y)
-		return (x>=0)?90:270
+		return (x >= 0) ? 90 : 270
 	.=arctan(x/y)
 	if(y<0)
 		.+=180
@@ -77,42 +77,42 @@ Turf and target are separate in case you want to teleport some distance from a t
 	switch(target.dir)//This can be done through equations but switch is the simpler method. And works fast to boot.
 	//Directs on what values need modifying.
 		if(1)//North
-			diry+=distance
-			yoffset+=eoffsety
-			xoffset+=eoffsetx
-			b1xerror-=errorx
-			b1yerror-=errory
-			b2xerror+=errorx
-			b2yerror+=errory
+			diry += distance
+			yoffset += eoffsety
+			xoffset += eoffsetx
+			b1xerror -= errorx
+			b1yerror -= errory
+			b2xerror += errorx
+			b2yerror += errory
 		if(2)//South
-			diry-=distance
-			yoffset-=eoffsety
-			xoffset+=eoffsetx
-			b1xerror-=errorx
-			b1yerror-=errory
-			b2xerror+=errorx
-			b2yerror+=errory
+			diry -= distance
+			yoffset -= eoffsety
+			xoffset += eoffsetx
+			b1xerror -= errorx
+			b1yerror -= errory
+			b2xerror += errorx
+			b2yerror += errory
 		if(4)//East
-			dirx+=distance
-			yoffset+=eoffsetx//Flipped.
-			xoffset+=eoffsety
-			b1xerror-=errory//Flipped.
-			b1yerror-=errorx
-			b2xerror+=errory
-			b2yerror+=errorx
+			dirx += distance
+			yoffset += eoffsetx//Flipped.
+			xoffset += eoffsety
+			b1xerror -= errory//Flipped.
+			b1yerror -= errorx
+			b2xerror += errory
+			b2yerror += errorx
 		if(8)//West
-			dirx-=distance
-			yoffset-=eoffsetx//Flipped.
-			xoffset+=eoffsety
-			b1xerror-=errory//Flipped.
-			b1yerror-=errorx
-			b2xerror+=errory
-			b2yerror+=errorx
+			dirx -= distance
+			yoffset -= eoffsetx//Flipped.
+			xoffset += eoffsety
+			b1xerror -= errory//Flipped.
+			b1yerror -= errorx
+			b2xerror += errory
+			b2yerror += errorx
 
 	var/turf/destination=locate(location.x+dirx,location.y+diry,location.z)
 
 	if(destination)//If there is a destination.
-		if(errorx||errory)//If errorx or y were specified.
+		if(errorx || errory)//If errorx or y were specified.
 			var/destination_list[] = list()//To add turfs to list.
 			//destination_list = new()
 			/*This will draw a block around the target turf, given what the error is.
@@ -126,7 +126,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 
 			//Now to find a box from center location and make that our destination.
 			for(var/turf/T in block(locate(center.x+b1xerror,center.y+b1yerror,location.z), locate(center.x+b2xerror,center.y+b2yerror,location.z) ))
-				if(density&&T.density)
+				if(density && T.density)
 					continue//If density was specified.
 				if(T.x>world.maxx || T.x<1)
 					continue//Don't want them to teleport off the map.
@@ -139,7 +139,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 				return
 
 		else//Same deal here.
-			if(density&&destination.density)
+			if(density && destination.density)
 				return
 			if(destination.x>world.maxx || destination.x<1)
 				return
@@ -160,37 +160,37 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/dyabs = abs(dy)
 	var/sdx = SIGN(dx)	//Sign of x distance (+ or -)
 	var/sdy = SIGN(dy)
-	var/x=dxabs>>1	//Counters for steps taken, setting to distance/2
-	var/y=dyabs>>1	//Bit-shifting makes me l33t.  It also makes getline() unnessecarrily fast.
+	var/x=dxabs >> 1	//Counters for steps taken, setting to distance/2
+	var/y=dyabs >> 1	//Bit-shifting makes me l33t.  It also makes getline() unnessecarrily fast.
 	var/j			//Generic integer for counting
-	if(dxabs>=dyabs)	//x distance is greater than y
+	if(dxabs >= dyabs)	//x distance is greater than y
 		for(j=0;j<dxabs;j++)//It'll take dxabs steps to get there
-			y+=dyabs
-			if(y>=dxabs)	//Every dyabs steps, step once in y direction
-				y-=dxabs
-				py+=sdy
-			px+=sdx		//Step on in x direction
-			line+=locate(px,py,M.z)//Add the turf to the list
+			y += dyabs
+			if(y >= dxabs)	//Every dyabs steps, step once in y direction
+				y -= dxabs
+				py += sdy
+			px += sdx		//Step on in x direction
+			line += locate(px,py,M.z)//Add the turf to the list
 	else
 		for(j=0;j<dyabs;j++)
-			x+=dxabs
-			if(x>=dyabs)
-				x-=dyabs
-				px+=sdx
-			py+=sdy
-			line+=locate(px,py,M.z)
+			x += dxabs
+			if(x >= dyabs)
+				x -= dyabs
+				px += sdx
+			py += sdy
+			line += locate(px,py,M.z)
 	return line
 
 //Returns whether or not a player is a guest using their ckey as an input
 /proc/IsGuestKey(key)
-	if (findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
+	if(findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
 		return 0
 
 	var/i, ch, len = length(key)
 
-	for (i = 7, i <= len, ++i)
+	for(i = 7, i <= len, ++i)
 		ch = text2ascii(key, i)
-		if (ch < 48 || ch > 57)
+		if(ch < 48 || ch > 57)
 			return 0
 	return 1
 
@@ -368,11 +368,11 @@ Turf and target are separate in case you want to teleport some distance from a t
 
 // Format an energy value in J, kJ, MJ, or GJ. 1W = 1J/s.
 /proc/DisplayJoules(units)
-	if (units < 1000) // Less than a kJ
+	if(units < 1000) // Less than a kJ
 		return "[round(units, 0.1)] J"
-	else if (units < 1000000) // Less than a MJ
+	else if(units < 1000000) // Less than a MJ
 		return "[round(units * 0.001, 0.01)] kJ"
-	else if (units < 1000000000) // Less than a GJ
+	else if(units < 1000000000) // Less than a GJ
 		return "[round(units * 0.000001, 0.001)] MJ"
 	return "[round(units * 0.000000001, 0.0001)] GJ"
 
@@ -656,7 +656,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 
 //chances are 1:value. anyprob(1) will always return true
 /proc/anyprob(value)
-	return (rand(1,value)==value)
+	return (rand(1,value) == value)
 
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
@@ -677,19 +677,19 @@ Turf and target are separate in case you want to teleport some distance from a t
 /proc/parse_zone(zone)
 	if(zone == BODY_ZONE_PRECISE_R_HAND)
 		return "right hand"
-	else if (zone == BODY_ZONE_PRECISE_L_HAND)
+	else if(zone == BODY_ZONE_PRECISE_L_HAND)
 		return "left hand"
-	else if (zone == BODY_ZONE_L_ARM)
+	else if(zone == BODY_ZONE_L_ARM)
 		return "left arm"
-	else if (zone == BODY_ZONE_R_ARM)
+	else if(zone == BODY_ZONE_R_ARM)
 		return "right arm"
-	else if (zone == BODY_ZONE_L_LEG)
+	else if(zone == BODY_ZONE_L_LEG)
 		return "left leg"
-	else if (zone == BODY_ZONE_R_LEG)
+	else if(zone == BODY_ZONE_R_LEG)
 		return "right leg"
-	else if (zone == BODY_ZONE_PRECISE_L_FOOT)
+	else if(zone == BODY_ZONE_PRECISE_L_FOOT)
 		return "left foot"
-	else if (zone == BODY_ZONE_PRECISE_R_FOOT)
+	else if(zone == BODY_ZONE_PRECISE_R_FOOT)
 		return "right foot"
 	else
 		return zone
@@ -1130,10 +1130,10 @@ B --><-- A
 	return safepick(get_area_turfs(pick(GLOB.the_station_areas)))
 
 /proc/get_safe_random_station_turf()
-	for (var/i in 1 to 5)
+	for(var/i in 1 to 5)
 		var/list/L = get_area_turfs(pick(GLOB.the_station_areas))
 		var/turf/target
-		while (L.len && !target)
+		while(L.len && !target)
 			var/I = rand(1, L.len)
 			var/turf/T = L[I]
 			if(!T.density)
@@ -1144,9 +1144,9 @@ B --><-- A
 						break
 				if(clear)
 					target = T
-			if (!target)
+			if(!target)
 				L.Cut(I,I+1)
-		if (target)
+		if(target)
 			return target
 
 
@@ -1168,19 +1168,19 @@ B --><-- A
 
 
 proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
-	if (value == FALSE) //nothing should be calling us with a number, so this is safe
+	if(value == FALSE) //nothing should be calling us with a number, so this is safe
 		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
-		if (isnull(value))
+		if(isnull(value))
 			return
 	value = trim(value)
 	if(!isnull(value) && value != "")
 		matches = filter_fancy_list(matches, value)
 
-	if(matches.len==0)
+	if(matches.len == 0)
 		return
 
 	var/chosen
-	if(matches.len==1)
+	if(matches.len == 1)
 		chosen = matches[1]
 	else
 		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in matches
@@ -1212,10 +1212,10 @@ GLOBAL_REAL_VAR(list/stack_trace_storage)
 
 //returns the number of ticks slept
 /proc/stoplag(initial_delay)
-	if (!Master || !(Master.current_runlevel & RUNLEVELS_DEFAULT))
+	if(!Master || !(Master.current_runlevel & RUNLEVELS_DEFAULT))
 		sleep(world.tick_lag)
 		return 1
-	if (!initial_delay)
+	if(!initial_delay)
 		initial_delay = world.tick_lag
 	. = 0
 	var/i = DS2TICKS(initial_delay)
@@ -1223,7 +1223,7 @@ GLOBAL_REAL_VAR(list/stack_trace_storage)
 		. += CEILING(i*DELTA_CALC, 1)
 		sleep(i*world.tick_lag*DELTA_CALC)
 		i *= 2
-	while (TICK_USAGE > min(TICK_LIMIT_TO_RUN, Master.current_ticklimit))
+	while(TICK_USAGE > min(TICK_LIMIT_TO_RUN, Master.current_ticklimit))
 
 #undef DELTA_CALC
 
@@ -1309,7 +1309,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(!ready_to_die)
 		stack_trace("ALRIGHT WHICH FUCKER TRIED TO DELETE *MY* DVIEW?")
 
-		if (!force)
+		if(!force)
 			return QDEL_HINT_LETMELIVE
 
 		log_world("EVACUATE THE SHITCODE IS TRYING TO STEAL MUH JOBS")
@@ -1366,8 +1366,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //counts the number of bits in Byond's 16-bit width field
 //in constant time and memory!
 /proc/BitCount(bitfield)
-	var/temp = bitfield - ((bitfield>>1)&46811) - ((bitfield>>2)&37449) //0133333 and 0111111 respectively
-	temp = ((temp + (temp>>3))&29127) % 63	//070707
+	var/temp = bitfield - ((bitfield >> 1)&46811) - ((bitfield >> 2)&37449) //0133333 and 0111111 respectively
+	temp = ((temp + (temp >> 3))&29127) % 63	//070707
 	return temp
 
 //same as do_mob except for movables and it allows both to drift and doesn't draw progressbar
@@ -1388,7 +1388,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	var/endtime = world.time+time
 	. = TRUE
-	while (world.time < endtime)
+	while(world.time < endtime)
 		stoplag(1)
 		if(QDELETED(user) || QDELETED(target))
 			. = 0
@@ -1445,7 +1445,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /world/proc/PushUsr(mob/M, datum/callback/CB, ...)
 	var/temp = usr
 	usr = M
-	if (length(args) > 2)
+	if(length(args) > 2)
 		. = CB.Invoke(arglist(args.Copy(3)))
 	else
 		. = CB.Invoke()

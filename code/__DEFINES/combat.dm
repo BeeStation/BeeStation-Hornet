@@ -12,13 +12,13 @@
 #define BRAIN		"brain"
 
 //bitflag damage defines used for suicide_act
-#define BRUTELOSS 	            	(1<<0)
-#define FIRELOSS 	            	(1<<1)
-#define TOXLOSS 	            	(1<<2)
-#define OXYLOSS 	            	(1<<3)
-#define SHAME 			            (1<<4)
-#define MANUAL_SUICIDE          	(1<<5)	//suicide_act will do the actual killing.
-#define MANUAL_SUICIDE_NONLETHAL	(1<<6)  //when the suicide is conditionally lethal
+#define BRUTELOSS 	            	(1 << 0)
+#define FIRELOSS 	            	(1 << 1)
+#define TOXLOSS 	            	(1 << 2)
+#define OXYLOSS 	            	(1 << 3)
+#define SHAME 			            (1 << 4)
+#define MANUAL_SUICIDE          	(1 << 5)	//suicide_act will do the actual killing.
+#define MANUAL_SUICIDE_NONLETHAL	(1 << 6)  //when the suicide is conditionally lethal
 
 #define EFFECT_STUN			"stun"
 #define EFFECT_KNOCKDOWN	"knockdown"
@@ -33,11 +33,11 @@
 #define EFFECT_JITTER		"jitter"
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN			(1<<0)
-#define CANKNOCKDOWN	(1<<1)
-#define CANUNCONSCIOUS	(1<<2)
-#define CANPUSH			(1<<3)
-#define GODMODE			(1<<4)
+#define CANSTUN			(1 << 0)
+#define CANKNOCKDOWN	(1 << 1)
+#define CANUNCONSCIOUS	(1 << 2)
+#define CANPUSH			(1 << 3)
+#define GODMODE			(1 << 4)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
@@ -153,8 +153,8 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define SAWN_OFF_RECOIL 1
 
 //Projectile Reflect
-#define REFLECT_NORMAL 				(1<<0)
-#define REFLECT_FAKEPROJECTILE		(1<<1)
+#define REFLECT_NORMAL 				(1 << 0)
+#define REFLECT_FAKEPROJECTILE		(1 << 1)
 
 //Object/Item sharpness
 #define IS_BLUNT			0

@@ -29,13 +29,13 @@
 		return
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Power") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-	for (var/datum/powernet/PN in GLOB.powernets)
-		if (!PN.nodes || !PN.nodes.len)
+	for(var/datum/powernet/PN in GLOB.powernets)
+		if(!PN.nodes || !PN.nodes.len)
 			if(PN.cables && (PN.cables.len > 1))
 				var/obj/structure/cable/C = PN.cables[1]
 				to_chat(usr, "Powernet with no nodes! (number [PN.number]) - example cable at [ADMIN_VERBOSEJMP(C)]")
 
-		if (!PN.cables || (PN.cables.len < 10))
+		if(!PN.cables || (PN.cables.len < 10))
 			if(PN.cables && (PN.cables.len > 1))
 				var/obj/structure/cable/C = PN.cables[1]
 				to_chat(usr, "Powernet with fewer than 10 cables! (number [PN.number]) - example cable at [ADMIN_VERBOSEJMP(C)]")

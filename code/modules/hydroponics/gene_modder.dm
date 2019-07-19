@@ -85,7 +85,7 @@
 			interact(user)
 		return
 	else if(istype(I, /obj/item/disk/plantgene))
-		if (operation)
+		if(operation)
 			to_chat(user, "<span class='notice'>Please complete current operation.</span>")
 			return
 		eject_disk()
@@ -170,7 +170,7 @@
 		popup.open()
 		return
 
-	dat+= "<div class='statusDisplay'>"
+	dat += "<div class='statusDisplay'>"
 
 	dat += "<div class='line'><div class='statusLabel'>Plant Sample:</div><div class='statusValue'><a href='?src=[REF(src)];eject_seed=1'>"
 	dat += seed ? seed.name : "None"
@@ -252,7 +252,7 @@
 	usr.set_machine(src)
 
 	if(href_list["eject_seed"] && !operation)
-		if (seed)
+		if(seed)
 			seed.forceMove(drop_location())
 			seed.verb_pickup()
 			seed = null
@@ -260,7 +260,7 @@
 			update_icon()
 		else
 			var/obj/item/I = usr.get_active_held_item()
-			if (istype(I, /obj/item/seeds))
+			if(istype(I, /obj/item/seeds))
 				if(!usr.temporarilyRemoveItemFromInventory(I))
 					return
 				insert_seed(I)
@@ -362,9 +362,9 @@
 	update_icon()
 
 /obj/machinery/plantgenes/proc/eject_disk()
-	if (disk && !operation)
+	if(disk && !operation)
 		if(Adjacent(usr) && !issilicon(usr))
-			if (!usr.put_in_hands(disk))
+			if(!usr.put_in_hands(disk))
 				disk.forceMove(drop_location())
 		else
 			disk.forceMove(drop_location())

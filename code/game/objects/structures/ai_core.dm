@@ -240,7 +240,7 @@
 
 						var/mob/living/silicon/ai/A = null
 
-						if (brain.overrides_aicore_laws)
+						if(brain.overrides_aicore_laws)
 							A = new /mob/living/silicon/ai(loc, brain.laws, brain.brainmob)
 						else
 							A = new /mob/living/silicon/ai(loc, laws, brain.brainmob)

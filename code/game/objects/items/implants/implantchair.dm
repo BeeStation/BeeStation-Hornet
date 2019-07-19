@@ -67,7 +67,7 @@
 			. = TRUE
 
 /obj/machinery/implantchair/proc/implant(mob/living/M,mob/user)
-	if (!istype(M))
+	if(!istype(M))
 		return
 	if(!ready_implants || !ready)
 		return

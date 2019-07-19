@@ -196,7 +196,7 @@
 	if(gangtool)
 		var/obj/item/device/gangtool/G = new()
 		var/where = H.equip_in_one_of_slots(G, slots)
-		if (!where)
+		if(!where)
 			to_chat(H, "Your Syndicate benefactors were unfortunately unable to get you a Gangtool.")
 		else
 			G.register_device(H)
@@ -206,7 +206,7 @@
 	if(pen)
 		var/obj/item/pen/gang/T = new()
 		var/where2 = H.equip_in_one_of_slots(T, slots)
-		if (!where2)
+		if(!where2)
 			to_chat(H, "Your Syndicate benefactors were unfortunately unable to get you a recruitment pen to start.")
 		else
 			to_chat(H, "The <b>recruitment pen</b> in your [where2] will help you get your gang started. Stab unsuspecting crew members with it to recruit them.")
@@ -214,7 +214,7 @@
 	if(spraycan)
 		var/obj/item/toy/crayon/spraycan/gang/SC = new(null,gang)
 		var/where3 = H.equip_in_one_of_slots(SC, slots)
-		if (!where3)
+		if(!where3)
 			to_chat(H, "Your Syndicate benefactors were unfortunately unable to get you a territory spraycan to start.")
 		else
 			to_chat(H, "The <b>territory spraycan</b> in your [where3] can be used to claim areas of the station for your gang. The more territory your gang controls, the more influence you get. All gangsters can use these, so distribute them to grow your influence faster.")
@@ -222,7 +222,7 @@
 	if(hud)
 		var/obj/item/clothing/glasses/hud/security/chameleon/C = new(null,gang)
 		var/where4 = H.equip_in_one_of_slots(C, slots)
-		if (!where4)
+		if(!where4)
 			to_chat(H, "Your Syndicate benefactors were unfortunately unable to get you a chameleon security HUD.")
 		else
 			to_chat(H, "The <b>chameleon security HUD</b> in your [where4] will help you keep track of who is mindshield-implanted, and unable to be recruited.")
@@ -260,7 +260,7 @@
 /datum/antagonist/gang/boss/proc/admin_take_gangtool(mob/admin)
 	var/list/L = owner.current.get_contents()
 	var/obj/item/device/gangtool/gangtool = locate() in L
-	if (!gangtool)
+	if(!gangtool)
 		to_chat(admin, "<span class='danger'>Deleting gangtool failed!</span>")
 		return
 	qdel(gangtool)

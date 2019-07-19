@@ -1,15 +1,15 @@
 /mob/living/silicon/ai/proc/get_camera_list()
 	var/list/L = list()
-	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		L.Add(C)
 
 	camera_sort(L)
 
 	var/list/T = list()
 
-	for (var/obj/machinery/camera/C in L)
+	for(var/obj/machinery/camera/C in L)
 		var/list/tempnetwork = C.network&src.network
-		if (tempnetwork.len)
+		if(tempnetwork.len)
 			T[text("[][]", C.c_tag, (C.can_use() ? null : " (Deactivated)"))] = C
 
 	return T
@@ -121,7 +121,7 @@
 			sleep(10)
 
 /proc/near_camera(mob/living/M)
-	if (!isturf(M.loc))
+	if(!isturf(M.loc))
 		return FALSE
 	if(issilicon(M))
 		var/mob/living/silicon/S = M
@@ -132,9 +132,9 @@
 	return TRUE
 
 /obj/machinery/camera/attack_ai(mob/living/silicon/ai/user)
-	if (!istype(user))
+	if(!istype(user))
 		return
-	if (!can_use())
+	if(!can_use())
 		return
 	user.switchCamera(src)
 
@@ -142,10 +142,10 @@
 	var/obj/machinery/camera/a
 	var/obj/machinery/camera/b
 
-	for (var/i = L.len, i > 0, i--)
-		for (var/j = 1 to i - 1)
+	for(var/i = L.len, i > 0, i--)
+		for(var/j = 1 to i - 1)
 			a = L[j]
 			b = L[j + 1]
-			if (sorttext(a.c_tag, b.c_tag) < 0)
+			if(sorttext(a.c_tag, b.c_tag) < 0)
 				L.Swap(j, j + 1)
 	return L

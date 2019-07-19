@@ -40,17 +40,17 @@
 
 	var/list/L = alarms[class]
 	for(var/I in L)
-		if (I == A.name)
+		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/sources = alarm[3]
-			if (!(source in sources))
+			if(!(source in sources))
 				sources += source
 			return 1
 	var/obj/machinery/camera/C = null
 	var/list/CL = null
 	if(O && islist(O))
 		CL = O
-		if (CL.len == 1)
+		if(CL.len == 1)
 			C = CL[1]
 	else if(O && istype(O, /obj/machinery/camera))
 		C = O
@@ -63,13 +63,13 @@
 		return
 	var/list/L = alarms[class]
 	var/cleared = 0
-	for (var/I in L)
-		if (I == A.name)
+	for(var/I in L)
+		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/srcs  = alarm[3]
-			if (origin in srcs)
+			if(origin in srcs)
 				srcs -= origin
-			if (srcs.len == 0)
+			if(srcs.len == 0)
 				cleared = 1
 				L -= I
 	return !cleared

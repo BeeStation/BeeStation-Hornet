@@ -53,7 +53,7 @@
 			. = TRUE
 		if("set")
 			var/access = text2num(params["access"])
-			if (!(access in accesses))
+			if(!(access in accesses))
 				accesses += access
 			else
 				accesses -= access

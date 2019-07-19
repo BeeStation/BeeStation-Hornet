@@ -62,7 +62,7 @@
 	..()
 
 /obj/machinery/limbgrower/attackby(obj/item/O, mob/user, params)
-	if (busy)
+	if(busy)
 		to_chat(user, "<span class=\"alert\">The Limb Grower is busy. Please wait for completion of previous operation.</span>")
 		return
 
@@ -79,7 +79,7 @@
 /obj/machinery/limbgrower/Topic(href, href_list)
 	if(..())
 		return
-	if (!busy)
+	if(!busy)
 		if(href_list["menu"])
 			screen = text2num(href_list["menu"])
 
@@ -134,7 +134,7 @@
 	//i need to create a body part manually using a set icon (otherwise it doesnt appear)
 	var/obj/item/bodypart/limb
 	limb = new buildpath(loc)
-	if(selected_category=="human" || selected_category=="lizard") //Species with greyscale parts should be included here
+	if(selected_category == "human" || selected_category == "lizard") //Species with greyscale parts should be included here
 		limb.icon = 'icons/mob/human_parts_greyscale.dmi'
 		limb.should_draw_greyscale = TRUE
 	else

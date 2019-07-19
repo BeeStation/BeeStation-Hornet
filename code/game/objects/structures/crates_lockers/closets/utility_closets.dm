@@ -23,34 +23,34 @@
 /obj/structure/closet/emcloset/PopulateContents()
 	..()
 
-	if (prob(40))
+	if(prob(40))
 		new /obj/item/storage/toolbox/emergency(src)
 
-	switch (pickweight(list("small" = 40, "aid" = 25, "tank" = 20, "both" = 10, "nothing" = 4, "delete" = 1)))
-		if ("small")
+	switch(pickweight(list("small" = 40, "aid" = 25, "tank" = 20, "both" = 10, "nothing" = 4, "delete" = 1)))
+		if("small")
 			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/clothing/mask/breath(src)
 			new /obj/item/clothing/mask/breath(src)
 
-		if ("aid")
+		if("aid")
 			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/storage/firstaid/o2(src)
 			new /obj/item/clothing/mask/breath(src)
 
-		if ("tank")
+		if("tank")
 			new /obj/item/tank/internals/air(src)
 			new /obj/item/clothing/mask/breath(src)
 
-		if ("both")
+		if("both")
 			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/clothing/mask/breath(src)
 
-		if ("nothing")
+		if("nothing")
 			// doot
 
 		// teehee
-		if ("delete")
+		if("delete")
 			qdel(src)
 
 /*

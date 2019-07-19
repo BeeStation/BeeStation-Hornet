@@ -16,7 +16,7 @@
 	var/isGlass = TRUE //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
 
 /obj/item/reagent_containers/food/drinks/on_reagent_change(changetype)
-	if (gulp_size < 5)
+	if(gulp_size < 5)
 		gulp_size = 5
 	else
 		gulp_size = max(round(reagents.total_volume / 5), 5)
@@ -30,7 +30,7 @@
 	if(!canconsume(M, user))
 		return 0
 
-	if (!is_drainable())
+	if(!is_drainable())
 		to_chat(user, "<span class='warning'>[src]'s lid hasn't been opened!</span>")
 		return 0
 
@@ -79,7 +79,7 @@
 			addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, trans), 600)
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
-		if (!is_refillable())
+		if(!is_refillable())
 			to_chat(user, "<span class='warning'>[src]'s tab isn't open!</span>")
 			return
 
@@ -315,7 +315,7 @@
 	target.Bumped(B)
 
 /obj/item/reagent_containers/food/drinks/sillycup/smallcarton/on_reagent_change(changetype)
-	if (reagents.reagent_list.len)
+	if(reagents.reagent_list.len)
 		switch(reagents.get_master_reagent_id())
 			if(/datum/reagent/consumable/orangejuice)
 				icon_state = "orangebox"

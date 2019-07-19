@@ -2,10 +2,10 @@
 /atom/var/CanAtmosPassVertical = ATMOS_PASS_YES
 
 /atom/proc/CanAtmosPass(turf/T)
-	switch (CanAtmosPass)
-		if (ATMOS_PASS_PROC)
+	switch(CanAtmosPass)
+		if(ATMOS_PASS_PROC)
 			return ATMOS_PASS_YES
-		if (ATMOS_PASS_DENSITY)
+		if(ATMOS_PASS_DENSITY)
 			return !density
 		else
 			return CanAtmosPass
@@ -24,7 +24,7 @@
 		R = TRUE
 	if(blocks_air || T.blocks_air)
 		R = TRUE
-	if (T == src)
+	if(T == src)
 		return !R
 	for(var/obj/O in contents+T.contents)
 		var/turf/other = (O.loc == src ? T : src)
@@ -56,9 +56,9 @@
 			atmos_adjacent_turfs[T] = TRUE
 			T.atmos_adjacent_turfs[src] = TRUE
 		else
-			if (atmos_adjacent_turfs)
+			if(atmos_adjacent_turfs)
 				atmos_adjacent_turfs -= T
-			if (T.atmos_adjacent_turfs)
+			if(T.atmos_adjacent_turfs)
 				T.atmos_adjacent_turfs -= src
 			UNSETEMPTY(T.atmos_adjacent_turfs)
 	UNSETEMPTY(atmos_adjacent_turfs)
@@ -69,31 +69,31 @@
 //	air with both of the related adjacent cardinal tiles
 /turf/proc/GetAtmosAdjacentTurfs(alldir = 0)
 	var/adjacent_turfs
-	if (atmos_adjacent_turfs)
+	if(atmos_adjacent_turfs)
 		adjacent_turfs = atmos_adjacent_turfs.Copy()
 	else
 		adjacent_turfs = list()
 
-	if (!alldir)
+	if(!alldir)
 		return adjacent_turfs
 
 	var/turf/curloc = src
 
-	for (var/direction in GLOB.diagonals_multiz)
+	for(var/direction in GLOB.diagonals_multiz)
 		var/matchingDirections = 0
 		var/turf/S = get_step_multiz(curloc, direction)
 		if(!S)
 			continue
 
-		for (var/checkDirection in GLOB.cardinals_multiz)
+		for(var/checkDirection in GLOB.cardinals_multiz)
 			var/turf/checkTurf = get_step(S, checkDirection)
 			if(!S.atmos_adjacent_turfs || !S.atmos_adjacent_turfs[checkTurf])
 				continue
 
-			if (adjacent_turfs[checkTurf])
+			if(adjacent_turfs[checkTurf])
 				matchingDirections++
 
-			if (matchingDirections >= 2)
+			if(matchingDirections >= 2)
 				adjacent_turfs += S
 				break
 

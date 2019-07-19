@@ -20,7 +20,7 @@
 	link_power_station()
 
 /obj/machinery/teleport/hub/Destroy()
-	if (power_station)
+	if(power_station)
 		power_station.teleporter_hub = null
 		power_station = null
 	return ..()
@@ -64,13 +64,13 @@
 
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj, turf/T)
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
-	if (QDELETED(com))
+	if(QDELETED(com))
 		return
-	if (QDELETED(com.target))
+	if(QDELETED(com.target))
 		com.target = null
 		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
 		return
-	if (ismovableatom(M))
+	if(ismovableatom(M))
 		if(do_teleport(M, com.target, channel = TELEPORT_CHANNEL_BLUESPACE))
 			use_power(5000)
 			if(!calibrated && prob(30 - ((accuracy) * 10))) //oh dear a problem
@@ -158,7 +158,7 @@
 		teleporter_hub.power_station = null
 		teleporter_hub.update_icon()
 		teleporter_hub = null
-	if (teleporter_console)
+	if(teleporter_console)
 		teleporter_console.power_station = null
 		teleporter_console = null
 	return ..()
@@ -201,7 +201,7 @@
 /obj/machinery/teleport/station/proc/toggle(mob/user)
 	if(stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console )
 		return
-	if (teleporter_console.target)
+	if(teleporter_console.target)
 		if(teleporter_hub.panel_open || teleporter_hub.stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='alert'>The teleporter hub isn't responding.</span>")
 		else

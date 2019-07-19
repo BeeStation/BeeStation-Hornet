@@ -147,7 +147,7 @@
 	HTML += "Identity-lock: "
 	if(idlock)
 		var/obj/item/card/id = idlock.resolve()
-		HTML+= "[id.name] | <A href='?src=[REF(src)];id-lock=TRUE'>Reset</a><br>"
+		HTML += "[id.name] | <A href='?src=[REF(src)];id-lock=TRUE'>Reset</a><br>"
 	else
 		HTML += "None | Reset<br>"
 

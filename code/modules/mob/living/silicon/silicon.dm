@@ -169,44 +169,44 @@
 	return FALSE
 
 /mob/living/silicon/Topic(href, href_list)
-	if (href_list["lawc"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
+	if(href_list["lawc"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
 		var/L = text2num(href_list["lawc"])
 		switch(lawcheck[L+1])
-			if ("Yes")
+			if("Yes")
 				lawcheck[L+1] = "No"
-			if ("No")
+			if("No")
 				lawcheck[L+1] = "Yes"
 		checklaws()
 
-	if (href_list["lawi"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
+	if(href_list["lawi"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
 		var/L = text2num(href_list["lawi"])
 		switch(ioncheck[L])
-			if ("Yes")
+			if("Yes")
 				ioncheck[L] = "No"
-			if ("No")
+			if("No")
 				ioncheck[L] = "Yes"
 		checklaws()
 
-	if (href_list["lawh"])
+	if(href_list["lawh"])
 		var/L = text2num(href_list["lawh"])
 		switch(hackedcheck[L])
-			if ("Yes")
+			if("Yes")
 				hackedcheck[L] = "No"
-			if ("No")
+			if("No")
 				hackedcheck[L] = "Yes"
 		checklaws()
 
-	if (href_list["lawdevil"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
+	if(href_list["lawdevil"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
 		var/L = text2num(href_list["lawdevil"])
 		switch(devillawcheck[L])
-			if ("Yes")
+			if("Yes")
 				devillawcheck[L] = "No"
-			if ("No")
+			if("No")
 				devillawcheck[L] = "Yes"
 		checklaws()
 
 
-	if (href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
+	if(href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
 		statelaws()
 
 	return
@@ -221,49 +221,49 @@
 	var/number = 1
 	sleep(10)
 
-	if (laws.devillaws?.len)
+	if(laws.devillaws?.len)
 		for(var/index = 1, index <= laws.devillaws.len, index++)
-			if (force || devillawcheck[index] == "Yes")
+			if(force || devillawcheck[index] == "Yes")
 				say("[radiomod] 666. [laws.devillaws[index]]")
 				sleep(10)
 
 
-	if (laws.zeroth)
-		if (force || lawcheck[1] == "Yes")
+	if(laws.zeroth)
+		if(force || lawcheck[1] == "Yes")
 			say("[radiomod] 0. [laws.zeroth]")
 			sleep(10)
 
-	for (var/index = 1, index <= laws.hacked.len, index++)
+	for(var/index = 1, index <= laws.hacked.len, index++)
 		var/law = laws.hacked[index]
 		var/num = ionnum()
-		if (length(law) > 0)
-			if (force || hackedcheck[index] == "Yes")
+		if(length(law) > 0)
+			if(force || hackedcheck[index] == "Yes")
 				say("[radiomod] [num]. [law]")
 				sleep(10)
 
-	for (var/index = 1, index <= laws.ion.len, index++)
+	for(var/index = 1, index <= laws.ion.len, index++)
 		var/law = laws.ion[index]
 		var/num = ionnum()
-		if (length(law) > 0)
-			if (force || ioncheck[index] == "Yes")
+		if(length(law) > 0)
+			if(force || ioncheck[index] == "Yes")
 				say("[radiomod] [num]. [law]")
 				sleep(10)
 
-	for (var/index = 1, index <= laws.inherent.len, index++)
+	for(var/index = 1, index <= laws.inherent.len, index++)
 		var/law = laws.inherent[index]
 
-		if (length(law) > 0)
-			if (force || lawcheck[index+1] == "Yes")
+		if(length(law) > 0)
+			if(force || lawcheck[index+1] == "Yes")
 				say("[radiomod] [number]. [law]")
 				number++
 				sleep(10)
 
-	for (var/index = 1, index <= laws.supplied.len, index++)
+	for(var/index = 1, index <= laws.supplied.len, index++)
 		var/law = laws.supplied[index]
 
-		if (length(law) > 0)
+		if(length(law) > 0)
 			if(lawcheck.len >= number+1)
-				if (force || lawcheck[number+1] == "Yes")
+				if(force || lawcheck[number+1] == "Yes")
 					say("[radiomod] [number]. [law]")
 					number++
 					sleep(10)
@@ -273,51 +273,51 @@
 
 	var/list = "<b>Which laws do you want to include when stating them for the crew?</b><br><br>"
 
-	if (laws.devillaws && laws.devillaws.len)
+	if(laws.devillaws && laws.devillaws.len)
 		for(var/index = 1, index <= laws.devillaws.len, index++)
-			if (!devillawcheck[index])
+			if(!devillawcheck[index])
 				devillawcheck[index] = "No"
 			list += {"<A href='byond://?src=[REF(src)];lawdevil=[index]'>[devillawcheck[index]] 666:</A> <font color='#cc5500'>[laws.devillaws[index]]</font><BR>"}
 
-	if (laws.zeroth)
-		if (!lawcheck[1])
+	if(laws.zeroth)
+		if(!lawcheck[1])
 			lawcheck[1] = "No" //Given Law 0's usual nature, it defaults to NOT getting reported. --NeoFite
 		list += {"<A href='byond://?src=[REF(src)];lawc=0'>[lawcheck[1]] 0:</A> <font color='#ff0000'><b>[laws.zeroth]</b></font><BR>"}
 
-	for (var/index = 1, index <= laws.hacked.len, index++)
+	for(var/index = 1, index <= laws.hacked.len, index++)
 		var/law = laws.hacked[index]
-		if (length(law) > 0)
-			if (!hackedcheck[index])
+		if(length(law) > 0)
+			if(!hackedcheck[index])
 				hackedcheck[index] = "No"
 			list += {"<A href='byond://?src=[REF(src)];lawh=[index]'>[hackedcheck[index]] [ionnum()]:</A> <font color='#660000'>[law]</font><BR>"}
 			hackedcheck.len += 1
 
-	for (var/index = 1, index <= laws.ion.len, index++)
+	for(var/index = 1, index <= laws.ion.len, index++)
 		var/law = laws.ion[index]
 
-		if (length(law) > 0)
-			if (!ioncheck[index])
+		if(length(law) > 0)
+			if(!ioncheck[index])
 				ioncheck[index] = "Yes"
 			list += {"<A href='byond://?src=[REF(src)];lawi=[index]'>[ioncheck[index]] [ionnum()]:</A> <font color='#547DFE'>[law]</font><BR>"}
 			ioncheck.len += 1
 
 	var/number = 1
-	for (var/index = 1, index <= laws.inherent.len, index++)
+	for(var/index = 1, index <= laws.inherent.len, index++)
 		var/law = laws.inherent[index]
 
-		if (length(law) > 0)
+		if(length(law) > 0)
 			lawcheck.len += 1
 
-			if (!lawcheck[number+1])
+			if(!lawcheck[number+1])
 				lawcheck[number+1] = "Yes"
 			list += {"<A href='byond://?src=[REF(src)];lawc=[number]'>[lawcheck[number+1]] [number]:</A> [law]<BR>"}
 			number++
 
-	for (var/index = 1, index <= laws.supplied.len, index++)
+	for(var/index = 1, index <= laws.supplied.len, index++)
 		var/law = laws.supplied[index]
-		if (length(law) > 0)
+		if(length(law) > 0)
 			lawcheck.len += 1
-			if (!lawcheck[number+1])
+			if(!lawcheck[number+1])
 				lawcheck[number+1] = "Yes"
 			list += {"<A href='byond://?src=[REF(src)];lawc=[number]'>[lawcheck[number+1]] [number]:</A> <font color='#990099'>[law]</font><BR>"}
 			number++
@@ -385,7 +385,7 @@
 	if(incapacitated())
 		return
 	sensors_on = !sensors_on
-	if (!sensors_on)
+	if(!sensors_on)
 		to_chat(src, "Sensor overlay deactivated.")
 		remove_sensors()
 		return
@@ -393,7 +393,7 @@
 	to_chat(src, "Sensor overlay activated.")
 
 /mob/living/silicon/proc/GetPhoto(mob/user)
-	if (aicamera)
+	if(aicamera)
 		return aicamera.selectpicture(user)
 
 /mob/living/silicon/update_transform()

@@ -104,7 +104,7 @@
 	var/static/list/cardinal_sidestep_directions = list(-90,-45,0,45,90)
 	var/static/list/diagonal_sidestep_directions = list(-45,0,45)
 	var/chosen_dir = 0
-	if (target_dir & (target_dir - 1))
+	if(target_dir & (target_dir - 1))
 		chosen_dir = pick(diagonal_sidestep_directions)
 	else
 		chosen_dir = pick(cardinal_sidestep_directions)
@@ -138,9 +138,9 @@
 				. += HM
 	else
 		. = list() // The following code is only very slightly slower than just returning oview(vision_range, targets_from), but it saves us much more work down the line, particularly when bees are involved
-		for (var/obj/A in oview(vision_range, targets_from))
+		for(var/obj/A in oview(vision_range, targets_from))
 			. += A
-		for (var/mob/A in oview(vision_range, targets_from))
+		for(var/mob/A in oview(vision_range, targets_from))
 			. += A
 
 /mob/living/simple_animal/hostile/proc/FindTarget(var/list/possible_targets, var/HasTargetsList = 0)//Step 2, filter down possible targets to things we actually care about
@@ -548,15 +548,15 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	var/list/tlist
 	var/turf/T = get_turf(src)
 
-	if (!T)
+	if(!T)
 		return
 
-	if (!length(SSmobs.clients_by_zlevel[T.z])) // It's fine to use .len here but doesn't compile on 511
+	if(!length(SSmobs.clients_by_zlevel[T.z])) // It's fine to use .len here but doesn't compile on 511
 		toggle_ai(AI_Z_OFF)
 		return
 
 	var/cheap_search = isturf(T) && !is_station_level(T.z)
-	if (cheap_search)
+	if(cheap_search)
 		tlist = ListTargetsLazy(T.z)
 	else
 		tlist = ListTargets()
@@ -569,10 +569,10 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 /mob/living/simple_animal/hostile/proc/ListTargetsLazy(var/_Z)//Step 1, find out what we can see
 	var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/structure/destructible/clockwork/ocular_warden))
 	. = list()
-	for (var/I in SSmobs.clients_by_zlevel[_Z])
+	for(var/I in SSmobs.clients_by_zlevel[_Z])
 		var/mob/M = I
-		if (get_dist(M, src) < vision_range)
-			if (isturf(M.loc))
+		if(get_dist(M, src) < vision_range)
+			if(isturf(M.loc))
 				. += M
-			else if (M.loc.type in hostile_machines)
+			else if(M.loc.type in hostile_machines)
 				. += M.loc

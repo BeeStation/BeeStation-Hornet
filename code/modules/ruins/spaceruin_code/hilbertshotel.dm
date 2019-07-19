@@ -146,7 +146,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
                         var/list/possible_transtitons = list()
                         for(var/AZ in SSmapping.z_list)
                             var/datum/space_level/D = AZ
-                            if (D.linkage == CROSSLINKED)
+                            if(D.linkage == CROSSLINKED)
                                 possible_transtitons += D.z_value
                         var/_z = pick(possible_transtitons)
                         var/_x = rand(min,max)
@@ -164,7 +164,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
                 var/list/possible_transtitons = list()
                 for(var/AZ in SSmapping.z_list)
                     var/datum/space_level/D = AZ
-                    if (D.linkage == CROSSLINKED)
+                    if(D.linkage == CROSSLINKED)
                         possible_transtitons += D.z_value
                 var/_z = pick(possible_transtitons)
                 var/_x = rand(min,max)

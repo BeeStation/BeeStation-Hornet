@@ -1,7 +1,7 @@
 /proc/machine_upgrade(obj/machinery/M in world)
 	set name = "Tweak Component Ratings"
 	set category = "Debug"
-	if (!istype(M))
+	if(!istype(M))
 		return
 
 	var/new_rating = input("Enter new rating:","Num") as num

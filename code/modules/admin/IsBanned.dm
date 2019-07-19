@@ -8,7 +8,7 @@
 
 /world/IsBanned(key, address, computer_id, type, real_bans_only=FALSE)
 	debug_world_log("isbanned(): '[args.Join("', '")]'")
-	if (!key || (!real_bans_only && (!address || !computer_id)))
+	if(!key || (!real_bans_only && (!address || !computer_id)))
 		if(real_bans_only)
 			return FALSE
 		log_access("Failed Login (invalid data): [key] [address]-[computer_id]")
@@ -31,9 +31,9 @@
 	//Whitelist
 	if(!real_bans_only && !C && CONFIG_GET(flag/usewhitelist))
 		if(!check_whitelist(ckey))
-			if (admin)
+			if(admin)
 				log_admin("The admin [key] has been allowed to bypass the whitelist")
-				if (message)
+				if(message)
 					message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass the whitelist</span>")
 					addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass the whitelist</span>")
 			else
@@ -42,10 +42,10 @@
 
 	//Guest Checking
 	if(!real_bans_only && !C && IsGuestKey(key))
-		if (CONFIG_GET(flag/guest_ban))
+		if(CONFIG_GET(flag/guest_ban))
 			log_access("Failed Login: [key] - Guests not allowed")
 			return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a byond account.")
-		if (CONFIG_GET(flag/panic_bunker) && SSdbcore.Connect())
+		if(CONFIG_GET(flag/panic_bunker) && SSdbcore.Connect())
 			log_access("Failed Login: [key] - Guests not allowed during panic bunker")
 			return list("reason"="guest", "desc"="\nReason: Sorry but the server is currently not accepting connections from never before seen players or guests. If you have played on this server with a byond account before, please log in to the byond account you have played from.")
 
@@ -62,7 +62,7 @@
 		if(!SSdbcore.Connect())
 			var/msg = "Ban database connection failure. Key [ckey] not checked"
 			log_world(msg)
-			if (message)
+			if(message)
 				message_admins(msg)
 		else
 			var/list/ban_details = is_banned_from_with_details(ckey, address, computer_id, "Server")
@@ -71,12 +71,12 @@
 					if(text2num(i["applies_to_admins"]))
 						var/msg = "Admin [key] is admin banned, and has been disallowed access."
 						log_admin(msg)
-						if (message)
+						if(message)
 							message_admins(msg)
 					else
 						var/msg = "Admin [key] has been allowed to bypass a matching non-admin ban on [i["key"]] [i["ip"]]-[i["computerid"]]."
 						log_admin(msg)
-						if (message)
+						if(message)
 							message_admins(msg)
 							addclientmessage(ckey,"<span class='adminnotice'>Admin [key] has been allowed to bypass a matching non-admin ban on [i["key"]] [i["ip"]]-[i["computerid"]].</span>")
 						continue
@@ -92,59 +92,59 @@
 
 	var/list/ban = ..()	//default pager ban stuff
 
-	if (ban)
-		if (!admin)
+	if(ban)
+		if(!admin)
 			. = ban
-		if (real_bans_only)
+		if(real_bans_only)
 			return
 		var/bannedckey = "ERROR"
-		if (ban["ckey"])
+		if(ban["ckey"])
 			bannedckey = ban["ckey"]
 
 		var/newmatch = FALSE
 		var/list/cachedban = SSstickyban.cache[bannedckey]
 		//rogue ban in the process of being reverted.
-		if (cachedban && (cachedban["reverting"] || cachedban["timeout"]))
+		if(cachedban && (cachedban["reverting"] || cachedban["timeout"]))
 			world.SetConfig("ban", bannedckey, null)
 			return null
 
-		if (cachedban && ckey != bannedckey)
+		if(cachedban && ckey != bannedckey)
 			newmatch = TRUE
-			if (cachedban["keys"])
-				if (cachedban["keys"][ckey])
+			if(cachedban["keys"])
+				if(cachedban["keys"][ckey])
 					newmatch = FALSE
-			if (cachedban["matches_this_round"][ckey])
+			if(cachedban["matches_this_round"][ckey])
 				newmatch = FALSE
 
-		if (newmatch && cachedban)
+		if(newmatch && cachedban)
 			var/list/newmatches = cachedban["matches_this_round"]
 			var/list/pendingmatches = cachedban["matches_this_round"]
 			var/list/newmatches_connected = cachedban["existing_user_matches_this_round"]
 			var/list/newmatches_admin = cachedban["admin_matches_this_round"]
 
-			if (C)
+			if(C)
 				newmatches_connected[ckey] = ckey
 				newmatches_connected = cachedban["existing_user_matches_this_round"]
 				pendingmatches[ckey] = ckey
 				sleep(STICKYBAN_ROGUE_CHECK_TIME)
 				pendingmatches -= ckey
-			if (admin)
+			if(admin)
 				newmatches_admin[ckey] = ckey
 
-			if (cachedban["reverting"] || cachedban["timeout"])
+			if(cachedban["reverting"] || cachedban["timeout"])
 				return null
 
 			newmatches[ckey] = ckey
 
 
-			if (\
+			if(\
 				newmatches.len+pendingmatches.len > STICKYBAN_MAX_MATCHES || \
 				newmatches_connected.len > STICKYBAN_MAX_EXISTING_USER_MATCHES || \
 				newmatches_admin.len > STICKYBAN_MAX_ADMIN_MATCHES \
 			)
 
 				var/action
-				if (ban["fromdb"])
+				if(ban["fromdb"])
 					cachedban["timeout"] = TRUE
 					action = "putting it on timeout for the remainder of the round"
 				else
@@ -157,11 +157,11 @@
 				log_game("Stickyban on [bannedckey] detected as rogue, [action]")
 				message_admins("Stickyban on [bannedckey] detected as rogue, [action]")
 				//do not convert to timer.
-				spawn (5)
+				spawn(5)
 					world.SetConfig("ban", bannedckey, null)
 					sleep(1)
 					world.SetConfig("ban", bannedckey, null)
-					if (!ban["fromdb"])
+					if(!ban["fromdb"])
 						cachedban = cachedban.Copy() //so old references to the list still see the ban as reverting
 						cachedban["matches_this_round"] = list()
 						cachedban["existing_user_matches_this_round"] = list()
@@ -171,7 +171,7 @@
 						world.SetConfig("ban", bannedckey, list2stickyban(cachedban))
 				return null
 
-		if (ban["fromdb"])
+		if(ban["fromdb"])
 			if(SSdbcore.Connect())
 				INVOKE_ASYNC(SSdbcore, /datum/controller/subsystem/dbcore/proc.QuerySelect, list(
 					SSdbcore.NewQuery("INSERT INTO [format_table_name("stickyban_matched_ckey")] (matched_ckey, stickyban) VALUES ('[sanitizeSQL(ckey)]', '[sanitizeSQL(bannedckey)]') ON DUPLICATE KEY UPDATE last_matched = now()"),
@@ -183,14 +183,14 @@
 		//byond will not trigger isbanned() for "global" host bans,
 		//ie, ones where the "apply to this game only" checkbox is not checked (defaults to not checked)
 		//So it's safe to let admins walk thru host/sticky bans here
-		if (admin)
+		if(admin)
 			log_admin("The admin [key] has been allowed to bypass a matching host/sticky ban on [bannedckey]")
-			if (message)
+			if(message)
 				message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching host/sticky ban on [bannedckey]</span>")
 				addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching host/sticky ban on [bannedckey]</span>")
 			return null
 
-		if (C) //user is already connected!.
+		if(C) //user is already connected!.
 			to_chat(C, "You are about to get disconnected for matching a sticky ban after you connected. If this turns out to be the ban evasion detection system going haywire, we will automatically detect this and revert the matches. if you feel that this is the case, please wait EXACTLY 6 seconds then reconnect using file -> reconnect to see if the match was automatically reversed.")
 
 		var/desc = "\nReason:(StickyBan) You, or another user of this computer or connection ([bannedckey]) is banned from playing here. The ban reason is:\n[ban["message"]]\nThis ban was applied by [ban["admin"]]\nThis is a BanEvasion Detection System ban, if you think this ban is a mistake, please wait EXACTLY 6 seconds, then try again before filing an appeal.\n"

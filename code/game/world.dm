@@ -32,7 +32,7 @@ GLOBAL_VAR(restart_counter)
 #ifndef USE_CUSTOM_ERROR_HANDLER
 	world.log = file("[GLOB.log_directory]/dd.log")
 #else
-	if (TgsAvailable())
+	if(TgsAvailable())
 		world.log = file("[GLOB.log_directory]/dd.log") //not all runtimes trigger world/Error, so this is the only way to ensure we can see all of them.
 #endif
 	LoadVerbs(/datum/verbs/menu)
@@ -67,10 +67,10 @@ GLOBAL_VAR(restart_counter)
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, /proc/addtimer, cb, 10 SECONDS))
 
 /world/proc/SetupExternalRSC()
-#if (PRELOAD_RSC == 0)
+#if(PRELOAD_RSC == 0)
 	GLOB.external_rsc_urls = world.file2list("[global.config.directory]/external_rsc_urls.txt","\n")
 	var/i=1
-	while(i<=GLOB.external_rsc_urls.len)
+	while(i <= GLOB.external_rsc_urls.len)
 		if(GLOB.external_rsc_urls[i])
 			i++
 		else
@@ -201,8 +201,8 @@ GLOBAL_VAR(restart_counter)
 	qdel(src)	//shut it down
 
 /world/Reboot(reason = 0, fast_track = FALSE)
-	if (reason || fast_track) //special reboot, do none of the normal stuff
-		if (usr)
+	if(reason || fast_track) //special reboot, do none of the normal stuff
+		if(usr)
 			log_admin("[key_name(usr)] Has requested an immediate world restart via client side debugging tools")
 			message_admins("[key_name_admin(usr)] Has requested an immediate world restart via client side debugging tools")
 		to_chat(world, "<span class='boldannounce'>Rebooting World immediately due to host request</span>")
@@ -248,14 +248,14 @@ GLOBAL_VAR(restart_counter)
 	if(GLOB.master_mode)
 		features += GLOB.master_mode
 
-	if (!GLOB.enter_allowed)
+	if(!GLOB.enter_allowed)
 		features += "closed"
 
 	var/s = ""
 	var/hostedby
 	if(config)
 		var/server_name = CONFIG_GET(string/servername)
-		if (server_name)
+		if(server_name)
 			s += "<b>[server_name]</b> &#8212; "
 
 		hostedby = CONFIG_GET(string/hostedby)
@@ -267,20 +267,20 @@ GLOBAL_VAR(restart_counter)
 
 	var/popcaptext = ""
 	var/popcap = max(CONFIG_GET(number/extreme_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/soft_popcap))
-	if (popcap)
+	if(popcap)
 		popcaptext = "/[popcap]"
 
-	if (players > 1)
+	if(players > 1)
 		features += "[players][popcaptext] players"
-	else if (players > 0)
+	else if(players > 0)
 		features += "[players][popcaptext] player"
 
 	game_state = (CONFIG_GET(number/extreme_popcap) && players >= CONFIG_GET(number/extreme_popcap)) //tells the hub if we are full
 
-	if (!host && hostedby)
+	if(!host && hostedby)
 		features += "hosted by <b>[hostedby]</b>"
 
-	if (features)
+	if(features)
 		s += ": [jointext(features, ", ")]"
 
 	status = s

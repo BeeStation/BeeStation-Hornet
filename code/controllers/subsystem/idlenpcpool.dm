@@ -14,15 +14,15 @@ SUBSYSTEM_DEF(idlenpcpool)
 	..("IdleNPCS:[idlelist.len]|Z:[zlist.len]")
 
 /datum/controller/subsystem/idlenpcpool/proc/MaxZChanged()
-	if (!islist(idle_mobs_by_zlevel))
+	if(!islist(idle_mobs_by_zlevel))
 		idle_mobs_by_zlevel = new /list(world.maxz,0)
-	while (SSidlenpcpool.idle_mobs_by_zlevel.len < world.maxz)
+	while(SSidlenpcpool.idle_mobs_by_zlevel.len < world.maxz)
 		SSidlenpcpool.idle_mobs_by_zlevel.len++
 		SSidlenpcpool.idle_mobs_by_zlevel[idle_mobs_by_zlevel.len] = list()
 
 /datum/controller/subsystem/idlenpcpool/fire(resumed = FALSE)
 
-	if (!resumed)
+	if(!resumed)
 		var/list/idlelist = GLOB.simple_animals[AI_IDLE]
 		src.currentrun = idlelist.Copy()
 
@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(idlenpcpool)
 	while(currentrun.len)
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
 		--currentrun.len
-		if (!SA)
+		if(!SA)
 			GLOB.simple_animals[AI_IDLE] -= SA
 			continue
 
@@ -41,5 +41,5 @@ SUBSYSTEM_DEF(idlenpcpool)
 				SA.handle_automated_movement()
 			if(SA.stat != DEAD)
 				SA.consider_wakeup()
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return

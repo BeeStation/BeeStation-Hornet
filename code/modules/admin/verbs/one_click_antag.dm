@@ -278,9 +278,9 @@
 /datum/admins/proc/makeERTTemplateModified(list/settings)
 	. = settings
 	var/datum/ert/newtemplate = settings["mainsettings"]["template"]["value"]
-	if (isnull(newtemplate))
+	if(isnull(newtemplate))
 		return
-	if (!ispath(newtemplate))
+	if(!ispath(newtemplate))
 		newtemplate = text2path(newtemplate)
 	newtemplate = new newtemplate
 	.["mainsettings"]["teamsize"]["value"] = newtemplate.teamsize
@@ -292,10 +292,10 @@
 /datum/admins/proc/equipAntagOnDummy(mob/living/carbon/human/dummy/mannequin, datum/antagonist/antag)
 	for(var/I in mannequin.get_equipped_items(TRUE))
 		qdel(I)
-	if (ispath(antag, /datum/antagonist/ert))
+	if(ispath(antag, /datum/antagonist/ert))
 		var/datum/antagonist/ert/ert = antag
 		mannequin.equipOutfit(initial(ert.outfit), TRUE)
-	else if (ispath(antag, /datum/antagonist/official))
+	else if(ispath(antag, /datum/antagonist/official))
 		mannequin.equipOutfit(/datum/outfit/centcom_official, TRUE)
 
 /datum/admins/proc/makeERTPreviewIcon(list/settings)
@@ -304,9 +304,9 @@
 
 	var/prefs = settings["mainsettings"]
 	var/datum/ert/template = prefs["template"]["value"]
-	if (isnull(template))
+	if(isnull(template))
 		return null
-	if (!ispath(template))
+	if(!ispath(template))
 		template = text2path(prefs["template"]["value"]) // new text2path ... doesn't compile in 511
 
 	template = new template
@@ -340,7 +340,7 @@
 	return preview_icon
 
 /datum/admins/proc/makeEmergencyresponseteam(var/datum/ert/ertemplate = null)
-	if (ertemplate)
+	if(ertemplate)
 		ertemplate = new ertemplate
 	else
 		ertemplate = new /datum/ert/centcom_official
@@ -359,17 +359,17 @@
 
 	var/list/prefreturn = presentpreflikepicker(usr,"Customize ERT", "Customize ERT", Button1="Ok", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
 
-	if (isnull(prefreturn))
+	if(isnull(prefreturn))
 		return FALSE
 
-	if (prefreturn["button"] == 1)
+	if(prefreturn["button"] == 1)
 		var/list/prefs = settings["mainsettings"]
 
 		var/templtype = prefs["template"]["value"]
-		if (!ispath(prefs["template"]["value"]))
+		if(!ispath(prefs["template"]["value"]))
 			templtype = text2path(prefs["template"]["value"]) // new text2path ... doesn't compile in 511
 
-		if (ertemplate.type != templtype)
+		if(ertemplate.type != templtype)
 			ertemplate = new templtype
 
 		ertemplate.teamsize = prefs["teamsize"]["value"]
@@ -400,7 +400,7 @@
 
 			var/list/spawnpoints = GLOB.emergencyresponseteamspawn
 			while(numagents && candidates.len)
-				if (numagents > spawnpoints.len)
+				if(numagents > spawnpoints.len)
 					numagents--
 					continue // This guy's unlucky, not enough spawn points, we skip him.
 				var/spawnloc = spawnpoints[numagents]
@@ -434,7 +434,7 @@
 				numagents--
 				teamSpawned++
 
-			if (teamSpawned)
+			if(teamSpawned)
 				message_admins("[ertemplate.polldesc] has spawned with the mission: [ertemplate.mission]")
 
 			//Open the Armory doors

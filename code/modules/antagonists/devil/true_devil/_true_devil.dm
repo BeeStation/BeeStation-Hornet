@@ -163,7 +163,7 @@
 	. = ..()
 	if(.)
 		switch(M.a_intent)
-			if ("harm")
+			if("harm")
 				var/damage = rand(1, 5)
 				playsound(loc, "punch", 25, 1, -1)
 				visible_message("<span class='danger'>[M] has punched [src]!</span>", \
@@ -171,16 +171,16 @@
 				adjustBruteLoss(damage)
 				log_combat(M, src, "attacked")
 				updatehealth()
-			if ("disarm")
-				if (!(mobility_flags & MOBILITY_STAND) && !ascended) //No stealing the arch devil's pitchfork.
-					if (prob(5))
+			if("disarm")
+				if(!(mobility_flags & MOBILITY_STAND) && !ascended) //No stealing the arch devil's pitchfork.
+					if(prob(5))
 						Unconscious(40)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						log_combat(M, src, "pushed")
 						visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \
 							"<span class='userdanger'>[M] has pushed down [src]!</span>")
 					else
-						if (prob(25))
+						if(prob(25))
 							dropItemToGround(get_active_held_item())
 							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 							visible_message("<span class='danger'>[M] has disarmed [src]!</span>", \
@@ -198,15 +198,15 @@
 /mob/living/carbon/true_devil/ex_act(severity, ex_target)
 	if(!ascended)
 		var/b_loss
-		switch (severity)
-			if (1)
+		switch(severity)
+			if(1)
 				b_loss = 500
-			if (2)
+			if(2)
 				b_loss = 150
 			if(3)
 				b_loss = 30
 		if(has_bane(BANE_LIGHT))
-			b_loss *=2
+			b_loss *= 2
 		adjustBruteLoss(b_loss)
 	return ..()
 

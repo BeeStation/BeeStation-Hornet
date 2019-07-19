@@ -34,7 +34,7 @@
 			visible_message("<span class='notice'>[user] boops [src] on the head!</span>")
 		if("harm")
 			user.do_attack_animation(src)
-			if (user.name == master)
+			if(user.name == master)
 				visible_message("<span class='notice'>Responding to its master's touch, [src] disengages its holochassis emitter, rapidly losing coherence.</span>")
 				spawn(10)
 					fold_in()

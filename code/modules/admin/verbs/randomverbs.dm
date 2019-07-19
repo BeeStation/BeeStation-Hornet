@@ -35,7 +35,7 @@
 		message_admins("[key_name_admin(src)] decided not to answer [ADMIN_LOOKUPFLW(M)]'s prayer")
 		return
 	if(usr)
-		if (usr.client)
+		if(usr.client)
 			if(usr.client.holder)
 				to_chat(M, "<i>You hear a voice in your head... <b>[msg]</i></b>")
 
@@ -64,7 +64,7 @@
 		to_chat(usr, "The person you are trying to contact is not wearing a headset.")
 		return
 
-	if (!sender)
+	if(!sender)
 		sender = input("Who is the message from?", "Sender") as null|anything in list(RADIO_CHANNEL_CENTCOM,RADIO_CHANNEL_SYNDICATE)
 		if(!sender)
 			return
@@ -102,7 +102,7 @@
 
 		msg = input("Message:", prompt) as num|null
 
-		if (!msg)
+		if(!msg)
 			return
 
 		var/ANTAG_REP_MAXIMUM = CONFIG_GET(number/antag_rep_maximum)
@@ -136,7 +136,7 @@
 
 	var/msg = input("Message:", text("Enter the text you wish to appear to everyone:")) as text|null
 
-	if (!msg)
+	if(!msg)
 		return
 	to_chat(world, "[msg]")
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
@@ -180,7 +180,7 @@
 	if(!range)
 		return
 	var/msg = input("Message:", text("Enter the text you wish to appear to everyone within view:")) as text|null
-	if (!msg)
+	if(!msg)
 		return
 	for(var/mob/M in view(range,A))
 		to_chat(M, msg)
@@ -358,7 +358,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
 		//Check if they were an alien
 		if(G_found.mind.assigned_role == ROLE_ALIEN)
-			if(alert("This character appears to have been an alien. Would you like to respawn them as such?",,"Yes","No")=="Yes")
+			if(alert("This character appears to have been an alien. Would you like to respawn them as such?",,"Yes","No") == "Yes")
 				var/turf/T
 				if(GLOB.xeno_spawn.len)
 					T = pick(GLOB.xeno_spawn)
@@ -393,7 +393,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 		//check if they were a monkey
 		else if(findtext(G_found.real_name,"monkey"))
-			if(alert("This character appears to have been a monkey. Would you like to respawn them as such?",,"Yes","No")=="Yes")
+			if(alert("This character appears to have been a monkey. Would you like to respawn them as such?",,"Yes","No") == "Yes")
 				var/mob/living/carbon/monkey/new_monkey = new
 				SSjob.SendToLateJoin(new_monkey)
 				G_found.mind.transfer_to(new_monkey)	//be careful when doing stuff like this! I've already checked the mind isn't in use
@@ -485,12 +485,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	//Announces the character on all the systems, based on the record.
 	if(!issilicon(new_character))//If they are not a cyborg/AI.
-		if(!record_found&&new_character.mind.assigned_role!=new_character.mind.special_role)//If there are no records for them. If they have a record, this info is already in there. MODE people are not announced anyway.
+		if(!record_found && new_character.mind.assigned_role != new_character.mind.special_role)//If there are no records for them. If they have a record, this info is already in there. MODE people are not announced anyway.
 			//Power to the user!
-			if(alert(new_character,"Warning: No data core entry detected. Would you like to announce the arrival of this character by adding them to various databases, such as medical records?",,"No","Yes")=="Yes")
+			if(alert(new_character,"Warning: No data core entry detected. Would you like to announce the arrival of this character by adding them to various databases, such as medical records?",,"No","Yes") == "Yes")
 				GLOB.data_core.manifest_inject(new_character)
 
-			if(alert(new_character,"Would you like an active AI to announce this character?",,"No","Yes")=="Yes")
+			if(alert(new_character,"Would you like an active AI to announce this character?",,"No","Yes") == "Yes")
 				AnnounceArrival(new_character, new_character.mind.assigned_role)
 
 	var/msg = "<span class='adminnotice'>[admin] has respawned [player_key] as [new_character.real_name].</span>"
@@ -606,7 +606,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else
 			jmp_coords = coords = "in nullspace"
 
-	if (alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", "Yes", "No") == "Yes")
+	if(alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", "Yes", "No") == "Yes")
 		log_admin("[key_name(usr)] deleted [D] [coords]")
 		message_admins("[key_name_admin(usr)] deleted [D] [jmp_coords]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delete") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -651,9 +651,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(flames == null)
 		return
 
-	if ((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1) || (flames != -1))
-		if ((devastation > 20) || (heavy > 20) || (light > 20) || (flames > 20))
-			if (alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
+	if((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1) || (flames != -1))
+		if((devastation > 20) || (heavy > 20) || (light > 20) || (flames > 20))
+			if(alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
 				return
 
 		explosion(O, devastation, heavy, light, flash, null, null,flames)
@@ -678,7 +678,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(light == null)
 		return
 
-	if (heavy || light)
+	if(heavy || light)
 
 		empulse(O, heavy, light)
 		log_admin("[key_name(usr)] created an EM Pulse ([heavy],[light]) at [AREACOORD(O)]")
@@ -1235,9 +1235,9 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 
 	world.update_hub_visibility(!GLOB.hub_visibility)
 
-	log_admin("[key_name(usr)] has toggled the server's hub status for the round, it is now [(GLOB.hub_visibility?"on":"off")] the hub.")
-	message_admins("[key_name_admin(usr)] has toggled the server's hub status for the round, it is now [(GLOB.hub_visibility?"on":"off")] the hub.")
-	if (GLOB.hub_visibility && !world.reachable)
+	log_admin("[key_name(usr)] has toggled the server's hub status for the round, it is now [(GLOB.hub_visibility ? "on" : "off")] the hub.")
+	message_admins("[key_name_admin(usr)] has toggled the server's hub status for the round, it is now [(GLOB.hub_visibility ? "on" : "off")] the hub.")
+	if(GLOB.hub_visibility && !world.reachable)
 		message_admins("WARNING: The server will not show up on the hub because byond is detecting that a filewall is blocking incoming connections.")
 
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggled Hub Visibility", "[GLOB.hub_visibility ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -1284,9 +1284,9 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 			pod.damage = 40
 			pod.explosionSize = list(0,0,0,2)
 			pod.effectStun = TRUE
-			if (isnull(target_path)) //The user pressed "Cancel"
+			if(isnull(target_path)) //The user pressed "Cancel"
 				return
-			if (target_path != "empty")//if you didn't type empty, we want to load the pod with a delivery
+			if(target_path != "empty")//if you didn't type empty, we want to load the pod with a delivery
 				var/delivery = text2path(target_path)
 				if(!ispath(delivery))
 					delivery = pick_closest_path(target_path)

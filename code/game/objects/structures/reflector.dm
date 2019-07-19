@@ -116,7 +116,7 @@
 			user.visible_message("[user] starts to weld [src] to the floor.",
 								"<span class='notice'>You start to weld [src] to the floor...</span>",
 								"<span class='italics'>You hear welding.</span>")
-			if (W.use_tool(src, user, 20, volume=50))
+			if(W.use_tool(src, user, 20, volume=50))
 				setAnchored(TRUE)
 				to_chat(user, "<span class='notice'>You weld [src] to the floor.</span>")
 		else
@@ -126,7 +126,7 @@
 			user.visible_message("[user] starts to cut [src] free from the floor.",
 								"<span class='notice'>You start to cut [src] free from the floor...</span>",
 								"<span class='italics'>You hear welding.</span>")
-			if (W.use_tool(src, user, 20, volume=50))
+			if(W.use_tool(src, user, 20, volume=50))
 				setAnchored(FALSE)
 				to_chat(user, "<span class='notice'>You cut [src] free from the floor.</span>")
 
@@ -157,7 +157,7 @@
 		return ..()
 
 /obj/structure/reflector/proc/rotate(mob/user)
-	if (!can_rotate || admin)
+	if(!can_rotate || admin)
 		to_chat(user, "<span class='warning'>The rotation is locked!</span>")
 		return FALSE
 	var/new_angle = input(user, "Input a new angle for primary reflection face.", "Reflector Angle", rotation_angle) as null|num

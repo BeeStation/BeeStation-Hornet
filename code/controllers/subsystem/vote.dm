@@ -57,9 +57,9 @@ SUBSYSTEM_DEF(vote)
 	if(!CONFIG_GET(flag/default_no_vote) && choices.len)
 		var/list/non_voters = GLOB.directory.Copy()
 		non_voters -= voted
-		for (var/non_voter_ckey in non_voters)
+		for(var/non_voter_ckey in non_voters)
 			var/client/C = non_voters[non_voter_ckey]
-			if (!C || C.is_afk())
+			if(!C || C.is_afk())
 				non_voters -= non_voter_ckey
 		if(non_voters.len > 0)
 			if(mode == "restart")
@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(vote)
 					if(choices[GLOB.master_mode] >= greatest_votes)
 						greatest_votes = choices[GLOB.master_mode]
 			else if(mode == "map")
-				for (var/non_voter_ckey in non_voters)
+				for(var/non_voter_ckey in non_voters)
 					var/client/C = non_voters[non_voter_ckey]
 					if(C.prefs.preferred_map)
 						var/preferred_map = C.prefs.preferred_map
@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(vote)
 			text += "<b>[question]</b>"
 		else
 			text += "<b>[capitalize(mode)] Vote</b>"
-		for(var/i=1,i<=choices.len,i++)
+		for(var/i=1,i <= choices.len,i++)
 			var/votes = choices[choices[i]]
 			if(!votes)
 				votes = 0
@@ -156,7 +156,7 @@ SUBSYSTEM_DEF(vote)
 		if(CONFIG_GET(flag/no_dead_vote) && (usr.stat == DEAD && !isnewplayer(usr)) && !usr.client.holder) // BEE EDIT: newplayers can vote even if nodeadvote is enabled
 			return 0
 		if(!(usr.ckey in voted))
-			if(vote && 1<=vote && vote<=choices.len)
+			if(vote && 1 <= vote && vote <= choices.len)
 				voted += usr.ckey
 				choices[choices[vote]]++	//check this
 				return vote
@@ -195,7 +195,7 @@ SUBSYSTEM_DEF(vote)
 				question = stripped_input(usr,"What is the vote for?")
 				if(!question)
 					return 0
-				for(var/i=1,i<=10,i++)
+				for(var/i=1,i <= 10,i++)
 					var/option = capitalize(stripped_input(usr,"Please enter an option or hit cancel to finish"))
 					if(!option || mode || !usr.client)
 						break
@@ -240,7 +240,7 @@ SUBSYSTEM_DEF(vote)
 		else
 			. += "<h2>Vote: [capitalize(mode)]</h2>"
 		. += "Time Left: [time_remaining] s<hr><ul>"
-		for(var/i=1,i<=choices.len,i++)
+		for(var/i=1,i <= choices.len,i++)
 			var/votes = choices[choices[i]]
 			if(!votes)
 				votes = 0

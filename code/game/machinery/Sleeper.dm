@@ -63,11 +63,11 @@
 	open_machine()
 
 /obj/machinery/sleeper/Exited(atom/movable/user)
-	if (!state_open && user == occupant)
+	if(!state_open && user == occupant)
 		container_resist(user)
 
 /obj/machinery/sleeper/relaymove(mob/user)
-	if (!state_open)
+	if(!state_open)
 		container_resist(user)
 
 /obj/machinery/sleeper/open_machine()
@@ -85,7 +85,7 @@
 
 /obj/machinery/sleeper/emp_act(severity)
 	. = ..()
-	if (. & EMP_PROTECT_SELF)
+	if(. & EMP_PROTECT_SELF)
 		return
 	if(is_operational() && occupant)
 		open_machine()

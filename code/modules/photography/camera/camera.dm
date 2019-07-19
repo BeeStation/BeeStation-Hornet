@@ -73,7 +73,7 @@
 		pictures_left = pictures_max
 		return
 	if(istype(I, /obj/item/disk/holodisk))
-		if (!disk)
+		if(!disk)
 			if(!user.transferItemToLoc(I, src))
 				to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 				return TRUE
@@ -108,9 +108,9 @@
 	return TRUE
 
 /obj/item/camera/afterattack(atom/target, mob/user, flag)
-	if (disk)
+	if(disk)
 		if(ismob(target))
-			if (disk.record)
+			if(disk.record)
 				QDEL_NULL(disk.record)
 
 			disk.record = new
@@ -128,7 +128,7 @@
 
 	var/realcooldown = cooldown
 	var/mob/living/carbon/human/H = user
-	if (HAS_TRAIT(H, TRAIT_PHOTOGRAPHER))
+	if(HAS_TRAIT(H, TRAIT_PHOTOGRAPHER))
 		realcooldown *= 0.5
 	addtimer(CALLBACK(src, .proc/cooldown), realcooldown)
 

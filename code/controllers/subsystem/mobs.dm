@@ -13,10 +13,10 @@ SUBSYSTEM_DEF(mobs)
 	..("P:[GLOB.mob_living_list.len]")
 
 /datum/controller/subsystem/mobs/proc/MaxZChanged()
-	if (!islist(clients_by_zlevel))
+	if(!islist(clients_by_zlevel))
 		clients_by_zlevel = new /list(world.maxz,0)
 		dead_players_by_zlevel = new /list(world.maxz,0)
-	while (clients_by_zlevel.len < world.maxz)
+	while(clients_by_zlevel.len < world.maxz)
 		clients_by_zlevel.len++
 		clients_by_zlevel[clients_by_zlevel.len] = list()
 		dead_players_by_zlevel.len++
@@ -24,7 +24,7 @@ SUBSYSTEM_DEF(mobs)
 
 /datum/controller/subsystem/mobs/fire(resumed = 0)
 	var/seconds = wait * 0.1
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = GLOB.mob_living_list.Copy()
 
 	//cache for sanic speed (lists are references anyways)
@@ -37,5 +37,5 @@ SUBSYSTEM_DEF(mobs)
 			L.Life(seconds, times_fired)
 		else
 			GLOB.mob_living_list.Remove(L)
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return

@@ -11,13 +11,13 @@
 		to_chat(src, "<span class='danger'>You cannot send DSAY messages (muted).</span>")
 		return
 
-	if (handle_spam_prevention(msg,MUTE_DEADCHAT))
+	if(handle_spam_prevention(msg,MUTE_DEADCHAT))
 		return
 
 	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
 	mob.log_talk(msg, LOG_DSAY)
 
-	if (!msg)
+	if(!msg)
 		return
 	var/rank_name = holder.rank
 	var/admin_name = key
@@ -26,10 +26,10 @@
 		admin_name = pick(strings("admin_nicknames.json", "names", "config"))
 	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>[rank_name]([admin_name])</span> says, <span class='message'>\"[emoji_parse(msg)]\"</span></span>"
 
-	for (var/mob/M in GLOB.player_list)
+	for(var/mob/M in GLOB.player_list)
 		if(isnewplayer(M))
 			continue
-		if (M.stat == DEAD || (M.client && M.client.holder && (M.client.prefs.chat_toggles & CHAT_DEAD))) //admins can toggle deadchat on and off. This is a proc in admin.dm and is only give to Administrators and above
+		if(M.stat == DEAD || (M.client && M.client.holder && (M.client.prefs.chat_toggles & CHAT_DEAD))) //admins can toggle deadchat on and off. This is a proc in admin.dm and is only give to Administrators and above
 			to_chat(M, rendered)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

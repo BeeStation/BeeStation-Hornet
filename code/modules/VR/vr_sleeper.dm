@@ -130,7 +130,7 @@
 		if("toggle_open")
 			if(state_open)
 				close_machine()
-			else if ((!occupant || usr == occupant) || !only_current_user_can_interact)
+			else if((!occupant || usr == occupant) || !only_current_user_can_interact)
 				open_machine()
 			return TRUE
 
@@ -229,12 +229,12 @@
 	addtimer(CALLBACK(src, .proc/clean_up), 3 MINUTES)
 
 /obj/effect/vr_clean_master/proc/clean_up()
-	if (vr_area)
-		for (var/obj/item/ammo_casing/casing in vr_area)
+	if(vr_area)
+		for(var/obj/item/ammo_casing/casing in vr_area)
 			qdel(casing)
 		for(var/obj/effect/decal/cleanable/C in vr_area)
 			qdel(C)
-		for (var/mob/living/carbon/human/virtual_reality/H in vr_area)
-			if (H.stat == DEAD && !H.vr_sleeper && !H.real_mind)
+		for(var/mob/living/carbon/human/virtual_reality/H in vr_area)
+			if(H.stat == DEAD && !H.vr_sleeper && !H.real_mind)
 				qdel(H)
 		addtimer(CALLBACK(src, .proc/clean_up), 3 MINUTES)

@@ -189,7 +189,7 @@
 /obj/item/gun/energy/plasmacutter/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
 	. = ..() //return tool_use_check(user, amount) && (!extra_checks || extra_checks.Invoke())
 	if(. && user)
-		if (progress_flash_divisor == 0)
+		if(progress_flash_divisor == 0)
 			user.flash_act(min(light_intensity,1))
 			progress_flash_divisor = initial(progress_flash_divisor)
 		else

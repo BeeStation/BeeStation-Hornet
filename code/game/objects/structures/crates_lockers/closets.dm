@@ -453,7 +453,7 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	if (!(. & EMP_PROTECT_CONTENTS))
+	if(!(. & EMP_PROTECT_CONTENTS))
 		for(var/obj/O in src)
 			O.emp_act(severity)
 	if(secure && !broken && !(. & EMP_PROTECT_SELF))

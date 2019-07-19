@@ -363,7 +363,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	if(SOULVALUE>0)
 		to_chat(owner.current, "<span class='userdanger'>Your body has been damaged to the point that you may no longer use it.  At the cost of some of your power, you will return to life soon.  Remain in your body.</span>")
 		sleep(DEVILRESURRECTTIME)
-		if (!body ||  body.stat == DEAD)
+		if(!body ||  body.stat == DEAD)
 			if(SOULVALUE>0)
 				if(check_banishment(body))
 					to_chat(owner.current, "<span class='userdanger'>Unfortunately, the mortals have finished a ritual that prevents your resurrection.</span>")
@@ -396,7 +396,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		if(BANISH_RUNES)
 			if(body)
 				for(var/obj/effect/decal/cleanable/crayon/R in range(0,body))
-					if (R.name == "rune")
+					if(R.name == "rune")
 						return 1
 			return 0
 		if(BANISH_CANDLES)
@@ -404,7 +404,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 				var/count = 0
 				for(var/obj/item/candle/C in range(1,body))
 					count += C.lit
-				if(count>=4)
+				if(count >= 4)
 					return 1
 			return 0
 		if(BANISH_DESTRUCTION)

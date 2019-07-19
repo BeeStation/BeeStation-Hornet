@@ -98,7 +98,7 @@
 			to_chat(user, "<span class='notice'>You carefully place [I] into the cistern.</span>")
 
 	else if(istype(I, /obj/item/reagent_containers))
-		if (!open)
+		if(!open)
 			return
 		var/obj/item/reagent_containers/RG = I
 		RG.reagents.add_reagent(/datum/reagent/water, min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
@@ -112,7 +112,7 @@
 
 /obj/structure/toilet/secret/Initialize(mapload)
 	. = ..()
-	if (secret_type)
+	if(secret_type)
 		secret = new secret_type(src)
 		secret.desc += " It's a secret!"
 		w_items += secret.w_class
@@ -166,7 +166,7 @@
 
 /obj/structure/urinal/attackby(obj/item/I, mob/living/user, params)
 	if(exposed)
-		if (hiddenitem)
+		if(hiddenitem)
 			to_chat(user, "<span class='warning'>There is already something in the drain enclosure.</span>")
 			return
 		if(I.w_class > 1)
@@ -401,7 +401,7 @@
 		open = TRUE
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)
-	if (istype(W, /obj/item/toy/crayon))
+	if(istype(W, /obj/item/toy/crayon))
 		color = input(user,"","Choose Color",color) as color
 	else
 		return ..()

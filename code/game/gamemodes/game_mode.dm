@@ -59,7 +59,7 @@
 /datum/game_mode/proc/can_start()
 	var/playerC = 0
 	for(var/mob/dead/new_player/player in GLOB.player_list)
-		if((player.client)&&(player.ready == PLAYER_READY_TO_PLAY))
+		if((player.client) && (player.ready == PLAYER_READY_TO_PLAY))
 			playerC++
 	if(!GLOB.Debug2)
 		if(playerC < required_players || (maximum_players >= 0 && playerC > maximum_players))
@@ -489,7 +489,7 @@
 	for(var/i in GLOB.mob_living_list)
 		var/mob/living/L = i
 		var/mob/living/carbon/C = L
-		if (istype(C) && !C.last_mind)
+		if(istype(C) && !C.last_mind)
 			continue  // never had a client
 
 		if(L.ckey && !GLOB.directory[L.ckey])
@@ -539,7 +539,7 @@
 						continue //Ghosted while alive
 
 
-	for (var/C in GLOB.admins)
+	for(var/C in GLOB.admins)
 		to_chat(C, msg.Join())
 
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1

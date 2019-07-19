@@ -51,7 +51,7 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/Exited(atom/movable/AM, atom/newloc)
 	var/oldoccupant = occupant
 	. = ..() // Parent proc takes care of removing occupant if necessary
-	if (AM == oldoccupant)
+	if(AM == oldoccupant)
 		update_icon()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/on_construction()
@@ -302,7 +302,7 @@
 			close_machine(target)
 	else
 		user.visible_message("<b>[user]</b> starts shoving [target] inside [src].", "<span class='notice'>You start shoving [target] inside [src].</span>")
-		if (do_after(user, 25, target=target))
+		if(do_after(user, 25, target=target))
 			close_machine(target)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/attackby(obj/item/I, mob/user, params)

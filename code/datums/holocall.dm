@@ -234,8 +234,8 @@
 /obj/item/disk/holodisk/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/disk/holodisk))
 		var/obj/item/disk/holodisk/holodiskOriginal = W
-		if (holodiskOriginal.record)
-			if (!record)
+		if(holodiskOriginal.record)
+			if(!record)
 				record = new
 			record.caller_name = holodiskOriginal.record.caller_name
 			record.caller_image = holodiskOriginal.record.caller_image

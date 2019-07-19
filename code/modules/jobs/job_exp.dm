@@ -206,7 +206,7 @@ GLOBAL_PROTECT(exp_to_update)
 		return -1
 	if(!SSdbcore.Connect())
 		return -1
-	if (!isnum(minutes))
+	if(!isnum(minutes))
 		return -1
 	var/list/play_records = list()
 
@@ -258,9 +258,9 @@ GLOBAL_PROTECT(exp_to_update)
 
 	for(var/jtype in play_records)
 		var/jvalue = play_records[jtype]
-		if (!jvalue)
+		if(!jvalue)
 			continue
-		if (!isnum(jvalue))
+		if(!isnum(jvalue))
 			CRASH("invalid job value [jtype]:[jvalue]")
 		LAZYINITLIST(GLOB.exp_to_update)
 		GLOB.exp_to_update.Add(list(list(

@@ -140,7 +140,7 @@ SUBSYSTEM_DEF(air)
 
 
 /datum/controller/subsystem/air/proc/process_pipenets(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = networks.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -157,7 +157,7 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/process_atmos_machinery(resumed = 0)
 	var/seconds = wait * 0.1
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = atmos_machinery.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -171,7 +171,7 @@ SUBSYSTEM_DEF(air)
 
 
 /datum/controller/subsystem/air/proc/process_super_conductivity(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = active_super_conductivity.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -183,14 +183,14 @@ SUBSYSTEM_DEF(air)
 			return
 
 /datum/controller/subsystem/air/proc/process_hotspots(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = hotspots.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
 		var/obj/effect/hotspot/H = currentrun[currentrun.len]
 		currentrun.len--
-		if (H)
+		if(H)
 			H.process()
 		else
 			hotspots -= H
@@ -199,7 +199,7 @@ SUBSYSTEM_DEF(air)
 
 
 /datum/controller/subsystem/air/proc/process_high_pressure_delta(resumed = 0)
-	while (high_pressure_delta.len)
+	while(high_pressure_delta.len)
 		var/turf/open/T = high_pressure_delta[high_pressure_delta.len]
 		high_pressure_delta.len--
 		T.high_pressure_movements()
@@ -210,20 +210,20 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/process_active_turfs(resumed = 0)
 	//cache for sanic speed
 	var/fire_count = times_fired
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = active_turfs.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
 		var/turf/open/T = currentrun[currentrun.len]
 		currentrun.len--
-		if (T)
+		if(T)
 			T.process_cell(fire_count)
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
 
 /datum/controller/subsystem/air/proc/process_excited_groups(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = excited_groups.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -236,7 +236,7 @@ SUBSYSTEM_DEF(air)
 			EG.self_breakdown()
 		else if(EG.dismantle_cooldown >= EXCITED_GROUP_DISMANTLE_CYCLES)
 			EG.dismantle()
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
 
 
@@ -294,7 +294,7 @@ SUBSYSTEM_DEF(air)
 
 	for(var/thing in turfs_to_init)
 		var/turf/T = thing
-		if (T.blocks_air)
+		if(T.blocks_air)
 			continue
 		T.Initalize_Atmos(times_fired)
 		CHECK_TICK
@@ -318,7 +318,7 @@ SUBSYSTEM_DEF(air)
 			active_turfs += new_turfs_to_check
 			turfs_to_check = new_turfs_to_check
 
-		while (turfs_to_check.len)
+		while(turfs_to_check.len)
 		var/ending_ats = active_turfs.len
 		for(var/thing in excited_groups)
 			var/datum/excited_group/EG = thing
@@ -333,31 +333,31 @@ SUBSYSTEM_DEF(air)
 /turf/open/proc/resolve_active_graph()
 	. = list()
 	var/datum/excited_group/EG = excited_group
-	if (blocks_air || !air)
+	if(blocks_air || !air)
 		return
-	if (!EG)
+	if(!EG)
 		EG = new
 		EG.add_turf(src)
 
-	for (var/turf/open/ET in atmos_adjacent_turfs)
-		if ( ET.blocks_air || !ET.air)
+	for(var/turf/open/ET in atmos_adjacent_turfs)
+		if( ET.blocks_air || !ET.air)
 			continue
 
 		var/ET_EG = ET.excited_group
-		if (ET_EG)
-			if (ET_EG != EG)
+		if(ET_EG)
+			if(ET_EG != EG)
 				EG.merge_groups(ET_EG)
 				EG = excited_group //merge_groups() may decide to replace our current EG
 		else
 			EG.add_turf(ET)
-		if (!ET.excited)
+		if(!ET.excited)
 			ET.excited = 1
 			. += ET
 /turf/open/space/resolve_active_graph()
 	return list()
 
 /datum/controller/subsystem/air/proc/setup_atmos_machinery()
-	for (var/obj/machinery/atmospherics/AM in atmos_machinery)
+	for(var/obj/machinery/atmospherics/AM in atmos_machinery)
 		AM.atmosinit()
 		CHECK_TICK
 
@@ -365,7 +365,7 @@ SUBSYSTEM_DEF(air)
 //	all atmos machinery has to initalize before the first
 //	pipenet can be built.
 /datum/controller/subsystem/air/proc/setup_pipenets()
-	for (var/obj/machinery/atmospherics/AM in atmos_machinery)
+	for(var/obj/machinery/atmospherics/AM in atmos_machinery)
 		AM.build_network()
 		CHECK_TICK
 

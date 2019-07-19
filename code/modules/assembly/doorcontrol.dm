@@ -80,7 +80,7 @@
 		return
 	cooldown = TRUE
 	for(var/obj/machinery/door/poddoor/M in GLOB.machines)
-		if (M.id == src.id)
+		if(M.id == src.id)
 			INVOKE_ASYNC(M, /obj/machinery/door/poddoor.proc/open)
 
 	sleep(10)
@@ -92,7 +92,7 @@
 	sleep(60)
 
 	for(var/obj/machinery/door/poddoor/M in GLOB.machines)
-		if (M.id == src.id)
+		if(M.id == src.id)
 			INVOKE_ASYNC(M, /obj/machinery/door/poddoor.proc/close)
 
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
@@ -107,7 +107,7 @@
 		return
 	cooldown = TRUE
 	for(var/obj/machinery/sparker/M in GLOB.machines)
-		if (M.id == src.id)
+		if(M.id == src.id)
 			INVOKE_ASYNC(M, /obj/machinery/sparker.proc/ignite)
 
 	for(var/obj/machinery/igniter/M in GLOB.machines)
@@ -141,8 +141,8 @@
 	if(cooldown)
 		return
 	cooldown = TRUE
-	for (var/obj/structure/bodycontainer/crematorium/C in GLOB.crematoriums)
-		if (C.id == id)
+	for(var/obj/structure/bodycontainer/crematorium/C in GLOB.crematoriums)
+		if(C.id == id)
 			C.cremate(usr)
 
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 50)

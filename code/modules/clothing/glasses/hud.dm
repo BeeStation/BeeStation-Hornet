@@ -161,21 +161,21 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/wearer = user
-	if (wearer.glasses != src)
+	if(wearer.glasses != src)
 		return
 
-	if (hud_type)
+	if(hud_type)
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		H.remove_hud_from(user)
 
-	if (hud_type == DATA_HUD_MEDICAL_ADVANCED)
+	if(hud_type == DATA_HUD_MEDICAL_ADVANCED)
 		hud_type = null
-	else if (hud_type == DATA_HUD_SECURITY_ADVANCED)
+	else if(hud_type == DATA_HUD_SECURITY_ADVANCED)
 		hud_type = DATA_HUD_MEDICAL_ADVANCED
 	else
 		hud_type = DATA_HUD_SECURITY_ADVANCED
 
-	if (hud_type)
+	if(hud_type)
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		H.add_hud_to(user)
 
@@ -190,11 +190,11 @@
 
 /obj/item/clothing/glasses/hud/toggle/thermal/attack_self(mob/user)
 	..()
-	switch (hud_type)
-		if (DATA_HUD_MEDICAL_ADVANCED)
+	switch(hud_type)
+		if(DATA_HUD_MEDICAL_ADVANCED)
 			icon_state = "meson"
 			change_glass_color(user, /datum/client_colour/glass_colour/green)
-		if (DATA_HUD_SECURITY_ADVANCED)
+		if(DATA_HUD_SECURITY_ADVANCED)
 			icon_state = "thermal"
 			change_glass_color(user, /datum/client_colour/glass_colour/red)
 		else

@@ -79,7 +79,7 @@
 		return
 	var/mob/living/M = A.affected_mob
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
-	if (!eyes)
+	if(!eyes)
 		return
 	switch(A.stage)
 		if(4, 5)

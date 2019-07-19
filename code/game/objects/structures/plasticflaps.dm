@@ -108,5 +108,5 @@
 /obj/structure/plasticflaps/Destroy()
 	var/atom/oldloc = loc
 	. = ..()
-	if (oldloc)
+	if(oldloc)
 		oldloc.air_update_turf(1)

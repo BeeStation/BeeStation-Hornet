@@ -243,7 +243,7 @@
 	var/obj/machinery/hydroponics/H = get_pin_data_as_type(IC_INPUT, 1, /obj/machinery/hydroponics)
 	if(!istype(H)) //Invalid input
 		return
-	for(var/i=1, i<=outputs.len, i++)
+	for(var/i=1, i <= outputs.len, i++)
 		set_pin_data(IC_OUTPUT, i, null)
 	if(H in view(get_turf(src))) // Like medbot's analyzer it can be used in range..
 		if(H.myseed)
@@ -293,7 +293,7 @@
 	var/obj/machinery/hydroponics/H = get_pin_data_as_type(IC_INPUT, 1, /obj/machinery/hydroponics)
 	if(!istype(H)) //Invalid input
 		return
-	for(var/i=1, i<=outputs.len, i++)
+	for(var/i=1, i <= outputs.len, i++)
 		set_pin_data(IC_OUTPUT, i, null)
 	if(H in view(get_turf(src))) // Like medbot's analyzer it can be used in range..
 		if(H.myseed)
@@ -1024,7 +1024,7 @@
 	power_draw_per_use = 20
 
 /obj/item/integrated_circuit/input/obj_scanner/attackby_react(var/atom/A,var/mob/user,intent)
-	if(intent!=INTENT_HELP)
+	if(intent != INTENT_HELP)
 		return FALSE
 	if(!check_then_do_work())
 		return FALSE

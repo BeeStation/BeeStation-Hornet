@@ -23,7 +23,7 @@
 	var/variable = ""
 	if(!var_name)
 		var/list/names = list()
-		for (var/V in O.vars)
+		for(var/V in O.vars)
 			names += V
 
 		names = sortList(names)
@@ -50,7 +50,7 @@
 		if(!check_rights(R_DEBUG))
 			return
 		var/prompt = alert(src, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", "ABORT ", "Continue", " ABORT")
-		if (prompt != "Continue")
+		if(prompt != "Continue")
 			return
 
 	default = vv_get_class(variable, var_value)
@@ -84,10 +84,10 @@
 	if(!class || !new_value == null && class != VV_NULL)
 		return
 
-	if (class == VV_MESSAGE)
+	if(class == VV_MESSAGE)
 		class = VV_TEXT
 
-	if (value["type"])
+	if(value["type"])
 		class = VV_NEW_TYPE
 
 	var/original_name = "[O]"
@@ -101,10 +101,10 @@
 			var/list/items = get_all_of_type(O.type, method)
 			to_chat(src, "Changing [items.len] items...")
 			for(var/thing in items)
-				if (!thing)
+				if(!thing)
 					continue
 				var/datum/D = thing
-				if (D.vv_edit_var(variable, initial(D.vars[variable])) != FALSE)
+				if(D.vv_edit_var(variable, initial(D.vars[variable])) != FALSE)
 					accepted++
 				else
 					rejected++
@@ -114,7 +114,7 @@
 			var/list/varsvars = vv_parse_text(O, new_value)
 			var/pre_processing = new_value
 			var/unique
-			if (varsvars && varsvars.len)
+			if(varsvars && varsvars.len)
 				unique = alert(usr, "Process vars unique to each instance, or same for all?", "Variable Association", "Unique", "Same")
 				if(unique == "Unique")
 					unique = TRUE
@@ -127,7 +127,7 @@
 			var/list/items = get_all_of_type(O.type, method)
 			to_chat(src, "Changing [items.len] items...")
 			for(var/thing in items)
-				if (!thing)
+				if(!thing)
 					continue
 				var/datum/D = thing
 				if(unique)
@@ -135,17 +135,17 @@
 					for(var/V in varsvars)
 						new_value = replacetext(new_value,"\[[V]]","[D.vars[V]]")
 
-				if (D.vv_edit_var(variable, new_value) != FALSE)
+				if(D.vv_edit_var(variable, new_value) != FALSE)
 					accepted++
 				else
 					rejected++
 				CHECK_TICK
 
-		if (VV_NEW_TYPE)
+		if(VV_NEW_TYPE)
 			var/many = alert(src, "Create only one [value["type"]] and assign each or a new one for each thing", "How Many", "One", "Many", "Cancel")
-			if (many == "Cancel")
+			if(many == "Cancel")
 				return
-			if (many == "Many")
+			if(many == "Many")
 				many = TRUE
 			else
 				many = FALSE
@@ -155,13 +155,13 @@
 			var/list/items = get_all_of_type(O.type, method)
 			to_chat(src, "Changing [items.len] items...")
 			for(var/thing in items)
-				if (!thing)
+				if(!thing)
 					continue
 				var/datum/D = thing
 				if(many && !new_value)
 					new_value = new type()
 
-				if (D.vv_edit_var(variable, new_value) != FALSE)
+				if(D.vv_edit_var(variable, new_value) != FALSE)
 					accepted++
 				else
 					rejected++
@@ -173,10 +173,10 @@
 			var/list/items = get_all_of_type(O.type, method)
 			to_chat(src, "Changing [items.len] items...")
 			for(var/thing in items)
-				if (!thing)
+				if(!thing)
 					continue
 				var/datum/D = thing
-				if (D.vv_edit_var(variable, new_value) != FALSE)
+				if(D.vv_edit_var(variable, new_value) != FALSE)
 					accepted++
 				else
 					rejected++
@@ -184,13 +184,13 @@
 
 
 	var/count = rejected+accepted
-	if (!count)
+	if(!count)
 		to_chat(src, "No objects found")
 		return
-	if (!accepted)
+	if(!accepted)
 		to_chat(src, "Every object rejected your edit")
 		return
-	if (rejected)
+	if(rejected)
 		to_chat(src, "[rejected] out of [count] objects rejected your edit")
 
 	log_world("### MassVarEdit by [src]: [O.type] (A/R [accepted]/[rejected]) [variable]=[html_encode("[O.vars[variable]]")]([list2params(value)])")
@@ -201,65 +201,65 @@
 /proc/get_all_of_type(var/T, subtypes = TRUE)
 	var/list/typecache = list()
 	typecache[T] = 1
-	if (subtypes)
+	if(subtypes)
 		typecache = typecacheof(typecache)
 	. = list()
-	if (ispath(T, /mob))
+	if(ispath(T, /mob))
 		for(var/mob/thing in GLOB.mob_list)
-			if (typecache[thing.type])
+			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
 
-	else if (ispath(T, /obj/machinery/door))
+	else if(ispath(T, /obj/machinery/door))
 		for(var/obj/machinery/door/thing in GLOB.airlocks)
-			if (typecache[thing.type])
+			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
 
-	else if (ispath(T, /obj/machinery))
+	else if(ispath(T, /obj/machinery))
 		for(var/obj/machinery/thing in GLOB.machines)
-			if (typecache[thing.type])
+			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
 
-	else if (ispath(T, /obj))
+	else if(ispath(T, /obj))
 		for(var/obj/thing in world)
-			if (typecache[thing.type])
+			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
 
-	else if (ispath(T, /atom/movable))
+	else if(ispath(T, /atom/movable))
 		for(var/atom/movable/thing in world)
-			if (typecache[thing.type])
+			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
 
-	else if (ispath(T, /turf))
+	else if(ispath(T, /turf))
 		for(var/turf/thing in world)
-			if (typecache[thing.type])
+			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
 
-	else if (ispath(T, /atom))
+	else if(ispath(T, /atom))
 		for(var/atom/thing in world)
-			if (typecache[thing.type])
+			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
 
-	else if (ispath(T, /client))
+	else if(ispath(T, /client))
 		for(var/client/thing in GLOB.clients)
-			if (typecache[thing.type])
+			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
 
-	else if (ispath(T, /datum))
+	else if(ispath(T, /datum))
 		for(var/datum/thing)
-			if (typecache[thing.type])
+			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
 
 	else
 		for(var/datum/thing in world)
-			if (typecache[thing.type])
+			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK

@@ -137,18 +137,18 @@ Actual Adjacent procs :
 				path.Add(cur.source)
 			break
 		//get adjacents turfs using the adjacent proc, checking for access with id
-		if((!maxnodedepth)||(cur.nt <= maxnodedepth))//if too many steps, don't process that path
+		if((!maxnodedepth) || (cur.nt <= maxnodedepth))//if too many steps, don't process that path
 			for(var/i = 0 to 3)
-				var/f= 1<<i //get cardinal directions.1,2,4,8
+				var/f= 1 << i //get cardinal directions.1,2,4,8
 				if(cur.bf & f)
 					var/T = get_step(cur.source,f)
 					if(T != exclude)
 						var/datum/PathNode/CN = openc[T]  //current checking turf
-						var/r=((f & MASK_ODD)<<1)|((f & MASK_EVEN)>>1) //getting reverse direction throught swapping even and odd bits.((f & 01010101)<<1)|((f & 10101010)>>1)
+						var/r=((f & MASK_ODD) << 1)|((f & MASK_EVEN) >> 1) //getting reverse direction throught swapping even and odd bits.((f & 01010101) << 1)|((f & 10101010) >> 1)
 						var/newg = cur.g + call(cur.source,dist)(T)
 						if(CN)
 						//is already in open list, check if it's a better way from the current turf
-							CN.bf &= 15^r //we have no closed, so just cut off exceed dir.00001111 ^ reverse_dir.We don't need to expand to checked turf.
+							CN.bf &= 15 ^ r //we have no closed, so just cut off exceed dir.00001111 ^ reverse_dir.We don't need to expand to checked turf.
 							if((newg < CN.g) )
 								if(call(cur.source,adjacent)(caller, T, id, simulated_only))
 									CN.setp(cur,newg,CN.h,cur.nt+1)
@@ -156,7 +156,7 @@ Actual Adjacent procs :
 						else
 						//is not already in open list, so add it
 							if(call(cur.source,adjacent)(caller, T, id, simulated_only))
-								CN = new(T,cur,newg,call(T,dist)(end),cur.nt+1,15^r)
+								CN = new(T,cur,newg,call(T,dist)(end),cur.nt+1,15 ^ r)
 								open.Insert(CN)
 								openc[T] = CN
 		cur.bf = 0
@@ -195,7 +195,7 @@ Actual Adjacent procs :
 
 /turf/proc/LinkBlockedWithAccess(turf/T, caller, ID)
 	var/adir = get_dir(src, T)
-	var/rdir = ((adir & MASK_ODD)<<1)|((adir & MASK_EVEN)>>1)
+	var/rdir = ((adir & MASK_ODD) << 1)|((adir & MASK_EVEN) >> 1)
 	for(var/obj/structure/window/W in src)
 		if(!W.CanAStarPass(ID, adir))
 			return TRUE

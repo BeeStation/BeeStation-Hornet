@@ -92,7 +92,7 @@
 	SSblackbox.record_feedback("nested tally", "item_printed", amount, list("[type]", "[path]"))
 
 /obj/machinery/rnd/production/proc/check_mat(datum/design/being_built, M)	// now returns how many times the item can be built with the material
-	if (!materials.mat_container)  // no connected silo
+	if(!materials.mat_container)  // no connected silo
 		return 0
 	var/list/all_materials = being_built.reagents_list + being_built.materials
 
@@ -192,7 +192,7 @@
 	var/list/l = list()
 	l += "<div class='statusDisplay'><b>[host_research.organization] [department_tag] Department Lathe</b>"
 	l += "Security protocols: [(obj_flags & EMAGGED)? "<font color='red'>Disabled</font>" : "<font color='green'>Enabled</font>"]"
-	if (materials.mat_container)
+	if(materials.mat_container)
 		l += "<A href='?src=[REF(src)];switch_screen=[RESEARCH_FABRICATOR_SCREEN_MATERIALS]'><B>Material Amount:</B> [materials.format_amount()]</A>"
 	else
 		l += "<font color='red'>No material storage connected, please contact the quartermaster.</font>"
@@ -202,7 +202,7 @@
 	return l
 
 /obj/machinery/rnd/production/proc/ui_screen_materials()
-	if (!materials.mat_container)
+	if(!materials.mat_container)
 		screen = RESEARCH_FABRICATOR_SCREEN_MAIN
 		return ui_screen_main()
 	var/list/l = list()
@@ -257,13 +257,13 @@
 	for(var/M in all_materials)
 		t = check_mat(D, M)
 		temp_material += " | "
-		if (t < 1)
+		if(t < 1)
 			temp_material += "<span class='bad'>[all_materials[M]/coeff] [CallMaterialName(M)]</span>"
 		else
 			temp_material += " [all_materials[M]/coeff] [CallMaterialName(M)]"
 		c = min(c,t)
 
-	if (c >= 1)
+	if(c >= 1)
 		l += "<A href='?src=[REF(src)];build=[D.id];amount=1'>[D.name]</A>[RDSCREEN_NOBREAK]"
 		if(c >= 5)
 			l += "<A href='?src=[REF(src)];build=[D.id];amount=5'>x5</A>[RDSCREEN_NOBREAK]"
@@ -305,10 +305,10 @@
 
 /obj/machinery/rnd/production/proc/eject_sheets(eject_sheet, eject_amt)
 	var/datum/component/material_container/mat_container = materials.mat_container
-	if (!mat_container)
+	if(!mat_container)
 		say("No access to material storage, please contact the quartermaster.")
 		return 0
-	if (materials.on_hold())
+	if(materials.on_hold())
 		say("Mineral access is on hold, please contact the quartermaster.")
 		return 0
 	var/count = mat_container.retrieve_sheets(text2num(eject_amt), eject_sheet, drop_location())

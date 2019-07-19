@@ -86,7 +86,7 @@
 	materials.retrieve_all()
 
 /obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
-	if (busy)
+	if(busy)
 		to_chat(user, "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return TRUE
 
@@ -127,11 +127,11 @@
 		use_power(MINERAL_MATERIAL_AMOUNT / 10)
 	else
 		switch(id_inserted)
-			if (MAT_IRON)
+			if(MAT_IRON)
 				flick("autolathe_o",src)//plays iron insertion animation
-			if (MAT_COPPER)
+			if(MAT_COPPER)
 				flick("autolathe_c",src)
-			if (MAT_GLASS)
+			if(MAT_GLASS)
 				flick("autolathe_r",src)//plays glass insertion animation
 		use_power(min(1000, amount_inserted / 100))
 	updateUsrDialog()
@@ -139,7 +139,7 @@
 /obj/machinery/autolathe/Topic(href, href_list)
 	if(..())
 		return
-	if (!busy)
+	if(!busy)
 		if(href_list["menu"])
 			screen = text2num(href_list["menu"])
 			updateUsrDialog()
@@ -204,7 +204,7 @@
 		N.update_icon()
 		N.autolathe_crafted(src)
 	else
-		for(var/i=1, i<=multiplier, i++)
+		for(var/i=1, i <= multiplier, i++)
 			var/obj/item/new_item = new being_built.build_path(A)
 			new_item.materials = new_item.materials.Copy()
 			for(var/mat in materials_used)
@@ -274,10 +274,10 @@
 
 		if(ispath(D.build_path, /obj/item/stack))
 			GET_COMPONENT(materials, /datum/component/material_container)
-			var/max_multiplier = min(D.maxstack, D.materials[MAT_IRON] ?round(materials.amount(MAT_IRON)/D.materials[MAT_IRON]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY,D.materials[MAT_COPPER]?round(materials.amount(MAT_COPPER)/D.materials[MAT_COPPER]):INFINITY)
-			if (max_multiplier>10 && !disabled)
+			var/max_multiplier = min(D.maxstack, D.materials[MAT_IRON] ? round(materials.amount(MAT_IRON)/D.materials[MAT_IRON]) : INFINITY,D.materials[MAT_GLASS] ? round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]) : INFINITY,D.materials[MAT_COPPER] ? round(materials.amount(MAT_COPPER)/D.materials[MAT_COPPER]) : INFINITY)
+			if(max_multiplier>10 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=10'>x10</a>"
-			if (max_multiplier>25 && !disabled)
+			if(max_multiplier>25 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=25'>x25</a>"
 			if(max_multiplier > 0 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=[max_multiplier]'>x[max_multiplier]</a>"
@@ -306,10 +306,10 @@
 
 		if(ispath(D.build_path, /obj/item/stack))
 			GET_COMPONENT(materials, /datum/component/material_container)
-			var/max_multiplier = min(D.maxstack, D.materials[MAT_IRON] ?round(materials.amount(MAT_IRON)/D.materials[MAT_IRON]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY,D.materials[MAT_COPPER]?round(materials.amount(MAT_COPPER)/D.materials[MAT_COPPER]):INFINITY)
-			if (max_multiplier>10 && !disabled)
+			var/max_multiplier = min(D.maxstack, D.materials[MAT_IRON] ? round(materials.amount(MAT_IRON)/D.materials[MAT_IRON]) : INFINITY,D.materials[MAT_GLASS] ? round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]) : INFINITY,D.materials[MAT_COPPER] ? round(materials.amount(MAT_COPPER)/D.materials[MAT_COPPER]) : INFINITY)
+			if(max_multiplier>10 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=10'>x10</a>"
-			if (max_multiplier>25 && !disabled)
+			if(max_multiplier>25 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=25'>x25</a>"
 			if(max_multiplier > 0 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=[max_multiplier]'>x[max_multiplier]</a>"
@@ -373,7 +373,7 @@
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
-	if (electrocute_mob(user, get_area(src), src, 0.7, TRUE))
+	if(electrocute_mob(user, get_area(src), src, 0.7, TRUE))
 		return TRUE
 	else
 		return FALSE

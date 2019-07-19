@@ -50,7 +50,7 @@
 
 
 
-	if (src.client)
+	if(src.client)
 		if(src.client.prefs.muted & MUTE_DEADCHAT)
 			to_chat(src, "<span class='danger'>You cannot talk in deadchat (muted).</span>")
 			return

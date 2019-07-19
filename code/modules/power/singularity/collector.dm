@@ -52,7 +52,7 @@
 
 			var/power_produced = RAD_COLLECTOR_OUTPUT
 			add_avail(power_produced)
-			stored_energy-=power_produced
+			stored_energy -= power_produced
 	else if(is_station_level(z) && SSresearch.science_tech)
 		if(!loaded_tank.air_contents.gases[/datum/gas/tritium] || !loaded_tank.air_contents.gases[/datum/gas/oxygen])
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
@@ -69,7 +69,7 @@
 			if(D)
 				D.adjust_money(bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)
 			SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)
-			stored_energy-=bitcoins_mined
+			stored_energy -= bitcoins_mined
 
 /obj/machinery/power/rad_collector/interact(mob/user)
 	if(anchored)
@@ -200,7 +200,7 @@
 /obj/machinery/power/rad_collector/proc/eject()
 	locked = FALSE
 	var/obj/item/tank/internals/plasma/Z = src.loaded_tank
-	if (!Z)
+	if(!Z)
 		return
 	Z.forceMove(drop_location())
 	Z.layer = initial(Z.layer)

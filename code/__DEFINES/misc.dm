@@ -252,10 +252,10 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
 
 //debug printing macros
-#define debug_world(msg) if (GLOB.Debug2) to_chat(world, "DEBUG: [msg]")
-#define debug_usr(msg) if (GLOB.Debug2&&usr) to_chat(usr, "DEBUG: [msg]")
-#define debug_admins(msg) if (GLOB.Debug2) to_chat(GLOB.admins, "DEBUG: [msg]")
-#define debug_world_log(msg) if (GLOB.Debug2) log_world("DEBUG: [msg]")
+#define debug_world(msg) if(GLOB.Debug2) to_chat(world, "DEBUG: [msg]")
+#define debug_usr(msg) if(GLOB.Debug2 && usr) to_chat(usr, "DEBUG: [msg]")
+#define debug_admins(msg) if(GLOB.Debug2) to_chat(GLOB.admins, "DEBUG: [msg]")
+#define debug_world_log(msg) if(GLOB.Debug2) log_world("DEBUG: [msg]")
 
 //TODO Move to a pref
 #define STATION_GOAL_BUDGET  1

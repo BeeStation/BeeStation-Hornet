@@ -155,7 +155,7 @@
 			if(cropMap)
 				continue
 			else
-				while (zcrd > world.maxz) //create a new z_level if needed
+				while(zcrd > world.maxz) //create a new z_level if needed
 					world.incrementMaxZ()
 			if(!no_changeturf)
 				WARNING("Z-level expansion occurred without no_changeturf set, this may cause problems when /turf/AfterChange is called")
@@ -309,9 +309,9 @@
 		var/atype = members[index]
 		world.preloader_setup(members_attributes[index], atype)//preloader for assigning  set variables on atom creation
 		var/atom/instance = areaCache[atype]
-		if (!instance)
+		if(!instance)
 			instance = GLOB.areas_by_type[atype]
-			if (!instance)
+			if(!instance)
 				instance = new atype(null)
 			areaCache[atype] = instance
 		if(crds)
@@ -408,7 +408,7 @@
 //return the filled list
 /datum/parsed_map/proc/readlist(text as text, delimiter=",")
 	. = list()
-	if (!text)
+	if(!text)
 		return
 
 	var/position

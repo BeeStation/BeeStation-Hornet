@@ -23,7 +23,7 @@
 	. = ..()
 	var/obj/item/circuitboard/computer/cargo/board = circuit
 	contraband = board.contraband
-	if (board.obj_flags & EMAGGED)
+	if(board.obj_flags & EMAGGED)
 		obj_flags |= EMAGGED
 	else
 		obj_flags &= ~EMAGGED

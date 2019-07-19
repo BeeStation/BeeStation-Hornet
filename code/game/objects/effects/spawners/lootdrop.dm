@@ -19,14 +19,14 @@
 
 			if(lootspawn)
 				var/atom/movable/spawned_loot = new lootspawn(T)
-				if (!fan_out_items)
-					if (pixel_x != 0)
+				if(!fan_out_items)
+					if(pixel_x != 0)
 						spawned_loot.pixel_x = pixel_x
-					if (pixel_y != 0)
+					if(pixel_y != 0)
 						spawned_loot.pixel_y = pixel_y
 				else
-					if (loot_spawned)
-						spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
+					if(loot_spawned)
+						spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned % 2)*loot_spawned/2)*-1)+((loot_spawned % 2)*(loot_spawned+1)/2*1)
 			loot_spawned++
 	return INITIALIZE_HINT_QDEL
 

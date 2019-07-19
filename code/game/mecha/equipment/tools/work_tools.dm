@@ -277,7 +277,7 @@
 					chassis.spark_system.start()
 					F.ScrapeAway()
 					playsound(F, 'sound/items/deconstruct.ogg', 50, 1)
-			else if (istype(target, /obj/machinery/door/airlock))
+			else if(istype(target, /obj/machinery/door/airlock))
 				occupant_message("Deconstructing [target]...")
 				if(do_after_cooldown(target))
 					chassis.spark_system.start()
@@ -393,8 +393,8 @@
 	..()
 	if(href_list["toggle"])
 		set_ready_state(!equip_ready)
-		occupant_message("[src] [equip_ready?"dea":"a"]ctivated.")
-		log_message("[equip_ready?"Dea":"A"]ctivated.", LOG_MECHA)
+		occupant_message("[src] [equip_ready ? "dea" : "a"]ctivated.")
+		log_message("[equip_ready ? "Dea" : "A"]ctivated.", LOG_MECHA)
 		return
 	if(href_list["cut"])
 		if(cable?.amount)
@@ -496,7 +496,7 @@
 	if(!N)
 		return
 	QDEL_NULL(N.cell)
-	if (M.cell)
+	if(M.cell)
 		N.cell = M.cell
 		M.cell.forceMove(N)
 		M.cell = null
@@ -513,7 +513,7 @@
 	N.maint_access = M.maint_access
 	N.strafe = M.strafe
 	N.obj_integrity = M.obj_integrity //This is not a repair tool
-	if (M.name != "\improper APLU MK-I \"Ripley\"")
+	if(M.name != "\improper APLU MK-I \"Ripley\"")
 		N.name = M.name
 	M.wreckage = 0
 	qdel(M)

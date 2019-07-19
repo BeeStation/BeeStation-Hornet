@@ -46,7 +46,7 @@
 
 /datum/game_mode/wizard/are_special_antags_dead()
 	for(var/datum/mind/wizard in wizards)
-		if(isliving(wizard.current) && wizard.current.stat!=DEAD)
+		if(isliving(wizard.current) && wizard.current.stat != DEAD)
 			return FALSE
 
 	for(var/obj/item/phylactery/P in GLOB.poi_list) //TODO : IsProperlyDead()
@@ -67,7 +67,7 @@
 
 /datum/game_mode/wizard/special_report()
 	if(finished)
-		return "<div class='panel redborder'><span class='redtext big'>The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</span></div>"
+		return "<div class='panel redborder'><span class='redtext big'>The wizard[(wizards.len>1) ? "s" : ""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</span></div>"
 
 //returns whether the mob is a wizard (or apprentice)
 /proc/iswizard(mob/living/M)

@@ -15,12 +15,12 @@
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube, paralyze, forcedrop)
 	if(HAS_TRAIT(src, TRAIT_NOSLIPALL))
 		return 0
-	if (!(lube&GALOSHES_DONT_HELP))
+	if(!(lube&GALOSHES_DONT_HELP))
 		if(HAS_TRAIT(src, TRAIT_NOSLIPWATER))
 			return 0
 		if(shoes && istype(shoes, /obj/item/clothing))
 			var/obj/item/clothing/CS = shoes
-			if (CS.clothing_flags & NOSLIP)
+			if(CS.clothing_flags & NOSLIP)
 				return 0
 	return ..()
 
@@ -28,7 +28,7 @@
 	playsound(src, 'sound/effects/space_wind.ogg', 50, 1)
 	if(shoes && istype(shoes, /obj/item/clothing))
 		var/obj/item/clothing/S = shoes
-		if (S.clothing_flags & NOSLIP)
+		if(S.clothing_flags & NOSLIP)
 			return 0
 	return ..()
 
@@ -57,11 +57,11 @@
 				var/turf/T = get_turf(src)
 				if(S.bloody_shoes && S.bloody_shoes[S.blood_state])
 					for(var/obj/effect/decal/cleanable/blood/footprints/oldFP in T)
-						if (oldFP.blood_state == S.blood_state)
+						if(oldFP.blood_state == S.blood_state)
 							return
 					//No oldFP or they're all a different kind of blood
 					S.bloody_shoes[S.blood_state] = max(0, S.bloody_shoes[S.blood_state] - BLOOD_LOSS_PER_STEP)
-					if (S.bloody_shoes[S.blood_state] > BLOOD_LOSS_IN_SPREAD)
+					if(S.bloody_shoes[S.blood_state] > BLOOD_LOSS_IN_SPREAD)
 						var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)
 						FP.blood_state = S.blood_state
 						FP.entered_dirs |= dir

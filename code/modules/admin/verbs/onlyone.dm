@@ -9,7 +9,7 @@ GLOBAL_VAR_INIT(highlander, FALSE)
 
 	for(var/obj/item/disk/nuclear/N in GLOB.poi_list)
 		var/datum/component/stationloving/component = N.GetComponent(/datum/component/stationloving)
-		if (component)
+		if(component)
 			component.relocate() //Gets it out of bags and such
 
 	for(var/mob/living/carbon/human/H in GLOB.player_list)

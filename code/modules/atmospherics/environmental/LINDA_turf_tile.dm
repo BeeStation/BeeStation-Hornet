@@ -106,7 +106,7 @@
 	var/static/list/nonoverlaying_gases = typecache_of_gases_with_no_overlays()
 
 	if(!air) // 2019-05-14: was not able to get this path to fire in testing. Consider removing/looking at callers -Naksu
-		if (atmos_overlay_types)
+		if(atmos_overlay_types)
 			for(var/overlay in atmos_overlay_types)
 				vis_contents -= overlay
 			src.atmos_overlay_types = null
@@ -115,7 +115,7 @@
 	var/list/gases = air.gases
 
 	for(var/id in gases)
-		if (nonoverlaying_gases[id])
+		if(nonoverlaying_gases[id])
 			continue
 		var/gas = gases[id]
 		var/gas_meta = gas[GAS_META]
@@ -123,12 +123,12 @@
 		if(gas_overlay && gas[MOLES] > gas_meta[META_GAS_MOLES_VISIBLE])
 			new_overlay_types += gas_overlay[min(FACTOR_GAS_VISIBLE_MAX, CEILING(gas[MOLES] / MOLES_GAS_VISIBLE_STEP, 1))]
 
-	if (atmos_overlay_types)
+	if(atmos_overlay_types)
 		for(var/overlay in atmos_overlay_types-new_overlay_types) //doesn't remove overlays that would only be added
 			vis_contents -= overlay
 
-	if (length(new_overlay_types))
-		if (atmos_overlay_types)
+	if(length(new_overlay_types))
+		if(atmos_overlay_types)
 			vis_contents += new_overlay_types - atmos_overlay_types //don't add overlays that already exist
 		else
 			vis_contents += new_overlay_types
@@ -138,9 +138,9 @@
 
 /proc/typecache_of_gases_with_no_overlays()
 	. = list()
-	for (var/gastype in subtypesof(/datum/gas))
+	for(var/gastype in subtypesof(/datum/gas))
 		var/datum/gas/gasvar = gastype
-		if (!initial(gasvar.gas_overlay))
+		if(!initial(gasvar.gas_overlay))
 			.[gastype] = TRUE
 
 /////////////////////////////SIMULATION///////////////////////////////////
@@ -171,7 +171,7 @@
 	var/cached_atmos_cooldown = atmos_cooldown + 1
 
 	var/planet_atmos = planetary_atmos
-	if (planet_atmos)
+	if(planet_atmos)
 		adjacent_turfs_length++
 
 	var/datum/gas_mixture/our_air = air
@@ -222,7 +222,7 @@
 
 	/******************* GROUP HANDLING FINISH *********************************************************************/
 
-	if (planet_atmos) //share our air with the "atmosphere" "above" the turf
+	if(planet_atmos) //share our air with the "atmosphere" "above" the turf
 		var/datum/gas_mixture/G = new
 		G.copy_from_turf(src)
 		G.archive()
@@ -256,7 +256,7 @@
 	var/atom/movable/M
 	for(var/thing in src)
 		M = thing
-		if (!M.anchored && !M.pulledby && M.last_high_pressure_movement_air_cycle < SSair.times_fired)
+		if(!M.anchored && !M.pulledby && M.last_high_pressure_movement_air_cycle < SSair.times_fired)
 			M.experience_pressure_difference(pressure_difference, pressure_direction)
 
 /atom/movable/var/pressure_resistance = 10
@@ -268,10 +268,10 @@
 	var/max_force = sqrt(pressure_difference)*(MOVE_FORCE_DEFAULT / 5)
 	set waitfor = 0
 	var/move_prob = 100
-	if (pressure_resistance > 0)
+	if(pressure_resistance > 0)
 		move_prob = (pressure_difference/pressure_resistance*PROBABILITY_BASE_PRECENT)-PROBABILITY_OFFSET
 	move_prob += pressure_resistance_prob_delta
-	if (move_prob > PROBABILITY_OFFSET && prob(move_prob) && (move_resist != INFINITY) && (!anchored && (max_force >= (move_resist * MOVE_FORCE_PUSH_RATIO))) || (anchored && (max_force >= (move_resist * MOVE_FORCE_FORCEPUSH_RATIO))))
+	if(move_prob > PROBABILITY_OFFSET && prob(move_prob) && (move_resist != INFINITY) && (!anchored && (max_force >= (move_resist * MOVE_FORCE_PUSH_RATIO))) || (anchored && (max_force >= (move_resist * MOVE_FORCE_FORCEPUSH_RATIO))))
 		step(src, direction)
 		last_high_pressure_movement_air_cycle = SSair.times_fired
 
@@ -322,7 +322,7 @@
 
 	for(var/t in turf_list)
 		var/turf/open/T = t
-		if (space_is_all_consuming && !space_in_group && istype(T.air, /datum/gas_mixture/immutable/space))
+		if(space_is_all_consuming && !space_in_group && istype(T.air, /datum/gas_mixture/immutable/space))
 			space_in_group = TRUE
 			qdel(A)
 			A = new /datum/gas_mixture/immutable/space()
@@ -432,14 +432,14 @@
 	return TRUE
 
 /turf/open/consider_superconductivity(starting)
-	if(air.temperature < (starting?MINIMUM_TEMPERATURE_START_SUPERCONDUCTION:MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION))
+	if(air.temperature < (starting ? MINIMUM_TEMPERATURE_START_SUPERCONDUCTION : MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION))
 		return FALSE
 	if(air.heat_capacity() < M_CELL_WITH_RATIO) // Was: MOLES_CELLSTANDARD*0.1*0.05 Since there are no variables here we can make this a constant.
 		return FALSE
 	return ..()
 
 /turf/closed/consider_superconductivity(starting)
-	if(temperature < (starting?MINIMUM_TEMPERATURE_START_SUPERCONDUCTION:MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION))
+	if(temperature < (starting ? MINIMUM_TEMPERATURE_START_SUPERCONDUCTION : MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION))
 		return FALSE
 	return ..()
 

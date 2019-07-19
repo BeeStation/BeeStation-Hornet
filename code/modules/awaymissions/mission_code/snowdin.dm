@@ -181,7 +181,7 @@
 		return FALSE
 
 	var/thing_to_check = src
-	if (AM)
+	if(AM)
 		thing_to_check = list(AM)
 	for(var/thing in thing_to_check)
 		if(isobj(thing))
@@ -189,7 +189,7 @@
 			if((O.resistance_flags & (FREEZE_PROOF)) || O.throwing)
 				continue
 
-		else if (isliving(thing))
+		else if(isliving(thing))
 			. = 1
 			var/mob/living/L = thing
 			if(L.movement_type & FLYING)

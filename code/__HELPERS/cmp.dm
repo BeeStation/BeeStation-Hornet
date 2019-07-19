@@ -74,16 +74,16 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 
 /proc/cmp_qdel_item_time(datum/qdel_item/A, datum/qdel_item/B)
 	. = B.hard_delete_time - A.hard_delete_time
-	if (!.)
+	if(!.)
 		. = B.destroy_time - A.destroy_time
-	if (!.)
+	if(!.)
 		. = B.failures - A.failures
-	if (!.)
+	if(!.)
 		. = B.qdels - A.qdels
 
 /proc/cmp_generic_stat_item_time(list/A, list/B)
 	. = B[STAT_ENTRY_TIME] - A[STAT_ENTRY_TIME]
-	if (!.)
+	if(!.)
 		. = B[STAT_ENTRY_COUNT] - A[STAT_ENTRY_COUNT]
 
 /proc/cmp_profile_avg_time_dsc(list/A, list/B)

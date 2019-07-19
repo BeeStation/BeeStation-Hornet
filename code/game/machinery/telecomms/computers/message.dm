@@ -86,7 +86,7 @@
 
 	if(auth)
 		dat += "<h4><dd><A href='?src=[REF(src)];auth=1'>&#09;<font color='green'>\[Authenticated\]</font></a>&#09;/"
-		dat += " Server Power: <A href='?src=[REF(src)];active=1'>[linkedServer && linkedServer.toggled ? "<font color='green'>\[On\]</font>":"<font color='red'>\[Off\]</font>"]</a></h4>"
+		dat += " Server Power: <A href='?src=[REF(src)];active=1'>[linkedServer && linkedServer.toggled ? "<font color='green'>\[On\]</font>" : "<font color='red'>\[Off\]</font>"]</a></h4>"
 	else
 		dat += "<h4><dd><A href='?src=[REF(src)];auth=1'>&#09;<font color='red'>\[Unauthenticated\]</font></a>&#09;/"
 		dat += " Server Power: <u>[linkedServer && linkedServer.toggled ? "<font color='green'>\[On\]</font>":"<font color='red'>\[Off\]</font>"]</u></h4>"
@@ -260,7 +260,7 @@
 
 	if(usr.contents.Find(src) || (in_range(src, usr) && isturf(loc)) || issilicon(usr))
 		//Authenticate
-		if (href_list["auth"])
+		if(href_list["auth"])
 			if(LINKED_SERVER_NONRESPONSIVE)
 				message = noserver
 			else if(auth)
@@ -275,15 +275,15 @@
 						message = incorrectkey
 
 		//Turn the server on/off.
-		if (href_list["active"])
+		if(href_list["active"])
 			if(LINKED_SERVER_NONRESPONSIVE)
 				message = noserver
 			else if(auth)
 				linkedServer.toggled = !linkedServer.toggled
 		//Find a server
-		if (href_list["find"])
+		if(href_list["find"])
 			var/list/message_servers = list()
-			for (var/obj/machinery/telecomms/message_server/M in GLOB.telecomms_list)
+			for(var/obj/machinery/telecomms/message_server/M in GLOB.telecomms_list)
 				message_servers += M
 
 			if(message_servers.len > 1)
@@ -296,28 +296,28 @@
 				message = noserver
 
 		//View the logs - KEY REQUIRED
-		if (href_list["view_logs"])
+		if(href_list["view_logs"])
 			if(LINKED_SERVER_NONRESPONSIVE)
 				message = noserver
 			else if(auth)
 				screen = 1
 
 		//Clears the logs - KEY REQUIRED
-		if (href_list["clear_logs"])
+		if(href_list["clear_logs"])
 			if(LINKED_SERVER_NONRESPONSIVE)
 				message = noserver
 			else if(auth)
 				linkedServer.pda_msgs = list()
 				message = "<span class='notice'>NOTICE: Logs cleared.</span>"
 		//Clears the request console logs - KEY REQUIRED
-		if (href_list["clear_requests"])
+		if(href_list["clear_requests"])
 			if(LINKED_SERVER_NONRESPONSIVE)
 				message = noserver
 			else if(auth)
 				linkedServer.rc_msgs = list()
 				message = "<span class='notice'>NOTICE: Logs cleared.</span>"
 		//Change the password - KEY REQUIRED
-		if (href_list["pass"])
+		if(href_list["pass"])
 			if(LINKED_SERVER_NONRESPONSIVE)
 				message = noserver
 			else if(auth)
@@ -336,7 +336,7 @@
 						message = incorrectkey
 
 		//Hack the Console to get the password
-		if (href_list["hack"])
+		if(href_list["hack"])
 			var/mob/living/silicon/S = usr
 			if(istype(S) && S.hack_software)
 				hacking = TRUE
@@ -346,7 +346,7 @@
 					if(src && linkedServer && usr)
 						BruteForce(usr)
 		//Delete the log.
-		if (href_list["delete_logs"])
+		if(href_list["delete_logs"])
 			//Are they on the view logs screen?
 			if(screen == 1)
 				if(LINKED_SERVER_NONRESPONSIVE)
@@ -355,7 +355,7 @@
 					linkedServer.pda_msgs -= locate(href_list["delete_logs"]) in linkedServer.pda_msgs
 					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
 		//Delete the request console log.
-		if (href_list["delete_requests"])
+		if(href_list["delete_requests"])
 			//Are they on the view logs screen?
 			if(screen == 4)
 				if(LINKED_SERVER_NONRESPONSIVE)
@@ -364,13 +364,13 @@
 					linkedServer.rc_msgs -= locate(href_list["delete_requests"]) in linkedServer.rc_msgs
 					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
 		//Create a custom message
-		if (href_list["msg"])
+		if(href_list["msg"])
 			if(LINKED_SERVER_NONRESPONSIVE)
 				message = noserver
 			else if(auth)
 				screen = 3
 		//Fake messaging selection - KEY REQUIRED
-		if (href_list["select"])
+		if(href_list["select"])
 			if(LINKED_SERVER_NONRESPONSIVE)
 				message = noserver
 				screen = 0
@@ -433,7 +433,7 @@
 			else if(auth)
 				screen = 4
 
-		if (href_list["back"])
+		if(href_list["back"])
 			screen = 0
 
 	return attack_hand(usr)
@@ -445,7 +445,7 @@
 
 /obj/item/paper/monitorkey/Initialize(mapload, obj/machinery/telecomms/message_server/server)
 	..()
-	if (server)
+	if(server)
 		print(server)
 		return INITIALIZE_HINT_NORMAL
 	else
@@ -457,7 +457,7 @@
 	add_overlay("paper_words")
 
 /obj/item/paper/monitorkey/LateInitialize()
-	for (var/obj/machinery/telecomms/message_server/server in GLOB.telecomms_list)
-		if (server.decryptkey)
+	for(var/obj/machinery/telecomms/message_server/server in GLOB.telecomms_list)
+		if(server.decryptkey)
 			print(server)
 			break

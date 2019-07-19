@@ -125,7 +125,7 @@
 	var/target_amount = text2num(name)
 	var/found_amount = 0
 	found_amount += T.air_contents.gases[/datum/gas/plasma] ? T.air_contents.gases[/datum/gas/plasma][MOLES] : 0
-	return found_amount>=target_amount
+	return found_amount >= target_amount
 
 
 /datum/objective_item/steal/functionalai
@@ -247,7 +247,7 @@
 
 	if(istype(S, targetitem))
 		found_amount = S.amount
-	return found_amount>=target_amount
+	return found_amount >= target_amount
 
 /datum/objective_item/stack/diamond
 	name = "10 diamonds."

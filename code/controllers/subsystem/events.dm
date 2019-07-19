@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(events)
 			thing.process()
 		else
 			running.Remove(thing)
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
 
 //checks if we should select a random event yet, and reschedules if necessary

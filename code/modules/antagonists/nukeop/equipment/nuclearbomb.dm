@@ -91,7 +91,7 @@
 		return TRUE
 
 /obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, params)
-	if (istype(I, /obj/item/disk/nuclear))
+	if(istype(I, /obj/item/disk/nuclear))
 		if(!disk_check(I))
 			return
 		if(!user.transferItemToLoc(I, src))

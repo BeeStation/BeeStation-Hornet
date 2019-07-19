@@ -348,7 +348,7 @@
 		name = "fragile blob"
 		desc = "A thin lattice of slightly twitching tendrils."
 		brute_resist = 0.5
-	else if (overmind)
+	else if(overmind)
 		icon_state = "blob"
 		name = "blob"
 		desc = "A thick wall of writhing tendrils."

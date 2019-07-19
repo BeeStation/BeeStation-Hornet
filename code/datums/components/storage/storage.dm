@@ -204,7 +204,7 @@
 				break
 		if(can_be_inserted(I,FALSE,user))
 			handle_item_insertion(I, TRUE, user)
-		if (TICK_CHECK)
+		if(TICK_CHECK)
 			progress.update(progress.goal - things.len)
 			return TRUE
 
@@ -227,7 +227,7 @@
 
 		handle_item_insertion(I, TRUE)	//The TRUE stops the "You put the [parent] into [S]" insertion message from being displayed.
 
-		if (TICK_CHECK)
+		if(TICK_CHECK)
 			progress.update(progress.goal - things.len)
 			return TRUE
 
@@ -246,7 +246,7 @@
 	var/turf/T = get_turf(A)
 	var/list/things = contents()
 	var/datum/progressbar/progress = new(M, length(things), T)
-	while (do_after(M, 10, TRUE, T, FALSE, CALLBACK(src, .proc/mass_remove_from_storage, T, things, progress)))
+	while(do_after(M, 10, TRUE, T, FALSE, CALLBACK(src, .proc/mass_remove_from_storage, T, things, progress)))
 		stoplag(1)
 	qdel(progress)
 
@@ -766,7 +766,7 @@
 	return COMPONENT_ACTION_BLOCK_TRIGGER
 
 /datum/component/storage/proc/gather_mode_switch(mob/user)
-	collection_mode = (collection_mode+1)%3
+	collection_mode = (collection_mode+1) % 3
 	switch(collection_mode)
 		if(COLLECT_SAME)
 			to_chat(user, "[parent] now picks up all items of a single type at once.")

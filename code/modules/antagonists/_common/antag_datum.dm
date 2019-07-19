@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(!check_rights(R_ADMIN))
 		return
 	//Antag memory edit
-	if (href_list["memory_edit"])
+	if(href_list["memory_edit"])
 		edit_memory(usr)
 		owner.traitor_panel()
 		return
@@ -215,7 +215,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /datum/antagonist/proc/edit_memory(mob/user)
 	var/new_memo = copytext(trim(input(user,"Write new memory", "Memory", antag_memory) as null|message),1,MAX_MESSAGE_LEN)
-	if (isnull(new_memo))
+	if(isnull(new_memo))
 		return
 	antag_memory = new_memo
 

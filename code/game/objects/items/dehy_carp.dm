@@ -42,7 +42,7 @@
 			if(F == "neutral")
 				factions -= F
 		M.faction = factions
-	if (!owner || owner.faction != M.faction)
+	if(!owner || owner.faction != M.faction)
 		visible_message("<span class='warning'>You have a bad feeling about this.</span>") //welcome to the hostile carp enjoy your die
 	else
 		visible_message("<span class='notice'>The newly grown [M.name] looks up at you with friendly eyes.</span>")

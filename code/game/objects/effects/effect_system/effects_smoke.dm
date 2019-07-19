@@ -176,7 +176,7 @@
 				G_gases[/datum/gas/nitrogen][MOLES] += (G_gases[/datum/gas/plasma][MOLES])
 				G_gases[/datum/gas/plasma][MOLES] = 0
 				G.garbage_collect()
-		if (weldvents)
+		if(weldvents)
 			for(var/obj/machinery/atmospherics/components/unary/U in T)
 				if(!isnull(U.welded) && !U.welded) //must be an unwelded vent pump or vent scrubber.
 					U.welded = TRUE

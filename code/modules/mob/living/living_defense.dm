@@ -70,8 +70,8 @@
 		SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone)
 		dtype = I.damtype
 
-		if (I.throwforce > 0) //If the weapon's throwforce is greater than zero...
-			if (I.throwhitsound) //...and throwhitsound is defined...
+		if(I.throwforce > 0) //If the weapon's throwforce is greater than zero...
+			if(I.throwhitsound) //...and throwhitsound is defined...
 				playsound(loc, I.throwhitsound, volume, 1, -1) //...play the weapon's throwhitsound.
 			else if(I.hitsound) //Otherwise, if the weapon's hitsound is defined...
 				playsound(loc, I.hitsound, volume, 1, -1) //...play the weapon's hitsound.
@@ -216,7 +216,7 @@
 		to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
 		return FALSE
 
-	if (stat != DEAD)
+	if(stat != DEAD)
 		log_combat(M, src, "attacked")
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
@@ -247,7 +247,7 @@
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return FALSE
 
-	if (M.a_intent == INTENT_HARM)
+	if(M.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
 			return FALSE
@@ -256,7 +256,7 @@
 			to_chat(M, "<span class='warning'>You can't bite with your mouth covered!</span>")
 			return FALSE
 		M.do_attack_animation(src, ATTACK_EFFECT_BITE)
-		if (prob(75))
+		if(prob(75))
 			log_combat(M, src, "attacked")
 			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 			visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
@@ -292,10 +292,10 @@
 
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
 	switch(M.a_intent)
-		if ("help")
+		if("help")
 			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
 			return FALSE
-		if ("grab")
+		if("grab")
 			grabbedby(M)
 			return FALSE
 		if("harm")
@@ -346,7 +346,7 @@
 	var/gain = 20
 
 	
-	if (client)
+	if(client)
 		SSmedals.UnlockMedal(MEDAL_SINGULARITY_DEATH,client)
 	
 

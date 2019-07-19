@@ -118,7 +118,7 @@
 		// Try to find a scanner in that direction
 		scannerf = locate(/obj/machinery/dna_scannernew, get_step(src, direction))
 		// If found and operational, return the scanner
-		if (!isnull(scannerf) && scannerf.is_operational())
+		if(!isnull(scannerf) && scannerf.is_operational())
 			return scannerf
 
 	// If no scanner was found, it will return null
@@ -128,7 +128,7 @@
 	var/obj/machinery/clonepod/experimental/podf = null
 	for(var/direction in GLOB.cardinals)
 		podf = locate(/obj/machinery/clonepod/experimental, get_step(src, direction))
-		if (!isnull(podf) && podf.is_operational())
+		if(!isnull(podf) && podf.is_operational())
 			AttachCloner(podf)
 
 /obj/machinery/computer/prototype_cloning/proc/AttachCloner(obj/machinery/clonepod/experimental/pod)
@@ -183,16 +183,16 @@
 	dat += "<h3>Cloning Pod Status</h3>"
 	dat += "<div class='statusDisplay'>[temp]&nbsp;</div>"
 
-	if (isnull(src.scanner) || !LAZYLEN(pods))
+	if(isnull(src.scanner) || !LAZYLEN(pods))
 		dat += "<h3>Modules</h3>"
 		//dat += "<a href='byond://?src=[REF(src)];relmodules=1'>Reload Modules</a>"
-		if (isnull(src.scanner))
+		if(isnull(src.scanner))
 			dat += "<font class='bad'>ERROR: No Scanner detected!</font><br>"
-		if (!LAZYLEN(pods))
+		if(!LAZYLEN(pods))
 			dat += "<font class='bad'>ERROR: No Pod detected</font><br>"
 
 	// Scan-n-Clone
-	if (!isnull(src.scanner))
+	if(!isnull(src.scanner))
 		var/mob/living/scanner_occupant = get_mob_or_brainmob(scanner.occupant)
 
 		dat += "<h3>Cloning</h3>"
@@ -225,7 +225,7 @@
 	if(loading)
 		return
 
-	else if ((href_list["clone"]) && !isnull(scanner) && scanner.is_operational())
+	else if((href_list["clone"]) && !isnull(scanner) && scanner.is_operational())
 		scantemp = ""
 
 		loading = TRUE
@@ -240,15 +240,15 @@
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 		//No locking an open scanner.
-	else if ((href_list["lock"]) && !isnull(scanner) && scanner.is_operational())
-		if ((!scanner.locked) && (scanner.occupant))
+	else if((href_list["lock"]) && !isnull(scanner) && scanner.is_operational())
+		if((!scanner.locked) && (scanner.occupant))
 			scanner.locked = TRUE
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		else
 			scanner.locked = FALSE
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
-	else if (href_list["refresh"])
+	else if(href_list["refresh"])
 		updateUsrDialog()
 		playsound(src, "terminal_type", 25, 0)
 

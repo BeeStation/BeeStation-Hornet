@@ -69,11 +69,11 @@
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/machinery/manned_turret/process()
-	if (!update_positioning())
+	if(!update_positioning())
 		return PROCESS_KILL
 
 /obj/machinery/manned_turret/proc/update_positioning()
-	if (!LAZYLEN(buckled_mobs))
+	if(!LAZYLEN(buckled_mobs))
 		return FALSE
 	var/mob/living/controller = buckled_mobs[1]
 	if(!istype(controller))

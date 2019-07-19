@@ -52,7 +52,7 @@
 		if(!isfloorturf(src.loc))
 			to_chat(user, "<span class='warning'>A floor must be present to build a false wall!</span>")
 			return
-		if (locate(/obj/structure/falsewall) in src.loc.contents)
+		if(locate(/obj/structure/falsewall) in src.loc.contents)
 			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
 			return
 
@@ -110,7 +110,7 @@
 					to_chat(user, "<span class='warning'>You need two sheets of iron to finish a wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if (do_after(user, 40, target = src))
+				if(do_after(user, 40, target = src))
 					if(S.get_amount() < 2)
 						return
 					S.use(2)
@@ -184,7 +184,7 @@
 					to_chat(user, "<span class='warning'>You need at least two sheets to add plating!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if (do_after(user, 40, target = src))
+				if(do_after(user, 40, target = src))
 					if(S.get_amount() < 2)
 						return
 					S.use(2)
@@ -199,7 +199,7 @@
 
 	else if(istype(W, /obj/item/pipe))
 		var/obj/item/pipe/P = W
-		if (P.pipe_type in list(0, 1, 5))	//simple pipes, simple bends, and simple manifolds.
+		if(P.pipe_type in list(0, 1, 5))	//simple pipes, simple bends, and simple manifolds.
 			if(!user.transferItemToLoc(P, drop_location()))
 				return
 			to_chat(user, "<span class='notice'>You fit the pipe into \the [src].</span>")

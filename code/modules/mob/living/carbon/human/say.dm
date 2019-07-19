@@ -82,12 +82,12 @@
 
 	switch(message_mode)
 		if(MODE_HEADSET)
-			if (ears)
+			if(ears)
 				ears.talk_into(src, message, , spans, language)
 			return ITALICS | REDUCE_RANGE
 
 		if(MODE_DEPARTMENT)
-			if (ears)
+			if(ears)
 				ears.talk_into(src, message, message_mode, spans, language)
 			return ITALICS | REDUCE_RANGE
 

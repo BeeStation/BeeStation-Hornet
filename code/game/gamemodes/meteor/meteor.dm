@@ -20,10 +20,10 @@
 	var/meteorminutes = (world.time - SSticker.round_start_time - meteordelay) / 10 / 60
 
 
-	if (prob(meteorminutes))
+	if(prob(meteorminutes))
 		wavetype = GLOB.meteors_threatening
 
-	if (prob(meteorminutes/2))
+	if(prob(meteorminutes/2))
 		wavetype = GLOB.meteors_catastrophic
 
 	var/ramp_up_final = CLAMP(round(meteorminutes/rampupdelta), 1, 10)

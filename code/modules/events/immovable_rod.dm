@@ -70,7 +70,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			special_target_valid = TRUE
 	if(special_target_valid)
 		walk_towards(src, special_target, 1)
-	else if(end && end.z==z_original)
+	else if(end && end.z == z_original)
 		walk_towards(src, destination, 1)
 
 /obj/effect/immovablerod/Topic(href, href_list)

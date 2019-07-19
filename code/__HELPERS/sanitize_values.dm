@@ -49,12 +49,12 @@
 	if(!istext(color))
 		color = ""
 
-	var/start = 1 + (text2ascii(color,1)==35)
+	var/start = 1 + (text2ascii(color,1) == 35)
 	var/len = length(color)
 	var/step_size = 1 + ((len+1)-start != desired_format)
 
 	. = ""
-	for(var/i=start, i<=len, i+=step_size)
+	for(var/i=start, i <= len, i += step_size)
 		var/ascii = text2ascii(color,i)
 		switch(ascii)
 			if(48 to 57)

@@ -128,7 +128,7 @@
 			H.visible_message("<span class='alert'>[H] extends a small proboscis into the vomit pool, sucking it with a slurping sound.</span>")
 			if(reagents)
 				for(var/datum/reagent/R in reagents.reagent_list)
-					if (istype(R, /datum/reagent/consumable))
+					if(istype(R, /datum/reagent/consumable))
 						var/datum/reagent/consumable/nutri_check = R
 						if(nutri_check.nutriment_factor >0)
 							H.adjust_nutrition(nutri_check.nutriment_factor * nutri_check.volume)

@@ -102,7 +102,7 @@
 		return FALSE
 
 	var/thing_to_check = src
-	if (AM)
+	if(AM)
 		thing_to_check = list(AM)
 	for(var/thing in thing_to_check)
 		if(isobj(thing))
@@ -120,7 +120,7 @@
 				O.armor = O.armor.setRating(fire = 50)
 			O.fire_act(10000, 1000)
 
-		else if (isliving(thing))
+		else if(isliving(thing))
 			. = 1
 			var/mob/living/L = thing
 			if(L.movement_type & FLYING)

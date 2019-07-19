@@ -125,9 +125,9 @@ Doesn't work on other aliens/AI.*/
 	if(!M)
 		return 0
 	var/amount = input("Amount:", "Transfer Plasma to [M]") as num
-	if (amount)
+	if(amount)
 		amount = min(abs(round(amount)), user.getPlasma())
-		if (get_dist(user,M) <= 1)
+		if(get_dist(user,M) <= 1)
 			M.adjustPlasma(amount)
 			user.adjustPlasma(-amount)
 			to_chat(M, "<span class='noticealien'>[user] has transferred [amount] plasma to you.</span>")
@@ -270,7 +270,7 @@ Doesn't work on other aliens/AI.*/
 	var/choice = input("Choose what you wish to shape.","Resin building") as null|anything in structures
 	if(!choice)
 		return FALSE
-	if (!cost_check(check_turf,user))
+	if(!cost_check(check_turf,user))
 		return FALSE
 	to_chat(user, "<span class='notice'>You shape a [choice].</span>")
 	user.visible_message("<span class='notice'>[user] vomits up a thick purple substance and begins to shape it.</span>")

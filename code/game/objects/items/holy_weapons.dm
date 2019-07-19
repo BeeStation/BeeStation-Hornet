@@ -201,7 +201,7 @@
 	var/list/display_names = list()
 	for(var/V in holy_weapons_list)
 		var/obj/item/nullrod/rodtype = V
-		if (initial(rodtype.chaplain_spawnable))
+		if(initial(rodtype.chaplain_spawnable))
 			display_names[initial(rodtype.name)] = rodtype
 
 	var/choice = input(M,"What theme would you like for your holy weapon?","Holy Weapon Theme") as null|anything in display_names

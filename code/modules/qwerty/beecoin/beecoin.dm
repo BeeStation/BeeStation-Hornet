@@ -68,12 +68,12 @@
 	if(!query_get_beecoin_purchases.warn_execute())
 		return
 
-	while (query_get_beecoin_purchases.NextRow())
+	while(query_get_beecoin_purchases.NextRow())
 		var/id = query_get_beecoin_purchases.item[1]
 		var/class = query_get_beecoin_purchases.item[2]
 		beecoin_items += id
-		if (class)
-			if (!(class in beecoin_items_sorted))
+		if(class)
+			if(!(class in beecoin_items_sorted))
 				beecoin_items_sorted[class] = list()
 			beecoin_items_sorted[class] += id
 
@@ -81,21 +81,21 @@
 
 /client/proc/filter_unpurchased_items(list/datum/sprite_accessory/L, class=null)
 	var/list/purchased
-	if (class)
+	if(class)
 		purchased = beecoin_items_sorted[class]
 	else
 		purchased = beecoin_items
 	var/list/filtered = list()
-	for (var/key in L)
-		if (L[key].beecoin_locked && !(key in purchased))
+	for(var/key in L)
+		if(L[key].beecoin_locked && !(key in purchased))
 			continue
 		filtered[key] = L[key]
 	return filtered
 
 /proc/filter_beecoin_sprite_accessories(list/datum/sprite_accessory/L)
 	var/list/filtered = list()
-	for (var/k in L)
-		if (L[k].beecoin_locked)
+	for(var/k in L)
+		if(L[k].beecoin_locked)
 			continue
 		filtered[k] = L[k]
 	return filtered

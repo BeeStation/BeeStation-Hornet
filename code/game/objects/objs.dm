@@ -34,7 +34,7 @@
 			setAnchored(vval)
 			return TRUE
 		if("obj_flags")
-			if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
+			if((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
 				return FALSE
 		if("control_object")
 			var/obj/O = vval
@@ -44,20 +44,20 @@
 
 /obj/Initialize()
 	. = ..()
-	if (islist(armor))
+	if(islist(armor))
 		armor = getArmor(arglist(armor))
-	else if (!armor)
+	else if(!armor)
 		armor = getArmor()
-	else if (!istype(armor, /datum/armor))
+	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 
 	if(obj_integrity == null)
 		obj_integrity = max_integrity
-	if (set_obj_flags)
+	if(set_obj_flags)
 		var/flagslist = splittext(set_obj_flags,";")
 		var/list/string_to_objflag = GLOB.bitfields["obj_flags"]
-		for (var/flag in flagslist)
-			if (findtext(flag,"!",1,2))
+		for(var/flag in flagslist)
+			if(findtext(flag,"!",1,2))
 				flag = copytext(flag,1-(length(flag))) // Get all but the initial !
 				obj_flags &= ~string_to_objflag[flag]
 			else
@@ -120,12 +120,12 @@
 		var/is_in_use = FALSE
 		var/list/nearby = viewers(1, src)
 		for(var/mob/M in nearby)
-			if ((M.client && M.machine == src))
+			if((M.client && M.machine == src))
 				is_in_use = TRUE
 				ui_interact(M)
 		if(issilicon(usr) || IsAdminGhost(usr))
-			if (!(usr in nearby))
-				if (usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
+			if(!(usr in nearby))
+				if(usr.client && usr.machine == src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = TRUE
 					ui_interact(usr)
 
@@ -134,11 +134,11 @@
 		if(ishuman(usr))
 			var/mob/living/carbon/human/H = usr
 			if(!(usr in nearby))
-				if(usr.client && usr.machine==src)
+				if(usr.client && usr.machine == src)
 					if(H.dna.check_mutation(TK))
 						is_in_use = TRUE
 						ui_interact(usr)
-		if (is_in_use)
+		if(is_in_use)
 			obj_flags |= IN_USE
 		else
 			obj_flags &= ~IN_USE
@@ -149,7 +149,7 @@
 		var/is_in_use = FALSE
 		if(update_viewers)
 			for(var/mob/M in viewers(1, src))
-				if ((M.client && M.machine == src))
+				if((M.client && M.machine == src))
 					is_in_use = TRUE
 					src.interact(M)
 		var/ai_in_use = FALSE

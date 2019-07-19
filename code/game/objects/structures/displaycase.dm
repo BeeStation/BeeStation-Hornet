@@ -22,9 +22,9 @@
 	. = ..()
 	if(start_showpieces.len && !start_showpiece_type)
 		var/list/showpiece_entry = pick(start_showpieces)
-		if (showpiece_entry && showpiece_entry["type"])
+		if(showpiece_entry && showpiece_entry["type"])
 			start_showpiece_type = showpiece_entry["type"]
-			if (showpiece_entry["trophy_message"])
+			if(showpiece_entry["trophy_message"])
 				trophy_message = showpiece_entry["trophy_message"]
 	if(start_showpiece_type)
 		showpiece = new start_showpiece_type (src)
@@ -49,7 +49,7 @@
 
 
 /obj/structure/displaycase/proc/dump()
-	if (showpiece)
+	if(showpiece)
 		showpiece.forceMove(loc)
 		showpiece = null
 
@@ -162,7 +162,7 @@
 	if(.)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
-	if (showpiece && (broken || open))
+	if(showpiece && (broken || open))
 		to_chat(user, "<span class='notice'>You deactivate the hover field built into the case.</span>")
 		log_combat(user, src, "deactivates the hover field of")
 		dump()
@@ -171,7 +171,7 @@
 		return
 	else
 	    //prevents remote "kicks" with TK
-		if (!Adjacent(user))
+		if(!Adjacent(user))
 			return
 		user.visible_message("<span class='danger'>[user] kicks the display case.</span>", null, null, COMBAT_MESSAGE_RANGE)
 		log_combat(user, src, "kicks")
@@ -320,7 +320,7 @@
 	return
 
 /obj/structure/displaycase/trophy/dump()
-	if (showpiece)
+	if(showpiece)
 		if(added_roundstart)
 			visible_message("<span class='danger'>The [showpiece] crumbles to dust!</span>")
 			new /obj/effect/decal/cleanable/ash(loc)

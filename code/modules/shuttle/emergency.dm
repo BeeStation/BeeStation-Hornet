@@ -538,11 +538,11 @@
 	new /obj/item/storage/toolbox/emergency(src)
 
 /obj/item/storage/pod/attackby(obj/item/W, mob/user, params)
-	if (can_interact(user))
+	if(can_interact(user))
 		return ..()
 
 /obj/item/storage/pod/attack_hand(mob/user)
-	if (can_interact(user))
+	if(can_interact(user))
 		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SHOW, user)
 	return TRUE
 

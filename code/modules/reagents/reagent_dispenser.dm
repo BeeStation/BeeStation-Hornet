@@ -107,7 +107,7 @@
 			log_bomber(user, "detonated a", src, "via welding tool")
 
 			
-			if (user.client)
+			if(user.client)
 				SSmedals.UnlockMedal(MEDAL_DETONATE_WELDERBOMB,user.client)
 			
 
@@ -141,9 +141,9 @@
 
 /obj/structure/reagent_dispensers/water_cooler/examine(mob/user)
 	..()
-	if (paper_cups > 1)
+	if(paper_cups > 1)
 		to_chat(user, "There are [paper_cups] paper cups left.")
-	else if (paper_cups == 1)
+	else if(paper_cups == 1)
 		to_chat(user, "There is one paper cup left.")
 	else
 		to_chat(user, "There are no paper cups left.")

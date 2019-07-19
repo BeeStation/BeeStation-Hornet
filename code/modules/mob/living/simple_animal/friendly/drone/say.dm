@@ -10,8 +10,8 @@
 
 //Base proc for anything to call
 /proc/_alert_drones(msg, dead_can_hear = 0, atom/source, mob/living/faction_checked_mob, exact_faction_match)
-	if (dead_can_hear && source)
-		for (var/mob/M in GLOB.dead_mob_list)
+	if(dead_can_hear && source)
+		for(var/mob/M in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(M, source)
 			to_chat(M, "[link] [msg]")
 	for(var/i in GLOB.drones_list)

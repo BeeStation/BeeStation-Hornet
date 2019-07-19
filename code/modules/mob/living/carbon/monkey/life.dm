@@ -6,7 +6,7 @@
 /mob/living/carbon/monkey/Life()
 	set invisibility = 0
 
-	if (notransform)
+	if(notransform)
 		return
 
 	if(..() && !IsInStasis())
@@ -135,7 +135,7 @@
 	return
 
 /mob/living/carbon/monkey/handle_random_events()
-	if (prob(1) && prob(2))
+	if(prob(1) && prob(2))
 		emote("scratch")
 
 /mob/living/carbon/monkey/has_smoke_protection()

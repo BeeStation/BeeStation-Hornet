@@ -61,11 +61,11 @@
 	precision = TRUE
 
 /obj/item/extinguisher/suicide_act(mob/living/carbon/user)
-	if (!safety && (reagents.total_volume >= 1))
+	if(!safety && (reagents.total_volume >= 1))
 		user.visible_message("<span class='suicide'>[user] puts the nozzle to [user.p_their()] mouth. It looks like [user.p_theyre()] trying to extinguish the spark of life!</span>")
 		afterattack(user,user)
 		return OXYLOSS
-	else if (safety && (reagents.total_volume >= 1))
+	else if(safety && (reagents.total_volume >= 1))
 		user.visible_message("<span class='warning'>[user] puts the nozzle to [user.p_their()] mouth... The safety's still on!</span>")
 		return SHAME
 	else
@@ -123,21 +123,21 @@
 /obj/item/extinguisher/afterattack(atom/target, mob/user , flag)
 	. = ..()
 	// Make it so the extinguisher doesn't spray yourself when you click your inventory items
-	if (target.loc == user)
+	if(target.loc == user)
 		return
 	//TODO; Add support for reagents in water.
 
 	if(refilling)
 		refilling = FALSE
 		return
-	if (!safety)
+	if(!safety)
 
 
-		if (src.reagents.total_volume < 1)
+		if(src.reagents.total_volume < 1)
 			to_chat(usr, "<span class='warning'>\The [src] is empty!</span>")
 			return
 
-		if (world.time < src.last_use + 12)
+		if(world.time < src.last_use + 12)
 			return
 
 		src.last_use = world.time

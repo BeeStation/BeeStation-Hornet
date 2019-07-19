@@ -44,7 +44,7 @@
 	if(istype(I, /obj/item/mop))
 		var/obj/item/mop/m=I
 		if(m.reagents.total_volume < m.reagents.maximum_volume)
-			if (wet_mop(m, user))
+			if(wet_mop(m, user))
 				return
 		if(!mymop)
 			m.janicart_insert(user, src)

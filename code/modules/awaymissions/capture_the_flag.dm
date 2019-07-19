@@ -339,7 +339,7 @@
 				/obj/item/twohanded/ctf
 			))
 	for(var/atm in A)
-		if (isturf(A) || ismob(A) || isarea(A))
+		if(isturf(A) || ismob(A) || isarea(A))
 			continue
 		if(isstructure(atm))
 			var/obj/structure/S = atm

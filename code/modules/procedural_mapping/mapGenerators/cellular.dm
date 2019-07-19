@@ -30,9 +30,9 @@
 
 /datum/mapGenerator/ca/proc/initialize()
 	old_state = new/list(width)
-	for(var/i = 1,i<=width,i++)
+	for(var/i = 1,i <= width,i++)
 		old_state[i] = new/list(height)
-		for(var/j = 1,j<=height,j++)
+		for(var/j = 1,j <= height,j++)
 			old_state[i][j] = rand(0,1)
 
 	current_state = old_state.Copy()
@@ -43,22 +43,22 @@
 	initialize()
 
 	for(var/generation = 0,generation<iterations,generation++)
-		for(var/i = 1,i<=width,i++)
-			for(var/j = 1,j<=height,j++)
+		for(var/i = 1,i <= width,i++)
+			for(var/j = 1,j <= height,j++)
 				current_state[i][j] = apply_rule(i,j)
 		//copy state over
 		old_state = current_state.Copy()
 
-	for(var/i=1,i<=width,i++)
-		for(var/j=1,j<=height,j++)
+	for(var/i=1,i <= width,i++)
+		for(var/j=1,j <= height,j++)
 			var/turf/T = locate(start.x+i-1,start.y+j-1,start.z)
 			if(T)
 				T.ChangeTurf(type_map[current_state[i][j]+1])
 
 /datum/mapGenerator/ca/proc/apply_rule(i,j)
 	var/value = 0
-	for(var/dx=-1,dx<=1,dx++)
-		for(var/dy=-1,dy<=1,dy++)
+	for(var/dx=-1,dx <= 1,dx++)
+		for(var/dy=-1,dy <= 1,dy++)
 			var/n_x = i+dx
 			var/n_y = j+dy
 			if(n_x < 1 || n_x > width || n_y <1 || n_y > height)

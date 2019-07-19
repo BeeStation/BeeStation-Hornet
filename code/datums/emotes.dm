@@ -25,11 +25,11 @@
 	var/only_forced_audio = FALSE //can only code call this event instead of the player.
 
 /datum/emote/New()
-	if (ispath(mob_type_allowed_typecache))
-		switch (mob_type_allowed_typecache)
-			if (/mob)
+	if(ispath(mob_type_allowed_typecache))
+		switch(mob_type_allowed_typecache)
+			if(/mob)
 				mob_type_allowed_typecache = GLOB.typecache_mob
-			if (/mob/living)
+			if(/mob/living)
 				mob_type_allowed_typecache = GLOB.typecache_living
 			else
 				mob_type_allowed_typecache = typecacheof(mob_type_allowed_typecache)

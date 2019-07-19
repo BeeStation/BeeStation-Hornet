@@ -112,7 +112,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	materials =	typelist("materials", materials)
 
-	if (attack_verb)
+	if(attack_verb)
 		attack_verb = typelist("attack_verb", attack_verb)
 
 	. = ..()
@@ -132,11 +132,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(damtype == "brute")
 			hitsound = "swing_hit"
 
-	if (!embedding)
+	if(!embedding)
 		embedding = getEmbeddingBehavior()
-	else if (islist(embedding))
+	else if(islist(embedding))
 		embedding = getEmbeddingBehavior(arglist(embedding))
-	else if (!istype(embedding, /datum/embedding_behavior))
+	else if(!istype(embedding, /datum/embedding_behavior))
 		stack_trace("Invalid type [embedding.type] found in .embedding during /obj/item Initialize()")
 
 /obj/item/Destroy()
@@ -204,7 +204,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/list/research_msg = list("<font color='purple'>Research prospects:</font> ")
 	var/sep = ""
 	var/list/boostable_nodes = techweb_item_boost_check(src)
-	if (boostable_nodes)
+	if(boostable_nodes)
 		for(var/id in boostable_nodes)
 			var/datum/techweb_node/node = SSresearch.techweb_node_by_id(id)
 			if(!node)
@@ -213,16 +213,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			research_msg += node.display_name
 			sep = ", "
 	var/list/points = techweb_item_point_check(src)
-	if (length(points))
+	if(length(points))
 		sep = ", "
 		research_msg += techweb_point_display_generic(points)
 
-	if (!sep) // nothing was shown
+	if(!sep) // nothing was shown
 		research_msg += "None"
 
 	// Extractable materials. Only shows the names, not the amounts.
 	research_msg += ".<br><font color='purple'>Extractable materials:</font> "
-	if (materials.len)
+	if(materials.len)
 		sep = ""
 		for(var/mat in materials)
 			research_msg += sep
@@ -489,7 +489,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	M.adjust_blurriness(3)
 	M.adjust_eye_damage(rand(2,4))
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
-	if (!eyes)
+	if(!eyes)
 		return
 	if(eyes.eye_damage >= 10)
 		M.adjust_blurriness(15)
@@ -505,7 +505,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			M.adjust_blurriness(10)
 			M.Unconscious(20)
 			M.Paralyze(40)
-		if (prob(eyes.eye_damage - 10 + 1))
+		if(prob(eyes.eye_damage - 10 + 1))
 			M.become_blind(EYE_DAMAGE)
 			to_chat(M, "<span class='danger'>You go blind!</span>")
 
@@ -534,7 +534,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 
 /obj/item/proc/after_throw(datum/callback/callback)
-	if (callback) //call the original callback
+	if(callback) //call the original callback
 		. = callback.Invoke()
 	item_flags &= ~IN_INVENTORY
 
@@ -625,7 +625,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return 0
 
 /obj/item/attack_animal(mob/living/simple_animal/M)
-	if (obj_flags & CAN_BE_HIT)
+	if(obj_flags & CAN_BE_HIT)
 		return ..()
 	return 0
 
@@ -776,7 +776,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return 0
 
 /obj/item/doMove(atom/destination)
-	if (ismob(loc))
+	if(ismob(loc))
 		var/mob/M = loc
 		var/hand_index = M.get_held_index_of_item(src)
 		if(hand_index)

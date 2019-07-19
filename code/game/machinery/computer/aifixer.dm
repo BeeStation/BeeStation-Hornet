@@ -23,46 +23,46 @@
 
 	var/dat = ""
 
-	if (src.occupier)
+	if(src.occupier)
 		var/laws
 		dat += "<h3>Stored AI: [src.occupier.name]</h3>"
 		dat += "<b>System integrity:</b> [(src.occupier.health+100)/2]%<br>"
 
-		if (src.occupier.laws.zeroth)
+		if(src.occupier.laws.zeroth)
 			laws += "<b>0:</b> [src.occupier.laws.zeroth]<BR>"
 
-		for (var/index = 1, index <= src.occupier.laws.hacked.len, index++)
+		for(var/index = 1, index <= src.occupier.laws.hacked.len, index++)
 			var/law = src.occupier.laws.hacked[index]
-			if (length(law) > 0)
+			if(length(law) > 0)
 				var/num = ionnum()
 				laws += "<b>[num]:</b> [law]<BR>"
 
-		for (var/index = 1, index <= src.occupier.laws.ion.len, index++)
+		for(var/index = 1, index <= src.occupier.laws.ion.len, index++)
 			var/law = src.occupier.laws.ion[index]
-			if (length(law) > 0)
+			if(length(law) > 0)
 				var/num = ionnum()
 				laws += "<b>[num]:</b> [law]<BR>"
 
 		var/number = 1
-		for (var/index = 1, index <= src.occupier.laws.inherent.len, index++)
+		for(var/index = 1, index <= src.occupier.laws.inherent.len, index++)
 			var/law = src.occupier.laws.inherent[index]
-			if (length(law) > 0)
+			if(length(law) > 0)
 				laws += "<b>[number]:</b> [law]<BR>"
 				number++
 
-		for (var/index = 1, index <= src.occupier.laws.supplied.len, index++)
+		for(var/index = 1, index <= src.occupier.laws.supplied.len, index++)
 			var/law = src.occupier.laws.supplied[index]
-			if (length(law) > 0)
+			if(length(law) > 0)
 				laws += "<b>[number]:</b> [law]<BR>"
 				number++
 
 		dat += "<b>Laws:</b><br>[laws]<br>"
 
-		if (src.occupier.stat == DEAD)
+		if(src.occupier.stat == DEAD)
 			dat += "<span class='bad'>AI non-functional</span>"
 		else
 			dat += "<span class='good'>AI functional</span>"
-		if (!src.active)
+		if(!src.active)
 			dat += {"<br><br><A href='byond://?src=[REF(src)];fix=1'>Begin Reconstruction</A>"}
 		else
 			dat += "<br><br>Reconstruction in process, please wait.<br>"
@@ -110,11 +110,11 @@
 	else
 		if(active)
 			add_overlay("ai-fixer-on")
-		if (occupier)
-			switch (occupier.stat)
-				if (0)
+		if(occupier)
+			switch(occupier.stat)
+				if(0)
 					add_overlay("ai-fixer-full")
-				if (2)
+				if(2)
 					add_overlay("ai-fixer-404")
 		else
 			add_overlay("ai-fixer-empty")
@@ -144,9 +144,9 @@
 			card.AI = occupier
 			occupier = null
 			update_icon()
-		else if (active)
+		else if(active)
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: Reconstruction in progress.")
-		else if (!occupier)
+		else if(!occupier)
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: Unable to locate artificial intelligence.")
 
 /obj/machinery/computer/aifixer/on_deconstruction()

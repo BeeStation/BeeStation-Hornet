@@ -594,13 +594,13 @@
 	if(assigned_transit?.assigned_area)
 		assigned_transit.assigned_area.parallax_movedir = FALSE
 	var/list/L0 = return_ordered_turfs(x, y, z, dir)
-	for (var/thing in L0)
+	for(var/thing in L0)
 		var/turf/T = thing
 		if(!T || !istype(T.loc, area_type))
 			continue
-		for (var/thing2 in T)
+		for(var/thing2 in T)
 			var/atom/movable/AM = thing2
-			if (length(AM.client_mobs_in_contents))
+			if(length(AM.client_mobs_in_contents))
 				AM.update_parallax_contents()
 
 /obj/docking_port/mobile/proc/check_transit_zone()
@@ -681,7 +681,7 @@
 	var/obj/docking_port/stationary/dockedAt = get_docked()
 	var/docked_at = dockedAt?.name || "unknown"
 	if(istype(dockedAt, /obj/docking_port/stationary/transit))
-		if (timeLeft() > 1 HOURS)
+		if(timeLeft() > 1 HOURS)
 			return "hyperspace"
 		else
 			var/obj/docking_port/stationary/dst

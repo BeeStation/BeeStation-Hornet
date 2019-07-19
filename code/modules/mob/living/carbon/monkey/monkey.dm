@@ -30,10 +30,10 @@
 
 	. = ..()
 
-	if (cubespawned)
+	if(cubespawned)
 		var/cap = CONFIG_GET(number/monkeycap)
-		if (LAZYLEN(SSmobs.cubemonkeys) > cap)
-			if (spawner)
+		if(LAZYLEN(SSmobs.cubemonkeys) > cap)
+			if(spawner)
 				to_chat(spawner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [cap] monkeys on the station at one time!</span>")
 			return INITIALIZE_HINT_QDEL
 		SSmobs.cubemonkeys += src
@@ -80,7 +80,7 @@
 /mob/living/carbon/monkey/adjust_bodytemperature(amount)
 	. = ..()
 	var/slow = 0
-	if (bodytemperature < 283.222)
+	if(bodytemperature < 283.222)
 		slow += ((283.222 - bodytemperature) / 10) * 1.75
 	add_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = slow)
 

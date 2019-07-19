@@ -5,9 +5,9 @@
 
 //override because we don't want to save preferences twice.
 /datum/verbs/menu/Settings/Set_checked(client/C, verbpath)
-	if (checkbox == CHECKBOX_GROUP)
+	if(checkbox == CHECKBOX_GROUP)
 		C.prefs.menuoptions[type] = verbpath
-	else if (checkbox == CHECKBOX_TOGGLE)
+	else if(checkbox == CHECKBOX_TOGGLE)
 		var/checked = Get_checked(C)
 		C.prefs.menuoptions[type] = !checked
 		winset(C, "[verbpath]", "is-checked = [!checked]")

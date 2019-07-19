@@ -103,7 +103,7 @@
 /obj/item/integrated_circuit/passive/power/chemical_cell/New()
 	..()
 	create_reagents(volume, OPENCONTAINER)
-	extended_desc +="But no fuel can be compared with blood of living human."
+	extended_desc += "But no fuel can be compared with blood of living human."
 
 
 /obj/item/integrated_circuit/passive/power/chemical_cell/interact(mob/user)

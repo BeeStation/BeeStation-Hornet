@@ -289,7 +289,7 @@ SUBSYSTEM_DEF(shuttle)
 	return 1
 
 /datum/controller/subsystem/shuttle/proc/autoEvac()
-	if (!SSticker.IsRoundInProgress())
+	if(!SSticker.IsRoundInProgress())
 		return
 
 	var/callShuttle = 1
@@ -496,47 +496,47 @@ SUBSYSTEM_DEF(shuttle)
 	return new_transit_dock
 
 /datum/controller/subsystem/shuttle/Recover()
-	if (istype(SSshuttle.mobile))
+	if(istype(SSshuttle.mobile))
 		mobile = SSshuttle.mobile
-	if (istype(SSshuttle.stationary))
+	if(istype(SSshuttle.stationary))
 		stationary = SSshuttle.stationary
-	if (istype(SSshuttle.transit))
+	if(istype(SSshuttle.transit))
 		transit = SSshuttle.transit
-	if (istype(SSshuttle.transit_requesters))
+	if(istype(SSshuttle.transit_requesters))
 		transit_requesters = SSshuttle.transit_requesters
-	if (istype(SSshuttle.transit_request_failures))
+	if(istype(SSshuttle.transit_request_failures))
 		transit_request_failures = SSshuttle.transit_request_failures
 
-	if (istype(SSshuttle.emergency))
+	if(istype(SSshuttle.emergency))
 		emergency = SSshuttle.emergency
-	if (istype(SSshuttle.arrivals))
+	if(istype(SSshuttle.arrivals))
 		arrivals = SSshuttle.arrivals
-	if (istype(SSshuttle.backup_shuttle))
+	if(istype(SSshuttle.backup_shuttle))
 		backup_shuttle = SSshuttle.backup_shuttle
 
-	if (istype(SSshuttle.emergencyLastCallLoc))
+	if(istype(SSshuttle.emergencyLastCallLoc))
 		emergencyLastCallLoc = SSshuttle.emergencyLastCallLoc
 
-	if (istype(SSshuttle.hostileEnvironments))
+	if(istype(SSshuttle.hostileEnvironments))
 		hostileEnvironments = SSshuttle.hostileEnvironments
 
-	if (istype(SSshuttle.supply))
+	if(istype(SSshuttle.supply))
 		supply = SSshuttle.supply
 
-	if (istype(SSshuttle.discoveredPlants))
+	if(istype(SSshuttle.discoveredPlants))
 		discoveredPlants = SSshuttle.discoveredPlants
 
-	if (istype(SSshuttle.shoppinglist))
+	if(istype(SSshuttle.shoppinglist))
 		shoppinglist = SSshuttle.shoppinglist
-	if (istype(SSshuttle.requestlist))
+	if(istype(SSshuttle.requestlist))
 		requestlist = SSshuttle.requestlist
-	if (istype(SSshuttle.orderhistory))
+	if(istype(SSshuttle.orderhistory))
 		orderhistory = SSshuttle.orderhistory
 
-	if (istype(SSshuttle.shuttle_loan))
+	if(istype(SSshuttle.shuttle_loan))
 		shuttle_loan = SSshuttle.shuttle_loan
 
-	if (istype(SSshuttle.shuttle_purchase_requirements_met))
+	if(istype(SSshuttle.shuttle_purchase_requirements_met))
 		shuttle_purchase_requirements_met = SSshuttle.shuttle_purchase_requirements_met
 
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)

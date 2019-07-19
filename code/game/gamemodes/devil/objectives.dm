@@ -57,7 +57,7 @@
 		var/datum/mind/L = S
 		if(!L.owns_soul() && L.damnation_type == contractType)
 			count++
-	return count>=target_amount
+	return count >= target_amount
 
 
 

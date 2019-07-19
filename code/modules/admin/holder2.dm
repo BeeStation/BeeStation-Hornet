@@ -33,7 +33,7 @@ GLOBAL_PROTECT(href_token)
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
 		log_admin("[key_name(usr)][msg]")
-		if (!target) //only del if this is a true creation (and not just a New() proc call), other wise trialmins/coders could abuse this to deadmin other admins
+		if(!target) //only del if this is a true creation (and not just a New() proc call), other wise trialmins/coders could abuse this to deadmin other admins
 			QDEL_IN(src, 0)
 			CRASH("Admin proc call creation of admin datum")
 		return
@@ -55,7 +55,7 @@ GLOBAL_PROTECT(href_token)
 	//only admins with +ADMIN start admined
 	if(protected)
 		GLOB.protected_admins[target] = src
-	if (force_active || (R.rights & R_AUTOADMIN))
+	if(force_active || (R.rights & R_AUTOADMIN))
 		activate()
 	else
 		deactivate()
@@ -77,7 +77,7 @@ GLOBAL_PROTECT(href_token)
 	GLOB.deadmins -= target
 	GLOB.admin_datums[target] = src
 	deadmined = FALSE
-	if (GLOB.directory[target])
+	if(GLOB.directory[target])
 		associate(GLOB.directory[target])	//find the client for a ckey if they are connected and associate them with us
 
 
@@ -91,7 +91,7 @@ GLOBAL_PROTECT(href_token)
 	GLOB.admin_datums -= target
 	deadmined = TRUE
 	var/client/C
-	if ((C = owner) || (C = GLOB.directory[target]))
+	if((C = owner) || (C = GLOB.directory[target]))
 		disassociate()
 		C.verbs += /client/proc/readmin
 
@@ -108,7 +108,7 @@ GLOBAL_PROTECT(href_token)
 			message_admins("[key_name_admin(C)][msg]")
 			log_admin("[key_name(C)][msg]")
 			return
-		if (deadmined)
+		if(deadmined)
 			activate()
 		owner = C
 		owner.holder = src
@@ -165,7 +165,7 @@ you will have to do something like if(client.rights & R_ADMIN) yourself.
 */
 /proc/check_rights(rights_required, show_msg=1)
 	if(usr?.client)
-		if (check_rights_for(usr.client, rights_required))
+		if(check_rights_for(usr.client, rights_required))
 			return 1
 		else
 			if(show_msg)

@@ -87,7 +87,7 @@
 	if(..())
 		return
 	if(href_list["edit_area"])
-		if(get_area_type()!=AREA_STATION)
+		if(get_area_type() != AREA_STATION)
 			return
 		if(in_use)
 			return
@@ -157,8 +157,8 @@
 		/area/hilbertshotel,
 		/area/hilbertshotelstorage
 	)
-	for (var/type in SPECIALS)
-		if ( istype(A,type) )
+	for(var/type in SPECIALS)
+		if( istype(A,type) )
 			return AREA_SPECIAL
 	return AREA_STATION
 
@@ -186,7 +186,7 @@
 	var/area/A = get_area()
 	var/prevname = "[A.name]"
 	var/str = stripped_input(usr,"New area name:", "Area Creation", "", MAX_NAME_LEN)
-	if(!str || !length(str) || str==prevname) //cancel
+	if(!str || !length(str) || str == prevname) //cancel
 		return
 	if(length(str) > 50)
 		to_chat(usr, "<span class='warning'>The given name is too long.  The area's name is unchanged.</span>")

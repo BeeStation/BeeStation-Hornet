@@ -54,7 +54,7 @@
 	. = ..()
 	if(!proximity)
 		return
-	if (istype(A, /obj/structure/reagent_dispensers))
+	if(istype(A, /obj/structure/reagent_dispensers))
 		var/obj/structure/reagent_dispensers/RD = A
 		if(RD.reagents.total_volume <= 0)
 			to_chat(user, "<span class='warning'>[RD] is empty.</span>")
@@ -175,13 +175,13 @@
 /obj/item/toy/gun/attackby(obj/item/toy/ammo/gun/A, mob/user, params)
 
 	if(istype(A, /obj/item/toy/ammo/gun))
-		if (src.bullets >= 7)
+		if(src.bullets >= 7)
 			to_chat(user, "<span class='warning'>It's already fully loaded!</span>")
 			return 1
-		if (A.amount_left <= 0)
+		if(A.amount_left <= 0)
 			to_chat(user, "<span class='warning'>There are no more caps!</span>")
 			return 1
-		if (A.amount_left < (7 - src.bullets))
+		if(A.amount_left < (7 - src.bullets))
 			src.bullets += A.amount_left
 			to_chat(user, text("<span class='notice'>You reload [] cap\s.</span>", A.amount_left))
 			A.amount_left = 0
@@ -196,13 +196,13 @@
 
 /obj/item/toy/gun/afterattack(atom/target as mob|obj|turf|area, mob/user, flag)
 	. = ..()
-	if (flag)
+	if(flag)
 		return
-	if (!user.IsAdvancedToolUser())
+	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 	src.add_fingerprint(user)
-	if (src.bullets < 1)
+	if(src.bullets < 1)
 		user.show_message("<span class='warning'>*click*</span>", 2)
 		playsound(src, 'sound/weapons/gun_dry_fire.ogg', 30, TRUE)
 		return
@@ -246,7 +246,7 @@
 
 /obj/item/toy/sword/attack_self(mob/user)
 	active = !( active )
-	if (active)
+	if(active)
 		to_chat(user, "<span class='notice'>You extend the plastic blade with a quick flick of your wrist.</span>")
 		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
 		if(hacked)
@@ -800,7 +800,7 @@
 		return
 	var/O = src
 	if(href_list["pick"])
-		if (cardUser.is_holding(src))
+		if(cardUser.is_holding(src))
 			var/choice = href_list["pick"]
 			var/obj/item/toy/cards/singlecard/C = new/obj/item/toy/cards/singlecard(cardUser.loc)
 			src.currenthand -= choice
@@ -888,7 +888,7 @@
 		return
 	if(!flipped)
 		src.flipped = 1
-		if (cardname)
+		if(cardname)
 			src.icon_state = "sc_[cardname]_[deckstyle]"
 			src.name = src.cardname
 		else
@@ -990,7 +990,7 @@
 	var/cooldown = 0
 
 /obj/item/toy/nuke/attack_self(mob/user)
-	if (cooldown < world.time)
+	if(cooldown < world.time)
 		cooldown = world.time + 1800 //3 minutes
 		user.visible_message("<span class='warning'>[user] presses a button on [src].</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='italics'>You hear the click of a button.</span>")
 		sleep(5)
@@ -1035,7 +1035,7 @@
 	var/cooldown = 0
 
 /obj/item/toy/redbutton/attack_self(mob/user)
-	if (cooldown < world.time)
+	if(cooldown < world.time)
 		cooldown = (world.time + 300) // Sets cooldown at 30 seconds
 		user.visible_message("<span class='warning'>[user] presses the big red button.</span>", "<span class='notice'>You press the button, it plays a loud noise!</span>", "<span class='italics'>The button clicks loudly.</span>")
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0)
@@ -1097,7 +1097,7 @@
 	var/cooldown = 0
 
 /obj/item/toy/clockwork_watch/attack_self(mob/user)
-	if (cooldown < world.time)
+	if(cooldown < world.time)
 		cooldown = world.time + 1800 //3 minutes
 		user.visible_message("<span class='warning'>[user] rotates a cogwheel on [src].</span>", "<span class='notice'>You rotate a cogwheel on [src], it plays a loud noise!</span>", "<span class='italics'>You hear cogwheels turning.</span>")
 		playsound(src, 'sound/magic/clockwork/ark_activation.ogg', 50, 0)
@@ -1393,7 +1393,7 @@
 
 /obj/item/toy/dummy/talk_into(atom/movable/A, message, channel, list/spans, datum/language/language)
 	var/mob/M = A
-	if (istype(M))
+	if(istype(M))
 		M.log_talk(message, LOG_SAY, tag="dummy toy")
 
 	say(message, language)

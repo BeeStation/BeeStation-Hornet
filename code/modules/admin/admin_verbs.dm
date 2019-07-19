@@ -418,7 +418,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 /client/proc/secrets()
 	set name = "Secrets"
 	set category = "Admin"
-	if (holder)
+	if(holder)
 		holder.Secrets()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Secrets Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -531,7 +531,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set desc = "Get the estimated range of a bomb, using explosive power."
 
 	var/ex_power = input("Explosive Power:") as null|num
-	if (isnull(ex_power))
+	if(isnull(ex_power))
 		return
 	var/range = round((2 * ex_power)**GLOB.DYN_EX_SCALE)
 	to_chat(usr, "Estimated Explosive Range: (Devastation: [round(range*0.25)], Heavy: [round(range*0.5)], Light: [round(range)])")
@@ -542,7 +542,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set desc = "Get the estimated required power of a bomb, to reach a specific range."
 
 	var/ex_range = input("Light Explosion Range:") as null|num
-	if (isnull(ex_range))
+	if(isnull(ex_range))
 		return
 	var/power = (0.5 * ex_range)**(1/GLOB.DYN_EX_SCALE)
 	to_chat(usr, "Estimated Explosive Power: [power]")
@@ -625,7 +625,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 /client/proc/togglebuildmodeself()
 	set name = "Toggle Build Mode Self"
 	set category = "Special Verbs"
-	if (!(holder.rank.rights & R_BUILD))
+	if(!(holder.rank.rights & R_BUILD))
 		return
 	if(src.mob)
 		togglebuildmode(src.mob)
@@ -664,7 +664,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	if(!A)
 		A = GLOB.admin_datums[ckey]
-		if (!A)
+		if(!A)
 			var/msg = " is trying to readmin but they have no deadmin entry"
 			message_admins("[key_name_admin(src)][msg]")
 			log_admin_private("[key_name(src)][msg]")
@@ -672,7 +672,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	A.associate(src)
 
-	if (!holder)
+	if(!holder)
 		return //This can happen if an admin attempts to vv themself into somebody elses's deadmin datum by getting ref via brute force
 
 	to_chat(src, "<span class='interface'>You are now an admin.</span>")
@@ -685,34 +685,34 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set category = "Debug"
 	set desc = "(\"Amount of mobs to create\") Populate the world with test mobs."
 
-	if (amount > 0)
+	if(amount > 0)
 		var/area/area
 		var/list/candidates
 		var/turf/open/floor/tile
 		var/j,k
 
-		for (var/i = 1 to amount)
+		for(var/i = 1 to amount)
 			j = 100
 
 			do
 				area = pick(GLOB.the_station_areas)
 
-				if (area)
+				if(area)
 
 					candidates = get_area_turfs(area)
 
-					if (candidates.len)
+					if(candidates.len)
 						k = 100
 
 						do
 							tile = pick(candidates)
-						while ((!tile || !istype(tile)) && --k > 0)
+						while((!tile || !istype(tile)) && --k > 0)
 
-						if (tile)
+						if(tile)
 							var/mob/living/carbon/human/hooman = new(tile)
 							hooman.equipOutfit(pick(subtypesof(/datum/outfit)))
 							testing("Spawned test mob at [COORD(tile)]")
-			while (!area && --j > 0)
+			while(!area && --j > 0)
 
 /client/proc/toggle_AI_interact()
 	set name = "Toggle Admin AI Interact"

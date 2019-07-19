@@ -1,5 +1,5 @@
 /datum/verbs/menu/Admin/Generate_list(client/C)
-	if (C.holder)
+	if(C.holder)
 		. = ..()
 
 /datum/verbs/menu/Admin/verb/playerpanel()

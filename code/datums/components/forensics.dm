@@ -101,7 +101,7 @@
 
 /datum/component/forensics/proc/add_fibers(mob/living/carbon/human/M)
 	var/fibertext
-	var/item_multiplier = isitem(src)?1.2:1
+	var/item_multiplier = isitem(src) ? 1.2 : 1
 	if(M.wear_suit)
 		fibertext = "Material from \a [M.wear_suit]."
 		if(prob(10*item_multiplier) && !LAZYACCESS(fibers, fibertext))

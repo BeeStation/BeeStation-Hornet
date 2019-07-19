@@ -30,14 +30,14 @@
 
 /obj/item/teleportation_scroll/Topic(href, href_list)
 	..()
-	if (usr.stat || usr.restrained() || src.loc != usr)
+	if(usr.stat || usr.restrained() || src.loc != usr)
 		return
-	if (!ishuman(usr))
+	if(!ishuman(usr))
 		return 1
 	var/mob/living/carbon/human/H = usr
 	if(H.is_holding(src))
 		H.set_machine(src)
-		if (href_list["spell_teleport"])
+		if(href_list["spell_teleport"])
 			if(uses)
 				teleportscroll(H)
 	if(H)

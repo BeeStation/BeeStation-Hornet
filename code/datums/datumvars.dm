@@ -17,7 +17,7 @@
 
 /datum/proc/vv_get_var(var_name)
 	switch(var_name)
-		if ("vars")
+		if("vars")
 			return debug_variable(var_name, list(), 0, src)
 	return debug_variable(var_name, vars[var_name], 0, src)
 
@@ -50,7 +50,7 @@
 		return
 
 	var/islist = islist(D)
-	if (!islist && !istype(D))
+	if(!islist && !istype(D))
 		return
 
 	var/title = ""
@@ -59,7 +59,7 @@
 	var/hash
 
 	var/type = /list
-	if (!islist)
+	if(!islist)
 		type = D.type
 
 
@@ -118,7 +118,7 @@
 		deleted_line = VV_MSG_DELETED
 
 	var/list/dropdownoptions = list()
-	if (islist)
+	if(islist)
 		dropdownoptions = list(
 			"---",
 			"Add Item" = "?_src_=vars;[HrefToken()];listadd=[refid]",
@@ -132,32 +132,32 @@
 		dropdownoptions = D.vv_get_dropdown()
 	var/list/dropdownoptions_html = list()
 
-	for (var/name in dropdownoptions)
+	for(var/name in dropdownoptions)
 		var/link = dropdownoptions[name]
-		if (link)
+		if(link)
 			dropdownoptions_html += "<option value='[link]'>[name]</option>"
 		else
 			dropdownoptions_html += "<option value>[name]</option>"
 
 	var/list/names = list()
-	if (!islist)
-		for (var/V in D.vars)
+	if(!islist)
+		for(var/V in D.vars)
 			names += V
 	sleep(1)//For some reason, without this sleep, VVing will cause client to disconnect on certain objects.
 
 	var/list/variable_html = list()
-	if (islist)
+	if(islist)
 		var/list/L = D
-		for (var/i in 1 to L.len)
+		for(var/i in 1 to L.len)
 			var/key = L[i]
 			var/value
-			if (IS_NORMAL_LIST(L) && !isnum(key))
+			if(IS_NORMAL_LIST(L) && !isnum(key))
 				value = L[key]
 			variable_html += debug_variable(i, value, 0, D)
 	else
 
 		names = sortList(names)
-		for (var/V in names)
+		for(var/V in names)
 			if(D.can_vv_get(V))
 				variable_html += D.vv_get_var(V)
 
@@ -184,7 +184,7 @@
 				filter_text.focus();
 				filter_text.select();
 				var lastsearch = getCookie("[refid][cookieoffset]search");
-				if (lastsearch) {
+				if(lastsearch) {
 					filter_text.value = lastsearch;
 					updateSearch();
 				}
@@ -194,8 +194,8 @@
 				var ca = document.cookie.split(';');
 				for(var i=0; i<ca.length; i++) {
 					var c = ca\[i];
-					while (c.charAt(0)==' ') c = c.substring(1,c.length);
-					if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+					while(c.charAt(0)==' ') c = c.substring(1,c.length);
+					if(c.indexOf(name) == 0) return c.substring(name.length,c.length);
 				}
 				return "";
 			}
@@ -206,30 +206,30 @@
 				var filter = document.getElementById('filter').value.toLowerCase();
 				var vars_ol = document.getElementById("vars");
 
-				if (filter === last_filter) {
+				if(filter === last_filter) {
 					// An event triggered an update but nothing has changed.
 					return;
-				} else if (filter.indexOf(last_filter) === 0) {
+				} else if(filter.indexOf(last_filter) === 0) {
 					// The new filter starts with the old filter, fast path by removing only.
 					var children = vars_ol.childNodes;
-					for (var i = children.length - 1; i >= 0; --i) {
+					for(var i = children.length - 1; i >= 0; --i) {
 						try {
 							var li = children\[i];
-							if (li.innerText.toLowerCase().indexOf(filter) == -1) {
+							if(li.innerText.toLowerCase().indexOf(filter) == -1) {
 								vars_ol.removeChild(li);
 							}
 						} catch(err) {}
 					}
 				} else {
 					// Remove everything and put back what matches.
-					while (vars_ol.hasChildNodes()) {
+					while(vars_ol.hasChildNodes()) {
 						vars_ol.removeChild(vars_ol.lastChild);
 					}
 
-					for (var i = 0; i < complete_list.length; ++i) {
+					for(var i = 0; i < complete_list.length; ++i) {
 						try {
 							var li = complete_list\[i];
-							if (!filter || li.innerText.toLowerCase().indexOf(filter) != -1) {
+							if(!filter || li.innerText.toLowerCase().indexOf(filter) != -1) {
 								vars_ol.appendChild(li);
 							}
 						} catch(err) {}
@@ -240,7 +240,7 @@
 				document.cookie="[refid][cookieoffset]search="+encodeURIComponent(filter);
 
 				var lis_new = vars_ol.getElementsByTagName("li");
-				for (var j = 0; j < lis_new.length; ++j) {
+				for(var j = 0; j < lis_new.length; ++j) {
 					lis_new\[j].style.backgroundColor = (j == 0) ? "#ffee88" : "white";
 				}
 			}
@@ -257,13 +257,13 @@
 
 			// onkeyup
 			function handle_keyup() {
-				if (event.keyCode == 13) {  //Enter / return
+				if(event.keyCode == 13) {  //Enter / return
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for (var i = 0; i < lis.length; ++i) {
+					for(var i = 0; i < lis.length; ++i) {
 						try {
 							var li = lis\[i];
-							if (li.style.backgroundColor == "#ffee88") {
+							if(li.style.backgroundColor == "#ffee88") {
 								alist = lis\[i].getElementsByTagName("a");
 								if(alist.length > 0) {
 									location.href=alist\[0].href;
@@ -274,11 +274,11 @@
 				} else if(event.keyCode == 38){  //Up arrow
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for (var i = 0; i < lis.length; ++i) {
+					for(var i = 0; i < lis.length; ++i) {
 						try {
 							var li = lis\[i];
-							if (li.style.backgroundColor == "#ffee88") {
-								if (i > 0) {
+							if(li.style.backgroundColor == "#ffee88") {
+								if(i > 0) {
 									var li_new = lis\[i-1];
 									li.style.backgroundColor = "white";
 									li_new.style.backgroundColor = "#ffee88";
@@ -290,11 +290,11 @@
 				} else if(event.keyCode == 40) {  //Down arrow
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for (var i = 0; i < lis.length; ++i) {
+					for(var i = 0; i < lis.length; ++i) {
 						try {
 							var li = lis\[i];
-							if (li.style.backgroundColor == "#ffee88") {
-								if ((i+1) < lis.length) {
+							if(li.style.backgroundColor == "#ffee88") {
+								if((i+1) < lis.length) {
 									var li_new = lis\[i+1];
 									li.style.backgroundColor = "white";
 									li_new.style.backgroundColor = "#ffee88";
@@ -311,7 +311,7 @@
 			// onchange
 			function handle_dropdown(list) {
 				var value = list.options\[list.selectedIndex].value;
-				if (value !== "") {
+				if(value !== "") {
 					location.href = value;
 				}
 				list.selectedIndex = 0;
@@ -404,9 +404,9 @@
 /proc/debug_variable(name, value, level, datum/DA = null, sanitize = TRUE)
 	var/header
 	if(DA)
-		if (islist(DA))
+		if(islist(DA))
 			var/index = name
-			if (value)
+			if(value)
 				name = DA[name] //name is really the index until this line
 			else
 				value = DA[name]
@@ -417,13 +417,13 @@
 		header = "<li>"
 
 	var/item
-	if (isnull(value))
+	if(isnull(value))
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>null</span>"
 
-	else if (istext(value))
+	else if(istext(value))
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
 
-	else if (isicon(value))
+	else if(isicon(value))
 		#ifdef VARSICON
 		var/icon/I = new/icon(value)
 		var/rnd = rand(1,10000)
@@ -434,27 +434,27 @@
 		item = "[VV_HTML_ENCODE(name)] = /icon (<span class='value'>[value]</span>)"
 		#endif
 
-	else if (isfile(value))
+	else if(isfile(value))
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>'[value]'</span>"
 
-	else if (istype(value, /datum))
+	else if(istype(value, /datum))
 		var/datum/D = value
-		if ("[D]" != "[D.type]") //if the thing as a name var, lets use it.
+		if("[D]" != "[D.type]") //if the thing as a name var, lets use it.
 			item = "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[VV_HTML_ENCODE(name)] [REF(value)]</a> = [D] [D.type]"
 		else
 			item = "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[VV_HTML_ENCODE(name)] [REF(value)]</a> = [D.type]"
 
-	else if (islist(value))
+	else if(islist(value))
 		var/list/L = value
 		var/list/items = list()
 
-		if (L.len > 0 && !(name == "underlays" || name == "overlays" || L.len > (IS_NORMAL_LIST(L) ? 50 : 150)))
-			for (var/i in 1 to L.len)
+		if(L.len > 0 && !(name == "underlays" || name == "overlays" || L.len > (IS_NORMAL_LIST(L) ? 50 : 150)))
+			for(var/i in 1 to L.len)
 				var/key = L[i]
 				var/val
-				if (IS_NORMAL_LIST(L) && !isnum(key))
+				if(IS_NORMAL_LIST(L) && !isnum(key))
 					val = L[key]
-				if (isnull(val))	// we still want to display non-null false values, such as 0 or ""
+				if(isnull(val))	// we still want to display non-null false values, such as 0 or ""
 					val = key
 					key = i
 
@@ -464,10 +464,10 @@
 		else
 			item = "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a>"
 
-	else if (name in GLOB.bitfields)
+	else if(name in GLOB.bitfields)
 		var/list/flags = list()
-		for (var/i in GLOB.bitfields[name])
-			if (value & GLOB.bitfields[name][i])
+		for(var/i in GLOB.bitfields[name])
+			if(value & GLOB.bitfields[name][i])
 				flags += i
 			item = "[VV_HTML_ENCODE(name)] = [VV_HTML_ENCODE(jointext(flags, ", "))]"
 	else
@@ -542,7 +542,7 @@
 		if(!istype(D))
 			to_chat(usr, "Unable to locate item!")
 		admin_delete(D)
-		if (isturf(D))  // show the turf that took its place
+		if(isturf(D))  // show the turf that took its place
 			debug_variables(D)
 
 	else if(href_list["osay"])
@@ -563,16 +563,16 @@
 		if(!check_rights(R_ADMIN, FALSE))
 			return
 		var/thing = locate(href_list["expose"])
-		if (!thing)
+		if(!thing)
 			return
 		var/value = vv_get_value(VV_CLIENT)
-		if (value["class"] != VV_CLIENT)
+		if(value["class"] != VV_CLIENT)
 			return
 		var/client/C = value["value"]
-		if (!C)
+		if(!C)
 			return
 		var/prompt = alert("Do you want to grant [C] access to view this VV window? (they will not be able to edit or change anything nor open nested vv windows unless they themselves are an admin)", "Confirm", "Yes", "No")
-		if (prompt != "Yes" || !usr.client)
+		if(prompt != "Yes" || !usr.client)
 			return
 		message_admins("[key_name_admin(usr)] Showed [key_name_admin(C)] a <a href='?_src_=vars;[HrefToken(TRUE)];datumrefresh=[REF(thing)]'>VV window</a>")
 		log_admin("Admin [key_name(usr)] Showed [key_name(C)] a VV window of a [thing]")
@@ -614,7 +614,7 @@
 				to_chat(usr, "This can only be used on datums")
 				return
 
-			if (!modify_variables(D, href_list["varnameedit"], 1))
+			if(!modify_variables(D, href_list["varnameedit"], 1))
 				return
 			switch(href_list["varnameedit"])
 				if("name")
@@ -656,11 +656,11 @@
 
 		else if(href_list["listedit"] && href_list["index"])
 			var/index = text2num(href_list["index"])
-			if (!index)
+			if(!index)
 				return
 
 			var/list/L = locate(href_list["listedit"])
-			if (!istype(L))
+			if(!istype(L))
 				to_chat(usr, "This can only be used on instances of type /list")
 				return
 
@@ -668,11 +668,11 @@
 
 		else if(href_list["listchange"] && href_list["index"])
 			var/index = text2num(href_list["index"])
-			if (!index)
+			if(!index)
 				return
 
 			var/list/L = locate(href_list["listchange"])
-			if (!istype(L))
+			if(!istype(L))
 				to_chat(usr, "This can only be used on instances of type /list")
 				return
 
@@ -680,17 +680,17 @@
 
 		else if(href_list["listremove"] && href_list["index"])
 			var/index = text2num(href_list["index"])
-			if (!index)
+			if(!index)
 				return
 
 			var/list/L = locate(href_list["listremove"])
-			if (!istype(L))
+			if(!istype(L))
 				to_chat(usr, "This can only be used on instances of type /list")
 				return
 
 			var/variable = L[index]
 			var/prompt = alert("Do you want to remove item number [index] from list?", "Confirm", "Yes", "No")
-			if (prompt != "Yes")
+			if(prompt != "Yes")
 				return
 			L.Cut(index, index+1)
 			log_world("### ListVarEdit by [src]: /list's contents: REMOVED=[html_encode("[variable]")]")
@@ -699,7 +699,7 @@
 
 		else if(href_list["listadd"])
 			var/list/L = locate(href_list["listadd"])
-			if (!istype(L))
+			if(!istype(L))
 				to_chat(usr, "This can only be used on instances of type /list")
 				return
 
@@ -707,7 +707,7 @@
 
 		else if(href_list["listdupes"])
 			var/list/L = locate(href_list["listdupes"])
-			if (!istype(L))
+			if(!istype(L))
 				to_chat(usr, "This can only be used on instances of type /list")
 				return
 
@@ -718,7 +718,7 @@
 
 		else if(href_list["listnulls"])
 			var/list/L = locate(href_list["listnulls"])
-			if (!istype(L))
+			if(!istype(L))
 				to_chat(usr, "This can only be used on instances of type /list")
 				return
 
@@ -729,11 +729,11 @@
 
 		else if(href_list["listlen"])
 			var/list/L = locate(href_list["listlen"])
-			if (!istype(L))
+			if(!istype(L))
 				to_chat(usr, "This can only be used on instances of type /list")
 				return
 			var/value = vv_get_value(VV_NUM)
-			if (value["class"] != VV_NUM)
+			if(value["class"] != VV_NUM)
 				return
 
 			L.len = value["value"]
@@ -743,7 +743,7 @@
 
 		else if(href_list["listshuffle"])
 			var/list/L = locate(href_list["listshuffle"])
-			if (!istype(L))
+			if(!istype(L))
 				to_chat(usr, "This can only be used on instances of type /list")
 				return
 
@@ -841,7 +841,7 @@
 				return
 			offer_control(M)
 
-		else if (href_list["modarmor"])
+		else if(href_list["modarmor"])
 			if(!check_rights(NONE))
 				return
 
@@ -853,13 +853,13 @@
 			var/list/pickerlist = list()
 			var/list/armorlist = O.armor.getList()
 
-			for (var/i in armorlist)
+			for(var/i in armorlist)
 				pickerlist += list(list("value" = armorlist[i], "name" = i))
 
 			var/list/result = presentpicker(usr, "Modify armor", "Modify armor: [O]", Button1="Save", Button2 = "Cancel", Timeout=FALSE, inputtype = "text", values = pickerlist)
 
-			if (islist(result))
-				if (result["button"] == 2) // If the user pressed the cancel button
+			if(islist(result))
+				if(result["button"] == 2) // If the user pressed the cancel button
 					return
 				// text2num conveniently returns a null on invalid values
 				O.armor = O.armor.setRating(melee = text2num(result["values"]["melee"]),\

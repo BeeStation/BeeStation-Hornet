@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(machines)
 
 
 /datum/controller/subsystem/machines/fire(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		for(var/datum/powernet/Powernet in powernets)
 			Powernet.reset() //reset the power state.
 		src.currentrun = processing.Copy()
@@ -44,9 +44,9 @@ SUBSYSTEM_DEF(machines)
 				thing.auto_use_power() //add back the power state
 		else
 			processing -= thing
-			if (!QDELETED(thing))
+			if(!QDELETED(thing))
 				thing.datum_flags &= ~DF_ISPROCESSING
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
 
 /datum/controller/subsystem/machines/proc/setup_template_powernets(list/cables)
@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(machines)
 			propagate_network(PC,PC.powernet)
 
 /datum/controller/subsystem/machines/Recover()
-	if (istype(SSmachines.processing))
+	if(istype(SSmachines.processing))
 		processing = SSmachines.processing
-	if (istype(SSmachines.powernets))
+	if(istype(SSmachines.powernets))
 		powernets = SSmachines.powernets

@@ -108,7 +108,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 
 /mob/living/simple_animal/hostile/mimic/copy/Initialize(mapload, obj/copy, mob/living/creator, destroy_original = 0, no_googlies = FALSE)
 	. = ..()
-	if (no_googlies)
+	if(no_googlies)
 		overlay_googly_eyes = FALSE
 	CopyObject(copy, creator, destroy_original)
 
@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		icon_state = O.icon_state
 		icon_living = icon_state
 		copy_overlays(O)
-		if (overlay_googly_eyes)
+		if(overlay_googly_eyes)
 			add_overlay(googly_eyes)
 		if(isstructure(O) || ismachinery(O))
 			health = (anchored * 50) + 50

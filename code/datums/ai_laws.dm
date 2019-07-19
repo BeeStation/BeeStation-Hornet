@@ -302,7 +302,7 @@
 		zeroth_borg = law_borg
 
 /datum/ai_laws/proc/add_inherent_law(law)
-	if (!(law in inherent))
+	if(!(law in inherent))
 		inherent += law
 
 /datum/ai_laws/proc/add_ion_law(law)
@@ -316,7 +316,7 @@
 	inherent = list()
 
 /datum/ai_laws/proc/add_supplied_law(number, law)
-	while (supplied.len < number + 1)
+	while(supplied.len < number + 1)
 		supplied += ""
 
 	supplied[number + 1] = law
@@ -425,7 +425,7 @@
 		return
 	if(owner?.mind?.special_role)
 		return
-	if (istype(owner, /mob/living/silicon/ai))
+	if(istype(owner, /mob/living/silicon/ai))
 		var/mob/living/silicon/ai/A=owner
 		if(A?.deployed_shell?.mind?.special_role)
 			return
@@ -443,31 +443,31 @@
 /datum/ai_laws/proc/get_law_list(include_zeroth = 0, show_numbers = 1)
 	var/list/data = list()
 
-	if (include_zeroth && devillaws && devillaws.len)
+	if(include_zeroth && devillaws && devillaws.len)
 		for(var/i in devillaws)
 			data += "[show_numbers ? "666:" : ""] <font color='#cc5500'>[i]</font>"
 
-	if (include_zeroth && zeroth)
+	if(include_zeroth && zeroth)
 		data += "[show_numbers ? "0:" : ""] <font color='#ff0000'><b>[zeroth]</b></font>"
 
 	for(var/law in hacked)
-		if (length(law) > 0)
+		if(length(law) > 0)
 			var/num = ionnum()
 			data += "[show_numbers ? "[num]:" : ""] <font color='#660000'>[law]</font>"
 
 	for(var/law in ion)
-		if (length(law) > 0)
+		if(length(law) > 0)
 			var/num = ionnum()
 			data += "[show_numbers ? "[num]:" : ""] <font color='#547DFE'>[law]</font>"
 
 	var/number = 1
 	for(var/law in inherent)
-		if (length(law) > 0)
+		if(length(law) > 0)
 			data += "[show_numbers ? "[number]:" : ""] [law]"
 			number++
 
 	for(var/law in supplied)
-		if (length(law) > 0)
+		if(length(law) > 0)
 			data += "[show_numbers ? "[number]:" : ""] <font color='#990099'>[law]</font>"
 			number++
 	return data

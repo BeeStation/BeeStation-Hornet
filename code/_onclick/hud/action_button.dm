@@ -12,21 +12,21 @@
 	var/ordered = TRUE //If the button gets placed into the default bar
 
 /obj/screen/movable/action_button/proc/can_use(mob/user)
-	if (linked_action)
+	if(linked_action)
 		return linked_action.owner == user
-	else if (isobserver(user))
+	else if(isobserver(user))
 		var/mob/dead/observer/O = user
 		return !O.observetarget
 	else
 		return TRUE
 
 /obj/screen/movable/action_button/MouseDrop()
-	if (!can_use(usr))
+	if(!can_use(usr))
 		return
 	return ..()
 
 /obj/screen/movable/action_button/Click(location,control,params)
-	if (!can_use(usr))
+	if(!can_use(usr))
 		return
 
 	var/list/modifiers = params2list(params)
@@ -61,7 +61,7 @@
 	var/show_state = "show"
 
 /obj/screen/movable/action_button/hide_toggle/Click(location,control,params)
-	if (!can_use(usr))
+	if(!can_use(usr))
 		return
 
 	var/list/modifiers = params2list(params)
@@ -198,7 +198,7 @@
 
 /datum/hud/proc/ButtonNumberToScreenCoords(number) // TODO : Make this zero-indexed for readabilty
 	var/row = round((number - 1)/AB_MAX_COLUMNS)
-	var/col = ((number - 1)%(AB_MAX_COLUMNS)) + 1
+	var/col = ((number - 1) % (AB_MAX_COLUMNS)) + 1
 
 	var/coord_col = "+[col-1]"
 	var/coord_col_offset = 4 + 2 * col
@@ -209,7 +209,7 @@
 
 /datum/hud/proc/SetButtonCoords(obj/screen/button,number)
 	var/row = round((number-1)/AB_MAX_COLUMNS)
-	var/col = ((number - 1)%(AB_MAX_COLUMNS)) + 1
+	var/col = ((number - 1) % (AB_MAX_COLUMNS)) + 1
 	var/x_offset = 32*(col-1) + 4 + 2*col
 	var/y_offset = -32*(row+1) + 26
 

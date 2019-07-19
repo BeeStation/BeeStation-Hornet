@@ -65,7 +65,7 @@
 /obj/machinery/door/window/Bumped(atom/movable/AM)
 	if( operating || !density )
 		return
-	if (!( ismob(AM) ))
+	if(!( ismob(AM) ))
 		if(ismecha(AM))
 			var/obj/mecha/mecha = AM
 			if(mecha.occupant && allowed(mecha.occupant))
@@ -73,7 +73,7 @@
 			else
 				do_animate("deny")
 		return
-	if (!( SSticker ))
+	if(!( SSticker ))
 		return
 	var/mob/M = AM
 	if(M.restrained() || ((isdrone(M) || iscyborg(M)) && M.stat))
@@ -130,7 +130,7 @@
 		return 1
 
 /obj/machinery/door/window/open(forced=FALSE)
-	if (operating) //doors can still open when emag-disabled
+	if(operating) //doors can still open when emag-disabled
 		return 0
 	if(!forced)
 		if(!hasPower())
@@ -154,7 +154,7 @@
 	return 1
 
 /obj/machinery/door/window/close(forced=FALSE)
-	if (operating)
+	if(operating)
 		return 0
 	if(!forced)
 		if(!hasPower())

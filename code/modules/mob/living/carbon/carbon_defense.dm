@@ -180,7 +180,7 @@
 				Paralyze(power*20)
 				if(stuttering < power)
 					stuttering = power
-				if (prob(stunprob) && M.powerlevel >= 8)
+				if(prob(stunprob) && M.powerlevel >= 8)
 					adjustFireLoss(M.powerlevel * rand(6,10))
 					updatehealth()
 		return 1
@@ -209,7 +209,7 @@
 
 
 /mob/living/carbon/blob_act(obj/structure/blob/B)
-	if (stat == DEAD)
+	if(stat == DEAD)
 		return
 	else
 		show_message("<span class='userdanger'>The blob attacks!</span>")
@@ -281,9 +281,9 @@
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/hug)
 		if(HAS_TRAIT(M, TRAIT_FRIENDLY))
 			GET_COMPONENT_FROM(mood, /datum/component/mood, M)
-			if (mood.sanity >= SANITY_GREAT)
+			if(mood.sanity >= SANITY_GREAT)
 				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/besthug, M)
-			else if (mood.sanity >= SANITY_DISTURBED)
+			else if(mood.sanity >= SANITY_DISTURBED)
 				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/betterhug, M)
 		for(var/datum/brain_trauma/trauma in M.get_traumas())
 			trauma.on_hug(M, src)
@@ -312,12 +312,12 @@
 		if(visual)
 			return
 
-		if (damage == 1)
+		if(damage == 1)
 			to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
 			if(prob(40))
 				adjust_eye_damage(1)
 
-		else if (damage == 2)
+		else if(damage == 2)
 			to_chat(src, "<span class='warning'>Your eyes burn.</span>")
 			adjust_eye_damage(rand(2, 4))
 

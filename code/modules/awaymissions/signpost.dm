@@ -43,7 +43,7 @@
 	return interact(user)
 
 /obj/structure/signpost/attack_robot(mob/user)
-	if (Adjacent(user))
+	if(Adjacent(user))
 		return interact(user)
 
 /obj/structure/signpost/attack_slime(mob/user)

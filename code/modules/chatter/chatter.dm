@@ -18,18 +18,18 @@
 
 	spawn(0)
 		for(var/item in letter_count)
-			if (item in punctuation)
+			if(item in punctuation)
 				// simulate pausing in talking
 				// ignore semi-colons because of their use in HTML escaping
-				if (item in list(",", ":"))
+				if(item in list(",", ":"))
 					sleep(3)
-				if (item in list("!", "?", "."))
+				if(item in list("!", "?", "."))
 					sleep(6)
 				continue
 
 			if(isnum(item))
 				var/length = min(item, 10)
-				if (length == 0)
+				if(length == 0)
 					// "verbalise" long spaces
 					sleep(1)
 				chatter_speak_word(A.loc, phomeme, length)

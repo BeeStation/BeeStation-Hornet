@@ -54,7 +54,7 @@
 			src.destinationTag = T.sortTag
 		else if(istype(AM, /mob/living/silicon/robot))
 			var/obj/item/destTagger/borg/tagger = locate() in AM
-			if (tagger)
+			if(tagger)
 				src.destinationTag = tagger.currTag
 
 

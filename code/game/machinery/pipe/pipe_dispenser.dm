@@ -43,7 +43,7 @@
 	if(href_list["makepipe"])
 		if(wait < world.time)
 			var/p_type = text2path(href_list["makepipe"])
-			if (!verify_recipe(GLOB.atmos_pipe_recipes, p_type))
+			if(!verify_recipe(GLOB.atmos_pipe_recipes, p_type))
 				return
 			var/p_dir = text2num(href_list["dir"])
 			var/obj/item/pipe/P = new (loc, p_type, p_dir)
@@ -62,7 +62,7 @@
 
 /obj/machinery/pipedispenser/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
-	if (istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter))
+	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter))
 		to_chat(usr, "<span class='notice'>You put [W] back into [src].</span>")
 		qdel(W)
 		return
@@ -74,7 +74,7 @@
 		var/list/cat_recipes = recipes[category]
 		for(var/i in cat_recipes)
 			var/datum/pipe_info/info = i
-			if (path == info.id)
+			if(path == info.id)
 				return TRUE
 	return FALSE
 
@@ -98,13 +98,13 @@
 	if(!usr.incapacitated())
 		return
 
-	if (!istype(pipe, /obj/structure/disposalconstruct) && !istype(pipe, /obj/structure/c_transit_tube) && !istype(pipe, /obj/structure/c_transit_tube_pod))
+	if(!istype(pipe, /obj/structure/disposalconstruct) && !istype(pipe, /obj/structure/c_transit_tube) && !istype(pipe, /obj/structure/c_transit_tube_pod))
 		return
 
-	if (get_dist(usr, src) > 1 || get_dist(src,pipe) > 1 )
+	if(get_dist(usr, src) > 1 || get_dist(src,pipe) > 1 )
 		return
 
-	if (pipe.anchored)
+	if(pipe.anchored)
 		return
 
 	qdel(pipe)
@@ -136,7 +136,7 @@
 	if(href_list["dmake"])
 		if(wait < world.time)
 			var/p_type = text2path(href_list["dmake"])
-			if (!verify_recipe(GLOB.disposal_pipe_recipes, p_type))
+			if(!verify_recipe(GLOB.disposal_pipe_recipes, p_type))
 				return
 			var/obj/structure/disposalconstruct/C = new (loc, p_type)
 

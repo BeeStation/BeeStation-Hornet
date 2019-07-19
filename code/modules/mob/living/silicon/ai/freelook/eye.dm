@@ -75,7 +75,7 @@
 		T = get_turf(T)
 		if(!force_update && (T == get_turf(src)) )
 			return //we are already here!
-		if (T)
+		if(T)
 			forceMove(T)
 		else
 			moveToNullspace()
@@ -122,7 +122,7 @@
 		var/mob/living/silicon/ai/AI = usr
 		if(AI.eyeobj && (AI.multicam_on || (AI.client.eye == AI.eyeobj)) && (AI.eyeobj.z == z))
 			AI.cameraFollow = null
-			if (isturf(loc) || isturf(src))
+			if(isturf(loc) || isturf(src))
 				AI.eyeobj.setLoc(src)
 
 // This will move the AIEye. It will also cause lights near the eye to light up, if toggled.

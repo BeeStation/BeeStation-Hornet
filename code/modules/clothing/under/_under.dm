@@ -151,7 +151,7 @@
 			to_chat(user, "Alt-click on [src] to wear it normally.")
 		else
 			to_chat(user, "Alt-click on [src] to wear it casually.")
-	if (has_sensor == BROKEN_SENSORS)
+	if(has_sensor == BROKEN_SENSORS)
 		to_chat(user, "Its sensors appear to be shorted out.")
 	else if(has_sensor > NO_SENSORS)
 		switch(sensor_mode)

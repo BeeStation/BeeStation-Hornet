@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(fire_burning)
 
 
 /datum/controller/subsystem/fire_burning/fire(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = processing.Copy()
 
 	//cache for sanic speed (lists are references anyways)
@@ -21,9 +21,9 @@ SUBSYSTEM_DEF(fire_burning)
 	while(currentrun.len)
 		var/obj/O = currentrun[currentrun.len]
 		currentrun.len--
-		if (!O || QDELETED(O))
+		if(!O || QDELETED(O))
 			processing -= O
-			if (MC_TICK_CHECK)
+			if(MC_TICK_CHECK)
 				return
 			continue
 
@@ -34,6 +34,6 @@ SUBSYSTEM_DEF(fire_burning)
 			else
 				O.extinguish()
 
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
 

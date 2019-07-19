@@ -126,7 +126,7 @@
 					return
 				else
 					to_chat(user, "<span class='notice'>You begin deconstructing [src]...</span>")
-					if (W.use_tool(src, user, 30, volume=50))
+					if(W.use_tool(src, user, 30, volume=50))
 						new /obj/item/stack/sheet/iron(drop_location(), sheets_refunded)
 						user.visible_message("[user.name] deconstructs [src].", \
 							"<span class='notice'>You deconstruct [src].</span>", "<span class='italics'>You hear a ratchet.</span>")
@@ -347,9 +347,9 @@
 		var/PO = bulb_power
 		var/CO = bulb_colour
 		var/area/A = get_area(src)
-		if (A?.fire)
+		if(A?.fire)
 			CO = bulb_emergency_colour
-		else if (nightshift_enabled)
+		else if(nightshift_enabled)
 			BR = nightshift_brightness
 			PO = nightshift_light_power
 			CO = nightshift_light_color
@@ -359,7 +359,7 @@
 			if(rigged)
 				if(status == LIGHT_OK && trigger)
 					explode()
-			else if( prob( min(60, (switchcount^2)*0.01) ) )
+			else if( prob( min(60, (switchcount ^ 2)*0.01) ) )
 				if(trigger)
 					burn_out()
 			else
@@ -397,10 +397,10 @@
 		addtimer(CALLBACK(src, .proc/broken_sparks), delay, TIMER_UNIQUE | TIMER_NO_HASH_WAIT)
 
 /obj/machinery/light/process()
-	if (!cell)
+	if(!cell)
 		return PROCESS_KILL
 	if(has_power())
-		if (cell.charge == cell.maxcharge)
+		if(cell.charge == cell.maxcharge)
 			return PROCESS_KILL
 		cell.charge = min(cell.maxcharge, cell.charge + LIGHT_EMERGENCY_POWER_USE) //Recharge emergency power automatically while not using it
 	if(emergency_mode && !use_emergency_power(LIGHT_EMERGENCY_POWER_USE))
@@ -490,7 +490,7 @@
 			to_chat(user, "<span class='userdanger'>You stick \the [W] into the light socket!</span>")
 			if(has_power() && (W.flags_1 & CONDUCT_1))
 				do_sparks(3, TRUE, src)
-				if (prob(75))
+				if(prob(75))
 					electrocute_mob(user, get_area(src), src, rand(0.7,1.0), TRUE)
 	else
 		return ..()
@@ -764,7 +764,7 @@
 	var/brightness = 2 //how much light it gives off
 
 /obj/item/light/suicide_act(mob/living/carbon/user)
-	if (status == LIGHT_BROKEN)
+	if(status == LIGHT_BROKEN)
 		user.visible_message("<span class='suicide'>[user] begins to stab [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		return BRUTELOSS
 	else

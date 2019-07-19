@@ -24,7 +24,7 @@
 /obj/machinery/mineral/processing_unit_console/Initialize()
 	. = ..()
 	machine = locate(/obj/machinery/mineral/processing_unit, get_step(src, machinedir))
-	if (machine)
+	if(machine)
 		machine.CONSOLE = src
 	else
 		return INITIALIZE_HINT_QDEL
@@ -111,7 +111,7 @@
 	for(var/mat_id in materials.materials)
 		var/datum/material/M = materials.materials[mat_id]
 		dat += "<span class=\"res_name\">[M.name]: </span>[M.amount] cm&sup3;"
-		if (selected_material == mat_id)
+		if(selected_material == mat_id)
 			dat += " <i>Smelting</i>"
 		else
 			dat += " <A href='?src=[REF(CONSOLE)];material=[mat_id]'><b>Not Smelting</b></A> "
@@ -123,7 +123,7 @@
 	for(var/v in stored_research.researched_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(v)
 		dat += "<span class=\"res_name\">[D.name] "
-		if (selected_alloy == D.id)
+		if(selected_alloy == D.id)
 			dat += " <i>Smelting</i>"
 		else
 			dat += " <A href='?src=[REF(CONSOLE)];alloy=[D.id]'><b>Not Smelting</b></A> "
@@ -132,7 +132,7 @@
 	dat += "<br><br>"
 	//On or off
 	dat += "Machine is currently "
-	if (on)
+	if(on)
 		dat += "<A href='?src=[REF(CONSOLE)];set_on=off'>On</A> "
 	else
 		dat += "<A href='?src=[REF(CONSOLE)];set_on=on'>Off</A> "
@@ -140,7 +140,7 @@
 	return dat
 
 /obj/machinery/mineral/processing_unit/process()
-	if (on)
+	if(on)
 		if(selected_material)
 			smelt_ore()
 

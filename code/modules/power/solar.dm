@@ -119,7 +119,7 @@
 		return
 
 	sunfrac = cos(p_angle) ** 2
-	//isn't the power received from the incoming light proportionnal to cos(p_angle) (Lambert's cosine law) rather than cos(p_angle)^2 ?
+	//isn't the power received from the incoming light proportionnal to cos(p_angle) (Lambert's cosine law) rather than cos(p_angle) ^ 2 ?
 
 /obj/machinery/power/solar/process()//TODO: remove/add this from machines to save on processing as needed ~Carn PRIORITY
 	if(stat & BROKEN)
@@ -160,7 +160,7 @@
 
 		T = locate( round(ax,0.5),round(ay,0.5),z)
 
-		if(T.x == 1 || T.x==world.maxx || T.y==1 || T.y==world.maxy)		// not obscured if we reach the edge
+		if(T.x == 1 || T.x == world.maxx || T.y == 1 || T.y == world.maxy)		// not obscured if we reach the edge
 			break
 
 		if(T.density)			// if we hit a solid turf, panel is obscured
@@ -400,12 +400,12 @@
 /obj/machinery/power/solar_control/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(I.use_tool(src, user, 20, volume=50))
-			if (src.stat & BROKEN)
+			if(src.stat & BROKEN)
 				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				var/obj/structure/frame/computer/A = new /obj/structure/frame/computer( src.loc )
 				new /obj/item/shard( src.loc )
 				var/obj/item/circuitboard/computer/solar_control/M = new /obj/item/circuitboard/computer/solar_control( A )
-				for (var/obj/C in src)
+				for(var/obj/C in src)
 					C.forceMove(drop_location())
 				A.circuit = M
 				A.state = 3
@@ -416,7 +416,7 @@
 				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 				var/obj/structure/frame/computer/A = new /obj/structure/frame/computer( src.loc )
 				var/obj/item/circuitboard/computer/solar_control/M = new /obj/item/circuitboard/computer/solar_control( A )
-				for (var/obj/C in src)
+				for(var/obj/C in src)
 					C.forceMove(drop_location())
 				A.circuit = M
 				A.state = 4
@@ -455,7 +455,7 @@
 		if(connected_tracker.powernet != powernet)
 			connected_tracker.unset_control()
 
-	if(track==1 && trackrate) //manual tracking and set a rotation speed
+	if(track == 1 && trackrate) //manual tracking and set a rotation speed
 		if(nexttime <= world.time) //every time we need to increase/decrease the angle by 1°...
 			targetdir = (targetdir + trackrate/abs(trackrate) + 360) % 360 	//... do it
 			nexttime += 36000/abs(trackrate) //reset the counter for the next 1°

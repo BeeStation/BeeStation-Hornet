@@ -217,7 +217,7 @@
 		return
 
 	var/list/processing_list = list()
-	if (R == 0) // if the range is zero, we know exactly where to look for, we can skip view
+	if(R == 0) // if the range is zero, we know exactly where to look for, we can skip view
 		processing_list += T.contents // We can shave off one iteration by assuming turfs cannot hear
 	else  // A variation of get_hear inlined here to take advantage of the compiler's fastpath for obj/mob in view
 		var/lum = T.luminosity
@@ -247,29 +247,29 @@
 
 /proc/inLineOfSight(X1,Y1,X2,Y2,Z=1,PX1=16.5,PY1=16.5,PX2=16.5,PY2=16.5)
 	var/turf/T
-	if(X1==X2)
-		if(Y1==Y2)
+	if(X1 == X2)
+		if(Y1 == Y2)
 			return 1 //Light cannot be blocked on same tile
 		else
 			var/s = SIGN(Y2-Y1)
-			Y1+=s
-			while(Y1!=Y2)
+			Y1 += s
+			while(Y1 != Y2)
 				T=locate(X1,Y1,Z)
 				if(T.opacity)
 					return 0
-				Y1+=s
+				Y1 += s
 	else
 		var/m=(32*(Y2-Y1)+(PY2-PY1))/(32*(X2-X1)+(PX2-PX1))
 		var/b=(Y1+PY1/32-0.015625)-m*(X1+PX1/32-0.015625) //In tiles
 		var/signX = SIGN(X2-X1)
 		var/signY = SIGN(Y2-Y1)
 		if(X1<X2)
-			b+=m
-		while(X1!=X2 || Y1!=Y2)
+			b += m
+		while(X1 != X2 || Y1 != Y2)
 			if(round(m*X1+b-Y1))
-				Y1+=signY //Line exits tile vertically
+				Y1 += signY //Line exits tile vertically
 			else
-				X1+=signX //Line exits tile horizontally
+				X1 += signX //Line exits tile horizontally
 			T=locate(X1,Y1,Z)
 			if(T.opacity)
 				return 0
@@ -420,7 +420,7 @@
 
 /proc/pollCandidates(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, ignore_category = null, flashwindow = TRUE, list/group = null)
 	var/time_passed = world.time
-	if (!Question)
+	if(!Question)
 		Question = "Would you like to be a special role?"
 	var/list/result = list()
 	for(var/m in group)

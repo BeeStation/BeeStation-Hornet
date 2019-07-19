@@ -410,7 +410,7 @@
 	else
 		name = initial(name)
 	if(contents.len < LAZYLEN(overlays))
-		overlays-=overlays[overlays.len]
+		overlays -= overlays[overlays.len]
 
 /obj/item/reagent_containers/food/snacks/pancakes/examine(mob/user)
 	var/ingredients_listed = ""
@@ -427,14 +427,14 @@
 		if(PANCAKE_MAX_STACK to INFINITY)
 			desc = "A massive towering spire of fluffy, delicious pancakes. It looks like it could tumble over!"
 	var/originalBites = bitecount
-	if (pancakeCount)
+	if(pancakeCount)
 		var/obj/item/reagent_containers/food/snacks/S = contents[pancakeCount]
 		bitecount = S.bitecount
 	..()
-	if (pancakeCount)
+	if(pancakeCount)
 		for(var/obj/item/reagent_containers/food/snacks/pancakes/ING in contents)
 			ingredients_listed += "[ING.name], "
-		to_chat(user, "It contains [contents.len?"[ingredients_listed]":"no ingredient, "]on top of a [initial(name)].")
+		to_chat(user, "It contains [contents.len ? "[ingredients_listed]" : "no ingredient, "]on top of a [initial(name)].")
 	bitecount = originalBites
 
 /obj/item/reagent_containers/food/snacks/pancakes/attackby(obj/item/I, mob/living/user, params)
@@ -449,7 +449,7 @@
 			P.name = initial(P.name)
 			contents += P
 			update_overlays(P)
-			if (P.contents.len)
+			if(P.contents.len)
 				for(var/V in P.contents)
 					P = V
 					P.name = initial(P.name)

@@ -225,22 +225,22 @@
 		return FALSE
 
 	// If the item is a stack and we're already holding a stack then merge
-	if (istype(I, /obj/item/stack))
+	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/I_stack = I
 		var/obj/item/stack/active_stack = get_active_held_item()
 
-		if (I_stack.zero_amount())
+		if(I_stack.zero_amount())
 			return FALSE
 
-		if (merge_stacks)
-			if (istype(active_stack) && istype(I_stack, active_stack.merge_type))
-				if (I_stack.merge(active_stack))
+		if(merge_stacks)
+			if(istype(active_stack) && istype(I_stack, active_stack.merge_type))
+				if(I_stack.merge(active_stack))
 					to_chat(usr, "<span class='notice'>Your [active_stack.name] stack now contains [active_stack.get_amount()] [active_stack.singular_name]\s.</span>")
 					return TRUE
 			else
 				var/obj/item/stack/inactive_stack = get_inactive_held_item()
-				if (istype(inactive_stack) && istype(I_stack, inactive_stack.merge_type))
-					if (I_stack.merge(inactive_stack))
+				if(istype(inactive_stack) && istype(I_stack, inactive_stack.merge_type))
+					if(I_stack.merge(inactive_stack))
 						to_chat(usr, "<span class='notice'>Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s.</span>")
 						return TRUE
 
@@ -326,7 +326,7 @@
 		I.plane = initial(I.plane)
 		I.appearance_flags &= ~NO_CLIENT_COLOR
 		if(!no_move && !(I.item_flags & DROPDEL))	//item may be moved/qdel'd immedietely, don't bother moving it
-			if (isnull(newloc))
+			if(isnull(newloc))
 				I.moveToNullspace()
 			else
 				I.forceMove(newloc)
@@ -446,7 +446,7 @@
 	set hidden = 1
 
 	var/obj/item/I = get_active_held_item()
-	if (I)
+	if(I)
 		I.equip_to_best_slot(src)
 
 //used in code for items usable by both carbon and drones, this gives the proper back slot for each mob.(defibrillator, backpack watertank, ...)

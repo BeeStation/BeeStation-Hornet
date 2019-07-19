@@ -37,7 +37,7 @@
 			trackable_targets_exist = TRUE
 			var/their_loc = get_turf(C)
 			var/distance = get_dist_euclidian(my_loc, their_loc)
-			if (distance < HIVEMIND_RADAR_MAX_DISTANCE)
+			if(distance < HIVEMIND_RADAR_MAX_DISTANCE)
 				var/multiplier = 0.5
 				if(C.mind)
 					var/datum/antagonist/hivemind/hive = C.mind.has_antag_datum(/datum/antagonist/hivemind)

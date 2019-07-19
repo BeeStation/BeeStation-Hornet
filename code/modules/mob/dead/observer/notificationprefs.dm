@@ -13,9 +13,9 @@
 	var/client/user
 
 /datum/notificationpanel/New(user)
-	if (ismob(user))
+	if(ismob(user))
 		var/mob/M = user
-		if (!M.client)
+		if(!M.client)
 			CRASH("Ghost role notification panel attempted to open to a mob without a client")
 		src.user = M.client
 	else
@@ -41,9 +41,9 @@
 /datum/notificationpanel/ui_act(action, params)
 	if(..())
 		return
-	switch (action)
-		if ("toggle_ignore")
+	switch(action)
+		if("toggle_ignore")
 			var/key = params["key"]
-			if (key && islist(GLOB.poll_ignore[key]))
+			if(key && islist(GLOB.poll_ignore[key]))
 				GLOB.poll_ignore[key] ^= list(user.ckey)
 	. = TRUE

@@ -2,7 +2,7 @@
 
 /mob/living/carbon/alien/larva/Life()
 	set invisibility = 0
-	if (notransform)
+	if(notransform)
 		return
 	if(..() && !IsInStasis()) //not dead and not in stasis
 		// GROW!
@@ -15,7 +15,7 @@
 	if(status_flags & GODMODE)
 		return
 	if(stat != DEAD)
-		if(health<= -maxHealth || !getorgan(/obj/item/organ/brain))
+		if(health <= -maxHealth || !getorgan(/obj/item/organ/brain))
 			death()
 			return
 		if(IsUnconscious() || IsSleeping() || getOxyLoss() > 50 || (HAS_TRAIT(src, TRAIT_DEATHCOMA)) || health <= crit_threshold)

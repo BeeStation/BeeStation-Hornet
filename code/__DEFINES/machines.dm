@@ -14,22 +14,22 @@
 
 
 //bitflags for door switches.
-#define OPEN	(1<<0)
-#define IDSCAN	(1<<1)
-#define BOLTS	(1<<2)
-#define SHOCK	(1<<3)
-#define SAFE	(1<<4)
+#define OPEN	(1 << 0)
+#define IDSCAN	(1 << 1)
+#define BOLTS	(1 << 2)
+#define SHOCK	(1 << 3)
+#define SAFE	(1 << 4)
 
 //used in design to specify which machine can build it
-#define IMPRINTER		(1<<0)	//For circuits. Uses glass/chemicals.
-#define PROTOLATHE		(1<<1)	//New stuff. Uses glass/iron/chemicals
-#define AUTOLATHE		(1<<2)	//Uses glass/iron only.
-#define CRAFTLATHE		(1<<3)	//Uses fuck if I know. For use eventually.
-#define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
-#define BIOGENERATOR	(1<<5) 	//Uses biomass
-#define LIMBGROWER		(1<<6) 	//Uses synthetic flesh
-#define SMELTER			(1<<7) 	//uses various minerals
-#define NANITE_COMPILER  (1<<8) //Prints nanite disks
+#define IMPRINTER		(1 << 0)	//For circuits. Uses glass/chemicals.
+#define PROTOLATHE		(1 << 1)	//New stuff. Uses glass/iron/chemicals
+#define AUTOLATHE		(1 << 2)	//Uses glass/iron only.
+#define CRAFTLATHE		(1 << 3)	//Uses fuck if I know. For use eventually.
+#define MECHFAB			(1 << 4) 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define BIOGENERATOR	(1 << 5) 	//Uses biomass
+#define LIMBGROWER		(1 << 6) 	//Uses synthetic flesh
+#define SMELTER			(1 << 7) 	//uses various minerals
+#define NANITE_COMPILER  (1 << 8) //Prints nanite disks
 //Note: More than one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 //Modular computer/NTNet defines
@@ -63,9 +63,9 @@
 
 //Program bitflags
 #define PROGRAM_ALL		(~0)
-#define PROGRAM_CONSOLE	(1<<0)
-#define PROGRAM_LAPTOP	(1<<1)
-#define PROGRAM_TABLET	(1<<2)
+#define PROGRAM_CONSOLE	(1 << 0)
+#define PROGRAM_LAPTOP	(1 << 1)
+#define PROGRAM_TABLET	(1 << 2)
 //Program states
 #define PROGRAM_STATE_KILLED 0
 #define PROGRAM_STATE_BACKGROUND 1
@@ -104,5 +104,5 @@
 #define MACHINE_DEFAULT_ELECTRIFY_TIME 30
 
 //cloning defines. These are flags.
-#define CLONING_SUCCESS (1<<0)
-#define CLONING_DELETE_RECORD (1<<1)
+#define CLONING_SUCCESS (1 << 0)
+#define CLONING_DELETE_RECORD (1 << 1)

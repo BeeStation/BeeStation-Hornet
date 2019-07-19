@@ -58,7 +58,7 @@
 			continue
 		var/datum/keybinding/instance = new keybinding
 		GLOB.keybindings_by_name[initial(instance.name)] = instance
-		if (!(initial(instance.key) in GLOB.keybinding_list_by_key))
+		if(!(initial(instance.key) in GLOB.keybinding_list_by_key))
 			GLOB.keybinding_list_by_key[initial(instance.key)] = list()
 		GLOB.keybinding_list_by_key[initial(instance.key)] += instance.name
 	// Sort all the keybindings by their weight
@@ -83,5 +83,5 @@
 	if(!istype(L))
 		L = list()
 		for(var/path in subtypesof(prototype))
-			L+= path
+			L += path
 		return L

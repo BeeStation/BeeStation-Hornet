@@ -191,7 +191,7 @@
 				to_chat(user, "<span class='warning'>They must be conscious before you can convert [H.p_them()]!</span>")
 				return
 			if(converter.add_revolutionary(H.mind))
-				times_used -- //Flashes less likely to burn out for headrevs when used for conversion
+				times_used-- //Flashes less likely to burn out for headrevs when used for conversion
 			else
 				to_chat(user, "<span class='warning'>This mind seems resistant to the flash!</span>")
 

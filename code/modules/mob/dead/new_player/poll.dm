@@ -26,7 +26,7 @@
 /mob/dead/new_player/proc/poll_player(pollid)
 	if(!pollid)
 		return
-	if (!SSdbcore.Connect())
+	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	var/datum/DBQuery/query_poll_get_details = SSdbcore.NewQuery("SELECT starttime, endtime, question, polltype, multiplechoiceoptions FROM [format_table_name("poll_question")] WHERE id = [pollid]")
@@ -159,12 +159,12 @@
 					var/midvalue = round( (maxvalue + minvalue) / 2)
 					output += "<br>[optiontext]: <select name='o[optionid]'>"
 					output += "<option value='abstain'>abstain</option>"
-					for (var/j = minvalue; j <= maxvalue; j++)
+					for(var/j = minvalue; j <= maxvalue; j++)
 						if(j == minvalue && descmin)
 							output += "<option value='[j]'>[j] ([descmin])</option>"
-						else if (j == midvalue && descmid)
+						else if(j == midvalue && descmid)
 							output += "<option value='[j]'>[j] ([descmid])</option>"
-						else if (j == maxvalue && descmax)
+						else if(j == maxvalue && descmax)
 							output += "<option value='[j]'>[j] ([descmax])</option>"
 						else
 							output += "<option value='[j]'>[j]</option>"
@@ -256,28 +256,28 @@
 			qdel(query_irv_options)
 
 			//if they already voted, use their sort
-			if (votedfor.len)
+			if(votedfor.len)
 				var/list/datum/polloption/newoptions = list()
-				for (var/V in votedfor)
+				for(var/V in votedfor)
 					var/datum/polloption/PO = options["[V]"]
 					if(PO)
 						newoptions["[V]"] = PO
 						options -= "[V]"
 				//add any options that they didn't vote on (some how, some way)
 				options = shuffle(options)
-				for (var/V in options)
+				for(var/V in options)
 					newoptions["[V]"] = options["[V]"]
 				options = newoptions
 			//otherwise, lets shuffle it.
 			else
 				var/list/datum/polloption/newoptions = list()
-				while (options.len)
+				while(options.len)
 					var/list/local_options = options.Copy()
 					var/key
 					//the jist is we randomly remove all options from a copy of options until only one reminds,
 					//	move that over to our new list
 					//	and repeat until we've moved all of them
-					while (local_options.len)
+					while(local_options.len)
 						key = local_options[rand(1, local_options.len)]
 						local_options -= key
 					var/value = options[key]
@@ -348,9 +348,9 @@
 //Returns null on failure, TRUE if already voted, FALSE if not voted yet.
 /mob/dead/new_player/proc/poll_check_voted(pollid, text = FALSE, silent = FALSE)
 	var/table = "poll_vote"
-	if (text)
+	if(text)
 		table = "poll_textreply"
-	if (!SSdbcore.Connect())
+	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	var/datum/DBQuery/query_hasvoted = SSdbcore.NewQuery("SELECT id FROM `[format_table_name(table)]` WHERE pollid = [pollid] AND ckey = '[ckey]'")
@@ -373,8 +373,8 @@
 
 
 /mob/dead/new_player/proc/vote_rig_check()
-	if (usr != src)
-		if (!usr || !src)
+	if(usr != src)
+		if(!usr || !src)
 			return 0
 		//we gots ourselfs a dirty cheater on our hands!
 		log_game("[key_name(usr)] attempted to rig the vote by voting as [key]")
@@ -385,46 +385,46 @@
 	return 1
 
 /mob/dead/new_player/proc/vote_valid_check(pollid, holder, type)
-	if (!SSdbcore.Connect())
+	if(!SSdbcore.Connect())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
 		return 0
 	pollid = text2num(pollid)
-	if (!pollid || pollid < 0)
+	if(!pollid || pollid < 0)
 		return 0
 	//validate the poll is actually the right type of poll and its still active
 	var/datum/DBQuery/query_validate_poll = SSdbcore.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE id = [pollid] AND Now() BETWEEN starttime AND endtime AND polltype = '[type]' [(holder ? "" : "AND adminonly = false")]")
 	if(!query_validate_poll.warn_execute())
 		qdel(query_validate_poll)
 		return 0
-	if (!query_validate_poll.NextRow())
+	if(!query_validate_poll.NextRow())
 		qdel(query_validate_poll)
 		return 0
 	qdel(query_validate_poll)
 	return 1
 
 /mob/dead/new_player/proc/vote_on_irv_poll(pollid, list/votelist)
-	if (!SSdbcore.Connect())
+	if(!SSdbcore.Connect())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
 		return 0
-	if (!vote_rig_check())
+	if(!vote_rig_check())
 		return 0
 	pollid = text2num(pollid)
-	if (!pollid || pollid < 0)
+	if(!pollid || pollid < 0)
 		return 0
-	if (!votelist || !istype(votelist) || !votelist.len)
+	if(!votelist || !istype(votelist) || !votelist.len)
 		return 0
-	if (!client)
+	if(!client)
 		return 0
 	//save these now so we can still process the vote if the client goes away while we process.
 	var/datum/admins/holder = client.holder
 	var/rank = "Player"
-	if (holder)
+	if(holder)
 		rank = holder.rank.name
 	var/ckey = client.ckey
 	var/address = client.address
 
 	//validate the poll
-	if (!vote_valid_check(pollid, holder, POLLTYPE_IRV))
+	if(!vote_valid_check(pollid, holder, POLLTYPE_IRV))
 		return 0
 
 	//lets collect the options
@@ -433,30 +433,30 @@
 		qdel(query_irv_id)
 		return 0
 	var/list/optionlist = list()
-	while (query_irv_id.NextRow())
+	while(query_irv_id.NextRow())
 		optionlist += text2num(query_irv_id.item[1])
 	qdel(query_irv_id)
 
 	//validate their votes are actually in the list of options and actually numbers
 	var/list/numberedvotelist = list()
-	for (var/vote in votelist)
+	for(var/vote in votelist)
 		vote = text2num(vote)
 		numberedvotelist += vote
-		if (!vote) //this is fine because voteid starts at 1, so it will never be 0
+		if(!vote) //this is fine because voteid starts at 1, so it will never be 0
 			to_chat(src, "<span class='danger'>Error: Invalid (non-numeric) votes in the vote data.</span>")
 			return 0
-		if (!(vote in optionlist))
+		if(!(vote in optionlist))
 			to_chat(src, "<span class='danger'>Votes for choices that do not appear to be in the poll detected.</span>")
 			return 0
-	if (!numberedvotelist.len)
+	if(!numberedvotelist.len)
 		to_chat(src, "<span class='danger'>Invalid vote data</span>")
 		return 0
 
 	//lets add the vote, first we generate an insert statement.
 
 	var/sqlrowlist = ""
-	for (var/vote in numberedvotelist)
-		if (sqlrowlist != "")
+	for(var/vote in numberedvotelist)
+		if(sqlrowlist != "")
 			sqlrowlist += ", " //a comma (,) at the start of the first row to insert will trigger a SQL error
 		sqlrowlist += "(Now(), [pollid], [vote], '[sanitizeSQL(ckey)]', INET_ATON('[sanitizeSQL(address)]'), '[sanitizeSQL(rank)]')"
 
@@ -479,15 +479,15 @@
 
 
 /mob/dead/new_player/proc/vote_on_poll(pollid, optionid)
-	if (!SSdbcore.Connect())
+	if(!SSdbcore.Connect())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
 		return 0
-	if (!vote_rig_check())
+	if(!vote_rig_check())
 		return 0
 	if(!pollid || !optionid)
 		return
 	//validate the poll
-	if (!vote_valid_check(pollid, client.holder, POLLTYPE_OPTION))
+	if(!vote_valid_check(pollid, client.holder, POLLTYPE_OPTION))
 		return 0
 	var/voted = poll_check_voted(pollid)
 	if(isnull(voted) || voted) //Failed or already voted.
@@ -505,15 +505,15 @@
 	return 1
 
 /mob/dead/new_player/proc/log_text_poll_reply(pollid, replytext)
-	if (!SSdbcore.Connect())
+	if(!SSdbcore.Connect())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
 		return 0
-	if (!vote_rig_check())
+	if(!vote_rig_check())
 		return 0
 	if(!pollid)
 		return
 	//validate the poll
-	if (!vote_valid_check(pollid, client.holder, POLLTYPE_TEXT))
+	if(!vote_valid_check(pollid, client.holder, POLLTYPE_TEXT))
 		return 0
 	if(!replytext)
 		to_chat(usr, "The text you entered was blank. Please correct the text and submit again.")
@@ -542,15 +542,15 @@
 	return 1
 
 /mob/dead/new_player/proc/vote_on_numval_poll(pollid, optionid, rating)
-	if (!SSdbcore.Connect())
+	if(!SSdbcore.Connect())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
 		return 0
-	if (!vote_rig_check())
+	if(!vote_rig_check())
 		return 0
 	if(!pollid || !optionid || !rating)
 		return
 	//validate the poll
-	if (!vote_valid_check(pollid, client.holder, POLLTYPE_RATING))
+	if(!vote_valid_check(pollid, client.holder, POLLTYPE_RATING))
 		return 0
 	var/datum/DBQuery/query_numval_hasvoted = SSdbcore.NewQuery("SELECT id FROM [format_table_name("poll_vote")] WHERE optionid = [optionid] AND ckey = '[ckey]'")
 	if(!query_numval_hasvoted.warn_execute())
@@ -575,15 +575,15 @@
 	return 1
 
 /mob/dead/new_player/proc/vote_on_multi_poll(pollid, optionid)
-	if (!SSdbcore.Connect())
+	if(!SSdbcore.Connect())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
 		return 0
-	if (!vote_rig_check())
+	if(!vote_rig_check())
 		return 0
 	if(!pollid || !optionid)
 		return 1
 	//validate the poll
-	if (!vote_valid_check(pollid, client.holder, POLLTYPE_MULTI))
+	if(!vote_valid_check(pollid, client.holder, POLLTYPE_MULTI))
 		return 0
 	var/datum/DBQuery/query_multi_choicelen = SSdbcore.NewQuery("SELECT multiplechoiceoptions FROM [format_table_name("poll_question")] WHERE id = [pollid]")
 	if(!query_multi_choicelen.warn_execute())

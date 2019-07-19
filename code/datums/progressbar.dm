@@ -12,9 +12,9 @@
 
 /datum/progressbar/New(mob/User, goal_number, atom/target)
 	. = ..()
-	if (!istype(target))
+	if(!istype(target))
 		EXCEPTION("Invalid target given")
-	if (goal_number)
+	if(goal_number)
 		goal = goal_number
 	bar = image('icons/effects/progessbar.dmi', target, "prog_bar_0", HUD_LAYER)
 	bar.plane = ABOVE_HUD_PLANE
@@ -33,19 +33,19 @@
 	animate(bar, pixel_y = 32 + (PROGRESSBAR_HEIGHT * (listindex - 1)), alpha = 255, time = PROGRESSBAR_ANIMATION_TIME, easing = SINE_EASING)
 
 /datum/progressbar/proc/update(progress)
-	if (!user || !user.client)
+	if(!user || !user.client)
 		shown = FALSE
 		return
-	if (user.client != client)
-		if (client)
+	if(user.client != client)
+		if(client)
 			client.images -= bar
-		if (user.client)
+		if(user.client)
 			user.client.images += bar
 
 	progress = CLAMP(progress, 0, goal)
 	last_progress = progress
 	bar.icon_state = "prog_bar_[round(((progress / goal) * 100), 5)]"
-	if (!shown)
+	if(!shown)
 		user.client.images += bar
 		shown = TRUE
 

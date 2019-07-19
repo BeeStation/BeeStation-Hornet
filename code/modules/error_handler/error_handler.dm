@@ -26,9 +26,9 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		Reboot(reason = 1)
 		return ..()
 	
-	if (islist(stack_trace_storage))
-		for (var/line in splittext(E.desc, "\n"))
-			if (text2ascii(line) != 32)
+	if(islist(stack_trace_storage))
+		for(var/line in splittext(E.desc, "\n"))
+			if(text2ascii(line) != 32)
 				stack_trace_storage += line
 
 	var/static/list/error_last_seen = list()

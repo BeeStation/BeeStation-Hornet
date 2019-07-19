@@ -159,9 +159,9 @@
 
 //window placing begin
 	else if(is_glass_sheet(W))
-		if (!broken)
+		if(!broken)
 			var/obj/item/stack/ST = W
-			if (ST.get_amount() < 2)
+			if(ST.get_amount() < 2)
 				to_chat(user, "<span class='warning'>You need at least two sheets of glass for that!</span>")
 				return
 			var/dir_to_set = SOUTHWEST

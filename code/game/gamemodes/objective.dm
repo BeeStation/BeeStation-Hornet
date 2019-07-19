@@ -28,7 +28,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/list/possible_targets = list("Free objective","Random")
 	var/def_value
 	for(var/datum/mind/possible_target in SSticker.minds)
-		if ((possible_target != src) && ishuman(possible_target.current))
+		if((possible_target != src) && ishuman(possible_target.current))
 			possible_targets += possible_target.current
 
 
@@ -36,12 +36,12 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		def_value = target.current
 
 	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in possible_targets
-	if (!new_target)
+	if(!new_target)
 		return
 
-	if (new_target == "Free objective")
+	if(new_target == "Free objective")
 		target = null
-	else if (new_target == "Random")
+	else if(new_target == "Random")
 		find_target()
 	else
 		target = new_target.mind
@@ -506,17 +506,17 @@ GLOBAL_LIST_EMPTY(possible_items)
 /datum/objective/steal/admin_edit(mob/admin)
 	var/list/possible_items_all = GLOB.possible_items+"custom"
 	var/new_target = input(admin,"Select target:", "Objective target", steal_target) as null|anything in possible_items_all
-	if (!new_target)
+	if(!new_target)
 		return
 
-	if (new_target == "custom") //Can set custom items.
+	if(new_target == "custom") //Can set custom items.
 		var/custom_path = input(admin,"Search for target item type:","Type") as null|text
-		if (!custom_path)
+		if(!custom_path)
 			return
 		var/obj/item/custom_target = pick_closest_path(custom_path, make_types_fancy(subtypesof(/obj/item)))
 		var/custom_name = initial(custom_target.name)
 		custom_name = stripped_input(admin,"Enter target name:", "Objective target", custom_name)
-		if (!custom_name)
+		if(!custom_name)
 			return
 		steal_target = custom_target
 		explanation_text = "Steal [custom_name]."
@@ -647,27 +647,27 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	var/area/centcom/holding/A = GLOB.areas_by_type[/area/centcom/holding]
 	for(var/mob/living/carbon/human/M in A)//Humans.
 		if(M.stat == DEAD)//Dead folks are worth less.
-			captured_amount+=0.5
+			captured_amount += 0.5
 			continue
-		captured_amount+=1
+		captured_amount += 1
 	for(var/mob/living/carbon/monkey/M in A)//Monkeys are almost worthless, you failure.
-		captured_amount+=0.1
+		captured_amount += 0.1
 	for(var/mob/living/carbon/alien/larva/M in A)//Larva are important for research.
 		if(M.stat == DEAD)
-			captured_amount+=0.5
+			captured_amount += 0.5
 			continue
-		captured_amount+=1
+		captured_amount += 1
 	for(var/mob/living/carbon/alien/humanoid/M in A)//Aliens are worth twice as much as humans.
 		if(istype(M, /mob/living/carbon/alien/humanoid/royal/queen))//Queens are worth three times as much as humans.
 			if(M.stat == DEAD)
-				captured_amount+=1.5
+				captured_amount += 1.5
 			else
-				captured_amount+=3
+				captured_amount += 3
 			continue
 		if(M.stat == DEAD)
-			captured_amount+=1
+			captured_amount += 1
 			continue
-		captured_amount+=2
+		captured_amount += 2
 	return captured_amount >= target_amount
 
 /datum/objective/capture/admin_edit(mob/admin)
@@ -685,14 +685,14 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	target_amount = rand (lowbound,highbound)
 	var/n_p = 1 //autowin
 	var/list/datum/mind/owners = get_owners()
-	if (SSticker.current_state == GAME_STATE_SETTING_UP)
+	if(SSticker.current_state == GAME_STATE_SETTING_UP)
 		for(var/mob/dead/new_player/P in GLOB.player_list)
 			if(P.client && P.ready == PLAYER_READY_TO_PLAY && !(P.mind in owners))
-				n_p ++
-	else if (SSticker.IsRoundInProgress())
+				n_p++
+	else if(SSticker.IsRoundInProgress())
 		for(var/mob/living/carbon/human/P in GLOB.player_list)
 			if(P.client && !(P.mind.has_antag_datum(/datum/antagonist/changeling)) && !(P.mind in owners))
-				n_p ++
+				n_p++
 	target_amount = min(target_amount, n_p)
 
 	update_explanation_text()

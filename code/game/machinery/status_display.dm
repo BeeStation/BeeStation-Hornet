@@ -92,13 +92,13 @@
 			index2 -= message2_len
 
 	update_display(line1, line2)
-	if (!index1 && !index2)
+	if(!index1 && !index2)
 		// No marquee, no processing.
 		return PROCESS_KILL
 
 /// Update the display and, if necessary, re-enable processing.
 /obj/machinery/status_display/proc/update()
-	if (process() != PROCESS_KILL)
+	if(process() != PROCESS_KILL)
 		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/status_display/power_change()
@@ -113,11 +113,11 @@
 
 /obj/machinery/status_display/examine(mob/user)
 	. = ..()
-	if (message1 || message2)
+	if(message1 || message2)
 		var/list/msg = list("The display says:")
-		if (message1)
+		if(message1)
 			msg += "<br>\t<tt>[html_encode(message1)]</tt>"
-		if (message2)
+		if(message2)
 			msg += "<br>\t<tt>[html_encode(message2)]</tt>"
 		to_chat(user, msg.Join())
 
@@ -139,10 +139,10 @@
 		remove_display()
 
 /obj/machinery/status_display/proc/examine_shuttle(mob/user, obj/docking_port/mobile/shuttle)
-	if (shuttle)
+	if(shuttle)
 		var/modestr = shuttle.getModeStr()
-		if (modestr)
-			if (shuttle.timer)
+		if(modestr)
+			if(shuttle.timer)
 				modestr = "<br>\t<tt>[modestr]: [shuttle.getTimerStr()]</tt>"
 			else
 				modestr = "<br>\t<tt>[modestr]</tt>"
@@ -251,12 +251,12 @@
 	. = ..()
 	var/obj/docking_port/mobile/shuttle = SSshuttle.supply
 	var/shuttleMsg = null
-	if (shuttle.mode == SHUTTLE_IDLE)
-		if (is_station_level(shuttle.z))
+	if(shuttle.mode == SHUTTLE_IDLE)
+		if(is_station_level(shuttle.z))
 			shuttleMsg = "Docked"
 	else
 		shuttleMsg = "[shuttle.getModeStr()]: [shuttle.getTimerStr()]"
-	if (shuttleMsg)
+	if(shuttleMsg)
 		to_chat(user, "The display says:<br>\t<tt>[shuttleMsg]</tt>")
 	else
 		to_chat(user, "The display is blank.")
@@ -291,7 +291,7 @@
 			update()
 
 /obj/machinery/status_display/shuttle/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override)
-	if (port && (shuttle_id == initial(shuttle_id) || override))
+	if(port && (shuttle_id == initial(shuttle_id) || override))
 		shuttle_id = port.id
 	update()
 

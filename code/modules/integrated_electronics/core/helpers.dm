@@ -23,9 +23,9 @@
 /obj/item/integrated_circuit/proc/set_pin_data(pin_type, pin_number, datum/new_data)
 	if(islist(new_data))
 		for(var/i in 1 to length(new_data))
-			if (istype(new_data) && !isweakref(new_data))
+			if(istype(new_data) && !isweakref(new_data))
 				new_data[i] = WEAKREF(new_data[i])
-	if (istype(new_data) && !isweakref(new_data))
+	if(istype(new_data) && !isweakref(new_data))
 		new_data = WEAKREF(new_data)
 	var/datum/integrated_io/pin = get_pin_ref(pin_type, pin_number)
 	return pin.write_data_to_pin(new_data)
@@ -138,5 +138,5 @@
 		return
 	var/r
 	for(var/i = 1 to length(string))
-		r += ascii2text(text2ascii(string,i) ^ text2ascii(key,((i-1)%length(string))+1))
+		r += ascii2text(text2ascii(string,i) ^ text2ascii(key,((i-1) % length(string))+1))
 	return r

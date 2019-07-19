@@ -59,18 +59,18 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/obj/item/card/id/idcard = O
 		if(check_access(idcard))
 			if(!scan)
-				if (!user.transferItemToLoc(idcard,src))
+				if(!user.transferItemToLoc(idcard,src))
 					return
 				scan = idcard
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 			else if(!modify)
-				if (!user.transferItemToLoc(idcard,src))
+				if(!user.transferItemToLoc(idcard,src))
 					return
 				modify = idcard
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 		else
 			if(!modify)
-				if (!user.transferItemToLoc(idcard,src))
+				if(!user.transferItemToLoc(idcard,src))
 					return
 				modify = idcard
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
@@ -139,7 +139,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/dat
 	if(!SSticker)
 		return
-	if (mode == 1) // accessing crew manifest
+	if(mode == 1) // accessing crew manifest
 		var/crew = ""
 		for(var/datum/data/record/t in sortRecord(GLOB.data_core.general))
 			crew += t.fields["name"] + " - " + t.fields["rank"] + "<br>"
@@ -265,7 +265,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		var/body
 
-		if (authenticated && modify)
+		if(authenticated && modify)
 
 			var/carddesc = text("")
 			var/jobs = text("")
@@ -356,13 +356,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	usr.set_machine(src)
 	switch(href_list["choice"])
-		if ("modify")
+		if("modify")
 			eject_id_modify(usr)
-		if ("scan")
+		if("scan")
 			eject_id_scan(usr)
-		if ("auth")
-			if ((!( authenticated ) && (scan || issilicon(usr)) && (modify || mode)))
-				if (check_access(scan))
+		if("auth")
+			if((!( authenticated ) && (scan || issilicon(usr)) && (modify || mode)))
+				if(check_access(scan))
 					region_access = list()
 					head_subordinates = list()
 					if(ACCESS_CHANGE_IDS in scan.access)
@@ -375,27 +375,27 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						playsound(src, 'sound/machines/terminal_on.ogg', 50, 0)
 
 					else
-						if((ACCESS_HOP in scan.access) && ((target_dept==1) || !target_dept))
+						if((ACCESS_HOP in scan.access) && ((target_dept == 1) || !target_dept))
 							region_access |= 1
 							region_access |= 6
 							get_subordinates("Head of Personnel")
-						if((ACCESS_HOS in scan.access) && ((target_dept==2) || !target_dept))
+						if((ACCESS_HOS in scan.access) && ((target_dept == 2) || !target_dept))
 							region_access |= 2
 							get_subordinates("Head of Security")
-						if((ACCESS_CMO in scan.access) && ((target_dept==3) || !target_dept))
+						if((ACCESS_CMO in scan.access) && ((target_dept == 3) || !target_dept))
 							region_access |= 3
 							get_subordinates("Chief Medical Officer")
-						if((ACCESS_RD in scan.access) && ((target_dept==4) || !target_dept))
+						if((ACCESS_RD in scan.access) && ((target_dept == 4) || !target_dept))
 							region_access |= 4
 							get_subordinates("Research Director")
-						if((ACCESS_CE in scan.access) && ((target_dept==5) || !target_dept))
+						if((ACCESS_CE in scan.access) && ((target_dept == 5) || !target_dept))
 							region_access |= 5
 							get_subordinates("Chief Engineer")
 						if(region_access)
 							authenticated = 1
-			else if ((!( authenticated ) && issilicon(usr)) && (!modify))
+			else if((!( authenticated ) && issilicon(usr)) && (!modify))
 				to_chat(usr, "<span class='warning'>You can't modify an ID without an ID inserted to modify! Once one is in the modify slot on the computer, you can log in.</span>")
-		if ("logout")
+		if("logout")
 			region_access = null
 			head_subordinates = null
 			authenticated = 0
@@ -411,8 +411,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						if(access_allowed == 1)
 							modify.access += access_type
 						playsound(src, "terminal_type", 50, 0)
-		if ("assign")
-			if (authenticated == 2)
+		if("assign")
+			if(authenticated == 2)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
 					var/newJob = reject_bad_text(input("Enter a custom job assignment.", "Assignment", modify ? modify.assignment : "Unassigned"), MAX_NAME_LEN)
@@ -438,19 +438,19 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						modify.registered_account.account_job = jobdatum // this is a terrible idea and people will grief but sure whatever
 
 					modify.access = ( istype(src, /obj/machinery/computer/card/centcom) ? get_centcom_access(t1) : jobdatum.get_access() )
-				if (modify)
+				if(modify)
 					modify.assignment = t1
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-		if ("demote")
+		if("demote")
 			if(modify.assignment in head_subordinates || modify.assignment == "Assistant")
 				modify.assignment = "Unassigned"
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 			else
 				to_chat(usr, "<span class='error'>You are not authorized to demote this position.</span>")
-		if ("reg")
-			if (authenticated)
+		if("reg")
+			if(authenticated)
 				var/t2 = modify
-				if ((authenticated && modify == t2 && (in_range(src, usr) || issilicon(usr)) && isturf(loc)))
+				if((authenticated && modify == t2 && (in_range(src, usr) || issilicon(usr)) && isturf(loc)))
 					var/newName = reject_bad_name(href_list["reg"])
 					if(newName)
 						modify.registered_name = newName
@@ -459,7 +459,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						to_chat(usr, "<span class='error'>Invalid name entered.</span>")
 						updateUsrDialog()
 						return
-		if ("mode")
+		if("mode")
 			mode = text2num(href_list["mode_target"])
 
 		if("return")
@@ -502,7 +502,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				opened_positions[edit_job_target]--
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 
-		if ("prioritize_job")
+		if("prioritize_job")
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
 			if(scan && (ACCESS_CHANGE_IDS in scan.access) && !target_dept)
 				var/priority_target = href_list["job"]
@@ -523,8 +523,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				to_chat(usr, "<span class='notice'>[j.title] has been successfully [priority ?  "prioritized" : "unprioritized"]. Potential employees will notice your request.</span>")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
-		if ("print")
-			if (!( printing ))
+		if("print")
+			if(!( printing ))
 				printing = 1
 				sleep(50)
 				var/obj/item/paper/P = new /obj/item/paper( loc )
@@ -535,7 +535,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				P.name = "paper- 'Crew Manifest'"
 				printing = null
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-	if (modify)
+	if(modify)
 		modify.update_label()
 	updateUsrDialog()
 
@@ -582,7 +582,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return
 		var/obj/item/I = user.get_active_held_item()
 		if(istype(I, /obj/item/card/id))
-			if (!user.transferItemToLoc(I,src))
+			if(!user.transferItemToLoc(I,src))
 				return
 			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 			modify = I

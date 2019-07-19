@@ -123,9 +123,9 @@
 		if("PRG_switchm")
 			if(params["target"] == "mod")
 				mod_mode = 1
-			else if (params["target"] == "manifest")
+			else if(params["target"] == "manifest")
 				mod_mode = 0
-			else if (params["target"] == "manage")
+			else if(params["target"] == "manage")
 				mod_mode = 2
 		if("PRG_togglea")
 			if(show_assignments)
@@ -174,7 +174,7 @@
 							card_slot.try_eject(1, user)
 						else
 							var/obj/item/I = usr.get_active_held_item()
-							if (istype(I, /obj/item/card/id))
+							if(istype(I, /obj/item/card/id))
 								if(!usr.transferItemToLoc(I, computer))
 									return
 								card_slot.stored_card = I
@@ -189,7 +189,7 @@
 							card_slot.try_eject(2, user)
 						else
 							var/obj/item/I = usr.get_active_held_item()
-							if (istype(I, /obj/item/card/id))
+							if(istype(I, /obj/item/card/id))
 								if(!usr.transferItemToLoc(I, computer))
 									return
 								card_slot.stored_card2 = I
@@ -398,7 +398,7 @@
 					var/list/accesses = list()
 					if(i in reg_ids)
 						for(var/access in get_region_accesses(i))
-							if (get_access_desc(access))
+							if(get_access_desc(access))
 								accesses.Add(list(list(
 								"desc" = replacetext(get_access_desc(access), "&nbsp", " "),
 								"ref" = access,
@@ -451,20 +451,20 @@
 					authenticated = 1
 					return 1
 				else
-					if((ACCESS_HOP in auth_card.access) && ((target_dept==1) || !target_dept))
+					if((ACCESS_HOP in auth_card.access) && ((target_dept == 1) || !target_dept))
 						region_access |= 1
 						region_access |= 6
 						get_subordinates("Head of Personnel")
-					if((ACCESS_HOS in auth_card.access) && ((target_dept==2) || !target_dept))
+					if((ACCESS_HOS in auth_card.access) && ((target_dept == 2) || !target_dept))
 						region_access |= 2
 						get_subordinates("Head of Security")
-					if((ACCESS_CMO in auth_card.access) && ((target_dept==3) || !target_dept))
+					if((ACCESS_CMO in auth_card.access) && ((target_dept == 3) || !target_dept))
 						region_access |= 3
 						get_subordinates("Chief Medical Officer")
-					if((ACCESS_RD in auth_card.access) && ((target_dept==4) || !target_dept))
+					if((ACCESS_RD in auth_card.access) && ((target_dept == 4) || !target_dept))
 						region_access |= 4
 						get_subordinates("Research Director")
-					if((ACCESS_CE in auth_card.access) && ((target_dept==5) || !target_dept))
+					if((ACCESS_CE in auth_card.access) && ((target_dept == 5) || !target_dept))
 						region_access |= 5
 						get_subordinates("Chief Engineer")
 					if(region_access.len)

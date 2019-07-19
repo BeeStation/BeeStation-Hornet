@@ -28,7 +28,7 @@
 		relay_information(signal, /obj/machinery/telecomms/bus)
 
 /obj/machinery/telecomms/receiver/proc/check_receive_level(datum/signal/subspace/signal)
-	if (z in signal.levels)
+	if(z in signal.levels)
 		return TRUE
 
 	for(var/obj/machinery/telecomms/hub/H in links)
@@ -93,7 +93,7 @@
 		for(var/i in GLOB.ic_jammers)
 			var/obj/item/integrated_circuit/input/tcomm_interceptor/T = i
 			var/obj/item/O = T.get_object()
-			if(is_station_level(O.z)&& (!istype(get_area(O), /area/space)))
+			if(is_station_level(O.z) && (!istype(get_area(O), /area/space)))
 				if(!istype(signal.source, /obj/item/radio/headset/integrated))
 					signal.data["reject"] = TRUE
 					break

@@ -37,9 +37,9 @@
 	icon_state = "igniter[on]"
 
 /obj/machinery/igniter/process()	//ugh why is this even in process()?
-	if (src.on && !(stat & NOPOWER) )
+	if(src.on && !(stat & NOPOWER) )
 		var/turf/location = src.loc
-		if (isturf(location))
+		if(isturf(location))
 			location.hotspot_expose(1000,500,1)
 	return 1
 
@@ -81,7 +81,7 @@
 	return ..()
 
 /obj/machinery/sparker/power_change()
-	if ( powered() && disable == 0 )
+	if( powered() && disable == 0 )
 		stat &= ~NOPOWER
 		icon_state = "[base_state]"
 //		src.sd_SetLuminosity(2)
@@ -91,13 +91,13 @@
 //		src.sd_SetLuminosity(0)
 
 /obj/machinery/sparker/attackby(obj/item/W, mob/user, params)
-	if (W.tool_behaviour == TOOL_SCREWDRIVER)
+	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		add_fingerprint(user)
 		src.disable = !src.disable
-		if (src.disable)
+		if(src.disable)
 			user.visible_message("[user] has disabled \the [src]!", "<span class='notice'>You disable the connection to \the [src].</span>")
 			icon_state = "[base_state]-d"
-		if (!src.disable)
+		if(!src.disable)
 			user.visible_message("[user] has reconnected \the [src]!", "<span class='notice'>You fix the connection to \the [src].</span>")
 			if(src.powered())
 				icon_state = "[base_state]"
@@ -107,16 +107,16 @@
 		return ..()
 
 /obj/machinery/sparker/attack_ai()
-	if (anchored)
+	if(anchored)
 		return src.ignite()
 	else
 		return
 
 /obj/machinery/sparker/proc/ignite()
-	if (!(powered()))
+	if(!(powered()))
 		return
 
-	if ((src.disable) || (src.last_spark && world.time < src.last_spark + 50))
+	if((src.disable) || (src.last_spark && world.time < src.last_spark + 50))
 		return
 
 
@@ -125,13 +125,13 @@
 	last_spark = world.time
 	use_power(1000)
 	var/turf/location = src.loc
-	if (isturf(location))
+	if(isturf(location))
 		location.hotspot_expose(1000,2500,1)
 	return 1
 
 /obj/machinery/sparker/emp_act(severity)
 	. = ..()
-	if (. & EMP_PROTECT_SELF)
+	if(. & EMP_PROTECT_SELF)
 		return
 	if(!(stat & (BROKEN|NOPOWER)))
 		ignite()

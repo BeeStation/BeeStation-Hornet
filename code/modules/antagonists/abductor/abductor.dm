@@ -93,7 +93,7 @@
 	for(var/datum/team/abductor_team/T in get_all_teams(/datum/team/abductor_team))
 		current_teams[T.name] = T
 	var/choice = input(admin,"Add to which team ?") as null|anything in (current_teams + "new team")
-	if (choice == "new team")
+	if(choice == "new team")
 		team = new
 	else if(choice in current_teams)
 		team = current_teams[choice]
@@ -114,7 +114,7 @@
 	var/mob/living/carbon/human/H = owner.current
 	var/gear = alert(admin,"Agent or Scientist Gear","Gear","Agent","Scientist")
 	if(gear)
-		if(gear=="Agent")
+		if(gear == "Agent")
 			H.equipOutfit(/datum/outfit/abductor/agent)
 		else
 			H.equipOutfit(/datum/outfit/abductor/scientist)

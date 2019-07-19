@@ -125,10 +125,10 @@
 		return
 
 	// Deny placing posters on currently-diagonal walls, although the wall may change in the future.
-	if (smooth & SMOOTH_DIAGONAL)
-		for (var/O in overlays)
+	if(smooth & SMOOTH_DIAGONAL)
+		for(var/O in overlays)
 			var/image/I = O
-			if (copytext(I.icon_state, 1, 3) == "d-")
+			if(copytext(I.icon_state, 1, 3) == "d-")
 				return
 
 	var/stuff_on_wall = 0

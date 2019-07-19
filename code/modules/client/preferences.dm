@@ -153,14 +153,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	dat += "<HR>"
 
 	switch(current_tab)
-		if (0) // Character Settings#
+		if(0) // Character Settings#
 			if(path)
 				var/savefile/S = new /savefile(path)
 				if(S)
 					dat += "<center>"
 					var/name
 					var/unspaced_slots = 0
-					for(var/i=1, i<=max_save_slots, i++)
+					for(var/i=1, i <= max_save_slots, i++)
 						unspaced_slots++
 						if(unspaced_slots > 4)
 							dat += "<br>"
@@ -440,7 +440,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</tr></table>"
 
 
-		if (1) // Game Preferences
+		if(1) // Game Preferences
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
 			dat += "<b>UI Style:</b> <a href='?_src_=prefs;task=input;preference=ui'>[UI_style]</a><br>"
@@ -493,14 +493,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>FPS:</b> <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
 
 			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallaxdown' oncontextmenu='window.location.href=\"?_src_=prefs;preference=parallaxup\";return false;'>"
-			switch (parallax)
-				if (PARALLAX_LOW)
+			switch(parallax)
+				if(PARALLAX_LOW)
 					dat += "Low"
-				if (PARALLAX_MED)
+				if(PARALLAX_MED)
 					dat += "Medium"
-				if (PARALLAX_INSANE)
+				if(PARALLAX_INSANE)
 					dat += "Insane"
-				if (PARALLAX_DISABLE)
+				if(PARALLAX_DISABLE)
 					dat += "Disabled"
 				else
 					dat += "High"
@@ -509,16 +509,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'>[ambientocclusion ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Fit Viewport:</b> <a href='?_src_=prefs;preference=auto_fit_viewport'>[auto_fit_viewport ? "Auto" : "Manual"]</a><br>"
 
-			if (CONFIG_GET(flag/maprotation))
+			if(CONFIG_GET(flag/maprotation))
 				var/p_map = preferred_map
-				if (!p_map)
+				if(!p_map)
 					p_map = "Default"
-					if (config.defaultmap)
+					if(config.defaultmap)
 						p_map += " ([config.defaultmap.map_name])"
 				else
-					if (p_map in config.maplist)
+					if(p_map in config.maplist)
 						var/datum/map_config/VM = config.maplist[p_map]
-						if (!VM)
+						if(!VM)
 							p_map += " (No longer exists)"
 						else
 							p_map = VM.map_name
@@ -536,7 +536,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				src.be_special = list()
 
 
-			for (var/i in GLOB.special_roles)
+			for(var/i in GLOB.special_roles)
 				if(is_banned_from(user.ckey, i))
 					dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;bancheck=[i]'>BANNED</a><br>"
 				else
@@ -578,19 +578,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</td>"
 
 			if(user.client.holder)
-				dat +="<td width='300px' height='300px' valign='top'>"
+				dat += "<td width='300px' height='300px' valign='top'>"
 
 				dat += "<h2>Admin Settings</h2>"
 
-				dat += "<b>Adminhelp Sounds:</b> <a href='?_src_=prefs;preference=hear_adminhelps'>[(toggles & SOUND_ADMINHELP)?"Enabled":"Disabled"]</a><br>"
-				dat += "<b>Prayer Sounds:</b> <a href = '?_src_=prefs;preference=hear_prayers'>[(toggles & SOUND_PRAYERS)?"Enabled":"Disabled"]</a><br>"
-				dat += "<b>Announce Login:</b> <a href='?_src_=prefs;preference=announce_login'>[(toggles & ANNOUNCE_LOGIN)?"Enabled":"Disabled"]</a><br>"
+				dat += "<b>Adminhelp Sounds:</b> <a href='?_src_=prefs;preference=hear_adminhelps'>[(toggles & SOUND_ADMINHELP) ? "Enabled" : "Disabled"]</a><br>"
+				dat += "<b>Prayer Sounds:</b> <a href = '?_src_=prefs;preference=hear_prayers'>[(toggles & SOUND_PRAYERS) ? "Enabled" : "Disabled"]</a><br>"
+				dat += "<b>Announce Login:</b> <a href='?_src_=prefs;preference=announce_login'>[(toggles & ANNOUNCE_LOGIN) ? "Enabled" : "Disabled"]</a><br>"
 				dat += "<br>"
-				dat += "<b>Combo HUD Lighting:</b> <a href = '?_src_=prefs;preference=combohud_lighting'>[(toggles & COMBOHUD_LIGHTING)?"Full-bright":"No Change"]</a><br>"
+				dat += "<b>Combo HUD Lighting:</b> <a href = '?_src_=prefs;preference=combohud_lighting'>[(toggles & COMBOHUD_LIGHTING) ? "Full-bright" : "No Change"]</a><br>"
 				dat += "<br>"
-				dat += "<b>Hide Dead Chat:</b> <a href = '?_src_=prefs;preference=toggle_dead_chat'>[(chat_toggles & CHAT_DEAD)?"Shown":"Hidden"]</a><br>"
-				dat += "<b>Hide Radio Messages:</b> <a href = '?_src_=prefs;preference=toggle_radio_chatter'>[(chat_toggles & CHAT_RADIO)?"Shown":"Hidden"]</a><br>"
-				dat += "<b>Hide Prayers:</b> <a href = '?_src_=prefs;preference=toggle_prayers'>[(chat_toggles & CHAT_PRAYER)?"Shown":"Hidden"]</a><br>"
+				dat += "<b>Hide Dead Chat:</b> <a href = '?_src_=prefs;preference=toggle_dead_chat'>[(chat_toggles & CHAT_DEAD) ? "Shown" : "Hidden"]</a><br>"
+				dat += "<b>Hide Radio Messages:</b> <a href = '?_src_=prefs;preference=toggle_radio_chatter'>[(chat_toggles & CHAT_RADIO) ? "Shown" : "Hidden"]</a><br>"
+				dat += "<b>Hide Prayers:</b> <a href = '?_src_=prefs;preference=toggle_prayers'>[(chat_toggles & CHAT_PRAYER) ? "Shown" : "Hidden"]</a><br>"
 				if(CONFIG_GET(flag/allow_admin_asaycolor))
 					dat += "<br>"
 					dat += "<b>ASAY Color:</b> <span style='border: 1px solid #161616; background-color: [asaycolor ? asaycolor : "#FF4500"];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=asaycolor;task=input'>Change</a><br>"
@@ -600,26 +600,26 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(CONFIG_GET(flag/auto_deadmin_players))
 					dat += "<b>Always Deadmin:</b> FORCED</a><br>"
 				else
-					dat += "<b>Always Deadmin:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_always'>[(toggles & DEADMIN_ALWAYS)?"Enabled":"Disabled"]</a><br>"
+					dat += "<b>Always Deadmin:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_always'>[(toggles & DEADMIN_ALWAYS) ? "Enabled" : "Disabled"]</a><br>"
 					if(!(toggles & DEADMIN_ALWAYS))
 						dat += "<br>"
 						if(!CONFIG_GET(flag/auto_deadmin_antagonists))
-							dat += "<b>As Antag:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_antag'>[(toggles & DEADMIN_ANTAGONIST)?"Deadmin":"Keep Admin"]</a><br>"
+							dat += "<b>As Antag:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_antag'>[(toggles & DEADMIN_ANTAGONIST) ? "Deadmin" : "Keep Admin"]</a><br>"
 						else
 							dat += "<b>As Antag:</b> FORCED<br>"
 
 						if(!CONFIG_GET(flag/auto_deadmin_heads))
-							dat += "<b>As Command:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_head'>[(toggles & DEADMIN_POSITION_HEAD)?"Deadmin":"Keep Admin"]</a><br>"
+							dat += "<b>As Command:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_head'>[(toggles & DEADMIN_POSITION_HEAD) ? "Deadmin" : "Keep Admin"]</a><br>"
 						else
 							dat += "<b>As Command:</b> FORCED<br>"
 
 						if(!CONFIG_GET(flag/auto_deadmin_security))
-							dat += "<b>As Security:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_security'>[(toggles & DEADMIN_POSITION_SECURITY)?"Deadmin":"Keep Admin"]</a><br>"
+							dat += "<b>As Security:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_security'>[(toggles & DEADMIN_POSITION_SECURITY) ? "Deadmin" : "Keep Admin"]</a><br>"
 						else
 							dat += "<b>As Security:</b> FORCED<br>"
 
 						if(!CONFIG_GET(flag/auto_deadmin_silicons))
-							dat += "<b>As Silicon:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_silicon'>[(toggles & DEADMIN_POSITION_SILICON)?"Deadmin":"Keep Admin"]</a><br>"
+							dat += "<b>As Silicon:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_silicon'>[(toggles & DEADMIN_POSITION_SILICON) ? "Deadmin" : "Keep Admin"]</a><br>"
 						else
 							dat += "<b>As Silicon:</b> FORCED<br>"
 
@@ -780,17 +780,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/list/kb_categories = list()
 	// Group keybinds by category
-	for (var/name in GLOB.keybindings_by_name)
+	for(var/name in GLOB.keybindings_by_name)
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[name]
-		if (!(kb.category in kb_categories))
+		if(!(kb.category in kb_categories))
 			kb_categories[kb.category] = list()
 		kb_categories[kb.category] += list(kb)
 
 	var/HTML = "<style>label { display: inline-block; width: 200px; }</style><body>"
 
-	for (var/category in kb_categories)
+	for(var/category in kb_categories)
 		HTML += "<h3>[category]</h3>"
-		for (var/i in kb_categories[category])
+		for(var/i in kb_categories[category])
 			var/datum/keybinding/kb = i
 			var/bound_key = user_binds[kb.name]
 			bound_key = (bound_key) ? bound_key : "Unbound"
@@ -834,10 +834,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 
 /datum/preferences/proc/SetJobPreferenceLevel(datum/job/job, level)
-	if (!job)
+	if(!job)
 		return FALSE
 
-	if (level == JP_HIGH) // to high
+	if(level == JP_HIGH) // to high
 		//Set all other high to medium
 		for(var/j in job_preferences)
 			if(job_preferences[j] == JP_HIGH)
@@ -860,7 +860,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		ShowChoices(user)
 		return
 
-	if (!isnum(desiredLvl))
+	if(!isnum(desiredLvl))
 		to_chat(user, "<span class='danger'>UpdateJobPreference - desired level was not a number. Please notify coders!</span>")
 		ShowChoices(user)
 		return
@@ -1146,13 +1146,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						hair_style = new_hair_style
 
 				if("next_hair_style")
-					if (gender == MALE)
+					if(gender == MALE)
 						hair_style = next_list_item(hair_style, GLOB.hair_styles_male_list)
 					else
 						hair_style = next_list_item(hair_style, GLOB.hair_styles_female_list)
 
 				if("previous_hair_style")
-					if (gender == MALE)
+					if(gender == MALE)
 						hair_style = previous_list_item(hair_style, GLOB.hair_styles_male_list)
 					else
 						hair_style = previous_list_item(hair_style, GLOB.hair_styles_female_list)
@@ -1172,13 +1172,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						facial_hair_style = new_facial_hair_style
 
 				if("next_facehair_style")
-					if (gender == MALE)
+					if(gender == MALE)
 						facial_hair_style = next_list_item(facial_hair_style, GLOB.facial_hair_styles_male_list)
 					else
 						facial_hair_style = next_list_item(facial_hair_style, GLOB.facial_hair_styles_female_list)
 
 				if("previous_facehair_style")
-					if (gender == MALE)
+					if(gender == MALE)
 						facial_hair_style = previous_list_item(facial_hair_style, GLOB.facial_hair_styles_male_list)
 					else
 						facial_hair_style = previous_list_item(facial_hair_style, GLOB.facial_hair_styles_female_list)
@@ -1344,34 +1344,34 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(department)
 						prefered_security_department = department
 
-				if ("preferred_map")
+				if("preferred_map")
 					var/maplist = list()
 					var/default = "Default"
-					if (config.defaultmap)
+					if(config.defaultmap)
 						default += " ([config.defaultmap.map_name])"
-					for (var/M in config.maplist)
+					for(var/M in config.maplist)
 						var/datum/map_config/VM = config.maplist[M]
 						if(!VM.votable)
 							continue
 						var/friendlyname = "[VM.map_name] "
-						if (VM.voteweight <= 0)
+						if(VM.voteweight <= 0)
 							friendlyname += " (disabled)"
 						maplist[friendlyname] = VM.map_name
 					maplist[default] = null
 					var/pickedmap = input(user, "Choose your preferred map. This will be used to help weight random map selection.", "Character Preference")  as null|anything in maplist
-					if (pickedmap)
+					if(pickedmap)
 						preferred_map = maplist[pickedmap]
 
-				if ("clientfps")
+				if("clientfps")
 					var/desiredfps = input(user, "Choose your desired fps. (0 = synced with server tick rate (currently:[world.fps]))", "Character Preference", clientfps)  as null|num
-					if (!isnull(desiredfps))
+					if(!isnull(desiredfps))
 						clientfps = desiredfps
 						parent.fps = desiredfps
 				if("ui")
 					var/pickedui = input(user, "Choose your UI style.", "Character Preference", UI_style)  as null|anything in GLOB.available_ui_styles
 					if(pickedui)
 						UI_style = pickedui
-						if (parent && parent.mob && parent.mob.hud_used)
+						if(parent && parent.mob && parent.mob.hud_used)
 							parent.mob.hud_used.update_ui_style(ui_style2icon(UI_style))
 				if("pda_style")
 					var/pickedPDAStyle = input(user, "Choose your PDA style.", "Character Preference", pda_style)  as null|anything in GLOB.pda_styles
@@ -1491,12 +1491,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("parallaxup")
 					parallax = WRAP(parallax + 1, PARALLAX_INSANE, PARALLAX_DISABLE + 1)
-					if (parent && parent.mob && parent.mob.hud_used)
+					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref(parent.mob)
 
 				if("parallaxdown")
 					parallax = WRAP(parallax - 1, PARALLAX_INSANE, PARALLAX_DISABLE + 1)
-					if (parent && parent.mob && parent.mob.hud_used)
+					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref(parent.mob)
 
 				if("ambientocclusion")
@@ -1525,7 +1525,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						save_character()
 
 				if("tab")
-					if (href_list["tab"])
+					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
 
 				if("keybindings_menu")
@@ -1575,7 +1575,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					)
 					new_key = _kbMap[new_key] ? _kbMap[new_key] : new_key
 
-					if (numpad)
+					if(numpad)
 						new_key = "Numpad[new_key]"
 
 					var/full_key = "[AltMod][CtrlMod][ShiftMod][new_key]"

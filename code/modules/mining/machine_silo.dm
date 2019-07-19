@@ -23,11 +23,11 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		null,
 		null,
 		TRUE)
-	if (!GLOB.ore_silo_default && mapload && is_station_level(z))
+	if(!GLOB.ore_silo_default && mapload && is_station_level(z))
 		GLOB.ore_silo_default = src
 
 /obj/machinery/ore_silo/Destroy()
-	if (GLOB.ore_silo_default == src)
+	if(GLOB.ore_silo_default == src)
 		GLOB.ore_silo_default = null
 
 	for(var/C in connected)
@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	return TRUE
 
 /obj/machinery/ore_silo/attackby(obj/item/W, mob/user, params)
-	if (istype(W, /obj/item/stack))
+	if(istype(W, /obj/item/stack))
 		return remote_attackby(src, user, W)
 	return ..()
 
@@ -77,12 +77,12 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	for(var/M in materials.materials)
 		var/datum/material/mat = materials.materials[M]
 		var/sheets = round(mat.amount) / MINERAL_MATERIAL_AMOUNT
-		if (sheets)
-			if (sheets >= 1)
+		if(sheets)
+			if(sheets >= 1)
 				ui += "<a href='?src=[REF(src)];ejectsheet=[mat.id];eject_amt=1'>Eject</a>"
 			else
 				ui += "<span class='linkOff'>Eject</span>"
-			if (sheets >= 20)
+			if(sheets >= 20)
 				ui += "<a href='?src=[REF(src)];ejectsheet=[mat.id];eject_amt=20'>20x</a>"
 			else
 				ui += "<span class='linkOff'>20x</span>"
@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		var/datum/ore_silo_log/entry = logs[i]
 		ui += "<li value=[len + 1 - i]>[entry.formatted]</li>"
 		any = TRUE
-	if (!any)
+	if(!any)
 		ui += "<li>Nothing!</li>"
 
 	ui += "</ol></div>"
@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 
 	if(href_list["remove"])
 		var/datum/component/remote_materials/mats = locate(href_list["remove"]) in connected
-		if (mats)
+		if(mats)
 			mats.disconnect_from(src)
 			connected -= mats
 			updateUsrDialog()
@@ -161,13 +161,13 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		return TRUE
 
 /obj/machinery/ore_silo/multitool_act(mob/living/user, obj/item/multitool/I)
-	if (istype(I))
+	if(istype(I))
 		to_chat(user, "<span class='notice'>You log [src] in the multitool's buffer.</span>")
 		I.buffer = src
 		return TRUE
 
 /obj/machinery/ore_silo/proc/silo_log(obj/machinery/M, action, amount, noun, list/mats)
-	if (!length(mats))
+	if(!length(mats))
 		return
 	var/datum/ore_silo_log/entry = new(M, action, amount, noun, mats)
 
@@ -209,9 +209,9 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	format()
 
 /datum/ore_silo_log/proc/merge(datum/ore_silo_log/other)
-	if (other == src || action != other.action || noun != other.noun)
+	if(other == src || action != other.action || noun != other.noun)
 		return FALSE
-	if (machine_name != other.machine_name || area_name != other.area_name)
+	if(machine_name != other.machine_name || area_name != other.area_name)
 		return FALSE
 
 	timestamp = other.timestamp

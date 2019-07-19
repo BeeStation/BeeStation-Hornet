@@ -43,7 +43,7 @@
 	var/list/possible_transtitons = list()
 	for(var/A in SSmapping.z_list)
 		var/datum/space_level/D = A
-		if (D.linkage == CROSSLINKED)
+		if(D.linkage == CROSSLINKED)
 			possible_transtitons += D.z_value
 	var/_z = pick(possible_transtitons)
 

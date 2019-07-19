@@ -73,7 +73,7 @@
 				r_leg.forceMove(T)
 				r_leg = null
 			if(chest)
-				if (chest.cell) //Sanity check.
+				if(chest.cell) //Sanity check.
 					chest.cell.forceMove(T)
 					chest.cell = null
 				chest.forceMove(T)
@@ -141,13 +141,13 @@
 	if(istype(W, /obj/item/stack/sheet/iron))
 		var/obj/item/stack/sheet/iron/M = W
 		if(!l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
-			if (M.use(1))
+			if(M.use(1))
 				var/obj/item/bot_assembly/ed209/B = new
 				B.forceMove(drop_location())
 				to_chat(user, "<span class='notice'>You arm the robot frame.</span>")
-				var/holding_this = user.get_inactive_held_item()==src
+				var/holding_this = user.get_inactive_held_item() == src
 				qdel(src)
-				if (holding_this)
+				if(holding_this)
 					user.put_in_inactive_hand(B)
 			else
 				to_chat(user, "<span class='warning'>You need one sheet of iron to start building ED-209!</span>")
@@ -226,7 +226,7 @@
 		else
 			to_chat(user, "<span class='warning'>You need to attach a flash to it first!</span>")
 
-	else if (W.tool_behaviour == TOOL_MULTITOOL)
+	else if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(check_completion())
 			Interact(user)
 		else

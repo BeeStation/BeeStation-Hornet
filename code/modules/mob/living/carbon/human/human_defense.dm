@@ -116,7 +116,7 @@
 		if(!istype(I, /obj/item/clothing))
 			var/final_block_chance = I.block_chance - (CLAMP((armour_penetration-I.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
 			if(I.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-				if (istype(I, /obj/item/shield))
+				if(istype(I, /obj/item/shield))
 					var/obj/item/shield/S = I
 					return S.on_shield_block(src, AM, attack_text, damage, attack_type)
 				return 1
@@ -232,7 +232,7 @@
 					"<span class='userdanger'>[M] disarmed [src]!</span>")
 		else if(!M.client || prob(5)) // only natural monkeys get to stun reliably, (they only do it occasionaly)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-			if (src.IsKnockdown() && !src.IsParalyzed())
+			if(src.IsKnockdown() && !src.IsParalyzed())
 				Paralyze(40)
 				log_combat(M, src, "pinned")
 				visible_message("<span class='danger'>[M] has pinned down [src]!</span>", \
@@ -262,7 +262,7 @@
 
 	if(..())
 		if(M.a_intent == INTENT_HARM)
-			if (w_uniform)
+			if(w_uniform)
 				w_uniform.add_fingerprint(M)
 			var/damage = prob(90) ? 20 : 0
 			if(!damage)
@@ -386,14 +386,14 @@
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return
 	..()
-	if (!severity)
+	if(!severity)
 		return
 	var/b_loss = 0
 	var/f_loss = 0
 	var/bomb_armor = getarmor(null, "bomb")
 
-	switch (severity)
-		if (1)
+	switch(severity)
+		if(1)
 			if(prob(bomb_armor))
 				b_loss = 500
 				var/atom/throw_target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
@@ -406,16 +406,16 @@
 				gib()
 				return
 
-		if (2)
+		if(2)
 			b_loss = 60
 			f_loss = 60
 			if(bomb_armor)
 				b_loss = 30*(2 - round(bomb_armor*0.01, 0.05))
 				f_loss = b_loss
 			damage_clothes(200 - bomb_armor, BRUTE, "bomb")
-			if (!istype(ears, /obj/item/clothing/ears/earmuffs))
+			if(!istype(ears, /obj/item/clothing/ears/earmuffs))
 				adjustEarDamage(30, 120)
-			if (prob(max(70 - (bomb_armor * 0.5), 0)))
+			if(prob(max(70 - (bomb_armor * 0.5), 0)))
 				Unconscious(200)
 
 		if(3)
@@ -423,9 +423,9 @@
 			if(bomb_armor)
 				b_loss = 15*(2 - round(bomb_armor*0.01, 0.05))
 			damage_clothes(max(50 - bomb_armor, 0), BRUTE, "bomb")
-			if (!istype(ears, /obj/item/clothing/ears/earmuffs))
+			if(!istype(ears, /obj/item/clothing/ears/earmuffs))
 				adjustEarDamage(15,60)
-			if (prob(max(50 - (bomb_armor * 0.5), 0)))
+			if(prob(max(50 - (bomb_armor * 0.5), 0)))
 				Unconscious(160)
 
 	take_overall_damage(b_loss,f_loss)
@@ -656,7 +656,7 @@
 	var/gain = 20
 
 	
-	if (client)
+	if(client)
 		SSmedals.UnlockMedal(MEDAL_SINGULARITY_DEATH,client)
 	
 

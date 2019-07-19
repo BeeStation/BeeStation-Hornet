@@ -88,7 +88,7 @@
 	item_color = "orange"
 
 /obj/item/clothing/shoes/sneakers/orange/attack_self(mob/user)
-	if (src.chained)
+	if(src.chained)
 		src.chained = null
 		src.slowdown = SHOES_SLOWDOWN
 		new /obj/item/restraints/handcuffs( user.loc )
@@ -98,7 +98,7 @@
 /obj/item/clothing/shoes/sneakers/orange/attackby(obj/H, loc, params)
 	..()
 	// Note: not using istype here because we want to ignore all subtypes
-	if (H.type == /obj/item/restraints/handcuffs && !chained)
+	if(H.type == /obj/item/restraints/handcuffs && !chained)
 		qdel(H)
 		src.chained = 1
 		src.slowdown = 15

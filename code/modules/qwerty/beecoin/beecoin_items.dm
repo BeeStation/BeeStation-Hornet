@@ -11,11 +11,11 @@
 	var/icon_dir = 2
 
 /datum/beecoin_shop_item/proc/buy(client/C)
-	if (!SSdbcore.IsConnected())
+	if(!SSdbcore.IsConnected())
 		to_chat(C, "<span class='rose bold'>Error! Try again later!</span>")
 		return
 	var/beecoins = C.get_beecoin_count()
-	if (beecoins < cost)
+	if(beecoins < cost)
 		to_chat(C, "<span class='rose bold'>You do not have enough beecoins to buy the [name]!</span>")
 		return
 	C.inc_beecoin_count(-cost, reason="Shop purchase.")

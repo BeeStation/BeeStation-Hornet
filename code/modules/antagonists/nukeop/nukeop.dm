@@ -56,7 +56,7 @@
 		// grant extra TC for the people who start in the nukie base ie. not the lone op
 		var/extra_tc = CEILING(GLOB.joined_player_list.len/5, 5)
 		var/datum/component/uplink/U = owner.find_syndicate_uplink()
-		if (U)
+		if(U)
 			U.telecrystals += extra_tc
 
 
@@ -146,11 +146,11 @@
 
 /datum/antagonist/nukeop/proc/admin_tell_code(mob/admin)
 	var/code
-	for (var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
-		if (length(bombue.r_code) <= 5 && bombue.r_code != initial(bombue.r_code))
+	for(var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
+		if(length(bombue.r_code) <= 5 && bombue.r_code != initial(bombue.r_code))
 			code = bombue.r_code
 			break
-	if (code)
+	if(code)
 		antag_memory += "<B>Syndicate Nuclear Bomb Code</B>: [code]<br>"
 		to_chat(owner.current, "The nuclear authorization code is: <B>[code]</B>")
 	else
@@ -210,7 +210,7 @@
 /datum/antagonist/nukeop/leader/proc/ask_name()
 	var/randomname = pick(GLOB.last_names)
 	var/newname = stripped_input(owner.current,"You are the nuke operative [title]. Please choose a last name for your family.", "Name change",randomname)
-	if (!newname)
+	if(!newname)
 		newname = randomname
 	else
 		newname = reject_bad_name(newname)
@@ -298,19 +298,19 @@
 		return NUKE_RESULT_FLUKE
 	else if(station_was_nuked && !syndies_didnt_escape)
 		return NUKE_RESULT_NUKE_WIN
-	else if (station_was_nuked && syndies_didnt_escape)
+	else if(station_was_nuked && syndies_didnt_escape)
 		return NUKE_RESULT_NOSURVIVORS
-	else if (!disk_rescued && !station_was_nuked && nuke_off_station && !syndies_didnt_escape)
+	else if(!disk_rescued && !station_was_nuked && nuke_off_station && !syndies_didnt_escape)
 		return NUKE_RESULT_WRONG_STATION
-	else if (!disk_rescued && !station_was_nuked && nuke_off_station && syndies_didnt_escape)
+	else if(!disk_rescued && !station_was_nuked && nuke_off_station && syndies_didnt_escape)
 		return NUKE_RESULT_WRONG_STATION_DEAD
-	else if ((disk_rescued && evacuation) && operatives_dead())
+	else if((disk_rescued && evacuation) && operatives_dead())
 		return NUKE_RESULT_CREW_WIN_SYNDIES_DEAD
-	else if (disk_rescued)
+	else if(disk_rescued)
 		return NUKE_RESULT_CREW_WIN
-	else if (!disk_rescued && operatives_dead())
+	else if(!disk_rescued && operatives_dead())
 		return NUKE_RESULT_DISK_LOST
-	else if (!disk_rescued && evacuation)
+	else if(!disk_rescued && evacuation)
 		return NUKE_RESULT_DISK_STOLEN
 	else
 		return	//Undefined result

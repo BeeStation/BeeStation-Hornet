@@ -35,7 +35,7 @@
 	var/atom/middragatom
 
 /client/MouseDown(object, location, control, params)
-	if (mouse_down_icon)
+	if(mouse_down_icon)
 		mouse_pointer_icon = mouse_down_icon
 	var/delay = mob.CanMobAutoclick(object, location, params)
 	if(delay)
@@ -49,7 +49,7 @@
 		active_mousedown_item.onMouseDown(object, location, params, mob)
 
 /client/MouseUp(object, location, control, params)
-	if (mouse_up_icon)
+	if(mouse_up_icon)
 		mouse_pointer_icon = mouse_up_icon
 	selected_target[1] = null
 	if(active_mousedown_item)
@@ -118,8 +118,8 @@
 
 /client/MouseDrag(src_object,atom/over_object,src_location,over_location,src_control,over_control,params)
 	var/list/L = params2list(params)
-	if (L["middle"])
-		if (src_object && src_location != over_location)
+	if(L["middle"])
+		if(src_object && src_location != over_location)
 			middragtime = world.time
 			middragatom = src_object
 		else
@@ -140,7 +140,7 @@
 	return
 
 /client/MouseDrop(src_object, over_object, src_location, over_location, src_control, over_control, params)
-	if (middragatom == src_object)
+	if(middragatom == src_object)
 		middragtime = 0
 		middragatom = null
 	..()

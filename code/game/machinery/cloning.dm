@@ -312,9 +312,9 @@
 			go_out()
 			log_cloning("[key_name(mob_occupant)] completed cloning cycle in [src] at [AREACOORD(src)].")
 
-	else if (!mob_occupant || mob_occupant.loc != src)
+	else if(!mob_occupant || mob_occupant.loc != src)
 		occupant = null
-		if (!mess && !panel_open)
+		if(!mess && !panel_open)
 			icon_state = "pod_0"
 		use_power(200)
 
@@ -377,9 +377,9 @@
 
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)
-	if ((isnull(connected)) || (!istype(connected, /obj/machinery/computer/cloning)))
+	if((isnull(connected)) || (!istype(connected, /obj/machinery/computer/cloning)))
 		return FALSE
-	if (!message)
+	if(!message)
 		return FALSE
 
 	connected.temp = message
@@ -454,7 +454,7 @@
 
 /obj/machinery/clonepod/emp_act(severity)
 	. = ..()
-	if (!(. & EMP_PROTECT_SELF))
+	if(!(. & EMP_PROTECT_SELF))
 		var/mob/living/mob_occupant = occupant
 		if(mob_occupant && prob(100/(severity*efficiency)))
 			connected_message(Gibberish("EMP-caused Accidental Ejection", 0))

@@ -20,7 +20,7 @@
 
 /obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
 
-	if (W.tool_behaviour == TOOL_WELDER)
+	if(W.tool_behaviour == TOOL_WELDER)
 		if(get_amount() < 4)
 			to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
 			return
@@ -37,16 +37,16 @@
 				qdel(src)
 				return
 
-			if (mineralType == "iron")
+			if(mineralType == "iron")
 				var/obj/item/stack/sheet/iron/new_item = new(user.loc)
 				user.visible_message("[user.name] shaped [src] into iron with the welding tool.", \
 							 "<span class='notice'>You shaped [src] into iron with the welding tool.</span>", \
 							 "<span class='italics'>You hear welding.</span>")
 				var/obj/item/stack/rods/R = src
 				src = null
-				var/replace = (user.get_inactive_held_item()==R)
+				var/replace = (user.get_inactive_held_item() == R)
 				R.use(4)
-				if (!R && replace)
+				if(!R && replace)
 					user.put_in_hands(new_item)
 
 			else
@@ -57,9 +57,9 @@
 							 "<span class='italics'>You hear welding.</span>")
 				var/obj/item/stack/rods/R = src
 				src = null
-				var/replace = (user.get_inactive_held_item()==R)
+				var/replace = (user.get_inactive_held_item() == R)
 				R.use(4)
-				if (!R && replace)
+				if(!R && replace)
 					user.put_in_hands(new_item)
 	else
 		return ..()

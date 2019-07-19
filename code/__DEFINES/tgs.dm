@@ -94,7 +94,7 @@
 
 //represents a version of tgstation-server
 /datum/tgs_version
-	var/suite			//The suite version, can be >=3
+	var/suite			//The suite version, can be >= 3
 
 	//this group of variables can be null to represent a wild card
 	var/major					//The major version

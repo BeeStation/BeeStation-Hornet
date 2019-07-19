@@ -40,7 +40,7 @@
 		else if(L.stat)
 			to_chat(ranged_ability_user, "<span class='neovgre'>\"There is use in shackling the dead, but for examples.\"</span>")
 			return TRUE
-		else if (istype(L.handcuffed,/obj/item/restraints/handcuffs/clockwork))
+		else if(istype(L.handcuffed,/obj/item/restraints/handcuffs/clockwork))
 			to_chat(ranged_ability_user, "<span class='neovgre'>\"[L.p_theyre(TRUE)] already helpless, no?\"</span>")
 			return TRUE
 

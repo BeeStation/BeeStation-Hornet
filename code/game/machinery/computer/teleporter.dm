@@ -17,7 +17,7 @@
 	link_power_station()
 
 /obj/machinery/computer/teleporter/Destroy()
-	if (power_station)
+	if(power_station)
 		power_station.teleporter_console = null
 		power_station = null
 	return ..()

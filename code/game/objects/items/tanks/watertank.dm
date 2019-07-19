@@ -73,7 +73,7 @@
 	return ..()
 
 /obj/item/watertank/attack_hand(mob/user)
-	if (user.get_item_by_slot(user.getBackSlot()) == src)
+	if(user.get_item_by_slot(user.getBackSlot()) == src)
 		toggle_mister(user)
 	else
 		return ..()
@@ -129,7 +129,7 @@
 
 /obj/item/reagent_containers/spray/mister/doMove(atom/destination)
 	if(destination && (destination != tank.loc || !ismob(destination)))
-		if (loc != tank)
+		if(loc != tank)
 			to_chat(tank.loc, "<span class='notice'>The mister snaps back onto the watertank.</span>")
 		destination = tank
 	..()
@@ -221,7 +221,7 @@
 /obj/item/extinguisher/mini/nozzle/Initialize()
 	. = ..()
 	tank = loc
-	if (!istype(tank))
+	if(!istype(tank))
 		return INITIALIZE_HINT_QDEL
 	reagents = tank.reagents
 	max_water = tank.volume
@@ -350,7 +350,7 @@
 	var/mob/living/carbon/human/user = usr
 	if(!istype(user))
 		return
-	if (user.get_item_by_slot(SLOT_BACK) != src)
+	if(user.get_item_by_slot(SLOT_BACK) != src)
 		to_chat(user, "<span class='warning'>The chemtank needs to be on your back before you can activate it!</span>")
 		return
 	if(on)

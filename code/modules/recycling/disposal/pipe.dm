@@ -251,7 +251,7 @@
 	var/obj/machinery/disposal/D = locate() in T
 	if(D)
 		linked = D
-		if (!D.trunk)
+		if(!D.trunk)
 			D.trunk = src
 
 	var/obj/structure/disposaloutlet/O = locate() in T

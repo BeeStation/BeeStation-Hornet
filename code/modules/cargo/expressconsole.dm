@@ -46,7 +46,7 @@
 		return TRUE
 	else if(istype(W, /obj/item/supplypod_beacon))
 		var/obj/item/supplypod_beacon/sb = W
-		if (sb.express_console != src)
+		if(sb.express_console != src)
 			sb.link_console(src, user)
 			return TRUE
 		else
@@ -112,7 +112,7 @@
 		message = blockade_warning
 	if(usingBeacon && !beacon)
 		message = "BEACON ERROR: BEACON MISSING"//beacon was destroyed
-	else if (usingBeacon && !canBeacon)
+	else if(usingBeacon && !canBeacon)
 		message = "BEACON ERROR: MUST BE EXPOSED"//beacon's loc/user's loc must be a turf
 	if(obj_flags & EMAGGED)
 		message = "(&!#@ERROR: ROUTING_#PROTOCOL MALF(*CT#ON. $UG%ESTE@ ACT#0N: !^/PULS3-%E)ET CIR*)ITB%ARD."
@@ -121,7 +121,7 @@
 		packin_up()
 		stack_trace("You didn't give the cargo tech good advice, and he ripped the manifest. As a result, there was no pack data for [src]")
 	data["supplies"] = meme_pack_data
-	if (cooldown > 0)//cooldown used for printing beacons
+	if(cooldown > 0)//cooldown used for printing beacons
 		cooldown--
 	return data
 
@@ -129,11 +129,11 @@
 	switch(action)
 		if("LZCargo")
 			usingBeacon = FALSE
-			if (beacon)
+			if(beacon)
 				beacon.update_status(SP_UNREADY) //ready light on beacon will turn off
 		if("LZBeacon")
 			usingBeacon = TRUE
-			if (beacon)
+			if(beacon)
 				beacon.update_status(SP_READY) //turns on the beacon's ready light
 		if("printBeacon")
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
@@ -171,12 +171,12 @@
 			if(!(obj_flags & EMAGGED))
 				if(SO.pack.cost <= points_to_check)
 					var/LZ
-					if (istype(beacon) && usingBeacon)//prioritize beacons over landing in cargobay
+					if(istype(beacon) && usingBeacon)//prioritize beacons over landing in cargobay
 						LZ = get_turf(beacon)
 						beacon.update_status(SP_LAUNCH)
-					else if (!usingBeacon)//find a suitable supplypod landing zone in cargobay
+					else if(!usingBeacon)//find a suitable supplypod landing zone in cargobay
 						landingzone = GLOB.areas_by_type[/area/quartermaster/storage]
-						if (!landingzone)
+						if(!landingzone)
 							WARNING("[src] couldnt find a Quartermaster/Storage (aka cargobay) area on the station, and as such it has set the supplypod landingzone to the area it resides in.")
 							landingzone = get_area(src)
 						for(var/turf/open/floor/T in landingzone.contents)//uses default landing zone
@@ -186,7 +186,7 @@
 							CHECK_TICK
 						if(empty_turfs?.len)
 							LZ = pick(empty_turfs)
-					if (SO.pack.cost <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
+					if(SO.pack.cost <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
 						D.adjust_money(-SO.pack.cost)
 						new /obj/effect/DPtarget(LZ, podType, SO)
 						. = TRUE

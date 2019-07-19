@@ -10,7 +10,7 @@
                   embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME,
                   embedded_ignore_throwspeed_threshold = FALSE)
   . = locate(EMBEDID)
-  if (!.)
+  if(!.)
     . = new /datum/embedding_behavior(embed_chance, embedded_fall_chance, embedded_pain_chance, embedded_pain_multiplier, embedded_fall_pain_multiplier, embedded_impact_pain_multiplier, embedded_unsafe_removal_pain_multiplier, embedded_unsafe_removal_time, embedded_ignore_throwspeed_threshold)
 
 /datum/embedding_behavior

@@ -116,7 +116,7 @@
 		if(brain_holder)
 			emergency_stop(AM)
 		else if(isliving(AM))
-			if((obj_flags & EMAGGED)||((!allowed(AM))&&(!ishuman(AM))))
+			if((obj_flags & EMAGGED) || ((!allowed(AM)) && (!ishuman(AM))))
 				crush_living(AM)
 			else
 				emergency_stop(AM)

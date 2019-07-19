@@ -275,7 +275,7 @@
 	stored_core_stability = 0
 	for(var/obj/machinery/am_shielding/AMS in linked_cores)
 		stored_core_stability += AMS.stability
-	stored_core_stability/=linked_cores.len
+	stored_core_stability /= linked_cores.len
 	addtimer(CALLBACK(src, .proc/reset_stored_core_stability_delay), 40)
 
 /obj/machinery/power/am_control_unit/proc/reset_stored_core_stability_delay()

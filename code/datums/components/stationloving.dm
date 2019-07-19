@@ -17,11 +17,11 @@
 	check_in_bounds() // Just in case something is being created outside of station/centcom
 
 /datum/component/stationloving/InheritComponent(datum/component/stationloving/newc, original, list/arguments)
-	if (original)
-		if (istype(newc))
+	if(original)
+		if(istype(newc))
 			inform_admins = newc.inform_admins
 			allow_death = newc.allow_death
-		else if (LAZYLEN(arguments))
+		else if(LAZYLEN(arguments))
 			inform_admins = arguments[1]
 
 /datum/component/stationloving/proc/relocate()
@@ -57,15 +57,15 @@
 /datum/component/stationloving/proc/in_bounds()
 	var/static/list/allowed_shuttles = typecacheof(list(/area/shuttle/syndicate, /area/shuttle/escape, /area/shuttle/pod_1, /area/shuttle/pod_2, /area/shuttle/pod_3, /area/shuttle/pod_4))
 	var/turf/T = get_turf(parent)
-	if (!T)
+	if(!T)
 		return FALSE
 	var/area/A = T.loc
 	if(istype(A, /area/fabric_of_reality)) // Obviously terrible, just for test merging
 		return FALSE
-	if (is_station_level(T.z) || is_centcom_level(T.z))
+	if(is_station_level(T.z) || is_centcom_level(T.z))
 		return TRUE
-	if (is_reserved_level(T.z))
-		if (is_type_in_typecache(A, allowed_shuttles))
+	if(is_reserved_level(T.z))
+		if(is_type_in_typecache(A, allowed_shuttles))
 			return TRUE
 
 	return FALSE

@@ -691,9 +691,9 @@
 	return
 
 /datum/robot_energy_storage/proc/use_charge(amount)
-	if (energy >= amount)
+	if(energy >= amount)
 		energy -= amount
-		if (energy == 0)
+		if(energy == 0)
 			return 1
 		return 2
 	else

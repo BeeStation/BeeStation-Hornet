@@ -86,15 +86,15 @@
 	var/celsius_temperature = src.air_contents.temperature-T0C
 	var/descriptive
 
-	if (celsius_temperature < 20)
+	if(celsius_temperature < 20)
 		descriptive = "cold"
-	else if (celsius_temperature < 40)
+	else if(celsius_temperature < 40)
 		descriptive = "room temperature"
-	else if (celsius_temperature < 80)
+	else if(celsius_temperature < 80)
 		descriptive = "lukewarm"
-	else if (celsius_temperature < 100)
+	else if(celsius_temperature < 100)
 		descriptive = "warm"
-	else if (celsius_temperature < 300)
+	else if(celsius_temperature < 300)
 		descriptive = "hot"
 	else
 		descriptive = "furiously hot"
@@ -125,7 +125,7 @@
 	var/mob/living/carbon/human/H = user
 	user.visible_message("<span class='suicide'>[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
-	if (!QDELETED(H) && air_contents && air_contents.return_pressure() >= 1000)
+	if(!QDELETED(H) && air_contents && air_contents.return_pressure() >= 1000)
 		for(var/obj/item/W in H)
 			H.dropItemToGround(W)
 			if(prob(50))

@@ -45,7 +45,7 @@
 /obj/item/borg/cyborghug/attack_self(mob/living/user)
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/P = user
-		if(P.emagged&&shockallowed == 1)
+		if(P.emagged && shockallowed == 1)
 			if(mode < 3)
 				mode++
 			else
@@ -110,7 +110,7 @@
 		if(2)
 			if(scooldown < world.time)
 				if(M.health >= 0)
-					if(ishuman(M)||ismonkey(M))
+					if(ishuman(M) || ismonkey(M))
 						M.electrocute_act(5, "[user]", safety = 1)
 						user.visible_message("<span class='userdanger'>[user] electrocutes [M] with [user.p_their()] touch!</span>", \
 							"<span class='danger'>You electrocute [M] with your touch!</span>")

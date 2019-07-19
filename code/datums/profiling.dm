@@ -11,7 +11,7 @@ GLOBAL_REAL_VAR(PROFILE_TIME)
 
 	var/list/lines = list()
 
-	for (var/entry in PROFILE_STORE)
+	for(var/entry in PROFILE_STORE)
 		var/list/data = PROFILE_STORE[entry]
 		lines += "[entry] => [num2text(data[PROFILE_ITEM_TIME], 10)]ms ([data[PROFILE_ITEM_COUNT]]) (avg:[num2text(data[PROFILE_ITEM_TIME]/(data[PROFILE_ITEM_COUNT] || 1), 99)])"
 

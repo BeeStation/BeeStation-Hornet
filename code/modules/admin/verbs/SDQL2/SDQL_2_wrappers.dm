@@ -61,7 +61,7 @@
 	thing << link(url)
 
 /proc/_locate(X, Y, Z)
-	if (isnull(Y)) // Assuming that it's only a single-argument call.
+	if(isnull(Y)) // Assuming that it's only a single-argument call.
 		return locate(X)
 
 	return locate(X, Y, Z)
@@ -151,7 +151,7 @@
 	return sin(X)
 
 /proc/_list_add(list/L, ...)
-	if (args.len < 2)
+	if(args.len < 2)
 		return
 	L += args.Copy(2)
 
@@ -171,7 +171,7 @@
 	return L.Join(Glue, Start, End)
 
 /proc/_list_remove(list/L, ...)
-	if (args.len < 2)
+	if(args.len < 2)
 		return
 	L -= args.Copy(2)
 

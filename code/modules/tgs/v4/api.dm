@@ -161,7 +161,7 @@
 			return
 		if(TGS4_TOPIC_CHANGE_PORT)
 			var/new_port = text2num(params[TGS4_PARAMETER_DATA])
-			if (!(new_port > 0))
+			if(!(new_port > 0))
 				return "Invalid port: [new_port]"
 
 			//the topic still completes, miraculously
@@ -279,7 +279,7 @@
 	var/list/channels = list()
 	for(var/I in ChatChannelInfo())
 		var/datum/tgs_chat_channel/channel = I
-		if (!channel.is_private_channel && ((channel.is_admin_channel && admin_only) || (!channel.is_admin_channel && !admin_only)))
+		if(!channel.is_private_channel && ((channel.is_admin_channel && admin_only) || (!channel.is_admin_channel && !admin_only)))
 			channels += channel.id
 	message = list("message" = message, "channelIds" = channels)
 	if(intercepted_message_queue)

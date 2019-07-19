@@ -101,12 +101,12 @@
 			var/datum/admins/D = GLOB.admin_datums[adm_ckey]
 			if(!D)
 				D = GLOB.deadmins[adm_ckey]
-				if (!D)
+				if(!D)
 					continue
 			var/deadminlink = ""
 			if(D.owner)
 				adm_ckey = D.owner.key
-			if (D.deadmined)
+			if(D.deadmined)
 				deadminlink = " <a class='small' href='?src=[REF(src)];[HrefToken()];editrights=activate;key=[adm_ckey]'>\[RA\]</a>"
 			else
 				deadminlink = " <a class='small' href='?src=[REF(src)];[HrefToken()];editrights=deactivate;key=[adm_ckey]'>\[DA\]</a>"
@@ -398,7 +398,7 @@
 			var/datum/admins/A = GLOB.admin_datums[i]
 			if(!A)
 				A = GLOB.deadmins[i]
-				if (!A)
+				if(!A)
 					continue
 			if(A.rank.name != D.rank.name)
 				continue
@@ -461,7 +461,7 @@
 
 /datum/admins/proc/sync_lastadminrank(admin_ckey, admin_key, datum/admins/D)
 	var/sqlrank = "Player"
-	if (D)
+	if(D)
 		sqlrank = sanitizeSQL(D.rank.name)
 	admin_ckey = sanitizeSQL(admin_ckey)
 	var/datum/DBQuery/query_sync_lastadminrank = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET lastadminrank = '[sqlrank]' WHERE ckey = '[admin_ckey]'")

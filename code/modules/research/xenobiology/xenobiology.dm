@@ -615,7 +615,7 @@
 
 /obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user , proximity)
 	. = ..()
-	if (istype(target))
+	if(istype(target))
 		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>" )
 		return
 
@@ -644,7 +644,7 @@
 	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
 	var/newname = copytext(sanitize(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text),1,MAX_NAME_LEN)
 
-	if (!newname)
+	if(!newname)
 		newname = "pet slime"
 	M.name = newname
 	M.real_name = newname
@@ -739,7 +739,7 @@
 		return
 
 	prompted = 1
-	if(alert("This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?",,"Yes","No")=="No")
+	if(alert("This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?",,"Yes","No") == "No")
 		prompted = 0
 		return
 
@@ -890,7 +890,7 @@
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
 	C.resistance_flags |= FIRE_PROOF
-	uses --
+	uses--
 	if(!uses)
 		qdel(src)
 

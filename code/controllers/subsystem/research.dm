@@ -64,7 +64,7 @@ SUBSYSTEM_DEF(research)
 			if(miner.working)
 				bitcoins = single_server_income.Copy()
 				break			//Just need one to work.
-	if (!isnull(last_income))
+	if(!isnull(last_income))
 		var/income_time_difference = world.time - last_income
 		science_tech.last_bitcoins = bitcoins  // Doesn't take tick drift into account
 		for(var/i in bitcoins)

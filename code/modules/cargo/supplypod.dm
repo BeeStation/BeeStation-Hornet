@@ -61,21 +61,21 @@
 
 /obj/structure/closet/supplypod/update_icon()
 	cut_overlays()
-	if (style == STYLE_SEETHROUGH || style == STYLE_INVISIBLE) //If we're invisible, we dont bother adding any overlays
+	if(style == STYLE_SEETHROUGH || style == STYLE_INVISIBLE) //If we're invisible, we dont bother adding any overlays
 		return
 	else 
-		if (opened)
+		if(opened)
 			add_overlay("[icon_state]_open")
 		else
 			add_overlay("[icon_state]_door")
 
 /obj/structure/closet/supplypod/proc/setStyle(chosenStyle, var/duringInit = FALSE) //Used to give the sprite an icon state, name, and description
-	if (!duringInit && style == chosenStyle) //Check if the input style is already the same as the pod's style. This happens in centcom_podlauncher, and as such we set the style to STYLE_CENTCOM.
+	if(!duringInit && style == chosenStyle) //Check if the input style is already the same as the pod's style. This happens in centcom_podlauncher, and as such we set the style to STYLE_CENTCOM.
 		setStyle(STYLE_CENTCOM) //We make sure to not check this during initialize() so the standard supplypod works correctly.
 		return
 	style = chosenStyle
 	icon_state = POD_STYLES[chosenStyle][POD_ICON_STATE] //POD_STYLES is a 2D array we treat as a dictionary. The style represents the verticle index, with the icon state, name, and desc being stored in the horizontal indexes of the 2D array.
-	if (!adminNamed) //We dont want to name it ourselves if it has been specifically named by an admin using the centcom_podlauncher datum
+	if(!adminNamed) //We dont want to name it ourselves if it has been specifically named by an admin using the centcom_podlauncher datum
 		name = POD_STYLES[chosenStyle][POD_NAME]
 		desc = POD_STYLES[chosenStyle][POD_DESC]
 	update_icon()
@@ -101,17 +101,17 @@
 /obj/structure/closet/supplypod/proc/preOpen() //Called before the open() proc. Handles anything that occurs right as the pod lands.
 	var/turf/T = get_turf(src)
 	var/list/B = explosionSize //Mostly because B is more readable than explosionSize :p
-	if (landingSound)
+	if(landingSound)
 		playsound(get_turf(src), landingSound, soundVolume, 0, 0)
-	for (var/mob/living/M in T)
-		if (effectLimb && iscarbon(M)) //If effectLimb is true (which means we pop limbs off when we hit people):
+	for(var/mob/living/M in T)
+		if(effectLimb && iscarbon(M)) //If effectLimb is true (which means we pop limbs off when we hit people):
 			var/mob/living/carbon/CM = M
-			for (var/obj/item/bodypart/bodypart in CM.bodyparts) //Look at the bodyparts in our poor mob beneath our pod as it lands
+			for(var/obj/item/bodypart/bodypart in CM.bodyparts) //Look at the bodyparts in our poor mob beneath our pod as it lands
 				if(bodypart.body_part != HEAD && bodypart.body_part != CHEST)//we dont want to kill him, just teach em a lesson!
-					if (bodypart.dismemberable)
+					if(bodypart.dismemberable)
 						bodypart.dismember() //Using the power of flextape i've sawed this man's limb in half!
 						break
-		if (effectOrgans && iscarbon(M)) //effectOrgans means remove every organ in our mob
+		if(effectOrgans && iscarbon(M)) //effectOrgans means remove every organ in our mob
 			var/mob/living/carbon/CM = M
 			for(var/X in CM.internal_organs)
 				var/destination = get_edge_target_turf(T, pick(GLOB.alldirs)) //Pick a random direction to toss them in
@@ -120,80 +120,80 @@
 				O.forceMove(T) //Move the organ outta the body
 				O.throw_at(destination, 2, 3) //Thow the organ at a random tile 3 spots away
 				sleep(1)
-			for (var/obj/item/bodypart/bodypart in CM.bodyparts) //Look at the bodyparts in our poor mob beneath our pod as it lands
+			for(var/obj/item/bodypart/bodypart in CM.bodyparts) //Look at the bodyparts in our poor mob beneath our pod as it lands
 				var/destination = get_edge_target_turf(T, pick(GLOB.alldirs))
-				if (bodypart.dismemberable)
+				if(bodypart.dismemberable)
 					bodypart.dismember() //Using the power of flextape i've sawed this man's bodypart in half!
 					bodypart.throw_at(destination, 2, 3)
 					sleep(1)
 
-		if (effectGib) //effectGib is on, that means whatever's underneath us better be fucking oof'd on
+		if(effectGib) //effectGib is on, that means whatever's underneath us better be fucking oof'd on
 			M.adjustBruteLoss(5000) //THATS A LOT OF DAMAGE (called just in case gib() doesnt work on em)
 			M.gib() //After adjusting the fuck outta that brute loss we finish the job with some satisfying gibs
 		M.adjustBruteLoss(damage)
 	var/explosion_sum = B[1] + B[2] + B[3] + B[4]
-	if (explosion_sum != 0) //If the explosion list isn't all zeroes, call an explosion
+	if(explosion_sum != 0) //If the explosion list isn't all zeroes, call an explosion
 		explosion(get_turf(src), B[1], B[2], B[3], flame_range = B[4], silent = effectQuiet, ignorecap = istype(src, /obj/structure/closet/supplypod/centcompod)) //less advanced equipment than bluespace pod, so larger explosion when landing
-	else if (!effectQuiet) //If our explosion list IS all zeroes, we still make a nice explosion sound (unless the effectQuiet var is true)
+	else if(!effectQuiet) //If our explosion list IS all zeroes, we still make a nice explosion sound (unless the effectQuiet var is true)
 		playsound(src, "explosion", landingSound ? 15 : 80, 1)
-	if (effectMissile) //If we are acting like a missile, then right after we land and finish fucking shit up w explosions, we should delete
+	if(effectMissile) //If we are acting like a missile, then right after we land and finish fucking shit up w explosions, we should delete
 		opened = TRUE //We set opened to TRUE to avoid spending time trying to open (due to being deleted) during the Destroy() proc
 		qdel(src)
-	if (style == STYLE_GONDOLA) //Checks if we are supposed to be a gondola pod. If so, create a gondolapod mob, and move this pod to nullspace. I'd like to give a shout out, to my man oranges
+	if(style == STYLE_GONDOLA) //Checks if we are supposed to be a gondola pod. If so, create a gondolapod mob, and move this pod to nullspace. I'd like to give a shout out, to my man oranges
 		var/mob/living/simple_animal/pet/gondola/gondolapod/benis = new(get_turf(src), src)
 		benis.contents |= contents //Move the contents of this supplypod into the gondolapod mob.
 		moveToNullspace()
 		addtimer(CALLBACK(src, .proc/open, benis), openingDelay) //After the openingDelay passes, we use the open proc from this supplyprod while referencing the contents of the "holder", in this case the gondolapod mob
-	else if (style == STYLE_SEETHROUGH)
+	else if(style == STYLE_SEETHROUGH)
 		open(src)
 	else
 		addtimer(CALLBACK(src, .proc/open, src), openingDelay) //After the openingDelay passes, we use the open proc from this supplypod, while referencing this supplypod's contents
 
 /obj/structure/closet/supplypod/open(atom/movable/holder, var/broken = FALSE, var/forced = FALSE) //The holder var represents an atom whose contents we will be working with
-	if (!holder)
+	if(!holder)
 		return
-	if (opened) //This is to ensure we don't open something that has already been opened
+	if(opened) //This is to ensure we don't open something that has already been opened
 		return
 	opened = TRUE 
 	var/turf/T = get_turf(holder) //Get the turf of whoever's contents we're talking about
 	var/mob/M
-	if (istype(holder, /mob)) //Allows mobs to assume the role of the holder, meaning we look at the mob's contents rather than the supplypod's contents. Typically by this point the supplypod's contents have already been moved over to the mob's contents
+	if(istype(holder, /mob)) //Allows mobs to assume the role of the holder, meaning we look at the mob's contents rather than the supplypod's contents. Typically by this point the supplypod's contents have already been moved over to the mob's contents
 		M = holder
-		if (M.key && !forced && !broken) //If we are player controlled, then we shouldnt open unless the opening is manual, or if it is due to being destroyed (represented by the "broken" parameter)
+		if(M.key && !forced && !broken) //If we are player controlled, then we shouldnt open unless the opening is manual, or if it is due to being destroyed (represented by the "broken" parameter)
 			return
-	if (openingSound)
+	if(openingSound)
 		playsound(get_turf(holder), openingSound, soundVolume, 0, 0) //Special admin sound to play
 	INVOKE_ASYNC(holder, .proc/setOpened) //Use the INVOKE_ASYNC proc to call setOpened() on whatever the holder may be, without giving the atom/movable base class a setOpened() proc definition
-	if (style == STYLE_SEETHROUGH)
+	if(style == STYLE_SEETHROUGH)
 		update_icon()
-	for (var/atom/movable/O in holder.contents) //Go through the contents of the holder
+	for(var/atom/movable/O in holder.contents) //Go through the contents of the holder
 		O.forceMove(T) //move everything from the contents of the holder to the turf of the holder
-	if (!effectQuiet && !openingSound && style != STYLE_SEETHROUGH) //If we aren't being quiet, play the default pod open sound
+	if(!effectQuiet && !openingSound && style != STYLE_SEETHROUGH) //If we aren't being quiet, play the default pod open sound
 		playsound(get_turf(holder), open_sound, 15, 1, -3)
-	if (broken) //If the pod is opening because it's been destroyed, we end here
+	if(broken) //If the pod is opening because it's been destroyed, we end here
 		return
-	if (style == STYLE_SEETHROUGH)
+	if(style == STYLE_SEETHROUGH)
 		depart(src)
 	else
 		addtimer(CALLBACK(src, .proc/depart, holder), departureDelay) //Finish up the pod's duties after a certain amount of time
 
 /obj/structure/closet/supplypod/proc/depart(atom/movable/holder)
-	if (leavingSound)
+	if(leavingSound)
 		playsound(get_turf(holder), leavingSound, soundVolume, 0, 0)
-	if (reversing) //If we're reversing, we call the close proc. This sends the pod back up to centcom
+	if(reversing) //If we're reversing, we call the close proc. This sends the pod back up to centcom
 		close(holder)
-	else if (bluespace) //If we're a bluespace pod, then delete ourselves (along with our holder, if a seperate holder exists)
-		if (!effectQuiet && style != STYLE_INVISIBLE && style != STYLE_SEETHROUGH)
+	else if(bluespace) //If we're a bluespace pod, then delete ourselves (along with our holder, if a seperate holder exists)
+		if(!effectQuiet && style != STYLE_INVISIBLE && style != STYLE_SEETHROUGH)
 			do_sparks(5, TRUE, holder) //Create some sparks right before closing
 		qdel(src) //Delete ourselves and the holder
-		if (holder != src)
+		if(holder != src)
 			qdel(holder)
 
 /obj/structure/closet/supplypod/centcompod/close(atom/movable/holder) //Closes the supplypod and sends it back to centcom. Should only ever be called if the "reversing" variable is true
 	opened = FALSE
 	INVOKE_ASYNC(holder, .proc/setClosed) //Use the INVOKE_ASYNC proc to call setClosed() on whatever the holder may be, without giving the atom/movable base class a setClosed() proc definition
-	for (var/atom/movable/O in get_turf(holder))
-		if (ismob(O) && !isliving(O)) //We dont want to take ghosts with us
+	for(var/atom/movable/O in get_turf(holder))
+		if(ismob(O) && !isliving(O)) //We dont want to take ghosts with us
 			continue
 		O.forceMove(holder) //Put objects inside before we close
 	var/obj/effect/temp_visual/risingPod = new /obj/effect/DPfall(get_turf(holder), src) //Make a nice animation of flying back up
@@ -227,13 +227,13 @@
 	icon_state = ""
 
 /obj/effect/DPfall/Initialize(dropLocation, obj/structure/closet/supplypod/pod)
-	if (pod.style == STYLE_SEETHROUGH)
+	if(pod.style == STYLE_SEETHROUGH)
 		pixel_x = -16
 		pixel_y = 0
-		for (var/atom/movable/O in pod.contents)
+		for(var/atom/movable/O in pod.contents)
 			var/icon/I = getFlatIcon(O) //im so sorry
 			add_overlay(I)
-	else if (pod.style != STYLE_INVISIBLE) //Check to ensure the pod isn't invisible
+	else if(pod.style != STYLE_INVISIBLE) //Check to ensure the pod isn't invisible
 		icon_state = "[pod.icon_state]_falling"
 		name = pod.name
 	. = ..()
@@ -254,30 +254,30 @@
 
 /obj/effect/DPtarget/Initialize(mapload, podParam, var/single_order = null)
 	. = ..()
-	if (ispath(podParam)) //We can pass either a path for a pod (as expressconsoles do), or a reference to an instantiated pod (as the centcom_podlauncher does)
+	if(ispath(podParam)) //We can pass either a path for a pod (as expressconsoles do), or a reference to an instantiated pod (as the centcom_podlauncher does)
 		podParam = new podParam() //If its just a path, instantiate it
 	pod = podParam
-	if (single_order)
-		if (istype(single_order, /datum/supply_order))
+	if(single_order)
+		if(istype(single_order, /datum/supply_order))
 			var/datum/supply_order/SO = single_order
 			SO.generate(pod)
-		else if (istype(single_order, /atom/movable))
+		else if(istype(single_order, /atom/movable))
 			var/atom/movable/O = single_order
 			O.forceMove(pod)
-	for (var/mob/living/M in pod) //If there are any mobs in the supplypod, we want to forceMove them into the target. This is so that they can see where they are about to land, AND so that they don't get sent to the nullspace error room (as the pod is currently in nullspace)
+	for(var/mob/living/M in pod) //If there are any mobs in the supplypod, we want to forceMove them into the target. This is so that they can see where they are about to land, AND so that they don't get sent to the nullspace error room (as the pod is currently in nullspace)
 		M.forceMove(src)
 	if(pod.effectStun) //If effectStun is true, stun any mobs caught on this target until the pod gets a chance to hit them
-		for (var/mob/living/M in get_turf(src))
+		for(var/mob/living/M in get_turf(src))
 			M.Stun(pod.landingDelay+10, ignore_canstun = TRUE)//you aint goin nowhere, kid.
-	if (pod.effectStealth) //If effectStealth is true we want to be invisible
+	if(pod.effectStealth) //If effectStealth is true we want to be invisible
 		icon_state = ""
-	if (pod.fallDuration == initial(pod.fallDuration) && pod.landingDelay + pod.fallDuration < pod.fallingSoundLength)
+	if(pod.fallDuration == initial(pod.fallDuration) && pod.landingDelay + pod.fallDuration < pod.fallingSoundLength)
 		pod.fallingSoundLength = 3 //The default falling sound is a little long, so if the landing time is shorter than the default falling sound, use a special, shorter default falling sound
 		pod.fallingSound =  'sound/weapons/mortar_whistle.ogg'
 	var/soundStartTime = pod.landingDelay - pod.fallingSoundLength + pod.fallDuration
-	if (soundStartTime < 0)
+	if(soundStartTime < 0)
 		soundStartTime = 1
-	if (!pod.effectQuiet)
+	if(!pod.effectQuiet)
 		addtimer(CALLBACK(src, .proc/playFallingSound), soundStartTime)
 	addtimer(CALLBACK(src, .proc/beginLaunch, pod.effectCircle), pod.landingDelay)
 
@@ -303,7 +303,7 @@
 	pod.update_icon()
 	pod.forceMove(drop_location()) //The fallingPod animation is over, now's a good time to forceMove the actual pod into position
 	QDEL_NULL(fallingPod) //Delete the falling pod effect, because at this point its animation is over. We dont use temp_visual because we want to manually delete it as soon as the pod appears
-	for (var/mob/living/M in src) //Remember earlier (initialization) when we moved mobs into the DPTarget so they wouldnt get lost in nullspace? Time to get them out
+	for(var/mob/living/M in src) //Remember earlier (initialization) when we moved mobs into the DPTarget so they wouldnt get lost in nullspace? Time to get them out
 		M.forceMove(pod)
 	pod.preOpen() //Begin supplypod open procedures. Here effects like explosions, damage, and other dangerous (and potentially admin-caused, if the centcom_podlauncher datum was used) memes will take place
 	qdel(src) //The target's purpose is complete. It can rest easy now

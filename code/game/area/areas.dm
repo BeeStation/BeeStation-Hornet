@@ -75,10 +75,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			continue
 		if(GLOB.teleportlocs[AR.name])
 			continue
-		if (!AR.contents.len)
+		if(!AR.contents.len)
 			continue
 		var/turf/picked = AR.contents[1]
-		if (picked && is_station_level(picked.z))
+		if(picked && is_station_level(picked.z))
 			GLOB.teleportlocs[AR.name] = AR
 
 	sortTim(GLOB.teleportlocs, /proc/cmp_text_dsc)
@@ -88,7 +88,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/New()
 	// This interacts with the map loader, so it needs to be set immediately
 	// rather than waiting for atoms to initialize.
-	if (unique)
+	if(unique)
 		GLOB.areas_by_type[type] = src
 	return ..()
 
@@ -153,24 +153,24 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	return ..()
 
 /area/proc/poweralert(state, obj/source)
-	if (state != poweralm)
+	if(state != poweralm)
 		poweralm = state
 		if(istype(source))	//Only report power alarms on the z-level where the source is located.
-			for (var/item in GLOB.silicon_mobs)
+			for(var/item in GLOB.silicon_mobs)
 				var/mob/living/silicon/aiPlayer = item
-				if (state == 1)
+				if(state == 1)
 					aiPlayer.cancelAlarm("Power", src, source)
 				else
 					aiPlayer.triggerAlarm("Power", src, cameras, source)
 
-			for (var/item in GLOB.alert_consoles)
+			for(var/item in GLOB.alert_consoles)
 				var/obj/machinery/computer/station_alert/a = item
 				if(state == 1)
 					a.cancelAlarm("Power", src, source)
 				else
 					a.triggerAlarm("Power", src, cameras, source)
 
-			for (var/item in GLOB.drones_list)
+			for(var/item in GLOB.drones_list)
 				var/mob/living/simple_animal/drone/D = item
 				if(state == 1)
 					D.cancelAlarm("Power", src, source)
@@ -185,29 +185,29 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 /area/proc/atmosalert(danger_level, obj/source)
 	if(danger_level != atmosalm)
-		if (danger_level==2)
+		if(danger_level == 2)
 
-			for (var/item in GLOB.silicon_mobs)
+			for(var/item in GLOB.silicon_mobs)
 				var/mob/living/silicon/aiPlayer = item
 				aiPlayer.triggerAlarm("Atmosphere", src, cameras, source)
-			for (var/item in GLOB.alert_consoles)
+			for(var/item in GLOB.alert_consoles)
 				var/obj/machinery/computer/station_alert/a = item
 				a.triggerAlarm("Atmosphere", src, cameras, source)
-			for (var/item in GLOB.drones_list)
+			for(var/item in GLOB.drones_list)
 				var/mob/living/simple_animal/drone/D = item
 				D.triggerAlarm("Atmosphere", src, cameras, source)
 			for(var/item in GLOB.alarmdisplay)
 				var/datum/computer_file/program/alarm_monitor/p = item
 				p.triggerAlarm("Atmosphere", src, cameras, source)
 
-		else if (src.atmosalm == 2)
-			for (var/item in GLOB.silicon_mobs)
+		else if(src.atmosalm == 2)
+			for(var/item in GLOB.silicon_mobs)
 				var/mob/living/silicon/aiPlayer = item
 				aiPlayer.cancelAlarm("Atmosphere", src, source)
-			for (var/item in GLOB.alert_consoles)
+			for(var/item in GLOB.alert_consoles)
 				var/obj/machinery/computer/station_alert/a = item
 				a.cancelAlarm("Atmosphere", src, source)
-			for (var/item in GLOB.drones_list)
+			for(var/item in GLOB.drones_list)
 				var/mob/living/simple_animal/drone/D = item
 				D.cancelAlarm("Atmosphere", src, source)
 			for(var/item in GLOB.alarmdisplay)
@@ -240,20 +240,20 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(always_unpowered == 1) //no fire alarms in space/asteroid
 		return
 
-	if (!fire)
+	if(!fire)
 		set_fire_alarm_effect()
 		ModifyFiredoors(FALSE)
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
 
-	for (var/item in GLOB.alert_consoles)
+	for(var/item in GLOB.alert_consoles)
 		var/obj/machinery/computer/station_alert/a = item
 		a.triggerAlarm("Fire", src, cameras, source)
-	for (var/item in GLOB.silicon_mobs)
+	for(var/item in GLOB.silicon_mobs)
 		var/mob/living/silicon/aiPlayer = item
 		aiPlayer.triggerAlarm("Fire", src, cameras, source)
-	for (var/item in GLOB.drones_list)
+	for(var/item in GLOB.drones_list)
 		var/mob/living/simple_animal/drone/D = item
 		D.triggerAlarm("Fire", src, cameras, source)
 	for(var/item in GLOB.alarmdisplay)
@@ -263,20 +263,20 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	START_PROCESSING(SSobj, src)
 
 /area/proc/firereset(obj/source)
-	if (fire)
+	if(fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
 
-	for (var/item in GLOB.silicon_mobs)
+	for(var/item in GLOB.silicon_mobs)
 		var/mob/living/silicon/aiPlayer = item
 		aiPlayer.cancelAlarm("Fire", src, source)
-	for (var/item in GLOB.alert_consoles)
+	for(var/item in GLOB.alert_consoles)
 		var/obj/machinery/computer/station_alert/a = item
 		a.cancelAlarm("Fire", src, source)
-	for (var/item in GLOB.drones_list)
+	for(var/item in GLOB.drones_list)
 		var/mob/living/simple_animal/drone/D = item
 		D.cancelAlarm("Fire", src, source)
 	for(var/item in GLOB.alarmdisplay)
@@ -305,7 +305,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	for(var/obj/machinery/door/DOOR in src)
 		close_and_lock_door(DOOR)
 
-	for (var/i in GLOB.silicon_mobs)
+	for(var/i in GLOB.silicon_mobs)
 		var/mob/living/silicon/SILICON = i
 		if(SILICON.triggerAlarm("Burglar", src, cameras, trigger))
 			//Cancel silicon alert after 1 minute

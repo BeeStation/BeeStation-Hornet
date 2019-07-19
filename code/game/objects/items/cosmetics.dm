@@ -133,7 +133,7 @@
 		if(location == BODY_ZONE_PRECISE_MOUTH)
 			if(user.a_intent == INTENT_HELP)
 				if(H.gender == MALE)
-					if (H == user)
+					if(H == user)
 						to_chat(user, "<span class='warning'>You need a mirror to properly style your own facial hair!</span>")
 						return
 					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
@@ -179,7 +179,7 @@
 
 		else if(location == BODY_ZONE_HEAD)
 			if(user.a_intent == INTENT_HELP)
-				if (H == user)
+				if(H == user)
 					to_chat(user, "<span class='warning'>You need a mirror to properly style your own hair!</span>")
 					return
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))

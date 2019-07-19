@@ -113,7 +113,7 @@
 /datum/antagonist/rev/head/proc/admin_take_flash(mob/admin)
 	var/list/L = owner.current.get_contents()
 	var/obj/item/assembly/flash/flash = locate() in L
-	if (!flash)
+	if(!flash)
 		to_chat(admin, "<span class='danger'>Deleting flash failed!</span>")
 		return
 	qdel(flash)
@@ -134,7 +134,7 @@
 /datum/antagonist/rev/head/proc/admin_repair_flash(mob/admin)
 	var/list/L = owner.current.get_contents()
 	var/obj/item/assembly/flash/flash = locate() in L
-	if (!flash)
+	if(!flash)
 		to_chat(admin, "<span class='danger'>Repairing flash failed!</span>")
 	else
 		flash.burnt_out = FALSE
@@ -240,7 +240,7 @@
 			"right pocket" = SLOT_R_STORE
 		)
 		var/where = H.equip_in_one_of_slots(T, slots)
-		if (!where)
+		if(!where)
 			to_chat(H, "The Syndicate were unfortunately unable to get you a flash.")
 		else
 			to_chat(H, "The flash in your [where] will help you to persuade the crew to join your cause.")

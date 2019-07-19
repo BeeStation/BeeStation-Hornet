@@ -69,7 +69,7 @@
 
 /obj/machinery/power/port_gen/examine(mob/user)
 	..()
-	to_chat(user, "It is[!active?"n't":""] running.")
+	to_chat(user, "It is[!active ? "n't" : ""] running.")
 
 /////////////////
 // P.A.C.M.A.N //
@@ -138,26 +138,26 @@
 	sheet_left -= temp
 	sheets -= round(needed_sheets)
 	needed_sheets -= round(needed_sheets)
-	if (sheet_left <= 0 && sheets > 0)
+	if(sheet_left <= 0 && sheets > 0)
 		sheet_left = 1 - needed_sheets
 		sheets--
 
 	var/lower_limit = 56 + power_output * 10
 	var/upper_limit = 76 + power_output * 10
 	var/bias = 0
-	if (power_output > 4)
+	if(power_output > 4)
 		upper_limit = 400
 		bias = power_output - consumption * (4 - consumption)
-	if (current_heat < lower_limit)
+	if(current_heat < lower_limit)
 		current_heat += 4 - consumption
 	else
 		current_heat += rand(-7 + bias, 7 + bias)
-		if (current_heat < lower_limit)
+		if(current_heat < lower_limit)
 			current_heat = lower_limit
-		if (current_heat > upper_limit)
+		if(current_heat > upper_limit)
 			current_heat = upper_limit
 
-	if (current_heat > 300)
+	if(current_heat > 300)
 		overheat()
 		qdel(src)
 
@@ -255,12 +255,12 @@
 				. = TRUE
 
 		if("lower_power")
-			if (power_output > 1)
+			if(power_output > 1)
 				power_output--
 				. = TRUE
 
 		if("higher_power")
-			if (power_output < 4 || (obj_flags & EMAGGED))
+			if(power_output < 4 || (obj_flags & EMAGGED))
 				power_output++
 				. = TRUE
 

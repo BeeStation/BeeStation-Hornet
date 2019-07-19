@@ -44,25 +44,25 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		var/job = round(text2num(href_list["asset_cache_confirm_arrival"]))
 		//because we skip the limiter, we have to make sure this is a valid arrival and not somebody tricking us
 		//	into letting append to a list without limit.
-		if (job > 0 && job <= last_asset_job && !(job in completed_asset_jobs))
+		if(job > 0 && job <= last_asset_job && !(job in completed_asset_jobs))
 			completed_asset_jobs += job
 			return
-		else if (job in completed_asset_jobs) //byond bug ID:2256651
+		else if(job in completed_asset_jobs) //byond bug ID:2256651
 			to_chat(src, "<span class='danger'>An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>")
 			src << browse("...", "window=asset_cache_browser")
 
 	var/mtl = CONFIG_GET(number/minute_topic_limit)
-	if (!holder && mtl)
+	if(!holder && mtl)
 		var/minute = round(world.time, 600)
-		if (!topiclimiter)
+		if(!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
-		if (minute != topiclimiter[CURRENT_MINUTE])
+		if(minute != topiclimiter[CURRENT_MINUTE])
 			topiclimiter[CURRENT_MINUTE] = minute
 			topiclimiter[MINUTE_COUNT] = 0
 		topiclimiter[MINUTE_COUNT] += 1
-		if (topiclimiter[MINUTE_COUNT] > mtl)
+		if(topiclimiter[MINUTE_COUNT] > mtl)
 			var/msg = "Your previous action was ignored because you've done too many in a minute."
-			if (minute != topiclimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
+			if(minute != topiclimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
 				topiclimiter[ADMINSWARNED_AT] = minute
 				msg += " Administrators have been informed."
 				log_game("[key_name(src)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
@@ -71,15 +71,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			return
 
 	var/stl = CONFIG_GET(number/second_topic_limit)
-	if (!holder && stl)
+	if(!holder && stl)
 		var/second = round(world.time, 10)
-		if (!topiclimiter)
+		if(!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
-		if (second != topiclimiter[CURRENT_SECOND])
+		if(second != topiclimiter[CURRENT_SECOND])
 			topiclimiter[CURRENT_SECOND] = second
 			topiclimiter[SECOND_COUNT] = 0
 		topiclimiter[SECOND_COUNT] += 1
-		if (topiclimiter[SECOND_COUNT] > stl)
+		if(topiclimiter[SECOND_COUNT] > stl)
 			to_chat(src, "<span class='danger'>Your previous action was ignored because you've done too many in a second</span>")
 			return
 
@@ -93,7 +93,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return
 
 	// hippie start -- Mentor PM
-	if (hippie_client_procs(href_list))
+	if(hippie_client_procs(href_list))
 		return
 	// hippie end
 
@@ -103,7 +103,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if("usr")
 			hsrc = mob
 		if("prefs")
-			if (inprefs)
+			if(inprefs)
 				return
 			inprefs = TRUE
 			. = prefs.process_link(usr,href_list)
@@ -117,7 +117,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
-	if (hsrc)
+	if(hsrc)
 		var/datum/real_src = hsrc
 		if(QDELETED(real_src))
 			return
@@ -156,7 +156,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	///////////
 	//CONNECT//
 	///////////
-#if (PRELOAD_RSC == 0)
+#if(PRELOAD_RSC == 0)
 GLOBAL_LIST_EMPTY(external_rsc_urls)
 #endif
 
@@ -249,14 +249,14 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 
 	. = ..()	//calls mob.Login()
 
-	if (byond_version >= 512)
-		if (!byond_build || byond_build < 1386)
+	if(byond_version >= 512)
+		if(!byond_build || byond_build < 1386)
 			message_admins("<span class='adminnotice'>[key_name(src)] has been detected as spoofing their byond version. Connection rejected.</span>")
 			add_system_note("Spoofed-Byond-Version", "Detected as using a spoofed byond version.")
 			log_access("Failed Login: [key] - Spoofed byond version")
 			qdel(src)
 
-		if (num2text(byond_build) in GLOB.blacklisted_builds)
+		if(num2text(byond_build) in GLOB.blacklisted_builds)
 			log_access("Failed login: [key] - blacklisted byond version")
 			to_chat(src, "<span class='userdanger'>Your version of byond is blacklisted.</span>")
 			to_chat(src, "<span class='danger'>Byond build [byond_build] ([byond_version].[byond_build]) has been blacklisted for the following reason: [GLOB.blacklisted_builds[num2text(byond_build)]].</span>")
@@ -283,18 +283,18 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	var/cev = CONFIG_GET(number/client_error_version)
 	var/ceb = CONFIG_GET(number/client_error_build)
 	var/cwv = CONFIG_GET(number/client_warn_version)
-	if (byond_version < cev || byond_build < ceb)		//Out of date client.
+	if(byond_version < cev || byond_build < ceb)		//Out of date client.
 		to_chat(src, "<span class='danger'><b>Your version of BYOND is too old:</b></span>")
 		to_chat(src, CONFIG_GET(string/client_error_message))
 		to_chat(src, "Your version: [byond_version].[byond_build]")
 		to_chat(src, "Required version: [cev].[ceb] or later")
 		to_chat(src, "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.")
-		if (connecting_admin)
+		if(connecting_admin)
 			to_chat(src, "Because you are an admin, you are being allowed to walk past this limitation, But it is still STRONGLY suggested you upgrade")
 		else
 			qdel(src)
 			return 0
-	else if (byond_version < cwv)	//We have words for this client.
+	else if(byond_version < cwv)	//We have words for this client.
 		if(CONFIG_GET(flag/client_warn_popup))
 			var/msg = "<b>Your version of byond may be getting out of date:</b><br>"
 			msg += CONFIG_GET(string/client_warn_message) + "<br><br>"
@@ -309,12 +309,12 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			to_chat(src, "Required version to remove this message: [cwv] or later")
 			to_chat(src, "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.")
 
-	if (connection == "web" && !connecting_admin)
-		if (!CONFIG_GET(flag/allow_webclient))
+	if(connection == "web" && !connecting_admin)
+		if(!CONFIG_GET(flag/allow_webclient))
 			to_chat(src, "Web client is disabled")
 			qdel(src)
 			return 0
-		if (CONFIG_GET(flag/webclient_only_byond_members) && !IsByondMember())
+		if(CONFIG_GET(flag/webclient_only_byond_members) && !IsByondMember())
 			to_chat(src, "Sorry, but the web client is restricted to byond members only.")
 			qdel(src)
 			return 0
@@ -335,22 +335,22 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	update_beecoin_items() // update the cache for the current purchased beecoin items
 
 
-	if (isnum(cached_player_age) && cached_player_age == -1) //first connection
+	if(isnum(cached_player_age) && cached_player_age == -1) //first connection
 		player_age = 0
 	var/nnpa = CONFIG_GET(number/notify_new_player_age)
-	if (isnum(cached_player_age) && cached_player_age == -1) //first connection
-		if (nnpa >= 0)
+	if(isnum(cached_player_age) && cached_player_age == -1) //first connection
+		if(nnpa >= 0)
 			message_admins("New user: [key_name_admin(src)] is connecting here for the first time.")
-			if (CONFIG_GET(flag/irc_first_connection_alert))
+			if(CONFIG_GET(flag/irc_first_connection_alert))
 				send2irc_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
-	else if (isnum(cached_player_age) && cached_player_age < nnpa)
-		message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(player_age==1?"":"s")]")
+	else if(isnum(cached_player_age) && cached_player_age < nnpa)
+		message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(player_age == 1 ? "" : "s")]")
 	if(CONFIG_GET(flag/use_account_age_for_jobs) && account_age >= 0)
 		player_age = account_age
 	if(account_age >= 0 && account_age < nnpa)
-		message_admins("[key_name_admin(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
-		if (CONFIG_GET(flag/irc_first_connection_alert))
-			send2irc_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
+		message_admins("[key_name_admin(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age == 1 ? "" : "s")] old, created on [account_join_date].")
+		if(CONFIG_GET(flag/irc_first_connection_alert))
+			send2irc_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age == 1 ? "" : "s")] old, created on [account_join_date].")
 	get_message_output("watchlist entry", ckey)
 	check_ip_intel()
 	validate_key_in_db()
@@ -384,24 +384,24 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		tooltips = new /datum/tooltip(src)
 
 	var/list/topmenus = GLOB.menulist[/datum/verbs/menu]
-	for (var/thing in topmenus)
+	for(var/thing in topmenus)
 		var/datum/verbs/menu/topmenu = thing
 		var/topmenuname = "[topmenu]"
-		if (topmenuname == "[topmenu.type]")
+		if(topmenuname == "[topmenu.type]")
 			var/list/tree = splittext(topmenuname, "/")
 			topmenuname = tree[tree.len]
 		winset(src, "[topmenu.type]", "parent=menu;name=[url_encode(topmenuname)]")
 		var/list/entries = topmenu.Generate_list(src)
-		for (var/child in entries)
+		for(var/child in entries)
 			winset(src, "[child]", "[entries[child]]")
-			if (!ispath(child, /datum/verbs/menu))
+			if(!ispath(child, /datum/verbs/menu))
 				var/procpath/verbpath = child
-				if (copytext(verbpath.name,1,2) != "@")
+				if(copytext(verbpath.name,1,2) != "@")
 					new child(src)
 
-	for (var/thing in prefs.menuoptions)
+	for(var/thing in prefs.menuoptions)
 		var/datum/verbs/menu/menuitem = GLOB.menulist[thing]
-		if (menuitem)
+		if(menuitem)
 			menuitem.Load_checked(src)
 
 	Master.UpdateTickRate()
@@ -418,7 +418,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		adminGreet(1)
 		holder.owner = null
 		GLOB.admins -= src
-		if (!GLOB.admins.len && SSticker.IsRoundInProgress()) //Only report this stuff if we are currently playing.
+		if(!GLOB.admins.len && SSticker.IsRoundInProgress()) //Only report this stuff if we are currently playing.
 			var/cheesy_message = pick(
 				"I have no admins online!",\
 				"I'm all alone :(",\
@@ -450,7 +450,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	return QDEL_HINT_HARDDEL_NOW
 
 /client/proc/set_client_age_from_db(connectiontopic)
-	if (IsGuestKey(src.key))
+	if(IsGuestKey(src.key))
 		return
 	if(!SSdbcore.Connect())
 		return
@@ -468,14 +468,14 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		qdel(query_get_related_cid)
 		return
 	related_accounts_cid = ""
-	while (query_get_related_cid.NextRow())
+	while(query_get_related_cid.NextRow())
 		related_accounts_cid += "[query_get_related_cid.item[1]], "
 	qdel(query_get_related_cid)
 	var/admin_rank = "Player"
-	if (src.holder?.rank)
+	if(src.holder?.rank)
 		admin_rank = src.holder.rank.name
 	else
-		if (!GLOB.deadmins[ckey] && check_randomizer(connectiontopic))
+		if(!GLOB.deadmins[ckey] && check_randomizer(connectiontopic))
 			return
 	var/sql_ip = sanitizeSQL(address)
 	var/sql_computerid = sanitizeSQL(computer_id)
@@ -486,7 +486,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		qdel(query_client_in_db)
 		return
 	if(!query_client_in_db.NextRow())
-		if (CONFIG_GET(flag/panic_bunker) && !holder && !GLOB.deadmins[ckey])
+		if(CONFIG_GET(flag/panic_bunker) && !holder && !GLOB.deadmins[ckey])
 			log_access("Failed Login: [key] - New account attempting to connect during panic bunker")
 			message_admins("<span class='adminnotice'>Failed Login: [key] - New account attempting to connect during panic bunker</span>")
 			to_chat(src, CONFIG_GET(string/panic_bunker_message))
@@ -593,10 +593,10 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 
 /client/proc/check_randomizer(topic)
 	. = FALSE
-	if (connection != "seeker")
+	if(connection != "seeker")
 		return
 	topic = params2list(topic)
-	if (!CONFIG_GET(flag/check_randomizer))
+	if(!CONFIG_GET(flag/check_randomizer))
 		return
 	var/static/cidcheck = list()
 	var/static/tokens = list()
@@ -607,14 +607,14 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	query_cidcheck.Execute()
 
 	var/lastcid
-	if (query_cidcheck.NextRow())
+	if(query_cidcheck.NextRow())
 		lastcid = query_cidcheck.item[1]
 	qdel(query_cidcheck)
 	var/oldcid = cidcheck[ckey]
 
-	if (oldcid)
-		if (!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
-			if (!cidcheck_spoofckeys[ckey])
+	if(oldcid)
+		if(!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
+			if(!cidcheck_spoofckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] appears to have attempted to spoof a cid randomizer check.</span>")
 				cidcheck_spoofckeys[ckey] = TRUE
 			cidcheck[ckey] = computer_id
@@ -628,13 +628,13 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			qdel(src)
 			return TRUE
 
-		if (oldcid != computer_id && computer_id != lastcid) //IT CHANGED!!!
+		if(oldcid != computer_id && computer_id != lastcid) //IT CHANGED!!!
 			cidcheck -= ckey //so they can try again after removing the cid randomizer.
 
 			to_chat(src, "<span class='userdanger'>Connection Error:</span>")
 			to_chat(src, "<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your byond installation and try again.</span>")
 
-			if (!cidcheck_failedckeys[ckey])
+			if(!cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a cid randomizer. Connection rejected.</span>")
 				send2irc_adminless_only("CidRandomizer", "[key_name(src)] has been detected as using a cid randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
@@ -645,15 +645,15 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			qdel(src)
 			return TRUE
 		else
-			if (cidcheck_failedckeys[ckey])
+			if(cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
 				send2irc_adminless_only("CidRandomizer", "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
-			if (cidcheck_spoofckeys[ckey])
+			if(cidcheck_spoofckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
 				cidcheck_spoofckeys -= ckey
 			cidcheck -= ckey
-	else if (computer_id != lastcid)
+	else if(computer_id != lastcid)
 		cidcheck[ckey] = computer_id
 		tokens[ckey] = cid_check_reconnect()
 
@@ -695,7 +695,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		qdel(query_get_notes)
 		return
 	if(query_get_notes.NextRow())
-		if (query_get_notes.item[1] == system_ckey)
+		if(query_get_notes.item[1] == system_ckey)
 			qdel(query_get_notes)
 			return
 	qdel(query_get_notes)
@@ -704,9 +704,9 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
-	if (CONFIG_GET(string/ipintel_email))
+	if(CONFIG_GET(string/ipintel_email))
 		var/datum/ipintel/res = get_ip_intel(address)
-		if (res.intel >= CONFIG_GET(number/ipintel_rating_bad))
+		if(res.intel >= CONFIG_GET(number/ipintel_rating_bad))
 			message_admins("<span class='adminnotice'>Proxy Detection: [key_name_admin(src)] IP intel rated [res.intel*100]% likely to be a Proxy/VPN.</span>")
 		ip_intel = res.intel
 
@@ -718,25 +718,25 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	if(dragged && !L[dragged])
 		return
 
-	if (object && object == middragatom && L["left"])
+	if(object && object == middragatom && L["left"])
 		ab = max(0, 5 SECONDS-(world.time-middragtime)*0.1)
 
 	var/mcl = CONFIG_GET(number/minute_click_limit)
-	if (!holder && mcl)
+	if(!holder && mcl)
 		var/minute = round(world.time, 600)
-		if (!clicklimiter)
+		if(!clicklimiter)
 			clicklimiter = new(LIMITER_SIZE)
-		if (minute != clicklimiter[CURRENT_MINUTE])
+		if(minute != clicklimiter[CURRENT_MINUTE])
 			clicklimiter[CURRENT_MINUTE] = minute
 			clicklimiter[MINUTE_COUNT] = 0
 		clicklimiter[MINUTE_COUNT] += 1+(ab)
-		if (clicklimiter[MINUTE_COUNT] > mcl)
+		if(clicklimiter[MINUTE_COUNT] > mcl)
 			var/msg = "Your previous click was ignored because you've done too many in a minute."
-			if (minute != clicklimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
+			if(minute != clicklimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
 				clicklimiter[ADMINSWARNED_AT] = minute
 
 				msg += " Administrators have been informed."
-				if (ab)
+				if(ab)
 					log_game("[key_name(src)] is using the middle click aimbot exploit")
 					message_admins("[ADMIN_LOOKUPFLW(src)] [ADMIN_KICK(usr)] is using the middle click aimbot exploit</span>")
 					add_system_note("aimbot", "Is using the middle click aimbot exploit")
@@ -746,19 +746,19 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			return
 
 	var/scl = CONFIG_GET(number/second_click_limit)
-	if (!holder && scl)
+	if(!holder && scl)
 		var/second = round(world.time, 10)
-		if (!clicklimiter)
+		if(!clicklimiter)
 			clicklimiter = new(LIMITER_SIZE)
-		if (second != clicklimiter[CURRENT_SECOND])
+		if(second != clicklimiter[CURRENT_SECOND])
 			clicklimiter[CURRENT_SECOND] = second
 			clicklimiter[SECOND_COUNT] = 0
 		clicklimiter[SECOND_COUNT] += 1+(!!ab)
-		if (clicklimiter[SECOND_COUNT] > scl)
+		if(clicklimiter[SECOND_COUNT] > scl)
 			to_chat(src, "<span class='danger'>Your previous click was ignored because you've done too many in a second</span>")
 			return
 
-	if (prefs.hotkeys)
+	if(prefs.hotkeys)
 		// If hotkey mode is enabled, then clicking the map will automatically
 		// unfocus the text bar. This removes the red color from the text bar
 		// so that the visual focus indicator matches reality.
@@ -784,7 +784,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 
 //send resources to the client. It's here in its own proc so we can move it around easiliy if need be
 /client/proc/send_resources()
-#if (PRELOAD_RSC == 0)
+#if(PRELOAD_RSC == 0)
 	var/static/next_external_rsc = 0
 	if(GLOB.external_rsc_urls && GLOB.external_rsc_urls.len)
 		next_external_rsc = WRAP(next_external_rsc+1, 1, GLOB.external_rsc_urls.len+1)
@@ -798,11 +798,11 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		'html/browser/scannernew.css',
 		'html/browser/playeroptions.css',
 		)
-	spawn (10) //removing this spawn causes all clients to not get verbs.
+	spawn(10) //removing this spawn causes all clients to not get verbs.
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
 		getFilesSlow(src, SSassets.preload, register_asset = FALSE)
-		#if (PRELOAD_RSC == 0)
-		for (var/name in GLOB.vox_sounds)
+		#if(PRELOAD_RSC == 0)
+		for(var/name in GLOB.vox_sounds)
 			var/file = GLOB.vox_sounds[name]
 			Export("##action=load_rsc", file)
 			stoplag()
@@ -815,12 +815,12 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	dir = newdir
 
 /client/vv_edit_var(var_name, var_value)
-	switch (var_name)
-		if ("holder")
+	switch(var_name)
+		if("holder")
 			return FALSE
-		if ("ckey")
+		if("ckey")
 			return FALSE
-		if ("key")
+		if("key")
 			return FALSE
 		if("view")
 			change_view(var_value)
@@ -836,16 +836,16 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	change_view("[x]x[y]")
 
 /client/proc/change_view(new_size)
-	if (isnull(new_size))
+	if(isnull(new_size))
 		CRASH("change_view called without argument.")
 
 	view = new_size
 	apply_clickcatcher()
 	mob.reload_fullscreen()
-	if (isliving(mob))
+	if(isliving(mob))
 		var/mob/living/M = mob
 		M.update_damage_hud()
-	if (prefs.auto_fit_viewport)
+	if(prefs.auto_fit_viewport)
 		addtimer(CALLBACK(src,.verb/fit_viewport,10)) //Delayed to avoid wingets from Login calls.
 
 /client/proc/generate_clickcatcher()

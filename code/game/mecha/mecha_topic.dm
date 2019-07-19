@@ -75,21 +75,21 @@
 	var/tank_pressure = 0
 	var/tank_temperature = 0
 	var/cabin_pressure = 0
-	if (internal_tank)
+	if(internal_tank)
 		int_tank_air = internal_tank.return_air()
 		tank_pressure = internal_tank ? round(int_tank_air.return_pressure(),0.01) : "None"
 		tank_temperature = internal_tank ? int_tank_air.temperature : "Unknown"
 		cabin_pressure = round(return_pressure(),0.01)
 	. = {"[report_internal_damage()]
-						[integrity<30?"<span class='userdanger'>DAMAGE LEVEL CRITICAL</span><br>":null]
+						[integrity<30 ? "<span class='userdanger'>DAMAGE LEVEL CRITICAL</span><br>" : null]
 						<b>Integrity: </b> [integrity]%<br>
-						<b>Powercell charge: </b>[isnull(cell_charge)?"No powercell installed":"[cell.percent()]%"]<br>
-						<b>Air source: </b>[internal_tank?"[use_internal_tank?"Internal Airtank":"Environment"]":"Environment"]<br>
-						<b>Airtank pressure: </b>[internal_tank?"[tank_pressure]kPa":"N/A"]<br>
-						<b>Airtank temperature: </b>[internal_tank?"[tank_temperature]&deg;K|[tank_temperature - T0C]&deg;C":"N/A"]<br>
-						<b>Cabin pressure: </b>[internal_tank?"[cabin_pressure>WARNING_HIGH_PRESSURE ? "<span class='danger'>[cabin_pressure]</span>": cabin_pressure]kPa":"N/A"]<br>
-						<b>Cabin temperature: </b> [internal_tank?"[return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C":"N/A"]<br>
-						[dna_lock?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna_lock]</span> \[<a href='?src=[REF(src)];reset_dna=1'>Reset</a>\]<br>":""]<br>
+						<b>Powercell charge: </b>[isnull(cell_charge) ? "No powercell installed":"[cell.percent()]%"]<br>
+						<b>Air source: </b>[internal_tank ? "[use_internal_tank ? "Internal Airtank" : "Environment"]" : "Environment"]<br>
+						<b>Airtank pressure: </b>[internal_tank ? "[tank_pressure]kPa":"N/A"]<br>
+						<b>Airtank temperature: </b>[internal_tank ? "[tank_temperature]&deg;K|[tank_temperature - T0C]&deg;C" : "N/A"]<br>
+						<b>Cabin pressure: </b>[internal_tank ? "[cabin_pressure>WARNING_HIGH_PRESSURE ? "<span class='danger'>[cabin_pressure]</span>" : cabin_pressure]kPa":"N/A"]<br>
+						<b>Cabin temperature: </b> [internal_tank?"[return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C" : "N/A"]<br>
+						[dna_lock ? "<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna_lock]</span> \[<a href='?src=[REF(src)];reset_dna=1'>Reset</a>\]<br>" : ""]<br>
 						[thrusters_action.owner ? "<b>Thrusters: </b> [thrusters_active ? "Enabled" : "Disabled"]<br>" : ""]
 						[defense_action.owner ? "<b>Defence Mode: </b> [defence_mode ? "Enabled" : "Disabled"]<br>" : ""]
 						[overload_action.owner ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"]<br>" : ""]
@@ -105,22 +105,22 @@
 						<div class='header'>Electronics</div>
 						<div class='links'>
 						<b>Radio settings:</b><br>
-						Microphone: [radio? "<a href='?src=[REF(src)];rmictoggle=1'><span id=\"rmicstate\">[radio.broadcasting?"Engaged":"Disengaged"]</span></a>":"Error"]<br>
-						Speaker: [radio? "<a href='?src=[REF(src)];rspktoggle=1'><span id=\"rspkstate\">[radio.listening?"Engaged":"Disengaged"]</span></a>":"Error"]<br>
+						Microphone: [radio ? "<a href='?src=[REF(src)];rmictoggle=1'><span id=\"rmicstate\">[radio.broadcasting ? "Engaged" : "Disengaged"]</span></a>" : "Error"]<br>
+						Speaker: [radio ? "<a href='?src=[REF(src)];rspktoggle=1'><span id=\"rspkstate\">[radio.listening ? "Engaged" : "Disengaged"]</span></a>" : "Error"]<br>
 						Frequency:
-						[radio? "<a href='?src=[REF(src)];rfreq=-10'>-</a>":"-"]
-						[radio? "<a href='?src=[REF(src)];rfreq=-2'>-</a>":"-"]
-						<span id="rfreq">[radio?"[format_frequency(radio.frequency)]":"Error"]</span>
-						[radio? "<a href='?src=[REF(src)];rfreq=2'>+</a>":"+"]
-						[radio? "<a href='?src=[REF(src)];rfreq=10'>+</a><br>":"+"]
+						[radio ? "<a href='?src=[REF(src)];rfreq=-10'>-</a>" : "-"]
+						[radio ? "<a href='?src=[REF(src)];rfreq=-2'>-</a>" : "-"]
+						<span id="rfreq">[radio?"[format_frequency(radio.frequency)]" : "Error"]</span>
+						[radio ? "<a href='?src=[REF(src)];rfreq=2'>+</a>" : "+"]
+						[radio ? "<a href='?src=[REF(src)];rfreq=10'>+</a><br>" : "+"]
 						</div>
 						</div>
 						<div class='wr'>
 						<div class='header'>Permissions & Logging</div>
 						<div class='links'>
-						<a href='?src=[REF(src)];toggle_id_upload=1'><span id='t_id_upload'>[add_req_access?"L":"Unl"]ock ID upload panel</span></a><br>
-						<a href='?src=[REF(src)];toggle_maint_access=1'><span id='t_maint_access'>[maint_access?"Forbid":"Permit"] maintenance protocols</span></a><br>
-						[internal_tank?"<a href='?src=[REF(src)];toggle_port_connection=1'><span id='t_port_connection'>[internal_tank.connected_port?"Disconnect from":"Connect to"] gas port</span></a><br>":""]
+						<a href='?src=[REF(src)];toggle_id_upload=1'><span id='t_id_upload'>[add_req_access ? "L" : "Unl"]ock ID upload panel</span></a><br>
+						<a href='?src=[REF(src)];toggle_maint_access=1'><span id='t_maint_access'>[maint_access ? "Forbid" : "Permit"] maintenance protocols</span></a><br>
+						[internal_tank?"<a href='?src=[REF(src)];toggle_port_connection=1'><span id='t_port_connection'>[internal_tank.connected_port ? "Disconnect from" : "Connect to"] gas port</span></a><br>":""]
 						<a href='?src=[REF(src)];dna_lock=1'>DNA-lock</a><br>
 						<a href='?src=[REF(src)];change_name=1'>Change exosuit name</a><br>
 						</div>
@@ -218,24 +218,24 @@
 
 	if(in_range(src, usr))
 		var/obj/item/card/id/id_card
-		if (href_list["id_card"])
+		if(href_list["id_card"])
 			id_card = locate(href_list["id_card"])
-			if (!istype(id_card))
+			if(!istype(id_card))
 				return
 
 		if(href_list["req_access"] && add_req_access && id_card)
 			output_access_dialog(id_card,usr)
 
 		if(href_list["maint_access"] && maint_access && id_card)
-			if(state==0)
+			if(state == 0)
 				state = 1
 				to_chat(usr, "The securing bolts are now exposed.")
-			else if(state==1)
+			else if(state == 1)
 				state = 0
 				to_chat(usr, "The securing bolts are now hidden.")
 			output_maintenance_dialog(id_card,usr)
 
-		if(href_list["set_internal_tank_valve"] && state >=1)
+		if(href_list["set_internal_tank_valve"] && state >= 1)
 			var/new_pressure = input(usr,"Input new output pressure","Pressure setting",internal_tank_valve) as num
 			if(new_pressure)
 				internal_tank_valve = new_pressure
@@ -269,37 +269,37 @@
 
 	if(href_list["rmictoggle"])
 		radio.broadcasting = !radio.broadcasting
-		send_byjax(usr,"exosuit.browser","rmicstate",(radio.broadcasting?"Engaged":"Disengaged"))
+		send_byjax(usr,"exosuit.browser","rmicstate",(radio.broadcasting ? "Engaged" : "Disengaged"))
 
 	if(href_list["rspktoggle"])
 		radio.listening = !radio.listening
-		send_byjax(usr,"exosuit.browser","rspkstate",(radio.listening?"Engaged":"Disengaged"))
+		send_byjax(usr,"exosuit.browser","rspkstate",(radio.listening ? "Engaged" : "Disengaged"))
 
 	if(href_list["rfreq"])
 		var/new_frequency = (radio.frequency + text2num(href_list["rfreq"]))
-		if (!radio.freerange || (radio.frequency < MIN_FREE_FREQ || radio.frequency > MAX_FREE_FREQ))
+		if(!radio.freerange || (radio.frequency < MIN_FREE_FREQ || radio.frequency > MAX_FREE_FREQ))
 			new_frequency = sanitize_frequency(new_frequency)
 		radio.set_frequency(new_frequency)
 		send_byjax(usr,"exosuit.browser","rfreq","[format_frequency(radio.frequency)]")
 
-	if (href_list["change_name"])
+	if(href_list["change_name"])
 		var/userinput = input(occupant, "Choose new exosuit name", "Rename exosuit", "") as null|text
 		if(!isnull(userinput))
 			var/newname = copytext(sanitize(userinput),1,MAX_NAME_LEN)
 			name = newname ? newname : initial(name)
 
-	if (href_list["toggle_id_upload"])
+	if(href_list["toggle_id_upload"])
 		add_req_access = !add_req_access
-		send_byjax(usr,"exosuit.browser","t_id_upload","[add_req_access?"L":"Unl"]ock ID upload panel")
+		send_byjax(usr,"exosuit.browser","t_id_upload","[add_req_access ? "L" : "Unl"]ock ID upload panel")
 
 	if(href_list["toggle_maint_access"])
 		if(state)
 			occupant_message("<span class='danger'>Maintenance protocols in effect</span>")
 			return
 		maint_access = !maint_access
-		send_byjax(usr,"exosuit.browser","t_maint_access","[maint_access?"Forbid":"Permit"] maintenance protocols")
+		send_byjax(usr,"exosuit.browser","t_maint_access","[maint_access ? "Forbid" : "Permit"] maintenance protocols")
 
-	if (href_list["toggle_port_connection"])
+	if(href_list["toggle_port_connection"])
 		if(internal_tank.connected_port)
 			if(internal_tank.disconnect())
 				occupant_message("Disconnected from the air system port.")
@@ -315,7 +315,7 @@
 			else
 				occupant_message("<span class='warning'>Unable to connect with air system port!</span>")
 				return
-		send_byjax(occupant,"exosuit.browser","t_port_connection","[internal_tank.connected_port?"Disconnect from":"Connect to"] gas port")
+		send_byjax(occupant,"exosuit.browser","t_port_connection","[internal_tank.connected_port ? "Disconnect from" : "Connect to"] gas port")
 
 	if(href_list["dna_lock"])
 		if(occupant && !iscarbon(occupant))

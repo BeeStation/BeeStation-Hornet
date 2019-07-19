@@ -100,7 +100,7 @@
 			explanation_text += ","
 		if(i == areas.len - 1)
 			explanation_text += "and"
-	explanation_text += " [(areas.len ==1) ? "is completely" : "are [(areas.len == 2) ? "completely" : "all"]"] clean at the end of the shift."
+	explanation_text += " [(areas.len == 1) ? "is completely" : "are [(areas.len == 2) ? "completely" : "all"]"] clean at the end of the shift."
 	if(hardmode)
 		explanation_text += " Chop-chop."
 

@@ -35,8 +35,8 @@
 	disrupt(user)
 
 /obj/item/borg_chameleon/attack_self(mob/living/silicon/robot/user)
-	if (user?.cell && user.cell.charge > activationCost)
-		if (isturf(user.loc))
+	if(user?.cell && user.cell.charge > activationCost)
+		if(isturf(user.loc))
 			toggle(user)
 		else
 			to_chat(user, "<span class='warning'>You can't use [src] while inside something!</span>")
@@ -57,33 +57,33 @@
 		playsound(src, 'sound/effects/seedling_chargeup.ogg', 100, 1, -6)
 		var/start = user.filters.len
 		var/X,Y,rsq,i,f
-		for(i=1, i<=7, ++i)
+		for(i=1, i <= 7, ++i)
 			do
 				X = 60*rand() - 30
 				Y = 60*rand() - 30
 				rsq = X*X + Y*Y
 			while(rsq<100 || rsq>900)
 			user.filters += filter(type="wave", x=X, y=Y, size=rand()*2.5+0.5, offset=rand())
-		for(i=1, i<=7, ++i)
+		for(i=1, i <= 7, ++i)
 			f = user.filters[start+i]
 			animate(f, offset=f:offset, time=0, loop=3, flags=ANIMATION_PARALLEL)
 			animate(offset=f:offset-1, time=rand()*20+10)
-		if (do_after(user, 50, target=user) && user.cell.use(activationCost))
+		if(do_after(user, 50, target=user) && user.cell.use(activationCost))
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
 			to_chat(user, "<span class='notice'>You are now disguised as the Nanotrasen engineering borg \"[friendlyName]\".</span>")
 			activate(user)
 		else
 			to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
 			do_sparks(3, FALSE, user)
-			for(i=1, i<=min(7, user.filters.len), ++i) // removing filters that are animating does nothing, we gotta stop the animations first
+			for(i=1, i <= min(7, user.filters.len), ++i) // removing filters that are animating does nothing, we gotta stop the animations first
 				f = user.filters[start+i]
 				animate(f)
 		user.filters = null
 		animation_playing = FALSE
 
 /obj/item/borg_chameleon/process()
-	if (user)
-		if (!user.cell || !user.cell.use(activationUpkeep))
+	if(user)
+		if(!user.cell || !user.cell.use(activationUpkeep))
 			disrupt(user)
 	else
 		return PROCESS_KILL
@@ -95,9 +95,9 @@
 	user.name = friendlyName
 	user.module.cyborg_base_icon = disguise
 	active = TRUE
-	if (mobhook && mobhook.parent != user)
+	if(mobhook && mobhook.parent != user)
 		QDEL_NULL(mobhook)
-	if (!mobhook)
+	if(!mobhook)
 		var/callback = CALLBACK(src, .proc/disrupt, user) // push user into the callback so that it's guaranteed to be the first arg
 		mobhook = user.AddComponent(/datum/component/redirect, list( // list here all signals that should break the camouflage
 			COMSIG_PARENT_ATTACKBY = callback,

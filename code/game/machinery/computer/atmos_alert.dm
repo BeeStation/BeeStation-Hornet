@@ -73,7 +73,7 @@
 	priority_alarms -= zone
 	if(severity == "severe")
 		priority_alarms += zone
-	else if (severity == "minor")
+	else if(severity == "minor")
 		minor_alarms += zone
 	update_icon()
 	return

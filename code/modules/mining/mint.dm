@@ -38,7 +38,7 @@
 		if(!M.amount && chosen != mat_id)
 			continue
 		dat += "<br><b>[M.name] amount:</b> [M.amount] cm<sup>3</sup> "
-		if (chosen == mat_id)
+		if(chosen == mat_id)
 			dat += "<b>Chosen</b>"
 		else
 			dat += "<A href='?src=[REF(src)];choose=[mat_id]'>Choose</A>"
@@ -62,7 +62,7 @@
 		return
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
-	if(processing==1)
+	if(processing == 1)
 		to_chat(usr, "<span class='notice'>The machine is processing.</span>")
 		return
 	GET_COMPONENT(materials, /datum/component/material_container)

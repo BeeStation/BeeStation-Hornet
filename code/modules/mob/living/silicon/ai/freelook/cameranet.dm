@@ -115,7 +115,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 /datum/cameranet/proc/updateChunk(x, y, z)
 	var/datum/camerachunk/chunk = chunkGenerated(x, y, z)
-	if (!chunk)
+	if(!chunk)
 		return
 	chunk.hasChanged()
 

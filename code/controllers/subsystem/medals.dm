@@ -22,7 +22,7 @@ SUBSYSTEM_DEF(medals)
 			message_admins("Error! Failed to contact hub to award [medal] medal to [player.key]!")
 			return
 
-		if (result == 1)
+		if(result == 1)
 			player.inc_beecoin_count(BEECOIN_MEDAL_REWARD, reason="Earned a medal!")
 			for(var/client/C in GLOB.clients)
 				to_chat(C, "<span class='greenannounce'><B>[player.key] earned the medal: [medal]</B></span>")

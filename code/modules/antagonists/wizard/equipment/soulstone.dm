@@ -37,7 +37,7 @@
 /obj/item/soulstone/examine(mob/user)
 	..()
 	if(usability || iscultist(user) || iswizard(user) || isobserver(user))
-		if (old_shard)
+		if(old_shard)
 			to_chat(user, "<span class='cult'>A soulstone, used to capture a soul, either from dead humans or from freed shades.</span>")
 		else
 			to_chat(user, "<span class='cult'>A soulstone, used to capture souls, either from unconscious or sleeping humans or from freed shades.</span>")

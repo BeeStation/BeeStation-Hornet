@@ -134,7 +134,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 		return screen.ai.client
 
 /mob/camera/aiEye/pic_in_pic/setLoc(turf/T)
-	if (T)
+	if(T)
 		forceMove(T)
 	else
 		moveToNullspace()
@@ -154,25 +154,25 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	var/list/obj/machinery/camera/add = list()
 	var/list/obj/machinery/camera/remove = list()
 	var/list/obj/machinery/camera/visible = list()
-	for (var/VV in visibleCameraChunks)
+	for(var/VV in visibleCameraChunks)
 		var/datum/camerachunk/CC = VV
-		for (var/V in CC.cameras)
+		for(var/V in CC.cameras)
 			var/obj/machinery/camera/C = V
-			if (!C.can_use() || (get_dist(C, src) > telegraph_range))
+			if(!C.can_use() || (get_dist(C, src) > telegraph_range))
 				continue
 			visible |= C
 
 	add = visible - cameras_telegraphed
 	remove = cameras_telegraphed - visible
 
-	for (var/V in remove)
+	for(var/V in remove)
 		var/obj/machinery/camera/C = V
 		if(QDELETED(C))
 			continue
 		cameras_telegraphed -= C
 		C.in_use_lights--
 		C.update_icon()
-	for (var/V in add)
+	for(var/V in add)
 		var/obj/machinery/camera/C = V
 		if(QDELETED(C))
 			continue
@@ -182,7 +182,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 
 /mob/camera/aiEye/pic_in_pic/proc/disable_camera_telegraphing()
 	telegraph_cameras = FALSE
-	for (var/V in cameras_telegraphed)
+	for(var/V in cameras_telegraphed)
 		var/obj/machinery/camera/C = V
 		if(QDELETED(C))
 			continue

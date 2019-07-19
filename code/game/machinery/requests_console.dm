@@ -140,7 +140,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 				dat += "Which department do you need assistance from?<BR><BR>"
 				dat += "<table width='100%'>"
 				for(var/dpt in GLOB.req_console_assistance)
-					if (dpt != department)
+					if(dpt != department)
 						dat += "<tr>"
 						dat += "<td width='55%'>[dpt]</td>"
 						dat += "<td width='45%'><A href='?src=[REF(src)];write=[ckey(dpt)]'>Normal</A> <A href='?src=[REF(src)];write=[ckey(dpt)];priority=2'>High</A>"
@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 				dat += "Which department do you need supplies from?<BR><BR>"
 				dat += "<table width='100%'>"
 				for(var/dpt in GLOB.req_console_supplies)
-					if (dpt != department)
+					if(dpt != department)
 						dat += "<tr>"
 						dat += "<td width='55%'>[dpt]</td>"
 						dat += "<td width='45%'><A href='?src=[REF(src)];write=[ckey(dpt)]'>Normal</A> <A href='?src=[REF(src)];write=[ckey(dpt)];priority=2'>High</A>"
@@ -170,7 +170,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 				dat += "Which department would you like to send information to?<BR><BR>"
 				dat += "<table width='100%'>"
 				for(var/dpt in GLOB.req_console_information)
-					if (dpt != department)
+					if(dpt != department)
 						dat += "<tr>"
 						dat += "<td width='55%'>[dpt]</td>"
 						dat += "<td width='45%'><A href='?src=[REF(src)];write=[ckey(dpt)]'>Normal</A> <A href='?src=[REF(src)];write=[ckey(dpt)];priority=2'>High</A>"
@@ -190,8 +190,8 @@ GLOBAL_LIST_EMPTY(allConsoles)
 				dat += "<A href='?src=[REF(src)];setScreen=0'>Continue</A><BR>"
 
 			if(8)	//view messages
-				for (var/obj/machinery/requests_console/Console in GLOB.allConsoles)
-					if (Console.department == department)
+				for(var/obj/machinery/requests_console/Console in GLOB.allConsoles)
+					if(Console.department == department)
 						Console.newmessagepriority = NO_NEW_MESSAGE
 						Console.update_icon()
 
@@ -220,7 +220,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 					dat += "<div class='notice'>Swipe your card to authenticate yourself</div><BR>"
 				dat += "<b>Message: </b>[message ? message : "<i>No Message</i>"]<BR>"
 				dat += "<A href='?src=[REF(src)];writeAnnouncement=1'>[message ? "Edit" : "Write"] Message</A><BR><BR>"
-				if ((announceAuth || IsAdminGhost(user)) && message)
+				if((announceAuth || IsAdminGhost(user)) && message)
 					dat += "<A href='?src=[REF(src)];sendAnnouncement=1'>Announce Message</A><BR>"
 				else
 					dat += "<span class='linkOff'>Announce Message</span><BR>"
@@ -229,11 +229,11 @@ GLOBAL_LIST_EMPTY(allConsoles)
 			else	//main menu
 				screen = 0
 				announceAuth = FALSE
-				if (newmessagepriority == NORMAL_MESSAGE_PRIORITY)
+				if(newmessagepriority == NORMAL_MESSAGE_PRIORITY)
 					dat += "<div class='notice'>There are new messages</div><BR>"
-				if (newmessagepriority == HIGH_MESSAGE_PRIORITY)
+				if(newmessagepriority == HIGH_MESSAGE_PRIORITY)
 					dat += "<div class='notice'>There are new <b>PRIORITY</b> messages</div><BR>"
-				if (newmessagepriority == EXTREME_MESSAGE_PRIORITY)
+				if(newmessagepriority == EXTREME_MESSAGE_PRIORITY)
 					dat += "<div class='notice'>There are new <b>EXTREME PRIORITY</b> messages</div><BR>"
 				dat += "<A href='?src=[REF(src)];setScreen=8'>View Messages</A><BR><BR>"
 
@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 
 				if(announcementConsole)
 					dat += "<A href='?src=[REF(src)];setScreen=10'>Send Station-wide Announcement</A><BR><BR>"
-				if (silent)
+				if(silent)
 					dat += "Speaker <A href='?src=[REF(src)];setSilent=0'>OFF</A>"
 				else
 					dat += "Speaker <A href='?src=[REF(src)];setSilent=1'>ON</A>"
@@ -273,7 +273,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 		if(new_message)
 			message = new_message
 			screen = 9
-			if (text2num(href_list["priority"]) < 2)
+			if(text2num(href_list["priority"]) < 2)
 				priority = -1
 			else
 				priority = text2num(href_list["priority"])
@@ -288,7 +288,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 		var/new_message = copytext(reject_bad_text(input(usr, "Write your message:", "Awaiting Input", "")),1,MAX_MESSAGE_LEN)
 		if(new_message)
 			message = new_message
-			if (text2num(href_list["priority"]) < 2)
+			if(text2num(href_list["priority"]) < 2)
 				priority = -1
 			else
 				priority = text2num(href_list["priority"])
@@ -334,18 +334,18 @@ GLOBAL_LIST_EMPTY(allConsoles)
 		var/log_msg = message
 		var/sending = message
 		sending += "<br>"
-		if (msgVerified)
+		if(msgVerified)
 			sending += msgVerified
 			sending += "<br>"
-		if (msgStamped)
+		if(msgStamped)
 			sending += msgStamped
 			sending += "<br>"
 		screen = 7 //if it's successful, this will get overrwritten (7 = unsufccessfull, 6 = successfull)
-		if (sending)
+		if(sending)
 			var/pass = FALSE
 			var/datum/data_rc_msg/log = new(href_list["department"], department, log_msg, msgStamped, msgVerified, priority)
-			for (var/obj/machinery/telecomms/message_server/MS in GLOB.telecomms_list)
-				if (MS.toggled)
+			for(var/obj/machinery/telecomms/message_server/MS in GLOB.telecomms_list)
+				if(MS.toggled)
 					MS.rc_msgs += log
 					pass = TRUE
 
@@ -370,8 +370,8 @@ GLOBAL_LIST_EMPTY(allConsoles)
 					authentic = " (Authenticated)"
 
 				var/alert = ""
-				for (var/obj/machinery/requests_console/Console in GLOB.allConsoles)
-					if (ckey(Console.department) == ckey(href_list["department"]))
+				for(var/obj/machinery/requests_console/Console in GLOB.allConsoles)
+					if(ckey(Console.department) == ckey(href_list["department"]))
 						switch(priority)
 							if(2)		//High priority
 								alert = "PRIORITY Alert in [department][authentic]"
@@ -442,7 +442,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 
 /obj/machinery/requests_console/say_mod(input, message_mode)
 	var/ending = copytext(input, length(input) - 2)
-	if (ending == "!!!")
+	if(ending == "!!!")
 		. = "blares"
 	else
 		. = ..()
@@ -516,14 +516,14 @@ GLOBAL_LIST_EMPTY(allConsoles)
 			msgVerified = "<font color='green'><b>Verified by [ID.registered_name] ([ID.assignment])</b></font>"
 			updateUsrDialog()
 		if(screen == 10)
-			if (ACCESS_RC_ANNOUNCE in ID.access)
+			if(ACCESS_RC_ANNOUNCE in ID.access)
 				announceAuth = TRUE
 			else
 				announceAuth = FALSE
 				to_chat(user, "<span class='warning'>You are not authorized to send announcements!</span>")
 			updateUsrDialog()
 		return
-	if (istype(O, /obj/item/stamp))
+	if(istype(O, /obj/item/stamp))
 		if(screen == 9)
 			var/obj/item/stamp/T = O
 			msgStamped = "<span class='boldnotice'>Stamped with the [T.name]</span>"

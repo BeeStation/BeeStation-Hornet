@@ -69,27 +69,27 @@ GLOBAL_LIST_INIT(duplicate_forbidden_vars,list(
 	var/src_min_y = 99999
 	var/list/refined_src = new/list()
 
-	for (var/turf/T in turfs_src)
+	for(var/turf/T in turfs_src)
 		src_min_x = min(src_min_x,T.x)
 		src_min_y = min(src_min_y,T.y)
-	for (var/turf/T in turfs_src)
+	for(var/turf/T in turfs_src)
 		refined_src[T] = "[T.x - src_min_x].[T.y - src_min_y]"
 
 	var/trg_min_x = 99999
 	var/trg_min_y = 99999
 	var/list/refined_trg = new/list()
 
-	for (var/turf/T in turfs_trg)
+	for(var/turf/T in turfs_trg)
 		trg_min_x = min(trg_min_x,T.x)
 		trg_min_y = min(trg_min_y,T.y)
-	for (var/turf/T in turfs_trg)
+	for(var/turf/T in turfs_trg)
 		refined_trg["[T.x - trg_min_x].[T.y - trg_min_y]"] = T
 
 	var/list/toupdate = new/list()
 
 	var/copiedobjs = list()
 
-	for (var/turf/T in refined_src)
+	for(var/turf/T in refined_src)
 		var/coordstring = refined_src[T]
 		var/turf/B = refined_trg[coordstring]
 		if(!istype(B))

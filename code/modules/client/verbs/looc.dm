@@ -58,10 +58,10 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
         if(!M.client)
             continue
         var/client/C = M.client
-        if (C in GLOB.admins)
+        if(C in GLOB.admins)
             continue //they are handled after that
 
-        if (isobserver(M))
+        if(isobserver(M))
             continue //Also handled later.
 
         if(C.prefs.toggles & CHAT_OOC)
@@ -77,7 +77,7 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
     for(var/client/C in GLOB.admins)
         if(C.prefs.toggles & CHAT_OOC)
             var/prefix = "(R)LOOC"
-            if (C.mob in heard)
+            if(C.mob in heard)
                 prefix = "LOOC"
             to_chat(C,"<span class='looc'>[ADMIN_FLW(usr)]<span class='prefix'>[prefix]:</span> <EM>[src.key]/[src.mob.name]:</EM> <span class='message'>[msg]</span></span>")
 
@@ -85,27 +85,27 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
         if(!G.client)
             continue
         var/client/C = G.client
-        if (C in GLOB.admins)
+        if(C in GLOB.admins)
             continue //handled earlier.
         if(C.prefs.toggles & CHAT_OOC)
             var/prefix = "(G)LOOC"
-            if (C.mob in heard)
+            if(C.mob in heard)
                 prefix = "LOOC"
         to_chat(C,"<font color='#6699CC'><span class='ooc'><span class='prefix'>[prefix]:</span> <EM>[src.key]/[src.mob.name]:</EM> <span class='message'>[msg]</span></span></font>")*/
 
 
 /proc/log_looc(text)
-    if (CONFIG_GET(flag/log_ooc))
+    if(CONFIG_GET(flag/log_ooc))
         WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]LOOC: [text]")
 
 /mob/proc/get_top_level_mob()
-    if(istype(src.loc,/mob)&&src.loc!=src)
+    if(istype(src.loc,/mob) && src.loc != src)
         var/mob/M=src.loc
         return M.get_top_level_mob()
     return src
 
 proc/get_top_level_mob(var/mob/S)
-    if(istype(S.loc,/mob)&&S.loc!=S)
+    if(istype(S.loc,/mob) && S.loc != S)
         var/mob/M=S.loc
         return M.get_top_level_mob()
     return S

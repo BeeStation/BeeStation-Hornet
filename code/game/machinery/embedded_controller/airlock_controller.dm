@@ -22,23 +22,23 @@
 	if(!receive_tag)
 		return
 
-	if(receive_tag==sensor_tag)
+	if(receive_tag == sensor_tag)
 		if(signal.data["pressure"])
 			sensor_pressure = text2num(signal.data["pressure"])
 
-	else if(receive_tag==exterior_door_tag)
+	else if(receive_tag == exterior_door_tag)
 		memory["exterior_status"] = signal.data["door_status"]
 
-	else if(receive_tag==interior_door_tag)
+	else if(receive_tag == interior_door_tag)
 		memory["interior_status"] = signal.data["door_status"]
 
-	else if(receive_tag==airpump_tag)
+	else if(receive_tag == airpump_tag)
 		if(signal.data["power"])
 			memory["pump_status"] = signal.data["direction"]
 		else
 			memory["pump_status"] = "off"
 
-	else if(receive_tag==id_tag)
+	else if(receive_tag == id_tag)
 		switch(signal.data["command"])
 			if("cycle")
 				if(state < AIRLOCK_STATE_CLOSED)

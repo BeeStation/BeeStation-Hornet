@@ -30,7 +30,7 @@
 
 /datum/component/beetlejuice/vv_edit_var(var_name, var_value)
 	. = ..()
-	if (var_name == NAMEOF(src, keyword) || var_name == NAMEOF(src, case_sensitive))
+	if(var_name == NAMEOF(src, keyword) || var_name == NAMEOF(src, case_sensitive))
 		update_regex()
 
 /datum/component/beetlejuice/proc/say_react(datum/source, mob/speaker,message)

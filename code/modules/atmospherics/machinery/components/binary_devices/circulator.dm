@@ -90,7 +90,7 @@
 	I.play_tool_sound(src)
 	if(generator)
 		disconnectFromGenerator()
-	to_chat(user, "<span class='notice'>You [anchored?"secure":"unsecure"] [src].</span>")
+	to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] [src].</span>")
 
 
 	var/obj/machinery/atmospherics/node1 = nodes[1]
@@ -141,7 +141,7 @@
 	if(generator)
 		disconnectFromGenerator()
 	mode = !mode
-	to_chat(user, "<span class='notice'>You set [src] to [mode?"cold":"hot"] mode.</span>")
+	to_chat(user, "<span class='notice'>You set [src] to [mode ? "cold" : "hot"] mode.</span>")
 	return TRUE
 
 /obj/machinery/atmospherics/components/binary/circulator/screwdriver_act(mob/user, obj/item/I)
@@ -149,7 +149,7 @@
 		return TRUE
 	panel_open = !panel_open
 	I.play_tool_sound(src)
-	to_chat(user, "<span class='notice'>You [panel_open?"open":"close"] the panel on [src].</span>")
+	to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the panel on [src].</span>")
 	return TRUE
 
 /obj/machinery/atmospherics/components/binary/circulator/crowbar_act(mob/user, obj/item/I)

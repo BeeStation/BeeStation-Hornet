@@ -120,7 +120,7 @@
 
 /obj/item/clothing/suit/armor/abductor/vest/process()
 	combat_cooldown++
-	if(combat_cooldown==initial(combat_cooldown))
+	if(combat_cooldown == initial(combat_cooldown))
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
@@ -138,9 +138,9 @@
 	righthand_file = 'icons/mob/inhands/antag/abductor_righthand.dmi'
 
 /obj/item/abductor/proc/AbductorCheck(mob/user)
-	if (HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING))
+	if(HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING))
 		return TRUE
-	if (istype(user) && user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
+	if(istype(user) && user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
 		return TRUE
 	to_chat(user, "<span class='warning'>You can't figure how this works!</span>")
 	return FALSE
@@ -180,7 +180,7 @@
 	else
 		mode = GIZMO_SCAN
 		icon_state = "gizmo_scan"
-	to_chat(user, "<span class='notice'>You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE</span>")
+	to_chat(user, "<span class='notice'>You switch the device to [mode == GIZMO_SCAN? "SCAN": "MARK"] MODE</span>")
 
 /obj/item/abductor/gizmo/attack(mob/living/M, mob/user)
 	if(!ScientistCheck(user))
@@ -305,7 +305,7 @@
 	else
 		mode = MIND_DEVICE_MESSAGE
 		icon_state = "mind_device_message"
-	to_chat(user, "<span class='notice'>You switch the device to [mode==MIND_DEVICE_MESSAGE? "TRANSMISSION": "COMMAND"] MODE</span>")
+	to_chat(user, "<span class='notice'>You switch the device to [mode == MIND_DEVICE_MESSAGE? "TRANSMISSION": "COMMAND"] MODE</span>")
 
 /obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, params)
 	. = ..()
@@ -434,7 +434,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	actions_types = list(/datum/action/item_action/toggle_mode)
 
 /obj/item/abductor/baton/proc/toggle(mob/living/user=usr)
-	mode = (mode+1)%BATON_MODES
+	mode = (mode+1) % BATON_MODES
 	var/txt
 	switch(mode)
 		if(BATON_STUN)
@@ -485,7 +485,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			playsound(H, 'sound/weapons/genhit.ogg', 50, TRUE)
 			return FALSE
 
-	switch (mode)
+	switch(mode)
 		if(BATON_STUN)
 			StunAttack(L,user)
 		if(BATON_SLEEP)
@@ -577,7 +577,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(temp)
 			helptext = "<span class='warning'>Experimental gland detected!</span>"
 		else
-			if (L.getorganslot(ORGAN_SLOT_HEART))
+			if(L.getorganslot(ORGAN_SLOT_HEART))
 				helptext = "<span class='notice'>Subject suitable for experiments.</span>"
 			else
 				helptext = "<span class='warning'>Subject unsuitable for experiments.</span>"

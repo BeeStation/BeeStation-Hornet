@@ -137,7 +137,7 @@ Class Procs:
 	power_change()
 	RegisterSignal(src, COMSIG_ENTER_AREA, .proc/power_change)
 
-	if (occupant_typecache)
+	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
 /obj/machinery/Destroy()
@@ -195,7 +195,7 @@ Class Procs:
 	density = TRUE
 	if(!target)
 		for(var/am in loc)
-			if (!(can_be_occupant(am)))
+			if(!(can_be_occupant(am)))
 				continue
 			var/atom/movable/AM = am
 			if(AM.has_buckled_mobs())
@@ -527,12 +527,12 @@ Class Procs:
 
 /obj/machinery/Exited(atom/movable/AM, atom/newloc)
 	. = ..()
-	if (AM == occupant)
+	if(AM == occupant)
 		occupant = null
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
-	for (var/i in 1 to 32)
+	for(var/i in 1 to 32)
 		. += hex2num(md5[i])
 	. = . % 9
 	AM.pixel_x = -8 + ((.%3)*8)

@@ -280,9 +280,9 @@
 	. = list()
 	. += new /obj/item/shard(location)
 	. += new /obj/effect/decal/cleanable/glass(location)
-	if (reinf)
+	if(reinf)
 		. += new /obj/item/stack/rods(location, (fulltile ? 2 : 1))
-	if (fulltile)
+	if(fulltile)
 		. += new /obj/item/shard(location)
 
 /obj/structure/window/proc/can_be_rotated(mob/user,rotation_type)
@@ -416,9 +416,9 @@
 	. = list()
 	. += new /obj/item/shard/plasma(location)
 	. += new /obj/effect/decal/cleanable/glass/plasma(location)
-	if (reinf)
+	if(reinf)
 		. += new /obj/item/stack/rods(location, (fulltile ? 2 : 1))
-	if (fulltile)
+	if(fulltile)
 		. += new /obj/item/shard/plasma(location)
 
 /obj/structure/window/plasma/spawner/east
@@ -705,7 +705,7 @@
 
 /obj/structure/window/paperframe/spawnDebris(location)
 	. = list(new /obj/item/stack/sheet/mineral/wood(location))
-	for (var/i in 1 to rand(1,4))
+	for(var/i in 1 to rand(1,4))
 		. += new /obj/item/paper/natural(location)
 
 /obj/structure/window/paperframe/attack_hand(mob/user)

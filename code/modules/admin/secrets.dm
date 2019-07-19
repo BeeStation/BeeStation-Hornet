@@ -256,7 +256,7 @@
 				return
 			if(!SSticker.HasRoundStarted())
 				alert("The game hasn't started yet!")
-			else if (SSticker.mode)
+			else if(SSticker.mode)
 				alert("The game mode is [SSticker.mode.name]")
 			else alert("For some reason there's a SSticker, but not a game mode")
 		if("manifest")
@@ -351,7 +351,7 @@
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Traitor All", "[objective]"))
 			for(var/mob/living/H in GLOB.player_list)
-				if(!(ishuman(H)||istype(H, /mob/living/silicon/)))
+				if(!(ishuman(H) || istype(H, /mob/living/silicon/)))
 					continue
 				if(H.stat == DEAD || !H.client || !H.mind || ispAI(H))
 					continue
@@ -373,7 +373,7 @@
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Bomb Cap"))
 
 			var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be above 4)", "New Bomb Cap", GLOB.MAX_EX_LIGHT_RANGE) as num|null
-			if (!CONFIG_SET(number/bombcap, newBombCap))
+			if(!CONFIG_SET(number/bombcap, newBombCap))
 				return
 
 			message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.MAX_EX_DEVESTATION_RANGE], [GLOB.MAX_EX_HEAVY_RANGE], [GLOB.MAX_EX_LIGHT_RANGE]</span>")
@@ -393,7 +393,7 @@
 			var/animetype = alert("Would you like to have the clothes be changed?",,"Yes","No","Cancel")
 
 			var/droptype
-			if(animetype =="Yes")
+			if(animetype == "Yes")
 				droptype = alert("Make the uniforms Nodrop?",,"Yes","No","Cancel")
 
 			if(animetype == "Cancel" || droptype == "Cancel")
@@ -570,7 +570,7 @@
 				return
 			for(var/obj/machinery/door/airlock/maintenance/M in GLOB.machines)
 				M.check_access()
-				if (ACCESS_MAINT_TUNNELS in M.req_access)
+				if(ACCESS_MAINT_TUNNELS in M.req_access)
 					M.req_access = list(ACCESS_BRIG)
 			message_admins("[key_name_admin(usr)] made all maint doors brig access-only.")
 		if("maint_access_engiebrig")
@@ -578,7 +578,7 @@
 				return
 			for(var/obj/machinery/door/airlock/maintenance/M in GLOB.machines)
 				M.check_access()
-				if (ACCESS_MAINT_TUNNELS in M.req_access)
+				if(ACCESS_MAINT_TUNNELS in M.req_access)
 					M.req_access = list()
 					M.req_one_access = list(ACCESS_BRIG,ACCESS_ENGINE)
 			message_admins("[key_name_admin(usr)] made all maint doors engineering and brig access-only.")
@@ -690,31 +690,31 @@
 			message_admins("[key_name(usr)] is creating a custom portal storm...")
 			var/list/prefreturn = presentpreflikepicker(usr,"Customize Portal Storm", "Customize Portal Storm", Button1="Ok", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
 
-			if (prefreturn["button"] == 1)
+			if(prefreturn["button"] == 1)
 				var/list/prefs = settings["mainsettings"]
 
-				if (prefs["amount"]["value"] < 1 || prefs["portalnum"]["value"] < 1)
+				if(prefs["amount"]["value"] < 1 || prefs["portalnum"]["value"] < 1)
 					to_chat(usr, "Number of portals and mobs to spawn must be at least 1")
 					return
 
 				var/mob/pathToSpawn = prefs["typepath"]["value"]
-				if (!ispath(pathToSpawn))
+				if(!ispath(pathToSpawn))
 					pathToSpawn = text2path(pathToSpawn)
 
-				if (!ispath(pathToSpawn))
+				if(!ispath(pathToSpawn))
 					to_chat(usr, "Invalid path [pathToSpawn]")
 					return
 
 				var/list/candidates = list()
 
-				if (prefs["offerghosts"]["value"] == "Yes")
+				if(prefs["offerghosts"]["value"] == "Yes")
 					candidates = pollGhostCandidates(replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)), ROLE_TRAITOR)
 
-				if (prefs["playersonly"]["value"] == "Yes" && length(candidates) < prefs["minplayers"]["value"])
+				if(prefs["playersonly"]["value"] == "Yes" && length(candidates) < prefs["minplayers"]["value"])
 					message_admins("Not enough players signed up to create a portal storm, the minimum was [prefs["minplayers"]["value"]] and the number of signups [length(candidates)]")
 					return
 
-				if (prefs["announce_players"]["value"] == "Yes")
+				if(prefs["announce_players"]["value"] == "Yes")
 					portalAnnounce(prefs["announcement"]["value"], (prefs["playlightning"]["value"] == "Yes" ? TRUE : FALSE))
 
 				var/mutable_appearance/storm = mutable_appearance('icons/obj/tesla_engine/energy_ball.dmi', "energy_ball_fast", FLY_LAYER)
@@ -724,16 +724,16 @@
 				log_admin("[key_name(usr)] has created a customized portal storm that will spawn [prefs["portalnum"]["value"]] portals, each of them spawning [prefs["amount"]["value"]] of [pathToSpawn]")
 
 				var/outfit = prefs["humanoutfit"]["value"]
-				if (!ispath(outfit))
+				if(!ispath(outfit))
 					outfit = text2path(outfit)
 
-				for (var/i in 1 to prefs["portalnum"]["value"])
-					if (length(candidates)) // if we're spawning players, gotta be a little tricky and also not spawn players on top of NPCs
+				for(var/i in 1 to prefs["portalnum"]["value"])
+					if(length(candidates)) // if we're spawning players, gotta be a little tricky and also not spawn players on top of NPCs
 						var/ghostcandidates = list()
-						for (var/j in 1 to min(prefs["amount"]["value"], length(candidates)))
+						for(var/j in 1 to min(prefs["amount"]["value"], length(candidates)))
 							ghostcandidates += pick_n_take(candidates)
 							addtimer(CALLBACK(GLOBAL_PROC, .proc/doPortalSpawn, get_random_station_turf(), pathToSpawn, length(ghostcandidates), storm, ghostcandidates, outfit), i*prefs["delay"]["value"])
-					else if (prefs["playersonly"]["value"] != "Yes")
+					else if(prefs["playersonly"]["value"] != "Yes")
 						addtimer(CALLBACK(GLOBAL_PROC, .proc/doPortalSpawn, get_random_station_turf(), pathToSpawn, prefs["amount"]["value"], storm, null, outfit), i*prefs["delay"]["value"])
 
 	if(E)
@@ -742,31 +742,31 @@
 			if(alert(usr, "Would you like to alert the crew?", "Alert", "Yes", "No") == "No")
 				E.announceWhen = -1
 		E.processing = TRUE
-	if (usr)
+	if(usr)
 		log_admin("[key_name(usr)] used secret [item]")
-		if (ok)
+		if(ok)
 			to_chat(world, text("<B>A secret has been activated by []!</B>", usr.key))
 
 /proc/portalAnnounce(announcement, playlightning)
 	set waitfor = 0
-	if (playlightning)
+	if(playlightning)
 		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
 		sleep(80)
 	priority_announce(replacetext(announcement, "%STATION%", station_name()))
-	if (playlightning)
+	if(playlightning)
 		sleep(20)
 		sound_to_playing_players('sound/magic/lightningbolt.ogg')
 
 /proc/doPortalSpawn(turf/loc, mobtype, numtospawn, portal_appearance, players, humanoutfit)
-	for (var/i in 1 to numtospawn)
+	for(var/i in 1 to numtospawn)
 		var/mob/spawnedMob = new mobtype(loc)
-		if (length(players))
+		if(length(players))
 			var/mob/chosen = players[1]
-			if (chosen.client)
+			if(chosen.client)
 				chosen.client.prefs.copy_to(spawnedMob)
 				spawnedMob.key = chosen.key
 			players -= chosen
-		if (ishuman(spawnedMob) && ispath(humanoutfit, /datum/outfit))
+		if(ishuman(spawnedMob) && ispath(humanoutfit, /datum/outfit))
 			var/mob/living/carbon/human/H = spawnedMob
 			H.equipOutfit(humanoutfit)
 	var/turf/T = get_step(loc, SOUTHWEST)

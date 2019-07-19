@@ -459,7 +459,7 @@
 
 /datum/config_entry/number/mc_tick_rate/ValidateAndSet(str_val)
 	. = ..()
-	if (.)
+	if(.)
 		Master.UpdateTickRate()
 
 /datum/config_entry/flag/resume_after_initializations

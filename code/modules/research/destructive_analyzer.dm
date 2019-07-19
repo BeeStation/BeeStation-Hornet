@@ -44,7 +44,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		to_chat(user, "<span class='notice'>You add the [O.name] to the [src.name]!</span>")
 		flick("d_analyzer_la", src)
 		addtimer(CALLBACK(src, .proc/finish_loading), 10)
-		if (linked_console)
+		if(linked_console)
 			linked_console.updateUsrDialog()
 
 /obj/machinery/rnd/destructive_analyzer/proc/finish_loading()
@@ -65,7 +65,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 			var/can_insert = min((storage.max_amount - storage.total_amount), (max(thing.materials[material]*(decon_mod/10), thing.materials[material])))
 			storage.insert_amount(can_insert, material)
 			. += can_insert
-		if (.)
+		if(.)
 			linked_console.linked_lathe.materials.silo_log(src, "reclaimed", 1, "[thing.name]", thing.materials)
 
 /obj/machinery/rnd/destructive_analyzer/proc/destroy_item(obj/item/thing, innermode = FALSE)
@@ -93,7 +93,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 			qdel(S)
 	else
 		qdel(thing)
-	if (!innermode)
+	if(!innermode)
 		update_icon()
 	return TRUE
 
@@ -101,7 +101,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	if(!istype(loaded_item) || !istype(linked_console))
 		return FALSE
 
-	if (id && id != RESEARCH_MATERIAL_RECLAMATION_ID)
+	if(id && id != RESEARCH_MATERIAL_RECLAMATION_ID)
 		var/datum/techweb_node/TN = SSresearch.techweb_node_by_id(id)
 		if(!istype(TN))
 			return FALSE

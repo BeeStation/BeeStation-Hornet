@@ -371,7 +371,7 @@
 
 /datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, reac_volume,show_message = 1)
 	if(iscarbon(M))
-		if (M.stat == DEAD)
+		if(M.stat == DEAD)
 			show_message = 0
 		if(method in list(PATCH, TOUCH))
 			M.adjustBruteLoss(-1.25 * reac_volume)
@@ -701,7 +701,7 @@
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/carbon/M)
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
-	if (!eyes)
+	if(!eyes)
 		return
 	if(HAS_TRAIT_FROM(M, TRAIT_BLIND, EYE_DAMAGE))
 		if(prob(20))
@@ -1112,7 +1112,7 @@
 	M.drowsyness += 2
 	if(M.jitteriness >= 3)
 		M.jitteriness -= 3
-	if (M.hallucination >= 5)
+	if(M.hallucination >= 5)
 		M.hallucination -= 5
 	if(prob(20))
 		M.adjustBrainLoss(1*REM, 50)

@@ -55,8 +55,8 @@
 		return
 	chassis.use_internal_tank = !chassis.use_internal_tank
 	button_icon_state = "mech_internals_[chassis.use_internal_tank ? "on" : "off"]"
-	chassis.occupant_message("Now taking air from [chassis.use_internal_tank?"internal airtank":"environment"].")
-	chassis.log_message("Now taking air from [chassis.use_internal_tank?"internal airtank":"environment"].", LOG_MECHA)
+	chassis.occupant_message("Now taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"].")
+	chassis.log_message("Now taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"].", LOG_MECHA)
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_cycle_equip
@@ -113,8 +113,8 @@
 	else
 		chassis.set_light(-chassis.lights_power)
 		button_icon_state = "mech_lights_off"
-	chassis.occupant_message("Toggled lights [chassis.lights?"on":"off"].")
-	chassis.log_message("Toggled lights [chassis.lights?"on":"off"].", LOG_MECHA)
+	chassis.occupant_message("Toggled lights [chassis.lights ? "on" : "off"].")
+	chassis.log_message("Toggled lights [chassis.lights ? "on" : "off"].", LOG_MECHA)
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_view_stats
@@ -144,8 +144,8 @@
 /obj/mecha/proc/toggle_strafe()
 	strafe = !strafe
 
-	occupant_message("Toggled strafing mode [strafe?"on":"off"].")
-	log_message("Toggled strafing mode [strafe?"on":"off"].", LOG_MECHA)
+	occupant_message("Toggled strafing mode [strafe ? "on" : "off"].")
+	log_message("Toggled strafing mode [strafe ? "on" : "off"].", LOG_MECHA)
 	strafing_action.UpdateButtonIcon()
 
 //////////////////////////////////////// Specific Ability Actions  ///////////////////////////////////////////////
@@ -162,7 +162,7 @@
 		chassis.thrusters_active = !chassis.thrusters_active
 		button_icon_state = "mech_thrusters_[chassis.thrusters_active ? "on" : "off"]"
 		chassis.log_message("Toggled thrusters.", LOG_MECHA)
-		chassis.occupant_message("<font color='[chassis.thrusters_active ?"blue":"red"]'>Thrusters [chassis.thrusters_active ?"en":"dis"]abled.")
+		chassis.occupant_message("<font color='[chassis.thrusters_active  ? "blue" : "red"]'>Thrusters [chassis.thrusters_active  ? "en" : "dis"]abled.")
 
 
 /datum/action/innate/mecha/mech_defence_mode
@@ -239,7 +239,7 @@
 		chassis.zoom_mode = !chassis.zoom_mode
 		button_icon_state = "mech_zoom_[chassis.zoom_mode ? "on" : "off"]"
 		chassis.log_message("Toggled zoom mode.", LOG_MECHA)
-		chassis.occupant_message("<font color='[chassis.zoom_mode?"blue":"red"]'>Zoom mode [chassis.zoom_mode?"en":"dis"]abled.</font>")
+		chassis.occupant_message("<font color='[chassis.zoom_mode ? "blue" : "red"]'>Zoom mode [chassis.zoom_mode ? "en" : "dis"]abled.</font>")
 		if(chassis.zoom_mode)
 			owner.client.change_view(12)
 			SEND_SOUND(owner, sound('sound/mecha/imag_enh.ogg',volume=50))

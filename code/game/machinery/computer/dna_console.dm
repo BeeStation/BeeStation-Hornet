@@ -53,15 +53,15 @@
 	var/list/delayed_action = null
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
-	if (istype(I, /obj/item/disk/data)) //INSERT SOME DISKETTES
-		if (!src.diskette)
-			if (!user.transferItemToLoc(I,src))
+	if(istype(I, /obj/item/disk/data)) //INSERT SOME DISKETTES
+		if(!src.diskette)
+			if(!user.transferItemToLoc(I,src))
 				return
 			src.diskette = I
 			to_chat(user, "<span class='notice'>You insert [I].</span>")
 			src.updateUsrDialog()
 			return
-	if (istype(I, /obj/item/chromosome))
+	if(istype(I, /obj/item/chromosome))
 		if(LAZYLEN(stored_chromosomes) < max_chromosomes)
 			I.forceMove(src)
 			stored_chromosomes += I
@@ -189,7 +189,7 @@
 	var/list/buttons = list("<a href='?src=[REF(src)];'>Scan</a>")
 	if(connected)
 		buttons += "<a href='?src=[REF(src)];task=toggleopen;'>[connected.state_open ? "Close" : "Open"] Scanner</a>"
-		if (connected.state_open)
+		if(connected.state_open)
 			buttons += "<span class='linkOff'>[connected.locked ? "Unlock" : "Lock"] Scanner</span>"
 		else
 			buttons += "<a href='?src=[REF(src)];task=togglelock;'>[connected.locked ? "Unlock" : "Lock"] Scanner</a>"
@@ -233,9 +233,9 @@
 			if(viable_occupant)
 				temp_html += "<div class='dnaBlockNumber'>1</div>"
 				var/len = length(viable_occupant.dna.uni_identity)
-				for(var/i=1, i<=len, i++)
+				for(var/i=1, i <= len, i++)
 					temp_html += "<a class='dnaBlock' href='?src=[REF(src)];task=pulseui;num=[i];'>[copytext(viable_occupant.dna.uni_identity,i,i+1)]</a>"
-					if ((i % max_line_len) == 0)
+					if((i % max_line_len) == 0)
 						temp_html += "</div><div class='clearBoth'>"
 					if((i % DNA_BLOCK_SIZE) == 0 && i < len)
 						temp_html += "<div class='dnaBlockNumber'>[(i / DNA_BLOCK_SIZE) + 1]</div>"
@@ -244,7 +244,7 @@
 			temp_html += "</div></div><br><h1>Buffer Menu</h1>"
 
 			if(istype(buffer))
-				for(var/i=1, i<=buffer.len, i++)
+				for(var/i=1, i <= buffer.len, i++)
 					temp_html += "<br>Slot [i]: "
 					var/list/buffer_slot = buffer[i]
 					if( !buffer_slot || !buffer_slot.len || !buffer_slot["name"] || !((buffer_slot["UI"] && buffer_slot["UE"]) || buffer_slot["SE"]) )
@@ -649,13 +649,13 @@
 				sleep(radduration*10)
 				current_screen = "ui"
 
-				if(viable_occupant && connected && connected.occupant==viable_occupant)
+				if(viable_occupant && connected && connected.occupant == viable_occupant)
 					viable_occupant.radiation += (RADIATION_IRRADIATION_MULTIPLIER*radduration*radstrength)/(connected.damage_coeff ** 2) //Read comment in "transferbuffer" section above for explanation
 					switch(href_list["task"])                                                                                             //Same thing as there but values are even lower, on best part they are about 0.0*, effectively no damage
 						if("pulseui")
 							var/len = length(viable_occupant.dna.uni_identity)
 							num = WRAP(num, 1, len+1)
-							num = randomize_radiation_accuracy(num, radduration + (connected.precision_coeff ** 2), len) //Each manipulator level above 1 makes randomization as accurate as selected time + manipulator lvl^2
+							num = randomize_radiation_accuracy(num, radduration + (connected.precision_coeff ** 2), len) //Each manipulator level above 1 makes randomization as accurate as selected time + manipulator lvl ^ 2
                                                                                                                          //Value is this high for the same reason as with laser - not worth the hassle of upgrading if the bonus is low
 							var/block = round((num-1)/DNA_BLOCK_SIZE)+1
 							var/subblock = num - block*DNA_BLOCK_SIZE
@@ -859,7 +859,7 @@
 	if(istype(buffer_slot))
 		viable_occupant.radiation += rand(100/(connected.damage_coeff ** 2),250/(connected.damage_coeff ** 2))
 		//15 and 40 are just magic numbers that were here before so i didnt touch them, they are initial boundaries of damage
-		//Each laser level reduces damage by lvl^2, so no effect on 1 lvl, 4 times less damage on 2 and 9 times less damage on 3
+		//Each laser level reduces damage by lvl ^ 2, so no effect on 1 lvl, 4 times less damage on 2 and 9 times less damage on 3
 		//Numbers are this high because other way upgrading laser is just not worth the hassle, and i cant think of anything better to inmrove
 		switch(action)
 			if(SCANNER_ACTION_UI)

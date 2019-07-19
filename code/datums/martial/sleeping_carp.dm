@@ -108,7 +108,7 @@
 	return basic_hit(A,D)
 
 /datum/martial_art/the_sleeping_carp/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	if(A==D)
+	if(A == D)
 		return 0 //prevents grabbing yourself
 	if(A.a_intent == INTENT_GRAB)
 		add_to_streak("G",D)

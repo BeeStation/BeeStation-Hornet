@@ -26,7 +26,7 @@
 
 /turf/open/floor/Initialize(mapload)
 
-	if (!broken_states)
+	if(!broken_states)
 		broken_states = typelist("broken_states", list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5"))
 	else
 		broken_states = typelist("broken_states", broken_states)
@@ -92,7 +92,7 @@
 					if(prob(33))
 						new /obj/item/stack/sheet/iron(src)
 		if(3)
-			if (prob(50))
+			if(prob(50))
 				src.break_tile()
 				src.hotspot_expose(1000,CELL_VOLUME)
 

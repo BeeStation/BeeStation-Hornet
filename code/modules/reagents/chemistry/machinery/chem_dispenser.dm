@@ -1,12 +1,12 @@
 /proc/translate_legacy_chem_id(id)
-	switch (id)
-		if ("sacid")
+	switch(id)
+		if("sacid")
 			return "sulphuricacid"
-		if ("facid")
+		if("facid")
 			return "fluorosulfuricacid"
-		if ("co2")
+		if("co2")
 			return "carbondioxide"
-		if ("mine_salve")
+		if("mine_salve")
 			return "minerssalve"
 		else
 			return ckey(id)
@@ -102,7 +102,7 @@
 		to_chat(user, "<span class='notice'>The status display reads: <br>Recharging <b>[recharge_amount]</b> power units per interval.<br>Power efficiency increased by <b>[round((powerefficiency*1000)-100, 1)]%</b>.<br>Macro granularity at <b>[macroresolution]u</b>.<span>")
 
 /obj/machinery/chem_dispenser/process()
-	if (recharge_counter >= 4)
+	if(recharge_counter >= 4)
 		if(!is_operational())
 			return
 		var/usedpower = cell.give(recharge_amount)
@@ -184,7 +184,7 @@
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
-	if (beaker)
+	if(beaker)
 		data["beakerCurrentVolume"] = beakerCurrentVolume
 		data["beakerMaxVolume"] = beaker.volume
 		data["beakerTransferAmounts"] = beaker.possible_transfer_amounts
@@ -292,7 +292,7 @@
 					var/list/reagent = splittext(reagents, "=")
 					var/reagent_id = GLOB.name2reagent[translate_legacy_chem_id(reagent[1])]
 					if(dispensable_reagents.Find(reagent_id))
-						if (!resmismatch && !check_macro_part(reagents, res))
+						if(!resmismatch && !check_macro_part(reagents, res))
 							resmismatch = TRUE
 						continue
 					else
@@ -301,7 +301,7 @@
 						to_chat(usr, "<span class ='danger'>[src] cannot find Chemical ID: <b>[chemid]</b>!</span>")
 						playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
 						return
-				if (resmismatch && alert("[src] is not yet capable of replicating this recipe with the precision it needs, do you want to save it anyway?",, "Yes","No") == "No")
+				if(resmismatch && alert("[src] is not yet capable of replicating this recipe with the precision it needs, do you want to save it anyway?",, "Yes","No") == "No")
 					return
 				saved_recipes += list(list("recipe_name" = name, "contents" = recipe))
 
@@ -362,9 +362,9 @@
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_amount *= C.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if (M.rating > 1)
+		if(M.rating > 1)
 			macroresolution -= M.rating		//5 for t1, 3 for t2, 2 for t3, 1 for t4
-		if (M.rating > 3)
+		if(M.rating > 3)
 			dispensable_reagents |= upgrade_reagents
 	powerefficiency = round(newpowereff, 0.01)
 
@@ -389,14 +389,14 @@
 
 /obj/machinery/chem_dispenser/proc/check_macro(macro)
 	var/res = macroresolution
-	for (var/reagent in splittext(trim(macro), ";"))
-		if (!check_macro_part(reagent, res))
+	for(var/reagent in splittext(trim(macro), ";"))
+		if(!check_macro_part(reagent, res))
 			return FALSE
 	return TRUE
 
 /obj/machinery/chem_dispenser/proc/check_macro_part(var/part, var/res = macroresolution)
 	var/detail = splittext(part, "=")
-	if (text2num(detail[2]) < res)
+	if(text2num(detail[2]) < res)
 		return FALSE
 	return TRUE
 

@@ -40,7 +40,7 @@
 	if(M.stat || !in_range(M,src))
 		return
 
-	if (recent_spin > world.time)
+	if(recent_spin > world.time)
 		return
 	recent_spin = world.time + spin_delay
 
@@ -59,9 +59,9 @@
 
 /obj/item/gun/ballistic/revolver/get_ammo(countchambered = FALSE, countempties = TRUE)
 	var/boolets = 0 //mature var names for mature people
-	if (chambered && countchambered)
+	if(chambered && countchambered)
 		boolets++
-	if (magazine)
+	if(magazine)
 		boolets += magazine.ammo_count(countempties)
 	return boolets
 
@@ -69,7 +69,7 @@
 	..()
 	var/live_ammo = get_ammo(FALSE, FALSE)
 	to_chat(user, "[live_ammo ? live_ammo : "None"] of those are live rounds.")
-	if (current_skin)
+	if(current_skin)
 		to_chat(user, "It can be spun with <b>alt+click</b>")
 
 /obj/item/gun/ballistic/revolver/detective

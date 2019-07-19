@@ -46,7 +46,7 @@
 				return
 
 		// Neither party is a mentor, they shouldn't be PMing!
-		if (!C.is_mentor() && !is_mentor())
+		if(!C.is_mentor() && !is_mentor())
 			return
 
 	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
@@ -75,5 +75,5 @@
 	var/show_char_sender = !is_mentor() && CONFIG_GET(flag/mentors_mobname_only)
 	var/show_char_recip = !C.is_mentor() && CONFIG_GET(flag/mentors_mobname_only)
 	for(var/client/X in GLOB.mentors | GLOB.admins)
-		if(X.key!=key && X.key!=C.key)	//check client/X is an Mentor and isn't the sender or recipient
+		if(X.key != key && X.key != C.key)	//check client/X is an Mentor and isn't the sender or recipient
 			to_chat(X, "<B><span class='mentorto''>Mentor PM: [key_name_mentor(src, X, 0, 0, show_char_sender)]-&gt;[key_name_mentor(C, X, 0, 0, show_char_recip)]:</B> <span class='mentorhelp'>[msg]</span>") //inform X

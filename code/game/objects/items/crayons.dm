@@ -217,7 +217,7 @@
 
 	var/static/list/crayon_drawables
 
-	if (!crayon_drawables)
+	if(!crayon_drawables)
 		crayon_drawables = staticDrawables()
 
 	. = list()
@@ -283,7 +283,7 @@
 		cost = 0
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if (HAS_TRAIT(H, TRAIT_TAGGER))
+		if(HAS_TRAIT(H, TRAIT_TAGGER))
 			cost *= 0.5
 	/* hippie start -- moved to the end of the proc, after the crayon is actually used.
 	var/charges_used = use_charges(user, cost)

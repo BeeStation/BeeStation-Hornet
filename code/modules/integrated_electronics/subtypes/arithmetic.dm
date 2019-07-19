@@ -154,7 +154,7 @@
 	if(isnum(A.data))
 		if(A.data > 0)
 			result = 1
-		else if (A.data < 0)
+		else if(A.data < 0)
 			result = -1
 		else
 			result = 0

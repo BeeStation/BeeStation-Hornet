@@ -25,7 +25,7 @@
 	return TRUE
 
 /obj/item/borg/upgrade/proc/deactivate(mob/living/silicon/robot/R, user = usr)
-	if (!(src in R.upgrades))
+	if(!(src in R.upgrades))
 		return FALSE
 	return TRUE
 
@@ -83,7 +83,7 @@
 
 /obj/item/borg/upgrade/vtec/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		R.speed = initial(R.speed)
 
 /obj/item/borg/upgrade/disablercooler
@@ -109,7 +109,7 @@
 
 /obj/item/borg/upgrade/disablercooler/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
 		if(!T)
 			return FALSE
@@ -131,7 +131,7 @@
 
 /obj/item/borg/upgrade/thrusters/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		R.ionpulse = FALSE
 
 /obj/item/borg/upgrade/ddrill
@@ -155,7 +155,7 @@
 
 /obj/item/borg/upgrade/ddrill/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		for(var/obj/item/pickaxe/drill/cyborg/diamond/DD in R.module)
 			R.module.remove_module(DD, TRUE)
 
@@ -185,7 +185,7 @@
 
 /obj/item/borg/upgrade/soh/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		for(var/obj/item/storage/bag/ore/holding/H in R.module)
 			R.module.remove_module(H, TRUE)
 
@@ -265,7 +265,7 @@
 
 /obj/item/borg/upgrade/syndicate/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		R.SetEmagged(FALSE)
 
 /obj/item/borg/upgrade/lavaproof
@@ -283,7 +283,7 @@
 
 /obj/item/borg/upgrade/lavaproof/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		R.weather_immunities -= "lava"
 
 /obj/item/borg/upgrade/selfrepair
@@ -314,7 +314,7 @@
 
 /obj/item/borg/upgrade/selfrepair/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		toggle_action.Remove(cyborg)
 		QDEL_NULL(toggle_action)
 		cyborg = null
@@ -416,7 +416,7 @@
 
 /obj/item/borg/upgrade/hypospray/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
 			if(H.accepts_reagent_upgrades)
 				for(var/re in additional_reagents)
@@ -449,7 +449,7 @@
 
 /obj/item/borg/upgrade/piercing_hypospray/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
 			H.bypass_protection = initial(H.bypass_protection)
 
@@ -470,7 +470,7 @@
 
 /obj/item/borg/upgrade/defib/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		var/obj/item/twohanded/shockpaddles/cyborg/S = locate() in R.module
 		R.module.remove_module(S, TRUE)
 
@@ -492,7 +492,7 @@
 
 /obj/item/borg/upgrade/processor/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		var/obj/item/surgical_processor/SP = locate() in R.module
 		R.module.remove_module(SP, TRUE)
 
@@ -515,7 +515,7 @@
 
 /obj/item/borg/upgrade/ai/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		if(R.shell)
 			R.undeploy()
 			R.notify_ai(AI_SHELL)
@@ -554,8 +554,8 @@
 
 /obj/item/borg/upgrade/expand/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
-		if (R.hasExpanded)
+	if(.)
+		if(R.hasExpanded)
 			R.hasExpanded = FALSE
 			R.resize = 0.5
 			R.update_transform()
@@ -583,9 +583,9 @@
 
 /obj/item/borg/upgrade/rped/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		var/obj/item/storage/part_replacer/cyborg/RPED = locate() in R.module
-		if (RPED)
+		if(RPED)
 			R.module.remove_module(RPED, TRUE)
 
 /obj/item/borg/upgrade/pinpointer
@@ -611,9 +611,9 @@
 
 /obj/item/borg/upgrade/pinpointer/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if (.)
+	if(.)
 		var/obj/item/pinpointer/crew/PP = locate() in R.module
-		if (PP)
+		if(PP)
 			R.module.remove_module(PP, TRUE)
 
 /obj/item/borg/upgrade/transform

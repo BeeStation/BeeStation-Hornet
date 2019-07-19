@@ -41,12 +41,12 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 /turf/open/copyTurf(turf/T, copy_air = FALSE)
 	. = ..()
-	if (isopenturf(T))
+	if(isopenturf(T))
 		GET_COMPONENT(slip, /datum/component/wet_floor)
 		if(slip)
 			var/datum/component/wet_floor/WF = T.AddComponent(/datum/component/wet_floor)
 			WF.InheritComponent(slip)
-		if (copy_air)
+		if(copy_air)
 			var/turf/open/openTurf = T
 			openTurf.air.copy_from(air)
 
@@ -62,9 +62,9 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 			return
 		if(/turf/baseturf_bottom)
 			path = SSmapping.level_trait(z, ZTRAIT_BASETURF) || /turf/open/space
-			if (!ispath(path))
+			if(!ispath(path))
 				path = text2path(path)
-				if (!ispath(path))
+				if(!ispath(path))
 					warning("Z-level [z] has invalid baseturf '[SSmapping.level_trait(z, ZTRAIT_BASETURF)]'")
 					path = /turf/open/space
 		if(/turf/open/space/basic)
@@ -121,11 +121,11 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		lighting_object = old_lighting_object
 		affecting_lights = old_affecting_lights
 		corners = old_corners
-		if (old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
+		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
 			reconsider_lights()
 
-		if (dynamic_lighting != old_dynamic_lighting)
-			if (IS_DYNAMIC_LIGHTING(src))
+		if(dynamic_lighting != old_dynamic_lighting)
+			if(IS_DYNAMIC_LIGHTING(src))
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
@@ -136,16 +136,16 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	return W
 
 /turf/open/ChangeTurf(path, list/new_baseturfs, flags)
-	if ((flags & CHANGETURF_INHERIT_AIR) && ispath(path, /turf/open))
+	if((flags & CHANGETURF_INHERIT_AIR) && ispath(path, /turf/open))
 		SSair.remove_from_active(src)
 		var/stashed_air = air
 		air = null // so that it doesn't get deleted
 		. = ..()
-		if (!. || . == src) // changeturf failed or didn't do anything
+		if(!. || . == src) // changeturf failed or didn't do anything
 			air = stashed_air
 			return
 		var/turf/open/newTurf = .
-		if (!istype(newTurf.air, /datum/gas_mixture/immutable/space))
+		if(!istype(newTurf.air, /datum/gas_mixture/immutable/space))
 			QDEL_NULL(newTurf.air)
 			newTurf.air = stashed_air
 		SSair.add_to_active(newTurf)

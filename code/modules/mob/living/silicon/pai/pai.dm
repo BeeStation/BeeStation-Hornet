@@ -89,7 +89,7 @@
 
 /mob/living/silicon/pai/Destroy()
 	QDEL_NULL(internal_instrument)
-	if (loc != card)
+	if(loc != card)
 		card.forceMove(drop_location())
 	card.pai = null
 	card.cut_overlays()

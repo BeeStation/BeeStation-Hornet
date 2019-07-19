@@ -52,7 +52,7 @@
 /obj/item/stack/proc/update_weight()
 	if(amount <= (max_amount * (1/3)))
 		w_class = CLAMP(full_w_class-2, WEIGHT_CLASS_TINY, full_w_class)
-	else if (amount <= (max_amount * (2/3)))
+	else if(amount <= (max_amount * (2/3)))
 		w_class = CLAMP(full_w_class-1, WEIGHT_CLASS_TINY, full_w_class)
 	else
 		w_class = full_w_class
@@ -62,7 +62,7 @@
 		return ..()
 	if(amount <= (max_amount * (1/3)))
 		icon_state = initial(icon_state)
-	else if (amount <= (max_amount * (2/3)))
+	else if(amount <= (max_amount * (2/3)))
 		icon_state = "[initial(icon_state)]_2"
 	else
 		icon_state = "[initial(icon_state)]_3"
@@ -70,13 +70,13 @@
 
 
 /obj/item/stack/Destroy()
-	if (usr && usr.machine==src)
+	if(usr && usr.machine == src)
 		usr << browse(null, "window=stack")
 	. = ..()
 
 /obj/item/stack/examine(mob/user)
 	..()
-	if (is_cyborg)
+	if(is_cyborg)
 		if(singular_name)
 			to_chat(user, "There is enough energy for [get_amount()] [singular_name]\s.")
 		else
@@ -107,53 +107,53 @@
 
 /obj/item/stack/ui_interact(mob/user, recipes_sublist)
 	. = ..()
-	if (!recipes)
+	if(!recipes)
 		return
-	if (!src || get_amount() <= 0)
+	if(!src || get_amount() <= 0)
 		user << browse(null, "window=stack")
 	user.set_machine(src) //for correct work of onclose
 	var/list/recipe_list = recipes
-	if (recipes_sublist && recipe_list[recipes_sublist] && istype(recipe_list[recipes_sublist], /datum/stack_recipe_list))
+	if(recipes_sublist && recipe_list[recipes_sublist] && istype(recipe_list[recipes_sublist], /datum/stack_recipe_list))
 		var/datum/stack_recipe_list/srl = recipe_list[recipes_sublist]
 		recipe_list = srl.recipes
 	var/t1 = "Amount Left: [get_amount()]<br>"
 	for(var/i in 1 to length(recipe_list))
 		var/E = recipe_list[i]
-		if (isnull(E))
+		if(isnull(E))
 			t1 += "<hr>"
 			continue
-		if (i>1 && !isnull(recipe_list[i-1]))
-			t1+="<br>"
+		if(i>1 && !isnull(recipe_list[i-1]))
+			t1 += "<br>"
 
-		if (istype(E, /datum/stack_recipe_list))
+		if(istype(E, /datum/stack_recipe_list))
 			var/datum/stack_recipe_list/srl = E
 			t1 += "<a href='?src=[REF(src)];sublist=[i]'>[srl.title]</a>"
 
-		if (istype(E, /datum/stack_recipe))
+		if(istype(E, /datum/stack_recipe))
 			var/datum/stack_recipe/R = E
 			var/max_multiplier = round(get_amount() / R.req_amount)
 			var/title
 			var/can_build = 1
 			can_build = can_build && (max_multiplier>0)
 
-			if (R.res_amount>1)
-				title+= "[R.res_amount]x [R.title]\s"
+			if(R.res_amount>1)
+				title += "[R.res_amount]x [R.title]\s"
 			else
-				title+= "[R.title]"
-			title+= " ([R.req_amount] [singular_name]\s)"
-			if (can_build)
+				title += "[R.title]"
+			title += " ([R.req_amount] [singular_name]\s)"
+			if(can_build)
 				t1 += text("<A href='?src=[REF(src)];sublist=[recipes_sublist];make=[i];multiplier=1'>[title]</A>  ")
 			else
 				t1 += text("[]", title)
 				continue
-			if (R.max_res_amount>1 && max_multiplier>1)
+			if(R.max_res_amount>1 && max_multiplier>1)
 				max_multiplier = min(max_multiplier, round(R.max_res_amount/R.res_amount))
 				t1 += " |"
 				var/list/multipliers = list(5,10,25)
-				for (var/n in multipliers)
-					if (max_multiplier>=n)
+				for(var/n in multipliers)
+					if(max_multiplier >= n)
 						t1 += " <A href='?src=[REF(src)];make=[i];multiplier=[n]'>[n*R.res_amount]x</A>"
-				if (!(max_multiplier in multipliers))
+				if(!(max_multiplier in multipliers))
 					t1 += " <A href='?src=[REF(src)];make=[i];multiplier=[max_multiplier]'>[max_multiplier*R.res_amount]x</A>"
 
 	var/datum/browser/popup = new(user, "stack", name, 400, 400)
@@ -163,27 +163,27 @@
 
 /obj/item/stack/Topic(href, href_list)
 	..()
-	if (usr.restrained() || usr.stat || usr.get_active_held_item() != src)
+	if(usr.restrained() || usr.stat || usr.get_active_held_item() != src)
 		return
-	if (href_list["sublist"] && !href_list["make"])
+	if(href_list["sublist"] && !href_list["make"])
 		interact(usr, text2num(href_list["sublist"]))
-	if (href_list["make"])
-		if (get_amount() < 1 && !is_cyborg)
+	if(href_list["make"])
+		if(get_amount() < 1 && !is_cyborg)
 			qdel(src)
 
 		var/list/recipes_list = recipes
-		if (href_list["sublist"])
+		if(href_list["sublist"])
 			var/datum/stack_recipe_list/srl = recipes_list[text2num(href_list["sublist"])]
 			recipes_list = srl.recipes
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		var/multiplier = text2num(href_list["multiplier"])
-		if (!multiplier ||(multiplier <= 0)) //href protection
+		if(!multiplier || (multiplier <= 0)) //href protection
 			return
 		if(!building_checks(R, multiplier))
 			return
-		if (R.time)
+		if(R.time)
 			usr.visible_message("<span class='notice'>[usr] starts building [R.title].</span>", "<span class='notice'>You start building [R.title]...</span>")
-			if (!do_after(usr, R.time, target = usr))
+			if(!do_after(usr, R.time, target = usr))
 				return
 			if(!building_checks(R, multiplier))
 				return
@@ -216,22 +216,22 @@
 			cuffs.item_color = item_color
 			cuffs.update_icon()
 
-		if (QDELETED(O))
+		if(QDELETED(O))
 			return //It's a stack and has already been merged
 
-		if (isitem(O))
+		if(isitem(O))
 			usr.put_in_hands(O)
 		O.add_fingerprint(usr)
 
 		//BubbleWrap - so newly formed boxes are empty
-		if ( istype(O, /obj/item/storage) )
-			for (var/obj/item/I in O)
+		if( istype(O, /obj/item/storage) )
+			for(var/obj/item/I in O)
 				qdel(I)
 		//BubbleWrap END
 
 /obj/item/stack/proc/building_checks(datum/stack_recipe/R, multiplier)
-	if (get_amount() < R.req_amount*multiplier)
-		if (R.req_amount*multiplier>1)
+	if(get_amount() < R.req_amount*multiplier)
+		if(R.req_amount*multiplier>1)
 			to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount*multiplier] [R.title]\s!</span>")
 		else
 			to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
@@ -279,9 +279,9 @@
 /obj/item/stack/use(used, transfer = FALSE, check = TRUE) // return 0 = borked; return 1 = had enough
 	if(check && zero_amount())
 		return FALSE
-	if (is_cyborg)
+	if(is_cyborg)
 		return source.use_charge(used * cost)
-	if (amount < used)
+	if(amount < used)
 		return FALSE
 	amount -= used
 	if(check)
@@ -313,7 +313,7 @@
 	return 0
 
 /obj/item/stack/proc/add(amount)
-	if (is_cyborg)
+	if(is_cyborg)
 		source.add_charge(amount * cost)
 	else
 		src.amount += amount

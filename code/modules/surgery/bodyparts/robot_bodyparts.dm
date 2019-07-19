@@ -142,7 +142,7 @@
 			to_chat(user, "<span class='warning'>You have already inserted wire!</span>")
 			return
 		var/obj/item/stack/cable_coil/coil = W
-		if (coil.use(1))
+		if(coil.use(1))
 			wired = TRUE
 			to_chat(user, "<span class='notice'>You insert the wire.</span>")
 		else

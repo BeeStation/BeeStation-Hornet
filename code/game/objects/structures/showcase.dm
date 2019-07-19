@@ -114,7 +114,7 @@
 			to_chat(user, "<span class='notice'>You screw the screws back into the showcase.</span>")
 			W.play_tool_sound(src, 100)
 			deconstruction_state = SHOWCASE_CONSTRUCTED
-		else if (deconstruction_state == SHOWCASE_CONSTRUCTED)
+		else if(deconstruction_state == SHOWCASE_CONSTRUCTED)
 			to_chat(user, "<span class='notice'>You unscrew the screws.</span>")
 			W.play_tool_sound(src, 100)
 			deconstruction_state = SHOWCASE_SCREWDRIVERED

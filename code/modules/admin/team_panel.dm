@@ -68,7 +68,7 @@
 
 	var/selected_type = input("Select objective type:", "Objective type") as null|anything in GLOB.admin_objective_list
 	selected_type = GLOB.admin_objective_list[selected_type]
-	if (!selected_type)
+	if(!selected_type)
 		return
 
 	var/datum/objective/O = new selected_type
@@ -112,7 +112,7 @@
 		if(M.mind)
 			minds |= M.mind
 	var/datum/mind/value = input("Select new member:", "New team member", null) as null|anything in minds
-	if (!value)
+	if(!value)
 		return
 
 	message_admins("[key_name_admin(usr)] added [key_name_admin(value)] as a member of [name] team")

@@ -42,7 +42,7 @@
 		var/turf/T = loc
 		Beacon = new(T)
 		Beacon.invisibility = INVISIBILITY_MAXIMUM
-	else if (Beacon.loc != loc)
+	else if(Beacon.loc != loc)
 		Beacon.forceMove(loc)
 
 	updateicon()

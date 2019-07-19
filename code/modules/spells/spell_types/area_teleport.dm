@@ -46,7 +46,7 @@
 						clear = FALSE
 						break
 				if(clear)
-					L+=T
+					L += T
 
 		if(!L.len)
 			to_chat(usr, "The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.")
@@ -84,7 +84,7 @@
 		switch(invocation_type)
 			if("shout")
 				user.say(words, forced = "spell")
-				if(user.gender==MALE)
+				if(user.gender == MALE)
 					playsound(user.loc, pick('sound/misc/null.ogg','sound/misc/null.ogg'), 100, 1)
 				else
 					playsound(user.loc, pick('sound/misc/null.ogg','sound/misc/null.ogg'), 100, 1)

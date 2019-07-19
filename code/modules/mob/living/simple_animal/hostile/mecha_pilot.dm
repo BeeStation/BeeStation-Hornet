@@ -268,7 +268,7 @@
 		else //we're not in a mecha, so we check if we can steal it instead.
 			if(is_valid_mecha(M))
 				return 1
-			else if (M.occupant && CanAttack(M.occupant))
+			else if(M.occupant && CanAttack(M.occupant))
 				return 1
 			else
 				return 0

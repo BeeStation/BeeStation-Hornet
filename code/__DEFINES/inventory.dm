@@ -14,20 +14,20 @@
 #define STORAGE_VIEW_DEPTH	2
 
 //ITEM INVENTORY SLOT BITMASKS
-#define ITEM_SLOT_OCLOTHING		(1<<0)
-#define ITEM_SLOT_ICLOTHING		(1<<1)
-#define ITEM_SLOT_GLOVES		(1<<2)
-#define ITEM_SLOT_EYES			(1<<3)
-#define ITEM_SLOT_EARS			(1<<4)
-#define ITEM_SLOT_MASK			(1<<5)
-#define ITEM_SLOT_HEAD			(1<<6)
-#define ITEM_SLOT_FEET			(1<<7)
-#define ITEM_SLOT_ID			(1<<8)
-#define ITEM_SLOT_BELT			(1<<9)
-#define ITEM_SLOT_BACK			(1<<10)
-#define ITEM_SLOT_POCKET		(1<<11) // this is to allow items with a w_class of WEIGHT_CLASS_NORMAL or WEIGHT_CLASS_BULKY to fit in pockets.
-#define ITEM_SLOT_DENYPOCKET	(1<<12) // this is to deny items with a w_class of WEIGHT_CLASS_SMALL or WEIGHT_CLASS_TINY to fit in pockets.
-#define ITEM_SLOT_NECK			(1<<13)
+#define ITEM_SLOT_OCLOTHING		(1 << 0)
+#define ITEM_SLOT_ICLOTHING		(1 << 1)
+#define ITEM_SLOT_GLOVES		(1 << 2)
+#define ITEM_SLOT_EYES			(1 << 3)
+#define ITEM_SLOT_EARS			(1 << 4)
+#define ITEM_SLOT_MASK			(1 << 5)
+#define ITEM_SLOT_HEAD			(1 << 6)
+#define ITEM_SLOT_FEET			(1 << 7)
+#define ITEM_SLOT_ID			(1 << 8)
+#define ITEM_SLOT_BELT			(1 << 9)
+#define ITEM_SLOT_BACK			(1 << 10)
+#define ITEM_SLOT_POCKET		(1 << 11) // this is to allow items with a w_class of WEIGHT_CLASS_NORMAL or WEIGHT_CLASS_BULKY to fit in pockets.
+#define ITEM_SLOT_DENYPOCKET	(1 << 12) // this is to deny items with a w_class of WEIGHT_CLASS_SMALL or WEIGHT_CLASS_TINY to fit in pockets.
+#define ITEM_SLOT_NECK			(1 << 13)
 
 //SLOTS
 #define SLOT_BACK			1
@@ -88,35 +88,35 @@
 
 //Bit flags for the flags_inv variable, which determine when a piece of clothing hides another. IE a helmet hiding glasses.
 //Make sure to update check_obscured_slots() if you add more.
-#define HIDEGLOVES		(1<<0)
-#define HIDESUITSTORAGE	(1<<1)
-#define HIDEJUMPSUIT	(1<<2)	//these first four are only used in exterior suits
-#define HIDESHOES		(1<<3)
-#define HIDEMASK		(1<<4)	//these last six are only used in masks and headgear.
-#define HIDEEARS		(1<<5)	// (ears means headsets and such)
-#define HIDEEYES		(1<<6)	// Whether eyes and glasses are hidden
-#define HIDEFACE		(1<<7)	// Whether we appear as unknown.
-#define HIDEHAIR		(1<<8)
-#define HIDEFACIALHAIR	(1<<9)
-#define HIDENECK		(1<<10)
+#define HIDEGLOVES		(1 << 0)
+#define HIDESUITSTORAGE	(1 << 1)
+#define HIDEJUMPSUIT	(1 << 2)	//these first four are only used in exterior suits
+#define HIDESHOES		(1 << 3)
+#define HIDEMASK		(1 << 4)	//these last six are only used in masks and headgear.
+#define HIDEEARS		(1 << 5)	// (ears means headsets and such)
+#define HIDEEYES		(1 << 6)	// Whether eyes and glasses are hidden
+#define HIDEFACE		(1 << 7)	// Whether we appear as unknown.
+#define HIDEHAIR		(1 << 8)
+#define HIDEFACIALHAIR	(1 << 9)
+#define HIDENECK		(1 << 10)
 
 //bitflags for clothing coverage - also used for limbs
-#define HEAD		(1<<0)
-#define CHEST		(1<<1)
-#define GROIN		(1<<2)
-#define LEG_LEFT	(1<<3)
-#define LEG_RIGHT	(1<<4)
+#define HEAD		(1 << 0)
+#define CHEST		(1 << 1)
+#define GROIN		(1 << 2)
+#define LEG_LEFT	(1 << 3)
+#define LEG_RIGHT	(1 << 4)
 #define LEGS		(LEG_LEFT | LEG_RIGHT)
-#define FOOT_LEFT	(1<<5)
-#define FOOT_RIGHT	(1<<6)
+#define FOOT_LEFT	(1 << 5)
+#define FOOT_RIGHT	(1 << 6)
 #define FEET		(FOOT_LEFT | FOOT_RIGHT)
-#define ARM_LEFT	(1<<7)
-#define ARM_RIGHT	(1<<8)
+#define ARM_LEFT	(1 << 7)
+#define ARM_RIGHT	(1 << 8)
 #define ARMS		(ARM_LEFT | ARM_RIGHT)
-#define HAND_LEFT	(1<<9)
-#define HAND_RIGHT	(1<<10)
+#define HAND_LEFT	(1 << 9)
+#define HAND_RIGHT	(1 << 10)
 #define HANDS		(HAND_LEFT | HAND_RIGHT)
-#define NECK		(1<<11)
+#define NECK		(1 << 11)
 #define FULL_BODY	(~0)
 
 //flags for female outfits: How much the game can safely "take off" the uniform without it looking weird
@@ -138,11 +138,11 @@
 #define SQUISHED_DIGITIGRADE		2
 
 //flags for covering body parts
-#define GLASSESCOVERSEYES	(1<<0)
-#define MASKCOVERSEYES		(1<<1)		// get rid of some of the other retardation in these flags
-#define HEADCOVERSEYES		(1<<2)		// feel free to realloc these numbers for other purposes
-#define MASKCOVERSMOUTH		(1<<3)		// on other items, these are just for mask/head
-#define HEADCOVERSMOUTH		(1<<4)
+#define GLASSESCOVERSEYES	(1 << 0)
+#define MASKCOVERSEYES		(1 << 1)		// get rid of some of the other retardation in these flags
+#define HEADCOVERSEYES		(1 << 2)		// feel free to realloc these numbers for other purposes
+#define MASKCOVERSMOUTH		(1 << 3)		// on other items, these are just for mask/head
+#define HEADCOVERSMOUTH		(1 << 4)
 
 #define TINT_DARKENED 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully

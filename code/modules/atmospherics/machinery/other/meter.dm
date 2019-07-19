@@ -100,7 +100,7 @@
 		radio_connection.post_signal(src, signal)
 
 /obj/machinery/meter/proc/status()
-	if (target)
+	if(target)
 		var/datum/gas_mixture/environment = target.return_air()
 		if(environment)
 			. = "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)] K ([round(environment.temperature-T0C,0.01)]&deg;C)."
@@ -115,7 +115,7 @@
 
 /obj/machinery/meter/wrench_act(mob/user, obj/item/I)
 	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-	if (I.use_tool(src, user, 40, volume=50))
+	if(I.use_tool(src, user, 40, volume=50))
 		user.visible_message(
 			"[user] unfastens \the [src].",
 			"<span class='notice'>You unfasten \the [src].</span>",

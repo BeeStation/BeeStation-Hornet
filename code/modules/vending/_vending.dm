@@ -149,7 +149,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		set_light(0)
 		var/dump_amount = 0
 		var/found_anything = TRUE
-		while (found_anything)
+		while(found_anything)
 			found_anything = FALSE
 			for(var/record in shuffle(product_records))
 				var/datum/data/vending_product/R = record
@@ -167,7 +167,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 				step(O, pick(GLOB.alldirs))
 				found_anything = TRUE
 				dump_amount++
-				if (dump_amount >= 16)
+				if(dump_amount >= 16)
 					return
 
 GLOBAL_LIST_EMPTY(vending_products)
@@ -191,11 +191,11 @@ GLOBAL_LIST_EMPTY(vending_products)
 		recordlist += R
 
 /obj/machinery/vending/proc/restock(obj/item/vending_refill/canister)
-	if (!canister.products)
+	if(!canister.products)
 		canister.products = products.Copy()
-	if (!canister.contraband)
+	if(!canister.contraband)
 		canister.contraband = contraband.Copy()
-	if (!canister.premium)
+	if(!canister.premium)
 		canister.premium = premium.Copy()
 	. = 0
 	. += refill_inventory(canister.products, product_records)
@@ -207,17 +207,17 @@ GLOBAL_LIST_EMPTY(vending_products)
 	for(var/R in recordlist)
 		var/datum/data/vending_product/record = R
 		var/diff = min(record.max_amount - record.amount, productlist[record.product_path])
-		if (diff)
+		if(diff)
 			productlist[record.product_path] -= diff
 			record.amount += diff
 			. += diff
 
 /obj/machinery/vending/proc/update_canister()
-	if (!component_parts)
+	if(!component_parts)
 		return
 
 	var/obj/item/vending_refill/R = locate() in component_parts
-	if (!R)
+	if(!R)
 		CRASH("Constructible vending machine did not have a refill canister")
 		return
 
@@ -260,9 +260,9 @@ GLOBAL_LIST_EMPTY(vending_products)
 		wires.interact(user)
 		return
 	if(refill_canister && istype(I, refill_canister))
-		if (!panel_open)
+		if(!panel_open)
 			to_chat(user, "<span class='notice'>You should probably unscrew the service panel first.</span>")
-		else if (stat & (BROKEN|NOPOWER))
+		else if(stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
 		else
 			//if the panel is open we attempt to refill the machine
@@ -329,7 +329,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 	if(!C)
 		dat += "<font color = 'red'><h3>No ID Card detected!</h3></font>"
-	else if (!C.registered_account)
+	else if(!C.registered_account)
 		dat += "<font color = 'red'><h3>No account on registered ID card!</h3></font>"
 	if(onstation && C && C.registered_account)
 		account = C.registered_account
@@ -342,7 +342,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 		if(extended_inventory)
 			display_records = product_records + coin_records + hidden_records
 		dat += "<table>"
-		for (var/datum/data/vending_product/R in display_records)
+		for(var/datum/data/vending_product/R in display_records)
 			var/price_listed = "$[default_price]"
 			var/is_hidden = hidden_records.Find(R)
 			if(is_hidden && !extended_inventory)
@@ -367,7 +367,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	if(istype(src, /obj/machinery/vending/snack))
 		dat += "<h3>Chef's Food Selection</h3>"
 		dat += "<div class='statusDisplay'>"
-		for (var/O in dish_quants)
+		for(var/O in dish_quants)
 			if(dish_quants[O] > 0)
 				var/N = dish_quants[O]
 				dat += "<a href='byond://?src=[REF(src)];dispense=[sanitize(O)]'>Dispense</A> "
@@ -400,7 +400,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 				flick(icon_deny,src)
 				vend_ready = 1
 				return
-			else if (!C.registered_account)
+			else if(!C.registered_account)
 				say("No account found.")
 				flick(icon_deny,src)
 				vend_ready = 1
@@ -445,11 +445,11 @@ GLOBAL_LIST_EMPTY(vending_products)
 				vend_ready = 1
 				return
 
-		else if (!(R in record_to_check))
+		else if(!(R in record_to_check))
 			vend_ready = 1
 			message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 			return
-		if (R.amount <= 0)
+		if(R.amount <= 0)
 			say("Sold out of [R.name].")
 			flick(icon_deny,src)
 			vend_ready = 1
@@ -463,7 +463,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 				flick(icon_deny,src)
 				vend_ready = 1
 				return
-			else if (!C.registered_account)
+			else if(!C.registered_account)
 				say("No account found.")
 				flick(icon_deny,src)
 				vend_ready = 1

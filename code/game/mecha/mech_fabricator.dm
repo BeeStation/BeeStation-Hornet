@@ -103,7 +103,7 @@
 	var/i = 0
 	var/output
 	for(var/c in D.materials)
-		output += "[i?" | ":null][get_resource_cost_w_coeff(D, c)] [material2name(c)]"
+		output += "[i ? " | " : null][get_resource_cost_w_coeff(D, c)] [material2name(c)]"
 		i++
 	return output
 
@@ -216,10 +216,10 @@
 		for(var/datum/design/D in queue)
 			i++
 			var/obj/part = D.build_path
-			output += "<li[!check_resources(D)?" style='color: #f00;'":null]>"
+			output += "<li[!check_resources(D)?" style='color: #f00;'" : null]>"
 			output += initial(part.name) + " - "
-			output += "[i>1?"<a href='?src=[REF(src)];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>":null] "
-			output += "[i<queue.len?"<a href='?src=[REF(src)];queue_move=+1;index=[i]' class='arrow'>&darr;</a>":null] "
+			output += "[i>1 ? "<a href='?src=[REF(src)];queue_move=-1;index=[i]' class='arrow'>&uarr;</a>" : null] "
+			output += "[i<queue.len ? "<a href='?src=[REF(src)];queue_move=+1;index=[i]' class='arrow'>&darr;</a>" : null] "
 			output += "<a href='?src=[REF(src)];remove_from_queue=[i]'>Remove</a></li>"
 
 		output += "</ol>"
@@ -315,7 +315,7 @@
 	if(href_list["part_set"])
 		var/tpart_set = href_list["part_set"]
 		if(tpart_set)
-			if(tpart_set=="clear")
+			if(tpart_set == "clear")
 				part_set = null
 			else
 				part_set = tpart_set

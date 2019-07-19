@@ -121,7 +121,7 @@
 			log_msg += "[key_name(T)][on_chair]"
 		else
 			log_msg += "[ROI.name]"
-			if (istype(ROI, /obj/structure/closet))
+			if(istype(ROI, /obj/structure/closet))
 				log_msg += " ("
 				var/first_inner = TRUE
 				for(var/atom/movable/Q as mob|obj in ROI)
@@ -138,7 +138,7 @@
 		do_teleport(ROI, dest, no_effects = !first, channel = TELEPORT_CHANNEL_BLUESPACE)
 		first = FALSE
 
-	if (first)
+	if(first)
 		log_msg += "nothing"
 	log_msg += " [sending ? "to" : "from"] [target_x], [target_y], [z] ([A ? A.name : "null area"])"
 	investigate_log(log_msg.Join(), INVESTIGATE_TELESCI)

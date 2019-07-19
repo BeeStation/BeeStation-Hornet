@@ -42,7 +42,7 @@
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
 	else if(istype(W, /obj/item/stack/sheet/mineral/titanium))
-		if (obj_integrity >= max_integrity)
+		if(obj_integrity >= max_integrity)
 			to_chat(user, "<span class='notice'>[src] is already in perfect condition.</span>")
 		else
 			var/obj/item/stack/sheet/mineral/titanium/T = W
@@ -68,7 +68,7 @@
 	new /obj/item/shard((get_turf(src)))
 
 /obj/item/shield/riot/on_shield_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
-	if (obj_integrity <= damage)
+	if(obj_integrity <= damage)
 		var/turf/T = get_turf(owner)
 		T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")
 		shatter(owner)
@@ -137,7 +137,7 @@
 
 /obj/item/shield/riot/flash/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()
-	if (. && !embedded_flash.burnt_out)
+	if(. && !embedded_flash.burnt_out)
 		embedded_flash.activate()
 		update_icon()
 

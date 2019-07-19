@@ -142,7 +142,7 @@
 		if(broken)
 			icon_state += "+b"
 		if(contents && open)
-			for (var/i in 1 to contents.len)
+			for(var/i in 1 to contents.len)
 				var/obj/item/clothing/accessory/medal/M = contents[i]
 				var/mutable_appearance/medalicon = mutable_appearance(initial(icon), M.medaltype)
 				if(i > 1 && i <= 5)

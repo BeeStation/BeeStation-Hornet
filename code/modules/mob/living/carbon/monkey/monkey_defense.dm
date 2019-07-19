@@ -38,7 +38,7 @@
 			grabbedby(M)
 		if("harm")
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			if (prob(75))
+			if(prob(75))
 				visible_message("<span class='danger'>[M] has punched [name]!</span>", \
 						"<span class='userdanger'>[M] has punched [name]!</span>", null, COMBAT_MESSAGE_RANGE)
 
@@ -63,7 +63,7 @@
 		if("disarm")
 			if(!IsUnconscious())
 				M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-				if (prob(25))
+				if(prob(25))
 					Paralyze(40)
 					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					log_combat(M, src, "pushed")
@@ -75,11 +75,11 @@
 
 /mob/living/carbon/monkey/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent.
-		if (M.a_intent == INTENT_HARM)
-			if ((prob(95) && health > 0))
+		if(M.a_intent == INTENT_HARM)
+			if((prob(95) && health > 0))
 				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 				var/damage = rand(15, 30)
-				if (damage >= 25)
+				if(damage >= 25)
 					damage = rand(20, 40)
 					if(AmountUnconscious() < 300)
 						Unconscious(rand(200, 300))
@@ -102,7 +102,7 @@
 				visible_message("<span class='danger'>[M] has attempted to lunge at [name]!</span>", \
 						"<span class='userdanger'>[M] has attempted to lunge at [name]!</span>", null, COMBAT_MESSAGE_RANGE)
 
-		if (M.a_intent == INTENT_DISARM)
+		if(M.a_intent == INTENT_DISARM)
 			var/obj/item/I = null
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			if(prob(95))
@@ -167,12 +167,12 @@
 		return
 	..()
 
-	switch (severity)
-		if (1)
+	switch(severity)
+		if(1)
 			gib()
 			return
 
-		if (2)
+		if(2)
 			take_overall_damage(60, 60)
 			damage_clothes(200, BRUTE, "bomb")
 			adjustEarDamage(30, 120)
@@ -183,7 +183,7 @@
 			take_overall_damage(30, 0)
 			damage_clothes(50, BRUTE, "bomb")
 			adjustEarDamage(15,60)
-			if (prob(50))
+			if(prob(50))
 				Unconscious(160)
 
 

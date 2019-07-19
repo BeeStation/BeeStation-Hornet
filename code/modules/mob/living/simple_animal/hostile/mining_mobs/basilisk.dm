@@ -133,7 +133,7 @@
 	. = ..()
 	if(.)
 		var/mob/living/L = target
-		if (istype(L))
+		if(istype(L))
 			L.adjust_fire_stacks(0.1)
 			L.IgniteMob()
 

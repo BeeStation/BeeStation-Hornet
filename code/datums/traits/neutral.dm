@@ -99,7 +99,7 @@
 
 /datum/quirk/neat/on_process()
 	var/mob/living/carbon/human/H = quirk_holder
-	switch (H.hygiene)
+	switch(H.hygiene)
 		if(0 to HYGIENE_LEVEL_DIRTY)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "neat", /datum/mood_event/dirty)
 		if(HYGIENE_LEVEL_DIRTY to HYGIENE_LEVEL_NORMAL)

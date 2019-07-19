@@ -161,9 +161,9 @@ mob
 			// Give it a name for the cache
 			var/iconName = "[ckey(src.name)]_flattened.dmi"
 			// Send the icon to src's local cache
-			src<<browse_rsc(getFlatIcon(src), iconName)
+			src << browse_rsc(getFlatIcon(src), iconName)
 			// Display the icon in their browser
-			src<<browse("<body bgcolor='#000000'><p><img src='[iconName]'></p></body>")
+			src << browse("<body bgcolor='#000000'><p><img src='[iconName]'></p></body>")
 
 		Output_Icon()
 			set name = "2. Output Icon"
@@ -176,7 +176,7 @@ mob
 			// Copy the file to the rsc manually
 			var/icon/I = fcopy_rsc(getFlatIcon(src))
 			// Send the icon to src's local cache
-			src<<browse_rsc(I, iconName)
+			src << browse_rsc(I, iconName)
 			// Update the label to show it
 			winset(src,"imageLabel","image='[REF(I)]'");
 
@@ -316,7 +316,7 @@ world
 	if(text2ascii(rgb) == 35) ++start // skip opening #
 	var/ch,which=0,r=0,g=0,b=0,alpha=0,usealpha
 	var/digits=0
-	for(i=start, i<=length(rgb), ++i)
+	for(i=start, i <= length(rgb), ++i)
 		ch = text2ascii(rgb, i)
 		if(ch < 48 || (ch > 57 && ch < 65) || (ch > 70 && ch < 97) || ch > 102)
 			break
@@ -381,7 +381,7 @@ world
 		++start // skip opening #
 	var/ch,which=0,hue=0,sat=0,val=0,alpha=0,usealpha
 	var/digits=0
-	for(i=start, i<=length(hsv), ++i)
+	for(i=start, i <= length(hsv), ++i)
 		ch = text2ascii(hsv, i)
 		if(ch < 48 || (ch > 57 && ch < 65) || (ch > 70 && ch < 97) || ch > 102)
 			break
@@ -701,10 +701,10 @@ world
 	var/lo3 = text2ascii(hex, 7) // B
 	var/hi4 = text2ascii(hex, 8) // A
 	var/lo4 = text2ascii(hex, 9) // A
-	return list(((hi1>= 65 ? hi1-55 : hi1-48)<<4) | (lo1 >= 65 ? lo1-55 : lo1-48),
-		((hi2 >= 65 ? hi2-55 : hi2-48)<<4) | (lo2 >= 65 ? lo2-55 : lo2-48),
-		((hi3 >= 65 ? hi3-55 : hi3-48)<<4) | (lo3 >= 65 ? lo3-55 : lo3-48),
-		((hi4 >= 65 ? hi4-55 : hi4-48)<<4) | (lo4 >= 65 ? lo4-55 : lo4-48))
+	return list(((hi1 >= 65 ? hi1-55 : hi1-48) << 4) | (lo1 >= 65 ? lo1-55 : lo1-48),
+		((hi2 >= 65 ? hi2-55 : hi2-48) << 4) | (lo2 >= 65 ? lo2-55 : lo2-48),
+		((hi3 >= 65 ? hi3-55 : hi3-48) << 4) | (lo3 >= 65 ? lo3-55 : lo3-48),
+		((hi4 >= 65 ? hi4-55 : hi4-48) << 4) | (lo4 >= 65 ? lo4-55 : lo4-48))
 
 // Creates a single icon from a given /atom or /image.  Only the first argument is required.
 /proc/getFlatIcon(image/A, defdir, deficon, defstate, defblend, start = TRUE, no_anim = FALSE)
@@ -724,7 +724,7 @@ world
 				SELF_ICON.Blend(A.color,ICON_MULTIPLY)} \
 		} \
 		##SETVAR=SELF_ICON;\
-		} while (0)
+		} while(0)
 	#define INDEX_X_LOW 1
 	#define INDEX_X_HIGH 2
 	#define INDEX_Y_LOW 3
@@ -1051,7 +1051,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 			prefs.copy_to(body,TRUE,FALSE)
 		if(J)
 			J.equip(body, TRUE, FALSE, outfit_override = outfit_override)
-		else if (outfit_override)
+		else if(outfit_override)
 			body.equipOutfit(outfit_override,visualsOnly = TRUE)
 
 
@@ -1099,7 +1099,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 // exporting it as text, and then parsing the base64 from that.
 // (This relies on byond automatically storing icons in savefiles as base64)
 /proc/icon2base64(icon/icon, iconKey = "misc")
-	if (!isicon(icon))
+	if(!isicon(icon))
 		return FALSE
 	WRITE_FILE(GLOB.iconCache[iconKey], icon)
 	var/iconData = GLOB.iconCache.ExportText(iconKey)
@@ -1107,68 +1107,68 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 	return replacetext(copytext(partial[2], 3, -5), "\n", "")
 
 /proc/icon2html(thing, target, icon_state, dir, frame = 1, moving = FALSE)
-	if (!thing)
+	if(!thing)
 		return
 
 	var/key
 	var/icon/I = thing
-	if (!target)
+	if(!target)
 		return
-	if (target == world)
+	if(target == world)
 		target = GLOB.clients
 
 	var/list/targets
-	if (!islist(target))
+	if(!islist(target))
 		targets = list(target)
 	else
 		targets = target
-		if (!targets.len)
+		if(!targets.len)
 			return
-	if (!isicon(I))
-		if (isfile(thing)) //special snowflake
+	if(!isicon(I))
+		if(isfile(thing)) //special snowflake
 			var/name = sanitize_filename("[generate_asset_name(thing)].png")
 			register_asset(name, thing)
-			for (var/thing2 in targets)
+			for(var/thing2 in targets)
 				send_asset(thing2, key, FALSE)
 			return "<img class='icon icon-misc' src=\"[url_encode(name)]\">"
 		var/atom/A = thing
-		if (isnull(dir))
+		if(isnull(dir))
 			dir = A.dir
-		if (isnull(icon_state))
+		if(isnull(icon_state))
 			icon_state = A.icon_state
 		I = A.icon
-		if (ishuman(thing)) // Shitty workaround for a BYOND issue.
+		if(ishuman(thing)) // Shitty workaround for a BYOND issue.
 			var/icon/temp = I
 			I = icon()
 			I.Insert(temp, dir = SOUTH)
 			dir = SOUTH
 	else
-		if (isnull(dir))
+		if(isnull(dir))
 			dir = SOUTH
-		if (isnull(icon_state))
+		if(isnull(icon_state))
 			icon_state = ""
 
 	I = icon(I, icon_state, dir, frame, moving)
 
 	key = "[generate_asset_name(I)].png"
 	register_asset(key, I)
-	for (var/thing2 in targets)
+	for(var/thing2 in targets)
 		send_asset(thing2, key, FALSE)
 
 	return "<img class='icon icon-[icon_state]' src=\"[url_encode(key)]\">"
 
 /proc/icon2base64html(thing)
-	if (!thing)
+	if(!thing)
 		return
 	var/static/list/bicon_cache = list()
-	if (isicon(thing))
+	if(isicon(thing))
 		var/icon/I = thing
 		var/icon_base64 = icon2base64(I)
 
-		if (I.Height() > world.icon_size || I.Width() > world.icon_size)
+		if(I.Height() > world.icon_size || I.Width() > world.icon_size)
 			var/icon_md5 = md5(icon_base64)
 			icon_base64 = bicon_cache[icon_md5]
-			if (!icon_base64) // Doesn't exist yet, make it.
+			if(!icon_base64) // Doesn't exist yet, make it.
 				bicon_cache[icon_md5] = icon_base64 = icon2base64(I)
 
 
@@ -1179,9 +1179,9 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 	var/key = "[istype(A.icon, /icon) ? "[REF(A.icon)]" : A.icon]:[A.icon_state]"
 
 
-	if (!bicon_cache[key]) // Doesn't exist, make it.
+	if(!bicon_cache[key]) // Doesn't exist, make it.
 		var/icon/I = icon(A.icon, A.icon_state, SOUTH, 1)
-		if (ishuman(thing)) // Shitty workaround for a BYOND issue.
+		if(ishuman(thing)) // Shitty workaround for a BYOND issue.
 			var/icon/temp = I
 			I = icon()
 			I.Insert(temp, dir = SOUTH)
@@ -1192,10 +1192,10 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 
 //Costlier version of icon2html() that uses getFlatIcon() to account for overlays, underlays, etc. Use with extreme moderation, ESPECIALLY on mobs.
 /proc/costly_icon2html(thing, target)
-	if (!thing)
+	if(!thing)
 		return
 
-	if (isicon(thing))
+	if(isicon(thing))
 		return icon2html(thing, target)
 
 	var/icon/I = getFlatIcon(thing)

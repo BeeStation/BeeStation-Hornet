@@ -36,5 +36,5 @@ GLOBAL_LIST_INIT(poll_ignore, init_poll_ignore())
 
 /proc/init_poll_ignore()
 	. = list()
-	for (var/k in GLOB.poll_ignore_desc)
+	for(var/k in GLOB.poll_ignore_desc)
 		.[k] = list()

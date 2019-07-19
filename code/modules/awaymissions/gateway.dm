@@ -145,9 +145,9 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	if(awaygate.calibrated)
 		AM.forceMove(get_step(awaygate.loc, SOUTH))
 		AM.setDir(SOUTH)
-		if (ismob(AM))
+		if(ismob(AM))
 			var/mob/M = AM
-			if (M.client)
+			if(M.client)
 				M.client.move_delay = max(world.time + 5, M.client.move_delay)
 		return
 	else
@@ -230,9 +230,9 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 				return
 	AM.forceMove(get_step(stationgate.loc, SOUTH))
 	AM.setDir(SOUTH)
-	if (ismob(AM))
+	if(ismob(AM))
 		var/mob/M = AM
-		if (M.client)
+		if(M.client)
 			M.client.move_delay = max(world.time + 5, M.client.move_delay)
 
 

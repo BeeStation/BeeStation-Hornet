@@ -8,7 +8,7 @@
 /mob/living/silicon/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent
 		var/damage = 20
-		if (prob(90))
+		if(prob(90))
 			log_combat(M, src, "attacked")
 			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
@@ -69,7 +69,7 @@
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, M) & COMPONENT_NO_ATTACK_HAND)
 		. = TRUE
 	switch(M.a_intent)
-		if ("help")
+		if("help")
 			M.visible_message("[M] pets [src].", \
 							"<span class='notice'>You pet [src].</span>")
 		if("grab")

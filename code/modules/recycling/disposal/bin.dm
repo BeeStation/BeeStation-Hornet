@@ -112,9 +112,9 @@
 
 /obj/machinery/disposal/proc/stuff_mob_in(mob/living/target, mob/living/user)
 	if(!iscarbon(user) && !user.ventcrawler) //only carbon and ventcrawlers can climb into disposal by themselves.
-		if (iscyborg(user))
+		if(iscyborg(user))
 			var/mob/living/silicon/robot/borg = user
-			if (!borg.module || !borg.module.canDispose)
+			if(!borg.module || !borg.module.canDispose)
 				return
 		else
 			return
@@ -131,7 +131,7 @@
 	else
 		target.visible_message("<span class='danger'>[user] starts putting [target] into [src].</span>", "<span class='userdanger'>[user] starts putting you into [src]!</span>")
 	if(do_mob(user, target, 20))
-		if (!loc)
+		if(!loc)
 			return
 		target.forceMove(src)
 		if(user == target)

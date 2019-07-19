@@ -64,7 +64,7 @@
 	if(here.z != there.z)
 		linked_alert.icon_state = "pinonnull"
 		return
-	if(get_dist_euclidian(here,there)<=minimum_range + rand(0, range_fuzz_factor))
+	if(get_dist_euclidian(here,there) <= minimum_range + rand(0, range_fuzz_factor))
 		linked_alert.icon_state = "pinondirect"
 	else
 		linked_alert.setDir(get_dir(here, there))
@@ -85,7 +85,7 @@
 					continue
 				var/datum/objective/assassinate/internal/objective = objective_
 				var/mob/current = objective.target.current
-				if(current&&current.stat!=DEAD)
+				if(current && current.stat != DEAD)
 					scan_target = current
 				break
 
@@ -98,13 +98,13 @@
 
 
 /proc/is_internal_objective(datum/objective/O)
-	return (istype(O, /datum/objective/assassinate/internal)||istype(O, /datum/objective/destroy/internal))
+	return (istype(O, /datum/objective/assassinate/internal) || istype(O, /datum/objective/destroy/internal))
 
 /datum/antagonist/traitor/proc/replace_escape_objective()
 	if(!owner || !objectives.len)
 		return
-	for (var/objective_ in objectives)
-		if(!(istype(objective_, /datum/objective/escape)||istype(objective_, /datum/objective/survive)))
+	for(var/objective_ in objectives)
+		if(!(istype(objective_, /datum/objective/escape) || istype(objective_, /datum/objective/survive)))
 			continue
 		remove_objective(objective_)
 
@@ -115,7 +115,7 @@
 /datum/antagonist/traitor/proc/reinstate_escape_objective()
 	if(!owner||!objectives.len)
 		return
-	for (var/objective_ in objectives)
+	for(var/objective_ in objectives)
 		if(!istype(objective_, /datum/objective/martyr))
 			continue
 		remove_objective(objective_)
@@ -128,13 +128,13 @@
 	add_objective(escape_objective)
 
 /datum/antagonist/traitor/internal_affairs/proc/steal_targets(datum/mind/victim)
-	if(!owner.current||owner.current.stat==DEAD)
+	if(!owner.current || owner.current.stat == DEAD)
 		return
 	to_chat(owner.current, "<span class='userdanger'> Target eliminated: [victim.name]</span>")
 	for(var/objective_ in victim.get_all_objectives())
 		if(istype(objective_, /datum/objective/assassinate/internal))
 			var/datum/objective/assassinate/internal/objective = objective_
-			if(objective.target==owner)
+			if(objective.target == owner)
 				continue
 			else if(targets_stolen.Find(objective.target) == 0)
 				var/datum/objective/assassinate/internal/new_objective = new
@@ -148,7 +148,7 @@
 		else if(istype(objective_, /datum/objective/destroy/internal))
 			var/datum/objective/destroy/internal/objective = objective_
 			var/datum/objective/destroy/internal/new_objective = new
-			if(objective.target==owner)
+			if(objective.target == owner)
 				continue
 			else if(targets_stolen.Find(objective.target) == 0)
 				new_objective.owner = owner
@@ -174,7 +174,7 @@
 		replace_escape_objective(owner)
 
 /datum/antagonist/traitor/internal_affairs/proc/iaa_process()
-	if(owner&&owner.current&&owner.current.stat!=DEAD)
+	if(owner && owner.current && owner.current.stat != DEAD)
 		for(var/objective_ in objectives)
 			if(!is_internal_objective(objective_))
 				continue

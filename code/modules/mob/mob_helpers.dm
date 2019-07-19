@@ -43,19 +43,19 @@
 
 /proc/stars(n, pr)
 	n = html_encode(n)
-	if (pr == null)
+	if(pr == null)
 		pr = 25
-	if (pr <= 0)
+	if(pr <= 0)
 		return null
 	else
-		if (pr >= 100)
+		if(pr >= 100)
 			return n
 	var/te = n
 	var/t = ""
 	n = length(n)
 
 	for(var/p = 1 to min(n,MAX_BROADCAST_LEN))
-		if ((copytext(te, p, p + 1) == " " || prob(pr)))
+		if((copytext(te, p, p + 1) == " " || prob(pr)))
 			t = text("[][]", t, copytext(te, p, p + 1))
 		else
 			t = text("[]*", t)
@@ -69,32 +69,32 @@
 	var/counter=lentext(phrase)
 	var/newphrase=""
 	var/newletter=""
-	while(counter>=1)
+	while(counter >= 1)
 		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
-		if(rand(1,3)==3)
-			if(lowertext(newletter)=="o")
+		if(rand(1,3) == 3)
+			if(lowertext(newletter) == "o")
 				newletter="u"
-			if(lowertext(newletter)=="s")
+			if(lowertext(newletter) == "s")
 				newletter="ch"
-			if(lowertext(newletter)=="a")
+			if(lowertext(newletter) == "a")
 				newletter="ah"
-			if(lowertext(newletter)=="u")
+			if(lowertext(newletter) == "u")
 				newletter="oo"
-			if(lowertext(newletter)=="c")
+			if(lowertext(newletter) == "c")
 				newletter="k"
-		if(rand(1,20)==20)
-			if(newletter==" ")
+		if(rand(1,20) == 20)
+			if(newletter == " ")
 				newletter="...huuuhhh..."
-			if(newletter==".")
+			if(newletter == ".")
 				newletter=" *BURP*."
 		switch(rand(1,20))
 			if(1)
-				newletter+="'"
+				newletter += "'"
 			if(10)
-				newletter+="[newletter]"
+				newletter += "[newletter]"
 			if(20)
-				newletter+="[newletter][newletter]"
-		newphrase+="[newletter]";counter-=1
+				newletter += "[newletter][newletter]"
+		newphrase += "[newletter]";counter -= 1
 	return newphrase
 
 
@@ -104,39 +104,39 @@
 	var/counter=lentext(phrase)
 	var/newphrase=""
 	var/newletter=""
-	while(counter>=1)
+	while(counter >= 1)
 		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
-		if(rand(1,2)==2)
-			if(lowertext(newletter)=="o")
+		if(rand(1,2) == 2)
+			if(lowertext(newletter) == "o")
 				newletter="u"
-			if(lowertext(newletter)=="t")
+			if(lowertext(newletter) == "t")
 				newletter="ch"
-			if(lowertext(newletter)=="a")
+			if(lowertext(newletter) == "a")
 				newletter="ah"
-			if(lowertext(newletter)=="u")
+			if(lowertext(newletter) == "u")
 				newletter="oo"
-			if(lowertext(newletter)=="c")
+			if(lowertext(newletter) == "c")
 				newletter=" NAR "
-			if(lowertext(newletter)=="s")
+			if(lowertext(newletter) == "s")
 				newletter=" SIE "
-		if(rand(1,4)==4)
-			if(newletter==" ")
+		if(rand(1,4) == 4)
+			if(newletter == " ")
 				newletter=" no hope... "
-			if(newletter=="H")
+			if(newletter == "H")
 				newletter=" IT COMES... "
 
 		switch(rand(1,15))
 			if(1)
 				newletter="'"
 			if(2)
-				newletter+="agn"
+				newletter += "agn"
 			if(3)
 				newletter="fth"
 			if(4)
 				newletter="nglu"
 			if(5)
 				newletter="glor"
-		newphrase+="[newletter]";counter-=1
+		newphrase += "[newletter]";counter -= 1
 	return newphrase
 
 
@@ -148,14 +148,14 @@
 	p = 1//1 is the start of any word
 	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
 		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if (prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
-			if (prob(10))
+		if(prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
+			if(prob(10))
 				n_letter = text("[n_letter]-[n_letter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
 			else
-				if (prob(20))
+				if(prob(20))
 					n_letter = text("[n_letter]-[n_letter]-[n_letter]")
 				else
-					if (prob(5))
+					if(prob(5))
 						n_letter = null
 					else
 						n_letter = text("[n_letter]-[n_letter]")
@@ -216,8 +216,8 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 			n_letter = copytext(te, p, n+1)
 		else
 			n_letter = copytext(te, p, p+n_mod)
-		if (prob(50))
-			if (prob(30))
+		if(prob(50))
+			if(prob(30))
 				n_letter = text("[n_letter]-[n_letter]-[n_letter]")
 			else
 				n_letter = text("[n_letter]-[n_letter]")
@@ -238,7 +238,7 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 	var/min = -(strength*world.icon_size)
 
 	for(var/i in 0 to duration-1)
-		if (i == 0)
+		if(i == 0)
 			animate(C, pixel_x=rand(min,max), pixel_y=rand(min,max), time=1)
 		else
 			animate(pixel_x=rand(min,max), pixel_y=rand(min,max), time=1)
@@ -357,10 +357,10 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 		if(O.client)
 			if(!notify_suiciders && (O in GLOB.suicided_mob_list))
 				continue
-			if (ignore_key && O.ckey in GLOB.poll_ignore[ignore_key])
+			if(ignore_key && O.ckey in GLOB.poll_ignore[ignore_key])
 				continue
 			var/orbit_link
-			if (source && action == NOTIFY_ORBIT)
+			if(source && action == NOTIFY_ORBIT)
 				orbit_link = " <a href='?src=[REF(O)];follow=[REF(source)]'>(Orbit)</a>"
 			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""][orbit_link]</span>")
 			if(ghost_sound)
@@ -372,7 +372,7 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
-					if (header)
+					if(header)
 						A.name = header
 					A.desc = message
 					A.action = action
@@ -451,7 +451,7 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 /mob/proc/click_random_mob()
 	var/list/nearby_mobs = list()
 	for(var/mob/living/L in range(1, src))
-		if(L!=src)
+		if(L != src)
 			nearby_mobs |= L
 	if(nearby_mobs.len)
 		var/mob/living/T = pick(nearby_mobs)

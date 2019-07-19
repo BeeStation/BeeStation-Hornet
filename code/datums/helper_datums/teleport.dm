@@ -23,7 +23,7 @@
 
 	// argument handling
 	// if the precision is not specified, default to 0, but apply BoH penalties
-	if (isnull(precision))
+	if(isnull(precision))
 		precision = 0
 
 	switch(channel)
@@ -40,12 +40,12 @@
 					to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
 
 	// if effects are not specified and not explicitly disabled, sparks
-	if ((!effectin || !effectout) && !no_effects)
+	if((!effectin || !effectout) && !no_effects)
 		var/datum/effect_system/spark_spread/sparks = new
 		sparks.set_up(5, 1, teleatom)
-		if (!effectin)
+		if(!effectin)
 			effectin = sparks
-		if (!effectout)
+		if(!effectout)
 			effectout = sparks
 
 	// perform the teleport
@@ -65,7 +65,7 @@
 
 	tele_play_specials(teleatom, curturf, effectin, asoundin)
 	var/success = forceMove ? teleatom.forceMove(destturf) : teleatom.Move(destturf)
-	if (success)
+	if(success)
 		log_game("[key_name(teleatom)] has teleported from [loc_name(curturf)] to [loc_name(destturf)]")
 		tele_play_specials(teleatom, destturf, effectout, asoundout)
 		if(ismegafauna(teleatom))
@@ -78,17 +78,17 @@
 	return TRUE
 
 /proc/tele_play_specials(atom/movable/teleatom, atom/location, datum/effect_system/effect, sound)
-	if (location && !isobserver(teleatom))
-		if (sound)
+	if(location && !isobserver(teleatom))
+		if(sound)
 			playsound(location, sound, 60, 1)
-		if (effect)
+		if(effect)
 			effect.attach(location)
 			effect.start()
 
 // Safe location finder
 /proc/find_safe_turf(zlevel, list/zlevels, extended_safety_checks = FALSE)
 	if(!zlevels)
-		if (zlevel)
+		if(zlevel)
 			zlevels = list(zlevel)
 		else
 			zlevels = SSmapping.levels_by_trait(ZTRAIT_STATION)

@@ -38,7 +38,7 @@
 
 /obj/machinery/telecomms/message_server/Initialize()
 	. = ..()
-	if (!decryptkey)
+	if(!decryptkey)
 		decryptkey = GenerateKey()
 	pda_msgs += new /datum/data_pda_msg("System Administrator", "system", "This is an automated message. The messaging system is functioning correctly.")
 
@@ -77,7 +77,7 @@
 /obj/machinery/telecomms/message_server/update_icon()
 	if((stat & (BROKEN|NOPOWER)))
 		icon_state = "server-nopower"
-	else if (!toggled)
+	else if(!toggled)
 		icon_state = "server-off"
 	else
 		icon_state = "server-on"
@@ -102,20 +102,20 @@
 	return copy
 
 /datum/signal/subspace/pda/proc/format_target()
-	if (length(data["targets"]) > 1)
+	if(length(data["targets"]) > 1)
 		return "Everyone"
 	return data["targets"][1]
 
 /datum/signal/subspace/pda/proc/format_message()
-	if (logged && data["photo"])
+	if(logged && data["photo"])
 		return "\"[data["message"]]\" (<a href='byond://?src=[REF(logged)];photo=1'>Photo</a>)"
 	return "\"[data["message"]]\""
 
 /datum/signal/subspace/pda/broadcast()
-	if (!logged)  // Can only go through if a message server logs it
+	if(!logged)  // Can only go through if a message server logs it
 		return
-	for (var/obj/item/pda/P in GLOB.PDAs)
-		if ("[P.owner] ([P.ownjob])" in data["targets"])
+	for(var/obj/item/pda/P in GLOB.PDAs)
+		if("[P.owner] ([P.ownjob])" in data["targets"])
 			P.receive_message(src)
 
 

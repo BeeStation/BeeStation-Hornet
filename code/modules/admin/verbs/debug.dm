@@ -41,7 +41,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(alert("Proc owned by something?",,"Yes","No") == "Yes")
 		targetselected = TRUE
 		var/list/value = vv_get_value(default_class = VV_ATOM_REFERENCE, classes = list(VV_ATOM_REFERENCE, VV_DATUM_REFERENCE, VV_MOB_REFERENCE, VV_CLIENT))
-		if (!value["class"] || !value["value"])
+		if(!value["class"] || !value["value"])
 			return
 		target = value["value"]
 
@@ -51,7 +51,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	//strip away everything but the proc name
 	var/list/proclist = splittext(procpath, "/")
-	if (!length(proclist))
+	if(!length(proclist))
 		return
 
 	var/procname = proclist[proclist.len]
@@ -191,7 +191,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	while(argnum--)
 		var/named_arg = input("Leave blank for positional argument. Positional arguments will be considered as if they were added first.", "Named argument") as text|null
 		var/value = vv_get_value(restricted_classes = list(VV_RESTORE_DEFAULT))
-		if (!value["class"])
+		if(!value["class"])
 			return
 		if(named_arg)
 			named_args[named_arg] = value["value"]
@@ -345,7 +345,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		alert("Invalid mob")
 
 /proc/make_types_fancy(var/list/types)
-	if (ispath(types))
+	if(ispath(types))
 		types = list(types)
 	. = list()
 	for(var/type in types)
@@ -376,22 +376,22 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			/mob/living = "LIVING",
 			/mob = "M"
 		)
-		for (var/tn in TYPES_SHORTCUTS)
-			if (copytext(typename,1, length("[tn]/")+1)=="[tn]/" /*findtextEx(typename,"[tn]/",1,2)*/ )
+		for(var/tn in TYPES_SHORTCUTS)
+			if(copytext(typename,1, length("[tn]/")+1) == "[tn]/" /*findtextEx(typename,"[tn]/",1,2)*/ )
 				typename = TYPES_SHORTCUTS[tn]+copytext(typename,length("[tn]/"))
 				break
 		.[typename] = type
 
 /proc/get_fancy_list_of_atom_types()
 	var/static/list/pre_generated_list
-	if (!pre_generated_list) //init
+	if(!pre_generated_list) //init
 		pre_generated_list = make_types_fancy(typesof(/atom))
 	return pre_generated_list
 
 
 /proc/get_fancy_list_of_datum_types()
 	var/static/list/pre_generated_list
-	if (!pre_generated_list) //init
+	if(!pre_generated_list) //init
 		pre_generated_list = make_types_fancy(sortList(typesof(/datum) - typesof(/atom)))
 	return pre_generated_list
 
@@ -410,10 +410,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set name = "Del-All"
 
 	var/list/matches = get_fancy_list_of_atom_types()
-	if (!isnull(object) && object!="")
+	if(!isnull(object) && object != "")
 		matches = filter_fancy_list(matches, object)
 
-	if(matches.len==0)
+	if(matches.len == 0)
 		return
 	var/hsbitem = input(usr, "Choose an object to delete.", "Delete:") as null|anything in matches
 	if(hsbitem)
@@ -736,7 +736,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 				delete_pocket = TRUE
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	for (var/obj/item/I in H.get_equipped_items(delete_pocket))
+	for(var/obj/item/I in H.get_equipped_items(delete_pocket))
 		qdel(I)
 	if(dresscode != "Naked")
 		H.equipOutfit(dresscode)
@@ -755,13 +755,13 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			outfits[initial(O.name)] = path
 
 	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
-	if (isnull(dresscode))
+	if(isnull(dresscode))
 		return
 
-	if (outfits[dresscode])
+	if(outfits[dresscode])
 		dresscode = outfits[dresscode]
 
-	if (dresscode == "As Job...")
+	if(dresscode == "As Job...")
 		var/list/job_paths = subtypesof(/datum/outfit/job)
 		var/list/job_outfits = list()
 		for(var/path in job_paths)
@@ -774,7 +774,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(isnull(dresscode))
 			return
 
-	if (dresscode == "Custom")
+	if(dresscode == "Custom")
 		var/list/custom_names = list()
 		for(var/datum/outfit/D in GLOB.custom_outfits)
 			custom_names[D.name] = D
@@ -874,18 +874,18 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	for(var/path in SSgarbage.items)
 		var/datum/qdel_item/I = SSgarbage.items[path]
 		dellog += "<li><u>[path]</u><ul>"
-		if (I.failures)
+		if(I.failures)
 			dellog += "<li>Failures: [I.failures]</li>"
 		dellog += "<li>qdel() Count: [I.qdels]</li>"
 		dellog += "<li>Destroy() Cost: [I.destroy_time]ms</li>"
-		if (I.hard_deletes)
+		if(I.hard_deletes)
 			dellog += "<li>Total Hard Deletes [I.hard_deletes]</li>"
 			dellog += "<li>Time Spent Hard Deleting: [I.hard_delete_time]ms</li>"
-		if (I.slept_destroy)
+		if(I.slept_destroy)
 			dellog += "<li>Sleeps: [I.slept_destroy]</li>"
-		if (I.no_respect_force)
+		if(I.no_respect_force)
 			dellog += "<li>Ignored force: [I.no_respect_force]</li>"
-		if (I.no_hint)
+		if(I.no_hint)
 			dellog += "<li>No hint: [I.no_hint]</li>"
 		dellog += "</ul></li>"
 
@@ -952,7 +952,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set category = "Debug"
 	set name = "Spawn Ruin"
 	set desc = "Attempt to randomly place a specific ruin."
-	if (!holder)
+	if(!holder)
 		return
 
 	var/list/exists = list()
@@ -970,20 +970,20 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	var/ruinname = input("Select ruin", "Spawn Ruin") as null|anything in names
 	var/data = names[ruinname]
-	if (!data)
+	if(!data)
 		return
 	var/datum/map_template/ruin/template = data[1]
-	if (exists[template])
+	if(exists[template])
 		var/response = alert("There is already a [template] in existence.", "Spawn Ruin", "Jump", "Place Another", "Cancel")
-		if (response == "Jump")
+		if(response == "Jump")
 			usr.forceMove(get_turf(exists[template]))
 			return
-		else if (response == "Cancel")
+		else if(response == "Cancel")
 			return
 
 	var/len = GLOB.ruin_landmarks.len
 	seedRuins(SSmapping.levels_by_trait(data[2]), max(1, template.cost), data[3], list(ruinname = template))
-	if (GLOB.ruin_landmarks.len > len)
+	if(GLOB.ruin_landmarks.len > len)
 		var/obj/effect/landmark/ruin/landmark = GLOB.ruin_landmarks[GLOB.ruin_landmarks.len]
 		log_admin("[key_name(src)] randomly spawned ruin [ruinname] at [COORD(landmark)].")
 		usr.forceMove(get_turf(landmark))
@@ -1076,7 +1076,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		"Call Count"	=	/proc/cmp_profile_count_dsc
 	)
 	var/sort = input(src, "Sort type?", "Sort Type", "Avg time") as null|anything in sortlist
-	if (!sort)
+	if(!sort)
 		return
 	sort = sortlist[sort]
 	profile_show(src, sort)

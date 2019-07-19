@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 /datum/hud/New(mob/owner)
 	mymob = owner
 
-	if (!ui_style)
+	if(!ui_style)
 		// will fall back to the default if any of these are null
 		ui_style = ui_style2icon(owner.client && owner.client.prefs && owner.client.prefs.UI_style)
 
@@ -197,11 +197,11 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	update_parallax_pref(screenmob)
 
 	// ensure observers get an accurate and up-to-date view
-	if (!viewmob)
+	if(!viewmob)
 		plane_masters_update()
 		for(var/M in mymob.observers)
 			show_hud(hud_version, M)
-	else if (viewmob.hud_used)
+	else if(viewmob.hud_used)
 		viewmob.hud_used.plane_masters_update()
 
 	return TRUE
@@ -235,11 +235,11 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 /datum/hud/proc/update_ui_style(new_ui_style)
 	// do nothing if overridden by a subtype or already on that style
-	if (initial(ui_style) || ui_style == new_ui_style)
+	if(initial(ui_style) || ui_style == new_ui_style)
 		return
 
 	for(var/atom/item in static_inventory + toggleable_inventory + hotkeybuttons + infodisplay + screenoverlays + inv_slots)
-		if (item.icon == ui_style)
+		if(item.icon == ui_style)
 			item.icon = new_ui_style
 
 	ui_style = new_ui_style

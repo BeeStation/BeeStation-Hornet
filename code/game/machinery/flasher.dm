@@ -30,7 +30,7 @@
 	if(built)
 		setDir(ndir)
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -28 : 28)
-		pixel_y = (dir & 3)? (dir ==1 ? -28 : 28) : 0
+		pixel_y = (dir & 3)? (dir == 1 ? -28 : 28) : 0
 	else
 		bulb = new(src)
 
@@ -39,7 +39,7 @@
 	return ..()
 
 /obj/machinery/flasher/power_change()
-	if (powered() && anchored && bulb)
+	if(powered() && anchored && bulb)
 		stat &= ~NOPOWER
 		if(bulb.burnt_out)
 			icon_state = "[base_state]1-p"
@@ -52,8 +52,8 @@
 //Don't want to render prison breaks impossible
 /obj/machinery/flasher/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
-	if (W.tool_behaviour == TOOL_WIRECUTTER)
-		if (bulb)
+	if(W.tool_behaviour == TOOL_WIRECUTTER)
+		if(bulb)
 			user.visible_message("[user] begins to disconnect [src]'s flashbulb.", "<span class='notice'>You begin to disconnect [src]'s flashbulb...</span>")
 			if(W.use_tool(src, user, 30, volume=50) && bulb)
 				user.visible_message("[user] has disconnected [src]'s flashbulb!", "<span class='notice'>You disconnect [src]'s flashbulb.</span>")
@@ -61,8 +61,8 @@
 				bulb = null
 				power_change()
 
-	else if (istype(W, /obj/item/assembly/flash/handheld))
-		if (!bulb)
+	else if(istype(W, /obj/item/assembly/flash/handheld))
+		if(!bulb)
 			if(!user.transferItemToLoc(W, src))
 				return
 			user.visible_message("[user] installs [W] into [src].", "<span class='notice'>You install [W] into [src].</span>")
@@ -71,7 +71,7 @@
 		else
 			to_chat(user, "<span class='warning'>A flashbulb is already installed in [src]!</span>")
 
-	else if (W.tool_behaviour == TOOL_WRENCH)
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		if(!bulb)
 			to_chat(user, "<span class='notice'>You start unsecuring the flasher frame...</span>")
 			if(W.use_tool(src, user, 40, volume=50))
@@ -84,7 +84,7 @@
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai()
-	if (anchored)
+	if(anchored)
 		return flash()
 
 /obj/machinery/flasher/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -93,10 +93,10 @@
 	. = ..()
 
 /obj/machinery/flasher/proc/flash()
-	if (!powered() || !bulb)
+	if(!powered() || !bulb)
 		return
 
-	if (bulb.burnt_out || (last_flash && world.time < src.last_flash + 150))
+	if(bulb.burnt_out || (last_flash && world.time < src.last_flash + 150))
 		return
 
 	if(!bulb.flash_recharge(30)) //Bulb can burn out if it's used too often too fast
@@ -110,8 +110,8 @@
 	use_power(1000)
 
 	var/flashed = FALSE
-	for (var/mob/living/L in viewers(src, null))
-		if (get_dist(src, L) > range)
+	for(var/mob/living/L in viewers(src, null))
+		if(get_dist(src, L) > range)
 			continue
 
 		if(L.flash_act(affect_silicon = 1))
@@ -159,19 +159,19 @@
 	proximity_monitor = new(src, 0)
 
 /obj/machinery/flasher/portable/HasProximity(atom/movable/AM)
-	if (last_flash && world.time < last_flash + 150)
+	if(last_flash && world.time < last_flash + 150)
 		return
 
 	if(istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M = AM
-		if (M.m_intent != MOVE_INTENT_WALK && anchored)
+		if(M.m_intent != MOVE_INTENT_WALK && anchored)
 			flash()
 
 /obj/machinery/flasher/portable/attackby(obj/item/W, mob/user, params)
-	if (W.tool_behaviour == TOOL_WRENCH)
+	if(W.tool_behaviour == TOOL_WRENCH)
 		W.play_tool_sound(src, 100)
 
-		if (!anchored && !isinspace())
+		if(!anchored && !isinspace())
 			to_chat(user, "<span class='notice'>[src] is now secured.</span>")
 			add_overlay("[base_state]-s")
 			setAnchored(TRUE)

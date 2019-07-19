@@ -41,7 +41,7 @@
 /mob/living/simple_animal/pet/cat/update_mobility()
 	..()
 	if(client && stat != DEAD)
-		if (resting)
+		if(resting)
 			icon_state = "[icon_living]_rest"
 			collar_type = "[initial(collar_type)]_rest"
 		else
@@ -172,13 +172,13 @@
 			icon_state = "[icon_living]_rest"
 			collar_type = "[initial(collar_type)]_rest"
 			set_resting(TRUE)
-		else if (prob(1))
+		else if(prob(1))
 			emote("me", 1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
 			icon_state = "[icon_living]_sit"
 			collar_type = "[initial(collar_type)]_sit"
 			set_resting(TRUE)
-		else if (prob(1))
-			if (resting)
+		else if(prob(1))
+			if(resting)
 				emote("me", 1, pick("gets up and meows.", "walks around.", "stops resting."))
 				icon_state = "[icon_living]"
 				collar_type = "[initial(collar_type)]"
@@ -197,7 +197,7 @@
 					stop_automated_movement = 0
 					break
 			for(var/obj/item/toy/cattoy/T in view(1,src))
-				if (T.cooldown < (world.time - 400))
+				if(T.cooldown < (world.time - 400))
 					emote("me", 1, "bats \the [T] around with its paw!")
 					T.cooldown = world.time
 

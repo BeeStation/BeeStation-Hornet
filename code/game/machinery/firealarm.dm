@@ -43,7 +43,7 @@
 		buildstage = 0
 		panel_open = TRUE
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
+		pixel_y = (dir & 3)? (dir == 1 ? -24 : 24) : 0
 	update_icon()
 	myarea = get_area(src)
 	LAZYADD(myarea.firealarms, src)
@@ -98,7 +98,7 @@
 /obj/machinery/firealarm/emp_act(severity)
 	. = ..()
 
-	if (. & EMP_PROTECT_SELF)
+	if(. & EMP_PROTECT_SELF)
 		return
 
 	if(prob(50 / severity))
@@ -182,7 +182,7 @@
 			if(2)
 				if(W.tool_behaviour == TOOL_MULTITOOL)
 					detecting = !detecting
-					if (src.detecting)
+					if(src.detecting)
 						user.visible_message("[user] has reconnected [src]'s detecting unit!", "<span class='notice'>You reconnect [src]'s detecting unit.</span>")
 					else
 						user.visible_message("[user] has disconnected [src]'s detecting unit!", "<span class='notice'>You disconnect [src]'s detecting unit.</span>")
@@ -267,7 +267,7 @@
 				alarm()
 
 /obj/machinery/firealarm/singularity_pull(S, current_size)
-	if (current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure
+	if(current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure
 		deconstruct()
 	..()
 
@@ -308,21 +308,21 @@
 	var/static/party_overlay
 
 /obj/machinery/firealarm/partyalarm/reset()
-	if (stat & (NOPOWER|BROKEN))
+	if(stat & (NOPOWER|BROKEN))
 		return
 	var/area/A = get_area(src)
-	if (!A || !A.party)
+	if(!A || !A.party)
 		return
 	A.party = FALSE
 	A.cut_overlay(party_overlay)
 
 /obj/machinery/firealarm/partyalarm/alarm()
-	if (stat & (NOPOWER|BROKEN))
+	if(stat & (NOPOWER|BROKEN))
 		return
 	var/area/A = get_area(src)
-	if (!A || A.party || A.name == "Space")
+	if(!A || A.party || A.name == "Space")
 		return
 	A.party = TRUE
-	if (!party_overlay)
+	if(!party_overlay)
 		party_overlay = iconstate2appearance('icons/turf/areas.dmi', "party")
 	A.add_overlay(party_overlay)

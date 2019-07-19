@@ -29,6 +29,6 @@
 	fishannounce(fish)
 
 /datum/round_event/carp_migration/proc/fishannounce(atom/fish)	
-	if (!hasAnnounced)
+	if(!hasAnnounced)
 		announce_to_ghosts(fish) //Only anounce the first fish
 		hasAnnounced = TRUE

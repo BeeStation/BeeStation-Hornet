@@ -12,7 +12,7 @@
 	var/polldesc
 
 /datum/ert/New()
-	if (!polldesc)
+	if(!polldesc)
 		polldesc = "a Code [code] Nanotrasen Emergency Response Team"
 
 /datum/ert/blue

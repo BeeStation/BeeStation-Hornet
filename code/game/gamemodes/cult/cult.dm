@@ -82,7 +82,7 @@
 		cultist.restricted_roles = restricted_jobs
 		log_game("[key_name(cultist)] has been selected as a cultist")
 
-	if(cultists_to_cult.len>=required_enemies)
+	if(cultists_to_cult.len >= required_enemies)
 		return TRUE
 	else
 		setup_error = "Not enough cultist candidates"
@@ -100,7 +100,7 @@
 	. = ..()
 
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind, stun , equip = FALSE, datum/team/cult/cult_team = null)
-	if (!istype(cult_mind))
+	if(!istype(cult_mind))
 		return FALSE
 
 	var/datum/antagonist/cult/new_cultist = new()
@@ -148,10 +148,10 @@
 /datum/game_mode/cult/proc/check_survive()
 	var/acolytes_survived = 0
 	for(var/datum/mind/cult_mind in cult)
-		if (cult_mind.current && cult_mind.current.stat != DEAD)
+		if(cult_mind.current && cult_mind.current.stat != DEAD)
 			if(cult_mind.current.onCentCom() || cult_mind.current.onSyndieBase())
 				acolytes_survived++
-	if(acolytes_survived>=acolytes_needed)
+	if(acolytes_survived >= acolytes_needed)
 		return 0
 	else
 		return 1

@@ -39,7 +39,7 @@
 
 /obj/item/assembly/infra/examine(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>The infrared trigger is [on?"on":"off"].</span>")
+	to_chat(user, "<span class='notice'>The infrared trigger is [on ? "on" : "off"].</span>")
 
 /obj/item/assembly/infra/activate()
 	if(!..())
@@ -171,9 +171,9 @@
 		return
 	if(offender == src || istype(offender,/obj/effect/beam/i_beam))
 		return
-	if (offender && isitem(offender))
+	if(offender && isitem(offender))
 		var/obj/item/I = offender
-		if (I.item_flags & ABSTRACT)
+		if(I.item_flags & ABSTRACT)
 			return
 	return refreshBeam()
 
@@ -229,8 +229,8 @@
 /obj/effect/beam/i_beam/Crossed(atom/movable/AM as mob|obj)
 	if(istype(AM, /obj/effect/beam))
 		return
-	if (isitem(AM))
+	if(isitem(AM))
 		var/obj/item/I = AM
-		if (I.item_flags & ABSTRACT)
+		if(I.item_flags & ABSTRACT)
 			return
 	master.trigger_beam(AM, get_turf(src))

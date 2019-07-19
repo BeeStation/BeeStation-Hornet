@@ -116,30 +116,30 @@
 
 /obj/item/storage/bag/ore/equipped(mob/user)
 	. = ..()
-	if (mobhook && mobhook.parent != user)
+	if(mobhook && mobhook.parent != user)
 		QDEL_NULL(mobhook)
-	if (!mobhook)
+	if(!mobhook)
 		mobhook = user.AddComponent(/datum/component/redirect, list(COMSIG_MOVABLE_MOVED = CALLBACK(src, .proc/Pickup_ores)))
 
 /obj/item/storage/bag/ore/dropped()
 	. = ..()
-	if (mobhook)
+	if(mobhook)
 		QDEL_NULL(mobhook)
 
 /obj/item/storage/bag/ore/proc/Pickup_ores(mob/living/user)
 	var/show_message = FALSE
 	var/obj/structure/ore_box/box
 	var/turf/tile = user.loc
-	if (!isturf(tile))
+	if(!isturf(tile))
 		return
-	if (istype(user.pulling, /obj/structure/ore_box))
+	if(istype(user.pulling, /obj/structure/ore_box))
 		box = user.pulling
 	GET_COMPONENT(STR, /datum/component/storage)
 	if(STR)
 		for(var/A in tile)
-			if (!is_type_in_typecache(A, STR.can_hold))
+			if(!is_type_in_typecache(A, STR.can_hold))
 				continue
-			if (box)
+			if(box)
 				user.transferItemToLoc(A, box)
 				show_message = TRUE
 			else if(SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, A, user, TRUE))
@@ -151,7 +151,7 @@
 					continue
 	if(show_message)
 		playsound(user, "rustle", 50, TRUE)
-		if (box)
+		if(box)
 			user.visible_message("<span class='notice'>[user] offloads the ores beneath [user.p_them()] into [box].</span>", \
 			"<span class='notice'>You offload the ores beneath you into your [box].</span>")
 		else

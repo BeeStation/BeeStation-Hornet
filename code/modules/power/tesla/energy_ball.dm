@@ -64,7 +64,7 @@
 
 		pixel_x = -32
 		pixel_y = -32
-		for (var/ball in orbiting_balls)
+		for(var/ball in orbiting_balls)
 			var/range = rand(1, CLAMP(orbiting_balls.len, 3, 7))
 			tesla_zap(ball, range, TESLA_MINI_POWER/7*range)
 	else
@@ -139,19 +139,19 @@
 		C.death()
 
 /obj/singularity/energy_ball/orbit(obj/singularity/energy_ball/target)
-	if (istype(target))
+	if(istype(target))
 		target.orbiting_balls += src
 		GLOB.poi_list -= src
 		target.dissipate_strength = target.orbiting_balls.len
 
 	. = ..()
 /obj/singularity/energy_ball/stop_orbit()
-	if (orbiting && istype(orbiting.parent, /obj/singularity/energy_ball))
+	if(orbiting && istype(orbiting.parent, /obj/singularity/energy_ball))
 		var/obj/singularity/energy_ball/orbitingball = orbiting.parent
 		orbitingball.orbiting_balls -= src
 		orbitingball.dissipate_strength = orbitingball.orbiting_balls.len
 	. = ..()
-	if (!QDELETED(src))
+	if(!QDELETED(src))
 		qdel(src)
 
 

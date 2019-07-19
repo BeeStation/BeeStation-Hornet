@@ -216,7 +216,7 @@ All foods are distributed among various categories. Use common sense.
 	if((slices_num <= 0 || !slices_num) || !slice_path) //is the food sliceable?
 		return FALSE
 
-	if ( \
+	if( \
 			!isturf(src.loc) || \
 			!(locate(/obj/structure/table) in src.loc) && \
 			!(locate(/obj/structure/table/optable) in src.loc) && \
@@ -226,7 +226,7 @@ All foods are distributed among various categories. Use common sense.
 		return FALSE
 
 	var/slices_lost = 0
-	if (accuracy >= IS_SHARP_ACCURATE)
+	if(accuracy >= IS_SHARP_ACCURATE)
 		user.visible_message( \
 			"[user] slices [src].", \
 			"<span class='notice'>You slice [src].</span>" \

@@ -120,7 +120,7 @@
 	return TRUE
 
 /datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	if(A==D)
+	if(A == D)
 		return FALSE //prevents grabbing yourself
 	if(A.a_intent == INTENT_GRAB)
 		add_to_streak("G",D)

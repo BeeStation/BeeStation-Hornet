@@ -88,7 +88,7 @@ Possible to do for anyone motivated enough:
 		replay_start()
 
 /obj/machinery/holopad/tutorial/HasProximity(atom/movable/AM)
-	if (!isliving(AM))
+	if(!isliving(AM))
 		return
 	if(!replay_mode && (disk && disk.record))
 		replay_start()
@@ -106,7 +106,7 @@ Possible to do for anyone motivated enough:
 		var/datum/holocall/HC = I
 		HC.ConnectionFailure(src)
 
-	for (var/I in masters)
+	for(var/I in masters)
 		clear_holo(I)
 
 	if(replay_mode)
@@ -120,7 +120,7 @@ Possible to do for anyone motivated enough:
 	return ..()
 
 /obj/machinery/holopad/power_change()
-	if (powered())
+	if(powered())
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
@@ -164,7 +164,7 @@ Possible to do for anyone motivated enough:
 		if(disk)
 			to_chat(user,"<span class='notice'>There's already a disk inside [src]</span>")
 			return
-		if (!user.transferItemToLoc(P,src))
+		if(!user.transferItemToLoc(P,src))
 			return
 		to_chat(user,"<span class='notice'>You insert [P] into [src]</span>")
 		disk = P
@@ -243,7 +243,7 @@ Possible to do for anyone motivated enough:
 	add_fingerprint(usr)
 	if(!is_operational())
 		return
-	if (href_list["AIrequest"])
+	if(href_list["AIrequest"])
 		if(last_request + 200 < world.time)
 			last_request = world.time
 			temp = "You requested an AI's presence.<BR>"
@@ -317,10 +317,10 @@ Possible to do for anyone motivated enough:
 		record_clear()
 	else if(href_list["offset"])
 		offset++
-		if (offset > 4)
+		if(offset > 4)
 			offset = FALSE
 		var/turf/new_turf
-		if (!offset)
+		if(!offset)
 			new_turf = get_turf(src)
 		else
 			new_turf = get_step(src, GLOB.cardinals[offset])
@@ -329,9 +329,9 @@ Possible to do for anyone motivated enough:
 
 //do not allow AIs to answer calls or people will use it to meta the AI sattelite
 /obj/machinery/holopad/attack_ai(mob/living/silicon/ai/user)
-	if (!istype(user))
+	if(!istype(user))
 		return
-	if (!on_network)
+	if(!on_network)
 		return
 	/*There are pretty much only three ways to interact here.
 	I don't need to check for client since they're clicking on an object.
@@ -379,7 +379,7 @@ Possible to do for anyone motivated enough:
 		AI = null
 
 	if(is_operational() && (!AI || AI.eyeobj.loc == loc))//If the projector has power and client eye is on it
-		if (AI && istype(AI.current, /obj/machinery/holopad))
+		if(AI && istype(AI.current, /obj/machinery/holopad))
 			to_chat(user, "<span class='danger'>ERROR:</span> \black Image feed in progress.")
 			return
 
@@ -539,7 +539,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		else if(distx < 0)
 			newangle += 360
 	var/matrix/M = matrix()
-	if (get_dist(get_turf(holo),new_turf) <= 1)
+	if(get_dist(get_turf(holo),new_turf) <= 1)
 		animate(ray, transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle),time = 1)
 	else
 		ray.transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle)
@@ -624,7 +624,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/holopad/proc/replay_entry(entry_number)
 	if(!replay_mode)
 		return
-	if (!disk.record.entries.len) // check for zero entries such as photographs and no text recordings
+	if(!disk.record.entries.len) // check for zero entries such as photographs and no text recordings
 		return // and pretty much just display them statically untill manually stopped
 	if(disk.record.entries.len < entry_number)
 		if(loop_mode)

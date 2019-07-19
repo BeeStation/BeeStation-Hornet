@@ -6,7 +6,7 @@
 		to_chat(user, "<span class='notice'>You begin to place [I] on [src]'s head...</span>")
 		to_chat(src, "<span class='notice'>[user] is placing [I] on your head...</span>")
 		if(do_after(user, 30, target = src))
-			if (user.temporarilyRemoveItemFromInventory(I, TRUE))
+			if(user.temporarilyRemoveItemFromInventory(I, TRUE))
 				place_on_head(I)
 		return
 	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
@@ -14,7 +14,7 @@
 	return ..()
 
 /mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M)
-	if (M.a_intent == INTENT_DISARM)
+	if(M.a_intent == INTENT_DISARM)
 		if(mobility_flags & MOBILITY_STAND)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			var/obj/item/I = get_active_held_item()
@@ -170,11 +170,11 @@
 			gib()
 			return
 		if(2)
-			if (stat != DEAD)
+			if(stat != DEAD)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3)
-			if (stat != DEAD)
+			if(stat != DEAD)
 				adjustBruteLoss(30)
 
 /mob/living/silicon/robot/bullet_act(var/obj/item/projectile/Proj, def_zone)

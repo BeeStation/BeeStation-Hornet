@@ -50,14 +50,14 @@
 		if(isturf(loc))
 			var/boolets = 0
 			for(var/obj/item/ammo_casing/bullet in loc)
-				if (box.stored_ammo.len >= box.max_ammo)
+				if(box.stored_ammo.len >= box.max_ammo)
 					break
-				if (bullet.BB)
-					if (box.give_round(bullet, 0))
+				if(bullet.BB)
+					if(box.give_round(bullet, 0))
 						boolets++
 				else
 					continue
-			if (boolets > 0)
+			if(boolets > 0)
 				box.update_icon()
 				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s.</span>")
 			else

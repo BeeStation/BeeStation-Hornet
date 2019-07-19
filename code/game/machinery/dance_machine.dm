@@ -86,7 +86,7 @@
 	. = ..()
 	if(!user.canUseTopic(src, !issilicon(user)))
 		return
-	if (!anchored)
+	if(!anchored)
 		to_chat(user,"<span class='warning'>This device must be anchored by a wrench!</span>")
 		return
 	if(!allowed(user))
@@ -98,7 +98,7 @@
 		playsound(src,'sound/misc/compiler-failure.ogg', 25, 1)
 		return
 	var/list/dat = list()
-	dat +="<div class='statusDisplay' style='text-align:center'>"
+	dat += "<div class='statusDisplay' style='text-align:center'>"
 	dat += "<b><A href='?src=[REF(src)];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></A><br>"
 	dat += "</div><br>"
 	dat += "<A href='?src=[REF(src)];action=select'> Select Track</A><br>"
@@ -115,7 +115,7 @@
 	add_fingerprint(usr)
 	switch(href_list["action"])
 		if("toggle")
-			if (QDELETED(src))
+			if(QDELETED(src))
 				return
 			if(!active)
 				if(stop > world.time)
@@ -161,56 +161,56 @@
 			L.light_color = LIGHT_COLOR_RED
 			L.light_power = 30-(get_dist(src,L)*8)
 			L.range = 1+get_dist(src, L)
-			spotlights+=L
+			spotlights += L
 			continue
 		if(t.x == cen.x && t.y < cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_PURPLE
 			L.light_power = 30-(get_dist(src,L)*8)
 			L.range = 1+get_dist(src, L)
-			spotlights+=L
+			spotlights += L
 			continue
 		if(t.x > cen.x && t.y == cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_YELLOW
 			L.light_power = 30-(get_dist(src,L)*8)
 			L.range = 1+get_dist(src, L)
-			spotlights+=L
+			spotlights += L
 			continue
 		if(t.x < cen.x && t.y == cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_GREEN
 			L.light_power = 30-(get_dist(src,L)*8)
 			L.range = 1+get_dist(src, L)
-			spotlights+=L
+			spotlights += L
 			continue
-		if((t.x+1 == cen.x && t.y+1 == cen.y) || (t.x+2==cen.x && t.y+2 == cen.y))
+		if((t.x+1 == cen.x && t.y+1 == cen.y) || (t.x+2 == cen.x && t.y+2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_ORANGE
 			L.light_power = 30-(get_dist(src,L)*8)
 			L.range = 1.4+get_dist(src, L)
-			spotlights+=L
+			spotlights += L
 			continue
-		if((t.x-1 == cen.x && t.y-1 == cen.y) || (t.x-2==cen.x && t.y-2 == cen.y))
+		if((t.x-1 == cen.x && t.y-1 == cen.y) || (t.x-2 == cen.x && t.y-2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_CYAN
 			L.light_power = 30-(get_dist(src,L)*8)
 			L.range = 1.4+get_dist(src, L)
-			spotlights+=L
+			spotlights += L
 			continue
-		if((t.x-1 == cen.x && t.y+1 == cen.y) || (t.x-2==cen.x && t.y+2 == cen.y))
+		if((t.x-1 == cen.x && t.y+1 == cen.y) || (t.x-2 == cen.x && t.y+2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_BLUEGREEN
 			L.light_power = 30-(get_dist(src,L)*8)
 			L.range = 1.4+get_dist(src, L)
-			spotlights+=L
+			spotlights += L
 			continue
-		if((t.x+1 == cen.x && t.y-1 == cen.y) || (t.x+2==cen.x && t.y-2 == cen.y))
+		if((t.x+1 == cen.x && t.y-1 == cen.y) || (t.x+2 == cen.x && t.y-2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_BLUE
 			L.light_power = 30-(get_dist(src,L)*8)
 			L.range = 1.4+get_dist(src, L)
-			spotlights+=L
+			spotlights += L
 			continue
 		continue
 	FOR_DVIEW_END
@@ -323,45 +323,45 @@
 
 /obj/machinery/jukebox/disco/proc/dance3(var/mob/living/M)
 	var/matrix/initial_matrix = matrix(M.transform)
-	for (var/i in 1 to 75)
-		if (!M)
+	for(var/i in 1 to 75)
+		if(!M)
 			return
 		switch(i)
-			if (1 to 15)
+			if(1 to 15)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(0,1)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
-			if (16 to 30)
+			if(16 to 30)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(1,-1)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
-			if (31 to 45)
+			if(31 to 45)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(-1,-1)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
-			if (46 to 60)
+			if(46 to 60)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(-1,1)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
-			if (61 to 75)
+			if(61 to 75)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(1,0)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 		M.setDir(turn(M.dir, 90))
-		switch (M.dir)
-			if (NORTH)
+		switch(M.dir)
+			if(NORTH)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(0,3)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
-			if (SOUTH)
+			if(SOUTH)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(0,-3)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
-			if (EAST)
+			if(EAST)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(3,0)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
-			if (WEST)
+			if(WEST)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(-3,0)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
@@ -384,32 +384,32 @@
 /obj/machinery/jukebox/disco/proc/dance5(var/mob/living/M)
 	animate(M, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
 	var/matrix/initial_matrix = matrix(M.transform)
-	for (var/i in 1 to 60)
-		if (!M)
+	for(var/i in 1 to 60)
+		if(!M)
 			return
-		if (i<31)
+		if(i<31)
 			initial_matrix = matrix(M.transform)
 			initial_matrix.Translate(0,1)
 			animate(M, transform = initial_matrix, time = 1, loop = 0)
-		if (i>30)
+		if(i>30)
 			initial_matrix = matrix(M.transform)
 			initial_matrix.Translate(0,-1)
 			animate(M, transform = initial_matrix, time = 1, loop = 0)
 		M.setDir(turn(M.dir, 90))
-		switch (M.dir)
-			if (NORTH)
+		switch(M.dir)
+			if(NORTH)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(0,3)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
-			if (SOUTH)
+			if(SOUTH)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(0,-3)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
-			if (EAST)
+			if(EAST)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(3,0)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
-			if (WEST)
+			if(WEST)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(-3,0)
 				animate(M, transform = initial_matrix, time = 1, loop = 0)

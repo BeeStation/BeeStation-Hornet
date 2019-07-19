@@ -43,7 +43,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			booze_power *= 2
 		C.drunkenness = max((C.drunkenness + (sqrt(volume) * booze_power * ALCOHOL_RATE)), 0) //Volume, power, and server alcohol rate effect how quickly one gets drunk
 		var/obj/item/organ/liver/L = C.getorganslot(ORGAN_SLOT_LIVER)
-		if (istype(L))
+		if(istype(L))
 			C.applyLiverDamage((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * L.alcohol_tolerance, 0))/150)
 	return ..()
 
@@ -1228,7 +1228,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
 		M.confused = max(M.confused+2,0)
 		M.Dizzy(10)
-	if (!M.slurring)
+	if(!M.slurring)
 		M.slurring = 1
 	M.slurring += 3
 	switch(current_cycle)
@@ -1253,7 +1253,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "Like having your brain smashed out by a slice of lemon wrapped around a large gold brick."
 
 /datum/reagent/consumable/ethanol/gargle_blaster/on_mob_life(mob/living/carbon/M)
-	M.dizziness +=1.5
+	M.dizziness += 1.5
 	switch(current_cycle)
 		if(15 to 45)
 			if(!M.slurring)
@@ -1286,7 +1286,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/carbon/M)
 	M.set_drugginess(50)
-	M.dizziness +=2
+	M.dizziness += 2
 	M.adjustBrainLoss(1*REM, 150)
 	if(prob(20))
 		M.adjustStaminaLoss(10)
@@ -1329,7 +1329,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A drink enjoyed by people during the 1960's."
 
 /datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/carbon/M)
-	if (!M.slurring)
+	if(!M.slurring)
 		M.slurring = 1
 	switch(current_cycle)
 		if(1 to 5)
@@ -1343,7 +1343,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			M.set_drugginess(45)
 			if(prob(20))
 				M.emote(pick("twitch","giggle"))
-		if (10 to 200)
+		if(10 to 200)
 			M.Jitter(40)
 			M.Dizzy(40)
 			M.set_drugginess(60)

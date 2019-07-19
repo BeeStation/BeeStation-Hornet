@@ -52,7 +52,7 @@ Nothing else in the console has ID requirements.
 	research_control = FALSE
 
 /proc/CallMaterialName(ID)
-	if (copytext(ID, 1, 2) == "$" && GLOB.materials_list[ID])
+	if(copytext(ID, 1, 2) == "$" && GLOB.materials_list[ID])
 		var/datum/material/material = GLOB.materials_list[ID]
 		return material.name
 
@@ -123,7 +123,7 @@ Nothing else in the console has ID requirements.
 				to_chat(user, "<span class='danger'>[D] is stuck to your hand!</span>")
 				return
 			t_disk = D
-		else if (istype(D, /obj/item/disk/design_disk))
+		else if(istype(D, /obj/item/disk/design_disk))
 			if(d_disk)
 				to_chat(user, "<span class='danger'>A design disk is already loaded!</span>")
 				return
@@ -301,13 +301,13 @@ Nothing else in the console has ID requirements.
 		for(var/M in all_materials)
 			var/t = linked_lathe.check_mat(D, M)
 			temp_material += " | "
-			if (t < 1)
+			if(t < 1)
 				temp_material += "<span class='bad'>[all_materials[M]/coeff] [CallMaterialName(M)]</span>"
 			else
 				temp_material += " [all_materials[M]/coeff] [CallMaterialName(M)]"
 			c = min(c,t)
 
-		if (c >= 1)
+		if(c >= 1)
 			l += "<A href='?src=[REF(src)];build=[D.id];amount=1'>[D.name]</A>[RDSCREEN_NOBREAK]"
 			if(c >= 5)
 				l += "<A href='?src=[REF(src)];build=[D.id];amount=5'>x5</A>[RDSCREEN_NOBREAK]"
@@ -354,13 +354,13 @@ Nothing else in the console has ID requirements.
 		for(var/M in all_materials)
 			var/t = linked_lathe.check_mat(D, M)
 			temp_material += " | "
-			if (t < 1)
+			if(t < 1)
 				temp_material += "<span class='bad'>[all_materials[M]/coeff] [CallMaterialName(M)]</span>"
 			else
 				temp_material += " [all_materials[M]/coeff] [CallMaterialName(M)]"
 			c = min(c,t)
 
-		if (c >= 1)
+		if(c >= 1)
 			l += "<A href='?src=[REF(src)];build=[D.id];amount=1'>[D.name]</A>[RDSCREEN_NOBREAK]"
 			if(c >= 5)
 				l += "<A href='?src=[REF(src)];build=[D.id];amount=5'>x5</A>[RDSCREEN_NOBREAK]"
@@ -376,7 +376,7 @@ Nothing else in the console has ID requirements.
 /obj/machinery/computer/rdconsole/proc/ui_protolathe_materials()		//Legacy code
 	RDSCREEN_UI_LATHE_CHECK
 	var/datum/component/material_container/mat_container = linked_lathe.materials.mat_container
-	if (!mat_container)
+	if(!mat_container)
 		screen = RDSCREEN_PROTOLATHE
 		return ui_protolathe()
 	var/list/l = list()
@@ -407,7 +407,7 @@ Nothing else in the console has ID requirements.
 /obj/machinery/computer/rdconsole/proc/ui_circuit_header()		//Legacy Code
 	var/list/l = list()
 	l += "<div class='statusDisplay'><A href='?src=[REF(src)];switch_screen=[RDSCREEN_IMPRINTER]'>Circuit Imprinter Menu</A>"
-	if (linked_imprinter.materials.mat_container)
+	if(linked_imprinter.materials.mat_container)
 		l += "<A href='?src=[REF(src)];switch_screen=[RDSCREEN_IMPRINTER_MATERIALS]'><B>Material Amount:</B> [linked_imprinter.materials.format_amount()]</A>"
 	else
 		l += "<font color='red'>No material storage connected, please contact the quartermaster.</font>"
@@ -453,12 +453,12 @@ Nothing else in the console has ID requirements.
 
 		for(var/M in all_materials)
 			temp_materials += " | "
-			if (!linked_imprinter.check_mat(D, M))
+			if(!linked_imprinter.check_mat(D, M))
 				check_materials = FALSE
 				temp_materials += " <span class='bad'>[all_materials[M]/coeff] [CallMaterialName(M)]</span>"
 			else
 				temp_materials += " [all_materials[M]/coeff] [CallMaterialName(M)]"
-		if (check_materials)
+		if(check_materials)
 			l += "<A href='?src=[REF(src)];imprint=[D.id]'>[D.name]</A>[temp_materials]"
 		else
 			l += "<span class='linkOff'>[D.name]</span>[temp_materials]"
@@ -483,12 +483,12 @@ Nothing else in the console has ID requirements.
 			coeff = 1
 		for(var/M in all_materials)
 			temp_materials += " | "
-			if (!linked_imprinter.check_mat(D, M))
+			if(!linked_imprinter.check_mat(D, M))
 				check_materials = FALSE
 				temp_materials += " <span class='bad'>[all_materials[M]/coeff] [CallMaterialName(M)]</span>"
 			else
 				temp_materials += " [all_materials[M]/coeff] [CallMaterialName(M)]"
-		if (check_materials)
+		if(check_materials)
 			l += "<A href='?src=[REF(src)];imprint=[D.id]'>[D.name]</A>[temp_materials]"
 		else
 			l += "<span class='linkOff'>[D.name]</span>[temp_materials]"
@@ -509,7 +509,7 @@ Nothing else in the console has ID requirements.
 /obj/machinery/computer/rdconsole/proc/ui_circuit_materials()	//Legacy code!
 	RDSCREEN_UI_IMPRINTER_CHECK
 	var/datum/component/material_container/mat_container = linked_imprinter.materials.mat_container
-	if (!mat_container)
+	if(!mat_container)
 		screen = RDSCREEN_IMPRINTER
 		return ui_circuit()
 	var/list/l = list()
@@ -582,11 +582,11 @@ Nothing else in the console has ID requirements.
 			var/datum/techweb_node/N = SSresearch.techweb_node_by_id(id)
 
 			l += "<div class='statusDisplay'>[RDSCREEN_NOBREAK]"
-			if (stored_research.researched_nodes[N.id])  // already researched
+			if(stored_research.researched_nodes[N.id])  // already researched
 				l += "<span class='linkOff'>[N.display_name]</span>"
 				l += "This node has already been researched."
 			else if(!length(worth))  // reveal only
-				if (stored_research.hidden_nodes[N.id])
+				if(stored_research.hidden_nodes[N.id])
 					l += "<A href='?src=[REF(src)];deconstruct=[N.id]'>[N.display_name]</A>"
 					l += "This node will be revealed."
 				else
@@ -600,7 +600,7 @@ Nothing else in the console has ID requirements.
 					var/amt = min(worth[i], N.research_costs[i]) - already_boosted_amount
 					if(amt > 0)
 						differences[i] = amt
-				if (length(differences))
+				if(length(differences))
 					l += "<A href='?src=[REF(src)];deconstruct=[N.id]'>[N.display_name]</A>"
 					l += "This node will be boosted with the following:<BR>[techweb_point_display_generic(differences)]"
 				else
@@ -613,7 +613,7 @@ Nothing else in the console has ID requirements.
 		if(point_values)
 			anything = TRUE
 			l += "<div class='statusDisplay'>[RDSCREEN_NOBREAK]"
-			if (stored_research.deconstructed_items[linked_destroy.loaded_item.type])
+			if(stored_research.deconstructed_items[linked_destroy.loaded_item.type])
 				l += "<span class='linkOff'>Point Deconstruction</span>"
 				l += "This item's points have already been claimed."
 			else
@@ -624,12 +624,12 @@ Nothing else in the console has ID requirements.
 		if(!(linked_destroy.loaded_item.resistance_flags & INDESTRUCTIBLE))
 			var/list/materials = linked_destroy.loaded_item.materials
 			l += "<div class='statusDisplay'><A href='?src=[REF(src)];deconstruct=[RESEARCH_MATERIAL_RECLAMATION_ID]'>[materials.len? "Material Reclamation" : "Destroy Item"]</A>"
-			for (var/M in materials)
+			for(var/M in materials)
 				l += "* [CallMaterialName(M)] x [materials[M]]"
 			l += "</div>[RDSCREEN_NOBREAK]"
 			anything = TRUE
 
-		if (!anything)
+		if(!anything)
 			l += "Nothing!"
 
 		l += "</div>"
@@ -640,7 +640,7 @@ Nothing else in the console has ID requirements.
 	if(ui_mode != RDCONSOLE_UI_MODE_LIST)
 		var/list/columns = list()
 		var/max_tier = 0
-		for (var/node_ in stored_research.tiers)
+		for(var/node_ in stored_research.tiers)
 			var/datum/techweb_node/node = SSresearch.techweb_node_by_id(node_)
 			var/tier = stored_research.tiers[node.id]
 			LAZYINITLIST(columns["[tier]"])  // String hackery to make the numbers associative
@@ -689,10 +689,10 @@ Nothing else in the console has ID requirements.
 
 /obj/machinery/computer/rdconsole/proc/ui_techweb_single_node(datum/techweb_node/node, selflink=TRUE, minimal=FALSE)
 	var/list/l = list()
-	if (stored_research.hidden_nodes[node.id])
+	if(stored_research.hidden_nodes[node.id])
 		return l
 	var/display_name = node.display_name
-	if (selflink)
+	if(selflink)
 		display_name = "<A href='?src=[REF(src)];view_node=[node.id];back_screen=[screen]'>[display_name]</A>"
 	l += "<div class='statusDisplay technode'><b>[display_name]</b> [RDSCREEN_NOBREAK]"
 	if(minimal)
@@ -724,24 +724,24 @@ Nothing else in the console has ID requirements.
 		return
 
 	l += "<table><tr>[RDSCREEN_NOBREAK]"
-	if (length(selected_node.prereq_ids))
+	if(length(selected_node.prereq_ids))
 		l += "<th align='left'>Requires</th>[RDSCREEN_NOBREAK]"
 	l += "<th align='left'>Current Node</th>[RDSCREEN_NOBREAK]"
-	if (length(selected_node.unlock_ids))
+	if(length(selected_node.unlock_ids))
 		l += "<th align='left'>Unlocks</th>[RDSCREEN_NOBREAK]"
 
 	l += "</tr><tr>[RDSCREEN_NOBREAK]"
-	if (length(selected_node.prereq_ids))
+	if(length(selected_node.prereq_ids))
 		l += "<td valign='top'>[RDSCREEN_NOBREAK]"
-		for (var/i in selected_node.prereq_ids)
+		for(var/i in selected_node.prereq_ids)
 			l += ui_techweb_single_node(SSresearch.techweb_node_by_id(i))
 		l += "</td>[RDSCREEN_NOBREAK]"
 	l += "<td valign='top'>[RDSCREEN_NOBREAK]"
 	l += ui_techweb_single_node(selected_node, selflink=FALSE)
 	l += "</td>[RDSCREEN_NOBREAK]"
-	if (length(selected_node.unlock_ids))
+	if(length(selected_node.unlock_ids))
 		l += "<td valign='top'>[RDSCREEN_NOBREAK]"
-		for (var/i in selected_node.unlock_ids)
+		for(var/i in selected_node.unlock_ids)
 			l += ui_techweb_single_node(SSresearch.techweb_node_by_id(i))
 		l += "</td>[RDSCREEN_NOBREAK]"
 
@@ -757,11 +757,11 @@ Nothing else in the console has ID requirements.
 		var/lathes = list()
 		if(selected_design.build_type & IMPRINTER)
 			lathes += "<span data-tooltip='Circuit Imprinter'>[machine_icon(/obj/machinery/rnd/production/circuit_imprinter)]</span>[RDSCREEN_NOBREAK]"
-			if (linked_imprinter && stored_research.researched_designs[selected_design.id])
+			if(linked_imprinter && stored_research.researched_designs[selected_design.id])
 				l += "<A href='?src=[REF(src)];search=1;type=imprint;to_search=[selected_design.name]'>Imprint</A>"
 		if(selected_design.build_type & PROTOLATHE)
 			lathes += "<span data-tooltip='Protolathe'>[machine_icon(/obj/machinery/rnd/production/protolathe)]</span>[RDSCREEN_NOBREAK]"
-			if (linked_lathe && stored_research.researched_designs[selected_design.id])
+			if(linked_lathe && stored_research.researched_designs[selected_design.id])
 				l += "<A href='?src=[REF(src)];search=1;type=proto;to_search=[selected_design.name]'>Construct</A>"
 		if(selected_design.build_type & AUTOLATHE)
 			lathes += "<span data-tooltip='Autolathe'>[machine_icon(/obj/machinery/autolathe)]</span>[RDSCREEN_NOBREAK]"
@@ -781,7 +781,7 @@ Nothing else in the console has ID requirements.
 	for(var/M in all_mats)
 		l += "* [CallMaterialName(M)] x [all_mats[M]]"
 	l += "Unlocked by:"
-	for (var/i in selected_design.unlocked_by)
+	for(var/i in selected_design.unlocked_by)
 		l += ui_techweb_single_node(SSresearch.techweb_node_by_id(i))
 	l += "[RDSCREEN_NOBREAK]</div>"
 	return l

@@ -40,7 +40,7 @@
 //len == length of returned string
 //if len < 0 then the returned string will be as long as it needs to be to contain the data
 //Only supports positive numbers
-//if an invalid number is provided, it assumes num==0
+//if an invalid number is provided, it assumes num == 0
 //Note, unlike previous versions, this one works from low to high <-- that way
 /proc/num2hex(num, len=2)
 	if(!isnum(num))
@@ -49,11 +49,11 @@
 	. = ""
 	var/i=0
 	while(1)
-		if(len<=0)
+		if(len <= 0)
 			if(!num)
 				break
 		else
-			if(i>=len)
+			if(i >= len)
 				break
 		var/remainder = num/16
 		num = round(remainder)
@@ -71,7 +71,7 @@
 //Splits the text of a file at seperator and returns them in a list.
 //returns an empty list if the file doesn't exist
 /world/proc/file2list(filename, seperator="\n", trim = TRUE)
-	if (trim)
+	if(trim)
 		return splittext(trim(file2text(filename)),seperator)
 	return splittext(file2text(filename),seperator)
 
@@ -248,9 +248,9 @@
 		var/dgreen = ((max-green)/(6*max)) + 0.5
 		var/dblue = ((max-blue)/(6*max)) + 0.5
 
-		if(max==red)
+		if(max == red)
 			hue = dblue - dgreen
-		else if(max==green)
+		else if(max == green)
 			hue = dred - dblue + (1/3)
 		else
 			hue = dgreen - dred + (2/3)
@@ -603,7 +603,7 @@
 	var/c
 	for(var/i = 1 to length(str))
 		c= text2ascii(str,i)
-		r+= num2hex(c)
+		r += num2hex(c)
 	return r
 
 // Decodes hex to raw byte string.

@@ -67,7 +67,7 @@
 			kill_objective.find_target()
 			objectives += kill_objective
 
-			if (!(locate(/datum/objective/escape) in objectives))
+			if(!(locate(/datum/objective/escape) in objectives))
 				var/datum/objective/escape/escape_objective = new
 				escape_objective.owner = owner
 				objectives += escape_objective
@@ -78,7 +78,7 @@
 			steal_objective.find_target()
 			objectives += steal_objective
 
-			if (!(locate(/datum/objective/escape) in objectives))
+			if(!(locate(/datum/objective/escape) in objectives))
 				var/datum/objective/escape/escape_objective = new
 				escape_objective.owner = owner
 				objectives += escape_objective
@@ -94,13 +94,13 @@
 			steal_objective.find_target()
 			objectives += steal_objective
 
-			if (!(locate(/datum/objective/survive) in objectives))
+			if(!(locate(/datum/objective/survive) in objectives))
 				var/datum/objective/survive/survive_objective = new
 				survive_objective.owner = owner
 				objectives += survive_objective
 
 		else
-			if (!(locate(/datum/objective/hijack) in objectives))
+			if(!(locate(/datum/objective/hijack) in objectives))
 				var/datum/objective/hijack/hijack_objective = new
 				hijack_objective.owner = owner
 				objectives += hijack_objective
@@ -145,7 +145,7 @@
 	var/mob/living/wiz_mob = owner.current
 	var/newname = copytext(sanitize(input(wiz_mob, "You are the [name]. Would you like to change your name to something else?", "Name change", randomname) as null|text),1,MAX_NAME_LEN)
 
-	if (!newname)
+	if(!newname)
 		newname = randomname
 
 	wiz_mob.fully_replace_character_name(wiz_mob.real_name, newname)

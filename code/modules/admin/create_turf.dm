@@ -1,6 +1,6 @@
 /datum/admins/proc/create_turf(mob/user)
 	var/static/create_turf_html
-	if (!create_turf_html)
+	if(!create_turf_html)
 		var/turfjs = null
 		turfjs = jointext(typesof(/turf), ";")
 		create_turf_html = file2text('html/create_object.html')

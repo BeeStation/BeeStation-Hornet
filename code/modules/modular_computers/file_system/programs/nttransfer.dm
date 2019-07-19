@@ -153,13 +153,13 @@
 		data["download_progress"] = download_completion
 		data["download_netspeed"] = actual_netspeed
 		data["download_name"] = "[downloaded_file.filename].[downloaded_file.filetype]"
-	else if (provided_file)
+	else if(provided_file)
 		data["uploading"] = 1
 		data["upload_uid"] = unique_token
 		data["upload_clients"] = connected_clients.len
 		data["upload_haspassword"] = server_password ? 1 : 0
 		data["upload_filename"] = "[provided_file.filename].[provided_file.filetype]"
-	else if (upload_menu)
+	else if(upload_menu)
 		var/list/all_files[0]
 		var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
 		for(var/datum/computer_file/F in hard_drive.stored_files)

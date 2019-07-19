@@ -51,7 +51,7 @@
 	if(pipe_flags & PIPING_CARDINAL_AUTONORMALIZE)
 		normalize_cardinal_directions()
 	nodes = new(device_type)
-	if (!armor)
+	if(!armor)
 		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
 	..()
 	if(process)
@@ -184,7 +184,7 @@
 		return ..()
 
 	var/turf/T = get_turf(src)
-	if (level==1 && isturf(T) && T.intact)
+	if(level == 1 && isturf(T) && T.intact)
 		to_chat(user, "<span class='warning'>You must remove the plating first!</span>")
 		return TRUE
 
@@ -197,7 +197,7 @@
 
 	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 
-	if (internal_pressure > 2*ONE_ATMOSPHERE)
+	if(internal_pressure > 2*ONE_ATMOSPHERE)
 		to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
 		unsafe_wrenching = TRUE //Oh dear oh dear
 
@@ -213,7 +213,7 @@
 			unsafe_pressure_release(user, internal_pressure)
 
 			
-			if (user.client)
+			if(user.client)
 				SSmedals.UnlockMedal(MEDAL_UNWRENCH_HIGH_PRESSURE,user.client)
 			
 			

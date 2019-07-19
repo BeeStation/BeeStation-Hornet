@@ -40,13 +40,13 @@
 
 /obj/machinery/gibber/update_icon()
 	cut_overlays()
-	if (dirty)
+	if(dirty)
 		add_overlay("grbloody")
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if (!occupant)
+	if(!occupant)
 		add_overlay("grjam")
-	else if (operating)
+	else if(operating)
 		add_overlay("gruse")
 	else
 		add_overlay("gridle")
@@ -80,7 +80,7 @@
 			to_chat(user, "<span class='danger'>This item is not suitable for the gibber!</span>")
 			return
 		var/mob/living/carbon/C = L
-		if(C.buckled ||C.has_buckled_mobs())
+		if(C.buckled || C.has_buckled_mobs())
 			to_chat(user, "<span class='warning'>[C] is attached to something!</span>")
 			return
 
@@ -181,7 +181,7 @@
 	var/occupant_volume
 	if(occupant?.reagents)
 		occupant_volume = occupant.reagents.total_volume
-	for (var/i=1 to meat_produced)
+	for(var/i=1 to meat_produced)
 		var/obj/item/reagent_containers/food/snacks/meat/slab/newmeat = new typeofmeat
 		newmeat.name = "[sourcename] [newmeat.name]"
 		if(istype(newmeat))
@@ -210,13 +210,13 @@
 	if(skin)
 		skin.forceMove(loc)
 		skin.throw_at(pick(nearby_turfs),meat_produced,3)
-	for (var/i=1 to meat_produced)
+	for(var/i=1 to meat_produced)
 		var/obj/item/meatslab = allmeat[i]
 		meatslab.forceMove(loc)
 		meatslab.throw_at(pick(nearby_turfs),i,3)
-		for (var/turfs=1 to meat_produced)
+		for(var/turfs=1 to meat_produced)
 			var/turf/gibturf = pick(nearby_turfs)
-			if (!gibturf.density && src in view(gibturf))
+			if(!gibturf.density && src in view(gibturf))
 				new gibtype(gibturf,i,diseases)
 
 	pixel_x = initial(pixel_x) //return to its spot after shaking

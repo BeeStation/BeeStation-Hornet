@@ -14,30 +14,30 @@
 
 /obj/item/supplypod_beacon/proc/update_status(var/consoleStatus)
 	switch(consoleStatus)
-		if (SP_LINKED)
+		if(SP_LINKED)
 			linked = TRUE
 			playsound(src,'sound/machines/twobeep.ogg',50,0)
-		if (SP_READY)
+		if(SP_READY)
 			ready = TRUE
-		if (SP_LAUNCH)
+		if(SP_LAUNCH)
 			launched = TRUE
 			playsound(src,'sound/machines/triple_beep.ogg',50,0)
 			playsound(src,'sound/machines/warning-buzzer.ogg',50,0)
 			addtimer(CALLBACK(src, .proc/endLaunch), 33)//wait 3.3 seconds (time it takes for supplypod to land), then update icon
-		if (SP_UNLINK)
+		if(SP_UNLINK)
 			linked = FALSE
 			playsound(src,'sound/machines/synth_no.ogg',50,0)
-		if (SP_UNREADY)
+		if(SP_UNREADY)
 			ready = FALSE
 	update_icon()
 
 /obj/item/supplypod_beacon/update_icon()
 	cut_overlays()
-	if (launched)
+	if(launched)
 		add_overlay("sp_green")
-	else if (ready)
+	else if(ready)
 		add_overlay("sp_yellow")
-	else if (linked)
+	else if(linked)
 		add_overlay("sp_orange")
 
 /obj/item/supplypod_beacon/proc/endLaunch()
@@ -64,21 +64,21 @@
 	update_status(SP_UNREADY) 
 
 /obj/item/supplypod_beacon/proc/link_console(obj/machinery/computer/cargo/express/C, mob/living/user)
-	if (C.beacon)//if new console has a beacon, then...
+	if(C.beacon)//if new console has a beacon, then...
 		C.beacon.unlink_console()//unlink the old beacon from new console
-	if (express_console)//if this beacon has an express console
+	if(express_console)//if this beacon has an express console
 		express_console.beacon = null//remove the connection the expressconsole has from beacons
 	express_console = C//set the linked console var to the console
 	express_console.beacon = src//out with the old in with the news
 	update_status(SP_LINKED)
-	if (express_console.usingBeacon)
+	if(express_console.usingBeacon)
 		update_status(SP_READY)
 	to_chat(user, "<span class='notice'>[src] linked to [C].</span>")
 
 /obj/item/supplypod_beacon/AltClick(mob/user)
-	if (!user.canUseTopic(src, !issilicon(user)))
+	if(!user.canUseTopic(src, !issilicon(user)))
 		return
-	if (express_console)
+	if(express_console)
 		unlink_console()
 	else
 		to_chat(user, "<span class='notice'>There is no linked console!</span>")

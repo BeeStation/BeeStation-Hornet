@@ -91,12 +91,12 @@
 	tiled_dirt = FALSE
 
 /turf/open/floor/holofloor/hyperspace/Initialize()
-	icon_state = "speedspace_ns_[(x + 5*y + (y%2+1)*7)%15+1]"
+	icon_state = "speedspace_ns_[(x + 5*y + (y % 2+1)*7) % 15+1]"
 	. = ..()
 
 /turf/open/floor/holofloor/hyperspace/ns/Initialize()
 	. = ..()
-	icon_state = "speedspace_ns_[(x + 5*y + (y%2+1)*7)%15+1]"
+	icon_state = "speedspace_ns_[(x + 5*y + (y % 2+1)*7) % 15+1]"
 
 /turf/open/floor/holofloor/carpet
 	name = "carpet"

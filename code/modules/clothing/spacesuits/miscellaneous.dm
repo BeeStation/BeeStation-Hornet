@@ -311,12 +311,12 @@ Contains:
 
 /obj/item/clothing/head/helmet/space/hardsuit/carp/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if (slot == SLOT_HEAD)
+	if(slot == SLOT_HEAD)
 		user.faction |= "carp"
 
 /obj/item/clothing/head/helmet/space/hardsuit/carp/dropped(mob/living/carbon/human/user)
 	..()
-	if (user.head == src)
+	if(user.head == src)
 		user.faction -= "carp"
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal

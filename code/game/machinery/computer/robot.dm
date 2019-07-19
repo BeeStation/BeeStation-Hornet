@@ -14,10 +14,10 @@
 	if(!istype(R))
 		return
 	if(isAI(user))
-		if (R.connected_ai != user)
+		if(R.connected_ai != user)
 			return
 	if(iscyborg(user))
-		if (R != user)
+		if(R != user)
 			return
 	if(R.scrambledcodes)
 		return
@@ -112,10 +112,10 @@
 	if(.)
 		return
 
-	if (href_list["temp"])
+	if(href_list["temp"])
 		temp = null
 
-	else if (href_list["killbot"])
+	else if(href_list["killbot"])
 		if(allowed(usr))
 			var/mob/living/silicon/robot/R = locate(href_list["killbot"]) in GLOB.silicon_mobs
 			if(can_control(usr, R))
@@ -130,7 +130,7 @@
 		else
 			to_chat(usr, "<span class='danger'>Access Denied.</span>")
 
-	else if (href_list["stopbot"])
+	else if(href_list["stopbot"])
 		if(allowed(usr))
 			var/mob/living/silicon/robot/R = locate(href_list["stopbot"]) in GLOB.silicon_mobs
 			if(can_control(usr, R))
@@ -146,7 +146,7 @@
 		else
 			to_chat(usr, "<span class='danger'>Access Denied.</span>")
 
-	else if (href_list["magbot"])
+	else if(href_list["magbot"])
 		var/mob/living/silicon/S = usr
 		if((istype(S) && S.hack_software) || IsAdminGhost(usr))
 			var/mob/living/silicon/robot/R = locate(href_list["magbot"]) in GLOB.silicon_mobs
@@ -163,7 +163,7 @@
 				message_admins("[ADMIN_LOOKUPFLW(usr)] converted cyborg [key_name_admin(R)] using robotic console!")
 				add_servant_of_ratvar(R)
 
-	else if (href_list["killdrone"])
+	else if(href_list["killdrone"])
 		if(allowed(usr))
 			var/mob/living/simple_animal/drone/D = locate(href_list["killdrone"]) in GLOB.mob_list
 			if(D.hacked)

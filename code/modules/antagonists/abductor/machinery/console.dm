@@ -74,7 +74,7 @@
 			dat += "<span class='linkOff'>Combat</span>"
 			dat += "<a href='?src=[REF(src)];flip_vest=1'>Stealth</A>"
 
-		dat+="<br>"
+		dat += "<br>"
 		dat += "<a href='?src=[REF(src)];select_disguise=1'>Select Agent Vest Disguise</a><br>"
 		dat += "<a href='?src=[REF(src)];toggle_vest=1'>[HAS_TRAIT_FROM(vest, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT) ? "Unlock" : "Lock"] Vest</a><br>"
 	else
@@ -230,7 +230,7 @@
 
 /obj/machinery/abductor/console/proc/Dispense(item,cost=1)
 	if(experiment && experiment.credits >= cost)
-		experiment.credits -=cost
+		experiment.credits -= cost
 		say("Incoming supply!")
 		var/drop_location = loc
 		if(pad)

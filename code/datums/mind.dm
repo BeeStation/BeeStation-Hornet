@@ -251,7 +251,7 @@
 	if(!current)
 		return
 	var/mob/living/carbon/human/traitor_mob = current
-	if (!istype(traitor_mob))
+	if(!istype(traitor_mob))
 		return
 
 	var/list/all_contents = traitor_mob.GetAllContents()
@@ -259,9 +259,9 @@
 	var/obj/item/radio/R = locate() in all_contents
 	var/obj/item/pen/P
 
-	if (PDA) // Prioritize PDA pen, otherwise the pocket protector pens will be chosen, which causes numerous ahelps about missing uplink
+	if(PDA) // Prioritize PDA pen, otherwise the pocket protector pens will be chosen, which causes numerous ahelps about missing uplink
 		P = locate() in PDA
-	if (!P) // If we couldn't find a pen in the PDA, or we didn't even have a PDA, do it the old way
+	if(!P) // If we couldn't find a pen in the PDA, or we didn't even have a PDA, do it the old way
 		P = locate() in all_contents
 		if(!P) // I do not have a pen.
 			var/obj/item/pen/inowhaveapen
@@ -295,7 +295,7 @@
 				if(!uplink_loc)
 					uplink_loc = R
 
-	if (!uplink_loc)
+	if(!uplink_loc)
 		if(!silent)
 			to_chat(traitor_mob, "Unfortunately, [employer] wasn't able to get you an Uplink.")
 		. = 0
@@ -392,19 +392,19 @@
 			return
 		A.admin_remove(usr)
 
-	if (href_list["role_edit"])
+	if(href_list["role_edit"])
 		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in get_all_jobs()
-		if (!new_role)
+		if(!new_role)
 			return
 		assigned_role = new_role
 
-	else if (href_list["memory_edit"])
+	else if(href_list["memory_edit"])
 		var/new_memo = copytext(sanitize(input("Write new memory", "Memory", memory) as null|message),1,MAX_MESSAGE_LEN)
-		if (isnull(new_memo))
+		if(isnull(new_memo))
 			return
 		memory = new_memo
 
-	else if (href_list["obj_edit"] || href_list["obj_add"])
+	else if(href_list["obj_edit"] || href_list["obj_add"])
 		var/objective_pos //Edited objectives need to keep same order in antag objective list
 		var/def_value
 		var/datum/antagonist/target_antag
@@ -434,7 +434,7 @@
 						target_antag = antag_datums[1]
 					else
 						var/datum/antagonist/target = input("Which antagonist gets the objective:", "Antagonist", "(new custom antag)") as null|anything in antag_datums + "(new custom antag)"
-						if (QDELETED(target))
+						if(QDELETED(target))
 							return
 						else if(target == "(new custom antag)")
 							target_antag = add_antag_datum(/datum/antagonist/custom)
@@ -450,7 +450,7 @@
 
 		var/selected_type = input("Select objective type:", "Objective type", def_value) as null|anything in GLOB.admin_objective_list
 		selected_type = GLOB.admin_objective_list[selected_type]
-		if (!selected_type)
+		if(!selected_type)
 			return
 
 		if(!old_objective)
@@ -476,7 +476,7 @@
 			message_admins("[key_name_admin(usr)] edited [current]'s objective to [new_objective.explanation_text]")
 			log_admin("[key_name(usr)] edited [current]'s objective to [new_objective.explanation_text]")
 
-	else if (href_list["obj_delete"])
+	else if(href_list["obj_delete"])
 		var/datum/objective/objective
 		for(var/datum/antagonist/A in antag_datums)
 			objective = locate(href_list["obj_delete"]) in A.objectives
@@ -503,11 +503,11 @@
 		objective.completed = !objective.completed
 		log_admin("[key_name(usr)] toggled the win state for [current]'s objective: [objective.explanation_text]")
 
-	else if (href_list["silicon"])
+	else if(href_list["silicon"])
 		switch(href_list["silicon"])
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
-				if (istype(R))
+				if(istype(R))
 					R.SetEmagged(0)
 					message_admins("[key_name_admin(usr)] has unemag'ed [R].")
 					log_admin("[key_name(usr)] has unemag'ed [R].")
@@ -515,12 +515,12 @@
 			if("unemagcyborgs")
 				if(isAI(current))
 					var/mob/living/silicon/ai/ai = current
-					for (var/mob/living/silicon/robot/R in ai.connected_robots)
+					for(var/mob/living/silicon/robot/R in ai.connected_robots)
 						R.SetEmagged(0)
 					message_admins("[key_name_admin(usr)] has unemag'ed [ai]'s Cyborgs.")
 					log_admin("[key_name(usr)] has unemag'ed [ai]'s Cyborgs.")
 
-	else if (href_list["common"])
+	else if(href_list["common"])
 		switch(href_list["common"])
 			if("undress")
 				for(var/obj/item/W in current)
@@ -545,7 +545,7 @@
 				else
 					log_admin("[key_name(usr)] gave [current] an uplink.")
 
-	else if (href_list["obj_announce"])
+	else if(href_list["obj_announce"])
 		announce_objectives()
 
 	//Something in here might have changed your mob
@@ -570,7 +570,7 @@
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.GetAllContents()
-	for (var/i in L)
+	for(var/i in L)
 		var/atom/movable/I = i
 		. = I.GetComponent(/datum/component/uplink)
 		if(.)

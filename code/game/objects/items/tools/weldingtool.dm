@@ -241,7 +241,7 @@
 /obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
 	. = ..()
 	if(. && user)
-		if (progress_flash_divisor == 0)
+		if(progress_flash_divisor == 0)
 			user.flash_act(min(light_intensity,1))
 			progress_flash_divisor = initial(progress_flash_divisor)
 		else
@@ -276,7 +276,7 @@
 /obj/item/weldingtool/proc/flamethrower_rods(obj/item/I, mob/user)
 	if(!status)
 		var/obj/item/stack/rods/R = I
-		if (R.use(1))
+		if(R.use(1))
 			var/obj/item/flamethrower/F = new /obj/item/flamethrower(user.loc)
 			if(!remove_item_from_storage(F))
 				user.transferItemToLoc(src, F, TRUE)

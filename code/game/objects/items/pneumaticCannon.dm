@@ -212,10 +212,10 @@
 
 /obj/item/pneumatic_cannon/handle_atom_del(atom/A)
 	. = ..()
-	if (loadedItems.Remove(A))
+	if(loadedItems.Remove(A))
 		var/obj/item/I = A
 		loadedWeightClass -= I.w_class
-	else if (A == tank)
+	else if(A == tank)
 		tank = null
 		update_icon()
 

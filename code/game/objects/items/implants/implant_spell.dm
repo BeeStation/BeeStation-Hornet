@@ -17,17 +17,17 @@
 
 /obj/item/implant/spell/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
 	. = ..()
-	if (.)
-		if (!spell)
+	if(.)
+		if(!spell)
 			return FALSE
-		if (autorobeless && spell.clothes_req)
+		if(autorobeless && spell.clothes_req)
 			spell.clothes_req = FALSE
 		target.AddSpell(spell)
 		return TRUE
 
 /obj/item/implant/spell/removed(mob/target, silent = FALSE, special = 0)
 	. = ..()
-	if (.)
+	if(.)
 		target.RemoveSpell(spell)
 		if(target.stat != DEAD && !silent)
 			to_chat(target, "<span class='boldnotice'>The knowledge of how to cast [spell] slips out from your mind.</span>")

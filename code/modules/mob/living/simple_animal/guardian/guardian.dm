@@ -102,7 +102,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	icon_dead = "[namedatum.parasiteicon]"
 	bubble_icon = "[namedatum.bubbleicon]"
 
-	if (namedatum.stainself)
+	if(namedatum.stainself)
 		add_atom_colour(namedatum.colour, FIXED_COLOUR_PRIORITY)
 
 	//Special case holocarp, because #snowflake code

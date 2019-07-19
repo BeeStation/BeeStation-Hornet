@@ -8,7 +8,7 @@
 	if((movement_type & FLYING) && !(movement_type & FLOATING))	//TODO: Better floating
 		float(on = TRUE)
 
-	if (client)
+	if(client)
 		var/turf/T = get_turf(src)
 		if(!T)
 			for(var/obj/effect/landmark/error/E in GLOB.landmarks_list)
@@ -20,17 +20,17 @@
 			log_game("[key_name(src)] was found to have no .loc with an attached client.")
 
 		// This is a temporary error tracker to make sure we've caught everything
-		else if (registered_z != T.z)
+		else if(registered_z != T.z)
 #ifdef TESTING
 			message_admins("[ADMIN_LOOKUPFLW(src)] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z]. If you could ask them how that happened and notify coderbus, it would be appreciated.")
 #endif
 			log_game("Z-TRACKING: [src] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z].")
 			update_z(T.z)
-	else if (registered_z)
+	else if(registered_z)
 		log_game("Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
 		update_z(null)
 
-	if (notransform)
+	if(notransform)
 		return
 	if(!loc)
 		return
@@ -47,7 +47,7 @@
 
 		handle_diseases()// DEAD check is in the proc itself; we want it to spread even if the mob is dead, but to handle its disease-y properties only if you're not.
 
-		if (QDELETED(src)) // diseases can qdel the mob via transformations
+		if(QDELETED(src)) // diseases can qdel the mob via transformations
 			return
 
 		if(stat != DEAD)

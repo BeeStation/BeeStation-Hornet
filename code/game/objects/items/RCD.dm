@@ -179,7 +179,7 @@ RLD
 
 /obj/item/construction/rcd/proc/toggle_window_type(mob/user)
 	var/window_type_name
-	if (window_type == /obj/structure/window/fulltile)
+	if(window_type == /obj/structure/window/fulltile)
 		window_type = /obj/structure/window/reinforced/fulltile
 		window_type_name = "reinforced glass"
 	else
@@ -189,7 +189,7 @@ RLD
 	to_chat(user, "<span class='notice'>You change \the [src]'s window mode to [window_type_name].</span>")
 
 /obj/item/construction/rcd/proc/change_airlock_access(mob/user)
-	if (!ishuman(user) && !user.has_unlimited_silicon_privilege)
+	if(!ishuman(user) && !user.has_unlimited_silicon_privilege)
 		return
 
 	var/t1 = ""
@@ -230,33 +230,33 @@ RLD
 
 /obj/item/construction/rcd/Topic(href, href_list)
 	..()
-	if (usr.stat || usr.restrained())
+	if(usr.stat || usr.restrained())
 		return
 
-	if (href_list["close"])
+	if(href_list["close"])
 		usr << browse(null, "window=rcd_access")
 		return
 
-	if (href_list["access"])
+	if(href_list["access"])
 		toggle_access(href_list["access"])
 		change_airlock_access(usr)
 
 /obj/item/construction/rcd/proc/toggle_access(acc)
-	if (acc == "all")
+	if(acc == "all")
 		conf_access = null
 	else if(acc == "one")
 		use_one_access = !use_one_access
 	else
 		var/req = text2num(acc)
 
-		if (conf_access == null)
+		if(conf_access == null)
 			conf_access = list()
 
-		if (!(req in conf_access))
+		if(!(req in conf_access))
 			conf_access += req
 		else
 			conf_access -= req
-			if (!conf_access.len)
+			if(!conf_access.len)
 				conf_access = null
 
 /obj/item/construction/rcd/proc/get_airlock_image(airlock_type)
@@ -508,7 +508,7 @@ RLD
 	to_chat(user, "<span class='notice'>You change RCD's mode to '[choice]'.</span>")
 
 /obj/item/construction/rcd/proc/target_check(atom/A, mob/user) // only returns true for stuff the device can actually work with
-	if((isturf(A) && A.density && mode==RCD_DECONSTRUCT) || (isturf(A) && !A.density) || (istype(A, /obj/machinery/door/airlock) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/grille) || (istype(A, /obj/structure/window) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/girder))
+	if((isturf(A) && A.density && mode == RCD_DECONSTRUCT) || (isturf(A) && !A.density) || (istype(A, /obj/machinery/door/airlock) && mode == RCD_DECONSTRUCT) || istype(A, /obj/structure/grille) || (istype(A, /obj/structure/window) && mode == RCD_DECONSTRUCT) || istype(A, /obj/structure/girder))
 		return TRUE
 	else
 		return FALSE

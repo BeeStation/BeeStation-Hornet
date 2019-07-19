@@ -250,7 +250,7 @@
 
 	else if(user.a_intent != INTENT_HARM)
 
-		if (!state_open)
+		if(!state_open)
 			to_chat(user, "<span class='warning'>Open the door first!</span>")
 			return 1
 

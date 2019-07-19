@@ -50,8 +50,8 @@
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
 
-	for (var/i=1 to max_headrevs)
-		if (antag_candidates.len==0)
+	for(var/i=1 to max_headrevs)
+		if(antag_candidates.len == 0)
 			break
 		var/datum/mind/lenin = antag_pick(antag_candidates)
 		antag_candidates -= lenin
@@ -213,10 +213,10 @@
 /datum/game_mode/revolution/speedy/process()
 	. = ..()
 	if(check_counter == 0)
-		if (world.time > endtime && !fuckingdone)
+		if(world.time > endtime && !fuckingdone)
 			fuckingdone = TRUE
-			for (var/obj/machinery/nuclearbomb/N in GLOB.nuke_list)
-				if (!N.timing)
+			for(var/obj/machinery/nuclearbomb/N in GLOB.nuke_list)
+				if(!N.timing)
 					N.timer_set = 200
 					N.set_safety()
 					N.set_active()

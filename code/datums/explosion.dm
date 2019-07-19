@@ -59,7 +59,7 @@ GLOBAL_LIST_EMPTY(explosions)
 
 	//Zlevel specific bomb cap multiplier
 	var/cap_multiplier = SSmapping.level_trait(epicenter.z, ZTRAIT_BOMBCAP_MULTIPLIER)
-	if (isnull(cap_multiplier))
+	if(isnull(cap_multiplier))
 		cap_multiplier = 1
 
 	if(!ignorecap)
@@ -198,7 +198,7 @@ GLOBAL_LIST_EMPTY(explosions)
 			var/list/items = list()
 			for(var/I in T)
 				var/atom/A = I
-				if (!A.prevent_content_explosion()) //The atom/contents_explosion() proc returns null if the contents ex_acting has been handled by the atom, and TRUE if it hasn't.
+				if(!A.prevent_content_explosion()) //The atom/contents_explosion() proc returns null if the contents ex_acting has been handled by the atom, and TRUE if it hasn't.
 					items += A.GetAllContents()
 			for(var/O in items)
 				var/atom/A = O
@@ -384,10 +384,10 @@ GLOBAL_LIST_EMPTY(explosions)
 		if(dist < dev)
 			T.color = "red"
 			T.maptext = "Dev"
-		else if (dist < heavy)
+		else if(dist < heavy)
 			T.color = "yellow"
 			T.maptext = "Heavy"
-		else if (dist < light)
+		else if(dist < light)
 			T.color = "blue"
 			T.maptext = "Light"
 		else

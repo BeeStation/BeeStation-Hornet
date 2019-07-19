@@ -1,18 +1,18 @@
-#define CART_SECURITY			(1<<0)
-#define CART_ENGINE				(1<<1)
-#define CART_ATMOS				(1<<2)
-#define CART_MEDICAL			(1<<3)
-#define CART_MANIFEST			(1<<4)
-#define CART_CLOWN				(1<<5)
-#define CART_MIME				(1<<6)
-#define CART_JANITOR			(1<<7)
-#define CART_REAGENT_SCANNER	(1<<8)
-#define CART_NEWSCASTER			(1<<9)
-#define CART_REMOTE_DOOR		(1<<10)
-#define CART_STATUS_DISPLAY		(1<<11)
-#define CART_QUARTERMASTER		(1<<12)
-#define CART_HYDROPONICS		(1<<13)
-#define CART_DRONEPHONE			(1<<14)
+#define CART_SECURITY			(1 << 0)
+#define CART_ENGINE				(1 << 1)
+#define CART_ATMOS				(1 << 2)
+#define CART_MEDICAL			(1 << 3)
+#define CART_MANIFEST			(1 << 4)
+#define CART_CLOWN				(1 << 5)
+#define CART_MIME				(1 << 6)
+#define CART_JANITOR			(1 << 7)
+#define CART_REAGENT_SCANNER	(1 << 8)
+#define CART_NEWSCASTER			(1 << 9)
+#define CART_REMOTE_DOOR		(1 << 10)
+#define CART_STATUS_DISPLAY		(1 << 11)
+#define CART_QUARTERMASTER		(1 << 12)
+#define CART_HYDROPONICS		(1 << 13)
+#define CART_DRONEPHONE			(1 << 14)
 
 
 /obj/item/cartridge
@@ -229,17 +229,17 @@ Code:
 [radio.code]
 <a href='byond://?src=[REF(src)];choice=Signal Code;scode=1'>+</a>
 <a href='byond://?src=[REF(src)];choice=Signal Code;scode=5'>+</a><br>"}
-		if (41) //crew manifest
+		if(41) //crew manifest
 
 			menu = "<h4>[PDAIMG(notes)] Crew Manifest</h4>"
 			menu += "Entries cannot be modified from this terminal.<br><br>"
 			if(GLOB.data_core.general)
-				for (var/datum/data/record/t in sortRecord(GLOB.data_core.general))
+				for(var/datum/data/record/t in sortRecord(GLOB.data_core.general))
 					menu += "[t.fields["name"]] - [t.fields["rank"]]<br>"
 			menu += "<br>"
 
 
-		if (42) //status displays
+		if(42) //status displays
 			menu = "<h4>[PDAIMG(status)] Station Status Display Interlink</h4>"
 
 			menu += "\[ <A HREF='?src=[REF(src)];choice=Status;statdisp=blank'>Clear</A> \]<BR>"
@@ -252,7 +252,7 @@ Code:
 			menu += " <A HREF='?src=[REF(src)];choice=Status;statdisp=alert;alert=lockdown'>Lockdown</A> |"
 			menu += " <A HREF='?src=[REF(src)];choice=Status;statdisp=alert;alert=biohazard'>Biohazard</A> \]<BR>"
 
-		if (43)
+		if(43)
 			menu = "<h4>[PDAIMG(power)] Power Monitors - Please select one</h4><BR>"
 			powmonitor = null
 			powermonitors = list()
@@ -284,7 +284,7 @@ Code:
 
 				menu += "</FONT>"
 
-		if (433)
+		if(433)
 			menu = "<h4>[PDAIMG(power)] Power Monitor </h4><BR>"
 			if(!powmonitor || !powmonitor.get_powernet())
 				menu += "<span class='danger'>No connection<BR></span>"
@@ -312,7 +312,7 @@ Code:
 
 				menu += "</FONT></PRE>"
 
-		if (44) //medical records //This thing only displays a single screen so it's hard to really get the sub-menu stuff working.
+		if(44) //medical records //This thing only displays a single screen so it's hard to really get the sub-menu stuff working.
 			menu = "<h4>[PDAIMG(medical)] Medical Record List</h4>"
 			if(GLOB.data_core.general)
 				for(var/datum/data/record/R in sortRecord(GLOB.data_core.general))
@@ -355,10 +355,10 @@ Code:
 				menu += "<b>Record Lost!</b><br>"
 
 			menu += "<br>"
-		if (45) //security records
+		if(45) //security records
 			menu = "<h4>[PDAIMG(cuffs)] Security Record List</h4>"
 			if(GLOB.data_core.general)
-				for (var/datum/data/record/R in sortRecord(GLOB.data_core.general))
+				for(var/datum/data/record/R in sortRecord(GLOB.data_core.general))
 					menu += "<a href='byond://?src=[REF(src)];choice=Security Records;target=[R.fields["id"]]'>[R.fields["id"]]: [R.fields["name"]]<br>"
 
 			menu += "<br>"
@@ -423,7 +423,7 @@ Code:
 
 			menu += "<br>"
 
-		if (47) //quartermaster order records
+		if(47) //quartermaster order records
 			menu = "<h4>[PDAIMG(crate)] Supply Record Interlink</h4>"
 
 			menu += "<BR><B>Supply shuttle</B><BR>"
@@ -454,14 +454,14 @@ Code:
 				menu += "<li>#[SO.id] - [SO.pack.name] requested by [SO.orderer]</li>"
 			menu += "</ol><font size=\"-3\">Upgrade NOW to Space Parts & Space Vendors PLUS for full remote order control and inventory management."
 
-		if (48) // quartermaster ore logs
+		if(48) // quartermaster ore logs
 			menu = list("<h4>[PDAIMG(crate)] Ore Silo Logs</h4>")
-			if (GLOB.ore_silo_default)
+			if(GLOB.ore_silo_default)
 				var/list/logs = GLOB.silo_access_logs[REF(GLOB.ore_silo_default)]
 				var/len = LAZYLEN(logs)
 				var/i = 0
 				for(var/M in logs)
-					if (++i > 30)
+					if(++i > 30)
 						menu += "(... older logs not shown ...)"
 						break
 					var/datum/ore_silo_log/entry = M
@@ -472,26 +472,26 @@ Code:
 				menu += "<b>No ore silo detected!</b>"
 			menu = jointext(menu, "")
 
-		if (49) //janitorial locator
+		if(49) //janitorial locator
 			menu = "<h4>[PDAIMG(bucket)] Persistent Custodial Object Locator</h4>"
 
 			var/turf/cl = get_turf(src)
-			if (cl)
+			if(cl)
 				menu += "Current Orbital Location: <b>\[[cl.x],[cl.y]\]</b>"
 
 				menu += "<h4>Located Mops:</h4>"
 
 				var/ldat
-				for (var/obj/item/mop/M in world)
+				for(var/obj/item/mop/M in world)
 					var/turf/ml = get_turf(M)
 
 					if(ml)
-						if (ml.z != cl.z)
+						if(ml.z != cl.z)
 							continue
 						var/direction = get_dir(src, M)
 						ldat += "Mop - <b>\[[ml.x],[ml.y] ([uppertext(dir2text(direction))])\]</b> - [M.reagents.total_volume ? "Wet" : "Dry"]<br>"
 
-				if (!ldat)
+				if(!ldat)
 					menu += "None"
 				else
 					menu += "[ldat]"
@@ -499,16 +499,16 @@ Code:
 				menu += "<h4>Located Janitorial Cart:</h4>"
 
 				ldat = null
-				for (var/obj/structure/janitorialcart/B in world)
+				for(var/obj/structure/janitorialcart/B in world)
 					var/turf/bl = get_turf(B)
 
 					if(bl)
-						if (bl.z != cl.z)
+						if(bl.z != cl.z)
 							continue
 						var/direction = get_dir(src, B)
 						ldat += "Cart - <b>\[[bl.x],[bl.y] ([uppertext(dir2text(direction))])\]</b> - Water level: [B.reagents.total_volume]/100<br>"
 
-				if (!ldat)
+				if(!ldat)
 					menu += "None"
 				else
 					menu += "[ldat]"
@@ -516,16 +516,16 @@ Code:
 				menu += "<h4>Located Cleanbots:</h4>"
 
 				ldat = null
-				for (var/mob/living/simple_animal/bot/cleanbot/B in GLOB.alive_mob_list)
+				for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.alive_mob_list)
 					var/turf/bl = get_turf(B)
 
 					if(bl)
-						if (bl.z != cl.z)
+						if(bl.z != cl.z)
 							continue
 						var/direction = get_dir(src, B)
 						ldat += "Cleanbot - <b>\[[bl.x],[bl.y] ([uppertext(dir2text(direction))])\]</b> - [B.on ? "Online" : "Offline"]<br>"
 
-				if (!ldat)
+				if(!ldat)
 					menu += "None"
 				else
 					menu += "[ldat]"
@@ -534,32 +534,32 @@ Code:
 				menu += "ERROR: Unable to determine current location."
 			menu += "<br><br><A href='byond://?src=[REF(src)];choice=49'>Refresh GPS Locator</a>"
 
-		if (53) // Newscaster
+		if(53) // Newscaster
 			menu = "<h4>[PDAIMG(notes)] Newscaster Access</h4>"
 			menu += "<br> Current Newsfeed: <A href='byond://?src=[REF(src)];choice=Newscaster Switch Channel'>[current_channel ? current_channel : "None"]</a> <br>"
 			var/datum/newscaster/feed_channel/current
 			for(var/datum/newscaster/feed_channel/chan in GLOB.news_network.network_channels)
-				if (chan.channel_name == current_channel)
+				if(chan.channel_name == current_channel)
 					current = chan
 			if(!current)
 				menu += "<h5> ERROR : NO CHANNEL FOUND </h5>"
 				return menu
 			var/i = 1
 			for(var/datum/newscaster/feed_message/msg in current.messages)
-				menu +="-[msg.returnBody(-1)] <BR><FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[msg.returnAuthor(-1)]</FONT>\]</FONT><BR>"
-				menu +="<b><font size=1>[msg.comments.len] comment[msg.comments.len > 1 ? "s" : ""]</font></b><br>"
+				menu += "-[msg.returnBody(-1)] <BR><FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[msg.returnAuthor(-1)]</FONT>\]</FONT><BR>"
+				menu += "<b><font size=1>[msg.comments.len] comment[msg.comments.len > 1 ? "s" : ""]</font></b><br>"
 				if(msg.img)
 					user << browse_rsc(msg.img, "tmp_photo[i].png")
-					menu +="<img src='tmp_photo[i].png' width = '180'><BR>"
+					menu += "<img src='tmp_photo[i].png' width = '180'><BR>"
 				i++
 				for(var/datum/newscaster/feed_comment/comment in msg.comments)
-					menu +="<font size=1><small>[comment.body]</font><br><font size=1><small><small><small>[comment.author] [comment.time_stamp]</small></small></small></small></font><br>"
+					menu += "<font size=1><small>[comment.body]</font><br><font size=1><small><small><small>[comment.author] [comment.time_stamp]</small></small></small></small></font><br>"
 			menu += "<br> <A href='byond://?src=[REF(src)];choice=Newscaster Message'>Post Message</a>"
 
-		if (54) // Beepsky, Medibot, Floorbot, and Cleanbot access
+		if(54) // Beepsky, Medibot, Floorbot, and Cleanbot access
 			menu = "<h4>[PDAIMG(medbot)] Bots Interlink</h4>"
 			bot_control()
-		if (99) //Newscaster message permission error
+		if(99) //Newscaster message permission error
 			menu = "<h5> ERROR : NOT AUTHORIZED [host_pda.id ? "" : "- ID SLOT EMPTY"] </h5>"
 
 	return menu
@@ -632,7 +632,7 @@ Code:
 			var/message = host_pda.msg_input()
 			var/datum/newscaster/feed_channel/current
 			for(var/datum/newscaster/feed_channel/chan in GLOB.news_network.network_channels)
-				if (chan.channel_name == current_channel)
+				if(chan.channel_name == current_channel)
 					current = chan
 			if(current.locked && current.author != host_pda_owner_name)
 				host_pda.mode = 99
@@ -663,7 +663,7 @@ Code:
 
 	if(href_list["mule"]) //MULEbots are special snowflakes, and need different args due to how they work.
 		var/mob/living/simple_animal/bot/mulebot/mule = active_bot
-		if (istype(mule))
+		if(istype(mule))
 			mule.bot_control(href_list["mule"], usr, pda=TRUE)
 
 	if(!host_pda)

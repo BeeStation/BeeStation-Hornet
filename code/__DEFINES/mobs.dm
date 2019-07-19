@@ -209,14 +209,14 @@
 
 //determines if a mob can smash through it
 #define ENVIRONMENT_SMASH_NONE			0
-#define ENVIRONMENT_SMASH_STRUCTURES	(1<<0) 	//crates, lockers, ect
-#define ENVIRONMENT_SMASH_WALLS			(1<<1)  //walls
-#define ENVIRONMENT_SMASH_RWALLS		(1<<2)	//rwalls
+#define ENVIRONMENT_SMASH_STRUCTURES	(1 << 0) 	//crates, lockers, ect
+#define ENVIRONMENT_SMASH_WALLS			(1 << 1)  //walls
+#define ENVIRONMENT_SMASH_RWALLS		(1 << 2)	//rwalls
 
-#define NO_SLIP_WHEN_WALKING	(1<<0)
-#define SLIDE					(1<<1)
-#define GALOSHES_DONT_HELP		(1<<2)
-#define SLIDE_ICE				(1<<3)
+#define NO_SLIP_WHEN_WALKING	(1 << 0)
+#define SLIDE					(1 << 1)
+#define GALOSHES_DONT_HELP		(1 << 2)
+#define SLIDE_ICE				(1 << 3)
 
 #define MAX_CHICKENS 50
 
@@ -228,12 +228,12 @@
 #define INCORPOREAL_MOVE_JAUNT 3 // is blocked by holy water/salt
 
 //Secbot and ED209 judgement criteria bitflag values
-#define JUDGE_EMAGGED		(1<<0)
-#define JUDGE_IDCHECK		(1<<1)
-#define JUDGE_WEAPONCHECK	(1<<2)
-#define JUDGE_RECORDCHECK	(1<<3)
+#define JUDGE_EMAGGED		(1 << 0)
+#define JUDGE_IDCHECK		(1 << 1)
+#define JUDGE_WEAPONCHECK	(1 << 2)
+#define JUDGE_RECORDCHECK	(1 << 3)
 //ED209's ignore monkeys
-#define JUDGE_IGNOREMONKEYS	(1<<4)
+#define JUDGE_IGNOREMONKEYS	(1 << 4)
 
 #define SHADOW_SPECIES_LIGHT_THRESHOLD 0.2
 
@@ -278,7 +278,7 @@
 #define AI_VOX // Comment out if you don't want VOX to be enabled and have players download the voice sounds.
 
 // /obj/item/bodypart on_mob_life() retval flag
-#define BODYPART_LIFE_UPDATE_HEALTH (1<<0)
+#define BODYPART_LIFE_UPDATE_HEALTH (1 << 0)
 
 #define MAX_REVIVE_FIRE_DAMAGE 180
 #define MAX_REVIVE_BRUTE_DAMAGE 180
@@ -294,18 +294,18 @@
 
 //Flags that control what things can spawn species (whitelist)
 //Badmin magic mirror
-#define MIRROR_BADMIN (1<<0)
+#define MIRROR_BADMIN (1 << 0)
 //Standard magic mirror (wizard)
-#define MIRROR_MAGIC  (1<<1)
+#define MIRROR_MAGIC  (1 << 1)
 //Pride ruin mirror
-#define MIRROR_PRIDE  (1<<2)
+#define MIRROR_PRIDE  (1 << 2)
 //Race swap wizard event
-#define RACE_SWAP     (1<<3)
+#define RACE_SWAP     (1 << 3)
 //ERT spawn template (avoid races that don't function without correct gear)
-#define ERT_SPAWN     (1<<4)
+#define ERT_SPAWN     (1 << 4)
 //xenobio black crossbreed
-#define SLIME_EXTRACT (1<<5)
+#define SLIME_EXTRACT (1 << 5)
 //Wabbacjack staff projectiles
-#define WABBAJACK     (1<<6)
+#define WABBAJACK     (1 << 6)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;

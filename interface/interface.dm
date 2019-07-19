@@ -8,7 +8,7 @@
 		if(query)
 			var/output = wikiurl + "/index.php?title=Special%3ASearch&profile=default&search=" + query
 			src << link(output)
-		else if (query != null)
+		else if(query != null)
 			src << link(wikiurl)
 	else
 		to_chat(src, "<span class='danger'>The wiki URL is not set in the server configuration.</span>")
@@ -20,7 +20,7 @@
 	set hidden = 1
 	var/forumurl = CONFIG_GET(string/forumurl)
 	if(forumurl)
-		if(alert("This will open the forum in your browser. Are you sure?",,"Yes","No")!="Yes")
+		if(alert("This will open the forum in your browser. Are you sure?",,"Yes","No") != "Yes")
 			return
 		src << link(forumurl)
 	else
@@ -33,7 +33,7 @@
 	set hidden = 1
 	var/rulesurl = CONFIG_GET(string/rulesurl)
 	if(rulesurl)
-		if(alert("This will open the rules in your browser. Are you sure?",,"Yes","No")!="Yes")
+		if(alert("This will open the rules in your browser. Are you sure?",,"Yes","No") != "Yes")
 			return
 		src << link(rulesurl)
 	else
@@ -46,7 +46,7 @@
 	set hidden = 1
 	var/githuburl = CONFIG_GET(string/githuburl)
 	if(githuburl)
-		if(alert("This will open the Github repository in your browser. Are you sure?",,"Yes","No")!="Yes")
+		if(alert("This will open the Github repository in your browser. Are you sure?",,"Yes","No") != "Yes")
 			return
 		src << link(githuburl)
 	else
@@ -63,7 +63,7 @@
 		if(GLOB.revdata.testmerge.len)
 			message += "<br>The following experimental changes are active and are probably the cause of any new or sudden issues you may experience. If possible, please try to find a specific thread for your issue instead of posting to the general issue tracker:<br>"
 			message += GLOB.revdata.GetTestMergeInfo(FALSE)
-		if(tgalert(src, message, "Report Issue","Yes","No")!="Yes")
+		if(tgalert(src, message, "Report Issue","Yes","No") != "Yes")
 			return
 		var/static/issue_template = file2text(".github/ISSUE_TEMPLATE.md")
 		var/servername = CONFIG_GET(string/servername)
@@ -231,7 +231,7 @@ Any-Mode: (hotkey doesn't need to be on)
 	set hidden = 1
 	var/donateurl = CONFIG_GET(string/donateurl)
 	if(donateurl)
-		if(alert("This will open the Doantion page in your browser. Are you sure?",,"Yes","No")!="Yes")
+		if(alert("This will open the Doantion page in your browser. Are you sure?",,"Yes","No") != "Yes")
 			return
 		src << link(donateurl)
 	else
@@ -244,7 +244,7 @@ Any-Mode: (hotkey doesn't need to be on)
 	set hidden = 1
 	var/discordurl = CONFIG_GET(string/discordurl)
 	if(discordurl)
-		if(alert("This will open the Discord invite in your browser. Are you sure?",,"Yes","No")!="Yes")
+		if(alert("This will open the Discord invite in your browser. Are you sure?",,"Yes","No") != "Yes")
 			return
 		src << link(discordurl)
 	else
@@ -262,7 +262,7 @@ Any-Mode: (hotkey doesn't need to be on)
 		if("Donutstation")			map_in_url = "donut"
 		if("MetaStation")			map_in_url = "meta"
 	if(map_in_url)
-		if(alert("This will open the current map in your browser. Are you sure?",,"Yes","No")!="Yes")
+		if(alert("This will open the current map in your browser. Are you sure?",,"Yes","No") != "Yes")
 			return
 		src << link("http://beestation13.com/map/[map_in_url]")
 	else

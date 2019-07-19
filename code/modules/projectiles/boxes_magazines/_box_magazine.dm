@@ -25,8 +25,8 @@
 
 /obj/item/ammo_box/Initialize()
 	. = ..()
-	if (!bullet_cost)
-		for (var/material in materials)
+	if(!bullet_cost)
+		for(var/material in materials)
 			var/material_amount = materials[material]
 			LAZYSET(base_cost, material, (material_amount * 0.10))
 
@@ -39,12 +39,12 @@
 	update_icon()
 
 /obj/item/ammo_box/proc/get_round(keep = FALSE)
-	if (!stored_ammo.len)
+	if(!stored_ammo.len)
 		return null
 	else
 		var/b = stored_ammo[stored_ammo.len]
 		stored_ammo -= b
-		if (keep)
+		if(keep)
 			stored_ammo.Insert(1,b)
 		return b
 
@@ -53,7 +53,7 @@
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
 		return FALSE
 
-	if (stored_ammo.len < max_ammo)
+	if(stored_ammo.len < max_ammo)
 		stored_ammo += R
 		R.forceMove(src)
 		return TRUE
@@ -118,7 +118,7 @@
 		if(2)
 			icon_state = "[initial(icon_state)]-[shells_left ? "[max_ammo]" : "0"]"
 	desc = "[initial(desc)] There [(shells_left == 1) ? "is" : "are"] [shells_left] shell\s left!"
-	for (var/material in bullet_cost)
+	for(var/material in bullet_cost)
 		var/material_amount = bullet_cost[material]
 		material_amount = (material_amount*stored_ammo.len) + base_cost[material]
 		materials[material] = material_amount

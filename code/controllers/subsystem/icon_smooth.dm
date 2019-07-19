@@ -13,15 +13,15 @@ SUBSYSTEM_DEF(icon_smooth)
 	while(cached.len)
 		var/atom/A = cached[cached.len]
 		cached.len--
-		if (A.flags_1 & INITIALIZED_1)
+		if(A.flags_1 & INITIALIZED_1)
 			smooth_icon(A)
 		else
 			deferred += A
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
 
-	if (!cached.len)
-		if (deferred.len)
+	if(!cached.len)
+		if(deferred.len)
 			smooth_queue = deferred
 			deferred = cached
 		else

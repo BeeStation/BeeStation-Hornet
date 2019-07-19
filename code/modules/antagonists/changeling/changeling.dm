@@ -101,7 +101,7 @@
 	. = ..()
 
 /datum/antagonist/changeling/proc/remove_clownmut()
-	if (owner)
+	if(owner)
 		var/mob/living/carbon/human/H = owner.current
 		if(istype(H) && owner.assigned_role == "Clown")
 			to_chat(H, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
@@ -359,7 +359,7 @@
 
 
 /datum/antagonist/changeling/greet()
-	if (you_are_greet)
+	if(you_are_greet)
 		to_chat(owner.current, "<span class='boldannounce'>You are [changelingID], a changeling! You have absorbed and taken the form of a human.</span>")
 	to_chat(owner.current, "<span class='boldannounce'>Use say \"[MODE_TOKEN_CHANGELING] message\" to communicate with your fellow changelings.</span>")
 	to_chat(owner.current, "<b>You must complete the following tasks:</b>")
@@ -444,7 +444,7 @@
 				maroon_objective.find_target()
 			objectives += maroon_objective
 
-			if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
+			if(!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 				var/datum/objective/escape/escape_with_identity/identity_theft = new
 				identity_theft.owner = owner
 				identity_theft.target = maroon_objective.target
@@ -452,7 +452,7 @@
 				objectives += identity_theft
 				escape_objective_possible = FALSE
 
-	if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
+	if(!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 		if(prob(50))
 			var/datum/objective/escape/escape_objective = new
 			escape_objective.owner = owner

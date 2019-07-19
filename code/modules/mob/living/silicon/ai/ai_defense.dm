@@ -15,7 +15,7 @@
 	return //immune to slimes
 
 /mob/living/silicon/ai/blob_act(obj/structure/blob/B)
-	if (stat != DEAD)
+	if(stat != DEAD)
 		adjustBruteLoss(60)
 		updatehealth()
 		return 1
@@ -26,7 +26,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	disconnect_shell()
-	if (prob(30))
+	if(prob(30))
 		switch(pick(1,2))
 			if(1)
 				view_core()
@@ -38,11 +38,11 @@
 		if(1)
 			gib()
 		if(2)
-			if (stat != DEAD)
+			if(stat != DEAD)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3)
-			if (stat != DEAD)
+			if(stat != DEAD)
 				adjustBruteLoss(30)
 
 

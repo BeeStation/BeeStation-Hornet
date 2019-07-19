@@ -25,8 +25,8 @@
 
 	var/sleeping_agents = required_enemies + round(num_players()*0.05) // At 100 players, it'd be 2 + 5 = 7 teams existing.
 
-	for (var/i in 1 to sleeping_agents)
-		if (!antag_candidates.len)
+	for(var/i in 1 to sleeping_agents)
+		if(!antag_candidates.len)
 			break
 		var/datum/mind/sleeping_agent = antag_pick(antag_candidates)
 		antag_candidates -= sleeping_agent

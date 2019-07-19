@@ -40,7 +40,7 @@
 
 /obj/item/paperplane/Exited(atom/movable/AM, atom/newLoc)
 	. = ..()
-	if (AM == internalPaper)
+	if(AM == internalPaper)
 		internalPaper = null
 		if(!QDELETED(src))
 			qdel(src)

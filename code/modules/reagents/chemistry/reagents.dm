@@ -4,9 +4,9 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 /proc/build_name2reagent()
 	. = list()
-	for (var/t in subtypesof(/datum/reagent))
+	for(var/t in subtypesof(/datum/reagent))
 		var/datum/reagent/R = t
-		if (length(initial(R.name)))
+		if(length(initial(R.name)))
 			.[ckey(initial(R.name))] = t
 
 
@@ -137,7 +137,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /proc/pretty_string_from_reagent_list(list/reagent_list)
 	//Convert reagent list to a printable string for logging etc
 	var/list/rs = list()
-	for (var/datum/reagent/R in reagent_list)
+	for(var/datum/reagent/R in reagent_list)
 		rs += "[R.name], [R.volume]"
 
 	return rs.Join(" | ")

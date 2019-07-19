@@ -563,12 +563,12 @@ SUBSYSTEM_DEF(job)
 	set waitfor = FALSE
 	var/oldjobs = SSjob.occupations
 	sleep(20)
-	for (var/datum/job/J in oldjobs)
+	for(var/datum/job/J in oldjobs)
 		INVOKE_ASYNC(src, .proc/RecoverJob, J)
 
 /datum/controller/subsystem/job/proc/RecoverJob(datum/job/J)
 	var/datum/job/newjob = GetJob(J.title)
-	if (!istype(newjob))
+	if(!istype(newjob))
 		return
 	newjob.total_positions = J.total_positions
 	newjob.spawn_positions = J.spawn_positions
@@ -580,7 +580,7 @@ SUBSYSTEM_DEF(job)
 
 /obj/structure/chair/JoinPlayerHere(mob/M, buckle)
 	// Placing a mob in a chair will attempt to buckle it, or else fall back to default.
-	if (buckle && isliving(M) && buckle_mob(M, FALSE, FALSE))
+	if(buckle && isliving(M) && buckle_mob(M, FALSE, FALSE))
 		return
 	..()
 

@@ -13,7 +13,7 @@
 /obj/machinery/mineral/stacking_unit_console/Initialize()
 	. = ..()
 	machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
-	if (machine)
+	if(machine)
 		machine.CONSOLE = src
 
 /obj/machinery/mineral/stacking_unit_console/ui_interact(mob/user)
@@ -109,10 +109,10 @@
 
 	if(materials.silo && !materials.on_hold()) //Dump the sheets to the silo
 		var/matlist = storage.materials & materials.mat_container.materials
-		if (length(matlist))
+		if(length(matlist))
 			var/inserted = materials.mat_container.insert_stack(storage)
 			materials.silo_log(src, "collected", inserted, "sheets", matlist)
-			if (QDELETED(storage))
+			if(QDELETED(storage))
 				stack_list -= key
 			return
 

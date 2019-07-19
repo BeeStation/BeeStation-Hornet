@@ -81,7 +81,7 @@ Code:
 		onclose(usr, "radio")
 		return
 
-	if (href_list["set"])
+	if(href_list["set"])
 
 		if(href_list["set"] == "freq")
 			var/new_freq = input(usr, "Input a new signalling frequency", "Remote Signaller Frequency", format_frequency(frequency)) as num|null
@@ -172,7 +172,7 @@ Code:
 
 /obj/item/assembly/signaler/receiver/examine(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>The radio receiver is [on?"on":"off"].</span>")
+	to_chat(user, "<span class='notice'>The radio receiver is [on ? "on" : "off"].</span>")
 
 /obj/item/assembly/signaler/receiver/receive_signal(datum/signal/signal)
 	if(!on)

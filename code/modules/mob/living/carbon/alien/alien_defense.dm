@@ -20,7 +20,7 @@ In all, this is a lot like the monkey code. /N
 
 	switch(M.a_intent)
 
-		if ("help")
+		if("help")
 			set_resting(FALSE)
 			AdjustStun(-60)
 			AdjustKnockdown(-60)
@@ -30,7 +30,7 @@ In all, this is a lot like the monkey code. /N
 			AdjustSleeping(-100)
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake [p_them()] up!</span>")
 
-		if ("grab")
+		if("grab")
 			grabbedby(M)
 
 		else
@@ -59,7 +59,7 @@ In all, this is a lot like the monkey code. /N
 			help_shake_act(M)
 		if("grab")
 			grabbedby(M)
-		if ("harm")
+		if("harm")
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			return 1
 		if("disarm")
@@ -70,7 +70,7 @@ In all, this is a lot like the monkey code. /N
 
 /mob/living/carbon/alien/attack_paw(mob/living/carbon/monkey/M)
 	if(..())
-		if (stat != DEAD)
+		if(stat != DEAD)
 			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
 			apply_damage(rand(1, 3), BRUTE, affecting)
 
@@ -106,12 +106,12 @@ In all, this is a lot like the monkey code. /N
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return
 	..()
-	switch (severity)
-		if (1)
+	switch(severity)
+		if(1)
 			gib()
 			return
 
-		if (2)
+		if(2)
 			take_overall_damage(60, 60)
 			adjustEarDamage(30,120)
 

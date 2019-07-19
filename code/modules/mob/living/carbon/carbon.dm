@@ -320,31 +320,31 @@
 	I.item_flags &= ~BEING_REMOVED
 
 /mob/living/carbon/proc/uncuff()
-	if (handcuffed)
+	if(handcuffed)
 		var/obj/item/W = handcuffed
 		handcuffed = null
-		if (buckled && buckled.buckle_requires_restraints)
+		if(buckled && buckled.buckle_requires_restraints)
 			buckled.unbuckle_mob(src)
 		update_handcuffed()
-		if (client)
+		if(client)
 			client.screen -= W
-		if (W)
+		if(W)
 			W.forceMove(drop_location())
 			W.dropped(src)
-			if (W)
+			if(W)
 				W.layer = initial(W.layer)
 				W.plane = initial(W.plane)
 		changeNext_move(0)
-	if (legcuffed)
+	if(legcuffed)
 		var/obj/item/W = legcuffed
 		legcuffed = null
 		update_inv_legcuffed()
-		if (client)
+		if(client)
 			client.screen -= W
-		if (W)
+		if(W)
 			W.forceMove(drop_location())
 			W.dropped(src)
-			if (W)
+			if(W)
 				W.layer = initial(W.layer)
 				W.plane = initial(W.plane)
 		changeNext_move(0)
@@ -475,7 +475,7 @@
 			if(T)
 				T.add_vomit_floor(src, VOMIT_TOXIC)//toxic barf looks different
 		T = get_step(T, dir)
-		if (is_blocked_turf(T))
+		if(is_blocked_turf(T))
 			break
 	return 1
 

@@ -40,17 +40,17 @@
 
 	msg += "It is [anchored ? "wrenched to the floor." : "unsecured. A wrench should fix that."]<br/>"
 
-	if (blade_status == GUILLOTINE_BLADE_RAISED)
+	if(blade_status == GUILLOTINE_BLADE_RAISED)
 		msg += "The blade is raised, ready to fall, and"
 
-		if (blade_sharpness >= GUILLOTINE_DECAP_MIN_SHARP)
+		if(blade_sharpness >= GUILLOTINE_DECAP_MIN_SHARP)
 			msg += " looks sharp enough to decapitate without any resistance."
 		else
 			msg += " doesn't look particularly sharp. Perhaps a whetstone can be used to sharpen it."
 	else
 		msg += "The blade is hidden inside the stocks."
 
-	if (LAZYLEN(buckled_mobs))
+	if(LAZYLEN(buckled_mobs))
 		msg += "<br/>"
 		msg += "Someone appears to be strapped in. You can help them out, or you can harm them by activating the guillotine."
 
@@ -62,25 +62,25 @@
 	add_fingerprint(user)
 
 	// Currently being used by something
-	if (current_action)
+	if(current_action)
 		return
 
-	switch (blade_status)
-		if (GUILLOTINE_BLADE_MOVING)
+	switch(blade_status)
+		if(GUILLOTINE_BLADE_MOVING)
 			return
-		if (GUILLOTINE_BLADE_DROPPED)
+		if(GUILLOTINE_BLADE_DROPPED)
 			blade_status = GUILLOTINE_BLADE_MOVING
 			icon_state = "guillotine_raise"
 			addtimer(CALLBACK(src, .proc/raise_blade), GUILLOTINE_ANIMATION_LENGTH)
 			return
-		if (GUILLOTINE_BLADE_RAISED)
-			if (LAZYLEN(buckled_mobs))
-				if (user.a_intent == INTENT_HARM)
+		if(GUILLOTINE_BLADE_RAISED)
+			if(LAZYLEN(buckled_mobs))
+				if(user.a_intent == INTENT_HARM)
 					user.visible_message("<span class='warning'>[user] begins to pull the lever!</span>",
 						                 "<span class='warning'>You begin to the pull the lever.</span>")
 					current_action = GUILLOTINE_ACTION_INUSE
 
-					if (do_after(user, GUILLOTINE_ACTIVATE_DELAY, target = src) && blade_status == GUILLOTINE_BLADE_RAISED)
+					if(do_after(user, GUILLOTINE_ACTIVATE_DELAY, target = src) && blade_status == GUILLOTINE_BLADE_RAISED)
 						current_action = 0
 						blade_status = GUILLOTINE_BLADE_MOVING
 						icon_state = "guillotine_drop"
@@ -90,7 +90,7 @@
 				else
 					var/mob/living/carbon/human/H = buckled_mobs[1]
 
-					if (H)
+					if(H)
 						H.regenerate_icons()
 
 					unbuckle_all_mobs()
@@ -104,19 +104,19 @@
 	icon_state = "guillotine_raised"
 
 /obj/structure/guillotine/proc/drop_blade(mob/user)
-	if (buckled_mobs.len && blade_sharpness)
+	if(buckled_mobs.len && blade_sharpness)
 		var/mob/living/carbon/human/H = buckled_mobs[1]
 
-		if (!H)
+		if(!H)
 			return
 
 		var/obj/item/bodypart/head/head = H.get_bodypart("head")
 
-		if (QDELETED(head))
+		if(QDELETED(head))
 			return
 
 		playsound(src, 'sound/weapons/bladeslice.ogg', 100, 1)
-		if (blade_sharpness >= GUILLOTINE_DECAP_MIN_SHARP || head.brute_dam >= 100)
+		if(blade_sharpness >= GUILLOTINE_DECAP_MIN_SHARP || head.brute_dam >= 100)
 			head.dismember()
 			log_combat(user, H, "beheaded", src)
 			H.regenerate_icons()
@@ -125,9 +125,9 @@
 
 			var/blood_overlay = "bloody"
 
-			if (kill_count == 2)
+			if(kill_count == 2)
 				blood_overlay = "bloodier"
-			else if (kill_count > 2)
+			else if(kill_count > 2)
 				blood_overlay = "bloodiest"
 
 			blood_overlay = "guillotine_" + blood_overlay + "_overlay"
@@ -139,7 +139,7 @@
 			var/delay_offset = 0
 			for(var/mob/M in viewers(src, 7))
 				var/mob/living/carbon/human/C = M
-				if (ishuman(M))
+				if(ishuman(M))
 					addtimer(CALLBACK(C, /mob/.proc/emote, "clap"), delay_offset * 0.3)
 					delay_offset++
 		else
@@ -147,20 +147,20 @@
 			log_combat(user, H, "dropped the blade on", src, " non-fatally")
 			H.emote("scream")
 
-		if (blade_sharpness > 1)
+		if(blade_sharpness > 1)
 			blade_sharpness -= 1
 
 	blade_status = GUILLOTINE_BLADE_DROPPED
 	icon_state = "guillotine"
 
 /obj/structure/guillotine/attackby(obj/item/W, mob/user, params)
-	if (istype(W, /obj/item/sharpener))
+	if(istype(W, /obj/item/sharpener))
 		add_fingerprint(user)
-		if (blade_status == GUILLOTINE_BLADE_SHARPENING)
+		if(blade_status == GUILLOTINE_BLADE_SHARPENING)
 			return
 
-		if (blade_status == GUILLOTINE_BLADE_RAISED)
-			if (blade_sharpness < GUILLOTINE_BLADE_MAX_SHARP)
+		if(blade_status == GUILLOTINE_BLADE_RAISED)
+			if(blade_sharpness < GUILLOTINE_BLADE_MAX_SHARP)
 				blade_status = GUILLOTINE_BLADE_SHARPENING
 				if(do_after(user, 7, target = src))
 					blade_status = GUILLOTINE_BLADE_RAISED
@@ -182,31 +182,31 @@
 		return ..()
 
 /obj/structure/guillotine/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	if (!anchored)
+	if(!anchored)
 		to_chat(usr, "<span class='warning'>The [src] needs to be wrenched to the floor!</span>")
 		return FALSE
 
-	if (!istype(M, /mob/living/carbon/human))
+	if(!istype(M, /mob/living/carbon/human))
 		to_chat(usr, "<span class='warning'>It doesn't look like [M.p_they()] can fit into this properly!</span>")
 		return FALSE // Can't decapitate non-humans
 
-	if (blade_status != GUILLOTINE_BLADE_RAISED)
+	if(blade_status != GUILLOTINE_BLADE_RAISED)
 		to_chat(usr, "<span class='warning'>You need to raise the blade before buckling someone in!</span>")
 		return FALSE
 
 	return ..(M, force, FALSE)
 
 /obj/structure/guillotine/post_buckle_mob(mob/living/M)
-	if (!istype(M, /mob/living/carbon/human))
+	if(!istype(M, /mob/living/carbon/human))
 		return
 
 	var/mob/living/carbon/human/H = M
 
-	if (H.dna)
-		if (H.dna.species)
+	if(H.dna)
+		if(H.dna.species)
 			var/datum/species/S = H.dna.species
 
-			if (istype(S))
+			if(istype(S))
 				H.cut_overlays()
 				H.update_body_parts_head_only()
 				H.pixel_y += -GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
@@ -227,23 +227,23 @@
 	..()
 
 /obj/structure/guillotine/can_be_unfasten_wrench(mob/user, silent)
-	if (LAZYLEN(buckled_mobs))
-		if (!silent)
+	if(LAZYLEN(buckled_mobs))
+		if(!silent)
 			to_chat(user, "<span class='warning'>Can't unfasten, someone's strapped in!</span>")
 		return FAILED_UNFASTEN
 
-	if (current_action)
+	if(current_action)
 		return FAILED_UNFASTEN
 
 	return ..()
 
 /obj/structure/guillotine/wrench_act(mob/living/user, obj/item/I)
-	if (current_action)
+	if(current_action)
 		return
 
 	current_action = GUILLOTINE_ACTION_WRENCH
 
-	if (do_after(user, GUILLOTINE_WRENCH_DELAY, target = src))
+	if(do_after(user, GUILLOTINE_WRENCH_DELAY, target = src))
 		current_action = 0
 		default_unfasten_wrench(user, I, 0)
 		setDir(SOUTH)

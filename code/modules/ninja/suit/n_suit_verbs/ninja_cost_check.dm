@@ -9,7 +9,7 @@
 		return 1
 	else
 		//This shit used to be handled individually on every proc.. why even bother with a universal check proc then?
-		cell.charge-=(actualCost)
+		cell.charge -= (actualCost)
 
 	switch(specificCheck)
 		if(N_STEALTH_CANCEL)

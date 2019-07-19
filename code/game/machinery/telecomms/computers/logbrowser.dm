@@ -99,12 +99,12 @@
 					var/language = C.parameters["language"]
 
 					// based on [/atom/movable/proc/lang_treat]
-					if (universal_translate || user.has_language(language))
+					if(universal_translate || user.has_language(language))
 						message = "\"[message]\""
-					else if (!user.has_language(language))
+					else if(!user.has_language(language))
 						var/datum/language/D = GLOB.language_datum_instances[language]
 						message = "\"[D.scramble(message)]\""
-					else if (language)
+					else if(language)
 						message = "<i>(unintelligible)</i>"
 
 					dat += "<u><font color = #18743E>Contents</font></u>: [message]<br>"

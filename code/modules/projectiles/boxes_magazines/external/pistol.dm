@@ -34,7 +34,7 @@
 
 /obj/item/ammo_box/magazine/m45/update_icon()
 	..()
-	if (ammo_count() >= 8)
+	if(ammo_count() >= 8)
 		icon_state = "45-8"
 	else
 		icon_state = "45-[ammo_count()]"

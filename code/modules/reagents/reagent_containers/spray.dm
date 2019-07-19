@@ -134,7 +134,7 @@
 	set src in usr
 	if(usr.incapacitated())
 		return
-	if (alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
+	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
 	if(isturf(usr.loc) && src.loc == usr)
 		to_chat(usr, "<span class='notice'>You empty \the [src] onto the floor.</span>")
@@ -144,7 +144,7 @@
 /obj/item/reagent_containers/spray/on_reagent_change(changetype)
 	var/total_reagent_weight
 	var/amount_of_reagents
-	for (var/datum/reagent/R in reagents.reagent_list)
+	for(var/datum/reagent/R in reagents.reagent_list)
 		total_reagent_weight = total_reagent_weight + R.reagent_weight
 		amount_of_reagents++
 
@@ -210,7 +210,7 @@
 
 // Fix pepperspraying yourself
 /obj/item/reagent_containers/spray/pepper/afterattack(atom/A as mob|obj, mob/user)
-	if (A.loc == user)
+	if(A.loc == user)
 		return
 	. = ..()
 
@@ -288,7 +288,7 @@
 
 /obj/item/reagent_containers/spray/chemsprayer/afterattack(atom/A as mob|obj, mob/user)
 	// Make it so the bioterror spray doesn't spray yourself when you click your inventory items
-	if (A.loc == user)
+	if(A.loc == user)
 		return
 	. = ..()
 
@@ -299,7 +299,7 @@
 	var/turf/T2 = get_step(T,turn(direction, -90))
 	var/list/the_targets = list(T,T1,T2)
 
-	for(var/i=1, i<=3, i++) // intialize sprays
+	for(var/i=1, i <= 3, i++) // intialize sprays
 		if(reagents.total_volume < 1)
 			return
 		..(the_targets[i], user)

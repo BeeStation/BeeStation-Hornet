@@ -184,10 +184,10 @@
 /obj/item/reagent_containers/food/snacks/icecream/proc/set_cone_type(var/cone_name)
 	cone_type = cone_name
 	icon_state = "icecream_cone_[cone_name]"
-	switch (cone_type)
-		if ("waffle")
+	switch(cone_type)
+		if("waffle")
 			reagents.add_reagent(/datum/reagent/consumable/nutriment, 1)
-		if ("chocolate")
+		if("chocolate")
 			reagents.add_reagent(/datum/reagent/consumable/coco, 1) // chocolate ain't as nutritious kids
 
 	desc = "Delicious [cone_name] cone, but no ice cream."
@@ -196,19 +196,19 @@
 /obj/item/reagent_containers/food/snacks/icecream/proc/add_ice_cream(var/flavour_name)
 	name = "[flavour_name] icecream"
 	src.add_overlay("icecream_[flavour_name]")
-	switch (flavour_name) // adding the actual reagents advertised in the ingredient list
-		if (/datum/reagent/consumable/vanilla)
+	switch(flavour_name) // adding the actual reagents advertised in the ingredient list
+		if(/datum/reagent/consumable/vanilla)
 			desc = "A delicious [cone_type] cone filled with vanilla ice cream. All the other ice creams take content from it."
-		if ("chocolate")
+		if("chocolate")
 			desc = "A delicious [cone_type] cone filled with chocolate ice cream. Surprisingly, made with real cocoa."
 			reagents.add_reagent(/datum/reagent/consumable/coco, 2)
-		if ("strawberry")
+		if("strawberry")
 			desc = "A delicious [cone_type] cone filled with strawberry ice cream. Definitely not made with real strawberries."
 			reagents.add_reagent(/datum/reagent/consumable/berryjuice, 2)
-		if ("blue")
+		if("blue")
 			desc = "A delicious [cone_type] cone filled with blue ice cream. Made with real... blue?"
 			reagents.add_reagent(/datum/reagent/consumable/ethanol/singulo, 2)
-		if ("mob")
+		if("mob")
 			desc = "A suspicious [cone_type] cone filled with bright red ice cream. That's probably not strawberry..."
 			reagents.add_reagent(/datum/reagent/liquidgibs, 2)
 	ice_creamed = 1

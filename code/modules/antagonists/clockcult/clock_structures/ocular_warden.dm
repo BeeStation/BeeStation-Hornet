@@ -114,9 +114,9 @@
 			continue
 		if(L.stat || !(L.mobility_flags & MOBILITY_STAND))
 			continue
-		if (iscarbon(L))
+		if(iscarbon(L))
 			var/mob/living/carbon/c = L
-			if (istype(c.handcuffed,/obj/item/restraints/handcuffs/clockwork))
+			if(istype(c.handcuffed,/obj/item/restraints/handcuffs/clockwork))
 				continue
 		if(ishostile(L))
 			var/mob/living/simple_animal/hostile/H = L
@@ -136,9 +136,9 @@
 		var/obj/mecha/M = N
 		if(get_dist(M, src) <= sight_range && M.occupant && !is_servant_of_ratvar(M.occupant))
 			if(!length(viewcache))
-				for (var/obj/Z in view(sight_range, src))
+				for(var/obj/Z in view(sight_range, src))
 					viewcache += Z
-			if (M in viewcache)
+			if(M in viewcache)
 				. += M
 
 /obj/structure/destructible/clockwork/ocular_warden/proc/lose_target()

@@ -240,7 +240,7 @@
 		var/atom/movable/A = get_object()
 		var/sanitized_text = sanitize(text)
 		A.say(sanitized_text)
-		if (assembly)
+		if(assembly)
 			log_say("[assembly] [REF(assembly)] : [sanitized_text]")
 		else
 			log_say("[name] ([type]) : [sanitized_text]")
@@ -433,7 +433,7 @@
 		var/atom/movable/A = get_object()
 		var/sanitized_text = sanitize(text)
 		radio.talk_into(A, sanitized_text, , get_spans())
-		if (assembly)
+		if(assembly)
 			log_say("[assembly] [REF(assembly)] : [sanitized_text]")
 
 /obj/item/integrated_circuit/output/text_to_radio/attackby(obj/O, mob/user)

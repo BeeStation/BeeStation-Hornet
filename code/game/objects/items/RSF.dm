@@ -62,7 +62,7 @@ RSF
 	. = ..()
 	if(!proximity)
 		return
-	if (!(istype(A, /obj/structure/table) || isfloorturf(A)))
+	if(!(istype(A, /obj/structure/table) || isfloorturf(A)))
 		return
 
 	if(iscyborg(user))
@@ -70,7 +70,7 @@ RSF
 		if(!R.cell || R.cell.charge < 200)
 			to_chat(user, "<span class='warning'>You do not have enough power to use [src].</span>")
 			return
-	else if (matter < 1)
+	else if(matter < 1)
 		to_chat(user, "<span class='warning'>\The [src] doesn't have enough matter left.</span>")
 		return
 
@@ -99,7 +99,7 @@ RSF
 			use_matter(10, user)
 
 /obj/item/rsf/proc/use_matter(charge, mob/user)
-	if (iscyborg(user))
+	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user
 		R.cell.charge -= charge
 	else
@@ -158,7 +158,7 @@ RSF
 		return
 	if(!proximity)
 		return
-	if (!(istype(A, /obj/structure/table) || isfloorturf(A)))
+	if(!(istype(A, /obj/structure/table) || isfloorturf(A)))
 		return
 	if(matter < 1)
 		to_chat(user, "<span class='warning'>[src] doesn't have enough matter left. Wait for it to recharge!</span>")
@@ -174,7 +174,7 @@ RSF
 	var/obj/item/reagent_containers/food/snacks/cookie/S = new /obj/item/reagent_containers/food/snacks/cookie(T)
 	if(toxin)
 		S.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 10)
-	if (iscyborg(user))
+	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user
 		R.cell.charge -= 100
 	else

@@ -104,7 +104,7 @@
 				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user) // transfer from, transfer to - who cares?
 
 				to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units.</span>")
-			if (reagents.total_volume >= reagents.maximum_volume)
+			if(reagents.total_volume >= reagents.maximum_volume)
 				mode=!mode
 				update_icon()
 
@@ -148,7 +148,7 @@
 			reagents.reaction(L, INJECT, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
 			to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
-			if (reagents.total_volume <= 0 && mode==SYRINGE_INJECT)
+			if(reagents.total_volume <= 0 && mode == SYRINGE_INJECT)
 				mode = SYRINGE_DRAW
 				update_icon()
 
@@ -169,9 +169,9 @@
 		var/mob/M = loc
 		var/injoverlay
 		switch(mode)
-			if (SYRINGE_DRAW)
+			if(SYRINGE_DRAW)
 				injoverlay = "draw"
-			if (SYRINGE_INJECT)
+			if(SYRINGE_INJECT)
 				injoverlay = "inject"
 		add_overlay(injoverlay)
 		M.update_inv_hands()

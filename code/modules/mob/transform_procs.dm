@@ -1,5 +1,5 @@
 /mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG))
-	if (notransform)
+	if(notransform)
 		return
 	//Handle items on mob
 
@@ -7,7 +7,7 @@
 	var/list/stored_implants = list()
 	var/list/int_organs = list()
 
-	if (tr_flags & TR_KEEPIMPLANTS)
+	if(tr_flags & TR_KEEPIMPLANTS)
 		for(var/X in implants)
 			var/obj/item/implant/IMP = X
 			stored_implants += IMP
@@ -59,7 +59,7 @@
 	O.a_intent = INTENT_HARM
 
 	//keep viruses?
-	if (tr_flags & TR_KEEPVIRUS)
+	if(tr_flags & TR_KEEPVIRUS)
 		O.diseases = diseases
 		diseases = list()
 		for(var/thing in O.diseases)
@@ -67,7 +67,7 @@
 			D.affected_mob = O
 
 	//keep damage?
-	if (tr_flags & TR_KEEPDAMAGE)
+	if(tr_flags & TR_KEEPDAMAGE)
 		O.setToxLoss(getToxLoss(), 0)
 		O.adjustBruteLoss(getBruteLoss(), 0)
 		O.setOxyLoss(getOxyLoss(), 0)
@@ -78,7 +78,7 @@
 		O.radiation = radiation
 
 	//re-add implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
+	if(tr_flags & TR_KEEPIMPLANTS)
 		for(var/Y in implants)
 			var/obj/item/implant/IMP = Y
 			IMP.implant(O, null, 1)
@@ -133,7 +133,7 @@
 			changeling.regain_powers()
 
 
-	if (tr_flags & TR_DEFAULTMSG)
+	if(tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now a monkey.</B>")
 
 	for(var/A in loc.vars)
@@ -150,7 +150,7 @@
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
 /mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG))
-	if (notransform)
+	if(notransform)
 		return
 	//Handle items on mob
 
@@ -158,7 +158,7 @@
 	var/list/stored_implants = list()
 	var/list/int_organs = list()
 
-	if (tr_flags & TR_KEEPIMPLANTS)
+	if(tr_flags & TR_KEEPIMPLANTS)
 		for(var/X in implants)
 			var/obj/item/implant/IMP = X
 			stored_implants += IMP
@@ -174,12 +174,12 @@
 		CH.cavity_item = null
 
 	//now the rest
-	if (tr_flags & TR_KEEPITEMS)
+	if(tr_flags & TR_KEEPITEMS)
 		var/Itemlist = get_equipped_items(TRUE)
 		Itemlist += held_items
 		for(var/obj/item/W in Itemlist)
 			dropItemToGround(W, TRUE)
-			if (client)
+			if(client)
 				client.screen -= W
 
 
@@ -218,7 +218,7 @@
 		O.hellbound = hellbound
 
 	//keep viruses?
-	if (tr_flags & TR_KEEPVIRUS)
+	if(tr_flags & TR_KEEPVIRUS)
 		O.diseases = diseases
 		diseases = list()
 		for(var/thing in O.diseases)
@@ -227,7 +227,7 @@
 		O.med_hud_set_status()
 
 	//keep damage?
-	if (tr_flags & TR_KEEPDAMAGE)
+	if(tr_flags & TR_KEEPDAMAGE)
 		O.setToxLoss(getToxLoss(), 0)
 		O.adjustBruteLoss(getBruteLoss(), 0)
 		O.setOxyLoss(getOxyLoss(), 0)
@@ -238,7 +238,7 @@
 		O.radiation = radiation
 
 	//re-add implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
+	if(tr_flags & TR_KEEPIMPLANTS)
 		for(var/Y in implants)
 			var/obj/item/implant/IMP = Y
 			IMP.implant(O, null, 1)
@@ -292,7 +292,7 @@
 				changeling.regain_powers()
 
 	O.a_intent = INTENT_HELP
-	if (tr_flags & TR_DEFAULTMSG)
+	if(tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now a human.</B>")
 
 	transfer_observers_to(O)
@@ -306,7 +306,7 @@
 	qdel(src)
 
 /mob/living/carbon/human/AIize(transfer_after = TRUE, client/preference_source)
-	if (notransform)
+	if(notransform)
 		return
 	for(var/t in bodyparts)
 		qdel(t)
@@ -314,7 +314,7 @@
 	return ..()
 
 /mob/living/carbon/AIize(transfer_after = TRUE, client/preference_source)
-	if (notransform)
+	if(notransform)
 		return
 	notransform = TRUE
 	Paralyze(1, ignore_canstun = TRUE)
@@ -358,7 +358,7 @@
 	qdel(src)
 
 /mob/living/carbon/human/proc/Robotize(delete_items = 0, transfer_after = TRUE)
-	if (notransform)
+	if(notransform)
 		return
 	notransform = TRUE
 	Paralyze(1, ignore_canstun = TRUE)
@@ -405,7 +405,7 @@
 
 //human -> alien
 /mob/living/carbon/human/proc/Alienize()
-	if (notransform)
+	if(notransform)
 		return
 	notransform = TRUE
 	mobility_flags = NONE
@@ -435,7 +435,7 @@
 	qdel(src)
 
 /mob/living/carbon/human/proc/slimeize(reproduce as num)
-	if (notransform)
+	if(notransform)
 		return
 	notransform = TRUE
 	mobility_flags = NONE
@@ -451,7 +451,7 @@
 	if(reproduce)
 		var/number = pick(14;2,3,4)	//reproduce (has a small chance of producing 3 or 4 offspring)
 		var/list/babies = list()
-		for(var/i=1,i<=number,i++)
+		for(var/i=1,i <= number,i++)
 			var/mob/living/simple_animal/slime/M = new/mob/living/simple_animal/slime(loc)
 			M.set_nutrition(round(nutrition/number))
 			step_away(M,src)
@@ -474,7 +474,7 @@
 
 
 /mob/living/carbon/human/proc/corgize()
-	if (notransform)
+	if(notransform)
 		return
 	notransform = TRUE
 	Paralyze(1, ignore_canstun = TRUE)

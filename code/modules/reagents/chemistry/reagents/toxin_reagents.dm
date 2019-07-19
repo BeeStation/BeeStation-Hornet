@@ -36,7 +36,7 @@
 		return
 	if(!M.has_dna())
 		return  //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	if((method==VAPOR && prob(min(33, reac_volume))) || method==INGEST || method==PATCH || method==INJECT)
+	if((method == VAPOR && prob(min(33, reac_volume))) || method == INGEST || method == PATCH || method == INJECT)
 		M.randmuti()
 		if(prob(98))
 			M.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
@@ -633,7 +633,7 @@
 
 /datum/reagent/toxin/spewium/on_mob_life(mob/living/carbon/C)
 	.=..()
-	if(current_cycle >=11 && prob(min(50,current_cycle)))
+	if(current_cycle >= 11 && prob(min(50,current_cycle)))
 		C.vomit(10, prob(10), prob(50), rand(0,4), TRUE, prob(30))
 		for(var/datum/reagent/toxin/R in C.reagents.reagent_list)
 			if(R != src)
@@ -641,7 +641,7 @@
 
 /datum/reagent/toxin/spewium/overdose_process(mob/living/carbon/C)
 	. = ..()
-	if(current_cycle >=33 && prob(15))
+	if(current_cycle >= 33 && prob(15))
 		C.spew_organ()
 		C.vomit(0, TRUE, TRUE, 4)
 		to_chat(C, "<span class='userdanger'>You feel something lumpy come up as you vomit.</span>")
@@ -691,7 +691,7 @@
 
 /datum/reagent/toxin/rotatium/on_mob_life(mob/living/carbon/M)
 	if(M.hud_used)
-		if(current_cycle >= 20 && current_cycle%20 == 0)
+		if(current_cycle >= 20 && current_cycle % 20 == 0)
 			var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
 			var/rotation = min(round(current_cycle/20), 89) // By this point the player is probably puking and quitting anyway
 			for(var/whole_screen in screens)
@@ -789,7 +789,7 @@
 	O.acid_act(acidpwr, reac_volume)
 
 /datum/reagent/toxin/acid/reaction_turf(turf/T, reac_volume)
-	if (!istype(T))
+	if(!istype(T))
 		return
 	reac_volume = round(reac_volume,0.1)
 	T.acid_act(acidpwr, reac_volume)

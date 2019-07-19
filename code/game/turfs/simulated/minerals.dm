@@ -24,14 +24,14 @@
 	var/defer_change = 0
 
 /turf/closed/mineral/Initialize()
-	if (!canSmoothWith)
+	if(!canSmoothWith)
 		canSmoothWith = list(/turf/closed/mineral, /turf/closed/indestructible)
 	var/matrix/M = new
 	M.Translate(-4, -4)
 	transform = M
 	icon = smooth_icon
 	. = ..()
-	if (mineralType && mineralAmt && spread && spreadChance)
+	if(mineralType && mineralAmt && spread && spreadChance)
 		for(var/dir in GLOB.cardinals)
 			if(prob(spreadChance))
 				var/turf/T = get_step(src, dir)
@@ -47,13 +47,13 @@
 
 
 /turf/closed/mineral/attackby(obj/item/I, mob/user, params)
-	if (!user.IsAdvancedToolUser())
+	if(!user.IsAdvancedToolUser())
 		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 
 	if(I.tool_behaviour == TOOL_MINING)
 		var/turf/T = user.loc
-		if (!isturf(T))
+		if(!isturf(T))
 			return
 
 		if(last_act + (40 * I.toolspeed) > world.time)//prevents message spam
@@ -70,7 +70,7 @@
 		return attack_hand(user)
 
 /turf/closed/mineral/proc/gets_drilled()
-	if (mineralType && (mineralAmt > 0))
+	if(mineralType && (mineralAmt > 0))
 		new mineralType(src, mineralAmt)
 		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
@@ -117,10 +117,10 @@
 	..()
 	switch(severity)
 		if(3)
-			if (prob(75))
+			if(prob(75))
 				gets_drilled(null, 1)
 		if(2)
-			if (prob(90))
+			if(prob(90))
 				gets_drilled(null, 1)
 		if(1)
 			gets_drilled(null, 1)
@@ -142,10 +142,10 @@
 
 	mineralSpawnChanceList = typelist("mineralSpawnChanceList", mineralSpawnChanceList)
 
-	if (display_icon_state)
+	if(display_icon_state)
 		icon_state = display_icon_state
 	. = ..()
-	if (prob(mineralChance))
+	if(prob(mineralChance))
 		var/path = pickweight(mineralSpawnChanceList)
 		var/turf/T = ChangeTurf(path,null,CHANGETURF_IGNORE_AIR)
 

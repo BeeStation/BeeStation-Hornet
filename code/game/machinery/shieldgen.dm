@@ -23,7 +23,7 @@
 
 /obj/structure/emergency_shield/emp_act(severity)
 	. = ..()
-	if (. & EMP_PROTECT_SELF)
+	if(. & EMP_PROTECT_SELF)
 		return
 	switch(severity)
 		if(1)
@@ -131,7 +131,7 @@
 		to_chat(user, "<span class='warning'>The panel must be closed before operating this machine!</span>")
 		return
 
-	if (active)
+	if(active)
 		user.visible_message("[user] deactivated \the [src].", \
 			"<span class='notice'>You deactivate \the [src].</span>", \
 			"<span class='italics'>You hear heavy droning fade out.</span>")
@@ -156,7 +156,7 @@
 			to_chat(user, "<span class='notice'>You close the panel.</span>")
 	else if(istype(W, /obj/item/stack/cable_coil) && (stat & BROKEN) && panel_open)
 		var/obj/item/stack/cable_coil/coil = W
-		if (coil.get_amount() < 1)
+		if(coil.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one length of cable to repair [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin to replace the wires...</span>")

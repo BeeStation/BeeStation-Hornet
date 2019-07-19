@@ -18,7 +18,7 @@
 
 /obj/machinery/telecomms/allinone/Initialize()
 	. = ..()
-	if (intercept)
+	if(intercept)
 		freq_listening = list(FREQ_SYNDICATE)
 
 /obj/machinery/telecomms/allinone/receive_signal(datum/signal/subspace/signal)
@@ -26,11 +26,11 @@
 		return
 	if(!on || !is_freq_listening(signal))  // has to be on to receive messages
 		return
-	if (!intercept && !(z in signal.levels) && !(0 in signal.levels))  // has to be syndicate or on the right level
+	if(!intercept && !(z in signal.levels) && !(0 in signal.levels))  // has to be syndicate or on the right level
 		return
 
 	// Decompress the signal and mark it done
-	if (intercept)
+	if(intercept)
 		signal.levels += 0  // Signal is broadcast to agents anywhere
 
 	signal.data["compression"] = 0

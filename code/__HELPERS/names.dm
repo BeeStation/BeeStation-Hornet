@@ -24,14 +24,14 @@ proc/squid_name(gender)
 
 /proc/church_name()
 	var/static/church_name
-	if (church_name)
+	if(church_name)
 		return church_name
 
 	var/name = ""
 
 	name += pick("Holy", "United", "First", "Second", "Last")
 
-	if (prob(20))
+	if(prob(20))
 		name += " Space"
 
 	name += " " + pick("Church", "Cathedral", "Body", "Worshippers", "Movement", "Witnesses")
@@ -41,7 +41,7 @@ proc/squid_name(gender)
 
 GLOBAL_VAR(command_name)
 /proc/command_name()
-	if (GLOB.command_name)
+	if(GLOB.command_name)
 		return GLOB.command_name
 
 	var/name = "Central Command"
@@ -57,7 +57,7 @@ GLOBAL_VAR(command_name)
 
 /proc/religion_name()
 	var/static/religion_name
-	if (religion_name)
+	if(religion_name)
 		return religion_name
 
 	var/name = ""
@@ -96,7 +96,7 @@ GLOBAL_VAR(command_name)
 	var/new_station_name = ""
 
 	//Rare: Pre-Prefix
-	if (prob(10))
+	if(prob(10))
 		name = pick(GLOB.station_prefixes)
 		new_station_name = name + " "
 		name = ""
@@ -140,11 +140,11 @@ GLOBAL_VAR(command_name)
 	name += pick("Clandestine", "Prima", "Blue", "Zero-G", "Max", "Blasto", "Waffle", "North", "Omni", "Newton", "Cyber", "Bonk", "Gene", "Gib")
 
 	// Suffix
-	if (prob(80))
+	if(prob(80))
 		name += " "
 
 		// Full
-		if (prob(60))
+		if(prob(60))
 			name += pick("Syndicate", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Enterprises", "Family", "Creations", "International", "Intergalactic", "Interplanetary", "Foundation", "Positronics", "Hive")
 		// Broken
 		else
@@ -208,16 +208,16 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 
 	for(words,words>0,words--)//Randomly picks from one of the choices below.
 
-		if(words==1&&(1 in safety)&&(2 in safety))//If there is only one word remaining and choice 1 or 2 have not been selected.
+		if(words == 1 && (1 in safety) && (2 in safety))//If there is only one word remaining and choice 1 or 2 have not been selected.
 			safety = list(pick(1,2))//Select choice 1 or 2.
-		else if(words==1&&maxwords==2)//Else if there is only one word remaining (and there were two originally), and 1 or 2 were chosen,
+		else if(words == 1 && maxwords == 2)//Else if there is only one word remaining (and there were two originally), and 1 or 2 were chosen,
 			safety = list(3)//Default to list 3
 
 		switch(pick(safety))//Chance based on the safety list.
 			if(1)//1 and 2 can only be selected once each to prevent more than two specific names/places/etc.
 				switch(rand(1,2))//Mainly to add more options later.
 					if(1)
-						if(names.len&&prob(70))
+						if(names.len && prob(70))
 							. += pick(names)
 						else
 							if(prob(10))
@@ -250,7 +250,7 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 					if(4)
 						. += lowertext(pick(threats))
 		if(!return_list)
-			if(words==1)
+			if(words == 1)
 				. += "."
 			else
 				. += ", "

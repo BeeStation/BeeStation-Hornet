@@ -81,7 +81,7 @@
 			user.stop_pulling()
 		else if(user.pulling.pass_flags & PASSTABLE)
 			user.Move_Pulled(src)
-			if (user.pulling.loc == loc)
+			if(user.pulling.loc == loc)
 				user.visible_message("<span class='notice'>[user] places [user.pulling] onto [src].</span>",
 					"<span class='notice'>You place [user.pulling] onto [src].</span>")
 				user.stop_pulling()
@@ -344,12 +344,12 @@
 
 		if(deconstruction_ready)
 			to_chat(user, "<span class='notice'>You start strengthening the reinforced table...</span>")
-			if (W.use_tool(src, user, 50, volume=50))
+			if(W.use_tool(src, user, 50, volume=50))
 				to_chat(user, "<span class='notice'>You strengthen the table.</span>")
 				deconstruction_ready = 0
 		else
 			to_chat(user, "<span class='notice'>You start weakening the reinforced table...</span>")
-			if (W.use_tool(src, user, 50, volume=50))
+			if(W.use_tool(src, user, 50, volume=50))
 				to_chat(user, "<span class='notice'>You weaken the table.</span>")
 				deconstruction_ready = 1
 	else
@@ -479,7 +479,7 @@
 
 /obj/structure/rack/MouseDrop_T(obj/O, mob/user)
 	. = ..()
-	if ((!( istype(O, /obj/item) ) || user.get_active_held_item() != O))
+	if((!( istype(O, /obj/item) ) || user.get_active_held_item() != O))
 		return
 	if(!user.dropItemToGround(O))
 		return
@@ -487,7 +487,7 @@
 		step(O, get_dir(O, src))
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
-	if (W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
+	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
 		W.play_tool_sound(src)
 		deconstruct(TRUE)
 		return
@@ -546,7 +546,7 @@
 	var/building = FALSE
 
 /obj/item/rack_parts/attackby(obj/item/W, mob/user, params)
-	if (W.tool_behaviour == TOOL_WRENCH)
+	if(W.tool_behaviour == TOOL_WRENCH)
 		new /obj/item/stack/sheet/iron(user.loc)
 		qdel(src)
 	else

@@ -22,7 +22,7 @@
 
 		msg = input("Message:", prompt) as num|null
 
-		if (!msg)
+		if(!msg)
 			return
 
 		if(operation == "set")

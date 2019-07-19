@@ -243,7 +243,7 @@
 	taste_description = "the inside of a fire extinguisher"
 
 /datum/reagent/firefighting_foam/reaction_turf(turf/open/T, reac_volume)
-	if (!istype(T))
+	if(!istype(T))
 		return
 
 	if(reac_volume >= 1)

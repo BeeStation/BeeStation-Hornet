@@ -257,7 +257,7 @@
 	var/hue = get_pin_data(IC_INPUT, 1)
 	var/saturation = get_pin_data(IC_INPUT, 2)
 	var/value = get_pin_data(IC_INPUT, 3)
-	if(isnum(hue)&&isnum(saturation)&&isnum(value))
+	if(isnum(hue) && isnum(saturation) && isnum(value))
 		result = HSVtoRGB(hsv(AngleToHue(hue),saturation,value))
 
 	set_pin_data(IC_OUTPUT, 1, result)
@@ -284,7 +284,7 @@
 	var/red = get_pin_data(IC_INPUT, 1)
 	var/green = get_pin_data(IC_INPUT, 2)
 	var/blue = get_pin_data(IC_INPUT, 3)
-	if(isnum(red)&&isnum(green)&&isnum(blue))
+	if(isnum(red) && isnum(green) && isnum(blue))
 		result = rgb(red,green,blue)
 
 	set_pin_data(IC_OUTPUT, 1, result)

@@ -31,7 +31,7 @@
 	carriers_to_make = max(round(num_players()/players_per_carrier, 1), 1)
 
 	for(var/j = 0, j < carriers_to_make, j++)
-		if (!antag_candidates.len)
+		if(!antag_candidates.len)
 			break
 		var/datum/mind/carrier = pick(antag_candidates)
 		carriers += carrier
@@ -82,7 +82,7 @@
 		return FALSE
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/monkey/M in GLOB.alive_mob_list)
-		if (M.HasDisease(D))
+		if(M.HasDisease(D))
 			if(M.onCentCom() || M.onSyndieBase())
 				escaped_monkeys++
 	if(escaped_monkeys >= monkeys_to_win)

@@ -33,12 +33,12 @@
 
 /proc/load_map_config(filename = "data/next_map.json", default_to_box, delete_after, error_if_missing = TRUE)
 	var/datum/map_config/config = new
-	if (default_to_box)
+	if(default_to_box)
 		return config
-	if (!config.LoadConfig(filename, error_if_missing))
+	if(!config.LoadConfig(filename, error_if_missing))
 		qdel(config)
 		config = new /datum/map_config  // Fall back to Box
-	if (delete_after)
+	if(delete_after)
 		fdel(filename)
 	return config
 
@@ -73,57 +73,57 @@
 
 	map_file = json["map_file"]
 	// "map_file": "BoxStation.dmm"
-	if (istext(map_file))
-		if (!fexists("_maps/[map_path]/[map_file]"))
+	if(istext(map_file))
+		if(!fexists("_maps/[map_path]/[map_file]"))
 			log_world("Map file ([map_path]/[map_file]) does not exist!")
 			return
 	// "map_file": ["Lower.dmm", "Upper.dmm"]
-	else if (islist(map_file))
-		for (var/file in map_file)
-			if (!fexists("_maps/[map_path]/[file]"))
+	else if(islist(map_file))
+		for(var/file in map_file)
+			if(!fexists("_maps/[map_path]/[file]"))
 				log_world("Map file ([map_path]/[file]) does not exist!")
 				return
 	else
 		log_world("map_file missing from json!")
 		return
 
-	if (islist(json["shuttles"]))
+	if(islist(json["shuttles"]))
 		var/list/L = json["shuttles"]
 		for(var/key in L)
 			var/value = L[key]
 			shuttles[key] = value
-	else if ("shuttles" in json)
+	else if("shuttles" in json)
 		log_world("map_config shuttles is not a list!")
 		return
 
 	traits = json["traits"]
 	// "traits": [{"Linkage": "Cross"}, {"Space Ruins": true}]
-	if (islist(traits))
+	if(islist(traits))
 		// "Station" is set by default, but it's assumed if you're setting
 		// traits you want to customize which level is cross-linked
-		for (var/level in traits)
-			if (!(ZTRAIT_STATION in level))
+		for(var/level in traits)
+			if(!(ZTRAIT_STATION in level))
 				level[ZTRAIT_STATION] = TRUE
 	// "traits": null or absent -> default
-	else if (!isnull(traits))
+	else if(!isnull(traits))
 		log_world("map_config traits is not a list!")
 		return
 
 	var/temp = json["space_ruin_levels"]
-	if (isnum(temp))
+	if(isnum(temp))
 		space_ruin_levels = temp
-	else if (!isnull(temp))
+	else if(!isnull(temp))
 		log_world("map_config space_ruin_levels is not a number!")
 		return
 
 	temp = json["space_empty_levels"]
-	if (isnum(temp))
+	if(isnum(temp))
 		space_empty_levels = temp
-	else if (!isnull(temp))
+	else if(!isnull(temp))
 		log_world("map_config space_empty_levels is not a number!")
 		return
 
-	if ("minetype" in json)
+	if("minetype" in json)
 		minetype = json["minetype"]
 
 	allow_custom_shuttles = json["allow_custom_shuttles"] != FALSE
@@ -133,10 +133,10 @@
 #undef CHECK_EXISTS
 
 /datum/map_config/proc/GetFullMapPaths()
-	if (istext(map_file))
+	if(istext(map_file))
 		return list("_maps/[map_path]/[map_file]")
 	. = list()
-	for (var/file in map_file)
+	for(var/file in map_file)
 		. += "_maps/[map_path]/[file]"
 
 /datum/map_config/proc/MakeNextMap()

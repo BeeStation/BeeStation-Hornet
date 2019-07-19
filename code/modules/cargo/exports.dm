@@ -90,7 +90,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 /datum/export/proc/get_cost(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
 	var/amount = get_amount(O)
 	if(apply_elastic)
-		if(k_elasticity!=0)
+		if(k_elasticity != 0)
 			return round((cost/k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * amount)))	//anti-derivative of the marginal cost function
 		else
 			return round(cost * amount)	//alternative form derived from L'Hopital to avoid division by 0
@@ -123,7 +123,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 	var/the_cost = get_cost(O, allowed_categories , apply_elastic)
 	var/amount = get_amount(O)
 
-	if(amount <=0 || the_cost <=0)
+	if(amount <= 0 || the_cost <= 0)
 		return FALSE
 	
 	report.total_value[src] += the_cost

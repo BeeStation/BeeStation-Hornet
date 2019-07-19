@@ -173,7 +173,7 @@
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 			name = "wired airlock assembly"
 			var/obj/item/electronics/airlock/ae
-			if (!electronics)
+			if(!electronics)
 				ae = new/obj/item/electronics/airlock( loc )
 			else
 				ae = electronics

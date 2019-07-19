@@ -44,7 +44,7 @@
 
 /obj/machinery/smartfridge/update_icon()
 	if(!stat)
-		if (visible_contents)
+		if(visible_contents)
 			switch(contents.len)
 				if(0)
 					icon_state = "[initial(icon_state)]"
@@ -94,7 +94,7 @@
 			load(O)
 			user.visible_message("[user] has added \the [O] to \the [src].", "<span class='notice'>You add \the [O] to \the [src].</span>")
 			updateUsrDialog()
-			if (visible_contents)
+			if(visible_contents)
 				update_icon()
 			return TRUE
 
@@ -118,7 +118,7 @@
 										 "<span class='notice'>You load \the [src] with \the [O].</span>")
 				if(O.contents.len > 0)
 					to_chat(user, "<span class='warning'>Some items are refused.</span>")
-				if (visible_contents)
+				if(visible_contents)
 					update_icon()
 				return TRUE
 			else
@@ -165,11 +165,11 @@
 	. = list()
 
 	var/listofitems = list()
-	for (var/I in src)
+	for(var/I in src)
 		var/atom/movable/O = I
-		if (!QDELETED(O))
+		if(!QDELETED(O))
 			var/md5name = md5(O.name)				// This needs to happen because of a bug in a TGUI component, https://github.com/ractivejs/ractive/issues/744
-			if (listofitems[md5name])				// which is fixed in a version we cannot use due to ie8 incompatibility
+			if(listofitems[md5name])				// which is fixed in a version we cannot use due to ie8 incompatibility
 				listofitems[md5name]["amount"]++	// The good news is, #30519 made smartfridge UIs non-auto-updating
 			else
 				listofitems[md5name] = list("name" = O.name, "type" = O.type, "amount" = 1)
@@ -195,7 +195,7 @@
 				to_chat(usr, "<span class='warning'>[src] does not seem to be configured to respect your authority!</span>")
 				return
 
-			if (params["amount"])
+			if(params["amount"])
 				desired = text2num(params["amount"])
 			else
 				desired = input("How many items?", "How many items would you like to take out?", 1) as null|num
@@ -210,7 +210,7 @@
 							O.forceMove(drop_location())
 							adjust_item_drop_location(O)
 						break
-				if (visible_contents)
+				if(visible_contents)
 					update_icon()
 				return TRUE
 
@@ -221,7 +221,7 @@
 					O.forceMove(drop_location())
 					adjust_item_drop_location(O)
 					desired--
-			if (visible_contents)
+			if(visible_contents)
 				update_icon()
 			return TRUE
 	return FALSE

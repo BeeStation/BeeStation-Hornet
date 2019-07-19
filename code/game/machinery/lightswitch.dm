@@ -57,7 +57,7 @@
 
 /obj/machinery/light_switch/emp_act(severity)
 	. = ..()
-	if (. & EMP_PROTECT_SELF)
+	if(. & EMP_PROTECT_SELF)
 		return
 	if(!(stat & (BROKEN|NOPOWER)))
 		power_change()

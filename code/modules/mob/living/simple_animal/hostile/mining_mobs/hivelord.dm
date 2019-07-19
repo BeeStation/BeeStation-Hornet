@@ -280,7 +280,7 @@
 				belt = /obj/item/tank/internals/plasmaman/belt
 			else
 				uniform = /obj/item/clothing/under/rank/miner/lavaland
-				if (prob(4))
+				if(prob(4))
 					belt = pickweight(list(/obj/item/storage/belt/mining = 2, /obj/item/storage/belt/mining/alt = 2))
 				else if(prob(10))
 					belt = pickweight(list(/obj/item/pickaxe = 8, /obj/item/pickaxe/mini = 4, /obj/item/pickaxe/silver = 2, /obj/item/pickaxe/diamond = 1))

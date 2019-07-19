@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 			device.receive_signal(signal)
 
 /datum/radio_frequency/proc/add_listener(obj/device, filter as text|null)
-	if (!filter)
+	if(!filter)
 		filter = "_default"
 
 	var/list/devices_line = devices[filter]

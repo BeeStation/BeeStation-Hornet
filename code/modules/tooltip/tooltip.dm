@@ -40,7 +40,7 @@ Notes:
 
 
 /datum/tooltip/New(client/C)
-	if (C)
+	if(C)
 		owner = C
 		var/datum/asset/stuff = get_asset_datum(/datum/asset/simple/jquery)
 		stuff.send(owner)
@@ -50,21 +50,21 @@ Notes:
 
 
 /datum/tooltip/proc/show(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
-	if (!thing || !params || (!title && !content) || !owner || !isnum(world.icon_size))
+	if(!thing || !params || (!title && !content) || !owner || !isnum(world.icon_size))
 		return 0
-	if (!init)
+	if(!init)
 		//Initialize some vars
 		init = 1
 		owner << output(list2params(list(world.icon_size, control)), "[control]:tooltip.init")
 
 	showing = 1
 
-	if (title && content)
+	if(title && content)
 		title = "<h1>[title]</h1>"
 		content = "<p>[content]</p>"
-	else if (title && !content)
+	else if(title && !content)
 		title = "<p>[title]</p>"
-	else if (!title && content)
+	else if(!title && content)
 		content = "<p>[content]</p>"
 
 	// Strip macros from item names
@@ -80,14 +80,14 @@ Notes:
 
 	//If a hide() was hit while we were showing, run hide() again to avoid stuck tooltips
 	showing = 0
-	if (queueHide)
+	if(queueHide)
 		hide()
 
 	return 1
 
 
 /datum/tooltip/proc/hide()
-	if (queueHide)
+	if(queueHide)
 		addtimer(CALLBACK(src, .proc/do_hide), 1)
 	else
 		do_hide()

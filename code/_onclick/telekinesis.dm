@@ -105,7 +105,7 @@
 	return
 
 /obj/item/tk_grab/examine(user)
-	if (focus)
+	if(focus)
 		focus.examine(user)
 	else
 		..()

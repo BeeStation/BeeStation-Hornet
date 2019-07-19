@@ -43,7 +43,7 @@
 		timestamp = SQLtime()
 	if(!server)
 		var/ssqlname = CONFIG_GET(string/serversqlname)
-		if (ssqlname)
+		if(ssqlname)
 			server = ssqlname
 	server = sanitizeSQL(server)
 	if(isnull(secret))
@@ -392,11 +392,11 @@
 			var/alphatext = ""
 			var/nsd = CONFIG_GET(number/note_stale_days)
 			var/nfd = CONFIG_GET(number/note_fresh_days)
-			if (agegate && type == "note" && isnum(nsd) && isnum(nfd) && nsd > nfd)
+			if(agegate && type == "note" && isnum(nsd) && isnum(nfd) && nsd > nfd)
 				var/alpha = CLAMP(100 - (age - nfd) * (85 / (nsd - nfd)), 15, 100)
-				if (alpha < 100)
-					if (alpha <= 15)
-						if (skipped)
+				if(alpha < 100)
+					if(alpha <= 15)
+						if(skipped)
 							skipped++
 							continue
 						alpha = 10
@@ -412,7 +412,7 @@
 			if(!linkless)
 				if(type == "note")
 					if(severity)
-						data += "<a href='?_src_=holder;[HrefToken()];editmessageseverity=[id]'>[severity=="none" ? "No" : "[capitalize(severity)]"] Severity</a>"
+						data += "<a href='?_src_=holder;[HrefToken()];editmessageseverity=[id]'>[severity == "none" ? "No" : "[capitalize(severity)]"] Severity</a>"
 					else
 						data += "<a href='?_src_=holder;[HrefToken()];editmessageseverity=[id]'>N/A Severity</a>"
 				data += " <a href='?_src_=holder;[HrefToken()];editmessageexpiry=[id]'>Change Expiry Time</a>"
@@ -466,8 +466,8 @@
 			output += "<h2>Notes</h2>"
 			output += notedata
 			if(!linkless)
-				if (agegate)
-					if (skipped) //the first skipped message is still shown so that we can put this link over it.
+				if(agegate)
+					if(skipped) //the first skipped message is still shown so that we can put this link over it.
 						output += "<center><a href='?_src_=holder;[HrefToken()];showmessageckey=[target_ckey];showall=1' style='position: relative; top: -3em;'>Show [skipped] hidden messages</a></center>"
 					else
 						output += "<center><a href='?_src_=holder;[HrefToken()];showmessageckey=[target_ckey];showall=1'>Show All</a></center>"
@@ -567,7 +567,7 @@
 		notesfile >> notetext
 		var/server
 		var/ssqlname = CONFIG_GET(string/serversqlname)
-		if (ssqlname)
+		if(ssqlname)
 			server = ssqlname
 		var/regex/note = new("^(\\d{2}-\\w{3}-\\d{4}) \\| (.+) ~(\\w+)$", "i")
 		note.Find(notetext)

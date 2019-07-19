@@ -151,7 +151,7 @@
 	if(to_hook)
 		if(mobhook && mobhook.parent != to_hook)
 			QDEL_NULL(mobhook)
-		if (!mobhook)
+		if(!mobhook)
 			mobhook = to_hook.AddComponent(/datum/component/redirect, list(COMSIG_MOVABLE_MOVED = CALLBACK(src, .proc/trigger)))
 	else
 		QDEL_NULL(mobhook)
@@ -298,7 +298,7 @@
 /obj/item/twohanded/rcl/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/rcl_col))
 		current_color_index++;
-		if (current_color_index > colors.len)
+		if(current_color_index > colors.len)
 			current_color_index = 1
 		var/cwname = colors[current_color_index]
 		to_chat(user, "Color changed to [cwname]!")

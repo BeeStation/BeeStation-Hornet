@@ -3,12 +3,12 @@
 /mob/living/carbon/alien/larva/attack_hand(mob/living/carbon/human/M)
 	if(..())
 		var/damage = rand(1, 9)
-		if (prob(90))
+		if(prob(90))
 			playsound(loc, "punch", 25, 1, -1)
 			log_combat(M, src, "attacked")
 			visible_message("<span class='danger'>[M] has kicked [src]!</span>", \
 					"<span class='userdanger'>[M] has kicked [src]!</span>", null, COMBAT_MESSAGE_RANGE)
-			if ((stat != DEAD) && (damage > 4.9))
+			if((stat != DEAD) && (damage > 4.9))
 				Unconscious(rand(100,200))
 
 			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))

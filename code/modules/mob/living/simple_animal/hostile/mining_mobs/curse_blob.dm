@@ -79,7 +79,7 @@
 			return FALSE
 	return TRUE
 
-#define IGNORE_PROC_IF_NOT_TARGET(X) /mob/living/simple_animal/hostile/asteroid/curseblob/##X(AM) { if (AM == set_target) return ..(); }
+#define IGNORE_PROC_IF_NOT_TARGET(X) /mob/living/simple_animal/hostile/asteroid/curseblob/##X(AM) { if(AM == set_target) return ..(); }
 
 IGNORE_PROC_IF_NOT_TARGET(attack_hand)
 
