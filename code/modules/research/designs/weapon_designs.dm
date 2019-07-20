@@ -43,7 +43,7 @@
 	id = "sleepy"
 	build_type = PROTOLATHE
 	category = list("Ammo")
-	materials = list(MAT_IRON= 4000, MAT_SILVER = 400, MAT_COPPER = 400)
+	materials = list(MAT_IRON = 4000, MAT_SILVER = 400, MAT_COPPER = 400)
 	build_path = /obj/item/ammo_casing/shotgun/sleepytime
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
