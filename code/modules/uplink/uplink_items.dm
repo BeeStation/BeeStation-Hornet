@@ -1659,6 +1659,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 	restricted_roles = list("Cook", "Botanist", "Clown", "Mime")
 
+/datum/uplink_item/role_restricted/holocarp
+	name = "Holocarp Parasites"
+	desc = "Fishsticks prepared through ritualistic means in honor of the god Carp-sie, capable of binding a holocarp \
+			to act as a servent and guardian to their host."
+	item = /obj/item/storage/box/syndie_kit/carpian
+	cost = 18
+	surplus = 0
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+	player_minimum = 25
+	restricted = TRUE
+	restricted_roles = list("Cook", "Chaplain")
+
 /datum/uplink_item/role_restricted/ez_clean_bundle
 	name = "EZ Clean Grenade Bundle"
 	desc = "A box with three cleaner grenades using the trademark Waffle Co. formula. Serves as a cleaner and causes acid damage to anyone standing nearby. \
