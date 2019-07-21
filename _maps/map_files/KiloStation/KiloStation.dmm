@@ -20502,7 +20502,6 @@
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "aDF" = (
-/obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -20512,11 +20511,6 @@
 	dir = 4;
 	pixel_x = -28
 	},
-/obj/item/radio{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/assault_pod/mining,
 /turf/open/floor/plasteel/dark,
 /area/construction/mining/aux_base)
 "aDG" = (
@@ -58467,15 +58461,6 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/blood/old,
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
-	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes, and looks abnormally thin and frail.";
-	environment_smash = 0;
-	health = 60;
-	maxHealth = 60;
-	melee_damage_lower = 5;
-	melee_damage_upper = 10;
-	name = "scrawny spider"
-	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port)
 "bDU" = (
@@ -83901,11 +83886,6 @@
 	dir = 1
 	},
 /obj/effect/landmark/event_spawn,
-/mob/living/simple_animal/hostile/russian{
-	environment_smash = 0;
-	loot = list(/obj/effect/mob_spawn/human/corpse/russian);
-	name = "Russian Mobster"
-	},
 /turf/open/floor/wood,
 /area/maintenance/port)
 "coq" = (
@@ -89536,11 +89516,6 @@
 /area/hallway/primary/aft)
 "cwV" = (
 /obj/structure/chair/stool/bar,
-/mob/living/simple_animal/hostile/russian{
-	environment_smash = 0;
-	loot = list(/obj/effect/mob_spawn/human/corpse/russian);
-	name = "Russian Mobster"
-	},
 /turf/open/floor/wood,
 /area/maintenance/port)
 "cwW" = (
@@ -94392,10 +94367,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer1{
-	icon_state = "scrub_map_on-1";
-	dir = 1
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -94406,13 +94377,22 @@
 	network = list("ss13","qm")
 	},
 /obj/effect/landmark/blobstart,
+/obj/machinery/computer/security/telescreen/auxbase{
+	icon_state = "telescreen";
+	dir = 8;
+	step_x = 28
+	},
+/obj/machinery/computer/security/telescreen/auxbase{
+	icon_state = "telescreen";
+	dir = 8;
+	step_x = 28
+	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "cEu" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
 	},
-/mob/living/simple_animal/hostile/retaliate/ghost,
 /turf/open/floor/wood,
 /area/maintenance/starboard/fore)
 "cEv" = (
@@ -98307,10 +98287,6 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"cJL" = (
-/obj/structure/sign/departments/cargo,
-/turf/closed/wall,
-/area/construction/mining/aux_base)
 "cJM" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -100075,15 +100051,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
-	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes, and looks abnormally thin and frail.";
-	environment_smash = 0;
-	health = 60;
-	maxHealth = 60;
-	melee_damage_lower = 5;
-	melee_damage_upper = 10;
-	name = "scrawny spider"
-	},
 /turf/open/floor/plating,
 /area/maintenance/department/electrical)
 "cMg" = (
@@ -100355,7 +100322,8 @@
 	maxHealth = 60;
 	melee_damage_lower = 5;
 	melee_damage_upper = 10;
-	name = "scrawny spider"
+	name = "scrawny spider";
+	obj_damage = 0
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/electrical)
@@ -101774,6 +101742,14 @@
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"cTR" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/weldingtool/experimental,
+/obj/item/clothing/glasses/blindfold/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "cUD" = (
 /obj/machinery/door/airlock/external{
 	name = "Prison External Airlock";
@@ -101792,13 +101768,85 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"dcq" = (
+/obj/structure/table/reinforced,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/stack/sheet/glass/fifty,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "dgc" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /obj/effect/decal/remains/xeno,
+/obj/structure/spider/cocoon,
+/obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"dpu" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood,
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"dCG" = (
+/obj/structure/frame,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"dGG" = (
+/obj/effect/turf_decal/box/corners{
+	icon_state = "box_corners";
+	dir = 1
+	},
+/obj/structure/frame,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"dJS" = (
+/obj/machinery/door/airlock/external,
+/turf/open/floor/plating,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "dVZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -101817,6 +101865,58 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"dWt" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"eee" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/components/unary/tank/air,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"efo" = (
+/obj/effect/turf_decal/box/corners{
+	icon_state = "box_corners";
+	dir = 4
+	},
+/obj/structure/frame,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"enJ" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/ammo_box/n762,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"eoA" = (
+/obj/structure/lattice,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "evR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -101832,14 +101932,52 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/space/nearstation)
+"eFQ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "eGe" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/space/nearstation)
+"eYX" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/space/basic,
+/area/space)
+"faT" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "fhz" = (
 /turf/open/floor/plasteel/dark,
 /area/security/main)
+"fud" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/cultivator,
+/obj/item/shovel/spade,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "fDZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -101873,8 +102011,79 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"ggm" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/power/tracker,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/space/basic,
+/area/space)
+"gMj" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/atmospherics/pipe/manifold/supply{
+	icon_state = "manifold-2";
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"gPs" = (
+/obj/item/pickaxe/drill,
+/obj/item/clothing/suit/space/hardsuit/ancient,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"gQu" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/space/basic,
+/area/space)
+"gVu" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood,
+/obj/item/stack/sheet/iron/twenty,
+/obj/item/stack/sheet/iron/twenty,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"hbj" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/space/basic,
+/area/space)
+"hgs" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/leaper_sludge,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "huH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/emcloset/anchored,
@@ -101882,21 +102091,181 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/starboard/aft)
+"hyA" = (
+/obj/structure/lattice/catwalk,
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	name = "landing marker";
+	picked_color = "Burgundy"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/space/basic,
+/area/space)
+"hAz" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"hQX" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/space/basic,
+/area/space)
+"ibl" = (
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"idp" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/storage/toolbox/electrical,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"ioV" = (
+/obj/structure/table/reinforced,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood,
+/obj/item/stack/sheet/cloth/durathread{
+	amount = 20
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/item/circuitboard/machine/circuit_imprinter,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "isN" = (
 /obj/machinery/door/airlock/external,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
+"iMY" = (
+/obj/effect/turf_decal/box/corners,
+/obj/structure/frame,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/insectguts,
+/obj/effect/decal/cleanable/glass,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"iSh" = (
+/obj/structure/lattice/catwalk,
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	name = "landing marker";
+	picked_color = "Burgundy"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/space/basic,
+/area/space)
+"jjw" = (
+/obj/structure/lattice/catwalk,
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	name = "landing marker";
+	picked_color = "Burgundy"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/space/basic,
+/area/space)
 "jrB" = (
 /turf/closed/wall,
 /area/space)
+"juf" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/greenglow,
+/obj/effect/decal/cleanable/ash,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"jEw" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"kga" = (
+/obj/structure/frame,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/insectguts,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "kit" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer1,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"kCQ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "kHB" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -101926,18 +102295,72 @@
 	dir = 8
 	},
 /obj/structure/barricade/wooden/crude,
-/obj/structure/girder,
 /obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/structure/spider/stickyweb,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"kPA" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"ldp" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"lfL" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "lfO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical/old,
+/obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"ljh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/trail_holder{
+	icon_state = "ltrails_1";
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/structure/spider/stickyweb,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/maintenance/port/fore)
+"lsT" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "lAR" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -101964,7 +102387,6 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /obj/structure/barricade/wooden/crude,
-/obj/structure/girder,
 /obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -102002,6 +102424,18 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
+"mAg" = (
+/obj/structure/frame,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "mDd" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -102025,6 +102459,35 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/space)
+"mTm" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"mTw" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/space/basic,
+/area/space)
+"mUt" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/power/smes,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"mWV" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "mXC" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -102040,8 +102503,19 @@
 /obj/item/clothing/suit/armor/vest/russian,
 /obj/item/clothing/under/rank/security/navyblue/russian,
 /obj/item/clothing/head/helmet/rus_helmet,
+/obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"nvU" = (
+/obj/effect/decal/fakelattice,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"nNd" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "nTq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/emcloset/anchored,
@@ -102052,12 +102526,48 @@
 	dir = 1;
 	dwidth = 2;
 	height = 6;
-	id = "ferry_home";
+	id = "whiteship_dock";
 	name = "Station";
 	roundstart_template = /datum/map_template/shuttle/escape_pod/large;
 	width = 5
 	},
 /turf/open/space/basic,
+/area/space/nearstation)
+"oba" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/mob/living/simple_animal/hostile/poison/giant_spider/tarantula{
+	desc = "Furry and black, it makes you shudder to look at it. This one has abyssal red eyes, and looks abnormally thin and frail.";
+	environment_smash = 0;
+	health = 150;
+	maxHealth = 150;
+	melee_damage_lower = 20;
+	melee_damage_upper = 25;
+	name = "scrawny tarantula"
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"oiy" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/components/unary/tank/oxygen,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"oth" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 6
+	},
+/turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "owd" = (
 /obj/effect/decal/cleanable/dirt,
@@ -102066,7 +102576,6 @@
 	},
 /obj/effect/decal/cleanable/insectguts,
 /obj/structure/barricade/wooden/crude,
-/obj/structure/girder,
 /obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -102078,17 +102587,47 @@
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall,
 /area/maintenance/port/fore)
+"oCt" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/closed/wall/r_wall,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "oIP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
 "oYR" = (
 /obj/effect/decal/cleanable/insectguts,
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"pFk" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"pGx" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "pKQ" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Abandoned ship dock";
@@ -102135,6 +102674,15 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
 	},
+/mob/living/simple_animal/hostile/poison/giant_spider/tarantula{
+	desc = "Furry and black, it makes you shudder to look at it. This one has abyssal red eyes, and looks abnormally thin and frail.";
+	environment_smash = 0;
+	health = 150;
+	maxHealth = 150;
+	melee_damage_lower = 20;
+	melee_damage_upper = 25;
+	name = "scrawny tarantula"
+	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
 "qke" = (
@@ -102143,14 +102691,87 @@
 	icon_state = "1-2"
 	},
 /obj/structure/barricade/wooden/crude,
-/obj/structure/girder,
 /obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/structure/spider/stickyweb,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
+"qwK" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"qIS" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes, and looks abnormally thin and frail.";
+	environment_smash = 0;
+	health = 60;
+	maxHealth = 60;
+	melee_damage_lower = 5;
+	melee_damage_upper = 10;
+	name = "scrawny spider";
+	obj_damage = 0
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"qZQ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/storage/toolbox/ammo,
+/obj/item/gun/ballistic/rifle/boltaction,
+/obj/item/ammo_box/a762,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes, and looks abnormally thin and frail.";
+	environment_smash = 0;
+	health = 60;
+	maxHealth = 60;
+	melee_damage_lower = 5;
+	melee_damage_upper = 10;
+	name = "scrawny spider";
+	obj_damage = 0
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"rkC" = (
+/obj/structure/spider/cocoon,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"rAm" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/ammo_box/a762,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "rIw" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -102166,10 +102787,23 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
 	},
+/obj/structure/spider/stickyweb,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
+"rSD" = (
+/obj/structure/table/reinforced,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "rUF" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/blue{
@@ -102178,6 +102812,29 @@
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"skb" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/insectguts,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"stc" = (
+/turf/closed/wall/r_wall,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"sTc" = (
+/obj/machinery/power/solar,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/space)
 "ttW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -102193,6 +102850,46 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"tNf" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply{
+	icon_state = "manifold-2";
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"tSy" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/power/smes,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"tWC" = (
+/obj/structure/table/reinforced,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/stack/sheet/plasteel/twenty,
+/obj/structure/light_construct{
+	icon_state = "tube-construct-stage1";
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "tXq" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -102204,8 +102901,84 @@
 	dir = 5
 	},
 /obj/effect/decal/remains/human,
+/obj/structure/spider/cocoon,
+/obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"uds" = (
+/obj/structure/lattice/catwalk,
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	name = "landing marker";
+	picked_color = "Burgundy"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/space/basic,
+/area/space)
+"uxD" = (
+/obj/effect/turf_decal/box/corners{
+	icon_state = "box_corners";
+	dir = 8
+	},
+/obj/structure/frame,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/glass,
+/obj/machinery/power/apc{
+	name = "Abandoned Outpost APC";
+	step_x = -24
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/light_construct{
+	icon_state = "tube-construct-stage1";
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"uyX" = (
+/obj/machinery/door/airlock/maintenance/external{
+	name = "construction zone";
+	req_access_txt = "12"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/construction/mining/aux_base)
+"uCJ" = (
+/obj/effect/decal/fakelattice,
+/turf/open/space/basic,
+/area/space)
+"uOe" = (
+/obj/structure/frame/computer,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "vad" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
@@ -102217,8 +102990,83 @@
 	dir = 1
 	},
 /obj/item/storage/firstaid/ancient,
+/obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"vlb" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/greenglow,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"vlE" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/storage/toolbox/mechanical,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"vIU" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/insectguts,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"vQF" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood,
+/mob/living/simple_animal/hostile/poison/giant_spider/tarantula{
+	desc = "Furry and black, it makes you shudder to look at it. This one has abyssal red eyes, and looks abnormally thin and frail.";
+	environment_smash = 0;
+	health = 150;
+	maxHealth = 150;
+	melee_damage_lower = 20;
+	melee_damage_upper = 25;
+	name = "scrawny tarantula";
+	obj_damage = 0
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"vVi" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood,
+/obj/structure/reagent_dispensers/watertank/high,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"waL" = (
+/obj/structure/frame/computer,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
 "wca" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/space_heater,
@@ -102226,11 +103074,85 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
+"whH" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"wkw" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/autolathe/hacked,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"wkC" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/ash,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"wrk" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"wIe" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/power/solar_control{
+	name = "Abandoned outpost solar control"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"wLf" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/space/basic,
+/area/space)
 "wUh" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/space)
+"xdZ" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/trail_holder{
+	icon_state = "ltrails_1";
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
+	icon_state = "pipe11-1";
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/structure/spider/cocoon,
+/obj/structure/spider/stickyweb,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/port/fore)
 "xeh" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -102238,13 +103160,29 @@
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/innards,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/spider/eggcluster,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
 	icon_state = "pipe11-1";
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"xjN" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/space/basic,
+/area/space)
+"xkP" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "xoW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -102266,10 +103204,82 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
+"xyG" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/white,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"xCJ" = (
+/obj/structure/table/reinforced,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/item/circuitboard/machine/chem_dispenser,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"xND" = (
+/obj/structure/lattice/catwalk,
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	name = "landing marker";
+	picked_color = "Burgundy"
+	},
+/turf/open/space/basic,
+/area/space)
 "xPn" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"xWW" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/ash,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"ycn" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/insectguts,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/solars{
+	name = "Abandoned Outpost"
+	})
+"ycO" = (
+/obj/structure/lattice/catwalk,
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	name = "landing marker";
+	picked_color = "Burgundy"
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 
 (1,1,1) = {"
 aaa
@@ -114477,7 +115487,7 @@ aeu
 aeu
 aeu
 aDQ
-bQg
+aDQ
 aeu
 aeu
 aeu
@@ -122666,7 +123676,7 @@ aaa
 aaa
 cwp
 oYR
-fDZ
+xdZ
 cwp
 aeu
 cwp
@@ -123182,7 +124192,7 @@ cwp
 wca
 dVZ
 kHQ
-mwZ
+ljh
 qke
 ttW
 cwp
@@ -136293,7 +137303,7 @@ cIU
 bTj
 aiw
 cIY
-cIV
+uyX
 cIY
 aiw
 cJR
@@ -137321,7 +138331,7 @@ cIV
 cJz
 cJi
 cJF
-cJL
+cIV
 cJw
 cJw
 cIV
@@ -145758,11 +146768,11 @@ aeu
 aeu
 aeu
 aeu
+aap
+aap
 aeu
-aeu
-aeu
-aeu
-aeu
+aap
+aap
 aeu
 aeu
 aeu
@@ -146014,12 +147024,12 @@ aeu
 aeu
 aeu
 aeu
+aap
+aap
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -146782,16 +147792,16 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
+aap
+aap
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+aap
+aap
 aeu
 aeu
 aeu
@@ -147039,7 +148049,7 @@ aeu
 aeu
 aeu
 aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -147295,8 +148305,8 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
+aap
+aap
 aeu
 aeu
 aeu
@@ -147552,14 +148562,14 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
+aap
+aap
 aeu
 aeu
 aeu
@@ -147575,11 +148585,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+uCJ
+uCJ
+ggm
+uCJ
+uCJ
 aaa
 aaa
 aaa
@@ -147815,29 +148825,29 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
 aeu
+aap
+aap
 aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
 aaa
 aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+iSh
+gQu
+wLf
+hbj
+eYX
+gQu
+uds
 aaa
 aaa
 aaa
@@ -148068,18 +149078,18 @@ aeu
 aeu
 aeu
 aeu
+aap
+aap
+aeu
+aeu
+aap
 aeu
 aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+aap
+aap
 aeu
 aeu
 aeu
@@ -148088,13 +149098,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sTc
+uCJ
+sTc
+xjN
+sTc
+uCJ
+sTc
 aaa
 aaa
 aaa
@@ -148325,7 +149335,7 @@ aeu
 aeu
 aeu
 aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -148345,13 +149355,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sTc
+uCJ
+sTc
+xjN
+sTc
+uCJ
+sTc
 aaa
 aaa
 aaa
@@ -148578,7 +149588,7 @@ aeu
 aeu
 aeu
 aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -148602,13 +149612,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sTc
+uCJ
+sTc
+xjN
+sTc
+uCJ
+sTc
 aaa
 aaa
 aaa
@@ -148834,13 +149844,13 @@ aeu
 aeu
 aeu
 aeu
+aap
+aap
 aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -148859,13 +149869,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sTc
+uCJ
+sTc
+xjN
+sTc
+uCJ
+sTc
 aaa
 aaa
 aaa
@@ -149090,13 +150100,13 @@ aeu
 aeu
 aeu
 aeu
+aap
+aap
 aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -149116,13 +150126,13 @@ aUz
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+sTc
+uCJ
+sTc
+xjN
+sTc
+uCJ
+sTc
 aaa
 aaa
 aaa
@@ -149351,6 +150361,17 @@ aeu
 aeu
 aeu
 aeu
+aap
+aap
+aap
+aeu
+aeu
+aeu
+aeu
+aeU
+aeU
+aeU
+aeu
 aeu
 aeu
 aeu
@@ -149359,27 +150380,16 @@ aeu
 aeu
 aeu
 aeU
-aeU
-aeU
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeU
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+jjw
+gQu
+hQX
+hbj
+mTw
+gQu
+hyA
 aaa
 aaa
 aaa
@@ -149609,7 +150619,7 @@ aeu
 aeu
 aeu
 aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -149620,7 +150630,7 @@ aeU
 aeU
 aeU
 aeU
-aeu
+aap
 aeu
 aeu
 aeu
@@ -149632,9 +150642,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+uCJ
+xjN
+uCJ
 aaa
 aaa
 aaa
@@ -149889,8 +150899,8 @@ aeu
 aeu
 aeu
 aaa
-aaa
-aeU
+uCJ
+mWV
 aeU
 aUz
 aeU
@@ -150118,7 +151128,7 @@ aeu
 aeu
 aeu
 aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -150142,13 +151152,13 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
+aeU
+mWV
+lfL
 aeu
 aeU
 aeU
@@ -150375,10 +151385,10 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
-aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -150395,6 +151405,7 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
@@ -150402,10 +151413,9 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
+wIe
+pFk
+aeU
 aeu
 aeu
 aeu
@@ -150632,10 +151642,10 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
-aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -150647,22 +151657,22 @@ aeU
 aeU
 aeU
 aeu
+aap
+aap
+aeu
+aeu
+aeu
+aap
 aeu
 aeu
 aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+aeU
+lfL
+mWV
+lfL
 aeu
 aeu
 aeu
@@ -150889,12 +151899,12 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
+aap
 aeu
-aeu
-aeu
-aeu
+aap
 aeu
 aeU
 aeU
@@ -150903,23 +151913,23 @@ aeU
 aeU
 aeU
 aeu
+aap
+aap
+aeu
+aeu
+aeu
+aeu
+aap
 aeu
 aeu
 aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+aeU
+aeU
+mWV
+aeU
 aeu
 aeu
 aeu
@@ -151146,7 +152156,7 @@ aeu
 aeu
 aeu
 aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -151165,6 +152175,7 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
@@ -151172,12 +152183,11 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+lfL
+mUt
+oth
+oiy
+lfL
 aeu
 aeu
 aeu
@@ -151403,7 +152413,7 @@ aeu
 aeu
 aeu
 aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -151426,15 +152436,15 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+lfL
+tSy
+tNf
+eee
+aeU
 aeu
 aeu
 aeu
@@ -151687,11 +152697,11 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+aeU
+gPs
+xkP
+aeU
+lfL
 aeu
 aeu
 aeu
@@ -151919,8 +152929,8 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
+aap
+aap
 aeu
 aeu
 aeu
@@ -151934,6 +152944,7 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
@@ -151943,11 +152954,10 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+aeU
+lfL
+xkP
+lfL
 aeu
 aeu
 aeu
@@ -152177,34 +153187,34 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeU
-aeU
-aeU
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+aap
 aeu
 aeu
 aeu
 aeU
+aeU
+aeU
 aeu
+aeu
+aeu
+aeu
+aeu
+aeu
+aeu
+aeu
+aeu
+aeu
+aeu
+aeu
+aeu
+aeu
+aeu
+aeu
+aeu
+lfL
+stc
+lsT
+stc
 aeu
 aeu
 aeu
@@ -152450,19 +153460,8 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeU
-aeU
-aeU
-aeU
 aap
 aeu
 aeu
@@ -152470,6 +153469,17 @@ aeu
 aeu
 aeu
 aeu
+stc
+pGx
+stc
+nvU
+aap
+aeu
+aeu
+aeu
+aeu
+aeu
+bhA
 aaa
 aaa
 aaa
@@ -152701,31 +153711,31 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
 aeu
 aeu
+aap
+aap
+aap
+aap
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeU
-aeU
-aUz
-aeU
-aeU
-aeU
-aeU
-aeU
-aeU
-aaa
-aaa
+stc
+stc
+stc
+lsT
+stc
+stc
+stc
+stc
+stc
+stc
+stc
+stc
 aaa
 aaa
 aaa
@@ -152958,31 +153968,31 @@ aeu
 aeu
 aeu
 aeu
+aap
+aeu
+aeu
+aeu
+aap
+aeu
+aeu
+aeu
+aap
 aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeU
-aeU
-aeU
-aeU
-aaa
-aaa
-aeU
-aeU
-aeU
-aaa
-aaa
-aaa
+stc
+dGG
+uxD
+qwK
+idp
+dCG
+wkw
+xyG
+dpu
+gVu
+xCJ
+nNd
 aaa
 aaa
 aaa
@@ -153228,27 +154238,27 @@ aeu
 aeu
 aeu
 aap
-aeU
-aeU
-aeU
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+stc
+kPA
+hgs
+vlb
+mTm
+qIS
+vIU
+vIU
+vIU
+wrk
+rSD
+oCt
+xND
+bmU
+cmJ
+cmJ
+cmJ
+cmJ
+cmJ
+cmJ
+xND
 aeu
 aeu
 aaa
@@ -153473,6 +154483,7 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
@@ -153483,21 +154494,20 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeU
-aeU
-aeU
-aeU
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+nvU
+stc
+waL
+jEw
+gMj
+ldp
+rkC
+xWW
+ycn
+hAz
+kCQ
+oCt
+oCt
+stc
 aaa
 aaa
 aaa
@@ -153730,8 +154740,8 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
+aap
+aap
 aeu
 aeu
 aeu
@@ -153742,19 +154752,19 @@ aeu
 aeu
 aeu
 aeU
-coy
-aeU
-aeU
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+stc
+waL
+faT
+qZQ
+kCQ
+cTR
+wrk
+wkC
+dWt
+eFQ
+dJS
+whH
+dJS
 aaa
 aaa
 aaa
@@ -153999,23 +155009,23 @@ aeu
 aeu
 aeu
 aeU
+stc
+uOe
+vIU
+faT
+rAm
+juf
+hgs
+kCQ
+kCQ
+vQF
+oCt
+oCt
+stc
+aaa
+aaa
+aaa
 aeU
-aeU
-aeU
-aeU
-aeU
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aeu
 aeu
 aeu
 aeu
@@ -154248,31 +155258,31 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
+aap
+aap
 aeu
 aeu
-aeu
-aeu
-aeu
-aeU
-aeU
-aeU
-aeU
-aeU
-aeU
-aeU
-aeU
-aeU
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aeu
-aeu
+nvU
+stc
+enJ
+vIU
+skb
+oba
+faT
+faT
+kCQ
+kCQ
+mTm
+dcq
+oCt
+xND
+bmU
+cmJ
+eoA
+ycO
 aeu
 aeu
 aeu
@@ -154513,22 +155523,22 @@ aeu
 aeu
 aeu
 aeU
-aUz
-aeU
-aeU
-aeU
-aeU
-aeU
-aeU
-aeU
-aeU
+stc
+efo
+iMY
+kga
+vlE
+mAg
+mAg
+fud
+vVi
+tWC
+ioV
+nNd
 aaa
-aaa
-aaa
-aaa
-aaa
-aeu
-aeu
+ibl
+aeU
+aeU
 aeu
 aeu
 aeu
@@ -154758,6 +155768,7 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
@@ -154769,21 +155780,20 @@ aeu
 aeu
 aeu
 aeu
-aeu
+stc
+stc
+stc
+stc
+stc
+stc
+stc
+stc
+stc
+stc
+stc
+stc
+ibl
 aeU
-aeU
-aeU
-aeU
-coy
-aeU
-aeU
-aeU
-aeU
-aeU
-aeU
-aaa
-aaa
-aeu
 aeu
 aeu
 aeu
@@ -155015,16 +156025,16 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
-aeu
-aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -155032,11 +156042,11 @@ aeu
 aap
 aeU
 aeU
-aeU
+nvU
 aeU
 aUz
 aeU
-aeU
+nvU
 aeu
 aeu
 aeu
@@ -155272,6 +156282,8 @@ aeu
 aeu
 aeu
 aeu
+aap
+aap
 aeu
 aeu
 aeu
@@ -155287,9 +156299,7 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeU
+nvU
 aeu
 aeu
 aeu
@@ -155797,7 +156807,7 @@ aeu
 aeu
 aeu
 aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -156048,16 +157058,16 @@ aeu
 aeu
 aeu
 aeu
+aap
 aeu
 aeu
 aeu
 aeu
 aeu
+aap
+aap
 aeu
-aeu
-aeu
-aeu
-aeu
+aap
 aeu
 aeu
 aeu
@@ -156305,16 +157315,16 @@ aeu
 aeu
 aeu
 aeu
+aap
+aap
 aeu
 aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+aap
+aap
+aap
 aeu
 aeu
 aeu
@@ -156563,9 +157573,9 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
+aap
+aap
+aap
 aeu
 aeu
 aeu
@@ -156821,8 +157831,8 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
+aap
+aap
 aeu
 aeu
 aeu
