@@ -9,9 +9,6 @@
 "c" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -28,6 +25,9 @@
 /obj/item/radio/intercom{
 	pixel_y = 22
 	},
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "f" = (
@@ -35,8 +35,8 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining)
@@ -52,12 +52,11 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
+/obj/machinery/status_display/evac{
+	pixel_x = -32
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining)
@@ -67,8 +66,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining)
@@ -90,6 +89,10 @@
 	name = "mining shuttle";
 	port_direction = 4;
 	width = 7
+	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	icon_state = "pipe11-2";
+	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
@@ -125,7 +128,12 @@
 	pixel_y = 9
 	},
 /obj/structure/closet/crate/internals,
-/obj/effect/turf_decal/delivery,
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -22
+	},
+/obj/machinery/light/small,
+/obj/effect/turf_decal/box,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "l" = (
@@ -134,11 +142,9 @@
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "m" = (
-/obj/effect/turf_decal/delivery,
 /obj/structure/ore_box,
-/obj/machinery/light/small{
-	dir = 4
-	},
+/obj/machinery/light/small,
+/obj/effect/turf_decal/box,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "n" = (
@@ -149,6 +155,44 @@
 /obj/structure/shuttle/engine/propulsion,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
+/area/shuttle/mining)
+"s" = (
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/mining)
+"t" = (
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/mining)
+"T" = (
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	icon_state = "pipe11-2";
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining)
 
 (1,1,1) = {"
@@ -172,7 +216,7 @@ n
 (3,1,1) = {"
 b
 d
-g
+t
 i
 g
 l
@@ -181,8 +225,8 @@ o
 (4,1,1) = {"
 a
 e
-f
-h
+s
+T
 g
 m
 n
