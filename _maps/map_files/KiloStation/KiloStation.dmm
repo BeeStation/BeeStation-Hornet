@@ -94380,12 +94380,12 @@
 /obj/machinery/computer/security/telescreen/auxbase{
 	icon_state = "telescreen";
 	dir = 8;
-	step_x = 28
+	pixel_x = 28
 	},
 /obj/machinery/computer/security/telescreen/auxbase{
 	icon_state = "telescreen";
 	dir = 8;
-	step_x = 28
+	pixel_x = 28
 	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
@@ -102932,7 +102932,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/machinery/power/apc{
 	name = "Abandoned Outpost APC";
-	step_x = -24
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
