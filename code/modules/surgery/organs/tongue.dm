@@ -18,7 +18,7 @@
 		/datum/language/ratvar,
 		/datum/language/aphasia,
 		/datum/language/piratespeak,
-		/datum/lanuage/rlyehian
+		/datum/language/rlyehian
 	))
 
 /obj/item/organ/tongue/Initialize(mapload)
