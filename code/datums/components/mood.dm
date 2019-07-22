@@ -181,11 +181,11 @@
 		if(4)
 			setSanity(sanity-0.025, minimum=SANITY_DISTURBED)
 		if(5)
-			setSanity(sanity+0.1)
+			setSanity(sanity+0.1, maximum=SANITY_NEUTRAL)
 		if(6)
-			setSanity(sanity+0.15)
+			setSanity(sanity+0.2, maximum=SANITY_GREAT)
 		if(7)
-			setSanity(sanity+0.2)
+			setSanity(sanity+0.3, maximum=INFINITY)
 		if(8)
 			setSanity(sanity+0.4, maximum=SANITY_MAXIMUM)
 		if(9)
@@ -197,15 +197,12 @@
 /datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_NEUTRAL)
 	var/mob/living/owner = parent
 
-	amount = CLAMP(amount, minimum, maximum)
 	if(amount == sanity)
 		return
 	// If we're out of the acceptable minimum-maximum range move back towards it in steps of 0.5
 	// If the new amount would move towards the acceptable range faster then use it instead
 	if(sanity < minimum && amount < sanity + 0.5)
 		amount = sanity + 0.5
-	else if(sanity > maximum && amount > sanity - 0.5)
-		amount = sanity - 0.5
 
 	// Disturbed stops you from getting any more sane
 	if(HAS_TRAIT(owner, TRAIT_UNSTABLE))
