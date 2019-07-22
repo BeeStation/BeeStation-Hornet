@@ -208,7 +208,6 @@
 
 /datum/point/vector/processed/Destroy()
 	STOP_PROCESSING(SSprojectiles, src)
-	return ..()
 
 /datum/point/vector/processed/proc/start()
 	last_process = world.time
