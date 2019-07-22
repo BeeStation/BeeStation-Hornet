@@ -282,7 +282,7 @@
 	subcategory = CAT_MISCFOOD
 
 
-/datum/crafting_recipe/food/lizardwine
+/datum/crafting_recipe/lizardwine
 	name = "Lizard wine"
 	time = 40
 	reqs = list(
@@ -290,6 +290,7 @@
 		/datum/reagent/consumable/ethanol = 100
 	)
 	result = /obj/item/reagent_containers/food/drinks/bottle/lizardwine
+	category = CAT_FOOD
 	subcategory = CAT_MISCFOOD
 
 
