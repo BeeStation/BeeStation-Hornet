@@ -27,8 +27,3 @@
 		template = null
 	if(!template)
 		qdel(src)
-
-/obj/effect/spawner/room/fivebyfour
-	name = "random 5x4 maint room spawner"
-	room_width = 5
-	room_height = 4

@@ -5,17 +5,18 @@
 	var/template_height = 0
 	var/template_width = 0
 
-/datum/map_template/random_room/fivebyfour // As a general rule keep the middle 3 tiles of the long side clear for doors
+/datum/map_template/random_room/surgery
+	name = "Abandoned Surgery"
+	room_id = "surgery"
+	mappath = "_maps/RandomRooms/5x4/surgery.dmm"
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
 
-/datum/map_template/random_room/fivebyfour/surgery
-	name = "Abandoned Surgery"
-	room_id = "surgery"
-	mappath = "_maps/RandomRooms/Five-by-Four/surgery.dmm"
-
-/datum/map_template/random_room/fivebyfour/electronics
+/datum/map_template/random_room/electronics
 	name = "Electronics Den"
 	room_id = "electronics"
-	mappath = "_maps/RandomRooms/Five-by-Four/electronics.dmm"
+	mappath = "_maps/RandomRooms/5x4/electronics.dmm"
+	centerspawner = FALSE
+	template_height = 4
+	template_width = 5
