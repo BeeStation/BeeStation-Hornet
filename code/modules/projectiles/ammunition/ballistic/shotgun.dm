@@ -15,6 +15,13 @@
 	projectile_type = /obj/item/projectile/bullet/shotgun_beanbag
 	materials = list(MAT_IRON=250)
 
+
+/obj/item/ammo_casing/shotgun/sleepytime
+	name = "soporific shell"
+	desc = "A shotgun shell loaded with a hypodermic needle containing a low strength sleeping agent."
+	icon_state = "sleepy"
+	projectile_type = /obj/item/projectile/bullet/sleepy
+
 /obj/item/ammo_casing/shotgun/incendiary
 	name = "incendiary slug"
 	desc = "An incendiary-coated shotgun slug."

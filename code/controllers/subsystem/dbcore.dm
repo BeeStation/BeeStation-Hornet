@@ -124,13 +124,13 @@ SUBSYSTEM_DEF(dbcore)
 	query_round_initialize.Execute(async = FALSE)
 	qdel(query_round_initialize)
 	var/tries = 0
-	while (tries < 10 && !GLOB.round_id)
-		var/datum/DBQuery/query_round_last_id = SSdbcore.NewQuery("SELECT LAST_INSERT_ID()")
+	while (tries < 5 && !GLOB.round_id)
+		var/datum/DBQuery/query_round_last_id = SSdbcore.NewQuery("SELECT MAX(id) FROM [format_table_name("round")] WHERE initialize_datetime > date_sub(Now(), interval 15 second) LIMIT 1") // I'm ashamed of it but it fixes the problem. -qwerty
 		query_round_last_id.Execute(async = FALSE)
 		if(query_round_last_id.NextRow(async = FALSE))
 			GLOB.round_id = query_round_last_id.item[1]
 		qdel(query_round_last_id)
-		tries += 1
+		tries++
 
 /datum/controller/subsystem/dbcore/proc/SetRoundStart()
 	if(!Connect())

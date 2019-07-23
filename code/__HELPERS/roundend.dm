@@ -263,6 +263,9 @@
 	//stop collecting feedback during grifftime
 	SSblackbox.Seal()
 
+	if(CONFIG_GET(flag/automapvote))
+		SSvote.initiate_vote("map", "BeeBot", forced=TRUE) //automatic map voting
+
 	sleep(50)
 	ready_for_reboot = TRUE
 	standard_reboot()

@@ -679,3 +679,12 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /obj/item/guardiancreator/carp/choose
 	random = FALSE
+
+
+/obj/item/storage/box/syndie_kit/carpian
+	name = "Holocarp fishstick kit"
+	
+/obj/item/storage/box/syndie_kit/carpian/PopulateContents()
+	new /obj/item/guardiancreator/carp(src)
+	new /obj/item/paper/guides/antag/guardian(src)
+
