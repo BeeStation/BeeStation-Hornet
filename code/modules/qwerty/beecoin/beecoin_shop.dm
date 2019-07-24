@@ -7,6 +7,7 @@ GLOBAL_LIST_EMPTY(beecoin_shop_items_list)
 		var/datum/beecoin_shop_item/I = new item_type
 		GLOB.beecoin_shop_items_list |= I
 
+/* commenting this out until I find a better use for it. - qwerty
 /client/verb/beecoin_shop()
 	set category = "OOC"
 	set name = "Beecoin Shop"
@@ -48,3 +49,5 @@ GLOBAL_LIST_EMPTY(beecoin_shop_items_list)
 				I.buy(src)
 				break
 		beecoin_shop()
+
+*/

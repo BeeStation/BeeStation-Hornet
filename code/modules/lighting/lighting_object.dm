@@ -17,6 +17,7 @@
 /atom/movable/lighting_object/Initialize(mapload)
 	. = ..()
 	verbs.Cut()
+	atom_colours.Cut()
 
 	myturf = loc
 	if (myturf.lighting_object)
