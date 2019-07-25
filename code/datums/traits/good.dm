@@ -16,13 +16,13 @@
 	mood_quirk = TRUE
 
 /datum/quirk/apathetic/add()
-	GET_COMPONENT_FROM(mood, /datum/component/mood, quirk_holder)
+	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
 	if(mood)
 		mood.mood_modifier -= 0.2
 
 /datum/quirk/apathetic/remove()
 	if(quirk_holder)
-		GET_COMPONENT_FROM(mood, /datum/component/mood, quirk_holder)
+		var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
 		if(mood)
 			mood.mood_modifier += 0.2
 

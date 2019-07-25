@@ -216,13 +216,13 @@
 	lose_text = "<span class='notice'>You don't seem to make a big deal out of everything anymore.</span>"
 
 /datum/quirk/hypersensitive/add()
-	GET_COMPONENT_FROM(mood, /datum/component/mood, quirk_holder)
+	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
 	if(mood)
 		mood.mood_modifier += 0.5
 
 /datum/quirk/hypersensitive/remove()
 	if(quirk_holder)
-		GET_COMPONENT_FROM(mood, /datum/component/mood, quirk_holder)
+		var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
 		if(mood)
 			mood.mood_modifier -= 0.5
 

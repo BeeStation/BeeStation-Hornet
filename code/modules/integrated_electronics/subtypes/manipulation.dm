@@ -543,7 +543,7 @@
 	.=..()
 
 /obj/item/integrated_circuit/manipulation/matman/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	set_pin_data(IC_OUTPUT, 2, materials.total_amount)
 	for(var/I in 1 to mtypes.len)
 		var/datum/material/M = materials.materials[mtypes[I]]
@@ -555,7 +555,7 @@
 	return TRUE
 
 /obj/item/integrated_circuit/manipulation/matman/do_work(ord)
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/atom/movable/H = get_pin_data_as_type(IC_INPUT, 1, /atom/movable)
 	if(!check_target(H))
 		activate_pin(4)
@@ -573,7 +573,7 @@
 			else
 				activate_pin(4)
 		if(2)
-			GET_COMPONENT_FROM(mt, /datum/component/material_container, H)
+			var/datum/component/material_container/mt = H.GetComponent(/datum/component/material_container)
 			var/suc
 			for(var/I in 1 to mtypes.len)
 				var/datum/material/M = materials.materials[mtypes[I]]
@@ -599,7 +599,7 @@
 			activate_pin(6)
 
 /obj/item/integrated_circuit/manipulation/matman/Destroy()
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 	.=..()
 
@@ -640,14 +640,14 @@
 			if(!container || !istype(container,/obj/item/storage) || !Adjacent(container))
 				return
 
-			GET_COMPONENT_FROM(STR, /datum/component/storage, container)
+			var/datum/component/storage/STR = container.GetComponent(/datum/component/storage)
 			if(!STR)
 				return
 
 			STR.attackby(src, target_obj)
 
 		else
-			GET_COMPONENT_FROM(STR, /datum/component/storage, target_obj.loc)
+			var/datum/component/storage/STR = target_obj.loc.GetComponent(/datum/component/storage)
 			if(!STR)
 				return
 
