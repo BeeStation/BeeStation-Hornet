@@ -274,7 +274,8 @@
 
 		if(ispath(D.build_path, /obj/item/stack))
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-			var/max_multiplier = min(D.maxstack, D.materials[MAT_IRON] ?round(materials.amount(MAT_IRON)/D.materials[MAT_IRON]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY,D.materials[MAT_COPPER]?round(materials.amount(MAT_COPPER)/D.materials[MAT_COPPER]):INFINITY)			if (max_multiplier>10 && !disabled)
+			var/max_multiplier = min(D.maxstack, D.materials[MAT_IRON] ?round(materials.amount(MAT_IRON)/D.materials[MAT_IRON]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY,D.materials[MAT_COPPER]?round(materials.amount(MAT_COPPER)/D.materials[MAT_COPPER]):INFINITY)
+			if (max_multiplier>10 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=10'>x10</a>"
 			if (max_multiplier>25 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=25'>x25</a>"
