@@ -41,7 +41,7 @@
 	icon_state = "tile_copper"
 	turf_type = /turf/open/floor/mineral/copper
 	mineralType = "copper"
-	materials = list(MAT_COPPER=500)
+	materials = list(/datum/material/copper=500)
 
 /obj/item/stack/tile/mineral/diamond
 	name = "diamond tile"

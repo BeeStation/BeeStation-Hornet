@@ -5,7 +5,7 @@
 	desc = "Common iron ore often found in sedimentary and igneous layers of the crust."
 	color = "#878687"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
-	sheet_type = /obj/item/stack/sheet/metal
+	sheet_type = /obj/item/stack/sheet/iron
 	coin_type = /obj/item/coin/iron
 
 ///Breaks extremely easily but is transparent.
@@ -147,3 +147,12 @@
 	desc = "Organic matter"
 	color = "#735b4d"
 	strength_modifier = 0.8
+
+
+/datum/material/copper
+	name = "copper"
+	id = "copper"
+	desc = "Copper is a soft, malleable, and ductile metal with very high thermal and electrical conductivity."
+	color = "#d95802"
+	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
+	sheet_type = /obj/item/stack/sheet/mineral/copper

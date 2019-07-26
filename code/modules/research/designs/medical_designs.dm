@@ -231,36 +231,6 @@
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/medical_spray_bottle
-	name = "Medical Spray Bottle"
-	desc = "A traditional spray bottle used to generate a fine mist. Not to be confused with a medspray."
-	id = "med_spray_bottle"
-	build_type = PROTOLATHE
-	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
-	materials = list(/datum/material/plastic = 2000)
-	build_path = /obj/item/reagent_containers/spray/medical
-	category = list("Medical Designs")
-
-/datum/design/chem_pack
-	name = "Intravenous Medicine Bag"
-	desc = "A plastic pressure bag for IV administration of drugs."
-	id = "chem_pack"
-	build_type = PROTOLATHE
-	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
-	materials = list(/datum/material/plastic = 2000)
-	build_path = /obj/item/reagent_containers/chem_pack
-	category = list("Medical Designs")
-
-/datum/design/blood_pack
-	name = "Blood Pack"
-	desc = "Is used to contain blood used for transfusion. Must be attached to an IV drip."
-	id = "blood_pack"
-	build_type = PROTOLATHE
-	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
-	materials = list(/datum/material/plastic = 1000)
-	build_path = /obj/item/reagent_containers/blood
-	category = list("Medical Designs")
-
 /////////////////////////////////////////
 //////////Cybernetic Implants////////////
 /////////////////////////////////////////

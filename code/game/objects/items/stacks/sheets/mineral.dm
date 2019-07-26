@@ -257,7 +257,7 @@ GLOBAL_LIST_INIT(silver_recipes, list ( \
 	item_state = "sheet-copper"
 	singular_name = "copper bar"
 	sheettype = "copper"
-	materials = list(MAT_COPPER=MINERAL_MATERIAL_AMOUNT)
+	materials = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/copper = 20)
 	point_value = 3
 	merge_type = /obj/item/stack/sheet/mineral/copper

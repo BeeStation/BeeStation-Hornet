@@ -268,7 +268,7 @@
 	id = "iron"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT)
-	build_path = /obj/item/stack/sheet/metal
+	build_path = /obj/item/stack/sheet/iron
 	category = list("initial","Construction")
 	maxstack = 50
 

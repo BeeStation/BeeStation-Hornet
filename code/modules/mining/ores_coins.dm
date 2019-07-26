@@ -79,7 +79,7 @@
 	singular_name = "iron ore chunk"
 	points = 1
 	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
-	refined_type = /obj/item/stack/sheet/metal
+	refined_type = /obj/item/stack/sheet/iron
 
 /obj/item/stack/ore/glass
 	name = "sand pile"
@@ -142,7 +142,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	item_state = "Copper ore"
 	singular_name = "Copper ore chunk"
 	points = 5
-	materials = list(MAT_COPPER=MINERAL_MATERIAL_AMOUNT)
+	materials = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/copper
 
 /obj/item/stack/ore/silver
