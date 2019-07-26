@@ -87,6 +87,7 @@ GLOBAL_PROTECT(mentor_href_token)
 			new /datum/mentors(ckey)
 		qdel(query_load_mentors)
 
-// new client var: mentor_datum. Acts the same way holder does towards admin: it holds the mentor datum. if set, the guy's a mentor.
+
 /client
+	/// Acts the same way holder does towards admin: it holds the mentor datum. if set, the guy's a mentor.
 	var/datum/mentors/mentor_datum
