@@ -55,6 +55,7 @@
 // PROCS FOR HANDLING CHECKING WHAT ITEMS USER HAS
 
 /client
+	/// A cached list of "onlyone" metacurrency items this client has bought.
 	var/list/beecoin_items = list()
 	var/list/beecoin_items_sorted = list()
 
