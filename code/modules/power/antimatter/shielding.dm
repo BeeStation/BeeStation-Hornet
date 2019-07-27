@@ -243,7 +243,7 @@
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2
-	materials = list(MAT_IRON=100)
+	materials = list(/datum/material/iron=100)
 
 /obj/item/am_shielding_container/multitool_act(mob/living/user, obj/item/I)
 	if(isturf(loc))

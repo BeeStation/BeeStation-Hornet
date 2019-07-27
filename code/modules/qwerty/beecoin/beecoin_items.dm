@@ -56,20 +56,3 @@
 	query_beecoin_item_purchase.warn_execute()
 	qdel(query_beecoin_item_purchase)
 	C.update_beecoin_items()
-
-
-
-/datum/beecoin_shop_item/only_one/moth_wings
-	name = "moth wings"
-	class = "moth_wings"
-	enabled = FALSE
-
-/datum/beecoin_shop_item/only_one/moth_wings/angel
-	id = "Angel"
-	name = "Angel Moth Wings"
-	cost = 5000
-	enabled = TRUE
-
-	icon = 'icons/mob/wings.dmi'
-	icon_state = "m_wings_angel_FRONT"
-	icon_dir = 1
