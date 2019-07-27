@@ -192,7 +192,7 @@
 	list_reagents = list(/datum/reagent/medicine/pen_acid = 15, /datum/reagent/medicine/potass_iodide = 15, /datum/reagent/medicine/mutadone = 15)
 
 /obj/item/reagent_containers/pill/antirad_plus
-	name = "radiation deluxe pill"
+	name = "radiation plus pill"
 	desc = "Used to treat heavy radition poisoning."
 	icon_state = "pill3"
 	list_reagents = list(/datum/reagent/medicine/potass_iodide = 50,charcoal = 20)
