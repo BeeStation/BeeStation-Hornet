@@ -9,10 +9,7 @@
  *			text2dir_extended & dir2text_short
  */
 
-//Returns an integer given a hex input, supports negative values "-ff"
-//skips preceding invalid characters
-//breaks when hittin invalid characters thereafter
-// If safe=TRUE, returns null on incorrect input strings instead of CRASHing
+//Returns an integer given a hex input, supports negative values "-ff". Skips preceding invalid characters, and breaks when hittin invalid characters thereafter. If safe=TRUE, returns null on incorrect input strings instead of CRASHing
 /proc/hex2num(hex, safe=FALSE)
 	. = 0
 	var/place = 1
@@ -68,8 +65,7 @@
 		i++
 	return .
 
-//Splits the text of a file at seperator and returns them in a list.
-//returns an empty list if the file doesn't exist
+/// Splits the text of a file at seperator and returns them in a list. Returns an empty list if the file doesn't exist
 /world/proc/file2list(filename, seperator="\n", trim = TRUE)
 	if (trim)
 		return splittext(trim(file2text(filename)),seperator)
@@ -97,7 +93,7 @@
 		else
 	return
 
-//Turns text into proper directions
+/// Turns text into proper direction bitmasks
 /proc/text2dir(direction)
 	switch(uppertext(direction))
 		if("NORTH")
@@ -119,7 +115,7 @@
 		else
 	return
 
-//Converts an angle (degrees) into an ss13 direction
+/// Converts an angle (degrees) into an ss13 direction bitmask
 /proc/angle2dir(degree)
 
 	degree = SIMPLIFY_DEGREES(degree)
@@ -143,6 +139,7 @@
 		if(337.5 to 360)
 			return NORTH
 
+/// Converts an angle to a cardinal ss13 direction bitmask
 /proc/angle2dir_cardinal(angle)
 	switch(round(angle, 0.1))
 		if(315.5 to 360, 0 to 45.5)
@@ -154,7 +151,7 @@
 		if(225.6 to 315.5)
 			return WEST
 
-//returns the north-zero clockwise angle in degrees, given a direction
+/// Returns the north-zero clockwise angle in degrees, given a direction
 /proc/dir2angle(D)
 	switch(D)
 		if(NORTH)
@@ -176,11 +173,11 @@
 		else
 			return null
 
-//Returns the angle in english
+/// Returns the angle in english
 /proc/angle2text(degree)
 	return dir2text(angle2dir(degree))
 
-//Converts a blend_mode constant to one acceptable to icon.Blend()
+/// Converts a blend_mode constant to one acceptable to icon.Blend()
 /proc/blendMode2iconMode(blend_mode)
 	switch(blend_mode)
 		if(BLEND_MULTIPLY)
@@ -192,7 +189,7 @@
 		else
 			return ICON_OVERLAY
 
-//Converts a rights bitfield into a string
+/// Converts a rights bitfield into a string
 /proc/rights2text(rights, seperator="", prefix = "+")
 	seperator += prefix
 	if(rights & R_BUILD)
@@ -229,7 +226,7 @@
 		. = "NONE"
 	return .
 
-//colour formats
+/// Converts an RGB color to an HSL color
 /proc/rgb2hsl(red, green, blue)
 	red /= 255;green /= 255;blue /= 255;
 	var/max = max(red,green,blue)
@@ -261,6 +258,7 @@
 
 	return list(hue, saturation, lightness)
 
+/// Converts an HSL color to an RGB color
 /proc/hsl2rgb(hue, saturation, lightness)
 	var/red;var/green;var/blue;
 	if(saturation == 0)
@@ -281,6 +279,7 @@
 
 	return list(red, green, blue)
 
+/// Converts an ABH color to an RGB color
 /proc/hue2rgb(a, b, hue)
 	if(hue < 0)
 		hue++
@@ -294,8 +293,7 @@
 		return (a+(b-a)*((2/3)-hue)*6)
 	return a
 
-// Very ugly, BYOND doesn't support unix time and rounding errors make it really hard to convert it to BYOND time.
-// returns "YYYY-MM-DD" by default
+/// Very ugly, BYOND doesn't support unix time and rounding errors make it really hard to convert it to BYOND time. returns "YYYY-MM-DD" by default
 /proc/unix2date(timestamp, seperator = "-")
 
 	if(timestamp < 0)
@@ -336,13 +334,13 @@
 
 	return "[year][seperator][((month < 10) ? "0[month]" : month)][seperator][((day < 10) ? "0[day]" : day)]"
 
+/// Returns whether the specified year is a leap year
 /proc/isLeap(y)
 	return ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
 
 
 
-//Turns a Body_parts_covered bitfield into a list of organ/limb names.
-//(I challenge you to find a use for this)
+/// Turns a Body_parts_covered bitfield into a list of organ/limb names. (I challenge you to find a use for this)
 /proc/body_parts_covered2organ_names(bpc)
 	var/list/covered_parts = list()
 
@@ -394,6 +392,7 @@
 
 	return covered_parts
 
+/// Returns the body_zone a given slot appears on
 /proc/slot2body_zone(slot)
 	switch(slot)
 		if(SLOT_BACK, SLOT_WEAR_SUIT, SLOT_W_UNIFORM, SLOT_BELT, SLOT_WEAR_ID)
@@ -417,7 +416,7 @@
 		if(SLOT_LEGCUFFED)
 			return pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 
-//adapted from http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/
+/// adapted from http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/
 /proc/heat2colour(temp)
 	return rgb(heat2colour_r(temp), heat2colour_g(temp), heat2colour_b(temp))
 
@@ -449,6 +448,7 @@
 			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
 
 
+/// Converts a text color like "red" to a hex color ("#FF0000")
 /proc/color2hex(color)	//web colors
 	if(!color)
 		return "#000000"
@@ -494,15 +494,13 @@
 			return "#FFFFFF"
 
 
-//This is a weird one:
-//It returns a list of all var names found in the string
-//These vars must be in the [var_name] format
-//It's only a proc because it's used in more than one place
+/**
+This is a weird one: It returns a list of all var names found in the string. These vars must be in the [var_name] format
 
-//Takes a string and a datum
-//The string is well, obviously the string being checked
-//The datum is used as a source for var names, to check validity
-//Otherwise every single word could technically be a variable!
+It's only a proc because it's used in more than one place
+
+Takes a string and a datum. The string is well, obviously the string being checked. The datum is used as a source for var names, to check validity. Otherwise every single word could technically be a variable!
+*/
 /proc/string2listofvars(var/t_string, var/datum/var_source)
 	if(!t_string || !var_source)
 		return list()
@@ -530,7 +528,7 @@
 					if(var_source.vars.Find(A))
 						. += A
 
-//assumes format #RRGGBB #rrggbb
+/// Converts a hex code to a number
 /proc/color_hex2num(A)
 	if(!A)
 		return 0
@@ -554,7 +552,7 @@
 		return color_matrix_identity()
 	return list(r,0,0,0, 0,g,0,0, 0,0,b,0, 0,0,0,a, 0,0,0,0)
 
-//will drop all values not on the diagonal
+/// Will drop all values not on the diagonal
 /proc/color_matrix2color_hex(list/the_matrix)
 	if(!istype(the_matrix) || the_matrix.len != 20)
 		return "#ffffffff"
@@ -575,7 +573,7 @@
 				return /datum
 	return text2path(copytext(string_type, 1, last_slash))
 
-//returns a string the last bit of a type, without the preceeding '/'
+// Returns a string the last bit of a type, without the preceeding '/'
 /proc/type2top(the_type)
 	//handle the builtins manually
 	if(!ispath(the_type))
@@ -596,6 +594,7 @@
 		else //regex everything else (works for /proc too)
 			return lowertext(replacetext("[the_type]", "[type2parent(the_type)]/", ""))
 
+/// Encodes a string to hex
 /proc/strtohex(str)
 	if(!istext(str)||!str)
 		return
@@ -606,8 +605,7 @@
 		r+= num2hex(c)
 	return r
 
-// Decodes hex to raw byte string.
-// If safe=TRUE, returns null on incorrect input strings instead of CRASHing
+/// Decodes hex to raw byte string. If safe=TRUE, returns null on incorrect input strings instead of CRASHing
 /proc/hextostr(str, safe=FALSE)
 	if(!istext(str)||!str)
 		return
