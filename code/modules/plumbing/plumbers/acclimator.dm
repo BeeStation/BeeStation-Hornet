@@ -22,15 +22,11 @@
 	///COOLING, HEATING or NEUTRAL. We track this for change, so we dont needlessly update our icon
 	var/acclimate_state
 
-	ui_x = 320
-	ui_y = 310
-
 /obj/machinery/plumbing/acclimator/Initialize()
 	. = ..()
 	AddComponent(/datum/component/plumbing/acclimator)
 
 /obj/machinery/plumbing/acclimator/wrench_act(mob/living/user, obj/item/I)
-	..()
 	default_unfasten_wrench(user, I)
 	return TRUE
 
@@ -62,7 +58,7 @@
 /obj/machinery/plumbing/acclimator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "acclimator", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, ui_key, "acclimator", name, 300, 260, master_ui, state)
 		ui.open()
 
 /obj/machinery/plumbing/acclimator/ui_data(mob/user)
@@ -86,8 +82,10 @@
 		if("set_allowed_temperature_difference")
 			var/target = input("New acceptable difference:", name, allowed_temperature_difference) as num|null
 			allowed_temperature_difference = CLAMP(target, 0, 1000)
-		if("toggle_power")
-			enabled = !enabled
+		if("turn_on")
+			enabled = TRUE
+		if("turn_off")
+			enabled = FALSE
 #undef COOLING
 #undef HEATING
 #undef NEUTRAL
