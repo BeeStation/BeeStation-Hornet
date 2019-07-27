@@ -1,5 +1,5 @@
-/*
-	Used with the various stat variables (mob, machines)
+/*!
+### Used with the various stat variables (mob, machines)
 */
 
 //mob/var/stat things

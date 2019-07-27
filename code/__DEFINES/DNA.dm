@@ -2,7 +2,7 @@
 
 #define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
 
-//Defines copying names of mutations in all cases, make sure to change this if you change mutation's type
+//! #### Defines copying names of mutations in all cases, make sure to change this if you change mutation's type
 #define HULK		/datum/mutation/human/hulk
 #define XRAY		/datum/mutation/human/thermal/x_ray
 #define SPACEMUT	/datum/mutation/human/space_adaptation
@@ -58,18 +58,18 @@
 
 // String identifiers for associative list lookup
 
-//Types of usual mutations
+//! #### Types of usual mutations
 #define	POSITIVE 			1
 #define	NEGATIVE			2
 #define	MINOR_NEGATIVE		4
 
 
-//Mutation classes. Normal being on them, extra being additional mutations with instability and other being stuff you dont want people to fuck with like wizard mutate
+//! #### Mutation classes. Normal being on them, extra being additional mutations with instability and other being stuff you dont want people to fuck with like wizard mutate
 #define MUT_NORMAL 1
 #define MUT_EXTRA 2
 #define MUT_OTHER 3
 
-//DNA - Because fuck you and your magic numbers being all over the codebase.
+//! #### DNA - Because fuck you and your magic numbers being all over the codebase.
 #define DNA_BLOCK_SIZE				3
 
 #define DNA_UNI_IDENTITY_BLOCKS		7
@@ -144,7 +144,7 @@
 #define ORGAN_SLOT_TAIL "tail"
 
 
-//used for the can_chromosome var on mutations
+//! #### used for the can_chromosome var on mutations
 #define CHROMOSOME_NEVER 0
 #define CHROMOSOME_NONE 1
 #define CHROMOSOME_USED 2

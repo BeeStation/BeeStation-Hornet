@@ -178,7 +178,7 @@
 
 //! ## Overlays subsystem
 
-///Compile all the overlays for an atom from the cache lists
+/// Compile all the overlays for an atom from the cache lists
 #define COMPILE_OVERLAYS(A)\
 	if (TRUE) {\
 		var/list/ad = A.add_overlays;\
