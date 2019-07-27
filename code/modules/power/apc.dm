@@ -1132,7 +1132,7 @@
 		update_icon()
 	if(stat & (BROKEN|MAINT))
 		return
-	if(!area.requires_power)
+	if(!area?.requires_power)
 		return
 	if(failure_timer)
 		update()

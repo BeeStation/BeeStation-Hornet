@@ -142,19 +142,16 @@
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
-	if(light_power && light_range)
+	if (light_power && light_range)
 		update_light()
 
-	if(opacity && isturf(loc))
+	if (opacity && isturf(loc))
 		var/turf/T = loc
 		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guaranteed to be on afterwards anyways.
 
-	if(canSmoothWith)
+	if (canSmoothWith)
 		canSmoothWith = typelist("canSmoothWith", canSmoothWith)
 
-	if(datum_outputs)
-		for(var/i in 1 to length(datum_outputs))
-			datum_outputs[i] = SSoutputs.outputs[datum_outputs[i]]
 			
 	if(custom_materials && custom_materials.len)
 		var/temp_list = list()
@@ -164,7 +161,6 @@
 
 		custom_materials = null //Null the list to prepare for applying the materials properly
 		set_custom_materials(temp_list)
-		
 
 	ComponentInitialize()
 
