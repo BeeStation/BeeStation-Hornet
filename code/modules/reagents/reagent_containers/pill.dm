@@ -185,6 +185,25 @@
 	icon_state = "pill22"
 	rename_with_volume = TRUE
 
+/obj/item/reagent_containers/pill/mutarad
+	name = "radiation treatment deluxe pill"
+	desc = "Used to treat heavy radition poisoning and genetic defects."
+	icon_state = "pill21"
+	list_reagents = list("pen_acid" = 15, "potass_iodide" = 15, "mutadone" = 15, "water" = 5)
+	
+/obj/item/reagent_containers/pill/antirad_plus
+	name = "radiation deluxe pill"
+	desc = "Used to treat heavy radition poisoning."
+	icon_state = "pill3"
+	list_reagents = list("potass_iodide" = 50, "water" = 10,"charcoal" = 10)
+	
+/obj/item/reagent_containers/pill/antirad
+	name = "potassium iodide pill"
+	desc = "Used to treat radition used to counter radiation poisoning."
+	icon_state = "pill18"
+	list_reagents = list("potass_iodide" = 30, "charcoal" = 10)
+	
+
 ///////////////////////////////////////// this pill is used only in a legion mob drop
 /obj/item/reagent_containers/pill/shadowtoxin
 	name = "black pill"
