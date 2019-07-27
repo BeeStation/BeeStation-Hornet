@@ -107,6 +107,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/strip_delay = 40
 	/// In deciseconds, how long it takes to break out of an item by using resist. ex: handcuffs
 	var/breakouttime = 0
+
 	/// List of materials it contains as the keys and the quantities as the vals. Like when you pop it into an autolathe these are the materials you get out of it. Also used in microwaves to see if there is enough iron to make it explode. Oh yeah it's used for a ton of other things too. Less exciting things though.
 	var/list/materials
 
@@ -172,6 +173,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/Initialize()
 
 	materials =	typelist("materials", materials)
+
+	if(materials) //Otherwise, use the instances already provided.
+		var/list/temp_list = list() 
+		for(var/i in materials) //Go through all of our materials, get the subsystem instance, and then replace the list.
+			var/amount = materials[i]
+			var/datum/material/M = getmaterialref(i)
+			temp_list[M] = amount
+		materials = temp_list
 
 	if (attack_verb)
 		attack_verb = typelist("attack_verb", attack_verb)
@@ -547,12 +556,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	log_combat(user, M, "attacked", "[src.name]", "(INTENT: [uppertext(user.a_intent)])")
 
-	M.adjust_blurriness(3)
-	M.adjust_eye_damage(rand(2,4))
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
 	if (!eyes)
 		return
-	if(eyes.eye_damage >= 10)
+	M.adjust_blurriness(3)
+	eyes.applyOrganDamage(rand(2,4))
+	if(eyes.damage >= 10)
 		M.adjust_blurriness(15)
 		if(M.stat != DEAD)
 			to_chat(M, "<span class='danger'>Your eyes start to bleed profusely!</span>")
@@ -566,7 +575,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			M.adjust_blurriness(10)
 			M.Unconscious(20)
 			M.Paralyze(40)
-		if (prob(eyes.eye_damage - 10 + 1))
+		if (prob(eyes.damage - 10 + 1))
 			M.become_blind(EYE_DAMAGE)
 			to_chat(M, "<span class='danger'>You go blind!</span>")
 
@@ -861,4 +870,3 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
 	return owner.dropItemToGround(src)
-
