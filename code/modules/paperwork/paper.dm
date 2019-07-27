@@ -31,7 +31,7 @@
 	var/spam_flag = 0
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
-
+	var/datum/oracle_ui/ui = null
 
 /obj/item/paper/pickup(user)
 	if(contact_poison && ishuman(user))
@@ -40,16 +40,39 @@
 		if(!istype(G) || G.transfer_prints)
 			H.reagents.add_reagent(contact_poison,contact_poison_volume)
 			contact_poison = null
+	ui.check_view_all()
 	..()
 
+/obj/item/paper/dropped(mob/user)
+	ui.check_view(user)
+	return ..()
 
 /obj/item/paper/Initialize()
 	. = ..()
 	pixel_y = rand(-8, 8)
 	pixel_x = rand(-9, 9)
+	ui = new /datum/oracle_ui(src, 420, 600, get_asset_datum(/datum/asset/spritesheet/simple/paper))
+	ui.can_resize = FALSE
 	update_icon()
 	updateinfolinks()
 
+/obj/item/paper/oui_getcontent(mob/target)
+	if(!target.is_literate())
+		return "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)]<HR>[stamps]</BODY></HTML>"
+	else if(istype(target.get_active_held_item(), /obj/item/pen) | istype(target.get_active_held_item(), /obj/item/toy/crayon))
+		return "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links]<HR>[stamps]</BODY></HTML>"
+	else
+		return "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info]<HR>[stamps]</BODY></HTML>"
+
+/obj/item/paper/oui_canview(mob/target)
+	if(check_rights_for(target.client, R_FUN)) //Allows admins to view faxes
+		return TRUE
+	if(isAI(target))
+		var/mob/living/silicon/ai/ai = target
+		return get_dist(src, ai.current) < 2
+	if(iscyborg(target))
+		return get_dist(src, target) < 2
+	return ..()
 
 /obj/item/paper/update_icon()
 
@@ -64,19 +87,14 @@
 
 /obj/item/paper/examine(mob/user)
 	..()
-	var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/simple/paper)
-	assets.send(user)
 
-	if(in_range(user, src) || isobserver(user))
-		if(user.is_literate())
-			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info]<HR>[stamps]</BODY></HTML>", "window=[name]")
-			onclose(user, "[name]")
-		else
-			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)]<HR>[stamps]</BODY></HTML>", "window=[name]")
-			onclose(user, "[name]")
+	if(oui_canview(user))
+		ui.render(user)
 	else
-		to_chat(user, "<span class='warning'>You're too far away to read it!</span>")
+		to_chat(user, "<span class='notice'>It is too far away.</span>")
 
+/obj/item/paper/proc/show_content(var/mob/user)
+	user.examinate(src)
 
 /obj/item/paper/verb/rename()
 	set name = "Rename paper"
@@ -96,6 +114,7 @@
 	if((loc == usr && usr.stat == CONSCIOUS))
 		name = "paper[(n_name ? text("- '[n_name]'") : null)]"
 	add_fingerprint(usr)
+	ui.render_all()
 
 
 /obj/item/paper/suicide_act(mob/user)
@@ -106,27 +125,10 @@
 	spam_flag = FALSE
 
 /obj/item/paper/attack_self(mob/user)
-	user.examinate(src)
-	if(rigged && (SSevents.holidays && SSevents.holidays[APRIL_FOOLS]))
-		if(!spam_flag)
-			spam_flag = TRUE
-			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
-			addtimer(CALLBACK(src, .proc/reset_spamflag), 20)
-
+	show_content(user)
 
 /obj/item/paper/attack_ai(mob/living/silicon/ai/user)
-	var/dist
-	if(istype(user) && user.current) //is AI
-		dist = get_dist(src, user.current)
-	else //cyborg or AI not seeing through a camera
-		dist = get_dist(src, user)
-	if(dist < 2)
-		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info]<HR>[stamps]</BODY></HTML>", "window=[name]")
-		onclose(usr, "[name]")
-	else
-		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)]<HR>[stamps]</BODY></HTML>", "window=[name]")
-		onclose(usr, "[name]")
-
+	show_content(user)
 
 /obj/item/paper/proc/addtofield(id, text, links = 0)
 	var/locid = 0
@@ -171,7 +173,7 @@
 	for(var/i in 1 to min(fields, 15))
 		addtofield(i, "<font face=\"[PEN_FONT]\"><A href='?src=[REF(src)];write=[i]'>write</A></font>", 1)
 	info_links = info_links + "<font face=\"[PEN_FONT]\"><A href='?src=[REF(src)];write=end'>write</A></font>"
-
+	ui.render_all()
 
 /obj/item/paper/proc/clearpaper()
 	info = null
@@ -186,15 +188,47 @@
 	if(length(t) < 1)		//No input means nothing needs to be parsed
 		return
 
-	t = parsemarkdown(t, user, iscrayon)
+//	t = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+
+	t = replacetext(t, "\[center\]", "<center>")
+	t = replacetext(t, "\[/center\]", "</center>")
+	t = replacetext(t, "\[br\]", "<BR>")
+	t = replacetext(t, "\n", "<BR>")
+	t = replacetext(t, "\[b\]", "<B>")
+	t = replacetext(t, "\[/b\]", "</B>")
+	t = replacetext(t, "\[i\]", "<I>")
+	t = replacetext(t, "\[/i\]", "</I>")
+	t = replacetext(t, "\[u\]", "<U>")
+	t = replacetext(t, "\[/u\]", "</U>")
+	t = replacetext(t, "\[large\]", "<font size=\"4\">")
+	t = replacetext(t, "\[/large\]", "</font>")
+	t = replacetext(t, "\[sign\]", "<font face=\"[SIGNFONT]\"><i>[user.real_name]</i></font>")
+	t = replacetext(t, "\[field\]", "<span class=\"paper_field\"></span>")
+	t = replacetext(t, "\[tab\]", "&nbsp;&nbsp;&nbsp;&nbsp;")
 
 	if(!iscrayon)
+		t = replacetext(t, "\[*\]", "<li>")
+		t = replacetext(t, "\[hr\]", "<HR>")
+		t = replacetext(t, "\[small\]", "<font size = \"1\">")
+		t = replacetext(t, "\[/small\]", "</font>")
+		t = replacetext(t, "\[list\]", "<ul>")
+		t = replacetext(t, "\[/list\]", "</ul>")
+
 		t = "<font face=\"[P.font]\" color=[P.colour]>[t]</font>"
-	else
+	else // If it is a crayon, and he still tries to use these, make them empty!
 		var/obj/item/toy/crayon/C = P
+		t = replacetext(t, "\[*\]", "")
+		t = replacetext(t, "\[hr\]", "")
+		t = replacetext(t, "\[small\]", "")
+		t = replacetext(t, "\[/small\]", "")
+		t = replacetext(t, "\[list\]", "")
+		t = replacetext(t, "\[/list\]", "")
+
 		t = "<font face=\"[CRAYON_FONT]\" color=[C.paint_color]><b>[t]</b></font>"
 
-	// Count the fields
+//	t = replacetext(t, "#", "") // Junk converted to nothing!
+
+//Count the fields
 	var/laststart = 1
 	while(fields < 15)
 		var/i = findtext(t, "<span class=\"paper_field\">", laststart)
@@ -220,23 +254,22 @@
 /obj/item/paper/proc/openhelp(mob/user)
 	user << browse({"<HTML><HEAD><TITLE>Paper Help</TITLE></HEAD>
 	<BODY>
-		You can use backslash (\\) to escape special characters.<br>
-		<br>
 		<b><center>Crayon&Pen commands</center></b><br>
 		<br>
-		# text : Defines a header.<br>
-		|text| : Centers the text.<br>
-		**text** : Makes the text <b>bold</b>.<br>
-		*text* : Makes the text <i>italic</i>.<br>
-		^text^ : Increases the <font size = \"4\">size</font> of the text.<br>
-		%s : Inserts a signature of your name in a foolproof way.<br>
-		%f : Inserts an invisible field which lets you start type from there. Useful for forms.<br>
+		\[br\] : Creates a linebreak.<br>
+		\[center\] - \[/center\] : Centers the text.<br>
+		\[b\] - \[/b\] : Makes the text <b>bold</b>.<br>
+		\[i\] - \[/i\] : Makes the text <i>italic</i>.<br>
+		\[u\] - \[/u\] : Makes the text <u>underlined</u>.<br>
+		\[large\] - \[/large\] : Increases the <font size = \"4\">size</font> of the text.<br>
+		\[sign\] : Inserts a signature of your name in a foolproof way.<br>
+		\[field\] : Inserts an invisible field which lets you start type from there. Useful for forms.<br>
 		<br>
 		<b><center>Pen exclusive commands</center></b><br>
-		((text)) : Decreases the <font size = \"1\">size</font> of the text.<br>
-		* item : An unordered list item.<br>
-		&nbsp;&nbsp;* item: An unordered list child item.<br>
-		--- : Adds a horizontal rule.
+		\[small\] - \[/small\] : Decreases the <font size = \"1\">size</font> of the text.<br>
+		\[list\] - \[/list\] : A list.<br>
+		\[*\] : A dot used for lists.<br>
+		\[hr\] : Adds a horizontal rule.
 	</BODY></HTML>"}, "window=paper_help")
 
 
@@ -270,10 +303,11 @@
 		if(t != null)	//No input from the user means nothing needs to be added
 			if(id!="end")
 				addtofield(text2num(id), t) // He wants to edit a field, let him.
+				ui.render(usr)
 			else
 				info += t // Oh, he wants to edit to the end of the file, let him.
 				updateinfolinks()
-			usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links]<HR>[stamps]</BODY><div align='right'style='position:fixed;bottom:0;font-style:bold;'><A href='?src=[REF(src)];help=1'>\[?\]</A></div></HTML>", "window=[name]") // Update the window
+
 			update_icon()
 
 
@@ -288,7 +322,7 @@
 
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		if(user.is_literate())
-			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links]<HR>[stamps]</BODY><div align='right'style='position:fixed;bottom:0;font-style:bold;'><A href='?src=[REF(src)];help=1'>\[?\]</A></div></HTML>", "window=[name]")
+			user.examinate(src)
 			return
 		else
 			to_chat(user, "<span class='notice'>You don't know how to read or write.</span>")
@@ -298,9 +332,8 @@
 
 		if(!in_range(src, user))
 			return
-
 		var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
-		if (isnull(stamps))
+		if(isnull(stamps))
 			stamps = sheet.css_tag()
 		stamps += sheet.icon_tag(P.icon_state)
 		var/mutable_appearance/stampoverlay = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_[P.icon_state]")
@@ -311,6 +344,7 @@
 		add_overlay(stampoverlay)
 
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
+		ui.render_all()
 
 	if(P.is_hot())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))

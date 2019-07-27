@@ -2,21 +2,29 @@
 /obj
 	animate_movement = 2
 	var/obj_flags = CAN_BE_HIT
-	var/set_obj_flags // ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
+
+	/// ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
+	var/set_obj_flags
 
 	var/damtype = BRUTE
 	var/force = 0
 
 	var/datum/armor/armor
-	var/obj_integrity	//defaults to max_integrity
+	/// The integrity the object starts at. Defaults to max_integrity.
+	var/obj_integrity
+	/// The maximum integrity the object can have.
 	var/max_integrity = 500
-	var/integrity_failure = 0 //0 if we have no special broken behavior
+	/// The object will break once obj_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior.
+	var/integrity_failure = 0
 
-	var/resistance_flags = NONE // INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
+	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
+	var/resistance_flags = NONE
 
-	var/acid_level = 0 //how much acid is on that obj
+	/// How much acid is on that obj
+	var/acid_level = 0
 
-	var/persistence_replacement //have something WAY too amazing to live to the next round? Set a new path here. Overuse of this var will make me upset.
+	/// Have something WAY too amazing to live to the next round? Set a new path here. Overuse of this var will make me upset. Will replace the object with the type you specify during persistence.
+	var/persistence_replacement
 	var/current_skin //Has the item been reskinned?
 	var/list/unique_reskin //List of options to reskin.
 
@@ -26,7 +34,8 @@
 	var/list/req_one_access
 	var/req_one_access_txt = "0"
 
-	var/renamedByPlayer = FALSE //set when a player uses a pen on a renamable object
+	/// Set when a player uses a pen on a renamable object
+	var/renamedByPlayer = FALSE
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
