@@ -258,7 +258,7 @@
 	blocks["max_space"] = assembly.max_components
 
 	// Start keeping track of total iron cost
-	blocks["iron_cost"] = assembly.materials[MAT_IRON]
+	blocks["iron_cost"] = assembly.materials[/datum/material/iron]
 
 
 	// Block 2. Components.
@@ -289,7 +289,7 @@
 		// Update estimated assembly complexity, taken space and material cost
 		blocks["complexity"] += component.complexity
 		blocks["used_space"] += component.size
-		blocks["iron_cost"] += component.materials[MAT_IRON]
+		blocks["iron_cost"] += component.materials[/datum/material/iron]
 
 		// Check if the assembly requires printer upgrades
 		if(!(component.spawn_flags & IC_SPAWN_DEFAULT))

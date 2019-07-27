@@ -2,24 +2,33 @@
 	icon = 'icons/turf/floors.dmi'
 	level = 1
 
+	/// If this is TRUE, that means this floor is on top of plating so pipes and wires and stuff will appear under it... or something like that it's not entirely clear.
 	var/intact = 1
 
 	// baseturfs can be either a list or a single turf type.
 	// In class definition like here it should always be a single type.
 	// A list will be created in initialization that figures out the baseturf's baseturf etc.
 	// In the case of a list it is sorted from bottom layer to top.
-	// This shouldn't be modified directly, use the helper procs.
+	/** baseturfs are the turfs that will appear under a turf when said turf is destroyed. For instance: when a floor is destroyed, you get plating.
+	  *
+	  * This shouldn't be modified directly, use the helper procs.
+	  */
 	var/list/baseturfs = /turf/baseturf_bottom
 
+	/// How hot the turf is, in kelvin
 	var/temperature = T20C
-	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
+
+	/// Used for fire, if a melting temperature was reached, it will be destroyed
+	var/to_be_destroyed = 0
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 
+	/// Whether the turf blocks atmos from passing through it or not
 	var/blocks_air = FALSE
 
 	flags_1 = CAN_BE_DIRTY_1
 
-	var/list/image/blueprint_data //for the station blueprints, images of objects eg: pipes
+	/// For the station blueprints, images of objects eg: pipes
+	var/list/image/blueprint_data
 
 	var/explosion_level = 0	//for preventing explosion dodging
 	var/explosion_id = 0
@@ -27,11 +36,13 @@
 	var/requires_activation	//add to air processing after initialize?
 	var/changing_turf = FALSE
 
-	var/bullet_bounce_sound = 'sound/weapons/bulletremove.ogg' //sound played when a shell casing is ejected ontop of the turf.
-	var/bullet_sizzle = FALSE //used by ammo_casing/bounce_away() to determine if the shell casing should make a sizzle sound when it's ejected over the turf
-							//IE if the turf is supposed to be water, set TRUE.
+	/// Sound played when a shell casing is ejected ontop of the turf.
+	var/bullet_bounce_sound = 'sound/weapons/bulletremove.ogg'
+	/// Used by ammo_casing/bounce_away() to determine if the shell casing should make a sizzle sound when it's ejected over the turf. ex: If the turf is supposed to be water, set TRUE.
+	var/bullet_sizzle = FALSE
 
-	var/tiled_dirt = FALSE // use smooth tiled dirt decal
+	/// Should we used the smooth tiled dirt decal or not
+	var/tiled_dirt = FALSE
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")

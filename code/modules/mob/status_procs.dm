@@ -21,18 +21,8 @@
 /mob/proc/set_dizziness(amount)
 	dizziness = max(amount, 0)
 
-/////////////////////////////////// EYE DAMAGE ////////////////////////////////////
+/////////////////////////////////// EYE_BLIND ////////////////////////////////////
 
-/mob/proc/damage_eyes(amount)
-	return
-
-/mob/proc/adjust_eye_damage(amount)
-	return
-
-/mob/proc/set_eye_damage(amount)
-	return
-
-///Blind a mobs eyes by amount
 /mob/proc/blind_eyes(amount)
 	if(amount>0)
 		var/old_eye_blind = eye_blind
