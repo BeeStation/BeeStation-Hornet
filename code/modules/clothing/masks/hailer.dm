@@ -36,6 +36,12 @@
 	icon_state = "spacepol"
 	item_state = "spacepol"
 
+/obj/item/clothing/mask/gas/sechailer/swat/death_commando
+	name = "death commando mask"
+	desc = "A close-fitting combat mask developed by Nanotrasen for use by their Death Commandos."
+	icon_state = "death_mask"
+	item_state = "death_mask"
+
 /obj/item/clothing/mask/gas/sechailer/cyborg
 	name = "security hailer"
 	desc = "A set of recognizable pre-recorded messages for cyborgs to use when apprehending criminals."

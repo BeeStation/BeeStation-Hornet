@@ -48,6 +48,12 @@
 	item_color = "syndicate_combat"
 	can_adjust = FALSE
 
+/obj/item/clothing/under/syndicate/combat/ds
+	name = "death commando uniform"
+	desc = "A heavy duty combat jumpsuit developed by Nanotrasen for use by their Death Commandos"
+	icon_state = "ds_combat"
+	item_color = "ds_combat"
+
 /obj/item/clothing/under/syndicate/rus_army
 	name = "advanced military tracksuit"
 	desc = "Military grade tracksuits for frontline squatting."

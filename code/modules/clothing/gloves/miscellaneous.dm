@@ -40,6 +40,21 @@
 	resistance_flags = NONE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
 
+/obj/item/clothing/gloves/combat/ds
+	name = "death commando gloves"
+	desc = "Heavy Duty Combat Gloves Developed by Nanotrasen for use by their Death Commandos."
+	icon_state = "dsgloves"
+	item_state = "dsgloves"
+	siemens_coefficient = 0
+	permeability_coefficient = 0.05
+	strip_delay = 100
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	resistance_flags = NONE
+	armor = list("melee" = 10, "bullet" = 5, "laser" = 15, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 60)
+
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"
 	desc = "For when you're expecting to get slapped on the wrist. Offers modest protection to your arms."
