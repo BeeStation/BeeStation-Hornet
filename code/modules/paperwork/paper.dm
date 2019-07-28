@@ -173,6 +173,7 @@
 	for(var/i in 1 to min(fields, 15))
 		addtofield(i, "<font face=\"[PEN_FONT]\"><A href='?src=[REF(src)];write=[i]'>write</A></font>", 1)
 	info_links = info_links + "<font face=\"[PEN_FONT]\"><A href='?src=[REF(src)];write=end'>write</A></font>"
+	info_links = info_links + "<BR><BR><font face=\"[PEN_FONT]\"><A href='?src=[REF(src)];help=end'>Paper Help</A></font>"
 	ui.render_all()
 
 /obj/item/paper/proc/clearpaper()
@@ -190,20 +191,27 @@
 
 //	t = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
 
+	t = replacetext(t, "\n", "<BR>")
 	t = replacetext(t, "\[center\]", "<center>")
 	t = replacetext(t, "\[/center\]", "</center>")
 	t = replacetext(t, "\[br\]", "<BR>")
-	t = replacetext(t, "\n", "<BR>")
 	t = replacetext(t, "\[b\]", "<B>")
 	t = replacetext(t, "\[/b\]", "</B>")
 	t = replacetext(t, "\[i\]", "<I>")
 	t = replacetext(t, "\[/i\]", "</I>")
 	t = replacetext(t, "\[u\]", "<U>")
 	t = replacetext(t, "\[/u\]", "</U>")
+	t = replacetext(t, "\[time\]", "[station_time_timestamp(format = "hh:mm")]")
 	t = replacetext(t, "\[large\]", "<font size=\"4\">")
 	t = replacetext(t, "\[/large\]", "</font>")
-	t = replacetext(t, "\[sign\]", "<font face=\"[SIGNFONT]\"><i>[user.real_name]</i></font>")
 	t = replacetext(t, "\[field\]", "<span class=\"paper_field\"></span>")
+	t = replacetext(t, "\[h1\]", "<H1>")
+	t = replacetext(t, "\[/h1\]", "</H1>")
+	t = replacetext(t, "\[h2\]", "<H2>")
+	t = replacetext(t, "\[/h2\]", "</H2>")
+	t = replacetext(t, "\[h3\]", "<H3>")
+	t = replacetext(t, "\[/h3\]", "</H3>")
+	t = replacetext(t, "\[sign\]", "<font face=\"[SIGNFONT]\"><i>[user.real_name]</i></font>")
 	t = replacetext(t, "\[tab\]", "&nbsp;&nbsp;&nbsp;&nbsp;")
 
 	if(!iscrayon)
@@ -213,6 +221,12 @@
 		t = replacetext(t, "\[/small\]", "</font>")
 		t = replacetext(t, "\[list\]", "<ul>")
 		t = replacetext(t, "\[/list\]", "</ul>")
+		t = replacetext(t, "\[table\]", "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>")
+		t = replacetext(t, "\[/table\]", "</td></tr></table>")
+		t = replacetext(t, "\[grid\]", "<table>")
+		t = replacetext(t, "\[/grid\]", "</td></tr></table>")
+		t = replacetext(t, "\[row\]", "</td><tr>")
+		t = replacetext(t, "\[cell\]", "<td>")
 
 		t = "<font face=\"[P.font]\" color=[P.colour]>[t]</font>"
 	else // If it is a crayon, and he still tries to use these, make them empty!
@@ -223,6 +237,12 @@
 		t = replacetext(t, "\[/small\]", "")
 		t = replacetext(t, "\[list\]", "")
 		t = replacetext(t, "\[/list\]", "")
+		t = replacetext(t, "\[table\]", "")
+		t = replacetext(t, "\[/table\]", "")
+		t = replacetext(t, "\[grid\]", "")
+		t = replacetext(t, "\[/grid\]", "")
+		t = replacetext(t, "\[row\]", "")
+		t = replacetext(t, "\[cell\]", "")
 
 		t = "<font face=\"[CRAYON_FONT]\" color=[C.paint_color]><b>[t]</b></font>"
 
@@ -254,22 +274,31 @@
 /obj/item/paper/proc/openhelp(mob/user)
 	user << browse({"<HTML><HEAD><TITLE>Paper Help</TITLE></HEAD>
 	<BODY>
-		<b><center>Crayon&Pen commands</center></b><br>
+		<b><center>Crayon & Pen commands</center></b><br>
 		<br>
 		\[br\] : Creates a linebreak.<br>
 		\[center\] - \[/center\] : Centers the text.<br>
 		\[b\] - \[/b\] : Makes the text <b>bold</b>.<br>
 		\[i\] - \[/i\] : Makes the text <i>italic</i>.<br>
 		\[u\] - \[/u\] : Makes the text <u>underlined</u>.<br>
+		\[time\] : Inserts the current station time, formatted as HH:MM.<br>
 		\[large\] - \[/large\] : Increases the <font size = \"4\">size</font> of the text.<br>
+		\[field\] : Inserts an invisible field which lets you start typing from there. Useful for forms.<br>
+		\[h1\] - \[/h1\] : Makes the text a <h1>large header</h1>.<br>
+		\[h2\] - \[/h2\] : Makes the text a <h2>medium header</h2>.<br>
+		\[h3\] - \[/h3\] : Makes the text a <h3>small header</h3>.<br>
 		\[sign\] : Inserts a signature of your name in a foolproof way.<br>
-		\[field\] : Inserts an invisible field which lets you start type from there. Useful for forms.<br>
+		\[tab\] : Inserts a tab, to indent text.<br>
 		<br>
 		<b><center>Pen exclusive commands</center></b><br>
 		\[small\] - \[/small\] : Decreases the <font size = \"1\">size</font> of the text.<br>
 		\[list\] - \[/list\] : A list.<br>
 		\[*\] : A dot used for lists.<br>
 		\[hr\] : Adds a horizontal rule.
+		\[table\] - \[/table\] : Adds a table. Cells have a solid black border.<br>
+		\[grid\] - \[/grid\] : Same as \[table\], except cells have no border.<br>
+		\[row\] : Adds a row to a \[table\] or \[grid\]. Required even for the first row.<br>
+		\[cell\] : Adds a cell to a \[row\]. Required even for the first cell. Can be followed by \[field\] to make the cell a field.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
 
