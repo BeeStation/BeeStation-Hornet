@@ -139,7 +139,7 @@
 	for (var/file in map_file)
 		. += "_maps/[map_path]/[file]"
 
-/datum/map_config/proc/is_votable()
+/datum/map_config/proc/is_votable()  // readability is important
 	if(!votable)
 		return 0
 	var/players = GLOB.clients.len
