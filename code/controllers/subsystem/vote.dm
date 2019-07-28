@@ -188,7 +188,8 @@ SUBSYSTEM_DEF(vote)
 			if("map")
 				for(var/map in global.config.maplist)
 					var/datum/map_config/VM = config.maplist[map]
-					if(!VM.votable)
+					var/players = GLOB.clients.len
+					if(!VM.votable || players > VM.config_max_users || players < VM.config_min_users )
 						continue
 					choices.Add(VM.map_name)
 			if("custom")
