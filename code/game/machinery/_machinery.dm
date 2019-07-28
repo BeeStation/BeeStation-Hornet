@@ -121,6 +121,9 @@ Class Procs:
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
 	var/obj/item/circuitboard/circuit // Circuit to be created and inserted when the machinery is created
+	var/obj/item/card/id/inserted_scan_id
+	var/obj/item/card/id/inserted_modify_id
+	var/obj/item/card/id/prisoner/inserted_prisoner_id
 	var/damage_deflection = 0
 
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
@@ -173,6 +176,9 @@ Class Procs:
 	if(datum_flags & DF_ISPROCESSING) // A sizeable portion of machines stops processing before qdel
 		end_processing()
 	dropContents()
+	inserted_scan_id = null
+	inserted_modify_id = null
+	inserted_prisoner_id = null
 	if(length(component_parts))
 		for(var/atom/A in component_parts)
 			qdel(A)
@@ -563,6 +569,8 @@ Class Procs:
 				. += "<span class='warning'>It's falling apart!</span>"
 	if(user.research_scanner && component_parts)
 		. += display_parts(user, TRUE)
+	if(inserted_prisoner_id || inserted_scan_id || inserted_modify_id)
+		. += "<span class='notice'>Alt-click to eject the ID card.</span>"
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()
@@ -604,3 +612,46 @@ Class Procs:
 
 /obj/machinery/rust_heretic_act()
 	take_damage(500, BRUTE, "melee", 1)
+
+/obj/machinery/proc/id_insert(mob/user, obj/item/card/id/I, obj/item/card/id/target_id)
+	if(target_id)
+		to_chat(user, "<span class='warning'>There's already an ID card in the console!</span>")
+		return
+	if(istype(I))
+		if(!user.transferItemToLoc(I, src))
+			return
+		user.visible_message("<span class='notice'>[user] inserts an ID card into the console.</span>", \
+							"<span class='notice'>You insert the ID card into the console.</span>")
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	else
+		to_chat(user, "<span class='danger'>No valid ID.</span>")
+	updateUsrDialog()
+
+/obj/machinery/proc/id_eject(mob/user, obj/item/card/id/target_id)
+	if(target_id)
+		target_id.forceMove(drop_location())
+		if(!issilicon(user) && Adjacent(user))
+			user.put_in_hands(target_id)
+			user.visible_message("<span class='notice'>[user] gets an ID card from the console.</span>", \
+								"<span class='notice'>You get the ID card from the console.</span>")
+			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		updateUsrDialog()
+		return
+	else
+		to_chat(user, "<span class='warning'>There's no ID card in the console!</span>")
+
+/obj/machinery/AltClick(mob/user)
+	if(!user.canUseTopic(src, !issilicon(user)) || !is_operational())
+		return
+	if(inserted_scan_id)
+		id_eject(user, inserted_scan_id)
+		inserted_scan_id = null
+		return
+	if(inserted_modify_id)
+		id_eject(user, inserted_modify_id)
+		inserted_modify_id = null
+		return
+	if(inserted_prisoner_id)
+		id_eject(user, inserted_prisoner_id)
+		inserted_prisoner_id = null
+		return

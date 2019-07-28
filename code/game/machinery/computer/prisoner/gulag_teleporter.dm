@@ -36,7 +36,7 @@
 	if(teleporter && (teleporter.occupant && ishuman(teleporter.occupant)))
 		prisoner = teleporter.occupant
 		prisoner_list["name"] = prisoner.real_name
-		if(contained_id)
+		if(inserted_prisoner_id)
 			can_teleport = TRUE
 		if(!isnull(GLOB.data_core.general))
 			for(var/r in GLOB.data_core.security)
@@ -59,11 +59,11 @@
 		data["beacon_location"] = "([beacon.x], [beacon.y], [beacon.get_virtual_z_level()])"
 	else
 		data["beacon"] = null
-	if(contained_id)
-		data["id"] = contained_id
-		data["id_name"] = contained_id.registered_name
-		data["goal"] = contained_id.goal
-		data["permanent"] = contained_id.permanent
+	if(inserted_prisoner_id)
+		data["id"] = inserted_prisoner_id
+		data["id_name"] = inserted_prisoner_id.registered_name
+		data["goal"] = inserted_prisoner_id.goal
+		data["permanent"] = inserted_prisoner_id.permanent
 	else
 		data["id"] = null
 	data["can_teleport"] = can_teleport
@@ -86,23 +86,22 @@
 			beacon = findbeacon()
 			return TRUE
 		if("handle_id")
-			if(contained_id)
-				id_eject(usr)
-			else
-				id_insert(usr)
+			if(inserted_prisoner_id)
+				id_eject(usr, inserted_prisoner_id)
+				inserted_prisoner_id = null
 			return TRUE
 		if("set_goal")
 			var/new_goal = text2num(params["value"])
-			if(!isnum_safe(new_goal) || !contained_id)
+			if(!isnum_safe(new_goal) || !inserted_prisoner_id)
 				return
 			if(!new_goal)
 				new_goal = default_goal
-			contained_id.goal = clamp(new_goal, 0, 1500) //maximum 1500 points
+			inserted_prisoner_id.goal = clamp(new_goal, 0, 1500) //maximum 1500 points
 			return TRUE
 		if("set_permanent")
-			if(!contained_id)
+			if(!inserted_prisoner_id)
 				return
-			contained_id.permanent = !contained_id.permanent
+			inserted_prisoner_id.permanent = !inserted_prisoner_id.permanent
 			return TRUE
 		if("toggle_open")
 			if(teleporter.locked)
@@ -138,17 +137,17 @@
 	return locate(/obj/structure/gulag_beacon)
 
 /obj/machinery/computer/prisoner/gulag_teleporter_computer/proc/teleport(mob/user)
-	if(!contained_id) //incase the ID was removed after the transfer timer was set.
+	if(!inserted_prisoner_id) //incase the ID was removed after the transfer timer was set.
 		say("Warning: Unable to transfer prisoner without a valid Prisoner ID inserted!")
 		return
 	var/id_goal_not_set
-	if(!contained_id.goal && !contained_id.permanent)
+	if(!inserted_prisoner_id.goal && !inserted_prisoner_id.permanent)
 		id_goal_not_set = TRUE
-		contained_id.goal = default_goal
-		say("[contained_id]'s ID card goal defaulting to [contained_id.goal] points.")
-		log_game("[key_name(user)] teleported [key_name(prisoner)] to the Labor Camp [COORD(beacon)] for [id_goal_not_set ? "default goal of ":""][contained_id.goal] points.")
+		inserted_prisoner_id.goal = default_goal
+		say("[inserted_prisoner_id]'s ID card goal defaulting to [inserted_prisoner_id.goal] points.")
+		log_game("[key_name(user)] teleported [key_name(prisoner)] to the Labor Camp [COORD(beacon)] for [id_goal_not_set ? "default goal of ":""][inserted_prisoner_id.goal] points.")
 	log_game("[key_name(user)] teleported [key_name(prisoner)] to the Labor Camp [COORD(beacon)] permanently.")
-	teleporter.handle_prisoner(contained_id, temporary_record)
+	teleporter.handle_prisoner(inserted_prisoner_id, temporary_record)
 	playsound(src, 'sound/weapons/emitter.ogg', 50, TRUE)
 	if(do_teleport(prisoner, get_turf(beacon)))
 		prisoner.Paralyze(40) // small travel dizziness
@@ -156,5 +155,5 @@
 		if(teleporter.locked)
 			teleporter.locked = FALSE
 		teleporter.toggle_open()
-		contained_id = null
+		inserted_prisoner_id = null
 		temporary_record = null
