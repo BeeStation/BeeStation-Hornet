@@ -140,7 +140,7 @@
 		. += "_maps/[map_path]/[file]"
 
 /datum/map_config/proc/is_votable()
-	return votable && (config_max_users && GLOB.clients.len <= config_max_users) && (config_min_users && players >= config_min_users)
+	return votable && (config_max_users && GLOB.clients.len <= config_max_users) && (config_min_users && GLOB.clients.len >= config_min_users)
 	
 /datum/map_config/proc/MakeNextMap()
 	return config_filename == "data/next_map.json" || fcopy(config_filename, "data/next_map.json")
