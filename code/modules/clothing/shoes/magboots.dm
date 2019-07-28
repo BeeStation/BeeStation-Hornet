@@ -57,3 +57,9 @@
 	name = "blood-red magboots"
 	icon_state = "syndiemag0"
 	magboot_state = "syndiemag"
+
+/obj/item/clothing/shoes/magboots/advance/ds
+	desc = "Advanced Combat Magboots developed by Nanotrasen for use by their Death Commandos."
+	name = "death commando magboots"
+	icon_state = "dsmag0"
+	magboot_state = "dsmag"
