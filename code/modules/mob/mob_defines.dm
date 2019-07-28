@@ -201,5 +201,3 @@
 
 	///THe z level this mob is currently registered in
 	var/registered_z = null
-	
-	var/memory_throttle_time = 0
