@@ -139,5 +139,15 @@
 	for (var/file in map_file)
 		. += "_maps/[map_path]/[file]"
 
+/datum/map_config/proc/is_votable()
+	if(!votable)
+		return 0
+	var/players = GLOB.clients.len
+	if(config_max_users && players > config_max_users)
+		return 0
+	if(config_min_users && players < config_min_users)
+		return 0
+	return 1
+
 /datum/map_config/proc/MakeNextMap()
 	return config_filename == "data/next_map.json" || fcopy(config_filename, "data/next_map.json")
