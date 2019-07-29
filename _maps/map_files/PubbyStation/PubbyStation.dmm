@@ -29410,7 +29410,7 @@
 	name = "old sink";
 	pixel_y = 28
 	},
-/obj/item/stack/cable_coil/orange,
+/obj/item/stack/cable_coil,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
