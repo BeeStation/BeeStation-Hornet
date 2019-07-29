@@ -62522,19 +62522,19 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/stack/cable_coil/random{
+/obj/item/stack/cable_coil{
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/stack/cable_coil/random{
+/obj/item/stack/cable_coil{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/stack/cable_coil/random{
+/obj/item/stack/cable_coil{
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
 /obj/item/hand_labeler{
 	pixel_x = -4;
 	pixel_y = 4

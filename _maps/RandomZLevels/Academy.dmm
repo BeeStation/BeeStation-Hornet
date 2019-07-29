@@ -719,7 +719,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "cA" = (
@@ -3010,7 +3010,7 @@
 /turf/open/floor/wood,
 /area/awaymission/academy/academyaft)
 "iI" = (
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plasteel,
 /area/awaymission/academy/academyaft)
 "iJ" = (
@@ -3580,7 +3580,7 @@
 /turf/open/floor/carpet,
 /area/awaymission/academy/academygate)
 "ki" = (
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/awaymission/academy/academygate)
 "kj" = (

@@ -35242,7 +35242,7 @@
 /area/engine/break_room)
 "bpl" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "0-4"
 	},
 /turf/open/floor/plasteel,
@@ -35253,7 +35253,7 @@
 	name = "Transit Tube Blast Door"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
@@ -35265,7 +35265,7 @@
 /turf/open/floor/plasteel/dark,
 /area/aisat)
 "bpp" = (
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/dark,
@@ -35326,7 +35326,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/structure/transit_tube/horizontal,
@@ -35337,7 +35337,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/structure/transit_tube/horizontal,
@@ -35351,7 +35351,7 @@
 /obj/structure/transit_tube/junction/flipped{
 	dir = 8
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/space,
@@ -35361,7 +35361,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/space,
@@ -35374,7 +35374,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/space,
@@ -35389,7 +35389,7 @@
 /obj/structure/transit_tube/station{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/dark,
@@ -35398,7 +35398,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "0-8"
 	},
 /turf/open/floor/plasteel/dark,
@@ -36228,11 +36228,11 @@
 	icon_state = "0-4"
 	},
 /obj/item/paper_bin,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plasteel,
 /area/storage/art)
 "bre" = (
@@ -36511,7 +36511,7 @@
 	name = "MiniSat Access";
 	req_one_access_txt = "32;19"
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/dark,
@@ -36520,7 +36520,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/dark,
@@ -36536,7 +36536,7 @@
 /obj/structure/transit_tube/curved{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/space,
@@ -36557,7 +36557,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 1
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/dark,
@@ -37454,8 +37454,8 @@
 /obj/item/stack/sheet/iron{
 	amount = 30
 	},
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /obj/structure/closet,
 /obj/item/vending_refill/cigarette,
 /turf/open/floor/wood,
@@ -51280,7 +51280,7 @@
 "bVE" = (
 /obj/structure/closet/crate,
 /obj/item/storage/belt/utility,
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bVF" = (
@@ -57540,7 +57540,7 @@
 "chC" = (
 /obj/structure/closet/crate,
 /obj/item/storage/belt/utility,
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -82915,7 +82915,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/structure/transit_tube/horizontal,
@@ -84294,7 +84294,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/structure/transit_tube/crossing/horizontal,

@@ -19632,8 +19632,8 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random{
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil{
 	pixel_x = 3;
 	pixel_y = 3
 	},
@@ -31643,7 +31643,7 @@
 	},
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/solar/aft)
 "brD" = (
@@ -47718,8 +47718,8 @@
 /area/maintenance/port/fore)
 "bYh" = (
 /obj/structure/rack,
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "bYi" = (

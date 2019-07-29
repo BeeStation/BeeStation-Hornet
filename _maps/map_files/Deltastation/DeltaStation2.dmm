@@ -17900,8 +17900,8 @@
 /obj/item/stack/sheet/iron{
 	amount = 30
 	},
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /obj/machinery/light,
 /obj/structure/closet,
 /turf/open/floor/plasteel/dark,

@@ -30079,7 +30079,7 @@
 "bsL" = (
 /obj/item/storage/box/beakers,
 /obj/structure/table/glass,
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "bsM" = (
@@ -31590,7 +31590,7 @@
 /area/hallway/secondary/entry)
 "bws" = (
 /obj/structure/closet,
-/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil,
 /obj/item/electronics/airalarm,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
@@ -46029,7 +46029,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
@@ -46285,7 +46285,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
@@ -46710,7 +46710,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
@@ -46965,7 +46965,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
@@ -47130,7 +47130,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
@@ -47257,7 +47257,7 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "cfs" = (
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
@@ -47543,7 +47543,7 @@
 	name = "Engineering External Access";
 	req_access_txt = "61"
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
@@ -47658,7 +47658,7 @@
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = -32
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
@@ -47815,7 +47815,7 @@
 	name = "Engineering External Access";
 	req_access_txt = "61"
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
@@ -53513,7 +53513,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
@@ -57340,7 +57340,7 @@
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
 "mKk" = (
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-8"
 	},
 /turf/open/floor/plating/airless,
@@ -57850,7 +57850,7 @@
 /area/science/xenobiology)
 "nPh" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
@@ -58545,7 +58545,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "pjH" = (
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/airless,
@@ -59394,7 +59394,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "roc" = (
-/obj/structure/cable/cyan,
+/obj/structure/cable,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "ros" = (
@@ -60263,7 +60263,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "tue" = (
-/obj/structure/cable/cyan{
+/obj/structure/cable{
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating/airless,
