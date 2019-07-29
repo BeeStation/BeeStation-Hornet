@@ -2205,7 +2205,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/shieldwallgen{
+/obj/machinery/power/shieldwallgen{
 	locked = 0;
 	req_access = null
 	},
@@ -3097,7 +3097,7 @@
 	id = "Awaylab";
 	name = "Acid-Proof containment chamber blast door"
 	},
-/obj/item/stack/cable_coil/cut/red{
+/obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
 /turf/open/floor/plating{
@@ -3623,7 +3623,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "gZ" = (
-/obj/machinery/shieldwallgen{
+/obj/machinery/power/shieldwallgen{
 	locked = 0;
 	req_access = null
 	},

@@ -1922,7 +1922,7 @@
 /turf/open/floor/plating,
 /area/awaymission/academy/classrooms)
 "fH" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -2467,7 +2467,7 @@
 /turf/open/floor/plating,
 /area/awaymission/academy/classrooms)
 "gZ" = (
-/obj/machinery/shieldwallgen,
+/obj/machinery/power/shieldwallgen,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},

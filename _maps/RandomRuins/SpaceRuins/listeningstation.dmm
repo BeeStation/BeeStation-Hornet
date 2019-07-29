@@ -925,7 +925,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/listeningstation)
 "bq" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/machinery/power/smes{
@@ -940,7 +940,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/listeningstation)
 "br" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,

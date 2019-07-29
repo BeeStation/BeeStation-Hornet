@@ -92,7 +92,7 @@
 /area/template_noop)
 "av" = (
 /obj/effect/turf_decal/bot_white/right,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
@@ -238,7 +238,7 @@
 /obj/effect/turf_decal/bot_white/right,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
@@ -366,7 +366,7 @@
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "eG" = (
-/obj/item/stack/cable_coil/yellow{
+/obj/item/stack/cable_coil{
 	amount = 1
 	},
 /turf/open/floor/plating/airless{
@@ -479,7 +479,7 @@
 /obj/machinery/power/smes{
 	charge = 0
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -833,7 +833,7 @@
 /obj/machinery/power/smes{
 	charge = 0
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
