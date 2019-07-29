@@ -122,55 +122,55 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 	/obj/item/gun)))
 
 
-//Combat object defines
+// Combat object defines
 
-//Embedded objects
-#define EMBEDDED_PAIN_CHANCE 					15	//Chance for embedded objects to cause pain (damage user)
-#define EMBEDDED_ITEM_FALLOUT 					5	//Chance for embedded object to fall out (causing pain but removing the object)
-#define EMBED_CHANCE							45	//Chance for an object to embed into somebody when thrown (if it's sharp)
-#define EMBEDDED_PAIN_MULTIPLIER				2	//Coefficient of multiplication for the damage the item does while embedded (this*item.w_class)
-#define EMBEDDED_FALL_PAIN_MULTIPLIER			5	//Coefficient of multiplication for the damage the item does when it falls out (this*item.w_class)
-#define EMBEDDED_IMPACT_PAIN_MULTIPLIER			4	//Coefficient of multiplication for the damage the item does when it first embeds (this*item.w_class)
-#define EMBED_THROWSPEED_THRESHOLD				4	//The minimum value of an item's throw_speed for it to embed (Unless it has embedded_ignore_throwspeed_threshold set to 1)
-#define EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER 8	//Coefficient of multiplication for the damage the item does when removed without a surgery (this*item.w_class)
-#define EMBEDDED_UNSAFE_REMOVAL_TIME			30	//A Time in ticks, total removal time = (this*item.w_class)
+//! ## Embedded objects
+#define EMBEDDED_PAIN_CHANCE 					15	//! Chance for embedded objects to cause pain (damage user)
+#define EMBEDDED_ITEM_FALLOUT 					5	//! Chance for embedded object to fall out (causing pain but removing the object)
+#define EMBED_CHANCE							45	//! Chance for an object to embed into somebody when thrown (if it's sharp)
+#define EMBEDDED_PAIN_MULTIPLIER				2	//! Coefficient of multiplication for the damage the item does while embedded `(this*item.w_class)`
+#define EMBEDDED_FALL_PAIN_MULTIPLIER			5	//! Coefficient of multiplication for the damage the item does when it falls out `(this*item.w_class)`
+#define EMBEDDED_IMPACT_PAIN_MULTIPLIER			4	//! Coefficient of multiplication for the damage the item does when it first embeds `(this*item.w_class)`
+#define EMBED_THROWSPEED_THRESHOLD				4	//! The minimum value of an item's throw_speed for it to embed (Unless it has embedded_ignore_throwspeed_threshold set to 1)
+#define EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER 8	//! Coefficient of multiplication for the damage the item does when removed without a surgery `(this*item.w_class)`
+#define EMBEDDED_UNSAFE_REMOVAL_TIME			30	//! A Time in ticks, total removal `time = (this*item.w_class)`
 
-//Gun weapon weight
+// Gun weapon weight
 #define WEAPON_LIGHT 1
 #define WEAPON_MEDIUM 2
 #define WEAPON_HEAVY 3
-//Gun trigger guards
+// Gun trigger guards
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
-//Gun bolt types
+// Gun bolt types
 #define BOLT_TYPE_STANDARD 1
 #define BOLT_TYPE_OPEN 2
 #define BOLT_TYPE_NO_BOLT 3
 #define BOLT_TYPE_LOCKING 4
-//Sawn off nerfs
+// Sawn off nerfs
 #define SAWN_OFF_ACC_PENALTY 25
 #define SAWN_OFF_RECOIL 1
 
-//Projectile Reflect
+// Projectile Reflect
 #define REFLECT_NORMAL 				(1<<0)
 #define REFLECT_FAKEPROJECTILE		(1<<1)
 
-//Object/Item sharpness
+// Object/Item sharpness
 #define IS_BLUNT			0
 #define IS_SHARP			1
 #define IS_SHARP_ACCURATE	2
 
-//His Grace.
-#define HIS_GRACE_SATIATED 0 //He hungers not. If bloodthirst is set to this, His Grace is asleep.
-#define HIS_GRACE_PECKISH 20 //Slightly hungry.
-#define HIS_GRACE_HUNGRY 60 //Getting closer. Increases damage up to a minimum of 20.
-#define HIS_GRACE_FAMISHED 100 //Dangerous. Increases damage up to a minimum of 25 and cannot be dropped.
-#define HIS_GRACE_STARVING 120 //Incredibly close to breaking loose. Increases damage up to a minimum of 30.
-#define HIS_GRACE_CONSUME_OWNER 140 //His Grace consumes His owner at this point and becomes aggressive.
-#define HIS_GRACE_FALL_ASLEEP 160 //If it reaches this point, He falls asleep and resets.
+//! ### His Grace.
+#define HIS_GRACE_SATIATED 0 //! He hungers not. If bloodthirst is set to this, His Grace is asleep.
+#define HIS_GRACE_PECKISH 20 //! Slightly hungry.
+#define HIS_GRACE_HUNGRY 60 //! Getting closer. Increases damage up to a minimum of 20.
+#define HIS_GRACE_FAMISHED 100 //! Dangerous. Increases damage up to a minimum of 25 and cannot be dropped.
+#define HIS_GRACE_STARVING 120 //! Incredibly close to breaking loose. Increases damage up to a minimum of 30.
+#define HIS_GRACE_CONSUME_OWNER 140 //! His Grace consumes His owner at this point and becomes aggressive.
+#define HIS_GRACE_FALL_ASLEEP 160 //! If it reaches this point, He falls asleep and resets.
 
-#define HIS_GRACE_FORCE_BONUS 4 //How much force is gained per kill.
+#define HIS_GRACE_FORCE_BONUS 4 //! How much force is gained per kill.
 
 #define EXPLODE_NONE 0				//Don't even ask me why we need this.
 #define EXPLODE_DEVASTATE 1
@@ -202,8 +202,8 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 //We will round to this value in damage calculations.
 #define DAMAGE_PRECISION 0.1
 
-//bullet_act() return values
-#define BULLET_ACT_HIT				"HIT"		//It's a successful hit, whatever that means in the context of the thing it's hitting.
-#define BULLET_ACT_BLOCK			"BLOCK"		//It's a blocked hit, whatever that means in the context of the thing it's hitting.
-#define BULLET_ACT_FORCE_PIERCE		"PIERCE"	//It pierces through the object regardless of the bullet being piercing by default.
-#define BULLET_ACT_TURF				"TURF"		//It hit us but it should hit something on the same turf too. Usually used for turfs.
+//! ## `bullet_act()` return values
+#define BULLET_ACT_HIT				"HIT"		//! It's a successful hit, whatever that means in the context of the thing it's hitting.
+#define BULLET_ACT_BLOCK			"BLOCK"		//! It's a blocked hit, whatever that means in the context of the thing it's hitting.
+#define BULLET_ACT_FORCE_PIERCE		"PIERCE"	//! It pierces through the object regardless of the bullet being piercing by default.
+#define BULLET_ACT_TURF				"TURF"		//! It hit us but it should hit something on the same turf too. Usually used for turfs.

@@ -21,10 +21,13 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 #define ASSET_CACHE_PRELOAD_CONCURRENT 3
 
 /client
-	var/list/cache = list() // List of all assets sent to this client by the asset cache.
-	var/list/completed_asset_jobs = list() // List of all completed jobs, awaiting acknowledgement.
+	/// List of all assets sent to this client by the asset cache.
+	var/list/cache = list()
+	/// List of all completed asset jobs, awaiting acknowledgement.
+	var/list/completed_asset_jobs = list() 
 	var/list/sending = list()
-	var/last_asset_job = 0 // Last job done.
+	/// The last asset job done.
+	var/last_asset_job = 0 
 
 //This proc sends the asset to the client, but only if it needs it.
 //This proc blocks(sleeps) unless verify is set to false
@@ -600,7 +603,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	name = "pipes"
 
 /datum/asset/spritesheet/pipes/register()
-	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi'))
+	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi', 'icons/obj/plumbing/fluid_ducts.dmi'))
 		InsertAll("", each, GLOB.alldirs)
 	..()
 

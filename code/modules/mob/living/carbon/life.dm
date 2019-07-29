@@ -24,8 +24,8 @@
 		if(stat != DEAD)
 			var/bprv = handle_bodyparts()
 			if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
+				update_stamina() //needs to go before updatehealth to remove stamcrit
 				updatehealth()
-				update_stamina()
 
 		if(stat != DEAD)
 			handle_brain_damage()
@@ -312,10 +312,15 @@
 	return
 
 /mob/living/carbon/proc/handle_bodyparts()
+	var/stam_regen = FALSE
+	if(stam_regen_start_time <= world.time)
+		stam_regen = TRUE
+		if(stam_paralyzed)
+			. |= BODYPART_LIFE_UPDATE_HEALTH //make sure we remove the stamcrit
 	for(var/I in bodyparts)
 		var/obj/item/bodypart/BP = I
 		if(BP.needs_processing)
-			. |= BP.on_life()
+			. |= BP.on_life(stam_regen)
 
 /mob/living/carbon/proc/handle_organs()
 	for(var/V in internal_organs)
@@ -588,16 +593,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 	if(liver && liver.failing)
 		return TRUE
 
-/mob/living/carbon/proc/return_liver_damage()
-	var/obj/item/organ/liver/liver = getorganslot(ORGAN_SLOT_LIVER)
-	if(liver)
-		return liver.damage
-
-/mob/living/carbon/proc/applyLiverDamage(var/d)
-	var/obj/item/organ/liver/L = getorganslot(ORGAN_SLOT_LIVER)
-	if(L)
-		L.damage += d
-
 /mob/living/carbon/proc/liver_failure()
 	reagents.end_metabolization(src, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
 	reagents.metabolize(src, can_overdose=FALSE, liverless = TRUE)
@@ -643,6 +638,13 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return FALSE
 	return TRUE
 
+/*
+ * The mob is having a heart attack
+ *
+ * NOTE: this is true if the mob has no heart and needs one, which can be suprising,
+ * you are meant to use it in combination with can_heartattack for heart attack
+ * related situations (i.e not just cardiac arrest)
+ */
 /mob/living/carbon/proc/undergoing_cardiac_arrest()
 	var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
 	if(istype(heart) && heart.beating)

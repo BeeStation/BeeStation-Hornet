@@ -83,6 +83,7 @@ matrix:
         - git checkout -qf $(git name-rev --name-only HEAD) || true
       script:
         - ~/dmdoc
+        - touch dmdoc/.nojekyll
       deploy:
         provider: pages
         skip_cleanup: true

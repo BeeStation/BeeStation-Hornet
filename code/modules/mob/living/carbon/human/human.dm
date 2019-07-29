@@ -27,7 +27,7 @@
 
 	. = ..()
 
-	AddComponent(/datum/component/redirect, list(COMSIG_COMPONENT_CLEAN_ACT = CALLBACK(src, .proc/clean_blood)))
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)
 
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
@@ -732,7 +732,7 @@
 		return
 	else
 		if(hud_used.healths)
-			var/health_amount = health - getStaminaLoss()
+			var/health_amount = min(health, maxHealth - getStaminaLoss())
 			if(..(health_amount)) //not dead
 				switch(hal_screwyhud)
 					if(SCREWYHUD_CRIT)

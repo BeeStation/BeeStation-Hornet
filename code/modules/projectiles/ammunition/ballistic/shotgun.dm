@@ -6,14 +6,20 @@
 	icon_state = "blshell"
 	caliber = "shotgun"
 	projectile_type = /obj/item/projectile/bullet/shotgun_slug
-	materials = list(MAT_IRON=4000)
+	materials = list(/datum/material/iron=4000)
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
 	desc = "A weak beanbag slug for riot control."
 	icon_state = "bshell"
 	projectile_type = /obj/item/projectile/bullet/shotgun_beanbag
-	materials = list(MAT_IRON=250)
+	materials = list(/datum/material/iron=250)
+
+/obj/item/ammo_casing/shotgun/sleepytime
+	name = "soporific shell"
+	desc = "A shotgun shell loaded with a hypodermic needle containing a low strength sleeping agent."
+	icon_state = "sleepy"
+	projectile_type = /obj/item/projectile/bullet/sleepy
 
 /obj/item/ammo_casing/shotgun/incendiary
 	name = "incendiary slug"
@@ -34,7 +40,7 @@
 	desc = "A stunning taser slug."
 	icon_state = "stunshell"
 	projectile_type = /obj/item/projectile/bullet/shotgun_stunslug
-	materials = list(MAT_IRON=250)
+	materials = list(/datum/material/iron=250)
 
 /obj/item/ammo_casing/shotgun/meteorslug
 	name = "meteorslug shell"
@@ -71,14 +77,14 @@
 	projectile_type = /obj/item/projectile/bullet/pellet/shotgun_rubbershot
 	pellets = 6
 	variance = 25
-	materials = list(MAT_IRON=4000)
+	materials = list(/datum/material/iron=4000)
 
 /obj/item/ammo_casing/shotgun/improvised
 	name = "improvised shell"
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards."
 	icon_state = "improvshell"
 	projectile_type = /obj/item/projectile/bullet/pellet/shotgun_improvised
-	materials = list(MAT_IRON=250)
+	materials = list(/datum/material/iron=250)
 	pellets = 10
 	variance = 25
 

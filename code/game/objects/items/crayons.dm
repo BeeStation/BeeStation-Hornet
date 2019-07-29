@@ -525,7 +525,7 @@
 
 /obj/item/storage/crayons/Initialize()
 	. = ..()
-	GET_COMPONENT(STR, /datum/component/storage)
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 7
 	STR.can_hold = typecacheof(list(/obj/item/toy/crayon))
 

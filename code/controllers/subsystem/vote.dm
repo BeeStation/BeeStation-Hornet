@@ -153,7 +153,7 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/proc/submit_vote(vote)
 	if(mode)
-		if(CONFIG_GET(flag/no_dead_vote) && (usr.stat == DEAD && !isnewplayer(usr)) && !usr.client.holder) // BEE EDIT: newplayers can vote even if nodeadvote is enabled
+		if(CONFIG_GET(flag/no_dead_vote) && (usr.stat == DEAD && !isnewplayer(usr)) && !usr.client.holder && mode != "map") // BEE EDIT: newplayers can vote even if nodeadvote is enabled
 			return 0
 		if(!(usr.ckey in voted))
 			if(vote && 1<=vote && vote<=choices.len)
@@ -162,7 +162,7 @@ SUBSYSTEM_DEF(vote)
 				return vote
 	return 0
 
-/datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key)
+/datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, forced=FALSE)
 	if(!mode)
 		if(started_time)
 			var/next_allowed_time = (started_time + CONFIG_GET(number/vote_delay))
@@ -172,7 +172,7 @@ SUBSYSTEM_DEF(vote)
 
 			var/admin = FALSE
 			var/ckey = ckey(initiator_key)
-			if(GLOB.admin_datums[ckey])
+			if(GLOB.admin_datums[ckey] || forced)
 				admin = TRUE
 
 			if(next_allowed_time > world.time && !admin)
@@ -188,7 +188,7 @@ SUBSYSTEM_DEF(vote)
 			if("map")
 				for(var/map in global.config.maplist)
 					var/datum/map_config/VM = config.maplist[map]
-					if(!VM.votable)
+					if(!VM.is_votable())
 						continue
 					choices.Add(VM.map_name)
 			if("custom")

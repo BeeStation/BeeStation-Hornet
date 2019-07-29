@@ -1304,7 +1304,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("moth_wings")
 					var/new_moth_wings
 
-					new_moth_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in user.client.filter_unpurchased_items(GLOB.moth_wings_list, "moth_wings")
+					new_moth_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in GLOB.moth_wings_list
 
 					if(new_moth_wings)
 						features["moth_wings"] = new_moth_wings
