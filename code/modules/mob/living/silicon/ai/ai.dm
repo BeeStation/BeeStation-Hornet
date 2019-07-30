@@ -191,7 +191,7 @@
 	SSshuttle.autoEvac()
 	qdel(eyeobj) // No AI, no Eye
 	malfhack = null
-
+	ShutOffDoomsdayDevice()
 	. = ..()
 
 /mob/living/silicon/ai/IgniteMob()
