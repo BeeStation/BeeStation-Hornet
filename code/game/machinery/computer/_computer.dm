@@ -18,7 +18,6 @@
 	var/icon_screen = "generic"
 	var/clockwork = FALSE
 	var/time_to_screwdrive = 20
-	var/authenticated = FALSE
 
 	///Should the [icon_state]_broken overlay be shown as an emissive or regular overlay?
 	var/broken_overlay_emissive = FALSE

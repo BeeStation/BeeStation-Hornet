@@ -87,8 +87,9 @@
 			return TRUE
 		if("handle_id")
 			if(inserted_prisoner_id)
-				id_eject(usr, inserted_prisoner_id)
-				inserted_prisoner_id = null
+				id_eject_prisoner(usr)
+			else
+				id_insert_prisoner(usr)
 			return TRUE
 		if("set_goal")
 			var/new_goal = text2num(params["value"])

@@ -9,7 +9,6 @@
 	var/screen = null
 	var/datum/data/record/active1 = null
 	var/datum/data/record/active2 = null
-	var/a_id = null
 	var/temp = null
 	var/printing = null
 	var/can_change_id = 0
@@ -210,8 +209,7 @@
 
 /obj/machinery/computer/secure_data/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
-		id_insert(user, I, inserted_scan_id)
-		inserted_scan_id = I
+		id_insert_scan(user)
 	else
 		return ..()
 
@@ -485,9 +483,11 @@ What a mess.*/
 
 			if("Confirm Identity")
 				if(inserted_scan_id)
-					id_eject(usr, inserted_scan_id)
-					inserted_scan_id = null
+					id_eject_scan(usr)
 					return
+				else
+					id_insert_scan(usr)
+
 			if("Log Out")
 				authenticated = null
 				screen = null

@@ -23,6 +23,12 @@
 /obj/machinery/computer/med_data/syndie
 	icon_keyboard = "syndie_key"
 
+/obj/machinery/computer/med_data/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/card/id))
+		id_insert_scan(user)
+	else
+		return ..()
+
 /obj/machinery/computer/med_data/ui_interact(mob/user)
 	. = ..()
 	var/dat
@@ -190,8 +196,9 @@
 			src.temp = null
 		if(href_list["inserted_scan_id"])
 			if(inserted_scan_id)
-				id_eject(usr, inserted_scan_id)
-				inserted_scan_id = null
+				id_eject_scan(usr)
+			else
+				id_insert_scan(usr)
 		else if(href_list["logout"])
 			src.authenticated = null
 			src.screen = null

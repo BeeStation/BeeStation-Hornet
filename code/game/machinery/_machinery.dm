@@ -121,10 +121,13 @@ Class Procs:
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
 	var/obj/item/circuitboard/circuit // Circuit to be created and inserted when the machinery is created
+	var/obj/item/card/id/prisoner/inserted_prisoner_id
 	var/obj/item/card/id/inserted_scan_id
 	var/obj/item/card/id/inserted_modify_id
-	var/obj/item/card/id/prisoner/inserted_prisoner_id
 	var/damage_deflection = 0
+	var/list/region_access = null // For the identification console (card.dm)
+	var/list/head_subordinates = null // For the identification console (card.dm)
+	var/authenticated = 0 // For the identification console (card.dm)
 
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 	var/fair_market_price = 69
@@ -176,9 +179,6 @@ Class Procs:
 	if(datum_flags & DF_ISPROCESSING) // A sizeable portion of machines stops processing before qdel
 		end_processing()
 	dropContents()
-	inserted_scan_id = null
-	inserted_modify_id = null
-	inserted_prisoner_id = null
 	if(length(component_parts))
 		for(var/atom/A in component_parts)
 			qdel(A)
@@ -630,8 +630,13 @@ Class Procs:
 /obj/machinery/proc/id_eject(mob/user, obj/item/card/id/target_id)
 	if(target_id)
 		target_id.forceMove(drop_location())
+
+/obj/machinery/proc/id_eject_prisoner(mob/user)
+	if(inserted_prisoner_id)
+		inserted_prisoner_id.forceMove(drop_location())
 		if(!issilicon(user) && Adjacent(user))
-			user.put_in_hands(target_id)
+			user.put_in_hands(inserted_prisoner_id)
+			inserted_prisoner_id = null
 			user.visible_message("<span class='notice'>[user] gets an ID card from the console.</span>", \
 								"<span class='notice'>You get the ID card from the console.</span>")
 			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
@@ -640,18 +645,105 @@ Class Procs:
 	else
 		to_chat(user, "<span class='warning'>There's no ID card in the console!</span>")
 
+	if(!inserted_prisoner_id)
+		to_chat(user, "<span class='warning'>There's no ID card in the console!</span>")
+		return
+	if(inserted_prisoner_id)
+		inserted_prisoner_id.forceMove(drop_location())
+		if(!issilicon(user) && Adjacent(user))
+			user.put_in_hands(inserted_prisoner_id)
+		inserted_prisoner_id = null
+		user.visible_message("<span class='notice'>[user] gets an ID card from the console.</span>", \
+							"<span class='notice'>You get the ID card from the console.</span>")
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		updateUsrDialog()
+
+/obj/machinery/proc/id_insert_prisoner(mob/user)
+	if(inserted_prisoner_id)
+		to_chat(user, "<span class='warning'>There's already an ID card in the console!</span>")
+		return
+	var/obj/item/card/id/prisoner/I = user.get_active_held_item()
+	if(istype(I))
+		if(!user.transferItemToLoc(I, src))
+			return
+		inserted_prisoner_id = I
+		user.visible_message("<span class='notice'>[user] inserts an ID card into the console.</span>", \
+							"<span class='notice'>You insert the ID card into the console.</span>")
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	else
+		to_chat(user, "<span class='danger'>No valid ID.</span>")
+	updateUsrDialog()
+
+/obj/machinery/proc/id_insert_scan(mob/user, obj/item/card/id/I)
+	I = user.get_active_held_item()
+	if(istype(I))
+		if(inserted_scan_id)
+			to_chat(user, "<span class='warning'>There's already an ID card in the console!</span>")
+			return
+		if(!user.transferItemToLoc(I, src))
+			return
+		inserted_scan_id = I
+		user.visible_message("<span class='notice'>[user] inserts an ID card into the console.</span>", \
+							"<span class='notice'>You insert the ID card into the console.</span>")
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		updateUsrDialog()
+
+/obj/machinery/proc/id_eject_scan(mob/user)
+	if(!inserted_scan_id)
+		to_chat(user, "<span class='warning'>There's no ID card in the console!</span>")
+		return
+	if(inserted_scan_id)
+		inserted_scan_id.forceMove(drop_location())
+		if(!issilicon(user) && Adjacent(user))
+			user.put_in_hands(inserted_scan_id)
+		inserted_scan_id = null
+		user.visible_message("<span class='notice'>[user] gets an ID card from the console.</span>", \
+							"<span class='notice'>You get the ID card from the console.</span>")
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		updateUsrDialog()
+
+/obj/machinery/proc/id_eject_modify(mob/user)
+	if(inserted_modify_id)
+		if(inserted_modify_id.registered_account)
+			inserted_modify_id.registered_account.account_department = get_department_by_hud(inserted_modify_id.hud_state) // your true department by your hud icon color
+		GLOB.data_core.manifest_modify(inserted_modify_id.registered_name, inserted_modify_id.assignment, inserted_modify_id.hud_state)
+		inserted_modify_id.update_label()
+		inserted_modify_id.forceMove(drop_location())
+		if(!issilicon(user) && Adjacent(user))
+			user.put_in_hands(inserted_modify_id)
+		user.visible_message("<span class='notice'>[user] gets an ID card from the console.</span>", \
+							"<span class='notice'>You get the ID card from the console.</span>")
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		inserted_modify_id = null
+		region_access = null
+		head_subordinates = null
+		updateUsrDialog()
+
+/obj/machinery/proc/id_insert_modify(mob/user)
+	var/obj/item/card/id/I = user.get_active_held_item()
+	if(istype(I))
+		if(inserted_modify_id)
+			to_chat(user, "<span class='warning'>There's already an ID card in the console!</span>")
+			return
+		if(!user.transferItemToLoc(I, src))
+			return
+		inserted_modify_id = I
+		user.visible_message("<span class='notice'>[user] inserts an ID card into the console.</span>", \
+							"<span class='notice'>You insert the ID card into the console.</span>")
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		updateUsrDialog()
+
 /obj/machinery/AltClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)) || !is_operational())
 		return
-	if(inserted_scan_id)
-		id_eject(user, inserted_scan_id)
-		inserted_scan_id = null
-		return
 	if(inserted_modify_id)
-		id_eject(user, inserted_modify_id)
-		inserted_modify_id = null
+		id_eject_modify(user)
+		authenticated = FALSE
+		return
+	if(inserted_scan_id)
+		id_eject_scan(user)
+		authenticated = FALSE
 		return
 	if(inserted_prisoner_id)
-		id_eject(user, inserted_prisoner_id)
-		inserted_prisoner_id = null
+		id_eject_prisoner(user)
 		return

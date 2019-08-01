@@ -20,8 +20,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/mode = 0
 	var/printing = null
 	var/target_dept = DEPT_ALL //Which department this computer has access to.
-	var/list/region_access
-	var/list/head_subordinates
 
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
@@ -60,17 +58,24 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
 		if(!inserted_scan_id)
-			id_insert(user, I, inserted_scan_id)
-			inserted_scan_id = I
+			id_insert_scan(user)
 			return
 		if(!inserted_modify_id)
-			id_insert(user, I, inserted_modify_id)
-			inserted_modify_id = I
+			id_insert_modify(user)
 			return
 		else
 			to_chat(user, "<span class='warning'>There's already an ID card in the console!</span>")
 	else
 		return ..()
+
+/obj/machinery/computer/card/Destroy()
+	if(inserted_scan_id)
+		qdel(inserted_scan_id)
+		inserted_scan_id = null
+	if(inserted_modify_id)
+		qdel(inserted_modify_id)
+		inserted_modify_id = null
+	return ..()
 
 /obj/machinery/computer/card/handle_atom_del(atom/A)
 	..()
@@ -377,21 +382,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	switch(href_list["choice"])
 		if ("inserted_modify_id")
 			if (inserted_modify_id)
-				// Update crew manifest and card bank account
-				if(inserted_modify_id.registered_account)
-					inserted_modify_id.registered_account.account_department = get_department_by_hud(inserted_modify_id.hud_state) // your true department by your hud icon color
-				GLOB.data_core.manifest_modify(inserted_modify_id.registered_name, inserted_modify_id.assignment, inserted_modify_id.hud_state)
-				inserted_modify_id.update_label()
-				region_access = null
-				head_subordinates = null
-				id_eject(usr, inserted_modify_id)
-				inserted_modify_id = null
-				authenticated = FALSE
+				id_eject_modify(usr)
+			else
+				id_insert_modify(usr)
 		if ("inserted_scan_id")
 			if (inserted_scan_id)
-				id_eject(usr, inserted_scan_id)
-				inserted_scan_id = null
-				authenticated = FALSE
+				id_eject_scan(usr)
+			else
+				id_insert_scan(usr)
 		if ("auth")
 			if ((!( authenticated ) && (inserted_scan_id || issilicon(usr)) && (inserted_modify_id || mode)))
 				if (check_access(inserted_scan_id))
