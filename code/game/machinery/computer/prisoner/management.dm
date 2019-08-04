@@ -23,10 +23,10 @@
 		dat += "<HR><A href='?src=[REF(src)];lock=1'>{Log In}</A>"
 	else if(screen == 1)
 		dat += "<H3>Prisoner ID Management</H3>"
-		if(inserted_prisoner_id)
-			dat += text("<A href='?src=[REF(src)];id=eject'>[inserted_prisoner_id]</A><br>")
-			dat += text("Collected Points: [inserted_prisoner_id.points]. <A href='?src=[REF(src)];id=reset'>Reset.</A><br>")
-			dat += text("Card goal: [inserted_prisoner_id.goal].  <A href='?src=[REF(src)];id=setgoal'>Set</A> <A href='?src=[REF(src)];id=setpermanent'>Make [inserted_prisoner_id.permanent ? "temporary" : "permanent"].</A><br>")
+		if(contained_id)
+			dat += text("<A href='?src=[REF(src)];id=eject'>[contained_id]</A><br>")
+			dat += text("Collected Points: [contained_id.points]. <A href='?src=[REF(src)];id=reset'>Reset.</A><br>")
+			dat += text("Card goal: [contained_id.goal].  <A href='?src=[REF(src)];id=setgoal'>Set</A> <A href='?src=[REF(src)];id=setpermanent'>Make [contained_id.permanent ? "temporary" : "permanent"].</A><br>")
 			dat += text("Space Law recommends quotas of 100 points per minute they would normally serve in the brig.<BR>")
 		else
 			dat += text("<A href='?src=[REF(src)];id=insert'>Insert Prisoner ID.</A><br>")
@@ -71,7 +71,7 @@
 /obj/machinery/computer/prisoner/management/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
 		if(screen)
-			id_insert_prisoner(user)
+			id_insert(user)
 		else
 			to_chat(user, "<span class='danger'>Unauthorized access.</span>")
 	else
@@ -89,21 +89,21 @@
 		usr.set_machine(src)
 
 		if(href_list["id"])
-			if(href_list["id"] =="insert" && !inserted_prisoner_id)
-				id_insert_prisoner(usr)
-			else if(inserted_prisoner_id)
+			if(href_list["id"] =="insert" && !contained_id)
+				id_insert(usr)
+			else if(contained_id)
 				switch(href_list["id"])
 					if("eject")
-						id_eject_prisoner(usr)
+						id_eject(usr)
 					if("reset")
-						inserted_prisoner_id.points = 0
+						contained_id.points = 0
 					if("setgoal")
 						var/num = round(input(usr, "Choose prisoner's goal:", "Input an Integer", null) as num|null)
 						if(num >= 0)
 							num = min(num, 1500) //Cap the quota to the equivilent of 10 minutes.
-							inserted_prisoner_id.goal = num
+							contained_id.goal = num
 					if("setpermanent")
-						inserted_prisoner_id.permanent = !inserted_prisoner_id.permanent
+						contained_id.permanent = !contained_id.permanent
 		else if(href_list["inject1"])
 			var/obj/item/implant/I = locate(href_list["inject1"]) in GLOB.tracked_chem_implants
 			if(I && istype(I))

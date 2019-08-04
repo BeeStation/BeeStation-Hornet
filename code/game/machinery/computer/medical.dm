@@ -31,13 +31,14 @@
 
 /obj/machinery/computer/med_data/ui_interact(mob/user)
 	. = ..()
+	if(isliving(user))
+		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	var/dat
 	if(temp)
 		dat = text("<TT>[temp]</TT><BR><BR><A href='?src=[REF(src)];temp=1'>Clear Screen</A>")
 	else
-		dat = text("Confirm Identity: <A href='?src=[REF(src)];scan=1'>[]</A><HR>", (src.inserted_scan_id ? text("[]", src.inserted_scan_id.name) : "----------"))
-		if(src.authenticated)
-			switch(src.screen)
+		if(authenticated)
+			switch(screen)
 				if(1)
 					dat += {"
 <A href='?src=[REF(src)];search=1'>Search Records</A>
@@ -218,27 +219,28 @@
 					sortBy = href_list["sort"]
 					order = initial(order)
 		else if(href_list["login"])
-			if(issilicon(usr))
-				src.active1 = null
-				src.active2 = null
-				src.authenticated = 1
-				src.rank = "AI"
-				src.screen = 1
-			else if(IsAdminGhost(usr))
-				src.active1 = null
-				src.active2 = null
-				src.authenticated = 1
-				src.rank = "Central Command"
-				src.screen = 1
-			else if(istype(src.inserted_scan_id, /obj/item/card/id))
-				src.active1 = null
-				src.active2 = null
-				if(src.check_access(src.inserted_scan_id))
-					src.authenticated = src.inserted_scan_id.registered_name
-					src.rank = src.inserted_scan_id.assignment
-					src.screen = 1
-				else
-					to_chat(usr, "<span class='danger'>Unauthorized access.</span>")
+			var/mob/M = usr
+			var/obj/item/card/id/I = M.get_idcard(TRUE)
+			if(issilicon(MACHINE_REAGENT_TRANSFER))
+				active1 = null
+				active2 = null
+				authenticated = 1
+				rank = "AI"
+				screen = 1
+			else if(IsAdminGhost(M))
+				active1 = null
+				active2 = null
+				authenticated = 1
+				rank = "Central Command"
+				screen = 1
+			else if(istype(I) && check_access(I))
+				active1 = null
+				active2 = null
+				authenticated = I.registered_name
+				rank = I.assignment
+				screen = 1
+			else
+				to_chat(usr, "<span class='danger'>Unauthorized access.</span>")
 			playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
 		if(src.authenticated)
 
