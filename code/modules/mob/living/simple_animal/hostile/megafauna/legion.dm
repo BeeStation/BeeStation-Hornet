@@ -36,9 +36,7 @@ Difficulty: Medium
 	retreat_distance = 5
 	minimum_distance = 5
 	ranged_cooldown_time = 20
-	var/size = 5
-	var/charging = FALSE
-	internal_type = /obj/item/gps/internal/legion
+	gps_name = "Echoing Signal"
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
 	pixel_y = -90
@@ -139,8 +137,8 @@ Difficulty: Medium
 		L.health = L.maxHealth
 		health = maxHealth
 
-		size--
 		L.size = size
+		size--
 
 		L.resize = L.size * 0.2
 		transform = initial(transform)
@@ -162,19 +160,12 @@ Difficulty: Medium
 				break
 		if(last_legion)
 			loot = list(/obj/item/staff/storm)
-			elimination = FALSE
 		else if(prob(5))
 			loot = list(/obj/structure/closet/crate/necropolis/tendril)
+			elimination = FALSE
 		if(!true_spawn)
 			loot = null
 		..()
-
-/obj/item/gps/internal/legion
-	icon_state = null
-	gpstag = "Echoing Signal"
-	desc = "The message repeats."
-	invisibility = 100
-
 
 //Loot
 

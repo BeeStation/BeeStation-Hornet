@@ -255,7 +255,7 @@
 	if(!GLOB.bsa_unlock)
 		return
 	var/list/gps_locators = list()
-	for(var/obj/item/gps/G in GLOB.GPS_list) //nulls on the list somehow
+	for(var/datum/component/gps/G in GLOB.GPS_list) //nulls on the list somehow
 		if(G.tracking)
 			gps_locators[G.gpstag] = G
 
