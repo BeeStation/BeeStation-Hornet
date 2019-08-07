@@ -932,7 +932,7 @@
 /atom/vv_get_header()
 	. = ..()
 	var/refid = REF(src)
-	. += "<a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=name'><b id='name'>[src]</b></a>"
+	. += "[VV_HREF_TARGETREF_1V(refid, VV_HK_BASIC_EDIT, "<b id='name'>[src]</b>", NAMEOF(src, name))]"
 	. += "<br><font size='1'><a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=left'><<</a> <a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(dir) || dir]</a> <a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=right'>>></a></font>"
 
 ///Where atoms should drop if taken from this atom
