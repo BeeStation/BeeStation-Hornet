@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(scp294_reagents)
 
 	var/product = null
 	var/input_reagent = (input("Enter the name of any liquid", "What would you like to drink?") as text)
-	 product = find_reagent(input_reagent)
+		product = find_reagent(input_reagent)
 
 
 
