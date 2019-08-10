@@ -17,9 +17,6 @@
 /mob/living/scp_173/Destroy()
 	..()
 
-/mob/living/scp_173/say(var/message)
-	return // lol you can't talk
-
 /mob/living/scp_173/proc/IsBeingWatched()
 	// Am I being watched by eye pals?
 	for (var/mob/living/M in view(src, 7))
@@ -33,7 +30,7 @@
 			continue
 		if(next_blinks[H] == null)
 			next_blinks[H] = world.time+rand(15 SECONDS, 45 SECONDS)
-		if(H.in view(src, 7))
+		if(H in view(src, 7))
 			return TRUE
 	return FALSE
 
