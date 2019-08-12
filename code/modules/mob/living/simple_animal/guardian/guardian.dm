@@ -546,9 +546,9 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 		if("Dextrous")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/dextrous
-
+			
 		if("Gravity")
-			pickedtype = /mob/living/simple_animal/hostile/guardian/gravity
+			pickedtype = /mob/living/simple_animal/guardian/gravity
 
 	var/list/guardians = user.hasparasites()
 	if(guardians.len && !allowmultiple)
@@ -686,7 +686,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /obj/item/storage/box/syndie_kit/carpian
 	name = "Holocarp fishstick kit"
-
+	
 /obj/item/storage/box/syndie_kit/carpian/PopulateContents()
 	new /obj/item/guardiancreator/carp(src)
 	new /obj/item/paper/guides/antag/guardian(src)
