@@ -548,7 +548,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			pickedtype = /mob/living/simple_animal/hostile/guardian/dextrous
 			
 		if("Gravity")
-			pickedtype = /mob/living/simple_animal/guardian/gravity
+			pickedtype = /mob/living/simple_animal/hostile/guardian/gravity
 
 	var/list/guardians = user.hasparasites()
 	if(guardians.len && !allowmultiple)
