@@ -26,8 +26,8 @@
 				if(hasmatchingsummoner(L)) //if the summoner matches don't hurt them
 					continue
 				if(L != src && L != summoner)
+					L.apply_damage(140, STAMINA)
 					L.apply_damage(5, BRUTE)
-					L.Paralyze(15)
 
 /mob/living/simple_animal/hostile/guardian/gravity/AltClick()
 	if(loc == summoner)
