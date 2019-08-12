@@ -57,14 +57,14 @@
 /obj/guardian_gravity/Initialize()
 	. = ..()
 	T = get_turf(src)
-	for(var/atom/movable/A in range(T, 3))
+	for(var/atom/movable/A in range(T, 4))
 		if(A.anchored || thrown_items[A])
 			continue
 		if(ismob(A))
 			var/mob/M = A
 			if(M.mob_negates_gravity())
 				continue
-		A.safe_throw_at(get_edge_target_turf(A, pick(GLOB.cardinals)), 3+1, 1, force = MOVE_FORCE_EXTREMELY_STRONG)
+		A.safe_throw_at(get_edge_target_turf(A, pick(GLOB.cardinals)), 2+1, 1, force = MOVE_FORCE_EXTREMELY_STRONG)
 		thrown_items[A] = A
 	for(var/turf/Z in range(T,3))
 		new /obj/effect/temp_visual/gravpush(Z)
