@@ -1,7 +1,7 @@
 //Gravity
 /mob/living/simple_animal/hostile/guardian/gravity
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage_lower = 5
+	melee_damage_upper = 5
 	damage_coeff = list(BRUTE = 0.6, BURN = 0.6, TOX = 0.6, CLONE = 0.6, STAMINA = 0, OXY = 0.6)
 	range = 13
 	playstyle_string = "<span class='holoparasite'>As an <b>Gravity</b> type, you have moderate close combat abilities, pin targets to the ground on attack and are capable of creating gravitational anomalies via alt clicking yourself (THIS AFFECTS YOUR HOST TOO).</span>"
@@ -26,8 +26,8 @@
 				if(hasmatchingsummoner(L)) //if the summoner matches don't hurt them
 					continue
 				if(L != src && L != summoner)
-					L.apply_damage(140, STAMINA)
-					L.apply_damage(5, BRUTE)
+					L.apply_damage(70, STAMINA)
+					L.apply_damage(2, BRUTE)
 
 /mob/living/simple_animal/hostile/guardian/gravity/AltClick()
 	if(loc == summoner)
