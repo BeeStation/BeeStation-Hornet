@@ -241,6 +241,7 @@
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/reagent_containers/borghypo/epi,
 		/obj/item/healthanalyzer,
+		/obj/item/borg/charger,
 		/obj/item/weldingtool/largetank/cyborg,
 		/obj/item/wrench/cyborg,
 		/obj/item/crowbar/cyborg,
@@ -266,6 +267,7 @@
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/healthanalyzer,
+		/obj/item/borg/charger,
 		/obj/item/reagent_containers/borghypo,
 		/obj/item/reagent_containers/glass/beaker/large,
 		/obj/item/reagent_containers/dropper,
@@ -297,6 +299,7 @@
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/borg/sight/meson,
+		/obj/item/borg/charger,
 		/obj/item/construction/rcd/borg,
 		/obj/item/pipe_dispenser,
 		/obj/item/extinguisher,
@@ -333,6 +336,7 @@
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/melee/baton/loaded,
+		/obj/item/borg/charger,
 		/obj/item/shield/riot/tele,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/melee/transforming/energy/sword/cyborg,
@@ -353,6 +357,7 @@
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/melee/baton/loaded,
+		/obj/item/borg/charger,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/clothing/mask/gas/sechailer/cyborg)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
@@ -384,6 +389,7 @@
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/cookiesynth,
+		/obj/item/borg/charger,
 		/obj/item/harmalarm,
 		/obj/item/reagent_containers/borghypo/peace,
 		/obj/item/holosign_creator/cyborg,
@@ -412,6 +418,7 @@
 		/obj/item/crowbar/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/soap/nanotrasen,
+		/obj/item/borg/charger,
 		/obj/item/storage/bag/trash/cyborg,
 		/obj/item/melee/flyswatter,
 		/obj/item/extinguisher/mini,
@@ -464,6 +471,7 @@
 		/obj/item/bikehorn,
 		/obj/item/bikehorn/airhorn,
 		/obj/item/paint/anycolor,
+		/obj/item/borg/charger,
 		/obj/item/soap/nanotrasen,
 		/obj/item/pneumatic_cannon/pie/selfcharge/cyborg,
 		/obj/item/razor,					//killbait material
@@ -495,6 +503,7 @@
 		/obj/item/toy/crayon/spraycan/borg,
 		/obj/item/extinguisher/mini,
 		/obj/item/hand_labeler/borg,
+		/obj/item/borg/charger,
 		/obj/item/razor,
 		/obj/item/rsf,
 		/obj/item/instrument/guitar,
@@ -543,6 +552,7 @@
 	name = "Borgi"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
+		/obj/item/borg/charger,
 		/obj/item/borg/cyborghug/peacekeeper)
 	ratvar_modules = list(
 		/obj/item/clockwork/slab/cyborg,
@@ -559,6 +569,7 @@
 		/obj/item/storage/bag/ore/cyborg,
 		/obj/item/pickaxe/drill/cyborg,
 		/obj/item/shovel,
+		/obj/item/borg/charger,
 		/obj/item/crowbar/cyborg,
 		/obj/item/weldingtool/mini,
 		/obj/item/extinguisher/mini,
@@ -593,6 +604,7 @@
 		/obj/item/gun/energy/printer,
 		/obj/item/gun/ballistic/revolver/grenadelauncher/cyborg,
 		/obj/item/card/emag,
+		/obj/item/borg/charger,
 		/obj/item/crowbar/cyborg,
 		/obj/item/pinpointer/syndicate_cyborg)
 
@@ -622,6 +634,7 @@
 		/obj/item/twohanded/shockpaddles/syndicate,
 		/obj/item/healthanalyzer,
 		/obj/item/surgical_drapes,
+		/obj/item/borg/charger,
 		/obj/item/retractor,
 		/obj/item/hemostat,
 		/obj/item/cautery,
@@ -651,6 +664,7 @@
 		/obj/item/borg/sight/thermal,
 		/obj/item/construction/rcd/borg/syndicate,
 		/obj/item/pipe_dispenser,
+		/obj/item/borg/charger,
 		/obj/item/extinguisher,
 		/obj/item/weldingtool/largetank/cyborg,
 		/obj/item/screwdriver/nuke,
