@@ -66,7 +66,7 @@
 		times_used--
 	last_used = world.time
 	times_used = max(0, times_used) //sanity
-	if(max(0, prob(times_used * 3) - burnout_resistance)) //The more often it's used in a short span of time the more likely it will burn out
+	if(max(0, times_used - burnout_resistance) >= 10) //The more often it's used in a short span of time the more likely it will burn out
 		burn_out()
 		return FALSE
 	return TRUE
