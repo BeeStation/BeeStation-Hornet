@@ -10,6 +10,7 @@
 	recommended_enemies = 4
 	reroll_friendly = 1
 	enemy_minimum_age = 0
+	title_icon = "devil"
 
 	var/traitors_possible = 4 //hard limit on devils if scaling is turned off
 	var/num_modifier = 0 // Used for gamemodes, that are a child of traitor, that need more than the usual.
@@ -81,3 +82,22 @@
 	var/datum/antagonist/devil_datum = L.mind.has_antag_datum(/datum/antagonist/devil)
 	devil_datum.on_removal()
 	return TRUE
+
+/datum/game_mode/devil/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	round_credits += "<center><h1>The Tempting Devils:</h1>"
+	len_before_addition = round_credits.len
+	var/datum/antagonist/devil/devil_info
+	for(var/datum/mind/devil in devils)
+		devil_info = devil.has_antag_datum(/datum/antagonist/devil)
+		if(devil_info) // This should never fail, but better to be sure
+			round_credits += "<center><h2>[devil_info.truename] in the form of [devil.name]</h2>"
+			devil_info = null
+	if(len_before_addition == round_credits.len)
+		round_credits += list("<center><h2>The devils were all utterly destroyed!</h2>", "<center><h2>The love of Space Jesus shines through!</h2>")
+	round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits
