@@ -1,5 +1,5 @@
 #define CREDIT_ROLL_SPEED 115
-#define CREDIT_SPAWN_SPEED 12
+#define CREDIT_SPAWN_SPEED 8
 #define CREDIT_ANIMATE_HEIGHT (13 * world.icon_size)
 #define CREDIT_EASE_DURATION 20
 
@@ -9,6 +9,7 @@ GLOBAL_LIST(end_titles)
 	set waitfor = FALSE
 	if(!GLOB.end_titles)
 		GLOB.end_titles = SSticker.mode.generate_credit_text()
+		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
 	LAZYINITLIST(credits)
 	var/list/_credits = credits
 	verbs += /client/proc/ClearCredits
@@ -74,3 +75,21 @@ GLOBAL_LIST(end_titles)
 	icon_state = title_icon_state
 	. = ..()
 	maptext = null
+
+/* CURSE YOU BYOND, LET ME DO HTTPS REQUESTS
+/proc/get_patrons()
+	var/list/patrons = list()
+	var/list/http[] = world.Export("https://www.patreon.com/api/campaigns/[]/pledges?include=patron.null")
+	
+	if (http)
+		var/status = text2num(http["STATUS"])
+
+		if (status == 200)
+			var/response = json_decode(file2text(http["CONTENT"]))
+			if (response)
+				for(var/item in response["included"])
+					if(item["type"] == "user")
+						patrons |= user["attributes"]["full_name"]
+	
+	return patrons.len ? patrons : null
+*/

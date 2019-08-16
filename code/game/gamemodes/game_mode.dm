@@ -730,6 +730,5 @@
 
 	round_credits += "<br>"
 	round_credits += "<br>"
-	round_credits += "<center><h1>Thanks for playing</h1>"
 
 	return round_credits

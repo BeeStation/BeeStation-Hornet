@@ -17,6 +17,8 @@ GLOBAL_LIST_EMPTY(gangs)
 	<span class='danger'>Gangsters</span>: Take over the station with a dominator.\n\
 	<span class='notice'>Crew</span>: Prevent the gangs from expanding and initiating takeover."
 
+	title_icon = "gang"
+
 	var/list/datum/mind/gangboss_candidates = list()
 
 /datum/game_mode/gang/pre_setup()
