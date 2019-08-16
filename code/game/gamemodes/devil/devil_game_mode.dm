@@ -91,7 +91,7 @@
 	len_before_addition = round_credits.len
 	var/datum/antagonist/devil/devil_info
 	for(var/datum/mind/devil in devils)
-		devil_info = devil.has_antag_datum(ANTAG_DATUM_DEVIL)
+		devil_info = devil.has_antag_datum(/datum/antagonist/devil)
 		if(devil_info) // This should never fail, but better to be sure
 			round_credits += "<center><h2>[devil_info.truename] in the form of [devil.name]</h2>"
 			devil_info = null
