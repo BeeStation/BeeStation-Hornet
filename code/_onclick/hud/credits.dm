@@ -39,9 +39,8 @@ GLOBAL_LIST(end_titles)
 	var/client/parent
 	var/matrix/target
 
-/obj/screen/credit/Initialize(mapload, credited, client/P, icon/I)
+/obj/screen/credit/Initialize(mapload, credited, client/P)
 	. = ..()
-	icon = I
 	parent = P
 	maptext = credited
 	maptext_height = world.icon_size * 2
@@ -80,7 +79,7 @@ GLOBAL_LIST(end_titles)
 /proc/get_patrons()
 	var/list/patrons = list()
 	var/list/http[] = world.Export("https://www.patreon.com/api/campaigns/[]/pledges?include=patron.null")
-	
+
 	if (http)
 		var/status = text2num(http["STATUS"])
 
@@ -90,6 +89,6 @@ GLOBAL_LIST(end_titles)
 				for(var/item in response["included"])
 					if(item["type"] == "user")
 						patrons |= user["attributes"]["full_name"]
-	
+
 	return patrons.len ? patrons : null
 */
