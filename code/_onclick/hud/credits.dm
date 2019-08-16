@@ -1,7 +1,7 @@
-#define CREDIT_ROLL_SPEED 125
-#define CREDIT_SPAWN_SPEED 15
-#define CREDIT_ANIMATE_HEIGHT (14 * world.icon_size)
-#define CREDIT_EASE_DURATION 22
+#define CREDIT_ROLL_SPEED 115
+#define CREDIT_SPAWN_SPEED 12
+#define CREDIT_ANIMATE_HEIGHT (13 * world.icon_size)
+#define CREDIT_EASE_DURATION 20
 
 GLOBAL_LIST(end_titles)
 
@@ -33,7 +33,7 @@ GLOBAL_LIST(end_titles)
 	icon_state = "blank"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	alpha = 0
-	screen_loc = "1,1"
+	screen_loc = "2,2"
 	layer = SPLASHSCREEN_LAYER
 	var/client/parent
 	var/matrix/target
@@ -44,13 +44,14 @@ GLOBAL_LIST(end_titles)
 	parent = P
 	maptext = credited
 	maptext_height = world.icon_size * 2
-	maptext_width = world.icon_size * 15
+	maptext_width = world.icon_size * 13
 	var/matrix/M = matrix(transform)
 	M.Translate(0, CREDIT_ANIMATE_HEIGHT)
 	animate(src, transform = M, time = CREDIT_ROLL_SPEED)
 	target = M
 	animate(src, alpha = 255, time = CREDIT_EASE_DURATION, flags = ANIMATION_PARALLEL)
-	addtimer(CALLBACK(src, .proc/FadeOut), CREDIT_ROLL_SPEED - CREDIT_EASE_DURATION)
+	spawn(CREDIT_ROLL_SPEED - CREDIT_EASE_DURATION)//addtimer doesn't work for more time-critical operations
+		FadeOut()
 	QDEL_IN(src, CREDIT_ROLL_SPEED)
 	P.screen += src
 
