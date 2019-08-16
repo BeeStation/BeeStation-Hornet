@@ -144,7 +144,7 @@ GLOBAL_VAR(changeling_team_objective_type) //If this is not null, we hand our th
 	var/list/round_credits = list()
 	var/len_before_addition
 
-	round_credits += "<center><h1>The Slippery Changelings:</h1></center>"
+	round_credits += "<center><h1>The Slippery Changelings:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/M in changelings)
 		var/datum/antagonist/changeling/cling = M.has_antag_datum(/datum/antagonist/changeling)

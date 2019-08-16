@@ -79,7 +79,7 @@
 	var/list/round_credits = list()
 	var/len_before_addition
 
-	round_credits += "<center><h1>The Space Wizard Federation:</h1></center>"
+	round_credits += "<center><h1>The Space Wizard Federation:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/wizard in wizards)
 		round_credits += "<center><h2>[wizard.name] as a master wizard</h2>"

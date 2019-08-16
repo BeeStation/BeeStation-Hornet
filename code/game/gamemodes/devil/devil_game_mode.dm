@@ -87,7 +87,7 @@
 	var/list/round_credits = list()
 	var/len_before_addition
 
-	round_credits += "<center><h1>The Tempting Devils:</h1></center>"
+	round_credits += "<center><h1>The Tempting Devils:</h1>"
 	len_before_addition = round_credits.len
 	var/datum/antagonist/devil/devil_info
 	for(var/datum/mind/devil in devils)

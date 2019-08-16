@@ -185,7 +185,7 @@
 	if((world.time-SSticker.round_start_time) < (FLUKEOPS_TIME_DELAY)) // If the nukies died super early, they're basically a massive disappointment
 		title_icon = "flukeops"
 
-	round_credits += "<center><h1>The [syndicate_name()] Operatives:</h1></center>"
+	round_credits += "<center><h1>The [syndicate_name()] Operatives:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/operative in nuke_team.members)
 		round_credits += "<center><h2>[operative.name] as a nuclear operative</h2>"

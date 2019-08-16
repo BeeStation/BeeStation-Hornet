@@ -106,7 +106,7 @@
 	var/list/round_credits = list()
 	var/len_before_addition
 
-	round_credits += "<center><h1>The [syndicate_name()] Spies:</h1></center>"
+	round_credits += "<center><h1>The [syndicate_name()] Spies:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/traitor in traitors)
 		round_credits += "<center><h2>[traitor.name] as a [syndicate_name()] traitor</h2>"

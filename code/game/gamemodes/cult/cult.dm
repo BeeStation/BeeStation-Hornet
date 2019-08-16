@@ -172,7 +172,7 @@
 	var/list/round_credits = list()
 	var/len_before_addition
 
-	round_credits += "<center><h1>The Cult of Nar'Sie:</h1></center>"
+	round_credits += "<center><h1>The Cult of Nar'Sie:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/cultist in cult)
 		round_credits += "<center><h2>[cultist.name] as a cult fanatic</h2>"

@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(gangs)
 	var/len_before_addition
 
 	for(var/datum/team/gang/G in GLOB.gangs)
-		round_credits += "<center><h1>The [G.name] Gang:</h1></center>"
+		round_credits += "<center><h1>The [G.name] Gang:</h1>"
 		len_before_addition = round_credits.len
 		for(var/datum/mind/boss in G.leaders)
 			round_credits += "<center><h2>[boss.name] as a [G.name] Gang leader</h2>"

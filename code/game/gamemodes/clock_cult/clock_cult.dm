@@ -360,7 +360,7 @@ Credit where due:
 	var/list/round_credits = list()
 	var/len_before_addition
 
-	round_credits += "<center><h1>The Servants of Ratvar:</h1></center>"
+	round_credits += "<center><h1>The Servants of Ratvar:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/servant in servants_of_ratvar)
 		round_credits += "<center><h2>[servant.name] as a faithful servant of Ratvar</h2>"
