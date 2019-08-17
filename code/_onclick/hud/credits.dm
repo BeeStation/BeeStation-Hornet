@@ -1,7 +1,7 @@
-#define CREDIT_ROLL_SPEED 115
-#define CREDIT_SPAWN_SPEED 8
+#define CREDIT_ROLL_SPEED 60
+#define CREDIT_SPAWN_SPEED 4
 #define CREDIT_ANIMATE_HEIGHT (13 * world.icon_size)
-#define CREDIT_EASE_DURATION 20
+#define CREDIT_EASE_DURATION 12
 
 GLOBAL_LIST(end_titles)
 
@@ -9,7 +9,21 @@ GLOBAL_LIST(end_titles)
 	set waitfor = FALSE
 	if(!GLOB.end_titles)
 		GLOB.end_titles = SSticker.mode.generate_credit_text()
+		GLOB.end_titles += "<br>"
+		GLOB.end_titles += "<br>"
+
+		var/list/patrons = get_patrons()
+		if(patrons.len)
+			GLOB.end_titles += "<center><h1>Thank you to our patrons!</h1>"
+
+			for(var/patron in patrons)
+				GLOB.end_titles += "<center><h2>[sanitize(patron)]</h2>"
+
+			GLOB.end_titles += "<br>"
+			GLOB.end_titles += "<br>"
+
 		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
+
 	LAZYINITLIST(credits)
 	var/list/_credits = credits
 	verbs += /client/proc/ClearCredits
@@ -75,20 +89,12 @@ GLOBAL_LIST(end_titles)
 	. = ..()
 	maptext = null
 
-/* CURSE YOU BYOND, LET ME DO HTTPS REQUESTS
+
 /proc/get_patrons()
 	var/list/patrons = list()
-	var/list/http[] = world.Export("https://www.patreon.com/api/campaigns/[]/pledges?include=patron.null")
 
-	if (http)
-		var/status = text2num(http["STATUS"])
+	if(fexists("[global.config.directory]/patrons.txt"))
+		patrons += world.file2list("[global.config.directory]/patrons.txt")
+	
+	return patrons
 
-		if (status == 200)
-			var/response = json_decode(file2text(http["CONTENT"]))
-			if (response)
-				for(var/item in response["included"])
-					if(item["type"] == "user")
-						patrons |= user["attributes"]["full_name"]
-
-	return patrons.len ? patrons : null
-*/
