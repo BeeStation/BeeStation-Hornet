@@ -1,5 +1,5 @@
-#define CREDIT_ROLL_SPEED 80
-#define CREDIT_SPAWN_SPEED 5
+#define CREDIT_ROLL_SPEED 60
+#define CREDIT_SPAWN_SPEED 4
 #define CREDIT_ANIMATE_HEIGHT (13 * world.icon_size)
 #define CREDIT_EASE_DURATION 12
 
@@ -15,7 +15,7 @@ GLOBAL_LIST(end_titles)
 		var/list/patrons = get_patrons()
 		if(patrons.len)
 			GLOB.end_titles += "<center><h1>Thank you to our patrons!</h1>"
-			
+
 			for(var/patron in patrons)
 				GLOB.end_titles += "<center><h2>[sanitize(patron)]</h2>"
 
