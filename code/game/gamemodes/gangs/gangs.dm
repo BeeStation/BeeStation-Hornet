@@ -17,6 +17,8 @@ GLOBAL_LIST_EMPTY(gangs)
 	<span class='danger'>Gangsters</span>: Take over the station with a dominator.\n\
 	<span class='notice'>Crew</span>: Prevent the gangs from expanding and initiating takeover."
 
+	title_icon = "gang"
+
 	var/list/datum/mind/gangboss_candidates = list()
 
 /datum/game_mode/gang/pre_setup()
@@ -57,3 +59,23 @@ GLOBAL_LIST_EMPTY(gangs)
 		var/datum/antagonist/gang/boss/B = new()
 		M.add_antag_datum(B)
 		B.equip_gang()
+
+
+
+/datum/game_mode/gang/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	for(var/datum/team/gang/G in GLOB.gangs)
+		round_credits += "<center><h1>The [G.name] Gang:</h1>"
+		len_before_addition = round_credits.len
+		for(var/datum/mind/boss in G.leaders)
+			round_credits += "<center><h2>[boss.name] as a [G.name] Gang leader</h2>"
+		for(var/datum/mind/gangster in (G.members - G.leaders))
+			round_credits += "<center><h2>[gangster.name] as a [G.name] gangster</h2>"
+		if(len_before_addition == round_credits.len)
+			round_credits += list("<center><h2>The [G.name] Gang was wiped out!</h2>", "<center><h2>The competition was too tough!</h2>")
+		round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits
