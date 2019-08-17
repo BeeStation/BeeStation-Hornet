@@ -133,7 +133,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/default_price = 25
 	///Default price of premium items if not overridden
 	var/extra_price = 50
-	/**
+	
+  	/**
 	  * Is this item on station or not
 	  *
 	  * if it doesn't originate from off-station during mapload, everything is free
@@ -141,6 +142,17 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/onstation = TRUE
 
 	var/dish_quants = list()  //used by the snack machine's custom compartment to count dishes.
+
+	///A variable to change on a per instance basis on the map that allows the instance to force cost and ID requirements
+	var/onstation_override = FALSE //change this on the object on the map to override the onstation check. DO NOT APPLY THIS GLOBALLY.
+
+	///ID's that can load this vending machine wtih refills
+	var/list/canload_access_list
+
+
+	var/list/vending_machine_input = list()
+	///Display header on the input view
+	var/input_display_header = "Custom Compartment"
 
 	//The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/refill_canister = null
@@ -176,7 +188,10 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is crated.
 	last_slogan = world.time + rand(0, slogan_delay)
 	power_change()
-
+	
+	if(onstation_override) //overrides the checks if true. 
+		onstation = TRUE
+		return
 	if(mapload) //check if it was initially created off station during mapload.
 		if(!is_station_level(z))
 			onstation = FALSE
