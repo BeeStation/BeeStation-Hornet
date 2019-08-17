@@ -1,37 +1,86 @@
-/datum/species/synth
-	name = "Synth" //inherited from the real species, for health scanners and things
+GLOBAL_LIST_EMPTY(ipc_screens_list)
+GLOBAL_LIST_EMPTY(ipc_antennas_list)
+#define isipcperson(A) (is_species(A, /datum/species/synth))
+
+/datum/species/synth // im fucking lazy mk2 and cant get sprites to normally work
+	name = "IPC" //inherited from the real species, for health scanners and things
 	id = "synth"
 	say_mod = "beep boops" //inherited from a user's real species
 	sexes = 0
-	species_traits = list(NOTRANSSTING) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_VIRUSIMMUNE,TRAIT_NODISMEMBER,TRAIT_NOLIMBDISABLE,TRAIT_NOHUNGER,TRAIT_NOBREATH)
+	species_traits = list(NOTRANSSTING,NOBLOOD,TRAIT_EASYDISMEMBER,NOFLASH) //all of these + whatever we inherit from the real species
+	inherent_traits = list(TRAIT_VIRUSIMMUNE,TRAIT_NOLIMBDISABLE,TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	meat = null
+	exotic_blood = "oil"
 	damage_overlay_type = "synth"
 	limbs_id = "synth"
-	var/disguise_fail_health = 75 //When their health gets to this level their synthflesh partially falls off
-	var/datum/species/fake_species //a species to do most of our work for us, unless we're damaged
+	mutant_bodyparts = list("ipc_screen", "ipc_antenna")
+	default_features = list("ipc_screen" = "Blank", "ipc_antenna" = "None")
+	burnmod = 1.75
+	heatmod = 1.6
+	brutemod = 1.2
 	var/list/initial_species_traits //for getting these values back for assume_disguise()
 	var/list/initial_inherent_traits
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
+	var/datum/action/innate/monitor_change/screen
 
-/datum/species/synth/New()
-	initial_species_traits = species_traits.Copy()
-	initial_inherent_traits = inherent_traits.Copy()
-	..()
+/datum/species/synth/spec_emp_act(mob/living/carbon/human/H, severity)
+	. = ..()
+	switch(severity)
+		if(1)
+			H.Stun(160)
+			H.adjustBruteLoss(50)
+		if(2)
+			H.Stun(60)
+			H.adjustBruteLoss(35)
+
+/datum/species/synth/check_roundstart_eligible()
+	return TRUE
+
+/datum/species/synth/military/check_roundstart_eligible()
+	return FALSE
+
+/datum/species/synth/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
+	if(I.tool_behaviour == TOOL_WELDER && intent != INTENT_HARM)
+		if (!I.tool_start_check(user, amount=0))
+			return
+		if(H == user)
+			to_chat(user, "<span class='notice'>You start fixing yourself...</span>")
+			if(I.use_tool(src, user, 0, volume=40))
+				H.adjustBruteLoss(-3)
+				H.updatehealth()
+				H.add_fingerprint(user)
+				H.visible_message("<span class='notice'>[user] has poorly fixed some of the dents on the [src.name].</span>")
+				return
+
+		H.adjustBruteLoss(-10)
+		H.updatehealth()
+		H.add_fingerprint(user)
+		H.visible_message("<span class='notice'>[user] has fixed some of the dents on the [src.name].</span>")
+	else if(istype(I, /obj/item/stack/cable_coil))
+		if(H == user)
+			to_chat(user, "<span class='notice'>You start fixing yourself...</span>")
+			if(H == user)
+				H.adjustFireLoss(-2)
+				H.adjustToxLoss(-2)
+				H.updatehealth()
+				H.visible_message("<span class='notice'>[user] has poorly fixed some of the burnt cables on the [src.name].</span>")
+				return
+
+		H.adjustFireLoss(-10)
+		H.adjustToxLoss(-10)
+		H.updatehealth()
+		H.visible_message("<span class='notice'>[user] has fixed some of the burnt cables on the [src.name].</span>")
+	else
+		return ..()
 
 /datum/species/synth/military
-	name = "Military Synth"
+	name = "Military IPC"
 	id = "military_synth"
 	armor = 25
 	punchdamagelow = 10
 	punchdamagehigh = 19
 	punchstunthreshold = 14 //about 50% chance to stun
-	disguise_fail_health = 50
-
-/datum/species/synth/on_species_gain(mob/living/carbon/human/H, datum/species/old_species)
-	..()
-	assume_disguise(old_species, H)
 
 /datum/species/synth/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/medicine/synthflesh)
@@ -41,91 +90,30 @@
 	else
 		return ..()
 
+/datum/species/synth/on_species_gain(mob/living/carbon/human/C)
+	if(isipcperson(C) && !screen)
+		screen = new
+		screen.Grant(C)
+	..()
 
-/datum/species/synth/proc/assume_disguise(datum/species/S, mob/living/carbon/human/H)
-	if(S && !istype(S, type))
-		name = S.name
-		say_mod = S.say_mod
-		sexes = S.sexes
-		species_traits = initial_species_traits.Copy()
-		inherent_traits = initial_inherent_traits.Copy()
-		species_traits |= S.species_traits
-		inherent_traits |= S.inherent_traits
-		attack_verb = S.attack_verb
-		attack_sound = S.attack_sound
-		miss_sound = S.miss_sound
-		meat = S.meat
-		mutant_bodyparts = S.mutant_bodyparts.Copy()
-		mutant_organs = S.mutant_organs.Copy()
-		default_features = S.default_features.Copy()
-		nojumpsuit = S.nojumpsuit
-		no_equip = S.no_equip.Copy()
-		limbs_id = S.limbs_id
-		use_skintones = S.use_skintones
-		fixed_mut_color = S.fixed_mut_color
-		hair_color = S.hair_color
-		fake_species = new S.type
-	else
-		name = initial(name)
-		say_mod = initial(say_mod)
-		species_traits = initial_species_traits.Copy()
-		inherent_traits = initial_inherent_traits.Copy()
-		attack_verb = initial(attack_verb)
-		attack_sound = initial(attack_sound)
-		miss_sound = initial(miss_sound)
-		mutant_bodyparts = list()
-		default_features = list()
-		nojumpsuit = initial(nojumpsuit)
-		no_equip = list()
-		qdel(fake_species)
-		fake_species = null
-		meat = initial(meat)
-		limbs_id = "synth"
-		use_skintones = 0
-		sexes = 0
-		fixed_mut_color = ""
-		hair_color = ""
-
-	for(var/X in H.bodyparts) //propagates the damage_overlay changes
-		var/obj/item/bodypart/BP = X
-		BP.update_limb()
-	H.update_body_parts() //to update limb icon cache with the new damage overlays
-
-//Proc redirects:
-//Passing procs onto the fake_species, to ensure we look as much like them as possible
-
-/datum/species/synth/handle_hair(mob/living/carbon/human/H, forced_colour)
-	if(fake_species)
-		fake_species.handle_hair(H, forced_colour)
-	else
-		return ..()
-
-
-/datum/species/synth/handle_body(mob/living/carbon/human/H)
-	if(fake_species)
-		fake_species.handle_body(H)
-	else
-		return ..()
-
-
-/datum/species/synth/handle_mutant_bodyparts(mob/living/carbon/human/H, forced_colour)
-	if(fake_species)
-		fake_species.handle_body(H,forced_colour)
-	else
-		return ..()
-
+/datum/species/synth/on_species_loss(mob/living/carbon/human/C)
+	if(screen)
+		screen.Remove(C)
+	..()
 
 /datum/species/synth/get_spans()
-	if(fake_species)
-		return fake_species.get_spans()
-	return list()
+	return SPAN_ROBOT
 
+/datum/action/innate/monitor_change
+	name = "Screen Change"
+	check_flags = AB_CHECK_CONSCIOUS
+	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	button_icon_state = "drone_vision"
 
-/datum/species/synth/handle_speech(message, mob/living/carbon/human/H)
-	if(H.health > disguise_fail_health)
-		if(fake_species)
-			return fake_species.handle_speech(message,H)
-		else
-			return ..()
-	else
-		return ..()
+/datum/action/innate/monitor_change/Activate()
+	var/mob/living/carbon/human/H = owner
+	var/new_ipc_screen = input(usr, "Choose your character's screen:", "Monitor Display") as null|anything in GLOB.ipc_screens_list
+	if(!new_ipc_screen)
+		return
+	H.dna.features["ipc_screen"] = new_ipc_screen
+	H.update_body()
