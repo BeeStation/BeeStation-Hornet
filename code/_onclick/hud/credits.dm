@@ -70,10 +70,8 @@ GLOBAL_LIST(end_titles)
 	P.screen += src
 
 /obj/screen/credit/Destroy()
-	var/client/P = parent
 	if(parent)
-		P.screen -= src
-	LAZYREMOVE(P.credits, src)
+		parent.screen -= src
 	parent = null
 	return ..()
 
