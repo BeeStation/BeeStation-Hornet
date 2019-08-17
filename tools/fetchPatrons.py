@@ -1,3 +1,8 @@
+# Script for fetching the names of patrons from a patreon page.
+# written by qwertyquerty
+#
+# format: python fetchPatrons.py <campaign id>
+
 import requests
 import sys
 
