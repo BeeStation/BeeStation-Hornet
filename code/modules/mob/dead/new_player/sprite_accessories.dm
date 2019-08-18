@@ -194,7 +194,7 @@
 	name = "Sunburst"
 	icon_state = "sunburst"
 
-/datum/sprite_accessory/screen/static
+/datum/sprite_accessory/screen/statics
 	name = "Static"
 	icon_state = "static"
 
