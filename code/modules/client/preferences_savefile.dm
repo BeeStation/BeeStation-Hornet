@@ -67,12 +67,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 
 
-			//ipcs
-		S["feature_ipc_screen"] >> features["ipc_screen"]
-		S["feature_ipc_antenna"] >> features["ipc_antenna"]
-
-		features["ipc_screen"] 	= sanitize_inlist(features["ipc_screen"], GLOB.ipc_screens_list)
-		features["ipc_antenna"] = sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
 
 		S["job_civilian_high"]	>> job_civilian_high
 		S["job_civilian_med"]	>> job_civilian_med
@@ -297,6 +291,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	if(!S["feature_ethcolor"] || S["feature_ethcolor"] == "#000")
 		WRITE_FILE(S["feature_ethcolor"]	, "9c3030")
+		//ipcs
+	S["feature_ipc_screen"] >> features["ipc_screen"]
+	S["feature_ipc_antenna"] >> features["ipc_antenna"]
+
+	features["ipc_screen"] 	= sanitize_inlist(features["ipc_screen"], GLOB.ipc_screens_list)
+	features["ipc_antenna"] = sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
 
 	//Character
 	S["real_name"]			>> real_name
