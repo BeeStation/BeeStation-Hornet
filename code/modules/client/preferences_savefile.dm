@@ -426,7 +426,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["version"]			, SAVEFILE_VERSION_MAX)	//load_character will sanitize any bad data, so assume up-to-date.)
 
 	//Character
-		WRITE_FILE(S["feature_ipc_screen"], features["ipc_screen"])
+	WRITE_FILE(S["feature_ipc_screen"], features["ipc_screen"])
 	WRITE_FILE(S["feature_ipc_antenna"], features["ipc_antenna"])
 	WRITE_FILE(S["real_name"]			, real_name)
 	WRITE_FILE(S["name_is_always_random"] , be_random_name)
