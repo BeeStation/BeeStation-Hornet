@@ -1,4 +1,4 @@
-/datum/species/IPC // im fucking lazy mk2 and cant get sprites to normally work
+/datum/species/ipc // im fucking lazy mk2 and cant get sprites to normally work
 	name = "IPC" //inherited from the real species, for health scanners and things
 	id = "ipc"
 	say_mod = "beep boops" //inherited from a user's real species
@@ -18,10 +18,10 @@
 	var/list/initial_species_traits //for getting these values back for assume_disguise()
 	var/list/initial_inherent_traits
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
-	var/datum/action/innate/monitor_change/screen
-	var/obj/item/mmi/mmi = null
 
-/datum/species/IPC/spec_emp_act(mob/living/carbon/human/H, severity)
+	var/datum/action/innate/monitor_change/screen
+
+/datum/species/ipc/spec_emp_act(mob/living/carbon/human/H, severity)
 	. = ..()
 	switch(severity)
 		if(1)
@@ -31,13 +31,13 @@
 			H.Stun(60)
 			H.adjustBruteLoss(35)
 
-/datum/species/IPC/check_roundstart_eligible()
+/datum/species/ipc/check_roundstart_eligible()
 	return TRUE
 
-/datum/species/IPC/military/check_roundstart_eligible()
+/datum/species/ipc/military/check_roundstart_eligible()
 	return FALSE //yes
 
-/datum/species/IPC/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
+/datum/species/ipc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
     if(I.tool_behaviour == TOOL_WELDER && intent != INTENT_HARM)
         if (!I.tool_start_check(user, amount=0))
             return
@@ -69,7 +69,18 @@
     else
         return ..()
 
-/datum/species/IPC/military
+/datum/species/ipc/random_name(gender,unique,lastname)
+	if(unique)
+		return random_unique_ipc_name()
+
+	var/randname = ipc_name()
+
+	if(lastname)
+		randname += " [lastname]"
+
+	return randname
+
+/datum/species/ipc/military
 	name = "Military IPC"
 	id = "military_synth"
 	armor = 25
@@ -77,7 +88,7 @@
 	punchdamagehigh = 19
 	punchstunthreshold = 14 //about 50% chance to stun
 
-/datum/species/IPC/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/ipc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/medicine/synthflesh)
 		chem.reaction_mob(H, TOUCH, 2 ,0) //heal a little
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
@@ -85,18 +96,18 @@
 	else
 		return ..()
 
-/datum/species/IPC/on_species_gain(mob/living/carbon/human/C)
+/datum/species/ipc/on_species_gain(mob/living/carbon/human/C)
 	if(isIPC(C) && !screen)
 		screen = new
 		screen.Grant(C)
 	..()
 
-/datum/species/IPC/on_species_loss(mob/living/carbon/human/C)
+/datum/species/ipc/on_species_loss(mob/living/carbon/human/C)
 	if(screen)
 		screen.Remove(C)
 	..()
 
-/datum/species/IPC/get_spans()
+/datum/species/ipc/get_spans()
 	return SPAN_ROBOT
 
 /datum/action/innate/monitor_change
