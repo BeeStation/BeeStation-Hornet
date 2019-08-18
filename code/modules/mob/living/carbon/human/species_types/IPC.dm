@@ -35,7 +35,7 @@
 	return TRUE
 
 /datum/species/IPC/military/check_roundstart_eligible()
-	return FALSE
+	return FALSE //yes
 
 /datum/species/IPC/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
     if(I.tool_behaviour == TOOL_WELDER && intent != INTENT_HARM)
