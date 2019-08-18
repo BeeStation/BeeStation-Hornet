@@ -65,6 +65,15 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		var/job_engsec_med = 0
 		var/job_engsec_low = 0
 
+
+
+			//ipcs
+		S["feature_ipc_screen"] >> features["ipc_screen"]
+		S["feature_ipc_antenna"] >> features["ipc_antenna"]
+
+		features["ipc_screen"] 	= sanitize_inlist(features["ipc_screen"], GLOB.ipc_screens_list)
+		features["ipc_antenna"] 	= sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
+
 		S["job_civilian_high"]	>> job_civilian_high
 		S["job_civilian_med"]	>> job_civilian_med
 		S["job_civilian_low"]	>> job_civilian_low
