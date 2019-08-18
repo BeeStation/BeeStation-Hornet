@@ -77,7 +77,7 @@
 	emporium_action = new(cellular_emporium)
 	emporium_action.Grant(owner.current)
 
-/datum/antagonist/changeling/on_gain(mob/living/carbon/human/C)
+/datum/antagonist/changeling/on_gain()
 	generate_name()
 	create_actions()
 	reset_powers()
