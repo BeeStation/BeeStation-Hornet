@@ -633,6 +633,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.animated_tails_list_human[H.dna.features["tail_human"]]
 				if("spines")
 					S = GLOB.spines_list[H.dna.features["spines"]]
+				if("ipc_screen")
+					S = GLOB.ipc_screens_list[H.dna.features["ipc_screen"]]
+				if("ipc_antenna")
+					S = GLOB.ipc_antennas_list[H.dna.features["ipc_antenna"]]
 				if("waggingspines")
 					S = GLOB.animated_spines_list[H.dna.features["spines"]]
 				if("snout")

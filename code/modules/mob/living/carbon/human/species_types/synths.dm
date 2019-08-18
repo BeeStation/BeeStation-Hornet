@@ -1,6 +1,6 @@
+#define isipcperson(A) (is_species(A, /datum/species/synth))
 GLOBAL_LIST_EMPTY(ipc_screens_list)
 GLOBAL_LIST_EMPTY(ipc_antennas_list)
-#define isipcperson(A) (is_species(A, /datum/species/synth))
 
 /datum/species/synth // im fucking lazy mk2 and cant get sprites to normally work
 	name = "IPC" //inherited from the real species, for health scanners and things
@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(ipc_antennas_list)
 	damage_overlay_type = "synth"
 	limbs_id = "synth"
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna")
-	default_features = list("ipc_screen" = "Blank", "ipc_antenna" = "None")
+	default_features = list("ipc_screen" = "BSOD", "ipc_antenna" = "None")
 	burnmod = 1.75
 	heatmod = 1.6
 	brutemod = 1.2
