@@ -342,7 +342,8 @@
 
 /datum/antagonist/changeling/proc/create_initial_profile()
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
-	C.set_species(/datum/species/human)
+	if(isIPC(C))
+		C.set_species(/datum/species/human)
 	if(ishuman(C))
 		add_new_profile(C)
 
