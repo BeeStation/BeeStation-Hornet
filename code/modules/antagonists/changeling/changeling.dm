@@ -232,7 +232,7 @@
 
 /datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, var/verbose=1)
 	var/mob/living/carbon/user = owner.current
-	if(!isIPC(target))
+	if(isIPC(target))
 		to_chat(user, "<span class='warning'>We cannot absorb mechanical entities!</span>")
 		return
 	if(!istype(user))
