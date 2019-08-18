@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isindestructiblefloor(A) (istype(A, /turf/open/indestructible))
 
-#define isIPC(A) (is_species(A, /datum/species/synth))
+#define isIPC(A) (is_species(A, /datum/species/IPC))
 
 #define isspaceturf(A) (istype(A, /turf/open/space))
 
