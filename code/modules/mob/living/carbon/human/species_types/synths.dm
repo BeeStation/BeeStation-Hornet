@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(ipc_antennas_list)
 	damage_overlay_type = "synth"
 	limbs_id = "synth"
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna")
-	default_features = list("ipc_screen" = "BSOD", "ipc_antenna" = "None")
+	default_features = list("mcolor" = "0F0","ipc_screen" = "BSOD", "ipc_antenna" = "None")
 	burnmod = 1.75
 	heatmod = 1.6
 	brutemod = 1.2
