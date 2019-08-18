@@ -94099,12 +94099,12 @@
 /obj/machinery/computer/security/telescreen/auxbase{
 	icon_state = "telescreen";
 	dir = 8;
-	step_x = 28
+	pixel_x = 28
 	},
 /obj/machinery/computer/security/telescreen/auxbase{
 	icon_state = "telescreen";
 	dir = 8;
-	step_x = 28
+	pixel_x = 28
 	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
@@ -101851,7 +101851,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm{
-	step_y = 20
+	pixel_y = 20
 	},
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
@@ -102016,7 +102016,7 @@
 /area/engine/engineering)
 "fee" = (
 /obj/machinery/mineral/processing_unit_console{
-	step_x = 0
+	pixel_x = 0
 	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral{
@@ -102054,7 +102054,7 @@
 "fjx" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/extinguisher_cabinet{
-	step_y = -26
+	pixel_y = -26
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/solars{
@@ -103172,8 +103172,8 @@
 	},
 /obj/machinery/power/apc{
 	name = "Abandoned Outpost APC";
-	step_x = 0;
-	step_y = 24
+	pixel_x = 0;
+	pixel_y = 24
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -103949,7 +103949,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/firealarm{
-	step_y = 26
+	pixel_y = 26
 	},
 /obj/machinery/light{
 	dir = 1
