@@ -683,3 +683,11 @@
 	category = CAT_MISC
 	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
 
+	/datum/crafting_recipe/sharpmop
+	name = "Sharpened Mop"
+	result = /obj/item/mop/sharp
+	reqs = list(/obj/item/mop)
+	time = 30
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	tools = list(TOOL_WIRECUTTER)

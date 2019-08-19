@@ -120,3 +120,18 @@
 
 /obj/item/mop/advanced/cyborg
 	insertable = FALSE
+
+/obj/item/mop/sharp
+	desc = "The logical conclusion of greytide-janitorial crossbreeding. The station is not ready."
+	name = "sharpened mop"
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "mop"
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	force = 30
+	throwforce = 40
+	throw_speed = 5
+	throw_range = 7
+	w_class = WEIGHT_CLASS_NORMAL
+	attack_verb = list("mopped", "jabbed", "shanked", "stabbed", "jousted")
+	resistance_flags = FLAMMABLE
