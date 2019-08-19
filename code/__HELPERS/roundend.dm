@@ -195,10 +195,10 @@
 		cb.InvokeAsync()
 	LAZYCLEARLIST(round_end_events)
 
-	RollCredits()
 	for(var/client/C in GLOB.clients)
 		if(C)
-
+			if(!C.credits)
+				C.RollCredits()
 			C.playtitlemusic(40)
 
 			C.process_endround_beecoins()

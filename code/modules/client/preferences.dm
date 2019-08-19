@@ -45,7 +45,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/preferred_map = null
 	var/pda_style = MONO
 	var/pda_color = "#808000"
-	var/show_credits = TRUE
 
 	// Custom Keybindings
 	var/list/key_bindings = null
