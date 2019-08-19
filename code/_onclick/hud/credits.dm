@@ -31,7 +31,7 @@ GLOBAL_LIST(end_titles)
 		var/C = GLOB.end_titles[i]
 		if(!C)
 			continue
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/create_credit, C), (CREDIT_SPAWN_SPEED+(i*10)), TIMER_CLIENT_TIME)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/create_credit, C), (CREDIT_SPAWN_SPEED*i), TIMER_CLIENT_TIME)
 
 /proc/create_credit(credit)
 	new /obj/screen/credit(null, credit)
