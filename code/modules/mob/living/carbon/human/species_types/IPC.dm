@@ -37,6 +37,15 @@
 /datum/species/ipc/military/check_roundstart_eligible()
 	return FALSE //yes
 
+/datum/species/ipc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+	if(chem.type == exotic_blood)
+		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+		H.reagents.del_reagent(chem.type)
+		return 1
+	else
+		H.reagents.del_reagent(chem.type)
+	return FALSE
+
 /datum/species/ipc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
     if(I.tool_behaviour == TOOL_WELDER && intent != INTENT_HARM)
         if (!I.tool_start_check(user, amount=0))
@@ -87,14 +96,6 @@
 	punchdamagelow = 10
 	punchdamagehigh = 19
 	punchstunthreshold = 14 //about 50% chance to stun
-
-/datum/species/ipc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	if(chem.type == /datum/reagent/medicine/synthflesh)
-		chem.reaction_mob(H, TOUCH, 2 ,0) //heal a little
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
-		return 1
-	else
-		return ..()
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/human/C)
 	if(isIPC(C) && !screen)
