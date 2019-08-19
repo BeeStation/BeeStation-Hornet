@@ -3,7 +3,7 @@
 	id = "ipc"
 	say_mod = "beeps" //inherited from a user's real species
 	sexes = 0
-	species_traits = list(NOTRANSSTING,NOBLOOD,TRAIT_EASYDISMEMBER,NOFLASH) //all of these + whatever we inherit from the real species
+	species_traits = list(NOTRANSSTING,MUTCOLORS,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,NOFLASH) //all of these + whatever we inherit from the real species
 	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_VIRUSIMMUNE,TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	meat = null
@@ -70,6 +70,7 @@
             else
                 H.adjustFireLoss(-10)
                 H.adjustToxLoss(-10)
+                H.adjustBrainLoss(-10)
             H.updatehealth()
             H.visible_message("<span class='notice'>[user] has [H == user ? "poorly " : ""]fixed some of the burnt cables on \the [affecting.name].</span>")
         return
