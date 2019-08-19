@@ -70,7 +70,7 @@
             else
                 H.adjustFireLoss(-10)
                 H.adjustToxLoss(-10)
-				H.adjustBrainLoss(-10)
+                H.adjustBrainLoss(-10)
             H.updatehealth()
             H.visible_message("<span class='notice'>[user] has [H == user ? "poorly " : ""]fixed some of the burnt cables on \the [affecting.name].</span>")
         return
