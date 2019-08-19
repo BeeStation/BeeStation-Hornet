@@ -347,6 +347,16 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 		mob.hud_used.show_hud()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost HUD", "[prefs.ghost_hud ? "Enabled" : "Disabled"]"))
 
+/client/verb/toggle_show_credits()
+	set name = "Toggle Credits"
+	set category = "Preferences"
+	set desc = "Hide/Show Credits"
+
+	prefs.show_credits = !prefs.show_credits
+	to_chat(src, "Credits will now be [prefs.show_credits ? "visible" : "hidden"].")
+	prefs.save_preferences()
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Credits", "[prefs.show_credits ? "Enabled" : "Disabled"]"))
+
 /client/verb/toggle_inquisition() // warning: unexpected inquisition
 	set name = "Toggle Inquisitiveness"
 	set desc = "Sets whether your ghost examines everything on click by default"

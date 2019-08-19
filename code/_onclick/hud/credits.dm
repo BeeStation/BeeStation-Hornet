@@ -5,7 +5,7 @@
 
 GLOBAL_LIST(end_titles)
 
-/client/proc/RollCredits()
+/proc/RollCredits()
 	set waitfor = FALSE
 	if(!GLOB.end_titles)
 		GLOB.end_titles = SSticker.mode.generate_credit_text()
@@ -23,26 +23,18 @@ GLOBAL_LIST(end_titles)
 			GLOB.end_titles += "<br>"
 
 		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
-
-	LAZYINITLIST(credits)
-	var/list/_credits = credits
-	verbs += /client/proc/ClearCredits
-	_credits += new /obj/screen/credit/title_card(null, null, src, SSticker.mode.title_icon)
+	for(var/client/C in GLOB.clients)
+		if(C.prefs.show_credits)
+			C.screen += new /obj/screen/credit/title_card(null, null, SSticker.mode.title_icon)
 	sleep(CREDIT_SPAWN_SPEED * 3)
-	for(var/I in GLOB.end_titles)
-		if(!credits)
-			return
-		_credits += new /obj/screen/credit(null, I, src)
-		sleep(CREDIT_SPAWN_SPEED)
-	sleep(CREDIT_ROLL_SPEED - CREDIT_SPAWN_SPEED)
-	ClearCredits()
-	verbs -= /client/proc/ClearCredits
+	for(var/i in 1 to GLOB.end_titles.len)
+		var/C = GLOB.end_titles[i]
+		if(!C)
+			continue
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/create_credit, C), (CREDIT_SPAWN_SPEED+(i*10)), TIMER_CLIENT_TIME)
 
-/client/proc/ClearCredits()
-	set name = "Hide Credits"
-	set category = "OOC"
-	verbs -= /client/proc/ClearCredits
-	QDEL_LIST(credits)
+/proc/create_credit(credit)
+	new /obj/screen/credit(null, credit)
 
 /obj/screen/credit
 	icon_state = "blank"
@@ -50,12 +42,10 @@ GLOBAL_LIST(end_titles)
 	alpha = 0
 	screen_loc = "2,2"
 	layer = SPLASHSCREEN_LAYER
-	var/client/parent
 	var/matrix/target
 
-/obj/screen/credit/Initialize(mapload, credited, client/P)
+/obj/screen/credit/Initialize(mapload, credited)
 	. = ..()
-	parent = P
 	maptext = credited
 	maptext_height = world.icon_size * 2
 	maptext_width = world.icon_size * 13
@@ -64,15 +54,18 @@ GLOBAL_LIST(end_titles)
 	animate(src, transform = M, time = CREDIT_ROLL_SPEED)
 	target = M
 	animate(src, alpha = 255, time = CREDIT_EASE_DURATION, flags = ANIMATION_PARALLEL)
+	INVOKE_ASYNC(src, .proc/add_to_clients)
 	spawn(CREDIT_ROLL_SPEED - CREDIT_EASE_DURATION)//addtimer doesn't work for more time-critical operations
 		FadeOut()
 	QDEL_IN(src, CREDIT_ROLL_SPEED)
-	P.screen += src
+
+/obj/screen/credit/proc/add_to_clients()
+	for(var/client/C in GLOB.clients)
+		if(C.prefs.show_credits)
+			C.screen += src
 
 /obj/screen/credit/Destroy()
-	if(parent)
-		parent.screen -= src
-	parent = null
+	screen_loc = null
 	return ..()
 
 /obj/screen/credit/proc/FadeOut()
@@ -82,7 +75,7 @@ GLOBAL_LIST(end_titles)
 	icon = 'icons/title_cards.dmi'
 	screen_loc = "4,1"
 
-/obj/screen/credit/title_card/Initialize(mapload, credited, client/P, title_icon_state)
+/obj/screen/credit/title_card/Initialize(mapload, credited, title_icon_state)
 	icon_state = title_icon_state
 	. = ..()
 	maptext = null
@@ -93,6 +86,5 @@ GLOBAL_LIST(end_titles)
 
 	if(fexists("[global.config.directory]/patrons.txt"))
 		patrons += world.file2list("[global.config.directory]/patrons.txt")
-	
-	return patrons
 
+	return patrons
