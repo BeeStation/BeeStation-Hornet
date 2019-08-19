@@ -7,20 +7,20 @@
 		////////////////
 		//ADMIN THINGS//
 		////////////////
-	
+
 	/// The admin state of the client. If this is null, the client is not an admin.
 	var/datum/admins/holder = null
 	var/datum/click_intercept = null // Needs to implement InterceptClickOn(user,params,atom) proc
-	
+
 	/// Whether the client has ai interacting as a ghost enabled or not
 	var/AI_Interact		= 0
 
 	/// Used to cache this client's bans to save on DB queries
 	var/ban_cache = null
 	/// Contains the last message sent by this client - used to protect against copy-paste spamming.
-	var/last_message	= "" 
+	var/last_message	= ""
 	/// Contains a number of how many times a message identical to last_message was sent.
-	var/last_message_count = 0 
+	var/last_message_count = 0
 	/// How many messages sent in the last 10 seconds
 	var/total_message_count = 0
 	/// Next tick to reset the total message counter
@@ -36,7 +36,7 @@
 
 	/// The last world.time that the client's mob turned
 	var/last_turn = 0
-	
+
 	/// The next world.time this client is allowed to move
 	var/move_delay = 0
 	var/area			= null
@@ -57,15 +57,15 @@
 		////////////////////////////////////
 
 	/// Used to determine how old the account is - in days.
-	var/player_age = -1	
+	var/player_age = -1
 	/// Date that this account was first seen in the server
-	var/player_join_date = null 
+	var/player_join_date = null
 	var/related_accounts_ip = "Requires database"	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
 	var/related_accounts_cid = "Requires database"	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
 	/// Date of byond account creation in ISO 8601 format
 	var/account_join_date = null
 	/// Age of byond account in days
-	var/account_age = -1	
+	var/account_age = -1
 
 	preload_rsc = PRELOAD_RSC
 
@@ -96,9 +96,6 @@
 	var/list/clicklimiter
 
 	var/datum/chatOutput/chatOutput
-
-	/// Lazy list of all credit object bound to this client
-	var/list/credits
 
 	/// These persist between logins/logouts during the same round.
 	var/datum/player_details/player_details
