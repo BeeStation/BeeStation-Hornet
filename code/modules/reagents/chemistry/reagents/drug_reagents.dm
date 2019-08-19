@@ -174,7 +174,7 @@
 	..()
 	if (L.client)
 		SSmedals.UnlockMedal(MEDAL_APPLY_REAGENT_METH,L.client)
-	
+
 	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-2, blacklisted_movetypes=(FLYING|FLOATING))
 
 /datum/reagent/drug/methamphetamine/on_mob_end_metabolize(mob/living/L)

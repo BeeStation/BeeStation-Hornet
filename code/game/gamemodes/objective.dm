@@ -109,7 +109,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		if(O.late_joiner)
 			try_target_late_joiners = TRUE
 	for(var/datum/mind/possible_target in get_crewmember_minds())
-		if(!(possible_target in owners) && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && is_unique_objective(possible_target,dupe_search_range))
+		if(is_valid_target(possible_target) && !(possible_target in owners) && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && is_unique_objective(possible_target,dupe_search_range))
 			possible_targets += possible_target
 	if(try_target_late_joiners)
 		var/list/all_possible_targets = possible_targets.Copy()
@@ -123,6 +123,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		target = pick(possible_targets)
 	update_explanation_text()
 	return target
+
+/datum/objective/proc/is_valid_target(possible_target)
+	return TRUE
 
 /datum/objective/proc/find_target_by_role(role, role_type=FALSE,invert=FALSE)//Option sets either to check assigned role or special role. Default to assigned., invert inverts the check, eg: "Don't choose a Ling"
 	var/list/datum/mind/owners = get_owners()
@@ -385,6 +388,19 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/escape/escape_with_identity/find_target(dupe_search_range)
 	target = ..()
 	update_explanation_text()
+
+/datum/objective/escape/escape_with_identity/is_valid_target(possible_target)
+	var/list/datum/mind/owners = get_owners()
+	for(var/datum/mind/M in owners)
+		if(!M)
+			continue
+		var/datum/antagonist/changeling/changeling = M.has_antag_datum(/datum/antagonist/changeling)
+		if(!changeling)
+			continue
+		var/datum/mind/T = possible_target
+		if(!istype(T) || isIPC(T.current))
+			return FALSE
+	return TRUE
 
 /datum/objective/escape/escape_with_identity/update_explanation_text()
 	if(target && target.current)
