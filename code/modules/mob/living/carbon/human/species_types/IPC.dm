@@ -51,7 +51,6 @@
         if (!I.tool_start_check(user, amount=0))
             return
         else
-            to_chat(user, "<span class='notice'>You start fixing [H == user ? "your" : "\the"] [affecting.name]...</span>")
             if(I.use_tool(src, user, 0, volume=40))
                 if(H == user)
                     H.adjustBruteLoss(-3)
@@ -62,7 +61,6 @@
                 H.visible_message("<span class='notice'>[user] has [H == user ? "poorly " : ""]fixed some of the dents on \the [affecting.name].</span>")
         return
     else if(istype(I, /obj/item/stack/cable_coil))
-        to_chat(user, "<span class='notice'>You start fixing [H == user ? "your" : "\the"] [affecting.name]...</span>")
         if(do_after(user, 30, target = H))
             var/obj/item/stack/cable_coil/C = I
             C.use(1)
@@ -74,6 +72,15 @@
                 H.adjustToxLoss(-10)
             H.updatehealth()
             H.visible_message("<span class='notice'>[user] has [H == user ? "poorly " : ""]fixed some of the burnt cables on \the [affecting.name].</span>")
+        return
+    else if(istype(I, /obj/item/borg/upgrade/restart))
+        if(H.health < 0)
+            to_chat(user, "<span class='warning'>You have to repair the IPC before using this module!</span>")
+            return FALSE
+        if(H.mind)
+            H.mind.grab_ghost()
+        H.revive()
+        to_chat(user, "<span class='warning'>You reset the IPC's internal circuitry - reviving them!</span>")
         return
     else
         return ..()
