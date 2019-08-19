@@ -89,12 +89,7 @@
 	punchstunthreshold = 14 //about 50% chance to stun
 
 /datum/species/ipc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	if(chem.type == /datum/reagent/medicine/synthflesh)
-		chem.reaction_mob(H, TOUCH, 2 ,0) //heal a little
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
-		return 1
-	else
-		return ..()
+	return ..()
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/human/C)
 	if(isIPC(C) && !screen)
