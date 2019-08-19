@@ -4,7 +4,7 @@
 	say_mod = "beep boops" //inherited from a user's real species
 	sexes = 0
 	species_traits = list(NOTRANSSTING,NOBLOOD,TRAIT_EASYDISMEMBER,NOFLASH) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_VIRUSIMMUNE,TRAIT_NOLIMBDISABLE,TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
+	inherent_traits = list(TRAIT_VIRUSIMMUNE,TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	meat = null
 	exotic_blood = "oil"
