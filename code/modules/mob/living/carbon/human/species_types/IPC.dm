@@ -67,10 +67,13 @@
             if(H == user)
                 H.adjustFireLoss(-2)
                 H.adjustToxLoss(-2)
+                H.adjustBrainLoss(-5)
+                H.adjustCloneLoss(-50) //HOW THE FUCK DO YOU EVEN GET THIS
             else
                 H.adjustFireLoss(-10)
                 H.adjustToxLoss(-10)
                 H.adjustBrainLoss(-10)
+                H.adjustCloneLoss(-50) //HOW THE FUCK DO YOU EVEN GET THIS
             H.updatehealth()
             H.visible_message("<span class='notice'>[user] has [H == user ? "poorly " : ""]fixed some of the burnt cables on \the [affecting.name].</span>")
         return
