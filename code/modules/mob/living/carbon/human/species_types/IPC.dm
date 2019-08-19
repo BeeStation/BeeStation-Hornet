@@ -80,7 +80,7 @@
         if(H.mind)
             H.mind.grab_ghost()
         H.revive()
-        to_chat(user, "<span class='warning'>You reset the IPC's internal circuitry - reviving them!</span>")
+        to_chat(user, "<span class='notice'>You reset the IPC's internal circuitry - reviving them!</span>")
         return
     else
         return ..()
