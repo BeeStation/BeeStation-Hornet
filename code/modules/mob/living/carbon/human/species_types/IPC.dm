@@ -1,7 +1,7 @@
 /datum/species/ipc // im fucking lazy mk2 and cant get sprites to normally work
 	name = "IPC" //inherited from the real species, for health scanners and things
 	id = "ipc"
-	say_mod = "beep boops" //inherited from a user's real species
+	say_mod = "beeps" //inherited from a user's real species
 	sexes = 0
 	species_traits = list(NOTRANSSTING,NOBLOOD,TRAIT_EASYDISMEMBER,NOFLASH) //all of these + whatever we inherit from the real species
 	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_VIRUSIMMUNE,TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
