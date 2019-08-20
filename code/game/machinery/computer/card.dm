@@ -45,6 +45,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	//This is used to keep track of opened positions for jobs to allow instant closing
 	//Assoc array: "JobName" = (int)<Opened Positions>
 	var/list/opened_positions = list();
+	var/obj/item/card/id/inserted_scan_id
+	var/obj/item/card/id/inserted_modify_id
+	var/list/region_access = null
+	var/list/head_subordinates = null
 
 	light_color = LIGHT_COLOR_BLUE
 
@@ -55,13 +59,20 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/datum/job/gimmick/J = new G
 		blacklisted += J.title
 
+/obj/machinery/computer/card/examine(mob/user)
+	. = ..()
+	if(inserted_scan_id || inserted_modify_id)
+		. += "<span class='notice'>Alt-click to eject the ID card.</span>"
+
 /obj/machinery/computer/card/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
 		if(!inserted_scan_id)
-			id_insert_scan(user)
+			if(id_insert(user, I, inserted_scan_id))
+				inserted_scan_id = I
 			return
 		if(!inserted_modify_id)
-			id_insert_modify(user)
+			if(id_insert(user, I, inserted_modify_id))
+				inserted_modify_id = I
 			return
 		else
 			to_chat(user, "<span class='warning'>There's already an ID card in the console!</span>")
@@ -73,6 +84,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		qdel(inserted_scan_id)
 		inserted_scan_id = null
 	if(inserted_modify_id)
+		update_modify_manifest()
 		qdel(inserted_modify_id)
 		inserted_modify_id = null
 	return ..()
@@ -83,6 +95,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		inserted_scan_id = null
 		updateUsrDialog()
 	if(A == inserted_modify_id)
+		update_modify_manifest()
 		inserted_modify_id = null
 		updateUsrDialog()
 
@@ -91,6 +104,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		inserted_scan_id.forceMove(drop_location())
 		inserted_scan_id = null
 	if(inserted_modify_id)
+		update_modify_manifest()
 		inserted_modify_id.forceMove(drop_location())
 		inserted_modify_id = null
 
@@ -122,10 +136,58 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return -1
 	return 0
 
+/obj/machinery/computer/card/proc/id_insert(mob/user, obj/item/card/id/I, target)
+	if(istype(I))
+		if(target)
+			to_chat(user, "<span class='warning'>There's already an ID card in the console!</span>")
+			return FALSE
+		if(!user.transferItemToLoc(I, src))
+			return FALSE
+		user.visible_message("<span class='notice'>[user] inserts an ID card into the console.</span>", \
+							"<span class='notice'>You insert the ID card into the console.</span>")
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		updateUsrDialog()
+		return TRUE
+
+/obj/machinery/computer/card/proc/id_eject(mob/user, obj/target)
+	if(!target)
+		to_chat(user, "<span class='warning'>There's no ID card in the console!</span>")
+		return FALSE
+	else
+		if(target == inserted_modify_id)
+			update_modify_manifest()
+		target.forceMove(drop_location())
+		if(!issilicon(user) && Adjacent(user))
+			user.put_in_hands(target)
+		user.visible_message("<span class='notice'>[user] gets an ID card from the console.</span>", \
+							"<span class='notice'>You get the ID card from the console.</span>")
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		updateUsrDialog()
+		return TRUE
+
+/obj/machinery/computer/card/proc/update_modify_manifest()
+	if(inserted_modify_id.registered_account)
+		inserted_modify_id.registered_account.account_department = get_department_by_hud(inserted_modify_id.hud_state) // your true department by your hud icon color
+	GLOB.data_core.manifest_modify(inserted_modify_id.registered_name, inserted_modify_id.assignment, inserted_modify_id.hud_state)
+
+/obj/machinery/computer/card/AltClick(mob/user)
+	..()
+	if(!user.canUseTopic(src, !issilicon(user)) || !is_operational())
+		return
+	if(inserted_modify_id)
+		if(id_eject(user, inserted_modify_id))
+			inserted_modify_id = null
+			authenticated = FALSE
+			return
+	if(inserted_scan_id)
+		if(id_eject(user, inserted_scan_id))
+			inserted_scan_id = null
+			authenticated = FALSE
+			return
+
 /obj/machinery/computer/card/ui_interact(mob/user)
 	. = ..()
 
-	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	var/dat
 	if(!SSticker)
 		return
@@ -382,14 +444,22 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	switch(href_list["choice"])
 		if ("inserted_modify_id")
 			if (inserted_modify_id)
-				id_eject_modify(usr)
+				if(id_eject(usr, inserted_modify_id))
+					inserted_modify_id = null
 			else
-				id_insert_modify(usr)
+				var/mob/M = usr
+				var/obj/item/card/id/I = M.get_idcard(TRUE)
+				if(id_insert(usr, I, inserted_modify_id))
+					inserted_modify_id = I
 		if ("inserted_scan_id")
 			if (inserted_scan_id)
-				id_eject_scan(usr)
+				if(id_eject(usr, inserted_scan_id))
+					inserted_scan_id = null
 			else
-				id_insert_scan(usr)
+				var/mob/M = usr
+				var/obj/item/card/id/I = M.get_idcard(TRUE)
+				if(id_insert(usr, I, inserted_scan_id))
+					inserted_scan_id = I
 		if ("auth")
 			if ((!( authenticated ) && (inserted_scan_id || issilicon(usr)) && (inserted_modify_id || mode)))
 				if (check_access(inserted_scan_id))
