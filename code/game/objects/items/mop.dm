@@ -120,3 +120,20 @@
 
 /obj/item/mop/advanced/cyborg
 	insertable = FALSE
+
+	/obj/item/mop/sharp
+	desc = "A mop with a sharpened handle. Careful!"
+	name = "sharpened mop"
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "mop"
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	force = 10
+	throwforce = 15
+	throw_speed = 5
+	throw_range = 7
+	w_class = WEIGHT_CLASS_NORMAL
+	attack_verb = list("mopped", "stabbed", "shanked", "jousted")
+	resistance_flags = FLAMMABLE
+	sharpness = IS_SHARP
+	block_chance = 25

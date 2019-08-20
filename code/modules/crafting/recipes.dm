@@ -703,3 +703,11 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	always_availible = TRUE
+
+/datum/crafting_recipe/sharpmop
+	name = "Sharpened Mop"
+	result = /obj/item/tank/jetpack/improvised
+	time = 30
+	reqs = list(/obj/item/tank/internals/oxygen/red = 2)
+	category = CAT_WEAPONRY
+	tools = list(TOOL_WIRECUTTER)
