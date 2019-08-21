@@ -706,8 +706,9 @@
 
 /datum/crafting_recipe/sharpmop
 	name = "Sharpened Mop"
-	result = /obj/item/tank/jetpack/improvised
+	result = /obj/item/mop/sharp
 	time = 30
-	reqs = list(/obj/item/tank/internals/oxygen/red = 2)
+	reqs = list(/obj/item/mop = 1,
+						/obj/item/shard = 1)
 	category = CAT_WEAPONRY
 	tools = list(TOOL_WIRECUTTER)
