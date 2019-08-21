@@ -66,16 +66,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
-		if(!inserted_scan_id)
+		if(check_access(I) && !inserted_scan_id)
 			if(id_insert(user, I, inserted_scan_id))
 				inserted_scan_id = I
-			return
-		if(!inserted_modify_id)
-			if(id_insert(user, I, inserted_modify_id))
-				inserted_modify_id = I
-			return
-		else
-			to_chat(user, "<span class='warning'>There's already an ID card in the console!</span>")
+			updateUsrDialog()
+		else if(id_insert(user, I, inserted_modify_id))
+			inserted_modify_id = I
+			updateUsrDialog()
 	else
 		return ..()
 
@@ -137,21 +134,19 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return 0
 
 /obj/machinery/computer/card/proc/id_insert(mob/user, obj/item/card/id/I, target)
-	if(istype(I))
-		if(target)
-			to_chat(user, "<span class='warning'>There's already an ID card in the console!</span>")
-			return FALSE
-		if(!user.transferItemToLoc(I, src))
-			return FALSE
-		user.visible_message("<span class='notice'>[user] inserts an ID card into the console.</span>", \
-							"<span class='notice'>You insert the ID card into the console.</span>")
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
-		updateUsrDialog()
-		return TRUE
+	if(!user.transferItemToLoc(I, src))
+		return FALSE
+	if(target)
+		id_eject(user, target)
+	user.visible_message("<span class='notice'>[user] inserts \the [I] into \the [src].</span>", \
+						"<span class='notice'>You insert \the [I] into \the [src].</span>")
+	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	updateUsrDialog()
+	return TRUE
 
 /obj/machinery/computer/card/proc/id_eject(mob/user, obj/target)
 	if(!target)
-		to_chat(user, "<span class='warning'>There's no ID card in the console!</span>")
+		to_chat(user, "<span class='warning'>That slot is empty!</span>")
 		return FALSE
 	else
 		if(target == inserted_modify_id)
@@ -159,8 +154,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		target.forceMove(drop_location())
 		if(!issilicon(user) && Adjacent(user))
 			user.put_in_hands(target)
-		user.visible_message("<span class='notice'>[user] gets an ID card from the console.</span>", \
-							"<span class='notice'>You get the ID card from the console.</span>")
+		user.visible_message("<span class='notice'>[user] gets \the [target] from \the [src].</span>", \
+							"<span class='notice'>You get \the [target] from \the [src].</span>")
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 		updateUsrDialog()
 		return TRUE
@@ -177,12 +172,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(inserted_modify_id)
 		if(id_eject(user, inserted_modify_id))
 			inserted_modify_id = null
-			authenticated = FALSE
+			updateUsrDialog()
 			return
 	if(inserted_scan_id)
 		if(id_eject(user, inserted_scan_id))
 			inserted_scan_id = null
-			authenticated = FALSE
+			updateUsrDialog()
 			return
 
 /obj/machinery/computer/card/ui_interact(mob/user)
