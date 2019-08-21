@@ -5,8 +5,8 @@
 	jobs = "chiefmedicalofficer,geneticist,medicaldoctor"
 
 /datum/objective/crew/morgue/check_completion()
-	for(var/mob/living/carbon/human/H in GLOB.mob_list)
-		if(H.stat == DEAD && (get_area(H) == /area/medical/central))
+	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
+		if(H.stat == DEAD && ((get_area(H) == typesof(/area/medical/medbay/central)) || (get_area(H) == typesof(/area/medical/patients_rooms))))
 			return FALSE
 	return TRUE
 
