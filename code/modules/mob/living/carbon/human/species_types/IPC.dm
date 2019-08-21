@@ -46,7 +46,7 @@
 		H.reagents.del_reagent(chem.type)
 	return FALSE
 
-/datum/species/ipc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
+/datum/species/ipc/spec_attacked_by(obj/item/I, mob/user, obj/item/bodypart/affecting, intent, mob/living/H)
     if(I.tool_behaviour == TOOL_WELDER && intent != INTENT_HARM)
         if (!I.tool_start_check(user, amount=0))
             return
@@ -67,10 +67,13 @@
             if(H == user)
                 H.adjustFireLoss(-2)
                 H.adjustToxLoss(-2)
+                H.adjustBrainLoss(-5)
+                H.adjustCloneLoss(-50) //HOW THE FUCK DO YOU EVEN GET THIS
             else
                 H.adjustFireLoss(-10)
                 H.adjustToxLoss(-10)
                 H.adjustBrainLoss(-10)
+                H.adjustCloneLoss(-50) //HOW THE FUCK DO YOU EVEN GET THIS
             H.updatehealth()
             H.visible_message("<span class='notice'>[user] has [H == user ? "poorly " : ""]fixed some of the burnt cables on \the [affecting.name].</span>")
         return
