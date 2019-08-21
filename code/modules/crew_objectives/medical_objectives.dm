@@ -11,19 +11,19 @@
 				return FALSE
 			if(get_area(H) == typesof(/area/medical/genetics/cloning))
 				return FALSE
+			if(get_area(H) == typesof(/area/medical/examroom))
+				return FALSE
 			if(get_area(H) == typesof(/area/medical/medbay/aft))
 				return FALSE
 			if(get_area(H) == typesof(/area/medical/medbay/central))
 				return FALSE
-			if(get_area(H) == typesof(/area/medical/medbay/examroom))
-				return FALSE
 			if(get_area(H) == typesof(/area/medical/medbay/lobby))
 				return FALSE
-			if(get_area(H) == typesof(/area/medical/medbay/patients_rooms))
+			if(get_area(H) == typesof(/area/medical/patients_rooms))
 				return FALSE
-			if(get_area(H) == typesof(/area/medical/medbay/sleeper))
+			if(get_area(H) == typesof(/area/medical/sleeper))
 				return FALSE
-			if(get_area(H) == typesof(/area/medical/medbay/storage))
+			if(get_area(H) == typesof(/area/medical/storage))
 				return FALSE
 
 	return TRUE
