@@ -12,9 +12,3 @@
 	icon = 'code/modules/opo/jojo.dmi'
 	icon_state = "diohat_on_mob"
 	item_state = "diohat_on_mob"
-
-/obj/item/clothing/neck/dio
-	name = "menacing"
-	icon = 'code/modules/opo/jojo.dmi'
-	icon_state = "jojoemote"
-	item_state = "jojoemote"
