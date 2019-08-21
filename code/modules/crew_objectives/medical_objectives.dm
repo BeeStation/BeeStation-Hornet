@@ -9,14 +9,23 @@
 		if(H.stat == DEAD) // If person is dead and corpse is in one of these areas
 			if(get_area(H) == typesof(/area/medical/cryo))
 				return FALSE
-			if(get_area(H) == typesof(/area/medical/medbay/central))
+			if(get_area(H) == typesof(/area/medical/genetics/cloning))
 				return FALSE
 			if(get_area(H) == typesof(/area/medical/medbay/aft))
 				return FALSE
+			if(get_area(H) == typesof(/area/medical/medbay/central))
+				return FALSE
+			if(get_area(H) == typesof(/area/medical/medbay/examroom))
+				return FALSE
 			if(get_area(H) == typesof(/area/medical/medbay/lobby))
 				return FALSE
-			if(get_area(H) == typesof(/area/medical/medbay/cloning))
+			if(get_area(H) == typesof(/area/medical/medbay/patients_rooms))
 				return FALSE
+			if(get_area(H) == typesof(/area/medical/medbay/sleeper))
+				return FALSE
+			if(get_area(H) == typesof(/area/medical/medbay/storage))
+				return FALSE
+
 	return TRUE
 
 /datum/objective/crew/chems //Ported from old Hippie
