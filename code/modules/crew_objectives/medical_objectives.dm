@@ -11,7 +11,7 @@
 				return FALSE
 			if(get_area(H) == typesof(/area/medical/genetics/cloning))
 				return FALSE
-			if(get_area(H) == typesof(/area/medical/examroom))
+			if(get_area(H) == typesof(/area/medical/exam_room))
 				return FALSE
 			if(get_area(H) == typesof(/area/medical/medbay/aft))
 				return FALSE
