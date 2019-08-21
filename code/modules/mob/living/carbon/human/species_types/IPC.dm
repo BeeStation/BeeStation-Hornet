@@ -1,10 +1,10 @@
 /datum/species/ipc // im fucking lazy mk2 and cant get sprites to normally work
 	name = "IPC" //inherited from the real species, for health scanners and things
 	id = "ipc"
-	say_mod = "beep boops" //inherited from a user's real species
+	say_mod = "beeps" //inherited from a user's real species
 	sexes = 0
-	species_traits = list(NOTRANSSTING,NOBLOOD,TRAIT_EASYDISMEMBER,NOFLASH) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_VIRUSIMMUNE,TRAIT_NOLIMBDISABLE,TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
+	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,NOFLASH) //all of these + whatever we inherit from the real species
+	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_VIRUSIMMUNE,TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	meat = null
 	exotic_blood = "oil"
@@ -37,12 +37,20 @@
 /datum/species/ipc/military/check_roundstart_eligible()
 	return FALSE //yes
 
-/datum/species/ipc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
+/datum/species/ipc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+	if(chem.type == exotic_blood)
+		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
+		H.reagents.del_reagent(chem.type)
+		return 1
+	else
+		H.reagents.del_reagent(chem.type)
+	return FALSE
+
+/datum/species/ipc/spec_attacked_by(obj/item/I, mob/user, obj/item/bodypart/affecting, intent, mob/living/H)
     if(I.tool_behaviour == TOOL_WELDER && intent != INTENT_HARM)
         if (!I.tool_start_check(user, amount=0))
             return
         else
-            to_chat(user, "<span class='notice'>You start fixing [H == user ? "your" : "\the"] [affecting.name]...</span>")
             if(I.use_tool(src, user, 0, volume=40))
                 if(H == user)
                     H.adjustBruteLoss(-3)
@@ -53,18 +61,30 @@
                 H.visible_message("<span class='notice'>[user] has [H == user ? "poorly " : ""]fixed some of the dents on \the [affecting.name].</span>")
         return
     else if(istype(I, /obj/item/stack/cable_coil))
-        to_chat(user, "<span class='notice'>You start fixing [H == user ? "your" : "\the"] [affecting.name]...</span>")
         if(do_after(user, 30, target = H))
             var/obj/item/stack/cable_coil/C = I
             C.use(1)
             if(H == user)
                 H.adjustFireLoss(-2)
                 H.adjustToxLoss(-2)
+                H.adjustBrainLoss(-5)
+                H.adjustCloneLoss(-50) //HOW THE FUCK DO YOU EVEN GET THIS
             else
                 H.adjustFireLoss(-10)
                 H.adjustToxLoss(-10)
+                H.adjustBrainLoss(-10)
+                H.adjustCloneLoss(-50) //HOW THE FUCK DO YOU EVEN GET THIS
             H.updatehealth()
             H.visible_message("<span class='notice'>[user] has [H == user ? "poorly " : ""]fixed some of the burnt cables on \the [affecting.name].</span>")
+        return
+    else if(istype(I, /obj/item/borg/upgrade/restart))
+        if(H.health < 0)
+            to_chat(user, "<span class='warning'>You have to repair the IPC before using this module!</span>")
+            return FALSE
+        if(H.mind)
+            H.mind.grab_ghost()
+        H.revive()
+        to_chat(user, "<span class='notice'>You reset the IPC's internal circuitry - reviving them!</span>")
         return
     else
         return ..()
@@ -87,14 +107,6 @@
 	punchdamagelow = 10
 	punchdamagehigh = 19
 	punchstunthreshold = 14 //about 50% chance to stun
-
-/datum/species/ipc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	if(chem.type == /datum/reagent/medicine/synthflesh)
-		chem.reaction_mob(H, TOUCH, 2 ,0) //heal a little
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
-		return 1
-	else
-		return ..()
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/human/C)
 	if(isIPC(C) && !screen)
