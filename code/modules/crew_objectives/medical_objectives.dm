@@ -25,7 +25,6 @@
 				return FALSE
 			if(get_area(H) == typesof(/area/medical/storage))
 				return FALSE
-
 	return TRUE
 
 /datum/objective/crew/chems //Ported from old Hippie
