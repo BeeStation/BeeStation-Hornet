@@ -1,13 +1,29 @@
 /*				MEDICAL OBJECTIVES				*/
 
 /datum/objective/crew/morgue //Ported from old Hippie
-	explanation_text = "Ensure there are no corpses on the station outside of the morgue when the shift ends."
+	explanation_text = "Ensure the Medbay has been cleaned of any corpses when the shift ends."
 	jobs = "chiefmedicalofficer,geneticist,medicaldoctor"
 
 /datum/objective/crew/morgue/check_completion()
-	for(var/mob/living/carbon/human/H in GLOB.mob_list)
-		if(H.stat == DEAD && (H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)))
-			if(get_area(H) != /area/medical/morgue)
+	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
+		if(H.stat == DEAD) // If person is dead and corpse is in one of these areas
+			if(get_area(H) == typesof(/area/medical/cryo))
+				return FALSE
+			if(get_area(H) == typesof(/area/medical/genetics/cloning))
+				return FALSE
+			if(get_area(H) == typesof(/area/medical/exam_room))
+				return FALSE
+			if(get_area(H) == typesof(/area/medical/medbay/aft))
+				return FALSE
+			if(get_area(H) == typesof(/area/medical/medbay/central))
+				return FALSE
+			if(get_area(H) == typesof(/area/medical/medbay/lobby))
+				return FALSE
+			if(get_area(H) == typesof(/area/medical/patients_rooms))
+				return FALSE
+			if(get_area(H) == typesof(/area/medical/sleeper))
+				return FALSE
+			if(get_area(H) == typesof(/area/medical/storage))
 				return FALSE
 	return TRUE
 
