@@ -528,7 +528,7 @@
 		dna = B.stored_dna
 	
 	if(HAS_TRAIT(mob_occupant, NO_DNA_COPY))
-		scantemp = "<font class='bad'>Machines are unclonable. Take them to robotics.</font>"
+		scantemp = "<font class='bad'>Silicon-Based lifeforms do not have DNA and therefor cannot be cloned!</font>"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
 	if(!istype(dna))
