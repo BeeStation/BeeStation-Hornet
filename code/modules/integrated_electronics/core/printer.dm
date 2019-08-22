@@ -217,6 +217,8 @@
 			return TRUE
 
 		var/cost = 400
+		if(!build_type in SScircuit.circuit_fabricator_recipe_list[current_category])
+			return
 		if(ispath(build_type, /obj/item/electronic_assembly))
 			var/obj/item/electronic_assembly/E = SScircuit.cached_assemblies[build_type]
 			cost = E.materials[/datum/material/iron]
