@@ -116,6 +116,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.query_debug_log = "[GLOB.log_directory]/query_debug.log"
 	GLOB.world_job_debug_log = "[GLOB.log_directory]/job_debug.log"
 	GLOB.world_paper_log = "[GLOB.log_directory]/paper.log"
+	GLOB.href_exploit_attempt_log = "[GLOB.log_directory]/href_exploit_attempt.log"
 
 #ifdef UNIT_TESTS
 	GLOB.test_log = file("[GLOB.log_directory]/tests.log")
