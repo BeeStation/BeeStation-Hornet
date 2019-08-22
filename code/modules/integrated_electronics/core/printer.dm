@@ -223,7 +223,8 @@
 		else if(ispath(build_type, /obj/item/integrated_circuit))
 			var/obj/item/integrated_circuit/IC = SScircuit.cached_components[build_type]
 			cost = IC.materials[/datum/material/iron]
-		else if(!build_type in SScircuit.circuit_fabricator_recipe_list["Tools"])
+		else if(!(build_type in SScircuit.circuit_fabricator_recipe_list["Tools"]))
+			log_href_exploit(usr)
 			return
 
 		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
