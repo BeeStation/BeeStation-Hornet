@@ -2,7 +2,7 @@
 /obj/item/dildo
 	name 				= "dildo"
 	desc 				= "Floppy!"
-	icon 				= 'icons/dildo.dmi'
+	icon 				= 'icons/obj/dildo.dmi'
 	damtype 			= BRUTE
 	force 				= 5
 	hitsound			= 'sound/weapons/tap.ogg'
