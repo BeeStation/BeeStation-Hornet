@@ -48,7 +48,7 @@
 	return FALSE
 
 /datum/species/ipc/spec_attacked_by(obj/item/I, mob/user, obj/item/bodypart/affecting, intent, mob/living/H)
-    if(I.tool_behaviour == TOOL_WELDER && intent != INTENT_HARM)
+    if(I.tool_behaviour == TOOL_WELDER && user.intent != INTENT_HARM)
         if (!I.tool_start_check(user, amount=0))
             return
         else
