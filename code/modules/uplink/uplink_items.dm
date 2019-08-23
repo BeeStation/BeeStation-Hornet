@@ -1609,6 +1609,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 15
 	restricted_roles = list("Clown")
 
+/datum/uplink_item/role_restricted/dildo
+	name = "Captains Best Friend"
+	desc = "The only thing that can make a captains girlfriend happy. If you see this option yell at the Badmins."
+	item = /obj/item/dildo/huge
+	cost = 1
+	restricted_roles = list("Captain")
+	surplus = 5
+
 /datum/uplink_item/role_restricted/clowncar
 	name = "Clown Car"
 	desc = "The Clown Car is the ultimate transportation method for any worthy clown! \
