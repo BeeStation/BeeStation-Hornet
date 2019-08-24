@@ -3,7 +3,7 @@
 	id = "ipc"
 	say_mod = "beeps" //inherited from a user's real species
 	sexes = 0
-	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,NOFLASH) //all of these + whatever we inherit from the real species
+	species_traits = list(NOTRANSSTING,NO_REAGENTS,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,NOFLASH) //all of these + whatever we inherit from the real species
 	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_VIRUSIMMUNE,TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	meat = null
@@ -38,14 +38,9 @@
 /datum/species/ipc/military/check_roundstart_eligible()
 	return FALSE //yes
 
-/datum/species/ipc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	if(chem.type == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
-		H.reagents.del_reagent(chem.type)
-		return 1
-	else
-		H.reagents.del_reagent(chem.type)
-	return FALSE
+/datum/species/ipc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H) // THIS IS NOW DERELICT CODE BUT SHOULD BE KEPT TO SAFEGUARD IPCS FROM MAXING THE REAGENT LIMIT AND POSSIBLY BREAKING THE UNIVERSE
+	H.reagents.del_reagent(chem.type)
+	return 0
 
 /datum/species/ipc/spec_attacked_by(obj/item/I, mob/user, obj/item/bodypart/affecting, intent, mob/living/H)
     if(I.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
