@@ -528,7 +528,7 @@
 		dna = B.stored_dna
 	
 	if(HAS_TRAIT(mob_occupant, NO_DNA_COPY))
-		scantemp = "<font class='bad'>This lifeforms DNA could not be read due to an unknown reason!</font>"
+		scantemp = "<font class='bad'>This lifeforms DNA could not be read due to an unknown error!</font>"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
 	if(!istype(dna))
