@@ -528,7 +528,7 @@
 		dna = B.stored_dna
 	
 	if(HAS_TRAIT(mob_occupant, NO_DNA_COPY))
-		scantemp = "<font class='bad'>Unable to locate genetic data.</font>"
+		scantemp = "<font class='bad'>This lifeform does not have DNA to read!</font>" //because Silicon-Based lifeforms do not have DNA and therefor cannot be cloned! isnt good enough, and apparently paraphrasing what qwerty said isnt either.
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
 	if(!istype(dna))
