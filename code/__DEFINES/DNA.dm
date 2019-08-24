@@ -114,6 +114,7 @@
 #define NOLIVER			12
 #define NOSTOMACH		13
 #define NO_DNA_COPY     14
+#define NO_REAGENTS     69
 #define DRINKSBLOOD		15
 #define NOFLASH			16
 #define DYNCOLORS		17 //! Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting
