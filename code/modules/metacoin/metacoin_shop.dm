@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(metacoin_shop_items_list)
 	set name = "Meta Shop"
 	set desc="The shop for buying things with [CONFIG_GET(string/metacurrency_name)]s!"
 
-	var/metacoins = src.get_metacoin_count()
+	var/metacoins = src.get_metabalance()
 	src.update_metacoin_items()
 	var/body = "<body>"
 	body += "<div style='font-size: 20px;text-align:center;'><b>[CONFIG_GET(string/metacurrency_name)] Balance</b>: [metacoins]</div><br><br>"

@@ -14,7 +14,7 @@
 	if (!SSdbcore.IsConnected())
 		to_chat(C, "<span class='rose bold'>Error! Try again later!</span>")
 		return
-	var/metacoins = C.get_metacoin_count()
+	var/metacoins = C.get_metabalance()
 	if (metacoins < cost)
 		to_chat(C, "<span class='rose bold'>You do not have enough metacoins to buy the [name]!</span>")
 		return
