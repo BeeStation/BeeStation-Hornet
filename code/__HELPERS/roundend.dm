@@ -185,17 +185,11 @@
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	set waitfor = FALSE
 
-	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
-	log_game("The round has ended.")
-	if(LAZYLEN(GLOB.round_end_notifiees))
-		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
-
 	for(var/I in round_end_events)
 		var/datum/callback/cb = I
 		cb.InvokeAsync()
 	LAZYCLEARLIST(round_end_events)
 
-	RollCredits()
 	for(var/client/C in GLOB.clients)
 		if(C)
 
@@ -211,6 +205,12 @@
 							C.inc_beecoin_count(BEECOIN_CO_REWARD, reason="Completed your crew objective!")
 							break
 
+	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
+	log_game("The round has ended.")
+	if(LAZYLEN(GLOB.round_end_notifiees))
+		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
+	
+	RollCredits()
 
 	var/popcount = gather_roundend_feedback()
 	display_report(popcount)
