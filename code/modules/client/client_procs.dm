@@ -370,7 +370,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	var/cached_player_age = set_client_age_from_db(tdata) //we have to cache this because other shit may change it and we need it's current value now down below.
 
 
-	update_beecoin_items() // update the cache for the current purchased beecoin items
+	update_metacoin_items() // update the cache for the current purchased metacoin items
 
 
 	if (isnum(cached_player_age) && cached_player_age == -1) //first connection
