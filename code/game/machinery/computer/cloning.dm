@@ -527,7 +527,7 @@
 	if(isbrain(mob_occupant))
 		dna = B.stored_dna
 	
-	if(HAS_TRAIT(mob_occupant, NO_DNA_COPY))
+	if(HAS_TRAIT(mob_occupant, NO_CLONING))
 		scantemp = "<font class='bad'>The DNA of this lifeform could not be read due to an unknown error!</font>"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
