@@ -1648,8 +1648,8 @@ datum/uplink_item/role_restricted/superior_honkrender
 
 datum/uplink_item/role_restricted/superior_honkrender
 	name = "Superior Honkrender"
-	desc = "An ancient artifact recovered from [REDACTED]. Opens the way to [TRANSMISSION OFFLINE]\
-			All praise be to the honkmother :0)"
+	desc = "An ancient artifact recovered from -. Opens the way to TRANSMISSION OFFLINE\
+			All praise be to the honkmother"
 	item = /obj/item/veilrender/honkrender/honkhulkrender
 	cost = 20
 	restricted = TRUE
