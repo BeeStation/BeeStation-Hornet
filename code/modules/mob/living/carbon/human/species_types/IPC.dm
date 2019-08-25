@@ -38,10 +38,6 @@
 /datum/species/ipc/military/check_roundstart_eligible()
 	return FALSE //yes
 
-/datum/species/ipc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H) // THIS IS NOW DERELICT CODE BUT SHOULD BE KEPT TO SAFEGUARD IPCS FROM MAXING THE REAGENT LIMIT AND POSSIBLY BREAKING THE UNIVERSE
-	H.reagents.del_reagent(chem.type)
-	return 0
-
 /datum/species/ipc/spec_attacked_by(obj/item/I, mob/user, obj/item/bodypart/affecting, intent, mob/living/H)
     if(I.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
         if (!I.tool_start_check(user, amount=0))
