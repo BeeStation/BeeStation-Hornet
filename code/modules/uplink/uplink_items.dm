@@ -401,7 +401,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			organic host as a home base and source of fuel. Holoparasites come in various types and share damage with their host."
 	item = /obj/item/storage/box/syndie_kit/guardian
 	cost = 18
-	surplus = 0
+	surplus = 10
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	player_minimum = 25
 	restricted = TRUE
@@ -537,7 +537,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry."
 	item = /obj/item/book/granter/martial/carp
 	cost = 16
-	surplus = 0
+	surplus = 10
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 
 /datum/uplink_item/stealthy_weapons/crossbow
@@ -559,7 +559,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			perfectly aerodynamic (and potentially lethal) paper airplanes."
 	item = /obj/item/storage/box/syndie_kit/origami_bundle
 	cost = 8
-	surplus = 0
+	surplus = 20
 	exclude_modes = list(/datum/game_mode/nuclear) //clown ops intentionally left in, because that seems like some s-tier shenanigans.
 
 /datum/uplink_item/stealthy_weapons/traitor_chem_bottle
@@ -1231,7 +1231,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Briefcase Launchpad"
 	desc = "A briefcase containing a launchpad, a device able to teleport items and people to and from targets up to eight tiles away from the briefcase. \
 			Also includes a remote control, disguised as an ordinary folder. Touch the briefcase with the remote to link it."
-	surplus = 0
+	surplus = 30
 	item = /obj/item/storage/briefcase/launchpad
 	cost = 5
 
@@ -1241,7 +1241,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Bugging cameras allows you to disable them remotely."
 	item = /obj/item/camera_bug
 	cost = 1
-	surplus = 90
 
 /datum/uplink_item/device_tools/military_belt
 	name = "Chest Rig"
@@ -1554,7 +1553,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/under/color/grey/glorf
 	cost = 20
 	restricted_roles = list("Assistant")
-	surplus = 0
+	surplus = 1
 
 /datum/uplink_item/role_restricted/oldtoolboxclean
 	name = "Ancient Toolbox"
@@ -1606,9 +1605,27 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			transported to you that will teleport the actual bomb to it upon activation. Note that this bomb can \
 			be defused, and some crew may attempt to do so."
 	item = /obj/item/sbeacondrop/clownbomb
-	cost = 15
+	cost = 8
 	restricted_roles = list("Clown")
-
+	
+/datum/uplink_item/role_restricted/clown_grenade
+	name = "C.L.U.W.N.E"
+	desc = "The C.L.U.W.N.E will create one of the honkmother's own completely randomly!\
+			It will only attack if attacked first, and is not loyal to you, so be careful!"
+	item = /obj/item/grenade/spawnergrenade/clown
+	cost = 2
+	restricted_roles = list("Clown")
+	
+		
+/datum/uplink_item/role_restricted/clown_grenade_broken
+	name = "Stuffed C.L.U.W.N.E"
+	desc = "The C.L.U.W.N.E will create one of the honkmother's own completely randomly!\
+			It will only attack if attacked first, and is not loyal to you, so be careful!\
+			This one is stuffed to the brim with extra clown action! use with caution!"
+	item = /obj/item/grenade/spawnergrenade/clown_broken
+	cost = 3
+	restricted_roles = list("Clown")
+	
 /datum/uplink_item/role_restricted/clowncar
 	name = "Clown Car"
 	desc = "The Clown Car is the ultimate transportation method for any worthy clown! \
@@ -1620,6 +1637,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/vehicle/sealed/car/clowncar
 	cost = 20
 	restricted_roles = list("Clown")
+
+datum/uplink_item/role_restricted/superior_honkrender
+	name = "Superior Honkrender"
+	desc = "An ancient artifact recovered from an ancient cave. Opens the way to the Dark Carnival"
+	item = /obj/item/veilrender/honkrender
+	cost = 8
+	restricted = TRUE
+	restricted_roles = list("Clown, Chaplain")
+
+datum/uplink_item/role_restricted/superior_honkrender
+	name = "Superior Honkrender"
+	desc = "An ancient artifact recovered from [REDACTED]. Opens the way to [TRANSMISSION OFFLINE]\
+			All praise be to the honkmother :0)"
+	item = /obj/item/veilrender/honkrender/honkhulkrender
+	cost = 20
+	restricted = TRUE
+	restricted_roles = list("Clown, Chaplain")
 
 /datum/uplink_item/role_restricted/concealed_weapon_bay
 	name = "Concealed Weapon Bay"
@@ -1649,6 +1683,62 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	restricted_roles = list("Chaplain")
 	surplus = 5 //Very low chance to get it in a surplus crate even without being the chaplain
+	
+/datum/uplink_item/role_restricted/spanish_flu
+	name = "Spanish Flu Culture"
+	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell.\
+			At least. thats what the label says"
+	item = /obj/item/reagent_containers/glass/bottle/fluspanish
+	cost = 11
+	restricted_roles = list("Chaplain, Virologist")
+	
+/datum/uplink_item/role_restricted/beesease
+	name = "Beesease Culture"
+	desc = "A bottle of microbees, which will quickly breed in the stomach of hosts.\
+			At least, that's what the label says."
+	item = /obj/item/reagent_containers/glass/bottle/beesease
+	cost = 10
+	restricted_roles = list("Virologist")
+
+/datum/uplink_item/role_restricted/retrovirus
+	name = "Retrovirus Culture Bottle"
+	desc = "A bottle of contagious DNA bugs, which will manually rearrange the DNA of hosts.\
+			At least, that's what the label says."
+	item = /obj/item/reagent_containers/glass/bottle/retrovirus
+	cost = 14
+	restricted_roles = list("Virologist, Geneticist")
+
+/datum/uplink_item/role_restricted/pierrot_throat
+	name = "Pierrot's Throat Culture Bottle"
+	desc = "A bottle of illegal microscopic throat clowns, which will, with their combined voices, honk, and breed, within the host of the throat.\
+			At least, that's what the label says."
+	item = /obj/item/reagent_containers/glass/bottle/pierrot_throat
+	cost = 5
+	restricted_roles = list("Virologist, Clown")
+	
+/datum/uplink_item/role_restricted/random_disease
+	name = "Experimental Disease"
+	desc = "A random disease. Maybe you'll get lucky."
+	item = /obj/item/reagent_containers/glass/bottle/random_virus
+	cost = 1
+	restricted_roles = list("Virologist")
+	surplus = 20
+
+/datum/uplink_item/role_restricted/anxiety
+	name = "Anxiety Culture Bottle"
+	desc = "A bottle of pure contagious autism.\
+			At least, that's what the label says"
+	item = /obj/item/reagent_containers/glass/bottle/anxiety
+	cost = 4
+	restricted_roles = list("Virologist")
+
+/datum/uplink_item/role_restricted/brainrot
+	name = "Brainrot culture bottle"
+	desc = "A bottle of contagious cocktail of vaccines, liquified video games, sitcoms, and social media.\
+			At least, that's what the label says"
+	item = /obj/item/reagent_containers/glass/bottle/brainrot
+	cost = 16
+	restricted_roles = list("Virologist")
 
 /datum/uplink_item/role_restricted/explosive_hot_potato
 	name = "Exploding Hot Potato"
@@ -1665,12 +1755,29 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			to act as a servent and guardian to their host."
 	item = /obj/item/storage/box/syndie_kit/carpian
 	cost = 18
-	surplus = 0
+	surplus = 5
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	player_minimum = 25
 	restricted = TRUE
 	restricted_roles = list("Cook", "Chaplain")
-
+	
+datum/uplink_item/role_restricted/gluttony
+	name = "Gluttony's blessing"
+	desc = "A small syringe of a single unit of a potent disease, which turns whoever injects it into a morph.\
+			More effective if used on others and not yourself"
+	item = /obj/item/reagent_containers/syringe/gluttony
+	cost = 7
+	restricted = TRUE
+	restricted_roles = list("Cook")
+	
+datum/uplink_item/role_restricted/vealrender
+	name = "Veal Render"
+	desc = "An ancient artifact recovered from an old butcher shop. Opens the door to the plane of cows."
+	item = /obj/item/veilrender/vealrender
+	cost = 5
+	restricted = TRUE
+	restricted_roles = list("Cook")
+	
 /datum/uplink_item/role_restricted/ez_clean_bundle
 	name = "EZ Clean Grenade Bundle"
 	desc = "A box with three cleaner grenades using the trademark Waffle Co. formula. Serves as a cleaner and causes acid damage to anyone standing nearby. \
