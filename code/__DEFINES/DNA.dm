@@ -120,6 +120,7 @@
 #define AGENDER			18
 #define NOEYESPRITES	19 //! Do not draw eyes or eyeless overlay
 #define NO_REAGENTS     20 //! DO NOT PROCESS REAGENTS
+#define NO_CLONING     21 // This is apparently an issue now
 
 #define ORGAN_SLOT_BRAIN "brain"
 #define ORGAN_SLOT_APPENDIX "appendix"
