@@ -1587,7 +1587,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			On death, these nodules take control of the dead body, causing limited revivification, \
 			along with slurred speech, aggression, and the ability to infect others with this agent."
 	item = /obj/item/storage/box/syndie_kit/romerol
-	cost = 16
+	cost = 20
 	cant_discount = TRUE
 	restricted_roles = list("Chief Medical Officer", "Virologist")
 
