@@ -38,6 +38,8 @@ GLOBAL_VAR(world_map_error_log)
 GLOBAL_PROTECT(world_map_error_log)
 GLOBAL_VAR(world_paper_log)
 GLOBAL_PROTECT(world_paper_log)
+GLOBAL_VAR(href_exploit_attempt_log)
+GLOBAL_PROTECT(href_exploit_attempt_log)
 
 GLOBAL_LIST_EMPTY(bombers)
 GLOBAL_PROTECT(bombers)
