@@ -65,8 +65,8 @@
 	. = ..()
 
 /obj/machinery/clonepod/RefreshParts()
-	speed_coeff = 0
-	efficiency = 0
+	speed_coeff = 2
+	efficiency = 2
 	for(var/obj/item/stock_parts/scanning_module/S in component_parts)
 		efficiency += S.rating
 	for(var/obj/item/stock_parts/manipulator/P in component_parts)
