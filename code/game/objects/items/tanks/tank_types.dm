@@ -124,6 +124,9 @@
 	air_contents.assert_gas(/datum/gas/plasma)
 	air_contents.gases[/datum/gas/plasma][MOLES] = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
+/obj/item/tank/internals/plasmaman/empty/populate_gas()
+	return
+
 
 /obj/item/tank/internals/plasmaman/belt
 	icon_state = "plasmaman_tank_belt"
