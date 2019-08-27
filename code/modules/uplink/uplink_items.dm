@@ -1613,7 +1613,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The C.L.U.W.N.E will create one of the honkmother's own completely randomly!\
 			It will only attack if attacked first, and is not loyal to you, so be careful!"
 	item = /obj/item/grenade/spawnergrenade/clown
-	cost = 2
+	cost = 3
 	restricted_roles = list("Clown")
 	
 		
@@ -1623,7 +1623,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			It will only attack if attacked first, and is not loyal to you, so be careful!\
 			This one is stuffed to the brim with extra clown action! use with caution!"
 	item = /obj/item/grenade/spawnergrenade/clown_broken
-	cost = 3
+	cost = 5
 	restricted_roles = list("Clown")
 	
 /datum/uplink_item/role_restricted/clowncar
@@ -1689,7 +1689,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell.\
 			At least. thats what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
-	cost = 11
+	cost = 14
 	restricted_roles = list("Chaplain, Virologist")
 	
 /datum/uplink_item/role_restricted/beesease
@@ -1760,23 +1760,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 	player_minimum = 25
 	restricted = TRUE
 	restricted_roles = list("Cook", "Chaplain")
-	
-datum/uplink_item/role_restricted/gluttony
-	name = "Gluttony's blessing"
-	desc = "A small syringe of a single unit of a potent disease, which turns whoever injects it into a morph.\
-			More effective if used on others and not yourself"
-	item = /obj/item/reagent_containers/syringe/gluttony
-	cost = 7
-	restricted = TRUE
-	restricted_roles = list("Cook")
-	
-datum/uplink_item/role_restricted/vealrender
-	name = "Veal Render"
-	desc = "An ancient artifact recovered from an old butcher shop. Opens the door to the plane of cows."
-	item = /obj/item/veilrender/vealrender
-	cost = 5
-	restricted = TRUE
-	restricted_roles = list("Cook")
 	
 /datum/uplink_item/role_restricted/ez_clean_bundle
 	name = "EZ Clean Grenade Bundle"
