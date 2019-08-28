@@ -1608,7 +1608,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			transported to you that will teleport the actual bomb to it upon activation. Note that this bomb can \
 			be defused, and some crew may attempt to do so."
 	item = /obj/item/sbeacondrop/clownbomb
-	cost = 8
+	cost = 10
 	restricted_roles = list("Clown")
 	
 /datum/uplink_item/role_restricted/clown_grenade
