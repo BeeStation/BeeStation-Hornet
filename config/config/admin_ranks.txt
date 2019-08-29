@@ -59,7 +59,7 @@ Include = @ POSSESS POLL BUILD SERVER FUN
 Exclude =
 Edit =
 
-Name = Game Admin
+Name = Admin
 Include = @ STEALTH SOUND DEBUG
 Exclude =
 Edit =
@@ -79,7 +79,22 @@ Include = EVERYTHING
 Exclude =
 Edit = EVERYTHING
 
+Name = Lurker
+Include = EVERYTHING
+Exclude =
+Edit = EVERYTHING
+
+Name = Headmin
+Include = EVERYTHING
+Exclude =
+Edit = EVERYTHING
+
 Name = Coder
 Include = DEBUG VAREDIT SERVER SPAWN POLL
 Exclude = AUTOADMIN
 Edit =
+
+Name = CouncilMember
+Include = EVERYTHING
+Exclude =
+Edit = EVERYTHING
