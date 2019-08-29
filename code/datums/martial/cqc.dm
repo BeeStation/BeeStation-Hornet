@@ -120,6 +120,8 @@
 	return TRUE
 
 /datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	if(!can_use(A))
+		return FALSE
 	if(A==D)
 		return FALSE //prevents grabbing yourself
 	if(A.a_intent == INTENT_GRAB)
