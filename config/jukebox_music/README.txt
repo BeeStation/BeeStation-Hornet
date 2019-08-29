@@ -2,7 +2,7 @@ The enclosed sounds folder holds the sound files used as player selectable songs
 
 Using unnecessarily huge sounds can cause client side lag and should be avoided.
 
-You my add as many sounds as you would like.
+You may add as many sounds as you would like.
 
 ---
 
