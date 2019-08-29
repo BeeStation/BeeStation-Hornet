@@ -210,7 +210,7 @@ tools/MapAtmosFixer/MapAtmosFixer/bin/*
 /_maps/**/backup/
 /_maps/templates.dm
 
-# Ignore custom music and title screens (amend as appropriate)
+# Ignore custom music (amend as appropriate)
 /config/jukebox_music/sounds/*
 !/config/jukebox_music/sounds/exclude
 /config/title_music/sounds/*
