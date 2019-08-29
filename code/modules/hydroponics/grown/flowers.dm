@@ -131,7 +131,7 @@
 // Moonflower
 /obj/item/seeds/sunflower/moonflower
 	name = "pack of moonflower seeds"
-	desc = "These seeds grow into moonflowers."
+	desc = "its petals are known for helping insomiacs around the world."
 	icon_state = "seed-moonflower"
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
@@ -141,8 +141,8 @@
 	icon_dead = "sunflower-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/moonflower
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/ethanol/moonshine = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.02, /datum/reagent/consumable/nutriment = 0.02)
-	rarity = 15
+	reagents_add = list(/datum/reagent/consumable/ethanol/moonshine = 0.2,/datum/reagent/medicine/morphine = 0.3, /datum/reagent/consumable/nutriment = 0.02)
+	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/moonflower
 	seed = /obj/item/seeds/sunflower/moonflower
@@ -166,7 +166,7 @@
 	product = /obj/item/grown/novaflower
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/consumable/condensedcapsaicin = 0.25, /datum/reagent/consumable/capsaicin = 0.3, /datum/reagent/consumable/nutriment = 0)
-	rarity = 20
+	rarity = 15
 
 /obj/item/grown/novaflower
 	seed = /obj/item/seeds/sunflower/novaflower
