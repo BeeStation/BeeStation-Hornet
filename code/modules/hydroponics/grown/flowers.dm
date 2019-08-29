@@ -131,7 +131,7 @@
 // Moonflower
 /obj/item/seeds/sunflower/moonflower
 	name = "pack of moonflower seeds"
-	desc = "its petals are known for helping insomiacs around the world."
+	desc = "Its petals are known for helping insomiacs around the world."
 	icon_state = "seed-moonflower"
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
