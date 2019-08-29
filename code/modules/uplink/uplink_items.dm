@@ -1709,7 +1709,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			At least, that's what the label says."
 	item = /obj/item/reagent_containers/glass/bottle/retrovirus
 	cost = 14
-	restricted_roles = list("Virologist, Geneticist")
+	restricted_roles = list("Virologist", "Geneticist")
 
 /datum/uplink_item/role_restricted/pierrot_throat
 	name = "Pierrot's Throat Culture Bottle"
