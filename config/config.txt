@@ -31,12 +31,12 @@ LOBBY_COUNTDOWN 180
 ## Round End Time: This is the amount of time after the round ends that players have to murder death kill each other.
 ROUND_END_COUNTDOWN 90
 
-USING_DISCORD
+#USING_DISCORD
 
 ## Comment this out if you want to use the SQL based admin system, the legacy system uses admins.txt.
 ## You need to set up your database to use the SQL based system.
 ## This flag is automatically enabled if SQL_ENABLED isn't
-#ADMIN_LEGACY_SYSTEM
+ADMIN_LEGACY_SYSTEM
 
 ##Uncomment this to stop any admins loaded by the legacy system from having their rank edited by the permissions panel
 #PROTECT_LEGACY_ADMINS
@@ -51,16 +51,13 @@ USING_DISCORD
 ## Comment this out if you want to use the SQL based mentor system, the legacy system uses mentors.txt.
 ## You need to set up your database to use the SQL based system.
 ## This flag is automatically enabled if SQL_ENABLED isn't
-#MENTOR_LEGACY_SYSTEM
+MENTOR_LEGACY_SYSTEM
 
 #Mentors only see ckeys by default. Uncomment to have them only see mob name
 #MENTORS_MOBNAME_ONLY
 
-## Comment this out if you want to use the SQL based banning system. The legacy systems use the files in the data folder. You need to set up your database to use the SQL based system.
-#BAN_LEGACY_SYSTEM
-
 ## Comment this out to stop locally connected clients from being given the almost full access !localhost! admin rank
-#ENABLE_LOCALHOST_RANK
+ENABLE_LOCALHOST_RANK
 
 ## Uncomment this entry to have certain jobs require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different jobs by editing
 ## the minimal_player_age variable in the files in folder /code/game/jobs/job/.. for the job you want to edit. Set minimal_player_age to 0 to disable age requirement for that job.
