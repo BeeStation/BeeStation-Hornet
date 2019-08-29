@@ -1647,7 +1647,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/veilrender/honkrender
 	cost = 8
 	restricted = TRUE
-	restricted_roles = list("Clown, Chaplain")
+	restricted_roles = list("Clown", "Chaplain")
 
 datum/uplink_item/role_restricted/superior_honkrender
 	name = "Superior Honkrender"
@@ -1656,7 +1656,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/veilrender/honkrender/honkhulkrender
 	cost = 20
 	restricted = TRUE
-	restricted_roles = list("Clown, Chaplain")
+	restricted_roles = list("Clown", "Chaplain")
 
 /datum/uplink_item/role_restricted/concealed_weapon_bay
 	name = "Concealed Weapon Bay"
@@ -1693,7 +1693,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			At least. thats what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
 	cost = 14
-	restricted_roles = list("Chaplain, Virologist")
+	restricted_roles = list("Chaplain", "Virologist")
 	
 /datum/uplink_item/role_restricted/beesease
 	name = "Beesease Culture"
@@ -1717,7 +1717,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			At least, that's what the label says."
 	item = /obj/item/reagent_containers/glass/bottle/pierrot_throat
 	cost = 5
-	restricted_roles = list("Virologist, Clown")
+	restricted_roles = list("Virologist", "Clown")
 	
 /datum/uplink_item/role_restricted/random_disease
 	name = "Experimental Disease"
