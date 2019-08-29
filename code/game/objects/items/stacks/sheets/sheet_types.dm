@@ -339,11 +339,13 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	item_state = "sheet-bamboo"
 	icon = 'icons/obj/stack_objects.dmi'
 	sheettype = "bamboo"
-	throwforce = 15
+	force = 0
+	throwforce = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/mineral/bamboo
 	grind_results = list("carbon" = 5)
+	novariants = TRUE
 
 /obj/item/stack/sheet/mineral/bamboo/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.bamboo_recipes
