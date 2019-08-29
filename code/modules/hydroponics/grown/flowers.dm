@@ -1,4 +1,4 @@
-// Poppy
+// Poppy 
 /obj/item/seeds/poppy
 	name = "pack of poppy seeds"
 	desc = "These seeds grow into poppies."
