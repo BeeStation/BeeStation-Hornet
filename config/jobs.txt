@@ -12,13 +12,13 @@ Chief Medical Officer=1,1
 Assistant=-1,-1
 
 Quartermaster=1,1
-Cargo Technician=3,2
+Cargo Technician=4,2
 Shaft Miner=3,3
 
-Bartender=1,1
+Bartender=2,1
 Cook=2,1
 Botanist=3,2
-Janitor=2,1
+Janitor=3,2
 
 Clown=1,1
 Mime=1,1
@@ -27,15 +27,15 @@ Lawyer=2,2
 
 Chaplain=1,1
 
-Station Engineer=5,5
-Atmospheric Technician=3,2
+Station Engineer=6,5
+Atmospheric Technician=4,2
 
-Medical Doctor=5,3
-Chemist=2,2
-Geneticist=2,2
+Medical Doctor=7,4
+Chemist=3,2
+Geneticist=3,2
 Virologist=1,1
 
-Scientist=5,3
+Scientist=6,4
 Roboticist=2,2
 
 Warden=1,1

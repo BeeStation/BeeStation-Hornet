@@ -1,4 +1,4 @@
-The enclosed /sounds folder holds the sound files used for player selectable songs for an ingame jukebox. OGG and WAV are supported.
+The enclosed sounds folder holds the sound files used as player selectable songs for an ingame jukebox. OGG and WAV are supported.
 
 Using unnecessarily huge sounds can cause client side lag and should be avoided.
 
