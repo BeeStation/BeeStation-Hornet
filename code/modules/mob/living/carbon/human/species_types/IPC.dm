@@ -3,7 +3,7 @@
 	id = "ipc"
 	say_mod = "beeps" //inherited from a user's real species
 	sexes = 0
-	species_traits = list(NOTRANSSTING,NO_REAGENTS,NO_CLONING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,NOFLASH) //all of these + whatever we inherit from the real species
+	species_traits = list(NOTRANSSTING,NOREAGENTS,NO_CLONING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,NOFLASH) //all of these + whatever we inherit from the real species
 	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_VIRUSIMMUNE,TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
@@ -32,9 +32,11 @@
 	. = ..()
 	switch(severity)
 		if(1)
+			to_chat(H, "<span class='warning'>$!^%$* Processor Not Responding $!^%$*")
 			H.Stun(160)
 			H.adjustBruteLoss(50)
 		if(2)
+			to_chat(H, "<span class='warning'>BZZ!£$!ZZ$RT. E$%MP De$£%ec$£d")
 			H.Stun(60)
 			H.adjustBruteLoss(35)
 
