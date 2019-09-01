@@ -36,6 +36,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/coldmod = 1		// multiplier for cold damage
 	var/heatmod = 1		// multiplier for heat damage
 	var/stunmod = 1
+	var/oxymod = 1
 	var/clonemod = 1
 	var/toxmod = 1
 	var/staminamod = 1		// multiplier for stun duration
@@ -1537,7 +1538,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			var/damage_amount = forced ? damage : damage * hit_percent * toxmod * H.physiology.tox_mod
 			H.adjustToxLoss(damage_amount)
 		if(OXY)
-			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.oxy_mod
+			var/damage_amount = forced ? damage : damage * oxymod * hit_percent * H.physiology.oxy_mod
 			H.adjustOxyLoss(damage_amount)
 		if(CLONE)
 			var/damage_amount = forced ? damage : damage * hit_percent * clonemod * H.physiology.clone_mod
