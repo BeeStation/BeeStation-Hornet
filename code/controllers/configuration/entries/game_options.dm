@@ -73,17 +73,17 @@
 /datum/config_entry/flag/economy	//money money money money money money money money money money money money
 
 /datum/config_entry/number/traitor_scaling_coeff	//how much does the amount of players get divided by to determine traitors
-	config_entry_value = 6
+	config_entry_value = 8
 	integer = FALSE
 	min_val = 1
 
 /datum/config_entry/number/brother_scaling_coeff	//how many players per brother team
-	config_entry_value = 25
+	config_entry_value = 30
 	integer = FALSE
 	min_val = 1
 
 /datum/config_entry/number/changeling_scaling_coeff	//how much does the amount of players get divided by to determine changelings
-	config_entry_value = 6
+	config_entry_value = 10
 	integer = FALSE
 	min_val = 1
 
@@ -93,7 +93,7 @@
 	min_val = 1
 
 /datum/config_entry/number/abductor_scaling_coeff	//how many players per abductor team
-	config_entry_value = 15
+	config_entry_value = 20
 	integer = FALSE
 	min_val = 1
 
