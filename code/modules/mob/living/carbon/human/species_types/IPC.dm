@@ -110,7 +110,7 @@
 	
 /datum/species/ipc/on_species_gain(mob/living/carbon/human/C)
 	var/obj/item/organ/appendix/appendix = C.getorganslot(ORGAN_SLOT_APPENDIX) // Easiest way to remove it.
-	appendix.Remove(C)
+	appendix?.Remove(C)
 	if(isIPC(C) && !screen)
 		screen = new
 		screen.Grant(C)
