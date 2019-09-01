@@ -6,6 +6,7 @@
 	species_traits = list(NOTRANSSTING,NOREAGENTS,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,NOFLASH) //all of these + whatever we inherit from the real species
 	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_VIRUSIMMUNE,TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
+	mutant_brain = /obj/item/organ/brain/positron
 	meat = null
 	exotic_blood = "oil"
 	damage_overlay_type = "synth"
@@ -16,9 +17,14 @@
 	burnmod = 1.75
 	heatmod = 1.6
 	brutemod = 1.2
+	toxmod = 0
+	clonemod = 0
+	staminamod = 0.8
+	siemens_coeff = 1
 	var/list/initial_species_traits //for getting these values back for assume_disguise()
 	var/list/initial_inherent_traits
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
+
 
 	var/datum/action/innate/monitor_change/screen
 
@@ -26,9 +32,11 @@
 	. = ..()
 	switch(severity)
 		if(1)
+			to_chat(H, "<span class='warning'>$!^%$* Processor Not Responding $!^%$*")
 			H.Stun(160)
 			H.adjustBruteLoss(50)
 		if(2)
+			to_chat(H, "<span class='warning'>BZZ!£$!ZZ$RT. E$%MP De$£%ec$£d")
 			H.Stun(60)
 			H.adjustBruteLoss(35)
 
@@ -99,8 +107,10 @@
 	punchdamagelow = 10
 	punchdamagehigh = 19
 	punchstunthreshold = 14 //about 50% chance to stun
-
+	
 /datum/species/ipc/on_species_gain(mob/living/carbon/human/C)
+	var/obj/item/organ/appendix/appendix = C.getorganslot(ORGAN_SLOT_APPENDIX) // Easiest way to remove it.
+	appendix?.Remove(C)
 	if(isIPC(C) && !screen)
 		screen = new
 		screen.Grant(C)

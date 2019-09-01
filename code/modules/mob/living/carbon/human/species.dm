@@ -35,7 +35,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/burnmod = 1		// multiplier for burn damage
 	var/coldmod = 1		// multiplier for cold damage
 	var/heatmod = 1		// multiplier for heat damage
-	var/stunmod = 1		// multiplier for stun duration
+	var/stunmod = 1
+	var/oxymod = 1
+	var/clonemod = 1
+	var/toxmod = 1
+	var/staminamod = 1		// multiplier for stun duration
 	var/attack_type = BRUTE //Type of damage attack does
 	var/punchdamagelow = 1       //lowest possible punch damage. if this is set to 0, punches will always miss
 	var/punchdamagehigh = 10      //highest possible punch damage
@@ -1531,16 +1535,16 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			else
 				H.adjustFireLoss(damage_amount)
 		if(TOX)
-			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.tox_mod
+			var/damage_amount = forced ? damage : damage * hit_percent * toxmod * H.physiology.tox_mod
 			H.adjustToxLoss(damage_amount)
 		if(OXY)
-			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.oxy_mod
+			var/damage_amount = forced ? damage : damage * oxymod * hit_percent * H.physiology.oxy_mod
 			H.adjustOxyLoss(damage_amount)
 		if(CLONE)
-			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.clone_mod
+			var/damage_amount = forced ? damage : damage * hit_percent * clonemod * H.physiology.clone_mod
 			H.adjustCloneLoss(damage_amount)
 		if(STAMINA)
-			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.stamina_mod
+			var/damage_amount = forced ? damage : damage * hit_percent * staminamod * H.physiology.stamina_mod
 			if(BP)
 				if(BP.receive_damage(0, 0, damage_amount))
 					H.update_stamina()
