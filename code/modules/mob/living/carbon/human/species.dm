@@ -1534,16 +1534,16 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			else
 				H.adjustFireLoss(damage_amount)
 		if(TOX)
-			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.tox_mod
+			var/damage_amount = forced ? damage : damage * hit_percent * toxmod * H.physiology.tox_mod
 			H.adjustToxLoss(damage_amount)
 		if(OXY)
 			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.oxy_mod
 			H.adjustOxyLoss(damage_amount)
 		if(CLONE)
-			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.clone_mod
+			var/damage_amount = forced ? damage : damage * hit_percent * clonemod * H.physiology.clone_mod
 			H.adjustCloneLoss(damage_amount)
 		if(STAMINA)
-			var/damage_amount = forced ? damage : damage * hit_percent * H.physiology.stamina_mod
+			var/damage_amount = forced ? damage : damage * hit_percent * staminamod * H.physiology.stamina_mod
 			if(BP)
 				if(BP.receive_damage(0, 0, damage_amount))
 					H.update_stamina()
