@@ -219,7 +219,7 @@
 	icon_state = "brain-x"
 
 /obj/item/organ/brain/positron
-	name = "Positronic Brain"
+	name = "positronic brain"
 	desc = "A positronic brain used in production of silicon based lifeforms"
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-occupied"
