@@ -220,7 +220,7 @@
 
 /obj/item/organ/brain/positron
 	name = "positronic brain"
-	desc = "A positronic brain used in production of silicon based lifeforms"
+	desc = "A positronic brain used in production of silicon-based lifeforms"
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-occupied"
 
