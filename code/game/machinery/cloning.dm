@@ -65,8 +65,8 @@
 	. = ..()
 
 /obj/machinery/clonepod/RefreshParts()
-	speed_coeff = 0
-	efficiency = 0
+	speed_coeff = 2
+	efficiency = 2
 	for(var/obj/item/stock_parts/scanning_module/S in component_parts)
 		efficiency += S.rating
 	for(var/obj/item/stock_parts/manipulator/P in component_parts)
@@ -275,7 +275,7 @@
 			mob_occupant.Unconscious(80)
 			var/dmg_mult = CONFIG_GET(number/damage_multiplier)
 			 //Slowly get that clone healed and finished.
-			mob_occupant.adjustCloneLoss(-((speed_coeff / 2) * dmg_mult))
+			mob_occupant.adjustCloneLoss(-((speed_coeff / 1.6) * dmg_mult))
 			var/progress = CLONE_INITIAL_DAMAGE - mob_occupant.getCloneLoss()
 			// To avoid the default cloner making incomplete clones
 			progress += (100 - MINIMUM_HEAL_LEVEL)
