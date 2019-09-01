@@ -1,5 +1,5 @@
-#define MINOR_INSANITY_PEN 5
-#define MAJOR_INSANITY_PEN 10
+#define MINOR_INSANITY_PEN 3
+#define MAJOR_INSANITY_PEN 6
 
 /datum/component/mood
 	var/mood //Real happiness
@@ -219,11 +219,11 @@
 			sanity_level = 6
 		if(SANITY_CRAZY to SANITY_UNSTABLE)
 			setInsanityEffect(0)
-			master.add_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE, 100, override=TRUE, multiplicative_slowdown=0.4, movetypes=(~FLYING))
+			master.add_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE, 100, override=TRUE, multiplicative_slowdown=0.3, movetypes=(~FLYING))
 			sanity_level = 5
 		if(SANITY_UNSTABLE to SANITY_DISTURBED)
 			setInsanityEffect(0)
-			master.add_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE, 100, override=TRUE, multiplicative_slowdown=0.2, movetypes=(~FLYING))
+			master.add_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE, 100, override=TRUE, multiplicative_slowdown=0.15, movetypes=(~FLYING))
 			sanity_level = 4
 		if(SANITY_DISTURBED to SANITY_NEUTRAL)
 			setInsanityEffect(0)
