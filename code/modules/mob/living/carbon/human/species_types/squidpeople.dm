@@ -2,9 +2,13 @@
     name = "Squidperson"
     id = "squid"
     default_color = "b8dfda"
+
     species_traits = list(MUTCOLORS,EYECOLOR)
     inherent_traits = list(TRAIT_NOSLIPALL,TRAIT_STRONG_GRABBER)
     default_features = list("mcolor" = "FFF") // bald
+    speedmod = -0.15
+    burnmod = 1.25
+	heatmod = 1.1
     changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | SLIME_EXTRACT
     use_skintones = 0
     no_equip = list(SLOT_SHOES)

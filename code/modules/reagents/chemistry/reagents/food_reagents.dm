@@ -329,13 +329,13 @@
 		targets += T
 		if(LAZYLEN(targets) && I)
 			to_chat(M, "<span class='warning'>The salt causes your arm to spasm!</span>")
-			owner.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
-			owner.throw_item(pick(targets))
+			M.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
+			M.throw_item(pick(targets))
 
 /datum/reagent/consumable/sodiumchloride/reaction_mob(mob/living/M, method=INGEST, reac_volume)
 	if(!is_species(M, /datum/species/squid))
 		return
-	M.visible_message("<span class='danger'>Your tongue shrivels as you taste the salt! It burns!</span>")
+	to_chat(M, "<span class='danger'>Your tongue shrivels as you taste the salt! It burns!</span>")
 	M.adjustFireLoss(5, TRUE)
 	sleep(20)
 
