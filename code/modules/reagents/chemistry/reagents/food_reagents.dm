@@ -319,6 +319,10 @@
 		return
 	if(M.has_bane(BANE_SALT))
 		M.mind.disrupt_spells(-200)
+	if(is_species(H, /datum/species/squid))
+		H.visible_message("<span class='danger'>Your tongue shrivels as you taste the salt! It burns!</span>")
+		H.adjustFireLoss(25, TRUE)
+		sleep(20)
 
 /datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
 	if(!istype(T))

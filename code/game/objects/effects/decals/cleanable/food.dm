@@ -35,6 +35,11 @@
 		while(L.loc == src.loc)
 			L.adjustFireLoss(2, TRUE)
 			sleep(20)
+	if(is_species(H, /datum/species/squid))
+		while(H.loc == src.loc)
+			H.visible_message("<span class='danger'>Your tentacles shrivel as you step over the salt! It burns!</span>")
+			H.adjustFireLoss(15, TRUE)
+			sleep(10)
 
 /obj/effect/decal/cleanable/food/flour
 	name = "flour"

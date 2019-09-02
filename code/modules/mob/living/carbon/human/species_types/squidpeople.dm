@@ -3,6 +3,7 @@
     id = "squid"
     default_color = "b8dfda"
     species_traits = list(MUTCOLORS,EYECOLOR)
+    inherent_traits = list(TRAIT_NOSLIPALL,TRAIT_STRONG_GRABBER)
     default_features = list("mcolor" = "FFF") // bald
     changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | SLIME_EXTRACT
     use_skintones = 0
@@ -32,6 +33,6 @@
         . = capitalize(squid_name(genderToFind))
         if(!findname(.))
             break
-			
+
 /datum/species/squid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	H.grant_language(/datum/language/rlyehian)	
+	H.grant_language(/datum/language/rlyehian)
