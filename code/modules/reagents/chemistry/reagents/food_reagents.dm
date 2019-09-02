@@ -320,7 +320,7 @@
 	if(M.has_bane(BANE_SALT))
 		M.mind.disrupt_spells(-200)
 	if(is_species(M, /datum/species/squid))
-		if(owner.incapacitated())
+		if(M.incapacitated())
 			return
 		var/obj/item/I = M.get_active_held_item()
 		var/list/turf/targets = list()
