@@ -3,7 +3,7 @@
     id = "squid"
     default_color = "b8dfda"
     species_traits = list(MUTCOLORS,EYECOLOR)
-    inherent_traits = list(TRAIT_NOSLIPALL,TRAIT_STRONG_GRABBER)
+    inherent_traits = list(TRAIT_NOSLIPALL)
     default_features = list("mcolor" = "FFF") // bald
     speedmod = 0.2
     burnmod = 1.25
