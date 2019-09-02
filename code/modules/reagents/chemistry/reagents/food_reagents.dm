@@ -319,25 +319,22 @@
 		return
 	if(M.has_bane(BANE_SALT))
 		M.mind.disrupt_spells(-200)
-	if(is_species(M, /datum/species/squid))
+	if(method=INGEST && is_species(M, /datum/species/squid))
+		to_chat(M, "<span class='danger'>Your tongue shrivels as you taste the salt! It burns!</span>")
+		M.adjustFireLoss(5, TRUE)
+		sleep(20)
+	if(method=TOUCH && is_species(M, /datum/species/squid))
 		if(M.incapacitated())
 			return
 		var/obj/item/I = M.get_active_held_item()
 		var/list/turf/targets = list()
 		var/turf/T = get_turf(M)
 		for(var/turf/T in oview(M, 3))
-		targets += T
+			targets += T
 		if(LAZYLEN(targets) && I)
 			to_chat(M, "<span class='warning'>The salt causes your arm to spasm!</span>")
 			M.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
 			M.throw_item(pick(targets))
-
-/datum/reagent/consumable/sodiumchloride/reaction_mob(mob/living/M, method=INGEST, reac_volume)
-	if(!is_species(M, /datum/species/squid))
-		return
-	to_chat(M, "<span class='danger'>Your tongue shrivels as you taste the salt! It burns!</span>")
-	M.adjustFireLoss(5, TRUE)
-	sleep(20)
 
 /datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
 	if(!istype(T))
