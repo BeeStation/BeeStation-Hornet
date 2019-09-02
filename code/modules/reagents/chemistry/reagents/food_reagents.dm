@@ -324,10 +324,10 @@
 		if(prob(25))
 			M.emote("scream")
 		M.adjustFireLoss(5, TRUE)
-		M.Sleeping(20, 0)
 	else if(method==TOUCH && is_species(M, /datum/species/squid))
 		if(M.incapacitated())
 			return
+		var/obj/item/I = M.get_active_held_item()
 		M.throw_item(get_ranged_target_turf(M, pick(GLOB.alldirs), rand(1, 3)))
 		to_chat(M, "<span class='warning'>The salt causes your arm to spasm!</span>")
 		M.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
