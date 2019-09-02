@@ -5,8 +5,8 @@
     species_traits = list(MUTCOLORS,EYECOLOR)
     inherent_traits = list(TRAIT_NOSLIPALL,TRAIT_STRONG_GRABBER)
     default_features = list("mcolor" = "FFF") // bald
-    speedmod = 0.2
-    burnmod = 1.25
+	speedmod = 0.2
+	burnmod = 1.25
 	heatmod = 1.1
     changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | SLIME_EXTRACT
     use_skintones = 0

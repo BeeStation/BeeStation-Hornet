@@ -322,7 +322,7 @@
 	if(method==INGEST && is_species(M, /datum/species/squid))
 		to_chat(M, "<span class='danger'>Your tongue shrivels as you taste the salt! It burns!</span>")
 		if(prob(25))
-			user.emote("scream")
+			M.emote("scream")
 		M.adjustFireLoss(5, TRUE)
 		M.Sleeping(20, 0)
 	else if(method==TOUCH && is_species(M, /datum/species/squid))
