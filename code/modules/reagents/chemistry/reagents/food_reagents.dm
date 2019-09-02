@@ -329,14 +329,10 @@
 		if(M.incapacitated())
 			return
 		var/obj/item/I = M.get_active_held_item()
-		var/list/turf/targets = list()
-		var/turf/T = get_turf(M)
-		for(var/turf/T in oview(M, 3))
-			targets += T
-		if(LAZYLEN(targets) && I)
+		if(I)
+			M.throw_item(get_ranged_target_turf(M, pick(GLOB.alldirs), rand(1, 3)))
 			to_chat(M, "<span class='warning'>The salt causes your arm to spasm!</span>")
 			M.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
-			M.throw_item(pick(targets))
 
 /datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
 	if(!istype(T))
