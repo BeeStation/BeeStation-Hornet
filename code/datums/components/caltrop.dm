@@ -62,6 +62,6 @@
 
 			cooldown = world.time
 		if(is_species(H, /datum/species/squid))
-			H.Paralyze(5)
+			H.Paralyze(10)
 		else
-			H.Paralyze(25)
+			H.Paralyze(40)
