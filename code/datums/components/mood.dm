@@ -137,7 +137,7 @@
 				highest_absolute_mood = absmood
 
 	if(!conflicting_moodies.len) //no special icons- go to the normal icon states
-		if(sanity < 32)
+		if(sanity < 18)
 			screen_obj.icon_state = "mood_insane"
 		else
 			screen_obj.icon_state = "mood[mood_level]"
