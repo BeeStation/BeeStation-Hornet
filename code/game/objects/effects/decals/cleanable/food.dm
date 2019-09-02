@@ -34,8 +34,7 @@
 	if(is_species(L, /datum/species/snail) || is_species(L, /datum/species/squid))
 		while(L.loc == src.loc)
 			L.adjustFireLoss(2, TRUE)
-			if(is_species(L, /datum/species/squid)
-				L.visible_message("<span class='danger'>Your tentacles shrivel as you step over the salt! It burns!</span>")
+			to_chat(L, "<span class='danger'>The salt! It burns!</span>")
 			sleep(20)
 
 /obj/effect/decal/cleanable/food/flour
