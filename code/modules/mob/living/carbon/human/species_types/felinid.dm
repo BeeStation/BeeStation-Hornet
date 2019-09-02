@@ -3,6 +3,9 @@
 	name = "Felinid"
 	id = "felinid"
 	limbs_id = "human"
+	burnmod = 2 // Purge the mutant
+	heatmod = 1.75
+	//exotic_blood = "HIV"
 
 	mutant_bodyparts = list("ears", "tail_human")
 	default_features = list("mcolor" = "FFF", "tail_human" = "Cat", "ears" = "Cat", "wings" = "None")
