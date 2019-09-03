@@ -14,7 +14,7 @@
 	desc = "An interface between crew and the cryogenic storage oversight systems."
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "cellconsole_1"
-	circuit = /obj/item/circuitboard/cryopodcontrol
+	// circuit = /obj/item/circuitboard/cryopodcontrol
 	density = FALSE
 	interact_offline = TRUE
 	req_one_access = list(ACCESS_HEADS, ACCESS_ARMORY) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
@@ -119,12 +119,12 @@
 
 	updateUsrDialog()
 	return
-
-/obj/item/circuitboard/cryopodcontrol
+/* Should more cryos be buildable?
+    /obj/item/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
 	build_path = "/obj/machinery/computer/cryopod"
 	origin_tech = "programming=1"
-
+*/
 //Cryopods themselves.
 /obj/machinery/cryopod
 	name = "cryogenic freezer"
@@ -149,9 +149,9 @@
 	var/list/preserve_items = list(
 		/obj/item/hand_tele,
 		/obj/item/card/id/captains_spare,
-		/obj/item/device/aicard,
-		/obj/item/device/mmi,
-		/obj/item/device/paicard,
+		/obj/item/aicard,
+		/obj/item/mmi,
+		/obj/item/paicard,
 		/obj/item/gun,
 		/obj/item/pinpointer,
 		/obj/item/clothing/shoes/magboots,
@@ -170,7 +170,7 @@
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
-		/obj/item/device/mmi/posibrain
+		/obj/item/mmi/posibrain
 	)
 
 /obj/machinery/cryopod/Initialize()
@@ -243,7 +243,8 @@
 	var/mob/living/mob_occupant = occupant
 
 	if(istype(SSticker.mode, /datum/game_mode/cult))//thank
-		if(("sacrifice" in SSticker.mode.cult_objectives) && (GLOB.sac_mind == mob_occupant.mind))
+		var/datum/antagonist/cult/C
+		if(("sacrifice" in C.cult_team.objectives) && (GLOB.sac_mind == mob_occupant.mind))
 			var/list/possible_targets = list()
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
 				if(H.mind && !is_convertable_to_cult(H) && !iscultist(H))
@@ -397,17 +398,20 @@
 		if(iscultist(target) || is_servant_of_ratvar(target))
 			to_chat(target, "You're a Cultist![generic_plsnoleave_message]")
 			caught = TRUE
-		if(istype(SSticker.mode, /datum/game_mode/blob))
-			var/datum/game_mode/blob/G = SSticker.mode
-			if(target.mind in G.blob_overminds)
-				alert("You're a Blob![generic_plsnoleave_message]")
-				caught = TRUE
+		if(isovermind(target))
+			alert("You're a Blob![generic_plsnoleave_message]")
+			caught = TRUE
 		if(is_devil(target))
 			alert("You're a Devil![generic_plsnoleave_message]")
 			caught = TRUE
-		if(is_gangster(target))
-			alert("You're a Gangster![generic_plsnoleave_message]")
-			caught = TRUE
+		if(istype(SSticker.mode, /datum/game_mode/gang))
+			var/datum/game_mode/gang/G = SSticker.mode
+			if(target.mind in G.gang.leaders)
+				alert("You're a Gang Boss![generic_plsnoleave_message]")
+				caught = TRUE
+			else if(target.mind in G.gang)
+				alert("You're a Gangster![generic_plsnoleave_message]")
+				caught = TRUE
 		if(istype(SSticker.mode, /datum/game_mode/revolution))
 			var/datum/game_mode/revolution/G = SSticker.mode
 			if(target.mind in G.head_revolutionaries)
