@@ -47,7 +47,9 @@
 
 		var/damage = rand(min_damage, max_damage)
 		if(HAS_TRAIT(H, TRAIT_LIGHT_STEP))
-			damage *= 0.75
+			damage *= 0.5
+		if(is_species(H, /datum/species/squid))
+			damage *= 1.3
 		H.apply_damage(damage, BRUTE, picked_def_zone)
 
 		if(cooldown < world.time - 10) //cooldown to avoid message spam.
@@ -59,4 +61,7 @@
 						"<span class='userdanger'>You slide on [A]!</span>")
 
 			cooldown = world.time
-		H.Paralyze(60)
+		if(is_species(H, /datum/species/squid))
+			H.Paralyze(10)
+		else
+			H.Paralyze(40)
