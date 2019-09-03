@@ -206,7 +206,7 @@
 			return
 		SSticker.mode.admin_panel()
 
-else if(href_list["f_dynamic_roundstart"])
+	else if(href_list["f_dynamic_roundstart"])
 		if(!check_rights(R_ADMIN))
 			return
 		if(SSticker && SSticker.mode)
