@@ -104,6 +104,7 @@ GLOBAL_LIST(end_titles)
 	if(fexists("[global.config.directory]/contributors.txt"))
 		contribs += world.file2list("[global.config.directory]/contributors.txt")
 	
-	contribs.Cut(21)
+	if(length(contribs) > 20)
+		contribs.Cut(21)
 
 	return contribs
