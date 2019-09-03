@@ -516,25 +516,6 @@
 
 			print_command_report(suicide_command_report, "Central Command Personnel Update")
 
-/////////////////////////////
-//Despawns inactive players//
-/////////////////////////////
-/proc/afk_despawn_timer()
-	for(var/i in GLOB.mob_living_list)
-		var/mob/living/L = i
-		//var/mob/living/carbon/C = L
-		if(L.stat == DEAD || issilicon(L)) // I'd like to later implement a way that their mmi fails, allowing you to insert another
-			return
-
-		if(L.client.inactivity >= 5 MINUTES || !L.ckey) // At five minutes, port them to arrivals
-			to_chat(L, "<b>Your slacking has resulted in you being demoted to Assistant!</b>")
-			SSjob.EquipRank(L, "Assistant", TRUE)
-			SSjob.SendToLateJoin(L)
-
-		if(L.client.inactivity >= 10 MINUTES  && get_area(L) == typesof(/area/shuttle/arrival) || !L.ckey && get_area(L) == typesof(/area/shuttle/arrival)) // If they've been in the arrival shuttle for 10 minutes or logged out there, boot
-			L.ghostize()
-			qdel(L)
-			GLOB.suicided_mob_list += L // Cheap method of invoking the job restocking from suicide
 
 //////////////////////////
 //Reports player logouts//
