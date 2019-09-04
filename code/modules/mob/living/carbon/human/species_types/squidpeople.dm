@@ -5,7 +5,7 @@
     species_traits = list(MUTCOLORS,EYECOLOR,TRAIT_EASYDISMEMBER)
     inherent_traits = list(TRAIT_NOSLIPALL)
     default_features = list("mcolor" = "FFF") // bald
-    speedmod = 0.3
+    speedmod = 0.5
     burnmod = 1.5
     heatmod = 1.4
     coldmod = 1.5
@@ -30,12 +30,9 @@
 /datum/species/squid/random_name(gender,unique,lastname)
 	if(unique)
 		return random_unique_squid_name(genderToFind = gender)
-
 	var/randname = squid_name(gender)
-
 	if(lastname)
 		randname += " [lastname]"
-
 	return randname
 
 /proc/random_unique_squid_name(attempts_to_find_unique_name=10, genderToFind)
@@ -46,7 +43,6 @@
 
 /datum/species/squid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.grant_language(/datum/language/rlyehian)
-
 	var/datum/action/innate/squid_change/S = new
 	S.Grant(H)
 
@@ -59,14 +55,23 @@
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/mob/animal.dmi'
 	button_icon_state = "squid"
-	var/change_cooldown = 0
+	var/cooldown = 0
+
+/datum/action/innate/squid_change/UpdateButtonIcon(status_only = FALSE, force)
+    ..()
+    if(active)
+        button_icon_state = "squid_inactive"
+    else
+        button_icon_state = "squid"
+
+/datum/action/innate/squid_change/IsAvailable()
+    if(cooldown > world.time)
+        return
+    return ..()
 
 /datum/action/innate/squid_change/Activate()
 	var/mob/living/carbon/human/H = owner
 	var/new_color = "#FFFFFF"
-	if(change_cooldown >= world.time)
-		to_chat(H, "<span class='notice'>You just changed colors, you need a few more seconds.</span>")
-		return
 	switch(rand(1,20))
 		if(1) // "orange"
 			new_color = "#FFA500"
@@ -110,4 +115,10 @@
 			new_color = "#008B8B"
 	H.dna.features["mcolor"] = new_color
 	H.update_body()
-	change_cooldown = world.time + 5
+	cooldown = world.time + 50
+	active = TRUE
+	UpdateButtonIcon()
+
+/datum/action/innate/squid_change/Deactivate()
+    active = FALSE
+    UpdateButtonIcon()
