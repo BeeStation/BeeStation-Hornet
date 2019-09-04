@@ -57,12 +57,12 @@
 	button_icon_state = "squid"
 	var/cooldown = 0
 
-/datum/action/innate/squid_change/UpdateButtonIcon(status_only = FALSE, force)
-    ..()
+/datum/action/innate/squid_change/proc/update_status()
     if(active)
         button_icon_state = "squid"
     else
         button_icon_state = "squid_inactive"
+    UpdateButtonIcon()
 
 /datum/action/innate/squid_change/IsAvailable()
     if(cooldown > world.time)
@@ -117,8 +117,8 @@
 	H.update_body()
 	cooldown = world.time + 50
 	active = TRUE
-	UpdateButtonIcon()
+	update_status()
 
 /datum/action/innate/squid_change/Deactivate()
     active = FALSE
-    UpdateButtonIcon()
+    update_status()
