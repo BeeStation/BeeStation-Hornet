@@ -109,7 +109,7 @@
  */
 
 /obj/item/tank/internals/plasmaman
-	name = "plasma internals tank"
+	name = "extended-capacity plasma internals tank"
 	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
 	icon_state = "plasmaman_tank"
 	item_state = "plasmaman_tank"
@@ -129,6 +129,7 @@
 
 
 /obj/item/tank/internals/plasmaman/belt
+	name = "plasma internals belt tank"
 	icon_state = "plasmaman_tank_belt"
 	item_state = "plasmaman_tank_belt"
 	slot_flags = ITEM_SLOT_BELT

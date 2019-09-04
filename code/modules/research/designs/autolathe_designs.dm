@@ -255,7 +255,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_CARGO
 
 /datum/design/plasmaman_tank
-	name = "Plasmaman Tank"
+	name = "Extended-Capacity Plasmaman Tank"
 	id = "plasmaman_tank"
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 3200)
