@@ -104,7 +104,6 @@ Class Procs:
 	var/idle_power_usage = 0
 	var/active_power_usage = 0
 	var/power_channel = EQUIP
-	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
 		//EQUIP,ENVIRON or LIGHT
 	var/wire_compatible = FALSE
 
@@ -230,7 +229,7 @@ Class Procs:
 
 /obj/machinery/can_interact(mob/user)
 	var/silicon = issiliconoradminghost(user)
-	if((stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE) && !interact_offline)
+	if((stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE))
 		return FALSE
 	if(panel_open && !(interaction_flags_machine & INTERACT_MACHINE_OPEN))
 		if(!silicon || !(interaction_flags_machine & INTERACT_MACHINE_OPEN_SILICON))

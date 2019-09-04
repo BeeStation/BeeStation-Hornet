@@ -5,7 +5,7 @@
  * since time_entered, which is world.time when the occupant moves in.
  * ~ Zuhayr
  */
-
+GLOBAL_LIST_EMPTY(cryopod_computers)
 
 //Main cryopod console.
 
@@ -16,7 +16,7 @@
 	icon_state = "cellconsole_1"
 	// circuit = /obj/item/circuitboard/cryopodcontrol
 	density = FALSE
-	interact_offline = TRUE
+	interaction_flags_machine = INTERACT_MACHINE_OFFLINE
 	req_one_access = list(ACCESS_HEADS, ACCESS_ARMORY) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
 	var/mode = null
 
@@ -27,6 +27,14 @@
 	var/storage_type = "crewmembers"
 	var/storage_name = "Cryogenic Oversight Control"
 	var/allow_items = TRUE
+
+/obj/machinery/computer/cryopod/Initialize()
+	. = ..()
+	GLOB.cryopod_computers += src
+
+/obj/machinery/computer/cryopod/Destroy()
+	GLOB.cryopod_computers -= src
+	..()
 
 /obj/machinery/computer/cryopod/attack_ai()
 	attack_hand()
@@ -146,7 +154,7 @@
 	var/last_no_computer_message = 0
 
 	// These items are preserved when the process() despawn proc occurs.
-	var/list/preserve_items = list(
+	var/static/list/preserve_items = list(
 		/obj/item/hand_tele,
 		/obj/item/card/id/captains_spare,
 		/obj/item/aicard,
@@ -169,19 +177,24 @@
 		/obj/item/nuke_core_container
 	)
 	// These items will NOT be preserved
-	var/list/do_not_preserve_items = list (
+	var/static/list/do_not_preserve_items = list (
 		/obj/item/mmi/posibrain
 	)
 
 /obj/machinery/cryopod/Initialize()
+	..()
+	return INITIALIZE_HINT_LATELOAD //Gotta populate the cryopod computer GLOB first
+
+/obj/machinery/cryopod/LateInitialize()
 	update_icon()
 	find_control_computer()
-	return ..()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent = 0)
-	for(var/obj/machinery/computer/cryopod/C in area_contents(get_area(src)))
-		control_computer = C
-		break
+	for(var/M in GLOB.cryopod_computers)
+		var/obj/machinery/computer/cryopod/C = M
+		if(get_area(C) == get_area(src))
+			control_computer = C
+			break
 
 	// Don't send messages unless we *need* the computer, and less than five minutes have passed since last time we messaged
 	if(!control_computer && urgent && last_no_computer_message + 5*60*10 < world.time)
