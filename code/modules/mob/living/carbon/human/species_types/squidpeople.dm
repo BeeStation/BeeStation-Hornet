@@ -49,7 +49,7 @@
 	var/datum/action/innate/squid_change/S = new
 	S.Grant(H)
 
-/datum/species/squid/on_species_loss(mob/living/carbon/human/C)
+/datum/species/squid/on_species_loss(mob/living/carbon/human/H)
 	H.dna.features["mcolor"] = rgb(128,128,128)
 	H.update_body()
 
