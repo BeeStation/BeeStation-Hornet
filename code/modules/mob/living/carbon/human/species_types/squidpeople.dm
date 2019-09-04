@@ -47,13 +47,13 @@
 /datum/species/squid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.grant_language(/datum/language/rlyehian)
 
-	/*var/datum/action/innate/squid_change/S = new
+	var/datum/action/innate/squid_change/S = new
 	S.Grant(H)
 
 /datum/species/squid/on_species_loss(mob/living/carbon/human/H)
-	H.dna.features["mcolor"] = rgb(128,128,128)
+	fixed_mut_color = rgb(128,128,128)
 	H.update_body()
-/*
+/
 /datum/action/innate/squid_change
 	name = "Color Change"
 	check_flags = AB_CHECK_CONSCIOUS
@@ -62,6 +62,5 @@
 
 /datum/action/innate/squid_change/Activate()
 	var/mob/living/carbon/human/H = owner
-	H.dna.features["mcolor"] = rgb(rand(128,255),rand(128,255),rand(128,255))
+	fixed_mut_color = rgb(rand(128,255),rand(128,255),rand(128,255))
 	H.update_body()
-*/
