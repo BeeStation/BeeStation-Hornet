@@ -21,6 +21,8 @@
     skinned_type = /obj/item/stack/sheet/animalhide/human
     toxic_food = FRIED
 
+    var/datum/action/innate/squid_change/S = new
+
 /mob/living/carbon/human/species/squid
     race = /datum/species/squid
 
@@ -46,7 +48,6 @@
 
 /datum/species/squid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.grant_language(/datum/language/rlyehian)
-	var/datum/action/innate/squid_change/S = new
 	S.Grant(H)
 
 /datum/species/squid/on_species_loss(mob/living/carbon/human/H)
