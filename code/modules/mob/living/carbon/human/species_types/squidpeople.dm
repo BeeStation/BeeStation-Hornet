@@ -21,8 +21,6 @@
     skinned_type = /obj/item/stack/sheet/animalhide/human
     toxic_food = FRIED
 
-    var/current_color
-
 /mob/living/carbon/human/species/squid
     race = /datum/species/squid
 
@@ -53,11 +51,9 @@
 
 /datum/species/squid/spec_updatehealth(mob/living/carbon/human/H)
 	.=..()
-	if(H.stat != DEAD )
-		fixed_mut_color = copytext(current_color, 2)
-	else
-		fixed_mut_color = rgb(128,128,128)
-	H.update_body()
+	if(H.stat == DEAD )
+		fixed_mut_color = rgb(128,128,128) // I might remove this because there's no check to reactivate colors
+		H.update_body() // But I guess they can just change colors afterwards
 
 /datum/action/innate/squid_change
 	name = "Color Change"
