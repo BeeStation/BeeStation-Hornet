@@ -60,9 +60,9 @@
 /datum/action/innate/squid_change/UpdateButtonIcon(status_only = FALSE, force)
     ..()
     if(active)
-        button_icon_state = "squid_inactive"
-    else
         button_icon_state = "squid"
+    else
+        button_icon_state = "squid_inactive"
 
 /datum/action/innate/squid_change/IsAvailable()
     if(cooldown > world.time)
