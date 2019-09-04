@@ -59,11 +59,11 @@
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/mob/animal.dmi'
 	button_icon_state = "squid"
+	var/change_cooldown = 0
 
 /datum/action/innate/squid_change/Activate()
 	var/mob/living/carbon/human/H = owner
 	var/new_color = "#FFFFFF"
-	var/change_cooldown = 0
 	if(change_cooldown >= world.time)
 		to_chat(H, "<span class='notice'>You just changed colors, you need a few more seconds.</span>")
 		return
@@ -111,8 +111,3 @@
 	H.dna.features["mcolor"] = new_color
 	H.update_body()
 	change_cooldown = world.time + 5
-	while(change_cooldown > world.time)
-		button_icon_state = "squid_inactive"
-	button_icon_state = "squid"
-
-
