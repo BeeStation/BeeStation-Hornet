@@ -58,51 +58,59 @@
 	name = "Color Change"
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/mob/animal.dmi'
+	var/change_cooldown = 0
 	button_icon_state = "squid"
+	// button_icon_state = "squid_inactive" Need to implement inactive icon switch
 
 /datum/action/innate/squid_change/Activate()
 	var/mob/living/carbon/human/H = owner
 	var/new_color = "#FFFFFF"
-	switch(rand(1,20))
-		if(1) // "orange"
-			new_color = "#FFA500"
-		if(2) // "purple"
-			new_color = "#B19CD9"
-		if(3) // "blue"
-			new_color = "#ADD8E6"
-		if(4) //"metal"
-			new_color = "#7E7E7E"
-		if(5) //"yellow"
-			new_color = "#FFFF00"
-		if(6) //"dark purple"
-			new_color = "#551A8B"
-		if(7) //"dark blue"
-			new_color = "#0000FF"
-		if(8) //"silver"
-			new_color = "#D3D3D3"
-		if(9) //"bluespace"
-			new_color = "#32CD32"
-		if(10) //"sepia"
-			new_color = "#704214"
-		if(11) //"cerulean"
-			new_color = "#2956B2"
-		if(12) //"pyrite"
-			new_color = "#FAFAD2"
-		if(13) //"red"
-			new_color = "#FF0000"
-		if(14) //"green"
-			new_color = "#00FF00"
-		if(15) //"pink"
-			new_color = "#FF69B4"
-		if(16) //"gold"
-			new_color = "#FFD700"
-		if(17) //"oil"
-			new_color = "#505050"
-		if(18) //"black"
-			new_color = "#000000"
-		if(19) //"light pink"
-			new_color = "#FFB6C1"
-		if(20) //"adamantine"
-			new_color = "#008B8B"
-	H.dna.features["mcolor"] = new_color
-	H.update_body()
+	if(change_cooldown <= world.time)
+		switch(rand(1,20))
+			if(1) // "orange"
+				new_color = "#FFA500"
+			if(2) // "purple"
+				new_color = "#B19CD9"
+			if(3) // "blue"
+				new_color = "#ADD8E6"
+			if(4) //"metal"
+				new_color = "#7E7E7E"
+			if(5) // "yellow"
+				new_color = "#FFFF00"
+			if(6) // "dark purple"
+				new_color = "#551A8B"
+			if(7) // "dark blue"
+				new_color = "#0000FF"
+			if(8) // "silver"
+				new_color = "#D3D3D3"
+			if(9) // "bluespace"
+				new_color = "#32CD32"
+			if(10) // "sepia"
+				new_color = "#704214"
+			if(11) // "cerulean"
+				new_color = "#2956B2"
+			if(12) // "pyrite"
+				new_color = "#FAFAD2"
+			if(13) // "red"
+				new_color = "#FF0000"
+			if(14) // "green"
+				new_color = "#00FF00"
+			if(15) // "pink"
+				new_color = "#FF69B4"
+			if(16) // "gold"
+				new_color = "#FFD700"
+			if(17) // "oil"
+				new_color = "#505050"
+			if(18) // "black"
+				new_color = "#000000"
+			if(19) // "light pink"
+				new_color = "#FFB6C1"
+			if(20) // "adamantine"
+				new_color = "#008B8B"
+		H.dna.features["mcolor"] = new_color
+		H.update_body()
+		change_cooldown = world.time + 30
+	else
+		to_chat(H, "<span class='notice'>You just changed colors, you need a few more seconds.</span>")
+
+
