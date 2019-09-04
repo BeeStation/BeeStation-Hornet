@@ -57,69 +57,59 @@
 	button_icon_state = "squid"
 	var/cooldown = 0
 
-/datum/action/innate/squid_change/proc/update_status()
-    if(active)
-        button_icon_state = "squid"
-    else
-        button_icon_state = "squid_inactive"
-    UpdateButtonIcon()
-
 /datum/action/innate/squid_change/IsAvailable()
     if(cooldown > world.time)
-        return
-    update_status()
-    return ..()
+        return FALSE
+    return TRUE
 
 /datum/action/innate/squid_change/Activate()
 	var/mob/living/carbon/human/H = owner
-	var/new_color = "#FFFFFF"
 	switch(rand(1,20))
 		if(1) // "orange"
-			new_color = "#FFA500"
+			H.dna.features["mcolor"] = "#FFA500"
 		if(2) // "purple"
-			new_color = "#B19CD9"
+			H.dna.features["mcolor"] = "#B19CD9"
 		if(3) // "blue"
-			new_color = "#ADD8E6"
+			H.dna.features["mcolor"] = "#ADD8E6"
 		if(4) //"metal"
-			new_color = "#7E7E7E"
+			H.dna.features["mcolor"] = "#7E7E7E"
 		if(5) // "yellow"
-			new_color = "#FFFF00"
+			H.dna.features["mcolor"] = "#FFFF00"
 		if(6) // "dark purple"
-			new_color = "#551A8B"
+			H.dna.features["mcolor"] = "#551A8B"
 		if(7) // "dark blue"
-			new_color = "#0000FF"
+			H.dna.features["mcolor"] = "#0000FF"
 		if(8) // "silver"
-			new_color = "#D3D3D3"
+			H.dna.features["mcolor"] = "#D3D3D3"
 		if(9) // "bluespace"
-			new_color = "#32CD32"
+			H.dna.features["mcolor"] = "#32CD32"
 		if(10) // "sepia"
-			new_color = "#704214"
+			H.dna.features["mcolor"] = "#704214"
 		if(11) // "cerulean"
-			new_color = "#2956B2"
+			H.dna.features["mcolor"] = "#2956B2"
 		if(12) // "pyrite"
-			new_color = "#FAFAD2"
+			H.dna.features["mcolor"] = "#FAFAD2"
 		if(13) // "red"
-			new_color = "#FF0000"
+			H.dna.features["mcolor"] = "#FF0000"
 		if(14) // "green"
-			new_color = "#00FF00"
+			H.dna.features["mcolor"] = "#00FF00"
 		if(15) // "pink"
-			new_color = "#FF69B4"
+			H.dna.features["mcolor"] = "#FF69B4"
 		if(16) // "gold"
-			new_color = "#FFD700"
+			H.dna.features["mcolor"] = "#FFD700"
 		if(17) // "oil"
-			new_color = "#505050"
+			H.dna.features["mcolor"] = "#505050"
 		if(18) // "black"
-			new_color = "#000000"
+			H.dna.features["mcolor"] = "#000000"
 		if(19) // "light pink"
-			new_color = "#FFB6C1"
+			H.dna.features["mcolor"] = "#FFB6C1"
 		if(20) // "adamantine"
-			new_color = "#008B8B"
-	H.dna.features["mcolor"] = new_color
+			H.dna.features["mcolor"] = "#008B8B"
 	H.update_body()
 	cooldown = world.time + 50
 	active = TRUE
-	update_status()
+	UpdateButtonIcon()
 
 /datum/action/innate/squid_change/Deactivate()
     active = FALSE
-    update_status()
+    UpdateButtonIcon()
