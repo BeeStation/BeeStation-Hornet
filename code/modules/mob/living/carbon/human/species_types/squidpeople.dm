@@ -49,11 +49,9 @@
 	var/datum/action/innate/squid_change/S = new
 	S.Grant(H)
 
-/datum/species/squid/spec_updatehealth(mob/living/carbon/human/H)
-	.=..()
-	if(H.stat == DEAD )
-		fixed_mut_color = rgb(128,128,128) // I might remove this because there's no check to reactivate colors
-		H.update_body() // But I guess they can just change colors afterwards
+/datum/species/squid/on_species_loss(mob/living/carbon/human/C)
+	H.dna.features["mcolor"] = rgb(128,128,128)
+	H.update_body()
 
 /datum/action/innate/squid_change
 	name = "Color Change"
