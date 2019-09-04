@@ -67,6 +67,7 @@
 /datum/action/innate/squid_change/IsAvailable()
     if(cooldown > world.time)
         return
+    update_status()
     return ..()
 
 /datum/action/innate/squid_change/Activate()
