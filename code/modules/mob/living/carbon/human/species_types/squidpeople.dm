@@ -43,8 +43,8 @@
 
 /datum/species/squid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.grant_language(/datum/language/rlyehian)
-	var/datum/action/innate/squid_change/S = locate(/datum/action/innate/squid_change) in M.actions
-	S?.Remove(M)
+	var/datum/action/innate/squid_change/S = locate(/datum/action/innate/squid_change) in H.actions
+	S?.Remove(H)
 	S.Grant(H)
 
 /datum/species/squid/on_species_loss(mob/living/carbon/human/H)
@@ -65,47 +65,10 @@
 
 /datum/action/innate/squid_change/Activate()
 	var/mob/living/carbon/human/H = owner
-	switch(rand(1,20))
-		if(1) // "orange"
-			H.dna.features["mcolor"] = "#FFA500"
-		if(2) // "purple"
-			H.dna.features["mcolor"] = "#B19CD9"
-		if(3) // "blue"
-			H.dna.features["mcolor"] = "#ADD8E6"
-		if(4) //"metal"
-			H.dna.features["mcolor"] = "#7E7E7E"
-		if(5) // "yellow"
-			H.dna.features["mcolor"] = "#FFFF00"
-		if(6) // "dark purple"
-			H.dna.features["mcolor"] = "#551A8B"
-		if(7) // "dark blue"
-			H.dna.features["mcolor"] = "#0000FF"
-		if(8) // "silver"
-			H.dna.features["mcolor"] = "#D3D3D3"
-		if(9) // "bluespace"
-			H.dna.features["mcolor"] = "#32CD32"
-		if(10) // "sepia"
-			H.dna.features["mcolor"] = "#704214"
-		if(11) // "cerulean"
-			H.dna.features["mcolor"] = "#2956B2"
-		if(12) // "pyrite"
-			H.dna.features["mcolor"] = "#FAFAD2"
-		if(13) // "red"
-			H.dna.features["mcolor"] = "#FF0000"
-		if(14) // "green"
-			H.dna.features["mcolor"] = "#00FF00"
-		if(15) // "pink"
-			H.dna.features["mcolor"] = "#FF69B4"
-		if(16) // "gold"
-			H.dna.features["mcolor"] = "#FFD700"
-		if(17) // "oil"
-			H.dna.features["mcolor"] = "#505050"
-		if(18) // "black"
-			H.dna.features["mcolor"] = "#000000"
-		if(19) // "light pink"
-			H.dna.features["mcolor"] = "#FFB6C1"
-		if(20) // "adamantine"
-			H.dna.features["mcolor"] = "#008B8B"
+	var/static/list/squid_colours = list("#FFA500", "#B19CD9", "#ADD8E6", "#FFFF00", "#551A8B", "#0000FF",
+    "#32CD32", "#D3D3D3", "#704214", "#2956B2", "#FAFAD2", "#FF0000", "#00FF00", "#FF69B4", "#FFD700",
+    "#505050", "#000000", "#FFB6C1", "#008B8B")
+	H.dna.features["mcolor"] = (pick(squid_colours))
 	H.update_body()
 	cooldown = world.time + 50
 	active = TRUE
