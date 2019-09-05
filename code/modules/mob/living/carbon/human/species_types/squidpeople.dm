@@ -61,7 +61,7 @@
 /datum/action/innate/squid_change/IsAvailable()
     if(cooldown > world.time)
         return FALSE
-    return TRUE
+    return ..()
 
 /datum/action/innate/squid_change/Activate()
 	var/mob/living/carbon/human/H = owner
