@@ -43,7 +43,8 @@
 
 /datum/species/squid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.grant_language(/datum/language/rlyehian)
-	var/datum/action/innate/squid_change/S = new
+	var/datum/action/innate/squid_change/S = locate(/datum/action/innate/squid_change) in M.actions
+	S?.Remove(M)
 	S.Grant(H)
 
 /datum/species/squid/on_species_loss(mob/living/carbon/human/H)
