@@ -70,8 +70,8 @@
 		mode = SSticker.mode
 	else if (GLOB.master_mode != "dynamic") // This is here to make roundstart forced ruleset function.
 		qdel(src)
-		
-    pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : (mode.pop_per_requirement > 0 ? mode.pop_per_requirement : 6) //sorry ike
+	
+	pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : (mode.pop_per_requirement > 0 ? mode.pop_per_requirement : 6) //sorry ike
 
 
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
