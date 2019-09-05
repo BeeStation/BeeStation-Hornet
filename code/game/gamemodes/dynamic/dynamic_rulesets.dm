@@ -92,6 +92,9 @@
 		return (threat_level >= high_population_requirement)
 	else
 		pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : mode.pop_per_requirement
+		if(pop_per_requirement == 0)
+			pop_per_requirement = 6
+			log_game("DYNAMIC: Error! Attempted to set pop_per_requirement to zero! Mode: [mode.name]. Mode's pop requirement: [mode.pop_per_requirement].")
 		var/indice_pop = min(10,round(population/pop_per_requirement)+1)
 		return (threat_level >= requirements[indice_pop])
 
