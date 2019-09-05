@@ -64,8 +64,8 @@
 
 /datum/action/innate/squid_change/Activate()
 	var/mob/living/carbon/human/H = owner
-	H.dna.species.fixed_mut_color = pick("FFA500", "B19CD9", "ADD8E6", "FFFF00", "551A8B", "0000FF",
-    "32CD32", "D3D3D3", "704214", "2956B2", "FAFAD2", "FF0000", "00FF00", "FF69B4", "FFD700",
+	H.dna.species.fixed_mut_color = pick("FFA500", "B19CD9", "ADD8E6", "551A8B", "0000FF",
+    "32CD32", "D3D3D3", "2956B2", "FF0000", "00FF00", "FF69B4", "FFD700", "F58B57", "5AC18E",
     "FFB6C1", "008B8B")
 	H.update_body()
 	cooldown = world.time + 50
