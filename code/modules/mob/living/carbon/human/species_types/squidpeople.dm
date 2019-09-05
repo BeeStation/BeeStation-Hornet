@@ -57,6 +57,9 @@
 	icon_icon = 'icons/mob/animal.dmi'
 	button_icon_state = "squid"
 	var/cooldown = 0
+	var/static/list/squid_colours = list("#FFA500", "#B19CD9", "#ADD8E6", "#FFFF00", "#551A8B", "#0000FF",
+    "#32CD32", "#D3D3D3", "#704214", "#2956B2", "#FAFAD2", "#FF0000", "#00FF00", "#FF69B4", "#FFD700",
+    "#505050", "#000000", "#FFB6C1", "#008B8B")
 
 /datum/action/innate/squid_change/IsAvailable()
     if(cooldown > world.time)
@@ -65,9 +68,6 @@
 
 /datum/action/innate/squid_change/Activate()
 	var/mob/living/carbon/human/H = owner
-	var/static/list/squid_colours = list("#FFA500", "#B19CD9", "#ADD8E6", "#FFFF00", "#551A8B", "#0000FF",
-    "#32CD32", "#D3D3D3", "#704214", "#2956B2", "#FAFAD2", "#FF0000", "#00FF00", "#FF69B4", "#FFD700",
-    "#505050", "#000000", "#FFB6C1", "#008B8B")
 	H.dna.features["mcolor"] = (pick(squid_colours))
 	H.update_body()
 	cooldown = world.time + 50
