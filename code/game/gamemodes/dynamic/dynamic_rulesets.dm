@@ -85,18 +85,17 @@
 /// By default, a rule is acceptable if it satisfies the threat level/population requirements.
 /// If your rule has extra checks, such as counting security officers, do that in ready() instead
 /datum/dynamic_ruleset/proc/acceptable(population = 0, threat_level = 0)
-	
 	pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : (mode.pop_per_requirement > 0 ? mode.pop_per_requirement : 6) //sorry ike
-
-    if(minimum_players > population)
-        return FALSE
-    if(maximum_players > 0 && population > maximum_players)
-        return FALSE
-    if (population >= GLOB.dynamic_high_pop_limit)
-        return (threat_level >= high_population_requirement)
-    else
-        var/indice_pop = min(10,round(population/pop_per_requirement)+1) //fuck
-        return (threat_level >= requirements[indice_pop])
+	
+	if(minimum_players > population)
+		return FALSE
+	if(maximum_players > 0 && population > maximum_players)
+		return FALSE
+	if (population >= GLOB.dynamic_high_pop_limit)
+		return (threat_level >= high_population_requirement)
+	else
+		var/indice_pop = min(10,round(population/pop_per_requirement)+1) //fuck
+		return (threat_level >= requirements[indice_pop])
 
 /// This is called if persistent variable is true everytime SSTicker ticks.
 /datum/dynamic_ruleset/proc/rule_process()
