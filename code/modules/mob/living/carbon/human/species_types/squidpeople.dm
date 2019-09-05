@@ -53,7 +53,7 @@
 /datum/action/innate/squid_change
 	name = "Color Change"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/animal.dmi'
+	icon_icon = 'icons/mob/actions.dmi'
 	button_icon_state = "squid"
 	var/cooldown = 0
 
