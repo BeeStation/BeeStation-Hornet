@@ -101973,9 +101973,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /turf/open/floor/engine,
@@ -101984,9 +101982,7 @@
 /obj/machinery/atmospherics/pipe/manifold/general/visible,
 /obj/machinery/meter,
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/engine,
@@ -101999,20 +101995,14 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
-	icon_state = "2-8"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -102022,9 +102012,7 @@
 	filter_type = "n2"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/engine,
@@ -102035,9 +102023,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/engine,
@@ -102049,9 +102035,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/engine,
@@ -102061,9 +102045,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/dark,
@@ -102075,9 +102057,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/engine,
@@ -102087,9 +102067,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/engine,
@@ -102102,9 +102080,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /turf/open/floor/engine,
@@ -102268,9 +102244,7 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating{
@@ -102281,11 +102255,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
 	},
@@ -102294,6 +102263,9 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -102403,9 +102375,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating{
@@ -102424,9 +102394,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating{
@@ -102452,16 +102420,12 @@
 /turf/open/floor/plating/airless,
 /area/engine/engineering)
 "cPq" = (
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
@@ -102469,12 +102433,10 @@
 	},
 /area/engine/engineering)
 "cPr" = (
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "cPs" = (
@@ -102489,26 +102451,20 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "cPu" = (
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "cPv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -102533,9 +102489,7 @@
 	network = list("ss13","engine")
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating{
@@ -102549,14 +102503,10 @@
 	state = 2
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /turf/open/floor/plating{
@@ -102797,14 +102747,10 @@
 	state = 2
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating,
@@ -102841,9 +102787,7 @@
 	network = list("ss13","engine")
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	cable_color = "white";
-	color = "#ffffff";
+/obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
 /turf/open/floor/plating{
@@ -102864,7 +102808,7 @@
 	state = 2
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white,
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "cQn" = (
@@ -102897,7 +102841,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white,
+/obj/structure/cable/yellow,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
