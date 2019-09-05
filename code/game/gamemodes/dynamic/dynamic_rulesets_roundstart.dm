@@ -377,6 +377,16 @@
 	return TRUE
 	
 /datum/dynamic_ruleset/roundstart/revs/rule_process()
+/datum/dynamic_ruleset/roundstart/revs/rule_process()
+	if(!revolution)
+		log_game("DYNAMIC: Something went horrifically wrong with [name] - and the antag datum could not be created. Notify coders.")
+		return
+	if(check_rev_victory())
+		finished = 1
+	else if(check_heads_victory())
+		finished = 2
+	return
+
 	if(check_rev_victory())
 		finished = 1
 	else if(check_heads_victory())
