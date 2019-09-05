@@ -4121,7 +4121,7 @@
 /obj/machinery/door/window/northleft{
 	name = "Medical Delivery Access";
 	dir = 4;
-	step_y = 1;
+	pixel_y = 1;
 	req_access_txt = "50"
 	},
 /turf/open/floor/plasteel/dark,
@@ -9455,7 +9455,7 @@
 /obj/machinery/door/window/northleft{
 	name = "Medical Delivery Access";
 	dir = 4;
-	step_y = 2;
+	pixel_y = 2;
 	req_access_txt = "50"
 	},
 /turf/open/floor/plasteel/showroomfloor,
@@ -21975,8 +21975,8 @@
 /obj/machinery/door/window/northleft{
 	name = "Cloning Delivery Access";
 	dir = 1;
-	step_x = 0;
-	step_y = 0;
+	pixel_x = 0;
+	pixel_y = 0;
 	req_access_txt = "50"
 	},
 /turf/open/floor/plasteel/showroomfloor,
@@ -26069,8 +26069,8 @@
 	name = "AI Satellite Exterior APC";
 	pixel_x = -30;
 	pixel_y = 1;
-	step_x = 0;
-	step_y = 0
+	pixel_x = 0;
+	pixel_y = 0
 	},
 /turf/open/floor/plasteel/dark,
 /area/aisat)
@@ -41949,7 +41949,7 @@
 /obj/machinery/door/window/westleft{
 	name = "Monkey Pen";
 	dir = 8;
-	step_y = 1;
+	pixel_y = 1;
 	pixel_y = 0;
 	req_access_txt = "9"
 	},
@@ -64809,13 +64809,13 @@
 "bMc" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1;
-	step_x = 11;
-	step_y = 15
+	pixel_x = 11;
+	pixel_y = 15
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1;
-	step_x = 0;
-	step_y = 0
+	pixel_x = 0;
+	pixel_y = 0
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -67397,8 +67397,8 @@
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1;
-	step_x = 0;
-	step_y = 0
+	pixel_x = 0;
+	pixel_y = 0
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -67723,8 +67723,8 @@
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1;
-	step_x = 0;
-	step_y = 0
+	pixel_x = 0;
+	pixel_y = 0
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
