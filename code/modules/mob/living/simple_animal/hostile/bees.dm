@@ -87,7 +87,7 @@
 	cut_overlays()
 
 	var/col = BEE_DEFAULT_COLOUR
-	if(beegent && beegent.color)
+	if(beegent?.color)
 		col = beegent.color
 
 	add_overlay("[icon_base]_base")

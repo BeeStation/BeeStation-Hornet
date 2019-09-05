@@ -34,7 +34,7 @@
 	desc = "Moves your camera to your blob core."
 
 /obj/screen/blob/JumpToCore/MouseEntered(location,control,params)
-	if(hud && hud.mymob && isovermind(hud.mymob))
+	if(hud?.mymob && isovermind(hud.mymob))
 		var/mob/camera/blob/B = hud.mymob
 		if(!B.placed)
 			name = "Place Blob Core"

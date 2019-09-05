@@ -41,7 +41,7 @@
 
 /datum/objective/crew/research/check_completion()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
-		if(S && S.files && S.files.known_designs)
+		if(S?.files?.known_designs)
 			if(targetdesign in S.files.known_designs)
 				return TRUE
 	return FALSE

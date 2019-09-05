@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	. = ..()
 	// Assign department security
 	var/department
-	if(M && M.client && M.client.prefs)
+	if(M?.client?.prefs)
 		department = M.client.prefs.prefered_security_department
 		if(!LAZYLEN(GLOB.available_depts) || department == "None")
 			return
@@ -113,6 +113,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	name = "Security Officer"
 	jobtype = /datum/job/officer
 
+	id = /obj/item/card/id/job/sec
 	belt = /obj/item/pda/security
 	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security

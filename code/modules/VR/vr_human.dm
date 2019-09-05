@@ -25,7 +25,7 @@
 	. = ..()
 	if(real_mind)
 		var/mob/living/real_me = real_mind.current
-		if (real_me && real_me.stat == CONSCIOUS)
+		if (real_me?.stat == CONSCIOUS)
 			return
 		revert_to_reality(FALSE)
 

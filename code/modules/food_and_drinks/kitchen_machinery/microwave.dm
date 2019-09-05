@@ -306,16 +306,16 @@
 /obj/machinery/microwave/proc/loop_finish()
 	operating = FALSE
 
-	var/metal = 0
+	var/iron = 0
 	for(var/obj/item/O in ingredients)
 		O.microwave_act(src)
-		if(O.materials[MAT_METAL])
-			metal += O.materials[MAT_METAL]
+		if(O.materials[/datum/material/iron])
+			iron += O.materials[/datum/material/iron]
 
-	if(metal)
+	if(iron)
 		spark()
 		broken = 2
-		if(prob(max(metal / 2, 33)))
+		if(prob(max(iron / 2, 33)))
 			explosion(loc, 0, 1, 2)
 	else
 		dropContents(ingredients)

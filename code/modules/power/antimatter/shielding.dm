@@ -54,7 +54,7 @@
 
 	//Search for shielding first
 	for(var/obj/machinery/am_shielding/AMS in cardinalrange(src))
-		if(AMS && AMS.control_unit && link_control(AMS.control_unit))
+		if(AMS?.control_unit && link_control(AMS.control_unit))
 			break
 
 	if(!control_unit)//No other guys nearby look for a control unit
@@ -243,7 +243,7 @@
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2
-	materials = list(MAT_METAL=100)
+	materials = list(/datum/material/iron=100)
 
 /obj/item/am_shielding_container/multitool_act(mob/living/user, obj/item/I)
 	if(isturf(loc))

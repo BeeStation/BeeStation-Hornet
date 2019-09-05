@@ -1,6 +1,6 @@
-//////////////////////////////////////////////////////////
+//------------------------------------------------------//
 //A bunch of helpers to make genetics less of a headache//
-//////////////////////////////////////////////////////////
+//------------------------------------------------------//
 
 #define GET_INITIALIZED_MUTATION(A) GLOB.all_mutations[A]
 #define GET_GENE_STRING(A, B) (B.mutation_index[A])

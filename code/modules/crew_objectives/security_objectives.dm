@@ -14,7 +14,7 @@
 	explanation_text = "Enforce Space Law to the best of your ability, and survive. [pick(edglines)]"
 
 /datum/objective/crew/enjoyyourstay/check_completion()
-	if(owner && owner.current)
+	if(owner?.current)
 		if(owner.current.stat != DEAD)
 			return TRUE
 	return FALSE

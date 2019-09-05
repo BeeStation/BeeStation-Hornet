@@ -61,7 +61,7 @@ BONUS
 			M.emote("cough")
 			if(power >= 1.5)
 				var/obj/item/I = M.get_active_held_item()
-				if(I && I.w_class == WEIGHT_CLASS_TINY)
+				if(I?.w_class == WEIGHT_CLASS_TINY)
 					M.dropItemToGround(I)
 			if(power >= 2 && prob(10))
 				to_chat(M, "<span notice='userdanger'>[pick("You have a coughing fit!", "You can't stop coughing!")]</span>")

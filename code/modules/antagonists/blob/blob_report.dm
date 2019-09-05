@@ -70,3 +70,4 @@
 	output += (result.grille / max(grille,1))
 	output += (result.mach / max(mach,1))
 	return (output/7)
+

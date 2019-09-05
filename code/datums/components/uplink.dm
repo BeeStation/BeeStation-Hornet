@@ -240,7 +240,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 /datum/component/uplink/proc/new_ringtone(datum/source, mob/living/user, new_ring_text)
 	var/obj/item/pda/master = parent
 	if(trim(lowertext(new_ring_text)) != trim(lowertext(unlock_code)))
-		if(trim(lowertext(new_ring_text)) == trim(lowertext(failsafe_code)))
+		if(failsafe_code && trim(lowertext(new_ring_text)) == trim(lowertext(failsafe_code)))
 			failsafe()
 			return COMPONENT_STOP_RINGTONE_CHANGE
 		return

@@ -72,6 +72,7 @@
 	yield = 4
 	growthstages = 3
 	reagents_add = list(/datum/reagent/consumable/sugar = 0.25)
+	mutatelist = list(/obj/item/seeds/bamboo)
 
 /obj/item/reagent_containers/food/snacks/grown/sugarcane
 	seed = /obj/item/seeds/sugarcane
@@ -156,15 +157,3 @@
 	playsound(src, 'sound/effects/fuse.ogg', seed.potency, 0)
 	reagents.chem_temp = 1000 //Sets off the black powder
 	reagents.handle_reactions()
-
-// Lavaland cactus
-
-/obj/item/seeds/lavaland/cactus
-	name = "pack of fruiting cactus seeds"
-	desc = "These seeds grow into fruiting cacti."
-	icon_state = "seed-cactus"
-	species = "cactus"
-	plantname = "Fruiting Cactus"
-	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit
-	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
-	growthstages = 2

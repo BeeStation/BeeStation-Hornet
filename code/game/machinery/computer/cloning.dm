@@ -258,7 +258,7 @@
 
 				dat += "</span><br />"
 
-				if(diskette && diskette.fields)
+				if(diskette?.fields)
 					dat += "<div class='block'>"
 					dat += "<h4>Inserted Disk</h4>"
 					dat += "<b>Contents:</b> "
@@ -526,9 +526,14 @@
 			has_bank_account = I.registered_account
 	if(isbrain(mob_occupant))
 		dna = B.stored_dna
+	
 
 	if(!istype(dna))
 		scantemp = "<font class='bad'>Unable to locate valid genetic data.</font>"
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+		return
+	if(NO_DNA_COPY in dna.species.species_traits)
+		scantemp = "<font class='bad'>The DNA of this lifeform could not be read due to an unknown error!</font>"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
 	if(mob_occupant.suiciding || mob_occupant.hellbound)

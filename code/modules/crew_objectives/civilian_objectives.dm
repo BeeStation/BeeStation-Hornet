@@ -23,7 +23,7 @@
 
 /datum/objective/crew/druglordbot/check_completion()
 	var/pillcount = target_amount
-	if(owner && owner.current)
+	if(owner?.current)
 		if(owner.current.contents)
 			for(var/obj/item/reagent_containers/food/snacks/grown/P in owner.current.get_contents())
 				if(P.reagents.has_reagent(targetchem))
@@ -156,7 +156,7 @@
 
 /datum/objective/crew/slipster/check_completion()
 	var/list/uniqueslips = list()
-	if(owner && owner.current)
+	if(owner?.current)
 		for(var/obj/item/pda/clown/PDA in owner.current.get_contents())
 			for(var/mob/living/carbon/human/H in PDA.slipvictims)
 				uniqueslips |= H
@@ -180,7 +180,7 @@
 
 /datum/objective/crew/shoethief/check_completion()
 	var/list/shoes = list()
-	if(owner && owner.current)
+	if(owner?.current)
 		for(var/obj/item/clothing/shoes/S in owner.current.get_contents())
 			if(!istype(S, /obj/item/clothing/shoes/clown_shoes))
 				shoes |= S
@@ -193,7 +193,7 @@
 	jobs = "mime"
 
 /datum/objective/crew/vow/check_completion()
-	if(owner && owner.current)
+	if(owner?.current)
 		var/list/say_log = owner.current.logging[INDIVIDUAL_SAY_LOG]
 		if(say_log.len > 0)
 			return FALSE
@@ -213,7 +213,7 @@
 	jobs = "chaplain"
 
 /datum/objective/crew/nullrod/check_completion()
-	if(owner && owner.current)
+	if(owner?.current)
 		for(var/nullrodtypes in typesof(/obj/item/nullrod))
 			if(owner.current.check_contents_for(nullrodtypes))
 				return TRUE
@@ -235,7 +235,7 @@
 	explanation_text = "Publish at least [target_amount] articles containing at least [charcount] characters."
 
 /datum/objective/crew/reporter/check_completion()
-	if(owner && owner.current)
+	if(owner?.current)
 		var/ownername = "[ckey(owner.current.real_name)][ckey(owner.assigned_role)]"
 		for(var/datum/newscaster/feed_channel/chan in GLOB.news_network.network_channels)
 			for(var/datum/newscaster/feed_message/msg in chan.messages)
@@ -265,7 +265,7 @@
 	explanation_text = "Get your grubby hands on a [initial(targettidegarb.name)]."
 
 /datum/objective/crew/pwrgame/check_completion()
-	if(owner && owner.current)
+	if(owner?.current)
 		for(var/tidegarbtypes in typesof(targettidegarb))
 			if(owner.current.check_contents_for(tidegarbtypes))
 				return TRUE
@@ -277,7 +277,7 @@
 	jobs = "assistant"
 
 /datum/objective/crew/promotion/check_completion()
-	if(owner && owner.current)
+	if(owner?.current)
 		var/mob/living/carbon/human/H = owner.current
 		var/obj/item/card/id/theID = H.get_idcard()
 		if(istype(theID))
@@ -290,7 +290,7 @@
 	jobs = "lawyer"
 
 /datum/objective/crew/justicecrew/check_completion()
-	if(owner && owner.current)
+	if(owner?.current)
 		for(var/datum/mind/M in SSticker.minds)
 			if(M.current && isliving(M.current))
 				if(!M.special_role && !(M.assigned_role == "Security Officer") && !(M.assigned_role == "Detective") && !(M.assigned_role == "Head of Security") && !(M.assigned_role == "Internal Affairs Agent") && !(M.assigned_role == "Warden") && get_area(M.current) != typesof(/area/security/prison))

@@ -1,5 +1,6 @@
 <h1 align="center">BeeStation 13 Codebase</h1>
 
+
 [![forthebadge](https://forthebadge.com/images/badges/built-with-resentment.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/contains-technical-debt.svg)](https://user-images.githubusercontent.com/8171642/50290880-ffef5500-043a-11e9-8270-a2e5b697c86c.png) [![forinfinityandbyond](https://user-images.githubusercontent.com/5211576/29499758-4efff304-85e6-11e7-8267-62919c3688a9.gif)](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a)
 [![Build Status](https://travis-ci.com/BeeStation/BeeStation-Hornet.svg?branch=master)](https://travis-ci.com/BeeStation/BeeStation-Hornet)
 
@@ -97,8 +98,7 @@ https://github.com/tgstation/tgstation-server
 
 ## MAPS
 
-BeeStation currently comes equipped with these
-maps.
+BeeStation currently comes equipped with these maps.
 
 * [DeltaStation (default)](https://tgstation13.org/wiki/DeltaStation)
 * [BoxStation](https://tgstation13.org/wiki/Boxstation)
@@ -170,4 +170,5 @@ All assets including icons and sound are under a [Creative Commons 3.0 BY-SA lic
 # Other Codebase Credits
 - /tg/, for the codebase.
 - CEV Eris, for the PDA sprites
-
+- TGMC, for the custom keybinds base
+- Citadel, for their beautiful lighting

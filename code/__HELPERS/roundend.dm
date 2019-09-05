@@ -11,7 +11,7 @@
 	var/num_escapees = 0
 	var/num_shuttle_escapees = 0
 	var/list/area/shuttle_areas
-	if(SSshuttle && SSshuttle.emergency)
+	if(SSshuttle?.emergency)
 		shuttle_areas = SSshuttle.emergency.shuttle_areas
 	for(var/mob/m in GLOB.mob_list)
 		var/escaped
@@ -185,11 +185,6 @@
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	set waitfor = FALSE
 
-	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
-	log_game("The round has ended.")
-	if(LAZYLEN(GLOB.round_end_notifiees))
-		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
-
 	for(var/I in round_end_events)
 		var/datum/callback/cb = I
 		cb.InvokeAsync()
@@ -197,20 +192,25 @@
 
 	for(var/client/C in GLOB.clients)
 		if(C)
-			if(!C.credits)
-				C.RollCredits()
+
 			C.playtitlemusic(40)
 
-			C.process_endround_beecoins()
+			C.process_endround_metacoin()
 
 			if(CONFIG_GET(flag/allow_crew_objectives))
 				var/mob/M = C.mob
 				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
 					for(var/datum/objective/crew/CO in M.mind.crew_objectives)
 						if(CO.check_completion())
-							C.inc_beecoin_count(BEECOIN_CO_REWARD)
+							C.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
 							break
 
+	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
+	log_game("The round has ended.")
+	if(LAZYLEN(GLOB.round_end_notifiees))
+		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
+	
+	RollCredits()
 
 	var/popcount = gather_roundend_feedback()
 	display_report(popcount)
@@ -262,6 +262,9 @@
 
 	//stop collecting feedback during grifftime
 	SSblackbox.Seal()
+
+	if(CONFIG_GET(flag/automapvote))
+		SSvote.initiate_vote("map", "BeeBot", forced=TRUE) //automatic map voting
 
 	sleep(50)
 	ready_for_reboot = TRUE

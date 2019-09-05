@@ -1,6 +1,6 @@
-//////////////////////////
-/////Initial Building/////
-//////////////////////////
+//----------------------//
+//   Initial Building   //
+//----------------------//
 
 /proc/make_datum_references_lists()
 	//hair
@@ -20,6 +20,8 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails_animated/human, GLOB.animated_tails_list_human)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/snouts, GLOB.snouts_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/screen, GLOB.ipc_screens_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/antenna, GLOB.ipc_antennas_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/horns,GLOB.horns_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ears, GLOB.ears_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.wings_list)
@@ -42,15 +44,8 @@
 	for(var/path in subtypesof(/datum/surgery))
 		GLOB.surgeries_list += new path()
 
-	//Materials
-	for(var/path in subtypesof(/datum/material))
-		var/datum/material/D = new path()
-		GLOB.materials_list[D.id] = D
+	GLOB.emote_list = init_emote_list()
 
-	//Emotes
-	for(var/path in subtypesof(/datum/emote))
-		var/datum/emote/E = new path()
-		E.emote_list[E.key] = E
 
 
 	// Keybindings

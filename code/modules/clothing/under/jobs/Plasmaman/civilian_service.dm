@@ -49,7 +49,7 @@
 	item_color = "janitor_envirosuit"
 
 /obj/item/clothing/under/plasmaman/botany
-	name = "botany envirosuit"
+	name = "botany plasma envirosuit"
 	desc = "A green and blue envirosuit designed to protect plasmamen from minor plant-related injuries."
 	icon_state = "botany_envirosuit"
 	item_state = "botany_envirosuit"

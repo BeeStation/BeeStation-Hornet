@@ -131,6 +131,9 @@
 	last_death = world.time
 
 /datum/mind/proc/store_memory(new_text)
+	var/newlength = length(memory) + length(new_text)
+	if (newlength > MAX_MESSAGE_LEN * 100)
+		memory = copytext(memory, -newlength-MAX_MESSAGE_LEN * 100)
 	memory += "[new_text]<BR>"
 
 /datum/mind/proc/wipe_memory()
@@ -274,7 +277,7 @@
 
 	var/obj/item/uplink_loc
 
-	if(traitor_mob.client && traitor_mob.client.prefs)
+	if(traitor_mob.client?.prefs)
 		switch(traitor_mob.client.prefs.uplink_spawn_loc)
 			if(UPLINK_PDA)
 				uplink_loc = PDA

@@ -1806,7 +1806,7 @@
 /area/construction/mining/aux_base)
 "ahc" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass{
 	amount = 30
 	},
@@ -4234,6 +4234,9 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/fore)
@@ -7014,6 +7017,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 10
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "arA" = (
@@ -7217,6 +7223,9 @@
 	},
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/three,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "arV" = (
@@ -17782,6 +17791,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 10
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
 "aKi" = (
@@ -17885,7 +17897,7 @@
 /obj/item/stack/sheet/glass{
 	amount = 30
 	},
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 30
 	},
 /obj/item/stack/cable_coil/random,
@@ -28600,6 +28612,9 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "baM" = (
@@ -35784,8 +35799,8 @@
 /area/engine/atmos)
 "bmY" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/grenade/chem_grenade/smart_metal_foam,
 /obj/item/grenade/chem_grenade/smart_metal_foam,
 /obj/machinery/newscaster{
@@ -48595,6 +48610,9 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 10
+	},
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
 "bGl" = (
@@ -54060,7 +54078,7 @@
 /area/maintenance/port/fore)
 "bOp" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 30
 	},
 /obj/item/stack/sheet/glass{
@@ -55580,7 +55598,7 @@
 /area/storage/tools)
 "bQZ" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/rods/fifty,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -61890,7 +61908,7 @@
 /area/ai_monitored/security/armory)
 "bZZ" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 20
@@ -69061,7 +69079,7 @@
 "clB" = (
 /obj/item/stack/rods/fifty,
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/target,
 /obj/item/target/syndicate,
 /obj/item/target/alien,
@@ -74470,7 +74488,7 @@
 /area/maintenance/port)
 "cve" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 30
 	},
 /obj/item/stack/sheet/glass{
@@ -75541,7 +75559,7 @@
 /area/gateway)
 "cwW" = (
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/rods{
 	amount = 25
 	},
@@ -76069,8 +76087,8 @@
 /area/engine/storage)
 "cxM" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/crowbar,
@@ -79154,7 +79172,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 26
 	},
-/obj/item/stack/sheet/metal/five,
+/obj/item/stack/sheet/iron/five,
 /obj/item/circuitboard/machine/paystand,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
@@ -80261,7 +80279,7 @@
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "cEB" = (
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/wrench,
 /obj/structure/extinguisher_cabinet{
@@ -91541,7 +91559,7 @@
 /area/science/research)
 "cXC" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/packageWrap,
 /obj/machinery/light,
@@ -91913,6 +91931,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
 	},
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
@@ -93587,7 +93608,7 @@
 /area/science/lab)
 "daW" = (
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/wrench,
 /obj/item/clothing/glasses/welding,
@@ -93596,6 +93617,9 @@
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
@@ -98637,6 +98661,7 @@
 "djo" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plating,
 /area/science/research/abandoned)
 "djp" = (
@@ -103048,7 +103073,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 30
 	},
 /obj/item/stack/packageWrap,
@@ -104607,7 +104632,7 @@
 /area/science/research/abandoned)
 "dut" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/assembly/flash/handheld,
 /obj/effect/turf_decal/bot,
@@ -105530,6 +105555,7 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/bot,
+/obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plasteel,
 /area/science/research/abandoned)
 "dwa" = (
@@ -107590,9 +107616,9 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
 "dzF" = (
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/structure/table/reinforced,
 /obj/machinery/requests_console{
@@ -109653,6 +109679,7 @@
 /obj/item/stack/cable_coil/white,
 /obj/item/flashlight/seclite,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plating,
 /area/science/research/abandoned)
 "dDh" = (
@@ -111739,6 +111766,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
 "dGC" = (
@@ -113632,7 +113662,7 @@
 "dJL" = (
 /obj/item/stack/rods/fifty,
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/target,
 /obj/item/target/syndicate,
 /obj/item/target/alien,
@@ -114502,6 +114532,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
 	},
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
@@ -117627,7 +117660,7 @@
 "dQG" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 30
 	},
 /obj/item/stack/sheet/glass{
@@ -124532,7 +124565,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "edJ" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 30
 	},
 /obj/item/stack/sheet/glass/fifty,
@@ -127736,6 +127769,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plasteel,
 /area/science/research/abandoned)
 "qcx" = (
@@ -127870,7 +127904,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/stack/sheet/metal{
+/obj/item/stack/sheet/iron{
 	amount = 30
 	},
 /obj/item/stack/sheet/glass{

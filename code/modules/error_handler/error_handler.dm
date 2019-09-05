@@ -58,7 +58,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	var/configured_error_cooldown
 	var/configured_error_limit
 	var/configured_error_silence_time
-	if(config && config.entries)
+	if(config?.entries)
 		configured_error_cooldown = CONFIG_GET(number/error_cooldown)
 		configured_error_limit = CONFIG_GET(number/error_limit)
 		configured_error_silence_time = CONFIG_GET(number/error_silence_time)

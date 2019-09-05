@@ -84,7 +84,7 @@
 		var/obj/item/organ/zombie_infection/ZI = L.getorganslot(ORGAN_SLOT_ZOMBIE)
 		if(ZI)
 			brainmob.set_species(ZI.old_species)	//For if the brain is cloned
-	if(L.mind && L.mind.current)
+	if(L.mind?.current)
 		L.mind.transfer_to(brainmob)
 	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a brain.</span>")
 
@@ -218,6 +218,11 @@
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
 
+/obj/item/organ/brain/positron
+	name = "positronic brain"
+	desc = "A positronic brain used in production of silicon-based lifeforms."
+	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "posibrain-occupied"
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 

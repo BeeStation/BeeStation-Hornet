@@ -5,6 +5,7 @@
 	icon_deny = "modularpc-deny"
 	product_ads = "Get your gamer gear!;The best GPUs for all of your space-crypto needs!;The most robust cooling!;The finest RGB in space!"
 	vend_reply = "Game on!"
+	light_color = LIGHT_COLOR_WHITE
 	products = list(/obj/item/modular_computer/laptop = 4,
 					/obj/item/modular_computer/tablet = 4,
 					/obj/item/computer_hardware/hard_drive = 4,
