@@ -43,8 +43,7 @@
 
 /datum/species/squid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.grant_language(/datum/language/rlyehian)
-	var/datum/action/innate/squid_change/S = locate(/datum/action/innate/squid_change) in H.actions
-	S?.Remove(H)
+	var/datum/action/innate/squid_change/S = new
 	S.Grant(H)
 
 /datum/species/squid/on_species_loss(mob/living/carbon/human/H)
@@ -57,9 +56,6 @@
 	icon_icon = 'icons/mob/animal.dmi'
 	button_icon_state = "squid"
 	var/cooldown = 0
-	var/static/list/squid_colours = list("#FFA500", "#B19CD9", "#ADD8E6", "#FFFF00", "#551A8B", "#0000FF",
-    "#32CD32", "#D3D3D3", "#704214", "#2956B2", "#FAFAD2", "#FF0000", "#00FF00", "#FF69B4", "#FFD700",
-    "#505050", "#000000", "#FFB6C1", "#008B8B")
 
 /datum/action/innate/squid_change/IsAvailable()
     if(cooldown > world.time)
@@ -68,7 +64,9 @@
 
 /datum/action/innate/squid_change/Activate()
 	var/mob/living/carbon/human/H = owner
-	H.dna.features["mcolor"] = (pick(squid_colours))
+	H.dna.species.fixed_mut_color = pick("FFA500", "B19CD9", "ADD8E6", "FFFF00", "551A8B", "0000FF",
+    "32CD32", "D3D3D3", "704214", "2956B2", "FAFAD2", "FF0000", "00FF00", "FF69B4", "FFD700",
+    "FFB6C1", "008B8B")
 	H.update_body()
 	cooldown = world.time + 50
 	active = TRUE
