@@ -343,6 +343,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		rule.mode = src
 		rule.candidates = candidates.Copy()
 		rule.trim_candidates()
+		rule.pop_per_requirement = rule.pop_per_requirement > 0 ? rule.pop_per_requirement : (SSticker.mode.pop_per_requirement > 0 ? SSticker.mode.pop_per_requirement : 6) //i hate myself for this
 		if (rule.ready(TRUE))
 			picking_roundstart_rule(list(rule), forced = TRUE)
 
