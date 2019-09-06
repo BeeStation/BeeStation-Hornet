@@ -142,7 +142,6 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 			if(is_role && !invert || !is_role && invert)
 				possible_targets += possible_target
-
 	if(length(possible_targets))
 		target = pick(possible_targets)
 	update_explanation_text()
