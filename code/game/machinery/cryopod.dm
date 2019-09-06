@@ -255,34 +255,35 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/cryopod/proc/despawn_occupant()
 	var/mob/living/mob_occupant = occupant
 
-	if(istype(SSticker.mode, /datum/game_mode/cult))//thank
-		if(("sacrifice" in SSticker.mode.cult_objectives) && (GLOB.sac_mind == mob_occupant.mind))
+	if(istype(SSticker.mode, /datum/game_mode/cult))
+		if(GLOB.sac_mind == mob_occupant.mind)
 			var/list/possible_targets = list()
+			// Compile list of targets
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
 				if(H.mind && !is_convertable_to_cult(H) && !iscultist(H))
 					possible_targets += H.mind
-
 			possible_targets -= mob_occupant.mind
+			// No targets? Tell admins
 			if(!possible_targets.len)
 				message_admins("Cult Sacrifice: Could not find unconvertable target, checking for convertable target.")
 				for(var/mob/living/carbon/human/player in GLOB.player_list)
 					if(player.mind && !iscultist(player))
 						possible_targets += player.mind
-
+			// Select from possible targets
 			if(possible_targets.len > 0)
 				GLOB.sac_mind = pick(possible_targets)
 				if(!GLOB.sac_mind)
 					message_admins("Cult Sacrifice: ERROR -  Null target chosen!")
 				else
-					var/datum/job/sacjob = GLOB.sac_mind_role
-					var/datum/preferences/sacface = GLOB.sac_mind_prefs
+					var/datum/job/sacjob = SSjob.GetJob(GLOB.sac_mind.assigned_role)
+					var/datum/preferences/sacface = GLOB.sac_mind.current.client.prefs
 					var/icon/reshape = get_flat_human_icon(null, sacjob, sacface)
 					reshape.Shift(SOUTH, 4)
 					reshape.Shift(EAST, 1)
 					reshape.Crop(7,4,26,31)
 					reshape.Crop(-5,-3,26,30)
-					GLOB.sac__mind_image = reshape
-					for(var/datum/mind/H in SSticker.mode.cult)
+					GLOB.sac_image = reshape
+					for(var/datum/mind/H in /datum/antagonist/cult)
 						if(H.current)
 							to_chat(H.current, "<span class='danger'>Nar'Sie</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [GLOB.sac_mind] instead...</span></span>")
 
@@ -370,7 +371,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	// Ghost and delete the mob.
 	if(!mob_occupant.get_ghost(1))
-		if(world.time < 30 * 600)//before the 30 minute mark
+		if(world.time < 20 * 600)//before the 20 minute mark
 			mob_occupant.ghostize(0) // Players despawned too early may not re-enter the game
 		else
 			mob_occupant.ghostize(1)
@@ -408,7 +409,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			alert("You're a Head of Staff![generic_plsnoleave_message]")
 			caught = TRUE
 		if(iscultist(target) || is_servant_of_ratvar(target))
-			to_chat(target, "You're a Cultist![generic_plsnoleave_message]")
+			alert("You're a Cultist![generic_plsnoleave_message]")
 			caught = TRUE
 		if(isovermind(target))
 			alert("You're a Blob![generic_plsnoleave_message]")
@@ -416,22 +417,15 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(is_devil(target))
 			alert("You're a Devil![generic_plsnoleave_message]")
 			caught = TRUE
-		if(istype(SSticker.mode, /datum/game_mode/gang))
-			var/datum/game_mode/gang/G = SSticker.mode
-			if(target.mind in G.gang.leaders)
-				alert("You're a Gang Boss![generic_plsnoleave_message]")
-				caught = TRUE
-			else if(target.mind in G.gang)
-				alert("You're a Gangster![generic_plsnoleave_message]")
-				caught = TRUE
-		if(istype(SSticker.mode, /datum/game_mode/revolution))
-			var/datum/game_mode/revolution/G = SSticker.mode
-			if(target.mind in G.head_revolutionaries)
-				alert("You're a Head Revolutionary![generic_plsnoleave_message]")
-				caught = TRUE
-			else if(target.mind in G.revolutionaries)
-				alert("You're a Revolutionary![generic_plsnoleave_message]")
-				caught = TRUE
+		if(is_gangster(target) || is_gang_boss(target))
+			alert("You're a Gangster![generic_plsnoleave_message]")
+			caught = TRUE
+		if(is_revolutionary(target) || is_head_revolutionary(target))
+			alert("You're a Revolutionary![generic_plsnoleave_message]")
+			caught = TRUE
+		if(is_nuclear_operative(target))
+			alert("You're a Nuclear Operative![generic_plsnoleave_message]")
+			caught = TRUE
 
 		if(caught)
 			target.client.cryo_warned = world.time
