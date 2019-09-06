@@ -1,8 +1,4 @@
 #define SUMMON_POSSIBILITIES 3
-GLOBAL_LIST_EMPTY(sac_mind) // Sacrifice targets
-GLOBAL_LIST_EMPTY(sac_mind_role)
-GLOBAL_LIST_EMPTY(sac_mind_prefs)
-GLOBAL_LIST_EMPTY(sac_mind_image)
 
 /datum/antagonist/cult
 	name = "Cultist"
@@ -315,23 +311,20 @@ GLOBAL_LIST_EMPTY(sac_mind_image)
 				target_candidates += player.mind
 	listclearnulls(target_candidates)
 	if(LAZYLEN(target_candidates))
-		sac_objective.target = pick(target_candidates)
-		sac_objective.update_explanation_text()
-		var/datum/job/sacjob = SSjob.GetJob(sac_objective.target.assigned_role)
-		var/datum/preferences/sacface = sac_objective.target.current.client.prefs
-		var/icon/reshape = get_flat_human_icon(null, sacjob, sacface, list(SOUTH))
-		reshape.Shift(SOUTH, 4)
-		reshape.Shift(EAST, 1)
-		reshape.Crop(7,4,26,31)
-		reshape.Crop(-5,-3,26,30)
-		sac_objective.sac_image = reshape
-		// Messy, adds these to global. We could probably create a proc here to return these values instead
-		GLOB.sac_mind = sac_objective.target
-		GLOB.sac_mind_role = sacjob
-		GLOB.sac_mind_prefs = sacface
-		GLOB.sac_mind_image = sac_objective.sac_image
-
-		objectives += sac_objective
+		GLOB.sac_mind = pick(target_candidates)
+		if(!GLOB.sac_mind)
+			message_admins("Cult Sacrifice: ERROR -  Null target chosen!")
+		else
+			sac_objective.update_explanation_text()
+			var/datum/job/sacjob = SSjob.GetJob(GLOB.sac_mind.assigned_role)
+			var/datum/preferences/sacface = GLOB.sac_mind.current.client.prefs
+			var/icon/reshape = get_flat_human_icon(null, sacjob, sacface)
+			reshape.Shift(SOUTH, 4)
+			reshape.Shift(EAST, 1)
+			reshape.Crop(7,4,26,31)
+			reshape.Crop(-5,-3,26,30)
+			GLOB.sac_image = reshape
+			objectives += sac_objective
 	else
 		message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. WELP!")
 
