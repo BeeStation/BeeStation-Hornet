@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(gangs)
 	return M.mind?.has_antag_datum(/datum/antagonist/gang)
 
 /proc/is_gang_boss(mob/M)
-	return M && istype(M) && M.mind && M.mind.has_antag_datum(/datum/antagonist/gang/boss)
+	return M.mind?.has_antag_datum(/datum/antagonist/gang/boss)
 
 
 /datum/game_mode/gang/generate_credit_text()
