@@ -315,7 +315,7 @@
 		if(!GLOB.sac_mind)
 			message_admins("Cult Sacrifice: ERROR -  Null target chosen!")
 		else
-			sac_objective.target = Glob.sac_mind // Converts to Beecode
+			sac_objective.target = GLOB.sac_mind // Converts to Beecode
 			sac_objective.update_explanation_text()
 			var/datum/job/sacjob = SSjob.GetJob(GLOB.sac_mind.assigned_role)
 			var/datum/preferences/sacface = GLOB.sac_mind.current.client.prefs

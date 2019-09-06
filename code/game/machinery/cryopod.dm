@@ -257,43 +257,17 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	if(istype(SSticker.mode, /datum/game_mode/cult))
 		if(GLOB.sac_mind == mob_occupant.mind)
-			var/list/possible_targets = list()
-			// Compile list of targets
-			for(var/mob/living/carbon/human/H in GLOB.player_list)
-				if(H.mind && !is_convertable_to_cult(H) && !iscultist(H))
-					possible_targets += H.mind
-			possible_targets -= mob_occupant.mind
-			// No targets? Tell admins
-			if(!possible_targets.len)
-				message_admins("Cult Sacrifice: Could not find unconvertable target, checking for convertable target.")
-				for(var/mob/living/carbon/human/player in GLOB.player_list)
-					if(player.mind && !iscultist(player))
-						possible_targets += player.mind
-			// Select from possible targets
-			if(possible_targets.len > 0)
-				GLOB.sac_mind = pick(possible_targets)
-				if(!GLOB.sac_mind)
-					message_admins("Cult Sacrifice: ERROR -  Null target chosen!")
-				else
-					// I need to update cult objectives here
-					// I need to update cult obj explanation here
-					var/datum/job/sacjob = SSjob.GetJob(GLOB.sac_mind.assigned_role)
-					var/datum/preferences/sacface = GLOB.sac_mind.current.client.prefs
-					var/icon/reshape = get_flat_human_icon(null, sacjob, sacface)
-					reshape.Shift(SOUTH, 4)
-					reshape.Shift(EAST, 1)
-					reshape.Crop(7,4,26,31)
-					reshape.Crop(-5,-3,26,30)
-					GLOB.sac_image = reshape
-					for(var/datum/antagonist/cult/H in GLOB.antagonists)
-						if(H.current)
-							to_chat(H.current, "<span class='danger'>Nar'Sie</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [GLOB.sac_mind] instead...</span></span>")
+			for(var/datum/antagonist/cult/H in GLOB.antagonists)
+				if(H.current)
+					to_chat(H.current, "<span class='danger'>Nar'Sie</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [GLOB.sac_mind] instead...</span></span>")
+			var/datum/team/cult/C
+			C.setup_objectives()
 
 	//Update any existing objectives involving this mob.
 	for(var/datum/objective/O in GLOB.objectives)
 		// We don't want revs to get objectives that aren't for heads of staff. Letting
 		// them win or lose based on cryo is silly so we remove the objective.
-		if(istype(O,/datum/objective/mutiny) && O.target == mob_occupant.mind)
+		if(istype(O,/datum/objective/revolution) && O.target == mob_occupant.mind)
 			qdel(O)
 		else if(O.target && istype(O.target, /datum/mind))
 			if(O.target == mob_occupant.mind)
