@@ -139,7 +139,6 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			else
 				if(possible_target.assigned_role == role)
 					is_role = TRUE
-
 			if(is_role && !invert || !is_role && invert)
 				possible_targets += possible_target
 	if(length(possible_targets))
