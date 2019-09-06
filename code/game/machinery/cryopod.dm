@@ -275,6 +275,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 				if(!GLOB.sac_mind)
 					message_admins("Cult Sacrifice: ERROR -  Null target chosen!")
 				else
+					// I need to update cult objectives here
+					// I need to update cult obj explanation here
 					var/datum/job/sacjob = SSjob.GetJob(GLOB.sac_mind.assigned_role)
 					var/datum/preferences/sacface = GLOB.sac_mind.current.client.prefs
 					var/icon/reshape = get_flat_human_icon(null, sacjob, sacface)

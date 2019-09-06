@@ -312,11 +312,10 @@
 	listclearnulls(target_candidates)
 	if(LAZYLEN(target_candidates))
 		GLOB.sac_mind = pick(target_candidates)
-		sac_objective.target = Glob.sac_mind // Converts to Beecode
-		sac_objective.update_explanation_text()
 		if(!GLOB.sac_mind)
 			message_admins("Cult Sacrifice: ERROR -  Null target chosen!")
 		else
+			sac_objective.target = Glob.sac_mind // Converts to Beecode
 			sac_objective.update_explanation_text()
 			var/datum/job/sacjob = SSjob.GetJob(GLOB.sac_mind.assigned_role)
 			var/datum/preferences/sacface = GLOB.sac_mind.current.client.prefs
