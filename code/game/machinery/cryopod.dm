@@ -283,7 +283,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 					reshape.Crop(7,4,26,31)
 					reshape.Crop(-5,-3,26,30)
 					GLOB.sac_image = reshape
-					for(var/datum/mind/H in /datum/antagonist/cult)
+					for(var/datum/antagonist/cult/H in GLOB.antagonists)
 						if(H.current)
 							to_chat(H.current, "<span class='danger'>Nar'Sie</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [GLOB.sac_mind] instead...</span></span>")
 
