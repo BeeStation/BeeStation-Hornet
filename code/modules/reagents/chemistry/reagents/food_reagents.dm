@@ -319,12 +319,12 @@
 		return
 	if(M.has_bane(BANE_SALT))
 		M.mind.disrupt_spells(-200)
-	if(method==INGEST && is_species(M, /datum/species/squid))
+	if(method == INGEST && is_species(M, /datum/species/squid))
 		to_chat(M, "<span class='danger'>Your tongue shrivels as you taste the salt! It burns!</span>")
 		if(prob(25))
 			M.emote("scream")
 		M.adjustFireLoss(5, TRUE)
-	else if(method==TOUCH && is_species(M, /datum/species/squid))
+	else if(method == TOUCH && is_species(M, /datum/species/squid))
 		if(M.incapacitated())
 			return
 		var/obj/item/I = M.get_active_held_item()
