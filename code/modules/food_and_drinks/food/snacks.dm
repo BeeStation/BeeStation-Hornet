@@ -152,7 +152,7 @@ All foods are distributed among various categories. Use common sense.
 	return 0
 
 /obj/item/reagent_containers/food/snacks/examine(mob/user)
-	. = ..()
+	..()
 	if(!in_container)
 		switch (bitecount)
 			if (0)
