@@ -158,11 +158,11 @@ All foods are distributed among various categories. Use common sense.
 			if (0)
 				return
 			if(1)
-				. += "[src] was bitten by someone!"
+				to_chat(user, "[src] was bitten by someone!")
 			if(2,3)
-				. += "[src] was bitten [bitecount] times!"
+				to_chat(user, "[src] was bitten [bitecount] times!")
 			else
-				. += "[src] was bitten multiple times!"
+				to_chat(user, "[src] was bitten multiple times!")
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage))
