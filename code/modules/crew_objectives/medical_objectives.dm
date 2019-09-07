@@ -5,26 +5,12 @@
 	jobs = "chiefmedicalofficer,geneticist,medicaldoctor"
 
 /datum/objective/crew/morgue/check_completion()
+	var/list/medical_areas = typecacheof(list(/area/medical/cryo, /area/medical/genetics/cloning, /area/medical/exam_room,
+		/area/medical/medbay/aft, /area/medical/medbay/central, /area/medical/medbay/lobby, /area/medical/patients_rooms,
+		/area/medical/sleeper, /area/medical/storage))
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
-		if(H.stat == DEAD) // If person is dead and corpse is in one of these areas
-			if(get_area(H) == typesof(/area/medical/cryo))
-				return FALSE
-			if(get_area(H) == typesof(/area/medical/genetics/cloning))
-				return FALSE
-			if(get_area(H) == typesof(/area/medical/exam_room))
-				return FALSE
-			if(get_area(H) == typesof(/area/medical/medbay/aft))
-				return FALSE
-			if(get_area(H) == typesof(/area/medical/medbay/central))
-				return FALSE
-			if(get_area(H) == typesof(/area/medical/medbay/lobby))
-				return FALSE
-			if(get_area(H) == typesof(/area/medical/patients_rooms))
-				return FALSE
-			if(get_area(H) == typesof(/area/medical/sleeper))
-				return FALSE
-			if(get_area(H) == typesof(/area/medical/storage))
-				return FALSE
+		if(H.stat == DEAD && is_type_in_typecache(H, medical_areas)) // If person is dead and corpse is in one of these areas
+			return FALSE
 	return TRUE
 
 /datum/objective/crew/chems //Ported from old Hippie
