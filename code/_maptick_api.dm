@@ -9,7 +9,7 @@
 /proc/maptick_initialize()
 #ifdef TRAVISBUILDING
 	return FALSE
-#endif
+#else
 	if(!GLOB.maptick)
 		world << "MAPTICK DATUM NOT FOUND"
 		world.log << "MAPTICK DATUM NOT FOUND"
@@ -24,9 +24,10 @@
 	if(findtext(result, "MAPTICK ERROR"))
 		return FALSE
 	return TRUE
-
+#endif
 /proc/maptick_shutdown()
 #ifdef TRAVISBUILDING
 	return FALSE
-#endif
+#else
 	call("maptick.dll", "cleanup")()
+#endif
