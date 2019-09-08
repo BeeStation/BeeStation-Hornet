@@ -194,7 +194,6 @@
 		if(C)
 
 			C.playtitlemusic(40)
-
 			C.process_endround_metacoin()
 
 			if(CONFIG_GET(flag/allow_crew_objectives))
@@ -204,7 +203,7 @@
 						if(CO.check_completion())
 							C.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
 							break
-
+					
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
 	log_game("The round has ended.")
 	if(LAZYLEN(GLOB.round_end_notifiees))
@@ -330,6 +329,15 @@
 			//ignore this comment, it fixes the broken sytax parsing caused by the " above
 			else
 				parts += "[GLOB.TAB]<i>Nobody died this shift!</i>"
+	if(istype(SSticker.mode, /datum/game_mode/dynamic))
+		var/datum/game_mode/dynamic/mode = SSticker.mode
+		parts += "[FOURSPACES]Threat level: [mode.threat_level]"
+		parts += "[FOURSPACES]Threat left: [mode.threat]" //yes
+		parts += "[FOURSPACES]Executed rules:"
+		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
+			parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost] threat"
+	return parts.Join("<br>")
+
 	return parts.Join("<br>")
 
 /client/proc/roundend_report_file()
