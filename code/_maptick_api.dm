@@ -1,6 +1,4 @@
-#define MAPTICK_LAST_INTERNAL_TICK_USAGE ((maptick.last_internal_tick_usage / world.tick_lag) * 100)
-
-var/datum/maptick_helper/maptick = new
+#define MAPTICK_LAST_INTERNAL_TICK_USAGE ((GLOB.maptick.last_internal_tick_usage / world.tick_lag) * 100)
 
 /datum/maptick_helper
 	var/last_internal_tick_usage = 0
@@ -9,7 +7,7 @@ var/datum/maptick_helper/maptick = new
 	last_internal_tick_usage = 0.2 * world.tick_lag // default value of 20%
 
 /proc/maptick_initialize()
-	if(!maptick)
+	if(!GLOB.maptick)
 		world << "MAPTICK DATUM NOT FOUND"
 		world.log << "MAPTICK DATUM NOT FOUND"
 		return FALSE
@@ -17,7 +15,7 @@ var/datum/maptick_helper/maptick = new
 		world << "MAPTICK DLL NOT FOUND"
 		world.log << "MAPTICK DLL NOT FOUND"
 		return FALSE
-	var/result = call("maptick.dll", "initialize")("\ref[maptick]")
+	var/result = call("maptick.dll", "initialize")("\ref[GLOB.maptick]")
 	world << result
 	world.log << result
 	if(findtext(result, "MAPTICK ERROR"))
