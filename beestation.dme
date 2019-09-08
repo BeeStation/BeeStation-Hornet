@@ -66,7 +66,7 @@
 #include "code\__DEFINES\medal.dm"
 #include "code\__DEFINES\melee.dm"
 #include "code\__DEFINES\menu.dm"
-#include "code\__DEFINES\metacoin.dm"
+#include "code\__DEFINES\metacoin_defines.dm"
 #include "code\__DEFINES\misc.dm"
 #include "code\__DEFINES\mobs.dm"
 #include "code\__DEFINES\monkeys.dm"
