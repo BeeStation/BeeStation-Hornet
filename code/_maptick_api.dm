@@ -26,4 +26,7 @@
 	return TRUE
 
 /proc/maptick_shutdown()
+	#ifdef TRAVISBUILDING
+		return FALSE
+	#endif
 	call("maptick.dll", "cleanup")()
