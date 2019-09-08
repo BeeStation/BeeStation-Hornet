@@ -7,9 +7,9 @@
 	last_internal_tick_usage = 0.2 * world.tick_lag // default value of 20%
 
 /proc/maptick_initialize()
-	#ifdef TRAVISBUILDING
-		return FALSE
-	#endif
+#ifdef TRAVISBUILDING
+	return FALSE
+#endif
 	if(!GLOB.maptick)
 		world << "MAPTICK DATUM NOT FOUND"
 		world.log << "MAPTICK DATUM NOT FOUND"
@@ -26,7 +26,7 @@
 	return TRUE
 
 /proc/maptick_shutdown()
-	#ifdef TRAVISBUILDING
-		return FALSE
-	#endif
+#ifdef TRAVISBUILDING
+	return FALSE
+#endif
 	call("maptick.dll", "cleanup")()
