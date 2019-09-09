@@ -25,7 +25,7 @@
 /turf/open/floor/wood/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
 		return TRUE
-	return pry_tile(I, user)
+	return pry_tile(I, user) ? TRUE : FALSE
 
 /turf/open/floor/wood/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	if(T.turf_type == type)
@@ -125,7 +125,7 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "basalt"
 	ore_type = /obj/item/stack/ore/glass/basalt
-	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
+	initial_gas_mix = OPENTURF_LOW_PRESSURE
 	slowdown = 0
 
 /turf/open/floor/grass/snow/basalt/Initialize()

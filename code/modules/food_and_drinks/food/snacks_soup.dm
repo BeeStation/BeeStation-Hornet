@@ -226,3 +226,11 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 6)
 	tastes = list("beet" = 1)
 	foodtype = VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/soup/bisque
+	name = "bisque"
+	desc = "A classic entree from Space-France."
+	icon_state = "bisque"
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 6)
+	tastes = list("creamy texture" = 1, "crab" = 4)
+	foodtype = MEAT
