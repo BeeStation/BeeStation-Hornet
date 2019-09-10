@@ -123,6 +123,8 @@
 	to_chat(owner, "<b>As an initial infectee, you will be considered a 'leader' by your fellow monkeys.</b>")
 	to_chat(owner, "<b>You can use :k to talk to fellow monkeys!</b>")
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/monkey.ogg'))
+	if(isIPC())
+		C.set_species(/datum/species/human)
 
 /datum/objective/monkey
 	explanation_text = "Ensure that infected monkeys escape on the emergency shuttle!"
