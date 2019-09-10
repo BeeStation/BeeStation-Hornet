@@ -89,7 +89,7 @@ GLOBAL_PROTECT(exp_to_update)
 				exp_data[category] = text2num(play_records[category])
 			else
 				exp_data[category] = 0
-	// BEE EDIT - BETTER EXEMPT
+	
 	if((prefs.db_flags & DB_FLAG_EXEMPT) || (prefs.job_exempt))
 		return_text += "<LI>Exempt (all jobs auto-unlocked)</LI>"
 
