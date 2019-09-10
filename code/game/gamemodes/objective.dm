@@ -387,11 +387,12 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	for(var/datum/mind/M in owners)
 		if(!M)
 			continue
-		var/datum/antagonist/changeling/changeling = M.has_antag_datum(/datum/antagonist/changeling)
-		if(!changeling)
+		if(M.has_antag_datum(/datum/antagonist/changeling))
+			continue
+		if(isIPC(M.current))
 			continue
 		var/datum/mind/T = possible_target
-		if(!istype(T) || isIPC(T.current))
+		if(!istype(T))
 			return FALSE
 	return TRUE
 
@@ -926,6 +927,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 	for(var/datum/mind/M in SSticker.minds)
 		if(M in lings)
+			continue
+		if(isIPC(M.current))
 			continue
 		if(department_head in get_department_heads(M.assigned_role))
 			if(ling_count)
