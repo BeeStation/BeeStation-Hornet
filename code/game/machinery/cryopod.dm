@@ -407,11 +407,14 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(target.mind.assigned_role in GLOB.command_positions)
 			alert("You're a Head of Staff![generic_plsnoleave_message]")
 			caught = TRUE
-		if(iscultist(target) || is_servant_of_ratvar(target))
-			alert("You're a Cultist![generic_plsnoleave_message]")
-			caught = TRUE
 		if(isovermind(target))
 			alert("You're a Blob![generic_plsnoleave_message]")
+			caught = TRUE
+		if(is_changeling(target))
+			alert("You're a Changeling![generic_plsnoleave_message]")
+			caught = TRUE
+		if(iscultist(target) || is_servant_of_ratvar(target))
+			alert("You're a Cultist![generic_plsnoleave_message]")
 			caught = TRUE
 		if(is_devil(target))
 			alert("You're a Devil![generic_plsnoleave_message]")
@@ -419,11 +422,11 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(is_gangster(target) || is_gang_boss(target))
 			alert("You're a Gangster![generic_plsnoleave_message]")
 			caught = TRUE
-		if(is_revolutionary(target) || is_head_revolutionary(target))
-			alert("You're a Revolutionary![generic_plsnoleave_message]")
-			caught = TRUE
 		if(is_nuclear_operative(target))
 			alert("You're a Nuclear Operative![generic_plsnoleave_message]")
+			caught = TRUE
+		if(is_revolutionary(target) || is_head_revolutionary(target))
+			alert("You're a Revolutionary![generic_plsnoleave_message]")
 			caught = TRUE
 
 		if(caught)

@@ -98,6 +98,13 @@ GLOBAL_VAR(changeling_team_objective_type) //If this is not null, we hand our th
 			of the Thing being sent to a station in this sector is highly likely. It may be in the guise of any crew member. Trust nobody - suspect everybody. Do not announce this to the crew, \
 			as paranoia may spread and inhibit workplace efficiency."
 
+
+//////////////////////////////////////////
+//Checks to see if someone is changeling//
+//////////////////////////////////////////
+/proc/is_changeling(mob/M)
+	return M.mind?.has_antag_datum(/datum/antagonist/changeling)
+
 /proc/changeling_transform(mob/living/carbon/human/user, datum/changelingprofile/chosen_prof)
 	var/datum/dna/chosen_dna = chosen_prof.dna
 	user.real_name = chosen_prof.name
