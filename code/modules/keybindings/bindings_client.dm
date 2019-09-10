@@ -43,7 +43,7 @@
 
 	// Client-level keybindings are ones anyone should be able to do at any time
 	// Things like taking screenshots, hitting tab, and adminhelps.
-
+	var/AltMod = keys_held["Alt"] ? "Alt-" : ""
 	switch(_key)
 		if("F1")
 			if(keys_held["Ctrl"] && keys_held["Shift"]) // Is this command ever used?
