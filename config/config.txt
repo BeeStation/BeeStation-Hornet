@@ -57,7 +57,7 @@ MENTOR_LEGACY_SYSTEM
 #MENTORS_MOBNAME_ONLY
 
 ## Comment this out to stop locally connected clients from being given the almost full access !localhost! admin rank
-#ENABLE_LOCALHOST_RANK
+ENABLE_LOCALHOST_RANK
 
 ## Uncomment this entry to have certain jobs require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different jobs by editing
 ## the minimal_player_age variable in the files in folder /code/game/jobs/job/.. for the job you want to edit. Set minimal_player_age to 0 to disable age requirement for that job.
