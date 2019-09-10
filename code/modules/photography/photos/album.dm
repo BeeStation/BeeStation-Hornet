@@ -54,6 +54,9 @@
 			if(!SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, P, null, TRUE, TRUE))
 				qdel(P)
 
+/obj/item/storage/photo_album/prevent_content_explosion()
+	return TRUE
+
 /obj/item/storage/photo_album/HoS
 	persistence_id = "HoS"
 
