@@ -101,3 +101,8 @@
 	var/datum/player_details/player_details
 
 	var/list/char_render_holders			//Should only be a key-value list of north/south/east/west = obj/screen.
+
+	var/client_keysend_amount = 0
+	var/next_keysend_reset = 0
+	var/next_keysend_trip_reset = 0
+	var/keysend_tripped = FALSE
