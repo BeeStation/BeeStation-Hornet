@@ -428,7 +428,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(is_revolutionary(target) || is_head_revolutionary(target))
 			alert("You're a Revolutionary![generic_plsnoleave_message]")
 			caught = TRUE
-
+		if(is_wizard(target))
+			alert("You're a Wizard![generic_plsnoleave_message]")
+			caught = TRUE
 		if(caught)
 			target.client.cryo_warned = world.time
 			return
