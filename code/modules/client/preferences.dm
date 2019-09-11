@@ -103,6 +103,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/uplink_spawn_loc = UPLINK_PDA
 
 	var/list/exp = list()
+	var/job_exempt = 0
 	var/list/menuoptions
 
 	var/action_buttons_screen_locs = list()
