@@ -73,10 +73,7 @@
 	if(!awakened)
 		user.forceMove(get_turf(src))
 		user.visible_message("<span class='warning'>[user] scrambles out of [src]!</span>", "<span class='notice'>You climb out of [src]!</span>")
-	if(user.mind.has_antag_datum(/datum/antagonist/changeling))
-		var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
-		c.chem_charges = 10
-		c.chem_storage = 75
+
 /obj/item/his_grace/process()
 	if(!bloodthirst)
 		drowse()
@@ -180,10 +177,6 @@
 	var/victims = 0
 	meal.visible_message("<span class='warning'>[src] swings open and devours [meal]!</span>", "<span class='his_grace big bold'>[src] consumes you!</span>")
 	meal.adjustBruteLoss(200)
-	if(meal.mind.has_antag_datum(/datum/antagonist/changeling)) // If His Grace eats a changeling, it can't revive statis while inside
-		var/datum/antagonist/changeling/c = meal.mind.has_antag_datum(/datum/antagonist/changeling)
-		c.chem_charges = 0
-		c.chem_storage = 0
 	playsound(meal, 'sound/misc/desceration-02.ogg', 75, 1)
 	playsound(src, 'sound/items/eatfood.ogg', 100, 1)
 	meal.forceMove(src)
