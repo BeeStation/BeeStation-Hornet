@@ -19,10 +19,8 @@ GLOBAL_PROTECT(exp_to_update)
 	var/isexempt = C.prefs.db_flags & DB_FLAG_EXEMPT
 	if(isexempt)
 		return 0
-	// BEE EDIT BEGIN
 	if(C.prefs.job_exempt)
 		return 0
-	// BEE EDIT END
 	var/my_exp = C.calc_exp_type(get_exp_req_type())
 	var/job_requirement = get_exp_req_amount()
 	if(my_exp >= job_requirement)
@@ -91,7 +89,7 @@ GLOBAL_PROTECT(exp_to_update)
 				exp_data[category] = text2num(play_records[category])
 			else
 				exp_data[category] = 0
-	// BEE EDIT - BETTER EXEMPT
+	
 	if((prefs.db_flags & DB_FLAG_EXEMPT) || (prefs.job_exempt))
 		return_text += "<LI>Exempt (all jobs auto-unlocked)</LI>"
 
