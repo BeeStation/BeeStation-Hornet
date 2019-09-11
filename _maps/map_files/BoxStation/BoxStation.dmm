@@ -26746,6 +26746,9 @@
 /obj/item/folder/white,
 /obj/item/pen,
 /obj/item/reagent_containers/glass/bottle/epinephrine,
+/obj/item/reagent_containers/spray/cleaner{
+	step_x = 29
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "blm" = (
@@ -26762,7 +26765,6 @@
 	network = list("ss13","medbay");
 	dir = 8
 	},
-/obj/machinery/cell_charger,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "blo" = (
@@ -27404,6 +27406,7 @@
 /area/medical/medbay/central)
 "bmK" = (
 /obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bmL" = (
@@ -27411,22 +27414,21 @@
 	dir = 8
 	},
 /obj/machinery/button/door{
-	desc = "A remote control switch for the medbay foyer.";
-	id = "MedbayFoyer";
 	name = "Medbay Doors Control";
-	normaldoorcontrol = 1;
+	desc = "A remote control switch for the medbay foyer.";
+	step_y = 8;
 	pixel_x = -26;
-	req_access_txt = "5"
+	req_access_txt = "5";
+	id = "MedbayFoyer";
+	normaldoorcontrol = 1
 	},
 /obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bmM" = (
-/obj/structure/chair/office/light{
-	dir = 1
-	},
-/obj/structure/sign/warning/nosmoking{
-	pixel_x = 28
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 24
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -28031,21 +28033,11 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "boj" = (
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
-	},
-/obj/machinery/requests_console{
-	announcementConsole = 0;
-	department = "Medbay";
-	departmentType = 1;
-	name = "Medbay RC";
-	pixel_x = 30
-	},
 /obj/machinery/light,
-/mob/living/simple_animal/bot/cleanbot{
-	name = "C.L.E.A.N."
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
 	},
+/obj/machinery/cryopod,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bok" = (
@@ -32491,7 +32483,7 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/sleeper)
 "bzf" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
@@ -32549,6 +32541,9 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
@@ -32841,6 +32836,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/effect/turf_decal/tile/blue{
 	dir = 2
+	},
+/mob/living/simple_animal/bot/cleanbot{
+	name = "C.L.E.A.N."
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
@@ -55972,6 +55970,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
+"hPx" = (
+/obj/structure/sign/warning/nosmoking{
+	step_x = 0
+	},
+/turf/closed/wall,
+/area/security/checkpoint/medical)
 "hYR" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
 /turf/open/floor/plating,
@@ -56043,6 +56047,13 @@
 /obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"izJ" = (
+/obj/machinery/cryopod,
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics)
 "iBZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -56466,6 +56477,17 @@
 	dir = 8
 	},
 /area/science/research)
+"kZd" = (
+/obj/machinery/requests_console{
+	name = "Medbay RC";
+	step_y = 9;
+	pixel_x = 30;
+	department = "Medbay";
+	departmentType = 1;
+	announcementConsole = 0
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "lcg" = (
 /obj/machinery/light{
 	dir = 4
@@ -57164,6 +57186,14 @@
 	},
 /turf/open/floor/plasteel/dark/corner,
 /area/hallway/primary/aft)
+"qdw" = (
+/obj/machinery/light/small{
+	dir = 8;
+	step_y = 25;
+	brightness = 3
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "qea" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -93606,7 +93636,7 @@ aYV
 bet
 bfH
 bhf
-bhh
+qdw
 bhh
 bhh
 bmJ
@@ -95154,7 +95184,7 @@ bln
 bmM
 boj
 bof
-bhh
+kZd
 bsx
 btV
 bvj
@@ -95409,7 +95439,7 @@ bhi
 bhi
 bfK
 bfK
-bfK
+hPx
 bof
 bhh
 bsx
@@ -97213,10 +97243,10 @@ boo
 bqQ
 bhg
 bua
-bvn
+btk
 bwL
 bxX
-bsL
+bti
 bua
 bBJ
 bhh
@@ -97727,7 +97757,7 @@ boq
 boq
 brj
 bpE
-btk
+bvn
 bum
 bvq
 bzn
@@ -97983,8 +98013,8 @@ bmX
 bpE
 bpE
 bpE
-bpE
-bti
+bua
+izJ
 bul
 bvp
 bzm
@@ -98241,7 +98271,7 @@ bpH
 bra
 bsK
 bpE
-bpE
+bua
 buq
 bvt
 bye

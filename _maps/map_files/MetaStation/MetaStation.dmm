@@ -3922,6 +3922,9 @@
 	icon_state = "sleeper";
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "ahh" = (
@@ -3965,6 +3968,9 @@
 	},
 /obj/machinery/sleeper{
 	icon_state = "sleeper";
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
@@ -55373,7 +55379,7 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/medbay/central)
 "cdz" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
@@ -56451,11 +56457,6 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/sleeper)
 "cfK" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 4
-	},
 /obj/machinery/light_switch{
 	pixel_x = 11;
 	pixel_y = 23
@@ -56468,6 +56469,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/cryopod,
+/obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -57127,7 +57132,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/sleeper)
 "cgU" = (
 /obj/machinery/door/firedoor,
@@ -58587,7 +58592,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 2
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/medbay/central)
 "cjS" = (
 /obj/item/stack/sheet/mineral/plasma,
@@ -64682,7 +64687,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/noslip,
 /area/medical/genetics/cloning)
 "cvv" = (
 /obj/machinery/door/window/southleft{
@@ -64724,6 +64729,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -67093,9 +67101,10 @@
 /area/medical/medbay/aft)
 "czX" = (
 /obj/item/book/manual/wiki/medical_cloning{
+	step_x = 2;
+	step_y = 1;
 	pixel_y = 6
 	},
-/obj/item/paper,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -24
@@ -67111,17 +67120,15 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
-/area/medical/genetics/cloning)
-"czY" = (
 /obj/item/storage/box/rxglasses{
 	pixel_x = 3;
 	pixel_y = 3
 	},
 /obj/item/storage/box/bodybags,
-/obj/item/pen,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics/cloning)
+"czY" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/structure/table/glass,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -67132,10 +67139,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/personal/patient,
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "czZ" = (
-/obj/structure/closet/secure_closet/personal/patient,
 /obj/machinery/airalarm{
 	dir = 8;
 	pixel_x = 24
@@ -67148,6 +67155,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/cryopod,
+/obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -69703,9 +69714,6 @@
 	pixel_x = 28;
 	pixel_y = 5
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/table,
 /obj/item/wrench,
 /obj/item/screwdriver{
@@ -70203,6 +70211,10 @@
 	pixel_x = 27
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 4;
+	step_y = 28
+	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cGg" = (

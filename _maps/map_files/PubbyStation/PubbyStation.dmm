@@ -26317,7 +26317,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/medbay/central)
 "bkm" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -29884,12 +29884,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
-/area/medical/genetics)
-"bsv" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
 /obj/structure/chair/stool,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
@@ -30021,7 +30015,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/medbay/central)
 "bsG" = (
 /obj/structure/extinguisher_cabinet{
@@ -30569,33 +30563,37 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/medical_cloning{
+	step_x = 31;
+	pixel_y = 6
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "btX" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/medical_cloning{
-	pixel_y = 6
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
-/area/medical/genetics)
-"btY" = (
-/obj/structure/table,
 /obj/item/storage/box/rxglasses{
 	pixel_x = 3;
 	pixel_y = 3
 	},
 /obj/item/storage/box/bodybags,
 /obj/item/pen,
+/turf/open/floor/plasteel/white,
+/area/medical/genetics)
+"btY" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/obj/machinery/cryopod,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "btZ" = (
@@ -33266,20 +33264,19 @@
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "bzS" = (
-/obj/structure/chair,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
-/area/medical/sleeper)
-"bzT" = (
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/item/clothing/neck/stethoscope,
 /obj/item/clothing/mask/surgical,
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
+"bzT" = (
 /obj/machinery/airalarm{
 	pixel_y = 22
 	},
@@ -33289,14 +33286,17 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/obj/machinery/cryopod,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "bzU" = (
-/obj/effect/spawner/structure/window,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
 	},
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/medical/sleeper)
 "bzV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -87406,7 +87406,7 @@ bjL
 boz
 bpB
 bqZ
-bsv
+bAS
 btY
 bvc
 bwA
