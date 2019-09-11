@@ -146,8 +146,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	var/on_store_message = "has entered long-term storage."
 	var/on_store_name = "Cryogenic Oversight"
 
-	// 12 minutes-ish safe period before being despawned.
-	var/time_till_despawn = 12 * 600 // This is reduced by 90% if a player manually enters cryo
+	// 10 minutes-ish safe period before being despawned.
+	var/time_till_despawn = 10 * 600 // This is reduced by 90% if a player manually enters cryo
 	var/despawn_world_time = null          // Used to keep track of the safe period.
 
 	var/obj/machinery/computer/cryopod/control_computer

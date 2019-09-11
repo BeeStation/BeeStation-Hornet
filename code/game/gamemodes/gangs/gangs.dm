@@ -69,7 +69,6 @@ GLOBAL_LIST_EMPTY(gangs)
 /proc/is_gang_boss(mob/M)
 	return M.mind?.has_antag_datum(/datum/antagonist/gang/boss)
 
-
 /datum/game_mode/gang/generate_credit_text()
 	var/list/round_credits = list()
 	var/len_before_addition
