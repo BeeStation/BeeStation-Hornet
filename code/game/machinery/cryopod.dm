@@ -146,8 +146,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	var/on_store_message = "has entered long-term storage."
 	var/on_store_name = "Cryogenic Oversight"
 
-	// 2 minutes-ish safe period before being despawned.
-	var/time_till_despawn = 2 * 600 // This is reduced to 30 seconds if a player manually enters cryo
+	// 5 minutes-ish safe period before being despawned.
+	var/time_till_despawn = 5 * 600 // This is reduced to 30 seconds if a player manually enters cryo
 	var/despawn_world_time = null          // Used to keep track of the safe period.
 
 	var/obj/machinery/computer/cryopod/control_computer
@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(mob_occupant && mob_occupant.stat != DEAD)
 			to_chat(occupant, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 		if(mob_occupant.client)//if they're logged in
-			despawn_world_time = world.time + (time_till_despawn * 0.25) // This gives them 30 seconds
+			despawn_world_time = world.time + (time_till_despawn * 0.1) // This gives them 30 seconds
 		else
 			despawn_world_time = world.time + time_till_despawn
 	icon_state = "cryopod"
@@ -249,7 +249,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			if(!control_computer)
 				find_control_computer(urgent = TRUE)//better hope you found it this time
 
-		despawn_occupant()
+			despawn_occupant()
 
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()
