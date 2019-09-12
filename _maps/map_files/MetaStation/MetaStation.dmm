@@ -64633,14 +64633,10 @@
 "cvo" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/medical/patients_rooms/room_a)
 "cvp" = (
 /turf/closed/wall,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/medical/patients_rooms/room_a)
 "cvq" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -65169,13 +65165,19 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cwo" = (
+/obj/structure/table,
+/obj/item/folder/white{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/item/clothing/neck/stethoscope,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/machinery/power/apc{
-	areastring = "/area/medical/patients_rooms/room_b";
 	dir = 8;
-	name = "Cryogenic Storage APC";
+	name = "Patient Room B APC";
+	areastring = "/area/medical/patients_rooms/room_b";
 	pixel_x = -25
 	},
 /obj/structure/cable/yellow{
@@ -65184,35 +65186,40 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
 	},
+/obj/machinery/light_switch{
+	pixel_y = 24
+	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/cryopod{
-	icon_state = "cryopod-open";
-	dir = 4
-	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/medical/patients_rooms/room_b)
 "cwp" = (
+/obj/structure/chair/office/light{
+	dir = 8
+	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/effect/landmark/start/medical_doctor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/machinery/computer/cryopod{
-	step_y = 24
+/obj/machinery/vending/wallmed{
+	pixel_y = 28
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/medical/patients_rooms/room_b)
 "cwq" = (
+/obj/structure/closet/secure_closet/personal/patient,
+/obj/machinery/button/door{
+	id = "isolb";
+	name = "Privacy Shutters";
+	pixel_y = 25
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -65220,11 +65227,8 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/personal/patient,
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/medical/patients_rooms/room_b)
 "cwr" = (
 /obj/effect/spawner/structure/window,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -65235,9 +65239,7 @@
 	name = "privacy shutters"
 	},
 /turf/open/floor/plating,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/medical/patients_rooms/room_b)
 "cws" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -65654,6 +65656,8 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cxe" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
 	},
@@ -65667,14 +65671,8 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/cryopod{
-	icon_state = "cryopod-open";
-	dir = 4
-	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/medical/patients_rooms/room_b)
 "cxf" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -65683,9 +65681,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/medical/patients_rooms/room_b)
 "cxg" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -65698,12 +65694,10 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/medical/patients_rooms/room_b)
 "cxh" = (
 /obj/machinery/door/airlock/medical{
-	name = "Cryogenic Storage";
+	name = "Patient Room B";
 	req_access_txt = "5"
 	},
 /obj/structure/cable/yellow{
@@ -65713,9 +65707,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/medical/patients_rooms/room_b)
 "cxi" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4
