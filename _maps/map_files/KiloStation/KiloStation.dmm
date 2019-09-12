@@ -4118,12 +4118,6 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/clonepod,
-/obj/machinery/door/window/northleft{
-	name = "Medical Delivery Access";
-	dir = 4;
-	pixel_y = 1;
-	req_access_txt = "50"
-	},
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "afR" = (
@@ -9452,12 +9446,6 @@
 	name = "emergency shower"
 	},
 /obj/effect/turf_decal/box/corners,
-/obj/machinery/door/window/northleft{
-	name = "Medical Delivery Access";
-	dir = 4;
-	pixel_y = 2;
-	req_access_txt = "50"
-	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics/cloning)
 "ano" = (
@@ -21972,13 +21960,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/door/window/northleft{
-	name = "Cloning Delivery Access";
-	dir = 1;
-	pixel_x = 0;
-	pixel_y = 0;
-	req_access_txt = "50"
-	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics/cloning)
 "aFP" = (
@@ -34321,7 +34302,11 @@
 /area/crew_quarters/bar)
 "aWC" = (
 /obj/structure/chair/stool,
-/turf/open/floor/wood,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "aWD" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -34421,7 +34406,11 @@
 	dir = 5
 	},
 /obj/structure/chair/stool,
-/turf/open/floor/wood,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/carpet,
 /area/crew_quarters/bar)
 "aWM" = (
 /turf/open/floor/plasteel/showroomfloor,
@@ -35885,7 +35874,11 @@
 	dir = 4
 	},
 /obj/structure/chair/stool,
-/turf/open/floor/wood,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/carpet,
 /area/crew_quarters/bar)
 "aYR" = (
 /obj/machinery/computer/nanite_cloud_controller,
@@ -35963,9 +35956,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/carpet,
 /area/crew_quarters/bar)
 "aYX" = (
 /obj/effect/turf_decal/tile/blue{
@@ -36745,7 +36740,11 @@
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/wood,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/carpet,
 /area/crew_quarters/bar)
 "aZX" = (
 /obj/effect/turf_decal/bot,
@@ -37710,7 +37709,11 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/wood,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/carpet,
 /area/crew_quarters/bar)
 "bbp" = (
 /obj/effect/turf_decal/tile/purple,
@@ -52803,6 +52806,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/vending/snack/random,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/port)
 "bvr" = (
@@ -53118,6 +53122,7 @@
 	dir = 10
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/vending/cigarette,
 /turf/open/floor/plasteel/dark/corner{
 	icon_state = "darkcorner";
 	dir = 4
@@ -105206,6 +105211,18 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
+"rKc" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/carpet,
+/area/crew_quarters/bar)
 "rRs" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -130611,7 +130628,7 @@ aOT
 cfa
 btE
 aTe
-aqg
+btT
 aWD
 btT
 btP
@@ -131642,7 +131659,7 @@ aRM
 aYW
 aZW
 bbo
-bbo
+rKc
 bbo
 buq
 bfJ
