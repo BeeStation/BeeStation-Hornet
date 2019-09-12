@@ -905,7 +905,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	else
 		return FALSE
 
-
+// Get entire department staff with heads included
 /datum/objective/changeling_team_objective/impersonate_department/proc/get_department_staff()
 	department_minds = list()
 	department_real_names = list()
@@ -922,19 +922,20 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		if("Chief Medical Officer")
 			department_string = "medical"
 
+	//  Scales the number of impersonate targets to the number of lings
 	var/list/lings = get_antag_minds(/datum/antagonist/changeling,TRUE)
 	var/ling_count = lings.len
 
 	for(var/datum/mind/M in SSticker.minds)
-		if(M in lings)
+		if(M.has_antag_datum(/datum/antagonist/changeling))
 			continue
 		if(isIPC(M.current))
 			continue
 		if(department_head in get_department_heads(M.assigned_role))
 			if(ling_count)
-				ling_count--
 				department_minds += M
 				department_real_names += M.current.real_name
+				ling_count--
 			else
 				break
 
@@ -957,7 +958,9 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 	var/list/heads = SSjob.get_living_heads()
 	for(var/datum/mind/head in heads)
-		if(head in lings) //Looking at you HoP.
+		if(head.has_antag_datum(/datum/antagonist/changeling))
+			continue
+		if(isIPC(H.current))
 			continue
 		if(needed_heads)
 			department_minds += head
