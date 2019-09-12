@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	if(GLOB.valid_keys[key])
 		return FALSE
 		
-	if(length(key) > 32)
+	if(length(key) > maximum_keydown_size)
 		log_admin("[key_name(C)] just attempted to send an invalid keypress with length over 32 characters, likely malicious.")
 		message_admins("Mob[(C.mob)] with the ckey [(C.ckey)] just attempted to send an invalid keypress with length over 32 characters, likely malicious.")
 	else
