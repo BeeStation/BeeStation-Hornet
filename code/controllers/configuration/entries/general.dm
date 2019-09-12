@@ -7,10 +7,6 @@
 
 /datum/config_entry/flag/auto_deadmin_players
 	protection = CONFIG_ENTRY_LOCKED
-
-/datum/config_entry/number/maximum_keydown_size //anti spam, thanks bwerty
-    config_entry_value = 32
-    integer = TRUE
 	
 /datum/config_entry/flag/auto_deadmin_antagonists
 	protection = CONFIG_ENTRY_LOCKED
