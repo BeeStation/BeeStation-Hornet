@@ -109324,11 +109324,15 @@
 /area/medical/morgue)
 "dCC" = (
 /turf/closed/wall/r_wall,
-/area/maintenance/department/medical/morgue)
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dCD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
-/area/maintenance/department/medical/morgue)
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dCE" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -109346,10 +109350,14 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/maintenance/department/medical/morgue)
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dCF" = (
 /turf/closed/wall,
-/area/maintenance/department/medical/morgue)
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dCG" = (
 /obj/structure/table/glass,
 /obj/item/clipboard,
@@ -110074,64 +110082,59 @@
 	},
 /area/medical/morgue)
 "dDR" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
+/obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/medical/morgue)
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dDS" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/medical/morgue)
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dDT" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dDU" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
-"dDV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/medical/morgue)
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
+"dDV" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dDW" = (
 /obj/structure/table/glass,
 /obj/item/folder/white,
@@ -110749,44 +110752,69 @@
 "dEY" = (
 /turf/open/floor/plating,
 /area/medical/morgue)
-"dEZ" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
 "dFa" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/machinery/cryopod,
 /turf/open/floor/plasteel,
-/area/maintenance/department/medical/morgue)
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dFb" = (
-/obj/effect/decal/cleanable/blood/old,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dFc" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/machinery/cryopod{
+	icon_state = "cryopod-open";
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dFd" = (
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/storage/backpack/duffelbag/med,
-/obj/item/flashlight/pen,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dFe" = (
 /turf/closed/wall,
 /area/crew_quarters/heads/cmo)
@@ -111616,7 +111644,9 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/maintenance/department/medical/morgue)
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dGr" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -111634,20 +111664,39 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/medical/morgue)
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dGs" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/blobstart,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 1
 	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/structure/closet,
+/turf/open/floor/plasteel,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dGt" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -111655,8 +111704,20 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/closed/wall,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dGu" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -111670,25 +111731,21 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/structure/closet,
 /turf/open/floor/plasteel,
-/area/maintenance/department/medical/morgue)
-"dGv" = (
-/obj/structure/table,
-/obj/item/clothing/gloves/color/latex/nitrile,
-/obj/item/clothing/suit/apron/surgical,
-/obj/item/clothing/mask/breath/medical,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dGw" = (
 /obj/structure/closet/secure_closet/CMO,
 /obj/item/clothing/under/rank/nursesuit,
@@ -112425,83 +112482,59 @@
 /turf/closed/wall,
 /area/medical/morgue)
 "dHM" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/medical/morgue)
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dHN" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/machinery/cryopod,
 /turf/open/floor/plasteel,
-/area/maintenance/department/medical/morgue)
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dHO" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
-"dHP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
+/obj/machinery/computer/cryopod{
+	step_y = 24
 	},
 /turf/open/floor/plasteel,
-/area/maintenance/department/medical/morgue)
-"dHQ" = (
-/obj/structure/rack,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/crowbar,
-/obj/item/storage/pill_bottle,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/medical/morgue)
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dHR" = (
 /obj/machinery/light{
 	dir = 8
@@ -113298,18 +113331,33 @@
 /turf/open/floor/plating,
 /area/medical/morgue)
 "dJc" = (
-/obj/structure/closet/secure_closet/medical3,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dJd" = (
-/obj/machinery/vending/wardrobe/medi_wardrobe,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dJe" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dJf" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -113318,41 +113366,36 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/medical/morgue)
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dJg" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
-	dir = 2;
-	name = "Morgue Maintenance APC";
 	areastring = "/area/maintenance/department/medical/morgue";
+	dir = 2;
+	name = "Cryogenic Storage APC";
 	pixel_y = -23
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/medical/morgue)
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dJh" = (
 /obj/machinery/suit_storage_unit/cmo,
 /obj/effect/turf_decal/stripes/line{
@@ -113986,7 +114029,9 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/maintenance/aft)
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "dKn" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall,
@@ -171539,7 +171584,7 @@ dzZ
 dBc
 dCC
 dDR
-dEZ
+dDS
 dGr
 dHM
 dJc
@@ -172312,7 +172357,7 @@ dCE
 dDU
 dFc
 dGu
-dHP
+dFc
 dJf
 dKm
 dLg
@@ -172568,8 +172613,8 @@ dBg
 dCF
 dDV
 dFd
-dGv
-dHQ
+dFd
+dFd
 dJg
 dCF
 dKY
