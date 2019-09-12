@@ -17750,7 +17750,9 @@
 	req_access_txt = "5"
 	},
 /turf/open/floor/plating,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "azm" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -28688,9 +28690,6 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/medical/storage)
-"aPy" = (
-/turf/closed/wall/rust,
-/area/medical/storage)
 "aPz" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -28726,9 +28725,10 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/cmo)
 "aPC" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/medical/storage)
+/turf/closed/wall/rust,
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "aPD" = (
 /obj/machinery/airalarm{
 	dir = 4;
@@ -28831,9 +28831,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/vending/coffee,
+/obj/machinery/cryopod,
 /turf/open/floor/plasteel/dark,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "aPJ" = (
 /obj/machinery/power/emitter,
 /obj/effect/turf_decal/bot,
@@ -30990,7 +30992,9 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "aSw" = (
 /obj/structure/chair/office/light{
 	dir = 1
@@ -31045,13 +31049,15 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/vending/cola/random,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
 	},
+/obj/machinery/cryopod,
 /turf/open/floor/plasteel/dark,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "aSB" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -31333,7 +31339,9 @@
 	},
 /obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "aSR" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral{
@@ -31490,7 +31498,9 @@
 	pixel_y = -30
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "aTb" = (
 /obj/machinery/door/airlock/grunge{
 	name = "Mass Driver";
@@ -53636,7 +53646,9 @@
 	req_access_txt = "5"
 	},
 /turf/open/floor/plasteel/dark,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "bwJ" = (
 /obj/structure/sink/puddle,
 /obj/structure/flora/ausbushes/reedbush{
@@ -70257,9 +70269,13 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/prison)
 "bTH" = (
-/obj/structure/table/wood,
+/obj/machinery/computer/cryopod{
+	step_y = 24
+	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "bTI" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -79909,7 +79925,9 @@
 	icon_state = "4-8"
 	},
 /turf/closed/wall,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "chw" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -80387,19 +80405,6 @@
 	},
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/aisat/foyer)
-"cik" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
-	icon_state = "pipe11-1";
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
 "cil" = (
 /obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 4
@@ -80432,8 +80437,14 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/machinery/cryopod{
+	icon_state = "cryopod-open";
+	dir = 1
+	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "cin" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
 	icon_state = "pipe11-1";
@@ -80524,7 +80535,9 @@
 /area/engine/engineering)
 "ciu" = (
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "civ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/horizontal{
@@ -80554,7 +80567,9 @@
 	icon_state = "plant-18"
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "cix" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/crossing,
@@ -80968,13 +80983,10 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "ciZ" = (
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 5
-	},
-/obj/structure/table/glass,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -80986,7 +80998,9 @@
 	},
 /obj/machinery/light,
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "cja" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
@@ -81737,11 +81751,6 @@
 /turf/closed/wall,
 /area/space/nearstation)
 "ckf" = (
-/obj/machinery/microwave{
-	pixel_x = 0;
-	pixel_y = 5
-	},
-/obj/structure/table/glass,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -81752,7 +81761,9 @@
 	pixel_y = -32
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "ckg" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -84349,9 +84360,14 @@
 /turf/closed/wall/r_wall/rust,
 /area/maintenance/solars/port/aft)
 "coC" = (
-/obj/structure/chair/stool,
+/obj/machinery/cryopod{
+	icon_state = "cryopod-open";
+	dir = 1
+	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "coD" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -85626,7 +85642,9 @@
 "cqm" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "cqn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -88550,9 +88568,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/chair/stool,
 /turf/open/floor/plasteel/showroomfloor,
-/area/medical/storage)
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "cuX" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -104463,6 +104482,25 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"lEL" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/machinery/microwave{
+	pixel_x = 0;
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/medical/storage)
 "lNU" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -105589,6 +105627,11 @@
 	},
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
+"uNT" = (
+/turf/closed/wall,
+/area/medical/storage{
+	name = "Cryogenic Storage"
+	})
 "uOe" = (
 /obj/structure/frame/computer,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -105806,6 +105849,12 @@
 /turf/open/floor/plating,
 /area/maintenance/solars{
 	name = "Abandoned Outpost Engineering"
+	})
+"wNj" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/medical/storage{
+	name = "Cryogenic Storage"
 	})
 "wRc" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -122646,8 +122695,8 @@ aSo
 aPc
 aPc
 aPa
-aOZ
-aOZ
+uNT
+uNT
 chv
 azl
 cqm
@@ -123160,11 +123209,11 @@ aHZ
 aQT
 aQT
 aQT
-aPC
+wNj
 coC
 cim
 ciu
-aOZ
+uNT
 crj
 amR
 amA
@@ -123416,12 +123465,12 @@ acZ
 aIf
 acZ
 acZ
-acZ
-aPC
+lEL
+wNj
 ciu
-cik
+cuW
 ciZ
-aPy
+aPC
 crk
 crg
 bot
@@ -123678,7 +123727,7 @@ bwI
 aSv
 aSQ
 ckf
-aOZ
+uNT
 csb
 csi
 amR
@@ -123931,11 +123980,11 @@ aOz
 aPR
 aYb
 aRg
-aPC
+wNj
 ciw
 aTa
-aOZ
-aOZ
+uNT
+uNT
 csc
 aQP
 aQN
@@ -124188,10 +124237,10 @@ aRx
 aPW
 aYo
 aSF
-aPC
+wNj
 aPI
 aSA
-aOZ
+uNT
 aXV
 bpk
 aUs

@@ -24599,6 +24599,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "bgp" = (
@@ -25027,11 +25030,15 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "bhr" = (
-/obj/machinery/door/airlock{
-	name = "Starboard Emergency Storage"
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "MedbayFoyer";
+	name = "Cryogenic Storage";
+	req_access_txt = "5"
 	},
-/turf/open/floor/plating,
-/area/storage/emergency/starboard)
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "bhs" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/open/floor/plasteel,
@@ -25563,19 +25570,49 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "biC" = (
-/turf/open/floor/plating,
-/area/storage/emergency/starboard)
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "biD" = (
-/obj/item/storage/box/lights/mixed,
-/turf/open/floor/plating,
-/area/storage/emergency/starboard)
-"biE" = (
-/obj/machinery/light/small{
+/obj/machinery/power/apc{
+	areastring = "/area/medical/morgue";
+	dir = 1;
+	name = "Cryogenic Storage APC";
+	pixel_y = 23
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/structure/closet/firecloset,
-/turf/open/floor/plating,
-/area/storage/emergency/starboard)
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
+"biE" = (
+/obj/machinery/computer/cryopod{
+	step_y = 23
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "biF" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 1;
@@ -26216,17 +26253,45 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "bkc" = (
-/obj/machinery/space_heater,
-/turf/open/floor/plating,
-/area/storage/emergency/starboard)
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "bkd" = (
-/obj/machinery/portable_atmospherics/canister/air,
-/turf/open/floor/plating,
-/area/storage/emergency/starboard)
+/obj/machinery/cryopod{
+	icon_state = "cryopod-open";
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "bkf" = (
-/obj/structure/reagent_dispensers/watertank,
-/turf/open/floor/plating,
-/area/storage/emergency/starboard)
+/obj/machinery/cryopod,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "bkh" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/circuit,
@@ -26693,17 +26758,18 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Morgue Maintenance";
-	req_access_txt = "6"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "MedbayFoyer";
+	name = "Cryogenic Storage";
+	req_access_txt = "5"
+	},
+/turf/open/floor/plasteel/white,
 /area/maintenance/department/medical/morgue)
 "blh" = (
 /obj/structure/table/reinforced,
@@ -26772,20 +26838,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Starboard Emergency Storage APC";
-	areastring = "/area/storage/emergency/starboard";
-	pixel_y = 23
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "blp" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -28656,14 +28714,14 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/airalarm{
+	step_y = 23
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "bpJ" = (
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/machinery/airalarm{
-	pixel_y = 23
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
@@ -55459,6 +55517,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
+"dGc" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "MedbayFoyer";
+	name = "Cryogenic Storage";
+	req_access_txt = "5"
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics)
 "dGF" = (
 /turf/closed/wall/r_wall,
 /area/science/mixing/chamber)
@@ -56413,6 +56482,15 @@
 "kQk" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Starboard Emergency Storage APC";
+	areastring = "/area/storage/emergency/starboard";
+	pixel_y = 23
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "kQq" = (
@@ -56482,6 +56560,21 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"llr" = (
+/obj/machinery/cryopod{
+	icon_state = "cryopod-open";
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "lqJ" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lantern,
@@ -56773,6 +56866,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
+"nBE" = (
+/turf/closed/wall,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "nEP" = (
 /obj/structure/closet/l3closet/scientist{
 	pixel_x = -2
@@ -57652,6 +57750,24 @@
 /obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"tQK" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Morgue Maintenance";
+	req_access_txt = "6"
+	},
+/turf/open/floor/plating,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "tVp" = (
 /obj/structure/lattice,
 /obj/structure/lattice/catwalk,
@@ -57791,6 +57907,31 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"uJt" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "uPT" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 2
@@ -57906,6 +58047,30 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
+"vAU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "vCb" = (
 /obj/machinery/rnd/production/techfab/department/service,
 /turf/open/floor/plasteel,
@@ -58025,6 +58190,13 @@
 	},
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
+"wpn" = (
+/obj/machinery/cryopod,
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/plasteel/white,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
 "wqH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
@@ -98744,13 +98916,13 @@ bbB
 aYV
 aYV
 aYV
-bfO
-bfS
+aYV
+nBE
 biD
 bkd
-bfS
-cTO
-bmZ
+llr
+vAU
+dGc
 bpJ
 brc
 bsL
@@ -99005,9 +99177,9 @@ aYV
 bhr
 biC
 bkc
-bfS
+bkc
 blo
-bmZ
+bmX
 bpI
 brb
 bsL
@@ -99259,11 +99431,11 @@ aYV
 aYV
 aYV
 beE
-bfS
+nBE
 biE
 bkf
-bfS
-cTO
+wpn
+uJt
 bmZ
 bpL
 bre
@@ -99516,11 +99688,11 @@ aYV
 aYV
 bez
 bfP
-bfS
-bfS
-bfS
-bfS
-cTO
+nBE
+nBE
+nBE
+nBE
+tQK
 bmZ
 bpK
 brd
@@ -100025,7 +100197,7 @@ aVM
 aOX
 aYT
 bam
-aYV
+bfO
 baR
 bcb
 bdl

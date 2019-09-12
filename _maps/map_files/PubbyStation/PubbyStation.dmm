@@ -26523,9 +26523,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "bkX" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
 /turf/open/floor/plasteel/freezer,
 /area/storage/emergency/port)
 "bkY" = (
@@ -26557,8 +26554,8 @@
 /turf/open/floor/plasteel/freezer,
 /area/storage/emergency/port)
 "bla" = (
-/obj/machinery/airalarm{
-	pixel_y = 22
+/obj/machinery/computer/cryopod{
+	step_y = 25
 	},
 /turf/open/floor/plasteel/freezer,
 /area/storage/emergency/port)
@@ -27063,16 +27060,22 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Genetics Maintenance";
-	req_access_txt = "0";
-	req_one_access_txt = "12;45;5;9"
-	},
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/maintenance/department/engine)
 "bmh" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/machinery/cryopod{
+	icon_state = "cryopod-open";
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -28
 	},
 /turf/open/floor/plasteel/freezer,
 /area/storage/emergency/port)
@@ -27105,9 +27108,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/storage/emergency/port)
 "bmk" = (
-/obj/structure/table,
-/obj/item/crowbar,
-/obj/item/storage/toolbox/emergency,
+/obj/machinery/cryopod,
 /turf/open/floor/plasteel/freezer,
 /area/storage/emergency/port)
 "bml" = (
@@ -53388,6 +53389,14 @@
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/exit/departure_lounge)
+"dvE" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Genetics Maintenance";
+	req_access_txt = "0";
+	req_one_access_txt = "12;45;5;9"
+	},
+/turf/open/floor/plating,
+/area/storage/emergency/port)
 "dxc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -86115,7 +86124,7 @@ bhJ
 bif
 biO
 bjL
-bjL
+dvE
 bmg
 bnv
 bou
