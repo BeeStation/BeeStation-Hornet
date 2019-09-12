@@ -20,10 +20,10 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		
 	if(length(key) > 32)
 		log_admin("[key_name(C)] just attempted to send an invalid keypress with length over 32 characters, likely malicious.")
-		message_admins("[ADMIN_TPMONTY(C.mob)] just attempted to send an invalid keypress with length over 32 characters, likely malicious.")
+		message_admins("[(C.mob)] just attempted to send an invalid keypress with length over 32 characters, likely malicious.")
 	else
 		log_admin_private("[key_name(C)] just attempted to send an invalid keypress - \"[key]\", possibly malicious.")
-		message_admins("[ADMIN_TPMONTY(C.mob)] just attempted to send an invalid keypress - \"[key]\", possibly malicious.")
+		message_admins("[(C.mob)] just attempted to send an invalid keypress - \"[key]\", possibly malicious.")
 	
 	return TRUE
 
