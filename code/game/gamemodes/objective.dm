@@ -960,7 +960,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	for(var/datum/mind/head in heads)
 		if(head.has_antag_datum(/datum/antagonist/changeling))
 			continue
-		if(isIPC(H.current))
+		if(isIPC(head.current))
 			continue
 		if(needed_heads)
 			department_minds += head
