@@ -688,3 +688,18 @@
 /obj/item/storage/belt/sabre/PopulateContents()
 	new /obj/item/melee/sabre(src)
 	update_icon()
+
+/obj/item/storage/belt/skull
+	name = "trophy-belt"
+	desc = "For when you wanna take your enemies noggin for a joggin."
+	icon_state = "utilitybelt"
+	item_state = "utility"
+	
+/obj/item/storage/belt/skull/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 3
+	STR.max_w_class = WEIGHT_CLASS_BULKY
+	STR.can_hold = typecacheof(list(
+		/obj/item/bodypart/head
+		))
