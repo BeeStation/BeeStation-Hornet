@@ -1891,3 +1891,10 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 	illegal_tech = FALSE
+
+/datum/uplink_item/badass/skullbelt
+	name = "Trophy Belt"
+	desc = "A belt designed to hold the severed heads of those who stand against you."
+	item = /obj/item/storage/belt/skull
+	cost = 7 //holding peoples heads is pretty robust, it shouldn't come cheap.
+	illegal_tech = FALSE
