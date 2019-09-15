@@ -457,6 +457,9 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "aaZ" = (
+/turf/closed/wall,
+/area/crew_quarters/cryopods)
+"aba" = (
 /obj/machinery/cryopod{
 	icon_state = "cryopod-open";
 	dir = 1
@@ -465,10 +468,8 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"aba" = (
+/area/crew_quarters/cryopods)
+"abb" = (
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -479,36 +480,24 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"abb" = (
+/area/crew_quarters/cryopods)
+"abc" = (
+/obj/machinery/computer/cryopod{
+	pixel_y = 26
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"abc" = (
+/area/crew_quarters/cryopods)
+"abd" = (
 /obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"abd" = (
-/obj/machinery/cryopod,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/crew_quarters/cryopods)
 "abe" = (
 /obj/effect/turf_decal/delivery,
 /obj/item/twohanded/required/kirbyplants/random,
@@ -518,20 +507,12 @@
 /turf/closed/wall,
 /area/hallway/secondary/entry)
 "abg" = (
-/obj/machinery/cryopod{
-	icon_state = "cryopod-open";
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
+/obj/machinery/cryopod,
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/crew_quarters/cryopods)
 "abh" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -546,6 +527,19 @@
 /turf/open/space,
 /area/space/nearstation)
 "abk" = (
+/obj/machinery/cryopod{
+	icon_state = "cryopod-open";
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopods)
+"abl" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
@@ -558,41 +552,19 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"abl" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	pixel_x = -26;
-	pixel_y = 26
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/crew_quarters/cryopods)
 "abm" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/crew_quarters/cryopods)
 "abn" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/cryopods)
+"abo" = (
 /obj/machinery/cryopod{
 	icon_state = "cryopod-open";
 	dir = 1
@@ -604,15 +576,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"abo" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/crew_quarters/cryopods)
 "abp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -645,9 +609,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/crew_quarters/cryopods)
 "abs" = (
 /obj/docking_port/stationary{
 	dir = 1;
@@ -661,6 +623,12 @@
 /turf/open/space/basic,
 /area/space)
 "abt" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/cryopods)
+"abu" = (
 /obj/machinery/cryopod,
 /obj/machinery/light{
 	dir = 4
@@ -669,116 +637,69 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"abu" = (
-/obj/machinery/cryopod{
-	icon_state = "cryopod-open";
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/crew_quarters/cryopods)
 "abv" = (
 /obj/item/stack/cable_coil,
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/starboard/fore)
 "abw" = (
-/obj/machinery/computer/cryopod{
-	pixel_y = 26
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/maintenance/starboard)
 "abx" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock/security{
+	name = "Storage Closet"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "aby" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard)
-"abz" = (
-/obj/machinery/cryopod,
-/turf/open/floor/plasteel,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"abA" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
+/obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"abB" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
+	dir = 5
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
+/turf/open/floor/plasteel,
+/area/maintenance/starboard)
+"abz" = (
+/obj/machinery/cryopod,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopods)
+"abA" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/closed/wall,
+/area/maintenance/starboard)
+"abB" = (
+/obj/structure/closet/secure_closet/security/sec,
+/obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
 	},
-/obj/structure/disposalpipe/junction/flip{
-	dir = 8
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "abC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -841,22 +762,25 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Cryogenic Lounge"
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
-/turf/open/floor/plasteel,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/cryopods)
 "abJ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/machinery/nuclearbomb/beer,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/turf/closed/wall,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "abK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -883,23 +807,8 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/crew_quarters/cryopods)
 "abL" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/item/twohanded/required/kirbyplants/random,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"abM" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -909,19 +818,50 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass{
+	name = "Cryogenic Lounge"
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopods)
+"abM" = (
+/obj/machinery/cryopod{
+	icon_state = "cryopod-open";
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopods)
+"abN" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/machinery/light_switch{
-	pixel_x = 26;
-	pixel_y = 26
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal/bin,
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"abN" = (
+/area/crew_quarters/cryopods)
+"abO" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -931,24 +871,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"abO" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/structure/chair/stool,
-/turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/crew_quarters/cryopods)
 "abP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/external{
@@ -998,13 +921,8 @@
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "abU" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -1012,14 +930,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/obj/machinery/disposal/bin,
+/obj/structure/chair/stool,
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/crew_quarters/cryopods)
 "abV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -1041,9 +954,7 @@
 	pixel_y = -26
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/crew_quarters/cryopods)
 "abW" = (
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
@@ -1635,22 +1546,18 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "acT" = (
-/obj/machinery/firealarm{
-	pixel_y = 8
-	},
-/turf/closed/wall,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
-"acU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
+/area/crew_quarters/cryopods)
+"acU" = (
+/obj/machinery/firealarm{
+	pixel_y = 8
+	},
+/turf/closed/wall,
+/area/crew_quarters/cryopods)
 "acV" = (
 /obj/machinery/status_display/evac{
 	pixel_x = -32
@@ -2079,6 +1986,140 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
+"adC" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/cryopods)
+"adD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
+"adE" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/closed/wall,
+/area/maintenance/starboard)
+"adF" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = -26;
+	pixel_y = 26
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 5
+	},
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/cryopods)
+"adG" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/disposalpipe/junction/flip{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/cryopods)
+"adH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard)
+"adI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/effect/landmark/event_spawn,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/maintenance/starboard)
+"adJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/landmark/blobstart,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/maintenance/starboard)
+"adK" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard)
+"adL" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/closed/wall,
+/area/medical/genetics{
+	name = "Cryogenic Storage"
+	})
+"adM" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/cryopods)
 "adO" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
@@ -71008,19 +71049,6 @@
 /mob/living/simple_animal/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"cni" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "cnj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -73222,14 +73250,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/maintenance/starboard)
-"crC" = (
-/obj/structure/closet/secure_closet/security/sec,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/maintenance/starboard)
 "crD" = (
 /obj/structure/sign/warning/electricshock{
 	pixel_x = -32;
@@ -74137,17 +74157,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/turf/open/floor/plating,
-/area/maintenance/starboard)
-"cth" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/nuclearbomb/beer,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "ctj" = (
@@ -75785,25 +75794,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
-"cwb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/maintenance/starboard)
-"cwc" = (
-/obj/structure/girder,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "cwd" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -76556,19 +76546,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
-"cxs" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "cxw" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -77470,40 +77447,6 @@
 	dir = 5
 	},
 /turf/closed/wall,
-/area/maintenance/starboard)
-"cyY" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/landmark/event_spawn,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/maintenance/starboard)
-"cyZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/maintenance/starboard)
-"cza" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating,
 /area/maintenance/starboard)
 "czg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -109906,11 +109849,6 @@
 "dCB" = (
 /turf/closed/wall/r_wall,
 /area/medical/morgue)
-"dCF" = (
-/turf/closed/wall,
-/area/medical/genetics{
-	name = "Cryogenic Storage"
-	})
 "dCG" = (
 /obj/structure/table/glass,
 /obj/item/clipboard,
@@ -179429,9 +179367,9 @@ bHq
 adm
 ado
 cuE
-cwb
-cxs
-coI
+aby
+adD
+adH
 cAw
 cCc
 cDC
@@ -179686,9 +179624,9 @@ cqg
 aaX
 ctc
 bHq
+abA
 bHq
-cne
-cyY
+adI
 cAx
 cCd
 cDD
@@ -179942,10 +179880,10 @@ aaU
 aaW
 cry
 ctd
-crC
-cwc
-abx
-cyZ
+abw
+abB
+adE
+adJ
 cAw
 cAw
 cAw
@@ -180199,10 +180137,10 @@ ada
 bHq
 aaY
 ctd
-cth
-bHq
-cni
-cza
+abx
+abJ
+adE
+adK
 cAw
 cCe
 cDE
@@ -180457,9 +180395,9 @@ clA
 bHq
 abh
 bHq
-bHq
-aby
-abJ
+abA
+adE
+adL
 cAw
 cCf
 cDF
@@ -180711,12 +180649,12 @@ clE
 cno
 coQ
 clA
-aaZ
-abg
-abn
-abu
-abl
-abL
+aba
+abk
+abo
+abM
+adF
+adM
 cAw
 cCg
 cDG
@@ -180968,13 +180906,13 @@ clF
 cnp
 coR
 clA
-aba
-abk
+abb
+abl
 abr
-abr
-abB
-abU
-acT
+adC
+adG
+abN
+acU
 cAw
 cAw
 cAw
@@ -181224,13 +181162,13 @@ bgZ
 clG
 cnp
 aaV
-dCF
-abw
+aaZ
+abc
 abm
-abb
-abb
-abA
-abN
+abt
+abt
+abI
+abO
 cAw
 cCh
 cDH
@@ -181482,12 +181420,12 @@ clH
 cnp
 coT
 clA
-abc
+abd
 abm
 abm
 abm
 abK
-abO
+abU
 cAw
 cCi
 cDI
@@ -181739,13 +181677,13 @@ clI
 cnp
 clK
 clA
-abd
-abd
-abt
+abg
+abg
+abu
 abz
-abM
+abI
 abV
-dCF
+aaZ
 cCj
 cDI
 cDI
@@ -181996,12 +181934,12 @@ clJ
 cnq
 coU
 clA
-dCF
-abo
-dCF
-abo
-abI
-acU
+aaZ
+abn
+aaZ
+abn
+abL
+acT
 cAw
 cAw
 cAw
