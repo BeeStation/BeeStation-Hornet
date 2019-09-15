@@ -389,10 +389,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			continue
 		if(!M.has_antag_datum(/datum/antagonist/changeling))
 			continue
-		if(isIPC(M.current))
-			continue
 		var/datum/mind/T = possible_target
-		if(!istype(T))
+		if(!istype(T) || isIPC(T.current))
 			return FALSE
 	return TRUE
 
