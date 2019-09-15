@@ -112,7 +112,7 @@
 			can activate this explosive is on your station. Ensure that it is protected at all times, and remain alert for possible intruders."
 
 /proc/is_nuclear_operative(mob/M)
-	return M && istype(M) && M.mind && M.mind.has_antag_datum(/datum/antagonist/nukeop)
+	return M.mind?.has_antag_datum(/datum/antagonist/nukeop)
 
 /datum/outfit/syndicate
 	name = "Syndicate Operative - Basic"
