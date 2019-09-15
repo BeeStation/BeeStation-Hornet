@@ -10381,12 +10381,13 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "aoG" = (
-/obj/machinery/door/airlock/medical{
-	id_tag = "Unit_1";
-	name = "Unit 1"
+/obj/machinery/door/airlock/medical/glass,
+/obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
-/area/crew_quarters/toilet/restrooms)
+/area/crew_quarters/cryopods)
 "aoH" = (
 /turf/closed/wall/r_wall/rust,
 /area/medical/virology)
@@ -10446,13 +10447,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "aoL" = (
-/obj/machinery/door/airlock/grunge{
-	id_tag = "Cabin_4";
-	name = "Cabin 4"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/door/airlock/medical/glass,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
-/area/crew_quarters/locker)
+/area/crew_quarters/cryopods)
 "aoM" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -59563,18 +59562,18 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
-	icon_state = "pipe11-1";
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer1{
+	icon_state = "manifold-1";
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
@@ -62968,7 +62967,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "bJH" = (
@@ -63092,30 +63090,23 @@
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/engineering)
 "bJQ" = (
-/obj/structure/table/wood,
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/storage/secure/briefcase{
-	pixel_y = 4
+/obj/machinery/computer/cryopod{
+	pixel_y = 25
 	},
-/obj/item/radio{
-	desc = "An old handheld radio. You could use it, if you really wanted to.";
-	icon_state = "radio";
-	name = "old radio"
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
 	},
-/obj/machinery/button/door{
-	id = "Cabin_4";
-	name = "Cabin 4 Privacy Lock";
-	normaldoorcontrol = 1;
-	pixel_x = 0;
-	pixel_y = 24;
-	specialfunctions = 4
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
 	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -23
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
-/turf/open/floor/wood,
-/area/crew_quarters/locker)
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/crew_quarters/cryopods)
 "bJR" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -63172,16 +63163,22 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bJU" = (
-/obj/machinery/light/small{
+/obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
+/obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken6"
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
-/area/crew_quarters/locker)
+/obj/effect/turf_decal/tile/blue,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/crew_quarters/cryopods)
 "bJV" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass{
@@ -63272,21 +63269,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/locker)
-"bKc" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/obj/machinery/button/door{
-	id = "Cabin_4Privacy";
-	name = "Cabin 4 Privacy Toggle";
-	pixel_x = -24;
-	pixel_y = -24
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken4"
-	},
-/area/crew_quarters/locker)
 "bKd" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/machinery/newscaster{
@@ -63348,14 +63330,6 @@
 /turf/open/floor/wood{
 	icon_state = "wood-broken"
 	},
-/area/crew_quarters/locker)
-"bKk" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "Cabin_4Privacy";
-	name = "Cabin 4 Privacy Shutter"
-	},
-/turf/open/floor/plating,
 /area/crew_quarters/locker)
 "bKl" = (
 /obj/structure/flora/rock/pile,
@@ -63423,6 +63397,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
 "bKp" = (
@@ -63631,6 +63607,9 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
 "bKB" = (
@@ -63641,6 +63620,8 @@
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-14"
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
 "bKC" = (
@@ -63828,6 +63809,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/toilet/restrooms)
 "bKQ" = (
@@ -63937,38 +63920,31 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
 "bKV" = (
-/obj/effect/turf_decal/box,
-/obj/structure/toilet{
-	icon_state = "toilet00";
-	dir = 8
-	},
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/machinery/button/door{
-	id = "Unit_1";
-	name = "Unit 1 Privacy Lock";
-	normaldoorcontrol = 1;
-	pixel_x = 24;
-	pixel_y = 8;
-	specialfunctions = 4
-	},
-/obj/machinery/newscaster{
-	pixel_x = -30;
-	pixel_y = -30
-	},
-/obj/machinery/light/small{
+/obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/effect/landmark/blobstart,
-/obj/machinery/button/door{
-	id = "Unit_1Privacy";
-	name = "Unit 1 Privacy Toggle";
-	pixel_x = 24;
-	pixel_y = -8
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/power/apc{
+	pixel_x = -26
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/light_switch{
+	pixel_x = -25;
+	pixel_y = 25
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/crew_quarters/toilet/restrooms)
+/area/crew_quarters/cryopods)
 "bKW" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -64396,11 +64372,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 5
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
@@ -93176,13 +93152,30 @@
 /turf/open/floor/plating,
 /area/crew_quarters/toilet/restrooms)
 "cBZ" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "Unit_1Privacy";
-	name = "Unit 1 Privacy Shutter"
+/obj/machinery/cryopod{
+	icon_state = "cryopod-open";
+	dir = 4
 	},
-/turf/open/floor/plating,
-/area/crew_quarters/toilet/restrooms)
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/item/radio/intercom{
+	pixel_x = -25;
+	pixel_y = 0
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/crew_quarters/cryopods)
 "cCa" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -103622,6 +103615,11 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/space/nearstation)
+"eHA" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/turf/closed/wall,
+/area/crew_quarters/cryopods)
 "eNZ" = (
 /obj/structure/table/reinforced,
 /obj/item/geiger_counter,
@@ -103970,6 +103968,28 @@
 /area/solar/starboard/fore{
 	name = "Abandoned Outpost Solar Array"
 	})
+"hFH" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 5
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer1{
+	icon_state = "scrub_map_on-1";
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/airalarm{
+	pixel_y = 25
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/crew_quarters/cryopods)
 "hHY" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
@@ -104141,6 +104161,10 @@
 /area/maintenance/solars{
 	name = "Abandoned Outpost Engineering"
 	})
+"iTl" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/cryopods)
 "iXf" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/spider/stickyweb,
@@ -104804,6 +104828,9 @@
 /area/solar/starboard/fore{
 	name = "Abandoned Outpost Solar Array"
 	})
+"ogH" = (
+/turf/closed/wall/rust,
+/area/crew_quarters/cryopods)
 "oiy" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/structure/spider/stickyweb,
@@ -104931,6 +104958,9 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"pdu" = (
+/turf/closed/wall,
+/area/crew_quarters/cryopods)
 "plt" = (
 /obj/structure/lattice,
 /turf/open/space/basic,
@@ -105418,6 +105448,14 @@
 /area/maintenance/solars{
 	name = "Abandoned Outpost Engineering"
 	})
+"tjY" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/plasteel/showroomfloor,
+/area/crew_quarters/cryopods)
 "tnM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/glass,
@@ -105715,6 +105753,24 @@
 /area/maintenance/solars{
 	name = "Abandoned Outpost"
 	})
+"vVR" = (
+/obj/machinery/cryopod,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue,
+/obj/machinery/camera{
+	c_tag = "Cryo Lounge";
+	dir = 8;
+	name = "recreation camera"
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/crew_quarters/cryopods)
 "vYp" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -125767,10 +125823,10 @@ brD
 bKu
 bKF
 bKz
-brD
-brD
-brD
-cBy
+pdu
+pdu
+pdu
+pdu
 cBI
 bVD
 aah
@@ -126027,7 +126083,7 @@ bKA
 aoG
 bKV
 cBZ
-csN
+iTl
 cBw
 cBT
 aeg
@@ -126281,10 +126337,10 @@ bEU
 bKB
 bKo
 bKP
-bIV
-bLu
-bIV
-bIV
+eHA
+hFH
+tjY
+iTl
 csS
 cnx
 aah
@@ -126538,10 +126594,10 @@ bFb
 akv
 bzZ
 bKL
-bIV
+pdu
 bJQ
-bKc
-bKk
+tjY
+iTl
 cBv
 bVD
 aah
@@ -126797,8 +126853,8 @@ bLA
 bJG
 aoL
 bJU
-bUa
-bKk
+vVR
+iTl
 csS
 cCa
 aef
@@ -127052,10 +127108,10 @@ bFA
 bJs
 bAi
 bJy
-bIV
-bIV
-bIV
-bLu
+pdu
+pdu
+pdu
+ogH
 cBI
 cnx
 aah
