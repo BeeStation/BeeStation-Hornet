@@ -537,6 +537,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Recreation - Cryo Lounge";
+	dir = 4;
+	name = "recreation camera"
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "abl" = (
