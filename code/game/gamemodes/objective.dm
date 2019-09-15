@@ -387,7 +387,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	for(var/datum/mind/M in owners)
 		if(!M)
 			continue
-		if(!M.has_antag_datum(/datum/antagonist/changeling))
+		if(M.has_antag_datum(/datum/antagonist/changeling))
 			continue
 		if(isIPC(M.current))
 			continue
