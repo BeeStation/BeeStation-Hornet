@@ -1896,5 +1896,5 @@ datum/uplink_item/role_restricted/superior_honkrender
 	name = "Trophy Belt"
 	desc = "A belt designed to hold the severed heads of those who stand against you."
 	item = /obj/item/storage/belt/skull
-	cost = 7 //holding peoples heads is pretty robust, it shouldn't come cheap.
+	cost = 10 //holding peoples heads is pretty robust, it shouldn't come cheap.
 	illegal_tech = FALSE
