@@ -107,12 +107,12 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
 /obj/machinery/computer/obj_break(damage_flag)
-	if(circuit && !(flags_1 & NODECONSTRUCT_1)) //no circuit, no breaking
-		if(!(stat & BROKEN))
-			playsound(loc, 'sound/effects/glassbr3.ogg', 100, 1)
-			stat |= BROKEN
-			update_icon()
-			set_light(0)
+	if(!circuit) //no circuit, no breaking
+		return
+	. = ..()
+	if(.)
+		playsound(loc, 'sound/effects/glassbr3.ogg', 100, 1)
+		set_light(0)
 
 /obj/machinery/computer/emp_act(severity)
 	. = ..()

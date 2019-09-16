@@ -395,8 +395,9 @@
 /obj/machinery/door/airlock/clockwork/hasPower()
 	return TRUE //yes we do have power
 
-/obj/machinery/door/airlock/clockwork/obj_break(damage_flag)
-	return
+/obj/machinery/door/airlock/clockwork/on_break()
+	if(!panel_open)
+		panel_open = TRUE
 
 /obj/machinery/door/airlock/clockwork/deconstruct(disassembled = TRUE)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)

@@ -66,7 +66,7 @@
 				closets += WEAKREF(C)
 
 	if(!length(doors) && !length(flashers) && length(closets))
-		stat |= BROKEN
+		obj_break()
 	update_icon()
 
 

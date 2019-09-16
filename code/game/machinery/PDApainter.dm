@@ -201,10 +201,7 @@
 		return ..()
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
-			stat |= BROKEN
-			update_icon()
+	obj_break()
 
 /obj/machinery/pdapainter/attack_hand(mob/user)
 	if(!..())
