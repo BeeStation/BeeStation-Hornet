@@ -11,8 +11,7 @@
 	density = FALSE
 	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	processing_flags = START_PROCESSING_MANUALLY
-	subsystem_type = /datum/controller/subsystem/processing/fastprocess
+	speed_process = TRUE
 
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_OFFLINE
 
@@ -52,7 +51,7 @@
 		var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 		if(beacon)
 			qdel(beacon)
-		end_processing()
+		STOP_PROCESSING(SSfastprocess, src)
 		detonation_timer = null
 		next_beep = null
 		countdown.stop()
@@ -94,12 +93,12 @@
 		payload = new payload(src)
 	update_icon()
 	countdown = new(src)
-	end_processing()
+	STOP_PROCESSING(SSfastprocess, src)
 
 /obj/machinery/syndicatebomb/Destroy()
 	QDEL_NULL(wires)
 	QDEL_NULL(countdown)
-	end_processing()
+	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
 /obj/machinery/syndicatebomb/examine(mob/user)
@@ -190,7 +189,7 @@
 
 /obj/machinery/syndicatebomb/proc/activate()
 	active = TRUE
-	begin_processing()
+	START_PROCESSING(SSfastprocess, src)
 	//Global teamfinder signal trackable on the synd frequency.
 	AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ff2b2b", TRUE, TRUE)
 	countdown.start()

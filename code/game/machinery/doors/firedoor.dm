@@ -28,7 +28,7 @@
 	air_tight = TRUE
 	open_speed = 2
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
-	processing_flags = START_PROCESSING_MANUALLY
+	speed_process = TRUE
 	var/emergency_close_timer = 0
 	var/nextstate = null
 	var/boltslocked = TRUE
@@ -62,7 +62,7 @@
 	icon_state = "door_closed"
 	opacity = TRUE
 	density = TRUE
-	processing_flags = START_PROCESSING_ON_INIT
+	speed_process = FALSE
 
 //see also turf/AfterChange for adjacency shennanigans
 
@@ -197,7 +197,7 @@
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
 		return
-	
+
 	if(density)
 		if(!(stat & NOPOWER))
 			LAZYADD(access_log, "MOTOR_ERR:|MOTOR CONTROLLER REPORTED BACKDRIVE|T_OFFSET:[DisplayTimeText(world.time - SSticker.round_start_time)]")
