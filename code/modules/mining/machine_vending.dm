@@ -18,10 +18,6 @@
 		var/datum/data/vendor_equipment/M = p
 		GLOB.vending_products[M.equipment_path] = 1
 
-/obj/machinery/vendor/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/vendor/update_icon()
 	if(powered())
 		icon_state = initial(icon_state)

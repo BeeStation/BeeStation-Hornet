@@ -91,10 +91,6 @@
 		else
 			icon_state = "access_button_standby"
 
-/obj/machinery/doorButtons/access_button/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/doorButtons/access_button/removeMe(obj/O)
 	if(O == door)
 		door = null

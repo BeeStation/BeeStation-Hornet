@@ -176,6 +176,9 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
+	if(greyscale_config && greyscale_colors)
+		update_greyscale()
+
 	//atom color stuff
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
@@ -570,8 +573,12 @@
 
 	// I expect we're going to need more return flags and options in this proc
 	var/signalOut = SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON)
+	. = FALSE
+
 	if(!(signalOut & COMSIG_ATOM_NO_UPDATE_ICON_STATE))
 		update_icon_state()
+		. = TRUE
+
 	if(!(signalOut & COMSIG_ATOM_NO_UPDATE_OVERLAYS))
 		var/list/new_overlays = update_overlays()
 		if(managed_overlays)
@@ -580,6 +587,9 @@
 		if(length(new_overlays))
 			managed_overlays = new_overlays
 			add_overlay(new_overlays)
+		. = TRUE
+
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, signalOut, .)
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()

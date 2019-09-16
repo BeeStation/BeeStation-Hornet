@@ -78,13 +78,11 @@
 		SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, EMISSIVE_PLANE, dir)
 
 /obj/machinery/computer/power_change()
-	..()
+	. = ..()
 	if(stat & NOPOWER)
 		set_light(FALSE)
 	else
 		set_light(TRUE)
-	update_icon()
-	return
 
 /obj/machinery/computer/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())

@@ -256,7 +256,3 @@
 		storedid.loc = get_turf(src.loc)
 		storedid = null
 		update_icon()
-
-/obj/machinery/pdapainter/power_change()
-	..()
-	update_icon()
