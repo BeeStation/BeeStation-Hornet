@@ -64,10 +64,10 @@ GLOBAL_LIST_EMPTY(gangs)
 //Deals with checking if player is a gangster    //
 ///////////////////////////////////////////////////
 /proc/is_gangster(mob/M)
-	return M.mind?.has_antag_datum(/datum/antagonist/gang)
+	return M?.mind?.has_antag_datum(/datum/antagonist/gang)
 
 /proc/is_gang_boss(mob/M)
-	return M.mind?.has_antag_datum(/datum/antagonist/gang/boss)
+	return M?.mind?.has_antag_datum(/datum/antagonist/gang/boss)
 
 /datum/game_mode/gang/generate_credit_text()
 	var/list/round_credits = list()

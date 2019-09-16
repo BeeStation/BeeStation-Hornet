@@ -422,13 +422,16 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(is_gangster(target) || is_gang_boss(target))
 			alert("You're a Gangster![generic_plsnoleave_message]")
 			caught = TRUE
+		if(is_ninja(target))
+			alert("You're a Ninja![generic_plsnoleave_message]")
+			caught = TRUE
 		if(is_nuclear_operative(target))
 			alert("You're a Nuclear Operative![generic_plsnoleave_message]")
 			caught = TRUE
 		if(is_revolutionary(target) || is_head_revolutionary(target))
 			alert("You're a Revolutionary![generic_plsnoleave_message]")
 			caught = TRUE
-		if(is_wizard(target))
+		if(iswizard(target))
 			alert("You're a Wizard![generic_plsnoleave_message]")
 			caught = TRUE
 		if(caught)
