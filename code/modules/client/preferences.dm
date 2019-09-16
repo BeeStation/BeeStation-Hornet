@@ -1148,15 +1148,22 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("name")
 					var/new_name = input(user, "Choose your character's name:", "Character Preference")  as text|null
-					if(new_name)
-						new_name = reject_bad_name(new_name)
+					if(pref_species.id == "ipc") // Allow numbers if they're an IPC
 						if(new_name)
+							new_name = reject_bad_name(new_name,allow_numbers=1)
+							real_name = new_name
+						else
+							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, 0-9, -, ' and .</font>")
+					else // Otherwise, no numbers in name
+						if(new_name)
+							new_name = reject_bad_name(new_name)
 							real_name = new_name
 						else
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
 				if("age")
 					var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
+
 					if(new_age)
 						age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
 
@@ -1164,7 +1171,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference","#"+hair_color) as color|null
 					if(new_hair)
 						hair_color = sanitize_hexcolor(new_hair)
-
+				if("ipc_name")
+					var/new_name = input(user, "Choose your character's name:", "Character Preference")  as text|null
+					if(new_name)
+						new_name = reject_bad_name(new_name,allow_numbers=1)
+						if(new_name)
+							real_name = new_name
+						else
+							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, 0-9, -, ' and .</font>")
 				if("ipc_screen")
 					var/new_ipc_screen
 					new_ipc_screen = input(user, "Choose your character's screen:", "Character Preference") as null|anything in GLOB.ipc_screens_list
