@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	var/on_store_name = "Cryogenic Oversight"
 
 	// 5 minutes-ish safe period before being despawned.
-	var/time_till_despawn = 3 * 600 // This is reduced to 30 seconds if a player manually enters cryo
+	var/time_till_despawn = 5 * 600 // This is reduced to 30 seconds if a player manually enters cryo
 	var/despawn_world_time = null          // Used to keep track of the safe period.
 
 	var/obj/machinery/computer/cryopod/control_computer
