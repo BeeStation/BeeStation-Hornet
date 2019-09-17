@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	var/on_store_name = "Cryogenic Oversight"
 
 	// 5 minutes-ish safe period before being despawned.
-	var/time_till_despawn = 5 * 600 // This is reduced to 30 seconds if a player manually enters cryo
+	var/time_till_despawn = 3 * 600 // This is reduced to 30 seconds if a player manually enters cryo
 	var/despawn_world_time = null          // Used to keep track of the safe period.
 
 	var/obj/machinery/computer/cryopod/control_computer
@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(mob_occupant && mob_occupant.stat != DEAD)
 			to_chat(occupant, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 		if(mob_occupant.client)//if they're logged in
-			despawn_world_time = world.time + (time_till_despawn * 0.1) // This gives them 30 seconds
+			despawn_world_time = world.time + (time_till_despawn * 0.17) // This gives them ~30 seconds
 		else
 			despawn_world_time = world.time + time_till_despawn
 	icon_state = "cryopod"
@@ -241,13 +241,15 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		// Eject dead people
 		if(mob_occupant.stat == DEAD)
 			open_machine()
-
-		if(!(world.time > despawn_world_time))
+		if (!mob_occupant.key && mob_occupant.stat < 2) // Occupant is living but logged out entirely.
+			if(!control_computer)
+				find_control_computer(urgent = TRUE)
+			despawn_occupant()
+		if(!(world.time > despawn_world_time)) // AFKs must wait for the proper despawn time.
 			return
-
 		if(!mob_occupant.client && mob_occupant.stat < 2) //Occupant is living and has no client.
 			if(!control_computer)
-				find_control_computer(urgent = TRUE)//better hope you found it this time
+				find_control_computer(urgent = TRUE)
 
 			despawn_occupant()
 
@@ -407,32 +409,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(target.mind.assigned_role in GLOB.command_positions)
 			alert("You're a Head of Staff![generic_plsnoleave_message]")
 			caught = TRUE
-		if(isovermind(target))
-			alert("You're a Blob![generic_plsnoleave_message]")
-			caught = TRUE
-		if(is_changeling(target))
-			alert("You're a Changeling![generic_plsnoleave_message]")
-			caught = TRUE
-		if(iscultist(target) || is_servant_of_ratvar(target))
-			alert("You're a Cultist![generic_plsnoleave_message]")
-			caught = TRUE
-		if(is_devil(target))
-			alert("You're a Devil![generic_plsnoleave_message]")
-			caught = TRUE
-		if(is_gangster(target) || is_gang_boss(target))
-			alert("You're a Gangster![generic_plsnoleave_message]")
-			caught = TRUE
-		if(is_ninja(target))
-			alert("You're a Ninja![generic_plsnoleave_message]")
-			caught = TRUE
-		if(is_nuclear_operative(target))
-			alert("You're a Nuclear Operative![generic_plsnoleave_message]")
-			caught = TRUE
-		if(is_revolutionary(target) || is_head_revolutionary(target))
-			alert("You're a Revolutionary![generic_plsnoleave_message]")
-			caught = TRUE
-		if(iswizard(target))
-			alert("You're a Wizard![generic_plsnoleave_message]")
+		if(target.mind.has_antag_datum(/datum/antagonist))
+			alert("You're an antagonist![generic_plsnoleave_message]")
 			caught = TRUE
 		if(caught)
 			target.client.cryo_warned = world.time
