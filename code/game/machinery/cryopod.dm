@@ -247,7 +247,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			despawn_occupant()
 		if(!(world.time > despawn_world_time)) // AFKs must wait for the proper despawn time.
 			return
-		if(!mob_occupant.client && mob_occupant.stat < 2) //Occupant is living and has no client.
+		if((!mob_occupant.client || !mob_occupant.key) && mob_occupant.stat < 2) //Occupant is living and has no client.
 			if(!control_computer)
 				find_control_computer(urgent = TRUE)
 
