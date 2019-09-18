@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(mob_occupant && mob_occupant.stat != DEAD)
 			to_chat(occupant, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 		if(mob_occupant.client)//if they're logged in
-			despawn_world_time = world.time + (time_till_despawn * 0.17) // This gives them ~30 seconds
+			despawn_world_time = world.time + (time_till_despawn * 0.1) // This gives them ~30 seconds
 		else
 			despawn_world_time = world.time + time_till_despawn
 	icon_state = "cryopod"
