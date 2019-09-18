@@ -82790,15 +82790,13 @@
 /area/quartermaster/storage)
 "dLG" = (
 /obj/machinery/cryopod,
-/obj/machinery/power/apc{
-	pixel_y = 23
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/auto_name/north,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
 "dLK" = (
