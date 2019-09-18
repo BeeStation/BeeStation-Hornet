@@ -378,7 +378,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round
 	var/target_missing_id
 
-/datum/objective/escape/escape_with_identity/find_target(dupe_search_range,blacklist)
+/datum/objective/escape/escape_with_identity/find_target(dupe_search_range)
 	var/list/blacklist
 	for(var/datum/mind/M in SSticker.minds)
 		if(isIPC(M.current))
