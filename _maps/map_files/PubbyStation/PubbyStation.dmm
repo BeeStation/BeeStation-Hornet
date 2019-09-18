@@ -7355,9 +7355,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/machinery/power/apc{
-	pixel_y = 23
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -7365,6 +7362,7 @@
 	c_tag = "Cryogenics Lounge";
 	dir = 8
 	},
+/obj/machinery/power/apc/auto_name/north,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
 "aso" = (
