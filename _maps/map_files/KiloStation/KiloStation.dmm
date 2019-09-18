@@ -9446,7 +9446,7 @@
 	name = "emergency shower"
 	},
 /obj/effect/turf_decal/box/corners,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/noslip,
 /area/medical/genetics/cloning)
 "ano" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -23359,7 +23359,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/noslip,
 /area/medical/medbay/central)
 "aHX" = (
 /obj/machinery/rnd/production/techfab/department/service,
@@ -24224,7 +24224,7 @@
 "aJl" = (
 /obj/machinery/shower,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/noslip,
 /area/medical/storage)
 "aJm" = (
 /obj/effect/turf_decal/bot,
@@ -33092,7 +33092,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/noslip,
 /area/medical/virology)
 "aVb" = (
 /obj/effect/turf_decal/tile/blue{
