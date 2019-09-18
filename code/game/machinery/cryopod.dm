@@ -241,7 +241,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		// Eject dead people
 		if(mob_occupant.stat == DEAD)
 			open_machine()
-		if(!(world.time > despawn_world_time)) // AFKs must wait for the proper despawn time.
+		if(!(world.time > despawn_world_time))
 			return
 		if((!mob_occupant.client || !mob_occupant.key) && mob_occupant.stat < 2) //Occupant is living and has no client.
 			if(!control_computer)
