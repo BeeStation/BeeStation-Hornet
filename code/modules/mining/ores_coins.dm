@@ -432,6 +432,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	value = 0
 	grind_results = list(/datum/reagent/consumable/sodiumchloride = 4)
 
+/obj/item/coin/arcade_token
+	name = "arcade token"
+	icon_state = "coin_bananium_heads"
+	cmineral = "bananium"
+	desc = "A coin that allows you to redeem a prize from an arcade machine."
+	value = 0
+
 /obj/item/coin/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
