@@ -50667,7 +50667,7 @@
 /obj/item/reagent_containers/food/drinks/beer{
 	desc = "A station exclusive. Consumpt may result in seizures, blindness, drunkenness, or even death.";
 	icon_state = "beer";
-	list_reagents = list("thirteenloko" = 10);
+	list_reagents = list(/datum/reagent/consumable/ethanol/thirteenloko = 10);
 	name = "Kilo-Kocktail";
 	pixel_x = 5;
 	pixel_y = 5
