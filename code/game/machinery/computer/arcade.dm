@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	the_prize.forceMove(get_turf(src))
 	
 /obj/machinery/computer/arcade/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/coin/arcade_token))
+	if(istype(W, /obj/item/coin/arcade_token) || istype(W, /obj/item/coin/bananium))
 		redeem(user)
 		qdel(W)
 		return
