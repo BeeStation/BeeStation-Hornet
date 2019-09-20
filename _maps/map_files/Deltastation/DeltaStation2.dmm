@@ -5821,21 +5821,6 @@
 "apz" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/coin/iron{
-	icon_state = "coin_bananium_heads";
-	name = "arcade coin";
-	pixel_x = 6
-	},
-/obj/item/coin/iron{
-	icon_state = "coin_bananium_heads";
-	name = "arcade coin";
-	pixel_x = -6
-	},
-/obj/item/coin/iron{
-	icon_state = "coin_bananium_heads";
-	name = "arcade coin";
-	pixel_y = 6
-	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -5845,6 +5830,15 @@
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
+	},
+/obj/item/coin/arcade_token{
+	pixel_x = 6
+	},
+/obj/item/coin/arcade_token{
+	pixel_x = -6
+	},
+/obj/item/coin/arcade_token{
+	pixel_y = 6
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/fore)
@@ -7229,10 +7223,7 @@
 "arW" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/coin/iron{
-	icon_state = "coin_bananium_heads";
-	name = "arcade coin"
-	},
+/obj/item/coin/arcade_token,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "arX" = (
@@ -7281,10 +7272,7 @@
 	},
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/coin/iron{
-	icon_state = "coin_bananium_heads";
-	name = "arcade coin"
-	},
+/obj/item/coin/arcade_token,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "asc" = (
