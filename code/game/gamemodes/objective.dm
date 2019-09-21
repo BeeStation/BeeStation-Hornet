@@ -379,7 +379,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/target_missing_id
 
 /datum/objective/escape/escape_with_identity/find_target(dupe_search_range)
-	var/list/blacklist
+	var/list/blacklist = list()
 	for(var/datum/mind/M in SSticker.minds)
 		if(isIPC(M.current))
 			blacklist += M
