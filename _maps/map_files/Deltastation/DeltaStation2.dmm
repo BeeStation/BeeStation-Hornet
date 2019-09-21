@@ -95562,7 +95562,7 @@
 	pixel_x = 26
 	},
 /obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/medbay/central)
 "ddh" = (
 /obj/structure/table/wood,
@@ -102380,7 +102380,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/noslip,
 /area/medical/genetics/cloning)
 "dpn" = (
 /obj/effect/turf_decal/tile/blue{
@@ -117567,7 +117567,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
+/turf/open/floor/noslip,
 /area/medical/virology)
 "dQf" = (
 /obj/structure/cable/yellow{
@@ -117995,7 +117995,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
+/turf/open/floor/noslip,
 /area/medical/virology)
 "dQV" = (
 /obj/structure/cable/yellow{

@@ -32448,7 +32448,7 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/sleeper)
 "bzf" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
@@ -36601,7 +36601,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/virology)
 "bIL" = (
 /obj/structure/cable/yellow{
@@ -37632,7 +37632,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/virology)
 "bLe" = (
 /obj/structure/sign/warning/biohazard,
@@ -39246,7 +39246,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/virology)
 "bPr" = (
 /obj/machinery/airalarm{
@@ -57327,6 +57327,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"qSR" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/turf/open/floor/noslip,
+/area/medical/genetics)
 "rcD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -97363,7 +97369,7 @@ bua
 bvn
 bwL
 bxX
-bsL
+qSR
 bua
 bBJ
 bhh
