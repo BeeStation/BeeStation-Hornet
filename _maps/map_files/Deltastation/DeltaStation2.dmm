@@ -326,11 +326,11 @@
 /area/medical/medbay/central)
 "aaK" = (
 /turf/closed/wall/r_wall,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "aaL" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "aaM" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -348,7 +348,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "aaN" = (
 /turf/open/floor/plasteel,
 /area/security/range)
@@ -976,7 +976,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "abX" = (
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
@@ -992,12 +992,12 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "abY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "abZ" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
@@ -1067,7 +1067,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "ach" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -1081,11 +1081,11 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "aci" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -1099,12 +1099,12 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "ack" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -1112,14 +1112,14 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acm" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/backpack/duffelbag/med,
 /obj/item/flashlight/pen,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acn" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -1247,7 +1247,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acx" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1257,7 +1257,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -1268,7 +1268,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -1293,14 +1293,14 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acA" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/item/clothing/suit/apron/surgical,
 /obj/item/clothing/mask/breath/medical,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -1317,7 +1317,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
@@ -1337,13 +1337,13 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acD" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -1361,7 +1361,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acF" = (
 /obj/docking_port/stationary{
 	dir = 2;
@@ -1544,12 +1544,12 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acS" = (
 /obj/structure/closet/secure_closet/medical3,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "acT" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -1853,7 +1853,7 @@
 "adp" = (
 /obj/machinery/vending/wardrobe/medi_wardrobe,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "adq" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/directions/engineering{
@@ -1885,7 +1885,7 @@
 "adu" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "adv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1912,7 +1912,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "adx" = (
 /obj/structure/table/reinforced,
 /obj/item/analyzer{
@@ -1957,7 +1957,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "adA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -1975,7 +1975,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/maintenance/aft)
+/area/maintenance/department/medical/morgue)
 "adB" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -126198,6 +126198,9 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/escape)
+"egx" = (
+/turf/closed/wall,
+/area/maintenance/department/medical/morgue)
 "egB" = (
 /obj/structure/cable,
 /obj/machinery/power/solar{
@@ -171706,7 +171709,7 @@ aci
 acw
 acB
 acS
-dNS
+egx
 dLd
 dMF
 dNS
@@ -171963,7 +171966,7 @@ acj
 acx
 acC
 adp
-dNS
+egx
 dLe
 dMG
 dNS
@@ -172728,13 +172731,13 @@ dwX
 drj
 dAa
 dBg
-dNS
+egx
 ach
 acm
 acA
 acR
 adz
-dNS
+egx
 dKY
 dMA
 dNS
