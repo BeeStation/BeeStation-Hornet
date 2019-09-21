@@ -55331,11 +55331,6 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/engine,
 /area/science/explab)
-"cZR" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/holodeck/rec_center)
 "dcv" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /turf/open/floor/plasteel,
@@ -55383,10 +55378,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
-"diq" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/holodeck/rec_center)
 "dqu" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall/r_wall,
@@ -56133,11 +56124,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/security/courtroom)
-"jnE" = (
-/turf/open/floor/engine{
-	name = "Holodeck Projector Floor"
-	},
-/area/crew_quarters/fitness)
 "jrH" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "rnd2";
@@ -56336,9 +56322,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"ktX" = (
-/turf/open/space/basic,
-/area/crew_quarters/fitness)
 "kwA" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
@@ -56539,7 +56522,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/crew_quarters/fitness)
 "ltd" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -56732,7 +56715,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/space)
+/area/crew_quarters/fitness)
 "mJd" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -57307,10 +57290,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
-"qAz" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space)
 "qGG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -57407,11 +57386,6 @@
 /obj/item/hand_labeler,
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
-"rJG" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/holodeck/rec_center)
 "rKc" = (
 /obj/machinery/door/window/eastright{
 	base_state = "left";
@@ -57497,7 +57471,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating,
-/area/holodeck/rec_center)
+/area/crew_quarters/fitness)
 "slk" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -57795,7 +57769,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating,
-/area/holodeck/rec_center)
+/area/crew_quarters/fitness)
 "tXL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
@@ -58106,11 +58080,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
-"vIm" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "vIU" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/light{
@@ -58146,7 +58115,7 @@
 	name = "Holodeck Door"
 	},
 /turf/open/floor/plasteel,
-/area/holodeck/rec_center)
+/area/crew_quarters/fitness)
 "vTE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -58354,10 +58323,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
-"xBz" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space/nearstation)
 "xEu" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
@@ -94264,7 +94229,7 @@ aag
 gal
 aaa
 syg
-sgn
+ahn
 mgt
 wHl
 mgt
@@ -94524,7 +94489,7 @@ aaa
 aaa
 aaa
 aaa
-ktX
+aaa
 arj
 clO
 asZ
@@ -94535,7 +94500,7 @@ axY
 azh
 gsz
 arj
-ktX
+aaa
 aaf
 alP
 aGH
@@ -94782,16 +94747,16 @@ aaa
 aaa
 aaa
 aqr
-cZR
-cZR
+arm
+arm
 tVF
 vQH
-diq
-diq
+auB
+auB
 vQH
 skk
-rJG
-rJG
+azp
+azp
 aCu
 aaa
 alP
@@ -96067,16 +96032,16 @@ aaa
 aaa
 aaa
 aqs
-jnE
-jnE
-jnE
-jnE
-jnE
-jnE
-jnE
-jnE
-jnE
-jnE
+aro
+aro
+aro
+aro
+aro
+aro
+aro
+aro
+aro
+aro
 aCv
 aaf
 alP
@@ -96332,8 +96297,8 @@ auB
 auB
 axZ
 azp
-vIm
-vIm
+azp
+azp
 mIX
 aaa
 alP
@@ -96581,8 +96546,8 @@ aaf
 aaf
 aaf
 aaf
-atS
-atS
+arj
+arj
 arj
 auA
 avD
@@ -97097,12 +97062,12 @@ aaa
 aaa
 aaa
 aaf
-sgn
-qAz
-xBz
-sgn
-sgn
-alP
+arj
+auB
+auB
+arj
+arj
+arj
 ayf
 aBD
 aCx
