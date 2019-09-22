@@ -34,114 +34,10 @@
 	var/oldres
 	// The order goes from easy to cure to hard to cure.
 	var/static/list/advance_cures = 	list(
-																		list(	// level 1 basic cures. Can be found in the chem dispenser and harmless. tg unchanged.
-										/datum/reagent/copper, 
-										/datum/reagent/silver, 
-										/datum/reagent/iodine, 
-										/datum/reagent/iron, 
-										/datum/reagent/carbon
-									),
-									list(	// level 2 normal cures. May have some side effects. again found in the chem dispenser. tg unchanged.
-										/datum/reagent/potassium, 
-										/datum/reagent/consumable/ethanol, 
-										/datum/reagent/lithium, 
-										/datum/reagent/silicon, 
-										/datum/reagent/bromine
-									),
-									list(	// level 3 runaround cures. requires you to run around a bit, but still easy to obtain. Usually found at the bar. mostly tg unchanged.
-										/datum/reagent/consumable/sodiumchloride, 
-										/datum/reagent/consumable/sugar, 
-										/datum/reagent/consumable/orangejuice, 
-										/datum/reagent/consumable/tomatojuice, 
-										/datum/reagent/consumable/milk, 
-										/datum/reagent/drug/nicotine
-									),
-									list(	//level 4 Vendor cures. Usually limited, but can be made in chemistry.
-										/datum/reagent/medicine/spaceacillin, 
-										/datum/reagent/medicine/salglu_solution, 
-										/datum/reagent/medicine/epinephrine, 
-										/datum/reagent/medicine/charcoal, 
-										/datum/reagent/lye, 
-										/datum/reagent/space_cleaner/sterilizine, 
-										/datum/reagent/medicine/morphine, 
-										/datum/reagent/medicine/insulin,
-										/datum/reagent/toxin/plantbgone
-									),
-									list(	//level 5 chemical cures that require minor knowledge to obtain. These are mostly tg level 5 AND 6, since I am planning to make 6+ cures harder to get/be toxic otherwise
-										/datum/reagent/oil, 
-										/datum/reagent/medicine/synaptizine, 
-										/datum/reagent/medicine/mannitol, 
-										/datum/reagent/drug/space_drugs, 
-										/datum/reagent/cryptobiolin, 
-										/datum/reagent/phenol, 
-										/datum/reagent/medicine/inacusiate, 
-										/datum/reagent/medicine/oculine, 
-										/datum/reagent/medicine/antihol
-										
-									),
-									list(	// level 6
-										/datum/reagent/consumable/capsaicin, 
-										/datum/reagent/consumable/condensedcapsaicin, 
-										/datum/reagent/concentrated_barbers_aid, 
-										/datum/reagent/barbers_aid, 
-										/datum/reagent/stabilizing_agent, 
-										/datum/reagent/medicine/ephedrine, 
-										/datum/reagent/toxin/bad_food,
-										/datum/reagent/medicine/clonexadone,
-										/datum/reagent/consumable/enzyme
-									),
-									list(	// level 7 these are mostly poisons.
-										/datum/reagent/toxin/mutagen, 
-										/datum/reagent/pax, 
-										/datum/reagent/drug/happiness, 
-										/datum/reagent/toxin/lipolicide, 
-										/datum/reagent/toxin/fentanyl, 
-										/datum/reagent/toxin/sulfonal, 
-										/datum/reagent/toxin/histamine, 
-										/datum/reagent/medicine/atropine,
-										/datum/reagent/toxin/acid/fluacid
-									),
-									list(	// level 8 you will need to run around to get these.
-										/datum/reagent/consumable/entpoly, 
-										/datum/reagent/consumable/tinlux, 
-										/datum/reagent/consumable/vitfro, 
-										/datum/reagent/toxin/minttoxin, 
-										/datum/reagent/toxin/mutetoxin, 
-										/datum/reagent/toxin/bonehurtingjuice,
-										/datum/reagent/water/holywater,
-										/datum/reagent/consumable/astrotame,
-										/datum/reagent/colorful_reagent,
-										/datum/reagent/glitter/pink,
-										/datum/reagent/glitter/white,
-										/datum/reagent/glitter/blue
-									),
-									list(	// level 9 CMO, you didn't empty your hypospray, right?
-										/datum/reagent/consumable/honey, 
-										/datum/reagent/medicine/omnizine, 
-										/datum/reagent/medicine/earthsblood,
-										/datum/reagent/consumable/ethanol/lizardwine,
-										/datum/reagent/medicine/strange_reagent,
-										/datum/reagent/consumable/liquidelectricity
-									),
-									list(	// level 10 oh god....
-										/datum/reagent/medicine/lavaland_extract, 
-										/datum/reagent/toxin/amanitin,
-										/datum/reagent/medicine/pyroxadone,
-										/datum/reagent/toxin/slimejelly,
-										/datum/reagent/teslium/energized_jelly,
-										/datum/reagent/growthserum
-										
-										
-									),
-									list(	//level 11 why.... (I just stick here chemicals that should be extremely hard to obtain. Because gold? Pffff, come on!)
-										/datum/reagent/consumable/ethanol/blazaam, 
-										/datum/reagent/toxin/ghoulpowder, 
-										/datum/reagent/medicine/regen_jelly,
-										/datum/reagent/royal_bee_jelly,
-										/datum/chemical_reaction/mimesbane,
-										/datum/reagent/medicine/lavaland_extract,
-										/datum/reagent/tranquility
-									)
+																	/datum/reagent/consumable/sodiumchloride, /datum/reagent/consumable/sugar, /datum/reagent/consumable/orangejuice,
+									/datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/salglu_solution, /datum/reagent/consumable/ethanol,
+									/datum/reagent/medicine/leporazine, /datum/reagent/medicine/synaptizine, /datum/reagent/toxin/lipolicide,
+									/datum/reagent/silver, /datum/reagent/gold
 								)
 
 /*
@@ -367,11 +263,7 @@
 /datum/disease/advance/proc/GenerateCure()
 	if(properties && properties.len)
 		var/res = CLAMP(properties["resistance"] - (symptoms.len / 2), 1, advance_cures.len)
-
-		if(res == oldres)
-			return
-		cures = list(pick(advance_cures[res]))
-		oldres = res
+		cures = list(advance_cures[res])
 
 		// Get the cure name from the cure_id
 		var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
