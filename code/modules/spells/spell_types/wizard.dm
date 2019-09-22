@@ -170,6 +170,35 @@
 
 	summon_type = list(/obj/effect/timestop/wizard)
 
+
+/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop/thicc
+	name = "Large Timestop"
+	desc = "A modified version of timestop that has been designed to cover a large area."
+	charge_max = 3000 // 300 seconds ( 5 minutes )
+	clothes_req = TRUE
+	invocation = "ZA WARUDO TOKI WO TOMARE"
+	invocation_type = "shout"
+	range = 0
+	cooldown_min = 2500 //250 seconds
+	summon_amt = 1
+	action_icon_state = "time"
+
+	summon_type = list(/obj/effect/timestop/thicc)
+	
+/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop/badmin
+	name = "Badmin"
+	desc = "A modified version of timestop that has been designed to cover a large area."
+	charge_max = 1 // 1tick
+	clothes_req = TRUE
+	invocation = "IS THAT A FUCKING JOJOKE REFERENCE?"
+	invocation_type = "shout"
+	range = 0
+	cooldown_min = 1 //250 seconds
+	summon_amt = 1
+	action_icon_state = "time"
+
+	summon_type = list(/obj/effect/timestop/thicc)
+
 /obj/effect/proc_holder/spell/aoe_turf/conjure/carp
 	name = "Summon Carp"
 	desc = "This spell conjures a simple carp."
@@ -281,7 +310,7 @@
 		var/atom/movable/AM = am
 		if(AM == user || AM.anchored)
 			continue
-		
+
 		if(ismob(AM))
 			var/mob/M = AM
 			if(M.anti_magic_check(anti_magic_check, FALSE))
