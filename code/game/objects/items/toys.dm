@@ -560,8 +560,7 @@
 				sleep(10)
 
 		cooldown = TRUE
-		spawn(recharge_time)
-			cooldown = FALSE
+		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), recharge_time)
 		return
 	..()
 
