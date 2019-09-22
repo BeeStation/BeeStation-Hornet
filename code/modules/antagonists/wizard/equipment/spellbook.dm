@@ -143,6 +143,13 @@
 	name = "Time Stop"
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	category = "Defensive"
+	cost = 2
+
+/datum/spellbook_entry/timestop/enlarged
+	name = "Enlargened Timestop"
+	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop/thicc
+	category = "Defensive"
+	cost = 8
 
 /datum/spellbook_entry/smoke
 	name = "Smoke"
