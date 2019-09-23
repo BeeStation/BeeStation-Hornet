@@ -49,7 +49,7 @@ SUBSYSTEM_DEF(blackbox)
 
 	var/ssqlname = sanitizeSQL(CONFIG_GET(string/serversqlname))
 
-	var/datum/DBQuery/query_record_playercount = SSdbcore.NewQuery("INSERT INTO [format_table_name("legacy_population")] (playercount, admincount, time, server, server_ip, server_port, round_id) VALUES ([playercount], [admincount], '[SQLtime()]', '[ssqlname]', INET_ATON(IF('[world.internet_address]' LIKE '', '0', '[world.internet_address]')), '[world.port]', '[GLOB.round_id]')")
+	var/datum/DBQuery/query_record_playercount = SSdbcore.NewQuery("INSERT INTO [format_table_name("legacy_population")] (playercount, admincount, time, server_name, server_ip, server_port, round_id) VALUES ([playercount], [admincount], '[SQLtime()]', '[ssqlname]', INET_ATON(IF('[world.internet_address]' LIKE '', '0', '[world.internet_address]')), '[world.port]', '[GLOB.round_id]')")
 	query_record_playercount.Execute()
 	qdel(query_record_playercount)
 
