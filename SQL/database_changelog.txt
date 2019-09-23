@@ -13,19 +13,19 @@ Version 5.2, 22 Sep 2019, by Crossedfall & Qwerty
 Added the `server_name` column to the ban, connection_log, death, legacy_population, and round tables containing the server's name pulled from the `serversqlname` config variable. Updated the `server` column in the messages table to match the standard naming convention (`server_name`).
 
 ALTER TABLE `ban`
-ADD `server_name` varchar(32);
+ADD `server_name` varchar(32) DEFAULT NULL;
 
 ALTER TABLE `connection_log`
-ADD `server_name` varchar(32);
+ADD `server_name` varchar(32) DEFAULT NULL;
 
 ALTER TABLE `death`
-ADD `server_name` varchar(32);
+ADD `server_name` varchar(32) DEFAULT NULL;
 
 ALTER TABLE `legacy_population`
-ADD `server_name` varchar(32);
+ADD `server_name` varchar(32) DEFAULT NULL;
 
 ALTER TABLE `round`
-ADD `server_name` varchar(32);
+ADD `server_name` varchar(32) DEFAULT NULL;
 
 ALTER TABLE `messages`
 CHANGE `server` `server_name` varchar(32);
