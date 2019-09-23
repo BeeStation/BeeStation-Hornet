@@ -446,7 +446,7 @@ CREATE TABLE IF NOT EXISTS `SS13_round` (
   `start_datetime` datetime DEFAULT NULL,
   `shutdown_datetime` datetime DEFAULT NULL,
   `end_datetime` datetime DEFAULT NULL,
-  `server` varchar(32) DEFAULT NULL,
+  `server_name` varchar(32) DEFAULT NULL,
   `server_ip` int(10) unsigned NOT NULL,
   `server_port` smallint(5) unsigned NOT NULL,
   `commit_hash` char(40) DEFAULT NULL,
