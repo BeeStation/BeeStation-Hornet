@@ -469,7 +469,7 @@
 	var/sql_ban
 	for(var/role in roles_to_ban)
 		sql_ban += list(list("bantime" = "NOW()",
-		"server" = "'[ssqlname]'",
+		"server_name" = "'[ssqlname]'",
 		"server_ip" = "INET_ATON(IF('[world.internet_address]' LIKE '', '0', '[world.internet_address]'))",
 		"server_port" = sanitizeSQL(world.port),
 		"round_id" = sanitizeSQL(GLOB.round_id),
