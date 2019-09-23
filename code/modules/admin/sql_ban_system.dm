@@ -463,9 +463,13 @@
 	var/adminwho = admins_online.Join(", ")
 	var/kn = key_name(usr)
 	var/kna = key_name_admin(usr)
+
+	var/ssqlname = sanitizeSQL(CONFIG_GET(string/serversqlname))
+
 	var/sql_ban
 	for(var/role in roles_to_ban)
 		sql_ban += list(list("bantime" = "NOW()",
+		"server" = "'[ssqlname]'",
 		"server_ip" = "INET_ATON(IF('[world.internet_address]' LIKE '', '0', '[world.internet_address]'))",
 		"server_port" = sanitizeSQL(world.port),
 		"round_id" = sanitizeSQL(GLOB.round_id),
