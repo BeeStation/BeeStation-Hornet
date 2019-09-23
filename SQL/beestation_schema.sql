@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `SS13_legacy_population` (
   `playercount` int(11) DEFAULT NULL,
   `admincount` int(11) DEFAULT NULL,
   `time` datetime NOT NULL,
-  `server` varchar(32) DEFAULT NULL,
+  `server_name` varchar(32) DEFAULT NULL,
   `server_ip` int(10) unsigned NOT NULL,
   `server_port` smallint(5) unsigned NOT NULL,
   `round_id` int(11) unsigned NOT NULL,
