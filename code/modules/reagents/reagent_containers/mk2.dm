@@ -364,17 +364,17 @@
 /obj/item/reagent_containers/glass/bottle/vial/large/preloaded/bicaridine
 	name = "large red hypovial (bicaridine)"
 	icon_state = "hypoviallarge-b"
-	comes_with = list("bicaridine" = 60)
+	comes_with = list(/datum/reagent/medicine/bicaridine = 60)
 
 /obj/item/reagent_containers/glass/bottle/vial/large/preloaded/kelotane
 	name = "large orange hypovial (kelotane)"
 	icon_state = "hypoviallarge-k"
-	comes_with = list("kelotane" = 60)
+	comes_with = list(/datum/reagent/medicine/kelotane = 60)
 
 /obj/item/reagent_containers/glass/bottle/vial/large/preloaded/charcoal
 	name = "large black hypovial (charcoal)"
 	icon_state = "hypoviallarge-t"
-	comes_with = list("charcoal" = 60)
+	comes_with = list(/datum/reagent/medicine/charcoal = 60)
 
 #undefine
 
