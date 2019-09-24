@@ -376,6 +376,4 @@
 	icon_state = "hypoviallarge-t"
 	comes_with = list(/datum/reagent/medicine/charcoal = 60)
 
-#undefine
-
 
