@@ -380,3 +380,12 @@
 /obj/item/storage/pill_bottle/floorpill/full/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/floorpill(src)
+
+/obj/item/storage/firstaid/mk2/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/hypospray/mkii/CMO = 1,
+		/obj/item/reagent_containers/glass/bottle/vial/large/preloaded/bicaridine = 1,
+		/obj/item/reagent_containers/glass/bottle/vial/large/preloaded/kelotane = 1,
+		/obj/item/reagent_containers/glass/bottle/vial/large/preloaded/charcoal = 1,
+		/obj/item/reagent_containers/glass/bottle/vial/large = 2)
+	generate_items_inside(items_inside,src)
