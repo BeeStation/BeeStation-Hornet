@@ -19,11 +19,6 @@
 	max_items = 1
 	attack_hand_interact = FALSE
 
-/datum/component/storage/concrete/pockets/exo
-	max_items = 2
-	max_w_class = WEIGHT_CLASS_SMALL
-	attack_hand_interact = TRUE
-
 /datum/component/storage/concrete/pockets/tiny
 	max_items = 1
 	max_w_class = WEIGHT_CLASS_TINY
