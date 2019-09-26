@@ -19,6 +19,11 @@
 	max_items = 1
 	attack_hand_interact = FALSE
 
+/datum/component/storage/concrete/pockets/exo
+	max_items = 2
+	max_w_class = WEIGHT_CLASS_SMALL
+	attack_hand_interact = TRUE
+
 /datum/component/storage/concrete/pockets/tiny
 	max_items = 1
 	max_w_class = WEIGHT_CLASS_TINY
@@ -28,30 +33,18 @@
 	attack_hand_interact = TRUE // so the detectives would discover pockets in their hats
 
 /datum/component/storage/concrete/pockets/shoes
+	max_items = 2
 	attack_hand_interact = FALSE
+	max_w_class = WEIGHT_CLASS_SMALL
 	quickdraw = TRUE
 	silent = TRUE
 
 /datum/component/storage/concrete/pockets/shoes/Initialize()
 	. = ..()
-	cant_hold = typecacheof(list(/obj/item/screwdriver/power)) //Must be specifically called out since normal screwdrivers can fit but not the wrench form of the drill
-	can_hold = typecacheof(list(
-		/obj/item/kitchen/knife, /obj/item/switchblade, /obj/item/pen,
-		/obj/item/scalpel, /obj/item/reagent_containers/syringe, /obj/item/dnainjector,
-		/obj/item/reagent_containers/hypospray/medipen, /obj/item/reagent_containers/dropper,
-		/obj/item/implanter, /obj/item/screwdriver, /obj/item/weldingtool/mini,
-		/obj/item/firing_pin
-		))
 
 /datum/component/storage/concrete/pockets/shoes/clown/Initialize()
 	. = ..()
-	cant_hold = typecacheof(list(/obj/item/screwdriver/power)) //Must be specifically called out since normal screwdrivers can fit but not the wrench form of the drill
-	can_hold = typecacheof(list(
-		/obj/item/kitchen/knife, /obj/item/switchblade, /obj/item/pen,
-		/obj/item/scalpel, /obj/item/reagent_containers/syringe, /obj/item/dnainjector,
-		/obj/item/reagent_containers/hypospray/medipen, /obj/item/reagent_containers/dropper,
-		/obj/item/implanter, /obj/item/screwdriver, /obj/item/weldingtool/mini,
-		/obj/item/firing_pin, /obj/item/bikehorn))
+
 
 /datum/component/storage/concrete/pockets/pocketprotector
 	max_items = 3
