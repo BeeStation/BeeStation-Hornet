@@ -345,6 +345,14 @@
 	//Time to see if they need medical help!
 	if(C.stat == DEAD || (HAS_TRAIT(C, TRAIT_FAKEDEATH)))
 		return FALSE	//welp too late for them!
+	
+	var/can_inject = FALSE
+	for(var/X in C.bodyparts)
+		var/obj/item/bodypart/part = X
+		if(part.status == BODYPART_ORGANIC)
+			can_inject = TRUE
+	if(!can_inject)
+		return 0
 
 	if(!(loc == C.loc) && !(isturf(C.loc) && isturf(loc)))
 		return FALSE

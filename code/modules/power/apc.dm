@@ -706,6 +706,10 @@
 			opened = APC_COVER_CLOSED
 			locked = FALSE
 			update_icon()
+
+	else if(istype(W, /obj/item/apc_powercord))
+		return //because we put our fancy code in the right places, and this is all in the powercord's afterattack()
+
 		return
 	else if(panel_open && !opened && is_wire_tool(W))
 		wires.interact(user)
