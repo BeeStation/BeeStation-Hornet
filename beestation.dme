@@ -1743,7 +1743,6 @@
 #include "code\modules\fields\gravity.dm"
 #include "code\modules\fields\oldtimestop.dm"
 #include "code\modules\fields\peaceborg_dampener.dm"
-#include "code\modules\fields\timestop.dm"
 #include "code\modules\fields\turf_objects.dm"
 #include "code\modules\flufftext\Dreaming.dm"
 #include "code\modules\flufftext\Hallucination.dm"

@@ -4,6 +4,11 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 #define GUARDIAN_HANDS_LAYER 1
 #define GUARDIAN_TOTAL_LAYERS 1
 
+/proc/get_final_z(atom/A) //define for later
+	var/turf/T = get_turf(A)
+	if(T)
+		return T.z
+
 /mob/living/simple_animal/hostile/guardian
 	name = "Guardian Spirit"
 	real_name = "Guardian Spirit"

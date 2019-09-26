@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(timestop_noz, typecacheof(list(/obj/screen)))
 		return
 	GLOB.timestop = src
 	if(master)
-		LAZYSET(immune, master, TRUE)
+		//LAZYSET(immune, master, TRUE)
 		src.master = master
 	if(zl)
 		z_level = zl
@@ -35,11 +35,11 @@ GLOBAL_LIST_INIT(timestop_noz, typecacheof(list(/obj/screen)))
 		time = t
 	for(var/mob/living/L in GLOB.player_list)
 		if(HAS_TRAIT(L, TRAIT_TIMELESS))
-			LAZYSET(immune, L, TRUE)
+			//LAZYSET(immune, L, TRUE)
 		if(istype(L, /mob/living/simple_animal/hostile/guardian))
 			var/mob/living/simple_animal/hostile/guardian/G = L
 			if(HAS_TRAIT(G.summoner, TRAIT_TIMELESS) || (master && G.summoner == master))
-				LAZYSET(immune, G, TRUE)
+				//LAZYSET(immune, G, TRUE)
 			if(master == G)
 				LAZYSET(immune, G.summoner, TRUE)
 	INVOKE_ASYNC(src, .proc/za_warudo)
