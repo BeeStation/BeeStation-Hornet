@@ -132,7 +132,6 @@
 	floor_tile = /obj/item/stack/tile/noslip/standard
 	broken_states = list("noslip-damaged1_standard","noslip-damaged2_standard","noslip-damaged3_standard")
 	burnt_states = list("noslip-scorched1_standard","noslip-scorched2_standard")
-	slowdown = -0.3
 
 /turf/open/floor/noslip/blue
 	name = "high-traction floor"
@@ -140,7 +139,6 @@
 	floor_tile = /obj/item/stack/tile/noslip/blue
 	broken_states = list("noslip-damaged1_blue","noslip-damaged2_blue","noslip-damaged3_blue")
 	burnt_states = list("noslip-scorched1_blue","noslip-scorched2_blue")
-	slowdown = -0.3
 
 /turf/open/floor/noslip/dark
 	name = "high-traction floor"
@@ -148,7 +146,6 @@
 	floor_tile = /obj/item/stack/tile/noslip/dark
 	broken_states = list("noslip-damaged1_dark","noslip-damaged2_dark","noslip-damaged3_dark")
 	burnt_states = list("noslip-scorched1_dark","noslip-scorched2_dark")
-	slowdown = -0.3
 
 /turf/open/floor/noslip/vaporwave
 	name = "high-traction floor"
@@ -156,7 +153,6 @@
 	floor_tile = /obj/item/stack/tile/noslip/vaporwave
 	broken_states = list("noslip-damaged1_pinkblack","noslip-damaged2_pinkblack","noslip-damaged3_pinkblack")
 	burnt_states = list("noslip-scorched1_pinkblack","noslip-scorched2_pinkblack")
-	slowdown = -0.3
 
 /turf/open/floor/noslip/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
