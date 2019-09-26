@@ -11,6 +11,7 @@
 	var/message_robot = "" //Message displayed if the user is a robot
 	var/message_AI = "" //Message displayed if the user is an AI
 	var/message_monkey = "" //Message displayed if the user is a monkey
+	var/message_ipc = "" // Message to display if the user is an IPC
 	var/message_simple = "" //Message to display if the user is a simple_animal
 	var/message_param = "" //Message to display if a param was given
 	var/emote_type = EMOTE_VISIBLE //Whether the emote is visible or audible
@@ -108,6 +109,8 @@
 		. = message_AI
 	else if(ismonkey(user) && message_monkey)
 		. = message_monkey
+	else if(isipc(user) && message_ipc)
+		. = message_ipc
 	else if(isanimal(user) && message_simple)
 		. = message_simple
 

@@ -58,6 +58,7 @@
 	taste_mult = 1.5
 	color = "#8228A0"
 	toxpwr = 3
+	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/toxin/plasma/on_mob_life(mob/living/carbon/C)
 	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
@@ -688,6 +689,7 @@
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
 	toxpwr = 0.5
 	taste_description = "spinning"
+	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/toxin/rotatium/on_mob_life(mob/living/carbon/M)
 	if(M.hud_used)
@@ -715,6 +717,7 @@
 	metabolization_rate = 0.8 * REAGENTS_METABOLISM
 	toxpwr = 0.25
 	taste_description = "skewing"
+	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/toxin/skewium/on_mob_life(mob/living/carbon/M)
 	if(M.hud_used)
