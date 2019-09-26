@@ -236,23 +236,5 @@ GLOBAL_LIST_INIT(timestop_noz, typecacheof(list(/obj/screen)))
 		return
 	return ..()
 
-/mob/living/carbon/handle_organs()
-	if(GLOB.timestop)
-		var/datum/timestop/TS = GLOB.timestop
-		if(!TS.immune[src] && (!TS.z_level || get_final_z(src) == TS.z_level))
-			return FALSE
-	return ..()
 
-/mob/living/carbon/handle_bodyparts()
-	if(GLOB.timestop)
-		var/datum/timestop/TS = GLOB.timestop
-		if(!TS.immune[src] && (!TS.z_level || get_final_z(src) == TS.z_level))
-			return FALSE
-	return ..()
-
-/mob/living/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced)
-	if(GLOB.timestop)
-		var/datum/timestop/TS = GLOB.timestop
-		if(!TS.immune[src] && (!TS.z_level || get_final_z(src) == TS.z_level))
-			return FALSE
-	return ..()
+// there used to be code here but it was erroring on github but not here. odd. - old code below is here https://pastebin.com/X4X0iHRH
