@@ -144,6 +144,38 @@
 	turf_type = /turf/open/floor/noslip
 	merge_type = /obj/item/stack/tile/noslip
 
+/obj/item/stack/tile/noslip/standard
+	name = "high-traction floor tile"
+	singular_name = "high-traction floor tile"
+	desc = "A high-traction floor tile. It feels rubbery in your hand."
+	icon_state = "tile_noslip_standard"
+	turf_type = /turf/open/floor/noslip/standard
+	merge_type = /obj/item/stack/tile/noslip
+
+/obj/item/stack/tile/noslip/blue
+	name = "high-traction floor tile"
+	singular_name = "high-traction floor tile"
+	desc = "A high-traction floor tile. It feels rubbery in your hand."
+	icon_state = "tile_noslip_blue"
+	turf_type = /turf/open/floor/noslip/blue
+	merge_type = /obj/item/stack/tile/noslip
+
+/obj/item/stack/tile/noslip/dark
+	name = "high-traction floor tile"
+	singular_name = "high-traction floor tile"
+	desc = "A high-traction floor tile. It feels rubbery in your hand."
+	icon_state = "tile_noslip_dark"
+	turf_type = /turf/open/floor/noslip/dark
+	merge_type = /obj/item/stack/tile/noslip
+
+/obj/item/stack/tile/noslip/vaporwave
+	name = "high-traction floor tile"
+	singular_name = "high-traction floor tile"
+	desc = "A high-traction floor tile. It feels rubbery in your hand."
+	icon_state = "tile_noslip_pinkblack"
+	turf_type = /turf/open/floor/noslip/vaporwave
+	merge_type = /obj/item/stack/tile/noslip
+
 /obj/item/stack/tile/noslip/thirty
 	amount = 30
 
