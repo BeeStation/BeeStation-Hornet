@@ -89,8 +89,6 @@ GLOBAL_VAR_INIT(pocket_dim, 1)
 		L.y = 4
 		L.z = pocket
 		if(pull_the_pulling_thing_too && L.pulling)
-			if(ishuman(L.pulling))
-				var/mob/living/carbon/human/HP = L.pulling
 			L.pulling.x = 4
 			L.pulling.y = 4
 			L.pulling.z = pocket

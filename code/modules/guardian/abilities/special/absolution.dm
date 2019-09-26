@@ -158,7 +158,3 @@
 		D = A
 	return ..(A, D)
 
-/datum/species/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
-		target = user
-	return ..(user, target, attacker_style)

@@ -16,4 +16,4 @@
 	summon_type = list(/obj/effect/timestop)
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop/guardian/berserk
-	summon_type = list(/obj/effect/timestop/wizard/lag_stone)
+	summon_type = list(/obj/effect/timestop)

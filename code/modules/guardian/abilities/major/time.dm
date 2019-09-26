@@ -1,3 +1,11 @@
+/mob/living/simple_animal/hostile/illusion/doppelganger
+	melee_damage_lower = 0
+	melee_damage_upper = 0
+	speed = -1
+	obj_damage = 0
+	vision_range = 0
+	environment_smash = ENVIRONMENT_SMASH_NONE //DEFINES FOR KING CRIMSON
+
 /datum/guardian_ability/major/time
 	name = "Time Erasure"
 	desc = "The guardian can erase a short period of time."
@@ -58,7 +66,7 @@
 	var/mob/living/simple_animal/hostile/illusion/doppelganger/DP = pick(fakes)
 	playsound(DP.loc, 'hippiestation/sound/effects/kingcrimson_end.ogg', 100)
 	for(var/mob/living/simple_animal/hostile/illusion/doppelganger/DG in fakes)
-		DG.death()
+		DG.dust()
 	for(var/mob/living/L in immune)
 		SEND_SOUND(L, sound('hippiestation/sound/effects/kingcrimson_end.ogg'))
 		if(isguardian(L))
