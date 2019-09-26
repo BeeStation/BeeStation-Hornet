@@ -1194,7 +1194,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return TRUE
 	if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
 		target = user
-		return ..(user, target, attacker_style)
+		return TRUE
 	else
 
 		var/atk_verb = user.dna.species.attack_verb
