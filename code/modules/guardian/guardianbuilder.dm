@@ -290,5 +290,10 @@
 /obj/item/guardiancreator/wizard
 	allowmultiple = TRUE
 
+/obj/item/guardiancreator/choose
+	allowmultiple = TRUE
+	allowspecial = TRUE
+	max_points = 20
+
 /obj/item/guardiancreator/wizard/rare
 	allowspecial = TRUE
