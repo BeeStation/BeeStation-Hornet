@@ -53,6 +53,7 @@
 	var/datum/point/beam_index
 	var/turf/hitscan_last	//last turf touched during hitscanning.
 	var/tracer_type
+	var/atom/fired_from = null // the atom that the projectile was fired from (gun, turret)
 	var/muzzle_type
 	var/impact_type
 
@@ -134,8 +135,9 @@
 	return TRUE
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = FALSE)
+	if(fired_from)
+		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_ON_HIT, firer, target, Angle)
 	var/turf/target_loca = get_turf(target)
-
 	var/hitx
 	var/hity
 	if(target == original)

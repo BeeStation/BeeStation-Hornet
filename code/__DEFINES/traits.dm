@@ -110,6 +110,8 @@
 #define TRAIT_NODEATH			"nodeath"
 #define TRAIT_NOHARDCRIT		"nohardcrit"
 #define TRAIT_NOSOFTCRIT		"nosoftcrit"
+#define TRAIT_ONEWAYROAD	"one-way road"
+#define TRAIT_TIMELESS	"timeless"
 #define TRAIT_MINDSHIELD		"mindshield"
 #define TRAIT_DISSECTED			"dissected"
 #define TRAIT_SIXTHSENSE		"sixth_sense" //I can hear dead people
@@ -124,6 +126,7 @@
 #define TRAIT_NOMOBSWAP         "no-mob-swap"
 #define TRAIT_XRAY_VISION       "xray_vision"
 #define TRAIT_THERMAL_VISION    "thermal_vision"
+#define GUARDIAN_TRAIT	"guardian_trait"
 #define TRAIT_ABDUCTOR_TRAINING "abductor-training"
 #define TRAIT_ABDUCTOR_SCIENTIST_TRAINING "abductor-scientist-training"
 #define TRAIT_SURGEON           "surgeon"

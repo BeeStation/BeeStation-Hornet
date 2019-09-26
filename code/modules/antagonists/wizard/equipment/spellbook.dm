@@ -139,10 +139,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/conjure_item/spellpacket
 	category = "Defensive"
 
-/datum/spellbook_entry/timestop
-	name = "Time Stop"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
-	category = "Defensive"
+//timestop used to be here - defunct with new holopara system.
 
 /datum/spellbook_entry/smoke
 	name = "Smoke"
@@ -380,13 +377,11 @@
 	name = "Guardian Deck"
 	desc = "A deck of guardian tarot cards, capable of binding a personal guardian to your body. There are multiple types of guardian available, but all of them will transfer some amount of damage to you. \
 	It would be wise to avoid buying these with anything capable of causing you to swap bodies with others."
-	item_path = /obj/item/guardiancreator/choose/wizard
+	item_path = /obj/item/guardiancreator/wizard
 	category = "Assistance"
 
 /datum/spellbook_entry/item/guardian/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
 	. = ..()
-	if(.)
-		new /obj/item/paper/guides/antag/guardian/wizard(get_turf(user))
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"

@@ -1,0 +1,38 @@
+Points: <span class='{{data.points > 0 ? "good" : "bad"}}'>{{data.points}}</span> <ui-button action='reset'>Reset</ui-button>
+<ui-display>
+	<ui-section label='Name' candystripe>
+		<ui-button action='name'>{{data.guardian_name ? data.guardian_name : "Random Name"}}</ui-button>
+	</ui-section>
+	<ui-section label='Attack Type' candystripe>
+		<ui-button action='melee' state='{{data.melee ? "selected" : null}}'>Melee</ui-button>  <ui-button action='ranged' state='{{data.melee ? (data.points >= 3 ? null : "disabled") : "selected"}}'>Ranged</ui-button> 
+	</ui-section>
+	{{#each data.ratedskills}}
+		<ui-section label='{{name}}' candystripe>
+			<ui-button action='set' state='{{level == "5" ? "selected" : null}}' params='{"name": "{{name}}", "level": "5"}'>A</ui-button>
+			<ui-button action='set' state='{{level == "4" ? "selected" : null}}' params='{"name": "{{name}}", "level": "4"}'>B</ui-button>
+			<ui-button action='set' state='{{level == "3" ? "selected" : null}}' params='{"name": "{{name}}", "level": "3"}'>C</ui-button>
+			<ui-button action='set' state='{{level == "2" ? "selected" : null}}' params='{"name": "{{name}}", "level": "2"}'>D</ui-button>
+			<ui-button action='set' state='{{level == "1" ? "selected" : null}}' params='{"name": "{{name}}", "level": "1"}'>F</ui-button>
+		</ui-section>
+	{{/each}}
+	<ui-section label='Major Ability'>
+		<ui-button action='clear_ability_major' state='{{data.no_ability ? "selected" : null}}'>None</ui-button>
+		{{#each data.abilities_major}}
+			<ui-button tooltip-side='down' tooltip='{{name}}: {{desc}}' 
+				action='ability_major' state='{{selected ? "selected" : available ? (requiem ? "gold" : null) : "disabled"}}' 
+				params='{"path": "{{path}}"}'>{{name}}</ui-button>
+		{{/each}}
+	</ui-section>
+	<ui-section label='Minor Abilities'>
+		{{#each data.abilities_minor}}
+			<ui-button tooltip-side='down' tooltip='{{name}}: {{desc}}' 
+				action='ability_minor' state='{{selected ? "selected" : available ? null : "disabled"}}' 
+				params='{"path": "{{path}}"}'>{{name}}</ui-button>
+		{{/each}}
+	</ui-section>
+</ui-display>
+<ui-display>
+	<center>
+		<ui-button action='spawn'>Create {{data.name}}</ui-button>
+	</center>
+</ui-display>

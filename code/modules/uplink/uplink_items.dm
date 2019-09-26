@@ -399,7 +399,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Holoparasites"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an \
 			organic host as a home base and source of fuel. Holoparasites come in various types and share damage with their host."
-	item = /obj/item/storage/box/syndie_kit/guardian
+	item = /obj/item/guardiancreator/tech/rare
 	cost = 18
 	surplus = 10
 	surplus_nullcrates = 0
@@ -1610,7 +1610,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/sbeacondrop/clownbomb
 	cost = 10
 	restricted_roles = list("Clown")
-	
+
 /datum/uplink_item/role_restricted/clown_grenade
 	name = "C.L.U.W.N.E"
 	desc = "The C.L.U.W.N.E will create one of the honkmother's own completely randomly!\
@@ -1618,8 +1618,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/spawnergrenade/clown
 	cost = 3
 	restricted_roles = list("Clown")
-	
-		
+
+
 /datum/uplink_item/role_restricted/clown_grenade_broken
 	name = "Stuffed C.L.U.W.N.E"
 	desc = "The C.L.U.W.N.E will create one of the honkmother's own completely randomly!\
@@ -1628,7 +1628,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/spawnergrenade/clown_broken
 	cost = 5
 	restricted_roles = list("Clown")
-	
+
 /datum/uplink_item/role_restricted/clowncar
 	name = "Clown Car"
 	desc = "The Clown Car is the ultimate transportation method for any worthy clown! \
@@ -1686,7 +1686,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 20
 	restricted_roles = list("Chaplain")
 	surplus = 5 //Very low chance to get it in a surplus crate even without being the chaplain
-	
+
 /datum/uplink_item/role_restricted/spanish_flu
 	name = "Spanish Flu Culture"
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell.\
@@ -1694,7 +1694,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
 	cost = 14
 	restricted_roles = list("Chaplain", "Virologist")
-	
+
 /datum/uplink_item/role_restricted/beesease
 	name = "Beesease Culture"
 	desc = "A bottle of microbees, which will quickly breed in the stomach of hosts.\
@@ -1718,7 +1718,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/reagent_containers/glass/bottle/pierrot_throat
 	cost = 5
 	restricted_roles = list("Virologist", "Clown")
-	
+
 /datum/uplink_item/role_restricted/random_disease
 	name = "Experimental Disease"
 	desc = "A random disease. Maybe you'll get lucky."
@@ -1756,14 +1756,14 @@ datum/uplink_item/role_restricted/superior_honkrender
 	name = "Holocarp Parasites"
 	desc = "Fishsticks prepared through ritualistic means in honor of the god Carp-sie, capable of binding a holocarp \
 			to act as a servent and guardian to their host."
-	item = /obj/item/storage/box/syndie_kit/carpian
+	item = /obj/item/guardiancreator/carp/rare
 	cost = 18
 	surplus = 5
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	player_minimum = 25
 	restricted = TRUE
 	restricted_roles = list("Cook", "Chaplain")
-	
+
 /datum/uplink_item/role_restricted/ez_clean_bundle
 	name = "EZ Clean Grenade Bundle"
 	desc = "A box with three cleaner grenades using the trademark Waffle Co. formula. Serves as a cleaner and causes acid damage to anyone standing nearby. \

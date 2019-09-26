@@ -29,26 +29,10 @@
 /datum/hud/dextrous/guardian/New(mob/living/simple_animal/hostile/guardian/owner) //for a dextrous guardian
 	..()
 	var/obj/screen/using
-	if(istype(owner, /mob/living/simple_animal/hostile/guardian/dextrous))
-		var/obj/screen/inventory/inv_box
 
-		inv_box = new /obj/screen/inventory()
-		inv_box.name = "internal storage"
-		inv_box.icon = ui_style
-		inv_box.icon_state = "suit_storage"
-		inv_box.screen_loc = ui_id
-		inv_box.slot_id = SLOT_GENERC_DEXTROUS_STORAGE
-		static_inventory += inv_box
-
-		using = new /obj/screen/guardian/Communicate()
-		using.screen_loc = ui_sstore1
-		static_inventory += using
-
-	else
-
-		using = new /obj/screen/guardian/Communicate()
-		using.screen_loc = ui_id
-		static_inventory += using
+	using = new /obj/screen/guardian/Communicate()
+	using.screen_loc = ui_id
+	static_inventory += using
 
 	healths = new /obj/screen/healths/guardian()
 	infodisplay += healths
@@ -68,22 +52,6 @@
 	using = new /obj/screen/guardian/ToggleLight()
 	using.screen_loc = ui_inventory
 	static_inventory += using
-
-/datum/hud/dextrous/guardian/persistent_inventory_update()
-	if(!mymob)
-		return
-	if(istype(mymob, /mob/living/simple_animal/hostile/guardian/dextrous))
-		var/mob/living/simple_animal/hostile/guardian/dextrous/D = mymob
-
-		if(hud_shown)
-			if(D.internal_storage)
-				D.internal_storage.screen_loc = ui_id
-				D.client.screen += D.internal_storage
-		else
-			if(D.internal_storage)
-				D.internal_storage.screen_loc = null
-
-	..()
 
 /obj/screen/guardian
 	icon = 'icons/mob/guardian.dmi'

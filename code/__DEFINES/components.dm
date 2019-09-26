@@ -11,7 +11,7 @@
 #define ELEMENT_DETACH		(1 << 0)
 
 // How multiple components of the exact same type are handled in the same datum
-
+#define COMSIG_ATOM_BUMPED "atom_bumped"
 #define COMPONENT_DUPE_HIGHLANDER		0	//! old component is deleted (default)
 #define COMPONENT_DUPE_ALLOWED			1	//! duplicates allowed
 #define COMPONENT_DUPE_UNIQUE			2	//! new component is deleted
@@ -58,7 +58,8 @@
 #define COMSIG_ATOM_FIRE_ACT "atom_fire_act"					//! from base of atom/fire_act(): (exposed_temperature, exposed_volume)
 #define COMSIG_ATOM_BULLET_ACT "atom_bullet_act"				//! from base of atom/bullet_act(): (/obj/item/projectile, def_zone)
 #define COMSIG_ATOM_BLOB_ACT "atom_blob_act"					//! from base of atom/blob_act(): (/obj/structure/blob)
-#define COMSIG_ATOM_ACID_ACT "atom_acid_act"					//! from base of atom/acid_act(): (acidpwr, acid_volume)
+#define COMSIG_ATOM_ACID_ACT "atom_acid_act"
+#define COMSIG_PROJECTILE_ON_HIT "projectile_on_hit"					//! from base of atom/acid_act(): (acidpwr, acid_volume)
 #define COMSIG_ATOM_EMAG_ACT "atom_emag_act"					//! from base of atom/emag_act(): ()
 #define COMSIG_ATOM_RAD_ACT "atom_rad_act"						//! from base of atom/rad_act(intensity)
 #define COMSIG_ATOM_NARSIE_ACT "atom_narsie_act"				//! from base of atom/narsie_act(): ()

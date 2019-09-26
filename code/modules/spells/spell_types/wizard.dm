@@ -156,6 +156,7 @@
 	clothes_req = FALSE
 	say_destination = FALSE // Santa moves in mysterious ways
 
+//THIS IS NO LONGER USED AS IT IS DEPRECATED.
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	name = "Stop Time"
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
@@ -281,7 +282,7 @@
 		var/atom/movable/AM = am
 		if(AM == user || AM.anchored)
 			continue
-		
+
 		if(ismob(AM))
 			var/mob/M = AM
 			if(M.anti_magic_check(anti_magic_check, FALSE))
