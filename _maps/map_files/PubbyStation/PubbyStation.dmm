@@ -29918,7 +29918,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/medbay/zone2)
 "bsA" = (
 /turf/closed/wall,
@@ -30016,7 +30016,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/medbay/central)
 "bsG" = (
 /obj/structure/extinguisher_cabinet{
@@ -33773,7 +33773,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/genetics)
 "bAW" = (
 /turf/closed/wall,
@@ -34427,7 +34427,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/virology)
 "bCg" = (
 /obj/structure/cable/yellow{
@@ -35054,7 +35054,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/virology)
 "bDp" = (
 /obj/structure/cable/yellow{
@@ -35603,7 +35603,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/virology)
 "bEt" = (
 /obj/structure/cable/yellow{
@@ -37012,7 +37012,7 @@
 	name = "Station Intercom (Medbay)";
 	pixel_x = -28
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/medbay/central)
 "bGW" = (
 /turf/open/floor/plasteel/white,

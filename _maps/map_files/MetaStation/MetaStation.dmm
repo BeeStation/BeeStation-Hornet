@@ -4381,10 +4381,6 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating,
 /area/maintenance/fore)
-"ahR" = (
-/obj/item/cigbutt,
-/turf/closed/wall,
-/area/maintenance/fore)
 "ahS" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -55363,7 +55359,7 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/medbay/central)
 "cdz" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
@@ -57117,7 +57113,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/sleeper)
 "cgU" = (
 /obj/machinery/door/firedoor,
@@ -64672,7 +64668,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/noslip,
 /area/medical/genetics/cloning)
 "cvv" = (
 /obj/machinery/door/window/southleft{
@@ -70003,7 +69999,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/virology)
 "cFM" = (
 /obj/structure/sink{
@@ -70015,7 +70011,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/virology)
 "cFN" = (
 /obj/structure/sign/warning/securearea{
@@ -70030,7 +70026,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip,
 /area/medical/virology)
 "cFO" = (
 /obj/machinery/firealarm{
@@ -80310,14 +80306,8 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "dhp" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
@@ -84518,6 +84508,19 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
+"vLb" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/fitness/recreation)
 "vLD" = (
 /obj/structure/lattice,
 /turf/open/space/basic,
@@ -118503,7 +118506,7 @@ ovZ
 wLz
 wLz
 wLz
-ahR
+agq
 ahd
 aje
 alc
@@ -119791,7 +119794,7 @@ ahf
 ahV
 aiQ
 dhp
-alg
+vLb
 alg
 anF
 aoT
