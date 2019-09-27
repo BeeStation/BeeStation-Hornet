@@ -2642,7 +2642,7 @@
 #include "code\modules\reagents\reagent_containers\hypospray.dm"
 #include "code\modules\reagents\reagent_containers\medspray.dm"
 #include "code\modules\reagents\reagent_containers\patch.dm"
-#include "code\modules\reagents\reagent_containers\mk2.dm"
+#include "code\modules\reagents\reagent_containers\hypo_mk2.dm"
 #include "code\modules\reagents\reagent_containers\pill.dm"
 #include "code\modules\reagents\reagent_containers\spray.dm"
 #include "code\modules\reagents\reagent_containers\syringes.dm"
