@@ -185,7 +185,7 @@
 
 // Robotic Tongue emotes. Beep!
 
-/datum/emote/living/carbon/human/robot_tongue/can_run_emote(mob/user)
+/datum/emote/living/carbon/human/robot_tongue/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
 	var/obj/item/organ/tongue/T = user.getorganslot("tongue")
@@ -241,7 +241,7 @@
 
  // Clown Robotic Tongue ONLY. Henk.
 
-/datum/emote/living/carbon/human/robot_tongue/clown/can_run_emote(mob/user)
+/datum/emote/living/carbon/human/robot_tongue/clown/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
 	if(user.mind.assigned_role == "Clown")
