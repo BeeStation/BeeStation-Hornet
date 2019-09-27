@@ -138,9 +138,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// The chance that holding this item will block attacks.
 	var/block_chance = 0
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
-	
+
 	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
-	var/reach = 1 
+	var/reach = 1
 
 	/// The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot. For default list, see /mob/proc/equip_to_appropriate_slot()
 	var/list/slot_equipment_priority = null
@@ -175,7 +175,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	materials =	typelist("materials", materials)
 
 	if(materials) //Otherwise, use the instances already provided.
-		var/list/temp_list = list() 
+		var/list/temp_list = list()
 		for(var/i in materials) //Go through all of our materials, get the subsystem instance, and then replace the list.
 			var/amount = materials[i]
 			var/datum/material/M = getmaterialref(i)
@@ -656,7 +656,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/get_dismemberment_chance(obj/item/bodypart/affecting)
 	if(affecting.can_dismember(src))
-		if((sharpness || damtype == BURN || (damtype == BRUTE && (affecting.owner.dna && affecting.owner.dna.species && (EASYDISMEMBER in affecting.owner.dna.species.species_traits)))) && w_class >= WEIGHT_CLASS_NORMAL && force >= 10)
+		if((sharpness || damtype == BURN || (damtype == BRUTE && (affecting.owner.dna && affecting.owner.dna.species && (TRAIT_EASYDISMEMBER in affecting.owner.dna.species.species_traits)))) && w_class >= WEIGHT_CLASS_NORMAL && force >= 10)
 			. = force * (affecting.get_damage() / affecting.max_damage)
 
 /obj/item/proc/get_dismember_sound()

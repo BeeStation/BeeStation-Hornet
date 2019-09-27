@@ -22,7 +22,7 @@
 	else
 		switch(dna.species.species_gibs)
 			if("human")
-				new /obj/effect/gibspawner/humanbodypartless(get_turf(src), dna, get_static_viruses())
+				new /obj/effect/gibspawner/human(get_turf(src), dna, get_static_viruses())
 			if("robotic")
 				new /obj/effect/gibspawner/robot(get_turf(src))
 

@@ -61,6 +61,7 @@
 	var/dimension_y = 32
 	var/center = FALSE	//Should we center the sprite?
 	var/metacoin_locked = FALSE // if it needs to be bought with metacoins to have it
+	var/limbs_id // The limbs id supplied for full-body replacing features.
 
 //////////////////////
 // Hair Definitions //

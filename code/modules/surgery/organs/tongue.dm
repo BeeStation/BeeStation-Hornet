@@ -218,7 +218,7 @@
 	taste_sensitivity = NO_TASTE_SENSITIVITY // Robots have no taste.
 
 /obj/item/organ/tongue/robot/emp_act(severity)
-	owner.apply_effect(STUTTER, 120)
+	owner.apply_effect(EFFECT_STUTTER, 120)
 	owner.emote("scream")
 	to_chat(owner, "<span class='warning'>Alert: Vocal cords are malfunctioning.</span>")
 

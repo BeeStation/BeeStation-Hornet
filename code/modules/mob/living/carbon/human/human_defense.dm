@@ -518,7 +518,7 @@
 				if(2)
 					L.receive_damage(0,5)
 					Paralyze(100)
-			if((EASYDISMEMBER in L.owner.dna.species.species_traits) && L.body_zone != "chest")
+			if((TRAIT_EASYDISMEMBER in L.owner.dna.species.species_traits) && L.body_zone != "chest")
 				if(prob(20))
 					L.dismember(BRUTE)
 
@@ -666,10 +666,10 @@
 /mob/living/carbon/human/singularity_act()
 	var/gain = 20
 
-	
+
 	if (client)
 		SSmedals.UnlockMedal(MEDAL_SINGULARITY_DEATH,client)
-	
+
 
 	if(mind)
 		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
