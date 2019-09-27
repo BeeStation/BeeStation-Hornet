@@ -3,7 +3,7 @@
 	id = "ipc"
 	say_mod = "states" //inherited from a user's real species
 	sexes = 0
-	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,ROBOTIC_LIMBS,VIRUSINMUNE,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH) //all of these + whatever we inherit from the real species
+	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH) //all of these + whatever we inherit from the real species
 	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_VIRUSIMMUNE,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
@@ -16,7 +16,7 @@
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
 	default_features = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)")
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
-	skinned_type = /obj/item/stack/sheet/metal{amount = 10}
+	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 	exotic_blood = "oil"
 	damage_overlay_type = "synth"
 	limbs_id = "synth"
@@ -63,10 +63,10 @@
 		else if(MUTCOLORS in C.dna.species.species_traits)
 			C.dna.species.species_traits -= MUTCOLORS
 
-/datum/species/ipc/on_species_loss(mob/living/carbon/human/C)
-	if(screen)
-		screen.Remove(C)
-	..()
+datum/species/ipc/on_species_loss(mob/living/carbon/C)
+	. = ..()
+	if(change_screen)
+		change_screen.Remove(C)
 
 /datum/species/ipc/get_spans()
 	return SPAN_ROBOT
@@ -172,4 +172,4 @@
 	H.say("Unit [H.real_name] is fully functional. Have a nice day.")
 	H.dna.features["ipc_screen"] = saved_screen
 	H.update_body()
-	return 
+	return

@@ -239,22 +239,6 @@
 	if(..())
 		playsound(user.loc, 'sound/machines/ping.ogg', 50)
 
-/datum/emote/living/carbon/human/robot_tongue/yes
-	key = "yes"
-	message = "blips affirmatively."
-
-/datum/emote/living/carbon/human/robot_tongue/yes/run_emote(mob/user, params)
-	if(..())
-		playsound(user.loc, 'sound/effects/mob_effects/synth_yes.ogg', 50)
-
-/datum/emote/living/carbon/human/robot_tongue/no
-	key = "no"
-	message = "buzzes negatively."
-
-/datum/emote/living/carbon/human/robot_tongue/no/run_emote(mob/user, params)
-	if(..())
-		playsound(user.loc, 'sound/effects/mob_effects/synth_no.ogg', 50)
-
  // Clown Robotic Tongue ONLY. Henk.
 
 /datum/emote/living/carbon/human/robot_tongue/clown/can_run_emote(mob/user)
@@ -279,4 +263,4 @@
 
 /datum/emote/living/carbon/human/robot_tongue/clown/sad/run_emote(mob/user, params)
 	if(..())
-		playsound(user.loc, 'sound/misc/sadtrombone.ogg', 50) 
+		playsound(user.loc, 'sound/misc/sadtrombone.ogg', 50)
