@@ -383,7 +383,7 @@
 
 /obj/item/storage/firstaid/mk2/PopulateContents()
 	var/static/items_inside = list(
-		/obj/item/hypospray/mkii/CMO = 1,
+		/obj/item/hypospray/mk2/CMO = 1,
 		/obj/item/reagent_containers/glass/bottle/vial/large/preloaded/bicaridine = 1,
 		/obj/item/reagent_containers/glass/bottle/vial/large/preloaded/kelotane = 1,
 		/obj/item/reagent_containers/glass/bottle/vial/large/preloaded/charcoal = 1,
