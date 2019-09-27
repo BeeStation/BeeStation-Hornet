@@ -17,7 +17,7 @@
 #define COMBAT_SELF_INJECT 0
 
 //A vial-loaded hypospray. Cartridge-based!
-/obj/item/hypospray/mkii
+/obj/item/hypospray/mk2
 	name = "hypospray mk.II"
 	desc = "A new development from DeForest Medical, this hypospray takes 30-unit vials as the drug supply for easy swapping."
 	w_class = WEIGHT_CLASS_TINY
@@ -33,7 +33,7 @@
 	var/quickload = FALSE
 	var/penetrates = FALSE
 
-/obj/item/hypospray/mkii/CMO
+/obj/item/hypospray/mk2/CMO
 	name = "hypospray mk.II deluxe"
 	allowed_containers = list(/obj/item/reagent_containers/glass/bottle/vial/tiny, /obj/item/reagent_containers/glass/bottle/vial/small, /obj/item/reagent_containers/glass/bottle/vial/large)
 	icon = 'icons/obj/hypoii.dmi'
@@ -47,7 +47,7 @@
 	inject_self = DELUXE_SELF_INJECT
 
 
-/obj/item/hypospray/mkii/Initialize()
+/obj/item/hypospray/mk2/Initialize()
 	. = ..()
 	if(!spawnwithvial)
 		update_icon()
@@ -56,7 +56,7 @@
 		vial = new start_vial
 	update_icon()
 
-/obj/item/hypospray/mkii/update_icon()
+/obj/item/hypospray/mk2/update_icon()
 	..()
 	icon_state = "[initial(icon_state)][vial ? "" : "-e"]"
 	if(ismob(loc))
@@ -65,12 +65,12 @@
 	return
 
 
-/obj/item/hypospray/mkii/examine(mob/user)
+/obj/item/hypospray/mk2/examine(mob/user)
 	. = ..()
 	to_chat(user, "[vial] has [vial.reagents.total_volume]u remaining.")
 	to_chat(user, "[src] is set to [mode ? "Inject" : "Spray"] contents on application.")
 
-/obj/item/hypospray/mkii/proc/unload_hypo(obj/item/I, mob/user)
+/obj/item/hypospray/mk2/proc/unload_hypo(obj/item/I, mob/user)
 	if((istype(I, /obj/item/reagent_containers/glass/bottle/vial)))
 		var/obj/item/reagent_containers/glass/bottle/vial/V = I
 		V.forceMove(user.loc)
@@ -83,7 +83,7 @@
 		to_chat(user, "<span class='notice'>This hypo isn't loaded!</span>")
 		return
 
-/obj/item/hypospray/mkii/attackby(obj/item/I, mob/living/user)
+/obj/item/hypospray/mk2/attackby(obj/item/I, mob/living/user)
 	if((istype(I, /obj/item/reagent_containers/glass/bottle/vial) && vial != null))
 		if(!quickload)
 			to_chat(user, "<span class='warning'>[src] can not hold more than one vial!</span>")
@@ -106,11 +106,11 @@
 		return FALSE
 	return FALSE
 
-/obj/item/hypospray/mkii/AltClick(mob/user)
+/obj/item/hypospray/mk2/AltClick(mob/user)
 	if(vial)
 		vial.attack_self(user)
 
-/obj/item/hypospray/mkii/emag_act(mob/user)
+/obj/item/hypospray/mk2/emag_act(mob/user)
 	inject_wait = COMBAT_WAIT_INJECT
 	spray_wait = COMBAT_WAIT_SPRAY
 	spray_self = COMBAT_SELF_INJECT
@@ -118,13 +118,13 @@
 	penetrates = TRUE
 	to_chat(user, "You overcharge [src]'s control circuit.")
 
-/obj/item/hypospray/mkii/attack_hand(mob/user)
+/obj/item/hypospray/mk2/attack_hand(mob/user)
 	. = ..()
 
-/obj/item/hypospray/mkii/attack(obj/item/I, mob/user, params)
+/obj/item/hypospray/mk2/attack(obj/item/I, mob/user, params)
 	return
 
-/obj/item/hypospray/mkii/afterattack(atom/target, mob/user, proximity)
+/obj/item/hypospray/mk2/afterattack(atom/target, mob/user, proximity)
 	if(!vial)
 		return
 
@@ -228,7 +228,7 @@
 		to_chat(user, "<span class='notice'>[src] doesn't work here!</span>")
 		return
 
-/obj/item/hypospray/mkii/attack_self(mob/living/user)
+/obj/item/hypospray/mk2/attack_self(mob/living/user)
 	if(user)
 		if(user.incapacitated())
 			return
@@ -238,7 +238,7 @@
 		else
 			unload_hypo(vial,user)
 
-/obj/item/hypospray/mkii/verb/modes()
+/obj/item/hypospray/mk2/verb/modes()
 	set name = "Toggle Application Mode"
 	set category = "Object"
 	set src in usr
