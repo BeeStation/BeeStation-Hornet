@@ -269,12 +269,12 @@
 	name = "System Cleaner"
 	id = /datum/reagent/medicine/system_cleaner
 	results = list("system_cleaner" = 4)
-	required_reagents = list("ethanol" = 1, "chlorine" = 1, "phenol" = 1, "potassium" = 1)
+	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/chlorine = 1, /datum/reagent/phenol = 2, /datum/reagent/potassium = 1)
 
 /datum/chemical_reaction/liquid_solder
 	name = "Liquid Solder"
 	id = /datum/reagent/medicine/liquid_solder
 	results = list("liquid_solder" = 3)
-	required_reagents = list("ethanol" = 1, "copper" = 1, "silver" = 1)
+	required_reagents = list( /datum/reagent/consumable/ethanol = 1, /datum/reagent/copper = 1, /datum/reagent/silver = 1)
 	required_temp = 370
 	mix_message = "The mixture becomes a metallic slurry."
