@@ -351,6 +351,7 @@
 	color = "#787878"
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	toxpwr = 0
+	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/toxin/polonium/on_mob_life(mob/living/carbon/M)
 	M.radiation += 4
@@ -772,6 +773,7 @@
 	var/acidpwr = 10 //the amount of protection removed from the armour
 	taste_description = "acid"
 	self_consuming = TRUE
+	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/toxin/acid/reaction_mob(mob/living/carbon/C, method=TOUCH, reac_volume)
 	if(!istype(C))
