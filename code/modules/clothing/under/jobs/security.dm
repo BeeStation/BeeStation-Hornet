@@ -21,8 +21,8 @@
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
-/obj/item/clothing/under/rank/security/grey
-	name = "grey security jumpsuit"
+/obj/item/clothing/under/rank/security/white
+	name = "white security jumpsuit"
 	desc = "A tactical relic of years past before Nanotrasen decided it was cheaper to dye the suits red instead of washing out the blood."
 	icon_state = "security"
 	item_state = "gy_suit"
@@ -50,8 +50,8 @@
 	sensor_mode = 3
 	random_sensor = FALSE
 
-/obj/item/clothing/under/rank/warden/grey
-	name = "grey security suit"
+/obj/item/clothing/under/rank/warden/white
+	name = "white security suit"
 	desc = "A formal relic of years past before Nanotrasen decided it was cheaper to dye the suits red instead of washing out the blood."
 	icon_state = "warden"
 	item_state = "gy_suit"
@@ -95,8 +95,8 @@
 	sensor_mode = 3
 	random_sensor = FALSE
 
-/obj/item/clothing/under/rank/head_of_security/grey
-	name = "head of security's grey jumpsuit"
+/obj/item/clothing/under/rank/head_of_security/white
+	name = "head of security's white jumpsuit"
 	desc = "There are old men, and there are bold men, but there are very few old, bold men."
 	icon_state = "hos"
 	item_state = "gy_suit"
