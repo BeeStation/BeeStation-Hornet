@@ -1327,6 +1327,12 @@
 	dir = 4
 	},
 /area/hallway/primary/central)
+"el" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
+/area/construction)
 "em" = (
 /turf/open/floor/plasteel{
 	dir = 1
@@ -1561,6 +1567,27 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"fN" = (
+/obj/machinery/light,
+/turf/closed/wall/r_wall,
+/area/maintenance/department/bridge)
+"iK" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plasteel,
+/area/security)
+"jv" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/turf/closed/indestructible/turbolift,
+/area/turbolift/primary)
+"kE" = (
+/turf/closed/wall/r_wall,
+/area/security)
+"kQ" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plating,
+/area/construction)
 "og" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/ladder,
@@ -1602,12 +1629,28 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction)
+"wN" = (
+/obj/structure/turbolift{
+	pixel_y = -32
+	},
+/turf/open/indestructible/turbolift,
+/area/turbolift/primary)
+"xT" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
+/area/construction)
 "yl" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"zo" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plasteel,
+/area/turbolift/primary)
 "Bm" = (
 /obj/machinery/light{
 	dir = 4
@@ -1640,6 +1683,10 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
+"GD" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/indestructible/turbolift,
+/area/turbolift/primary)
 "Hn" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/ladder,
@@ -1690,6 +1737,12 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"MM" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/closed/indestructible/turbolift,
+/area/turbolift/primary)
 "Pl" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1705,6 +1758,15 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
+/turf/open/floor/plasteel,
+/area/security)
+"WD" = (
+/turf/closed/indestructible/turbolift,
+/area/turbolift/primary)
+"Xz" = (
+/turf/open/indestructible/turbolift,
+/area/turbolift/primary)
+"Yn" = (
 /turf/open/floor/plasteel,
 /area/security)
 "YD" = (
@@ -2560,12 +2622,12 @@ dn
 dn
 dn
 dn
-dn
-dn
-dn
-dL
 cN
-af
+cN
+cN
+xT
+cN
+ad
 ad
 ac
 ab
@@ -2614,12 +2676,12 @@ dn
 dn
 dn
 dn
-dn
-dn
-dn
-dL
 cN
-af
+WD
+WD
+MM
+WD
+ad
 ad
 ac
 ab
@@ -2667,13 +2729,13 @@ dn
 dn
 cN
 cN
-cN
 dn
-dn
-dn
-dL
-cN
-ME
+kQ
+zo
+Xz
+Xz
+WD
+fN
 ad
 ac
 ab
@@ -2721,13 +2783,13 @@ dn
 dn
 cN
 fk
-cN
 dn
-dn
-dn
-dL
-cN
-af
+kQ
+zo
+Xz
+wN
+WD
+ad
 ad
 ac
 ab
@@ -2775,13 +2837,13 @@ dn
 dn
 cN
 dn
-cN
 dn
-dn
-dn
-dL
-cN
-af
+kQ
+zo
+Xz
+Xz
+WD
+ad
 ad
 ac
 ab
@@ -2830,12 +2892,12 @@ dn
 dn
 dn
 dn
-dn
-dn
-dn
-dL
 cN
-af
+WD
+WD
+MM
+WD
+ad
 ad
 ac
 ab
@@ -2884,12 +2946,12 @@ dn
 dn
 dn
 dn
-dn
-dn
-dn
-dL
 cN
-af
+cN
+cN
+xT
+cN
+ad
 ad
 ac
 ab
@@ -2939,8 +3001,8 @@ dn
 dn
 dn
 dn
-dn
-dn
+ep
+ep
 dL
 cN
 af
@@ -5368,13 +5430,13 @@ au
 au
 au
 au
-au
-au
-au
-au
-eL
+Yn
+kE
+kE
+kE
+el
 cN
-af
+ad
 ad
 au
 au
@@ -5422,13 +5484,13 @@ au
 au
 au
 au
-au
-au
-au
-au
-eL
-cN
-af
+Yn
+kE
+WD
+WD
+jv
+WD
+ad
 ad
 au
 au
@@ -5476,13 +5538,13 @@ au
 au
 cN
 cN
-cN
-au
-au
-au
-eL
-cN
-af
+Yn
+iK
+GD
+Xz
+Xz
+WD
+ad
 ad
 au
 au
@@ -5530,13 +5592,13 @@ au
 au
 au
 av
-au
-au
-au
-au
-eL
-cN
-ME
+Yn
+iK
+GD
+Xz
+wN
+WD
+fN
 ad
 au
 au
@@ -5584,13 +5646,13 @@ au
 au
 au
 au
-au
-au
-au
-au
-eL
-cN
-af
+Yn
+iK
+GD
+Xz
+Xz
+WD
+ad
 ad
 au
 au
@@ -5638,13 +5700,13 @@ au
 au
 au
 au
-au
-au
-au
-au
-eL
-cN
-af
+Yn
+kE
+WD
+WD
+jv
+WD
+ad
 ad
 au
 au
@@ -5692,13 +5754,13 @@ au
 au
 au
 au
-au
-au
-au
-au
-eL
+Yn
+kE
+kE
+kE
+el
 cN
-af
+ad
 ad
 au
 au
@@ -8123,13 +8185,13 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
+Yn
+Yn
+Yn
+Yn
+Yn
+Yn
+Yn
 fn
 au
 au
@@ -8177,13 +8239,13 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
+Yn
+kE
+kE
+kE
+kE
+kE
+kE
 fn
 au
 au
@@ -8231,13 +8293,13 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
+Yn
+kE
+WD
+WD
+WD
+WD
+kE
 fn
 au
 au
@@ -8285,13 +8347,13 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
+Yn
+iK
+GD
+Xz
+Xz
+WD
+kE
 fn
 au
 au
@@ -8339,13 +8401,13 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
+Yn
+iK
+GD
+Xz
+wN
+WD
+kE
 fn
 au
 au
@@ -8393,13 +8455,13 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
+Yn
+iK
+GD
+Xz
+Xz
+WD
+kE
 fn
 au
 au
@@ -8442,18 +8504,18 @@ au
 KL
 WC
 Pl
+Yn
 au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
+Yn
+kE
+WD
+WD
+WD
+WD
+kE
 fn
 au
 au
@@ -8495,19 +8557,19 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
+Yn
+Yn
+Yn
+Yn
+Yn
+Yn
+Yn
+kE
+kE
+kE
+kE
+kE
+kE
 fn
 au
 au
@@ -8551,17 +8613,17 @@ eT
 eT
 eT
 eW
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
+Yn
+Yn
+Yn
+Yn
+Yn
+Yn
+Yn
+Yn
+Yn
+Yn
+Yn
 fn
 au
 au
@@ -8605,11 +8667,11 @@ bE
 bE
 bE
 eX
-au
-au
-au
-au
-au
+Yn
+Yn
+Yn
+Yn
+Yn
 au
 au
 au
