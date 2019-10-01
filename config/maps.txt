@@ -34,6 +34,11 @@ map deltastation
 	votable
 endmap
 
+map deltastationhighpop
+	minplayers 80
+	votable
+endmap
+
 map donutstation
 	minplayers 80
 	maxplayers 120
