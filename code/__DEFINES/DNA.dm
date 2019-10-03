@@ -121,6 +121,10 @@
 #define AGENDER			18
 #define NOEYESPRITES	19 //! Do not draw eyes or eyeless overlay
 #define NOREAGENTS     20 //! DO NOT PROCESS REAGENTS
+#define REVIVESBYHEALING 21 // Will revive on heal when healing and total HP > 0.
+#define NOHUSK			22 // Can't be husked.
+#define ROBOTIC_LIMBS	23 //limbs start out as robotic; but also use organic icons. If you want to use the default ones, you'll have to use on_species_gain
+#define NOMOUTH			24
 
 #define ORGAN_SLOT_BRAIN "brain"
 #define ORGAN_SLOT_APPENDIX "appendix"
