@@ -298,7 +298,7 @@
 	icon_state = "chap_envirohelm"
 	item_state = "chap_envirohelm"
 
-/obj/item/clothing/head/helmet/space/plasmaman/replacemnet/white
+/obj/item/clothing/head/helmet/space/plasmaman/replacement/white
 	name = "white plasma envirosuit helmet"
 	desc = "A generic white envirohelm, slightly dated."
 	icon_state = "white_envirohelm"
