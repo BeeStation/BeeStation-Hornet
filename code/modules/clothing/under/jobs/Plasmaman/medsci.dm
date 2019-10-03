@@ -40,7 +40,7 @@
 	item_state = "chemist_envirosuit"
 	item_color = "chemist_envirosuit"
 	
-/obj/item/clothing/under/plasmaman/cmo // i hope qwerty-chan appriciates this UwU
+/obj/item/clothing/under/plasmaman/cmo
 	name = "chief medical officers envirosuit"
 	desc = "An envirosuit designed primarily of nitryl, for the medical savvy plasmamen."
 	icon_state = "cmo_envirosuit"
