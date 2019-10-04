@@ -300,12 +300,15 @@
 
 /turf/open/floor/monotile
 	icon_state = "monotile"
+	floor_tile = /obj/item/stack/tile/mono
 /turf/open/floor/monotile/steel
 	icon_state = "steel_monotile"
 /turf/open/floor/monotile/dark
 	icon_state = "monotile_dark"
+	floor_tile = /obj/item/stack/tile/mono/dark
 /turf/open/floor/monotile/light
 	icon_state = "monotile_light"
+	floor_tile = /obj/item/stack/tile/mono/light
 
 /turf/open/floor/monofloor
 	icon_state = "steel_monofloor"
@@ -313,38 +316,3 @@
 
 /turf/open/floor/stone
 	icon_state = "stone"
-	floor_tile = /obj/item/stack/tile/bronze
-//plasteel_floor
-/turf/open/floor/plasteel/new_tile
-	icon_state = "tile_full"
-/turf/open/floor/plasteel/new_tile/cargo_mono
-	icon_state = "cargo_one_full"
-/turf/open/floor/plasteel/new_tile/kafel
-	icon_state = "kafel_full"
-/turf/open/floor/plasteel/new_tile/kafel
-	icon_state = "grid"
-
-/turf/open/floor/plasteel/tech
-	icon_state = "techfloor_grey"
-/turf/open/floor/plasteel/tech/grid
-	icon_state = "techfloor_grid"
-
-/turf/open/floor/plasteel/techmaint
-	icon_state = "techmaint"
-
-/turf/open/floor/plasteel/ridged
-	icon_state = "ridged"
-
-/turf/open/floor/plasteel/ridged/steel
-	icon_state = "steel_ridged"
-
-/turf/open/floor/plasteel/steelgrid
-	icon_state = "steelgrid"
-
-/turf/open/floor/plasteel/ameridiner
-	icon_state = "ameridiner_kitchen"
-
-/turf/open/floor/plasteel/tiled
-	icon_state = "tiled"
-/turf/open/floor/plasteel/tiled/light
-	icon_state = "tiled_light"
