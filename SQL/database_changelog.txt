@@ -9,6 +9,13 @@ INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 2);
 In any query remember to add a prefix to the table names if you use one.
 
 ----------------------------------------------------
+Version 5.3 4 Oct 2019, by Crossedfall
+Adds the ability to apply bans globally or locally when multiple servers are used using the new `global_ban` column in the `ban` table.
+
+ALTER TABLE `ban`
+ADD `global_ban` tinyint unsigned NOT NULL DEFAULT '1';
+
+----------------------------------------------------
 Version 5.2, 22 Sep 2019, by Crossedfall & Qwerty
 Added the `server_name` column to the ban, connection_log, death, legacy_population, and round tables containing the server's name pulled from the `serversqlname` config variable. Updated the `server` column in the messages table to match the standard naming convention (`server_name`).
 

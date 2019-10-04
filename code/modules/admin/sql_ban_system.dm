@@ -6,6 +6,7 @@
 /proc/is_banned_from(player_ckey, roles)
 	if(!player_ckey)
 		return
+	var/ssqlname = sanitizeSQL(CONFIG_GET(string/serversqlname))
 	var/client/C = GLOB.directory[player_ckey]
 	if(C)
 		if(!C.ban_cache)
@@ -27,7 +28,7 @@
 		else
 			sql_roles = roles
 		sql_roles = sanitizeSQL(sql_roles)
-		var/datum/DBQuery/query_check_ban = SSdbcore.NewQuery("SELECT 1 FROM [format_table_name("ban")] WHERE ckey = '[player_ckey]' AND role IN ('[sql_roles]') AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW())[admin_where]")
+		var/datum/DBQuery/query_check_ban = SSdbcore.NewQuery("SELECT 1 FROM [format_table_name("ban")] WHERE ckey = '[player_ckey]' AND role IN ('[sql_roles]') AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) AND (server_name = '[ssqlname]' OR global_ban = '1')[admin_where]")
 		if(!query_check_ban.warn_execute())
 			qdel(query_check_ban)
 			return
@@ -81,7 +82,7 @@
 			C.ban_cache[query_build_ban_cache.item[1]] = TRUE
 		qdel(query_build_ban_cache)
 
-/datum/admins/proc/ban_panel(player_key, player_ip, player_cid, role, duration = 1440, applies_to_admins, reason, edit_id, page, admin_key)
+/datum/admins/proc/ban_panel(player_key, player_ip, player_cid, role, duration = 1440, applies_to_admins, reason, edit_id, page, admin_key, global_ban)
 	var/panel_height = 620
 	if(edit_id)
 		panel_height = 240
@@ -110,6 +111,8 @@
 	<div class='inputbox'></div></label>
 	<label class='inputlabel checkbox'>Applies to Admins
 	<input type='checkbox' id='applyadmins' name='applyadmins' value='1'[applies_to_admins ? " checked": ""]>
+	<label class='inputlabel checkbox'>Ban on both Servers
+	<input type='checkbox' id='servbantype' name='servbantype' value='1'[global_ban ? " checked": ""]>
 	<div class='inputbox'></div></label>
 	<input type='submit' value='Submit'>
 	<br>
@@ -292,6 +295,7 @@
 	var/player_cid
 	var/use_last_connection = FALSE
 	var/applies_to_admins = FALSE
+	var/global_ban = FALSE
 	var/duration
 	var/interval
 	var/severity
@@ -332,6 +336,8 @@
 		error_state += "Use last connection was ticked, but neither IP nor CID was."
 	if(href_list["applyadmins"])
 		applies_to_admins = TRUE
+	if(href_list["global_ban"])
+		global_ban = TRUE
 	switch(href_list["radioduration"])
 		if("permanent")
 			duration = null
@@ -393,9 +399,9 @@
 	if(edit_id)
 		edit_ban(edit_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, mirror_edit, old_key, old_ip, old_cid, old_applies, page, admin_key, changes)
 	else
-		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, roles_to_ban)
+		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, roles_to_ban)
 
-/datum/admins/proc/create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, list/roles_to_ban)
+/datum/admins/proc/create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, list/roles_to_ban)
 	if(!check_rights(R_BAN))
 		return
 	if(!SSdbcore.Connect())
@@ -484,7 +490,8 @@
 		"a_ip" = "INET_ATON(IF('[admin_ip]' LIKE '', NULL, '[admin_ip]'))",
 		"a_computerid" = "'[admin_cid]'",
 		"who" = "'[who]'",
-		"adminwho" = "'[adminwho]'"
+		"adminwho" = "'[adminwho]'",
+		"global_ban" = "'[global_ban]'"
 		))
 	if(!SSdbcore.MassInsert(format_table_name("ban"), sql_ban, warn = 1))
 		return
