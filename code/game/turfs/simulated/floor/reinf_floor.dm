@@ -14,11 +14,13 @@
 /turf/open/floor/engine/examine(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>The reinforcement rods are <b>wrenched</b> firmly in place.</span>")
+	
 /turf/open/floor/engine/light
 	icon_state = "engine_light"
 
 /turf/open/floor/engine/airless
 	initial_gas_mix = AIRLESS_ATMOS
+	
 /turf/open/floor/engine/airless/light
 	icon_state = "engine_light"
 
