@@ -152,3 +152,28 @@
 
 /turf/open/floor/plasteel/sepia
 	icon_state = "sepia"
+/turf/open/floor/plasteel/sepia
+	icon_state = "sepia"
+/turf/open/floor/plasteel/sepia
+	icon_state = "sepia"
+
+/turf/open/floor/plasteel/new_tile
+	icon_state = "tile_full"
+/turf/open/floor/plasteel/new_tile/cargo_mono
+	icon_state = "cargo_one_full"
+/turf/open/floor/plasteel/new_tile/kafel
+	icon_state = "kafel_full"
+/turf/open/floor/plasteel/new_tile/kafel
+	icon_state = "grid"
+
+/turf/open/floor/plasteel/tech
+	icon_state = "techfloor_grey"
+/turf/open/floor/plasteel/tech/grid
+	icon_state = "techfloor_grid"
+
+/turf/open/floor/plasteel/techmaint
+	icon_state = "techmaint"
+
+
+/turf/open/floor/plasteel/ameridiner
+	icon_state = "ameridiner_kitchen"
