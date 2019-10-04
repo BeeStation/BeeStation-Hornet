@@ -111,6 +111,7 @@
 	<div class='inputbox'></div></label>
 	<label class='inputlabel checkbox'>Applies to Admins
 	<input type='checkbox' id='applyadmins' name='applyadmins' value='1'[applies_to_admins ? " checked": ""]>
+	<div class='inputbox'></div></label>
 	<label class='inputlabel checkbox'>Ban on all Servers
 	<input type='checkbox' id='servbantype' name='servbantype' value='1'[global_ban ? " checked": ""]>
 	<div class='inputbox'></div></label>
