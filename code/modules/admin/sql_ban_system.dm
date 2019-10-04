@@ -111,7 +111,7 @@
 	<div class='inputbox'></div></label>
 	<label class='inputlabel checkbox'>Applies to Admins
 	<input type='checkbox' id='applyadmins' name='applyadmins' value='1'[applies_to_admins ? " checked": ""]>
-	<label class='inputlabel checkbox'>Ban on both Servers
+	<label class='inputlabel checkbox'>Ban on all Servers
 	<input type='checkbox' id='servbantype' name='servbantype' value='1'[global_ban ? " checked": ""]>
 	<div class='inputbox'></div></label>
 	<input type='submit' value='Submit'>
@@ -336,7 +336,7 @@
 		error_state += "Use last connection was ticked, but neither IP nor CID was."
 	if(href_list["applyadmins"])
 		applies_to_admins = TRUE
-	if(href_list["global_ban"])
+	if(href_list["servbantype"])
 		global_ban = TRUE
 	switch(href_list["radioduration"])
 		if("permanent")
