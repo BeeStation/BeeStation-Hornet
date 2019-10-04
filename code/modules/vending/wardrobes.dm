@@ -27,7 +27,8 @@
 					/obj/item/clothing/under/rank/security/skirt = 3,
 					/obj/item/clothing/under/rank/security/white = 3,
 					/obj/item/clothing/under/pants/khaki = 3,
-					/obj/item/clothing/under/rank/security/blueshirt = 3)
+					/obj/item/clothing/under/rank/security/blueshirt = 3,
+					/obj/item/clothing/under/rank/security/mallcop = 3)
 	premium = list(/obj/item/clothing/under/rank/security/navyblue = 3,
 					/obj/item/clothing/suit/security/officer = 3,
 					/obj/item/clothing/head/beret/sec/navyofficer = 3)
@@ -270,10 +271,12 @@
 					/obj/item/storage/box/mousetraps = 2,
 					/obj/item/circuitboard/machine/dish_drive = 1,
 					/obj/item/clothing/suit/toggle/chef = 1,
-					/obj/item/clothing/under/rank/chef = 1,
+					/obj/item/clothing/under/rank/chef = 3,
+					/obj/item/clothing/under/rank/altchef = 3,
 					/obj/item/clothing/under/plasmaman/chef = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/white = 1,
+					/obj/item/clothing/head/chefhat = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/white = 1,
-					/obj/item/clothing/head/chefhat = 1,
 					/obj/item/reagent_containers/glass/rag = 1,
 					/obj/item/clothing/suit/hooded/wintercoat = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/chef_wardrobe

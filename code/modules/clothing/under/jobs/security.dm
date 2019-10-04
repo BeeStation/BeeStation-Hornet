@@ -150,6 +150,17 @@
 	can_adjust = FALSE
 
 /*
+*Blart Uniform
+*/
+/obj/item/clothing/under/rank/security/mallcop
+	name = "NT mall cop uniform"
+	desc = "The radio and badge are sewn on, what a crappy knock off. Secway not included."
+	icon_state = "mallcop"
+	item_state = "gy_suit"
+	item_color = "mallcop"
+	can_adjust = FALSE
+
+/*
  *Spacepol
  */
 
