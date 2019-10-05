@@ -28,7 +28,9 @@
 					/obj/item/clothing/under/rank/security/white = 3,
 					/obj/item/clothing/under/pants/khaki = 3,
 					/obj/item/clothing/under/rank/security/blueshirt = 3,
-					/obj/item/clothing/under/rank/security/mallcop = 3)
+					/obj/item/clothing/under/rank/security/mallcop = 3,
+					/obj/item/clothing/neck/tie/red = 6,
+					/obj/item/clothing/neck/tie/black = 6,)
 	premium = list(/obj/item/clothing/under/rank/security/navyblue = 3,
 					/obj/item/clothing/suit/security/officer = 3,
 					/obj/item/clothing/head/beret/sec/navyofficer = 3)
@@ -330,6 +332,8 @@
 					/obj/item/clothing/under/lawyer/blacksuit = 1,
 					/obj/item/clothing/suit/toggle/lawyer/black = 1,
 					/obj/item/clothing/shoes/laceup = 2,
+					/obj/item/clothing/neck/tie/red = 6,
+					/obj/item/clothing/neck/tie/black = 6,
 					/obj/item/clothing/accessory/lawyers_badge = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/law_wardrobe
 	payment_department = ACCOUNT_CIV

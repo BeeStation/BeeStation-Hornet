@@ -198,6 +198,8 @@
 	new /obj/item/storage/belt/holster/full(src)
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/twohanded/binoculars(src)
+	new /obj/item/clothing/neck/tie/red(src)
+	new	/obj/item/clothing/neck/tie/black(src)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections"
