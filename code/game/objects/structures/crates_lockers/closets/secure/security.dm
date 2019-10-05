@@ -200,6 +200,7 @@
 	new /obj/item/twohanded/binoculars(src)
 	new /obj/item/clothing/neck/tie/red(src)
 	new	/obj/item/clothing/neck/tie/black(src)
+	new /obj/item/clothing/neck/tie/detective(src)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections"
