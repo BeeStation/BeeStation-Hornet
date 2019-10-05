@@ -58,6 +58,13 @@
 	item_color = "chef"
 	alt_covers_chest = TRUE
 
+/obj/item/clothing/under/rank/altchef
+	name = "red cook's suit"
+	desc = "A flashier chef's suit, if a bit more impractical."
+	icon_state = "altchef"
+	item_color = "altchef"
+	alt_covers_chest = TRUE
+
 /obj/item/clothing/under/rank/clown
 	name = "clown suit"
 	desc = "<i>'HONK!'</i>"
