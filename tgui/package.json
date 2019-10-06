@@ -21,7 +21,7 @@
     "dom4": "2.1.5",
     "es3ify": "0.2.1",
     "fg-loadcss": "2.1.0",
-    "fontfaceobserver": "1.6.3",
+    "fontfaceobserver": "2.1.0",
     "gulp": "git://github.com/gulpjs/gulp.git#v4.0.0-alpha.3",
     "gulp-bytediff": "1.0.0",
     "gulp-cssnano": "2.1.2",
