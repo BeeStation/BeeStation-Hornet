@@ -304,7 +304,7 @@
 	reshape.Crop(-5,-3,26,30)
 	sac_objective.sac_image = reshape
 
-/datum/objective/sacrifice/find_target()
+/datum/objective/sacrifice/find_target(dupe_search_range)
 	if(!istype(team, /datum/team/cult))
 		return
 	var/datum/team/cult/C = team
