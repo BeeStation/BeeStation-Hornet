@@ -9,6 +9,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/briefcase_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/briefcase_righthand.dmi'
 	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
 	var/persistence_id
 
 /obj/item/storage/photo_album/Initialize()
@@ -52,6 +53,9 @@
 		if(istype(P))
 			if(!SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, P, null, TRUE, TRUE))
 				qdel(P)
+
+/obj/item/storage/photo_album/prevent_content_explosion()
+	return TRUE
 
 /obj/item/storage/photo_album/HoS
 	persistence_id = "HoS"

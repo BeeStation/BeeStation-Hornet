@@ -34,6 +34,7 @@
 	var/lip_style = null
 	var/lip_color = "white"
 
+	var/mouth = TRUE
 
 /obj/item/bodypart/head/Destroy()
 	QDEL_NULL(brainmob) //order is sensitive, see warning in handle_atom_del() below

@@ -12,3 +12,11 @@
 	icon_state = "warden_envirosuit"
 	item_state = "warden_envirosuit"
 	item_color = "warden_envirosuit"
+//looking back at it now I probably coulda grouped the command suits together under one for less clutter. 
+/obj/item/clothing/under/plasmaman/security/hos 
+	name = "head of security plasma envirosuit"
+	desc = "A black padded envirosuit designed for the head of security, its gold stripes and black pallete instills fear and respect."
+	icon_state = "hos_envirosuit"
+	item_state = "hos_envirosuit"
+	item_color = "hos_envirosuit" 
+	

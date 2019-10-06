@@ -65,6 +65,15 @@
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
 #define DEVIL_BODYPART "devil"
+
+//Reagent Metabolization flags, defines the type of reagents that affect this mob
+#define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
+#define PROCESS_SYNTHETIC 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
+
+// Reagent type flags, defines the types of mobs this reagent will affect
+#define ORGANIC 1
+#define SYNTHETIC 2
+
 /*see __DEFINES/inventory.dm for bodypart bitflag defines*/
 
 // Health/damage defines for carbon mobs

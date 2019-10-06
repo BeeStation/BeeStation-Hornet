@@ -113,6 +113,31 @@
 
 		if("Atmospheric Technician")
 			O = new /datum/outfit/plasmaman/atmospherics
+
+		if("Captain")
+			O = new /datum/outfit/plasmaman/command
+
+		if("Chief Engineer")
+			O = new /datum/outfit/plasmaman/ce
+		
+		if("Chief Medical Officer")
+			O = new /datum/outfit/plasmaman/cmo
+		
+		if("Head of Security")
+			O = new /datum/outfit/plasmaman/hos
+			
+		if("Research Director")
+			O = new /datum/outfit/plasmaman/rd
+			
+		if("Head of Personnel")
+			O = new /datum/outfit/plasmaman/hop
+		
+		if("Clown")
+			O = new /datum/outfit/plasmaman/honk
+			
+		if("Mime")
+			O = new /datum/outfit/plasmaman/mime
+			
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.get_item_for_held_index(2)
 	H.update_internals_hud_icon(1)

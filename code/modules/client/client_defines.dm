@@ -26,6 +26,7 @@
 	/// Next tick to reset the total message counter
 	var/total_count_reset = 0
 	var/ircreplyamount = 0
+	var/cryo_warned = -3000//when was the last time we warned them about not cryoing without an ahelp, set to -5 minutes so that rounstart cryo still warns
 
 		/////////
 		//OTHER//
@@ -101,3 +102,8 @@
 	var/datum/player_details/player_details
 
 	var/list/char_render_holders			//Should only be a key-value list of north/south/east/west = obj/screen.
+
+	var/client_keysend_amount = 0
+	var/next_keysend_reset = 0
+	var/next_keysend_trip_reset = 0
+	var/keysend_tripped = FALSE
