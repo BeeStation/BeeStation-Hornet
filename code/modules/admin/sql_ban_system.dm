@@ -260,7 +260,7 @@
 									ROLE_MONKEY, ROLE_NINJA, ROLE_OPERATIVE,
 									ROLE_OVERTHROW, ROLE_REV, ROLE_REVENANT,
 									ROLE_REV_HEAD, ROLE_SERVANT_OF_RATVAR, ROLE_SYNDICATE,
-									ROLE_TRAITOR, ROLE_WIZARD, ROLE_HIVE)) //ROLE_REV_HEAD is excluded from this because rev jobbans are handled by ROLE_REV
+									ROLE_TRAITOR, ROLE_WIZARD, ROLE_HIVE, ROLE_GANG)) //ROLE_REV_HEAD is excluded from this because rev jobbans are handled by ROLE_REV
 		for(var/department in long_job_lists)
 			output += "<div class='column'><label class='rolegroup long [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [usr.client.prefs.tgui_fancy ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
 			break_counter = 0
@@ -463,9 +463,13 @@
 	var/adminwho = admins_online.Join(", ")
 	var/kn = key_name(usr)
 	var/kna = key_name_admin(usr)
+
+	var/ssqlname = sanitizeSQL(CONFIG_GET(string/serversqlname))
+
 	var/sql_ban
 	for(var/role in roles_to_ban)
 		sql_ban += list(list("bantime" = "NOW()",
+		"server_name" = "'[ssqlname]'",
 		"server_ip" = "INET_ATON(IF('[world.internet_address]' LIKE '', '0', '[world.internet_address]'))",
 		"server_port" = sanitizeSQL(world.port),
 		"round_id" = sanitizeSQL(GLOB.round_id),

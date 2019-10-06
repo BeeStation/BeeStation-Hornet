@@ -706,6 +706,10 @@
 			opened = APC_COVER_CLOSED
 			locked = FALSE
 			update_icon()
+
+	else if(istype(W, /obj/item/apc_powercord))
+		return //because we put our fancy code in the right places, and this is all in the powercord's afterattack()
+
 		return
 	else if(panel_open && !opened && is_wire_tool(W))
 		wires.interact(user)
@@ -806,8 +810,6 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "apc", name, 535, 515, master_ui, state)
 		ui.open()
-	if(ui)
-		ui.set_autoupdate(state = (failure_timer ? 1 : 0))
 
 /obj/machinery/power/apc/ui_data(mob/user)
 	var/list/data = list(

@@ -311,19 +311,21 @@
 				target_candidates += player.mind
 	listclearnulls(target_candidates)
 	if(LAZYLEN(target_candidates))
-		sac_objective.target = pick(target_candidates)
-		sac_objective.update_explanation_text()
-
-		var/datum/job/sacjob = SSjob.GetJob(sac_objective.target.assigned_role)
-		var/datum/preferences/sacface = sac_objective.target.current.client.prefs
-		var/icon/reshape = get_flat_human_icon(null, sacjob, sacface, list(SOUTH))
-		reshape.Shift(SOUTH, 4)
-		reshape.Shift(EAST, 1)
-		reshape.Crop(7,4,26,31)
-		reshape.Crop(-5,-3,26,30)
-		sac_objective.sac_image = reshape
-
-		objectives += sac_objective
+		GLOB.sac_mind = pick(target_candidates)
+		if(!GLOB.sac_mind)
+			message_admins("Cult Sacrifice: ERROR -  Null target chosen!")
+		else
+			sac_objective.target = GLOB.sac_mind // Converts to Beecode
+			sac_objective.update_explanation_text()
+			var/datum/job/sacjob = SSjob.GetJob(GLOB.sac_mind.assigned_role)
+			var/datum/preferences/sacface = GLOB.sac_mind.current.client.prefs
+			var/icon/reshape = get_flat_human_icon(null, sacjob, sacface)
+			reshape.Shift(SOUTH, 4)
+			reshape.Shift(EAST, 1)
+			reshape.Crop(7,4,26,31)
+			reshape.Crop(-5,-3,26,30)
+			GLOB.sac_image = reshape
+			objectives += sac_objective
 	else
 		message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. WELP!")
 

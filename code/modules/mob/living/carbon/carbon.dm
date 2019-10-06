@@ -433,6 +433,9 @@
 /mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = FALSE)
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return 1
+	
+	if(!has_mouth())
+		return 1
 
 	if(nutrition < 100 && !blood)
 		if(message)
@@ -797,6 +800,7 @@
 		if(D.severity != DISEASE_SEVERITY_POSITIVE)
 			D.cure(FALSE)
 	if(admin_revive)
+		suiciding = FALSE
 		regenerate_limbs()
 		regenerate_organs()
 		handcuffed = initial(handcuffed)
@@ -892,6 +896,11 @@
 	.["Give martial arts"] = "?_src_=vars;[HrefToken()];givemartialart=[REF(src)]"
 	.["Give brain trauma"] = "?_src_=vars;[HrefToken()];givetrauma=[REF(src)]"
 	.["Cure brain traumas"] = "?_src_=vars;[HrefToken()];curetraumas=[REF(src)]"
+
+/mob/living/carbon/has_mouth()
+	for(var/obj/item/bodypart/head/head in bodyparts)
+		if(head.mouth)
+			return TRUE 
 
 /mob/living/carbon/can_resist()
 	return bodyparts.len > 2 && ..()

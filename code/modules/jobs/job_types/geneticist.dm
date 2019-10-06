@@ -9,7 +9,6 @@
 	supervisors = "the chief medical officer and research director"
 	selection_color = "#ffeef0"
 	exp_type = EXP_TYPE_CREW
-	exp_requirements = 60
 
 	outfit = /datum/outfit/job/geneticist
 

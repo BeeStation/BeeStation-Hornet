@@ -19,15 +19,18 @@
 					/obj/item/storage/backpack/duffelbag/sec = 3,
 					/obj/item/clothing/under/rank/security = 3,
 					/obj/item/clothing/under/plasmaman/security = 3,
-					/obj/item/clothing/head/helmet/space/plasmaman/security = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/security = 3,
 					/obj/item/clothing/shoes/jackboots = 3,
 					/obj/item/clothing/head/beret/sec = 3,
 					/obj/item/clothing/head/soft/sec = 3,
 					/obj/item/clothing/mask/bandana/red = 3,
 					/obj/item/clothing/under/rank/security/skirt = 3,
-					/obj/item/clothing/under/rank/security/grey = 3,
+					/obj/item/clothing/under/rank/security/white = 3,
 					/obj/item/clothing/under/pants/khaki = 3,
-					/obj/item/clothing/under/rank/security/blueshirt = 3)
+					/obj/item/clothing/under/rank/security/blueshirt = 3,
+					/obj/item/clothing/under/rank/security/mallcop = 3,
+					/obj/item/clothing/neck/tie/red = 6,
+					/obj/item/clothing/neck/tie/black = 6,)
 	premium = list(/obj/item/clothing/under/rank/security/navyblue = 3,
 					/obj/item/clothing/suit/security/officer = 3,
 					/obj/item/clothing/head/beret/sec/navyofficer = 3)
@@ -56,7 +59,7 @@
 					/obj/item/clothing/under/rank/medical/purple = 4,
 					/obj/item/clothing/under/rank/medical = 4,
 					/obj/item/clothing/under/plasmaman/medical = 4,
-					/obj/item/clothing/head/helmet/space/plasmaman/medical = 4,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/medical = 4,
 					/obj/item/clothing/suit/toggle/labcoat = 4,
 					/obj/item/clothing/suit/toggle/labcoat/emt = 4,
 					/obj/item/clothing/shoes/sneakers/white = 4,
@@ -83,7 +86,7 @@
 					/obj/item/clothing/under/rank/engineer = 3,
 					/obj/item/clothing/under/rank/engineer/hazard = 3,
 					/obj/item/clothing/under/plasmaman/engineering = 3,
-					/obj/item/clothing/head/helmet/space/plasmaman/engineering = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/engineering = 3,
 					/obj/item/clothing/suit/hazardvest = 3,
 					/obj/item/clothing/shoes/workboots = 3,
 					/obj/item/clothing/head/hardhat = 3,
@@ -107,7 +110,7 @@
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 					/obj/item/clothing/under/rank/atmospheric_technician = 3,
 					/obj/item/clothing/under/plasmaman/atmospherics = 3,
-					/obj/item/clothing/head/helmet/space/plasmaman/atmospherics = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/atmospherics = 3,
 					/obj/item/clothing/shoes/sneakers/black = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/atmos_wardrobe
 	payment_department = ACCOUNT_ENG
@@ -124,7 +127,7 @@
 	products = list(/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
 					/obj/item/clothing/under/rank/cargotech = 3,
 					/obj/item/clothing/under/plasmaman/cargo = 3,
-					/obj/item/clothing/head/helmet/space/plasmaman/cargo = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/cargo = 3,
 					/obj/item/clothing/shoes/sneakers/black = 3,
 					/obj/item/clothing/gloves/fingerless = 3,
 					/obj/item/clothing/head/soft = 3,
@@ -145,7 +148,7 @@
 	products = list(/obj/item/clothing/glasses/hud/diagnostic = 2,
 					/obj/item/clothing/under/rank/roboticist = 2,
 					/obj/item/clothing/under/plasmaman/robotics = 2,
-					/obj/item/clothing/head/helmet/space/plasmaman/robotics = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/robotics = 2,
 					/obj/item/clothing/suit/toggle/labcoat = 2,
 					/obj/item/clothing/shoes/sneakers/black = 2,
 					/obj/item/clothing/gloves/fingerless = 2,
@@ -169,7 +172,7 @@
 					/obj/item/clothing/suit/hooded/wintercoat/science = 3,
 					/obj/item/clothing/under/rank/scientist = 3,
 					/obj/item/clothing/under/plasmaman/science = 3,
-					/obj/item/clothing/head/helmet/space/plasmaman/science = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/science = 3,
 					/obj/item/clothing/suit/toggle/labcoat/science = 3,
 					/obj/item/clothing/shoes/sneakers/white = 3,
 					/obj/item/radio/headset/headset_sci = 3,
@@ -193,7 +196,7 @@
 					/obj/item/clothing/suit/apron/overalls = 3,
 					/obj/item/clothing/under/rank/hydroponics = 3,
 					/obj/item/clothing/under/plasmaman/botany = 3,
-					/obj/item/clothing/head/helmet/space/plasmaman/botany = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/botany = 3,
 					/obj/item/clothing/mask/bandana = 3,
 					/obj/item/clothing/accessory/armband/hydro = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/hydro_wardrobe
@@ -219,7 +222,7 @@
 					/obj/item/clothing/glasses/regular/jamjar = 1,
 					/obj/item/storage/bag/books = 1,
 					/obj/item/clothing/under/plasmaman/curator = 1,
-					/obj/item/clothing/head/helmet/space/plasmaman/curator = 1)
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/curator = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/curator_wardrobe
 	payment_department = ACCOUNT_CIV
 /obj/item/vending_refill/wardrobe/curator_wardrobe
@@ -238,7 +241,7 @@
 					/obj/item/clothing/under/rank/bartender = 2,
 					/obj/item/clothing/under/rank/bartender/purple = 2,
 					/obj/item/clothing/under/plasmaman/enviroslacks = 2,
-					/obj/item/clothing/head/helmet/space/plasmaman/white = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/white = 2,
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/clothing/suit/apron/purple_bartender = 2,
 					/obj/item/clothing/head/soft/black = 2,
@@ -249,7 +252,9 @@
 					/obj/item/circuitboard/machine/dish_drive = 1,
 					/obj/item/clothing/glasses/sunglasses/reagent = 1,
 					/obj/item/clothing/neck/petcollar = 1,
-					/obj/item/storage/belt/bandolier = 1)
+					/obj/item/storage/belt/bandolier = 1,
+					/obj/item/clothing/neck/tie/black = 2,
+					/obj/item/clothing/neck/tie/blue = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/bar_wardrobe
 	payment_department = ACCOUNT_SRV
 /obj/item/vending_refill/wardrobe/bar_wardrobe
@@ -270,10 +275,12 @@
 					/obj/item/storage/box/mousetraps = 2,
 					/obj/item/circuitboard/machine/dish_drive = 1,
 					/obj/item/clothing/suit/toggle/chef = 1,
-					/obj/item/clothing/under/rank/chef = 1,
+					/obj/item/clothing/under/rank/chef = 3,
+					/obj/item/clothing/under/rank/altchef = 3,
 					/obj/item/clothing/under/plasmaman/chef = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/white = 1,
-					/obj/item/clothing/head/chefhat = 1,
+					/obj/item/clothing/head/chefhat = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/white = 1,
 					/obj/item/reagent_containers/glass/rag = 1,
 					/obj/item/clothing/suit/hooded/wintercoat = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/chef_wardrobe
@@ -290,7 +297,7 @@
 	light_color = LIGHT_COLOR_PURPLE
 	products = list(/obj/item/clothing/under/rank/janitor = 1,
 					/obj/item/clothing/under/plasmaman/janitor = 1,
-					/obj/item/clothing/head/helmet/space/plasmaman/janitor = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/janitor = 1,
 					/obj/item/cartridge/janitor = 1,
 					/obj/item/clothing/gloves/color/black = 1,
 					/obj/item/clothing/head/soft/purple = 1,
@@ -327,6 +334,8 @@
 					/obj/item/clothing/under/lawyer/blacksuit = 1,
 					/obj/item/clothing/suit/toggle/lawyer/black = 1,
 					/obj/item/clothing/shoes/laceup = 2,
+					/obj/item/clothing/neck/tie/red = 6,
+					/obj/item/clothing/neck/tie/black = 6,
 					/obj/item/clothing/accessory/lawyers_badge = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/law_wardrobe
 	payment_department = ACCOUNT_CIV
@@ -345,7 +354,7 @@
 					/obj/item/clothing/accessory/pocketprotector/cosmetology = 1,
 					/obj/item/clothing/under/rank/chaplain = 1,
 					/obj/item/clothing/under/plasmaman/chaplain = 1,
-					/obj/item/clothing/head/helmet/space/plasmaman/chaplain = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/chaplain = 1,
 					/obj/item/clothing/shoes/sneakers/black = 1,
 					/obj/item/clothing/suit/chaplainsuit/nun = 1,
 					/obj/item/clothing/head/nun_hood = 1,
@@ -377,7 +386,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	products = list(/obj/item/clothing/under/rank/chemist = 2,
 					/obj/item/clothing/under/plasmaman/chemist = 2,
-					/obj/item/clothing/head/helmet/space/plasmaman/chemist = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/chemist = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/chemist = 2,
 					/obj/item/storage/backpack/chemistry = 2,
@@ -397,7 +406,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	products = list(/obj/item/clothing/under/rank/geneticist = 2,
 					/obj/item/clothing/under/plasmaman/genetics = 2,
-					/obj/item/clothing/head/helmet/space/plasmaman/genetics = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/genetics = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/genetics = 2,
 					/obj/item/storage/backpack/genetics = 2,
@@ -416,7 +425,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	products = list(/obj/item/clothing/under/rank/virologist = 2,
 					/obj/item/clothing/under/plasmaman/viro = 2,
-					/obj/item/clothing/head/helmet/space/plasmaman/viro = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/viro = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/virologist = 2,
 					/obj/item/clothing/mask/surgical = 2,

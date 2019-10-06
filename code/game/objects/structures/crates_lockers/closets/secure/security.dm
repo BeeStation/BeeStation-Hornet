@@ -79,7 +79,7 @@
 	new /obj/item/clothing/head/HoS(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/gars/supergars(src)
-	new /obj/item/clothing/under/rank/head_of_security/grey(src)
+	new /obj/item/clothing/under/rank/head_of_security/white(src)
 	new /obj/item/storage/lockbox/medal/sec(src)
 	new /obj/item/megaphone/sec(src)
 	new /obj/item/holosign_creator/security(src)
@@ -173,6 +173,8 @@
 	icon_state = "cabinet"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
@@ -196,6 +198,9 @@
 	new /obj/item/storage/belt/holster/full(src)
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/twohanded/binoculars(src)
+	new /obj/item/clothing/neck/tie/red(src)
+	new	/obj/item/clothing/neck/tie/black(src)
+	new /obj/item/clothing/neck/tie/detective(src)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections"
