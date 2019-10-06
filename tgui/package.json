@@ -20,7 +20,7 @@
     "cached-path-relative": "1.0.2",
     "dom4": "1.7.0",
     "es3ify": "0.2.1",
-    "fg-loadcss": "1.0.0-0",
+    "fg-loadcss": "2.1.0",
     "fontfaceobserver": "1.6.3",
     "gulp": "git://github.com/gulpjs/gulp.git#v4.0.0-alpha.3",
     "gulp-bytediff": "1.0.0",
