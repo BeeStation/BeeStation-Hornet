@@ -219,7 +219,7 @@
 	/*if(shuttle_error)
 		to_chat(world, "Shuttle error: [shuttle_error]") //DEBUG
 	else
-		to_chat(world, "Shuttle success.") //DEBUG*/
+		to_chat(world, "Shuttle success.") //DEBUG
 	*/
 	/*for(var/obj/machinery/computer/turbolift/TS in destinations)
 		if(TS.floor == S)
