@@ -163,8 +163,9 @@
 		if(S.loc_check()) //Someone's standing in the lift
 			S.bolt_other_doors() //So bolt the other lifts
 			return
-		S.unbolt_door() //No one's in the lift, and the lift is not moving, so allow entrance*/
-*/
+		S.unbolt_door() //No one's in the lift, and the lift is not moving, so allow entrance
+	*/
+
 
 /obj/machinery/computer/turbolift/Destroy()
 	STOP_PROCESSING(SSobj,src)
