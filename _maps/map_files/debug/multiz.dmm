@@ -1327,12 +1327,6 @@
 	dir = 4
 	},
 /area/hallway/primary/central)
-"el" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/turf/closed/wall/r_wall,
-/area/construction)
 "em" = (
 /turf/open/floor/plasteel{
 	dir = 1
@@ -1567,26 +1561,28 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"fN" = (
-/obj/machinery/light,
-/turf/closed/wall/r_wall,
-/area/maintenance/department/bridge)
-"iK" = (
+"jV" = (
 /obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plasteel,
 /area/security)
-"jv" = (
+"mg" = (
+/obj/docking_port/stationary/turbolift,
+/turf/open/floor/plating,
+/area/shuttle/turbolift/primary)
+"mV" = (
+/obj/docking_port/stationary/turbolift{
+	dwidth = 2;
+	height = 4;
+	id = "primary_turbolift_4";
+	width = 5
+	},
+/turf/open/floor/plating,
+/area/security)
+"nW" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
-/turf/closed/indestructible/turbolift,
-/area/turbolift/primary)
-"kE" = (
 /turf/closed/wall/r_wall,
-/area/security)
-"kQ" = (
-/obj/machinery/door/airlock/turbolift,
-/turf/open/floor/plating,
 /area/construction)
 "og" = (
 /obj/effect/turf_decal/stripes/line,
@@ -1619,6 +1615,9 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"ta" = (
+/turf/closed/wall/r_wall,
+/area/security)
 "ux" = (
 /obj/structure/ladder,
 /turf/open/floor/plasteel,
@@ -1629,28 +1628,29 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction)
-"wN" = (
-/obj/structure/turbolift{
-	pixel_y = -32
+"wb" = (
+/turf/open/floor/plating,
+/area/shuttle/turbolift/primary)
+"wz" = (
+/obj/docking_port/stationary/turbolift{
+	dwidth = 2;
+	height = 4;
+	id = "turbolift_primary";
+	roundstart_template = /datum/map_template/shuttle/turbolift/debug/primary;
+	width = 5
 	},
-/turf/open/indestructible/turbolift,
-/area/turbolift/primary)
-"xT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/closed/wall/r_wall,
+/turf/open/floor/plating,
 /area/construction)
+"xv" = (
+/obj/machinery/light,
+/turf/closed/wall/r_wall,
+/area/maintenance/department/bridge)
 "yl" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"zo" = (
-/obj/machinery/door/airlock/turbolift,
-/turf/open/floor/plasteel,
-/area/turbolift/primary)
 "Bm" = (
 /obj/machinery/light{
 	dir = 4
@@ -1683,10 +1683,12 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
-"GD" = (
-/obj/machinery/door/airlock/turbolift,
-/turf/open/indestructible/turbolift,
-/area/turbolift/primary)
+"Hm" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
+/area/construction)
 "Hn" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/ladder,
@@ -1737,18 +1739,18 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"MM" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/closed/indestructible/turbolift,
-/area/turbolift/primary)
 "Pl" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
+/area/security)
+"RG" = (
+/turf/open/floor/plasteel,
+/area/security)
+"TG" = (
+/turf/open/floor/plating,
 /area/security)
 "Uc" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
@@ -1760,15 +1762,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/security)
-"WD" = (
-/turf/closed/indestructible/turbolift,
-/area/turbolift/primary)
-"Xz" = (
-/turf/open/indestructible/turbolift,
-/area/turbolift/primary)
-"Yn" = (
-/turf/open/floor/plasteel,
-/area/security)
+"Yc" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plating,
+/area/construction)
 "YD" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -2625,7 +2622,7 @@ dn
 cN
 cN
 cN
-xT
+Hm
 cN
 ad
 ad
@@ -2677,10 +2674,10 @@ dn
 dn
 dn
 cN
-WD
-WD
-MM
-WD
+dn
+dn
+dn
+dn
 ad
 ad
 ac
@@ -2730,12 +2727,12 @@ dn
 cN
 cN
 dn
-kQ
-zo
-Xz
-Xz
-WD
-fN
+Yc
+dn
+dn
+dn
+dn
+xv
 ad
 ac
 ab
@@ -2784,11 +2781,11 @@ dn
 cN
 fk
 dn
-kQ
-zo
-Xz
-wN
-WD
+Yc
+dn
+dn
+dn
+wz
 ad
 ad
 ac
@@ -2838,11 +2835,11 @@ dn
 cN
 dn
 dn
-kQ
-zo
-Xz
-Xz
-WD
+Yc
+dn
+dn
+dn
+dn
 ad
 ad
 ac
@@ -2893,10 +2890,10 @@ dn
 dn
 dn
 cN
-WD
-WD
-MM
-WD
+dn
+dn
+dn
+dn
 ad
 ad
 ac
@@ -2949,7 +2946,7 @@ dn
 cN
 cN
 cN
-xT
+Hm
 cN
 ad
 ad
@@ -5430,11 +5427,11 @@ au
 au
 au
 au
-Yn
-kE
-kE
-kE
-el
+RG
+ta
+ta
+ta
+nW
 cN
 ad
 ad
@@ -5484,12 +5481,12 @@ au
 au
 au
 au
-Yn
-kE
-WD
-WD
-jv
-WD
+RG
+ta
+wb
+wb
+wb
+wb
 ad
 ad
 au
@@ -5538,12 +5535,12 @@ au
 au
 cN
 cN
-Yn
-iK
-GD
-Xz
-Xz
-WD
+RG
+jV
+wb
+wb
+wb
+wb
 ad
 ad
 au
@@ -5592,13 +5589,13 @@ au
 au
 au
 av
-Yn
-iK
-GD
-Xz
-wN
-WD
-fN
+RG
+jV
+wb
+wb
+wb
+mg
+xv
 ad
 au
 au
@@ -5646,12 +5643,12 @@ au
 au
 au
 au
-Yn
-iK
-GD
-Xz
-Xz
-WD
+RG
+jV
+wb
+wb
+wb
+wb
 ad
 ad
 au
@@ -5700,12 +5697,12 @@ au
 au
 au
 au
-Yn
-kE
-WD
-WD
-jv
-WD
+RG
+ta
+wb
+wb
+wb
+wb
 ad
 ad
 au
@@ -5754,11 +5751,11 @@ au
 au
 au
 au
-Yn
-kE
-kE
-kE
-el
+RG
+ta
+ta
+ta
+nW
 cN
 ad
 ad
@@ -8185,13 +8182,13 @@ au
 au
 au
 au
-Yn
-Yn
-Yn
-Yn
-Yn
-Yn
-Yn
+RG
+RG
+RG
+RG
+RG
+RG
+RG
 fn
 au
 au
@@ -8239,13 +8236,13 @@ au
 au
 au
 au
-Yn
-kE
-kE
-kE
-kE
-kE
-kE
+RG
+ta
+ta
+ta
+ta
+ta
+ta
 fn
 au
 au
@@ -8293,13 +8290,13 @@ au
 au
 au
 au
-Yn
-kE
-WD
-WD
-WD
-WD
-kE
+RG
+ta
+TG
+TG
+TG
+TG
+ta
 fn
 au
 au
@@ -8347,13 +8344,13 @@ au
 au
 au
 au
-Yn
-iK
-GD
-Xz
-Xz
-WD
-kE
+RG
+jV
+TG
+TG
+TG
+TG
+ta
 fn
 au
 au
@@ -8401,13 +8398,13 @@ au
 au
 au
 au
-Yn
-iK
-GD
-Xz
-wN
-WD
-kE
+RG
+jV
+TG
+TG
+TG
+mV
+ta
 fn
 au
 au
@@ -8455,13 +8452,13 @@ au
 au
 au
 au
-Yn
-iK
-GD
-Xz
-Xz
-WD
-kE
+RG
+jV
+TG
+TG
+TG
+TG
+ta
 fn
 au
 au
@@ -8504,18 +8501,18 @@ au
 KL
 WC
 Pl
-Yn
+RG
 au
 au
 au
 au
-Yn
-kE
-WD
-WD
-WD
-WD
-kE
+RG
+ta
+TG
+TG
+TG
+TG
+ta
 fn
 au
 au
@@ -8557,19 +8554,19 @@ au
 au
 au
 au
-Yn
-Yn
-Yn
-Yn
-Yn
-Yn
-Yn
-kE
-kE
-kE
-kE
-kE
-kE
+RG
+RG
+RG
+RG
+RG
+RG
+RG
+ta
+ta
+ta
+ta
+ta
+ta
 fn
 au
 au
@@ -8613,17 +8610,17 @@ eT
 eT
 eT
 eW
-Yn
-Yn
-Yn
-Yn
-Yn
-Yn
-Yn
-Yn
-Yn
-Yn
-Yn
+RG
+RG
+RG
+RG
+RG
+RG
+RG
+RG
+RG
+RG
+RG
 fn
 au
 au
@@ -8667,11 +8664,11 @@ bE
 bE
 bE
 eX
-Yn
-Yn
-Yn
-Yn
-Yn
+RG
+RG
+RG
+RG
+RG
 au
 au
 au

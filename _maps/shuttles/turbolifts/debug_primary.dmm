@@ -1,0 +1,12 @@
+"a" = (/turf/closed/indestructible/turbolift,/area/shuttle/turbolift/primary)
+"b" = (/obj/machinery/door/airlock/turbolift,/turf/open/indestructible/turbolift,/area/shuttle/turbolift/primary)
+"c" = (/turf/open/indestructible/turbolift,/area/shuttle/turbolift/primary)
+"d" = (/obj/machinery/computer/turbolift{pixel_y = -32},/turf/open/indestructible/turbolift,/area/shuttle/turbolift/primary)
+"e" = (/obj/docking_port/mobile/turbolift{dwidth = 2; height = 4; id = "turbolift_primary"; width = 5},/turf/closed/indestructible/turbolift,/area/shuttle/turbolift/primary)
+
+(1,1,1) = {"
+abbba
+accca
+acdca
+aaeaa
+"}
