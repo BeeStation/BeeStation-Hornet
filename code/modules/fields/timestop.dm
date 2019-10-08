@@ -1,4 +1,3 @@
-// THIS IS NOW ONLY USED FOR THE OLD XENOBIOLOGY
 /obj/effect/timestop
 	anchored = TRUE
 	name = "chronofield"
