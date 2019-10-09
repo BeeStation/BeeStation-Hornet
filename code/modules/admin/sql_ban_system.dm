@@ -112,9 +112,6 @@
 	<label class='inputlabel checkbox'>Applies to Admins
 	<input type='checkbox' id='applyadmins' name='applyadmins' value='1'[applies_to_admins ? " checked": ""]>
 	<div class='inputbox'></div></label>
-	<label class='inputlabel checkbox'>Ban on all Servers
-	<input type='checkbox' id='servbantype' name='servbantype' value='1'[global_ban ? " checked": ""]>
-	<div class='inputbox'></div></label>
 	<input type='submit' value='Submit'>
 	<br>
 	<div class='row'>
@@ -170,6 +167,17 @@
 			<div class='inputbox'></div></label>
 		</div>
 		<div class='column'>
+			Location
+			<br>	
+			<label class='inputlabel radio'>Local
+			<input type='radio' id='servban' name='radioservban' value='permanent'[isnull(global_ban) ? " checked" : ""]>
+			<div class='inputbox'></div></label>
+			<br>
+			<label class='inputlabel radio'>Global
+			<input type='radio' id='servban' name='radioservban' value='permanent'[(global_ban) ? " checked" : ""]>
+			<div class='inputbox'></div></label>
+		</div>
+		<div class='column'>
 			Reason
 			<br>
 			<textarea class='reason' name='reason'>[reason]</textarea>
@@ -187,6 +195,7 @@
 		<input type='hidden' name='oldapplies' value='[applies_to_admins]'>
 		<input type='hidden' name='oldduration' value='[duration]'>
 		<input type='hidden' name='oldreason' value='[reason]'>
+		<input type]'hidden' name='oldglobal' value='[global_ban]'
 		<input type='hidden' name='page' value='[page]'>
 		<input type='hidden' name='adminkey' value='[admin_key]'>
 		<br>
@@ -307,6 +316,7 @@
 	var/old_ip
 	var/old_cid
 	var/old_applies
+	var/old_global
 	var/page
 	var/admin_key
 	var/list/changes = list()
@@ -370,6 +380,9 @@
 		old_applies = text2num(href_list["oldapplies"])
 		if(applies_to_admins != old_applies)
 			changes += list("Applies to admins" = "[old_applies] to [applies_to_admins]")
+		old_global = text2num(href_list["oldglobal"])
+		if(global_ban != old_global)
+			changes += list("Ban Location" = "[old_global] to [global_ban]")
 		if(duration != href_list["oldduration"])
 			changes += list("Duration" = "[href_list["oldduration"]] MINUTE to [duration] [interval]")
 		if(reason != href_list["oldreason"])
@@ -398,7 +411,7 @@
 		to_chat(usr, "<span class='danger'>Ban not [edit_id ? "edited" : "created"] because the following errors were present:\n[error_state.Join("\n")]</span>")
 		return
 	if(edit_id)
-		edit_ban(edit_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, mirror_edit, old_key, old_ip, old_cid, old_applies, page, admin_key, changes)
+		edit_ban(edit_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, mirror_edit, old_key, old_ip, old_cid, old_applies, old_global, page, admin_key, changes)
 	else
 		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, roles_to_ban)
 
@@ -654,7 +667,7 @@
 			to_chat(i, "<span class='boldannounce'>[usr.client.key] has removed a ban from [role] for your IP or CID.")
 	unban_panel(player_key, admin_key, player_ip, player_cid, page)
 
-/datum/admins/proc/edit_ban(ban_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, mirror_edit, old_key, old_ip, old_cid, old_applies, admin_key, page, list/changes)
+/datum/admins/proc/edit_ban(ban_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, mirror_edit, old_key, old_ip, old_cid, old_applies, old_global, admin_key, page, list/changes)
 	if(!check_rights(R_BAN))
 		return
 	if(!SSdbcore.Connect())
