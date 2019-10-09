@@ -1561,29 +1561,15 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"jV" = (
-/obj/machinery/door/airlock/turbolift,
-/turf/open/floor/plasteel,
-/area/security)
-"mg" = (
-/obj/docking_port/stationary/turbolift,
-/turf/open/floor/plating,
-/area/shuttle/turbolift/primary)
-"mV" = (
-/obj/docking_port/stationary/turbolift{
-	dwidth = 2;
-	height = 4;
-	id = "primary_turbolift_4";
-	width = 5
-	},
-/turf/open/floor/plating,
-/area/security)
-"nW" = (
+"fL" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
 /turf/closed/wall/r_wall,
 /area/construction)
+"jf" = (
+/turf/open/floor/plasteel,
+/area/security)
 "og" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/ladder,
@@ -1615,7 +1601,11 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"ta" = (
+"rD" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plating,
+/area/construction)
+"sN" = (
 /turf/closed/wall/r_wall,
 /area/security)
 "ux" = (
@@ -1628,29 +1618,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction)
-"wb" = (
-/turf/open/floor/plating,
-/area/shuttle/turbolift/primary)
-"wz" = (
-/obj/docking_port/stationary/turbolift{
-	dwidth = 2;
-	height = 4;
-	id = "turbolift_primary";
-	roundstart_template = /datum/map_template/shuttle/turbolift/debug/primary;
-	width = 5
-	},
-/turf/open/floor/plating,
-/area/construction)
-"xv" = (
-/obj/machinery/light,
-/turf/closed/wall/r_wall,
-/area/maintenance/department/bridge)
 "yl" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"zP" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plasteel,
+/area/security)
 "Bm" = (
 /obj/machinery/light{
 	dir = 4
@@ -1660,6 +1637,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
+"Cv" = (
+/turf/open/floor/plating,
+/area/security)
 "CA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1676,6 +1656,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"DH" = (
+/obj/docking_port/stationary/turbolift{
+	id = "turbolift_primary"
+	},
+/turf/open/floor/plating,
+/area/shuttle/turbolift/primary)
 "Fz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1683,12 +1669,6 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
-"Hm" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/closed/wall/r_wall,
-/area/construction)
 "Hn" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/ladder,
@@ -1707,6 +1687,9 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"Km" = (
+/turf/open/floor/plating,
+/area/shuttle/turbolift/primary)
 "Kq" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1739,6 +1722,10 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"NT" = (
+/obj/machinery/light,
+/turf/closed/wall/r_wall,
+/area/maintenance/department/bridge)
 "Pl" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1746,25 +1733,40 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
-"RG" = (
-/turf/open/floor/plasteel,
-/area/security)
-"TG" = (
+"PH" = (
+/obj/docking_port/stationary/turbolift{
+	dwidth = 2;
+	height = 4;
+	id = "turbolift_primary";
+	width = 5
+	},
 /turf/open/floor/plating,
 /area/security)
 "Uc" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
+"UA" = (
+/obj/docking_port/stationary/turbolift{
+	dwidth = 2;
+	height = 4;
+	id = "turbolift_primary";
+	roundstart_template = /datum/map_template/shuttle/turbolift/debug/primary;
+	width = 5
+	},
+/turf/open/floor/plating,
+/area/construction)
 "WC" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security)
-"Yc" = (
-/obj/machinery/door/airlock/turbolift,
-/turf/open/floor/plating,
+"Xo" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
 /area/construction)
 "YD" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -2622,7 +2624,7 @@ dn
 cN
 cN
 cN
-Hm
+Xo
 cN
 ad
 ad
@@ -2727,12 +2729,12 @@ dn
 cN
 cN
 dn
-Yc
+rD
 dn
 dn
 dn
 dn
-xv
+NT
 ad
 ac
 ab
@@ -2781,11 +2783,11 @@ dn
 cN
 fk
 dn
-Yc
+rD
 dn
 dn
 dn
-wz
+UA
 ad
 ad
 ac
@@ -2835,7 +2837,7 @@ dn
 cN
 dn
 dn
-Yc
+rD
 dn
 dn
 dn
@@ -2946,7 +2948,7 @@ dn
 cN
 cN
 cN
-Hm
+Xo
 cN
 ad
 ad
@@ -5427,11 +5429,11 @@ au
 au
 au
 au
-RG
-ta
-ta
-ta
-nW
+jf
+sN
+sN
+sN
+fL
 cN
 ad
 ad
@@ -5481,12 +5483,12 @@ au
 au
 au
 au
-RG
-ta
-wb
-wb
-wb
-wb
+jf
+sN
+Km
+Km
+Km
+Km
 ad
 ad
 au
@@ -5535,12 +5537,12 @@ au
 au
 cN
 cN
-RG
-jV
-wb
-wb
-wb
-wb
+jf
+zP
+Km
+Km
+Km
+Km
 ad
 ad
 au
@@ -5589,13 +5591,13 @@ au
 au
 au
 av
-RG
-jV
-wb
-wb
-wb
-mg
-xv
+jf
+zP
+Km
+Km
+Km
+DH
+NT
 ad
 au
 au
@@ -5643,12 +5645,12 @@ au
 au
 au
 au
-RG
-jV
-wb
-wb
-wb
-wb
+jf
+zP
+Km
+Km
+Km
+Km
 ad
 ad
 au
@@ -5697,12 +5699,12 @@ au
 au
 au
 au
-RG
-ta
-wb
-wb
-wb
-wb
+jf
+sN
+Km
+Km
+Km
+Km
 ad
 ad
 au
@@ -5751,11 +5753,11 @@ au
 au
 au
 au
-RG
-ta
-ta
-ta
-nW
+jf
+sN
+sN
+sN
+fL
 cN
 ad
 ad
@@ -8182,13 +8184,13 @@ au
 au
 au
 au
-RG
-RG
-RG
-RG
-RG
-RG
-RG
+jf
+jf
+jf
+jf
+jf
+jf
+jf
 fn
 au
 au
@@ -8236,13 +8238,13 @@ au
 au
 au
 au
-RG
-ta
-ta
-ta
-ta
-ta
-ta
+jf
+sN
+sN
+sN
+sN
+sN
+sN
 fn
 au
 au
@@ -8290,13 +8292,13 @@ au
 au
 au
 au
-RG
-ta
-TG
-TG
-TG
-TG
-ta
+jf
+sN
+Cv
+Cv
+Cv
+Cv
+sN
 fn
 au
 au
@@ -8344,13 +8346,13 @@ au
 au
 au
 au
-RG
-jV
-TG
-TG
-TG
-TG
-ta
+jf
+zP
+Cv
+Cv
+Cv
+Cv
+sN
 fn
 au
 au
@@ -8398,13 +8400,13 @@ au
 au
 au
 au
-RG
-jV
-TG
-TG
-TG
-mV
-ta
+jf
+zP
+Cv
+Cv
+Cv
+PH
+sN
 fn
 au
 au
@@ -8452,13 +8454,13 @@ au
 au
 au
 au
-RG
-jV
-TG
-TG
-TG
-TG
-ta
+jf
+zP
+Cv
+Cv
+Cv
+Cv
+sN
 fn
 au
 au
@@ -8501,18 +8503,18 @@ au
 KL
 WC
 Pl
-RG
+jf
 au
 au
 au
 au
-RG
-ta
-TG
-TG
-TG
-TG
-ta
+jf
+sN
+Cv
+Cv
+Cv
+Cv
+sN
 fn
 au
 au
@@ -8554,19 +8556,19 @@ au
 au
 au
 au
-RG
-RG
-RG
-RG
-RG
-RG
-RG
-ta
-ta
-ta
-ta
-ta
-ta
+jf
+jf
+jf
+jf
+jf
+jf
+jf
+sN
+sN
+sN
+sN
+sN
+sN
 fn
 au
 au
@@ -8610,17 +8612,17 @@ eT
 eT
 eT
 eW
-RG
-RG
-RG
-RG
-RG
-RG
-RG
-RG
-RG
-RG
-RG
+jf
+jf
+jf
+jf
+jf
+jf
+jf
+jf
+jf
+jf
+jf
 fn
 au
 au
@@ -8664,11 +8666,11 @@ bE
 bE
 bE
 eX
-RG
-RG
-RG
-RG
-RG
+jf
+jf
+jf
+jf
+jf
 au
 au
 au

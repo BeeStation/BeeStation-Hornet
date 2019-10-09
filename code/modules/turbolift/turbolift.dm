@@ -9,6 +9,7 @@
 // Modify pixel_x and y as needed, it starts off snapped to the tile below a wall.																											//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+GLOBAL_LIST_EMPTY(turbolifts)
 
 //Areas//
 
@@ -32,32 +33,88 @@
 
 /obj/docking_port/stationary/turbolift
 	name = "turbolift"
+	var/ztrait = ZTRAIT_STATION //In case we want elevators elsewhere. Multi-z lavaland mining base, anyone?
+	var/bottom_floor = FALSE
 
 /obj/docking_port/mobile/turbolift
 	name = "turbolift"
 	dir = NORTH
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
+	var/obj/machinery/computer/turbolift/turbolift_computer
 
 /obj/docking_port/mobile/turbolift/Initialize()
-	. = ..()
-	var/area/shuttle/turbolift/A = get_area(src)
-	if(!istype(A, /area/shuttle/turbolift) || !A.turbolift_id)
-		log_mapping("[src] placed in a non-turbolift area at [AREACOORD(src)]")
-	if(!id)
-		id = "[A.turbolift_id]"
-	to_chat(world, "Turbolift mobile dock id: [id], location: [AREACOORD(src)]") //DEBUG
-	if(!SSshuttle.getShuttle(id))
-		to_chat(world, "Had to manually register") //DEBUG
-		register()
+	register()
+	..()
+	return INITIALIZE_HINT_LATELOAD
 
+/obj/docking_port/mobile/turbolift/LateInitialize()
+	for(var/T in GLOB.turbolifts)
+		var/obj/machinery/computer/turbolift/C = T
+		if(C.shuttle_id == id)
+			turbolift_computer = C
+			to_chat(world, "FOUND TURBOLIFT COMPUTER") //DEBUG
+			break
+
+	if(!turbolift_computer)
+		log_mapping("TURBOLIFT: [src] failed to find its turbolift computer at [AREACOORD(src)]")
+		message_admins("TURBOLIFT: [src] failed to find its turbolift computer at [AREACOORD(src)]")
+		return
+
+	to_chat(world, "GETTING STATIONARY DOCK") //DEBUG
+	var/obj/docking_port/stationary/turbolift/turbolift_dock
+	for(var/S in SSshuttle.stationary)
+		var/obj/docking_port/stationary/turbolift/SM = S
+		to_chat(world, "GOT THIS FAR.") //DEBUG
+		if(!istype(SM))
+			continue
+		to_chat(world, "FOUND THE BASTARD")
+		to_chat(world, "REEEE. SM ID: [SM.id], ID: [id], BOTTOM: [SM.bottom_floor]") //DEBUG
+		if(findtext(SM.id, id) && SM.bottom_floor)
+			turbolift_dock = SM
+			break
+	if(!turbolift_dock)
+		log_mapping("TURBOLIFT: [src] failed to find its dock at [AREACOORD(src)]")
+		message_admins("TURBOLIFT: [src] failed to find its dock at [AREACOORD(src)]")
+		return
+	if(!turbolift_dock.bottom_floor)
+		log_mapping("TURBOLIFT: [src] was loaded in somewhere other than the lowest floor at [AREACOORD(src)]")
+		message_admins("TURBOLIFT: [src] was loaded in somewhere other than the lowest floor at [AREACOORD(src)]")
+		return
+
+	to_chat(world, "TRYING TO LOCATE") //DEBUG
+	turbolift_dock.locate_floors(src)
 
 /obj/docking_port/stationary/turbolift/Initialize()
-	var/area/shuttle/turbolift/A = get_area(src)
-	if((!istype(A, /area/shuttle/turbolift) || !A.turbolift_id) && !id)
-		log_mapping("[src] placed in a non-turbolift area at [AREACOORD(src)]")
-	if(!id)
-		id = "[A.turbolift_id]_[src.z]"
-	to_chat(world, "Turbolift stationary dock id: [id], location: [AREACOORD(src)]") //DEBUG
 	. = ..()
+	id = "[id]_[src.z]"
+	var/lower_dock = (locate(/obj/docking_port/stationary/turbolift) in SSmapping.get_turf_below(get_turf(src)))
+	if(!lower_dock)
+		to_chat(world, "FOUND BOTTOM DOCK: [src], ID: [id] at [AREACOORD(src)]") //DEBUG
+		bottom_floor = TRUE //We let the lowest dock handle finding all of the other docks
+
+
+/obj/docking_port/stationary/turbolift/proc/locate_floors(var/obj/docking_port/mobile/turbolift/M)
+	if(!bottom_floor || !M)
+		return
+	to_chat(world, "FOUND MOBILE DOCK") //DEBUG
+	M.turbolift_computer.possible_destinations += "[id];"
+	to_chat(world, "ADDED SRC") //DEBUG
+
+	for(var/S in SSshuttle.stationary)
+		var/obj/docking_port/stationary/turbolift/SM = S
+		to_chat(world, "GOT THIS FAR.") //DEBUG
+		if(!istype(SM))
+			continue
+		to_chat(world, "FOUND A BASTARD")
+		if(findtext(SM.id, M.id) && !SM.bottom_floor)
+			to_chat(world, "ADDED [SM] at [AREACOORD(SM)]") //DEBUG
+			SM.dir = dir
+			SM.dwidth = dwidth
+			SM.dheight = dheight
+			SM.width = width
+			SM.height = height
+			M.turbolift_computer.possible_destinations += "[SM.id];"
+	to_chat(world, "FINISHED LOCATING") //DEBUG
 
 //Structures and logic//
 
@@ -82,27 +139,31 @@
 	var/is_controller = FALSE //Are we controlling the other lifts?
 	var/obj/machinery/computer/turbolift/master = null //Who is the one pulling the strings
 	var/obj/machinery/door/airlock/linked_door = null //Linked elevator door
-	var/shuttle_id
+
+	var/shuttle_id //Needs to match the mobile docking port's ID
 	var/list/possible_destinations
 
 /obj/machinery/computer/turbolift/Initialize()
-	..()
-	var/area/shuttle/turbolift/A = get_area(src)
-	shuttle_id = A.turbolift_id
-	if(!shuttle_id)
-		log_mapping("[src] placed in a non-turbolift area at [AREACOORD(src)]")
-		return
-	to_chat(world, "Turbolift shuttle ID: [shuttle_id]") //DEBUG
+	GLOB.turbolifts += src
 
+	if(!shuttle_id)
+		log_mapping("TURBOLIFT: [src] initialized without a shuttle ID at [AREACOORD(src)]")
+		message_admins("TURBOLIFT: [src] initialized without a shuttle ID at [AREACOORD(src)]")
+		return
+
+	to_chat(world, "Turbolift shuttle ID: [shuttle_id]") //DEBUG
+	..()
 	return INITIALIZE_HINT_LATELOAD
 
-///obj/machinery/computer/turbolift/LateInitialize()
-	//handle_docking_ports()
+/obj/machinery/computer/turbolift/LateInitialize()
+	if(!SSshuttle.getShuttle(shuttle_id))
+		log_mapping("TURBOLIFT: [src] initialized with invalid ID: [shuttle_id] at [AREACOORD(src)]")
+		message_admins("TURBOLIFT: [src] initialized with invalid ID: [shuttle_id] at [AREACOORD(src)]")
 
 
 	//get_position()
 	//get_turfs()
-
+/*
 /obj/machinery/computer/turbolift/proc/handle_docking_ports()
 	to_chat(world, "Getting mobile dock")
 	var/obj/docking_port/mobile/turbolift/mobile_dock = SSshuttle.getShuttle(shuttle_id)
@@ -115,7 +176,7 @@
 			T.width = mobile_dock.width
 			T.height = mobile_dock.height
 			possible_destinations += "[T.id];"
-
+*/
 /obj/machinery/door/airlock/turbolift
 	name = "turbolift airlock"
 	icon = 'icons/obj/turbolift_door.dmi'
@@ -151,30 +212,17 @@
 	desc = "A turbolift wall. One of the strongest walls known to man."
 	canSmoothWith = list(/turf/closed/indestructible/turbolift)
 
-
-/obj/machinery/computer/turbolift/process()
-	if(!is_controller)
-		return
-	/*if(loc_check())
-		bolt_other_doors()
-		return*/
-	//unbolt_door()
-	/*for(var/obj/machinery/computer/turbolift/S in destinations)
-		if(S.loc_check()) //Someone's standing in the lift
-			S.bolt_other_doors() //So bolt the other lifts
-			return
-		S.unbolt_door() //No one's in the lift, and the lift is not moving, so allow entrance
-	*/
-
-
 /obj/machinery/computer/turbolift/Destroy()
-	STOP_PROCESSING(SSobj,src)
+	GLOB.turbolifts -= src
+	var/obj/docking_port/mobile/turbolift/M = SSshuttle.getShuttle(shuttle_id)
+	if(M)
+		M.turbolift_computer = null
 	. = ..()
 
 /obj/machinery/computer/turbolift/attack_hand(mob/user)
 	//START PLACEHOLDER
-	SSshuttle.moveShuttle("turbolift_primary", "primary_turbolift_4", 0)
-	return
+	//SSshuttle.moveShuttle("turbolift_primary", "primary_turbolift_4", 0)
+	//return
 	//END PLACEHOLDER DEBUG
 
 	/*if(!shuttle_id)
@@ -185,23 +233,23 @@
 			return
 		to_chat(world, "Turbolift shuttle ID: [shuttle_id]") //DEBUG
 		handle_docking_ports()*/
-	. = ..()
+	/*. = ..()
 	if(in_use)
 		to_chat(user, "The turbolift is already moving!")
 		return FALSE
 	send_sound_lift('sound/effects/turbolift/turbolift-close.ogg')
 	bolt_door()
-	in_use = TRUE
+	in_use = TRUE*/
 	var/list/options = params2list(possible_destinations)
 	for(var/id in options)
 		var/obj/dock = SSshuttle.getDock(id)
 		if(dock.z != src.z)
 			to_chat(user, "Deck [dock.z]: [dock.name]")
 	icon_state = "lift-off"
-	var/S = input(user,"Select a deck (max: [max_floor])") as num
-	if(S > max_floor || S <= 0 || S == floor)
+	var/S = input(user,"Select a deck") as num
+	if(S > 1000 || S <= 0 || S == src.z)
 		in_use = FALSE
-		unbolt_door()
+		//unbolt_door()
 		return
 	if(!S)
 		return
@@ -317,7 +365,6 @@
 	var/obj/machinery/computer/turbolift/below = locate(/obj/machinery/computer/turbolift) in SSmapping.get_turf_below(get_turf(src))
 	if(below) //We need to be the bottom lift for this to work.
 		return
-	START_PROCESSING(SSobj, src)
 	floor = 1
 	name = "[initial(name)] (Deck [floor])"
 	is_controller = TRUE

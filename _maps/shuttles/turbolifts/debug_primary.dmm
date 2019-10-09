@@ -11,7 +11,8 @@
 /area/shuttle/turbolift/primary)
 "d" = (
 /obj/machinery/computer/turbolift{
-	pixel_y = -32
+	pixel_y = -32;
+	shuttle_id = "turbolift_primary"
 	},
 /turf/open/indestructible/turbolift,
 /area/shuttle/turbolift/primary)
