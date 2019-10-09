@@ -170,11 +170,11 @@
 			Location
 			<br>	
 			<label class='inputlabel radio'>Local
-			<input type='radio' id='servban' name='radioservban' value='permanent'[isnull(global_ban) ? " checked" : ""]>
+			<input type='radio' id='servban' name='radioservban' value='1'[isnull(global_ban) ? " checked" : ""]>
 			<div class='inputbox'></div></label>
 			<br>
 			<label class='inputlabel radio'>Global
-			<input type='radio' id='servban' name='radioservban' value='permanent'[(global_ban) ? " checked" : ""]>
+			<input type='radio' id='servban' name='radioservban' value='1'[(global_ban) ? " checked" : ""]>
 			<div class='inputbox'></div></label>
 		</div>
 		<div class='column'>
@@ -196,6 +196,7 @@
 		<input type='hidden' name='oldduration' value='[duration]'>
 		<input type='hidden' name='oldreason' value='[reason]'>
 		<input type]'hidden' name='oldglobal' value='[global_ban]'
+		<input type='hidden' name='old_globalban' value='[global_ban]'
 		<input type='hidden' name='page' value='[page]'>
 		<input type='hidden' name='adminkey' value='[admin_key]'>
 		<br>
@@ -316,7 +317,7 @@
 	var/old_ip
 	var/old_cid
 	var/old_applies
-	var/old_global
+	var/old_globalban
 	var/page
 	var/admin_key
 	var/list/changes = list()
@@ -369,10 +370,13 @@
 		old_key = href_list["oldkey"]
 		old_ip = href_list["oldip"]
 		old_cid = href_list["oldcid"]
+		old_globalban = href_list["old_globalban"]
 		page = href_list["page"]
 		admin_key = href_list["adminkey"]
 		if(player_key != old_key)
 			changes += list("Key" = "[old_key] to [player_key]")
+		if(global_ban != old_globalban)
+			changes += list("Ban Location" = "[old_globalban] to [global_ban]")
 		if(player_ip != old_ip)
 			changes += list("IP" = "[old_ip] to [player_ip]")
 		if(player_cid != old_cid)
@@ -380,9 +384,6 @@
 		old_applies = text2num(href_list["oldapplies"])
 		if(applies_to_admins != old_applies)
 			changes += list("Applies to admins" = "[old_applies] to [applies_to_admins]")
-		old_global = text2num(href_list["oldglobal"])
-		if(global_ban != old_global)
-			changes += list("Ban Location" = "[old_global] to [global_ban]")
 		if(duration != href_list["oldduration"])
 			changes += list("Duration" = "[href_list["oldduration"]] MINUTE to [duration] [interval]")
 		if(reason != href_list["oldreason"])
@@ -411,7 +412,7 @@
 		to_chat(usr, "<span class='danger'>Ban not [edit_id ? "edited" : "created"] because the following errors were present:\n[error_state.Join("\n")]</span>")
 		return
 	if(edit_id)
-		edit_ban(edit_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, mirror_edit, old_key, old_ip, old_cid, old_applies, old_global, page, admin_key, changes)
+		edit_ban(edit_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, mirror_edit, old_key, old_ip, old_cid, old_applies, old_globalban, page, admin_key, changes)
 	else
 		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, roles_to_ban)
 
@@ -540,7 +541,7 @@
 			if(roles_to_ban[1] == "Server" && (!is_admin || (is_admin && applies_to_admins)))
 				qdel(i)
 
-/datum/admins/proc/unban_panel(player_key, admin_key, player_ip, player_cid, page = 0)
+/datum/admins/proc/unban_panel(player_key, admin_key, player_ip, player_cid, global_ban, page = 0)
 	if(!check_rights(R_BAN))
 		return
 	if(!SSdbcore.Connect())
@@ -555,12 +556,24 @@
 	Admin Key:<input type='text' name='searchunbanadminkey' size='18' value='[admin_key]'>
 	IP:<input type='text' name='searchunbanip' size='12' value='[player_ip]'>
 	CID:<input type='text' name='searchunbancid' size='10' value='[player_cid]'>
+	<div>
+	<div class='column'>
+		Location
+		<br>	
+		<label class='inputlabel radio'>Local
+		<input type='radio' id='servban' name='searchservban' value='[global_ban]'[isnull(global_ban) ? " checked" : ""]>
+		<div class='inputbox'></div></label>
+		<br>
+		<label class='inputlabel radio'>Global
+		<input type='radio' id='servban' name='searchservban' value='[global_ban]'[(global_ban) ? " checked" : ""]>
+		<div class='inputbox'></div></label>
+	</div>
 	<input type='submit' value='Search'>
 	</form>
 	</div>
 	<div class='main'>
 	"}
-	if(player_key || admin_key || player_ip || player_cid)
+	if(player_key || admin_key || player_ip || player_cid || global_ban)
 		var/list/searchlist = list()
 		if(player_key)
 			searchlist += "ckey = '[sanitizeSQL(ckey(player_key))]'"
@@ -570,6 +583,8 @@
 			searchlist += "ip = INET_ATON('[sanitizeSQL(player_ip)]')"
 		if(player_cid)
 			searchlist += "computerid = '[sanitizeSQL(player_cid)]'"
+		if(global_ban)
+			searchlist += "global_ban = '[sanitizeSQL(global_ban)]'"
 		var/search = searchlist.Join(" AND ")
 		var/bancount = 0
 		var/bansperpage = 10
@@ -667,7 +682,7 @@
 			to_chat(i, "<span class='boldannounce'>[usr.client.key] has removed a ban from [role] for your IP or CID.")
 	unban_panel(player_key, admin_key, player_ip, player_cid, page)
 
-/datum/admins/proc/edit_ban(ban_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, mirror_edit, old_key, old_ip, old_cid, old_applies, old_global, admin_key, page, list/changes)
+/datum/admins/proc/edit_ban(ban_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, mirror_edit, old_key, old_ip, old_cid, old_applies, old_globalban, admin_key, page, list/changes)
 	if(!check_rights(R_BAN))
 		return
 	if(!SSdbcore.Connect())
