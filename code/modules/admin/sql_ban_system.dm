@@ -149,7 +149,7 @@
 			<input type='radio' id='role' name='radioban' value='role'[role == "Server" ? "" : " checked"][edit_id ? " disabled" : ""]>
 			<div class='inputbox'></div></label>
 		</div>
-		<div class='column right'>
+		<div class='column middle'>
 			Severity
 			<br>
 			<label class='inputlabel radio'>None
@@ -166,7 +166,7 @@
 			<input type='radio' id='high' name='radioseverity' value='high'[edit_id ? " disabled" : ""]>
 			<div class='inputbox'></div></label>
 		</div>
-		<div class='column'>
+		<div class='column right'>
 			Location
 			<br>	
 			<label class='inputlabel radio'>Local
@@ -412,7 +412,7 @@
 		to_chat(usr, "<span class='danger'>Ban not [edit_id ? "edited" : "created"] because the following errors were present:\n[error_state.Join("\n")]</span>")
 		return
 	if(edit_id)
-		edit_ban(edit_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, mirror_edit, old_key, old_ip, old_cid, old_applies, old_globalban, page, admin_key, changes)
+		edit_ban(edit_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, mirror_edit, old_key, old_ip, old_cid, old_applies, old_globalban, page, admin_key, changes)
 	else
 		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, roles_to_ban)
 
@@ -556,18 +556,6 @@
 	Admin Key:<input type='text' name='searchunbanadminkey' size='18' value='[admin_key]'>
 	IP:<input type='text' name='searchunbanip' size='12' value='[player_ip]'>
 	CID:<input type='text' name='searchunbancid' size='10' value='[player_cid]'>
-	<div>
-	<div class='column'>
-		Location
-		<br>	
-		<label class='inputlabel radio'>Local
-		<input type='radio' id='servban' name='searchservban' value='[global_ban]'[isnull(global_ban) ? " checked" : ""]>
-		<div class='inputbox'></div></label>
-		<br>
-		<label class='inputlabel radio'>Global
-		<input type='radio' id='servban' name='searchservban' value='[global_ban]'[(global_ban) ? " checked" : ""]>
-		<div class='inputbox'></div></label>
-	</div>
 	<input type='submit' value='Search'>
 	</form>
 	</div>
@@ -583,8 +571,6 @@
 			searchlist += "ip = INET_ATON('[sanitizeSQL(player_ip)]')"
 		if(player_cid)
 			searchlist += "computerid = '[sanitizeSQL(player_cid)]'"
-		if(global_ban)
-			searchlist += "global_ban = '[sanitizeSQL(global_ban)]'"
 		var/search = searchlist.Join(" AND ")
 		var/bancount = 0
 		var/bansperpage = 10
@@ -682,7 +668,7 @@
 			to_chat(i, "<span class='boldannounce'>[usr.client.key] has removed a ban from [role] for your IP or CID.")
 	unban_panel(player_key, admin_key, player_ip, player_cid, page)
 
-/datum/admins/proc/edit_ban(ban_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, mirror_edit, old_key, old_ip, old_cid, old_applies, old_globalban, admin_key, page, list/changes)
+/datum/admins/proc/edit_ban(ban_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, mirror_edit, old_key, old_ip, old_cid, old_applies, old_globalban, admin_key, page, list/changes)
 	if(!check_rights(R_BAN))
 		return
 	if(!SSdbcore.Connect())
@@ -716,6 +702,8 @@
 					qdel(query_edit_ban_get_player)
 					return
 		qdel(query_edit_ban_get_player)
+	if(global_ban && (global_ban != old_globalban))
+
 	if(applies_to_admins && (applies_to_admins != old_applies))
 		var/admin_ckey = sanitizeSQL(usr.client.ckey)
 		var/datum/DBQuery/query_check_adminban_count = SSdbcore.NewQuery("SELECT COUNT(DISTINCT bantime) FROM [format_table_name("ban")] WHERE a_ckey = '[admin_ckey]' AND applies_to_admins = 1 AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW())")
