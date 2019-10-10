@@ -131,12 +131,6 @@
 "au" = (
 /turf/open/openspace,
 /area/security)
-"av" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/openspace,
-/area/security)
 "aw" = (
 /turf/open/floor/plating,
 /area/engine/atmos)
@@ -1384,9 +1378,6 @@
 /turf/open/floor/plating,
 /area/storage/primary)
 "ey" = (
-/obj/effect/turf_decal/stripes/asteroid/corner{
-	dir = 1
-	},
 /obj/structure/ladder,
 /turf/open/floor/plasteel,
 /area/construction)
@@ -1422,15 +1413,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/engineering)
-"eH" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/construction)
 "eI" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1439,12 +1421,6 @@
 /area/construction)
 "eJ" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/construction)
-"eK" = (
-/obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -1490,9 +1466,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "eR" = (
-/obj/effect/turf_decal/stripes/asteroid/corner{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 4
 	},
@@ -1541,12 +1514,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"fk" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/construction)
 "fn" = (
 /turf/closed/wall/r_wall,
 /area/space)
@@ -1561,15 +1528,6 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"fL" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/turf/closed/wall/r_wall,
-/area/construction)
-"jf" = (
-/turf/open/floor/plasteel,
-/area/security)
 "og" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/ladder,
@@ -1601,13 +1559,13 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"rD" = (
+"qS" = (
+/turf/open/openspace,
+/area/shuttle/turbolift/shaft)
+"sG" = (
 /obj/machinery/door/airlock/turbolift,
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/construction)
-"sN" = (
-/turf/closed/wall/r_wall,
-/area/security)
 "ux" = (
 /obj/structure/ladder,
 /turf/open/floor/plasteel,
@@ -1624,10 +1582,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"zP" = (
-/obj/machinery/door/airlock/turbolift,
-/turf/open/floor/plasteel,
+"yz" = (
+/turf/closed/wall/r_wall,
 /area/security)
+"Ao" = (
+/obj/docking_port/stationary/turbolift{
+	dwidth = 2;
+	height = 4;
+	id = "turbolift_primary";
+	width = 5
+	},
+/turf/open/openspace,
+/area/shuttle/turbolift/shaft)
 "Bm" = (
 /obj/machinery/light{
 	dir = 4
@@ -1637,9 +1603,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"Cv" = (
-/turf/open/floor/plating,
-/area/security)
 "CA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1656,12 +1619,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"DH" = (
-/obj/docking_port/stationary/turbolift{
-	id = "turbolift_primary"
-	},
+"DO" = (
 /turf/open/floor/plating,
-/area/shuttle/turbolift/primary)
+/area/shuttle/turbolift/shaft)
+"Ed" = (
+/turf/open/openspace,
+/area/construction)
+"Eq" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plating,
+/area/construction)
 "Fz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1672,6 +1639,12 @@
 "Hn" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/ladder,
+/turf/open/floor/plasteel,
+/area/construction)
+"HN" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/construction)
 "Jz" = (
@@ -1687,9 +1660,6 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
-"Km" = (
-/turf/open/floor/plating,
-/area/shuttle/turbolift/primary)
 "Kq" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1714,6 +1684,9 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"KR" = (
+/turf/open/floor/plasteel,
+/area/security)
 "LW" = (
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
@@ -1722,10 +1695,6 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"NT" = (
-/obj/machinery/light,
-/turf/closed/wall/r_wall,
-/area/maintenance/department/bridge)
 "Pl" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1733,20 +1702,24 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
-"PH" = (
+"PB" = (
 /obj/docking_port/stationary/turbolift{
-	dwidth = 2;
-	height = 4;
-	id = "turbolift_primary";
-	width = 5
+	id = "turbolift_primary"
 	},
-/turf/open/floor/plating,
+/turf/open/openspace,
+/area/shuttle/turbolift/shaft)
+"RP" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plasteel,
 /area/security)
-"Uc" = (
+"SE" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
-"UA" = (
+"TU" = (
 /obj/docking_port/stationary/turbolift{
 	dwidth = 2;
 	height = 4;
@@ -1755,6 +1728,22 @@
 	width = 5
 	},
 /turf/open/floor/plating,
+/area/shuttle/turbolift/shaft)
+"Uc" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/turf/open/floor/plasteel,
+/area/security)
+"Vd" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
+/area/construction)
+"VL" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
 /area/construction)
 "WC" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -1762,11 +1751,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/security)
-"Xo" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/closed/wall/r_wall,
+"WK" = (
+/obj/machinery/light,
+/turf/open/floor/plating,
 /area/construction)
 "YD" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -2624,7 +2611,7 @@ dn
 cN
 cN
 cN
-Xo
+Vd
 cN
 ad
 ad
@@ -2674,12 +2661,12 @@ dn
 dn
 dn
 dn
-dn
+WK
 cN
-dn
-dn
-dn
-dn
+DO
+DO
+DO
+DO
 ad
 ad
 ac
@@ -2726,15 +2713,15 @@ dn
 dn
 dn
 dn
-cN
-cN
-dn
-rD
 dn
 dn
 dn
-dn
-NT
+Eq
+DO
+DO
+DO
+DO
+ad
 ad
 ac
 ab
@@ -2780,14 +2767,14 @@ dn
 dn
 dn
 dn
-cN
-fk
-dn
-rD
 dn
 dn
 dn
-UA
+Eq
+DO
+DO
+DO
+TU
 ad
 ad
 ac
@@ -2834,14 +2821,14 @@ dn
 dn
 dn
 dn
-cN
-dn
-dn
-rD
 dn
 dn
 dn
-dn
+Eq
+DO
+DO
+DO
+DO
 ad
 ad
 ac
@@ -2892,10 +2879,10 @@ dn
 dn
 dn
 cN
-dn
-dn
-dn
-dn
+DO
+DO
+DO
+DO
 ad
 ad
 ac
@@ -2944,11 +2931,11 @@ dn
 dn
 dn
 dn
-dn
+WK
 cN
 cN
 cN
-Xo
+Vd
 cN
 ad
 ad
@@ -3000,8 +2987,8 @@ dn
 dn
 dn
 dn
-ep
-ep
+dn
+dn
 dL
 cN
 af
@@ -5320,12 +5307,12 @@ eI
 eI
 eI
 eI
-eI
-eI
-eI
-eI
-eI
-eK
+eM
+ep
+ep
+ep
+ep
+ep
 cN
 ME
 ad
@@ -5374,12 +5361,12 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
 eL
+ep
+ep
+ep
+ep
+ep
 cN
 af
 ad
@@ -5428,12 +5415,12 @@ au
 au
 au
 au
-au
-jf
-sN
-sN
-sN
-fL
+eL
+ep
+cN
+cN
+cN
+VL
 cN
 ad
 ad
@@ -5482,13 +5469,13 @@ au
 au
 au
 au
-au
-jf
-sN
-Km
-Km
-Km
-Km
+eL
+ep
+cN
+qS
+qS
+qS
+qS
 ad
 ad
 au
@@ -5535,14 +5522,14 @@ au
 au
 au
 au
-cN
-cN
-jf
-zP
-Km
-Km
-Km
-Km
+Ed
+eL
+ep
+sG
+qS
+qS
+qS
+qS
 ad
 ad
 au
@@ -5590,14 +5577,14 @@ au
 au
 au
 au
-av
-jf
-zP
-Km
-Km
-Km
-DH
-NT
+eL
+ep
+sG
+qS
+qS
+qS
+PB
+ad
 ad
 au
 au
@@ -5644,13 +5631,13 @@ au
 au
 au
 au
-au
-jf
-zP
-Km
-Km
-Km
-Km
+eL
+ep
+sG
+qS
+qS
+qS
+qS
 ad
 ad
 au
@@ -5698,13 +5685,13 @@ au
 au
 au
 au
-au
-jf
-sN
-Km
-Km
-Km
-Km
+eL
+ep
+cN
+qS
+qS
+qS
+qS
 ad
 ad
 au
@@ -5752,12 +5739,12 @@ au
 au
 au
 au
-au
-jf
-sN
-sN
-sN
-fL
+eL
+ep
+cN
+cN
+cN
+VL
 cN
 ad
 ad
@@ -5806,12 +5793,12 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
 eL
+ep
+ep
+ep
+ep
+ep
 cN
 af
 ad
@@ -5860,12 +5847,12 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
 eL
+ep
+ep
+ep
+ep
+ep
 cN
 ME
 ad
@@ -5914,12 +5901,12 @@ eJ
 eJ
 eJ
 eJ
-eJ
-eJ
-eJ
-eJ
-eH
-eM
+HN
+ep
+ep
+ep
+et
+ep
 cN
 af
 ad
@@ -8129,14 +8116,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
+Kq
+YD
+YD
+YD
+YD
+YD
+YD
+YD
 fn
 au
 au
@@ -8183,14 +8170,14 @@ au
 au
 au
 au
-au
-jf
-jf
-jf
-jf
-jf
-jf
-jf
+Jz
+KR
+KR
+KR
+KR
+KR
+KR
+KR
 fn
 au
 au
@@ -8237,14 +8224,14 @@ au
 au
 au
 au
-au
-jf
-sN
-sN
-sN
-sN
-sN
-sN
+Jz
+KR
+yz
+yz
+yz
+yz
+yz
+yz
 fn
 au
 au
@@ -8291,14 +8278,14 @@ au
 au
 au
 au
-au
-jf
-sN
-Cv
-Cv
-Cv
-Cv
-sN
+Jz
+KR
+yz
+qS
+qS
+qS
+qS
+yz
 fn
 au
 au
@@ -8345,14 +8332,14 @@ au
 au
 au
 au
-au
-jf
-zP
-Cv
-Cv
-Cv
-Cv
-sN
+Jz
+KR
+RP
+qS
+qS
+qS
+qS
+yz
 fn
 au
 au
@@ -8399,14 +8386,14 @@ au
 au
 au
 au
-au
-jf
-zP
-Cv
-Cv
-Cv
-PH
-sN
+Jz
+KR
+RP
+qS
+qS
+qS
+Ao
+yz
 fn
 au
 au
@@ -8453,14 +8440,14 @@ au
 au
 au
 au
-au
-jf
-zP
-Cv
-Cv
-Cv
-Cv
-sN
+Jz
+KR
+RP
+qS
+qS
+qS
+qS
+yz
 fn
 au
 au
@@ -8501,20 +8488,20 @@ au
 au
 au
 KL
-WC
+KR
 Pl
-jf
 au
 au
 au
 au
-jf
-sN
-Cv
-Cv
-Cv
-Cv
-sN
+Jz
+KR
+yz
+qS
+qS
+qS
+qS
+yz
 fn
 au
 au
@@ -8555,20 +8542,20 @@ au
 au
 au
 au
+SE
 au
-jf
-jf
-jf
-jf
-jf
-jf
-jf
-sN
-sN
-sN
-sN
-sN
-sN
+au
+au
+au
+au
+Jz
+KR
+yz
+yz
+yz
+yz
+yz
+yz
 fn
 au
 au
@@ -8609,20 +8596,20 @@ eP
 eT
 eT
 eT
-eT
+bE
 eT
 eW
-jf
-jf
-jf
-jf
-jf
-jf
-jf
-jf
-jf
-jf
-jf
+YD
+YD
+YD
+KR
+KR
+KR
+KR
+KR
+KR
+KR
+KR
 fn
 au
 au
@@ -8666,17 +8653,17 @@ bE
 bE
 bE
 eX
-jf
-jf
-jf
-jf
-jf
-au
-au
-au
-au
-au
-au
+WC
+WC
+WC
+WC
+WC
+WC
+WC
+WC
+WC
+WC
+WC
 fn
 au
 au

@@ -16,23 +16,24 @@ GLOBAL_LIST_EMPTY(turbolifts)
 /area/shuttle/turbolift //Only use subtypes of this area
 	requires_power = FALSE //no APCS in the lifts please
 	ambientsounds = list('sound/effects/turbolift/elevatormusic.ogg')
-	luminosity = 0 //Lighting gets lost when it lands anyway
-	var/turbolift_id
+
+/area/shuttle/turbolift/shaft //What the shuttle leaves behind
+	name = "turbolift shaft"
+	requires_power = TRUE
+	ambientsounds = MAINTENANCE
 
 /area/shuttle/turbolift/primary
 	name = "primary turbolift"
-	turbolift_id = "primary_turbolift"
 
 /area/shuttle/turbolift/secondary
 	name = "secondary turbolift"
-	turbolift_id = "secondary_turbolift"
 
 /area/shuttle/turbolift/tertiary
 	name = "tertiary turbolift"
-	turbolift_id = "tertiary_turbolift"
 
 /obj/docking_port/stationary/turbolift
 	name = "turbolift"
+	area_type = /area/shuttle/turbolift/shaft
 	var/ztrait = ZTRAIT_STATION //In case we want elevators elsewhere. Multi-z lavaland mining base, anyone?
 	var/bottom_floor = FALSE
 

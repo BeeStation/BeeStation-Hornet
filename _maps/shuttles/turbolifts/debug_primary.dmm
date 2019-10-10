@@ -25,6 +25,10 @@
 	},
 /turf/closed/indestructible/turbolift,
 /area/shuttle/turbolift/primary)
+"R" = (
+/obj/machinery/light,
+/turf/open/indestructible/turbolift,
+/area/shuttle/turbolift/primary)
 
 (1,1,1) = {"
 a
@@ -47,7 +51,7 @@ e
 (4,1,1) = {"
 b
 c
-c
+R
 a
 "}
 (5,1,1) = {"
