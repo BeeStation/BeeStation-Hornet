@@ -170,11 +170,11 @@
 			Location
 			<br>	
 			<label class='inputlabel radio'>Local
-			<input type='radio' id='servban' name='radioservban' value='1'[isnull(global_ban) ? " checked" : ""]>
+			<input type='radio' id='servban' name='radioservban' value='local'[isnull(global_ban) ? " checked" : ""]>
 			<div class='inputbox'></div></label>
 			<br>
 			<label class='inputlabel radio'>Global
-			<input type='radio' id='servban' name='radioservban' value='1'[(global_ban) ? " checked" : ""]>
+			<input type='radio' id='servban' name='radioservban' value='global'[(global_ban) ? " checked" : ""]>
 			<div class='inputbox'></div></label>
 		</div>
 		<div class='column'>
@@ -348,8 +348,11 @@
 		error_state += "Use last connection was ticked, but neither IP nor CID was."
 	if(href_list["applyadmins"])
 		applies_to_admins = TRUE
-	if(href_list["servbantype"])
-		global_ban = TRUE
+	switch(href_list["radioservban"])
+		if("local")
+			global_ban = FALSE
+		if("global")
+			global_ban = TRUE
 	switch(href_list["radioduration"])
 		if("permanent")
 			duration = null
