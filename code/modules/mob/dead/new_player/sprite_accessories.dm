@@ -1994,6 +1994,10 @@
 	name = "Windows XP"
 	icon_state = "windowsxp"
 
+/datum/sprite_accessory/ipc_screens/tetris
+	name = "Tetris"
+	icon_state = "tetris"
+
 /datum/sprite_accessory/ipc_antennas
 	icon = 'icons/mob/ipc_accessories.dmi'
 	color_src = HAIR
