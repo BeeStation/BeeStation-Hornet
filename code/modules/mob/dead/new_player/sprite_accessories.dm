@@ -1978,13 +1978,29 @@
 	name = "Yellow"
 	icon_state = "yellow"
 
-/datum/sprite_accessory/screen/textdrop
+/datum/sprite_accessory/ipc_screens/textdrop
 	name = "Text drop"
 	icon_state = "textdrop"
 
-/datum/sprite_accessory/screen/stars
+/datum/sprite_accessory/ipc_screens/stars
 	name = "Stars"
 	icon_state = "stars"
+
+/datum/sprite_accessory/ipc_screens/loading
+	name = "Loading"
+	icon_state = "loading"
+
+/datum/sprite_accessory/ipc_screens/windowsxp
+	name = "Windows XP"
+	icon_state = "windowsxp"
+
+/datum/sprite_accessory/ipc_screens/tetris
+	name = "Tetris"
+	icon_state = "tetris"
+
+/datum/sprite_accessory/ipc_screens/tv
+	name = "Color Test"
+	icon_state = "tv"
 
 /datum/sprite_accessory/ipc_antennas
 	icon = 'icons/mob/ipc_accessories.dmi'
