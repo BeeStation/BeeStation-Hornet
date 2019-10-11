@@ -213,3 +213,5 @@ tools/MapAtmosFixer/MapAtmosFixer/bin/*
 # Ignore custom music (amend as appropriate)
 /config/jukebox_music/sounds/*
 !/config/jukebox_music/sounds/exclude
+/config/title_music/sounds/*
+!/config/title_music/sounds/exclude
