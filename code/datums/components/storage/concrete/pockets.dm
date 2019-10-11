@@ -31,6 +31,10 @@
 	quickdraw = FALSE
 	silent = FALSE
 
+/datum/component/storage/concrete/pockets/exo/cloak
+	max_items = 1
+	quickdraw = TRUE
+
 /datum/component/storage/concrete/pockets/exo/large
 	max_items = 3
 	
