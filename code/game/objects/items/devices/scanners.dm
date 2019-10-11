@@ -268,23 +268,26 @@ GENE SCANNER
 			to_chat(user, "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>")
 		if(length(damaged)>0 || oxy_loss>0 || tox_loss>0 || fire_loss>0)
 			// Body part damage report
-			var/dmgreportlist = "<pre><span class='info'>&#9;Damage:&#9;&#9;\
-				<font color='red'><b>Brute</font></span>&#9;\
-				<font color='orange'>Burn</font>&#9;\
-				<font color='green'>Toxin</font>&#9;\
-				<font color='purple'>Suffocation</b></font><br>\
+			var/list/dmgreport = list()
+			dmgreport += "<table style='margin-left:33px'><tr><font face='Verdana'>\
+							<td style='width: 90px;'><font color='#0000CC'>Damage:</font></td>\
+							<td style='width: 55px;'><font color='red'><b>Brute</b></font></td>\
+							<td style='width: 45px;'><font color='orange'><b>Burn</b></font></td>\
+							<td style='width: 45px;'><font color='green'><b>Toxin</b></font></td>\
+							<td style='width: 90px;'><font color='purple'><b>Suffocation</b></font></td></tr>\
+							<tr><td><font color='#0000CC'>Overall:</font></td>\
+							<td><font color='red'>[brute_loss]</font></td>\
+							<td><font color='orange'>[fire_loss]</font></td>\
+							<td><font color='green'>[tox_loss]</font></td>\
+							<td><font color='purple'>[oxy_loss]</font></td></tr>"
 
-				&#9;&nbsp;&nbsp;&nbsp;&nbsp;<span class='info'>Overall:&#9;\
-				<font color='red'>[brute_loss]</font>&#9;\
-				<font color='orange'>[fire_loss]</font>&#9;\
-				<font color='green'>[tox_loss]</font>&#9;\
-				<font color='purple'>[oxy_loss]</font></span><br>"
-			for(var/obj/item/bodypart/org in damaged) //head, left arm, right arm, etc.
-				dmgreportlist += "&#9;&nbsp;&nbsp;&nbsp;&nbsp;<span class='info'>[capitalize(org.name)]:&nbsp;&#9;\
-					[(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font></span>" : "<font color='red'>0</font>"]&#9;\
-					[(org.burn_dam > 0) ? "<font color='orange'>[org.burn_dam]</font>" : "<font color='orange'>0</font>"]<br>"
-				dmgreportlist += "</pre>"
-				to_chat(user, "[dmgreportlist]")
+			for(var/o in damaged)
+				var/obj/item/bodypart/org = o //head, left arm, right arm, etc.
+				dmgreport += "<tr><td><font color='#0000CC'>[capitalize(org.name)]:</font></td>\
+								<td><font color='red'>[(org.brute_dam > 0) ? "[org.brute_dam]" : "0"]</font></td>\
+								<td><font color='orange'>[(org.burn_dam > 0) ? "[org.burn_dam]" : "0"]</font></td></tr>"
+			dmgreport += "</table>"
+			to_chat(user, dmgreport.Join())
 
 	// Species and body temperature
 	if(ishuman(M))
