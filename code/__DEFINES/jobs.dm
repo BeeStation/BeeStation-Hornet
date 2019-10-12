@@ -21,9 +21,9 @@
 #define CHEMIST			(1<<2)
 #define CMO_JF			(1<<3)
 #define DOCTOR			(1<<4)
-#define EMT				(1<<2)
 #define GENETICIST		(1<<5)
 #define VIROLOGIST		(1<<6)
+#define EMT				(1<<7)
 
 
 #define CIVILIAN		(1<<2)
