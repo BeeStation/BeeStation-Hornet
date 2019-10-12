@@ -2,7 +2,7 @@
 
 /datum/objective/crew/morgue //Ported from old Hippie
 	explanation_text = "Ensure the Medbay has been cleaned of any corpses when the shift ends."
-	jobs = "chiefmedicalofficer,geneticist,medicaldoctor,"
+	jobs = "chiefmedicalofficer,geneticist,medicaldoctor"
 
 /datum/objective/crew/morgue/check_completion()
 	var/list/medical_areas = typecacheof(list(/area/medical/cryo, /area/medical/genetics/cloning, /area/medical/exam_room,
@@ -15,7 +15,7 @@
 
 /datum/objective/crew/emtmorgue
 	explanation_text = "Ensure that no corpses remain outside of Medbay when the shift ends."
-	jobs = "paramedic,"
+	jobs = "paramedic"
 
 /datum/objective/crew/emtmorgue/check_completion()
 	var/list/medical_areas_morgue = typecacheof(list(/area/medical/cryo, /area/medical/genetics/cloning, /area/medical/exam_room,
