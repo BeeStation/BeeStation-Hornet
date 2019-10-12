@@ -430,7 +430,7 @@
 	uniform = /obj/item/clothing/under/joker
 	suit = /obj/item/clothing/suit/joker
 	shoes = /obj/item/clothing/shoes/laceup
-	gloves = /obj/item/clothing/gloves/white
+	gloves = /obj/item/clothing/gloves/color/white
 	id = /obj/item/card/id/job/clown
 	ears = /obj/item/radio/headset/headset_srv
 
