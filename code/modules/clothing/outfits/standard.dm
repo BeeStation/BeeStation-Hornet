@@ -425,9 +425,18 @@
 	mask = /obj/item/clothing/mask/breath
 	suit_store = /obj/item/tank/internals/oxygen
 
+/datum/outfit/debug
+	name = "Joker"
+	uniform = /obj/item/clothing/under/joker
+	suit = /obj/item/clothing/suit/joker
+	shoes = /obj/item/clothing/shoes/laceup
+	gloves = /obj/item/clothing/gloves/white
+	id = /obj/item/card/id/job/clown
+	ears = /obj/item/radio/headset/headset_srv
+
 /datum/outfit/debug //Debug objs plus hardsuit
 	name = "Debug outfit"
-	uniform = /obj/item/clothing/under/patriotsuit 
+	uniform = /obj/item/clothing/under/patriotsuit
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	suit_store = /obj/item/tank/internals/oxygen
