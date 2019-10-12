@@ -32,7 +32,6 @@
 	l_hand = /obj/item/storage/firstaid/regular
 	l_pocket = /obj/item/pinpointer/crew
 	suit_store = /obj/item/sensor_device
-	backpack_contents = 
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
