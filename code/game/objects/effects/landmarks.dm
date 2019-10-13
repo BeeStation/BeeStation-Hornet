@@ -151,7 +151,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Medical Doctor"
 	icon_state = "Medical Doctor"
 
-/obj/effect/landmark/start/medical_doctor
+/obj/effect/landmark/start/emt
 	name = "Paramedic"
 	icon_state = "Medical Doctor"
 
