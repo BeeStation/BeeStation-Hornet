@@ -318,7 +318,7 @@
 
 /datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	DISABLE_BITFIELD(G.reagents.flags, NO_REACT)
-	G.reagents.handle_reactions()
+	addtimer(CALLBACK(G.reagents, /datum/reagents.proc/handle_reactions), 5) // Wait half a second before the chemicals reaction on SQUASH
 
 
 /datum/plant_gene/trait/maxchem
