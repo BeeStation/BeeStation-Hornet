@@ -1,0 +1,6 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - rscadd: "Added joker suit/coat"
+  - rscadd: "Joker outfit for admin spawning"
+  - imageadd: "Added sprites for joker suit/coat"
