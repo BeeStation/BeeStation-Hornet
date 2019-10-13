@@ -15,11 +15,13 @@
 /turf/open/floor/engine/examine(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>The reinforcement rods are <b>wrenched</b> firmly in place.</span>")
+	
 /turf/open/floor/engine/light
 	icon_state = "engine_light"
 
 /turf/open/floor/engine/airless
 	initial_gas_mix = AIRLESS_ATMOS
+	
 /turf/open/floor/engine/airless/light
 	icon_state = "engine_light"
 
@@ -103,24 +105,28 @@
 	article = "an"
 	name = "\improper N2O floor"
 	initial_gas_mix = ATMOS_TANK_N2O
+	
 /turf/open/floor/engine/n2o/light
 	icon_state = "engine_light"
 
 /turf/open/floor/engine/co2
 	name = "\improper CO2 floor"
 	initial_gas_mix = ATMOS_TANK_CO2
+	
 /turf/open/floor/engine/co2/light
 	icon_state = "engine_light"
 
 /turf/open/floor/engine/plasma
 	name = "plasma floor"
 	initial_gas_mix = ATMOS_TANK_PLASMA
+	
 /turf/open/floor/engine/plasma/light
 	icon_state = "engine_light"
 
 /turf/open/floor/engine/o2
 	name = "\improper O2 floor"
 	initial_gas_mix = ATMOS_TANK_O2
+	
 /turf/open/floor/engine/o2/light
 	icon_state = "engine_light"
 
@@ -128,12 +134,14 @@
 	article = "an"
 	name = "\improper N2 floor"
 	initial_gas_mix = ATMOS_TANK_N2
+	
 /turf/open/floor/engine/n2/light
 	icon_state = "engine_light"
 
 /turf/open/floor/engine/air
 	name = "air floor"
 	initial_gas_mix = ATMOS_TANK_AIRMIX
+	
 /turf/open/floor/engine/air/light
 	icon_state = "engine_light"
 
@@ -181,3 +189,5 @@
 	name = "vacuum floor"
 	initial_gas_mix = AIRLESS_ATMOS
 
+/turf/open/floor/engine/vacuum/light
+	icon_state = "engine_light"
