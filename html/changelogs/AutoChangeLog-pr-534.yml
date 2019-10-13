@@ -1,0 +1,4 @@
+author: "qwertyquerty"
+delete-after: True
+changes: 
+  - tweak: "Minimum job playtime requirements for sec, warden, hos, ai, viro, and det"
