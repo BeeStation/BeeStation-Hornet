@@ -66,6 +66,7 @@ GLOBAL_LIST_EMPTY(hivehosts)
 		hosts += host
 		host.special_role = BAN_ROLE_HIVE
 		host.restricted_roles = restricted_jobs
+		GLOB.pre_setup_antags += host
 		log_game("[key_name(host)] has been selected as a hivemind host")
 		antag_candidates.Remove(host)
 
@@ -79,6 +80,7 @@ GLOBAL_LIST_EMPTY(hivehosts)
 /datum/game_mode/hivemind/post_setup()
 	for(var/datum/mind/i in hosts)
 		i.add_antag_datum(/datum/antagonist/hivemind)
+		GLOB.pre_setup_antags -= i
 	return ..()
 
 /datum/game_mode/hivemind/generate_report()

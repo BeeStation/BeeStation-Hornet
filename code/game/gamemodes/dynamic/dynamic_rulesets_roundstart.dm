@@ -31,6 +31,7 @@
 		assigned += M.mind
 		M.mind.special_role = BAN_ROLE_TRAITOR
 		M.mind.restricted_roles = restricted_roles
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 
@@ -69,6 +70,7 @@
 			team.add_member(bro.mind)
 			bro.mind.special_role = BAN_ROLE_BROTHER
 			bro.mind.restricted_roles = restricted_roles
+			GLOB.pre_setup_antags += bro.mind
 		pre_brother_teams += team
 	return TRUE
 
@@ -78,6 +80,7 @@
 		team.forge_brother_objectives()
 		for(var/datum/mind/M in team.members)
 			M.add_antag_datum(/datum/antagonist/brother, team)
+			GLOB.pre_setup_antags -= M
 		team.update_name()
 	mode.brother_teams += pre_brother_teams
 	return TRUE
@@ -111,12 +114,14 @@
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 		M.mind.special_role = BAN_ROLE_CHANGELING
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/changeling/execute()
 	for(var/datum/mind/changeling in assigned)
 		var/datum/antagonist/changeling/new_antag = new antag_datum()
 		changeling.add_antag_datum(new_antag)
+		GLOB.pre_setup_antags -= changeling
 	return TRUE
 
 //////////////////////////////////////////////
@@ -150,6 +155,7 @@
 		assigned += picked_candidate.mind
 		picked_candidate.mind.restricted_roles = restricted_roles
 		picked_candidate.mind.special_role = BAN_ROLE_HERETIC
+		GLOB.pre_setup_antags += picked_candidate.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/heretics/execute()
@@ -158,6 +164,7 @@
 		var/datum/mind/cultie = c
 		var/datum/antagonist/heretic/new_antag = new antag_datum()
 		cultie.add_antag_datum(new_antag)
+		GLOB.pre_setup_antags -= cultie
 
 	return TRUE
 
@@ -240,6 +247,7 @@
 		assigned += M.mind
 		M.mind.special_role = BAN_ROLE_CULTIST
 		M.mind.restricted_roles = restricted_roles
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/bloodcult/execute()
@@ -249,6 +257,7 @@
 		new_cultist.cult_team = main_cult
 		new_cultist.give_equipment = TRUE
 		M.add_antag_datum(new_cultist)
+		GLOB.pre_setup_antags -= M
 	main_cult.setup_objectives()
 	return TRUE
 
@@ -381,6 +390,7 @@
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 		M.mind.special_role = BAN_ROLE_REV_HEAD
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/revs/execute()
@@ -395,6 +405,7 @@
 		else
 			assigned -= M
 			log_game("DYNAMIC: [ruletype] [name] discarded [M.name] from head revolutionary due to ineligibility.")
+		GLOB.pre_setup_antags -= M
 	if(revolution.members.len)
 		revolution.update_objectives()
 		revolution.update_heads()
@@ -503,6 +514,7 @@
 		assigned += devil.mind
 		devil.mind.special_role = BAN_ROLE_DEVIL
 		devil.mind.restricted_roles = restricted_roles
+		GLOB.pre_setup_antags += devil.mind
 
 		log_game("[key_name(devil)] has been selected as a devil")
 	return TRUE
@@ -510,6 +522,7 @@
 /datum/dynamic_ruleset/roundstart/devil/execute()
 	for(var/datum/mind/devil in assigned)
 		add_devil(devil.current, ascendable = TRUE)
+		GLOB.pre_setup_antags -= devil
 		add_devil_objectives(devil,2)
 	return TRUE
 
@@ -658,6 +671,7 @@
 		assigned += M.mind
 		M.mind.special_role = BAN_ROLE_INCURSION
 		M.mind.restricted_roles = restricted_roles
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/incursion/execute()
@@ -668,6 +682,7 @@
 		new_incursionist.team = incursion_team
 		incursion_team.add_member(M)
 		M.add_antag_datum(new_incursionist)
+		GLOB.pre_setup_antags -= M
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/incursion/round_result()
@@ -703,10 +718,12 @@
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 		M.mind.special_role = BAN_ROLE_HIVE
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/hivemind/execute()
 	for(var/datum/mind/host in assigned)
 		var/datum/antagonist/hivemind/new_antag = new antag_datum()
 		host.add_antag_datum(new_antag)
+		GLOB.pre_setup_antags -= host
 	return TRUE

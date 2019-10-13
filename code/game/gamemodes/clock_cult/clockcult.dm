@@ -66,6 +66,7 @@ GLOBAL_VAR(clockcult_eminence)
 		selected_servants += clockie
 		clockie.assigned_role = BAN_ROLE_SERVANT_OF_RATVAR
 		clockie.special_role = BAN_ROLE_SERVANT_OF_RATVAR
+		GLOB.pre_setup_antags += servant
 	generate_clockcult_scriptures()
 	return TRUE
 
@@ -87,6 +88,7 @@ GLOBAL_VAR(clockcult_eminence)
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
 		S.prefix = CLOCKCULT_PREFIX_MASTER
+		GLOB.pre_setup_antags -= S
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return ..()
