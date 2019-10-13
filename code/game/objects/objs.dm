@@ -1,6 +1,6 @@
 
 /obj
-	animate_movement = 2
+	animate_movement = SLIDE_STEPS
 	var/obj_flags = CAN_BE_HIT
 
 	/// ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
@@ -36,6 +36,8 @@
 
 	/// Set when a player uses a pen on a renamable object
 	var/renamedByPlayer = FALSE
+
+	var/drag_slowdown // Amont of multiplicative slowdown applied if pulled. >1 makes you slower, <1 makes you faster.
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)

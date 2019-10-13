@@ -121,6 +121,8 @@
 			if(A)
 				load_program(A)
 		if("safety")
+			if(!issilicon(usr) && !IsAdminGhost(usr))
+				return
 			obj_flags ^= EMAGGED
 			if((obj_flags & EMAGGED) && program && emag_programs[program.name])
 				emergency_shutdown()

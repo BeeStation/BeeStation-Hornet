@@ -1,4 +1,5 @@
 GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
+GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective
 	var/datum/mind/owner				//The primary owner of the objective. !!SOMEWHAT DEPRECATED!! Prefer using 'team' for new code.
@@ -12,6 +13,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 
 /datum/objective/New(var/text)
+	GLOB.objectives += src
 	if(text)
 		explanation_text = text
 
@@ -139,15 +141,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			else
 				if(possible_target.assigned_role == role)
 					is_role = TRUE
-
-			if(invert)
-				if(is_role)
-					continue
+			if(is_role && !invert || !is_role && invert)
 				possible_targets += possible_target
-				break
-			else if(is_role)
-				possible_targets += possible_target
-				break
 	if(length(possible_targets))
 		target = pick(possible_targets)
 	update_explanation_text()
@@ -394,8 +389,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	for(var/datum/mind/M in owners)
 		if(!M)
 			continue
-		var/datum/antagonist/changeling/changeling = M.has_antag_datum(/datum/antagonist/changeling)
-		if(!changeling)
+		if(!M.has_antag_datum(/datum/antagonist/changeling))
 			continue
 		var/datum/mind/T = possible_target
 		if(!istype(T) || isIPC(T.current))
@@ -911,7 +905,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	else
 		return FALSE
 
-
+// Get entire department staff with heads included
 /datum/objective/changeling_team_objective/impersonate_department/proc/get_department_staff()
 	department_minds = list()
 	department_real_names = list()
@@ -928,17 +922,20 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		if("Chief Medical Officer")
 			department_string = "medical"
 
+	//  Scales the number of impersonate targets to the number of lings
 	var/list/lings = get_antag_minds(/datum/antagonist/changeling,TRUE)
 	var/ling_count = lings.len
 
 	for(var/datum/mind/M in SSticker.minds)
-		if(M in lings)
+		if(M.has_antag_datum(/datum/antagonist/changeling))
+			continue
+		if(isIPC(M.current))
 			continue
 		if(department_head in get_department_heads(M.assigned_role))
 			if(ling_count)
-				ling_count--
 				department_minds += M
 				department_real_names += M.current.real_name
+				ling_count--
 			else
 				break
 
@@ -961,7 +958,9 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 	var/list/heads = SSjob.get_living_heads()
 	for(var/datum/mind/head in heads)
-		if(head in lings) //Looking at you HoP.
+		if(head.has_antag_datum(/datum/antagonist/changeling))
+			continue
+		if(isIPC(head.current))
 			continue
 		if(needed_heads)
 			department_minds += head

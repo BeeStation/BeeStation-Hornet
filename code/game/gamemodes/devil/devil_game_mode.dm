@@ -67,7 +67,7 @@
 	add_devil_objectives(devil,2)
 
 /proc/is_devil(mob/living/M)
-	return M && M.mind && M.mind.has_antag_datum(/datum/antagonist/devil)
+	return M.mind?.has_antag_datum(/datum/antagonist/devil)
 
 /proc/add_devil(mob/living/L, ascendable = FALSE)
 	if(!L || !L.mind)

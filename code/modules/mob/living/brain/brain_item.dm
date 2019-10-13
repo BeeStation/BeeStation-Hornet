@@ -218,6 +218,35 @@
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
 
+/obj/item/organ/brain/positron
+	name = "positronic brain"
+	slot = "brain"
+	zone = "chest"
+	status = ORGAN_ROBOTIC
+	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top."
+	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "posibrain-occupied"
+
+/obj/item/organ/brain/positron/Insert(mob/living/carbon/C, special = 0, no_id_transfer = FALSE)
+	owner = C
+	C.internal_organs |= src
+	C.internal_organs_slot[slot] = src
+	loc = null
+
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		if(H.dna && H.dna.species && (REVIVESBYHEALING in H.dna.species.species_traits))
+			if(H.health > 0 && !H.hellbound)
+				H.revive(0)
+
+/obj/item/organ/brain/positron/emp_act(severity)
+	switch(severity)
+		if(1)
+			owner.adjustBrainLoss(75)
+			to_chat(owner, "<span class='warning'>Alert: Posibrain heavily damaged.</span>")
+		if(2)
+			owner.adjustBrainLoss(25)
+			to_chat(owner, "<span class='warning'>Alert: Posibrain damaged.</span>") 
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 

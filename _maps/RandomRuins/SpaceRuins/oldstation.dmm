@@ -99,6 +99,19 @@
 "ar" = (
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/ancientstation/hivebot)
+"as" = (
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/iron{
+	amount = 20
+	},
+/obj/item/stack/sheet/iron{
+	amount = 20
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 20
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/ancientstation/hivebot)
 "at" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue{
@@ -450,16 +463,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/ancientstation/comm)
-"bo" = (
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/iron{
-	amount = 20
-	},
-/obj/item/stack/sheet/iron{
-	amount = 20
-	},
-/turf/open/floor/plasteel/dark,
-/area/ruin/space/has_grav/ancientstation/hivebot)
 "bp" = (
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/mineral/plasma{
@@ -8268,7 +8271,7 @@ ag
 ai
 ao
 af
-bo
+as
 ad
 ac
 bD
