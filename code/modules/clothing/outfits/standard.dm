@@ -425,7 +425,7 @@
 	mask = /obj/item/clothing/mask/breath
 	suit_store = /obj/item/tank/internals/oxygen
 
-/datum/outfit/debug
+/datum/outfit/joker
 	name = "Joker"
 	uniform = /obj/item/clothing/under/joker
 	suit = /obj/item/clothing/suit/joker
