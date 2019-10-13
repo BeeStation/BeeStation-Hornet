@@ -175,7 +175,7 @@
 	icon_state = "grid"
 	floor_tile = /obj/item/stack/tile/grid
 /turf/open/floor/plasteel/grid/steel
-	icon_state = "steelgrid"
+	icon_state = "steel_grid"
 
 /turf/open/floor/plasteel/ameridiner
 	icon_state = "ameridiner_kitchen"
