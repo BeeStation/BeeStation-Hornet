@@ -56569,6 +56569,13 @@
 	},
 /turf/open/floor/engine,
 /area/science/misc_lab)
+"lCh" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/effect/landmark/start/emt,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "lCi" = (
 /obj/docking_port/stationary/public_mining_dock{
 	dir = 8
@@ -97363,7 +97370,7 @@ bhm
 bkR
 bfL
 boo
-bqQ
+lCh
 bhg
 bua
 bvn

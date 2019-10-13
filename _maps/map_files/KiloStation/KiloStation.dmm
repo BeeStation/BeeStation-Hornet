@@ -39061,6 +39061,7 @@
 	name = "chemistry sorting disposal pipe";
 	sortType = 11
 	},
+/obj/effect/landmark/start/emt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "bdk" = (
