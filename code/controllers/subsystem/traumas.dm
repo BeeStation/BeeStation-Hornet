@@ -80,7 +80,7 @@ SUBSYSTEM_DEF(traumas)
 				   "conspiracies" = typecacheof(list(/obj/item/clothing/under/rank/captain, /obj/item/clothing/under/rank/head_of_security,
 												 /obj/item/clothing/under/rank/chief_engineer, /obj/item/clothing/under/rank/chief_medical_officer,
 												 /obj/item/clothing/under/rank/head_of_personnel, /obj/item/clothing/under/rank/research_director,
-												 /obj/item/clothing/under/rank/head_of_security/grey, /obj/item/clothing/under/rank/head_of_security/alt,
+												 /obj/item/clothing/under/rank/head_of_security/white, /obj/item/clothing/under/rank/head_of_security/alt,
 												 /obj/item/clothing/under/rank/research_director/alt, /obj/item/clothing/under/rank/research_director/turtleneck,
 												 /obj/item/clothing/under/captainparade, /obj/item/clothing/under/hosparademale, /obj/item/clothing/under/hosparadefem,
 												 /obj/item/clothing/head/helmet/abductor, /obj/item/clothing/suit/armor/abductor/vest, /obj/item/abductor/baton,

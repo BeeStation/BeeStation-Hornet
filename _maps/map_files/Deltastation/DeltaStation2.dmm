@@ -41119,7 +41119,7 @@
 /obj/structure/closet/secure_closet/hos,
 /obj/item/clothing/head/HoS/beret,
 /obj/item/clothing/suit/armor/hos/trenchcoat,
-/obj/item/clothing/under/rank/head_of_security/grey,
+/obj/item/clothing/under/rank/head_of_security/white,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -63904,7 +63904,7 @@
 /area/security/warden)
 "cbF" = (
 /obj/structure/closet/secure_closet/warden,
-/obj/item/clothing/under/rank/warden/grey,
+/obj/item/clothing/under/rank/warden/white,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
