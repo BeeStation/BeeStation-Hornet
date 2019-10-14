@@ -1,0 +1,4 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - rscadd: "Added paramedics, also known as EMTs to the list of possible jobs."
