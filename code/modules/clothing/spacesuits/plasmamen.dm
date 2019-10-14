@@ -224,7 +224,7 @@
 	flash_protect = 0
 
 	/obj/item/clothing/head/helmet/space/plasmaman/replacement/security
-	name = "repalcement security envirosuit helmet"
+	name = "replacement security envirosuit helmet"
 	desc = "An outdated containment helmet designed for security officers, lacks the UV shielding a standard helmet possesses."
 	icon_state = "security_envirohelm"
 	item_state = "security_envirohelm"
@@ -267,14 +267,15 @@
 	item_state = "roboticist_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/engineering
-	name = "engineering plasma envirosuit helmet"
+	name = "replacement engineering envirosuit helmet"
 	desc = "A replacement helmet designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange, despite its age it has some UV protection for welding.."
 	item_state = "engineer_envirohelm"
+	icon_state = "engineer_envirohelm"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75)
 	flash_protect = 1
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/atmospherics
-	name = "atmospherics plasma envirosuit helmet"
+	name = "replacement atmospherics envirosuit helmet"
 	desc = "A space-worthy helmet specially designed for atmos technician plasmamen, the usual purple stripes being replaced by engineering's blue, despite its age is has some UV protection for welding."
 	icon_state = "atmos_envirohelm"
 	item_state = "atmos_envirohelm"
@@ -299,26 +300,26 @@
 	item_state = "chap_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/white
-	name = "white plasma envirosuit helmet"
+	name = "white replacement envirosuit helmet"
 	desc = "A generic white envirohelm, slightly dated."
 	icon_state = "white_envirohelm"
 	item_state = "white_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/curator
-	name = "curator's plasma envirosuit helmet"
+	name = "curator's replacement envirosuit helmet"
 	desc = "A tradiational voidsuit helmet, this helmet was Nano-Trasen's first solution to the *logistical problems* that come with employing plasmamen. Despite their limitations, these helmets still see use by historian and old-styled plasmamen alike."
 	icon_state = "prototype_envirohelm"
 	item_state = "prototype_envirohelm"
 	actions_types = list()
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/botany
-	name = "botany plasma envirosuit helmet"
+	name = "botany replacement envirosuit helmet"
 	desc = "A green and blue replacement envirohelmet designating it's wearer as a botanist. While not specially designed for it, it would protect against minor planet-related injuries."
 	icon_state = "botany_envirohelm"
 	item_state = "botany_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/janitor
-	name = "janitor's plasma envirosuit helmet"
+	name = "janitor's replacement envirosuit helmet"
 	desc = "A replacement grey helmet bearing a pair of purple stripes, designating the wearer as a janitor."
 	icon_state = "janitor_envirohelm"
 	item_state = "janitor_envirohelm"

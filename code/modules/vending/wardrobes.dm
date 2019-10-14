@@ -278,7 +278,6 @@
 					/obj/item/clothing/under/rank/chef = 3,
 					/obj/item/clothing/under/rank/altchef = 3,
 					/obj/item/clothing/under/plasmaman/chef = 1,
-					/obj/item/clothing/head/helmet/space/plasmaman/white = 1,
 					/obj/item/clothing/head/chefhat = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/white = 1,
 					/obj/item/reagent_containers/glass/rag = 1,
