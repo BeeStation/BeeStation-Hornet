@@ -1,0 +1,5 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - rscadd: "Added baytiles that weren't in before"
+  - imageadd: "new sprites for tiles"
