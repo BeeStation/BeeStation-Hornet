@@ -16,6 +16,7 @@
 		return
 	obj_flags |= IN_USE
 	user.adjustCloneLoss(20)
+	user.adjustBrainLoss(5)
 	if(user.stat)
 		to_chat(user, "<span class='userdanger'>No... just one more try...</span>")
 		user.gib()
