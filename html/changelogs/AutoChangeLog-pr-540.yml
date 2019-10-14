@@ -1,4 +1,0 @@
-author: "qwertyquerty"
-delete-after: True
-changes: 
-  - balance: "Separated chems now have a delay on react."
