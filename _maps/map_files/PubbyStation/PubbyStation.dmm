@@ -58399,6 +58399,13 @@
 "oMN" = (
 /turf/open/floor/plasteel/stairs/left,
 /area/maintenance/department/crew_quarters/dorms)
+"oNo" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/start/emt,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "oNE" = (
 /obj/structure/chair/office/light,
 /obj/structure/sign/warning/deathsposal{
@@ -91894,7 +91901,7 @@ bpR
 bri
 bjd
 cqm
-bvl
+oNo
 bwP
 byu
 bAa
