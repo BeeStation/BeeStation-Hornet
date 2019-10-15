@@ -1,0 +1,4 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - rscadd: "Syndicate saboteur cyborgs now have an emag and zipties."
