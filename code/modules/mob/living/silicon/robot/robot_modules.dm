@@ -666,6 +666,7 @@
 		/obj/item/borg/sight/thermal,
 		/obj/item/construction/rcd/borg/syndicate,
 		/obj/item/pipe_dispenser,
+		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/borg/charger,
 		/obj/item/extinguisher,
 		/obj/item/weldingtool/largetank/cyborg,
@@ -681,6 +682,7 @@
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/destTagger/borg,
 		/obj/item/stack/cable_coil/cyborg,
+		/obj/item/card/emag,
 		/obj/item/pinpointer/syndicate_cyborg,
 		/obj/item/borg_chameleon,
 		)

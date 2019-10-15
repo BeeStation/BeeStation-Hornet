@@ -31,6 +31,7 @@ Station Engineer=6,5
 Atmospheric Technician=4,2
 
 Medical Doctor=7,4
+Paramedic=2,1
 Chemist=3,2
 Geneticist=3,2
 Virologist=1,1

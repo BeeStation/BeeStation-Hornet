@@ -1,0 +1,17 @@
+name: "Handle stale PRs"
+on:
+  schedule:
+  - cron: "0 0 * * *"
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/stale@v1
+      with: 
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-pr-message: 'This pull request is stale because it has been open 30 days with no activity. Remove stale label or comment or this will be closed in 7 days.'
+        stale-pr-label: 'Stale'
+        exempt-pr-label: 'DONT MERGE'  
+        days-before-stale: 30
+        days-before-close: 7

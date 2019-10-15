@@ -976,6 +976,9 @@
 	export_price = 20000
 	hidden = TRUE
 	design_ids = list("alienalloy")
+	
+/datum/techweb_node/alientech/on_research() //Unlocks the Zeta shuttle for purchase
+		SSshuttle.shuttle_purchase_requirements_met |= SHUTTLE_UNLOCK_ALIENTECH
 
 /datum/techweb_node/alien_bio
 	id = "alien_bio"

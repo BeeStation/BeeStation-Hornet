@@ -809,11 +809,15 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	switch(href_list["operation"])
 		if("patrol")
+			if(!issilicon(usr) && !IsAdminGhost(usr) && !(bot_core.allowed(usr) || !locked))
+				return TRUE
 			auto_patrol = !auto_patrol
 			bot_reset()
 		if("remote")
 			remote_disabled = !remote_disabled
 		if("hack")
+			if(!issilicon(usr) && !IsAdminGhost(usr))
+				return TRUE
 			if(emagged != 2)
 				emagged = 2
 				hacked = TRUE
