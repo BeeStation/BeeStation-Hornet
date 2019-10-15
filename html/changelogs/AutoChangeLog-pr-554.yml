@@ -1,5 +1,0 @@
-author: "jlsnow301"
-delete-after: True
-changes: 
-  - tweak: "is_ninja proc"
-  - tweak: "Ninja objectives shouldn't give empty objectives now"
