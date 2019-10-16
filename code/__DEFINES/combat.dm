@@ -150,7 +150,6 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BOLT_TYPE_LOCKING 4
 // Sawn off nerfs
 #define SAWN_OFF_ACC_PENALTY 25
-#define SAWN_OFF_RECOIL 1
 
 // Projectile Reflect
 #define REFLECT_NORMAL 				(1<<0)
