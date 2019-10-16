@@ -16,7 +16,7 @@
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_MED
 
-	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
+	display_order = JOB_DISPLAY_ORDER_EMT
 
 /datum/outfit/job/emt
 	name = "Paramedic"

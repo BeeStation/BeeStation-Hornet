@@ -178,6 +178,15 @@
 		/obj/item/holosign_creator/medical
 		))
 
+/obj/item/storage/belt/medical/surgeon/PopulateContents()
+	new	/obj/item/surgical_drapes(src)
+	new	/obj/item/scalpel(src)
+	new	/obj/item/circular_saw(src)
+	new	/obj/item/surgicaldrill(src)
+	new	/obj/item/retractor(src)
+	new	/obj/item/cautery(src)
+	new	/obj/item/hemostat(src)
+
 /obj/item/storage/belt/security
 	name = "security belt"
 	desc = "Can hold security gear like handcuffs and flashes."

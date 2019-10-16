@@ -96,6 +96,9 @@
 		if("Paramedic")
 			O = new /datum/outfit/plasmaman/medical
 
+		if("Surgeon")
+			O = new /datum/outfit/plasmaman/medical
+
 		if("Chemist")
 			O = new /datum/outfit/plasmaman/chemist
 
