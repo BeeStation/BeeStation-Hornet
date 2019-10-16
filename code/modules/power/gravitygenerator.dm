@@ -366,7 +366,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/i in GLOB.mob_list)
 		var/mob/M = i
-		if(M.z != z)
+		if(M.z != z && !(SSmapping.level_trait(z, ZTRAITS_STATION) && SSmapping.level_trait(M.z, ZTRAITS_STATION)))
 			continue
 		M.update_gravity(M.mob_has_gravity())
 		if(M.client)
@@ -382,29 +382,22 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	return 0
 
 /obj/machinery/gravity_generator/main/proc/update_list()
-	var/list/levels_to_update = list()
-
-	if(ztrait)
-		for(var/level in SSmapping.levels_by_trait(ztrait))
-			levels_to_update += level
-	else if(!ztrait || !levels_to_update.len)
-		var/turf/T = get_turf(src.loc)
-		levels_to_update += T.z
-
-	for(var/level in levels_to_update)
-		if(!GLOB.gravity_generators["[level]"])
-			GLOB.gravity_generators["[level]"] = list()
-		if(on)
-			GLOB.gravity_generators["[level]"] |= src
+	var/turf/T = get_turf(src.loc)
+	if(T)
+		var/list/z_list = list()
+		// Multi-Z, station gravity generator generates gravity on all ZTRAIT_STATION z-levels.
+		if(SSmapping.level_trait(T.z, ZTRAIT_STATION))
+			for(var/z in SSmapping.levels_by_trait(ZTRAIT_STATION))
+				z_list += z
 		else
 			z_list += T.z
 		for(var/z in z_list)
-			if(!GLOB.gravity_generators["[z]"])
-				GLOB.gravity_generators["[z]"] = list()
+			if(!GLOB.gravity_generators["[T.z]"])
+				GLOB.gravity_generators["[T.z]"] = list()
 			if(on)
-				GLOB.gravity_generators["[z]"] |= src
+				GLOB.gravity_generators["[T.z]"] |= src
 			else
-				GLOB.gravity_generators["[z]"] -= src
+				GLOB.gravity_generators["[T.z]"] -= src
 
 /obj/machinery/gravity_generator/main/proc/change_setting(value)
 	if(value != setting)
