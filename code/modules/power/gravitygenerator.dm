@@ -366,7 +366,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/i in GLOB.mob_list)
 		var/mob/M = i
-		if(M.z != z && !(SSmapping.level_trait(z, ztrait) && SSmapping.level_trait(M.z, ztrait)))
+		if(M.z != z && !(ztrait && SSmapping.level_trait(z, ztrait) && SSmapping.level_trait(M.z, ztrait)))
 			continue
 		M.update_gravity(M.mob_has_gravity())
 		if(M.client)
@@ -386,7 +386,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	if(T)
 		var/list/z_list = list()
 		// Multi-Z, station gravity generator generates gravity on all ZTRAIT_STATION z-levels.
-		if(SSmapping.level_trait(T.z, ztrait))
+		if(ztrait && SSmapping.level_trait(T.z, ztrait))
 			for(var/z in SSmapping.levels_by_trait(ztrait))
 				z_list += z
 		else
