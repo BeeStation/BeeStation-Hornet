@@ -1084,7 +1084,7 @@
 			var/datum/material/custom_material = i
 			custom_material.on_removed(src, material_flags) //Remove the current materials
 
-if(!length(materials))
+	if(!length(materials))
 		return
 		
 	custom_materials = list() //Reset the list
