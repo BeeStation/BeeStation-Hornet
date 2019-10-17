@@ -395,11 +395,12 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	if(target == user && world.time - target.client.cryo_warned > 5 MINUTES)//if we haven't warned them in the last 5 minutes
 		var/caught = FALSE
+		var/datum/antagonist/A = target.mind.has_antag_datum(/datum/antagonist)
 		if(target.mind.assigned_role in GLOB.command_positions)
 			alert("You're a Head of Staff![generic_plsnoleave_message]")
 			caught = TRUE
-		if(target.mind.has_antag_datum(/datum/antagonist))
-			alert("You're an antagonist![generic_plsnoleave_message]")
+		if(A)
+			alert("You're a [A.name]![generic_plsnoleave_message]")
 			caught = TRUE
 		if(caught)
 			target.client.cryo_warned = world.time
