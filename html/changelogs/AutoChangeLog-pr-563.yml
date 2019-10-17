@@ -1,0 +1,4 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - tweak: "Suit storage units will now also remove radiation from mobs."
