@@ -37,6 +37,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
+	pocket_storage_component_path = FALSE
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
