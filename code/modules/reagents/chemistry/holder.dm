@@ -582,6 +582,8 @@
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
 		del_reagent(R.type)
+	if(my_atom)
+		my_atom.on_reagent_change(CLEAR_REAGENTS)
 	return 0
 
 /datum/reagents/proc/reaction_check(mob/living/M, datum/reagent/R)
