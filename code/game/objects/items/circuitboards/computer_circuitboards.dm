@@ -16,7 +16,6 @@
 
 /obj/item/circuitboard/computer/advanced_camera
 	name = "Advanced Camera Console (Computer Board)"
-	icon_state = "security"
 	build_path = /obj/machinery/computer/camera_advanced/syndie
 	
 /obj/item/circuitboard/computer/xenobiology
