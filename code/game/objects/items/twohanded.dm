@@ -890,3 +890,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharpness = IS_SHARP
+
+/obj/item/twohanded/bamboospear/update_icon()
+	icon_state = "bamboo_spear[wielded]"

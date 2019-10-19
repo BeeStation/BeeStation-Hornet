@@ -258,8 +258,9 @@
 	proj_piercing = 1
 
 /obj/item/reagent_containers/syringe/bamboo
-	name = "piercing syringe"
+	name = "bamboo blowdart"
 	desc = "A crudely made bamboo dart. The hollow comstruction makes it able to hold a minimal amount of reagents."
 	volume = 1
 	icon = 'icons/obj/syringe.dmi'
 	item_state = "blowdart"
+	icon_state = "blowdart"
