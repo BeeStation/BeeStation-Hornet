@@ -12,7 +12,7 @@
 	var/spawned_disease = null
 	var/disease_amount = 20
 	var/spillable = FALSE
-	var/you_drink_from_this = FALSE
+	var/alwaysdrink = FALSE
 
 /obj/item/reagent_containers/Initialize(mapload, vol)
 	. = ..()
