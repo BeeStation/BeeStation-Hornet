@@ -1,0 +1,5 @@
+author: "jlsnow301"
+delete-after: True
+changes: 
+  - tweak: "Antag procs"
+  - refactor: "Cryopod warning"
