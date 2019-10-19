@@ -60,7 +60,7 @@
 		var/who = (isnull(user) || eater == user) ? "your" : "[eater.p_their()]"
 		to_chat(user, "<span class='warning'>You have to remove [who] [covered] first!</span>")
 		return 0
-	if(!eater.has_mouth(you_drink_from_this))
+	if(!eater.has_mouth(alwaysdrink))
 		if(eater == user)
 			to_chat(eater, "<span class='warning'>You have no mouth, and cannot eat.</span>")
 		else
