@@ -509,7 +509,7 @@
 		parts_list -= G
 		qdel(src)
 	..()
-	
+
 
 /obj/item/twohanded/spear/explosive
 	name = "explosive lance"
@@ -537,7 +537,7 @@
 	..()
 	to_chat(user, "<span class='notice'>Alt-click to set your war cry.</span>")
 
-/obj/item/twohanded/spear/explosive/update_icon()	
+/obj/item/twohanded/spear/explosive/update_icon()
 	icon_state = "spearbomb[wielded]"
 
 /obj/item/twohanded/spear/explosive/AltClick(mob/user)
@@ -871,3 +871,22 @@
 		C.change_view(CONFIG_GET(string/default_view))
 		user.client.pixel_x = 0
 		user.client.pixel_y = 0
+
+/obj/item/twohanded/bamboospear
+	icon_state = "bamboo_spear0"
+	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
+	name = "bamboo spear"
+	desc = "A haphazardly-constructed bamboo stick with a sharpened tip, ready to poke holes into unsuspecting people."
+	force = 10
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
+	force_unwielded = 10
+	force_wielded = 18
+	throwforce = 22
+	throw_speed = 4
+	embedding = list("embedded_impact_pain_multiplier" = 2)
+	armour_penetration = 10
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	sharpness = IS_SHARP

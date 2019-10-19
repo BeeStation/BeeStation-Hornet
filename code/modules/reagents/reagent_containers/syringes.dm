@@ -256,3 +256,10 @@
 	desc = "A diamond-tipped syringe that pierces armor when launched at high velocity. It can hold up to 10 units."
 	volume = 10
 	proj_piercing = 1
+
+/obj/item/reagent_containers/syringe/bamboo
+	name = "piercing syringe"
+	desc = "A crudely made bamboo dart. The hollow comstruction makes it able to hold a minimal amount of reagents."
+	volume = 1
+	icon = 'icons/obj/syringe.dmi'
+	item_state = "blowdart"
