@@ -897,9 +897,9 @@
 	.["Give brain trauma"] = "?_src_=vars;[HrefToken()];givetrauma=[REF(src)]"
 	.["Cure brain traumas"] = "?_src_=vars;[HrefToken()];curetraumas=[REF(src)]"
 
-/mob/living/carbon/has_mouth()
+/mob/living/carbon/has_mouth(just_sipping = FALSE)
 	for(var/obj/item/bodypart/head/head in bodyparts)
-		if(head.mouth)
+		if(head.mouth || just_sipping)
 			return TRUE 
 
 /mob/living/carbon/can_resist()

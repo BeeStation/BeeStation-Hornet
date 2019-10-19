@@ -95,7 +95,6 @@
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
 	if(istype(tool, /obj/item/organ/brain/positron))
-		current_type = "posibrain"
 		var/obj/item/bodypart/affected = target.get_bodypart(check_zone(target_zone))
 		if(!affected)
 			return -1
@@ -111,10 +110,6 @@
 			to_chat(user, "<span class='notice'>[target] already has a brain! You'd rather not find out what would happen with two in there.</span>")
 			return -1
 		user.visible_message("<span class='notice'>[user] begins to insert [tool] into [target]'s [parse_zone(target_zone)].</span>",
-			"<span class='notice'>You begin to insert [tool] into [target]'s [parse_zone(target_zone)]...</span>")
-
-
-		user.visible_message("[user] begins to insert [tool] into [target]'s [parse_zone(target_zone)].",
 			"<span class='notice'>You begin to insert [tool] into [target]'s [parse_zone(target_zone)]...</span>")
 
 	else if(implement_type in implements_extract)
