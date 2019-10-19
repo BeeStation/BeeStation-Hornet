@@ -59024,6 +59024,7 @@
 /area/medical/surgery)
 "ckW" = (
 /obj/machinery/holopad,
+/obj/effect/landmark/start/surgeon,
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
 "ckX" = (
@@ -60869,7 +60870,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "coA" = (
-/obj/effect/landmark/start/medical_doctor,
+/obj/effect/landmark/start/surgeon,
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "coB" = (
@@ -64052,6 +64053,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/plasteel/white,
 /area/medical/patients_rooms/room_a)
 "cum" = (

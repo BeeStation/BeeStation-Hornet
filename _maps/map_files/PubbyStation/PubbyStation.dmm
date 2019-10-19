@@ -38230,6 +38230,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 1
 	},
+/obj/effect/landmark/start/surgeon,
 /turf/open/floor/plasteel/freezer,
 /area/medical/surgery)
 "bJt" = (
@@ -39276,10 +39277,10 @@
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "bLO" = (
-/obj/effect/landmark/start/medical_doctor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/effect/landmark/start/surgeon,
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "bLP" = (
@@ -60227,6 +60228,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
+"tdz" = (
+/obj/effect/landmark/start/medical_doctor,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "tdB" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker,
@@ -90884,7 +90889,7 @@ bEB
 bkh
 buh
 bIh
-bkh
+tdz
 bKz
 bnH
 boN

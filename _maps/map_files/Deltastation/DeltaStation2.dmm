@@ -104892,7 +104892,6 @@
 /turf/open/floor/plasteel,
 /area/medical/surgery)
 "dtS" = (
-/obj/effect/landmark/start/medical_doctor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
 	},
@@ -104906,6 +104905,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/landmark/start/surgeon,
 /turf/open/floor/plasteel,
 /area/medical/surgery)
 "dtT" = (
@@ -126397,6 +126397,24 @@
 /obj/machinery/air_sensor/atmos/toxins_mixing_tank,
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
+"eCB" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/landmark/start/medical_doctor,
+/turf/open/floor/plasteel,
+/area/medical/medbay/central)
 "eCM" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -128665,6 +128683,21 @@
 	},
 /turf/closed/wall/r_wall,
 /area/science/nanite)
+"wsX" = (
+/obj/structure/chair,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/landmark/start/surgeon,
+/turf/open/floor/plasteel/dark,
+/area/medical/surgery)
 "wAA" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/r_wall,
@@ -177333,11 +177366,11 @@ cZO
 deI
 dfK
 dhh
-diH
+eCB
 dkD
 dmd
 dnD
-dnG
+wsX
 dro
 dsP
 dtS
