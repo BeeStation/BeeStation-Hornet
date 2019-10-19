@@ -72,7 +72,7 @@
 		to_chat(src, "<span class='warning'><i>I can't latch onto another slime...</i></span>")
 		return FALSE
 
-	if(ROBOTIC_LIMBS in H.dna.species.species_traits)
+	if(ROBOTIC_LIMBS in species_traits)
 		if(silent)
 			return FALSE
 		to_chat(src, "<span class='warning'><i>This subject does not have life energy...</i></span>")
