@@ -17,6 +17,7 @@
 	var/rad_record = 0
 	var/grace_count = 0
 	var/datum/looping_sound/geiger/soundloop
+	pocket_storage_component_path = null
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize()
 	. = ..()
