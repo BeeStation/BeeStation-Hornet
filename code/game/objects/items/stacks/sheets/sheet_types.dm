@@ -330,7 +330,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	new/datum/stack_recipe("punji sticks trap", /obj/structure/punji_sticks, 5, time = 30, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("blow gun", /obj/item/gun/syringe/blowgun, 10, time = 70), \
 	new/datum/stack_recipe("bamboo spear", /obj/item/twohanded/bamboospear, 25, time = 90), \
-	new/datum/stack_recipe("bamboo blowdart", /obj/item/reagent_containers/syringe/bamboo, 5, time = 10), \
+	new/datum/stack_recipe("crude syringe", /obj/item/reagent_containers/syringe/bamboo, 5, time = 10), \
 	))
 
 /obj/item/stack/sheet/mineral/bamboo
@@ -347,7 +347,6 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/mineral/bamboo
 	grind_results = list("carbon" = 5)
-	novariants = TRUE
 
 /obj/item/stack/sheet/mineral/bamboo/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.bamboo_recipes
