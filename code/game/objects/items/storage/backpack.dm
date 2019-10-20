@@ -254,7 +254,7 @@
 	name = "chemist satchel"
 	desc = "A sterile satchel with chemist colours."
 	icon_state = "satchel-chem"
-	item_state = "satchel-"
+	item_state = "satchel-chem"
 
 /obj/item/storage/backpack/satchel/gen
 	name = "geneticist satchel"
