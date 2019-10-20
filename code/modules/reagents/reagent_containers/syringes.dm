@@ -260,4 +260,4 @@
 /obj/item/reagent_containers/syringe/bamboo
 	name = "bamboo syringe"
 	desc = "A crudely made syringe. The crude construction makes it hold up minimal amounts of reagents."
-	volume = 1
+	volume = 5
