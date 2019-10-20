@@ -16219,10 +16219,6 @@
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
 "JS" = (
-/obj/structure/chair/comfy/brown{
-	color = "#66b266";
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
@@ -16233,6 +16229,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
+/obj/machinery/computer/arena,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
 "JT" = (
@@ -16304,6 +16301,10 @@
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 4
+	},
+/obj/structure/chair/comfy/brown{
+	color = "#66b266";
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
@@ -18226,6 +18227,12 @@
 	},
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
+"Wn" = (
+/obj/machinery/igniter/on,
+/obj/effect/turf_decal/delivery,
+/obj/effect/landmark/arena/start,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
 "Wt" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -18530,6 +18537,12 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"ZG" = (
+/obj/machinery/igniter/on,
+/obj/effect/turf_decal/delivery,
+/obj/effect/landmark/arena/end,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
 "ZJ" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Security";
@@ -60175,7 +60188,7 @@ GM
 HW
 HW
 Il
-Is
+Wn
 IE
 IX
 Jh
@@ -63780,7 +63793,7 @@ Jk
 Jk
 Jt
 IJ
-Is
+ZG
 JI
 JP
 Kc

@@ -78,13 +78,13 @@
 			team_hud_index[team] = length(GLOB.huds)
 
 /**
-  * Loads the arenas from config directory.
+  * Loads the arenas from _maps directory.
   * THESE ARE FULLY CACHED FOR QUICK SWITCHING SO KEEP TRACK OF THE AMOUNT
   */
 /obj/machinery/computer/arena/proc/LoadDefaultArenas()
 	if(default_arenas_loaded)
 		return
-	var/arena_dir = "[global.config.directory]/arenas/"
+	var/arena_dir = "_maps/arenas/"
 	var/list/default_arenas = flist(arena_dir)
 	for(var/arena_file in default_arenas)
 		var/simple_name = replacetext(replacetext(arena_file,arena_dir,""),".dmm","")
