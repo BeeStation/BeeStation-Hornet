@@ -17,7 +17,6 @@
 	var/rad_record = 0
 	var/grace_count = 0
 	var/datum/looping_sound/geiger/soundloop
-	pocket_storage_component_path = null
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize()
 	. = ..()
@@ -104,6 +103,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 	var/obj/item/tank/jetpack/suit/jetpack = null
+	pocket_storage_component_path = null
 
 
 /obj/item/clothing/suit/space/hardsuit/Initialize()
