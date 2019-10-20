@@ -1,0 +1,5 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - tweak: "Made exosuit pockets open on alt-click only"
+  - tweak: "hardsuits no longer have pockets due to potential code issues"
