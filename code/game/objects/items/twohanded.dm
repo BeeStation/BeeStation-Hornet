@@ -892,4 +892,4 @@
 	sharpness = IS_SHARP
 
 /obj/item/twohanded/bamboospear/update_icon()
-	icon_state = "bamboo_spear[wielded]
+	icon_state = "bamboo_spear[wielded]"
