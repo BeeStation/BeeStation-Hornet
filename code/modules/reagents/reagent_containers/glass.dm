@@ -7,7 +7,6 @@
 	reagent_flags = OPENCONTAINER
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
-	alwaysdrink = TRUE
 
 
 /obj/item/reagent_containers/glass/attack(mob/M, mob/user, obj/target)
