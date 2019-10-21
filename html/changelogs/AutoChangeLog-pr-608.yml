@@ -1,0 +1,4 @@
+author: "ike709"
+delete-after: True
+changes: 
+  - bugfix: "Several gamepad keys are now considered valid keypresses."
