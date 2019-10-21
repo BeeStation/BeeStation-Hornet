@@ -1,0 +1,9 @@
+author: "SomeAngryMiner"
+delete-after: True
+changes: 
+  - bugfix: "IPC no longer take oxyloss on crit"
+  - bugfix: "no longer eating through gasmask"
+  - bugfix: "Fixes minor bugs on IPC surgery."
+  - bugfix: "Vanilla icrecream is no longer a visible datum, its plain, normal, icreacream now."
+  - tweak: "liquid solder now cures brain traumas that dont require surgery on IPC"
+  - balance: "Slimes can no longer latch on IPC, but can still attack them."
