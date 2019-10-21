@@ -119,17 +119,21 @@ GLOBAL_LIST_EMPTY(turbolifts)
 
 //Structures and logic//
 
+/obj/machinery/turbolift_button
+	icon = 'icons/obj/turbolift.dmi'
+	icon_state = "button"
+	icon_state = "button_lit"
+
 /obj/machinery/computer/turbolift
 	name = "turbolift control console"
 	icon = 'icons/obj/turbolift.dmi'
-	icon_state = "lift-off"
+	icon_state = "panel"
 	density = FALSE
 	anchored = TRUE
 	can_be_unanchored = FALSE
 	mouse_over_pointer = MOUSE_HAND_POINTER
 	desc = "Nanotrasen's decision to replace the iconic turboladder was not met with unanimous praise, experts citing increased obesity figures from crewmen no longer needing to climb vertically through several miles of deck to reach their target. However this is undoubtedly much faster."
 	var/list/floor_directory
-	var/list/turbolift_turfs = list()
 	var/floor = 0 //This gets assigned on init(). Allows us to calculate where the lift needs to go next.
 	var/list/destinations = list() //Any elevator that's on our path.
 	pixel_y = 32 //This just makes it easier for locate...
@@ -143,6 +147,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 
 	var/shuttle_id //Needs to match the mobile docking port's ID
 	var/list/possible_destinations
+	var/list/airlocks = list()
 
 /obj/machinery/computer/turbolift/Initialize()
 	GLOB.turbolifts += src
@@ -184,6 +189,23 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	desc = "A sleek airlock for walking through. This one looks extremely strong."
 	icon_state = "closed"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	var/obj/machinery/computer/turbolift/lift_computer
+	var/dock_dir
+
+/obj/machinery/door/airlock/turbolift/Initialize()
+	. = ..()
+	var/turf/T = get_turf(src)
+	var/area/A = get_area(src)
+	to_chat(world, "ME: [AREACOORD(src)] TURF: [T.below()], AREA: [A.name]") //DEBUG
+	if(T.below() && !istype(A, /area/shuttle/turbolift)) //We know the elevator will spawn on the bottom floor, and the airlocks on all other floors should stay closed.
+		unbolt()
+		close()
+		bolt()
+	else
+		unbolt()
+		open()
+		bolt()
+
 
 /obj/machinery/door/airlock/turbolift/do_animate(animation)
 	switch(animation)
@@ -218,7 +240,40 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	var/obj/docking_port/mobile/turbolift/M = SSshuttle.getShuttle(shuttle_id)
 	if(M)
 		M.turbolift_computer = null
+	for(var/obj/machinery/door/airlock/turbolift/A in airlocks)
+		A.lift_computer = null
 	. = ..()
+
+/obj/machinery/computer/turbolift/proc/find_airlocks()
+	for(var/obj/machinery/door/airlock/turbolift/L in get_area(src))
+		airlocks += L
+		L.lift_computer = src
+		var/obj/docking_port/mobile/turbolift/M = SSshuttle.getShuttle(shuttle_id)
+		L.dock_dir = M.dir
+
+/obj/machinery/computer/turbolift/proc/close_airlock(var/obj/machinery/door/airlock/turbolift/T)
+	T.unbolt()
+	T.close()
+	T.bolt()
+	var/obj/machinery/door/airlock/turbolift/A = locate(/obj/machinery/door/airlock/turbolift) in get_step(T, T.dock_dir)
+	if(!A)
+		to_chat(world, "Couldn't find the other airlock!") //DEBUG
+		return
+	A.unbolt()
+	A.close()
+	A.bolt()
+
+/obj/machinery/computer/turbolift/proc/open_airlock(var/obj/machinery/door/airlock/turbolift/T)
+	T.unbolt()
+	T.open()
+	T.bolt()
+	var/obj/machinery/door/airlock/turbolift/A = locate(/obj/machinery/door/airlock/turbolift) in get_step(T, T.dock_dir)
+	if(!A)
+		to_chat(world, "Couldn't find the other airlock!") //DEBUG
+		return
+	A.unbolt()
+	A.open()
+	A.bolt()
 
 /obj/machinery/computer/turbolift/attack_hand(mob/user)
 	//START PLACEHOLDER
@@ -241,12 +296,15 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	send_sound_lift('sound/effects/turbolift/turbolift-close.ogg')
 	bolt_door()
 	in_use = TRUE*/
+
+	if(!airlocks.len)
+		find_airlocks()
+
 	var/list/options = params2list(possible_destinations)
 	for(var/id in options)
 		var/obj/dock = SSshuttle.getDock(id)
 		if(dock.z != src.z)
 			to_chat(user, "Deck [dock.z]: [dock.name]")
-	icon_state = "lift-off"
 	var/S = input(user,"Select a deck") as num
 	if(S > 1000 || S <= 0 || S == src.z)
 		in_use = FALSE
@@ -262,9 +320,15 @@ GLOBAL_LIST_EMPTY(turbolifts)
 			to_chat(world, "Success: [dock.id]") //DEBUG
 			destination = dock
 			break
+	for(var/obj/machinery/door/airlock/turbolift/T in airlocks)
+		INVOKE_ASYNC(src, .proc/close_airlock, T)
+	sleep(50)
 	SSshuttle.moveShuttle(shuttle_id, destination.id, 0)
 	say("The turbolift is departing.")
 	to_chat(world, "Shuttle departing.") //DEBUG
+	sleep(50)
+	for(var/obj/machinery/door/airlock/turbolift/T in airlocks)
+		INVOKE_ASYNC(src, .proc/open_airlock, T)
 	/*if(shuttle_error)
 		to_chat(world, "Shuttle error: [shuttle_error]") //DEBUG
 	else
@@ -275,9 +339,8 @@ GLOBAL_LIST_EMPTY(turbolifts)
 			user.say("Deck [S], fore.")
 			send_sound_lift('sound/effects/turbolift/turbolift.ogg', TRUE)
 			addtimer(CALLBACK(src, .proc/lift, TS), 90)
-			icon_state = "lift-on"
 			return*/
-
+/*
 /obj/machinery/computer/turbolift/proc/send_sound_lift(var/sound,var/shake = FALSE)
 	if(!sound)
 		return
@@ -290,7 +353,6 @@ GLOBAL_LIST_EMPTY(turbolifts)
 
 /obj/machinery/computer/turbolift/proc/lift(var/obj/machinery/computer/turbolift/target)
 	in_use = FALSE
-	icon_state = "lift-off"
 	if(!target)
 		return
 	target.in_use = FALSE
@@ -361,7 +423,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	for(var/turf/T in temp)
 		if(T.z == z)
 			turbolift_turfs += T
-
+*/
 /obj/machinery/computer/turbolift/proc/get_position() //Let's see where I am in this world...
 	var/obj/machinery/computer/turbolift/below = locate(/obj/machinery/computer/turbolift) in SSmapping.get_turf_below(get_turf(src))
 	if(below) //We need to be the bottom lift for this to work.
