@@ -483,6 +483,20 @@
 					/obj/item/storage/belt/bandolier,
 					/obj/item/storage/belt/bandolier)
 	crate_name = "combat shotguns crate"
+/datum/supply_pack/security/armory/riotshotgun
+        name = "Riot Shotguns Crate"
+        desc = "Tip: techically, it counts as non-lethally subduing a target as long as they don't die before Medbay can get to them. Contains three security-grade riot shotguns. Requires Armory access to open."
+	cost = 6500
+        contains = list(/obj/item/gun/ballistic/shotgun/riot,
+   					/obj/item/gun/ballistic/shotgun/riot,
+					/obj/item/gun/ballistic/shotgun/riot)
+        crate_name = "riot shotguns crate"
+/datum/supply_pack/security/armory/riotshotgun_single
+	name = "Riot Shotgun Single-Pack"
+        desc = "Stop that Clown in his tracks with this magic stick of non-lethal subduction! Contains one security-grade riot shotgun. Requires Armory access to open."
+        cost = 2250 
+        small_item = TRUE
+        contains = list(/obj/item/gun/ballistic/shotgun/riot)
 
 /datum/supply_pack/security/armory/dragnet
 	name = "DRAGnet Crate"
