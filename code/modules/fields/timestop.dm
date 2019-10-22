@@ -1,3 +1,4 @@
+
 /obj/effect/timestop
 	anchored = TRUE
 	name = "chronofield"
@@ -48,11 +49,6 @@
 /obj/effect/timestop/wizard
 	check_anti_magic = TRUE
 	duration = 100
-
-/obj/effect/timestop/thicc
-	check_anti_magic = TRUE
-	duration = 90
-	freezerange = 60
 
 /datum/proximity_monitor/advanced/timestop
 	name = "chronofield"
@@ -121,14 +117,14 @@
 	A.move_resist = frozen_things[A]
 	frozen_things -= A
 	global_frozen_atoms -= A
-
+	
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_mecha(obj/mecha/M)
 	M.completely_disabled = TRUE
 
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_mecha(obj/mecha/M)
 	M.completely_disabled = FALSE
-
+	
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_throwing(atom/movable/AM)
 	var/datum/thrownthing/T = AM.throwing
