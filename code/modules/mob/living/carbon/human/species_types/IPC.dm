@@ -22,8 +22,8 @@
 	limbs_id = "synth"
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
 	default_features = list("ipc_screen" = "BSOD", "ipc_antenna" = "None")
-	burnmod = 2
-	heatmod = 1.5
+	burnmod = 1.5 //x2 burn damage good riddance
+	heatmod = 1.3 //probably would change burnmod and heatmod to be lower than 1 because metal is hard to heat
 	brutemod = 1
 	toxmod = 0
 	clonemod = 0
