@@ -60,8 +60,6 @@
 	if (!T)
 		return FALSE
 	var/area/A = T.loc
-	if(istype(A, /area/fabric_of_reality)) // Obviously terrible, just for test merging
-		return FALSE
 	if (is_station_level(T.z) || is_centcom_level(T.z))
 		return TRUE
 	if (is_reserved_level(T.z))
