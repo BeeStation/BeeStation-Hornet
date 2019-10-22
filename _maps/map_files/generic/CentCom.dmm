@@ -14012,6 +14012,23 @@
 /obj/item/reagent_containers/food/snacks/sashimi,
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Ff" = (
+/obj/effect/landmark/thunderdome/two,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/arena_spawn/red{
+	arena_id = "thunderdome"
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
 "Fh" = (
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
@@ -16229,7 +16246,9 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
-/obj/machinery/computer/arena,
+/obj/machinery/computer/arena{
+	arena_id = "thunderdome"
+	},
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
 "JT" = (
@@ -17342,6 +17361,23 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"NB" = (
+/obj/effect/landmark/thunderdome/one,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/arena_spawn/green{
+	arena_id = "thunderdome"
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
 "NE" = (
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/podStorage)
@@ -18230,7 +18266,9 @@
 "Wn" = (
 /obj/machinery/igniter/on,
 /obj/effect/turf_decal/delivery,
-/obj/effect/landmark/arena/start,
+/obj/effect/landmark/arena/start{
+	arena_id = "thunderdome"
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "Wt" = (
@@ -18540,7 +18578,9 @@
 "ZG" = (
 /obj/machinery/igniter/on,
 /obj/effect/turf_decal/delivery,
-/obj/effect/landmark/arena/end,
+/obj/effect/landmark/arena/end{
+	arena_id = "thunderdome"
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "ZJ" = (
@@ -59164,7 +59204,7 @@ Ep
 IB
 IV
 Jg
-IV
+Ff
 IV
 Jv
 JD
@@ -64818,7 +64858,7 @@ Ep
 IM
 Jb
 Jl
-Jb
+NB
 Jb
 Jy
 JD
