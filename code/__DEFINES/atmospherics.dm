@@ -301,7 +301,7 @@ GLOBAL_VAR(atmos_extools_initialized) // this must be an uninitialized (null) on
 	}\
 }
 
-GLOBAL_LIST_INIT(pipe_paint_colors, list(
+GLOBAL_LIST_INIT(pipe_paint_colors, sortList(list(
 		"amethyst" = rgb(130,43,255), //supplymain
 		"blue" = rgb(0,0,255),
 		"brown" = rgb(178,100,56),
@@ -314,7 +314,7 @@ GLOBAL_LIST_INIT(pipe_paint_colors, list(
 		"red" = rgb(255,0,0),
 		"violet" = rgb(64,0,128),
 		"yellow" = rgb(255,198,0)
-))
+)))
 
 #define MIASMA_CORPSE_MOLES 0.02
 #define MIASMA_GIBS_MOLES 0.005
