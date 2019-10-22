@@ -736,6 +736,7 @@
 	update_icons()
 
 /mob/living/silicon/robot/proc/deconstruct()
+	SEND_SIGNAL(src, COMSIG_BORG_SAFE_DECONSTRUCT)
 	var/turf/T = get_turf(src)
 	if (robot_suit)
 		robot_suit.forceMove(T)
@@ -994,6 +995,7 @@
 
 
 /mob/living/silicon/robot/proc/ResetModule()
+	SEND_SIGNAL(src, COMSIG_BORG_SAFE_DECONSTRUCT)
 	uneq_all()
 	shown_robot_modules = FALSE
 	if(hud_used)

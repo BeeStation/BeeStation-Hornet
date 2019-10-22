@@ -60172,6 +60172,7 @@
 /area/medical/surgery)
 "cns" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/landmark/start/emt,
 /turf/open/floor/plasteel/white/side{
 	dir = 2
 	},

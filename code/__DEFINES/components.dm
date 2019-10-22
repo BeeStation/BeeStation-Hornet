@@ -153,6 +153,7 @@
 #define COMSIG_LIVING_EXTINGUISHED "living_extinguished"		//! from base of mob/living/ExtinguishMob() (/mob/living)
 #define COMSIG_LIVING_ELECTROCUTE_ACT "living_electrocute_act"	//! from base of mob/living/electrocute_act(): (shock_damage)
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"			//! sent by stuff like stunbatons and tasers: ()
+#define COMSIG_BORG_SAFE_DECONSTRUCT "borg_safe_decon"			//sent from borg mobs to itself, for tools to catch an upcoming destroy() due to safe decon (rather than detonation)
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 #define COMSIG_LIVING_STATUS_STUN "living_stun"					//! from base of mob/living/Stun() (amount, update, ignore)
@@ -169,6 +170,7 @@
 // /obj signals
 #define COMSIG_OBJ_DECONSTRUCT "obj_deconstruct"				//! from base of obj/deconstruct(): (disassembled)
 #define COMSIG_OBJ_SETANCHORED "obj_setanchored"				//! called in /obj/structure/setAnchored(): (value)
+#define COMSIG_OBJ_UPDATE_ICON	"obj_update_icon"				//Called by obj to itself whenever update_icon is run. Useful for containers that want to detect this change
 
 // /obj/item signals
 #define COMSIG_ITEM_ATTACK "item_attack"						//! from base of obj/item/attack(): (/mob/living/target, /mob/living/user)
@@ -245,6 +247,7 @@
 #define COMSIG_HAS_NANITES "has_nanites"						//! () returns TRUE if nanites are found
 #define COMSIG_NANITE_GET_PROGRAMS	"nanite_get_programs"		//! (list/nanite_programs) - makes the input list a copy the nanites' program list
 #define COMSIG_NANITE_SET_VOLUME "nanite_set_volume"			//! (amount) Sets current nanite volume to the given amount
+#define COMSIG_NANITE_GET_VOLUME "nanite_get_volume"			//! (amount) Returns nanite amount
 #define COMSIG_NANITE_ADJUST_VOLUME "nanite_adjust"				//! (amount) Adjusts nanite volume by the given amount
 #define COMSIG_NANITE_SET_MAX_VOLUME "nanite_set_max_volume"	//! (amount) Sets maximum nanite volume to the given amount
 #define COMSIG_NANITE_SET_CLOUD "nanite_set_cloud"				//! (amount(0-100)) Sets cloud ID to the given amount

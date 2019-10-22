@@ -278,7 +278,6 @@
 					/obj/item/clothing/under/rank/chef = 3,
 					/obj/item/clothing/under/rank/altchef = 3,
 					/obj/item/clothing/under/plasmaman/chef = 1,
-					/obj/item/clothing/head/helmet/space/plasmaman/white = 1,
 					/obj/item/clothing/head/chefhat = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/white = 1,
 					/obj/item/reagent_containers/glass/rag = 1,
@@ -295,23 +294,23 @@
 	product_ads = "Come and get your janitorial clothing, now endorsed by lizard janitors everywhere!"
 	vend_reply = "Thank you for using the JaniDrobe!"
 	light_color = LIGHT_COLOR_PURPLE
-	products = list(/obj/item/clothing/under/rank/janitor = 1,
-					/obj/item/clothing/under/plasmaman/janitor = 1,
-					/obj/item/clothing/head/helmet/space/plasmaman/replacement/janitor = 1,
-					/obj/item/cartridge/janitor = 1,
-					/obj/item/clothing/gloves/color/black = 1,
-					/obj/item/clothing/head/soft/purple = 1,
-					/obj/item/paint/paint_remover = 1,
-					/obj/item/melee/flyswatter = 1,
-					/obj/item/flashlight = 1,
-					/obj/item/caution = 6,
-					/obj/item/holosign_creator/janibarrier = 1,
-					/obj/item/lightreplacer = 1,
-					/obj/item/soap/nanotrasen = 1,
-					/obj/item/storage/bag/trash = 1,
-					/obj/item/clothing/shoes/galoshes = 1,
+	products = list(/obj/item/clothing/under/rank/janitor = 2,
+					/obj/item/clothing/under/plasmaman/janitor = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/janitor = 2,
+					/obj/item/cartridge/janitor = 2,
+					/obj/item/clothing/gloves/color/black = 2,
+					/obj/item/clothing/head/soft/purple = 2,
+					/obj/item/paint/paint_remover = 2,
+					/obj/item/melee/flyswatter = 2,
+					/obj/item/flashlight = 2,
+					/obj/item/caution = 8,
+					/obj/item/holosign_creator/janibarrier = 2,
+					/obj/item/lightreplacer = 2,
+					/obj/item/soap/nanotrasen = 2,
+					/obj/item/storage/bag/trash = 2,
+					/obj/item/clothing/shoes/galoshes = 2,
 					/obj/item/watertank/janitor = 1,
-					/obj/item/storage/belt/janitor = 1)
+					/obj/item/storage/belt/janitor = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
 	payment_department = ACCOUNT_SRV
 /obj/item/vending_refill/wardrobe/jani_wardrobe
