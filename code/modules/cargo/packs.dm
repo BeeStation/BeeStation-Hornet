@@ -497,7 +497,7 @@
 	contains = list(/obj/item/gun/ballistic/shotgun/riot,
 					/obj/item/gun/ballistic/shotgun/riot,
 					/obj/item/gun/ballistic/shotgun/riot)
-crate_name = "riot shotguns crate"
+  crate_name = "riot shotguns crate"
 
 					
 /datum/supply_pack/security/armory/dragnet
