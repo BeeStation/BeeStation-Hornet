@@ -1,0 +1,5 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - rscadd: "Thunderdome Control Console: Easier Setup and more streamlined matches as well as custom arenas."
+  - admin: "Added the thunderdome console, which can be controlled IC or with AI interact on."
