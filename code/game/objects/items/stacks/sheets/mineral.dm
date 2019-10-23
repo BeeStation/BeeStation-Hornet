@@ -391,6 +391,7 @@ GLOBAL_LIST_INIT(adamantine_recipes, list(
 	item_state = "sheet-adamantine"
 	singular_name = "adamantine sheet"
 	merge_type = /obj/item/stack/sheet/mineral/adamantine
+	grind_results = list(/datum/reagent/liquidadamantine = 10)
 
 /obj/item/stack/sheet/mineral/adamantine/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.adamantine_recipes

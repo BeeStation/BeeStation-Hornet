@@ -68,6 +68,17 @@
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/stack/sheet/mineral/gold(location)
+		
+/datum/chemical_reaction/adamantinesolidification
+	name = "Adamantine Sheet"
+	id = "solidadam"
+	required_reagents = list(/datum/reagent/gold = 5, /datum/reagent/consumable/frostoil = 5, /datum/reagent/liquidadamantine = 10)
+	mob_react = FALSE
+
+/datum/chemical_reaction/adamantinesolidification/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i = 1, i <= created_volume, i++)
+		new /obj/item/stack/sheet/mineral/adamantine(location)
 
 /datum/chemical_reaction/capsaicincondensation
 	name = "Capsaicincondensation"
@@ -644,7 +655,7 @@
 	name = /datum/reagent/mutationtoxin/golem
 	id = /datum/reagent/mutationtoxin/golem
 	results = list(/datum/reagent/mutationtoxin/golem = 1)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/silver = 1)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/liquidadamantine = 20)
 
 /datum/chemical_reaction/mutationtoxin/abductor
 	name = /datum/reagent/mutationtoxin/abductor
