@@ -619,37 +619,37 @@
 	name = /datum/reagent/mutationtoxin
 	id = /datum/reagent/mutationtoxin
 	results = list(/datum/reagent/mutationtoxin = 1)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/blood = 1)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/blood = 10)
 
 /datum/chemical_reaction/mutationtoxin/lizard
 	name = /datum/reagent/mutationtoxin/lizard
 	id = /datum/reagent/mutationtoxin/lizard
 	results = list(/datum/reagent/mutationtoxin/lizard = 1)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/liquidgibs = 1)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/liquidgibs = 10)
 
 /datum/chemical_reaction/mutationtoxin/felinid
 	name = /datum/reagent/mutationtoxin/felinid
 	id = /datum/reagent/mutationtoxin/felinid
 	results = list(/datum/reagent/mutationtoxin/felinid = 1)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/toxin/fentanyl = 1, /datum/reagent/impedrezene = 1)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/toxin/fentanyl = 10, /datum/reagent/impedrezene = 10)
 	
 /datum/chemical_reaction/mutationtoxin/fly
 	name = /datum/reagent/mutationtoxin/fly
 	id = /datum/reagent/mutationtoxin/fly
 	results = list(/datum/reagent/mutationtoxin/fly = 1)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/toxin/mutagen = 1)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/toxin/mutagen = 10)
 
 /datum/chemical_reaction/mutationtoxin/moth
 	name = /datum/reagent/mutationtoxin/moth
 	id = /datum/reagent/mutationtoxin/moth
 	results = list(/datum/reagent/mutationtoxin/moth = 1)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/toxin/lipolicide = 1) //I know it's the opposite of what moths like, but I am out of ideas for this.
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/toxin/lipolicide = 10) //I know it's the opposite of what moths like, but I am out of ideas for this.
 	
 /datum/chemical_reaction/mutationtoxin/pod
 	name = /datum/reagent/mutationtoxin/pod
 	id = /datum/reagent/mutationtoxin/pod
 	results = list(/datum/reagent/mutationtoxin/pod = 1)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/plantnutriment/eznutriment = 1)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/plantnutriment/eznutriment = 10)
 
 /datum/chemical_reaction/mutationtoxin/golem
 	name = /datum/reagent/mutationtoxin/golem
@@ -661,13 +661,13 @@
 	name = /datum/reagent/mutationtoxin/abductor
 	id = /datum/reagent/mutationtoxin/abductor
 	results = list(/datum/reagent/mutationtoxin/abductor = 1)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/medicine/morphine = 1, /datum/reagent/toxin/mutetoxin = 1)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/medicine/morphine = 10, /datum/reagent/toxin/mutetoxin = 10)
 	
 /datum/chemical_reaction/mutationtoxin/ipc
 	name = /datum/reagent/mutationtoxin/ipc
 	id = /datum/reagent/mutationtoxin/ipc
 	results = list(/datum/reagent/mutationtoxin/ipc = 1)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/teslium = 1)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/teslium = 20)
 	
 //////////////Mutatuion toxins made out of advanced toxin/////////////
 
@@ -675,7 +675,7 @@
 	name = /datum/reagent/mutationtoxin/skeleton
 	id = /datum/reagent/mutationtoxin/skeleton
 	results = list(/datum/reagent/mutationtoxin/skeleton = 1)
-	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/consumable/milk = 1, /datum/reagent/toxin/acid/fluacid = 1) //Because acid melts flesh off.
+	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/consumable/milk = 30, /datum/reagent/toxin/acid/fluacid = 30) //Because acid melts flesh off.
 
 ///datum/chemical_reaction/mutationtoxin/zombie //No zombies untill holopara issue is fixed.
 //	name = /datum/reagent/mutationtoxin/zombie
@@ -687,16 +687,16 @@
 	name = /datum/reagent/mutationtoxin/ash
 	id = /datum/reagent/mutationtoxin/ash
 	results = list(/datum/reagent/mutationtoxin/ash = 1)
-	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/mutationtoxin/lizard = 1, /datum/reagent/ash = 1, /datum/reagent/consumable/entpoly = 1)
+	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/mutationtoxin/lizard = 1, /datum/reagent/ash = 10, /datum/reagent/consumable/entpoly = 5)
 	
 /datum/chemical_reaction/mutationtoxin/shadow
 	name = /datum/reagent/mutationtoxin/shadow
 	id = /datum/reagent/mutationtoxin/shadow
 	results = list(/datum/reagent/mutationtoxin/shadow = 1)
-	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/liquid_dark_matter = 1, /datum/reagent/water/holywater = 1) //You need a tiny bit of thinking how to mix it
+	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/liquid_dark_matter = 30, /datum/reagent/water/holywater = 10) //You need a tiny bit of thinking how to mix it
 	
 /datum/chemical_reaction/mutationtoxin/plasma
 	name = /datum/reagent/mutationtoxin/plasma
 	id = /datum/reagent/mutationtoxin/plasma
 	results = list(/datum/reagent/mutationtoxin/plasma = 1)
-	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/toxin/plasma = 1, /datum/reagent/uranium = 1)
+	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/toxin/plasma = 60, /datum/reagent/uranium = 20)
