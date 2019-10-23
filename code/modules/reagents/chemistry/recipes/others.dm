@@ -664,7 +664,7 @@
 	name = /datum/reagent/mutationtoxin/skeleton
 	id = /datum/reagent/mutationtoxin/skeleton
 	results = list(/datum/reagent/mutationtoxin/skeleton = 1)
-	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/consumable/milk = 1, /datum/chemical_reaction/facid = 1) //Because acid melts flesh off.
+	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/consumable/milk = 1, /datum/reagent/toxin/acid/fluacid = 1) //Because acid melts flesh off.
 
 /datum/chemical_reaction/mutationtoxin/zombie
 	name = /datum/reagent/mutationtoxin/zombie
@@ -676,7 +676,7 @@
 	name = /datum/reagent/mutationtoxin/ash
 	id = /datum/reagent/mutationtoxin/ash
 	results = list(/datum/reagent/mutationtoxin/ash = 1)
-	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/mutationtoxin/lizard = 1, /datum/reagent/ash = 1)
+	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/mutationtoxin/lizard = 1, /datum/reagent/ash = 1, /datum/reagent/consumable/entpoly = 1)
 	
 /datum/chemical_reaction/mutationtoxin/shadow
 	name = /datum/reagent/mutationtoxin/shadow
