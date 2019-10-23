@@ -483,21 +483,21 @@
 					/obj/item/storage/belt/bandolier,
 					/obj/item/storage/belt/bandolier)
 	crate_name = "combat shotguns crate"
-	
+
 /datum/supply_pack/security/armory/riot_shotgun_single
-    name = "Riot Shotgun Single-Pack"
-    desc = "When the clown's slipped you one times too many. Requires armory access to open."
-	cost = 2500
+	name = "Riot Shotgun Single-Pack"
+	desc = "When the clown's slipped you one times too many. Requires armory access to open."
+	cost =  2500
 	contains = list(/obj/item/gun/ballistic/shotgun/riot)
 
 /datum/supply_pack/security/armory/riot_shotgun
-    name = "Riot Shotguns Crate"
-    desc = "For when the greytide gets out of hand. Contains 3 riot shotguns. Requires armory access to open."
+	name = "Riot Shotguns Crate"
+	desc = "For when the greytide gets out of hand. Contains 3 riot shotguns. Requires armory access to open."
 	cost = 6500
 	contains = list(/obj/item/gun/ballistic/shotgun/riot,
 					/obj/item/gun/ballistic/shotgun/riot,
 					/obj/item/gun/ballistic/shotgun/riot)
-				
+	
 /datum/supply_pack/security/armory/dragnet
 	name = "DRAGnet Crate"
 	desc = "Contains three \"Dynamic Rapid-Apprehension of the Guilty\" netting devices, a recent breakthrough in law enforcement prisoner management technology. Requires armory access to open."
