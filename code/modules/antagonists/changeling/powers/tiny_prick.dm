@@ -46,6 +46,9 @@
 		to_chat(user, "We haven't prepared our sting yet!")
 	if(!iscarbon(target))
 		return
+	if(isipc(target))
+		to_chat(user, "<span class='notice'>We cannot find any living tissue or blood in [target.name].</span>")
+		return
 	if(!isturf(user.loc))
 		return
 	if(!AStar(user, target.loc, /turf/proc/Distance, changeling.sting_range, simulated_only = FALSE))
