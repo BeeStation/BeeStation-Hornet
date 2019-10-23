@@ -104,8 +104,8 @@
 /datum/round_event/ghost_role/fugitives/proc/spawn_hunters()
 	var/backstory = pick("space cop", "russian")
 	var/static/list/hunter_ship_types = list(
-		"space cop"		= /datum/map_template/space_cop_ship,
-		"russian"		= /datum/map_template/russian_ship)
+		"space cop"		= /datum/map_template/shuttle/hunter/space_cop,
+		"russian"		= /datum/map_template/shuttle/hunter/russian)
 
 	var/datum/map_template/ship = hunter_ship_types[backstory]
 	ship = new
