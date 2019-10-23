@@ -12,7 +12,7 @@
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/fugitives/spawn_role()
-	var/turf/landing_turf = pick(GLOB.xeno_spawn)
+	var/turf/landing_turf = pick(GLOB.blobstart)
 	if(!landing_turf)
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
