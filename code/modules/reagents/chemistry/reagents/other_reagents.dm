@@ -432,6 +432,20 @@
 /datum/reagent/mutationtoxin/proc/mutate(mob/living/carbon/human/H)
 	if(QDELETED(H))
 		return
+	if (race=="random")
+		to_chat(H, mutationtext)
+		H.set_species(pick(/datum/species/jelly/slime,
+						/datum/species/human,
+						/datum/species/human/felinid,
+						/datum/species/lizard,
+						/datum/species/fly,
+						/datum/species/moth,
+						/datum/species/pod,
+						/datum/species/jelly,
+						/datum/species/golem/random,
+						/datum/species/abductor))
+		H.reagents.del_reagent(type)
+		return
 	var/current_species = H.dna.species.type
 	var/datum/species/mutation = race
 	if(mutation && mutation != current_species)
@@ -448,6 +462,32 @@
 	race = /datum/species/jelly/slime
 	mutationtext = "<span class='danger'>The pain subsides. Your whole body feels like slime.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/mutationtoxin/unstable
+	name = "Unstable Mutation Toxin"
+	description = "A mostly safe mutation toxin."
+	color = "#13BC5E" // rgb: 19, 188, 94
+	race = "random"
+	mutationtext = "<span class='danger'>The pain subsides. Your whole body feels... Different.</span>"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/mutationtoxin/unstable/proc/unstablemutate(mob/living/carbon/human/H) //Special snowflake
+	if(QDELETED(H))
+		return
+	to_chat(H, mutationtext)
+	H.set_species(pick(/datum/species/jelly/slime,
+						/datum/species/human,
+						/datum/species/human/felinid,
+						/datum/species/lizard,
+						/datum/species/fly,
+						/datum/species/moth,
+						/datum/species/pod,
+						/datum/species/jelly,
+						/datum/species/golem/random,
+						/datum/species/abductor))
+
+	H.reagents.del_reagent(type)
+
 
 /datum/reagent/mutationtoxin/felinid
 	name = "Felinid Mutation Toxin"
@@ -517,6 +557,14 @@
 	description = "A robotic toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/android
+	mutationtext = "<span class='danger'>The pain subsides. You feel... artificial.</span>"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/mutationtoxin/ipc
+	name = "IPC Mutation Toxin"
+	description = "An integrated positronic toxin."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	race = /datum/species/ipc
 	mutationtext = "<span class='danger'>The pain subsides. You feel... artificial.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
