@@ -18,7 +18,6 @@ import { CentcomPodLauncher } from './interfaces/CentcomPodLauncher';
 import { ChemDispenser } from './interfaces/ChemDispenser';
 import { ChemHeater } from './interfaces/ChemHeater';
 import { ChemMaster } from './interfaces/ChemMaster';
-import { CodexGigas } from './interfaces/CodexGigas';
 import { Crayon } from './interfaces/Crayon';
 import { DisposalUnit } from './interfaces/DisposalUnit';
 import { KitchenSink } from './interfaces/KitchenSink';
@@ -111,10 +110,6 @@ const ROUTES = {
   chem_master: {
     component: () => ChemMaster,
     scrollable: true,
-  },
-  codex_gigas: {
-    component: () => CodexGigas,
-    scrollable: false,
   },
   crayon: {
     component: () => Crayon,
