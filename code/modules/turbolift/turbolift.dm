@@ -186,7 +186,8 @@ GLOBAL_LIST_EMPTY(turbolifts)
 /turf/closed/indestructible/turbolift
 	name = "turbolift wall"
 	desc = "A turbolift wall. One of the strongest walls known to man."
-	canSmoothWith = list(/turf/closed/indestructible/turbolift)
+	//canSmoothWith = list(/turf/closed/indestructible/turbolift)
+	smooth = TRUE
 
 /obj/machinery/computer/turbolift/Destroy()
 	GLOB.turbolifts -= src
@@ -239,7 +240,8 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		if(dock.z != src.z)
 			to_chat(user, "Deck [dock.deck]: [dock.name]")
 	var/S = input(user,"Select a deck") as num
-	if(S > 1000 || S <= 0 || S == src.z)
+	if(S > 1000 || S <= 0)
+		to_chat(user, "<span class='warning'>Deck [S] is not a valid destination!</span>")
 		return
 	if(!S)
 		return
@@ -251,10 +253,22 @@ GLOBAL_LIST_EMPTY(turbolifts)
 			to_chat(world, "Success: [dock.id]") //DEBUG
 			destination = dock
 			break
-	destination_queue += "[destination.id]" //TODO: After refactoring this to a UI, ensure any IDs added to the queue are in possible_destinations
+	if(!destination || !("[destination.id]" in possible_destinations))
+		to_chat(user, "<span class='warning'>Deck [S] is not a valid destination!</span>")
+		return
+	if(destination.z == src.z)
+		to_chat(user, "<span class='notice'>Deck [S] is the current deck.</span>")
+		return
+	if("[destination.id]" in destination_queue)
+		to_chat(user, "<span class='notice'>Deck [destination.deck] is already queued.</span>")
+		return
+	destination_queue += "[destination.id]"
 	if(online)
 		START_PROCESSING(SSmachines, src)
-	to_chat(world, "SHOULD PROCESS NOW") //DEBUG
+		to_chat(world, "SHOULD PROCESS NOW") //DEBUG
+	else
+		say("An unexpected error has occured. Please contact a Nanotrasen Turbolift Repair Technician.")
+		to_chat(world, "OFFLINE, DIDN'T START PROCESSING") //DEBUG
 
 /obj/machinery/computer/turbolift/process()
 	to_chat(world, "I ATTEMPTED TO PROCESS") //DEBUG
