@@ -666,11 +666,11 @@
 	results = list(/datum/reagent/mutationtoxin/skeleton = 1)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/consumable/milk = 1, /datum/reagent/toxin/acid/fluacid = 1) //Because acid melts flesh off.
 
-/datum/chemical_reaction/mutationtoxin/zombie
-	name = /datum/reagent/mutationtoxin/zombie
-	id = /datum/reagent/mutationtoxin/zombie
-	results = list(/datum/reagent/mutationtoxin/zombie = 1)
-	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/toxin = 1, /datum/reagent/toxin/bad_food = 1) //Because rotting
+///datum/chemical_reaction/mutationtoxin/zombie //No zombies untill holopara issue is fixed.
+//	name = /datum/reagent/mutationtoxin/zombie
+//	id = /datum/reagent/mutationtoxin/zombie
+//	results = list(/datum/reagent/mutationtoxin/zombie = 1)
+//	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/toxin = 1, /datum/reagent/toxin/bad_food = 1) //Because rotting
 
 /datum/chemical_reaction/mutationtoxin/ash
 	name = /datum/reagent/mutationtoxin/ash
