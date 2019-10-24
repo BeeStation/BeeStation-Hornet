@@ -595,7 +595,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		return
 
 	if(!isturf(T) || T.intact || !T.can_have_cabling())
-		to_chat(user, "<span class='warning'>You can only lay cables on catwalks and plating!</span>")
+		to_chat(user, "<span class='warning'>You can only lay cables on top of exterior catwalks and plating!</span>")
 		return
 
 	if(get_amount() < 1) // Out of cable

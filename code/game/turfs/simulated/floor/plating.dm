@@ -53,14 +53,27 @@
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
 			return
-		var/obj/item/stack/rods/R = C
-		if (R.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
+		if(locate(/obj/structure/lattice/catwalk/over, src))
+			return
+		if (istype(C, /obj/item/stack/rods))
+			var/obj/item/stack/rods/R = C
+			if (R.use(2))
+				to_chat(user, "<span class='notice'>You lay down the catwalk.</span>")
+				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+				new /obj/structure/lattice/catwalk/over(src)
+				return
+	if(istype(C, /obj/item/stack/sheet/iron) && attachment_holes)
+		if(broken || burnt)
+			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
+			return
+		var/obj/item/stack/sheet/iron/R = C
+		if (R.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You need one sheet to make a reinforced floor!</span>")
 			return
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
 			if(do_after(user, 30, target = src))
-				if (R.get_amount() >= 2 && !istype(src, /turf/open/floor/engine))
+				if (R.get_amount() >= 1 && !istype(src, /turf/open/floor/engine))
 					PlaceOnTop(/turf/open/floor/engine)
 					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
 					R.use(2)
@@ -146,3 +159,8 @@
 
 /turf/open/floor/plating/foam/tool_act(mob/living/user, obj/item/I, tool_type)
 	return
+
+/turf/open/floor/plating/can_have_cabling()
+	if(locate(/obj/structure/lattice/catwalk, src))
+		return 0
+	return 1
