@@ -29,10 +29,6 @@
 /obj/structure/table/optable{
 	name = "Robotics Operating Table"
 	},
-/obj/item/surgical_drapes{
-	pixel_x = -3;
-	pixel_y = 9
-	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (

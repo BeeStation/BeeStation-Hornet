@@ -154,9 +154,6 @@
 /area/ruin/powered/golem_ship)
 "A" = (
 /obj/structure/table/wood,
-/obj/item/surgical_drapes{
-	pixel_x = 15
-	},
 /obj/item/storage/firstaid/fire,
 /obj/item/storage/firstaid/fire,
 /turf/open/floor/mineral/titanium/purple,

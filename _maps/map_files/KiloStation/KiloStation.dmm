@@ -29523,7 +29523,6 @@
 	},
 /obj/structure/table,
 /obj/effect/turf_decal/stripes/line,
-/obj/item/surgical_drapes,
 /obj/item/scalpel{
 	pixel_y = 5
 	},
@@ -36704,7 +36703,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/item/surgical_drapes,
 /obj/item/retractor,
 /obj/item/cautery,
 /obj/structure/window/reinforced{
@@ -94908,7 +94906,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/surgical_drapes,
 /obj/item/clothing/mask/surgical,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/fore)

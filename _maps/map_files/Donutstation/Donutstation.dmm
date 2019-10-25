@@ -43105,7 +43105,6 @@
 "bNN" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
-/obj/item/surgical_drapes,
 /obj/item/razor,
 /obj/machinery/camera{
 	c_tag = "Research - Surgery";
