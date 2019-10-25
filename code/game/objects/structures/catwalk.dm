@@ -9,6 +9,8 @@
 	obj_flags = CAN_BE_HIT | BLOCK_Z_FALL
 
 /obj/structure/lattice/catwalk/over
+	icon = 'icons/obj/smooth_structures/interior_catwalks.dmi'
+	icon_state = "interior_catwalk"
 	layer = CATWALK_LAYER
 	plane = GAME_PLANE
 	
@@ -16,12 +18,17 @@
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
 	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>sliced</b>.</span>")
 
-/obj/structure/lattice/attackby(obj/item/C, mob/user, params)
+/obj/structure/lattice/catwalk/attackby(obj/item/C, mob/user, params)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
 	if(C.tool_behaviour == TOOL_WELDER)
-		to_chat(user, "<span class='notice'>You slice off [src]</span>")
-		deconstruct()
+		if(!C.tool_start_check(user, amount=0))
+			return FALSE
+		to_chat(user, "<span class='notice'>You begin slicing through the outer plating...</span>")
+		if(C.use_tool(src, user, 25, volume=100))
+			to_chat(user, "<span class='notice'>You slice off [src]</span>")
+			deconstruct()
+			return TRUE
 
 /obj/structure/lattice/catwalk/ratvar_act()
 	new /obj/structure/lattice/catwalk/clockwork(loc)

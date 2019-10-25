@@ -74,9 +74,9 @@
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
 			if(do_after(user, 30, target = src))
 				if (R.get_amount() >= 1 && !istype(src, /turf/open/floor/engine))
+					R.use(1)
 					PlaceOnTop(/turf/open/floor/engine)
 					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
-					R.use(2)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
 				return
 	else if(istype(C, /obj/item/stack/tile))
