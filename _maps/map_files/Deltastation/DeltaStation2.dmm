@@ -94281,17 +94281,17 @@
 /area/medical/chemistry)
 "dbi" = (
 /obj/machinery/status_display/ai,
-/obj/item/storage/firstaid/regular{
-	pixel_x = 31;
-	pixel_y = 4
-	},
 /turf/closed/wall,
 /area/medical/chemistry)
 "dbj" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/regular{
 	pixel_x = 2;
-	pixel_y = 0
+	pixel_y = 1
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = -2;
+	pixel_y = -2
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -95384,12 +95384,12 @@
 	},
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/fire{
-	pixel_x = -3;
-	pixel_y = -3
+	pixel_x = 2;
+	pixel_y = 1
 	},
 /obj/item/storage/firstaid/fire{
-	pixel_x = -3;
-	pixel_y = -3
+	pixel_x = -2;
+	pixel_y = -2
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -96216,12 +96216,12 @@
 	},
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/o2{
-	pixel_x = -3;
-	pixel_y = -3
+	pixel_x = 2;
+	pixel_y = 1
 	},
 /obj/item/storage/firstaid/o2{
-	pixel_x = -3;
-	pixel_y = -3
+	pixel_x = -2;
+	pixel_y = -2
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -96870,10 +96870,6 @@
 "dfA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 2
-	},
 /turf/open/floor/plating,
 /area/medical/medbay/central)
 "dfB" = (
@@ -96887,6 +96883,10 @@
 /obj/item/reagent_containers/syringe{
 	pixel_x = 4;
 	pixel_y = 3
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
@@ -128392,6 +128392,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab/range)
+"tOA" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "tQS" = (
 /obj/machinery/power/apc{
 	areastring = "/area/vacant_room/commissary";
@@ -128531,11 +128536,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
-"vgE" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "vmK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
@@ -171448,7 +171448,7 @@ cXO
 cZz
 dbl
 cQU
-vgE
+tOA
 cNz
 dhe
 diy
