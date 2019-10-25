@@ -1,6 +1,0 @@
-author: "MarkSuckerberg"
-delete-after: True
-changes: 
-  - rscadd: "Build catwalks on plating with rods"
-  - rscadd: "catwalk/over, which can be placed over cables"
-  - tweak: "Reinforced floors now built with sheets instead of rods"
