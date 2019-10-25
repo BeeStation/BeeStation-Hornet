@@ -69,8 +69,8 @@
 
 			if(S.ignore_clothes || get_location_accessible(M, selected_zone))
 				var/datum/surgery/procedure = new S.type(M, selected_zone, affecting)
-				user.visible_message("[user] drapes [I] over [M]'s [parse_zone(selected_zone)] to prepare for surgery.", \
-					"<span class='notice'>You drape [I] over [M]'s [parse_zone(selected_zone)] to prepare for \an [procedure.name].</span>")
+				user.visible_message("[user] prepares to perform \an [procedure.name] on [M]'s [parse_zone(selected_zone)].", \
+					"<span class='notice'>You prepare to perform \an [procedure.name] on [M]'s [parse_zone(selected_zone)].</span>")
 
 				log_combat(user, M, "operated on", null, "(OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
 			else
@@ -85,8 +85,8 @@
 	var/selected_zone = user.zone_selected
 	if(S.status == 1)
 		M.surgeries -= S
-		user.visible_message("[user] removes [I] from [M]'s [parse_zone(selected_zone)].", \
-			"<span class='notice'>You remove [I] from [M]'s [parse_zone(selected_zone)].</span>")
+		user.visible_message("[user] stops the surgery on [M]'s [parse_zone(selected_zone)].", \
+			"<span class='notice'>You stop the surgery on [M]'s [parse_zone(selected_zone)].</span>")
 		qdel(S)
 	else if(S.can_cancel)
 		var/close_tool_type = /obj/item/cautery
@@ -96,8 +96,8 @@
 			close_tool_type = /obj/item/screwdriver
 		if(istype(close_tool, close_tool_type) || iscyborg(user))
 			M.surgeries -= S
-			user.visible_message("[user] closes [M]'s [parse_zone(selected_zone)] with [close_tool] and removes [I].", \
-				"<span class='notice'>You close [M]'s [parse_zone(selected_zone)] with [close_tool] and remove [I].</span>")
+			user.visible_message("[user] closes [M]'s [parse_zone(selected_zone)] with [close_tool] and stops the surgery.", \
+				"<span class='notice'>You close [M]'s [parse_zone(selected_zone)] with [close_tool] and stops the surgery.</span>")
 			qdel(S)
 		else
 			to_chat(user, "<span class='warning'>You need to hold a [is_robotic ? "screwdriver" : "cautery"] in your inactive hand to stop [M]'s surgery!</span>")

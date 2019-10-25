@@ -65,7 +65,6 @@
 /area/shuttle/escape)
 "n" = (
 /obj/structure/table/optable,
-/obj/item/surgical_drapes,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "o" = (

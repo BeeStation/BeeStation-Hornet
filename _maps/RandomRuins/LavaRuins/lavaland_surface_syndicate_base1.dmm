@@ -5234,7 +5234,6 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "nb" = (
 /obj/structure/table/optable,
-/obj/item/surgical_drapes,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/white/side{
 	dir = 4

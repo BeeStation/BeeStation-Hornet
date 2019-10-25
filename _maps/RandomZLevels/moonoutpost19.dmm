@@ -3433,7 +3433,6 @@
 /area/awaymission/moonoutpost19/research)
 "gI" = (
 /obj/structure/table,
-/obj/item/surgical_drapes,
 /obj/machinery/light/small/broken{
 	dir = 4
 	},

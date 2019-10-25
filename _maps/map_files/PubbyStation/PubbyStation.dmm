@@ -29572,7 +29572,6 @@
 /area/science/robotics/lab)
 "brC" = (
 /obj/item/clothing/gloves/color/latex,
-/obj/item/surgical_drapes,
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 1
@@ -39290,7 +39289,6 @@
 /area/medical/surgery)
 "bLQ" = (
 /obj/structure/table,
-/obj/item/surgical_drapes,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -55261,7 +55259,6 @@
 /obj/structure/table/optable{
 	name = "Robotics Operating Table"
 	},
-/obj/item/surgical_drapes,
 /obj/item/clothing/mask/surgical,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"

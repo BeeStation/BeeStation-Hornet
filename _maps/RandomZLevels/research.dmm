@@ -5024,7 +5024,6 @@
 /area/awaymission/research/interior/medbay)
 "jS" = (
 /obj/structure/table,
-/obj/item/surgical_drapes,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4

@@ -567,7 +567,6 @@
 /area/holodeck/rec_center/pet_lounge)
 "bG" = (
 /obj/structure/table/glass,
-/obj/item/surgical_drapes,
 /obj/item/razor,
 /turf/open/floor/holofloor{
 	icon_state = "white"
@@ -4877,7 +4876,6 @@
 	},
 /area/abductor_ship)
 "lY" = (
-/obj/item/surgical_drapes,
 /obj/item/paper/guides/antag/abductor,
 /obj/item/scalpel/alien,
 /obj/structure/table/abductor,
@@ -11814,7 +11812,6 @@
 /area/centcom/control)
 "Aq" = (
 /obj/structure/table/optable,
-/obj/item/surgical_drapes,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},

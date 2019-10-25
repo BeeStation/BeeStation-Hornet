@@ -810,7 +810,6 @@
 /area/shuttle/escape)
 "bo" = (
 /obj/structure/table/optable,
-/obj/item/surgical_drapes,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},

@@ -442,7 +442,6 @@
 /area/shuttle/escape)
 "bw" = (
 /obj/structure/table/optable,
-/obj/item/surgical_drapes,
 /obj/machinery/light/small{
 	brightness = 3;
 	dir = 8

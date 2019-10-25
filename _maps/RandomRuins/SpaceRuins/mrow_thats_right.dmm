@@ -478,7 +478,6 @@
 "bu" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex,
-/obj/item/surgical_drapes,
 /turf/open/floor/plasteel/white/side{
 	dir = 8
 	},

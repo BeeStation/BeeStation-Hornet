@@ -513,7 +513,6 @@
 /area/shuttle/escape)
 "bz" = (
 /obj/structure/table/optable,
-/obj/item/surgical_drapes,
 /obj/machinery/light{
 	dir = 8
 	},

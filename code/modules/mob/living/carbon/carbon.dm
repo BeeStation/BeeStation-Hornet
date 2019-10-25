@@ -62,11 +62,18 @@
 		mode() // Activate held item
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
-	for(var/datum/surgery/S in surgeries)
-		if(!(mobility_flags & MOBILITY_STAND) || !S.lying_required)
-			if((S.self_operable || user != src) && (user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM))
-				if(S.next_step(user,user.a_intent))
+	var/be_nice = FALSE
+	if(lying && user.a_intent == INTENT_HELP)
+
+		if(I.sharpness)
+			attempt_initiate_surgery(I, src, user)
+			be_nice = TRUE
+		if(surgeries.len && user != src)
+			for(var/datum/surgery/S in surgeries)
+				if(S.next_step(user))
 					return 1
+	if(be_nice)//so that if we don't stab them after starting a surgery that can't be started with a sharp tool
+		return 1
 	return ..()
 
 /mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)

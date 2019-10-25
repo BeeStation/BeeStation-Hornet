@@ -1155,7 +1155,6 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/eva)
 "ch" = (
-/obj/item/surgical_drapes,
 /obj/item/retractor,
 /obj/item/cautery,
 /obj/structure/table/reinforced,

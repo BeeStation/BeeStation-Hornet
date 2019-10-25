@@ -13305,7 +13305,6 @@
 "EM" = (
 /obj/structure/table/optable,
 /obj/effect/turf_decal/bot_white,
-/obj/item/surgical_drapes,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/snowdin/cave)

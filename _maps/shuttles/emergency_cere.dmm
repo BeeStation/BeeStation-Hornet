@@ -1361,7 +1361,6 @@
 /obj/item/clothing/suit/apron/surgical,
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/mask/surgical,
-/obj/item/surgical_drapes,
 /obj/item/razor,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1

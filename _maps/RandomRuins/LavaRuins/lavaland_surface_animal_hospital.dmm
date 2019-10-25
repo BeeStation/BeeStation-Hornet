@@ -123,7 +123,6 @@
 /area/ruin/powered/animal_hospital)
 "ar" = (
 /obj/structure/table,
-/obj/item/surgical_drapes,
 /obj/item/razor,
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
