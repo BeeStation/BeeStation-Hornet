@@ -95651,7 +95651,7 @@
 "ddp" = (
 /obj/structure/table/glass,
 /obj/item/stack/medical/gauze{
-	step_y = 7
+	pixel_y = 7
 	},
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/ointment,
@@ -96216,14 +96216,10 @@
 	},
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/o2{
-	step_x = 2;
-	step_y = 9;
 	pixel_x = -3;
 	pixel_y = -3
 	},
 /obj/item/storage/firstaid/o2{
-	step_x = 5;
-	step_y = 2;
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -96850,7 +96846,7 @@
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/reagent_containers/glass/bottle/charcoal{
-	step_y = 6;
+	pixel_y = 6;
 	pixel_x = 6
 	},
 /obj/item/reagent_containers/glass/bottle/epinephrine,
@@ -96875,8 +96871,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/item/reagent_containers/spray/cleaner{
-	step_x = 29;
-	step_y = 6;
 	pixel_x = -3;
 	pixel_y = 2
 	},
@@ -96887,12 +96881,12 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/item/reagent_containers/glass/bottle/charcoal{
-	step_y = 6;
+	pixel_y = 6;
 	pixel_x = 6
 	},
 /obj/item/reagent_containers/syringe{
-	step_x = 4;
-	step_y = 3
+	pixel_x = 4;
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
@@ -100093,8 +100087,8 @@
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/syringe{
-	step_x = 4;
-	step_y = 3
+	pixel_x = 4;
+	pixel_y = 3
 	},
 /obj/item/clothing/neck/stethoscope,
 /obj/effect/turf_decal/tile/neutral{
@@ -100882,7 +100876,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
 /obj/item/stack/medical/gauze{
-	step_y = 7
+	pixel_y = 7
 	},
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/ointment,
