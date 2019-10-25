@@ -23,7 +23,7 @@
 	var/acclimate_state
 
 	ui_x = 320
-	ui_y = 260
+	ui_y = 310
 
 /obj/machinery/plumbing/acclimator/Initialize()
 	. = ..()
