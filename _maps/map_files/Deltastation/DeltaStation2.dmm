@@ -16085,8 +16085,8 @@
 	pixel_x = -5
 	},
 /obj/item/reagent_containers/syringe{
-	step_x = 4;
-	step_y = 3
+	pixel_x = 4;
+	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/white,
@@ -22938,8 +22938,8 @@
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/bottle/morphine,
 /obj/item/reagent_containers/syringe{
-	step_x = 4;
-	step_y = 3
+	pixel_x = 4;
+	pixel_y = 3
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -22971,8 +22971,8 @@
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/bottle/morphine,
 /obj/item/reagent_containers/syringe{
-	step_x = 4;
-	step_y = 3
+	pixel_x = 4;
+	pixel_y = 3
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -25844,8 +25844,8 @@
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/syringe{
-	step_x = 4;
-	step_y = 3
+	pixel_x = 4;
+	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -36363,8 +36363,8 @@
 /obj/item/reagent_containers/glass/bottle/epinephrine,
 /obj/item/reagent_containers/glass/bottle/charcoal,
 /obj/item/reagent_containers/syringe{
-	step_x = 4;
-	step_y = 3
+	pixel_x = 4;
+	pixel_y = 3
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -78851,7 +78851,7 @@
 "cBx" = (
 /obj/structure/rack,
 /obj/item/stack/medical/gauze{
-	step_y = 7
+	pixel_y = 7
 	},
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/ointment,
@@ -87026,13 +87026,13 @@
 "cPq" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/charcoal{
-	step_y = 6;
+	pixel_y = 6;
 	pixel_x = 6
 	},
 /obj/item/reagent_containers/glass/bottle/epinephrine,
 /obj/item/reagent_containers/syringe{
-	step_x = 4;
-	step_y = 3
+	pixel_x = 4;
+	pixel_y = 3
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -87055,7 +87055,7 @@
 "cPs" = (
 /obj/structure/table,
 /obj/item/stack/medical/gauze{
-	step_y = 7
+	pixel_y = 7
 	},
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/ointment,
@@ -93339,7 +93339,7 @@
 	},
 /obj/item/book/manual/wiki/medicine,
 /obj/item/stack/medical/gauze{
-	step_y = 7
+	pixel_y = 7
 	},
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/ointment,
@@ -94282,16 +94282,16 @@
 "dbi" = (
 /obj/machinery/status_display/ai,
 /obj/item/storage/firstaid/regular{
-	step_x = 31;
-	step_y = 4
+	pixel_x = 31;
+	pixel_y = 4
 	},
 /turf/closed/wall,
 /area/medical/chemistry)
 "dbj" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/regular{
-	step_x = 2;
-	step_y = 0
+	pixel_x = 2;
+	pixel_y = 0
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -94301,7 +94301,7 @@
 	},
 /obj/structure/table/glass,
 /obj/item/stack/medical/gauze{
-	step_y = 7
+	pixel_y = 7
 	},
 /obj/item/toy/figure/md,
 /turf/open/floor/plasteel/white,
@@ -95384,14 +95384,10 @@
 	},
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/fire{
-	step_x = 2;
-	step_y = 8;
 	pixel_x = -3;
 	pixel_y = -3
 	},
 /obj/item/storage/firstaid/fire{
-	step_x = 5;
-	step_y = 4;
 	pixel_x = -3;
 	pixel_y = -3
 	},
