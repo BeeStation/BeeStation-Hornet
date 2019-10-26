@@ -432,9 +432,9 @@
 /datum/reagent/mutationtoxin/proc/mutate(mob/living/carbon/human/H)
 	if(QDELETED(H))
 		return
-	if (race=="random")
+	if (race != /datum/species && race=="random")
 		to_chat(H, mutationtext)
-		H.set_species(pick(/datum/species/jelly/slime,
+		race=(pick(/datum/species/jelly/slime,
 						/datum/species/human,
 						/datum/species/human/felinid,
 						/datum/species/lizard,
@@ -445,7 +445,6 @@
 						/datum/species/golem/random,
 						/datum/species/abductor))
 		H.reagents.del_reagent(type)
-		return
 	var/current_species = H.dna.species.type
 	var/datum/species/mutation = race
 	if(mutation && mutation != current_species)
@@ -470,24 +469,6 @@
 	race = "random"
 	mutationtext = "<span class='danger'>The pain subsides. Your whole body feels... Different.</span>"
 	process_flags = ORGANIC | SYNTHETIC
-
-/datum/reagent/mutationtoxin/unstable/proc/unstablemutate(mob/living/carbon/human/H) //Special snowflake
-	if(QDELETED(H))
-		return
-	to_chat(H, mutationtext)
-	H.set_species(pick(/datum/species/jelly/slime,
-						/datum/species/human,
-						/datum/species/human/felinid,
-						/datum/species/lizard,
-						/datum/species/fly,
-						/datum/species/moth,
-						/datum/species/pod,
-						/datum/species/jelly,
-						/datum/species/golem/random,
-						/datum/species/abductor))
-
-	H.reagents.del_reagent(type)
-
 
 /datum/reagent/mutationtoxin/felinid
 	name = "Felinid Mutation Toxin"
