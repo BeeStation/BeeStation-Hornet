@@ -2107,7 +2107,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/medical/genetics{
 	name = "Cryogenic Storage"
 	})
@@ -93204,7 +93204,7 @@
 	name = "Medbay Self-Service";
 	req_access_txt = "0"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "cZz" = (
 /obj/machinery/computer/cryopod,
@@ -127881,6 +127881,11 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"pse" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "psi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bodycontainer/morgue{
@@ -128392,11 +128397,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab/range)
-"tOA" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "tQS" = (
 /obj/machinery/power/apc{
 	areastring = "/area/vacant_room/commissary";
@@ -171448,7 +171448,7 @@ cXO
 cZz
 dbl
 cQU
-tOA
+pse
 cNz
 dhe
 diy
