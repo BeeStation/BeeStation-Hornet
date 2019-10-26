@@ -433,7 +433,6 @@
 	if(QDELETED(H))
 		return
 	if (race != /datum/species && race=="random")
-		to_chat(H, mutationtext)
 		race=(pick(/datum/species/jelly/slime,
 						/datum/species/human,
 						/datum/species/human/felinid,
