@@ -486,7 +486,7 @@
 
 /datum/supply_pack/security/armory/riot_shotgun_single
 	name = "Riot Shotgun Single-Pack"
-	desc = "When the clown's slipped you one times too many. Requires armory access to open."
+	desc = "When the clown's slipped you one time too many. Requires armory access to open."
 	cost =  2500
 	contains = list(/obj/item/gun/ballistic/shotgun/riot)
 
