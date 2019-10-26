@@ -441,7 +441,6 @@
 						/datum/species/moth,
 						/datum/species/pod,
 						/datum/species/jelly,
-						/datum/species/golem/random,
 						/datum/species/abductor))
 		H.reagents.del_reagent(type)
 	var/current_species = H.dna.species.type
