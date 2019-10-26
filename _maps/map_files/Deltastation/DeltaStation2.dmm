@@ -488,7 +488,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "abd" = (
 /obj/machinery/airalarm/directional/north,
@@ -556,7 +556,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "abm" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -771,7 +771,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "abJ" = (
 /obj/machinery/nuclearbomb/beer,
@@ -864,7 +864,7 @@
 	dir = 1
 	},
 /obj/machinery/disposal/bin,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "abO" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -875,6 +875,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/cryopods)
 "abP" = (
@@ -936,7 +937,7 @@
 	dir = 1
 	},
 /obj/structure/chair/stool,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "abV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -2002,7 +2003,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "adD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2028,7 +2029,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "adG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -2107,6 +2108,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/medical/genetics{
 	name = "Cryogenic Storage"
@@ -2115,7 +2119,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants/random,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -93204,6 +93207,10 @@
 	name = "Medbay Self-Service";
 	req_access_txt = "0"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "cZz" = (
@@ -127470,6 +127477,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
+"mpB" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "mvm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -127652,6 +127664,14 @@
 /obj/structure/lattice,
 /turf/open/space,
 /area/space)
+"nPp" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/table,
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/cryopods)
 "nSh" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
 /turf/closed/wall/r_wall,
@@ -127881,11 +127901,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"pse" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "psi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bodycontainer/morgue{
@@ -128330,6 +128345,15 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
+"tvL" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopods)
 "twt" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -128553,6 +128577,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"voE" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopods)
 "vqo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -171448,7 +171479,7 @@ cXO
 cZz
 dbl
 cQU
-pse
+mpB
 cNz
 dhe
 diy
@@ -181190,8 +181221,8 @@ cnp
 aaV
 aaZ
 abc
-abm
-abt
+nPp
+tvL
 abt
 abI
 abO
@@ -181447,9 +181478,9 @@ cnp
 coT
 clA
 abd
+voE
 abm
-abm
-abm
+voE
 abK
 abU
 cAw
