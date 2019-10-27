@@ -1,0 +1,4 @@
+author: "Oshibkka"
+delete-after: True
+changes: 
+  - rscadd: "allows cargo to purchase riot shotgun crates"
