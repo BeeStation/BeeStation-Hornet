@@ -57,7 +57,7 @@
 			return
 		if (istype(C, /obj/item/stack/rods))
 			var/obj/item/stack/rods/R = C
-			if (R.use(2))
+			if (R.use(1))
 				to_chat(user, "<span class='notice'>You lay down the catwalk.</span>")
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 				new /obj/structure/lattice/catwalk/over(src)
@@ -79,7 +79,7 @@
 					R.use(2)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
 				return
-	else if(istype(C, /obj/item/stack/tile))
+	else if(istype(C, /obj/item/stack/tile) && !locate(/obj/structure/lattice/catwalk, src))
 		if(!broken && !burnt)
 			for(var/obj/O in src)
 				if(O.level == 1) //ex. pipes laid underneath a tile
