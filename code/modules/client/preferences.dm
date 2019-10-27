@@ -619,6 +619,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if(G.subtype_path in type_blacklist)
 							continue
 						type_blacklist += G.subtype_path
+					else
+						equipped_gear.Cut(i,i+1)
 
 			var/fcolor =  "#3366CC"
 			var/metabalance = user.client.get_metabalance()

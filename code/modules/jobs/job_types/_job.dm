@@ -105,6 +105,9 @@
 				else
 					gear_leftovers += G
 
+			else
+				M.client.prefs.equipped_gear -= gear
+
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
 			var/metadata = M.client.prefs.equipped_gear[G.display_name]
