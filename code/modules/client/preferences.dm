@@ -106,6 +106,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/job_exempt = 0
 	var/list/menuoptions
 
+	//Loadout stuff
+	var/list/gear = list()
+	var/list/purchased_gear = list()
+	var/list/equipped_gear = list()
+	var/gear_tab = "General"
+
 	var/action_buttons_screen_locs = list()
 
 /datum/preferences/New(client/C)
@@ -145,7 +151,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Game Preferences</a>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=2' [current_tab == 2 ? "class='linkOn'" : ""]>OOC Preferences</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=2' [current_tab == 2 ? "class='linkOn'" : ""]>Loadout</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=2' [current_tab == 3 ? "class='linkOn'" : ""]>OOC Preferences</a>"
 
 	if(!path)
 		dat += "<div class='notice'>Please create an account to save your preferences</div>"
@@ -602,7 +609,61 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<tr><td colspan='2' width='100%'><center><a style='font-size: 18px;' href='?_src_=prefs;preference=keybindings_menu'>Customize Keybinds</a></center></td></tr>"
 			dat += "</table>"
 
-		if(2) //OOC Preferences
+		if(2) //Loadout
+			var/total_cost = 0
+			var/list/type_blacklist = list()
+			if(gear && gear.len)
+				for(var/i = 1, i <= gear.len, i++)
+					var/datum/gear/G = GLOB.gear_datums[gear[i]]
+					if(G)
+						if(G.subtype_path in type_blacklist)
+							continue
+						type_blacklist += G.subtype_path
+						total_cost += G.cost
+
+			var/fcolor =  "#3366CC"
+			var/metabalance = user.client.get_metabalance()
+			if(total_cost < metabalance)
+				fcolor = "#E67300"
+			dat += "<table align='center' width='100%'>"
+			dat += "<tr><td colspan=4><center><b>Current balance: <font color='[fcolor]'>[metabalance]</font> [CONFIG_GET(string/metacurrency_name)]s.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
+			dat += "<tr><td colspan=4><center><b>"
+
+			var/firstcat = 1
+			for(var/category in GLOB.loadout_categories)
+				if(firstcat)
+					firstcat = 0
+				else
+					dat += " |"
+				if(category == gear_tab)
+					dat += " <span class='linkOff'>[category]</span> "
+				else
+					dat += " <a href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
+			dat += "</b></center></td></tr>"
+
+			var/datum/loadout_category/LC = GLOB.loadout_categories[gear_tab]
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td colspan=4><b><center>[LC.category]</center></b></td></tr>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			for(var/gear_name in LC.gear)
+				var/datum/gear/G = LC.gear[gear_name]
+				var/ticked = (G.display_name in gear)
+				dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
+				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
+				if(G.allowed_roles)
+					dat += "<font size=2>Restrictions: "
+					for(var/role in G.allowed_roles)
+						dat += role + " "
+					dat += "</font>"
+				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
+				if(ticked)
+					. += "<tr><td colspan=4>"
+					for(var/datum/gear_tweak/tweak in G.gear_tweaks)
+						. += " <a href='?_src_=prefs;preference=gear;gear=[G.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(G, tweak))]</a>"
+					. += "</td></tr>"
+			dat += "</table>"
+
+		if(3) //OOC Preferences
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>OOC Settings</h2>"
 			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(windowflashing) ? "Enabled":"Disabled"]</a><br>"
@@ -688,6 +749,23 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
+
+/datum/preferences/proc/get_gear_metadata(var/datum/gear/G)
+	. = gear[G.display_name]
+	if(!.)
+		. = list()
+		gear[G.display_name] = .
+
+/datum/preferences/proc/get_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak)
+	var/list/metadata = get_gear_metadata(G)
+	. = metadata["[tweak]"]
+	if(!.)
+		. = tweak.get_default()
+		metadata["[tweak]"] = .
+
+/datum/preferences/proc/set_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak, var/new_metadata)
+	var/list/metadata = get_gear_metadata(G)
+	metadata["[tweak]"] = new_metadata
 
 /datum/preferences/proc/SetChoices(mob/user, limit = 18, list/splitJobs = list("Chief Engineer"), widthPerColumn = 295, height = 620)
 	if(!SSjob)
@@ -1093,6 +1171,42 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			else
 				SetQuirks(user)
 		return TRUE
+
+	if(href_list["preference"] == "gear")
+		if(href_list["toggle_gear"])
+			var/datum/gear/TG = GLOB.gear_datums[href_list["toggle_gear"]]
+			if(TG.display_name in gear)
+				gear -= TG.display_name
+			else
+				var/total_cost = 0
+				var/list/type_blacklist = list()
+				for(var/gear_name in gear)
+					var/datum/gear/G = GLOB.gear_datums[gear_name]
+					if(istype(G))
+						if(G.subtype_path in type_blacklist)
+							continue
+						type_blacklist += G.subtype_path
+						total_cost += G.cost
+
+				if((total_cost + TG.cost) <= user.client.get_metabalance())
+					gear += TG.display_name
+
+		else if(href_list["gear"] && href_list["tweak"])
+			var/datum/gear/gear = GLOB.gear_datums[href_list["gear"]]
+			var/datum/gear_tweak/tweak = locate(href_list["tweak"])
+			if(!tweak || !istype(gear) || !(tweak in gear.gear_tweaks))
+				return
+			var/metadata = tweak.get_metadata(user, get_tweak_metadata(gear, tweak))
+			if(!metadata || !user.canUseTopic(src))
+				return
+			set_tweak_metadata(gear, tweak, metadata)
+		else if(href_list["select_category"])
+			gear_tab = href_list["select_category"]
+		else if(href_list["clear_loadout"])
+			gear.Cut()
+
+		ShowChoices(user)
+		return
 
 	switch(href_list["task"])
 		if("random")
