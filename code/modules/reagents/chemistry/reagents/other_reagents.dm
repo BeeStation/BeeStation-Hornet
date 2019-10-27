@@ -432,19 +432,12 @@
 /datum/reagent/mutationtoxin/proc/mutate(mob/living/carbon/human/H)
 	if(QDELETED(H))
 		return
-	if (race != /datum/species && race=="random")
-		race=(pick(/datum/species/jelly/slime,
-						/datum/species/human,
-						/datum/species/human/felinid,
-						/datum/species/lizard,
-						/datum/species/fly,
-						/datum/species/moth,
-						/datum/species/pod,
-						/datum/species/jelly,
-						/datum/species/abductor))
-		H.reagents.del_reagent(type)
+	var/datum/species/mutation 					//I was taught not to initialise variables on conditions
+	if (race != /datum/species) 				//If it is not a specie, it might be a list of those
+		mutation=pick(race)
+	else
+		mutation = race
 	var/current_species = H.dna.species.type
-	var/datum/species/mutation = race
 	if(mutation && mutation != current_species)
 		to_chat(H, mutationtext)
 		H.set_species(mutation)
@@ -464,7 +457,15 @@
 	name = "Unstable Mutation Toxin"
 	description = "A mostly safe mutation toxin."
 	color = "#13BC5E" // rgb: 19, 188, 94
-	race = "random"
+	race = list(/datum/species/jelly/slime,
+						/datum/species/human,
+						/datum/species/human/felinid,
+						/datum/species/lizard,
+						/datum/species/fly,
+						/datum/species/moth,
+						/datum/species/pod,
+						/datum/species/jelly,
+						/datum/species/abductor)
 	mutationtext = "<span class='danger'>The pain subsides. Your whole body feels... Different.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
