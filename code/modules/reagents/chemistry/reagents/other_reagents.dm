@@ -432,11 +432,7 @@
 /datum/reagent/mutationtoxin/proc/mutate(mob/living/carbon/human/H)
 	if(QDELETED(H))
 		return
-	var/datum/species/mutation 					//I was taught not to initialise variables on conditions
-	if (race != /datum/species) 				//If it is not a specie, it might be a list of those
-		mutation=pick(race)
-	else
-		mutation = race
+	var/datum/species/mutation = pick(race)			//I honestly feel extremely uncomfortable. I do not like the fact that this works.
 	var/current_species = H.dna.species.type
 	if(mutation && mutation != current_species)
 		to_chat(H, mutationtext)
