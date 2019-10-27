@@ -128,6 +128,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				max_save_slots = 8
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
+		if("extra character slot" in purchased_gear)
+			max_save_slots += 1
 		if(load_character())
 			return
 	//we couldn't load character data so just randomize the character appearance + name
@@ -653,7 +655,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
 				if(G.display_name in purchased_gear)
-					dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>Equip</a></td>"
+					if(G.sort_category == "OOC")
+						dat += "<i>Purchased.</i></td>"
+					else
+						dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>Equip</a></td>"
 				else
 					dat += "<a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.display_name]'>Purchase</a></td>"
 				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
@@ -663,11 +668,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						dat += role + " "
 					dat += "</font>"
 				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
-				if(ticked)
-					. += "<tr><td colspan=4>"
-					for(var/datum/gear_tweak/tweak in G.gear_tweaks)
-						. += " <a href='?_src_=prefs;preference=gear;gear=[G.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(G, tweak))]</a>"
-					. += "</td></tr>"
 			dat += "</table>"
 
 		if(3) //OOC Preferences
@@ -756,23 +756,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
-
-/datum/preferences/proc/get_gear_metadata(var/datum/gear/G)
-	. = equipped_gear[G.display_name]
-	if(!.)
-		. = list()
-		equipped_gear[G.display_name] = .
-
-/datum/preferences/proc/get_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak)
-	var/list/metadata = get_gear_metadata(G)
-	. = metadata["[tweak]"]
-	if(!.)
-		. = tweak.get_default()
-		metadata["[tweak]"] = .
-
-/datum/preferences/proc/set_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak, var/new_metadata)
-	var/list/metadata = get_gear_metadata(G)
-	metadata["[tweak]"] = new_metadata
 
 /datum/preferences/proc/SetChoices(mob/user, limit = 18, list/splitJobs = list("Chief Engineer"), widthPerColumn = 295, height = 620)
 	if(!SSjob)
@@ -1210,15 +1193,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					log_href_exploit(user)
 			save_preferences()
 
-		else if(href_list["gear"] && href_list["tweak"])
-			var/datum/gear/gear = GLOB.gear_datums[href_list["gear"]]
-			var/datum/gear_tweak/tweak = locate(href_list["tweak"])
-			if(!tweak || !istype(gear) || !(tweak in gear.gear_tweaks))
-				return
-			var/metadata = tweak.get_metadata(user, get_tweak_metadata(gear, tweak))
-			if(!metadata || !user.canUseTopic(src))
-				return
-			set_tweak_metadata(gear, tweak, metadata)
 		else if(href_list["select_category"])
 			gear_tab = href_list["select_category"]
 		else if(href_list["clear_loadout"])
