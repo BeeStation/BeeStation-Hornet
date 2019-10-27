@@ -21,6 +21,7 @@
 	inc_metabalance(METACOIN_TENMINUTELIVING_REWARD, FALSE)
 
 /client/proc/get_metabalance()
+	return 1000 // DEBUG
 	var/datum/DBQuery/query_get_metacoins = SSdbcore.NewQuery("SELECT metacoins FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 	var/mc_count = 0
 	if(query_get_metacoins.warn_execute())
@@ -38,9 +39,10 @@
 		to_chat(src, "<span class='rose bold'>Your new metacoin balance is [mc_count]!</span>")
 
 /client/proc/inc_metabalance(mc_count, ann=TRUE, reason=null)
-	var/datum/DBQuery/query_inc_metacoins = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET metacoins = metacoins + '[mc_count]' WHERE ckey = '[ckey]'")
+	// DEBUG
+	/*var/datum/DBQuery/query_inc_metacoins = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET metacoins = metacoins + '[mc_count]' WHERE ckey = '[ckey]'")
 	query_inc_metacoins.warn_execute()
-	qdel(query_inc_metacoins)
+	qdel(query_inc_metacoins)*/
 	if(ann)
 		if(reason)
 			to_chat(src, "<span class='rose bold'>[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account! Reason: [reason]</span>")
@@ -72,5 +74,3 @@
 		metacoin_items += id
 
 	qdel(query_get_metacoin_purchases)
-
-

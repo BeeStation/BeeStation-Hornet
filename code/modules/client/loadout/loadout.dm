@@ -26,7 +26,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		if(!initial(G.cost))
 			WARNING("Loadout - Missing cost: [G]")
 			continue
-		if(!initial(G.path))
+		if(!initial(G.path) && use_category != "OOC") //OOC category does not contain actual items
 			WARNING("Loadout - Missing path definition: [G]")
 			continue
 
@@ -46,10 +46,11 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/display_name       //Name/index. Must be unique.
 	var/description        //Description of this gear. If left blank will default to the description of the pathed item.
 	var/path               //Path to item.
-	var/cost = INFINITY           //Number of metacoins
+	var/cost = 250           //Number of metacoins // DEBUG
 	var/slot               //Slot to equip to.
 	var/list/allowed_roles //Roles that can spawn with this item.
-	var/whitelisted        //Term to check the whitelist for..
+	var/list/species_blacklist //Stop certain species from receiving this gear
+	var/list/species_whitelist //Only allow certain species to receive this gear
 	var/sort_category = "General"
 	var/list/gear_tweaks = list() //List of datums which will alter the item after it has been spawned.
 	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
@@ -59,6 +60,9 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	if(!description)
 		var/obj/O = path
 		description = initial(O.desc)
+
+/datum/gear/proc/purchase(var/client/C) //Called when the gear is first purchased
+	return
 
 /datum/gear_data
 	var/path

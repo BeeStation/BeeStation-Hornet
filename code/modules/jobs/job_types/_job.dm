@@ -74,8 +74,8 @@
 	if(!ishuman(H))
 		return
 	var/mob/living/carbon/human/human = H
-	if(M.client && (M.client.prefs.gear && M.client.prefs.gear.len))
-		for(var/gear in M.client.prefs.gear)
+	if(M.client && (M.client.prefs.equipped_gear && M.client.prefs.equipped_gear.len))
+		for(var/gear in M.client.prefs.equipped_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)
 				var/permitted = FALSE
@@ -87,11 +87,14 @@
 				else
 					permitted = FALSE
 
-				if(G.whitelisted && G.whitelisted != human.dna.species.name)
+				if(G.species_blacklist && (human.dna.species.id in G.species_blacklist))
+					permitted = FALSE
+
+				if(G.species_whitelist && !(human.dna.species.id in G.species_whitelist))
 					permitted = FALSE
 
 				if(!permitted)
-					to_chat(M, "<span class='warning'>Your current job or whitelist status does not permit you to spawn with [gear]!</span>")
+					to_chat(M, "<span class='warning'>Your current species or role does not permit you to spawn with [gear]!</span>")
 					continue
 
 				if(G.slot)
@@ -104,7 +107,7 @@
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/metadata = M.client.prefs.gear[G.display_name]
+			var/metadata = M.client.prefs.equipped_gear[G.display_name]
 			var/item = G.spawn_item(null, metadata)
 			var/atom/placed_in = human.equip_or_collect(item)
 

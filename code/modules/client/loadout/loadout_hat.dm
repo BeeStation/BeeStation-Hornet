@@ -2,6 +2,7 @@
 	subtype_path = /datum/gear/hat
 	slot = SLOT_HEAD
 	sort_category = "Headwear"
+	species_blacklist = list("plasmaman") //Their helmet takes up the head slot
 
 /datum/gear/hat/hhat_yellow
 	display_name = "hardhat, yellow"
