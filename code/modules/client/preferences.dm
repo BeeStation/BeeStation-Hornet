@@ -107,7 +107,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/menuoptions
 
 	//Loadout stuff
-	//var/list/gear = list()
 	var/list/purchased_gear = list()
 	var/list/equipped_gear = list()
 	var/gear_tab = "General"
@@ -612,8 +611,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(2) //Loadout
 			var/list/type_blacklist = list()
 			if(equipped_gear && equipped_gear.len)
-				for(var/i = 1, i <= gear.len, i++)
-					var/datum/gear/G = GLOB.gear_datums[gear[i]]
+				for(var/i = 1, i <= equipped_gear.len, i++)
+					var/datum/gear/G = GLOB.gear_datums[equipped_gear[i]]
 					if(G)
 						if(G.subtype_path in type_blacklist)
 							continue
@@ -621,8 +620,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			var/fcolor =  "#3366CC"
 			var/metabalance = user.client.get_metabalance()
-			if(total_cost < metabalance)
-				fcolor = "#E67300"
 			dat += "<table align='center' width='100%'>"
 			dat += "<tr><td colspan=4><center><b>Current balance: <font color='[fcolor]'>[metabalance]</font> [CONFIG_GET(string/metacurrency_name)]s.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
 			dat += "<tr><td colspan=4><center><b>"
@@ -653,7 +650,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
 				var/ticked = (G.display_name in equipped_gear)
-				//dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
+
 				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
 				if(G.display_name in purchased_gear)
 					dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>Equip</a></td>"
@@ -761,10 +758,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 #undef MAX_MUTANT_ROWS
 
 /datum/preferences/proc/get_gear_metadata(var/datum/gear/G)
-	. = gear[G.display_name]
+	. = equipped_gear[G.display_name]
 	if(!.)
 		. = list()
-		gear[G.display_name] = .
+		equipped_gear[G.display_name] = .
 
 /datum/preferences/proc/get_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak)
 	var/list/metadata = get_gear_metadata(G)
@@ -1189,37 +1186,29 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				purchased_gear += TG.display_name
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
+				save_preferences()
 			else
 				to_chat(user, "<span class='warning'>You don't have enough [CONFIG_GET(string/metacurrency_name)]s to purchase \the [TG.display_name]!</span>")
 		if(href_list["toggle_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[href_list["toggle_gear"]]
-			to_chat(world, "ATTEMPTING TO EQUIP [TG.display_name]") // DEBUG
 			if(TG.display_name in equipped_gear)
-				to_chat(world, "UNEQUIPPED [TG.display_name]") // DEBUG
 				equipped_gear -= TG.display_name
 			else
-				to_chat(world, "WE GOT HERE 1") // DEBUG
 				var/list/type_blacklist = list()
 				for(var/gear_name in equipped_gear)
-					to_chat(world, "WE GOT HERE 2") // DEBUG
 					var/datum/gear/G = GLOB.gear_datums[gear_name]
-					to_chat(world, "WE GOT HERE 3: [G.display_name]") // DEBUG
 					if(istype(G))
 						if(G.subtype_path in type_blacklist)
-							to_chat(world, "THE BIG SAD") // DEBUG
 							continue
-						to_chat(world, "WE GOT HERE 4") // DEBUG
 						type_blacklist += G.subtype_path
-				to_chat(world, "WE GOT HERE 5") // DEBUG
 				if((TG.display_name in purchased_gear))
 					if(!(TG.subtype_path in type_blacklist))
-						to_chat(world, "SUCCESSFULLY EQUIPPED [TG.display_name]") // DEBUG
 						equipped_gear += TG.display_name
 					else
 						to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. It conflicts with an already-equipped item.</span>")
 				else
 					log_href_exploit(user)
-			to_chat(world, "FINISHED TOGGLE_EQUIP") // DEBUG
+			save_preferences()
 
 		else if(href_list["gear"] && href_list["tweak"])
 			var/datum/gear/gear = GLOB.gear_datums[href_list["gear"]]
