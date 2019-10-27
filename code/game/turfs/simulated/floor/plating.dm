@@ -57,7 +57,7 @@
 			return
 		if (istype(C, /obj/item/stack/rods))
 			var/obj/item/stack/rods/R = C
-			if (R.use(1))
+			if (R.use(2))
 				to_chat(user, "<span class='notice'>You lay down the catwalk.</span>")
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 				new /obj/structure/lattice/catwalk/over(src)
@@ -76,7 +76,7 @@
 				if (R.get_amount() >= 1 && !istype(src, /turf/open/floor/engine))
 					PlaceOnTop(/turf/open/floor/engine)
 					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
-					R.use(2)
+					R.use(1)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
 				return
 	else if(istype(C, /obj/item/stack/tile) && !locate(/obj/structure/lattice/catwalk, src))
