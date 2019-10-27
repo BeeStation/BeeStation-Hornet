@@ -14,11 +14,3 @@
 /datum/gear/uniform/skirt/purple
 	display_name = "skirt, purple"
 	path = /obj/item/clothing/under/skirt/purple
-
-/datum/gear/uniform/skirt/red
-	display_name = "skirt, red"
-	path = /obj/item/clothing/under/skirt/red
-
-/datum/gear/uniform/skirt/black
-	display_name = "skirt, black"
-	path = /obj/item/clothing/under/skirt/black
