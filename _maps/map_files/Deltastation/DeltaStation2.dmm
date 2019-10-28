@@ -479,7 +479,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "abc" = (
 /obj/machinery/computer/cryopod{
@@ -496,7 +496,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "abe" = (
 /obj/effect/turf_decal/delivery,
@@ -613,7 +613,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "abs" = (
 /obj/docking_port/stationary{
@@ -811,7 +811,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "abL" = (
 /obj/structure/cable/yellow{
@@ -875,7 +875,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "abP" = (
 /obj/effect/decal/cleanable/dirt,
@@ -958,7 +959,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -26
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "abW" = (
 /obj/structure/bed/roller,
@@ -2047,7 +2048,7 @@
 /obj/structure/disposalpipe/junction/flip{
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "adH" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2107,7 +2108,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/medical/genetics{
 	name = "Cryogenic Storage"
 	})
@@ -2115,7 +2116,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants/random,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -2123,7 +2123,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "adO" = (
 /obj/structure/rack,
@@ -2378,6 +2378,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"afa" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/table,
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopods)
 "afb" = (
 /obj/machinery/vending/snack/random,
 /obj/machinery/light{
@@ -14164,8 +14171,8 @@
 /area/engine/atmospherics_engine)
 "aCk" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
-/obj/machinery/portable_atmospherics/scrubber,
 /obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/plasteel,
 /area/engine/atmospherics_engine)
 "aCl" = (
@@ -14191,12 +14198,14 @@
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/plasteel,
 /area/engine/atmospherics_engine)
 "aCp" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/plasteel,
 /area/engine/atmospherics_engine)
 "aCq" = (
@@ -14243,10 +14252,10 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/portable_atmospherics/canister,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/plasteel/white/corner,
 /area/engine/atmospherics_engine)
 "aCu" = (
@@ -22221,6 +22230,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
+/obj/item/pipe_dispenser,
 /turf/open/floor/plasteel/checker,
 /area/engine/atmos)
 "aPO" = (
@@ -87076,6 +87086,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = -5
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cPy" = (
@@ -92312,9 +92326,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/obj/structure/sign/poster/official/cleanliness{
-	pixel_x = -32
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -93354,14 +93365,14 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cZK" = (
-/obj/item/twohanded/required/kirbyplants/random,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/obj/machinery/cryopod,
+/turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "cZL" = (
 /obj/machinery/newscaster{
@@ -126612,6 +126623,13 @@
 "gCK" = (
 /turf/closed/wall,
 /area/maintenance/department/science)
+"gCQ" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopods)
 "gFZ" = (
 /obj/machinery/nanite_program_hub,
 /obj/effect/turf_decal/bot,
@@ -126675,6 +126693,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
+"gPc" = (
+/obj/machinery/computer/cryopod,
+/turf/closed/wall,
+/area/medical/storage)
 "gPv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -127209,6 +127231,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
+"kOw" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/folder,
+/obj/item/pen,
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopods)
 "kZq" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -128222,6 +128254,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"smY" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "svv" = (
 /obj/machinery/door/poddoor/incinerator_toxmix,
 /turf/open/floor/engine/vacuum,
@@ -175270,7 +175312,7 @@ cRf
 cST
 cUM
 cWu
-cRe
+gPc
 cZH
 cPo
 cXI
@@ -175785,7 +175827,7 @@ cSU
 cRh
 cWw
 cSS
-cZJ
+smY
 dbt
 ddf
 deE
@@ -181161,9 +181203,9 @@ cnp
 aaV
 aaZ
 abc
-abm
+kOw
 abt
-abt
+afa
 abI
 abO
 cAw
@@ -181419,7 +181461,7 @@ coT
 clA
 abd
 abm
-abm
+gCQ
 abm
 abK
 abU
