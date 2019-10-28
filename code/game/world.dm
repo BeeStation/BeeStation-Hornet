@@ -29,6 +29,8 @@ GLOBAL_VAR(restart_counter)
 	SSdbcore.SetRoundID()
 	SetupLogs()
 
+	populate_gear_list()
+
 #ifndef USE_CUSTOM_ERROR_HANDLER
 	world.log = file("[GLOB.log_directory]/dd.log")
 #else
