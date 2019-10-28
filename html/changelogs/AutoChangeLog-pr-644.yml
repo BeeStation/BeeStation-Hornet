@@ -1,5 +1,0 @@
-author: "SomeAngryMiner"
-delete-after: True
-changes: 
-  - tweak: "Fixed some code, making sleepers able to be upgraded and made again."
-  - tweak: "made circuit text not as shitty"
