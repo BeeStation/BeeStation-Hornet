@@ -116,4 +116,4 @@
 		CRASH("Fugitive Hunters (Created from fugitive event) found no turf to load in")
 	if(!ship.load(T))
 		CRASH("Loading hunter ship failed!")
-	priority_announce("Unidentified armed ship detected near the station.")
+	priority_announce("Unidentified ship detected near the station.")
