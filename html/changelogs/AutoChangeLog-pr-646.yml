@@ -1,7 +1,0 @@
-author: "jlsnow301"
-delete-after: True
-changes: 
-  - rscadd: "1. Cryopod and cryo computer added to the cryosleeper room in medbay"
-  - rscadd: "2. Lines and decals around the existing cryopods & clone tube."
-  - tweak: "3. Scrubs MD is now turned \"on\" like every other bot in the game, as it can only be turned on by a silicon currently and denies all medbay ID's."
-  - rscadd: "4. There is now a reinforced glass pane next to the surplus prosthetics box so you do not accidentally push it all over the place."

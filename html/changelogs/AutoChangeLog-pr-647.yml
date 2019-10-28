@@ -1,9 +1,0 @@
-author: "jlsnow301"
-delete-after: True
-changes: 
-  - rscadd: "1. SM engine now has canisters instead of air scrubbers if you were wanting to create a plasma farm, like other maps"
-  - rscadd: "2. N2 at roundstart, this is the only map that doesn't have it, so engies have to beg atmos just to get N2"
-  - rscadd: "3. One extra RPD, as this has only one on the counter and atmos usually takes it."
-  - rscadd: "4. Cryosleeper w/ oversight computer added, previously a plant sat here (moved). This helps address the AFK problem as cloning always has fresh SSD's"
-  - rscadd: "5. Door fixed which previously had a wall underneath and a plant in front of it."
-  - rscadd: "6. Tables, tiling for decoration."
