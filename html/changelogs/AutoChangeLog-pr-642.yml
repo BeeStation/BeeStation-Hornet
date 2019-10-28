@@ -1,0 +1,6 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - bugfix: "Can no longer place tiles over catwalks"
+  - tweak: "catwalks now need to be welded off instead of instantly cut off."
+  - bugfix: "no more infinite iron sheets from reinforced floors"
