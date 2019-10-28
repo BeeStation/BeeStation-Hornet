@@ -56,7 +56,7 @@
 	display_name = "Biological Technology"
 	description = "What makes us tick."	//the MC, silly!
 	prereq_ids = list("base")
-	design_ids = list("chem_heater", "chem_master", "chem_dispenser", "pandemic", "defibrillator", "defibmount", "operating", "soda_dispenser", "beer_dispenser", "healthanalyzer", "medspray","genescanner")
+	design_ids = list("chem_heater", "chem_master", "chem_dispenser", "pandemic", "sleeper", "defibrillator", "defibmount", "operating", "soda_dispenser", "beer_dispenser", "healthanalyzer", "medspray","genescanner")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -118,7 +118,7 @@
 /datum/techweb_node/circuitresearch
 	id = "circuitresearch"
 	display_name = "Circuit Research"
-	description = "Circuits, woo"
+	description = "Modular circuitry adaptable to a wide range of utilities."
 	prereq_ids = list("datatheory")
 	design_ids = list("icprinter")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
@@ -127,7 +127,7 @@
 /datum/techweb_node/circuitupgrades
 	id = "circuitupgrades"
 	display_name = "Advanced Circuit Research"
-	description = "Circuits but better."
+	description = "Advanced designs that expand the possibilities of modular circuits."
 	prereq_ids = list("circuitresearch")
 	design_ids = list("icupgadv", "icupgclo")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
@@ -976,7 +976,7 @@
 	export_price = 20000
 	hidden = TRUE
 	design_ids = list("alienalloy")
-	
+
 /datum/techweb_node/alientech/on_research() //Unlocks the Zeta shuttle for purchase
 		SSshuttle.shuttle_purchase_requirements_met |= SHUTTLE_UNLOCK_ALIENTECH
 
