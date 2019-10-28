@@ -1,6 +1,0 @@
-author: "St0rmC4st3r"
-delete-after: True
-changes: 
-  - rscadd: "Added reactions for most racial mutation toxins."
-  - rscadd: "Added Liquid adamantine as well as respective solidification reaction."
-  - tweak: "Changed some of the suggested reactions to make a bit more sense than reactions suggested on the wiki."
