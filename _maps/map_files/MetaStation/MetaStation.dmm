@@ -3932,7 +3932,10 @@
 	icon_state = "sleeper";
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel/dark,
 /area/medical/sleeper)
 "ahh" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -3977,7 +3980,10 @@
 	icon_state = "sleeper";
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark,
 /area/medical/sleeper)
 "ahm" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
@@ -54537,6 +54543,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/structure/window/reinforced,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "cbP" = (
@@ -56356,24 +56363,26 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cfG" = (
-/obj/structure/closet/wardrobe/pjs,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -23
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
+/obj/machinery/cryopod{
+	icon_state = "cryopod-open";
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/sleeper)
 "cfH" = (
-/obj/structure/closet/wardrobe/pjs,
-/obj/machinery/airalarm{
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -56501,19 +56510,14 @@
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "cfN" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/blue,
 /mob/living/simple_animal/bot/cleanbot{
 	name = "Scrubs, MD";
-	on = 0
+	on = 1;
+	trash = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
@@ -58570,10 +58574,17 @@
 	dir = 8;
 	name = "emergency shower"
 	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 2
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/noslip,
 /area/medical/medbay/central)
 "cjS" = (
 /obj/item/stack/sheet/mineral/plasma,
@@ -64712,6 +64723,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
@@ -84538,6 +84552,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
+"waD" = (
+/obj/machinery/computer/cryopod,
+/turf/closed/wall,
+/area/medical/sleeper)
 "wdq" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -105984,7 +106002,7 @@ dux
 bZV
 cbG
 cdn
-cev
+waD
 cfH
 cgQ
 cif
