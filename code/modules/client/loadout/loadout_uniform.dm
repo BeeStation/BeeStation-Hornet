@@ -6,6 +6,7 @@
 
 /datum/gear/uniform/skirt
 	subtype_path = /datum/gear/uniform/skirt
+	cost = 1600
 
 /datum/gear/uniform/skirt/blue
 	display_name = "skirt, blue"
