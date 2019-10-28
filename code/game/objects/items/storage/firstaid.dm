@@ -258,6 +258,14 @@
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/charcoal(src)
 
+/obj/item/storage/pill_bottle/antirad
+	name = "bottle of anti-radiation pills"
+	desc = "Contains pills used to treat the effects of minor radiation."
+
+/obj/item/storage/pill_bottle/antirad/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/pill/antirad(src)
+
 /obj/item/storage/pill_bottle/epinephrine
 	name = "bottle of epinephrine pills"
 	desc = "Contains pills used to stabilize patients."

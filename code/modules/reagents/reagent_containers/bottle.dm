@@ -40,6 +40,8 @@
 		add_overlay(filling)
 
 
+	. = ..()
+
 /obj/item/reagent_containers/glass/bottle/epinephrine
 	name = "epinephrine bottle"
 	desc = "A small bottle. Contains epinephrine - used to stabilize patients."

@@ -750,6 +750,24 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_circuit_app
+	name = "Cyborg Upgrade (Circuit Manipulator)"
+	id = "borg_upgrade_circuitapp"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/circuit_app
+	materials = list(/datum/material/iron = 2000, /datum/material/titanium = 500)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_beaker_app
+	name = "Cyborg Upgrade (Beaker Storage)"
+	id = "borg_upgrade_beakerapp"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/beaker_app
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2250) //Need glass for the new beaker too
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")	
+	
 /datum/design/borg_upgrade_pinpointer
 	name = "Cyborg Upgrade (Crew pinpointer)"
 	id = "borg_upgrade_pinpointer"
@@ -787,3 +805,59 @@
 	construction_time = 100
 	build_path = /obj/item/assembly/flash/handheld
 	category = list("Misc")
+
+// IPC Replacement Parts
+
+/datum/design/robotic_liver
+	name = "Substance Processor"
+	id = "robotic_liver"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/liver/cybernetic/upgraded/ipc
+	materials = list(MAT_IRON=2000, MAT_GLASS=1000)
+	construction_time = 100
+	category = list("IPC Components")
+
+/datum/design/robotic_eyes
+	name = "Basic Robotic Eyes"
+	id = "robotic_eyes"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/eyes/robotic
+	materials = list(MAT_IRON=1000, MAT_GLASS=2000)
+	construction_time = 100
+	category = list("IPC Components")
+
+/datum/design/robotic_tongue
+	name = "Robotic Voicebox"
+	id = "robotic_tongue"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/tongue/robot
+	materials = list(MAT_IRON=2000, MAT_GLASS=1000)
+	construction_time = 100
+	category = list("IPC Components")
+
+/datum/design/robotic_stomach
+	name = "Micro-cell"
+	id = "robotic_stomach"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/stomach/cell
+	materials = list(MAT_IRON=2000, MAT_GLASS=2000, MAT_PLASMA=200)
+	construction_time = 100
+	category = list("IPC Components")
+
+/datum/design/robotic_ears
+	name = "Auditory Sensors"
+	id = "robotic_ears"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/ears/robot
+	materials = list(MAT_IRON=2000, MAT_GLASS=1000)
+	construction_time = 100
+	category = list("IPC Components")
+
+/datum/design/power_cord
+	name = "Recharging Electronics"
+	id = "power_cord"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/cyberimp/arm/power_cord
+	materials = list(MAT_IRON=2000, MAT_GLASS=1000)
+	construction_time = 100
+	category = list("IPC Components") 
