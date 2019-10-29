@@ -5,6 +5,7 @@
 
 /obj/structure/closet/secure_closet/engineering_chief/PopulateContents()
 	..()
+	new /obj/item/clothing/head/beret/ce(src)
 	new /obj/item/clothing/neck/cloak/ce(src)
 	new /obj/item/clothing/under/rank/chief_engineer(src)
 	new /obj/item/clothing/head/hardhat/white(src)
@@ -69,6 +70,7 @@
 
 /obj/structure/closet/secure_closet/engineering_personal/PopulateContents()
 	..()
+	new /obj/item/clothing/head/beret/eng(src)
 	new /obj/item/radio/headset/headset_eng(src)
 	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
@@ -85,7 +87,7 @@
 
 /obj/structure/closet/secure_closet/atmospherics/PopulateContents()
 	..()
-	new /obj/item/radio/headset/headset_eng(src)
+	new /obj/item/device/radio/headset/headset_eng(src)
 	new /obj/item/pipe_dispenser(src)
 	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
