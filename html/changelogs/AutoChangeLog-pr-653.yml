@@ -1,5 +1,0 @@
-author: "ike709"
-delete-after: True
-changes: 
-  - tweak: "Loadout tab has been renamed to BeeCoin Shop."
-  - bugfix: "OOC Prefs tab works again."
