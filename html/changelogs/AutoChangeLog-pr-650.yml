@@ -1,5 +1,0 @@
-author: "ike709"
-delete-after: True
-changes: 
-  - rscadd: "Several new items have been added to the beecoin shop's Accessories category."
-  - tweak: "Multiple loadout items from the same category can be equipped if they use different slots."
