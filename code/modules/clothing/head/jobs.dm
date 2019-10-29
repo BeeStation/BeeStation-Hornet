@@ -335,16 +335,17 @@
 	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80)
 	strip_delay = 120
 
-/obj/item/clothing/head/beret/blueshield
+//For blueshields, but those aren't in so I renamed them to centcomm guards
+/obj/item/clothing/head/beret/ccguard
 	name = "officer beret"
-	desc = "A black Blueshield beret."
+	desc = "A black Centcom guard's beret."
 	icon_state = "beret_centcom_officer"
 	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30)
 	strip_delay = 60
 
-/obj/item/clothing/head/beret/blueshieldnavy
+/obj/item/clothing/head/beret/ccguardnavy
 	name = "navy officer beret"
-	desc = "A navy Blueshield beret."
+	desc = "A navy Centcomm guard's beret."
 	icon_state = "beret_centcom_officer_navy"
 	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30)
 	strip_delay = 60
@@ -355,3 +356,8 @@
 	icon_state = "beret_captain"
 	armor = list(melee = 50, bullet = 30, laser = 20, energy = 10, bomb = 15, bio = 10, rad = 10, fire = 10, acid = 60)
 	strip_delay = 90
+
+#undef DRILL_DEFAULT
+#undef DRILL_SHOUTINIG
+#undef DRILL_YELLING
+#undef DRILL_CANADIAN
