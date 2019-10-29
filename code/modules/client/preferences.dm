@@ -1180,14 +1180,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				equipped_gear -= TG.display_name
 			else
 				var/list/type_blacklist = list()
+				var/list/slot_blacklist = list()
 				for(var/gear_name in equipped_gear)
 					var/datum/gear/G = GLOB.gear_datums[gear_name]
 					if(istype(G))
-						if(G.subtype_path in type_blacklist)
-							continue
-						type_blacklist += G.subtype_path
+						if(!(G.subtype_path in type_blacklist))
+							type_blacklist += G.subtype_path
+						if(!(G.slot in slot_blacklist))
+							slot_blacklist += G.slot
 				if((TG.display_name in purchased_gear))
-					if(!(TG.subtype_path in type_blacklist))
+					if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
 						equipped_gear += TG.display_name
 					else
 						to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. It conflicts with an already-equipped item.</span>")
@@ -1199,6 +1201,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			gear_tab = href_list["select_category"]
 		else if(href_list["clear_loadout"])
 			equipped_gear.Cut()
+			save_preferences()
 
 		ShowChoices(user)
 		return
