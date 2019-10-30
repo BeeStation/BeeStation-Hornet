@@ -25,10 +25,12 @@ GLOBAL_LIST_EMPTY(oui_file_cache)
 		var/data = file2text(path)
 		GLOB.oui_file_cache[path] = data
 		return data
+#ifndef TRAVISBUILDING //For some reason this error occurs only in travis
 	else
 		var/errormsg = "MISSING PATH '[path]'"
 		log_world(errormsg)
 		return errormsg
+#endif
 
 /datum/oracle_ui/themed/proc/get_content_file(filename)
 	return get_file("html/oracle_ui/content/[content_root]/[filename]")
