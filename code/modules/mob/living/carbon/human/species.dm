@@ -1131,6 +1131,15 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 // MOVE SPEED //
 ////////////////
 
+
+/// MOVESPEED HEALTH DEFICIENCY DELAY FACTORS ///
+//  YOU PROBABLY SHOULDN'T TOUCH THESE UNLESS YOU GRAPH EM OUT
+#define HEALTH_DEF_MOVESPEED_DAMAGE_MIN 30
+#define HEALTH_DEF_MOVESPEED_DELAY_MAX 15
+#define HEALTH_DEF_MOVESPEED_DIV 350
+#define HEALTH_DEF_MOVESPEED_FLIGHT_DIV 1050
+#define HEALTH_DEF_MOVESPEED_POW 1.6
+
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
 	var/flight = 0	//Check for flight and flying items
@@ -1152,11 +1161,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				. += I.slowdown
 		if(!HAS_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN))
 			var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
-			if(health_deficiency >= 40)
+			if(health_deficiency >= HEALTH_DEF_MOVESPEED_DAMAGE_MIN)
 				if(flight)
-					. += (health_deficiency / 75)
+					. += min(((health_deficiency) ** HEALTH_DEF_MOVESPEED_POW) / HEALTH_DEF_MOVESPEED_FLIGHT_DIV, HEALTH_DEF_MOVESPEED_DELAY_MAX)
 				else
-					. += (health_deficiency / 25)
+					. += min(((health_deficiency) ** HEALTH_DEF_MOVESPEED_POW) / HEALTH_DEF_MOVESPEED_DIV, HEALTH_DEF_MOVESPEED_DELAY_MAX)
 		if(CONFIG_GET(flag/disable_human_mood))
 			if(!HAS_TRAIT(H, TRAIT_NOHUNGER))
 				var/hungry = (500 - H.nutrition) / 5 //So overeat would be 100 and default level would be 80
@@ -1177,6 +1186,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !HAS_TRAIT(H, TRAIT_RESISTCOLD))
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 	return .
+
+
+#undef HEALTH_DEF_MOVESPEED_DAMAGE_MIN
+#undef HEALTH_DEF_MOVESPEED_DELAY_MAX
+#undef HEALTH_DEF_MOVESPEED_DIV
+#undef HEALTH_DEF_MOVESPEED_FLIGHT_DIV
+#undef HEALTH_DEF_MOVESPEED_POW
 
 //////////////////
 // ATTACK PROCS //
@@ -1217,12 +1233,22 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
-		return 0
+		return FALSE
 	if(attacker_style && attacker_style.grab_act(user,target))
-		return 1
+		return TRUE
 	else
+		//Steal them shoes
+		if(!(target.mobility_flags & MOBILITY_STAND) && (user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG) && user.a_intent == INTENT_GRAB && target.shoes)
+			user.visible_message("<span class='warning'>[user] starts stealing [target]'s shoes!</span>",
+								"<span class='warning'>You start stealing [target]'s shoes!</span>")
+			var/obj/item/I = target.shoes
+			if(do_after(user, I.strip_delay, TRUE, target, TRUE))
+				target.dropItemToGround(I, TRUE)
+				user.put_in_hands(I)
+				user.visible_message("<span class='warning'>[user] stole your [I]!</span>",
+									"<span class='warning'>You steal [target]'s [I]!</span>")
 		target.grabbedby(user)
-		return 1
+		return TRUE
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))

@@ -132,11 +132,11 @@
 	if(bd)
 		current_arena_template = arena_template
 	loading = FALSE
-	
+
 	message_admins("[key_name_admin(user)] loaded [arena_template] event arena for [arena_id] arena.")
 	log_admin("[key_name(user)] loaded [arena_template] event arena for [arena_id] arena.")
 
-	
+
 
 /obj/machinery/computer/arena/proc/add_new_arena_template(user,fname,friendly_name)
 	if(!fname)
@@ -152,8 +152,11 @@
 		return
 
 	arena_templates[T.name] = T
-	message_admins("[key_name_admin(user)] uploaded new event arena: [friendly_name].")
-	log_admin("[key_name(user)] uploaded new event arena: [friendly_name].")
+	if(user)
+		message_admins("[key_name_admin(user)] uploaded new event arena: [friendly_name].")
+		log_admin("[key_name(user)] uploaded new event arena: [friendly_name].")
+	else
+		log_mapping("Loaded default arena: [friendly_name].")
 
 /obj/machinery/computer/arena/proc/load_team(user,team)
 	var/rawteam = stripped_multiline_input(user,"Enter team list (ckeys separated by newline)")
@@ -193,7 +196,7 @@
 	M.equipOutfit(outfits[team] ? outfits[team] : default_outfit)
 	M.faction += team //In case anyone wants to add team based stuff to arena special effects
 	M.key = ckey
-	
+
 	var/datum/atom_hud/antag/team_hud = team_huds[team]
 	team_hud.join_hud(M)
 	set_antag_hud(M,"arena",team_hud_index[team])
@@ -379,7 +382,7 @@
 	/// Team ID
 	var/team = "default"
 	/// only exist to cut down on glob.machines lookups, do not modify
-	var/obj/machinery/computer/arena/_controller 
+	var/obj/machinery/computer/arena/_controller
 
 /obj/machinery/arena_spawn/red
 	name = "Red Team Spawnpoint"
