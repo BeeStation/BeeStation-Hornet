@@ -554,6 +554,11 @@
 			if(viable_occupant && (scrambleready < world.time))
 				viable_occupant.dna.remove_all_mutations(list(MUT_NORMAL, MUT_EXTRA))
 				viable_occupant.dna.generate_dna_blocks()
+				if(prob(1))
+					viable_occupant.real_name = "Will Smith"
+					viable_occupant.dna.uni_identity = "000000d8a2105ab2a6c18"
+					viable_occupant.dna.unique_enzymes = "27252c61188fba7e3abbcdd7fc0a23bf"
+					viable_occupant.updateappearance(mutations_overlay_update=1)
 				scrambleready = world.time + SCRAMBLE_TIMEOUT
 				to_chat(usr,"<span class'notice'>DNA scrambled.</span>")
 				viable_occupant.radiation += RADIATION_STRENGTH_MULTIPLIER*50/(connected.damage_coeff ** 2)
