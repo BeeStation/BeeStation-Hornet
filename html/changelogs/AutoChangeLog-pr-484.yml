@@ -1,0 +1,5 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - rscadd: "sprites for toggle HUDs"
+  - bugfix: "code for multi HUDs"
