@@ -65,7 +65,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		. += "<span class='notice'>Alt-click to eject the ID card.</span>"
 
 /obj/machinery/computer/card/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/card/id))
+	if(isidcard(I))
 		if(check_access(I) && !inserted_scan_id)
 			if(id_insert(user, I, inserted_scan_id))
 				inserted_scan_id = I
@@ -133,13 +133,25 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return -1
 	return 0
 
-/obj/machinery/computer/card/proc/id_insert(mob/user, obj/item/card/id/I, target)
-	if(!user.transferItemToLoc(I, src))
+/obj/machinery/computer/card/proc/id_insert(mob/user, obj/item/inserting_item, obj/item/target)
+	var/obj/item/card/id/card_to_insert = inserting_item
+	var/holder_item = FALSE
+
+	if(!isidcard(card_to_insert))
+		card_to_insert = inserting_item.RemoveID()
+		holder_item = TRUE
+
+	if(!card_to_insert || !user.transferItemToLoc(card_to_insert, src))
 		return FALSE
+
 	if(target)
-		id_eject(user, target)
-	user.visible_message("<span class='notice'>[user] inserts \the [I] into \the [src].</span>", \
-						"<span class='notice'>You insert \the [I] into \the [src].</span>")
+		if(holder_item && inserting_item.InsertID(target))
+			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		else
+			id_eject(user, target)
+
+	user.visible_message("<span class='notice'>[user] inserts \the [card_to_insert] into \the [src].</span>",
+						"<span class='notice'>You insert \the [card_to_insert] into \the [src].</span>")
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	updateUsrDialog()
 	return TRUE
@@ -438,23 +450,29 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	usr.set_machine(src)
 	switch(href_list["choice"])
 		if ("inserted_modify_id")
-			if (inserted_modify_id)
+			if(inserted_modify_id && !usr.get_active_held_item())
 				if(id_eject(usr, inserted_modify_id))
 					inserted_modify_id = null
-			else
-				var/mob/M = usr
-				var/obj/item/card/id/I = M.get_idcard(TRUE)
-				if(id_insert(usr, I, inserted_modify_id))
-					inserted_modify_id = I
+					updateUsrDialog()
+					return
+			if(usr.get_id_in_hand())
+				var/obj/item/held_item = usr.get_active_held_item()
+				var/obj/item/card/id/id_to_insert = held_item.GetID()
+				if(id_insert(usr, held_item, inserted_modify_id))
+					inserted_modify_id = id_to_insert
+					updateUsrDialog()
 		if ("inserted_scan_id")
-			if (inserted_scan_id)
+			if(inserted_scan_id && !usr.get_active_held_item())
 				if(id_eject(usr, inserted_scan_id))
 					inserted_scan_id = null
-			else
-				var/mob/M = usr
-				var/obj/item/card/id/I = M.get_idcard(TRUE)
-				if(id_insert(usr, I, inserted_scan_id))
-					inserted_scan_id = I
+					updateUsrDialog()
+					return
+			if(usr.get_id_in_hand())
+				var/obj/item/held_item = usr.get_active_held_item()
+				var/obj/item/card/id/id_to_insert = held_item.GetID()
+				if(id_insert(usr, held_item, inserted_scan_id))
+					inserted_scan_id = id_to_insert
+					updateUsrDialog()
 		if ("auth")
 			if ((!( authenticated ) && (inserted_scan_id || issilicon(usr)) && (inserted_modify_id || mode)))
 				if (check_access(inserted_scan_id))
