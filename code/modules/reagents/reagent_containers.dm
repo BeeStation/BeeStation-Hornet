@@ -21,7 +21,7 @@
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease()
 		var/list/data = list("viruses"= list(F))
-		reagents.add_reagent("blood", disease_amount, data)
+		reagents.add_reagent(/datum/reagent/blood, disease_amount, data)
 
 	add_initial_reagents()
 
@@ -59,6 +59,12 @@
 		var/who = (isnull(user) || eater == user) ? "your" : "[eater.p_their()]"
 		to_chat(user, "<span class='warning'>You have to remove [who] [covered] first!</span>")
 		return 0
+	if(!eater.has_mouth())
+		if(eater == user)
+			to_chat(eater, "<span class='warning'>You have no mouth, and cannot eat.</span>")
+		else
+			to_chat(user, "<span class='warning'>You can't feed [eater], because they have no mouth!</span>")
+		return 0
 	return 1
 
 /obj/item/reagent_containers/ex_act()
@@ -78,7 +84,7 @@
 
 /obj/item/reagent_containers/proc/bartender_check(atom/target)
 	. = FALSE
-	if(target.CanPass(src, get_turf(src)) && thrownby && thrownby.has_trait(TRAIT_BOOZE_SLIDER))
+	if(target.CanPass(src, get_turf(src)) && thrownby && HAS_TRAIT(thrownby, TRAIT_BOOZE_SLIDER))
 		. = TRUE
 
 /obj/item/reagent_containers/proc/SplashReagents(atom/target, thrown = FALSE)
@@ -93,8 +99,7 @@
 		target.visible_message("<span class='danger'>[M] has been splashed with something!</span>", \
 						"<span class='userdanger'>[M] has been splashed with something!</span>")
 		for(var/datum/reagent/A in reagents.reagent_list)
-			R += A.id + " ("
-			R += num2text(A.volume) + "),"
+			R += "[A.type]  ([num2text(A.volume)]),"
 
 		if(thrownby)
 			log_combat(thrownby, M, "splashed", R)

@@ -24,7 +24,7 @@
 	pass_flags = LETPASSTHROW //You can throw objects over this, despite it's density.")
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
-	var/buildstack = /obj/item/stack/sheet/metal
+	var/buildstack = /obj/item/stack/sheet/iron
 	var/busy = FALSE
 	var/buildstackamount = 1
 	var/framestackamount = 2
@@ -114,6 +114,9 @@
 	log_combat(user, pushed_mob, "places", null, "onto [src]")
 
 /obj/structure/table/proc/tablepush(mob/living/user, mob/living/pushed_mob)
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='danger'>Throwing [pushed_mob] onto the table might hurt them!</span>")
+		return
 	var/added_passtable = FALSE
 	if(!pushed_mob.pass_flags & PASSTABLE)
 		added_passtable = TRUE
@@ -124,8 +127,8 @@
 	if(pushed_mob.loc != loc) //Something prevented the tabling
 		return
 	pushed_mob.Paralyze(40)
-	pushed_mob.visible_message("<span class='danger'>[user] pushes [pushed_mob] onto [src].</span>", \
-								"<span class='userdanger'>[user] pushes [pushed_mob] onto [src].</span>")
+	pushed_mob.visible_message("<span class='danger'>[user] slams [pushed_mob] onto [src]!</span>", \
+								"<span class='userdanger'>[user] slams you onto [src]!</span>")
 	log_combat(user, pushed_mob, "tabled", null, "onto [src]")
 	if(!ishuman(pushed_mob))
 		return
@@ -297,7 +300,16 @@
 	frame = /obj/structure/table_frame
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
-	canSmoothWith = list(/obj/structure/table/wood/fancy, /obj/structure/table/wood/fancy/black)
+	canSmoothWith = list(/obj/structure/table/wood/fancy,
+		/obj/structure/table/wood/fancy/black,
+		/obj/structure/table/wood/fancy/blue,
+		/obj/structure/table/wood/fancy/cyan,
+		/obj/structure/table/wood/fancy/green,
+		/obj/structure/table/wood/fancy/orange,
+		/obj/structure/table/wood/fancy/purple,
+		/obj/structure/table/wood/fancy/red,
+		/obj/structure/table/wood/fancy/royalblack,
+		/obj/structure/table/wood/fancy/royalblue)
 	var/smooth_icon = 'icons/obj/smooth_structures/fancy_table.dmi' // see Initialize()
 
 /obj/structure/table/wood/fancy/Initialize()
@@ -313,6 +325,46 @@
 	buildstack = /obj/item/stack/tile/carpet/black
 	smooth_icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
 
+/obj/structure/table/wood/fancy/blue
+	icon_state = "fancy_table_blue"
+	buildstack = /obj/item/stack/tile/carpet/blue
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
+
+/obj/structure/table/wood/fancy/cyan
+	icon_state = "fancy_table_cyan"
+	buildstack = /obj/item/stack/tile/carpet/cyan
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
+
+/obj/structure/table/wood/fancy/green
+	icon_state = "fancy_table_green"
+	buildstack = /obj/item/stack/tile/carpet/green
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
+
+/obj/structure/table/wood/fancy/orange
+	icon_state = "fancy_table_orange"
+	buildstack = /obj/item/stack/tile/carpet/orange
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
+
+/obj/structure/table/wood/fancy/purple
+	icon_state = "fancy_table_purple"
+	buildstack = /obj/item/stack/tile/carpet/purple
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
+
+/obj/structure/table/wood/fancy/red
+	icon_state = "fancy_table_red"
+	buildstack = /obj/item/stack/tile/carpet/red
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
+
+/obj/structure/table/wood/fancy/royalblack
+	icon_state = "fancy_table_royalblack"
+	buildstack = /obj/item/stack/tile/carpet/royalblack
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
+
+/obj/structure/table/wood/fancy/royalblue
+	icon_state = "fancy_table_royalblue"
+	buildstack = /obj/item/stack/tile/carpet/royalblue
+	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
+	
 /*
  * Reinforced tables
  */
@@ -539,12 +591,12 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "rack_parts"
 	flags_1 = CONDUCT_1
-	materials = list(MAT_METAL=2000)
+	materials = list(/datum/material/iron=2000)
 	var/building = FALSE
 
 /obj/item/rack_parts/attackby(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_WRENCH)
-		new /obj/item/stack/sheet/metal(user.loc)
+		new /obj/item/stack/sheet/iron(user.loc)
 		qdel(src)
 	else
 		. = ..()

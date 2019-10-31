@@ -537,7 +537,7 @@ generate/load female uniform sprites matching all previously decided variables
 	//Get the overlays for this item when it's being worn
 	//eg: ammo counters, primed grenade flashes, etc.
 	var/list/worn_overlays = worn_overlays(isinhands, file2use)
-	if(worn_overlays && worn_overlays.len)
+	if(worn_overlays?.len)
 		standing.overlays.Add(worn_overlays)
 
 	standing = center_image(standing, isinhands ? inhand_x_dimension : worn_x_dimension, isinhands ? inhand_y_dimension : worn_y_dimension)
@@ -603,7 +603,7 @@ generate/load female uniform sprites matching all previously decided variables
 		if(BP.dmg_overlay_type)
 			. += "-[BP.dmg_overlay_type]"
 
-	if(has_trait(TRAIT_HUSK))
+	if(HAS_TRAIT(src, TRAIT_HUSK))
 		. += "-husk"
 
 /mob/living/carbon/human/load_limb_from_cache()
@@ -645,7 +645,7 @@ generate/load female uniform sprites matching all previously decided variables
 	add_overlay(HD.get_limb_icon())
 	update_damage_overlays()
 
-	if(HD && !(has_trait(TRAIT_HUSK)))
+	if(HD && !(HAS_TRAIT(src, TRAIT_HUSK)))
 		// lipstick
 		if(lip_style && (LIPS in dna.species.species_traits))
 			var/mutable_appearance/lip_overlay = mutable_appearance('icons/mob/human_face.dmi', "lips_[lip_style]", -BODY_LAYER)
@@ -656,7 +656,7 @@ generate/load female uniform sprites matching all previously decided variables
 			add_overlay(lip_overlay)
 
 		// eyes
-		if(!(NOEYES in dna.species.species_traits))
+		if(!(NOEYESPRITES in dna.species.species_traits))
 			var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 			var/mutable_appearance/eye_overlay
 			if(!E)

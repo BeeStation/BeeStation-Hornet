@@ -11,7 +11,7 @@
 	throwforce = 10
 	throw_speed = 1
 	throw_range = 4
-	materials = list(MAT_METAL = 500)
+	materials = list(/datum/material/iron = 500)
 	actions_types = list(/datum/action/item_action/set_internals)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 30)
 	var/datum/gas_mixture/air_contents = null
@@ -112,9 +112,6 @@
 
 		qdel(src)
 
-/obj/item/tank/analyzer_act(mob/living/user, obj/item/I)
-	atmosanalyzer_scan(air_contents, user, src)
-
 /obj/item/tank/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		var/turf/T = get_turf(src)
@@ -133,7 +130,7 @@
 			H.dropItemToGround(W)
 			if(prob(50))
 				step(W, pick(GLOB.alldirs))
-		H.add_trait(TRAIT_DISFIGURED, TRAIT_GENERIC)
+		ADD_TRAIT(H, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		H.bleed_rate = 5
 		H.gib_animation()
 		sleep(3)
@@ -206,6 +203,9 @@
 	return air_contents.remove(amount)
 
 /obj/item/tank/return_air()
+	return air_contents
+
+/obj/item/tank/return_analyzable_air()
 	return air_contents
 
 /obj/item/tank/assume_air(datum/gas_mixture/giver)

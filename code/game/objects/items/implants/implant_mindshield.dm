@@ -19,7 +19,7 @@
 /obj/item/implant/mindshield/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
 	if(..())
 		if(!target.mind)
-			target.add_trait(TRAIT_MINDSHIELD, "implant")
+			ADD_TRAIT(target, TRAIT_MINDSHIELD, "implant")
 			target.sec_hud_set_implants()
 			return TRUE
 
@@ -31,7 +31,7 @@
 			var/datum/mind/M = host.owner
 			if(M)
 				var/obj/effect/proc_holder/spell/target_hive/hive_control/the_spell = locate(/obj/effect/proc_holder/spell/target_hive/hive_control) in M.spell_list
-				if(the_spell && the_spell.active)
+				if(the_spell?.active)
 					the_spell.release_control()
 
 		if(target.mind.has_antag_datum(/datum/antagonist/rev/head) || target.mind.has_antag_datum(/datum/antagonist/hivemind) || target.mind.unconvertable)
@@ -68,7 +68,7 @@
 				to_chat(target, "<span class='warning'>You feel something interfering with your mental conditioning, but you resist it!</span>")
 			else
 				to_chat(target, "<span class='notice'>You feel a sense of peace and security. You are now protected from brainwashing.</span>")
-		target.add_trait(TRAIT_MINDSHIELD, "implant")
+		ADD_TRAIT(target, TRAIT_MINDSHIELD, "implant")
 		target.sec_hud_set_implants()
 		return TRUE
 	return FALSE
@@ -77,7 +77,7 @@
 	if(..())
 		if(isliving(target))
 			var/mob/living/L = target
-			L.remove_trait(TRAIT_MINDSHIELD, "implant")
+			REMOVE_TRAIT(L, TRAIT_MINDSHIELD, "implant")
 			L.sec_hud_set_implants()
 		if(target.stat != DEAD && !silent)
 			to_chat(target, "<span class='boldnotice'>Your mind suddenly feels terribly vulnerable. You are no longer safe from brainwashing.</span>")

@@ -35,7 +35,7 @@
 /mob/living/carbon/proc/unset_sting()
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling && changeling.chosen_sting)
+		if(changeling?.chosen_sting)
 			changeling.chosen_sting.unset_sting(src)
 
 /datum/action/changeling/sting/can_sting(mob/user, mob/target)
@@ -91,7 +91,7 @@
 /datum/action/changeling/sting/transformation/can_sting(mob/user, mob/living/carbon/target)
 	if(!..())
 		return
-	if((target.has_trait(TRAIT_HUSK)) || !iscarbon(target) || (NOTRANSSTING in target.dna.species.species_traits))
+	if((HAS_TRAIT(target, TRAIT_HUSK)) || !iscarbon(target) || (NOTRANSSTING in target.dna.species.species_traits))
 		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
 		return 0
 	return 1
@@ -131,7 +131,7 @@
 		return
 	if(isliving(target))
 		var/mob/living/L = target
-		if((L.has_trait(TRAIT_HUSK)) || !L.has_dna())
+		if((HAS_TRAIT(L, TRAIT_HUSK)) || !L.has_dna())
 			to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
 			return 0
 	return 1
@@ -247,5 +247,5 @@
 /datum/action/changeling/sting/cryo/sting_action(mob/user, mob/target)
 	log_combat(user, target, "stung", "cryo sting")
 	if(target.reagents)
-		target.reagents.add_reagent("frostoil", 30)
+		target.reagents.add_reagent(/datum/reagent/consumable/frostoil, 30)
 	return TRUE

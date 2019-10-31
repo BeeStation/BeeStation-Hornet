@@ -53,7 +53,7 @@
 		return
 
 	var/obj/item/reagent_containers/glass/bucket/bucket = H.get_item_for_held_index(1)
-	bucket.reagents.add_reagent("water",70)
+	bucket.reagents.add_reagent(/datum/reagent/water,70)
 
 /datum/outfit/laser_tag
 	name = "Laser Tag Red"
@@ -131,6 +131,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.access = get_all_accesses()
+	W.icon_state = "clown_op"
 	W.assignment = "Tunnel Clown!"
 	W.registered_name = H.real_name
 	W.update_label(H.real_name)
@@ -228,8 +229,8 @@
 	W.registered_name = H.real_name
 	W.update_label()
 
-/datum/outfit/spec_ops
-	name = "Special Ops Officer"
+/datum/outfit/admiral
+	name = "Admiral"
 
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/officer
@@ -244,15 +245,15 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id
 
-/datum/outfit/spec_ops/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admiral/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access("Special Ops Officer")
-	W.assignment = "Special Ops Officer"
+	W.access += get_centcom_access("Admiral")
+	W.assignment = "Admiral"
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -369,7 +370,7 @@
 /datum/outfit/death_commando
 	name = "Death Commando"
 
-	uniform = /obj/item/clothing/under/color/green
+	uniform = /obj/item/clothing/under/rank/centcom_commander
 	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
@@ -424,9 +425,18 @@
 	mask = /obj/item/clothing/mask/breath
 	suit_store = /obj/item/tank/internals/oxygen
 
+/datum/outfit/joker
+	name = "Joker"
+	uniform = /obj/item/clothing/under/joker
+	suit = /obj/item/clothing/suit/joker
+	shoes = /obj/item/clothing/shoes/laceup
+	gloves = /obj/item/clothing/gloves/color/white
+	id = /obj/item/card/id/job/clown
+	ears = /obj/item/radio/headset/headset_srv
+
 /datum/outfit/debug //Debug objs plus hardsuit
 	name = "Debug outfit"
-	uniform = /obj/item/clothing/under/patriotsuit 
+	uniform = /obj/item/clothing/under/patriotsuit
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	suit_store = /obj/item/tank/internals/oxygen

@@ -14,7 +14,7 @@
 
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
 	var/slicing_duration = 100  //default time taken to slice the wall
-	var/sheet_type = /obj/item/stack/sheet/metal
+	var/sheet_type = /obj/item/stack/sheet/iron
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 
@@ -75,7 +75,7 @@
 /turf/closed/wall/proc/devastate_wall()
 	new sheet_type(src, sheet_amount)
 	if(girder_type)
-		new /obj/item/stack/sheet/metal(src)
+		new /obj/item/stack/sheet/iron(src)
 
 /turf/closed/wall/ex_act(severity, target)
 	if(target == src)
@@ -110,7 +110,8 @@
 	switch(M.damtype)
 		if(BRUTE)
 			playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
-			visible_message("<span class='danger'>[M.name] has hit [src]!</span>", null, null, COMBAT_MESSAGE_RANGE)
+			M.visible_message("<span class='danger'>[M.name] hits [src]!</span>", \
+							"<span class='danger'>You hit [src]!</span>", null, COMBAT_MESSAGE_RANGE)
 			if(prob(hardness + M.force) && M.force > 20)
 				dismantle_wall(1)
 				playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
@@ -144,7 +145,10 @@
 	else
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
 		add_dent(WALL_DENT_HIT)
-		to_chat(user, text("<span class='notice'>You punch the wall.</span>"))
+		user.visible_message("<span class='danger'>[user] smashes \the [src]!</span>", \
+					"<span class='danger'>You smash \the [src]!</span>", \
+					"<span class='italics'>You hear a booming smash!</span>")
+
 	return TRUE
 
 /turf/closed/wall/attack_hand(mob/user)
@@ -205,8 +209,12 @@
 	else if(istype(W, /obj/item/poster))
 		place_poster(W,user)
 		return TRUE
-
+	else if(istype(W, /obj/item/electronic_assembly/wallmount)) // circuit wallmount
+		var/obj/item/electronic_assembly/wallmount/A = W
+		A.mount_assembly(src, user)
+		return TRUE
 	return FALSE
+
 
 /turf/closed/wall/proc/try_decon(obj/item/I, mob/user, turf/T)
 	if(I.tool_behaviour == TOOL_WELDER)
@@ -230,12 +238,17 @@
 		if(user.loc == T)
 			I.play_tool_sound(src)
 			dismantle_wall()
-			visible_message("<span class='warning'>[user] smashes through [src] with [I]!</span>", "<span class='italics'>You hear the grinding of metal.</span>")
+			user.visible_message("<span class='warning'>[user] smashes through [src] with [I]!</span>", \
+								"<span class='warning'>You smash through [src] with [I]!</span>", \
+								"<span class='italics'>You hear the grinding of metal.</span>")
 			return TRUE
 	return FALSE
 
 /turf/closed/wall/singularity_pull(S, current_size)
 	..()
+	wall_singularity_pull(current_size)
+
+/turf/closed/wall/proc/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
 		if(prob(50))
 			dismantle_wall()

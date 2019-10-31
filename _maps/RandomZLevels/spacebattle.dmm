@@ -511,7 +511,7 @@
 	},
 /area/awaymission/spacebattle/cruiser)
 "cx" = (
-/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/iron,
 /obj/item/ammo_casing/c10mm,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
@@ -613,7 +613,7 @@
 	},
 /area/awaymission/spacebattle/cruiser)
 "cQ" = (
-/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/iron,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "cS" = (
@@ -1520,7 +1520,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "fL" = (
-/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/iron,
 /turf/open/floor/plasteel{
 	icon_state = "damaged1"
 	},
@@ -2095,7 +2095,7 @@
 /turf/open/floor/wood,
 /area/awaymission/spacebattle/cruiser)
 "hF" = (
-/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/iron,
 /turf/open/floor/plasteel{
 	icon_state = "damaged3"
 	},
@@ -2146,7 +2146,7 @@
 /turf/open/floor/engine,
 /area/awaymission/spacebattle/cruiser)
 "hQ" = (
-/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/iron,
 /turf/open/floor/plasteel{
 	icon_state = "damaged4"
 	},
@@ -2255,10 +2255,6 @@
 /obj/machinery/sleeper,
 /turf/open/floor/plasteel/white,
 /area/awaymission/spacebattle/cruiser)
-"im" = (
-/obj/machinery/sleep_console,
-/turf/open/floor/plasteel/white,
-/area/awaymission/spacebattle/cruiser)
 "io" = (
 /obj/structure/sink{
 	dir = 4;
@@ -2268,12 +2264,6 @@
 /area/awaymission/spacebattle/cruiser)
 "ip" = (
 /obj/machinery/sleeper,
-/turf/open/floor/plasteel/white/side{
-	dir = 1
-	},
-/area/awaymission/spacebattle/cruiser)
-"iq" = (
-/obj/machinery/sleep_console,
 /turf/open/floor/plasteel/white/side{
 	dir = 1
 	},
@@ -2633,7 +2623,7 @@
 /obj/item/ammo_casing/shotgun,
 /obj/item/ammo_casing/c10mm,
 /obj/item/ammo_casing/c10mm,
-/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/iron,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -2653,14 +2643,14 @@
 /turf/open/floor/engine,
 /area/awaymission/spacebattle/cruiser)
 "jR" = (
-/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/iron,
 /turf/open/floor/wood,
 /area/awaymission/spacebattle/cruiser)
 "jS" = (
 /turf/open/floor/plasteel/airless,
 /area/awaymission/spacebattle/cruiser)
 "jT" = (
-/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/iron,
 /turf/open/floor/plasteel/airless,
 /area/awaymission/spacebattle/cruiser)
 "jU" = (
@@ -2869,7 +2859,7 @@
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "kI" = (
-/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/iron,
 /turf/open/space,
 /area/space/nearstation)
 "kJ" = (
@@ -31323,9 +31313,9 @@ gH
 gH
 kh
 gH
-im
+il
 gH
-iq
+ip
 bT
 cc
 cc
@@ -32094,9 +32084,9 @@ gH
 gH
 gH
 gH
-im
+il
 gH
-iq
+ip
 bT
 cc
 cc
@@ -32865,9 +32855,9 @@ hI
 hZ
 ie
 gH
-im
+il
 gH
-iq
+ip
 bT
 cc
 cc

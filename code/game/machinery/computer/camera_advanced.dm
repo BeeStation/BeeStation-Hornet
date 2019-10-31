@@ -31,6 +31,7 @@
 
 /obj/machinery/computer/camera_advanced/syndie
 	icon_keyboard = "syndie_key"
+	circuit = /obj/item/circuitboard/computer/advanced_camera
 
 /obj/machinery/computer/camera_advanced/proc/CreateEye()
 	eyeobj = new()
@@ -47,7 +48,10 @@
 		jump_action.Grant(user)
 		actions += jump_action
 
-/obj/machinery/computer/camera_advanced/proc/remove_eye_control(mob/living/user)
+/obj/machinery/proc/remove_eye_control(mob/living/user)
+	CRASH("[type] does not implement ai eye handling")
+	
+/obj/machinery/computer/camera_advanced/remove_eye_control(mob/living/user)
 	if(!user)
 		return
 	for(var/V in actions)
@@ -159,7 +163,7 @@
 	var/cooldown = 0
 	var/acceleration = 1
 	var/mob/living/eye_user = null
-	var/obj/machinery/computer/camera_advanced/origin
+	var/obj/machinery/origin
 	var/eye_initialized = 0
 	var/visible_icon = 0
 	var/image/user_image = null
@@ -172,7 +176,7 @@
 
 /mob/camera/aiEye/remote/Destroy()
 	if(origin && eye_user)
-		origin.remove_eye_control(eye_user)
+		origin.remove_eye_control(eye_user,src)
 	origin = null
 	. = ..()
 	eye_user = null

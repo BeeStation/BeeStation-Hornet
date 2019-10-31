@@ -4,7 +4,6 @@
 /area/shuttle/supply)
 "e" = (
 /obj/machinery/conveyor{
-	dir = 2;
 	id = "cargoshuttle";
 	name = "cargo shuttle conveyor belt"
 	},
@@ -68,6 +67,7 @@
 	id = "cargoshuttle";
 	name = "cargo shuttle conveyor belt"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "n" = (
@@ -78,11 +78,11 @@
 	name = "Supply Shuttle Airlock";
 	req_access_txt = "31"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "p" = (
 /obj/machinery/button/door{
-	dir = 2;
 	id = "QMLoaddoor2";
 	name = "Loading Doors";
 	pixel_x = 24;
@@ -111,6 +111,7 @@
 	dwidth = 3;
 	width = 10
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "r" = (
@@ -123,6 +124,7 @@
 	id = "cargoshuttle";
 	name = "cargo shuttle conveyor belt"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "u" = (
@@ -182,7 +184,6 @@
 /area/shuttle/supply)
 "R" = (
 /obj/machinery/conveyor{
-	dir = 2;
 	id = "cargoshuttle";
 	name = "cargo shuttle conveyor belt"
 	},

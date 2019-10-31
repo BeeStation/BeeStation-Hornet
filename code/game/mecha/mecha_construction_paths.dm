@@ -161,7 +161,7 @@
 
 		//15
 		list(
-			"key" = /obj/item/stack/sheet/metal,
+			"key" = /obj/item/stack/sheet/iron,
 			"amount" = 5,
 			"back_key" = TOOL_SCREWDRIVER,
 			"desc" = "The power cell is secured."
@@ -436,7 +436,7 @@
 
 		//17
 		list(
-			"key" = /obj/item/stack/sheet/metal,
+			"key" = /obj/item/stack/sheet/iron,
 			"amount" = 5,
 			"back_key" = TOOL_SCREWDRIVER,
 			"desc" = "The power cell is secured."
@@ -1156,7 +1156,7 @@
 
 		//17
 		list(
-			"key" = /obj/item/stack/sheet/metal,
+			"key" = /obj/item/stack/sheet/iron,
 			"amount" = 5,
 			"back_key" = TOOL_SCREWDRIVER,
 			"desc" = "The power cell is secured."
@@ -1606,7 +1606,7 @@
 				user.visible_message("[user] unfastens the scanner module.", "<span class='notice'>You unfasten the scanner module.</span>")
 		if(14)
 			if(diff==FORWARD)
-				user.visible_message("[user] secures [I].", "<span class='notice'>You secure [I].</span>")
+				user.visible_message("[user] secures the capacitor.", "<span class='notice'>You secure the capacitor.</span>")
 			else
 				user.visible_message("[user] removes the capacitor from [parent].", "<span class='notice'>You remove the capacitor from [parent].</span>")
 		if(15)
@@ -1791,7 +1791,7 @@
 
 		//12
 		list(
-			"key" = /obj/item/stack/sheet/metal,
+			"key" = /obj/item/stack/sheet/iron,
 			"amount" = 5,
 			"back_key" = TOOL_SCREWDRIVER,
 			"desc" = "The power cell is secured."

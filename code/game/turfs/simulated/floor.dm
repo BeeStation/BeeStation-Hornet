@@ -80,7 +80,7 @@
 					else
 						ScrapeAway(2)
 					if(prob(33))
-						new /obj/item/stack/sheet/metal(src)
+						new /obj/item/stack/sheet/iron(src)
 				if(2)
 					ScrapeAway(2)
 				if(3)
@@ -90,7 +90,7 @@
 						break_tile()
 					hotspot_expose(1000,CELL_VOLUME)
 					if(prob(33))
-						new /obj/item/stack/sheet/metal(src)
+						new /obj/item/stack/sheet/iron(src)
 		if(3)
 			if (prob(50))
 				src.break_tile()
@@ -228,6 +228,8 @@
 	switch(the_rcd.mode)
 		if(RCD_FLOORWALL)
 			return list("mode" = RCD_FLOORWALL, "delay" = 20, "cost" = 16)
+		if(RCD_LADDER)
+			return list("mode" = RCD_LADDER, "delay" = 25, "cost" = 16)
 		if(RCD_AIRLOCK)
 			if(the_rcd.airlock_glass)
 				return list("mode" = RCD_AIRLOCK, "delay" = 50, "cost" = 20)
@@ -248,6 +250,11 @@
 		if(RCD_FLOORWALL)
 			to_chat(user, "<span class='notice'>You build a wall.</span>")
 			PlaceOnTop(/turf/closed/wall)
+			return TRUE
+		if(RCD_LADDER)
+			to_chat(user, "<span class='notice'>You build a ladder.</span>")
+			var/obj/structure/ladder/L = new(src)
+			L.anchored = TRUE
 			return TRUE
 		if(RCD_AIRLOCK)
 			if(locate(/obj/machinery/door/airlock) in src)

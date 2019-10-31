@@ -89,7 +89,7 @@
 		ranged = 0
 	wanted_objects = list()
 	search_objects = 0
-	if(mecha && mecha.lights_action) //an AI mecha is an EVIL EVIL thing, so let's not hide them in the dark
+	if(mecha?.lights_action) //an AI mecha is an EVIL EVIL thing, so let's not hide them in the dark
 		mecha.lights_action.Activate()
 
 

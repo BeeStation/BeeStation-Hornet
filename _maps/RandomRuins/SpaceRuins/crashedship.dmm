@@ -377,7 +377,7 @@
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Midship)
 "bB" = (
-/obj/machinery/sleep_console,
+/obj/machinery/sleeper,
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Midship)
 "bC" = (

@@ -119,7 +119,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		say_dead(original_message)
 		return
 
-	if(check_emote(original_message) || !can_speak_basic(original_message, ignore_spam))
+	if(check_emote(original_message, forced) || !can_speak_basic(original_message, ignore_spam))
 		return
 
 	if(in_critical)
@@ -229,6 +229,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	// Recompose message for AI hrefs, language incomprehension.
 	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode)
 	message = hear_intercept(message, speaker, message_language, raw_message, radio_freq, spans, message_mode)
+
 	show_message(message, 2, deaf_message, deaf_type)
 	return message
 
@@ -280,7 +281,21 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			speech_bubble_recipients.Add(M.client)
 	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_recipients, 30)
+	INVOKE_ASYNC(GLOBAL_PROC, /.proc/animate_speechbubble, I, speech_bubble_recipients, 30)
+
+/proc/animate_speechbubble(image/I, list/show_to, duration)
+	var/matrix/M = matrix()
+	M.Scale(0,0)
+	I.transform = M
+	I.alpha = 0
+	for(var/client/C in show_to)
+		C.images += I
+	animate(I, transform = 0, alpha = 255, time = 5, easing = ELASTIC_EASING)
+	spawn(duration-5)
+		animate(I, alpha = 0, time = 5, easing = EASE_IN)
+		spawn(5)
+			for(var/client/C in show_to)
+				C.images -= I
 
 /mob/proc/binarycheck()
 	return FALSE
@@ -300,7 +315,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return 1
 
 /mob/living/proc/can_speak_vocal(message) //Check AFTER handling of xeno and ling channels
-	if(has_trait(TRAIT_MUTE))
+	if(HAS_TRAIT(src, TRAIT_MUTE))
 		return 0
 
 	if(is_muzzled())
@@ -326,7 +341,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return null
 
 /mob/living/proc/treat_message(message)
-	if(has_trait(TRAIT_UNINTELLIGIBLE_SPEECH))
+
+	if(HAS_TRAIT(src, TRAIT_UNINTELLIGIBLE_SPEECH))
 		message = unintelligize(message)
 
 	if(derpspeech)
@@ -340,6 +356,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(cultslurring)
 		message = cultslur(message)
+
+	// check for and apply punctuation
+	var/end = copytext(message, lentext(message))
+	if(!(end in list("!", ".", "?", ":", "\"", "-")))
+		message += "."
 
 	message = capitalize(message)
 

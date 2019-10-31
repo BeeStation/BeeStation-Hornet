@@ -182,7 +182,8 @@
 		T.ex_act(EXPLODE_DEVASTATE)
 	point.Beam(get_target_turf(),icon_state="bsa_beam",time=50,maxdistance = world.maxx) //ZZZAP
 
-	message_admins("[ADMIN_LOOKUPFLW(user)] has launched an artillery strike.")
+	message_admins("[ADMIN_LOOKUPFLW(user)] has launched an artillery strike targeting [ADMIN_VERBOSEJMP(bullseye)].")
+	log_game("[key_name(user)] has launched an artillery strike targeting [AREACOORD(bullseye)].")
 	explosion(bullseye,ex_power,ex_power*2,ex_power*4)
 
 	reload()
@@ -214,6 +215,8 @@
 	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_boxp"
+	ui_x = 400
+	ui_y = 220
 	var/area_aim = FALSE //should also show areas for targeting
 
 /obj/machinery/computer/bsa_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
@@ -249,6 +252,8 @@
 	update_icon()
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
+	if(!GLOB.bsa_unlock)
+		return
 	var/list/gps_locators = list()
 	for(var/obj/item/gps/G in GLOB.GPS_list) //nulls on the list somehow
 		if(G.tracking)

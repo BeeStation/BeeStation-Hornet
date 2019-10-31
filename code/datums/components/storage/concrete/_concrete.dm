@@ -126,6 +126,7 @@
 		var/obj/item/I = AM
 		var/mob/M = parent.loc
 		I.dropped(M)
+		I.item_flags &= ~IN_STORAGE
 	if(new_location)
 		//Reset the items values
 		_removal_reset(AM)
@@ -173,12 +174,13 @@
 				I.forceMove(parent.drop_location())
 		return FALSE
 	I.on_enter_storage(master)
+	I.item_flags |= IN_STORAGE
 	refresh_mob_views()
 	I.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	if(M)
 		if(M.client && M.active_storage != src)
 			M.client.screen -= I
-		if(M.observers && M.observers.len)
+		if(M.observers?.len)
 			for(var/i in M.observers)
 				var/mob/dead/observe = i
 				if(observe.client && observe.active_storage != src)

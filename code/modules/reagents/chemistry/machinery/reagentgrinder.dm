@@ -256,6 +256,7 @@
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
 		var/obj/item/I = i
+		check_trash(I)
 		if(I.juice_results)
 			juice_item(I)
 
@@ -275,6 +276,7 @@
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
 		var/obj/item/I = i
+		check_trash(I)
 		if(I.grind_results)
 			grind_item(i, user)
 
@@ -287,6 +289,12 @@
 		I.reagents.trans_to(beaker, I.reagents.total_volume, transfered_by = user)
 	remove_object(I)
 
+/obj/machinery/reagentgrinder/proc/check_trash(obj/item/I)
+	if (istype(I, /obj/item/reagent_containers/food/snacks))
+		var/obj/item/reagent_containers/food/snacks/R = I
+		if (R.trash)
+			R.generate_trash(get_turf(src))
+
 /obj/machinery/reagentgrinder/proc/mix(mob/user)
 	//For butter and other things that would change upon shaking or mixing
 	power_change()
@@ -298,12 +306,12 @@
 /obj/machinery/reagentgrinder/proc/mix_complete()
 	if(beaker?.reagents.total_volume)
 		//Recipe to make Butter
-		var/butter_amt = FLOOR(beaker.reagents.get_reagent_amount("milk") / MILK_TO_BUTTER_COEFF, 1)
-		beaker.reagents.remove_reagent("milk", MILK_TO_BUTTER_COEFF * butter_amt)
+		var/butter_amt = FLOOR(beaker.reagents.get_reagent_amount(/datum/reagent/consumable/milk) / MILK_TO_BUTTER_COEFF, 1)
+		beaker.reagents.remove_reagent(/datum/reagent/consumable/milk, MILK_TO_BUTTER_COEFF * butter_amt)
 		for(var/i in 1 to butter_amt)
 			new /obj/item/reagent_containers/food/snacks/butter(drop_location())
 		//Recipe to make Mayonnaise
-		if (beaker.reagents.has_reagent("eggyolk"))
-			var/amount = beaker.reagents.get_reagent_amount("eggyolk")
-			beaker.reagents.remove_reagent("eggyolk", amount)
-			beaker.reagents.add_reagent("mayonnaise", amount)
+		if (beaker.reagents.has_reagent(/datum/reagent/consumable/eggyolk))
+			var/amount = beaker.reagents.get_reagent_amount(/datum/reagent/consumable/eggyolk)
+			beaker.reagents.remove_reagent(/datum/reagent/consumable/eggyolk, amount)
+			beaker.reagents.add_reagent(/datum/reagent/consumable/mayonnaise, amount)

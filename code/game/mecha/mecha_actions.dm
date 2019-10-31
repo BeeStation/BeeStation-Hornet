@@ -44,15 +44,7 @@
 		return
 	if(!chassis || chassis.occupant != owner)
 		return
-	chassis.is_currently_ejecting = TRUE
-	to_chat(owner, "<span class='notice'>You begin the ejection procedure. Equipment is disabled during this process. Hold still to finish ejecting.<span>")
-	if(do_after(chassis.occupant,chassis.exit_delay, target = chassis))
-		to_chat(owner, "<span class='notice'>You exit the mech.<span>")
-		chassis.go_out()
-	else
-		to_chat(owner, "<span class='notice'>You stop exiting the mech. Weapons are enabled again.<span>")
-	chassis.is_currently_ejecting = FALSE
-
+	chassis.container_resist(chassis.occupant)
 
 /datum/action/innate/mecha/mech_toggle_internals
 	name = "Toggle Internal Airtank Usage"
@@ -231,9 +223,8 @@
 	if(chassis.smoke_ready && chassis.smoke>0)
 		chassis.smoke_system.start()
 		chassis.smoke--
-		chassis.smoke_ready = 0
-		spawn(chassis.smoke_cooldown)
-			chassis.smoke_ready = 1
+		chassis.smoke_ready = FALSE
+		addtimer(VARSET_CALLBACK(chassis, smoke_ready, TRUE), chassis.smoke_cooldown)
 
 
 /datum/action/innate/mecha/mech_zoom

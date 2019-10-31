@@ -5,11 +5,21 @@
 /obj/item/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
 	damage = 5
-	stamina = 80
+	stamina = 55
 
 /obj/item/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
 	damage = 20
+
+/obj/item/projectile/bullet/sleepy
+	name = "soporific slug"
+	damage = 0
+
+/obj/item/projectile/bullet/sleepy/on_hit(atom/target, blocked = FALSE)
+	if((blocked != 100) && isliving(target))
+		var/mob/living/L = target
+		L.Sleeping(50)
+	return ..()
 
 /obj/item/projectile/bullet/incendiary/shotgun/dragonsbreath
 	name = "dragonsbreath pellet"
@@ -56,7 +66,7 @@
 
 /obj/item/projectile/bullet/pellet
 	var/tile_dropoff = 0.75
-	var/tile_dropoff_s = 1.25
+	var/tile_dropoff_s = 0.5
 
 /obj/item/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
@@ -65,7 +75,7 @@
 /obj/item/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
 	damage = 3
-	stamina = 25
+	stamina = 11
 
 /obj/item/projectile/bullet/pellet/Range()
 	..()

@@ -24,7 +24,7 @@
 	name = "small light fixture frame"
 	icon_state = "bulb-construct-item"
 	result_path = /obj/structure/light_construct/small
-	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
+	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/wallframe/light_fixture/try_build(turf/on_wall, user)
 	if(!..())
@@ -105,7 +105,7 @@
 		if(!cell_connectors)
 			to_chat(user, "<span class='warning'>This [name] can't support a power cell!</span>")
 			return
-		if(W.has_trait(TRAIT_NODROP))
+		if(HAS_TRAIT(W, TRAIT_NODROP))
 			to_chat(user, "<span class='warning'>[W] is stuck to your hand!</span>")
 			return
 		if(cell)
@@ -127,7 +127,7 @@
 				else
 					to_chat(user, "<span class='notice'>You begin deconstructing [src]...</span>")
 					if (W.use_tool(src, user, 30, volume=50))
-						new /obj/item/stack/sheet/metal(drop_location(), sheets_refunded)
+						new /obj/item/stack/sheet/iron(drop_location(), sheets_refunded)
 						user.visible_message("[user.name] deconstructs [src].", \
 							"<span class='notice'>You deconstruct [src].</span>", "<span class='italics'>You hear a ratchet.</span>")
 						playsound(src, 'sound/items/deconstruct.ogg', 75, 1)
@@ -184,7 +184,7 @@
 
 /obj/structure/light_construct/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		new /obj/item/stack/sheet/metal(loc, sheets_refunded)
+		new /obj/item/stack/sheet/iron(loc, sheets_refunded)
 	qdel(src)
 
 /obj/structure/light_construct/small
@@ -214,7 +214,7 @@
 	var/static_power_used = 0
 	var/brightness = 8			// luminosity when on, also used in power calculation
 	var/bulb_power = 1			// basically the alpha of the emitted light source
-	var/bulb_colour = "#FFFFFF"	// befault colour of the light.
+	var/bulb_colour = "#FFCE99"	// qwerty's new more cozy color of light
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = FALSE
 	var/light_type = /obj/item/light/tube		// the type of light item
@@ -231,7 +231,7 @@
 	var/nightshift_allowed = TRUE	//Set to FALSE to never let this light get switched to night mode.
 	var/nightshift_brightness = 8
 	var/nightshift_light_power = 0.45
-	var/nightshift_light_color = "#FFDDCC"
+	var/nightshift_light_color = "#FFDBB5" //qwerty's more cozy light
 
 	var/emergency_mode = FALSE	// if true, the light is in emergency mode
 	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
@@ -252,6 +252,7 @@
 	fitting = "bulb"
 	brightness = 4
 	desc = "A small lighting fixture."
+	bulb_colour = "#FFE6CC" //little less cozy, bit more industrial, but still cozy.. -qwerty
 	light_type = /obj/item/light/bulb
 
 /obj/machinery/light/small/broken
@@ -274,6 +275,7 @@
 
 /obj/machinery/light/small/built
 	icon_state = "bulb-empty"
+	start_with_cell = FALSE
 
 /obj/machinery/light/small/built/Initialize()
 	. = ..()
@@ -346,7 +348,7 @@
 		var/PO = bulb_power
 		var/CO = bulb_colour
 		var/area/A = get_area(src)
-		if (A && A.fire)
+		if (A?.fire)
 			CO = bulb_emergency_colour
 		else if (nightshift_enabled)
 			BR = nightshift_brightness
@@ -383,6 +385,10 @@
 			removeStaticPower(static_power_used, STATIC_LIGHT)
 
 	broken_sparks(start_only=TRUE)
+
+/obj/machinery/light/update_atom_colour()
+	..()
+	update()
 
 /obj/machinery/light/proc/broken_sparks(start_only=FALSE)
 	if(status == LIGHT_BROKEN && has_power())
@@ -642,7 +648,7 @@
 		else
 			prot = 1
 
-		if(prot > 0 || user.has_trait(TRAIT_RESISTHEAT) || user.has_trait(TRAIT_RESISTHEATHANDS))
+		if(prot > 0 || HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
 			to_chat(user, "<span class='notice'>You remove the light [fitting].</span>")
 		else if(istype(user) && user.dna.check_mutation(TK))
 			to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
@@ -753,8 +759,8 @@
 	var/status = LIGHT_OK		// LIGHT_OK, LIGHT_BURNED or LIGHT_BROKEN
 	var/base_state
 	var/switchcount = 0	// number of times switched
-	materials = list(MAT_GLASS=100)
-	grind_results = list("silicon" = 5, "nitrogen" = 10) //Nitrogen is used as a cheaper alternative to argon in incandescent lighbulbs
+	materials = list(/datum/material/glass=100)
+	grind_results = list(/datum/reagent/silicon = 5, /datum/reagent/nitrogen = 10) //Nitrogen is used as a cheaper alternative to argon in incandescent lighbulbs
 	var/rigged = FALSE		// true if rigged to explode
 	var/brightness = 2 //how much light it gives off
 
@@ -820,7 +826,7 @@
 /obj/item/light/Crossed(mob/living/L)
 	. = ..()
 	if(istype(L) && has_gravity(loc))
-		if(L.has_trait(TRAIT_LIGHT_STEP))
+		if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
 			playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)
 		else
 			playsound(loc, 'sound/effects/glass_step.ogg', 50, 1)
@@ -836,7 +842,7 @@
 
 		to_chat(user, "<span class='notice'>You inject the solution into \the [src].</span>")
 
-		if(S.reagents.has_reagent("plasma", 5))
+		if(S.reagents.has_reagent(/datum/reagent/toxin/plasma, 5))
 
 			rigged = TRUE
 

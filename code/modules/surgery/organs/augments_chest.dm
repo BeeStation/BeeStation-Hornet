@@ -32,7 +32,7 @@
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
-	owner.reagents.add_reagent("bad_food", poison_amount / severity)
+	owner.reagents.add_reagent(/datum/reagent/toxin/bad_food, poison_amount / severity)
 	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
 
 
@@ -197,7 +197,7 @@
 
 	// Priority 3: use internals tank.
 	var/obj/item/tank/I = owner.internal
-	if(I && I.air_contents && I.air_contents.total_moles() > num)
+	if(I?.air_contents && I.air_contents.total_moles() > num)
 		var/datum/gas_mixture/removed = I.air_contents.remove(num)
 		if(removed.total_moles() > 0.005)
 			T.assume_air(removed)

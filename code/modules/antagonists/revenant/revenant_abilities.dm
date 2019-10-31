@@ -342,7 +342,7 @@
 		if(iscarbon(mob))
 			if(ishuman(mob))
 				var/mob/living/carbon/human/H = mob
-				if(H.dna && H.dna.species)
+				if(H.dna?.species)
 					H.dna.species.handle_hair(H,"#1d2953") //will be reset when blight is cured
 				var/blightfound = FALSE
 				for(var/datum/disease/revblight/blight in H.diseases)
@@ -354,7 +354,7 @@
 					to_chat(H, "<span class='revenminor'>You feel [pick("suddenly sick", "a surge of nausea", "like your skin is <i>wrong</i>")].</span>")
 			else
 				if(mob.reagents)
-					mob.reagents.add_reagent("plasma", 5)
+					mob.reagents.add_reagent(/datum/reagent/toxin/plasma, 5)
 		else
 			mob.adjustToxLoss(5)
 	for(var/obj/structure/spacevine/vine in T) //Fucking with botanists, the ability.

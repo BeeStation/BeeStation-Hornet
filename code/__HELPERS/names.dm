@@ -13,8 +13,17 @@
 /proc/plasmaman_name()
 	return "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"
 
+/proc/ipc_name()
+	return "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
+
 /proc/moth_name()
 	return "[pick(GLOB.moth_first)] [pick(GLOB.moth_last)]"
+
+proc/squid_name(gender)
+	if(gender == MALE)
+		return "[pick(GLOB.squid_names_male)] [pick(GLOB.last_names)]"
+	else
+		return "[pick(GLOB.squid_names_female)] [pick(GLOB.last_names)]"
 
 /proc/church_name()
 	var/static/church_name

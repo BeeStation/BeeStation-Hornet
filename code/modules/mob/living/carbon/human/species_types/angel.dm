@@ -23,7 +23,7 @@
 	if(ishuman(H) && !fly)
 		fly = new
 		fly.Grant(H)
-	H.add_trait(TRAIT_HOLY, SPECIES_TRAIT)
+	ADD_TRAIT(H, TRAIT_HOLY, SPECIES_TRAIT)
 
 /datum/species/angel/on_species_loss(mob/living/carbon/human/H)
 	if(fly)
@@ -36,7 +36,7 @@
 			H.dna.species.mutant_bodyparts -= "wings"
 		H.dna.features["wings"] = "None"
 		H.update_body()
-	H.remove_trait(TRAIT_HOLY, SPECIES_TRAIT)
+	REMOVE_TRAIT(H, TRAIT_HOLY, SPECIES_TRAIT)
 	..()
 
 /datum/species/angel/spec_life(mob/living/carbon/human/H)
@@ -85,7 +85,7 @@
 		else
 			to_chat(H, "<span class='notice'>You beat your wings and begin to hover gently above the ground...</span>")
 			A.ToggleFlight(H,TRUE)
-			H.set_resting(FALSE, FALSE)
+			H.set_resting(FALSE, TRUE)
 
 /datum/species/angel/proc/flyslip(mob/living/carbon/human/H)
 	var/obj/buckled_obj

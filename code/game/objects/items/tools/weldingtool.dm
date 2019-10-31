@@ -21,13 +21,14 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	resistance_flags = FIRE_PROOF
 
-	materials = list(MAT_METAL=70, MAT_GLASS=30)
+	materials = list(/datum/material/iron=70, /datum/material/glass=30)
 	var/welding = 0 	//Whether or not the welding tool is off(0), on(1) or currently welding(2)
 	var/status = TRUE 		//Whether the welder is secured or unsecured (able to attach rods to it to make a flamethrower)
 	var/max_fuel = 20 	//The max amount of fuel the welder can hold
 	var/change_icons = 1
 	var/can_off_process = 0
-	var/light_intensity = 2 //how powerful the emitted light is when used.
+	var/light_intensity = 1 //how powerful the emitted light is when used.
+	light_color = LIGHT_COLOR_FIRE
 	var/progress_flash_divisor = 10
 	var/burned_fuel_for = 0	//when fuel was last removed
 	heat = 3800
@@ -37,7 +38,7 @@
 /obj/item/weldingtool/Initialize()
 	. = ..()
 	create_reagents(max_fuel)
-	reagents.add_reagent("welding_fuel", max_fuel)
+	reagents.add_reagent(/datum/reagent/fuel, max_fuel)
 	update_icon()
 
 
@@ -97,7 +98,7 @@
 
 /obj/item/weldingtool/proc/explode()
 	var/turf/T = get_turf(loc)
-	var/plasmaAmount = reagents.get_reagent_amount("plasma")
+	var/plasmaAmount = reagents.get_reagent_amount(/datum/reagent/toxin/plasma)
 	dyn_explosion(T, plasmaAmount/5)//20 plasma in a standard welder has a 4 power explosion. no breaches, but enough to kill/dismember holder
 	qdel(src)
 
@@ -142,7 +143,7 @@
 
 
 /obj/item/weldingtool/attack_self(mob/user)
-	if(src.reagents.has_reagent("plasma"))
+	if(src.reagents.has_reagent(/datum/reagent/toxin/plasma))
 		message_admins("[ADMIN_LOOKUPFLW(user)] activated a rigged welder at [AREACOORD(user)].")
 		explode()
 	switched_on(user)
@@ -154,7 +155,7 @@
 
 // Returns the amount of fuel in the welder
 /obj/item/weldingtool/proc/get_fuel()
-	return reagents.get_reagent_amount("welding_fuel")
+	return reagents.get_reagent_amount(/datum/reagent/fuel)
 
 
 // Uses fuel from the welding tool.
@@ -165,7 +166,7 @@
 	if(used)
 		burned_fuel_for = 0
 	if(get_fuel() >= used)
-		reagents.remove_reagent("welding_fuel", used)
+		reagents.remove_reagent(/datum/reagent/fuel, used)
 		check_fuel()
 		return TRUE
 	else
@@ -297,7 +298,7 @@
 	desc = "A slightly larger welder with a larger tank."
 	icon_state = "indwelder"
 	max_fuel = 40
-	materials = list(MAT_GLASS=60)
+	materials = list(/datum/material/glass=60)
 
 /obj/item/weldingtool/largetank/cyborg
 	name = "integrated welding tool"
@@ -319,7 +320,7 @@
 	icon_state = "miniwelder"
 	max_fuel = 10
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(MAT_METAL=30, MAT_GLASS=10)
+	materials = list(/datum/material/iron=30, /datum/material/glass=10)
 	change_icons = 0
 
 /obj/item/weldingtool/mini/flamethrower_screwdriver()
@@ -336,7 +337,7 @@
 
 /obj/item/weldingtool/abductor/process()
 	if(get_fuel() <= max_fuel)
-		reagents.add_reagent("welding_fuel", 1)
+		reagents.add_reagent(/datum/reagent/fuel, 1)
 	..()
 
 /obj/item/weldingtool/hugetank
@@ -345,7 +346,7 @@
 	icon_state = "upindwelder"
 	item_state = "upindwelder"
 	max_fuel = 80
-	materials = list(MAT_METAL=70, MAT_GLASS=120)
+	materials = list(/datum/material/iron=70, /datum/material/glass=120)
 
 /obj/item/weldingtool/experimental
 	name = "experimental welding tool"
@@ -353,7 +354,7 @@
 	icon_state = "exwelder"
 	item_state = "exwelder"
 	max_fuel = 40
-	materials = list(MAT_METAL=70, MAT_GLASS=120)
+	materials = list(/datum/material/iron=70, /datum/material/glass=120)
 	var/last_gen = 0
 	change_icons = 0
 	can_off_process = 1
@@ -373,6 +374,6 @@
 	..()
 	if(get_fuel() < max_fuel && nextrefueltick < world.time)
 		nextrefueltick = world.time + 10
-		reagents.add_reagent("welding_fuel", 1)
+		reagents.add_reagent(/datum/reagent/fuel, 1)
 
 #undef WELDER_FUEL_BURN_INTERVAL

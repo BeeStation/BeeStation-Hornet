@@ -40,6 +40,7 @@
 	var/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
+	var/list/datum/objective/objectives = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 
@@ -65,6 +66,7 @@
 	var/force_escaped = FALSE  // Set by Into The Sunset command of the shuttle manipulator
 
 	var/list/learned_recipes //List of learned recipe TYPES.
+	var/list/crew_objectives = list()
 
 /datum/mind/New(var/key)
 	src.key = key
@@ -130,6 +132,9 @@
 	last_death = world.time
 
 /datum/mind/proc/store_memory(new_text)
+	var/newlength = length(memory) + length(new_text)
+	if (newlength > MAX_MESSAGE_LEN * 100)
+		memory = copytext(memory, -newlength-MAX_MESSAGE_LEN * 100)
 	memory += "[new_text]<BR>"
 
 /datum/mind/proc/wipe_memory()
@@ -273,7 +278,7 @@
 
 	var/obj/item/uplink_loc
 
-	if(traitor_mob.client && traitor_mob.client.prefs)
+	if(traitor_mob.client?.prefs)
 		switch(traitor_mob.client.prefs.uplink_spawn_loc)
 			if(UPLINK_PDA)
 				uplink_loc = PDA

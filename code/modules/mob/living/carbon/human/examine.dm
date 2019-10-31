@@ -1,4 +1,4 @@
-/mob/living/carbon/human/examine(mob/user) //User is the person being examined
+/mob/living/carbon/human/examine(mob/user)
 //this is very slightly better than it was because you can use it more places. still can't do \his[src] though.
 	var/t_He = p_they(TRUE)
 	var/t_His = p_their(TRUE)
@@ -10,9 +10,9 @@
 
 	if(isliving(user))
 		var/mob/living/L = user
-		if(L.has_trait(TRAIT_PROSOPAGNOSIA))
+		if(HAS_TRAIT(L, TRAIT_PROSOPAGNOSIA))
 			obscure_name = TRUE
-
+			
 	var/msg = "<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"]</EM>!\n"
 
 	var/list/obscured = check_obscured_slots()
@@ -46,7 +46,7 @@
 		if(!(I.item_flags & ABSTRACT))
 			msg += "[t_He] [t_is] holding [I.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(I))].\n"
 
-	GET_COMPONENT(FR, /datum/component/forensics)
+	var/datum/component/forensics/FR = GetComponent(/datum/component/forensics)
 	//gloves
 	if(gloves && !(SLOT_GLOVES in obscured))
 		msg += "[t_He] [t_has] [gloves.get_examine_string(user)] on [t_his] hands.\n"
@@ -83,7 +83,7 @@
 	if(!(SLOT_GLASSES in obscured))
 		if(glasses)
 			msg += "[t_He] [t_has] [glasses.get_examine_string(user)] covering [t_his] eyes.\n"
-		else if(eye_color == BLOODCULT_EYE && iscultist(src) && has_trait(CULT_EYES))
+		else if(eye_color == BLOODCULT_EYE && iscultist(src) && HAS_TRAIT(src, CULT_EYES))
 			msg += "<span class='warning'><B>[t_His] eyes are glowing an unnatural red!</B></span>\n"
 
 	//ears
@@ -107,7 +107,7 @@
 			msg += "<span class='warning'>[t_He] [t_is] twitching ever so slightly.</span>\n"
 
 	var/appears_dead = 0
-	if(stat == DEAD || (has_trait(TRAIT_FAKEDEATH)))
+	if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
 		appears_dead = 1
 		if(suiciding)
 			msg += "<span class='warning'>[t_He] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
@@ -124,7 +124,7 @@
 
 	var/temp = getBruteLoss() //no need to calculate each of these twice
 
-	msg += "<span class='warning'>"
+	msg += "<span class='warning'>" //Everything below gets this span
 
 	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	var/list/disabled = list()
@@ -200,7 +200,7 @@
 		msg += "[t_He] look[p_s()] a little soaked.\n"
 
 
-	if(pulledby && pulledby.grab_state)
+	if(pulledby?.grab_state)
 		msg += "[t_He] [t_is] restrained by [pulledby]'s grip.\n"
 
 	if(nutrition < NUTRITION_LEVEL_STARVING - 50)
@@ -224,12 +224,12 @@
 	if(bleedsuppress)
 		msg += "[t_He] [t_is] bandaged with something.\n"
 	else if(bleed_rate)
-		if(reagents.has_reagent("heparin"))
+		if(reagents.has_reagent(/datum/reagent/toxin/heparin, needs_metabolizing = TRUE))
 			msg += "<b>[t_He] [t_is] bleeding uncontrollably!</b>\n"
 		else
 			msg += "<B>[t_He] [t_is] bleeding!</B>\n"
 
-	if(reagents.has_reagent("teslium"))
+	if(reagents.has_reagent(/datum/reagent/teslium, needs_metabolizing = TRUE))
 		msg += "[t_He] [t_is] emitting a gentle blue glow!\n"
 
 	if(islist(stun_absorption))
@@ -252,13 +252,29 @@
 			if(91.01 to INFINITY)
 				msg += "[t_He] [t_is] a shitfaced, slobbering wreck.\n"
 
+	if(HAS_TRAIT(user, TRAIT_EMPATH) && !appears_dead && (src != user))
+		if (a_intent != INTENT_HELP)
+			msg += "[t_He] seem[p_s()] to be on guard.\n"
+		if (getOxyLoss() >= 10)
+			msg += "[t_He] seem[p_s()] winded.\n"
+		if (getToxLoss() >= 10)
+			msg += "[t_He] seem[p_s()] sickly.\n"
+		var/datum/component/mood/mood = src.GetComponent(/datum/component/mood)
+		if(mood.sanity <= SANITY_DISTURBED)
+			msg += "[t_He] seem[p_s()] distressed.\n"
+			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "empath", /datum/mood_event/sad_empath, src)
+		if (HAS_TRAIT(src, TRAIT_BLIND))
+			msg += "[t_He] appear[p_s()] to be staring off into space.\n"
+		if (HAS_TRAIT(src, TRAIT_DEAF))
+			msg += "[t_He] appear[p_s()] to not be responding to noises.\n"
+
 	msg += "</span>"
 
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
 			msg += "[t_He] [t_is]n't responding to anything around [t_him] and seem[p_s()] to be asleep.\n"
 		else
-			if(has_trait(TRAIT_DUMB))
+			if(HAS_TRAIT(src, TRAIT_DUMB))
 				msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 			if(InCritical())
 				msg += "[t_He] [t_is] barely conscious.\n"
@@ -270,6 +286,8 @@
 
 		if(digitalcamo)
 			msg += "[t_He] [t_is] moving [t_his] body in an unnatural and blatantly inhuman manner.\n"
+
+	msg += "</span>" //End of default warning span
 
 	msg += common_trait_examine()
 

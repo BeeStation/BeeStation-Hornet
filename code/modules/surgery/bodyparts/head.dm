@@ -34,6 +34,7 @@
 	var/lip_style = null
 	var/lip_color = "white"
 
+	var/mouth = TRUE
 
 /obj/item/bodypart/head/Destroy()
 	QDEL_NULL(brainmob) //order is sensitive, see warning in handle_atom_del() below
@@ -131,7 +132,7 @@
 		C = owner
 
 	real_name = C.real_name
-	if(C.has_trait(TRAIT_HUSK))
+	if(HAS_TRAIT(C, TRAIT_HUSK))
 		real_name = "Unknown"
 		hair_style = "Bald"
 		facial_hair_style = "Shaved"

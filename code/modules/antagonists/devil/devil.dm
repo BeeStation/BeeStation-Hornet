@@ -384,14 +384,14 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		if(BANISH_WATER)
 			if(iscarbon(body))
 				var/mob/living/carbon/H = body
-				return H.reagents.has_reagent("holy water")
+				return H.reagents.has_reagent(/datum/reagent/water/holywater)
 			return 0
 		if(BANISH_COFFIN)
 			return (body && istype(body.loc, /obj/structure/closet/crate/coffin))
 		if(BANISH_FORMALDYHIDE)
 			if(iscarbon(body))
 				var/mob/living/carbon/H = body
-				return H.reagents.has_reagent("formaldehyde")
+				return H.reagents.has_reagent(/datum/reagent/toxin/formaldehyde)
 			return 0
 		if(BANISH_RUNES)
 			if(body)
@@ -483,7 +483,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 /datum/antagonist/devil/proc/update_hud()
 	if(iscarbon(owner.current))
 		var/mob/living/C = owner.current
-		if(C.hud_used && C.hud_used.devilsouldisplay)
+		if(C.hud_used?.devilsouldisplay)
 			C.hud_used.devilsouldisplay.update_counter(SOULVALUE)
 
 /datum/antagonist/devil/greet()

@@ -28,7 +28,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!user.has_trait(TRAIT_ABDUCTOR_TRAINING))
+	if(!HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING) && !HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
 		to_chat(user, "<span class='warning'>You start mashing alien buttons at random!</span>")
 		if(do_after(user,100, target = src))
 			TeleporterSend()
@@ -45,6 +45,7 @@
 		dat += "<b>Transfer data in exchange for supplies:</b><br>"
 		dat += "<a href='?src=[REF(src)];dispense=baton'>Advanced Baton (2 Credits)</A><br>"
 		dat += "<a href='?src=[REF(src)];dispense=mind_device'>Mental Interface Device (2 Credits)</A><br>"
+		dat += "<a href='?src=[REF(src)];dispense=chem_dispenser'>Reagent Synthesizer (2 Credits)</A><br>"
 		dat += "<a href='?src=[REF(src)];dispense=helmet'>Agent Helmet</A><br>"
 		dat += "<a href='?src=[REF(src)];dispense=vest'>Agent Vest</A><br>"
 		dat += "<a href='?src=[REF(src)];dispense=silencer'>Radio Silencer</A><br>"
@@ -57,7 +58,7 @@
 		dat += "<span class='bad'>Emergency Teleporter System.</span>"
 		dat += "<span class='bad'>Consider using primary observation console first.</span>"
 		dat += "<a href='?src=[REF(src)];teleporter_send=1'>Activate Teleporter</A><br>"
-		if(gizmo && gizmo.marked)
+		if(gizmo?.marked)
 			dat += "<a href='?src=[REF(src)];teleporter_retrieve=1'>Retrieve Mark</A><br>"
 		else
 			dat += "<span class='linkOff'>Retrieve Mark</span><br>"
@@ -76,7 +77,7 @@
 
 		dat+="<br>"
 		dat += "<a href='?src=[REF(src)];select_disguise=1'>Select Agent Vest Disguise</a><br>"
-		dat += "<a href='?src=[REF(src)];toggle_vest=1'>[vest.has_trait(TRAIT_NODROP, ABDUCTOR_VEST_TRAIT) ? "Unlock" : "Lock"] Vest</a><br>"
+		dat += "<a href='?src=[REF(src)];toggle_vest=1'>[HAS_TRAIT_FROM(vest, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT) ? "Unlock" : "Lock"] Vest</a><br>"
 	else
 		dat += "<span class='bad'>NO AGENT VEST DETECTED</span>"
 	var/datum/browser/popup = new(user, "computer", "Abductor Console", 400, 500)
@@ -113,6 +114,8 @@
 				Dispense(/obj/item/clothing/suit/armor/abductor/vest)
 			if("mind_device")
 				Dispense(/obj/item/abductor/mind_device,cost=2)
+			if("chem_dispenser")
+				Dispense(/obj/item/abductor_machine_beacon/chem_dispenser,cost=2)
 			if("tongue")
 				Dispense(/obj/item/organ/tongue/abductor)
 	updateUsrDialog()

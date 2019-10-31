@@ -8,7 +8,6 @@
 	spawn_positions = 2
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
-	exp_requirements = 60
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/roboticist
@@ -24,6 +23,7 @@
 	name = "Roboticist"
 	jobtype = /datum/job/roboticist
 
+	id = /obj/item/card/id/job/sci
 	belt = /obj/item/storage/belt/utility/full
 	l_pocket = /obj/item/pda/roboticist
 	ears = /obj/item/radio/headset/headset_sci

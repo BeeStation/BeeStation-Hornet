@@ -69,10 +69,10 @@
 				return
 			M.adjustOxyLoss(round(dam_force/2))
 			M.updatehealth()
-			target.visible_message("<span class='danger'>[chassis] squeezes [target].</span>", \
-								"<span class='userdanger'>[chassis] squeezes [target].</span>",\
+			target.visible_message("<span class='danger'>[chassis] squeezes [target]!</span>", \
+								"<span class='userdanger'>[chassis] squeezes you!</span>",\
 								"<span class='italics'>You hear something crack.</span>")
-			log_combat(chassis.occupant, M, "attacked", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+			log_combat(chassis.occupant, M, "attacked", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 		else
 			step_away(M,chassis)
 			occupant_message("You push [target] out of the way.")
@@ -130,12 +130,12 @@
 					return
 				M.adjustOxyLoss(round(dam_force/2))
 				M.updatehealth()
-				target.visible_message("<span class='danger'>[chassis] destroys [target] in an unholy fury.</span>", \
-									"<span class='userdanger'>[chassis] destroys [target] in an unholy fury.</span>")
-				log_combat(chassis.occupant, M, "attacked", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+				target.visible_message("<span class='danger'>[chassis] destroys [target] in an unholy fury!</span>", \
+									"<span class='userdanger'>[chassis] destroys you in an unholy fury!</span>")
+				log_combat(chassis.occupant, M, "attacked", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 			else
-				target.visible_message("<span class='danger'>[chassis] destroys [target] in an unholy fury.</span>", \
-									"<span class='userdanger'>[chassis] destroys [target] in an unholy fury.</span>")
+				target.visible_message("<span class='danger'>[chassis] destroys [target] in an unholy fury!</span>", \
+									"<span class='userdanger'>[chassis] destroys you in an unholy fury!</span>")
 		else if(chassis.occupant.a_intent == INTENT_DISARM)
 			if(real_clamp)
 				var/mob/living/carbon/C = target
@@ -153,15 +153,16 @@
 					limbs_gone = "[limbs_gone], [affected]"
 				if(play_sound)
 					playsound(src, get_dismember_sound(), 80, TRUE)
-					target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off.</span>", \
-								   "<span class='userdanger'>[chassis] rips [target]'s arms off.</span>")
-					log_combat(chassis.occupant, M, "dismembered of[limbs_gone],", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+					target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off!</span>", \
+								   "<span class='userdanger'>[chassis] rips your arms off!</span>")
+					log_combat(chassis.occupant, M, "dismembered of[limbs_gone],", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 			else
-				target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off.</span>", \
-								   "<span class='userdanger'>[chassis] rips [target]'s arms off.</span>")
+				target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off!</span>", \
+								   "<span class='userdanger'>[chassis] rips your arms off!</span>")
 		else
 			step_away(M,chassis)
-			target.visible_message("[chassis] tosses [target] like a piece of paper.")
+			target.visible_message("<span class='danger'>[chassis] tosses [target] like a piece of paper!</span>", \
+								"<span class='userdanger'>[chassis] tosses you like a piece of paper!</span>")
 		return 1
 
 
@@ -177,7 +178,7 @@
 /obj/item/mecha_parts/mecha_equipment/extinguisher/Initialize()
 	. = ..()
 	create_reagents(1000)
-	reagents.add_reagent("water", 1000)
+	reagents.add_reagent(/datum/reagent/water, 1000)
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/action(atom/target) //copypasted from extinguisher. TODO: Rewrite from scratch.
 	if(!action_checks(target) || get_dist(chassis, target)>3)
@@ -397,7 +398,7 @@
 		log_message("[equip_ready?"Dea":"A"]ctivated.", LOG_MECHA)
 		return
 	if(href_list["cut"])
-		if(cable && cable.amount)
+		if(cable?.amount)
 			var/m = round(input(chassis.occupant,"Please specify the length of cable to cut","Cut cable",min(cable.amount,30)) as num, 1)
 			m = min(m, cable.amount)
 			if(m)
@@ -488,6 +489,9 @@
 		return FALSE
 	if(M.occupant) //We're actualy making a new mech and swapping things over, it might get weird if players are involved
 		to_chat(loc, "<span class='warning'>[M] must be unoccupied before this conversion kit can be applied.</span>")
+		return FALSE
+	if(!M.cell) //Turns out things break if the cell is missing
+		to_chat(loc, "<span class='warning'>The conversion process requires a cell installed.</span>")
 		return FALSE
 	return TRUE
 

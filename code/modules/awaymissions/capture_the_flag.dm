@@ -205,7 +205,7 @@
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/machinery/capture_the_flag/attack_ghost(mob/user)
 	if(ctf_enabled == FALSE)
-		if(user.client && user.client.holder)
+		if(user.client?.holder)
 			var/response = alert("Enable CTF?", "CTF", "Yes", "No")
 			if(response == "Yes")
 				toggle_all_ctf(user)
@@ -504,7 +504,7 @@
 	no_drops += H.get_item_by_slot(SLOT_EARS)
 	for(var/i in no_drops)
 		var/obj/item/I = i
-		I.add_trait(TRAIT_NODROP, CAPTURE_THE_FLAG_TRAIT)
+		ADD_TRAIT(I, TRAIT_NODROP, CAPTURE_THE_FLAG_TRAIT)
 
 /datum/outfit/ctf/instagib
 	r_hand = /obj/item/gun/energy/laser/instakill

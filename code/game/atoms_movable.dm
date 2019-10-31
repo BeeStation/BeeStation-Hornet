@@ -50,7 +50,7 @@
 		target = get_step_multiz(source, direction)
 		if(!target)
 			return FALSE
-	return !(movement_type & FLYING) && has_gravity(source) && !throwing
+	return !(movement_type & FLYING) && has_gravity(src) && !throwing
 
 /atom/movable/proc/onZImpact(turf/T, levels)
 	var/atom/highest = T
@@ -140,7 +140,6 @@
 	if(AM.pulledby)
 		log_combat(AM, AM.pulledby, "pulled from", src)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
-	AM.set_glide_size(glide_size)
 	pulling = AM
 	AM.pulledby = src
 	grab_state = state
@@ -148,7 +147,8 @@
 		var/mob/M = AM
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message)
-			visible_message("<span class='warning'>[src] has grabbed [M] passively!</span>")
+			M.visible_message("<span class='warning'>[src] grabs [M] passively.</span>", \
+				"<span class='danger'>[src] grabs you passively.</span>")
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
@@ -169,7 +169,7 @@
 		return
 	if(isliving(pulling))
 		var/mob/living/L = pulling
-		if(L.buckled && L.buckled.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
+		if(L.buckled?.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
 			stop_pulling()
 			return
 	if(A == loc && pulling.density)
@@ -205,20 +205,11 @@
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
-/atom/movable/proc/set_glide_size(target = 8)
-	glide_size = target
-
-	for(var/atom/movable/AM in buckled_mobs)
-		AM.set_glide_size(target)
-
-	//if(pulling)
-		//pulling.set_glide_size(target)
-
 ////////////////////////////////////////
 // Here's where we rewrite how byond handles movement except slightly different
 // To be removed on step_ conversion
 // All this work to prevent a second bump
-/atom/movable/Move(atom/newloc, direct=0, glide_size_override = 0)
+/atom/movable/Move(atom/newloc, direct=0)
 	. = FALSE
 	if(!newloc || newloc == loc)
 		return
@@ -233,11 +224,10 @@
 	if(!newloc.Enter(src, src.loc))
 		return
 
+	if (SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, newloc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
+		return
+
 	// Past this is the point of no return
-	SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, newloc)
-	var/old_glide_size = glide_size
-	if(glide_size_override)
-		set_glide_size(glide_size_override)
 	var/atom/oldloc = loc
 	var/area/oldarea = get_area(oldloc)
 	var/area/newarea = get_area(newloc)
@@ -262,7 +252,6 @@
 			continue
 		var/atom/movable/thing = i
 		thing.Crossed(src)
-	set_glide_size(old_glide_size)
 //
 ////////////////////////////////////////
 

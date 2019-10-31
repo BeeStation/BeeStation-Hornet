@@ -1574,10 +1574,6 @@
 /obj/structure/plasticflaps,
 /turf/open/floor/plating,
 /area/quartermaster/storage)
-"eD" = (
-/obj/machinery/vr_sleeper,
-/turf/open/floor/plasteel,
-/area/storage/primary)
 "eE" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -7701,7 +7697,7 @@ dJ
 dJ
 dJ
 dJ
-eD
+dJ
 cS
 fO
 fO
@@ -8437,7 +8433,7 @@ dJ
 dJ
 dJ
 dJ
-eD
+dJ
 cS
 fV
 fO

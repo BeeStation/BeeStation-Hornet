@@ -66,6 +66,11 @@ Thanks to spacemaniac and mcdonald for help with the JS side of this.
 	winset(src, "tooltip", "background-color = [COLOR_DARKMODE_BACKGROUND];background-color = none")
 	winset(src, "tooltip", "text-color = [COLOR_DARKMODE_TEXT];text-color = #000000")
 
+	winset(src, "donate", "background-color = #492020;background-color = none")
+	winset(src, "discord", "background-color = #492020;background-color = none")
+	winset(src, "current-map", "background-color = #492020;background-color = none; text-color = [COLOR_DARKMODE_TEXT];text-color = #000000")
+
+
 /client/proc/force_dark_theme() //Inversely, if theyre using white theme and want to swap to the superior dark theme, let's get WINSET() ing
 	//Main windows
 	winset(src, "infowindow", "background-color = none;background-color = [COLOR_DARKMODE_BACKGROUND]")
@@ -116,18 +121,6 @@ Thanks to spacemaniac and mcdonald for help with the JS side of this.
 	winset(src, "tooltip", "background-color = none;background-color = [COLOR_DARKMODE_BACKGROUND]")
 	winset(src, "tooltip", "text-color = #000000;text-color = [COLOR_DARKMODE_TEXT]")
 
-
-/datum/asset/simple/goonchat
-	verify = FALSE
-	assets = list(
-		"json2.min.js"             = 'code/modules/goonchat/browserassets/js/json2.min.js',
-		"errorHandler.js"          = 'code/modules/goonchat/browserassets/js/errorHandler.js',
-		"browserOutput.js"         = 'code/modules/goonchat/browserassets/js/browserOutput.js',
-		"fontawesome-webfont.eot"  = 'tgui/assets/fonts/fontawesome-webfont.eot',
-		"fontawesome-webfont.svg"  = 'tgui/assets/fonts/fontawesome-webfont.svg',
-		"fontawesome-webfont.ttf"  = 'tgui/assets/fonts/fontawesome-webfont.ttf',
-		"fontawesome-webfont.woff" = 'tgui/assets/fonts/fontawesome-webfont.woff',
-		"font-awesome.css"	       = 'code/modules/goonchat/browserassets/css/font-awesome.css',
-		"browserOutput.css"	       = 'code/modules/goonchat/browserassets/css/browserOutput.css',
-		"browserOutput_white.css"	       = 'code/modules/goonchat/browserassets/css/browserOutput_white.css',
-	)
+	winset(src, "discord", "background-color = none;background-color = #494949")
+	winset(src, "donate", "background-color = none;background-color = #494949")
+	winset(src, "current-map", "background-color = none;background-color = #494949; text-color = [COLOR_DARKMODE_TEXT]")

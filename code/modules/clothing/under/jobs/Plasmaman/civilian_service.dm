@@ -49,8 +49,36 @@
 	item_color = "janitor_envirosuit"
 
 /obj/item/clothing/under/plasmaman/botany
-	name = "botany envirosuit"
+	name = "botany plasma envirosuit"
 	desc = "A green and blue envirosuit designed to protect plasmamen from minor plant-related injuries."
 	icon_state = "botany_envirosuit"
 	item_state = "botany_envirosuit"
 	item_color = "botany_envirosuit"
+	
+/obj/item/clothing/under/plasmaman/command //fun fact, captains uniforms don't get the sec uniform defense buff, pretty stupid
+	name = "captains plasma envirosuit"
+	desc = "A blue envirosuit with gold trimmings. A suit made for those who demand respect from their subordinates."
+	icon_state = "command_envirosuit"
+	item_state = "command_envirosuit"
+	item_color = "command_envirosuit"
+	
+/obj/item/clothing/under/plasmaman/hop
+	name = "head of personnel plasma envirosuit"
+	desc = "The head of personnels blue envirosuit, complete with red trimmings and adorned with various medals."
+	icon_state = "hop_envirosuit"
+	item_state = "hop_envirosuit"
+	item_color = "hop_envirosuit"
+
+/obj/item/clothing/under/plasmaman/mime
+	name = "mime envirosuit"
+	desc = "A black and white envirosuit, your bones may rattle but that won't stop your silent shinanigains!."
+	icon_state = "mime_envirosuit"
+	item_state = "mime_envirosuit"
+	item_color = "mime_envirosuit"
+
+/obj/item/clothing/under/plasmaman/honk
+	name = "Clowns plasma envirosuit"
+	desc = "A rainbow colored envirosuit, it reaks of bananas and cheap rubber horns."
+	icon_state = "honk_envirosuit"
+	item_state = "honk_envirosuit"
+	item_color = "honk_envirosuit"

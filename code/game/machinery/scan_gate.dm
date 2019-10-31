@@ -90,12 +90,12 @@
 				if(!R || (R.fields["criminal"] == "*Arrest*"))
 					beep = TRUE
 		if(SCANGATE_MINDSHIELD)
-			if(M.has_trait(TRAIT_MINDSHIELD))
+			if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
 				beep = TRUE
 		if(SCANGATE_NANITES)
 			if(SEND_SIGNAL(M, COMSIG_HAS_NANITES))
 				if(nanite_cloud)
-					GET_COMPONENT_FROM(nanites, /datum/component/nanites, M)
+					var/datum/component/nanites/nanites = M.GetComponent(/datum/component/nanites)
 					if(nanites && nanites.cloud_id == nanite_cloud)
 						beep = TRUE
 				else
@@ -154,7 +154,7 @@
 	return ..()
 
 /obj/machinery/scanner_gate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "scanner_gate", name, 600, 400, master_ui, state)
 		ui.open()

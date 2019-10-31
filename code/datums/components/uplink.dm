@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 		RegisterSignal(parent, COMSIG_PEN_ROTATED, .proc/pen_rotation)
 
 	GLOB.uplinks += src
-	uplink_items = get_uplink_items(gamemode, TRUE, allow_restricted)
+	uplink_items = get_uplink_items(_gamemode, TRUE, allow_restricted)
 
 	if(_owner)
 		owner = _owner
@@ -240,7 +240,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 /datum/component/uplink/proc/new_ringtone(datum/source, mob/living/user, new_ring_text)
 	var/obj/item/pda/master = parent
 	if(trim(lowertext(new_ring_text)) != trim(lowertext(unlock_code)))
-		if(trim(lowertext(new_ring_text)) == trim(lowertext(failsafe_code)))
+		if(failsafe_code && trim(lowertext(new_ring_text)) == trim(lowertext(failsafe_code)))
 			failsafe()
 			return COMPONENT_STOP_RINGTONE_CHANGE
 		return

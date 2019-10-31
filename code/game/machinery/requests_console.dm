@@ -56,6 +56,9 @@ GLOBAL_LIST_EMPTY(allConsoles)
 	max_integrity = 300
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 
+	light_color = LIGHT_COLOR_GREEN
+	light_power = 1.5
+
 /obj/machinery/requests_console/power_change()
 	..()
 	update_icon()
@@ -64,7 +67,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 	if(stat & NOPOWER)
 		set_light(0)
 	else
-		set_light(1.4,0.7,"#34D352")//green light
+		set_light(1)//green light
 	if(open)
 		if(!hackState)
 			icon_state="req_comp_open"
@@ -463,7 +466,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 				newmessagepriority = HIGH_MESSAGE_PRIORITY
 				update_icon()
 			if(!silent)
-				playsound(src, 'sound/machines/twobeep.ogg', 50, 1)
+				playsound(src, 'sound/machines/twobeep_high.ogg', 50, 1)
 				say(title)
 				messages += "<span class='bad'>High Priority</span><BR><b>From:</b> [linkedsender]<BR>[message]"
 
@@ -472,7 +475,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 				newmessagepriority = EXTREME_MESSAGE_PRIORITY
 				update_icon()
 			if(1)
-				playsound(src, 'sound/machines/twobeep.ogg', 50, 1)
+				playsound(src, 'sound/machines/twobeep_high.ogg', 50, 1)
 				say(title)
 			messages += "<span class='bad'>!!!Extreme Priority!!!</span><BR><b>From:</b> [linkedsender]<BR>[message]"
 
@@ -481,7 +484,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 				newmessagepriority = NORMAL_MESSAGE_PRIORITY
 				update_icon()
 			if(!src.silent)
-				playsound(src, 'sound/machines/twobeep.ogg', 50, 1)
+				playsound(src, 'sound/machines/twobeep_high.ogg', 50, 1)
 				say(title)
 			messages += "<b>From:</b> [linkedsender]<BR>[message]"
 

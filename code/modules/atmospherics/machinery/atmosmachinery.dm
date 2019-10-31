@@ -212,10 +212,10 @@
 		if(unsafe_wrenching)
 			unsafe_pressure_release(user, internal_pressure)
 
-			//[BEGIN BEE EDIT]
+			
 			if (user.client)
 				SSmedals.UnlockMedal(MEDAL_UNWRENCH_HIGH_PRESSURE,user.client)
-			//[END BEE EDIT]
+			
 			
 		deconstruct(TRUE)
 	return TRUE

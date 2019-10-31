@@ -20,7 +20,7 @@
 	throw_speed = 2
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
-	materials = list(MAT_GLASS=7500, MAT_METAL=1000)
+	materials = list(/datum/material/glass=7500, /datum/material/iron=1000)
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 	transparent = TRUE
@@ -85,7 +85,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	transparent = FALSE
-	materials = list(MAT_METAL=8500)
+	materials = list(/datum/material/iron=8500)
 	max_integrity = 65
 
 /obj/item/shield/riot/roman/fake
@@ -96,7 +96,7 @@
 
 /obj/item/shield/riot/roman/shatter(mob/living/carbon/human/owner)
 	playsound(owner, 'sound/effects/grillehit.ogg', 100)
-	new /obj/item/stack/sheet/metal(get_turf(src))
+	new /obj/item/stack/sheet/iron(get_turf(src))
 
 /obj/item/shield/riot/buckler
 	name = "wooden buckler"
@@ -208,7 +208,7 @@
 	return (active)
 
 /obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
-	if(clumsy_check && user.has_trait(TRAIT_CLUMSY) && prob(50))
+	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
 		user.take_bodypart_damage(5)
 	active = !active

@@ -299,7 +299,7 @@ proc name: get fuel (/obj/item/weapon/weldingtool/proc/get_fuel)
 
 /obj/item/mecha_parts/chassis/ripley - 2 time(s).
 
-/obj/item/stack/sheet/metal - 2 time(s).
+/obj/item/stack/sheet/iron - 2 time(s).
 
 /obj/machinery/door/airlock/external - 2 time(s).
 

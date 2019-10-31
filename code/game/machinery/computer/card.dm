@@ -228,7 +228,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			target_name = html_encode(modify.name)
 		else
 			target_name = "--------"
-		if(modify && modify.registered_name)
+		if(modify?.registered_name)
 			target_owner = html_encode(modify.registered_name)
 		else
 			target_owner = "--------"

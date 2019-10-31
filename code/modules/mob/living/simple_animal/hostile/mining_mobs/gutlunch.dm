@@ -31,7 +31,7 @@
 	stop_automated_movement_when_pulled = TRUE
 	stat_exclusive = TRUE
 	robust_searching = TRUE
-	search_objects = TRUE
+	search_objects = 3 //Ancient simplemob AI shitcode. This makes them ignore all other mobs.
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
 	deathmessage = "is pulped into bugmash."
@@ -131,7 +131,6 @@
 
 /obj/item/udder/gutlunch/generateMilk()
 	if(prob(60))
-		reagents.add_reagent("cream", rand(2, 5))
+		reagents.add_reagent(/datum/reagent/consumable/cream, rand(2, 5))
 	if(prob(45))
-		reagents.add_reagent("salglu_solution", rand(2,5))
-
+		reagents.add_reagent(/datum/reagent/medicine/salglu_solution, rand(2,5))

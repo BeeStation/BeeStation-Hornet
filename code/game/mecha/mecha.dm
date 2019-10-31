@@ -432,6 +432,7 @@
 	diag_hud_set_mechtracking()
 
 /obj/mecha/fire_act() //Check if we should ignite the pilot of an open-canopy mech
+	. = ..()
 	if (occupant && !enclosed && !silicon_pilot)
 		if (occupant.fire_stacks < 5)
 			occupant.fire_stacks += 1
@@ -489,13 +490,13 @@
 	var/mob/living/L = user
 	if(!Adjacent(target))
 		if(selected && selected.is_ranged())
-			if(L.has_trait(TRAIT_PACIFISM) && selected.harmful)
+			if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
 				to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 				return
 			if(selected.action(target,params))
 				selected.start_cooldown()
 	else if(selected && selected.is_melee())
-		if(isliving(target) && selected.harmful && L.has_trait(TRAIT_PACIFISM))
+		if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 			return
 		if(selected.action(target,params))
@@ -506,9 +507,8 @@
 		if(!melee_can_hit || !istype(target, /atom))
 			return
 		target.mech_melee_attack(src)
-		melee_can_hit = 0
-		spawn(melee_cooldown)
-			melee_can_hit = 1
+		melee_can_hit = FALSE
+		addtimer(VARSET_CALLBACK(src, melee_can_hit, TRUE), melee_cooldown)
 
 
 /obj/mecha/proc/range_action(atom/target)
@@ -836,6 +836,9 @@
 		return cabin_air
 	return ..()
 
+/obj/mecha/return_analyzable_air()
+	return cabin_air
+
 /obj/mecha/proc/return_pressure()
 	var/datum/gas_mixture/t_air = return_air()
 	if(t_air)
@@ -976,8 +979,14 @@
 	return TRUE
 
 /obj/mecha/container_resist(mob/living/user)
-	go_out()
-
+	is_currently_ejecting = TRUE
+	to_chat(occupant, "<span class='notice'>You begin the ejection procedure. Equipment is disabled during this process. Hold still to finish ejecting.<span>")
+	if(do_after(occupant,exit_delay, target = src))
+		to_chat(occupant, "<span class='notice'>You exit the mech.<span>")
+		go_out()
+	else
+		to_chat(occupant, "<span class='notice'>You stop exiting the mech. Weapons are enabled again.<span>")
+	is_currently_ejecting = FALSE
 
 /obj/mecha/Exited(atom/movable/M, atom/newloc)
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
@@ -1036,7 +1045,7 @@
 		icon_state = initial(icon_state)+"-open"
 		setDir(dir_in)
 
-	if(L && L.client)
+	if(L?.client)
 		L.update_mouse_pointer()
 		L.client.change_view(CONFIG_GET(string/default_view))
 		zoom_mode = 0

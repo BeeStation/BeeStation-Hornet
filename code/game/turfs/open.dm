@@ -173,7 +173,7 @@
 	update_visuals()
 
 	current_cycle = times_fired
-	CalculateAdjacentTurfs()
+	ImmediateCalculateAdjacentTurfs()
 	for(var/i in atmos_adjacent_turfs)
 		var/turf/open/enemy_tile = i
 		var/datum/gas_mixture/enemy_air = enemy_tile.return_air()
@@ -246,7 +246,7 @@
 			C.Paralyze(paralyze_amount)
 			C.stop_pulling()
 		else
-			C.Knockdown(20)
+			C.Knockdown(15)
 
 		if(buckled_obj)
 			buckled_obj.unbuckle_mob(C)

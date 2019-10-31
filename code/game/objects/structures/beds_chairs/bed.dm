@@ -18,7 +18,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	integrity_failure = 30
-	var/buildstacktype = /obj/item/stack/sheet/metal
+	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 2
 	var/bolts = TRUE
 
@@ -188,6 +188,11 @@
 /obj/structure/bed/dogbed/runtime
 	desc = "A comfy-looking cat bed. You can even strap your pet in, in case the gravity turns off."
 	name = "Runtime's bed"
+	anchored = TRUE
+
+/obj/structure/bed/dogbed/vector
+	desc = "Vector's bed! Wait... Do hamsters normally have beds...?"
+	name = "Vector's bed"
 	anchored = TRUE
 
 /obj/structure/bed/dogbed/proc/update_owner(mob/living/M)

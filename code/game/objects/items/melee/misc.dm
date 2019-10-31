@@ -23,7 +23,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/chainhit.ogg'
-	materials = list(MAT_METAL = 1000)
+	materials = list(/datum/material/iron = 1000)
 
 /obj/item/melee/chainofcommand/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -65,7 +65,7 @@
 	sharpness = IS_SHARP
 	attack_verb = list("slashed", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
-	materials = list(MAT_METAL = 1000)
+	materials = list(/datum/material/iron = 1000)
 
 /obj/item/melee/sabre/Initialize()
 	. = ..()
@@ -76,22 +76,20 @@
 		final_block_chance = 0 //Don't bring a sword to a gunfight
 	return ..()
 
-/obj/item/melee/sabre/on_exit_storage(obj/item/storage/S)
-	..()
-	var/obj/item/storage/belt/sabre/B = S
+/obj/item/melee/sabre/on_exit_storage(datum/component/storage/concrete/S)
+	var/obj/item/storage/belt/sabre/B = S.real_location()
 	if(istype(B))
-		playsound(B, 'sound/items/unsheath.ogg', 25, 1)
+		playsound(B, 'sound/items/unsheath.ogg', 25, TRUE)
 
-/obj/item/melee/sabre/on_enter_storage(obj/item/storage/S)
-	..()
-	var/obj/item/storage/belt/sabre/B = S
+/obj/item/melee/sabre/on_enter_storage(datum/component/storage/concrete/S)
+	var/obj/item/storage/belt/sabre/B = S.real_location()
 	if(istype(B))
-		playsound(B, 'sound/items/sheath.ogg', 25, 1)
+		playsound(B, 'sound/items/sheath.ogg', 25, TRUE)
 
 /obj/item/melee/sabre/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is trying to cut off all [user.p_their()] limbs with [src]! it looks like [user.p_theyre()] trying to commit suicide!</span>")
 	var/i = 0
-	add_trait(TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
+	ADD_TRAIT(src, TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
 	if(iscarbon(user))
 		var/mob/living/carbon/Cuser = user
 		var/obj/item/bodypart/holding_bodypart = Cuser.get_holding_bodypart_of_item(src)
@@ -129,7 +127,7 @@
 	if(!QDELETED(user))
 		user.adjustBruteLoss(200)
 		user.death(FALSE)
-	remove_trait(TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
 
 /obj/item/melee/classic_baton
 	name = "police baton"
@@ -150,9 +148,9 @@
 		return ..()
 
 	add_fingerprint(user)
-	if((user.has_trait(TRAIT_CLUMSY)) && prob(50))
+	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, "<span class ='danger'>You club yourself over the head.</span>")
-		user.Paralyze(60 * force)
+		user.adjustStaminaLoss(80)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
@@ -178,11 +176,11 @@
 				if(check_martial_counter(H, user))
 					return
 			playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
-			target.Paralyze(60)
+			target.adjustStaminaLoss(80)
 			log_combat(user, target, "stunned", src)
 			src.add_fingerprint(user)
-			target.visible_message("<span class ='danger'>[user] has knocked down [target] with [src]!</span>", \
-				"<span class ='userdanger'>[user] has knocked down [target] with [src]!</span>")
+			target.visible_message("<span class ='danger'>[user] has enforced the law upon [target] with [src]!</span>", \
+				"<span class ='userdanger'>[user] has enforced the law upon [target] with [src]!</span>")
 			if(!iscarbon(user))
 				target.LAssailant = null
 			else
@@ -335,7 +333,7 @@
 	T.visible_message("<span class='danger'>[T] smacks into [src] and rapidly flashes to ash.</span>",\
 	"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
 	shard.Consume()
-	T.CalculateAdjacentTurfs()
+	CALCULATE_ADJACENT_TURFS(T)
 
 /obj/item/melee/supermatter_sword/add_blood_DNA(list/blood_dna)
 	return FALSE
@@ -444,7 +442,7 @@
 	if (!on)
 		return
 	if (is_type_in_typecache(target, ovens))
-		if (held_sausage && held_sausage.roasted)
+		if (held_sausage?.roasted)
 			to_chat("Your [held_sausage] has already been cooked.")
 			return
 		if (istype(target, /obj/singularity) && get_dist(user, target) < 10)
@@ -469,3 +467,42 @@
 	held_sausage.name = "[target.name]-roasted [held_sausage.name]"
 	held_sausage.desc = "[held_sausage.desc] It has been cooked to perfection on \a [target]."
 	update_icon()
+
+
+
+
+/obj/item/melee/knockback_stick
+	name = "Knockback Stick"
+	desc = "An portable anti-gravity generator which knocks people back upon contact."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "telebaton_1"
+	item_state = "nullrod"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	slot_flags = ITEM_SLOT_BELT
+	force = 0
+	throwforce = 0
+	w_class = WEIGHT_CLASS_NORMAL
+	attack_verb = list("repelled")
+	var/cooldown = 0
+	var/knockbackpower = 6
+
+/obj/item/melee/knockback_stick/attack(mob/living/target, mob/living/user)
+	add_fingerprint(user)
+
+	if(cooldown <= world.time)
+		playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
+		log_combat(user, target, "knockedbacked", src)
+		target.visible_message("<span class ='danger'>[user] has knocked back [target] with [src]!</span>", \
+			"<span class ='userdanger'>[user] has knocked back [target] with [src]!</span>")
+
+		var/throw_dir = get_dir(user,target)
+		var/turf/throw_at = get_ranged_target_turf(target, throw_dir, knockbackpower)
+		target.throw_at(throw_at, throw_range, 3)
+
+		if(!iscarbon(user))
+			target.LAssailant = null
+		else
+			target.LAssailant = user
+
+		cooldown = world.time + 15

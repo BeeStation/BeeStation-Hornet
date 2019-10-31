@@ -3,6 +3,8 @@
 	pressure_resistance = 8
 	max_integrity = 300
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
+	layer = BELOW_OBJ_LAYER
+	
 	var/climb_time = 20
 	var/climb_stun = 20
 	var/climbable = FALSE
@@ -72,7 +74,7 @@
 		adjusted_climb_time *= 2
 	if(isalien(user))
 		adjusted_climb_time *= 0.25 //aliens are terrifyingly fast
-	if(user.has_trait(TRAIT_FREERUNNING)) //do you have any idea how fast I am???
+	if(HAS_TRAIT(user, TRAIT_FREERUNNING)) //do you have any idea how fast I am???
 		adjusted_climb_time *= 0.8
 	structureclimber = user
 	if(do_mob(user, user, adjusted_climb_time))

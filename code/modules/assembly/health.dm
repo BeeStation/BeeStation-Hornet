@@ -2,7 +2,7 @@
 	name = "health sensor"
 	desc = "Used for scanning and monitoring health."
 	icon_state = "health"
-	materials = list(MAT_METAL=800, MAT_GLASS=200)
+	materials = list(/datum/material/iron=800, /datum/material/glass=200)
 	attachable = TRUE
 	secured = FALSE
 
@@ -44,7 +44,7 @@
 		return
 
 	var/atom/A = src
-	if(connected && connected.holder)
+	if(connected?.holder)
 		A = connected.holder
 
 	for(A, A && !ismob(A), A=A.loc);

@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 //Proc called when the datum is given to a mind.
 /datum/antagonist/proc/on_gain()
-	if(owner && owner.current)
+	if(owner?.current)
 		if(!silent)
 			greet()
 		apply_innate_effects()
@@ -75,6 +75,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 			replace_banned_player()
 		else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.toggles & DEADMIN_ANTAGONIST))
 			owner.current.client.holder.auto_deadmin()
+	greeting_popup()
 
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)

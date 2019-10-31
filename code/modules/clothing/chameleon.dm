@@ -410,7 +410,7 @@
 
 /obj/item/clothing/head/chameleon/drone/Initialize()
 	. = ..()
-	add_trait(TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	chameleon_action.random_look()
 	var/datum/action/item_action/chameleon/drone/togglehatmask/togglehatmask_action = new(src)
 	togglehatmask_action.UpdateButtonIcon()
@@ -465,7 +465,7 @@
 
 /obj/item/clothing/mask/chameleon/drone/Initialize()
 	. = ..()
-	add_trait(TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	chameleon_action.random_look()
 	var/datum/action/item_action/chameleon/drone/togglehatmask/togglehatmask_action = new(src)
 	togglehatmask_action.UpdateButtonIcon()
@@ -549,7 +549,7 @@
 
 /obj/item/storage/belt/chameleon/ComponentInitialize()
 	. = ..()
-	GET_COMPONENT(STR, /datum/component/storage)
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.silent = TRUE
 
 /obj/item/storage/belt/chameleon/emp_act(severity)
@@ -618,3 +618,26 @@
 /obj/item/stamp/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/neck/cloak/chameleon
+	name = "black tie"
+	desc = "A neosilk clip-on tie."
+	icon_state = "blacktie"
+	resistance_flags = NONE
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+
+/obj/item/clothing/neck/cloak/chameleon
+	var/datum/action/item_action/chameleon/change/chameleon_action
+
+/obj/item/clothing/neck/cloak/chameleon/Initialize()
+	. = ..()
+	chameleon_action = new(src)
+	chameleon_action.chameleon_type = /obj/item/clothing/neck
+	chameleon_action.chameleon_name = "Cloak"
+	chameleon_action.initialize_disguises()
+
+/obj/item/clothing/neck/cloak/chameleon/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	chameleon_action.emp_randomise()

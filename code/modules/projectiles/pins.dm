@@ -133,7 +133,7 @@
 // A gun with ultra-honk pin is useful for clown and useless for everyone else.
 /obj/item/firing_pin/clown/ultra/pin_auth(mob/living/user)
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
-	if(user && (!(user.has_trait(TRAIT_CLUMSY)) && !(user.mind && user.mind.assigned_role == "Clown")))
+	if(user && (!(HAS_TRAIT(user, TRAIT_CLUMSY)) && !(user.mind && user.mind.assigned_role == "Clown")))
 		return FALSE
 	return TRUE
 
@@ -176,7 +176,7 @@
 
 /obj/item/firing_pin/dna/auth_fail(mob/living/carbon/user)
 	if(!unique_enzymes)
-		if(user && user.dna && user.dna.unique_enzymes)
+		if(user?.dna?.unique_enzymes)
 			unique_enzymes = user.dna.unique_enzymes
 			to_chat(user, "<span class='notice'>DNA-LOCK SET.</span>")
 	else

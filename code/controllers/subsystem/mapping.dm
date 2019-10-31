@@ -9,6 +9,8 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map_config/config
 	var/datum/map_config/next_map_config
 
+	var/map_voted = FALSE
+
 	var/list/map_templates = list()
 
 	var/list/ruins_templates = list()
@@ -17,6 +19,7 @@ SUBSYSTEM_DEF(mapping)
 
 	var/list/shuttle_templates = list()
 	var/list/shelter_templates = list()
+	var/list/random_room_templates = list()
 
 	var/list/areas_in_z = list()
 
@@ -74,6 +77,11 @@ SUBSYSTEM_DEF(mapping)
 	if(CONFIG_GET(flag/roundstart_away))
 		createRandomZlevel()
 
+	// Load the virtual reality hub
+	if(CONFIG_GET(flag/virtual_reality))
+		to_chat(world, "<span class='boldannounce'>Loading virtual reality...</span>")
+		load_new_z_level("_maps/RandomZLevels/VR/vrhub.dmm", "Virtual Reality Hub")
+		to_chat(world, "<span class='boldannounce'>Virtual reality loaded.</span>")
 
 	// Generate mining ruins
 	loading_ruins = TRUE
@@ -154,6 +162,7 @@ SUBSYSTEM_DEF(mapping)
 	space_ruins_templates = SSmapping.space_ruins_templates
 	lava_ruins_templates = SSmapping.lava_ruins_templates
 	shuttle_templates = SSmapping.shuttle_templates
+	random_room_templates = SSmapping.random_room_templates
 	shelter_templates = SSmapping.shelter_templates
 	unused_turfs = SSmapping.unused_turfs
 	turf_reservations = SSmapping.turf_reservations
@@ -269,11 +278,15 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		log_world("ERROR: Station areas list failed to generate!")
 
 /datum/controller/subsystem/mapping/proc/maprotate()
+	if(map_voted)
+		map_voted = FALSE
+		return
+
 	var/players = GLOB.clients.len
 	var/list/mapvotes = list()
 	//count votes
-	var/amv = CONFIG_GET(flag/allow_map_voting)
-	if(amv)
+	var/pmv = CONFIG_GET(flag/preference_map_voting)
+	if(pmv)
 		for (var/client/c in GLOB.clients)
 			var/vote = c.prefs.preferred_map
 			if (!vote)
@@ -306,7 +319,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 			mapvotes.Remove(map)
 			continue
 
-		if(amv)
+		if(pmv)
 			mapvotes[map] = mapvotes[map]*VM.voteweight
 
 	var/pickedmap = pickweight(mapvotes)
@@ -336,6 +349,16 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	preloadRuinTemplates()
 	preloadShuttleTemplates()
 	preloadShelterTemplates()
+	preloadRandomRoomTemplates()
+
+/datum/controller/subsystem/mapping/proc/preloadRandomRoomTemplates()
+	for(var/item in subtypesof(/datum/map_template/random_room))
+		var/datum/map_template/random_room/room_type = item
+		if(!(initial(room_type.mappath)))
+			continue
+		var/datum/map_template/random_room/R = new room_type()
+		random_room_templates[R.room_id] = R
+		map_templates[R.room_id] = R
 
 /datum/controller/subsystem/mapping/proc/preloadRuinTemplates()
 	// Still supporting bans by filename

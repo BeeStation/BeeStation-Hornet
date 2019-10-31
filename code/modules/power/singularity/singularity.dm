@@ -382,11 +382,11 @@
 		return 0
 	else if(locate(/obj/machinery/field/generator) in T)
 		var/obj/machinery/field/generator/G = locate(/obj/machinery/field/generator) in T
-		if(G && G.active)
+		if(G?.active)
 			return 0
 	else if(locate(/obj/machinery/shieldwallgen) in T)
 		var/obj/machinery/shieldwallgen/S = locate(/obj/machinery/shieldwallgen) in T
-		if(S && S.active)
+		if(S?.active)
 			return 0
 	return 1
 

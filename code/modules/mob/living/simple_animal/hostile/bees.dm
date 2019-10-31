@@ -87,7 +87,7 @@
 	cut_overlays()
 
 	var/col = BEE_DEFAULT_COLOUR
-	if(beegent && beegent.color)
+	if(beegent?.color)
 		col = beegent.color
 
 	add_overlay("[icon_base]_base")
@@ -142,7 +142,7 @@
 			var/mob/living/L = target
 			if(L.reagents)
 				beegent.reaction_mob(L, INJECT)
-				L.reagents.add_reagent(beegent.id, rand(1,5))
+				L.reagents.add_reagent(beegent.type, rand(1,5))
 
 
 /mob/living/simple_animal/hostile/poison/bees/proc/assign_reagent(datum/reagent/R)
@@ -161,9 +161,7 @@
 	target = null //so we pick a new hydro tray next FindTarget(), instead of loving the same plant for eternity
 	wanted_objects -= hydroponicstypecache //so we only hunt them while they're alive/seeded/not visisted
 	Hydro.recent_bee_visit = TRUE
-	spawn(BEE_TRAY_RECENT_VISIT)
-		if(Hydro)
-			Hydro.recent_bee_visit = FALSE
+	addtimer(VARSET_CALLBACK(Hydro, recent_bee_visit, FALSE), BEE_TRAY_RECENT_VISIT)
 
 	var/growth = health //Health also means how many bees are in the swarm, roughly.
 	//better healthier plants!
@@ -208,7 +206,7 @@
 /mob/living/simple_animal/hostile/poison/bees/toxin/Initialize()
 	. = ..()
 	var/datum/reagent/R = pick(typesof(/datum/reagent/toxin))
-	assign_reagent(GLOB.chemical_reagents_list[initial(R.id)])
+	assign_reagent(GLOB.chemical_reagents_list[R])
 
 /mob/living/simple_animal/hostile/poison/bees/queen
 	name = "queen bee"
@@ -228,7 +226,7 @@
 	if(. && beegent && isliving(target))
 		var/mob/living/L = target
 		beegent.reaction_mob(L, TOUCH)
-		L.reagents.add_reagent(beegent.id, rand(1,5))
+		L.reagents.add_reagent(beegent.type, rand(1,5))
 
 
 //PEASENT BEES
@@ -239,7 +237,7 @@
 /mob/living/simple_animal/hostile/poison/bees/proc/reagent_incompatible(mob/living/simple_animal/hostile/poison/bees/B)
 	if(!B)
 		return FALSE
-	if(B.beegent && beegent && B.beegent.id != beegent.id || B.beegent && !beegent || !B.beegent && beegent)
+	if(B.beegent && beegent && B.beegent.type != beegent.type || B.beegent && !beegent || !B.beegent && beegent)
 		return TRUE
 	return FALSE
 
@@ -256,9 +254,9 @@
 /obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
-		if(S.reagents.has_reagent("royal_bee_jelly")) //checked twice, because I really don't want royal bee jelly to be duped
-			if(S.reagents.has_reagent("royal_bee_jelly",5))
-				S.reagents.remove_reagent("royal_bee_jelly", 5)
+		if(S.reagents.has_reagent(/datum/reagent/royal_bee_jelly)) //checked twice, because I really don't want royal bee jelly to be duped
+			if(S.reagents.has_reagent(/datum/reagent/royal_bee_jelly,5))
+				S.reagents.remove_reagent(/datum/reagent/royal_bee_jelly, 5)
 				var/obj/item/queen_bee/qb = new(user.drop_location())
 				qb.queen = new(qb)
 				if(queen && queen.beegent)
@@ -269,8 +267,8 @@
 				to_chat(user, "<span class='warning'>You don't have enough royal bee jelly to split a bee in two!</span>")
 		else
 			var/datum/reagent/R = GLOB.chemical_reagents_list[S.reagents.get_master_reagent_id()]
-			if(R && S.reagents.has_reagent(R.id, 5))
-				S.reagents.remove_reagent(R.id,5)
+			if(R && S.reagents.has_reagent(R.type, 5))
+				S.reagents.remove_reagent(R.type,5)
 				queen.assign_reagent(R)
 				user.visible_message("<span class='warning'>[user] injects [src]'s genome with [R.name], mutating its DNA!</span>","<span class='warning'>You inject [src]'s genome with [R.name], mutating its DNA!</span>")
 				name = queen.name
@@ -296,7 +294,7 @@
 			forceMove(beehome.drop_location())
 	else
 		..()
-		
+
 /mob/living/simple_animal/hostile/poison/bees/short
 	desc = "These bees seem unstable and won't survive for long."
 

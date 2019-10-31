@@ -54,7 +54,7 @@
 
 /obj/machinery/teleport/hub/attackby(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", W))
-		if(power_station && power_station.engaged)
+		if(power_station?.engaged)
 			power_station.engaged = 0 //hub with panel open is off, so the station must be informed.
 			update_icon()
 		return
@@ -225,5 +225,7 @@
 		icon_state = "controller-o"
 	else if(stat & (BROKEN|NOPOWER))
 		icon_state = "controller-p"
+	else if(teleporter_console && teleporter_console.calibrating)
+		icon_state = "controller-c"
 	else
 		icon_state = "controller"

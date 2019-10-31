@@ -4,7 +4,7 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 
 /datum/surgery/lipoplasty/can_start(mob/user, mob/living/carbon/target)
-	if(target.has_trait(TRAIT_FAT))
+	if(HAS_TRAIT(target, TRAIT_FAT))
 		return 1
 	return 0
 
@@ -40,7 +40,7 @@
 	var/mob/living/carbon/human/H = target
 	var/typeofmeat = /obj/item/reagent_containers/food/snacks/meat/slab/human
 
-	if(H.dna && H.dna.species)
+	if(H.dna?.species)
 		typeofmeat = H.dna.species.meat
 
 	var/obj/item/reagent_containers/food/snacks/meat/slab/human/newmeat = new typeofmeat
@@ -48,6 +48,6 @@
 	newmeat.desc = "Extremely fatty tissue taken from a patient."
 	newmeat.subjectname = H.real_name
 	newmeat.subjectjob = H.job
-	newmeat.reagents.add_reagent ("nutriment", (removednutriment / 15)) //To balance with nutriment_factor of nutriment
+	newmeat.reagents.add_reagent (/datum/reagent/consumable/nutriment, (removednutriment / 15)) //To balance with nutriment_factor of nutriment
 	newmeat.forceMove(target.loc)
 	return 1

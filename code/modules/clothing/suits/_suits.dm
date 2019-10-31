@@ -8,6 +8,7 @@
 	var/blood_overlay_type = "suit"
 	var/togglename = null
 	var/suittoggled = FALSE
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
 
 
 /obj/item/clothing/suit/worn_overlays(isinhands = FALSE)
@@ -15,7 +16,7 @@
 	if(!isinhands)
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damaged[blood_overlay_type]")
-		IF_HAS_BLOOD_DNA(src)
+		if(HAS_BLOOD_DNA(src))
 			. += mutable_appearance('icons/effects/blood.dmi', "[blood_overlay_type]blood")
 		var/mob/living/carbon/human/M = loc
 		if(ishuman(M) && M.w_uniform)

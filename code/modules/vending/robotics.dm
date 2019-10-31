@@ -4,9 +4,12 @@
 	desc = "All the tools you need to create your own robot army."
 	icon_state = "robotics"
 	icon_deny = "robotics-deny"
+	light_color = LIGHT_COLOR_WHITE
 	req_access = list(ACCESS_ROBOTICS)
 	products = list(/obj/item/clothing/suit/toggle/labcoat = 4,
 					/obj/item/clothing/under/rank/roboticist = 4,
+					/obj/item/clothing/under/plasmaman/robotics = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/robotics = 2,
 					/obj/item/stack/cable_coil = 4,
 					/obj/item/assembly/flash/handheld = 4,
 					/obj/item/stock_parts/cell/high = 12,
