@@ -321,7 +321,7 @@
 	strip_delay = 60
 	flags_inv = HIDEHAIR
 
-//Centcomm
+//Centcom
 /obj/item/clothing/head/beret/cccaptain
 	name = "central command captain beret"
 	desc = "A pure white beret with a Captain insignia of Central Command."
