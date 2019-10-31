@@ -554,7 +554,9 @@
 			if(viable_occupant && (scrambleready < world.time))
 				viable_occupant.dna.remove_all_mutations(list(MUT_NORMAL, MUT_EXTRA))
 				viable_occupant.dna.generate_dna_blocks()
-				if(prob(1))
+				if(!(viable_occupant.type == /mob/living/carbon/monkey) && prob(1) && prob(10))
+					log_game("[viable_occupant.real_name] has been mutated into Will Smith!")
+					message_admins("[viable_occupant.real_name] has been mutated into Will Smith!")
 					viable_occupant.real_name = "Will Smith"
 					viable_occupant.dna.uni_identity = "000000d8a2105ab2a6c18"
 					viable_occupant.dna.unique_enzymes = "27252c61188fba7e3abbcdd7fc0a23bf"
