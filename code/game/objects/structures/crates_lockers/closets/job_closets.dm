@@ -156,7 +156,7 @@
 		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 		/obj/item/clothing/under/rank/atmospheric_technician = 3,
 		/obj/item/clothing/shoes/sneakers/black = 3,
-		/obj/item/clothing/head/beret/atmos, 3)
+		/obj/item/clothing/head/beret/atmos = 3)
 	generate_items_inside(items_inside,src)
 	return
 
