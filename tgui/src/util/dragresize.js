@@ -17,25 +17,23 @@ export function lock (x, y) {
 }
 
 export function drag (event) {
-  event.preventDefault();
-  if (!this.get('drag')) {
-    return;
-  }
+  event.preventDefault()
+
+  if (!this.get('drag')) return
+
   if (this.get('x')) {
     let x = event.screenX
-      + this.get('x')
-      + this.get('screenOffsetX');
+      - this.get('x')
+      + window.screenLeft
+      - this.get('screenOffsetX')
     let y = event.screenY
-      + this.get('y')
-      + this.get('screenOffsetY');
-    winset(this.get('config.window'), 'pos', `${x},${y}`);
+      - this.get('y')
+      + window.screenTop
+      - this.get('screenOffsetY')
+    if (this.get('config.locked')) ({x, y} = lock(x, y)) // Lock to primary monitor.
+    winset(this.get('config.window'), 'pos', `${x},${y}`)
   }
-  else {
-    this.set({
-      x: window.screenLeft - event.screenX,
-      y: window.screenTop - event.screenY,
-    });
-  }
+  this.set({ x: event.screenX, y: event.screenY })
 }
 
 export function sane (x, y) {
