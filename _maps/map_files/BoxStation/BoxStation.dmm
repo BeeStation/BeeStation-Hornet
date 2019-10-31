@@ -57456,9 +57456,6 @@
 "sdX" = (
 /turf/closed/wall,
 /area/quartermaster/office)
-"sgn" = (
-/turf/closed/wall,
-/area/space)
 "sjr" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/loading_area,
@@ -93464,7 +93461,7 @@ aaa
 aaa
 aaf
 aaf
-atS
+ahn
 ahn
 anE
 aod
@@ -93722,7 +93719,7 @@ aaa
 aaf
 gal
 syg
-sgn
+ahn
 anG
 aoe
 aoL
@@ -93979,7 +93976,7 @@ aaa
 aaa
 aaa
 aaa
-sgn
+ahn
 khB
 ahn
 ahn
