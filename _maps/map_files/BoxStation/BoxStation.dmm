@@ -7117,6 +7117,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "aoJ" = (
@@ -24367,6 +24368,7 @@
 	pixel_y = -23
 	},
 /obj/structure/cable/yellow,
+/obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bfQ" = (
@@ -56048,6 +56050,10 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
+"hwE" = (
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/crew_quarters/fitness)
 "hAK" = (
 /obj/structure/table,
 /obj/item/storage/box/disks_nanite,
@@ -56361,6 +56367,9 @@
 /area/security/detectives_office)
 "kds" = (
 /obj/structure/closet/lasertag/blue,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "kdH" = (
@@ -56395,6 +56404,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
+"kih" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "klg" = (
 /obj/machinery/airalarm{
 	dir = 1;
@@ -94497,7 +94510,7 @@ whX
 whX
 whX
 ayb
-whX
+hwE
 arj
 aaf
 aaa
@@ -95550,7 +95563,7 @@ aYV
 aYV
 bet
 bfH
-bhh
+kih
 bhh
 bhg
 bln
