@@ -1,0 +1,4 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - tweak: "Cultists can now snuff out spells by dropping them."
