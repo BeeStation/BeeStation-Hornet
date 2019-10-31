@@ -825,8 +825,7 @@
 	},
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21";
-	pixel_x = 0;
-	pixel_y = 0
+	
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -904,7 +903,7 @@
 	},
 /obj/machinery/status_display/evac{
 	pixel_x = 32;
-	pixel_y = 0
+	
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -1160,8 +1159,7 @@
 	},
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21";
-	pixel_x = 0;
-	pixel_y = 0
+	
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -1264,7 +1262,6 @@
 	pixel_y = 6
 	},
 /obj/item/radio{
-	pixel_x = 0;
 	pixel_y = 4
 	},
 /turf/open/floor/mineral/plastitanium,
