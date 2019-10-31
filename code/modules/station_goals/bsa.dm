@@ -215,6 +215,8 @@
 	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_boxp"
+	ui_x = 400
+	ui_y = 220
 	var/area_aim = FALSE //should also show areas for targeting
 
 /obj/machinery/computer/bsa_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
@@ -250,6 +252,8 @@
 	update_icon()
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
+	if(!GLOB.bsa_unlock)
+		return
 	var/list/gps_locators = list()
 	for(var/obj/item/gps/G in GLOB.GPS_list) //nulls on the list somehow
 		if(G.tracking)

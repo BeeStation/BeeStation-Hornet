@@ -2451,6 +2451,7 @@
 #include "code\modules\photography\photos\frame.dm"
 #include "code\modules\photography\photos\photo.dm"
 #include "code\modules\plumbing\ducts.dm"
+#include "code\modules\plumbing\plumbers\acclimator.dm"
 #include "code\modules\plumbing\plumbers\pumps.dm"
 #include "code\modules\power\apc.dm"
 #include "code\modules\power\cable.dm"

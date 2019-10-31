@@ -7,6 +7,9 @@
 	idle_power_usage = 40
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_heater
+	ui_x = 275
+	ui_y = 320
+
 	var/obj/item/reagent_containers/beaker = null
 	var/target_temperature = 300
 	var/heater_coefficient = 0.1
