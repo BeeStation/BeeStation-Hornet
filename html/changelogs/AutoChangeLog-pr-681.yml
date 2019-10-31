@@ -1,0 +1,5 @@
+author: "Neri/Kevak"
+delete-after: True
+changes: 
+  - bugfix: "Fixed Abductor Scientists being unable to preform Advanced Surgeries."
+  - bugfix: "Fixed Abductor Scientists being unable to see experimental organ types."
