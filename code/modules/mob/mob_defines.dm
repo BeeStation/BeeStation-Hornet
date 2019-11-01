@@ -203,3 +203,7 @@
 	var/registered_z = null
 	
 	var/memory_throttle_time = 0
+
+	var/player_logged = FALSE //keep track at login and logout; used for SSD
+
+	var/last_pointed = 0 //for pointing cooldown

@@ -469,6 +469,9 @@
 	set name = "Point To"
 	set category = "Object"
 
+	if(world.time - last_pointed < 2 SECONDS)
+		return 0
+
 	if(!src || !isturf(src.loc) || !(A in view(src.loc)))
 		return FALSE
 	if(istype(A, /obj/effect/temp_visual/point))
@@ -479,6 +482,7 @@
 		return FALSE
 
 	new /obj/effect/temp_visual/point(A,invisibility)
+	last_pointed = world.time
 
 	return TRUE
 
