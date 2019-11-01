@@ -1,0 +1,5 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - bugfix: "Fixes ORM point claiming"
+  - tweak: "You no longer need to insert your ID into the ORM to collect points"
