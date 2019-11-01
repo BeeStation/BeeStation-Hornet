@@ -1,5 +1,0 @@
-author: "MarkSuckerberg"
-delete-after: True
-changes: 
-  - rscadd: "\"Wipe Core\" verb in the OOC tab for AIs, basically just the equivalent of cryo"
-  - rscadd: "the Automated announcement system now announces when someone has been cryo'd."
