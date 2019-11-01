@@ -5920,7 +5920,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "alL" = (
@@ -6502,6 +6504,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "and" = (
@@ -6703,7 +6706,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 1
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
@@ -6865,12 +6868,6 @@
 "aod" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
-	},
-/turf/closed/wall,
-/area/maintenance/fore/secondary)
-"aoe" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
 	},
 /turf/closed/wall,
 /area/maintenance/fore/secondary)
@@ -7117,6 +7114,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "aoJ" = (
@@ -7124,9 +7122,6 @@
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "aoK" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/structure/chair/stool{
 	pixel_y = 8
 	},
@@ -7136,12 +7131,11 @@
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "aoL" = (
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 1;
-	name = "Air Out"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
+	},
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
@@ -7389,11 +7383,11 @@
 /area/maintenance/fore/secondary)
 "apy" = (
 /obj/item/wrench,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
@@ -24367,6 +24361,7 @@
 	pixel_y = -23
 	},
 /obj/structure/cable/yellow,
+/obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bfQ" = (
@@ -26539,16 +26534,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
-"bkV" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/maintenance/fore/secondary)
 "bkW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -55790,9 +55775,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
-"gal" = (
-/turf/open/space/basic,
-/area/space/nearstation)
 "gbq" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -56048,6 +56030,10 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
+"hwE" = (
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/crew_quarters/fitness)
 "hAK" = (
 /obj/structure/table,
 /obj/item/storage/box/disks_nanite,
@@ -56361,6 +56347,9 @@
 /area/security/detectives_office)
 "kds" = (
 /obj/structure/closet/lasertag/blue,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "kdH" = (
@@ -56395,6 +56384,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
+"kih" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "klg" = (
 /obj/machinery/airalarm{
 	dir = 1;
@@ -56788,10 +56781,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
-"lRK" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/space)
 "lST" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -57260,6 +57249,10 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
+"ppk" = (
+/obj/structure/plasticflaps/opaque,
+/turf/open/floor/plating,
+/area/maintenance/fore/secondary)
 "pqP" = (
 /obj/machinery/light{
 	dir = 4
@@ -93200,7 +93193,7 @@ aif
 aif
 alK
 aif
-bkV
+aif
 anc
 anD
 aoI
@@ -93453,8 +93446,8 @@ ahn
 ahn
 and
 anF
-aod
 ahn
+ppk
 apx
 ahn
 ahn
@@ -93710,7 +93703,7 @@ aaf
 ahn
 ahn
 anE
-aod
+ahn
 aoK
 apw
 aqp
@@ -93963,11 +93956,11 @@ aaa
 aaa
 aaa
 aaf
-gal
-syg
+aaa
+aaf
 ahn
 anG
-aoe
+ahn
 aoL
 apy
 aqq
@@ -94479,12 +94472,12 @@ aaa
 aaa
 aaa
 aaa
-lRK
 aag
 aag
-gal
+aag
 aaa
-syg
+aaa
+aaf
 ahn
 mgt
 wHl
@@ -94497,7 +94490,7 @@ whX
 whX
 whX
 ayb
-whX
+hwE
 arj
 aaf
 aaa
@@ -95550,7 +95543,7 @@ aYV
 aYV
 bet
 bfH
-bhh
+kih
 bhh
 bhg
 bln
