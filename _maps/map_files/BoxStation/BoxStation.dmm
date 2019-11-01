@@ -55735,6 +55735,11 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
+"fEK" = (
+/obj/structure/bed/dogbed/renault,
+/mob/living/simple_animal/pet/fox/Renault,
+/turf/open/floor/wood,
+/area/crew_quarters/heads/captain)
 "fGf" = (
 /obj/machinery/smartfridge/disks{
 	pixel_y = 2
@@ -57142,6 +57147,16 @@
 /obj/item/storage/fancy/candle_box,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
+"oBg" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/bed/dogbed/runtime,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/heads/cmo)
 "oDF" = (
 /obj/machinery/light,
 /turf/open/floor/plating,
@@ -90918,7 +90933,7 @@ iXl
 ben
 bfE
 bgX
-bbw
+fEK
 bjJ
 bld
 bmD
@@ -99416,7 +99431,7 @@ bon
 bBO
 bCY
 bEj
-bCY
+oBg
 bGZ
 bFE
 bBN
