@@ -59,6 +59,12 @@
 		manifest = null
 		update_icon()
 
+/obj/structure/closet/crate/handle_lock_addition()
+	return
+
+/obj/structure/closet/crate/handle_lock_removal()
+	return
+
 /obj/structure/closet/crate/proc/tear_manifest(mob/user)
 	to_chat(user, "<span class='notice'>You tear the manifest off of [src].</span>")
 	playsound(src, 'sound/items/poster_ripped.ogg', 75, 1)
@@ -81,6 +87,13 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
+
+/obj/structure/closet/coffin/handle_lock_addition() 
+	return 
+ 
+/obj/structure/closet/coffin/handle_lock_removal() 
+	return 
+ 
 
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."

@@ -110,6 +110,12 @@
 	new /obj/item/storage/fancy/candle_box(src)
 	return
 
+/obj/structure/closet/coffin/handle_lock_addition()
+	return
+
+/obj/structure/closet/coffin/handle_lock_removal()
+	return
+
 /obj/structure/closet/wardrobe/red
 	name = "security wardrobe"
 	icon_door = "red"

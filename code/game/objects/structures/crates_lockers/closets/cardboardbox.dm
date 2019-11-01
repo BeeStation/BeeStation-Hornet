@@ -54,6 +54,12 @@
 				L.do_alert_animation(L)
 		playsound(loc, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
+/obj/structure/closet/cardboard/handle_lock_addition() //Whoever heard of a lockable cardboard box anyway
+	return
+
+/obj/structure/closet/cardboard/handle_lock_removal()
+	return
+
 /mob/living/proc/do_alert_animation(atom/A)
 	var/image/I = image('icons/obj/closet.dmi', A, "cardboard_special", A.layer+1)
 	flick_overlay_view(I, A, 8)

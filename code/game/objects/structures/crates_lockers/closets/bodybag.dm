@@ -65,6 +65,12 @@
 		density = FALSE
 		mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
+/obj/structure/closet/body_bag/handle_lock_addition()
+	return
+
+/obj/structure/closet/body_bag/handle_lock_removal()
+	return
+
 /obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
