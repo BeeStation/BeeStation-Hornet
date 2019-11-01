@@ -1,0 +1,5 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - bugfix: "Box fitness room APC now receives power again."
+  - bugfix: "Air supply pipes in BoxStation fore maintenance have been repaired."
