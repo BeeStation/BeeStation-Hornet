@@ -1,14 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 												D O C U M E N T A T I O N  			K m c 2 0 0 0 -> 22/01/2019																				//
-// Turbolifts and you! How to make elevators with little to no effort.																														//
-// ENSURE that the turbolift object ITSELF lines up with the others. This is to prevent the panel jumping about wildly and looking stupid													//
-// If you want to make a multi door turbolift, place the controls at least 1 tile away from the doors. That way it switches to the more CPU intensive area based door acquisition system 	//
-// This is area based! Ensure each turbolift is in a unique area, or things will get fucky																									//
-// Ensure that turbolift doors are at least one tile away from the next lift. See DeepSpace13.dmm for examples. 																			//
-// Use the indestructible elevator turfs or it'll look terrible!				  																											//
-// Modify pixel_x and y as needed, it starts off snapped to the tile below a wall.																											//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 GLOBAL_LIST_EMPTY(turbolifts)
 
 /obj/docking_port/stationary/turbolift
@@ -109,7 +98,48 @@ GLOBAL_LIST_EMPTY(turbolifts)
 /obj/machinery/turbolift_button
 	icon = 'icons/obj/turbolift.dmi'
 	icon_state = "button"
-	icon_state = "button_lit"
+	can_be_unanchored = FALSE
+	density = FALSE
+	anchored = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	verb_say = "beeps"
+	verb_ask = "beeps"
+	verb_exclaim = "beeps"
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 2
+
+	var/shuttle_id //Needs to match the turbolift computer & mobile dock
+	var/floor_id
+
+/obj/machinery/turbolift_button/Initialize()
+	. = ..()
+	if(!shuttle_id)
+		log_mapping("TURBOLIFT: [src] has no shuttle_id at [AREACOORD(src)]")
+		message_admins("TURBOLIFT: [src] has no shuttle_id at [AREACOORD(src)]")
+		return
+	floor_id = "[shuttle_id]_[src.z]"
+
+/obj/machinery/turbolift_button/attack_hand(mob/user)
+	if (stat & NOPOWER)
+		to_chat(user, "<span class='notice'>[src] does not respond.</span>")
+	if(!shuttle_id || !floor_id)
+		say("An unexpected error has occured. Please contact a Nanotrasen Turbolift Repair Technician.")
+		return
+
+	var/obj/docking_port/mobile/turbolift/M = SSshuttle.getShuttle(shuttle_id)
+	var/obj/machinery/computer/turbolift/T = M?.turbolift_computer
+	if(!M || !T)
+		say("An unexpected error has occured. Please contact a Nanotrasen Turbolift Repair Technician.")
+		return
+
+	if("[floor_id]" in T.destination_queue)
+		to_chat(user, "<span class='notice'>The current deck is already queued.</span>")
+	else if(T.z == src.z)
+		to_chat(user, "<span class='notice'>The turbolift is already at this deck.</span>")
+	else
+		say("The turbolift will arrive shortly. Thank you for using Nanotrasen Turbolift Services(TM).")
+		T.destination_queue += "[floor_id]"
+		START_PROCESSING(SSmachines, T)
 
 /obj/machinery/computer/turbolift
 	name = "turbolift control console"
@@ -120,14 +150,14 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	can_be_unanchored = FALSE
 	mouse_over_pointer = MOUSE_HAND_POINTER
 	desc = "Nanotrasen's decision to replace the iconic turboladder was not met with unanimous praise, experts citing increased obesity figures from crewmen no longer needing to climb vertically through several miles of deck to reach their target. However this is undoubtedly much faster."
-	pixel_y = 32 //This just makes it easier for locate...
+	pixel_y = 32
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 	var/shuttle_id //Needs to match the mobile docking port's ID
 	var/list/possible_destinations = list()
 	var/list/airlocks = list()
 	var/list/destination_queue = list()
-	var/time_between_stops = 50 //Time in deciseconds before going to the next location in the queue.
+	var/time_between_stops = 50 //Time in deciseconds before going to the next location in the queue. //DEBUG PLACEHOLDER
 	var/in_use = FALSE
 	var/online = TRUE //Is the elevator functional? Will be expanded upon later
 
@@ -230,11 +260,6 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	A.bolt()
 
 /obj/machinery/computer/turbolift/attack_hand(mob/user)
-
-	if(!airlocks.len)
-		find_airlocks()
-
-	//var/list/options = params2list(possible_destinations)
 	for(var/id in possible_destinations)
 		var/obj/docking_port/stationary/turbolift/dock = SSshuttle.getDock(id)
 		if(dock.z != src.z)
@@ -289,6 +314,8 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		pre_move(destination_queue[1])
 
 /obj/machinery/computer/turbolift/proc/pre_move(var/destination_id)
+	if(!airlocks.len)
+		find_airlocks()
 	var/obj/docking_port/stationary/turbolift/dock = SSshuttle.getDock(destination_id) //We check this in both procs because who knows what might happen to the dock while the timer is going
 	if(!dock)
 		to_chat(world, "FAILED TO FIND DOCK 1") //DEBUG

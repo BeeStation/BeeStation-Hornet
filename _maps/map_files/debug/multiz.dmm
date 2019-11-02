@@ -1562,6 +1562,13 @@
 "qS" = (
 /turf/open/openspace,
 /area/shuttle/turbolift/shaft)
+"rS" = (
+/obj/machinery/turbolift_button{
+	pixel_y = -23;
+	shuttle_id = "turbolift_primary"
+	},
+/turf/open/floor/plasteel,
+/area/construction)
 "sG" = (
 /obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plasteel,
@@ -1695,6 +1702,13 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"OJ" = (
+/obj/machinery/turbolift_button{
+	pixel_y = -23;
+	shuttle_id = "turbolift_primary"
+	},
+/turf/open/floor/plasteel,
+/area/security)
 "Pl" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1719,6 +1733,13 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
+"Tg" = (
+/obj/machinery/turbolift_button{
+	pixel_y = -23;
+	shuttle_id = "turbolift_primary"
+	},
+/turf/open/floor/plating,
+/area/construction)
 "TU" = (
 /obj/docking_port/stationary/turbolift{
 	dwidth = 2;
@@ -2877,7 +2898,7 @@ dn
 dn
 dn
 dn
-dn
+Tg
 cN
 DO
 DO
@@ -5686,7 +5707,7 @@ au
 au
 au
 eL
-ep
+rS
 cN
 qS
 qS
@@ -8495,7 +8516,7 @@ au
 au
 au
 Jz
-KR
+OJ
 yz
 qS
 qS
