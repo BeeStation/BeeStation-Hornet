@@ -18557,7 +18557,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -31
 	},
-/turf/open/floor/wood,
+/turf/open/floor/carpet/green,
 /area/lawoffice)
 "aIV" = (
 /obj/structure/table/wood,
@@ -18570,7 +18570,7 @@
 	network = list("prison");
 	pixel_y = 30
 	},
-/turf/open/floor/wood,
+/turf/open/floor/carpet/green,
 /area/lawoffice)
 "aIW" = (
 /obj/structure/rack,
@@ -19052,7 +19052,7 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/turf/open/floor/wood,
+/turf/open/floor/carpet/green,
 /area/lawoffice)
 "aKg" = (
 /obj/structure/table/wood,
@@ -19061,7 +19061,7 @@
 /obj/item/folder/blue,
 /obj/item/folder/blue,
 /obj/item/stamp/law,
-/turf/open/floor/wood,
+/turf/open/floor/carpet/green,
 /area/lawoffice)
 "aKh" = (
 /obj/structure/chair{
@@ -19697,7 +19697,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/wood,
+/turf/open/floor/carpet/green,
 /area/lawoffice)
 "aLE" = (
 /obj/structure/table/wood,
@@ -19705,7 +19705,7 @@
 /obj/item/folder/red,
 /obj/item/folder/red,
 /obj/item/clothing/glasses/sunglasses/big,
-/turf/open/floor/wood,
+/turf/open/floor/carpet/green,
 /area/lawoffice)
 "aLF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
@@ -34124,6 +34124,7 @@
 	},
 /obj/machinery/airalarm{
 	dir = 1;
+	pixel_x = 0;
 	pixel_y = -24
 	},
 /turf/open/floor/plasteel,
@@ -50507,13 +50508,13 @@
 /area/hallway/primary/central)
 "bUc" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/structure/sign/departments/botany{
-	pixel_x = 32;
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
+	},
+/obj/structure/sign/departments/minsky/supply/hydroponics{
+	pixel_x = 32;
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -70029,9 +70030,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/item/radio/intercom{
-	pixel_x = 29
-	},
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -119416,7 +119414,7 @@ wLz
 dLG
 vcK
 ieV
-acQ
+acP
 afs
 agr
 acP
