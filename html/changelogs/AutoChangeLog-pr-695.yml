@@ -1,0 +1,4 @@
+author: "ike709"
+delete-after: True
+changes: 
+  - rscadd: "High priority feature: The DNA scanner now has a small chance to turn occupants into bananas."
