@@ -35021,6 +35021,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/item/storage/crayons,
+/obj/item/storage/crayons,
+/obj/item/storage/crayons,
+/obj/item/camera,
+/obj/item/camera_film,
 /turf/open/floor/plasteel,
 /area/storage/art)
 "boN" = (
@@ -36224,6 +36229,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -28
+	},
 /turf/open/floor/plasteel,
 /area/storage/art)
 "brf" = (
@@ -37390,33 +37399,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"btl" = (
-/obj/structure/table,
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/twentythreeXnineteen,
-/obj/item/canvas/twentythreeXnineteen,
-/obj/item/canvas/nineteenXnineteen,
-/obj/item/canvas/nineteenXnineteen,
-/obj/item/storage/crayons,
-/obj/item/storage/crayons,
-/obj/item/storage/crayons,
-/turf/open/floor/plasteel,
-/area/storage/art)
-"btm" = (
-/obj/structure/table,
-/obj/item/camera,
-/turf/open/floor/plasteel,
-/area/storage/art)
-"btn" = (
-/obj/structure/table,
-/obj/item/camera_film,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 28
-	},
-/turf/open/floor/plasteel,
-/area/storage/art)
 "bto" = (
 /obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/wood,
@@ -39087,61 +39069,32 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bwK" = (
-/obj/structure/table,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -26
-	},
-/obj/machinery/chem_dispenser/drinks,
-/obj/structure/sign/barsign{
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
-"bwL" = (
-/obj/structure/table,
-/obj/machinery/chem_dispenser/drinks/beer,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
-"bwM" = (
-/obj/machinery/camera{
-	c_tag = "Bar";
-	dir = 2
-	},
-/obj/machinery/requests_console{
-	department = "Bar";
-	departmentType = 2;
-	pixel_y = 30;
-	receive_ore_updates = 1
-	},
-/obj/structure/table,
-/obj/item/book/manual/wiki/barman_recipes{
-	pixel_y = 5
-	},
+/obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/reagent_containers/glass/rag{
 	pixel_y = 5
 	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar,
+/turf/open/floor/plasteel,
+/area/crew_quarters/bar)
+"bwL" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "bwN" = (
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/machinery/newscaster{
-	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -58287,9 +58240,7 @@
 	name = "old sink";
 	pixel_y = 28
 	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/turf/open/floor/carpet/green,
 /area/maintenance/port/aft)
 "cjr" = (
 /obj/structure/disposalpipe/segment{
@@ -81040,7 +80991,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/turf/open/floor/wood,
+/turf/open/floor/carpet/green,
 /area/maintenance/port/aft)
 "diF" = (
 /obj/structure/chair/stool,
@@ -81960,6 +81911,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"dAN" = (
+/obj/machinery/chem_dispenser/drinks/beer,
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar,
+/turf/open/floor/plasteel,
+/area/crew_quarters/bar)
 "dAZ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -82412,10 +82372,17 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "dCS" = (
-/obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Bar";
+	dir = 2
+	},
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/machinery/newscaster{
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -82850,6 +82817,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
+"eGe" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/crew_quarters/bar)
 "eLn" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
@@ -82862,6 +82833,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
+"eTL" = (
+/obj/structure/table/reinforced,
+/obj/item/book/manual/wiki/barman_recipes{
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -26
+	},
+/obj/structure/sign/barsign{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/bar)
 "eZe" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -83286,6 +83275,9 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"iYS" = (
+/turf/open/floor/carpet/green,
+/area/maintenance/port/aft)
 "jah" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -83692,6 +83684,19 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
+"mNe" = (
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/paicard,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar,
+/turf/open/floor/plasteel,
+/area/crew_quarters/bar)
 "mWg" = (
 /obj/structure/girder,
 /obj/structure/grille,
@@ -84856,6 +84861,21 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab/range)
+"xZk" = (
+/obj/machinery/requests_console{
+	department = "Bar";
+	departmentType = 2;
+	pixel_y = 30;
+	receive_ore_updates = 1
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/drinks,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar,
+/turf/open/floor/plasteel,
+/area/crew_quarters/bar)
 "ybn" = (
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/blobstart,
@@ -100985,8 +101005,8 @@ cek
 dux
 dux
 cjq
-ckP
-ckS
+iYS
+iYS
 ckP
 ckP
 ckP
@@ -101242,8 +101262,8 @@ cfB
 cbp
 dux
 diE
-ckQ
-ckP
+iYS
+iYS
 cni
 cjt
 dbq
@@ -117660,10 +117680,10 @@ bkT
 bmL
 boL
 bmO
-bmM
 bmO
 bmP
-dhT
+eGe
+eGe
 bmP
 bBS
 bDC
@@ -117917,10 +117937,10 @@ bkU
 bmM
 boM
 brd
-btl
 bmO
+eTL
 bwK
-bwO
+mNe
 bAi
 bBT
 bwO
@@ -118174,8 +118194,8 @@ bkV
 bmN
 boN
 bre
-btm
 bmO
+dAN
 bwL
 byy
 bAj
@@ -118431,9 +118451,9 @@ bkU
 bmM
 boO
 brf
-btn
 bmO
-bwM
+xZk
+bwO
 bwO
 bAk
 bBT
@@ -118689,7 +118709,7 @@ bmO
 bmO
 bmO
 bmO
-bmO
+buN
 bwN
 byz
 bAj
@@ -118946,7 +118966,7 @@ bmP
 boP
 brg
 bto
-buN
+bmP
 dCS
 bwO
 bAl
