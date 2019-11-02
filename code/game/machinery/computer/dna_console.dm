@@ -601,7 +601,7 @@
 						connected.locked = FALSE
 						connected.open_machine()
 					var/occupant_loc = viable_occupant.loc
-					viable_occupant.gib()
+					viable_occupant.Destroy()
 					new /obj/item/reagent_containers/food/snacks/grown/banana(occupant_loc)
 					return
 
