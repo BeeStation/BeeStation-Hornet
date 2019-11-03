@@ -20,10 +20,12 @@ import { ChemHeater } from './interfaces/ChemHeater';
 import { ChemMaster } from './interfaces/ChemMaster';
 import { CodexGigas } from './interfaces/CodexGigas';
 import { Crayon } from './interfaces/Crayon';
+import { CrewConsole } from './interfaces/CrewConsole';
 import { Cryo } from './interfaces/Cryo';
 import { DisposalUnit } from './interfaces/DisposalUnit';
 import { KitchenSink } from './interfaces/KitchenSink';
 import { Mint } from './interfaces/Mint';
+import { OperatingComputer } from './interfaces/OperatingComputer';
 import { PortableGenerator } from './interfaces/PortableGenerator';
 import { ShuttleManipulator } from './interfaces/ShuttleManipulator';
 import { SmartVend } from './interfaces/SmartVend';
@@ -124,6 +126,10 @@ const ROUTES = {
     component: () => Crayon,
     scrollable: true,
   },
+  crew: {
+    component: () => CrewConsole,
+    scrollable: true,
+  },
   cryo: {
     component: () => Cryo,
     scrollable: false,
@@ -146,6 +152,10 @@ const ROUTES = {
   },
   smartvend: {
     component: () => SmartVend,
+    scrollable: true,
+  },
+  operating_computer: {
+    component: () => OperatingComputer,
     scrollable: true,
   },
   thermomachine: {
