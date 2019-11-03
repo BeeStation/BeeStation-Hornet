@@ -199,6 +199,21 @@
 	new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 
+/obj/item/storage/firstaid/brand_ipc_kit
+	name = "IPC maintenance kit"
+	desc = "Nanotrasen Branded IPC maintenance kit, consists of two chemical appliers, as well as modular cords and dent modules for fixing burn and brute damage. There seem to be a guide included."
+	icon_state = "radfirstaid3"
+
+/obj/item/storage/firstaid/brand_ipc_kit/PopulateContents()
+	if(empty)
+		return
+	new /obj/item/stack/medical/patch_cord(src)
+	new /obj/item/stack/medical/patch_cord(src)
+	new /obj/item/stack/medical/modular_plate(src)
+	new /obj/item/stack/medical/modular_plate(src)
+	new /obj/item/reagent_containers/hypospray/medipen/solderinjector(src)
+	new /obj/item/reagent_containers/hypospray/medipen/cleanerinjector(src)
+
 //medibot assembly
 /obj/item/storage/firstaid/attackby(obj/item/bodypart/S, mob/user, params)
 	if((!istype(S, /obj/item/bodypart/l_arm/robot)) && (!istype(S, /obj/item/bodypart/r_arm/robot)))
