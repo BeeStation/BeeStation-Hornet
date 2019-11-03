@@ -14,6 +14,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = 0
 	var/infinite = FALSE
+	var/stable_icon = 0
 
 /obj/item/reagent_containers/hypospray/attack_paw(mob/user)
 	return attack_hand(user)
@@ -127,7 +128,7 @@
 			update_icon()
 
 /obj/item/reagent_containers/hypospray/medipen/update_icon()
-	if(reagents.total_volume > 0)
+	if(reagents.total_volume > 0 || stable_icon)
 		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]0"
@@ -219,18 +220,20 @@
 
 /obj/item/reagent_containers/hypospray/medipen/solderinjector
 	name = "Solder Autoapplier"
-	desc = "Nanotrasen brand IPC soldering device, guarantees to fix most basic positronic brain traumas as well as repair massive ammounts of damage to said brain without removing any protective clothing. Comes preloaded with 3 injections worth of solder."
+	desc = "Nanotrasen brand IPC soldering device, guarantees to fix most basic positronic brain traumas as well as repair massive ammounts of damage to said brain without removing any protective clothing. Comes preloaded with 5 injections."
 	item_state = "nanite_hypo0"
 	icon_state = "nanite_hypo0"
 	volume = 100
 	amount_per_transfer_from_this = 20
 	list_reagents = list(/datum/reagent/medicine/liquid_solder = 100)
+	stable_icon = 1
 
 /obj/item/reagent_containers/hypospray/medipen/cleanerinjector
 	name = "IPC frame Autocleaner"
-	desc = "Nanotrasen brand IPC frame Autocleaning device, guarantees to clean most long lasting effects of toxic contamination in your IPC frame. Warning, the device will NOT purge any chemicals in the chassis frame."
+	desc = "Nanotrasen brand IPC frame Autocleaning device, guarantees to clean most long lasting effects of toxic contamination in your IPC frame. Warning, the device will NOT purge any chemicals in the chassis frame. Comes preloaded with 5 injections."
 	item_state = "holy_hypo"
 	icon_state = "holy_hypo"
 	volume = 250
 	amount_per_transfer_from_this = 50
 	list_reagents = list(/datum/reagent/medicine/system_cleaner = 250)
+	stable_icon = 1
