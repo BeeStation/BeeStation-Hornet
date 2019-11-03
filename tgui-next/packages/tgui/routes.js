@@ -45,6 +45,8 @@ import { TankDispenser } from './interfaces/TankDispenser';
 import { ThermoMachine } from './interfaces/ThermoMachine';
 import { VaultController } from './interfaces/VaultController';
 import { Wires } from './interfaces/Wires';
+import { ChemSynthesizer } from './interfaces/ChemSynthesizer';
+import { ChemPress } from './interfaces/ChemPress';
 
 const ROUTES = {
   ai_airlock: {
