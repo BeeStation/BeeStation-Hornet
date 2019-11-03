@@ -222,15 +222,15 @@
 	desc = "Nanotrasen brand IPC soldering device, guarantees to fix most basic positronic brain traumas as well as repair massive ammounts of damage to said brain without removing any protective clothing. Comes preloaded with 3 injections worth of solder."
 	item_state = "nanite_hypo0"
 	icon_state = "nanite_hypo0"
-	volume = 60
+	volume = 100
 	amount_per_transfer_from_this = 20
-	list_reagents = list(/datum/reagent/medicine/liquid_solder = 60)
+	list_reagents = list(/datum/reagent/medicine/liquid_solder = 100)
 
 /obj/item/reagent_containers/hypospray/medipen/cleanerinjector
 	name = "IPC frame Autocleaner"
 	desc = "Nanotrasen brand IPC frame Autocleaning device, guarantees to clean most long lasting effects of toxic contamination in your IPC frame. Warning, the device will NOT purge any chemicals in the chassis frame."
 	item_state = "holy_hypo"
 	icon_state = "holy_hypo"
-	volume = 150
+	volume = 250
 	amount_per_transfer_from_this = 50
-	list_reagents = list(/datum/reagent/medicine/system_cleaner = 150)
+	list_reagents = list(/datum/reagent/medicine/system_cleaner = 250)
