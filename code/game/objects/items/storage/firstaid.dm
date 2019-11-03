@@ -213,6 +213,11 @@
 	new /obj/item/stack/medical/modular_plate(src)
 	new /obj/item/reagent_containers/hypospray/medipen/solderinjector(src)
 	new /obj/item/reagent_containers/hypospray/medipen/cleanerinjector(src)
+	new /obj/item/paper/pamphlet/ipc_kit(src)
+
+/obj/item/paper/pamphlet/ipc_kit //making it here because that is how pamphlets are coded. I am not putting it in the fucking space hotel or gateway modules.
+	name = "maintenance kit pamphlet"
+	info = "<center><b>Nanotrasen presents the IPC Maintenance Kit (tm)</center></b><br><center><i>Approved for rapid android and prosthetics fixes and maintenance by SolGov Institute of Robotics and Computer Science </i></center><br><br><p>This kit consists of:</p><br><p>Two sets of ten modular structure plates for quick replacement of even most dented parts of any robotic limbs.</p><br><p>Two sets of ten patch cords for near instantanious repairs of any fried cables.</p><br><p>One automatic applyer of liquid solder in case of structural and minor functional damage to your IPC's brain. Comes with 5 uses. (Application on organic beings not recommended)</p><br><p>One automatic injector of system cleaner for the most severe contamination of your IPC's frame Comes with 5 uses. (Application on organic beings not recommended).</p><br><p>Nanotrasen reminds you that all modern IPC models do NOT require a cyborg emergency reset board in order to reboot! In case of unavaliability of Nanotrasen branded maintenance kits, any similar replacement matirials can be utilized by IPCs of ANY model! (Warning, before using any third-party maintenance materials make sure they do not contain corrosive substances.</p>"
 
 //medibot assembly
 /obj/item/storage/firstaid/attackby(obj/item/bodypart/S, mob/user, params)
