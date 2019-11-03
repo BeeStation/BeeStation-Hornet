@@ -15,10 +15,11 @@
 	var/heal_burn = 0
 	var/stop_bleeding = 0
 	var/self_delay = 50
+	var/for_robotics = 0
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
 
-	if(M.stat == DEAD && !stop_bleeding)
+	if(M.stat == DEAD && !stop_bleeding && !for_robotics)
 		var/t_him = "it"
 		if(M.gender == MALE)
 			t_him = "him"
@@ -28,6 +29,7 @@
 		return
 
 	if(!iscarbon(M) && !isanimal(M))
+		//TODO for_robotics check to fix borgs some other day. Not in this PR.
 		to_chat(user, "<span class='danger'>You don't know how to apply \the [src] to [M]!</span>")
 		return 1
 
@@ -90,11 +92,16 @@
 			if(stop_bleeding)
 				if(!H.bleedsuppress) //so you can't stack bleed suppression
 					H.suppress_bloodloss(stop_bleeding)
-		if(affecting.status == BODYPART_ORGANIC) //Limb must be organic to be healed - RR
+		if(affecting.status == BODYPART_ORGANIC && !for_robotics) //Limb must be organic to be healed - RR //Or the pack must be for robotics - St0rmC4st3r
+			if(affecting.heal_damage(heal_brute, heal_burn))
+				C.update_damage_overlays()
+		else if(affecting.status == BODYPART_ROBOTIC && !for_robotics)
+			to_chat(user, "<span class='notice'>Medicine won't work on a robotic limb!</span>")
+		else if(affecting.status == BODYPART_ROBOTIC && for_robotics)
 			if(affecting.heal_damage(heal_brute, heal_burn))
 				C.update_damage_overlays()
 		else
-			to_chat(user, "<span class='notice'>Medicine won't work on a robotic limb!</span>")
+			to_chat(user, "<span class='notice'>The kit won't work on an organic limb!</span>")
 	else
 		M.heal_bodypart_damage((src.heal_brute/2), (src.heal_burn/2))
 
@@ -171,3 +178,29 @@
 /obj/item/stack/medical/ointment/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is squeezing \the [src] into [user.p_their()] mouth! [user.p_do(TRUE)]n't [user.p_they()] know that stuff is toxic?</span>")
 	return TOXLOSS
+
+/obj/item/stack/medical/patch_cord
+	name = "patch cord"
+	singular_name = "patch cord"
+	desc = "A Nanotrasen Brand IPC patch cord, designed to rapidly replace a big ammount of cables at once using pre-designed ports in your IPC unit frame."
+	icon_state = "cord"
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	for_robotics = 1
+	heal_burn = 50
+	self_delay = 10
+	amount = 10
+	max_amount = 10 //Don't be scared, it is balanced, people tend to waste the cables on minor wounds, so on average this will heal less than a cable coil, but will be extremely useful to revive an IPC
+
+/obj/item/stack/medical/modular_plate
+	name = "modular plate"
+	singular_name = "modular plate"
+	desc = "A Nanotrasen Brand IPC modular chassis plate, has patented clamps to entirely replace most of the frame's supportive structure, thus fixing massive ammounts of brute damage. "
+	icon_state = "ipc_dent_module" 
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	for_robotics = 1
+	heal_brute = 50
+	self_delay = 10
+	amount = 10
+	max_amount = 10
