@@ -1245,6 +1245,13 @@
 	small_item = TRUE
 	contains = list(/obj/item/storage/firstaid/regular)
 
+/datum/supply_pack/medical/ipc_maintenance
+	name = "Nanotrased Brand IPC maintenance and repair kit"
+	desc = "Contains one IPC maintenance kit for rapidly healing heavy brute, burn, brain and toxin damage."
+	cost = 2500 
+	small_item = TRUE
+	contains = list(/obj/item/storage/firstaid/brand_ipc_kit)
+
 /datum/supply_pack/medical/iv_drip
 	name = "IV Drip Crate"
 	desc = "Contains a single IV drip for administering blood to patients."
@@ -1429,6 +1436,13 @@
 	crate_name = "tank transfer valves crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 	dangerous = TRUE
+
+/datum/supply_pack/science/ipc_maintenance
+	name = "Nanotrased Brand IPC maintenance and repair kit"
+	desc = "Contains one IPC maintenance kit for rapidly healing heavy brute, burn, brain and toxin damage."
+	cost = 2500 
+	small_item = TRUE
+	contains = list(/obj/item/storage/firstaid/brand_ipc_kit)
 
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Service //////////////////////////////////////
