@@ -1,4 +1,0 @@
-author: "ike709"
-delete-after: True
-changes: 
-  - bugfix: "Fixed the holodeck computer. No, it wasn't because of the new UI. It doesn't even use the new UI."
