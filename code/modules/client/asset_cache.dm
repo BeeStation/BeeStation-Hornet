@@ -735,6 +735,18 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/simple/bee_antags
 	assets = list(
 		"traitor.png" = 'html/img/traitor.png',
+		"bloodcult.png" = 'html/img/bloodcult.png',
+		"dagger.png" = 'html/img/dagger.png',
+		"sacrune.png" = 'html/img/sacrune.png',
+		"archives.png" = 'html/img/archives.png',
+		"xeno.png" = 'html/img/xeno.png',
+		"xenoqueen.png" = 'html/img/xenoqueen.png',
+		"facehugger.png" = 'html/img/facehugger.png',
+		"xenolarva.png" = 'html/img/xenolarva.png',
+		"blobcore.png" = 'html/img/blobcore.png',
+		"blobnode.png" = 'html/img/blobnode.png',
+		"blobresource.png" = 'html/img/blobresource.png',
+		"blobfactory.png" = 'html/img/blobfactory.png',
 		"wizard.png" = 'html/img/wizard.png',
 		"nukie.png" = 'html/img/nukie.png',
 		"ayylmao.png" = 'html/img/ayylmao.png',
