@@ -1,6 +1,7 @@
 GLOBAL_LIST_EMPTY(antagonists)
 
 /datum/antagonist
+	var/tips
 	var/name = "Antagonist"
 	var/roundend_category = "other antagonists"				//Section of roundend report, datums with same category will be displayed together, also default header for the section
 	var/show_in_roundend = TRUE								//Set to false to hide the antagonists from roundend report
@@ -22,6 +23,22 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/antagpanel_category = "Uncategorized"	//Antagpanel will display these together, REQUIRED
 	var/show_name_in_check_antagonists = FALSE //Will append antagonist name in admin listings - use for categories that share more than one antag type
 
+/datum/antagonist/on_gain()
+	. = ..()
+	if(owner && owner.current)
+		if(!silent && tips)
+			show_tips(tips)
+			
+/datum/antagonist/proc/show_tips(file)
+	if(!owner || !owner.current || !owner.current.client)
+		return
+	var/datum/asset/stuff = get_asset_datum(/datum/asset/simple/bee_antags)
+	stuff.send(owner.current.client)
+	var/datum/browser/popup = new(owner.current, "antagTips", null, 600, 400)
+	popup.set_window_options("titlebar=1;can_minimize=0;can_resize=0")
+	popup.set_content(file2text(file))
+	popup.open(FALSE)
+	
 /datum/antagonist/New()
 	GLOB.antagonists += src
 	typecache_datum_blacklist = typecacheof(typecache_datum_blacklist)
@@ -75,7 +92,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 			replace_banned_player()
 		else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.toggles & DEADMIN_ANTAGONIST))
 			owner.current.client.holder.auto_deadmin()
-	greeting_popup()
 
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
