@@ -22,12 +22,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/show_in_antagpanel = TRUE	//This will hide adding this antag type in antag panel, use only for internal subtypes that shouldn't be added directly but still show if possessed by mind
 	var/antagpanel_category = "Uncategorized"	//Antagpanel will display these together, REQUIRED
 	var/show_name_in_check_antagonists = FALSE //Will append antagonist name in admin listings - use for categories that share more than one antag type
-
-/datum/antagonist/on_gain()
-	. = ..()
-	if(owner && owner.current)
-		if(!silent && tips)
-			show_tips(tips)
 			
 /datum/antagonist/proc/show_tips(file)
 	if(!owner || !owner.current || !owner.current.client)
@@ -84,7 +78,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 //Proc called when the datum is given to a mind.
 /datum/antagonist/proc/on_gain()
 	if(owner?.current)
-		if(!silent)
+		if(!silent && tips)
+			show_tips(tips)
 			greet()
 		apply_innate_effects()
 		give_antag_moodies()
