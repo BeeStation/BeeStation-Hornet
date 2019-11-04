@@ -245,7 +245,7 @@
 	turf_type = /turf/open/floor/noslip/standard
 	merge_type = /obj/item/stack/tile/noslip
 
-/turf/open/floor/noslip/white
+/obj/item/stack/tile/noslip/white
 	name = "high-traction floor tile"
 	singular_name = "high-traction floor tile"
 	desc = "A high-traction floor tile. It feels rubbery in your hand."
@@ -261,7 +261,7 @@
 	turf_type = /turf/open/floor/noslip/blue
 	merge_type = /obj/item/stack/tile/noslip
 
-/turf/open/floor/noslip/darkblue
+/obj/item/stack/tile/noslip/darkblue
 	name = "high-traction floor tile"
 	singular_name = "high-traction floor tile"
 	desc = "A high-traction floor tile. It feels rubbery in your hand."
