@@ -30,7 +30,8 @@
 					/obj/item/clothing/under/rank/security/blueshirt = 3,
 					/obj/item/clothing/under/rank/security/mallcop = 3,
 					/obj/item/clothing/neck/tie/red = 6,
-					/obj/item/clothing/neck/tie/black = 6,)
+					/obj/item/clothing/neck/tie/black = 6,
+					/obj/item/clothing/head/beret/corpsec = 3)
 	premium = list(/obj/item/clothing/under/rank/security/navyblue = 3,
 					/obj/item/clothing/suit/security/officer = 3,
 					/obj/item/clothing/head/beret/sec/navyofficer = 3)
@@ -90,7 +91,8 @@
 					/obj/item/clothing/suit/hazardvest = 3,
 					/obj/item/clothing/shoes/workboots = 3,
 					/obj/item/clothing/head/hardhat = 3,
-					/obj/item/clothing/head/hardhat/weldhat = 3)
+					/obj/item/clothing/head/hardhat/weldhat = 3,
+					/obj/item/clothing/head/beret/eng = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/engi_wardrobe
 	payment_department = ACCOUNT_ENG
 /obj/item/vending_refill/wardrobe/engi_wardrobe
@@ -111,7 +113,8 @@
 					/obj/item/clothing/under/rank/atmospheric_technician = 3,
 					/obj/item/clothing/under/plasmaman/atmospherics = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/atmospherics = 3,
-					/obj/item/clothing/shoes/sneakers/black = 3)
+					/obj/item/clothing/shoes/sneakers/black = 3,
+					/obj/item/clothing/head/beret/atmos = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/atmos_wardrobe
 	payment_department = ACCOUNT_ENG
 /obj/item/vending_refill/wardrobe/atmos_wardrobe
@@ -153,7 +156,8 @@
 					/obj/item/clothing/shoes/sneakers/black = 2,
 					/obj/item/clothing/gloves/fingerless = 2,
 					/obj/item/clothing/head/soft/black = 2,
-					/obj/item/clothing/mask/bandana/skull = 2)
+					/obj/item/clothing/mask/bandana/skull = 2,
+					/obj/item/clothing/head/beret/sci = 2)
 	contraband = list(/obj/item/clothing/suit/hooded/techpriest = 2,
 					/obj/item/organ/tongue/robot = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
@@ -179,7 +183,8 @@
 					/obj/item/clothing/suit/toggle/labcoat/science = 3,
 					/obj/item/clothing/shoes/sneakers/white = 3,
 					/obj/item/radio/headset/headset_sci = 3,
-					/obj/item/clothing/mask/gas = 3)
+					/obj/item/clothing/mask/gas = 3,
+					/obj/item/clothing/head/beret/sci = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/science_wardrobe
 	payment_department = ACCOUNT_SCI
 /obj/item/vending_refill/wardrobe/science_wardrobe
@@ -393,7 +398,8 @@
 					/obj/item/clothing/suit/toggle/labcoat/chemist = 2,
 					/obj/item/storage/backpack/chemistry = 2,
 					/obj/item/storage/backpack/satchel/chem = 2,
-					/obj/item/storage/bag/chemistry = 2)
+					/obj/item/storage/bag/chemistry = 2,
+					/obj/item/clothing/head/beret/med = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/chem_wardrobe
 	payment_department = ACCOUNT_MED
 /obj/item/vending_refill/wardrobe/chem_wardrobe

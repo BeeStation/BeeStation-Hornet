@@ -5,6 +5,7 @@
 
 /obj/structure/closet/secure_closet/captains/PopulateContents()
 	..()
+	new /obj/item/clothing/head/beret/captain(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/captain(src)
 	new /obj/item/storage/backpack/captain(src)
 	new /obj/item/storage/backpack/satchel/cap(src)
@@ -110,6 +111,7 @@
 	new /obj/item/clothing/head/warden(src)
 	new /obj/item/clothing/head/warden/drill(src)
 	new /obj/item/clothing/head/beret/sec/navywarden(src)
+	new /obj/item/clothing/head/beret/corpwarden(src)
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
 	new /obj/item/clothing/under/rank/warden/navyblue(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
