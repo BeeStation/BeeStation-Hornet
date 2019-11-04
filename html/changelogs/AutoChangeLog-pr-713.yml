@@ -1,0 +1,5 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - rscadd: "DeltaStation departmental signs"
+  - rscadd: "Exotic carpets in DeltaStation"
