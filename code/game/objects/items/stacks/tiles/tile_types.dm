@@ -246,11 +246,12 @@
 	merge_type = /obj/item/stack/tile/noslip
 
 /turf/open/floor/noslip/white
-	name = "high-traction floor"
-	icon_state = "noslip_white"
-	floor_tile = /obj/item/stack/tile/noslip/white
-	broken_states = list("noslip-damaged1_white","noslip-damaged2_white","noslip-damaged3_white")
-	burnt_states = list("noslip-scorched1_white","noslip-scorched2_white")
+	name = "high-traction floor tile"
+	singular_name = "high-traction floor tile"
+	desc = "A high-traction floor tile. It feels rubbery in your hand."
+	icon_state = "tile_noslip_white"
+	turf_type = /turf/open/floor/noslip/white
+	merge_type = /obj/item/stack/tile/noslip
 	
 /obj/item/stack/tile/noslip/blue
 	name = "high-traction floor tile"
@@ -261,11 +262,12 @@
 	merge_type = /obj/item/stack/tile/noslip
 
 /turf/open/floor/noslip/darkblue
-	name = "high-traction floor"
-	icon_state = "noslip_darkblue"
-	floor_tile = /obj/item/stack/tile/noslip/darkblue
-	broken_states = list("noslip-damaged1_darkblue","noslip-damaged2_darkblue","noslip-damaged3_darkblue")
-	burnt_states = list("noslip-scorched1_darkblue","noslip-scorched2_darkblue")
+	name = "high-traction floor tile"
+	singular_name = "high-traction floor tile"
+	desc = "A high-traction floor tile. It feels rubbery in your hand."
+	icon_state = "tile_noslip_darkblue"
+	turf_type = /turf/open/floor/noslip/darkblue
+	merge_type = /obj/item/stack/tile/noslip
 	
 /obj/item/stack/tile/noslip/dark
 	name = "high-traction floor tile"
