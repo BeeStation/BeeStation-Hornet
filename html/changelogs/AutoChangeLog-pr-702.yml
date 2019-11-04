@@ -1,0 +1,11 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - rscadd: "Second dropper in MetaStation xenobiology"
+  - rscadd: "MetaStation departmental signs"
+  - tweak: "Moved engineering foyer air alarm on MetaStation"
+  - rscadd: "Potted plants in MetaStation"
+  - rscadd: "Exotic carpets in MetaStation"
+  - tweak: "made the bar slightly bigger on MetaStation"
+  - tweak: "made the art storage slightly smaller on MetaStation"
+  - rscadd: "added plants and preparation space in the MetaStation bar"
