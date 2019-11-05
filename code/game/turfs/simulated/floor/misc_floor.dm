@@ -133,6 +133,13 @@
 	broken_states = list("noslip-damaged1_standard","noslip-damaged2_standard","noslip-damaged3_standard")
 	burnt_states = list("noslip-scorched1_standard","noslip-scorched2_standard")
 
+/turf/open/floor/noslip/white
+	name = "high-traction floor"
+	icon_state = "noslip_white"
+	floor_tile = /obj/item/stack/tile/noslip/white
+	broken_states = list("noslip-damaged1_white","noslip-damaged2_white","noslip-damaged3_white")
+	burnt_states = list("noslip-scorched1_white","noslip-scorched2_white")
+	
 /turf/open/floor/noslip/blue
 	name = "high-traction floor"
 	icon_state = "noslip_blue"
@@ -140,6 +147,13 @@
 	broken_states = list("noslip-damaged1_blue","noslip-damaged2_blue","noslip-damaged3_blue")
 	burnt_states = list("noslip-scorched1_blue","noslip-scorched2_blue")
 
+/turf/open/floor/noslip/darkblue
+	name = "high-traction floor"
+	icon_state = "noslip_darkblue"
+	floor_tile = /obj/item/stack/tile/noslip/darkblue
+	broken_states = list("noslip-damaged1_darkblue","noslip-damaged2_darkblue","noslip-damaged3_darkblue")
+	burnt_states = list("noslip-scorched1_darkblue","noslip-scorched2_darkblue")
+	
 /turf/open/floor/noslip/dark
 	name = "high-traction floor"
 	icon_state = "noslip_dark"
