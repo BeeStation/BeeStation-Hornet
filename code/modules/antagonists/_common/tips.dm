@@ -15,3 +15,6 @@
 	
 /datum/antagonist/blob
 	tips = 'html/antagtips/blob.html'
+	
+/datum/antagonist/changeling
+	tips = 'html/antagtips/changeling.html'
