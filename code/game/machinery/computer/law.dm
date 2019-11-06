@@ -14,8 +14,8 @@
 	invisibility = 100
 
 /obj/machinery/computer/upload/Initialize()
-	embedded_gps = new embedded_gps_type(src)
-	return ..()
+	. = ..()
+	AddComponent(/datum/component/gps, "Encrypted Upload")
 
 /obj/machinery/computer/upload/Destroy()
 	QDEL_NULL(embedded_gps)
