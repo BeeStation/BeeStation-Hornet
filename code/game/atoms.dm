@@ -1094,7 +1094,7 @@
 		return filters[filter_data.Find(name)]
 
 /atom/proc/intercept_zImpact(atom/movable/AM, levels = 1)
-	return FALSE
+	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, AM, levels)
 
 ///Sets the custom materials for an item.
 /atom/proc/set_custom_materials(var/list/materials, multiplier = 1)

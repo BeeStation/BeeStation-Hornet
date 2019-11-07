@@ -754,7 +754,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(initial(O.can_be_admin_equipped))
 			outfits[initial(O.name)] = path
 
-	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in baseoutfits + sortList(outfits)
+	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
 	if (isnull(dresscode))
 		return
 
