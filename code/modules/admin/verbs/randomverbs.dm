@@ -225,6 +225,9 @@
 		if(MUTE_ADMINHELP)
 			mute_string = "adminhelp, admin PM and ASAY"
 			feedback_string = "Adminhelp"
+		if(MUTE_MHELP)
+			mute_string = "mhelp"
+			feedback_string = "Mentorhelp"
 		if(MUTE_DEADCHAT)
 			mute_string = "deadchat and DSAY"
 			feedback_string = "Deadchat"
@@ -292,7 +295,7 @@
 				continue	//we don't want to be an alium
 			if(M.client.is_afk())
 				continue	//we are afk
-			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)
+			if(M.mind?.current && M.mind.current.stat != DEAD)
 				continue	//we have a live body we are tied to
 			candidates += M.ckey
 		if(candidates.len)
@@ -1392,16 +1395,13 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 		to_chat(usr, "<span class='danger'>ERROR: Unable read player flags from database. Please check logs.</span>")
 	var/dbflags = C.prefs.db_flags
 	var/newstate = FALSE
-	// BEE EDIT BEGIN
+
 	if(dbflags & DB_FLAG_EXEMPT || C.prefs.job_exempt)
-	// BEE EDIT END
 		newstate = FALSE
 	else
 		newstate = TRUE
 
-	// BEE EDIT BEGIN
 	C.prefs.job_exempt = newstate
-	// BEE EDIT END
 
 	if(C.update_flag_db(DB_FLAG_EXEMPT, newstate))
 		to_chat(usr, "<span class='danger'>ERROR: Unable to update player flags. Please check logs.</span>")

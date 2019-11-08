@@ -104,25 +104,25 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/cargo)
 "aq" = (
-/obj/item/reagent_containers/food/snacks/beans{
+/obj/item/reagent_containers/food/snacks/canned/beans{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/beans{
+/obj/item/reagent_containers/food/snacks/canned/beans{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/beans{
+/obj/item/reagent_containers/food/snacks/canned/beans{
 	pixel_x = -2
 	},
-/obj/item/reagent_containers/food/snacks/beans{
+/obj/item/reagent_containers/food/snacks/canned/beans{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/snacks/beans{
+/obj/item/reagent_containers/food/snacks/canned/beans{
 	pixel_x = 1;
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/food/snacks/beans{
+/obj/item/reagent_containers/food/snacks/canned/beans{
 	pixel_x = 8;
 	pixel_y = -3
 	},
@@ -1305,7 +1305,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table,
-/obj/item/stack/sheet/metal/twenty,
+/obj/item/stack/sheet/iron/twenty,
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},
@@ -2669,7 +2669,7 @@
 	req_access = null
 	},
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/metal/twenty,
+/obj/item/stack/sheet/iron/twenty,
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},

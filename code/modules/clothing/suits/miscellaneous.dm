@@ -349,6 +349,7 @@
 	equip_delay_self = 50
 	strip_delay = 60
 	breakouttime = 3000
+	pocket_storage_component_path = FALSE
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"
@@ -630,3 +631,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	flags_inv = HIDEGLOVES|HIDEEARS|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	alternate_worn_layer = UNDER_HEAD_LAYER
+
+/obj/item/clothing/suit/joker
+	name = "comedian coat"
+	desc = "I mean, don’t you have to be funny to be a comedian?"
+	icon_state = "joker_coat"
+	item_state = "joker_coat"
+	item_color = "joker_coat"

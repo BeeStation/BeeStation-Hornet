@@ -22,7 +22,7 @@
 	var/openSound = 'sound/effects/stonedoor_openclose.ogg'
 	var/closeSound = 'sound/effects/stonedoor_openclose.ogg'
 
-	var/sheetType = /obj/item/stack/sheet/metal //what we're made of
+	var/sheetType = /obj/item/stack/sheet/iron //what we're made of
 	var/sheetAmount = 7 //how much we drop when deconstructed
 
 /obj/structure/mineral_door/Initialize()
@@ -194,6 +194,13 @@
 /obj/structure/mineral_door/iron
 	name = "iron door"
 	max_integrity = 300
+
+/obj/structure/mineral_door/copper
+	name = "copper door"
+	icon_state = "copper"
+	sheetType = /obj/item/stack/sheet/mineral/copper
+	max_integrity = 300
+	rad_insulation = RAD_HEAVY_INSULATION
 
 /obj/structure/mineral_door/silver
 	name = "silver door"

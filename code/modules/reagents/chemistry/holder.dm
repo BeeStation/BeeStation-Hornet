@@ -73,7 +73,7 @@
 		qdel(R)
 	cached_reagents.Cut()
 	cached_reagents = null
-	if(my_atom && my_atom.reagents == src)
+	if(my_atom?.reagents == src)
 		my_atom.reagents = null
 	my_atom = null
 
@@ -163,8 +163,9 @@
 
 	return master
 
-/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE)
+/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, method = null, show_message = TRUE, round_robin = FALSE)
 	//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
+	//if round_robin=TRUE, so transfer 5 from 15 water, 15 sugar and 15 plasma becomes 10, 15, 15 instead of 13.3333, 13.3333 13.3333. Good if you hate floating point errors
 	var/list/cached_reagents = reagent_list
 	if(!target || !total_volume)
 		return
@@ -187,17 +188,47 @@
 		log_combat(transfered_by, target_atom, "transferred reagents ([log_list()]) from [my_atom] to")
 
 	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
-	var/part = amount / src.total_volume
 	var/trans_data = null
-	for(var/reagent in cached_reagents)
-		var/datum/reagent/T = reagent
-		if(remove_blacklisted && !T.can_synth)
-			continue
-		var/transfer_amount = T.volume * part
-		if(preserve_data)
-			trans_data = copy_data(T)
-		R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1) //we only handle reaction after every reagent has been transfered.
-		remove_reagent(T.type, transfer_amount)
+	var/transfer_log = list()
+	if(!round_robin)
+		var/part = amount / src.total_volume
+		for(var/reagent in cached_reagents)
+			var/datum/reagent/T = reagent
+			if(remove_blacklisted && !T.can_synth)
+				continue
+			var/transfer_amount = T.volume * part
+			if(preserve_data)
+				trans_data = copy_data(T)
+			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1) //we only handle reaction after every reagent has been transfered.
+			if(method)
+				R.react_single(T, target_atom, method, part, show_message)
+				T.on_transfer(target_atom, method, transfer_amount * multiplier)
+			remove_reagent(T.type, transfer_amount)
+			transfer_log[T.type] = transfer_amount
+	else
+		var/to_transfer = amount
+		for(var/reagent in cached_reagents)
+			if(!to_transfer)
+				break
+			var/datum/reagent/T = reagent
+			if(remove_blacklisted && !T.can_synth)
+				continue
+			if(preserve_data)
+				trans_data = copy_data(T)
+			var/transfer_amount = amount
+			if(amount > T.volume)
+				transfer_amount = T.volume
+			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1)
+			to_transfer = max(to_transfer - transfer_amount , 0)
+			if(method)
+				R.react_single(T, target_atom, method, transfer_amount, show_message)
+				T.on_transfer(target_atom, method, transfer_amount * multiplier)
+			remove_reagent(T.type, transfer_amount)
+			transfer_log[T.type] = transfer_amount
+
+	if(transfered_by && target_atom)
+		target_atom.add_hiddenprint(transfered_by) //log prints so admins can figure out who touched it last.
+		log_combat(transfered_by, target_atom, "transferred reagents ([log_list(transfer_log)]) from [my_atom] to")
 
 	update_total()
 	R.update_total()
@@ -266,6 +297,8 @@
 	return amount
 
 /datum/reagents/proc/metabolize(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE)
+	if(NOREAGENTS in C.dna.species.species_traits)
+		return 0
 	var/list/cached_reagents = reagent_list
 	var/list/cached_addictions = addiction_list
 	if(C)
@@ -279,6 +312,36 @@
 			continue
 		if(!C)
 			C = R.holder.my_atom
+		if(ishuman(C))
+			var/mob/living/carbon/human/H = C
+			//Check if this mob's species is set and can process this type of reagent
+			var/can_process = FALSE
+			//If we somehow avoided getting a species or reagent_tag set, we'll assume we aren't meant to process ANY reagents (CODERS: SET YOUR SPECIES AND TAG!)
+			if(H.dna && H.dna.species.reagent_tag)
+				if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYNTHETIC))		//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
+					can_process = TRUE
+				if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORGANIC))		//ORGANIC-oriented reagents require PROCESS_ORGANIC
+					can_process = TRUE
+
+			//If handle_reagents returns 0, it's doing the reagent removal on its own
+			var/species_handled = !(H.dna.species.handle_reagents(H, R))
+			can_process = can_process && !species_handled
+			//If the mob can't process it, remove the reagent at it's normal rate without doing any addictions, overdoses, or on_mob_life() for the reagent
+			if(!can_process)
+				if(!species_handled)
+					R.holder.remove_reagent(R.type, R.metabolization_rate)
+				continue
+		//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
+		else
+			if(R.process_flags == SYNTHETIC)
+				R.holder.remove_reagent(R.type, R.metabolization_rate)
+				continue
+		//If you got this far, that means we can process whatever reagent this iteration is for. Handle things normally from here.
+
+		if(!R.metabolizing)
+			R.metabolizing = TRUE
+			R.on_mob_metabolize(C)
+
 		if(C && R)
 			if(C.reagent_check(R) != 1)
 				if(can_overdose)
@@ -327,6 +390,21 @@
 		C.update_mobility()
 		C.update_stamina()
 	update_total()
+
+//Signals that metabolization has stopped, triggering the end of trait-based effects
+/datum/reagents/proc/end_metabolization(mob/living/carbon/C, keep_liverless = TRUE)
+	var/list/cached_reagents = reagent_list
+	for(var/reagent in cached_reagents)
+		var/datum/reagent/R = reagent
+		if(QDELETED(R.holder))
+			continue
+		if(keep_liverless && R.self_consuming) //Will keep working without a liver
+			continue
+		if(!C)
+			C = R.holder.my_atom
+		if(R.metabolizing)
+			R.metabolizing = FALSE
+			R.on_mob_end_metabolize(C)
 
 /datum/reagents/proc/conditional_update_move(atom/A, Running = 0)
 	var/list/cached_reagents = reagent_list
@@ -476,6 +554,9 @@
 		if(R.type == reagent)
 			if(my_atom && isliving(my_atom))
 				var/mob/living/M = my_atom
+				if(R.metabolizing)
+					R.metabolizing = FALSE
+					R.on_mob_end_metabolize(M)
 				R.on_mob_delete(M)
 			qdel(R)
 			reagent_list -= R
@@ -501,7 +582,25 @@
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
 		del_reagent(R.type)
+	if(my_atom)
+		my_atom.on_reagent_change(CLEAR_REAGENTS)
 	return 0
+
+/datum/reagents/proc/reaction_check(mob/living/M, datum/reagent/R)
+	var/can_process = FALSE
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		//Check if this mob's species is set and can process this type of reagent
+		if(H.dna && H.dna.species.reagent_tag)
+			if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYNTHETIC))		//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
+				can_process = TRUE
+			if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORGANIC))		//ORGANIC-oriented reagents require PROCESS_ORGANIC
+				can_process = TRUE
+	//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
+	else
+		if(R.process_flags != SYNTHETIC)
+			can_process = TRUE
+	return can_process
 
 /datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1, show_message = 1)
 	var/react_type
@@ -521,6 +620,9 @@
 		var/datum/reagent/R = reagent
 		switch(react_type)
 			if("LIVING")
+				var/check = reaction_check(A, R)
+				if(!check)
+					continue
 				var/touch_protection = 0
 				if(method == VAPOR)
 					var/mob/living/L = A
@@ -650,20 +752,24 @@
 
 	return FALSE
 
-/datum/reagents/proc/has_reagent(reagent, amount = -1)
+/datum/reagents/proc/has_reagent(reagent, amount = -1, needs_metabolizing = FALSE)
 	var/list/cached_reagents = reagent_list
 	for(var/_reagent in cached_reagents)
 		var/datum/reagent/R = _reagent
 		if (R.type == reagent)
 			if(!amount)
+				if(needs_metabolizing && !R.metabolizing)
+					return
 				return R
 			else
 				if(round(R.volume, CHEMICAL_QUANTISATION_LEVEL) >= amount)
+					if(needs_metabolizing && !R.metabolizing)
+						return
 					return R
 				else
-					return 0
+					return
 
-	return 0
+	return
 
 /datum/reagents/proc/get_reagent_amount(reagent)
 	var/list/cached_reagents = reagent_list
@@ -820,3 +926,9 @@
 				random_reagents += R
 	var/picked_reagent = pick(random_reagents)
 	return picked_reagent
+
+/proc/get_chem_id(chem_name)
+	for(var/X in GLOB.chemical_reagents_list)
+		var/datum/reagent/R = GLOB.chemical_reagents_list[X]
+		if(ckey(chem_name) == ckey(lowertext(R.name)))
+			return X

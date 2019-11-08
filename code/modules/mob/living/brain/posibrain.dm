@@ -176,7 +176,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	if(searching)
 		icon_state = "[initial(icon_state)]-searching"
 		return
-	if(brainmob && brainmob.key)
+	if(brainmob?.key)
 		icon_state = "[initial(icon_state)]-occupied"
 	else
 		icon_state = initial(icon_state)

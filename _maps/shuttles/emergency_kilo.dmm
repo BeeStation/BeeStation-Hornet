@@ -332,6 +332,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aJ" = (
@@ -822,8 +825,7 @@
 	},
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21";
-	pixel_x = 0;
-	pixel_y = 0
+	
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -901,7 +903,7 @@
 	},
 /obj/machinery/status_display/evac{
 	pixel_x = 32;
-	pixel_y = 0
+	
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -1157,8 +1159,7 @@
 	},
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21";
-	pixel_x = 0;
-	pixel_y = 0
+	
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -1261,7 +1262,6 @@
 	pixel_y = 6
 	},
 /obj/item/radio{
-	pixel_x = 0;
 	pixel_y = 4
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -1671,11 +1671,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "dc" = (
-/obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 0
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1690,6 +1685,34 @@
 /obj/structure/shuttle/engine/propulsion/right,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"gX" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"nB" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/shuttle/engine/large,
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"uL" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/airlock/command{
+	name = "Shuttle Control";
+	req_one_access_txt = "19"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"uO" = (
+/obj/structure/shuttle/engine/heater,
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/escape)
+"Vz" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -1823,9 +1846,9 @@ bg
 as
 cM
 cV
-ac
+cK
 dc
-dd
+nB
 "}
 (6,1,1) = {"
 ac
@@ -1850,9 +1873,9 @@ cu
 cE
 cN
 cW
-cL
+cK
 dc
-cT
+gX
 "}
 (7,1,1) = {"
 ac
@@ -1877,8 +1900,8 @@ cv
 cF
 cO
 cX
-ac
-dc
+cL
+uO
 de
 "}
 (8,1,1) = {"
@@ -1889,8 +1912,8 @@ au
 aF
 aL
 aV
-aN
-aO
+uL
+Vz
 bx
 bF
 bL
@@ -1931,8 +1954,8 @@ cx
 cH
 cP
 cZ
-ac
-dc
+cL
+uO
 dd
 "}
 (10,1,1) = {"
@@ -1958,9 +1981,9 @@ cy
 cI
 cQ
 da
-cL
+cK
 dc
-cT
+nB
 "}
 (11,1,1) = {"
 ab
@@ -1985,9 +2008,9 @@ bg
 as
 cR
 db
-ac
+cK
 dc
-de
+gX
 "}
 (12,1,1) = {"
 aa

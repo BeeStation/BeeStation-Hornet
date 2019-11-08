@@ -16,12 +16,34 @@
 /proc/cmp_name_dsc(atom/a, atom/b)
 	return sorttext(a.name, b.name)
 
+/proc/cmp_keybinding_asc(datum/keybinding/a, datum/keybinding/b)
+	return cmp_numeric_asc(a.weight, b.weight)
+
+/proc/cmp_keybinding_dsc(datum/keybinding/a, datum/keybinding/b)
+	return cmp_numeric_dsc(a.weight, b.weight)
+
+// Datum cmp with vars is always slower than a specialist cmp proc, use your judgement.
+/proc/cmp_datum_numeric_asc(datum/a, datum/b, variable)
+	return cmp_numeric_asc(a.vars[variable], b.vars[variable])
+
+/proc/cmp_datum_numeric_dsc(datum/a, datum/b, variable)
+	return cmp_numeric_dsc(a.vars[variable], b.vars[variable])
+
+/proc/cmp_datum_text_asc(datum/a, datum/b, variable)
+	return sorttext(b.vars[variable], a.vars[variable])
+
+/proc/cmp_datum_text_dsc(datum/a, datum/b, variable)
+	return sorttext(a.vars[variable], b.vars[variable])
+
+
 GLOBAL_VAR_INIT(cmp_field, "name")
 /proc/cmp_records_asc(datum/data/record/a, datum/data/record/b)
 	return sorttext(b.fields[GLOB.cmp_field], a.fields[GLOB.cmp_field])
 
 /proc/cmp_records_dsc(datum/data/record/a, datum/data/record/b)
 	return sorttext(a.fields[GLOB.cmp_field], b.fields[GLOB.cmp_field])
+
+
 
 /proc/cmp_ckey_asc(client/a, client/b)
 	return sorttext(b.ckey, a.ckey)

@@ -52,7 +52,7 @@
 		recharging_mech = locate(/obj/mecha) in recharging_turf
 		if(recharging_mech)
 			recharge_console.update_icon()
-	if(recharging_mech && recharging_mech.cell)
+	if(recharging_mech?.cell)
 		if(recharging_mech.cell.charge < recharging_mech.cell.maxcharge)
 			var/delta = min(max_charge, recharging_mech.cell.maxcharge - recharging_mech.cell.charge)
 			recharging_mech.give_power(delta)

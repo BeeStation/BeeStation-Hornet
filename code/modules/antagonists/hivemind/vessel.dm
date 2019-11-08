@@ -33,8 +33,10 @@
 	else
 		var/datum/objective/brainwashing/obj = new(objective)
 		vessel.objectives += obj
-		var/message = "<span class='deadsay'><b>[M]</b> has been brainwashed with the following objectives: [objective]."
+		var/message = "<span class='deadsay'><b>[M]</b> has been awoken with the following objectives: [objective]."
 		deadchat_broadcast(message, follow_target = M, turf_target = get_turf(M), message_type=DEADCHAT_REGULAR)
+		log_game("[key_name(M)] has been awoken with the following objectives: [objective]")
+
 	if(!M.has_antag_datum(/datum/antagonist/hivevessel))
 		M.add_antag_datum(vessel)
 

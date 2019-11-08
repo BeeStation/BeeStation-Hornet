@@ -10,7 +10,7 @@
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
-	exp_requirements = 300
+	exp_requirements = 240
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/detective
@@ -27,6 +27,7 @@
 	name = "Detective"
 	jobtype = /datum/job/detective
 
+	id = /obj/item/card/id/job/detective
 	belt = /obj/item/pda/detective
 	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/det

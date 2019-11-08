@@ -74,7 +74,7 @@ Industrial extracts:
 /obj/item/slimecross/industrial/metal
 	colour = "metal"
 	plasmarequired = 3
-	itempath = /obj/item/stack/sheet/metal/ten
+	itempath = /obj/item/stack/sheet/iron/ten
 
 /obj/item/slimecross/industrial/yellow
 	colour = "yellow"

@@ -26,6 +26,7 @@ em						{font-style: normal;	font-weight: bold;}
 .prefix					{					font-weight: bold;}
 
 .ooc					{					font-weight: bold;}
+.dooc					{color: #830094;	font-weight: bold;}
 .adminobserverooc		{color: #0099cc;	font-weight: bold;}
 .adminooc				{color: #700038;	font-weight: bold;}
 
@@ -60,6 +61,8 @@ h1.alert, h2.alert		{color: #000000;}
 
 .emote					{					font-style: italic;}
 .selecteddna			{color: #ffffff; 	background-color: #001B1B}
+
+.examine 				{font-size: 8pt;}
 
 .attack					{color: #ff0000;}
 .disarm					{color: #990000;}

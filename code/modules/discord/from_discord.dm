@@ -12,4 +12,4 @@
     for(var/client/C in GLOB.clients)
         if(C.prefs.chat_toggles & CHAT_OOC)
             if(!("discord-[unm]" in C.prefs.ignoring))
-                to_chat(C, "<font color='#007bff'><b><span class='prefix'>DOOC: </span> <EM>[unm]:</EM> <span class='message linkify'>[msg]</span></b></font>")
+                to_chat(C, "<span class='dooc'><b><span class='prefix'>OOC: </span> <EM>[unm]:</EM> <span class='message linkify'>[msg]</span></b></span>")

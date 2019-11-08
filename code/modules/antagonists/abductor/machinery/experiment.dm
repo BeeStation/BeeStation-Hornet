@@ -216,7 +216,7 @@
 /obj/machinery/abductor/experiment/proc/SendBack(mob/living/carbon/human/H)
 	H.Sleeping(160)
 	H.uncuff()
-	if(console && console.pad && console.pad.teleport_target)
+	if(console?.pad?.teleport_target)
 		H.forceMove(console.pad.teleport_target)
 		return
 	//Area not chosen / It's not safe area - teleport to arrivals

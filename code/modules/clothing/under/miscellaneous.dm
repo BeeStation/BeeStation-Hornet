@@ -274,6 +274,7 @@
 	icon_state = "burial"
 	item_state = "burial"
 	item_color = "burial"
+	can_adjust = FALSE
 	has_sensor = NO_SENSORS
 
 /obj/item/clothing/under/skirt/black
@@ -762,3 +763,11 @@
 	item_color = "durathread"
 	can_adjust = FALSE
 	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5)
+
+/obj/item/clothing/under/joker
+	name = "comedian suit"
+	desc = "The worst part of having a mental illness is people expect you to behave as if you don’t."
+	icon_state = "joker"
+	item_state = "joker"
+	item_color = "joker"
+	can_adjust = FALSE

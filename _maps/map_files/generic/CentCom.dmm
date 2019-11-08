@@ -7854,8 +7854,8 @@
 /area/centcom/ferry)
 "rs" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/plasteel{
 	amount = 15
 	},
@@ -7957,8 +7957,8 @@
 	pixel_x = 24
 	},
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/plasteel{
 	amount = 15
 	},
@@ -14012,6 +14012,23 @@
 /obj/item/reagent_containers/food/snacks/sashimi,
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Ff" = (
+/obj/effect/landmark/thunderdome/two,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/arena_spawn/red{
+	arena_id = "thunderdome"
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
 "Fh" = (
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
@@ -16219,10 +16236,6 @@
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
 "JS" = (
-/obj/structure/chair/comfy/brown{
-	color = "#66b266";
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
@@ -16232,6 +16245,9 @@
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 8
+	},
+/obj/machinery/computer/arena{
+	arena_id = "thunderdome"
 	},
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
@@ -16304,6 +16320,10 @@
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 4
+	},
+/obj/structure/chair/comfy/brown{
+	color = "#66b266";
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
@@ -17341,6 +17361,23 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"NB" = (
+/obj/effect/landmark/thunderdome/one,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/arena_spawn/green{
+	arena_id = "thunderdome"
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
 "NE" = (
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/podStorage)
@@ -17957,7 +17994,7 @@
 "Tq" = (
 /obj/structure/table/wood/bar,
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/multitool,
 /turf/open/floor/wood,
@@ -18226,6 +18263,14 @@
 	},
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
+"Wn" = (
+/obj/machinery/igniter/on,
+/obj/effect/turf_decal/delivery,
+/obj/effect/landmark/arena/start{
+	arena_id = "thunderdome"
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
 "Wt" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -18530,6 +18575,14 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"ZG" = (
+/obj/machinery/igniter/on,
+/obj/effect/turf_decal/delivery,
+/obj/effect/landmark/arena/end{
+	arena_id = "thunderdome"
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
 "ZJ" = (
 /obj/machinery/door/airlock/centcom{
 	name = "CentCom Security";
@@ -59151,7 +59204,7 @@ Ep
 IB
 IV
 Jg
-IV
+Ff
 IV
 Jv
 JD
@@ -60175,7 +60228,7 @@ GM
 HW
 HW
 Il
-Is
+Wn
 IE
 IX
 Jh
@@ -63780,7 +63833,7 @@ Jk
 Jk
 Jt
 IJ
-Is
+ZG
 JI
 JP
 Kc
@@ -64805,7 +64858,7 @@ Ep
 IM
 Jb
 Jl
-Jb
+NB
 Jb
 Jy
 JD

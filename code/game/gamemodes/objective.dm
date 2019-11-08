@@ -1,4 +1,5 @@
 GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
+GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective
 	var/datum/mind/owner				//The primary owner of the objective. !!SOMEWHAT DEPRECATED!! Prefer using 'team' for new code.
@@ -12,6 +13,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 
 /datum/objective/New(var/text)
+	GLOB.objectives += src
 	if(text)
 		explanation_text = text
 
@@ -32,7 +34,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			possible_targets += possible_target.current
 
 
-	if(target && target.current)
+	if(target?.current)
 		def_value = target.current
 
 	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in possible_targets
@@ -109,7 +111,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		if(O.late_joiner)
 			try_target_late_joiners = TRUE
 	for(var/datum/mind/possible_target in get_crewmember_minds())
-		if(!(possible_target in owners) && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && is_unique_objective(possible_target,dupe_search_range))
+		if(is_valid_target(possible_target) && !(possible_target in owners) && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && is_unique_objective(possible_target,dupe_search_range))
 			possible_targets += possible_target
 	if(try_target_late_joiners)
 		var/list/all_possible_targets = possible_targets.Copy()
@@ -124,6 +126,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	update_explanation_text()
 	return target
 
+/datum/objective/proc/is_valid_target(possible_target)
+	return TRUE
+
 /datum/objective/proc/find_target_by_role(role, role_type=FALSE,invert=FALSE)//Option sets either to check assigned role or special role. Default to assigned., invert inverts the check, eg: "Don't choose a Ling"
 	var/list/datum/mind/owners = get_owners()
 	var/list/possible_targets = list()
@@ -136,15 +141,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			else
 				if(possible_target.assigned_role == role)
 					is_role = TRUE
-
-			if(invert)
-				if(is_role)
-					continue
+			if(is_role && !invert || !is_role && invert)
 				possible_targets += possible_target
-				break
-			else if(is_role)
-				possible_targets += possible_target
-				break
 	if(length(possible_targets))
 		target = pick(possible_targets)
 	update_explanation_text()
@@ -385,6 +383,18 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/escape/escape_with_identity/find_target(dupe_search_range)
 	target = ..()
 	update_explanation_text()
+
+/datum/objective/escape/escape_with_identity/is_valid_target(possible_target)
+	var/list/datum/mind/owners = get_owners()
+	for(var/datum/mind/M in owners)
+		if(!M)
+			continue
+		if(!M.has_antag_datum(/datum/antagonist/changeling))
+			continue
+		var/datum/mind/T = possible_target
+		if(!istype(T) || isIPC(T.current))
+			return FALSE
+	return TRUE
 
 /datum/objective/escape/escape_with_identity/update_explanation_text()
 	if(target && target.current)
@@ -895,7 +905,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	else
 		return FALSE
 
-
+// Get entire department staff with heads included
 /datum/objective/changeling_team_objective/impersonate_department/proc/get_department_staff()
 	department_minds = list()
 	department_real_names = list()
@@ -912,17 +922,20 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		if("Chief Medical Officer")
 			department_string = "medical"
 
+	//  Scales the number of impersonate targets to the number of lings
 	var/list/lings = get_antag_minds(/datum/antagonist/changeling,TRUE)
 	var/ling_count = lings.len
 
 	for(var/datum/mind/M in SSticker.minds)
-		if(M in lings)
+		if(M.has_antag_datum(/datum/antagonist/changeling))
+			continue
+		if(isIPC(M.current))
 			continue
 		if(department_head in get_department_heads(M.assigned_role))
 			if(ling_count)
-				ling_count--
 				department_minds += M
 				department_real_names += M.current.real_name
+				ling_count--
 			else
 				break
 
@@ -945,7 +958,9 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 	var/list/heads = SSjob.get_living_heads()
 	for(var/datum/mind/head in heads)
-		if(head in lings) //Looking at you HoP.
+		if(head.has_antag_datum(/datum/antagonist/changeling))
+			continue
+		if(isIPC(head.current))
 			continue
 		if(needed_heads)
 			department_minds += head

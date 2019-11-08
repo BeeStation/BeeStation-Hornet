@@ -17,7 +17,7 @@
 	max_integrity = 300
 	var/list/product_types = list()
 	var/dispense_flavour = ICECREAM_VANILLA
-	var/flavour_name = /datum/reagent/consumable/vanilla
+	var/flavour_name = "vanilla"
 	var/static/list/icecream_vat_reagents = list(
 		/datum/reagent/consumable/milk = 5,
 		/datum/reagent/consumable/flour = 5,
@@ -197,7 +197,7 @@
 	name = "[flavour_name] icecream"
 	src.add_overlay("icecream_[flavour_name]")
 	switch (flavour_name) // adding the actual reagents advertised in the ingredient list
-		if (/datum/reagent/consumable/vanilla)
+		if ("vanilla")
 			desc = "A delicious [cone_type] cone filled with vanilla ice cream. All the other ice creams take content from it."
 		if ("chocolate")
 			desc = "A delicious [cone_type] cone filled with chocolate ice cream. Surprisingly, made with real cocoa."
@@ -219,7 +219,7 @@
 
 /obj/machinery/icecream_vat/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		new /obj/item/stack/sheet/metal(loc, 4)
+		new /obj/item/stack/sheet/iron(loc, 4)
 	qdel(src)
 
 

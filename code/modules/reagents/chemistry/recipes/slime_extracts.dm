@@ -54,21 +54,14 @@
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/green
 
-/datum/chemical_reaction/slime/slimehuman
-	name = "Human Mutation Toxin"
-	id = "humanmuttoxin"
-	results = list(/datum/reagent/mutationtoxin = 1)
-	required_reagents = list(/datum/reagent/blood = 1)
-	required_other = TRUE
-	required_container = /obj/item/slime_extract/green
-
-/datum/chemical_reaction/slime/slimelizard
-	name = "Lizard Mutation Toxin"
-	id = "lizardmuttoxin"
-	results = list(/datum/reagent/mutationtoxin/lizard = 1)
+/datum/chemical_reaction/slime/unstabletoxin
+	name = "Unstable Mutation Toxin"
+	id = "unstablemuttoxin"
+	results = list(/datum/reagent/mutationtoxin/unstable = 1)
 	required_reagents = list(/datum/reagent/uranium/radium = 1)
 	required_other = TRUE
 	required_container = /obj/item/slime_extract/green
+
 
 //Metal
 /datum/chemical_reaction/slime/slimemetal
@@ -81,7 +74,7 @@
 /datum/chemical_reaction/slime/slimemetal/on_reaction(datum/reagents/holder)
 	var/turf/location = get_turf(holder.my_atom)
 	new /obj/item/stack/sheet/plasteel(location, 5)
-	new /obj/item/stack/sheet/metal(location, 15)
+	new /obj/item/stack/sheet/iron(location, 15)
 	..()
 
 /datum/chemical_reaction/slime/slimeglass
@@ -216,7 +209,7 @@
 
 /datum/chemical_reaction/slime/slimefreeze/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='danger'>The slime extract begins to vibrate adorably!</span>")
+	T.visible_message("<span class='danger'>The slime extract starts to feel extremely cold!</span>")
 	addtimer(CALLBACK(src, .proc/freeze, holder), 50)
 	var/obj/item/slime_extract/M = holder.my_atom
 	deltimer(M.qdel_timer)
@@ -227,7 +220,8 @@
 	if(holder && holder.my_atom)
 		var/turf/open/T = get_turf(holder.my_atom)
 		if(istype(T))
-			T.atmos_spawn_air("nitrogen=50;TEMP=2.7")
+			var/datum/gas/gastype = /datum/gas/nitrogen
+			T.atmos_spawn_air("[initial(gastype.id)]=50;TEMP=2.7")
 
 /datum/chemical_reaction/slime/slimefireproof
 	name = "Slime Fireproof"
@@ -370,6 +364,11 @@
 
 /datum/chemical_reaction/slime/slimebloodlust/on_reaction(datum/reagents/holder)
 	for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(holder.my_atom), null))
+		if(slime.docile) //Undoes docility, but doesn't make rabid.
+			slime.visible_message("<span class='danger'>[slime] forgets its training, becoming wild once again!</span>")
+			slime.docile = FALSE
+			slime.update_name()
+			continue
 		slime.rabid = 1
 		slime.visible_message("<span class='danger'>The [slime] is driven into a frenzy!</span>")
 	..()
@@ -443,7 +442,7 @@
 	M.qdel_timer = addtimer(CALLBACK(src, .proc/delete_extract, holder), 55, TIMER_STOPPABLE)
 
 /datum/chemical_reaction/slime/slimeexplosion/proc/boom(datum/reagents/holder)
-	if(holder && holder.my_atom)
+	if(holder?.my_atom)
 		explosion(get_turf(holder.my_atom), 1 ,3, 6)
 
 

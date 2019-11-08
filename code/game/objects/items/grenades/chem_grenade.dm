@@ -234,7 +234,7 @@
 			//otherwise drop it on the ground for timed reactions like gold.
 
 			if(S)
-				if(S.reagents && S.reagents.total_volume)
+				if(S.reagents?.total_volume)
 					for(var/obj/item/reagent_containers/glass/G in beakers)
 						S.reagents.trans_to(G, S.reagents.total_volume)
 				else

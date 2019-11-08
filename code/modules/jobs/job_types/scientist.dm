@@ -8,7 +8,6 @@
 	spawn_positions = 3
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
-	exp_requirements = 60
 	exp_type = EXP_TYPE_CREW
 
 
@@ -25,6 +24,7 @@
 	name = "Scientist"
 	jobtype = /datum/job/scientist
 
+	id = /obj/item/card/id/job/sci
 	belt = /obj/item/pda/toxins
 	ears = /obj/item/radio/headset/headset_sci
 	uniform = /obj/item/clothing/under/rank/scientist

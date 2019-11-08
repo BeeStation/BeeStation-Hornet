@@ -19,6 +19,8 @@
 	<span class='notice'>Crew</span>: Eliminate the wizard before they can succeed!"
 	var/finished = 0
 
+	title_icon = "wizard"
+
 /datum/game_mode/wizard/pre_setup()
 	var/datum/mind/wizard = antag_pick(antag_candidates)
 	wizards += wizard
@@ -42,7 +44,6 @@
 	return "A dangerous Wizards' Federation individual by the name of [pick(GLOB.wizard_first)] [pick(GLOB.wizard_second)] has recently escaped confinement from an unlisted prison facility. This \
 		man is a dangerous mutant with the ability to alter himself and the world around him by what he and his leaders believe to be magic. If this man attempts an attack on your station, \
 		his execution is highly encouraged, as is the preservation of his body for later study."
-
 
 /datum/game_mode/wizard/are_special_antags_dead()
 	for(var/datum/mind/wizard in wizards)
@@ -71,4 +72,21 @@
 
 //returns whether the mob is a wizard (or apprentice)
 /proc/iswizard(mob/living/M)
-	return M.mind && M.mind.has_antag_datum(/datum/antagonist/wizard,TRUE)
+	return M?.mind?.has_antag_datum(/datum/antagonist/wizard)
+
+/datum/game_mode/wizard/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	round_credits += "<center><h1>The Space Wizard Federation:</h1>"
+	len_before_addition = round_credits.len
+	for(var/datum/mind/wizard in wizards)
+		round_credits += "<center><h2>[wizard.name] as a master wizard</h2>"
+	for(var/datum/mind/apprentice in apprentices)
+		round_credits += "<center><h2>[apprentice.name] as an eager apprentice</h2>"
+	if(len_before_addition == round_credits.len)
+		round_credits += list("<center><h2>The wizards have removed themselves from this realm of existance!</h2>", "<center><h2>We couldn't locate them!</h2>")
+	round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits

@@ -22,6 +22,9 @@
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
+	ui_x = 565
+	ui_y = 620
+
 	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
 	var/amount = 30
@@ -33,48 +36,49 @@
 	var/has_panel_overlay = TRUE
 	var/macroresolution = 1
 	var/obj/item/reagent_containers/beaker = null
+	//dispensable_reagents is copypasted in plumbing synthesizers. Please update accordingly. (I didn't make it global because that would limit custom chem dispensers)
 	var/list/dispensable_reagents = list(
-		/datum/reagent/hydrogen,
-		/datum/reagent/lithium,
+		/datum/reagent/aluminium,
+		/datum/reagent/bromine,
 		/datum/reagent/carbon,
+		/datum/reagent/chlorine,
+		/datum/reagent/copper,
+		/datum/reagent/consumable/ethanol,
+		/datum/reagent/fluorine,
+		/datum/reagent/hydrogen,
+		/datum/reagent/iodine,
+		/datum/reagent/iron,
+		/datum/reagent/lithium,
+		/datum/reagent/mercury,
 		/datum/reagent/nitrogen,
 		/datum/reagent/oxygen,
-		/datum/reagent/fluorine,
-		/datum/reagent/sodium,
-		/datum/reagent/aluminium,
-		/datum/reagent/silicon,
 		/datum/reagent/phosphorus,
-		/datum/reagent/sulfur,
-		/datum/reagent/chlorine,
 		/datum/reagent/potassium,
-		/datum/reagent/iron,
-		/datum/reagent/copper,
-		/datum/reagent/mercury,
 		/datum/reagent/uranium/radium,
-		/datum/reagent/water,
-		/datum/reagent/consumable/ethanol,
-		/datum/reagent/consumable/sugar,
-		/datum/reagent/toxin/acid,
-		/datum/reagent/fuel,
+		/datum/reagent/silicon,
 		/datum/reagent/silver,
-		/datum/reagent/iodine,
-		/datum/reagent/bromine,
-		/datum/reagent/stable_plasma
+		/datum/reagent/sodium,
+		/datum/reagent/stable_plasma,
+		/datum/reagent/consumable/sugar,
+		/datum/reagent/sulfur,
+		/datum/reagent/toxin/acid,
+		/datum/reagent/water,
+		/datum/reagent/fuel
 	)
 	//these become available once the manipulator has been upgraded to tier 4 (femto)
 	var/list/upgrade_reagents = list(
-		/datum/reagent/oil,
-		/datum/reagent/ash,
 		/datum/reagent/acetone,
-		/datum/reagent/saltpetre,
 		/datum/reagent/ammonia,
-		/datum/reagent/diethylamine
+		/datum/reagent/ash,
+		/datum/reagent/diethylamine,
+		/datum/reagent/oil,
+		/datum/reagent/saltpetre
 	)
 	var/list/emagged_reagents = list(
-		/datum/reagent/drug/space_drugs,
-		/datum/reagent/medicine/morphine,
 		/datum/reagent/toxin/carpotoxin,
 		/datum/reagent/medicine/mine_salve,
+		/datum/reagent/medicine/morphine,
+		/datum/reagent/drug/space_drugs,
 		/datum/reagent/toxin
 	)
 
@@ -344,7 +348,7 @@
 		Q.add_reagent(pick(dispensable_reagents), 10)
 	R += Q
 	chem_splash(get_turf(src), 3, R)
-	if(beaker && beaker.reagents)
+	if(beaker?.reagents)
 		beaker.reagents.remove_all()
 	cell.use(total/powerefficiency)
 	cell.emp_act(severity)
@@ -606,6 +610,68 @@
 /obj/machinery/chem_dispenser/fullupgrade/Initialize()
 	. = ..()
 	dispensable_reagents |= emagged_reagents //adds emagged reagents
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/machine/chem_dispenser(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
+	RefreshParts()
+
+/obj/machinery/chem_dispenser/abductor
+	name = "reagent synthesizer"
+	desc = "Synthesizes a variety of reagents using proto-matter."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "chem_dispenser"
+	has_panel_overlay = FALSE
+	circuit = /obj/item/circuitboard/machine/chem_dispenser/abductor
+	working_state = null
+	nopower_state = null
+	dispensable_reagents = list(
+		/datum/reagent/aluminium,
+		/datum/reagent/bromine,
+		/datum/reagent/carbon,
+		/datum/reagent/chlorine,
+		/datum/reagent/copper,
+		/datum/reagent/consumable/ethanol,
+		/datum/reagent/fluorine,
+		/datum/reagent/hydrogen,
+		/datum/reagent/iodine,
+		/datum/reagent/iron,
+		/datum/reagent/lithium,
+		/datum/reagent/mercury,
+		/datum/reagent/nitrogen,
+		/datum/reagent/oxygen,
+		/datum/reagent/phosphorus,
+		/datum/reagent/potassium,
+		/datum/reagent/uranium/radium,
+		/datum/reagent/silicon,
+		/datum/reagent/silver,
+		/datum/reagent/sodium,
+		/datum/reagent/stable_plasma,
+		/datum/reagent/consumable/sugar,
+		/datum/reagent/sulfur,
+		/datum/reagent/toxin/acid,
+		/datum/reagent/water,
+		/datum/reagent/fuel,
+		/datum/reagent/acetone,
+		/datum/reagent/ammonia,
+		/datum/reagent/ash,
+		/datum/reagent/diethylamine,
+		/datum/reagent/oil,
+		/datum/reagent/saltpetre,
+		/datum/reagent/medicine/mine_salve,
+		/datum/reagent/medicine/morphine,
+		/datum/reagent/drug/space_drugs,
+		/datum/reagent/toxin,
+		/datum/reagent/toxin/plasma,
+		/datum/reagent/uranium
+	)
+
+/obj/machinery/chem_dispenser/abductor/Initialize()
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)

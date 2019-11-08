@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 /turf/open/copyTurf(turf/T, copy_air = FALSE)
 	. = ..()
 	if (isopenturf(T))
-		GET_COMPONENT(slip, /datum/component/wet_floor)
+		var/datum/component/wet_floor/slip = GetComponent(/datum/component/wet_floor)
 		if(slip)
 			var/datum/component/wet_floor/WF = T.AddComponent(/datum/component/wet_floor)
 			WF.InheritComponent(slip)
@@ -61,11 +61,12 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		if(null)
 			return
 		if(/turf/baseturf_bottom)
-			path = SSmapping.level_trait(z, ZTRAIT_BASETURF) || /turf/open/space
+			path = SSmapping.level_trait(z, ZTRAIT_BASETURF)
 			if (!ispath(path))
-				path = text2path(path)
-				if (!ispath(path))
-					warning("Z-level [z] has invalid baseturf '[SSmapping.level_trait(z, ZTRAIT_BASETURF)]'")
+				var/turf/T = below()
+				if(T && !istype(T, /turf/open/space))
+					path = /turf/open/openspace
+				else
 					path = /turf/open/space
 		if(/turf/open/space/basic)
 			// basic doesn't initialize and this will cause issues

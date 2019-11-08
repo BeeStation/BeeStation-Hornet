@@ -319,6 +319,18 @@
 		return
 	if(M.has_bane(BANE_SALT))
 		M.mind.disrupt_spells(-200)
+	if(method == INGEST && is_species(M, /datum/species/squid))
+		to_chat(M, "<span class='danger'>Your tongue shrivels as you taste the salt! It burns!</span>")
+		if(prob(25))
+			M.emote("scream")
+		M.adjustFireLoss(5, TRUE)
+	else if(method == TOUCH && is_species(M, /datum/species/squid))
+		if(M.incapacitated())
+			return
+		var/obj/item/I = M.get_active_held_item()
+		M.throw_item(get_ranged_target_turf(M, pick(GLOB.alldirs), rand(1, 3)))
+		to_chat(M, "<span class='warning'>The salt causes your arm to spasm!</span>")
+		M.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
 
 /datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
 	if(!istype(T))
@@ -341,6 +353,13 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "bitterness"
+
+/datum/reagent/consumable/coco/on_mob_add(mob/living/carbon/M)
+	.=..()
+	if(iscatperson(M))
+		to_chat(M, "<span class='warning'>Your insides revolt at the presence of lethal chocolate!</span>")
+		M.vomit(20)
+
 
 /datum/reagent/consumable/hot_coco
 	name = "Hot Chocolate"
@@ -416,7 +435,7 @@
 	taste_description = "childhood whimsy"
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/carbon/M)
-	if(HAS_TRAIT(M, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		M.heal_bodypart_damage(1,1, 0)
 		. = 1
 	..()
@@ -652,7 +671,7 @@
 /datum/reagent/consumable/tinlux/reaction_mob(mob/living/M)
 	M.set_light(2)
 
-/datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
+/datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/M)
 	M.set_light(-2)
 
 /datum/reagent/consumable/vitfro
@@ -710,3 +729,12 @@
 		M.adjust_disgust(10)
 	..()
 	. = 1
+
+/datum/reagent/consumable/caramel
+	name = "Caramel"
+	description = "Who would have guessed that heating sugar is so delicious?"
+	nutriment_factor = 10 * REAGENTS_METABOLISM
+	color = "#C65A00"
+	taste_mult = 2
+	taste_description = "bitter sweetness"
+	reagent_state = SOLID

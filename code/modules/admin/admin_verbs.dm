@@ -73,7 +73,8 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/toggleadminhelpsound,
 	/client/proc/respawn_character,
 	/datum/admins/proc/open_borgopanel,
-	/client/proc/fix_say
+	/client/proc/fix_say,
+	/client/proc/stabilize_atmos
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
 GLOBAL_PROTECT(admin_verbs_ban)
@@ -588,7 +589,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set name = "Remove Spell"
 	set desc = "Remove a spell from the selected mob."
 
-	if(T && T.mind)
+	if(T?.mind)
 		var/obj/effect/proc_holder/spell/S = input("Choose the spell to remove", "NO ABRAKADABRA") as null|anything in T.mind.spell_list
 		if(S)
 			T.mind.RemoveSpell(S)
@@ -725,3 +726,33 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	log_admin("[key_name(usr)] has [AI_Interact ? "activated" : "deactivated"] Admin AI Interact")
 	message_admins("[key_name_admin(usr)] has [AI_Interact ? "activated" : "deactivated"] their AI interaction")
+
+
+
+/client/proc/stabilize_atmos()
+	set name = "Stabilize Atmos"
+	set category = "Admin"
+	set desc = "Resets the air contents of every turf and pipe in view to normal. Closes all canisters in view."
+
+	var/list/datum/pipeline/pipelines = list()
+
+	for(var/turf/open/T in view())
+		T.air?.copy_from_turf(T)
+		T.update_visuals()
+
+		for(var/obj/machinery/atmospherics/pipe/P in T.contents)
+			pipelines |= P.parent
+
+	for(var/obj/machinery/portable_atmospherics/canister/can in view())
+		can.valve_open = FALSE
+		can.update_icon()
+
+	for(var/datum/pipeline/line in pipelines)
+		line.air = new
+		for(var/obj/machinery/atmospherics/pipe/P in line.members)
+			P.air_temporary = new
+
+	
+
+
+

@@ -2,6 +2,10 @@
 	set category = "Mentor"
 	set name = "Mentorhelp"
 
+	if(prefs.muted & MUTE_MHELP)
+		to_chat(src, "<span class='danger'>Error: MENTORHELP: You cannot send mentorhelps (Muted).</span>")
+		return
+
 	//clean the input msg
 	if(!msg)	return
 
@@ -78,7 +82,7 @@
 		else if (char_name_only && CONFIG_GET(flag/mentors_mobname_only))
 			if(istype(C.mob,/mob/dead/new_player) || istype(C.mob, /mob/dead/observer)) //If they're in the lobby or observing, display their ckey
 				. += key
-			else if(C && C.mob) //If they're playing/in the round, only show the mob name
+			else if(C?.mob) //If they're playing/in the round, only show the mob name
 				. += C.mob.name
 			else //If for some reason neither of those are applicable and they're mentorhelping, show ckey
 				. += key

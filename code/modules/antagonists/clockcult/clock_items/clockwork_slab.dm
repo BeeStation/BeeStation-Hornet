@@ -93,7 +93,7 @@
 
 /obj/item/clockwork/slab/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	if(slab_ability && slab_ability.ranged_ability_user)
+	if(slab_ability?.ranged_ability_user)
 		slab_ability.remove_ranged_ability()
 	slab_ability = null
 	return ..()

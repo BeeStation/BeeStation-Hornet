@@ -1,7 +1,6 @@
 // LOOC ported from Citadel, styling in stylesheet.dm and browseroutput.css
 
 GLOBAL_VAR_INIT(looc_allowed, 1)
-#define CHAT_LOOC        (1<<10)
 
 /client/verb/looc(msg as text)
     set name = "LOOC"

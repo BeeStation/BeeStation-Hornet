@@ -122,6 +122,6 @@
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)
 		var/mob/living/silicon/robot/R = occupant
-		if(R && R.module)
+		if(R?.module)
 			var/coeff = recharge_speed * 0.005
 			R.module.respawn_consumable(R, coeff)

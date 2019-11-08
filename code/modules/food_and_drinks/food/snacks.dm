@@ -56,7 +56,7 @@ All foods are distributed among various categories. Use common sense.
 	//Placeholder for effect that trigger on eating that aren't tied to reagents.
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
-	if(tastes && tastes.len)
+	if(tastes?.len)
 		if(list_reagents)
 			for(var/rid in list_reagents)
 				var/amount = list_reagents[rid]
@@ -71,10 +71,11 @@ All foods are distributed among various categories. Use common sense.
 	if(!eater)
 		return
 	if(!reagents.total_volume)
-		var/obj/item/trash_item = generate_trash(eater)
+		var/mob/living/location = loc
+		var/obj/item/trash_item = generate_trash(location)
 		qdel(src)
-		eater.put_in_hands(trash_item)
-
+		if(istype(location))
+			location.put_in_hands(trash_item)
 
 /obj/item/reagent_containers/food/snacks/attack_self(mob/user)
 	return
@@ -118,17 +119,17 @@ All foods are distributed among various categories. Use common sense.
 			if(!isbrain(M))		//If you're feeding it to someone else.
 				if(fullness <= (600 * (1 + M.overeatduration / 1000)))
 					M.visible_message("<span class='danger'>[user] attempts to feed [M] [src].</span>", \
-										"<span class='userdanger'>[user] attempts to feed [M] [src].</span>")
+										"<span class='userdanger'>[user] attempts to feed you [src].</span>")
 				else
 					M.visible_message("<span class='warning'>[user] cannot force any more of [src] down [M]'s throat!</span>", \
-										"<span class='warning'>[user] cannot force any more of [src] down [M]'s throat!</span>")
+										"<span class='warning'>[user] cannot force any more of [src] down your throat!</span>")
 					return FALSE
 
 				if(!do_mob(user, M))
 					return
 				log_combat(user, M, "fed", reagents.log_list())
-				M.visible_message("<span class='danger'>[user] forces [M] to eat [src].</span>", \
-									"<span class='userdanger'>[user] forces [M] to eat [src].</span>")
+				M.visible_message("<span class='danger'>[user] forces [M] to eat [src]!</span>", \
+									"<span class='userdanger'>[user] forces you to eat [src]!</span>")
 
 			else
 				to_chat(user, "<span class='warning'>[M] doesn't seem to have a mouth!</span>")
@@ -152,15 +153,16 @@ All foods are distributed among various categories. Use common sense.
 
 /obj/item/reagent_containers/food/snacks/examine(mob/user)
 	..()
-	if(bitecount == 0)
-		return
-	else if(bitecount == 1)
-		to_chat(user, "[src] was bitten by someone!")
-	else if(bitecount <= 3)
-		to_chat(user, "[src] was bitten [bitecount] times!")
-	else
-		to_chat(user, "[src] was bitten multiple times!")
-
+	if(!in_container)
+		switch (bitecount)
+			if (0)
+				return
+			if(1)
+				to_chat(user, "[src] was bitten by someone!")
+			if(2,3)
+				to_chat(user, "[src] was bitten [bitecount] times!")
+			else
+				to_chat(user, "[src] was bitten multiple times!")
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage))

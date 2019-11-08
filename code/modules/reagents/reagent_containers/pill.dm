@@ -40,11 +40,11 @@
 
 	else
 		M.visible_message("<span class='danger'>[user] attempts to force [M] to [apply_method] [src].</span>", \
-							"<span class='userdanger'>[user] attempts to force [M] to [apply_method] [src].</span>")
+							"<span class='userdanger'>[user] attempts to force you to [apply_method] [src].</span>")
 		if(!do_mob(user, M))
 			return FALSE
 		M.visible_message("<span class='danger'>[user] forces [M] to [apply_method] [src].</span>", \
-							"<span class='userdanger'>[user] forces [M] to [apply_method] [src].</span>")
+							"<span class='userdanger'>[user] forces you to [apply_method] [src].</span>")
 
 	var/makes_me_think = pick(strings(REDPILL_FILE, "redpill_questions"))
 	if(icon_state == "pill4" && prob(5)) //you take the red pill - you stay in Wonderland, and I show you how deep the rabbit hole goes
@@ -185,6 +185,25 @@
 	icon_state = "pill22"
 	rename_with_volume = TRUE
 
+/obj/item/reagent_containers/pill/mutarad
+	name = "radiation treatment deluxe pill"
+	desc = "Used to treat heavy radition poisoning and genetic defects."
+	icon_state = "pill21"
+	list_reagents = list(/datum/reagent/medicine/pen_acid = 15, /datum/reagent/medicine/potass_iodide = 15, /datum/reagent/medicine/mutadone = 15)
+
+/obj/item/reagent_containers/pill/antirad_plus
+	name = "radiation plus pill"
+	desc = "Used to treat heavy radition poisoning."
+	icon_state = "pill3"
+	list_reagents = list(/datum/reagent/medicine/potass_iodide = 50, /datum/reagent/medicine/charcoal = 20)
+
+/obj/item/reagent_containers/pill/antirad
+	name = "potassium iodide pill"
+	desc = "Used to treat radition used to counter radiation poisoning."
+	icon_state = "pill18"
+	list_reagents = list(/datum/reagent/medicine/potass_iodide = 30)
+	
+
 ///////////////////////////////////////// this pill is used only in a legion mob drop
 /obj/item/reagent_containers/pill/shadowtoxin
 	name = "black pill"
@@ -217,7 +236,7 @@
 
 /obj/item/reagent_containers/pill/aranesp
 	name = "smooth pill"
-	desc = "This blue pill is feels slightly moist."
+	desc = "This blue pill feels slightly moist."
 	list_reagents = list(/datum/reagent/drug/aranesp = 10)
 	icon_state = "pill3"
 

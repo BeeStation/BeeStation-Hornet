@@ -24,6 +24,14 @@
 	sheet_type = /obj/item/stack/sheet/mineral/silver
 	canSmoothWith = list(/turf/closed/wall/mineral/silver, /obj/structure/falsewall/silver)
 
+/turf/closed/wall/mineral/copper
+	name = "copper wall"
+	desc = "A wall with copper plating. Shiny!"
+	icon = 'icons/turf/walls/copper_wall.dmi'
+	icon_state = "copper"
+	sheet_type = /obj/item/stack/sheet/mineral/copper
+	canSmoothWith = list(/turf/closed/wall/mineral/copper, /obj/structure/falsewall/copper)
+
 /turf/closed/wall/mineral/diamond
 	name = "diamond wall"
 	desc = "A wall with diamond plating. You monster."
@@ -149,8 +157,8 @@
 	canSmoothWith = list(/turf/closed/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/closed/wall/mineral/wood/nonmetal)
 
 /turf/closed/wall/mineral/iron
-	name = "rough metal wall"
-	desc = "A wall with rough metal plating."
+	name = "rough iron wall"
+	desc = "A wall with rough iron plating."
 	icon = 'icons/turf/walls/iron_wall.dmi'
 	icon_state = "iron"
 	sheet_type = /obj/item/stack/rods

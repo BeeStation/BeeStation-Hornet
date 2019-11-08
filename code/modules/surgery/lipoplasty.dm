@@ -40,7 +40,7 @@
 	var/mob/living/carbon/human/H = target
 	var/typeofmeat = /obj/item/reagent_containers/food/snacks/meat/slab/human
 
-	if(H.dna && H.dna.species)
+	if(H.dna?.species)
 		typeofmeat = H.dna.species.meat
 
 	var/obj/item/reagent_containers/food/snacks/meat/slab/human/newmeat = new typeofmeat

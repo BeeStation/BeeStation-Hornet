@@ -11,9 +11,9 @@
  This is to avoid easy cargo points dupes.
 
 Credit dupes that require a lot of manual work shouldn't be removed, unless they yield too much profit for too little work.
- For example, if some player buys metal and glass sheets and uses them to make and sell reinforced glass:
+ For example, if some player buys iron and glass sheets and uses them to make and sell reinforced glass:
 
- 100 glass + 50 metal -> 100 reinforced glass
+ 100 glass + 50 iron -> 100 reinforced glass
  (1500cr -> 1600cr)
 
  then the player gets the profit from selling his own wasted time.
@@ -171,5 +171,5 @@ GLOBAL_LIST_EMPTY(exports_list)
 /proc/setupExports()
 	for(var/subtype in subtypesof(/datum/export))
 		var/datum/export/E = new subtype
-		if(E.export_types && E.export_types.len) // Exports without a type are invalid/base types
+		if(E.export_types?.len) // Exports without a type are invalid/base types
 			GLOB.exports_list += E
