@@ -28,7 +28,6 @@
 					CAT_BURGER,
 					CAT_CAKE,
 					CAT_EGG,
-					CAT_ICE,
 					CAT_MEAT,
 					CAT_MISCFOOD,
 					CAT_PASTRY,
@@ -302,9 +301,6 @@
 		Deletion.Cut(Deletion.len)
 		qdel(DL)
 
-/datum/component/personal_crafting/proc/component_ui_interact(obj/screen/crafting/image, location, control, params, user)
-	if(user == parent)
-		ui_interact(user)
 /datum/component/personal_crafting/proc/component_ui_interact(obj/screen/craft/image, location, control, params, user)
 	if(user == parent)
 		ui_interact(user)
@@ -374,7 +370,7 @@
 			crafting_recipes[R.category][R.subcategory] += list(build_recipe_data(R))
 
 	data["crafting_recipes"] = crafting_recipes
-	return data	
+	return data
 
 
 /datum/component/personal_crafting/ui_act(action, params)
