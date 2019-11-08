@@ -1,19 +1,12 @@
 /*
-
 LEGION
-
 Legion spawns from the necropolis gate in the far north of lavaland. It is the guardian of the Necropolis and emerges from within whenever an intruder tries to enter through its gate.
 Whenever Legion emerges, everything in lavaland will receive a notice via color, audio, and text. This is because Legion is powerful enough to slaughter the entirety of lavaland with little effort.
-
 It has two attack modes that it constantly rotates between.
-
 In ranged mode, it will behave like a normal legion - retreating when possible and firing legion skulls at the target.
 In charge mode, it will spin and rush its target, attacking with melee whenever possible.
-
 When Legion dies, it drops a staff of storms, which allows its wielder to call and disperse ash storms at will and functions as a powerful melee weapon.
-
 Difficulty: Medium
-
 */
 
 /mob/living/simple_animal/hostile/megafauna/legion
@@ -36,6 +29,8 @@ Difficulty: Medium
 	retreat_distance = 5
 	minimum_distance = 5
 	ranged_cooldown_time = 20
+	var/size = 5
+	var/charging = FALSE
 	gps_name = "Echoing Signal"
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
@@ -137,8 +132,8 @@ Difficulty: Medium
 		L.health = L.maxHealth
 		health = maxHealth
 
-		L.size = size
 		size--
+		L.size = size
 
 		L.resize = L.size * 0.2
 		transform = initial(transform)
@@ -160,9 +155,9 @@ Difficulty: Medium
 				break
 		if(last_legion)
 			loot = list(/obj/item/staff/storm)
+			elimination = FALSE
 		else if(prob(5))
 			loot = list(/obj/structure/closet/crate/necropolis/tendril)
-			elimination = FALSE
 		if(!true_spawn)
 			loot = null
 		..()
