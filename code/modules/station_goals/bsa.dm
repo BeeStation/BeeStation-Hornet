@@ -255,7 +255,7 @@
 	if(!GLOB.bsa_unlock)
 		return
 	var/list/gps_locators = list()
-	for(var/obj/item/gps/G in GLOB.GPS_list) //nulls on the list somehow
+	for(var/datum/component/gps/G in GLOB.GPS_list) //nulls on the list somehow
 		if(G.tracking)
 			gps_locators[G.gpstag] = G
 
@@ -269,8 +269,8 @@
 /obj/machinery/computer/bsa_control/proc/get_target_name()
 	if(istype(target, /area))
 		return get_area_name(target, TRUE)
-	else if(istype(target, /obj/item/gps))
-		var/obj/item/gps/G = target
+	else if(istype(target, /datum/component/gps))
+		var/datum/component/gps/G = target
 		return G.gpstag
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
