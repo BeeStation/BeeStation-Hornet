@@ -1,0 +1,6 @@
+author: "ike709"
+delete-after: True
+changes: 
+  - rscadd: "Several new tgui-next UIs and fixes from TG."
+  - tweak: "Some UIs might have broken."
+  - tweak: "GPS units might have broken. Report bugs/weirdness on github."
