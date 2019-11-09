@@ -70986,7 +70986,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-<<<<<<< HEAD
 "cJf" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -70994,8 +70993,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/space/nearstation)
-=======
->>>>>>> fae5461... Modifies the Mechfab to use the Ore Silo (#47619)
 "cJg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/item/bedsheet/medical,
