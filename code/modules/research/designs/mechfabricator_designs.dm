@@ -764,7 +764,7 @@
 	id = "borg_upgrade_circuitapp"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/circuit_app
-	materials = list(/datum/material/iron = 2000, /datum/material/titanium = 500)
+	materials = list(MAT_IRON, MAT_TITANIUM = 500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
@@ -773,7 +773,7 @@
 	id = "borg_upgrade_beakerapp"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/beaker_app
-	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2250) //Need glass for the new beaker too
+	materials = list(MAT_IRON = 2000, MAT_GLASS = 2250) //Need glass for the new beaker too
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")	
 	

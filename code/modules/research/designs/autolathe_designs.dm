@@ -119,7 +119,7 @@
 	name = "Plunger"
 	id = "plunger"
 	build_type = AUTOLATHE | PROTOLATHE
-	materials = list(/datum/material/iron = 150)
+	materials = list(MAT_IRON = 150)
 	build_path = /obj/item/plunger
 	category = list("initial","Tools","Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_MEDICAL
@@ -258,7 +258,7 @@
 	name = "Extended-Capacity Plasmaman Tank"
 	id = "plasmaman_tank"
 	build_type = AUTOLATHE | PROTOLATHE
-	materials = list(/datum/material/iron = 3200)
+	materials = list(MAT_IRON = 3200)
 	build_path = /obj/item/tank/internals/plasmaman/empty
 	category = list("hacked","Misc","Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_CARGO
@@ -972,7 +972,7 @@
 	name = "Cap Gun"
 	id = "toygun"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 100, /datum/material/glass = 50)
+	materials = list(MAT_IRON = 100, MAT_GLASS = 50)
 	build_path = /obj/item/toy/gun
 	category = list("hacked", "Misc")
 
@@ -980,7 +980,7 @@
 	name = "Box of Cap Gun Shots"
 	id = "capbox"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 20, /datum/material/glass = 5)
+	materials = list(MAT_IRON = 20, MAT_GLASS = 5)
 	build_path = /obj/item/toy/ammo/gun
 	category = list("hacked", "Misc")
 
@@ -988,7 +988,7 @@
 	name = "Fluid Ducts"
 	id = "fluid_ducts"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 500)
+	materials = list(MAT_IRON = 500)
 	build_path = /obj/item/stack/ducts
 	category = list("initial", "Construction")
 	maxstack = 50
