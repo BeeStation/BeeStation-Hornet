@@ -592,6 +592,19 @@
 			current_screen = href_list["text"]
 		if("scramble")
 			if(viable_occupant && (scrambleready < world.time))
+				if(prob(1) && prob(1))
+					to_chat(usr,"<span class='bad'>Error: Musa acuminata transformation detected</span>") //Actually we only share 1% of our functional protein-coding DNA with bananas, but this is mildly amusing so whatever
+					if(viable_occupant.client && viable_occupant.ckey)
+						message_admins("[key_name(viable_occupant)] has been turned into a banana by [key_name(usr)]")
+						log_game("[key_name(viable_occupant)] has been turned into a banana by [key_name(usr)]")
+					if(connected)
+						connected.locked = FALSE
+						connected.open_machine()
+					var/occupant_loc = viable_occupant.loc
+					viable_occupant.Destroy()
+					new /obj/item/reagent_containers/food/snacks/grown/banana(occupant_loc)
+					return
+
 				viable_occupant.dna.remove_all_mutations(list(MUT_NORMAL, MUT_EXTRA))
 				viable_occupant.dna.generate_dna_blocks()
 				scrambleready = world.time + SCRAMBLE_TIMEOUT

@@ -102,7 +102,8 @@
 	desc = "A beret, a mime's favorite headwear."
 	icon_state = "beret"
 	dog_fashion = /datum/dog_fashion/head/beret
-	dynamic_hair_suffix = ""
+	dynamic_hair_suffix = "+generic"
+	dynamic_fhair_suffix = "+generic"
 
 /obj/item/clothing/head/beret/vintage
 	name = "vintage beret"
@@ -226,6 +227,13 @@
 				M += pick(", eh?", ", EH?")
 		return trim(M)
 
+/obj/item/clothing/head/beret/corpwarden
+	name = "corporate warden beret"
+	desc = "A special black beret with a Warden's insignia in the middle. This one is commonly warn by wardens of the corporation."
+	icon_state = "beret_corporate_warden"
+	armor = list(melee = 40, bullet = 30, laser = 30, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 30, acid = 60)
+	strip_delay = 60
+
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
 	desc = "A robust beret with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
@@ -233,6 +241,13 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
 	strip_delay = 60
 	dog_fashion = null
+
+/obj/item/clothing/head/beret/corpsec
+	name = "corporate security beret"
+	desc = "A special black beret for the mundane life of a corporate security officer."
+	icon_state = "beret_corporate_officer"
+	armor = list(melee = 40, bullet = 30, laser = 30,energy = 10, bomb = 25, bio = 0, rad = 0, fire = 20, acid = 50)
+	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec/navyhos
 	name = "head of security's beret"
@@ -255,6 +270,93 @@
 	name = "treasure hunter's fedora"
 	desc = "You got red text today kid, but it doesn't mean you have to like it."
 	icon_state = "curator"
+
+/obj/item/clothing/head/beret/eng
+	name = "engineering beret"
+	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
+	icon_state = "beret_engineering"
+	armor = list(rad = 10, fire = 10)
+	strip_delay = 60
+
+/obj/item/clothing/head/beret/atmos
+	name = "atmospherics beret"
+	desc = "A beret for those who have shown immaculate proficienty in piping. Or plumbing."
+	icon_state = "beret_atmospherics"
+	armor = list(rad = 10, fire = 10)
+	strip_delay = 60
+
+/obj/item/clothing/head/beret/ce
+	name = "chief engineer beret"
+	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
+	icon_state = "beret_ce"
+	armor = list(rad = 20, fire = 30)
+	strip_delay = 60
+
+/obj/item/clothing/head/beret/sci
+	name = "science beret"
+	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
+	icon_state = "beret_sci"
+	armor = list(bomb = 5, bio = 5, fire = 5, acid = 10)
+	strip_delay = 60
+
+//Medical
+/obj/item/clothing/head/beret/med
+	name = "medical beret"
+	desc = "A white beret with a blue cross finely threaded into it. It has that sterile smell about it."
+	icon_state = "beret_med"
+	armor = list(bio = 20)
+	strip_delay = 60
+
+/obj/item/clothing/head/beret/cmo
+	name = "chief medical officer beret"
+	desc = "A baby blue beret with the insignia of Medistan. It smells very sterile."
+	icon_state = "beret_cmo"
+	armor = list(bio = 30, acid = 20)
+	strip_delay = 60
+
+//Centcom
+/obj/item/clothing/head/beret/cccaptain
+	name = "central command captain beret"
+	desc = "A pure white beret with a Captain insignia of Central Command."
+	icon_state = "beret_centcom_captain"
+	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80)
+	strip_delay = 120
+
+/obj/item/clothing/head/beret/ccofficer
+	name = "central command officer beret"
+	desc = "A black Central Command Officer beret with matching insignia."
+	icon_state = "beret_centcom_officer"
+	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80)
+	strip_delay = 120
+
+/obj/item/clothing/head/beret/ccofficernavy
+	name = "central command naval officer beret"
+	desc = "A Navy beret commonly worn by Central Command Naval Officers."
+	icon_state = "beret_centcom_officer_navy"
+	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80)
+	strip_delay = 120
+
+//For blueshields, but those aren't in so I renamed them to centcom guards
+/obj/item/clothing/head/beret/ccguard
+	name = "officer beret"
+	desc = "A black Centcom guard's beret."
+	icon_state = "beret_centcom_officer"
+	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30)
+	strip_delay = 60
+
+/obj/item/clothing/head/beret/ccguardnavy
+	name = "navy officer beret"
+	desc = "A navy Centcom guard's beret."
+	icon_state = "beret_centcom_officer_navy"
+	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30)
+	strip_delay = 60
+
+/obj/item/clothing/head/beret/captain
+	name = "captain beret"
+	desc = "A lovely blue Captain beret with a gold and white insignia."
+	icon_state = "beret_captain"
+	armor = list(melee = 50, bullet = 30, laser = 20, energy = 10, bomb = 15, bio = 10, rad = 10, fire = 10, acid = 60)
+	strip_delay = 90
 
 #undef DRILL_DEFAULT
 #undef DRILL_SHOUTING

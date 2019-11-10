@@ -729,3 +729,12 @@
 		M.adjust_disgust(10)
 	..()
 	. = 1
+
+/datum/reagent/consumable/caramel
+	name = "Caramel"
+	description = "Who would have guessed that heating sugar is so delicious?"
+	nutriment_factor = 10 * REAGENTS_METABOLISM
+	color = "#C65A00"
+	taste_mult = 2
+	taste_description = "bitter sweetness"
+	reagent_state = SOLID

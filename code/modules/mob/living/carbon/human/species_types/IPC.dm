@@ -154,6 +154,7 @@ datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	H.visible_message("<span class='notice'>[H] unplugs from the [A].</span>", "<span class='notice'>You unplug from the [A].</span>")
 
 /datum/species/ipc/spec_life(mob/living/carbon/human/H)
+	. = ..()
 	if(H.health <= HEALTH_THRESHOLD_CRIT && H.stat != DEAD) // So they die eventually instead of being stuck in crit limbo.
 		H.adjustFireLoss(6) // After bodypart_robotic resistance this is ~2/second
 		if(prob(5))

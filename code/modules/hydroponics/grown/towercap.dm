@@ -118,7 +118,7 @@ obj/item/seeds/bamboo
 /obj/item/grown/log/bamboo
 	seed = /obj/item/seeds/bamboo
 	name = "bamboo log"
-	desc = "An long and resistant bamboo log."
+	desc = "A long and resistant bamboo log."
 	icon_state = "bamboo"
 	plank_type = /obj/item/stack/sheet/mineral/bamboo
 	plank_name = "bamboo sticks"
@@ -128,7 +128,7 @@ obj/item/seeds/bamboo
 
 /obj/structure/punji_sticks
 	name = "punji sticks"
-	desc = "Dont step on this."
+	desc = "Don't step on this."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "punji"
 	resistance_flags = FLAMMABLE

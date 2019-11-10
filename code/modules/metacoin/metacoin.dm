@@ -72,5 +72,3 @@
 		metacoin_items += id
 
 	qdel(query_get_metacoin_purchases)
-
-

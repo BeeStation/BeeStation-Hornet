@@ -1,6 +1,0 @@
-author: "SomeAngryMiner"
-delete-after: True
-changes: 
-  - rscadd: "nanites now pass down slime and jellyperson splittings."
-  - rscadd: "Fixes a small issue regarding having a flashlight and bayonet on a weapon at the same time"
-  - imageadd: "Tons of new sprites for backpacks, medipens, space dragons, spray cleaners and watertanks."
