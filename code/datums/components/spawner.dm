@@ -20,7 +20,7 @@
 		spawn_text=_spawn_text
 	if(_max_mobs)
 		max_mobs=_max_mobs
-
+	
 	RegisterSignal(parent, list(COMSIG_PARENT_QDELETING), .proc/stop_spawning)
 	START_PROCESSING(SSprocessing, src)
 
@@ -28,7 +28,7 @@
 	try_spawn_mob()
 	
 
-/datum/component/spawner/proc/stop_spawning(force)
+/datum/component/spawner/proc/stop_spawning(force, hint)
 	STOP_PROCESSING(SSprocessing, src)
 	for(var/mob/living/simple_animal/L in spawned_mobs)
 		if(L.nest == src)

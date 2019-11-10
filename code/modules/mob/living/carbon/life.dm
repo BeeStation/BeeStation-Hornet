@@ -24,8 +24,8 @@
 		if(stat != DEAD)
 			var/bprv = handle_bodyparts()
 			if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
-				update_stamina() //needs to go before updatehealth to remove stamcrit
 				updatehealth()
+				update_stamina()
 
 		if(stat != DEAD)
 			handle_brain_damage()
@@ -312,15 +312,10 @@
 	return
 
 /mob/living/carbon/proc/handle_bodyparts()
-	var/stam_regen = FALSE
-	if(stam_regen_start_time <= world.time)
-		stam_regen = TRUE
-		if(stam_paralyzed)
-			. |= BODYPART_LIFE_UPDATE_HEALTH //make sure we remove the stamcrit
 	for(var/I in bodyparts)
 		var/obj/item/bodypart/BP = I
 		if(BP.needs_processing)
-			. |= BP.on_life(stam_regen)
+			. |= BP.on_life()
 
 /mob/living/carbon/proc/handle_organs()
 	for(var/V in internal_organs)

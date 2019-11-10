@@ -350,7 +350,7 @@
 	icon_state = "tile"
 	item_state = "tile"
 	force = 6
-	materials = list(/datum/material/iron=500)
+	materials = list(MAT_IRON=500)
 	throwforce = 10
 	flags_1 = CONDUCT_1
 	turf_type = /turf/open/floor/plasteel

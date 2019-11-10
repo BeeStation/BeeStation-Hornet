@@ -14,10 +14,10 @@
 	if(!isitem(O))
 		return 0
 	var/obj/item/I = O
-	if(!(getmaterialref(material_id) in I.materials))
+	if(!(material_id in I.materials))
 		return 0
 
-	var/amount = I.materials[getmaterialref(material_id)]
+	var/amount = I.materials[material_id]
 
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/S = I
@@ -31,54 +31,54 @@
 
 /datum/export/material/bananium
 	cost = 1000
-	material_id = /datum/material/bananium
+	material_id = MAT_BANANIUM
 	message = "cm3 of bananium"
 
 /datum/export/material/diamond
 	cost = 500
-	material_id = /datum/material/diamond
+	material_id = MAT_DIAMOND
 	message = "cm3 of diamonds"
 
 /datum/export/material/plasma
 	cost = 200
 	k_elasticity = 0
-	material_id = /datum/material/plasma
+	material_id = MAT_PLASMA
 	message = "cm3 of plasma"
 
 /datum/export/material/uranium
 	cost = 100
-	material_id = /datum/material/uranium
+	material_id = MAT_URANIUM
 	message = "cm3 of uranium"
 
 /datum/export/material/gold
 	cost = 125
-	material_id = /datum/material/gold
+	material_id = MAT_GOLD
 	message = "cm3 of gold"
 
 /datum/export/material/copper
 	cost = 15
-	material_id = /datum/material/copper
+	material_id = MAT_COPPER
 	message = "cm3 of copper"
 
 /datum/export/material/silver
 	cost = 50
-	material_id = /datum/material/silver
+	material_id = MAT_SILVER
 	message = "cm3 of silver"
 
 /datum/export/material/titanium
 	cost = 125
-	material_id = /datum/material/titanium
+	material_id = MAT_TITANIUM
 	message = "cm3 of titanium"
 
 /datum/export/material/plastitanium
 	cost = 325 // plasma + titanium costs
-	material_id = /datum/material/titanium // code can only check for one material_id; plastitanium is half plasma, half titanium
+	material_id = MAT_TITANIUM // code can only check for one material_id; plastitanium is half plasma, half titanium
 	message = "cm3 of plastitanium"
 
 /datum/export/material/iron
 	cost = 5
-	message = "cm3 of metal"
-	material_id = /datum/material/iron
+	message = "cm3 of iron"
+	material_id = MAT_IRON
 	export_types = list(
 		/obj/item/stack/sheet/iron, /obj/item/stack/tile/plasteel,
 		/obj/item/stack/rods, /obj/item/stack/ore, /obj/item/coin)
@@ -86,6 +86,6 @@
 /datum/export/material/glass
 	cost = 5
 	message = "cm3 of glass"
-	material_id = /datum/material/glass
+	material_id = MAT_GLASS
 	export_types = list(/obj/item/stack/sheet/glass, /obj/item/stack/ore,
 		/obj/item/shard)

@@ -5,7 +5,7 @@
 	var/light_impact_range = 2
 	var/flash_range = 3
 	var/equipped_slot //For items, lets us determine where things should be hit.
-	
+
 /datum/component/explodable/Initialize(devastation_range_override, heavy_impact_range_override, light_impact_range_override, flash_range_override)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -20,8 +20,8 @@
 			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), .proc/explodable_attack)
 			RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/on_equip)
 			RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/on_drop)
-				
-			
+
+
 
 	if(devastation_range_override)
 		devastation_range = devastation_range_override
@@ -87,7 +87,7 @@
 		if(I.body_parts_covered & bodypart.body_part)
 			return TRUE
 	return FALSE
-	
+
 
 /datum/component/explodable/proc/check_if_detonate(target)
 	if(!isitem(target))
@@ -103,5 +103,3 @@
 	var/atom/A = parent
 	explosion(A, devastation_range, heavy_impact_range, light_impact_range, flash_range) //epic explosion time
 	qdel(A)
-
-

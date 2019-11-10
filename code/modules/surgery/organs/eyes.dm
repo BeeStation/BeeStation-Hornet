@@ -16,7 +16,10 @@
 	var/see_invisible = SEE_INVISIBLE_LIVING
 	var/lighting_alpha
 	var/no_glasses
-	var/damaged	= FALSE	//damaged indicates that our eyes are undergoing some level of negative effect
+	maxHealth = 50		//half the normal health max since we go blind at 30, a permanent blindness at 50 therefore makes sense unless medicine is administered
+	high_threshold = 20
+	low_threshold = 10
+
 	maxHealth = 50		//half the normal health max since we go blind at 30, a permanent blindness at 50 therefore makes sense unless medicine is administered
 	high_threshold = 20
 	low_threshold = 10

@@ -185,12 +185,10 @@
 	var/available_damage = max_damage - current_damage
 	stamina_dam += round(CLAMP(stamina, 0, min(max_stamina_damage - stamina_dam, available_damage)), DAMAGE_PRECISION)
 
-
 	if(owner && updating_health)
 		owner.updatehealth()
 		if(stamina > DAMAGE_PRECISION)
 			owner.update_stamina()
-			owner.stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
 	consider_processing()
 	update_disabled()
 	return update_bodypart_damage_state()

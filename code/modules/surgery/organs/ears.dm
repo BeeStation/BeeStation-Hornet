@@ -11,7 +11,7 @@
 	var/deaf = 0
 
 	// `damage` in this case measures long term damage to the ears, if too high,
-	// the person will not have either `deaf` or `ear_damage` decrease
+	// the person will not have either `deaf` or `damage` decrease
 	// without external aid (earmuffs, drugs)
 
 	//Resistance against loud noises
