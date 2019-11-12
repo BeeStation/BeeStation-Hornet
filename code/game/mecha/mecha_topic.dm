@@ -48,6 +48,15 @@
 					 "}
 
 
+///Returns HTML for mech actions. Ideally, this proc would be empty for the base mecha. Segmented for easy refactoring.
+/obj/mecha/proc/get_actions()
+	. = ""
+	. += "[defense_action.owner ? "<b>Defense Mode: </b> [defense_mode ? "Enabled" : "Disabled"]<br>" : ""]"
+	. += "[overload_action.owner ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"]<br>" : ""]"
+	. += "[smoke_action.owner ? "<b>Smoke: </b> [smoke]<br>" : ""]"
+	. += "[zoom_action.owner ? "<b>Zoom: </b> [zoom_mode ? "Enabled" : "Disabled"]<br>" : ""]"
+	. += "[switch_damtype_action.owner ? "<b>Damtype: </b> [damtype]<br>" : ""]"
+	. += "[phasing_action.owner ? "<b>Phase Modulator: </b> [phasing ? "Enabled" : "Disabled"]<br>" : ""]"
 
 /obj/mecha/proc/report_internal_damage()
 	. = ""
@@ -152,6 +161,18 @@
 
 
 
+/obj/mecha/proc/get_equipment_menu() //outputs mecha html equipment menu
+	. = {"
+	<div class='wr'>
+	<div class='header'>Equipment</div>
+	<div class='links'>"}
+	if(equipment.len)
+		for(var/X in equipment)
+			var/obj/item/mecha_parts/mecha_equipment/W = X
+			. += "[W.name] [W.detachable?"<a href='?src=[REF(W)];detach=1'>Detach</a><br>":"\[Non-removable\]<br>"]"
+	. += {"<b>Available equipment slots:</b> [max_equip-equipment.len]
+	</div>
+	</div>"}
 
 /obj/mecha/proc/output_access_dialog(obj/item/card/id/id_card, mob/user)
 	if(!id_card || !user)
