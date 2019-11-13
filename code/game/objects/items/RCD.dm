@@ -40,7 +40,7 @@ RLD
 	var/datum/component/remote_materials/silo_mats //remote connection to the silo
 	var/silo_link = FALSE //switch to use internal or remote storage
 
-/obj/item/construction/Initialize(mapload)
+/obj/item/construction/Initialize()
 	. = ..()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
