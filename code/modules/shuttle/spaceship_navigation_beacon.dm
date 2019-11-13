@@ -46,7 +46,7 @@ obj/machinery/spaceship_navigation_beacon/emp_act()
 			name = new_name
 			to_chat(user, "<span class='notice'>You change beacon name to [name].</span>")
 	else 
-		locked =!locked
+		locked = !locked
 		to_chat(user, "<span class='notice'>You [locked ? "" : "un"]lock [src].</span>")
 	return TRUE
 
