@@ -123,7 +123,13 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 		return sorttext(b_name, a_name)
 
 /proc/cmp_job_display_asc(datum/job/A, datum/job/B)
-	return A.display_order - B.display_order
+	return sorttext(initial(b.name),initial(a.name))
 
 /proc/cmp_reagents_asc(datum/reagent/a, datum/reagent/b)
-    return sorttext(initial(b.name),initial(a.name))
+    return sorttext("[B]","[A]")
+
+/proc/cmp_pdaname_asc(obj/item/pda/A, obj/item/pda/B)
+	return sorttext(B.owner, A.owner)
+
+/proc/cmp_pdajob_asc(obj/item/pda/A, obj/item/pda/B)
+	return sorttext(B.ownjob, A.ownjob)
