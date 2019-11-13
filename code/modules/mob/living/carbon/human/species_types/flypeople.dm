@@ -12,7 +12,7 @@
 	default_features = list("insect_type" = "housefly")
 	burnmod = 1.3
 	brutemod = 1.3
-	speedmod = 0.7
+	speedmod = 0.8
 	disliked_food = null
 	liked_food = GROSS | MEAT | RAW | FRUIT
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
