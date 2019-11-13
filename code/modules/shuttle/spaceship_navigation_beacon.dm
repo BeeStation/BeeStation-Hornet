@@ -51,7 +51,7 @@ obj/machinery/spaceship_navigation_beacon/emp_act()
 	return TRUE
 
 /obj/machinery/spaceship_navigation_beacon/examine()
-	.=..()
+	. = ..()
 	. += "<span class='[locked ? "warning" : "nicegreen"]'>Status: [locked ? "LOCKED" : "Stable"] </span>"
 
 /obj/machinery/spaceship_navigation_beacon/attackby(obj/item/W, mob/user, params)
