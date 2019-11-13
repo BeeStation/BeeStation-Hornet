@@ -2051,6 +2051,19 @@
 	icon_state = "who cares fuck you" // In order to pull the chassis correctly, we need AN icon_state(see line 36-39). It doesn't have to be useful, because it isn't used.
 	color_src = 0
 
+/datum/sprite_accessory/insect_type
+	icon = null
+	icon_state = "NULL"
+	color_src = 0
+
+/datum/sprite_accessory/insect_type/fly
+	name = "Common Fly"
+	limbs_id = "fly"
+
+/datum/sprite_accessory/insect_type/bee
+	name = "Hoverfly"
+	limbs_id = "bee"
+
 /datum/sprite_accessory/ipc_chassis/mcgreyscale
 	name = "Morpheus Cyberkinetics(Greyscale)"
 	limbs_id = "mcgipc"
