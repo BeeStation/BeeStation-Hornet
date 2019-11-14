@@ -693,6 +693,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.ipc_antennas_list[H.dna.features["ipc_antenna"]]
 				if("ipc_chassis")
 					S = GLOB.ipc_chassis_list[H.dna.features["ipc_chassis"]]
+				if("insect_type")
+					S = GLOB.insect_type_list[H.dna.features["insect_type"]]
 			if(!S || S.icon_state == "none")
 				continue
 
