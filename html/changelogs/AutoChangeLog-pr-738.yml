@@ -1,0 +1,7 @@
+author: "Archanial"
+delete-after: True
+changes: 
+  - rscadd: "Added energy cake"
+  - rscadd: "Added energy cakehat"
+  - bugfix: "Birthday cake recipe now matches one in wiki"
+  - rscadd: "You can now make cakehats, will you figure out how?"
