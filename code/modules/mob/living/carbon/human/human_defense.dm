@@ -696,6 +696,9 @@
 		visible_message("[src] examines [p_them()]self.", \
 			"<span class='notice'>You check yourself for injuries.</span>")
 		check_self_for_injuries()
+			if(stat == DEAD || stat == UNCONSCIOUS)
+				return
+
 
 
 	else
