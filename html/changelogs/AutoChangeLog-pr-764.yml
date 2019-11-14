@@ -1,0 +1,8 @@
+author: "jlsnow301"
+delete-after: True
+changes: 
+  - rscadd: "new limbs for flypeople"
+  - tweak: "damage received increased"
+  - tweak: "speed increased"
+  - tweak: "favored foods
+removed: no longer use underwear"
