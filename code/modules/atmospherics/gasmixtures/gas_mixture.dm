@@ -266,6 +266,8 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	return 1
 
 /datum/gas_mixture/parse_gas_string(gas_string)
+	gas_string = SSair.preprocess_gas_string(gas_string)
+
 	var/list/gases = src.gases
 	var/list/gas = params2list(gas_string)
 	if(gas["TEMP"])
@@ -430,7 +432,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 					continue reaction_loop
 
 			//at this point, all requirements for the reaction are satisfied. we can now react()
-			
+
 			. |= reaction.react(src, holder)
 			if (. & STOP_REACTIONS)
 				break
