@@ -327,6 +327,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8
 	surplus = 15
 
+/datum/uplink_item/dangerous/nanosuit
+	name = "CryNet Nanosuit"
+	desc = "Become a posthuman warrior. The items cannot be taken off once you wear them."
+	item = /obj/item/storage/box/syndie_kit/nanosuit
+	cost = 20
+
 /datum/uplink_item/dangerous/pie_cannon
 	name = "Banana Cream Pie Cannon"
 	desc = "A special pie cannon for a special clown, this gadget can hold up to 20 pies and automatically fabricates one every two seconds!"
