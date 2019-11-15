@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 
 	return filtered_uplink_items
-	
+
 /proc/create_uplink_sales(num, category_name, limited_stock, sale_items, uplink_items)
 	if (num <= 0)
 		return
@@ -1278,6 +1278,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/card/emag
 	cost = 6
 
+/datum/uplink_item/device_tools/emag
+	name = "Blue Space Cryptographic Sequencer"
+	desc = "The cryptographic sequencer, electromagnetic card, or emag, is a small card that unlocks hidden functions,Comes with a remote use function \
+			in electronic devices, subverts intended functions, and easily breaks security mechanisms."
+	item = /obj/item/card/emag/bluespace
+	cost = 7
+
 /datum/uplink_item/device_tools/fakenucleardisk
 	name = "Decoy Nuclear Authentication Disk"
 	desc = "It's just a normal disk. Visually it's identical to the real deal, but it won't hold up under closer scrutiny by the Captain. \
@@ -1640,7 +1647,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/sbeacondrop/clownbomb
 	cost = 10
 	restricted_roles = list("Clown")
-	
+
 /datum/uplink_item/role_restricted/clown_grenade
 	name = "C.L.U.W.N.E"
 	desc = "The C.L.U.W.N.E will create one of the honkmother's own completely randomly!\
@@ -1648,8 +1655,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/spawnergrenade/clown
 	cost = 3
 	restricted_roles = list("Clown")
-	
-		
+
+
 /datum/uplink_item/role_restricted/clown_grenade_broken
 	name = "Stuffed C.L.U.W.N.E"
 	desc = "The C.L.U.W.N.E will create one of the honkmother's own completely randomly!\
@@ -1658,7 +1665,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/spawnergrenade/clown_broken
 	cost = 5
 	restricted_roles = list("Clown")
-	
+
 /datum/uplink_item/role_restricted/clowncar
 	name = "Clown Car"
 	desc = "The Clown Car is the ultimate transportation method for any worthy clown! \
@@ -1716,7 +1723,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 20
 	restricted_roles = list("Chaplain")
 	surplus = 5 //Very low chance to get it in a surplus crate even without being the chaplain
-	
+
 /datum/uplink_item/role_restricted/spanish_flu
 	name = "Spanish Flu Culture"
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell.\
@@ -1724,7 +1731,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
 	cost = 14
 	restricted_roles = list("Chaplain", "Virologist")
-	
+
 /datum/uplink_item/role_restricted/beesease
 	name = "Beesease Culture"
 	desc = "A bottle of microbees, which will quickly breed in the stomach of hosts.\
@@ -1748,7 +1755,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/reagent_containers/glass/bottle/pierrot_throat
 	cost = 5
 	restricted_roles = list("Virologist", "Clown")
-	
+
 /datum/uplink_item/role_restricted/random_disease
 	name = "Experimental Disease"
 	desc = "A random disease. Maybe you'll get lucky."
@@ -1793,7 +1800,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	player_minimum = 25
 	restricted = TRUE
 	restricted_roles = list("Cook", "Chaplain")
-	
+
 /datum/uplink_item/role_restricted/ez_clean_bundle
 	name = "EZ Clean Grenade Bundle"
 	desc = "A box with three cleaner grenades using the trademark Waffle Co. formula. Serves as a cleaner and causes acid damage to anyone standing nearby. \
