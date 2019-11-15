@@ -324,7 +324,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An electric katana that weakens the molecular bonds of whatever it touches. Perfect for slicing off the limbs of your coworkers. \
 	Avoid using a multitool on it."
 	item = /obj/item/storage/belt/hfblade
-	cost = 14
+	cost = 10
 	surplus = 15
 
 /datum/uplink_item/dangerous/pie_cannon
