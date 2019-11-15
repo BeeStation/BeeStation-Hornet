@@ -46,7 +46,7 @@ RLD
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 	if(upgrade & RCD_UPGRADE_SILO_LINK)
-		silo_mats = AddComponent(/datum/component/remote_materials, "RCD", mapload, FALSE)
+		silo_mats = AddComponent(/datum/component/remote_materials, "RCD", FALSE)
 
 /obj/item/construction/examine(mob/user)
 	. = ..()
@@ -501,6 +501,7 @@ RLD
 		choices += list(
 		"Machine Frames" = image(icon = 'icons/mob/radial.dmi', icon_state = "machine"),
 		"Computer Frames" = image(icon = 'icons/mob/radial.dmi', icon_state = "computer_dir"),
+		"Ladders" = image(icon = 'icons/mob/radial.dmi', icon_state = "ladder")
 		)
 	if(upgrade & RCD_UPGRADE_SILO_LINK)
 		choices += list(
@@ -532,6 +533,8 @@ RLD
 		if("Computer Frames")
 			mode = RCD_COMPUTER
 			change_computer_dir(user)
+		if("Ladders")
+			mode = RCD_LADDER
 			return
 		if("Change Access")
 			change_airlock_access(user)
@@ -551,9 +554,11 @@ RLD
 	to_chat(user, "<span class='notice'>You change RCD's mode to '[choice]'.</span>")
 
 /obj/item/construction/rcd/proc/target_check(atom/A, mob/user) // only returns true for stuff the device can actually work with
-	if((isturf(A) && A.density && mode==RCD_DECONSTRUCT) || (isturf(A) && !A.density) || (istype(A, /obj/machinery/door/airlock) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/grille) || (istype(A, /obj/structure/window) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/girder))
+	if((isturf(A) && A.density && mode==RCD_DECONSTRUCT) || (isturf(A) && !A.density) || (istype(A, /obj/machinery/door/airlock) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/grille) || (istype(A, /obj/structure/window) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/girder || istype(A, /obj/structure/ladder)))
 		return TRUE
 	else
+		return FALSE
+
 		return FALSE
 
 /obj/item/construction/rcd/afterattack(atom/A, mob/user, proximity)
