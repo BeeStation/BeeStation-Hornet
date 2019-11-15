@@ -1283,7 +1283,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The cryptographic sequencer, electromagnetic card, or emag, is a small card that unlocks hidden functions,Comes with a remote use function \
 			in electronic devices, subverts intended functions, and easily breaks security mechanisms."
 	item = /obj/item/card/emag/bluespace
-	cost = 9
+	cost = 11
 
 /datum/uplink_item/device_tools/fakenucleardisk
 	name = "Decoy Nuclear Authentication Disk"
