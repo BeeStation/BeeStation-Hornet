@@ -450,6 +450,8 @@ RLD
 						airlock_type = /obj/machinery/door/airlock/medical/glass
 					if("Research")
 						airlock_type = /obj/machinery/door/airlock/research/glass
+					if("Science")
+						airlock_type = /obj/machinery/door/airlock/science/glass
 					if("Virology")
 						airlock_type = /obj/machinery/door/airlock/virology/glass
 					if("Mining")
