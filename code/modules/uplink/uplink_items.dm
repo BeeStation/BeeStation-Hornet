@@ -319,14 +319,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 30
 	include_modes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/dangerous/vibroblade
-	name = "High Frequency Blade"
-	desc = "An electric katana that weakens the molecular bonds of whatever it touches. Perfect for slicing off the limbs of your coworkers. \
-	Avoid using a multitool on it."
-	item = /obj/item/storage/belt/hfblade
-	cost = 8
-	surplus = 15
-
 /datum/uplink_item/dangerous/nanosuit
 	name = "CryNet Nanosuit"
 	desc = "Become a posthuman warrior. The items cannot be taken off once you wear them."
