@@ -864,7 +864,6 @@
 #include "code\game\objects\items\gift.dm"
 #include "code\game\objects\items\granters.dm"
 #include "code\game\objects\items\handcuffs.dm"
-#include "code\game\objects\items\hfblade.dm"
 #include "code\game\objects\items\his_grace.dm"
 #include "code\game\objects\items\holosign_creator.dm"
 #include "code\game\objects\items\holy_weapons.dm"
