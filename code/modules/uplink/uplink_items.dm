@@ -1278,13 +1278,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/card/emag
 	cost = 6
 
-/datum/uplink_item/device_tools/emag
-	name = "Blue Space Cryptographic Sequencer"
-	desc = "The cryptographic sequencer, electromagnetic card, or emag, is a small card that unlocks hidden functions,Comes with a remote use function \
-			in electronic devices, subverts intended functions, and easily breaks security mechanisms."
-	item = /obj/item/card/emag/bluespace
-	cost = 7
-
 /datum/uplink_item/device_tools/fakenucleardisk
 	name = "Decoy Nuclear Authentication Disk"
 	desc = "It's just a normal disk. Visually it's identical to the real deal, but it won't hold up under closer scrutiny by the Captain. \
