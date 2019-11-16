@@ -569,6 +569,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/book/granter/martial/carp
 	cost = 16
 	surplus = 10
+	player_minimum = 20
 	surplus_nullcrates = 0
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 
@@ -1278,13 +1279,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/card/emag
 	cost = 6
 
-/datum/uplink_item/device_tools/emag
-	name = "Blue Space Cryptographic Sequencer"
-	desc = "The cryptographic sequencer, electromagnetic card, or emag, is a small card that unlocks hidden functions,Comes with a remote use function \
-			in electronic devices, subverts intended functions, and easily breaks security mechanisms."
-	item = /obj/item/card/emag/bluespace
-	cost = 7
-
 /datum/uplink_item/device_tools/fakenucleardisk
 	name = "Decoy Nuclear Authentication Disk"
 	desc = "It's just a normal disk. Visually it's identical to the real deal, but it won't hold up under closer scrutiny by the Captain. \
@@ -1367,6 +1361,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			traditional bags and boxes. Caution: Will explode if the powernet contains sufficient amounts of energy."
 	item = /obj/item/powersink
 	cost = 10
+	player_minimum = 40
+
 
 /datum/uplink_item/device_tools/rad_laser
 	name = "Radioactive Microlaser"
