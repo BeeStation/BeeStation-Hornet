@@ -324,6 +324,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Become a posthuman warrior. The items cannot be taken off once you wear them."
 	item = /obj/item/storage/box/syndie_kit/nanosuit
 	cost = 20
+	exclude_modes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/pie_cannon
 	name = "Banana Cream Pie Cannon"
