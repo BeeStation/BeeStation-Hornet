@@ -1582,6 +1582,11 @@
 	color = "#04506C" // rgb: 4,80,108
 	taste_description = "the inside of a reactor"
 
+/datum/reagent/consumable/laughter/laughtervirusfood
+	name = "anomolous virus food"
+	color = "#ffa6ff" //rgb: 255,166,255
+	taste_description = "a bad idea"
+
 // Bee chemicals
 
 /datum/reagent/royal_bee_jelly

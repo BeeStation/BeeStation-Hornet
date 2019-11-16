@@ -211,6 +211,12 @@
 	results = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
 	required_reagents = list(/datum/reagent/uranium = 10, /datum/reagent/silver = 10, /datum/reagent/toxin/plasma = 1)
 
+/datum/reagent/consumable/laughtervirusfood
+	name = "Anomolous virus food"
+	id = /datum/reagent/consumable/laughter/laughtervirusfood
+	results = list(/datum/reagent/consumable/laughter/laughtervirusfood = 1)
+	required_reagents = list(/datum/reagent/consumable/laughter = 5, /datum/reagent/consumable/virus_food = 1)
+
 /datum/chemical_reaction/mix_virus
 	name = "Mix Virus"
 	id = "mixvirus"
@@ -316,6 +322,14 @@
 	required_reagents = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
 	level_min = 8
 	level_max = 8
+
+/datum/chemical_reaction/mix_virus/mix_virus_13
+
+	name = "Mix Virus 13"
+	id = "mixvirus13"
+	required_reagents = list(/datum/reagent/consumable/laughter/laughtervirusfood = 1)
+	level_min = 0
+	level_max = 0
 
 /datum/chemical_reaction/mix_virus/rem_virus
 
