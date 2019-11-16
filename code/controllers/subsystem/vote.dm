@@ -193,8 +193,9 @@ SUBSYSTEM_DEF(vote)
 					if(!VM.is_votable())
 						continue
 					maps += VM.map_name
+					shuffle_inplace(maps)
 				for(var/valid_map in maps)
-					choices.Add(pick(valid_map))
+					choices.Add(valid_map)
 			if("custom")
 				question = stripped_input(usr,"What is the vote for?")
 				if(!question)
