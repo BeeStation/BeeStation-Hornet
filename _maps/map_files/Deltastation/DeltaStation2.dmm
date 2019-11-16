@@ -126361,6 +126361,20 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
+"exx" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,
+/turf/open/floor/plasteel/dark,
+/area/science/xenobiology)
 "exE" = (
 /obj/machinery/air_sensor/atmos/toxins_mixing_tank,
 /turf/open/floor/engine/vacuum,
@@ -154574,7 +154588,7 @@ cea
 cLs
 cOE
 cMY
-cNd
+exx
 cNd
 cNd
 cWV
