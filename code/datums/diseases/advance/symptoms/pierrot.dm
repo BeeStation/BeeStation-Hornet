@@ -55,6 +55,12 @@
 				if(honkspread)
 					A.spread(1)
 
+/datum/symptom/pierrot/End(datum/disease/advance/A)
+	..()
+	if(!A.affected_mob.job == "Clown")
+		to_chat(A.affected_mob, "<span class='notice'>You feel less dumb.</span>")
+		REMOVE_TRAIT(A.affected_mob, TRAIT_CLUMSY, DISEASE_TRAIT)
+
 /datum/symptom/pierrot/proc/give_clown_shoes(datum/disease/advance/A)
 	..()
 	var/mob/living/M = A.affected_mob
@@ -64,9 +70,3 @@
 				qdel(M.shoes)
 		M.equip_to_slot_or_del(new /obj/item/clothing/shoes/cluwne(M), SLOT_SHOES)
 		return
-
-/datum/symptom/pierrot/End(datum/disease/advance/A)
-	..()
-	if(!A.affected_mob.job == "Clown")
-		to_chat(A.affected_mob, "<span class='notice'>You feel less dumb.</span>")
-		REMOVE_TRAIT(A.affected_mob, TRAIT_CLUMSY, DISEASE_TRAIT)
