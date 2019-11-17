@@ -1,0 +1,4 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - bugfix: "Cryostasis shotgun darts can be fabricated again"
