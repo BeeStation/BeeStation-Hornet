@@ -28,24 +28,24 @@
 	switch(A.stage)
 		if(2)
 			if(prob(1)&&prob(50))
-				affected_mob.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"), forced = "wizarditis")
+				A.affected_mob.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"), forced = "wizarditis")
 			if(prob(1)&&prob(50))
-				to_chat(affected_mob, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "an urge to summon familiar")].</span>")
+				to_chat(A.affected_mob, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "an urge to summon familiar")].</span>")
 
 
 		if(3)
 			if(prob(1)&&prob(50))
-				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"), forced = "wizarditis")
+				A.affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"), forced = "wizarditis")
 			if(prob(1)&&prob(50))
-				to_chat(affected_mob, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
+				to_chat(A.affected_mob, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
 
 		if(4)
 
 			if(prob(1))
-				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"), forced = "wizarditis")
+				A.affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"), forced = "wizarditis")
 				return
 			if(prob(1)&&robes)
-				to_chat(affected_mob, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")].</span>")
+				to_chat(A.affected_mob, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")].</span>")
 				spawn_wizard_clothes(50)
 			if(prob(1)&&prob(50)&&teleport)
 				teleport()
@@ -54,8 +54,8 @@
 
 
 /datum/disease/wizarditis/proc/spawn_wizard_clothes(chance = 0)
-	if(ishuman(affected_mob))
-		var/mob/living/carbon/human/H = affected_mob
+	if(ishuman(A.affected_mob))
+		var/mob/living/carbon/human/H = A.affected_mob
 		if(prob(chance))
 			if(!istype(H.head, /obj/item/clothing/head/wizard))
 				if(!H.dropItemToGround(H.head))
@@ -75,7 +75,7 @@
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal/magic(H), SLOT_SHOES)
 			return
 	else
-		var/mob/living/carbon/H = affected_mob
+		var/mob/living/carbon/H = A.affected_mob
 		if(prob(chance))
 			var/obj/item/staff/S = new(H)
 			if(!H.put_in_hands(S))
@@ -83,7 +83,7 @@
 
 
 /datum/disease/wizarditis/proc/teleport()
-	var/list/theareas = get_areas_in_range(80, affected_mob)
+	var/list/theareas = get_areas_in_range(80, A.affected_mob)
 	for(var/area/space/S in theareas)
 		theareas -= S
 
@@ -94,7 +94,7 @@
 
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(thearea.type))
-		if(T.z != affected_mob.z)
+		if(T.z != A.affected_mob.z)
 			continue
 		if(T.name == "space")
 			continue
@@ -110,7 +110,7 @@
 	if(!L)
 		return
 
-	affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")
-	affected_mob.forceMove(pick(L))
+	A.affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")
+	A.affected_mob.forceMove(pick(L))
 
 	return
