@@ -49,4 +49,4 @@
 	if(prob(chance))
 		if(ishuman(A.affected_mob))
 			var/mob/living/carbon/human/M = A.affected_mob 
-			M.gain_trauma(BRAIN_TRAUMA_MILD)
+			M?.gain_trauma(BRAIN_TRAUMA_MILD)
