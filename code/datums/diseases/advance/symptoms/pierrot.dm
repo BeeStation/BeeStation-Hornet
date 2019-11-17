@@ -61,10 +61,10 @@
 		to_chat(A.affected_mob, "<span class='notice'>You feel less dumb.</span>")
 		REMOVE_TRAIT(A.affected_mob, TRAIT_CLUMSY, DISEASE_TRAIT)
 
-/datum/symptom/pierrot/proc/give_clown_shoes(datum/disease/advance/A)
+/datum/symptom/pierrot/proc/give_clown_sho i.p.oes(datum/disease/advance/A)
 	..()
-	var/mob/living/M = A.affected_mob
-	if(ishuman(M))
+	if(ishuman(A.affected_mob))
+		var/mob/living/carbon/human/M = A.affected_mob 
 		if(!istype(M.shoes, /obj/item/clothing/shoes/cluwne))
 			if(!M.dropItemToGround(M.shoes))
 				qdel(M.shoes)
