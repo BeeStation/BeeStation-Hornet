@@ -37,11 +37,10 @@
 				if(honey)
 					to_chat(M, "<span class='notice'>You taste even more honey.</span>")
 					M.reagents.add_reagent(/datum/reagent/consumable/honey, 2)
-				else
-					to_chat(M, "<span class='danger'>Your stomach stings painfully.</span>")
-					if(prob(20))
-						M.adjustToxLoss(2)
-						M.updatehealth()
+				else if(prob(20))
+					to_chat(M, "<span class='danger'>Your stomach stings painfully.</span>")				
+					M.adjustToxLoss(2)
+					M.updatehealth()
 		if(4, 5)
 			if(prob(10))
 				M.visible_message("<span class='danger'>[M] buzzes.</span>", \

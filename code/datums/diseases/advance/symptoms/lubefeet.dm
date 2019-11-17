@@ -23,18 +23,18 @@
 		return
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
-		if(2)
-			if(prob(2))
+		if(1, 2)
+			if(prob(15))
 				to_chat(M, "<span class='notice'>Your feet begin to sweat profusely...</span>")
 		if(3, 4 ,5)
-			if(prob(1))
+			if(prob(10))
 				to_chat(M, "<span class='danger'>You slip from the lube from your feet!</span>")
 				M.slip()
-		if(4, 5)
-			if(morelube)
-				makelube(M, 25)
-			else
-				makelube(M, 5)
+			if(A.stage == 4 || A.stage == 5)
+				if(morelube)
+					makelube(M, 25)
+				else
+					makelube(M, 5)
 
 /datum/symptom/lubefeet/proc/makelube(mob/living/carbon/M, chance)
 	if(prob(chance))

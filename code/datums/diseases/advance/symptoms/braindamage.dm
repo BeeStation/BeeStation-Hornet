@@ -42,8 +42,7 @@
 				if(prob(3))
 					M.adjustBrainLoss(5, 90)
 					to_chat(M, "<span class='danger'>Your head hurts immensely!</span>")
-		if(5)
-			if(moretrauma)
+			if(moretrauma && A.stage == 5)
 				givetrauma(A, 1)
 
 /datum/symptom/braindamage/proc/givetrauma(datum/disease/advance/A, chance)
