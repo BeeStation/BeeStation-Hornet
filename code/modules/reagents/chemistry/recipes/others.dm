@@ -211,15 +211,15 @@
 	results = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
 	required_reagents = list(/datum/reagent/uranium = 10, /datum/reagent/silver = 10, /datum/reagent/toxin/plasma = 1)
 
-/datum/chemical_reaction/virus_food_admin
+/datum/chemical_reaction/virus_food_laughter
 	name = "Anomolous virus food"
-	id = "virusfood_admin"
+	id = "virusfood_laughter"
 	results = list(/datum/reagent/consumable/laughter/laughtervirusfood = 1)
 	required_reagents = list(/datum/reagent/consumable/laughter = 5, /datum/reagent/consumable/virus_food = 1)
 
-/datum/chemical_reaction/virus_food_laughter
+/datum/chemical_reaction/virus_food_admin
 	name = "Highly unstable virus Food"
-	id = "virusfood_laughter"
+	id = "virusfood_admin"
 	results = list(/datum/reagent/medicine/adminordrazine/adminvirusfood = 1)
 	required_reagents = list(/datum/reagent/medicine/adminordrazine = 5, /datum/reagent/consumable/virus_food = 1)
 
