@@ -44,5 +44,11 @@
 					to_chat(M, "<span class='danger'>Your head hurts immensely!</span>")
 		if(5)
 			if(moretrauma)
-				if(prob(1))
-					M.gain_trauma(BRAIN_TRAUMA_MILD)
+				givetrauma(A, 1)
+
+/datum/symptom/braindamage/proc/givetrauma(datum/disease/advance/A, chance)
+	..()
+	if(prob(chance))
+		if(ishuman(A.affected_mob))
+			var/mob/living/carbon/human/M = A.affected_mob 
+			M.gain_trauma(BRAIN_TRAUMA_MILD)
