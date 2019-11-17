@@ -1587,6 +1587,11 @@
 	color = "#ffa6ff" //rgb: 255,166,255
 	taste_description = "a bad idea"
 
+/datum/reagent/medicine/adminordrazine/adminvirusfood
+	name = "highly unstable virus food"
+	color = "#ffffff" //rgb: 255,255,255 ITS PURE WHITE CMON
+	taste_description = "an EXTREMELY bad idea"
+
 // Bee chemicals
 
 /datum/reagent/royal_bee_jelly
