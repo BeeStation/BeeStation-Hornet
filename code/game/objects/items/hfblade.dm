@@ -13,7 +13,7 @@
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
 	force = 0.001
-	throwforce = 20
+	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 50
 	armour_penetration = 75
@@ -31,7 +31,6 @@
 	AddComponent(/datum/component/butchering, 30, 95, 5)
 	set_light(brightness)
 	START_PROCESSING(SSobj, src)
-	. = ..()
 
 /obj/item/melee/hfblade/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -45,9 +44,7 @@
 		var/hideandseeklogic = rand(1,5) // YES, ADD MORE RNG TO COMBAT.
 		if(hideandseeklogic == 1 || HAS_TRAIT(attacker, TRAIT_CLUMSY))
 			attacker.visible_message("<span class = 'warning'>[attacker] attempts to attack [owner] and accidentally slices their arm off! What an idiot!</span>")
-			var/which_hand = BODY_ZONE_L_ARM
-			if(!(attacker.active_hand_index % 2))
-				which_hand = BODY_ZONE_R_ARM
+			var/which_hand = (attacker.active_hand_index % 2) ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM
 			var/obj/item/bodypart/disarm_arm = attacker.get_bodypart(which_hand)
 			disarm_arm.dismember()
 			playsound(attacker,pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg') ,50, 1, -1)
@@ -109,6 +106,16 @@
 	icon_state = "sheath"
 	item_state = "sheath"
 	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/storage/belt/hfblade/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 1
+	STR.rustle_sound = FALSE
+	STR.max_w_class = WEIGHT_CLASS_BULKY
+	STR.can_hold = typecacheof(list(
+		/obj/item/melee/hfblade
+		))
 
 /obj/item/storage/belt/hfblade/examine(mob/user)
 	..()
