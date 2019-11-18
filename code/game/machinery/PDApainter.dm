@@ -3,6 +3,7 @@
 	desc = "A machine able to color PDAs and IDs with ease. Insert an ID card or PDA and pick a color scheme."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "coloriser"
+	max_integrity = 200
 	density = TRUE
 	anchored = TRUE
 	var/obj/item/pda/storedpda = null
@@ -66,7 +67,6 @@
 	id_icons += list(
 		"CentCom" = "centcom",
 		"ERT" = "ert",
-		"Rainbow" = "rainbow",
 		"Syndicate" = "syndicate",
 		"Clown Operative" = "clown_op",
 		)
