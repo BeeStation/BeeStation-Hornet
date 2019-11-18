@@ -56,7 +56,7 @@
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
-	ui_x = 450 
+	ui_x = 450
 	ui_y = 460
 
 	var/lon_range = 2
@@ -1125,9 +1125,9 @@
 	if(terminal && terminal.powernet)
 		terminal.add_load(amount)
 
-/obj/machinery/power/apc/avail()
+/obj/machinery/power/apc/avail(amount)
 	if(terminal)
-		return terminal.avail()
+		return terminal.avail(amount)
 	else
 		return 0
 
