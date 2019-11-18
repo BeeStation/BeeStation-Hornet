@@ -1,0 +1,8 @@
+author: "AffectedArc07 and spessbro"
+delete-after: True
+changes: 
+  - rscadd: "Added new chaplain book option"
+  - rscadd: "Added hypertool null rod option"
+  - imageadd: "added Insuls book to storage.dmi"
+  - imageadd: "added hypertool icon to device.dmi"
+  - tweak: "Religion is now a globalvar instead of being a subsystem for some reason"
