@@ -26,7 +26,7 @@
 		if(1, 2)
 			if(prob(15))
 				to_chat(M, "<span class='notice'>Your feet begin to sweat profusely...</span>")
-		if(3, 4 ,5)
+		if(3, 4, 5)
 			if(prob(10))
 				to_chat(M, "<span class='danger'>You slip from the lube from your feet!</span>")
 				M.slip()
