@@ -28,16 +28,16 @@
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(2)
-			if(prob(1)&&prob(50))
+			if(prob(1) && prob(50))
 				M.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"))
-			if(prob(1)&&prob(50))
+			if(prob(1) && prob(50))
 				to_chat(M, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "an urge to summon familiar")].</span>")
 
 
 		if(3)
-			if(prob(1)&&prob(50))
+			if(prob(1) && prob(50))
 				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"))
-			if(prob(1)&&prob(50))
+			if(prob(1) && prob(50))
 				to_chat(M, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
 
 		if(4)
@@ -45,10 +45,10 @@
 			if(prob(1))
 				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
 				return
-			if(prob(1)&&robes)
+			if(prob(1) && robes)
 				to_chat(M, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")].</span>")
 				spawn_wizard_clothes(50, A)
-			if(prob(1)&&prob(50)&&teleport)
+			if(prob(1) && prob(50)&&teleport)
 				teleport(A)
 	return
 
@@ -88,4 +88,3 @@
 	A.affected_mob.say("SCYAR NILA!")
 	A.affected_mob.forceMove(L)
 
-	return
