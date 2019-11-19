@@ -55,4 +55,3 @@
 					B.assign_reagent(/datum/reagent/consumable/honey)
 				else
 					new /mob/living/simple_animal/hostile/poison/bees/toxin(M.loc)
-	return
