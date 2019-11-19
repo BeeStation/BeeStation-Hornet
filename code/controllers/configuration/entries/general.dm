@@ -7,7 +7,7 @@
 
 /datum/config_entry/flag/auto_deadmin_players
 	protection = CONFIG_ENTRY_LOCKED
-	
+
 /datum/config_entry/flag/auto_deadmin_antagonists
 	protection = CONFIG_ENTRY_LOCKED
 
@@ -494,3 +494,7 @@
 
 /datum/config_entry/string/metacurrency_name
 	config_entry_value = "MetaCoin"
+
+/datum/config_entry/flag/grant_metacurency
+
+/datum/config_entry/flag/respect_global_bans
