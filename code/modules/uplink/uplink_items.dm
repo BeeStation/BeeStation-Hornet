@@ -569,6 +569,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/book/granter/martial/carp
 	cost = 16
 	surplus = 10
+	player_minimum = 20
 	surplus_nullcrates = 0
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 
@@ -1360,6 +1361,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			traditional bags and boxes. Caution: Will explode if the powernet contains sufficient amounts of energy."
 	item = /obj/item/powersink
 	cost = 10
+	player_minimum = 35
 
 /datum/uplink_item/device_tools/rad_laser
 	name = "Radioactive Microlaser"
