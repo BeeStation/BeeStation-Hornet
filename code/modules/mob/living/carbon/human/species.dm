@@ -519,8 +519,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(!(NO_UNDERWEAR in species_traits))
 		if(H.underwear)
 			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[H.underwear]
+			var/mutable_appearance/underwear_overlay
 			if(underwear)
-				standing += mutable_appearance(underwear.icon, underwear.icon_state, -BODY_LAYER)
+				underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, -BODY_LAYER)
+				if(!underwear.use_static)
+					underwear_overlay.color = "#" + H.underwear_color
+				standing += underwear_overlay
 
 		if(H.undershirt)
 			var/datum/sprite_accessory/undershirt/undershirt = GLOB.undershirt_list[H.undershirt]
@@ -693,6 +697,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.ipc_antennas_list[H.dna.features["ipc_antenna"]]
 				if("ipc_chassis")
 					S = GLOB.ipc_chassis_list[H.dna.features["ipc_chassis"]]
+				if("insect_type")
+					S = GLOB.insect_type_list[H.dna.features["insect_type"]]
 			if(!S || S.icon_state == "none")
 				continue
 
