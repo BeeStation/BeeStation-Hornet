@@ -1,8 +1,8 @@
 /obj/machinery/aug_manipulator
 	name = "\improper augment manipulator"
 	desc = "A machine for custom fitting augmentations, with in-built spraypainter."
-	icon = 'icons/obj/pda.dmi'
-	icon_state = "pdapainter"
+	icon = 'icons/obj/robotics.dmi'
+	icon_state = "robocolorer"
 	density = TRUE
 	obj_integrity = 200
 	max_integrity = 200
