@@ -1,4 +1,0 @@
-author: "Moccha-Bee"
-delete-after: True
-changes: 
-  - bugfix: "Humanizing a monkey no longer yeets any buried smuggler's satchels from the tile invisibly onto their person."
