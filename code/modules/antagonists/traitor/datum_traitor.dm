@@ -14,7 +14,7 @@
 	var/should_equip = TRUE
 	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
 	can_hijack = HIJACK_HIJACKER
-
+	
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && isAI(owner.current))
 		traitor_kind = TRAITOR_AI
@@ -197,7 +197,7 @@
 			.=2
 
 /datum/antagonist/traitor/greet()
-	to_chat(owner.current, "<B><font size=3 color=red>You are the [owner.special_role].</font></B>")
+	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.special_role].</span>")
 	owner.announce_objectives()
 	if(should_give_codewords)
 		give_codewords()
@@ -219,6 +219,7 @@
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE)
 			owner.current.grant_language(/datum/language/codespeak)
 		if(TRAITOR_HUMAN)
+			show_tips('html/antagtips/traitor.html')
 			if(should_equip)
 				equip(silent)
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
