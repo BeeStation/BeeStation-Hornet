@@ -12,7 +12,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
-	force = 0.001
+	force = 0
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 50
