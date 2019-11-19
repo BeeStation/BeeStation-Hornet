@@ -1,0 +1,4 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - tweak: "Improved piping in BoxStation"
