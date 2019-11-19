@@ -427,6 +427,6 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define FOURSPACES "&nbsp;&nbsp;&nbsp;&nbsp;"
 
 //chem grenades defines
-#define EMPTY 1
-#define WIRED 2
-#define READY 3
+#define GRENADE_EMPTY 1
+#define GRENADE_WIRED 2
+#define GRENADE_READY 3
