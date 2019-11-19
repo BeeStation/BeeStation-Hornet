@@ -226,9 +226,9 @@ By design, d1 is the smallest direction and d2 is the highest
 	else
 		return 0
 
-/obj/structure/cable/proc/avail()
+/obj/structure/cable/proc/avail(amount)
 	if(powernet)
-		return powernet.avail
+		return amount ? powernet.avail >= amount : powernet.avail
 	else
 		return 0
 
