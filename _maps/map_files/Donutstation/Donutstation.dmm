@@ -6,6 +6,7 @@
 /turf/closed/wall,
 /area/space/nearstation)
 "aac" = (
+<<<<<<< HEAD
 /obj/machinery/camera{
 	c_tag = "Medical - Sleeper Bay";
 	dir = 1;
@@ -17,6 +18,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
+=======
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/retaliate/goose/vomit,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/maintenance/department/crew_quarters/bar)
+>>>>>>> c863766... THE VOMITGOOSE PR (#44563)
 "aad" = (
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
@@ -81115,7 +81124,7 @@ bYm
 bXA
 bVM
 bVU
-bSy
+aac
 bSy
 bWC
 aRr
