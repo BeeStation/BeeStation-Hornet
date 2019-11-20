@@ -1,7 +1,0 @@
-author: "Nemvar/Kurgis/ArcaneMusic/Some Angry Miner"
-delete-after: True
-changes: 
-  - imageadd: "walls now have 2 more pixels of perspective, should look better now."
-  - imageadd: "Beespky has improved chase and movement animations."
-  - imageadd: "Advanced plasmacutter now has different inhands from standard cutter."
-  - imageadd: "Combat gloves no longer have red fibers in them."

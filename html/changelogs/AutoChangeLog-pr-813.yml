@@ -1,6 +1,0 @@
-author: "Sarchutar"
-delete-after: True
-changes: 
-  - rscadd: "added some more ids to the color manipulator"
-  - bugfix: "fixed roboticist pda not giving the right icon"
-  - bugfix: "fixed some ids being blank"
