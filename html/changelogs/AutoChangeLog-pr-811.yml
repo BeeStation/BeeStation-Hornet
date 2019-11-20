@@ -1,0 +1,4 @@
+author: "Surrealaser"
+delete-after: True
+changes: 
+  - rscadd: "Remote access to crew monitoring is now integrated with the crew locator upgrade for Mediborgs."
