@@ -1,5 +1,0 @@
-author: "ike709"
-delete-after: True
-changes: 
-  - bugfix: "Players locally banned from one of the servers are no longer globally banned from both servers. This fix applies to all bans retroactively. We apologize for the inconvenience."
-  - config: "Added some new config options."
