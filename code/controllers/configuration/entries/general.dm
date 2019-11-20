@@ -495,6 +495,6 @@
 /datum/config_entry/string/metacurrency_name
 	config_entry_value = "MetaCoin"
 
-/datum/config_entry/flag/grant_metacurency
+/datum/config_entry/flag/grant_metacurrency
 
 /datum/config_entry/flag/respect_global_bans
