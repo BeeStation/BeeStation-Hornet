@@ -27,7 +27,7 @@
 		return
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
-		if(1, 2)
+		if(1)
 			if(prob(10))
 				to_chat(M, "<span class='notice'>Your head feels strange...</span>")
 		if(2, 3)
