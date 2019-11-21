@@ -33,6 +33,7 @@ import { Gps } from './interfaces/Gps';
 import { LanguageMenu } from './interfaces/LanguageMenu';
 import { Mint } from './interfaces/Mint';
 import { NtosMain } from './interfaces/NtosMain';
+import { NtosNetDownloader } from './interfaces/NtosNetDownloader';
 import { NtosSupermatterMonitor } from './interfaces/NtosSupermatterMonitor';
 import { NtosWrapper } from './interfaces/NtosWrapper';
 import { OperatingComputer } from './interfaces/OperatingComputer';
@@ -44,7 +45,7 @@ import { Radio } from './interfaces/Radio';
 import { RapidPipeDispenser } from './interfaces/RapidPipeDispenser';
 import { ShuttleManipulator } from './interfaces/ShuttleManipulator';
 import { SmartVend } from './interfaces/SmartVend';
-import { SMES } from './interfaces/SMES';
+import { Smes } from './interfaces/Smes';
 import { SolarControl } from './interfaces/SolarControl';
 import { StationAlertConsole } from './interfaces/StationAlertConsole';
 import { SuitStorageUnit } from './interfaces/SuitStorageUnit';
@@ -199,16 +200,25 @@ const ROUTES = {
     component: () => NtosMain,
     wrapper: () => NtosWrapper,
     scrollable: true,
+    theme: 'ntos',
+  },
+  ntos_net_downloader: {
+    component: () => NtosNetDownloader,
+    wrapper: () => NtosWrapper,
+    scrollable: true,
+    theme: 'ntos',
   },
   ntos_power_monitor: {
     component: () => PowerMonitor,
     wrapper: () => NtosWrapper,
     scrollable: true,
+    theme: 'ntos',
   },
   ntos_supermatter_monitor: {
     component: () => NtosSupermatterMonitor,
     wrapper: () => NtosWrapper,
     scrollable: true,
+    theme: 'ntos',
   },
   ore_redemption_machine: {
     component: () => OreRedemptionMachine,
@@ -247,7 +257,7 @@ const ROUTES = {
     scrollable: true,
   },
   smes: {
-    component: () => SMES,
+    component: () => Smes,
     scrollable: false,
   },
   solar_control: {
