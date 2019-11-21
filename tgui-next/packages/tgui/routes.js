@@ -308,6 +308,7 @@ const ROUTES = {
   uplink: {
     component: () => Uplink,
     scrollable: true,
+    theme: 'syndicate',
   },
   vault_controller: {
     component: () => VaultController,
