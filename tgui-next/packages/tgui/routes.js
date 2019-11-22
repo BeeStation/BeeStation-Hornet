@@ -32,6 +32,7 @@ import { DisposalUnit } from './interfaces/DisposalUnit';
 import { DnaVault } from './interfaces/DnaVault';
 import { EngravedMessage } from './interfaces/EngravedMessage';
 import { Gps } from './interfaces/Gps';
+import { Holodeck } from './interfaces/Holodeck';
 import { LanguageMenu } from './interfaces/LanguageMenu';
 import { Mint } from './interfaces/Mint';
 import { NtosMain } from './interfaces/NtosMain';
@@ -48,17 +49,18 @@ import { RapidPipeDispenser } from './interfaces/RapidPipeDispenser';
 import { ShuttleManipulator } from './interfaces/ShuttleManipulator';
 import { SmartVend } from './interfaces/SmartVend';
 import { Smes } from './interfaces/Smes';
+import { SpawnersMenu } from './interfaces/SpawnersMenu';
 import { SolarControl } from './interfaces/SolarControl';
+import { SpaceHeater } from './interfaces/SpaceHeater';
 import { StationAlertConsole } from './interfaces/StationAlertConsole';
 import { SuitStorageUnit } from './interfaces/SuitStorageUnit';
+import { Tank } from './interfaces/Tank';
 import { TankDispenser } from './interfaces/TankDispenser';
 import { ThermoMachine } from './interfaces/ThermoMachine';
 import { TurbineComputer } from './interfaces/TurbineComputer';
 import { Uplink } from './interfaces/Uplink';
 import { VaultController } from './interfaces/VaultController';
 import { Wires } from './interfaces/Wires';
-import { Holodeck } from './interfaces/Holodeck';
-import { SpawnersMenu } from './interfaces/SpawnersMenu';
 
 const ROUTES = {
   ai_airlock: {
@@ -281,6 +283,10 @@ const ROUTES = {
     component: () => SolarControl,
     scrollable: false,
   },
+  space_heater: {
+    component: () => SpaceHeater,
+    scrollable: false,
+  },
   spawners_menu: {
     component: () => SpawnersMenu,
     scrollable: true,
@@ -291,6 +297,10 @@ const ROUTES = {
   },
   suit_storage_unit: {
     component: () => SuitStorageUnit,
+    scrollable: false,
+  },
+  tanks: {
+    component: () => Tank,
     scrollable: false,
   },
   tank_dispenser: {
