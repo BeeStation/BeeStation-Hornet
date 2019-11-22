@@ -2209,6 +2209,9 @@
 		show_player_panel(M)
 
 
+	else if(href_list["beakerpanel"])
+		beaker_panel_act(href_list)
+
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))
 		return
