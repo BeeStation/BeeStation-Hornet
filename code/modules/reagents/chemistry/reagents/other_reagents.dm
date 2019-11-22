@@ -546,7 +546,7 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/mutationtoxin/squid
-	name = "IPC Mutation Toxin"
+	name = "Squid Mutation Toxin"
 	description = "A salty toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/squid
