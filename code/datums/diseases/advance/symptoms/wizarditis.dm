@@ -100,7 +100,7 @@
 		var/mob/living/carbon/human/H = A.affected_mob
 		if(istype(H.head, /obj/item/clothing/head/wizard))
 			REMOVE_TRAIT(H.head, TRAIT_NODROP, DISEASE_TRAIT)
-		if(istype(H.wear_suit, /obj/item/clothing/suit/wizrobe)
+		if(istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
 			REMOVE_TRAIT(H.wear_suit, TRAIT_NODROP, DISEASE_TRAIT)
 		if(istype(H.shoes, /obj/item/clothing/shoes/sandal/magic))
 			REMOVE_TRAIT(H.shoes, TRAIT_NODROP, DISEASE_TRAIT)
