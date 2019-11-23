@@ -66,7 +66,7 @@
 				H.equip_to_slot_or_del(C, SLOT_HEAD)
 			return
 		if(prob(chance))
-			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe)
+			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
 				if(!H.dropItemToGround(H.wear_suit))
 					qdel(H.wear_suit)
 				C = new /obj/item/clothing/suit/wizrobe(H)
