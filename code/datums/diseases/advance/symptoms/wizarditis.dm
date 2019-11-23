@@ -62,7 +62,7 @@
 				if(!H.dropItemToGround(H.head))
 					qdel(H.head)
 				C = new /obj/item/clothing/head/wizard(H)
-				ADD_TRAIT(C, TRAIT_NODROP)
+				ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
 				H.equip_to_slot_or_del(C, SLOT_HEAD)
 			return
 		if(prob(chance))
@@ -70,7 +70,7 @@
 				if(!H.dropItemToGround(H.wear_suit))
 					qdel(H.wear_suit)
 				C = new /obj/item/clothing/suit/wizrobe(H)
-				ADD_TRAIT(C, TRAIT_NODROP)
+				ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
 				H.equip_to_slot_or_del(C, SLOT_WEAR_SUIT)
 			return
 		if(prob(chance))
@@ -78,7 +78,7 @@
 				if(!H.dropItemToGround(H.shoes))
 					qdel(H.shoes)
 				C = new /obj/item/clothing/shoes/sandal/magic(H)
-				ADD_TRAIT(C, TRAIT_NODROP)
+				ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
 				H.equip_to_slot_or_del(C, SLOT_SHOES)
 			return
 	else
@@ -99,11 +99,11 @@
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
 		if(istype(H.head, /obj/item/clothing/head/wizard))
-			REMOVE_TRAIT(H.head, TRAIT_NODROP)
+			REMOVE_TRAIT(H.head, TRAIT_NODROP, DISEASE_TRAIT)
 		if(istype(H.wear_suit, /obj/item/clothing/suit/wizrobe)
-			REMOVE_TRAIT(H.wear_suit, TRAIT_NODROP)
+			REMOVE_TRAIT(H.wear_suit, TRAIT_NODROP, DISEASE_TRAIT)
 		if(istype(H.shoes, /obj/item/clothing/shoes/sandal/magic))
-			REMOVE_TRAIT(H.shoes, TRAIT_NODROP)
+			REMOVE_TRAIT(H.shoes, TRAIT_NODROP, DISEASE_TRAIT)
 
 		
 
