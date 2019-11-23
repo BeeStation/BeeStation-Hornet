@@ -111,7 +111,7 @@
         			/obj/item/clothing/ears/headphones = 2,
         			/obj/item/clothing/head/wig/random = 3,
 					/obj/item/clothing/under/joker = 2,
-					/obj/item/clothing/suit/joker = 2)
+					/obj/item/clothing/suit/joker = 2,
 					/obj/item/clothing/head/delinquent = 1,
 					/obj/item/clothing/ears/headphones = 2,
 					/obj/item/clothing/head/wig/random = 3)
