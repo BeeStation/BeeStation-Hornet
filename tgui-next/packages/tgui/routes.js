@@ -24,6 +24,7 @@ import { ChemPress } from './interfaces/ChemPress';
 import { ChemSplitter } from './interfaces/ChemSplitter';
 import { ChemSynthesizer } from './interfaces/ChemSynthesizer';
 import { CodexGigas } from './interfaces/CodexGigas';
+import { ComputerFabricator } from './interfaces/ComputerFabricator';
 import { Crayon } from './interfaces/Crayon';
 import { CrewConsole } from './interfaces/CrewConsole';
 import { Cryo } from './interfaces/Cryo';
@@ -31,11 +32,16 @@ import { DisposalUnit } from './interfaces/DisposalUnit';
 import { Gps } from './interfaces/Gps';
 import { LanguageMenu } from './interfaces/LanguageMenu';
 import { Mint } from './interfaces/Mint';
+import { NtosMain } from './interfaces/NtosMain';
+import { NtosSupermatterMonitor } from './interfaces/NtosSupermatterMonitor';
+import { NtosWrapper } from './interfaces/NtosWrapper';
 import { OperatingComputer } from './interfaces/OperatingComputer';
 import { OreRedemptionMachine } from './interfaces/OreRedemptionMachine';
 import { PersonalCrafting } from './interfaces/PersonalCrafting';
 import { PortableGenerator } from './interfaces/PortableGenerator';
+import { PowerMonitor } from './interfaces/PowerMonitor';
 import { Radio } from './interfaces/Radio';
+import { RapidPipeDispenser } from './interfaces/RapidPipeDispenser';
 import { ShuttleManipulator } from './interfaces/ShuttleManipulator';
 import { SmartVend } from './interfaces/SmartVend';
 import { SMES } from './interfaces/SMES';
@@ -155,6 +161,10 @@ const ROUTES = {
     component: () => CodexGigas,
     scrollable: false,
   },
+  computer_fabricator: {
+    component: () => ComputerFabricator,
+    scrollable: false,
+  },
   crayon: {
     component: () => Crayon,
     scrollable: true,
@@ -183,6 +193,21 @@ const ROUTES = {
     component: () => Mint,
     scrollable: false,
   },
+  ntos_main: {
+    component: () => NtosMain,
+    wrapper: () => NtosWrapper,
+    scrollable: true,
+  },
+  ntos_power_monitor: {
+    component: () => PowerMonitor,
+    wrapper: () => NtosWrapper,
+    scrollable: true,
+  },
+  ntos_supermatter_monitor: {
+    component: () => NtosSupermatterMonitor,
+    wrapper: () => NtosWrapper,
+    scrollable: true,
+  },
   ore_redemption_machine: {
     component: () => OreRedemptionMachine,
     scrollable: true,
@@ -199,9 +224,17 @@ const ROUTES = {
     component: () => PortableGenerator,
     scrollable: false,
   },
+  power_monitor: {
+    component: () => PowerMonitor,
+    scrollable: true,
+  },
   radio: {
     component: () => Radio,
     scrollable: false,
+  },
+  rpd: {
+    component: () => RapidPipeDispenser,
+    scrollable: true,
   },
   shuttle_manipulator: {
     component: () => ShuttleManipulator,
