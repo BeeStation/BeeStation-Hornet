@@ -61,6 +61,11 @@
 	if(!A.affected_mob.job == "Clown")
 		to_chat(A.affected_mob, "<span class='notice'>You feel less dumb.</span>")
 		REMOVE_TRAIT(A.affected_mob, TRAIT_CLUMSY, DISEASE_TRAIT)
+	if(ishuman(A.affected_mob))
+		var/mob/living/carbon/human/M = A.affected_mob
+		if(istype(M.shoes, /obj/item/clothing/shoes/clown_shoes))
+			REMOVE_TRAIT(M.shoes, TRAIT_NODROP, DISEASE_TRAIT)
+		
 
 /datum/symptom/pierrot/proc/give_clown_shoes(datum/disease/advance/A)
 	if(ishuman(A.affected_mob))
@@ -68,5 +73,7 @@
 		if(!istype(M.shoes, /obj/item/clothing/shoes/clown_shoes))
 			if(!M.dropItemToGround(M.shoes))
 				qdel(M.shoes)
-		M.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(M), SLOT_SHOES)
+		C = new /obj/item/clothing/shoes/clown_shoes(M)
+		ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
+		M.equip_to_slot_or_del(C, SLOT_SHOES)
 		return
