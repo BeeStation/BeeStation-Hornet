@@ -57,6 +57,7 @@
 /datum/symptom/wizarditis/proc/spawn_wizard_clothes(chance = 0, datum/disease/advance/A)
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
+		var/obj/item/clothing/C
 		if(prob(chance))
 			if(!istype(H.head, /obj/item/clothing/head/wizard))
 				if(!H.dropItemToGround(H.head))
