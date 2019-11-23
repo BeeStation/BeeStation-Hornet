@@ -96,7 +96,7 @@
 	do_teleport(A.affected_mob, L, forceMove = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
 	playsound(get_turf(A.affected_mob), 'sound/weapons/zapbang.ogg', 50,1)	
 	
-/datum/symptom/wizarditis/End(datum/disease/advace/A)
+/datum/symptom/wizarditis/End(datum/disease/advance/A)
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
 		if(istype(H.head, /obj/item/clothing/head/wizard))
