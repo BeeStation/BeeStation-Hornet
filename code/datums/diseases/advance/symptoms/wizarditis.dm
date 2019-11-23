@@ -48,7 +48,7 @@
 			if(prob(1) && robes)
 				to_chat(M, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")].</span>")
 				spawn_wizard_clothes(50, A)
-			if(prob(1) && prob(50)&&teleport)
+			if(prob(1) && prob(50) && teleport)
 				teleport(A)
 	return
 
@@ -61,19 +61,25 @@
 			if(!istype(H.head, /obj/item/clothing/head/wizard))
 				if(!H.dropItemToGround(H.head))
 					qdel(H.head)
-				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), SLOT_HEAD)
+				C = new /obj/item/clothing/head/wizard(H)
+				ADD_TRAIT(C, TRAIT_NODROP)
+				H.equip_to_slot_or_del(C, SLOT_HEAD)
 			return
 		if(prob(chance))
-			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
+			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe)
 				if(!H.dropItemToGround(H.wear_suit))
 					qdel(H.wear_suit)
-				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), SLOT_WEAR_SUIT)
+				C = new /obj/item/clothing/suit/wizrobe(H)
+				ADD_TRAIT(C, TRAIT_NODROP)
+				H.equip_to_slot_or_del(C, SLOT_WEAR_SUIT)
 			return
 		if(prob(chance))
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal/magic))
 				if(!H.dropItemToGround(H.shoes))
 					qdel(H.shoes)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal/magic(H), SLOT_SHOES)
+				C = new /obj/item/clothing/shoes/sandal/magic(H)
+				ADD_TRAIT(C, TRAIT_NODROP)
+				H.equip_to_slot_or_del(C, SLOT_SHOES)
 			return
 	else
 		var/mob/living/carbon/H = A.affected_mob
@@ -86,5 +92,18 @@
 /datum/symptom/wizarditis/proc/teleport(datum/disease/advance/A)
 	var/turf/L = get_safe_random_station_turf()
 	A.affected_mob.say("SCYAR NILA!")
-	A.affected_mob.forceMove(L)
+	do_teleport(A.affected_mob, L, forceMove = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
+	playsound(get_turf(A.affected_mob), 'sound/weapons/zapbang.ogg', 50,1)	
+	
+/datum/symptom/wizarditis/End(datum/disease/advace/A)
+	if(ishuman(A.affected_mob))
+		var/mob/living/carbon/human/H = A.affected_mob
+		if(istype(H.head, /obj/item/clothing/head/wizard))
+			REMOVE_TRAIT(H.head, TRAIT_NODROP)
+		if(istype(H.wear_suit, /obj/item/clothing/suit/wizrobe)
+			REMOVE_TRAIT(H.wear_suit, TRAIT_NODROP)
+		if(istype(H.shoes, /obj/item/clothing/shoes/sandal/magic))
+			REMOVE_TRAIT(H.shoes, TRAIT_NODROP)
+
+		
 
