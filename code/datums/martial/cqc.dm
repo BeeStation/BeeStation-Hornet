@@ -65,7 +65,7 @@
 		return FALSE
 	if(!D.stat || !D.IsParalyzed())
 		D.visible_message("<span class='warning'>[A] kicks [D] back!</span>", \
-							"<span class='userdanger'>[A] kicks you back!</span>")
+							"<span class='userdanger'>[A] kicks you back!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 		var/atom/throw_target = get_edge_target_turf(D, A.dir)
 		D.throw_at(throw_target, 1, 14, A)
@@ -84,7 +84,8 @@
 	if(!can_use(A))
 		return FALSE
 	log_combat(A, D, "pressured (CQC)")
-	D.visible_message("<span class='warning'>[A] punches [D]'s neck!</span>")
+	D.visible_message("<span class='danger'>[A] punches [D]'s neck!</span>", \
+					"<span class='userdanger'>[A] punches your neck!</span>", null, COMBAT_MESSAGE_RANGE)
 	D.adjustStaminaLoss(60)
 	playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	return TRUE
@@ -110,7 +111,7 @@
 	if(!D.stat)
 		log_combat(A, D, "consecutive CQC'd (CQC)")
 		D.visible_message("<span class='warning'>[A] strikes [D]'s abdomen, neck and back consecutively</span>", \
-							"<span class='userdanger'>[A] strikes your abdomen, neck and back consecutively!</span>")
+							"<span class='userdanger'>[A] strikes your abdomen, neck and back consecutively!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 50, 1, -1)
 		var/obj/item/I = D.get_active_held_item()
 		if(I && D.temporarilyRemoveItemFromInventory(I))
@@ -158,7 +159,7 @@
 	else
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
-					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>", null, COMBAT_MESSAGE_RANGE)
 	log_combat(A, D, "[picked_hit_type] (CQC)")
 	if(A.resting && !D.stat && !D.IsParalyzed())
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
@@ -180,15 +181,15 @@
 		if(!D.stat || !D.IsParalyzed() || !restraining)
 			I = D.get_active_held_item()
 			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
-								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
+								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 			if(I && D.temporarilyRemoveItemFromInventory(I))
 				A.put_in_hands(I)
 			D.Jitter(2)
 			D.apply_damage(5, A.dna.species.attack_type)
 	else
-		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", \
-							"<span class='userdanger'>[A] attempted to disarm [D]!</span>")
+		D.visible_message("<span class='danger'>[A] fails to disarm [D]!</span>", \
+							"<span class='userdanger'>[A] fails to disarm you!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 	log_combat(A, D, "disarmed (CQC)", "[I ? " grabbing \the [I]" : ""]")
 	if(restraining && A.pulling == D)

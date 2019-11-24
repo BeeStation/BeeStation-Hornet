@@ -11,7 +11,6 @@
 /obj/structure/displaycase{
 	alert = 0;
 	desc = "A display case containing an expensive forgery, probably.";
-	pixel_y = 0;
 	req_access_txt = "48";
 	start_showpiece_type = /obj/item/fakeartefact
 	},

@@ -432,8 +432,8 @@
 /datum/reagent/mutationtoxin/proc/mutate(mob/living/carbon/human/H)
 	if(QDELETED(H))
 		return
+	var/datum/species/mutation = pick(race)			//I honestly feel extremely uncomfortable. I do not like the fact that this works.
 	var/current_species = H.dna.species.type
-	var/datum/species/mutation = race
 	if(mutation && mutation != current_species)
 		to_chat(H, mutationtext)
 		H.set_species(mutation)
@@ -447,6 +447,22 @@
 	color = "#13BC5E" // rgb: 19, 188, 94
 	race = /datum/species/jelly/slime
 	mutationtext = "<span class='danger'>The pain subsides. Your whole body feels like slime.</span>"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/mutationtoxin/unstable
+	name = "Unstable Mutation Toxin"
+	description = "A mostly safe mutation toxin."
+	color = "#13BC5E" // rgb: 19, 188, 94
+	race = list(/datum/species/jelly/slime,
+						/datum/species/human,
+						/datum/species/human/felinid,
+						/datum/species/lizard,
+						/datum/species/fly,
+						/datum/species/moth,
+						/datum/species/pod,
+						/datum/species/jelly,
+						/datum/species/abductor)
+	mutationtext = "<span class='danger'>The pain subsides. Your whole body feels... Different.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/mutationtoxin/felinid
@@ -517,6 +533,14 @@
 	description = "A robotic toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/android
+	mutationtext = "<span class='danger'>The pain subsides. You feel... artificial.</span>"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/mutationtoxin/ipc
+	name = "IPC Mutation Toxin"
+	description = "An integrated positronic toxin."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	race = /datum/species/ipc
 	mutationtext = "<span class='danger'>The pain subsides. You feel... artificial.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
@@ -1757,3 +1781,10 @@
 /datum/reagent/tranquility/reaction_mob(mob/living/L, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0)
 	if(method==PATCH || method==INGEST || method==INJECT || (method == VAPOR && prob(min(reac_volume,100)*(1 - touch_protection))))
 		L.ForceContractDisease(new /datum/disease/transformation/gondola(), FALSE, TRUE)
+
+/datum/reagent/liquidadamantine
+	name = "Liquid Adamantine"
+	description = "A legengary lifegiving metal liquified."
+	color = "#10cca6" //RGB: 16, 204, 166
+	taste_description = "lifegiiving metal"
+	can_synth = FALSE
