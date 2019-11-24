@@ -40,7 +40,7 @@
 	if(attack_type == PROJECTILE_ATTACK)
 		final_block_chance = 0
 	if(attack_type == MELEE_ATTACK) // It really is not a good idea to get close to this thing.
-		final_block_chance = 100
+		final_block_chance = 50
 		var/hideandseeklogic = rand(1,5) // YES, ADD MORE RNG TO COMBAT.
 		if(hideandseeklogic == 1 || HAS_TRAIT(attacker, TRAIT_CLUMSY))
 			attacker.visible_message("<span class = 'warning'>[attacker] attempts to attack [owner] and accidentally slices their arm off! What an idiot!</span>")
