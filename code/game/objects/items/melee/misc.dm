@@ -144,9 +144,8 @@
 	var/cooldown_check = 0 // Used interally, you don't want to modify
 
 	var/cooldown = 40 // Default wait time until can stun again.
-	var/knockdown_time_carbon = (1.5 SECONDS) // Knockdown length for carbons.
-	var/stun_time_silicon = (5 SECONDS) // If enabled, how long do we stun silicons.
-	var/stamina_damage = 55 // Do we deal stamina damage
+	var/stun_time_carbon = 60 // How long we stun for - 6 seconds.
+	var/stun_time_silicon = 0.60 // Multiplier for stunning silicons; if enabled, is 60% of human stun time. 
 	var/affect_silicon = FALSE // Does it stun silicons. 
 	var/on_sound // "On" sound, played when switching between able to stun or not.
 	var/on_stun_sound = "sound/effects/woodhit.ogg" // Default path to sound for when we stun.
@@ -159,6 +158,12 @@
 	var/force_on // Damage when on - not stunning
 	var/force_off // Damage when off - not stunning
 	var/weight_class_on // What is the new size class when turned on
+
+/obj/item/melee/classic_baton/Initialize()
+	. = ..()
+
+	// Derive stun time from multiplier.
+	stun_time_silicon = stun_time_carbon * stun_time_silicon
 
 // Description for trying to stun when still on cooldown.
 /obj/item/melee/classic_baton/proc/get_wait_description()
@@ -177,8 +182,8 @@
 /obj/item/melee/classic_baton/proc/get_stun_description(mob/living/target, mob/living/user)
 	. = list()
 
-	.["visible"] =  "<span class ='danger'>[user] knocks [target] down with [src]!</span>"
-	.["local"] = "<span class ='userdanger'>[user] knocks you down with [src]!</span>"
+	.["visible"] =  "<span class ='danger'>[user] has knocked down [target] with [src]!</span>"
+	.["local"] = "<span class ='danger'>[user] has knocked down [target] with [src]!</span>"
 
 	return .
 
@@ -206,10 +211,7 @@
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
-
-		user.Paralyze(knockdown_time_carbon * force)
-		user.adjustStaminaLoss(stamina_damage)
-
+		user.Paralyze(stun_time_carbon * force)
 		additional_effects_carbon(user) // user is the target here
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -259,8 +261,7 @@
 				user.do_attack_animation(target)
 
 			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
-			target.Knockdown(knockdown_time_carbon)
-			target.adjustStaminaLoss(stamina_damage)
+			target.Paralyze(stun_time_carbon)
 			additional_effects_carbon(target, user)
 
 			log_combat(user, target, "stunned", src)
@@ -340,6 +341,40 @@
 
 	playsound(src.loc, on_sound, 50, 1)
 	add_fingerprint(user)
+
+/obj/item/melee/classic_baton/telescopic/contractor_baton
+	name = "contractor baton"
+	desc = "A compact, specialised baton assigned to Syndicate contractors. Applies light electrical shocks to targets."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "contractor_baton_0"
+	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	item_state = null
+	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
+	item_flags = NONE
+	force = 5
+
+	cooldown = 30 
+	stun_time_carbon = 85 
+	affect_silicon = TRUE 
+	on_sound = 'sound/weapons/contractorbatonextend.ogg'
+	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
+	stun_animation = TRUE 
+
+	on_icon_state = "contractor_baton_1"
+	off_icon_state = "contractor_baton_0"
+	on_item_state = "contractor_baton"
+	force_on = 16
+	force_off = 5
+	weight_class_on = WEIGHT_CLASS_NORMAL
+
+/obj/item/melee/classic_baton/telescopic/contractor_baton/get_wait_description()
+	return "<span class='danger'>The baton is still charging!</span>"
+
+/obj/item/melee/classic_baton/telescopic/contractor_baton/additional_effects_carbon(mob/living/target, mob/living/user)
+	target.Jitter(20)
+	target.stuttering += 20
 
 /obj/item/melee/supermatter_sword
 	name = "supermatter sword"
