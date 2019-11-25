@@ -1,0 +1,6 @@
+author: "Qustinnus, Cephur, Tralezab"
+delete-after: True
+changes: 
+  - bugfix: "Missing techpriest icon"
+  - tweak: "Most headgear now fit on borgs."
+  - rscadd: "The delinquent hat, available in the AutoDrobe"
