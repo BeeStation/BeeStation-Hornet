@@ -2098,6 +2098,20 @@
 		else if(answer == "no")
 			log_query_debug("[usr.key] | Reported no server hang")
 
+	else if(href_list["ctf_toggle"])
+		if(!check_rights(R_ADMIN))
+			return
+		toggle_all_ctf(usr)
+
+	else if(href_list["rebootworld"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/confirm = alert("Are you sure you want to reboot the server?", "Confirm Reboot", "Yes", "No")
+		if(confirm == "No")
+			return
+		if(confirm == "Yes")
+			restart()
+
 	else if(href_list["check_teams"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2208,6 +2222,19 @@
 		usr.client.cmd_admin_mod_antag_tokens(C, href_list["modantagtokens"])
 		show_player_panel(M)
 
+
+	else if(href_list["retrieveboh"])
+		var/obj/singularity/boh_tear/tear = locate(href_list["retrieveboh"])
+		if(!tear)
+			to_chat(usr, "Either items were already retrieved or 10 minutes have passed and they were deleted.")
+			return
+		var/confirm = alert("This will teleport all items consumed to the BoH tear back to the BoH tear original location, and delete the BoH if it still exists. Are you sure?", "Confirm Damage Control", "Yes", "No")
+		if(confirm != "Yes")
+			return
+		var/turf/T = get_turf(tear.old_loc)
+		message_admins("The items consumed by the BoH tear at [ADMIN_VERBOSEJMP(T)] were retrieved by [key_name_admin(usr)].")
+		tear.investigate_log("Items consumed at [AREACOORD(T)] retrieved by [key_name(usr)].", INVESTIGATE_SINGULO)
+		tear.retrieve_consumed_items()
 
 	else if(href_list["beakerpanel"])
 		beaker_panel_act(href_list)
