@@ -1,5 +1,0 @@
-author: "Cenrus"
-delete-after: True
-changes: 
-  - bugfix: "BoxStation SM reconnected to the scrubber network"
-  - bugfix: "Hide visible manifold in BoxStation robotics"
