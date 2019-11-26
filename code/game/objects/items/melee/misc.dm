@@ -354,9 +354,9 @@
 	item_flags = NONE
 	force = 5
 
-	cooldown = 25 
-	stamina_damage = 85 
-	affect_silicon = TRUE
+	cooldown = 20
+	stun_time_carbon = 85 
+	affect_silicon = TRUE 
 	on_sound = 'sound/weapons/contractorbatonextend.ogg'
 	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
 	stun_animation = TRUE 
