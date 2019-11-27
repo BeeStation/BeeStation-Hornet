@@ -301,7 +301,9 @@
 			to_chat(M, "<span class='warning'>[src] does not have a [M.zone_selected == BODY_ZONE_L_ARM ? "left" : "right"] arm!</span>")
 		else
 			M.visible_message("<span class='notice'>[M] shakes [src]'s hand'.</span>", \
-						"<span class='notice'>You pat [src] on the head.</span>")
+						"<span class='notice'>You shake [src]'s hand.'</span>")
+	else if(M.zone_selected == BODY_ZONE_PRECISE_GROIN)
+		to_chat(M, "<span class='warning'>ERP is not allowed on this server!</span>")
 	AdjustStun(-60)
 	AdjustKnockdown(-60)
 	AdjustUnconscious(-60)
