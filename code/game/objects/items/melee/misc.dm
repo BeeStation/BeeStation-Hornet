@@ -299,7 +299,7 @@
 	force_on = 0
 	force_off = 0
 	weight_class_on = WEIGHT_CLASS_BULKY
-	knockdown_time_carbon = (3 SECONDS)
+	knockdown_time_carbon = (2.5 SECONDS)
 
 /obj/item/melee/classic_baton/telescopic/suicide_act(mob/user)
 	var/mob/living/carbon/human/H = user
