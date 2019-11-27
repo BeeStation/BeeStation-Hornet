@@ -147,7 +147,7 @@
 	var/knockdown_time_carbon = (1.5 SECONDS) // Knockdown length for carbons.
 	var/stun_time_silicon = (5 SECONDS) // If enabled, how long do we stun silicons.
 	var/stamina_damage = 55 // Do we deal stamina damage.
-	var/affect_silicon = FALSE // Does it stun silicons. 
+	var/affect_silicon = FALSE // Does it stun silicons.
 	var/on_sound // "On" sound, played when switching between able to stun or not.
 	var/on_stun_sound = "sound/effects/woodhit.ogg" // Default path to sound for when we stun.
 	var/stun_animation = FALSE // Do we animate the "hit" when stunning.
@@ -190,7 +190,7 @@
 	.["local"] = "<span class='danger'>You pulse [target]'s sensors with the baton!</span>"
 
 	return .
-	
+
 // Are we applying any special effects when we stun to carbon
 /obj/item/melee/classic_baton/proc/additional_effects_carbon(mob/living/target, mob/living/user)
 	return
@@ -229,7 +229,7 @@
 
 				user.visible_message(desc["visible"], desc["local"])
 				playsound(get_turf(src), on_stun_sound, 100, TRUE, -1)
-				
+
 				if (stun_animation)
 					user.do_attack_animation(target)
 			else
@@ -280,7 +280,7 @@
 
 /obj/item/melee/classic_baton/telescopic
 	name = "telescopic baton"
-	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
+	desc = "A compact and harmless personal defense weapon. Can be concealed when folded."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "telebaton_0"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
@@ -296,7 +296,7 @@
 	on_icon_state = "telebaton_1"
 	off_icon_state = "telebaton_0"
 	on_item_state = "nullrod"
-	force_on = 10
+	force_on = 0
 	force_off = 0
 	weight_class_on = WEIGHT_CLASS_BULKY
 
@@ -354,12 +354,12 @@
 	item_flags = NONE
 	force = 5
 
-	cooldown = 25 
-	stamina_damage = 85 
+	cooldown = 25
+	stamina_damage = 85
 	affect_silicon = TRUE
 	on_sound = 'sound/weapons/contractorbatonextend.ogg'
 	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
-	stun_animation = TRUE 
+	stun_animation = TRUE
 
 	on_icon_state = "contractor_baton_1"
 	off_icon_state = "contractor_baton_0"
@@ -602,7 +602,7 @@
 	held_sausage.name = "[target.name]-roasted [held_sausage.name]"
 	held_sausage.desc = "[held_sausage.desc] It has been cooked to perfection on \a [target]."
 	update_icon()
-	
+
 /obj/item/melee/knockback_stick
 	name = "Knockback Stick"
 	desc = "An portable anti-gravity generator which knocks people back upon contact."
