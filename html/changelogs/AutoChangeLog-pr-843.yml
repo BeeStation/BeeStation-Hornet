@@ -1,0 +1,4 @@
+author: "ike709 & Council"
+delete-after: True
+changes: 
+  - tweak: "Contractor baton now only does 10 damage, down from 16."
