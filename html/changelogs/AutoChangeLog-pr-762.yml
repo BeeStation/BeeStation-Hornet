@@ -1,0 +1,4 @@
+author: "Moccha-Bee"
+delete-after: True
+changes: 
+  - rscadd: "Finally the RCD can be directly linked to the Ore Silo."
