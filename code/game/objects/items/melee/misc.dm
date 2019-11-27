@@ -365,7 +365,7 @@
 	on_icon_state = "contractor_baton_1"
 	off_icon_state = "contractor_baton_0"
 	on_item_state = "contractor_baton"
-	force_on = 16
+	force_on = 10
 	force_off = 5
 	weight_class_on = WEIGHT_CLASS_NORMAL
 
