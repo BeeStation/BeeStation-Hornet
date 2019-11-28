@@ -6,6 +6,6 @@
 	    "emergency": "emergency_kilo",
 	    "ferry": "ferry_kilo",
 	    "cargo": "cargo_kilo",
-	    "whiteship": "whiteship_delta"
+	    "whiteship": "whiteship_meta"
     }
 }
