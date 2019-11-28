@@ -10,10 +10,10 @@
 	symptom_delay_min = 15
 	symptom_delay_max = 30
 	var/honkspread = FALSE
-	var/clownshoes = FALSE
+	var/clownmask = FALSE
 	var/clumsy = FALSE
 	threshold_desc = "<b>Transmission 10:</b> There's a rare chance the disease is spread everytime the host honks.<br>\
-					  <b>Resistance 10:</b> The host grows a pair of clown shoes.<br>\
+					  <b>Resistance 10:</b> The host grows a peculiar clown mask.<br>\
 					  <b>Resistance 15:</b>	Host becomes clumsy, similar to a clown."
 
 /datum/symptom/pierrot/Start(datum/disease/advance/A)
@@ -22,7 +22,7 @@
 	if(A.properties["transmission"] >= 10)
 		honkspread = TRUE
 	if(A.properties["resistance"] >= 10)
-		clownshoes = TRUE
+		clownmask = TRUE
 	if(A.properties["resistance"] >= 15)
 		clumsy = TRUE
 
@@ -49,8 +49,8 @@
 			if(prob(10))
 				M.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ))
 			if(A.stage == 5)
-				if(prob(1) && prob(50) && clownshoes)
-					give_clown_shoes(A)
+				if(prob(1) && prob(50) && clownmask)
+					give_clown_mask(A)
 				if(prob(5))
 					playsound(M.loc, 'sound/items/bikehorn.ogg', 50, 1)
 					if(honkspread && prob(25))
@@ -63,17 +63,17 @@
 		REMOVE_TRAIT(A.affected_mob, TRAIT_CLUMSY, DISEASE_TRAIT)
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/M = A.affected_mob
-		if(istype(M.shoes, /obj/item/clothing/shoes/clown_shoes))
-			REMOVE_TRAIT(M.shoes, TRAIT_NODROP, DISEASE_TRAIT)
+		if(istype(M.wear_mask, /obj/item/clothing/mask/gas/clown_hat))
+			REMOVE_TRAIT(M.wear_mask, TRAIT_NODROP, DISEASE_TRAIT)
 		
 
-/datum/symptom/pierrot/proc/give_clown_shoes(datum/disease/advance/A)
+/datum/symptom/pierrot/proc/give_clown_mask(datum/disease/advance/A)
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/M = A.affected_mob 
-		if(!istype(M.shoes, /obj/item/clothing/shoes/clown_shoes))
-			if(!M.dropItemToGround(M.shoes))
-				qdel(M.shoes)
-		var/obj/item/clothing/C = new /obj/item/clothing/shoes/clown_shoes(M)
+		if(!istype(M.wear_mask, /obj/item/clothing/mask/gas/clown_hat))
+			if(!M.dropItemToGround(M.wear_mask))
+				qdel(M.wear_mask)
+		var/obj/item/clothing/C = new /obj/item/clothing/mask/gas/clown_hat(M)
 		ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
-		M.equip_to_slot_or_del(C, SLOT_SHOES)
+		M.equip_to_slot_or_del(C, SLOT_WEAR_MASK)
 		return
