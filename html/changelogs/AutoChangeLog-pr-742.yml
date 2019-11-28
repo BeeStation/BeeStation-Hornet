@@ -1,5 +1,0 @@
-author: "SomeAngryMiner"
-delete-after: True
-changes: 
-  - rscadd: "An experimental active shield is being developed by NanoTrasen onboard their stations, Space station 13 has been tasked to do field research on its uses. All Durand type mech blueprints have been adjusted to this."
-  - tweak: "Proyectile components have been ported."
