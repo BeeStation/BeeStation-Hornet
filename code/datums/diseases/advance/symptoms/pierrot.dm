@@ -49,7 +49,7 @@
 			if(prob(10))
 				M.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ))
 			if(A.stage == 5)
-				if(prob(1)&&prob(50)&&clownshoes)
+				if(prob(1) && prob(50) && clownshoes)
 					give_clown_shoes(A)
 				if(prob(5))
 					playsound(M.loc, 'sound/items/bikehorn.ogg', 50, 1)

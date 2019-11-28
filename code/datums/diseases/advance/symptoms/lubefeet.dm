@@ -38,7 +38,7 @@
 
 /datum/symptom/lubefeet/proc/makelube(mob/living/carbon/M, chance)
 	if(prob(chance))
-		to_chat(M, "<span class='danger'>The lube pools into a puddle!</span>")
 		var/turf/open/OT = get_turf(M)
-		if(isopenturf(OT))
+		if(istype(OT))
+			to_chat(M, "<span class='danger'>The lube pools into a puddle!</span>")
 			OT.MakeSlippery(TURF_WET_LUBE, 40)

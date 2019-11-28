@@ -40,7 +40,8 @@
 				radiate(M, 10)
 			if(radothers && A.stage == 5)
 				if(prob(5))
-					to_chat(M, "<span class='danger'>You feel a massive wave of pain flow through you!</span>")
+					M.visible_message("<span class='danger'>[M] glows green for a moment!</span>", \
+								 	  "<span class='userdanger'>You feel a massive wave of pain flow through you!</span>")
 					radiation_pulse(M, 20)
 			
 
