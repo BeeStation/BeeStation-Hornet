@@ -302,4 +302,4 @@ obj/item/clothing/gloves/syndielad/Destroy()
 #undef POWEROFF
 #undef UPLINK
 #undef PINPOINTER
-#undef DETONATOR
+#undef DETONATE
