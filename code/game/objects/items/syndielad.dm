@@ -60,7 +60,7 @@ obj/item/clothing/gloves/syndielad/Destroy()
 			syndilad_ready = FALSE
 			to_chat(user, "<span class='notice'>You power on the Syndi-Lad.</span>")
 			icon_state = "syndilad-turn-on"
-			sleep(20) // lets the animation play
+			addtimer(20) // lets the animation play
 			icon_state = "syndilad-on"
 			syndilad_on = TRUE
 			syndilad_ready = TRUE
@@ -68,7 +68,7 @@ obj/item/clothing/gloves/syndielad/Destroy()
 			to_chat(user, "<span class='notice'>You shut down the Syndi-Lad.</span>")
 			syndilad_ready = FALSE
 			icon_state = "syndilad-turn-off"
-			sleep(13)
+			addtimer(13)
 			icon_state = "syndilad"
 			syndilad_on = FALSE
 			syndilad_ready = TRUE
@@ -184,7 +184,7 @@ obj/item/clothing/gloves/syndielad/Destroy()
 		log_game("[key_name(user)] rigged a Syndie-Lad to explode at [AREACOORD(user)]")
 		notify_ghosts("[user] has set a Syndie-Lad to explode!", source = src, action = NOTIFY_ORBIT)
 		addtimer(CALLBACK(src, .proc/kersplode), 100)
-		sleep(0.5)
+		addtimer(0.5)
 		user.visible_message("<span class='warning'>[src] beeps ominously!</span>")
 		playsound(user, 'sound/items/timer.ogg', 30, 0)
 	else if(syndilad_detonating)
