@@ -1,13 +1,13 @@
 #define GUNPOINT_SHOOTER_STRAY_RANGE 2
-#define GUNPOINT_DELAY_STAGE_2 30
-#define GUNPOINT_DELAY_STAGE_3 70 // cumulative with past stages, so 100 deciseconds
+#define GUNPOINT_DELAY_STAGE_2 25
+#define GUNPOINT_DELAY_STAGE_3 75 // cumulative with past stages, so 100 deciseconds
 #define GUNPOINT_MULT_STAGE_1 1
 #define GUNPOINT_MULT_STAGE_2 2
 #define GUNPOINT_MULT_STAGE_3 2.5
 
 
 /datum/component/gunpoint
-	dupe_mode = COMPONENT_DUPE_ALLOWED
+	dupe_mode = COMPONENT_DUPE_UNIQUE
 
 	var/mob/living/target
 	var/obj/item/gun/weapon
@@ -37,9 +37,13 @@
 
 	addtimer(CALLBACK(src, .proc/update_stage, 2), GUNPOINT_DELAY_STAGE_2)
 
+	target.do_alert_animation(target)
+	target.playsound_local(target.loc, 'sound/machines/chime.ogg', 50, TRUE)
+
 /datum/component/gunpoint/Destroy(force, silent)
-	QDEL_NULL(status_hold_up)
-	QDEL_NULL(status_held_up)
+	var/mob/living/shooter = parent
+	shooter.remove_status_effect(STATUS_EFFECT_HOLDUP)
+	target.remove_status_effect(STATUS_EFFECT_HELDUP)
 	return ..()
 
 /datum/component/gunpoint/RegisterWithParent()
