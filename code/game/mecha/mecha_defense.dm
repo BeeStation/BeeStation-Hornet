@@ -87,8 +87,8 @@
 		if(user.obj_damage)
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
-		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		log_combat(user, src, "attacked")
+		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		return 1
 
 
@@ -102,6 +102,7 @@
 		log_combat(user, src, "punched", "hulk powers")
 
 /obj/mecha/blob_act(obj/structure/blob/B)
+	log_message("Attack by blob. Attacker - [B].", LOG_MECHA, color="red")
 	take_damage(30, BRUTE, "melee", 0, get_dir(src, B))
 
 /obj/mecha/attack_tk()
