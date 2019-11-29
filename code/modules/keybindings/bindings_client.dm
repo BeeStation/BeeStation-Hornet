@@ -11,7 +11,10 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	"North" = 1, "South" = 1, "East" = 1, "West" = 1, "Northwest" = 1, "Southwest" = 1, "Northeast" = 1, "Southeast" = 1,
 	"Center" = 1, "Return" = 1, "Escape" = 1, "Tab" = 1, "Space" = 1, "Back" = 1, "Insert" = 1, "Delete" = 1, "Pause" = 1, "Snapshot" = 1,
 	"LWin" = 1, "RWin" = 1, "Apps" = 1, "Multiply" = 1, "Add" = 1, "Subtract" = 1, "Divide" = 1, "Separator" = 1, "Decimal" = 1,
-	"Shift" = 1, "Ctrl" = 1, "Numlock" = 1, "Scroll" = 1, "Alt" = 1, "'" = 1, ";" = 1, "#" = 1
+	"Shift" = 1, "Ctrl" = 1, "Numlock" = 1, "Scroll" = 1, "Alt" = 1, "'" = 1, ";" = 1, "#" = 1, "GamepadUp" = 1, "GamepadDown" = 1, "GamepadLeft" = 1,
+	"GamepadRight" = 1, "GamepadDownLeft" = 1, "GamepadDownRight" = 1, "GamepadUpLeft" = 1, "GamepadUpRight" = 1, "GamepadFace1" = 1, "GamepadFace2" = 1,
+	"GamepadFace3" = 1, "GamepadFace4" = 1, "GamepadR1" = 1, "GamepadR2" = 1, "GamepadR3" = 1, "GamepadL1" = 1, "GamepadL2" = 1, "GamepadL3" = 1,
+	"GamepadStart" = 1, "GamepadSelect" = 1
 ))
 
 /proc/input_sanity_check(client/C, key)

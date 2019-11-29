@@ -231,10 +231,10 @@ CHECK_RANDOMIZER
 SERVER  byond://golden.beestation13.com:7777
 
 ## forum address
-FORUMURL http://beestation13.com/forum
+FORUMURL http://forums.beestation13.com
 
 ## Wiki address
-WIKIURL http://www.tgstation13.org/wiki
+WIKIURL https://wiki.beestation13.com/view
 
 ## Rules address
 RULESURL http://beestation13.com/rules
@@ -265,7 +265,7 @@ DISCORDURL https://discord.gg/zUe34rs
 GITHUBREPOID 154500094
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
-BANAPPEALS http://beestation13.com/forum
+BANAPPEALS https://forums.beestation13.com/c/ban-appeals/game-ban-appeals
 
 ## System command that invokes youtube-dl, used by Play Internet Sound.
 ## You can install youtube-dl with
@@ -458,10 +458,10 @@ BASE_MC_TICK_RATE 1
 HIGH_POP_MC_TICK_RATE 1.2
 
 ##Engage high pop mode if player count raises above this (Player in this context means any connected user. Lobby, ghost or in-game all count)
-HIGH_POP_MC_MODE_AMOUNT 90
+HIGH_POP_MC_MODE_AMOUNT 120
 
 ##Disengage high pop mode if player count drops below this
-DISABLE_HIGH_POP_MC_MODE_AMOUNT 85
+DISABLE_HIGH_POP_MC_MODE_AMOUNT 100
 
 ## Uncomment to prevent the world from sleeping while no players are connected after initializations
 #RESUME_AFTER_INITIALIZATIONS
@@ -478,3 +478,11 @@ DEFAULT_VIEW 15x15
 ## Name your perpetual currency here
 ## This is used within the metashop and earned by playing the game.
 METACURRENCY_NAME BeeCoin
+
+## Grant metacurrency
+## Comment this out if you don't want players to earn metacurrency
+GRANT_METACURRENCY
+
+## Respect global bans
+## Comment this out to ignore global bans
+RESPECT_GLOBAL_BANS

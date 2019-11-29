@@ -180,6 +180,8 @@
 						pID = 9
 					if("Null")
 						pID = 10
+					if("Sunglasses")
+						pID = 11
 				card.setEmotion(pID)
 
 			if("news")

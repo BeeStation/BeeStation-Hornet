@@ -48,9 +48,13 @@
 #define ACCESS_CE 56
 #define ACCESS_HOP 57
 #define ACCESS_HOS 58
-#define ACCESS_RC_ANNOUNCE 59 //! Request console announcements
-#define ACCESS_KEYCARD_AUTH 60 //! Used for events which require at least two people to confirm them
-#define ACCESS_TCOMSAT 61 //! has access to the entire telecomms satellite / machinery
+#define ACCESS_APOTHECARY 59
+/// Request console announcements
+#define ACCESS_RC_ANNOUNCE 59
+/// Used for events which require at least two people to confirm them
+#define ACCESS_KEYCARD_AUTH 60
+/// has access to the entire telecomms satellite / machinery
+#define ACCESS_TCOMSAT 61
 #define ACCESS_GATEWAY 62
 #define ACCESS_SEC_DOORS 63 //! Outer brig doors, department security posts
 #define ACCESS_MINERAL_STOREROOM 64 //! For releasing minerals from the ORM

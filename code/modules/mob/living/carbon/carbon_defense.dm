@@ -42,6 +42,11 @@
 		return wear_mask
 	if(check_glasses && glasses && (glasses.flags_cover & GLASSESCOVERSEYES))
 		return glasses
+/mob/living/carbon/is_pepper_proof(check_head = TRUE, check_mask = TRUE)
+	if(check_head &&(head?.flags_cover & PEPPERPROOF))
+		return head
+	if(check_mask &&(wear_mask?.flags_cover & PEPPERPROOF))
+		return wear_mask
 
 /mob/living/carbon/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	var/obj/item/bodypart/affecting = get_bodypart(def_zone)
@@ -68,7 +73,8 @@
 				if(isturf(I.loc))
 					I.attack_hand(src)
 					if(get_active_held_item() == I) //if our attack_hand() picks up the item...
-						visible_message("<span class='warning'>[src] catches [I]!</span>") //catch that sucker!
+						visible_message("<span class='warning'>[src] catches [I]!</span>", \
+										"<span class='userdanger'>You catch [I] in mid-air!</span>")
 						throw_mode_off()
 						return 1
 	..()
@@ -173,7 +179,7 @@
 					M.powerlevel = 0
 
 				visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>", \
-				"<span class='userdanger'>The [M.name] has shocked [src]!</span>")
+				"<span class='userdanger'>The [M.name] has shocked you!</span>")
 
 				do_sparks(5, TRUE, src)
 				var/power = M.powerlevel + rand(0,3)
@@ -275,7 +281,7 @@
 			return
 		M.visible_message("<span class='notice'>[M] shakes [src] trying to get [p_them()] up!</span>", \
 						"<span class='notice'>You shake [src] trying to get [p_them()] up!</span>")
-	else
+	else if(M.zone_selected == BODY_ZONE_CHEST)
 		M.visible_message("<span class='notice'>[M] hugs [src] to make [p_them()] feel better!</span>", \
 					"<span class='notice'>You hug [src] to make [p_them()] feel better!</span>")
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/hug)
@@ -287,6 +293,17 @@
 				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/betterhug, M)
 		for(var/datum/brain_trauma/trauma in M.get_traumas())
 			trauma.on_hug(M, src)
+	else if(M.zone_selected == BODY_ZONE_HEAD)
+		M.visible_message("<span class='notice'>[M] pats [src] on the head.</span>", \
+					"<span class='notice'>You pat [src] on the head.</span>")
+	else if((M.zone_selected == BODY_ZONE_L_ARM) || (M.zone_selected == BODY_ZONE_R_ARM))
+		if(!get_bodypart(check_zone(M.zone_selected)))
+			to_chat(M, "<span class='warning'>[src] does not have a [M.zone_selected == BODY_ZONE_L_ARM ? "left" : "right"] arm!</span>")
+		else
+			M.visible_message("<span class='notice'>[M] shakes [src]'s hand.</span>", \
+						"<span class='notice'>You shake [src]'s hand.</span>")
+	else if(M.zone_selected == BODY_ZONE_PRECISE_GROIN)
+		to_chat(M, "<span class='warning'>ERP is not allowed on this server!</span>")
 	AdjustStun(-60)
 	AdjustKnockdown(-60)
 	AdjustUnconscious(-60)

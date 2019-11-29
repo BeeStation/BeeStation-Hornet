@@ -7,6 +7,9 @@
 	idle_power_usage = 40
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_heater
+	ui_x = 275
+	ui_y = 320
+
 	var/obj/item/reagent_containers/beaker = null
 	var/target_temperature = 300
 	var/heater_coefficient = 0.1
@@ -62,6 +65,7 @@
 		return
 	if(on)
 		if(beaker && beaker.reagents.total_volume)
+			//keep constant with the chemical acclimator please
 			beaker.reagents.adjust_thermal_energy((target_temperature - beaker.reagents.chem_temp) * heater_coefficient * SPECIFIC_HEAT_DEFAULT * beaker.reagents.total_volume)
 			beaker.reagents.handle_reactions()
 

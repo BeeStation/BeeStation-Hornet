@@ -40,11 +40,11 @@
 
 	else
 		M.visible_message("<span class='danger'>[user] attempts to force [M] to [apply_method] [src].</span>", \
-							"<span class='userdanger'>[user] attempts to force [M] to [apply_method] [src].</span>")
+							"<span class='userdanger'>[user] attempts to force you to [apply_method] [src].</span>")
 		if(!do_mob(user, M))
 			return FALSE
 		M.visible_message("<span class='danger'>[user] forces [M] to [apply_method] [src].</span>", \
-							"<span class='userdanger'>[user] forces [M] to [apply_method] [src].</span>")
+							"<span class='userdanger'>[user] forces you to [apply_method] [src].</span>")
 
 	var/makes_me_think = pick(strings(REDPILL_FILE, "redpill_questions"))
 	if(icon_state == "pill4" && prob(5)) //you take the red pill - you stay in Wonderland, and I show you how deep the rabbit hole goes
@@ -195,7 +195,7 @@
 	name = "radiation plus pill"
 	desc = "Used to treat heavy radition poisoning."
 	icon_state = "pill3"
-	list_reagents = list(/datum/reagent/medicine/potass_iodide = 50, charcoal = 20)
+	list_reagents = list(/datum/reagent/medicine/potass_iodide = 50, /datum/reagent/medicine/charcoal = 20)
 
 /obj/item/reagent_containers/pill/antirad
 	name = "potassium iodide pill"

@@ -30,15 +30,15 @@
 #define BREATH_PERCENTAGE		(BREATH_VOLUME/CELL_VOLUME)					//! Amount of air to take a from a tile
 
 //EXCITED GROUPS
-#define EXCITED_GROUP_BREAKDOWN_CYCLES				4		//! number of FULL air controller ticks before an excited group breaks down (averages gas contents across turfs)
-#define EXCITED_GROUP_DISMANTLE_CYCLES				16		//! number of FULL air controller ticks before an excited group dismantles and removes its turfs from active
+#define EXCITED_GROUP_BREAKDOWN_CYCLES				3		//! number of FULL air controller ticks before an excited group breaks down (averages gas contents across turfs)
+#define EXCITED_GROUP_DISMANTLE_CYCLES				15		//! number of FULL air controller ticks before an excited group dismantles and removes its turfs from active
 #define MINIMUM_AIR_RATIO_TO_SUSPEND				0.1		//! Ratio of air that must move to/from a tile to reset group processing
-#define MINIMUM_AIR_RATIO_TO_MOVE					0.01	//! Minimum ratio of air that must move to/from a tile
+#define MINIMUM_AIR_RATIO_TO_MOVE					0.05	//! Minimum ratio of air that must move to/from a tile
 #define MINIMUM_AIR_TO_SUSPEND						(MOLES_CELLSTANDARD*MINIMUM_AIR_RATIO_TO_SUSPEND)	//! Minimum amount of air that has to move before a group processing can be suspended
 #define MINIMUM_MOLES_DELTA_TO_MOVE					(MOLES_CELLSTANDARD*MINIMUM_AIR_RATIO_TO_MOVE) //! Either this must be active or MINIMUM_TEMPERATURE_TO_MOVE
 #define MINIMUM_TEMPERATURE_TO_MOVE					(T20C+100)			//! Either this must be active or MINIMUM_MOLES_DELTA_TO_MOVE
 #define MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND		4		//! Minimum temperature difference before group processing is suspended
-#define MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER		0.5		//! Minimum temperature difference before the gas temperatures are just set to be equal
+#define MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER		1		//! Minimum temperature difference before the gas temperatures are just set to be equal
 #define MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION		(T20C+10)
 #define MINIMUM_TEMPERATURE_START_SUPERCONDUCTION	(T20C+200)
 
@@ -170,7 +170,9 @@
 
 //LAVALAND
 #define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50 //! what pressure you have to be under to increase the effect of equipment meant for lavaland
-#define LAVALAND_DEFAULT_ATMOS "o2=14;n2=23;TEMP=300"
+
+//ATMOS MIX IDS
+#define LAVALAND_DEFAULT_ATMOS		"LAVALAND_ATMOS"
 
 //ATMOSIA GAS MONITOR TAGS
 #define ATMOS_GAS_MONITOR_INPUT_O2 "o2_in"
