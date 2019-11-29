@@ -324,6 +324,24 @@
 	else
 		STOP_PROCESSING(SSobj, src)
 
+/mob/living/simple_animal/chicken/turkey
+	name = "\improper turkey"
+	desc = "it's that time again."
+	icon_state = "turkey_plain"
+	icon_living = "turkey_plain"
+	icon_dead = "turkey_plain_dead"
+	speak = list("Gobble!","GOBBLE GOBBLE GOBBLE!","Cluck.")
+	speak_emote = list("clucks","gobbles")
+	emote_hear = list("gobbles.")
+	emote_see = list("pecks at the ground.","flaps its wings viciously.")
+	density = FALSE
+	health = 15
+	maxHealth = 15
+	ventcrawler = VENTCRAWLER_ALWAYS
+	icon_prefix = "turkey"
+	feedMessages = list("It gobbles up the food voraciously.","It clucks happily.")
+	validColors = list("plain")
+	gold_core_spawnable = FRIENDLY_SPAWN
 
 /obj/item/udder
 	name = "udder"
