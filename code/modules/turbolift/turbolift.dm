@@ -258,7 +258,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	A.unbolt()
 	A.open()
 	A.bolt()
-
+/*
 /obj/machinery/computer/turbolift/attack_hand(mob/user)
 	for(var/id in possible_destinations)
 		var/obj/docking_port/stationary/turbolift/dock = SSshuttle.getDock(id)
@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	else
 		say("An unexpected error has occured. Please contact a Nanotrasen Turbolift Repair Technician.")
 		to_chat(world, "OFFLINE, DIDN'T START PROCESSING") //DEBUG
-
+*/
 /obj/machinery/computer/turbolift/process()
 	to_chat(world, "I ATTEMPTED TO PROCESS") //DEBUG
 	if(!online)
@@ -363,3 +363,59 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		STOP_PROCESSING(SSmachines, src)
 
 	addtimer(VARSET_CALLBACK(src, in_use, FALSE), time_between_stops)
+
+/obj/machinery/computer/turbolift/ui_data(mob/user)
+	var/list/data = list()
+	var/list/decks = list()
+	for(var/id in possible_destinations)
+		var/obj/docking_port/stationary/turbolift/dock = SSshuttle.getDock(id)
+		var/list/info = list()
+		info["deck"] = dock.deck
+		info["name"] = dock.name
+		info["z"] = dock.z
+		info["queued"] = (dock.id in destination_queue)
+		
+		decks[dock.id] = info
+
+	data["decks"] = decks
+	data["current"] = src.z
+	data["online"] = online
+
+	return data
+
+/obj/machinery/computer/turbolift/ui_act(action, params)
+	if(..())
+		return
+
+	switch(action)
+		if("goto")
+			var/destID = params["deck"]
+			if(!(destID in possible_destinations))
+				return //fuckers
+
+			var/obj/docking_port/stationary/turbolift/dest = SSshuttle.getDock(destID)
+
+			if(!dest)
+				warning("This code shouldnt ever run, a turbolift has attempted to go to a dock with id [destID] but none were found")
+				return //shouldnt ever get to this point but w/e
+					
+			if(dest.z == src.z)
+				return //this normally shouldnt run either but out of date interfaces might get here
+			
+			if(dest.id in destination_queue)
+				return //again shouldnt ever run but out of date interfaces
+			destination_queue += dest.id
+
+			. = TRUE //we have an update now
+
+			if(online)
+				START_PROCESSING(SSmachines, src)
+
+
+			
+/obj/machinery/computer/turbolift/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, \
+												datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+  ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+  if(!ui)
+    ui = new(user, src, ui_key, "turbolift", name, 300, 300, master_ui, state)
+    ui.open()
