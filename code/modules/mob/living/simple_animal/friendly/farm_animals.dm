@@ -337,6 +337,8 @@
 	density = FALSE
 	health = 15
 	maxHealth = 15
+	attacktext = "pecks"
+	attack_sound = 'sound/creatures/turkey.ogg'
 	ventcrawler = VENTCRAWLER_ALWAYS
 	icon_prefix = "turkey"
 	feedMessages = list("It gobbles up the food voraciously.","It clucks happily.")
