@@ -109,7 +109,9 @@ GLOBAL_LIST_INIT(backbaglist, list(DBACKPACK, DSATCHEL, DDUFFELBAG, GBACKPACK, G
 #define UPLINK_PDA		"PDA"
 #define UPLINK_RADIO	"Radio"
 #define UPLINK_PEN		"Pen" //like a real spy!
-GLOBAL_LIST_INIT(uplink_spawn_loc_list, list(UPLINK_PDA, UPLINK_RADIO, UPLINK_PEN))
+#define UPLINK_SYNDIELAD "Syndie-Lad" // hippie -- who needs to be a spy when you can be a MAN?
+GLOBAL_LIST_INIT(uplink_spawn_loc_list, list(UPLINK_PDA, UPLINK_RADIO, UPLINK_PEN, UPLINK_SYNDIELAD)) // hippie -- adds syndielad
+
 
 	//Female Uniforms
 GLOBAL_LIST_EMPTY(female_clothing_icons)

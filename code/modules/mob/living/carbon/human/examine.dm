@@ -12,7 +12,7 @@
 		var/mob/living/L = user
 		if(HAS_TRAIT(L, TRAIT_PROSOPAGNOSIA))
 			obscure_name = TRUE
-			
+
 	var/msg = "<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"]</EM>!\n"
 
 	var/list/obscured = check_obscured_slots()
@@ -49,7 +49,9 @@
 	var/datum/component/forensics/FR = GetComponent(/datum/component/forensics)
 	//gloves
 	if(gloves && !(SLOT_GLOVES in obscured))
-		msg += "[t_He] [t_has] [gloves.get_examine_string(user)] on [t_his] hands.\n"
+		var/obj/item/clothing/gloves/G = gloves // hippie -- allows unexamineable gloves
+		if(!G.always_obscured)
+			. += "[t_He] [t_has] [G.get_examine_string(user)] on [t_his] hands." // hippie end
 	else if(FR && length(FR.blood_DNA))
 		var/hand_number = get_num_arms(FALSE)
 		if(hand_number)
