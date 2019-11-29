@@ -1,0 +1,28 @@
+{
+  "name": "fg-loadcss",
+  "version": "2.1.0",
+  "description": "A function for loading CSS asynchronously",
+  "main": "src/loadCSS.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/filamentgroup/loadCSS.git"
+  },
+  "author": "Filament Group <hello@filamentgroup.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/filamentgroup/loadCSS/issues"
+  },
+  "homepage": "https://github.com/filamentgroup/loadCSS",
+  "devDependencies": {
+    "grunt": "~1.0.3",
+    "grunt-cli": "~1.3.2",
+    "matchdep": "^2.0.0",
+    "grunt-contrib-jshint": "~2.0.0",
+    "grunt-contrib-qunit": "~3.0.1",
+    "grunt-contrib-uglify": "^4.0.0",
+    "grunt-contrib-concat": "^1.0.1"
+  },
+  "scripts": {
+    "test": "node node_modules/.bin/grunt"
+  }
+}

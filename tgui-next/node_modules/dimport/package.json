@@ -1,0 +1,41 @@
+{
+  "name": "dimport",
+  "version": "1.0.0",
+  "repository": "lukeed/dimport",
+  "description": "Run ES Module syntax in any browser – even IE!",
+  "unpkg": "dist/index.min.js",
+  "umd:main": "dist/index.min.js",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Luke Edwards",
+    "email": "luke.edwards05@gmail.com",
+    "url": "lukeed.com"
+  },
+  "scripts": {
+    "build": "rm -rf nomodule legacy dist && node bin",
+    "test": "eslint src bin"
+  },
+  "files": [
+    "dist",
+    "legacy",
+    "nomodule"
+  ],
+  "dependencies": {
+    "rewrite-imports": "^2.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "microbundle": "^0.11.0"
+  },
+  "keywords": [
+    "esm",
+    "dynamic",
+    "dynamic-import",
+    "polyfill",
+    "imports",
+    "import",
+    "module"
+  ]
+}
