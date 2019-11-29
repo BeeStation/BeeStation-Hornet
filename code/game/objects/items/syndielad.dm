@@ -1,7 +1,7 @@
-#define SYNDIELAD-POWEROFF "poweroff"
-#define SYNDIELAD-UPLINK "uplink"
-#define SYNDIELAD-PINPOINTER "pinpointer"
-#define SYNDIELAD-DETONATE "detonate"
+#define POWEROFF "poweroff"
+#define UPLINK "uplink"
+#define PINPOINTER "pinpointer"
+#define DETONATE "detonate"
 
 /obj/item/clothing/gloves/syndielad
 	name = "syndie-lad"
@@ -298,3 +298,8 @@ obj/item/clothing/gloves/syndielad/Destroy()
 		syndilad_target = null
 		STOP_PROCESSING(SSfastprocess, src)
 	update_icon()
+
+#undef POWEROFF
+#undef UPLINK
+#undef DETONATOR
+#undef PINPOINTER
