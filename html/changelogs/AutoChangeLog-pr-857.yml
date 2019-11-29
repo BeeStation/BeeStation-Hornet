@@ -1,0 +1,4 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - imagedel: "Some unused/duplicate changeling icons."
