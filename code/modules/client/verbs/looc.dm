@@ -15,6 +15,8 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
     if(!mob.ckey)   return
 
     msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
+    var/raw_msg = msg
+
     if(!msg)
         return
 
@@ -49,9 +51,13 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
             to_chat(src, "<span class='danger'>You cannot use LOOC while ghosting.</span>")
             return
 
+        if(OOC_FILTER_CHECK(raw_msg))
+            to_chat(src, "<span class='warning'>That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[raw_msg]\"</span></span>")
+            return
+
     msg = emoji_parse(msg)
 
-    mob.log_talk(msg,LOG_OOC, tag="(LOOC)")
+    mob.log_talk(raw_msg, LOG_OOC, tag="(LOOC)")
 
     var/list/heard = get_hearers_in_view(7, get_top_level_mob(src.mob))
     for(var/mob/M in heard)

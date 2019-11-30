@@ -21,6 +21,7 @@
 	var/motd
 
 	var/static/regex/ic_filter_regex
+	var/static/regex/ooc_filter_regex
 
 /datum/controller/configuration/proc/admin_reload()
 	if(IsAdminAdvancedProcCall())
@@ -35,10 +36,10 @@
 		return
 	if(_directory)
 		directory = _directory
-	
+
 	if(!fexists("[directory]/config.txt") && fexists("[directory]/example/config.txt"))
 		directory = "[directory]/example"
-	
+
 	if(entries)
 		CRASH("/datum/controller/configuration/Load() called more than once!")
 	InitEntries()
@@ -374,10 +375,29 @@
 	return runnable_modes
 
 /datum/controller/configuration/proc/LoadChatFilter()
-	GLOB.in_character_filter = list()
+	var/list/in_character_filter = list()
+	var/list/ooc_filter = list()
+
+	if(!fexists("[directory]/ooc_filter.txt"))
+		log_config("Error 404: ooc_filter.txt not found!")
+		return
 
 	if(!fexists("[directory]/in_character_filter.txt"))
+		log_config("Error 404: in_character_filter.txt not found!")
 		return
+
+	log_config("Loading config file ooc_filter.txt...")
+
+	for(var/line in world.file2list("[directory]/ooc_filter.txt"))
+		if(!line)
+			continue
+		if(findtextEx(line,"#",1,2))
+			continue
+		in_character_filter += REGEX_QUOTE(line) //Anything banned in OOC is also probably banned in IC
+		ooc_filter += REGEX_QUOTE(line)
+
+	ooc_filter_regex = ooc_filter.len ? regex("\\b([jointext(ooc_filter, "|")])\\b", "i") : null
+
 
 	log_config("Loading config file in_character_filter.txt...")
 
@@ -386,7 +406,8 @@
 			continue
 		if(findtextEx(line,"#",1,2))
 			continue
-		GLOB.in_character_filter += line
+		in_character_filter += REGEX_QUOTE(line)
 
-	if(!ic_filter_regex && GLOB.in_character_filter.len)
-		ic_filter_regex = regex("\\b([jointext(GLOB.in_character_filter, "|")])\\b", "i")
+	ic_filter_regex = in_character_filter.len ? regex("\\b([jointext(in_character_filter, "|")])\\b", "i") : null
+
+	syncChatRegexes()
