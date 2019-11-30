@@ -1,0 +1,4 @@
+author: "AffectedArc07"
+delete-after: True
+changes: 
+  - rscadd: "There is now a verb to force-recreate your chat object"
