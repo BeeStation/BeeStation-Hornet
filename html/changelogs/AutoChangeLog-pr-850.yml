@@ -1,0 +1,4 @@
+author: "Moccha-Bee"
+delete-after: True
+changes: 
+  - rscadd: "Whitespace trimming is good overall. And an additional \"utf-8\" enforcement."
