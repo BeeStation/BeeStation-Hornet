@@ -600,6 +600,7 @@ function ehjaxCallback(data) {
 
 				replaceRegexes[i] = [new RegExp(regexName, regexFlags), regexReplaced];
 			}
+		}
 	}
 }
 
