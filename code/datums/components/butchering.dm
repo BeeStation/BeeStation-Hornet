@@ -46,7 +46,7 @@
 /datum/component/butchering/proc/startNeckSlice(obj/item/source, mob/living/carbon/human/H, mob/living/user)
 	user.visible_message("<span class='danger'>[user] is slitting [H]'s throat!</span>", \
 					"<span class='danger'>You start slicing [H]'s throat!</span>", \
-					"<span class='hear'>You hear a cutting noise!</span>", ignored_mobs = H)
+					"<span class='hear'>You hear a cutting noise!</span>")
 	H.show_message("<span class='userdanger'>Your throat is being slit by [user]!</span>", \
 					"<span class = 'userdanger'>Something is cutting into your neck!</span>", NONE)
 
