@@ -21,7 +21,6 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
-	always_obscured = TRUE
 	var/syndilad_on = FALSE
 	var/syndilad_ready = TRUE // basically just prevents breaking the animations
 	var/syndilad_pinactive = FALSE
