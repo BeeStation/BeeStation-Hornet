@@ -43,32 +43,22 @@ export const ChemFilter = props => {
     right = [],
   } = data;
   return (
-    <Grid style={{ width: "100%" }}>
-      <Grid.Item style={{ width: "50%" }}>
+    <Grid>
+      <Grid.Column>
         <ChemFilterPane
           title="Left"
           list={left}
 <<<<<<< HEAD
           state={state}
         />
-      </Grid.Item>
-      <Grid.Item style={{ width: "50%" }}>
-        <ChemFilterPane
-          title="Right"
-          list={right}
-          state={state}
-        />
-      </Grid.Item>
-=======
-          state={state} />
       </Grid.Column>
       <Grid.Column>
         <ChemFilterPane
           title="Right"
           list={right}
-          state={state} />
+          state={state}
+        />
       </Grid.Column>
->>>>>>> 085b30b... tgui-next: useBackend edition (#48010)
     </Grid>
   );
 };
