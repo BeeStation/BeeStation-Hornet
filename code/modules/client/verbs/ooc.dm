@@ -236,7 +236,22 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 				log_game("GOONCHAT: [key_name(src)] Failed to fix their goonchat window after manually calling start() and forcing a load()")
 
 
-
+/client/verb/force_fix_chat()
+	set name = "Force Recreate Chat"
+	set category = "OOC"
+	var/action = alert(src, "This will force recreate your chat, completely destroying the object and remaking it.\nAre you sure? (All chat history will be lost)", "Warning", "Yes", "No")
+	if(action != "Yes")
+		return
+	// Now we only process if Yes is pressed
+	// Nuke old chat objects
+	winset(src, "output", "is-visible=true;is-disabled=false")
+	winset(src, "browseroutput", "is-visible=false")
+	chatOutput.loaded = FALSE
+	// Now make a new one
+	chatOutput.start()
+	chatOutput.load()
+	alert(src, "Your chat has been force recreated. If this still hasnt fixed issues, please make an issue report, with your BYOND version, Windows version, and IE Version.", "Done", "Ok")
+				
 /client/verb/motd()
 	set name = "MOTD"
 	set category = "OOC"
