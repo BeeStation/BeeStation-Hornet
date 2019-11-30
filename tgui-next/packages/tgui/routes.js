@@ -35,8 +35,8 @@ import { Gps } from './interfaces/Gps';
 import { Holodeck } from './interfaces/Holodeck';
 import { ImplantChair } from './interfaces/ImplantChair';
 import { KeycardAuth } from './interfaces/KeycardAuth';
-import { KitchenSink } from './interfaces/KitchenSink';
 import { LanguageMenu } from './interfaces/LanguageMenu';
+import { MechBayPowerConsole } from './interfaces/MechBayPowerConsole';
 import { Mint } from './interfaces/Mint';
 import { NtosMain } from './interfaces/NtosMain';
 import { NtosNetDownloader } from './interfaces/NtosNetDownloader';
@@ -52,9 +52,9 @@ import { RapidPipeDispenser } from './interfaces/RapidPipeDispenser';
 import { ShuttleManipulator } from './interfaces/ShuttleManipulator';
 import { SmartVend } from './interfaces/SmartVend';
 import { Smes } from './interfaces/Smes';
-import { SpawnersMenu } from './interfaces/SpawnersMenu';
 import { SolarControl } from './interfaces/SolarControl';
 import { SpaceHeater } from './interfaces/SpaceHeater';
+import { SpawnersMenu } from './interfaces/SpawnersMenu';
 import { StationAlertConsole } from './interfaces/StationAlertConsole';
 import { SuitStorageUnit } from './interfaces/SuitStorageUnit';
 import { Tank } from './interfaces/Tank';
@@ -221,6 +221,10 @@ const ROUTES = {
   language_menu: {
     component: () => LanguageMenu,
     scrollable: true,
+  },
+  mech_bay_power_console: {
+    component: () => MechBayPowerConsole,
+    scrollable: false,
   },
   mint: {
     component: () => Mint,
