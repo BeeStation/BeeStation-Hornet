@@ -337,7 +337,7 @@
 	density = FALSE
 	health = 15
 	maxHealth = 15
-	egg_type = NULL
+	egg_type = null
 	attacktext = "pecks"
 	attack_sound = 'sound/creatures/turkey.ogg'
 	ventcrawler = VENTCRAWLER_ALWAYS
