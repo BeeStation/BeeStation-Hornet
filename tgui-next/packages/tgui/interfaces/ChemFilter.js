@@ -48,16 +48,13 @@ export const ChemFilter = props => {
         <ChemFilterPane
           title="Left"
           list={left}
-<<<<<<< HEAD
-          state={state}
-        />
+          state={state} />
       </Grid.Column>
       <Grid.Column>
         <ChemFilterPane
           title="Right"
           list={right}
-          state={state}
-        />
+          state={state} />
       </Grid.Column>
     </Grid>
   );
