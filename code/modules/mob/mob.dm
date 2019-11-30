@@ -450,7 +450,8 @@
 		return
 
 	face_atom(A)
-	A.examine(src)
+	var/list/result = A.examine(src)
+	to_chat(src, result.Join("\n"))
 
 /**
   * Point at an atom

@@ -25,7 +25,7 @@ AI MODULES
 	materials = list(/datum/material/gold = 50)
 
 /obj/item/aiModule/examine(var/mob/user as mob)
-	..()
+	. = ..()
 	if(Adjacent(user))
 		show_laws(user)
 

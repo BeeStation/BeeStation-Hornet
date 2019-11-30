@@ -352,9 +352,9 @@ Credit where due:
 	info = replacetext(info, "CLOCKCULTCHANGELOG", changelog_contents)
 
 /obj/item/paper/servant_primer/examine(mob/user)
+	. = ..()
 	if(!is_servant_of_ratvar(user) && !isobserver(user))
-		to_chat(user, "<span class='danger'>You can't understand any of the words on [src].</span>")
-	..()
+		. += "<span class='danger'>You can't understand any of the words on [src].</span>"
 
 /datum/game_mode/clockwork_cult/generate_credit_text()
 	var/list/round_credits = list()
