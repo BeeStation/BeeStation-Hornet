@@ -1,104 +1,5 @@
 GLOBAL_LIST_EMPTY(turbolifts)
 
-/obj/docking_port/stationary/turbolift
-	name = "turbolift"
-	area_type = /area/shuttle/turbolift/shaft
-	var/bottom_floor = FALSE
-	var/deck = 1
-
-/obj/docking_port/mobile/turbolift
-	name = "turbolift"
-	dir = NORTH
-	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
-	var/datum/weakref/turbolift_computer
-
-/obj/docking_port/mobile/turbolift/Initialize()
-	register()
-	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/docking_port/mobile/turbolift/LateInitialize()
-	for(var/T in GLOB.turbolifts)
-		var/obj/machinery/computer/turbolift/C = T
-		if(C.shuttle_id == id)
-			turbolift_computer = WEAKREF(C)
-			to_chat(world, "FOUND TURBOLIFT COMPUTER") //DEBUG
-			break
-
-	if(!turbolift_computer)
-		log_mapping("TURBOLIFT: [src] failed to find its turbolift computer at [AREACOORD(src)]")
-		message_admins("TURBOLIFT: [src] failed to find its turbolift computer at [AREACOORD(src)]")
-		return
-
-	to_chat(world, "GETTING STATIONARY DOCK") //DEBUG
-	var/obj/docking_port/stationary/turbolift/turbolift_dock
-	for(var/S in SSshuttle.stationary)
-		var/obj/docking_port/stationary/turbolift/SM = S
-		to_chat(world, "GOT THIS FAR.") //DEBUG
-		if(!istype(SM))
-			continue
-		to_chat(world, "FOUND THE BASTARD")
-		to_chat(world, "REEEE. SM ID: [SM.id], ID: [id], BOTTOM: [SM.bottom_floor]") //DEBUG
-		if(findtext(SM.id, id) && SM.bottom_floor)
-			turbolift_dock = SM
-			break
-	if(!turbolift_dock)
-		log_mapping("TURBOLIFT: [src] failed to find its dock at [AREACOORD(src)]")
-		message_admins("TURBOLIFT: [src] failed to find its dock at [AREACOORD(src)]")
-		return
-	if(!turbolift_dock.bottom_floor)
-		log_mapping("TURBOLIFT: [src] was loaded in somewhere other than the lowest floor at [AREACOORD(src)]")
-		message_admins("TURBOLIFT: [src] was loaded in somewhere other than the lowest floor at [AREACOORD(src)]")
-		return
-
-	to_chat(world, "TRYING TO LOCATE") //DEBUG
-	turbolift_dock.locate_floors(src)
-
-/obj/docking_port/stationary/turbolift/Initialize()
-	. = ..()
-	id = "[id]_[src.z]"
-	var/lower_dock = (locate(/obj/docking_port/stationary/turbolift) in SSmapping.get_turf_below(get_turf(src)))
-	if(!lower_dock)
-		to_chat(world, "FOUND BOTTOM DOCK: [src], ID: [id] at [AREACOORD(src)]") //DEBUG
-		bottom_floor = TRUE //We let the lowest dock handle finding all of the other docks
-
-
-/obj/docking_port/stationary/turbolift/proc/locate_floors(var/obj/docking_port/mobile/turbolift/dock)
-	if(!bottom_floor)
-		return
-	var/obj/docking_port/mobile/turbolift/M = SSshuttle.getShuttle(dock.id)
-	if(!M)
-		log_mapping("TURBOLIFT: [src] failed to find mobile dock: [dock.id]")
-		message_admins("TURBOLIFT: [src] failed to find mobile dock: [dock.id]")
-	to_chat(world, "FOUND MOBILE DOCK") //DEBUG
-	var/obj/machinery/computer/turbolift/turbolift_computer = M.turbolift_computer.resolve()
-	if(!turbolift_computer)
-		log_mapping("TURBOLIFT: [src] failed to find its turbolift computer in locate_floors()")
-		message_admins("TURBOLIFT: [src] failed to find its turbolift computer in locate_floors()")
-		return
-	turbolift_computer.possible_destinations += "[id]"
-	to_chat(world, "ADDED SRC") //DEBUG
-
-	for(var/S in SSshuttle.stationary)
-		var/obj/docking_port/stationary/turbolift/SM = S
-		to_chat(world, "GOT THIS FAR.") //DEBUG
-		if(!istype(SM))
-			continue
-		to_chat(world, "FOUND A BASTARD")
-		if(findtext(SM.id, M.id) && !SM.bottom_floor)
-			to_chat(world, "ADDED [SM] at [AREACOORD(SM)]") //DEBUG
-			SM.deck = (SM.z - src.z + src.deck)
-			SM.dir = dir
-			SM.dwidth = dwidth
-			SM.dheight = dheight
-			SM.width = width
-			SM.height = height
-			turbolift_computer.possible_destinations += "[SM.id]"
-
-	to_chat(world, "FINISHED LOCATING") //DEBUG
-
-//Structures and logic//
-
 /obj/machinery/turbolift_button
 	icon = 'icons/obj/turbolift.dmi'
 	icon_state = "button"
@@ -125,7 +26,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 
 /obj/machinery/turbolift_button/attack_hand(mob/user)
 	if (stat & NOPOWER)
-		to_chat(user, "<span class='notice'>[src] does not respond.</span>")
+		to_chat(user, "<span class='warning'>[src] does not respond.</span>")
 	if(!shuttle_id || !floor_id)
 		say("An unexpected error has occured. Please contact a Nanotrasen Turbolift Repair Technician.")
 		return
@@ -137,9 +38,9 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		return
 
 	if("[floor_id]" in T.destination_queue)
-		to_chat(user, "<span class='notice'>The current deck is already queued.</span>")
+		say("The current deck is already queued.")
 	else if(T.z == src.z)
-		to_chat(user, "<span class='notice'>The turbolift is already at this deck.</span>")
+		say("The turbolift is already at this deck.")
 	else
 		say("The turbolift will arrive shortly. Thank you for using Nanotrasen Turbolift Services(TM).")
 		T.destination_queue += "[floor_id]"
@@ -182,7 +83,6 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	. = ..()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)
-	to_chat(world, "ME: [AREACOORD(src)] TURF: [T.below()], AREA: [A.name]") //DEBUG
 	if(T.below() && !istype(A, /area/shuttle/turbolift)) //We know the elevator will spawn on the bottom floor, and the airlocks on all other floors should stay closed.
 		unbolt()
 		close()
@@ -237,7 +137,6 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	T.bolt()
 	var/obj/machinery/door/airlock/turbolift/A = locate(/obj/machinery/door/airlock/turbolift) in get_step(T, T.dock_dir)
 	if(!A)
-		to_chat(world, "Couldn't find the other airlock!") //DEBUG
 		return
 	A.unbolt()
 	A.close()
@@ -249,20 +148,17 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	T.bolt()
 	var/obj/machinery/door/airlock/turbolift/A = locate(/obj/machinery/door/airlock/turbolift) in get_step(T, T.dock_dir)
 	if(!A)
-		to_chat(world, "Couldn't find the other airlock!") //DEBUG
 		return
 	A.unbolt()
 	A.open()
 	A.bolt()
 
 /obj/machinery/computer/turbolift/process()
-	to_chat(world, "I ATTEMPTED TO PROCESS") //DEBUG
 	if(!online)
 		STOP_PROCESSING(SSmachines, src)
 		return
 	if(!destination_queue.len)
 		STOP_PROCESSING(SSmachines, src)
-		to_chat(world, "I AM NO LONGER PROCESSING.") //DEBUG
 		for(var/datum/weakref/T in airlocks) //Just in case. Don't want anybody to get locked in.
 			var/obj/machinery/door/airlock/turbolift/A = T.resolve()
 			if(A)
@@ -273,8 +169,6 @@ GLOBAL_LIST_EMPTY(turbolifts)
 
 	if(!in_use)
 		in_use = TRUE
-		var/debug = destination_queue[1]	//DEBUG
-		to_chat(world, "Process called premove for: [debug]") //DEBUG
 		pre_move(destination_queue[1])
 
 /obj/machinery/computer/turbolift/proc/pre_move(var/destination_id)
@@ -282,13 +176,11 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		find_airlocks()
 	var/obj/docking_port/stationary/turbolift/dock = SSshuttle.getDock(destination_id) //We check this in both procs because who knows what might happen to the dock while the timer is going
 	if(!dock)
-		to_chat(world, "FAILED TO FIND DOCK 1") //DEBUG
 		destination_queue.Cut(1,2)
 		in_use = FALSE
 		return
 
 	say("Departing for Deck [dock.deck]: [dock.name].")
-	to_chat(world, "Shuttle departing.") //DEBUG
 	for(var/datum/weakref/T in airlocks)
 		var/obj/machinery/door/airlock/turbolift/A = T.resolve()
 		if(A)
@@ -312,7 +204,6 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	var/obj/docking_port/stationary/turbolift/dock = SSshuttle.getDock(destination_id)
 	if(!dock)
 		say("ERROR 404: Deck not found.")
-		to_chat(world, "FAILED TO FIND DOCK 2") //DEBUG
 		destination_queue.Cut(1,2)
 		in_use = FALSE
 		return
