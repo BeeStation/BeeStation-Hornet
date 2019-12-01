@@ -32,7 +32,7 @@
 /obj/item/melee/synthetic_arm_blade
 	name = "synthetic arm blade"
 	desc = "A grotesque blade that on closer inspection seems made of synthetic flesh, it still feels like it would hurt very badly as a weapon."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/changeling_items.dmi'
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
@@ -355,9 +355,9 @@
 	item_flags = NONE
 	force = 5
 
-	cooldown = 25
+	cooldown = 20
 	stamina_damage = 85
-	affect_silicon = TRUE
+	affect_silicon = TRUE 
 	on_sound = 'sound/weapons/contractorbatonextend.ogg'
 	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
 	stun_animation = TRUE

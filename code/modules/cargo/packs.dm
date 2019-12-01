@@ -394,6 +394,14 @@
 	contains = list(/obj/item/storage/box/firingpins,
 					/obj/item/storage/box/firingpins)
 	crate_name = "firing pins crate"
+	
+/datum/supply_pack/security/firingpins/paywall
+	name = "Paywall Firing Pins Crate"
+	desc = "Specialized firing pins with a built-in configurable paywall. Requires Security access to open."
+	cost = 2500
+	contains = list(/obj/item/storage/box/firingpins/paywall,
+					/obj/item/storage/box/firingpins/paywall)
+	crate_name = "paywall firing pins crate"
 
 /datum/supply_pack/security/justiceinbound
 	name = "Standard Justice Enforcer Crate"
