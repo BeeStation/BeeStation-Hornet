@@ -1,0 +1,4 @@
+author: "Moccha-Bee"
+delete-after: True
+changes: 
+  - rscadd: "Health analyzer font scaling hotfix"
