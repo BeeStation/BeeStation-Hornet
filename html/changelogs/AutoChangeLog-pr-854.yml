@@ -1,0 +1,4 @@
+author: "Moccha-Bee"
+delete-after: True
+changes: 
+  - rscadd: "Removed .dm files from _maps folder"
