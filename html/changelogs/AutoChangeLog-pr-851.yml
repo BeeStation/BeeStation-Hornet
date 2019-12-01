@@ -1,0 +1,5 @@
+author: "Mark Suckerberg and Thatguythere03"
+delete-after: True
+changes: 
+  - rscadd: "turkies"
+  - soundadd: "turky noises"
