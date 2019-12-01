@@ -1,4 +1,0 @@
-author: "SteelSlayer/Mark Suckerberg"
-delete-after: True
-changes: 
-  - admin: "Adds a new server restart option: regular restart with a custom delay time that the user can specify"
