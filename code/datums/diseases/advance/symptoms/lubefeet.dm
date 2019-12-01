@@ -45,7 +45,7 @@
 		var/turf/open/OT = get_turf(M)
 		if(istype(OT))
 			to_chat(M, "<span class='danger'>The lube pools into a puddle!</span>")
-			OT.MakeSlippery(TURF_WET_LUBE, 40)
+			OT.MakeSlippery(TURF_WET_LUBE, min_wet_time = 20 SECONDS, wet_time_to_add = 10 SECONDS)
 
 /datum/symptom/pierrot/End(datum/disease/advance/A)
 	..()
