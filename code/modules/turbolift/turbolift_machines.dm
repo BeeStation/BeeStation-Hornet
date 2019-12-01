@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	var/list/possible_destinations = list()
 	var/list/airlocks = list()
 	var/list/destination_queue = list()
-	var/time_between_stops = 50 //Time in deciseconds before going to the next location in the queue. //DEBUG PLACEHOLDER
+	var/time_between_stops = 300 //Time in deciseconds before going to the next location in the queue.
 	var/in_use = FALSE
 	var/online = TRUE //Is the elevator functional? Will be expanded upon later
 
@@ -78,6 +78,18 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	icon_state = "closed"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/dock_dir
+
+/obj/machinery/door/airlock/bolt()
+	if(locked)
+		return
+	locked = TRUE
+	update_icon()
+
+/obj/machinery/door/airlock/unbolt()
+	if(!locked)
+		return
+	locked = FALSE
+	update_icon()
 
 /obj/machinery/door/airlock/turbolift/Initialize()
 	. = ..()
@@ -118,8 +130,14 @@ GLOBAL_LIST_EMPTY(turbolifts)
 /turf/closed/indestructible/turbolift
 	name = "turbolift wall"
 	desc = "A turbolift wall. One of the strongest walls known to man."
-	//canSmoothWith = list(/turf/closed/indestructible/turbolift)
-	smooth = TRUE
+	icon = 'icons/turf/walls/wall.dmi'
+	icon_state = "wall"
+	canSmoothWith = list(/turf/closed/indestructible/turbolift)
+	smooth = SMOOTH_TRUE
+
+/turf/closed/indestructible/turbolift/afterShuttleMove()
+	queue_smooth(src)
+	..()
 
 /obj/machinery/computer/turbolift/Destroy()
 	GLOB.turbolifts -= src

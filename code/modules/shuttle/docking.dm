@@ -1,7 +1,6 @@
 /// This is the main proc. It instantly moves our mobile port to stationary port `new_dock`.
 /obj/docking_port/mobile/proc/initiate_docking(obj/docking_port/stationary/new_dock, movement_direction, force=FALSE)
 	// Crashing this ship with NO SURVIVORS
-	to_chat(world, "Initiating docking") //DEBUG
 	if(new_dock.get_docked() == src)
 		remove_ripples()
 		return DOCKING_SUCCESS
