@@ -1,0 +1,5 @@
+author: "AnturK and harmonyn"
+delete-after: True
+changes: 
+  - bugfix: "Cards Against Spess works again. Find decks at your local library."
+  - rscadd: "Hourglasses now available in library game vending machine."
