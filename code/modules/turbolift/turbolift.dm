@@ -4,14 +4,13 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	name = "turbolift"
 	area_type = /area/shuttle/turbolift/shaft
 	var/bottom_floor = FALSE
-	var/ztrait = ZTRAIT_STATION //In case we want elevators elsewhere. Multi-z lavaland mining base, anyone?
 	var/deck = 1
 
 /obj/docking_port/mobile/turbolift
 	name = "turbolift"
 	dir = NORTH
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
-	var/obj/machinery/computer/turbolift/turbolift_computer
+	var/datum/weakref/turbolift_computer
 
 /obj/docking_port/mobile/turbolift/Initialize()
 	register()
@@ -22,7 +21,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	for(var/T in GLOB.turbolifts)
 		var/obj/machinery/computer/turbolift/C = T
 		if(C.shuttle_id == id)
-			turbolift_computer = C
+			turbolift_computer = WEAKREF(C)
 			to_chat(world, "FOUND TURBOLIFT COMPUTER") //DEBUG
 			break
 
@@ -72,7 +71,12 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		log_mapping("TURBOLIFT: [src] failed to find mobile dock: [dock.id]")
 		message_admins("TURBOLIFT: [src] failed to find mobile dock: [dock.id]")
 	to_chat(world, "FOUND MOBILE DOCK") //DEBUG
-	M.turbolift_computer.possible_destinations += "[id]"
+	var/obj/machinery/computer/turbolift/turbolift_computer = M.turbolift_computer.resolve()
+	if(!turbolift_computer)
+		log_mapping("TURBOLIFT: [src] failed to find its turbolift computer in locate_floors()")
+		message_admins("TURBOLIFT: [src] failed to find its turbolift computer in locate_floors()")
+		return
+	turbolift_computer.possible_destinations += "[id]"
 	to_chat(world, "ADDED SRC") //DEBUG
 
 	for(var/S in SSshuttle.stationary)
@@ -89,7 +93,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 			SM.dheight = dheight
 			SM.width = width
 			SM.height = height
-			M.turbolift_computer.possible_destinations += "[SM.id]"
+			turbolift_computer.possible_destinations += "[SM.id]"
 
 	to_chat(world, "FINISHED LOCATING") //DEBUG
 
@@ -127,7 +131,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		return
 
 	var/obj/docking_port/mobile/turbolift/M = SSshuttle.getShuttle(shuttle_id)
-	var/obj/machinery/computer/turbolift/T = M?.turbolift_computer
+	var/obj/machinery/computer/turbolift/T = M?.turbolift_computer?.resolve()
 	if(!M || !T)
 		say("An unexpected error has occured. Please contact a Nanotrasen Turbolift Repair Technician.")
 		return
@@ -161,7 +165,6 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	var/in_use = FALSE
 	var/online = TRUE //Is the elevator functional? Will be expanded upon later
 
-	var/list/deck_descriptions = list()
 
 /obj/machinery/computer/turbolift/Initialize()
 	. = ..()
@@ -173,7 +176,6 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	desc = "A sleek airlock for walking through. This one looks extremely strong."
 	icon_state = "closed"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	var/obj/machinery/computer/turbolift/lift_computer
 	var/dock_dir
 
 /obj/machinery/door/airlock/turbolift/Initialize()
@@ -221,17 +223,11 @@ GLOBAL_LIST_EMPTY(turbolifts)
 
 /obj/machinery/computer/turbolift/Destroy()
 	GLOB.turbolifts -= src
-	var/obj/docking_port/mobile/turbolift/M = SSshuttle.getShuttle(shuttle_id)
-	if(M)
-		M.turbolift_computer = null
-	for(var/obj/machinery/door/airlock/turbolift/A in airlocks)
-		A.lift_computer = null
 	. = ..()
 
 /obj/machinery/computer/turbolift/proc/find_airlocks()
 	for(var/obj/machinery/door/airlock/turbolift/L in get_area(src))
-		airlocks += L
-		L.lift_computer = src
+		airlocks += WEAKREF(L)
 		var/obj/docking_port/mobile/turbolift/M = SSshuttle.getShuttle(shuttle_id)
 		L.dock_dir = M.dir
 
@@ -258,43 +254,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	A.unbolt()
 	A.open()
 	A.bolt()
-/*
-/obj/machinery/computer/turbolift/attack_hand(mob/user)
-	for(var/id in possible_destinations)
-		var/obj/docking_port/stationary/turbolift/dock = SSshuttle.getDock(id)
-		if(dock.z != src.z)
-			to_chat(user, "Deck [dock.deck]: [dock.name]")
-	var/S = input(user,"Select a deck") as num
-	if(S > 1000 || S <= 0)
-		to_chat(user, "<span class='warning'>Deck [S] is not a valid destination!</span>")
-		return
-	if(!S)
-		return
-	var/obj/docking_port/stationary/turbolift/destination
-	for(var/id in possible_destinations)
-		to_chat(world, "Checking: [id]") //DEBUG
-		var/obj/docking_port/stationary/turbolift/dock = SSshuttle.getDock(id)
-		if(dock.deck == S)
-			to_chat(world, "Success: [dock.id]") //DEBUG
-			destination = dock
-			break
-	if(!destination || !("[destination.id]" in possible_destinations))
-		to_chat(user, "<span class='warning'>Deck [S] is not a valid destination!</span>")
-		return
-	if(destination.z == src.z)
-		to_chat(user, "<span class='notice'>Deck [S] is the current deck.</span>")
-		return
-	if("[destination.id]" in destination_queue)
-		to_chat(user, "<span class='notice'>Deck [destination.deck] is already queued.</span>")
-		return
-	destination_queue += "[destination.id]"
-	if(online)
-		START_PROCESSING(SSmachines, src)
-		to_chat(world, "SHOULD PROCESS NOW") //DEBUG
-	else
-		say("An unexpected error has occured. Please contact a Nanotrasen Turbolift Repair Technician.")
-		to_chat(world, "OFFLINE, DIDN'T START PROCESSING") //DEBUG
-*/
+
 /obj/machinery/computer/turbolift/process()
 	to_chat(world, "I ATTEMPTED TO PROCESS") //DEBUG
 	if(!online)
@@ -303,8 +263,12 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	if(!destination_queue.len)
 		STOP_PROCESSING(SSmachines, src)
 		to_chat(world, "I AM NO LONGER PROCESSING.") //DEBUG
-		for(var/obj/machinery/door/airlock/turbolift/T in airlocks) //Just in case. Don't want anybody to get locked in.
-			INVOKE_ASYNC(src, .proc/open_airlock, T)
+		for(var/datum/weakref/T in airlocks) //Just in case. Don't want anybody to get locked in.
+			var/obj/machinery/door/airlock/turbolift/A = T.resolve()
+			if(A)
+				INVOKE_ASYNC(src, .proc/open_airlock, A)
+			else
+				airlocks -= T
 		return
 
 	if(!in_use)
@@ -325,8 +289,12 @@ GLOBAL_LIST_EMPTY(turbolifts)
 
 	say("Departing for Deck [dock.deck]: [dock.name].")
 	to_chat(world, "Shuttle departing.") //DEBUG
-	for(var/obj/machinery/door/airlock/turbolift/T in airlocks)
-		INVOKE_ASYNC(src, .proc/close_airlock, T)
+	for(var/datum/weakref/T in airlocks)
+		var/obj/machinery/door/airlock/turbolift/A = T.resolve()
+		if(A)
+			INVOKE_ASYNC(src, .proc/close_airlock, A)
+		else
+			airlocks -= T
 
 	addtimer(CALLBACK(src, .proc/move, destination_id), 5 SECONDS)
 
@@ -355,8 +323,12 @@ GLOBAL_LIST_EMPTY(turbolifts)
 /obj/machinery/computer/turbolift/proc/post_move(var/destination_id)
 	var/obj/docking_port/stationary/turbolift/dock = SSshuttle.getDock(destination_id)
 	say("Arrived at [dock ? "Deck [dock.deck]: [dock.name]" : "destination"].")
-	for(var/obj/machinery/door/airlock/turbolift/T in airlocks)
-		INVOKE_ASYNC(src, .proc/open_airlock, T)
+	for(var/datum/weakref/T in airlocks)
+		var/obj/machinery/door/airlock/turbolift/A = T.resolve()
+		if(A)
+			INVOKE_ASYNC(src, .proc/open_airlock, A)
+		else
+			airlocks -= T
 
 	destination_queue.Cut(1,2)
 	if(!destination_queue.len)
@@ -374,7 +346,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		info["name"] = dock.name
 		info["z"] = dock.z
 		info["queued"] = (dock.id in destination_queue)
-		
+
 		decks[dock.id] = info
 
 	data["decks"] = decks
@@ -398,10 +370,10 @@ GLOBAL_LIST_EMPTY(turbolifts)
 			if(!dest)
 				warning("This code shouldnt ever run, a turbolift has attempted to go to a dock with id [destID] but none were found")
 				return //shouldnt ever get to this point but w/e
-					
+
 			if(dest.z == src.z)
 				return //this normally shouldnt run either but out of date interfaces might get here
-			
+
 			if(dest.id in destination_queue)
 				return //again shouldnt ever run but out of date interfaces
 			destination_queue += dest.id
@@ -411,8 +383,6 @@ GLOBAL_LIST_EMPTY(turbolifts)
 			if(online)
 				START_PROCESSING(SSmachines, src)
 
-
-			
 /obj/machinery/computer/turbolift/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, \
 												datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
   ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
