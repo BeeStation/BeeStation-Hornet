@@ -873,6 +873,126 @@
 
 			log_combat(src, T, "curbstomped")
 			src.is_busy = FALSE
+/mob/living/carbon/human/MouseDrop(mob/over)//Groinkick added based off of above curbstomp code
+	. = ..()
+	if(ishuman(over))
+		var/mob/living/carbon/human/T = over
+		if(!src.is_busy && src.zone_selected == BODY_ZONE_PRECISE_GROIN && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align, time to tenderize nards
+			src.is_busy = TRUE
+
+			if (!do_mob(src,T,17) || src.zone_selected != BODY_ZONE_PRECISE_GROIN || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP) //wait 30ds and make sure the stars still align
+				src.is_busy = FALSE
+				return
+
+			T.Stun(6)
+
+			var/increment = (T.lying/90)-2
+			setDir(increment > 0 ? WEST : EAST)a
+			for(var/i in 1 to 2)
+				src.pixel_y += 0-i
+				src.pixel_x -= increment
+				sleep(0.2)
+			for(var/i in 1 to 2)
+				src.pixel_y -= 0-i
+				src.pixel_x -= increment
+				sleep(0.2)
+
+			playsound(src, 'sound/effects/hit_kick.ogg', 80, 1, -1)
+
+			var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_CHEST)
+			if(BP)
+				BP.receive_damage(24) //so 2 toolbox hits
+
+			T.visible_message("<span class='warning'>[src] Kicks [T] in the Groin!</span>", "<span class='warning'>[src]  Kicks you in the Groin!</span>")
+			for(var/i in 1 to 10)
+				src.pixel_x = src.pixel_x + increment
+				sleep(0.1)
+
+			src.pixel_x = 0
+			src.pixel_y = 0 //just to make sure
+
+			log_combat(src, T, "Nutshotted")
+			src.is_busy = FALSE
+
+/mob/living/carbon/human/MouseDrop(mob/over)//Legstomp added based off of above curbstomp code
+	.= ..()
+	if(ishuman(over))
+		var/mob/living/carbon/human/T = over
+		if(!src.is_busy && src.zone_selected == BODY_ZONE_L_LEG && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align,left leg will be attacked
+			src.is_busy = TRUE
+
+			if (!do_mob(src,T,12) || src.zone_selected != BODY_ZONE_L_LEG || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP) //wait 30ds and make sure the stars still align
+				src.is_busy = FALSE
+				return
+
+			T.Stun(6)
+
+			var/increment = (T.lying/90)-2
+			setDir(increment > 0 ? WEST : EAST)
+			for(var/i in 1 to 2)
+				src.pixel_y += 2-i
+				src.pixel_x -= increment
+				sleep(0.2)
+			for(var/i in 1 to 2)
+				src.pixel_y -= 2-i
+				src.pixel_x -= increment
+				sleep(0.2)
+
+			playsound(src, 'sound/effects/hit_punch.ogg', 80, 1, -1)
+
+			var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_L_LEG)
+			if(BP)
+				BP.receive_damage(18) //same damage as 1 spear hit
+			T.visible_message("<span class='warning'>[src] Stomps [T] in the Left leg!</span>", "<span class='warning'>[src]  Stomps your Left leg!</span>")
+			for(var/i in 1 to 10)
+				src.pixel_x = src.pixel_x + increment
+				sleep(0.1)
+
+			src.pixel_x = 0
+			src.pixel_y = 0 //just to make sure
+
+			log_combat(src, T, "Legstomped")
+			src.is_busy = FALSE
+
+/mob/living/carbon/human/MouseDrop(mob/over)//Legstomp added based off of above curbstomp code
+	.= ..()
+	if(ishuman(over))
+		var/mob/living/carbon/human/T = over
+		if(!src.is_busy && src.zone_selected == BODY_ZONE_R_LEG && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align,left leg will be attacked
+			src.is_busy = TRUE
+
+			if (!do_mob(src,T,12) || src.zone_selected != BODY_ZONE_R_LEG || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP) //wait 30ds and make sure the stars still align
+				src.is_busy = FALSE
+				return
+
+			T.Stun(6)
+
+			var/increment = (T.lying/90)-2
+			setDir(increment > 0 ? WEST : EAST)
+			for(var/i in 1 to 2)
+				src.pixel_y += 2-i
+				src.pixel_x -= increment
+				sleep(0.2)
+			for(var/i in 1 to 2)
+				src.pixel_y -= 2-i
+				src.pixel_x -= increment
+				sleep(0.2)
+
+			playsound(src, 'sound/effects/hit_punch.ogg', 80, 1, -1)
+
+			var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_R_LEG)
+			if(BP)
+				BP.receive_damage(18) //same damage as 1 spear hit
+			T.visible_message("<span class='warning'>[src] Stomps [T] in the Right leg!</span>", "<span class='warning'>[src]  Stomps your Right leg!</span>")
+			for(var/i in 1 to 10)
+				src.pixel_x = src.pixel_x + increment
+				sleep(0.1)
+
+			src.pixel_x = 0
+			src.pixel_y = 0 //just to make sure
+
+			log_combat(src, T, "Legstomped")
+			src.is_busy = FALSE
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
