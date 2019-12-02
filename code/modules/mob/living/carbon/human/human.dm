@@ -873,8 +873,7 @@
 
 			log_combat(src, T, "curbstomped")
 			src.is_busy = FALSE
-/mob/living/carbon/human/MouseDrop(mob/over)//Groinkick added based off of above curbstomp code
-	. = ..()
+
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over
 		if(!src.is_busy && src.zone_selected == BODY_ZONE_PRECISE_GROIN && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align, time to tenderize nards
@@ -914,8 +913,6 @@
 			log_combat(src, T, "Nutshotted")
 			src.is_busy = FALSE
 
-/mob/living/carbon/human/MouseDrop(mob/over)//Legstomp added based off of above curbstomp code
-	.= ..()
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over
 		if(!src.is_busy && src.zone_selected == BODY_ZONE_L_LEG && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align,left leg will be attacked
@@ -954,8 +951,6 @@
 			log_combat(src, T, "Legstomped")
 			src.is_busy = FALSE
 
-/mob/living/carbon/human/MouseDrop(mob/over)//Legstomp added based off of above curbstomp code
-	.= ..()
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over
 		if(!src.is_busy && src.zone_selected == BODY_ZONE_R_LEG && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align,left leg will be attacked
