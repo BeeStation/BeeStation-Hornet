@@ -441,7 +441,7 @@
 		S.fully_replace_character_name(null, "The spirit of [name]")
 		S.status_flags |= GODMODE
 		S.language_holder = user.language_holder.copy(S)
-		var/input = stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN)
+		var/input = sanitize_name(stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN))
 
 		if(src && input)
 			name = input
@@ -556,6 +556,7 @@
 /obj/item/nullrod/armblade
 	name = "dark blessing"
 	desc = "Particularly twisted deities grant gifts of dubious value."
+	icon = 'icons/obj/changeling_items.dmi'
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
