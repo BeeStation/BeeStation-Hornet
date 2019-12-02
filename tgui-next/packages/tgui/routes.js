@@ -316,7 +316,7 @@ const ROUTES = {
     component: () => TurbineComputer,
     scrollable: false,
   },
-	turbolift: {
+  turbolift: {
     component: () => TurboLift,
     scrollable: true,
   },
