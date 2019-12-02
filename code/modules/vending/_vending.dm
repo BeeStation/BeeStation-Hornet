@@ -480,7 +480,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 							shard.embedding = shard.embedding.setRating(embed_chance = EMBED_CHANCE, embedded_ignore_throwspeed_threshold = FALSE)
 					if(4) // paralyze this binch
 						// the new paraplegic gets like 4 lines of losing their legs so skip them
-						visible_message("<span class='danger'>[C]'s spinal cord is obliterated with a sickening crunch!</span>", ignored_mobs = list(C))
+						visible_message("<span class='danger'>[C]'s spinal cord is obliterated with a sickening crunch!</span>")
 						C.gain_trauma(/datum/brain_trauma/severe/paralysis/paraplegic)
 					if(5) // skull squish!
 						var/obj/item/bodypart/head/O = C.get_bodypart(BODY_ZONE_HEAD)
@@ -492,7 +492,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 							qdel(O)
 							new /obj/effect/gibspawner/human/bodypartless(get_turf(C))
 
-				C.apply_damage(max(0, squish_damage - crit_rebate), forced=TRUE, spread_damage=TRUE)
+				C.apply_damage(max(0, squish_damage - crit_rebate), forced=TRUE)
 				C.AddElement(/datum/element/squish, 18 SECONDS)
 			else
 				L.visible_message("<span class='danger'>[L] is crushed by \the [src]!</span>", \
