@@ -79,13 +79,13 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/dock_dir
 
-/obj/machinery/door/airlock/bolt()
+/obj/machinery/door/airlock/turbolift/bolt()
 	if(locked)
 		return
 	locked = TRUE
 	update_icon()
 
-/obj/machinery/door/airlock/unbolt()
+/obj/machinery/door/airlock/turbolift/unbolt()
 	if(!locked)
 		return
 	locked = FALSE
