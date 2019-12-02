@@ -872,7 +872,7 @@
 			src.pixel_y = 0 //just to make sure
 
 			log_combat(src, T, "curbstomped")
-			src.is_busy = FALSE
+			
 
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over
@@ -911,7 +911,6 @@
 			src.pixel_y = 0 //just to make sure
 
 			log_combat(src, T, "Nutshotted")
-			src.is_busy = FALSE
 
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over
@@ -949,8 +948,7 @@
 			src.pixel_y = 0 //just to make sure
 
 			log_combat(src, T, "Legstomped")
-			src.is_busy = FALSE
-
+		
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over
 		if(!src.is_busy && src.zone_selected == BODY_ZONE_R_LEG && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align,left leg will be attacked
@@ -987,7 +985,9 @@
 			src.pixel_y = 0 //just to make sure
 
 			log_combat(src, T, "Legstomped")
+			
 			src.is_busy = FALSE
+			
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
