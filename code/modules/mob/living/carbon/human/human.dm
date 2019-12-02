@@ -887,7 +887,7 @@
 			T.Stun(6)
 
 			var/increment = (T.lying/90)-2
-			setDir(increment > 0 ? WEST : EAST)a
+			setDir(increment > 0 ? WEST : EAST)
 			for(var/i in 1 to 2)
 				src.pixel_y += 0-i
 				src.pixel_x -= increment
