@@ -316,6 +316,10 @@ const ROUTES = {
     component: () => TurbineComputer,
     scrollable: false,
   },
+	turbolift: {
+    component: () => TurboLift,
+    scrollable: true,
+  },
   uplink: {
     component: () => Uplink,
     scrollable: true,
