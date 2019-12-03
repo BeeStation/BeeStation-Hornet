@@ -7,12 +7,11 @@
 	transmittable = 1
 	level = 9
 	severity = 1
-	symptom_delay_min = 15
-	symptom_delay_max = 30
+	symptom_delay_min = 2
+	symptom_delay_max = 15
 	var/honey = FALSE
 	var/infected_bees = FALSE
-	threshold_desc = "<b>Resistance 14:</b> Host synthesizes honey instead of toxins, bees now sting with honey instead of toxin.<br>\
-					  <b>Transmission 10:</b> Bees now contain a small amount of infected blood"				
+	threshold_desc = "<b>Resistance 14:</b> Host synthesizes honey instead of toxins, bees now sting with honey instead of toxin.<br>\			
 
 /datum/symptom/beesease/Start(datum/disease/advance/A)
 	if(!..())
@@ -30,24 +29,24 @@
 		if(2)
 			if(prob(2))
 				to_chat(M, "<span class='notice'>You taste honey in your mouth.</span>")
-		if(3)
-			if(prob(10))
+		if(3, 4, 5)
+			if(prob(15))
 				to_chat(M, "<span class='notice'>Your stomach rumbles.</span>")
-			if(prob(5))
+			if(prob(15))
 				if(honey)
-					to_chat(M, "<span class='notice'>You taste even more honey.</span>")
+					to_chat(M, "<span class='notice'>You can't get the taste of honey out of your mouth!.</span>")
 					M.reagents.add_reagent(/datum/reagent/consumable/honey, 2)
-				else if(prob(20))
+				else if(prob(50))
 					to_chat(M, "<span class='danger'>Your stomach stings painfully.</span>")				
-					M.adjustToxLoss(2)
+					M.adjustToxLoss(5)
 					M.updatehealth()
 		if(4, 5)
 			if(prob(10))
 				M.visible_message("<span class='danger'>[M] buzzes.</span>", \
 								  "<span class='userdanger'>Your stomach buzzes violently!</span>")
-			if(prob(5))
+			if(prob(15))
 				to_chat(M, "<span class='danger'>You feel something moving in your throat.</span>")
-			if(prob(1))
+			if(prob(7))
 				M.visible_message("<span class='danger'>[M] coughs up a swarm of bees!</span>", \
 								  "<span class='userdanger'>You cough up a swarm of bees!</span>")
 				if(honey)
