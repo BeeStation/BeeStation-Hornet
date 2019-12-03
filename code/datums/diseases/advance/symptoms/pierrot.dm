@@ -7,8 +7,8 @@
 	transmittable = 2
 	level = 0
 	severity = 1
-	symptom_delay_min = 15
-	symptom_delay_max = 30
+	symptom_delay_min = 2
+	symptom_delay_max = 15
 	var/honkspread = FALSE
 	var/clownmask = FALSE
 	var/clumsy = FALSE
@@ -32,13 +32,13 @@
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(1)
-			if(prob(15))
+			if(prob(30))
 				to_chat(M, "<span class='danger'>You feel a little silly.</span>")
 		if(2)
-			if(prob(15))
+			if(prob(30))
 				to_chat(M, "<span class='danger'>You start seeing rainbows.</span>")
 		if(3)
-			if(prob(15))
+			if(prob(30))
 				to_chat(M, "<span class='danger'>Your thoughts are interrupted by a loud <b>HONK!</b></span>")
 				playsound(M, 'sound/items/bikehorn.ogg', 50, 1)
 		if(4, 5)
@@ -46,10 +46,10 @@
 				if(!HAS_TRAIT(M, TRAIT_CLUMSY))
 					to_chat(M, "<span class='notice'>You feel dumber.</span>")
 					ADD_TRAIT(M, TRAIT_CLUMSY, DISEASE_TRAIT)
-			if(prob(10))
+			if(prob(30))
 				M.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ))
 			if(A.stage == 5)
-				if(prob(1) && prob(50) && clownmask)
+				if(prob(100) && prob(100) && clownmask)
 					give_clown_mask(A)
 				if(prob(5))
 					playsound(M.loc, 'sound/items/bikehorn.ogg', 50, 1)
