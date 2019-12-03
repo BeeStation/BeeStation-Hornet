@@ -118,6 +118,13 @@
 	item_state = "dg_suit"
 	item_color = "centcom"
 
+/obj/item/clothing/under/rank/centcom/intern
+	name = "\improper CentCom intern's jumpsuit"
+	desc = "It's a jumpsuit worn by those interning for CentCom. The top is styled after a polo shirt for easy identification."
+	icon_state = "intern"
+	item_state = "g_suit"
+	can_adjust = FALSE
+
 /obj/item/clothing/under/space
 	name = "\improper NASA jumpsuit"
 	desc = "It has a NASA logo on it and is made of space-proofed materials."
