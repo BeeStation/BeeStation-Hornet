@@ -451,6 +451,7 @@
 
 	face_atom(A)
 	A.examine(src)
+	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
 
 /**
   * Point at an atom
