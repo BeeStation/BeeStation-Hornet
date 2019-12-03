@@ -30,7 +30,7 @@
 		if(2)
 			if(prob(2))
 				to_chat(M, "<span class='notice'>You taste honey in your mouth.</span>")
-		if(3, 4, 5)
+		if(3)
 			if(prob(15))
 				to_chat(M, "<span class='notice'>Your stomach rumbles.</span>")
 			if(prob(15))
