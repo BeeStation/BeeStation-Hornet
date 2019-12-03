@@ -11,8 +11,9 @@
 	symptom_delay_max = 15
 	var/honey = FALSE
 	var/infected_bees = FALSE
-	threshold_desc = "<b>Resistance 14:</b> Host synthesizes honey instead of toxins, bees now sting with honey instead of toxin.<br>\"			
-
+	threshold_desc = "<b>Resistance 14:</b> Host synthesizes honey instead of toxins, bees now sting with honey instead of toxin.<br>\
+					  <b>Transmission 10:</b> Bees now contain a small amount of infected blood"		
+					  
 /datum/symptom/beesease/Start(datum/disease/advance/A)
 	if(!..())
 		return
