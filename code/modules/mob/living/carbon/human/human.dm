@@ -868,9 +868,6 @@
 				src.pixel_x = src.pixel_x + increment
 				sleep(0.1)
 
-			src.pixel_x = 0
-			src.pixel_y = 0 //just to make sure
-
 			log_combat(src, T, "curbstomped")
 			
 
@@ -907,9 +904,6 @@
 				src.pixel_x = src.pixel_x + increment
 				sleep(0.1)
 
-			src.pixel_x = 0
-			src.pixel_y = 0 //just to make sure
-
 			log_combat(src, T, "Nutshotted")
 
 	if(ishuman(over))
@@ -943,9 +937,6 @@
 			for(var/i in 1 to 10)
 				src.pixel_x = src.pixel_x + increment
 				sleep(0.1)
-
-			src.pixel_x = 0
-			src.pixel_y = 0 //just to make sure
 
 			log_combat(src, T, "Legstomped")
 		
@@ -981,13 +972,12 @@
 				src.pixel_x = src.pixel_x + increment
 				sleep(0.1)
 
-			src.pixel_x = 0
-			src.pixel_y = 0 //just to make sure
-
 			log_combat(src, T, "Legstomped")
 			
 			src.is_busy = FALSE
 			
+		src.pixel_x = 0
+		src.pixel_y = 0 //just to make sure
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
