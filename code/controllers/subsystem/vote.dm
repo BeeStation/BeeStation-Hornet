@@ -186,11 +186,16 @@ SUBSYSTEM_DEF(vote)
 			if("gamemode")
 				choices.Add(config.votable_modes)
 			if("map")
+				// Randomizes the list so it isn't always METASTATION
+				var/list/maps = list()
 				for(var/map in global.config.maplist)
 					var/datum/map_config/VM = config.maplist[map]
 					if(!VM.is_votable())
 						continue
-					choices.Add(VM.map_name)
+					maps += VM.map_name
+					shuffle_inplace(maps)
+				for(var/valid_map in maps)
+					choices.Add(valid_map)
 			if("custom")
 				question = stripped_input(usr,"What is the vote for?")
 				if(!question)
@@ -223,7 +228,7 @@ SUBSYSTEM_DEF(vote)
 
 			if(popup)
 				C?.mob?.vote() // automatically popup the vote
-		
+
 		return 1
 	return 0
 
@@ -299,7 +304,7 @@ SUBSYSTEM_DEF(vote)
 	if(usr.client.holder)
 		if(check_rights_for(usr.client, R_ADMIN))
 			trialmin = 1
-	
+
 	switch(href_list["vote"])
 		if("close")
 			voting -= usr.client

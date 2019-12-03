@@ -1,0 +1,4 @@
+author: "Morair"
+delete-after: True
+changes: 
+  - bugfix: "Ghost won't be able to prevent nuke ops from war."
