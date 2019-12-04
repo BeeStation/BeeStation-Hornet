@@ -1,0 +1,7 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - rscadd: "two new levels of symptoms, 0 and 9, with 0 being joke-y diseases made from virus food mixed with liquid laughter, and 9, which can be made with the limited supply of highly unstable virus food now found in the virology freezer"
+  - code_imp: "the heal symptom which was previously level 0 is now level -1."
+  - rscadd: "New virology symptoms, including Pierrot's throat, neural degeneration, beesease, ductapod, irradiant cells, and wizarditis."
+  - tweak: "changed Alkali Perspiration, Autophageocytosis Necrosis, and Acute Respiratory Distress Syndrome to be level 9 symptoms per zesk's request"

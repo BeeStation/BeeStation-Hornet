@@ -1,0 +1,4 @@
+author: "AnturK"
+delete-after: True
+changes: 
+  - bugfix: "ghost orbit is now animated properly again"
