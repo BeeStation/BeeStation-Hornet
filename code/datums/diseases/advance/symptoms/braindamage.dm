@@ -8,7 +8,7 @@
 	level = 8
 	severity = 3
 	symptom_delay_min = 15
-	symptom_delay_max = 30
+	symptom_delay_max = 60
 	var/fastdamage = FALSE
 	var/moretrauma = FALSE
 	threshold_desc = "<b>Resistance 10:</b> Causes the host's brain cells to die off quicker.<br>\
@@ -35,15 +35,15 @@
 				to_chat(M, "<span class='danger'>Your brain begins hurting...</span>")
 		if(4, 5)
 			if(fastdamage)
-				if(prob(10))
+				if(prob(30))
 					M.adjustBrainLoss(5, 90)
 					to_chat(M, "<span class='danger'>Your brain hurts immensely!</span>")
 			else
-				if(prob(3))
+				if(prob(15))
 					M.adjustBrainLoss(5, 90)
 					to_chat(M, "<span class='danger'>Your head hurts immensely!</span>")
 			if(moretrauma && A.stage == 5)
-				givetrauma(A, 1)
+				givetrauma(A, 10)
 
 /datum/symptom/braindamage/proc/givetrauma(datum/disease/advance/A, chance)
 	if(prob(chance))

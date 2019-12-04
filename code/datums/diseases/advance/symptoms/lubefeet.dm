@@ -7,8 +7,8 @@
 	transmittable = 1
 	level = 9
 	severity = 3
-	symptom_delay_min = 15
-	symptom_delay_max = 30
+	symptom_delay_min = 3
+	symptom_delay_max = 6
 	var/morelube = FALSE
 	var/clownshoes = TRUE
 	threshold_desc = "<b>Transmission 10:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
@@ -31,14 +31,12 @@
 			if(prob(15))
 				to_chat(M, "<span class='notice'>Your feet begin to sweat profusely...</span>")
 		if(3, 4, 5)
-			if(prob(10))
-				to_chat(M, "<span class='danger'>You slip from the lube from your feet!</span>")
-				M.slip()
+			to_chat(M, "<span class='danger'>You slide about inside your shoes!</span>")
 			if(A.stage == 4 || A.stage == 5)
 				if(morelube)
-					makelube(M, 25)
+					makelube(M, 90)
 				else
-					makelube(M, 5)
+					makelube(M, 45)
 
 /datum/symptom/lubefeet/proc/makelube(mob/living/carbon/M, chance)
 	if(prob(chance))
