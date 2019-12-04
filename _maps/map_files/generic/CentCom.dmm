@@ -17622,6 +17622,17 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"Qd" = (
+/obj/structure/table/wood,
+/obj/item/storage/photo_album/syndicate{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/camera{
+	pixel_x = -2
+	},
+/turf/open/floor/wood,
+/area/syndicate_mothership/control)
 "Qe" = (
 /turf/open/ai_visible,
 /area/ai_multicam_room)
@@ -36785,7 +36796,7 @@ sg
 tf
 pZ
 rf
-vv
+vx
 wn
 wW
 ku
@@ -37042,7 +37053,7 @@ oV
 oV
 pZ
 pZ
-vx
+Qd
 wo
 wX
 ku
