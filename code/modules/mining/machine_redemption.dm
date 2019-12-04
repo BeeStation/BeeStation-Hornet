@@ -137,9 +137,14 @@
 	if(!has_minerals)
 		return
 
-	for(var/obj/machinery/requests_console/D in GLOB.allConsoles)
-		if(D.receive_ore_updates)
-			D.createmessage("Ore Redemption Machine", "New minerals available!", msg, 1, 0)
+	var/datum/signal/subspace/messaging/rc/signal = new(src, list(
+		"ore_update" = TRUE,
+		"sender" = "Ore Redemption Machine",
+		"message" = msg,
+		"verified" = "<font color='green'><b>Verified by Ore Redemption Machine</b></font>",
+		"priority" = REQ_NORMAL_MESSAGE_PRIORITY
+	))
+	signal.send_to_receivers()
 
 /obj/machinery/mineral/ore_redemption/process()
 	if(!materials.mat_container || panel_open || !powered())
@@ -230,6 +235,7 @@
 		data["disconnected"] = "mineral withdrawal is on hold"
 
 	data["diskDesigns"] = list()
+	data["hasDisk"] = FALSE
 	if(inserted_disk)
 		data["hasDisk"] = TRUE
 		if(inserted_disk.blueprints.len)

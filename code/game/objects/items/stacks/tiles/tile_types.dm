@@ -245,6 +245,14 @@
 	turf_type = /turf/open/floor/noslip/standard
 	merge_type = /obj/item/stack/tile/noslip
 
+/obj/item/stack/tile/noslip/white
+	name = "high-traction floor tile"
+	singular_name = "high-traction floor tile"
+	desc = "A high-traction floor tile. It feels rubbery in your hand."
+	icon_state = "tile_noslip_white"
+	turf_type = /turf/open/floor/noslip/white
+	merge_type = /obj/item/stack/tile/noslip
+	
 /obj/item/stack/tile/noslip/blue
 	name = "high-traction floor tile"
 	singular_name = "high-traction floor tile"
@@ -253,6 +261,14 @@
 	turf_type = /turf/open/floor/noslip/blue
 	merge_type = /obj/item/stack/tile/noslip
 
+/obj/item/stack/tile/noslip/darkblue
+	name = "high-traction floor tile"
+	singular_name = "high-traction floor tile"
+	desc = "A high-traction floor tile. It feels rubbery in your hand."
+	icon_state = "tile_noslip_darkblue"
+	turf_type = /turf/open/floor/noslip/darkblue
+	merge_type = /obj/item/stack/tile/noslip
+	
 /obj/item/stack/tile/noslip/dark
 	name = "high-traction floor tile"
 	singular_name = "high-traction floor tile"

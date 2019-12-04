@@ -6,7 +6,6 @@
 /proc/is_banned_from(player_ckey, roles)
 	if(!player_ckey)
 		return
-	var/ssqlname = sanitizeSQL(CONFIG_GET(string/serversqlname))
 	var/client/C = GLOB.directory[player_ckey]
 	if(C)
 		if(!C.ban_cache)
@@ -28,7 +27,13 @@
 		else
 			sql_roles = roles
 		sql_roles = sanitizeSQL(sql_roles)
-		var/datum/DBQuery/query_check_ban = SSdbcore.NewQuery("SELECT 1 FROM [format_table_name("ban")] WHERE ckey = '[player_ckey]' AND role IN ('[sql_roles]') AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) AND (server_name = '[ssqlname]' OR global_ban = '1')[admin_where]")
+		var/ssqlname = sanitizeSQL(CONFIG_GET(string/serversqlname))
+		var/server_check
+		if(CONFIG_GET(flag/respect_global_bans))
+			server_check = "(server_name = '[ssqlname]' OR global_ban = '1')"
+		else
+			server_check = "server_name = '[ssqlname]'"
+		var/datum/DBQuery/query_check_ban = SSdbcore.NewQuery("SELECT 1 FROM [format_table_name("ban")] WHERE ckey = '[player_ckey]' AND role IN ('[sql_roles]') AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) AND [server_check][admin_where]")
 		if(!query_check_ban.warn_execute())
 			qdel(query_check_ban)
 			return
@@ -54,7 +59,13 @@
 		player_cid = sanitizeSQL(player_cid)
 		where_list += "computerid = '[player_cid]'"
 	var/where = "([where_list.Join(" OR ")])"
-	var/datum/DBQuery/query_check_ban = SSdbcore.NewQuery("SELECT id, bantime, round_id, expiration_time, TIMESTAMPDIFF(MINUTE, bantime, expiration_time), applies_to_admins, reason, IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE [format_table_name("player")].ckey = [format_table_name("ban")].ckey), ckey), INET_NTOA(ip), computerid, IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE [format_table_name("player")].ckey = [format_table_name("ban")].a_ckey), a_ckey) FROM [format_table_name("ban")] WHERE role = '[role]' AND [where] AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) ORDER BY bantime DESC")
+	var/ssqlname = sanitizeSQL(CONFIG_GET(string/serversqlname))
+	var/server_check
+	if(CONFIG_GET(flag/respect_global_bans))
+		server_check = "(server_name = '[ssqlname]' OR global_ban = '1')"
+	else
+		server_check = "server_name = '[ssqlname]'"
+	var/datum/DBQuery/query_check_ban = SSdbcore.NewQuery("SELECT id, bantime, round_id, expiration_time, TIMESTAMPDIFF(MINUTE, bantime, expiration_time), applies_to_admins, reason, IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE [format_table_name("player")].ckey = [format_table_name("ban")].ckey), ckey), INET_NTOA(ip), computerid, IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE [format_table_name("player")].ckey = [format_table_name("ban")].a_ckey), a_ckey) FROM [format_table_name("ban")] WHERE role = '[role]' AND [server_check] AND [where] AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) ORDER BY bantime DESC")
 	if(!query_check_ban.warn_execute())
 		qdel(query_check_ban)
 		return
@@ -168,7 +179,7 @@
 		</div>
 		<div class='column right'>
 			Location
-			<br>	
+			<br>
 			<label class='inputlabel radio'>Local
 			<input type='radio' id='servban' name='radioservban' value='local'[isnull(global_ban) ? " checked" : ""]>
 			<div class='inputbox'></div></label>

@@ -478,3 +478,11 @@ DEFAULT_VIEW 15x15
 ## Name your perpetual currency here
 ## This is used within the metashop and earned by playing the game.
 METACURRENCY_NAME BeeCoin
+
+## Grant metacurrency
+## Comment this out if you don't want players to earn metacurrency
+GRANT_METACURRENCY
+
+## Respect global bans
+## Comment this out to ignore global bans
+RESPECT_GLOBAL_BANS

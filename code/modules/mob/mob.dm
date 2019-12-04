@@ -451,6 +451,7 @@
 
 	face_atom(A)
 	A.examine(src)
+	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
 
 /**
   * Point at an atom
@@ -847,6 +848,9 @@
 	if(!(mobility_flags & MOBILITY_MOVE))
 		return FALSE
 	return ..()
+
+/mob/dead/observer/canface()
+	return TRUE
 
 ///Hidden verb to turn east
 /mob/verb/eastface()

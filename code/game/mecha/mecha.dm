@@ -37,6 +37,7 @@
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	var/list/facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.5)
+	var/equipment_disabled = 0 //disabled due to EMP
 	var/obj/item/stock_parts/cell/cell
 	var/state = 0
 	var/last_message = 0
@@ -97,7 +98,7 @@
 	var/datum/action/innate/mecha/mech_toggle_lights/lights_action = new
 	var/datum/action/innate/mecha/mech_view_stats/stats_action = new
 	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
-	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
+	var/datum/action/innate/mecha/mech_defense_mode/defense_action = new
 	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
 	var/datum/effect_system/smoke_spread/smoke_system = new //not an action, but trigged by one
 	var/datum/action/innate/mecha/mech_smoke/smoke_action = new
@@ -108,8 +109,7 @@
 
 	//Action vars
 	var/thrusters_active = FALSE
-	var/defence_mode = FALSE
-	var/defence_mode_deflect_chance = 35
+	var/defense_mode = FALSE
 	var/leg_overload_mode = FALSE
 	var/leg_overload_coeff = 100
 	var/zoom_mode = FALSE
@@ -154,7 +154,6 @@
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
-	diag_hud_set_mechtracking()
 
 /obj/mecha/update_icon()
 	if (silicon_pilot && silicon_icon_state)
@@ -220,6 +219,15 @@
 
 	GLOB.mechas_list -= src //global mech list
 	return ..()
+
+/obj/mecha/proc/restore_equipment()
+	equipment_disabled = 0
+	if(istype(src, /obj/mecha/combat))
+		mouse_pointer = 'icons/mecha/mecha_mouse.dmi'
+	if(occupant)
+		SEND_SOUND(occupant, sound('sound/items/timer.ogg', volume=50))
+		to_chat(occupant, "<span=notice>Equipment control unit has been rebooted successfuly.</span>")
+		occupant.update_mouse_pointer()
 
 /obj/mecha/CheckParts(list/parts_list)
 	..()
@@ -429,7 +437,6 @@
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
-	diag_hud_set_mechtracking()
 
 /obj/mecha/fire_act() //Check if we should ignite the pilot of an open-canopy mech
 	. = ..()
@@ -567,11 +574,6 @@
 	if(!Process_Spacemove(direction))
 		return 0
 	if(!has_charge(step_energy_drain))
-		return 0
-	if(defence_mode)
-		if(world.time - last_message > 20)
-			occupant_message("<span class='danger'>Unable to move while in defence mode</span>")
-			last_message = world.time
 		return 0
 	if(zoom_mode)
 		if(world.time - last_message > 20)
@@ -1095,8 +1097,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		return max(0, cell.charge)
 
 /obj/mecha/proc/use_power(amount)
-	if(get_charge())
-		cell.use(amount)
+	if(get_charge() && cell.use(amount))
 		return 1
 	return 0
 

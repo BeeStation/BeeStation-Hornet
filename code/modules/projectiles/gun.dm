@@ -38,6 +38,7 @@
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
+	var/dual_wield_spread = 24			//additional spread when dual wielding
 	var/spread = 0						//Spread induced by the gun itself.
 	var/randomspread = 1				//Set to 0 for shotguns. This is used for weapons that don't fire all their bullets at once.
 
@@ -222,7 +223,7 @@
 			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
 				continue
 			else if(G.can_trigger_gun(user))
-				bonus_spread += 24 * G.weapon_weight
+				bonus_spread += dual_wield_spread
 				loop_counter++
 				addtimer(CALLBACK(G, /obj/item/gun.proc/process_fire, target, user, TRUE, params, null, bonus_spread), loop_counter)
 
@@ -267,7 +268,7 @@
 		else //Smart spread
 			sprd = round((((rand_spr/burst_size) * iteration) - (0.5 + (rand_spr * 0.25))) * (randomized_gun_spread + randomized_bonus_spread))
 		before_firing(target,user)
-		if(!chambered.fire_casing(target, user, params, ,suppressed, zone_override, sprd))
+		if(!chambered.fire_casing(target, user, params, ,suppressed, zone_override, sprd, src))
 			shoot_with_empty_chamber(user)
 			firing_burst = FALSE
 			return FALSE
@@ -313,7 +314,7 @@
 					return
 			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (randomized_gun_spread + randomized_bonus_spread))
 			before_firing(target,user)
-			if(!chambered.fire_casing(target, user, params, , suppressed, zone_override, sprd))
+			if(!chambered.fire_casing(target, user, params, , suppressed, zone_override, sprd, src))
 				shoot_with_empty_chamber(user)
 				return
 			else

@@ -394,6 +394,14 @@
 	contains = list(/obj/item/storage/box/firingpins,
 					/obj/item/storage/box/firingpins)
 	crate_name = "firing pins crate"
+	
+/datum/supply_pack/security/firingpins/paywall
+	name = "Paywall Firing Pins Crate"
+	desc = "Specialized firing pins with a built-in configurable paywall. Requires Security access to open."
+	cost = 2500
+	contains = list(/obj/item/storage/box/firingpins/paywall,
+					/obj/item/storage/box/firingpins/paywall)
+	crate_name = "paywall firing pins crate"
 
 /datum/supply_pack/security/justiceinbound
 	name = "Standard Justice Enforcer Crate"
@@ -695,14 +703,9 @@
 
 /datum/supply_pack/engineering/conveyor
 	name = "Conveyor Assembly Crate"
-	desc = "Keep production moving along with six conveyor belts. Conveyor switch included. If you have any questions, check out the enclosed instruction book."
+	desc = "Keep production moving along with thirty conveyor belts. Conveyor switch included. If you have any questions, check out the enclosed instruction book."
 	cost = 1500
-	contains = list(/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
+	contains = list(/obj/item/stack/conveyor/thirty,
 					/obj/item/conveyor_switch_construct,
 					/obj/item/paper/guides/conveyor)
 	crate_name = "conveyor assembly crate"

@@ -48,7 +48,7 @@
 	starting_node = TRUE
 	display_name = "Basic Tools"
 	description = "Basic mechanical, electronic, surgical and botanical tools."
-	design_ids = list("screwdriver", "wrench", "wirecutters", "crowbar", "multitool", "welding_tool", "tscanner", "analyzer", "cable_coil", "pipe_painter", "airlock_painter", "scalpel", "circular_saw", "surgicaldrill", "retractor", "cautery", "hemostat", "cultivator", "plant_analyzer", "shovel", "spade", "hatchet", "plunger")
+	design_ids = list("screwdriver", "wrench", "wirecutters", "crowbar", "multitool", "welding_tool", "tscanner", "analyzer", "cable_coil", "pipe_painter", "airlock_painter", "scalpel", "circular_saw", "surgicaldrill", "retractor", "cautery", "hemostat", "surgical_drapes", "syringe", "cultivator", "plant_analyzer", "shovel", "spade", "hatchet",  "mop")
 
 /////////////////////////Biotech/////////////////////////
 /datum/techweb_node/biotech
@@ -417,7 +417,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 	design_ids = list("s-receiver", "s-bus", "s-broadcaster", "s-processor", "s-hub", "s-server", "s-relay", "comm_monitor", "comm_server",
-	"s-ansible", "s-filter", "s-amplifier", "ntnet_relay", "s-treatment", "s-analyzer", "s-crystal", "s-transmitter")
+	"s-ansible", "s-filter", "s-amplifier", "ntnet_relay", "s-treatment", "s-analyzer", "s-crystal", "s-transmitter", "s-messaging")
 
 /datum/techweb_node/integrated_HUDs
 	id = "integrated_HUDs"
@@ -570,10 +570,20 @@
 	id = "rcd_upgrade"
 	display_name = "RCD designs upgrade"
 	description = "Unlocks new RCD designs."
-	design_ids = list("rcd_upgrade")
+	design_ids = list("rcd_upgrade_frames", "rcd_upgrade_simple_circuits")
 	prereq_ids = list("adv_engi")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+
+/datum/techweb_node/adv_rcd_upgrade
+	id = "adv_rcd_upgrade"
+	display_name = "Advanced RCD designs upgrade"
+	description = "Unlocks new RCD designs."
+	design_ids = list("rcd_upgrade_silo_link")
+	prereq_ids = list("rcd_upgrade", "bluespace_travel")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
 
 /////////////////////////weaponry tech/////////////////////////
 /datum/techweb_node/weaponry
@@ -616,8 +626,8 @@
 	id = "medical_weapons"
 	display_name = "Medical Weaponry"
 	description = "Weapons using medical technology."
-	prereq_ids = list("adv_biotech", "adv_weaponry")
-	design_ids = list("rapidsyringe", "shotgundartcryostatis")
+	prereq_ids = list("adv_biotech", "weaponry")
+	design_ids = list("rapidsyringe")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -661,8 +671,8 @@
 	id = "exotic_ammo"
 	display_name = "Exotic Ammunition"
 	description = "They won't know what hit em."
-	prereq_ids = list("adv_weaponry")
-	design_ids = list("techshotshell", "c38_hotshot", "c38_iceblox")
+	prereq_ids = list("adv_weaponry", "medical_weapons")
+	design_ids = list("techshotshell", "c38_hotshot", "c38_iceblox", "shotgundartcryostasis")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 

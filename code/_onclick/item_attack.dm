@@ -55,7 +55,8 @@
 
 
 /obj/item/proc/attack(mob/living/M, mob/living/user)
-	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user) & COMPONENT_ITEM_NO_ATTACK)
+		return
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 	if(item_flags & NOBLUDGEON)
 		return
@@ -149,7 +150,7 @@
 	var/attack_message_local = "You're [message_verb][message_hit_area] with [I]!"
 	if(user in viewers(src, null))
 		attack_message = "[user] [message_verb] [src][message_hit_area] with [I]!"
-		attack_message_local = "[src] [message_verb] you[message_hit_area] with [I]!"
+		attack_message_local = "[user] [message_verb] you[message_hit_area] with [I]!"
 	visible_message("<span class='danger'>[attack_message]</span>",\
 		"<span class='userdanger'>[attack_message_local]</span>", null, COMBAT_MESSAGE_RANGE)
 	return 1

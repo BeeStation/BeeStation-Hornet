@@ -5,8 +5,8 @@
 
 /datum/crafting_recipe/food/candiedapple
 	name = "Candied apple"
-	reqs = list(/datum/reagent/water = 5,
-		/datum/reagent/consumable/sugar = 5,
+	reqs = list(
+		/datum/reagent/consumable/caramel = 5,
 		/obj/item/reagent_containers/food/snacks/grown/apple = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/candiedapple
@@ -280,19 +280,6 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/stuffedlegion
 	subcategory = CAT_MISCFOOD
-
-
-/datum/crafting_recipe/lizardwine
-	name = "Lizard wine"
-	time = 40
-	reqs = list(
-		/obj/item/organ/tail/lizard = 1,
-		/datum/reagent/consumable/ethanol = 100
-	)
-	result = /obj/item/reagent_containers/food/drinks/bottle/lizardwine
-	category = CAT_FOOD
-	subcategory = CAT_MISCFOOD
-
 
 /datum/crafting_recipe/food/powercrepe
 	name = "Powercrepe"
