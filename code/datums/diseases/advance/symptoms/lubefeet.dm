@@ -31,14 +31,13 @@
 			if(prob(15))
 				to_chat(M, "<span class='notice'>Your feet begin to sweat profusely...</span>")
 		if(3, 4, 5)
-			if(prob(100))
 				to_chat(M, "<span class='danger'>You slip from the lube from your feet!</span>")
 				M.slip()
 			if(A.stage == 4 || A.stage == 5)
 				if(morelube)
-					makelube(M, 100)
+					makelube(M, 90)
 				else
-					makelube(M, 50)
+					makelube(M, 45)
 
 /datum/symptom/lubefeet/proc/makelube(mob/living/carbon/M, chance)
 	if(prob(chance))
