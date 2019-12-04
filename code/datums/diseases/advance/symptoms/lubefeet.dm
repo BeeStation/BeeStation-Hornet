@@ -31,7 +31,7 @@
 			if(prob(15))
 				to_chat(M, "<span class='notice'>Your feet begin to sweat profusely...</span>")
 		if(3, 4, 5)
-				to_chat(M, "<span class='danger'>You slip from the lube from your feet!</span>")
+			to_chat(M, "<span class='danger'>You slip from the lube from your feet!</span>")
 				M.slip()
 			if(A.stage == 4 || A.stage == 5)
 				if(morelube)
