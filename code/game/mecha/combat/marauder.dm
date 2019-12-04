@@ -5,7 +5,7 @@
 	step_in = 5
 	max_integrity = 500
 	deflect_chance = 25
-	armor = list("melee" = 50, "bullet" = 55, "laser" = 40, "energy" = 30, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 50, "bullet" = 55, "laser" = 40, "energy" = 30, "bomb" = 30, "bio" = 0, "rad" = 60, "fire" = 100, "acid" = 100)
 	max_temperature = 60000
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	infra_luminosity = 3
@@ -75,6 +75,7 @@
 	internals_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/mauler
 	max_equip = 5
+	destruction_sleep_duration = 20
 
 /obj/mecha/combat/marauder/mauler/loaded/Initialize()
 	. = ..()

@@ -228,7 +228,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			target_name = html_encode(modify.name)
 		else
 			target_name = "--------"
-		if(modify && modify.registered_name)
+		if(modify?.registered_name)
 			target_owner = html_encode(modify.registered_name)
 		else
 			target_owner = "--------"
@@ -436,8 +436,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						return
 					if(modify.registered_account)
 						modify.registered_account.account_job = jobdatum // this is a terrible idea and people will grief but sure whatever
-						if(modify.registered_account.welfare)
-							modify.registered_account.add_neetbux()
 
 					modify.access = ( istype(src, /obj/machinery/computer/card/centcom) ? get_centcom_access(t1) : jobdatum.get_access() )
 				if (modify)

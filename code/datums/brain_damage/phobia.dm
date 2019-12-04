@@ -38,7 +38,7 @@
 
 /datum/brain_trauma/mild/phobia/on_life()
 	..()
-	if(owner.has_trait(TRAIT_FEARLESS))
+	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
 		return
 	if(is_blind(owner))
 		return
@@ -51,6 +51,12 @@
 				if(is_type_in_typecache(O, trigger_objs))
 					freak_out(O)
 					return
+			for(var/mob/living/carbon/human/HU in seen_atoms) //check equipment for trigger items
+				for(var/X in HU.get_all_slots() | HU.held_items)
+					var/obj/I = X
+					if(!QDELETED(I) && is_type_in_typecache(I, trigger_objs))
+						freak_out(I)
+						return
 
 		if(LAZYLEN(trigger_turfs))
 			for(var/turf/T in seen_atoms)
@@ -58,28 +64,24 @@
 					freak_out(T)
 					return
 
-		if(LAZYLEN(trigger_mobs) || LAZYLEN(trigger_objs))
+		seen_atoms -= owner //make sure they aren't afraid of themselves.
+		if(LAZYLEN(trigger_mobs) || LAZYLEN(trigger_species))
 			for(var/mob/M in seen_atoms)
 				if(is_type_in_typecache(M, trigger_mobs))
 					freak_out(M)
 					return
 
-				else if(ishuman(M)) //check their equipment for trigger items
+				else if(ishuman(M)) //check their species
 					var/mob/living/carbon/human/H = M
 
 					if(LAZYLEN(trigger_species) && H.dna && H.dna.species && is_type_in_typecache(H.dna.species, trigger_species))
 						freak_out(H)
-
-					for(var/X in H.get_all_slots() | H.held_items)
-						var/obj/I = X
-						if(!QDELETED(I) && is_type_in_typecache(I, trigger_objs))
-							freak_out(I)
-							return
+						return
 
 /datum/brain_trauma/mild/phobia/on_hear(message, speaker, message_language, raw_message, radio_freq)
 	if(!owner.can_hear() || world.time < next_scare) //words can't trigger you if you can't hear them *taps head*
 		return message
-	if(owner.has_trait(TRAIT_FEARLESS))
+	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
 		return message
 	for(var/word in trigger_words)
 		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
@@ -91,7 +93,7 @@
 	return message
 
 /datum/brain_trauma/mild/phobia/on_say(message)
-	if(owner.has_trait(TRAIT_FEARLESS))
+	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
 		return message
 	for(var/word in trigger_words)
 		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")

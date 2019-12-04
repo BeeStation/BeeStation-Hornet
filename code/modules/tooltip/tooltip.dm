@@ -119,7 +119,7 @@ Notes:
 //Includes sanity checks.
 /proc/closeToolTip(mob/user)
 	if(istype(user))
-		if(user.client && user.client.tooltips)
+		if(user.client?.tooltips)
 			user.client.tooltips.hide()
 
 

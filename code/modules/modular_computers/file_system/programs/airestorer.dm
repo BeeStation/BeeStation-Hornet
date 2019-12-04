@@ -48,7 +48,7 @@
 		if("PRG_eject")
 			if(computer.all_components[MC_AI])
 				var/obj/item/computer_hardware/ai_slot/ai_slot = computer.all_components[MC_AI]
-				if(ai_slot && ai_slot.stored_card)
+				if(ai_slot?.stored_card)
 					ai_slot.try_eject(0,usr)
 					return TRUE
 

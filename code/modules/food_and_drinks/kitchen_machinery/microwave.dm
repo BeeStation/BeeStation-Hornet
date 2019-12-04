@@ -136,8 +136,8 @@
 
 	if(istype(O, /obj/item/reagent_containers/spray))
 		var/obj/item/reagent_containers/spray/clean_spray = O
-		if(clean_spray.reagents.has_reagent("cleaner", clean_spray.amount_per_transfer_from_this))
-			clean_spray.reagents.remove_reagent("cleaner", clean_spray.amount_per_transfer_from_this,1)
+		if(clean_spray.reagents.has_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this))
+			clean_spray.reagents.remove_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this,1)
 			playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
 			user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
 			dirty = 0
@@ -306,16 +306,16 @@
 /obj/machinery/microwave/proc/loop_finish()
 	operating = FALSE
 
-	var/metal = 0
+	var/iron = 0
 	for(var/obj/item/O in ingredients)
 		O.microwave_act(src)
-		if(O.materials[MAT_METAL])
-			metal += O.materials[MAT_METAL]
+		if(O.materials[/datum/material/iron])
+			iron += O.materials[/datum/material/iron]
 
-	if(metal)
+	if(iron)
 		spark()
 		broken = 2
-		if(prob(max(metal / 2, 33)))
+		if(prob(max(iron / 2, 33)))
 			explosion(loc, 0, 1, 2)
 	else
 		dropContents(ingredients)

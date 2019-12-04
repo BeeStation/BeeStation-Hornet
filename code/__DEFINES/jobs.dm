@@ -23,6 +23,7 @@
 #define DOCTOR			(1<<4)
 #define GENETICIST		(1<<5)
 #define VIROLOGIST		(1<<6)
+#define EMT				(1<<7)
 
 
 #define CIVILIAN		(1<<2)

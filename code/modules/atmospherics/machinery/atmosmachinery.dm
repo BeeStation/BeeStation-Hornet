@@ -211,6 +211,12 @@
 		//You unwrenched a pipe full of pressure? Let's splat you into the wall, silly.
 		if(unsafe_wrenching)
 			unsafe_pressure_release(user, internal_pressure)
+
+			
+			if (user.client)
+				SSmedals.UnlockMedal(MEDAL_UNWRENCH_HIGH_PRESSURE,user.client)
+			
+			
 		deconstruct(TRUE)
 	return TRUE
 

@@ -154,6 +154,10 @@
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_FLAG
 
+/datum/config_entry/keyed_list/roundstart_no_hard_check // Species contained in this list will not cause existing characters with no-longer-roundstart species set to be resetted to the human race.
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_FLAG
+
 /datum/config_entry/flag/join_with_mutant_humans	//players can pick mutant bodyparts for humans before joining the game
 
 /datum/config_entry/flag/no_summon_guns	//No
@@ -268,6 +272,8 @@
 	movedelay_type = /mob/living/simple_animal
 /////////////////////////////////////////////////
 
+/datum/config_entry/flag/virtual_reality	//Will virtual reality be loaded
+
 /datum/config_entry/flag/roundstart_away	//Will random away mission be loaded.
 
 /datum/config_entry/number/gateway_delay	//How long the gateway takes before it activates. Default is half an hour. Only matters if roundstart_away is enabled.
@@ -376,3 +382,5 @@
 /datum/config_entry/number/monkeycap
 	config_entry_value = 64
 	min_val = 0
+
+/datum/config_entry/flag/allow_crew_objectives

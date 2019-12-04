@@ -9,10 +9,11 @@
 	ammo_x_offset = 3
 	flight_x_offset = 15
 	flight_y_offset = 10
+	dual_wield_spread = 60
 
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"
-	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: stun and kill."
+	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: disable and kill."
 	icon_state = "mini"
 	item_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
@@ -27,7 +28,7 @@
 
 /obj/item/gun/energy/e_gun/mini/update_icon()
 	..()
-	if(gun_light && gun_light.on)
+	if(gun_light?.on)
 		add_overlay("mini-light")
 
 /obj/item/gun/energy/e_gun/stun

@@ -22,9 +22,10 @@
 	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
 	var/lip_color = "white"
 
-	var/age = 30		//Player's age (pure fluff)
+	var/age = 30		//Player's age
 
 	var/underwear = "Nude"	//Which underwear the player wants
+	var/underwear_color = "000"
 	var/undershirt = "Nude" //Which undershirt the player wants
 	var/socks = "Nude" //Which socks the player wants
 	var/backbag = DBACKPACK		//Which backpack type the player has chosen.
@@ -47,7 +48,6 @@
 
 	var/name_override //For temporary visible name changes
 
-	var/datum/personal_crafting/handcrafting
 	var/datum/physiology/physiology
 
 	var/list/datum/bioware = list()

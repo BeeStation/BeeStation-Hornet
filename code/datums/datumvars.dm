@@ -108,7 +108,7 @@
 		formatted_type = null
 
 	var/marked
-	if(holder && holder.marked_datum && holder.marked_datum == D)
+	if(holder?.marked_datum && holder.marked_datum == D)
 		marked = VV_MSG_MARKED
 	var/varedited_line = ""
 	if(!islist && (D.datum_flags & DF_VAR_EDITED))
@@ -1368,7 +1368,7 @@
 				var/log_msg = "[key_name(usr)] dealt [amount] amount of [Text] damage to [key_name(L)]"
 				message_admins("[key_name(usr)] dealt [amount] amount of [Text] damage to [ADMIN_LOOKUPFLW(L)]")
 				log_admin(log_msg)
-				admin_ticket_log(L, "<span class='notice'>[log_msg]</span>")
+				admin_ticket_log(L, "<font color='blue'>[log_msg]</font>")
 				vv_update_display(L, Text, "[newamt]")
 		else if(href_list["copyoutfit"])
 			if(!check_rights(R_SPAWN))
@@ -1376,3 +1376,29 @@
 			var/mob/living/carbon/human/H = locate(href_list["copyoutfit"]) in GLOB.carbon_list
 			if(istype(H))
 				H.copy_outfit()
+		else if(href_list["modquirks"])
+			if(!check_rights(R_SPAWN))
+				return
+
+			var/mob/living/carbon/human/H = locate(href_list["modquirks"]) in GLOB.mob_list
+			if(!istype(H))
+				to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
+				return
+
+			var/list/options = list("Clear"="Clear")
+			for(var/x in subtypesof(/datum/quirk))
+				var/datum/quirk/T = x
+				var/qname = initial(T.name)
+				options[H.has_quirk(T) ? "[qname] (Remove)" : "[qname] (Add)"] = T
+
+			var/result = input(usr, "Choose quirk to add/remove","Quirk Mod") as null|anything in options
+			if(result)
+				if(result == "Clear")
+					for(var/datum/quirk/q in H.roundstart_quirks)
+						H.remove_quirk(q.type)
+				else
+					var/T = options[result]
+					if(H.has_quirk(T))
+						H.remove_quirk(T)
+					else
+						H.add_quirk(T,TRUE)

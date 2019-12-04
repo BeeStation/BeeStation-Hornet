@@ -7,15 +7,6 @@
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/stack/sheet/glass = 2)
 
-/obj/item/circuitboard/machine/vr_sleeper
-	name = "VR Sleeper (Machine Board)"
-	build_path = /obj/machinery/vr_sleeper
-	req_components = list(
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stack/cable_coil = 1,
-		/obj/item/stock_parts/scanning_module = 2,
-		/obj/item/stack/sheet/glass = 2)
-
 /obj/item/circuitboard/machine/announcement_system
 	name = "Announcement System (Machine Board)"
 	build_path = /obj/machinery/announcement_system
@@ -194,6 +185,14 @@
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/stock_parts/subspace/filter = 1)
 
+/obj/item/circuitboard/machine/telecomms/message_server
+	name = "Messaging Server (Machine Board)"
+	build_path = /obj/machinery/telecomms/message_server
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/stock_parts/subspace/filter = 3)
+
 /obj/item/circuitboard/machine/teleporter_hub
 	name = "Teleporter Hub (Machine Board)"
 	build_path = /obj/machinery/teleport/hub
@@ -244,16 +243,28 @@
 		/obj/machinery/vending/wardrobe/viro_wardrobe = "ViroDrobe",
 		/obj/machinery/vending/clothing = "ClothesMate",
 		/obj/machinery/vending/medical = "NanoMed Plus",
-		/obj/machinery/vending/wallmed = "NanoMed")
+		/obj/machinery/vending/wallmed = "NanoMed",
+		/obj/machinery/vending/assist  = "Vendomat",
+		/obj/machinery/vending/engivend = "Engi-Vend",
+		/obj/machinery/vending/hydronutrients = "NutriMax",
+		/obj/machinery/vending/hydroseeds = "MegaSeed Servitor",
+		/obj/machinery/vending/sustenance = "Sustenance Vendor",
+		/obj/machinery/vending/dinnerware = "Plasteel Chef's Dinnerware Vendor",
+		/obj/machinery/vending/cart = "PTech",
+		/obj/machinery/vending/robotics = "Robotech Deluxe",
+		/obj/machinery/vending/engineering = "Robco Tool Maker",
+		/obj/machinery/vending/sovietsoda = "BODA",
+		/obj/machinery/vending/modularpc = "Deluxe Silicate Selections")
 
 /obj/item/circuitboard/machine/vendor/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		var/position = vending_names_paths.Find(build_path)
-		position = (position == vending_names_paths.len) ? 1 : (position + 1)
-		var/typepath = vending_names_paths[position]
-
-		to_chat(user, "<span class='notice'>You set the board to \"[vending_names_paths[typepath]]\".</span>")
-		set_type(typepath)
+		var/static/list/display_vending_names_paths
+		if(!display_vending_names_paths)
+			display_vending_names_paths = list()
+			for(var/path in vending_names_paths)
+				display_vending_names_paths[vending_names_paths[path]] = path
+		var/choice =  input(user,"Choose a new brand","Select an Item") as null|anything in display_vending_names_paths
+		set_type(display_vending_names_paths[choice])
 	else
 		return ..()
 
@@ -672,6 +683,13 @@
 		/obj/item/stock_parts/cell = 1)
 	needs_anchored = FALSE
 
+/obj/item/circuitboard/machine/chem_dispenser/abductor
+	name = "Reagent Synthesizer (Abductor Machine Board)"
+	icon_state = "abductor_mod"
+	build_path = /obj/machinery/chem_dispenser/abductor
+	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
+	needs_anchored = FALSE
+	
 /obj/item/circuitboard/machine/chem_heater
 	name = "Chemical Heater (Machine Board)"
 	build_path = /obj/machinery/chem_heater
@@ -960,6 +978,15 @@
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stock_parts/matter_bin = 2)
 
+/obj/item/circuitboard/machine/pump
+	name = "Portable Liquid Pump (Machine Board)"
+	icon_state = "supply"
+	build_path = /obj/machinery/power/liquid_pump
+	needs_anchored = FALSE
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/matter_bin = 2)
+
 /obj/item/circuitboard/machine/generator
 	name = "Thermo-Electric Generator (Machine Board)"
 	build_path = /obj/machinery/power/generator
@@ -984,3 +1011,17 @@
 	name = "Pay Stand (Machine Board)"
 	build_path = /obj/machinery/paystand
 	req_components = list()
+
+/obj/item/circuitboard/machine/fat_sucker
+	name = "Lipid Extractor (Machine Board)"
+	build_path = /obj/machinery/fat_sucker
+	req_components = list(/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/kitchen/fork = 1)
+
+/obj/item/circuitboard/machine/stasis
+	name = "Lifeform Stasis Unit (Machine Board)"
+	build_path = /obj/machinery/stasis
+	req_components = list(
+		/obj/item/stack/cable_coil = 3,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/capacitor = 1)

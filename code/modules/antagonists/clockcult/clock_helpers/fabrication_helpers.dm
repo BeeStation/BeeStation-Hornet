@@ -15,16 +15,16 @@
 		B.pixel_y = pixel_y
 
 //Turf conversion
-/turf/closed/wall/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent) //four sheets of metal
-	return list("operation_time" = 50, "new_obj_type" = /turf/closed/wall/clockwork, "power_cost" = POWER_WALL_TOTAL - (POWER_METAL * 4), "spawn_dir" = SOUTH)
+/turf/closed/wall/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent) //four sheets of iron
+	return list("operation_time" = 50, "new_obj_type" = /turf/closed/wall/clockwork, "power_cost" = POWER_WALL_TOTAL - (POWER_IRON * 4), "spawn_dir" = SOUTH)
 
-/turf/closed/wall/mineral/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent) //two sheets of metal
-	return list("operation_time" = 50, "new_obj_type" = /turf/closed/wall/clockwork, "power_cost" = POWER_WALL_TOTAL - (POWER_METAL * 2), "spawn_dir" = SOUTH)
+/turf/closed/wall/mineral/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent) //two sheets of iron
+	return list("operation_time" = 50, "new_obj_type" = /turf/closed/wall/clockwork, "power_cost" = POWER_WALL_TOTAL - (POWER_IRON * 2), "spawn_dir" = SOUTH)
 
-/turf/closed/wall/mineral/iron/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent) //two sheets of metal, five rods
-	return list("operation_time" = 50, "new_obj_type" = /turf/closed/wall/clockwork, "power_cost" = POWER_WALL_TOTAL - (POWER_METAL * 2) - (POWER_ROD * 5), "spawn_dir" = SOUTH)
+/turf/closed/wall/mineral/iron/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent) //two sheets of iron, five rods
+	return list("operation_time" = 50, "new_obj_type" = /turf/closed/wall/clockwork, "power_cost" = POWER_WALL_TOTAL - (POWER_IRON * 2) - (POWER_ROD * 5), "spawn_dir" = SOUTH)
 
-/turf/closed/wall/mineral/cult/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent) //no metal
+/turf/closed/wall/mineral/cult/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent) //no iron
 	return list("operation_time" = 80, "new_obj_type" = /turf/closed/wall/clockwork, "power_cost" = POWER_WALL_TOTAL, "spawn_dir" = SOUTH)
 
 /turf/closed/wall/r_wall/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent)
@@ -66,14 +66,14 @@
 //False wall conversion
 /obj/structure/falsewall/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent)
 	var/cost = POWER_WALL_MINUS_FLOOR
-	if(ispath(mineral, /obj/item/stack/sheet/metal))
-		cost -= (POWER_METAL * (2 + mineral_amount)) //four sheets of metal, plus an assumption that the girder is also two
+	if(ispath(mineral, /obj/item/stack/sheet/iron))
+		cost -= (POWER_IRON * (2 + mineral_amount)) //four sheets of iron, plus an assumption that the girder is also two
 	else
-		cost -= (POWER_METAL * 2) //anything that doesn't use metal just has the girder
+		cost -= (POWER_IRON * 2) //anything that doesn't use iron just has the girder
 	return list("operation_time" = 50, "new_obj_type" = /obj/structure/falsewall/brass, "power_cost" = cost, "spawn_dir" = SOUTH)
 
-/obj/structure/falsewall/iron/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent) //two sheets of metal, two rods; special assumption
-	return list("operation_time" = 50, "new_obj_type" = /obj/structure/falsewall/brass, "power_cost" = POWER_WALL_MINUS_FLOOR - (POWER_METAL * 2) - (POWER_ROD * 2), "spawn_dir" = SOUTH)
+/obj/structure/falsewall/iron/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent) //two sheets of iron, two rods; special assumption
+	return list("operation_time" = 50, "new_obj_type" = /obj/structure/falsewall/brass, "power_cost" = POWER_WALL_MINUS_FLOOR - (POWER_IRON * 2) - (POWER_ROD * 2), "spawn_dir" = SOUTH)
 
 /obj/structure/falsewall/reinforced/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent)
 	return FALSE
@@ -105,10 +105,10 @@
 	consume_visual(fabricator, power_amount)
 	return list("operation_time" = 0, "new_obj_type" = null, "power_cost" = power_amount, "spawn_dir" = SOUTH)
 
-/obj/item/stack/sheet/metal/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent)
+/obj/item/stack/sheet/iron/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent)
 	if(source)
 		return FALSE
-	var/power_amount = -(amount*POWER_METAL)
+	var/power_amount = -(amount*POWER_IRON)
 	consume_visual(fabricator, power_amount)
 	return list("operation_time" = 0, "new_obj_type" = null, "power_cost" = power_amount, "spawn_dir" = SOUTH)
 
@@ -144,8 +144,8 @@
 		fabrication_cost -= POWER_ROD*framestackamount
 	else if(framestack == /obj/item/stack/tile/brass)
 		fabrication_cost -= POWER_FLOOR*framestackamount
-	if(buildstack == /obj/item/stack/sheet/metal)
-		fabrication_cost -= POWER_METAL*buildstackamount
+	if(buildstack == /obj/item/stack/sheet/iron)
+		fabrication_cost -= POWER_IRON*buildstackamount
 	else if(buildstack == /obj/item/stack/sheet/plasteel)
 		fabrication_cost -= POWER_PLASTEEL*buildstackamount
 	return list("operation_time" = 20, "new_obj_type" = /obj/structure/table/reinforced/brass, "power_cost" = fabrication_cost, "spawn_dir" = SOUTH)
@@ -221,7 +221,7 @@
 
 //Girder conversion
 /obj/structure/girder/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent)
-	var/fabrication_cost = POWER_GEAR - (POWER_METAL * 2)
+	var/fabrication_cost = POWER_GEAR - (POWER_IRON * 2)
 	if(state == GIRDER_REINF_STRUTS || state == GIRDER_REINF)
 		fabrication_cost -= POWER_PLASTEEL
 	return list("operation_time" = 20, "new_obj_type" = /obj/structure/destructible/clockwork/wall_gear, "power_cost" = fabrication_cost, "spawn_dir" = SOUTH)

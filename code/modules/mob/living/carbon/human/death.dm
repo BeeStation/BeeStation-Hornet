@@ -1,20 +1,40 @@
 /mob/living/carbon/human/gib_animation()
-	new /obj/effect/temp_visual/gib_animation(loc, "gibbed-h")
+	switch(dna.species.species_gibs)
+		if("human")
+			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-h")
+		if("robotic")
+			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-r")
 
 /mob/living/carbon/human/dust_animation()
-	new /obj/effect/temp_visual/dust_animation(loc, "dust-h")
+	switch(dna.species.species_gibs)
+		if("human")
+			new /obj/effect/temp_visual/dust_animation(loc, "dust-h")
+		if("robotic")
+			new /obj/effect/temp_visual/dust_animation(loc, "dust-r")
 
 /mob/living/carbon/human/spawn_gibs(with_bodyparts)
 	if(with_bodyparts)
-		new /obj/effect/gibspawner/human(drop_location(), src, get_static_viruses())
+		switch(dna.species.species_gibs)
+			if("human")
+				new /obj/effect/gibspawner/human(get_turf(src), dna, get_static_viruses())
+			if("robotic")
+				new /obj/effect/gibspawner/robot(get_turf(src))
 	else
-		new /obj/effect/gibspawner/human/bodypartless(drop_location(), src, get_static_viruses())
+		switch(dna.species.species_gibs)
+			if("human")
+				new /obj/effect/gibspawner/human(get_turf(src), dna, get_static_viruses())
+			if("robotic")
+				new /obj/effect/gibspawner/robot(get_turf(src))
 
 /mob/living/carbon/human/spawn_dust(just_ash = FALSE)
 	if(just_ash)
 		new /obj/effect/decal/cleanable/ash(loc)
 	else
-		new /obj/effect/decal/remains/human(loc)
+		switch(dna.species.species_gibs)
+			if("human")
+				new /obj/effect/decal/remains/human(loc)
+			if("robotic")
+				new /obj/effect/decal/remains/robot(loc)
 
 /mob/living/carbon/human/death(gibbed)
 	if(stat == DEAD)
@@ -47,13 +67,13 @@
 		hive.destroy_hive()
 
 /mob/living/carbon/human/proc/makeSkeleton()
-	add_trait(TRAIT_DISFIGURED, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)
 	set_species(/datum/species/skeleton)
 	return 1
 
 
 /mob/living/carbon/proc/Drain()
 	become_husk(CHANGELING_DRAIN)
-	add_trait(TRAIT_BADDNA, CHANGELING_DRAIN)
+	ADD_TRAIT(src, TRAIT_BADDNA, CHANGELING_DRAIN)
 	blood_volume = 0
 	return 1

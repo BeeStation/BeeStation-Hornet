@@ -167,7 +167,7 @@
 
 	for(var/obj/item/card/id/ID in src)
 		qdel(ID)
-	if(authorized && authorized.len)
+	if(authorized?.len)
 		authorized.Cut()
 	authorized = null
 
@@ -277,6 +277,23 @@
 
 	return has_people && hijacker_present
 
+/obj/docking_port/mobile/emergency/proc/is_hijacked_by_xenos()
+	var/has_xenos = FALSE
+	for(var/mob/living/player in GLOB.alive_mob_list)
+		if(issilicon(player)) //Borgs are technically dead anyways
+			continue
+		if(isanimal(player)) //animals don't count
+			continue
+		if(isbrain(player)) //also technically dead
+			continue
+		if(shuttle_areas[get_area(player)])
+			//Non-xeno present. Can't hijack.
+			if(!istype(player, /mob/living/carbon/alien))
+				return FALSE
+			has_xenos = TRUE
+
+	return has_xenos
+	
 /obj/docking_port/mobile/emergency/proc/ShuttleDBStuff()
 	set waitfor = FALSE
 	if(!SSdbcore.Connect())

@@ -19,13 +19,16 @@
 	display_order = JOB_DISPLAY_ORDER_MIME
 
 /datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M)
+	. = ..()
 	H.apply_pref_name("mime", M.client)
 
 /datum/outfit/job/mime
 	name = "Mime"
 	jobtype = /datum/job/mime
 
+	id = /obj/item/card/id/job/mime
 	belt = /obj/item/pda/mime
+	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/mime
 	mask = /obj/item/clothing/mask/gas/mime
 	gloves = /obj/item/clothing/gloves/color/white
@@ -47,4 +50,3 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))
 		H.mind.miming = 1
-

@@ -10,7 +10,7 @@
 	density = TRUE
 	anchored = FALSE
 	opacity = 0
-	var/list/welder_salvage = list(/obj/item/stack/sheet/plasteel, /obj/item/stack/sheet/metal, /obj/item/stack/rods)
+	var/list/welder_salvage = list(/obj/item/stack/sheet/plasteel, /obj/item/stack/sheet/iron, /obj/item/stack/rods)
 	var/list/wirecutters_salvage = list(/obj/item/stack/cable_coil)
 	var/list/crowbar_salvage = list()
 	var/salvage_num = 5
@@ -68,7 +68,7 @@
 				to_chat(user, "<span class='warning'>You fail to salvage anything valuable from [src]!</span>")
 
 	else if(I.tool_behaviour == TOOL_CROWBAR)
-		if(crowbar_salvage && crowbar_salvage.len)
+		if(crowbar_salvage?.len)
 			var/obj/S = pick(crowbar_salvage)
 			if(S)
 				S.forceMove(user.drop_location())

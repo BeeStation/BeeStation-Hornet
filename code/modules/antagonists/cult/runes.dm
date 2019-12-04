@@ -22,7 +22,7 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	layer = LOW_OBJ_LAYER
+	layer = SIGIL_LAYER
 	color = RUNE_COLOR_RED
 
 	var/invocation = "Aiy ele-mayo!" //This is said by cultists when the rune is invoked.
@@ -82,8 +82,9 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 
 /obj/effect/rune/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/shade) || istype(M, /mob/living/simple_animal/hostile/construct))
-		if(construct_invoke || !iscultist(M)) //if you're not a cult construct we want the normal fail message
-			attack_hand(M)
+		if(istype(M, /mob/living/simple_animal/hostile/construct/wraith/angelic) || istype(M, /mob/living/simple_animal/hostile/construct/armored/angelic) || istype(M, /mob/living/simple_animal/hostile/construct/builder/angelic)) 
+			to_chat(M, "<span class='warning'>You purge the rune!</span>")
+			qdel(src)
 		else
 			to_chat(M, "<span class='warning'>You are unable to invoke the rune!</span>")
 
@@ -123,7 +124,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 					continue
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
-					if((H.has_trait(TRAIT_MUTE)) || H.silent)
+					if((HAS_TRAIT(H, TRAIT_MUTE)) || H.silent)
 						continue
 				if(L.stat)
 					continue
@@ -391,9 +392,14 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/moveuserlater = FALSE
 	var/movesuccess = FALSE
 	for(var/atom/movable/A in T)
-		if(ishuman(A))
-			new /obj/effect/temp_visual/dir_setting/cult/phase/out(T, A.dir)
-			new /obj/effect/temp_visual/dir_setting/cult/phase(target, A.dir)
+		if(istype(A, /obj/effect/dummy/phased_mob))
+			continue
+		if(ismob(A))
+			if(!isliving(A)) //Let's not teleport ghosts and AI eyes.
+				continue
+			if(ishuman(A))
+				new /obj/effect/temp_visual/dir_setting/cult/phase/out(T, A.dir)
+				new /obj/effect/temp_visual/dir_setting/cult/phase(target, A.dir)
 		if(A == user)
 			moveuserlater = TRUE
 			movedsomething = TRUE
@@ -799,7 +805,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 				continue
 			L.take_overall_damage(tick_damage*multiplier, tick_damage*multiplier)
 			if(is_servant_of_ratvar(L))
-				L.adjustStaminaLoss(tick_damage*0.5)
+				L.adjustStaminaLoss(tick_damage*multiplier*1.5)
 
 //Rite of Spectral Manifestation: Summons a ghost on top of the rune as a cultist human with no items. User must stand on the rune at all times, and takes damage for each summoned ghost.
 /obj/effect/rune/manifest

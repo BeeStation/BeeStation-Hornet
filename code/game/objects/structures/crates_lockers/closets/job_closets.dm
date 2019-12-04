@@ -101,9 +101,10 @@
 	new /obj/item/clothing/accessory/pocketprotector/cosmetology(src)
 	new /obj/item/clothing/under/rank/chaplain(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
-	new /obj/item/clothing/suit/nun(src)
+	new /obj/item/clothing/suit/chaplainsuit/nun(src)
 	new /obj/item/clothing/head/nun_hood(src)
-	new /obj/item/clothing/suit/holidaypriest(src)
+	new /obj/item/clothing/suit/hooded/chaplainsuit/monkfrock(src)
+	new /obj/item/clothing/suit/chaplainsuit/holidaypriest(src)
 	new /obj/item/storage/backpack/cultpack(src)
 	new /obj/item/storage/fancy/candle_box(src)
 	new /obj/item/storage/fancy/candle_box(src)
@@ -154,7 +155,8 @@
 		/obj/item/storage/backpack/industrial = 1,
 		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 		/obj/item/clothing/under/rank/atmospheric_technician = 3,
-		/obj/item/clothing/shoes/sneakers/black = 3)
+		/obj/item/clothing/shoes/sneakers/black = 3,
+		/obj/item/clothing/head/beret/atmos = 3)
 	generate_items_inside(items_inside,src)
 	return
 
@@ -172,7 +174,8 @@
 		/obj/item/clothing/under/rank/engineer = 3,
 		/obj/item/clothing/suit/hazardvest = 3,
 		/obj/item/clothing/shoes/workboots = 3,
-		/obj/item/clothing/head/hardhat = 3)
+		/obj/item/clothing/head/hardhat = 3,
+		/obj/item/clothing/head/beret/eng = 3)
 	generate_items_inside(items_inside,src)
 	return
 
@@ -195,7 +198,8 @@
 		/obj/item/clothing/suit/toggle/labcoat = 3,
 		/obj/item/clothing/suit/toggle/labcoat/emt = 3,
 		/obj/item/clothing/shoes/sneakers/white = 3,
-		/obj/item/clothing/head/soft/emt = 3)
+		/obj/item/clothing/head/soft/emt = 3,
+		/obj/item/clothing/head/beret/med = 3)
 	generate_items_inside(items_inside,src)
 	return
 
@@ -210,7 +214,8 @@
 		/obj/item/clothing/suit/toggle/labcoat = 2,
 		/obj/item/clothing/shoes/sneakers/black = 2,
 		/obj/item/clothing/gloves/fingerless = 2,
-		/obj/item/clothing/head/soft/black = 2)
+		/obj/item/clothing/head/soft/black = 2,
+		/obj/item/clothing/head/beret/sci = 2)
 	generate_items_inside(items_inside,src)
 	if(prob(40))
 		new /obj/item/clothing/mask/bandana/skull(src)
@@ -261,7 +266,8 @@
 		/obj/item/clothing/suit/toggle/labcoat/virologist = 2,
 		/obj/item/clothing/mask/surgical = 2,
 		/obj/item/storage/backpack/virology = 2,
-		/obj/item/storage/backpack/satchel/vir = 2)
+		/obj/item/storage/backpack/satchel/vir = 2,
+		/obj/item/clothing/head/beret/med = 2)
 	generate_items_inside(items_inside,src)
 	return
 
@@ -279,7 +285,8 @@
 		/obj/item/clothing/suit/toggle/labcoat/science = 3,
 		/obj/item/clothing/shoes/sneakers/white = 3,
 		/obj/item/radio/headset/headset_sci = 2,
-		/obj/item/clothing/mask/gas = 3)
+		/obj/item/clothing/mask/gas = 3,
+		/obj/item/clothing/head/beret/sci = 3)
 	generate_items_inside(items_inside,src)
 	return
 

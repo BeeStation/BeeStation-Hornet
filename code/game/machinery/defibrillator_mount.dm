@@ -33,7 +33,7 @@
 			to_chat(user, "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>")
 
 /obj/machinery/defibrillator_mount/process()
-	if(defib && defib.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
+	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
 		use_power(200)
 		defib.cell.give(180) //90% efficiency, slightly better than the cell charger's 87.5%
 		update_icon()
@@ -69,7 +69,7 @@
 		if(defib)
 			to_chat(user, "<span class='warning'>There's already a defibrillator in [src]!</span>")
 			return
-		if(I.has_trait(TRAIT_NODROP) || !user.transferItemToLoc(I, src))
+		if(HAS_TRAIT(I, TRAIT_NODROP) || !user.transferItemToLoc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 		user.visible_message("<span class='notice'>[user] hooks up [I] to [src]!</span>", \
@@ -138,7 +138,7 @@
 	desc = "A frame for a defibrillator mount. It can't be removed once it's placed."
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
-	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
+	materials = list(/datum/material/iron = 300, /datum/material/glass = 100)
 	w_class = WEIGHT_CLASS_BULKY
 	result_path = /obj/machinery/defibrillator_mount
 	pixel_shift = -28

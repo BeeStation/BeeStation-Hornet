@@ -123,7 +123,7 @@
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't properly point your fingers while incapacitated.</span>")
 		return
-	if(usr && usr.mind)
+	if(usr?.mind)
 		if(!usr.mind.miming)
 			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
 			return

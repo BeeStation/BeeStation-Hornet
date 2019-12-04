@@ -8,8 +8,8 @@
 	flags_1 = NODECONSTRUCT_1
 	use_power = NO_POWER_USE
 	var/static/list/shortcuts = list(
-		"meth" = "methamphetamine",
-		"tricord" = "tricordrazine"
+		"meth" = /datum/reagent/drug/methamphetamine,
+		"tricord" = /datum/reagent/medicine/tricordrazine
 	)
 
 /obj/machinery/chem_dispenser/chem_synthesizer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
@@ -31,13 +31,17 @@
 				beaker = null
 				. = TRUE
 		if("input")
-			var/input_reagent = replacetext(lowertext(input("Enter the name of any liquid", "Input") as text), " ", "") //95% of the time, the reagent id is a lowercase/no spaces version of the name
+			var/input_reagent = replacetext(lowertext(input("Enter the name of any reagent", "Input") as text|null), " ", "") //95% of the time, the reagent id is a lowercase/no spaces version of the name
+
+			if (isnull(input_reagent))
+				return
+
 			if(shortcuts[input_reagent])
 				input_reagent = shortcuts[input_reagent]
 			else
 				input_reagent = find_reagent(input_reagent)
-			if(!input_reagent || !GLOB.chemical_reagents_list[input_reagent])
-				say("OUT OF RANGE")
+			if(!input_reagent)
+				say("REAGENT NOT FOUND")
 				return
 			else
 				if(!beaker)
@@ -51,7 +55,7 @@
 			beaker = new /obj/item/reagent_containers/glass/beaker/bluespace(src)
 			visible_message("<span class='notice'>[src] dispenses a bluespace beaker.</span>")
 		if("amount")
-			var/input = input("Units to dispense", "Units") as num|null
+			var/input = text2num(params["amount"])
 			if(input)
 				amount = input
 	update_icon()
@@ -61,7 +65,4 @@
 	if(GLOB.chemical_reagents_list[input]) //prefer IDs!
 		return input
 	else
-		for(var/X in GLOB.chemical_reagents_list)
-			var/datum/reagent/R = GLOB.chemical_reagents_list[X]
-			if(input == replacetext(lowertext(R.name), " ", ""))
-				return X
+		return get_chem_id(input)

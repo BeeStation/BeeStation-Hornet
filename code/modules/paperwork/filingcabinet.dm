@@ -40,7 +40,7 @@
 
 /obj/structure/filingcabinet/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		new /obj/item/stack/sheet/metal(loc, 2)
+		new /obj/item/stack/sheet/iron(loc, 2)
 		for(var/obj/item/I in src)
 			I.forceMove(loc)
 	qdel(src)
@@ -107,8 +107,7 @@
 			usr.put_in_hands(P)
 			updateUsrDialog()
 			icon_state = "[initial(icon_state)]-open"
-			sleep(5)
-			icon_state = initial(icon_state)
+			addtimer(VARSET_CALLBACK(src, icon_state, initial(icon_state)), 5)
 
 
 /*

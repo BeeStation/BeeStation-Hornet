@@ -138,6 +138,7 @@
 		usr.forceMove(M.loc)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+
 /client/proc/sendmob(mob/M in sortmobs())
 	set category = "Admin"
 	set name = "Send Mob"

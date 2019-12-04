@@ -33,7 +33,7 @@
 
 /turf/closed/wall/r_wall/devastate_wall()
 	new sheet_type(src, sheet_amount)
-	new /obj/item/stack/sheet/metal(src, 2)
+	new /obj/item/stack/sheet/iron(src, 2)
 
 /turf/closed/wall/r_wall/attack_animal(mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)
@@ -213,8 +213,7 @@
 		queue_smooth(src)
 		icon_state = "r_wall"
 
-/turf/closed/wall/r_wall/singularity_pull(S, current_size)
-	..()
+/turf/closed/wall/r_wall/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
 		if(prob(30))
 			dismantle_wall()

@@ -171,7 +171,7 @@
 	if(C.reagents.total_volume >= C.volume)
 		to_chat(user, "<span class='danger'>[C] is full.</span>")
 		return
-	C.reagents.add_reagent("plasma", rand(5, 10))
+	C.reagents.add_reagent(/datum/reagent/toxin/plasma, rand(5, 10))
 	user.visible_message("[user] scoops some plasma from the [src] with \the [C].", "<span class='notice'>You scoop out some plasma from the [src] using \the [C].</span>")
 
 /turf/open/lava/plasma/burn_stuff(AM)
@@ -591,8 +591,9 @@
 	death = FALSE
 	faction = ROLE_SYNDICATE
 	outfit = /datum/outfit/snowsyndie
-	flavour_text = "<span class='big bold'>You are a syndicate operative recently awoken from cryostasis in an underground outpost. Monitor Nanotrasen communications and record information. All intruders should be \
-	disposed of swiftly to assure no gathered information is stolen or lost. Try not to wander too far from the outpost as the caves can be a deadly place even for a trained operative such as yourself.</span>"
+	short_desc = "You are a syndicate operative recently awoken from cryostasis in an underground outpost."
+	flavour_text = "You are a syndicate operative recently awoken from cryostasis in an underground outpost. Monitor Nanotrasen communications and record information. All intruders should be \
+	disposed of swiftly to assure no gathered information is stolen or lost. Try not to wander too far from the outpost as the caves can be a deadly place even for a trained operative such as yourself."
 
 /datum/outfit/snowsyndie
 	name = "Syndicate Snow Operative"
@@ -603,14 +604,6 @@
 	id = /obj/item/card/id/syndicate
 	implants = list(/obj/item/implant/exile)
 
-/datum/outfit/vr/snowtide
-	name = "Snowdin Outfit"
-	shoes = /obj/item/clothing/shoes/winterboots
-	suit = /obj/item/clothing/suit/hooded/wintercoat
-	back = /obj/item/storage/backpack
-	mask = /obj/item/clothing/mask/breath
-	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
-	internals_slot = SLOT_R_STORE
 
 /obj/effect/mob_spawn/human/syndicatesoldier/coldres/alive/female
 	mob_gender = FEMALE
@@ -671,6 +664,3 @@
 
 /obj/effect/turf_decal/snowdin_station_sign/up/seven
 	icon_state = "AOPU7"
-
-/obj/effect/landmark/vr_spawn/snowdin
-	vr_outfit = /datum/outfit/vr/snowtide

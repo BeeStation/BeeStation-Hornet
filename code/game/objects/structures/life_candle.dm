@@ -80,7 +80,7 @@
 	if(!body)
 		body = new mob_type(T)
 		var/mob/ghostie = mind.get_ghost(TRUE)
-		if(ghostie.client && ghostie.client.prefs)
+		if(ghostie.client?.prefs)
 			ghostie.client.prefs.copy_to(body)
 		mind.transfer_to(body)
 	else

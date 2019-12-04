@@ -15,10 +15,10 @@ Charged extracts:
 	create_reagents(10, INJECTABLE | DRAWABLE)
 
 /obj/item/slimecross/charged/attack_self(mob/user)
-	if(!reagents.has_reagent("plasma",10))
+	if(!reagents.has_reagent(/datum/reagent/toxin/plasma,10))
 		to_chat(user, "<span class='warning'>This extract needs to be full of plasma to activate!</span>")
 		return
-	reagents.remove_reagent("plasma",10)
+	reagents.remove_reagent(/datum/reagent/toxin/plasma,10)
 	to_chat(user, "<span class='notice'>You squeeze the extract, and it absorbs the plasma!</span>")
 	playsound(src, 'sound/effects/bubbles.ogg', 50, 1)
 	playsound(src, 'sound/effects/light_flicker.ogg', 50, 1)
@@ -65,7 +65,7 @@ Charged extracts:
 	colour = "metal"
 
 /obj/item/slimecross/charged/metal/do_effect(mob/user)
-	new /obj/item/stack/sheet/metal(get_turf(user), 25)
+	new /obj/item/stack/sheet/iron(get_turf(user), 25)
 	new /obj/item/stack/sheet/plasteel(get_turf(user), 10)
 	user.visible_message("<span class='notice'>[src] grows into a plethora of metals!</span>")
 	..()

@@ -54,7 +54,7 @@
 	var/atom/Tsec = drop_location()
 	new /obj/item/stock_parts/cell/potato(Tsec)
 	var/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/S = new(Tsec)
-	S.reagents.add_reagent("whiskey", 15)
+	S.reagents.add_reagent(/datum/reagent/consumable/ethanol/whiskey, 15)
 	S.on_reagent_change(ADD_REAGENT)
 	..()
 
@@ -130,8 +130,9 @@ Auto Patrol: []"},
 
 /mob/living/simple_animal/bot/secbot/Topic(href, href_list)
 	if(..())
-		return 1
-
+		return TRUE
+	if(!issilicon(usr) && !IsAdminGhost(usr) && !(bot_core.allowed(usr) || !locked))
+		return TRUE
 	switch(href_list["operation"])
 		if("idcheck")
 			idcheck = !idcheck

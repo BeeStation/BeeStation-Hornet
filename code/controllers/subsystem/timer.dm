@@ -381,9 +381,9 @@ SUBSYSTEM_DEF(timer)
 		spent = world.time
 		bucketEject()
 	else
-		if (prev && prev.next == src)
+		if (prev?.next == src)
 			prev.next = next
-		if (next && next.prev == src)
+		if (next?.prev == src)
 			next.prev = prev
 	next = null
 	prev = null
@@ -455,6 +455,7 @@ SUBSYSTEM_DEF(timer)
 		. = "[callBack.object.type]"
 
 /proc/addtimer(datum/callback/callback, wait = 0, flags = 0)
+	
 	if (!callback)
 		CRASH("addtimer called without a callback")
 

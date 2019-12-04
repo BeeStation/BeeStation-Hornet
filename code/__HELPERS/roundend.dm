@@ -11,7 +11,7 @@
 	var/num_escapees = 0
 	var/num_shuttle_escapees = 0
 	var/list/area/shuttle_areas
-	if(SSshuttle && SSshuttle.emergency)
+	if(SSshuttle?.emergency)
 		shuttle_areas = SSshuttle.emergency.shuttle_areas
 	for(var/mob/m in GLOB.mob_list)
 		var/escaped
@@ -77,15 +77,19 @@
 	SSblackbox.record_feedback("nested tally", "round_end_stats", num_escapees, list("escapees", "total"))
 	SSblackbox.record_feedback("nested tally", "round_end_stats", GLOB.joined_player_list.len, list("players", "total"))
 	SSblackbox.record_feedback("nested tally", "round_end_stats", GLOB.joined_player_list.len - num_survivors, list("players", "dead"))
+	sendtodiscord(num_survivors, num_escapees, station_integrity)
 	. = list()
 	.[POPCOUNT_SURVIVORS] = num_survivors
 	.[POPCOUNT_ESCAPEES] = num_escapees
 	.[POPCOUNT_SHUTTLE_ESCAPEES] = num_shuttle_escapees
 	.["station_integrity"] = station_integrity
 
+
 /datum/controller/subsystem/ticker/proc/gather_antag_data()
 	var/team_gid = 1
 	var/list/team_ids = list()
+
+	var/list/greentexters = list()
 
 	for(var/datum/antagonist/A in GLOB.antagonists)
 		if(!A.owner)
@@ -106,11 +110,30 @@
 				team_ids[T] = team_gid++
 			antag_info["team"]["id"] = team_ids[T]
 
+
+		var/greentexted = TRUE
+
 		if(A.objectives.len)
 			for(var/datum/objective/O in A.objectives)
 				var/result = O.check_completion() ? "SUCCESS" : "FAIL"
+
+				if (result == "FAIL")
+					greentexted = FALSE
+
 				antag_info["objectives"] += list(list("objective_type"=O.type,"text"=O.explanation_text,"result"=result))
 		SSblackbox.record_feedback("associative", "antagonists", 1, antag_info)
+
+		if (greentexted)
+			if (A.owner && A.owner.key)
+				if (A.type != /datum/antagonist/custom)
+					var/client/C = GLOB.directory[ckey(A.owner.key)]
+					if (C)
+						greentexters |= C
+
+	for (var/client/C in greentexters)
+		C.process_greentext()
+
+
 
 /datum/controller/subsystem/ticker/proc/record_nuke_disk_location()
 	var/obj/item/disk/nuclear/N = locate() in GLOB.poi_list
@@ -162,19 +185,31 @@
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	set waitfor = FALSE
 
-	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
-	if(LAZYLEN(GLOB.round_end_notifiees))
-		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
-
 	for(var/I in round_end_events)
 		var/datum/callback/cb = I
 		cb.InvokeAsync()
 	LAZYCLEARLIST(round_end_events)
 
 	for(var/client/C in GLOB.clients)
-		if(!C.credits)
-			C.RollCredits()
-		C.playtitlemusic(40)
+		if(C)
+
+			C.playtitlemusic(40)
+			C.process_endround_metacoin()
+
+			if(CONFIG_GET(flag/allow_crew_objectives))
+				var/mob/M = C.mob
+				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
+					for(var/datum/objective/crew/CO in M.mind.crew_objectives)
+						if(CO.check_completion())
+							C.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
+							break
+					
+	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
+	log_game("The round has ended.")
+	if(LAZYLEN(GLOB.round_end_notifiees))
+		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
+	
+	RollCredits()
 
 	var/popcount = gather_roundend_feedback()
 	display_report(popcount)
@@ -226,6 +261,9 @@
 
 	//stop collecting feedback during grifftime
 	SSblackbox.Seal()
+
+	if(CONFIG_GET(flag/automapvote))
+		SSvote.initiate_vote("map", "BeeBot", forced=TRUE, popup=TRUE) //automatic map voting
 
 	sleep(50)
 	ready_for_reboot = TRUE
@@ -291,6 +329,15 @@
 			//ignore this comment, it fixes the broken sytax parsing caused by the " above
 			else
 				parts += "[GLOB.TAB]<i>Nobody died this shift!</i>"
+	if(istype(SSticker.mode, /datum/game_mode/dynamic))
+		var/datum/game_mode/dynamic/mode = SSticker.mode
+		parts += "[FOURSPACES]Threat level: [mode.threat_level]"
+		parts += "[FOURSPACES]Threat left: [mode.threat]" //yes
+		parts += "[FOURSPACES]Executed rules:"
+		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
+			parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost] threat"
+	return parts.Join("<br>")
+
 	return parts.Join("<br>")
 
 /client/proc/roundend_report_file()
@@ -313,6 +360,7 @@
 	roundend_report.set_content(content)
 	roundend_report.stylesheets = list()
 	roundend_report.add_stylesheet("roundend", 'html/browser/roundend.css')
+	roundend_report.add_stylesheet("font-awesome", 'html/font-awesome/css/all.min.css')
 	roundend_report.open(FALSE)
 
 /datum/controller/subsystem/ticker/proc/personal_report(client/C, popcount)
@@ -334,6 +382,15 @@
 		else
 			parts += "<div class='panel redborder'>"
 			parts += "<span class='redtext'>You did not survive the events on [station_name()]...</span>"
+
+		if(CONFIG_GET(flag/allow_crew_objectives))
+			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
+				for(var/datum/objective/crew/CO in M.mind.crew_objectives)
+					if(CO.check_completion())
+						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='greentext'><B>Success!</B></span><br>"
+					else
+						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='redtext'><B>Failed.</B></span><br>"
+
 	else
 		parts += "<div class='panel stationborder'>"
 	parts += "<br>"
@@ -361,6 +418,11 @@
 			parts += aiPlayer.laws.get_law_list(include_zeroth=TRUE)
 
 		parts += "<b>Total law changes: [aiPlayer.law_change_counter]</b>"
+
+		if(aiPlayer.law_change_counter >= 15)
+			if (aiPlayer.client)
+				SSmedals.UnlockMedal(MEDAL_15_AI_LAW_CHANGES,aiPlayer.client)
+
 
 		if (aiPlayer.connected_robots.len)
 			var/borg_num = aiPlayer.connected_robots.len
@@ -414,7 +476,7 @@
 		if(!A.members)
 			continue
 		all_teams |= A
-	
+
 	for(var/datum/antagonist/A in GLOB.antagonists)
 		if(!A.owner)
 			continue
@@ -590,3 +652,26 @@
 				return
 			qdel(query_update_everything_ranks)
 		qdel(query_check_everything_ranks)
+
+
+/datum/controller/subsystem/ticker/proc/sendtodiscord(var/survivors, var/escapees, var/integrity)
+    var/discordmsg = ""
+    discordmsg += "--------------ROUND END--------------\n"
+    discordmsg += "Round Number: [GLOB.round_id]\n"
+    discordmsg += "Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]\n"
+    discordmsg += "Players: [GLOB.player_list.len]\n"
+    discordmsg += "Survivors: [survivors]\n"
+    discordmsg += "Escapees: [escapees]\n"
+    discordmsg += "Integrity: [integrity]\n"
+    discordmsg += "Gamemode: [SSticker.mode.name]\n"
+    discordsendmsg("ooc", discordmsg)
+    discordmsg = ""
+    var/list/ded = SSblackbox.first_death
+    if(ded)
+        discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
+        var/last_words = ded["last_words"] ? "Their last words were: \"[ded["last_words"]]\"\n" : "They had no last words.\n"
+        discordmsg += "[last_words]\n"
+    else
+        discordmsg += "Nobody died!\n"
+    discordmsg += "--------------------------------------\n"
+    discordsendmsg("ooc", discordmsg)

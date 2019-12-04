@@ -3,7 +3,7 @@
 // Data from the seeds carry over to these grown foods
 // ***********************************************************
 
-// Base type. Subtypes are found in /grown dir.
+// Base type. Subtypes are found in /grown dir. Lavaland-based subtypes can be found in mining/ash_flora.dm
 /obj/item/reagent_containers/food/snacks/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
@@ -145,20 +145,20 @@
 	return TRUE
 
 /obj/item/reagent_containers/food/snacks/grown/on_grind()
-	var/nutriment = reagents.get_reagent_amount("nutriment")
+	var/nutriment = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)
 	if(grind_results&&grind_results.len)
 		for(var/i in 1 to grind_results.len)
 			grind_results[grind_results[i]] = nutriment
-		reagents.del_reagent("nutriment")
-		reagents.del_reagent("vitamin")
+		reagents.del_reagent(/datum/reagent/consumable/nutriment)
+		reagents.del_reagent(/datum/reagent/consumable/nutriment/vitamin)
 
 /obj/item/reagent_containers/food/snacks/grown/on_juice()
-	var/nutriment = reagents.get_reagent_amount("nutriment")
-	if(juice_results&&juice_results.len)
+	var/nutriment = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)
+	if(juice_results?.len)
 		for(var/i in 1 to juice_results.len)
 			juice_results[juice_results[i]] = nutriment
-		reagents.del_reagent("nutriment")
-		reagents.del_reagent("vitamin")
+		reagents.del_reagent(/datum/reagent/consumable/nutriment)
+		reagents.del_reagent(/datum/reagent/consumable/nutriment/vitamin)
 
 // For item-containing growns such as eggy or gatfruit
 /obj/item/reagent_containers/food/snacks/grown/shell/attack_self(mob/user)

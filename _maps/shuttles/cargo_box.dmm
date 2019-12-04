@@ -14,6 +14,7 @@
 	id = "QMLoaddoor2";
 	name = "supply dock loading door"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "g" = (
@@ -21,11 +22,11 @@
 	name = "Supply Shuttle Airlock";
 	req_access_txt = "31"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "h" = (
 /obj/machinery/button/door{
-	dir = 2;
 	id = "QMLoaddoor2";
 	name = "Loading Doors";
 	pixel_x = 24;
@@ -47,10 +48,8 @@
 	name = "Supply Shuttle Airlock";
 	req_access_txt = "31"
 	},
-/obj/docking_port/mobile/supply{
-	dwidth = 5;
-	width = 12
-	},
+/obj/docking_port/mobile/supply,
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "j" = (
@@ -62,6 +61,7 @@
 	id = "QMLoaddoor";
 	name = "supply dock loading door"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "l" = (

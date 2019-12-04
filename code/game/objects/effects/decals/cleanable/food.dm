@@ -30,11 +30,12 @@
 	desc = "A sizable pile of table salt. Someone must be upset."
 	icon_state = "salt_pile"
 
-/obj/effect/decal/cleanable/food/salt/CanPass(atom/movable/AM, turf/target)
-	if(is_species(AM, /datum/species/snail))
-		to_chat(AM, "<span class='danger'>Your path is obstructed by <span class='phobia'>salt</span>.</span>")
-		return FALSE
-	return TRUE
+/obj/effect/decal/cleanable/food/salt/Crossed(mob/living/L)
+	if(is_species(L, /datum/species/snail) || is_species(L, /datum/species/squid))
+		while(L.loc == src.loc)
+			L.adjustFireLoss(2, TRUE)
+			to_chat(L, "<span class='danger'>The salt! It burns!</span>")
+			sleep(20)
 
 /obj/effect/decal/cleanable/food/flour
 	name = "flour"

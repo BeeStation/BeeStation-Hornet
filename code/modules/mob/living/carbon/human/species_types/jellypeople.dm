@@ -6,8 +6,9 @@
 	say_mod = "chirps"
 	species_traits = list(MUTCOLORS,EYECOLOR,NOBLOOD)
 	inherent_traits = list(TRAIT_TOXINLOVER)
+	mutantlungs = /obj/item/organ/lungs/slime
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime
-	exotic_blood = "slimejelly"
+	exotic_blood = /datum/reagent/toxin/slimejelly
 	damage_overlay_type = ""
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
 	liked_food = MEAT
@@ -225,6 +226,13 @@
 	spare.updateappearance(mutcolor_update=1)
 	spare.domutcheck()
 	spare.Move(get_step(H.loc, pick(NORTH,SOUTH,EAST,WEST)))
+
+	var/datum/component/nanites/owner_nanites = H.GetComponent(/datum/component/nanites)
+	if(owner_nanites)
+		//copying over nanite programs/cloud sync with 50% saturation in host and spare
+		owner_nanites.nanite_volume *= 0.5
+		spare.AddComponent(/datum/component/nanites, owner_nanites.nanite_volume)
+		SEND_SIGNAL(spare, COMSIG_NANITE_SYNC, owner_nanites, TRUE, TRUE) //The trues are to copy activation as well
 
 	H.blood_volume *= 0.45
 	H.notransform = 0
@@ -475,7 +483,7 @@
 
 /datum/action/innate/integrate_extract/ApplyIcon(obj/screen/movable/action_button/current_button, force)
 	..(current_button, TRUE)
-	if(species && species.current_extract)
+	if(species?.current_extract)
 		current_button.add_overlay(mutable_appearance(species.current_extract.icon, species.current_extract.icon_state))
 
 /datum/action/innate/integrate_extract/Activate()
@@ -589,7 +597,7 @@
 /datum/species/jelly/stargazer/proc/link_mob(mob/living/M)
 	if(QDELETED(M) || M.stat == DEAD)
 		return FALSE
-	if(M.has_trait(TRAIT_MINDSHIELD)) //mindshield implant, no dice
+	if(HAS_TRAIT(M, TRAIT_MINDSHIELD)) //mindshield implant, no dice
 		return FALSE
 	if(M in linked_mobs)
 		return FALSE

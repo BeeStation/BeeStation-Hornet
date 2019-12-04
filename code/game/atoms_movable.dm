@@ -50,7 +50,7 @@
 		target = get_step_multiz(source, direction)
 		if(!target)
 			return FALSE
-	return !(movement_type & FLYING) && has_gravity(source) && !throwing
+	return !(movement_type & FLYING) && has_gravity(src) && !throwing
 
 /atom/movable/proc/onZImpact(turf/T, levels)
 	var/atom/highest = T
@@ -147,7 +147,8 @@
 		var/mob/M = AM
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message)
-			visible_message("<span class='warning'>[src] has grabbed [M] passively!</span>")
+			M.visible_message("<span class='warning'>[src] grabs [M] passively.</span>", \
+				"<span class='danger'>[src] grabs you passively.</span>")
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
@@ -168,7 +169,7 @@
 		return
 	if(isliving(pulling))
 		var/mob/living/L = pulling
-		if(L.buckled && L.buckled.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
+		if(L.buckled?.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
 			stop_pulling()
 			return
 	if(A == loc && pulling.density)
@@ -176,6 +177,14 @@
 	if(!Process_Spacemove(get_dir(pulling.loc, A)))
 		return
 	step(pulling, get_dir(pulling.loc, A))
+	return TRUE
+
+/mob/living/Move_Pulled(atom/A)
+	. = ..()
+	if(!. || !isliving(A))
+		return
+	var/mob/living/L = A
+	set_pull_offsets(L, grab_state)
 
 /atom/movable/proc/check_pulling()
 	if(pulling)
@@ -215,8 +224,10 @@
 	if(!newloc.Enter(src, src.loc))
 		return
 
+	if (SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, newloc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
+		return
+
 	// Past this is the point of no return
-	SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, newloc)
 	var/atom/oldloc = loc
 	var/area/oldarea = get_area(oldloc)
 	var/area/newarea = get_area(newloc)

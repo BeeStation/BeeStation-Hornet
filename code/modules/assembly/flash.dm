@@ -8,7 +8,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(MAT_METAL = 300, MAT_GLASS = 300)
+	materials = list(/datum/material/iron = 300, /datum/material/glass = 300)
 	light_color = LIGHT_COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
 	var/flashing_overlay = "flash-f"
@@ -44,7 +44,7 @@
 		holder.update_icon()
 
 /obj/item/assembly/flash/proc/clown_check(mob/living/carbon/human/user)
-	if(user.has_trait(TRAIT_CLUMSY) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		flash_carbon(user, user, 15, 0)
 		return FALSE
 	return TRUE
@@ -66,7 +66,7 @@
 		times_used--
 	last_used = world.time
 	times_used = max(0, times_used) //sanity
-	if(max(0, prob(times_used * 3) - burnout_resistance)) //The more often it's used in a short span of time the more likely it will burn out
+	if(max(0, times_used - burnout_resistance) >= 10) //The more often it's used in a short span of time the more likely it will burn out
 		burn_out()
 		return FALSE
 	return TRUE
@@ -126,7 +126,7 @@
 				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
 			else
 				to_chat(M, "<span class='userdanger'>You are blinded by [src]!</span>")
-			M.Paralyze(rand(80,120))
+			M.Paralyze(70)
 		else if(user)
 			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 			to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
@@ -148,7 +148,7 @@
 		var/mob/living/silicon/robot/R = M
 		log_combat(user, R, "flashed", src)
 		update_icon(1)
-		R.Paralyze(rand(80,120))
+		R.Paralyze(70)
 		var/diff = 5 * CONFUSION_STACK_MAX_MULTIPLIER - M.confused
 		R.confused += min(5, diff)
 		R.flash_act(affect_silicon = 1)
@@ -228,7 +228,7 @@
 	var/obj/item/organ/cyberimp/arm/flash/I = null
 
 /obj/item/assembly/flash/armimplant/burn_out()
-	if(I && I.owner)
+	if(I?.owner)
 		to_chat(I.owner, "<span class='warning'>Your photon projector implant overheats and deactivates!</span>")
 		I.Retract()
 	overheat = TRUE
@@ -236,7 +236,7 @@
 
 /obj/item/assembly/flash/armimplant/try_use_flash(mob/user = null)
 	if(overheat)
-		if(I && I.owner)
+		if(I?.owner)
 			to_chat(I.owner, "<span class='warning'>Your photon projector is running too hot to be used again so quickly!</span>")
 		return FALSE
 	overheat = TRUE

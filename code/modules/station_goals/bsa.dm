@@ -139,7 +139,7 @@
 /obj/machinery/bsa/full/proc/get_front_turf()
 	switch(dir)
 		if(WEST)
-			return locate(x - 6,y,z)
+			return locate(x - 7,y,z)
 		if(EAST)
 			return locate(x + 4,y,z)
 	return get_turf(src)
@@ -181,8 +181,10 @@
 	for(var/turf/T in getline(get_step(point,dir),get_target_turf()))
 		T.ex_act(EXPLODE_DEVASTATE)
 	point.Beam(get_target_turf(),icon_state="bsa_beam",time=50,maxdistance = world.maxx) //ZZZAP
+	new /obj/effect/temp_visual/bsa_splash(point, dir)
 
-	message_admins("[ADMIN_LOOKUPFLW(user)] has launched an artillery strike.")
+	message_admins("[ADMIN_LOOKUPFLW(user)] has launched an artillery strike targeting [ADMIN_VERBOSEJMP(bullseye)].")
+	log_game("[key_name(user)] has launched an artillery strike targeting [AREACOORD(bullseye)].")
 	explosion(bullseye,ex_power,ex_power*2,ex_power*4)
 
 	reload()
@@ -214,6 +216,8 @@
 	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_boxp"
+	ui_x = 400
+	ui_y = 220
 	var/area_aim = FALSE //should also show areas for targeting
 
 /obj/machinery/computer/bsa_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
@@ -249,8 +253,10 @@
 	update_icon()
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
+	if(!GLOB.bsa_unlock)
+		return
 	var/list/gps_locators = list()
-	for(var/obj/item/gps/G in GLOB.GPS_list) //nulls on the list somehow
+	for(var/datum/component/gps/G in GLOB.GPS_list) //nulls on the list somehow
 		if(G.tracking)
 			gps_locators[G.gpstag] = G
 
@@ -264,8 +270,8 @@
 /obj/machinery/computer/bsa_control/proc/get_target_name()
 	if(istype(target, /area))
 		return get_area_name(target, TRUE)
-	else if(istype(target, /obj/item/gps))
-		var/obj/item/gps/G = target
+	else if(istype(target, /datum/component/gps))
+		var/datum/component/gps/G = target
 		return G.gpstag
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()

@@ -9,6 +9,8 @@ GLOBAL_LIST_INIT(first_names_female, world.file2list("strings/names/first_female
 GLOBAL_LIST_INIT(last_names, world.file2list("strings/names/last.txt"))
 GLOBAL_LIST_INIT(lizard_names_male, world.file2list("strings/names/lizard_male.txt"))
 GLOBAL_LIST_INIT(lizard_names_female, world.file2list("strings/names/lizard_female.txt"))
+GLOBAL_LIST_INIT(squid_names_male, world.file2list("strings/names/squid_male.txt"))
+GLOBAL_LIST_INIT(squid_names_female, world.file2list("strings/names/squid_female.txt"))
 GLOBAL_LIST_INIT(clown_names, world.file2list("strings/names/clown.txt"))
 GLOBAL_LIST_INIT(mime_names, world.file2list("strings/names/mime.txt"))
 GLOBAL_LIST_INIT(carp_names, world.file2list("strings/names/carp.txt"))

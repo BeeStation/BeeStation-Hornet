@@ -69,7 +69,7 @@
 		AM.verbs -= /atom/movable/proc/simple_rotate_counterclockwise
 
 /datum/component/simple_rotation/proc/remove_signals()
-		UnregisterSignal(parent, list(COMSIG_CLICK_ALT, COMSIG_PARENT_EXAMINE, COMSIG_PARENT_ATTACKBY))
+	UnregisterSignal(parent, list(COMSIG_CLICK_ALT, COMSIG_PARENT_EXAMINE, COMSIG_PARENT_ATTACKBY))
 
 /datum/component/simple_rotation/RegisterWithParent()
 	add_verbs()
@@ -143,7 +143,7 @@
 	set name = "Rotate Clockwise"
 	set category = "Object"
 	set src in oview(1)
-	GET_COMPONENT(rotcomp,/datum/component/simple_rotation)
+	var/datum/component/simple_rotation/rotcomp = GetComponent(/datum/component/simple_rotation)
 	if(rotcomp)
 		rotcomp.HandRot(null,usr,ROTATION_CLOCKWISE)
 
@@ -151,7 +151,7 @@
 	set name = "Rotate Counter-Clockwise"
 	set category = "Object"
 	set src in oview(1)
-	GET_COMPONENT(rotcomp,/datum/component/simple_rotation)
+	var/datum/component/simple_rotation/rotcomp = GetComponent(/datum/component/simple_rotation)
 	if(rotcomp)
 		rotcomp.HandRot(null,usr,ROTATION_COUNTERCLOCKWISE)
 
@@ -159,6 +159,6 @@
 	set name = "Flip"
 	set category = "Object"
 	set src in oview(1)
-	GET_COMPONENT(rotcomp,/datum/component/simple_rotation)
+	var/datum/component/simple_rotation/rotcomp = GetComponent(/datum/component/simple_rotation)
 	if(rotcomp)
 		rotcomp.HandRot(null,usr,ROTATION_FLIP)

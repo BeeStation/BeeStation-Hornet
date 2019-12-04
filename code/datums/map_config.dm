@@ -11,6 +11,7 @@
 	var/config_max_users = 0
 	var/config_min_users = 0
 	var/voteweight = 1
+	var/votable = FALSE
 
 	// Config actually from the JSON - should default to Box
 	var/map_name = "Box Station"
@@ -138,5 +139,10 @@
 	for (var/file in map_file)
 		. += "_maps/[map_path]/[file]"
 
+/datum/map_config/proc/is_votable()
+	var/below_max = !(config_max_users) || GLOB.clients.len <= config_max_users
+	var/above_min = !(config_min_users) || GLOB.clients.len >= config_min_users
+	return votable && below_max && above_min
+	
 /datum/map_config/proc/MakeNextMap()
 	return config_filename == "data/next_map.json" || fcopy(config_filename, "data/next_map.json")

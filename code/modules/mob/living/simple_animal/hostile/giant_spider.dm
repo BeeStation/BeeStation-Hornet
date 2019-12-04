@@ -6,7 +6,7 @@
 
 /mob/living/simple_animal/hostile/poison
 	var/poison_per_bite = 5
-	var/poison_type = "toxin"
+	var/poison_type = /datum/reagent/toxin
 
 /mob/living/simple_animal/hostile/poison/AttackingTarget()
 	. = ..()
@@ -91,6 +91,8 @@
 		to_chat(user, "<span class='notice'>Someone else already took this spider.</span>")
 		return 1
 	key = user.key
+	if(directive)
+		log_game("[key_name(src)] took control of [name] with the objective: '[directive]'.")
 	return 1
 
 //nursemaids - these create webs and eggs
@@ -154,7 +156,7 @@
 	melee_damage_upper = 1
 	poison_per_bite = 12
 	move_to_delay = 4
-	poison_type = "venom" //all in venom, glass cannon. you bite 5 times and they are DEFINITELY dead, but 40 health and you are extremely obvious. Ambush, maybe?
+	poison_type = /datum/reagent/toxin/venom //all in venom, glass cannon. you bite 5 times and they are DEFINITELY dead, but 40 health and you are extremely obvious. Ambush, maybe?
 	speed = 1
 	gold_core_spawnable = NO_SPAWN
 
@@ -210,7 +212,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
-	poison_type = "frostoil"
+	poison_type = /datum/reagent/consumable/frostoil
 	color = rgb(114,228,250)
 	gold_core_spawnable = NO_SPAWN
 
@@ -219,7 +221,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
-	poison_type = "frostoil"
+	poison_type = /datum/reagent/consumable/frostoil
 	color = rgb(114,228,250)
 	gold_core_spawnable = NO_SPAWN
 
@@ -228,7 +230,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
-	poison_type = "frostoil"
+	poison_type = /datum/reagent/consumable/frostoil
 	color = rgb(114,228,250)
 	gold_core_spawnable = NO_SPAWN
 
@@ -238,20 +240,21 @@
 	if(AIStatus == AI_IDLE)
 		//1% chance to skitter madly away
 		if(!busy && prob(1))
-			stop_automated_movement = 1
+			stop_automated_movement = TRUE
 			Goto(pick(urange(20, src, 1)), move_to_delay)
-			spawn(50)
-				stop_automated_movement = 0
-				walk(src,0)
+			addtimer(CALLBACK(src, .proc/do_action), 5 SECONDS)
 		return 1
 
+/mob/living/simple_animal/hostile/poison/giant_spider/proc/do_action()
+	stop_automated_movement = FALSE
+	walk(src,0)
+
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
-	spawn(100)
-		if(busy == MOVING_TO_TARGET)
-			if(cocoon_target == C && get_dist(src,cocoon_target) > 1)
-				cocoon_target = null
-			busy = FALSE
-			stop_automated_movement = 0
+	if(busy == MOVING_TO_TARGET)
+		if(cocoon_target == C && get_dist(src,cocoon_target) > 1)
+			cocoon_target = null
+		busy = FALSE
+		stop_automated_movement = FALSE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_action()
 	if(..())
@@ -264,7 +267,7 @@
 					busy = MOVING_TO_TARGET
 					Goto(C, move_to_delay)
 					//give up if we can't reach them after 10 seconds
-					GiveUp(C)
+					addtimer(CALLBACK(src, .proc/GiveUp, C), 10 SECONDS)
 					return
 
 			//second, spin a sticky spiderweb on this tile
@@ -288,7 +291,7 @@
 							stop_automated_movement = 1
 							Goto(O, move_to_delay)
 							//give up if we can't reach them after 10 seconds
-							GiveUp(O)
+							addtimer(CALLBACK(src, .proc/GiveUp, O), 10 SECONDS)
 
 		else if(busy == MOVING_TO_TARGET && cocoon_target)
 			if(get_dist(src, cocoon_target) <= 1)
@@ -480,12 +483,24 @@
 	desc = "Set a directive for your children to follow."
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "directive"
+	
+/datum/action/innate/spider/set_directive/IsAvailable()
+	if(..())
+		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
+			return FALSE
+		var/mob/living/simple_animal/hostile/poison/giant_spider/S = owner
+		if(S.playable_spider)
+			return FALSE
+		return TRUE
 
 /datum/action/innate/spider/set_directive/Activate()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
 		return
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
-	S.directive = stripped_input(S, "Enter the new directive", "Create directive", "[S.directive]")
+	if(!S.playable_spider)
+		S.directive = stripped_input(S, "Enter the new directive", "Create directive", "[S.directive]")
+		message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[S.directive]'.")
+		log_game("[key_name(owner)] set its directive to: '[S.directive]'.")
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	. = ..()

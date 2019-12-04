@@ -2,11 +2,10 @@
 	name = "health sensor"
 	desc = "Used for scanning and monitoring health."
 	icon_state = "health"
-	materials = list(MAT_METAL=800, MAT_GLASS=200)
+	materials = list(/datum/material/iron=800, /datum/material/glass=200)
 	attachable = TRUE
-	secured = FALSE
 
-	var/scanning = FALSE
+	var/scanning = TRUE
 	var/health_scan
 	var/alarm_health = HEALTH_THRESHOLD_CRIT
 
@@ -44,9 +43,8 @@
 		return
 
 	var/atom/A = src
-	if(connected && connected.holder)
+	if(connected?.holder)
 		A = connected.holder
-
 	for(A, A && !ismob(A), A=A.loc);
 	// like get_turf(), but for mobs.
 	var/mob/living/M = A

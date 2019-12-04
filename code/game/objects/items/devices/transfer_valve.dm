@@ -34,6 +34,10 @@
 			tank_two = item
 			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
 
+		if(tank_one && tank_two)
+			message_admins("[ADMIN_LOOKUPFLW(user)] has added two tanks to \the [src] at [ADMIN_VERBOSEJMP(src)]!")
+
+
 		update_icon()
 //TODO: Have this take an assemblyholder
 	else if(isassembly(item))

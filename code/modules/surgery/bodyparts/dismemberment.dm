@@ -12,7 +12,7 @@
 		return FALSE
 	if(C.status_flags & GODMODE)
 		return FALSE
-	if(C.has_trait(TRAIT_NODISMEMBER))
+	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
 		return FALSE
 
 	var/obj/item/bodypart/affecting = C.get_bodypart(BODY_ZONE_CHEST)
@@ -49,7 +49,7 @@
 	var/mob/living/carbon/C = owner
 	if(!dismemberable)
 		return FALSE
-	if(C.has_trait(TRAIT_NODISMEMBER))
+	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
 		return FALSE
 	. = list()
 	var/organ_spilled = 0
@@ -374,6 +374,15 @@
 			L.burn_dam = 0
 			L.brutestate = 0
 			L.burnstate = 0
+		if(ishuman(src))
+			var/mob/living/carbon/human/H = src
+			if(H.dna && H.dna.species && (ROBOTIC_LIMBS in H.dna.species.species_traits))
+				L.change_bodypart_status(BODYPART_ROBOTIC)
+				L.render_like_organic = TRUE
+			if(limb_zone == "head" && H.dna && H.dna.species && (NOMOUTH in H.dna.species.species_traits))
+				var/obj/item/bodypart/head/head = L
+				if(head)
+					head.mouth = FALSE
 
 		L.attach_limb(src, 1)
 		return 1

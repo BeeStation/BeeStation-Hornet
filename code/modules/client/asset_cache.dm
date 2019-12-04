@@ -21,10 +21,13 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 #define ASSET_CACHE_PRELOAD_CONCURRENT 3
 
 /client
-	var/list/cache = list() // List of all assets sent to this client by the asset cache.
-	var/list/completed_asset_jobs = list() // List of all completed jobs, awaiting acknowledgement.
+	/// List of all assets sent to this client by the asset cache.
+	var/list/cache = list()
+	/// List of all completed asset jobs, awaiting acknowledgement.
+	var/list/completed_asset_jobs = list() 
 	var/list/sending = list()
-	var/last_asset_job = 0 // Last job done.
+	/// The last asset job done.
+	var/last_asset_job = 0 
 
 //This proc sends the asset to the client, but only if it needs it.
 //This proc blocks(sleeps) unless verify is set to false
@@ -325,6 +328,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/size_id = sprite[SPR_SIZE]
 	return {"<span class="[name][size_id] [sprite_name]"></span>"}
 
+/datum/asset/spritesheet/proc/icon_class_name(sprite_name)
+	var/sprite = sprites[sprite_name]
+	if (!sprite)
+		return null
+	var/size_id = sprite[SPR_SIZE]
+	return {"[name][size_id] [sprite_name]"}
+
 #undef SPR_SIZE
 #undef SPR_IDX
 #undef SPRSZ_COUNT
@@ -381,14 +391,24 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/simple/tgui
 	assets = list(
-		"tgui.css"	= 'tgui/assets/tgui.css',
-		"tgui.js"	= 'tgui/assets/tgui.js',
-		"font-awesome.min.css" = 'tgui/assets/font-awesome.min.css',
-		"fontawesome-webfont.eot" = 'tgui/assets/fonts/fontawesome-webfont.eot',
-		"fontawesome-webfont.woff2" = 'tgui/assets/fonts/fontawesome-webfont.woff2',
-		"fontawesome-webfont.woff" = 'tgui/assets/fonts/fontawesome-webfont.woff',
-		"fontawesome-webfont.ttf" = 'tgui/assets/fonts/fontawesome-webfont.ttf',
-		"fontawesome-webfont.svg" = 'tgui/assets/fonts/fontawesome-webfont.svg'
+		// tgui
+		"tgui.css" = 'tgui/assets/tgui.css',
+		"tgui.js" = 'tgui/assets/tgui.js',
+		// tgui-next
+		"tgui-main.html" = 'tgui-next/packages/tgui/public/tgui-main.html',
+		"tgui-fallback.html" = 'tgui-next/packages/tgui/public/tgui-fallback.html',
+		"tgui.bundle.js" = 'tgui-next/packages/tgui/public/tgui.bundle.js',
+		"tgui.bundle.css" = 'tgui-next/packages/tgui/public/tgui.bundle.css',
+		"shim-html5shiv.js" = 'tgui-next/packages/tgui/public/shim-html5shiv.js',
+		"shim-ie8.js" = 'tgui-next/packages/tgui/public/shim-ie8.js',
+		"shim-dom4.js" = 'tgui-next/packages/tgui/public/shim-dom4.js',
+		"shim-css-om.js" = 'tgui-next/packages/tgui/public/shim-css-om.js',
+	)
+
+/datum/asset/group/tgui
+	children = list(
+		/datum/asset/simple/tgui,
+		/datum/asset/simple/fontawesome
 	)
 
 /datum/asset/simple/headers
@@ -508,7 +528,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	children = list(
 		/datum/asset/simple/jquery,
 		/datum/asset/simple/goonchat,
-		/datum/asset/spritesheet/goonchat
+		/datum/asset/spritesheet/goonchat,
+		/datum/asset/simple/fontawesome
 	)
 
 /datum/asset/simple/jquery
@@ -523,12 +544,19 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"json2.min.js"             = 'code/modules/goonchat/browserassets/js/json2.min.js',
 		"errorHandler.js"          = 'code/modules/goonchat/browserassets/js/errorHandler.js',
 		"browserOutput.js"         = 'code/modules/goonchat/browserassets/js/browserOutput.js',
-		"fontawesome-webfont.eot"  = 'tgui/assets/fonts/fontawesome-webfont.eot',
-		"fontawesome-webfont.svg"  = 'tgui/assets/fonts/fontawesome-webfont.svg',
-		"fontawesome-webfont.ttf"  = 'tgui/assets/fonts/fontawesome-webfont.ttf',
-		"fontawesome-webfont.woff" = 'tgui/assets/fonts/fontawesome-webfont.woff',
-		"font-awesome.css"	       = 'code/modules/goonchat/browserassets/css/font-awesome.css',
 		"browserOutput.css"	       = 'code/modules/goonchat/browserassets/css/browserOutput.css',
+		"browserOutput_white.css"  = 'code/modules/goonchat/browserassets/css/browserOutput_white.css',
+	)
+
+/datum/asset/simple/fontawesome
+	verify = FALSE
+	assets = list(
+		"fa-regular-400.eot"  = 'html/font-awesome/webfonts/fa-regular-400.eot',
+		"fa-regular-400.woff" = 'html/font-awesome/webfonts/fa-regular-400.woff',
+		"fa-solid-900.eot"    = 'html/font-awesome/webfonts/fa-solid-900.eot',
+		"fa-solid-900.woff"   = 'html/font-awesome/webfonts/fa-solid-900.woff',
+		"font-awesome.css"    = 'html/font-awesome/css/all.min.css',
+		"v4shim.css"          = 'html/font-awesome/css/v4-shims.min.css'
 	)
 
 /datum/asset/spritesheet/goonchat
@@ -600,7 +628,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	name = "pipes"
 
 /datum/asset/spritesheet/pipes/register()
-	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi'))
+	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi', 'icons/obj/plumbing/fluid_ducts.dmi'))
 		InsertAll("", each, GLOB.alldirs)
 	..()
 
@@ -663,9 +691,81 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		Insert(initial(D.id), I)
 	return ..()
 
+/datum/asset/spritesheet/vending
+	name = "vending"
+
+/datum/asset/spritesheet/vending/register()
+	for (var/k in GLOB.vending_products)
+		var/atom/item = k
+
+
+		var/icon_file
+		var/icon_state
+		var/icon/I
+
+
+		if (!ispath(item, /atom))
+			continue
+
+		icon_file = initial(item.icon)
+		icon_state = initial(item.icon_state)
+
+		if(icon_state in icon_states(icon_file))
+			I = icon(icon_file, icon_state, SOUTH)
+			var/c = initial(item.color)
+			if (!isnull(c) && c != "#FFFFFF")
+				I.Blend(initial(c), ICON_MULTIPLY)
+		else
+			item = new item()
+			I = icon(item.icon, item.icon_state, SOUTH)
+			qdel(item)
+
+		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
+
+		Insert(imgid, I)
+	return ..()
+
 /datum/asset/simple/genetics
 	assets = list(
 		"dna_discovered.png"	= 'html/dna_discovered.png',
 		"dna_undiscovered.png"	= 'html/dna_undiscovered.png',
 		"dna_extra.png" 		= 'html/dna_extra.png'
 )
+
+/datum/asset/simple/bee_antags
+	assets = list(
+		"traitor.png" = 'html/img/traitor.png',
+		"bloodcult.png" = 'html/img/bloodcult.png',
+		"dagger.png" = 'html/img/dagger.png',
+		"sacrune.png" = 'html/img/sacrune.png',
+		"archives.png" = 'html/img/archives.png',
+		"xeno.png" = 'html/img/xeno.png',
+		"xenoqueen.png" = 'html/img/xenoqueen.png',
+		"facehugger.png" = 'html/img/facehugger.png',
+		"xenolarva.png" = 'html/img/xenolarva.png',
+		"blobcore.png" = 'html/img/blobcore.png',
+		"blobnode.png" = 'html/img/blobnode.png',
+		"blobresource.png" = 'html/img/blobresource.png',
+		"blobfactory.png" = 'html/img/blobfactory.png',
+		"changeling.gif" = 'html/img/changeling.gif',
+		"emporium.gif" = 'html/img/emporium.gif',
+		"absorb.png" = 'html/img/absorb.png',
+		"tentacle.png" = 'html/img/tentacle.png',
+		"hivemind.png" = 'html/img/hivemind.png',
+		"sting_extract.png" = 'html/img/sting_extract.png',
+		"wizard.png" = 'html/img/wizard.png',
+		"nukie.png" = 'html/img/nukie.png',
+		"ayylmao.png" = 'html/img/ayylmao.png',
+		"headset.png" = 'html/img/headset.png',
+		"pen.png" = 'html/img/pen.png',
+		"pda.png" = 'html/img/pda.png',
+		"spellbook.png" = 'html/img/spellbook.png',
+		"scroll.png" = 'html/img/scroll.png',
+		"disk.png" = 'html/img/disk.png',
+		"nuke.png" = 'html/img/nuke.png',
+		"eshield.png" = 'html/img/eshield.png',
+		"mech.png" = 'html/img/mech.png',
+		"scitool.png" = 'html/img/scitool.png',
+		"alienorgan.png"= 'html/img/alienorgan.png',
+		"abaton.png"= 'html/img/abaton.png'
+	)

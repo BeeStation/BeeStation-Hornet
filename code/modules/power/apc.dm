@@ -56,8 +56,10 @@
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
+	ui_x = 450
+	ui_y = 460
 
-	var/lon_range = 1.5
+	var/lon_range = 2
 	var/area/area
 	var/areastring = null
 	var/obj/item/stock_parts/cell/cell
@@ -167,12 +169,20 @@
 
 	switch(tdir)
 		if(NORTH)
+			if((pixel_y != initial(pixel_y)) && (pixel_y != 23))
+				log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([tdir] | [uppertext(dir2text(tdir))]) has pixel_y value ([pixel_y] - should be 23.)")
 			pixel_y = 23
 		if(SOUTH)
+			if((pixel_y != initial(pixel_y)) && (pixel_y != -23))
+				log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([tdir] | [uppertext(dir2text(tdir))]) has pixel_y value ([pixel_y] - should be -23.)")
 			pixel_y = -23
 		if(EAST)
+			if((pixel_y != initial(pixel_x)) && (pixel_x != 24))
+				log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([tdir] | [uppertext(dir2text(tdir))]) has pixel_x value ([pixel_x] - should be 24.)")
 			pixel_x = 24
 		if(WEST)
+			if((pixel_y != initial(pixel_x)) && (pixel_x != -25))
+				log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([tdir] | [uppertext(dir2text(tdir))]) has pixel_x value ([pixel_x] - should be -25.)")
 			pixel_x = -25
 	if (building)
 		area = get_area(src)
@@ -531,7 +541,7 @@
 							"<span class='italics'>You hear welding.</span>")
 		if(W.use_tool(src, user, 50, volume=50, amount=3))
 			if ((stat & BROKEN) || opened==APC_COVER_REMOVED)
-				new /obj/item/stack/sheet/metal(loc)
+				new /obj/item/stack/sheet/iron(loc)
 				user.visible_message(\
 					"[user.name] has cut [src] apart with [W].",\
 					"<span class='notice'>You disassembled the broken APC frame.</span>")
@@ -698,6 +708,10 @@
 			opened = APC_COVER_CLOSED
 			locked = FALSE
 			update_icon()
+
+	else if(istype(W, /obj/item/apc_powercord))
+		return //because we put our fancy code in the right places, and this is all in the powercord's afterattack()
+
 		return
 	else if(panel_open && !opened && is_wire_tool(W))
 		wires.interact(user)
@@ -798,8 +812,6 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "apc", name, 535, 515, master_ui, state)
 		ui.open()
-	if(ui)
-		ui.set_autoupdate(state = (failure_timer ? 1 : 0))
 
 /obj/machinery/power/apc/ui_data(mob/user)
 	var/list/data = list(
@@ -1113,9 +1125,9 @@
 	if(terminal && terminal.powernet)
 		terminal.add_load(amount)
 
-/obj/machinery/power/apc/avail()
+/obj/machinery/power/apc/avail(amount)
 	if(terminal)
-		return terminal.avail()
+		return terminal.avail(amount)
 	else
 		return 0
 
@@ -1124,7 +1136,7 @@
 		update_icon()
 	if(stat & (BROKEN|MAINT))
 		return
-	if(!area.requires_power)
+	if(!area?.requires_power)
 		return
 	if(failure_timer)
 		update()

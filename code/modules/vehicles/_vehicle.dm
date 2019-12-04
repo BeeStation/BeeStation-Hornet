@@ -61,6 +61,7 @@
 			.++
 
 /obj/vehicle/proc/return_controllers_with_flag(flag)
+	RETURN_TYPE(/list/mob)
 	. = list()
 	for(var/i in occupants)
 		if(occupants[i] & flag)
@@ -120,6 +121,7 @@
 	if(!canmove)
 		return
 	vehicle_move(direction)
+	return TRUE
 
 /obj/vehicle/proc/vehicle_move(direction)
 	if(lastmove + movedelay > world.time)

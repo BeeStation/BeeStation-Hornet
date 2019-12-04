@@ -18,7 +18,7 @@
 	var/item_recycle_sound = 'sound/items/welder.ogg'
 
 /obj/machinery/recycler/Initialize()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), INFINITY, FALSE, null, null, null, TRUE)
+	AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/plasma, /datum/material/gold, /datum/material/diamond, /datum/material/plastic, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace), INFINITY, FALSE, null, null, null, TRUE)
 	AddComponent(/datum/component/butchering, 1, amount_produced,amount_produced/5)
 	. = ..()
 	update_icon()
@@ -32,10 +32,10 @@
 	mat_mod *= 50000
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		amt_made = 12.5 * M.rating //% of materials salvaged
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = mat_mod
 	amount_produced = min(50, amt_made) + 50
-	GET_COMPONENT(butchering, /datum/component/butchering)
+	var/datum/component/butchering/butchering = GetComponent(/datum/component/butchering)
 	butchering.effectiveness = amount_produced
 	butchering.bonus_modifier = amount_produced/5
 
@@ -116,7 +116,7 @@
 		if(brain_holder)
 			emergency_stop(AM)
 		else if(isliving(AM))
-			if((obj_flags & EMAGGED)||((!allowed(AM))&&(!ishuman(AM))))
+			if(obj_flags & EMAGGED)
 				crush_living(AM)
 			else
 				emergency_stop(AM)
@@ -142,7 +142,7 @@
 		qdel(L)
 		return
 	else
-		GET_COMPONENT(materials, /datum/component/material_container)
+		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 		var/material_amount = materials.get_item_material_amount(I)
 		if(!material_amount)
 			qdel(I)
@@ -173,7 +173,6 @@
 	else
 		playsound(src, 'sound/effects/splat.ogg', 50, 1)
 
-	// By default, the emagged recycler will gib all non-carbons. (human simple animal mobs don't count)
 	if(iscarbon(L))
 		if(L.stat == CONSCIOUS)
 			L.say("ARRRRRRRRRRRGH!!!", forced="recycler grinding")
@@ -193,7 +192,7 @@
 	L.Unconscious(100)
 	L.adjustBruteLoss(crush_damage)
 	if(L.stat == DEAD && (L.butcher_results || L.guaranteed_butcher_results))
-		GET_COMPONENT(butchering, /datum/component/butchering)
+		var/datum/component/butchering/butchering = GetComponent(/datum/component/butchering)
 		butchering.Butcher(src,L)
 
 /obj/machinery/recycler/deathtrap

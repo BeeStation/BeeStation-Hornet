@@ -30,7 +30,7 @@
 			visible_message("<span class='notice'>[user] slices apart \the [src].</span>",
 				"<span class='notice'>You cut \the [src] apart with \the [I].</span>",
 				"<span class='italics'>You hear welding.</span>")
-			new /obj/item/stack/sheet/metal(src.loc, 4)
+			new /obj/item/stack/sheet/iron(src.loc, 4)
 			qdel(src)
 		return
 	else
@@ -103,7 +103,7 @@
 				"<span class='notice'>[user] is trying to pull you off [src], opening up fresh wounds!</span>",\
 				"<span class='italics'>You hear a squishy wet noise.</span>")
 			if(!do_after(user, 300, target = src))
-				if(M && M.buckled)
+				if(M?.buckled)
 					M.visible_message(\
 					"[user] fails to free [M]!",\
 					"<span class='notice'>[user] fails to pull you off of [src].</span>")
@@ -145,7 +145,7 @@
 		var/obj/F = new /obj/structure/kitchenspike_frame(src.loc)
 		transfer_fingerprints_to(F)
 	else
-		new /obj/item/stack/sheet/metal(src.loc, 4)
+		new /obj/item/stack/sheet/iron(src.loc, 4)
 	new /obj/item/stack/rods(loc, 4)
 	qdel(src)
 

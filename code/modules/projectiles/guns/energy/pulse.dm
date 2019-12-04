@@ -49,6 +49,19 @@
 /obj/item/gun/energy/pulse/carbine/loyalpin
 	pin = /obj/item/firing_pin/implant/mindshield
 
+/obj/item/gun/energy/pulse/carbine/cyborg
+	name = "pulse carbine"
+	desc = "A compact, cyborg variant of the commonly used pulse carbine."
+	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = ITEM_SLOT_BELT
+	icon_state = "pulse_carbine"
+	item_state = null
+	cell_type = "/obj/item/stock_parts/cell/pulse/carbine"
+	can_flashlight = TRUE
+	flight_x_offset = 18
+	flight_y_offset = 12
+
+
 /obj/item/gun/energy/pulse/pistol
 	name = "pulse pistol"
 	desc = "A pulse rifle in an easily concealed handgun package with low capacity."

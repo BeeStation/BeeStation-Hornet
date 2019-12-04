@@ -26,7 +26,7 @@
 	. = ..()
 	if(set_dir)
 		setDir(set_dir)
-	if(req_access && req_access.len)
+	if(req_access?.len)
 		icon_state = "[icon_state]"
 		base_state = icon_state
 	for(var/i in 1 to shards)

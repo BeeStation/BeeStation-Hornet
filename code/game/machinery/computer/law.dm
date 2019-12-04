@@ -3,28 +3,15 @@
 /obj/machinery/computer/upload
 	var/mob/living/silicon/current = null //The target of future law uploads
 	icon_screen = "command"
-	var/obj/item/gps/internal
-	var/internal_type = /obj/item/gps/internal/internal_gps
-	time_to_scewdrive = 60
-
-/obj/item/gps/internal/internal_gps
-	icon_state = null
-	gpstag = "Encrypted Upload Signal"
-	desc = "Signal used to connect remotely with silicons."
-	invisibility = 100
 
 /obj/machinery/computer/upload/Initialize()
-	internal = new internal_type(src)
 	. = ..()
-
-/obj/machinery/computer/upload/Destroy()
-	QDEL_NULL(internal)
-	. = ..()
+	AddComponent(/datum/component/gps, "Encrypted Upload")
 
 /obj/machinery/computer/upload/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/aiModule))
 		var/obj/item/aiModule/M = O
-		if(src.stat & (NOPOWER|BROKEN|MAINT))
+		if(stat & (NOPOWER|BROKEN|MAINT))
 			return
 		if(!current)
 			to_chat(user, "<span class='caution'>You haven't selected anything to transmit laws to!</span>")
@@ -53,12 +40,12 @@
 	circuit = /obj/item/circuitboard/computer/aiupload
 
 /obj/machinery/computer/upload/ai/interact(mob/user)
-	src.current = select_active_ai(user)
+	current = select_active_ai(user)
 
-	if (!src.current)
+	if (!current)
 		to_chat(user, "<span class='caution'>No active AIs detected!</span>")
 	else
-		to_chat(user, "[src.current.name] selected for law changes.")
+		to_chat(user, "[current.name] selected for law changes.")
 
 /obj/machinery/computer/upload/ai/can_upload_to(mob/living/silicon/ai/A)
 	if(!A || !isAI(A))
@@ -74,12 +61,12 @@
 	circuit = /obj/item/circuitboard/computer/borgupload
 
 /obj/machinery/computer/upload/borg/interact(mob/user)
-	src.current = select_active_free_borg(user)
+	current = select_active_free_borg(user)
 
-	if(!src.current)
+	if(!current)
 		to_chat(user, "<span class='caution'>No active unslaved cyborgs detected!</span>")
 	else
-		to_chat(user, "[src.current.name] selected for law changes.")
+		to_chat(user, "[current.name] selected for law changes.")
 
 /obj/machinery/computer/upload/borg/can_upload_to(mob/living/silicon/robot/B)
 	if(!B || !iscyborg(B))
