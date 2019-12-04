@@ -42,13 +42,13 @@
 
 		if(4)
 
-			if(prob(100))
+			if(prob(50))
 				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
 				return
-			if(prob(100) && robes)
+			if(robes)
 				to_chat(M, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")].</span>")
 				spawn_wizard_clothes(50, A)
-			if(prob(20) && prob(50) && teleport)
+			if(prob(20) && teleport)
 				teleport(A)
 	return
 
