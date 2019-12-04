@@ -211,6 +211,18 @@
 	results = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
 	required_reagents = list(/datum/reagent/uranium = 10, /datum/reagent/silver = 10, /datum/reagent/toxin/plasma = 1)
 
+/datum/chemical_reaction/virus_food_laughter
+	name = "Anomolous virus food"
+	id = "virusfood_laughter"
+	results = list(/datum/reagent/consumable/laughter/laughtervirusfood = 1)
+	required_reagents = list(/datum/reagent/consumable/laughter = 5, /datum/reagent/consumable/virus_food = 1)
+
+/datum/chemical_reaction/virus_food_admin
+	name = "Highly unstable virus Food"
+	id = "virusfood_admin"
+	results = list(/datum/reagent/medicine/adminordrazine/adminvirusfood = 1)
+	required_reagents = list(/datum/reagent/medicine/adminordrazine = 5, /datum/reagent/consumable/virus_food = 1)
+
 /datum/chemical_reaction/mix_virus
 	name = "Mix Virus"
 	id = "mixvirus"
@@ -316,6 +328,22 @@
 	required_reagents = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
 	level_min = 8
 	level_max = 8
+
+/datum/chemical_reaction/mix_virus/mix_virus_13
+
+	name = "Mix Virus 13"
+	id = "mixvirus13"
+	required_reagents = list(/datum/reagent/consumable/laughter/laughtervirusfood = 1)
+	level_min = 0
+	level_max = 0
+
+/datum/chemical_reaction/mix_virus/mix_virus_14
+
+	name = "Mix Virus 14"
+	id = "mixvirus14"
+	required_reagents = list(/datum/reagent/medicine/adminordrazine/adminvirusfood = 1)
+	level_min = 9
+	level_max = 9
 
 /datum/chemical_reaction/mix_virus/rem_virus
 
@@ -663,11 +691,17 @@
 	results = list(/datum/reagent/mutationtoxin/abductor = 1)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/medicine/morphine = 10, /datum/reagent/toxin/mutetoxin = 10)
 	
+/datum/chemical_reaction/mutationtoxin/squid
+	name = /datum/reagent/mutationtoxin/squid
+	id = /datum/reagent/mutationtoxin/squid
+	results = list(/datum/reagent/mutationtoxin/squid = 1)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/teslium = 20)
+
 /datum/chemical_reaction/mutationtoxin/ipc
 	name = /datum/reagent/mutationtoxin/ipc
 	id = /datum/reagent/mutationtoxin/ipc
 	results = list(/datum/reagent/mutationtoxin/ipc = 1)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/teslium = 20)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/consumable/sodiumchloride = 10, /datum/reagent/water = 20)
 	
 //////////////Mutatuion toxins made out of advanced toxin/////////////
 
@@ -682,6 +716,12 @@
 //	id = /datum/reagent/mutationtoxin/zombie
 //	results = list(/datum/reagent/mutationtoxin/zombie = 1)
 //	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/toxin = 1, /datum/reagent/toxin/bad_food = 1) //Because rotting
+
+/datum/chemical_reaction/mutationtoxin/goofzombie //go on. try it with holopara
+	name = /datum/reagent/mutationtoxin/goofzombie
+	id = /datum/reagent/mutationtoxin/goofzombie
+	results = list(/datum/reagent/mutationtoxin/goofzombie = 1)
+	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/drug/krokodil = 10, /datum/reagent/toxin/bad_food = 10) //Because rotting
 
 /datum/chemical_reaction/mutationtoxin/ash
 	name = /datum/reagent/mutationtoxin/ash

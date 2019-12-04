@@ -7,7 +7,7 @@
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the chief medical officer"
-	selection_color = "#ffeef0"
+	selection_color = "#d4ebf2"
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/chemist

@@ -54,6 +54,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/reagent_tag = PROCESS_ORGANIC //Used for metabolizing reagents. We're going to assume you're a meatbag unless you say otherwise.
 	var/species_gibs = "human"
 	var/allow_numbers_in_name // Can this species use numbers in its name?
+	var/datum/outfit/outfit_important_for_life /// A path to an outfit that is important for species life e.g. plasmaman outfit
 
 
 	// species-only traits. Can be found in DNA.dm
@@ -519,8 +520,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(!(NO_UNDERWEAR in species_traits))
 		if(H.underwear)
 			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[H.underwear]
+			var/mutable_appearance/underwear_overlay
 			if(underwear)
-				standing += mutable_appearance(underwear.icon, underwear.icon_state, -BODY_LAYER)
+				underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, -BODY_LAYER)
+				if(!underwear.use_static)
+					underwear_overlay.color = "#" + H.underwear_color
+				standing += underwear_overlay
 
 		if(H.undershirt)
 			var/datum/sprite_accessory/undershirt/undershirt = GLOB.undershirt_list[H.undershirt]
@@ -693,6 +698,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.ipc_antennas_list[H.dna.features["ipc_antenna"]]
 				if("ipc_chassis")
 					S = GLOB.ipc_chassis_list[H.dna.features["ipc_chassis"]]
+				if("insect_type")
+					S = GLOB.insect_type_list[H.dna.features["insect_type"]]
 			if(!S || S.icon_state == "none")
 				continue
 
@@ -1014,9 +1021,19 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/check_species_weakness(obj/item, mob/living/attacker)
 	return 0 //This is not a boolean, it's the multiplier for the damage that the user takes from the item.It is added onto the check_weakness value of the mob, and then the force of the item is multiplied by this value
 
+/**
+ * Equip the outfit required for life. Replaces items currently worn.
+ */ 
+/datum/species/proc/give_important_for_life(mob/living/carbon/human/human_to_equip)
+	if(!outfit_important_for_life)
+		return
+		
+	outfit_important_for_life= new()
+	outfit_important_for_life.equip(human_to_equip)
+
 ////////
-	//LIFE//
-	////////
+//LIFE//
+////////
 
 /datum/species/proc/handle_digestion(mob/living/carbon/human/H)
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))

@@ -21,7 +21,7 @@
 	name = "Experimental Disease"
 	copy_type = /datum/disease/advance
 
-/datum/disease/advance/random/New(max_symptoms, max_level = 8)
+/datum/disease/advance/random/New(max_symptoms, max_level = 9)
 	if(!max_symptoms)
 		max_symptoms = rand(1, VIRUS_SYMPTOM_LIMIT)
 	var/list/datum/symptom/possible_symptoms = list()

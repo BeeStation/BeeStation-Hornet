@@ -87,8 +87,8 @@
 		if(user.obj_damage)
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
-		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		log_combat(user, src, "attacked")
+		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		return 1
 
 
@@ -102,6 +102,7 @@
 		log_combat(user, src, "punched", "hulk powers")
 
 /obj/mecha/blob_act(obj/structure/blob/B)
+	log_message("Attack by blob. Attacker - [B].", LOG_MECHA, color="red")
 	take_damage(30, BRUTE, "melee", 0, get_dir(src, B))
 
 /obj/mecha/attack_tk()
@@ -151,7 +152,14 @@
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, "energy", 1)
 	log_message("EMP detected", LOG_MECHA, color="red")
-	check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT),1)
+
+	if(istype(src, /obj/mecha/combat))
+		mouse_pointer = 'icons/mecha/mecha_mouse-disable.dmi'
+		occupant?.update_mouse_pointer()
+	if(!equipment_disabled && occupant) //prevent spamming this message with back-to-back EMPs
+		to_chat(occupant, "<span=danger>Error -- Connection to equipment control unit has been lost.</span>")
+	addtimer(CALLBACK(src, /obj/mecha/proc/restore_equipment), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	equipment_disabled = 1
 
 /obj/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature>max_temperature)

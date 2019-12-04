@@ -24,25 +24,42 @@ import { ChemPress } from './interfaces/ChemPress';
 import { ChemSplitter } from './interfaces/ChemSplitter';
 import { ChemSynthesizer } from './interfaces/ChemSynthesizer';
 import { CodexGigas } from './interfaces/CodexGigas';
+import { ComputerFabricator } from './interfaces/ComputerFabricator';
 import { Crayon } from './interfaces/Crayon';
 import { CrewConsole } from './interfaces/CrewConsole';
 import { Cryo } from './interfaces/Cryo';
 import { DisposalUnit } from './interfaces/DisposalUnit';
+import { DnaVault } from './interfaces/DnaVault';
+import { EngravedMessage } from './interfaces/EngravedMessage';
 import { Gps } from './interfaces/Gps';
+import { Holodeck } from './interfaces/Holodeck';
 import { LanguageMenu } from './interfaces/LanguageMenu';
 import { Mint } from './interfaces/Mint';
+import { NtosMain } from './interfaces/NtosMain';
+import { NtosNetDownloader } from './interfaces/NtosNetDownloader';
+import { NtosSupermatterMonitor } from './interfaces/NtosSupermatterMonitor';
+import { NtosWrapper } from './interfaces/NtosWrapper';
 import { OperatingComputer } from './interfaces/OperatingComputer';
 import { OreRedemptionMachine } from './interfaces/OreRedemptionMachine';
 import { PersonalCrafting } from './interfaces/PersonalCrafting';
 import { PortableGenerator } from './interfaces/PortableGenerator';
+import { PowerMonitor } from './interfaces/PowerMonitor';
 import { Radio } from './interfaces/Radio';
+import { RapidPipeDispenser } from './interfaces/RapidPipeDispenser';
 import { ShuttleManipulator } from './interfaces/ShuttleManipulator';
 import { SmartVend } from './interfaces/SmartVend';
-import { SMES } from './interfaces/SMES';
+import { Smes } from './interfaces/Smes';
+import { SpawnersMenu } from './interfaces/SpawnersMenu';
 import { SolarControl } from './interfaces/SolarControl';
+import { SpaceHeater } from './interfaces/SpaceHeater';
+import { StationAlertConsole } from './interfaces/StationAlertConsole';
 import { SuitStorageUnit } from './interfaces/SuitStorageUnit';
+import { Tank } from './interfaces/Tank';
 import { TankDispenser } from './interfaces/TankDispenser';
 import { ThermoMachine } from './interfaces/ThermoMachine';
+import { TurbineComputer } from './interfaces/TurbineComputer';
+import { TurboLift } from './interfaces/TurboLift';
+import { Uplink } from './interfaces/Uplink';
 import { VaultController } from './interfaces/VaultController';
 import { Wires } from './interfaces/Wires';
 
@@ -155,6 +172,10 @@ const ROUTES = {
     component: () => CodexGigas,
     scrollable: false,
   },
+  computer_fabricator: {
+    component: () => ComputerFabricator,
+    scrollable: false,
+  },
   crayon: {
     component: () => Crayon,
     scrollable: true,
@@ -171,8 +192,20 @@ const ROUTES = {
     component: () => DisposalUnit,
     scrollable: false,
   },
+  dna_vault: {
+    component: () => DnaVault,
+    scrollable: false,
+  },
+  engraved_message: {
+    component: () => EngravedMessage,
+    scrollable: false,
+  },
   gps: {
     component: () => Gps,
+    scrollable: true,
+  },
+  holodeck: {
+    component: () => Holodeck,
     scrollable: true,
   },
   language_menu: {
@@ -182,6 +215,30 @@ const ROUTES = {
   mint: {
     component: () => Mint,
     scrollable: false,
+  },
+  ntos_main: {
+    component: () => NtosMain,
+    wrapper: () => NtosWrapper,
+    scrollable: true,
+    theme: 'ntos',
+  },
+  ntos_net_downloader: {
+    component: () => NtosNetDownloader,
+    wrapper: () => NtosWrapper,
+    scrollable: true,
+    theme: 'ntos',
+  },
+  ntos_power_monitor: {
+    component: () => PowerMonitor,
+    wrapper: () => NtosWrapper,
+    scrollable: true,
+    theme: 'ntos',
+  },
+  ntos_supermatter_monitor: {
+    component: () => NtosSupermatterMonitor,
+    wrapper: () => NtosWrapper,
+    scrollable: true,
+    theme: 'ntos',
   },
   ore_redemption_machine: {
     component: () => OreRedemptionMachine,
@@ -199,9 +256,17 @@ const ROUTES = {
     component: () => PortableGenerator,
     scrollable: false,
   },
+  power_monitor: {
+    component: () => PowerMonitor,
+    scrollable: true,
+  },
   radio: {
     component: () => Radio,
     scrollable: false,
+  },
+  rpd: {
+    component: () => RapidPipeDispenser,
+    scrollable: true,
   },
   shuttle_manipulator: {
     component: () => ShuttleManipulator,
@@ -212,15 +277,31 @@ const ROUTES = {
     scrollable: true,
   },
   smes: {
-    component: () => SMES,
+    component: () => Smes,
     scrollable: false,
   },
   solar_control: {
     component: () => SolarControl,
     scrollable: false,
   },
+  space_heater: {
+    component: () => SpaceHeater,
+    scrollable: false,
+  },
+  spawners_menu: {
+    component: () => SpawnersMenu,
+    scrollable: true,
+  },
+  station_alert: {
+    component: () => StationAlertConsole,
+    scrollable: true,
+  },
   suit_storage_unit: {
     component: () => SuitStorageUnit,
+    scrollable: false,
+  },
+  tanks: {
+    component: () => Tank,
     scrollable: false,
   },
   tank_dispenser: {
@@ -230,6 +311,19 @@ const ROUTES = {
   thermomachine: {
     component: () => ThermoMachine,
     scrollable: false,
+  },
+  turbine_computer: {
+    component: () => TurbineComputer,
+    scrollable: false,
+  },
+  turbolift: {
+    component: () => TurboLift,
+    scrollable: true,
+  },
+  uplink: {
+    component: () => Uplink,
+    scrollable: true,
+    theme: 'syndicate',
   },
   vault_controller: {
     component: () => VaultController,

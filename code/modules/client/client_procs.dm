@@ -90,6 +90,18 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		to_chat(src, "<span class='danger'>An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>")
 		src << browse("...", "window=asset_cache_browser")
 
+	// Keypress passthrough
+	if(href_list["__keydown"])
+		var/keycode = browser_keycode_to_byond(href_list["__keydown"])
+		if(keycode)
+			keyDown(keycode)
+		return
+	if(href_list["__keyup"])
+		var/keycode = browser_keycode_to_byond(href_list["__keyup"])
+		if(keycode)
+			keyUp(keycode)
+		return
+
 	// Admin PM
 	if(href_list["priv_msg"])
 		cmd_admin_pm(href_list["priv_msg"],null)
