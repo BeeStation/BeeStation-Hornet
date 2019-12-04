@@ -13,5 +13,5 @@ Qwertyquerty = Host
 Crossedfall = Host
 CthulhuOnIce = Headmin
 nervere = CouncilMember
-AsciiSquid = Game Master
+
 # the rest are in the db
