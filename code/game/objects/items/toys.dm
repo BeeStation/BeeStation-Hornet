@@ -234,7 +234,7 @@
 /obj/item/toy/sword
 	name = "toy sword"
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/transforming_energy.dmi'
 	icon_state = "sword0"
 	item_state = "sword0"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
@@ -671,6 +671,9 @@
 
 /obj/item/toy/cards/deck/Initialize()
 	. = ..()
+	populate_deck()
+
+/obj/item/toy/cards/deck/proc/populate_deck()
 	icon_state = "deck_[deckstyle]_full"
 	for(var/i in 2 to 10)
 		cards += "[i] of Hearts"
@@ -697,6 +700,9 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 //ATTACK HAND NOT CALLING PARENT
 /obj/item/toy/cards/deck/attack_hand(mob/user)
+	draw_card(user)
+
+/obj/item/toy/cards/deck/proc/draw_card(mob/user)
 	if(isliving(user))
 		var/mob/living/L = user
 		if(!(L.mobility_flags & MOBILITY_PICKUP))
