@@ -594,3 +594,11 @@
 /datum/map_template/shuttle/snowdin/excavation
 	suffix = "excavation"
 	name = "Snowdin Excavation Elevator"
+
+ // Turbolifts
+/datum/map_template/shuttle/turbolift/debug/primary
+	prefix = "_maps/shuttles/turbolifts/"
+	port_id = "debug"
+	suffix = "primary"
+	name = "primary turbolift (multi-z debug)"
+	can_be_bought = FALSE
