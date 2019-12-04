@@ -674,7 +674,8 @@
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 10, /datum/material/glass = 20)
 	build_path = /obj/item/reagent_containers/syringe
-	category = list("initial", "Medical")
+	category = list("initial", "Medical", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/prox_sensor
 	name = "Proximity Sensor"
@@ -881,9 +882,10 @@
 	name = "Conveyor Belt"
 	id = "conveyor_belt"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 5000)
-	build_path = /obj/item/conveyor_construct
+	materials = list(/datum/material/iron = 3000)
+	build_path = /obj/item/stack/conveyor
 	category = list("initial", "Construction")
+	maxstack = 30
 
 /datum/design/conveyor_switch
 	name = "Conveyor Belt Switch"

@@ -534,6 +534,15 @@
 /obj/item/storage/box/firingpins/PopulateContents()
 	for(var/i in 1 to 5)
 		new /obj/item/firing_pin(src)
+		
+/obj/item/storage/box/firingpins/paywall
+	name = "box of paywall firing pins"
+	desc = "A box full of paywall firing pins, to allow newly-developed firearms to operate behind a custom-set paywall."
+	illustration = "id"
+
+/obj/item/storage/box/firingpins/paywall/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/firing_pin/paywall(src)
 
 /obj/item/storage/box/lasertagpins
 	name = "box of laser tag firing pins"
