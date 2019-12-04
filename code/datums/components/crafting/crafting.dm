@@ -38,6 +38,7 @@
 					CAT_SOUP,
 					CAT_SPAGHETTI,
 				),
+				CAT_DRINK = CAT_NONE,
 				CAT_CLOTHING = CAT_NONE,
 			)
 
