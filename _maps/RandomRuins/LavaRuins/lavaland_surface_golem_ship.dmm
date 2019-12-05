@@ -6,7 +6,8 @@
 /turf/closed/wall/mineral/titanium/survival,
 /area/ruin/powered/golem_ship)
 "ac" = (
-/obj/effect/spawner/structure/window/survival_pod,
+/obj/structure/grille,
+/obj/structure/window/plastitanium,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "ad" = (
@@ -801,12 +802,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
-"cz" = (
-/obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/cleanable/blood/gibs/limb,
-/obj/effect/decal/cleanable/blood/innards,
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
 "cA" = (
 /obj/structure/table/reinforced,
 /obj/item/scalpel,
@@ -883,6 +878,11 @@
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
+"cM" = (
+/obj/structure/grille,
+/obj/structure/window/plastitanium,
+/turf/closed/wall/mineral/plastitanium,
+/area/ruin/powered/golem_ship)
 
 (1,1,1) = {"
 aa
@@ -934,11 +934,11 @@ aC
 aR
 ab
 bd
-ac
-ac
-ac
-ac
-ac
+cM
+cM
+cM
+cM
+cM
 cd
 ab
 cl
@@ -1257,7 +1257,7 @@ cc
 bk
 ab
 ct
-cz
+cH
 af
 cL
 ab
