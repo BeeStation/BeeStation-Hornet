@@ -31,7 +31,7 @@
 	. = ..()
 
 	if (cubespawned)
-		var/cap = CONFIG_GET(number/monkeycap)
+		var/cap = CONFIG_GET(number/max_cube_monkeys)
 		if (LAZYLEN(SSmobs.cubemonkeys) > cap)
 			if (spawner)
 				to_chat(spawner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [cap] monkeys on the station at one time!</span>")
