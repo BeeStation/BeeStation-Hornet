@@ -103917,7 +103917,7 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood,
-/obj/item/stack/sheet/cloth/durathread{
+/obj/item/stack/sheet/durathread{
 	amount = 20
 	},
 /obj/effect/turf_decal/tile/neutral,
