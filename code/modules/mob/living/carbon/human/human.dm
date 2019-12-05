@@ -910,7 +910,7 @@
 			src.pixel_y = 0 //just to make sure
 
 			log_combat(src, T, "Nutshotted")
-if(ishuman(over))
+	if(ishuman(over))
 		var/mob/living/carbon/human/T = over
 		if(!src.is_busy && src.zone_selected == BODY_ZONE_PRECISE_MOUTH && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align, time to tenderize nards
 			src.is_busy = TRUE
