@@ -1,0 +1,5 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - tweak: "buffed symptom to be an indirect healing symptom"
+  - bugfix: "fixed virus timing"
