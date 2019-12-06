@@ -1,10 +1,10 @@
 /datum/symptom/radiation
 	name = "Iraddiant Cells"
 	desc = "Causes the cells in the host's body to give off harmful radiation."
-	stealth = -3
+	stealth = -1
 	resistance = 2
 	stage_speed = -1
-	transmittable = 1
+	transmittable = 2
 	level = 8
 	severity = 2
 	symptom_delay_min = 3
