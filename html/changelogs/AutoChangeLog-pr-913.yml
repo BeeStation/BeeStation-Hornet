@@ -1,4 +1,0 @@
-author: "MarkSuckerberg"
-delete-after: True
-changes: 
-  - tweak: "There is now a cap on the number of chickens, slimes, and monkeycube monkeys that can be alive at once. No more crashing the server with 200 monkeys/chickens."

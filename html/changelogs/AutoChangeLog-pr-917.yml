@@ -1,4 +1,0 @@
-author: "Moccha-Bee"
-delete-after: True
-changes: 
-  - bugfix: "purges unclear janitor var."
