@@ -1,0 +1,4 @@
+author: "Moccha-Bee"
+delete-after: True
+changes: 
+  - bugfix: "Fixes being able to exploit fully upgraded destructive analyzers to multiply materials"
