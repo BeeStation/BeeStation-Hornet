@@ -1,0 +1,4 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - admin: "Trialmins and any other admin with +ADMIN can now delay round end instead of needing +SERVER."

@@ -1,0 +1,11 @@
+author: "Sneeker134, Kryonism and Urumasi"
+delete-after: True
+changes: 
+  - rscadd: "Added caps to plastic bottles that prevent spilling when screwed on."
+  - rscadd: "Added a relic water bottle to the lavaland chest pool."
+  - code_imp: "Reagent fill code has been moved to reagent_containers and made more generic"
+  - rscadd: "Fancy drink bottles can now be crafted."
+  - rscadd: "Blank drink bottles are now available in the booze-o-mat."
+  - rscadd: "Hooch & moonshine have their own bottles."
+  - tweak: "moonshine is now clear, rather than brown."
+  - rscadd: "New fiery drink, Mauna Loa, added to game."

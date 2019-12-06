@@ -52,6 +52,9 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	if(!(prefs.chat_toggles & CHAT_OOC))
 		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
 		return
+	if(OOC_FILTER_CHECK(raw_msg))
+		to_chat(src, "<span class='warning'>That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[raw_msg]\"</span></span>")
+		return
 
 	mob.log_talk(raw_msg, LOG_OOC)
 
