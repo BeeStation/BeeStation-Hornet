@@ -17,7 +17,7 @@
 /datum/symptom/radiation/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmission"] >= 12)
+	if(A.properties["transmission"] >= 10)
 		radothers = TRUE
 	if(A.properties["speed"] >= 8)
 		fastrads = TRUE
