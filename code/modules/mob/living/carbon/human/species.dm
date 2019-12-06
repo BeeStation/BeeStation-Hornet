@@ -109,10 +109,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(!GLOB.roundstart_races.len)
 		GLOB.roundstart_races += "human"
 
-/datum/species/proc/check_roundstart_eligible()
+/datum/species/proc/check_roundstart_eligible(var/client/L)
 	if(id in (CONFIG_GET(keyed_list/roundstart_races)))
 		return TRUE
-	return FALSE
+	else if(L/id)
+		return TRUE
+	else
+		return FALSE
 
 /datum/species/proc/random_name(gender,unique,lastname)
 	if(unique)
@@ -1023,11 +1026,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /**
  * Equip the outfit required for life. Replaces items currently worn.
- */ 
+ */
 /datum/species/proc/give_important_for_life(mob/living/carbon/human/human_to_equip)
 	if(!outfit_important_for_life)
 		return
-		
+
 	outfit_important_for_life= new()
 	outfit_important_for_life.equip(human_to_equip)
 

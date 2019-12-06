@@ -14,4 +14,4 @@
 	cost = 500
 
 /datum/gear/ooc/species/fly/purchase(var/client/C)
-	C?.fly_bought = TRUE
+	C?.fly = TRUE
