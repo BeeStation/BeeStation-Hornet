@@ -1,0 +1,4 @@
+author: "Moccha-Bee"
+delete-after: True
+changes: 
+  - bugfix: "Fixes gun overlays not updating when the cell is deleted"
