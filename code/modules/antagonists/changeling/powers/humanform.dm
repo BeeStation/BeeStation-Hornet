@@ -7,9 +7,6 @@
 
 //Transform into a human.
 /datum/action/changeling/humanform/sting_action(mob/living/carbon/user)
-	if(user.movement_type & VENTCRAWLING)
-		to_chat(user, "<span class='notice'>We must exit the pipes before we can transform back!</span>")
-		return FALSE
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	var/list/names = list()
 	for(var/datum/changelingprofile/prof in changeling.stored_profiles)
@@ -23,12 +20,12 @@
 	if(!chosen_prof)
 		return
 	if(!user || user.notransform)
-		return FALSE
+		return 0
 	to_chat(user, "<span class='notice'>We transform our appearance.</span>")
 	..()
 	changeling.purchasedpowers -= src
 
-	var/newmob = user.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSTUNS | TR_KEEPREAGENTS | TR_KEEPSE)
+	var/newmob = user.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
 
 	changeling_transform(newmob, chosen_prof)
 	return TRUE
