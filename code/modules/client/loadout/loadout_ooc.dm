@@ -10,8 +10,17 @@
 /datum/gear/ooc/species/fly
 	display_name = "Fly Person"
 	sort_category = "OOC"
-	description = "be able to play as a fly person in the game."
-	cost = 500
+	description = "Select Fly in the Character Creator to play as a fly person!"
+	cost = -500
 
 /datum/gear/ooc/species/fly/purchase(var/client/C)
-	C?.fly = TRUE
+	GLOB.species_owned_list.Add("fly")
+
+/datum/gear/ooc/species/plasmaman
+	display_name = "Plasma Man"
+	sort_category = "OOC"
+	description = "Select Plasma Man in the Character Creator to play as a plasma man!"
+	cost = -500
+
+/datum/gear/ooc/species/plasmaman/purchase(var/client/C)
+	GLOB.species_owned_list.Add("plasmaman")
