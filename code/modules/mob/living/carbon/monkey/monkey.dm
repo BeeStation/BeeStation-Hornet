@@ -31,7 +31,7 @@
 	. = ..()
 
 	if (cubespawned)
-		var/cap = CONFIG_GET(number/monkeycap)
+		var/cap = CONFIG_GET(number/max_cube_monkeys)
 		if (LAZYLEN(SSmobs.cubemonkeys) > cap)
 			if (spawner)
 				to_chat(spawner, "<span class='warning'>Bluespace harmonics prevent the spawning of more than [cap] monkeys on the station at one time!</span>")
@@ -177,3 +177,19 @@
 		var/obj/item/clothing/head/helmet/justice/escape/helmet = new(src)
 		equip_to_slot_or_del(helmet,SLOT_HEAD)
 		helmet.attack_self(src) // todo encapsulate toggle
+
+
+//Special monkeycube subtype to track the number of them and prevent spam
+/mob/living/carbon/monkey/cube/Initialize()
+	. = ..()
+	GLOB.total_cube_monkeys++
+
+/mob/living/carbon/monkey/cube/death(gibbed)
+	GLOB.total_cube_monkeys--
+	..()
+
+//In case admins delete them before they die
+/mob/living/carbon/monkey/cube/Destroy()
+	if(stat != DEAD)
+		GLOB.total_cube_monkeys--
+	return ..()

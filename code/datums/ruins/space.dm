@@ -293,3 +293,9 @@
 	suffix = "clownplanet.dmm"
 	name = "Clown Planet"
 	description = "Thought lost in 2552, this minor planet has recently been rediscovered."
+
+/datum/map_template/ruin/space/macspace
+	id = "fast_food"
+	suffix = "Fast_Food.dmm"
+	name = "Mac Space Restaurant"
+	description = "A fast food reataurant in space."

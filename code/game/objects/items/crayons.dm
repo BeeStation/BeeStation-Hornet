@@ -36,9 +36,6 @@
 	var/text_buffer = ""
 
 	var/static/list/graffiti = list("amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa","body","cyka","star","poseur tag","prolizard","antilizard")
-	var/static/list/letters = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
-	var/static/list/punctuation = list("!","?",".",",","/","+","-","=","%","#","&")
-	var/static/list/numerals = list("0","1","2","3","4","5","6","7","8","9")
 	var/static/list/symbols = list("danger","firedanger","electricdanger","biohazard","radiation","safe","evac","space","med","trade","shop","food","peace","like","skull","nay","heart","credit")
 	var/static/list/drawings = list("smallbrush","brush","largebrush","splatter","snake","stickman","carp","ghost","clown","taser","disk","fireaxe","toolbox","corgi","cat","toilet","blueprint","beepsky","scroll","bottle","shotgun")
 	var/static/list/oriented = list("arrow","line","thinline","shortline","body","chevron","footprint","clawprint","pawprint") // These turn to face the same way as the drawer
@@ -47,7 +44,7 @@
 		RANDOM_NUMBER, RANDOM_GRAFFITI, RANDOM_LETTER, RANDOM_SYMBOL, RANDOM_PUNCTUATION, RANDOM_DRAWING)
 	var/static/list/graffiti_large_h = list("yiffhell", "secborg", "paint")
 
-	var/static/list/all_drawables = graffiti + letters + punctuation + numerals + symbols + drawings + oriented + runes + graffiti_large_h
+	var/static/list/all_drawables = graffiti + symbols + drawings + oriented + runes + graffiti_large_h
 
 	var/paint_mode = PAINT_NORMAL
 
@@ -172,21 +169,6 @@
 	for(var/glh in graffiti_large_h)
 		glh_items += list(list("item" = glh))
 
-	var/list/L_items = list()
-	. += list(list("name" = "Letters", "items" = L_items))
-	for(var/L in letters)
-		L_items += list(list("item" = L))
-
-	var/list/P_items = list()
-	. += list(list("name" = "Punctuation", "items" = P_items))
-	for(var/P in punctuation)
-		P_items += list(list("item" = P))
-
-	var/list/N_items = list()
-	. += list(list(name = "Numerals", "items" = N_items))
-	for(var/N in numerals)
-		N_items += list(list("item" = N))
-
 	var/list/S_items = list()
 	. += list(list("name" = "Symbols", "items" = S_items))
 	for(var/S in symbols)
@@ -243,6 +225,7 @@
 			if(stencil in all_drawables + randoms)
 				drawtype = stencil
 				. = TRUE
+				text_buffer = ""
 			if(stencil in graffiti_large_h)
 				paint_mode = PAINT_LARGE_HORIZONTAL
 				text_buffer = ""
@@ -267,12 +250,8 @@
 	update_icon()
 
 /obj/item/toy/crayon/proc/crayon_text_strip(text)
-	var/list/base = string2charlist(lowertext(text))
-	var/list/out = list()
-	for(var/a in base)
-		if(a in (letters|numerals|punctuation))
-			out += a
-	return jointext(out,"")
+	var/static/regex/crayon_r = new /regex(@"[^\w!?,.=%#&+\/\-]")
+	return replacetext(lowertext(text), crayon_r, "")
 
 /obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
