@@ -97,6 +97,38 @@
 /area/shuttle/abandoned/pod
 	name = "Abandoned Ship Pod"
 
+////////////////////////////Scavenger ship////////////////////////////
+
+/area/shuttle/scavenger
+	name = "Scavenger Ship"
+	blob_allowed = FALSE
+	requires_power = TRUE
+	canSmoothWithAreas = /area/shuttle/scavenger
+
+/area/shuttle/scavenger/bridge
+	name = "Scavenger Ship Bridge"
+
+/area/shuttle/scavenger/engine
+	name = "Scavenger Ship Engine"
+
+/area/shuttle/scavenger/bar
+	name = "Scavenger Ship Bar"
+
+/area/shuttle/scavenger/equipment
+	name = "Scavenger Ship Equipment"
+
+/area/shuttle/scavenger/crew
+	name = "Scavenger Ship Crew Quarters"
+
+/area/shuttle/scavenger/cargo
+	name = "Scavenger Ship Cargo Bay"
+
+/area/shuttle/scavenger/medbay
+	name = "Scavenger Ship Medbay"
+
+/area/shuttle/scavenger/pod
+	name = "Scavenger Ship Pod"
+
 ////////////////////////////Single-area shuttles////////////////////////////
 
 /area/shuttle/transit
