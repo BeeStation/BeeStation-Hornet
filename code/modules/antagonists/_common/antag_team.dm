@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/member_name = "member"
 	var/list/objectives = list() //common objectives, these won't be added or removed automatically, subtypes handle this, this is here for bookkeeping purposes.
 	var/show_roundend_report = TRUE
-	
+
 /datum/team/New(starting_members)
 	. = ..()
 	GLOB.antagonist_teams += src
