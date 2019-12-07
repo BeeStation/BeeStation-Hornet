@@ -27,3 +27,8 @@ GLOBAL_VAR(bible_icon_state)
 GLOBAL_VAR(bible_item_state)
 GLOBAL_VAR(holy_weapon_type)
 GLOBAL_VAR(holy_armor_type)
+
+// Monkeycube/chicken/slime spam prevention
+GLOBAL_VAR_INIT(total_cube_monkeys, 0)
+GLOBAL_VAR_INIT(total_chickens, 0)
+GLOBAL_VAR_INIT(total_slimes, 0)

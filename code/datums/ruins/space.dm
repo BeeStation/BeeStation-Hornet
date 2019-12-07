@@ -287,3 +287,9 @@
 	suffix = "hilbertshoteltestingsite.dmm"
 	name = "Hilbert Research Facility"
 	description = "A research facility of great bluespace discoveries. Long since abandoned, willingly or not..."
+
+/datum/map_template/ruin/space/macspace
+	id = "fast_food"
+	suffix = "Fast_Food.dmm"
+	name = "Mac Space Restaurant"
+	description = "A fast food reataurant in space."

@@ -63,8 +63,8 @@ BONUS
 
 	name = "Revitiligo"
 	desc = "The virus causes increased production of skin pigment cells, making the host's skin grow darker over time."
-	stealth = -1
-	resistance = 3
+	stealth = 1
+	resistance = 2
 	stage_speed = 1
 	transmittable = 2
 	level = 5

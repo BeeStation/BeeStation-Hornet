@@ -55639,12 +55639,12 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
+	},
 /mob/living/simple_animal/bot/cleanbot{
 	name = "Scrubs, MD";
 	trash = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
@@ -76725,7 +76725,7 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "daL" = (
-/obj/machinery/light/small,
+/obj/machinery/light,
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "daM" = (
