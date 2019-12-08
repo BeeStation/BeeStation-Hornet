@@ -9,6 +9,7 @@ import operator
 # List of github usernames to excluse from the output file
 blacklist = [
 	"ss13-beebot"
+	"dependabot[bot]"
 ]
 
 parser = argparse.ArgumentParser()
