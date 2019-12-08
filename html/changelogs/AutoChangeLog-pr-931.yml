@@ -1,4 +1,0 @@
-author: "A-lexa"
-delete-after: True
-changes: 
-  - admin: "Build mode disables ghost click to teleport"

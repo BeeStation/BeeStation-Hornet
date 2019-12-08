@@ -1,8 +1,0 @@
-author: "Tlaltecuhtli"
-delete-after: True
-changes: 
-  - bugfix: "cargo ripley can be actually constructed with what you get from the crate"
-  - bugfix: "adds the right crate type to monkey cube and hydroponics refill crates"
-  - tweak: "readds the bulk wt550 ammo crate"
-  - tweak: "adds a laser pointer to the bureaucracy crate"
-  - tweak: "changes med supply crate to have rng medical things"
