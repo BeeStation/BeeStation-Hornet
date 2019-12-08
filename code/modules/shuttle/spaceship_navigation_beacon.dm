@@ -36,10 +36,10 @@ obj/machinery/spaceship_navigation_beacon/emp_act()
 		set_light(1)
 	if(panel_open)
 		icon_state = "beacon-open"
-		set_light(1)
+		set_light(0)
 	else
 		icon_state = "beacon-inactive"
-		set_light(1)
+		set_light(0)
 
 /obj/machinery/spaceship_navigation_beacon/power_change()
 	. = ..()
