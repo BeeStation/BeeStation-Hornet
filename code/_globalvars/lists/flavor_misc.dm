@@ -1,10 +1,5 @@
 //Species that the player can buy or owns.
 
-GLOBAL_LIST_INIT(species_owned_list, list(
-	"human",
-	"lizard",
-	"ethereal"))
-
 //Preferences stuff
 	//Hairstyles
 GLOBAL_LIST_EMPTY(hair_styles_list)			//stores /datum/sprite_accessory/hair indexed by name

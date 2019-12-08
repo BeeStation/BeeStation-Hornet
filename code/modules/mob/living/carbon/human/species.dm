@@ -112,8 +112,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/check_roundstart_eligible()
 	if(id in(CONFIG_GET(keyed_list/roundstart_races)))
 		return TRUE
-	else if(id in(GLOB.species_owned_list))
-		return TRUE
 	else
 		return FALSE
 

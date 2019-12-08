@@ -112,6 +112,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/equipped_gear = list()
 	var/gear_tab = "General"
 
+	var/list/species_owned = list()
+
 	var/action_buttons_screen_locs = list()
 
 /datum/preferences/New(client/C)
@@ -131,6 +133,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(loaded_preferences_successfully)
 		if("extra character slot" in purchased_gear)
 			max_save_slots += 1
+		if("plasmaman" in purchased_gear)
+			C?.prefs?.species_owned += "plasmaman"
 		if(load_character())
 			return
 	//we couldn't load character data so just randomize the character appearance + name
@@ -1392,7 +1396,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("species")
 
-					var/result = input(user, "Select a species", "Species Selection") as null|anything in GLOB.roundstart_races
+					var/result = input(user, "Select a species", "Species Selection") as null|anything in GLOB.roundstart_races += user?.client?.prefs?.species_owned
 
 					if(result)
 						var/newtype = GLOB.species_list[result]

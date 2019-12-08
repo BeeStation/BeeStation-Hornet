@@ -14,7 +14,7 @@
 	cost = -500
 
 /datum/gear/ooc/species/fly/purchase(var/client/C)
-	GLOB.species_owned_list.Add("fly")
+	C?.prefs?.species_owned += "fly"
 
 /datum/gear/ooc/species/plasmaman
 	display_name = "Plasma Man"
@@ -23,4 +23,4 @@
 	cost = -500
 
 /datum/gear/ooc/species/plasmaman/purchase(var/client/C)
-	GLOB.species_owned_list.Add("plasmaman")
+	C?.prefs?.species_owned += "plasmaman"
