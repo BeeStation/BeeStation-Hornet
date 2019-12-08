@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 
 /proc/generate_selectable_species()
-	for(var/I in(subtypesof(/datum/species)))
+	for(var/I in (subtypesof(/datum/species)))
 		var/datum/species/S = new I
 		if(S.check_roundstart_eligible())
 			GLOB.roundstart_races += S.id
@@ -110,10 +110,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		GLOB.roundstart_races += "human"
 
 /datum/species/proc/check_roundstart_eligible()
-	if(id in(CONFIG_GET(keyed_list/roundstart_races)))
+	if(id in (CONFIG_GET(keyed_list/roundstart_races)))
 		return TRUE
-	else
-		return FALSE
+	return FALSE
 
 /datum/species/proc/random_name(gender,unique,lastname)
 	if(unique)

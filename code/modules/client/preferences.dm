@@ -133,8 +133,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(loaded_preferences_successfully)
 		if("extra character slot" in purchased_gear)
 			max_save_slots += 1
-		if("plasmaman" in purchased_gear)
-			C?.prefs?.species_owned += "plasmaman"
 		if(load_character())
 			return
 	//we couldn't load character data so just randomize the character appearance + name
