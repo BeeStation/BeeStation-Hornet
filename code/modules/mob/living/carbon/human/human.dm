@@ -868,11 +868,51 @@
 				src.pixel_x = src.pixel_x + increment
 				sleep(0.1)
 
-			src.pixel_x = 0
-			src.pixel_y = 0 //just to make sure
-
 			log_combat(src, T, "curbstomped")
 			src.is_busy = FALSE
+	if(ishuman(over))
+		var/mob/living/carbon/human/T = over //Groinkick based off the above curbstomp code
+		if(!src.is_busy && src.zone_selected == BODY_ZONE_PRECISE_GROIN && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //checks needed to begin action
+			src.is_busy = TRUE
+
+			if (!do_mob(src,T,25) || src.zone_selected != BODY_ZONE_PRECISE_GROIN || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP) //wait 30ds and make sure the stars still align
+				src.is_busy = FALSE
+				return
+
+			T.Stun(3)
+
+			var/increment = (T.lying/90)-2
+			setDir(increment > 0 ? WEST : EAST)
+			for(var/i in 1 to 3)
+				src.pixel_y += 2-i
+				src.pixel_x -= increment
+				sleep(0.2)
+			for(var/i in 1 to 3)
+				src.pixel_y -=2-i
+				src.pixel_x -= increment
+				sleep(0.2)
+
+			playsound(src, 'sound/effects/hit_kick.ogg', 80, 1, -1)
+			playsound(src, 'sound/effects/hit_punch.ogg', 80, 1, -1)
+
+			var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_CHEST)
+			if(BP)
+				if(T.gender == MALE) //Conditional damage due to the old twig and berries
+					BP.receive_damage(30)	
+				else
+					BP.receive_damage(20)
+
+			T.visible_message("<span class='warning'>[src] kicked [T] in the groin!</span>","<span class='warning'>[src] kicked you in the groin!</span>")
+
+			for(var/i in 1 to 6)
+				src.pixel_x = src.pixel_x + increment
+				sleep(0.1)
+
+			log_combat(src, T, "groinkicked")
+			src.is_busy = FALSE
+
+	src.pixel_x = 0
+	src.pixel_y = 0 //position reset
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
