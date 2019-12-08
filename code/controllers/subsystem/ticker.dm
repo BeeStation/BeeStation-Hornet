@@ -643,7 +643,8 @@ SUBSYSTEM_DEF(ticker)
 		'sound/roundend/its_only_game.ogg',
 		'sound/roundend/yeehaw.ogg',
 		'sound/roundend/disappointed.ogg',
-		'sound/roundend/scrunglartiy.ogg'\
+		'sound/roundend/scrunglartiy.ogg',
+		'sound/roundend/whyban.ogg'\
 		)
 
 	SEND_SOUND(world, sound(round_end_sound))
