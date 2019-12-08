@@ -870,6 +870,7 @@
 
 			log_combat(src, T, "curbstomped")
 			src.is_busy = FALSE
+
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over //Groinkick based off the above curbstomp code
 		if(!src.is_busy && src.zone_selected == BODY_ZONE_PRECISE_GROIN && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //checks needed to begin action
