@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 
 /proc/generate_selectable_species()
-	for(var/I in (subtypesof(/datum/species)))
+	for(var/I in subtypesof(/datum/species))
 		var/datum/species/S = new I
 		if(S.check_roundstart_eligible())
 			GLOB.roundstart_races += S.id
