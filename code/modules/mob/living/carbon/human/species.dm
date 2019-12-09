@@ -700,6 +700,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.ipc_chassis_list[H.dna.features["ipc_chassis"]]
 				if("insect_type")
 					S = GLOB.insect_type_list[H.dna.features["insect_type"]]
+				if("squid_head")
+					S = GLOB.squid_head_list[H.dna.features["squid_head"]]
 			if(!S || S.icon_state == "none")
 				continue
 
@@ -1023,11 +1025,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /**
  * Equip the outfit required for life. Replaces items currently worn.
- */ 
+ */
 /datum/species/proc/give_important_for_life(mob/living/carbon/human/human_to_equip)
 	if(!outfit_important_for_life)
 		return
-		
+
 	outfit_important_for_life= new()
 	outfit_important_for_life.equip(human_to_equip)
 

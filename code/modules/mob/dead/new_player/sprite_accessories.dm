@@ -1455,7 +1455,7 @@
 /datum/sprite_accessory/socks/bee_knee
 	name = "Knee-high (Bee)"
 	icon_state = "bee_knee"
-	
+
 /datum/sprite_accessory/socks/black_norm
 	name = "Normal (Black)"
 	icon_state = "black_norm"
@@ -1511,7 +1511,7 @@
 /datum/sprite_accessory/socks/bee_thigh
 	name = "Thigh-high (Bee)"
 	icon_state = "bee_thigh"
-	
+
 //////////.//////////////////
 // MutantParts Definitions //
 /////////////////////////////
@@ -2089,3 +2089,14 @@
 /datum/sprite_accessory/ipc_chassis/zenghupharmaceuticals
 	name = "Zeng-Hu Pharmaceuticals"
 	limbs_id = "zhpipc"
+
+// Squid Heads
+
+/datum/sprite_accessory/squid_head/
+	icon = null
+	icon_state = "NULL"
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/squid_head/squidward
+	name = "Squidward"
+	limbs_id = "squid"

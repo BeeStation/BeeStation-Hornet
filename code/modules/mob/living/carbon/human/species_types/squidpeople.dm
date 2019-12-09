@@ -4,7 +4,8 @@
     default_color = "b8dfda"
     species_traits = list(MUTCOLORS,EYECOLOR,TRAIT_EASYDISMEMBER)
     inherent_traits = list(TRAIT_NOSLIPALL)
-    default_features = list("mcolor" = "FFF") // bald
+    mutant_bodyparts = list("squid_head")
+    default_features = list("mcolor" = "FFF", "squid_head" = "squidward") // bold and brash
     speedmod = 0.5
     burnmod = 1.5
     heatmod = 1.4
@@ -34,6 +35,15 @@
 	if(lastname)
 		randname += " [lastname]"
 	return randname
+
+// Add squid head
+/datum/species/squid/on_species_gain(mob/living/carbon/C)
+	. = ..()
+	for(var/obj/item/bodypart/head/H in C.bodyparts)
+		H.render_like_organic = TRUE //Makes limb render organicaly instead of augments, check bodyparts.dm
+		var/species = C.dna.features["squid_head"]
+		var/datum/sprite_accessory/squid_head/player_species = GLOB.squid_head_list[species]
+		C.dna.species.limbs_id = player_species.limbs_id
 
 /proc/random_unique_squid_name(attempts_to_find_unique_name=10, genderToFind)
     for(var/i in 1 to attempts_to_find_unique_name)
