@@ -10,7 +10,7 @@
 	symptom_delay_min = 5
 	symptom_delay_max = 20
 	var/honey = FALSE
-	var/infected_bees = FALSE
+	var/toxic_bees= FALSE
 	threshold_desc = "<b>Resistance 14:</b> Host synthesizes honey instead of toxins, bees now sting with honey instead of toxin.<br>\
 					  <b>Transmission 10:</b> Bees now contain a completely random toxin, unless resistance exceeds 14"		
 					  
