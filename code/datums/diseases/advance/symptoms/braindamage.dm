@@ -11,14 +11,14 @@
 	symptom_delay_max = 60
 	var/fastdamage = FALSE
 	var/moretrauma = FALSE
-	threshold_desc = "<b>Resistance 10:</b> Causes the host's brain cells to die off quicker.<br>\
+	threshold_desc = "<b>transmission 12:</b> The disease's damage reaches lethal levels.<br>\
 					  <b>Speed 9:</b> Host's brain develops even more traumas than normal."
 
 /datum/symptom/braindamage/Start(datum/disease/advance/A)
 	if(!..())
 		return
 	if(A.properties["transmission"] >= 12)
-		fastdamage = TRUE
+		lethal = TRUE
 	if(A.properties["speed"] >= 9)
 		moretrauma = TRUE
 
@@ -34,15 +34,13 @@
 			if(prob(10))
 				to_chat(M, "<span class='danger'>Your brain begins hurting...</span>")
 		if(4, 5)
-			if(fastdamage)
-				if(prob(30))
-					M.adjustBrainLoss(5, 90)
-					affected_mob.updatehealth()
+			if(lethal)
+				if(prob(35))
+					M.adjustBrainLoss(rand(5,90), 200)
 					to_chat(M, "<span class='danger'>Your brain hurts immensely!</span>")
 			else
-				if(prob(15))
-					M.adjustBrainLoss(5, 90)
-					affected_mob.updatehealth()
+				if(prob(35))
+					M.adjustBrainLoss(rand(5,90), 120)
 					to_chat(M, "<span class='danger'>Your head hurts immensely!</span>")
 			if(moretrauma && A.stage == 5)
 				givetrauma(A, 10)
