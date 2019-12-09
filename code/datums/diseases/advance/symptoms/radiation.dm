@@ -7,8 +7,8 @@
 	transmittable = 2
 	level = 8
 	severity = 4
-	symptom_delay_min = 3
-	symptom_delay_max = 6
+	symptom_delay_min = 1
+	symptom_delay_max = 4
 	var/fastrads = FALSE
 	var/radothers = FALSE
 	threshold_desc = "<b>Transmission 12:</b> Makes the host irradiate others around them as well.<br>\
@@ -31,15 +31,15 @@
 			if(prob(10))
 				to_chat(M, "<span class='notice'>You feel off...</span>")
 		if(2, 3)
-			if(prob(10))
+			if(prob(50))
 				to_chat(M, "<span class='danger'>You feel like the atoms inside you are beginning to split...</span>")
 		if(4, 5)
 			if(fastrads)
-				radiate(M, 20)
+				radiate(M, 80)
 			else
-				radiate(M, 10)
+				radiate(M, 40)
 			if(radothers && A.stage == 5)
-				if(prob(30))
+				if(prob(40))
 					M.visible_message("<span class='danger'>[M] glows green for a moment!</span>", \
 								 	  "<span class='userdanger'>You feel a massive wave of pain flow through you!</span>")
 					radiation_pulse(M, 20)
