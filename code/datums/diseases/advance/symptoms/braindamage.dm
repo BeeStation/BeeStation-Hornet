@@ -37,10 +37,12 @@
 			if(fastdamage)
 				if(prob(30))
 					M.adjustBrainLoss(5, 90)
+					affected_mob.updatehealth()
 					to_chat(M, "<span class='danger'>Your brain hurts immensely!</span>")
 			else
 				if(prob(15))
 					M.adjustBrainLoss(5, 90)
+					affected_mob.updatehealth()
 					to_chat(M, "<span class='danger'>Your head hurts immensely!</span>")
 			if(moretrauma && A.stage == 5)
 				givetrauma(A, 10)
