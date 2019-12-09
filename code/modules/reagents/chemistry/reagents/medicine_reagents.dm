@@ -982,7 +982,7 @@
 	name = "Dexalin"
 	description = "Restores oxygen loss. Overdose causes it instead."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#0080FF"
 	overdose_threshold = 30
 
 /datum/reagent/medicine/dexalin/on_mob_life(mob/living/carbon/M)
@@ -992,6 +992,23 @@
 
 /datum/reagent/medicine/dexalin/overdose_process(mob/living/M)
 	M.adjustOxyLoss(4*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/dexalinp
+	name = "Dexalin Plus"
+	description = "Restores oxygen loss. Overdose causes it instead. It is highly effective."
+	reagent_state = LIQUID
+	color = "#0040FF"
+	overdose_threshold = 25
+
+/datum/reagent/medicine/dexalinp/on_mob_life(mob/living/carbon/M)
+	M.adjustOxyLoss(-4*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/dexalinp/overdose_process(mob/living/M)
+	M.adjustOxyLoss(8*REM, 0)
 	..()
 	. = 1
 
@@ -1031,6 +1048,54 @@
 	M.adjustToxLoss(4*REM, 0) // End result is 2 toxin loss taken, because it heals 2 and then removes 4.
 	..()
 	. = 1
+
+/datum/reagent/carthatoline
+	name = "Carthatoline"
+	description = "Carthatoline is strong evacuant used to treat severe poisoning."
+	reagent_state = LIQUID
+	color = "#225722"
+
+/datum/reagent/medicine/carthatoline/on_mob_life(mob/living/carbon/M)
+	M.adjustToxLoss(-5*REM, 0)
+	if(M.getToxLoss() && prob(10))
+		M.vomit(1)
+	for(var/datum/reagent/toxin/R in M.reagents.reagent_list)
+		M.reagents.remove_reagent(R.type,1)
+	..()
+	. = 1
+
+/datum/reagent/medicine/carthatoline/overdose_process(mob/living/M)
+	M.adjustToxLoss(10*REM, 0) // End result is 5 toxin loss taken, because it heals 5 and then removes 10.
+	..()
+	. = 1
+
+/datum/reagent/hepanephrodaxon
+	name = "Hepanephrodaxon"
+	id = "hepanephrodaxon"
+	description = "Used to repair the common tissues involved in filtration."
+	taste_description = "glue"
+	reagent_state = LIQUID
+	color = "#D2691E"
+	metabolization_rate = REM * 1.5
+	overdose_threshold = 10
+
+/datum/reagent/hepanephrodaxon/affect_blood(var/mob/living/carbon/M, var/alien, var/removed)
+	var/repair_strength = 1
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		for(var/obj/item/organ/I in H.internal_organs)
+			if(I.damage > 0)
+				I.damage = max(I.damage - 4 * removed * repair_strength, 0)
+				H.Confuse(2)
+		if(M.reagents.has_reagent(/datum/reagent/cordradaxon) || M.reagents.has_reagent(/datum/reagent/peridaxon))
+			if(prob(5))
+				H.vomit(1)
+			else if(prob(5))
+				to_chat(H,"<span class='danger'>Something churns inside you.</span>")
+				H.adjustToxLoss(10 * removed)
+				H.vomit(0, 1)
+		else
+			H.adjustToxLoss(-12 * removed) // Carthatoline based, considering cost.
 
 /datum/reagent/medicine/inaprovaline
 	name = "Inaprovaline"
