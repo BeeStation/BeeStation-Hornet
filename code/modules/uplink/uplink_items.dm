@@ -1766,7 +1766,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	name = "Experimental Disease"
 	desc = "A random disease. Maybe you'll get lucky."
 	item = /obj/item/reagent_containers/glass/bottle/random_virus
-	cost = 1
+	cost = 3
 	restricted_roles = list("Virologist")
 	surplus = 20
 
