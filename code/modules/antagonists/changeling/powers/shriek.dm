@@ -13,10 +13,10 @@
 	for(var/mob/living/M in get_hearers_in_view(4, user))
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
+			var/distance = max(0, get_dist(get_turf(src), get_turf(M)))
 			if(!C.mind || !C.mind.has_antag_datum(/datum/antagonist/changeling))
-				C.adjustEarDamage(0, 30)
-				C.confused += 15
 				C.Jitter(20)
+				C.soundbang_act(1, max(200/max(1,distance), 60), rand(0, 5))
 			else
 				SEND_SOUND(C, sound('sound/effects/screech.ogg'))
 
