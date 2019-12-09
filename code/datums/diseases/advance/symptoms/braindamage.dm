@@ -6,7 +6,7 @@
 	stage_speed = -3
 	transmittable = -1
 	level = 8
-	severity = 3
+	severity = 5
 	symptom_delay_min = 15
 	symptom_delay_max = 60
 	var/fastdamage = FALSE
