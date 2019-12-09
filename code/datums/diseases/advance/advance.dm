@@ -292,7 +292,11 @@
 /datum/disease/advance/proc/GenerateCure()
 	if(properties && properties.len)
 		var/res = CLAMP(properties["resistance"] - (symptoms.len / 2), 1, advance_cures.len)
-		cures = list(advance_cures[res])
+		
+		if(res == oldres)
+			return
+		cures = list(pick(advance_cures[res]))
+		oldres = res
 
 		// Get the cure name from the cure_id
 		var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
