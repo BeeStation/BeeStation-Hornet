@@ -49,6 +49,5 @@
 			if(death_roaches)
   				on_death(A.affected_mob)
 					new /mob/living/simple_animal/roach(M.loc)
-						(M.loc)for(var/i in 1 to 5)
-    						if(prob(75))
-       							new /mob/living/simple_animal/roach(M.loc)
+						(M.loc)for(var/i in 1 to rand(1,5))
+       						new /mob/living/simple_animal/roach(M.loc)
