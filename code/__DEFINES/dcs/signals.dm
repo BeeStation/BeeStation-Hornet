@@ -24,6 +24,9 @@
 /// Every proc you pass to RegisterSignal must have this.
 #define SIGNAL_HANDLER SHOULD_NOT_SLEEP(TRUE)
 
+// signals from globally accessible objects
+/// from SSsun when the sun changes position : (azimuth)
+#define COMSIG_SUN_MOVED "sun_moved"
 
 //////////////////////////////////////////////////////////////////
 
