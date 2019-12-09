@@ -6,12 +6,12 @@
 	stage_speed = 1
 	transmittable = 1
 	level = 9
-	if(honey)
- 		severity = 0
-	else if(toxic_bees)
- 		severity = 5
-	else
- 		severity = 4
+if(honey)
+ 	severity = 0
+else if(toxic_bees)
+ 	severity = 5
+else
+ 	severity = 4
 	symptom_delay_min = 5
 	symptom_delay_max = 20
 	var/honey = FALSE
