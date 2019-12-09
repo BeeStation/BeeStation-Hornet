@@ -11,7 +11,8 @@
 	symptom_delay_min = 10
 	symptom_delay_max = 30
 	var/scratch = FALSE
-	threshold_desc = "<b>Stage Speed 8:</b> CALCULATIONS FORECAST HEIGHTENED ACTIVITY" 
+	threshold_desc = "<b>Stage Speed 8:</b> CALCULATIONS FORECAST HEIGHTENED ACTIVITY<br>\
+	<b>Transmission 8:</b> CALCULATIONS FORECAST BRIEFLY ESCALATED ACTIVITY IMMEDIATELY FOLLOWING CESSATION OF HOST LIFESIGNS<br>" 
             
 /datum/symptom/cockroach/Start(datum/disease/advance/A)
 	if(!..())
@@ -45,3 +46,12 @@
 					new /mob/living/simple_animal/roach(M.loc)
 			if(prob(50))
 				to_chat(M, "<span class='notice'>You feel something crawling in your pipes!</span>")
+			if(death_roaches)
+  				on_death(A.affected_mob)
+					new /mob/living/simple_animal/roach(M.loc)
+					if(prob(50))
+						new /mob/living/simple_animal/roach(M.loc)
+					if(prob(50))
+						new /mob/living/simple_animal/roach(M.loc)
+					if(prob(50))
+						new /mob/living/simple_animal/roach(M.loc)
