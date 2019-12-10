@@ -67,7 +67,7 @@
 	materials = list(/datum/material/glass = 5000, /datum/material/iron = 10000, /datum/material/copper = 2000)
 	build_path = /obj/item/integrated_circuit_printer
 	category = list("Electronics")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/IC_printer_upgrade_advanced
 	name = "Integrated circuit printer upgrade: Advanced Designs"
@@ -77,7 +77,7 @@
 	materials = list(/datum/material/glass = 10000, /datum/material/iron = 10000, /datum/material/copper = 4000)
 	build_path = /obj/item/disk/integrated_circuit/upgrade/advanced
 	category = list("Electronics")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/IC_printer_upgrade_clone
 	name = "Integrated circuit printer upgrade: Instant Cloning"
@@ -87,7 +87,7 @@
 	materials = list(/datum/material/glass = 10000, /datum/material/iron = 10000, /datum/material/copper = 4000)
 	build_path = /obj/item/disk/integrated_circuit/upgrade/clone
 	category = list("Electronics")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SCAV
 
 
 ////////////////////////////////////////
@@ -101,7 +101,7 @@
 	materials = list(/datum/material/iron = 300, /datum/material/glass = 100, /datum/material/copper = 100)
 	build_path = /obj/item/disk/design_disk
 	category = list("Electronics")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/design_disk_adv
 	name = "Advanced Design Storage Disk"
@@ -111,7 +111,7 @@
 	materials = list(/datum/material/iron = 300, /datum/material/glass = 100, /datum/material/silver=50, /datum/material/copper = 200)
 	build_path = /obj/item/disk/design_disk/adv
 	category = list("Electronics")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/tech_disk
 	name = "Technology Data Storage Disk"
@@ -121,7 +121,7 @@
 	materials = list(/datum/material/iron = 300, /datum/material/glass = 100, /datum/material/copper = 100)
 	build_path = /obj/item/disk/tech_disk
 	category = list("Electronics")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/nanite_disk
 	name = "Nanite Program Disk"
@@ -131,4 +131,4 @@
 	materials = list(/datum/material/iron = 300, /datum/material/glass = 100, /datum/material/copper = 100)
 	build_path = /obj/item/disk/nanite_program
 	category = list("Electronics")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SCAV

@@ -44,6 +44,10 @@
 		research_points[i] = INFINITY
 	hidden_nodes = list()
 
+/datum/techweb/scav
+	id = "scav"
+	organization = "scav"
+
 /datum/techweb/science	//Global science techweb for RND consoles.
 	id = "SCIENCE"
 	organization = "Nanotrasen"
@@ -225,7 +229,7 @@
 	. = ..()
 	if(.)
 		node.on_research()
-	
+
 /datum/techweb/proc/unresearch_node_id(id)
 	return unresearch_node(SSresearch.techweb_node_by_id(id))
 
