@@ -116,6 +116,9 @@
 /datum/map_template/shuttle/whiteship
 	port_id = "whiteship"
 
+/datum/map_template/shuttle/scavenger_med
+	port_id = "scavenger_med"
+
 /datum/map_template/shuttle/labour
 	port_id = "labour"
 	can_be_bought = FALSE
@@ -433,6 +436,10 @@
 /datum/map_template/shuttle/whiteship/pod
 	suffix = "whiteship_pod"
 	name = "Salvage Pod"
+
+/datum/map_template/shuttle/scavenger_med
+	suffix = "scavenger_med"
+	name = "Scavenger ship"
 
 /datum/map_template/shuttle/cargo/box
 	suffix = "box"

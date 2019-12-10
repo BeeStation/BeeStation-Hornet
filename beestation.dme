@@ -14,6 +14,10 @@
 
 // BEGIN_INCLUDE
 #include "_maps\_basemap.dm"
+#include "_maps\RandomRuins\SpaceRuins\Scavie ship Small.dmm"
+#include "_maps\RandomRuins\SpaceRuins\shuttlerelic.dmm"
+#include "_maps\shuttles\SCAV_scrapship.dmm"
+#include "_maps\shuttles\scavenger_med.dmm"
 #include "code\_compile_options.dm"
 #include "code\world.dm"
 #include "code\__DEFINES\_globals.dm"
@@ -2813,6 +2817,7 @@
 #include "code\modules\shuttle\navigation_computer.dm"
 #include "code\modules\shuttle\on_move.dm"
 #include "code\modules\shuttle\ripple.dm"
+#include "code\modules\shuttle\scavenger.dm"
 #include "code\modules\shuttle\shuttle.dm"
 #include "code\modules\shuttle\shuttle_rotate.dm"
 #include "code\modules\shuttle\spaceship_navigation_beacon.dm"
@@ -3002,4 +3007,3 @@
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
-
