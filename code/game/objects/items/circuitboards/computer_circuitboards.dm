@@ -219,6 +219,9 @@
 	else
 		return ..()
 
+/obj/item/circuitboard/computer/rdconsole/production/scav
+	name = "SCAV Design Upload (Computer Board)"
+
 /obj/item/circuitboard/computer/mecha_control
 	name = "Exosuit Control Console (Computer Board)"
 	build_path = /obj/machinery/computer/mecha

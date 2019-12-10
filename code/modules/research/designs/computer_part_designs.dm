@@ -9,7 +9,7 @@
 	materials = list(/datum/material/iron = 400, /datum/material/glass = 100, /datum/material/copper = 150)
 	build_path = /obj/item/computer_hardware/hard_drive
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/disk/advanced
 	name = "Advanced Hard Disk Drive"
@@ -18,7 +18,7 @@
 	materials = list(/datum/material/iron = 800, /datum/material/glass = 200, /datum/material/copper = 300)
 	build_path = /obj/item/computer_hardware/hard_drive/advanced
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/disk/super
 	name = "Super Hard Disk Drive"
@@ -27,7 +27,7 @@
 	materials = list(/datum/material/iron = 1600, /datum/material/glass = 400, /datum/material/copper = 600)
 	build_path = /obj/item/computer_hardware/hard_drive/super
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/disk/cluster
 	name = "Cluster Hard Disk Drive"
@@ -36,7 +36,7 @@
 	materials = list(/datum/material/iron = 3200, /datum/material/glass = 800, /datum/material/copper = 1000)
 	build_path = /obj/item/computer_hardware/hard_drive/cluster
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/disk/small
 	name = "Solid State Drive"
@@ -45,7 +45,7 @@
 	materials = list(/datum/material/iron = 800, /datum/material/glass = 200, /datum/material/copper = 200)
 	build_path = /obj/item/computer_hardware/hard_drive/small
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/disk/micro
 	name = "Micro Solid State Drive"
@@ -54,7 +54,7 @@
 	materials = list(/datum/material/iron = 400, /datum/material/glass = 100, /datum/material/copper = 150)
 	build_path = /obj/item/computer_hardware/hard_drive/micro
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 // Network cards
 /datum/design/netcard/basic
@@ -64,7 +64,7 @@
 	materials = list(/datum/material/iron = 250, /datum/material/glass = 100, /datum/material/copper = 100)
 	build_path = /obj/item/computer_hardware/network_card
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/netcard/advanced
 	name = "Advanced Network Card"
@@ -73,7 +73,7 @@
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 200, /datum/material/copper = 200)
 	build_path = /obj/item/computer_hardware/network_card/advanced
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/netcard/wired
 	name = "Wired Network Card"
@@ -82,7 +82,7 @@
 	materials = list(/datum/material/iron = 2500, /datum/material/glass = 400, /datum/material/copper = 400)
 	build_path = /obj/item/computer_hardware/network_card/wired
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 // Data disks
 /datum/design/portabledrive/basic
@@ -92,7 +92,7 @@
 	materials = list(/datum/material/glass = 800, /datum/material/copper = 200)
 	build_path = /obj/item/computer_hardware/hard_drive/portable
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/portabledrive/advanced
 	name = "Advanced Data Disk"
@@ -101,7 +101,7 @@
 	materials = list(/datum/material/glass = 1600, /datum/material/copper = 300)
 	build_path = /obj/item/computer_hardware/hard_drive/portable/advanced
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/portabledrive/super
 	name = "Super Data Disk"
@@ -110,7 +110,7 @@
 	materials = list(/datum/material/glass = 3200, /datum/material/copper = 400)
 	build_path = /obj/item/computer_hardware/hard_drive/portable/super
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 // Card slot
 /datum/design/cardslot
@@ -120,7 +120,7 @@
 	materials = list(/datum/material/iron = 600, /datum/material/copper = 100)
 	build_path = /obj/item/computer_hardware/card_slot
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 // Intellicard slot
 /datum/design/aislot
@@ -130,7 +130,7 @@
 	materials = list(/datum/material/iron = 600, /datum/material/copper = 100)
 	build_path = /obj/item/computer_hardware/ai_slot
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 // Mini printer
 /datum/design/miniprinter
@@ -140,7 +140,7 @@
 	materials = list(/datum/material/iron = 600, /datum/material/copper = 100)
 	build_path = /obj/item/computer_hardware/printer/mini
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 // APC Link
 /datum/design/APClink
@@ -150,7 +150,7 @@
 	materials = list(/datum/material/iron = 2000)
 	build_path = /obj/item/computer_hardware/recharger/APC
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 // Batteries
 /datum/design/battery/controller
@@ -160,7 +160,7 @@
 	materials = list(/datum/material/iron = 400)
 	build_path = /obj/item/computer_hardware/battery
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/battery/normal
 	name = "Battery Module"
@@ -169,7 +169,7 @@
 	materials = list(/datum/material/iron = 400)
 	build_path = /obj/item/stock_parts/cell/computer
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/battery/advanced
 	name = "Advanced Battery Module"
@@ -178,7 +178,7 @@
 	materials = list(/datum/material/iron = 800)
 	build_path = /obj/item/stock_parts/cell/computer/advanced
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/battery/super
 	name = "Super Battery Module"
@@ -187,7 +187,7 @@
 	materials = list(/datum/material/iron = 1600)
 	build_path = /obj/item/stock_parts/cell/computer/super
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/battery/nano
 	name = "Nano Battery Module"
@@ -196,7 +196,7 @@
 	materials = list(/datum/material/iron = 200)
 	build_path = /obj/item/stock_parts/cell/computer/nano
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/battery/micro
 	name = "Micro Battery Module"
@@ -205,7 +205,7 @@
 	materials = list(/datum/material/iron = 400)
 	build_path = /obj/item/stock_parts/cell/computer/micro
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 // Processor unit
 /datum/design/cpu
@@ -215,7 +215,7 @@
 	materials = list(/datum/material/glass = 200, /datum/material/copper = 1600)
 	build_path = /obj/item/computer_hardware/processor_unit
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/cpu/small
 	name = "Microprocessor"
@@ -224,7 +224,7 @@
 	materials = list(/datum/material/glass = 100, /datum/material/copper = 800)
 	build_path = /obj/item/computer_hardware/processor_unit/small
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/cpu/photonic
 	name = "Photonic Processor Board"
@@ -233,7 +233,7 @@
 	materials = list(/datum/material/glass = 6400, /datum/material/gold = 2000, /datum/material/copper = 800)
 	build_path = /obj/item/computer_hardware/processor_unit/photonic
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/cpu/photonic/small
 	name = "Photonic Microprocessor"
@@ -242,4 +242,4 @@
 	materials = list(/datum/material/glass = 3200, /datum/material/gold = 1000, /datum/material/copper = 400)
 	build_path = /obj/item/computer_hardware/processor_unit/photonic/small
 	category = list("Computer Parts")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV

@@ -78,7 +78,7 @@
 	id = "operating"
 	build_path = /obj/item/circuitboard/computer/operating
 	category = list("Computer Boards")
-	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/board/pandemic
 	name = "Computer Design (PanD.E.M.I.C. 2200)"
@@ -94,7 +94,7 @@
 	id = "scan_console"
 	build_path = /obj/item/circuitboard/computer/scan_consolenew
 	category = list("Computer Boards")
-	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/board/comconsole
 	name = "Computer Design (Communications)"
@@ -166,7 +166,7 @@
 	id = "powermonitor"
 	build_path = /obj/item/circuitboard/computer/powermonitor
 	category = list("Computer Boards")
-	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/board/solarcontrol
 	name = "Computer Design (Solar Control)"
@@ -174,7 +174,7 @@
 	id = "solarcontrol"
 	build_path = /obj/item/circuitboard/computer/solar_control
 	category = list("Computer Boards")
-	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/board/prisonmanage
 	name = "Computer Design (Prisoner Management Console)"
@@ -198,7 +198,7 @@
 	id = "mechapower"
 	build_path = /obj/item/circuitboard/computer/mech_bay_power_console
 	category = list("Computer Boards")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/board/rdconsole
 	name = "Computer Design (R&D Console)"
@@ -214,7 +214,7 @@
 	id = "cargo"
 	build_path = /obj/item/circuitboard/computer/cargo
 	category = list("Computer Boards")
-	departmental_flags = DEPARTMENTAL_FLAG_CARGO
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/board/cargorequest
 	name = "Computer Design (Supply Request Console)"
@@ -222,7 +222,7 @@
 	id = "cargorequest"
 	build_path = /obj/item/circuitboard/computer/cargo/request
 	category = list("Computer Boards")
-	departmental_flags = DEPARTMENTAL_FLAG_CARGO
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/board/bounty
 	name = "Computer Design (Bounty Console)"
@@ -230,7 +230,7 @@
 	id = "bounty"
 	build_path = /obj/item/circuitboard/computer/bounty
 	category = list("Computer Boards")
-	departmental_flags = DEPARTMENTAL_FLAG_CARGO
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/board/mining
 	name = "Computer Design (Outpost Status Display)"
@@ -286,7 +286,7 @@
 	id = "apc_control"
 	build_path = /obj/item/circuitboard/computer/apc_control
 	category = list("Computer Boards")
-	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/board/nanite_chamber_control
 	name = "Computer Design (Nanite Chamber Control)"
@@ -294,7 +294,7 @@
 	id = "nanite_chamber_control"
 	build_path = /obj/item/circuitboard/computer/nanite_chamber_control
 	category = list("Computer Boards")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/board/nanite_cloud_control
 	name = "Computer Design (Nanite Cloud Control)"
@@ -302,7 +302,7 @@
 	id = "nanite_cloud_control"
 	build_path = /obj/item/circuitboard/computer/nanite_cloud_controller
 	category = list("Computer Boards")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SCAV
 
 /datum/design/board/advanced_camera
 	name = "Computer Design (Advanced Camera Console)"

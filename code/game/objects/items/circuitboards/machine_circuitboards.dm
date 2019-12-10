@@ -254,7 +254,6 @@
 		/obj/machinery/vending/robotics = "Robotech Deluxe",
 		/obj/machinery/vending/engineering = "Robco Tool Maker",
 		/obj/machinery/vending/sovietsoda = "BODA",
-		/obj/machinery/vending/security = "SecTech",
 		/obj/machinery/vending/modularpc = "Deluxe Silicate Selections")
 
 /obj/item/circuitboard/machine/vendor/attackby(obj/item/I, mob/user, params)
@@ -878,6 +877,9 @@
 /obj/item/circuitboard/machine/techfab/department/service
 	name = "\improper Departmental Techfab - Service (Machine Board)"
 	build_path = /obj/machinery/rnd/production/techfab/department/service
+
+/obj/item/circuitboard/machine/techfab/scav
+	name = "\improper Scavfab (Machine Board)"
 
 /obj/item/circuitboard/machine/rdserver
 	name = "R&D Server (Machine Board)"
