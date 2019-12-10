@@ -17,7 +17,7 @@
 /obj/item/circuitboard/computer/advanced_camera
 	name = "Advanced Camera Console (Computer Board)"
 	build_path = /obj/machinery/computer/camera_advanced/syndie
-	
+
 /obj/item/circuitboard/computer/xenobiology
 	name = "circuit board (Xenobiology Console)"
 	build_path = /obj/machinery/computer/camera_advanced/xenobio
@@ -327,6 +327,10 @@
 /obj/item/circuitboard/computer/white_ship/pod/recall
 	name = "Salvage Pod Recall (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle/white_ship/pod/recall
+
+/obj/item/circuitboard/computer/scavenger_ship
+	name = "Scavenger Ship (Computer Board)"
+	build_path = /obj/machinery/computer/shuttle/scavenger
 
 /obj/item/circuitboard/computer/auxillary_base
 	name = "Auxillary Base Management Console (Computer Board)"
