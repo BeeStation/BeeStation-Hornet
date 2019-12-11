@@ -20,3 +20,17 @@
 	caliber = "a556"
 	max_ammo = 30
 	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/pistolm9mm/rifle
+	name = "Scav rifle magazine (9mm)"
+	icon_state = "75-8"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = "9mm"
+	max_ammo = 20
+
+/obj/item/ammo_box/magazine/pistolm9mm/rifle/update_icon()
+	..()
+	if(ammo_count())
+		icon_state = "75-8"
+	else
+		icon_state = "75-0"

@@ -344,3 +344,12 @@
 	actions_types = list()
 	fire_sound = 'sound/weapons/laser.ogg'
 	casing_ejector = FALSE
+/obj/item/gun/ballistic/automatic/scav
+	name = "Scav rifle"
+	desc = "A rifle designed by SCAV industries. Uses 9mm ammo."
+	icon_state = "surplus"
+	item_state = "moistnugget"
+	mag_type = /obj/item/ammo_box/magazine/pistolm9mm/rifle
+	can_suppress = FALSE
+	burst_size = 0
+	fire_delay = 2
