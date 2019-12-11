@@ -898,10 +898,10 @@
 
 			var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_CHEST)
 			if(BP)
-				if(T.gender == MALE) //Conditional damage due to the old twig and berries
-					BP.receive_damage(30)	
+				if(T.gender == MALE && (ishuman(T)) || (islizard(T)) || (iscatperson(T))) //Conditional damage due to the old twig and berries and species that have said twig and berries
+					BP.receive_damage(25)	
 				else
-					BP.receive_damage(20)
+					BP.receive_damage(15)
 
 			T.visible_message("<span class='warning'>[src] kicked [T] in the groin!</span>","<span class='warning'>[src] kicked you in the groin!</span>")
 
