@@ -1,9 +1,0 @@
-author: "actioninja, stylemistake, nightred, Arkatos1, TheVekter"
-delete-after: True
-changes: 
-  - rscadd: "The Keycard Authentication Device and Implanter Chairs now have TGUI-Next interfaces."
-  - rscadd: "Updated mech bay power consoles to tgui-next"
-  - rscadd: "Nuke UI has been completely reworked for tgui-next"
-  - bugfix: "Interfaces featuring the Input component (such as the syndicate uplink) on tgui-next now properly function on IE8/WINE again."
-  - rscadd: "Equipment reclaimer station now uses tgui-next UI."
-  - rscadd: "Ore Box uses tgui-next now"

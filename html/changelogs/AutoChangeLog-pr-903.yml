@@ -1,4 +1,0 @@
-author: "Naksu"
-delete-after: True
-changes: 
-  - balance: "Blob rerolls now give the blob 4 different options to choose from, rather than forcing a single random one."
