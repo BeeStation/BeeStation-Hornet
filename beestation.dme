@@ -14,10 +14,11 @@
 
 // BEGIN_INCLUDE
 #include "_maps\_basemap.dm"
+#include "_maps\RandomRuins\SpaceRuins\Scavenger_home.dmm"
 #include "_maps\RandomRuins\SpaceRuins\Scavie ship Small.dmm"
 #include "_maps\RandomRuins\SpaceRuins\shuttlerelic.dmm"
+#include "_maps\shuttles\ruin_scavenger_med.dmm"
 #include "_maps\shuttles\SCAV_scrapship.dmm"
-#include "_maps\shuttles\scavenger_med.dmm"
 #include "code\_compile_options.dm"
 #include "code\world.dm"
 #include "code\__DEFINES\_globals.dm"

@@ -116,8 +116,8 @@
 /datum/map_template/shuttle/whiteship
 	port_id = "whiteship"
 
-/datum/map_template/shuttle/scavenger_med
-	port_id = "scavenger_med"
+/datum/map_template/shuttle/scavenger
+	port_id = "scavenger"
 
 /datum/map_template/shuttle/labour
 	port_id = "labour"
@@ -437,8 +437,8 @@
 	suffix = "whiteship_pod"
 	name = "Salvage Pod"
 
-/datum/map_template/shuttle/scavenger_med
-	suffix = "scavenger_med"
+/datum/map_template/shuttle/scavenger/med
+	suffix = "med"
 	name = "Scavenger ship"
 
 /datum/map_template/shuttle/cargo/box
@@ -593,6 +593,10 @@
 /datum/map_template/shuttle/ruin/syndicate_fighter_shiv
 	suffix = "syndicate_fighter_shiv"
 	name = "Syndicate Fighter"
+
+/datum/map_template/shuttle/ruin/scavenger_med
+	suffix = "scavenger_med"
+	name = "scavenger ship"
 
 /datum/map_template/shuttle/snowdin/mining
 	suffix = "mining"
