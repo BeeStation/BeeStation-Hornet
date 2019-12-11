@@ -365,16 +365,16 @@
 	else
 		if(I == handcuffed)
 			handcuffed.forceMove(drop_location())
-			handcuffed.dropped(src)
 			handcuffed = null
-			if(buckled?.buckle_requires_restraints)
+			I.dropped(src)
+			if(buckled && buckled.buckle_requires_restraints)
 				buckled.unbuckle_mob(src)
 			update_handcuffed()
 			return
 		if(I == legcuffed)
 			legcuffed.forceMove(drop_location())
-			legcuffed.dropped()
 			legcuffed = null
+			I.dropped(src)
 			update_inv_legcuffed()
 			return
 		else
