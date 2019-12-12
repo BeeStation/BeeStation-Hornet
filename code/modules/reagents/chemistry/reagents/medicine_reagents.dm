@@ -1049,7 +1049,7 @@
 	..()
 	. = 1
 
-/datum/reagent/carthatoline
+/datum/reagent/medicine/carthatoline
 	name = "Carthatoline"
 	description = "Carthatoline is strong evacuant used to treat severe poisoning."
 	reagent_state = LIQUID
@@ -1069,9 +1069,8 @@
 	..()
 	. = 1
 
-/datum/reagent/hepanephrodaxon
+/datum/reagent/medicine/hepanephrodaxon
 	name = "Hepanephrodaxon"
-	id = "hepanephrodaxon"
 	description = "Used to repair the common tissues involved in filtration."
 	taste_description = "glue"
 	reagent_state = LIQUID
@@ -1079,23 +1078,22 @@
 	metabolization_rate = REM * 1.5
 	overdose_threshold = 10
 
-/datum/reagent/hepanephrodaxon/affect_blood(var/mob/living/carbon/M, var/alien, var/removed)
+/datum/reagent/medicine/hepanephrodaxon/on_mob_life(var/mob/living/carbon/M)
 	var/repair_strength = 1
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		for(var/obj/item/organ/I in H.internal_organs)
-			if(I.damage > 0)
-				I.damage = max(I.damage - 4 * removed * repair_strength, 0)
-				H.Confuse(2)
-		if(M.reagents.has_reagent(/datum/reagent/cordradaxon) || M.reagents.has_reagent(/datum/reagent/peridaxon))
-			if(prob(5))
-				H.vomit(1)
-			else if(prob(5))
-				to_chat(H,"<span class='danger'>Something churns inside you.</span>")
-				H.adjustToxLoss(10 * removed)
-				H.vomit(0, 1)
-		else
-			H.adjustToxLoss(-12 * removed) // Carthatoline based, considering cost.
+	var/obj/item/organ/liver/L = M.getorganslot(ORGAN_SLOT_LIVER)
+	if(L.damage > 0)
+		L.damage = max(L.damage - 4 * repair_strength, 0)
+		M.confused = (2)
+	M.adjustToxLoss(-12)
+	..()
+	. = 1
+
+/datum/reagent/medicine/hepanephrodaxon/overdose_process(mob/living/M)
+	var/obj/item/organ/liver/L = M.getorganslot(ORGAN_SLOT_LIVER)
+	L.damage = max(L.damage + 4, 0)
+	M.confused = (2)
+	..()
+	. = 1
 
 /datum/reagent/medicine/inaprovaline
 	name = "Inaprovaline"
