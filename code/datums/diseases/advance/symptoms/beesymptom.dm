@@ -47,7 +47,7 @@
 			if(prob(15))
 				if(honey)
 					to_chat(M, "<span class='notice'>You can't get the taste of honey out of your mouth!.</span>")
-					M.reagents.add_reagent(/datum/reagent/consumable/honey, 3)
+					M.reagents.add_reagent(/datum/reagent/consumable/honey, 5) //equivalent to 2u omnizine
 				else
 					to_chat(M, "<span class='danger'>Your stomach stings painfully.</span>")				
 					M.adjustToxLoss(5)
