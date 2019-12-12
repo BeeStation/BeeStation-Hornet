@@ -23,6 +23,8 @@
 	var/datum/mind/origin
 	var/egg_lain = 0
 
+	gold_core_spawnable = HOSTILE_SPAWN
+
 /mob/living/simple_animal/hostile/headcrab/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/body_egg/changeling_egg/egg = new(victim)
 	egg.Insert(victim)
