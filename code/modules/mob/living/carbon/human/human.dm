@@ -869,7 +869,6 @@
 				sleep(0.1)
 
 			log_combat(src, T, "curbstomped")
-			src.is_busy = FALSE
 
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over //Groinkick based off the above curbstomp code
@@ -910,7 +909,8 @@
 				sleep(0.1)
 
 			log_combat(src, T, "groinkicked")
-			src.is_busy = FALSE
+
+	src.is_busy = FALSE
 
 	src.pixel_x = 0
 	src.pixel_y = 0 //position reset
