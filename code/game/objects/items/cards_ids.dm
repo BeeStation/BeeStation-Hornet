@@ -213,7 +213,7 @@
 			to_chat(user, "<span class='notice'>The provided account has been linked to this ID card.</span>")
 
 			return TRUE
-			
+
 	to_chat(user, "<span class='warning'>The account ID number provided is invalid.</span>")
 	return
 
@@ -310,7 +310,7 @@ update_label("John Doe", "Clowny")
 	name = "agent card"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
-	
+
 	var/static/list/available_icon_states = list(
 		"id",
 		"orange",
@@ -390,7 +390,7 @@ update_label("John Doe", "Clowny")
 			icon_state = choice
 
 			to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
-			
+
 			// First time use automatically sets the account id to the user.
 			if (first_use && !registered_account)
 				if(ishuman(user))
@@ -654,6 +654,11 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/departmental_budget/sec
 	department_ID = ACCOUNT_SEC
 	department_name = ACCOUNT_SEC_NAME
+	icon_state = "budget_sec"
+
+/obj/item/card/id/departmental_budget/sca
+	department_ID = ACCOUNT_SCA
+	department_name = ACCOUNT_SCA_NAME
 	icon_state = "budget_sec"
 
 ///Job Specific ID Cards///

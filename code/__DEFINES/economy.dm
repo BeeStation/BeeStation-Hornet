@@ -23,5 +23,7 @@
 #define ACCOUNT_CAR_NAME "Cargo Budget"
 #define ACCOUNT_SEC "SEC"
 #define ACCOUNT_SEC_NAME "Defense Budget"
+#define ACCOUNT_SCA "SCA"
+#define ACCOUNT_SCA_NAME "SCAV Budget"
 
 #define NO_FREEBIES "commies go home"
