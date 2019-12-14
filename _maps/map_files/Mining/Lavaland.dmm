@@ -515,6 +515,9 @@
 /obj/structure/toilet{
 	dir = 8
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "bC" = (
@@ -740,9 +743,6 @@
 /area/mine/laborcamp/security)
 "cb" = (
 /obj/structure/table,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/item/restraints/handcuffs,
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
@@ -778,10 +778,10 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "cg" = (
-/obj/machinery/light/small{
+/obj/machinery/computer/security/labor,
+/obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/computer/security/labor,
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "ch" = (
@@ -1701,9 +1701,6 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/mine/production)
 "en" = (
@@ -1813,6 +1810,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "ey" = (
@@ -1828,6 +1828,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "ez" = (
@@ -1836,6 +1839,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
@@ -1865,21 +1871,24 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/mine/production)
 "eC" = (
-/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /turf/open/floor/plasteel,
 /area/mine/production)
 "eD" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/mine/production)
 "eE" = (
@@ -1941,8 +1950,8 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 9
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
@@ -2005,11 +2014,9 @@
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "eP" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
-	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/plasteel,
-/area/mine/production)
+/area/mine/living_quarters)
 "eQ" = (
 /obj/machinery/door/airlock/mining{
 	name = "Mining Station Storage";
@@ -2141,6 +2148,9 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
@@ -2640,6 +2650,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/mine/production)
 "gj" = (
@@ -2673,6 +2686,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
@@ -3787,6 +3803,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
+"pH" = (
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/mine/living_quarters)
 "qY" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -3839,6 +3859,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
+"xm" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/mine/living_quarters)
 "xA" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -3861,12 +3890,9 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "AB" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
-	},
+/obj/machinery/light,
 /turf/open/floor/plasteel,
-/area/mine/production)
+/area/mine/laborcamp/security)
 "AS" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -3887,6 +3913,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "BV" = (
@@ -3902,6 +3931,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/mine/living_quarters)
+"Gf" = (
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
@@ -4055,6 +4090,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
+"Wj" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/mine/living_quarters)
 "Wp" = (
 /obj/docking_port/stationary{
 	area_type = /area/lavaland/surface/outdoors;
@@ -4115,6 +4156,12 @@
 	glass = 1;
 	name = "Mining Shuttle Airlock";
 	opacity = 0
+	},
+/turf/open/floor/plasteel,
+/area/mine/production)
+"YF" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
@@ -10266,9 +10313,9 @@ bz
 cf
 ci
 cx
-bM
+AB
 cc
-dZ
+Gf
 dZ
 dZ
 cM
@@ -10528,7 +10575,7 @@ cG
 rU
 lU
 ec
-dZ
+Wj
 eL
 kw
 cM
@@ -11558,7 +11605,7 @@ dg
 cQ
 dZ
 uF
-dZ
+pH
 cM
 fx
 fX
@@ -14640,7 +14687,7 @@ cT
 cV
 dG
 cM
-ea
+xm
 er
 dZ
 cM
@@ -19525,7 +19572,7 @@ PQ
 PQ
 PQ
 eC
-eP
+bP
 eT
 bq
 ab
@@ -19782,7 +19829,7 @@ bP
 bP
 gd
 eD
-bP
+YF
 eU
 br
 ab
@@ -20541,7 +20588,7 @@ ab
 bg
 bo
 bt
-fa
+eP
 bU
 cp
 bf
@@ -21065,7 +21112,7 @@ dc
 bP
 dM
 dW
-AB
+dW
 eI
 bq
 eX
