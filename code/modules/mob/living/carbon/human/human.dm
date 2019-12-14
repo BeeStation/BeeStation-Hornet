@@ -870,8 +870,6 @@
 
 			log_combat(src, T, "curbstomped")
 
-	if(ishuman(over))
-		var/mob/living/carbon/human/T = over //Groinkick based off the above curbstomp code
 		if(!src.is_busy && src.zone_selected == BODY_ZONE_PRECISE_GROIN && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //checks needed to begin action
 			src.is_busy = TRUE
 
@@ -883,11 +881,11 @@
 
 			var/increment = (T.lying/90)-2
 			setDir(increment > 0 ? WEST : EAST)
-			for(var/i in 1 to 3)
+			for(var/i in 1 to 5)
 				src.pixel_y += 2-i
 				src.pixel_x -= increment
 				sleep(0.2)
-			for(var/i in 1 to 3)
+			for(var/i in 1 to 5)
 				src.pixel_y -=2-i
 				src.pixel_x -= increment
 				sleep(0.2)
@@ -904,11 +902,12 @@
 
 			T.visible_message("<span class='warning'>[src] kicked [T] in the groin!</span>","<span class='warning'>[src] kicked you in the groin!</span>")
 
-			for(var/i in 1 to 6)
-				src.pixel_x = src.pixel_x + increment
-				sleep(0.1)
 
 			log_combat(src, T, "groinkicked")
+	
+			for(var/i in 1 to 10)
+				src.pixel_x = src.pixel_x + increment
+				sleep(0.1)
 
 	src.is_busy = FALSE
 
