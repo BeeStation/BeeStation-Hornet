@@ -344,6 +344,7 @@
 	actions_types = list()
 	fire_sound = 'sound/weapons/laser.ogg'
 	casing_ejector = FALSE
+
 /obj/item/gun/ballistic/automatic/scav
 	name = "Scav rifle"
 	desc = "A rifle designed by SCAV industries. Uses 9mm ammo."
