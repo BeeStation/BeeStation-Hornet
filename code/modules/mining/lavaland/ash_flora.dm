@@ -217,6 +217,7 @@
 /obj/item/seeds/lavaland
 	name = "lavaland seeds"
 	desc = "You should never see this."
+	species = "polypore" // Silence unit tests
 	lifespan = 50
 	endurance = 25
 	maturation = 7
