@@ -4200,7 +4200,7 @@
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
 "ku" = (
-/turf/closed/indestructible/riveted,
+/turf/closed/indestructible/syndicate,
 /area/syndicate_mothership/control)
 "kv" = (
 /obj/machinery/door/poddoor/shuttledock{
@@ -5451,7 +5451,7 @@
 /area/abductor_ship)
 "ng" = (
 /obj/effect/baseturf_helper/asteroid/snow,
-/turf/closed/indestructible/riveted,
+/turf/closed/indestructible/syndicate,
 /area/syndicate_mothership/control)
 "nh" = (
 /obj/item/toy/figure/syndie,
@@ -5639,7 +5639,7 @@
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "nz" = (
-/turf/closed/indestructible/fakeglass,
+/turf/closed/indestructible/opsglass,
 /area/syndicate_mothership/control)
 "nA" = (
 /obj/structure/sign/warning/nosmoking,
@@ -7555,29 +7555,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
-"qM" = (
-/obj/machinery/vending/cigarette/syndicate,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/syndicate_mothership/control)
 "qN" = (
-/obj/structure/urinal{
-	pixel_y = 28
-	},
-/turf/open/floor/plasteel/freezer,
-/area/syndicate_mothership/control)
-"qO" = (
-/obj/item/soap/syndie,
 /obj/structure/mopbucket,
+/obj/item/soap/syndie,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plasteel/freezer{
-	dir = 2
-	},
+/turf/open/floor/plasteel/freezer,
 /area/syndicate_mothership/control)
 "qP" = (
 /obj/structure/mirror{
@@ -7687,17 +7671,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
-"re" = (
-/obj/item/paper/fluff/stations/centcom/disk_memo,
-/obj/structure/noticeboard{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/syndicate_mothership/control)
 "rf" = (
 /obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/bar,
@@ -7715,16 +7688,12 @@
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
 "rh" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Restroom";
-	opacity = 1;
-	req_access_txt = "150"
+/obj/structure/urinal{
+	pixel_y = 28
 	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
+/turf/open/floor/plasteel/freezer{
+	dir = 2
 	},
-/turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
 "ri" = (
 /turf/open/floor/plasteel/freezer{
@@ -8320,13 +8289,17 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/machinery/door/airlock/centcom{
+	name = "Restroom";
+	opacity = 1;
+	req_access_txt = "150"
+	},
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
 "si" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/mineral/plastitanium/red,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/shaker,
+/turf/open/floor/wood,
 /area/syndicate_mothership/control)
 "sj" = (
 /obj/structure/toilet{
@@ -8809,10 +8782,12 @@
 /area/centcom/ferry)
 "te" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/pizzaslice/mushroom,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/syndicake{
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
@@ -10490,33 +10465,27 @@
 /turf/open/floor/carpet,
 /area/wizard_station)
 "wV" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/mineral/plastitanium/red,
+/obj/machinery/vending/boozeomat,
+/turf/open/floor/wood,
 /area/syndicate_mothership/control)
 "wW" = (
 /obj/structure/sign/map/left{
 	pixel_y = -32
 	},
-/obj/structure/rack{
-	icon = 'icons/obj/stationobjs.dmi';
-	icon_state = "minibar_left";
-	name = "skeletal minibar"
+/obj/structure/table/wood,
+/obj/machinery/chem_dispenser/drinks{
+	dir = 1
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
 /turf/open/floor/wood,
 /area/syndicate_mothership/control)
 "wX" = (
 /obj/structure/sign/map/right{
 	pixel_y = -32
 	},
-/obj/structure/rack{
-	icon = 'icons/obj/stationobjs.dmi';
-	icon_state = "minibar_right";
-	name = "skeletal minibar"
+/obj/structure/table/wood,
+/obj/machinery/chem_dispenser/drinks/beer{
+	dir = 1
 	},
-/obj/item/reagent_containers/food/drinks/bottle/gin,
 /turf/open/floor/wood,
 /area/syndicate_mothership/control)
 "wY" = (
@@ -10529,6 +10498,14 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/turf/open/floor/plasteel,
+/area/syndicate_mothership/control)
+"xb" = (
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar,
+/obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
 "xc" = (
@@ -12985,6 +12962,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/centcom/evac)
+"CT" = (
+/obj/structure/table/wood,
+/obj/item/paper/fluff/stations/centcom/disk_memo,
+/turf/open/floor/wood,
+/area/syndicate_mothership/control)
 "CV" = (
 /obj/structure/chair/stool,
 /turf/open/floor/wood,
@@ -17460,9 +17442,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/two)
-"OA" = (
-/turf/open/floor/plasteel/freezer,
-/area/syndicate_mothership/control)
 "OD" = (
 /obj/machinery/microwave{
 	desc = "Cooks and boils stuff, somehow.";
@@ -17821,6 +17800,14 @@
 "Si" = (
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/two)
+"So" = (
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/machinery/vending/cigarette/syndicate,
+/turf/open/floor/plasteel,
+/area/syndicate_mothership/control)
 "Sq" = (
 /obj/structure/table/wood,
 /obj/item/camera,
@@ -36009,7 +35996,7 @@ oW
 ku
 ng
 qJ
-re
+pZ
 se
 pZ
 pZ
@@ -36264,14 +36251,14 @@ hl
 hl
 kt
 nz
-pZ
+So
 pZ
 pZ
 oV
 oV
 pZ
 rf
-vv
+CT
 wm
 si
 ku
@@ -37807,12 +37794,12 @@ hl
 mz
 ma
 ku
-qM
-pZ
+ku
+ku
 sh
-sh
-sh
-sh
+ku
+ku
+xb
 pZ
 wp
 ku
@@ -38066,8 +38053,8 @@ pG
 ku
 ku
 rh
-ku
-ku
+ri
+Wj
 ku
 nz
 uJ
@@ -38319,12 +38306,12 @@ mA
 hl
 hl
 pG
-ku
+hl
 ku
 qN
 ri
-Wj
-ku
+ri
+sj
 ku
 nz
 ll
@@ -38576,11 +38563,11 @@ mz
 hl
 hl
 pG
-ku
-qO
-OA
-ri
-sj
+hl
+nz
+pY
+qP
+rj
 ku
 ku
 nz
@@ -38833,10 +38820,10 @@ hl
 hl
 mA
 kt
-nz
-pY
-qP
-rj
+hl
+ku
+ku
+ku
 ku
 ku
 ku
@@ -39090,7 +39077,7 @@ mA
 mz
 hl
 ma
-ku
+hl
 ku
 ku
 ku
