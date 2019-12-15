@@ -1,5 +1,5 @@
 /obj/machinery/scav_selling
-	name = "cargo hold pad"
+	name = "Export pad"
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "lpad-idle-o"
 	var/idle_state = "lpad-idle-o"
@@ -9,12 +9,12 @@
 
 /obj/machinery/scav_selling/multitool_act(mob/living/user, obj/item/multitool/I)
 	if (istype(I))
-		to_chat(user, "<span class='notice'>You register [src] in [I]s buffer.</span>")
+		to_chat(user, "<span class='notice'>You register \the [src] in [I]'s buffer.</span>")
 		I.buffer = src
 		return TRUE
 
 /obj/machinery/computer/scav_selling_control
-	name = "cargo hold control terminal"
+	name = "Export controll console"
 	var/status_report = "Idle"
 	var/obj/machinery/scav_selling/pad
 	var/warmup_time = 100
@@ -72,7 +72,7 @@
 	for(var/atom/movable/AM in get_turf(pad))
 		if(AM == pad)
 			continue
-		export_item_and_contents(AM, EXPORT_PIRATE | EXPORT_CARGO | EXPORT_CONTRABAND | EXPORT_EMAG, apply_elastic = FALSE, dry_run = TRUE, external_report = ex)
+		export_item_and_contents(AM, EXPORT_CARGO | EXPORT_CONTRABAND | EXPORT_EMAG, apply_elastic = FALSE, dry_run = TRUE, external_report = ex)
 
 	for(var/datum/export/E in ex.total_amount)
 		status_report += E.total_printout(ex,notes = FALSE) + "<br>"
@@ -88,7 +88,7 @@
 	for(var/atom/movable/AM in get_turf(pad))
 		if(AM == pad)
 			continue
-		export_item_and_contents(AM, EXPORT_PIRATE | EXPORT_CARGO | EXPORT_CONTRABAND | EXPORT_EMAG, apply_elastic = FALSE, delete_unsold = FALSE, external_report = ex)
+		export_item_and_contents(AM, EXPORT_CARGO | EXPORT_CONTRABAND | EXPORT_EMAG, apply_elastic = FALSE, delete_unsold = FALSE, external_report = ex)
 
 	status_report = "Sold:<br>"
 	var/value = 0
@@ -146,60 +146,3 @@
 		updateDialog()
 	else
 		updateDialog()
-
-/datum/export/pirate
-	export_category = EXPORT_PIRATE
-
-/datum/export/pirate/ransom
-	cost = 3000
-	unit_name = "hostage"
-	export_types = list(/mob/living/carbon/human)
-
-/datum/export/pirate/ransom/find_loot()
-	var/list/head_minds = SSjob.get_living_heads()
-	var/list/head_mobs = list()
-	for(var/datum/mind/M in head_minds)
-		head_mobs += M.current
-	if(head_mobs.len)
-		return pick(head_mobs)
-
-/datum/export/pirate/ransom/get_cost(atom/movable/AM)
-	var/mob/living/carbon/human/H = AM
-	if(H.stat != CONSCIOUS || !H.mind || !H.mind.assigned_role) //mint condition only
-		return 0
-	else if("pirate" in H.faction) //can't ransom your fellow pirates to CentCom!
-		return 0
-	else
-		if(H.mind.assigned_role in GLOB.command_positions)
-			return 3000
-		else
-			return 1000
-
-/datum/export/pirate/parrot
-	cost = 2000
-	unit_name = "alive parrot"
-	export_types = list(/mob/living/simple_animal/parrot)
-
-/datum/export/pirate/parrot/find_loot()
-	for(var/mob/living/simple_animal/parrot/P in GLOB.alive_mob_list)
-		var/turf/T = get_turf(P)
-		if(T && is_station_level(T.z))
-			return P
-
-/datum/export/pirate/cash
-	cost = 1
-	unit_name = "bills"
-	export_types = list(/obj/item/stack/spacecash)
-
-/datum/export/pirate/cash/get_amount(obj/O)
-	var/obj/item/stack/spacecash/C = O
-	return ..() * C.amount * C.value
-
-/datum/export/pirate/holochip
-	cost = 1
-	unit_name = "holochip"
-	export_types = list(/obj/item/holochip)
-
-/datum/export/pirate/holochip/get_cost(atom/movable/AM)
-	var/obj/item/holochip/H = AM
-	return H.credits
