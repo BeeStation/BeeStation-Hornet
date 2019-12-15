@@ -1,4 +1,3 @@
-var/datum/techweb/host_research
 /obj/machinery/rnd/production/techfab/scav
 	name = "Scavfab"
 	desc = "Produces researched prototypes with raw materials and energy."
