@@ -99,7 +99,6 @@
 						<b>Cabin pressure: </b>[internal_tank?"[cabin_pressure>WARNING_HIGH_PRESSURE ? "<span class='danger'>[cabin_pressure]</span>": cabin_pressure]kPa":"N/A"]<br>
 						<b>Cabin temperature: </b> [internal_tank?"[return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C":"N/A"]<br>
 						[dna_lock?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna_lock]</span> \[<a href='?src=[REF(src)];reset_dna=1'>Reset</a>\]<br>":""]<br>
-						[thrusters_action.owner ? "<b>Thrusters: </b> [thrusters_active ? "Enabled" : "Disabled"]<br>" : ""]
 						[defense_action.owner ? "<b>Defense Mode: </b> [defense_mode ? "Enabled" : "Disabled"]<br>" : ""]
 						[overload_action.owner ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"]<br>" : ""]
 						[smoke_action.owner ? "<b>Smoke: </b> [smoke]<br>" : ""]
@@ -136,20 +135,6 @@
 						</div>
 						<div id='equipment_menu'>[get_equipment_menu()]</div>
 						"}
-
-
-/obj/mecha/proc/get_equipment_menu() //outputs mecha html equipment menu
-	. = ""
-	if(equipment.len)
-		. += {"<div class='wr'>
-						<div class='header'>Equipment</div>
-						<div class='links'>"}
-		for(var/X in equipment)
-			var/obj/item/mecha_parts/mecha_equipment/W = X
-			. += "[W.name] <a href='?src=[REF(W)];detach=1'>Detach</a><br>"
-		. += "<b>Available equipment slots:</b> [max_equip-equipment.len]"
-		. += "</div></div>"
-
 
 /obj/mecha/proc/get_equipment_list() //outputs mecha equipment list in html
 	if(!equipment.len)

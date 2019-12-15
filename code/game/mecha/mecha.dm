@@ -546,7 +546,7 @@
 				step_silent = TRUE
 				if(occupant)
 					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
-		return 1
+		return TRUE
 
 	if(can_move <= world.time && active_thrusters && movement_dir && active_thrusters.thrust(movement_dir))
 		step_silent = TRUE
@@ -603,7 +603,7 @@
 /obj/mecha/proc/mechturn(direction)
 	setDir(direction)
 	if(turnsound)
-		playsound(src,turnsound,40,1)
+		playsound(src,turnsound,40,TRUE)
 	return 1
 
 /obj/mecha/proc/mechstep(direction)
@@ -611,14 +611,16 @@
 	var/result = step(src,direction)
 	if(strafe)
 		setDir(current_dir)
-	if(result && stepsound)
+	if(result && !step_silent)
 		playsound(src,stepsound,40,1)
+	step_silent = FALSE
 	return result
 
 /obj/mecha/proc/mechsteprand()
 	var/result = step_rand(src)
-	if(result && stepsound)
+	if(result && !step_silent)
 		playsound(src,stepsound,40,1)
+	step_silent = FALSE
 	return result
 
 /obj/mecha/Bump(var/atom/obstacle)
