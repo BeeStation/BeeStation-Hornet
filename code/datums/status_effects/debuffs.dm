@@ -461,6 +461,19 @@
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
 
+/datum/status_effect/neck_slice
+	id = "neck_slice"
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+	duration = -1
+
+/datum/status_effect/neck_slice/tick()
+	var/mob/living/carbon/human/H = owner
+	if(H.stat == DEAD || H.bleed_rate <= 8)
+		H.remove_status_effect(/datum/status_effect/neck_slice)
+	if(prob(10))
+		H.emote(pick("gasp", "gag", "choke"))
+
 /mob/living/proc/apply_necropolis_curse(set_curse)
 	var/datum/status_effect/necropolis_curse/C = has_status_effect(STATUS_EFFECT_NECROPOLIS_CURSE)
 	if(!set_curse)

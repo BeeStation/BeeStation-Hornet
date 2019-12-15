@@ -51544,9 +51544,6 @@
 /area/engine/engineering)
 "cGu" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
@@ -54106,6 +54103,12 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/science/nanite)
+"ieA" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/science/xenobiology)
 "ifv" = (
 /obj/structure/table,
 /obj/item/clipboard,
@@ -56415,6 +56418,13 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
+"qmh" = (
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/turf/open/floor/engine,
+/area/science/xenobiology)
 "qnQ" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -101018,15 +101028,15 @@ bMi
 bPx
 bJN
 bRT
-bEm
-bEm
-bJN
-bRT
-bEm
+qmh
 bEm
 bJN
 bRT
+qmh
 bEm
+bJN
+bRT
+qmh
 bEm
 bDb
 cfr
@@ -104102,15 +104112,15 @@ bMi
 bPI
 bJN
 bEm
-bEm
+ieA
 bUi
 bJN
 bEm
-bEm
+ieA
 bUi
 bJN
 bEm
-bEm
+ieA
 bUi
 bDb
 aaf
