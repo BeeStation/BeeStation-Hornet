@@ -835,84 +835,70 @@
 	. = ..()
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
-		if(!src.is_busy && src.zone_selected == BODY_ZONE_HEAD && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align, time to curbstomp
+		if(!src.is_busy && src.zone_selected == BODY_ZONE_HEAD || src.zone_selected == BODY_ZONE_PRECISE_GROIN && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //all the stars align, time to curbstomp
 			src.is_busy = TRUE
 
-			if (!do_mob(src,T,25) || src.zone_selected != BODY_ZONE_HEAD || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP) //wait 30ds and make sure the stars still align
+			if (!do_mob(src,T,25) || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
 				src.is_busy = FALSE
 				return
 
 			T.Stun(6)
 
-			var/increment = (T.lying/90)-2
-			setDir(increment > 0 ? WEST : EAST)
-			for(var/i in 1 to 5)
-				src.pixel_y += 8-i
-				src.pixel_x -= increment
-				sleep(0.2)
-			for(var/i in 1 to 5)
-				src.pixel_y -= 8-i
-				src.pixel_x -= increment
-				sleep(0.2)
+			if(src.zone_selected == BODY_ZONE_HEAD) //curbstomp specific code
 
-			playsound(src, 'sound/effects/hit_kick.ogg', 80, 1, -1)
-			playsound(src, 'sound/weapons/punch2.ogg', 80, 1, -1)
+				var/increment = (T.lying/90)-2
+				setDir(increment > 0 ? WEST : EAST)
+				for(var/i in 1 to 5)
+					src.pixel_y += 8-i
+					src.pixel_x -= increment
+					sleep(0.2)
+				for(var/i in 1 to 5)
+					src.pixel_y -= 8-i
+					src.pixel_x -= increment
+					sleep(0.2)
 
-			var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_HEAD)
-			if(BP)
-				BP.receive_damage(36) //so 3 toolbox hits
+				playsound(src, 'sound/effects/hit_kick.ogg', 80, 1, -1)
+				playsound(src, 'sound/weapons/punch2.ogg', 80, 1, -1)
 
-			T.visible_message("<span class='warning'>[src] curbstomps [T]!</span>", "<span class='warning'>[src] curbstomps you!</span>")
+				var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_HEAD)
+				if(BP)
+					BP.receive_damage(36) //so 3 toolbox hits
+				
+				T.visible_message("<span class='warning'>[src] curbstomps [T]!</span>", "<span class='warning'>[src] curbstomps you!</span>")
 
-			for(var/i in 1 to 10)
-				src.pixel_x = src.pixel_x + increment
-				sleep(0.1)
+				log_combat(src, T, "curbstomped")
 
-			log_combat(src, T, "curbstomped")
+			if(src.zone_selected == BODY_ZONE_PRECISE_GROIN) //groinkick specific code
 
-		if(!src.is_busy && src.zone_selected == BODY_ZONE_PRECISE_GROIN && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP) //checks needed to begin action
-			src.is_busy = TRUE
+				var/increment = (T.lying/90)-2
+				setDir(increment > 0 ? WEST : EAST)
+				for(var/i in 1 to 5)
+					src.pixel_y += 2-i
+					src.pixel_x -= increment
+					sleep(0.2)
+				for(var/i in 1 to 5)
+					src.pixel_y -= 2-i
+					src.pixel_x -= increment
+					sleep(0.2)
 
-			if (!do_mob(src,T,25) || src.zone_selected != BODY_ZONE_PRECISE_GROIN || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP) //wait 30ds and make sure the stars still align
-				src.is_busy = FALSE
-				return
+				playsound(src, 'sound/effects/hit_kick.ogg', 80, 1, -1)
+				playsound(src, 'sound/effects/hit_punch.ogg', 80, 1, -1)
 
-			T.Stun(3)
+				var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_CHEST)
+				if(BP)
+					BP.receive_damage(25)
 
-			var/increment = (T.lying/90)-2
-			setDir(increment > 0 ? WEST : EAST)
-			for(var/i in 1 to 5)
-				src.pixel_y += 2-i
-				src.pixel_x -= increment
-				sleep(0.2)
-			for(var/i in 1 to 5)
-				src.pixel_y -=2-i
-				src.pixel_x -= increment
-				sleep(0.2)
+				T.visible_message("<span class='warning'>[src] Kicks [T] in the groin!</span>", "<span class='warning'>[src] Kicks you in the groin!</span")
 
-			playsound(src, 'sound/effects/hit_kick.ogg', 80, 1, -1)
-			playsound(src, 'sound/effects/hit_punch.ogg', 80, 1, -1)
+				log_combat(src, T, "groinkicked")
 
-			var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_CHEST)
-			if(BP)
-				if(T.gender == MALE && (ishuman(T)) || (islizard(T)) || (iscatperson(T))) //Conditional damage due to the old twig and berries and species that have said twig and berries
-					BP.receive_damage(25)	
-				else
-					BP.receive_damage(15)
+		var/increment = (T.lying/90)-2
+		for(var/i in 1 to 10)
+			src.pixel_x = src.pixel_x + increment
+			sleep(0.1)
 
-			T.visible_message("<span class='warning'>[src] kicked [T] in the groin!</span>","<span class='warning'>[src] kicked you in the groin!</span>")
-
-
-			log_combat(src, T, "groinkicked")
-	
-			for(var/i in 1 to 10)
-				src.pixel_x = src.pixel_x + increment
-				sleep(0.1)
-
-	src.is_busy = FALSE
-
-	src.pixel_x = 0
-	src.pixel_y = 0 //position reset
+		src.pixel_x = 0
+		src.pixel_y = 0 //position reset
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
