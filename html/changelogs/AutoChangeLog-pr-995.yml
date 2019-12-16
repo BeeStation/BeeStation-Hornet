@@ -1,0 +1,4 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - admin: "Those with R_ADMIN can now also restart the server."
