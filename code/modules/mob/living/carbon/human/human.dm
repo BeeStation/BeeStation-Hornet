@@ -885,8 +885,12 @@
 				playsound(src, 'sound/effects/hit_punch.ogg', 80, 1, -1)
 
 				var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_CHEST)
-				if(BP)
-					BP.receive_damage(25)
+				if(T.gender == MALE && (ishuman(T)) || (islizard(T)) || (iscatperson(T)))
+					if(BP)
+						BP.receive_damage(25)
+				else
+					if(BP)
+						BP.receive_damage(15)
 
 				T.visible_message("<span class='warning'>[src] Kicks [T] in the groin!</span>", "<span class='warning'>[src] Kicks you in the groin!</span")
 
