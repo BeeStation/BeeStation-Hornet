@@ -525,7 +525,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/mine/laborcamp/security)
+/area/mine/laborcamp)
 "bC" = (
 /obj/machinery/airalarm{
 	pixel_y = 23
@@ -3415,10 +3415,10 @@
 /area/lavaland/surface/outdoors)
 "lU" = (
 /obj/effect/turf_decal/tile/brown{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
@@ -3863,12 +3863,7 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "rU" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
+/obj/machinery/vending/snack/random,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "ss" = (
@@ -3919,6 +3914,9 @@
 /area/mine/production)
 "yL" = (
 /obj/item/twohanded/required/kirbyplants/random,
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "zu" = (
@@ -3970,6 +3968,9 @@
 /area/mine/living_quarters)
 "BV" = (
 /obj/structure/table,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "EG" = (
@@ -4091,6 +4092,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
+"PL" = (
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/mine/living_quarters)
 "PQ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/cable/yellow{
@@ -4168,6 +4175,9 @@
 "Wj" = (
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
@@ -4258,6 +4268,11 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/freezer,
+/area/mine/living_quarters)
+"ZY" = (
+/obj/effect/turf_decal/tile/brown,
+/obj/machinery/vending/cigarette,
+/turf/open/floor/plasteel,
 /area/mine/living_quarters)
 
 (1,1,1) = {"
@@ -9883,7 +9898,7 @@ Pv
 JJ
 cc
 BV
-dZ
+lU
 yL
 cM
 RO
@@ -10141,7 +10156,7 @@ LO
 cc
 JM
 dZ
-dZ
+rU
 cM
 ew
 ab
@@ -10398,7 +10413,7 @@ AB
 cc
 Gf
 dZ
-dZ
+ZY
 cM
 eK
 cR
@@ -10653,9 +10668,9 @@ bM
 cy
 dm
 cG
-rU
-lU
-ec
+ea
+dZ
+PL
 Wj
 eL
 kw
