@@ -524,6 +524,7 @@
 		
 /datum/emote/living/raisehand
 	key = "highfive"
+	message = "raises their hand"
 	key_third_person = "highfives"
 	restraint_check = TRUE
 
