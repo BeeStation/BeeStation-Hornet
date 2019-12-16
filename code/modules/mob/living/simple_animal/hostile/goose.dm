@@ -71,7 +71,8 @@
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/attacked_by(obj/item/O, mob/user)
 	. = ..()
-	feed(O)
+	if(istype(O, /obj/item/reagent_containers/food))
+		feed(O)
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/feed(obj/item/reagent_containers/food/tasty)
 	if (stat == DEAD) // plapatin I swear to god
