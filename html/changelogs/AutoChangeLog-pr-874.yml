@@ -1,0 +1,5 @@
+author: "nemvar"
+delete-after: True
+changes: 
+  - tweak: "Some small changes to the mech HMTL windows."
+  - code_imp: "Changed a lot of code around mech topic."
