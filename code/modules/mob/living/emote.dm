@@ -524,8 +524,8 @@
 		
 /datum/emote/living/raisehand
 	key = "highfive"
-	message = "raises their hand"
 	key_third_person = "highfives"
+	message = "raises their hand"
 	restraint_check = TRUE
 
 /datum/emote/living/raisehand/run_emote(mob/user, params)
