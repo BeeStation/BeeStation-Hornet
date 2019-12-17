@@ -31,6 +31,7 @@
 
 /datum/objective/crew/justicemed
 	explanation_text = "Ensure there are no dead bodies in the security wing when the shit ends."
+	jobs = "brigphysician"
 
 /datum/objective/crew/justicemed/check_completion()
 	var/list/security_areas = typecacheof(list(/area/security, /area/security/brig, /area/security/main, /area/security/prison, /area/security/processing))
