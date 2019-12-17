@@ -38887,6 +38887,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "bTs" = (
+/mob/living/simple_animal/hostile/retaliate/goose/vomit,
 /turf/open/floor/wood{
 	icon_state = "wood-broken5"
 	},
