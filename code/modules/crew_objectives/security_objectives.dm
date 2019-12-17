@@ -30,7 +30,7 @@
 	return TRUE
 
 /datum/objective/crew/justicemed
-	explanation_text = "Ensure there are no dead bodies in the security wing when the shit ends."
+	explanation_text = "Ensure there are no dead bodies in the security wing when the shift ends."
 	jobs = "brigphysician"
 
 /datum/objective/crew/justicemed/check_completion()
