@@ -896,13 +896,15 @@
 
 				log_combat(src, T, "groinkicked")
 
-		var/increment = (T.lying/90)-2
-		for(var/i in 1 to 10)
-			src.pixel_x = src.pixel_x + increment
-			sleep(0.1)
+			var/increment = (T.lying/90)-2
+			for(var/i in 1 to 10)
+				src.pixel_x = src.pixel_x + increment
+				sleep(0.1)
 
-		src.pixel_x = 0
-		src.pixel_y = 0 //position reset
+			src.pixel_x = 0
+			src.pixel_y = 0 //position reset
+		
+			src.is_busy = FALSE
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
