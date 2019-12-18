@@ -1,14 +1,14 @@
 /datum/symptom/radiation
 	name = "Iraddiant Cells"
 	desc = "Causes the cells in the host's body to give off harmful radiation."
-	stealth = -3
+	stealth = -1
 	resistance = 2
 	stage_speed = -1
-	transmittable = -1
+	transmittable = 2
 	level = 8
 	severity = 2
-	symptom_delay_min = 15
-	symptom_delay_max = 30
+	symptom_delay_min = 3
+	symptom_delay_max = 6
 	var/fastrads = FALSE
 	var/radothers = FALSE
 	threshold_desc = "<b>Transmission 12:</b> Makes the host irradiate others around them as well.<br>\
@@ -17,7 +17,7 @@
 /datum/symptom/radiation/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmission"] >= 12)
+	if(A.properties["transmission"] >= 10)
 		radothers = TRUE
 	if(A.properties["speed"] >= 8)
 		fastrads = TRUE
@@ -35,11 +35,11 @@
 				to_chat(M, "<span class='danger'>You feel like the atoms inside you are beginning to split...</span>")
 		if(4, 5)
 			if(fastrads)
-				radiate(M, 3)
+				radiate(M, 20)
 			else
 				radiate(M, 10)
 			if(radothers && A.stage == 5)
-				if(prob(5))
+				if(prob(30))
 					M.visible_message("<span class='danger'>[M] glows green for a moment!</span>", \
 								 	  "<span class='userdanger'>You feel a massive wave of pain flow through you!</span>")
 					radiation_pulse(M, 20)

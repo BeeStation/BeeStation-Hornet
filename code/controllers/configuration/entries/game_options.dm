@@ -379,8 +379,12 @@
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
 
-/datum/config_entry/number/monkeycap
-	config_entry_value = 64
-	min_val = 0
-
 /datum/config_entry/flag/allow_crew_objectives
+
+//Mob spam prevention
+/datum/config_entry/number/max_cube_monkeys
+	config_entry_value = 100
+/datum/config_entry/number/max_chickens
+	config_entry_value = 100
+/datum/config_entry/number/max_slimes
+	config_entry_value = 100

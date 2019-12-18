@@ -75,7 +75,7 @@
 		/obj/item/stack/sheet/cardboard				= /datum/species/golem/cardboard,
 		/obj/item/stack/sheet/leather				= /datum/species/golem/leather,
 		/obj/item/stack/sheet/bone					= /datum/species/golem/bone,
-		/obj/item/stack/sheet/cloth/durathread		= /datum/species/golem/durathread,
+		/obj/item/stack/sheet/durathread			= /datum/species/golem/durathread,
 		/obj/item/stack/sheet/cotton/durathread		= /datum/species/golem/durathread,
 		/obj/item/stack/sheet/mineral/snow			= /datum/species/golem/snow,
 		/obj/item/stack/sheet/capitalisium			= /datum/species/golem/capitalist,

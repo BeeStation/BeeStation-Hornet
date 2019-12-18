@@ -184,17 +184,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	return ..()
 
 /obj/machinery/power/supermatter_crystal/examine(mob/user)
-	..()
-	if(!ishuman(user))
-		return
-
-	var/range = HALLUCINATION_RANGE(power)
-	for(var/mob/living/carbon/human/H in viewers(range, src))
-		if(H != user)
-			continue
-		if(!istype(H.glasses, /obj/item/clothing/glasses/meson))
-			to_chat(H, "<span class='danger'>You get headaches just from looking at it.</span>")
-		return
+	. = ..()
+	if (istype(user, /mob/living/carbon))
+		var/mob/living/carbon/C = user
+		if (!istype(C.glasses, /obj/item/clothing/glasses/meson) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
+			. += "<span class='danger'>You get headaches just from looking at it.</span>"
 
 /obj/machinery/power/supermatter_crystal/get_spans()
 	return list(SPAN_ROBOT)
@@ -597,8 +591,36 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/attackby(obj/item/W, mob/living/user, params)
 	if(!istype(W) || (W.item_flags & ABSTRACT) || !istype(user))
 		return
-	if (istype(W, /obj/item/melee/roastingstick))
+	if(istype(W, /obj/item/melee/roastingstick))
 		return ..()
+	if(istype(W, /obj/item/clothing/mask/cigarette))
+		var/obj/item/clothing/mask/cigarette/cig = W
+		var/clumsy = HAS_TRAIT(user, TRAIT_CLUMSY)
+		if(clumsy)
+			var/which_hand = BODY_ZONE_L_ARM
+			if(!(user.active_hand_index % 2))
+				which_hand = BODY_ZONE_R_ARM
+			var/obj/item/bodypart/dust_arm = user.get_bodypart(which_hand)
+			dust_arm.dismember()
+			user.visible_message("<span class='danger'>The [W] flashes out of existence on contact with \the [src], resonating with a horrible sound...</span>",\
+				"<span class='danger'>Oops! The [W] flashes out of existence on contact with \the [src], taking your arm with it! That was clumsy of you!</span>")
+			playsound(src, 'sound/effects/supermatter.ogg', 150, 1)
+			Consume(dust_arm)
+			qdel(W)
+			return
+		if(cig.lit || user.a_intent != INTENT_HELP)
+			user.visible_message("<span class='danger'>A hideous sound echoes as [W] is ashed out on contact with \the [src]. That didn't seem like a good idea...</span>")
+			playsound(src, 'sound/effects/supermatter.ogg', 150, 1)
+			Consume(W)
+			radiation_pulse(src, 150, 4)
+			return ..()
+		else
+			cig.light()
+			user.visible_message("<span class='danger'>As [user] lights \their [W] on \the [src], silence fills the room...</span>",\
+				"<span class='danger'>Time seems to slow to a crawl as you touch \the [src] with \the [W].</span>\n<span class='notice'>\The [W] flashes alight with an eerie energy as you nonchalantly lift your hand away from \the [src]. Damn.</span>")
+			playsound(src, 'sound/effects/supermatter.ogg', 50, 1)
+			radiation_pulse(src, 50, 3)
+			return
 	if(istype(W, /obj/item/scalpel/supermatter))
 		var/obj/item/scalpel/supermatter/scalpel = W
 		to_chat(user, "<span class='notice'>You carefully begin to scrape \the [src] with \the [W]...</span>")

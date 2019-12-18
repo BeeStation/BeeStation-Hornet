@@ -305,13 +305,13 @@
 	layer = 3
 
 /obj/screen/parallax_layer/random/space_gas
-	icon_state = "space gas"
+	icon_state = "random_layer1"
 
 /obj/screen/parallax_layer/random/space_gas/Initialize(mapload, view)
 	src.add_atom_colour(SSparallax.random_parallax_color, ADMIN_COLOUR_PRIORITY)
 
 /obj/screen/parallax_layer/random/asteroids
-	icon_state = "asteroids"
+	icon_state = "random_layer2"
 
 /obj/screen/parallax_layer/planet
 	icon_state = "planet"

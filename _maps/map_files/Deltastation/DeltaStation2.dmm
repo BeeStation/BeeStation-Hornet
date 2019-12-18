@@ -128774,6 +128774,11 @@
 	},
 /turf/closed/wall/r_wall,
 /area/science/nanite)
+"wvc" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/retaliate/goose/vomit,
+/turf/open/floor/wood,
+/area/crew_quarters/abandoned_gambling_den)
 "wyJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/tile/yellow{
@@ -150236,7 +150241,7 @@ dmk
 dob
 dpP
 drt
-dsW
+wvc
 duf
 dvT
 dxB

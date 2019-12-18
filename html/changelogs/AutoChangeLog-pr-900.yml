@@ -1,4 +1,0 @@
-author: "AsciiSquid"
-delete-after: True
-changes: 
-  - rscadd: "Added a limit modifier that reduces the number of traitors spawned during a brothers+traitors round"

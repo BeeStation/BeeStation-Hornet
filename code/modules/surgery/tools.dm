@@ -88,7 +88,13 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("drilled")
 
-
+/obj/item/surgicaldrill/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] rams [src] into [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	addtimer(CALLBACK(user, /mob/living/carbon.proc/gib, null, null, TRUE, TRUE), 25)
+	user.SpinAnimation(3, 10)
+	playsound(user, 'sound/machines/juicer.ogg', 20, TRUE)
+	return (MANUAL_SUICIDE)
+	
 /obj/item/surgicaldrill/augment
 	name = "surgical drill"
 	desc = "Effectively a small power drill contained within your arm, edges dulled to prevent tissue damage. May or may not pierce the heavens."
