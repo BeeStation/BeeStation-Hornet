@@ -868,7 +868,7 @@
 
 				log_combat(src, T, "curbstomped")
 
-			if(src.zone_selected == BODY_ZONE_PRECISE_GROIN) //groinkick specific code
+			else if(src.zone_selected == BODY_ZONE_PRECISE_GROIN) //groinkick specific code
 
 				var/increment = (T.lying/90)-2
 				setDir(increment > 0 ? WEST : EAST)
