@@ -35279,17 +35279,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/quartermaster/miningoffice)
-"bkj" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/white,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/security/brig)
 "bkk" = (
 /obj/structure/table/glass,
 /obj/structure/cable/yellow{
@@ -126393,6 +126382,13 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /turf/closed/wall/r_wall,
 /area/science/mixing/chamber)
+"eKr" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/security/brig)
 "eMD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -126439,6 +126435,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
+"eUL" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/structure/closet/secure_closet/brig_phys,
+/turf/open/floor/plasteel/white,
+/area/security/brig)
 "faI" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -126582,6 +126588,11 @@
 /obj/structure/closet/radiation,
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
+"fWT" = (
+/obj/structure/cable/white,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/space/nearstation)
 "gbV" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1
@@ -127568,6 +127579,13 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
+"mJc" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start/brig_phys,
+/turf/open/floor/plasteel/white,
+/area/security/brig)
 "mMY" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/vending/snack/random,
@@ -128067,6 +128085,9 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_mixing_input,
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
+"qpb" = (
+/turf/closed/wall/r_wall,
+/area/space)
 "qpq" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
@@ -128194,6 +128215,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
+"rjQ" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/cable/white,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/space)
 "rzc" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/effect/turf_decal/bot,
@@ -128325,6 +128357,13 @@
 /obj/machinery/door/poddoor/incinerator_toxmix,
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
+"sAJ" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/space)
 "sJw" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -178440,10 +178479,10 @@ aaa
 aaa
 aad
 aaa
-aaa
-aaa
-aaa
-aad
+qpb
+sAJ
+rjQ
+fWT
 bnF
 bpe
 brf
@@ -178698,9 +178737,9 @@ aaa
 aad
 aaa
 bgZ
-biy
-bkj
-bmc
+biz
+bkk
+bmd
 bnG
 bpf
 brg
@@ -178955,9 +178994,9 @@ aFm
 aFm
 aaa
 bgZ
-biz
-bkk
-bmd
+eUL
+mJc
+eKr
 bnG
 bpg
 brh
