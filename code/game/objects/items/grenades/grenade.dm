@@ -47,12 +47,12 @@
 
 
 /obj/item/grenade/examine(mob/user)
-	..()
+	. = ..()
 	if(display_timer)
 		if(det_time > 1)
 			to_chat(user, "The timer is set to [DisplayTimeText(det_time)].")
 		else
-			to_chat(user, "\The [src] is set for instant detonation.")
+			. += "\The [src] is set for instant detonation."
 
 
 /obj/item/grenade/attack_self(mob/user)
@@ -111,7 +111,7 @@
 		owner.visible_message("<span class='danger'>[attack_text] hits [owner]'s [src], setting it off! What a shot!</span>")
 		prime()
 		return TRUE //It hit the grenade, not them
-		
+
 /obj/item/grenade/afterattack(atom/target, mob/user)
 	. = ..()
 	if(active)

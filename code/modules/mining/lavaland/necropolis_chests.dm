@@ -13,7 +13,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/PopulateContents()
-	var/loot = rand(1,28)
+	var/loot = rand(1,29)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -79,6 +79,8 @@
 			new /obj/item/bedsheet/cult(src)
 		if(28)
 			new /obj/item/clothing/neck/necklace/memento_mori(src)
+		if(29)
+			new /obj/item/reagent_containers/glass/waterbottle/relic(src)
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disc
@@ -324,6 +326,11 @@
 	user.sight |= sight_flags
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
+
+// Relic water bottle
+/obj/item/reagent_containers/glass/waterbottle/relic
+	desc = "A bottle of water filled at an old Earth bottling facility. It seems to be radiating some kind of energy."
+	flip_chance = 100 // FLIPP
 
 //Red/Blue Cubes
 /obj/item/warp_cube
@@ -663,10 +670,10 @@
 	var/swiping = FALSE
 
 /obj/item/melee/transforming/cleaving_saw/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>It is [active ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].<br>\
-	Both modes will build up existing bleed effects, doing a burst of high damage if the bleed is built up high enough.<br>\
-	Transforming it immediately after an attack causes the next attack to come out faster.</span>")
+	. = ..()
+	. += {"<span class='notice'>It is [active ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].\n
+	Both modes will build up existing bleed effects, doing a burst of high damage if the bleed is built up high enough.\n
+	Transforming it immediately after an attack causes the next attack to come out faster.</span>"}
 
 /obj/item/melee/transforming/cleaving_saw/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -1050,6 +1057,11 @@
 /obj/structure/closet/crate/necropolis/colossus
 	name = "colossus chest"
 
+/obj/structure/closet/crate/necropolis/colossus/bullet_act(obj/item/projectile/P)
+	if(istype(P, /obj/item/projectile/colossus))
+		return BULLET_ACT_FORCE_PIERCE
+	return ..()
+
 /obj/structure/closet/crate/necropolis/colossus/PopulateContents()
 	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
 	var/random_crystal = pick(choices)
@@ -1091,8 +1103,8 @@
 	var/friendly_fire_check = FALSE //if the blasts we make will consider our faction against the faction of hit targets
 
 /obj/item/hierophant_club/examine(mob/user)
-	..()
-	to_chat(user, "<span class='hierophant_warning'>The[beacon ? " beacon is not currently":"re is a beacon"] attached.</span>")
+	. = ..()
+	. += "<span class='hierophant_warning'>The[beacon ? " beacon is not currently":"re is a beacon"] attached.</span>"
 
 /obj/item/hierophant_club/suicide_act(mob/living/user)
 	say("Xverwpsgexmrk...", forced = "hierophant club suicide")

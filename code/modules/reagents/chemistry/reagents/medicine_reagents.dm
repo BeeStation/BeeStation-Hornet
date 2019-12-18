@@ -982,7 +982,7 @@
 	name = "Dexalin"
 	description = "Restores oxygen loss. Overdose causes it instead."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#0080FF"
 	overdose_threshold = 30
 
 /datum/reagent/medicine/dexalin/on_mob_life(mob/living/carbon/M)
@@ -992,6 +992,23 @@
 
 /datum/reagent/medicine/dexalin/overdose_process(mob/living/M)
 	M.adjustOxyLoss(4*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/dexalinp
+	name = "Dexalin Plus"
+	description = "Restores oxygen loss. Overdose causes it instead. It is highly effective."
+	reagent_state = LIQUID
+	color = "#0040FF"
+	overdose_threshold = 25
+
+/datum/reagent/medicine/dexalinp/on_mob_life(mob/living/carbon/M)
+	M.adjustOxyLoss(-4*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/dexalinp/overdose_process(mob/living/M)
+	M.adjustOxyLoss(8*REM, 0)
 	..()
 	. = 1
 
@@ -1029,6 +1046,52 @@
 
 /datum/reagent/medicine/antitoxin/overdose_process(mob/living/M)
 	M.adjustToxLoss(4*REM, 0) // End result is 2 toxin loss taken, because it heals 2 and then removes 4.
+	..()
+	. = 1
+
+/datum/reagent/medicine/carthatoline
+	name = "Carthatoline"
+	description = "Carthatoline is strong evacuant used to treat severe poisoning."
+	reagent_state = LIQUID
+	color = "#225722"
+
+/datum/reagent/medicine/carthatoline/on_mob_life(mob/living/carbon/M)
+	M.adjustToxLoss(-5*REM, 0)
+	if(M.getToxLoss() && prob(10))
+		M.vomit(1)
+	for(var/datum/reagent/toxin/R in M.reagents.reagent_list)
+		M.reagents.remove_reagent(R.type,1)
+	..()
+	. = 1
+
+/datum/reagent/medicine/carthatoline/overdose_process(mob/living/M)
+	M.adjustToxLoss(10*REM, 0) // End result is 5 toxin loss taken, because it heals 5 and then removes 10.
+	..()
+	. = 1
+
+/datum/reagent/medicine/hepanephrodaxon
+	name = "Hepanephrodaxon"
+	description = "Used to repair the common tissues involved in filtration."
+	taste_description = "glue"
+	reagent_state = LIQUID
+	color = "#D2691E"
+	metabolization_rate = REM * 1.5
+	overdose_threshold = 10
+
+/datum/reagent/medicine/hepanephrodaxon/on_mob_life(var/mob/living/carbon/M)
+	var/repair_strength = 1
+	var/obj/item/organ/liver/L = M.getorganslot(ORGAN_SLOT_LIVER)
+	if(L.damage > 0)
+		L.damage = max(L.damage - 4 * repair_strength, 0)
+		M.confused = (2)
+	M.adjustToxLoss(-12)
+	..()
+	. = 1
+
+/datum/reagent/medicine/hepanephrodaxon/overdose_process(mob/living/M)
+	var/obj/item/organ/liver/L = M.getorganslot(ORGAN_SLOT_LIVER)
+	L.damage = max(L.damage + 4, 0)
+	M.confused = (2)
 	..()
 	. = 1
 

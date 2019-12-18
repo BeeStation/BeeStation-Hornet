@@ -86,12 +86,14 @@
 
 
 /obj/item/paper/examine(mob/user)
-	..()
+	. = ..()
+	var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+	assets.send(user)
 
 	if(oui_canview(user))
 		ui.render(user)
 	else
-		to_chat(user, "<span class='notice'>It is too far away.</span>")
+		. += "<span class='warning'>You're too far away to read it!</span>"
 
 /obj/item/paper/proc/show_content(var/mob/user)
 	user.examinate(src)

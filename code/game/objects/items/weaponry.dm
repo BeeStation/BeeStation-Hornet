@@ -123,10 +123,10 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		qdel(src) //If this ever happens, it's because you lost an arm
 
 /obj/item/claymore/highlander/examine(mob/user)
-	..()
-	to_chat(user, "It has [!notches ? "nothing" : "[notches] notches"] scratched into the blade.")
+	. = ..()
+	. += "It has [!notches ? "nothing" : "[notches] notches"] scratched into the blade."
 	if(nuke_disk)
-		to_chat(user, "<span class='boldwarning'>It's holding the nuke disk!</span>")
+		. += "<span class='boldwarning'>It's holding the nuke disk!</span>"
 
 /obj/item/claymore/highlander/attack(mob/living/target, mob/living/user)
 	. = ..()
@@ -694,3 +694,29 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/melee/shank/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shank! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return (BRUTELOSS)
+
+/obj/item/highfive
+	name = "raised hand"
+	desc = "Slap my hand."
+	icon_state = "latexballon"
+	item_state = "nothing"
+	hitsound = 'sound/weapons/punchmiss.ogg'
+	force = 0
+	throwforce = 0
+	item_flags = DROPDEL | ABSTRACT
+	attack_verb = list("is left hanging by")
+
+/obj/item/highfive/attack(mob/target, mob/user)
+	if(target == user)
+		to_chat(user, "<span class='notice'>You can't high-five yourself! Go get a friend!</span>")
+	else if(ishuman(target) && (target.stat == CONSCIOUS) && (istype(target.get_active_held_item(), /obj/item/highfive)) )
+		var/obj/item/highfive/downlow = target.get_active_held_item()
+		user.visible_message("[user] and [target] high five!", "<span class='notice'>You high five with [target]!</span>", "<span class='italics'>You hear a slap!</span>")
+		user.do_attack_animation(target)
+		target.do_attack_animation(user)
+		playsound(src, 'sound/weapons/punch2.ogg', 50, 0)
+		qdel(src)
+		qdel(downlow)
+	else
+		user.visible_message("[user] is left hanging by [target].", "<span class='notice'>[target] leaves you hanging.</span>")
+		playsound(src, 'sound/weapons/punchmiss.ogg', 50, 0)

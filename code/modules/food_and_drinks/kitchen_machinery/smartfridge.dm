@@ -34,9 +34,9 @@
 		max_n_of_items = 1500 * B.rating
 
 /obj/machinery/smartfridge/examine(mob/user)
-	..()
+	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		to_chat(user, "<span class='notice'>The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.<span>")
+		. += "<span class='notice'>The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.<span>"
 
 /obj/machinery/smartfridge/power_change()
 	..()
@@ -434,7 +434,8 @@
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
 		/obj/item/reagent_containers/glass/bottle/synaptizine = 1,
-		/obj/item/reagent_containers/glass/bottle/formaldehyde = 1)
+		/obj/item/reagent_containers/glass/bottle/formaldehyde = 1,
+		/obj/item/reagent_containers/glass/bottle/adminvirusfood = 1)
 
 // ----------------------------
 // Disk """fridge"""
