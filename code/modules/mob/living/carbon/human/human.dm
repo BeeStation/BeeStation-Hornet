@@ -885,7 +885,7 @@
 				playsound(src, 'sound/effects/hit_punch.ogg', 80, 1, -1)
 
 				var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_CHEST)
-				if(T.gender == MALE && (ishuman(T)) || (islizard(T)) || (iscatperson(T)))
+				if(T.gender == MALE)
 					if(BP)
 						BP.receive_damage(25)
 				else
