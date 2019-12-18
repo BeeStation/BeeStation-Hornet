@@ -263,6 +263,7 @@
 					/obj/item/storage/belt/bandolier = 1,
 					/obj/item/clothing/neck/tie/black = 2,
 					/obj/item/clothing/neck/tie/blue = 2)
+	premium = list(/obj/item/storage/box/dishdrive = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/bar_wardrobe
 	payment_department = ACCOUNT_SRV
 /obj/item/vending_refill/wardrobe/bar_wardrobe

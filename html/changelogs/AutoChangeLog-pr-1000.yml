@@ -1,0 +1,5 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - rscadd: "Brig Physicians, for when half of your security department is dying and nobody knows medical."
+  - bugfix: "Paramedics' secHUD icons show up again."
