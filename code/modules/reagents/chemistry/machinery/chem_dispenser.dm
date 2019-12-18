@@ -143,7 +143,6 @@
 		add_overlay(beaker_overlay)
 
 
-
 /obj/machinery/chem_dispenser/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
 		to_chat(user, "<span class='warning'>[src] has no functional safeties to emag.</span>")
