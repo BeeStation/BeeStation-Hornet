@@ -110,6 +110,17 @@
 	item_color = "hosalt"
 
 /*
+ * Brig Physician
+*/
+
+/obj/item/clothing/under/rank/brig_phys
+	name = "brig physician's uniform"
+	desc = "A lightly armored uniform worn by Nanotrasen's Asset Protection Medical Corps."
+	icon_state = "brig_phys"
+	item_state = "labcoat_sec"
+	item_color = "brig_phys"
+
+/*
  * Navy uniforms
  */
 
