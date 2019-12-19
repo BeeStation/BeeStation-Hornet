@@ -2090,13 +2090,22 @@
 	name = "Zeng-Hu Pharmaceuticals"
 	limbs_id = "zhpipc"
 
-// Squid Heads
-
-/datum/sprite_accessory/squid_head/
-	icon = null
-	icon_state = "NULL"
+/datum/sprite_accessory/squid_face/
+	icon = 'icons/mob/mutant_bodyparts.dmi'
 	color_src = MUTCOLORS
 
-/datum/sprite_accessory/squid_head/squidward
+/datum/sprite_accessory/squid_face/squidward
 	name = "Squidward"
-	limbs_id = "squid"
+	icon_state = "squidward"
+
+/datum/sprite_accessory/squid_face/ilithid
+	name = "Ilithid"
+	icon_state = "ilithid"
+
+/datum/sprite_accessory/squid_face/freaky
+	name = "Freaky"
+	icon_state = "freaky"
+
+/datum/sprite_accessory/squid_face/grabbers
+	name = "Grabbers"
+	icon_state = "grabbers"

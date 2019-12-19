@@ -475,13 +475,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "</td>"
 					mutant_category = 0
 
-			if("squid_head" in pref_species.mutant_bodyparts)
+			if("squid_face" in pref_species.mutant_bodyparts)
 				if(!mutant_category)
 					dat += APPEARANCE_CATEGORY_COLUMN
 
 				dat += "<h3>Head Type</h3>"
 
-				dat += "<a href='?_src_=prefs;preference=squid_head;task=input'>[features["squid_head"]]</a><BR>"
+				dat += "<a href='?_src_=prefs;preference=squid_face;task=input'>[features["squid_face"]]</a><BR>"
 
 				mutant_category++
 				if(mutant_category >= MAX_MUTANT_ROWS)
@@ -1532,13 +1532,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_insect_type)
 						features["insect_type"] = new_insect_type
 
-				if("squid_head")
-					var/new_squid_head
+				if("squid_face")
+					var/new_squid_face
 
-					new_squid_head = input(user, "Choose your character's head:", "Character Preference") as null|anything in GLOB.squid_head_list
+					new_squid_face = input(user, "Choose your character's head:", "Character Preference") as null|anything in GLOB.squid_face_list
 
-					if(new_squid_head)
-						features["squid_head"] = new_squid_head
+					if(new_squid_face)
+						features["squid_face"] = new_squid_face
 
 				if("s_tone")
 					var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in GLOB.skin_tones

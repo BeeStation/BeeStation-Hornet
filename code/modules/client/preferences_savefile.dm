@@ -339,7 +339,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["feature_ipc_antenna"]				>> features["ipc_antenna"]
 	S["feature_ipc_chassis"]				>> features["ipc_chassis"]
 	S["feature_insect_type"]				>> features["insect_type"]
-	S["feature_squid_head"]				>> features["squid_head"]
+	S["feature_squid_face"]				>> features["squid_face"]
 
 	if(!CONFIG_GET(flag/join_with_mutant_humans)  && !species_id != "felinid") // felinids arent mutant humans anymore i guess
 		features["tail_human"] = "none"
@@ -425,7 +425,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	features["ipc_antenna"]	 = sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
 	features["ipc_chassis"]	 = sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list)
 	features["insect_type"]	 = sanitize_inlist(features["insect_type"], GLOB.insect_type_list)
-	features["squid_head"]	 = sanitize_inlist(features["squid_head"], GLOB.squid_head_list)
+	features["squid_face"]	 = sanitize_inlist(features["squid_face"], GLOB.squid_face_list)
 
 	joblessrole	= sanitize_integer(joblessrole, 1, 3, initial(joblessrole))
 	//Validate job prefs
@@ -484,7 +484,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_ipc_antenna"]			, features["ipc_antenna"])
 	WRITE_FILE(S["feature_ipc_chassis"]			, features["ipc_chassis"])
 	WRITE_FILE(S["feature_insect_type"]			, features["insect_type"])
-	WRITE_FILE(S["feature_squid_head"]			, features["squid_head"])
+	WRITE_FILE(S["feature_squid_face"]			, features["squid_face"])
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
