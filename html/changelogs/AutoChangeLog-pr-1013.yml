@@ -1,0 +1,4 @@
+author: "Moccha-Bee"
+delete-after: True
+changes: 
+  - bugfix: "Fixed blood-drunk miner trophy slowdown bug."

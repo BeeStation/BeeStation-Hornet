@@ -135,7 +135,7 @@ Credit where due:
 	required_enemies = 4
 	recommended_enemies = 4
 	enemy_minimum_age = 14
-	protected_jobs = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain") //Silicons can eventually be converted
+	protected_jobs = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician") //Silicons can eventually be converted
 	restricted_jobs = list("Chaplain", "Captain")
 	announce_span = "brass"
 	announce_text = "Servants of Ratvar are trying to summon the Justiciar!\n\
@@ -352,9 +352,9 @@ Credit where due:
 	info = replacetext(info, "CLOCKCULTCHANGELOG", changelog_contents)
 
 /obj/item/paper/servant_primer/examine(mob/user)
+	. = ..()
 	if(!is_servant_of_ratvar(user) && !isobserver(user))
-		to_chat(user, "<span class='danger'>You can't understand any of the words on [src].</span>")
-	..()
+		. += "<span class='danger'>You can't understand any of the words on [src].</span>"
 
 /datum/game_mode/clockwork_cult/generate_credit_text()
 	var/list/round_credits = list()

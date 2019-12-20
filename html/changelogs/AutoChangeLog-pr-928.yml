@@ -1,6 +1,0 @@
-author: "Rockdtben and WJohnston"
-delete-after: True
-changes: 
-  - rscadd: "Created a minimalist font."
-  - rscadd: "Security can put custom headings on wanter/missing posters."
-  - rscadd: "Security can now print out Missing Persons Posters"

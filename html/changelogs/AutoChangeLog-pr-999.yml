@@ -1,0 +1,4 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - rscdel: "Removes headslugs from the gold xenobio pool until they get fixed or rebalanced."
