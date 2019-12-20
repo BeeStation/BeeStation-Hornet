@@ -6,16 +6,11 @@
 	stage_speed = 1
 	transmittable = 1
 	level = 9
-	if(honey)
- 		severity = 0
-	else if(toxic_bees)
- 		severity = 5
-	else
- 		severity = 4
+	severity = 5
 	symptom_delay_min = 5
 	symptom_delay_max = 20
 	var/honey = FALSE
-	var/infected_bees = FALSE
+	var/toxic_bees= FALSE
 	threshold_desc = "<b>Resistance 14:</b> Host synthesizes honey instead of toxins, bees now sting with honey instead of toxin.<br>\
 					  <b>Transmission 10:</b> Bees now contain a completely random toxin, unless resistance exceeds 14"		
 					  
@@ -24,7 +19,7 @@
 		return
 	if(A.properties["resistance"] >= 14)
 		honey = TRUE
-	if(A.properties["transmission"] >= 10)
+	if(A.properties["transmittable"] >= 10)
 		toxic_bees = TRUE
 
 /datum/symptom/beesease/Activate(datum/disease/advance/A)
@@ -52,7 +47,7 @@
 			if(prob(15))
 				if(honey)
 					to_chat(M, "<span class='notice'>You can't get the taste of honey out of your mouth!.</span>")
-					M.reagents.add_reagent(/datum/reagent/consumable/honey, 3)
+					M.reagents.add_reagent_list(list(/datum/reagent/consumable/honey = 5, /datum/reagent/medicine/insulin = 7)) //honey rooooughly equivalent to 1.5u omnizine. due to how honey synthesizes 7.5 sugar per unit, the large amounts of insulin are necessary to prevent hyperglycaemic shock due to the bees
 				else
 					to_chat(M, "<span class='danger'>Your stomach stings painfully.</span>")				
 					M.adjustToxLoss(5)

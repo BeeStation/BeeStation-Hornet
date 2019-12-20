@@ -9,7 +9,7 @@
 	severity = 5
 	symptom_delay_min = 15
 	symptom_delay_max = 60
-	var/fastdamage = FALSE
+	var/lethal = FALSE
 	var/moretrauma = FALSE
 	threshold_desc = "<b>transmission 12:</b> The disease's damage reaches lethal levels.<br>\
 					  <b>Speed 9:</b> Host's brain develops even more traumas than normal."
