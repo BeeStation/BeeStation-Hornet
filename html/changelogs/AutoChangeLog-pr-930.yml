@@ -1,4 +1,0 @@
-author: "Cenrus"
-delete-after: True
-changes: 
-  - bugfix: "Deletes the visible pipe corner by the BoxStation engine."

@@ -136,8 +136,9 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/salbutamol = 4,
+		/obj/item/reagent_containers/pill/salbutamol = 2,
 		/obj/item/reagent_containers/hypospray/medipen = 2,
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
 		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
 

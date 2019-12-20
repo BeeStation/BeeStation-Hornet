@@ -34,7 +34,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		"Head of Security",
 		"Chief Engineer",
 		"Research Director",
-		"Chief Medical Officer")
+		"Chief Medical Officer",
+		"Brig Physician")
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
@@ -46,9 +47,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/machinery/computer/card/examine(mob/user)
-	..()
+	. = ..()
 	if(scan || modify)
-		to_chat(user, "<span class='notice'>Alt-click to eject the ID card.</span>")
+		. += "<span class='notice'>Alt-click to eject the ID card.</span>"
 
 /obj/machinery/computer/card/Initialize()
 	. = ..()
