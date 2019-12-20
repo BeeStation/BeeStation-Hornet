@@ -102,67 +102,6 @@
 	if(return_pressure() > WARNING_HIGH_PRESSURE)
 		. += "<span class='userdanger'>DANGEROUSLY HIGH CABIN PRESSURE</span><br />"
 
-
-
-/obj/mecha/proc/get_stats_part()
-	var/integrity = obj_integrity/max_integrity*100
-	var/cell_charge = get_charge()
-	var/datum/gas_mixture/int_tank_air = 0
-	var/tank_pressure = 0
-	var/tank_temperature = 0
-	var/cabin_pressure = 0
-	if (internal_tank)
-		int_tank_air = internal_tank.return_air()
-		tank_pressure = internal_tank ? round(int_tank_air.return_pressure(),0.01) : "None"
-		tank_temperature = internal_tank ? int_tank_air.temperature : "Unknown"
-		cabin_pressure = round(return_pressure(),0.01)
-	. = {"[report_internal_damage()]
-						[integrity<30?"<span class='userdanger'>DAMAGE LEVEL CRITICAL</span><br>":null]
-						<b>Integrity: </b> [integrity]%<br>
-						<b>Powercell charge: </b>[isnull(cell_charge)?"No powercell installed":"[cell.percent()]%"]<br>
-						<b>Air source: </b>[internal_tank?"[use_internal_tank?"Internal Airtank":"Environment"]":"Environment"]<br>
-						<b>Airtank pressure: </b>[internal_tank?"[tank_pressure]kPa":"N/A"]<br>
-						<b>Airtank temperature: </b>[internal_tank?"[tank_temperature]&deg;K|[tank_temperature - T0C]&deg;C":"N/A"]<br>
-						<b>Cabin pressure: </b>[internal_tank?"[cabin_pressure>WARNING_HIGH_PRESSURE ? "<span class='danger'>[cabin_pressure]</span>": cabin_pressure]kPa":"N/A"]<br>
-						<b>Cabin temperature: </b> [internal_tank?"[return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C":"N/A"]<br>
-						[dna_lock?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna_lock]</span> \[<a href='?src=[REF(src)];reset_dna=1'>Reset</a>\]<br>":""]<br>
-						[defense_action.owner ? "<b>Defense Mode: </b> [defense_mode ? "Enabled" : "Disabled"]<br>" : ""]
-						[overload_action.owner ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"]<br>" : ""]
-						[smoke_action.owner ? "<b>Smoke: </b> [smoke]<br>" : ""]
-						[zoom_action.owner ? "<b>Zoom: </b> [zoom_mode ? "Enabled" : "Disabled"]<br>" : ""]
-						[switch_damtype_action.owner ? "<b>Damtype: </b> [damtype]<br>" : ""]
-						[phasing_action.owner ? "<b>Phase Modulator: </b> [phasing ? "Enabled" : "Disabled"]<br>" : ""]
-					"}
-
-
-/obj/mecha/proc/get_commands()
-	. = {"<div class='wr'>
-						<div class='header'>Electronics</div>
-						<div class='links'>
-						<b>Radio settings:</b><br>
-						Microphone: [radio? "<a href='?src=[REF(src)];rmictoggle=1'><span id=\"rmicstate\">[radio.broadcasting?"Engaged":"Disengaged"]</span></a>":"Error"]<br>
-						Speaker: [radio? "<a href='?src=[REF(src)];rspktoggle=1'><span id=\"rspkstate\">[radio.listening?"Engaged":"Disengaged"]</span></a>":"Error"]<br>
-						Frequency:
-						[radio? "<a href='?src=[REF(src)];rfreq=-10'>-</a>":"-"]
-						[radio? "<a href='?src=[REF(src)];rfreq=-2'>-</a>":"-"]
-						<span id="rfreq">[radio?"[format_frequency(radio.frequency)]":"Error"]</span>
-						[radio? "<a href='?src=[REF(src)];rfreq=2'>+</a>":"+"]
-						[radio? "<a href='?src=[REF(src)];rfreq=10'>+</a><br>":"+"]
-						</div>
-						</div>
-						<div class='wr'>
-						<div class='header'>Permissions & Logging</div>
-						<div class='links'>
-						<a href='?src=[REF(src)];toggle_id_upload=1'><span id='t_id_upload'>[add_req_access?"L":"Unl"]ock ID upload panel</span></a><br>
-						<a href='?src=[REF(src)];toggle_maint_access=1'><span id='t_maint_access'>[maint_access?"Forbid":"Permit"] maintenance protocols</span></a><br>
-						[internal_tank?"<a href='?src=[REF(src)];toggle_port_connection=1'><span id='t_port_connection'>[internal_tank.connected_port?"Disconnect from":"Connect to"] gas port</span></a><br>":""]
-						<a href='?src=[REF(src)];dna_lock=1'>DNA-lock</a><br>
-						<a href='?src=[REF(src)];change_name=1'>Change exosuit name</a><br>
-						</div>
-						</div>
-						<div id='equipment_menu'>[get_equipment_menu()]</div>
-						"}
-
 /obj/mecha/proc/get_equipment_list() //outputs mecha equipment list in html
 	if(!equipment.len)
 		return
