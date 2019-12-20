@@ -68,7 +68,7 @@
 	time = 64
 	name = "manipulate organs"
 	repeatable = 1
-	implements = list(/obj/item/organ = 100, /obj/item/reagent_containers/food/snacks/organ = 0, /obj/item/organ_storage = 100)
+	implements = list(/obj/item/organ = 100, /obj/item/reagent_containers/food/snacks/organ = 0, /obj/item/organ_storage = 100, /obj/item/mmi = 100)
 	var/implements_extract = list(/obj/item/hemostat = 100, TOOL_CROWBAR = 55)
 	var/current_type
 	var/obj/item/organ/I = null
@@ -94,7 +94,8 @@
 		if(target_zone != I.zone || target.getorganslot(I.slot))
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
-	if(istype(tool, /obj/item/organ/brain/positron))
+	if(istype(tool, /obj/item/mmi))//this whole thing is only used for robotic surgery in organ_mani_robotic.dm :*
+		current_type = "posibrain"
 		var/obj/item/bodypart/affected = target.get_bodypart(check_zone(target_zone))
 		if(!affected)
 			return -1
@@ -106,8 +107,15 @@
 			return -1
 		if(target_zone != "chest")
 			to_chat(user, "<span class='notice'>You have to install [tool] in [target]'s chest!</span>")
-		if(target.internal_organs_slot["brain"])
+			return -1
+		if(target.internal_organs_slot[ORGAN_SLOT_BRAIN])
 			to_chat(user, "<span class='notice'>[target] already has a brain! You'd rather not find out what would happen with two in there.</span>")
+			return -1
+		var/obj/item/mmi/P = tool
+		if(!istype(P))
+			return -1
+		if(!P.brainmob || !P.brainmob.client)
+			to_chat(user, "<span class='notice'>[tool] has no life in it, this would be pointless!</span>")
 			return -1
 		user.visible_message("<span class='notice'>[user] begins to insert [tool] into [target]'s [parse_zone(target_zone)].</span>",
 			"<span class='notice'>You begin to insert [tool] into [target]'s [parse_zone(target_zone)]...</span>")
@@ -139,7 +147,21 @@
 		return -1
 
 /datum/surgery_step/manipulate_organs/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(current_type == "insert")
+	if(current_type == "posibrain")
+		if(istype(tool, /obj/item/organ_storage))
+			tool.icon_state = "evidenceobj"
+			tool.desc = "A container for holding body parts."
+			tool.cut_overlays()
+			tool = tool.contents[1]
+
+		user.temporarilyRemoveItemFromInventory(tool)
+		spawn(1)
+			I = new /obj/item/organ/brain/mmi_holder/posibrain(tool)
+			I.Insert(target)
+			user.visible_message("<span class='notice'>[user] inserts [tool] into [target]'s [parse_zone(target_zone)]!</span>",
+				"<span class='notice'>You insert [tool] into [target]'s [parse_zone(target_zone)].</span>")
+
+	else if(current_type == "insert")
 		if(istype(tool, /obj/item/organ_storage))
 			I = tool.contents[1]
 			tool.icon_state = initial(tool.icon_state)
