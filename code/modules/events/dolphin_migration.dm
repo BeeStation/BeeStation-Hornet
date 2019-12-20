@@ -1,4 +1,3 @@
-//DOLPHIN PORT WOOOOOO
 /datum/round_event_control/dolphin_migration
 	name = "Dolphin Migration"
 	typepath = /datum/round_event/dolphin_migration
