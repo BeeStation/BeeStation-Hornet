@@ -58,9 +58,6 @@
 	icon_icon = 'icons/mob/actions.dmi'
 	button_icon_state = "squid"
 	var/cooldown = 0
-	var/static/list/squid_colors = list("FFA500", "B19CD9", "ADD8E6", "551A8B", "0000FF",
-    "32CD32", "D3D3D3", "2956B2", "FF0000", "00FF00", "FF69B4", "FFD700", "F58B57", "5AC18E",
-    "FFB6C1", "008B8B")
 
 /datum/action/innate/squid_change/IsAvailable()
     if(cooldown > world.time)
@@ -72,7 +69,6 @@
 	var/new_color = input(usr, "Choose a new skin color:", "Color Change", H.dna.species.fixed_mut_color) as color|null
 	if(new_color)
 		var/temp_hsv = RGBtoHSV(new_color)
-		debug_usr(usr + " chosen " + sanitize_hexcolor(new_color))
 		if(ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3])
 			H.dna.species.fixed_mut_color = sanitize_hexcolor(new_color)
 			H.update_body()
