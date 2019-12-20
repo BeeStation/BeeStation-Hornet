@@ -20,7 +20,7 @@
 	if(A.properties["resistance"] >= 14)
 		honey = TRUE
 	if(A.properties["transmittable"] >= 10)
-		toxic_bees = TRUE
+		infected_bees = TRUE
 
 /datum/symptom/beesease/Activate(datum/disease/advance/A)
 	if(!..())
@@ -63,7 +63,7 @@
 				if(honey)
 					var/mob/living/simple_animal/hostile/poison/bees/toxin/B = new(M.loc)
 					B.assign_reagent(/datum/reagent/consumable/honey)
-				else if(toxic_bees)
+				else if(infected_bees)
 					new /mob/living/simple_animal/hostile/poison/bees/toxin(M.loc)
 				else
 					new /mob/living/simple_animal/hostile/poison/bees(M.loc)
