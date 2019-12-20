@@ -97,6 +97,8 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/Life()
 	. = ..()
+	if(!.) //Checks if they are dead as a rock.
+		return
 	if(health < maxHealth * 0.5 && rand_tent < world.time)
 		rand_tent = world.time + 30
 		var/tentacle_amount = 5
