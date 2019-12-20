@@ -24,7 +24,7 @@
 	harm_intent_damage = 8
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	pass_flags = PASSTABLE //secretly a tactical dolphin buff.
+	pass_flags = PASSTABLE
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("chitters", "squeeks", "clicks")
@@ -34,10 +34,8 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 
-	faction = list("dolphin")//why do carps not attack dolphins again? //i dunno now they do
-
 /mob/living/simple_animal/hostile/retaliate/dolphin/Process_Spacemove(movement_dir = 0)
-	return TRUE	//No drifting in space for space dolphins!	//original comments do not steal //Too late.
+	return TRUE
 
 /mob/living/simple_animal/hostile/retaliate/dolphin/AttackingTarget()
 	..()
