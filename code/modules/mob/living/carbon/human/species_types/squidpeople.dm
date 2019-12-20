@@ -69,10 +69,17 @@
 
 /datum/action/innate/squid_change/Activate()
 	var/mob/living/carbon/human/H = owner
-	H.dna.species.fixed_mut_color = pick(squid_colors)
-	H.update_body()
-	cooldown = world.time + 50
-	active = TRUE
+	var/new_color = input(usr, "Choose a new skin color:", "Color Change", H.dna.species.fixed_mut_color) as color|null
+	if(new_color)
+		var/temp_hsv = RGBtoHSV(new_color)
+		debug_usr(usr + " chosen " + sanitize_hexcolor(new_color))
+		if(ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3])
+			H.dna.species.fixed_mut_color = sanitize_hexcolor(new_color)
+			H.update_body()
+			cooldown = world.time + 50
+			active = TRUE
+		else
+			to_chat(usr, "<span class='danger'>Invalid color. Your color is not bright enough.</span>")
 	UpdateButtonIcon()
 
 /datum/action/innate/squid_change/Deactivate()
