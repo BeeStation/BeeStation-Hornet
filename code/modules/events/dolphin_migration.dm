@@ -6,7 +6,7 @@
 	max_occurrences = 6
 
 /datum/round_event/dolphin_migration
-	announceWhen	= 3
+	announceWhen = 3
 	startWhen = 50
 
 /datum/round_event/dolphin_migration/setup()
