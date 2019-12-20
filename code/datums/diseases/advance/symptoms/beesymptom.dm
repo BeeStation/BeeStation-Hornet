@@ -19,7 +19,7 @@
 		return
 	if(A.properties["resistance"] >= 14)
 		honey = TRUE
-	if(A.properties["transmission"] >= 10)
+	if(A.properties["transmittable"] >= 10)
 		toxic_bees = TRUE
 
 /datum/symptom/beesease/Activate(datum/disease/advance/A)
