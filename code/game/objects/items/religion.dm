@@ -16,9 +16,9 @@
 	var/warcry
 
 /obj/item/banner/examine(mob/user)
-	..()
+	. = ..()
 	if(inspiration_available)
-		to_chat(user, "<span class='notice'>Activate it in your hand to inspire nearby allies of this banner's allegiance!</span>")
+		. += "<span class='notice'>Activate it in your hand to inspire nearby allies of this banner's allegiance!</span>"
 
 /obj/item/banner/attack_self(mob/living/carbon/human/user)
 	if(!inspiration_available)
@@ -81,7 +81,7 @@
 	item_state = "banner_security"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list("Security Officer", "Warden", "Detective", "Head of Security")
+	job_loyalties = list("Security Officer", "Warden", "Detective", "Head of Security", "Brig Physician")
 	warcry = "EVERYONE DOWN ON THE GROUND!!"
 
 /obj/item/banner/security/mundane
@@ -380,7 +380,7 @@
 	desc = "This one is rusted."
 	force = 30
 	armour_penetration = 15
-	
+
 /obj/item/claymore/weak/ceremonial
 	desc = "A rusted claymore, once at the heart of a powerful scottish clan struck down and oppressed by tyrants, it has been passed down the ages as a symbol of defiance."
 	force = 15
