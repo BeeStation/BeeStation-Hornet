@@ -151,22 +151,6 @@
 	magic_path = "/obj/item/melee/blood_magic/teleport"
 	health_cost = 7
 
-/datum/action/innate/cult/blood_spell/emp
-	name = "Electromagnetic Pulse"
-	desc = "Emits a large electromagnetic pulse."
-	button_icon_state = "emp"
-	health_cost = 10
-	invocation = "Ta'gh fara'qha fel d'amar det!"
-
-/datum/action/innate/cult/blood_spell/emp/Activate()
-	owner.visible_message("<span class='warning'>[owner]'s hand flashes a bright blue!</span>", \
-						 "<span class='cultitalic'>You speak the cursed words, emitting an EMP blast from your hand.</span>")
-	empulse(owner, 2, 5)
-	owner.whisper(invocation, language = /datum/language/common)
-	charges--
-	if(charges<=0)
-		qdel(src)
-
 /datum/action/innate/cult/blood_spell/shackles
 	name = "Shadow Shackles"
 	desc = "Empowers your hand to start handcuffing victim on contact, and mute them if successful."
