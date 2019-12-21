@@ -229,6 +229,9 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/mapping_helpers/airlock/locked,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/storage/materials1)
 "aO" = (
@@ -406,6 +409,9 @@
 	icon_state = "tracks";
 	dir = 6
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/storage/central)
 "bw" = (
@@ -442,7 +448,9 @@
 "bD" = (
 /obj/structure/table/wood/fancy/red,
 /obj/structure/table/wood/fancy/cyan,
-/obj/item/storage/lockbox/dueling,
+/obj/item/storage/lockbox/dueling{
+	req_access = null
+	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/storage/central2)
 "bE" = (
@@ -482,6 +490,9 @@
 "bK" = (
 /obj/machinery/power/apc/auto_name/south{
 	start_charge = 0
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/storage/power1)
@@ -680,6 +691,9 @@
 	icon_state = "blood1";
 	dir = 1
 	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/storage/central)
 "co" = (
@@ -748,6 +762,9 @@
 	start_charge = 0
 	},
 /obj/effect/decal/cleanable/ash,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/storage/materials1)
 "cA" = (
@@ -862,6 +879,27 @@
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/storage/power2)
+"Ce" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/closed/wall/r_wall,
+/area/ruin/space/has_grav/storage/materials1)
+"RF" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/closed/wall/r_wall,
+/area/ruin/space/has_grav/storage/central2)
+"Wu" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/closed/wall/r_wall,
+/area/ruin/space/has_grav/storage/central2)
 
 (1,1,1) = {"
 aa
@@ -1292,7 +1330,7 @@ ch
 aI
 ai
 aq
-ai
+Ce
 cz
 bp
 bp
@@ -1324,7 +1362,7 @@ aq
 aq
 ai
 be
-aY
+co
 cA
 bp
 cB
@@ -1356,7 +1394,7 @@ ad
 bZ
 ad
 ad
-aY
+co
 by
 bs
 bp
@@ -1388,7 +1426,7 @@ ad
 aJ
 am
 bf
-aY
+co
 aY
 aY
 aY
@@ -1420,7 +1458,7 @@ ad
 am
 am
 bf
-bk
+RF
 bz
 bz
 bk
@@ -1452,7 +1490,7 @@ ad
 cr
 bZ
 cq
-bk
+RF
 bk
 bk
 bk
@@ -1484,7 +1522,7 @@ aH
 aK
 ad
 cw
-bk
+RF
 bk
 bk
 bk
@@ -1516,7 +1554,7 @@ ax
 ad
 ad
 cx
-bk
+RF
 bk
 bB
 bC
@@ -1548,7 +1586,7 @@ ax
 ad
 ad
 am
-bk
+RF
 bk
 bC
 bC
@@ -1580,7 +1618,7 @@ ad
 ad
 ad
 am
-bk
+RF
 bk
 bD
 bC
@@ -1612,7 +1650,7 @@ am
 am
 aK
 bg
-bo
+Wu
 bo
 bR
 bV
