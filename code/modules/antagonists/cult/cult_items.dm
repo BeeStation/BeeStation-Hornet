@@ -994,9 +994,9 @@
 		else if(!..())
 			if(!L.anti_magic_check())
 				if(is_servant_of_ratvar(L))
-					L.Paralyze(60)
+					L.Knockdown(60)
 				else
-					L.Paralyze(30)
+					L.Knockdown(30)
 				if(D?.thrower)
 					for(var/mob/living/Next in orange(2, T))
 						if(!Next.density || iscultist(Next))
