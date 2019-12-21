@@ -47,7 +47,7 @@
 			if(prob(15))
 				if(honey)
 					to_chat(M, "<span class='notice'>You can't get the taste of honey out of your mouth!.</span>")
-					M.reagents.add_reagent_list(list(/datum/reagent/consumable/honey = 5, /datum/reagent/medicine/insulin = 7)) //honey rooooughly equivalent to 1.5u omnizine. due to how honey synthesizes 7.5 sugar per unit, the large amounts of insulin are necessary to prevent hyperglycaemic shock due to the bees
+					M.reagents.add_reagent_list(list(/datum/reagent/consumable/honey = 5, /datum/reagent/medicine/insulin = 15)) //honey rooooughly equivalent to 1.5u omnizine. due to how honey synthesizes 7.5 sugar per unit, the large amounts of insulin are necessary to prevent hyperglycaemic shock due to the bees
 				else
 					to_chat(M, "<span class='danger'>Your stomach stings painfully.</span>")				
 					M.adjustToxLoss(5)

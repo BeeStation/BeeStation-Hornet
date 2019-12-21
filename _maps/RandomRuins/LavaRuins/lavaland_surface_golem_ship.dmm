@@ -6,7 +6,8 @@
 /turf/closed/wall/mineral/titanium/survival,
 /area/ruin/powered/golem_ship)
 "ac" = (
-/obj/effect/spawner/structure/window/survival_pod,
+/obj/structure/grille,
+/obj/structure/window/plastitanium,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "ad" = (
@@ -237,23 +238,39 @@
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "aR" = (
-/obj/item/pickaxe,
 /obj/item/card/id/mining,
 /obj/item/mining_scanner,
-/obj/item/storage/bag/ore,
 /obj/item/flashlight/lantern,
 /obj/structure/closet{
 	anchored = 1;
 	name = "Mining equipment"
 	},
-/obj/item/shovel,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
+/obj/item/shovel,
+/obj/item/shovel,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "aS" = (
-/obj/structure/table/reinforced,
-/obj/item/toy/cards/deck,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet{
+	anchored = 1;
+	name = "Mining equipment"
+	},
+/obj/item/card/id/mining,
+/obj/item/mining_scanner,
+/obj/item/flashlight/lantern,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
+/obj/item/shovel,
+/obj/item/shovel,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "aT" = (
@@ -433,14 +450,6 @@
 	icon_state = "tube-broken";
 	dir = 8
 	},
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
-"bw" = (
-/obj/machinery/light{
-	icon_state = "tube";
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "bx" = (
@@ -642,13 +651,6 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
-"cc" = (
-/obj/machinery/light/built{
-	icon_state = "tube-empty";
-	dir = 4
-	},
-/turf/open/floor/pod/dark,
-/area/ruin/powered/golem_ship)
 "cd" = (
 /obj/machinery/light{
 	icon_state = "tube";
@@ -801,12 +803,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
-"cz" = (
-/obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/cleanable/blood/gibs/limb,
-/obj/effect/decal/cleanable/blood/innards,
-/turf/open/floor/plating,
-/area/ruin/powered/golem_ship)
 "cA" = (
 /obj/structure/table/reinforced,
 /obj/item/scalpel,
@@ -883,6 +879,24 @@
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
+"cM" = (
+/obj/structure/grille,
+/obj/structure/window/plastitanium,
+/turf/closed/wall/mineral/plastitanium,
+/area/ruin/powered/golem_ship)
+"jC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/obj/machinery/light{
+	icon_state = "tube";
+	dir = 4
+	},
+/turf/open/floor/pod/dark,
+/area/ruin/powered/golem_ship)
+"JJ" = (
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating,
+/area/ruin/powered/golem_ship)
 
 (1,1,1) = {"
 aa
@@ -934,11 +948,11 @@ aC
 aR
 ab
 bd
-ac
-ac
-ac
-ac
-ac
+cM
+cM
+cM
+cM
+cM
 cd
 ab
 cl
@@ -1249,15 +1263,15 @@ af
 aZ
 ab
 bo
-bw
-bC
-bL
 aB
-cc
+bC
+jC
+aB
+bj
 bk
 ab
 ct
-cz
+cH
 af
 cL
 ab
@@ -1266,7 +1280,7 @@ ab
 ab
 aF
 ax
-af
+JJ
 ba
 ab
 bp
