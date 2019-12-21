@@ -47,6 +47,6 @@
 			if(prob(50))
 				to_chat(M, "<span class='notice'>You feel something crawling in your pipes!</span>")
 			if(death_roaches)
-  			on_death(A.affected_mob)
-				for(var/i in 1 to rand(1,5))
+  				on_death(A.affected_mob)
+					for(var/i in 1 to rand(1,5))
     				new /mob/living/simple_animal/roach(M.loc)
