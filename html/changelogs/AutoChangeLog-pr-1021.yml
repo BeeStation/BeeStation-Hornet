@@ -1,5 +1,0 @@
-author: "Cenrus"
-delete-after: True
-changes: 
-  - rscadd: "Oxygen deprivation treatment kits now contain two dexalin medipens"
-  - imageadd: "dexpen sprites"
