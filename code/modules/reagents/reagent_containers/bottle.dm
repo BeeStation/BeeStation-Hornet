@@ -99,10 +99,10 @@
 	icon_state = "holyflask"
 	list_reagents = list(/datum/reagent/medicine/adminordrazine = 30)
 
-/obj/item/reagent_containers/glass/bottle/adminvirusfood
+/obj/item/reagent_containers/glass/bottle/viralbase
 	name = "Highly Unstable Virus Food Bottle"
-	desc = "A small bottle. Contains a small amount of highly experimental virus food. This is rare, so don't expect any more of it."
-	list_reagents = list(/datum/reagent/medicine/adminordrazine/adminvirusfood = 1)
+	desc = "A small bottle. Contains a trace amount of a substance found by scientists that can be used to create extremely advanced diseases once exposed to uranium."
+	list_reagents = list(/datum/reagent/consumable/virus_food/advvirusfood = 1)
 
 /obj/item/reagent_containers/glass/bottle/capsaicin
 	name = "Capsaicin Bottle"
