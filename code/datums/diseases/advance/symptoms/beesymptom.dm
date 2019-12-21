@@ -61,8 +61,9 @@
 				M.visible_message("<span class='danger'>[M] coughs up a bee!</span>", \
 								  "<span class='userdanger'>You cough up a bee!</span>")
 				if(honey)
-					var/mob/living/simple_animal/hostile/poison/bees/toxin/B = new(M.loc)
-					B.assign_reagent(/datum/reagent/consumable/honey)
+					if(honey)
+					var/mob/living/simple_animal/hostile/poison/bees/B = new(M.loc)
+					B.assign_reagent(GLOB.chemical_reagents_list[/datum/reagent/consumable/honey])
 				else if(toxic_bees)
 					new /mob/living/simple_animal/hostile/poison/bees/toxin(M.loc)
 				else
