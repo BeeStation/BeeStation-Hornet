@@ -1,0 +1,8 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "New symptom: SBG syndrome. Looks spooky but is actually harmless"
+  - rscadd: "ported /tg/ style cures"
+  - tweak: "changed inneffective symptoms to work as intended"
+  - balance: "removed redundant viro traitor items and increased experimental disease cost"
+  - bugfix: "fixed ducatopod and bee infestation's thresholds"
