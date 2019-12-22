@@ -1,0 +1,4 @@
+author: "AsciiSquid"
+delete-after: True
+changes: 
+  - tweak: "squids can now pick the color they change into"
