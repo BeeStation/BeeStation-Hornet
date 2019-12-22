@@ -56,6 +56,9 @@ MENTOR_LEGACY_SYSTEM
 #Mentors only see ckeys by default. Uncomment to have them only see mob name
 #MENTORS_MOBNAME_ONLY
 
+## Comment this out if you want to use the SQL based banning system. The legacy systems use the files in the data folder. You need to set up your database to use the SQL based system.
+BAN_LEGACY_SYSTEM
+
 ## Comment this out to stop locally connected clients from being given the almost full access !localhost! admin rank
 ENABLE_LOCALHOST_RANK
 
@@ -228,16 +231,16 @@ CHECK_RANDOMIZER
 
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 ## Don't set this to the same server, BYOND will automatically restart players to the server when it has restarted.
-SERVER  byond://golden.beestation13.com:7777
+SERVER  byond://sage.beestation13.com:7878
 
 ## forum address
-FORUMURL http://forums.beestation13.com
+FORUMURL https://forums.beestation13.com
 
 ## Wiki address
 WIKIURL https://wiki.beestation13.com/view
 
 ## Rules address
-RULESURL http://beestation13.com/rules
+RULESURL https://beestation13.com/rules/rp
 
 ## Github address
 GITHUBURL https://www.github.com/beestation/beestation-hornet
@@ -379,9 +382,6 @@ ANNOUNCE_ADMIN_LOGIN
 ## When it's set to zero, the map will be randomly picked each round
 PREFERENCE_MAP_VOTING 1
 
-## Starts a map vote at the end of rounds
-AUTOMAPVOTE
-
 ## Map rotate chance delta
 ## This is the chance of map rotation factored to the round length.
 ## A value of 1 would mean the map rotation chance is the round length in minutes (hour long round == 60% rotation chance)
@@ -416,6 +416,7 @@ CLIENT_ERROR_BUILD 1421
 SECOND_TOPIC_LIMIT 10
 
 MINUTE_TOPIC_LIMIT 180
+
 
 ## CLICK RATE LIMITING
 ## Same as above, but applies to clicking on objects in the game window.
@@ -458,10 +459,10 @@ BASE_MC_TICK_RATE 1
 HIGH_POP_MC_TICK_RATE 1.2
 
 ##Engage high pop mode if player count raises above this (Player in this context means any connected user. Lobby, ghost or in-game all count)
-HIGH_POP_MC_MODE_AMOUNT 120
+HIGH_POP_MC_MODE_AMOUNT 90
 
 ##Disengage high pop mode if player count drops below this
-DISABLE_HIGH_POP_MC_MODE_AMOUNT 100
+DISABLE_HIGH_POP_MC_MODE_AMOUNT 85
 
 ## Uncomment to prevent the world from sleeping while no players are connected after initializations
 #RESUME_AFTER_INITIALIZATIONS
@@ -469,14 +470,14 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 100
 ## Uncomment to set the number of /world/Reboot()s before the DreamDaemon restarts itself. 0 means restart every round. Requires tgstation server tools.
 ROUNDS_UNTIL_HARD_RESTART 3
 
+AUTOMAPVOTE
+
 ##Default screen resolution, in tiles.
 ##	By default, this is 15x15, which gets simplified to 7 by BYOND, as it is a 1:1 screen ratio.
 ##	For reference, Goonstation uses a resolution of 21x15 for it's widescreen mode.
 ##	Do note that changing this value will affect the title screen. The title screen will have to be updated manually if this is changed.
 DEFAULT_VIEW 15x15
 
-## Name your perpetual currency here
-## This is used within the metashop and earned by playing the game.
 METACURRENCY_NAME BeeCoin
 
 ## Grant metacurrency
