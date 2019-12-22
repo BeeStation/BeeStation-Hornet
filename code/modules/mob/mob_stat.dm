@@ -134,7 +134,10 @@
 		tab_data["Next Map"] = GENERATE_STAT_TEXT(cached.map_name)
 	tab_data["Round ID"] = GENERATE_STAT_TEXT("[GLOB.round_id ? GLOB.round_id : "Null"]")
 	tab_data["Server Time"] = GENERATE_STAT_TEXT(time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss"))
-	tab_data["Round Time"] = GENERATE_STAT_TEXT(worldtime2text())
+	if (SSticker.round_start_time)
+		tab_data["Round Time"] = GENERATE_STAT_TEXT(gameTimestamp("hh:mm:ss", (world.time - SSticker.round_start_time)))
+	else
+		tab_data["Lobby Time"] = GENERATE_STAT_TEXT(worldtime2text())
 	tab_data["Station Time"] = GENERATE_STAT_TEXT(station_time_timestamp())
 	tab_data["Time Dilation"] = GENERATE_STAT_TEXT("[round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
 	tab_data["Players Connected"] = GENERATE_STAT_TEXT("[GLOB.clients.len]")
