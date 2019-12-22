@@ -1,0 +1,4 @@
+author: "ike709"
+delete-after: True
+changes: 
+  - rscadd: "Playing any station role without dying, logging out, going AFK, or suiciding at the start will increase your odds of rolling antag in a later round. The job you choose does not matter, even assistant."
