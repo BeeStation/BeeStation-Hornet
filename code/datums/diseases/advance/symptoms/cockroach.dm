@@ -17,7 +17,7 @@
 /datum/symptom/cockroach/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 8) /
+	if(A.properties["stage_speed"] >= 8)
 		symptom_delay_min = 5
 		symptom_delay_max = 15
 	if(A.properties["transmittable"] >= 8) 
@@ -43,10 +43,6 @@
 			if(prob(10))
 				M.visible_message("<span class='danger'>[M] squirms as a cockroach crawls from their pores!</span>", \
 								  "<span class='userdanger'>A cockroach crawls out of your face!!</span>")
-					new /mob/living/simple_animal/roach(M.loc)
+				new /mob/living/simple_animal/cockroach(M.loc)
 			if(prob(50))
 				to_chat(M, "<span class='notice'>You feel something crawling in your pipes!</span>")
-			if(death_roaches)
-  				on_death(A.affected_mob)
-					for(var/i in 1 to rand(1,5))
-    					new /mob/living/simple_animal/roach(M.loc)
