@@ -1,0 +1,7 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - bugfix: "clown shoes are actually cured once diseases with ductapod are cured"
+  - tweak: "advanced virus food is now locked behind a uranium \"wall.\" You need to mix the roundstart bottle viro gets with 20u of uranium for it to work!"
+  - rscadd: "viral base, which if added to 20u of uranium becomes normal advanced virus food."
+  - code_imp: "changed advanced virus food to be a subset of virus food and not adminorizine, also renamed advanced virus food."
