@@ -461,7 +461,8 @@
 						/datum/species/moth,
 						/datum/species/pod,
 						/datum/species/jelly,
-						/datum/species/abductor)
+						/datum/species/abductor,
+						/datum/species/squid)
 	mutationtext = "<span class='danger'>The pain subsides. Your whole body feels... Different.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
@@ -544,6 +545,14 @@
 	mutationtext = "<span class='danger'>The pain subsides. You feel... artificial.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
+/datum/reagent/mutationtoxin/squid
+	name = "Squid Mutation Toxin"
+	description = "A salty toxin."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	race = /datum/species/squid
+	mutationtext = "<span class='danger'>The pain subsides. You feel... salty.</span>"
+	process_flags = ORGANIC | SYNTHETIC
+
 
 //BLACKLISTED RACES
 /datum/reagent/mutationtoxin/skeleton
@@ -560,6 +569,14 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/zombie //Not the infectious kind. The days of xenobio zombie outbreaks are long past.
 	mutationtext = "<span class='danger'>The pain subsides. You feel... undead.</span>"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/mutationtoxin/goofzombie
+	name = "Zombie Mutation Toxin"
+	description = "An undead toxin... kinda..."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	race = /datum/species/krokodil_addict //Not the infectious kind. The days of xenobio zombie outbreaks are long past.
+	mutationtext = "<span class='danger'>The pain subsides. You feel... as if your skin have just fallen off.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/mutationtoxin/ash
@@ -1581,6 +1598,22 @@
 	name = "stable uranium gel"
 	color = "#04506C" // rgb: 4,80,108
 	taste_description = "the inside of a reactor"
+
+/datum/reagent/consumable/laughter/laughtervirusfood
+	name = "anomolous virus food"
+	color = "#ffa6ff" //rgb: 255,166,255
+	taste_description = "a bad idea"
+
+/datum/reagent/consumable/virus_food/advvirusfood
+	name = "highly unstable virus food"
+	color = "#ffffff" //rgb: 255,255,255 ITS PURE WHITE CMON
+	taste_description = "an EXTREMELY bad idea"
+
+/datum/reagent/consumable/virus_food/viralbase
+	name = "Experimental viral base"
+	description = "Recently discovered by Nanotrasen's top scientists after years of research, this substance can be used as the base for extremely rare and extremely dangerous viruses once exposed to uranium."
+	color = "#fff0da"
+	taste_description = "tears of scientists"
 
 // Bee chemicals
 

@@ -21,6 +21,7 @@
 	if(buckled)
 		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
 
+	GLOB.total_slimes--
 	stat = DEAD
 	cut_overlays()
 
@@ -32,3 +33,12 @@
 /mob/living/simple_animal/slime/gib()
 	death(TRUE)
 	qdel(src)
+
+
+/mob/living/simple_animal/slime/Destroy()
+	for(var/obj/machinery/computer/camera_advanced/xenobio/X in GLOB.machines)
+		if(src in X.stored_slimes)
+			X.stored_slimes -= src
+	if(stat != DEAD)
+		GLOB.total_slimes--
+	return ..()

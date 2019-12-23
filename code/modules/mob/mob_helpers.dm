@@ -572,7 +572,5 @@
   * I wish examine was less copypasted. (oranges say, be the change you want to see buddy)
   */
 /mob/proc/common_trait_examine()
-	. = ""
-
 	if(HAS_TRAIT(src, TRAIT_DISSECTED))
 		. += "<span class='notice'>This body has been dissected and analyzed. It is no longer worth experimenting on.</span><br>"

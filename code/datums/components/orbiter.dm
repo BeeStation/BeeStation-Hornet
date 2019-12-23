@@ -14,19 +14,22 @@
 
 	orbiters = list()
 
-	var/atom/master = parent
-	master.orbiters = src
-
 	begin_orbit(orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
+
+/datum/component/orbiter/PostTransfer()
+	if(!isatom(parent) || isarea(parent))
+		return COMPONENT_INCOMPATIBLE	
 
 /datum/component/orbiter/RegisterWithParent()
 	var/atom/target = parent
+	target.orbiters = src
 	while(ismovableatom(target))
 		RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/move_react)
 		target = target.loc
 
 /datum/component/orbiter/UnregisterFromParent()
 	var/atom/target = parent
+	target.orbiters = null
 	while(ismovableatom(target))
 		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 		target = target.loc
@@ -75,7 +78,7 @@
 	shift.Translate(0, radius)
 	orbiter.transform = shift
 
-	orbiter.SpinAnimation(rotation_speed, -1, clockwise, rotation_segments)
+	orbiter.SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
 	//we stack the orbits up client side, so we can assign this back to normal server side without it breaking the orbit
 	orbiter.transform = initial_transform

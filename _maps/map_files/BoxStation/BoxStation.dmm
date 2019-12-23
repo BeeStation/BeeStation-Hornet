@@ -3464,7 +3464,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -3791,12 +3790,19 @@
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "ahW" = (
-/obj/structure/bodycontainer/morgue,
 /obj/machinery/camera{
 	c_tag = "Brig Infirmary";
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/structure/closet/secure_closet/brig_phys,
+/turf/open/floor/plasteel/white,
 /area/security/brig)
 "ahX" = (
 /obj/machinery/computer/crew{
@@ -3943,15 +3949,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
-"ain" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/security/brig)
 "aio" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -38887,6 +38884,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "bTs" = (
+/mob/living/simple_animal/hostile/retaliate/goose/vomit,
 /turf/open/floor/wood{
 	icon_state = "wood-broken5"
 	},
@@ -51544,9 +51542,6 @@
 /area/engine/engineering)
 "cGu" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
@@ -54106,6 +54101,12 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/science/nanite)
+"ieA" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/science/xenobiology)
 "ifv" = (
 /obj/structure/table,
 /obj/item/clipboard,
@@ -56415,6 +56416,13 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
+"qmh" = (
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/turf/open/floor/engine,
+/area/science/xenobiology)
 "qnQ" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -58093,6 +58101,10 @@
 	},
 /turf/open/floor/circuit,
 /area/science/robotics/mechbay)
+"wcA" = (
+/obj/effect/landmark/start/brig_phys,
+/turf/open/floor/plasteel/white,
+/area/security/brig)
 "weE" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -85521,8 +85533,8 @@ aeU
 afH
 agj
 agN
+ahP
 aht
-ain
 aid
 agj
 aiZ
@@ -85779,7 +85791,7 @@ afH
 agj
 ahs
 ahP
-ahP
+wcA
 aiF
 agj
 aja
@@ -101018,15 +101030,15 @@ bMi
 bPx
 bJN
 bRT
-bEm
-bEm
-bJN
-bRT
-bEm
+qmh
 bEm
 bJN
 bRT
+qmh
 bEm
+bJN
+bRT
+qmh
 bEm
 bDb
 cfr
@@ -104102,15 +104114,15 @@ bMi
 bPI
 bJN
 bEm
-bEm
+ieA
 bUi
 bJN
 bEm
-bEm
+ieA
 bUi
 bJN
 bEm
-bEm
+ieA
 bUi
 bDb
 aaf
