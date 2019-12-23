@@ -185,6 +185,7 @@ Contains:
 	strip_delay = 130
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	jetpack = /obj/item/tank/jetpack/suit
 
 	//ERT Security
 /obj/item/clothing/head/helmet/space/hardsuit/ert/sec
@@ -200,6 +201,7 @@ Contains:
 	icon_state = "ert_security"
 	item_state = "ert_security"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/sec
+	jetpack = /obj/item/tank/jetpack/suit
 
 	//ERT Engineering
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engi
@@ -215,6 +217,7 @@ Contains:
 	icon_state = "ert_engineer"
 	item_state = "ert_engineer"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engi
+	jetpack = /obj/item/tank/jetpack/suit
 
 	//ERT Medical
 /obj/item/clothing/head/helmet/space/hardsuit/ert/med
@@ -231,6 +234,7 @@ Contains:
 	item_state = "ert_medical"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/med
 	species_exception = list(/datum/species/angel)
+	jetpack = /obj/item/tank/jetpack/suit
 
 	//ERT Janitor
 /obj/item/clothing/head/helmet/space/hardsuit/ert/jani
