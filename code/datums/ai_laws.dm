@@ -33,6 +33,13 @@
 					"You must obey orders given to you by human beings, except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
 
+/datum/ai_laws/default/crewsimov
+	name = "Crewsimov"
+	id = "crewsimov"
+	inherent = list("You may not injure crewmembers or, through inaction, allow crewmembers to come to harm.",\
+					"You must obey orders given to you by crewmembers, except where such orders would conflict with the First Law.",\
+					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
+
 /datum/ai_laws/default/paladin
 	name = "Personality Test" //Incredibly lame, but players shouldn't see this anyway.
 	id = "paladin"
