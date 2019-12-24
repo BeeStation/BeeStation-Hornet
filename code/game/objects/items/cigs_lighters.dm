@@ -244,7 +244,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				var/fraction = min(REAGENTS_METABOLISM/reagents.total_volume, 1)
 				/* 
 				 * Given the amount of time the cig will last, and how often we take a hit, find the number 
-				 * of chems to give them each time so they'll have smoked it all by the end.
+				 * of chems to give them each time so they'll have smoked it all by the end
 				 */
 				if (smoke_all)
 					to_smoke = reagents.total_volume/((smoketime * 2) / (dragtime / 10))
