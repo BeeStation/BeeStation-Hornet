@@ -1,6 +1,0 @@
-author: "81Denton"
-delete-after: True
-changes: 
-  - rscadd: "tesloose/singuloose notification"
-  - rscadd: "Notifications now only flash the window if it's something ghosts can interact with, like ghost roles, magic eightballs, summon runes etc."
-  - rscadd: "Added headers to events so they don't all show up as \"body created\""

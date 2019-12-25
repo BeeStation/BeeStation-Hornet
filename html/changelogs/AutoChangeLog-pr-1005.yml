@@ -1,4 +1,0 @@
-author: "AnturK"
-delete-after: True
-changes: 
-  - bugfix: "random parallax layers will reset after server restart"

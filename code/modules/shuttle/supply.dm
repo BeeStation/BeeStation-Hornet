@@ -26,6 +26,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		/obj/structure/extraction_point,
 		/obj/machinery/syndicatebomb,
 		/obj/item/hilbertshotel,
+		/obj/item/swapper,
 		/obj/docking_port
 	)))
 

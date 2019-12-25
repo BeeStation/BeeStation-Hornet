@@ -82683,7 +82683,6 @@
 /area/science/misc_lab/range)
 "obX" = (
 /obj/docking_port/stationary{
-	area_type = /area/construction/mining/aux_base;
 	dheight = 4;
 	dwidth = 4;
 	height = 9;
