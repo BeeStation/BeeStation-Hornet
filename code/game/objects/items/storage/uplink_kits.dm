@@ -154,6 +154,7 @@
 			new /obj/item/clothing/suit/space/hardsuit/carp(src)
 			new /obj/item/clothing/mask/gas/carp(src)
 			new /obj/item/grenade/spawnergrenade/spesscarp(src)
+			new /obj/item/grenade/spawnergrenade/spesscarp(src)
 
 		if("mad_scientist")
 			new /obj/item/clothing/suit/toggle/labcoat/mad(src) // 0 tc
