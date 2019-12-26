@@ -305,7 +305,7 @@
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	gasPerThrow = 0
 	checktank = FALSE
-	var/pressureSetting = 2
+	pressureSetting = 2
 	range_multiplier = 3
 	throw_amount = 1
 	maxWeightClass = 4 //a single magspear or spear
