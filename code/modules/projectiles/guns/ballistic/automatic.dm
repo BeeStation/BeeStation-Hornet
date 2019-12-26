@@ -345,12 +345,12 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 	casing_ejector = FALSE
 
-/obj/item/gun/ballistic/automatic/scav
-	name = "Scav rifle"
-	desc = "A rifle designed by SCAV industries. Uses 9mm ammo."
+/obj/item/gun/ballistic/automatic/proto/unrestricted/scav
+	name = "Scav gun"
+	desc = "A pipe smg produced by S.C.A.V arms. loads 9mm pistol bulets"
 	icon_state = "surplus"
 	item_state = "moistnugget"
-	mag_type = /obj/item/ammo_box/magazine/pistolm9mm/rifle
+	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	can_suppress = FALSE
 	burst_size = 0
 	fire_delay = 2
