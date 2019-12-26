@@ -282,6 +282,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throw_speed = 4
 	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 100, "embedded_fall_chance" = 0)
 	w_class = WEIGHT_CLASS_SMALL
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	materials = list(/datum/material/iron=500, /datum/material/glass=500)
 	resistance_flags = FIRE_PROOF
@@ -292,8 +293,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "magspear"
 	throwforce = 25 //kills regular carps in one hit
-	force = 10
+	force = 15 //can be used in melee- a speargun user may be beat to death with their own spear
 	w_class = WEIGHT_CLASS_BULKY
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	throw_range = 0 //throwing these invalidates the speargun
 	attack_verb = list("stabbed", "ripped", "gored", "impaled")
 	embedding = list("embedded_pain_multiplier" = 8, "embed_chance" = 100, "embedded_fall_chance" = 0, "embedded_impact_pain_multiplier" = 15) //55 damage+embed on hit
