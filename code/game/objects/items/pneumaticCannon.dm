@@ -295,8 +295,8 @@
 	charge_ticks = 2		//4 second/pie
 
 /obj/item/pneumatic_cannon/speargun
-	name = "kinetic speargun"
-	desc = "A weapon favored by carp hunters. Fires specialized spears using kinetic energy."
+	name = "magnetic speargun"
+	desc = "A weapon favored by carp hunters. Fires specialized spears using magnetic energy. A savvy- or desperate- hunter may be able to find more esoteric payloads"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "speargun"
 	item_state = "speargun"
