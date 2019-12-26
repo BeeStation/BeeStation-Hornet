@@ -128,7 +128,7 @@
 /turf/closed/wall/rust,
 /area/ruin/space/has_grav/powered)
 "p" = (
-/mob/living/simple_animal/hostile/asteroid/curseblob,
+/mob/living/simple_animal/hostile/asteroid/hivelord,
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
 "q" = (
@@ -371,7 +371,7 @@ b
 f
 i
 l
-p
+c
 u
 w
 c
@@ -395,7 +395,7 @@ j
 m
 c
 c
-p
+c
 y
 c
 c
