@@ -1,0 +1,10 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - tweak: "carp syndiekit now has a sentience potion and a dehydrated carp. you know what to do"
+  - balance: "carp hardsuit no longer has negative armor"
+  - bugfix: "Set kinetic speargun to pressure setting 2, the spears are now fast enough to embed as intended (100%. They're a throwing star subtype). a once jokingly weak weapon is now quite robust"
+  - tweak: "magspears and throwing stars now make a slash instead of an impact sound on hit"
+  - tweak: "kinetic speargun can now also fire normal spears and metal rods. oh, and katanas."
+  - tweak: "backpack quiver now holds 30 magspears. magspears are now bulky."
+  - imageadd: "small change to carp hardsuit"
