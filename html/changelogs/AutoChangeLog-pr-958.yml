@@ -1,0 +1,4 @@
+author: "Guestratem"
+delete-after: True
+changes: 
+  - rscadd: "New attack which targets the groin with a conditional damage modifier for if the target is male or not."
