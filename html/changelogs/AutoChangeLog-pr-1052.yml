@@ -1,0 +1,17 @@
+author: "TGstation, ported by ike709"
+delete-after: True
+changes: 
+  - rscadd: "A bunch of fixes and code improvements from TG.
+experimental: Tons of things have been converted to movespeed modifiers. Things may break."
+  - bugfix: "Blood-red hardsuits now properly update their slowdown when you toggle helmet modes"
+  - bugfix: "Bear traps and bolas apply slowdown correctly again"
+  - bugfix: "removing legcuffs from others updates their speed"
+  - bugfix: "losing legcuffs to dismemberment updates your speed"
+  - bugfix: "removing legcuffs with freedom implant updates your speed"
+  - bugfix: "The slowdown from grabbing someone no longer applies when you're floating"
+  - bugfix: "Chopping off all your legs and growing a few dozen arms no longer turns you into the fastest monstrosity this side of the milky way"
+  - bugfix: "Lacking legs/arms no longer slows you down if you're weren't using them to move anyway"
+  - bugfix: "Held items that slow you down now affect all mobs instead of just humanoids"
+  - bugfix: "Equipment with slowdown now affects you from any slot instead of just suits, shoes, and back slots"
+  - balance: "Items that slow you down no longer only apply when there's gravity, they now apply any time you aren't floating. This means your inconvenient suit will slow you down in 0 gravity as long as you're using magboots"
+  - bugfix: "medical wrench no longer dupes on suicide"
