@@ -1,0 +1,5 @@
+author: "covertcorvid"
+delete-after: True
+changes: 
+  - bugfix: "Travis's JSON map check no longer fails when confronted with multiple maps"
+  - config: "Modified check_grep.sh CI script"
