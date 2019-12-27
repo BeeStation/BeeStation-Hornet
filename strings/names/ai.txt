@@ -19,6 +19,7 @@ B O B
 B-4
 B-9
 B166ER
+BeeBot
 Bender
 Bishop
 Blitz
