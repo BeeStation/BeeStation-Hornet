@@ -1,5 +1,0 @@
-author: "Kerbin-Fiber"
-delete-after: True
-changes: 
-  - tweak: "The mining base is now bigger! Slighty. The security room in the gulag now connects the gulag to the mining base. It also now has a window to keep watch of prisoners."
-  - bugfix: "Rogue gases should stop coming into the mining base and gulag."
