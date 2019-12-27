@@ -1,0 +1,4 @@
+author: "Vorak2"
+delete-after: True
+changes: 
+  - rscadd: "puts a new burger where the roboburger was in fast food ruin"
