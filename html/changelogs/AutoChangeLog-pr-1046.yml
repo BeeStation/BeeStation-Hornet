@@ -1,7 +1,0 @@
-author: "SomeAngryMiner"
-delete-after: True
-changes: 
-  - rscadd: "Emergency response teams and Deathsquads now start with integrated jetpack upgrades on their suits. dont forget those oxygen tanks!"
-  - imageadd: "Mining scanners now have new looks, including specifics for manual and advanced scanners!"
-  - bugfix: "Greyscale IPC chassis is no longer invisible on the chest and arms"
-  - imagedel: "the unused bamboo dmi no longer exists, since their components already exist on their respective dmis."
