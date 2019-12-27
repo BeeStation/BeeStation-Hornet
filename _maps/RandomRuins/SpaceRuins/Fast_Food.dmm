@@ -972,7 +972,7 @@
 "dA" = (
 /obj/structure/table,
 /obj/structure/table/wood/fancy/blue,
-/obj/item/reagent_containers/food/snacks/pizza/margherita/robo,
+/obj/item/reagent_containers/food/snacks/pizza/margherita,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dB" = (
@@ -1004,6 +1004,7 @@
 "dE" = (
 /obj/structure/table,
 /obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/burger/jelly/slime,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dF" = (
