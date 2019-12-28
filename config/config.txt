@@ -7,7 +7,7 @@ $include antag_rep.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
-# @SERVERNAME tgstation
+# @SERVERNAME beestation
 # Which sets the SERVERNAME, and disallows admins from being able to change it using View Variables.
 # @LOG_TWITTER 0
 # Which explicitly disables LOG_TWITTER, as well as locking it.
@@ -190,7 +190,7 @@ NORESPAWN
 # DONT_DEL_NEWMOB
 
 ## set a hosted by name for unix platforms
-HOSTEDBY CthulhuOnIce
+HOSTEDBY Crossedfall
 
 ## Set to jobban "Guest-" accounts from Captain, HoS, HoP, CE, RD, CMO, Warden, Security, Detective, and AI positions.
 ## Set to 1 to jobban them from those positions, set to 0 to allow them.
@@ -307,7 +307,7 @@ TICKLAG 0.5
 AUTOMUTE_ON
 
 ## Uncomment this to let players see their own notes (they can still be set by admins only)
-#SEE_OWN_NOTES
+SEE_OWN_NOTES
 
 ### Comment these two out to prevent notes fading out over time for admins.
 ## Notes older then this will start fading out.
@@ -486,3 +486,8 @@ GRANT_METACURRENCY
 ## Respect global bans
 ## Comment this out to ignore global bans
 RESPECT_GLOBAL_BANS
+
+## Mob spam prevention. The number of each mobtype that can be alive at once. Stops people from crashing the server with chickens/monkeycubes/slimes. Altering these values is recommended based on server hardware.
+MAX_CUBE_MONKEYS 60
+MAX_CHICKENS 60
+MAX_SLIMES 60

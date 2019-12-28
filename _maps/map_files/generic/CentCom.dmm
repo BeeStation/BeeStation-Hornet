@@ -4110,7 +4110,6 @@
 /area/centcom/control)
 "ki" = (
 /obj/docking_port/stationary{
-	area_type = /area/syndicate_mothership;
 	dir = 1;
 	dwidth = 25;
 	height = 50;
@@ -6120,7 +6119,6 @@
 /area/centcom/ferry)
 "om" = (
 /obj/machinery/computer/card/centcom,
-/obj/item/card/id/centcom,
 /turf/open/floor/plasteel/grimy,
 /area/centcom/ferry)
 "on" = (
@@ -7894,7 +7892,6 @@
 /area/centcom/ferry)
 "ry" = (
 /obj/machinery/computer/card/centcom,
-/obj/item/card/id/centcom,
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the RD's goons and the AI's satellite from the safety of his office.";
 	name = "Research Monitor";
@@ -8472,6 +8469,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/storage/box/ids{
+	pixel_x = 6;
+	pixel_y = 12
+	},
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
 "sB" = (
@@ -8587,7 +8588,6 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
 "sH" = (
-/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/vault{
 	name = "Vault Door";
 	req_access_txt = "53"
@@ -8598,6 +8598,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/door/poddoor/shutters/indestructible,
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
 "sI" = (
@@ -9464,10 +9465,7 @@
 /area/wizard_station)
 "uD" = (
 /obj/structure/table/wood/fancy,
-/obj/item/radio/intercom{
-	desc = "Talk smack through this.";
-	syndie = 1
-	},
+/obj/item/radio/headset,
 /turf/open/floor/wood,
 /area/wizard_station)
 "uE" = (
@@ -10760,7 +10758,6 @@
 /area/syndicate_mothership/control)
 "xN" = (
 /obj/docking_port/stationary{
-	area_type = /area/syndicate_mothership/control;
 	dir = 1;
 	dwidth = 3;
 	height = 7;
@@ -17193,7 +17190,6 @@
 /area/centcom/holding)
 "My" = (
 /obj/docking_port/stationary{
-	area_type = /area/syndicate_mothership;
 	dheight = 1;
 	dir = 8;
 	dwidth = 12;

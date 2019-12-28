@@ -76,6 +76,7 @@
 	var/max_equip = 3
 	var/datum/events/events
 
+	var/step_silent = FALSE //Used for disabling mech step sounds while using thrusters or pushing off lockers
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 	var/turnsound = 'sound/mecha/mechturn.ogg'
 
@@ -97,7 +98,6 @@
 	var/datum/action/innate/mecha/mech_cycle_equip/cycle_action = new
 	var/datum/action/innate/mecha/mech_toggle_lights/lights_action = new
 	var/datum/action/innate/mecha/mech_view_stats/stats_action = new
-	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
 	var/datum/action/innate/mecha/mech_defense_mode/defense_action = new
 	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
 	var/datum/effect_system/smoke_spread/smoke_system = new //not an action, but trigged by one
@@ -108,7 +108,7 @@
 	var/datum/action/innate/mecha/strafe/strafing_action = new
 
 	//Action vars
-	var/thrusters_active = FALSE
+	var/obj/item/mecha_parts/mecha_equipment/thrusters/active_thrusters
 	var/defense_mode = FALSE
 	var/leg_overload_mode = FALSE
 	var/leg_overload_coeff = 100
@@ -284,36 +284,36 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /obj/mecha/examine(mob/user)
-	..()
+	. = ..()
 	var/integrity = obj_integrity*100/max_integrity
 	switch(integrity)
 		if(85 to 100)
-			to_chat(user, "It's fully intact.")
+			. += "It's fully intact."
 		if(65 to 85)
-			to_chat(user, "It's slightly damaged.")
+			. += "It's slightly damaged."
 		if(45 to 65)
-			to_chat(user, "It's badly damaged.")
+			. += "It's badly damaged."
 		if(25 to 45)
-			to_chat(user, "It's heavily damaged.")
+			. += "It's heavily damaged."
 		else
-			to_chat(user, "It's falling apart.")
+			. += "It's falling apart."
 	var/hide_weapon = locate(/obj/item/mecha_parts/concealed_weapon_bay) in contents
 	var/hidden_weapon = hide_weapon ? (locate(/obj/item/mecha_parts/mecha_equipment/weapon) in equipment) : null
 	var/list/visible_equipment = equipment - hidden_weapon
 	if(visible_equipment.len)
-		to_chat(user, "It's equipped with:")
+		. += "It's equipped with:"
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in visible_equipment)
-			to_chat(user, "[icon2html(ME, user)] \A [ME].")
+			. += "[icon2html(ME, user)] \A [ME]."
 	if(!enclosed)
 		if(silicon_pilot)
-			to_chat(user, "[src] appears to be piloting itself...")
+			. += "[src] appears to be piloting itself..."
 		else if(occupant && occupant != user) //!silicon_pilot implied
-			to_chat(user, "You can see [occupant] inside.")
+			. += "You can see [occupant] inside."
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
 				for(var/O in H.held_items)
 					if(istype(O, /obj/item/gun))
-						to_chat(user, "<span class='warning'>It looks like you can hit the pilot directly if you target the center or above.</span>")
+						. += "<span class='warning'>It looks like you can hit the pilot directly if you target the center or above.</span>"
 						break //in case user is holding two guns
 
 //processing internal damage, temperature, air regulation, alert updates, lights power use.
@@ -537,17 +537,22 @@
 /obj/mecha/Process_Spacemove(var/movement_dir = 0)
 	. = ..()
 	if(.)
-		return 1
-	if(thrusters_active && movement_dir && use_power(step_energy_drain))
-		return 1
+		return TRUE
 
 	var/atom/movable/backup = get_spacemove_backup()
 	if(backup)
 		if(istype(backup) && movement_dir && !backup.anchored)
 			if(backup.newtonian_move(turn(movement_dir, 180)))
+				step_silent = TRUE
 				if(occupant)
 					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
-		return 1
+		return TRUE
+
+	if(can_move <= world.time && active_thrusters && movement_dir && active_thrusters.thrust(movement_dir))
+		step_silent = TRUE
+		return TRUE
+
+	return FALSE
 
 /obj/mecha/relaymove(mob/user,direction)
 	if(completely_disabled)
@@ -598,7 +603,7 @@
 /obj/mecha/proc/mechturn(direction)
 	setDir(direction)
 	if(turnsound)
-		playsound(src,turnsound,40,1)
+		playsound(src,turnsound,40,TRUE)
 	return 1
 
 /obj/mecha/proc/mechstep(direction)
@@ -606,14 +611,16 @@
 	var/result = step(src,direction)
 	if(strafe)
 		setDir(current_dir)
-	if(result && stepsound)
+	if(result && !step_silent)
 		playsound(src,stepsound,40,1)
+	step_silent = FALSE
 	return result
 
 /obj/mecha/proc/mechsteprand()
 	var/result = step_rand(src)
-	if(result && stepsound)
+	if(result && !step_silent)
 		playsound(src,stepsound,40,1)
+	step_silent = FALSE
 	return result
 
 /obj/mecha/Bump(var/atom/obstacle)

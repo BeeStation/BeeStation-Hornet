@@ -34,6 +34,8 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		var/datum/component/remote_materials/mats = C
 		mats.disconnect_from(src)
 
+	connected = null
+
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 
@@ -183,8 +185,8 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	flick("silo_active", src)
 
 /obj/machinery/ore_silo/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>[src] can be linked to techfabs, circuit printers and protolathes with a multitool.</span>")
+	. = ..()
+	. += "<span class='notice'>[src] can be linked to techfabs, circuit printers and protolathes with a multitool.</span>"
 
 /datum/ore_silo_log
 	var/name  // for VV

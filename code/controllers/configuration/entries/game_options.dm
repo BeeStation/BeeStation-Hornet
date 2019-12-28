@@ -132,6 +132,13 @@
 	integer = FALSE
 	min_val = 0
 
+/datum/config_entry/flag/equal_job_weight
+
+/datum/config_entry/number/default_rep_value
+	config_entry_value = 5
+	integer = FALSE
+	min_val = 0
+
 /datum/config_entry/number/midround_antag_time_check	// How late (in minutes you want the midround antag system to stay on, setting this to 0 will disable the system)
 	config_entry_value = 60
 	integer = FALSE
@@ -388,3 +395,5 @@
 	config_entry_value = 100
 /datum/config_entry/number/max_slimes
 	config_entry_value = 100
+
+/datum/config_entry/flag/restricted_suicide

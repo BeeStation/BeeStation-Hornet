@@ -22,6 +22,12 @@
 	icon_state = "labcoat_emt"
 	item_state = "labcoat_cmo"
 
+/obj/item/clothing/suit/toggle/labcoat/brig_phys
+	name = "security medic's labcoat"
+	icon_state = "labcoat_sec"
+	item_state = "labcoat_sec"
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 50, acid = 50)
+
 /obj/item/clothing/suit/toggle/labcoat/mad
 	name = "\proper The Mad's labcoat"
 	desc = "It makes you look capable of konking someone on the noggin and shooting them into space."

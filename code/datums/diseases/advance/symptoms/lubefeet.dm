@@ -7,12 +7,12 @@
 	transmittable = 1
 	level = 9
 	severity = 3
-	symptom_delay_min = 3
-	symptom_delay_max = 6
+	symptom_delay_min = 1
+	symptom_delay_max = 3
 	var/morelube = FALSE
 	var/clownshoes = TRUE
 	threshold_desc = "<b>Transmission 10:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
-					  <b>Resistance 12:</b> The host's feet turn into a pair of clown shoes."				
+					  <b>Resistance 12:</b> The host's feet turn into a pair of clown shoes."
 
 /datum/symptom/lubefeet/Start(datum/disease/advance/A)
 	if(!..())
@@ -30,13 +30,22 @@
 		if(1, 2)
 			if(prob(15))
 				to_chat(M, "<span class='notice'>Your feet begin to sweat profusely...</span>")
-		if(3, 4, 5)
+		if(3, 4)
 			to_chat(M, "<span class='danger'>You slide about inside your shoes!</span>")
 			if(A.stage == 4 || A.stage == 5)
 				if(morelube)
-					makelube(M, 90)
+					makelube(M, 40)
 				else
-					makelube(M, 45)
+					makelube(M, 20)
+		if(5)
+			to_chat(M, "<span class='danger'>You slide about inside your shoes!</span>")
+			if(A.stage == 4 || A.stage == 5)
+				if(morelube)
+					makelube(M, 99)
+				else
+					makelube(M, 50)
+				if(clownshoes)
+					give_clown_shoes(A)
 
 /datum/symptom/lubefeet/proc/makelube(mob/living/carbon/M, chance)
 	if(prob(chance))
@@ -45,7 +54,7 @@
 			to_chat(M, "<span class='danger'>The lube pools into a puddle!</span>")
 			OT.MakeSlippery(TURF_WET_LUBE, min_wet_time = 20 SECONDS, wet_time_to_add = 10 SECONDS)
 
-/datum/symptom/pierrot/End(datum/disease/advance/A)
+/datum/symptom/lubefeet/End(datum/disease/advance/A)
 	..()
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/M = A.affected_mob
@@ -54,11 +63,11 @@
 
 /datum/symptom/lubefeet/proc/give_clown_shoes(datum/disease/advance/A)
 	if(ishuman(A.affected_mob))
-		var/mob/living/carbon/human/M = A.affected_mob 
+		var/mob/living/carbon/human/M = A.affected_mob
 		if(!istype(M.shoes, /obj/item/clothing/shoes/clown_shoes))
 			if(!M.dropItemToGround(M.shoes))
 				qdel(M.shoes)
 		var/obj/item/clothing/C = new /obj/item/clothing/shoes/clown_shoes(M)
 		ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
 		M.equip_to_slot_or_del(C, SLOT_SHOES)
-		return		
+		return

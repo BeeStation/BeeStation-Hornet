@@ -17,7 +17,7 @@
 	name = "welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH 
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "welding"
 	materials = list(/datum/material/iron=1750, /datum/material/glass=400)
 	flash_protect = 2
@@ -332,3 +332,18 @@
 			to_chat(user, "<span class='userdanger'>Why would you want to take this off? Do you want them to get into your mind?!</span>")
 			return
 	..()
+
+/obj/item/clothing/head/speedwagon
+	name = "hat of ultimate masculinity"
+	desc = "Even the mere act of wearing this makes you want to pose menacingly."
+	alternate_worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	icon_state = "speedwagon"
+	item_state = "speedwagon"
+	worn_x_dimension = 64
+	worn_y_dimension = 64
+
+/obj/item/clothing/head/speedwagon/cursed
+	name = "ULTIMATE HAT"
+	desc = "You feel weak and pathetic in comparison to this exceptionally beautiful hat."
+	icon_state = "speedwagon_cursed"
+	item_state = "speedwagon_cursed"

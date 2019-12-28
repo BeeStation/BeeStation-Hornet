@@ -32,6 +32,7 @@
 
 /obj/machinery/mineral/ore_redemption/Destroy()
 	QDEL_NULL(stored_research)
+	materials = null
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
@@ -49,11 +50,11 @@
 	sheet_per_ore = round(sheet_per_ore_temp, 0.01)
 
 /obj/machinery/mineral/ore_redemption/examine(mob/user)
-	..()
+	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		to_chat(user, "<span class='notice'>The status display reads: Smelting <b>[sheet_per_ore]</b> sheet(s) per piece of ore.<br>Reward point generation at <b>[point_upgrade*100]%</b>.<br>Ore pickup speed at <b>[ore_pickup_rate]</b>.<span>")
+		. += "<span class='notice'>The status display reads: Smelting <b>[sheet_per_ore]</b> sheet(s) per piece of ore.<br>Reward point generation at <b>[point_upgrade*100]%</b>.<br>Ore pickup speed at <b>[ore_pickup_rate]</b>.<span>"
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Alt-click to rotate the input and output direction.</span>")
+		. += "<span class='notice'>Alt-click to rotate the input and output direction.</span>"
 
 /obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/stack/ore/O)
 	var/datum/component/material_container/mat_container = materials.mat_container

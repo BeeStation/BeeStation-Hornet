@@ -2260,8 +2260,6 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "ahu" = (
-/obj/structure/table/glass,
-/obj/item/flashlight/lamp,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -2274,6 +2272,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/computer/operating,
 /turf/open/floor/plasteel/white,
 /area/security/execution/transfer)
 "ahv" = (
@@ -4189,6 +4188,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/effect/landmark/start/brig_phys,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "als" = (
@@ -4889,6 +4889,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/brig_phys,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "amO" = (
@@ -58537,6 +58538,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/item/flashlight/lamp,
 /turf/open/floor/plasteel/white,
 /area/security/execution/transfer)
 "oXQ" = (
@@ -59677,7 +59679,6 @@
 /area/maintenance/department/engine)
 "rJZ" = (
 /obj/docking_port/stationary{
-	area_type = /area/construction/mining/aux_base;
 	dheight = 4;
 	dir = 1;
 	dwidth = 4;
@@ -60535,6 +60536,10 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/department/science)
+"tSN" = (
+/mob/living/simple_animal/hostile/retaliate/goose/vomit,
+/turf/open/floor/wood,
+/area/maintenance/department/crew_quarters/dorms)
 "tSU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible/layer1,
 /obj/effect/turf_decal/stripes/line{
@@ -99545,7 +99550,7 @@ cBk
 jhD
 cBo
 alQ
-alb
+tSN
 cBw
 alb
 aiS

@@ -28,10 +28,6 @@
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.max_items = 21
 
-/obj/item/storage/backpack/examine(mob/user)
-	..()
-	clothing_resistance_flag_examine_message(user)
-
 /*
  * Backpack Types
  */
@@ -575,7 +571,7 @@
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka(src)
-	new /obj/item/reagent_containers/syringe/stimulants(src)
+	new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
 	new /obj/item/grenade/syndieminibomb(src)
 
 // For ClownOps.

@@ -48,16 +48,33 @@ if grep -i 'centcomm' _maps/**/*.dmm; then
 fi;
 if ls _maps/*.json | grep -P "[A-Z]"; then
     echo "ERROR: Uppercase in a map json detected, these must be all lowercase."
-	st=1
+    st=1
 fi;
 for json in _maps/*.json
 do
-    filename="_maps/$(jq -r '.map_path' $json)/$(jq -r '.map_file' $json)"
-    if [ ! -f $filename ]
-    then
-        echo "ERROR: Found invalid file reference to $filename in _maps/$json"
-        st=1
-    fi
+	filepath="_maps/$(jq -r '.map_path' $json)"
+	filenames=$(jq -r '.map_file' $json) 
+	if [[ "$filenames" =~ ^\[ ]] # If it starts with brackets it's a list
+	then
+		echo "$filenames" | jq -c '.[]' | while read filename
+		do
+			#Remove quotes
+			filename="${filename%\"}"
+			filename="${filename#\"}"
+
+			if [ ! -f "$filepath/$filename" ]
+			then
+				echo "WARNING: Found potential invalid file reference to $filepath/$filename in _maps/$json"
+				st=1
+			fi
+		done
+	else # It's not a list, it's just one file name
+		if [ ! -f "$filepath/$filenames" ]
+		then
+			echo "WARNING: Found potential invalid file reference to $filepath/$filenames in _maps/$json"
+			st=1
+		fi
+	fi
 done
 
 exit $st

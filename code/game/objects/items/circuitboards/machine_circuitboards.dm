@@ -431,8 +431,8 @@
 		return ..()
 
 /obj/item/circuitboard/machine/smartfridge/examine(mob/user)
-	..()
-	to_chat(user, "<span class='info'>[src] is set to [fridges_name_paths[build_path]]. You can use a screwdriver to reconfigure it.</span>")
+	. = ..()
+	. += "<span class='info'>[src] is set to [fridges_name_paths[build_path]]. You can use a screwdriver to reconfigure it.</span>"
 
 /obj/item/circuitboard/machine/biogenerator
 	name = "Biogenerator (Machine Board)"
@@ -488,6 +488,17 @@
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/assembly/igniter = 1)
+	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/bluespace_miner
+	name = "Bluespace Miner (Machine Board)"
+	build_path = /obj/machinery/mineral/bluespace_miner
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 3,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 3,
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stack/ore/bluespace_crystal = 3)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/mining_equipment_vendor
@@ -690,7 +701,7 @@
 	build_path = /obj/machinery/chem_dispenser/abductor
 	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
 	needs_anchored = FALSE
-	
+
 /obj/item/circuitboard/machine/chem_heater
 	name = "Chemical Heater (Machine Board)"
 	build_path = /obj/machinery/chem_heater
@@ -790,7 +801,7 @@
 
 /obj/item/circuitboard/machine/public_nanite_chamber/examine(mob/user)
 	. = ..()
-	to_chat(user, "Cloud ID is currently set to [cloud_id].")
+	. += "Cloud ID is currently set to [cloud_id]."
 
 /obj/item/circuitboard/machine/nanite_program_hub
 	name = "Nanite Program Hub (Machine Board)"
@@ -951,9 +962,9 @@
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/dish_drive/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>")
-	to_chat(user, "<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>")
+	. = ..()
+	. += {"<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>\n
+	<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>"}
 
 /obj/item/circuitboard/machine/dish_drive/attack_self(mob/living/user)
 	suction = !suction

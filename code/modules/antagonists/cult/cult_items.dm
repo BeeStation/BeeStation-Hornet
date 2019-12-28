@@ -119,10 +119,11 @@
 	AddComponent(/datum/component/butchering, 50, 80)
 
 /obj/item/twohanded/required/cult_bastard/examine(mob/user)
+	. = ..()
 	if(contents.len)
-		desc+="<br><b>There are [contents.len] souls trapped within the sword's core.</b>"
+		. += "<b>There are [contents.len] souls trapped within the sword's core.</b>"
 	else
-		desc+="<br>The sword appears to be quite lifeless."
+		. += "The sword appears to be quite lifeless."
 
 /obj/item/twohanded/required/cult_bastard/can_be_pulled(user)
 	return FALSE
@@ -493,7 +494,7 @@
 	desc = "You peer within this smokey orb and glimpse terrible fates befalling the escape shuttle."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shuttlecurse"
-	var/global/curselimit = 0
+	var/static/curselimit = 0
 
 /obj/item/shuttle_curse/attack_self(mob/living/user)
 	if(!iscultist(user))
@@ -528,7 +529,7 @@
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, 1)
 		qdel(src)
 		sleep(20)
-		var/global/list/curses
+		var/static/list/curses
 		if(!curses)
 			curses = list("A fuel technician just slit his own throat and begged for death.",
 			"The shuttle's navigation programming was replaced by a file containing just two words: IT COMES.",
@@ -550,11 +551,11 @@
 	var/uses = 4
 
 /obj/item/cult_shift/examine(mob/user)
-	..()
+	. = ..()
 	if(uses)
-		to_chat(user, "<span class='cult'>It has [uses] use\s remaining.</span>")
+		. += "<span class='cult'>It has [uses] use\s remaining.</span>"
 	else
-		to_chat(user, "<span class='cult'>It seems drained.</span>")
+		. += "<span class='cult'>It seems drained.</span>"
 
 /obj/item/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
 	var/mob/living/carbon/C = user
