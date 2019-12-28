@@ -28,7 +28,7 @@
 	var/name_length
 	//if no unique failure message is set, output the generic one, otherwise give the one we have set
 	if(!Unique_Failure_Msg)
-		name_length = lentext(name)
+		name_length = length(name)
 		if(name[name_length] == "s")	//plural case, done without much sanitization since I don't know any organ that ends with an "s" that isn't plural at the moment
 			Unique_Failure_Msg = "<span class='danger'>Subject's [name] are too damaged to function, and needs to be replaced or fixed!</span>"
 		else

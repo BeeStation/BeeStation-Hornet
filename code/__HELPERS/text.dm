@@ -303,9 +303,9 @@
 /proc/stringmerge(text,compare,replace = "*")
 
 	var/newtext = text
-	if(lentext(text) != lentext(compare))
+	if(length(text) != length(compare))
 		return 0
-	for(var/i = 1, i < lentext(text), i++)
+	for(var/i = 1, i < length(text), i++)
 		var/a = copytext(text,i,i+1)
 		var/b = copytext(compare,i,i+1)
 //if it isn't both the same letter, or if they are both the replacement character
@@ -324,7 +324,7 @@
 	if(!text || !character)
 		return 0
 	var/count = 0
-	for(var/i = 1, i <= lentext(text), i++)
+	for(var/i = 1, i <= length(text), i++)
 		var/a = copytext(text,i,i+1)
 		if(a == character)
 			count++
@@ -615,8 +615,8 @@ This was coded to handle DNA gene-splicing.
 			continue
 		var/buffer = ""
 		var/early_culling = TRUE
-		for(var/pos = 1, pos <= lentext(string), pos++)
-			var/let = copytext(string, pos, (pos + 1) % lentext(string))
+		for(var/pos = 1, pos <= length(string), pos++)
+			var/let = copytext(string, pos, (pos + 1) % length(string))
 			if(early_culling && !findtext(let,GLOB.is_alphanumeric))
 				continue
 			early_culling = FALSE
@@ -624,9 +624,9 @@ This was coded to handle DNA gene-splicing.
 		if(!findtext(buffer,GLOB.is_alphanumeric))
 			continue
 		var/punctbuffer = ""
-		var/cutoff = lentext(buffer)
-		for(var/pos = lentext(buffer), pos >= 0, pos--)
-			var/let = copytext(buffer, pos, (pos + 1) % lentext(buffer))
+		var/cutoff = length(buffer)
+		for(var/pos = length(buffer), pos >= 0, pos--)
+			var/let = copytext(buffer, pos, (pos + 1) % length(buffer))
 			if(findtext(let,GLOB.is_alphanumeric))
 				break
 			if(findtext(let,GLOB.is_punctuation))
@@ -636,8 +636,8 @@ This was coded to handle DNA gene-splicing.
 			var/exclaim = FALSE
 			var/question = FALSE
 			var/periods = 0
-			for(var/pos = lentext(punctbuffer), pos >= 0, pos--)
-				var/punct = copytext(punctbuffer, pos, (pos + 1) % lentext(punctbuffer))
+			for(var/pos = length(punctbuffer), pos >= 0, pos--)
+				var/punct = copytext(punctbuffer, pos, (pos + 1) % length(punctbuffer))
 				if(!exclaim && findtext(punct,"!"))
 					exclaim = TRUE
 				if(!question && findtext(punct,"?"))
@@ -659,7 +659,7 @@ This was coded to handle DNA gene-splicing.
 			buffer = copytext(buffer, 1, cutoff) + punctbuffer
 		if(!findtext(buffer,GLOB.is_alphanumeric))
 			continue
-		if(!buffer || lentext(buffer) > 280 || lentext(buffer) <= cullshort || buffer in accepted)
+		if(!buffer || length(buffer) > 280 || length(buffer) <= cullshort || buffer in accepted)
 			continue
 
 		accepted += buffer
