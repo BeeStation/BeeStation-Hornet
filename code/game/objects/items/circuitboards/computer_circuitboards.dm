@@ -10,6 +10,10 @@
 	name = "Message Monitor (Computer Board)"
 	build_path = /obj/machinery/computer/message_monitor
 
+/obj/item/circuitboard/computer/warrant
+	name = "Security Warrant Viewer (Computer Board)"
+	build_path = /obj/machinery/computer/warrant
+	
 /obj/item/circuitboard/computer/security
 	name = "Security Cameras (Computer Board)"
 	build_path = /obj/machinery/computer/security

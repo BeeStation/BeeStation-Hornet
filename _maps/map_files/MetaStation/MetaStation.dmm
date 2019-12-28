@@ -16956,7 +16956,9 @@
 /area/hallway/primary/fore)
 "aGo" = (
 /obj/effect/turf_decal/tile/red,
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/machinery/computer/warrant{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "aGp" = (
@@ -23846,6 +23848,9 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/machinery/computer/warrant{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
@@ -81783,7 +81788,6 @@
 /area/crew_quarters/kitchen/coldroom)
 "fCb" = (
 /obj/structure/closet,
-/obj/item/bedsheet/cosmos,
 /obj/item/bedsheet/ian,
 /obj/item/bedsheet/patriot,
 /obj/item/bedsheet/syndie,
@@ -82154,12 +82158,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
-"iPk" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating/airless,
-/area/space)
 "iSW" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -99320,8 +99318,8 @@ aaa
 aaa
 aaa
 aaa
-vLD
-vLD
+lMJ
+lMJ
 aaa
 aaa
 aaf
@@ -99574,12 +99572,12 @@ aaa
 aaa
 aaa
 aaa
-vLD
+lMJ
 qkj
 aaa
-iPk
-vLD
-vLD
+frA
+lMJ
+lMJ
 aaa
 aaa
 aaf
@@ -100088,7 +100086,7 @@ aaf
 aaa
 aaa
 aaf
-vLD
+lMJ
 aaf
 aaa
 aaf
