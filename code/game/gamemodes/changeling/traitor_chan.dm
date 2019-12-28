@@ -83,3 +83,8 @@
 	return "The Syndicate has started some experimental research regarding humanoid shapeshifting.  There are rumors that this technology will be field tested on a Nanotrasen station \
 			for infiltration purposes.  Be advised that support personel may also be deployed to defend these shapeshifters. Trust nobody - suspect everybody. Do not announce this to the crew, \
 			as paranoia may spread and inhibit workplace efficiency."
+
+/datum/game_mode/traitor/changeling/trustnobody
+	name = "traitor + lings + no protected roles"
+	config_tag = "trustnobody"
+	protected_jobs = list()

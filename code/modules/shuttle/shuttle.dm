@@ -23,6 +23,8 @@
 	var/area_type
 	var/hidden = FALSE //are we invisible to shuttle navigation computers?
 
+	var/delete_after = FALSE ///Delete this port after ship fly off.
+
 	//these objects are indestructible
 /obj/docking_port/Destroy(force)
 	// unless you assert that you know what you're doing. Horrible things
@@ -155,8 +157,6 @@
 /obj/docking_port/stationary
 	name = "dock"
 
-	area_type = SHUTTLE_DEFAULT_UNDERLYING_AREA
-
 	var/last_dock_time
 
 	var/datum/map_template/shuttle/roundstart_template
@@ -169,6 +169,9 @@
 		id = "[SSshuttle.stationary.len]"
 	if(name == "dock")
 		name = "dock[SSshuttle.stationary.len]"
+	if(!area_type)
+		var/area/place = get_area(src)
+		area_type = place?.type // We might be created in nullspace
 
 	if(mapload)
 		for(var/turf/T in return_turfs())
@@ -182,6 +185,13 @@
 	if(force)
 		SSshuttle.stationary -= src
 	. = ..()
+
+/obj/docking_port/stationary/Moved(atom/oldloc, dir, forced)
+	. = ..()
+	if(area_type) // We already have one
+		return
+	var/area/newarea = get_area(src)
+	area_type = newarea?.type
 
 /obj/docking_port/stationary/proc/load_roundstart()
 	if(json_key)
@@ -424,7 +434,10 @@
 		if(initiate_docking(S1) != DOCKING_SUCCESS)
 			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
-			previous = S0
+			if(S0.delete_after)
+				qdel(S0, TRUE)
+			else
+				previous = S0
 	else
 		WARNING("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]")
 

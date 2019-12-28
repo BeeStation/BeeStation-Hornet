@@ -90,7 +90,7 @@
 	var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/simple/paper)
 	assets.send(user)
 
-	if(oui_canview(user))
+	if(in_range(user, src) || isobserver(user))
 		ui.render(user)
 	else
 		. += "<span class='warning'>You're too far away to read it!</span>"

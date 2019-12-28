@@ -1387,7 +1387,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Stimpack"
 	desc = "Stimpacks, the tool of many great heroes, make you nearly immune to stuns and knockdowns for about \
 			5 minutes after injection."
-	item = /obj/item/reagent_containers/syringe/stimulants
+	item = /obj/item/reagent_containers/hypospray/medipen/stimulants
 	cost = 5
 	surplus = 90
 
@@ -1738,14 +1738,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 14
 	restricted_roles = list("Chaplain", "Virologist")
 
-/datum/uplink_item/role_restricted/beesease
-	name = "Beesease Culture"
-	desc = "A bottle of microbees, which will quickly breed in the stomach of hosts.\
-			At least, that's what the label says."
-	item = /obj/item/reagent_containers/glass/bottle/beesease
-	cost = 10
-	restricted_roles = list("Virologist")
-
 /datum/uplink_item/role_restricted/retrovirus
 	name = "Retrovirus Culture Bottle"
 	desc = "A bottle of contagious DNA bugs, which will manually rearrange the DNA of hosts.\
@@ -1754,19 +1746,11 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 14
 	restricted_roles = list("Virologist", "Geneticist")
 
-/datum/uplink_item/role_restricted/pierrot_throat
-	name = "Pierrot's Throat Culture Bottle"
-	desc = "A bottle of illegal microscopic throat clowns, which will, with their combined voices, honk, and breed, within the host of the throat.\
-			At least, that's what the label says."
-	item = /obj/item/reagent_containers/glass/bottle/pierrot_throat
-	cost = 5
-	restricted_roles = list("Virologist", "Clown")
-
 /datum/uplink_item/role_restricted/random_disease
 	name = "Experimental Disease"
-	desc = "A random disease. Maybe you'll get lucky."
+	desc = "A random disease. Maybe you'll get lucky with another level nine."
 	item = /obj/item/reagent_containers/glass/bottle/random_virus
-	cost = 1
+	cost = 5
 	restricted_roles = list("Virologist")
 	surplus = 20
 
@@ -1776,14 +1760,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 			At least, that's what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/anxiety
 	cost = 4
-	restricted_roles = list("Virologist")
-
-/datum/uplink_item/role_restricted/brainrot
-	name = "Brainrot culture bottle"
-	desc = "A bottle of contagious cocktail of vaccines, liquified video games, sitcoms, and social media.\
-			At least, that's what the label says"
-	item = /obj/item/reagent_containers/glass/bottle/brainrot
-	cost = 16
 	restricted_roles = list("Virologist")
 
 /datum/uplink_item/role_restricted/explosive_hot_potato
