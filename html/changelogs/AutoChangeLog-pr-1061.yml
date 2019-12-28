@@ -1,0 +1,4 @@
+author: "ike709"
+delete-after: True
+changes: 
+  - rscadd: "New researchable machine: Bluespace Miner. Slowly creates materials out of nothing and adds them to a linked ore silo."
