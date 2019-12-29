@@ -35,7 +35,6 @@ Ork
 Pete
 Control
 Nettle
-Aspie
 Class
 Crab
 Fist

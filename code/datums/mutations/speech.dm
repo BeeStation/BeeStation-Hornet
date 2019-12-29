@@ -53,11 +53,9 @@
 		message = " [message] "
 		//Time for a friendly game of SS13
 		message = replacetext(message," stupid "," smart ")
-		message = replacetext(message," retard "," genius ")
 		message = replacetext(message," unrobust "," robust ")
 		message = replacetext(message," dumb "," smart ")
 		message = replacetext(message," awful "," great ")
-		message = replacetext(message," gay ",pick(" nice "," ok "," alright "))
 		message = replacetext(message," horrible "," fun ")
 		message = replacetext(message," terrible "," terribly fun ")
 		message = replacetext(message," terrifying "," wonderful ")
