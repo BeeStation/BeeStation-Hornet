@@ -530,7 +530,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
-/datum/techweb_node/adv_mining
+/datum/techweb_node/bluespace_mining
 	id = "bluespace_mining"
 	display_name = "Bluespace Mining Technology"
 	description = "Harness the power of bluespace to make materials out of nothing. Slowly."
