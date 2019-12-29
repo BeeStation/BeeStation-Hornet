@@ -364,7 +364,7 @@
 /obj/item/organ/eyes/moth
 	name = "moth eyes"
 	desc = "These eyes seem to have increased sensitivity to bright light, with no improvement to low light vision."
-	flash_protect = -1
+	flash_protect = 0
 
 /obj/item/organ/eyes/snail
 	name = "snail eyes"
