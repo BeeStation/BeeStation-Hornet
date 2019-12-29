@@ -1,8 +1,8 @@
 /obj/machinery/scav_selling
-	name = "Export pad"
+	name = "Export scav_selling"
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "lpad-idle-o"
-	var/idle_state = "lpad-idle-o"
+	var/idle_state 	= "lpad-idle-o"
 	var/warmup_state = "lpad-idle"
 	var/sending_state = "lpad-beam"
 	var/cargo_hold_id
@@ -16,7 +16,7 @@
 /obj/machinery/computer/scav_selling_control
 	name = "Export controll console"
 	var/status_report = "Idle"
-	var/obj/machinery/scav_selling/pad
+	var/datum/weakref/scav_selling
 	var/warmup_time = 100
 	var/sending = FALSE
 	var/points = 0
@@ -31,7 +31,7 @@
 /obj/machinery/computer/scav_selling_control/multitool_act(mob/living/user, obj/item/multitool/I)
 	if (istype(I) && istype(I.buffer,/obj/machinery/scav_selling))
 		to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
-		pad = I.buffer
+		scav_selling = I.buffer
 		updateDialog()
 		return TRUE
 
@@ -40,10 +40,8 @@
 	if(cargo_hold_id)
 		for(var/obj/machinery/scav_selling/P in GLOB.machines)
 			if(P.cargo_hold_id == cargo_hold_id)
-				pad = P
+				scav_selling = WEAKREF(P)
 				return
-	else
-		pad = locate() in range(4,src)
 
 /obj/machinery/computer/scav_selling_control/ui_interact(mob/user)
 	. = ..()
@@ -51,8 +49,8 @@
 	t += "<div class='statusDisplay'>Cargo Hold Control<br>"
 	t += "Current cargo value : [points]"
 	t += "</div>"
-	if(!pad)
-		t += "<div class='statusDisplay'>No pad located.</div><BR>"
+	if(!scav_selling)
+		t += "<div class='statusDisplay'>No scav_selling located.</div><BR>"
 	else
 		t += "<br>[status_report]<br>"
 		if(!sending)
@@ -69,8 +67,8 @@
 		return
 	status_report = "Predicted value:<br>"
 	var/datum/export_report/ex = new
-	for(var/atom/movable/AM in get_turf(pad))
-		if(AM == pad)
+	for(var/atom/movable/AM in get_turf(scav_selling))
+		if(AM == scav_selling)
 			continue
 		export_item_and_contents(AM, EXPORT_CARGO | EXPORT_CONTRABAND | EXPORT_EMAG, apply_elastic = FALSE, dry_run = TRUE, external_report = ex)
 
@@ -85,8 +83,8 @@
 
 	var/datum/export_report/ex = new
 
-	for(var/atom/movable/AM in get_turf(pad))
-		if(AM == pad)
+	for(var/atom/movable/AM in get_turf(scav_selling))
+		if(AM == scav_selling)
 			continue
 		export_item_and_contents(AM, EXPORT_CARGO | EXPORT_CONTRABAND | EXPORT_EMAG, apply_elastic = FALSE, delete_unsold = FALSE, external_report = ex)
 
@@ -110,9 +108,9 @@
 
 	points += value
 
-	pad.visible_message("<span class='notice'>[pad] activates!</span>")
-	flick(pad.sending_state,pad)
-	pad.icon_state = pad.idle_state
+	scav_selling.visible_message("<span class='notice'>[scav_selling] activates!</span>")
+	flick(scav_selling.sending_state,scav_selling)
+	scav_selling.icon_state = scav_selling.idle_state
 	sending = FALSE
 	updateDialog()
 
@@ -121,8 +119,8 @@
 		return
 	sending = TRUE
 	status_report = "Sending..."
-	pad.visible_message("<span class='notice'>[pad] starts charging up.</span>")
-	pad.icon_state = pad.warmup_state
+	scav_selling.visible_message("<span class='notice'>[scav_selling] starts charging up.</span>")
+	scav_selling.icon_state = scav_selling.warmup_state
 	sending_timer = addtimer(CALLBACK(src,.proc/send),warmup_time, TIMER_STOPPABLE)
 
 /obj/machinery/computer/scav_selling_control/proc/stop_sending()
@@ -130,13 +128,13 @@
 		return
 	sending = FALSE
 	status_report = "Idle"
-	pad.icon_state = pad.idle_state
+	scav_selling.icon_state = scav_selling.idle_state
 	deltimer(sending_timer)
 
 /obj/machinery/computer/scav_selling_control/Topic(href, href_list)
 	if(..())
 		return
-	if(pad)
+	if(scav_selling)
 		if(href_list["recalc"])
 			recalc()
 		if(href_list["send"])
