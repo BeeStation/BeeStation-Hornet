@@ -59,7 +59,7 @@
 			<A href='?src=[REF(src)];[HrefToken()];secrets=events'>Summon Events (Toggle)</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=onlyone'>There can only be one!</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=delayed_onlyone'>There can only be one! (40-second delay)</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=retardify'>Make all players retarded</A><BR>
+			<A href='?src=[REF(src)];[HrefToken()];secrets=stupefy'>Gives all playeres brain damage</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=aussify'>Make all players Australian</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=eagles'>Egalitarian Station Mode</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=ancap'>Anarcho-Capitalist Station Mode</A><BR>
@@ -453,14 +453,14 @@
 					var/datum/round_event/disease_outbreak/DO = E
 					DO.virus_type = virus
 
-		if("retardify")
+		if("stupefy")
 			if(!check_rights(R_FUN))
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Braindamage"))
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
 				to_chat(H, "<span class='boldannounce'>You suddenly feel stupid.</span>")
 				H.adjustBrainLoss(60, 80)
-			message_admins("[key_name_admin(usr)] made everybody retarded")
+			message_admins("[key_name_admin(usr)] gave everyone brain damage")
 
 		if("aussify") //for rimjobtide
 			if(!check_rights(R_FUN))

@@ -191,7 +191,7 @@
 	item_color = "stripedbluescarf"
 	custom_price = 10
 
-/obj/item/clothing/neck/petcollar  // adding an OOC restriction to an IC action, like wearing a collar, is gay.
+/obj/item/clothing/neck/petcollar 
 	name = "pet collar"
 	desc = "It's for pets. You probably shouldn't wear it yourself unless you want to be ridiculed."
 	icon_state = "petcollar"
