@@ -79,6 +79,15 @@
 	permeability_coefficient = 0.5
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
 
+/obj/item/clothing/under/rank/medical/emt
+	name = "medical scrubs"
+	desc = "A standard jumpsuit used by paramedics onboard space stations. It's made of a special fiber that gives special protection against biohazards."
+	icon_state = "emt"
+	item_color = "emt"
+	permeability_coefficient = 0.5
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	can_adjust = FALSE
+
 /obj/item/clothing/under/rank/nursesuit
 	desc = "It's a jumpsuit commonly worn by nursing staff in the medical department."
 	name = "nurse's suit"
