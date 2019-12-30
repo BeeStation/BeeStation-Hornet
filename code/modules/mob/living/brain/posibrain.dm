@@ -140,18 +140,15 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 /obj/item/mmi/posibrain/examine(mob/user)
 	. = ..()
-	var/msg
 	if(brainmob && brainmob.key)
 		switch(brainmob.stat)
 			if(CONSCIOUS)
 				if(!brainmob.client)
-					msg = "It appears to be in stand-by mode." //afk
+					. += "It appears to be in stand-by mode." //afk
 			if(DEAD)
-				msg = "<span class='deadsay'>It appears to be completely inactive.</span>"
+				. += "<span class='deadsay'>It appears to be completely inactive.</span>"
 	else
-		msg = "[dead_message]"
-
-	to_chat(user, msg)
+		. += "[dead_message]"
 
 /obj/item/mmi/posibrain/Initialize()
 	. = ..()
@@ -176,7 +173,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	if(searching)
 		icon_state = "[initial(icon_state)]-searching"
 		return
-	if(brainmob && brainmob.key)
+	if(brainmob?.key)
 		icon_state = "[initial(icon_state)]-occupied"
 	else
 		icon_state = initial(icon_state)

@@ -1,4 +1,4 @@
-FROM tgstation/byond:512.1463 as base
+FROM tgstation/byond:513.1505 as base
 
 FROM base as build_base
 
@@ -40,7 +40,7 @@ RUN apt-get install -y --no-install-recommends software-properties-common \
     g++-7 \
     libmariadb-client-lgpl-dev \
     && git init \
-    && git remote add origin https://github.com/tgstation/BSQL 
+    && git remote add origin https://github.com/tgstation/BSQL
 
 COPY dependencies.sh .
 
@@ -72,7 +72,13 @@ FROM dm_base
 EXPOSE 1337
 
 RUN apt-get update \
+    && apt-get install -y --no-install-recommends software-properties-common \
+    && add-apt-repository ppa:ubuntu-toolchain-r/test \
+    && apt-get update \
+    && apt-get upgrade -y \
+    && apt-get dist-upgrade -y \
     && apt-get install -y --no-install-recommends \
+    libmariadb2 \
     mariadb-client \
     libssl1.0.0 \
     && rm -rf /var/lib/apt/lists/* \

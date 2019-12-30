@@ -151,6 +151,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Medical Doctor"
 	icon_state = "Medical Doctor"
 
+/obj/effect/landmark/start/emt
+	name = "Paramedic"
+	icon_state = "Medical Doctor"
+
 /obj/effect/landmark/start/scientist
 	name = "Scientist"
 	icon_state = "Scientist"
@@ -204,6 +208,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "ai_spawn"
 	primary_ai = FALSE
 	latejoin_active = FALSE
+
+/obj/effect/landmark/start/brig_phys
+	name = "Brig Physician"
 
 //Department Security spawns
 

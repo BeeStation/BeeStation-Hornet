@@ -97,6 +97,31 @@
 		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
 
+/obj/item/storage/firstaid/radbgone
+	name = "radiation treatment kit"
+	desc = "Used to treat minor toxic blood content and major radiation poisoning."
+	icon_state = "radfirstaid"
+	item_state = "firstaid-rad"
+
+/obj/item/storage/firstaid/radbgone/suicide_act(mob/living/carbon/user)
+	user.visible_message("<span class='suicide'>[user] begins licking the lead paint off \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	return TOXLOSS
+
+/obj/item/storage/firstaid/radbgone/PopulateContents()
+	if(empty)
+		return
+	if(prob(50))
+		new /obj/item/reagent_containers/pill/mutarad(src)
+	if(prob(80))
+		new /obj/item/reagent_containers/pill/antirad_plus(src)
+	new /obj/item/reagent_containers/syringe/charcoal(src)
+	new /obj/item/storage/pill_bottle/charcoal(src)
+	new /obj/item/reagent_containers/pill/mutadone(src)
+	new /obj/item/reagent_containers/pill/antirad(src)
+	new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
+	new /obj/item/healthanalyzer(src)
+
+
 /obj/item/storage/firstaid/o2
 	name = "oxygen deprivation treatment kit"
 	desc = "A box full of oxygen goodies."
@@ -111,8 +136,9 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/salbutamol = 4,
+		/obj/item/reagent_containers/pill/salbutamol = 2,
 		/obj/item/reagent_containers/hypospray/medipen = 2,
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
 		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
 
@@ -159,7 +185,7 @@
 
 /obj/item/storage/firstaid/tactical/ComponentInitialize()
 	. = ..()
-	GET_COMPONENT(STR, /datum/component/storage)
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/firstaid/tactical/PopulateContents()
@@ -216,7 +242,7 @@
 
 /obj/item/storage/pill_bottle/ComponentInitialize()
 	. = ..()
-	GET_COMPONENT(STR, /datum/component/storage)
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.allow_quick_gather = TRUE
 	STR.click_gather = TRUE
 	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/pill, /obj/item/dice))
@@ -232,6 +258,14 @@
 /obj/item/storage/pill_bottle/charcoal/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/charcoal(src)
+
+/obj/item/storage/pill_bottle/antirad
+	name = "bottle of anti-radiation pills"
+	desc = "Contains pills used to treat the effects of minor radiation."
+
+/obj/item/storage/pill_bottle/antirad/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/pill/antirad(src)
 
 /obj/item/storage/pill_bottle/epinephrine
 	name = "bottle of epinephrine pills"
@@ -324,7 +358,7 @@
 
 /obj/item/storage/pill_bottle/penacid
 	name = "bottle of pentetic acid pills"
-	desc = "Contains pills to expunge radioation and toxins"
+	desc = "Contains pills to expunge radiation and toxins."
 
 /obj/item/storage/pill_bottle/penacid/PopulateContents()
 	for(var/i in 1 to 3)

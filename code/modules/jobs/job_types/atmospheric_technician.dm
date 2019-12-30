@@ -8,7 +8,6 @@
 	spawn_positions = 2
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
-	exp_requirements = 60
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/atmos
@@ -24,6 +23,7 @@
 	name = "Atmospheric Technician"
 	jobtype = /datum/job/atmos
 
+	id = /obj/item/card/id/job/atmos
 	belt = /obj/item/storage/belt/utility/atmostech
 	l_pocket = /obj/item/pda/atmos
 	ears = /obj/item/radio/headset/headset_eng

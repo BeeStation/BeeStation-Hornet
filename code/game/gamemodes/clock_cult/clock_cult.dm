@@ -45,7 +45,7 @@ Credit where due:
 ///////////
 
 /proc/is_servant_of_ratvar(mob/M)
-	return istype(M) && !isobserver(M) && M.mind && M.mind.has_antag_datum(/datum/antagonist/clockcult)
+	return M?.mind?.has_antag_datum(/datum/antagonist/clockcult)
 
 /proc/is_eligible_servant(mob/M)
 	if(!istype(M))
@@ -63,7 +63,7 @@ Credit where due:
 		return FALSE
 	if(isliving(M))
 		var/mob/living/L = M
-		if(L.has_trait(TRAIT_MINDSHIELD))
+		if(HAS_TRAIT(L, TRAIT_MINDSHIELD))
 			return FALSE
 	if(ishuman(M) || isbrain(M) || isguardian(M) || issilicon(M) || isclockmob(M) || istype(M, /mob/living/simple_animal/drone/cogscarab) || istype(M, /mob/camera/eminence))
 		return TRUE
@@ -135,12 +135,13 @@ Credit where due:
 	required_enemies = 4
 	recommended_enemies = 4
 	enemy_minimum_age = 14
-	protected_jobs = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain") //Silicons can eventually be converted
+	protected_jobs = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician") //Silicons can eventually be converted
 	restricted_jobs = list("Chaplain", "Captain")
 	announce_span = "brass"
 	announce_text = "Servants of Ratvar are trying to summon the Justiciar!\n\
 	<span class='brass'>Servants</span>: Construct defenses to protect the Ark. Sabotage the station!\n\
 	<span class='notice'>Crew</span>: Stop the servants before they can summon the Clockwork Justiciar."
+	title_icon = "clockcult"
 	var/servants_to_serve = list()
 	var/roundstart_player_count
 	var/ark_time //In minutes, how long the Ark waits before activation; this is equal to 30 + (number of players / 5) (max 40 mins.)
@@ -315,7 +316,7 @@ Credit where due:
 	Here's a quick primer on what you should know here.\
 	<ol>\
 	<li>You're in a place called Reebe right now. The crew can't get here normally.</li>\
-	<li>In the north is your base camp, with supplies, consoles, and the Ark. In the south is an inaccessible area that the crew can walk between \
+	<li>In the center is your base camp, with supplies, consoles, and the Ark. In the area surrounding you is an inaccessible area that the crew can walk between \
 	once they arrive (more on that later.) Everything between that space is an open area.</li>\
 	<li>Your job as a servant is to build fortifications and defenses to protect the Ark and your base once the Ark activates. You can do this \
 	however you like, but work with your allies and coordinate your efforts.</li>\
@@ -324,15 +325,15 @@ Credit where due:
 	crew and defend it accordingly.</li>\
 	</ol>\
 	<hr>\
-	Here is the layout of Reebe, from left to right:\
+	Here is the layout of Reebe, from inner to outer:\
 	<ul>\
-	<li><b>Dressing Room:</b> Contains clothing, a dresser, and a mirror. There are spare slabs and absconders here.</li>\
-	<li><b>Listening Station:</b> Contains intercoms, a telecomms relay, and a list of frequencies.</li>\
-	<li><b>Ark Chamber:</b> Houses the Ark.</li>\
-	<li><b>Observation Room:</b> Contains five camera observers. These can be used to watch the station through its cameras, as well as to teleport down \
+	<li><b>Ark Chamber:</b> Houses the Ark in the very center.</li>\
+	<li><b>Listening Station:</b> (Bottom Left Corner of circle) Contains intercoms, a telecomms relay, and a list of frequencies.</li>\
+	<li><b>Observation Room:</b> (Bottom Right Corner of circle) Contains six camera observers. These can be used to watch the station through its cameras, as well as to teleport down \
 	to most areas. To do this, use the Warp action while hovering over the tile you want to warp to.</li>\
-	<li><b>Infirmary:</b> Contains sleepers and basic medical supplies for superficial wounds. The sleepers can consume Vitality to heal any occupants. \
+	<li><b>Infirmary:</b> (Upper Right Corner of circle) Contains sleepers and basic medical supplies for superficial wounds. The sleepers can consume Vitality to heal any occupants. \
 	This room is generally more useful during the preparation phase; when defending the Ark, scripture is more useful.</li>\
+	<li><b>Summoning Room:</b> (Upper Left Corner of Circle) Holds two scarabs as well as extra clockwork slabs. Also houses the eminence spire to pick an eminence as well has the herald's beacon which alows the clock cult to declare war.</li>\
 	</ul>\
 	<hr>\
 	<h2>Things that have changed:</h2>\
@@ -351,6 +352,23 @@ Credit where due:
 	info = replacetext(info, "CLOCKCULTCHANGELOG", changelog_contents)
 
 /obj/item/paper/servant_primer/examine(mob/user)
+	. = ..()
 	if(!is_servant_of_ratvar(user) && !isobserver(user))
-		to_chat(user, "<span class='danger'>You can't understand any of the words on [src].</span>")
-	..()
+		. += "<span class='danger'>You can't understand any of the words on [src].</span>"
+
+/datum/game_mode/clockwork_cult/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	round_credits += "<center><h1>The Servants of Ratvar:</h1>"
+	len_before_addition = round_credits.len
+	for(var/datum/mind/servant in servants_of_ratvar)
+		round_credits += "<center><h2>[servant.name] as a faithful servant of Ratvar</h2>"
+	if(GLOB.ratvar_awakens)
+		round_credits += "<center><h2>Ratvar as himself, returned at last</h2>"
+	if(len_before_addition == round_credits.len)
+		round_credits += list("<center><h2>The servants were cast astray in the void!</h2>", "<center><h2>None shall remember their names!</h2>")
+	round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits

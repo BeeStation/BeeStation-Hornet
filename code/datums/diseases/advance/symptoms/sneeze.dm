@@ -15,7 +15,6 @@ Bonus
 
 //////////////////////////////////////
 */
-
 /datum/symptom/sneeze
 	name = "Sneezing"
 	desc = "The virus causes irritation of the nasal cavity, making the host sneeze occasionally."
@@ -27,19 +26,19 @@ Bonus
 	severity = 1
 	symptom_delay_min = 5
 	symptom_delay_max = 35
-	threshold_desc = "<b>Transmission 9:</b> Increases sneezing range, spreading the virus over a larger area.<br>\
+	threshold_desc = "<b>Transmission 9:</b> The host will sneeze periodically, spreading the disease. <br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/sneeze/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 9) //longer spread range
-		power = 2
 	if(A.properties["stealth"] >= 4)
 		suppress_warning = TRUE
 
 /datum/symptom/sneeze/Activate(datum/disease/advance/A)
 	if(!..())
+		return
+	if(!A.properties["transmittable"] >= 9)
 		return
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)

@@ -153,6 +153,15 @@
 	Station Airlocks Mineral
 */
 
+/obj/machinery/door/airlock/copper
+	name = "copper airlock"
+	icon = 'icons/obj/doors/airlocks/station/copper.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_copper
+
+/obj/machinery/door/airlock/copper/glass
+	opacity = 0
+	glass = TRUE
+
 /obj/machinery/door/airlock/gold
 	name = "gold airlock"
 	icon = 'icons/obj/doors/airlocks/station/gold.dmi'
@@ -562,14 +571,14 @@
 	return ..()
 
 /obj/machinery/door/airlock/clockwork/examine(mob/user)
-	..()
+	. = ..()
 	var/gear_text = "The cogwheel is flickering and twisting wildly. Report this to a coder."
 	switch(construction_state)
 		if(GEAR_SECURE)
 			gear_text = "<span class='brass'>The cogwheel is solidly <b>wrenched</b> to the brass around it.</span>"
 		if(GEAR_LOOSE)
 			gear_text = "<span class='alloy'>The cogwheel has been <i>loosened</i>, but remains <b>connected loosely</b> to the door!</span>"
-	to_chat(user, gear_text)
+	. += gear_text
 
 /obj/machinery/door/airlock/clockwork/emp_act(severity)
 	if(prob(80/severity))

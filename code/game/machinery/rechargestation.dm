@@ -29,11 +29,11 @@
 		recharge_speed *= C.maxcharge / 10000
 
 /obj/machinery/recharge_station/examine(mob/user)
-	..()
+	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		to_chat(user, "<span class='notice'>The status display reads: Recharging <b>[recharge_speed]J</b> per cycle.<span>")
+		. += "<span class='notice'>The status display reads: Recharging <b>[recharge_speed]J</b> per cycle.<span>"
 		if(repairs)
-			to_chat(user, "<span class='notice'>[src] has been upgraded to support automatic repairs.<span>")
+			. += "<span class='notice'>[src] has been upgraded to support automatic repairs.<span>"
 
 /obj/machinery/recharge_station/process()
 	if(!is_operational())
@@ -122,6 +122,6 @@
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)
 		var/mob/living/silicon/robot/R = occupant
-		if(R && R.module)
+		if(R?.module)
 			var/coeff = recharge_speed * 0.005
 			R.module.respawn_consumable(R, coeff)

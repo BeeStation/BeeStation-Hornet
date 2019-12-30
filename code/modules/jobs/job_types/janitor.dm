@@ -8,7 +8,6 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#bbe291"
-	var/global/janitors = 0
 
 	outfit = /datum/outfit/job/janitor
 
@@ -23,6 +22,7 @@
 	name = "Janitor"
 	jobtype = /datum/job/janitor
 
+	id = /obj/item/card/id/job/serv
 	belt = /obj/item/pda/janitor
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/janitor

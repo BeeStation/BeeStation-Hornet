@@ -58,6 +58,13 @@
 	item_color = "chef"
 	alt_covers_chest = TRUE
 
+/obj/item/clothing/under/rank/altchef
+	name = "red cook's suit"
+	desc = "A flashier chef's suit, if a bit more impractical."
+	icon_state = "altchef"
+	item_color = "altchef"
+	alt_covers_chest = TRUE
+
 /obj/item/clothing/under/rank/clown
 	name = "clown suit"
 	desc = "<i>'HONK!'</i>"
@@ -123,7 +130,7 @@
 
 /obj/item/clothing/under/rank/clown/Initialize()
 	. = ..()
-	AddComponent(/datum/component/squeak, /datum/outputs/bikehorn, 50)
+	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1), 50)
 
 /obj/item/clothing/under/rank/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
@@ -224,6 +231,7 @@
 
 /obj/item/clothing/under/rank/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	name = "shaft miner's jumpsuit"
 	icon_state = "miner"
 	item_state = "miner"

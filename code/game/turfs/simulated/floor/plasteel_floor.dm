@@ -5,8 +5,8 @@
 	burnt_states = list("floorscorched1", "floorscorched2")
 
 /turf/open/floor/plasteel/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>")
+	. = ..()
+	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
 
 /turf/open/floor/plasteel/update_icon()
 	if(!..())
@@ -152,3 +152,49 @@
 
 /turf/open/floor/plasteel/sepia
 	icon_state = "sepia"
+
+/turf/open/floor/plasteel/tech
+	icon_state = "techfloor_grey"
+	floor_tile = /obj/item/stack/tile/
+	
+/turf/open/floor/plasteel/tech/grid
+	icon_state = "techfloor_grid"
+	floor_tile = /obj/item/stack/tile/
+
+/turf/open/floor/plasteel/techmaint
+	icon_state = "techmaint"
+	floor_tile = /obj/item/stack/tile/
+
+/turf/open/floor/plasteel/ridged
+	icon_state = "ridged"
+	floor_tile = /obj/item/stack/tile/ridge
+
+/turf/open/floor/plasteel/ridged/steel
+	icon_state = "steel_ridged"
+
+/turf/open/floor/plasteel/grid
+	icon_state = "grid"
+	floor_tile = /obj/item/stack/tile/grid
+	
+/turf/open/floor/plasteel/grid/steel
+	icon_state = "steel_grid"
+
+/turf/open/floor/plasteel/ameridiner
+	icon_state = "ameridiner_kitchen"
+
+/turf/open/floor/plasteel/tiled
+	icon_state = "tiled"
+/turf/open/floor/plasteel/tiled/light
+	icon_state = "tiled_light"
+
+/turf/open/floor/plasteel/tech
+	icon_state = "techfloor_grey"
+	floor_tile = /obj/item/stack/tile/techgrey
+	
+/turf/open/floor/plasteel/tech/grid
+	icon_state = "techfloor_grid"
+	floor_tile = /obj/item/stack/tile/techgrid
+	
+/turf/open/floor/plasteel/techmaint
+	icon_state = "techmaint"
+	floor_tile = /obj/item/stack/tile/techmaint

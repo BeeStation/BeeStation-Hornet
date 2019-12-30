@@ -4,6 +4,7 @@
 	icon_state = "wallmed"
 	icon_deny = "wallmed-deny"
 	density = FALSE
+	light_color = LIGHT_COLOR_WHITE
 	products = list(/obj/item/reagent_containers/syringe = 3,
 		            /obj/item/reagent_containers/pill/patch/styptic = 5,
 					/obj/item/reagent_containers/pill/patch/silver_sulf = 5,
@@ -19,6 +20,7 @@
 	default_price = 25
 	extra_price = 100
 	payment_department = ACCOUNT_MED
+	tiltable = FALSE
 
 /obj/item/vending_refill/wallmed
 	machine_name = "NanoMed"

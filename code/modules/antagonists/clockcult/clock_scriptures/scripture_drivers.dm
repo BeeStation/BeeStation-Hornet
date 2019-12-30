@@ -215,7 +215,7 @@
 		animate(invoker.client, color = client_color, time = 25)
 
 /datum/clockwork_scripture/abscond/scripture_fail()
-	if(invoker && invoker.client)
+	if(invoker?.client)
 		animate(invoker.client, color = client_color, time = 10)
 
 

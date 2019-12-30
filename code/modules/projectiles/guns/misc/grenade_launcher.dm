@@ -10,11 +10,11 @@
 	force = 5
 	var/list/grenades = new/list()
 	var/max_grenades = 3
-	materials = list(MAT_METAL=2000)
+	materials = list(/datum/material/iron=2000)
 
 /obj/item/gun/grenadelauncher/examine(mob/user)
-	..()
-	to_chat(user, "[grenades.len] / [max_grenades] grenades loaded.")
+	. = ..()
+	. += "[grenades.len] / [max_grenades] grenades loaded."
 
 /obj/item/gun/grenadelauncher/attackby(obj/item/I, mob/user, params)
 

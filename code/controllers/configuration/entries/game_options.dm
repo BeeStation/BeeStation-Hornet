@@ -132,6 +132,13 @@
 	integer = FALSE
 	min_val = 0
 
+/datum/config_entry/flag/equal_job_weight
+
+/datum/config_entry/number/default_rep_value
+	config_entry_value = 5
+	integer = FALSE
+	min_val = 0
+
 /datum/config_entry/number/midround_antag_time_check	// How late (in minutes you want the midround antag system to stay on, setting this to 0 will disable the system)
 	config_entry_value = 60
 	integer = FALSE
@@ -151,6 +158,10 @@
 /datum/config_entry/flag/show_game_type_odds	//if set this allows players to see the odds of each roundtype on the get revision screen
 
 /datum/config_entry/keyed_list/roundstart_races	//races you can play as from the get go.
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_FLAG
+
+/datum/config_entry/keyed_list/roundstart_no_hard_check // Species contained in this list will not cause existing characters with no-longer-roundstart species set to be resetted to the human race.
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_FLAG
 
@@ -268,6 +279,8 @@
 	movedelay_type = /mob/living/simple_animal
 /////////////////////////////////////////////////
 
+/datum/config_entry/flag/virtual_reality	//Will virtual reality be loaded
+
 /datum/config_entry/flag/roundstart_away	//Will random away mission be loaded.
 
 /datum/config_entry/number/gateway_delay	//How long the gateway takes before it activates. Default is half an hour. Only matters if roundstart_away is enabled.
@@ -373,6 +386,14 @@
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
 
-/datum/config_entry/number/monkeycap
-	config_entry_value = 64
-	min_val = 0
+/datum/config_entry/flag/allow_crew_objectives
+
+//Mob spam prevention
+/datum/config_entry/number/max_cube_monkeys
+	config_entry_value = 100
+/datum/config_entry/number/max_chickens
+	config_entry_value = 100
+/datum/config_entry/number/max_slimes
+	config_entry_value = 100
+
+/datum/config_entry/flag/restricted_suicide

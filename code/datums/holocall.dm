@@ -12,7 +12,12 @@
 /mob/camera/aiEye/remote/holo/setLoc()
 	. = ..()
 	var/obj/machinery/holopad/H = origin
-	H.move_hologram(eye_user, loc)
+	H?.move_hologram(eye_user, loc)
+
+/obj/machinery/holopad/remove_eye_control(mob/living/user)
+	if(user.client)
+		user.reset_perspective(null)
+	user.remote_control = null
 
 //this datum manages it's own references
 
@@ -53,11 +58,6 @@
 //cleans up ALL references :)
 /datum/holocall/Destroy()
 	QDEL_NULL(hangup)
-
-	var/user_good = !QDELETED(user)
-	if(user_good)
-		user.reset_perspective()
-		user.remote_control = null
 
 	if(!QDELETED(eye))
 		QDEL_NULL(eye)
@@ -216,7 +216,7 @@
 	desc = "Stores recorder holocalls."
 	icon_state = "holodisk"
 	obj_flags = UNIQUE_RENAME
-	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
 	var/datum/holorecord/record
 	//Preset variables
 	var/preset_image_type

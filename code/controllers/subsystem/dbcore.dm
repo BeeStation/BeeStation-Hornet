@@ -120,14 +120,20 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/proc/SetRoundID()
 	if(!Connect())
 		return
-	var/datum/DBQuery/query_round_initialize = SSdbcore.NewQuery("INSERT INTO [format_table_name("round")] (initialize_datetime, server_ip, server_port) VALUES (Now(), INET_ATON(IF('[world.internet_address]' LIKE '', '0', '[world.internet_address]')), '[world.port]')")
+
+	var/ssqlname = sanitizeSQL(CONFIG_GET(string/serversqlname))
+
+	var/datum/DBQuery/query_round_initialize = SSdbcore.NewQuery("INSERT INTO [format_table_name("round")] (initialize_datetime, server_name, server_ip, server_port) VALUES (Now(), '[ssqlname]', INET_ATON(IF('[world.internet_address]' LIKE '', '0', '[world.internet_address]')), '[world.port]')")
 	query_round_initialize.Execute(async = FALSE)
 	qdel(query_round_initialize)
-	var/datum/DBQuery/query_round_last_id = SSdbcore.NewQuery("SELECT LAST_INSERT_ID()")
-	query_round_last_id.Execute(async = FALSE)
-	if(query_round_last_id.NextRow(async = FALSE))
-		GLOB.round_id = query_round_last_id.item[1]
-	qdel(query_round_last_id)
+	var/tries = 0
+	while (tries < 5 && !GLOB.round_id)
+		var/datum/DBQuery/query_round_last_id = SSdbcore.NewQuery("SELECT MAX(id) FROM [format_table_name("round")] WHERE initialize_datetime > date_sub(Now(), interval 15 second) LIMIT 1") // I'm ashamed of it but it fixes the problem. -qwerty
+		query_round_last_id.Execute(async = FALSE)
+		if(query_round_last_id.NextRow(async = FALSE))
+			GLOB.round_id = query_round_last_id.item[1]
+		qdel(query_round_last_id)
+		tries++
 
 /datum/controller/subsystem/dbcore/proc/SetRoundStart()
 	if(!Connect())

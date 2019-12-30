@@ -15,17 +15,17 @@
 
 
 /datum/antagonist/traitor/internal_affairs/proc/give_pinpointer()
-	if(owner && owner.current)
+	if(owner?.current)
 		owner.current.apply_status_effect(/datum/status_effect/agent_pinpointer)
 
 /datum/antagonist/traitor/internal_affairs/apply_innate_effects()
 	.=..() //in case the base is used in future
-	if(owner && owner.current)
+	if(owner?.current)
 		give_pinpointer(owner.current)
 
 /datum/antagonist/traitor/internal_affairs/remove_innate_effects()
 	.=..()
-	if(owner && owner.current)
+	if(owner?.current)
 		owner.current.remove_status_effect(/datum/status_effect/agent_pinpointer)
 
 /datum/antagonist/traitor/internal_affairs/on_gain()
@@ -243,7 +243,7 @@
 		to_chat(owner.current, "<span class='userdanger'> You have been provided with a standard uplink to accomplish your task. </span>")
 	else
 		to_chat(owner.current, "<span class='userdanger'>Your target is suspected of [crime], and you have been tasked with eliminating them by any means necessary to avoid a costly and embarrassing public trial.</span>")
-		to_chat(owner.current, "<B><font size=5 color=red>While you have a license to kill, unneeded property damage or loss of employee life will lead to your contract being terminated.</font></B>")
+		to_chat(owner.current, "<B><font size=5 color=red>While you have a license to kill, you should try to not cause too much attention, though this is optional</font></B>")
 		to_chat(owner.current, "<span class='userdanger'>For the sake of plausible deniability, you have been equipped with an array of captured Syndicate weaponry available via uplink.</span>")
 
 	to_chat(owner.current, "<span class='userdanger'>Finally, watch your back. Your target has friends in high places, and intel suggests someone may have taken out a contract of their own to protect them.</span>")

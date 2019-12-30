@@ -38,7 +38,7 @@
 		data["battery_rating"] = battery_module.battery.maxcharge
 		data["battery_percent"] = round(battery_module.battery.percent())
 
-	if(battery_module && battery_module.battery)
+	if(battery_module?.battery)
 		data["battery"] = list("max" = battery_module.battery.maxcharge, "charge" = round(battery_module.battery.charge))
 
 	var/list/all_entries[0]

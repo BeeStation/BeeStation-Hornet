@@ -8,11 +8,15 @@
 }
 
 .middle {
-    width: 80px;
+    margin-left: 5px;
+    margin-right: 5px;
+    max-width: 125px;
 }
 
 .right {
-    width: 150px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 80px;
 }
 
 .row {
@@ -24,7 +28,8 @@
 .reason {
     resize: none;
     min-height: 40px;
-    width: 340px;
+    width: 250px;
+    margin-bottom: 5px;
 }
 
 .rolegroup {

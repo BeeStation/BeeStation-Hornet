@@ -78,6 +78,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance
 	ambientsounds = MAINTENANCE
 	valid_territory = FALSE
+	mood_bonus = -1
+	mood_message = "<span class='nicegreen'>It's kind of cramped in here!\n</span>"
 
 
 //Departments
@@ -338,6 +340,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Dormitories"
 	icon_state = "Sleep"
 	safe = TRUE
+	mood_bonus = 3
+	mood_message = "<span class='nicegreen'>There's no place like the dorms!\n</span>"
+
+/area/crew_quarters/cryopods
+	name = "Cryopod Room"
+	safe = TRUE
+	icon_state = "cryopod"
 
 /area/crew_quarters/toilet
 	name = "Dormitory Toilets"
@@ -390,6 +399,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/bar
 	name = "Bar"
 	icon_state = "bar"
+	mood_bonus = 5
+	mood_message = "<span class='nicegreen'>I love being in the bar!\n</span>"
 
 /area/crew_quarters/bar/atrium
 	name = "Atrium"
@@ -483,6 +494,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Atmospherics Engine"
 	icon_state = "atmos_engine"
 
+/area/engine/engine_room //donut station specific
+	name = "Engine Room"
+	icon_state = "atmos_engine"
+
+/area/engine/engine_room/external
+	name = "Supermatter External Access"
+	icon_state = "engine_foyer"
+
 /area/engine/supermatter
 	name = "Supermatter Engine"
 	icon_state = "engine_sm"
@@ -490,6 +509,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/break_room
 	name = "Engineering Foyer"
 	icon_state = "engine_foyer"
+	mood_bonus = 2
+	mood_message = "<span class='nicegreen'>Ahhh, time to take a break.\n</span>"
 
 /area/engine/gravity_generator
 	name = "Gravity Generator Room"
@@ -609,6 +630,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Medical"
 	icon_state = "medbay3"
 	ambientsounds = MEDICAL
+	mood_bonus = 2
+	mood_message = "<span class='nicegreen'>I feel safe in here!\n</span>"
+
 
 /area/medical/abandoned
 	name = "Abandoned Medbay"
@@ -658,10 +682,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Morgue"
 	icon_state = "morgue"
 	ambientsounds = SPOOKY
+	mood_bonus = -2
+	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
 
 /area/medical/chemistry
 	name = "Chemistry"
 	icon_state = "chem"
+
+/area/medical/apothecary
+	name = "Apothecary"
+	icon_state = "apothecary"
 
 /area/medical/surgery
 	name = "Surgery"
@@ -702,6 +732,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/brig
 	name = "Brig"
 	icon_state = "brig"
+	mood_bonus = -3
+	mood_message = "<span class='nicegreen'>I hate cramped brig cells.\n</span>"
 
 /area/security/courtroom
 	name = "Courtroom"
@@ -738,6 +770,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/security/execution
 	icon_state = "execution_room"
+	mood_bonus = -5
+	mood_message = "<span class='nicegreen'>I feel a sense of impending doom.\n</span>"
 
 /area/security/execution/transfer
 	name = "Transfer Centre"
@@ -829,6 +863,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Custodial Closet"
 	icon_state = "janitor"
 	flags_1 = NONE
+	mood_bonus = -1
+	mood_message = "<span class='nicegreen'>It feels dirty in here!\n</span>"
 
 /area/hydroponics
 	name = "Hydroponics"
@@ -837,6 +873,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/hydroponics/garden
 	name = "Garden"
 	icon_state = "garden"
+	mood_bonus = 2
+	mood_message = "<span class='nicegreen'>It's so peaceful in here!\n</span>"
 
 /area/hydroponics/garden/abandoned
 	name = "Abandoned Garden"

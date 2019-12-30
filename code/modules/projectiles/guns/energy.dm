@@ -57,8 +57,15 @@
 	fire_delay = shot.delay
 
 /obj/item/gun/energy/Destroy()
-	QDEL_NULL(cell)
+	if (cell)
+		QDEL_NULL(cell)
 	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/gun/energy/handle_atom_del(atom/A)
+	if(A == cell)
+		cell = null
+		update_icon(FALSE, TRUE)
 	return ..()
 
 /obj/item/gun/energy/process()

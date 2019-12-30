@@ -70,6 +70,7 @@
 	id = "cargounload";
 	name = "supply dock unloading door"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "l" = (
@@ -91,9 +92,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/docking_port/mobile/supply{
 	dir = 4;
-	dwidth = 4;
-	width = 12
+	dwidth = 4
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "o" = (
@@ -104,7 +105,6 @@
 /area/shuttle/supply)
 "p" = (
 /obj/machinery/button/door{
-	dir = 2;
 	id = "cargounload";
 	name = "Loading Doors";
 	pixel_x = -24;
@@ -139,6 +139,7 @@
 	req_access_txt = "31"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "s" = (
@@ -150,6 +151,7 @@
 	dir = 4;
 	id = "cargoload"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "t" = (

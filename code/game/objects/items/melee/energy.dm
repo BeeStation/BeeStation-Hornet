@@ -1,4 +1,5 @@
 /obj/item/melee/transforming/energy
+	icon = 'icons/obj/transforming_energy.dmi'
 	hitsound_on = 'sound/weapons/blade1.ogg'
 	heat = 3500
 	max_integrity = 200
@@ -191,6 +192,16 @@
 			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
 	else
 		return ..()
+
+/obj/item/melee/transforming/energy/sword/bee  //yeah its fucking stupid but I wanted a yellow esword which is weaker than what we have
+	name = "Bee Sword"
+	desc = "Channel the might of the bees with this powerful sword"
+	force = 0
+	throwforce = 0
+	force_on = 22
+	throwforce_on = 16
+	item_color = "yellow"
+	light_color = "#ffff00"
 
 /obj/item/melee/transforming/energy/sword/pirate
 	name = "energy cutlass"

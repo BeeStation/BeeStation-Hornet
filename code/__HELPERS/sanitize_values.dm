@@ -1,4 +1,5 @@
 //general stuff
+/// Return `number` if it is in the range `min to max`, otherwise `default`
 /proc/sanitize_integer(number, min=0, max=1, default=0)
 	if(isnum(number))
 		number = round(number)
@@ -6,22 +7,32 @@
 			return number
 	return default
 
+/// Return `text` if it is text, otherwise `default`
 /proc/sanitize_text(text, default="")
 	if(istext(text))
 		return text
 	return default
 
+/// Return `value` if it is a list, otherwise `default`
+/proc/sanitize_islist(value, default)
+	if(length(value))
+		return value
+	if(default)
+		return default
+
+/// Return `value` if it's in List, otherwise `default`
 /proc/sanitize_inlist(value, list/List, default)
 	if(value in List)
 		return value
 	if(default)
 		return default
-	if(List && List.len)
+	if(List?.len)
 		return pick(List)
 
 
 
 //more specialised stuff
+/// Return `gender` if it is a valid gender, otherwise `default`. No I did not mean to offend you. -qwerty
 /proc/sanitize_gender(gender,neuter=0,plural=0, default="male")
 	switch(gender)
 		if(MALE, FEMALE)
@@ -38,6 +49,7 @@
 				return default
 	return default
 
+/// Return `color` if it is a valid hex color, otherwise `default`
 /proc/sanitize_hexcolor(color, desired_format=3, include_crunch=0, default)
 	var/crunch = include_crunch ? "#" : ""
 	if(!istext(color))
@@ -67,6 +79,7 @@
 
 	return crunch + .
 
+/// Return `color` as a formatted ooc valid hex color
 /proc/sanitize_ooccolor(color)
 	var/list/HSL = rgb2hsl(hex2num(copytext(color,2,4)),hex2num(copytext(color,4,6)),hex2num(copytext(color,6,8)))
 	HSL[3] = min(HSL[3],0.4)

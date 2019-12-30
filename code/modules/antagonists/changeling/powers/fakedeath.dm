@@ -52,9 +52,9 @@
 	user.regenerate_organs()
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(mob/user)
-	if(user && user.mind)
+	if(user?.mind)
 		var/datum/antagonist/changeling/C = user.mind.has_antag_datum(/datum/antagonist/changeling)
-		if(C && C.purchasedpowers)
+		if(C?.purchasedpowers)
 			to_chat(user, "<span class='notice'>We are ready to revive.</span>")
 			name = "Revive"
 			desc = "We arise once more."
@@ -64,7 +64,7 @@
 			revive_ready = TRUE
 
 /datum/action/changeling/fakedeath/can_sting(mob/living/user)
-	if(user.has_trait(TRAIT_DEATHCOMA, "changeling") && !revive_ready)
+	if(HAS_TRAIT_FROM(user, TRAIT_DEATHCOMA, "changeling") && !revive_ready)
 		to_chat(user, "<span class='warning'>We are already reviving.</span>")
 		return
 	if(!user.stat && !revive_ready) //Confirmation for living changelings if they want to fake their death

@@ -8,7 +8,7 @@
 
 /obj/effect/spawner/bundle/Initialize(mapload)
 	..()
-	if(items && items.len)
+	if(items?.len)
 		var/turf/T = get_turf(src)
 		for(var/path in items)
 			new path(T)
@@ -133,7 +133,7 @@
 /obj/effect/spawner/bundle/costume/holiday_priest
 	name = "holiday priest costume spawner"
 	items = list(
-		/obj/item/clothing/suit/holidaypriest)
+		/obj/item/clothing/suit/chaplainsuit/holidaypriest)
 
 /obj/effect/spawner/bundle/costume/marisawizard
 	name = "marisa wizard costume spawner"

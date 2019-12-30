@@ -18,6 +18,7 @@
 		/datum/language/ratvar,
 		/datum/language/aphasia,
 		/datum/language/piratespeak,
+		/datum/language/rlyehian,
 	))
 
 /obj/item/organ/tongue/Initialize(mapload)
@@ -78,7 +79,7 @@
 	desc = "A mysterious structure that allows for instant communication between users. Pretty impressive until you need to eat something."
 	icon_state = "tongueayylmao"
 	say_mod = "gibbers"
-	taste_sensitivity = 101 // ayys cannot taste anything.
+	taste_sensitivity = NO_TASTE_SENSITIVITY // ayys cannot taste anything.
 	var/mothership
 
 /obj/item/organ/tongue/abductor/attack_self(mob/living/carbon/human/H)
@@ -99,11 +100,11 @@
 
 /obj/item/organ/tongue/abductor/examine(mob/M)
 	. = ..()
-	if(M.has_trait(TRAIT_ABDUCTOR_TRAINING) || isobserver(M))
+	if(HAS_TRAIT(M, TRAIT_ABDUCTOR_TRAINING) || HAS_TRAIT(M.mind, TRAIT_ABDUCTOR_TRAINING) || isobserver(M))
 		if(!mothership)
-			to_chat(M, "<span class='notice'>It is not attuned to a specific mothership.</span>")
+			. += "<span class='notice'>It is not attuned to a specific mothership.</span>"
 		else
-			to_chat(M, "<span class='notice'>It is attuned to [mothership].</span>")
+			. += "<span class='notice'>It is attuned to [mothership].</span>"
 
 /obj/item/organ/tongue/abductor/TongueSpeech(var/message)
 	//Hacks
@@ -173,7 +174,7 @@
 	icon_state = "tonguebone"
 	say_mod = "rattles"
 	attack_verb = list("bitten", "chattered", "chomped", "enamelled", "boned")
-	taste_sensitivity = 101 // skeletons cannot taste anything
+	taste_sensitivity = NO_TASTE_SENSITIVITY // skeletons cannot taste anything
 
 	var/chattering = FALSE
 	var/phomeme_type = "sans"
@@ -214,7 +215,12 @@
 	icon_state = "tonguerobot"
 	say_mod = "states"
 	attack_verb = list("beeped", "booped")
-	taste_sensitivity = 25 // not as good as an organic tongue
+	taste_sensitivity = NO_TASTE_SENSITIVITY // Robots have no taste.
+
+/obj/item/organ/tongue/robot/emp_act(severity)
+	owner.apply_effect(EFFECT_STUTTER, 120)
+	owner.emote("scream")
+	to_chat(owner, "<span class='warning'>Alert: Vocal cords are malfunctioning.</span>")
 
 /obj/item/organ/tongue/robot/can_speak_in_language(datum/language/dt)
 	. = TRUE // THE MAGIC OF ELECTRONICS

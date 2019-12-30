@@ -126,7 +126,7 @@
 			p.Remove(owner.current)
 
 	//MOVE THIS
-	if(owner.current.hud_used && owner.current.hud_used.lingstingdisplay)
+	if(owner.current.hud_used?.lingstingdisplay)
 		owner.current.hud_used.lingstingdisplay.icon_state = null
 		owner.current.hud_used.lingstingdisplay.invisibility = INVISIBILITY_ABSTRACT
 
@@ -185,7 +185,7 @@
 		to_chat(owner.current, "We have reached our capacity for abilities.")
 		return
 
-	if(owner.current.has_trait(TRAIT_DEATHCOMA))//To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
+	if(HAS_TRAIT(owner.current, TRAIT_DEATHCOMA))//To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
 		to_chat(owner.current, "We lack the energy to evolve new abilities right now.")
 		return
 
@@ -232,6 +232,9 @@
 
 /datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, var/verbose=1)
 	var/mob/living/carbon/user = owner.current
+	if(isIPC(target))
+		to_chat(user, "<span class='warning'>We cannot absorb mechanical entities!</span>")
+		return
 	if(!istype(user))
 		return
 	if(stored_profiles.len)
@@ -246,11 +249,11 @@
 		if(verbose)
 			to_chat(user, "<span class='warning'>[target] is not compatible with our biology.</span>")
 		return
-	if(target.has_trait(TRAIT_BADDNA))
+	if(HAS_TRAIT(target, TRAIT_BADDNA))
 		if(verbose)
 			to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
-	if(target.has_trait(TRAIT_HUSK))
+	if(HAS_TRAIT(target, TRAIT_HUSK))
 		if(verbose)
 			to_chat(user, "<span class='warning'>[target]'s body is ruined beyond usability!</span>")
 		return
@@ -339,6 +342,8 @@
 
 /datum/antagonist/changeling/proc/create_initial_profile()
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
+	if(isIPC(C))
+		C.set_species(/datum/species/human)
 	if(ishuman(C))
 		add_new_profile(C)
 

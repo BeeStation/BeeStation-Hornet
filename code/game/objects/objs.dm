@@ -1,22 +1,30 @@
 
 /obj
-	animate_movement = 2
+	animate_movement = SLIDE_STEPS
 	var/obj_flags = CAN_BE_HIT
-	var/set_obj_flags // ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
+
+	/// ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
+	var/set_obj_flags
 
 	var/damtype = BRUTE
 	var/force = 0
 
 	var/datum/armor/armor
-	var/obj_integrity	//defaults to max_integrity
+	/// The integrity the object starts at. Defaults to max_integrity.
+	var/obj_integrity
+	/// The maximum integrity the object can have.
 	var/max_integrity = 500
-	var/integrity_failure = 0 //0 if we have no special broken behavior
+	/// The object will break once obj_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior.
+	var/integrity_failure = 0
 
-	var/resistance_flags = NONE // INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
+	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
+	var/resistance_flags = NONE
 
-	var/acid_level = 0 //how much acid is on that obj
+	/// How much acid is on that obj
+	var/acid_level = 0
 
-	var/persistence_replacement //have something WAY too amazing to live to the next round? Set a new path here. Overuse of this var will make me upset.
+	/// Have something WAY too amazing to live to the next round? Set a new path here. Overuse of this var will make me upset. Will replace the object with the type you specify during persistence.
+	var/persistence_replacement
 	var/current_skin //Has the item been reskinned?
 	var/list/unique_reskin //List of options to reskin.
 
@@ -26,7 +34,10 @@
 	var/list/req_one_access
 	var/req_one_access_txt = "0"
 
-	var/renamedByPlayer = FALSE //set when a player uses a pen on a renamable object
+	/// Set when a player uses a pen on a renamable object
+	var/renamedByPlayer = FALSE
+
+	var/drag_slowdown // Amont of multiplicative slowdown applied if pulled. >1 makes you slower, <1 makes you faster.
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
@@ -123,7 +134,7 @@
 			if ((M.client && M.machine == src))
 				is_in_use = TRUE
 				ui_interact(M)
-		if(isAI(usr) || iscyborg(usr) || IsAdminGhost(usr))
+		if(issilicon(usr) || IsAdminGhost(usr))
 			if (!(usr in nearby))
 				if (usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = TRUE
@@ -171,6 +182,7 @@
 	return
 
 /obj/proc/update_icon()
+	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
 	return
 
 /mob/proc/unset_machine()
@@ -221,11 +233,11 @@
 	.["Modify armor values"] = "?_src_=vars;[HrefToken()];modarmor=[REF(src)]"
 
 /obj/examine(mob/user)
-	..()
+	. = ..()
 	if(obj_flags & UNIQUE_RENAME)
-		to_chat(user, "<span class='notice'>Use a pen on it to rename it or change its description.</span>")
+		. += "<span class='notice'>Use a pen on it to rename it or change its description.</span>"
 	if(unique_reskin && !current_skin)
-		to_chat(user, "<span class='notice'>Alt-click it to reskin it.</span>")
+		. += "<span class='notice'>Alt-click it to reskin it.</span>"
 
 /obj/AltClick(mob/user)
 	. = ..()
@@ -247,3 +259,11 @@
 		current_skin = choice
 		icon_state = unique_reskin[choice]
 		to_chat(M, "[src] is now skinned as '[choice].'")
+
+/obj/analyzer_act(mob/living/user, obj/item/I)
+	if(atmosanalyzer_scan(user, src))
+		return TRUE
+	return ..()
+
+/obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
+	return

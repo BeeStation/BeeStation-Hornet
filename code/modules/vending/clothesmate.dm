@@ -6,6 +6,7 @@
 	icon_deny = "clothes-deny"
 	product_slogans = "Dress for success!;Prepare to look swagalicious!;Look at all this swag!;Why leave style up to fate? Use the ClothesMate!"
 	vend_reply = "Thank you for using the ClothesMate!"
+	light_color = LIGHT_COLOR_GREEN
 	products = list(/obj/item/clothing/head/beanie = 3,
 		            /obj/item/clothing/head/beanie/black = 3,
 		            /obj/item/clothing/head/beanie/red = 3,
@@ -20,6 +21,9 @@
 		            /obj/item/clothing/head/beanie/stripedred = 3,
 		            /obj/item/clothing/head/beanie/stripedblue = 3,
 		            /obj/item/clothing/head/beanie/stripedgreen = 3,
+					/obj/item/clothing/head/beanie/rasta = 3,
+					/obj/item/clothing/head/kippah = 3,
+					/obj/item/clothing/head/taqiyahred = 3,
 		            /obj/item/clothing/gloves/fingerless = 2,
 		            /obj/item/clothing/neck/scarf/pink = 3,
 		            /obj/item/clothing/neck/scarf/red = 3,
@@ -119,6 +123,7 @@
 	default_price = 50
 	extra_price = 75
 	payment_department = NO_FREEBIES
+
 /obj/item/vending_refill/clothing
 	machine_name = "ClothesMate"
 	icon_state = "refill_clothes"

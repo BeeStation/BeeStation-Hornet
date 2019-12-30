@@ -14,8 +14,13 @@
 		return
 	if(obj_flags & IN_USE)
 		return
+	if(isIPC(user))
+		user.visible_message("<span class='warning'> As [user] tries to pull \the [src]'s lever, the machine seems to hesitate a bit.</span>", "<span class='warning'>You feel as if you are trying to put at stake something you don't even have...\ You suddenly feel your mind... Suboptimal?</span>")
+		user.adjustBrainLoss(10)
+	else
+		user.adjustCloneLoss(20)
 	obj_flags |= IN_USE
-	user.adjustCloneLoss(20)
+
 	if(user.stat)
 		to_chat(user, "<span class='userdanger'>No... just one more try...</span>")
 		user.gib()

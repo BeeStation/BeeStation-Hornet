@@ -1,0 +1,158 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/turf/closed/wall/r_wall/syndicate,
+/area/space)
+"x" = (
+/turf/open/floor/plasteel/techmaint,
+/area/space)
+
+(1,1,1) = {"
+x
+x
+x
+x
+x
+x
+x
+x
+"}
+(2,1,1) = {"
+x
+b
+b
+b
+b
+b
+b
+b
+"}
+(3,1,1) = {"
+x
+b
+x
+b
+x
+b
+b
+x
+"}
+(4,1,1) = {"
+x
+x
+x
+b
+x
+x
+x
+x
+"}
+(5,1,1) = {"
+b
+b
+x
+b
+b
+x
+b
+b
+"}
+(6,1,1) = {"
+x
+b
+x
+x
+x
+x
+x
+x
+"}
+(7,1,1) = {"
+x
+b
+x
+b
+x
+b
+b
+x
+"}
+(8,1,1) = {"
+x
+x
+x
+b
+x
+x
+b
+x
+"}
+(9,1,1) = {"
+b
+b
+b
+b
+b
+x
+b
+x
+"}
+(10,1,1) = {"
+b
+b
+b
+x
+b
+x
+b
+x
+"}
+(11,1,1) = {"
+b
+x
+x
+x
+x
+x
+b
+x
+"}
+(12,1,1) = {"
+b
+x
+b
+b
+b
+b
+b
+x
+"}
+(13,1,1) = {"
+b
+x
+x
+x
+x
+b
+x
+x
+"}
+(14,1,1) = {"
+b
+b
+b
+x
+b
+b
+b
+b
+"}
+(15,1,1) = {"
+x
+x
+x
+x
+x
+x
+x
+x
+"}

@@ -9,7 +9,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL=600, MAT_GLASS=200)
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 200)
 	var/uses = 2
 
 /obj/item/overthrow_converter/proc/convert(mob/living/carbon/human/target, mob/living/carbon/human/user) // Should probably also delete any mindshield implant. Not sure.
@@ -37,7 +37,7 @@
 	if(M == user)
 		to_chat(user,"<span class='warning'>You cannot convert yourself!</span>")
 		return
-	if(M.has_trait(TRAIT_MINDSHIELD))
+	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		to_chat(user, "<span class='danger'>This mind is too strong to convert, try to remove whatever is protecting it first!</span>")
 		return
 	M.visible_message("<span class='warning'>[user] is attempting to implant [M].</span>")

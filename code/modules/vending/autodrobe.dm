@@ -6,6 +6,7 @@
 	req_access = list(ACCESS_THEATRE)
 	product_slogans = "Dress for success!;Suited and booted!;It's show time!;Why leave style up to fate? Use AutoDrobe!"
 	vend_reply = "Thank you for using AutoDrobe!"
+	light_color = LIGHT_COLOR_RED
 	products = list(/obj/item/clothing/suit/chickensuit = 1,
 		            /obj/item/clothing/head/chicken = 1,
 		            /obj/item/clothing/under/rank/blueclown = 1,
@@ -19,11 +20,6 @@
 					/obj/item/clothing/head/flatcap = 1,
 					/obj/item/clothing/suit/toggle/labcoat/mad = 1,
 					/obj/item/clothing/shoes/jackboots = 1,
-					/obj/item/clothing/under/schoolgirl = 1,
-					/obj/item/clothing/under/schoolgirl/red = 1,
-					/obj/item/clothing/under/schoolgirl/green = 1,
-					/obj/item/clothing/under/schoolgirl/orange = 1,
-					/obj/item/clothing/head/kitty = 1,
 					/obj/item/clothing/under/skirt/black = 1,
 					/obj/item/clothing/head/beret = 1,
 					/obj/item/clothing/accessory/waistcoat = 1,
@@ -31,6 +27,8 @@
 					/obj/item/clothing/head/that = 1,
 					/obj/item/clothing/under/kilt = 1,
 					/obj/item/clothing/head/beret = 1,
+					/obj/item/clothing/head/beret/vintage = 1,
+					/obj/item/clothing/head/beret/archaic = 1,
 					/obj/item/clothing/accessory/waistcoat = 1,
 					/obj/item/clothing/glasses/monocle =1,
 					/obj/item/clothing/head/bowler = 1,
@@ -59,7 +57,8 @@
 					/obj/item/clothing/head/ushanka = 1,
 					/obj/item/clothing/suit/imperium_monk = 1,
 					/obj/item/clothing/mask/gas/cyborg = 1,
-					/obj/item/clothing/suit/holidaypriest = 1,
+					/obj/item/clothing/suit/chaplainsuit/holidaypriest = 1,
+					/obj/item/clothing/suit/chaplainsuit/whiterobe = 1,
 					/obj/item/clothing/head/wizard/marisa/fake = 1,
 					/obj/item/clothing/suit/wizrobe/marisa/fake = 1,
 					/obj/item/clothing/under/sundress = 1,
@@ -110,7 +109,11 @@
 					/obj/item/clothing/under/scratch = 1,
 					/obj/item/clothing/under/sailor = 1,
         			/obj/item/clothing/ears/headphones = 2,
-        			/obj/item/clothing/head/wig/random = 3)
+        			/obj/item/clothing/head/wig/random = 3,
+					/obj/item/clothing/under/joker = 2,
+					/obj/item/clothing/suit/joker = 2,
+					/obj/item/clothing/head/delinquent = 1,
+					/obj/item/clothing/ears/headphones = 2)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 		              /obj/item/clothing/head/powdered_wig = 1,
 		              /obj/item/gun/magic/wand = 2,
@@ -125,6 +128,8 @@
 		           /obj/item/clothing/under/roman = 1,
 		           /obj/item/clothing/shoes/roman = 1,
 		           /obj/item/shield/riot/roman/fake = 1,
+				   /obj/item/clothing/suit/chaplainsuit/clownpriest = 1,
+				   /obj/item/clothing/head/clownmitre = 1,
 		           /obj/item/skub = 1,)
 
 	refill_canister = /obj/item/vending_refill/autodrobe

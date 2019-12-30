@@ -2,24 +2,33 @@
 	icon = 'icons/turf/floors.dmi'
 	level = 1
 
+	/// If this is TRUE, that means this floor is on top of plating so pipes and wires and stuff will appear under it... or something like that it's not entirely clear.
 	var/intact = 1
 
 	// baseturfs can be either a list or a single turf type.
 	// In class definition like here it should always be a single type.
 	// A list will be created in initialization that figures out the baseturf's baseturf etc.
 	// In the case of a list it is sorted from bottom layer to top.
-	// This shouldn't be modified directly, use the helper procs.
+	/** baseturfs are the turfs that will appear under a turf when said turf is destroyed. For instance: when a floor is destroyed, you get plating.
+	  *
+	  * This shouldn't be modified directly, use the helper procs.
+	  */
 	var/list/baseturfs = /turf/baseturf_bottom
 
+	/// How hot the turf is, in kelvin
 	var/temperature = T20C
-	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
+
+	/// Used for fire, if a melting temperature was reached, it will be destroyed
+	var/to_be_destroyed = 0
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 
+	/// Whether the turf blocks atmos from passing through it or not
 	var/blocks_air = FALSE
 
 	flags_1 = CAN_BE_DIRTY_1
 
-	var/list/image/blueprint_data //for the station blueprints, images of objects eg: pipes
+	/// For the station blueprints, images of objects eg: pipes
+	var/list/image/blueprint_data
 
 	var/explosion_level = 0	//for preventing explosion dodging
 	var/explosion_id = 0
@@ -27,11 +36,13 @@
 	var/requires_activation	//add to air processing after initialize?
 	var/changing_turf = FALSE
 
-	var/bullet_bounce_sound = 'sound/weapons/bulletremove.ogg' //sound played when a shell casing is ejected ontop of the turf.
-	var/bullet_sizzle = FALSE //used by ammo_casing/bounce_away() to determine if the shell casing should make a sizzle sound when it's ejected over the turf
-							//IE if the turf is supposed to be water, set TRUE.
+	/// Sound played when a shell casing is ejected ontop of the turf.
+	var/bullet_bounce_sound = 'sound/weapons/bulletremove.ogg'
+	/// Used by ammo_casing/bounce_away() to determine if the shell casing should make a sizzle sound when it's ejected over the turf. ex: If the turf is supposed to be water, set TRUE.
+	var/bullet_sizzle = FALSE
 
-	var/tiled_dirt = FALSE // use smooth tiled dirt decal
+	/// Should we used the smooth tiled dirt decal or not
+	var/tiled_dirt = FALSE
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
@@ -62,7 +73,7 @@
 		add_overlay(/obj/effect/fullbright)
 
 	if(requires_activation)
-		CalculateAdjacentTurfs()
+		CALCULATE_ADJACENT_TURFS(src)
 		SSair.add_to_active(src)
 
 	if (light_power && light_range)
@@ -85,7 +96,7 @@
 	return INITIALIZE_HINT_NORMAL
 
 /turf/proc/Initalize_Atmos(times_fired)
-	CalculateAdjacentTurfs()
+	CALCULATE_ADJACENT_TURFS(src)
 
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
@@ -175,6 +186,8 @@
 				LC.handlecable(C, user)
 				return
 		C.loaded.place_turf(src, user)
+		if(C.wiring_gui_menu)
+			C.wiringGuiUpdate(user)
 		C.is_empty(user)
 
 /turf/attackby(obj/item/C, mob/user, params)
@@ -528,16 +541,24 @@
 /turf/AllowDrop()
 	return TRUE
 
-/turf/proc/add_vomit_floor(mob/living/carbon/M, toxvomit = 0)
+/turf/proc/add_vomit_floor(mob/living/M, toxvomit = NONE)
+
 	var/obj/effect/decal/cleanable/vomit/V = new /obj/effect/decal/cleanable/vomit(src, M.get_static_viruses())
-	// If the vomit combined, apply toxicity and reagents to the old vomit
+
+	//if the vomit combined, apply toxicity and reagents to the old vomit
 	if (QDELETED(V))
 		V = locate() in src
-	// Make toxins vomit look different
-	if(toxvomit)
+	if(!V)
+		return
+	// Make toxins and blazaam vomit look different
+	if(toxvomit == VOMIT_PURPLE)
+		V.icon_state = "vomitpurp_[pick(1,4)]"
+	else if (toxvomit == VOMIT_TOXIC)
 		V.icon_state = "vomittox_[pick(1,4)]"
-	if(M.reagents)
-		clear_reagents_to_vomit_pool(M,V)
+	if (iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(C.reagents)
+			clear_reagents_to_vomit_pool(C,V)
 
 /proc/clear_reagents_to_vomit_pool(mob/living/carbon/M, obj/effect/decal/cleanable/vomit/V)
 	M.reagents.trans_to(V, M.reagents.total_volume / 10, transfered_by = M)
@@ -545,7 +566,7 @@
 		if(istype(R, /datum/reagent/consumable))
 			var/datum/reagent/consumable/nutri_check = R
 			if(nutri_check.nutriment_factor >0)
-				M.reagents.remove_reagent(R.id,R.volume)
+				M.reagents.remove_reagent(R.type, min(R.volume, 10))
 
 //Whatever happens after high temperature fire dies out or thermite reaction works.
 //Should return new turf

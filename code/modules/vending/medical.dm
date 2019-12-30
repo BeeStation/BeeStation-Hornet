@@ -3,6 +3,7 @@
 	desc = "Medical drug dispenser."
 	icon_state = "med"
 	icon_deny = "med-deny"
+	light_color = LIGHT_COLOR_WHITE
 	product_ads = "Go save some lives!;The best stuff for your medbay.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?;Ping!"
 	req_access = list(ACCESS_MEDICAL)
 	products = list(/obj/item/stack/medical/gauze = 8,
@@ -14,9 +15,10 @@
 					/obj/item/reagent_containers/pill/salbutamol = 2,
 					/obj/item/reagent_containers/pill/insulin = 5,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 4,
-					/obj/item/reagent_containers/glass/bottle/epinephrine = 4,
-					/obj/item/reagent_containers/glass/bottle/salglu_solution = 3,
+					/obj/item/reagent_containers/glass/bottle/epinephrine = 3,
 					/obj/item/reagent_containers/glass/bottle/morphine = 4,
+					/obj/item/reagent_containers/glass/bottle/potass_iodide = 1,
+					/obj/item/reagent_containers/glass/bottle/salglu_solution = 3,
 					/obj/item/reagent_containers/glass/bottle/toxin = 3,
 					/obj/item/reagent_containers/syringe/antiviral = 6,
 					/obj/item/reagent_containers/medspray/styptic = 2,
@@ -40,6 +42,7 @@
 	default_price = 25
 	extra_price = 100
 	payment_department = ACCOUNT_MED
+
 /obj/item/vending_refill/medical
 	machine_name = "NanoMed Plus"
 	icon_state = "refill_medical"

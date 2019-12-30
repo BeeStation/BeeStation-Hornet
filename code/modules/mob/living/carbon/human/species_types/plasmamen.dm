@@ -20,6 +20,7 @@
 	disliked_food = FRUIT
 	liked_food = VEGETABLES
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
+	outfit_important_for_life = /datum/outfit/plasmaman
 
 /datum/species/plasmaman/spec_life(mob/living/carbon/human/H)
 	var/datum/gas_mixture/environment = H.loc.return_air()
@@ -78,6 +79,9 @@
 		if("Security Officer")
 			O = new /datum/outfit/plasmaman/security
 
+		if("Brig Physician")
+			O = new /datum/outfit/plasmaman/secmed
+
 		if("Detective")
 			O = new /datum/outfit/plasmaman/detective
 
@@ -92,6 +96,9 @@
 
 		if("Medical Doctor")
 			O = new /datum/outfit/plasmaman/medical
+
+		if("Paramedic")
+			O = new /datum/outfit/plasmaman/emt
 
 		if("Chemist")
 			O = new /datum/outfit/plasmaman/chemist
@@ -113,6 +120,31 @@
 
 		if("Atmospheric Technician")
 			O = new /datum/outfit/plasmaman/atmospherics
+
+		if("Captain")
+			O = new /datum/outfit/plasmaman/command
+
+		if("Chief Engineer")
+			O = new /datum/outfit/plasmaman/ce
+
+		if("Chief Medical Officer")
+			O = new /datum/outfit/plasmaman/cmo
+
+		if("Head of Security")
+			O = new /datum/outfit/plasmaman/hos
+
+		if("Research Director")
+			O = new /datum/outfit/plasmaman/rd
+
+		if("Head of Personnel")
+			O = new /datum/outfit/plasmaman/hop
+
+		if("Clown")
+			O = new /datum/outfit/plasmaman/honk
+
+		if("Mime")
+			O = new /datum/outfit/plasmaman/mime
+
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.get_item_for_held_index(2)
 	H.update_internals_hud_icon(1)

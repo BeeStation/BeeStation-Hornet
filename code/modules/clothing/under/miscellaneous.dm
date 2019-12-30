@@ -118,6 +118,13 @@
 	item_state = "dg_suit"
 	item_color = "centcom"
 
+/obj/item/clothing/under/rank/centcom/intern
+	name = "\improper CentCom intern's jumpsuit"
+	desc = "It's a jumpsuit worn by those interning for CentCom. The top is styled after a polo shirt for easy identification."
+	icon_state = "intern"
+	item_state = "g_suit"
+	can_adjust = FALSE
+
 /obj/item/clothing/under/space
 	name = "\improper NASA jumpsuit"
 	desc = "It has a NASA logo on it and is made of space-proofed materials."
@@ -274,6 +281,7 @@
 	icon_state = "burial"
 	item_state = "burial"
 	item_color = "burial"
+	can_adjust = FALSE
 	has_sensor = NO_SENSORS
 
 /obj/item/clothing/under/skirt/black
@@ -395,7 +403,7 @@
 
 /obj/item/clothing/under/kilt/highlander/Initialize()
 	. = ..()
-	add_trait(TRAIT_NODROP, HIGHLANDER)
+	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
 
 /obj/item/clothing/under/sexymime
 	name = "sexy mime outfit"
@@ -640,9 +648,8 @@
 
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>There are [extinguishes_left] extinguisher charges left in this suit.</span>")
-
+	. = ..()
+	. += "<span class='notice'>There are [extinguishes_left] extinguisher charges left in this suit.</span>"
 
 /obj/item/clothing/under/plasmaman/proc/Extinguish(mob/living/carbon/human/H)
 	if(!istype(H))
@@ -762,3 +769,11 @@
 	item_color = "durathread"
 	can_adjust = FALSE
 	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5)
+
+/obj/item/clothing/under/joker
+	name = "comedian suit"
+	desc = "The worst part of having a mental illness is people expect you to behave as if you don’t."
+	icon_state = "joker"
+	item_state = "joker"
+	item_color = "joker"
+	can_adjust = FALSE

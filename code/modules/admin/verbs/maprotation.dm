@@ -12,6 +12,7 @@
 /client/proc/adminchangemap()
 	set category = "Server"
 	set name = "Change Map"
+		
 	var/list/maprotatechoices = list()
 	for (var/map in config.maplist)
 		var/datum/map_config/VM = config.maplist[map]

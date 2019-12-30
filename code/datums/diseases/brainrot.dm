@@ -4,7 +4,7 @@
 	spread_text = "On contact"
 	spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_CONTACT_FLUIDS
 	cure_text = "Mannitol"
-	cures = list("mannitol")
+	cures = list(/datum/reagent/medicine/mannitol)
 	agent = "Cryptococcus Cosmosis"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	cure_chance = 15//higher chance to cure, since two reagents are required
@@ -49,7 +49,8 @@
 					to_chat(affected_mob, "<span class='danger'>Strange buzzing fills your head, removing all thoughts.</span>")
 			if(prob(3))
 				to_chat(affected_mob, "<span class='danger'>You lose consciousness...</span>")
-				affected_mob.visible_message("<span class='warning'>[affected_mob] suddenly collapses</span>")
+				affected_mob.visible_message("<span class='warning'>[affected_mob] suddenly collapses!</span>", \
+											"<span class='userdanger'>You suddenly collapse!</span>")
 				affected_mob.Unconscious(rand(100,200))
 				if(prob(1))
 					affected_mob.emote("snore")

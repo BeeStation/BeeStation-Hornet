@@ -109,7 +109,7 @@
  */
 
 /obj/item/tank/internals/plasmaman
-	name = "plasma internals tank"
+	name = "extended-capacity plasma internals tank"
 	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
 	icon_state = "plasmaman_tank"
 	item_state = "plasmaman_tank"
@@ -124,8 +124,12 @@
 	air_contents.assert_gas(/datum/gas/plasma)
 	air_contents.gases[/datum/gas/plasma][MOLES] = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
+/obj/item/tank/internals/plasmaman/empty/populate_gas()
+	return
+
 
 /obj/item/tank/internals/plasmaman/belt
+	name = "plasma internals belt tank"
 	icon_state = "plasmaman_tank_belt"
 	item_state = "plasmaman_tank_belt"
 	slot_flags = ITEM_SLOT_BELT

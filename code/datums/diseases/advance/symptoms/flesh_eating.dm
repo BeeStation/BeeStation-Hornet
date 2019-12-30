@@ -57,7 +57,7 @@ Bonus
 	var/get_damage = rand(15,25) * power
 	M.take_overall_damage(brute = get_damage, required_status = BODYPART_ORGANIC)
 	if(pain)
-		M.adjustStaminaLoss(get_damage)
+		M.adjustStaminaLoss(get_damage * 2)
 	if(bleed)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -89,7 +89,7 @@ Bonus
 	resistance = -2
 	stage_speed = 1
 	transmittable = -2
-	level = 7
+	level = 9
 	severity = 6
 	base_message_chance = 50
 	symptom_delay_min = 3
@@ -124,7 +124,7 @@ Bonus
 	var/get_damage = rand(6,10)
 	M.take_overall_damage(brute = get_damage, required_status = BODYPART_ORGANIC)
 	if(chems)
-		M.reagents.add_reagent_list(list("heparin" = 2, "lipolicide" = 2))
+		M.reagents.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))
 	if(zombie)
-		M.reagents.add_reagent("romerol", 1)
+		M.reagents.add_reagent(/datum/reagent/romerol, 1)
 	return 1

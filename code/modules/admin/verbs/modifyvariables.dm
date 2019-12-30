@@ -275,7 +275,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 	var/list/subtypes = subtypesof(type)
 	if (!subtypes || !subtypes.len)
 		return FALSE
-	if (subtypes && subtypes.len)
+	if (subtypes?.len)
 		switch(alert("Strict object type detection?", "Type detection", "Strictly this type","This type and subtypes", "Cancel"))
 			if("Strictly this type")
 				return FALSE
@@ -307,11 +307,11 @@ GLOBAL_PROTECT(VVpixelmovement)
 		//	the type with the base type removed from the begaining
 		var/fancytype = types[D.type]
 		if (findtext(fancytype, types[type]))
-			fancytype = copytext(fancytype, lentext(types[type])+1)
-		var/shorttype = copytext("[D.type]", lentext("[type]")+1)
-		if (lentext(shorttype) > lentext(fancytype))
+			fancytype = copytext(fancytype, length(types[type])+1)
+		var/shorttype = copytext("[D.type]", length("[type]")+1)
+		if (length(shorttype) > length(fancytype))
 			shorttype = fancytype
-		if (!lentext(shorttype))
+		if (!length(shorttype))
 			shorttype = "/"
 
 		.["[D]([shorttype])[REF(D)]#[i]"] = D
@@ -534,7 +534,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 		if (prompt != "Continue")
 			return FALSE
 	return TRUE
-	
+
 
 /client/proc/modify_variables(atom/O, param_var_name = null, autodetect_class = 0)
 	if(!check_rights(R_VAREDIT))

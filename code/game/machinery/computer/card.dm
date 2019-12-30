@@ -34,7 +34,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		"Head of Security",
 		"Chief Engineer",
 		"Research Director",
-		"Chief Medical Officer")
+		"Chief Medical Officer",
+		"Brig Physician")
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
@@ -46,9 +47,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/machinery/computer/card/examine(mob/user)
-	..()
+	. = ..()
 	if(scan || modify)
-		to_chat(user, "<span class='notice'>Alt-click to eject the ID card.</span>")
+		. += "<span class='notice'>Alt-click to eject the ID card.</span>"
 
 /obj/machinery/computer/card/Initialize()
 	. = ..()
@@ -228,7 +229,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			target_name = html_encode(modify.name)
 		else
 			target_name = "--------"
-		if(modify && modify.registered_name)
+		if(modify?.registered_name)
 			target_owner = html_encode(modify.registered_name)
 		else
 			target_owner = "--------"
@@ -436,8 +437,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						return
 					if(modify.registered_account)
 						modify.registered_account.account_job = jobdatum // this is a terrible idea and people will grief but sure whatever
-						if(modify.registered_account.welfare)
-							modify.registered_account.add_neetbux()
 
 					modify.access = ( istype(src, /obj/machinery/computer/card/centcom) ? get_centcom_access(t1) : jobdatum.get_access() )
 				if (modify)

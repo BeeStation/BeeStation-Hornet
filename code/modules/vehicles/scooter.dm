@@ -3,6 +3,7 @@
 	desc = "A fun way to get around."
 	icon_state = "scooter"
 	are_legs_exposed = TRUE
+	fall_off_if_missing_arms = TRUE
 
 /obj/vehicle/ridden/scooter/Initialize()
 	. = ..()
@@ -32,19 +33,21 @@
 		else
 			buckled_mob.pixel_y = -4
 
-/obj/vehicle/ridden/scooter/buckle_mob(mob/living/M, force = 0, check_loc = 1)
+/obj/vehicle/ridden/scooter/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!istype(M))
-		return 0
-	if(M.get_num_legs() < 2 && M.get_num_arms() <= 0)
-		to_chat(M, "<span class='warning'>Your limbless body can't ride \the [src].</span>")
-		return 0
-	. = ..()
+		return FALSE
+	if(M.get_num_legs() < legs_required && M.get_num_arms() < arms_required)
+		to_chat(M, "<span class='warning'>You don't think it'd be a good idea trying to ride \the [src]...</span>")
+		return FALSE
+	return ..()
 
 /obj/vehicle/ridden/scooter/skateboard
 	name = "skateboard"
 	desc = "An unfinished scooter which can only barely be called a skateboard. It's still rideable, but probably unsafe. Looks like you'll need to add a few rods to make handlebars. Alt-click to adjust speed."
 	icon_state = "skateboard"
 	density = FALSE
+	arms_required = 0
+	fall_off_if_missing_arms = FALSE
 	var/adjusted_speed = FALSE
 
 /obj/vehicle/ridden/scooter/skateboard/Initialize()
@@ -108,13 +111,13 @@
 //CONSTRUCTION
 /obj/item/scooter_frame
 	name = "scooter frame"
-	desc = "A metal frame for building a scooter. Looks like you'll need to add some metal to make wheels."
+	desc = "A metal frame for building a scooter. Looks like you'll need to add some iron to make wheels."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "scooter_frame"
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/scooter_frame/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/metal))
+	if(istype(I, /obj/item/stack/sheet/iron))
 		if(!I.tool_start_check(user, amount=5))
 			return
 		to_chat(user, "<span class='notice'>You begin to add wheels to [src].</span>")
@@ -154,7 +157,7 @@
 	to_chat(user, "<span class='notice'>You begin to deconstruct and remove the wheels on [src]...</span>")
 	if(I.use_tool(src, user, 20, volume=50))
 		to_chat(user, "<span class='notice'>You deconstruct the wheels on [src].</span>")
-		new /obj/item/stack/sheet/metal(drop_location(), 5)
+		new /obj/item/stack/sheet/iron(drop_location(), 5)
 		new /obj/item/scooter_frame(drop_location())
 		if(has_buckled_mobs())
 			var/mob/living/carbon/H = buckled_mobs[1]

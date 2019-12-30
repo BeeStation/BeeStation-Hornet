@@ -1,6 +1,6 @@
-//////////////////////////
-/////Initial Building/////
-//////////////////////////
+//----------------------//
+//   Initial Building   //
+//----------------------//
 
 /proc/make_datum_references_lists()
 	//hair
@@ -31,7 +31,10 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.r_wings_list,roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/caps, GLOB.caps_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
-
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_screens, GLOB.ipc_screens_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_antennas, GLOB.ipc_antennas_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_chassis, GLOB.ipc_chassis_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))
@@ -42,15 +45,24 @@
 	for(var/path in subtypesof(/datum/surgery))
 		GLOB.surgeries_list += new path()
 
-	//Materials
-	for(var/path in subtypesof(/datum/material))
-		var/datum/material/D = new path()
-		GLOB.materials_list[D.id] = D
+	GLOB.emote_list = init_emote_list()
 
-	//Emotes
-	for(var/path in subtypesof(/datum/emote))
-		var/datum/emote/E = new path()
-		E.emote_list[E.key] = E
+
+
+	// Keybindings
+	for(var/KB in subtypesof(/datum/keybinding))
+		var/datum/keybinding/keybinding = KB
+		if(!initial(keybinding.key))
+			continue
+		var/datum/keybinding/instance = new keybinding
+		GLOB.keybindings_by_name[initial(instance.name)] = instance
+		if (!(initial(instance.key) in GLOB.keybinding_list_by_key))
+			GLOB.keybinding_list_by_key[initial(instance.key)] = list()
+		GLOB.keybinding_list_by_key[initial(instance.key)] += instance.name
+	// Sort all the keybindings by their weight
+	for(var/key in GLOB.keybinding_list_by_key)
+		GLOB.keybinding_list_by_key[key] = sortList(GLOB.keybinding_list_by_key[key])
+
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 

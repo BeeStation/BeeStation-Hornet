@@ -12,6 +12,7 @@
 #define ROBOTICIST		(1<<8)
 #define AI_JF			(1<<9)
 #define CYBORG			(1<<10)
+#define BRIG_PHYS		(1<<11)
 
 
 #define MEDSCI			(1<<1)
@@ -23,6 +24,7 @@
 #define DOCTOR			(1<<4)
 #define GENETICIST		(1<<5)
 #define VIROLOGIST		(1<<6)
+#define EMT				(1<<7)
 
 
 #define CIVILIAN		(1<<2)
@@ -84,5 +86,6 @@
 #define JOB_DISPLAY_ORDER_WARDEN 28
 #define JOB_DISPLAY_ORDER_DETECTIVE 29
 #define JOB_DISPLAY_ORDER_SECURITY_OFFICER 30
-#define JOB_DISPLAY_ORDER_AI 31
-#define JOB_DISPLAY_ORDER_CYBORG 32
+#define JOB_DISPLAY_ORDER_BRIG_PHYS 31
+#define JOB_DISPLAY_ORDER_AI 32
+#define JOB_DISPLAY_ORDER_CYBORG 33

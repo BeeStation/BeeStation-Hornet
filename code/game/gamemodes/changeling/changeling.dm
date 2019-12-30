@@ -12,7 +12,7 @@ GLOBAL_VAR(changeling_team_objective_type) //If this is not null, we hand our th
 	antag_flag = ROLE_CHANGELING
 	false_report_weight = 10
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
@@ -22,6 +22,8 @@ GLOBAL_VAR(changeling_team_objective_type) //If this is not null, we hand our th
 	announce_text = "Alien changelings have infiltrated the crew!\n\
 	<span class='green'>Changelings</span>: Accomplish the objectives assigned to you.\n\
 	<span class='notice'>Crew</span>: Root out and eliminate the changeling menace."
+
+	title_icon = "changeling"
 
 	var/const/changeling_amount = 4 //hard limit on changelings if scaling is turned off
 	var/list/changelings = list()
@@ -96,6 +98,12 @@ GLOBAL_VAR(changeling_team_objective_type) //If this is not null, we hand our th
 			of the Thing being sent to a station in this sector is highly likely. It may be in the guise of any crew member. Trust nobody - suspect everybody. Do not announce this to the crew, \
 			as paranoia may spread and inhibit workplace efficiency."
 
+//////////////////////////////////////////
+//Checks to see if someone is changeling//
+//////////////////////////////////////////
+/proc/is_changeling(mob/M)
+	return M?.mind?.has_antag_datum(/datum/antagonist/changeling)
+
 /proc/changeling_transform(mob/living/carbon/human/user, datum/changelingprofile/chosen_prof)
 	var/datum/dna/chosen_dna = chosen_prof.dna
 	user.real_name = chosen_prof.name
@@ -136,3 +144,21 @@ GLOBAL_VAR(changeling_team_objective_type) //If this is not null, we hand our th
 			user.equip_to_slot_or_del(C, GLOB.slot2slot[slot])
 
 	user.regenerate_icons()
+
+
+/datum/game_mode/changeling/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	round_credits += "<center><h1>The Slippery Changelings:</h1>"
+	len_before_addition = round_credits.len
+	for(var/datum/mind/M in changelings)
+		var/datum/antagonist/changeling/cling = M.has_antag_datum(/datum/antagonist/changeling)
+		if(cling)
+			round_credits += "<center><h2>[cling.changelingID] in the body of [M.name]</h2>"
+	if(len_before_addition == round_credits.len)
+		round_credits += list("<center><h2>Uh oh, we lost track of the shape shifters!</h2>", "<center><h2>Nobody move!</h2>")
+	round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits

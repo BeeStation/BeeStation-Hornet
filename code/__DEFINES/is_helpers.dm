@@ -1,10 +1,19 @@
-// simple is_type and similar inline helpers
+#if DM_VERSION > 513
+#warn 513 is definitely stable now, remove the 513 version checks from this file.
+#endif
 
+// simple is_type and similar inline helpers
+#if DM_VERSION < 513
 #define islist(L) (istype(L, /list))
+#endif
 
 #define in_range(source, user) (get_dist(source, user) <= 1 && (get_step(source, 0)?:z) == (get_step(user, 0)?:z))
 
+#if DM_VERSION < 513
 #define ismovableatom(A) (istype(A, /atom/movable))
+#else
+#define ismovableatom(A) ismovable(A)
+#endif
 
 #define isatom(A) (isloc(A))
 
@@ -17,7 +26,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 	/turf/open/space,
 	/turf/open/chasm,
 	/turf/open/lava,
-	/turf/open/water
+	/turf/open/water,
+	/turf/open/openspace
 	)))
 
 #define isgroundlessturf(A) (is_type_in_typecache(A, GLOB.turfs_without_ground))
@@ -25,6 +35,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isopenturf(A) (istype(A, /turf/open))
 
 #define isindestructiblefloor(A) (istype(A, /turf/open/indestructible))
+
+#define isIPC(A) (is_species(A, /datum/species/ipc))
 
 #define isspaceturf(A) (istype(A, /turf/open/space))
 
@@ -70,9 +82,13 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define ishumanbasic(A) (is_species(A, /datum/species/human))
 #define iscatperson(A) (ishumanbasic(A) && istype(A.dna.species, /datum/species/human/felinid) )
 #define isethereal(A) (is_species(A, /datum/species/ethereal))
+#define isvampire(A) (is_species(A,/datum/species/vampire))
+#define isipc(A) (is_species(A, /datum/species/ipc))
 
 //more carbon mobs
 #define ismonkey(A) (istype(A, /mob/living/carbon/monkey))
+
+#define isxeno(A) (istype(A, /mob/living/carbon/xenomorph))
 
 #define isalien(A) (istype(A, /mob/living/carbon/alien))
 
@@ -223,6 +239,10 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 #define is_pointed(W) (is_type_in_typecache(W, GLOB.pointed_types))
 
 #define isbodypart(A) (istype(A, /obj/item/bodypart))
+
+#define isprojectile(A) (istype(A, /obj/item/projectile))
+
+#define isgun(A) (istype(A, /obj/item/gun))
 
 //Assemblies
 #define isassembly(O) (istype(O, /obj/item/assembly))

@@ -75,7 +75,7 @@
 	},
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -24
+	pixel_x = -25
 	},
 /obj/structure/closet/secure_closet/engineering_electrical,
 /obj/structure/cable{
@@ -115,7 +115,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Gravity Generator APC";
-	pixel_y = 25
+	pixel_y = 23
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -129,12 +129,6 @@
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "au" = (
-/turf/open/openspace,
-/area/security)
-"av" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/open/openspace,
 /area/security)
 "aw" = (
@@ -399,7 +393,7 @@
 "bj" = (
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -24
+	pixel_x = -25
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -506,7 +500,7 @@
 "bB" = (
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -24
+	pixel_x = -25
 	},
 /obj/structure/cable,
 /obj/structure/cable{
@@ -547,7 +541,7 @@
 	},
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -24
+	pixel_x = -25
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -629,7 +623,7 @@
 	},
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -24
+	pixel_x = -25
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -964,7 +958,7 @@
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -24
+	pixel_x = -25
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plasteel,
@@ -995,7 +989,7 @@
 	},
 /obj/machinery/power/apc{
 	dir = 8;
-	pixel_x = -24
+	pixel_x = -25
 	},
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
@@ -1384,9 +1378,6 @@
 /turf/open/floor/plating,
 /area/storage/primary)
 "ey" = (
-/obj/effect/turf_decal/stripes/asteroid/corner{
-	dir = 1
-	},
 /obj/structure/ladder,
 /turf/open/floor/plasteel,
 /area/construction)
@@ -1422,15 +1413,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/engineering)
-"eH" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/construction)
 "eI" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1439,12 +1421,6 @@
 /area/construction)
 "eJ" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/construction)
-"eK" = (
-/obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -1490,9 +1466,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "eR" = (
-/obj/effect/turf_decal/stripes/asteroid/corner{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 4
 	},
@@ -1541,12 +1514,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"fk" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/construction)
 "fn" = (
 /turf/closed/wall/r_wall,
 /area/space)
@@ -1592,6 +1559,20 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"qS" = (
+/turf/open/openspace,
+/area/shuttle/turbolift/shaft)
+"rS" = (
+/obj/machinery/turbolift_button{
+	pixel_y = -23;
+	shuttle_id = "turbolift_primary"
+	},
+/turf/open/floor/plasteel,
+/area/construction)
+"sG" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plasteel,
+/area/construction)
 "ux" = (
 /obj/structure/ladder,
 /turf/open/floor/plasteel,
@@ -1608,6 +1589,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"yz" = (
+/turf/closed/wall/r_wall,
+/area/security)
+"Ao" = (
+/obj/docking_port/stationary/turbolift{
+	dwidth = 2;
+	height = 4;
+	id = "turbolift_primary";
+	width = 5
+	},
+/turf/open/openspace,
+/area/shuttle/turbolift/shaft)
 "Bm" = (
 /obj/machinery/light{
 	dir = 4
@@ -1633,6 +1626,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"DO" = (
+/turf/open/floor/plating,
+/area/shuttle/turbolift/shaft)
+"Ed" = (
+/turf/open/openspace,
+/area/construction)
+"Eq" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plating,
+/area/construction)
 "Fz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1643,6 +1646,12 @@
 "Hn" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/ladder,
+/turf/open/floor/plasteel,
+/area/construction)
+"HN" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/construction)
 "Jz" = (
@@ -1682,6 +1691,9 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"KR" = (
+/turf/open/floor/plasteel,
+/area/security)
 "LW" = (
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
@@ -1690,6 +1702,13 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"OJ" = (
+/obj/machinery/turbolift_button{
+	pixel_y = -23;
+	shuttle_id = "turbolift_primary"
+	},
+/turf/open/floor/plasteel,
+/area/security)
 "Pl" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1697,16 +1716,66 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
+"PB" = (
+/obj/docking_port/stationary/turbolift{
+	id = "turbolift_primary"
+	},
+/turf/open/openspace,
+/area/shuttle/turbolift/shaft)
+"RP" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plasteel,
+/area/security)
+"SE" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/asteroid/line,
+/turf/open/floor/plasteel,
+/area/security)
+"Tg" = (
+/obj/machinery/turbolift_button{
+	pixel_y = -23;
+	shuttle_id = "turbolift_primary"
+	},
+/turf/open/floor/plating,
+/area/construction)
+"TU" = (
+/obj/docking_port/stationary/turbolift{
+	dwidth = 2;
+	height = 4;
+	id = "turbolift_primary";
+	roundstart_template = /datum/map_template/shuttle/turbolift/debug/primary;
+	width = 5
+	},
+/turf/open/floor/plating,
+/area/shuttle/turbolift/shaft)
 "Uc" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
+"Vd" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
+/area/construction)
+"VL" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
+/area/construction)
 "WC" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security)
+"WK" = (
+/obj/machinery/light,
+/turf/open/floor/plating,
+/area/construction)
 "YD" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -2560,12 +2629,12 @@ dn
 dn
 dn
 dn
-dn
-dn
-dn
-dL
 cN
-af
+cN
+cN
+Vd
+cN
+ad
 ad
 ac
 ab
@@ -2613,13 +2682,13 @@ dn
 dn
 dn
 dn
-dn
-dn
-dn
-dn
-dL
+WK
 cN
-af
+DO
+DO
+DO
+DO
+ad
 ad
 ac
 ab
@@ -2665,15 +2734,15 @@ dn
 dn
 dn
 dn
-cN
-cN
-cN
 dn
 dn
 dn
-dL
-cN
-ME
+Eq
+DO
+DO
+DO
+DO
+ad
 ad
 ac
 ab
@@ -2719,15 +2788,15 @@ dn
 dn
 dn
 dn
-cN
-fk
-cN
 dn
 dn
 dn
-dL
-cN
-af
+Eq
+DO
+DO
+DO
+TU
+ad
 ad
 ac
 ab
@@ -2773,15 +2842,15 @@ dn
 dn
 dn
 dn
-cN
-dn
-cN
 dn
 dn
 dn
-dL
-cN
-af
+Eq
+DO
+DO
+DO
+DO
+ad
 ad
 ac
 ab
@@ -2829,13 +2898,13 @@ dn
 dn
 dn
 dn
-dn
-dn
-dn
-dn
-dL
+Tg
 cN
-af
+DO
+DO
+DO
+DO
+ad
 ad
 ac
 ab
@@ -2883,13 +2952,13 @@ dn
 dn
 dn
 dn
-dn
-dn
-dn
-dn
-dL
+WK
 cN
-af
+cN
+cN
+Vd
+cN
+ad
 ad
 ac
 ab
@@ -5259,12 +5328,12 @@ eI
 eI
 eI
 eI
-eI
-eI
-eI
-eI
-eI
-eK
+eM
+ep
+ep
+ep
+ep
+ep
 cN
 ME
 ad
@@ -5313,12 +5382,12 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
 eL
+ep
+ep
+ep
+ep
+ep
 cN
 af
 ad
@@ -5367,14 +5436,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
 eL
+ep
 cN
-af
+cN
+cN
+VL
+cN
+ad
 ad
 au
 au
@@ -5421,14 +5490,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
 eL
+ep
 cN
-af
+qS
+qS
+qS
+qS
+ad
 ad
 au
 au
@@ -5474,15 +5543,15 @@ au
 au
 au
 au
-cN
-cN
-cN
-au
-au
-au
+Ed
 eL
-cN
-af
+ep
+sG
+qS
+qS
+qS
+qS
+ad
 ad
 au
 au
@@ -5529,14 +5598,14 @@ au
 au
 au
 au
-av
-au
-au
-au
-au
 eL
-cN
-ME
+ep
+sG
+qS
+qS
+qS
+PB
+ad
 ad
 au
 au
@@ -5583,14 +5652,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
 eL
-cN
-af
+ep
+sG
+qS
+qS
+qS
+qS
+ad
 ad
 au
 au
@@ -5637,14 +5706,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
 eL
+rS
 cN
-af
+qS
+qS
+qS
+qS
+ad
 ad
 au
 au
@@ -5691,14 +5760,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
 eL
+ep
 cN
-af
+cN
+cN
+VL
+cN
+ad
 ad
 au
 au
@@ -5745,12 +5814,12 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
 eL
+ep
+ep
+ep
+ep
+ep
 cN
 af
 ad
@@ -5799,12 +5868,12 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
 eL
+ep
+ep
+ep
+ep
+ep
 cN
 ME
 ad
@@ -5853,12 +5922,12 @@ eJ
 eJ
 eJ
 eJ
-eJ
-eJ
-eJ
-eJ
-eH
-eM
+HN
+ep
+ep
+ep
+et
+ep
 cN
 af
 ad
@@ -6484,7 +6553,7 @@ ak
 dV
 aK
 dV
-bi
+aK
 dV
 by
 ef
@@ -8068,14 +8137,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
+Kq
+YD
+YD
+YD
+YD
+YD
+YD
+YD
 fn
 au
 au
@@ -8122,14 +8191,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
+Jz
+KR
+KR
+KR
+KR
+KR
+KR
+KR
 fn
 au
 au
@@ -8176,14 +8245,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
+Jz
+KR
+yz
+yz
+yz
+yz
+yz
+yz
 fn
 au
 au
@@ -8230,14 +8299,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
+Jz
+KR
+yz
+qS
+qS
+qS
+qS
+yz
 fn
 au
 au
@@ -8284,14 +8353,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
+Jz
+KR
+RP
+qS
+qS
+qS
+qS
+yz
 fn
 au
 au
@@ -8338,14 +8407,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
+Jz
+KR
+RP
+qS
+qS
+qS
+Ao
+yz
 fn
 au
 au
@@ -8392,14 +8461,14 @@ au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
+Jz
+KR
+RP
+qS
+qS
+qS
+qS
+yz
 fn
 au
 au
@@ -8440,20 +8509,20 @@ au
 au
 au
 KL
-WC
+KR
 Pl
 au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
+Jz
+OJ
+yz
+qS
+qS
+qS
+qS
+yz
 fn
 au
 au
@@ -8494,20 +8563,20 @@ au
 au
 au
 au
+SE
 au
 au
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
-au
+Jz
+KR
+yz
+yz
+yz
+yz
+yz
+yz
 fn
 au
 au
@@ -8548,20 +8617,20 @@ eP
 eT
 eT
 eT
-eT
+bE
 eT
 eW
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
+YD
+YD
+YD
+KR
+KR
+KR
+KR
+KR
+KR
+KR
+KR
 fn
 au
 au
@@ -8605,17 +8674,17 @@ bE
 bE
 bE
 eX
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
+WC
+WC
+WC
+WC
+WC
+WC
+WC
+WC
+WC
+WC
+WC
 fn
 au
 au

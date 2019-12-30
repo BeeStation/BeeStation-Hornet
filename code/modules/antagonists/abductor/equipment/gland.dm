@@ -23,8 +23,8 @@
 
 /obj/item/organ/heart/gland/examine(mob/user)
 	. = ..()
-	if(user.has_trait(TRAIT_ABDUCTOR_SCIENTIST_TRAINING) || isobserver(user))
-		to_chat(user, "<span class='notice'>It is \a [true_name].</span>")
+	if((user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING)) || isobserver(user))
+		. += "<span class='notice'>It is \a [true_name].</span>"
 
 /obj/item/organ/heart/gland/proc/ownerCheck()
 	if(ishuman(owner))
@@ -59,13 +59,15 @@
 	active_mind_control = TRUE
 	log_admin("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
 	update_gland_hud()
-
+	var/obj/screen/alert/mind_control/mind_alert = owner.throw_alert("mind_control", /obj/screen/alert/mind_control)
+	mind_alert.command = command
 	addtimer(CALLBACK(src, .proc/clear_mind_control), mind_control_duration)
 
 /obj/item/organ/heart/gland/proc/clear_mind_control()
 	if(!ownerCheck() || !active_mind_control)
 		return
-	to_chat(owner, "<span class='userdanger'>You feel the compulsion fade, and you completely forget about your previous orders.</span>")
+	to_chat(owner, "<span class='userdanger'>You feel the compulsion fade, and you <i>completely forget</i> about your previous orders.</span>")
+	owner.clear_alert("mind_control")
 	active_mind_control = FALSE
 
 /obj/item/organ/heart/gland/Remove(mob/living/carbon/M, special = 0)
@@ -292,10 +294,10 @@
 
 /obj/item/organ/heart/gland/electric/Insert(mob/living/carbon/M, special = 0)
 	..()
-	owner.add_trait(TRAIT_SHOCKIMMUNE, ORGAN_TRAIT)
+	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, ORGAN_TRAIT)
 
 /obj/item/organ/heart/gland/electric/Remove(mob/living/carbon/M, special = 0)
-	owner.remove_trait(TRAIT_SHOCKIMMUNE, ORGAN_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_SHOCKIMMUNE, ORGAN_TRAIT)
 	..()
 
 /obj/item/organ/heart/gland/electric/activate()
@@ -319,15 +321,8 @@
 
 /obj/item/organ/heart/gland/chem/Initialize()
 	. = ..()
-	for(var/X in subtypesof(/datum/reagent/drug))
-		var/datum/reagent/R = X
-		possible_reagents += initial(R.id)
-	for(var/X in subtypesof(/datum/reagent/medicine))
-		var/datum/reagent/R = X
-		possible_reagents += initial(R.id)
-	for(var/X in typesof(/datum/reagent/toxin))
-		var/datum/reagent/R = X
-		possible_reagents += initial(R.id)
+	for(var/R in subtypesof(/datum/reagent/drug) + subtypesof(/datum/reagent/medicine) + typesof(/datum/reagent/toxin))
+		possible_reagents += R
 
 /obj/item/organ/heart/gland/chem/activate()
 	var/chem_to_add = pick(possible_reagents)

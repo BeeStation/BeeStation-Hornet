@@ -13,6 +13,7 @@
 	var/obj/mecha/chassis = null
 	var/range = MELEE //bitFflags
 	var/salvageable = 1
+	var/detachable = TRUE // Set to FALSE for built-in equipment that cannot be removed
 	var/selectable = 1	// Set to 0 for passive equipment such as mining scanner or armor plates
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 
@@ -79,6 +80,11 @@
 	if(!equip_ready)
 		return 0
 	if(energy_drain && !chassis.has_charge(energy_drain))
+		return 0
+	if(chassis.is_currently_ejecting)
+		return 0
+	if(chassis.equipment_disabled)
+		to_chat(chassis.occupant, "<span=warn>Error -- Equipment control unit is unresponsive.</span>")
 		return 0
 	return 1
 
