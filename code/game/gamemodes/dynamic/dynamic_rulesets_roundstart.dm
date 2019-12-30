@@ -392,7 +392,6 @@
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/revs/execute()
-	var/success = TRUE
 	revolution = new()
 	for(var/datum/mind/M in assigned)
 		if(check_eligible(M))
@@ -404,14 +403,12 @@
 		else
 			assigned -= M
 			log_game("DYNAMIC: [ruletype] [name] discarded [M.name] from head revolutionary due to ineligibility.")
-		if(!revolution.members.len)
-			success = FALSE
-			log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
-	if(success)
+	if(revolution.members.len)
 		revolution.update_objectives()
 		revolution.update_heads()
 		SSshuttle.registerHostileEnvironment(src)
 		return TRUE
+	log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
 	return FALSE
 
 /datum/dynamic_ruleset/roundstart/revs/clean_up()
