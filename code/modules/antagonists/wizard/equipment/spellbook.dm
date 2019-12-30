@@ -105,7 +105,6 @@
 /datum/spellbook_entry/fireball
 	name = "Fireball"
 	spell_type = /obj/effect/proc_holder/spell/aimed/fireball
-	cost = 3
 
 /datum/spellbook_entry/spell_cards
 	name = "Spell Cards"
