@@ -4,6 +4,7 @@
 
 	charge_max = 250
 	cooldown_min = 80
+	level_max = 10
 
 	clothes_req = FALSE
 	invocation = "CAVERE INSIDIAS"
@@ -17,7 +18,7 @@
 		/obj/structure/trap/damage
 	)
 	summon_lifespan = 3000
-	summon_amt = 10
+	summon_amt = 5
 
 	action_icon_state = "the_traps"
 
