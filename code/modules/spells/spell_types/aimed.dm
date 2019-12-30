@@ -115,7 +115,7 @@
 	invocation = "ONI SOMA"
 	invocation_type = "shout"
 	range = 20
-	cooldown_min = 45 //10 deciseconds reduction per rank
+	cooldown_min = 60 //10 deciseconds reduction per rank
 	projectile_type = /obj/item/projectile/magic/aoe/fireball
 	base_icon_state = "fireball"
 	action_icon_state = "fireball0"
