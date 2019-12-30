@@ -34,3 +34,9 @@
 	name = "10mm incendiary bullet"
 	damage = 15
 	fire_stacks = 2
+
+//special (energy ballistics)
+
+/obj/item/projectile/bullet/hos
+	name = "synthesized bullet"
+	damage = 20
