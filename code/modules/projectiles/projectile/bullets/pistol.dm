@@ -39,4 +39,4 @@
 
 /obj/item/projectile/bullet/synthetic
 	name = "synthesized bullet"
-	damage = 20
+	damage = 30
