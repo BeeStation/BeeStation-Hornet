@@ -10,10 +10,21 @@
 /obj/item/ammo_casing/energy/lasergun/old
 	projectile_type = /obj/item/projectile/beam/laser
 	e_cost = 200
-	select_name = "kill"
+	select_name = "energy"
+
+/obj/item/ammo_casing/energy/laser/old/ballistic
+	projectile_type = /obj/item/projectile/bullet/synthetic
+	e_cost = 200
+	select_name = "ballistic"
+	fire_sound = 'sound/weapons/gunshot.ogg'
 
 /obj/item/ammo_casing/energy/laser/hos
 	e_cost = 120
+	
+/obj/item/ammo_casing/energy/laser/hos/ballistic
+	projectile_type = /obj/item/projectile/bullet/synthetic
+	e_cost = 120
+	fire_sound = 'sound/weapons/gunshot.ogg'
 
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/item/projectile/beam/practice
