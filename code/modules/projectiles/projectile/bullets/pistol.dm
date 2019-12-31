@@ -38,5 +38,5 @@
 //special (energy ballistics)
 
 /obj/item/projectile/bullet/synthetic
-	name = "10mm synthesized bullet"
+	name = "10mm synthetic bullet"
 	damage = 30
