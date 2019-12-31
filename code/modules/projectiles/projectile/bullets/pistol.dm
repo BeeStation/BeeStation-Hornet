@@ -37,6 +37,6 @@
 
 //special (energy ballistics)
 
-/obj/item/projectile/bullet/hos
+/obj/item/projectile/bullet/synthetic
 	name = "synthesized bullet"
 	damage = 20
