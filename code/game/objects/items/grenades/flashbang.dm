@@ -28,4 +28,4 @@
 	if(M.flash_act(affect_silicon = 1))
 		M.Paralyze(max(200/max(1,distance), 60))
 //Bang
-	M.soundbang_act(1, max(200/max(1,distance), 60), rand(0, 5))
+	M.soundbang_act(1, max(100/max(1,distance), 60), rand(0, 5))
