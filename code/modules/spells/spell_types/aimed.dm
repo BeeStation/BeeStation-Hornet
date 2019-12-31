@@ -110,12 +110,12 @@
 	name = "Fireball"
 	desc = "This spell fires an explosive fireball at a target."
 	school = "evocation"
-	charge_max = 180
+	charge_max = 140
 	clothes_req = TRUE
 	invocation = "ONI SOMA"
 	invocation_type = "shout"
 	range = 20
-	cooldown_min = 60 //10 deciseconds reduction per rank
+	cooldown_min = 40 //10 deciseconds reduction per rank
 	projectile_type = /obj/item/projectile/magic/aoe/fireball
 	base_icon_state = "fireball"
 	action_icon_state = "fireball0"
