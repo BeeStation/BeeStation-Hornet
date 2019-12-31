@@ -344,6 +344,7 @@ CREATE TABLE IF NOT EXISTS `SS13_poll_question` (
   `createdby_ckey` varchar(32) DEFAULT NULL,
   `createdby_ip` int(10) unsigned NOT NULL,
   `dontshow` tinyint(1) unsigned NOT NULL,
+  `minimumplaytime` int(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_pquest_question_time_ckey` (`question`,`starttime`,`endtime`,`createdby_ckey`,`createdby_ip`),
   KEY `idx_pquest_time_admin` (`starttime`,`endtime`,`adminonly`),
