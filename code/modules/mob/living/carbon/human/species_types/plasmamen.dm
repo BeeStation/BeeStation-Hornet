@@ -80,7 +80,7 @@
 			O = new /datum/outfit/plasmaman/security
 
 		if("Brig Physician")
-			O = new /datum/outfit/plasmaman/security
+			O = new /datum/outfit/plasmaman/secmed
 
 		if("Detective")
 			O = new /datum/outfit/plasmaman/detective
@@ -98,7 +98,7 @@
 			O = new /datum/outfit/plasmaman/medical
 
 		if("Paramedic")
-			O = new /datum/outfit/plasmaman/medical
+			O = new /datum/outfit/plasmaman/emt
 
 		if("Chemist")
 			O = new /datum/outfit/plasmaman/chemist

@@ -2260,8 +2260,6 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "ahu" = (
-/obj/structure/table/glass,
-/obj/item/flashlight/lamp,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -2274,6 +2272,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/computer/operating,
 /turf/open/floor/plasteel/white,
 /area/security/execution/transfer)
 "ahv" = (
@@ -58539,6 +58538,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/item/flashlight/lamp,
 /turf/open/floor/plasteel/white,
 /area/security/execution/transfer)
 "oXQ" = (
