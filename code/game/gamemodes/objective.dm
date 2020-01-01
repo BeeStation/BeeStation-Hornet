@@ -729,7 +729,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 /datum/objective/absorb/update_explanation_text()
 	. = ..()
-	explanation_text = "Extract [target_amount] compatible genome\s."
+	explanation_text = "Extract [target_amount] compatible genome\s. Absorption is unecessary to complete this objective"
 
 /datum/objective/absorb/admin_edit(mob/admin)
 	var/count = input(admin,"How many people to absorb?","absorb",target_amount) as num|null
@@ -895,7 +895,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/changeling_team_objective //Abstract type
 	martyr_compatible = 0	//Suicide is not teamwork!
 	explanation_text = "Changeling Friendship!"
-	var/min_lings = 3 //Minimum amount of lings for this team objective to be possible
+	var/min_lings = 100 //Minimum amount of lings for this team objective to be possible //set to 100 to stop teamlings just in case
 	var/escape_objective_compatible = FALSE
 
 /datum/objective/changeling_team_objective/proc/prepare()
