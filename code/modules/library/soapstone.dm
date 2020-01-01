@@ -54,6 +54,9 @@
 	if(!target.Adjacent(user) && locate(/obj/structure/chisel_message) in T)
 		to_chat(user, "<span class='warning'>Someone wrote here before you chose! Find another spot.</span>")
 		return
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(user, "<span class='warning'>That message contains prohibited word(s)! Try again.</span>")
+		return
 	playsound(loc, 'sound/items/gavel.ogg', 50, 1, -1)
 	user.visible_message("<span class='notice'>[user] starts engraving a message into [T]...</span>", "<span class='notice'>You start engraving a message into [T]...</span>", "<span class='italics'>You hear a chipping sound.</span>")
 	if(can_use() && do_after(user, tool_speed, target = T) && can_use()) //This looks messy but it's actually really clever!
