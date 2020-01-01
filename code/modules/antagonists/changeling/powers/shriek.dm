@@ -4,7 +4,7 @@
 	helptext = "Emits a high-frequency sound that confuses and deafens humans, blows out nearby lights and overloads cyborg sensors."
 	button_icon_state = "resonant_shriek"
 	chemical_cost = 30
-	dna_cost = 1
+	dna_cost = 2
 	req_human = 1
 
 //A flashy ability, good for crowd control and sowing chaos.
