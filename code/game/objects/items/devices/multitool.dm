@@ -42,9 +42,9 @@
 /obj/item/multitool/examine(mob/user)
 	. = ..()
 	if(selected_io)
-		to_chat(user, "<span class='notice'>Activate [src] to detach the data wire.</span>")
+		. += [user, "<span class='notice'>Activate [src] to detach the data wire.</span>"]
 	if(buffer)
-		to_chat(user, "<span class='notice'>Its buffer contains [buffer].</span>")
+		. += [user, "<span class='notice'>Its buffer contains [buffer].</span>"]
 
 /obj/item/multitool/attack_self(mob/user)
 	if(selected_io)
