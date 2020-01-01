@@ -115,7 +115,7 @@
 	var/n_name = stripped_input(usr, "What would you like to label the paper?", "Paper Labelling", null, MAX_NAME_LEN)
 	if((loc == usr && usr.stat == CONSCIOUS))
 		if(CHAT_FILTER_CHECK(n_name))
-			to_chat(user, "<span class='warning'>That name contains prohibited word(s)!</span>")
+			to_chat(usr, "<span class='warning'>That name contains prohibited word(s)!</span>")
 		else
 			name = "paper[(n_name ? text("- '[n_name]'") : null)]"
 	add_fingerprint(usr)
