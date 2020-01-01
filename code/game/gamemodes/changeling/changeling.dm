@@ -75,7 +75,7 @@ GLOBAL_VAR(changeling_team_objective_type) //If this is not null, we hand our th
 	for(var/datum/mind/changeling in changelings)
 		log_game("[key_name(changeling)] has been selected as a changeling")
 		var/datum/antagonist/changeling/new_antag = new()
-		new_antag.team_mode = TRUE
+		new_antag.team_mode = FALSE //Should stop team lings from spawning
 		changeling.add_antag_datum(new_antag)
 	..()
 
