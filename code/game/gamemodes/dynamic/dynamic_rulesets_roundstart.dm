@@ -107,7 +107,7 @@
 	cost = 30
 	requirements = list(80,70,60,50,40,20,20,10,10,10)
 	high_population_requirement = 10
-	var/team_mode_probability = 30
+	var/team_mode_probability = 0
 
 /datum/dynamic_ruleset/roundstart/changeling/pre_execute()
 	var/num_changelings = min(round(mode.candidates.len / 10) + 1, candidates.len)
