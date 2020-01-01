@@ -42,9 +42,9 @@
 /obj/item/multitool/examine(mob/user)
 	. = ..()
 	if(selected_io)
-		. += [user, "<span class='notice'>Activate [src] to detach the data wire.</span>"]
+		. += "<span class='notice'>Activate [src] to detach the data wire.</span>"
 	if(buffer)
-		. += [user, "<span class='notice'>Its buffer contains [buffer].</span>"]
+		. += "<span class='notice'>Its buffer contains [buffer].</span>"
 
 /obj/item/multitool/attack_self(mob/user)
 	if(selected_io)
