@@ -65,7 +65,7 @@ Bonus
 //////////////////////////////////////
 */
 
-/datum/symptom/viralreverse		//Hippie change, brought back cause tg is dumb
+/datum/symptom/viralreverse		
 
 	name = "Viral aggressive metabolism"
 	desc = "The virus sacrifices its long term survivability to nearly instantly fully spread inside a host. \
