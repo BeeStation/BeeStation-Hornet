@@ -129,8 +129,7 @@ Bonus
 		M.reagents.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))
 	if(zombie)
 		if(ishuman(A.affected_mob))
-			var/mob/living/carbon/human/M = A.affected_mob 
-				if(!M.getorganslot(ORGAN_SLOT_ZOMBIE))
-					var/obj/item/organ/zombie_infection/nodamage/ZI = new()
-					ZI.Insert(M)
+			if(!A.affected_mob.getorganslot(ORGAN_SLOT_ZOMBIE))
+				var/obj/item/organ/zombie_infection/ZI = new()
+				ZI.Insert(M)
 	return 1
