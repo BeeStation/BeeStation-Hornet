@@ -15,9 +15,6 @@
 	set category = "Guardian"
 	set desc = "Choose what you shout as you limply slap people."
 	var/input = stripped_input(src,"What do you want your battlecry to be? Max length of 6 characters.", ,"", 7)
-	if(CHAT_FILTER_CHECK(input))
-    	to_chat(src, "<span class='holoparasite'>Your battlecry may not include forbidden words! Consider rereading the server rules.</span>")
-    	return
 	if(input)
 		Battlecry = input
 
