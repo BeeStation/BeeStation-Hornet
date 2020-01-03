@@ -1,4 +1,0 @@
-author: "ike709"
-delete-after: True
-changes: 
-  - rscadd: "Admins can now specify a minimum playtime requirement to vote in a server poll."
