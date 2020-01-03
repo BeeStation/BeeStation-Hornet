@@ -24,6 +24,9 @@
 	var/locked = FALSE
 	var/drainratio = 1
 	var/powerproduction_drain = 0.001
+	var/collector_efficiency = RAD_COLLECTOR_EFFICIENCY
+	var/collector_coefficient = RAD_COLLECTOR_COEFFICIENT
+	var/mining_conversion_rate = RAD_COLLECTOR_MINING_CONVERSION_RATE
 
 	var/bitcoinproduction_drain = 0.15
 	var/bitcoinmining = FALSE
@@ -34,6 +37,25 @@
 
 /obj/machinery/power/rad_collector/Destroy()
 	return ..()
+
+/obj/machinery/power/rad_collector/RefreshParts()
+	var/coefficient = 0
+	var/efficiency = 0
+	var/miningrate = 0
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
+		coefficient += 2/3+M.rating/3
+	for(var/obj/item/stock_parts/capacitor/C in component_parts)
+		miningrate += 2/3+C.rating/3
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		efficiency += 4/3-M.rating/3
+	collector_efficiency = efficiency*RAD_COLLECTOR_EFFICIENCY
+	collector_coefficient = coefficient*RAD_COLLECTOR_COEFFICIENT
+	drainratio = 1/(coefficient*miningrate)
+	mining_conversion_rate = efficiency*miningrate*RAD_COLLECTOR_MINING_CONVERSION_RATE
+
+/obj/machinery/power/rad_collector/Initialize()
+	. = ..()
+	RefreshParts()
 
 /obj/machinery/power/rad_collector/process()
 	if(!loaded_tank)
@@ -67,8 +89,8 @@
 			var/bitcoins_mined = RAD_COLLECTOR_OUTPUT
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_ENG)
 			if(D)
-				D.adjust_money(bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)
-			SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)
+				D.adjust_money(bitcoins_mined*mining_conversion_rate)
+			SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, bitcoins_mined*mining_conversion_rate)
 			stored_energy-=bitcoins_mined
 
 /obj/machinery/power/rad_collector/interact(mob/user)
@@ -213,8 +235,8 @@
 
 /obj/machinery/power/rad_collector/rad_act(pulse_strength)
 	. = ..()
-	if(loaded_tank && active && pulse_strength > RAD_COLLECTOR_EFFICIENCY)
-		stored_energy += (pulse_strength-RAD_COLLECTOR_EFFICIENCY)*RAD_COLLECTOR_COEFFICIENT
+	if(loaded_tank && active && pulse_strength > collector_efficiency)
+		stored_energy += (pulse_strength-collector_efficiency)*collector_coefficient
 
 /obj/machinery/power/rad_collector/update_icon()
 	cut_overlays()
