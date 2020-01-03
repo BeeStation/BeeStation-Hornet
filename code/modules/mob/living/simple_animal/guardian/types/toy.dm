@@ -16,12 +16,12 @@
 	set desc = "Choose what you shout as you limply slap people."
 	var/input = stripped_input(src,"What do you want your battlecry to be? Max length of 6 characters.", ,"", 7)
 	if(input)
-		Battlecry = input
+		battlecry = input
 
 
 
 /mob/living/simple_animal/hostile/guardian/toy/AttackingTarget()
 	. = ..()
 	if(isliving(target))
-		say("[Battlecry]!!", ignore_spam = TRUE)
+		say("[battlecry]!!", ignore_spam = TRUE)
 		playsound(loc, src.attack_sound, 50, 1, 1)
