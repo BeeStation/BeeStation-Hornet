@@ -1853,7 +1853,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
 	surplus = 0
-
+	
 /datum/uplink_item/badass/costumes/obvious_chameleon
 	name = "Broken Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
@@ -1885,6 +1885,12 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 20
 	cant_discount = TRUE
 	illegal_tech = FALSE
+	
+	/datum/uplink_item/badass/toy_holoparasites
+	name = "Toy Holoparasites"
+	desc = "A holoparasite colony that is utterly useless. costs as much as real holoparasites."
+	item = /obj/item/guardiancreator/tech/toy
+	cost = 16
 
 /datum/uplink_item/badass/syndiecash
 	name = "Syndicate Briefcase Full of Cash"
