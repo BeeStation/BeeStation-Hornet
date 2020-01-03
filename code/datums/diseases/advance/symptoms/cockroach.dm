@@ -40,9 +40,24 @@
 			if(prob(50))
 				to_chat(M, "<span class='notice'>You feel in tune with the station</span>")
 		if(5)
-			if(prob(10))
+			if(prob(30))
 				M.visible_message("<span class='danger'>[M] squirms as a cockroach crawls from their pores!</span>", \
 								  "<span class='userdanger'>A cockroach crawls out of your face!!</span>")
 				new /mob/living/simple_animal/cockroach(M.loc)
 			if(prob(50))
 				to_chat(M, "<span class='notice'>You feel something crawling in your pipes!</span>")
+			if(A.process_dead && M.stat == DEAD)
+				Breed
+				-
+				
+/datum/symptom/cockroach/OnDeath(datum/disease/advance/A)
+	if(!..())
+		return
+	var/mob/living/M = A.affected_mob
+	to_chat(M, "<span class='warning'>Your pores explode into a colony of roaches!</span>")
+	for(var/i in 1 to rand(1,5))	
+    	new /mob/living/simple_animal/cockroach(M.loc)
+
+/datum/symptom/cockroach/proc/Breed(datum/disease/advance/A, mob/living/M,)
+	for(var/i in 1 to rand(1,5))	
+    	new /mob/living/simple_animal/cockroach(M.loc)
