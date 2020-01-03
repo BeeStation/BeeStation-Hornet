@@ -46,11 +46,12 @@
 				new /mob/living/simple_animal/cockroach(M.loc)
 			if(prob(50))
 				to_chat(M, "<span class='notice'>You feel something crawling in your pipes!</span>")
-		
-/datum/symptom/cockroach/on_death(datum/disease/advance/A)
+	
+/datum/symptom/cockroach/OnDeath(datum/disease/advance/A)
 	if(!..())
 		return
-	var/mob/living/M = A.affected_mob
-	to_chat(M, "<span class='warning'>Your pores explode into a colony of roaches!</span>")
-	for(var/i in 1 to rand(1,5))new /mob/living/simple_animal/cockroach(M.loc)
+	if(death_roaches=TRUE)
+		var/mob/living/M = A.affected_mob
+		to_chat(M, "<span class='warning'>Your pores explode into a colony of roaches!</span>")
+		for(var/i in 1 to rand(1,5))new /mob/living/simple_animal/cockroach(M.loc)
 
