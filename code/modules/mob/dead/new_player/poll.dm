@@ -48,7 +48,7 @@
 		minimumplaytime = text2num(query_poll_get_details.item[6])
 	qdel(query_poll_get_details)
 	var/player_playtime = round(client?.get_exp_living(FALSE) / 60)
-	if(player_playtime && (player_playtime < minimumplaytime))
+	if(!isnull(player_playtime) && (player_playtime < minimumplaytime))
 		to_chat(usr, "<span class='warning'>You do not have sufficient playtime to vote in this poll. Minimum: [minimumplaytime] hour(s). Your playtime: [player_playtime] hour(s).</span>")
 		return
 	switch(polltype)
