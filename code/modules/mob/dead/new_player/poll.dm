@@ -29,7 +29,7 @@
 	if (!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
-	var/datum/DBQuery/query_poll_get_details = SSdbcore.NewQuery("SELECT starttime, endtime, question, polltype, multiplechoiceoptions FROM [format_table_name("poll_question")] WHERE id = [pollid]")
+	var/datum/DBQuery/query_poll_get_details = SSdbcore.NewQuery("SELECT starttime, endtime, question, polltype, multiplechoiceoptions, minimumplaytime FROM [format_table_name("poll_question")] WHERE id = [pollid]")
 	if(!query_poll_get_details.warn_execute())
 		qdel(query_poll_get_details)
 		return
@@ -38,13 +38,19 @@
 	var/pollquestion = ""
 	var/polltype = ""
 	var/multiplechoiceoptions = 0
+	var/minimumplaytime = 0
 	if(query_poll_get_details.NextRow())
 		pollstarttime = query_poll_get_details.item[1]
 		pollendtime = query_poll_get_details.item[2]
 		pollquestion = query_poll_get_details.item[3]
 		polltype = query_poll_get_details.item[4]
 		multiplechoiceoptions = text2num(query_poll_get_details.item[5])
+		minimumplaytime = text2num(query_poll_get_details.item[6])
 	qdel(query_poll_get_details)
+	var/player_playtime = round(client?.get_exp_living(FALSE) / 60)
+	if(!isnull(player_playtime) && (player_playtime < minimumplaytime))
+		to_chat(usr, "<span class='warning'>You do not have sufficient playtime to vote in this poll. Minimum: [minimumplaytime] hour(s). Your playtime: [player_playtime] hour(s).</span>")
+		return
 	switch(polltype)
 		if(POLLTYPE_OPTION)
 			var/datum/DBQuery/query_option_get_votes = SSdbcore.NewQuery("SELECT optionid FROM [format_table_name("poll_vote")] WHERE pollid = [pollid] AND ckey = '[ckey]'")
