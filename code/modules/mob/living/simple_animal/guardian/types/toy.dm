@@ -10,7 +10,7 @@
 	carp_fluff_string = "<span class='holoparasite'>CARP CARP CARP! You caught one! It's weak and useless. Can I have a refund?.</span>"
 	var/battlecry = "HONK"
 
-/mob/living/simple_animal/hostile/guardian/punch/verb/Battlecry()
+/mob/living/simple_animal/hostile/guardian/toy/verb/Battlecry()
 	set name = "Set Battlecry"
 	set category = "Guardian"
 	set desc = "Choose what you shout as you limply slap people."
