@@ -549,6 +549,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			
 		if("Gravity")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/gravity
+			
 		if("Toy")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/toy
 
