@@ -20,7 +20,7 @@
 
 
 
-/mob/living/simple_animal/hostile/guardian/punch/AttackingTarget()
+/mob/living/simple_animal/hostile/guardian/toy/AttackingTarget()
 	. = ..()
 	if(isliving(target))
 		say("[battlecry]!!", ignore_spam = TRUE)
