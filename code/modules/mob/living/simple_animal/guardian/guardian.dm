@@ -584,6 +584,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	desc = "An enchanted deck tarot card. This one looks like it was printed as a joke."
 	icon_state = "deck_clown_empty"
 	possible_guardians = list("Toy")
+	custom_premium_price = 10000
 
 /obj/item/guardiancreator/choose/dextrous
 	possible_guardians = list("Assassin", "Chaos", "Charger", "Dextrous", "Explosive", "Lightning", "Protector", "Ranged", "Standard", "Support", "Gravity")
