@@ -1,0 +1,4 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - tweak: "DeltaStation now shows up in map rotation at 50 players."
