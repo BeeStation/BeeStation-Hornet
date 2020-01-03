@@ -23,5 +23,5 @@
 /mob/living/simple_animal/hostile/guardian/toy/AttackingTarget()
 	. = ..()
 	if(isliving(target))
-		say("[battlecry]!!", ignore_spam = TRUE)
+		say("[Battlecry]!!", ignore_spam = TRUE)
 		playsound(loc, src.attack_sound, 50, 1, 1)
