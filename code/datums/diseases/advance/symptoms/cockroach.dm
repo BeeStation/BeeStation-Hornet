@@ -50,7 +50,7 @@
 /datum/symptom/cockroach/OnDeath(datum/disease/advance/A)
 	if(!..())
 		return
-	if(death_roaches = TRUE)
+	if(death_roaches)
 		var/mob/living/M = A.affected_mob
 		to_chat(M, "<span class='warning'>Your pores explode into a colony of roaches!</span>")
 		for(var/i in 1 to rand(1,5))new /mob/living/simple_animal/cockroach(M.loc)
