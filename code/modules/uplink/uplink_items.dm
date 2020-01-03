@@ -1,5 +1,4 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
-
 /proc/get_uplink_items(var/datum/game_mode/gamemode = null, allow_sales = TRUE, allow_restricted = TRUE)
 	var/list/filtered_uplink_items = list()
 	var/list/sale_items = list()
@@ -1853,7 +1852,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
 	surplus = 0
-	
 /datum/uplink_item/badass/costumes/obvious_chameleon
 	name = "Broken Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
