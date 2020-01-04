@@ -19,7 +19,7 @@
 	if(input)
 		if(CHAT_FILTER_CHECK(input))
 			to_chat(src, "<span class='warning'>Your battlecry may not include prohibited words! Consider rereading the server rules.</span>")
-        	return
+			return
 		else
 			battlecry = input
 
