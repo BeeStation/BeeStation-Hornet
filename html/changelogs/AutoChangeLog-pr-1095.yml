@@ -1,7 +1,0 @@
-author: "zeskorion"
-delete-after: True
-changes: 
-  - bugfix: "zombievirus works properly now. for the record, the part that was broken was the shit that was there. not my own code. thanks for the help, mark"
-  - bugfix: "SBG death roaches work properly now"
-  - bugfix: "alkali perspiration actually works as advertised now"
-  - code_imp: "adds OnDeath proc for diseases"
