@@ -2104,6 +2104,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/retaliate/poison/snake,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
 "adw" = (
@@ -90546,6 +90547,7 @@
 	icon_state = "box_corners";
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/retaliate/poison/snake,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
 "cyV" = (
@@ -90610,10 +90612,7 @@
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/jungle/mook{
-	environment_smash = 0;
-	name = "deformed creature"
-	},
+/mob/living/simple_animal/hostile/retaliate/poison/snake,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
 "cza" = (
@@ -90850,10 +90849,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
-/mob/living/simple_animal/hostile/jungle/mook{
-	environment_smash = 0;
-	name = "deformed creature"
-	},
+/mob/living/simple_animal/hostile/retaliate/poison/snake,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
 "czr" = (
