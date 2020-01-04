@@ -20,7 +20,7 @@
 			to_chat(src, "<span class='holoparasite'>Your battlecry may not include forbidden words! Consider rereading the server rules.</span>")
         	return
 		else
-			battlecry=input
+			battlecry = input
 
 
 
