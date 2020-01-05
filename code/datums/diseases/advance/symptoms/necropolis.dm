@@ -1,6 +1,6 @@
 /datum/symptom/necroseed
 	name = "Necropolis Seed"
-	desc = "An infantile form of the root of Lavaland's tendrils. Forms a symbiotic bond with the host, making them stronger and hardier, at the cost of speed. Should the disease be cured, the host will be weakened"
+	desc = "An infantile form of the root of Lavaland's tendrils. Forms a symbiotic bond with the host, making them stronger and hardier, at the cost of speed. Should the disease be cured, the host will be severely weakened"
 	stealth = 0
 	resistance = 3
 	stage_speed = -10
@@ -77,41 +77,19 @@
 					new /obj/effect/temp_visual/goliath_tentacle(t, src)
 			else
 				cached_tentacle_turfs -= t
-				
-/datum/symptom/necroseed/on_stage_change(new_stage, datum/disease/advance/A)
-	if(!..())
-		return FALSE
-	var/mob/living/carbon/M = A.affected_mob
-	if(A.stage = 5)
-		to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable.</span>")
-    	a.affected_mob.punchdamagelow = 1
-    	a.affected_mob.punchdamagehigh = 5
-    	a.affected_mob.punchstunthreshold = 10
-    	a.affected_mob.brutemod = 1.5
-    	a.affected_mob.burnmod = 1.5
-    	a.affected_mob.heatmod = 1.5
-    	a.affected_mob.speedmod = 2
-		REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCE_IMMUNITY, DISEASE_TRAIT)
-	if(fireproof)
-		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
-		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHEAT, DISEASE_TRAIT)
-		a.affected_mob.weather_immunities |-= "ash"
-		a.affected_mob.weather_immunities |-= "lava"
-	return TRUE
   
 /datum/symptom/necroseed/End(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage = 5)
-		to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable.</span>")
-		a.affected_mob.punchdamagelow = 1
-		a.affected_mob.punchdamagehigh = 5
-		a.affected_mob.punchstunthreshold = 10
-		a.affected_mob.brutemod = 1.5
-		a.affected_mob.burnmod = 1.5
-		a.affected_mob.heatmod = 1.5
-		a.affected_mob.speedmod = 2
-		REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCE_IMMUNITY, DISEASE_TRAIT)
+	to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable.</span>")
+	a.affected_mob.punchdamagelow = 1
+	a.affected_mob.punchdamagehigh = 5
+	a.affected_mob.punchstunthreshold = 10
+	a.affected_mob.brutemod = 1.5
+	a.affected_mob.burnmod = 1.5
+	a.affected_mob.heatmod = 1.5
+	a.affected_mob.speedmod = 2
+	REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCE_IMMUNITY, DISEASE_TRAIT)
 	if(fireproof)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHEAT, DISEASE_TRAIT)
