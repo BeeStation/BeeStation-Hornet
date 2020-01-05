@@ -121,7 +121,7 @@
 /datum/symptom/necroseed/OnDeath(datum/disease/advance/A)
 	if(!..())
 		return
-	if(chest)
+	if(chest && a.affected_mob.mind)
 		var/mob/living/M = A.affected_mob
 		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
 		affected_mob.visible_message("<span class='danger'>An unearthly roar shakes the ground as [affected_mob] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
