@@ -49,6 +49,7 @@
 		a.affected_mob.burnmod = .6
 		a.affected_mob.heatmod = .6
 		a.affected_mob.speedmod = 1
+		ADD_TRAIT(M, TRAIT_PIERCE_IMMUNITY, DISEASE_TRAIT)
 	if(fireproof)
 		ADD_TRAIT(M, TRAIT_RESISTHEAT, DISEASE_TRAIT)
 		ADD_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
@@ -87,6 +88,7 @@
     	a.affected_mob.burnmod = 1.5
     	a.affected_mob.heatmod = 1.5
     	a.affected_mob.speedmod = 2
+		REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCE_IMMUNITY, DISEASE_TRAIT)
 	if(fireproof)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHEAT, DISEASE_TRAIT)
@@ -106,6 +108,7 @@
 		a.affected_mob.burnmod = 1.5
 		a.affected_mob.heatmod = 1.5
 		a.affected_mob.speedmod = 2
+		REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCE_IMMUNITY, DISEASE_TRAIT)
 	if(fireproof)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHEAT, DISEASE_TRAIT)
