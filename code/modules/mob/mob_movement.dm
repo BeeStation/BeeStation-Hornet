@@ -137,7 +137,7 @@
 	else
 		move_delay = world.time
 
-	if(L.confused && m_intent == MOVE_INTENT_RUN)
+	if(L.confused && L.m_intent == MOVE_INTENT_RUN)
 		var/newdir = 0
 		if(L.confused > 40)
 			newdir = pick(GLOB.alldirs)
