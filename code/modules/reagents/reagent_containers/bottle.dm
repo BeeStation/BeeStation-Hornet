@@ -230,6 +230,12 @@
 	name = "Flu virion culture bottle"
 	desc = "A small bottle. Contains H13N1 flu virion culture in synthblood medium."
 	spawned_disease = /datum/disease/advance/flu
+	
+/obj/item/reagent_containers/glass/bottle/necropolis_seed
+	name = "Bowl of Blood"
+	desc = "A clay bowl containing a fledgling Necropolis, preserved in blood. A robust virologist may be able to unlock its full potential..."
+	icon_state = "mortar"
+	spawned_disease = /datum/disease/advance/Necropolis
 
 /obj/item/reagent_containers/glass/bottle/retrovirus
 	name = "Retrovirus culture bottle"
