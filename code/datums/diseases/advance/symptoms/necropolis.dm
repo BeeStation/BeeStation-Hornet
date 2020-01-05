@@ -79,7 +79,7 @@
 		return FALSE
 	var/mob/living/carbon/M = A.affected_mob
 	if(A.stage = 5)
-		to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and weak.</span>")
+		to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable.</span>")
     	a.affected_mob.punchdamagelow = 1
     	a.affected_mob.punchdamagehigh = 5
     	a.affected_mob.punchstunthreshold = 10
