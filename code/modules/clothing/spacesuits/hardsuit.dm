@@ -423,6 +423,8 @@
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard
+	jetpack = /obj/item/tank/jetpack/suit
+	slowdown = 0.3
 
 /obj/item/clothing/suit/space/hardsuit/wizard/Initialize()
 	. = ..()
