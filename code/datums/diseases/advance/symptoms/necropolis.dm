@@ -40,7 +40,7 @@
 			to_chat(M, "<span class='notice'>Your skin feels scaly</span>")
 	if(3, 4)
 		if(prob(base_message_chance))
-			to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel invincible.")]</span>")
+			to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")
 	if(5)
 		a.affected_mob.punchdamagelow = 5
 		a.affected_mob.punchdamagehigh = 15
@@ -55,8 +55,11 @@
 		ADD_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 		a.affected_mob.weather_immunities |= "ash"
 		a.affected_mob.weather_immunities |= "lava"
-	if(tendrils)
-		tendril
+	else
+		if(prob(base_message_chance))
+			to_chat(M, "<span class='notice'>[pick("Your skin has become a hardenned carapace", "Your strength is superhuman.", "You feel invincible.")]</span>")
+		if(tendrils)
+			tendril
 	return
   
 /datum/symptom/necroseed/tendril(datum/disease/advance/A)
@@ -100,7 +103,7 @@
 	if(!..())
 		return
 	if(A.stage = 5)
-		to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and weak.</span>")
+		to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable.</span>")
 		a.affected_mob.punchdamagelow = 1
 		a.affected_mob.punchdamagehigh = 5
 		a.affected_mob.punchstunthreshold = 10
@@ -122,7 +125,7 @@
 		var/mob/living/M = A.affected_mob
 		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
 		affected_mob.visible_message("<span class='danger'>An unearthly roar shakes the ground as [affected_mob] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
-		a.affected_mob.hellbound = 1
+		a.affected_mob.hellbound = TRUE
 		affected_mob.gib()
 		playsound(m.loc,'sound/effects/tendril_destroyed.ogg', 75, 0, 50, 1, 1)
 		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
