@@ -124,5 +124,5 @@
 		affected_mob.visible_message("<span class='danger'>An unearthly roar shakes the ground as [affected_mob] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
 		a.affected_mob.hellbound = 1
 		affected_mob.gib()
-		playsound(m.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
+		playsound(m.loc,'sound/effects/tendril_destroyed.ogg', 75, 0, 50, 1, 1)
 		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
