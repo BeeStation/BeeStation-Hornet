@@ -96,7 +96,7 @@
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
-			if(seed.get_gene(/datum/plant_gene/trait/squash))
+			if(seed.get_gene(/datum/plant_gene/trait/squash)
 				squash(hit_atom)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target)
@@ -117,10 +117,16 @@
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
-
-	reagents.reaction(T)
-	for(var/A in T)
-		reagents.reaction(A)
+	if(!seed.get_gene(/datum/plant_gene/trait/noreact)
+		reagents.reaction(T)
+		for(var/A in T)
+			reagents.reaction(A)
+	else
+		if(seed.get_gene(/datum/plant_gene/trait/noreact) // so the plant doesn't just spill itself on the floor before mixing
+			addtimer(15)
+				reagents.reaction(T)
+				for(var/A in T)
+					reagents.reaction(A)
 
 	qdel(src)
 
