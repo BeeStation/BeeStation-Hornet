@@ -57,7 +57,7 @@
 		a.affected_mob.weather_immunities |= "lava"
 	else
 		if(prob(base_message_chance))
-			to_chat(M, "<span class='notice'>[pick("Your skin has become a hardenned carapace", "Your strength is superhuman.", "You feel invincible.")]</span>")
+			to_chat(M, "<span class='notice'>[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]</span>")
 		if(tendrils)
 			tendril
 	return
