@@ -1392,7 +1392,6 @@
 #include "code\modules\antagonists\fugitive\fugitive_outfits.dm"
 #include "code\modules\antagonists\fugitive\fugitive_ship.dm"
 #include "code\modules\antagonists\fugitive\hunter.dm"
-#include "code\modules\antagonists\fugitive\old_god.dm"
 #include "code\modules\antagonists\gang\gang.dm"
 #include "code\modules\antagonists\gang\gang_datums.dm"
 #include "code\modules\antagonists\gang\gang_hud.dm"
