@@ -1,4 +1,0 @@
-author: "ike709"
-delete-after: True
-changes: 
-  - rscadd: "Number of players connected is now always listed on the Status panel."
