@@ -74,7 +74,7 @@
 		for(var/t in cached_tentacle_turfs)
 			if(isopenturf(t))
 				if(prob(10))
-					new /obj/effect/temp_visual/goliath_tentacle(t, src)
+					new /obj/effect/temp_visual/goliath_tentacle(t, a.affected_mob)
 			else
 				cached_tentacle_turfs -= t
   
