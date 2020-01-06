@@ -213,8 +213,8 @@
 
 /obj/machinery/power/rad_collector/rad_act(pulse_strength)
 	. = ..()
-	if(loaded_tank && active && pulse_strength > collector_efficiency)
-		stored_energy += (pulse_strength-collector_efficiency)*collector_coefficient
+	if(loaded_tank && active && pulse_strength > RAD_COLLECTOR_EFFICIENCY)
+		stored_energy += (pulse_strength-RAD_COLLECTOR_EFFICIENCY)*RAD_COLLECTOR_COEFFICIENT
 
 /obj/machinery/power/rad_collector/update_icon()
 	cut_overlays()
