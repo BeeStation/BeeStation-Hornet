@@ -122,10 +122,9 @@
 		for(var/A in T)
 			reagents.reaction(A)
 				qdel(src)
-	else
-		if(seed.get_gene(/datum/plant_gene/trait/noreact)
-			addtimer(CALLBACK(src, .proc/prime), rand(30, 60))
-				playsound(loc, 'sound/effects/fuse.ogg', 75, 1, -3)
+	if(seed.get_gene(/datum/plant_gene/trait/noreact)
+		addtimer(CALLBACK(src, .proc/prime), rand(30, 60))
+			playsound(loc, 'sound/effects/fuse.ogg', 75, 1, -3)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/attack_self(mob/living/user)
 	if(seed.get_gene(/datum/plant_gene/trait/noreact)
