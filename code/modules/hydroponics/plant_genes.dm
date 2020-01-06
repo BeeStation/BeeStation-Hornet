@@ -319,7 +319,7 @@
 	..()
 	ENABLE_BITFIELD(G.reagents.flags, NO_REACT)
 	
-/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/noreact/on_prime(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	DISABLE_BITFIELD(G.reagents.flags, NO_REACT)
 	G.reagents.handle_reactions()
 
