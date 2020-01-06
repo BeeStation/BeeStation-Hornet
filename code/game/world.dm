@@ -6,6 +6,8 @@ GLOBAL_VAR(restart_counter)
 //So subsystems globals exist, but are not initialised
 /world/New()
 
+	if(fexists("byond-extools.dll"))
+		call("byond-extools.dll", "install_flood_topic_filter")()
 	log_world("World loaded at [time_stamp()]!")
 
 	SetupExternalRSC()
@@ -243,6 +245,8 @@ GLOBAL_VAR(restart_counter)
 
 	log_world("World rebooted at [time_stamp()]")
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
+	if(fexists("byond-extools.dll"))
+		call("byond-extools.dll", "cleanup")()
 	..()
 
 /world/proc/update_status()
