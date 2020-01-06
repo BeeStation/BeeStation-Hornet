@@ -119,7 +119,7 @@
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
-	if(!seed.get_gene(/datum/plant_gene/trait/noreact)
+	if(!seed.get_gene(/datum/plant_gene/trait/noreact))
 		reagents.reaction(T)
 		for(var/A in T)
 			reagents.reaction(A)
