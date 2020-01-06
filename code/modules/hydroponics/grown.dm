@@ -89,6 +89,8 @@
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
 		squash(user)
+			if(seed.get_gene(/datum/plant_gene/trait/noreact)
+				user.visible_message("<span class='warning'>[user] shakes [src] vigorously!</span>", "<span class='userdanger'>You shake [src] vigorously!</span>")
 	..()
 
 /obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -123,12 +125,6 @@
 			reagents.reaction(A)
 				qdel(src)
 	if(seed.get_gene(/datum/plant_gene/trait/noreact)
-		addtimer(CALLBACK(src, .proc/prime), rand(30, 60))
-			playsound(loc, 'sound/effects/fuse.ogg', 75, 1, -3)
-
-/obj/item/reagent_containers/food/snacks/grown/proc/attack_self(mob/living/user)
-	if(seed.get_gene(/datum/plant_gene/trait/noreact)
-		user.visible_message("<span class='warning'>[user] shakes [src] vigorously!</span>", "<span class='userdanger'>You shake [src] vigorously!</span>")
 		log_bomber(user, "primed a", src, "for detonation")
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
