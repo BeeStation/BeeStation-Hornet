@@ -316,11 +316,6 @@
 	..()
 	ENABLE_BITFIELD(G.reagents.flags, NO_REACT)
 
-/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	DISABLE_BITFIELD(G.reagents.flags, NO_REACT)
-	addtimer(CALLBACK(G.reagents, /datum/reagents.proc/handle_reactions), 15) // Wait a second and a half before the chemicals reaction on SQUASH
-
-
 /datum/plant_gene/trait/maxchem
 	// 2x to max reagents volume.
 	name = "Densified Chemicals"
