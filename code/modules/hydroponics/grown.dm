@@ -89,8 +89,8 @@
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
 		squash(user)
-			if(seed.get_gene(/datum/plant_gene/trait/noreact))
-				user.visible_message("<span class='warning'>[user] shakes [src] vigorously!</span>", "<span class='userdanger'>You shake [src] vigorously!</span>")
+	if(seed.get_gene(/datum/plant_gene/trait/noreact))
+		user.visible_message("<span class='warning'>[user] shakes [src] vigorously!</span>", "<span class='userdanger'>You shake [src] vigorously!</span>")
 	..()
 
 /obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
