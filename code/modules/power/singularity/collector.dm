@@ -35,11 +35,6 @@
 /obj/machinery/power/rad_collector/Destroy()
 	return ..()
 
-
-/obj/machinery/power/rad_collector/Initialize()
-	. = ..()
-	RefreshParts()
-
 /obj/machinery/power/rad_collector/process()
 	if(!loaded_tank)
 		return
