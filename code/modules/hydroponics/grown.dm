@@ -135,7 +135,7 @@
 		
 /obj/item/reagent_containers/food/snacks/grown/proc/prime()
 	for(var/datum/plant_gene/trait/trait in seed.genes)
-		trait.on_prime(src, target)
+		trait.on_prime(src)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/On_Consume()
