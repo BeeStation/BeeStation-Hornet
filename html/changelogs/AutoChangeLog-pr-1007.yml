@@ -1,0 +1,5 @@
+author: "Altoids1"
+delete-after: True
+changes: 
+  - imageadd: "Space dolphin sprites."
+  - rscadd: "Space dolphins and a new event which causes them to spawn in pods around the station."
