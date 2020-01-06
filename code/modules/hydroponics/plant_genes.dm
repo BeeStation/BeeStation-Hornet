@@ -166,6 +166,9 @@
 
 /datum/plant_gene/trait/proc/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	return
+	
+/datum/plant_gene/trait/proc/on_prime(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+	return
 
 /datum/plant_gene/trait/proc/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
 	return
