@@ -104,6 +104,6 @@
 		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
 		affected_mob.visible_message("<span class='danger'>An unearthly roar shakes the ground as [affected_mob] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
 		a.affected_mob.hellbound = TRUE
-		affected_mob.gib()
-		playsound(m.loc,'sound/effects/tendril_destroyed.ogg', 75, 0, 50, 1, 1)
+		a.affected_mob.gib()
+		playsound(m.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
 		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
