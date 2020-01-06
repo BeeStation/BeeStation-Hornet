@@ -91,6 +91,10 @@
 		squash(user)
 	if(seed.get_gene(/datum/plant_gene/trait/noreact))
 		user.visible_message("<span class='warning'>[user] shakes [src] vigorously!</span>", "<span class='userdanger'>You shake [src] vigorously!</span>")
+		log_bomber(user, "primed a", src, "for detonation")
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			C.throw_mode_on()
 	..()
 
 /obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -125,18 +129,14 @@
 			reagents.reaction(A)
 		qdel(src)
 	if(seed.get_gene(/datum/plant_gene/trait/noreact))
-		log_bomber(user, "primed a", src, "for detonation")
-		if(iscarbon(user))
-			var/mob/living/carbon/C = user
-			C.throw_mode_on()
+		log_bomber(src, "primed for detonation")
 		playsound(loc, 'sound/effects/fuse.ogg', 75, 1, -3)
 		addtimer(CALLBACK(src, .proc/prime), rand(30, 60))
 		
 /obj/item/reagent_containers/food/snacks/grown/proc/prime()
-	if(seed.get_gene(/datum/plant_gene/trait/noreact))
-		DISABLE_BITFIELD(G.reagents.flags, NO_REACT)
-			/datum/reagents.proc/handle_reactions
-				qdel(src)
+	for(var/datum/plant_gene/trait/trait in seed.genes)
+		trait.on_prime(src, target)
+	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/On_Consume()
 	if(iscarbon(usr))
