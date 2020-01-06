@@ -67,8 +67,8 @@
 			var/bitcoins_mined = RAD_COLLECTOR_OUTPUT
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_ENG)
 			if(D)
-				D.adjust_money(bitcoins_mined*mining_conversion_rate)
-			SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, bitcoins_mined*mining_conversion_rate)
+				D.adjust_money(bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)
+			SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)
 			stored_energy-=bitcoins_mined
 
 /obj/machinery/power/rad_collector/interact(mob/user)
