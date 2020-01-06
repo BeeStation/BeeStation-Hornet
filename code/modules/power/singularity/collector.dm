@@ -24,9 +24,6 @@
 	var/locked = FALSE
 	var/drainratio = 1
 	var/powerproduction_drain = 0.001
-	var/collector_efficiency = RAD_COLLECTOR_EFFICIENCY
-	var/collector_coefficient = RAD_COLLECTOR_COEFFICIENT
-	var/mining_conversion_rate = RAD_COLLECTOR_MINING_CONVERSION_RATE
 
 	var/bitcoinproduction_drain = 0.15
 	var/bitcoinmining = FALSE
