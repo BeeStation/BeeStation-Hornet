@@ -117,18 +117,32 @@
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
+				qdel(src)
 	if(!seed.get_gene(/datum/plant_gene/trait/noreact)
 		reagents.reaction(T)
 		for(var/A in T)
 			reagents.reaction(A)
+				qdel(src)
 	else
-		if(seed.get_gene(/datum/plant_gene/trait/noreact) // so the plant doesn't just spill itself on the floor before mixing
-			addtimer(15)
-				reagents.reaction(T)
-				for(var/A in T)
-					reagents.reaction(A)
+		if(seed.get_gene(/datum/plant_gene/trait/noreact)
+			addtimer(CALLBACK(src, .proc/prime), rand(30, 60))
+				playsound(loc, 'sound/effects/fuse.ogg', 75, 1, -3)
 
-	qdel(src)
+/obj/item/reagent_containers/food/snacks/grown/proc/attack_self(mob/living/user)
+	if(seed.get_gene(/datum/plant_gene/trait/noreact)
+		user.visible_message("<span class='warning'>[user] shakes [src] vigorously!</span>", "<span class='userdanger'>You shake [src] vigorously!</span>")
+		log_bomber(user, "primed a", src, "for detonation")
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			C.throw_mode_on()
+		playsound(loc, 'sound/effects/fuse.ogg', 75, 1, -3)
+		addtimer(CALLBACK(src, .proc/prime), rand(30, 60))
+		
+/obj/item/reagent_containers/food/snacks/grown/proc/prime()
+	if(seed.get_gene(/datum/plant_gene/trait/noreact)
+		DISABLE_BITFIELD(G.reagents.flags, NO_REACT)
+			/datum/reagents.proc/handle_reactions
+				qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/On_Consume()
 	if(iscarbon(usr))
