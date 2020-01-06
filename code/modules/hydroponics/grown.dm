@@ -123,7 +123,7 @@
 		reagents.reaction(T)
 		for(var/A in T)
 			reagents.reaction(A)
-				qdel(src)
+		qdel(src)
 	if(seed.get_gene(/datum/plant_gene/trait/noreact))
 		log_bomber(user, "primed a", src, "for detonation")
 		if(iscarbon(user))
