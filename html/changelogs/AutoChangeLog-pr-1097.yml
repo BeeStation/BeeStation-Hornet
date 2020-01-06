@@ -1,0 +1,8 @@
+author: "Swindly, Wesoda25, Kriskog, MrPerson, Buggy123, Firecage"
+delete-after: True
+changes: 
+  - rscadd: "BSA can now delete singularities if you land a hit on it."
+  - bugfix: "RCD animations no longer will be sucked by the singulo while operating. Scientists Amazed."
+  - tweak: "removing encryption keys will now attempt to put them in your hand before dropping to the floor."
+  - bugfix: "Santa got their Santa school diploma (again). it will now properly spawn presents on its bag, be able to tell whats inside, but not open them. No more pulse rifle santa."
+  - bugfix: "spawner female characters no longer start with gorgeous dwarven beards."
