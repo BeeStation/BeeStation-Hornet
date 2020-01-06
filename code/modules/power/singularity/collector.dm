@@ -35,20 +35,6 @@
 /obj/machinery/power/rad_collector/Destroy()
 	return ..()
 
-/obj/machinery/power/rad_collector/RefreshParts()
-	var/coefficient = 0
-	var/efficiency = 0
-	var/miningrate = 0
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		coefficient += 2/3+M.rating/3
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		miningrate += 2/3+C.rating/3
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		efficiency += 4/3-M.rating/3
-	collector_efficiency = efficiency*RAD_COLLECTOR_EFFICIENCY
-	collector_coefficient = coefficient*RAD_COLLECTOR_COEFFICIENT
-	drainratio = 1/(coefficient*miningrate)
-	mining_conversion_rate = efficiency*miningrate*RAD_COLLECTOR_MINING_CONVERSION_RATE
 
 /obj/machinery/power/rad_collector/Initialize()
 	. = ..()
