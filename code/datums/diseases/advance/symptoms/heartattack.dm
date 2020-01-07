@@ -48,7 +48,7 @@ Bonus
 	else if(prob(2) && M.can_heartattack)
 		to_chat(M, "<span class='userdanger'>[pick("Your chest hurts!.", "You feel like your heart skipped a beat!")]</span>")
 	if(A.stage == 5)
-		if(M.getorgan(/obj/item/organ/heart) && M.can_heartattack)
+		if(M.getorgan(/obj/item/organ/heart) && A.affected_mob.can_heartattack)
 			if(prob(1))
 				M.set_heartattack(TRUE)
 				to_chat(M, "<span class='userdanger'>Your heart stops!</span>")
@@ -58,7 +58,7 @@ Bonus
 /datum/symptom/heartattack/proc/heartattack(mob/living/M, datum/disease/advance/A)
 	var/mob/living/carbon/M = A.affected_mob
 	var/obj/item/organ/heart/heart = M.getorganslot(ORGAN_SLOT_HEART)
-	if(M.getorgan(/obj/item/organ/heart) && M.undergoing_cardiac_arrest)
+	if(M.getorgan(/obj/item/organ/heart) && A.affected_mob.undergoing_cardiac_arrest)
 		heart.Remove(M)
 		qdel(heart)
 		to_chat(M, "<span class='userdanger'>Your heart bursts out of your chest! It looks furious!</span>")
