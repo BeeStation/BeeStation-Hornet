@@ -9,6 +9,8 @@
 	materials = list(/datum/material/iron=6000, /datum/material/glass=3000)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
+	tool_behaviour = TOOL_RETRACTOR
+	toolspeed = 1
 
 
 /obj/item/retractor/augment
@@ -34,6 +36,8 @@
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb = list("attacked", "pinched")
+	tool_behaviour = TOOL_HEMOSTAT
+	toolspeed = 1
 
 
 /obj/item/hemostat/augment
@@ -60,6 +64,8 @@
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb = list("burnt")
+	tool_behaviour = TOOL_CAUTERY
+	toolspeed = 1
 
 
 /obj/item/cautery/augment
@@ -87,6 +93,8 @@
 	force = 15
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("drilled")
+	tool_behaviour = TOOL_DRILL
+	toolspeed = 1
 
 /obj/item/surgicaldrill/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] rams [src] into [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -127,6 +135,8 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP_ACCURATE
+	tool_behaviour = TOOL_SCALPEL
+	toolspeed = 1
 
 /obj/item/scalpel/Initialize()
 	. = ..()
@@ -172,6 +182,8 @@
 	materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	sharpness = IS_SHARP
+	tool_behaviour = TOOL_SAW
+	toolspeed = 1
 
 /obj/item/circular_saw/Initialize()
 	. = ..()
