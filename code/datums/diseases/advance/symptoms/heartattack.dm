@@ -46,11 +46,12 @@ Bonus
 		to_chat(M, "<span class='warning'>[pick("Your chest aches.", "You need to sit down.", "You feel out of breath.")]</span>")
 	else if(prob(2) && a.affectedmob.can_heartattack)
 		to_chat(M, "<span class='userdanger'>[pick("Your chest throbs!.", "You gasp for air!.", "You feel like your heart skipped a beat")]</span>")
-	if(A.stage = 5 && prob(1) && a.affected_mob.getorgan(/obj/item/organ/heart) && a.affectedmob.can_heartattack)
-		a.affectedmob.set_heartattack(TRUE)
-		to_chat(M, "<span class='userdanger'>"Your heart stops!"</span>")
-	if(heartattack)
-		heartattack(M, A)
+	if(A.stage == 5)
+		if(prob(1) && a.affected_mob.getorgan(/obj/item/organ/heart) && a.affectedmob.can_heartattack)
+			a.affectedmob.set_heartattack(TRUE)
+			to_chat(M, "<span class='userdanger'>"Your heart stops!"</span>")
+		if(heartattack)
+			heartattack(M, A)
 
 /datum/symptom/heartattack/proc/heartattack(mob/living/M, datum/disease/advance/A)
 	var/mob/living/carbon/M = A.affected_mob
