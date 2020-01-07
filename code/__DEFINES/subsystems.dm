@@ -1,12 +1,12 @@
 //! Defines for subsystems and overlays
-//!   
+//!
 //! Lots of important stuff in here, make sure you have your brain switched on
 //! when editing this file
 
 //! ## DB defines
 /**
   * DB major schema version
-  * 
+  *
   * Update this whenever the db schema changes
   *
   * make sure you add an update to the schema_version stable in the db changelog
@@ -15,7 +15,7 @@
 
 /**
   * DB minor schema version
-  * 
+  *
   * Update this whenever the db schema changes
   *
   * make sure you add an update to the schema_version stable in the db changelog
@@ -103,6 +103,7 @@
 #define INIT_ORDER_DBCORE			95
 #define INIT_ORDER_BLACKBOX			94
 #define INIT_ORDER_SERVER_MAINT		93
+#define INIT_ORDER_FAIL2TOPIC		92
 #define INIT_ORDER_INPUT			85
 #define INIT_ORDER_VIS				80
 #define INIT_ORDER_MATERIALS		76
@@ -146,6 +147,7 @@
 #define FIRE_PRIORITY_WET_FLOORS	20
 #define FIRE_PRIORITY_AIR			20
 #define FIRE_PRIORITY_NPC			20
+#define FIRE_PRIORITY_FAIL2TOPIC	21
 #define FIRE_PRIORITY_PROCESS		25
 #define FIRE_PRIORITY_THROWING		25
 #define FIRE_PRIORITY_SPACEDRIFT	30
