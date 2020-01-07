@@ -42,10 +42,10 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	if(suppress_warning && M.can_heartattack)
+	if(suppress_warning && A.affected_mob.can_heartattack)
 		if(prob(2)) 
 			to_chat(M, "<span class='warning'>[pick("Your chest aches.", "You need to sit down.", "You feel out of breath.")]</span>")
-	else if(prob(2) && M.can_heartattack)
+	else if(prob(2) && A.affected_mob.can_heartattack)
 		to_chat(M, "<span class='userdanger'>[pick("Your chest hurts!.", "You feel like your heart skipped a beat!")]</span>")
 	if(A.stage == 5)
 		if(M.getorgan(/obj/item/organ/heart) && A.affected_mob.can_heartattack)
