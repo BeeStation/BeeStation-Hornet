@@ -33,7 +33,7 @@
 /datum/symptom/necroseed/Activate(datum/disease/advance/A)
 	if(!..())
 		return
-	var/mob/living/carbon/H = a.affected_mob
+	var/mob/living/carbon/M = a.affected_mob
 	switch(A.stage)
 	if(2)
 		if(prob(base_message_chance))
@@ -42,25 +42,25 @@
 		if(prob(base_message_chance))
 			to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")
 	if(5)
-		a.affected_mob.punchdamagelow = 5
-		a.affected_mob.punchdamagehigh = 15
-		a.affected_mob.punchstunthreshold = 11
-		a.affected_mob.brutemod = .6
-		a.affected_mob.burnmod = .6
-		a.affected_mob.heatmod = .6
-		a.affected_mob.speedmod = 1
+		M.punchdamagelow = 5
+		M.punchdamagehigh = 15
+		M.punchstunthreshold = 11
+		M.brutemod = .6
+		M.burnmod = .6
+		M.heatmod = .6
+		M.speedmod = 1
 		ADD_TRAIT(M, TRAIT_PIERCE_IMMUNITY, DISEASE_TRAIT)
 	if(fireproof)
 		ADD_TRAIT(M, TRAIT_RESISTHEAT, DISEASE_TRAIT)
 		ADD_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
-		a.affected_mob.weather_immunities |= "ash"
-		a.affected_mob.weather_immunities |= "lava"
+		M.weather_immunities |= "ash"
+		M.weather_immunities |= "lava"
 	else
 		if(prob(base_message_chance))
 			to_chat(M, "<span class='notice'>[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]</span>")
 		if(tendrils)
-			tendril
-	return
+			tendril(A)
+return
   
 /datum/symptom/necroseed/tendril(datum/disease/advance/A)
 	. = ..()
@@ -82,19 +82,19 @@
 	if(!..())
 		return
 	to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable.</span>")
-	a.affected_mob.punchdamagelow = 1
-	a.affected_mob.punchdamagehigh = 5
-	a.affected_mob.punchstunthreshold = 10
-	a.affected_mob.brutemod = 1.5
-	a.affected_mob.burnmod = 1.5
-	a.affected_mob.heatmod = 1.5
-	a.affected_mob.speedmod = 2
+	M.punchdamagelow = 1
+	M.punchdamagehigh = 5
+	M.punchstunthreshold = 10
+	M.brutemod = 1.5
+	M.burnmod = 1.5
+	M.heatmod = 1.5
+	M.speedmod = 2
 	REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCE_IMMUNITY, DISEASE_TRAIT)
 	if(fireproof)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHEAT, DISEASE_TRAIT)
-		a.affected_mob.weather_immunities |- "ash"
-		a.affected_mob.weather_immunities |- "lava"
+		M.weather_immunities |- "ash"
+		M.weather_immunities |- "lava"
 		
 /datum/symptom/necroseed/OnDeath(datum/disease/advance/A)
 	if(!..())
@@ -103,7 +103,7 @@
 		var/mob/living/M = A.affected_mob
 		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
 		affected_mob.visible_message("<span class='danger'>An unearthly roar shakes the ground as [affected_mob] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
-		a.affected_mob.hellbound = TRUE
-		a.affected_mob.gib()
+		M.hellbound = TRUE
+		M.gib()
 		playsound(m.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
 		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
