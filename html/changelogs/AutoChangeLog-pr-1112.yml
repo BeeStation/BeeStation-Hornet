@@ -1,0 +1,4 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - tweak: "adds a cooldown to area creation"
