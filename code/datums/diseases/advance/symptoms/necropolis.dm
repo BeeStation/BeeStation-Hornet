@@ -45,11 +45,11 @@
 		M.physiology.punchdamagelow = 5
 		M.physiology.punchdamagehigh = 15
 		M.physiology.punchstunthreshold = 11
-		M.physiology.brutemod = .6
-		M.physiology.burnmod = .6
-		M.physiology.heatmod = .6
+		a.affectemob.physiology.brutemod = .6
+		a.affectemob.physiology.burnmod = .6
+		a.affectemob.physiology.heatmod = .6
 		M.physiology.speedmod = 1
-		ADD_TRAIT(M, TRAIT_PIERCE_IMMUNE, DISEASE_TRAIT)
+		ADD_TRAIT(M, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 	if(fireproof)
 		ADD_TRAIT(M, TRAIT_RESISTHEAT, DISEASE_TRAIT)
 		ADD_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
@@ -85,11 +85,11 @@ return
 	M.physiology.punchdamagelow = 1
 	M.physiology.punchdamagehigh = 5
 	M.physiology.punchstunthreshold = 10
-	M.physiology.brutemod = 1.5
-	M.physiology.burnmod = 1.5
-	M.physiology.heatmod = 1.5
+	a.affectemob.physiology.brutemod = 1.5
+	a.affectemob.physiology.burnmod = 1.5
+	a.affectemob.physiology.heatmod = 1.5
 	M.physiology.speedmod = 2
-	REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCE_IMMUNE, DISEASE_TRAIT)
+	REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 	if(fireproof)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHEAT, DISEASE_TRAIT)
@@ -104,6 +104,6 @@ return
 		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
 		affected_mob.visible_message("<span class='danger'>An unearthly roar shakes the ground as [affected_mob] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
 		M.hellbound = TRUE
-		M.gib()
+		a.affectemob.gib()
 		playsound(m.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
 		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
