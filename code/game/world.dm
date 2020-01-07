@@ -156,7 +156,7 @@ GLOBAL_VAR(restart_counter)
 		response["response"] = "Rate limited."
 		return json_encode(response)
 
-	if (length(T) > CONFIG_GET(topic_max_size))
+	if (length(T) > CONFIG_GET(number/topic_max_size))
 		response["statuscode"] = 413
 		response["response"] = "Payload too large."
 		return json_encode(response)
