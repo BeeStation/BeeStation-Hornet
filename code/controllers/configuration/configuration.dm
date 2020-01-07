@@ -389,7 +389,8 @@
 			continue
 		if(findtextEx(line,"#",1,2))
 			continue
-		fail2topic_whitelisted_ips += line
+		fail2topic_whitelisted_ips += "[line]"
+		fail2topic_whitelisted_ips[line] = 1
 
 /datum/controller/configuration/proc/LoadChatFilter()
 	var/list/in_character_filter = list()
