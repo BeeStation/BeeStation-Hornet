@@ -49,7 +49,7 @@ Bonus
 	if(A.stage == 5)
 		if(prob(1) && a.affected_mob.getorgan(/obj/item/organ/heart) && a.affectedmob.can_heartattack)
 			a.affectedmob.set_heartattack(TRUE)
-			to_chat(M, "<span class='userdanger'>"Your heart stops!"</span>")
+			to_chat(M, "<span class='userdanger'>("Your heart stops!")</span>")
 		if(heartattack)
 			heartattack(M, A)
 
