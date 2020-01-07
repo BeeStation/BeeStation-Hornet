@@ -33,7 +33,7 @@
 /datum/symptom/necroseed/Activate(datum/disease/advance/A)
 	if(!..())
 		return
-	var/mob/living/M = a.affected_mob
+	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
 	if(2)
 		if(prob(base_message_chance))
@@ -42,13 +42,13 @@
 		if(prob(base_message_chance))
 			to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")
 	if(5)
-		M.physiology.punchdamagelow = 5
-		M.physiology.punchdamagehigh = 15
-		M.physiology.punchstunthreshold = 11
-		a.affectedmob.physiology.brute_mod = .6
-		a.affectedmob.physiology.burn_mod = .6
-		a.affectedmob.physiology.heat_mod = .6
-		a.affectedmob.add_movespeed_modifier(MOVESPEED_ID_NECROSLOWDOWN, update=TRUE, priority=100, multiplicative_slowdown=1)
+		A.affected_mob.punchdamagelow = 5
+		A.affected_mob.punchdamagehigh = 15
+		A.affected_mob.punchstunthreshold = 11
+		A.affected_mob.physiology.brute_mod = .6
+		A.affected_mob.physiology.burn_mod = .6
+		A.affected_mob.physiology.heat_mod = .6
+		A.affected_mob.add_movespeed_modifier(MOVESPEED_ID_NECROSLOWDOWN, update=TRUE, priority=100, multiplicative_slowdown=1)
 		ADD_TRAIT(M, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 	if(fireproof)
 		ADD_TRAIT(M, TRAIT_RESISTHEAT, DISEASE_TRAIT)
@@ -62,7 +62,7 @@
 			tendril(A)
 return
   
-/datum/symptom/necroseed/tendril(datum/disease/advance/A)
+/datum/symptom/necroseed/proc/tendril(datum/disease/advance/A)
 	. = ..()
 	if(isturf(loc))
 		if(!LAZYLEN(cached_tentacle_turfs) || loc != last_location || tentacle_recheck_cooldown <= world.time)
@@ -74,7 +74,7 @@ return
 		for(var/t in cached_tentacle_turfs)
 			if(isopenturf(t))
 				if(prob(10))
-					new /obj/effect/temp_visual/goliath_tentacle(t, a.affected_mob)
+					new /obj/effect/temp_visual/goliath_tentacle(t, A.affected_mob)
 			else
 				cached_tentacle_turfs -= t
   
