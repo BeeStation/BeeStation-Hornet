@@ -29,7 +29,7 @@
 	var/list/datum/action/actions = list()
 	/// A special action? No idea why this lives here
 	var/list/datum/action/chameleon_item_actions
-
+	
 	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here)
 	var/stat = CONSCIOUS
 
@@ -51,7 +51,9 @@
 
 	/// Tick time the mob can next move
 	var/next_move = null
-
+	
+	///prevents area creation spam
+	var/create_area_cooldown
 	/**
 	  * Magic var that stops you moving and interacting with anything
 	  * 
