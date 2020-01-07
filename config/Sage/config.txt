@@ -502,5 +502,7 @@ TOPIC_RATE_LIMIT 5
 TOPIC_MAX_FAILS 5
 ## Firewall rule name
 TOPIC_RULE_NAME "_DD_Fail2topic"
+## Max world/Topic payload size
+TOPIC_MAX_SIZE 500
 ## Uncomment to enable Fail2Topic, comment-out to disable
 #TOPIC_ENABLED

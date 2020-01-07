@@ -98,12 +98,12 @@
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
 
+#define INIT_ORDER_FAIL2TOPIC		101
 #define INIT_ORDER_TITLE			100
 #define INIT_ORDER_GARBAGE			99
 #define INIT_ORDER_DBCORE			95
 #define INIT_ORDER_BLACKBOX			94
 #define INIT_ORDER_SERVER_MAINT		93
-#define INIT_ORDER_FAIL2TOPIC		92
 #define INIT_ORDER_INPUT			85
 #define INIT_ORDER_VIS				80
 #define INIT_ORDER_MATERIALS		76
@@ -147,7 +147,6 @@
 #define FIRE_PRIORITY_WET_FLOORS	20
 #define FIRE_PRIORITY_AIR			20
 #define FIRE_PRIORITY_NPC			20
-#define FIRE_PRIORITY_FAIL2TOPIC	21
 #define FIRE_PRIORITY_PROCESS		25
 #define FIRE_PRIORITY_THROWING		25
 #define FIRE_PRIORITY_SPACEDRIFT	30

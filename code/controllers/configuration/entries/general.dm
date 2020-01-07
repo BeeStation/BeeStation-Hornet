@@ -511,4 +511,7 @@
 /datum/config_entry/string/topic_rule_name
 	config_entry_value = "_DD_Fail2topic"
 
+/datum/config_entry/number/topic_max_size
+	config_entry_value = 500
+
 /datum/config_entry/flag/topic_enabled
