@@ -51,7 +51,7 @@ Bonus
 		if(a.affected_mob.getorgan(/obj/item/organ/heart) && a.affectedmob.can_heartattack)
 			if(prob(1))
 				a.affectedmob.set_heartattack(TRUE)
-				to_chat(M, "<span class='userdanger'>"Your heart stops!"</span>")
+				to_chat(M, "<span class='userdanger'>Your heart stops!</span>")
 		if(heartattack)
 			heartattack(M, A)
 
@@ -61,7 +61,7 @@ Bonus
 	if(a.affected_mob.getorgan(/obj/item/organ/heart) && a.affected_mob.undergoing_cardiac_arrest)
 		heart.Remove(M)
 		qdel(heart)
-		to_chat(M, "<span class='userdanger'>"Your heart bursts out of your chest! It looks furious!"</span>")
+		to_chat(M, "<span class='userdanger'>Your heart bursts out of your chest! It looks furious!</span>")
 		new /mob/living/simple_animal/hostile/heart(M.loc)
 		
 	
