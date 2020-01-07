@@ -21,8 +21,8 @@
 	var/tentacle_recheck_cooldown = 100
 
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
-  if(!..())
-    return
+	if(!..())
+		return
 	if(A.properties["resistance"] >= 15)
 		tendrils = TRUE
 	if(A.properties["stealth"] >= 8)
@@ -45,7 +45,7 @@
 		a.affected_mob.punchdamagelow = 5
 		a.affected_mob.punchdamagehigh = 15
 		a.affected_mob.punchstunthreshold = 11
-        a.affected_mob.brutemod = .6
+		a.affected_mob.brutemod = .6
 		a.affected_mob.burnmod = .6
 		a.affected_mob.heatmod = .6
 		a.affected_mob.speedmod = 1
@@ -93,7 +93,7 @@
 	if(fireproof)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHEAT, DISEASE_TRAIT)
-    	a.affected_mob.weather_immunities |-= "ash"
+		a.affected_mob.weather_immunities |-= "ash"
     	a.affected_mob.weather_immunities |-= "lava"
 		
 /datum/symptom/necroseed/OnDeath(datum/disease/advance/A)
