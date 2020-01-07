@@ -82,13 +82,13 @@ return
 	if(!..())
 		return
 	to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable.</span>")
-	M.physiology.punchdamagelow = 1
-	M.physiology.punchdamagehigh = 5
-	M.physiology.punchstunthreshold = 10
-	a.affectedmob.physiology.brute_mod = 1.5
-	a.affectedmob.physiology.burn_mod = 1.5
-	a.affectedmob.physiology.heat_mod = 1.5
-	M.physiology.speedmod = 2
+	A.affected_mob.physiology.punchdamagelow = 1
+	A.affected_mob.punchdamagehigh = 5
+	A.affected_mob.punchstunthreshold = 10
+	A.affected_mob.physiology.brute_mod = 1.5
+	A.affected_mob.physiology.burn_mod = 1.5
+	A.affected_mob.physiology.heat_mod = 1.5
+	A.affected_mob.physiology.speedmod = 2
 	REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 	if(fireproof)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
