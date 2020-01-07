@@ -33,7 +33,7 @@
 /datum/symptom/necroseed/Activate(datum/disease/advance/A)
 	if(!..())
 		return
-	var/mob/living/carbon/M = a.affected_mob
+	var/mob/living/M = a.affected_mob
 	switch(A.stage)
 	if(2)
 		if(prob(base_message_chance))
@@ -45,9 +45,9 @@
 		M.physiology.punchdamagelow = 5
 		M.physiology.punchdamagehigh = 15
 		M.physiology.punchstunthreshold = 11
-		a.affectemob.physiology.brutemod = .6
-		a.affectemob.physiology.burnmod = .6
-		a.affectemob.physiology.heatmod = .6
+		a.affectedmob.physiology.brutemod = .6
+		a.affectedmob.physiology.burnmod = .6
+		a.affectedmob.physiology.heatmod = .6
 		M.physiology.speedmod = 1
 		ADD_TRAIT(M, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 	if(fireproof)
@@ -85,16 +85,16 @@ return
 	M.physiology.punchdamagelow = 1
 	M.physiology.punchdamagehigh = 5
 	M.physiology.punchstunthreshold = 10
-	a.affectemob.physiology.brutemod = 1.5
-	a.affectemob.physiology.burnmod = 1.5
-	a.affectemob.physiology.heatmod = 1.5
+	a.affectedmob.physiology.brutemod = 1.5
+	a.affectedmob.physiology.burnmod = 1.5
+	a.affectedmob.physiology.heatmod = 1.5
 	M.physiology.speedmod = 2
 	REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 	if(fireproof)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHEAT, DISEASE_TRAIT)
-		M.weather_immunities |- "ash"
-		M.weather_immunities |- "lava"
+		M.weather_immunities -= "ash"
+		M.weather_immunities -= "lava"
 		
 /datum/symptom/necroseed/OnDeath(datum/disease/advance/A)
 	if(!..())
@@ -104,6 +104,6 @@ return
 		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
 		affected_mob.visible_message("<span class='danger'>An unearthly roar shakes the ground as [affected_mob] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
 		M.hellbound = TRUE
-		a.affectemob.gib()
+		a.affectedmob.gib()
 		playsound(m.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
 		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
