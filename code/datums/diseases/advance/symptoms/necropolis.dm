@@ -42,14 +42,14 @@
 		if(prob(base_message_chance))
 			to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")
 	if(5)
-		M.punchdamagelow = 5
-		M.punchdamagehigh = 15
-		M.punchstunthreshold = 11
-		M.brutemod = .6
-		M.burnmod = .6
-		M.heatmod = .6
-		M.speedmod = 1
-		ADD_TRAIT(M, TRAIT_PIERCE_IMMUNITY, DISEASE_TRAIT)
+		M.physiology.punchdamagelow = 5
+		M.physiology.punchdamagehigh = 15
+		M.physiology.punchstunthreshold = 11
+		M.physiology.brutemod = .6
+		M.physiology.burnmod = .6
+		M.physiology.heatmod = .6
+		M.physiology.speedmod = 1
+		ADD_TRAIT(M, TRAIT_PIERCE_IMMUNE, DISEASE_TRAIT)
 	if(fireproof)
 		ADD_TRAIT(M, TRAIT_RESISTHEAT, DISEASE_TRAIT)
 		ADD_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
@@ -82,14 +82,14 @@ return
 	if(!..())
 		return
 	to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable.</span>")
-	M.punchdamagelow = 1
-	M.punchdamagehigh = 5
-	M.punchstunthreshold = 10
-	M.brutemod = 1.5
-	M.burnmod = 1.5
-	M.heatmod = 1.5
-	M.speedmod = 2
-	REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCE_IMMUNITY, DISEASE_TRAIT)
+	M.physiology.punchdamagelow = 1
+	M.physiology.punchdamagehigh = 5
+	M.physiology.punchstunthreshold = 10
+	M.physiology.brutemod = 1.5
+	M.physiology.burnmod = 1.5
+	M.physiology.heatmod = 1.5
+	M.physiology.speedmod = 2
+	REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCE_IMMUNE, DISEASE_TRAIT)
 	if(fireproof)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHEAT, DISEASE_TRAIT)
