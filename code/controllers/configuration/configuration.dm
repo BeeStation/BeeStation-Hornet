@@ -378,6 +378,7 @@
 	return runnable_modes
 
 /datum/controller/configuration/proc/LoadTopicRateWhitelist()
+	LAZYINITLIST(fail2topic_whitelisted_ips)
 	if(!fexists("[directory]/topic_rate_limit_whitelist.txt"))
 		log_config("Error 404: topic_rate_limit_whitelist.txt not found!")
 		return
