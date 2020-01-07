@@ -53,8 +53,8 @@
 	if(fireproof)
 		ADD_TRAIT(M, TRAIT_RESISTHEAT, DISEASE_TRAIT)
 		ADD_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
-		a.affected_mob.weather_immunities |+= "ash"
-		a.affected_mob.weather_immunities |+= "lava"
+		a.affected_mob.weather_immunities |= "ash"
+		a.affected_mob.weather_immunities |= "lava"
 	else
 		if(prob(base_message_chance))
 			to_chat(M, "<span class='notice'>[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]</span>")
@@ -93,8 +93,8 @@
 	if(fireproof)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 		REMOVE_TRAIT(A.affected_mob, TRAIT_RESISTHEAT, DISEASE_TRAIT)
-		a.affected_mob.weather_immunities |-= "ash"
-    	a.affected_mob.weather_immunities |-= "lava"
+		a.affected_mob.weather_immunities |- "ash"
+    	a.affected_mob.weather_immunities |- "lava"
 		
 /datum/symptom/necroseed/OnDeath(datum/disease/advance/A)
 	if(!..())
