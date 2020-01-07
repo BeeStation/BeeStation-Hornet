@@ -293,6 +293,7 @@
 		return TRUE
 	return
 
+
 /obj/item/scalpel/advanced
 	name = "laser scalpel"
 	desc = "An advanced scalpel which uses laser technology to cut."
@@ -348,6 +349,19 @@
 	. += " It resembles a retractor[tool_behaviour == TOOL_RETRACTOR ? "retractor" : "hemostat"]."
 
 /obj/item/surgicaldrill/advanced
+	name = "searing tool"
+	desc = "It projects a high power laser used for medical application."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "surgicaldrill_a"
+	hitsound = 'sound/items/welder.ogg'
+	toolspeed = 0.7
+	light_color = LIGHT_COLOR_RED
+
+/obj/item/surgicaldrill/advanced/Initialize()
+	. = ..()
+	set_light(1)
+
+/obj/item/surgicaldrill/advanced/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/weapons/tap.ogg', 50, TRUE)
 	if(tool_behaviour == TOOL_DRILL)
 		tool_behaviour = TOOL_CAUTERY
