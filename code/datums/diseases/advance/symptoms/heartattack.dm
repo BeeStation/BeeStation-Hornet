@@ -42,14 +42,16 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	if(suppress_warning && prob(2) && a.affectedmob.can_heartattack)
-		to_chat(M, "<span class='warning'>[pick("Your chest aches.", "You need to sit down.", "You feel out of breath.")]</span>")
+	if(suppress_warning && a.affectedmob.can_heartattack)
+		ifprob(2) 
+			to_chat(M, "<span class='warning'>[pick("Your chest aches.", "You need to sit down.", "You feel out of breath.")]</span>")
 	else if(prob(2) && a.affectedmob.can_heartattack)
 		to_chat(M, "<span class='userdanger'>[pick("Your chest hurts!.", "You feel like your heart skipped a beat!")]</span>")
 	if(A.stage == 5)
-		if(prob(1) && a.affected_mob.getorgan(/obj/item/organ/heart) && a.affectedmob.can_heartattack)
-			a.affectedmob.set_heartattack(TRUE)
-			to_chat(M, "<span class='userdanger'>"Your heart stops!"</span>")
+		if(a.affected_mob.getorgan(/obj/item/organ/heart) && a.affectedmob.can_heartattack)
+			prob(1)
+				a.affectedmob.set_heartattack(TRUE)
+				to_chat(M, "<span class='userdanger'>"Your heart stops!"</span>")
 		if(heartattack)
 			heartattack(M, A)
 
