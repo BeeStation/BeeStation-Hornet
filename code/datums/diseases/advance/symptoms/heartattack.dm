@@ -41,7 +41,7 @@ Bonus
 /datum/symptom/heartattack/Activate(datum/disease/advance/A)
 	if(!..())
 		return
-	var/mob/living/carbon/M = A.affected_mob
+	var/mob/living/carbon/H = A.affected_mob
 	if(suppress_warning && a.affectedmob.can_heartattack)
 		if(prob(2)) 
 			to_chat(M, "<span class='warning'>[pick("Your chest aches.", "You need to sit down.", "You feel out of breath.")]</span>")
