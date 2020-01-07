@@ -45,10 +45,10 @@
 		M.physiology.punchdamagelow = 5
 		M.physiology.punchdamagehigh = 15
 		M.physiology.punchstunthreshold = 11
-		a.affectedmob.physiology.brutemod = .6
-		a.affectedmob.physiology.burnmod = .6
-		a.affectedmob.physiology.heatmod = .6
-		M.physiology.speedmod = 1
+		a.affectedmob.physiology.brute_mod = .6
+		a.affectedmob.physiology.burn_mod = .6
+		a.affectedmob.physiology.heat_mod = .6
+		a.affectedmob.add_movespeed_modifier(MOVESPEED_ID_NECROSLOWDOWN, update=TRUE, priority=100, multiplicative_slowdown=1)
 		ADD_TRAIT(M, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 	if(fireproof)
 		ADD_TRAIT(M, TRAIT_RESISTHEAT, DISEASE_TRAIT)
@@ -85,9 +85,9 @@ return
 	M.physiology.punchdamagelow = 1
 	M.physiology.punchdamagehigh = 5
 	M.physiology.punchstunthreshold = 10
-	a.affectedmob.physiology.brutemod = 1.5
-	a.affectedmob.physiology.burnmod = 1.5
-	a.affectedmob.physiology.heatmod = 1.5
+	a.affectedmob.physiology.brute_mod = 1.5
+	a.affectedmob.physiology.burn_mod = 1.5
+	a.affectedmob.physiology.heat_mod = 1.5
 	M.physiology.speedmod = 2
 	REMOVE_TRAIT(A.affected_mob, TRAIT_PIERCEIMMUNE, DISEASE_TRAIT)
 	if(fireproof)
