@@ -58,6 +58,7 @@ Bonus
 	var/obj/item/organ/heart/heart = M.getorganslot(ORGAN_SLOT_HEART)
 	if(a.affected_mob.getorgan(/obj/item/organ/heart) && a.affected_mob.undergoing_cardiac_arrest)
 		heart.Remove(M)
+		qdel(heart)
 		to_chat(M, "<span class='userdanger'>"Your heart bursts out of your chest! It looks furious!"</span>")
 		new /mob/living/simple_animal/hostile/heart(M.loc)
 		
