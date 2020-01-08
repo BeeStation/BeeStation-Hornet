@@ -49,7 +49,7 @@ Bonus
 		to_chat(M, "<span class='userdanger'>[pick("Your chest hurts!.", "You feel like your heart skipped a beat!")]</span>")
 	if(A.stage == 5)
 		if(M.getorgan(/obj/item/organ/heart) && M.can_heartattack)
-			if(prob(1))
+			if(prob(.5))
 				M.set_heartattack(TRUE)
 				to_chat(M, "<span class='userdanger'>Your heart stops!</span>")
 		if(heartattack)
