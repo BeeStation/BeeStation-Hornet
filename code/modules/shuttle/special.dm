@@ -214,15 +214,13 @@
 	var/static/list/check_times = list()
 	var/list/payees = list()
 
-/obj/effect/forcefield/luxury_shuttle/CanPass(atom/movable/mover, turf/target)
+/obj/effect/forcefield/luxury_shuttle/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(mover in approved_passengers)
 		return TRUE
 
 	if(!isliving(mover)) //No stowaways
 		return FALSE
-
-	return FALSE
-
 
 #define LUXURY_MESSAGE_COOLDOWN 100
 /obj/effect/forcefield/luxury_shuttle/Bumped(atom/movable/AM)
