@@ -16,15 +16,6 @@
 	symptoms = list(new/datum/symptom/cough)
 	..()
 
-// necro seed for tendril chests
-/datum/disease/advance/Necropolis
-	copy_type = /datum/disease/advance
-	
-/datum/disease/advance/Necropolis/New()
-	name = "Necropolis Seed"
-	symptoms = list(new/datum/symptom/necroseed)
-	..()
-
 //Randomly generated Disease, for virus crates and events
 /datum/disease/advance/random
 	name = "Experimental Disease"
