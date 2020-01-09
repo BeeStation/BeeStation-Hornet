@@ -76,8 +76,10 @@
 		return FALSE
 	if(!owner)
 		return FALSE
-	if(!owner.can_speak())
-		return FALSE
+	if(isliving(owner))
+		var/mob/living/L = owner
+		if(!L.can_speak_vocal())
+			return FALSE
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
 			return FALSE
@@ -102,7 +104,7 @@
 		return FALSE
 	if(!owner)
 		return FALSE
-	if(!owner.can_speak())
+	if(!owner.can_speak_vocal())
 		to_chat(owner, "<span class='warning'>You are unable to speak!</span>")
 		return FALSE
 	return TRUE
