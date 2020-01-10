@@ -30,7 +30,7 @@
 	if(prob(10 + (5 * max_severity)))
 		advanced_virus = FALSE // more chance at a special disease the more time passes. more common than dangerous diseases. 50% chance of a special disease at 40 minutes
 
-	if(!virus_type && !advanced_virus && dangerous_disease)
+	if(!virus_type && !advanced_virus && dangerous_virus)
 		virus_type = pick(/datum/disease/dnaspread, /datum/disease/brainrot, /datum/disease/rhumba_beat, /datum/disease/gastrolosis, /datum/disease/wizarditis)
 
 	if(!virus_type && !advanced_virus)
