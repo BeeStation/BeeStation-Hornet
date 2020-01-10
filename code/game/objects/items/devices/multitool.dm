@@ -30,10 +30,6 @@
 	usesound = 'sound/weapons/empty.ogg'
 	var/mode = 0
 
-/obj/item/multitool/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>Its buffer [buffer ? "contains [buffer]." : "is empty."]</span>"
-
 /obj/item/multitool/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] puts the [src] to [user.p_their()] chest. It looks like [user.p_theyre()] trying to pulse [user.p_their()] heart off!</span>")
 	return OXYLOSS//theres a reason it wasnt recommended by doctors
@@ -44,11 +40,11 @@
 
 //I know copypasting it and overwriting the old procs is a pretty rough thing to do, but hey, it's the simplest and most effective
 /obj/item/multitool/examine(mob/user)
-	..()
+	. = ..()
 	if(selected_io)
-		to_chat(user, "<span class='notice'>Activate [src] to detach the data wire.</span>")
+		. += "<span class='notice'>Activate [src] to detach the data wire.</span>"
 	if(buffer)
-		to_chat(user, "<span class='notice'>Its buffer contains [buffer].</span>")
+		. += "<span class='notice'>Its buffer contains [buffer].</span>"
 
 /obj/item/multitool/attack_self(mob/user)
 	if(selected_io)

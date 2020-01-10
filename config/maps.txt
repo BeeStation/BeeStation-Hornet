@@ -30,7 +30,7 @@ map pubbystation
 endmap
 
 map deltastation
-	minplayers 80
+	minplayers 50
 	votable
 endmap
 

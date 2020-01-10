@@ -23,6 +23,8 @@
 	var/static/regex/ic_filter_regex
 	var/static/regex/ooc_filter_regex
 
+	var/list/fail2topic_whitelisted_ips
+
 /datum/controller/configuration/proc/admin_reload()
 	if(IsAdminAdvancedProcCall())
 		return
@@ -53,6 +55,7 @@
 					LoadEntries(J)
 				break
 	loadmaplist(CONFIG_MAPS_FILE)
+	LoadTopicRateWhitelist()
 	LoadMOTD()
 	LoadChatFilter()
 
@@ -373,6 +376,22 @@
 				continue
 			runnable_modes[M] = probabilities[M.config_tag]
 	return runnable_modes
+
+/datum/controller/configuration/proc/LoadTopicRateWhitelist()
+	LAZYINITLIST(fail2topic_whitelisted_ips)
+	if(!fexists("[directory]/topic_rate_limit_whitelist.txt"))
+		log_config("Error 404: topic_rate_limit_whitelist.txt not found!")
+		return
+
+	log_config("Loading config file topic_rate_limit_whitelist.txt...")
+
+	for(var/line in world.file2list("[directory]/topic_rate_limit_whitelist.txt"))
+		if(!line)
+			continue
+		if(findtextEx(line,"#",1,2))
+			continue
+
+		fail2topic_whitelisted_ips[line] = 1
 
 /datum/controller/configuration/proc/LoadChatFilter()
 	var/list/in_character_filter = list()
