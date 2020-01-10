@@ -1,4 +1,7 @@
-#define TICK_LIMIT_RUNNING 80
+var/internal_tick_usage = 0.2 * world.tick_lag //if you find a better place for this please let me know
+
+#define MAPTICK_LAST_INTERNAL_TICK_USAGE ((internal_tick_usage / world.tick_lag) * 100) //internal_tick_usage is updated every tick by extools
+#define TICK_LIMIT_RUNNING (max(90 - MAPTICK_LAST_INTERNAL_TICK_USAGE, 40))
 #define TICK_LIMIT_TO_RUN 70
 #define TICK_LIMIT_MC 70
 #define TICK_LIMIT_MC_INIT_DEFAULT 98
