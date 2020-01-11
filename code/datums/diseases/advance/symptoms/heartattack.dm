@@ -33,7 +33,7 @@ Bonus
 /datum/symptom/heartattack/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmission"] >= 10)
+	if(A.properties["transmittable"] >= 10)
 		heartattack = TRUE
 	if(A.properties["stealth"] >= 2)
 		suppress_warning = TRUE
