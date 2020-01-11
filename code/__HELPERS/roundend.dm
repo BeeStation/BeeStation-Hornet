@@ -203,13 +203,16 @@
 						if(CO.check_completion())
 							C.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
 							break
-					
+
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
 	log_game("The round has ended.")
 	if(LAZYLEN(GLOB.round_end_notifiees))
 		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
-	
+
 	RollCredits()
+
+	ready_for_reboot = TRUE
+	standard_reboot()
 
 	var/popcount = gather_roundend_feedback()
 	display_report(popcount)
@@ -265,9 +268,6 @@
 	if(CONFIG_GET(flag/automapvote))
 		SSvote.initiate_vote("map", "BeeBot", forced=TRUE, popup=TRUE) //automatic map voting
 
-	sleep(50)
-	ready_for_reboot = TRUE
-	standard_reboot()
 
 /datum/controller/subsystem/ticker/proc/standard_reboot()
 	if(ready_for_reboot)
