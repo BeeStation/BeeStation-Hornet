@@ -45,7 +45,7 @@
 	if (new_charging)
 		START_PROCESSING(SSmachines, src)
 		use_power = ACTIVE_POWER_USE
-		update_icon(scan = TRUE)
+		update_icon()
 	else
 		use_power = IDLE_POWER_USE
 		update_icon()
@@ -157,15 +157,15 @@
 				B.cell.charge = 0
 
 
-/obj/machinery/recharger/update_icon(scan)	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
+/obj/machinery/recharger/update_icon_state(scan)
 	if(stat & (NOPOWER|BROKEN) || !anchored)
-		icon_state = "rechargeroff"
-		return
-	if(scan)
 		icon_state = "rechargeroff"
 		return
 	if(panel_open)
 		icon_state = "rechargeropen"
+		return
+	if(scan)
+		icon_state = "rechargeroff"
 		return
 	if(charging)
 		if(using_power)

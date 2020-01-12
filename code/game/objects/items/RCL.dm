@@ -31,6 +31,7 @@
 /obj/item/rcl/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed)
+	AddElement(/datum/element/update_icon_updates_onmob)
 
 /// triggered on wield of two handed item
 /obj/item/rcl/proc/on_wield(obj/item/source, mob/user)
@@ -111,7 +112,7 @@
 	QDEL_NULL(wiring_gui_menu)
 	return ..()
 
-/obj/item/rcl/update_icon()
+/obj/item/rcl/update_icon_state()
 	if(!loaded)
 		icon_state = "rcl-0"
 		item_state = "rcl-0"
@@ -330,7 +331,7 @@
 	name = "makeshift rapid cable layer"
 	ghetto = TRUE
 
-/obj/item/rcl/ghetto/update_icon()
+/obj/item/rcl/ghetto/update_icon_state()
 	if(!loaded)
 		icon_state = "rclg-0"
 		item_state = "rclg-0"

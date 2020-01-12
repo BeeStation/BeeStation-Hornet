@@ -155,8 +155,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	sides = 100
 
-/obj/item/dice/d100/update_icon()
-	return
+/obj/item/dice/d100/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/update_icon_blocker)
 
 /obj/item/dice/eightbd20
 	name = "strange d20"

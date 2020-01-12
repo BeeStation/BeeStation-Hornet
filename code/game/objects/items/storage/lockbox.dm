@@ -32,12 +32,14 @@
 				icon_state = "[base_icon_state]+l"
 				item_state = "[base_icon_state]+l"
 				to_chat(user, "<span class='danger'>You lock the [src.name]!</span>")
+				update_icon()
 				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
 				return
 			else
 				icon_state = "[base_icon_state]"
 				item_state = "[base_icon_state]"
 				to_chat(user, "<span class='danger'>You unlock the [src.name]!</span>")
+				update_icon()
 				return
 		else
 			to_chat(user, "<span class='danger'>Access Denied.</span>")
@@ -117,12 +119,10 @@
 		new /obj/item/clothing/accessory/medal/conduct(src)
 
 /obj/item/storage/lockbox/medal/update_icon()
-	cut_overlays()
 	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
 	if(locked)
 		icon_state = "[base_icon_state]+l"
 		item_state = "[base_icon_state]+l"
-		open = FALSE
 	else
 		icon_state = "[base_icon_state]"
 		item_state = "[base_icon_state]"
@@ -131,16 +131,24 @@
 		if(broken)
 			icon_state += "+b"
 			item_state = "[base_icon_state]+b"
-		if(contents && open)
-			for (var/i in 1 to contents.len)
-				var/obj/item/clothing/accessory/medal/M = contents[i]
-				var/mutable_appearance/medalicon = mutable_appearance(initial(icon), M.medaltype)
-				if(i > 1 && i <= 5)
-					medalicon.pixel_x += ((i-1)*4)
-				else if(i > 5)
-					medalicon.pixel_y -= 7
-					medalicon.pixel_x += ((i-6)*4)
-				add_overlay(medalicon)
+
+/obj/item/storage/lockbox/medal/update_overlays()
+	. = ..()
+	if(!contents || !open)
+		return
+	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
+	if(locked)
+		return
+	for(var/i in 1 to contents.len)
+		var/obj/item/clothing/accessory/medal/M = contents[i]
+		var/mutable_appearance/medalicon = mutable_appearance(initial(icon), M.medaltype)
+		if(i > 1 && i <= 5)
+			medalicon.pixel_x += ((i-1)*3)
+		else if(i > 5)
+			medalicon.pixel_y -= 7
+			medalicon.pixel_x -= 2
+			medalicon.pixel_x += ((i-6)*3)
+		. += medalicon
 
 /obj/item/storage/lockbox/medal/sec
 	name = "security medal box"

@@ -20,6 +20,9 @@
 	handedness = prob(50)
 	icon_state = "cursehand[handedness]"
 
+/obj/item/projectile/curse_hand/update_icon_state()
+	icon_state = "[initial(icon_state)][handedness]"
+
 /obj/item/projectile/curse_hand/fire(setAngle)
 	if(starting)
 		arm = starting.Beam(src, icon_state = "curse[handedness]", time = INFINITY, maxdistance = INFINITY, beam_type=/obj/effect/ebeam/curse_arm)

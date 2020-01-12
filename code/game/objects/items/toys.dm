@@ -48,6 +48,10 @@
 	. = ..()
 	create_reagents(10)
 
+/obj/item/toy/balloon/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
+
 /obj/item/toy/balloon/attack(mob/living/carbon/human/M, mob/user)
 	return
 
@@ -102,7 +106,7 @@
 		icon_state = "burst"
 		qdel(src)
 
-/obj/item/toy/balloon/update_icon()
+/obj/item/toy/balloon/update_icon_state()
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
 		item_state = "balloon"
@@ -222,8 +226,8 @@
 	materials = list(/datum/material/iron=10, /datum/material/glass=10)
 	var/amount_left = 7
 
-/obj/item/toy/ammo/gun/update_icon()
-	src.icon_state = text("357OLD-[]", src.amount_left)
+/obj/item/toy/ammo/gun/update_icon_state()
+	icon_state = "357OLD-[amount_left]"
 
 /obj/item/toy/ammo/gun/examine(mob/user)
 	. = ..()
@@ -740,7 +744,7 @@
 	user.visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
 	update_icon()
 
-/obj/item/toy/cards/deck/update_icon()
+/obj/item/toy/cards/deck/update_icon_state()
 	if(LAZYLEN(cards) > original_size/2)
 		icon_state = "deck_[deckstyle]_full"
 	else if(LAZYLEN(cards) > original_size/4)

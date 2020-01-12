@@ -41,7 +41,7 @@
 	if(charged < 5)
 		charged++
 
-/obj/item/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/singularityhammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "singularity_hammer0"
 
 /obj/item/singularityhammer/proc/vortex(turf/pull, mob/wielder)
@@ -126,6 +126,6 @@
 	if(isliving(hit_atom))
 		shock(hit_atom)
 
-/obj/item/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/mjollnir/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir0"
 	..()
