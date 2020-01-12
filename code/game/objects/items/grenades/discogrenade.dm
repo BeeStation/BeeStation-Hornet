@@ -1,0 +1,113 @@
+//Ethereal Disco Grenade for Ethereal traitors
+//Does not affect ethereals.
+//Some basic code peices taken from flashbang, spawner grenade and ethereal disco ball for functionality (basically a combination of the 3).
+
+//////////////////////
+// Primary grenade  //
+//////////////////////
+
+/obj/item/grenade/discogrenade
+	name = "Ethereal Disco Grenade"
+	desc = "An unethical micro-party that will make all non-ethereal beings dance to its beat!"
+	icon_state = "flashbang"
+	item_state = "flashbang"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+
+/obj/item/grenade/discogrenade/prime()
+	update_mob()
+	var/current_turf = get_turf(src)
+	if(!current_turf)
+		return
+
+	playsound(current_turf, 'sound/weapons/flashbang.ogg', 100, TRUE, 8, 0.9)
+
+	new /obj/structure/etherealball(current_turf)
+
+	for(var/i = 0; i < 6; i ++)
+		new /obj/item/grenade/discogrenade/subgrenade(current_turf, TRUE)
+
+	qdel(src)
+
+//////////////////////
+//   Sub grenades   //
+//////////////////////
+
+/obj/item/grenade/discogrenade/subgrenade
+	name = "Micro Disco"
+	desc = "A mini disco contained in a tiny package!"
+	icon_state = "flashbang"
+	item_state = "flashbang"
+	var/spawn_new = TRUE
+	var/timerID
+	var/lightcolor
+	var/range = 5
+	var/power = 3
+
+/obj/item/grenade/discogrenade/subgrenade/Initialize(mapload, duplicate = FALSE)
+	. = ..()
+	active = TRUE
+	spawn_new = duplicate
+	icon_state = initial(icon_state) + "_active"
+	var/launch_distance = rand(2, 6)
+	for(var/i in 1 to launch_distance)
+		step_away(src, loc)
+	addtimer(CALLBACK(src, .proc/prime), rand(10, 60))
+	randomiseLightColor()
+
+/obj/item/grenade/discogrenade/subgrenade/prime()
+	update_mob()
+	var/current_turf = get_turf(src)
+	if(!current_turf)
+		return
+
+	playsound(current_turf, 'sound/weapons/flashbang.ogg', 30, TRUE, 8, 0.9)
+	playsound(current_turf, pick('sound/instruments/accordion/Dn2.mid', 'sound/instruments/bikehorn/Cn3.ogg', 'sound/instruments/piano/Dn7.ogg', 'sound/instruments/violin/Cn3.mid'), 100, TRUE, 8, 0.9)
+
+	if(spawn_new)
+		for(var/i = 0; i < 3; i ++)
+			new /obj/item/grenade/discogrenade/subgrenade(current_turf)
+
+	//Create the lights
+	new /obj/effect/dummy/lighting_obj (current_turf, rand_hex_color(), 4, 1, 10)
+
+	for(var/mob/living/carbon/human/M in view(4))
+		forcedance(get_turf(M), M)
+	qdel(src)
+
+/obj/item/grenade/discogrenade/subgrenade/proc/randomiseLightColor()
+	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
+	lightcolor = random_color()
+	set_light(range, power, lightcolor)
+	add_atom_colour("#[lightcolor]", FIXED_COLOUR_PRIORITY)
+	update_icon()
+	timerID = addtimer(CALLBACK(src, .proc/randomiseLightColor), 2, TIMER_STOPPABLE)
+
+/obj/item/grenade/discogrenade/subgrenade/proc/forcedance(turf/T , mob/living/carbon/human/M)
+	if(!T)
+		return
+
+	if(M.stat != CONSCIOUS)	//Only conscious people can dance
+		return
+
+	if(!M || M.dna.species.id == "ethereal")	//Non humans and non etherals can't dance
+		return
+
+	var/distance = max(0,get_dist(get_turf(src),T))
+	if(distance > 2.5)
+		return
+
+	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
+		M.show_message("<span class='warning'>You resist your inner urges to break out your best moves.</span>", 2)
+		M.set_drugginess(5)
+		return
+
+	M.set_drugginess(10)
+	M.emote("dance")
+	M.show_message("<span class='warning'>You feel a strong rythme and your muscles spasm uncontrollably, you begin dancing and cannot move!</span>", 2)
+	M.emote("spin")
+	M.Immobilize(30)
+
+	if(rand(0, 2) == 0)
+		M.Knockdown(4)
+		M.show_message("<span class='warning'>You [pick("mess", "screw")] up your moves and trip!</span>", 2)
