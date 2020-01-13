@@ -35,14 +35,6 @@
 	lose_text = "<span class='danger'>You no longer feel like drinking would ease your pain.</span>"
 	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
 
-/datum/quirk/empath
-	name = "Empath"
-	desc = "Whether it's a sixth sense or careful study of body language, it only takes you a quick glance at someone to understand how they feel."
-	value = 2
-	mob_trait = TRAIT_EMPATH
-	gain_text = "<span class='notice'>You feel in tune with those around you.</span>"
-	lose_text = "<span class='danger'>You feel isolated from others.</span>"
-
 /datum/quirk/freerunning
 	name = "Freerunning"
 	desc = "You're great at quick moves! You can climb tables more quickly."
