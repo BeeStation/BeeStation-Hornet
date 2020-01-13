@@ -1,0 +1,7 @@
+author: "jlsnow301"
+delete-after: True
+changes: 
+  - rscadd: "RPD's are now in Pubby SM room."
+  - rscadd: "New cryogenic sleeper in Medbay for those pesky SSD clones."
+  - tweak: "Fixed a power cable running into the NW solar."
+  - tweak: "Coolant piping for SM is now very similar to other maps."
