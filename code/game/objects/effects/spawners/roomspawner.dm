@@ -1,3 +1,5 @@
+//random room spawner. takes random rooms from their appropriate map file and places them. the room will spawn with the spawner in the bottom left corner
+
 /obj/effect/spawner/room
 	name = "random room spawner"
 	icon = 'icons/effects/landmarks_static.dmi'
