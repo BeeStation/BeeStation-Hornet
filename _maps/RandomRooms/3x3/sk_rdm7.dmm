@@ -1,0 +1,10 @@
+"a" = (/obj/effect/decal/cleanable/cobweb,/turf/open/floor/plating,/area/template_noop)
+"b" = (/turf/open/floor/plating,/area/template_noop)
+"c" = (/obj/effect/decal/cleanable/vomit,/obj/effect/decal/cleanable/blood/old,/turf/open/floor/plating,/area/template_noop)
+"d" = (/obj/effect/decal/cleanable/greenglow,/turf/open/floor/plating,/area/template_noop)
+
+(1,1,1) = {"
+abc
+bdb
+bbb
+"}

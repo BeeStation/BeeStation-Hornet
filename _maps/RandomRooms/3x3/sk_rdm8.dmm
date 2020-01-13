@@ -1,0 +1,9 @@
+"a" = (/obj/effect/spawner/lootdrop/maintenance/six,/obj/structure/closet/crate,/obj/machinery/light/small{icon_state = "bulb"; dir = 1},/turf/open/floor/plating,/area/template_noop)
+"b" = (/turf/open/floor/plating,/area/template_noop)
+"c" = (/obj/effect/spawner/lootdrop/maintenance/three,/obj/structure/closet/crate,/turf/open/floor/plating,/area/template_noop)
+
+(1,1,1) = {"
+abb
+bbb
+bbc
+"}

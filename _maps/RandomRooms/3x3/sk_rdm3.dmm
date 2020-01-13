@@ -1,0 +1,9 @@
+"a" = (/obj/effect/decal/cleanable/glitter/pink,/turf/open/floor/plating{icon_state = "panelscorched"},/area/template_noop)
+"b" = (/obj/machinery/igniter,/obj/effect/decal/cleanable/glitter/pink,/turf/open/floor/plating{icon_state = "panelscorched"},/area/space)
+"c" = (/obj/item/stack/sheet/iron,/obj/item/stack/cable_coil/cut,/obj/effect/decal/cleanable/glitter/pink,/turf/open/floor/plating{icon_state = "panelscorched"},/area/template_noop)
+
+(1,1,1) = {"
+aac
+aba
+aaa
+"}

@@ -1,0 +1,11 @@
+"a" = (/obj/machinery/washing_machine,/obj/machinery/light/small{dir = 8},/turf/open/floor/plating,/area/template_noop)
+"b" = (/turf/open/floor/plating,/area/template_noop)
+"c" = (/obj/machinery/washing_machine,/turf/open/floor/plating,/area/template_noop)
+"d" = (/obj/structure/closet/crate/trashcart,/obj/item/clothing/neck/scarf/black,/obj/item/clothing/neck/scarf/purple,/obj/item/clothing/neck/scarf/yellow,/obj/item/clothing/neck/tie/black,/obj/item/clothing/neck/tie/black,/obj/item/clothing/suit/bluetag,/obj/item/clothing/suit/bluetag,/obj/item/clothing/suit/redtag,/turf/open/floor/plating,/area/template_noop)
+"e" = (/obj/machinery/washing_machine,/obj/item/clothing/shoes/wheelys,/obj/item/clothing/shoes/laceup{pixel_y = 5},/turf/open/floor/plating,/area/template_noop)
+
+(1,1,1) = {"
+abc
+bbd
+ebc
+"}

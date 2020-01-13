@@ -1,0 +1,12 @@
+"a" = (/obj/structure/closet/radiation,/obj/effect/decal/cleanable/glitter/white,/turf/open/floor/plating,/area/template_noop)
+"b" = (/obj/effect/decal/cleanable/glitter/white,/turf/open/floor/plating,/area/template_noop)
+"c" = (/obj/structure/closet/firecloset,/obj/effect/decal/cleanable/glitter/white,/turf/open/floor/plating,/area/template_noop)
+"d" = (/obj/effect/decal/cleanable/blood/old,/obj/effect/decal/cleanable/glitter/white,/turf/open/floor/plating,/area/template_noop)
+"e" = (/obj/machinery/shower{icon_state = "shower"; dir = 4},/turf/open/floor/plating,/area/template_noop)
+"f" = (/obj/machinery/washing_machine,/obj/machinery/light/small{icon_state = "bulb"; dir = 4},/obj/effect/decal/cleanable/glitter/white,/turf/open/floor/plating,/area/template_noop)
+
+(1,1,1) = {"
+abc
+dbb
+ebf
+"}
