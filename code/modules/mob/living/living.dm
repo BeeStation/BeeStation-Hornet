@@ -846,6 +846,8 @@
 		who.show_inv(src)
 	else
 		src << browse(null,"window=mob[REF(who)]")
+	
+	who.update_equipment_speed_mods() // Updates speed in case stripped speed affecting item
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
@@ -1200,6 +1202,19 @@
 		if(client)
 			client.move_delay = world.time + movement_delay()
 	lying_prev = lying
+
+	// Movespeed mods based on arms/legs quantity
+	if(!get_leg_ignore())
+		var/limbless_slowdown = 0
+		// These checks for <2 should be swapped out for something else if we ever end up with a species with more than 2
+		if(has_legs < 2)
+			limbless_slowdown += 6 - (has_legs * 3)
+			if(!has_legs && has_arms < 2)
+				limbless_slowdown += 6 - (has_arms * 3)
+		if(limbless_slowdown)
+			add_movespeed_modifier(MOVESPEED_ID_LIVING_LIMBLESS, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=limbless_slowdown, movetypes=GROUND)
+		else
+			remove_movespeed_modifier(MOVESPEED_ID_LIVING_LIMBLESS, update=TRUE)
 
 /mob/living/proc/fall(forced)
 	if(!(mobility_flags & MOBILITY_USE))

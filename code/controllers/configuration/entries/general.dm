@@ -498,3 +498,20 @@
 /datum/config_entry/flag/grant_metacurrency
 
 /datum/config_entry/flag/respect_global_bans
+
+//Fail2Topic settings.
+/datum/config_entry/number/topic_rate_limit
+	config_entry_value = 5
+	min_val = 1
+
+/datum/config_entry/number/topic_max_fails
+	config_entry_value = 5
+	min_val = 1
+
+/datum/config_entry/string/topic_rule_name
+	config_entry_value = "_DD_Fail2topic"
+
+/datum/config_entry/number/topic_max_size
+	config_entry_value = 500
+
+/datum/config_entry/flag/topic_enabled

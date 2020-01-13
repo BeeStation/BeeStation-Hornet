@@ -395,3 +395,5 @@
 	config_entry_value = 100
 /datum/config_entry/number/max_slimes
 	config_entry_value = 100
+
+/datum/config_entry/flag/restricted_suicide

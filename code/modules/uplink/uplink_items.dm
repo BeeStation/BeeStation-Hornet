@@ -1,5 +1,4 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
-
 /proc/get_uplink_items(var/datum/game_mode/gamemode = null, allow_sales = TRUE, allow_restricted = TRUE)
 	var/list/filtered_uplink_items = list()
 	var/list/sale_items = list()
@@ -1348,6 +1347,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/assembly/flash/hypnotic
 	cost = 7
 
+/datum/uplink_item/device_tools/brainwash_disk
+	name = "Brainwashing Surgery Program"
+	desc = "A disk containing the procedure to perform a brainwashing surgery, allowing you to implant an objective onto a target. \
+	Insert into an Operating Console to enable the procedure."
+	item = /obj/item/disk/surgery/brainwashing
+	cost = 5
+
 /datum/uplink_item/device_tools/medgun
 	name = "Medbeam Gun"
 	desc = "A wonder of Syndicate engineering, the Medbeam gun, or Medi-Gun enables a medic to keep his fellow \
@@ -1373,15 +1379,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/powersink
 	cost = 10
 	player_minimum = 35
-
-/datum/uplink_item/device_tools/rad_laser
-	name = "Radioactive Microlaser"
-	desc = "A radioactive microlaser disguised as a standard Nanotrasen health analyzer. When used, it emits a \
-			powerful burst of radiation, which, after a short delay, can incapacitate all but the most protected \
-			of humanoids. It has two settings: intensity, which controls the power of the radiation, \
-			and wavelength, which controls the delay before the effect kicks in."
-	item = /obj/item/healthanalyzer/rad_laser
-	cost = 3
 
 /datum/uplink_item/device_tools/stimpack
 	name = "Stimpack"
@@ -1635,13 +1632,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cant_discount = TRUE
 	restricted_roles = list("Chief Medical Officer", "Virologist")
 
-/datum/uplink_item/role_restricted/brainwash_disk
-	name = "Brainwashing Surgery Program"
-	desc = "A disk containing the procedure to perform a brainwashing surgery, allowing you to implant an objective onto a target. \
-	Insert into an Operating Console to enable the procedure."
-	item = /obj/item/disk/surgery/brainwashing
+/datum/uplink_item/role_restricted/rad_laser
+	name = "Radioactive Microlaser"
+	desc = "A radioactive microlaser disguised as a standard Nanotrasen health analyzer. When used, it emits a \
+			powerful burst of radiation, which, after a short delay, can incapacitate all but the most protected \
+			of humanoids. It has two settings: intensity, which controls the power of the radiation, \
+			and wavelength, which controls the delay before the effect kicks in."
+	item = /obj/item/healthanalyzer/rad_laser
 	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Roboticist")
-	cost = 5
+	cost = 3
 
 /datum/uplink_item/role_restricted/clown_bomb
 	name = "Clown Bomb"
@@ -1853,7 +1852,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
 	surplus = 0
-
 /datum/uplink_item/badass/costumes/obvious_chameleon
 	name = "Broken Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
@@ -1885,6 +1883,12 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 20
 	cant_discount = TRUE
 	illegal_tech = FALSE
+	
+	/datum/uplink_item/badass/toy_holoparasites
+	name = "Toy Holoparasites"
+	desc = "A holoparasite colony that is utterly useless. costs as much as real holoparasites."
+	item = /obj/item/guardiancreator/tech/toy
+	cost = 16
 
 /datum/uplink_item/badass/syndiecash
 	name = "Syndicate Briefcase Full of Cash"

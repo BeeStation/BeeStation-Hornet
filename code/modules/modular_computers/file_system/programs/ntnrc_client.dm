@@ -33,6 +33,9 @@
 			var/message = reject_bad_text(input(user, "Enter message or leave blank to cancel: "))
 			if(!message || !channel)
 				return
+			if(CHAT_FILTER_CHECK(message))
+				to_chat(user, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
+				return
 			channel.add_message(message, username)
 			user.log_talk(message, LOG_CHAT, tag="as [username] to channel [channel.title]")
 

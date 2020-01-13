@@ -569,3 +569,6 @@ ALLOW_CREW_OBJECTIVES
 MAX_CUBE_MONKEYS 100
 MAX_CHICKENS 100
 MAX_SLIMES 100
+
+## Uncomment to restrict suiciding. Adds an additional confirmation dialogue, additional logging, and prevents suicide within the first 15 minutes of the round.
+#RESTRICTED_SUICIDE

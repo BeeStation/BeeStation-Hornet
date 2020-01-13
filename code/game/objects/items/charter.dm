@@ -48,6 +48,11 @@
 
 	if(!new_name)
 		return
+
+	if(CHAT_FILTER_CHECK(new_name))
+		to_chat(user, "<span class='warning'>Your name has been automatically denied. It contains prohibited words.</span>")
+		return
+
 	log_game("[key_name(user)] has proposed to name the station as \
 		[new_name]")
 
