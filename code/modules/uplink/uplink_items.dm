@@ -1576,7 +1576,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/race_restricted/ethereal_grenade
 	name = "Ethereal Dance Grenade"
-	desc = "Syndicate scientists have cunningly stuffed the bodies of multiple ethereals into a special package! Activating it will cause anyone nearby to dance, excluding ethereals, who might just get offended."
+	desc = "Syndicate scientists have cunningly stuffed the bodies of multiple Ethereals into a special package! Activating it will cause anyone nearby to dance, excluding Ethereals, who might just get offended."
 	cost = 7
 	item = /obj/item/grenade/discogrenade
 	restricted_species = list("ethereal")
@@ -1890,7 +1890,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 20
 	cant_discount = TRUE
 	illegal_tech = FALSE
-	
+
 	/datum/uplink_item/badass/toy_holoparasites
 	name = "Toy Holoparasites"
 	desc = "A holoparasite colony that is utterly useless. costs as much as real holoparasites."
