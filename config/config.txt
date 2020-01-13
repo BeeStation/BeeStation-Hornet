@@ -377,7 +377,7 @@ MAPROTATION
 ## Map voting
 ## Allows players to vote for their preffered map
 ## When it's set to zero, the map will be randomly picked each round
-#PREFERENCE_MAP_VOTING 1
+PREFERENCE_MAP_VOTING 0
 
 ## Starts a map vote at the end of rounds
 #AUTOMAPVOTE
