@@ -83,7 +83,15 @@
 		var/is_admin = FALSE
 		if(GLOB.admin_datums[C.ckey] || GLOB.deadmins[C.ckey])
 			is_admin = TRUE
-		var/datum/DBQuery/query_build_ban_cache = SSdbcore.NewQuery("SELECT role, applies_to_admins FROM [format_table_name("ban")] WHERE ckey = '[player_key]' AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW())")
+
+		var/ssqlname = sanitizeSQL(CONFIG_GET(string/serversqlname))
+		var/server_check
+		if(CONFIG_GET(flag/respect_global_bans))
+			server_check = "(server_name = '[ssqlname]' OR global_ban = '1')"
+		else
+			server_check = "server_name = '[ssqlname]'"
+
+		var/datum/DBQuery/query_build_ban_cache = SSdbcore.NewQuery("SELECT role, applies_to_admins FROM [format_table_name("ban")] WHERE ckey = '[player_key]' AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) AND [server_check]")
 		if(!query_build_ban_cache.warn_execute())
 			qdel(query_build_ban_cache)
 			return
