@@ -9,8 +9,8 @@
 /obj/item/grenade/discogrenade
 	name = "Ethereal Disco Grenade"
 	desc = "An unethical micro-party that will make all non-ethereal beings dance to its beat!"
-	icon_state = "flashbang"
-	item_state = "flashbang"
+	icon_state = "disco"
+	item_state = "disco"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	var/list/messages = list("This party is great", "Wooo!!!", "Party!", "Check out these moves!", "Hey, want to dance with me?")
@@ -38,8 +38,8 @@
 /obj/item/grenade/discogrenade/subgrenade
 	name = "Micro Disco"
 	desc = "A mini disco contained in a tiny package!"
-	icon_state = "flashbang"
-	item_state = "flashbang"
+	icon_state = "disco"
+	item_state = "disco"
 	var/spawn_new = TRUE
 	var/timerID
 	var/lightcolor
