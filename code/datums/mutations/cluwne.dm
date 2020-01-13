@@ -1,6 +1,7 @@
 /datum/mutation/human/cluwne
 
 	name = "Cluwne"
+	desc = "Turns a person into a Cluwne, a poor soul cursed to a short and miserable life by the honkmother."
 	quality = NEGATIVE
 	locked = TRUE
 	text_gain_indication = "<span class='danger'>You feel like your brain is tearing itself apart.</span>"
@@ -11,9 +12,10 @@
 	owner.dna.add_mutation(CLOWNMUT)
 	owner.dna.add_mutation(EPILEPSY)
 	owner.setBrainLoss(199)
-
+	
 	var/mob/living/carbon/human/H = owner
-
+	
+	playsound(H.loc, 'sound/misc/bikehorn_creepy.ogg', 50, 1)
 	if(!istype(H.wear_mask, /obj/item/clothing/mask/cluwne))
 		if(!H.doUnEquip(H.wear_mask))
 			qdel(H.wear_mask)
