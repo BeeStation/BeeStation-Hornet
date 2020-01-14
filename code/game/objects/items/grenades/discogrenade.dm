@@ -90,7 +90,7 @@
 		return
 	if(M.stat != CONSCIOUS)	//Only conscious people can dance
 		return
-	if(!M || M.dna.species.id == "ethereal")	//Non humans and non etherals can't dance
+	if(!M || isethereal(M))	//Non humans and non etherals can't dance
 		return
 
 	var/distance = max(0,get_dist(get_turf(src),T))
