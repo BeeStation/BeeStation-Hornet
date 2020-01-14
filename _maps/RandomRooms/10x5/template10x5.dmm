@@ -1,13 +1,97 @@
-"a" = (/turf/open/floor/plating,/area/template_noop)
-"b" = (/obj/effect/turf_decal/loading_area{dir = 1},/turf/open/floor/plating,/area/template_noop)
-"c" = (/obj/effect/turf_decal/loading_area{dir = 8},/turf/open/floor/plating,/area/template_noop)
-"d" = (/obj/effect/turf_decal/loading_area{dir = 4},/turf/open/floor/plating,/area/template_noop)
-"e" = (/obj/effect/turf_decal/loading_area,/turf/open/floor/plating,/area/template_noop)
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/effect/turf_decal/loading_area,
+/turf/open/floor/plating,
+/area/template_noop)
 
 (1,1,1) = {"
-aaaabbaaaa
-aaaaaaaaaa
-caaaaaaaad
-aaaaaaaaaa
-aaaaeeaaaa
+a
+a
+c
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+b
+a
+a
+a
+e
+"}
+(6,1,1) = {"
+b
+a
+a
+a
+e
+"}
+(7,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(8,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(9,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(10,1,1) = {"
+a
+a
+d
+a
+a
 "}
