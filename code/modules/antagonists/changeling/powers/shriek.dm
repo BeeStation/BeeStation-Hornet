@@ -15,7 +15,7 @@
 			var/mob/living/carbon/C = M
 			if(!C.mind || !C.mind.has_antag_datum(/datum/antagonist/changeling))
 				C.adjustEarDamage(0, 30)
-				C.Knockdown(2 SECONDS)
+				C.knockdown += 2
 				C.confused += 5
 				C.adjustStaminaLoss(70)
 				C.Jitter(20)
