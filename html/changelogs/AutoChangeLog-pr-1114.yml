@@ -1,0 +1,5 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "Heart Disease symptom"
+  - rscadd: "angry heart simplemob"
