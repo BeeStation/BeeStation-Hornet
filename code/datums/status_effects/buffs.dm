@@ -434,9 +434,9 @@
 		return
 	else
 		linked_alert.icon_state = "fleshmend"
-	owner.adjustBruteLoss(-6, FALSE)
+	owner.adjustBruteLoss(-10, FALSE)
 	owner.adjustFireLoss(-5, FALSE)
-	owner.adjustOxyLoss(-6)
+	owner.adjustOxyLoss(-10)
 
 /obj/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"
