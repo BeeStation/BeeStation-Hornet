@@ -15,13 +15,8 @@
 			var/mob/living/carbon/C = M
 			if(!C.mind || !C.mind.has_antag_datum(/datum/antagonist/changeling))
 				C.adjustEarDamage(0, 30)
-				C.confused += 5
+				C.confused += 15
 				C.Jitter(20)
-				if(C.StaminaLoss < 6)
-				C.adjustStaminaLoss(70)
-				C.Knockdown(2 SECONDS)
-				else
-				C.Knockdown(3 SECONDS)
 			else
 				SEND_SOUND(C, sound('sound/effects/screech.ogg'))
 
