@@ -17,7 +17,7 @@
 				C.adjustEarDamage(0, 30)
 				C.Knockdown(2 SECONDS)
 				C.confused += 5
-				C.adjustStaminaLoss(70)
+				C.adjustStaminaLoss(15)
 				C.Jitter(20)
 			else
 				SEND_SOUND(C, sound('sound/effects/screech.ogg'))
