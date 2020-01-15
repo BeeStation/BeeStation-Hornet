@@ -304,7 +304,7 @@ TICK_LIMIT_MC_INIT 500
 TICKLAG 0.5
 
 ##Can also be set as per-second value, the following value is identical to the above.
-#FPS 20
+#FPS 16
 
 ## Comment this out to disable automuting
 AUTOMUTE_ON
@@ -381,6 +381,9 @@ ANNOUNCE_ADMIN_LOGIN
 ## Allows players to vote for their preffered map
 ## When it's set to zero, the map will be randomly picked each round
 PREFERENCE_MAP_VOTING 1
+
+## Starts a map vote at the end of rounds
+AUTOMAPVOTE
 
 ## Map rotate chance delta
 ## This is the chance of map rotation factored to the round length.
@@ -469,8 +472,6 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 85
 
 ## Uncomment to set the number of /world/Reboot()s before the DreamDaemon restarts itself. 0 means restart every round. Requires tgstation server tools.
 ROUNDS_UNTIL_HARD_RESTART 3
-
-AUTOMAPVOTE
 
 ##Default screen resolution, in tiles.
 ##	By default, this is 15x15, which gets simplified to 7 by BYOND, as it is a 1:1 screen ratio.
