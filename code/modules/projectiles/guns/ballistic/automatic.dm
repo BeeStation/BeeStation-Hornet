@@ -344,3 +344,18 @@
 	actions_types = list()
 	fire_sound = 'sound/weapons/laser.ogg'
 	casing_ejector = FALSE
+
+// test gun
+
+/obj/item/gun/ballistic/automatic/Autolaser
+	name ="Autolaser"
+	icon_state = "laser"
+	item_state = "moistnugget"
+	desc = "A modified laser rifle that fires in five round bursts."
+	mag_type = /obj/item/ammo_box/magazine/recharge
+	fire_delay = 3
+	can_suppress = FALSE
+	burst_size = 2
+	actions_types = list()
+	fire_sound = 'sound/weapons/laser.ogg'
+	casing_ejector = FALSE

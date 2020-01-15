@@ -69,14 +69,6 @@
 	pin = /obj/item/firing_pin/implant/mindshield
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/disabler, /obj/item/ammo_casing/energy/electrode)
 
-/obj/item/gun/energy/laser/Autolaser
-	name ="Autolaser"
-	icon_state = "laser"
-	desc = "A modified laser rifle that fires in five round bursts."
-	ammo_x_offset = 1
-	burst_size = 3
-	fire_delay = 2
-
 ///Laser Cannon
 
 /obj/item/gun/energy/lasercannon
