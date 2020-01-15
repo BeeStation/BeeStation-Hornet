@@ -336,8 +336,8 @@
 /obj/item/clothing/head/foilhat/plasmaman
 	name = "tinfoil envirosuit helmet"
 	desc = "a tinfoil-lined envirosuit helmet made with a jury-rigged set of polarized lenses, a firesuit's hard-hat, a flashlight, and a bit of hope."
-	icon_state = "tinfoil-envirohelm"
-	item_state = "tinfoil-envirohelm"
+	icon_state = "tinfoil_envirohelm"
+	item_state = "tinfoil_envirohelm"
 	strip_delay = 150
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 50, "acid" = 50)
