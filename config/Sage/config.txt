@@ -420,7 +420,6 @@ SECOND_TOPIC_LIMIT 10
 
 MINUTE_TOPIC_LIMIT 180
 
-
 ## CLICK RATE LIMITING
 ## Same as above, but applies to clicking on objects in the game window.
 ## This should be a higher then the interface limit to allow for the spam clickly nature of most battles.
