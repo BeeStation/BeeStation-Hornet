@@ -2,6 +2,7 @@
 "a" = (
 /obj/structure/closet/radiation,
 /obj/effect/decal/cleanable/glitter/white,
+/obj/item/clothing/mask/gas,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
@@ -11,6 +12,7 @@
 "c" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/cleanable/glitter/white,
+/obj/item/clothing/mask/gas,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (

@@ -8,6 +8,7 @@
 	icon_state = "tube";
 	dir = 1
 	},
+/obj/item/cigbutt,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (

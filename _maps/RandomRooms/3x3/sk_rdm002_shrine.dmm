@@ -30,6 +30,7 @@
 	pixel_x = 5
 	},
 /obj/item/fakeartefact,
+/obj/effect/turf_decal/arrows,
 /turf/open/floor/plating,
 /area/template_noop)
 

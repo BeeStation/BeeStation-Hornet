@@ -14,6 +14,7 @@
 "c" = (
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/structure/closet/crate,
+/obj/item/clothing/mask/surgical,
 /turf/open/floor/plating,
 /area/template_noop)
 

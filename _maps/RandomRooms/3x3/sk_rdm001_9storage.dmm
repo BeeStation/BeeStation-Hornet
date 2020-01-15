@@ -2,6 +2,7 @@
 "a" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/turf_decal/box,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
@@ -11,6 +12,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/turf_decal/box,
 /turf/open/floor/plating,
 /area/template_noop)
 

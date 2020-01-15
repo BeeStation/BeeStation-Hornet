@@ -11,7 +11,7 @@
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/space)
+/area/template_noop)
 "c" = (
 /obj/item/stack/sheet/iron,
 /obj/item/stack/cable_coil/cut,
