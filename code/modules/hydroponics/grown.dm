@@ -123,11 +123,12 @@
 			reagents.reaction(A)
 		qdel(src)
 	if(seed.get_gene(/datum/plant_gene/trait/noreact))
-		addtimer(CALLBACK(src, .proc/specialsquash), 20)
+		visible_message("<span class='warning'>[src] crumples, and bubbles ominously as its contents mix.</span>")
+		addtimer(CALLBACK(src, .proc/squashreact), 20)
 		
-/obj/item/reagent_containers/food/snacks/grown/proc/specialsquash()
+/obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
 	for(var/datum/plant_gene/trait/trait in seed.genes)
-		trait.on_specialsquash(src)
+		trait.on_squashreact(src)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/On_Consume()
