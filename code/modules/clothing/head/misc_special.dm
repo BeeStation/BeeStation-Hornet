@@ -335,7 +335,7 @@
 
 /obj/item/clothing/head/foilhat/plasmaman
 	name = "tinfoil envirosuit helmet"
-	desc = "a tinfoil-lined envirosuit helmet made with a jury-rigged set of polarized lenses, a firesuit's hard-hat, a flashlight, and a bit of hope."
+	desc = "The Syndicate is a hoax! Dogs are fake! Space Station 13 is just an experiment! See the truth!"
 	icon_state = "tinfoil_envirohelm"
 	item_state = "tinfoil_envirohelm"
 	strip_delay = 150
