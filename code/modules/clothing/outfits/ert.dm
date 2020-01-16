@@ -18,8 +18,10 @@
 	R.freqlock = TRUE
 
 	var/obj/item/card/id/W = H.wear_id
-	W.registered_name = H.real_name
-	W.update_label(W.registered_name, W.assignment)
+	if(W)
+		W.registered_name = H.real_name
+		W.update_label()
+	..()
 
 /datum/outfit/ert/commander
 	name = "ERT Commander"
