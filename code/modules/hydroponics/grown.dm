@@ -117,11 +117,17 @@
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
-
-	reagents.reaction(T)
-	for(var/A in T)
-		reagents.reaction(A)
-
+	if(!seed.get_gene(/datum/plant_gene/trait/noreact))
+		reagents.reaction(T)
+		for(var/A in T)
+			reagents.reaction(A)
+		qdel(src)
+	if(seed.get_gene(/datum/plant_gene/trait/noreact))
+		addtimer(CALLBACK(src, .proc/specialsquash), 20)
+		
+/obj/item/reagent_containers/food/snacks/grown/proc/specialsquash()
+	for(var/datum/plant_gene/trait/trait in seed.genes)
+		trait.on_specialsquash(src)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/On_Consume()
