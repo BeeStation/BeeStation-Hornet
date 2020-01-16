@@ -26,7 +26,7 @@
 
 	new /obj/structure/etherealball(current_turf)
 
-	for(var/i = 0; i < 6; i ++)
+	for(var/i in 1 to 6)
 		new /obj/item/grenade/discogrenade/subgrenade(current_turf, TRUE)
 
 	qdel(src)
@@ -67,7 +67,7 @@
 	playsound(current_turf, pick('sound/instruments/accordion/Dn2.mid', 'sound/instruments/bikehorn/Cn3.ogg', 'sound/instruments/piano/Dn7.ogg', 'sound/instruments/violin/Cn3.mid'), 100, TRUE, 8, 0.9)
 
 	if(spawn_new)
-		for(var/i = 0; i < 3; i ++)
+		for(var/i in 1 to 3)
 			new /obj/item/grenade/discogrenade/subgrenade(current_turf)
 
 	//Create the lights
