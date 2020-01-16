@@ -167,7 +167,7 @@
 /datum/plant_gene/trait/proc/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	return
 
-/datum/plant_gene/trait/proc/on_specialsquash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/proc/on_squashreact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	return
 
 /datum/plant_gene/trait/proc/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
@@ -319,7 +319,7 @@
 	..()
 	ENABLE_BITFIELD(G.reagents.flags, NO_REACT)
 
-/datum/plant_gene/trait/noreact/on_specialsquash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/noreact/on_squashreact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	DISABLE_BITFIELD(G.reagents.flags, NO_REACT)
 	G.reagents.handle_reactions()
 
