@@ -151,6 +151,11 @@
 	return TRUE
 
 /datum/job/proc/GetAntagRep()
+	if(CONFIG_GET(flag/equal_job_weight))
+		var/rep_value = CONFIG_GET(number/default_rep_value)
+		if(!rep_value)
+			rep_value = 0
+		return rep_value
 	. = CONFIG_GET(keyed_list/antag_rep)[lowertext(title)]
 	if(. == null)
 		return antag_rep

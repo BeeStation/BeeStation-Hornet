@@ -209,6 +209,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	primary_ai = FALSE
 	latejoin_active = FALSE
 
+/obj/effect/landmark/start/brig_phys
+	name = "Brig Physician"
+
 //Department Security spawns
 
 /obj/effect/landmark/start/depsec

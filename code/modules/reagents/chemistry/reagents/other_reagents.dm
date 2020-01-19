@@ -1604,10 +1604,16 @@
 	color = "#ffa6ff" //rgb: 255,166,255
 	taste_description = "a bad idea"
 
-/datum/reagent/medicine/adminordrazine/adminvirusfood
+/datum/reagent/consumable/virus_food/advvirusfood
 	name = "highly unstable virus food"
 	color = "#ffffff" //rgb: 255,255,255 ITS PURE WHITE CMON
 	taste_description = "an EXTREMELY bad idea"
+
+/datum/reagent/consumable/virus_food/viralbase
+	name = "Experimental viral base"
+	description = "Recently discovered by Nanotrasen's top scientists after years of research, this substance can be used as the base for extremely rare and extremely dangerous viruses once exposed to uranium."
+	color = "#fff0da"
+	taste_description = "tears of scientists"
 
 // Bee chemicals
 

@@ -535,6 +535,7 @@
 	icon_state = "wooden_chair_wings";
 	dir = 4
 	},
+/obj/item/toy/figure/geneticist,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cb" = (
@@ -561,6 +562,7 @@
 	icon_state = "wooden_chair_wings";
 	dir = 8
 	},
+/obj/item/toy/plush/lizardplushie,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cf" = (
@@ -720,6 +722,7 @@
 /obj/item/toy/figure/miner,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/wood/wings,
+/obj/item/toy/plush/bubbleplush,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cG" = (
@@ -972,7 +975,7 @@
 "dA" = (
 /obj/structure/table,
 /obj/structure/table/wood/fancy/blue,
-/obj/item/reagent_containers/food/snacks/pizza/margherita/robo,
+/obj/item/reagent_containers/food/snacks/pizza/margherita,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dB" = (
@@ -1004,7 +1007,7 @@
 "dE" = (
 /obj/structure/table,
 /obj/structure/table/wood/fancy/blue,
-/obj/item/reagent_containers/food/snacks/burger/roburgerbig,
+/obj/item/reagent_containers/food/snacks/burger/jelly/slime,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dF" = (
@@ -1022,6 +1025,53 @@
 "dH" = (
 /obj/structure/chair/wood/wings,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/carpet,
+/area/ruin/space/has_grav/powered/macspace)
+"ea" = (
+/obj/structure/chair/wood/wings{
+	icon_state = "wooden_chair_wings";
+	dir = 4
+	},
+/obj/item/toy/figure/cmo,
+/turf/open/floor/carpet,
+/area/ruin/space/has_grav/powered/macspace)
+"iO" = (
+/obj/structure/chair/wood/wings{
+	icon_state = "wooden_chair_wings";
+	dir = 8
+	},
+/obj/item/toy/figure/md,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
+"mo" = (
+/obj/structure/chair/stool/bar,
+/obj/item/toy/figure/engineer,
+/obj/item/toy/plush/carpplushie,
+/turf/open/floor/carpet,
+/area/ruin/space/has_grav/powered/macspace)
+"rA" = (
+/obj/structure/chair/wood/wings{
+	icon_state = "wooden_chair_wings";
+	dir = 4
+	},
+/obj/item/toy/figure/chemist,
+/turf/open/floor/carpet,
+/area/ruin/space/has_grav/powered/macspace)
+"uO" = (
+/obj/structure/chair/wood/wings{
+	icon_state = "wooden_chair_wings";
+	dir = 8
+	},
+/obj/item/toy/figure/virologist,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
+"Av" = (
+/obj/item/toy/plush/snakeplushie,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
+"KA" = (
+/obj/structure/chair/stool/bar,
+/obj/item/toy/figure/engineer,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "Xp" = (
@@ -1202,7 +1252,7 @@ ac
 Xp
 ac
 ae
-ag
+Av
 aH
 aS
 ag
@@ -1291,7 +1341,7 @@ aJ
 aJ
 bb
 bc
-bB
+mo
 bB
 bM
 bN
@@ -1376,7 +1426,7 @@ ae
 aZ
 bq
 bD
-bB
+KA
 bY
 cl
 cv
@@ -1658,8 +1708,8 @@ ag
 bo
 bB
 ca
-ca
-ca
+ea
+rA
 cF
 cS
 cZ
@@ -1714,8 +1764,8 @@ ae
 ae
 ag
 aJ
-aJ
-aJ
+iO
+uO
 cG
 cT
 aR

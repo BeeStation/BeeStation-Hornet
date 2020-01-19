@@ -435,7 +435,7 @@
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
 		/obj/item/reagent_containers/glass/bottle/synaptizine = 1,
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 1,
-		/obj/item/reagent_containers/glass/bottle/adminvirusfood = 1)
+		/obj/item/reagent_containers/glass/bottle/viralbase = 1)
 
 // ----------------------------
 // Disk """fridge"""

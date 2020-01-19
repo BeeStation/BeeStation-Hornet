@@ -2653,10 +2653,8 @@
 /obj/structure/table,
 /obj/item/assembly/signaler,
 /obj/item/clothing/suit/straight_jacket,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/straight_jacket,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "afG" = (
@@ -3464,10 +3462,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/item/storage/backpack/duffelbag/sec/surgery,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "ahv" = (
@@ -3791,12 +3789,19 @@
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "ahW" = (
-/obj/structure/bodycontainer/morgue,
 /obj/machinery/camera{
 	c_tag = "Brig Infirmary";
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/structure/closet/secure_closet/brig_phys,
+/turf/open/floor/plasteel/white,
 /area/security/brig)
 "ahX" = (
 /obj/machinery/computer/crew{
@@ -3943,15 +3948,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
-"ain" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/security/brig)
 "aio" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -4137,12 +4133,11 @@
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "aiF" = (
-/obj/structure/bed,
-/obj/item/clothing/suit/straight_jacket,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/structure/table/optable,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "aiG" = (
@@ -4241,14 +4236,15 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/bed,
-/obj/item/clothing/suit/straight_jacket,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 8
+	},
+/obj/machinery/computer/operating{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/security/brig)
@@ -58104,6 +58100,10 @@
 	},
 /turf/open/floor/circuit,
 /area/science/robotics/mechbay)
+"wcA" = (
+/obj/effect/landmark/start/brig_phys,
+/turf/open/floor/plasteel/white,
+/area/security/brig)
 "weE" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -58167,7 +58167,6 @@
 /area/security/prison)
 "wph" = (
 /obj/docking_port/stationary{
-	area_type = /area/construction/mining/aux_base;
 	dheight = 4;
 	dir = 8;
 	dwidth = 4;
@@ -85532,8 +85531,8 @@ aeU
 afH
 agj
 agN
+ahP
 aht
-ain
 aid
 agj
 aiZ
@@ -85790,7 +85789,7 @@ afH
 agj
 ahs
 ahP
-ahP
+wcA
 aiF
 agj
 aja

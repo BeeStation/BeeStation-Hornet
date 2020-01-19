@@ -152,6 +152,15 @@
 	desc = "A modified stimulants autoinjector for use in combat situations. Has a mild healing effect."
 	list_reagents = list(/datum/reagent/medicine/stimulants = 10, /datum/reagent/medicine/omnizine = 10)
 
+/obj/item/reagent_containers/hypospray/medipen/stimulants
+	name = "stimulant medipen"
+	desc = "Contains a very large amount of an incredibly powerful stimulant, vastly increasing your movement speed and reducing stuns by a very large amount for around five minutes. Do not take if pregnant."
+	icon_state = "syndipen"
+	item_state = "tbpen"
+	volume = 50
+	amount_per_transfer_from_this = 50
+	list_reagents = list(/datum/reagent/medicine/stimulants = 50)
+
 /obj/item/reagent_containers/hypospray/medipen/morphine
 	name = "morphine medipen"
 	desc = "A rapid way to get you out of a tight situation and fast! You'll feel rather drowsy, though."
@@ -159,6 +168,13 @@
 	item_state = "morphen"
 	list_reagents = list(/datum/reagent/medicine/morphine = 10)
 
+/obj/item/reagent_containers/hypospray/medipen/dexalin
+	name = "dexalin medipen"
+	icon_state = "dexpen"
+	item_state = "dexpen"
+	desc = "A autoinjector containing dexalin, used to heal oxygen damage quickly."
+	list_reagents = list(/datum/reagent/medicine/dexalin = 10)
+	
 /obj/item/reagent_containers/hypospray/medipen/tuberculosiscure
 	name = "BVAK autoinjector"
 	desc = "Bio Virus Antidote Kit autoinjector. Has a two use system for yourself, and someone else. Inject when infected."
