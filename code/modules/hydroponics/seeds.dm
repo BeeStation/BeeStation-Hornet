@@ -149,8 +149,10 @@
 	var/product_name
 	while(t_amount < getYield())
 		var/obj/item/reagent_containers/food/snacks/grown/t_prod = new product(output_loc, src)
-		t_prod.name = parent.myseed.plantname
-		t_prod.desc = parent.myseed.plantdesc
+		if(parent.myseed.plantname != initial(parent.myseed.plantname))
+			t_prod.name = parent.myseed.plantname
+		if(parent.myseed.plantdesc)
+			t_prod.desc = parent.myseed.plantdesc
 		t_prod.seed.name = parent.myseed.name
 		t_prod.seed.desc = parent.myseed.desc
 		t_prod.seed.plantname = parent.myseed.plantname
