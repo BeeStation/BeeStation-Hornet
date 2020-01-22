@@ -3,7 +3,7 @@
 import os
 import sys
 
-folders = ["maps/RandomRooms", "_maps/RandomRuins", "_maps/RandomZLevels",
+folders = ["_maps/RandomRooms", "_maps/RandomRuins", "_maps/RandomZLevels",
            "_maps/shuttles", "_maps/templates"]
 
 generated = "_maps/templates.dm"
