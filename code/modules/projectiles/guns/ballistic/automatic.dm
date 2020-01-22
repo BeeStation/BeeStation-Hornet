@@ -347,10 +347,10 @@
 
 // test gun
 
-/obj/item/gun/ballistic/automatic/Autolaser
+/obj/item/gun/ballistic/automatic/autolaser
 	name ="Autolaser"
 	icon_state = "laser"
-	item_state = "moistnugget"
+	item_state = "laser"
 	desc = "A modified laser rifle that fires in five round bursts."
 	mag_type = /obj/item/ammo_box/magazine/recharge
 	fire_delay = 3
@@ -359,3 +359,15 @@
 	actions_types = list()
 	fire_sound = 'sound/weapons/laser.ogg'
 	casing_ejector = FALSE
+
+// HoS gun testing
+
+/obj/item/gun/ballistic/automatic/Hoovy
+	name = "\improper X-01 MultiPhase Energy Gun"
+	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
+	icon_state = "hoslaser"
+	force = 10
+	fire_delay = 3
+	can_suppress = FALSE
+	burst_size = 2
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
