@@ -4,7 +4,6 @@
 	var/centerspawner = TRUE
 	var/template_height = 0
 	var/template_width = 0
-//5x4
 
 /datum/map_template/random_room/surgery
 	name = "Abandoned Surgery"
