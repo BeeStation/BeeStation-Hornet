@@ -100,3 +100,4 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+
