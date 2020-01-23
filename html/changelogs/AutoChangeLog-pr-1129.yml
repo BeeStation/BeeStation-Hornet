@@ -1,0 +1,4 @@
+author: "Vasily2013"
+delete-after: True
+changes: 
+  - rscadd: "new 3x3 maint rooms for the random generator."
