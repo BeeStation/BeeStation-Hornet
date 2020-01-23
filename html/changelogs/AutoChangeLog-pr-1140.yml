@@ -1,4 +1,0 @@
-author: "qwertyquerty"
-delete-after: True
-changes: 
-  - code_imp: "Adds random rooms folder to travis map compile check"

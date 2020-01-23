@@ -1,4 +1,0 @@
-author: "Guestratem"
-delete-after: True
-changes: 
-  - code_imp: "updates checks to prevent players from curbstomping themselves"

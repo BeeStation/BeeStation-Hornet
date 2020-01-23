@@ -1,9 +1,0 @@
-author: "zeskorion"
-delete-after: True
-changes: 
-  - tweak: "lower blob chance"
-  - tweak: "higher pop requisites for appendicitis and brain trauma"
-  - tweak: "lower min time for space dragons"
-  - tweak: "lower min time for abductors"
-  - tweak: "better disease event"
-  - tweak: "shuffle minds will no longer occur"
