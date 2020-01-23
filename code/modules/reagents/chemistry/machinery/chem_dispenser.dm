@@ -200,7 +200,6 @@
 		data["beakerTransferAmounts"] = null
 
 	var/chemicals[0]
-	var/recipes[0]
 	var/is_hallucinating = FALSE
 	if(user.hallucinating())
 		is_hallucinating = TRUE
@@ -211,8 +210,6 @@
 			if(is_hallucinating && prob(5))
 				chemname = "[pick_list_replacements("hallucination.json", "chemicals")]"
 			chemicals.Add(list(list("title" = chemname, "id" = ckey(temp.name))))
-	for(var/recipe in saved_recipes)
-		recipes.Add(list(recipe))
 	data["chemicals"] = chemicals
 	data["recipes"] = saved_recipes
 
