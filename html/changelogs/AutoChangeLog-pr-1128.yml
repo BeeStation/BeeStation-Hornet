@@ -1,0 +1,6 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "6 new random room spawner subtypes"
+  - rscadd: "random maint room templates"
+  - rscadd: "new random maint box station map for testing random rooms (note: does not have a 10x5 room)"
