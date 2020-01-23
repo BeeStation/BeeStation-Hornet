@@ -1,0 +1,4 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - tweak: "Confusion now only works if running"

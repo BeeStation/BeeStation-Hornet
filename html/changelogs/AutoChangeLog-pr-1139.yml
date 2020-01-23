@@ -1,0 +1,6 @@
+author: "TheChaser212"
+delete-after: True
+changes: 
+  - rscadd: "Change a plant's information by using a pen on the seed"
+  - tweak: "Hydroponics trays now show what is planted"
+  - bugfix: "Sugarcane seeds added to the megaseed vendor"
