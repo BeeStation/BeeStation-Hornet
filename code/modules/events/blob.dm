@@ -1,7 +1,7 @@
-/datum/round_event_control/blob
+/datum/round_event_control/blob //god, we really need a "latest start" var, because blobs spawning an hour in is cringe
 	name = "Blob"
 	typepath = /datum/round_event/ghost_role/blob
-	weight = 10
+	weight = 5
 	max_occurrences = 1
 
 	min_players = 20
