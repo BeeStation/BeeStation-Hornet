@@ -575,7 +575,7 @@
 			M.Jitter(10)
 
 	M.AdjustAllImmobility(-20, FALSE)
-	M.adjustStaminaLoss(-1*REM, FALSE)
+	M.adjustStaminaLoss(-10*REM, FALSE)
 	..()
 	return TRUE
 
@@ -935,7 +935,7 @@
 		M.adjustBruteLoss(-1*REM, 0)
 		M.adjustFireLoss(-1*REM, 0)
 	M.AdjustAllImmobility(-60, FALSE)
-	M.adjustStaminaLoss(-5*REM, 0)
+	M.adjustStaminaLoss(-60*REM, 0)
 	..()
 	. = 1
 
@@ -1245,7 +1245,7 @@
 
 /datum/reagent/medicine/changelingadrenaline/on_mob_life(mob/living/carbon/M as mob)
 	M.AdjustAllImmobility(-20, FALSE)
-	M.adjustStaminaLoss(-1, 0)
+	M.adjustStaminaLoss(-40, 0)
 	..()
 	return TRUE
 
