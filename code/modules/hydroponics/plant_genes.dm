@@ -167,6 +167,9 @@
 /datum/plant_gene/trait/proc/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	return
 
+/datum/plant_gene/trait/proc/on_squashreact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+	return
+
 /datum/plant_gene/trait/proc/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
 	return
 
@@ -316,10 +319,9 @@
 	..()
 	ENABLE_BITFIELD(G.reagents.flags, NO_REACT)
 
-/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/noreact/on_squashreact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	DISABLE_BITFIELD(G.reagents.flags, NO_REACT)
-	addtimer(CALLBACK(G.reagents, /datum/reagents.proc/handle_reactions), 10) // Wait half a second before the chemicals reaction on SQUASH
-
+	G.reagents.handle_reactions()
 
 /datum/plant_gene/trait/maxchem
 	// 2x to max reagents volume.
