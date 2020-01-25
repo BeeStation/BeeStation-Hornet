@@ -5,6 +5,8 @@ GLOBAL_VAR(restart_counter)
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
 /world/New()
+	if(fexists("byond-extools.dll"))
+		call("byond-extools.dll", "maptick_initialize")()
 
 	log_world("World loaded at [time_stamp()]!")
 
@@ -179,7 +181,7 @@ GLOBAL_VAR(restart_counter)
 		return
 
 	handler = new handler()
-	return handler.TryRun(input)
+	return handler.TryRun(input, addr)
 
 /world/proc/AnnouncePR(announcement, list/payload)
 	var/static/list/PRcounts = list()	//PR id -> number of times announced this round
