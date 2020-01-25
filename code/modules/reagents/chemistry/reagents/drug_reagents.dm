@@ -261,6 +261,8 @@
 	..()
 	ADD_TRAIT(L, TRAIT_STUNIMMUNE, type)
 	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	ADD_TRAIT(L, TRAIT_NODAMAGESLOWDOWN, type)
+	ADD_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	if(iscarbon(L))
 		var/mob/living/carbon/C = L
 		rage = new()
@@ -269,6 +271,8 @@
 /datum/reagent/drug/bath_salts/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_STUNIMMUNE, type)
 	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	REMOVE_TRAIT(L, TRAIT_NODAMAGESLOWDOWN, type)
+	REMOVE_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	if(rage)
 		QDEL_NULL(rage)
 	..()
