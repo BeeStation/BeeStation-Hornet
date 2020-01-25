@@ -60,7 +60,7 @@
 	if (buckled || now_pushing)
 		return
 	if(!ismovableatom(A) || is_blocked_turf(A))  // ported from VORE, sue me
-		if((confused || is_blind()) && stat == CONSCIOUS && m_intent=="run" && !HAS_TRAIT( TRAIT_STUNIMMUNE)&& !HAS_TRAIT( TRAIT_CONFUSEIMMUNE))
+		if((confused || is_blind()) && stat == CONSCIOUS && m_intent=="run")
 			playsound(get_turf(src), "punch", 25, 1, -1)
 			visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [A]!</span>")
 			apply_damage(5, BRUTE)
