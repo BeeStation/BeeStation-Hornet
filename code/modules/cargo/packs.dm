@@ -168,27 +168,38 @@
 
 /datum/supply_pack/emergency/syndicate
 	name = "NULL_ENTRY"
-	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE@&!*() "
+	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE, BUT DON'T GET GREEDY- ORDER TOO MANY AND WE'LL BE SENDING OUR DEADLIEST ENFORCERS TO INVESTIGATE@&!*() "
 	hidden = TRUE
 	cost = 20000
 	contains = list()
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
 	dangerous = TRUE
+	var/beepsky_chance = 0
 
 /datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
 	var/crate_value = 30
 	var/list/uplink_items = get_uplink_items(SSticker.mode)
-	while(crate_value)
-		var/category = pick(uplink_items)
-		var/item = pick(uplink_items[category])
-		var/datum/uplink_item/I = uplink_items[category][item]
-		if(!I.surplus_nullcrates || prob(100 - I.surplus_nullcrates))
-			continue
-		if(crate_value < I.cost)
-			continue
-		crate_value -= I.cost
-		new I.item(C)
+	if(prob(beepsky_chance))
+		new /mob/living/simple_animal/bot/secbot/grievous/nullcrate(C)
+		crate_value = 0
+	else
+		while(crate_value)
+			var/category = pick(uplink_items)
+			var/item = pick(uplink_items[category])
+			var/datum/uplink_item/I = uplink_items[category][item]
+			if(!I.surplus_nullcrates || prob(100 - I.surplus_nullcrates))
+				continue
+			if(crate_value < I.cost)
+				continue
+			crate_value -= I.cost
+			new I.item(C)
+	beepsky_chance += 10 //a maximum of 9 nullcrates full, if you're really lucky
+	var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
+	if(istype(loneop))
+		loneop.weight += 5
+		message_admins("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
+		log_game("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
 
 /datum/supply_pack/emergency/plasma_spacesuit
 	name = "Plasmaman Space Envirosuits"
@@ -394,7 +405,7 @@
 	contains = list(/obj/item/storage/box/firingpins,
 					/obj/item/storage/box/firingpins)
 	crate_name = "firing pins crate"
-	
+
 /datum/supply_pack/security/firingpins/paywall
 	name = "Paywall Firing Pins Crate"
 	desc = "Specialized firing pins with a built-in configurable paywall. Requires Security access to open."
@@ -1574,7 +1585,7 @@
 					/obj/item/stack/tile/carpet/royalblack/fifty,
 					/obj/item/stack/tile/carpet/royalblack/fifty)
 	crate_name = "exotic carpet crate"
-	
+
 /datum/supply_pack/service/lightbulbs
 	name = "Replacement Lights"
 	desc = "May the light of Aether shine upon this station! Or at least, the light of forty two light tubes and twenty one light bulbs."
