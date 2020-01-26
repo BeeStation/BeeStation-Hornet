@@ -50,6 +50,4 @@ endmap
 
 map kilostation
 	maxplayers 60
-	votable
-	disabled
 endmap
