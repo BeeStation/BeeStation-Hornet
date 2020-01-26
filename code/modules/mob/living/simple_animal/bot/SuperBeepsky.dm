@@ -18,11 +18,11 @@
 	health = 50
 	maxHealth = 50
 	baton_type = /obj/item/toy/sword
-	
+
 /mob/living/simple_animal/bot/secbot/grievous/nullcrate
 	name = "General Griefsky"
 	desc = "The Syndicate sends their regards."
-	emagged = TRUE
+	emagged = 2
 	noloot = TRUE
 
 /mob/living/simple_animal/bot/secbot/grievous/bullet_act(obj/item/projectile/P)
