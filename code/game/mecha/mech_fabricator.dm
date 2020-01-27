@@ -32,7 +32,7 @@
 								"Phazon",
 								"Exosuit Equipment",
 								"Cyborg Upgrade Modules",
-								"IPC components",
+								"IPC Components",
 								"Misc"
 								)
 
