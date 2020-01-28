@@ -375,15 +375,15 @@ ANNOUNCE_ADMIN_LOGIN
 
 ## Map rotation
 ## You should edit maps.txt to match your configuration when you enable this.
-#MAPROTATION
+MAPROTATION
 
 ## Map voting
 ## Allows players to vote for their preffered map
 ## When it's set to zero, the map will be randomly picked each round
-PREFERENCE_MAP_VOTING 1
+PREFERENCE_MAP_VOTING 0
 
 ## Starts a map vote at the end of rounds
-AUTOMAPVOTE
+#AUTOMAPVOTE
 
 ## Map rotate chance delta
 ## This is the chance of map rotation factored to the round length.
