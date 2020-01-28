@@ -1,8 +1,0 @@
-author: "WhyIsCaeciliusTaken"
-delete-after: True
-changes: 
-  - balance: "Increased the cost of Resonant Shriek from 1 to 2"
-  - balance: "reduced the amount of frost oil cryo sting injects per use, but also reduced chemicals cost"
-  - balance: "Increased chemical cost of fleshmend from 20 to 25"
-  - balance: "Reduced Brute/Oxy heal per tick from 10 to 6"
-  - balance: "increased chemical cost of lesser form and weighted more of the total cost to the activation rather than the deactivation"
