@@ -357,7 +357,7 @@
 	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-	M.adjustStaminaLoss(-25, 0)
+	M.adjustStaminaLoss(-28, 0)
 	M.adjustToxLoss(0.5, 0)
 	if(prob(50))
 		M.losebreath++
