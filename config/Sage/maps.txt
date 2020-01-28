@@ -50,4 +50,5 @@ endmap
 
 map kilostation
 	maxplayers 60
+	disabled
 endmap
