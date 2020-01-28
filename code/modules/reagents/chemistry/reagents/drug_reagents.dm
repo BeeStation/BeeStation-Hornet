@@ -80,7 +80,7 @@
 	M.AdjustUnconscious(-20, FALSE)
 	M.AdjustImmobilized(-20, FALSE)
 	M.AdjustParalyzed(-20, FALSE)
-	M.adjustStaminaLoss(-27, 0)
+	M.adjustStaminaLoss(-25, 0)
 	..()
 	. = 1
 
