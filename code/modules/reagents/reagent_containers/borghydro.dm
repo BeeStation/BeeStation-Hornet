@@ -183,8 +183,37 @@ Borg Shaker
 	recharge_time = 3
 	accepts_reagent_upgrades = FALSE
 
-	reagent_ids = list(/datum/reagent/consumable/ethanol/beer, /datum/reagent/consumable/orangejuice, /datum/reagent/consumable/grenadine, /datum/reagent/consumable/limejuice, /datum/reagent/consumable/tomatojuice, /datum/reagent/consumable/space_cola, /datum/reagent/consumable/tonic, /datum/reagent/consumable/sodawater, /datum/reagent/consumable/ice, /datum/reagent/consumable/cream, /datum/reagent/consumable/ethanol/whiskey, /datum/reagent/consumable/ethanol/vodka, /datum/reagent/consumable/ethanol/rum, /datum/reagent/consumable/ethanol/gin, /datum/reagent/consumable/ethanol/tequila, /datum/reagent/consumable/ethanol/vermouth, /datum/reagent/consumable/ethanol/wine, /datum/reagent/consumable/ethanol/kahlua, /datum/reagent/consumable/ethanol/cognac, /datum/reagent/consumable/ethanol/ale, /datum/reagent/consumable/milk,
-/datum/reagent/consumable/clownstears, /datum/reagent/consumable/coffee, /datum/reagent/consumable/banana, /datum/reagent/consumable/lemonjuice, /datum/reagent/consumable/ethanol/triple_sec, /datum/reagent/consumable/ethanol/absinthe,/datum/reagent/consumable/ethanol/creme_de_menthe,/datum/reagent/consumable/tea)
+	reagent_ids = list(
+			/datum/reagent/consumable/ethanol/absinthe,
+			/datum/reagent/consumable/ethanol/ale, 
+			/datum/reagent/consumable/ethanol/beer, 
+			/datum/reagant/consumable/ethanol/champagne,
+			/datum/reagent/consumable/ethanol/cognac,
+			/datum/reagent/consumable/orangejuice, 
+			/datum/reagent/consumable/grenadine, 
+			/datum/reagent/consumable/limejuice, 
+			/datum/reagent/consumable/tomatojuice, 
+			/datum/reagent/consumable/space_cola, 
+			/datum/reagent/consumable/tonic, 
+			/datum/reagent/consumable/sodawater, 
+			/datum/reagent/consumable/ice, 
+			/datum/reagent/consumable/cream, 
+			/datum/reagent/consumable/ethanol/whiskey, 
+			/datum/reagent/consumable/ethanol/vodka, 
+			/datum/reagent/consumable/ethanol/rum, 
+			/datum/reagent/consumable/ethanol/gin, 
+			/datum/reagent/consumable/ethanol/tequila, 
+			/datum/reagent/consumable/ethanol/vermouth, 
+			/datum/reagent/consumable/ethanol/wine, 
+			/datum/reagent/consumable/ethanol/kahlua, 
+			/datum/reagent/consumable/milk,
+			/datum/reagent/consumable/clownstears, 
+			/datum/reagent/consumable/coffee, 
+			/datum/reagent/consumable/banana, 
+			/datum/reagent/consumable/lemonjuice, 
+			/datum/reagent/consumable/ethanol/triple_sec, 
+			/datum/reagent/consumable/ethanol/creme_de_menthe,
+			/datum/reagent/consumable/tea)
 
 /obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)
 	return //Can't inject stuff with a shaker, can we? //not with that attitude
