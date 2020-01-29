@@ -1,0 +1,5 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "blasma tinfoil hat"
+  - tweak: "tinfoil hat can now be crafted without an autolathe"
