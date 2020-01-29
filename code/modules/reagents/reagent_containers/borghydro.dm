@@ -199,21 +199,21 @@ Borg Shaker
 			/datum/reagent/consumable/ethanol/vodka,
 			/datum/reagent/consumable/ethanol/whiskey,
 			/datum/reagent/consumable/ethanol/wine,
-			/datum/reagent/consumable/orangejuice, 
-			/datum/reagent/consumable/grenadine, 
-			/datum/reagent/consumable/limejuice, 
-			/datum/reagent/consumable/tomatojuice, 
-			/datum/reagent/consumable/space_cola, 
-			/datum/reagent/consumable/tonic, 
-			/datum/reagent/consumable/sodawater, 
-			/datum/reagent/consumable/ice, 
-			/datum/reagent/consumable/cream, 
+			/datum/reagent/consumable/banana,
+			/datum/reagent/consumable/clownstears,
+			/datum/reagent/consumable/coffee,
+			/datum/reagent/consumable/cream,
+			/datum/reagent/consumable/grenadine,
+			/datum/reagent/consumable/ice,
+			/datum/reagent/consumable/lemonjuice,
+			/datum/reagent/consumable/limejuice,
 			/datum/reagent/consumable/milk,
-			/datum/reagent/consumable/clownstears, 
-			/datum/reagent/consumable/coffee, 
-			/datum/reagent/consumable/banana, 
-			/datum/reagent/consumable/lemonjuice, 
-			/datum/reagent/consumable/tea)
+			/datum/reagent/consumable/orangejuice, 
+			/datum/reagent/consumable/sodawater, 
+			/datum/reagent/consumable/space_cola, 
+			/datum/reagent/consumable/tea
+			/datum/reagent/consumable/tomatojuice, 
+			/datum/reagent/consumable/tonic,)
 
 /obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)
 	return //Can't inject stuff with a shaker, can we? //not with that attitude
