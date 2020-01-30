@@ -183,7 +183,7 @@
 		stddev = RADIATION_ACCURACY_MULTIPLIER/(radduration + (connected.precision_coeff ** 2))
 		max_storage = 4 + (2*connected.precision_coeff)
 		max_chromosomes = 4 + connected.precision_coeff
-		max_injector_instability = 40 + (15*connected.scan_level)
+		max_injector_instability = 20 + (20*connected.scan_level)
 	else
 		stddev = RADIATION_ACCURACY_MULTIPLIER/radduration
 	var/chance_to_hit
