@@ -538,10 +538,12 @@
 	if((active || storage_slot) && (injectorready < world.time) && !scrambled)
 		temp_html += "<a href='?src=[REF(src)];task=activator;path=[mutation];slot=[storage_slot];'>Print Activator</a>"
 		temp_html += "<a href='?src=[REF(src)];task=mutator;path=[mutation];slot;=[storage_slot];'>Print Mutator</a>"
-		temp_html += "<a href='?src=[REF(src)];task=expand_advinjector;path=[mutation];'>Adv. Injector</a>"
 	else
 		temp_html += "<span class='linkOff'>Print Activator</span>"
 		temp_html += "<span class='linkOff'>Print Mutator</span>"
+	if((active || storage_slot) && !scrambled)
+		temp_html += "<a href='?src=[REF(src)];task=expand_advinjector;path=[mutation];'>Adv. Injector</a>"
+	else
 		temp_html += "<span class='linkOff'>Adv. Injector</span>"
 	temp_html += "<br><div class='statusLine'>"
 	if(storage_slot)
@@ -888,11 +890,10 @@
 				else
 					to_chat(usr, "<span class='warning'>Not enough space to store potential mutation.</span>")
 		if("ejectchromosome")
-			if(LAZYLEN(stored_chromosomes) <= num)
-				var/obj/item/chromosome/CM = stored_chromosomes[num]
-				CM.forceMove(drop_location())
-				adjust_item_drop_location(CM)
-				stored_chromosomes -= CM
+			var/obj/item/chromosome/CM = stored_chromosomes[num]
+			CM.forceMove(drop_location())
+			adjust_item_drop_location(CM)
+			stored_chromosomes -= CM
 		if("applychromosome")
 			if(viable_occupant && (LAZYLEN(viable_occupant.dna.mutations) <= num))
 				var/datum/mutation/human/HM = viable_occupant.dna.mutations[num]
@@ -931,7 +932,7 @@
 					var/datum/mutation/human/HM = B
 					if(HM.type == mutation)
 						true_selection -= HM
-					break
+						break
 
 		if("remove_advinjector")
 			var/selection = href_list["injector"]
