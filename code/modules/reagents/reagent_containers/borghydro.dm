@@ -209,7 +209,7 @@ Borg Shaker
 			/datum/reagent/consumable/sodawater, 
 			/datum/reagent/consumable/space_cola, 
 			/datum/reagent/consumable/tomatojuice, 
-			/datum/reagent/consumable/tonic,)
+			/datum/reagent/consumable/tonic)
 
 /obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)
 	return //Can't inject stuff with a shaker, can we? //not with that attitude
