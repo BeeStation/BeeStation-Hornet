@@ -201,7 +201,6 @@ Borg Shaker
 			/datum/reagent/consumable/ethanol/wine,
 			/datum/reagent/consumable/banana,
 			/datum/reagent/consumable/coffee,
-			/datum/reagent/consumable/clownstears,
 			/datum/reagent/consumable/cream,
 			/datum/reagent/consumable/grenadine,
 			/datum/reagent/consumable/ice,
