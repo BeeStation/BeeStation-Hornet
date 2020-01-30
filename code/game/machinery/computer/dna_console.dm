@@ -36,7 +36,7 @@
 	var/combine
 	var/radduration = 2
 	var/radstrength = 1
-	var/max_chromosomes = 6
+	var/max_chromosomes = 5
 	///Amount of mutations we can store
 	var/list/buffer[NUMBER_OF_BUFFERS]
 	///mutations we have stored
@@ -50,7 +50,7 @@
 	///hard-cap on the advanced dna injector
 	var/max_injector_mutations = 10
 	///the max instability of the advanced injector.
-	var/max_injector_instability = 50
+	var/max_injector_instability = 40
 
 	var/injectorready = 0	//world timer cooldown var
 	var/jokerready = 0
