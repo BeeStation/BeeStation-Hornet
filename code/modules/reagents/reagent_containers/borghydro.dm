@@ -187,7 +187,9 @@ Borg Shaker
 			/datum/reagent/consumable/ethanol/absinthe,
 			/datum/reagent/consumable/ethanol/ale, 
 			/datum/reagent/consumable/ethanol/beer, 
+			/datum/reagent/consumable/ethanol/champagne,
 			/datum/reagent/consumable/ethanol/cognac,
+			/datum/reagent/consumable/ethanol/creme_de_menthe,
 			/datum/reagent/consumable/ethanol/gin,
 			/datum/reagent/consumable/ethanol/kahlua,
 			/datum/reagent/consumable/ethanol/rum,
@@ -199,6 +201,7 @@ Borg Shaker
 			/datum/reagent/consumable/ethanol/wine,
 			/datum/reagent/consumable/banana,
 			/datum/reagent/consumable/coffee,
+			/datum/reagent/consumable/clownstears,
 			/datum/reagent/consumable/cream,
 			/datum/reagent/consumable/grenadine,
 			/datum/reagent/consumable/ice,
@@ -208,8 +211,9 @@ Borg Shaker
 			/datum/reagent/consumable/orangejuice, 
 			/datum/reagent/consumable/sodawater, 
 			/datum/reagent/consumable/space_cola, 
+			/datum/reagent/consumable/tea,
 			/datum/reagent/consumable/tomatojuice, 
-			/datum/reagent/consumable/tonic,)
+			/datum/reagent/consumable/tonic)
 
 /obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)
 	return //Can't inject stuff with a shaker, can we? //not with that attitude
