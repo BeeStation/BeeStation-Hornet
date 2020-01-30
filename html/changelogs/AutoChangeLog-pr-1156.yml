@@ -1,0 +1,4 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - config: "Temporarily disables KiloStation due to frequent crashing."
