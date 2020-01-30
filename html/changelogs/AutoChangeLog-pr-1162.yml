@@ -1,0 +1,4 @@
+author: "123chess456"
+delete-after: True
+changes: 
+  - refactor: "The code for serviceborg shaker reagents has been refactored and reagents are now sorted differently. Specifically, all alcoholic reagents are listed first alphabetically, then all non-alcoholic reagents are listed afterwards also alphabetically."
