@@ -1,5 +1,0 @@
-author: "zeskorion"
-delete-after: True
-changes: 
-  - tweak: "baseball bat no longer stunlocks"
-  - balance: "baseball bat has higher damage to compensate for the hit delay. It has a lower throwing force, though- throwforce was higher than melee for some odd reason"
