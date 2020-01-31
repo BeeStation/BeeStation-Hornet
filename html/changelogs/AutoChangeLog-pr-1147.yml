@@ -1,5 +1,0 @@
-author: "TheChaser212"
-delete-after: True
-changes: 
-  - rscadd: "You can now make IPC organs in the exosuit fabricator by researching IPC parts"
-  - bugfix: "Power cord now only works with the ipc stomach"
