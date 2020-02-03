@@ -1,0 +1,4 @@
+author: "MarkSuckerberg"
+delete-after: True
+changes: 
+  - bugfix: "If you put a cakehat on Ian's head, it actually appears now."
