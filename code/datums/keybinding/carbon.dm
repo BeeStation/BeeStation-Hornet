@@ -2,6 +2,8 @@
 	category = CATEGORY_CARBON
 	weight = WEIGHT_MOB
 
+/datum/keybinding/carbon/can_use(client/user)
+	return iscarbon(user.mob)
 
 /datum/keybinding/carbon/toggle_throw_mode
 	key = "R"
@@ -11,7 +13,6 @@
 	category = CATEGORY_CARBON
 
 /datum/keybinding/carbon/toggle_throw_mode/down(client/user)
-	if (!iscarbon(user.mob)) return
 	var/mob/living/carbon/C = user.mob
 	C.toggle_throw_mode()
 	return TRUE
@@ -25,9 +26,7 @@
 	category = CATEGORY_CARBON
 
 /datum/keybinding/carbon/select_help_intent/down(client/user)
-	if (!iscarbon(user.mob)) return
-	var/mob/living/carbon/C = user.mob
-	C.a_intent_change(INTENT_HELP)
+	user.mob?.a_intent_change(INTENT_HELP)
 	return TRUE
 
 
@@ -67,9 +66,7 @@
 	category = CATEGORY_CARBON
 
 /datum/keybinding/carbon/select_harm_intent/down(client/user)
-	if (!iscarbon(user.mob)) return
-	var/mob/living/carbon/C = user.mob
-	C.a_intent_change(INTENT_HARM)
+	user.mob?.a_intent_change(INTENT_HARM)
 	return TRUE
 
 /datum/keybinding/carbon/give
@@ -80,8 +77,6 @@
 	category = CATEGORY_CARBON
 
 /datum/keybinding/carbon/give/down(client/user)
-	if(!iscarbon(user.mob))
-		return
 	var/mob/living/carbon/C = user.mob
 	C.give()
 	return TRUE

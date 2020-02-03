@@ -2,6 +2,8 @@
 	category = CATEGORY_ROBOT
 	weight = WEIGHT_ROBOT
 
+/datum/keybinding/robot/can_use(client/user)
+	return iscyborg(user.mob)
 
 /datum/keybinding/robot/toggle_module_1
 	key = "1"
@@ -10,7 +12,6 @@
 	description = "Toggle your first module as a robot."
 
 /datum/keybinding/robot/toggle_module_1/down(client/user)
-	if(!iscyborg(user.mob)) return
 	var/mob/living/silicon/robot/M = user.mob
 	M.toggle_module(1)
 	return TRUE
@@ -22,11 +23,9 @@
 	description = "Toggle your second module as a robot."
 
 /datum/keybinding/robot/toggle_module_2/down(client/user)
-	if(!iscyborg(user.mob)) return
 	var/mob/living/silicon/robot/M = user.mob
 	M.toggle_module(2)
 	return TRUE
-
 
 /datum/keybinding/robot/toggle_module_3
 	key = "3"
@@ -35,7 +34,6 @@
 	description = "Toggle your third module as a robot."
 
 /datum/keybinding/robot/toggle_module_3/down(client/user)
-	if(!iscyborg(user.mob)) return
 	var/mob/living/silicon/robot/M = user.mob
 	M.toggle_module(3)
 	return TRUE
@@ -47,11 +45,9 @@
 	description = "Change your intent as a robot."
 
 /datum/keybinding/robot/change_intent_robot/down(client/user)
-	if(!iscyborg(user.mob)) return
 	var/mob/living/silicon/robot/M = user.mob
 	M.a_intent_change(INTENT_HOTKEY_LEFT)
 	return TRUE
-
 
 /datum/keybinding/robot/unequip_module
 	key = "Q"
@@ -60,7 +56,6 @@
 	description = "Unequip a robot module."
 
 /datum/keybinding/robot/unequip_module/down(client/user)
-	if(!iscyborg(user.mob)) return
 	var/mob/living/silicon/robot/M = user.mob
 	M.uneq_active()
 	return TRUE
