@@ -919,6 +919,7 @@
 	color = "#78008C"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
+	can_synth = FALSE
 
 /datum/reagent/medicine/stimulants/on_mob_metabolize(mob/living/L)
 	..()
