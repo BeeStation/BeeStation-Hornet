@@ -450,11 +450,13 @@
 	race = /datum/species/jelly/slime
 	mutationtext = "<span class='danger'>The pain subsides. Your whole body feels like slime.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/unstable
 	name = "Unstable Mutation Toxin"
 	description = "A mostly safe mutation toxin."
 	color = "#13BC5E" // rgb: 19, 188, 94
+	can_synth = TRUE
 	race = list(/datum/species/jelly/slime,
 						/datum/species/human,
 						/datum/species/human/felinid,
@@ -506,6 +508,7 @@
 	race = /datum/species/pod
 	mutationtext = "<span class='danger'>The pain subsides. You feel... plantlike.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/jelly
 	name = "Imperfect Mutation Toxin"
