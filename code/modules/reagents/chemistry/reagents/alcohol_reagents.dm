@@ -2070,6 +2070,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "Blazaam"
 	glass_desc = "The glass seems to be sliding between realities. Doubles as a Berenstain remover."
 	var/stored_teleports = 0
+	random_unrestricted = TRUE
 
 /datum/reagent/consumable/ethanol/blazaam/on_mob_life(mob/living/carbon/M)
 	if(M.drunkenness > 40)

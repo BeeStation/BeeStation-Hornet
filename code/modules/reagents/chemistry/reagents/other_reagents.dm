@@ -117,6 +117,7 @@
 	glass_desc = "The father of all refreshments."
 	shot_glass_icon_state = "shotglassclear"
 	process_flags = ORGANIC | SYNTHETIC
+	random_unrestricted = FALSE
 
 /*
  *	Water reaction to turf
@@ -414,6 +415,7 @@
 	description = "A humanizing toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	metabolization_rate = INFINITY //So it instantly removes all of itself
+	can_synth = FALSE
 	taste_description = "slime"
 	var/datum/species/race = /datum/species/human
 	var/mutationtext = "<span class='danger'>The pain subsides. You feel... human.</span>"
@@ -696,6 +698,7 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	taste_mult = 0 // oderless and tasteless
+	random_unrestricted = FALSE
 
 /datum/reagent/oxygen/reaction_obj(obj/O, reac_volume)
 	if((!O) || (!reac_volume))
@@ -715,6 +718,7 @@
 	reagent_state = SOLID
 	color = "#6E3B08" // rgb: 110, 59, 8
 	taste_description = "metal"
+	random_unrestricted = FALSE
 
 /datum/reagent/copper/reaction_obj(obj/O, reac_volume)
 	if(istype(O, /obj/item/stack/sheet/iron))
@@ -729,6 +733,7 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	taste_mult = 0
+	random_unrestricted = FALSE
 
 /datum/reagent/nitrogen/reaction_obj(obj/O, reac_volume)
 	if((!O) || (!reac_volume))
@@ -748,6 +753,7 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	taste_mult = 0
+	random_unrestricted = FALSE
 
 /datum/reagent/potassium
 	name = "Potassium"
@@ -755,12 +761,14 @@
 	reagent_state = SOLID
 	color = "#A0A0A0" // rgb: 160, 160, 160
 	taste_description = "sweetness"
+	random_unrestricted = FALSE
 
 /datum/reagent/mercury
 	name = "Mercury"
 	description = "A curious metal that's a liquid at room temperature. Neurodegenerative and very bad for the mind."
 	color = "#484848" // rgb: 72, 72, 72A
 	taste_mult = 0 // apparently tasteless.
+	random_unrestricted = FALSE
 
 /datum/reagent/mercury/on_mob_life(mob/living/carbon/M)
 	if((M.mobility_flags & MOBILITY_MOVE) && !isspaceturf(M.loc))
@@ -776,6 +784,7 @@
 	reagent_state = SOLID
 	color = "#BF8C00" // rgb: 191, 140, 0
 	taste_description = "rotten eggs"
+	random_unrestricted = FALSE
 
 /datum/reagent/carbon
 	name = "Carbon"
@@ -783,6 +792,7 @@
 	reagent_state = SOLID
 	color = "#1C1300" // rgb: 30, 20, 0
 	taste_description = "sour chalk"
+	random_unrestricted = FALSE
 
 /datum/reagent/carbon/reaction_turf(turf/T, reac_volume)
 	if(!isspaceturf(T))
@@ -796,6 +806,7 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "chlorine"
+	random_unrestricted = FALSE
 
 /datum/reagent/chlorine/on_mob_life(mob/living/carbon/M)
 	M.take_bodypart_damage(1*REM, 0, 0, 0)
@@ -809,6 +820,7 @@
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "acid"
 	process_flags = ORGANIC | SYNTHETIC
+	random_unrestricted = FALSE
 
 /datum/reagent/fluorine/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(1*REM, 0)
@@ -821,6 +833,7 @@
 	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "salty metal"
+	random_unrestricted = FALSE
 
 /datum/reagent/phosphorus
 	name = "Phosphorus"
@@ -828,6 +841,7 @@
 	reagent_state = SOLID
 	color = "#832828" // rgb: 131, 40, 40
 	taste_description = "vinegar"
+	random_unrestricted = FALSE
 
 /datum/reagent/lithium
 	name = "Lithium"
@@ -835,6 +849,7 @@
 	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "metal"
+	random_unrestricted = FALSE
 
 /datum/reagent/lithium/on_mob_life(mob/living/carbon/M)
 	if((M.mobility_flags & MOBILITY_MOVE) && !isspaceturf(M.loc))
@@ -848,6 +863,7 @@
 	description = "Glycerol is a simple polyol compound. Glycerol is sweet-tasting and of low toxicity."
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "sweetness"
+	random_unrestricted = FALSE
 
 /datum/reagent/space_cleaner/sterilizine
 	name = "Sterilizine"
@@ -868,6 +884,7 @@
 	description = "Pure iron is a metal."
 	reagent_state = SOLID
 	taste_description = "iron"
+	random_unrestricted = FALSE
 
 	color = "#C8A5DC" // rgb: 200, 165, 220
 
@@ -888,6 +905,7 @@
 	reagent_state = SOLID
 	color = "#F7C430" // rgb: 247, 196, 48
 	taste_description = "expensive metal"
+	random_unrestricted = FALSE
 
 /datum/reagent/silver
 	name = "Silver"
@@ -895,6 +913,7 @@
 	reagent_state = SOLID
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_description = "expensive yet reasonable metal"
+	random_unrestricted = FALSE
 
 /datum/reagent/silver/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(M.has_bane(BANE_SILVER))
@@ -909,6 +928,7 @@
 	taste_description = "the inside of a reactor"
 	var/irradiation_level = 1
 	process_flags = ORGANIC | SYNTHETIC
+	random_unrestricted = FALSE
 
 /datum/reagent/uranium/on_mob_life(mob/living/carbon/M)
 	M.apply_effect(irradiation_level/M.metabolism_efficiency,EFFECT_IRRADIATE,0)
@@ -930,6 +950,7 @@
 	taste_description = "the colour blue and regret"
 	irradiation_level = 2*REM
 	process_flags = ORGANIC | SYNTHETIC
+	random_unrestricted = FALSE
 
 /datum/reagent/bluespace
 	name = "Bluespace Dust"
@@ -938,6 +959,7 @@
 	color = "#0000CC"
 	taste_description = "fizzling blue"
 	process_flags = ORGANIC | SYNTHETIC
+	random_unrestricted = FALSE
 
 /datum/reagent/bluespace/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
@@ -961,6 +983,7 @@
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "metal"
+	random_unrestricted = FALSE
 
 /datum/reagent/silicon
 	name = "Silicon"
@@ -968,6 +991,7 @@
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_mult = 0
+	random_unrestricted = FALSE
 
 /datum/reagent/fuel
 	name = "Welding fuel"
@@ -978,6 +1002,7 @@
 	glass_name = "glass of welder fuel"
 	glass_desc = "Unless you're an industrial tool, this is probably not safe for consumption."
 	process_flags = ORGANIC | SYNTHETIC
+	random_unrestricted = FALSE
 
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(method == TOUCH || method == VAPOR)
@@ -1145,6 +1170,7 @@
 	description = "A perfluoronated sulfonic acid that forms a foam when mixed with water."
 	color = "#9E6B38" // rgb: 158, 107, 56
 	taste_description = "metal"
+	random_unrestricted = FALSE
 
 /datum/reagent/foaming_agent// Metal foaming agent. This is lithium hydride. Add other recipes (e.g. LiH + H2O -> LiOH + H2) eventually.
 	name = "Foaming agent"
@@ -1152,6 +1178,7 @@
 	reagent_state = SOLID
 	color = "#664B63" // rgb: 102, 75, 99
 	taste_description = "metal"
+	random_unrestricted = FALSE
 
 /datum/reagent/smart_foaming_agent //Smart foaming agent. Functions similarly to metal foam, but conforms to walls.
 	name = "Smart foaming agent"
@@ -1159,6 +1186,7 @@
 	reagent_state = SOLID
 	color = "#664B63" // rgb: 102, 75, 99
 	taste_description = "metal"
+	random_unrestricted = FALSE
 
 /datum/reagent/ammonia
 	name = "Ammonia"
@@ -1166,12 +1194,14 @@
 	reagent_state = GAS
 	color = "#404030" // rgb: 64, 64, 48
 	taste_description = "mordant"
+	random_unrestricted = FALSE
 
 /datum/reagent/diethylamine
 	name = "Diethylamine"
 	description = "A secondary amine, mildly corrosive."
 	color = "#604030" // rgb: 96, 64, 48
 	taste_description = "iron"
+	random_unrestricted = FALSE
 
 /datum/reagent/carbondioxide
 	name = "Carbon Dioxide"
@@ -1179,6 +1209,7 @@
 	description = "A gas commonly produced by burning carbon fuels. You're constantly producing this in your lungs."
 	color = "#B0B0B0" // rgb : 192, 192, 192
 	taste_description = "something unknowable"
+	random_unrestricted = FALSE
 
 /datum/reagent/carbondioxide/reaction_obj(obj/O, reac_volume)
 	if((!O) || (!reac_volume))
@@ -1387,6 +1418,7 @@
 	color = "#C8A5DC"
 	taste_description = "oil"
 	process_flags = ORGANIC | SYNTHETIC
+	random_unrestricted = FALSE
 
 /datum/reagent/stable_plasma
 	name = "Stable Plasma"
@@ -1396,6 +1428,7 @@
 	taste_description = "bitterness"
 	taste_mult = 1.5
 	process_flags = ORGANIC | SYNTHETIC
+	random_unrestricted = FALSE
 
 /datum/reagent/stable_plasma/on_mob_life(mob/living/carbon/C)
 	C.adjustPlasma(10)
@@ -1407,6 +1440,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "metal"
+	random_unrestricted = FALSE
 
 /datum/reagent/carpet
 	name = "Carpet"
@@ -1427,6 +1461,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "chemicals"
+	random_unrestricted = FALSE
 
 /datum/reagent/phenol
 	name = "Phenol"
@@ -1434,6 +1469,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "acid"
+	random_unrestricted = FALSE
 
 /datum/reagent/ash
 	name = "Ash"
@@ -1441,6 +1477,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "ash"
+	random_unrestricted = FALSE
 
 /datum/reagent/acetone
 	name = "Acetone"
@@ -1448,6 +1485,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "acid"
+	random_unrestricted = FALSE
 
 /datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
@@ -1530,6 +1568,7 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	taste_description = "cool salt"
+	random_unrestricted = FALSE
 
 /datum/reagent/lye
 	name = "Lye"
@@ -1537,6 +1576,7 @@
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
 	taste_description = "acid"
+	random_unrestricted = FALSE
 
 /datum/reagent/drying_agent
 	name = "Drying agent"
@@ -1544,6 +1584,7 @@
 	reagent_state = LIQUID
 	color = "#A70FFF"
 	taste_description = "dryness"
+	random_unrestricted = FALSE
 
 /datum/reagent/drying_agent/reaction_turf(turf/open/T, reac_volume)
 	if(istype(T))
@@ -1607,12 +1648,14 @@
 /datum/reagent/consumable/virus_food/advvirusfood
 	name = "highly unstable virus food"
 	color = "#ffffff" //rgb: 255,255,255 ITS PURE WHITE CMON
+	can_synth = FALSE
 	taste_description = "an EXTREMELY bad idea"
 
 /datum/reagent/consumable/virus_food/viralbase
 	name = "Experimental viral base"
 	description = "Recently discovered by Nanotrasen's top scientists after years of research, this substance can be used as the base for extremely rare and extremely dangerous viruses once exposed to uranium."
 	color = "#fff0da"
+	can_synth = FALSE
 	taste_description = "tears of scientists"
 
 // Bee chemicals
@@ -1655,6 +1698,7 @@
 	description = "An experimental serum which causes rapid muscular growth in Hominidae. Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
 	reagent_state = LIQUID
 	color = "#00f041"
+	can_synth = FALSE
 
 /datum/reagent/magillitis/on_mob_life(mob/living/carbon/M)
 	..()
@@ -1697,6 +1741,7 @@
 	description = "the petroleum based components of plastic."
 	color = "#f7eded"
 	taste_description = "plastic"
+	random_unrestricted = FALSE
 
 /datum/reagent/glitter
 	name = "generic glitter"
@@ -1705,6 +1750,7 @@
 	taste_description = "plastic"
 	reagent_state = SOLID
 	var/glitter_type = /obj/effect/decal/cleanable/glitter
+	random_unrestricted = FALSE
 
 /datum/reagent/glitter/reaction_turf(turf/T, reac_volume)
 	if(!istype(T))
@@ -1749,6 +1795,7 @@
 	color = "#FAFF00"
 	taste_description = "acrid cinnamon"
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
+	random_unrestricted = FALSE
 
 /datum/reagent/bz_metabolites/on_mob_metabolize(mob/living/L)
 	..()
@@ -1821,3 +1868,4 @@
 	color = "#10cca6" //RGB: 16, 204, 166
 	taste_description = "lifegiiving metal"
 	can_synth = FALSE
+	random_unrestricted = FALSE

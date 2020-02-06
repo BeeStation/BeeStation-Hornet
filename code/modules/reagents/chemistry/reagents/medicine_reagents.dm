@@ -1152,6 +1152,7 @@
 	reagent_state = SOLID
 	color = "#555555"
 	overdose_threshold = 30
+	can_synth = FALSE
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/carbon/M)
