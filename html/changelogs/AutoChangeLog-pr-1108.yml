@@ -1,0 +1,5 @@
+author: "St0rmC4st3r"
+delete-after: True
+changes: 
+  - tweak: "chainsaws are now viewed as regular saws in surgery"
+  - refactor: "changed how non-ghetto surgery tools are marked for usability in surgery"
