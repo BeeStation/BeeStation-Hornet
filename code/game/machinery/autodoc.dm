@@ -6,15 +6,32 @@
 	icon = 'icons/obj/machines/fat_sucker.dmi'
 	icon_state = "fat"
 	verb_say = "states"
-	state_open = FALSE
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/autodoc
 	var/obj/item/organ/storedorgan
 	var/organ_type = /obj/item/organ
+	var/processing = FALSE
+	var/surgerytime = 300
 
 /obj/machinery/autodoc/Initialize()
 	. = ..()
 	update_icon()
+
+/obj/machinery/autodoc/RefreshParts()
+	var/max_time = 350
+	for(var/obj/item/stock_parts/L in component_parts)
+		max_time -= (L.rating*10)
+	surgerytime = max(max_time,10)
+
+/obj/machinery/autodoc/examine(mob/user)
+	. = ..()
+	if((obj_flags & EMAGGED) && panel_open)
+		. += "<span class='warning'>[src]'s surgery protocols have been corrupted!</span>"
+	if(processing)
+		. += "<span class='notice'>[src] is currently inserting [storedorgan] into [occupant].</span>"
+	else if(storedorgan)
+		. += "<span class='notice'>[src] is prepared to insert [storedorgan].</span>"
+
 
 /obj/machinery/autodoc/proc/insert_organ(var/obj/item/I)
 	storedorgan = I
@@ -30,16 +47,43 @@
 			return
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
 
-		if(!storedorgan)
-			to_chat(occupant, "<span class='notice'>[src] currently has no implant stored.</span>")
+		dosurgery()
+
+/obj/machinery/autodoc/proc/dosurgery()
+	if(!storedorgan && !(obj_flags & EMAGGED))
+		to_chat(occupant, "<span class='notice'>[src] currently has no implant stored.</span>")
+		return
+
+	occupant.visible_message("<span class='notice'>[occupant] presses a button on [src], and you hear a mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] starts inserting the organ into your body.</span>")
+	playsound(get_turf(occupant), 'sound/weapons/circsawhit.ogg', 50, 1)
+	processing = TRUE
+	update_icon()
+	if(obj_flags & EMAGGED)
+		var/mob/living/carbon/C = occupant
+		for(var/obj/item/bodypart/BP in reverseList(C.bodyparts)) //Chest and head are first in bodyparts, so we invert it to make them suffer more
+			C.emote("scream")
+			BP.dismember()
+			sleep(5) //2 seconds to get outta there before dying
+			if(!processing)
+				return
+
+		occupant.visible_message("<span class='warning'>[src] dismembers [occupant]!", "<span class='warning'>[src] removes the organs from your body!</span>")
+
+	else
+		sleep(surgerytime)
+		if(!processing)
 			return
 		storedorgan.Insert(occupant)//insert stored organ into the user
-		user.visible_message("<span class='notice'>[user] presses a button on [src], and you hear a short mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] plunges into your body.</span>")
-		playsound(get_turf(occupant), 'sound/weapons/circsawhit.ogg', 50, 1)
 		storedorgan = null
-
+		occupant.visible_message("<span class='notice'>[src] completes the surgery procedure", "<span class='notice'>[src] inserts the organ into your body.</span>")
+	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, 0)
+	processing = FALSE
+	open_machine()
 
 /obj/machinery/autodoc/open_machine(mob/user)
+	if(processing)
+		occupant.visible_message("<span class='notice'>[user] cancels [src]'s procedure", "<span class='notice'>[src] stops inserting the organ into your body.</span>")
+		processing = FALSE
 	if(occupant)
 		occupant.forceMove(drop_location())
 		occupant = null
@@ -79,6 +123,9 @@
 		to_chat(user, "<span class='warning'>[src] must be closed to [panel_open ? "close" : "open"] its maintenance hatch!</span>")
 		return
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+		if(storedorgan)
+			storedorgan.forceMove(drop_location())
+			storedorgan = null
 		update_icon()
 		return
 	return FALSE
@@ -91,14 +138,26 @@
 /obj/machinery/autodoc/update_icon()
 	overlays.Cut()
 	if(!state_open)
-		overlays += "[icon_state]_door_off"
-		if(occupant)
-			if(powered(EQUIP))
-				overlays += "[icon_state]_stack"
-				overlays += "[icon_state]_yellow"
+		if(processing)
+			overlays += "[icon_state]_door_on"
+			overlays += "[icon_state]_stack"
+			overlays += "[icon_state]_smoke"
+			overlays += "[icon_state]_green"
 		else
-			overlays += "[icon_state]_red"
+			overlays += "[icon_state]_door_off"
+			if(occupant)
+				if(powered(EQUIP))
+					overlays += "[icon_state]_stack"
+					overlays += "[icon_state]_yellow"
+			else
+				overlays += "[icon_state]_red"
 	else if(powered(EQUIP))
 		overlays += "[icon_state]_red"
 	if(panel_open)
 		overlays += "[icon_state]_panel"
+
+/obj/machinery/autodoc/emag_act(mob/user)
+	if(obj_flags & EMAGGED)
+		return
+	obj_flags |= EMAGGED
+	to_chat(user, "<span class='warning'>You reprogram [src]'s surgery procedures.</span>")
