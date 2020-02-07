@@ -1,0 +1,5 @@
+author: "TheChaser212"
+delete-after: True
+changes: 
+  - rscadd: "Genetics consoles can store more mutations and chromosomes with better parts"
+  - tweak: "Lots of other small changes to genetics"
