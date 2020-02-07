@@ -1,0 +1,5 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "confuseimmune and nostamcrit traits"
+  - tweak: "hulk and bath salts bypass stamina damage"
