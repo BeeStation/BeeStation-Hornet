@@ -12,7 +12,6 @@
 		return
 	var/output = "<div align='center'><B>Player polls</B><hr><table>"
 	var/i = 0
-	var/rs = REF(mob)
 	while(query_poll_get.NextRow())
 		var/pollid = query_poll_get.item[1]
 		var/pollquestion = query_poll_get.item[2]
