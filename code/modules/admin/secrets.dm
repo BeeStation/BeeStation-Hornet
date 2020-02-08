@@ -346,10 +346,8 @@
 			if(!SSticker.HasRoundStarted())
 				alert("The game hasn't started yet!")
 				return
-
 			if(!GLOB.admin_objective_list)
 				generate_admin_objective_list()
-
 			var/def_value
 			var/selected_type = input("Select objective type:", "Objective type", def_value) as null|anything in GLOB.admin_objective_list
 			selected_type = GLOB.admin_objective_list[selected_type]
