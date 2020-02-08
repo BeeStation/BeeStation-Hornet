@@ -173,7 +173,7 @@ GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, /proc/release))
 GLOBAL_PROTECT(admin_verbs_possess)
 GLOBAL_LIST_INIT(admin_verbs_permissions, list(/client/proc/edit_admin_permissions, /client/proc/edit_mentors))
 GLOBAL_PROTECT(admin_verbs_permissions)
-GLOBAL_LIST_INIT(admin_verbs_poll, list(/client/proc/create_poll))
+GLOBAL_LIST_INIT(admin_verbs_poll, list(/client/proc/create_poll, /client/proc/get_poll_results))
 GLOBAL_PROTECT(admin_verbs_poll)
 
 //verbs which can be hidden - needs work
@@ -752,7 +752,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		for(var/obj/machinery/atmospherics/pipe/P in line.members)
 			P.air_temporary = new
 
-	
+
 
 
 

@@ -2234,6 +2234,92 @@
 	else if(href_list["beakerpanel"])
 		beaker_panel_act(href_list)
 
+	else if(href_list["getpollresult"])
+		if(!check_rights(R_POLL))
+			return
+		if(!SSdbcore.IsConnected())
+			to_chat(usr, "<span class='danger'>Not connected to database. Cannot retrieve data.</span>")
+			return
+		var/pollid = href_list["getpollresult"]
+		var/page = href_list["page"]
+		if(!page)
+			page = 0
+		var/datum/DBQuery/query_poll_get_type = SSdbcore.NewQuery("SELECT polltype, question FROM [format_table_name("poll_question")] WHERE id = [pollid]")
+		if(!query_poll_get_type.warn_execute())
+			qdel(query_poll_get_type)
+			return
+		var/polltype
+		query_poll_get_type.NextRow()
+		polltype = query_poll_get_type.item[1]
+		if(!polltype)
+			qdel(query_poll_get_type)
+			return
+		//Here we go with the formatting the answers depending on the type of poll
+		//Multichoice is easy cause you can just list the amount per choice and order
+		//Numval
+		var/output = "<div align='center'><B>Player Poll Results</B><hr>[query_poll_get_type.item[2]]<hr><table><tr><th>Options</th><th>Votes</th></tr>"
+		qdel(query_poll_get_type)
+		if(polltype == POLLTYPE_OPTION)
+			polltype = POLLTYPE_MULTI
+		switch(polltype)
+			if(POLLTYPE_MULTI)
+				//Get the results
+				var/datum/DBQuery/query_get_poll_results = SSdbcore.NewQuery("SELECT optionid, count(*) FROM [format_table_name("poll_vote")] WHERE pollid = [pollid] GROUP BY optionid ORDER BY count(*) DESC")
+				if(!query_get_poll_results.warn_execute())
+					qdel(query_get_poll_results)
+					return
+				while(query_get_poll_results.NextRow())
+					var/datum/DBQuery/query_get_option_name = SSdbcore.NewQuery("SELECT text FROM [format_table_name("poll_option")] WHERE id = [query_get_poll_results.item[1]]")
+					if(!query_get_option_name.warn_execute())
+						qdel(query_get_option_name)
+						qdel(query_get_poll_results)
+						return
+					query_get_option_name.NextRow()
+					output += "<tr><td>[query_get_option_name.item[1]]</td><td>[query_get_poll_results.item[2]]</td></tr>"
+					qdel(query_get_option_name)
+				qdel(query_get_poll_results)
+			if(POLLTYPE_TEXT)
+				to_chat(usr, "Reading text")
+				var/datum/DBQuery/query_get_poll_results = SSdbcore.NewQuery("SELECT replytext, ckey FROM [format_table_name("poll_textreply")] WHERE pollid = [pollid] ORDER BY id")
+				if(!query_get_poll_results.warn_execute())
+					qdel(query_get_poll_results)
+					return
+				to_chat(usr, "GG")
+				var/reachedend = FALSE
+				var/result
+				for(result in 1 to page * 10)
+					if(!query_get_poll_results.NextRow())
+						reachedend = TRUE
+						output += "</table><B>No more results to display.</B><hr>"
+						output += "<a href='?_src_=holder;[HrefToken()];getpollresult=[pollid];page=[page - 1]'><b>Previous Page</b></a><table>"
+						break
+				to_chat(usr, "Getting messages")
+				for(var/messageid in 1 to 10)
+					to_chat(usr, "Getting message")
+					if(query_get_poll_results.NextRow())
+						output += "<tr><th>Name : [query_get_poll_results.item[2]]</th></tr><tr><th>[query_get_poll_results.item[1]]</th></tr></table><br><table>"
+					else
+						reachedend = TRUE
+						output += "</table><B>No more results to display.</B><hr>"
+						output += "<a href='?_src_=holder;[HrefToken()];getpollresult=[pollid];page=[page - 1]'><b>Previous Page</b></a><table>"
+				to_chat(usr, "Got all messages")
+				if(!reachedend)
+					output += "</table><B>No more results to display.</B><hr>"
+					output += "<a href='?_src_=holder;[HrefToken()];getpollresult=[pollid];page=[page - 1]'><b>Previous Page</b></a><br>"
+					output += "<a href='?_src_=holder;[HrefToken()];getpollresult=[pollid];page=[page + 1]'><b>Next Page</b></a><table>"
+				qdel(query_get_poll_results)
+				to_chat(usr, "Done g")
+			if(POLLTYPE_IRV)
+				//These ones are kind of weird, and the vote order is stored in order from heighest to lowest in order of ID
+				return
+			if(POLLTYPE_RATING)
+				//poll_vote rating is the rating
+				//In poll_options are the descmin mid and max as well as minval and maxval
+				return
+		output += "</table>"
+		if(!QDELETED(usr))
+			usr << browse(output, "window=playerpolllist;size=500x300")
+
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))
 		return

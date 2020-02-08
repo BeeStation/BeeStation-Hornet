@@ -1184,6 +1184,7 @@
 #include "code\modules\admin\create_poll.dm"
 #include "code\modules\admin\create_turf.dm"
 #include "code\modules\admin\fun_balloon.dm"
+#include "code\modules\admin\get_poll_results.dm"
 #include "code\modules\admin\holder2.dm"
 #include "code\modules\admin\ipintel.dm"
 #include "code\modules\admin\IsBanned.dm"
