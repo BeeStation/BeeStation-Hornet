@@ -2279,42 +2279,16 @@
 					qdel(query_get_option_name)
 				qdel(query_get_poll_results)
 			if(POLLTYPE_TEXT)
-				to_chat(usr, "Reading text")
-				var/datum/DBQuery/query_get_poll_results = SSdbcore.NewQuery("SELECT replytext, ckey FROM [format_table_name("poll_textreply")] WHERE pollid = [pollid] ORDER BY id")
-				if(!query_get_poll_results.warn_execute())
-					qdel(query_get_poll_results)
-					return
-				to_chat(usr, "GG")
-				var/reachedend = FALSE
-				var/result
-				for(result in 1 to page * 10)
-					if(!query_get_poll_results.NextRow())
-						reachedend = TRUE
-						output += "</table><B>No more results to display.</B><hr>"
-						output += "<a href='?_src_=holder;[HrefToken()];getpollresult=[pollid];page=[page - 1]'><b>Previous Page</b></a><table>"
-						break
-				to_chat(usr, "Getting messages")
-				for(var/messageid in 1 to 10)
-					to_chat(usr, "Getting message")
-					if(query_get_poll_results.NextRow())
-						output += "<tr><th>Name : [query_get_poll_results.item[2]]</th></tr><tr><th>[query_get_poll_results.item[1]]</th></tr></table><br><table>"
-					else
-						reachedend = TRUE
-						output += "</table><B>No more results to display.</B><hr>"
-						output += "<a href='?_src_=holder;[HrefToken()];getpollresult=[pollid];page=[page - 1]'><b>Previous Page</b></a><table>"
-				to_chat(usr, "Got all messages")
-				if(!reachedend)
-					output += "</table><B>No more results to display.</B><hr>"
-					output += "<a href='?_src_=holder;[HrefToken()];getpollresult=[pollid];page=[page - 1]'><b>Previous Page</b></a><br>"
-					output += "<a href='?_src_=holder;[HrefToken()];getpollresult=[pollid];page=[page + 1]'><b>Next Page</b></a><table>"
-				qdel(query_get_poll_results)
-				to_chat(usr, "Done g")
+				to_chat(usr, "This button only works for multichoice (At the moment)")
+				return
 			if(POLLTYPE_IRV)
 				//These ones are kind of weird, and the vote order is stored in order from heighest to lowest in order of ID
+				to_chat(usr, "This button only works for multichoice (At the moment)")
 				return
 			if(POLLTYPE_RATING)
 				//poll_vote rating is the rating
 				//In poll_options are the descmin mid and max as well as minval and maxval
+				to_chat(usr, "This button only works for multichoice (At the moment)")
 				return
 		output += "</table>"
 		if(!QDELETED(usr))
