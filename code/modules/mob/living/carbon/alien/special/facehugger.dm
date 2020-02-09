@@ -134,7 +134,7 @@
 		if(!target.get_bodypart(BODY_ZONE_HEAD))
 			return FALSE
 		// gotta be able to have the xeno implanted
-		if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
+		if(HAS_TRAIT(target, TRAIT_XENO_IMMUNE))
 			return FALSE
 		// carbon, has head, not alien or devil, has no hivenode or embryo: valid
 		return TRUE
