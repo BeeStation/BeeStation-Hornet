@@ -1,0 +1,4 @@
+author: "TheChaser212"
+delete-after: True
+changes: 
+  - tweak: "Ethereals will now keep charging at a lightbulb until they move away"
