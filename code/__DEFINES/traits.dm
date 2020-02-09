@@ -139,6 +139,7 @@
 #define TRAIT_BOOZE_SLIDER      "booze-slider"
 #define TRAIT_UNINTELLIGIBLE_SPEECH "unintelligible-speech"
 #define TRAIT_UNSTABLE			"unstable"
+#define TRAIT_XENO_IMMUNE		"xeno_immune"//prevents facehuggers implanting races that wouldn't be able to host an egg
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
