@@ -364,7 +364,7 @@
 				return
 			var/objective_explanation = new selected_type
 			var/datum/objective/new_objective = objective_explanation
-			new_objective.admin_edit(H)
+			new_objective.admin_edit(usr)
 			//Get Percentage
 			var/def_percentage
 			var/selected_percentage = input("Percentage of crew to convert (0-100):", "Antag Percentage", def_percentage) as num|null
@@ -373,8 +373,22 @@
 			selected_percentage = selected_percentage > 100 ? 100 : selected_percentage
 			selected_percentage = selected_percentage < 0 ? 0 : selected_percentage
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Antag", "[objective_explanation]"))
+			//Pick antags
+			var/list/choices = list()
+			var/list/chosenPlayers = list()
+			for(var/player in GLOB.player_list)
+				choices.Add(player)
+			var/antagCount = round(GLOB.player_list.len * (selected_percentage / 100) + 0.999)
+			for(var/i in 0 to antagCount)
+				var/chosenPlayer = pick(choices)
+				if(!chosenPlayer)
+					break
+				choices.Remove(chosenPlayer)
+				chosenPlayers.Add(chosenPlayer)
+			if(!choices)
+				return
 			//Make the antags
-			for(var/mob/living/H in GLOB.player_list)
+			for(var/mob/living/H in choices)
 				if(!(ishuman(H)||istype(H, /mob/living/silicon/)))
 					continue
 				if(H.stat == DEAD || !H.client || !H.mind || ispAI(H))
