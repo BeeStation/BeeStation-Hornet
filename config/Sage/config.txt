@@ -375,12 +375,15 @@ ANNOUNCE_ADMIN_LOGIN
 
 ## Map rotation
 ## You should edit maps.txt to match your configuration when you enable this.
-#MAPROTATION
+MAPROTATION
 
 ## Map voting
 ## Allows players to vote for their preffered map
 ## When it's set to zero, the map will be randomly picked each round
-PREFERENCE_MAP_VOTING 1
+PREFERENCE_MAP_VOTING 0
+
+## Starts a map vote at the end of rounds
+#AUTOMAPVOTE
 
 ## Map rotate chance delta
 ## This is the chance of map rotation factored to the round length.
@@ -416,7 +419,6 @@ CLIENT_ERROR_BUILD 1421
 SECOND_TOPIC_LIMIT 10
 
 MINUTE_TOPIC_LIMIT 180
-
 
 ## CLICK RATE LIMITING
 ## Same as above, but applies to clicking on objects in the game window.
@@ -469,8 +471,6 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 85
 
 ## Uncomment to set the number of /world/Reboot()s before the DreamDaemon restarts itself. 0 means restart every round. Requires tgstation server tools.
 ROUNDS_UNTIL_HARD_RESTART 3
-
-AUTOMAPVOTE
 
 ##Default screen resolution, in tiles.
 ##	By default, this is 15x15, which gets simplified to 7 by BYOND, as it is a 1:1 screen ratio.
