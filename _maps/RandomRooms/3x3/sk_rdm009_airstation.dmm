@@ -1,0 +1,56 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/components/unary/portables_connector,
+/obj/item/wrench,
+/obj/effect/turf_decal/stripes/box,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/machinery/atmospherics/pipe/simple/general{
+	icon_state = "pipe11-2";
+	dir = 8
+	},
+/obj/machinery/meter,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/machinery/atmospherics/components/unary/tank/air{
+	dir = 8
+	},
+/obj/machinery/light{
+	icon_state = "tube";
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/machinery/atmospherics/components/binary/valve,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/machinery/atmospherics/pipe/simple/general{
+	icon_state = "pipe11-2";
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+b
+e
+f
+"}
+(2,1,1) = {"
+a
+a
+c
+"}
+(3,1,1) = {"
+a
+a
+d
+"}

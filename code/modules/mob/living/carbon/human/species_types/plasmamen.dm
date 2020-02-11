@@ -30,7 +30,7 @@
 		var/obj/item/clothing/CH = H.head
 		if (CS.clothing_flags & CH.clothing_flags & STOPSPRESSUREDAMAGE)
 			atmos_sealed = TRUE
-	if((!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)) && !atmos_sealed)
+	if((!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/foilhat/plasmaman) && !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)) && !atmos_sealed)
 		if(environment)
 			if(environment.total_moles())
 				if(environment.gases[/datum/gas/oxygen] && (environment.gases[/datum/gas/oxygen][MOLES]) >= 1) //Same threshhold that extinguishes fire
@@ -80,7 +80,7 @@
 			O = new /datum/outfit/plasmaman/security
 
 		if("Brig Physician")
-			O = new /datum/outfit/plasmaman/security
+			O = new /datum/outfit/plasmaman/secmed
 
 		if("Detective")
 			O = new /datum/outfit/plasmaman/detective
@@ -98,7 +98,7 @@
 			O = new /datum/outfit/plasmaman/medical
 
 		if("Paramedic")
-			O = new /datum/outfit/plasmaman/medical
+			O = new /datum/outfit/plasmaman/emt
 
 		if("Chemist")
 			O = new /datum/outfit/plasmaman/chemist

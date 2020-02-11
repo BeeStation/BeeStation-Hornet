@@ -30,7 +30,7 @@ map pubbystation
 endmap
 
 map deltastation
-	minplayers 60
+	minplayers 50
 	votable
 endmap
 
@@ -49,8 +49,6 @@ map multiz_debug
 endmap
 
 map kilostation
-    minplayers 30
-    maxplayers 80
-	votable
+	maxplayers 60
 	disabled
 endmap

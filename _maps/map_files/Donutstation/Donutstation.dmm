@@ -4082,6 +4082,11 @@
 "akc" = (
 /obj/structure/table,
 /obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/mask/muzzle,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "akd" = (
@@ -12662,14 +12667,15 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/bed,
-/obj/item/clothing/suit/straight_jacket,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
+	},
+/obj/machinery/computer/operating{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/security/brig)
@@ -12858,12 +12864,11 @@
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "aEr" = (
-/obj/structure/bed,
-/obj/item/clothing/suit/straight_jacket,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/structure/table/optable,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "aEs" = (
@@ -26278,6 +26283,7 @@
 	dir = 4
 	},
 /obj/item/storage/box/bodybags,
+/obj/item/storage/backpack/duffelbag/sec/surgery,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "bhu" = (

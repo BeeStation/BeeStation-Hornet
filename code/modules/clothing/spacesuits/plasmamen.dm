@@ -99,6 +99,18 @@
 	icon_state = "chemist_envirohelm"
 	item_state = "chemist_envirohelm"
 
+/obj/item/clothing/head/helmet/space/plasmaman/emt
+	name = "paramedic envirosuit helmet"
+	desc = "An envirosuit helmet only for the bravest medical plasmaman."
+	icon_state = "emt_envirohelm"
+	item_state = "emt_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/security/secmed
+	name = "brig physician envirosuit helmet"
+	desc = "An envirosuit helmet made for brig physicians."
+	icon_state = "secmed_envirohelm"
+	item_state = "secmed_envirohelm"
+
 /obj/item/clothing/head/helmet/space/plasmaman/science
 	name = "science plasma envirosuit helmet"
 	desc = "A plasmaman envirohelmet designed for scientists."

@@ -17,7 +17,7 @@
 	name = "welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH 
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "welding"
 	materials = list(/datum/material/iron=1750, /datum/material/glass=400)
 	flash_protect = 2
@@ -332,3 +332,53 @@
 			to_chat(user, "<span class='userdanger'>Why would you want to take this off? Do you want them to get into your mind?!</span>")
 			return
 	..()
+
+/obj/item/clothing/head/foilhat/plasmaman
+	name = "tinfoil envirosuit helmet"
+	desc = "The Syndicate is a hoax! Dogs are fake! Space Station 13 is just a money laundering operation! See the truth!"
+	icon_state = "tinfoil_envirohelm"
+	item_state = "tinfoil_envirohelm"
+	strip_delay = 150
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 50, "acid" = 50)
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	var/brightness_on = 4 //luminosity when the light is on
+	var/on = FALSE
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+	dynamic_hair_suffix = ""
+	dynamic_fhair_suffix = ""
+	flash_protect = 2
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	resistance_flags = NONE
+	dog_fashion = null
+	
+
+/obj/item/clothing/head/foilhat/plasmaman/attack_self(mob/user)
+	on = !on
+	icon_state = "[initial(icon_state)][on ? "-light":""]"
+	item_state = icon_state
+	user.update_inv_head() //So the mob overlay updates
+
+	if(on)
+		set_light(brightness_on)
+	else
+		set_light(0)
+
+	for(var/X in actions)
+		var/datum/action/A=X
+		A.UpdateButtonIcon()
+
+/obj/item/clothing/head/speedwagon
+	name = "hat of ultimate masculinity"
+	desc = "Even the mere act of wearing this makes you want to pose menacingly."
+	alternate_worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	icon_state = "speedwagon"
+	item_state = "speedwagon"
+	worn_x_dimension = 64
+	worn_y_dimension = 64
+
+/obj/item/clothing/head/speedwagon/cursed
+	name = "ULTIMATE HAT"
+	desc = "You feel weak and pathetic in comparison to this exceptionally beautiful hat."
+	icon_state = "speedwagon_cursed"
+	item_state = "speedwagon_cursed"

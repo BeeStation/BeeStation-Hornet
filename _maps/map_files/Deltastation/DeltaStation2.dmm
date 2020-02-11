@@ -22951,6 +22951,8 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/glass/bottle/morphine,
 /turf/open/floor/plasteel/white,
 /area/security/prison)
 "aQX" = (
@@ -22966,12 +22968,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/item/storage/backpack/duffelbag/sec/surgery,
 /turf/open/floor/plasteel/white,
 /area/security/prison)
 "aQY" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/bottle/morphine,
-/obj/item/reagent_containers/syringe,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -22979,6 +22979,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/computer/operating,
 /turf/open/floor/plasteel/white,
 /area/security/prison)
 "aQZ" = (
@@ -23960,20 +23961,20 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/glasses/blindfold,
 /turf/open/floor/plasteel/white,
 /area/security/prison)
 "aSD" = (
 /turf/open/floor/plasteel/white,
 /area/security/prison)
 "aSE" = (
-/obj/structure/bed,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/mask/muzzle,
-/obj/item/clothing/glasses/blindfold,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/structure/table/optable,
 /turf/open/floor/plasteel/white,
 /area/security/prison)
 "aSF" = (

@@ -82,8 +82,8 @@
   */
 /proc/slur(n)
 	var/phrase = html_decode(n)
-	var/leng = lentext(phrase)
-	var/counter=lentext(phrase)
+	var/leng = length(phrase)
+	var/counter=length(phrase)
 	var/newphrase=""
 	var/newletter=""
 	while(counter>=1)
@@ -117,8 +117,8 @@
 /// Makes you talk like you got cult stunned, which is slurring but with some dark messages
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)
-	var/leng = lentext(phrase)
-	var/counter=lentext(phrase)
+	var/leng = length(phrase)
+	var/counter=length(phrase)
 	var/newphrase=""
 	var/newletter=""
 	while(counter>=1)
@@ -223,7 +223,7 @@
 
 /**
   * Convert a message into leet non gaijin speak
-  * 
+  *
   * The difference with stutter is that this proc can stutter more than 1 letter
   *
   * The issue here is that anything that does not have a space is treated as one word (in many instances). For instance, "LOOKING," is a word, including the comma.
@@ -398,7 +398,7 @@
   * The kitchen sink of notification procs
   *
   * Arguments:
-  * * message 
+  * * message
   * * ghost_sound sound to play
   * * enter_link Href link to enter the ghost role being notified for
   * * source The source of the notification
@@ -477,7 +477,7 @@
 		return
 	return TRUE
 
-/** 
+/**
   * Offer control of the passed in mob to dead player
   *
   * Automatic logging and uses pollCandidatesForMob, how convenient
@@ -564,7 +564,7 @@
 	. = TRUE
 
 /mob/proc/has_mouth()
-	return FALSE 
+	return FALSE
 
 /**
   * Examine text for traits shared by multiple types.

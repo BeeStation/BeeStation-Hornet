@@ -346,10 +346,15 @@
 			if(!SSticker.HasRoundStarted())
 				alert("The game hasn't started yet!")
 				return
-			var/objective = copytext(sanitize(input("Enter an objective")),1,MAX_MESSAGE_LEN)
-			if(!objective)
+			if(!GLOB.admin_objective_list)
+				generate_admin_objective_list()
+			var/def_value
+			var/selected_type = input("Select objective type:", "Objective type", def_value) as null|anything in GLOB.admin_objective_list
+			selected_type = GLOB.admin_objective_list[selected_type]
+			if(!selected_type)
 				return
-			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Traitor All", "[objective]"))
+			var/objective_explanation = new selected_type
+			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Traitor All", "[objective_explanation]"))
 			for(var/mob/living/H in GLOB.player_list)
 				if(!(ishuman(H)||istype(H, /mob/living/silicon/)))
 					continue
@@ -359,13 +364,13 @@
 					continue
 				var/datum/antagonist/traitor/T = new()
 				T.give_objectives = FALSE
-				var/datum/objective/new_objective = new
+				var/datum/objective/new_objective = new selected_type
 				new_objective.owner = H
-				new_objective.explanation_text = objective
+				new_objective.admin_edit(H)
 				T.add_objective(new_objective)
 				H.mind.add_antag_datum(T)
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] used everyone is a traitor secret. Objective is [objective]</span>")
-			log_admin("[key_name(usr)] used everyone is a traitor secret. Objective is [objective]")
+			message_admins("<span class='adminnotice'>[key_name_admin(usr)] used everyone is a traitor secret. Objective is [objective_explanation]</span>")
+			log_admin("[key_name(usr)] used everyone is a traitor secret. Objective is [objective_explanation]")
 
 		if("changebombcap")
 			if(!check_rights(R_FUN))

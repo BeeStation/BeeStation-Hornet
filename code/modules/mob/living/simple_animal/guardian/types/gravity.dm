@@ -5,7 +5,7 @@
 	damage_coeff = list(BRUTE = 0.6, BURN = 0.6, TOX = 0.6, CLONE = 0.6, STAMINA = 0, OXY = 0.6)
 	range = 13
 	playstyle_string = "<span class='holoparasite'>As an <b>Gravity</b> type, you have moderate close combat abilities, pin targets to the ground on attack and are capable of creating gravitational anomalies via alt clicking yourself (THIS AFFECTS YOUR HOST TOO).</span>"
-	magic_fluff_string = "<span class='holoparasite'>..And draw the Scientist, master of gravitational death.</span>"
+	magic_fluff_string = "<span class='holoparasite'>..And draw the Singularity, the inescapable vortex.</span>"
 	tech_fluff_string = "<span class='holoparasite'>Boot sequence complete. Gravity modules active. Holoparasite swarm online.</span>"
 	carp_fluff_string = "<span class='holoparasite'>CARP CARP CARP! Caught one! It's an Gravity carp! Succ goes the fishy.</span>"
 	var/gravity_well_CD = 0
