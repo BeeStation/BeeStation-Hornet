@@ -380,15 +380,13 @@
 				choices.Add(player)
 			var/antagCount = round(GLOB.player_list.len * (selected_percentage / 100) + 0.999)
 			for(var/i in 0 to antagCount)
-				var/chosenPlayer = pick(choices)
-				if(!chosenPlayer)
+				if(choices.len == 0)
 					break
+				var/chosenPlayer = pick(choices)
 				choices.Remove(chosenPlayer)
 				chosenPlayers.Add(chosenPlayer)
-			if(!choices)
-				return
 			//Make the antags
-			for(var/mob/living/H in choices)
+			for(var/mob/living/H in chosenPlayers)
 				if(!(ishuman(H)||istype(H, /mob/living/silicon/)))
 					continue
 				if(H.stat == DEAD || !H.client || !H.mind || ispAI(H))
