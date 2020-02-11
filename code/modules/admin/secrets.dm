@@ -364,6 +364,7 @@
 				return
 			var/objective_explanation = new selected_type
 			var/datum/objective/new_objective = objective_explanation
+			new_objective.admin_edit(H)
 			//Get Percentage
 			var/def_percentage
 			var/selected_percentage = input("Percentage of crew to convert (0-100):", "Antag Percentage", def_percentage) as num|null
@@ -385,10 +386,9 @@
 				var/datum/antagonist/A = H.mind.add_antag_datum(T)
 				A.objectives = list()
 				new_objective.owner = H
-				new_objective.admin_edit(H)
 				A.objectives += new_objective
 				var/obj_count = 1
-				to_chat(T.owner, "<span class='notice'>Your contractors have updated your objectives:</span>")
+				to_chat(T.owner, "<span class='alertsyndie'>Your contractors have updated your objectives</span>")
 				for(var/objective in A.objectives)
 					var/datum/objective/O = objective
 					to_chat(T.owner, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
