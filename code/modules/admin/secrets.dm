@@ -348,13 +348,31 @@
 				return
 			if(!GLOB.admin_objective_list)
 				generate_admin_objective_list()
+			if(!GLOB.admin_antag_list)
+				generate_admin_antag_list()
+			//Get Antag Type
+			var/default_antag
+			var/selected_antag = input("Select antag type:", "Antag type", default_antag) as null|anything in GLOB.admin_antag_list
+			selected_antag = GLOB.admin_antag_list[selected_antag]
+			if(!selected_antag)
+				return
+			//Get Objective
 			var/def_value
 			var/selected_type = input("Select objective type:", "Objective type", def_value) as null|anything in GLOB.admin_objective_list
 			selected_type = GLOB.admin_objective_list[selected_type]
 			if(!selected_type)
 				return
 			var/objective_explanation = new selected_type
-			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Traitor All", "[objective_explanation]"))
+			var/datum/objective/new_objective = objective_explanation
+			//Get Percentage
+			var/def_percentage
+			var/selected_percentage = input("Percentage of crew to convert (0-100):", "Antag Percentage", def_percentage) as num|null
+			if(!selected_percentage)
+				return
+			selected_percentage = selected_percentage > 100 ? 100 : selected_percentage
+			selected_percentage = selected_percentage < 0 ? 0 : selected_percentage
+			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Antag", "[objective_explanation]"))
+			//Make the antags
 			for(var/mob/living/H in GLOB.player_list)
 				if(!(ishuman(H)||istype(H, /mob/living/silicon/)))
 					continue
@@ -362,15 +380,21 @@
 					continue
 				if(is_special_character(H))
 					continue
-				var/datum/antagonist/traitor/T = new()
+				var/datum/antagonist/T = new selected_antag()
 				T.give_objectives = FALSE
-				var/datum/objective/new_objective = new selected_type
+				var/datum/antagonist/A = H.mind.add_antag_datum(T)
+				A.objectives = list()
 				new_objective.owner = H
 				new_objective.admin_edit(H)
-				T.add_objective(new_objective)
-				H.mind.add_antag_datum(T)
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] used everyone is a traitor secret. Objective is [objective_explanation]</span>")
-			log_admin("[key_name(usr)] used everyone is a traitor secret. Objective is [objective_explanation]")
+				A.objectives += new_objective
+				var/obj_count = 1
+				to_chat(T.owner, "<span class='notice'>Your contractors have updated your objectives:</span>")
+				for(var/objective in A.objectives)
+					var/datum/objective/O = objective
+					to_chat(T.owner, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
+					obj_count++
+			message_admins("<span class='adminnotice'>[key_name_admin(usr)] used mass antag secret. Objective is [objective_explanation]</span>")
+			log_admin("[key_name(usr)] used mass antag secret. Objective is [objective_explanation]")
 
 		if("changebombcap")
 			if(!check_rights(R_FUN))

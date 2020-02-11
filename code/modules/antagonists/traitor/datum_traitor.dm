@@ -9,13 +9,12 @@
 	antag_moodlet = /datum/mood_event/focused
 	var/special_role = ROLE_TRAITOR
 	var/employer = "The Syndicate"
-	var/give_objectives = TRUE
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE
 	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
 	var/datum/contractor_hub/contractor_hub
 	can_hijack = HIJACK_HIJACKER
-	
+
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && isAI(owner.current))
 		traitor_kind = TRAITOR_AI
@@ -379,7 +378,7 @@
 	/// Get all the icons/total cost for all our items bought
 	for (var/datum/contractor_item/contractor_purchase in contractor_hub.purchased_items)
 		contractor_item_icons += "<span class='tooltip_container'>\[ <i class=\"fas [contractor_purchase.item_icon]\"></i><span class='tooltip_hover'><b>[contractor_purchase.name] - [contractor_purchase.cost] Rep</b><br><br>[contractor_purchase.desc]</span> \]</span>"
-		
+
 		total_spent_rep += contractor_purchase.cost
 
 		/// Special case for reinforcements, we want to show their ckey and name on round end.
