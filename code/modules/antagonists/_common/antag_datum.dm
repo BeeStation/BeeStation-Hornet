@@ -262,9 +262,7 @@ datum/antagonist/custom/create_team(datum/team/team)
 		/datum/antagonist/devil,
 		/datum/antagonist/ninja,
 		/datum/antagonist/nukeop,
-		/datum/antagonist/space_dragon,
 		/datum/antagonist/wizard,
-		/datum/antagonist/xeno
 	)
 
 	for(var/T in allowed_types)
