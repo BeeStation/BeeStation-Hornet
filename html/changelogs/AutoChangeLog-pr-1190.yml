@@ -1,0 +1,6 @@
+author: "PowerfulBacon"
+delete-after: True
+changes: 
+  - bugfix: "Admin-Edit objectives is now down by the admin selecting rather than the person the objective is given to"
+  - admin: "Added in the ability to choose antag type to traitor all secret"
+  - admin: "Added in the ability to choose the antag percentage to traitor all secret"
