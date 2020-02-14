@@ -32,11 +32,6 @@
 	else if(storedorgan)
 		. += "<span class='notice'>[src] is prepared to insert [storedorgan].</span>"
 
-
-/obj/machinery/autodoc/proc/insert_organ(var/obj/item/I)
-	storedorgan = I
-	I.forceMove(src)
-
 /obj/machinery/autodoc/close_machine(mob/user)
 	..()
 	playsound(src, 'sound/machines/click.ogg', 50)
@@ -58,8 +53,9 @@
 	playsound(get_turf(occupant), 'sound/weapons/circsawhit.ogg', 50, 1)
 	processing = TRUE
 	update_icon()
+	var/mob/living/carbon/C = occupant
 	if(obj_flags & EMAGGED)
-		var/mob/living/carbon/C = occupant
+
 		for(var/obj/item/bodypart/BP in reverseList(C.bodyparts)) //Chest and head are first in bodyparts, so we invert it to make them suffer more
 			C.emote("scream")
 			BP.dismember()
@@ -73,6 +69,10 @@
 		sleep(surgerytime)
 		if(!processing)
 			return
+		var/obj/item/organ/currentorgan = C.getorganslot(storedorgan.slot)
+		if(currentorgan)
+			currentorgan.Remove(C)
+			currentorgan.forceMove(get_turf(src))
 		storedorgan.Insert(occupant)//insert stored organ into the user
 		storedorgan = null
 		occupant.visible_message("<span class='notice'>[src] completes the surgery procedure", "<span class='notice'>[src] inserts the organ into your body.</span>")
@@ -108,6 +108,7 @@
 		if(!user.transferItemToLoc(I, src))
 			return
 		storedorgan = I
+		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You insert the [I] into [src].</span>")
 	else
 		return ..()
