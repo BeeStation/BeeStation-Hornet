@@ -193,3 +193,13 @@
 	if(stat != DEAD)
 		GLOB.total_cube_monkeys--
 	return ..()
+
+/mob/living/carbon/monkey/tumor
+	name = "living teratoma"
+	verb_say = "blabbers"
+	initial_language_holder = /datum/language_holder/monkey
+	icon = 'icons/mob/monkey.dmi'
+	icon_state = "abomination"
+	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
+	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
+	aggressive = TRUE
