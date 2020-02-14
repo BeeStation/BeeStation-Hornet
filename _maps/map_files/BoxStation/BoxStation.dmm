@@ -25479,6 +25479,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/airalarm/directional/west,
+/obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "bmr" = (
@@ -30189,6 +30190,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/light/small,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
 "byI" = (
@@ -36515,6 +36517,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/layer1{
 	dir = 1
 	},
+/obj/machinery/light/small,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "bOG" = (
@@ -49776,6 +49779,10 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/construction)
 "cCh" = (
@@ -57066,6 +57073,19 @@
 /obj/structure/rack,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
+"uiV" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/maintenance/central/secondary)
 "ukP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
@@ -90550,7 +90570,7 @@ bgX
 fEK
 bjJ
 bld
-bmD
+uiV
 cTD
 bmD
 bqK
