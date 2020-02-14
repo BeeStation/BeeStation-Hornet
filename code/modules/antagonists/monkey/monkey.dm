@@ -62,6 +62,8 @@
 	monkey_team = new_team
 
 /datum/antagonist/monkey/proc/forge_objectives()
+	if(!give_objectives)
+		return
 	objectives |= monkey_team.objectives
 
 /datum/antagonist/monkey/admin_remove(mob/admin)
