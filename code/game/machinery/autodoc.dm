@@ -58,7 +58,10 @@
 
 		for(var/obj/item/bodypart/BP in reverseList(C.bodyparts)) //Chest and head are first in bodyparts, so we invert it to make them suffer more
 			C.emote("scream")
-			BP.dismember()
+			if(!HAS_TRAIT(C, TRAIT_NODISMEMBER))
+				BP.dismember()
+			else
+				C.adjustBruteLoss(40)
 			sleep(5) //2 seconds to get outta there before dying
 			if(!processing)
 				return
