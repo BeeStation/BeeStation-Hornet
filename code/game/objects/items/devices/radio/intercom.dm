@@ -12,6 +12,19 @@
 	dog_fashion = null
 	var/unfastened = FALSE
 
+/obj/item/radio/intercom/directional/north
+	pixel_y = 30
+
+/obj/item/radio/intercom/directional/south
+	pixel_y = -30
+
+/obj/item/radio/intercom/directional/east
+	pixel_x = 30
+
+/obj/item/radio/intercom/directional/west
+	pixel_x = -30
+
+
 /obj/item/radio/intercom/unscrewed
 	unfastened = TRUE
 
