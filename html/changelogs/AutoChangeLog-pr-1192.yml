@@ -1,0 +1,7 @@
+author: "Vasily2013"
+delete-after: True
+changes: 
+  - tweak: "Changed cameras to autoname variety, so they now name based off of area"
+  - tweak: "changed APCs to autoname variety, also forcing many to move out of maintenance and thus enabling the AI to access them"
+  - tweak: "makes some areas of the pipe net once again connect to the main net.
+Remove: some superfilous pipes that were bypassed at one point during an atmos rework"
