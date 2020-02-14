@@ -65,6 +65,13 @@ Bonus
 			to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
 			M.emote("scream")
 
+/datum/symptom/fire/proc/Firestacks_stage_4(mob/living/M, datum/disease/advance/A)
+	M.adjust_fire_stacks(1 * power)
+	M.take_overall_damage(burn = 3 * power, required_status = BODYPART_ORGANIC)
+	if(infective)
+		A.spread(2)
+	return 1
+
 /datum/symptom/fire/proc/Firestacks_stage_5(mob/living/M, datum/disease/advance/A)
 	if(HAS_TRAIT(M, TRAIT_FAT))
 		M.adjust_fire_stacks(6 * power)
@@ -75,12 +82,6 @@ Bonus
 		A.spread(4)
 	return 1
 
-/datum/symptom/fire/proc/Firestacks_stage_5(mob/living/M, datum/disease/advance/A)
-	M.adjust_fire_stacks(3 * power)
-	M.take_overall_damage(burn = 5 * power, required_status = BODYPART_ORGANIC)
-	if(infective)
-		A.spread(4)
-	return 1
 
 /*
 //////////////////////////////////////
@@ -155,7 +156,7 @@ Bonus
 			M.IgniteMob()
 			to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
 			M.emote("scream")
-			
+
 /datum/symptom/alkali/proc/Alkali_fire_stage_4(mob/living/M, datum/disease/advance/A)
 	var/get_stacks = 6 * power
 	M.adjust_fire_stacks(get_stacks)
