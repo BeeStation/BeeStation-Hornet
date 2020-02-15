@@ -510,7 +510,7 @@
 
 
 /////////////////Spooky Undead//////////////////////
-
+/*
 /obj/effect/mob_spawn/human/skeleton
 	name = "skeletal remains"
 	mob_name = "skeleton"
@@ -525,7 +525,7 @@
 	short_desc = "By unknown powers, your skeletal remains have been reanimated!"
 	flavour_text = "Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
-
+*/
 /obj/effect/mob_spawn/human/zombie
 	name = "rotting corpse"
 	mob_name = "zombie"
