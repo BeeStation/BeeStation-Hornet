@@ -61,7 +61,7 @@
 			if(!HAS_TRAIT(C, TRAIT_NODISMEMBER))
 				BP.dismember()
 			else
-				C.adjustBruteLoss(40)
+				C.apply_damage(40, BRUTE, BP)
 			sleep(5) //2 seconds to get outta there before dying
 			if(!processing)
 				return
