@@ -66,7 +66,7 @@
 			if(!processing)
 				return
 
-		occupant.visible_message("<span class='warning'>[src] dismembers [occupant]!", "<span class='warning'>[src] removes the organs from your body!</span>")
+		occupant.visible_message("<span class='warning'>[src] dismembers [occupant]!", "<span class='warning'>[src] saws up your body!</span>")
 
 	else
 		sleep(surgerytime)
