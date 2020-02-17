@@ -528,7 +528,7 @@
 
 /obj/effect/mob_spawn/human/skeleton/alive/equip(mob/living/carbon/human/H)
 	var/obj/item/implant/exile/Implant = new/obj/item/implant/exile(H)
-	Implant/implant(H)
+	Implant.implant(H)
 
 /obj/effect/mob_spawn/human/zombie
 	name = "rotting corpse"
