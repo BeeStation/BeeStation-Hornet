@@ -347,7 +347,7 @@
 
 		if(antag_select >= previous && antag_select <= (current-1))
 			SSpersistence.antag_rep_change[p_ckey] = -(spend - DEFAULT_ANTAG_TICKETS)
-			WARNING("AR_DEBUG: Player [mind.key] won spending [spend] tickets from starting value [SSpersistence.antag_rep[p_ckey]]")
+//			WARNING("AR_DEBUG: Player [mind.key] won spending [spend] tickets from starting value [SSpersistence.antag_rep[p_ckey]]")
 			return mind
 
 	WARNING("Something has gone terribly wrong. /datum/game_mode/proc/antag_pick failed to select a candidate. Falling back to pick()")
