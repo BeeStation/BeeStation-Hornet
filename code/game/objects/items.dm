@@ -1,3 +1,7 @@
+GLOBAL_VAR_INIT(stickpocalypse, FALSE) // if true, all non-embeddable items will be able to harmlessly stick to people when thrown
+
+GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to embed in people, takes precedence over stickpocalypse
+
 GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/effects/fire.dmi', "fire"))
 
 GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
@@ -222,12 +226,22 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(damtype == "brute")
 			hitsound = "swing_hit"
 
-	if (!embedding)
-		embedding = getEmbeddingBehavior()
-	else if (islist(embedding))
-		embedding = getEmbeddingBehavior(arglist(embedding))
-	else if (!istype(embedding, /datum/embedding_behavior))
-		stack_trace("Invalid type [embedding.type] found in .embedding during /obj/item Initialize()")
+	if(embedding)
+		var/list/temp = embedding
+		temp.Insert(0, /datum/element/embed) // i dunno about this
+		AddElement(arglist(temp))
+	else if(GLOB.embedpocalypse)
+		embedding = EMBED_POINTY
+		var/list/temp = embedding
+		temp.Insert(0, /datum/element/embed)
+		AddElement(arglist(temp))
+		name = "pointy [name]"
+	else if(GLOB.stickpocalypse)
+		embedding = EMBED_HARMLESS
+		var/list/temp = embedding
+		temp.Insert(0, /datum/element/embed)
+		AddElement(arglist(temp))
+		name = "sticky [name]"
 
 /obj/item/Destroy()
 	item_flags &= ~DROPDEL	//prevent reqdels
@@ -292,6 +306,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			. += "[src] is made of cold-resistant materials."
 		if(resistance_flags & FIRE_PROOF)
 			. += "[src] is made of fire-retardant materials."
+
+	if(embedding)
+		if(is_embed_harmless())
+			. += "[src] feels sticky, and could probably get stuck to someone if thrown properly!"
+		else
+			. += "[src] has a fine point, and could probably get caught in someone if thrown properly!"
+
 
 	if(!user.research_scanner)
 		return
@@ -1037,3 +1058,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/get_armor_rating(d_type, mob/wearer)
 	return armor.getRating(d_type)
+
+/obj/item/proc/is_embed_harmless()
+	if(embedding)
+		return (embedding.pain_mult == 0 && embedding.jostle_pain_mult == 0)

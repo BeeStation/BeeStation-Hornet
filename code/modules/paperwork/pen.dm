@@ -27,6 +27,7 @@
 	var/colour = "black"	//what colour the ink is!
 	var/degrees = 0
 	var/font = PEN_FONT
+	embedding = list()
 
 /obj/item/pen/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is scribbling numbers all over [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
@@ -78,7 +79,7 @@
 	colour = "dimgray"
 	font = CHARCOAL_FONT
 	custom_materials = null
-	
+
 /datum/crafting_recipe/charcoal_stylus
 	name = "Charcoal Stylus"
 	result = /obj/item/pen/charcoal
@@ -104,6 +105,7 @@
 						"Black and Silver" = "pen-fountain-b",
 						"Command Blue" = "pen-fountain-cb"
 						)
+	embedding = list("embed_chance" = 75)
 
 /obj/item/pen/fountain/captain/Initialize()
 	. = ..()

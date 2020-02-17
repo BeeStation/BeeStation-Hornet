@@ -248,6 +248,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	max_integrity = 40
 	sharpness = IS_SHARP
 	var/icon_prefix
+	embedding = list("embed_chance" = 65)
 
 
 /obj/item/shard/suicide_act(mob/user)
