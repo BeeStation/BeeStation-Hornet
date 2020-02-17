@@ -48,7 +48,7 @@ GLOBAL_VAR(changeling_team_objective_type) //If this is not null, we hand our th
 		for(var/i = 0, i < num_changelings, i++)
 			if(!antag_candidates.len)
 				break
-			var/datum/mind/changeling = antag_pick(antag_candidates, ROLE_CHANGELING)
+			var/datum/mind/changeling = antag_pick(antag_candidates)
 			antag_candidates -= changeling
 			changelings += changeling
 			changeling.special_role = ROLE_CHANGELING
