@@ -1,0 +1,5 @@
+author: "2cwldys"
+delete-after: True
+changes: 
+  - rscadd: "Finger snapping. use *snap to snap your fingers."
+  - soundadd: "Two distinct finger snapping sounds"
