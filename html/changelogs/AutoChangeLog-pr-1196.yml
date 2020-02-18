@@ -1,5 +1,0 @@
-author: "TheChaser212"
-delete-after: True
-changes: 
-  - bugfix: "Autodocs no longer destroy brains"
-  - bugfix: "Autodocs now harm undismemberable mobs when emagged"
