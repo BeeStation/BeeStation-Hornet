@@ -244,6 +244,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
 		if(4, 5)
+			M.adjust_fire_stacks(-5)
 			if(prob(30))
 				var/turf/open/OT = get_turf(M)
 				if(istype(OT))
@@ -259,7 +260,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				S.splash()
 				to_chat(M, "<span class='userdanger'>You sweat out nearly everything in your body!</span>")
 		else
-			to_chat(M, "<span class='notice'>[pick("You feel a slight tug toward the station's wall.", "Nearby electronics flicker", "Your hair stands on end")]</span>")
+			to_chat(M, "<span class='notice'>[pick("You feel moist.", "Your clothes are soaked", "You're sweating buckets")]</span>")
 	return
 
 /obj/effect/sweatsplash
@@ -290,7 +291,7 @@ obj/effect/sweatsplash/proc/splash()
 	var/turf/open/location_return = null
 	var/cooldowntimer = 0
 	threshold_desc = "<b>Resistance 8:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health<br>\
-					<b>Stage Speed 12:</b> The disease becomes more active, activating in a smaller temperature range."
+					<b>Transmission 8:</b> The disease becomes more active, activating in a smaller temperature range."
 
 /datum/symptom/teleport/Start(datum/disease/advance/A)
 	if(!..())
@@ -319,6 +320,8 @@ obj/effect/sweatsplash/proc/splash()
 				do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
 				do_sparks(5,FALSE,M)
 				cooldowntimer = 10
+					if(burnheal)
+						M.adjust_fire_stacks(-10)
 			if(cooldowntimer > 0)
 				cooldowntimer --
 		else
