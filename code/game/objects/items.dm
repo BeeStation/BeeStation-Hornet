@@ -125,7 +125,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER //the icon to indicate this object is being dragged
 
 	/// Used for when things get stuck in you and need to be surgically removed. See [/datum/embedding_behavior]
-	var/datum/embedding_behavior/embedding
+	var/list/embedding = NONE
 
 	/// For flags such as GLASSESCOVERSEYES to show which slots this item can cover. See _DEFINES/inventory.dm
 	var/flags_cover = 0
@@ -227,20 +227,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			hitsound = "swing_hit"
 
 	if(embedding)
-		var/list/temp = embedding
-		temp.Insert(0, /datum/element/embed) // i dunno about this
-		AddElement(arglist(temp))
+		AddElement(/datum/element/embed, embedding)
 	else if(GLOB.embedpocalypse)
 		embedding = EMBED_POINTY
-		var/list/temp = embedding
-		temp.Insert(0, /datum/element/embed)
-		AddElement(arglist(temp))
+		AddElement(/datum/element/embed, embedding)
 		name = "pointy [name]"
 	else if(GLOB.stickpocalypse)
 		embedding = EMBED_HARMLESS
-		var/list/temp = embedding
-		temp.Insert(0, /datum/element/embed)
-		AddElement(arglist(temp))
+		AddElement(/datum/element/embed, embedding)
 		name = "sticky [name]"
 
 /obj/item/Destroy()
@@ -1060,5 +1054,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return armor.getRating(d_type)
 
 /obj/item/proc/is_embed_harmless()
-	if(embedding)
-		return (embedding.pain_mult == 0 && embedding.jostle_pain_mult == 0)
+	return
+	//if(embedding)
+		//return (embedding.pain_mult == 0 && embedding.jostle_pain_mult == 0)
