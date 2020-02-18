@@ -211,9 +211,9 @@
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
 	var/static_power_used = 0
-	var/brightness = 8			// luminosity when on, also used in power calculation
-	var/bulb_power = 1			// basically the alpha of the emitted light source
-	var/bulb_colour = "#FFCE99"	// qwerty's new more cozy color of light
+	var/brightness = 11			// luminosity when on, also used in power calculation
+	var/bulb_power = 0.75			// basically the alpha of the emitted light source
+	var/bulb_colour = "#FFF6ED"	// befault colour of the light.
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = FALSE
 	var/light_type = /obj/item/light/tube		// the type of light item
@@ -249,7 +249,8 @@
 	icon_state = "bulb"
 	base_state = "bulb"
 	fitting = "bulb"
-	brightness = 4
+	brightness = 6
+	bulb_colour = "#FFDDBB"
 	desc = "A small lighting fixture."
 	bulb_colour = "#FFE6CC" //little less cozy, bit more industrial, but still cozy.. -qwerty
 	light_type = /obj/item/light/bulb
@@ -297,11 +298,11 @@
 	spawn(2)
 		switch(fitting)
 			if("tube")
-				brightness = 8
+				brightness = 11
 				if(prob(2))
 					break_light_tube(1)
 			if("bulb")
-				brightness = 4
+				brightness = 6
 				if(prob(5))
 					break_light_tube(1)
 		spawn(1)
@@ -374,11 +375,11 @@
 		set_light(0)
 	update_icon()
 
-	active_power_usage = (brightness * 10)
+	active_power_usage = (brightness * 7.2)
 	if(on != on_gs)
 		on_gs = on
 		if(on)
-			static_power_used = brightness * 20 //20W per unit luminosity
+			static_power_used = brightness * 14.4 //20W per unit luminosity
 			addStaticPower(static_power_used, STATIC_LIGHT)
 		else
 			removeStaticPower(static_power_used, STATIC_LIGHT)
@@ -781,7 +782,7 @@
 	icon_state = "ltube"
 	base_state = "ltube"
 	item_state = "c_tube"
-	brightness = 8
+	brightness = 11
 
 /obj/item/light/tube/broken
 	status = LIGHT_BROKEN
@@ -794,7 +795,7 @@
 	item_state = "contvapour"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	brightness = 4
+	brightness = 6
 
 /obj/item/light/bulb/broken
 	status = LIGHT_BROKEN
@@ -877,7 +878,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	base_state = "floor"		// base description and icon_state
 	icon_state = "floor"
-	brightness = 4
+	brightness = 6
 	layer = 2.5
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"
