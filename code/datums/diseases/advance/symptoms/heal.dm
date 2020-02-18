@@ -320,8 +320,8 @@ obj/effect/sweatsplash/proc/splash()
 				do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
 				do_sparks(5,FALSE,M)
 				cooldowntimer = 10
-					if(burnheal)
-						M.adjust_fire_stacks(-10)
+				if(burnheal)
+					M.adjust_fire_stacks(-10)
 			if(cooldowntimer > 0)
 				cooldowntimer --
 		else
