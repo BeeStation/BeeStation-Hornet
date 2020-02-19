@@ -487,7 +487,7 @@
 				M.adjustOxyLoss(rand(6,8))
 				. = 1
 		if (35 to 36)
-			to_chat(M, "<font size=2 color=red>Weakness overtakes you as your consciousness begins to  slips away...</font>")
+			to_chat(M, "<font size=2 color=red>Weakness overtakes you as your consciousness begins to  slip away...</font>")
 			M.adjustStaminaLoss(40)
 			M.losebreath += 1
 			. = 1
