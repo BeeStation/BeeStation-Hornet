@@ -185,6 +185,7 @@
 		if(prob(beepsky_chance))
 			new /mob/living/simple_animal/bot/secbot/grievous/nullcrate(C)
 			crate_value = 0
+			beepsky_chance = 0
 			level += 1
 		var/category = pick(uplink_items)
 		var/item = pick(uplink_items[category])
