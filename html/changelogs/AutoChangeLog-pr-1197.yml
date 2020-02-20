@@ -1,0 +1,5 @@
+author: "St0rmC4st3r"
+delete-after: True
+changes: 
+  - rscadd: "Added the optical ecto-scanner, which allows to see ghost-like entities."
+  - rscadd: "Added the ghostbuster-themed kit to the curator's heroic beacon."
