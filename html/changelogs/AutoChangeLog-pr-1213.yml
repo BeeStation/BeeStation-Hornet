@@ -1,0 +1,4 @@
+author: "Dallen999"
+delete-after: True
+changes: 
+  - rscadd: "Captains Display Case: req_access_txt = \"20\""
