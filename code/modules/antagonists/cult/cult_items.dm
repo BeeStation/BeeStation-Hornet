@@ -934,14 +934,15 @@
 				return FALSE //To avoid reflection chance double-dipping with block chance
 		if(istype(hitby, /obj/item))
 			var/obj/item/W = hitby
-			if(W.force >= 18) // make it a bit risky to go melee with this, eh?
-				var/turf/T = get_turf(owner)
-				T.visible_message("<span class='warning'>The sheer force from [W] shatters the mirror shield!</span>")
-				new /obj/effect/temp_visual/cult/sparks(T)
-				playsound(T, 'sound/effects/glassbr3.ogg', 100)
-				owner.Paralyze(25)
-				qdel(src)
-				return FALSE
+			if(W.damtype == BRUTE || W.damtype == BURN)
+				if(W.force >= 18) // make it a bit risky to go melee with this, eh?
+					var/turf/T = get_turf(owner)
+					T.visible_message("<span class='warning'>The sheer force from [W] shatters the mirror shield!</span>")
+					new /obj/effect/temp_visual/cult/sparks(T)
+					playsound(T, 'sound/effects/glassbr3.ogg', 100)
+					owner.Paralyze(25)
+					qdel(src)
+					return FALSE
 
 		. = ..()
 		if(.)
