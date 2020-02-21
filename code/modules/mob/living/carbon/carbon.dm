@@ -535,7 +535,7 @@
 
 /mob/living/carbon/update_stamina()
 	var/stam = getStaminaLoss()
-	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !stat)
+	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !stat && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
 		enter_stamcrit()
 	else if(stam_paralyzed)
 		stam_paralyzed = FALSE
@@ -576,7 +576,7 @@
 		if(G.invis_override)
 			see_invisible = G.invis_override
 		else
-			see_invisible = min(G.invis_view, see_invisible)
+			see_invisible = max(G.invis_view, see_invisible)
 		if(!isnull(G.lighting_alpha))
 			lighting_alpha = min(lighting_alpha, G.lighting_alpha)
 

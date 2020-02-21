@@ -452,7 +452,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		qdel(src)
 	item_flags &= ~IN_INVENTORY
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
-	user.update_equipment_speed_mods()
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)

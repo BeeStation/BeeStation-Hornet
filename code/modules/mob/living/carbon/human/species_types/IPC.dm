@@ -114,7 +114,7 @@ datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/machinery/power/apc/A = target
 	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/stomach/cell/cell = H.internal_organs_slot["stomach"]
+	var/obj/item/organ/stomach/cell/cell = locate(/obj/item/organ/stomach/cell) in H.internal_organs
 	if(!cell)
 		to_chat(H, "<span class='warning'>You try to siphon energy from the [A], but your power cell is gone!</span>")
 		return

@@ -231,14 +231,14 @@
 
 /datum/action/changeling/sting/cryo
 	name = "Cryogenic Sting"
-	desc = "We silently sting our victim with a cocktail of chemicals that freezes them from the inside. Costs 15 chemicals."
+	desc = "We silently sting our victim with a cocktail of chemicals that freezes them from the inside. Costs 10 chemicals."
 	helptext = "Does not provide a warning to the victim, though they will likely realize they are suddenly freezing."
 	button_icon_state = "sting_cryo"
-	chemical_cost = 15
+	chemical_cost = 10
 	dna_cost = 2
 
 /datum/action/changeling/sting/cryo/sting_action(mob/user, mob/target)
 	log_combat(user, target, "stung", "cryo sting")
 	if(target.reagents)
-		target.reagents.add_reagent(/datum/reagent/consumable/frostoil, 30)
+		target.reagents.add_reagent(/datum/reagent/consumable/frostoil, 20)
 	return TRUE

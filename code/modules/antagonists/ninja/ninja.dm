@@ -5,7 +5,6 @@
 	show_name_in_check_antagonists = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	var/helping_station = FALSE
-	var/give_objectives = TRUE
 	var/give_equipment = TRUE
 
 /datum/antagonist/ninja/New()
@@ -30,6 +29,8 @@
 	antag_memory += "Officially, [helping_station?"Nanotrasen":"The Syndicate"] are my employer.<br>"
 
 /datum/antagonist/ninja/proc/addObjectives(quantity = 3)
+	if(!give_objectives)
+		return
 	var/list/possible_targets = list()
 	for(var/datum/mind/M in SSticker.minds)
 		if(M.current && M.current.stat != DEAD)

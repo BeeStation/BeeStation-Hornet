@@ -1,12 +1,12 @@
 //! Defines for subsystems and overlays
-//!   
+//!
 //! Lots of important stuff in here, make sure you have your brain switched on
 //! when editing this file
 
 //! ## DB defines
 /**
   * DB major schema version
-  * 
+  *
   * Update this whenever the db schema changes
   *
   * make sure you add an update to the schema_version stable in the db changelog
@@ -15,12 +15,12 @@
 
 /**
   * DB minor schema version
-  * 
+  *
   * Update this whenever the db schema changes
   *
   * make sure you add an update to the schema_version stable in the db changelog
   */
-#define DB_MINOR_VERSION 3
+#define DB_MINOR_VERSION 4
 
 
 //! ## Timing subsystem
@@ -98,6 +98,7 @@
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
 
+#define INIT_ORDER_FAIL2TOPIC		101
 #define INIT_ORDER_TITLE			100
 #define INIT_ORDER_GARBAGE			99
 #define INIT_ORDER_DBCORE			95
