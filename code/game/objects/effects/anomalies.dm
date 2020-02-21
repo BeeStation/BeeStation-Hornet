@@ -256,7 +256,7 @@
 /obj/effect/anomaly/pyro
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
-	var/ticks = 0
+	var/ticks = 4
 
 /obj/effect/anomaly/pyro/anomalyEffect()
 	..()
