@@ -16,22 +16,6 @@
 	to_chat(user, "<span class='notice'>It has [charges] charges left. Recharge with bluespace crystals.</span>")
 	to_chat(user, "<span class='notice'>Use in-hand to swap toggle compress/expand mode (expand mode not yet implemented).</span>")
 
-/obj/item/compressionkit/attack_self(mob/user)
-	if(mode == 0)
-		mode = 1
-		icon_state = "compression_e"
-		to_chat(user, "<span class='notice'>You switch the compressor to expand mode. This isn't implemented yet, so right now it wont do anything different!</span>")
-		return
-	if(mode == 1)
-		mode = 0
-		icon_state = "compression_c"
-		to_chat(user, "<span class='notice'>You switch the compressor to compress mode. Usage will now reduce the size of objects.</span>")
-		return
-	else
-		mode = 0
-		icon_state = "compression_c"
-		to_chat(user, "<span class='notice'>Some coder cocked up or an admin broke your compressor. It's been set back to compress mode..</span>")
-
 /obj/item/compressionkit/proc/sparks()
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, get_turf(src))
