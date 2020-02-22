@@ -208,9 +208,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		new path(src)
 	actions_types = null
 
-	if(GLOB.rpg_loot_items)
-		rpg_loot = new(src)
-
 	if(force_string)
 		item_flags |= FORCE_STRING_OVERRIDE
 
@@ -226,16 +223,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(damtype == "brute")
 			hitsound = "swing_hit"
 
-	if(embedding)
-		AddElement(/datum/element/embed, embedding)
-	else if(GLOB.embedpocalypse)
-		embedding = EMBED_POINTY
-		AddElement(/datum/element/embed, embedding)
-		name = "pointy [name]"
-	else if(GLOB.stickpocalypse)
-		embedding = EMBED_HARMLESS
-		AddElement(/datum/element/embed, embedding)
-		name = "sticky [name]"
 
 /obj/item/Destroy()
 	item_flags &= ~DROPDEL	//prevent reqdels
@@ -256,6 +243,27 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
 		qdel(src)
+
+/obj/item/ComponentInitialize()
+	. = ..()
+
+	// this proc says it's for initializing components, but we're initializing elements too because it's you and me against the world >:)
+	if(embedding)
+		AddElement(/datum/element/embed, embedding)
+	else if(GLOB.embedpocalypse)
+		embedding = EMBED_POINTY
+		AddElement(/datum/element/embed, embedding)
+		name = "pointy [name]"
+	else if(GLOB.stickpocalypse)
+		embedding = EMBED_HARMLESS
+		AddElement(/datum/element/embed, embedding)
+		name = "sticky [name]"
+
+	if(GLOB.rpg_loot_items)
+		AddComponent(/datum/component/fantasy)
+
+	if(sharpness) //give sharp objects butchering functionality, for consistency
+		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user
@@ -1054,6 +1062,5 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return armor.getRating(d_type)
 
 /obj/item/proc/is_embed_harmless()
-	return
-	//if(embedding)
-		//return (embedding.pain_mult == 0 && embedding.jostle_pain_mult == 0)
+	if(embedding)
+		return (!embedding["pain_mult"] && !embedding["jostle_pain_mult"])

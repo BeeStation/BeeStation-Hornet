@@ -16,7 +16,7 @@
 		pipe_astar_cost = 35\
 	)
 
-	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
+	var/hardness = 40 ///lower numbers are harder. Used to determine the probability of a hulk smashing through. Also, (hardness - 40) is used as a modifier for objects trying to embed in this (hardness of 30 results in a -10% chance)
 	var/slicing_duration = 100  //default time taken to slice the wall
 	var/sheet_type = /obj/item/stack/sheet/iron
 	var/sheet_amount = 2

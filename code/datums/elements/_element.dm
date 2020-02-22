@@ -10,6 +10,7 @@
 /datum/element/proc/Attach(datum/target)
 	if(type == /datum/element)
 		return ELEMENT_INCOMPATIBLE
+	SEND_SIGNAL(target, COMSIG_ELEMENT_ATTACH, src)
 	if(element_flags & ELEMENT_DETACH)
 		/** The override = TRUE here is to suppress runtimes happening because of the blood decal element
 		  * being applied multiple times to a same thing every time there is some bloody attacks,
@@ -20,6 +21,8 @@
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/Detach, override = TRUE)
 
 /datum/element/proc/Detach(datum/source, force)
+	SEND_SIGNAL(source, COMSIG_ELEMENT_DETACH, src)
+	SHOULD_CALL_PARENT(1)
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
 /datum/element/Destroy(force)
