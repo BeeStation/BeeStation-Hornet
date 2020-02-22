@@ -138,27 +138,28 @@
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	force = 12 //9 hit crit
+	force = 0
+	damtype = STAMINA
 	w_class = WEIGHT_CLASS_NORMAL
+	hitsound = 'sound/effects/woodhit.ogg'
 
 	var/cooldown_check = 0 // Used interally, you don't want to modify
 
-	var/cooldown = 40 // Default wait time until can stun again.
+	var/click_delay = 4 // Default wait time until can stun again.
 	var/knockdown_time_carbon = (1.5 SECONDS) // Knockdown length for carbons.
-	var/stun_time_silicon = (5 SECONDS) // If enabled, how long do we stun silicons.
-	var/stamina_damage = 55 // Do we deal stamina damage.
+	var/stun_time_silicon = (5 SECONDS) // If enabled, how long do we stun silicons..
 	var/affect_silicon = FALSE // Does it stun silicons.
 	var/on_sound // "On" sound, played when switching between able to stun or not.
-	var/on_stun_sound = "sound/effects/woodhit.ogg" // Default path to sound for when we stun.
 	var/stun_animation = FALSE // Do we animate the "hit" when stunning.
 	var/on = TRUE // Are we on or off
-
 	var/on_icon_state // What is our sprite when turned on
 	var/off_icon_state // What is our sprite when turned off
 	var/on_item_state // What is our in-hand sprite when turned on
-	var/force_on // Damage when on - not stunning
-	var/force_off // Damage when off - not stunning
+	var/force_on = 55 // Damage when on and stunning
+	var/force_off = 0 // Damage when off - not stunning
 	var/weight_class_on // What is the new size class when turned on
+	var/force_harmbaton = 12 //force on harm
+	var/damtype_harm = BRUTE
 
 // Description for trying to stun when still on cooldown.
 /obj/item/melee/classic_baton/proc/get_wait_description()
@@ -208,7 +209,7 @@
 		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
 
 		user.Paralyze(knockdown_time_carbon * force)
-		user.adjustStaminaLoss(stamina_damage)
+		user.adjustStaminaLoss(force_on)
 
 		additional_effects_carbon(user) // user is the target here
 		if(ishuman(user))
@@ -218,22 +219,18 @@
 			user.take_bodypart_damage(2*force)
 		return
 	if(iscyborg(target))
-		// We don't stun if we're on harm.
-		if (user.a_intent != INTENT_HARM)
-			if (affect_silicon)
-				var/list/desc = get_silicon_stun_description(target, user)
+		if (affect_silicon)
+			var/list/desc = get_silicon_stun_description(target, user)
 
-				target.flash_act(affect_silicon = TRUE)
-				target.Paralyze(stun_time_silicon)
-				additional_effects_silicon(target, user)
+			target.flash_act(affect_silicon = TRUE)
+			target.Paralyze(stun_time_silicon)
+			additional_effects_silicon(target, user)
 
-				user.visible_message(desc["visible"], desc["local"])
-				playsound(get_turf(src), on_stun_sound, 100, TRUE, -1)
+			user.visible_message(desc["visible"], desc["local"])
+			playsound(get_turf(src), hitsound, 100, TRUE, -1)
 
-				if (stun_animation)
-					user.do_attack_animation(target)
-			else
-				..()
+			if (stun_animation)
+				user.do_attack_animation(target)
 		else
 			..()
 		return
@@ -245,38 +242,17 @@
 		if(!iscyborg(target))
 			return
 	else
-		if(cooldown_check <= world.time)
-			if(ishuman(target))
-				var/mob/living/carbon/human/H = target
-				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
-					return
-				if(check_martial_counter(H, user))
-					return
-
-			var/list/desc = get_stun_description(target, user)
-
-			if (stun_animation)
-				user.do_attack_animation(target)
-
-			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
-			target.Knockdown(knockdown_time_carbon)
-			target.adjustStaminaLoss(stamina_damage)
-			additional_effects_carbon(target, user)
-
-			log_combat(user, target, "stunned", src)
-			add_fingerprint(user)
-
-			target.visible_message(desc["visible"], desc["local"])
-
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = user
-			cooldown_check = world.time + cooldown
-		else
-			var/wait_desc = get_wait_description()
-			if (wait_desc)
-				to_chat(user, wait_desc)
+		var/list/desc = get_stun_description(target, user)
+		if (stun_animation)
+			user.do_attack_animation(target)
+		playsound(get_turf(src), hitsound, 75, 1, -1)
+		target.Knockdown(knockdown_time_carbon)
+		additional_effects_carbon(target, user)
+		log_combat(user, target, "stunned", src)
+		add_fingerprint(user)
+		target.visible_message(desc["visible"], desc["local"])
+		user.changeNext_move(CLICK_CD_MELEE * click_delay)
+	return
 
 /obj/item/melee/classic_baton/telescopic
 	name = "telescopic baton"
@@ -289,17 +265,15 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NONE
-	force = 0
+	force = 55
 	on = FALSE
 	on_sound = 'sound/weapons/batonextend.ogg'
-
 	on_icon_state = "telebaton_1"
 	off_icon_state = "telebaton_0"
 	on_item_state = "nullrod"
-	force_on = 0
-	force_off = 0
 	weight_class_on = WEIGHT_CLASS_BULKY
 	knockdown_time_carbon = (2.5 SECONDS)
+	force_harmbaton = 5
 
 /obj/item/melee/classic_baton/telescopic/suicide_act(mob/user)
 	var/mob/living/carbon/human/H = user
@@ -342,6 +316,8 @@
 	playsound(src.loc, on_sound, 50, 1)
 	add_fingerprint(user)
 
+
+
 /obj/item/melee/classic_baton/telescopic/contractor_baton
 	name = "contractor baton"
 	desc = "A compact, specialised baton assigned to Syndicate contractors. Applies light electrical shocks to targets."
@@ -353,21 +329,17 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NONE
-	force = 5
-
-	cooldown = 20
-	stamina_damage = 85
-	affect_silicon = TRUE 
+	force = 55
+	hitsound = 'sound/effects/contractorbatonhit.ogg'
+	affect_silicon = TRUE
 	on_sound = 'sound/weapons/contractorbatonextend.ogg'
-	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
 	stun_animation = TRUE
 
 	on_icon_state = "contractor_baton_1"
 	off_icon_state = "contractor_baton_0"
 	on_item_state = "contractor_baton"
-	force_on = 10
-	force_off = 5
 	weight_class_on = WEIGHT_CLASS_NORMAL
+	force_harmbaton = 10
 
 /obj/item/melee/classic_baton/telescopic/contractor_baton/get_wait_description()
 	return "<span class='danger'>The baton is still charging!</span>"
