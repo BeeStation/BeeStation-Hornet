@@ -163,7 +163,6 @@
 	throwforce = 5
 	stunforce = 70
 	hitcost = 2000
-	throw_hit_chance = 10
 	slot_flags = ITEM_SLOT_BACK
 	var/obj/item/assembly/igniter/sparkler = 0
 
