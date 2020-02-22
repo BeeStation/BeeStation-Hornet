@@ -180,8 +180,8 @@
 /obj/item/melee/classic_baton/proc/get_stun_description(mob/living/target, mob/living/user)
 	. = list()
 
-	.["visible"] =  "<span class ='danger'>[user] has knocked down [target] with [src]!</span>"
-	.["local"] = "<span class ='danger'>[user] knocks you down with [src]!</span>"
+	.["visible"] =  "<span class ='danger'>[user] pacifies [target] with [src]!</span>"
+	.["local"] = "<span class ='danger'>[user] pacifies you down with [src]!</span>"
 
 	return .
 
