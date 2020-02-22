@@ -12,12 +12,16 @@
 	attack_verb = list("enforced the law upon")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 
-	var/stunforce = 90
+	var/stunforce = 0
+	var/harmforce = 5
 	var/status = 0
 	var/obj/item/stock_parts/cell/cell
 	var/hitcost = 1000
-	var/throw_hit_chance = 35
 	var/preload_cell_type //if not empty the baton starts with this type of cell
+	var/stunhitsound = 'sound/weapons/egloves.ogg'
+	var/harmhitsound = "swing_hit"
+	var/stunverb = list("stunned")
+	var/harmverb = list("enforced the law upon")
 
 /obj/item/melee/baton/get_cell()
 	return cell
@@ -34,12 +38,6 @@
 		else
 			cell = new preload_cell_type(src)
 	update_icon()
-
-/obj/item/melee/baton/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	..()
-	//Only mob/living types have stun handling
-	if(status && prob(throw_hit_chance) && iscarbon(hit_atom))
-		baton_stun(hit_atom)
 
 /obj/item/melee/baton/loaded //this one starts with a cell pre-installed.
 	preload_cell_type = /obj/item/stock_parts/cell/high
@@ -131,18 +129,23 @@
 
 	if(user.a_intent != INTENT_HARM)
 		if(status)
-			if(baton_stun(M, user))
-				user.do_attack_animation(M)
-				return
+			damtype = STAMINA
+			force = stunforce
+			hitsound = stunhitsound
+			attack_verb = stunverb
+			deductcharge(hitcost)
+			..()
 		else
 			M.visible_message("<span class='warning'>[user] has prodded [M] with [src]. Luckily it was off.</span>", \
 							"<span class='warning'>[user] has prodded you with [src]. Luckily it was off</span>")
 	else
-		if(status)
-			baton_stun(M, user)
+		damtype = BRUTE
+		force = harmforce
+		hitsound = harmhitsound
+		attack_verb = harmverb
 		..()
 
-
+/*
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
@@ -175,11 +178,12 @@
 
 
 	return 1
+*/
 
 /obj/item/melee/baton/emp_act(severity)
 	. = ..()
 	if (!(. & EMP_PROTECT_SELF))
-		deductcharge(1000 / severity)
+		deductcharge(5000 / severity)
 
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/cattleprod
@@ -201,7 +205,3 @@
 /obj/item/melee/baton/cattleprod/Initialize()
 	. = ..()
 	sparkler = new (src)
-
-/obj/item/melee/baton/cattleprod/baton_stun()
-	if(sparkler.activate())
-		..()
