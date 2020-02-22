@@ -350,6 +350,7 @@
 	weight_class_on = WEIGHT_CLASS_NORMAL
 	force_harmbaton = 10
 	damtype_harm = BURN
+	force_on = 50
 
 /obj/item/melee/classic_baton/telescopic/contractor_baton/get_wait_description()
 	return "<span class='danger'>The baton is still charging!</span>"
