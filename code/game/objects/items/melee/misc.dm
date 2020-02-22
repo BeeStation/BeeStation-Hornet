@@ -138,15 +138,15 @@
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	force = 0
+	force = 40
 	damtype = STAMINA
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/effects/woodhit.ogg'
 
 	var/cooldown_check = 0 // Used interally, you don't want to modify
 
-	var/click_delay = 4 // Default wait time until can stun again.
-	var/knockdown_time_carbon = (1.5 SECONDS) // Knockdown length for carbons.
+	var/click_delay = 2 // Default wait time until can stun again.this is in seconds.
+	var/knockdown = FALSE // if it does knockdown. currently on false for all but can be turned back on if you want stun melee to be superior to real melee weapons again
 	var/stun_time_silicon = (5 SECONDS) // If enabled, how long do we stun silicons..
 	var/affect_silicon = FALSE // Does it stun silicons.
 	var/on_sound // "On" sound, played when switching between able to stun or not.
@@ -155,11 +155,13 @@
 	var/on_icon_state // What is our sprite when turned on
 	var/off_icon_state // What is our sprite when turned off
 	var/on_item_state // What is our in-hand sprite when turned on
-	var/force_on = 55 // Damage when on and stunning
+	var/force_on = 40 // Damage when on and stunning
 	var/force_off = 0 // Damage when off - not stunning
 	var/weight_class_on // What is the new size class when turned on
 	var/force_harmbaton = 12 //force on harm
 	var/damtype_harm = BRUTE
+	var/basehitsound = 'sound/effects/woodhit.ogg'
+	var/harmhitsound = "swing_hit"
 
 // Description for trying to stun when still on cooldown.
 /obj/item/melee/classic_baton/proc/get_wait_description()
@@ -208,7 +210,7 @@
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
 
-		user.Paralyze(knockdown_time_carbon * force)
+		user.Paralyze(20)
 		user.adjustStaminaLoss(force_on)
 
 		additional_effects_carbon(user) // user is the target here
@@ -237,22 +239,30 @@
 	if(!isliving(target))
 		return
 	if (user.a_intent == INTENT_HARM)
+		damtype = damtype_harm
+		force = force_harmbaton
+		hitsound = harmhitsound
 		if(!..())
 			return
 		if(!iscyborg(target))
 			return
 	else
+		damtype = STAMINA
+		force = force_on
+		hitsound = basehitsound
 		var/list/desc = get_stun_description(target, user)
 		if (stun_animation)
 			user.do_attack_animation(target)
 		playsound(get_turf(src), hitsound, 75, 1, -1)
-		target.Knockdown(knockdown_time_carbon)
+		if(knockdown)
+			target.Knockdown(20)
 		additional_effects_carbon(target, user)
 		log_combat(user, target, "stunned", src)
 		add_fingerprint(user)
 		target.visible_message(desc["visible"], desc["local"])
 		user.changeNext_move(CLICK_CD_MELEE * click_delay)
-	return
+		if(!..())
+			return
 
 /obj/item/melee/classic_baton/telescopic
 	name = "telescopic baton"
@@ -265,14 +275,13 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NONE
-	force = 55
+	force = 0
 	on = FALSE
 	on_sound = 'sound/weapons/batonextend.ogg'
 	on_icon_state = "telebaton_1"
 	off_icon_state = "telebaton_0"
 	on_item_state = "nullrod"
 	weight_class_on = WEIGHT_CLASS_BULKY
-	knockdown_time_carbon = (2.5 SECONDS)
 	force_harmbaton = 5
 
 /obj/item/melee/classic_baton/telescopic/suicide_act(mob/user)
@@ -329,17 +338,18 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NONE
-	force = 55
-	hitsound = 'sound/effects/contractorbatonhit.ogg'
+	force = 0
+	basehitsound = 'sound/effects/contractorbatonhit.ogg'
+	harmhitsound = 'sound/weapons/sear.ogg'
 	affect_silicon = TRUE
 	on_sound = 'sound/weapons/contractorbatonextend.ogg'
 	stun_animation = TRUE
-
 	on_icon_state = "contractor_baton_1"
 	off_icon_state = "contractor_baton_0"
 	on_item_state = "contractor_baton"
 	weight_class_on = WEIGHT_CLASS_NORMAL
 	force_harmbaton = 10
+	damtype_harm = BURN
 
 /obj/item/melee/classic_baton/telescopic/contractor_baton/get_wait_description()
 	return "<span class='danger'>The baton is still charging!</span>"
