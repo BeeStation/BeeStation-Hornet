@@ -4,6 +4,10 @@
 	name = "\proper space"
 	intact = 0
 
+	FASTDMM_PROP(\
+		pipe_astar_cost = 4\
+	)
+
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 700000
