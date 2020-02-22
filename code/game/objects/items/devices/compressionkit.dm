@@ -9,12 +9,10 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/charges = 5
 	// var/damage_multiplier = 0.2 Not in use yet.
-	var/mode = 0
 
 /obj/item/compressionkit/examine(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>It has [charges] charges left. Recharge with bluespace crystals.</span>")
-	to_chat(user, "<span class='notice'>Use in-hand to swap toggle compress/expand mode (expand mode not yet implemented).</span>")
 
 /obj/item/compressionkit/proc/sparks()
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
@@ -57,12 +55,8 @@
 			to_chat(user, "<span class='notice'>[target] cannot be compressed smaller!.</span>")
 			return
 		if(O.GetComponent(/datum/component/storage))
-			var/datum/component/storage/S = (/datum/component/storage) in target
-			if(!S.max_w_class == 1)
-				S.max_w_class -= 1
-			else
-				to_chat(user, "<span class='notice'>You can't make this item any smaller without compromising its storage functions!.</span>")
-				return
+			to_chat(user, "<span class='notice'>You can't make this item any smaller without compromising its storage functions!.</span>")
+			return
 		if(O.w_class > 1)
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] is compressing [O] with their bluespace compression kit!</span>")
