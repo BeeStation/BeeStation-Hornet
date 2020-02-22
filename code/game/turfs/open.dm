@@ -1,5 +1,8 @@
 /turf/open
 	plane = FLOOR_PLANE
+	FASTDMM_PROP(\
+		pipe_astar_cost = 1.5\
+	)
 	var/slowdown = 0 //negative for faster, positive for slower
 
 	var/postdig_icon_change = FALSE

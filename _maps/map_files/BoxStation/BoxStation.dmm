@@ -410,6 +410,14 @@
 /obj/structure/grille/broken,
 /turf/open/space,
 /area/space/nearstation)
+"abb" = (
+/obj/structure/displaycase/captain{
+	req_access = null;
+	req_access_txt = "20";
+	req_one_access_txt = "0"
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/captain)
 "abc" = (
 /turf/closed/wall,
 /area/security/execution/transfer)
@@ -21534,10 +21542,6 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/carpet/royalblue,
-/area/crew_quarters/heads/captain)
-"bcn" = (
-/obj/structure/displaycase/captain,
-/turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "bco" = (
 /obj/machinery/navbeacon{
@@ -90559,7 +90563,7 @@ aXg
 aYF
 aZV
 iXl
-bcn
+abb
 iXl
 ben
 bfE
