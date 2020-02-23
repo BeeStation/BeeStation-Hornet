@@ -11,7 +11,6 @@
 	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	possible_locs = list(BODY_ZONE_CHEST)
 	requires_bodypart_type = 0
-	self_operable = TRUE
 
 /datum/surgery_step/reconstruct
 	name = "repair body"
@@ -44,6 +43,7 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 	requires_bodypart_type = 0
 	var/healing_step_type
+	self_operable = TRUE
 
 /datum/surgery/healing/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
