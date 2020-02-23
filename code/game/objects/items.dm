@@ -309,13 +309,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(resistance_flags & FIRE_PROOF)
 			. += "[src] is made of fire-retardant materials."
 
-	if(embedding)
-		if(is_embed_harmless())
-			. += "[src] feels sticky, and could probably get stuck to someone if thrown properly!"
-		else
-			. += "[src] has a fine point, and could probably get caught in someone if thrown properly!"
-
-
 	if(!user.research_scanner)
 		return
 
