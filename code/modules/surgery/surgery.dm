@@ -78,7 +78,7 @@
 	var/selfpenalty = 0
 	var/sleepbonus = 0
 	if(target == user)
-		if(locate((/obj/structure/mirror) in range(1, T)))
+		if(locate(/obj/structure/mirror) in range(1, T))
 			selfpenalty = 0.4
 		else
 			selfpenalty = 0.6
