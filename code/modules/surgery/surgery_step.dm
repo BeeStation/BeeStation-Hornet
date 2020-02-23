@@ -73,7 +73,7 @@
 
 		if(implement_type)	//this means it isn't a require hand or any item step.
 			prob_chance = implements[implement_type]
-		prob_chance *= surgery.get_propability_multiplier()
+		prob_chance *= surgery.get_propability_multiplier(user)
 
 		if((prob(prob_chance) || iscyborg(user)) && chem_check(target) && !try_to_fail)
 			if(success(user, target, target_zone, tool, surgery))
