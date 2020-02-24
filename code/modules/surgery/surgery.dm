@@ -72,18 +72,28 @@
 	SSblackbox.record_feedback("tally", "surgeries_completed", 1, type)
 	qdel(src)
 
-/datum/surgery/proc/get_propability_multiplier()
-	var/propability = 0.5
+/datum/surgery/proc/get_propability_multiplier(mob/user)
+	var/propability = 0.3
 	var/turf/T = get_turf(target)
-
+	var/selfpenalty = 0
+	var/sleepbonus = 0
+	if(target == user)
+		if(locate(/obj/structure/mirror) in range(1, T))
+			selfpenalty = 0.4
+		else
+			selfpenalty = 0.6
+	if(target.stat != CONSCIOUS)
+		sleepbonus = 0.5
+	if(locate(/obj/structure/table/optable/abductor, T))
+		propability = 1.2
 	if(locate(/obj/structure/table/optable, T))
-		propability = 1
-	else if(locate(/obj/structure/table, T))
 		propability = 0.8
+	else if(locate(/obj/structure/table, T))
+		propability = 0.6
 	else if(locate(/obj/structure/bed, T))
-		propability = 0.7
+		propability = 0.5
 
-	return propability + success_multiplier
+	return propability + success_multiplier + sleepbonus - selfpenalty
 
 /datum/surgery/advanced
 	name = "advanced surgery"
