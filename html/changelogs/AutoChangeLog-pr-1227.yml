@@ -1,6 +1,0 @@
-author: "zeskorion"
-delete-after: True
-changes: 
-  - rscadd: "Super Glue"
-  - rscadd: "Bluespace Compression device"
-  - imagedel: "icons for both"

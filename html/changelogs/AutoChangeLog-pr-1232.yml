@@ -1,8 +1,0 @@
-author: "zeskorion"
-delete-after: True
-changes: 
-  - rscadd: "tend wounds surgery"
-  - rscadd: "Anesthesia now has a use"
-  - tweak: "turns self_operable to true on many surgeries"
-  - balance: "self surgery now has a significant penalty, which can be reduced by using a mirror"
-  - balance: "nerfs to all surgery tables but abductor table to encourage sterilizer/anesthesia"
