@@ -185,6 +185,12 @@
 	icon_state = "pipe"
 	initialize_dirs = DISP_DIR_FLIP
 
+	FASTDMM_PROP(\
+		pipe_interference_group = list("disposal"),\
+		pipe_group = "disposal",\
+		pipe_type = PIPE_TYPE_SIMPLE\
+	)
+
 
 // A three-way junction with dir being the dominant direction
 /obj/structure/disposalpipe/junction
@@ -230,6 +236,11 @@
 /obj/structure/disposalpipe/trunk
 	icon_state = "pipe-t"
 	var/obj/linked 	// the linked obj/machinery/disposal or obj/disposaloutlet
+
+	FASTDMM_PROP(\
+		pipe_interference_group = list("disposal"),\
+		pipe_type = PIPE_TYPE_NODE\
+	)
 
 /obj/structure/disposalpipe/trunk/Initialize()
 	. = ..()

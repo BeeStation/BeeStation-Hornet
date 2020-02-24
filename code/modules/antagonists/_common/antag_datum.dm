@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(antagonists)
+GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist
 	var/tips
@@ -12,6 +13,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/list/typecache_datum_blacklist = list()	//List of datums this type can't coexist with
 	var/delete_on_mind_deletion = TRUE
 	var/job_rank
+	var/give_objectives = TRUE //Should the default objectives be generated?
 	var/replace_banned = TRUE //Should replace jobbanned player with ghosts if granted.
 	var/list/objectives = list()
 	var/antag_memory = ""//These will be removed with antag datum
@@ -22,7 +24,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/show_in_antagpanel = TRUE	//This will hide adding this antag type in antag panel, use only for internal subtypes that shouldn't be added directly but still show if possessed by mind
 	var/antagpanel_category = "Uncategorized"	//Antagpanel will display these together, REQUIRED
 	var/show_name_in_check_antagonists = FALSE //Will append antagonist name in admin listings - use for categories that share more than one antag type
-			
+
 /datum/antagonist/proc/show_tips(file)
 	if(!owner || !owner.current || !owner.current.client)
 		return
@@ -32,7 +34,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	popup.set_window_options("titlebar=1;can_minimize=0;can_resize=0")
 	popup.set_content(file2text(file))
 	popup.open(FALSE)
-	
+
 /datum/antagonist/New()
 	GLOB.antagonists += src
 	typecache_datum_blacklist = typecacheof(typecache_datum_blacklist)
@@ -87,7 +89,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 			replace_banned_player()
 		else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.toggles & DEADMIN_ANTAGONIST))
 			owner.current.client.holder.auto_deadmin()
-	
+
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
 		return FALSE
@@ -249,3 +251,20 @@ datum/antagonist/custom/create_team(datum/team/team)
 	else
 		return
 	..()
+
+/proc/generate_admin_antag_list()
+	GLOB.admin_antag_list = list()
+
+	var/list/allowed_types = list(
+		/datum/antagonist/traitor,
+		/datum/antagonist/blob,
+		/datum/antagonist/changeling,
+		/datum/antagonist/devil,
+		/datum/antagonist/ninja,
+		/datum/antagonist/nukeop,
+		/datum/antagonist/wizard,
+	)
+
+	for(var/T in allowed_types)
+		var/datum/antagonist/A = T
+		GLOB.admin_antag_list[initial(A.name)] = T

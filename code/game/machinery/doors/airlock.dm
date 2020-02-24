@@ -52,6 +52,10 @@
 	explosion_block = 1
 	hud_possible = list(DIAG_AIRLOCK_HUD)
 
+	FASTDMM_PROP(\
+		pinned_vars = list("req_access_txt", "req_one_access_txt", "name")\
+	)
+
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 
 	var/security_level = 0 //How much are wires secured

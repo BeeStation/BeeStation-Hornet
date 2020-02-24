@@ -189,6 +189,7 @@ Code:
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	resistance_flags = FIRE_PROOF
+	activate_delay = 300
 	var/anomaly_type = /obj/effect/anomaly
 
 /obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
@@ -200,6 +201,16 @@ Code:
 		manual_suicide(suicider)
 	for(var/obj/effect/anomaly/A in get_turf(src))
 		A.anomalyNeutralize()
+	return TRUE
+
+/obj/item/assembly/signaler/anomaly/activate()
+	if(!..())//cooldown processing
+		return FALSE
+	var/type = src.anomaly_type
+	var/obj/effect/anomaly/B = new type(get_turf(src))
+	B.movechance = 0
+	B.anomalyEffect()
+	B.Destroy()
 	return TRUE
 
 /obj/item/assembly/signaler/anomaly/manual_suicide(mob/living/carbon/user)

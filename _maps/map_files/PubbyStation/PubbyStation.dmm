@@ -67,6 +67,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
+"aah" = (
+/obj/structure/displaycase/captain{
+	req_access = null;
+	req_access_txt = "20";
+	req_one_access_txt = "0"
+	},
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/heads/captain)
 "aaX" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
@@ -11924,10 +11932,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"aCy" = (
-/obj/structure/displaycase/captain,
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/heads/captain)
 "aCz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -89698,7 +89702,7 @@ axR
 ayX
 aAt
 aBk
-aCy
+aah
 aDC
 aEx
 aFw
