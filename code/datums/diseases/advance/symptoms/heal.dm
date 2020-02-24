@@ -408,7 +408,7 @@ obj/effect/sweatsplash/proc/splash()
 	roundstart = FALSE
 	short_desc = "You are a living tumor. By all accounts, you should not exist."
 	flavour_text = {"
-	<b>You are a living teratoma, and hate existing. Kill the one who birthed you, and then make sure you die. This is not a license to grief players other than your progenitor. If you do not know who your progenitor is, kill the virologist.
+	<b>You are a living teratoma, and your existence is misery. You feel the need to spread woe about the station- but not to kill.
 	"}
 
 /obj/effect/mob_spawn/teratomamonkey/Initialize()
