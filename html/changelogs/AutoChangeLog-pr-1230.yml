@@ -1,0 +1,4 @@
+author: "Shroopy"
+delete-after: True
+changes: 
+  - rscadd: "Added wire to medbay to allow charging of storage and security post APC's"
