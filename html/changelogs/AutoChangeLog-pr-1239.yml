@@ -1,4 +1,0 @@
-author: "Crossedfall"
-delete-after: True
-changes: 
-  - bugfix: "BYOND 513.1506+ versions supported now (Failed to locate IsInContainer error fix)"
