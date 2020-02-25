@@ -863,6 +863,7 @@
 	C.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	C.add_atom_colour("#FF0000", FIXED_COLOUR_PRIORITY)
 	qdel(src)
+	return FALSE
 
 /obj/item/slimepotion/fireproof
 	name = "slime chill potion"
@@ -893,6 +894,7 @@
 	uses --
 	if(!uses)
 		qdel(src)
+	return FALSE
 
 /obj/item/slimepotion/genderchange
 	name = "gender change potion"

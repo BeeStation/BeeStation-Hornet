@@ -131,6 +131,7 @@ Slimecrossing Potions
 	uses--
 	if(!uses)
 		qdel(src)
+	return FALSE
 
 //Enhancer potion - Charged Cerulean
 /obj/item/slimepotion/enhancer/max
@@ -169,6 +170,7 @@ Slimecrossing Potions
 	uses--
 	if(!uses)
 		qdel(src)
+	return FALSE
 
 //Revival potion - Charged Grey
 /obj/item/slimepotion/slime_reviver
