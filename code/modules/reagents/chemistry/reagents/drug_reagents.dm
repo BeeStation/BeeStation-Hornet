@@ -77,7 +77,7 @@
 		to_chat(M, "<span class='notice'>[high_message]</span>")
 	if(prob(8))
 		M.adjustBruteLoss(rand(1,4))
-		M.Stun(10, 0)
+		M.Stun(5, 0)
 		to_chat(M, "<span class='notice'>You stop to furiously scratch at your skin.</span>")
 	M.AdjustStun(-20, FALSE)
 	M.AdjustKnockdown(-20, FALSE)
