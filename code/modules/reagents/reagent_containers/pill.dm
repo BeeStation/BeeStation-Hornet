@@ -30,7 +30,10 @@
 /obj/item/reagent_containers/pill/attack(mob/M, mob/user, def_zone)
 	if(!canconsume(M, user))
 		return FALSE
-
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(/datum/surgery/dental_implant in C.surgeries)
+			return
 	if(M == user)
 		M.visible_message("<span class='notice'>[user] attempts to [apply_method] [src].</span>")
 		if(self_delay)
