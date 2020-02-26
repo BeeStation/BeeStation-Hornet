@@ -1,8 +1,6 @@
 name: Compile changelogs
 
-on:
-  schedule:
-  - cron: "0 0 * * *"
+on: [push]
 
 jobs:
   compile:
@@ -26,8 +24,8 @@ jobs:
           python tools/ss13_genchangelog.py html/changelog.html html/changelogs
       - name: Commit
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "Changelogs"
+          git config --local user.email "56381746+ss13-beebot@users.noreply.github.com"
+          git config --local user.name "ss13-beebot"
           git pull origin master
           git commit -m "Automatic changelog compile [ci skip]" -a || true
       - name: "Push"
