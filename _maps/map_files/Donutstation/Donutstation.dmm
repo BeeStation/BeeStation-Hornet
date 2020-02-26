@@ -13713,7 +13713,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
 "aGh" = (
-/obj/machinery/clonepod,
+/obj/machinery/clonepod/mapped,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
 "aGi" = (
@@ -13997,8 +13997,6 @@
 	dir = 1;
 	network = list("ss13","Medical")
 	},
-/obj/item/reagent_containers/glass/beaker/synthflesh,
-/obj/item/reagent_containers/glass/beaker/synthflesh,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
 "aGN" = (

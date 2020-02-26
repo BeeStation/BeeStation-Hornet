@@ -100629,7 +100629,6 @@
 	},
 /area/maintenance/department/medical/central)
 "dnl" = (
-/obj/machinery/clonepod,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -100646,6 +100645,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/clonepod/mapped,
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "dnm" = (
@@ -100714,8 +100714,6 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/item/reagent_containers/glass/beaker/synthflesh,
-/obj/item/reagent_containers/glass/beaker/synthflesh,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
 "dns" = (

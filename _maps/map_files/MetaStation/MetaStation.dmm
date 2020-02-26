@@ -63699,9 +63699,6 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "cvw" = (
-/obj/machinery/clonepod{
-	pixel_y = 2
-	},
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
@@ -63719,6 +63716,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/clonepod/mapped,
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "cvx" = (
@@ -66051,6 +66049,7 @@
 /obj/item/book/manual/wiki/medical_cloning{
 	pixel_y = 6
 	},
+/obj/item/paper,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -24
@@ -66066,8 +66065,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/reagent_containers/glass/beaker/synthflesh,
-/obj/item/reagent_containers/glass/beaker/synthflesh,
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "czY" = (

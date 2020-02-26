@@ -28314,7 +28314,6 @@
 /turf/open/floor/grass,
 /area/medical/genetics)
 "bpy" = (
-/obj/machinery/clonepod,
 /obj/item/radio/intercom{
 	frequency = 1485;
 	name = "Station Intercom (Medbay)";
@@ -28330,6 +28329,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/machinery/clonepod/mapped,
 /turf/open/floor/plasteel,
 /area/medical/genetics)
 "bpz" = (
@@ -30463,8 +30463,6 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/reagent_containers/glass/beaker/synthflesh,
-/obj/item/reagent_containers/glass/beaker/synthflesh,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "btY" = (

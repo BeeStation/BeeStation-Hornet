@@ -28886,8 +28886,6 @@
 /obj/item/book/manual/wiki/medical_cloning{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/glass/beaker/synthflesh,
-/obj/item/reagent_containers/glass/beaker/synthflesh,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "bvo" = (
@@ -30454,7 +30452,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "bzm" = (
-/obj/machinery/clonepod,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -30462,6 +30459,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/machinery/clonepod/mapped,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "bzn" = (
