@@ -5,7 +5,7 @@
 /obj/item/organ/liver
 	name = "liver"
 	icon_state = "liver"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_SMALL
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_LIVER
 	desc = "Pairing suggestion: chianti and fava beans."
