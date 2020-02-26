@@ -4311,7 +4311,8 @@
 /obj/structure/displaycase/captain{
 	pixel_y = 5;
 	req_access = null;
-	req_access_txt = "20"
+	req_access_txt = "20";
+	req_one_access_txt = "0"
 	},
 /obj/machinery/status_display/evac{
 	pixel_y = 32
@@ -63699,6 +63700,9 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "cvw" = (
+/obj/machinery/clonepod{
+	pixel_y = 2
+	},
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
@@ -63716,7 +63720,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/clonepod/mapped,
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "cvx" = (
