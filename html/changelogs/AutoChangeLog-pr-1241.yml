@@ -1,0 +1,9 @@
+author: "enthethan"
+delete-after: True
+changes: 
+  - tweak: "Stimulants: 35 stamina regeneration"
+  - tweak: "Changeling Adrenaline: 15 stamina regeneration"
+  - tweak: "Meth: 30 stamina regeneration"
+  - tweak: "Crank: 15 stamina regeneration + 0.75 tox damage and a chance to stop to scratch your skin dealing a small amount of brute damage"
+  - tweak: "Aranesp: 25 stamina regeneration"
+  - tweak: "Ephidrine: 10 stamina regeneration"
