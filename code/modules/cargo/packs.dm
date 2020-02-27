@@ -203,65 +203,6 @@
 	beepsky_chance += min(level, 5) //1% chance per crate an item will be replaced with a beepsky and the crate stops spawning items. Doesnt act as a hardcap, making nullcrates far riskier and less predictable
 	var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
 	if(istype(loneop))
-		loneop.weight += 5
-		message_admins("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
-		log_game("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
-
-/datum/supply_pack/emergency/plasma_spacesuit
-	name = "Plasmaman Space Envirosuits"
-	desc = "Contains two space-worthy envirosuits for Plasmamen. Order now and we'll throw in two free helmets! Requires EVA access to open."
-	cost = 4000
-	access = ACCESS_EVA
-	contains = list(/obj/item/clothing/suit/space/eva/plasmaman,
-					/obj/item/clothing/suit/space/eva/plasmaman,
-					/obj/item/clothing/head/helmet/space/plasmaman,
-					/obj/item/clothing/head/helmet/space/plasmaman)
-	crate_name = "plasmaman EVA crate"
-	crate_type = /obj/structure/closet/crate/secure
-	
-
-/datum/supply_pack/security/firingpins/paywall
-	name = "Paywall Firing Pins Crate"
-	desc = "Specialized firing pins with a built-in configurable paywall. Requires Security access to open."
-	cost = 2500
-	contains = list(/obj/item/storage/box/firingpins/paywall,
-					/obj/item/storage/box/firingpins/paywall)
-	crate_name = "paywall firing pins crate"
-
-/datum/supply_pack/service/lightbulbs
-	name = "Replacement Lights"
-	desc = "May the light of Aether shine upon this station! Or at least, the light of forty two light tubes and twenty one light bulbs."
-
-	hidden = TRUE
-	cost = 20000
-	contains = list()
-	crate_name = "emergency crate"
-	crate_type = /obj/structure/closet/crate/internals
-	dangerous = TRUE
-	var/beepsky_chance = 0
-	var/level = 1
-
-/datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
-	var/crate_value = 30
-	var/list/uplink_items = get_uplink_items(SSticker.mode)
-	while(crate_value)
-		if(prob(beepsky_chance))
-			new /mob/living/simple_animal/bot/secbot/grievous/nullcrate(C)
-			crate_value = 0
-			beepsky_chance = 0
-			level += 1
-		var/category = pick(uplink_items)
-		var/item = pick(uplink_items[category])
-		var/datum/uplink_item/I = uplink_items[category][item]
-		if(!I.surplus_nullcrates || prob(100 - I.surplus_nullcrates))
-			continue
-			if(crate_value < I.cost)
-				continue
-			crate_value -= I.cost
-			new I.item(C)
-	beepsky_chance += min(level, 5) //1% chance per crate an item will be replaced with a beepsky and the crate stops spawning items. Doesnt act as a hardcap, making nullcrates far riskier and less predictable
-	var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
-	if(istype(loneop))
 		loneop.weight += 7
 		message_admins("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
 		log_game("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
