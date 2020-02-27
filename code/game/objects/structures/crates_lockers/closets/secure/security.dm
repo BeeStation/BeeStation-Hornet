@@ -100,6 +100,7 @@
 	new /obj/item/clothing/under/hosparadefem(src)
 	new /obj/item/clothing/under/hosparademale(src)
 	new /obj/item/clothing/suit/armor/vest/leather(src)
+	new /obj/item/clothing/suit/armor/hos/trenchcoat(src)
 	new /obj/item/clothing/suit/armor/hos(src)
 	new /obj/item/clothing/under/rank/head_of_security/alt(src)
 	new /obj/item/clothing/head/HoS(src)
