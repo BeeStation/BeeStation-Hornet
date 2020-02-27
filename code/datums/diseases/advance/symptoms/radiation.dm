@@ -44,6 +44,7 @@
 								 	  "<span class='userdanger'>You feel a massive wave of pain flow through you!</span>")
 					radiation_pulse(M, 20)
 
+
 /datum/symptom/radiation/proc/radiate(mob/living/carbon/M, chance)
 	if(prob(chance))
 		to_chat(M, "<span class='danger'>You feel a wave of pain throughout your body!</span>")
