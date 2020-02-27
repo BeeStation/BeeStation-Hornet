@@ -13783,7 +13783,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
 "aGh" = (
-/obj/machinery/clonepod/mapped,
+/obj/machinery/clonepod/prefilled,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
 "aGi" = (

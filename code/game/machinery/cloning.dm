@@ -568,9 +568,9 @@
 
 	flesh_number = unattached_flesh.len
 
-/obj/machinery/clonepod/mapped
+/obj/machinery/clonepod/prefilled
 
-/obj/machinery/clonepod/mapped/Initialize()
+/obj/machinery/clonepod/prefilled/Initialize()
 	. = ..()
 	reagents.add_reagent(/datum/reagent/medicine/synthflesh, 100)
 

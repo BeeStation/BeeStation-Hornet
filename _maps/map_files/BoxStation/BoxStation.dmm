@@ -30685,7 +30685,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "bzm" = (
-/obj/machinery/clonepod/mapped,
+/obj/machinery/clonepod/prefilled,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4

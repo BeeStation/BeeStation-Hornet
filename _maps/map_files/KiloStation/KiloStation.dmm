@@ -26778,7 +26778,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/clonepod/mapped,
+/obj/machinery/clonepod/prefilled,
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "aNw" = (
