@@ -1,0 +1,5 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "legion transformation disease"
+  - balance: "Legion core is no longer a fucking aheal"
