@@ -7,15 +7,18 @@
 	transmittable = 2
 	level = 8
 	severity = 4
-	symptom_delay_min = 10
-	symptom_delay_max = 40
+	symptom_delay_min = 1
+	symptom_delay_max = 4
 	var/fastrads = FALSE
 	var/radothers = FALSE
-	threshold_desc = "<b>Speed 8:</b> Host takes radiation damage faster."
+	threshold_desc = "<b>Transmission 12:</b> Makes the host irradiate others around them as well.<br>\
+					  <b>Speed 8:</b> Host takes radiation damage faster."
 
 /datum/symptom/radiation/Start(datum/disease/advance/A)
 	if(!..())
 		return
+	if(A.properties["transmission"] >= 10)
+		radothers = TRUE
 	if(A.properties["speed"] >= 8)
 		fastrads = TRUE
 
@@ -31,12 +34,17 @@
 			if(prob(50))
 				to_chat(M, "<span class='danger'>You feel like the atoms inside you are beginning to split...</span>")
 		if(4, 5)
-			radiate(M)
+			if(fastrads)
+				radiate(M, 80)
+			else
+				radiate(M, 40)
+			if(radothers && A.stage == 5)
+				if(prob(40))
+					M.visible_message("<span class='danger'>[M] glows green for a moment!</span>", \
+								 	  "<span class='userdanger'>You feel a massive wave of pain flow through you!</span>")
+					radiation_pulse(M, 20)
 
-/datum/symptom/radiation/proc/radiate(mob/living/carbon/M)
-	to_chat(M, "<span class='danger'>You feel a wave of pain throughout your body!</span>")
-	if(fastrads)
-		M.radiation += 150
-	else
-		M.radiation += 75
-	return 1
+/datum/symptom/radiation/proc/radiate(mob/living/carbon/M, chance)
+	if(prob(chance))
+		to_chat(M, "<span class='danger'>You feel a wave of pain throughout your body!</span>")
+		M.radiation += 4
