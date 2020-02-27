@@ -544,7 +544,6 @@
 /datum/reagent/consumable/corn_syrup/on_mob_life(mob/living/carbon/M)
 	holder.add_reagent(/datum/reagent/consumable/sugar, 3)
 	..()
-
 /datum/reagent/consumable/honey
 	name = "Honey"
 	description = "Sweet sweet honey that decays into sugar. Has antibacterial and natural healing properties."
@@ -552,14 +551,16 @@
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 	taste_description = "sweetness"
+	var/power = 0
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/M)
-	M.reagents.add_reagent(/datum/reagent/consumable/sugar,3)
+	if(power == 0)
+		M.reagents.add_reagent(/datum/reagent/consumable/sugar,3)
 	if(prob(55))
-		M.adjustBruteLoss(-1*REM, 0)
-		M.adjustFireLoss(-1*REM, 0)
-		M.adjustOxyLoss(-1*REM, 0)
-		M.adjustToxLoss(-1*REM, 0)
+		M.adjustBruteLoss(-1*REM+power, 0)
+		M.adjustFireLoss(-1*REM+power, 0)
+		M.adjustOxyLoss(-1*REM+power, 0)
+		M.adjustToxLoss(-1*REM+power, 0)
 	..()
 
 /datum/reagent/consumable/honey/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
@@ -569,6 +570,11 @@
       var/datum/surgery/S = s
       S.success_multiplier = max(0.6, S.success_multiplier) // +60% success probability on each step, compared to bacchus' blessing's ~46%
   ..()
+
+/datum/reagent/consumable/honey/special
+	name = "Royal Honey"
+	description = "A special honey which heals the imbiber far faster than normal honey"
+	power = 1
 
 /datum/reagent/consumable/mayonnaise
 	name = "Mayonnaise"
