@@ -43,7 +43,7 @@
 					M.visible_message("<span class='danger'>[M] glows green for a moment!</span>", \
 								 	  "<span class='userdanger'>You feel a massive wave of pain flow through you!</span>")
 					radiation_pulse(M, 20)
-
+			
 
 /datum/symptom/radiation/proc/radiate(mob/living/carbon/M, chance)
 	if(prob(chance))
