@@ -3327,6 +3327,12 @@
 	},
 /obj/machinery/iv_drip,
 /obj/item/reagent_containers/blood,
+/obj/item/reagent_containers/blood/AMinus,
+/obj/item/reagent_containers/blood/APlus,
+/obj/item/reagent_containers/blood/BMinus,
+/obj/item/reagent_containers/blood/BPlus,
+/obj/item/reagent_containers/blood/OMinus,
+/obj/item/reagent_containers/blood/OPlus,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
