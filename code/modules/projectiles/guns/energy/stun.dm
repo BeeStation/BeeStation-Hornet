@@ -69,9 +69,9 @@
 
 /obj/item/gun/energy/debilitator
 	name = "debilitator gun"
-	desc = "A low-capacity, energy-based disabler used by deputies to subdue targets at range."
+	desc = "An energy-based gun used by deputies to debilitate targets at range. More an inconvenience than a threat."
 	icon_state = "taser"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/debilitator)
 	ammo_x_offset = 3
-	overheat_time = 40
+	fire_delay = 60

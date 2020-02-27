@@ -67,7 +67,7 @@
 	projectile_type = /obj/item/projectile/energy/tesla/revolver
 
 /obj/item/ammo_casing/energy/debilitator
-	fire_sound = 'sound/effects/stealthoff.ogg'
+	fire_sound = 'sound/weapons/ionrifle.ogg'
 	e_cost = 100 
 	select_name = "debilitate"
-	projectile_type = /obj/item/projectile/energy/electrode/debilitator
+	projectile_type = /obj/item/projectile/energy/debilitator
