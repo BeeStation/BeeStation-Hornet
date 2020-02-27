@@ -234,7 +234,7 @@
 
 
 /obj/item/defibrillator/proc/cooldowncheck(mob/user)
-	addtimer(CALLBACK(src, .proc/finish_charging), 5 SECONDS)
+	addtimer(CALLBACK(src, .proc/finish_charging), cooldown_duration)
 
 /obj/item/defibrillator/proc/finish_charging()
 	if(cell)
