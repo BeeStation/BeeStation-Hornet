@@ -110,7 +110,6 @@
 	name = "Spectre Inspector - 1980's."
 
 /obj/item/storage/box/hero/ghostbuster/PopulateContents()
-	new /obj/item/choice_beacon/ouija(src)
 	new /obj/item/clothing/glasses/welding/ghostbuster(src)
 	new /obj/item/storage/belt/fannypack/bustin(src)	
 	new /obj/item/clothing/gloves/color/black(src)

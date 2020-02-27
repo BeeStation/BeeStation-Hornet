@@ -612,6 +612,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 6
 	surplus = 50
 
+/datum/uplink_item/role_restricted/romerol_kit
+	name = "Romerol"
+	desc = "A highly experimental bioterror agent which creates dormant nodules to be etched into the grey matter of the brain. \
+			On death, these nodules take control of the dead body, causing limited revivification, \
+			along with slurred speech, aggression, and the ability to infect others with this agent."
+	item = /obj/item/storage/box/syndie_kit/romerol
+	cost = 25
+	cant_discount = TRUE
+
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
 	desc = "A syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
@@ -1347,6 +1356,24 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/assembly/flash/hypnotic
 	cost = 7
 
+/datum/uplink_item/device_tools/compressionkit
+	name = "Bluespace Compression Kit"
+	desc = "A modified version of a BSRPED that can be used to reduce the size of most items while retaining their original functions! \
+			Does not work on storage items. \
+			Recharge using bluespace crystals. \
+			Comes with 5 charges."
+	item = /obj/item/compressionkit
+	cost = 5
+
+/datum/uplink_item/device_tools/syndie_glue
+	name = "Glue"
+	desc = "A cheap bottle of one use syndicate brand super glue. \
+			Use on any item to make it undroppable. \
+			Be careful not to glue an item you're already holding!"
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+	item = /obj/item/syndie_glue
+	cost = 2
+
 /datum/uplink_item/device_tools/brainwash_disk
 	name = "Brainwashing Surgery Program"
 	desc = "A disk containing the procedure to perform a brainwashing surgery, allowing you to implant an objective onto a target. \
@@ -1628,16 +1655,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/gorillacubes
 	cost = 6
 	restricted_roles = list("Geneticist", "Chief Medical Officer")
-
-/datum/uplink_item/role_restricted/romerol_kit
-	name = "Romerol"
-	desc = "A highly experimental bioterror agent which creates dormant nodules to be etched into the grey matter of the brain. \
-			On death, these nodules take control of the dead body, causing limited revivification, \
-			along with slurred speech, aggression, and the ability to infect others with this agent."
-	item = /obj/item/storage/box/syndie_kit/romerol
-	cost = 20
-	cant_discount = TRUE
-	restricted_roles = list("Chief Medical Officer", "Virologist")
 
 /datum/uplink_item/role_restricted/rad_laser
 	name = "Radioactive Microlaser"

@@ -10,10 +10,8 @@ new /datum/disease_ability/action/sneeze,
 new /datum/disease_ability/action/infect,
 new /datum/disease_ability/symptom/mild/cough,
 new /datum/disease_ability/symptom/mild/sneeze,
-new /datum/disease_ability/symptom/medium/shedding,
 new /datum/disease_ability/symptom/medium/beard,
 new /datum/disease_ability/symptom/medium/hallucigen,
-new /datum/disease_ability/symptom/medium/choking,
 new /datum/disease_ability/symptom/medium/confusion,
 new /datum/disease_ability/symptom/medium/vomit,
 new /datum/disease_ability/symptom/medium/voice_change,
@@ -37,15 +35,16 @@ new /datum/disease_ability/symptom/powerful/fire,
 new /datum/disease_ability/symptom/powerful/flesh_eating,
 new /datum/disease_ability/symptom/powerful/genetic_mutation,
 new /datum/disease_ability/symptom/powerful/inorganic_adaptation,
-new /datum/disease_ability/symptom/powerful/heal/starlight,
 new /datum/disease_ability/symptom/powerful/heal/oxygen,
 new /datum/disease_ability/symptom/powerful/heal/chem,
-new /datum/disease_ability/symptom/powerful/heal/metabolism,
-new /datum/disease_ability/symptom/powerful/heal/dark,
-new /datum/disease_ability/symptom/powerful/heal/water,
-new /datum/disease_ability/symptom/powerful/heal/plasma,
-new /datum/disease_ability/symptom/powerful/heal/radiation,
 new /datum/disease_ability/symptom/powerful/heal/coma,
+new /datum/disease_ability/symptom/powerful/heal/teleport,
+new /datum/disease_ability/symptom/powerful/heal/growth,
+new /datum/disease_ability/symptom/powerful/heal/EMP,
+new /datum/disease_ability/symptom/powerful/heal/sweat,
+new /datum/disease_ability/symptom/powerful/wizarditis,
+new /datum/disease_ability/symptom/medium/pierrot,
+new /datum/disease_ability/symptom/medium/cockroach,
 new /datum/disease_ability/symptom/powerful/youth
 ))
 
@@ -268,7 +267,7 @@ new /datum/disease_ability/symptom/powerful/youth
 
 /*******************BASE SYMPTOM TYPES*******************/
 // cost is for convenience and can be changed. If you're changing req_tot_points then don't use the subtype...
-//healing costs more so you have to techswitch from naughty disease otherwise we'd have friendly disease for easy greentext (no fun!)
+//healing no longer costs more, sans regen coma, due to how healing symptoms have been made scary
 
 /datum/disease_ability/symptom/mild
 	cost = 2
@@ -309,9 +308,6 @@ new /datum/disease_ability/symptom/powerful/youth
 
 /******MEDIUM******/
 
-/datum/disease_ability/symptom/medium/shedding
-	symptoms = list(/datum/symptom/shedding)
-
 /datum/disease_ability/symptom/medium/beard
 	symptoms = list(/datum/symptom/beard)
 	short_desc = "Cause all victims to grow a luscious beard."
@@ -321,11 +317,6 @@ new /datum/disease_ability/symptom/powerful/youth
 	symptoms = list(/datum/symptom/hallucigen)
 	short_desc = "Cause victims to hallucinate."
 	long_desc = "Cause victims to hallucinate. Decreases stats, especially resistance."
-
-/datum/disease_ability/symptom/medium/choking
-	symptoms = list(/datum/symptom/choking)
-	short_desc = "Cause victims to choke."
-	long_desc = "Cause victims to choke, threatening asphyxiation. Decreases stats, especially transmissibility."
 
 /datum/disease_ability/symptom/medium/confusion
 	symptoms = list(/datum/symptom/confusion)
@@ -379,6 +370,12 @@ new /datum/disease_ability/symptom/powerful/youth
 /datum/disease_ability/symptom/medium/revitiligo
 	symptoms = list(/datum/symptom/revitiligo)
 
+/datum/disease_ability/symptom/medium/pierrot
+	symptoms = list(/datum/symptom/pierrot)
+
+/datum/disease_ability/symptom/medium/cockroach
+	symptoms = list(/datum/symptom/cockroach)
+
 /datum/disease_ability/symptom/medium/itching
 	symptoms = list(/datum/symptom/itching)
 	short_desc = "Cause victims to itch."
@@ -405,9 +402,11 @@ new /datum/disease_ability/symptom/powerful/youth
 /datum/disease_ability/symptom/powerful/flesh_eating
 	symptoms = list(/datum/symptom/flesh_eating)
 
+/datum/disease_ability/symptom/powerful/wizarditis //strong because it can remove hardsuits and bio protection
+	symptoms = list(/datum/symptom/wizarditis)
+
 /datum/disease_ability/symptom/powerful/genetic_mutation
 	symptoms = list(/datum/symptom/genetic_mutation)
-	cost = 8
 
 /datum/disease_ability/symptom/powerful/inorganic_adaptation
 	symptoms = list(/datum/symptom/inorganic_adaptation)
@@ -422,33 +421,24 @@ new /datum/disease_ability/symptom/powerful/youth
 
 /****HEALING SUBTYPE****/
 
-/datum/disease_ability/symptom/powerful/heal/starlight
-	symptoms = list(/datum/symptom/heal/starlight)
-
 /datum/disease_ability/symptom/powerful/heal/oxygen
 	symptoms = list(/datum/symptom/oxygen)
 
 /datum/disease_ability/symptom/powerful/heal/chem
 	symptoms = list(/datum/symptom/heal/chem)
-
-/datum/disease_ability/symptom/powerful/heal/metabolism
-	symptoms = list(/datum/symptom/heal/metabolism)
-	short_desc = "Increase the metabolism of victims, causing them to process chemicals and grow hungry faster."
-	long_desc = "Increase the metabolism of victims, causing them to process chemicals twice as fast and grow hungry more quickly."
-
-/datum/disease_ability/symptom/powerful/heal/dark
-	symptoms = list(/datum/symptom/heal/darkness)
-
-/datum/disease_ability/symptom/powerful/heal/water
-	symptoms = list(/datum/symptom/heal/water)
-
-/datum/disease_ability/symptom/powerful/heal/plasma
-	symptoms = list(/datum/symptom/heal/plasma)
-
-/datum/disease_ability/symptom/powerful/heal/radiation
-	symptoms = list(/datum/symptom/heal/radiation)
+	cost = 4
 
 /datum/disease_ability/symptom/powerful/heal/coma
 	symptoms = list(/datum/symptom/heal/coma)
-	short_desc = "Cause victims to fall into a healing coma when hurt."
-	long_desc = "Cause victims to fall into a healing coma when hurt."
+
+/datum/disease_ability/symptom/powerful/heal/teleport
+	symptoms = list(/datum/symptom/teleport)
+
+/datum/disease_ability/symptom/powerful/heal/growth
+	symptoms = list(/datum/symptom/growth)
+
+/datum/disease_ability/symptom/powerful/heal/EMP
+	symptoms = list(/datum/symptom/EMP)
+
+/datum/disease_ability/symptom/powerful/heal/sweat
+	symptoms = list(/datum/symptom/sweat)

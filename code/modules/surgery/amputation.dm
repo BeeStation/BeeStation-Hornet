@@ -5,6 +5,7 @@
 	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	possible_locs = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_HEAD)
 	requires_bodypart_type = 0
+	self_operable = TRUE
 
 
 /datum/surgery_step/sever_limb

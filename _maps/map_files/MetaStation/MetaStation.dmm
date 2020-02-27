@@ -55650,6 +55650,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /mob/living/simple_animal/bot/cleanbot{
 	name = "Scrubs, MD";
 	trash = 1
@@ -63697,7 +63700,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "cvw" = (
-/obj/machinery/clonepod{
+/obj/machinery/clonepod/prefilled{
 	pixel_y = 2
 	},
 /obj/item/radio/intercom{
