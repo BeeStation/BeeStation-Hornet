@@ -1,0 +1,4 @@
+author: "Kerbin-Fiber"
+delete-after: True
+changes: 
+  - bugfix: "Due to a fabrication error, Plumbing Construction device blueprints have been sourced somewhere else. Certain plumbing machinery will no longer have to be put backwards for use."
