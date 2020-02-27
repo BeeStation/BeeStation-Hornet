@@ -63700,7 +63700,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "cvw" = (
-/obj/machinery/clonepod{
+/obj/machinery/clonepod/prefilled{
 	pixel_y = 2
 	},
 /obj/item/radio/intercom{
