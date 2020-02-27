@@ -140,6 +140,7 @@
 #define TRAIT_UNINTELLIGIBLE_SPEECH "unintelligible-speech"
 #define TRAIT_UNSTABLE			"unstable"
 #define TRAIT_NECROPOLIS_INFECTED "necropolis-infection"
+#define TRAIT_BEEFRIEND 		"beefriend"
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
