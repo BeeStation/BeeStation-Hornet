@@ -265,6 +265,12 @@
 	desc = "A special beret with the security insignia emblazoned on it. For officers with class."
 	icon_state = "officerberet"
 
+/obj/item/clothing/head/beret/sec/deputy
+	name = "deputy's beret"
+	desc = "A robust beret with the security insignia emblazoned on it. Uses slightly reinforced fabric to offer some sufficient protection."
+	icon_state = "beret_badge"
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10,"energy" = 10, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 5)
+
 //Curator
 /obj/item/clothing/head/fedora/curator
 	name = "treasure hunter's fedora"

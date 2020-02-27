@@ -93,6 +93,16 @@
 	resistance_flags = NONE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/large
 
+//Deputy
+/obj/item/clothing/suit/hazardvest/deputy
+	name = "deputy's vest"
+	desc = "A lightweight vest worn by Deputies."
+	icon_state = "waistcoat"
+	item_state = "waistcoat"
+	blood_overlay_type = "armor"
+	allowed = list(/obj/item/restraints/handcuffs, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/radio)
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 50, acid = 50)
+
 //Lawyer
 /obj/item/clothing/suit/toggle/lawyer
 	name = "blue suit jacket"
