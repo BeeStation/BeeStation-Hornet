@@ -67,3 +67,11 @@
 	flight_x_offset = 13
 	flight_y_offset = 12
 
+/obj/item/gun/energy/debilitator
+	name = "debilitator gun"
+	desc = "A low-capacity, energy-based disabler used by deputies to subdue targets at range."
+	icon_state = "taser"
+	item_state = null	//so the human update icon uses the icon_state instead.
+	ammo_type = list(/obj/item/ammo_casing/energy/debilitator)
+	ammo_x_offset = 3
+	overheat_time = 40

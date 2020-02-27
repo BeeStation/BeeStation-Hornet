@@ -65,3 +65,9 @@
 	e_cost = 200
 	select_name = "stun"
 	projectile_type = /obj/item/projectile/energy/tesla/revolver
+
+/obj/item/ammo_casing/energy/debilitator
+	fire_sound = 'sound/effects/stealthoff.ogg'
+	e_cost = 100 
+	select_name = "debilitate"
+	projectile_type = /obj/item/projectile/energy/electrode/debilitator

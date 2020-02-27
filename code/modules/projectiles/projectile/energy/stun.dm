@@ -14,6 +14,11 @@
 	muzzle_type = /obj/effect/projectile/muzzle/stun
 	impact_type = /obj/effect/projectile/impact/stun
 
+/obj/item/projectile/energy/electrode/debilitator
+	color = "#FF0000"
+	knockdown = 0
+	range = 4
+
 /obj/item/projectile/energy/electrode/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
