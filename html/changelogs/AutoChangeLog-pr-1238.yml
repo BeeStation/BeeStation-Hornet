@@ -1,0 +1,6 @@
+author: "TheNeoGamer42"
+delete-after: True
+changes: 
+  - tweak: "Cloners now need some synthflesh to operate."
+  - rscadd: "Clonepods now have 100u of synthflesh in them at roundstart"
+  - tweak: "Roundstart cloning is now 100% speed instead of 200% (slower cloning roundstart)"
