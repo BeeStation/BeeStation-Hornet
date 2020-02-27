@@ -1,7 +1,0 @@
-author: "AWalton"
-delete-after: True
-changes: 
-  - balance: "Halved syndicate combat defibrillator recharge time (now 2.5 seconds)"
-  - balance: "Harm intent defibrillator heart attack takes half as much time."
-  - rscadd: "New status effect: Convulsions. 40% chance to drop your inhand item every tick."
-  - balance: "EMP'd/emagged defibs now knock people down for 7.5 seconds, deal 80 stamina damage, and convulse for 15 seconds."
