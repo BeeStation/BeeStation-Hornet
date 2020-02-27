@@ -21,8 +21,8 @@
 /obj/item/projectile/energy/debilitator
 	name = "electrode"
 	icon_state = "spark"
-	color = "#0000FF"
-	damage = 40
+	color = "#FFFFFF"
+	damage = 20
 	damage_type = STAMINA
 	nodamage = FALSE
 	knockdown = 0
