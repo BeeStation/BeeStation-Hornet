@@ -196,10 +196,6 @@
 			continue
 		crate_value -= I.cost
 		new I.item(C)
-			if(crate_value < I.cost)
-				continue
-			crate_value -= I.cost
-			new I.item(C)
 	beepsky_chance += min(level, 5) //1% chance per crate an item will be replaced with a beepsky and the crate stops spawning items. Doesnt act as a hardcap, making nullcrates far riskier and less predictable
 	var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
 	if(istype(loneop))
