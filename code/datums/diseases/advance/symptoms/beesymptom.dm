@@ -2,7 +2,7 @@
 	name = "Bee Infestation"
 	desc = "Causes the host to cough toxin bees and occasionally synthesize toxin."
 	stealth = -2
-	resistance = 2
+	resistance = 14
 	stage_speed = 1
 	transmittable = 1
 	level = 9
@@ -11,7 +11,7 @@
 	symptom_delay_max = 20
 	var/honey = FALSE
 	var/toxic_bees= FALSE
-	threshold_desc = "<b>Resistance 14:</b> Host synthesizes honey instead of toxins, bees now sting with honey instead of toxin.<br>\
+	threshold_desc = "<b>Resistance 14:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host.<br>\
 					  <b>Transmission 10:</b> Bees now contain a completely random toxin, unless resistance exceeds 14"
 
 /datum/symptom/beesease/Start(datum/disease/advance/A)
@@ -43,12 +43,14 @@
 					M.adjustToxLoss(5)
 					M.updatehealth()
 		if(4, 5)
+			if(honey)
+				ADD_TRAIT(M, TRAIT_BEEFRIEND, DISEASE_TRAIT)
 			if(prob(15))
 				to_chat(M, "<span class='notice'>Your stomach squirms.</span>")
-			if(prob(15))
+			if(prob(25))
 				if(honey)
 					to_chat(M, "<span class='notice'>You can't get the taste of honey out of your mouth!.</span>")
-					M.reagents.add_reagent_list(list(/datum/reagent/consumable/honey = 5, /datum/reagent/medicine/insulin = 15)) //honey rooooughly equivalent to 1.5u omnizine. due to how honey synthesizes 7.5 sugar per unit, the large amounts of insulin are necessary to prevent hyperglycaemic shock due to the bees
+					M.reagents.add_reagent_list(list(/datum/reagent/consumable/honey = 10, /datum/reagent/consumable/honey/special = 5, /datum/reagent/medicine/insulin = 5)) //insulin prevents hyperglycemic shock
 				else
 					to_chat(M, "<span class='danger'>Your stomach stings painfully.</span>")
 					M.adjustToxLoss(5)
@@ -61,10 +63,12 @@
 			if(prob(10))
 				M.visible_message("<span class='danger'>[M] coughs up a bee!</span>", \
 								  "<span class='userdanger'>You cough up a bee!</span>")
-				if(honey)
-					var/mob/living/simple_animal/hostile/poison/bees/B = new(M.loc)
-					B.assign_reagent(GLOB.chemical_reagents_list[/datum/reagent/consumable/honey])
-				else if(toxic_bees)
+				if(toxic_bees)
 					new /mob/living/simple_animal/hostile/poison/bees/toxin(M.loc)
 				else
 					new /mob/living/simple_animal/hostile/poison/bees(M.loc)
+
+/datum/symptom/beesease/End(datum/disease/advance/A)
+	if(!..())
+		return
+	REMOVE_TRAIT(A.affected_mob, TRAIT_BEEFRIEND, DISEASE_TRAIT)
