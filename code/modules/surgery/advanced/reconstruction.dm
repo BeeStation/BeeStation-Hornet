@@ -99,7 +99,7 @@
 
 /datum/surgery/healing/burn/basic
 	name = "Tend Wounds (Burn)"
-	healing_step_type = /datum/surgery_step/heal/brute/basic
+	healing_step_type = /datum/surgery_step/heal/burn/basic
 
 /datum/surgery_step/heal/burn/basic
 	name = "tend burn wounds"
