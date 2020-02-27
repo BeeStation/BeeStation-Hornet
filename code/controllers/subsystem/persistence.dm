@@ -291,11 +291,11 @@ SUBSYSTEM_DEF(persistence)
 	if(fexists(json_file))
 		paintings = json_decode(file2text(json_file))
 
-	for(var/obj/structure/sign/painting/P in world)
+	for(var/obj/structure/sign/painting/P in painting_frames)
 		P.load_persistent()
 
 /datum/controller/subsystem/persistence/proc/SavePaintings()
-	for(var/obj/structure/sign/painting/P in world)
+	for(var/obj/structure/sign/painting/P in painting_frames)
 		P.save_persistent()
 
 	var/json_file = file("data/paintings.json")
