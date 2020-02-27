@@ -232,6 +232,21 @@
 	new	/obj/item/clothing/neck/tie/black(src)
 	new /obj/item/clothing/neck/tie/detective(src)
 
+/obj/structure/closet/secure_closet/deputy
+	name = "deputy's locker"
+	req_access = list(ACCESS_BRIG)
+
+/obj/structure/closet/secure_closet/deputy/PopulateContents()
+	..()
+	new /obj/item/clothing/head/beret/sec/deputy(src)
+	new /obj/item/radio/headset/headset_sec(src)
+	new /obj/item/clothing/glasses/hud/security/deputy(src)
+	new /obj/item/clothing/suit/hazardvest/deputy(src)
+	new /obj/item/clothing/under/rank/security/mallcop(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/restraints/handcuffs(src)
+	
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections"
 	req_access = list(ACCESS_HOS)
