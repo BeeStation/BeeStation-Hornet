@@ -110,7 +110,7 @@ BONUS
 	resistance = 1
 	stage_speed = 2
 	transmittable = 2
-	level = 4
+	level = 0
 	severity = 1
 	base_message_chance = 50
 	symptom_delay_min = 45
