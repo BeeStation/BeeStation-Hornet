@@ -209,20 +209,24 @@
 
 /datum/supply_pack/emergency/plasma_spacesuit
 	name = "Plasmaman Space Envirosuits"
-@@ -394,7 +407,7 @@
-	contains = list(/obj/item/storage/box/firingpins,
-					/obj/item/storage/box/firingpins)
-	crate_name = "firing pins crate"
+	desc = "Contains two space-worthy envirosuits for Plasmamen. Order now and we'll throw in two free helmets! Requires EVA access to open."
+	cost = 4000
+	access = ACCESS_EVA
+	contains = list(/obj/item/clothing/suit/space/eva/plasmaman,
+					/obj/item/clothing/suit/space/eva/plasmaman,
+					/obj/item/clothing/head/helmet/space/plasmaman,
+					/obj/item/clothing/head/helmet/space/plasmaman)
+	crate_name = "plasmaman EVA crate"
+	crate_type = /obj/structure/closet/crate/secure
 	
 
 /datum/supply_pack/security/firingpins/paywall
 	name = "Paywall Firing Pins Crate"
 	desc = "Specialized firing pins with a built-in configurable paywall. Requires Security access to open."
-@@ -1574,7 +1587,7 @@
-					/obj/item/stack/tile/carpet/royalblack/fifty,
-					/obj/item/stack/tile/carpet/royalblack/fifty)
-	crate_name = "exotic carpet crate"
-	
+	cost = 2500
+	contains = list(/obj/item/storage/box/firingpins/paywall,
+					/obj/item/storage/box/firingpins/paywall)
+	crate_name = "paywall firing pins crate"
 
 /datum/supply_pack/service/lightbulbs
 	name = "Replacement Lights"
