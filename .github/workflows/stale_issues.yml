@@ -15,6 +15,6 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-issue-message: "This issue has been inactive for long enough to be automatically marked as stale. If this was a bug report and hasn't been addressed yet, and is still a probelm, please don't hesitate to notify a maintainer."
         stale-issue-label: 'Stale'
-        exempt-issue-label: 'Exempt'
+        exempt-issue-label: 'Triaged'
         days-before-stale: 30
         days-before-close: 180
