@@ -24,6 +24,19 @@
  *		Toy Daggers
  */
 
+/obj/item/toy/cards
+	var/card_sharpness
+	var/card_embed_chance = 0
+
+/obj/item/toy/cards/singlecard
+	w_class = WEIGHT_CLASS_SMALL // Helps with embed chances.
+
+/obj/item/toy/cards/singlecard/apply_card_vars(obj/item/toy/cards/singlecard/newobj,obj/item/toy/cards/sourceobj)
+	..()
+	newobj.card_embed_chance = sourceobj.card_embed_chance
+	newobj.embedding = newobj.embedding.setRating(embed_chance = card_embed_chance)
+	newobj.card_sharpness = sourceobj.card_sharpness
+	newobj.sharpness = newobj.card_sharpness
 
 /obj/item/toy
 	throwforce = 0
@@ -997,8 +1010,10 @@
 	deckstyle = "syndicate"
 	card_hitsound = 'sound/weapons/bladeslice.ogg'
 	card_force = 5
-	card_throwforce = 10
-	card_throw_speed = 3
+	card_throwforce = 12
+	card_embed_chance = 80
+	card_sharpness = IS_SHARP
+	card_throw_speed = 6
 	card_throw_range = 7
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
 	resistance_flags = NONE
