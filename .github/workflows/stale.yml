@@ -18,6 +18,6 @@ jobs:
         stale-issue-label: 'Stale'
         stale-pr-label: 'Stale'
         exempt-pr-label: 'Needs Review'
-        exempt-issue-label: 'Needs review'
+        exempt-issue-label: 'Exempt'
         days-before-stale: 30
         days-before-close: 5
