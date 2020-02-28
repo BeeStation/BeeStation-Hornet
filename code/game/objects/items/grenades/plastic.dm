@@ -228,7 +228,7 @@
 // X4 is an upgraded directional variant of c4 which is relatively safe to be standing next to. And much less safe to be standing on the other side of.
 // C4 is intended to be used for infiltration, and destroying tech. X4 is intended to be used for heavy breaching and tight spaces.
 // Intended to replace C4 for nukeops, and to be a randomdrop in surplus/random traitor purchases.
-
+	
 /obj/item/grenade/plastic/x4
 	name = "X4"
 	desc = "A shaped high-explosive breaching charge. Designed to ensure user safety and wall nonsafety."
@@ -237,3 +237,9 @@
 	gender = PLURAL
 	directional = TRUE
 	boom_sizes = list(0, 2, 5)
+	can_attach_mob = TRUE
+	full_damage_on_mobs = TRUE
+	
+/obj/item/grenade/plastic/Initialize()
+	. = ..()
+	plastic_overlay = mutable_appearance(icon, "[item_state]2", ABOVE_ALL_MOB_LAYER)
