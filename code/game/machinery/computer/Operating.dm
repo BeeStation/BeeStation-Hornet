@@ -3,7 +3,7 @@
 
 /obj/machinery/computer/operating
 	name = "operating computer"
-	desc = "Monitors patient vitals and displays surgery steps. Can be loaded with surgery disks to perform experimental procedures."
+	desc = "Monitors patient vitals and displays surgery steps. Can be loaded with surgery disks to perform experimental procedures. Automatically syncs to stasis beds within its line of sight for surgical tech advancement."
 	icon_screen = "crew"
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/computer/operating
@@ -12,11 +12,18 @@
 	var/list/advanced_surgeries = list()
 	var/datum/techweb/linked_techweb
 	light_color = LIGHT_COLOR_BLUE
+	var/list/linked_stasisbeds
 
 /obj/machinery/computer/operating/Initialize()
 	. = ..()
 	linked_techweb = SSresearch.science_tech
 	find_table()
+
+/obj/machinery/computer/operating/Destroy()
+	for(var/i in linked_stasisbeds)
+		var/obj/machinery/stasis/SB = i
+		SB.op_computer = null
+	..()
 
 /obj/machinery/computer/operating/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/disk/surgery))
@@ -42,8 +49,16 @@
 		if(table)
 			table.computer = src
 			break
+	if(!linked_stasisbeds)
+		linked_stasisbeds = list()
 
-/obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	for(var/obj/machinery/stasis/SB in view(7,src))
+		if(SB.op_computer)
+			continue
+		linked_stasisbeds |= SB
+		SB.op_computer = src
+
+/obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.not_incapacitated_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "operating_computer", name, 350, 470, master_ui, state)
@@ -52,6 +67,7 @@
 /obj/machinery/computer/operating/ui_data(mob/user)
 	var/list/data = list()
 	data["table"] = table
+	data["menu"] = menu
 
 	var/list/surgeries = list()
 	for(var/X in advanced_surgeries)
@@ -62,6 +78,8 @@
 		surgeries += list(surgery)
 	data["surgeries"] = surgeries
 	if(table)
+		data["patient"] = list()
+	for(var/X in advanced_surgeries)
 		if(table.check_patient())
 			data["patient"] = list()
 			patient = table.patient
