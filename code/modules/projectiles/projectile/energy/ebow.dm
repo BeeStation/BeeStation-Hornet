@@ -9,9 +9,8 @@
 	slur = 10
 	irradiate = 400
 	armour_penetration = 100
-	var/piercing = TRUE
 	
-	/obj/item/projectile/energy/bolt/Initialize()
+/obj/item/projectile/energy/bolt/Initialize()
 	. = ..()
 	create_reagents(25, NO_REACT)
 	reagents.add_reagent(/datum/reagent/toxin/polonium, 10)
@@ -32,13 +31,11 @@
 			else
 				blocked = 100
 				target.visible_message("<span class='danger'>\The [src] was deflected!</span>", \
-				 "<span class='userdanger'>You were protected against \the [src]!</span>")
-				 
+				 "<span class='userdanger'>You were protected against \the [src]!</span>") 
 	..(target, blocked)
 	DISABLE_BITFIELD(reagents.flags, NO_REACT)
 	reagents.handle_reactions()
 	
-
 /obj/item/projectile/energy/bolt/halloween
 	name = "candy corn"
 	icon_state = "candy_corn"
