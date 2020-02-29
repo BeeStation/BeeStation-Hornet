@@ -429,6 +429,8 @@
 	sharpness = IS_SHARP
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/on = FALSE
+	tool_behaviour = TOOL_SAW
+	toolspeed = 0.5
 
 /obj/item/twohanded/required/chainsaw/Initialize()
 	. = ..()
@@ -705,6 +707,8 @@
 	var/zoom_amt = 10
 
 /obj/item/twohanded/binoculars/Initialize()
+	..()
+	AddComponent(/datum/component/twohanded)
 	RegisterSignal(src, COMSIG_ITEM_WIELD, .proc/wield)
 	RegisterSignal(src, COMSIG_ITEM_UNWIELD, .proc/unwield)
 
@@ -740,6 +744,8 @@
 	C.pixel_y = world.icon_size*_y
 
 /obj/item/twohanded/binoculars/proc/unwield(obj/item/I, mob/user)
+	if(!istype(user))
+		return
 	sleep(1) //Let the component go first
 	UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 	listeningTo = null

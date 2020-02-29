@@ -65,6 +65,10 @@ Slimecrossing Weapons
 	attack_verb = list("bashed","pounded","slammed")
 	item_flags = SLOWS_WHILE_IN_HAND
 
+/obj/item/twohanded/required/adamantineshield/Initialize()
+	. = ..()
+	AddComponent(/datum/component/twohanded/required)
+
 //Bloodchiller - Chilling Green
 /obj/item/gun/magic/bloodchill
 	name = "blood chiller"

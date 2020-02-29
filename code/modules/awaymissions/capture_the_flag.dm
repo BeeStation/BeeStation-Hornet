@@ -37,6 +37,7 @@
 
 /obj/item/twohanded/ctf/Initialize()
 	. = ..()
+	AddComponent(/datum/component/twohanded)
 	if(!reset)
 		reset = new reset_path(get_turf(src))
 

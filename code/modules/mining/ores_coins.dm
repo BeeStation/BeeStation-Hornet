@@ -212,6 +212,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/attacher = "UNKNOWN"
 	var/det_timer
 
+/obj/item/twohanded/required/gibtonite/Initialize()
+	. = ..()
+	AddComponent(/datum/component/twohanded/required)
+
 /obj/item/twohanded/required/gibtonite/Destroy()
 	qdel(wires)
 	wires = null
