@@ -324,6 +324,7 @@
 	. = ..()
 	AddComponent(/datum/component/twohanded, 10, 18)
 	AddComponent(/datum/component/butchering, 100, 70) //decent in a pinch, but pretty bad.
+	AddComponent(/datum/component/jousting)
 
 /obj/item/twohanded/spear/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -748,7 +749,7 @@
 	if(user?.client)
 		user.regenerate_icons()
 		var/client/C = user.client
-		C.check_view()
+		C.change_view(CONFIG_GET(string/default_view))
 		user.client.pixel_x = 0
 		user.client.pixel_y = 0
 
