@@ -67,7 +67,6 @@
 /obj/machinery/computer/operating/ui_data(mob/user)
 	var/list/data = list()
 	data["table"] = table
-	data["menu"] = menu
 
 	var/list/surgeries = list()
 	for(var/X in advanced_surgeries)
