@@ -140,6 +140,10 @@
 #define TRAIT_UNINTELLIGIBLE_SPEECH "unintelligible-speech"
 #define TRAIT_UNSTABLE			"unstable"
 #define TRAIT_NECROPOLIS_INFECTED "necropolis-infection"
+#define TRAIT_OIL_FRIED			"oil_fried"
+#define TRAIT_MEDICAL_HUD		"med_hud"
+#define TRAIT_SECURITY_HUD		"sec_hud"
+#define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
