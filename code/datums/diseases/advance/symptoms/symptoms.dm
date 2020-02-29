@@ -74,7 +74,10 @@
 
 /datum/symptom/proc/generate_threshold_desc()
 	return
-
+	
+/datum/symptom/proc/OnDeath(datum/disease/advance/A)
+	return !neutered
+	
 /datum/symptom/proc/OnAdd(datum/disease/advance/A)		//Overload when a symptom needs to be active before processing, like changing biotypes. 
 	return
 

@@ -227,3 +227,47 @@
 	sawn_off = TRUE
 	slot_flags = ITEM_SLOT_BELT
 	recoil = SAWN_OFF_RECOIL
+
+/obj/item/gun/ballistic/shotgun/doublebarrel/hook
+	name = "hook modified sawn-off shotgun"
+	desc = "Range isn't an issue when you can bring your victim to you."
+	icon_state = "hookshotgun"
+	item_state = "shotgun"
+	load_sound = "sound/weapons/shotguninsert.ogg"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/bounty
+	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_MEDIUM
+	force = 10 //it has a hook on it
+	attack_verb = list("slashed", "hooked", "stabbed")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	//our hook gun!
+	var/obj/item/gun/magic/hook/bounty/hook
+	var/toggled = FALSE
+
+/obj/item/gun/ballistic/shotgun/doublebarrel/hook/Initialize()
+	. = ..()
+	hook = new /obj/item/gun/magic/hook/bounty(src)
+
+/obj/item/gun/ballistic/shotgun/doublebarrel/hook/AltClick(mob/user)
+	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+		return
+	if(toggled)
+		to_chat(user,"<span class='notice'>You switch to the shotgun.</span>")
+		fire_sound = initial(fire_sound)
+	else
+		to_chat(user,"<span class='notice'>You switch to the hook.</span>")
+		fire_sound = 'sound/weapons/batonextend.ogg'
+	toggled = !toggled
+
+/obj/item/gun/ballistic/shotgun/doublebarrel/hook/examine(mob/user)
+	. = ..()
+	if(toggled)
+		. += "<span class='notice'>Alt-click to switch to the shotgun.</span>"
+	else
+		. += "<span class='notice'>Alt-click to switch to the hook.</span>"
+
+/obj/item/gun/ballistic/shotgun/doublebarrel/hook/afterattack(atom/target, mob/living/user, flag, params)
+	if(toggled)
+		hook.afterattack(target, user, flag, params)
+	else
+		return ..()

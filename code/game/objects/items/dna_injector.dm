@@ -150,6 +150,16 @@
 	name = "\improper DNA injector (Anti-Clumsy)"
 	desc = "Apply this for Security Clown."
 	remove_mutations = list(CLOWNMUT)
+	
+/obj/item/dnainjector/cluwnemut
+	name = "\improper DNA injector (Cluwneify)"
+	desc = "This is your last chance to turn back."
+	add_mutations = list(CLOWNMUT)
+
+/obj/item/dnainjector/anticluwne
+	name = "\improper DNA injector (Anti-Cluwne)"
+	desc = "This isn't going to work."
+	remove_mutations = list(CLOWNMUT)
 
 /obj/item/dnainjector/antitour
 	name = "\improper DNA injector (Anti-Tour.)"

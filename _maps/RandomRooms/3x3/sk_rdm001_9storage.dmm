@@ -1,0 +1,33 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/turf_decal/box,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/structure/closet/crate,
+/obj/machinery/light/small{
+	icon_state = "bulb";
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/turf_decal/box,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+"}
+(3,1,1) = {"
+b
+a
+a
+"}

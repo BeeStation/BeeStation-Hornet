@@ -44,6 +44,13 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		/turf/open/space,
 		/area/shuttle,
 		))
+		
+	if(creator)
+		if(creator.create_area_cooldown >= world.time)
+			to_chat(creator, "<span class='warning'>You're trying to create a new area a little too fast.</span>")
+			return
+		creator.create_area_cooldown = world.time + 10
+		
 	// Ignore these areas and dont let people expand them. They can expand into them though
 	var/static/blacklisted_areas = typecacheof(list(
 		/area/space,

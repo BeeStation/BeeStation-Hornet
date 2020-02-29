@@ -11,7 +11,6 @@
 ###############################################################################################
 Qwertyquerty = Host
 Crossedfall = Host
-CthulhuOnIce = Headmin
-nervere = CouncilMember
+CthulhuOnIce = Host
 
 # the rest are in the db

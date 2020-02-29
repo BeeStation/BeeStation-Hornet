@@ -17,7 +17,12 @@
 	set desc = "Choose what you shout as you punch people."
 	var/input = stripped_input(src,"What do you want your battlecry to be? Max length of 6 characters.", ,"", 7)
 	if(input)
-		battlecry = input
+		if(CHAT_FILTER_CHECK(input))
+			to_chat(src, "<span class='warning'>Your battlecry may not include prohibited words! Consider rereading the server rules.</span>")
+			return
+		else
+			battlecry = input
+
 
 
 

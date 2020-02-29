@@ -24,9 +24,9 @@ Bonus
 	name = "Vomiting"
 	desc = "The virus causes nausea and irritates the stomach, causing occasional vomit."
 	stealth = -2
-	resistance = -1
+	resistance = 1
 	stage_speed = 0
-	transmittable = 1
+	transmittable = 2
 	level = 3
 	severity = 3
 	base_message_chance = 100
@@ -60,4 +60,4 @@ Bonus
 			vomit(M)
 
 /datum/symptom/vomit/proc/vomit(mob/living/carbon/M)
-	M.vomit(20, vomit_blood, distance = proj_vomit)
+	M.vomit(20, vomit_blood, stun = 0, distance = proj_vomit)

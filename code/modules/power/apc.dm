@@ -59,6 +59,14 @@
 	ui_x = 450
 	ui_y = 460
 
+	FASTDMM_PROP(\
+		set_instance_vars(\
+			pixel_x = dir == EAST ? 24 : (dir == WEST ? -24 : INSTANCE_VAR_DEFAULT),\
+			pixel_y = dir == NORTH ? 24 : (dir == SOUTH ? -24 : INSTANCE_VAR_DEFAULT)\
+		),\
+		dir_amount = 4\
+    )
+
 	var/lon_range = 2
 	var/area/area
 	var/areastring = null

@@ -4,11 +4,10 @@
 	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	possible_locs = list(BODY_ZONE_CHEST)
 
-
 //extract implant
 /datum/surgery_step/extract_implant
 	name = "extract implant"
-	implements = list(/obj/item/hemostat = 100, TOOL_CROWBAR = 65)
+	implements = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 65)
 	time = 64
 	var/obj/item/implant/I = null
 

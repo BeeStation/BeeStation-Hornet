@@ -129,3 +129,26 @@
 	tools = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/bedsheet = 1)
 	category = CAT_CLOTHING
+	
+/datum/crafting_recipe/foilhat
+	name = "Tinfoil Hat"
+	result = /obj/item/clothing/head/foilhat
+	time = 5
+	tools = list(TOOL_CROWBAR)
+	reqs = list(/obj/item/stack/sheet/iron = 3)
+	category = CAT_CLOTHING
+	
+/datum/crafting_recipe/foilenvirohelm
+	name = "Ghetto Envirosuit Helmet"
+	result = /obj/item/clothing/head/foilhat/plasmaman
+	time = 40
+	tools = list(TOOL_CROWBAR, TOOL_WIRECUTTER, TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/head/foilhat = 1,
+				/obj/item/stack/packageWrap = 10,
+				/obj/item/stack/cable_coil = 15,
+				/obj/item/clothing/glasses/meson = 1,
+				/obj/item/flashlight = 1,
+				/obj/item/clothing/head/hardhat = 1,
+				/obj/item/stack/sheet/glass = 1)
+	category = CAT_CLOTHING
+

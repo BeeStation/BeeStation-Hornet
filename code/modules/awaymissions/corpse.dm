@@ -180,11 +180,11 @@
 	if(hair_style)
 		H.hair_style = hair_style
 	else
-		H.hair_style = random_hair_style(gender)
+		H.hair_style = random_hair_style(H.gender)
 	if(facial_hair_style)
 		H.facial_hair_style = facial_hair_style
 	else
-		H.facial_hair_style = random_facial_hair_style(gender)
+		H.facial_hair_style = random_facial_hair_style(H.gender)
 	if(skin_tone)
 		H.skin_tone = skin_tone
 	else
@@ -525,6 +525,10 @@
 	short_desc = "By unknown powers, your skeletal remains have been reanimated!"
 	flavour_text = "Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
+
+/obj/effect/mob_spawn/human/skeleton/alive/equip(mob/living/carbon/human/H)
+	var/obj/item/implant/exile/implant = new/obj/item/implant/exile(H)
+	implant.implant(H)
 
 /obj/effect/mob_spawn/human/zombie
 	name = "rotting corpse"

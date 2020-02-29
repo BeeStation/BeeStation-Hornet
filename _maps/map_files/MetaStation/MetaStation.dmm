@@ -4307,6 +4307,18 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"ahR" = (
+/obj/structure/displaycase/captain{
+	pixel_y = 5;
+	req_access = null;
+	req_access_txt = "20";
+	req_one_access_txt = "0"
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/captain/private)
 "ahS" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
@@ -34437,15 +34449,6 @@
 /obj/structure/table/glass,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"boD" = (
-/obj/structure/displaycase/captain{
-	pixel_y = 5
-	},
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/heads/captain/private)
 "boE" = (
 /obj/structure/sign/map/left{
 	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
@@ -55647,6 +55650,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /mob/living/simple_animal/bot/cleanbot{
 	name = "Scrubs, MD";
 	trash = 1
@@ -63694,7 +63700,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "cvw" = (
-/obj/machinery/clonepod{
+/obj/machinery/clonepod/prefilled{
 	pixel_y = 2
 	},
 /obj/item/radio/intercom{
@@ -113753,7 +113759,7 @@ bht
 bjg
 bkK
 bjg
-boD
+ahR
 bqV
 btc
 buG

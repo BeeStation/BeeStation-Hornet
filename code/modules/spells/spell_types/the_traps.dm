@@ -3,9 +3,9 @@
 	desc = "Summon a number of traps around you. They will damage and enrage any enemies that step on them."
 
 	charge_max = 250
-	cooldown_min = 50
+	cooldown_min = 100
 
-	clothes_req = TRUE
+	clothes_req = FALSE
 	invocation = "CAVERE INSIDIAS"
 	invocation_type = "shout"
 	range = 3

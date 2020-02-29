@@ -549,6 +549,9 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			
 		if("Gravity")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/gravity
+			
+		if("Toy")
+			pickedtype = /mob/living/simple_animal/hostile/guardian/toy
 
 	var/list/guardians = user.hasparasites()
 	if(guardians.len && !allowmultiple)
@@ -576,6 +579,13 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /obj/item/guardiancreator/choose
 	random = FALSE
+	
+/obj/item/guardiancreator/toy
+	name = "funny tarot card"
+	desc = "An enchanted deck tarot card. This one looks like it was printed as a joke."
+	icon_state = "deck_clown_empty"
+	possible_guardians = list("Toy")
+	custom_premium_price = 10000
 
 /obj/item/guardiancreator/choose/dextrous
 	possible_guardians = list("Assassin", "Chaos", "Charger", "Dextrous", "Explosive", "Lightning", "Protector", "Ranged", "Standard", "Support", "Gravity")
@@ -604,6 +614,12 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /obj/item/guardiancreator/tech/choose/dextrous
 	possible_guardians = list("Assassin", "Chaos", "Charger", "Dextrous", "Explosive", "Lightning", "Protector", "Ranged", "Standard", "Support", "Gravity")
+
+/obj/item/guardiancreator/tech/toy
+	name = "plastic holoparasite injector"
+	desc = "a cheap replica of a real holoparasite injector."
+	icon_state = "clown_hypo"
+	possible_guardians = list("Toy")
 
 /obj/item/paper/guides/antag/guardian
 	name = "Holoparasite Guide"
@@ -683,6 +699,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /obj/item/guardiancreator/carp/choose
 	random = FALSE
 
+/obj/item/guardiancreator/carp/toy
+	possible_guardians = list("Toy")
 
 /obj/item/storage/box/syndie_kit/carpian
 	name = "Holocarp fishstick kit"

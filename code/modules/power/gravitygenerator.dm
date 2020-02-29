@@ -382,22 +382,22 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	return 0
 
 /obj/machinery/gravity_generator/main/proc/update_list()
-	var/turf/T = get_turf(src.loc)
+	var/turf/T = get_turf(src)
 	if(T)
 		var/list/z_list = list()
 		// Multi-Z, station gravity generator generates gravity on all ZTRAIT_STATION z-levels.
 		if(ztrait && SSmapping.level_trait(T.z, ztrait))
-			for(var/z in SSmapping.levels_by_trait(ztrait))
-				z_list += z
+			for(var/theZ in SSmapping.levels_by_trait(ztrait))
+				z_list += theZ
 		else
 			z_list += T.z
-		for(var/z in z_list)
-			if(!GLOB.gravity_generators["[T.z]"])
-				GLOB.gravity_generators["[T.z]"] = list()
+		for(var/theZ in z_list)
+			if(!GLOB.gravity_generators["[theZ]"])
+				GLOB.gravity_generators["[theZ]"] = list()
 			if(on)
-				GLOB.gravity_generators["[T.z]"] |= src
+				GLOB.gravity_generators["[theZ]"] |= src
 			else
-				GLOB.gravity_generators["[T.z]"] -= src
+				GLOB.gravity_generators["[theZ]"] -= src
 
 /obj/machinery/gravity_generator/main/proc/change_setting(value)
 	if(value != setting)

@@ -375,12 +375,15 @@ ANNOUNCE_ADMIN_LOGIN
 
 ## Map rotation
 ## You should edit maps.txt to match your configuration when you enable this.
-#MAPROTATION
+MAPROTATION
 
 ## Map voting
 ## Allows players to vote for their preffered map
 ## When it's set to zero, the map will be randomly picked each round
-PREFERENCE_MAP_VOTING 1
+PREFERENCE_MAP_VOTING 0
+
+## Starts a map vote at the end of rounds
+#AUTOMAPVOTE
 
 ## Map rotate chance delta
 ## This is the chance of map rotation factored to the round length.
@@ -416,7 +419,6 @@ CLIENT_ERROR_BUILD 1421
 SECOND_TOPIC_LIMIT 10
 
 MINUTE_TOPIC_LIMIT 180
-
 
 ## CLICK RATE LIMITING
 ## Same as above, but applies to clicking on objects in the game window.
@@ -470,8 +472,6 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 85
 ## Uncomment to set the number of /world/Reboot()s before the DreamDaemon restarts itself. 0 means restart every round. Requires tgstation server tools.
 ROUNDS_UNTIL_HARD_RESTART 3
 
-AUTOMAPVOTE
-
 ##Default screen resolution, in tiles.
 ##	By default, this is 15x15, which gets simplified to 7 by BYOND, as it is a 1:1 screen ratio.
 ##	For reference, Goonstation uses a resolution of 21x15 for it's widescreen mode.
@@ -492,3 +492,17 @@ RESPECT_GLOBAL_BANS
 MAX_CUBE_MONKEYS 60
 MAX_CHICKENS 60
 MAX_SLIMES 60
+
+### Fail2Topic settings
+### fail2topic is a system for automating IP bans for abusers of the world/Topic API.
+### Note that this subsystem respects the IPs listed in topic_rate_limit_whitelist.txt. They will not be considered for a ban.
+## Topic rate limit in *seconds*
+TOPIC_RATE_LIMIT 5
+## Topic max fails
+TOPIC_MAX_FAILS 5
+## Firewall rule name
+TOPIC_RULE_NAME "_DD_Fail2topic"
+## Max world/Topic payload size
+TOPIC_MAX_SIZE 500
+## Uncomment to enable Fail2Topic, comment-out to disable
+#TOPIC_ENABLED

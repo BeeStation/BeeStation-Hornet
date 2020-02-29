@@ -1,4 +1,0 @@
-author: "covertcorvid"
-delete-after: True
-changes: 
-  - bugfix: "corrected powersink behavior where APC cell has less than 50 watts left to drain"

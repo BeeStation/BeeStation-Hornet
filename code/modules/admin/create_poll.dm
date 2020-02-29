@@ -127,9 +127,15 @@
 					add_option = 0
 				else
 					return 0
+
+	var/minimum_player_playtime = input("Minimum player playtime to vote (in hours)","Minimum playtime") as num|null
+	if (minimum_player_playtime == null)
+		minimum_player_playtime = 0
+	minimum_player_playtime = sanitizeSQL(min(minimum_player_playtime, 100)) //max 100 hours
+
 	var/m1 = "[key_name(usr)] has created a new server poll. Poll type: [polltype] - Admin Only: [adminonly ? "Yes" : "No"] - Question: [question]"
 	var/m2 = "[key_name_admin(usr)] has created a new server poll. Poll type: [polltype] - Admin Only: [adminonly ? "Yes" : "No"]<br>Question: [question]"
-	var/datum/DBQuery/query_polladd_question = SSdbcore.NewQuery("INSERT INTO [format_table_name("poll_question")] (polltype, starttime, endtime, question, adminonly, multiplechoiceoptions, createdby_ckey, createdby_ip, dontshow) VALUES ('[polltype]', '[starttime]', '[endtime]', '[question]', '[adminonly]', '[choice_amount]', '[sql_ckey]', INET_ATON('[address]'), '[dontshow]')")
+	var/datum/DBQuery/query_polladd_question = SSdbcore.NewQuery("INSERT INTO [format_table_name("poll_question")] (polltype, starttime, endtime, question, adminonly, multiplechoiceoptions, createdby_ckey, createdby_ip, dontshow, minimumplaytime) VALUES ('[polltype]', '[starttime]', '[endtime]', '[question]', '[adminonly]', '[choice_amount]', '[sql_ckey]', INET_ATON('[address]'), '[dontshow]', '[minimum_player_playtime]')")
 	if(!query_polladd_question.warn_execute())
 		qdel(query_polladd_question)
 		return

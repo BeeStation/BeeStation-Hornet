@@ -185,3 +185,10 @@
 /obj/item/tank/internals/emergency_oxygen/double/empty/populate_gas()
 	return
 
+/obj/item/tank/internals/emergency_oxygen/magic_oxygen
+	name = "magic oxygen tank"
+	icon_state = "emergency_double"
+	volume = 100000000
+
+/obj/item/tank/internals/emergency_oxygen/double/empty/populate_gas()
+	return

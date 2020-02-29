@@ -237,6 +237,10 @@
 /obj/effect/temp_visual/revenant
 	name = "spooky lights"
 	icon_state = "purplesparkles"
+	
+/obj/effect/temp_visual/blightdisease
+	name = "spreadingsickness"
+	icon_state = "greenshatter"
 
 /obj/effect/temp_visual/revenant/cracks
 	name = "glowing cracks"
@@ -462,6 +466,7 @@
 	icon = 'icons/effects/effects_rcd.dmi'
 	icon_state = ""
 	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
 	var/status = 0
 	var/delay = 0
 

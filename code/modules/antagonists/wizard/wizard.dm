@@ -4,7 +4,6 @@
 	antagpanel_category = "Wizard"
 	job_rank = ROLE_WIZARD
 	antag_moodlet = /datum/mood_event/focused
-	var/give_objectives = TRUE
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
 	var/hud_version = "wizard"
@@ -60,6 +59,8 @@
 	owner.current.forceMove(pick(GLOB.wizardstart))
 
 /datum/antagonist/wizard/proc/create_objectives()
+	if(!give_objectives)
+		return
 	switch(rand(1,100))
 		if(1 to 30)
 			var/datum/objective/assassinate/kill_objective = new
@@ -266,6 +267,7 @@
 /datum/antagonist/wizard/academy
 	name = "Academy Teacher"
 	outfit_type = /datum/outfit/wizard/academy
+	move_to_lair = FALSE
 
 /datum/antagonist/wizard/academy/equip_wizard()
 	. = ..()

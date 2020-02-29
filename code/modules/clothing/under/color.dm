@@ -117,6 +117,16 @@
 	item_state = "lb_suit"
 	item_color = "lightbrown"
 
+/obj/item/clothing/under/color/khaki
+	name = "khaki jumpsuit"
+	icon_state = "khakij"
+	item_state = "lb_suit"
+	item_color = "khakij"
+
+/obj/item/clothing/under/color/khaki/buster
+	name = "buster jumpsuit"
+	desc = "There seems to be a large stain in the left pocket. Someone must have squashed a really big twinkie."
+
 /obj/item/clothing/under/color/brown
 	name = "brown jumpsuit"
 	icon_state = "brown"

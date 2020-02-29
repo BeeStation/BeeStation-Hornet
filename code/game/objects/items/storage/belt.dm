@@ -636,6 +636,13 @@
 	item_state = "fannypack_yellow"
 	item_color = "yellow"
 
+/obj/item/storage/belt/fannypack/bustin
+	name = "exterminator's belt"
+	desc = " "
+	icon_state = "bustinbelt"
+	item_state = "bustinbelt"
+	item_color = "bustinbelt"
+
 /obj/item/storage/belt/sabre
 	name = "sabre sheath"
 	desc = "An ornate sheath designed to hold an officer's blade."

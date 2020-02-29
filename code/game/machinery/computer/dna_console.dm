@@ -36,7 +36,7 @@
 	var/combine
 	var/radduration = 2
 	var/radstrength = 1
-	var/max_chromosomes = 6
+	var/max_chromosomes = 5
 	///Amount of mutations we can store
 	var/list/buffer[NUMBER_OF_BUFFERS]
 	///mutations we have stored
@@ -50,7 +50,7 @@
 	///hard-cap on the advanced dna injector
 	var/max_injector_mutations = 10
 	///the max instability of the advanced injector.
-	var/max_injector_instability = 50
+	var/max_injector_instability = 40
 
 	var/injectorready = 0	//world timer cooldown var
 	var/jokerready = 0
@@ -181,6 +181,9 @@
 	status += "<div class='line'><div class='statusLabel'>&nbsp;&nbsp;\> Mutation:</div><div class='statusValue'>(-[stddev] to +[stddev] = 68 %) (-[2*stddev] to +[2*stddev] = 95 %)</div></div>"
 	if(connected)
 		stddev = RADIATION_ACCURACY_MULTIPLIER/(radduration + (connected.precision_coeff ** 2))
+		max_storage = 4 + (2*connected.precision_coeff)
+		max_chromosomes = 4 + connected.precision_coeff
+		max_injector_instability = 20 + (20*connected.scan_level)
 	else
 		stddev = RADIATION_ACCURACY_MULTIPLIER/radduration
 	var/chance_to_hit
@@ -405,7 +408,10 @@
 							mutcolor = "bad"
 					temp_html += "<div class='statusLine'><span class='[mutcolor]'>[HM.name] </span>"
 					temp_html += "<a href='?src=[REF(src)];task=remove_from_advinjector;injector=[A];path=[HM.type];'>Remove</a></div>"
-				temp_html += "<div class='statusLine'> <a href='?src=[REF(src)];task=advinjector;injector=[A];'>Print Advanced Injector</a>"
+				if(injectorready < world.time)
+					temp_html += "<div class='statusLine'> <a href='?src=[REF(src)];task=advinjector;injector=[A];'>Print Advanced Injector</a>"
+				else
+					temp_html += "<div class='statusLine'><span class='linkOff'>Print Advanced Injector</span>"
 				temp_html += "<a href='?src=[REF(src)];task=remove_advinjector;injector=[A];'>Remove Injector</a></div>"
 				temp_html += "<br></div>"
 
@@ -535,6 +541,10 @@
 	else
 		temp_html += "<span class='linkOff'>Print Activator</span>"
 		temp_html += "<span class='linkOff'>Print Mutator</span>"
+	if((active || storage_slot) && !scrambled)
+		temp_html += "<a href='?src=[REF(src)];task=expand_advinjector;path=[mutation];'>Adv. Injector</a>"
+	else
+		temp_html += "<span class='linkOff'>Adv. Injector</span>"
 	temp_html += "<br><div class='statusLine'>"
 	if(storage_slot)
 		temp_html += "<a href='?src=[REF(src)];task=deletemut;num=[storage_slot];'>Delete</a>"
@@ -545,7 +555,7 @@
 		temp_html += "<a href='?src=[REF(src)];task=screen;text=mutations;'>Back</a>"
 	else if(active && !scrambled)
 		temp_html += "<a href='?src=[REF(src)];task=savemut;path=[mutation];'>Store</a>"
-		temp_html += "<a href='?src=[REF(src)];task=expand_advinjector;path=[mutation];'>Adv. Injector</a>"
+
 	if(extra || scrambled)
 		temp_html += "<a href='?src=[REF(src)];task=nullify;'>Nullify</a>"
 	else
@@ -880,11 +890,10 @@
 				else
 					to_chat(usr, "<span class='warning'>Not enough space to store potential mutation.</span>")
 		if("ejectchromosome")
-			if(LAZYLEN(stored_chromosomes) <= num)
-				var/obj/item/chromosome/CM = stored_chromosomes[num]
-				CM.forceMove(drop_location())
-				adjust_item_drop_location(CM)
-				stored_chromosomes -= CM
+			var/obj/item/chromosome/CM = stored_chromosomes[num]
+			CM.forceMove(drop_location())
+			adjust_item_drop_location(CM)
+			stored_chromosomes -= CM
 		if("applychromosome")
 			if(viable_occupant && (LAZYLEN(viable_occupant.dna.mutations) <= num))
 				var/datum/mutation/human/HM = viable_occupant.dna.mutations[num]
@@ -923,7 +932,7 @@
 					var/datum/mutation/human/HM = B
 					if(HM.type == mutation)
 						true_selection -= HM
-					break
+						break
 
 		if("remove_advinjector")
 			var/selection = href_list["injector"]
@@ -933,7 +942,7 @@
 
 		if("add_advinjector")
 			if(LAZYLEN(injector_selection) < max_injector_selections)
-				var/new_selection = input(usr, "Enter Adv. Injector name", "Advanced Injectors") as text|null
+				var/new_selection = stripped_input(usr, "Enter Adv. Injector name", "Advanced Injectors")
 				if(new_selection && !(new_selection in injector_selection))
 					injector_selection[new_selection] = list()
 

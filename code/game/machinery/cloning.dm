@@ -25,6 +25,8 @@
 	var/speed_coeff
 	var/efficiency
 
+	var/fleshamnt = 1 //Amount of synthflesh needed per cloning cycle, is divided by efficiency
+
 	var/datum/mind/clonemind
 	var/grab_ghost_when = CLONER_MATURE_CLONE
 
@@ -41,6 +43,8 @@
 	fair_market_price = 5 // He nodded, because he knew I was right. Then he swiped his credit card to pay me for arresting him.
 	payment_department = ACCOUNT_MED
 /obj/machinery/clonepod/Initialize()
+	create_reagents(100, OPENCONTAINER)
+
 	. = ..()
 
 	countdown = new(src)
@@ -65,10 +69,16 @@
 	. = ..()
 
 /obj/machinery/clonepod/RefreshParts()
-	speed_coeff = 2
-	efficiency = 2
+	speed_coeff = 0
+	efficiency = 0
+	reagents.maximum_volume = 0
+	fleshamnt = 1
+	for(var/obj/item/reagent_containers/glass/G in component_parts)
+		reagents.maximum_volume += G.volume
+		G.reagents.trans_to(src, G.reagents.total_volume)
 	for(var/obj/item/stock_parts/scanning_module/S in component_parts)
 		efficiency += S.rating
+		fleshamnt = 1/max(efficiency-1, 1)
 	for(var/obj/item/stock_parts/manipulator/P in component_parts)
 		speed_coeff += P.rating
 	heal_level = (efficiency * 15) + 10
@@ -77,11 +87,30 @@
 	if(heal_level > 100)
 		heal_level = 100
 
+/obj/machinery/clonepod/attack_hand(mob/user)
+	. = ..()
+	if(.)
+		return
+	user.examinate(src)
+
+/obj/machinery/clonepod/AltClick(mob/user)
+	. = ..()
+	if (alert(user, "Are you sure you want to empty the cloning pod?", "Empty Reagent Storage:", "Yes", "No") != "Yes")
+		return
+	to_chat(user, "<span class='notice'>You empty \the [src]'s release valve onto the floor.</span>")
+	reagents.reaction(user.loc)
+	src.reagents.clear_reagents()
+
+/obj/machinery/clonepod/attack_ai(mob/user)
+	return attack_hand(user)
+
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The <i>linking</i> device can be <i>scanned<i> with a multitool.</span>"
+	. += "<span class='notice'>The <i>linking</i> device can be <i>scanned<i> with a multitool. It can be emptied by Alt-Clicking it.</span>"
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Cloning speed at <b>[speed_coeff*50]%</b>.<br>Predicted amount of cellular damage: <b>[100-heal_level]%</b>.<span>"
+		. += "<span class='notice'>The status display reads: Cloning speed at <b>[speed_coeff*50]%</b>.<br>Predicted amount of cellular damage: <b>[100-heal_level]%</b><br> Storing up to <b>[reagents.maximum_volume]cm<sup>3</sup></b> of synthflesh.<br>"
+		. += "Synthflesh consumption at <b>[round(fleshamnt*90, 1)]cm<sup>3</sup></b> per clone.</span><br>"
+		. += "<span class='notice'>The reagent display reads: [round(reagents.total_volume, 1)] / [reagents.maximum_volume] cm<sup>3</sup></span>"
 		if(efficiency > 5)
 			. += "<span class='notice'>Pod has been upgraded to support autoprocessing and apply beneficial mutations.<span>"
 
@@ -140,35 +169,40 @@
 	return examine(user)
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas)
+/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas, empty)
+	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
+		connected_message("Cannot start cloning: Not enough synthflesh.")
+		return NONE
 	if(panel_open)
 		return NONE
 	if(mess || attempting)
 		return NONE
-	clonemind = locate(mindref) in SSticker.minds
-	if(!istype(clonemind))	//not a mind
-		return NONE
-	if(clonemind.last_death != last_death) //The soul has advanced, the record has not.
-		return NONE
-	if(!QDELETED(clonemind.current))
-		if(clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
+
+	if(!empty) //Doesn't matter if we're just making a copy
+		clonemind = locate(mindref) in SSticker.minds
+		if(!istype(clonemind))	//not a mind
 			return NONE
-		if(clonemind.current.suiciding) // Mind is associated with a body that is suiciding.
+		if(clonemind.last_death != last_death) //The soul has advanced, the record has not.
 			return NONE
-	if(!clonemind.active)
-		// get_ghost() will fail if they're unable to reenter their body
-		var/mob/dead/observer/G = clonemind.get_ghost()
-		if(!G)
+		if(!QDELETED(clonemind.current))
+			if(clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
+				return NONE
+			if(clonemind.current.suiciding) // Mind is associated with a body that is suiciding.
+				return NONE
+		if(!clonemind.active)
+			// get_ghost() will fail if they're unable to reenter their body
+			var/mob/dead/observer/G = clonemind.get_ghost()
+			if(!G)
+				return NONE
+			if(G.suiciding) // The ghost came from a body that is suiciding.
+				return NONE
+		if(clonemind.damnation_type) //Can't clone the damned.
+			INVOKE_ASYNC(src, .proc/horrifyingsound)
+			mess = TRUE
+			icon_state = "pod_g"
+			update_icon()
 			return NONE
-		if(G.suiciding) // The ghost came from a body that is suiciding.
-			return NONE
-	if(clonemind.damnation_type) //Can't clone the damned.
-		INVOKE_ASYNC(src, .proc/horrifyingsound)
-		mess = TRUE
-		icon_state = "pod_g"
-		update_icon()
-		return NONE
-	current_insurance = insurance
+		current_insurance = insurance
 	attempting = TRUE //One at a time!!
 	countdown.start()
 
@@ -204,15 +238,16 @@
 	ADD_TRAIT(H, TRAIT_NOCRITDAMAGE, CLONING_POD_TRAIT)
 	H.Unconscious(80)
 
-	clonemind.transfer_to(H)
+	if(!empty)
+		clonemind.transfer_to(H)
 
-	if(grab_ghost_when == CLONER_FRESH_CLONE)
-		H.grab_ghost()
-		to_chat(H, "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>")
+		if(grab_ghost_when == CLONER_FRESH_CLONE)
+			H.grab_ghost()
+			to_chat(H, "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>")
 
-	if(grab_ghost_when == CLONER_MATURE_CLONE)
-		H.ghostize(TRUE)	//Only does anything if they were still in their old body and not already a ghost
-		to_chat(H.get_ghost(TRUE), "<span class='notice'>Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete.</span>")
+		if(grab_ghost_when == CLONER_MATURE_CLONE)
+			H.ghostize(TRUE)	//Only does anything if they were still in their old body and not already a ghost
+			to_chat(H.get_ghost(TRUE), "<span class='notice'>Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete.</span>")
 
 	if(H)
 		H.faction |= factions
@@ -246,7 +281,13 @@
 			connected_message("Clone Ejected: Loss of power.")
 
 	else if(mob_occupant && (mob_occupant.loc == src))
-		if(SSeconomy.full_ancap)
+		if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
+			go_out()
+			log_cloning("[key_name(mob_occupant)] ejected from [src] at [AREACOORD(src)] due to insufficient material.")
+			connected_message("Clone Ejected: Not enough material.")
+			if(internal_radio)
+				SPEAK("The cloning of [mob_occupant.real_name] has been ended prematurely due to insufficient material.")
+		else if(SSeconomy.full_ancap)
 			if(!current_insurance)
 				go_out()
 				log_cloning("[key_name(mob_occupant)] ejected from [src] at [AREACOORD(src)] due to invalid bank account.")
@@ -275,7 +316,11 @@
 			mob_occupant.Unconscious(80)
 			var/dmg_mult = CONFIG_GET(number/damage_multiplier)
 			 //Slowly get that clone healed and finished.
-			mob_occupant.adjustCloneLoss(-((speed_coeff / 1.75) * dmg_mult))
+			mob_occupant.adjustCloneLoss(-((speed_coeff / 2) * dmg_mult))
+			if(reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
+				reagents.remove_reagent(/datum/reagent/medicine/synthflesh, fleshamnt)
+			else if(reagents.has_reagent(/datum/reagent/blood, fleshamnt*3))
+				reagents.remove_reagent(/datum/reagent/blood, fleshamnt*3)
 			var/progress = CLONE_INITIAL_DAMAGE - mob_occupant.getCloneLoss()
 			// To avoid the default cloner making incomplete clones
 			progress += (100 - MINIMUM_HEAL_LEVEL)
@@ -483,6 +528,8 @@
 	playsound(src,'sound/hallucinations/wail.ogg', 100, TRUE)
 
 /obj/machinery/clonepod/deconstruct(disassembled = TRUE)
+	for(var/obj/item/reagent_containers/glass/G in component_parts)
+		reagents.trans_to(G, G.reagents.maximum_volume)
 	if(occupant)
 		var/mob/living/mob_occupant = occupant
 		go_out()
@@ -520,6 +567,12 @@
 		unattached_flesh += organ
 
 	flesh_number = unattached_flesh.len
+
+/obj/machinery/clonepod/prefilled
+
+/obj/machinery/clonepod/prefilled/Initialize()
+	. = ..()
+	reagents.add_reagent(/datum/reagent/medicine/synthflesh, 100)
 
 /*
  *	Manual -- A big ol' manual.

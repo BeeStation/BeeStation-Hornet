@@ -32,3 +32,7 @@
 /datum/generecipe/antiglow
 	required = "/datum/mutation/human/glow; /datum/mutation/human/void"
 	result = ANTIGLOWY
+
+/datum/generecipe/cluwne
+	required = "/datum/mutation/human/clumsy; /datum/mutation/human/badblink"
+	result = CLUWNEMUT

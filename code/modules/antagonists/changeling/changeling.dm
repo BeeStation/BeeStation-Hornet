@@ -10,7 +10,6 @@
 	antag_moodlet = /datum/mood_event/focused
 
 	var/you_are_greet = TRUE
-	var/give_objectives = TRUE
 	var/team_mode = FALSE //Should assign team objectives ?
 	var/competitive_objectives = FALSE //Should we assign objectives in competition with other lings?
 

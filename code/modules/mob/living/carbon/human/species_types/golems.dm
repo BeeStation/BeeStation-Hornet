@@ -252,7 +252,8 @@
 /datum/species/golem/alloy
 	name = "Alien Alloy Golem"
 	id = "alloy golem"
-	fixed_mut_color = "333"
+	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES)
+	limbs_id = "a_golem"
 	meat = /obj/item/stack/sheet/mineral/abductor
 	mutanttongue = /obj/item/organ/tongue/abductor
 	speedmod = 1 //faster
@@ -506,7 +507,7 @@
 /datum/species/golem/bananium
 	name = "Bananium Golem"
 	id = "bananium golem"
-	fixed_mut_color = "ff0"
+	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES)
 	say_mod = "honks"
 	punchdamagelow = 0
 	punchdamagehigh = 1
@@ -514,6 +515,7 @@
 	meat = /obj/item/stack/ore/bananium
 	info_text = "As a <span class='danger'>Bananium Golem</span>, you are made for pranking. Your body emits natural honks, and you can barely even hurt people when punching them. Your skin also bleeds banana peels when damaged."
 	attack_verb = "honk"
+	limbs_id = "ba_golem"
 	attack_sound = 'sound/items/airhorn2.ogg'
 	prefix = "Bananium"
 	special_names = null
@@ -653,7 +655,7 @@
 	prefix = "Clockwork"
 	special_names = list("Remnant", "Relic", "Scrap", "Vestige") //RIP Ratvar
 	var/has_corpse
-	
+
 /datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	H.faction |= "ratvar"
@@ -1075,7 +1077,7 @@
 	charge_max = 15
 	action_icon = 'icons/obj/toy.dmi'
 	action_icon_state = "snowball"
-		
+
 /datum/species/golem/capitalist
 	name = "Capitalist Golem"
 	id = "capitalist golem"
@@ -1095,8 +1097,7 @@
 
 /datum/species/golem/capitalist/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	C.equip_to_slot_or_del(new /obj/item/clothing/head/that (), SLOT_HEAD)
-	C.equip_to_slot_or_del(new /obj/item/clothing/glasses/monocle (), SLOT_GLASSES)
+	C.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses (), SLOT_GLASSES)
 	C.revive(full_heal = TRUE)
 
 	SEND_SOUND(C, sound('sound/misc/capitialism.ogg'))

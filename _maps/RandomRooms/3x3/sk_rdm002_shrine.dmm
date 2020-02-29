@@ -1,0 +1,51 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/item/banner/cargo/mundane,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/item/banner/cargo/mundane,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/effect/decal/cleanable/molten_object/large,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/structure/table,
+/obj/item/candle{
+	pixel_x = -5
+	},
+/obj/item/candle{
+	pixel_x = 5
+	},
+/obj/item/fakeartefact,
+/obj/effect/turf_decal/arrows,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+b
+e
+"}
+(2,1,1) = {"
+b
+b
+b
+"}
+(3,1,1) = {"
+c
+d
+f
+"}

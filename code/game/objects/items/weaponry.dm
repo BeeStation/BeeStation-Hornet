@@ -444,6 +444,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	sharpness = IS_SHARP
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
+	tool_behaviour = TOOL_SAW
+	toolspeed = 1
 
 /obj/item/mounted_chainsaw/Initialize()
 	. = ..()
@@ -520,12 +522,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "baseball_bat"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	force = 10
-	throwforce = 12
+	force = 13
+	throwforce = 6
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
 	var/homerun_ready = 0
 	var/homerun_able = 0
+	var/click_delay = 2
 
 /obj/item/melee/baseball_bat/homerun
 	name = "home run bat"
@@ -559,6 +562,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		return
 	else if(!target.anchored)
 		target.throw_at(throw_target, rand(1,2), 7, user)
+	user.changeNext_move(CLICK_CD_MELEE * click_delay)
+	return
+
 
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"

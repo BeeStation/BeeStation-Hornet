@@ -20,9 +20,9 @@ Bonus
 	name = "Spontaneous Combustion"
 	desc = "The virus turns fat into an extremely flammable compound, and raises the body's temperature, making the host burst into flames spontaneously."
 	stealth = 1
-	resistance = -4
-	stage_speed = -4
-	transmittable = -4
+	resistance = -2
+	stage_speed = -3
+	transmittable = -3
 	level = 6
 	severity = 5
 	base_message_chance = 20
@@ -73,11 +73,15 @@ Bonus
 	return 1
 
 /datum/symptom/fire/proc/Firestacks_stage_5(mob/living/M, datum/disease/advance/A)
-	M.adjust_fire_stacks(3 * power)
+	if(HAS_TRAIT(M, TRAIT_FAT))
+		M.adjust_fire_stacks(6 * power)
+	else
+		M.adjust_fire_stacks(3 * power)
 	M.take_overall_damage(burn = 5 * power, required_status = BODYPART_ORGANIC)
 	if(infective)
 		A.spread(4)
 	return 1
+
 
 /*
 //////////////////////////////////////
@@ -137,19 +141,21 @@ Bonus
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='warning'>[pick("Your veins boil.", "You feel hot.", "You smell meat cooking.")]</span>")
 		if(4)
+			if(M.fire_stacks < 0)
+				M.visible_message("<span class='warning'>[M]'s sweat sizzles and pops on contact with water!</span>")
+				explosion(get_turf(M),-1,(-1 + explosion_power),(2 * explosion_power))
 			Alkali_fire_stage_4(M, A)
 			M.IgniteMob()
 			to_chat(M, "<span class='userdanger'>Your sweat bursts into flames!</span>")
 			M.emote("scream")
 		if(5)
+			if(M.fire_stacks < 0)
+				M.visible_message("<span class='warning'>[M]'s sweat sizzles and pops on contact with water!</span>")
+				explosion(get_turf(M),-1,(-1 + explosion_power),(2 * explosion_power))
 			Alkali_fire_stage_5(M, A)
 			M.IgniteMob()
 			to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
 			M.emote("scream")
-			if(M.fire_stacks < 0)
-				M.visible_message("<span class='warning'>[M]'s sweat sizzles and pops on contact with water!</span>")
-				explosion(get_turf(M),0,0,2 * explosion_power)
-				Alkali_fire_stage_5(M, A)
 
 /datum/symptom/alkali/proc/Alkali_fire_stage_4(mob/living/M, datum/disease/advance/A)
 	var/get_stacks = 6 * power
