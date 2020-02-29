@@ -120,7 +120,7 @@
 
 /obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)
-		paddles.unwield()
+		SEND_SIGNAL(paddles, COMSIG_ITEM_UNWIELD, user)
 		toggle_paddles()
 	else if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
@@ -185,7 +185,7 @@
 			return
 	else
 		//Remove from their hands and back onto the defib unit
-		paddles.unwield()
+		SEND_SIGNAL(paddles, COMSIG_ITEM_UNWIELD, user)
 		remove_paddles(user)
 
 	update_icon()
@@ -281,7 +281,7 @@
 
 /obj/item/defibrillator/compact/combat/loaded/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)
-		paddles.unwield()
+		SEND_SIGNAL(paddles, COMSIG_ITEM_UNWIELD, user)
 		toggle_paddles()
 		update_icon()
 		return
@@ -358,6 +358,7 @@
 
 /obj/item/twohanded/shockpaddles/New(mainunit)
 	..()
+	AddComponent(/datum/component/twohanded)
 	if(check_defib_exists(mainunit, src) && req_defib)
 		defib = mainunit
 		forceMove(defib)
@@ -365,10 +366,13 @@
 		update_icon()
 
 /obj/item/twohanded/shockpaddles/update_icon()
-	icon_state = "defibpaddles[wielded]"
-	item_state = "defibpaddles[wielded]"
+	var/flag = SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED
+	if(flag)
+		flag = 1
+	icon_state = "defibpaddles[flag]"
+	item_state = "defibpaddles[flag]"
 	if(cooldown)
-		icon_state = "defibpaddles[wielded]_cooldown"
+		icon_state = "defibpaddles[flag]_cooldown"
 	if(iscarbon(loc))
 		var/mob/living/carbon/C = loc
 		C.update_inv_hands()
@@ -386,12 +390,9 @@
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 	if(user)
-		var/obj/item/twohanded/offhand/O = user.get_inactive_held_item()
-		if(istype(O))
-			O.unwield()
+		SEND_SIGNAL(src, COMSIG_ITEM_UNWIELD, user)
 		to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")
 		snap_back()
-	return unwield(user)
 
 /obj/item/twohanded/shockpaddles/proc/snap_back()
 	if(!defib)
@@ -417,7 +418,7 @@
 		user.visible_message("<span class='notice'>[defib] beeps: Unit is unpowered.</span>")
 		playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
 		return
-	if(!wielded)
+	if(!(SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED)) // Not wielded
 		if(iscyborg(user))
 			to_chat(user, "<span class='warning'>You must activate the paddles in your active module before you can use them on someone!</span>")
 		else

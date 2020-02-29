@@ -167,8 +167,6 @@
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	force_unwielded = 10
-	force_wielded = 24
 	throwforce = 20
 	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
@@ -178,8 +176,15 @@
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	block_chance = 50
 
+/obj/item/twohanded/bostaff/Initialize()
+	. = ..()
+	AddComponent(/datum/component/twohanded, 10, 24)
+
 /obj/item/twohanded/bostaff/update_icon()
-	icon_state = "bostaff[wielded]"
+	var/flag = SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED
+	if(flag)
+		flag = 1
+	icon_state = "bostaff[flag]"
 	return
 
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
@@ -202,7 +207,7 @@
 		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while they cannot retaliate.</span>")
 		return
 	if(user.a_intent == INTENT_DISARM)
-		if(!wielded)
+		if(!(SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED))
 			return ..()
 		if(!ishuman(target))
 			return ..()
@@ -232,6 +237,6 @@
 		return ..()
 
 /obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED)
 		return ..()
 	return 0

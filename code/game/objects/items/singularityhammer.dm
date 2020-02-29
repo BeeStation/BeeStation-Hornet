@@ -7,8 +7,6 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
-	force_unwielded = 5
-	force_wielded = 20
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
@@ -19,6 +17,7 @@
 
 /obj/item/twohanded/singularityhammer/New()
 	..()
+	AddComponent(/datum/component/twohanded, 5, 20)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/twohanded/singularityhammer/Destroy()
@@ -31,7 +30,10 @@
 	return
 
 /obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "mjollnir[wielded]"
+	var/flag = SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED
+	if(flag)
+		flag = 1
+	icon_state = "mjollnir[flag]"
 	return
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
@@ -60,7 +62,7 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(wielded)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED)
 		if(charged == 5)
 			charged = 0
 			if(istype(A, /mob/living/))
@@ -79,11 +81,13 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
-	force_unwielded = 5
-	force_wielded = 25
 	throwforce = 30
 	throw_range = 7
 	w_class = WEIGHT_CLASS_HUGE
+
+/obj/item/twohanded/mjollnir/Initialize()
+	. = ..()
+	AddComponent(/datum/component/twohanded, 5, 25)
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
 	target.Stun(60)
@@ -99,7 +103,7 @@
 
 /obj/item/twohanded/mjollnir/attack(mob/living/M, mob/user)
 	..()
-	if(wielded)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED)
 		playsound(src.loc, "sparks", 50, 1)
 		shock(M)
 
@@ -109,5 +113,8 @@
 		shock(hit_atom)
 
 /obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "mjollnir[wielded]"
+	var/flag = SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED
+	if(flag)
+		flag = 1
+	icon_state = "mjollnir[flag]"
 	return

@@ -11,8 +11,6 @@
 	force = 0 //You can't hit stuff unless wielded
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	force_unwielded = 20 //It's never not wielded so these are the same
-	force_wielded = 0
 	throwforce = 5
 	throw_speed = 4
 	armour_penetration = 10
@@ -31,6 +29,7 @@
 
 /obj/item/twohanded/kinetic_crusher/Initialize()
 	. = ..()
+	AddComponent(/datum/component/twohanded, 0, 20)
 	AddComponent(/datum/component/butchering, 60, 110) //technically it's huge and bulky, but this provides an incentive to use it
 
 /obj/item/twohanded/kinetic_crusher/Destroy()
@@ -62,7 +61,7 @@
 		return ..()
 
 /obj/item/twohanded/kinetic_crusher/attack(mob/living/target, mob/living/carbon/user)
-	if(!wielded)
+	if(!(SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED))
 		to_chat(user, "<span class='warning'>[src] is too heavy to use with one hand. You fumble and drop everything.")
 		user.drop_all_held_items()
 		return
@@ -78,7 +77,7 @@
 
 /obj/item/twohanded/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
 	. = ..()
-	if(!wielded)
+	if(!(SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED))
 		return
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
 		var/turf/proj_turf = user.loc
@@ -152,7 +151,10 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-	item_state = "crusher[wielded]"
+	var/flag = SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED
+	if(flag)
+		flag = 1
+	item_state = "crusher[flag]"
 
 //destablizing force
 /obj/item/projectile/destabilizer
@@ -368,17 +370,15 @@
 /obj/item/crusher_trophy/demon_claws/add_to(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
 	. = ..()
 	if(.)
+		SEND_SIGNAL(H, COMSIG_ITEM_MODIFY_WIELD_FORCE, bonus_value * 0.2, bonus_value * 0.2)
 		H.force += bonus_value * 0.2
-		H.force_unwielded += bonus_value * 0.2
-		H.force_wielded += bonus_value * 0.2
 		H.detonation_damage += bonus_value * 0.8
 
 /obj/item/crusher_trophy/demon_claws/remove_from(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
 	. = ..()
 	if(.)
+		SEND_SIGNAL(H, COMSIG_ITEM_MODIFY_WIELD_FORCE, bonus_value * -0.2, bonus_value * -0.2)
 		H.force -= bonus_value * 0.2
-		H.force_unwielded -= bonus_value * 0.2
-		H.force_wielded -= bonus_value * 0.2
 		H.detonation_damage -= bonus_value * 0.8
 
 /obj/item/crusher_trophy/demon_claws/on_melee_hit(mob/living/target, mob/living/user)

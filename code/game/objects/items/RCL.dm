@@ -23,6 +23,10 @@
 	var/datum/radial_menu/persistent/wiring_gui_menu
 	var/mob/listeningTo
 
+/obj/item/twohanded/rcl/Initialize()
+	. = ..()
+	AddComponent(/datum/component/twohanded)
+
 /obj/item/twohanded/rcl/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
@@ -118,8 +122,8 @@
 			QDEL_NULL(loaded)
 			loaded = null
 		QDEL_NULL(wiring_gui_menu)
-		unwield(user)
-		active = wielded
+		SEND_SIGNAL(src, COMSIG_ITEM_UNWIELD, user, FALSE)
+		active = SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED
 		return TRUE
 	return FALSE
 
@@ -137,7 +141,7 @@
 
 /obj/item/twohanded/rcl/attack_self(mob/user)
 	..()
-	active = wielded
+	active = SEND_SIGNAL(src, COMSIG_ITEM_IS_WIELDED) & COMPONENT_WIELDED
 	if(!active)
 		last = null
 	else if(!last)
@@ -151,8 +155,8 @@
 		return
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-	RegisterSignal(listeningTo, COMSIG_MOVABLE_MOVED, .proc/trigger)
 	listeningTo = to_hook
+	RegisterSignal(listeningTo, COMSIG_MOVABLE_MOVED, .proc/trigger)
 
 /obj/item/twohanded/rcl/proc/trigger(mob/user)
 	if(active)
