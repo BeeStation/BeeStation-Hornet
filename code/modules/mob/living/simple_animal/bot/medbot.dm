@@ -438,11 +438,10 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			else
 				tending = FALSE
 
+			update_icon()
 			if(!tending)
 				visible_message("[src] places its tools back into itself.")
-			update_icon()
-			soft_reset()
-			REMOVE_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
+				soft_reset()
 		else
 			tending = FALSE
 
