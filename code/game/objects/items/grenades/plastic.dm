@@ -237,3 +237,5 @@
 	gender = PLURAL
 	directional = TRUE
 	boom_sizes = list(0, 2, 5)
+	can_attach_mob = TRUE // hmmmm today i will plant a breaching charge on someone
+	full_damage_on_mobs = TRUE //oh shit oh fuck hes dead
