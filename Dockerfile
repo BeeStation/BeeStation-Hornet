@@ -1,6 +1,6 @@
-FROM beestation/byond:513.1511 as base
+FROM beestation/byond:513.1512 as base
 ONBUILD ENV BYOND_MAJOR=513
-ONBUILD ENV BYOND_MINOR=1511
+ONBUILD ENV BYOND_MINOR=1512
 
 FROM base as build_base
 
