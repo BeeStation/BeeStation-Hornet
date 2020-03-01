@@ -100,6 +100,12 @@
 	new /obj/item/storage/box/pillbottles(src)
 	new /obj/item/storage/box/medsprays(src)
 	new /obj/item/storage/box/medsprays(src)
+	new /obj/item/stack/ducts/fifty(src)
+	new /obj/item/stack/ducts/fifty(src)
+	new /obj/item/stack/ducts/fifty(src)
+	new /obj/item/stack/ducts/fifty(src)			
+	new /obj/item/construction/plumbing(src)
+	new /obj/item/construction/plumbing(src)
 
 /obj/structure/closet/secure_closet/chemical/heisenberg //contains one of each beaker, syringe etc.
 	name = "advanced chemical closet"
