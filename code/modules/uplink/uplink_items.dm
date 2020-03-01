@@ -320,13 +320,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous
 	category = "Conspicuous Weapons"
 
-/datum/uplink_item/dangerous/butterfly
-	name = "Energy Butterfly Knife"
-	desc = "A highly lethal and concealable knife that causes critical backstab damage when used with harm intent."
-	cost = 8
-	item = /obj/item/melee/transforming/butterfly/energy
-	surplus = 15
-
 /datum/uplink_item/dangerous/rawketlawnchair
 	name = "84mm Rocket Propelled Grenade Launcher"
 	desc = "A reusable rocket propelled grenade launcher preloaded with a low-yield 84mm HE round. \
