@@ -1,4 +1,4 @@
-name: discord message
+name: Build and Publish Docker Image
 on: [push]
 jobs:
 
@@ -7,11 +7,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: beestation/beestation
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: "latest"
     - name: send custom message with args
       uses: appleboy/discord-action@master
       with:
         webhook_id: ${{ secrets.WEBHOOK_ID }}
         webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
         username: "Docker"
-        avatar_url: "https://imgur.com/WVlKgAX.png"
+        avatar_url: "https://imgur.com/AWQDZZX.png"
         message: "Docker image updated! <https://hub.docker.com/r/beestation/beestation>"
