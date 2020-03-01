@@ -11,9 +11,10 @@
 
 /obj/item/projectile/energy/bolt/Initialize()
 	. = ..()
-	create_reagents(25, NO_REACT)
+	create_reagents(30, NO_REACT)
 	reagents.add_reagent(/datum/reagent/toxin/polonium, 10)
 	reagents.add_reagent(/datum/reagent/toxin/fentanyl, 5)
+	reagents.add_reagent(/datum/reagent/toxin, 5)
 	reagents.add_reagent(/datum/reagent/uranium/radium, 10)
 
 /obj/item/projectile/energy/bolt/on_hit(atom/target, blocked = FALSE)
