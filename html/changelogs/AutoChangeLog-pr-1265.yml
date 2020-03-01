@@ -1,0 +1,4 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - rscadd: "Adds stacks of fluid ducts and two plumbing constructors to chemistry lockers."
