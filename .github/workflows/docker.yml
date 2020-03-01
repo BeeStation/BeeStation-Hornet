@@ -18,8 +18,8 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         tags: "latest"
     - name: Discord notification
-    env:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-    uses: Ilshidur/action-discord@master
-    with:
-      args: 'BeeStation Docker image updated! <https://hub.docker.com/r/beestation/beestation>'
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: 'BeeStation Docker image updated! <https://hub.docker.com/r/beestation/beestation>'
