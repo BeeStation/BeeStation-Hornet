@@ -13,5 +13,5 @@ jobs:
         webhook_id: ${{ secrets.WEBHOOK_ID }}
         webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
         username: "Docker"
-        avatar_url: "https://www.docker.com/sites/default/files/d8/2019-07/Moby-logo.png"
+        avatar_url: "https://imgur.com/WVlKgAX.png"
         message: "Test test test"
