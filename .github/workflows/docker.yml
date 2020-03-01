@@ -1,8 +1,6 @@
 name: Docker Image CI
 
-on:
-  schedule:
-    - cron: 0 0 * * *
+on: [push]
 
 jobs:
 
@@ -15,7 +13,13 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: beestation/beestation
+        name: crossedfall/beestation
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         tags: "latest"
+    - name: Discord notification
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+    uses: Ilshidur/action-discord@master
+    with:
+      args: 'BeeStation Docker image updated! <https://hub.docker.com/r/beestation/beestation>'
