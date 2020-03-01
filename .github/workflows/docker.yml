@@ -14,4 +14,4 @@ jobs:
         webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
         username: "Docker"
         avatar_url: "https://imgur.com/WVlKgAX.png"
-        message: "Test test test"
+        message: "Docker image updated! <https://hub.docker.com/r/beestation/beestation>"
