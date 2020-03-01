@@ -127,6 +127,7 @@ As a Security Officer, communicate and coordinate with your fellow officers usin
 As a Security Officer, your sechuds or HUDsunglasses can not only see crewmates' job assignments and criminal status, but also if they are mindshield implanted. You can tell by the flashing blue outline around their job icon. Use this to your advantage in a revolution to definitively tell who is on your side!
 As a Security Officer, mindshield implants can only prevent someone from being turned into a cultist: unlike revolutionaries, it will not de-cult them if they have already been converted.
 As a Security Officer, examining someone while wearing sechuds or HUDsunglasses will let you set their arrest level, which will cause Beepsky and other security bots to chase after them.
+As a Security Officer, keep your weapons in your bag when they aren't being used! You can easily be shoved and stolen from!
 As the Detective, people leave fingerprints everywhere and on everything. With the exception of white latex, gloves will hide them. All is not lost, however, as gloves leave fibers specific to their kind such as black or nitrile, pointing to a general department.
 As the Detective, you can use your forensics scanner from a distance.
 As the Detective, your revolver can be loaded with .357 ammunition obtained from a hacked autolathe. Firing it has a decent chance to blow up your revolver.
@@ -253,13 +254,15 @@ Suit storage units not only remove blood and dirt from clothing, but also radiat
 Remote devices will work when used through cameras. For example: Bluespace RPEDs and door remotes.
 You can light a cigar on a supermatter crystal.
 Walking negates all wallstuns. Walk to avoid flashes, slipping on water, etc. Walking also does not trigger motion detector flashes!
-Cloners require 90 units of synthflesh per clone. When upgraded to tier 4 parts, these cloners can clone one person per 13 units!
+Cloners require 30 units of synthflesh per clone. When upgraded to tier 4 parts, these cloners can clone one person much cheaper!
 You can perform self-surgery for amputation, tend wounds, implanting and others. It only has 20% success rate though per step, bumping hot to 40% if there's a mirror in the same room.
 When Experimental Surgery is unlocked, you can build an Autodoc. This allows you to automatically add any implant in seconds.
 Fun fact: reading this (https://beestation13.com/rules) may lead to an increase in your chances on not being banned. Seriously. Read it.
-To avoid the clown car, rest. The clown car cannot pickup resting people.
 You can whisper by putting # before your message. You can also whisper in critical, however it may kill you depending on how hurt you are.
 Fore = north, aft = south, starboard = east and port = west.
 If you use a Cup Ramen on a sink twice, it becomes warm.
 Never be scared to fail, to fail is to learn. If you never fail, you will never get robust.
 Emping the AI has a chance to call the emergency shuttle.
+Beating revolutionaries over the head has a chance to deconvert them.
+You can examine someone to tell if their red eyes are natural or cultist.
+You can put holy water in darts to make them more effective against cultists. Or use the shotgun, cause it doesn't miss.
