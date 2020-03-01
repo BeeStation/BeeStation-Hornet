@@ -12,4 +12,6 @@ jobs:
       with:
         webhook_id: ${{ secrets.WEBHOOK_ID }}
         webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-        args: The ${{ github.event_name }} event triggered first step.
+        username: "Docker"
+        avatar_url: "https://www.docker.com/sites/default/files/d8/2019-07/Moby-logo.png"
+        message: "Test test test"
