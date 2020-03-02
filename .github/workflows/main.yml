@@ -22,7 +22,7 @@ jobs:
               }
             }
           }
-        owner: ${{ github.event.repository.owner.name }}
+        owner: ${{ github.event.repository.owner.login }}
         repo: ${{ github.event.repository.name }}
         pr: ${{ github.event.pull_request.number }}
       env:
