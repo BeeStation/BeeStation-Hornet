@@ -10,10 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
     - uses: octokit/graphql-action@v2.x
       id: get_latest_release
       with:
+        owner: ${{ github.event.repository.owner.login }}
+        repo: ${{ github.event.repository.name }}
+        pr: ${{ github.event.pull_request.number }}
         query: |
           query pullrequest {
             repository(name: $repo, owner: $owner) {
@@ -22,9 +24,6 @@ jobs:
               }
             }
           }
-        owner: ${{ github.event.repository.owner.login }}
-        repo: ${{ github.event.repository.name }}
-        pr: ${{ github.event.pull_request.number }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
