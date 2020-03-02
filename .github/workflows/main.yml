@@ -22,9 +22,10 @@ jobs:
               }
             }
           }
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         owner: ${{ github.event.repository.owner.login }}
         repo: ${{ github.event.repository.name }}
         pr: ${{ github.event.pull_request.number }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - run: "echo 'latest release: ${{ steps.get_latest_release.outputs.data }}'"
