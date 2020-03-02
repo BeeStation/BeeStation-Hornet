@@ -16,8 +16,8 @@ jobs:
       with:
         query: |
           query pullrequest {
-            repository(name: "$repo", owner: "$owner") {
-              pullRequest(number: 3) {
+            repository(name: $owner:String!,$repo:String!) {
+              pullRequest(number: $pr:Integer!) {
                 body
               }
             }
