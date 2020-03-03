@@ -2468,6 +2468,8 @@
 /obj/structure/table,
 /obj/item/melee/chainofcommand,
 /obj/item/melee/baton,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/straight_jacket,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "ahL" = (
@@ -2654,6 +2656,10 @@
 	},
 /obj/item/restraints/handcuffs,
 /obj/item/razor,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/glasses/blindfold,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/glasses/blindfold,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "aii" = (
@@ -3852,6 +3858,13 @@
 	dir = 4
 	},
 /obj/machinery/iv_drip,
+/obj/item/reagent_containers/blood,
+/obj/item/reagent_containers/blood/AMinus,
+/obj/item/reagent_containers/blood/APlus,
+/obj/item/reagent_containers/blood/BMinus,
+/obj/item/reagent_containers/blood/BPlus,
+/obj/item/reagent_containers/blood/OMinus,
+/obj/item/reagent_containers/blood/OPlus,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -5855,8 +5868,8 @@
 /area/security/warden)
 "aoX" = (
 /obj/structure/rack,
-/obj/item/crowbar,
-/obj/item/wrench,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/emergency,
 /obj/item/laser_pointer/red,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
@@ -60629,6 +60642,10 @@
 /area/storage/primary)
 "ulV" = (
 /obj/structure/rack,
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/clothing/mask/gas/sechailer,
 /obj/item/gun/energy/e_gun/dragnet,
 /obj/item/gun/energy/e_gun/dragnet,
 /turf/open/floor/plasteel/dark,
