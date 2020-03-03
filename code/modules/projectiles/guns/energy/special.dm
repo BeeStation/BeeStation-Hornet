@@ -94,7 +94,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
 	weapon_weight = WEAPON_LIGHT
 	obj_flags = 0
-	overheat_time = 20
+	overheat_time = 250
 	holds_charge = TRUE
 	unique_frequency = TRUE
 	can_flashlight = FALSE
@@ -114,6 +114,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(/datum/material/iron=4000)
 	suppressed = null
+	overheat_time = 200
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
 	pin = null
 
