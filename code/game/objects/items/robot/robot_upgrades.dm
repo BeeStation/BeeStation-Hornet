@@ -486,15 +486,16 @@
 /obj/item/borg/upgrade/defib/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-		var/obj/item/twohanded/shockpaddles/cyborg/S = new(R.module)
+		var/obj/item/shockpaddles/cyborg/S = new(R.module)
 		R.module.basic_modules += S
 		R.module.add_module(S, FALSE, TRUE)
 
 /obj/item/borg/upgrade/defib/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		var/obj/item/twohanded/shockpaddles/cyborg/S = locate() in R.module
+		var/obj/item/shockpaddles/cyborg/S = locate() in R.module
 		R.module.remove_module(S, TRUE)
+
 
 /obj/item/borg/upgrade/processor
 	name = "medical cyborg surgical processor"
@@ -759,7 +760,7 @@
 				nmodule = new module(R.module)
 				R.module.basic_modules += nmodule
 				R.module.add_module(nmodule, FALSE, TRUE)
-				
+
 		for(var/obj/item/reagent_containers/borghypo/borgshaker/H in R.module.modules)
 			for(var/re in additional_reagents)
 				H.add_reagent(re)
