@@ -1270,78 +1270,114 @@
 	L.remove_movespeed_modifier(type)
 	..()
 
-/////////////////////////Coloured Crayon Powder////////////////////////////
+/////////////////////////Colorful Powder////////////////////////////
 //For colouring in /proc/mix_color_from_reagents
 
-
-/datum/reagent/colorful_reagent/crayonpowder
-	name = "Crayon Powder"
+/datum/reagent/colorful_reagent/powder
+	name = "Mundane Powder" //the name's a bit similar to the name of colorful reagent, but hey, they're practically the same chem anyway
 	var/colorname = "none"
-	description = "A powder made by grinding down crayons, good for colouring chemical reagents."
+	description = "A powder that is used for coloring things."
 	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 207, 54, 0
 	taste_description = "the back of class"
 
-/datum/reagent/colorful_reagent/crayonpowder/New()
-	description = "\an [colorname] powder made by grinding down crayons, good for colouring chemical reagents."
+/datum/reagent/colorful_reagent/powder/New()
+	if(colorname == "none")
+		description = "A rather mundane-looking powder. It doesn't look like it'd color much of anything..."
+	else if(colorname == "invisible")
+		description = "An invisible powder. Unfortunately, since it's invisible, it doesn't look like it'd color much of anything..."
+	else
+		description = "\An [colorname] powder, used for coloring things [colorname]."
 
-
-/datum/reagent/colorful_reagent/crayonpowder/red
-	name = "Red Crayon Powder"
+/datum/reagent/colorful_reagent/powder/red
+	name = "Red Powder"
 	colorname = "red"
 	color = "#DA0000" // red
-	random_color_list = list("#DA0000")
+	random_color_list = list("#FC7474")
 
-/datum/reagent/colorful_reagent/crayonpowder/orange
-	name = "Orange Crayon Powder"
+/datum/reagent/colorful_reagent/powder/orange
+	name = "Orange Powder"
 	colorname = "orange"
 	color = "#FF9300" // orange
 	random_color_list = list("#FF9300")
 
-/datum/reagent/colorful_reagent/crayonpowder/yellow
-	name = "Yellow Crayon Powder"
+/datum/reagent/colorful_reagent/powder/yellow
+	name = "Yellow Powder"
 	colorname = "yellow"
 	color = "#FFF200" // yellow
 	random_color_list = list("#FFF200")
 
-/datum/reagent/colorful_reagent/crayonpowder/green
-	name = "Green Crayon Powder"
+/datum/reagent/colorful_reagent/powder/green
+	name = "Green Powder"
 	colorname = "green"
 	color = "#A8E61D" // green
 	random_color_list = list("#A8E61D")
 
-/datum/reagent/colorful_reagent/crayonpowder/blue
-	name = "Blue Crayon Powder"
+/datum/reagent/colorful_reagent/powder/blue
+	name = "Blue Powder"
 	colorname = "blue"
 	color = "#00B7EF" // blue
 	random_color_list = list("#00B7EF")
 
-/datum/reagent/colorful_reagent/crayonpowder/purple
-	name = "Purple Crayon Powder"
+/datum/reagent/colorful_reagent/powder/purple
+	name = "Purple Powder"
 	colorname = "purple"
 	color = "#DA00FF" // purple
-	random_color_list = list("#DA00FF")
+	random_color_list = list("#BD8FC4")
 
-/datum/reagent/colorful_reagent/crayonpowder/invisible
-	name = "Invisible Crayon Powder"
+/datum/reagent/colorful_reagent/powder/invisible
+	name = "Invisible Powder"
 	colorname = "invisible"
 	color = "#FFFFFF00" // white + no alpha
 	random_color_list = list(null)	//because using the powder color turns things invisible
 
-/datum/reagent/colorful_reagent/crayonpowder/black
-	name = "Black Crayon Powder"
+/datum/reagent/colorful_reagent/powder/black
+	name = "Black Powder"
 	colorname = "black"
 	color = "#1C1C1C" // not quite black
 	random_color_list = list("#404040")
 
-/datum/reagent/colorful_reagent/crayonpowder/white
-	name = "White Crayon Powder"
+/datum/reagent/colorful_reagent/powder/white
+	name = "White Powder"
 	colorname = "white"
 	color = "#FFFFFF" // white
 	random_color_list = list("#FFFFFF") //doesn't actually change appearance at all
 
+ /* used by crayons, can't color living things but still used for stuff like food recipes */
 
+/datum/reagent/colorful_reagent/powder/red/crayon
+	name = "Red Crayon Powder"
+	can_colour_mobs = FALSE
 
+/datum/reagent/colorful_reagent/powder/orange/crayon
+	name = "Orange Crayon Powder"
+	can_colour_mobs = FALSE
+
+/datum/reagent/colorful_reagent/powder/yellow/crayon
+	name = "Yellow Crayon Powder"
+	can_colour_mobs = FALSE
+
+/datum/reagent/colorful_reagent/powder/green/crayon
+	name = "Green Crayon Powder"
+	can_colour_mobs = FALSE
+
+/datum/reagent/colorful_reagent/powder/blue/crayon
+	name = "Blue Crayon Powder"
+	can_colour_mobs = FALSE
+
+/datum/reagent/colorful_reagent/powder/purple/crayon
+	name = "Purple Crayon Powder"
+	can_colour_mobs = FALSE
+
+//datum/reagent/colorful_reagent/powder/invisible/crayon
+
+/datum/reagent/colorful_reagent/powder/black/crayon
+	name = "Black Crayon Powder"
+	can_colour_mobs = FALSE
+
+/datum/reagent/colorful_reagent/powder/white/crayon
+	name = "White Crayon Powder"
+	can_colour_mobs = FALSE
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
 
@@ -1462,14 +1498,17 @@
 	color = "#C8A5DC"
 	var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d11141","#00b159","#00aedb","#f37735","#ffc425","#008744","#0057e7","#d62d20","#ffa700")
 	taste_description = "rainbows"
+	var/can_colour_mobs = TRUE
 
 
 /datum/reagent/colorful_reagent/on_mob_life(mob/living/carbon/M)
-	M.add_atom_colour(pick(random_color_list), WASHABLE_COLOUR_PRIORITY)
-	..()
+	if(can_colour_mobs)
+		M.add_atom_colour(pick(random_color_list), WASHABLE_COLOUR_PRIORITY)
+	return ..()
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/M, reac_volume)
-	M.add_atom_colour(pick(random_color_list), WASHABLE_COLOUR_PRIORITY)
+	if(can_colour_mobs)
+		M.add_atom_colour(pick(random_color_list), WASHABLE_COLOUR_PRIORITY)
 	..()
 
 /datum/reagent/colorful_reagent/reaction_obj(obj/O, reac_volume)
