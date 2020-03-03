@@ -1,0 +1,4 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - rscdel: "Removes crayon eating colour changes from the crayons in crayon packs. Rainbow/mime crayons and botany crayon powder unaffected."
