@@ -3711,12 +3711,16 @@
 /obj/item/storage/box/rubbershot,
 /obj/item/storage/box/rubbershot,
 /obj/item/storage/box/rubbershot,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
 /obj/item/gun/ballistic/shotgun/riot{
 	pixel_x = -3;
 	pixel_y = 3
 	},
 /obj/item/gun/ballistic/shotgun/riot,
 /obj/item/gun/ballistic/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/automatic/breaching,
+/obj/item/gun/ballistic/shotgun/automatic/breaching,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -4086,6 +4090,7 @@
 	pixel_x = 1;
 	pixel_y = -2
 	},
+/obj/item/gun/grenadelauncher,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
