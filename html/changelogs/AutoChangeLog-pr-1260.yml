@@ -1,7 +1,0 @@
-author: "Victor239"
-delete-after: True
-changes: 
-  - rscadd: "Brig Physician get a defibrillator in locker and blood packs in the Infirmary"
-  - rscadd: "Warden's locker now has a megaphone"
-  - rscadd: "HOS' locker now has a box of deputy armbands, spare trenchcoat and bowmans"
-  - rscadd: "Straightjackets, muzzles, blindfolds, spare sec masks and toolboxes in the Brig on all maps rather than half of them"
