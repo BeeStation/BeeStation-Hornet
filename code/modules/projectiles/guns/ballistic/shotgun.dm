@@ -76,7 +76,6 @@
 	icon_state = "breachingshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/breaching
 	w_class = WEIGHT_CLASS_NORMAL //compact so it fits in backpacks
-	can_be_sawn_off  = FALSE
 
 //Dual Feed Shotgun
 
