@@ -17,7 +17,7 @@
 	var/playing_nasheed = FALSE
 	var/nasheed_list = list('sound/misc/nasheed.ogg', 'sound/misc/nasheed2.ogg')
 
-obj/item/melee/execution_sword/attack_self(mob/living/user)
+/obj/item/melee/execution_sword/attack_self(mob/living/user)
 	if(faction_chosen == TRUE && execution_faction) //Just in case someone presses cancel when typing and ends up with a null declared faction.
 		to_chat(user, "<span class='notice'>You have already pledged your allegiance to [execution_faction]!</span>")
 		return
