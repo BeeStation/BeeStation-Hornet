@@ -31731,6 +31731,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bBD" = (
+/obj/machinery/smartfridge/organ,
 /turf/open/floor/plasteel/white/side{
 	dir = 9
 	},
@@ -32485,6 +32486,10 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "bDB" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/machinery/smartfridge/organ,
 /turf/open/floor/plasteel/white/side{
 	dir = 4
 	},
