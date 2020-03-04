@@ -34,7 +34,6 @@ obj/item/melee/execution_sword/attack_self(mob/living/user)
 			faction_chosen = TRUE
 	..()
 
-
 /obj/item/melee/execution_sword/attack(mob/living/target, mob/living/user)
 	if(executing)
 		to_chat(user, "<span class='notice'>You are already executing someone.</span>")
@@ -64,7 +63,6 @@ obj/item/melee/execution_sword/attack_self(mob/living/user)
 		else
 			priority_announce("[user] has failed to execute [target] and has brought shame to [execution_faction]!","Message from [execution_faction]!", 'sound/misc/compiler-failure.ogg')
 			executing = FALSE
-
 
 /obj/item/melee/execution_sword/proc/nasheed_end()
 	playing_nasheed = FALSE
