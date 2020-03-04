@@ -1,0 +1,4 @@
+author: "Shroopy"
+delete-after: True
+changes: 
+  - bugfix: "Burn tend wounds surgery heals burn damage instead of brute"
