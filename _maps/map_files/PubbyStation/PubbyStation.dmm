@@ -3136,6 +3136,8 @@
 	pixel_y = -3
 	},
 /obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
 /obj/machinery/light{
 	dir = 4;
 	light_color = "#e8eaff"
