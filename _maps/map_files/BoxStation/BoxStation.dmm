@@ -31731,7 +31731,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bBD" = (
-/obj/machinery/smartfridge/organ,
 /turf/open/floor/plasteel/white/side{
 	dir = 9
 	},
