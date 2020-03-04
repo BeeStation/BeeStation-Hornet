@@ -48,15 +48,6 @@
 		if(W.active)
 			sawoff(user)
 
-// Breaching Shotgun //
-
-/obj/item/gun/ballistic/shotgun/automatic/breaching
-	name = "tactical breaching shotgun"
-	desc = "A compact semi-auto shotgun designed to fire breaching slugs and create rapid entry points."
-	icon_state = "breachingshotgun"
-	mag_type = /obj/item/ammo_box/magazine/internal/shot/breaching
-	w_class = WEIGHT_CLASS_BULKY
-
 // Automatic Shotguns//
 
 /obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user as mob|obj)
@@ -143,9 +134,9 @@
 	internal_magazine = FALSE
 	tac_reloads = TRUE
 
-
 /obj/item/gun/ballistic/shotgun/bulldog/unrestricted
 	pin = /obj/item/firing_pin
+
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //
 /////////////////////////////
