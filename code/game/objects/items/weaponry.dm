@@ -807,8 +807,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A vicious carbon fibre blade and plasma tip allow for unparelled precision strikes against fat Nanotrasen backsides"
 	force_on = 20
 	throwforce_on = 20
-	backstabforce = 125
-	armour_penetration = 45
+	backstabforce = 95 
+	armour_penetration =  65%
 	item_state_on = "balisong"
 	icon_state = "butterflyknife0"
 	icon_state_on = "butterflyknife_syndie"
