@@ -25,7 +25,7 @@
 /obj/item/organ/liver/on_life()
 	if(HAS_TRAIT(owner, TRAIT_NOMETABOLISM))
 		return
-
+		
 	var/mob/living/carbon/C = owner
 	..()	//perform general on_life()
 	if(istype(C))
