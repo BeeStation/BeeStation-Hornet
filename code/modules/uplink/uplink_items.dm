@@ -403,6 +403,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous/doublesword/get_discount()
 	return pick(4;0.8,2;0.65,1;0.5)
 
+/datum/uplink_item/dangerous/butterfly
+	name = "Energy Butterfly Knife"
+	desc = "A highly lethal and concealable knife that causes critical backstab damage when used with harm intent."
+	cost = 8
+	item = /obj/item/melee/transforming/butterfly/energy
+	surplus = 15
+
 /datum/uplink_item/dangerous/sword
 	name = "Energy Sword"
 	desc = "The energy sword is an edged weapon with a blade of pure energy. The sword is small enough to be \
