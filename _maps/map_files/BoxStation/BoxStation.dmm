@@ -1389,12 +1389,11 @@
 	pixel_y = 3
 	},
 /obj/item/gun/ballistic/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/riot,
 /obj/item/gun/ballistic/shotgun/riot{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/gun/ballistic/shotgun/automatic/breaching,
-/obj/item/gun/ballistic/shotgun/automatic/breaching,
 /obj/effect/turf_decal/bot{
 	dir = 2
 	},
@@ -46888,6 +46887,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/item/storage/box/breacherslug,
 /obj/item/storage/box/breacherslug,
 /obj/item/storage/box/breacherslug,
 /obj/effect/turf_decal/tile/neutral{

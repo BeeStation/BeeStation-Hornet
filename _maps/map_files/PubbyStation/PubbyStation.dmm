@@ -3135,6 +3135,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/item/storage/box/breacherslug,
 /obj/machinery/light{
 	dir = 4;
 	light_color = "#e8eaff"
@@ -3990,8 +3991,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/gun/ballistic/shotgun/automatic/breaching,
-/obj/item/gun/ballistic/shotgun/automatic/breaching,
+/obj/item/gun/ballistic/shotgun/riot,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "akQ" = (

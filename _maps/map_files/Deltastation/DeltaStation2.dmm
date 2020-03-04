@@ -56947,8 +56947,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/bot,
 /obj/item/gun/ballistic/shotgun/riot,
-/obj/item/gun/ballistic/shotgun/automatic/breaching,
-/obj/item/gun/ballistic/shotgun/automatic/breaching,
+/obj/item/gun/ballistic/shotgun/riot,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -57991,6 +57990,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/item/storage/box/breacherslug,
 /obj/item/storage/box/breacherslug,
 /obj/item/storage/box/breacherslug,
 /obj/machinery/firealarm{
