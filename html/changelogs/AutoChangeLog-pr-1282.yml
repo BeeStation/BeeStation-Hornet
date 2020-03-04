@@ -1,0 +1,4 @@
+author: "AnturK"
+delete-after: True
+changes: 
+  - bugfix: "You can no longer put the SM in a wall to keep it stable."
