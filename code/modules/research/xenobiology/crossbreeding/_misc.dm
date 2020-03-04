@@ -60,13 +60,20 @@ Slimecrossing Items
 
 
 /datum/component/dejavu
-	var/health	//health for simple animals, and integrity for objects
+	var/integrity	//for objects
+	var/brute_loss //for simple animals
+	var/list/datum/saved_bodypart/saved_bodyparts //maps bodypart slots to health
+	var/clone_loss = 0
+	var/tox_loss = 0
+	var/oxy_loss = 0
+	var/brain_loss = 0
 	var/x
 	var/y
 	var/z
-	var/rewinds_remaining = 1
+	var/rewinds_remaining
 
-/datum/component/dejavu/Initialize()
+/datum/component/dejavu/Initialize(rewinds = 1)
+	rewinds_remaining = rewinds
 	var/turf/T = get_turf(parent)
 	if(T)
 		x = T.x
@@ -83,10 +90,10 @@ Slimecrossing Items
 		saved_bodyparts = C.save_bodyparts()
 	else if(isanimal(parent))
 		var/mob/living/simple_animal/M = parent
-		health = M.health
-	else if(istype(parent, /obj))
+		brute_loss = M.bruteloss
+	else if(isobj(parent))
 		var/obj/O = parent
-		health = O.obj_integrity
+		integrity = O.obj_integrity
 	addtimer(CALLBACK(src, .proc/rewind), DEJAVU_REWIND_INTERVAL)
 
 /datum/component/dejavu/proc/rewind()
@@ -116,12 +123,7 @@ Slimecrossing Items
 		var/atom/movable/AM = parent
 		var/turf/T = locate(x,y,z)
 		AM.forceMove(T)
-	if(istype(parent, /mob/living/simple_animal))
-		var/mob/living/simple_animal/M = parent
-		M.adjustHealth(health)
-	else if(istype(parent, /obj))
-		var/obj/O = parent
-		O.obj_integrity = health
+
 	rewinds_remaining --
 	if(rewinds_remaining)
 		addtimer(CALLBACK(src, .proc/rewind), DEJAVU_REWIND_INTERVAL)
@@ -142,7 +144,7 @@ Slimecrossing Items
 		to_chat(target, "<span class=notice>You'll remember this moment forever!</span>")
 
 		used = TRUE
-		target.AddComponent(/datum/component/dejavu)
+		target.AddComponent(/datum/component/dejavu, 2)
 	.=..()
 
 
