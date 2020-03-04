@@ -568,7 +568,6 @@
 	setToxLoss(0, 0) //zero as second argument not automatically call updatehealth().
 	setOxyLoss(0, 0)
 	setCloneLoss(0, 0)
-	setBrainLoss(0)
 	setStaminaLoss(0, 0)
 	SetUnconscious(0, FALSE)
 	set_disgust(0)
