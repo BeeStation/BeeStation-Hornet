@@ -1175,17 +1175,17 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
 	var/gravity = 0
-	gravity = H.has_gravity()	
+	gravity = H.has_gravity()
 
-	if(!HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN) && gravity)	
-		if(H.wear_suit)	
-			. += H.wear_suit.slowdown	
-		if(H.shoes)	
-			. += H.shoes.slowdown	
-		if(H.back)	
-			. += H.back.slowdown	
-		for(var/obj/item/I in H.held_items)	
-			if(I.item_flags & SLOWS_WHILE_IN_HAND)	
+	if(!HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN) && gravity)
+		if(H.wear_suit)
+			. += H.wear_suit.slowdown
+		if(H.shoes)
+			. += H.shoes.slowdown
+		if(H.back)
+			. += H.back.slowdown
+		for(var/obj/item/I in H.held_items)
+			if(I.item_flags & SLOWS_WHILE_IN_HAND)
 				. += I.slowdown
 
 		if(gravity > STANDARD_GRAVITY)
@@ -1399,6 +1399,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 							break
 			if((!target_table && !target_collateral_human) || directional_blocked)
 				target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
+				target.drop_all_held_items()
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name], knocking them down!</span>",
 					"<span class='danger'>You shove [target.name], knocking them down!</span>", null, COMBAT_MESSAGE_RANGE)
 				log_combat(user, target, "shoved", "knocking them down")
@@ -1407,6 +1408,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name] onto \the [target_table]!</span>",
 					"<span class='danger'>You shove [target.name] onto \the [target_table]!</span>", null, COMBAT_MESSAGE_RANGE)
 				target.throw_at(target_table, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
+				target.drop_all_held_items()
 				log_combat(user, target, "shoved", "onto [target_table] (table)")
 			else if(target_collateral_human)
 				target.Knockdown(SHOVE_KNOCKDOWN_HUMAN)
