@@ -17676,6 +17676,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
+"aQy" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/engine,
+/area/engine/engineering)
 "aQz" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -46374,15 +46380,6 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "ccf" = (
-/obj/machinery/camera{
-	c_tag = "Engineering Center";
-	dir = 2;
-	network = list("ss13","engine");
-	pixel_x = 23
-	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -46397,6 +46394,12 @@
 "ccg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
+	},
+/obj/machinery/camera{
+	c_tag = "Engineering Center";
+	dir = 2;
+	network = list("ss13","engine");
+	pixel_x = 23
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -53764,6 +53767,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
+"eLh" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/engine,
+/area/engine/engineering)
 "eLt" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/neutral{
@@ -60214,6 +60226,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall,
 /area/maintenance/department/security/brig)
+"tgs" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/engine,
+/area/engine/engineering)
 "thW" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -60400,6 +60418,15 @@
 /obj/item/wrench,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"tEN" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/engine,
+/area/engine/engineering)
 "tHk" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -92629,12 +92656,12 @@ qFu
 taF
 dfr
 ulY
-cgu
-ulY
-ulY
-ulY
-ulY
-ulY
+eLh
+aQy
+aQy
+tEN
+tEN
+tgs
 ulY
 rYH
 mqH
