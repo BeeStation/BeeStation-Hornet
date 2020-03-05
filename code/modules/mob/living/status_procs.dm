@@ -180,6 +180,7 @@
 	if(((status_flags & CANKNOCKDOWN) && !HAS_TRAIT(src, TRAIT_STUNIMMUNE)) || ignore_canstun)
 		if(absorb_stun(amount, ignore_canstun))
 			return
+		drop_all_held_items()
 		var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed(FALSE)
 		if(P)
 			P.duration = max(world.time + amount, P.duration)
@@ -445,7 +446,7 @@
 		update_body()
 	else
 		ADD_TRAIT(src, TRAIT_HUSK, source)
-	
+
 /mob/living/proc/cure_fakedeath(source)
 	REMOVE_TRAIT(src, TRAIT_FAKEDEATH, source)
 	REMOVE_TRAIT(src, TRAIT_DEATHCOMA, source)
