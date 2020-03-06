@@ -1230,7 +1230,7 @@
 					/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
 					/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
 					/obj/item/reagent_containers/food/drinks/bottle/synthflesh)
-	crate_name = "a rusty freezer"
+	crate_name = "rusty freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
 /datum/supply_pack/medical/firstaidbruises_single
