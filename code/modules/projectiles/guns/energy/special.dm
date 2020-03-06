@@ -1,4 +1,4 @@
-/obj/item/gun/energy/ionrifle
+ /obj/item/gun/energy/ionrifle
 	name = "ion rifle"
 	desc = "A man-portable anti-armor weapon designed to disable mechanical threats at range."
 	icon_state = "ionrifle"
@@ -94,7 +94,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
 	weapon_weight = WEAPON_LIGHT
 	obj_flags = 0
-	overheat_time = 250
+	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
 	can_flashlight = FALSE
@@ -114,10 +114,16 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(/datum/material/iron=4000)
 	suppressed = null
-	overheat_time = 200
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
 	pin = null
 
+/obj/item/gun/energy/kinetic_accelerator/crossbow/radbow
+	name = "gamma bow"
+	desc = "A weapon favored by Madmen."
+	icon_state = "crossbow"
+	item_state = "crossbow"
+	ammo_type = list(/obj/item/ammo_casing/energy/bolt/radbolt)
+	overheat_time = 250
 
 /obj/item/gun/energy/plasmacutter
 	name = "plasma cutter"

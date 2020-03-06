@@ -1,15 +1,28 @@
+
 /obj/item/projectile/energy/bolt //ebow bolts
+	name = "bolt"
+	icon_state = "cbbolt"
+	damage = 15
+	damage_type = TOX
+	nodamage = FALSE
+	stamina = 60
+	eyeblur = 10
+	knockdown = 10
+	slur = 5
+
+/obj/item/projectile/energy/bolt/radbolt
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 10
 	damage_type = TOX
 	nodamage = FALSE
-	stamina = 40
+	stamina = 35
 	eyeblur = 10
 	slur = 10
+	knockdown = 0
 	irradiate = 400
 
-/obj/item/projectile/energy/bolt/Initialize()
+/obj/item/projectile/energy/bolt/radbolt/Initialize()
 	. = ..()
 	create_reagents(30, NO_REACT)
 	reagents.add_reagent(/datum/reagent/toxin/polonium, 10)
@@ -17,7 +30,7 @@
 	reagents.add_reagent(/datum/reagent/toxin, 5)
 	reagents.add_reagent(/datum/reagent/uranium/radium, 10)
 
-/obj/item/projectile/energy/bolt/on_hit(atom/target, blocked = FALSE)
+/obj/item/projectile/energy/bolt/radbolt/on_hit(atom/target, blocked = FALSE)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != 100) // not completely blocked
@@ -38,11 +51,9 @@
 	reagents.handle_reactions()
 	return BULLET_ACT_HIT
 
-
 /obj/item/projectile/energy/bolt/halloween
 	name = "candy corn"
 	icon_state = "candy_corn"
 
 /obj/item/projectile/energy/bolt/large
 	damage = 20
-	irradiate = 650
