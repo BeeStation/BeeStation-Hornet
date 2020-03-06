@@ -140,7 +140,11 @@
 #define TRAIT_UNINTELLIGIBLE_SPEECH "unintelligible-speech"
 #define TRAIT_UNSTABLE			"unstable"
 #define TRAIT_NECROPOLIS_INFECTED "necropolis-infection"
+<<<<<<< HEAD
 #define TRAIT_BEEFRIEND 		"beefriend"
+=======
+#define TRAIT_OIL_FRIED			"oil_fried"
+>>>>>>> twbuffs2
 #define TRAIT_MEDICAL_HUD		"med_hud"
 #define TRAIT_SECURITY_HUD		"sec_hud"
 #define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
