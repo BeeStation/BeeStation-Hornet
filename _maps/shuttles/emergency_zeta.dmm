@@ -219,7 +219,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "J" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper/survival_pod,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "K" = (

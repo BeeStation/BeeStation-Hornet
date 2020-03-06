@@ -67,7 +67,9 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "q" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "r" = (

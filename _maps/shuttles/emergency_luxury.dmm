@@ -301,7 +301,9 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bf" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper{
+	dir = 4
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bg" = (

@@ -371,7 +371,9 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bz" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "bC" = (

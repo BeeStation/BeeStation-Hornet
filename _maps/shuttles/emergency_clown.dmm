@@ -277,7 +277,9 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "aX" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper{
+	dir = 8
+	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "aY" = (

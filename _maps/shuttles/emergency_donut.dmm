@@ -330,7 +330,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bf" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "bg" = (

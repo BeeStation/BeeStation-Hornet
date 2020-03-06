@@ -54,11 +54,17 @@
 	network = list("ss13","medbay");
 	dir = 4
 	},
-/obj/machinery/stasis,
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "aag" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper{
+	icon_state = "sleeper";
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "aah" = (

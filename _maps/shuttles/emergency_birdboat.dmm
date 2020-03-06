@@ -291,7 +291,9 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "X" = (
-/obj/machinery/stasis,
+/obj/machinery/sleeper{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Y" = (

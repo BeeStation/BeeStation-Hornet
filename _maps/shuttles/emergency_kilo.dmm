@@ -1341,7 +1341,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/machinery/stasis,
+/obj/machinery/sleeper{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "cv" = (
@@ -1388,7 +1390,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/stasis,
+/obj/machinery/sleeper{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "cz" = (
