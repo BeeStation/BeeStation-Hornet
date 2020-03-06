@@ -405,7 +405,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
-	list_reagents = list(datum/reagent/medicine/synthflesh = 100)
+	list_reagents = list(/datum/reagent/medicine/synthflesh = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/applejack
 	name = "Buckin' Bronco's Applejack"
