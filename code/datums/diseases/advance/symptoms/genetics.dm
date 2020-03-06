@@ -60,7 +60,7 @@ Bonus
 	if(A.properties["resistance"] >= 8) //mutate twice
 		power = 2
 	if(A.properties["stage_rate"] >= 14)
-		possible_mutations = (GLOB.good_mutations) - GLOB.all_mutations[RACEMUT]
+		possible_mutations = (GLOB.good_mutations | GLOB.not_good_mutations) - GLOB.all_mutations[RACEMUT]
 	else
 		possible_mutations = (GLOB.bad_mutations | GLOB.not_good_mutations) - GLOB.all_mutations[RACEMUT]
 	var/mob/living/carbon/M = A.affected_mob

@@ -29,7 +29,7 @@ Bonus
 	symptom_delay_max = 1
 	var/regenerate_blood = FALSE
 	var/gas_type = /datum/gas/miasma
-	var/base_moles = 1
+	var/base_moles = 3
 	var/emote = "fart"
 	threshold_desc = "<b>Resistance 8:</b> Additionally regenerates lost blood.<br>"
 
@@ -50,14 +50,14 @@ Bonus
 			M.losebreath = max(0, M.losebreath - 4)
 			if(regenerate_blood && M.blood_volume < BLOOD_VOLUME_NORMAL)
 				M.blood_volume += 1
-			if(prob(3))
+			if(prob(1) && prob(70))
 				var/turf/open/T = get_turf(M)
 				if(!istype(T))
 					return
 				var/datum/gas_mixture/air = T.return_air()
 				var/list/cached_gases = air.gases
 				ASSERT_GAS(gas_type, air)
-				cached_gases[gas_type][MOLES] += base_moles * A.stage
+				cached_gases[gas_type][MOLES] += base_moles
 				T.air_update_turf()
 				M.emote(emote)
 		else
