@@ -1222,6 +1222,17 @@
 	crate_name = "blood freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
+/datum/supply_pack/medical/synthflesh
+	name = "Synthflesh resupply pack"
+	desc = "Contains four 100u cartons of synthflesh in case the cloner ran out of it."
+	cost = 3000
+	contains = list(/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+					/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+					/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+					/obj/item/reagent_containers/food/drinks/bottle/synthflesh)
+	crate_name = "a rusty freezer"
+	crate_type = /obj/structure/closet/crate/freezer
+
 /datum/supply_pack/medical/firstaidbruises_single
 	name = "Bruise Treatment Kit Single-Pack"
 	desc = "Contains one first aid kit focused on healing bruises and broken bones."
