@@ -609,9 +609,7 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "ba" = (
-/obj/machinery/sleeper{
-	dir = 4
-	},
+/obj/machinery/stasis,
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -26;
@@ -635,9 +633,7 @@
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "bc" = (
-/obj/machinery/sleeper{
-	dir = 8
-	},
+/obj/machinery/stasis,
 /obj/item/radio/intercom{
 	name = "Station Intercom";
 	pixel_x = 26

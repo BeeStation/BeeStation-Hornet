@@ -1128,9 +1128,7 @@
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "cu" = (
-/obj/machinery/sleeper{
-	dir = 8
-	},
+/obj/machinery/stasis,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -1243,9 +1241,7 @@
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "cD" = (
-/obj/machinery/sleeper{
-	dir = 8
-	},
+/obj/machinery/stasis,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -1389,9 +1385,7 @@
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "cL" = (
-/obj/machinery/sleeper{
-	dir = 1
-	},
+/obj/machinery/stasis,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
