@@ -37,20 +37,17 @@
 	switch(A.stage)
 		if(2)
 			if(tendrils)
-				prob(10)
-					tendril(A)
+				tendril(A)
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='notice'>Your skin feels scaly</span>")
 		if(3, 4)
 			if(tendrils)
-				prob(8)
-					tendril(A)
+				tendril(A)
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")
 		if(5)
 			if(tendrils)
-				prob(5)
-					tendril(A)
+				tendril(A)
 			M.dna.species.punchdamagelow = 5
 			M.dna.species.punchdamagehigh = 15
 			M.dna.species.punchstunthreshold = 11
@@ -68,8 +65,7 @@
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='notice'>[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]</span>")
 			if(tendrils)
-				prob(10)
-					tendril(A)
+				tendril(A)
 	return
 
 /datum/symptom/necroseed/proc/tendril(datum/disease/advance/A)
