@@ -13,7 +13,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/PopulateContents()
-	var/loot = rand(1,29)
+	var/loot = rand(1,30)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -81,6 +81,8 @@
 			new /obj/item/clothing/neck/necklace/memento_mori(src)
 		if(29)
 			new /obj/item/reagent_containers/glass/waterbottle/relic(src)
+		if(30)
+			new /obj/item/reagent_containers/glass/bottle/necropolis_seed(src)
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disc
