@@ -59,9 +59,6 @@
 		if(environment)
 			handle_environment(environment)
 
-		//stuff in the stomach
-		handle_stomach()
-
 		handle_gravity()
 
 		if(stat != DEAD)
