@@ -1,0 +1,10 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscdel: "irradiant cells no longer has a radiation pulse threshold"
+  - tweak: "polyvit now level 0"
+  - tweak: "self respiration has a far lower fart chance"
+  - tweak: "beesease level 14 no longer spawns honeybees, and instead makes bees not attack the host."
+  - balance: "beesease level 9 healing reagent amounts buffed to keep it competetive with newer healsymptoms"
+  - balance: "irradiant cells has numbers raised significantly to make it actually have an effect (it used to need around a half hour at max speed to actually do anything)
+balance:DNA saboteur now gives both good and neutral, instead of just good, mutations at the speed 14 threshold"
