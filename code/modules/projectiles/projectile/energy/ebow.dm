@@ -13,7 +13,7 @@
 /obj/item/projectile/energy/bolt/radbolt
 	name = "bolt"
 	icon_state = "cbbolt"
-	damage = 10
+	damage = 15
 	damage_type = TOX
 	nodamage = FALSE
 	stamina = 35
