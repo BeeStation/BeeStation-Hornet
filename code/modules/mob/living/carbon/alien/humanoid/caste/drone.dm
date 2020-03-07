@@ -1,8 +1,8 @@
 /mob/living/carbon/alien/humanoid/drone
 	name = "alien drone"
 	caste = "d"
-	maxHealth = 125
-	health = 125
+	maxHealth = 200
+	health = 200
 	icon_state = "aliend"
 
 /mob/living/carbon/alien/humanoid/drone/Initialize()

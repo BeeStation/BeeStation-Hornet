@@ -295,17 +295,27 @@
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
 		if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stun instead.
+		/*
 			var/obj/item/I = get_active_held_item()
 			if(I && dropItemToGround(I))
 				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] disarms [src]!</span>", \
 						"<span class='userdanger'>[M] disarms you!</span>")
 			else
-				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-				Paralyze(100)
-				log_combat(M, src, "tackled")
-				visible_message("<span class='danger'>[M] tackles [src] down!</span>", \
-					"<span class='userdanger'>[M] tackles you down!</span>")
+		*/
+			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+			Paralyze(0)
+			var/damage = 40
+			log_combat(M, src, "tackled")
+			visible_message("<span class='danger'>[M] tackles [src] down!</span>", \
+				"<span class='userdanger'>[M] tackles you down!</span>")
+
+			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
+			if(!affecting)
+				affecting = get_bodypart(BODY_ZONE_CHEST)
+			var/armor_block = run_armor_check(affecting, "melee","","",10)
+
+			apply_damage(damage, STAMINA, affecting, armor_block)
 
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)

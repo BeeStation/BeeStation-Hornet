@@ -70,7 +70,7 @@ Doesn't work on other aliens/AI.*/
 /obj/effect/proc_holder/alien/plant
 	name = "Plant Weeds"
 	desc = "Plants some alien weeds."
-	plasma_cost = 50
+	plasma_cost = 25
 	check_turf = TRUE
 	action_icon_state = "alien_plant"
 
@@ -139,7 +139,7 @@ Doesn't work on other aliens/AI.*/
 /obj/effect/proc_holder/alien/acid
 	name = "Corrosive Acid"
 	desc = "Drench an object in acid, destroying it over time."
-	plasma_cost = 200
+	plasma_cost = 50
 	action_icon_state = "alien_acid"
 
 /obj/effect/proc_holder/alien/acid/on_gain(mob/living/carbon/user)
@@ -184,7 +184,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/neurotoxin
 	name = "Spit Neurotoxin"
-	desc = "Spits neurotoxin at someone, paralyzing them for a short time."
+	desc = "Spits neurotoxin at someone, dealing stamina damage to them."
 	action_icon_state = "alien_neurotoxin_0"
 	active = FALSE
 
@@ -204,7 +204,7 @@ Doesn't work on other aliens/AI.*/
 /obj/effect/proc_holder/alien/neurotoxin/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(..())
 		return
-	var/p_cost = 50
+	var/p_cost = 20
 	if(!iscarbon(ranged_ability_user) || ranged_ability_user.stat)
 		remove_ranged_ability()
 		return
