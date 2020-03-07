@@ -585,7 +585,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/radbow
 	name = "Gamma-Bow"
-	desc = "The energy bow's newly developed lethal cousin. Has considerably increased lethality \
+	desc = "The energy crossbow's newly developed lethal cousin. Has considerably increased lethality \
 	at the cost of its disabling power. It will synthesize \
 	and fire bolts tipped with dangerous toxins that will disorient and \
 	irradiate targets. It can produce an infinite number of bolts \
@@ -602,7 +602,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	It will synthesize and fire bolts tipped with a disabling \
 	toxin that will damage and disorient targets, causing them to \
 	slur as if inebriated. It can produce an infinite number \
-	of bolts, but takes a small amount time to automatically recharge after each shot."
+	of bolts, but takes a small amount of time to automatically recharge after each shot."
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
 	cost = 12
 	surplus = 50
