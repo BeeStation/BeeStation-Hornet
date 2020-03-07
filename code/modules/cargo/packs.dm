@@ -175,14 +175,15 @@
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
 	dangerous = TRUE
-	var/beepsky_chance = 0
+	var/beepsky_chance = -1
 	var/level = 1
 
 /datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
 	var/crate_value = 30
 	var/list/uplink_items = get_uplink_items(SSticker.mode)
+	beepsky_chance += min(level, 5) //1% chance per crate an item will be replaced with a beepsky and the crate stops spawning items. Doesnt act as a hardcap, making nullcrates far riskier and less predictable
 	while(crate_value)
-		if(prob(beepsky_chance))
+		if(prob(beepsky_chance) && prob(50))
 			new /mob/living/simple_animal/bot/secbot/grievous/nullcrate(C)
 			crate_value = 0
 			beepsky_chance = 0
@@ -196,7 +197,6 @@
 			continue
 		crate_value -= I.cost
 		new I.item(C)
-	beepsky_chance += min(level, 5) //1% chance per crate an item will be replaced with a beepsky and the crate stops spawning items. Doesnt act as a hardcap, making nullcrates far riskier and less predictable
 	var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
 	if(istype(loneop))
 		loneop.weight += 7
