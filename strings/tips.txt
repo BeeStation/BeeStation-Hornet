@@ -261,7 +261,7 @@ Fun fact: reading this (https://beestation13.com/rules) may lead to an increase 
 You can whisper by putting # before your message. You can also whisper in critical, however it may kill you depending on how hurt you are.
 Fore = north, aft = south, starboard = east and port = west.
 If you use a Cup Ramen on a sink twice, it becomes warm.
-Never be scared to fail, to fail is to learn. If you never fail, you will never get robust.
+Death is normal. Chances are you'll get cloned, anyways.
 Emping the AI has a chance to call the emergency shuttle.
 Beating revolutionaries over the head has a chance to deconvert them.
 You can examine someone to tell if their red eyes are natural or cultist.
