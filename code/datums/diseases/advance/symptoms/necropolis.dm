@@ -1,8 +1,8 @@
 /datum/symptom/necroseed
 	name = "Necropolis Seed"
 	desc = "An infantile form of the root of Lavaland's tendrils. Forms a symbiotic bond with the host, making them stronger and hardier, at the cost of speed. Should the disease be cured, the host will be severely weakened"
-	stealth = 0
-	resistance = 3
+	stealth = 8
+	resistance = 20
 	stage_speed = -10
 	transmittable = -3
 	level = 9
@@ -36,13 +36,9 @@
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
 		if(2)
-			if(tendrils)
-				tendril(A)
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='notice'>Your skin feels scaly</span>")
 		if(3, 4)
-			if(tendrils)
-				tendril(A)
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")
 		if(5)
@@ -61,11 +57,8 @@
 				ADD_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 				M.weather_immunities |= "ash"
 				M.weather_immunities |= "lava"
-		else
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='notice'>[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]</span>")
-			if(tendrils)
-				tendril(A)
 	return
 
 /datum/symptom/necroseed/proc/tendril(datum/disease/advance/A)
@@ -76,12 +69,12 @@
 			LAZYCLEARLIST(cached_tentacle_turfs)
 			last_location = loc
 			tentacle_recheck_cooldown = world.time + initial(tentacle_recheck_cooldown)
-			for(var/turf/open/T in orange(4, loc))
+			for(var/turf/open/T in orange(2, loc))
 				LAZYADD(cached_tentacle_turfs, T)
 		for(var/t in cached_tentacle_turfs)
 			if(isopenturf(t))
 				if(prob(10))
-					new /obj/effect/temp_visual/goliath_tentacle(t, src)
+					new /obj/effect/temp_visual/goliath_tentacle/necro(t, A.affected_mob)
 			else
 				cached_tentacle_turfs -= t
 
@@ -108,10 +101,29 @@
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
-	if(chest)
+	if(chest && A.stage == 5 && M.mind)
 		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
 		M.visible_message("<span class='danger'>An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
 		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
 		playsound(M.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
 		M.hellbound = TRUE
 		M.gib()
+
+/obj/effect/temp_visual/goliath_tentacle/necro
+	name = "fledgling necropolis tendril"
+
+/obj/effect/temp_visual/goliath_tentacle/necro/trip()
+	var/latched = FALSE
+	for(var/mob/living/L in loc)
+		if(L == spawner)
+			retract()
+			return
+		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
+		L.Stun(40)
+		L.adjustBruteLoss(rand(1,10))
+		latched = TRUE
+	if(!latched)
+		retract()
+	else
+		deltimer(timerid)
+		timerid = addtimer(CALLBACK(src, .proc/retract), 10, TIMER_STOPPABLE)
