@@ -29,7 +29,8 @@
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/stock_parts/scanning_module = 2,
 		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stack/sheet/glass = 1)
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/reagent_containers/glass/beaker = 2)
 
 /obj/item/circuitboard/machine/clonepod/experimental
 	name = "Experimental Clone Pod (Machine Board)"
@@ -1037,3 +1038,13 @@
 		/obj/item/stack/cable_coil = 3,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stock_parts/capacitor = 1)
+
+/obj/item/circuitboard/machine/autodoc
+	name = "Autodoc (Machine Board)"
+	build_path = /obj/machinery/autodoc
+	req_components = list(/obj/item/scalpel/advanced = 1,
+		/obj/item/retractor/advanced = 1,
+		/obj/item/surgicaldrill/advanced = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/micro_laser = 3,
+		/obj/item/stock_parts/matter_bin = 1)

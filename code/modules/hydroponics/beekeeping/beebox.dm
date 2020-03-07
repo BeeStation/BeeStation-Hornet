@@ -23,6 +23,8 @@
 		var/obj/item/clothing/CH = head
 		if (CS.clothing_flags & CH.clothing_flags & THICKMATERIAL)
 			return 1
+	if(HAS_TRAIT(src, TRAIT_BEEFRIEND))
+		return 1
 	return 0
 
 

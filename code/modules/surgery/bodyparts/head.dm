@@ -248,6 +248,10 @@
 	icon_state = "default_monkey_head"
 	animal_origin = MONKEY_BODYPART
 
+/obj/item/bodypart/head/monkey/teratoma
+	icon_state = "teratoma_head"
+	animal_origin = TERATOMA_BODYPART
+
 /obj/item/bodypart/head/alien
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "alien_head"

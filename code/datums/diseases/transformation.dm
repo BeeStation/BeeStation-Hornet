@@ -325,3 +325,22 @@
 				to_chat(affected_mob, "<span class='danger'>You let go of what you were holding.</span>")
 				var/obj/item/I = affected_mob.get_active_held_item()
 				affected_mob.dropItemToGround(I)
+
+
+/datum/disease/transformation/legion
+	name = "Necropolis Infestation"
+	cure_text = "The healing Vitrium Froth of some Lavaland flora"
+	cures = list(/datum/reagent/consumable/vitfro)
+	cure_chance = 5 //about 20 seconds/5 units of Froth to heal. Takes a decent gathering period but just shy of the amount that'll fatten you
+	stage_prob = 5
+	agent = "Legion droppings"
+	desc = "Who knew that spreading the primordial goop of a vile entity would take a toll on the body?"
+	severity = DISEASE_SEVERITY_BIOHAZARD
+	visibility_flags = 0
+	stage1	= list("Your skin seems ashy.")
+	stage2	= list("You wonder what it would be like to live on Lavaland forever...")
+	stage3	= list("<span class='danger'>You need darkness.</span>", "<span class='danger'>You feel so cold...</span>", "<span class='danger'>Give in.</span>")
+	stage4	= list("<span class='userdanger'>The planet's core calls to you... Lavaland is your home.</span>", "<span class='danger'>A thousand voices beckon you to join them.</span>")
+	stage5	= list("<span class='userdanger'>You have become one of Legion. You are one with the Necropolis now, and have no other loyalties. Serve well.</span>")
+	new_form = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
+	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD)

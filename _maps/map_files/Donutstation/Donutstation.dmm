@@ -112,6 +112,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
+"aao" = (
+/obj/structure/displaycase/captain{
+	req_access = null;
+	req_access_txt = "20"
+	},
+/turf/open/floor/carpet,
+/area/crew_quarters/heads/captain/private)
 "aap" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -2287,10 +2294,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
-"afT" = (
-/obj/structure/displaycase/captain,
-/turf/open/floor/carpet,
-/area/crew_quarters/heads/captain/private)
 "afU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -13780,7 +13783,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
 "aGh" = (
-/obj/machinery/clonepod,
+/obj/machinery/clonepod/prefilled,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
 "aGi" = (
@@ -104715,7 +104718,7 @@ anR
 aiV
 bDK
 bHO
-afT
+aao
 aea
 azS
 ahz

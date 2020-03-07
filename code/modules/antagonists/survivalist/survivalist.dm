@@ -5,6 +5,8 @@
 	var/greet_message = ""
 
 /datum/antagonist/survivalist/proc/forge_objectives()
+	if(!give_objectives)
+		return
 	var/datum/objective/survive/survive = new
 	survive.owner = owner
 	objectives += survive

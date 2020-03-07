@@ -12,6 +12,10 @@
 
 	baseturfs = /turf/open/floor/plating
 
+	FASTDMM_PROP(\
+		pipe_astar_cost = 35\
+	)
+
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
 	var/slicing_duration = 100  //default time taken to slice the wall
 	var/sheet_type = /obj/item/stack/sheet/iron

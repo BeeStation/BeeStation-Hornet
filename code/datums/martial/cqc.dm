@@ -10,6 +10,7 @@
 	help_verb = /mob/living/carbon/human/proc/CQC_help
 	block_chance = 75
 	var/just_a_cook = FALSE
+	smashes_tables = TRUE
 
 /datum/martial_art/cqc/under_siege
 	name = "Close Quarters Cooking"

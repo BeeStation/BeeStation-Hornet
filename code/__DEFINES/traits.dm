@@ -140,6 +140,8 @@
 #define TRAIT_UNINTELLIGIBLE_SPEECH "unintelligible-speech"
 #define TRAIT_UNSTABLE			"unstable"
 #define TRAIT_XENO_IMMUNE		"xeno_immune" //prevents facehuggers implanting races that wouldn't be able to host an egg
+#define TRAIT_NECROPOLIS_INFECTED "necropolis-infection"
+#define TRAIT_BEEFRIEND 		"beefriend"
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
@@ -232,3 +234,5 @@
 #define ANTI_DROP_IMPLANT_TRAIT "anti-drop-implant"
 #define HIVEMIND_ONE_MIND_TRAIT "one_mind"
 #define VR_ZONE_TRAIT "vr_zone_trait"
+#define GLUED_ITEM_TRAIT "glued-item"
+#define LEGION_CORE_TRAIT "legion_core_trait"

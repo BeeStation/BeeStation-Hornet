@@ -17,6 +17,9 @@
 	var/grille_type = null
 	var/broken_type = /obj/structure/grille/broken
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
+	FASTDMM_PROP(\
+		pipe_astar_cost = 1\
+	)
 
 /obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()

@@ -1,10 +1,13 @@
-FROM tgstation/byond:513.1505 as base
+FROM beestation/byond:513.1513 as base
+ONBUILD ENV BYOND_MAJOR=513
+ONBUILD ENV BYOND_MINOR=1513
 
 FROM base as build_base
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     git \
+	dos2unix\
     ca-certificates
 
 FROM build_base as rust_g
@@ -22,10 +25,12 @@ RUN apt-get install -y --no-install-recommends \
 
 COPY dependencies.sh .
 
-RUN /bin/bash -c "source dependencies.sh \
+RUN dos2unix dependencies.sh \
+	&& /bin/bash -c "source dependencies.sh \
     && git fetch --depth 1 origin \$RUST_G_VERSION" \
     && git checkout FETCH_HEAD \
-    && ~/.cargo/bin/cargo build --release
+    && ~/.cargo/bin/cargo build --release \
+	&& apt-get --purge remove -y dos2unix
 
 FROM build_base as bsql
 
@@ -39,12 +44,14 @@ RUN apt-get install -y --no-install-recommends software-properties-common \
     make \
     g++-7 \
     libmariadb-client-lgpl-dev \
+	dos2unix \
     && git init \
     && git remote add origin https://github.com/tgstation/BSQL
 
 COPY dependencies.sh .
 
-RUN /bin/bash -c "source dependencies.sh \
+RUN dos2unix dependencies.sh \
+	&& /bin/bash -c "source dependencies.sh \
     && git fetch --depth 1 origin \$BSQL_VERSION" \
     && git checkout FETCH_HEAD
 
@@ -59,13 +66,16 @@ RUN ln -s /usr/include/mariadb /usr/include/mysql \
 
 FROM base as dm_base
 
-WORKDIR /tgstation
+WORKDIR /beestation
 
 FROM dm_base as build
 
 COPY . .
 
-RUN DreamMaker -max_errors 0 beestation.dme && tools/deploy.sh /deploy
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends dos2unix \
+    && rm -rf /var/lib/apt/lists/* \
+    && DreamMaker -max_errors 0 beestation.dme && dos2unix tools/deploy.sh && tools/deploy.sh /deploy
 
 FROM dm_base
 
@@ -78,7 +88,7 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get dist-upgrade -y \
     && apt-get install -y --no-install-recommends \
-    libmariadb2 \
+    libmariadb3 \
     mariadb-client \
     libssl1.0.0 \
     && rm -rf /var/lib/apt/lists/* \
@@ -89,8 +99,8 @@ COPY --from=bsql /bsql/artifacts/src/BSQL/libBSQL.so ./
 COPY --from=build /deploy ./
 
 #bsql fexists memes
-RUN ln -s /tgstation/libBSQL.so /root/.byond/bin/libBSQL.so
+RUN ln -s /beestation/libBSQL.so /root/.byond/bin/libBSQL.so
 
-VOLUME [ "/tgstation/config", "/tgstation/data" ]
+VOLUME [ "/beestation/config", "/beestation/data" ]
 
 ENTRYPOINT [ "DreamDaemon", "beestation.dmb", "-port", "1337", "-trusted", "-close", "-verbose" ]

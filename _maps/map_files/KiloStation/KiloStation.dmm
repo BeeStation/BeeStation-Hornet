@@ -9423,7 +9423,11 @@
 /turf/open/floor/plasteel,
 /area/security/courtroom)
 "aop" = (
-/obj/structure/displaycase/captain,
+/obj/structure/displaycase/captain{
+	req_access = null;
+	req_access_txt = "20";
+	req_one_access_txt = "0"
+	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
@@ -26774,7 +26778,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/clonepod,
+/obj/machinery/clonepod/prefilled,
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "aNw" = (

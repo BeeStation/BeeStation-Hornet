@@ -26637,6 +26637,13 @@
 "aWc" = (
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
+/obj/item/reagent_containers/blood,
+/obj/item/reagent_containers/blood/AMinus,
+/obj/item/reagent_containers/blood/APlus,
+/obj/item/reagent_containers/blood/BMinus,
+/obj/item/reagent_containers/blood/BPlus,
+/obj/item/reagent_containers/blood/OMinus,
+/obj/item/reagent_containers/blood/OPlus,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -101171,7 +101178,7 @@
 	},
 /area/maintenance/department/medical/central)
 "dnl" = (
-/obj/machinery/clonepod,
+/obj/machinery/clonepod/prefilled,
 /obj/structure/window/reinforced{
 	dir = 4
 	},

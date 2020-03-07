@@ -209,6 +209,8 @@
 			if(robust_searching)
 				if(faction_check && !attack_same)
 					return FALSE
+				if(L.stat == UNCONSCIOUS && HAS_TRAIT(L, TRAIT_FAKEDEATH) && stat_attack < 3 )//Simplemobs don't see through fake death if you're out cold and they don't attack already dead mobs
+					return FALSE
 				if(L.stat > stat_attack)
 					return FALSE
 				if(L in friends)
