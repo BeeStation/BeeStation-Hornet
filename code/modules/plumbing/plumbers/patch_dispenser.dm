@@ -4,7 +4,7 @@
 	desc = "A dispenser that dispenses patches."
 	icon_state = "pill_press" //TODO SPRITE IT !!!!!!
 	var/patch_name = "factory patch"
-	var/patch_size = 50
+	var/patch_size = 40
 	///the icon_state number for the patch.
 	var/list/stored_patches = list()
 	///max amount of patches allowed on our tile before we start storing them instead
@@ -59,7 +59,7 @@
 	. = TRUE
 	switch(action)
 		if("change_patch_size")
-			patch_size = CLAMP(text2num(params["volume"]), 0, 50)
+			patch_size = CLAMP(text2num(params["volume"]), 0, 40)
 		if("change_patch_name")
 			var/new_name = stripped_input(usr, "Enter a patch name.", name, patch_name)
 			patch_name = new_name + " patch"

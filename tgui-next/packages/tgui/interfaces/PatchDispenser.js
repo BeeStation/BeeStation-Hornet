@@ -16,7 +16,7 @@ export const PatchDispenser = props => {
             unit="u"
             width="43px"
             minValue={5}
-            maxValue={50}
+            maxValue={40}
             step={1}
             stepPixelSize={2}
             onChange={(e, value) => act('change_patch_size', {
