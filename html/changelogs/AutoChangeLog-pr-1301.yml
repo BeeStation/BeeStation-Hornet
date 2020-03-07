@@ -1,0 +1,6 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - tweak: "PDAs in backpacks etc accept ID cards."
+  - rscadd: "The crew manifest on the PDA is now bearable to use (categorised by department)."
+  - rscadd: "Security PDAs now can view the crew manifest."
