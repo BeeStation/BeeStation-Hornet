@@ -429,13 +429,14 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	armor = list("melee" = -45, "bullet" = -45, "laser" = -45,"energy" = -45, "bomb" = -45, "bio" = -45, "rad" = -45, "fire" = 0, "acid" = 0)
 	slowdown = -0.6
-	hoodtype = /obj/item/clothing/head/hooded/berserkerhood
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/berserkerhood
 
-/obj/item/clothing/head/hooded/berserkerhood
+/obj/item/clothing/head/hooded/cult_hoodie/berserkerhood
 	name = "flagellant's hood"
 	desc = "Blood-soaked hood infused with dark magic."
 	icon_state = "culthood"
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker/equipped(mob/living/user, slot)
 	..()
