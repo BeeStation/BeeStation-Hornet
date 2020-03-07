@@ -132,26 +132,6 @@
 	QDEL_NULL(set_directive)
 	return ..()
 
-//broodmothers are the queen of the spiders, can send messages to all them and web faster. That rare round where you get a queen spider and turn your 'for honor' players into 'r6siege' players will be a fun one.
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife
-	name = "broodmother"
-	desc = "Furry and black, it makes you shudder to look at it. This one has scintillating green eyes. Might also be hiding a real knife somewhere."
-	icon_state = "midwife"
-	icon_living = "midwife"
-	icon_dead = "midwife_dead"
-	maxHealth = 40
-	health = 40
-	var/datum/action/innate/spider/comm/letmetalkpls
-
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Initialize()
-	. = ..()
-	letmetalkpls = new
-	letmetalkpls.Grant(src)
-
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Destroy()
-	QDEL_NULL(letmetalkpls)
-	return ..()
-
 //hunters have the most poison and move the fastest, so they can find prey
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
 	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes."
@@ -208,9 +188,9 @@
 		speed = 7
 	. = ..()
 
-//midwives are the queen of the spiders, can send messages to all them and web faster. That rare round where you get a queen spider and turn your 'for honor' players into 'r6siege' players will be a fun one.
+//broodmothers are the queen of the spiders, can send messages to all them and web faster. That rare round where you get a queen spider and turn your 'for honor' players into 'r6siege' players will be a fun one.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife
-	name = "midwife"
+	name = "broodmother"
 	desc = "Furry and black, it makes you shudder to look at it. This one has scintillating green eyes."
 	icon_state = "midwife"
 	icon_living = "midwife"
