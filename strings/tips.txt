@@ -266,3 +266,4 @@ Emping the AI has a chance to call the emergency shuttle.
 Beating revolutionaries over the head has a chance to deconvert them.
 You can examine someone to tell if their red eyes are natural or cultist.
 You can put holy water in darts to make them more effective against cultists. Or use the shotgun, cause it doesn't miss.
+Don't know what a word means? https://wiki.beestation13.com/view/Terminology
