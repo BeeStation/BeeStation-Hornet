@@ -104,13 +104,14 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(!HasTraveled && prob(volume))
 		HasTraveled = 1
 		M.AdjustKnockdown(15)
-		M.become_blind("ftliver")
+		M.become_nearsighted("ftliver")
+		shake_camera(M,15)
 		M.playsound_local(M.loc,"sound/effects/hyperspace_end.ogg",50)
 		addtimer(CALLBACK(src, .proc/Recover, M), 55)
 	return ..()
 
 /datum/reagent/consumable/ethanol/ftliver/proc/Recover(mob/living/M)
-	M.cure_blind("ftliver")
+	M.cure_nearsighted("ftliver")
 
 /datum/reagent/consumable/ethanol/beer/light
 	name = "Light Beer"
