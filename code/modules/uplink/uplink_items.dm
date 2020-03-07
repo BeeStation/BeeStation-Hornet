@@ -1141,6 +1141,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear/clown_ops)
 
+datum/uplink_item/stealthy_tools/taeclowndo_shoes
+	name = "Tae-clown-do Shoes"
+	desc = "A pair of shoes for the most elite agents of the honkmotherland. They grant the mastery of taeclowndo with some honk-fu moves as long as they're worn."
+	cost = 12
+	item = /obj/item/clothing/shoes/clown_shoes/taeclowndo
+	include_modes = list(/datum/game_mode/nuclear/clown_ops)
+
 /datum/uplink_item/stealthy_tools/emplight
 	name = "EMP Flashlight"
 	desc = "A small, self-recharging, short-ranged EMP device disguised as a working flashlight. \
@@ -1705,6 +1712,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Premium features can be unlocked with a cryptographic sequencer!"
 	item = /obj/vehicle/sealed/car/clowncar
 	cost = 20
+	restricted_roles = list("Clown")
+
+/datum/uplink_item/role_restricted/taeclowndo_shoes
+	name = "Tae-clown-do Shoes"
+	desc = "A pair of shoes for the most elite agents of the honkmotherland. They grant the mastery of taeclowndo with some honk-fu moves as long as they're worn."
+	cost = 14
+	item = /obj/item/clothing/shoes/clown_shoes/taeclowndo
 	restricted_roles = list("Clown")
 
 datum/uplink_item/role_restricted/superior_honkrender
