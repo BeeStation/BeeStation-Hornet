@@ -1651,7 +1651,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/role_restricted/crushmagboots
 	name = "Crushing Magboots"
 	desc = "A pair of extra-strength magboots that crush anyone you walk over."
-	cost = 2
+	cost = 7
 	item = /obj/item/clothing/shoes/magboots/crushing
 	restricted_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
 
