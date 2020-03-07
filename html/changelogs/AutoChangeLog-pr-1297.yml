@@ -1,4 +1,0 @@
-author: "Victor239"
-delete-after: True
-changes: 
-  - bugfix: "PDA sort by name and job were reversed, this is now working correctly."
