@@ -102,3 +102,8 @@
 
 /obj/item/autosurgeon/syndicate/reviver
 	starting_organ = /obj/item/organ/cyberimp/chest/reviver
+
+/obj/item/autosurgeon/syndicate/esaw_arm
+	desc = "A single use autosurgeon that contains an energy saw arm implant."
+	uses = 1
+	starting_organ = /obj/item/organ/cyberimp/arm/esaw

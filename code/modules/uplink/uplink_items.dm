@@ -1840,6 +1840,13 @@ datum/uplink_item/role_restricted/superior_honkrender
 	limited_stock = 2 //you can't use more than two!
 	restricted_roles = list("Shaft Miner")
 
+/datum/uplink_item/role_restricted/esaw_arm
+	name = "Energy Saw Arm Implant"
+	desc = "An implant that grants you a deadly energy saw inside your arm. Comes with a syndicate autosurgeon for immediate self-application."
+	cost = 8
+	item = /obj/item/autosurgeon/syndicate/esaw_arm
+	restricted_roles = list("Medical Doctor", "Chief Medical Officer")
+
 /datum/uplink_item/role_restricted/magillitis_serum
 	name = "Magillitis Serum Autoinjector"
 	desc = "A single-use autoinjector which contains an experimental serum that causes rapid muscular growth in Hominidae. \
