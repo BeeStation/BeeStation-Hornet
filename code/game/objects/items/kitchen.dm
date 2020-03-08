@@ -6,6 +6,7 @@
  *		Butcher's cleaver
  *		Combat Knife
  *		Rolling Pins
+ *		Poison Knife
  */
 
 /obj/item/kitchen
@@ -55,6 +56,30 @@
 	else
 		return ..()
 
+/obj/item/kitchen/knife/poison
+	name = "venom knife"
+	icon_state = "poisonknife"
+	force = 12
+	throwforce = 15
+	throwspeed = 5
+	throwrange = 7
+	desc = "An infamous knife of syndicate design,it has a tiny hole going through the blade to the handle which stores toxins."
+	materials = null
+
+/obj/item/kitchen/knife/poison/Initialize()
+	. = ..()
+	create_reagents(40,OPENCONTAINER)
+
+/obj/item/kitchen/knife/poison/attack(mob/living/M, mob/user)
+	if (!istype(M))
+		return
+	. = ..()
+	if (!reagents.total_volume || !M.reagents)
+		return
+	var/randvar = pick(3,5)
+	var/amount = min(randvar/reagents.total_volume,1)
+	reagents.reaction(M,INJECT,amount)
+	reagents.trans_to(M,randvar)
 
 /obj/item/kitchen/knife
 	name = "kitchen knife"
