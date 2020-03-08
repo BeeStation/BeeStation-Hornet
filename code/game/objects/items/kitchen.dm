@@ -61,8 +61,8 @@
 	icon_state = "poisonknife"
 	force = 12
 	throwforce = 15
-	throwspeed = 5
-	throwrange = 7
+	throw_speed = 5
+	throw_range = 7
 	desc = "An infamous knife of syndicate design,it has a tiny hole going through the blade to the handle which stores toxins."
 	materials = null
 
