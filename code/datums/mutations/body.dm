@@ -132,7 +132,7 @@
 
 /datum/mutation/human/tourettes/on_life()
 	if(prob(10 * GET_MUTATION_SYNCHRONIZER(src)) && owner.stat == CONSCIOUS && !owner.IsStun())
-		owner.Stun(200)
+		owner.Stun(20)
 		switch(rand(1, 3))
 			if(1)
 				owner.emote("twitch")
