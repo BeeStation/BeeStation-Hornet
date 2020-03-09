@@ -1839,6 +1839,14 @@ datum/uplink_item/role_restricted/superior_honkrender
 	surplus = 0
 	restricted_roles = list("Cook", "Botanist", "Clown", "Mime")
 
+/datum/uplink_item/role_restricted/echainsaw
+	name = "Energy Chainsaw"
+	desc = "An incredibly deadly modified chainsaw with plasma-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud."
+	item = /obj/item/twohanded/required/chainsaw/energy
+	cost = 13
+	player_minimum = 25
+	restricted_roles = list("Botanist", "Cook", "Bartender")
+
 /datum/uplink_item/role_restricted/holocarp
 	name = "Holocarp Parasites"
 	desc = "Fishsticks prepared through ritualistic means in honor of the god Carp-sie, capable of binding a holocarp \
