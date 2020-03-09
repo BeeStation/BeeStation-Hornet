@@ -1183,6 +1183,9 @@
 /mob/living/carbon/human/species/synth/military
 	race = /datum/species/synth/military
 
+/mob/living/carbon/human/species/supersoldier
+	race = /datum/species/supersoldier
+
 /mob/living/carbon/human/species/vampire
 	race = /datum/species/vampire
 

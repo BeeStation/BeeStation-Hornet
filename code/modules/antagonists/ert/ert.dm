@@ -42,6 +42,14 @@
 /datum/antagonist/ert/deathsquad/remove_innate_effects(mob/living/mob_override)
 	REMOVE_TRAIT(owner, TRAIT_DISK_VERIFIER, DEATHSQUAD_TRAIT)
 
+/*
+/datum/antagonist/ert/doomguy/apply_innate_effects(mob/living/mob_override)
+	ADD_TRAIT(owner, TRAIT_IGNORESLOWDOWN, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_STUNIMMUNE, TRAIT_CONFUSEIMMUNE, TRAIT_SLEEPIMMUNE, TRAIT_PUSHIMMUNE, TRAIT_VIRUSIMMUNE, TRAIT_NODISMEMBER, TRAIT_NOHUNGER, TRAIT_NOSLIPALL, TRAIT_THERMAL_VISION, TRAIT_STRONG_GRABBER, TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_ALWAYS_CLEAN, TRAIT_FEARLESS)
+
+/datum/antagonist/ert/doomguy/remove_innate_effects(mob/living/mob_override)
+	REMOVE_TRAIT(owner, TRAIT_IGNORESLOWDOWN, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_STUNIMMUNE, TRAIT_CONFUSEIMMUNE, TRAIT_SLEEPIMMUNE, TRAIT_PUSHIMMUNE, TRAIT_VIRUSIMMUNE, TRAIT_NODISMEMBER, TRAIT_NOHUNGER, TRAIT_NOSLIPALL, TRAIT_THERMAL_VISION, TRAIT_STRONG_GRABBER, TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_ALWAYS_CLEAN, TRAIT_FEARLESS
+*/
+
 /datum/antagonist/ert/security // kinda handled by the base template but here for completion
 
 /datum/antagonist/ert/security/red
@@ -121,6 +129,12 @@
 	outfit = /datum/outfit/centcom_intern/leader
 	role = "Head Intern"
 
+/datum/antagonist/ert/doomguy
+	name = "The Juggernaut"
+	outfit = /datum/outfit/doomguy
+	random_names = FALSE
+	role = "The Juggernaut"
+
 /datum/antagonist/ert/create_team(datum/team/ert/new_team)
 	if(istype(new_team))
 		ert_team = new_team
@@ -131,6 +145,12 @@
 
 /datum/antagonist/ert/proc/equipERT()
 	var/mob/living/carbon/human/H = owner.current
+	if(!istype(H))
+		return
+	H.equipOutfit(outfit)
+
+/datum/antagonist/ert/doomguy/proc/equipERT()
+	var/mob/living/carbon/human/species/supersoldier/H = owner.current
 	if(!istype(H))
 		return
 	H.equipOutfit(outfit)
@@ -163,6 +183,21 @@
 		missiondesc += " Lead your squad to ensure the completion of the mission. Board the shuttle when your team is ready."
 	else
 		missiondesc += " Follow orders given to you by your squad leader."
+
+	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
+	to_chat(owner,missiondesc)
+
+/datum/antagonist/ert/doomguy/greet()
+	if(!ert_team)
+		return
+
+	to_chat(owner, "<B><font size=3 color=red>You are the Juggernaut, the latest in Nanotrasen's biologically-enhanced supersoldiers.</font></B>")
+
+	var/missiondesc = "You are being sent on a mission to [station_name()] by the one of the highest ranking Nanotrasen officials around."
+	if(leader) //If Squad Leader
+		missiondesc += " Take stock of your equipment and teammates (if any) and board the transit shuttle when you are ready."
+	else
+		missiondesc += " Rip and tear."
 
 	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
 	to_chat(owner,missiondesc)
