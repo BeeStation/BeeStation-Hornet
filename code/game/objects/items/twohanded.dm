@@ -635,7 +635,7 @@
 		return 1
 	return 0
 
-// ENERGY CHAINSAW!!
+// ENERGY CHAINSAW
 /obj/item/twohanded/required/chainsaw/energy
 	name = "energy chainsaw"
 	desc = "Become Leatherspace."
@@ -674,6 +674,19 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+
+
+// DOOMGUY ENERGY CHAINSAW
+/obj/item/twohanded/required/chainsaw/energy/doom
+	name = "super energy chainsaw"
+	desc = "The chainsaw you want when you need to kill every damn thing in the room."
+	force_on = 60
+	armour_penetration = 100
+	var/knockdown = 1
+
+/obj/item/twohanded/required/chainsaw/energy/doom/attack(mob/living/target)
+	..()
+	target.Knockdown(4)
 
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
