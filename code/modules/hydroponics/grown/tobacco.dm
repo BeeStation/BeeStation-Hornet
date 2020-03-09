@@ -63,4 +63,4 @@ obj/item/seeds/tobacco/lavaland
 	desc = "Despite being called lavaland tobacco this plant has little in common with regular tobacco."
 	icon_state = "lavatobacco_leaves"
 	distill_reagent = null
-	wine_power = 50
+	wine_power = 10
