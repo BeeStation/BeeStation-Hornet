@@ -58,7 +58,7 @@ obj/item/seeds/tobacco/lavaland
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/tobacco/lavaland
-	seed = /obj/item/seeds/tobacco/space
+	seed = /obj/item/seeds/tobacco/lavaland
 	name = "lavaland tobacco leaves"
 	desc = "Despite being called lavaland tobacco this plant has little in common with regular tobacco."
 	icon_state = "lavatobacco_leaves"
