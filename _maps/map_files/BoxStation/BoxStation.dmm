@@ -5896,7 +5896,9 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "amu" = (
-/obj/machinery/sleeper,
+/obj/machinery/sleeper{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "amv" = (
