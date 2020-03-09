@@ -850,3 +850,28 @@
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
+
+// Doomguy ERT version
+/obj/item/clothing/suit/space/hardsuit/shielded/doomguy
+	name = "juggernaut armor"
+	desc = "A somehow spaceworthy set of armor with outstanding protection against almost everything. Comes in an oddly nostalgic green. "
+	icon_state = "doomguy"
+	item_state = "doomguy"
+	max_charges = 1
+	current_charges = 1
+	recharge_delay = 100
+	armor = list("melee" = 99, "bullet" = 99, "laser" = 99, "energy" = 99, "bomb" = 99, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	strip_delay = 130
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
+	dog_fashion = /datum/dog_fashion/back/deathsquad
+
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
+	name = "juggernaut helmet"
+	desc = "A dusty old helmet, somehow capable of resisting the strongest of blows."
+	icon_state = "doomguy"
+	item_state = "doomguy"
+	armor = list("melee" = 99, "bullet" = 99, "laser" = 99, "energy" = 99, "bomb" = 99, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	strip_delay = 130
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	actions_types = list()
