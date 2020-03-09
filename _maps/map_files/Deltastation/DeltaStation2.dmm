@@ -306,10 +306,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/obj/machinery/sleeper{
-	icon_state = "sleeper";
-	dir = 4
-	},
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "aaJ" = (
@@ -319,9 +316,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/sleeper{
-	dir = 8
-	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "aaK" = (

@@ -5896,9 +5896,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "amu" = (
-/obj/machinery/sleeper{
-	dir = 8
-	},
+/obj/machinery/sleeper,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "amv" = (
@@ -5946,9 +5944,7 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "amB" = (
-/obj/machinery/sleeper{
-	dir = 8
-	},
+/obj/machinery/stasis,
 /obj/machinery/camera/autoname{
 	icon_state = "camera";
 	dir = 9
