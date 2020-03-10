@@ -64,7 +64,7 @@
 			playsound(get_turf(src), "punch", 25, 1, -1)
 			visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [A]!</span>")
 			adjustStaminaLoss(30)
-			Knockdown(40)
+			Knockdown(30)
 
 	if(ismob(A))
 		var/mob/M = A
