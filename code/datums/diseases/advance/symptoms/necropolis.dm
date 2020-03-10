@@ -1,8 +1,8 @@
 /datum/symptom/necroseed
 	name = "Necropolis Seed"
 	desc = "An infantile form of the root of Lavaland's tendrils. Forms a symbiotic bond with the host, making them stronger and hardier, at the cost of speed. Should the disease be cured, the host will be severely weakened"
-	stealth = 0
-	resistance = 3
+	stealth = 8
+	resistance = 20
 	stage_speed = -10
 	transmittable = -3
 	level = 9
@@ -57,6 +57,9 @@
 				ADD_TRAIT(M, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 				M.weather_immunities |= "ash"
 				M.weather_immunities |= "lava"
+			if(HAS_TRAIT(M, TRAIT_NECROPOLIS_INFECTED))
+				REMOVE_TRAIT(M, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
+				to_chat(M, "<span class='notice'>The tendrils loosen their grip, protecting the necropolis within you.</span>")
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='notice'>[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]</span>")
 	return

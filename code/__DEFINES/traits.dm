@@ -139,6 +139,7 @@
 #define TRAIT_BOOZE_SLIDER      "booze-slider"
 #define TRAIT_UNINTELLIGIBLE_SPEECH "unintelligible-speech"
 #define TRAIT_UNSTABLE			"unstable"
+#define TRAIT_XENO_IMMUNE		"xeno_immune" //prevents facehuggers implanting races that wouldn't be able to host an egg
 #define TRAIT_NECROPOLIS_INFECTED "necropolis-infection"
 #define TRAIT_BEEFRIEND 		"beefriend"
 
