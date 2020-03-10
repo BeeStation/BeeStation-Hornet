@@ -204,7 +204,7 @@
 	force = 5
 	hitsound = 'sound/weapons/blade1.ogg'
 	slice_path = /obj/item/reagent_containers/food/snacks/cakeslice/birthday/energy
-	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/sprinkles = 10, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/consumable/pwr_game = 10, /datum/reagent/consumable/liquidelectricity = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/sprinkles = 10, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/consumable/pwr_game = 10, /datum/reagent/consumable/liquidelectricity = 30)
 	tastes = list("cake" = 3, "a Vlad's Salad" = 1)
 
 /obj/item/reagent_containers/food/snacks/store/cake/birthday/energy/proc/energy_bite(mob/living/user)
@@ -227,7 +227,7 @@
 	force = 2
 	hitsound = 'sound/weapons/blade1.ogg'
 	filling_color = "#00FF00"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sprinkles = 2, /datum/reagent/consumable/nutriment/vitamin = 1,  /datum/reagent/consumable/pwr_game = 2, /datum/reagent/consumable/liquidelectricity = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sprinkles = 2, /datum/reagent/consumable/nutriment/vitamin = 1,  /datum/reagent/consumable/pwr_game = 2, /datum/reagent/consumable/liquidelectricity = 5)
 	tastes = list("cake" = 3, "a Vlad's Salad" = 1)
 
 /obj/item/reagent_containers/food/snacks/cakeslice/birthday/energy/proc/energy_bite(mob/living/user)
