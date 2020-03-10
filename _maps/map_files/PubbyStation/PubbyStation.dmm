@@ -61,10 +61,7 @@
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "aag" = (
-/obj/machinery/sleeper{
-	icon_state = "sleeper";
-	dir = 4
-	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "aah" = (

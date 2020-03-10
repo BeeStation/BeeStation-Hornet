@@ -319,9 +319,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/sleeper{
-	dir = 8
-	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "aaK" = (
