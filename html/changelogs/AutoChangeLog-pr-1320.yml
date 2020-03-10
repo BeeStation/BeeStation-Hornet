@@ -1,0 +1,4 @@
+author: "St0rmC4st3r"
+delete-after: True
+changes: 
+  - bugfix: "fixed the last step of revival surgery saying \"repair body\""
