@@ -404,7 +404,7 @@
 /datum/crafting_recipe/motorized_wheelchair
 	name = "Motorized Wheelchair"
 	result = /obj/vehicle/ridden/wheelchair/motorized
-	reqs = list(/obj/item/stack/sheet/metal = 10,
+	reqs = list(/obj/item/stack/sheet/iron = 10,
 		/obj/item/stack/rods = 8,
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stock_parts/capacitor = 1)
