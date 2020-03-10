@@ -649,18 +649,21 @@
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	block_chance = 50
 	armour_penetration = 15
+	light_color = "#ff0000"
 	var/onsound
 	var/offsound
 	var/wield_cooldown = 0
 	onsound = 'sound/weapons/echainsawon.ogg'
 	offsound = 'sound/weapons/echainsawoff.ogg'
 	on = FALSE
+	var/brightness_on = 3
 
 /obj/item/twohanded/required/chainsaw/energy/attack_self(mob/user)
 	on = !on
 	to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr intimidatingly." : "the plasma microblades stop moving."]")
 	force = on ? force_on : initial(force)
 	playsound(user, on ? onsound : offsound , 50, 1)
+	set_light(on ? brightness_on : 0)
 	throwforce = on ? force_on : initial(force)
 	icon_state = "echainsaw_[on ? "on" : "off"]"
 
@@ -675,7 +678,6 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-
 // DOOMGUY ENERGY CHAINSAW
 /obj/item/twohanded/required/chainsaw/energy/doom
 	name = "super energy chainsaw"
@@ -683,10 +685,12 @@
 	force_on = 60
 	armour_penetration = 100
 	var/knockdown = 1
+	brightness_on = 6
 
 /obj/item/twohanded/required/chainsaw/energy/doom/attack(mob/living/target)
 	..()
 	target.Knockdown(4)
+
 
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
