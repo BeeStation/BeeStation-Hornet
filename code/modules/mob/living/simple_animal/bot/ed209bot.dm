@@ -16,7 +16,7 @@
 	radio_channel = RADIO_CHANNEL_SECURITY
 	bot_type = SEC_BOT
 	model = "ED-209"
-	bot_core = /obj/machinery/bot_core/secbot
+	bot_core_type = /obj/machinery/bot_core/secbot
 	window_id = "autoed209"
 	window_name = "Automatic Security Unit v2.6"
 	allow_pai = 0
@@ -40,12 +40,11 @@
 	var/check_records = TRUE //Does it check security records?
 	var/arrest_type = FALSE //If true, don't handcuff
 	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
-	var/shoot_sound = 'sound/weapons/taser.ogg'
+	var/shoot_sound = 'sound/weapons/taser2.ogg'
 	var/cell_type = /obj/item/stock_parts/cell
 	var/vest_type = /obj/item/clothing/suit/armor/vest
 
 	do_footstep = TRUE
-
 
 /mob/living/simple_animal/bot/ed209/Initialize(mapload,created_name,created_lasercolor)
 	. = ..()
@@ -119,7 +118,6 @@ Maintenance panel panel is [open ? "opened" : "closed"]<BR>"},
 Arrest Unidentifiable Persons: []<BR>
 Arrest for Unauthorized Weapons: []<BR>
 Arrest for Warrant: []<BR>
-<BR>
 Operating Mode: []<BR>
 Report Arrests[]<BR>
 Auto Patrol[]"},
@@ -389,7 +387,7 @@ Auto Patrol[]"},
 	drop_part(cell_type, Tsec)
 
 	if(!lasercolor)
-		var/obj/item/gun/energy/e_gun/dragnet/G = new (Tsec)
+		var/obj/item/gun/energy/disabler/G = new (Tsec)
 		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
@@ -431,7 +429,7 @@ Auto Patrol[]"},
 	else
 		if(!lasercolor)
 			shoot_sound = 'sound/weapons/laser.ogg'
-			projectile = /obj/item/projectile/energy/net
+			projectile = /obj/item/projectile/beam/disabler
 		else if(lasercolor == "b")
 			projectile = /obj/item/projectile/beam/lasertag/bluetag
 		else if(lasercolor == "r")
