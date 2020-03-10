@@ -860,9 +860,10 @@
 	max_charges = 1
 	current_charges = 1
 	recharge_delay = 100
-	armor = list("melee" = 99, "bullet" = 99, "laser" = 99, "energy" = 99, "bomb" = 99, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 135, "bullet" = 135, "laser" = 135, "energy" = 135, "bomb" = 135, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	resistance_flags = FIRE_PROOF | ACID_PROOF | LAVA_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
@@ -871,7 +872,7 @@
 	desc = "A dusty old helmet, somehow capable of resisting the strongest of blows."
 	icon_state = "doomguy"
 	item_state = "doomguy"
-	armor = list("melee" = 99, "bullet" = 99, "laser" = 99, "energy" = 99, "bomb" = 99, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 135, "bullet" = 135, "laser" = 135, "energy" = 135, "bomb" = 135, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
