@@ -648,7 +648,7 @@
 	attack_verb = list("sawed", "shred", "rended", "gutted", "eviscerated")
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	block_chance = 50
-	armour_penetration = 15
+	armour_penetration = 50
 	light_color = "#ff0000"
 	var/onsound
 	var/offsound
@@ -683,7 +683,9 @@
 	name = "super energy chainsaw"
 	desc = "The chainsaw you want when you need to kill every damn thing in the room."
 	force_on = 60
-	armour_penetration = 100
+	w_class = WEIGHT_CLASS_NORMAL
+	block_chance = 75
+	armour_penetration = 75
 	var/knockdown = 1
 	brightness_on = 6
 
