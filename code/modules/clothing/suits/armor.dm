@@ -122,7 +122,7 @@
 	blocks_shove_knockdown = TRUE
 	strip_delay = 80
 	equip_delay_other = 60
-	slowdown = 0.2
+	slowdown = 0.05
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
