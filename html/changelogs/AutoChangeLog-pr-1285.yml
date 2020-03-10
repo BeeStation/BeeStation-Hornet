@@ -1,0 +1,6 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - rscadd: "The Armory now contains an extra riot shotgun and specialised breaching ammo. Use them to quickly break down airlocks and windows to create entry points, but do note they are nearly useless against people."
+  - rscadd: "The Armory now contains a grenade launcher."
+  - rscadd: "Nukies can now buy 12g breaching slug drums for their Bulldog shotguns for 2 TC."
