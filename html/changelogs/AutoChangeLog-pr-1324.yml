@@ -1,7 +1,0 @@
-author: "Victor239"
-delete-after: True
-changes: 
-  - rscadd: "More steriliser spray in med vendors and one spray in surgical bags also."
-  - rscadd: "Plumbing constructors and fluid ducts added into chem lockers missed in the earlier PR."
-  - rscadd: "Medbay now has a sleeper and a stasis bed. Everywhere else stasis beds are also replacing sleepers."
-  - rscadd: "An extra carton of synthflesh to the CMOs locker for emergencies."
