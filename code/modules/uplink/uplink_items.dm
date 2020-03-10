@@ -1812,7 +1812,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	name = "Energy Chainsaw"
 	desc = "An incredibly deadly modified chainsaw with plasma-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud."
 	item = /obj/item/twohanded/required/chainsaw/energy
-	cost = 13
+	cost = 10
 	player_minimum = 25
 	restricted_roles = list("Botanist", "Cook", "Bartender")
 
