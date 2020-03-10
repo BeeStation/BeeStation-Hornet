@@ -1,0 +1,5 @@
+author: "YakiAttaki"
+delete-after: True
+changes: 
+  - rscadd: "Added a xeno immunity trait"
+  - balance: "Made IPCs, Androids, Abductors, and Skeletons immune to facehugger attacks."
