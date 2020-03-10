@@ -9,6 +9,7 @@ import { AtmosMixer } from './interfaces/AtmosMixer';
 import { AtmosPump } from './interfaces/AtmosPump';
 import { BluespaceArtillery } from './interfaces/BluespaceArtillery';
 import { BorgPanel } from './interfaces/BorgPanel';
+import { BottleDispenser } from './interfaces/BottleDispenser';
 import { BrigTimer } from './interfaces/BrigTimer';
 import { Canister } from './interfaces/Canister';
 import { Cargo, CargoExpress } from './interfaces/Cargo';
@@ -46,6 +47,7 @@ import { NuclearBomb } from './interfaces/NuclearBomb';
 import { OperatingComputer } from './interfaces/OperatingComputer';
 import { OreRedemptionMachine } from './interfaces/OreRedemptionMachine';
 import { OreBox } from './interfaces/OreBox';
+import { PatchDispenser } from './interfaces/PatchDispenser';
 import { PersonalCrafting } from './interfaces/PersonalCrafting';
 import { PortableGenerator } from './interfaces/PortableGenerator';
 import { PowerMonitor } from './interfaces/PowerMonitor';
@@ -109,6 +111,10 @@ const ROUTES = {
   borgopanel: {
     component: () => BorgPanel,
     scrollable: true,
+  },
+  bottle_dispenser: {
+    component: () => BottleDispenser,
+    scrollable: false,
   },
   brig_timer: {
     component: () => BrigTimer,
@@ -277,6 +283,10 @@ const ROUTES = {
   },
   operating_computer: {
     component: () => OperatingComputer,
+    scrollable: true,
+  },
+  patch_dispenser: {
+    component: () => PatchDispenser,
     scrollable: true,
   },
   personal_crafting: {
