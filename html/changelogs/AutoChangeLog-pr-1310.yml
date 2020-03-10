@@ -1,0 +1,5 @@
+author: "eLeCtrOssSnake"
+delete-after: True
+changes: 
+  - rscadd: "Added bottle dispenser"
+  - rscadd: "Added patch dispenser"
