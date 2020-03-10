@@ -440,6 +440,9 @@
 					/obj/item/clothing/mask/surgical = 2,
 					/obj/item/storage/backpack/virology = 2,
 					/obj/item/storage/backpack/satchel/vir = 2)
+	contraband = list(/obj/item/clothing/suit/bio_suit/plaguedoctorsuit,
+					/obj/item/clothing/head/plaguedoctorhat,
+					/obj/item/clothing/mask/gas/plaguedoctor)
 	refill_canister = /obj/item/vending_refill/wardrobe/viro_wardrobe
 	payment_department = ACCOUNT_MED
 /obj/item/vending_refill/wardrobe/viro_wardrobe
