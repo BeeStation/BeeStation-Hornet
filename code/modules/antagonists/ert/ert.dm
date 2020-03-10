@@ -42,14 +42,6 @@
 /datum/antagonist/ert/deathsquad/remove_innate_effects(mob/living/mob_override)
 	REMOVE_TRAIT(owner, TRAIT_DISK_VERIFIER, DEATHSQUAD_TRAIT)
 
-/*
-/datum/antagonist/ert/doomguy/apply_innate_effects(mob/living/mob_override)
-	ADD_TRAIT(owner, TRAIT_IGNORESLOWDOWN, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_STUNIMMUNE, TRAIT_CONFUSEIMMUNE, TRAIT_SLEEPIMMUNE, TRAIT_PUSHIMMUNE, TRAIT_VIRUSIMMUNE, TRAIT_NODISMEMBER, TRAIT_NOHUNGER, TRAIT_NOSLIPALL, TRAIT_THERMAL_VISION, TRAIT_STRONG_GRABBER, TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_ALWAYS_CLEAN, TRAIT_FEARLESS)
-
-/datum/antagonist/ert/doomguy/remove_innate_effects(mob/living/mob_override)
-	REMOVE_TRAIT(owner, TRAIT_IGNORESLOWDOWN, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_STUNIMMUNE, TRAIT_CONFUSEIMMUNE, TRAIT_SLEEPIMMUNE, TRAIT_PUSHIMMUNE, TRAIT_VIRUSIMMUNE, TRAIT_NODISMEMBER, TRAIT_NOHUNGER, TRAIT_NOSLIPALL, TRAIT_THERMAL_VISION, TRAIT_STRONG_GRABBER, TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_ALWAYS_CLEAN, TRAIT_FEARLESS
-*/
-
 /datum/antagonist/ert/security // kinda handled by the base template but here for completion
 
 /datum/antagonist/ert/security/red
@@ -131,7 +123,7 @@
 
 /datum/antagonist/ert/doomguy
 	name = "The Juggernaut"
-	outfit = /datum/outfit/doomguy
+	outfit = /datum/outfit/death_commando/doomguy
 	random_names = FALSE
 	role = "The Juggernaut"
 
@@ -145,12 +137,6 @@
 
 /datum/antagonist/ert/proc/equipERT()
 	var/mob/living/carbon/human/H = owner.current
-	if(!istype(H))
-		return
-	H.equipOutfit(outfit)
-
-/datum/antagonist/ert/doomguy/proc/equipERT()
-	var/mob/living/carbon/human/species/supersoldier/H = owner.current
 	if(!istype(H))
 		return
 	H.equipOutfit(outfit)

@@ -79,4 +79,4 @@
 	opendoors = TRUE
 	rename_team = "The Juggernaut"
 	mission = "Send them straight back to Hell."
-	polldesc = "a biologically-enhanced Nanotrasen supersoldier"
+	polldesc = "an elite Nanotrasen enhanced supersoldier"
