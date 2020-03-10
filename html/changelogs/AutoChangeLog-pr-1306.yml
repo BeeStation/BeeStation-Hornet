@@ -1,0 +1,5 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - tweak: "ED-209s now instead use a disabler."
+  - bugfix: "Fixed a bug that let anyone unlock the ED-209s controls regardless of their access."
