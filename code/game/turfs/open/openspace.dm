@@ -8,6 +8,10 @@
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE
 
+	intact = 0
+/turf/open/openspace/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
 /turf/open/openspace/debug/update_multiz()
 	..()
 	return TRUE
@@ -24,6 +28,11 @@
 /turf/open/openspace/Destroy()
 	vis_contents.len = 0
 	return ..()
+
+/turf/open/openspace/can_have_cabling()
+	if(locate(/obj/structure/lattice/catwalk, src))
+		return TRUE
+	return FALSE
 
 /turf/open/openspace/update_multiz(prune_on_fail = FALSE, init = FALSE)
 	. = ..()
