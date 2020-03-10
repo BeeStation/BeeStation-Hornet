@@ -1,0 +1,7 @@
+author: "TheChaser212"
+delete-after: True
+changes: 
+  - rscadd: "Cyborg rechargers now slowly restores liquid electricity to ethereals when upgraded"
+  - bugfix: "Ethereal blood bag is now properly named"
+  - tweak: "Cyborg rechargers restore more charge to ethereals"
+  - tweak: "Amount of liquid electricity in foods increased"
