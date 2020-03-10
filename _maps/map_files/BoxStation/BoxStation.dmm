@@ -487,6 +487,7 @@
 	},
 /obj/item/gun/energy/e_gun/dragnet,
 /obj/item/gun/energy/e_gun/dragnet,
+/obj/item/gun/grenadelauncher,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -1387,6 +1388,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
+/obj/item/gun/ballistic/shotgun/riot,
 /obj/item/gun/ballistic/shotgun/riot,
 /obj/item/gun/ballistic/shotgun/riot{
 	pixel_x = 3;
@@ -46883,6 +46885,9 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},

@@ -711,6 +711,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	item = /obj/item/ammo_box/magazine/m12g/slug
 
+/datum/uplink_item/ammo/shotgun/breacher
+	name = "12g Breaching Slugs Drum"
+	desc = "An alternative 8-round breaching slug magazine for use with the Bulldog shotgun. \
+			Great for quickly destroying light barricades such as airlocks and windows."
+	item = /obj/item/ammo_box/magazine/m12g/breacher
+
 /datum/uplink_item/ammo/revolver
 	name = ".357 Speed Loader"
 	desc = "A speed loader that contains seven additional .357 Magnum rounds; usable with the Syndicate revolver. \
