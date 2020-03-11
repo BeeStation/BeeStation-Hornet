@@ -1,0 +1,4 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - bugfix: "Fixed ViroDrobe contraband being empty"
