@@ -1,7 +1,7 @@
 /obj/item/projectile/bullet/neurotoxin
 	name = "neurotoxin spit"
 	icon_state = "neurotoxin"
-	damage = 30
+	damage = 45
 	damage_type = STAMINA
 	paralyze = 0
 
