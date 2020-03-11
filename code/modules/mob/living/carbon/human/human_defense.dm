@@ -305,7 +305,7 @@
 		*/
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			Paralyze(0)
-			var/damage = 40
+			var/damage = 45
 			log_combat(M, src, "tackled")
 			visible_message("<span class='danger'>[M] tackles [src] down!</span>", \
 				"<span class='userdanger'>[M] tackles you down!</span>")
