@@ -204,7 +204,7 @@ Doesn't work on other aliens/AI.*/
 /obj/effect/proc_holder/alien/neurotoxin/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(..())
 		return
-	var/p_cost = 20
+	var/p_cost = 30
 	if(!iscarbon(ranged_ability_user) || ranged_ability_user.stat)
 		remove_ranged_ability()
 		return
