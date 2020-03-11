@@ -286,7 +286,7 @@
 	name = "empowered burger"
 	desc = "It's shockingly good, if you live off of electricity that is."
 	icon_state = "empoweredburger"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/liquidelectricity = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/liquidelectricity = 20)
 	tastes = list("bun" = 2, "pure electricity" = 4)
 	foodtype = GRAIN | TOXIC
 

@@ -265,6 +265,18 @@
 /mob/living/simple_animal/bot/interact(mob/user)
 	show_controls(user)
 
+/mob/living/simple_animal/bot/proc/togglelock(mob/living/user)
+	if(bot_core.allowed(user) && !open && !emagged)
+		locked = !locked
+		to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
+	else
+		if(emagged)
+			to_chat(user, "<span class='danger'>ERROR</span>")
+		if(open)
+			to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
+		else
+			to_chat(user, "<span class='warning'>Access denied.</span>")
+
 /mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!locked)
@@ -273,16 +285,7 @@
 		else
 			to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
 	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
-		if(bot_core.allowed(user) && !open && !emagged)
-			locked = !locked
-			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
-		else
-			if(emagged)
-				to_chat(user, "<span class='danger'>ERROR</span>")
-			if(open)
-				to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
-			else
-				to_chat(user, "<span class='warning'>Access denied.</span>")
+		togglelock(user)
 	else if(istype(W, /obj/item/paicard))
 		insertpai(user, W)
 	else if((W.tool_behaviour == TOOL_HEMOSTAT) && paicard)
@@ -311,6 +314,10 @@
 			if(W.force) //if force is non-zero
 				do_sparks(5, TRUE, src)
 			..()
+
+/mob/living/simple_animal/bot/AltClick(mob/user)
+	..()
+	togglelock(user)
 
 /mob/living/simple_animal/bot/bullet_act(obj/item/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))

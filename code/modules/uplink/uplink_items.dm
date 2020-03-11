@@ -711,6 +711,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	item = /obj/item/ammo_box/magazine/m12g/slug
 
+/datum/uplink_item/ammo/shotgun/breacher
+	name = "12g Breaching Slugs Drum"
+	desc = "An alternative 8-round breaching slug magazine for use with the Bulldog shotgun. \
+			Great for quickly destroying light barricades such as airlocks and windows."
+	item = /obj/item/ammo_box/magazine/m12g/breacher
+
 /datum/uplink_item/ammo/revolver
 	name = ".357 Speed Loader"
 	desc = "A speed loader that contains seven additional .357 Magnum rounds; usable with the Syndicate revolver. \
@@ -1139,6 +1145,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/shoes/clown_shoes/banana_shoes/combat
 	cost = 8
 	surplus = 0
+	include_modes = list(/datum/game_mode/nuclear/clown_ops)
+
+datum/uplink_item/stealthy_tools/taeclowndo_shoes
+	name = "Tae-clown-do Shoes"
+	desc = "A pair of shoes for the most elite agents of the honkmotherland. They grant the mastery of taeclowndo with some honk-fu moves as long as they're worn."
+	cost = 12
+	item = /obj/item/clothing/shoes/clown_shoes/taeclowndo
 	include_modes = list(/datum/game_mode/nuclear/clown_ops)
 
 /datum/uplink_item/stealthy_tools/emplight
@@ -1702,6 +1715,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	restricted_roles = list("Clown")
 
+
+/datum/uplink_item/role_restricted/spider_injector
+	name = "Australicus Slime Mutator"
+	desc = "Crikey mate, it's been a wild travel from the Australicus sector but we've managed to get \
+			some special spider extract from the giant spiders down there. Use this injector on a gold slime core \
+			to create a few of the same type of spiders we found on the planets over there. They're a bit tame until you \
+			also give them a bit of sentience though."
+	item = /obj/item/reagent_containers/syringe/spider_extract
+	cost = 10
+	restricted_roles = list("Research Director", "Scientist", "Roboticist")
+
 /datum/uplink_item/role_restricted/clowncar
 	name = "Clown Car"
 	desc = "The Clown Car is the ultimate transportation method for any worthy clown! \
@@ -1712,6 +1736,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Premium features can be unlocked with a cryptographic sequencer!"
 	item = /obj/vehicle/sealed/car/clowncar
 	cost = 20
+	restricted_roles = list("Clown")
+
+/datum/uplink_item/role_restricted/taeclowndo_shoes
+	name = "Tae-clown-do Shoes"
+	desc = "A pair of shoes for the most elite agents of the honkmotherland. They grant the mastery of taeclowndo with some honk-fu moves as long as they're worn."
+	cost = 14
+	item = /obj/item/clothing/shoes/clown_shoes/taeclowndo
 	restricted_roles = list("Clown")
 
 datum/uplink_item/role_restricted/superior_honkrender
@@ -1759,6 +1790,13 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 20
 	restricted_roles = list("Chaplain")
 	surplus = 5 //Very low chance to get it in a surplus crate even without being the chaplain
+
+/datum/uplink_item/role_restricted/cultconstructkit
+	name = "Cult Construct Kit"
+	desc = "Recovered from an abandoned Nar'sie cult lair two construct shells and a stash of empty soulstones was found. These were purified to prevent occult contamination and have been put in a belt so they may be used as an accessible source of disposable minions. The construct shells have been packaged into two beacons for rapid and portable deployment."
+	item = /obj/item/storage/box/syndie_kit/cultconstructkit
+	cost = 20
+	restricted_roles = list("Chaplain")
 
 /datum/uplink_item/role_restricted/spanish_flu
 	name = "Spanish Flu Culture"

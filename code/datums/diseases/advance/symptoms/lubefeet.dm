@@ -1,10 +1,10 @@
 /datum/symptom/lubefeet
 	name = "Ducatopod"
 	desc = "The host now sweats industrial lubricant from their feet, lubing tiles they walk on. Combine with Pierrot's throat for the penultimate form of torture."
-	stealth = -4
-	resistance = -2
+	stealth = 0
+	resistance = 0
 	stage_speed = 4
-	transmittable = 1
+	transmittable = -2
 	level = 9
 	severity = 3
 	symptom_delay_min = 1
@@ -12,14 +12,14 @@
 	var/morelube = FALSE
 	var/clownshoes = TRUE
 	threshold_desc = "<b>Transmission 10:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
-					  <b>Resistance 12:</b> The host's feet turn into a pair of clown shoes."
+					  <b>Resistance 14:</b> The host's feet turn into a pair of clown shoes."
 
 /datum/symptom/lubefeet/Start(datum/disease/advance/A)
 	if(!..())
 		return
 	if(A.properties["transmission"] >= 10)
 		morelube = TRUE
-	if(A.properties["resistance"] >= 12)
+	if(A.properties["resistance"] >= 14)
 		clownshoes = TRUE
 
 /datum/symptom/lubefeet/Activate(datum/disease/advance/A)
@@ -41,9 +41,9 @@
 			to_chat(M, "<span class='danger'>You slide about inside your shoes!</span>")
 			if(A.stage == 4 || A.stage == 5)
 				if(morelube)
-					makelube(M, 99)
+					makelube(M, 80)
 				else
-					makelube(M, 50)
+					makelube(M, 40)
 				if(clownshoes)
 					give_clown_shoes(A)
 
