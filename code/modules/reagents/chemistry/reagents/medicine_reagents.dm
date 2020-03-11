@@ -1153,6 +1153,7 @@
 	color = "#555555"
 	overdose_threshold = 30
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = FALSE
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-5*REM, 0) //A ton of healing - this is a 50 telecrystal investment.

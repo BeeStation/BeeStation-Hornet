@@ -917,12 +917,22 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents
+/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents and most foods and drinks
 	var/static/list/random_reagents = list()
 	if(!random_reagents.len)
 		for(var/thing  in subtypesof(/datum/reagent))
 			var/datum/reagent/R = thing
-			if(initial(R.can_synth))
+			if(initial(R.can_synth) && initial(R.random_unrestricted))
+				random_reagents += R
+	var/picked_reagent = pick(random_reagents)
+	return picked_reagent
+
+/proc/get_unrestricted_random_reagent_id()	// Returns a random reagent ID minus most foods and drinks
+	var/static/list/random_reagents = list()
+	if(!random_reagents.len)
+		for(var/thing  in subtypesof(/datum/reagent))
+			var/datum/reagent/R = thing
+			if(initial(R.random_unrestricted))
 				random_reagents += R
 	var/picked_reagent = pick(random_reagents)
 	return picked_reagent

@@ -13,6 +13,7 @@
 	taste_mult = 4
 	var/nutriment_factor = 1 * REAGENTS_METABOLISM
 	var/quality = 0	//affects mood, typically higher for mixed drinks with more complex recipes
+	random_unrestricted = FALSE
 
 /datum/reagent/consumable/on_mob_life(mob/living/carbon/M)
 	current_cycle++
@@ -42,6 +43,7 @@
 	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
+	random_unrestricted = TRUE
 
 	var/brute_heal = 1
 	var/burn_heal = 0
@@ -221,6 +223,7 @@
 	description = "A special oil that noticably chills the body. Extracted from Icepeppers and slimes."
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	taste_description = "mint"
+	random_unrestricted = TRUE
 
 /datum/reagent/consumable/frostoil/on_mob_life(mob/living/carbon/M)
 	var/cooling = 0
@@ -552,6 +555,7 @@
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 	taste_description = "sweetness"
 	var/power = 0
+	random_unrestricted = TRUE
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/M)
 	if(power == 0)
