@@ -196,6 +196,16 @@
 	icon_state = "laceups"
 	equip_delay_other = 50
 
+/obj/item/clothing/shoes/laceup/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
+		new /obj/item/stack/sheet/leather(user.drop_location(), 2)
+		user.visible_message("[user] cuts [src] into pieces of leather with [I].", \
+					 "<span class='notice'>You cut [src] into pieces of leather with [I].</span>", \
+					 "<span class='italics'>You hear cutting.</span>")
+		qdel(src)
+	else
+		return ..()
+
 /obj/item/clothing/shoes/roman
 	name = "roman sandals"
 	desc = "Sandals with buckled leather straps on it."

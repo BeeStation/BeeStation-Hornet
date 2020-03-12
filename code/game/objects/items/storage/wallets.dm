@@ -80,6 +80,16 @@
 	else
 		return ..()
 
+/obj/item/storage/wallet/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
+		new /obj/item/stack/sheet/leather(user.drop_location(), 1)
+		user.visible_message("[user] cuts [src] into pieces of leather with [I].", \
+					 "<span class='notice'>You cut [src] into pieces of leather with [I].</span>", \
+					 "<span class='italics'>You hear cutting.</span>")
+		qdel(src)
+	else
+		return ..()
+
 /obj/item/storage/wallet/random
 	icon_state = "random_wallet"
 

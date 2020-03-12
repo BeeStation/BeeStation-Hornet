@@ -25,6 +25,16 @@
 	resistance_flags = NONE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 30)
 
+/obj/item/clothing/gloves/botanic_leather/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
+		new /obj/item/stack/sheet/leather(user.drop_location(), 3)
+		user.visible_message("[user] cuts [src] into pieces of leather with [I].", \
+					 "<span class='notice'>You cut [src] into pieces of leather with [I].</span>", \
+					 "<span class='italics'>You hear cutting.</span>")
+		qdel(src)
+	else
+		return ..()
+
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
 	desc = "These tactical gloves are fireproof and shock resistant."

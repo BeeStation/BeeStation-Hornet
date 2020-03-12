@@ -394,12 +394,32 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/ballistic/automatic/pistol, /obj/item/gun/ballistic/revolver, /obj/item/gun/ballistic/revolver/detective, /obj/item/radio)
 
+/obj/item/clothing/suit/jacket/leather/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
+		new /obj/item/stack/sheet/leather(user.drop_location(), 7)
+		user.visible_message("[user] cuts [src] into pieces of leather with [I].", \
+					 "<span class='notice'>You cut [src] into pieces of leather with [I].</span>", \
+					 "<span class='italics'>You hear cutting.</span>")
+		qdel(src)
+	else
+		return ..()
+
 /obj/item/clothing/suit/jacket/leather/overcoat
 	name = "leather overcoat"
 	desc = "That's a damn fine coat."
 	icon_state = "leathercoat"
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
 	cold_protection = CHEST|GROIN|ARMS|LEGS
+
+/obj/item/clothing/suit/jacket/leather/overcoat/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
+		new /obj/item/stack/sheet/leather(user.drop_location(), 10)
+		user.visible_message("[user] cuts [src] into pieces of leather with [I].", \
+					 "<span class='notice'>You cut [src] into pieces of leather with [I].</span>", \
+					 "<span class='italics'>You hear cutting.</span>")
+		qdel(src)
+	else
+		return ..()
 
 /obj/item/clothing/suit/jacket/puffer
 	name = "puffer jacket"

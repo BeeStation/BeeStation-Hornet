@@ -541,6 +541,16 @@
 		/obj/item/ammo_casing/shotgun
 		))
 
+/obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
+		new /obj/item/stack/sheet/leather(user.drop_location(), 5)
+		user.visible_message("[user] cuts [src] into pieces of leather with [I].", \
+					 "<span class='notice'>You cut [src] into pieces of leather with [I].</span>", \
+					 "<span class='italics'>You hear cutting.</span>")
+		qdel(src)
+	else
+		return ..()
+
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
 	desc = "A holster to carry a handgun and ammo. WARNING: Badasses only."
