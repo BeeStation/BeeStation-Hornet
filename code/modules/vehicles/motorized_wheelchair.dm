@@ -126,9 +126,8 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/examine(mob/user)
 	. = ..()
-	if((obj_flags & EMAGGED) && panel_open)
-		. += "There is a bomb under the maintenance panel."
-	. += "There is a small screen on it, [(in_range(user, src) || isobserver(user)) ? "[power_cell ? "it reads:" : "but it is dark."]" : "but you can't see it from here."]"
+	if(panel_open)
+		. += "There is a small screen on it, [(in_range(user, src) || isobserver(user)) ? "[power_cell ? "it reads:" : "but it is dark."]" : "but you can't see it from here."]"
 	if(!power_cell || (!in_range(user, src) && !isobserver(user)))
 		return
 	. += "Speed: [speed]"
@@ -137,11 +136,6 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/Bump(atom/movable/M)
 	. = ..()
-	// Here is the shitty emag functionality.
-	if(obj_flags & EMAGGED && (istype(M, /turf/closed) || isliving(M)))
-		explosion(src, -1, 1, 3, 2, 0)
-		visible_message("<span class='boldwarning'>[src] explodes!!</span>")
-		return
 	// If the speed is higher than delay_multiplier throw the person on the wheelchair away
 	if(M.density && speed > delay_multiplier && has_buckled_mobs())
 		var/mob/living/H = buckled_mobs[1]
@@ -160,9 +154,3 @@
 		else
 			visible_message("<span class='danger'>[src] crashes into [M], sending [H] flying!</span>")
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		
-/obj/vehicle/ridden/wheelchair/motorized/emag_act(mob/user)
-	if((obj_flags & EMAGGED) || !panel_open)
-		return
-	to_chat(user, "<span class='warning'>A bomb appears in [src], what the fuck?</span>")
-	obj_flags |= EMAGGED
