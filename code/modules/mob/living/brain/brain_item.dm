@@ -247,6 +247,7 @@
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-occupied"
+	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/brain/positron/Insert(mob/living/carbon/C, special = 0, no_id_transfer = FALSE)
 	owner = C
