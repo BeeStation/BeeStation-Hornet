@@ -113,6 +113,22 @@
 	name = "burst engine"
 	desc = "An engine that releases a large bluespace burst to propel it."
 
+/obj/structure/shuttle/engine/propulsion/constructable
+	name = "buildable thruster"
+	desc = "An engine you can build"
+	icon_state = "burst_plasma"
+	var/thrust = 1
+	var/fuel_use = 1
+	var/bluespace_capable = FALSE
+
+/obj/structure/shuttle/engine/propulsion/constructable/plasma
+	name = "plasma thruster"
+	desc = "An engine that uses plasma to provide propulsion"
+	icon_state = "burst_plasma"
+	thrust = 25
+	fuel_use = 0.04
+	bluespace_capable = FALSE
+
 /obj/structure/shuttle/engine/propulsion/burst/cargo
 	state = ENGINE_UNWRENCHED
 	anchored = FALSE
