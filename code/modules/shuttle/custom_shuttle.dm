@@ -21,7 +21,7 @@
 /obj/machinery/computer/custom_shuttle/ui_interact(mob/user)
 	var/list/options = params2list(possible_destinations)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-	var/dat = "[M ? "Status : [M.getStatusText()]" : "Shuttle link required."]<br><br>"
+	var/dat = "[M ? "Current Location : [M.getStatusText()]" : "Shuttle link required."]<br><br>"
 	if(M)
 		dat += "<A href='?src=[REF(src)];calculate=1'>Run Flight Calculations</A><br>"
 		dat += "<b>Shuttle Data</b><hr>"
@@ -29,7 +29,7 @@
 		dat += "Engine Force: [calculated_dforce]N ([calculated_engine_count] engines)<br>"
 		dat += "Bluespace Speed: [calculated_speed]bms<sup>-1</sup><br>"
 		dat += "Fuel Consumption: [calculated_consumption]units per distance<br>"
-		dat += "Engine Cooldown: [calculated_cooldown]s<hr><br>"
+		dat += "Engine Cooldown: [calculated_cooldown]s<hr>"
 		var/destination_found
 		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 			if(!options.Find(S.id))
@@ -40,6 +40,7 @@
 			dat += "<A href='?src=[REF(src)];setloc=[S.id]'>Target [S.name] (Fuel cost : [10000]units)</A><br>"
 		if(!destination_found)
 			dat += "<B>No valid destinations</B><br>"
+		dat += "<hr>[targetLocation ? "Target Location : [targetLocation]" : "No Target Location"]"
 		dat += "<hr><A href='?src=[REF(src)];fly=1'>Initate Flight</A><br>"
 	dat += "<A href='?src=[REF(user)];mach_close=computer'>Close</a>"
 
@@ -109,6 +110,7 @@
 		message_admins("[usr] just attempted to href dock exploit on [src] with target location \"[newTarget]\"")
 		return
 	targetLocation = newTarget
+	say("Shuttle route calculated.")
 	return
 
 /obj/machinery/computer/custom_shuttle/proc/Fly()
