@@ -1,0 +1,4 @@
+author: "Crossedfall"
+delete-after: True
+changes: 
+  - admin: "Admins can view more than one page on the unban panel again"
