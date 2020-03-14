@@ -81,11 +81,11 @@
 							addclientmessage(ckey,"<span class='adminnotice'>Admin [key] has been allowed to bypass a matching non-admin ban on [i["key"]] [i["ip"]]-[i["computerid"]].</span>")
 						continue
 				var/expires = "This is a permanent ban."
-				var/global_ban = "This is a global ban."
+				var/global_ban = "This is a global ban from all of our servers."
 				if(i["expiration_time"])
 					expires = " The ban is for [DisplayTimeText(text2num(i["duration"]) MINUTES)] and expires on [i["expiration_time"]] (server time)."
 				if(!text2num(i["global_ban"]))
-					global_ban = "This is a local ban, and only applies to [i["server_name"]]."
+					global_ban = "This is a single-server ban, and only applies to [i["server_name"]]."
 				var/desc = {"You, or another user of this computer or connection ([i["key"]]) is banned from playing here.
 				The ban reason is: [i["reason"]].
 				This ban (BanID #[i["id"]]) was applied by [i["admin_key"]] on [i["bantime"]] during round ID [i["round_id"]].
