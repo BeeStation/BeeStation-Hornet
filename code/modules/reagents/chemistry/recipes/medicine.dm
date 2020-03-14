@@ -309,7 +309,7 @@
 /datum/chemical_reaction/medsuture
 	name = "Medicated Suture"
 	id = "med_suture"
-	required_reagents = list(/datum/reagent/cellulose = 10, /datum/reagent/toxin/formaldehyde = 30, /datum/reagent/medicine/polypyr = 30) //This might be a bit much, reagent cost should be reviewed after implementation.
+	required_reagents = list(/datum/reagent/cellulose = 10, /datum/reagent/toxin/formaldehyde = 30, /datum/reagent/medicine/bicaridine = 30) //This might be a bit much, reagent cost should be reviewed after implementation.
 
 /datum/chemical_reaction/medsuture/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)

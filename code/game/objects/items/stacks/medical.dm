@@ -184,7 +184,7 @@
 	icon_state = "suture_purp"
 	desc = "A suture infused with drugs that speed up wound healing of the treated laceration."
 	heal_brute = 15
-	grind_results = list(/datum/reagent/medicine/polypyr = 2)
+	grind_results = list(/datum/reagent/medicine/bicaridine = 2)
 
 /obj/item/stack/medical/suture/heal(mob/living/M, mob/user)
 	. = ..()
