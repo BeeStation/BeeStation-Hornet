@@ -305,3 +305,15 @@
 	results = list(/datum/reagent/medicine/hepanephrodaxon = 5)
 	required_reagents = list(/datum/reagent/medicine/carthatoline = 2, /datum/reagent/carbon = 2, /datum/reagent/lithium = 1)
 	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
+
+/datum/chemical_reaction/medsuture
+	name = "Medicated Suture"
+	id = "med_suture"
+	required_reagents = list(/datum/reagent/cellulose = 10, /datum/reagent/toxin/formaldehyde = 30, /datum/reagent/medicine/polypyr = 30) //This might be a bit much, reagent cost should be reviewed after implementation.
+
+/datum/chemical_reaction/medsuture/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i = 1, i <= created_volume, i++)
+		new /obj/item/stack/medical/suture/medicated(location)
+	return
+
