@@ -143,8 +143,7 @@
 
 	var/cooldown_check = 0 // Used interally, you don't want to modify
 
-	var/cooldown = 40 // Default wait time until can stun again.
-	var/knockdown_time_carbon = (1.5 SECONDS) // Knockdown length for carbons.
+	var/cooldown = 20 // Default wait time until can stun again.
 	var/stun_time_silicon = (5 SECONDS) // If enabled, how long do we stun silicons.
 	var/stamina_damage = 55 // Do we deal stamina damage.
 	var/affect_silicon = FALSE // Does it stun silicons.
@@ -177,8 +176,12 @@
 /obj/item/melee/classic_baton/proc/get_stun_description(mob/living/target, mob/living/user)
 	. = list()
 
-	.["visible"] =  "<span class ='danger'>[user] has knocked down [target] with [src]!</span>"
-	.["local"] = "<span class ='danger'>[user] knocks you down with [src]!</span>"
+	.["visibletrip"] =  "<span class ='danger'>[user] has knocked [target]'s legs out from under them with [src]!</span>"
+	.["localtrip"] = "<span class ='danger'>[user]  has knocked your legs out from under you [src]!</span>"
+	.["visibledisarm"] =  "<span class ='danger'>[user] has disarmed [target] with [src]!</span>"
+	.["localdisarm"] = "<span class ='danger'>[user] whacks your arm with [src], causing a coursing pain!</span>"
+	.["visiblestun"] =  "<span class ='danger'>[user] beat [target] with [src]!</span>"
+	.["localstun"] = "<span class ='danger'>[user] has beat you with [src]!</span>"
 
 	return .
 
@@ -202,12 +205,11 @@
 /obj/item/melee/classic_baton/attack(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
+	var/def_check = target.getarmor(type = "melee")
 
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
-
-		user.Paralyze(knockdown_time_carbon * force)
 		user.adjustStaminaLoss(stamina_damage)
 
 		additional_effects_carbon(user) // user is the target here
@@ -257,16 +259,26 @@
 
 			if (stun_animation)
 				user.do_attack_animation(target)
-
 			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
-			target.Knockdown(knockdown_time_carbon)
-			target.adjustStaminaLoss(stamina_damage)
 			additional_effects_carbon(target, user)
+			if((user.zone_selected == BODY_ZONE_HEAD) || (user.zone_selected == BODY_ZONE_CHEST))
+				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_CHEST, def_check)
+				log_combat(user, target, "stunned", src)
+				target.visible_message(desc["visiblestun"], desc["localstun"])
+			if((user.zone_selected == BODY_ZONE_R_LEG) || (user.zone_selected == BODY_ZONE_L_LEG))
+				target.Knockdown(30)
+				log_combat(user, target, "tripped", src)
+				target.visible_message(desc["visibletrip"], desc["localtrip"])
+			if(user.zone_selected == BODY_ZONE_L_ARM)
+				target.apply_damage(50, STAMINA, BODY_ZONE_L_ARM, def_check)
+				log_combat(user, target, "disarmed", src)
+				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
+			if(user.zone_selected == BODY_ZONE_R_ARM)
+				target.apply_damage(50, STAMINA, BODY_ZONE_R_ARM, def_check)
+				log_combat(user, target, "disarmed", src)
+				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
 
-			log_combat(user, target, "stunned", src)
 			add_fingerprint(user)
-
-			target.visible_message(desc["visible"], desc["local"])
 
 			if(!iscarbon(user))
 				target.LAssailant = null
@@ -299,7 +311,6 @@
 	force_on = 0
 	force_off = 0
 	weight_class_on = WEIGHT_CLASS_BULKY
-	knockdown_time_carbon = (2.5 SECONDS)
 
 /obj/item/melee/classic_baton/telescopic/suicide_act(mob/user)
 	var/mob/living/carbon/human/H = user
@@ -355,9 +366,8 @@
 	item_flags = NONE
 	force = 5
 
-	cooldown = 20
 	stamina_damage = 85
-	affect_silicon = TRUE 
+	affect_silicon = TRUE
 	on_sound = 'sound/weapons/contractorbatonextend.ogg'
 	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
 	stun_animation = TRUE
@@ -482,17 +492,51 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	force = 15
+	force = 0.001
+	reach = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/whip.ogg'
 
-/obj/item/melee/curator_whip/afterattack(target, mob/user, proximity_flag)
+/obj/item/melee/curator_whip/attack(mob/living/target, mob/living/user)
 	. = ..()
-	if(ishuman(target) && proximity_flag)
-		var/mob/living/carbon/human/H = target
-		H.drop_all_held_items()
-		H.visible_message("<span class='danger'>[user] disarms [H]!</span>", "<span class='userdanger'>[user] disarmed you!</span>")
+	var/mob/living/carbon/human/H = target
+	var/mob/living/carbon/human/U = user
+	if(ishuman(target))
+		if((user.zone_selected == BODY_ZONE_CHEST) || (user.zone_selected == BODY_ZONE_HEAD) || (user.zone_selected == BODY_ZONE_PRECISE_GROIN))
+			if(H.getarmor(type = "melee") < 25)
+				H.emote("scream")
+				H.Stun(5)
+				H.visible_message("<span class='danger'>[U] whips [H]!</span>", "<span class='userdanger'>[U] whips you! It stings!</span>")
+		if((user.zone_selected == BODY_ZONE_R_LEG) || (user.zone_selected == BODY_ZONE_L_LEG))
+			target.Knockdown((4-get_dist(H, U))*10)
+			log_combat(user, target, "tripped", src)
+			H.visible_message("<span class='danger'>[U] trips [H]!</span>", "<span class='userdanger'>[U] whips your legs out from under you!</span>")
+			return
+		if(user.zone_selected == BODY_ZONE_L_ARM)
+			var/obj/item/I = H.get_held_items_for_side("left")
+			if(I)
+				if(H.dropItemToGround(I))
+					H.visible_message("<span class='danger'>[I] is yanked off [H]'s hand by [src]!</span>","<span class='userdanger'>[U] grabs [I] with [src]!</span>")
+					if(!user.get_inactive_held_item())
+						U.throw_mode_on()
+						U.swap_hand()
+						I.throw_at(user, 10, 2)
+						to_chat(user, "<span class='notice'>You pull [I] towards yourself.</span>")
+			log_combat(user, target, "disarmed", src)
+			H.visible_message("<span class='danger'>[U] disarms [H]!</span>", "<span class='userdanger'>[U] disarmed you!</span>")
+		if(user.zone_selected == BODY_ZONE_R_ARM)
+			var/obj/item/I = H.get_held_items_for_side("right")
+			if(I)
+				if(H.dropItemToGround(I))
+					H.visible_message("<span class='danger'>[I] is yanked off [H]'s hand by [src]!</span>","<span class='userdanger'>[U] grabs [I] with [src]!</span>")
+					to_chat(user, "<span class='notice'>You pull [I] towards yourself.</span>")
+					if(!user.get_inactive_held_item())
+						U.throw_mode_on()
+						U.swap_hand()
+						I.throw_at(user, 10, 2)
+			log_combat(user, target, "disarmed", src)
+			H.visible_message("<span class='danger'>[user] disarms [H]!</span>", "<span class='userdanger'>[U] disarmed you!</span>")
 
 /obj/item/melee/roastingstick
 	name = "advanced roasting stick"
