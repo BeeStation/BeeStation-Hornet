@@ -208,7 +208,7 @@
 		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
 
 		user.Paralyze(knockdown_time_carbon * force)
-		user.adjustStaminaLoss(stamina_damage)
+		user.apply_damage(stamina_damage, STAMINA, BODY_ZONE_HEAD)
 
 		additional_effects_carbon(user) // user is the target here
 		if(ishuman(user))
@@ -260,7 +260,7 @@
 
 			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
 			target.Knockdown(knockdown_time_carbon)
-			target.adjustStaminaLoss(stamina_damage)
+			target.apply_damage(stamina_damage, STAMINA)
 			additional_effects_carbon(target, user)
 
 			log_combat(user, target, "stunned", src)
