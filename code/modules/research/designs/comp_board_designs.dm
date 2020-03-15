@@ -316,7 +316,7 @@
 	name = "Computer Design (Shuttle Flight Controls)"
 	desc = "Allows for the construction of circuit boards used to build a console that enables shuttle flight"
 	id = "shuttle_control"
-	category =  = list("Computer Boards")
+	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/shuttle/shuttle_docker
