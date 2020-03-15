@@ -25,8 +25,8 @@
 	message_admins("Hey, I just updated the [src.name]")
 	if(!affectSurrounding)
 		return
-	for(var/turf in get_area_turfs(get_turf(src)))
-		for(var/thing in turf)
+	for(var/place in get_area(get_turf(src)))
+		for(var/atom/thing in place)
 			if(!istype(thing, /obj/machinery/shuttle))
 				continue
 			if(thing == src)
