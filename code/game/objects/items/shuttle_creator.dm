@@ -219,7 +219,7 @@
 
 /obj/item/shuttle_creator/proc/create_shuttle_area(mob/user)
 	//Create the new area
-	var/area/shuttle/custom/newS
+	var/area/shuttle/custom/powered/newS
 	var/area/oldA = loggedOldArea
 	var/str = stripped_input(user, "Shuttle Name:", "Blueprint Editing", "", MAX_NAME_LEN)
 	if(!str || !length(str))
@@ -230,7 +230,7 @@
 	if(CHAT_FILTER_CHECK(str))
 		to_chat(user, "<span class='warning'>Nanotrasen prohibited words are in use in this shuttle name, blars the [src] in a slightly offended tone.</span>")
 		return
-	newS = new /area/shuttle/custom()
+	newS = new /area/shuttle/custom/powered()
 	newS.setup(str)
 	newS.set_dynamic_lighting()
 	//Shuttles always have gravity
