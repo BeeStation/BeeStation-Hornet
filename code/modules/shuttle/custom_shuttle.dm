@@ -163,7 +163,7 @@
 
 //Custom shuttle docker locations
 /obj/machinery/computer/camera_advanced/shuttle_docker/custom
-	name = "Private Navigation Computer"
+	name = "Shuttle Navigation Computer"
 	desc = "Used to designate a precise transit location for private ships."
 	lock_override = NONE
 	jumpto_ports = list("whiteship_home" = 1)
