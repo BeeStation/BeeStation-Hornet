@@ -107,9 +107,9 @@
 			if(!atom)
 				continue
 			calculated_mass ++
-			if(!istype(atom, /obj/structure/shuttle/engine/propulsion/constructable))
+			if(!istype(atom, /obj/machinery/shuttle/engine)
 				continue
-			var/obj/structure/shuttle/engine/propulsion/constructable/E = atom
+			var/obj/machinery/shuttle/engine/E = atom
 			calculated_engine_count++
 			calculated_dforce += E.thrust
 			calculated_consumption += E.fuel_use
