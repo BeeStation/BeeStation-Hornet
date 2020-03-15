@@ -104,7 +104,6 @@
 	for(var/shuttleArea in areas)
 		for(var/each in shuttleArea)
 			var/atom/atom = each
-			to_chat(usr, "[atom.name]")
 			if(!atom)
 				continue
 			calculated_mass ++
