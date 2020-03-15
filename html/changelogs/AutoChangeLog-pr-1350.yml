@@ -1,4 +1,0 @@
-author: "zeskorion"
-delete-after: True
-changes:
-  - bugfix: necroseed no longer starts at max stats
