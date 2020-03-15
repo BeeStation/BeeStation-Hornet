@@ -1070,11 +1070,11 @@
 	name = "Plasma Thruster"
 	build_path = /obj/machinery/shuttle/engine/plasma
 	req_components = list(/obj/item/stock_parts/capacitor = 2,
-		/obj/item/stock_parts/cable_coil = 5,
+		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/micro_laser = 1)
 
 /obj/item/circuitboard/machine/shuttle/heater
 	name = "Heater"
 	build_path = /obj/machinery/shuttle/engine/heater
-	req_components = list(/obj/item/stack/micro_laser = 2,
+	req_components = list(/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/matter_bin = 1)
