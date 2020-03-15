@@ -235,6 +235,7 @@
 	newS.set_dynamic_lighting()
 	//Shuttles always have gravity
 	newS.has_gravity = TRUE
+	newS.requires_power = TRUE
 	//Record the area for use when creating the docking port
 	recorded_shuttle_area = newS
 
