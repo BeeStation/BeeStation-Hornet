@@ -112,6 +112,9 @@
 			if(!istype(atom, /obj/machinery/shuttle/engine))
 				continue
 			var/obj/machinery/shuttle/engine/E = atom
+			E.check_setup(FALSE)
+			if(!E.thruster_active)	//Skipover thrusters with no valid heater
+				continue
 			calculated_engine_count++
 			calculated_dforce += E.thrust
 			calculated_consumption += E.fuel_use

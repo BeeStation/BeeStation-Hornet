@@ -72,6 +72,7 @@
 	var/fuel_use = 0
 	var/bluespace_capable = TRUE
 	var/cooldown = 0
+	var/thruster_active = FALSE
 	var/obj/machinery/shuttle/heater/attached_heater
 
 /obj/machinery/shuttle/engine/check_setup(var/affectSurrounding = TRUE)
@@ -119,13 +120,17 @@
 
 /obj/machinery/shuttle/engine/proc/update_engine()
 	if(panel_open)
+		thruster_active = FALSE
 		return
 	if(!attached_heater)
 		icon_state = icon_state_off
+		thruster_active = FALSE
 		return
 	if(attached_heater.powering_thruster)
 		icon_state = icon_state_closed
+		thruster_active = TRUE
 		return
+	thruster_active = FALSE
 	icon_state = icon_state_off
 	return
 
