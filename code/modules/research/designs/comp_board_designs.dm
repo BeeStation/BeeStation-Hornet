@@ -323,5 +323,5 @@
 	name = "Computer Design (Private Navigation Computer)"
 	desc = "Allows for the construction of circuit boards used to build a console that enables the targetting of custom flight locations"
 	id = "shuttle_docker"
-	category =  = list("Computer Boards")
+	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
