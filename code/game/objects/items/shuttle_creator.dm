@@ -22,7 +22,6 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
 	var/static/customShuttles = 0
-	var/datum/effect_system/spark_spread/spark_system
 	var/bluespace_power = 0
 	var/max_bluespace_power = 100
 	var/ready = TRUE
@@ -31,19 +30,9 @@
 	var/loggedOldArea
 	var/linkedShuttleId
 
-/obj/item/shuttle_creator/Initialize()
-	. = ..()
-	spark_system = new /datum/effect_system/spark_spread
-	spark_system.set_up(5, 0, src)
-	spark_system.attach(src)
-
 /obj/item/shuttle_creator/examine(mob/user)
 	. = ..()
 	. += "\A [src]. The device's screen displays the text \"[bluespace_power]/[max_bluespace_power]\""
-
-/obj/item/shuttle_creator/Destroy()
-	QDEL_NULL(spark_system)
-	return ..()
 
 /obj/item/shuttle_creator/attackby(obj/item/I, mob/user, params)
 	if(iscyborg(user))
