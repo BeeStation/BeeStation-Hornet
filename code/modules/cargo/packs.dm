@@ -1364,7 +1364,7 @@
 					/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus)
-	crate_name = "virus crate"
+	crate_name = "virus sample crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 
@@ -1380,8 +1380,7 @@
 					/obj/item/reagent_containers/glass/bottle/synaptizine,
 					/obj/item/storage/box/beakers,
 					/obj/item/toy/figure/virologist)
-	crate_name = "virus crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	crate_name = "junior epidemiology kit"
 	dangerous = TRUE
 
 /datum/supply_pack/medical/vending
