@@ -144,7 +144,7 @@
 		return
 	var/dist = calculateDistance(targetPort)
 	var/fuelCost = calculated_consumption * dist
-	var/time = min(max(round(dist / calculated_speed), 10), 90) * 10
+	var/time = min(max(round(dist / calculated_speed), 10), 90)
 	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttleId)
 	if(!linkedShuttle)
 		return
