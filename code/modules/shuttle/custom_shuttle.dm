@@ -40,6 +40,8 @@
 				continue
 			if(!M.check_dock(S, silent=TRUE))
 				continue
+			if(calculated_speed == 0)
+				break
 			destination_found = TRUE
 			var/dist = round(calculateDistance(S))
 			dat += "<A href='?src=[REF(src)];setloc=[S.id]'>Target [S.name] (Dist: [dist] | Fuel Cost: [round(calculated_consumption * dist)] | Time: [round(dist / calculated_speed)])</A><br>"
@@ -115,7 +117,9 @@
 			calculated_consumption += E.fuel_use
 			calculated_cooldown = max(calculated_cooldown, E.cooldown)
 	//This should really be accelleration, but its a 2d spessman game so who cares
-	calculated_speed = (calculated_dforce*1000) / (calculated_dforce*100)
+	if(calculated_mass == 0)
+		return FALSE
+	calculated_speed = (calculated_dforce*1000) / (calculated_mass*100)
 	return TRUE
 
 /obj/machinery/computer/custom_shuttle/proc/SetTargetLocation(var/newTarget)
@@ -132,6 +136,9 @@
 		return
 	if(!calculateStats())
 		return
+	if(calculated_speed < 1)
+		say("Insufficient engine power, shuttle requires [calculated_mass / 10]kN of thrust.")
+		return
 	var/obj/docking_port/stationary/targetPort = SSshuttle.getDock(targetLocation)
 	if(!targetPort)
 		return
@@ -140,6 +147,8 @@
 	var/time = min(max(round(dist / calculated_speed), 10), 90) * 10
 	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttleId)
 	if(!linkedShuttle)
+		return
+	if(linkedShuttle.mode != SHUTTLE_IDLE)
 		return
 	linkedShuttle.callTime = time * 10
 	linkedShuttle.rechargeTime = calculated_cooldown

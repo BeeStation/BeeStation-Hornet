@@ -266,7 +266,7 @@
 	//Detect the turfs connected in the curerrent enclosed area
 	var/list/turfs = detect_room(get_turf(user), area_or_turf_fail_types)
 	if(!turfs)
-		to_chat(user, "<span class='warning'>The [src] bleeps and a message appears on the screen, \"Due to safety concerns, nanotrasen has prevented this unit from creating shuttles in non-airtight spaces, or areas where shuttles already exist. Sorry for the inconvinience.\"</span>")
+		to_chat(user, "<span class='warning'>Shuttles must be created in an airtight space, ensure that the shuttle is airtight, including corners.</span>")
 		return
 	if(turfs.len > SHUTTLE_CREATOR_MAX_SIZE)
 		to_chat(user, "<span class='warning'>The [src]'s internal cooling system wizzes violently and a message appears on the screen, \"Caution, this device can only handle the creation of shuttles up to [SHUTTLE_CREATOR_MAX_SIZE]. Please reduce your shuttle by [turfs.len-SHUTTLE_CREATOR_MAX_SIZE]. Sorry for the inconvinience\"</span>")
@@ -278,9 +278,9 @@
 		if(!place)
 			to_chat(user, "<span class='warning'>You can't seem to overpower the bluespace harmonics in this location, try somewhere else.</span>")
 			return
-		/*if(!istype(place, /area/space))
-			to_chat(user, "<span class='warning'>Caution, shuttle must not use any material connected to the station.</span>")
-			return*/
+		if(!istype(place, /area/space))
+			to_chat(user, "<span class='warning'>Caution, shuttle must not use any material connected to the station. Your shuttle is currenly overlapping with [place.name]</span>")
+			return
 
 	loggedOldArea = get_area(get_turf(user))
 	loggedTurfs = turfs
