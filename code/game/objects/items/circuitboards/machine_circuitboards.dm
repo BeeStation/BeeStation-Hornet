@@ -1062,19 +1062,19 @@
 		/obj/item/stock_parts/matter_bin = 1)
 
 /obj/item/circuitboard/machine/shuttle/engine
-	name = "Thruster"
+	name = "Thruster (Machine Board)"
 	build_path = /obj/machinery/shuttle/engine
 	req_components = list()
 
 /obj/item/circuitboard/machine/shuttle/engine/plasma
-	name = "Plasma Thruster"
+	name = "Plasma Thruster (Machine Board)"
 	build_path = /obj/machinery/shuttle/engine/plasma
 	req_components = list(/obj/item/stock_parts/capacitor = 2,
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/micro_laser = 1)
 
 /obj/item/circuitboard/machine/shuttle/heater
-	name = "Heater"
+	name = "Electronic Engine Heater (Machine Board)"
 	build_path = /obj/machinery/shuttle/heater
 	req_components = list(/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/matter_bin = 1)

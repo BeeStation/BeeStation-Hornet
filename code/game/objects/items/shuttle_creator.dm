@@ -205,6 +205,8 @@
 	//port.Initialize(0)
 	port.register()
 	customShuttles ++
+	message_admins("[ADMIN_LOOKUPFLW(user)] created a new shuttle with a [src] [ADMIN_VERBOSEJMP(user)] ([customShuttles] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
+	log_game("[key_name(user)] created a new shuttle with a [src] at [AREACOORD(user)] ([customShuttles] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
 	return TRUE
 
 /obj/item/shuttle_creator/proc/create_shuttle_area(mob/user)

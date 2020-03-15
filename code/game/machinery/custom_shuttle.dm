@@ -22,7 +22,6 @@
 // - A heat next to this gets wrenched out of place
 // - This gets wrenched into place
 /obj/machinery/shuttle/proc/check_setup(var/affectSurrounding = TRUE)
-	message_admins("Hey, I just updated the [src.name]")
 	if(!affectSurrounding)
 		return
 	for(var/place in get_area(get_turf(src)))
@@ -30,7 +29,6 @@
 			if(!istype(thing, /obj/machinery/shuttle))
 				continue
 			if(thing == src)
-				message_admins("Skipping self")
 				continue
 			var/obj/machinery/shuttle/shuttle_comp = thing
 			shuttle_comp.check_setup(FALSE)
@@ -77,7 +75,6 @@
 	var/obj/machinery/shuttle/heater/attached_heater
 
 /obj/machinery/shuttle/engine/check_setup(var/affectSurrounding = TRUE)
-	message_admins("Plasma setup called ma ni-!")
 	var/heater_turf
 	switch(dir)
 		if(NORTH)
@@ -85,11 +82,10 @@
 		if(SOUTH)
 			heater_turf = get_offset_target_turf(src, 0, 1)
 		if(EAST)
-			heater_turf = get_offset_target_turf(src, 1, 0)
-		if(WEST)
 			heater_turf = get_offset_target_turf(src, -1, 0)
+		if(WEST)
+			heater_turf = get_offset_target_turf(src, 1, 0)
 	if(!heater_turf)
-		message_admins("Hey, the turf is null :(")
 		attached_heater = null
 		update_engine()
 		return ..()
@@ -97,7 +93,6 @@
 	for(var/atom/thing in heater_turf)
 		if(!istype(thing, /obj/machinery/shuttle/heater))
 			continue
-		message_admins("Found engine heater!")
 		if(thing.dir != dir)
 			continue
 		var/obj/machinery/shuttle/heater/as_heater = thing
@@ -106,7 +101,6 @@
 		if(!as_heater.anchored)
 			continue
 		attached_heater = as_heater
-		message_admins("Found engine heater!")
 		break
 	update_engine()
 	return ..()
