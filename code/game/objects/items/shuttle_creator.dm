@@ -2,9 +2,9 @@
 #define CUSTOM_SHUTTLE_LIMIT 4
 
 /obj/item/shuttle_creator
-	name = "Shuttle Creator"
+	name = "Rapid Shuttle Designator"
 	icon = 'icons/obj/tools.dmi'
-	icon_state = "rcd"
+	icon_state = "rsd"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	desc = "A device used to define the area required for custom ships. Uses bluespace crystals to create bluespace-capable ships."
@@ -89,9 +89,10 @@
 		if(customShuttles > 4)
 			to_chat(user, "<span class='warning'>Shuttle limit reached, sorry.</span>")
 			return
-		create_shuttle_area(user)
-		shuttle_create_docking_port(target, user)
-		to_chat(user, "<span class='notice'>Shuttle created!</span>")
+		if(!create_shuttle_area(user))
+			return
+		if(shuttle_create_docking_port(target, user))
+			to_chat(user, "<span class='notice'>Shuttle created!</span>")
 		return
 	else if(istype(target, /obj/machinery/computer/custom_shuttle))
 		if(!linkedShuttleId)
@@ -163,7 +164,7 @@
 
 	if(loggedTurfs.len == 0 || !recorded_shuttle_area)
 		to_chat(user, "<span class='warning'>Invalid shuttle, restarting bluespace systems...</span>")
-		return
+		return FALSE
 
 	var/datum/map_template/shuttle/new_shuttle = new /datum/map_template/shuttle()
 	var/static/idnum = 0
@@ -186,7 +187,7 @@
 		port.Destroy()
 		stationary_port.Destroy()
 		ready = FALSE
-		return
+		return FALSE
 
 	port.shuttle_areas = list()
 	//var/list/all_turfs = port.return_ordered_turfs(port.x, port.y, port.z, port.dir)
@@ -218,18 +219,20 @@
 	return TRUE
 
 /obj/item/shuttle_creator/proc/create_shuttle_area(mob/user)
+	if(!loggedTurfs)
+		return FALSE
 	//Create the new area
 	var/area/shuttle/custom/powered/newS
 	var/area/oldA = loggedOldArea
 	var/str = stripped_input(user, "Shuttle Name:", "Blueprint Editing", "", MAX_NAME_LEN)
 	if(!str || !length(str))
-		return
+		return FALSE
 	if(length(str) > 50)
 		to_chat(user, "<span class='warning'>The provided ship name is too long, blares the [src]</span>")
-		return
+		return FALSE
 	if(CHAT_FILTER_CHECK(str))
 		to_chat(user, "<span class='warning'>Nanotrasen prohibited words are in use in this shuttle name, blars the [src] in a slightly offended tone.</span>")
-		return
+		return FALSE
 	newS = new /area/shuttle/custom/powered()
 	newS.setup(str)
 	newS.set_dynamic_lighting()
@@ -285,4 +288,5 @@
 
 	loggedOldArea = get_area(get_turf(user))
 	loggedTurfs = turfs
+	icon_state = "rsd_used"
 	to_chat(user, "<span class='notice'>Your current area was logged into the [src], select an airlock to act as the docking point.</span>")

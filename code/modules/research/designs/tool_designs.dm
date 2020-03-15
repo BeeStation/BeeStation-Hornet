@@ -24,7 +24,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/shuttlecreator
-	name = "Shuttle Zoning Designator"
+	name = "Rapid Shuttle Designator"
 	desc = "An advanced device capable of defining areas for use in the creation of shuttles"
 	id = "shuttle_creator"
 	build_path = /obj/item/shuttle_creator
