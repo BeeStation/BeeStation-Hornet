@@ -1,4 +1,5 @@
 #define SHUTTLE_CREATOR_MAX_SIZE 200
+#define CUSTOM_SHUTTLE_LIMIT 4
 
 /obj/item/shuttle_creator
 	name = "Shuttle Creator"
@@ -20,6 +21,7 @@
 	req_access_txt = "11"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
+	var/static/customShuttles = 0
 	var/datum/effect_system/spark_spread/spark_system
 	var/bluespace_power = 0
 	var/max_bluespace_power = 100
@@ -68,6 +70,10 @@
 
 /obj/item/shuttle_creator/attack_self(mob/user)
 	..()
+	if(linkedShuttleId)
+		return
+	if(customShuttles > 4)
+		return
 	return check_current_area(user)
 
 /obj/item/shuttle_creator/afterattack(atom/target, mob/user, proximity_flag)
@@ -78,6 +84,11 @@
 	if(!proximity_flag)
 		return
 	if(istype(target, /obj/machinery/door/airlock))
+		if(linkedShuttleId)
+			return
+		if(customShuttles > 4)
+			to_chat(user, "<span class='warning'>Shuttle limit reached, sorry.</span>")
+			return
 		create_shuttle_area(user)
 		shuttle_create_docking_port(target, user)
 		to_chat(user, "<span class='notice'>Shuttle created!</span>")
@@ -203,6 +214,7 @@
 
 	//port.Initialize(0)
 	port.register()
+	customShuttles ++
 	return TRUE
 
 /obj/item/shuttle_creator/proc/create_shuttle_area(mob/user)

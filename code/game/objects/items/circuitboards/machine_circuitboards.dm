@@ -1060,3 +1060,19 @@
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stock_parts/micro_laser = 3,
 		/obj/item/stock_parts/matter_bin = 1)
+
+/obj/item/circuitboard/machine/shuttle/engine
+	name = "Thruster"
+	build_path = /obj/machinery/shuttle/engine
+	req_components = list()
+
+/obj/item/circuitboard/machine/shuttle/engine/plasma
+	name = "Plasma Thruster"
+	build_path = /obj/machinery/shuttle/engine/plasma
+	req_components = list(/obj/item/stock_parts/capacitor = 2,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/micro_laser = 1)
+	thrust = 25
+	fuel_use = 0.04
+	bluespace_capable = FALSE
+	cooldown = 45

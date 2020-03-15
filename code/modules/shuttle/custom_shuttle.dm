@@ -1,3 +1,5 @@
+#define Z_DIST 1000
+
 /obj/machinery/computer/custom_shuttle
 	name = "nanotrasen shuttle flight controller"
 	desc = "A terminal used to fly shuttles defined by the Shuttle Zoning Designator"
@@ -17,6 +19,7 @@
 	var/calculated_consumption = 0
 	var/calculated_cooldown = 0
 	var/targetLocation
+	var/datum/browser/popup
 
 /obj/machinery/computer/custom_shuttle/ui_interact(mob/user)
 	var/list/options = params2list(possible_destinations)
@@ -25,9 +28,10 @@
 	if(M)
 		dat += "<A href='?src=[REF(src)];calculate=1'>Run Flight Calculations</A><br>"
 		dat += "<b>Shuttle Data</b><hr>"
-		dat += "Shuttle Mass: [calculated_mass]kg<br>"
-		dat += "Engine Force: [calculated_dforce]N ([calculated_engine_count] engines)<br>"
-		dat += "Bluespace Speed: [calculated_speed]bms<sup>-1</sup><br>"
+		dat += "Shuttle Mass: [calculated_mass/10]tons<br>"
+		dat += "Engine Force: [calculated_dforce]kN ([calculated_engine_count] engines)<br>"
+		dat += "Sublight Speed: [calculated_speed]ms<sup>-1</sup><br>"
+		dat += calculated_speed < 1 ? "<b>INSUFFICIENT ENGINE POWER</b><br>" : ""
 		dat += "Fuel Consumption: [calculated_consumption]units per distance<br>"
 		dat += "Engine Cooldown: [calculated_cooldown]s<hr>"
 		var/destination_found
@@ -37,14 +41,15 @@
 			if(!M.check_dock(S, silent=TRUE))
 				continue
 			destination_found = TRUE
-			dat += "<A href='?src=[REF(src)];setloc=[S.id]'>Target [S.name] (Fuel cost : [10000]units)</A><br>"
+			var/dist = round(calculateDistance(S))
+			dat += "<A href='?src=[REF(src)];setloc=[S.id]'>Target [S.name] (Dist: [dist] | Fuel Cost: [round(calculated_consumption * dist)] | Time: [round(dist / calculated_speed)])</A><br>"
 		if(!destination_found)
 			dat += "<B>No valid destinations</B><br>"
 		dat += "<hr>[targetLocation ? "Target Location : [targetLocation]" : "No Target Location"]"
 		dat += "<hr><A href='?src=[REF(src)];fly=1'>Initate Flight</A><br>"
 	dat += "<A href='?src=[REF(user)];mach_close=computer'>Close</a>"
 
-	var/datum/browser/popup = new(user, "computer", M ? M.name : "shuttle", 350, 450)
+	popup = new(user, "computer", M ? M.name : "shuttle", 350, 450)
 	popup.set_content("<center>[dat]</center>")
 	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
@@ -59,8 +64,8 @@
 		return
 
 	if(href_list["calculate"])
-		if(!calculateStats())
-			return
+		calculateStats()
+		return
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	if(!M)
 		return
@@ -72,6 +77,12 @@
 	else if(href_list["fly"])
 		Fly()
 		return
+
+/obj/machinery/computer/custom_shuttle/proc/calculateDistance(var/obj/docking_port/stationary/port)
+	var/deltaX = port.x - x
+	var/deltaY = port.y - y
+	var/deltaZ = (port.z - z) * Z_DIST
+	return sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ)
 
 /obj/machinery/computer/custom_shuttle/proc/linkShuttle(var/new_id)
 	shuttleId = new_id
@@ -103,6 +114,10 @@
 			calculated_engine_count++
 			calculated_dforce += E.thrust
 			calculated_consumption += E.fuel_use
+			calculated_cooldown = max(calculated_cooldown, E.cooldown)
+	//This should really be accelleration, but its a 2d spessman game so who cares
+	calculated_speed = (calculated_dforce*1000) / (calculated_dforce*100)
+	return TRUE
 
 /obj/machinery/computer/custom_shuttle/proc/SetTargetLocation(var/newTarget)
 	if(!(newTarget in params2list(possible_destinations)))
@@ -116,6 +131,19 @@
 /obj/machinery/computer/custom_shuttle/proc/Fly()
 	if(!targetLocation)
 		return
+	if(!calculateStats())
+		return
+	var/obj/docking_port/stationary/targetPort = SSshuttle.getDock(targetLocation)
+	if(!targetPort)
+		return
+	var/dist = calculateDistance(targetPort)
+	var/fuelCost = calculated_consumption * dist
+	var/time = min(max(round(dist / calculated_speed), 10), 90) * 10
+	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttleId)
+	if(!linkedShuttle)
+		return
+	linkedShuttle.callTime = time * 10
+	linkedShuttle.rechargeTime = calculated_cooldown
 	if(!(targetLocation in params2list(possible_destinations)))
 		log_admin("[usr] attempted to launch a shuttle that has been affected by href dock exploit on [src] with target location \"[targetLocation]\"")
 		message_admins("[usr] attempted to launch a shuttle that has been affected by href dock exploit on [src] with target location \"[targetLocation]\"")
@@ -138,7 +166,7 @@
 	name = "Private Navigation Computer"
 	desc = "Used to designate a precise transit location for private ships."
 	lock_override = NONE
-	jumpto_ports = list("whiteship_away" = 1, "whiteship_home" = 1)
+	jumpto_ports = list("whiteship_home" = 1)
 	view_range = 12
 	designate_time = 100
 

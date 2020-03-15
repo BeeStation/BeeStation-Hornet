@@ -647,6 +647,7 @@
 #include "code\game\machinery\cloning.dm"
 #include "code\game\machinery\constructable_frame.dm"
 #include "code\game\machinery\cryopod.dm"
+#include "code\game\machinery\custom_shuttle.dm"
 #include "code\game\machinery\dance_machine.dm"
 #include "code\game\machinery\defibrillator_mount.dm"
 #include "code\game\machinery\deployable.dm"
