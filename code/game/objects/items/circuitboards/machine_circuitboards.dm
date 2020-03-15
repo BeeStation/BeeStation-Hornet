@@ -1072,7 +1072,9 @@
 	req_components = list(/obj/item/stock_parts/capacitor = 2,
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stack/micro_laser = 1)
-	thrust = 25
-	fuel_use = 0.04
-	bluespace_capable = FALSE
-	cooldown = 45
+
+/obj/item/circuitboard/machine/shuttle/heater
+	name = "Heater"
+	build_path = /obj/machinery/shuttle/engine/heater
+	req_components = list(/obj/item/stack/micro_laser = 2,
+		/obj/item/stack/matter_bin = 1)

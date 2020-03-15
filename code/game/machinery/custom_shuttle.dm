@@ -1,6 +1,6 @@
 /obj/machinery/shuttle/engine
 	name = "shuttle thruster"
-	desc = "A thruster for shuttles"
+	desc = "A thruster for shuttles."
 	density = TRUE
 	obj_integrity = 250
 	max_integrity = 250
@@ -15,7 +15,7 @@
 
 /obj/machinery/shuttle/engine/plasma
 	name = "plasma thruster"
-	desc = "A thruster that burns plasma stored in an adjacent plasma thruster heater"
+	desc = "A thruster that burns plasma stored in an adjacent plasma thruster heater."
 	icon_state = "burst_plasma"
 	idle_power_usage = 0
 	thrust = 25
@@ -25,6 +25,6 @@
 
 /obj/machinery/shuttle/engine/heater
 	name = "engine heater"
-	desc = "A thruster that burns plasma stored in an adjacent plasma thruster heater"
+	desc = "Directs energy into compressed particles in order to power an attached thruster."
 	icon_state = "heater"
 	idle_power_usage = 200
