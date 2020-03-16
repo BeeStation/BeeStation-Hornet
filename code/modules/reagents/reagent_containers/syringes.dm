@@ -277,3 +277,9 @@
 	name = "syringe (syriniver)"
 	desc = "Contains syriniver, used to treat toxins and purge chemicals.The tag on the syringe states 'Inject one time per minute'"
 	list_reagents = list(/datum/reagent/medicine/syriniver = 15)
+
+/obj/item/reagent_containers/syringe/perfluorodecalin
+	name = "syringe (perfluorodecalin)"
+	desc = "Contains perfluorodecalin, used to rapidly treat oxygen deprivation."
+	list_reagents = list(/datum/reagent/medicine/perfluorodecalin = 15)
+
