@@ -70,10 +70,9 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/patch/silver_sulf = 3,
-		/obj/item/reagent_containers/pill/oxandrolone = 2,
-		/obj/item/reagent_containers/hypospray/medipen = 1,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/reagent_containers/pill/patch/silver_sulf = 4,
+		/obj/item/reagent_containers/spray/hercuri = 2,
+		/obj/item/reagent_containers/hypospray/medipen/oxandrolone = 1)
 	generate_items_inside(items_inside,src)
 
 /obj/item/storage/firstaid/toxin
@@ -95,8 +94,10 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/charcoal = 6,
-		/obj/item/healthanalyzer = 1)
+	    /obj/item/storage/pill_bottle/charcoal/less = 1,
+		/obj/item/reagent_containers/syringe/syriniver = 3,
+		/obj/item/storage/pill_bottle/potassiodide = 1,
+		/obj/item/reagent_containers/hypospray/medipen/penacid = 1)
 	generate_items_inside(items_inside,src)
 
 /obj/item/storage/firstaid/radbgone
@@ -139,10 +140,11 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/salbutamol = 2,
+		/obj/item/reagent_containers/syringe/perfluorodecalin = 4,
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 1,
+		/obj/item/reagent_containers/hypospray/medipen/salbutamol = 1,
 		/obj/item/reagent_containers/hypospray/medipen = 2,
-		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/storage/pill_bottle/iron = 1)
 	generate_items_inside(items_inside,src)
 
 /obj/item/storage/firstaid/brute
@@ -160,9 +162,10 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/patch/styptic = 4,
-		/obj/item/stack/medical/gauze = 2,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/reagent_containers/pill/patch/styptic = 3,
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/storage/pill_bottle/probital = 1,
+		/obj/item/reagent_containers/hypospray/medipen/salacid = 1)
 	generate_items_inside(items_inside,src)
 
 /obj/item/storage/firstaid/advanced
@@ -263,6 +266,12 @@
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/charcoal(src)
 
+/obj/item/storage/pill_bottle/charcoal/less
+
+/obj/item/storage/pill_bottle/charcoal/less/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/pill/charcoal(src)
+
 /obj/item/storage/pill_bottle/antirad
 	name = "bottle of anti-radiation pills"
 	desc = "Contains pills used to treat the effects of minor radiation."
@@ -286,6 +295,30 @@
 /obj/item/storage/pill_bottle/mutadone/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/mutadone(src)
+
+/obj/item/storage/pill_bottle/potassiodide
+	name = "bottle of potassium iodide pills"
+	desc = "Contains pills used to reduce radiation damage."
+
+/obj/item/storage/pill_bottle/potassiodide/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/pill/potassiodide(src)
+
+/obj/item/storage/pill_bottle/probital
+	name = "bottle of probital pills"
+	desc = "Contains pills used to treat brute damage.The tag in the bottle states 'Eat before ingesting'."
+
+/obj/item/storage/pill_bottle/probital/PopulateContents()
+	for(var/i in 1 to 4)
+		new /obj/item/reagent_containers/pill/probital(src)
+
+/obj/item/storage/pill_bottle/iron
+	name = "bottle of iron pills"
+	desc = "Contains pills used to reduce blood loss slowly.The tag in the bottle states 'Only take one each five minutes'."
+
+/obj/item/storage/pill_bottle/iron/PopulateContents()
+	for(var/i in 1 to 4)
+		new /obj/item/reagent_containers/pill/iron(src)
 
 /obj/item/storage/pill_bottle/mannitol
 	name = "bottle of mannitol pills"

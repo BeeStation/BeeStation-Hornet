@@ -395,6 +395,12 @@
 			item_state = "sprayer_med_blue"
 	M.update_inv_hands()
 
+/obj/item/reagent_containers/spray/hercuri
+	name = "medical spray (hercuri)"
+	desc = "A medical spray bottle.This one contains hercuri, it is used to treat burns and cool down temperature if applied with spray."
+	icon_state = "sprayer_large"
+	list_reagents = list(/datum/reagent/medicine/hercuri = 100)
+
 
 
 
