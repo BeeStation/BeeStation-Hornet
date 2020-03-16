@@ -1497,7 +1497,7 @@
 	if(L.failing || !L)
 		return
 	conversion_amount = trans_volume * (min(100 -C.getLiverLoss(), 80) / 100) //the more damaged the liver the worse we metabolize.
-	C.reagents.remove_reagent(/datum/reagent/medicine/thializid, conversion_amount)
+	C.reagents.remove_reagent(/datum/reagent/medicine/syriniver, conversion_amount)
 	C.reagents.add_reagent(/datum/reagent/medicine/musiver, conversion_amount)
 	..()
 
@@ -1519,7 +1519,7 @@
 
 /datum/reagent/medicine/musiver
 	name = "Musiver"
-	description = "The active metabolite of thializid. Causes muscle weakness on overdose"
+	description = "The active metabolite of syriniver. Causes muscle weakness on overdose"
 	reagent_state = LIQUID
 	color = "#DFD54E"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
