@@ -1,0 +1,9 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - rscadd: "RCD can now deconstruct airlock assemblies and firelock frames"
+  - rscadd: "Some belts and bags can carry more stuff including biobags being able to carry organs, toolbelts can carry RCD/RPD/inducers/plungers"
+  - balance: "Toolbelt and medical belt can now hold more total weight."
+  - tweak: "RCD/RPD/RLD/plumbing constructor can be worn on belt slot"
+  - balance: "RCD and RPD are now instead made in protolathes"
+  - tweak: "most organs are now small-size"
