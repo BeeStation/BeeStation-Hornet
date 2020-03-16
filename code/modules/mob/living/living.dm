@@ -1218,6 +1218,8 @@
 		else
 			remove_movespeed_modifier(MOVESPEED_ID_LIVING_LIMBLESS, update=TRUE)
 
+/mob/living/proc/fall(forced)
+
 /mob/living/proc/AddAbility(obj/effect/proc_holder/A)
 	abilities.Add(A)
 	A.on_gain(src)
