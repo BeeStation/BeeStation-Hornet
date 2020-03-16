@@ -305,3 +305,24 @@
 	results = list(/datum/reagent/medicine/hepanephrodaxon = 5)
 	required_reagents = list(/datum/reagent/medicine/carthatoline = 2, /datum/reagent/carbon = 2, /datum/reagent/lithium = 1)
 	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
+
+/datum/chemical_reaction/hercuri
+	name = "Hercuri"
+	id = /datum/reagent/medicine/hercuri
+	results = list(/datum/reagent/medicine/hercuri/ = 5)
+	required_reagents = list(/datum/reagent/cryostylane = 3, /datum/reagent/bromine = 1, /datum/reagent/lye = 1)
+	required_temp = 47
+	is_cold_recipe = TRUE
+
+/datum/chemical_reaction/probital
+	name = "Probital"
+	id  = /datum/reagent/medicine/probital
+	results = list(/datum/reagent/medicine/probital = 4)
+	required_reagents = list(/datum/reagent/copper = 1, /datum/reagent/acetone = 2,  /datum/reagent/phosphorus = 1)
+
+/datum/chemical_reaction/syriniver
+	name = "Syriniver"
+	id = /datum/reagent/medicine/syriniver
+	results = list(/datum/reagent/medicine/syriniver = 5)
+	required_reagents = list(/datum/reagent/sulfur = 1, /datum/reagent/fluorine = 1, /datum/reagent/toxin = 1, /datum/reagent/nitrous_oxide = 2)
+

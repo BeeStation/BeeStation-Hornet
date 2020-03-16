@@ -633,6 +633,31 @@
 			if("OBJ")
 				R.reaction_obj(A, R.volume * volume_modifier, show_message)
 
+/datum/reagents/proc/react_single(datum/reagent/R, atom/A, method = TOUCH, volume_modifier = 1, show_message = TRUE)
+	var/react_type
+	if(isliving(A))
+		react_type = "LIVING"
+		if(method == INGEST)
+			var/mob/living/L = A
+			L.taste(src)
+	else if(isturf(A))
+		react_type = "TURF"
+	else if(isobj(A))
+		react_type = "OBJ"
+	else
+		return
+	switch(react_type)
+		if("LIVING")
+			var/touch_protection = 0
+			if(method == VAPOR)
+				var/mob/living/L = A
+				touch_protection = L.get_permeability_protection()
+			R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection)
+		if("TURF")
+			R.reaction_turf(A, R.volume * volume_modifier, show_message)
+		if("OBJ")
+			R.reaction_obj(A, R.volume * volume_modifier, show_message)
+
 /datum/reagents/proc/holder_full()
 	if(total_volume >= maximum_volume)
 		return TRUE
