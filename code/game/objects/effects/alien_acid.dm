@@ -66,7 +66,7 @@
 
 //xenomorph corrosive acid
 /obj/effect/acid/alien
-	var/target_strength = 80
+	var/target_strength = 30
 
 
 /obj/effect/acid/alien/process()
