@@ -294,6 +294,11 @@
 	icon_state = "mortar"
 	spawned_disease = /datum/disease/advance/necropolis
 
+/obj/item/reagent_containers/glass/bottle/blobitis
+	name = "Blobitis bottle"
+	desc = "A bottle filled by liquid blob. Might not want to drink this one."
+	spawned_disease = /datum/disease/advance/blobitis
+
 //Oldstation.dmm chemical storage bottles
 
 /obj/item/reagent_containers/glass/bottle/hydrogen

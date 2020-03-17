@@ -44,3 +44,13 @@
 		BS.overmind = overmind
 		BS.update_icons()
 		overmind.blob_mobs.Add(BS)
+
+/obj/structure/blob/factory/lone //A blob factory that functions without a pulses
+
+/obj/structure/blob/factory/lone/Initialize(mapload, owner_overmind)
+	. = ..()
+	addtimer(CALLBACK(src, /obj/structure/blob/factory/lone.proc/Be_Pulsed), 5 SECONDS)
+
+/obj/structure/blob/factory/lone/Be_Pulsed()
+	. = ..()
+	addtimer(CALLBACK(src, /obj/structure/blob/factory/lone.proc/Be_Pulsed), 10 SECONDS)
