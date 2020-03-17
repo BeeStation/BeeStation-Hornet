@@ -4,6 +4,7 @@
 	damage = 45
 	damage_type = STAMINA
 	paralyze = 0
+	Knockdown = 10
 
 /obj/item/projectile/bullet/neurotoxin/on_hit(atom/target, blocked = FALSE)
 	if(isalien(target))
