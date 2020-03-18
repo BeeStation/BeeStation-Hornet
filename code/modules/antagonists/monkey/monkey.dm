@@ -169,7 +169,7 @@
 		return TRUE
 	return FALSE
 
-/datum/team/monkey/proc/infected_gorillas_alive()
+/datum/team/monkey/proc/infected_gorillas_escaped()
 	for(/mob/living/simple_animal/hostile/gorilla/rabid/M in GLOB.alive_mob_list)
 		if(M.onCentCom() || M.onSyndieBase())
 			return TRUE
