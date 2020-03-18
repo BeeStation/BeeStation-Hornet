@@ -139,7 +139,6 @@
 		if(4)
 			if(prob(3))
 				affected_mob.say(pick("Eeek, ook ook!", "Eee-eeek!", "Eeee!", "Ungh, ungh."), forced = "jungle fever")
-		if(5)
 
 /datum/disease/transformation/jungle_fever/cure()
 	remove_monkey(affected_mob.mind)

@@ -513,7 +513,6 @@
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
-	if(junglefever)
 	var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
 	new_gorilla.a_intent = INTENT_HARM
 	if(mind)
@@ -540,7 +539,6 @@
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
-	if(junglefever)
 	var/mob/living/simple_animal/hostile/gorilla/rabid/new_gorilla = new (get_turf(src))
 	new_gorilla.a_intent = INTENT_HARM
 	if(mind)
