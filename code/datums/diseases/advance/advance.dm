@@ -203,7 +203,7 @@
 		else
 			visibility_flags &= ~HIDDEN_SCANNER
 
-		SetSpread(CLAMP(2 ** (properties["transmittable"] - symptoms.len), DISEASE_SPREAD_BLOOD, DISEASE_SPREAD_AIRBORNE))
+		SetSpread(CLAMP(2 ** (properties["transmittable"] - symptoms.len), DISEASE_SPREAD_INJECT, DISEASE_SPREAD_AIRBORNE))
 
 		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
 		cure_chance = 15 - CLAMP(properties["resistance"], -5, 5) // can be between 10 and 20
@@ -223,6 +223,9 @@
 		if(DISEASE_SPREAD_SPECIAL)
 			spread_flags = DISEASE_SPREAD_SPECIAL
 			spread_text = "None"
+		if(DISEASE_SPREAD_INJECT)
+			spread_flags = DISEASE_SPREAD_INJECT
+			spread_text = "Bloodborne"
 		if(DISEASE_SPREAD_BLOOD)
 			spread_flags = DISEASE_SPREAD_BLOOD
 			spread_text = "Blood"
