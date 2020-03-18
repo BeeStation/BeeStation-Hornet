@@ -15,7 +15,7 @@
 	desc = "A tank of oxygen, this one is blue."
 	icon_state = "oxygen"
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
-	force = 10
+	force = 25
 	dog_fashion = /datum/dog_fashion/back
 
 

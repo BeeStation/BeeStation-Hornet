@@ -108,7 +108,7 @@
 	item_state = "butch"
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown by-products."
 	flags_1 = CONDUCT_1
-	force = 15
+	force = 25
 	throwforce = 10
 	materials = list(/datum/material/iron=18000)
 	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -120,7 +120,7 @@
 	icon_state = "buckknife"
 	desc = "A military combat utility survival knife."
 	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 65, "embedded_fall_chance" = 10, "embedded_ignore_throwspeed_threshold" = TRUE)
-	force = 20
+	force = 30
 	throwforce = 20
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
 	bayonet = TRUE

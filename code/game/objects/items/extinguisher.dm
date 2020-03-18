@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 2
 	throw_range = 7
-	force = 10
+	force = 25
 	materials = list(/datum/material/iron = 90)
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
 	dog_fashion = /datum/dog_fashion/back

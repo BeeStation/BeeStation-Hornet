@@ -57,7 +57,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
-	force = 15
+	force = 30
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 50

@@ -126,7 +126,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	item_state = "scalpel"
 	flags_1 = CONDUCT_1
-	force = 10
+	force = 15
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5
 	throw_speed = 3
@@ -148,7 +148,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
 	flags_1 = CONDUCT_1
-	force = 10
+	force = 15
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5
 	throw_speed = 3
@@ -174,7 +174,7 @@
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	throwhitsound =  'sound/weapons/pierce.ogg'
 	flags_1 = CONDUCT_1
-	force = 15
+	force = 20
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9
 	throw_speed = 2
@@ -300,7 +300,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel_a"
 	hitsound = 'sound/weapons/blade1.ogg'
-	force = 16
+	force = 25
 	toolspeed = 0.7
 	light_color = LIGHT_COLOR_GREEN
 	sharpness = IS_SHARP_ACCURATE
