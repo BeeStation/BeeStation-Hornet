@@ -149,6 +149,8 @@
 /datum/disease/transformation/jungle_fever/monkeymode/after_add()
 	if(affected_mob && !is_monkey_leader(affected_mob.mind))
 		visibility_flags = NONE
+	else 
+		new_form = /mob/living/simple_animal/hostile/gorilla/rabid
 
 
 
