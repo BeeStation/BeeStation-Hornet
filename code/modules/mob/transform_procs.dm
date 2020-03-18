@@ -497,7 +497,7 @@
 	. = new_corgi
 	qdel(src)
 
-/mob/living/carbon/proc/gorillize(junglefever = FALSE)
+/mob/living/carbon/proc/gorillize()
 	if(notransform)
 		return
 	notransform = TRUE
@@ -514,9 +514,34 @@
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
 	if(junglefever)
-		var/mob/living/simple_animal/hostile/gorilla/rabid/new_gorilla = new (get_turf(src))
+	var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
+	new_gorilla.a_intent = INTENT_HARM
+	if(mind)
+		mind.transfer_to(new_gorilla)
 	else
-		var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
+		new_gorilla.key = key
+	to_chat(new_gorilla, "<B>You are now a gorilla. Ooga ooga!</B>")
+	. = new_gorilla
+	qdel(src)
+
+/mob/living/carbon/proc/junglegorillize()
+	if(notransform)
+		return
+	notransform = TRUE
+	Paralyze(1, ignore_canstun = TRUE)
+
+	SSblackbox.record_feedback("amount", "gorillas_created", 1)
+
+	var/Itemlist = get_equipped_items(TRUE)
+	Itemlist += held_items
+	for(var/obj/item/W in Itemlist)
+		dropItemToGround(W, TRUE)
+
+	regenerate_icons()
+	icon = null
+	invisibility = INVISIBILITY_MAXIMUM
+	if(junglefever)
+	var/mob/living/simple_animal/hostile/gorilla/rabid/new_gorilla = new (get_turf(src))
 	new_gorilla.a_intent = INTENT_HARM
 	if(mind)
 		mind.transfer_to(new_gorilla)
