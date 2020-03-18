@@ -74,7 +74,7 @@
 			if(diseased)
 				var/flesh_wound = ran_zone(CHEST, 40)
 				if(prob(100-L.getarmor(flesh_wound, "melee")))
-					L.ForceContractDisease(/datum/disease/transformation/jungle_fever)
+					L.ForceContractDisease(new /datum/disease/transformation/jungle_fever())
 		else
 			L.Unconscious(20)
 			visible_message("<span class='danger'>[src] knocks [L] out!</span>")
