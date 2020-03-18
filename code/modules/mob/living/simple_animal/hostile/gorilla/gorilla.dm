@@ -73,8 +73,8 @@
 			L.throw_at(throw_target, rand(1,2), 7, src)
 			if(diseased)
 				var/flesh_wound = ran_zone(CHEST, 40)
-				if(prob(100-H.getarmor(flesh_wound, "melee")))
-				L.ForceContractDisease(/datum/disease/transformation/jungle_fever())
+				if(prob(100-L.getarmor(flesh_wound, "melee")))
+					L.ForceContractDisease(/datum/disease/transformation/jungle_fever())
 		else
 			L.Unconscious(20)
 			visible_message("<span class='danger'>[src] knocks [L] out!</span>")
@@ -128,7 +128,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/gorilla = 4)
 	melee_damage_lower = 15
 	melee_damage_upper = 25
-	damage_coeff = list(BRUTE = .8, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 1)
+	damage_coeff = list(BRUTE = 0.8, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 1)
 	obj_damage = 50
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	diseased = TRUE
