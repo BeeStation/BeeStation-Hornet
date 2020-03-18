@@ -40,10 +40,9 @@ GLOBAL_LIST_EMPTY(scp294_reagents)
 	product = find_reagent(input_reagent)
 
 	if(product)
-		var/obj/item/reagent_containers/glass/beaker/D = new /obj/item/reagent_containers/glass/beaker(loc)
-		D.reagents.add_reagent(product, 30)
-		D.name = trim("[input_reagent] bottle")
-		visible_message("<span class='notice'>[src] dispenses a small beaker of [input_reagent]</span>")
+		var/obj/item/reagent_containers/food/drinks/bottle/blank/small/D = new /obj/item/reagent_containers/food/drinks/bottle/blank/small/(loc)
+		D.reagents.add_reagent(product, 50)
+		visible_message("<span class='notice'>[src] dispenses a full bottle of [input_reagent]</span>")
 	else
 		visible_message("<span class='notice'>[src]'s OUT OF RANGE light flashes rapidly.</span>")
 
