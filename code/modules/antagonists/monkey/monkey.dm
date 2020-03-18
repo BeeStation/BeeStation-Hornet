@@ -165,8 +165,8 @@
 	return FALSE
 
 /datum/team/monkey/proc/infected_gorillas_alive()
-		for(/mob/living/simple_animal/hostile/gorilla/rabid in GLOB.alive_mob_list)
-			return TRUE
+	for(/mob/living/simple_animal/hostile/gorilla/rabid in GLOB.alive_mob_list)
+		return TRUE
 	return FALSE
 
 /datum/team/monkey/proc/infected_gorillas_alive()

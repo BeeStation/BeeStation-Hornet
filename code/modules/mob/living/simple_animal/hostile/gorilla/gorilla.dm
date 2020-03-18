@@ -76,7 +76,7 @@
 				if(prob(100-H.getarmor(flesh_wound, "melee")))
 				L.ForceContractDisease(/datum/disease/transformation/jungle_fever())
 		else
-			L.Unconscious(30)
+			L.Unconscious(20)
 			visible_message("<span class='danger'>[src] knocks [L] out!</span>")
 
 /mob/living/simple_animal/hostile/gorilla/CanAttack(atom/the_target)
@@ -116,5 +116,19 @@
 /mob/living/simple_animal/hostile/gorilla/rabid
 	name = "Rabid Gorilla"
 	desc = "A mangy looking gorilla."
+	icon_state = "crawling"
+	icon_state = "crawling"
+	icon_living = "crawling"
+	icon_dead = "dead"
+	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	speak_chance = 80
+	maxHealth = 220
+	health = 220
+	loot = list(/obj/effect/gibspawner/generic/animal)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/gorilla = 4)
+	melee_damage_lower = 15
+	melee_damage_upper = 25
+	damage_coeff = list(BRUTE = .8, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 1)
+	obj_damage = 50
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	diseased = TRUE
