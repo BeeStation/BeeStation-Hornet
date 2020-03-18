@@ -497,7 +497,7 @@
 	. = new_corgi
 	qdel(src)
 
-/mob/living/carbon/proc/gorillize()
+/mob/living/carbon/proc/gorillize(junglefever = FALSE)
 	if(notransform)
 		return
 	notransform = TRUE
@@ -513,7 +513,10 @@
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
-	var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
+	if(junglefever)
+		var/mob/living/simple_animal/hostile/gorilla/rabid/new_gorilla = new (get_turf(src))
+	else
+		var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
 	new_gorilla.a_intent = INTENT_HARM
 	if(mind)
 		mind.transfer_to(new_gorilla)
