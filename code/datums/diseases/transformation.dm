@@ -105,7 +105,7 @@
 	stage_prob = 4
 	visibility_flags = 0
 	agent = "Kongey Vibrion M-909"
-	new_form = null
+	new_form = /mob/living/simple_animal/hostile/gorilla/rabid
 	bantype = ROLE_MONKEY
 
 
@@ -119,9 +119,10 @@
 /datum/disease/transformation/jungle_fever/do_disease_transformation(mob/living/carbon/affected_mob)
 	if(affected_mob.mind && !is_monkey(affected_mob.mind))
 		add_monkey(affected_mob.mind)
-	if(ishuman(affected_mob) && !is_monkey_leader(affected_mob.mind)))
-		var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
-		M.ventcrawler = VENTCRAWLER_ALWAYS
+	if(ishuman(affected_mob))
+		if(affected_mob && !is_monkey_leader(affected_mob.mind))
+			var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
+			M.ventcrawler = VENTCRAWLER_ALWAYS
 
 
 /datum/disease/transformation/jungle_fever/stage_act()
@@ -149,8 +150,6 @@
 /datum/disease/transformation/jungle_fever/monkeymode/after_add()
 	if(affected_mob && !is_monkey_leader(affected_mob.mind))
 		visibility_flags = NONE
-	else 
-		new_form = /mob/living/simple_animal/hostile/gorilla/rabid
 
 
 
