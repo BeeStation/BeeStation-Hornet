@@ -123,6 +123,27 @@
 		if(affected_mob && !is_monkey_leader(affected_mob.mind))
 			var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
 			M.ventcrawler = VENTCRAWLER_ALWAYS
+		else if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
+			if(stage5)
+				to_chat(affected_mob, pick(stage5))
+			if(QDELETED(affected_mob))
+				return
+			if(affected_mob.notransform)
+				return
+			affected_mob.notransform = 1
+			for(var/obj/item/W in affected_mob.get_equipped_items(TRUE))
+				affected_mob.dropItemToGround(W)
+			for(var/obj/item/I in affected_mob.held_items)
+				affected_mob.dropItemToGround(I)
+			var/mob/living/new_mob = new new_form(affected_mob.loc)
+			if(istype(new_mob))
+				if(bantype && is_banned_from(affected_mob.ckey, bantype))
+					replace_banned_player(new_mob)
+				new_mob.a_intent = INTENT_HARM
+				if(affected_mob.mind)
+					affected_mob.mind.transfer_to(new_mob)
+				else
+					new_mob.key = affected_mob.key
 
 
 /datum/disease/transformation/jungle_fever/stage_act()
