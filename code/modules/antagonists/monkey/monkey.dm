@@ -164,6 +164,17 @@
 			return TRUE
 	return FALSE
 
+/datum/team/monkey/proc/infected_gorillas_alive()
+	for(var/mob/living/simple_animal/hostile/gorilla/rabid/M in GLOB.alive_mob_list)
+		return TRUE
+	return FALSE
+
+/datum/team/monkey/proc/infected_gorillas_escaped()
+	for(var/mob/living/simple_animal/hostile/gorilla/rabid/M in GLOB.alive_mob_list)
+		if(M.onCentCom() || M.onSyndieBase())
+			return TRUE
+	return FALSE
+
 /datum/team/monkey/proc/infected_humans_escaped()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/human/M in GLOB.alive_mob_list)
