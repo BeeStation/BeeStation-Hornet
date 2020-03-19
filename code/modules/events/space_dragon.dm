@@ -2,8 +2,8 @@
 	name = "Spawn Space Dragon"
 	typepath = /datum/round_event/ghost_role/space_dragon
 	max_occurrences = 1
-	weight = 8
-	earliest_start = 50 MINUTES
+	weight = 5
+	earliest_start = 35 MINUTES
 	min_players = 20
 	dynamic_should_hijack = TRUE
 	cannot_spawn_after_shuttlecall = TRUE
@@ -14,10 +14,10 @@
 	announceWhen = 10
 
 /datum/round_event/ghost_role/space_dragon/announce(fake)
-	priority_announce("It appears a lifeform with magical traces is approaching [station_name()], please stand-by.", "Lifesign Alert", SSstation.announcer.get_rand_alert_sound())
+	priority_announce("A large organic energy flux has been recorded near of [station_name()], please stand-by.", "Lifesign Alert")
 
 /datum/round_event/ghost_role/space_dragon/spawn_role()
-	var/list/candidates = get_candidates(ROLE_ALIEN, null, ROLE_ALIEN)
+	var/list/candidates = get_candidates(ROLE_SPACE_DRAGON, null, ROLE_SPACE_DRAGON)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -33,7 +33,7 @@
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 
-	var/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/S = new ((pick(spawn_locs)))
+	var/mob/living/simple_animal/hostile/space_dragon/S = new (pick(spawn_locs))
 	player_mind.transfer_to(S)
 	player_mind.assigned_role = "Space Dragon"
 	player_mind.special_role = "Space Dragon"
@@ -43,4 +43,3 @@
 	log_game("[key_name(S)] was spawned as a Space Dragon by an event.")
 	spawned_mobs += S
 	return SUCCESSFUL_SPAWN
-

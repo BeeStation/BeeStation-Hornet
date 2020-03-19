@@ -466,6 +466,51 @@
 
 //////////////////////////////////////////////
 //                                          //
+//           SPACE DRAGON (GHOST)           //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/from_ghosts/space_dragon
+	name = "Space Dragon"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+	antag_datum = /datum/antagonist/space_dragon
+	antag_flag = ROLE_SPACE_DRAGON
+	antag_flag_override = ROLE_SPACE_DRAGON
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
+	required_candidates = 1
+	weight = 4
+	cost = 7
+	minimum_players = 25
+	repeatable = TRUE
+	var/list/spawn_locs = list()
+
+/datum/dynamic_ruleset/midround/from_ghosts/space_dragon/execute()
+	for(var/obj/effect/landmark/carpspawn/C in GLOB.landmarks_list)
+		spawn_locs += (C.loc)
+	if(!spawn_locs.len)
+		message_admins("No valid spawn locations found, aborting...")
+		return MAP_ERROR
+	. = ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/space_dragon/generate_ruleset_body(mob/applicant)
+	var/datum/mind/player_mind = new /datum/mind(applicant.key)
+	player_mind.active = TRUE
+
+	var/mob/living/simple_animal/hostile/space_dragon/S = new (pick(spawn_locs))
+	player_mind.transfer_to(S)
+	player_mind.assigned_role = "Space Dragon"
+	player_mind.special_role = "Space Dragon"
+	player_mind.add_antag_datum(/datum/antagonist/space_dragon)
+
+	playsound(S, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Space Dragon by the midround ruleset.")
+	log_game("DYNAMIC: [key_name(S)] was spawned as a Space Dragon by the midround ruleset.")
+	priority_announce("It appears a lifeform with magical traces is approaching [station_name()], please stand-by.", "Lifesign Alert")
+	return S
+
+//////////////////////////////////////////////
+//                                          //
 //           ABDUCTORS    (GHOST)           //
 //                                          //
 //////////////////////////////////////////////
