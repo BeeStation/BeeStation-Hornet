@@ -179,14 +179,14 @@
 	var/scarcounter = 0
 
 	threshold_desc = "<b>Stage Speed 8:</b> Doubles healing speed.<br>\
-					  <b>Resistance 8:</b> Improves healing threshhold."
+					  <b>Resistance 10:</b> Improves healing threshhold."
 
 /datum/symptom/heal/surface/Start(datum/disease/advance/A)
 	if(!..())
 		return
 	if(A.properties["stage_rate"] >= 8) //stronger healing
 		power = 2
-	if(A.properties["resistance"] >= 8)
+	if(A.properties["resistance"] >= 10)
 		threshhold = 30
 
 /datum/symptom/heal/surface/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
