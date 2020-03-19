@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/scp_173
 	name = "SCP-173"
 	desc = "A statue, constructed from concrete and rebar with traces of Krylon brand spray paint"
-	icon = 'hippiestation/icons/mob/scpicon/scpmobs/scp-173.dmi'
+	icon = 'icons/mob/scpicon/scpmobs/scp-173.dmi'
 	ventcrawler = VENTCRAWLER_NUDE
 	icon_state = "173"
 
@@ -24,7 +24,7 @@
 
 
 	attacktext = "crushes"
-	attack_sound = 'hippiestation/sound/scpsounds/scp/spook/NeckSnap1.ogg'
+	attack_sound = 'sound/scpsounds/scp/spook/NeckSnap1.ogg'
 
 	spacewalk = TRUE
 
@@ -158,15 +158,15 @@
 				to_chat(src, "<span class='warning'><I>You can't hit yourself!</I></span>")
 			if(ishuman(H))
 				visible_message("<span class='danger'>[src] snaps [H]'s neck!</span>")
-				playsound(loc, pick('hippiestation/sound/scpsounds/scp/spook/NeckSnap1.ogg', 'hippiestation/sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
+				playsound(loc, pick('sound/scpsounds/scp/spook/NeckSnap1.ogg', 'sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
 				H.death()
 			if(!ishuman(H))
 				visible_message("<span class='danger'>[src] crushes [H] with raw force!</span>")
-				playsound(loc, pick('hippiestation/sound/scpsounds/scp/spook/NeckSnap1.ogg', 'hippiestation/sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
+				playsound(loc, pick('sound/scpsounds/scp/spook/NeckSnap1.ogg', 'sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
 				H.death()
 			if(!isliving(target))
 				visible_message("<span class='danger'>[src] crushes [H] with raw force!</span>")
-				playsound(loc, pick('hippiestation/sound/scpsounds/scp/spook/NeckSnap1.ogg', 'hippiestation/sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
+				playsound(loc, pick('sound/scpsounds/scp/spook/NeckSnap1.ogg', 'sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
 				H.death()
 			else
 				return FALSE // this is just for error catching
@@ -195,15 +195,15 @@
 				return
 			if(ishuman(A))
 				visible_message("<span class='danger'>[src] snaps [H]'s neck!</span>")
-				playsound(loc, pick('hippiestation/sound/scpsounds/scp/spook/NeckSnap1.ogg', 'hippiestation/sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
+				playsound(loc, pick('sound/scpsounds/scp/spook/NeckSnap1.ogg', 'sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
 				H.death()
 			if(!ishuman(A))
 				visible_message("<span class='danger'>[src] crushes [H] with raw force!</span>")
-				playsound(loc, pick('hippiestation/sound/scpsounds/scp/spook/NeckSnap1.ogg', 'hippiestation/sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
+				playsound(loc, pick('sound/scpsounds/scp/spook/NeckSnap1.ogg', 'sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
 				H.death()
 			if(!ismob(A))
 				visible_message("<span class='danger'>[src] crushes [H] with raw force!</span>")
-				playsound(loc, pick('hippiestation/sound/scpsounds/scp/spook/NeckSnap1.ogg', 'hippiestation/sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
+				playsound(loc, pick('sound/scpsounds/scp/spook/NeckSnap1.ogg', 'sound/scpsounds/scp/spook/NeckSnap3.ogg'), 50, 1)
 				H.death()
 			else
 				return // this is just for error catching
