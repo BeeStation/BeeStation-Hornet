@@ -66277,7 +66277,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Gear Room";
-	req_access_txt = "63"
+	req_access_txt = "1;4"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
