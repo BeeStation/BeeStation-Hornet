@@ -105,7 +105,7 @@
 	stage_prob = 4
 	visibility_flags = 0
 	agent = "Kongey Vibrion M-909"
-	new_form = /mob/living/simple_animal/hostile/gorilla/rabid
+	new_form = null
 	bantype = ROLE_MONKEY
 
 
