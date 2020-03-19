@@ -78,13 +78,13 @@
 			if(M.client && !M.has_unlimited_silicon_privilege)
 				if(!M.eye_blind)
 					if(next_blinks[M] == null)
-						next_blinks[M] = world.time+rand(20 SECONDS, 60 SECONDS)
+						next_blinks[M] = world.time+rand(15 SECONDS, 60 SECONDS)
 					return M
 		for(var/obj/mecha/M in view(world.view + 1, check)) //assuming if you can see them they can see you
 			if(M.occupant && M.occupant.client)
 				if(!M.occupant.eye_blind)
 					if(next_blinks[M.occupant] == null)
-						next_blinks[M.occupant] = world.time+rand(20 SECONDS, 60 SECONDS)
+						next_blinks[M.occupant] = world.time+rand(15 SECONDS, 60 SECONDS)
 					return M.occupant
 	return null
 
