@@ -62,6 +62,8 @@
 	blood_type = "L"
 
 /obj/item/reagent_containers/blood/ethereal
+	labelled = 1
+	name = "blood pack - LE"
 	blood_type = "LE"
 	unique_blood = /datum/reagent/consumable/liquidelectricity
 
