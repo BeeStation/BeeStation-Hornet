@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(scp294_reagents)
 	. = ..()
 
 	if(!GLOB.scp294_reagents.len)
-		//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
+		//Chemical Reagents - Initialises all /6 into a list indexed by reagent id
 		var/paths = subtypesof(/datum/reagent)
 		for(var/path in paths)
 			var/datum/reagent/D = new path
@@ -42,6 +42,7 @@ GLOBAL_LIST_EMPTY(scp294_reagents)
 	if(product)
 		var/obj/item/reagent_containers/food/drinks/bottle/blank/small/D = new /obj/item/reagent_containers/food/drinks/bottle/blank/small/(loc)
 		D.reagents.add_reagent(product, 50)
+	//	D.name = trim("[input_reagent] bottle")
 		visible_message("<span class='notice'>[src] dispenses a full bottle of [input_reagent]</span>")
 	else
 		visible_message("<span class='notice'>[src]'s OUT OF RANGE light flashes rapidly.</span>")

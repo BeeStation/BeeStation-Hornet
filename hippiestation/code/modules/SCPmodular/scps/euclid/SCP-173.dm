@@ -71,6 +71,29 @@
 
 
 
+
+	// This loop will, at most, loop twice.
+	for(var/atom/check in check_list)
+		for(var/mob/living/M in viewers(world.view + 1, check) - src)
+			if(M.client && !M.has_unlimited_silicon_privilege)
+				if(!M.eye_blind)
+					if(next_blinks[M] == null)
+						next_blinks[M] = world.time+rand(20 SECONDS, 60 SECONDS)
+					return M
+		for(var/obj/mecha/M in view(world.view + 1, check)) //assuming if you can see them they can see you
+			if(M.occupant && M.occupant.client)
+				if(!M.occupant.eye_blind)
+					if(next_blinks[M.occupant] == null)
+						next_blinks[M.occupant] = world.time+rand(20 SECONDS, 60 SECONDS)
+					return M.occupant
+	return null
+
+
+
+
+
+
+/*    VIEWLOOP
 	// This loop will, at most, loop twice.
 	for(var/atom/check in check_list)
 		for(var/mob/living/M in viewers(world.view + 1, check) - src)
@@ -82,7 +105,7 @@
 				if(!M.occupant.eye_blind)
 					return M.occupant
 	return null
-
+*/
 
 
 /mob/living/simple_animal/hostile/scp_173/Move(turf/NewLoc)
@@ -95,7 +118,8 @@
 /mob/living/simple_animal/hostile/scp_173/movement_delay()
 	return -5
 
-/*
+
+
 /mob/living/simple_animal/hostile/scp_173/Life()
 	. = ..()
 	if (isobj(loc))
@@ -111,10 +135,11 @@
 				next_blinks[A] = null
 				continue
 			H.visible_message("<span class='notice'>[H] blinks.</span>")
-			H.blind_eyes(1.5)
+			H.blind_eyes(2)
 			next_blinks[H] = 10+world.time+rand(15 SECONDS, 60 SECONDS)
 
-*/
+
+
 
 
 /mob/living/simple_animal/hostile/scp_173/sentience_act()
