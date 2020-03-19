@@ -515,3 +515,5 @@
 	config_entry_value = 500
 
 /datum/config_entry/flag/topic_enabled
+
+/datum/config_entry/flag/auto_profile
