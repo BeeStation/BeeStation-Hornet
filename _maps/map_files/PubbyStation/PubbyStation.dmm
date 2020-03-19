@@ -30067,9 +30067,10 @@
 "bsH" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
+/obj/machinery/door/airlock/medical/glass{
 	id_tag = "medbaybolts";
-	name = "Medbay"
+	name = "Medbay";
+	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -30080,9 +30081,10 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
+/obj/machinery/door/airlock/medical/glass{
 	id_tag = "medbaybolts";
-	name = "Medbay"
+	name = "Medbay";
+	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
