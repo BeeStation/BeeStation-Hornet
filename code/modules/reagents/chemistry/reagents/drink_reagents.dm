@@ -140,6 +140,7 @@
 	glass_name = "nothing"
 	glass_desc = "Absolutely nothing."
 	shot_glass_icon_state = "shotglass"
+	random_unrestricted = TRUE
 
 /datum/reagent/consumable/nothing/on_mob_life(mob/living/carbon/M)
 	if(ishuman(M) && M.job == "Mime")
@@ -154,6 +155,7 @@
 	metabolization_rate = INFINITY
 	color = "#FF4DD2"
 	taste_description = "laughter"
+	random_unrestricted = TRUE
 
 /datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/M)
 	M.emote("laugh")
@@ -788,6 +790,7 @@
 	glass_icon_state = "red_queen"
 	glass_name = "Red Queen"
 	glass_desc = "DRINK ME."
+	random_unrestricted = TRUE
 	var/current_size = 1
 
 /datum/reagent/consumable/red_queen/on_mob_life(mob/living/carbon/H)

@@ -66,6 +66,21 @@
 	},
 /turf/closed/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"am" = (
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/item/stack/marker_beacon/ten,
+/obj/item/seeds/tobacco/lavaland,
+/turf/open/indestructible/boss,
+/area/ruin/unpowered/ash_walkers)
 "aq" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -441,20 +456,6 @@
 	dir = 4
 	},
 /obj/item/storage/bag/plants/portaseeder,
-/turf/open/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
-"bk" = (
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/item/stack/marker_beacon/ten,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bl" = (
@@ -1489,7 +1490,7 @@ as
 aB
 aN
 aY
-bk
+am
 bw
 ak
 cb

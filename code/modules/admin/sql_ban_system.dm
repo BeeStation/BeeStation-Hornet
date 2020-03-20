@@ -65,13 +65,13 @@
 		server_check = "(server_name = '[ssqlname]' OR global_ban = '1')"
 	else
 		server_check = "server_name = '[ssqlname]'"
-	var/datum/DBQuery/query_check_ban = SSdbcore.NewQuery("SELECT id, bantime, round_id, expiration_time, TIMESTAMPDIFF(MINUTE, bantime, expiration_time), applies_to_admins, reason, IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE [format_table_name("player")].ckey = [format_table_name("ban")].ckey), ckey), INET_NTOA(ip), computerid, IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE [format_table_name("player")].ckey = [format_table_name("ban")].a_ckey), a_ckey) FROM [format_table_name("ban")] WHERE role = '[role]' AND [server_check] AND [where] AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) ORDER BY bantime DESC")
+	var/datum/DBQuery/query_check_ban = SSdbcore.NewQuery("SELECT id, bantime, round_id, expiration_time, TIMESTAMPDIFF(MINUTE, bantime, expiration_time), applies_to_admins, reason, server_name, global_ban, IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE [format_table_name("player")].ckey = [format_table_name("ban")].ckey), ckey), INET_NTOA(ip), computerid, IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE [format_table_name("player")].ckey = [format_table_name("ban")].a_ckey), a_ckey) FROM [format_table_name("ban")] WHERE role = '[role]' AND [server_check] AND [where] AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) ORDER BY bantime DESC")
 	if(!query_check_ban.warn_execute())
 		qdel(query_check_ban)
 		return
 	. = list()
 	while(query_check_ban.NextRow())
-		. += list(list("id" = query_check_ban.item[1], "bantime" = query_check_ban.item[2], "round_id" = query_check_ban.item[3], "expiration_time" = query_check_ban.item[4], "duration" = query_check_ban.item[5], "applies_to_admins" = query_check_ban.item[6], "reason" = query_check_ban.item[7], "key" = query_check_ban.item[8], "ip" = query_check_ban.item[9], "computerid" = query_check_ban.item[10], "admin_key" = query_check_ban.item[11]))
+		. += list(list("id" = query_check_ban.item[1], "bantime" = query_check_ban.item[2], "round_id" = query_check_ban.item[3], "expiration_time" = query_check_ban.item[4], "duration" = query_check_ban.item[5], "applies_to_admins" = query_check_ban.item[6], "reason" = query_check_ban.item[7], "server_name" = query_check_ban.item[8], "global_ban" = query_check_ban.item[9], "key" = query_check_ban.item[10], "ip" = query_check_ban.item[11], "computerid" = query_check_ban.item[12], "admin_key" = query_check_ban.item[13]))
 	qdel(query_check_ban)
 
 /proc/build_ban_cache(client/C)
@@ -533,7 +533,7 @@
 	if(!SSdbcore.MassInsert(format_table_name("ban"), sql_ban, warn = 1))
 		return
 	var/target = ban_target_string(player_key, player_ip, player_cid)
-	var/msg = "has created a [isnull(duration) ? "permanent" : "temporary [time_message]"] [applies_to_admins ? "admin " : ""][roles_to_ban[1] == "Server" ? "server ban" : "role ban from [roles_to_ban.len] roles"] for [target]."
+	var/msg = "has created a [global_ban ? "global" : "local"] [isnull(duration) ? "permanent" : "temporary [time_message]"] [applies_to_admins ? "admin " : ""][roles_to_ban[1] == "Server" ? "server ban" : "role ban from [roles_to_ban.len] roles"] for [target]."
 	log_admin_private("[kn] [msg][roles_to_ban[1] == "Server" ? "" : " Roles: [roles_to_ban.Join(", ")]"] Reason: [reason]")
 	message_admins("[kna] [msg][roles_to_ban[1] == "Server" ? "" : " Roles: [roles_to_ban.Join("\n")]"]\nReason: [reason]")
 	if(applies_to_admins)
@@ -547,7 +547,7 @@
 	var/is_admin = FALSE
 	if(C)
 		build_ban_cache(C)
-		to_chat(C, "<span class='boldannounce'>You have been [applies_to_admins ? "admin " : ""]banned by [usr.client.key] from [roles_to_ban[1] == "Server" ? "the server" : " Roles: [roles_to_ban.Join(", ")]"].\nReason: [reason]</span><br><span class='danger'>This ban is [isnull(duration) ? "permanent." : "temporary, it will be removed in [time_message]."] The round ID is [GLOB.round_id].</span><br><span class='danger'>To appeal this ban go to [appeal_url]</span>")
+		to_chat(C, "<span class='boldannounce'>You have been [applies_to_admins ? "admin " : ""]banned by [usr.client.key] from [roles_to_ban[1] == "Server" ? "the server" : " Roles: [roles_to_ban.Join(", ")]"].\nReason: [reason]</span><br><span class='danger'>This ban is [isnull(duration) ? "permanent." : "temporary, it will be removed in [time_message]."] [global_ban ? "This ban applies to all of our servers." : "This is a single-server ban, and only applies to this server."] The round ID is [GLOB.round_id].</span><br><span class='danger'>To appeal this ban go to [appeal_url]</span>")
 		if(GLOB.admin_datums[C.ckey] || GLOB.deadmins[C.ckey])
 			is_admin = TRUE
 		if(roles_to_ban[1] == "Server" && (!is_admin || (is_admin && applies_to_admins)))
@@ -557,13 +557,13 @@
 	for(var/client/i in GLOB.clients - C)
 		if(i.address == player_ip || i.computer_id == player_cid)
 			build_ban_cache(i)
-			to_chat(i, "<span class='boldannounce'>You have been [applies_to_admins ? "admin " : ""]banned by [usr.client.key] from [roles_to_ban[1] == "Server" ? "the server" : " Roles: [roles_to_ban.Join(", ")]"].\nReason: [reason]</span><br><span class='danger'>This ban is [isnull(duration) ? "permanent." : "temporary, it will be removed in [time_message]."] The round ID is [GLOB.round_id].</span><br><span class='danger'>To appeal this ban go to [appeal_url]</span>")
+			to_chat(i, "<span class='boldannounce'>You have been [applies_to_admins ? "admin " : ""]banned by [usr.client.key] from [roles_to_ban[1] == "Server" ? "the server" : " Roles: [roles_to_ban.Join(", ")]"].\nReason: [reason]</span><br><span class='danger'>This ban is [isnull(duration) ? "permanent." : "temporary, it will be removed in [time_message]."] [global_ban ? "This ban applies to all of our servers." : "This is a single-server ban, and only applies to this server."] The round ID is [GLOB.round_id].</span><br><span class='danger'>To appeal this ban go to [appeal_url]</span>")
 			if(GLOB.admin_datums[i.ckey] || GLOB.deadmins[i.ckey])
 				is_admin = TRUE
 			if(roles_to_ban[1] == "Server" && (!is_admin || (is_admin && applies_to_admins)))
 				qdel(i)
 
-/datum/admins/proc/unban_panel(player_key, admin_key, player_ip, player_cid, global_ban, page = 0)
+/datum/admins/proc/unban_panel(player_key, admin_key, player_ip, player_cid, page = 0)
 	if(!check_rights(R_BAN))
 		return
 	if(!SSdbcore.Connect())
@@ -583,7 +583,7 @@
 	</div>
 	<div class='main'>
 	"}
-	if(player_key || admin_key || player_ip || player_cid || global_ban)
+	if(player_key || admin_key || player_ip || player_cid)
 		var/list/searchlist = list()
 		if(player_key)
 			searchlist += "ckey = '[sanitizeSQL(ckey(player_key))]'"
@@ -609,7 +609,7 @@
 			var/pagecount = 1
 			var/list/pagelist = list()
 			while(bancount > 0)
-				pagelist += "<a href='?_src_=holder;[HrefToken()];unbanpagecount=[pagecount - 1];unbankey=[player_key];unbanadminkey=[admin_key];unbanip=[player_ip];unbancid=[player_cid]'>[pagecount == page ? "<b>\[[pagecount]\]</b>" : "\[[pagecount]\]"]</a>"
+				pagelist += "<a href='?_src_=holder;[HrefToken()];unbanpagecount=[pagecount - 1];unbankey=[player_key];unbanadminkey=[admin_key];unbanip=[player_ip];unbancid=[player_cid]'>[pagecount == (page + 1) ? "<b>\[[pagecount]\]</b>" : "\[[pagecount]\]"]</a>"
 				bancount -= bansperpage
 				pagecount++
 			output += pagelist.Join(" | ")
