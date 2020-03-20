@@ -2256,7 +2256,7 @@
 	name = "Isolation Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = -26;
-	pixel_y = 0;
+	pixel_y = 1;
 	req_access_txt = "39";
 	specialfunctions = 4
 	},
@@ -2858,7 +2858,7 @@
 	name = "Isolation Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = 25;
-	pixel_y = 0;
+	pixel_y = 1;
 	req_access_txt = "39";
 	specialfunctions = 4
 	},

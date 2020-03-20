@@ -6187,7 +6187,7 @@
 	id = "Viro1";
 	name = "Isolation Bolt Control";
 	normaldoorcontrol = 1;
-	pixel_x = 0;
+	pixel_x = 1;
 	pixel_y = -25;
 	req_access_txt = "39";
 	specialfunctions = 4
@@ -12879,7 +12879,7 @@
 	id = "Viro2";
 	name = "Isolation Bolt Control";
 	normaldoorcontrol = 1;
-	pixel_x = 0;
+	pixel_x = 1;
 	pixel_y = 25;
 	req_access_txt = "39";
 	specialfunctions = 4
@@ -14562,7 +14562,7 @@
 	dir = 8
 	},
 /obj/structure/sign/warning/deathsposal{
-	pixel_x = 0;
+	pixel_x = 1;
 	pixel_y = -32
 	},
 /turf/open/floor/plasteel/dark,

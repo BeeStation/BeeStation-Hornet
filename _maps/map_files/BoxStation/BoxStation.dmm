@@ -664,7 +664,7 @@
 /obj/machinery/disposal/bin,
 /obj/structure/sign/warning/deathsposal{
 	pixel_x = 32;
-	pixel_y = 0
+	pixel_y = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
