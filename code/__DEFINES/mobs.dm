@@ -273,6 +273,7 @@
 #define SHOES_SLOWDOWN		0	//! How much shoes slow you down by default. Negative values speed you up
 #define POCKET_STRIP_DELAY			40	//! time taken (in deciseconds) to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
+#define HANDCUFF_USE_DELAY  30  //time, in deciseconds, to interact whilst handcuffed
 
 #define	HUNGER_FACTOR		0.1	//! factor at which mob nutrition decreases
 #define	ETHEREAL_CHARGE_FACTOR	0.12 //! factor at which ethereal's charge decreases

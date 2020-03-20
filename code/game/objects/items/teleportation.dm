@@ -41,7 +41,7 @@
 
 /obj/item/locator/Topic(href, href_list)
 	..()
-	if (usr.stat || (usr.restrained() && !do_mob(usr, src, 30)))
+	if (usr.stat || (usr.restrained() && !do_mob(usr, src, HANDCUFF_USE_DELAY)))
 		return
 	var/turf/current_location = get_turf(usr)//What turf is the user on?
 	if(!current_location || is_centcom_level(current_location.z))//If turf was not found or they're on CentCom

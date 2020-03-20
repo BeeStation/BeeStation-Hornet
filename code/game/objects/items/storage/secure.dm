@@ -80,7 +80,7 @@
 
 /obj/item/storage/secure/Topic(href, href_list)
 	..()
-	if ((usr.stat || (usr.restrained() && !do_mob(usr, src, 30))) || (get_dist(src, usr) > 1))
+	if ((usr.stat || (usr.restrained() && !do_mob(usr, src, HANDCUFF_USE_DELAY))) || (get_dist(src, usr) > 1))
 		return
 	if (href_list["type"])
 		if (href_list["type"] == "E")

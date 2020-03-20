@@ -68,7 +68,7 @@
 
 /obj/item/book/mimery/Topic(href, href_list)
 	..()
-	if (usr.stat || (usr.restrained() && !do_mob(usr, src, 30)) || src.loc != usr)
+	if (usr.stat || (usr.restrained() && !do_mob(usr, src, HANDCUFF_USE_DELAY)) || src.loc != usr)
 		return
 	if (!ishuman(usr))
 		return

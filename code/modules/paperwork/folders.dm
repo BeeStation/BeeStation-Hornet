@@ -61,7 +61,7 @@
 
 /obj/item/folder/Topic(href, href_list)
 	..()
-	if(usr.stat || (usr.restrained() && !do_mob(usr, src, 30)))
+	if(usr.stat || (usr.restrained() && !do_mob(usr, src, HANDCUFF_USE_DELAY)))
 		return
 
 	if(usr.contents.Find(src))

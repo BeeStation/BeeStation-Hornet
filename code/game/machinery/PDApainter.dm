@@ -226,7 +226,7 @@
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
 /obj/machinery/pdapainter/AltClick(mob/user)
-	if(usr.stat || (usr.restrained() && !do_mob(usr, src, 30)))
+	if(usr.stat || (usr.restrained() && !do_mob(usr, src, HANDCUFF_USE_DELAY)))
 		return
 	if(storedpda || storedid)
 		ejectid()

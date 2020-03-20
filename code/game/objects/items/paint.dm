@@ -57,7 +57,7 @@
 
 /obj/item/paint/anycolor/attack_self(mob/user)
 	var/t1 = input(user, "Please select a color:", "[src]", null) in list( "red", "blue", "green", "yellow", "violet", "black", "white")
-	if ((user.get_active_held_item() != src || user.stat || (user.restrained() && !do_mob(user, src, 30))))
+	if ((user.get_active_held_item() != src || user.stat || (user.restrained() && !do_mob(user, src, HANDCUFF_USE_DELAY))))
 		return
 	switch(t1)
 		if("red")

@@ -400,7 +400,7 @@
 		death()
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE, ignore_stasis = FALSE)
-	if(stat || IsUnconscious() || IsStun() || IsParalyzed() || (check_immobilized && IsImmobilized()) || (!ignore_restraints && restrained(ignore_grab)) || (!ignore_stasis && IsInStasis()))
+	if(stat || IsUnconscious() || IsStun() || IsParalyzed() || (check_immobilized && IsImmobilized()) || (!ignore_stasis && IsInStasis()))
 		return TRUE
 
 /mob/living/canUseStorage()
@@ -1169,14 +1169,14 @@
 		mobility_flags |= MOBILITY_STAND
 		lying = 0
 
-	if(should_be_lying || restrained || incapacitated())
+	if(should_be_lying || incapacitated())
 		mobility_flags &= ~(MOBILITY_UI|MOBILITY_PULL)
 	else
 		mobility_flags |= MOBILITY_UI|MOBILITY_PULL
 
 
 
-	var/canitem = !paralyzed && !stun && conscious && !chokehold && (!restrained || do_mob(src, src, 30)) && has_arms
+	var/canitem = !paralyzed && !stun && conscious && !chokehold && has_arms
 	if(canitem)
 		mobility_flags |= (MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
 	else

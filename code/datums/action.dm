@@ -97,7 +97,7 @@
 	if(!owner)
 		return FALSE
 	if(check_flags & AB_CHECK_RESTRAINED)
-		if(owner.restrained() && !do_mob(owner, src, 30))
+		if(owner.restrained() && !do_mob(owner, src, HANDCUFF_USE_DELAY))
 			return FALSE
 	if(check_flags & AB_CHECK_STUN)
 		if(isliving(owner))

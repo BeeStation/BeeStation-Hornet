@@ -131,7 +131,7 @@
 	set category = "Object"
 	set name = "Eject Contents"
 	set src in oview(1)
-	if(usr.stat || (usr.restrained() && !do_mob(usr, src, 30)))
+	if(usr.stat || (usr.restrained() && !do_mob(usr, src, HANDCUFF_USE_DELAY)))
 		return
 	if(isliving(usr))
 		var/mob/living/L = usr

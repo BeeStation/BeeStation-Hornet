@@ -12,7 +12,7 @@
 
 /datum/component/waddling/proc/LivingWaddle()
 	var/mob/living/L = parent
-	if(L.incapacitated() || !(L.mobility_flags & MOBILITY_STAND))
+	if(L.incapacitated(TRUE) || !(L.mobility_flags & MOBILITY_STAND))
 		return
 	Waddle()
 

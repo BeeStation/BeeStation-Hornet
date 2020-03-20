@@ -36,7 +36,7 @@ Self-sustaining extracts:
 	var/amount = 5
 	var/secondary
 
-	if ((user.get_active_held_item() != src || user.stat || (user.restrained() && !do_mob(user, src, 30))))
+	if ((user.get_active_held_item() != src || user.stat || (user.restrained() && !do_mob(user, src, HANDCUFF_USE_DELAY))))
 		return
 	if(!reagentselect)
 		return

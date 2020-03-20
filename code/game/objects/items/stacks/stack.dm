@@ -164,7 +164,7 @@
 
 /obj/item/stack/Topic(href, href_list)
 	..()
-	if ((usr.restrained() && !do_mob(usr, src, 30)) || usr.stat || usr.get_active_held_item() != src)
+	if ((usr.restrained() && !do_mob(usr, src, HANDCUFF_USE_DELAY)) || usr.stat || usr.get_active_held_item() != src)
 		return
 	if (href_list["sublist"] && !href_list["make"])
 		interact(usr, text2num(href_list["sublist"]))
