@@ -13,6 +13,7 @@
 	resistance_flags = NONE
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR
+	bang_protect = 1
 
 	dog_fashion = /datum/dog_fashion/head/helmet
 
@@ -24,10 +25,6 @@
 	. = ..()
 	if(attached_light)
 		alight = new(src)
-
-/obj/item/clothing/head/helmet/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/wearertargeting/earprotection, list(SLOT_HEAD))
 
 /obj/item/clothing/head/helmet/examine(mob/user)
 	. = ..()
@@ -253,12 +250,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	dog_fashion = null
-
-
-/obj/item/clothing/head/helmet/knight/Initialize(mapload)
-	. = ..()
-	var/datum/component = GetComponent(/datum/component/wearertargeting/earprotection)
-	qdel(component)
+	bang_protect = 1
 
 /obj/item/clothing/head/helmet/knight/blue
 	icon_state = "knight_blue"
