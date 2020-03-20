@@ -279,7 +279,7 @@ RLD
 
 /obj/item/construction/rcd/Topic(href, href_list)
 	..()
-	if (usr.stat || usr.restrained())
+	if (usr.stat || (usr.restrained() && !do_mob(usr, src, 30)))
 		return
 
 	if (href_list["close"])

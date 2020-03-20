@@ -79,7 +79,7 @@
 	if (!( SSticker ))
 		return
 	var/mob/M = AM
-	if(M.restrained() || ((isdrone(M) || iscyborg(M)) && M.stat))
+	if((M.restrained() && !do_mob(M, src, 30)) || ((isdrone(M) || iscyborg(M)) && M.stat))
 		return
 	bumpopen(M)
 

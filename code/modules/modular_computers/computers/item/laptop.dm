@@ -60,7 +60,7 @@
 		var/obj/screen/inventory/hand/H = over_object
 		var/mob/M = usr
 
-		if(!M.restrained() && !M.stat)
+		if((!M.restrained() && !do_mob(M, src, 30)) && !M.stat)
 			if(!isturf(loc) || !Adjacent(M))
 				return
 			M.put_in_hand(src, H.held_index)

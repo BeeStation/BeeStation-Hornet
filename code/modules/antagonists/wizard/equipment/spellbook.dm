@@ -713,7 +713,7 @@
 	..()
 	var/mob/living/carbon/human/H = usr
 
-	if(H.stat || H.restrained())
+	if(H.stat || (H.restrained() && !do_mob(H, src, 30)))
 		return
 	if(!ishuman(H))
 		return TRUE

@@ -343,7 +343,7 @@
 	set name = "Flip Windoor Assembly"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || usr.restrained())
+	if(usr.stat || (usr.restrained() && !do_mob(usr, src, 30)))
 		return
 
 	if(isliving(usr))

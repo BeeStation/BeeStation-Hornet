@@ -48,9 +48,6 @@
 
 /mob/living/carbon/update_inv_hands()
 	remove_overlay(HANDS_LAYER)
-	if (handcuffed)
-		drop_all_held_items()
-		return
 
 	var/list/hands = list()
 	for(var/obj/item/I in held_items)

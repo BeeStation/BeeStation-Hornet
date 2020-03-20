@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 	if(IsStun() || IsParalyzed())
 		to_chat(src, "You can't vent crawl while you're stunned!")
 		return
-	if(restrained())
+	if(restrained() && !do_mob(src, A, 30))
 		to_chat(src, "You can't vent crawl while you're restrained!")
 		return
 	if(has_buckled_mobs())
