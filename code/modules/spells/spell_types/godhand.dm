@@ -118,7 +118,7 @@
 	icon_state = "mecha_honker"
 
 /obj/item/melee/touch_attack/megahonk/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || !iscarbon(target) || !iscarbon(user) || (user.handcuffed && !do_mob(user, target, 30)))
+	if(!proximity || !iscarbon(target) || !iscarbon(user) || (user.handcuffed && !do_mob(user, target, HANDCUFF_USE_DELAY)))
 		return
 	user.say(catchphrase, forced = "spell")
 	playsound(get_turf(target), on_use_sound,100,1)
@@ -161,7 +161,7 @@
 	qdel(src)
 
 /obj/item/melee/touch_attack/bspie/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || !iscarbon(target) || !iscarbon(user) || (user.handcuffed && !do_mob(user, target, 30)))
+	if(!proximity || !iscarbon(target) || !iscarbon(user) || (user.handcuffed && !do_mob(user, target, HANDCUFF_USE_DELAY)))
 		return
 	if(target == user)
 		to_chat(user, "<span class='notice'>You smear \the [src] on your chest!</span>")
