@@ -333,6 +333,67 @@
 				var/obj/item/I = affected_mob.get_active_held_item()
 				affected_mob.dropItemToGround(I)
 
+/datum/disease/transformation/felinid
+	name = "Nano-Feline Assimilative Toxoplasmosis"
+	cure_text = "Something that would kill off the tiny cats." 
+	spread_text = "Acute"
+	cures = list(/datum/reagent/consumable/coco) //kills all the tiny cats that infected your organism
+	cure_chance = 80
+	stage_prob = 5
+	agent = "Nano-feline Toxoplasmosis"
+	desc = "A lot of tiny cats in the blood that slowly turn you into a big cat."
+	severity = DISEASE_SEVERITY_BIOHAZARD
+	visibility_flags = 0
+	stage1	= list("You feel scratching fom within.", "You hear a faint miaow somewhere really close.")
+	stage2	= list("<span class='danger'>You suppress the urge to lick yourself.</span>")
+	stage3	= list("<span class='danger'>You feel the need to cough out something fluffy.</span>", "<span class='danger'>You feel the need to scratch your neck with your foot.</span>", "<span class='danger'>You think you should adopt a cat.</span>")
+	stage4	= list("<span class='danger'>You start thinking that felinids are not that bad after all!</span>", "<span class='danger'>You feel scared at the thought of eating chocolate.</span>")
+	stage5	= list("<span class='danger'>You have become a catperson.</span>")
+	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD) //Nothing evades the curse!
+	new_form = /mob/living/carbon/human/species/felinid
+
+/datum/disease/transformation/felinid/stage_act()
+	..()
+	switch(stage)
+		if(2)
+			if (prob(100))
+				affected_mob.visible_message("<span class='danger'>[affected_mob] licks [affected_mob.p_their()] hand.</span>")
+		if(3)
+			if (prob(60))
+				affected_mob.say(pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya") + pick("!", "!!", "~!!", "!~", "", "", "", ""), forced = "felinid transformation")
+			if (prob(75))
+				affected_mob.visible_message("<span class='danger'>[affected_mob] licks [affected_mob.p_their()] hand.</span>")
+			if (prob(200))
+				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs out a furball.</span>")
+				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
+		if(4)
+			if (prob(60))
+				affected_mob.say(pick("", ";", ".c", ".s", ".n", ".u", ".e", ".t", ".h", ".m")+pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya")+pick("!", "!!", "~!!", "!~", "", "", "", ""), forced = "felinid transformation")
+			if (prob(200))
+				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs out a furball.</span>")
+				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
+
+
+
+/datum/disease/transformation/felinid/contageous
+	..()
+	spread_text = "Blood, Fluids, Contact"
+	is_mutagenic = TRUE //So that it won't be autocured after stage 5
+	spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_CONTACT_FLUIDS
+
+/datum/disease/transformation/felinid/contageous/form_mutagen(mob/living/affected_mob)
+	if(ishuman(affected_mob))
+		var/mob/living/carbon/human/affected_human = affected_mob
+		if(iscatperson(affected_human))
+			if (prob(60))
+				affected_mob.say(pick("", ";", ".c", ".s", ".n", ".u", ".e", ".t", ".h", ".m")+pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya")+pick("!", "!!", "~!!", "!~", "", "", "", ""), forced = "felinid transformation")
+			if (prob(75))
+				affected_mob.visible_message("<span class='danger'>[affected_mob] licks [affected_mob.p_their()] hand.</span>")
+			if (prob(200))
+				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs out a furball.</span>")
+				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
+			return
+	affected_mob.reagents.add_reagent_list(list(/datum/reagent/mutationtoxin/felinid = 1, /datum/reagent/medicine/mutadone = 1))
 
 /datum/disease/transformation/legion
 	name = "Necropolis Infestation"
