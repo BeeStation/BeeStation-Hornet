@@ -413,7 +413,7 @@
 		var/mob/living/carbon/human/affected_human = affected_mob
 		if(iscatperson(affected_human))
 			if (prob(10))
-				affected_mob.say(pick("", ";", ".c", ".s", ".n", ".u", ".e", ".t", ".h", ".m")+pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya")+pick("!", "!!", "~!!", "!~", "", "", "", ""), forced = "felinid transformation")
+				affected_mob.say(pick("", ";", ".h")+pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya")+pick("!", "!!", "~!!", "!~", "", "", "", ""), forced = "felinid transformation")
 			if (prob(3))
 				affected_mob.visible_message("<span class='danger'>[affected_mob] licks [affected_mob.p_their()] hand.</span>")
 			if (prob(1))
