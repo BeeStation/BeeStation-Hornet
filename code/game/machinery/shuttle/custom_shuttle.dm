@@ -24,6 +24,10 @@
 /obj/machinery/shuttle/proc/check_setup(var/affectSurrounding = TRUE)
 	if(!affectSurrounding)
 		return
+	//Don't update if not on shuttle, to prevent lagging out the server in space
+	if(!istype(get_turf(src), /area/shuttle/custom))
+		return
+	//Shitcode omegalul
 	for(var/place in get_area(get_turf(src)))
 		for(var/atom/thing in place)
 			if(!istype(thing, /obj/machinery/shuttle))
@@ -42,7 +46,7 @@
 		check_setup()
 		return
 	if(panel_open)
-		if(default_unfasten_wrench(user, I))
+		if(default_change_direction_wrench(user, I))
 			check_setup()
 			return
 	if(default_deconstruction_crowbar(I))

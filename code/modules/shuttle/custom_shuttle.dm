@@ -141,6 +141,7 @@
 		return FALSE
 	//Calculate all the data
 	var/list/areas = M.shuttle_areas
+	//fix this shitcode plox
 	for(var/shuttleArea in areas)
 		for(var/each in shuttleArea)
 			var/atom/atom = each

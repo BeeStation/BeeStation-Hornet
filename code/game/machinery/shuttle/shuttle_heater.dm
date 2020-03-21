@@ -1,4 +1,3 @@
-#define AIR_CONTENTS	((25*ONE_ATMOSPHERE)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature))
 //-----------------------------------------------
 //--------------Engine Heaters-------------------
 //This uses atmospherics, much like a thermomachine,
@@ -8,7 +7,7 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater
 	name = "engine heater"
 	desc = "Directs energy into compressed particles in order to power an attached thruster."
-	icon_state = "heater"
+	icon_state = "heater_pipe"
 	var/icon_state_closed = "heater_pipe"
 	var/icon_state_open = "heater_pipe_open"
 	var/icon_state_off = "heater_pipe"
@@ -31,13 +30,29 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater/Initialize()
 	. = ..()
 	SetInitDirections()
-
-/obj/machinery/atmospherics/components/unary/shuttle/heater/SetInitDirections()
-	initialize_directions = angle2dir((dir2angle(dir) + 180) % 360)
-
-/obj/machinery/atmospherics/components/unary/shuttle/heater/New()
-	..()
 	updateGasStats()
+
+/obj/machinery/atmospherics/components/unary/shuttle/heater/on_construction()
+	..(dir, dir)
+	SetInitDirections()
+
+/obj/machinery/atmospherics/components/unary/shuttle/heater/default_change_direction_wrench(mob/user, obj/item/I)
+	if(!..())
+		return FALSE
+	SetInitDirections()
+	var/obj/machinery/atmospherics/node = nodes[1]
+	if(node)
+		node.disconnect(src)
+		nodes[1] = null
+	nullifyPipenet(parents[1])
+
+	atmosinit()
+	node = nodes[1]
+	if(node)
+		node.atmosinit()
+		node.addMember(src)
+	build_network()
+	return TRUE
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/RefreshParts()
 	var/cap = 0
@@ -71,3 +86,37 @@
 	var/datum/gas_mixture/air_contents = airs[1]
 	air_contents.remove(amount)
 	return
+
+/obj/machinery/atmospherics/components/unary/shuttle/heater/proc/check_setup(var/affectSurrounding = TRUE)
+	if(!affectSurrounding)
+		return
+	//Don't update if not on shuttle, to prevent lagging out the server in space
+	if(!istype(get_turf(src), /area/shuttle/custom))
+		return
+	//Shitcode omegalul
+	for(var/place in get_area(get_turf(src)))
+		for(var/atom/thing in place)
+			if(!istype(thing, /obj/machinery/shuttle))
+				continue
+			if(thing == src)
+				continue
+			var/obj/machinery/shuttle/shuttle_comp = thing
+			shuttle_comp.check_setup(FALSE)
+	return
+
+/obj/machinery/atmospherics/components/unary/shuttle/heater/attackby(obj/item/I, mob/living/user, params)
+	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
+		check_setup()
+		return
+	if(default_pry_open(I))
+		check_setup()
+		return
+	if(panel_open)
+		if(default_change_direction_wrench(user, I))
+			check_setup()
+			return
+	if(default_deconstruction_crowbar(I))
+		check_setup()
+		return
+	check_setup()
+	return ..()
