@@ -23,13 +23,13 @@
 	var/heater_turf
 	switch(dir)
 		if(NORTH)
-			heater_turf = get_offset_target_turf(src, 0, -1)
-		if(SOUTH)
 			heater_turf = get_offset_target_turf(src, 0, 1)
+		if(SOUTH)
+			heater_turf = get_offset_target_turf(src, 0, -1)
 		if(EAST)
-			heater_turf = get_offset_target_turf(src, -1, 0)
-		if(WEST)
 			heater_turf = get_offset_target_turf(src, 1, 0)
+		if(WEST)
+			heater_turf = get_offset_target_turf(src, -1, 0)
 	if(!heater_turf)
 		attached_heater = null
 		update_engine()
@@ -58,7 +58,7 @@
 	idle_power_usage = 0
 	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
 	thrust = 25
-	fuel_use = 0.04
+	fuel_use = 0.09
 	bluespace_capable = FALSE
 	cooldown = 45
 

@@ -71,6 +71,7 @@
 
 	if(href_list["calculate"])
 		calculateStats()
+		ui_interact(usr)
 		return
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	if(!M)
@@ -79,9 +80,11 @@
 		return
 	if(href_list["setloc"])
 		SetTargetLocation(href_list["setloc"])
+		ui_interact(usr)
 		return
 	else if(href_list["fly"])
 		Fly()
+		ui_interact(usr)
 		return
 
 /obj/machinery/computer/custom_shuttle/proc/calculateDistance(var/obj/docking_port/stationary/port)

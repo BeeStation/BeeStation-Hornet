@@ -35,6 +35,7 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater/on_construction()
 	..(dir, dir)
 	SetInitDirections()
+	check_setup()
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/default_change_direction_wrench(mob/user, obj/item/I)
 	if(!..())
