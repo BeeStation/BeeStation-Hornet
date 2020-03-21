@@ -375,13 +375,13 @@
 
 
 
-/datum/disease/transformation/felinid/contageous
+/datum/disease/transformation/felinid/contagious
 	..()
 	spread_text = "Blood, Fluids, Contact"
 	is_mutagenic = TRUE //So that it won't be autocured after stage 5
 	spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_CONTACT_FLUIDS
 
-/datum/disease/transformation/felinid/contageous/form_mutagen(mob/living/affected_mob)
+/datum/disease/transformation/felinid/contagious/form_mutagen(mob/living/affected_mob)
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/affected_human = affected_mob
 		if(iscatperson(affected_human))
