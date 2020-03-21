@@ -1,7 +1,7 @@
 {
 	
     "wowds": {
-        "ID": "furball",
+        "id": "furball",
         "fuck": "OwO",
         "shit": "uwu",
         "dick": "bulge",
@@ -53,16 +53,16 @@
         "guns":"claws",
         "wizard":"magic kitty",
         "toolbox":"litterbox",
-        "QM":"Quarter Kitty",
+        "qm":"Quarter Kitty",
         "cargo":"box",
         "good":"nya",
         "sci":"smart kitties",
-        "RD":"smartest cat",
+        "rd":"smartest cat",
         "head of":"head kitty of",
         "nyagger":"best kitten",
         "catbeast":"kitten",
         "catbeasts":"kittens",
-        "I":"cat"
+        "i":"cat"
     },
     "sounds": {
         "r": "w",
