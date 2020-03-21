@@ -27,29 +27,6 @@
 	var/loggedOldArea
 	var/linkedShuttleId
 
-/obj/item/shuttle_creator/attackby(obj/item/I, mob/user, params)
-	if(iscyborg(user))
-		return
-	var/count
-	if(istype(I, /obj/item/stack/sheet/bluespace_crystal))
-		count = loadwithsheets(I, 10, user)
-	if(count)
-		to_chat(user, "<span class='notice'>[src] now holds [bluespace_power]/[max_bluespace_power] bluespace-units.</span>")
-	else
-		return ..()
-
-/obj/item/shuttle_creator/proc/loadwithsheets(obj/item/stack/sheet/S, value, mob/user)
-	var/maxsheets = round((max_bluespace_power-bluespace_power)/value)    //calculate the max number of sheets that will fit in RCD
-	if(maxsheets > 0)
-		var/amount_to_use = min(S.amount, max_bluespace_power)
-		S.use(amount_to_use)
-		bluespace_power += value*amount_to_use
-		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		to_chat(user, "<span class='notice'>You insert [amount_to_use] [S.name] crystals into [src]. </span>")
-		return 1
-	to_chat(user, "<span class='warning'>You can't insert any more [S.name] crystals into [src]!</span>")
-	return 0
-
 /obj/item/shuttle_creator/attack_self(mob/user)
 	..()
 	if(linkedShuttleId)
