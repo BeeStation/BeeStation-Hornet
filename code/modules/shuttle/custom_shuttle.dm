@@ -18,6 +18,9 @@
 	var/calculated_engine_count = 0
 	var/calculated_consumption = 0
 	var/calculated_cooldown = 0
+	var/calculated_non_operational_thrusters = 0
+	var/calculated_fuel_less_thrusters = 0
+	var/target_fuel_cost = 0
 	var/targetLocation
 	var/datum/browser/popup
 
@@ -32,6 +35,7 @@
 		dat += "Engine Force: [calculated_dforce]kN ([calculated_engine_count] engines)<br>"
 		dat += "Sublight Speed: [calculated_speed]ms<sup>-1</sup><br>"
 		dat += calculated_speed < 1 ? "<b>INSUFFICIENT ENGINE POWER</b><br>" : ""
+		dat += calculated_non_operational_thrusters > 0 ? "<b>Warning: [calculated_non_operational_thrusters] thrusters offline.</b><br>" : ""
 		dat += "Fuel Consumption: [calculated_consumption]units per distance<br>"
 		dat += "Engine Cooldown: [calculated_cooldown]s<hr>"
 		var/destination_found
@@ -44,7 +48,7 @@
 				break
 			destination_found = TRUE
 			var/dist = round(calculateDistance(S))
-			dat += "<A href='?src=[REF(src)];setloc=[S.id]'>Target [S.name] (Dist: [dist] | Fuel Cost: [round(calculated_consumption * dist)] | Time: [round(dist / calculated_speed)])</A><br>"
+			dat += "<A href='?src=[REF(src)];setloc=[S.id]'>Target [S.name] (Dist: [dist] | Fuel Cost: [round(dist * calculated_consumption)] | Time: [round(dist / calculated_speed)])</A><br>"
 		if(!destination_found)
 			dat += "<B>No valid destinations</B><br>"
 		dat += "<hr>[targetLocation ? "Target Location : [targetLocation]" : "No Target Location"]"
@@ -90,7 +94,7 @@
 	shuttleId = new_id
 	possible_destinations = "shuttle[new_id]_custom"
 
-/obj/machinery/computer/custom_shuttle/proc/calculateStats()
+/obj/machinery/computer/custom_shuttle/proc/calculateStats(var/useFuel = FALSE, var/dist = 0)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	if(!M)
 		return FALSE
@@ -101,6 +105,8 @@
 	calculated_engine_count = 0
 	calculated_consumption = 0
 	calculated_cooldown = 0
+	calculated_fuel_less_thrusters = 0
+	calculated_non_operational_thrusters = 0
 	//Calculate all the data
 	var/list/areas = M.shuttle_areas
 	for(var/shuttleArea in areas)
@@ -114,6 +120,10 @@
 			var/obj/machinery/shuttle/engine/E = atom
 			E.check_setup(FALSE)
 			if(!E.thruster_active)	//Skipover thrusters with no valid heater
+				calculated_non_operational_thrusters ++
+				continue
+			if(!E.attached_heater.hasFuel(dist * E.fuel_use) && useFuel)
+				calculated_fuel_less_thrusters ++
 				continue
 			calculated_engine_count++
 			calculated_dforce += E.thrust
@@ -124,6 +134,27 @@
 		return FALSE
 	calculated_speed = (calculated_dforce*1000) / (calculated_mass*100)
 	return TRUE
+
+/obj/machinery/computer/custom_shuttle/proc/consumeFuel(var/dist)
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
+	if(!M)
+		return FALSE
+	//Calculate all the data
+	var/list/areas = M.shuttle_areas
+	for(var/shuttleArea in areas)
+		for(var/each in shuttleArea)
+			var/atom/atom = each
+			if(!atom)
+				continue
+			if(!istype(atom, /obj/machinery/shuttle/engine))
+				continue
+			var/obj/machinery/shuttle/engine/E = atom
+			E.check_setup(FALSE)
+			if(!E.thruster_active)	//Skipover thrusters with no valid heater
+				continue
+			if(!E.attached_heater.hasFuel(dist * E.fuel_use))
+				continue
+			E.attached_heater.consumeFuel(dist * E.fuel_use)
 
 /obj/machinery/computer/custom_shuttle/proc/SetTargetLocation(var/newTarget)
 	if(!(newTarget in params2list(possible_destinations)))
@@ -137,8 +168,15 @@
 /obj/machinery/computer/custom_shuttle/proc/Fly()
 	if(!targetLocation)
 		return
-	if(!calculateStats())
+	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttleId)
+	if(!linkedShuttle)
 		return
+	if(linkedShuttle.mode != SHUTTLE_IDLE)
+		return
+	if(!calculateStats(TRUE))
+		return
+	if(calculated_fuel_less_thrusters > 0)
+		say("Warning, [calculated_fuel_less_thrusters] do not have enough fuel for this journey, engine output may be limitted.")
 	if(calculated_speed < 1)
 		say("Insufficient engine power, shuttle requires [calculated_mass / 10]kN of thrust.")
 		return
@@ -146,13 +184,7 @@
 	if(!targetPort)
 		return
 	var/dist = calculateDistance(targetPort)
-	var/fuelCost = calculated_consumption * dist
 	var/time = min(max(round(dist / calculated_speed), 10), 90)
-	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttleId)
-	if(!linkedShuttle)
-		return
-	if(linkedShuttle.mode != SHUTTLE_IDLE)
-		return
 	linkedShuttle.callTime = time * 10
 	linkedShuttle.rechargeTime = calculated_cooldown
 	if(!(targetLocation in params2list(possible_destinations)))
@@ -161,6 +193,7 @@
 		return
 	switch(SSshuttle.moveShuttle(shuttleId, targetLocation, 1))
 		if(0)
+			consumeFuel(dist)
 			say("Shuttle departing. Please stand away from the doors.")
 		if(1)
 			to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")

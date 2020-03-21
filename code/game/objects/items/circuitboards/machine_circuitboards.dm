@@ -1075,6 +1075,6 @@
 
 /obj/item/circuitboard/machine/shuttle/heater
 	name = "Electronic Engine Heater (Machine Board)"
-	build_path = /obj/machinery/shuttle/heater
+	build_path = /obj/machinery/atmospherics/components/unary/shuttle/heater
 	req_components = list(/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/matter_bin = 1)
