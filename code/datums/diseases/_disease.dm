@@ -187,3 +187,6 @@
 			return 6
 		if(DISEASE_SEVERITY_BIOHAZARD)
 			return 7
+
+/datum/disease/proc/speechModification(message)
+	return message
