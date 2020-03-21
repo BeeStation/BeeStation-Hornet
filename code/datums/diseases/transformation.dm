@@ -376,7 +376,6 @@
 
 
 /datum/disease/transformation/felinid/contagious
-	..()
 	spread_text = "Blood, Fluids, Contact"
 	is_mutagenic = TRUE //So that it won't be autocured after stage 5
 	spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_CONTACT_FLUIDS
