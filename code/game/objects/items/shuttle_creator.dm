@@ -17,22 +17,15 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(/datum/material/iron=100000)
 	req_access_txt = "11"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
 	var/static/customShuttles = 0
-	var/bluespace_power = 0
-	var/max_bluespace_power = 100
 	var/ready = TRUE
 	var/recorded_shuttle_area
 	var/list/loggedTurfs = list()
 	var/loggedOldArea
 	var/linkedShuttleId
-
-/obj/item/shuttle_creator/examine(mob/user)
-	. = ..()
-	. += "\A [src]. The device's screen displays the text \"[bluespace_power]/[max_bluespace_power]\""
 
 /obj/item/shuttle_creator/attackby(obj/item/I, mob/user, params)
 	if(iscyborg(user))

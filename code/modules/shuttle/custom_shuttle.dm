@@ -24,6 +24,8 @@
 	var/targetLocation
 	var/datum/browser/popup
 
+	//Upgrades
+
 /obj/machinery/computer/custom_shuttle/ui_interact(mob/user)
 	var/list/options = params2list(possible_destinations)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
@@ -144,7 +146,6 @@
 		return FALSE
 	//Calculate all the data
 	var/list/areas = M.shuttle_areas
-	//fix this shitcode plox
 	for(var/shuttleArea in areas)
 		for(var/each in shuttleArea)
 			var/atom/atom = each

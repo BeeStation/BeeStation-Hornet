@@ -94,7 +94,6 @@
 	//Don't update if not on shuttle, to prevent lagging out the server in space
 	if(!istype(get_turf(src), /area/shuttle/custom))
 		return
-	//Shitcode omegalul
 	for(var/place in get_area(get_turf(src)))
 		for(var/atom/thing in place)
 			if(!istype(thing, /obj/machinery/shuttle))
