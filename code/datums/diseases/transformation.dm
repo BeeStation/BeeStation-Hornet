@@ -373,6 +373,33 @@
 				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs out a furball.</span>")
 				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
 
+/datum/disease/transformation/felinid/speechModification(message) //blatantly stolen from the italian moustache.
+	if(copytext(message, 1, 2) != "*")
+		message = " [message]"
+		var/list/whole_words = strings("owo_talk.json", "wowds")
+		var/list/owo_sounds = strings("owo_talk.json", "sounds")
+
+		for(var/key in whole_words)
+			var/value = whole_words[key]
+			if(islist(value))
+				value = pick(value)
+
+			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
+			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
+			message = replacetextEx(message, " [key]", " [value]")
+
+		for(var/key in owo_sounds)
+			var/value = owo_sounds[key]
+			if(islist(value))
+				value = pick(value)
+
+			message = replacetextEx(message, "[uppertext(key)]", "[uppertext(value)]")
+			message = replacetextEx(message, "[capitalize(key)]", "[capitalize(value)]")
+			message = replacetextEx(message, "[key]", "[value]")
+
+		if(prob(3))
+			message += pick(" Nya!"," Meow!"," OwO!!", " Nya-nya!")
+	return trim(message)
 
 
 /datum/disease/transformation/felinid/contagious
