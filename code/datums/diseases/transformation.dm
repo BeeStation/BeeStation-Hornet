@@ -338,8 +338,8 @@
 	cure_text = "Something that would kill off the tiny cats." 
 	spread_text = "Acute"
 	cures = list(/datum/reagent/consumable/coco) //kills all the tiny cats that infected your organism
-	cure_chance = 80
-	stage_prob = 5
+	cure_chance = 25
+	stage_prob = 3
 	agent = "Nano-feline Toxoplasmosis"
 	desc = "A lot of tiny cats in the blood that slowly turn you into a big cat."
 	severity = DISEASE_SEVERITY_BIOHAZARD
