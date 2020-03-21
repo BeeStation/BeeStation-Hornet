@@ -343,6 +343,7 @@
 	stage_prob = 3
 	agent = "Nano-feline Toxoplasmosis"
 	desc = "A lot of tiny cats in the blood that slowly turn you into a big cat."
+	is_mutagenic = TRUE //So that it won't be autocured after stage 5
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list("You feel scratching fom within.", "You hear a faint miaow somewhere really close.")
