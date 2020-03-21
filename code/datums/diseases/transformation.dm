@@ -369,7 +369,7 @@
 				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
 		if(4)
 			if (prob(10))
-				affected_mob.say(pick("", ";", ".c", ".s", ".n", ".u", ".e", ".t", ".h", ".m")+pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya")+pick("!", "!!", "~!!", "!~", "", "", "", ""), forced = "felinid transformation")
+				affected_mob.say(pick("", ";", ".h")+pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya")+pick("!", "!!", "~!!", "!~", "", "", "", ""), forced = "felinid transformation")
 			if (prob(1))
 				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs out a furball.</span>")
 				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
