@@ -1,6 +1,8 @@
 #define SHUTTLE_CREATOR_MAX_SIZE 200
 #define CUSTOM_SHUTTLE_LIMIT 4
 
+GLOBAL_VAR_INIT(custom_shuttle_count, 0)
+
 /obj/item/shuttle_creator
 	name = "Rapid Shuttle Designator"
 	icon = 'icons/obj/tools.dmi'
@@ -20,7 +22,6 @@
 	req_access_txt = "11"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
-	var/static/customShuttles = 0
 	var/ready = TRUE
 	var/recorded_shuttle_area
 	var/list/loggedTurfs = list()
@@ -31,7 +32,7 @@
 	..()
 	if(linkedShuttleId)
 		return
-	if(customShuttles > 4)
+	if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT)
 		return
 	return check_current_area(user)
 
@@ -45,7 +46,7 @@
 	if(istype(target, /obj/machinery/door/airlock))
 		if(linkedShuttleId)
 			return
-		if(customShuttles > 4)
+		if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT)
 			to_chat(user, "<span class='warning'>Shuttle limit reached, sorry.</span>")
 			return
 		if(!create_shuttle_area(user))
@@ -174,7 +175,7 @@
 
 	//port.Initialize(0)
 	port.register()
-	customShuttles ++
+	GLOB.custom_shuttle_count ++
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a new shuttle with a [src] at [ADMIN_VERBOSEJMP(user)] ([customShuttles] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
 	log_game("[key_name(user)] created a new shuttle with a [src] at [AREACOORD(user)] ([customShuttles] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
 	return TRUE
