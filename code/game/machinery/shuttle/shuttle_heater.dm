@@ -14,15 +14,13 @@
 	if(!affectSurrounding)
 		return
 	//Don't update if not on shuttle, to prevent lagging out the server in space
-	if(!istype(get_turf(src), /area/shuttle/custom))
+	if(!isarea(get_area(src), /area/shuttle/custom))
 		return
 		//Check the standard machines
 	for(var/obj/machinery/shuttle/shuttle_machine in GLOB.custom_shuttle_machines)
 		shuttle_machine.check_setup(FALSE)
 	//Check the atmospheric devices (The heaters)
 	for(var/obj/machinery/atmospherics/components/unary/shuttle/atmospheric_machine in GLOB.custom_shuttle_machines)
-		if(!atmospheric_machine)
-			continue
 		if(atmospheric_machine == src)
 			continue
 		atmospheric_machine.check_setup(FALSE)
