@@ -45,6 +45,9 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	if(!proximity_flag)
 		return
 	if(istype(target, /obj/machinery/door/airlock))
+		if(get_area(target) != loggedOldArea)
+			to_chat(user, "<span class='warning'>Caution, airlock must be on the shuttle to function as a dock.</span>")
+			return
 		if(linkedShuttleId)
 			return
 		if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT)
@@ -182,6 +185,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		to_chat(usr, "<span class='warning'>Shuttle creation aborted, docking airlock must be on an external wall. Please select a new airlock.</span>")
 		port.Destroy()
 		stationary_port.Destroy()
+		linkedShuttleId = null
 		return FALSE
 	port.dir = invertedDir
 	port.port_direction = portDirection
@@ -190,6 +194,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		to_chat(usr, "<span class='warning'>Bluespace calculations failed, please select a new airlock.</span>")
 		port.Destroy()
 		stationary_port.Destroy()
+		linkedShuttleId = null
 		return FALSE
 
 	port.shuttle_areas = list()

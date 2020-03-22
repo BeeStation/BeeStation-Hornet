@@ -1,5 +1,6 @@
 #define Z_DIST 500
 #define CUSTOM_ENGINES_START_TIME 80
+#define CALCULATE_STATS_COOLDOWN 2
 
 /obj/machinery/computer/custom_shuttle
 	name = "nanotrasen shuttle flight controller"
@@ -24,6 +25,8 @@
 	var/target_fuel_cost = 0
 	var/targetLocation
 	var/datum/browser/popup
+
+	var/stat_calc_cooldown = 0
 
 	//Upgrades
 	var/distance_multiplier = 1
@@ -105,7 +108,11 @@
 	shuttleId = new_id
 	possible_destinations = "whiteship_home;shuttle[new_id]_custom"
 
-/obj/machinery/computer/custom_shuttle/proc/calculateStats(var/useFuel = FALSE, var/dist = 0)
+/obj/machinery/computer/custom_shuttle/proc/calculateStats(var/useFuel = FALSE, var/dist = 0, var/ignore_cooldown = FALSE)
+	if(!ignore_cooldown && stat_calc_cooldown >= world.time)
+		to_chat(usr, "<span>You are using this too fast, please slow down</span>")
+		return
+	stat_calc_cooldown = world.time + CALCULATE_STATS_COOLDOWN
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	if(!M)
 		return FALSE
@@ -180,7 +187,7 @@
 		return
 	if(linkedShuttle.mode != SHUTTLE_IDLE)
 		return
-	if(!calculateStats(TRUE))
+	if(!calculateStats(TRUE, 0, TRUE))
 		return
 	if(calculated_fuel_less_thrusters > 0)
 		say("Warning, [calculated_fuel_less_thrusters] do not have enough fuel for this journey, engine output may be limitted.")
