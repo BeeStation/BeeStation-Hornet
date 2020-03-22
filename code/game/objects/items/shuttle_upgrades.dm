@@ -15,7 +15,7 @@
 	. = ..()
 	if(!istype(O, /obj/machinery/computer/custom_shuttle))
 		return
-	if (!user.transferItemToLoc(src, O))
+	if (!user.transferItemToLoc(src, get_turf(O)))
 		return
 	var/obj/machinery/computer/custom_shuttle/link_comp = O
 	link_comp.distance_multiplier = CLAMP(link_comp.distance_multiplier, 0, 0.8)
