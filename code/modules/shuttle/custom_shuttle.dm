@@ -192,7 +192,8 @@
 	var/time = min(max(round(dist / calculated_speed), 10), 90)
 	linkedShuttle.callTime = time * 10
 	linkedShuttle.rechargeTime = calculated_cooldown
-	linkedShuttle.movement_force = list("KNOCKDOWN" = calculated_speed > 5 ? 3 : 0, "THROW" = clamp((calculated_speed / 2) - 5, 0, 10))
+	var/throwForce = CLAMP((calculated_speed / 2) - 5, 0, 10)
+	linkedShuttle.movement_force = list("KNOCKDOWN" = calculated_speed > 5 ? 3 : 0, "THROW" = throwForce)
 	if(!(targetLocation in params2list(possible_destinations)))
 		log_admin("[usr] attempted to launch a shuttle that has been affected by href dock exploit on [src] with target location \"[targetLocation]\"")
 		message_admins("[usr] attempted to launch a shuttle that has been affected by href dock exploit on [src] with target location \"[targetLocation]\"")
