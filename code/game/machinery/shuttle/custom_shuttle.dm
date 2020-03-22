@@ -14,6 +14,7 @@
 
 /obj/machinery/shuttle/Initialize()
 	. = ..()
+	GLOB.custom_shuttle_machines += src
 	check_setup()
 
 //Call this when:
@@ -27,14 +28,18 @@
 	//Don't update if not on shuttle, to prevent lagging out the server in space
 	if(!istype(get_turf(src), /area/shuttle/custom))
 		return
-	for(var/place in get_area(get_turf(src)))
-		for(var/atom/thing in place)
-			if(!istype(thing, /obj/machinery/shuttle))
-				continue
-			if(thing == src)
-				continue
-			var/obj/machinery/shuttle/shuttle_comp = thing
-			shuttle_comp.check_setup(FALSE)
+	//Check the standard machines
+	for(var/machinery/shuttle/shuttle_machine in GLOB.custom_shuttle_machines)
+		if(!shuttle_machine)
+			continue
+		if(shuttle_machine == src)
+			continue
+		shuttle_machine.check_setup(FALSE)
+	//Check the atmospheric devices (The heaters)
+	for(var/obj/machinery/atmospherics/components/unary/shuttle/atmospheric_machine in GLOB.custom_shuttle_machines)
+		if(!atmospheric_machine)
+			continue
+		atmospheric_machine.check_setup(FALSE)
 	return
 
 /obj/machinery/shuttle/attackby(obj/item/I, mob/living/user, params)
