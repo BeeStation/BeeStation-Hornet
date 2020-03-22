@@ -118,7 +118,41 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 			port.height = width
 			port.dwidth = offset_y - 1
 			port.dheight = width - offset_x
+	to_chat(usr, "Created shuttle with dir [port.dir], width [port.width], height [port.height], dwidth [port.dwidth], dheight [port.dheight]")
 	return TRUE
+
+//Go through all the all_turfs and check which direction doesn't have the shuttle
+/obj/item/shuttle_creator/proc/getNonShuttleDirection(turf/targetTurf)
+	var/position = null
+	if(!(get_offset_target_turf(targetTurf, 0, 1) in loggedTurfs))
+		if(position != null)
+			return null
+		position = NORTH
+	if(!(get_offset_target_turf(targetTurf, 0, -1) in loggedTurfs))
+		if(position != null)
+			return null
+		position = SOUTH
+	if(!(get_offset_target_turf(targetTurf, 1, 0) in loggedTurfs))
+		if(position != null)
+			return null
+		position = EAST
+	if(!(get_offset_target_turf(targetTurf, -1, 0) in loggedTurfs))
+		if(position != null)
+			return null
+		position = WEST
+	to_chat(usr, "Direction to space is [position]")
+	return position
+
+/obj/item/shuttle_creator/proc/invertDir(var/input_dir)
+	if(input_dir == NORTH)
+		return SOUTH
+	else if(input_dir == SOUTH)
+		return NORTH
+	else if(input_dir == EAST)
+		return WEST
+	else if(input_dir == WEST)
+		return EAST
+	return null
 
 /obj/item/shuttle_creator/proc/shuttle_create_docking_port(atom/target, mob/user)
 
@@ -142,11 +176,20 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.preferred_direction = 4
 	port.area_type = recorded_shuttle_area
 
-	if(!calculate_bounds(port))
-		to_chat(usr, "Bluespace calculations failed, aborting shuttle creation.")
+	var/portDirection = getNonShuttleDirection(get_turf(port))
+	var/invertedDir = invertDir(portDirection)
+	if(!portDirection || !invertedDir)
+		to_chat(usr, "<span class='warning'>Shuttle creation aborted, docking airlock must be on an external wall. Please select a new airlock.</span>")
 		port.Destroy()
 		stationary_port.Destroy()
-		ready = FALSE
+		return FALSE
+	port.dir = invertedDir
+	port.port_direction = portDirection
+
+	if(!calculate_bounds(port))
+		to_chat(usr, "<span class='warning'>Bluespace calculations failed, please select a new airlock.</span>")
+		port.Destroy()
+		stationary_port.Destroy()
 		return FALSE
 
 	port.shuttle_areas = list()
