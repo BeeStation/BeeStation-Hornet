@@ -216,7 +216,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.mode = SHUTTLE_IDLE
 	port.timer = 0
 
-	//port.Initialize(0)
 	port.register()
 	GLOB.custom_shuttle_count ++
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a new shuttle with a [src] at [ADMIN_VERBOSEJMP(user)] ([GLOB.custom_shuttle_count] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
@@ -235,7 +234,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	if(length(str) > 50)
 		to_chat(user, "<span class='warning'>The provided ship name is too long, blares the [src]</span>")
 		return FALSE
-	if(CHAT_FILTER_CHECK(str))
+	if(OOC_FILTER_CHECK(str))
 		to_chat(user, "<span class='warning'>Nanotrasen prohibited words are in use in this shuttle name, blars the [src] in a slightly offended tone.</span>")
 		return FALSE
 	newS = new /area/shuttle/custom/powered()
