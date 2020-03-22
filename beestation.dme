@@ -912,6 +912,7 @@
 #include "code\game\objects\items\shields.dm"
 #include "code\game\objects\items\shooting_range.dm"
 #include "code\game\objects\items\shuttle_creator.dm"
+#include "code\game\objects\items\shuttle_upgrades.dm"
 #include "code\game\objects\items\signs.dm"
 #include "code\game\objects\items\singularityhammer.dm"
 #include "code\game\objects\items\stunbaton.dm"
