@@ -27,6 +27,10 @@
 	//Upgrades
 	var/distance_multiplier = 1
 
+/obj/machinery/computer/custom_shuttle/examine(mob/user)
+	. = ..()
+	. += distance_multiplier < 1 ? "Bluespace shortcut module installed. Route is [distance_multiplier]x the original length." : ""
+
 /obj/machinery/computer/custom_shuttle/ui_interact(mob/user)
 	var/list/options = params2list(possible_destinations)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
