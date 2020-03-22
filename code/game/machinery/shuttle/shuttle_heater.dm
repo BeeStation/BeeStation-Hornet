@@ -4,6 +4,32 @@
 //but instead of changing temp, it stores plasma and uses
 //it for the engine
 //-----------------------------------------------
+/obj/machinery/atmospherics/components/unary/shuttle
+	name = "shuttle atmospherics device"
+	desc = "This does something to do with shuttle atmospherics"
+	icon_state = "heater"
+	icon = 'icons/turf/shuttle.dmi'
+
+/obj/machinery/atmospherics/components/unary/shuttle/proc/check_setup(var/affectSurrounding = TRUE)
+	if(!affectSurrounding)
+		return
+	//Don't update if not on shuttle, to prevent lagging out the server in space
+	if(!istype(get_turf(src), /area/shuttle/custom))
+		return
+		//Check the standard machines
+	for(var/obj/machinery/shuttle/shuttle_machine in GLOB.custom_shuttle_machines)
+		if(!shuttle_machine)
+			continue
+		shuttle_machine.check_setup(FALSE)
+	//Check the atmospheric devices (The heaters)
+	for(var/obj/machinery/atmospherics/components/unary/shuttle/atmospheric_machine in GLOB.custom_shuttle_machines)
+		if(!atmospheric_machine)
+			continue
+		if(atmospheric_machine == src)
+			continue
+		atmospheric_machine.check_setup(FALSE)
+	return
+
 /obj/machinery/atmospherics/components/unary/shuttle/heater
 	name = "engine heater"
 	desc = "Directs energy into compressed particles in order to power an attached thruster."
@@ -11,7 +37,6 @@
 	var/icon_state_closed = "heater_pipe"
 	var/icon_state_open = "heater_pipe_open"
 	var/icon_state_off = "heater_pipe"
-	icon = 'icons/turf/shuttle.dmi'
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/shuttle/heater
 
@@ -91,26 +116,6 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/consumeFuel(var/amount)
 	var/datum/gas_mixture/air_contents = airs[1]
 	air_contents.remove(amount)
-	return
-
-/obj/machinery/atmospherics/components/unary/shuttle/heater/proc/check_setup(var/affectSurrounding = TRUE)
-	if(!affectSurrounding)
-		return
-	//Don't update if not on shuttle, to prevent lagging out the server in space
-	if(!istype(get_turf(src), /area/shuttle/custom))
-		return
-		//Check the standard machines
-	for(var/obj/machinery/shuttle/shuttle_machine in GLOB.custom_shuttle_machines)
-		if(!shuttle_machine)
-			continue
-		shuttle_machine.check_setup(FALSE)
-	//Check the atmospheric devices (The heaters)
-	for(var/obj/machinery/atmospherics/components/unary/shuttle/atmospheric_machine in GLOB.custom_shuttle_machines)
-		if(!atmospheric_machine)
-			continue
-		if(atmospheric_machine == src)
-			continue
-		atmospheric_machine.check_setup(FALSE)
 	return
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/attackby(obj/item/I, mob/living/user, params)
