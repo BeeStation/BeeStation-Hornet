@@ -97,7 +97,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/height = maxY - minY
 	var/offset_x = port.x - minX
 	var/offset_y = port.y - minY
-	to_chat(usr, "W:[width] H:[height]")
 	switch(port.dir) //Source: code/datums/shuttles.dm line 77 (14/03/2020) :)
 		if(NORTH)
 			port.width = width
