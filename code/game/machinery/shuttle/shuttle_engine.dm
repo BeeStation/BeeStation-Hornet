@@ -64,12 +64,9 @@
 		update_engine()
 		return ..()
 	attached_heater = null
-	for(var/atom/thing in heater_turf)
-		if(!istype(thing, /obj/machinery/atmospherics/components/unary/shuttle/heater))
+	for(var/obj/machinery/atmospherics/components/unary/shuttle/heater/as_heater in heater_turf)
+		if(as_heater.dir != dir)
 			continue
-		if(thing.dir != dir)
-			continue
-		var/obj/machinery/atmospherics/components/unary/shuttle/heater/as_heater = thing
 		if(as_heater.panel_open)
 			continue
 		if(!as_heater.anchored)
@@ -82,17 +79,15 @@
 /obj/machinery/shuttle/engine/proc/update_engine()
 	if(panel_open)
 		thruster_active = FALSE
-		return
-	if(!attached_heater)
+	else if(!attached_heater)
 		icon_state = icon_state_off
 		thruster_active = FALSE
-		return
-	if(attached_heater.hasFuel(1))
+	else if(attached_heater.hasFuel(1))
 		icon_state = icon_state_closed
 		thruster_active = TRUE
-		return
-	thruster_active = FALSE
-	icon_state = icon_state_off
+	else
+		thruster_active = FALSE
+		icon_state = icon_state_off
 	return
 
 /obj/machinery/shuttle/engine/void/update_engine()
