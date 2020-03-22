@@ -77,7 +77,7 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/shuttle_speed_upgrade
+/datum/design/shuttle_speed_upgrade_hyper
 	name = "Shuttle Bluespace Hyperlane Optimisation Upgrade"
 	desc = "A disk that allows for calculating shorter routes when inserted into a flight control console. This one abuses bluespace hyperlanes for increased efficiency."
 	id = "disk_shuttle_route_hyper"
@@ -87,7 +87,7 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/shuttle_speed_upgrade
+/datum/design/shuttle_speed_upgrade_void
 	name = "Shuttle Voidspace Optimisation Upgrade"
 	desc = "A disk that allows for calculating shorter routes when inserted into a flight control console. This one access voidspace for increased efficiency."
 	id = "disk_shuttle_route_void"

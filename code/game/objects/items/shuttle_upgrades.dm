@@ -16,7 +16,7 @@
 	name = "Bluespace Hyperlane Calculator"
 	desc = "Used on a shuttle control console to allow for the following of bluespace hyperlanes, increasing the efficiency of the shuttle."
 	icon = 'icons/obj/module.dmi'
-	icon_state = "shuttledisk"
+	icon_state = "shuttledisk_better"
 	force = 0
 	throwforce = 8
 	throw_speed = 3
@@ -30,7 +30,7 @@
 	name = "Voidspace Route Calculator"
 	desc = "Used on a shuttle control console to allow it to navigate into voidspace, making the routes almost instant."
 	icon = 'icons/obj/module.dmi'
-	icon_state = "shuttledisk"
+	icon_state = "shuttledisk_void"
 	force = 0
 	throwforce = 8
 	throw_speed = 3
