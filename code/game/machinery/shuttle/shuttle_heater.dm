@@ -100,7 +100,7 @@
 	if(!istype(get_turf(src), /area/shuttle/custom))
 		return
 		//Check the standard machines
-	for(var/machinery/shuttle/shuttle_machine in GLOB.custom_shuttle_machines)
+	for(var/obj/machinery/shuttle/shuttle_machine in GLOB.custom_shuttle_machines)
 		if(!shuttle_machine)
 			continue
 		shuttle_machine.check_setup(FALSE)
