@@ -95,7 +95,7 @@
 	icon_state = icon_state_off
 	return
 
-/obj/machinery/shuttle/engine/void/proc/update_engine()
+/obj/machinery/shuttle/engine/void/update_engine()
 	if(panel_open)
 		thruster_active = FALSE
 		return
