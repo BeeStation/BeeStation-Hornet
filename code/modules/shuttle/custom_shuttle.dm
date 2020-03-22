@@ -1,4 +1,4 @@
-#define Z_DIST 1000
+#define Z_DIST 500
 
 /obj/machinery/computer/custom_shuttle
 	name = "nanotrasen shuttle flight controller"
@@ -97,7 +97,7 @@
 
 /obj/machinery/computer/custom_shuttle/proc/linkShuttle(var/new_id)
 	shuttleId = new_id
-	possible_destinations = "shuttle[new_id]_custom"
+	possible_destinations = "whiteship_home,shuttle[new_id]_custom"
 
 /obj/machinery/computer/custom_shuttle/proc/calculateStats(var/useFuel = FALSE, var/dist = 0)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
