@@ -132,6 +132,9 @@
 			var/atom/atom = each
 			if(!atom)
 				continue
+			//Items weight too little to add on 100kg
+			if(!istype(atom, /obj/item))
+				continue
 			calculated_mass ++
 			if(!istype(atom, /obj/machinery/shuttle/engine))
 				continue
