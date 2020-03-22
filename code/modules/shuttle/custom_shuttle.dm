@@ -192,6 +192,7 @@
 	var/time = min(max(round(dist / calculated_speed), 10), 90)
 	linkedShuttle.callTime = time * 10
 	linkedShuttle.rechargeTime = calculated_cooldown
+	linkedShuttle.preferred_direction = dir
 	var/throwForce = CLAMP((calculated_speed / 2) - 5, 0, 10)
 	linkedShuttle.movement_force = list("KNOCKDOWN" = calculated_speed > 5 ? 3 : 0, "THROW" = throwForce)
 	if(!(targetLocation in params2list(possible_destinations)))
