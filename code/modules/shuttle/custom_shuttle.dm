@@ -1,4 +1,5 @@
 #define Z_DIST 500
+#define CUSTOM_ENGINES_START_TIME 100
 
 /obj/machinery/computer/custom_shuttle
 	name = "nanotrasen shuttle flight controller"
@@ -194,8 +195,9 @@
 	linkedShuttle.callTime = time * 10
 	linkedShuttle.rechargeTime = calculated_cooldown
 	linkedShuttle.preferred_direction = dir
+	linkedShuttle.ignitionTime = CUSTOM_ENGINES_START_TIME
 	linkedShuttle.count_engines()
-	linkedShuttle.hyperspace_sound(HYPERSPACE_LAUNCH)
+	linkedShuttle.hyperspace_sound(HYPERSPACE_WARMUP)
 	var/throwForce = CLAMP((calculated_speed / 2) - 5, 0, 10)
 	linkedShuttle.movement_force = list("KNOCKDOWN" = calculated_speed > 5 ? 3 : 0, "THROW" = throwForce)
 	if(!(targetLocation in params2list(possible_destinations)))
