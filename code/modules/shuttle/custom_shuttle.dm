@@ -25,6 +25,7 @@
 	var/datum/browser/popup
 
 	//Upgrades
+	var/distance_multiplier = 1
 
 /obj/machinery/computer/custom_shuttle/ui_interact(mob/user)
 	var/list/options = params2list(possible_destinations)
@@ -145,7 +146,6 @@
 	if(!M)
 		return FALSE
 	//Calculate all the data
-	var/list/areas = M.shuttle_areas
 	for(var/obj/machinery/shuttle/engine/shuttle_machine in GLOB.custom_shuttle_machines)
 		if(!shuttle_machine)
 			continue
