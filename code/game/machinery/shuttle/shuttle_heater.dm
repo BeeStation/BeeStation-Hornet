@@ -19,11 +19,6 @@
 		//Check the standard machines
 	for(var/obj/machinery/shuttle/shuttle_machine in GLOB.custom_shuttle_machines)
 		shuttle_machine.check_setup(FALSE)
-	//Check the atmospheric devices (The heaters)
-	for(var/obj/machinery/atmospherics/components/unary/shuttle/atmospheric_machine in GLOB.custom_shuttle_machines)
-		if(atmospheric_machine == src)
-			continue
-		atmospheric_machine.check_setup(FALSE)
 	return
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater
