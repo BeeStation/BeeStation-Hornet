@@ -70,7 +70,7 @@
 	if(!heater_turf)
 		attached_heater = null
 		update_engine()
-		return ..()
+		return
 	attached_heater = null
 	for(var/obj/machinery/atmospherics/components/unary/shuttle/heater/as_heater in heater_turf)
 		if(as_heater.dir != dir)
@@ -82,7 +82,7 @@
 		attached_heater = as_heater
 		break
 	update_engine()
-	return ..()
+	return
 
 /obj/machinery/shuttle/engine/proc/update_engine()
 	if(panel_open)
