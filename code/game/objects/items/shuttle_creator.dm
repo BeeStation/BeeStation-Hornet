@@ -176,8 +176,8 @@ GLOBAL_VAR_INIT(custom_shuttle_count, 0)
 	//port.Initialize(0)
 	port.register()
 	GLOB.custom_shuttle_count ++
-	message_admins("[ADMIN_LOOKUPFLW(user)] created a new shuttle with a [src] at [ADMIN_VERBOSEJMP(user)] ([customShuttles] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
-	log_game("[key_name(user)] created a new shuttle with a [src] at [AREACOORD(user)] ([customShuttles] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
+	message_admins("[ADMIN_LOOKUPFLW(user)] created a new shuttle with a [src] at [ADMIN_VERBOSEJMP(user)] ([GLOB.custom_shuttle_count] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
+	log_game("[key_name(user)] created a new shuttle with a [src] at [AREACOORD(user)] ([GLOB.custom_shuttle_count] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
 	return TRUE
 
 /obj/item/shuttle_creator/proc/create_shuttle_area(mob/user)
