@@ -24,7 +24,7 @@
 	density = FALSE
 	anchored = FALSE
 	item_flags = NOBLUDGEON
-	var/upgrade_amount = 0.6
+	upgrade_amount = 0.6
 
 /obj/item/shuttle_route_optimisation/void
 	name = "Voidspace Route Calculator"
@@ -38,7 +38,7 @@
 	density = FALSE
 	anchored = FALSE
 	item_flags = NOBLUDGEON
-	var/upgrade_amount = 0.2
+	upgrade_amount = 0.2
 
 /obj/item/shuttle_route_optimisation/attack_obj(obj/O, mob/living/user)
 	. = ..()
