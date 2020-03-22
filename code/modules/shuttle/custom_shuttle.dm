@@ -1,5 +1,5 @@
 #define Z_DIST 500
-#define CUSTOM_ENGINES_START_TIME 100
+#define CUSTOM_ENGINES_START_TIME 80
 
 /obj/machinery/computer/custom_shuttle
 	name = "nanotrasen shuttle flight controller"
