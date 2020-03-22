@@ -132,9 +132,10 @@
 			if(!E.thruster_active)	//Skipover thrusters with no valid heater
 				calculated_non_operational_thrusters ++
 				continue
-			if(!E.attached_heater.hasFuel(dist * E.fuel_use) && useFuel)
-				calculated_fuel_less_thrusters ++
-				continue
+			if(E.attached_heater)
+				if(!E.attached_heater.hasFuel(dist * E.fuel_use) && useFuel)
+					calculated_fuel_less_thrusters ++
+					continue
 			calculated_engine_count++
 			calculated_dforce += E.thrust
 			calculated_consumption += E.fuel_use
