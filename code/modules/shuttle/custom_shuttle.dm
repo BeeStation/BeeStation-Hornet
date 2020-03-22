@@ -146,20 +146,15 @@
 		return FALSE
 	//Calculate all the data
 	var/list/areas = M.shuttle_areas
-	for(var/shuttleArea in areas)
-		for(var/each in shuttleArea)
-			var/atom/atom = each
-			if(!atom)
-				continue
-			if(!istype(atom, /obj/machinery/shuttle/engine))
-				continue
-			var/obj/machinery/shuttle/engine/E = atom
-			E.check_setup(FALSE)
-			if(!E.thruster_active)	//Skipover thrusters with no valid heater
-				continue
-			if(!E.attached_heater.hasFuel(dist * E.fuel_use))
-				continue
-			E.attached_heater.consumeFuel(dist * E.fuel_use)
+	for(var/obj/machinery/shuttle/engine/shuttle_machine in GLOB.custom_shuttle_machines)
+		if(!shuttle_machine)
+			continue
+		shuttle_machine.check_setup(FALSE)
+		if(!shuttle_machine.thruster_active)
+			continue
+		if(!shuttle_machine.attached_heater.hasFuel(dist * shuttle_machine.fuel_use))
+			continue
+		shuttle_machine.attached_heater.consumeFuel(dist * shuttle_machine.fuel_use)
 
 /obj/machinery/computer/custom_shuttle/proc/SetTargetLocation(var/newTarget)
 	if(!(newTarget in params2list(possible_destinations)))
