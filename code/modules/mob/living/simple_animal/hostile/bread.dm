@@ -33,7 +33,7 @@
 	if(mutations == 0)
 		mutationcap = rand(1,mutability)
 		if(prob(90))
-			mutationcap = min(1, (mutationcap - stability))
+			mutationcap = max(1, (mutationcap - stability))
 	if(mutations <= mutationcap)
 		resize = 1.1
 		maxHealth += 5
