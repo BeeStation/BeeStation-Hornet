@@ -15,39 +15,15 @@
 /obj/machinery/shuttle/Initialize()
 	. = ..()
 	GLOB.custom_shuttle_machines += src
-	check_setup()
-
-//Call this when:
-// - The shuttle it's attached to gets 'Calculate Stats' called
-// - A heater next to this object gets wrenched into place
-// - A heat next to this gets wrenched out of place
-// - This gets wrenched into place
-/obj/machinery/shuttle/proc/check_setup(var/affectSurrounding = TRUE)
-	if(!affectSurrounding)
-		return
-	//Don't update if not on shuttle, to prevent lagging out the server in space
-	if(!istype(get_area(src), /area/shuttle/custom))
-		return
-	//Check the standard machines
-	for(var/obj/machinery/shuttle/shuttle_machine in GLOB.custom_shuttle_machines)
-		if(shuttle_machine == src)
-			continue
-		shuttle_machine.check_setup(FALSE)
-	return
 
 /obj/machinery/shuttle/attackby(obj/item/I, mob/living/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
-		check_setup()
 		return
 	if(default_pry_open(I))
-		check_setup()
 		return
 	if(panel_open)
 		if(default_change_direction_wrench(user, I))
-			check_setup()
 			return
 	if(default_deconstruction_crowbar(I))
-		check_setup()
 		return
-	check_setup()
 	return ..()

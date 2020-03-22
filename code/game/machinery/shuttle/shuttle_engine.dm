@@ -48,7 +48,15 @@
 	bluespace_capable = TRUE
 	cooldown = 90
 
-/obj/machinery/shuttle/engine/check_setup(var/affectSurrounding = TRUE)
+/obj/machinery/shuttle/engine/Initialize()
+	. = ..()
+	check_setup()
+
+/obj/machinery/shuttle/engine/on_construction()
+	. = ..()
+	check_setup()
+
+/obj/machinery/shuttle/engine/proc/check_setup()
 	var/heater_turf
 	switch(dir)
 		if(NORTH)
@@ -112,3 +120,16 @@
 		return
 	env.temperature += deltaTemperature
 	air_update_turf()
+
+/obj/machinery/shuttle/engine/attackby(obj/item/I, mob/living/user, params)
+	check_setup()
+	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
+		return
+	if(default_pry_open(I))
+		return
+	if(panel_open)
+		if(default_change_direction_wrench(user, I))
+			return
+	if(default_deconstruction_crowbar(I))
+		return
+	return ..()

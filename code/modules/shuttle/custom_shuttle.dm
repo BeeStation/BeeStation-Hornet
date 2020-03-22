@@ -139,7 +139,7 @@
 			if(!istype(atom, /obj/machinery/shuttle/engine))
 				continue
 			var/obj/machinery/shuttle/engine/E = atom
-			E.check_setup(FALSE)
+			E.check_setup()
 			if(!E.thruster_active)	//Skipover thrusters with no valid heater
 				calculated_non_operational_thrusters ++
 				continue
@@ -163,9 +163,7 @@
 		return FALSE
 	//Calculate all the data
 	for(var/obj/machinery/shuttle/engine/shuttle_machine in GLOB.custom_shuttle_machines)
-		if(!shuttle_machine)
-			continue
-		shuttle_machine.check_setup(FALSE)
+		shuttle_machine.check_setup()
 		if(!shuttle_machine.thruster_active)
 			continue
 		if(!shuttle_machine.attached_heater.hasFuel(dist * shuttle_machine.fuel_use))

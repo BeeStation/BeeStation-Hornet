@@ -10,17 +10,6 @@
 	icon_state = "heater"
 	icon = 'icons/turf/shuttle.dmi'
 
-/obj/machinery/atmospherics/components/unary/shuttle/proc/check_setup(var/affectSurrounding = TRUE)
-	if(!affectSurrounding)
-		return
-	//Don't update if not on shuttle, to prevent lagging out the server in space
-	if(!isarea(get_area(src), /area/shuttle/custom))
-		return
-		//Check the standard machines
-	for(var/obj/machinery/shuttle/shuttle_machine in GLOB.custom_shuttle_machines)
-		shuttle_machine.check_setup(FALSE)
-	return
-
 /obj/machinery/atmospherics/components/unary/shuttle/heater
 	name = "engine heater"
 	desc = "Directs energy into compressed particles in order to power an attached thruster."
@@ -43,20 +32,22 @@
 	var/efficiency_multiplier = 1
 	var/gas_capacity = 0
 
-/obj/machinery/atmospherics/components/unary/shuttle/heater/Initialize()
+/obj/machinery/atmospherics/components/unary/shuttle/heater/New()
 	. = ..()
 	GLOB.custom_shuttle_machines += src
 	SetInitDirections()
+	update_adjacent_engines()
 	updateGasStats()
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/Destroy()
 	. = ..()
+	update_adjacent_engines()
 	GLOB.custom_shuttle_machines -= src
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/on_construction()
 	..(dir, dir)
 	SetInitDirections()
-	check_setup()
+	update_adjacent_engines()
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/default_change_direction_wrench(mob/user, obj/item/I)
 	if(!..())
@@ -84,7 +75,7 @@
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
 		eff += L.rating
 	gas_capacity = 5000 * ((cap - 1) ** 2) + 1000
-	efficiency_multiplier = round(((eff / 2) / 2.828) ** 2, 0.1)
+	efficiency_multiplier = round(((eff / 2) / 2.8) ** 2, 0.1)
 	updateGasStats()
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/examine(mob/user)
@@ -94,6 +85,8 @@
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/updateGasStats()
 	var/datum/gas_mixture/air_contents = airs[1]
+	if(!air_contents)
+		return
 	air_contents.volume = gas_capacity
 	air_contents.temperature = T20C
 	if(gas_type)
@@ -110,18 +103,30 @@
 	return
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/attackby(obj/item/I, mob/living/user, params)
+	update_adjacent_engines()
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
-		check_setup()
 		return
 	if(default_pry_open(I))
-		check_setup()
 		return
 	if(panel_open)
 		if(default_change_direction_wrench(user, I))
-			check_setup()
 			return
 	if(default_deconstruction_crowbar(I))
-		check_setup()
 		return
-	check_setup()
 	return ..()
+
+/obj/machinery/atmospherics/components/unary/shuttle/heater/proc/update_adjacent_engines()
+	var/engine_turf
+	switch(dir)
+		if(NORTH)
+			engine_turf = get_offset_target_turf(src, 0, -1)
+		if(SOUTH)
+			engine_turf = get_offset_target_turf(src, 0, 1)
+		if(EAST)
+			engine_turf = get_offset_target_turf(src, -1, 0)
+		if(WEST)
+			engine_turf = get_offset_target_turf(src, 1, 0)
+	if(!engine_turf)
+		return
+	for(var/obj/machinery/shuttle/engine/E in engine_turf)
+		E.check_setup()
