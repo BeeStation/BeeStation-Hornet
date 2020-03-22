@@ -2,7 +2,7 @@
 //--------------Engine Heaters-------------------
 //This uses atmospherics, much like a thermomachine,
 //but instead of changing temp, it stores plasma and uses
-//it for the engine
+//it for the engine.
 //-----------------------------------------------
 /obj/machinery/atmospherics/components/unary/shuttle
 	name = "shuttle atmospherics device"
