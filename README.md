@@ -165,7 +165,7 @@ See tgui/LICENSE.md for the MIT license.
 See tgui/assets/fonts/SIL-OFL-1.1-LICENSE.md for the SIL Open Font License.
 See the footers of code/\_\_DEFINES/server\_tools.dm, code/modules/server\_tools/st\_commands.dm, and code/modules/server\_tools/st\_inteface.dm for the MIT license.
 
-All assets including icons and sound are under a [Creative Commons 3.0 BY-SA license](https://creativecommons.org/licenses/by-sa/3.0/) unless otherwise indicated.
+All assets including icons and sound are under a [Creative Commons 3.0 BY-NC-SA license](https://creativecommons.org/licenses/by-nc-sa/3.0/) unless otherwise indicated.
 
 # Other Codebase Credits
 - /tg/, for the codebase.
