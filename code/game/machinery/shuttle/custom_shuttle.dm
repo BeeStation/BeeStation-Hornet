@@ -30,8 +30,6 @@
 		return
 	//Check the standard machines
 	for(var/obj/machinery/shuttle/shuttle_machine in GLOB.custom_shuttle_machines)
-		if(!shuttle_machine)
-			continue
 		if(shuttle_machine == src)
 			continue
 		shuttle_machine.check_setup(FALSE)
