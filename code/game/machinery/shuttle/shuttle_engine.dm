@@ -2,6 +2,8 @@
 //-------------Engine Thrusters------------------
 //-----------------------------------------------
 
+#define ENGINE_HEAT_TARGET 600
+
 /obj/machinery/shuttle/engine
 	name = "shuttle thruster"
 	desc = "A thruster for shuttles."
@@ -77,3 +79,18 @@
 	thruster_active = FALSE
 	icon_state = icon_state_off
 	return
+
+//Thanks to spaceheater.dm for inspiration :)
+/obj/machinery/shuttle/engine/proc/fireEngine()
+	var/turf/heatTurf = loc
+	if(!heatTurf)
+		return
+	var/datum/gas_mixture/env = heatTurf.return_air()
+	var/heat_cap = env.heat_capacity()
+	var/req_power = abs(env.temperature - ENGINE_HEAT_TARGET) * heat_cap
+	req_power = min(req_power, 500000)
+	var/deltaTemperature = req_power / heat_cap
+	if(deltaTemperature < 0)
+		return
+	env.temperature += deltaTemperature
+	air_update_turf()

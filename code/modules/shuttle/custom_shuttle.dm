@@ -158,6 +158,7 @@
 			continue
 		if(!shuttle_machine.attached_heater.hasFuel(dist * shuttle_machine.fuel_use))
 			continue
+		shuttle_machine.fireEngine()
 		shuttle_machine.attached_heater.consumeFuel(dist * shuttle_machine.fuel_use)
 
 /obj/machinery/computer/custom_shuttle/proc/SetTargetLocation(var/newTarget)
