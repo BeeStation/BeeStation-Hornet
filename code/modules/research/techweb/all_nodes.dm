@@ -288,8 +288,8 @@
 
 /datum/techweb_node/shuttle_route_upgrade_hyper
 	id = "shuttle_route_upgrade_hyper"
-	display_name = "Route Optimisation Upgrade"
-	description = "Research into bluespace tunnelling, allowing us to reduce flight times by up to 20%!"
+	display_name = "Hyperlane Optimisation Upgrade"
+	description = "Research into bluespace hyperlane, allowing us to reduce flight times by up to 40%!"
 	prereq_ids = list("shuttle_route_upgrade", "micro_bluespace")
 	design_ids = list("disk_shuttle_route_hyper")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
@@ -297,8 +297,8 @@
 
 /datum/techweb_node/shuttle_route_upgrade_void
 	id = "shuttle_route_upgrade_void"
-	display_name = "Route Optimisation Upgrade"
-	description = "Research into bluespace tunnelling, allowing us to reduce flight times by up to 20%!"
+	display_name = "Nullspace Breaching Upgrade"
+	description = "Research into voidspace tunnelling, allowing us to significantly reduce flight times."
 	prereq_ids = list("shuttle_route_upgrade_hyper", "alientech")
 	design_ids = list("disk_shuttle_route_void")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
