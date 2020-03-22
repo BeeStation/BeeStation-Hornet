@@ -21,6 +21,33 @@
 	var/thruster_active = FALSE
 	var/obj/machinery/atmospherics/components/unary/shuttle/heater/attached_heater
 
+/obj/machinery/shuttle/engine/plasma
+	name = "plasma thruster"
+	desc = "A thruster that burns plasma stored in an adjacent plasma thruster heater."
+	icon_state = "burst_plasma"
+	icon_state_off = "burst_plasma_off"
+
+	idle_power_usage = 0
+	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
+	thrust = 25
+	fuel_use = 0.09
+	bluespace_capable = FALSE
+	cooldown = 45
+
+/obj/machinery/shuttle/engine/void
+	name = "void thruster"
+	desc = "A thruster using technology to breach voidspace for propulsion."
+	icon_state = "burst_void"
+	icon_state_off = "burst_void"
+	icon_state_closed = "burst_void"
+	icon_state_open = "burst_void_open"
+	idle_power_usage = 0
+	circuit = /obj/item/circuitboard/machine/shuttle/engine/void
+	thrust = 400
+	fuel_use = 0
+	bluespace_capable = TRUE
+	cooldown = 90
+
 /obj/machinery/shuttle/engine/check_setup(var/affectSurrounding = TRUE)
 	var/heater_turf
 	switch(dir)
@@ -51,18 +78,6 @@
 		break
 	update_engine()
 	return ..()
-
-/obj/machinery/shuttle/engine/plasma
-	name = "plasma thruster"
-	desc = "A thruster that burns plasma stored in an adjacent plasma thruster heater."
-	icon_state = "burst_plasma"
-	icon_state_off = "burst_plasma_off"
-	idle_power_usage = 0
-	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
-	thrust = 25
-	fuel_use = 0.09
-	bluespace_capable = FALSE
-	cooldown = 45
 
 /obj/machinery/shuttle/engine/proc/update_engine()
 	if(panel_open)

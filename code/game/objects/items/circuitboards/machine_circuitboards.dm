@@ -1073,6 +1073,13 @@
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/micro_laser = 1)
 
+/obj/item/circuitboard/machine/shuttle/engine/void
+	name = "Void Thruster (Machine Board)"
+	build_path = /obj/machinery/shuttle/engine/void
+	req_components = list(/obj/item/stock_parts/capacitor/quadratic = 2,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/micro_laser/quadultra = 1)
+
 /obj/item/circuitboard/machine/shuttle/heater
 	name = "Electronic Engine Heater (Machine Board)"
 	build_path = /obj/machinery/atmospherics/components/unary/shuttle/heater

@@ -10,6 +10,14 @@
 	category = list ("Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/board/shuttle/engine/void
+	name = "Machine Design (Void Thruster Board)"
+	desc = "The circuit board for a void thruster."
+	id = "engine_void"
+	build_path = /obj/item/circuitboard/machine/shuttle/engine/void
+	category = list ("Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/board/shuttle/engine/heater
 	name = "Machine Design (Engine Heater Board)"
 	desc = "The circuit board for an engine heater."
