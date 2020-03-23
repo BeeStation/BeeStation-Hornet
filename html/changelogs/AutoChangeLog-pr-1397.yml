@@ -1,0 +1,4 @@
+author: "aarontheidiot"
+delete-after: True
+changes: 
+  - rscadd: "Added Hepatectomy surgery, used to heal livers without needing to replace them when they get damaged. Only appears when a liver is damaged to a certain degree, and doesn't work on failed livers."
