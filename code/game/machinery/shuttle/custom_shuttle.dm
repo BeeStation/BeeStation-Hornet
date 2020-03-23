@@ -16,6 +16,10 @@
 	. = ..()
 	GLOB.custom_shuttle_machines += src
 
+/obj/machinery/shuttle/Destroy()
+	. = ..()
+	GLOB.custom_shuttle_machines -= src
+
 /obj/machinery/shuttle/attackby(obj/item/I, mob/living/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
 		return
