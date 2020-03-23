@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(scp294_reagents)
 	last_use = world.time
 	if(uses_left < 1)
 		visible_message("<span class='notice'>[src] displays OUT OF STOCK message.</span>")
-		uses_left = 0 // So it never restocks, but kept in code so it can be altered if needed
+		uses_left = 0 //  So it never restocks, but kept in code so it can be altered if needed
 		return
 
 	var/product = null
