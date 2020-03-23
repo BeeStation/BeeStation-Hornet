@@ -1,4 +1,0 @@
-author: "Cenrus"
-delete-after: True
-changes: 
-  - bugfix: "Health scanners now show organ damage levels"
