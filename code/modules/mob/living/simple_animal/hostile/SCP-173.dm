@@ -14,6 +14,7 @@
 	spacewalk = TRUE //Move in space
 	move_force = MOVE_FORCE_NORMAL
 	environment_smash = ENVIRONMENT_SMASH_WALLS
+	speed = -5
 
 	var/last_snap = 0
 
