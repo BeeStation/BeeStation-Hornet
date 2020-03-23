@@ -25,14 +25,14 @@ GLOBAL_LIST_EMPTY(scp294_reagents)
 
 /obj/machinery/scp294/attack_hand(mob/user)
 
-	if((last_use + 3 SECONDS) > world.time)
+	if((last_use + 30 SECONDS) > world.time)
 		visible_message("<span class='notice'>[src] displays NOT READY message.</span>")
 		return
 
 	last_use = world.time
 	if(uses_left < 1)
-		visible_message("<span class='notice'>[src] displays RESTOCKING, PLEASE WAIT message.</span>")
-		uses_left = 2000
+		visible_message("<span class='notice'>[src] displays OUT OF STOCK message.</span>")
+		uses_left = 0 // So it never restocks, but kept in code so it can be altered if needed
 		return
 
 	var/product = null
