@@ -1,0 +1,4 @@
+author: "Cenrus"
+delete-after: True
+changes: 
+  - tweak: "Nuke op borg/reinforcement spawners now work on the station."
