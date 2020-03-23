@@ -50,7 +50,7 @@
 
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
-
+	var/list/next_blinks = list()
 
 
 // No movement while seen code.
