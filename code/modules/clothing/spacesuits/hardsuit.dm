@@ -452,6 +452,15 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
 	slowdown = 0.5
 
+/obj/item/clothing/head/helmet/space/hardsuit/medical/cmo
+	name = "chief medical officer's hardsuit helmet"
+	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort and protects the eyes from intense light."
+	flash_protect = 2
+
+/obj/item/clothing/suit/space/hardsuit/medical/cmo
+	name = "chief medical officer's hardsuit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical/cmo
+
 	//Research Director hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/rd
 	name = "prototype hardsuit helmet"
