@@ -1,5 +1,0 @@
-author: "zeskorion"
-delete-after: True
-changes: 
-  - balance: "lower taser confusion to 10 seconds (from 15)"
-  - bugfix: "no more stacking confusion for being stuck in ai sat or anywhere else"
