@@ -1,0 +1,4 @@
+author: "ro5490"
+delete-after: True
+changes: 
+  - bugfix: "Changeling chem_storage now wont reset to 75 after a Respec if its higher than 75. (I.e. After absorbing another ling)"
