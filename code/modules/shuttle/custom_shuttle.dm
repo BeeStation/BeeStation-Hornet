@@ -128,17 +128,8 @@
 	//Calculate all the data
 	var/list/areas = M.shuttle_areas
 	for(var/shuttleArea in areas)
-		for(var/each in shuttleArea)
-			var/atom/atom = each
-			if(!atom)
-				continue
-			//Items weight too little to add on 100kg
-			if(istype(atom, /obj/item))
-				continue
-			calculated_mass ++
-			if(!istype(atom, /obj/machinery/shuttle/engine))
-				continue
-			var/obj/machinery/shuttle/engine/E = atom
+		calculated_mass += istype(get_turf(shuttleArea), /turf/open) ? 1 : 6
+		for(var/obj/machinery/shuttle/engine/E in shuttleArea)
 			E.check_setup()
 			if(!E.thruster_active)	//Skipover thrusters with no valid heater
 				calculated_non_operational_thrusters ++
