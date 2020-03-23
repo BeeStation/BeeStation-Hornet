@@ -57,6 +57,8 @@
 	if(node)
 		node.disconnect(src)
 		nodes[1] = null
+	if(!parents)
+		return
 	nullifyPipenet(parents[1])
 
 	atmosinit()

@@ -86,10 +86,11 @@
 
 /obj/machinery/shuttle/engine/proc/update_engine()
 	if(!attached_heater)
+		to_chat(usr, "No heater")
 		icon_state = icon_state_off
 		thruster_active = FALSE
 		return
-	var/obj/machinery/atmospherics/components/unary/shuttle/heater/resolved_heater = src.attached_heater.resolve()
+	var/obj/machinery/atmospherics/components/unary/shuttle/heater/resolved_heater = attached_heater.resolve()
 	if(panel_open)
 		thruster_active = FALSE
 	else if(resolved_heater.hasFuel(1))
