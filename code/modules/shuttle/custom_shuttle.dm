@@ -128,7 +128,7 @@
 	//Calculate all the data
 	var/list/areas = M.shuttle_areas
 	for(var/shuttleArea in areas)
-		calculated_mass += istype(get_turf(shuttleArea), /turf/open) ? 1 : 6
+		calculated_mass += length(get_area_turfs(shuttleArea))
 		for(var/obj/machinery/shuttle/engine/E in shuttleArea)
 			E.check_setup()
 			if(!E.thruster_active)	//Skipover thrusters with no valid heater
