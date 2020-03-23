@@ -2580,7 +2580,7 @@
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	name = "Prisoner Transfer Centre";
-	req_access_txt = "2"
+	req_access_txt = "2;34"
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden{
 	dir = 4
@@ -35890,7 +35890,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/vending/wallmed/pubby{
+/obj/machinery/vending/wallmed{
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
@@ -37771,7 +37771,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/vending/wallmed/pubby{
+/obj/machinery/vending/wallmed{
 	pixel_y = 28
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -38739,7 +38739,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/medical/medbay/central)
 "bKw" = (
-/obj/machinery/vending/wallmed/pubby{
+/obj/machinery/vending/wallmed{
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
