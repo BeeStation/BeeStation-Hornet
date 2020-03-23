@@ -88,10 +88,10 @@
 	if(!attached_heater)
 		icon_state = icon_state_off
 		thruster_active = FALSE
-	var/obj/machinery/atmospherics/components/unary/shuttle/heater/attached_heater = src.attached_heater.resolve()
+	var/obj/machinery/atmospherics/components/unary/shuttle/heater/resolved_heater = src.attached_heater.resolve()
 	if(panel_open)
 		thruster_active = FALSE
-	else if(attached_heater.hasFuel(1))
+	else if(resolved_heater.hasFuel(1))
 		icon_state = icon_state_closed
 		thruster_active = TRUE
 	else
