@@ -85,13 +85,13 @@
 	return
 
 /obj/machinery/shuttle/engine/proc/update_engine()
-	if(panel_open)
-		thruster_active = FALSE
-	else if(!attached_heater)
+	if(!attached_heater)
 		icon_state = icon_state_off
 		thruster_active = FALSE
-	var/obj/machinery/atmospherics/components/unary/shuttle/resolvedHeater = attached_heater.resolve()
-	else if(resolvedHeater.hasFuel(1))
+	var/obj/machinery/atmospherics/components/unary/shuttle/heater/attached_heater = src.attached_heater.resolve()
+	if(panel_open)
+		thruster_active = FALSE
+	else if(attached_heater.hasFuel(1))
 		icon_state = icon_state_closed
 		thruster_active = TRUE
 	else
