@@ -1,0 +1,6 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - tweak: "Brig Physicians gets access to Pubby's Prisoner Transfer Centre in order to do surgery"
+  - tweak: "Brig Physicians can now get free meds from vendors and their paycheck is under the Medical department now"
+  - tweak: "Pubby's NanoMeds changed to normal NanoMeds"
