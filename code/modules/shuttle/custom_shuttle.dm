@@ -144,7 +144,8 @@
 				calculated_non_operational_thrusters ++
 				continue
 			if(E.attached_heater)
-				if(!E.attached_heater.hasFuel(dist * E.fuel_use) && useFuel)
+				var/obj/machinery/atmospherics/components/unary/shuttle/resolvedHeater = attached_heater.resolve()
+				if(!E.resolvedHeater.hasFuel(dist * E.fuel_use) && useFuel)
 					calculated_fuel_less_thrusters ++
 					continue
 			calculated_engine_count++
@@ -166,12 +167,13 @@
 		shuttle_machine.check_setup()
 		if(!shuttle_machine.thruster_active)
 			continue
-		if(!shuttle_machine.attached_heater.hasFuel(dist * shuttle_machine.fuel_use))
+		var/obj/machinery/atmospherics/components/unary/shuttle/resolvedHeater = shuttle_machine.attached_heater.resolve()
+		if(!resolvedHeater.hasFuel(dist * shuttle_machine.fuel_use))
 			continue
 		if(get_area(M) != get_area(shuttle_machine))
 			continue
 		shuttle_machine.fireEngine()
-		shuttle_machine.attached_heater.consumeFuel(dist * shuttle_machine.fuel_use)
+		resolvedHeater.consumeFuel(dist * shuttle_machine.fuel_use)
 
 /obj/machinery/computer/custom_shuttle/proc/SetTargetLocation(var/newTarget)
 	if(!(newTarget in params2list(possible_destinations)))

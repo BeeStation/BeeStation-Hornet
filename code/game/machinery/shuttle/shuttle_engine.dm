@@ -19,7 +19,7 @@
 	var/bluespace_capable = TRUE
 	var/cooldown = 0
 	var/thruster_active = FALSE
-	var/obj/machinery/atmospherics/components/unary/shuttle/heater/attached_heater
+	var/datum/weakref/attached_heater
 
 /obj/machinery/shuttle/engine/plasma
 	name = "plasma thruster"
@@ -79,7 +79,7 @@
 			continue
 		if(!as_heater.anchored)
 			continue
-		attached_heater = as_heater
+		attached_heater = WEAKREF(as_heater)
 		break
 	update_engine()
 	return
@@ -90,7 +90,8 @@
 	else if(!attached_heater)
 		icon_state = icon_state_off
 		thruster_active = FALSE
-	else if(attached_heater.hasFuel(1))
+	var/obj/machinery/atmospherics/components/unary/shuttle/resolvedHeater = attached_heater.resolve()
+	else if(resolvedHeater.hasFuel(1))
 		icon_state = icon_state_closed
 		thruster_active = TRUE
 	else
