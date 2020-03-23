@@ -171,10 +171,10 @@
 			var/obj/machinery/atmospherics/components/unary/shuttle/heater/resolvedHeater = shuttle_machine.attached_heater.resolve()
 			if(!resolvedHeater.hasFuel(dist * shuttle_machine.fuel_use))
 				continue
+			resolvedHeater.consumeFuel(dist * shuttle_machine.fuel_use)
 		if(get_area(M) != get_area(shuttle_machine))
 			continue
 		shuttle_machine.fireEngine()
-		resolvedHeater.consumeFuel(dist * shuttle_machine.fuel_use)
 
 /obj/machinery/computer/custom_shuttle/proc/SetTargetLocation(var/newTarget)
 	if(!(newTarget in params2list(possible_destinations)))
