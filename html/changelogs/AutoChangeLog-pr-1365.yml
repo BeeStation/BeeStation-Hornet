@@ -1,4 +1,0 @@
-author: "zeskorion"
-delete-after: True
-changes: 
-  - tweak: "makes true stuns and knockdowns other than shoves and slips no longer drop items by default"
