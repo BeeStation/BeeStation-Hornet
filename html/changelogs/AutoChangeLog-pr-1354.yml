@@ -1,0 +1,8 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "junior epidemiology kit"
+  - rscadd: "virus sample kit"
+  - tweak: "virus crate split into three"
+  - imageadd: "virus food carton icon"
+  - imageadd: "virology action figure change"
