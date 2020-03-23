@@ -1,0 +1,5 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - rscadd: "Added grenade launcher to nukie uplink. Costs 6 TC."
+  - tweak: "Grenade launcher now fits on security exosuit storage slots such as the armor vest."
