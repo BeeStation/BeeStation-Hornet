@@ -1,0 +1,4 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - bugfix: "Stasis beds now have a surgery success probability of 90%, 10% higher than that of an operating table."
