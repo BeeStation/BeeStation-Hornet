@@ -1,5 +1,0 @@
-author: "Victor239"
-delete-after: True
-changes: 
-  - bugfix: "Delta gear room now can only be opened by security personnel"
-  - bugfix: "Pubby medbay now can only be opened by medical personnel"
