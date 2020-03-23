@@ -45,7 +45,7 @@
 			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
 		return FALSE
 	else
-		if(istype(target, /obj/structure/table) || istype(target, /obj/structure/rack) || istype(target, /obj/machinery/light) || istype(target, /obj/machinery/light/small) || istype(target, /obj/machinery/vending) || istype(target, /obj/machinery/door) || istype(target, /obj/machinery/computer) || istype(target, /obj/structure/closet) || istype(target, /obj/structure/girder) || istype(target, /obj/structure/grille) || istype(target, /obj/structure/wall))
+		if(istype(target, /obj/structure/table) || istype(target, /obj/structure/rack) || istype(target, /obj/machinery/light) || istype(target, /obj/machinery/light/small) || istype(target, /obj/machinery/vending) || istype(target, /obj/machinery/door) || istype(target, /obj/machinery/computer) || istype(target, /obj/structure/closet) || istype(target, /obj/structure/girder) || istype(target, /obj/structure/grille) || istype(target, /turf/closed/wall))
 			return ..()  //The above line checks for lights, tables, computers, vendimg machines, doors, racks and closets. if the target is any of these objects, Attack as normal doing obj_damage)
 		else if(istype(target,/mob))
 			if(isliving(target))
@@ -75,7 +75,7 @@
 			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
 		return FALSE
 	else
-		if(istype(target, /obj/structure/table) || istype(target, /obj/structure/rack) || istype(target, /obj/machinery/light) || istype(target, /obj/machinery/light/small) || istype(target, /obj/machinery/vending) || istype(target, /obj/machinery/door) || istype(target, /obj/machinery/computer) || istype(target, /obj/structure/closet) || istype(target, /obj/structure/girder) || istype(target, /obj/structure/grille) || istype(target, /obj/structure/wall))
+		if(istype(target, /obj/structure/table) || istype(target, /obj/structure/rack) || istype(target, /obj/machinery/light) || istype(target, /obj/machinery/light/small) || istype(target, /obj/machinery/vending) || istype(target, /obj/machinery/door) || istype(target, /obj/machinery/computer) || istype(target, /obj/structure/closet) || istype(target, /obj/structure/girder) || istype(target, /obj/structure/grille) || istype(target, /turf/closed/wall))
 			return ..()  //The above line checks for lights, tables, computers, vendimg machines, doors, racks and closets. if the target is any of these objects, Attack as normal doing obj_damage
 		else if(istype(target,/mob))
 			if(isliving(target))
