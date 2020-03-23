@@ -133,7 +133,7 @@
 			if(!atom)
 				continue
 			//Items weight too little to add on 100kg
-			if(!istype(atom, /obj/item))
+			if(istype(atom, /obj/item))
 				continue
 			calculated_mass ++
 			if(!istype(atom, /obj/machinery/shuttle/engine))
@@ -167,6 +167,8 @@
 		if(!shuttle_machine.thruster_active)
 			continue
 		if(!shuttle_machine.attached_heater.hasFuel(dist * shuttle_machine.fuel_use))
+			continue
+		if(get_area(M) != get_area(shuttle_machine))
 			continue
 		shuttle_machine.fireEngine()
 		shuttle_machine.attached_heater.consumeFuel(dist * shuttle_machine.fuel_use)
