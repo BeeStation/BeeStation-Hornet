@@ -1,4 +1,0 @@
-author: "4rchibald"
-delete-after: True
-changes: 
-  - bugfix: "Distribution and Waste pipes are no longer connected on Delta"
