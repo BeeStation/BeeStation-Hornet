@@ -1,6 +1,6 @@
 /obj/item/shuttle_route_optimisation
 	name = "Route Optimisation Upgrade"
-	desc = "Used on a shuttle control console to calculate more efficient routes."
+	desc = "Used on a custom shuttle control console to calculate more efficient routes."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "shuttledisk"
 	force = 0
@@ -14,7 +14,7 @@
 
 /obj/item/shuttle_route_optimisation/hyperlane
 	name = "Bluespace Hyperlane Calculator"
-	desc = "Used on a shuttle control console to allow for the following of bluespace hyperlanes, increasing the efficiency of the shuttle."
+	desc = "Used on a custom shuttle control console to allow for the following of bluespace hyperlanes, increasing the efficiency of the shuttle."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "shuttledisk_better"
 	force = 0
@@ -28,7 +28,7 @@
 
 /obj/item/shuttle_route_optimisation/void
 	name = "Voidspace Route Calculator"
-	desc = "Used on a shuttle control console to allow it to navigate into voidspace, making the routes almost instant."
+	desc = "Used on a custom shuttle control console to allow it to navigate into voidspace, making the routes almost instant."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "shuttledisk_void"
 	force = 0
@@ -42,7 +42,10 @@
 
 /obj/item/shuttle_route_optimisation/attack_obj(obj/O, mob/living/user)
 	. = ..()
+	if(!istype(O, /obj/machinery/computer))
+		return
 	if(!istype(O, /obj/machinery/computer/custom_shuttle))
+		to_chat(user, "<span class='warning'>This upgrade only works on a custom shuttle flight console.</span>")
 		return
 	if (!user.transferItemToLoc(src, get_turf(O)))
 		return
