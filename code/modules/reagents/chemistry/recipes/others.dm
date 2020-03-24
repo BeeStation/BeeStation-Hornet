@@ -33,9 +33,9 @@
 
 /datum/chemical_reaction/concentrated_bz
 	name = "Concentrated BZ"
-	id = /datum/reagent/concentrated_bz
-	results = list(/datum/reagent/concentrated_bz = 5)
-	required_reagents = list(/datum/reagent/toxin/plasma = 20, /datum/reagent/nitrous_oxide = 20)
+	id = "Concentrated BZ"
+	results = list(/datum/reagent/concentrated_bz = 10)
+	required_reagents = list(/datum/reagent/toxin/plasma = 40, /datum/reagent/nitrous_oxide = 10)
 
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"

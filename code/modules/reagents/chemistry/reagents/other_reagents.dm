@@ -1881,12 +1881,20 @@
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 	random_unrestricted = FALSE	
 
-/datum/reagent/bz_metabolites/on_mob_life(mob/living/L)
+/datum/reagent/concentrated_bz/on_mob_metabolize(mob/living/L)
+	..()
+	ADD_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
+
+/datum/reagent/concentrated_bz/on_mob_end_metabolize(mob/living/L)
+	..()
+	REMOVE_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
+
+/datum/reagent/concentrated_bz/on_mob_life(mob/living/L)
 	if(L.mind)
 		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
-			if(prob(15))	
+			if(prob(30))	
 				L.losebreath += 1
 				L.adjustOxyLoss(3,5)
 				to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")
