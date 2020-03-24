@@ -47,8 +47,5 @@
 	projectile_type = /obj/item/projectile/bullet/c38/mime
 
 /obj/item/ammo_casing/caseless/mime/lethals
-	name = "odd .38 bullet casing"
-	desc = "A .38 bullet chambered to be fired from your fingers."
-	caliber = "mime"
 	projectile_type = /obj/item/projectile/bullet/c38
 
