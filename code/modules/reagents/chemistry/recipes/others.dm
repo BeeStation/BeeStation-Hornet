@@ -1,9 +1,4 @@
-/datum/chemical_reaction/concentrated_bz
-name = "Concentrated BZ"
-id = /datum/reagent/concentrated_bz
-results = list(/datum/reagent/concentrated_bz = 5)
-required_reagents = list(/datum/reagent/nitrous_oxide = 20, /datum/reagent/toxin/plasma = 20)
-required_temp = 180
+
 
 
 /datum/chemical_reaction/sterilizine
@@ -35,6 +30,12 @@ required_temp = 180
 	id = /datum/reagent/impedrezene
 	results = list(/datum/reagent/impedrezene = 2)
 	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/oxygen = 1, /datum/reagent/consumable/sugar = 1)
+
+/datum/chemical_reaction/concentrated_bz
+	name = "Concentrated BZ"
+	id = /datum/reagent/concentrated_bz
+	results = list(/datum/reagent/concentrated_bz = 3)
+	required_reagents = list(/datum/reagent/toxin/plasma = 1, /datum/reagent/nitrous_oxide = 1)
 
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"

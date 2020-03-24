@@ -1873,7 +1873,7 @@
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
 	return ..()
 
-/datum/reagent/bz_metabolites/concentrated_bz
+/datum/reagent/concentrated_bz
 	name = "Concentrated BZ"
 	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings"
 	color = "#FAFF00"
@@ -1886,10 +1886,10 @@
 		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
-		if(changeling && prob(15))	
-		L.losebreath += 1
-		L.adjustOxyLoss(3,5)
-		to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")					
+			if(prob(15))	
+			L.losebreath += 1
+			L.adjustOxyLoss(3,5)
+			to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")					
 	return ..()	
 
 /datum/reagent/pax/peaceborg
