@@ -1875,7 +1875,7 @@
 
 /datum/reagent/concentrated_bz
 	name = "Concentrated BZ"
-	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings"
+	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage"
 	color = "#FAFF00"
 	taste_description = "acrid cinnamon"
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
@@ -1887,9 +1887,11 @@
 		if(changeling)
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
 			if(prob(15))	
-			L.losebreath += 1
-			L.adjustOxyLoss(3,5)
-			to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")					
+				L.losebreath += 1
+				L.adjustOxyLoss(3,5)
+				to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")
+
+		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)					
 	return ..()	
 
 /datum/reagent/pax/peaceborg
