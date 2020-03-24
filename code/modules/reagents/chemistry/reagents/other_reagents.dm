@@ -1873,6 +1873,29 @@
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
 	return ..()
 
+	/datum/reagent/bz_metabolites/concentrated_bz
+	name = "Concentrated BZ"
+	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings"
+	color = "#FAFF00"
+	taste_description = "acrid cinnamon"
+	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+	random_unrestricted = FALSE
+
+	/datum/reagent/bz_metabolites/on_mob_life(mob/living/L)
+	if(L.mind)
+		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
+		if(changeling)
+			changeling.chem_charges = max(changeling.chem_charges-2, 0)
+			if(prob(25))
+		    to_chat(L, "You feel sick.")			
+			if(prob(15))
+                M.losebreath += 1
+				to_chat(M, "<font size=3 color=red><b>You can't breathe!</b></font>")
+				M.adjustOxyLoss(rand(3,5))
+				M.Stun(30,0)
+		    
+	return ..()
+
 /datum/reagent/pax/peaceborg
 	name = "synthpax"
 	description = "A colorless liquid that suppresses violence in its subjects. Cheaper to synthesize than normal Pax, but wears off faster."
