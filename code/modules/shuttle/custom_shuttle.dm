@@ -102,7 +102,7 @@
 	var/deltaX = port.x - x
 	var/deltaY = port.y - y
 	var/deltaZ = (port.z - z) * Z_DIST
-	return sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ)
+	return sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * distance_multiplier
 
 /obj/machinery/computer/custom_shuttle/proc/linkShuttle(var/new_id)
 	shuttleId = new_id
@@ -198,7 +198,7 @@
 	var/time = min(max(round(dist / calculated_speed), 10), 90)
 	linkedShuttle.callTime = time * 10
 	linkedShuttle.rechargeTime = calculated_cooldown
-	linkedShuttle.preferred_direction = dir
+	linkedShuttle.preferred_direction = angle2dir(dir2angle(dir) + 90)
 	linkedShuttle.ignitionTime = CUSTOM_ENGINES_START_TIME
 	linkedShuttle.count_engines()
 	linkedShuttle.hyperspace_sound(HYPERSPACE_WARMUP)
