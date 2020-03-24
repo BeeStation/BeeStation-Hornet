@@ -1886,14 +1886,11 @@
 		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
-			if(prob(25))
-		    to_chat(L, "You feel sick.")			
 			if(prob(15))
                 M.losebreath += 1
 				to_chat(M, "<font size=3 color=red><b>You can't breathe!</b></font>")
 				M.adjustOxyLoss(rand(3,5))
-				M.Stun(30,0)
-		    
+				M.Stun(30,0)					
 	return ..()	
 
 /datum/reagent/pax/peaceborg
