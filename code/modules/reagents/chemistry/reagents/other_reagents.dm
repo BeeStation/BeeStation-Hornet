@@ -1887,9 +1887,9 @@
 		if(changeling)
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
 		if(changeling && prob(15))	
-		M.losebreath += 1
-		M.adjustOxyLoss(3,5)
-		to_chat(M, "<font size=3 color=red><b>You can't breathe!</b></font>")					
+		L.losebreath += 1
+		L.adjustOxyLoss(3,5)
+		to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")					
 	return ..()	
 
 /datum/reagent/pax/peaceborg
