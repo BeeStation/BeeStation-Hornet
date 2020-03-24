@@ -1,3 +1,10 @@
+/datum/chemical_reaction/concentrated_bz
+name = "Concentrated BZ"
+id = /datum/reagent/bz_metabolites/concentrated_bz
+results = list(/datum/reagent/bz_metabolites/concentrated_bz = 5)
+required_reagents = list(/datum/reagent/nitrous_oxide = 20, /datum/reagent/toxin/plasma = 20)
+required_temp = 180
+
 
 /datum/chemical_reaction/sterilizine
 	name = "Sterilizine"
