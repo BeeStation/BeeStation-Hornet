@@ -1,0 +1,6 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "teleporting bread is now dangerous"
+  - code_imp: "adds teleport_act to atoms"
+  - imageadd: "killer bread sprites"
