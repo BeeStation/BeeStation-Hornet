@@ -1902,6 +1902,19 @@
 		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)					
 	return ..()	
 
+/datum/reagent/fake_cbz
+	name = "Concentrated BZ"
+	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage"
+	color = "#FAFF00"
+	taste_description = "acrid cinnamon"
+	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+	random_unrestricted = FALSE	
+
+/datum/reagent/fake_cbz/on_mob_life(mob/living/L)
+	L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
+	if(prob(15))
+		to_chat(M, "The chemical feels like it isn't doing anything!")
+
 /datum/reagent/pax/peaceborg
 	name = "synthpax"
 	description = "A colorless liquid that suppresses violence in its subjects. Cheaper to synthesize than normal Pax, but wears off faster."
