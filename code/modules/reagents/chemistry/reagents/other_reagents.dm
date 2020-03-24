@@ -1913,7 +1913,7 @@
 /datum/reagent/fake_cbz/on_mob_life(mob/living/L)
 	L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
 	if(prob(15))
-		to_chat(M, "The chemical feels like it isn't doing anything!")
+		to_chat(L, "The chemical feels like it isn't doing anything!")
 
 /datum/reagent/pax/peaceborg
 	name = "synthpax"
