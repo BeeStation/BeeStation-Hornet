@@ -162,7 +162,7 @@
 			continue
 		if(shuttle_machine.attached_heater)
 			var/obj/machinery/atmospherics/components/unary/shuttle/heater/resolvedHeater = shuttle_machine.attached_heater.resolve()
-			if(!resolvedHeater.hasFuel(dist * shuttle_machine.fuel_use))
+			if(resolvedHeater && !resolvedHeater.hasFuel(dist * shuttle_machine.fuel_use))
 				continue
 			resolvedHeater?.consumeFuel(dist * shuttle_machine.fuel_use)
 		shuttle_machine.fireEngine()
