@@ -3,6 +3,7 @@
 //-----------------------------------------------
 
 #define ENGINE_HEAT_TARGET 600
+#define ENGINE_HEATING_POWER 5000000
 
 /obj/machinery/shuttle/engine
 	name = "shuttle thruster"
@@ -117,7 +118,7 @@
 	var/datum/gas_mixture/env = heatTurf.return_air()
 	var/heat_cap = env.heat_capacity()
 	var/req_power = abs(env.temperature - ENGINE_HEAT_TARGET) * heat_cap
-	req_power = min(req_power, 500000)
+	req_power = min(req_power, ENGINE_HEATING_POWER)
 	var/deltaTemperature = req_power / heat_cap
 	if(deltaTemperature < 0)
 		return
