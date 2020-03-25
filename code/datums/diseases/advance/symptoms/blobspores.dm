@@ -2,8 +2,8 @@
 	name = "Blob Spores"
 	desc = "This symptom causes the host to produce blob spores, which will leave the host at the later stages, and if the host dies, all of the spores will erupt from the host at the same time, while also producing a blob tile."
 	stealth = 1
-	resistance = 20
-	stage_speed = 10
+	resistance = 6
+	stage_speed = -2
 	transmittable = 1
 	level = 9
 	severity = 6
