@@ -30,7 +30,7 @@
 	idle_power_usage = 0
 	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
 	thrust = 25
-	fuel_use = 0.09
+	fuel_use = 0.24
 	bluespace_capable = FALSE
 	cooldown = 45
 

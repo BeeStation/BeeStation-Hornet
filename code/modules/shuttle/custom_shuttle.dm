@@ -1,5 +1,5 @@
 #define Z_DIST 500
-#define CUSTOM_ENGINES_START_TIME 80
+#define CUSTOM_ENGINES_START_TIME 70
 #define CALCULATE_STATS_COOLDOWN 2
 
 /obj/machinery/computer/custom_shuttle
@@ -198,7 +198,9 @@
 	var/time = min(max(round(dist / calculated_speed), 10), 90)
 	linkedShuttle.callTime = time * 10
 	linkedShuttle.rechargeTime = calculated_cooldown
-	linkedShuttle.preferred_direction = angle2dir(dir2angle(dir) + 90)
+	//We need to find the direction of this console to the port
+	linkedShuttle.port_direction = angle2dir(dir2angle(dir) - (dir2angle(linkedShuttle.dir)) + 180)
+	linkedShuttle.preferred_direction = NORTH
 	linkedShuttle.ignitionTime = CUSTOM_ENGINES_START_TIME
 	linkedShuttle.count_engines()
 	linkedShuttle.hyperspace_sound(HYPERSPACE_WARMUP)
