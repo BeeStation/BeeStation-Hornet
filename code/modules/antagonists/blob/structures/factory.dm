@@ -49,8 +49,9 @@
 
 /obj/structure/blob/factory/lone/Initialize(mapload, owner_overmind)
 	. = ..()
-	addtimer(CALLBACK(src, /obj/structure/blob/factory/lone.proc/Be_Pulsed), 5 SECONDS)
+	addtimer(CALLBACK(src, /obj/structure/blob/factory/lone.proc/Generate_Pulse), 5 SECONDS)
 
-/obj/structure/blob/factory/lone/Be_Pulsed()
-	. = ..()
+/obj/structure/blob/factory/lone/proc/Generate_Pulse()
 	addtimer(CALLBACK(src, /obj/structure/blob/factory/lone.proc/Be_Pulsed), 10 SECONDS)
+	addtimer(CALLBACK(src, /obj/structure/blob/factory/lone.proc/Generate_Pulse), 10 SECONDS)
+
