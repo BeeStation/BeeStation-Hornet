@@ -1875,10 +1875,9 @@
 
 /datum/reagent/concentrated_bz
 	name = "Concentrated BZ"
-	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage"
+	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
 	color = "#FAFF00"
 	taste_description = "acrid cinnamon"
-	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 	random_unrestricted = FALSE	
 
 /datum/reagent/concentrated_bz/on_mob_metabolize(mob/living/L)
@@ -1904,16 +1903,15 @@
 
 /datum/reagent/fake_cbz
 	name = "Concentrated BZ"
-	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage"
+	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
 	color = "#FAFF00"
 	taste_description = "acrid cinnamon"
-	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 	random_unrestricted = FALSE	
 
 /datum/reagent/fake_cbz/on_mob_life(mob/living/L)
 	L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
 	if(prob(15))
-		to_chat(L, "The chemical feels like it isn't doing anything!")
+		to_chat(L, "You don't feel much of anything")
 
 /datum/reagent/pax/peaceborg
 	name = "synthpax"
