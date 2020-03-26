@@ -166,6 +166,58 @@
 		return TRUE
 	return FALSE
 
+/datum/symptom/heal/surface
+	name = "Superficial Healing"
+	desc = "The virus accelerates the body's natural healing, causing the body to heal minor wounds quickly. Causes heavy scarring."
+	stealth = -1
+	resistance = -2
+	stage_speed = -2
+	transmittable = 1
+	level = 6
+	passive_message = "<span class='notice'>Your skin tingles.</span>"
+	var/threshhold = 15
+	var/scarcounter = 0
+
+	threshold_desc = "<b>Stage Speed 8:</b> Doubles healing speed.<br>\
+					  <b>Resistance 10:</b> Improves healing threshhold."
+
+/datum/symptom/heal/surface/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.properties["stage_rate"] >= 8) //stronger healing
+		power = 2
+	if(A.properties["resistance"] >= 10)
+		threshhold = 30
+
+/datum/symptom/heal/surface/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
+	var/healed = FALSE
+
+	if(M.getBruteLoss() && M.getBruteLoss() <= threshhold)
+		M.adjustBruteLoss(-power)
+		healed = TRUE
+		scarcounter++
+
+	if(M.getFireLoss() && M.getFireLoss() <= threshhold)
+		M.adjustFireLoss(-power)
+		healed = TRUE
+		scarcounter++
+	
+	if(M.getToxLoss() && M.getToxLoss() <= threshhold)
+		M.adjustToxLoss(-power)
+		healed = TRUE
+
+	if(healed)
+		if(prob(10))
+			to_chat(M, "<span class='notice'>Your wounds heal, granting you a new scar</span>")
+		if(scarcounter >= 200 && !HAS_TRAIT(M, TRAIT_DISFIGURED))
+			ADD_TRAIT(M, TRAIT_DISFIGURED, DISEASE_TRAIT)
+			M.visible_message("<span class='warning'>[M]'s face becomes unrecognizeable </span>", "<span class='userdanger'>Your scars have made your face unrecognizeable.</span>")
+	return healed
+
+
+/datum/symptom/heal/surface/passive_message_condition(mob/living/M)
+	return M.getBruteLoss() <= threshhold || M.getFireLoss() <= threshhold
+
 /*
 //////////////////////////////////////
 im not even gonna bother with these for the following symptoms. typed em out, code was deleted, had to start over, read the symptoms yourself.

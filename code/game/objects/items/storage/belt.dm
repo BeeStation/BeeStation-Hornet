@@ -479,6 +479,11 @@
 		/obj/item/multitool = 1)
 	generate_items_inside(items_inside,src)
 
+/obj/item/storage/belt/grenade/full/webbing
+	name = "grenadier chest rig"
+	desc = "A set of tactical webbing stocked full of grenades."
+	icon_state = "militarywebbing"
+	item_state = "militarywebbing"
 
 /obj/item/storage/belt/wands
 	name = "wand belt"
