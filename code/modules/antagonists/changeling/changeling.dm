@@ -111,7 +111,6 @@
 	chosen_sting = null
 	geneticpoints = initial(geneticpoints)
 	sting_range = initial(sting_range)
-	chem_storage = initial(chem_storage)
 	chem_recharge_rate = initial(chem_recharge_rate)
 	chem_charges = min(chem_charges, chem_storage)
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
