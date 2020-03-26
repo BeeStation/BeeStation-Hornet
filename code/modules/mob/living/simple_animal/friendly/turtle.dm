@@ -1,6 +1,6 @@
 /mob/living/simple_animal/turtle
 	name = "Frank"
-	desc = "An adorable, slow moving Texas pal."
+	desc = "An adorable, slow moving, Texas pal."
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "yeeslow"
 	icon_living = "yeeslow"
@@ -21,7 +21,7 @@
 	melee_damage_upper = 18
 	health = 2500
 	maxHealth = 2500
-	speed = 10
+	speed = 8
 	glide_size = 2
 	can_be_held = TRUE
 
