@@ -3897,7 +3897,7 @@
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "vk" = (
-/mob/living/simple_animal/pet/turtle,
+/mob/living/simple_animal/turtle,
 /turf/open/floor/plasteel,
 /area/mine/production)
 "xm" = (
