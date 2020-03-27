@@ -8,6 +8,7 @@ GLOBAL_LIST_EMPTY(scp294_reagents)
 	layer = 2.9
 	anchored = 1
 	density = 1
+	flags_1 = NODECONSTRUCT_1
 	var/uses_left = 25
 	var/last_use = 0
 	var/restocking_timer = 0
