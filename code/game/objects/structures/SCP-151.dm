@@ -1,5 +1,5 @@
 /obj/structure/scp151
-	name = "painting"
+	name = "Strange Painting"
 	desc = "A painting depicting a rising wave."
 	icon = 'icons/obj/SCP151.dmi'
 	icon_state = ""
