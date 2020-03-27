@@ -2,8 +2,8 @@ GLOBAL_LIST_EMPTY(scp529s)
 
 /mob/living/simple_animal/cat/friendly/SCP529
 	name = "SCP-529"
-	desc = "A friendly tabby cat that seems to be missing half of her body."
 	icon = 'icons/SCP/josie.dmi'
+	desc = "<b><span class='notice'><big>SCP-529</big></span></b> - A friendly tabby cat that seems to be missing half of her body."
 	icon_state = "cat"
 	icon_living = "cat"
 	icon_dead = "cat_dead"
@@ -19,4 +19,5 @@ GLOBAL_LIST_EMPTY(scp529s)
 	gender = FEMALE
 
 /mob/living/simple_animal/cat/friendly/SCP529/examine(mob/user)
-	user << "<b><span class = 'safe'><big>SCP-529</big></span></b> - [desc]"
+ . = ..()
+

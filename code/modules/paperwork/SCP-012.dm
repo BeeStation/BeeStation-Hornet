@@ -3,13 +3,12 @@ GLOBAL_LIST_EMPTY(scp012s)
 /obj/item/paper/scp012
 	name = "SCP-012"
 	icon = 'icons/mob/scpicon/scpmobs/scp012.dmi'
-	desc = "An old paper of handwritten sheet music, titled \"On Mount Golgotha\". It appears to be incomplete and he writing is in a conspicuous blood red."
+	desc = "<b><span class='warning'><big>SCP-012</big></span></b> - An old paper of handwritten sheet music, titled \"On Mount Golgotha\". It appears to be incomplete and he writing is in a conspicuous blood red."
 	anchored = 1
 	var/ticks = 0
 
 /obj/item/paper/scp012/examine(mob/user)
 	. = ..()
-	. += "<b><span class = 'euclid'><big>SCP-012</big></span></b> - [desc]"
 
 /obj/item/paper/scp012/Initialize()
 	. = ..()

@@ -2,8 +2,8 @@ GLOBAL_LIST_EMPTY(scp294_reagents)
 
 /obj/machinery/scp294
 	name = "SCP-294"
-	desc = "A standard coffee vending machine."
 	icon = 'icons/mob/scpicon/scpobj/scp294.dmi'
+	desc = "<b><span class='notice''><big>SCP-294</big></span></b> - A standard coffee vending machine."
 	icon_state = "coffee_294"
 	layer = 2.9
 	anchored = 1
@@ -11,6 +11,10 @@ GLOBAL_LIST_EMPTY(scp294_reagents)
 	var/uses_left = 25
 	var/last_use = 0
 	var/restocking_timer = 0
+
+/obj/machinery/scp294/examine(mob/user)
+	. = ..()
+
 
 /obj/machinery/scp294/Initialize()
 	. = ..()

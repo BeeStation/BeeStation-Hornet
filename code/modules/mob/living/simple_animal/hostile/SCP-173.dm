@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/statue/scp_173
 	name = "SCP-173"
-	desc = "A statue, constructed from concrete and rebar with traces of Krylon brand spray paint"
 	icon = 'icons/mob/scpicon/scpmobs/scp-173.dmi'
+	desc = "<b><span class='warning'><big>SCP-173</big></span></b> - A statue, constructed from concrete and rebar with traces of Krylon brand spray paint"
 	ventcrawler = VENTCRAWLER_NUDE
 	icon_state = "173"
 	icon_living = "173"
@@ -17,6 +17,9 @@
 	speed = -5
 
 	var/last_snap = 0
+
+/mob/living/simple_animal/hostile/statue/scp_173/examine(mob/user)
+	. = ..()
 
 /mob/living/simple_animal/hostile/statue/scp_173/Life() // BLINK IF IN RANGE
 	. = ..()

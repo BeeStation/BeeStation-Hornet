@@ -1,7 +1,7 @@
 /obj/structure/scp151
 	name = "Strange Painting"
-	desc = "A painting depicting a rising wave."
 	icon = 'icons/obj/SCP151.dmi'
+	desc = "<b><span class='warning'><big>SCP-151</big></span></b> - A painting depicting a rising wave."
 	icon_state = ""
 	anchored = TRUE
 	density = TRUE
@@ -11,7 +11,7 @@
 
 /obj/structure/scp151/examine(mob/user)
 	. = ..()
-	. += "<b><span class = 'euclid'><big>SCP-151</big></span></b> - [desc]"
+
 
 /obj/structure/scp151/proc/hurt_victims() //simulate drowning
 	for(var/mob/living/user in victims)
