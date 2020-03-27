@@ -87,6 +87,29 @@
 	list_reagents = list(/datum/reagent/water/holywater = 150, /datum/reagent/peaceborg/tire = 50, /datum/reagent/peaceborg/confuse = 50)
 	amount_per_transfer_from_this = 50
 
+/obj/item/reagent_containers/hypospray/combat/supersoldier
+	name = "Supersoldier Nanites"
+	desc = "The key ingredient to Nanotrasen's supersoldier program, regular doses of nanites must be taken before every mission to unlock the supersoldier's true capabilities."
+	item_state = "nanite_hypo"
+	icon_state = "nanite_hypo"
+	list_reagents = list(/datum/reagent/mutationtoxin/supersoldier = 5)
+
+/*
+/obj/item/reagent_containers/hypospray/supersoldier/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+	if(iscarbon(M) && M.stat != DEAD)
+		if(!ishumanbasic(M) || reac_volume < 5) // implying xenohumans are holy
+			if(method == INGEST && show_message)
+				to_chat(M, "<span class='notice'><i>You feel nothing, your DNA must not be compatible.</i></span>")
+			return ..()
+
+		to_chat(M, "<span class='userdanger'>A flare of pain washes over you as the nanites restructure your body!</span>")
+		M.set_species(/datum/species/human/supersoldier)
+		playsound(M.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
+		M.adjustBruteLoss(10)
+		M.emote("scream")
+	..()
+	*/
+
 //MediPens
 
 /obj/item/reagent_containers/hypospray/medipen

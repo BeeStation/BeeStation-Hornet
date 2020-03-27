@@ -558,7 +558,6 @@
 	mutationtext = "<span class='danger'>The pain subsides. You feel... salty.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
-
 //BLACKLISTED RACES
 /datum/reagent/mutationtoxin/skeleton
 	name = "Skeleton Mutation Toxin"
@@ -590,6 +589,14 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/lizard/ashwalker
 	mutationtext = "<span class='danger'>The pain subsides. You feel... savage.</span>"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/mutationtoxin/supersoldier
+	name = "Super Soldier Toxin"
+	description = "A flesh-sculpting toxin."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	race = /datum/species/human/supersoldier
+	mutationtext = "<span class='danger'>The pain subsides. You feel... like you can take on anything.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
 
