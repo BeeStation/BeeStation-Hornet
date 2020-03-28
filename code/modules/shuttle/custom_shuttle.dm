@@ -1,5 +1,5 @@
 #define Z_DIST 500
-#define CUSTOM_ENGINES_START_TIME 70
+#define CUSTOM_ENGINES_START_TIME 65
 #define CALCULATE_STATS_COOLDOWN 2
 
 /obj/machinery/computer/custom_shuttle
