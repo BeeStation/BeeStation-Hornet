@@ -17,7 +17,7 @@ Shaft Miner=4,4
 
 Bartender=2,1
 Cook=2,1
-Botanist=4,2
+Botanist=4,3
 Janitor=3,2
 
 Clown=1,1
