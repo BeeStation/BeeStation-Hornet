@@ -266,7 +266,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 /obj/item/shuttle_creator/proc/check_current_area(mob/user)
 	var/static/area_or_turf_fail_types = typecacheof(list(
 		/turf/open/space,
-		/area/shuttle
+		/area/shuttle,
+		/area/lavaland
 		))
 	//Check to see if the user can make a new area to prevent spamming
 	if(user)
