@@ -87,7 +87,6 @@
 
 /obj/machinery/shuttle/engine/proc/update_engine()
 	if(!attached_heater)
-		to_chat(usr, "No heater")
 		icon_state = icon_state_off
 		thruster_active = FALSE
 		return
