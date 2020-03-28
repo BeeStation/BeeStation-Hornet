@@ -229,6 +229,7 @@
 	name = "Shuttle Navigation Computer"
 	desc = "Used to designate a precise transit location for private ships."
 	lock_override = NONE
+	whitelist_turfs = list(/turf/open/space, /turf/open/lava)
 	jumpto_ports = list("whiteship_home" = 1)
 	view_range = 12
 	designate_time = 100
