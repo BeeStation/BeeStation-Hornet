@@ -232,20 +232,24 @@
 	new	/obj/item/clothing/neck/tie/black(src)
 	new /obj/item/clothing/neck/tie/detective(src)
 
+/obj/structure/closet/secure_closet/cadet
+	name = "cadet's locker"
+	req_access = list(ACCESS_SECURITY)
+	icon_state = "armory"
+
+/obj/structure/closet/secure_closet/cadet/PopulateContents()
+	..()
+	for(var/i in 1 to 4)
+		new /obj/item/storage/backpack/duffelbag/sec/cadet(src)
+
 /obj/structure/closet/secure_closet/deputy
 	name = "deputy's locker"
 	req_access = list(ACCESS_BRIG)
 
 /obj/structure/closet/secure_closet/deputy/PopulateContents()
 	..()
-	new /obj/item/clothing/head/beret/sec/deputy(src)
-	new /obj/item/radio/headset/headset_sec(src)
-	new /obj/item/clothing/glasses/hud/security/deputy(src)
-	new /obj/item/clothing/suit/hazardvest/deputy(src)
-	new /obj/item/clothing/under/rank/security/mallcop(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/restraints/handcuffs(src)
+	for(var/i in 1 to 4)
+		new /obj/item/storage/backpack/duffelbag/sec/deputy(src)
 	
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections"

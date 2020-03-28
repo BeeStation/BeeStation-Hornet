@@ -428,6 +428,21 @@
 	new /obj/item/storage/belt/security/deputy(src)
 	new /obj/item/clothing/accessory/armband/deputy(src)
 
+/obj/item/storage/backpack/duffelbag/sec/cadet
+	name = "cadet kit duffel bag"
+	desc = "A large duffel bag for holding extra supplies - this one has compartments for various clothes and gear."
+	
+/obj/item/storage/backpack/duffelbag/sec/cadet/PopulateContents()
+	new /obj/item/clothing/head/beret/sec/deputy(src) 
+	new /obj/item/radio/headset/headset_sec/alt(src) 
+	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/suit/armor/vest(src) 
+	new /obj/item/clothing/under/rank/security/mallcop(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/storage/belt/security/full(src)
+
 /obj/item/storage/backpack/duffelbag/engineering
 	name = "industrial duffel bag"
 	desc = "A large duffel bag for holding extra tools and supplies."
