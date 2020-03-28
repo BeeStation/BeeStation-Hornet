@@ -1,0 +1,5 @@
+author: "BeloneX"
+delete-after: True
+changes: 
+  - config: "added more job slots to each department"
+  - config: "increased ruin budgets"
