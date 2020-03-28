@@ -223,6 +223,17 @@
 	new /obj/item/melee/baton/loaded(src)
 	update_icon()
 
+/obj/item/storage/belt/security/deputy
+	name = "deputy's security belt"
+
+/obj/item/storage/belt/security/deputy/PopulateContents()
+	new /obj/item/melee/classic_baton/deputy(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/restraints/handcuffs/cable(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/flashlight/seclite(src)
+	update_icon()
+
 /obj/item/storage/belt/security/webbing
 	name = "security webbing"
 	desc = "Unique and versatile chest rig, can hold security gear."

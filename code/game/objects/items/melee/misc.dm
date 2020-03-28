@@ -278,6 +278,13 @@
 			if (wait_desc)
 				to_chat(user, wait_desc)
 
+/obj/item/melee/classic_baton/deputy
+	name = "deputy baton"
+	force = 12 
+	cooldown = 10 
+	knockdown_time_carbon = (0 SECONDS)
+	stamina_damage = 20
+
 /obj/item/melee/classic_baton/telescopic
 	name = "telescopic baton"
 	desc = "A compact and harmless personal defense weapon. Can be concealed when folded."
