@@ -235,6 +235,14 @@
 	designate_time = 100
 	circuit = /obj/item/circuitboard/computer/shuttle/docker
 
+/obj/machinery/computer/camera_advanced/shuttle_docker/custom/Initialize()
+	. = ..()
+	GLOB.jam_on_wardec += src
+
+/obj/machinery/computer/camera_advanced/shuttle_docker/custom/Destroy()
+	GLOB.jam_on_wardec -= src
+	return ..()
+
 /obj/machinery/computer/camera_advanced/shuttle_docker/custom/placeLandingSpot()
 	if(!shuttleId)
 		return	//Only way this would happen is if someone else delinks the console while in use somehow
