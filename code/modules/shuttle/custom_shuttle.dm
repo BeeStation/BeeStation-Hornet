@@ -5,7 +5,7 @@
 /obj/machinery/computer/custom_shuttle
 	name = "nanotrasen shuttle flight controller"
 	desc = "A terminal used to fly shuttles defined by the Shuttle Zoning Designator"
-	circuit = /obj/item/circuitboard/computer/syndicate_shuttle
+	circuit = /obj/item/circuitboard/computer/shuttle/flight_control
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
 	light_color = LIGHT_COLOR_CYAN
@@ -233,6 +233,7 @@
 	jumpto_ports = list("whiteship_home" = 1)
 	view_range = 12
 	designate_time = 100
+	circuit = /obj/item/circuitboard/computer/shuttle/docker
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/custom/attack_hand(mob/user)
 	if(!shuttleId)
