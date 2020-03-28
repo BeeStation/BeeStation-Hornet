@@ -235,6 +235,15 @@
 	designate_time = 100
 	circuit = /obj/item/circuitboard/computer/shuttle/docker
 
+/obj/machinery/computer/camera_advanced/shuttle_docker/custom/placeLandingSpot()
+	if(!shuttleId)
+		return	//Only way this would happen is if someone else delinks the console while in use somehow
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
+	if(M?.mode != SHUTTLE_IDLE)
+		to_chat(usr, "<span class='warning'>You cannot target locations while in transit.</span>")
+		return
+	..()
+
 /obj/machinery/computer/camera_advanced/shuttle_docker/custom/attack_hand(mob/user)
 	if(!shuttleId)
 		to_chat(user, "<span class='warning'>You must link the console to a shuttle first.</span>")

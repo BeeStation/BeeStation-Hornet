@@ -57,7 +57,7 @@
 	if(node)
 		node.disconnect(src)
 		nodes[1] = null
-	if(!parents)
+	if(!parents[1])
 		return
 	nullifyPipenet(parents[1])
 
