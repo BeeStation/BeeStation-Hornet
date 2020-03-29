@@ -91,7 +91,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		maxX = max(T.x, maxX)
 		minY = min(T.y, minY)
 		maxY = max(T.y, maxY)
-	//Make sure shuttle was actually found
+	//Make sure shuttle was actually found.
 	if(maxX == INFINITY || maxY == INFINITY)
 		return FALSE
 	minX--
