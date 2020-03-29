@@ -1,0 +1,6 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - balance: "Husking now requires more burn damage before it happens."
+  - balance: "100u synthflesh can now cure husking when burn damage is below 50."
+  - balance: "5u rezadone can now cure husking when burn damage is below 50."
