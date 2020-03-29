@@ -38,7 +38,7 @@
 				..()
 				reagents.reaction(M, INJECT)
 				reagents.trans_to(M, reagents.total_volume)
-				M.adjustBrainLoss(15)
+				M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15, 170)
 				M.confused += 3
 				return BULLET_ACT_HIT
 			else
