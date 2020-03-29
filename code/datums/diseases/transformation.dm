@@ -10,6 +10,7 @@
 	stage_prob = 10
 	visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
 	disease_flags = CURABLE
+	var/is_mutagenic = FALSE
 	var/list/stage1 = list("You feel unremarkable.")
 	var/list/stage2 = list("You feel boring.")
 	var/list/stage3 = list("You feel utterly plain.")
@@ -44,6 +45,9 @@
 			if (prob(stage_prob*2) && stage4)
 				to_chat(affected_mob, pick(stage4))
 		if(5)
+			if(is_mutagenic)	//we don't do it normally
+				form_mutagen(affected_mob)
+				return
 			do_disease_transformation(affected_mob)
 
 /datum/disease/transformation/proc/do_disease_transformation(mob/living/affected_mob)
@@ -72,6 +76,9 @@
 		new_mob.name = affected_mob.real_name
 		new_mob.real_name = new_mob.name
 		qdel(affected_mob)
+
+/datum/disease/transformation/proc/form_mutagen(mob/living/affected_mob)
+	return //default if something goes wrong
 
 /datum/disease/transformation/proc/replace_banned_player(var/mob/living/new_mob) // This can run well after the mob has been transferred, so need a handle on the new mob to kill it if needed.
 	set waitfor = FALSE
@@ -326,6 +333,95 @@
 				var/obj/item/I = affected_mob.get_active_held_item()
 				affected_mob.dropItemToGround(I)
 
+/datum/disease/transformation/felinid
+	name = "Nano-Feline Assimilative Toxoplasmosis"
+	cure_text = "Something that would kill off the tiny cats." 
+	spread_text = "Acute"
+	disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
+	cures = list(/datum/reagent/consumable/coco) //kills all the tiny cats that infected your organism
+	cure_chance = 25
+	stage_prob = 3
+	agent = "Nano-feline Toxoplasmosis"
+	desc = "A lot of tiny cats in the blood that slowly turn you into a big cat."
+	is_mutagenic = TRUE //So that it won't be autocured after stage 5
+	severity = DISEASE_SEVERITY_BIOHAZARD
+	visibility_flags = 0
+	stage1	= list("You feel scratching fom within.", "You hear a faint miaow somewhere really close.")
+	stage2	= list("<span class='danger'>You suppress the urge to lick yourself.</span>")
+	stage3	= list("<span class='danger'>You feel the need to cough out something fluffy.</span>", "<span class='danger'>You feel the need to scratch your neck with your foot.</span>", "<span class='danger'>You think you should adopt a cat.</span>")
+	stage4	= list("<span class='danger'>You start thinking that felinids are not that bad after all!</span>", "<span class='danger'>You feel scared at the thought of eating chocolate.</span>")
+	stage5	= list("<span class='danger'>You have become a catperson.</span>")
+	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD) //Nothing evades the curse!
+	new_form = /mob/living/carbon/human/species/felinid
+
+/datum/disease/transformation/felinid/stage_act()
+	..()
+	switch(stage)
+		if(2)
+			if (prob(1))
+				affected_mob.visible_message("<span class='danger'>[affected_mob] licks [affected_mob.p_their()] hand.</span>")
+		if(3)
+			if (prob(8))
+				affected_mob.say(pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya") + pick("!", "!!", "~!!", "!~", "", "", "", ""), forced = "felinid transformation")
+			if (prob(2))
+				affected_mob.visible_message("<span class='danger'>[affected_mob] licks [affected_mob.p_their()] hand.</span>")
+			if (prob(1))
+				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs out a furball.</span>")
+				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
+		if(4)
+			if (prob(10))
+				affected_mob.say(pick("", ";", ".h")+pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya")+pick("!", "!!", "~!!", "!~", "", "", "", ""), forced = "felinid transformation")
+			if (prob(1))
+				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs out a furball.</span>")
+				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
+
+/datum/disease/transformation/felinid/speechModification(message) //blatantly stolen from the italian moustache.
+	if(copytext(message, 1, 2) != "*")
+		message = " [message]"
+		var/list/whole_words = strings("owo_talk.json", "wowds")
+		var/list/owo_sounds = strings("owo_talk.json", "sounds")
+
+		for(var/key in whole_words)
+			var/value = whole_words[key]
+			if(islist(value))
+				value = pick(value)
+
+			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
+			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
+			message = replacetextEx(message, " [key]", " [value]")
+
+		for(var/key in owo_sounds)
+			var/value = owo_sounds[key]
+			if(islist(value))
+				value = pick(value)
+
+			message = replacetextEx(message, "[uppertext(key)]", "[uppertext(value)]")
+			message = replacetextEx(message, "[capitalize(key)]", "[capitalize(value)]")
+			message = replacetextEx(message, "[key]", "[value]")
+
+		if(prob(3))
+			message += pick(" Nya!"," Meow!"," OwO!!", " Nya-nya!")
+	return trim(message)
+
+
+/datum/disease/transformation/felinid/contagious
+	spread_text = "Blood, Fluids, Contact"
+	is_mutagenic = TRUE //So that it won't be autocured after stage 5
+	spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_CONTACT_FLUIDS
+
+/datum/disease/transformation/felinid/contagious/form_mutagen(mob/living/affected_mob)
+	if(ishuman(affected_mob))
+		var/mob/living/carbon/human/affected_human = affected_mob
+		if(iscatperson(affected_human))
+			if (prob(10))
+				affected_mob.say(pick("", ";", ".h")+pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya")+pick("!", "!!", "~!!", "!~", "", "", "", ""), forced = "felinid transformation")
+			if (prob(3))
+				affected_mob.visible_message("<span class='danger'>[affected_mob] licks [affected_mob.p_their()] hand.</span>")
+			if (prob(1))
+				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs out a furball.</span>")
+				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
+			return
+	affected_mob.reagents.add_reagent_list(list(/datum/reagent/mutationtoxin/felinid = 1, /datum/reagent/medicine/mutadone = 1))
 
 /datum/disease/transformation/legion
 	name = "Necropolis Infestation"

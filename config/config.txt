@@ -511,6 +511,9 @@ TOPIC_MAX_SIZE 500
 ## You probably shouldn't ever be changing this, but it's here if you want to.
 DEFAULT_VIEW_SQUARE 15x15
 
-
 ## Enable automatic profiling - Byond 513.1506 and newer only.
 #AUTO_PROFILE
+
+## Enable IC/OOC Hard Filtering. Comment to disable one or both of them
+#IC_FILTER_ENABLED
+#OOC_FILTER_ENABLED

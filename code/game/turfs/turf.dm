@@ -522,7 +522,6 @@
 		return
 	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, 1)
-	faller.drop_all_held_items()
 
 /turf/proc/photograph(limit=20)
 	var/image/I = new()

@@ -90,14 +90,14 @@
 	. = 1
 
 /datum/reagent/drug/crank/overdose_process(mob/living/M)
-	M.adjustBrainLoss(2*REM)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2*REM)
 	M.adjustToxLoss(2*REM, 0)
 	M.adjustBruteLoss(2*REM, FALSE, FALSE, BODYPART_ORGANIC)
 	..()
 	. = 1
 
 /datum/reagent/drug/crank/addiction_act_stage1(mob/living/M)
-	M.adjustBrainLoss(5*REM)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5*REM)
 	..()
 
 /datum/reagent/drug/crank/addiction_act_stage2(mob/living/M)
@@ -111,7 +111,7 @@
 	. = 1
 
 /datum/reagent/drug/crank/addiction_act_stage4(mob/living/M)
-	M.adjustBrainLoss(3*REM)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3*REM)
 	M.adjustToxLoss(5*REM, 0)
 	M.adjustBruteLoss(5*REM, 0)
 	..()
@@ -133,13 +133,13 @@
 	..()
 
 /datum/reagent/drug/krokodil/overdose_process(mob/living/M)
-	M.adjustBrainLoss(0.25*REM)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.25*REM)
 	M.adjustToxLoss(0.25*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/drug/krokodil/addiction_act_stage1(mob/living/M)
-	M.adjustBrainLoss(2*REM)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2*REM)
 	M.adjustToxLoss(2*REM, 0)
 	..()
 	. = 1
@@ -198,7 +198,7 @@
 	M.AdjustImmobilized(-40, FALSE)
 	M.adjustStaminaLoss(-30, 0)
 	M.Jitter(2)
-	M.adjustBrainLoss(rand(1,4))
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(1,4))
 	if(prob(5))
 		M.emote(pick("twitch", "shiver"))
 	..()
@@ -215,7 +215,7 @@
 		M.drop_all_held_items()
 	..()
 	M.adjustToxLoss(1, 0)
-	M.adjustBrainLoss(pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
 	. = 1
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage1(mob/living/M)
@@ -290,7 +290,7 @@
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
 	M.adjustStaminaLoss(-5, 0)
-	M.adjustBrainLoss(4)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4)
 	M.hallucination += 5
 	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
 		step(M, pick(GLOB.cardinals))
@@ -315,7 +315,7 @@
 		for(var/i = 0, i < 8, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(5)
-	M.adjustBrainLoss(10)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(20))
 		M.emote(pick("twitch","drool","moan"))
 	..()
@@ -327,7 +327,7 @@
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(10)
 	M.Dizzy(10)
-	M.adjustBrainLoss(10)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(30))
 		M.emote(pick("twitch","drool","moan"))
 	..()
@@ -339,7 +339,7 @@
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(15)
 	M.Dizzy(15)
-	M.adjustBrainLoss(10)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(40))
 		M.emote(pick("twitch","drool","moan"))
 	..()
@@ -352,7 +352,7 @@
 	M.Jitter(50)
 	M.Dizzy(50)
 	M.adjustToxLoss(5, 0)
-	M.adjustBrainLoss(10)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	if(prob(50))
 		M.emote(pick("twitch","drool","moan"))
 	..()
@@ -398,7 +398,7 @@
 	M.jitteriness = 0
 	M.confused = 0
 	M.disgust = 0
-	M.adjustBrainLoss(0.2)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2)
 	..()
 	. = 1
 
@@ -415,7 +415,7 @@
 			if(3)
 				M.emote("frown")
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_bad_od)
-	M.adjustBrainLoss(0.5)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.5)
 	..()
 	. = 1
 

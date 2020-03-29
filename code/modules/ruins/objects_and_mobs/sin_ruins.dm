@@ -16,7 +16,7 @@
 		return
 	if(isIPC(user))
 		user.visible_message("<span class='warning'> As [user] tries to pull \the [src]'s lever, the machine seems to hesitate a bit.</span>", "<span class='warning'>You feel as if you are trying to put at stake something you don't even have...\ You suddenly feel your mind... Suboptimal?</span>")
-		user.adjustBrainLoss(10)
+		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	else
 		user.adjustCloneLoss(20)
 	obj_flags |= IN_USE
