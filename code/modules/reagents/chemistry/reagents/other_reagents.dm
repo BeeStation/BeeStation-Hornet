@@ -276,7 +276,7 @@
 		if(ishuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
 			M.blood_volume += 3
 	else  // Will deal about 90 damage when 50 units are thrown
-		M.adjustBrainLoss(3, 150)
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
 		M.adjustToxLoss(2, 0)
 		M.adjustFireLoss(2, 0)
 		M.adjustOxyLoss(2, 0)
@@ -295,7 +295,7 @@
 	M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
 	M.adjustToxLoss(1, 0)
 	M.adjustFireLoss(1, 0)		//Hence the other damages... ain't I a bastard?
-	M.adjustBrainLoss(5, 150)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5, 150)
 	holder.remove_reagent(type, 1)
 
 /datum/reagent/medicine/omnizine/godblood
@@ -558,7 +558,6 @@
 	mutationtext = "<span class='danger'>The pain subsides. You feel... salty.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
-
 //BLACKLISTED RACES
 /datum/reagent/mutationtoxin/skeleton
 	name = "Skeleton Mutation Toxin"
@@ -590,6 +589,14 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/lizard/ashwalker
 	mutationtext = "<span class='danger'>The pain subsides. You feel... savage.</span>"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/mutationtoxin/supersoldier
+	name = "Super Soldier Toxin"
+	description = "A flesh-sculpting toxin."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	race = /datum/species/human/supersoldier
+	mutationtext = "<span class='danger'>The pain subsides. You feel... like you can take on anything.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
 
@@ -778,7 +785,7 @@
 		step(M, pick(GLOB.cardinals))
 	if(prob(5))
 		M.emote(pick("twitch","drool","moan"))
-	M.adjustBrainLoss(1)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 	..()
 
 /datum/reagent/sulfur
@@ -1114,7 +1121,7 @@
 /datum/reagent/impedrezene/on_mob_life(mob/living/carbon/M)
 	M.jitteriness = max(M.jitteriness-5,0)
 	if(prob(80))
-		M.adjustBrainLoss(2*REM)
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2*REM)
 	if(prob(50))
 		M.drowsyness = max(M.drowsyness, 3)
 	if(prob(10))

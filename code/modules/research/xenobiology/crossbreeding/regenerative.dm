@@ -157,8 +157,9 @@ Regenerative extracts:
 	colour = "sepia"
 	effect_desc = "Fully heals the target and stops time."
 
-/obj/item/slimecross/regenerative/sepia/core_effect(mob/living/target, mob/user)
-	new /obj/effect/timestop(get_turf(target), 2, 50, list(user,target))
+/obj/item/slimecross/regenerative/sepia/core_effect_before(mob/living/target, mob/user)
+	to_chat(target, "<span class=notice>You try to forget how you feel.</span>")
+	target.AddComponent(/datum/component/dejavu)
 
 /obj/item/slimecross/regenerative/cerulean
 	colour = "cerulean"
