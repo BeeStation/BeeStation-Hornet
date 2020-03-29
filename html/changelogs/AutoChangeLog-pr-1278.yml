@@ -1,7 +1,0 @@
-author: "enthethan"
-delete-after: True
-changes: 
-  - tweak: "X4 can now be planted on people"
-  - rscadd: "Adds rad bow, the ebows radiation inducing cousin for 8 Tc,it  irradiates and induces debilitating effects like brain damage and toxin damage. Unlike the ebow it doesn't have notable disabling power. Has a recharge rate of 25 seconds."
-  - balance: "Syndie cards now do 2 extra damage and can embed"
-  - balance: "polonium now irradiates 2.5x faster than before but also metabolizes 2x faster"
