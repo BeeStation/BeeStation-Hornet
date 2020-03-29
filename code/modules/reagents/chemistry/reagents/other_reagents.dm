@@ -1510,7 +1510,7 @@
 /datum/reagent/carpet/reaction_turf(turf/T, reac_volume)
 	if(isplatingturf(T) || istype(T, /turf/open/floor/plasteel))
 		var/turf/open/floor/F = T
-		F.PlaceOnTop(/turf/open/floor/carpet)
+		F.PlaceOnTop(/turf/open/floor/carpet, flags = CHANGETURF_INHERIT_AIR)
 	..()
 
 /datum/reagent/bromine
@@ -1872,6 +1872,46 @@
 		if(changeling)
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
 	return ..()
+
+/datum/reagent/concentrated_bz
+	name = "Concentrated BZ"
+	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
+	color = "#FAFF00"
+	taste_description = "acrid cinnamon"
+	random_unrestricted = FALSE	
+
+/datum/reagent/concentrated_bz/on_mob_metabolize(mob/living/L)
+	..()
+	ADD_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
+
+/datum/reagent/concentrated_bz/on_mob_end_metabolize(mob/living/L)
+	..()
+	REMOVE_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
+
+/datum/reagent/concentrated_bz/on_mob_life(mob/living/L)
+	if(L.mind)
+		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
+		if(changeling)
+			changeling.chem_charges = max(changeling.chem_charges-2, 0)
+			if(prob(30))	
+				L.losebreath += 1
+				L.adjustOxyLoss(3,5)
+				to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")
+
+		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)					
+	return ..()	
+
+/datum/reagent/fake_cbz
+	name = "Concentrated BZ"
+	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
+	color = "#FAFF00"
+	taste_description = "acrid cinnamon"
+	random_unrestricted = FALSE	
+
+/datum/reagent/fake_cbz/on_mob_life(mob/living/L)
+	L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
+	if(prob(15))
+		to_chat(L, "You don't feel much of anything")
 
 /datum/reagent/pax/peaceborg
 	name = "synthpax"
