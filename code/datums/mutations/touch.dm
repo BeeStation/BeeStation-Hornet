@@ -29,6 +29,7 @@
 	item_state = "zapper"
 
 /obj/item/melee/touch_attack/shock/afterattack(atom/target, mob/living/carbon/user, proximity)
+	user.Beam(target, icon_state="lightning[rand(1,12)]", time=5, maxdistance = 32)
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		if(C.electrocute_act(15, user, 1, FALSE, FALSE, FALSE, FALSE, FALSE))//doesnt stun. never let this stun

@@ -15,6 +15,10 @@
 		message = wear_mask.speechModification(message)
 	if(head)
 		message = head.speechModification(message)
+	if(diseases)
+		for(var/D in diseases)
+			var/datum/disease/oneD = D
+			message = oneD.speechModification(message)
 	return message
 
 /mob/living/carbon/can_speak_vocal(message)
