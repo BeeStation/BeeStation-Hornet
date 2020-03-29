@@ -18,10 +18,10 @@
 	var/obj/item/reagent_containers/mixer
 
 /obj/machinery/food_cart/Initialize()
-	. = ..()
 	create_reagents(LIQUID_CAPACIY, OPENCONTAINER | NO_REACT)
 	mixer = new /obj/item/reagent_containers(src, MIXER_CAPACITY)
 	mixer.name = "Mixer"
+	. = ..()
 
 /obj/machinery/food_cart/Destroy()
 	QDEL_NULL(mixer)
@@ -98,6 +98,7 @@
 						stored_food[sanitize(S.name)]++
 					else
 						stored_food[sanitize(S.name)] = 1
+					to_chat(user, "<span class='notice'>You empty the tray into [src].</span>")
 	else if(O.is_drainable())
 		return
 	else
