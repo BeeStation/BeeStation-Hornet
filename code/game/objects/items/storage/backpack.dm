@@ -433,7 +433,7 @@
 	desc = "A large duffel bag for holding extra supplies - this one has compartments for various clothes and gear."
 	
 /obj/item/storage/backpack/duffelbag/sec/cadet/PopulateContents()
-	new /obj/item/clothing/head/soft/sec(src) 
+	new /obj/item/clothing/head/beret/sec/cadet(src) 
 	new /obj/item/radio/headset/headset_sec/alt(src) 
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
