@@ -517,3 +517,7 @@
 /datum/config_entry/flag/topic_enabled
 
 /datum/config_entry/flag/auto_profile
+
+/datum/config_entry/flag/ic_filter_enabled
+
+/datum/config_entry/flag/ooc_filter_enabled

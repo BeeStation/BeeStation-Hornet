@@ -5,6 +5,15 @@
 	slices_num = 5
 	tastes = list("bread" = 10)
 	foodtype = GRAIN
+	var/mutated = 0
+
+/obj/item/reagent_containers/food/snacks/store/bread/teleport_act()
+	mutated++
+	reagents.add_reagent(/datum/reagent/toxin/mutagen = 1)
+	if(mutated == 5)
+		new /mob/living/simple_animal/hostile/breadloaf(src.loc)
+		qdel(src)
+	
 
 
 /obj/item/reagent_containers/food/snacks/breadslice
@@ -16,6 +25,14 @@
 	slot_flags = ITEM_SLOT_HEAD
 	customfoodfilling = 0 //to avoid infinite bread-ception
 	foodtype = GRAIN
+	var/mutated = 0
+
+/obj/item/reagent_containers/food/snacks/breadslice/teleport_act()
+	mutated++
+	reagents.add_reagent(/datum/reagent/toxin/mutagen = 1)
+	if(mutated == 5)
+		new /mob/living/simple_animal/hostile/breadloaf/slice(src.loc)
+		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/store/bread/plain
 	name = "bread"
