@@ -17,19 +17,3 @@
 	damage_type = TOX
 	paralyze = 100
 	range = 7
-
-/obj/item/projectile/energy/debilitator
-	name = "electrode"
-	icon_state = "spark"
-	color = "#FFFFFF"
-	damage = 20
-	damage_type = STAMINA
-	nodamage = FALSE
-	knockdown = 0
-	stutter = 5
-	jitter = 20
-	hitsound = 'sound/weapons/taserhit.ogg'
-	range = 7
-	tracer_type = /obj/effect/projectile/tracer/stun
-	muzzle_type = /obj/effect/projectile/muzzle/stun
-	impact_type = /obj/effect/projectile/impact/stun
