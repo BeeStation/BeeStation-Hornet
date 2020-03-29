@@ -265,11 +265,27 @@
 	desc = "A special beret with the security insignia emblazoned on it. For officers with class."
 	icon_state = "officerberet"
 
-/obj/item/clothing/head/beret/sec/deputy
-	name = "deputy's beret"
-	desc = "A robust beret with the security insignia emblazoned on it. Uses slightly reinforced fabric to offer some sufficient protection."
+//Cadet
+/obj/item/clothing/head/beret/sec/cadet
+	name = "cadet beret"
+	desc = "A special beret fit for cadets. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "beret_badge"
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10,"energy" = 10, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 5)
+	
+/obj/item/clothing/head/beret/sec/cadet/sci
+	name = "science cadet beret"
+	icon_state = "beret_sci"
+
+/obj/item/clothing/head/beret/sec/cadet/med
+	name = "medical cadet beret"
+	icon_state = "beret_med"
+
+/obj/item/clothing/head/beret/sec/cadet/supply
+	name = "supply cadet beret"
+	icon_state = "beret_supply"
+
+/obj/item/clothing/head/beret/sec/cadet/engi
+	name = "engineering cadet beret"
+	icon_state = "beret_engineering"
 
 //Curator
 /obj/item/clothing/head/fedora/curator
@@ -303,6 +319,13 @@
 	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
 	icon_state = "beret_sci"
 	armor = list(bomb = 5, bio = 5, fire = 5, acid = 10)
+	strip_delay = 60
+
+/obj/item/clothing/head/beret/supply
+	name = "supply beret"
+	desc = "A brown beret with the supply insignia emblazoned on it. You can't help but wonder how much it'd sell for."
+	icon_state = "beret_supply"
+	armor = list(rad = 10, fire = 10)
 	strip_delay = 60
 
 //Medical
