@@ -83,6 +83,6 @@
 #define MAX_CHARTER_LEN			80
 
 // Is something in the IC chat filter? This is config dependent.
-#define CHAT_FILTER_CHECK(T) (CONFIG_GET(flag/ic_filter_enabled) && config.ic_filter_regex && findtext(T, config.ic_filter_regex))
+#define CHAT_FILTER_CHECK(T) (config.ic_filter_regex && findtext(T, config.ic_filter_regex))
 // Is something in the OOC chat filter?
-#define OOC_FILTER_CHECK(T) (CONFIG_GET(flag/ooc_filter_enabled) && config.ooc_filter_regex && findtext(T, config.ooc_filter_regex))
+#define OOC_FILTER_CHECK(T) (config.ooc_filter_regex && findtext(T, config.ooc_filter_regex))

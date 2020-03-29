@@ -74,7 +74,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.cost = max(round(A.cost * discount),1)
 		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
 		A.desc += " Normally costs [initial(A.cost)] TC. All sales final. [pick(disclaimer)]"
-		A.discounted = TRUE
 		A.item = I.item
 
 		uplink_items[category_name][A.name] = A
@@ -107,7 +106,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/restricted = FALSE // Adds restrictions for VR/Events
 	var/list/restricted_species //Limits items to a specific species. Hopefully.
 	var/illegal_tech = TRUE // Can this item be deconstructed to unlock certain techweb research nodes?
-	var/discounted = FALSE
 
 /datum/uplink_item/New()
 	. = ..()
@@ -331,14 +329,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 30
 	include_modes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/dangerous/grenadelauncher
-	name = "Universal Grenade Launcher"
-	desc = "A reusable grenade launcher. Has a capacity of 3 ammo but isn't preloaded. Works with grenades and several other types of explosives."
-	item = /obj/item/gun/grenadelauncher
-	cost = 6
-	surplus = 30
-	include_modes = list(/datum/game_mode/nuclear)
-
 /datum/uplink_item/dangerous/pie_cannon
 	name = "Banana Cream Pie Cannon"
 	desc = "A special pie cannon for a special clown, this gadget can hold up to 20 pies and automatically fabricates one every two seconds!"
@@ -399,13 +389,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/gun/ballistic/automatic/c20r
 	cost = 10
 	surplus = 40
-	include_modes = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/dangerous/superechainsaw
-	name = "Super Energy Chainsaw"
-	desc = "An incredibly deadly modified chainsaw with plasma-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud. It's blade has been enhanced to do even more damage and knock victims down briefly."
-	item = /obj/item/twohanded/required/chainsaw/energy/doom
-	cost = 22
 	include_modes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/doublesword
@@ -1855,14 +1838,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 3
 	surplus = 0
 	restricted_roles = list("Cook", "Botanist", "Clown", "Mime")
-
-/datum/uplink_item/role_restricted/echainsaw
-	name = "Energy Chainsaw"
-	desc = "An incredibly deadly modified chainsaw with plasma-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud."
-	item = /obj/item/twohanded/required/chainsaw/energy
-	cost = 10
-	player_minimum = 25
-	restricted_roles = list("Botanist", "Cook", "Bartender")
 
 /datum/uplink_item/role_restricted/holocarp
 	name = "Holocarp Parasites"

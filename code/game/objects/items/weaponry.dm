@@ -301,11 +301,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	embedding = list("embedded_pain_multiplier" = 8, "embed_chance" = 100, "embedded_fall_chance" = 0, "embedded_impact_pain_multiplier" = 15) //55 damage+embed on hit
 
 /obj/item/switchblade
-	name = "long switchblade"
+	name = "switchblade"
 	icon_state = "switchblade"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	desc = "A sharp, concealable, spring-loaded knife with a long blade."
+	desc = "A sharp, concealable, spring-loaded knife."
 	flags_1 = CONDUCT_1
 	force = 3
 	w_class = WEIGHT_CLASS_SMALL
@@ -317,26 +317,23 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb = list("stubbed", "poked")
 	resistance_flags = FIRE_PROOF
 	var/extended = 0
-	var/extended_force = 20
-	var/extended_throwforce = 23
-	var/extended_icon_state = "switchblade_ext"
 
 /obj/item/switchblade/attack_self(mob/user)
 	extended = !extended
 	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
 	if(extended)
-		force = extended_force
+		force = 20
 		w_class = WEIGHT_CLASS_NORMAL
-		throwforce = extended_throwforce
-		icon_state = extended_icon_state
+		throwforce = 23
+		icon_state = "switchblade_ext"
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		sharpness = IS_SHARP
 	else
-		force = initial(force)
+		force = 3
 		w_class = WEIGHT_CLASS_SMALL
-		throwforce = initial(throwforce)
-		icon_state = initial(icon_state)
+		throwforce = 5
+		icon_state = "switchblade"
 		attack_verb = list("stubbed", "poked")
 		hitsound = 'sound/weapons/genhit.ogg'
 		sharpness = IS_BLUNT
@@ -344,26 +341,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/switchblade/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] own throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS)
-
-/obj/item/switchblade/kitchen 
-	name = "iron switchblade"
-	icon_state = "switchblade_ms"
-	desc = "A concealable spring-loaded knife with an iron blade."
-	force = 2
-	throwforce = 3
-	extended_force = 12
-	extended_throwforce = 15
-	extended_icon_state = "switchblade_ext_ms"
-
-/obj/item/switchblade/plastitanium 
-	name = "plastitanium switchblade"
-	icon_state = "switchblade_msf"
-	desc = "A concealable spring-loaded knife with a plastitanium blade."
-	force = 3
-	throwforce = 4
-	extended_force = 15
-	extended_throwforce = 17
-	extended_icon_state = "switchblade_ext_msf"
 
 /obj/item/phone
 	name = "red phone"

@@ -88,26 +88,6 @@
 	STR.max_combined_w_class = 60
 	STR.max_items = 60
 
-/obj/item/storage/bag/trash/bluespace/hammerspace
-	name = "hammerspace belt"
-	desc = "A belt that opens into a near infinite pocket of bluespace."
-	icon_state = "hammerspace"
-	w_class = WEIGHT_CLASS_GIGANTIC
-
-/obj/item/storage/bag/trash/bluespace/ComponentInitialize()
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 1000
-	STR.max_items = 300
-	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
-
-/obj/item/storage/bag/trash/bluespace/update_icon()
-	if(contents.len == 0)
-		icon_state = "[initial(icon_state)]"
-	else icon_state = "[initial(icon_state)]"
-
-
-
 /obj/item/storage/bag/trash/bluespace/cyborg
 	insertable = FALSE
 

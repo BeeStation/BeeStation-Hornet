@@ -25,6 +25,7 @@
 	// if the precision is not specified, default to 0, but apply BoH penalties
 	if (isnull(precision))
 		precision = 0
+
 	switch(channel)
 		if(TELEPORT_CHANNEL_BLUESPACE)
 			if(istype(teleatom, /obj/item/storage/backpack/holding))
@@ -73,8 +74,6 @@
 	if(ismob(teleatom))
 		var/mob/M = teleatom
 		M.cancel_camera()
-
-	teleatom.teleport_act()
 
 	return TRUE
 

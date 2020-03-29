@@ -407,7 +407,7 @@
 	contains = list(/obj/item/storage/box/firingpins,
 					/obj/item/storage/box/firingpins)
 	crate_name = "firing pins crate"
-
+	
 /datum/supply_pack/security/firingpins/paywall
 	name = "Paywall Firing Pins Crate"
 	desc = "Specialized firing pins with a built-in configurable paywall. Requires Security access to open."
@@ -1354,33 +1354,28 @@
 	access = ACCESS_MEDICAL
 	contains = list(/obj/machinery/iv_drip/saline)
 
-/datum/supply_pack/medical/randomvirus
-	name = "Virus Sample Crate"
-	desc = "Contains five random experimental disease cultures for epidemiological research"
-	cost = 1500
-	access = ACCESS_VIROLOGY
-	contains = list(/obj/item/reagent_containers/glass/bottle/random_virus,
+/datum/supply_pack/medical/virus
+	name = "Virus Crate"
+	desc = "Contains twelve different bottles, containing several viral samples for virology research. Also includes seven beakers and syringes. Balled-up jeans not included. Requires CMO access to open."
+	cost = 2500
+	access = ACCESS_CMO
+	contains = list(/obj/item/reagent_containers/glass/bottle/flu_virion,
+					/obj/item/reagent_containers/glass/bottle/cold,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus)
-	crate_name = "virus sample crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
-	dangerous = TRUE
-
-/datum/supply_pack/medical/virology
-	name = "Junior Epidemiology Kit"
-	desc = "Contains the necessary supplies to start an epidemiological research lab. P.A.N.D.E.M.I.C. not included. Comes with a free virologist action figure!"
-	cost = 2000
-	access = ACCESS_VIROLOGY
-	contains = list(/obj/item/reagent_containers/food/snacks/monkeycube,
-					/obj/item/reagent_containers/food/drinks/bottle/virusfood,
-					/obj/item/reagent_containers/glass/bottle/mutagen,
-					/obj/item/reagent_containers/glass/bottle/formaldehyde,
-					/obj/item/reagent_containers/glass/bottle/synaptizine,
+					/obj/item/reagent_containers/glass/bottle/random_virus,
+					/obj/item/reagent_containers/glass/bottle/fake_gbs,
+					/obj/item/reagent_containers/glass/bottle/magnitis,
+					/obj/item/reagent_containers/glass/bottle/pierrot_throat,
+					/obj/item/reagent_containers/glass/bottle/brainrot,
+					/obj/item/reagent_containers/glass/bottle/anxiety,
+					/obj/item/reagent_containers/glass/bottle/beesease,
+					/obj/item/storage/box/syringes,
 					/obj/item/storage/box/beakers,
-					/obj/item/toy/figure/virologist)
-	crate_name = "Junior Epidemiology Kit"
+					/obj/item/reagent_containers/glass/bottle/mutagen)
+	crate_name = "virus crate"
+	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 
 /datum/supply_pack/medical/vending
@@ -1390,22 +1385,6 @@
 	contains = list(/obj/item/vending_refill/medical,
 					/obj/item/vending_refill/wallmed)
 	crate_name = "medical vending crate"
-
-/datum/supply_pack/medical/virus
-	name = "Virus Crate"
-	desc = "Contains several contagious virus samples, ranging from annoying to lethal. Balled-up jeans not included. Requires CMO access to open."
-	cost = 2000
-	access = ACCESS_CMO
-	contraband = TRUE
-	contains = list(/obj/item/reagent_containers/glass/bottle/fake_gbs,
-					/obj/item/reagent_containers/glass/bottle/magnitis,
-					/obj/item/reagent_containers/glass/bottle/pierrot_throat,
-					/obj/item/reagent_containers/glass/bottle/brainrot,
-					/obj/item/reagent_containers/glass/bottle/anxiety,
-					/obj/item/reagent_containers/glass/bottle/beesease)
-	crate_name = "virus crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
-	dangerous = TRUE
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
@@ -1619,7 +1598,7 @@
 					/obj/item/stack/tile/carpet/royalblack/fifty,
 					/obj/item/stack/tile/carpet/royalblack/fifty)
 	crate_name = "exotic carpet crate"
-
+	
 /datum/supply_pack/service/lightbulbs
 	name = "Replacement Lights"
 	desc = "May the light of Aether shine upon this station! Or at least, the light of forty two light tubes and twenty one light bulbs."

@@ -129,8 +129,6 @@
 		sleepbonus = 0.5
 	if(locate(/obj/structure/table/optable/abductor, T))
 		propability = 1.2
-	if(locate(/obj/machinery/stasis, T))
-		propability = 0.8
 	if(locate(/obj/structure/table/optable, T))
 		propability = 0.8
 	else if(locate(/obj/structure/table, T))

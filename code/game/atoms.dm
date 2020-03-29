@@ -667,14 +667,6 @@
 	return FALSE
 
 /**
-  * Respond to our atom being teleported
-  *
-  * Default behaviour is to send COMSIG_ATOM_TELEPORT_ACT and return
-  */
-/atom/proc/teleport_act()
-	SEND_SIGNAL(src,COMSIG_ATOM_TELEPORT_ACT)
-
-/**
   * Implement the behaviour for when a user click drags a storage object to your atom
   *
   * This behaviour is usually to mass transfer, but this is no longer a used proc as it just

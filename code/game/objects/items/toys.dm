@@ -1387,8 +1387,7 @@
 /obj/item/toy/figure/virologist
 	name = "Virologist action figure"
 	icon_state = "virologist"
-	toysay = "It's beneficial! Mostly."
-	toysound = 'sound/ambience/antag/ling_aler.ogg'
+	toysay = "The cure is potassium!"
 
 /obj/item/toy/figure/warden
 	name = "Warden action figure"

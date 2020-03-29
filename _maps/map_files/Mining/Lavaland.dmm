@@ -3896,10 +3896,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
-"vk" = (
-/mob/living/simple_animal/turtle,
-/turf/open/floor/plasteel,
-/area/mine/production)
 "xm" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -19402,7 +19398,7 @@ ab
 bq
 bC
 gb
-vk
+bP
 xA
 cH
 cO

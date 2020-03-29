@@ -558,6 +558,7 @@
 	mutationtext = "<span class='danger'>The pain subsides. You feel... salty.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
+
 //BLACKLISTED RACES
 /datum/reagent/mutationtoxin/skeleton
 	name = "Skeleton Mutation Toxin"
@@ -589,14 +590,6 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/lizard/ashwalker
 	mutationtext = "<span class='danger'>The pain subsides. You feel... savage.</span>"
-	process_flags = ORGANIC | SYNTHETIC
-
-/datum/reagent/mutationtoxin/supersoldier
-	name = "Super Soldier Toxin"
-	description = "A flesh-sculpting toxin."
-	color = "#5EFF3B" //RGB: 94, 255, 59
-	race = /datum/species/human/supersoldier
-	mutationtext = "<span class='danger'>The pain subsides. You feel... like you can take on anything.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
 
@@ -1872,46 +1865,6 @@
 		if(changeling)
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
 	return ..()
-
-/datum/reagent/concentrated_bz
-	name = "Concentrated BZ"
-	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
-	color = "#FAFF00"
-	taste_description = "acrid cinnamon"
-	random_unrestricted = FALSE	
-
-/datum/reagent/concentrated_bz/on_mob_metabolize(mob/living/L)
-	..()
-	ADD_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
-
-/datum/reagent/concentrated_bz/on_mob_end_metabolize(mob/living/L)
-	..()
-	REMOVE_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
-
-/datum/reagent/concentrated_bz/on_mob_life(mob/living/L)
-	if(L.mind)
-		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			changeling.chem_charges = max(changeling.chem_charges-2, 0)
-			if(prob(30))	
-				L.losebreath += 1
-				L.adjustOxyLoss(3,5)
-				to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")
-
-		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)					
-	return ..()	
-
-/datum/reagent/fake_cbz
-	name = "Concentrated BZ"
-	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
-	color = "#FAFF00"
-	taste_description = "acrid cinnamon"
-	random_unrestricted = FALSE	
-
-/datum/reagent/fake_cbz/on_mob_life(mob/living/L)
-	L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
-	if(prob(15))
-		to_chat(L, "You don't feel much of anything")
 
 /datum/reagent/pax/peaceborg
 	name = "synthpax"

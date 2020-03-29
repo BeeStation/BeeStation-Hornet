@@ -2580,7 +2580,7 @@
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	name = "Prisoner Transfer Centre";
-	req_one_access_txt = "2;34"
+	req_access_txt = "2"
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden{
 	dir = 4
@@ -30067,12 +30067,10 @@
 "bsH" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/public/glass{
 	id_tag = "medbaybolts";
-	name = "Medbay";
-	req_access_txt = "5"
+	name = "Medbay"
 	},
-/obj/effect/mapping_helpers/airlock/unres,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -30082,12 +30080,10 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/public/glass{
 	id_tag = "medbaybolts";
-	name = "Medbay";
-	req_access_txt = "5"
+	name = "Medbay"
 	},
-/obj/effect/mapping_helpers/airlock/unres,
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -35892,7 +35888,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/vending/wallmed{
+/obj/machinery/vending/wallmed/pubby{
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
@@ -37773,7 +37769,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/vending/wallmed{
+/obj/machinery/vending/wallmed/pubby{
 	pixel_y = 28
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -38741,7 +38737,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/medical/medbay/central)
 "bKw" = (
-/obj/machinery/vending/wallmed{
+/obj/machinery/vending/wallmed/pubby{
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{

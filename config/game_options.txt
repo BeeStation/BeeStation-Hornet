@@ -566,7 +566,7 @@ ECONOMY
 ALLOW_CREW_OBJECTIVES
 
 ## Mob spam prevention. The number of each mobtype that can be alive at once. Stops people from crashing the server with chickens/monkeycubes/slimes. Altering these values is recommended based on server hardware.
-MAX_CUBE_MONKEYS 150
+MAX_CUBE_MONKEYS 100
 MAX_CHICKENS 100
 MAX_SLIMES 100
 

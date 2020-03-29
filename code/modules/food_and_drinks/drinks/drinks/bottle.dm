@@ -407,17 +407,6 @@
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/medicine/synthflesh = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/virusfood
-	name = "carton of virus food"
-	desc = "A carton of ready-mixed virus food. Do not drink."
-	custom_price = 10
-	icon_state = "virusfood"
-	item_state = "carton"
-	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
-	isGlass = FALSE
-	list_reagents = list(/datum/reagent/consumable/virus_food = 100)
-
 /obj/item/reagent_containers/food/drinks/bottle/applejack
 	name = "Buckin' Bronco's Applejack"
 	desc = "Kicks like a horse, tastes like an apple!"
