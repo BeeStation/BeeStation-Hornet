@@ -78,6 +78,12 @@
 
 		if("Security Officer")
 			O = new /datum/outfit/plasmaman/security
+		
+		if("Cadet")
+			O = new /datum/outfit/plasmaman/security
+		
+		if("Deputy")
+			O = new /datum/outfit/plasmaman
 
 		if("Brig Physician")
 			O = new /datum/outfit/plasmaman/secmed
