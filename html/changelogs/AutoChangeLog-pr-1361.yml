@@ -1,4 +1,0 @@
-author: "Victor239"
-delete-after: True
-changes: 
-  - rscadd: "You can now heal whilst asleep. This only works if you're above 80% health and works better on beds and tables."
