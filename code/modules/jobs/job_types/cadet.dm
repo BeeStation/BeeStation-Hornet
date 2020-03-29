@@ -10,7 +10,7 @@
 	supervisors = "the head of security, and the head of your assigned department"
 	selection_color = "#ffeeee"
 	minimal_player_age = 1
-	exp_requirements = 50
+	exp_requirements = 420
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/cadet
