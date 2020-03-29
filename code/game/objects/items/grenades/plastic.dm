@@ -237,5 +237,3 @@
 	gender = PLURAL
 	directional = TRUE
 	boom_sizes = list(0, 2, 5)
-	can_attach_mob = TRUE
-	full_damage_on_mobs = TRUE
