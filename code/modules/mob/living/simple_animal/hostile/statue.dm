@@ -195,7 +195,8 @@
 	for(var/mob/living/L in GLOB.alive_mob_list)
 		var/turf/T = get_turf(L.loc)
 		if(T && (T in targets))
-			L.blind_eyes(4)
+			L.blind_eyes(5)
+			L.visible_message("<span class='notice'>[L] blinks.</span>")
 	return
 
 //Toggle Night Vision
