@@ -142,8 +142,8 @@
 			baton_stun(M, user)
 		..()
 
-
-/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
+// /obj/item/melee/baton/proc/baton_stun(mob/living/L, var/mob/living/carbon/human/K, mob/user)
+/obj/item/melee/baton/proc/baton_stun(mob/living/L, var/mob/living/carbon/human/K, mob/user)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
@@ -157,7 +157,10 @@
 		if(!deductcharge(hitcost))
 			return 0
 
-	L.adjustStaminaLoss(stunforce)
+	var/obj/item/bodypart/affecting = K.get_bodypart(ran_zone(L.zone_selected))
+	var/armor_block = K.run_armor_check(affecting, "energy")
+	// L.adjustStaminaLoss(stunforce)
+	L.apply_damage(stunforce, STAMINA, affecting, armor_block)
 	L.apply_effect(EFFECT_STUTTER, stunforce)
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK)
 	if(user)
