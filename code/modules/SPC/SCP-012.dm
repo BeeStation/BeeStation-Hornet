@@ -10,6 +10,10 @@ GLOBAL_LIST_EMPTY(scp012s)
 /obj/item/paper/scp012/examine(mob/user)
 	. = ..()
 
+/obj/item/paper/scp012/AltClick(mob/living/carbon/user, obj/item/I)
+	to_chat(user, "<span class='notice'>You cant fold [src] into the shape of a plane!</span>")
+	return
+
 /obj/item/paper/scp012/Initialize()
 	. = ..()
 	START_PROCESSING(SSobj, src)

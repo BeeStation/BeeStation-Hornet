@@ -30,7 +30,7 @@
 			user.adjustOxyLoss(30)
 			to_chat(user, "<span class='warning'>Your lungs begin to feel tight, and the briny taste of seawater permeates your mouth.</span>")
 			user.emote(pick("cough","gag","gasp"))
-			if (prob(15))
+			if (prob(20))
 				user.visible_message("<span class = \"danger\"><em>[user] vomits up some sea water!</em></span>")
 				T.atmos_spawn_air("water_vapor=15")
 				for(var/mob/living/carbon/Carb in victims)
