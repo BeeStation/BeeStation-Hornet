@@ -1,0 +1,6 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - rscadd: "New MD/CMO traitor item: Energy Saw Arm Implant. Costs 8 TC."
+  - rscadd: "New robo/RD traitor item: Laser Arm Implant. Costs 12 TC."
+  - rscadd: "Syndicate implants now come in a suspicous autosurgeon"
