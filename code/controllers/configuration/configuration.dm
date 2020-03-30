@@ -430,4 +430,3 @@
 	ic_filter_regex = in_character_filter.len ? regex("\\b([jointext(in_character_filter, "|")])\\b", "i") : null
 
 	syncChatRegexes()
-

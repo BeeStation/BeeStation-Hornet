@@ -4,7 +4,6 @@
 #define CREDIT_EASE_DURATION 12
 
 GLOBAL_LIST(end_titles)
-GLOBAL_LIST_INIT(patrons, "[directory]/patrons.txt")
 
 /proc/RollCredits()
 	set waitfor = FALSE
@@ -13,9 +12,10 @@ GLOBAL_LIST_INIT(patrons, "[directory]/patrons.txt")
 		GLOB.end_titles += "<br>"
 		GLOB.end_titles += "<br>"
 
-		if(GLOB.patrons.len)
+		var/list/patrons = get_patrons()
+		if(patrons.len)
 			GLOB.end_titles += "<center><h1>Thank you to our patrons!</h1>"
-			for(var/patron in GLOB.patrons)
+			for(var/patron in patrons)
 				GLOB.end_titles += "<center><h2>[sanitize(patron)]</h2>"
 			GLOB.end_titles += "<br>"
 			GLOB.end_titles += "<br>"
@@ -83,6 +83,15 @@ GLOBAL_LIST_INIT(patrons, "[directory]/patrons.txt")
 	icon_state = title_icon_state
 	. = ..()
 	maptext = null
+
+
+/proc/get_patrons()
+	var/list/patrons = list()
+
+	if(fexists("[global.config.directory]/patrons.txt"))
+		patrons += world.file2list("[global.config.directory]/patrons.txt")
+
+	return patrons
 
 /proc/get_contribs()
 	var/list/contribs = list()
