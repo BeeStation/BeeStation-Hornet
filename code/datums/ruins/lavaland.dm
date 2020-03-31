@@ -179,7 +179,7 @@
 /datum/map_template/ruin/lavaland/pizza
 	name = "Ruined Pizza Party"
 	id = "pizza"
-	description = "Little Timmy's birthday pizza-bash took a turn for the worse when a bluespace anomaly passed by."
+	description = "Little Timmy's Papa John's birthday pizza-bash took a turn for the worse when a bluespace anomaly passed by."
 	suffix = "lavaland_surface_pizzaparty.dmm"
 	allow_duplicates = FALSE
 	cost = 5

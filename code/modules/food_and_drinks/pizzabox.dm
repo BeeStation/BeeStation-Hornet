@@ -1,5 +1,5 @@
 /obj/item/bombcore/miniature/pizza
-	name = "pizza bomb"
+	name = "Papa Johns' pizza bomb"
 	desc = "Special delivery!"
 	icon_state = "pizzabomb_inactive"
 	item_state = "eshield0"
@@ -7,8 +7,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 
 /obj/item/pizzabox
-	name = "pizza box"
-	desc = "A box suited for pizzas."
+	name = "Papa John's pizza box"
+	desc = "We're more than a pizza company. Were a pizza family."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "pizzabox"
 	item_state = "pizzabox"
@@ -233,7 +233,7 @@
 		disperse_pizzas()
 
 /obj/item/pizzabox/proc/disperse_pizzas()
-	visible_message("<span class='warning'>The pizzas fall everywhere!</span>")
+	visible_message("<span class='warning'>THE PAPA JOHNS FALL EVERYWHERE!</span>")
 	for(var/V in boxes)
 		var/obj/item/pizzabox/P = V
 		var/fall_dir = pick(GLOB.alldirs)
@@ -267,7 +267,7 @@
 /obj/item/pizzabox/margherita/Initialize()
 	. = ..()
 	AddPizza()
-	boxtag = "Margherita Deluxe"
+	boxtag = "Papa John's Grilled Chicken Margherita"
 
 /obj/item/pizzabox/margherita/proc/AddPizza()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/margherita(src)
@@ -278,22 +278,22 @@
 /obj/item/pizzabox/vegetable/Initialize()
 	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/vegetable(src)
-	boxtag = "Gourmet Vegatable"
+	boxtag = "Papa John's Mediterranean Veggie"
 
 /obj/item/pizzabox/mushroom/Initialize()
 	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/mushroom(src)
-	boxtag = "Mushroom Special"
+	boxtag = "Papa John's The Works"
 
 /obj/item/pizzabox/meat/Initialize()
 	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/meat(src)
-	boxtag = "Meatlover's Supreme"
+	boxtag = "Papa John's THE MEATS"
 
 /obj/item/pizzabox/pineapple/Initialize()
 	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/pineapple(src)
-	boxtag = "Honolulu Chew"
+	boxtag = "Papa John's Super Hawaiian"
 
 //An anomalous pizza box that, when opened, produces the opener's favorite kind of pizza.
 /obj/item/pizzabox/infinite
@@ -318,7 +318,7 @@
 /obj/item/pizzabox/infinite/examine(mob/user)
 	. = ..()
 	if(isobserver(user))
-		. += "<span class='deadsay'>This pizza box is anomalous, and will produce infinite pizza.</span>"
+		. += "<span class='deadsay'>This pizza box is anomalous, and will produce infinite Papa John's.</span>"
 
 /obj/item/pizzabox/infinite/attack_self(mob/living/user)
 	QDEL_NULL(pizza)
