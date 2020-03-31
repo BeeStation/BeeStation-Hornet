@@ -9,9 +9,6 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	"red" = "#ff0000"
 	))
 
-/obj/item/stack/cable_coil/Initialize()
-	.=..()
-	recipes = list(new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15), new/datum/stack_recipe("noose", /obj/structure/chair/noose, 30, time = 80, one_per_turf = 1, on_floor = 1))
 
 ///////////////////////////////
 //CABLE STRUCTURE
