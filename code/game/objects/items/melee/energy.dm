@@ -112,6 +112,23 @@
 		return ..()
 	return 0
 
+/obj/item/melee/transforming/energy/sword/esaw //Energy Saw Arm Implant
+	name = "energy saw"
+	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
+	force_on = 30
+	force = 18 //About as much as a spear
+	hitsound = 'sound/weapons/circsawhit.ogg'
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "saw"
+	icon_state_on = "saw"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	item_color = null //stops icon from breaking when turned on.
+	w_class = WEIGHT_CLASS_NORMAL
+	sharpness = IS_SHARP
+	light_color = "#40ceff"
+	toolspeed = 0.7 //faster as a saw
+
 /obj/item/melee/transforming/energy/sword/cyborg
 	item_color = "red"
 	var/hitcost = 50
@@ -149,6 +166,15 @@
 
 /obj/item/melee/transforming/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
+
+/*
+/obj/item/melee/transforming/energy/sword/cyborg/saw/implant //Energy Saw Arm Implant
+	icon_state = "saw"
+	icon_state_on = "saw"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	hitcost = 0
+*/
 
 /obj/item/melee/transforming/energy/sword/saber
 	var/list/possible_colors = list("red" = LIGHT_COLOR_RED, "blue" = LIGHT_COLOR_LIGHT_CYAN, "green" = LIGHT_COLOR_GREEN, "purple" = LIGHT_COLOR_LAVENDER)

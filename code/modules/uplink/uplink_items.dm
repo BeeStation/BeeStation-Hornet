@@ -600,18 +600,31 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus_nullcrates = 0
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 
+/datum/uplink_item/stealthy_weapons/radbow
+	name = "Gamma-Bow"
+	desc = "The energy crossbow's newly developed lethal cousin. Has considerably increased lethality \
+	at the cost of its disabling power. It will synthesize \
+	and fire bolts tipped with dangerous toxins that will disorient and \
+	irradiate targets. It can produce an infinite number of bolts \
+	which automatically recharge roughly 25 seconds after each shot."
+	item = /obj/item/gun/energy/kinetic_accelerator/crossbow/radbow
+	cost = 8
+	surplus = 50
+	exclude_modes = list() // no reason not to have 5 guys turn the station into the chernobyl exclusion zone.
+
 /datum/uplink_item/stealthy_weapons/crossbow
 	name = "Miniature Energy Crossbow"
 	desc = "A short bow mounted across a tiller in miniature. \
 	Small enough to fit into a pocket or slip into a bag unnoticed. \
-	It will synthesize and fire bolts tipped with a debilitating \
+	It will synthesize and fire bolts tipped with a disabling \
 	toxin that will damage and disorient targets, causing them to \
 	slur as if inebriated. It can produce an infinite number \
-	of bolts, but takes time to automatically recharge after each shot."
+	of bolts, but takes a small amount of time to automatically recharge after each shot."
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
 	cost = 12
 	surplus = 50
 	exclude_modes = list(/datum/game_mode/nuclear)
+
 
 /datum/uplink_item/stealthy_weapons/origami_kit
 	name = "Boxed Origami Kit"
@@ -1530,7 +1543,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 /datum/uplink_item/implants/antistun
 	name = "CNS Rebooter Implant"
 	desc = "This implant will help you get back up on your feet faster after being stunned. Comes with an autosurgeon."
-	item = /obj/item/autosurgeon/anti_stun
+	item = /obj/item/autosurgeon/syndicate/anti_stun
 	cost = 12
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear)
@@ -1571,7 +1584,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 /datum/uplink_item/implants/reviver
 	name = "Reviver Implant"
 	desc = "This implant will attempt to revive and heal you if you lose consciousness. Comes with an autosurgeon."
-	item = /obj/item/autosurgeon/reviver
+	item = /obj/item/autosurgeon/syndicate/reviver
 	cost = 7
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear)
@@ -1593,7 +1606,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 /datum/uplink_item/implants/thermals
 	name = "Thermal Eyes"
 	desc = "These cybernetic eyes will give you thermal vision. Comes with a free autosurgeon."
-	item = /obj/item/autosurgeon/thermal_eyes
+	item = /obj/item/autosurgeon/syndicate/thermal_eyes
 	cost = 7
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear)
@@ -1611,7 +1624,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 /datum/uplink_item/implants/xray
 	name = "X-ray Vision Implant"
 	desc = "These cybernetic eyes will give you X-ray vision. Comes with an autosurgeon."
-	item = /obj/item/autosurgeon/xray_eyes
+	item = /obj/item/autosurgeon/syndicate/xray_eyes
 	cost = 9
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear)
@@ -1903,6 +1916,13 @@ datum/uplink_item/role_restricted/superior_honkrender
 	limited_stock = 2 //you can't use more than two!
 	restricted_roles = list("Shaft Miner")
 
+/datum/uplink_item/role_restricted/esaw_arm
+	name = "Energy Saw Arm Implant"
+	desc = "An implant that grants you a deadly energy saw inside your arm. Comes with a syndicate autosurgeon for immediate self-application."
+	cost = 8
+	item = /obj/item/autosurgeon/syndicate/esaw_arm
+	restricted_roles = list("Medical Doctor", "Chief Medical Officer")
+
 /datum/uplink_item/role_restricted/magillitis_serum
 	name = "Magillitis Serum Autoinjector"
 	desc = "A single-use autoinjector which contains an experimental serum that causes rapid muscular growth in Hominidae. \
@@ -1941,6 +1961,14 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 13
 	item = /obj/item/storage/box/hug/reverse_revolver
 	restricted_roles = list("Clown")
+
+/datum/uplink_item/role_restricted/laser_arm
+	name = "Laser Arm Implant"
+	desc = "An implant that grants you a recharging laser gun inside your arm. Weak to EMPs. Comes with a syndicate autosurgeon for immediate self-application."
+	cost = 12
+	item = /obj/item/autosurgeon/syndicate/laser_arm
+	restricted_roles = list("Roboticist", "Research Director")
+
 
 // Pointless
 /datum/uplink_item/badass
