@@ -1,6 +1,6 @@
 /obj/item/stack/cable_coil/building_checks(datum/stack_recipe/R, multiplier)
 	if(R.title == "noose")
-		if(!(locate(/obj/structure/chair) in usr.loc))
+		if(!(locate(/obj/structure/chair) in get_turf(usr)))
 			to_chat(usr, "<span class='warning'>You have to be standing on top of a chair to make a noose!</span>")
 			return FALSE
 	return ..()
