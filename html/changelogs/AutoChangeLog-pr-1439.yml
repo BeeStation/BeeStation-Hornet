@@ -1,5 +1,0 @@
-author: "ike709"
-delete-after: True
-changes: 
-  - rscadd: "Patrons can bypass the popcap."
-  - rscadd: "Players can be redirected to another server if the popcap is reached."
