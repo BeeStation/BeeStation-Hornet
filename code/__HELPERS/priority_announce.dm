@@ -28,6 +28,7 @@
 
 	announcement += "<br><span class='alert'>[html_encode(text)]</span><br>"
 	announcement += "<br>"
+	announcement += "<span class='warning'>This message brought to you by Nanotrasen. A subsidiary of Papa John's Intergalactic, Inc.</span><br>"
 
 	var/s = sound(sound)
 	for(var/mob/M in GLOB.player_list)
