@@ -15,29 +15,13 @@
 /obj/item/shuttle_route_optimisation/hyperlane
 	name = "Bluespace Hyperlane Calculator"
 	desc = "Used on a custom shuttle control console to allow for the following of bluespace hyperlanes, increasing the efficiency of the shuttle."
-	icon = 'icons/obj/module.dmi'
 	icon_state = "shuttledisk_better"
-	force = 0
-	throwforce = 8
-	throw_speed = 3
-	throw_range = 5
-	density = FALSE
-	anchored = FALSE
-	item_flags = NOBLUDGEON
 	upgrade_amount = 0.6
 
 /obj/item/shuttle_route_optimisation/void
 	name = "Voidspace Route Calculator"
 	desc = "Used on a custom shuttle control console to allow it to navigate into voidspace, making the routes almost instant."
-	icon = 'icons/obj/module.dmi'
 	icon_state = "shuttledisk_void"
-	force = 0
-	throwforce = 8
-	throw_speed = 3
-	throw_range = 5
-	density = FALSE
-	anchored = FALSE
-	item_flags = NOBLUDGEON
 	upgrade_amount = 0.2
 
 /obj/item/shuttle_route_optimisation/attack_obj(obj/O, mob/living/user)
