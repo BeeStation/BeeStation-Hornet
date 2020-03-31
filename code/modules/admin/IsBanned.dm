@@ -6,6 +6,8 @@
 #define STICKYBAN_MAX_EXISTING_USER_MATCHES 3 //ie, users who were connected before the ban triggered
 #define STICKYBAN_MAX_ADMIN_MATCHES 1
 
+GLOBAL_LIST_EMPTY(ckey_redirects)
+
 /world/IsBanned(key, address, computer_id, type, real_bans_only=FALSE)
 	debug_world_log("isbanned(): '[args.Join("', '")]'")
 	if (!key || (!real_bans_only && (!address || !computer_id)))
@@ -58,10 +60,10 @@
 				var/redirect_address = CONFIG_GET(string/redirect_address)
 				if(redirect_address != "")
 					log_access("Failed Login: [key] - Population cap reached. Redirecting to overflow server.")
-					C << link(redirect_address)
-					return FALSE
-				log_access("Failed Login: [key] - Population cap reached")
-				return list("reason"="popcap", "desc"= "\nReason: [CONFIG_GET(string/extreme_popcap_message)]")
+					GLOB.ckey_redirects += ckey
+				else
+					log_access("Failed Login: [key] - Population cap reached")
+					return list("reason"="popcap", "desc"= "\nReason: [CONFIG_GET(string/extreme_popcap_message)]")
 
 	if(CONFIG_GET(flag/sql_enabled))
 		if(!SSdbcore.Connect())
