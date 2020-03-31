@@ -140,6 +140,7 @@
 	glass_name = "nothing"
 	glass_desc = "Absolutely nothing."
 	shot_glass_icon_state = "shotglass"
+	random_unrestricted = TRUE
 
 /datum/reagent/consumable/nothing/on_mob_life(mob/living/carbon/M)
 	if(ishuman(M) && M.job == "Mime")
@@ -154,6 +155,7 @@
 	metabolization_rate = INFINITY
 	color = "#FF4DD2"
 	taste_description = "laughter"
+	random_unrestricted = TRUE
 
 /datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/M)
 	M.emote("laugh")
@@ -200,13 +202,9 @@
 	glass_desc = "White and nutritious goodness!"
 
 /datum/reagent/consumable/milk/on_mob_life(mob/living/carbon/M)
-	if(HAS_TRAIT(M, TRAIT_CALCIUM_HEALER))
-		M.heal_bodypart_damage(1.5,0, 0)
+	if(M.getBruteLoss() && prob(20))
+		M.heal_bodypart_damage(1,0, 0)
 		. = 1
-	else
-		if(M.getBruteLoss() && prob(20))
-			M.heal_bodypart_damage(1,0, 0)
-			. = 1
 	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
 		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 2)
 	..()
@@ -788,6 +786,7 @@
 	glass_icon_state = "red_queen"
 	glass_name = "Red Queen"
 	glass_desc = "DRINK ME."
+	random_unrestricted = TRUE
 	var/current_size = 1
 
 /datum/reagent/consumable/red_queen/on_mob_life(mob/living/carbon/H)

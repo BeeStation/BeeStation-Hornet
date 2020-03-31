@@ -117,6 +117,13 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
 	pin = null
 
+/obj/item/gun/energy/kinetic_accelerator/crossbow/radbow
+	name = "gamma bow"
+	desc = "A weapon favored by Madmen."
+	icon_state = "crossbow"
+	item_state = "crossbow"
+	ammo_type = list(/obj/item/ammo_casing/energy/bolt/radbolt)
+	overheat_time = 250
 
 /obj/item/gun/energy/plasmacutter
 	name = "plasma cutter"

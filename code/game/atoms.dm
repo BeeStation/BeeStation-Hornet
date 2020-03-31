@@ -345,6 +345,7 @@
 
 /atom/proc/Bumped(atom/movable/AM)
 	set waitfor = FALSE
+	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, AM)
 
 /// Convenience proc to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
@@ -665,6 +666,14 @@
 /atom/proc/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	SEND_SIGNAL(src, COMSIG_ATOM_RCD_ACT, user, the_rcd, passed_mode)
 	return FALSE
+
+/**
+  * Respond to our atom being teleported
+  *
+  * Default behaviour is to send COMSIG_ATOM_TELEPORT_ACT and return
+  */
+/atom/proc/teleport_act()
+	SEND_SIGNAL(src,COMSIG_ATOM_TELEPORT_ACT)
 
 /**
   * Implement the behaviour for when a user click drags a storage object to your atom
