@@ -52,7 +52,7 @@
 /turf/open/indestructible/singularity_act()
 	return
 
-/turf/open/indestructible/TerraformTurf(path, defer_change = FALSE, ignore_air = FALSE)
+/turf/open/indestructible/TerraformTurf(path, new_baseturf, flags, defer_change = FALSE, ignore_air = FALSE)
 	return
 
 /turf/open/indestructible/sound
@@ -246,10 +246,12 @@
 		C.moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 		if(!(lube & SLIDE_ICE))
 			C.Knockdown(knockdown_amount)
+			C.drop_all_held_items()
 			C.Paralyze(paralyze_amount)
 			C.stop_pulling()
 		else
 			C.Knockdown(15)
+			C.drop_all_held_items()
 
 		if(buckled_obj)
 			buckled_obj.unbuckle_mob(C)

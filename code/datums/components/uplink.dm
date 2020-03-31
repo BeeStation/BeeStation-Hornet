@@ -149,14 +149,14 @@
 			var/datum/uplink_item/I = uplink_items[category][item]
 			if(I.limited_stock == 0)
 				continue
-			if(I.restricted_roles.len)
+			if(I.restricted_roles.len && I.discounted == FALSE)
 				var/is_inaccessible = TRUE
 				for(var/R in I.restricted_roles)
 					if(R == user.mind.assigned_role || debug)
 						is_inaccessible = FALSE
 				if(is_inaccessible)
 					continue
-			if(I.restricted_species)
+			if(I.restricted_species && I.discounted == FALSE)
 				if(ishuman(user))
 					var/is_inaccessible = TRUE
 					var/mob/living/carbon/human/H = user

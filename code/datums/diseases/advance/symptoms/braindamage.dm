@@ -36,11 +36,11 @@
 		if(4, 5)
 			if(lethal)
 				if(prob(35))
-					M.adjustBrainLoss(rand(5,90), 200)
+					M.adjustOrganLoss(ORGAN_SLOT_BRAIN, (rand(5,90)), 200)
 					to_chat(M, "<span class='danger'>Your brain hurts immensely!</span>")
 			else
 				if(prob(35))
-					M.adjustBrainLoss(rand(5,90), 120)
+					M.adjustOrganLoss(ORGAN_SLOT_BRAIN, (rand(5,90)), 120)
 					to_chat(M, "<span class='danger'>Your head hurts immensely!</span>")
 			if(moretrauma && A.stage == 5)
 				givetrauma(A, 10)
