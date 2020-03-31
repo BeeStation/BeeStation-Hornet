@@ -54,7 +54,12 @@
 	if(!real_bans_only && !C && extreme_popcap && !admin)
 		var/popcap_value = GLOB.clients.len
 		if(popcap_value >= extreme_popcap && !GLOB.joined_player_list.Find(ckey))
-			if(!CONFIG_GET(flag/byond_member_bypass_popcap) || !world.IsSubscribed(ckey, "BYOND"))
+			if((!CONFIG_GET(flag/byond_member_bypass_popcap) || !world.IsSubscribed(ckey, "BYOND")) && !GLOB.patrons.Find(ckey))
+				var/redirect_address = CONFIG_GET(string/redirect_address)
+				if(redirect_address != "")
+					log_access("Failed Login: [key] - Population cap reached. Redirecting to overflow server.")
+					C << link(redirect_address)
+					return FALSE
 				log_access("Failed Login: [key] - Population cap reached")
 				return list("reason"="popcap", "desc"= "\nReason: [CONFIG_GET(string/extreme_popcap_message)]")
 
