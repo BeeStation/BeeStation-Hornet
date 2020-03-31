@@ -54,6 +54,7 @@
 	#define COMPONENT_ATOM_BLOCK_EXIT 1
 #define COMSIG_ATOM_EXITED "atom_exited"						//! from base of atom/Exited(): (atom/movable/exiting, atom/newloc)
 #define COMSIG_ATOM_EX_ACT "atom_ex_act"						//! from base of atom/ex_act(): (severity, target)
+#define COMSIG_ATOM_BUMPED "atom_bumped"						//from base of atom/Bumped(): (/atom/movable)
 #define COMSIG_ATOM_EMP_ACT "atom_emp_act"						//! from base of atom/emp_act(): (severity)
 #define COMSIG_ATOM_FIRE_ACT "atom_fire_act"					//! from base of atom/fire_act(): (exposed_temperature, exposed_volume)
 #define COMSIG_ATOM_BULLET_ACT "atom_bullet_act"				//! from base of atom/bullet_act(): (/obj/item/projectile, def_zone)
@@ -64,6 +65,7 @@
 #define COMSIG_ATOM_NARSIE_ACT "atom_narsie_act"				//! from base of atom/narsie_act(): ()
 #define COMSIG_ATOM_RATVAR_ACT "atom_ratvar_act"				//! from base of atom/ratvar_act(): ()
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"						//! from base of atom/rcd_act(): (/mob, /obj/item/construction/rcd, passed_mode)
+#define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"			//! from base of atom/teleport_act(): ()
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"					//! from base of atom/singularity_pull(): (S, current_size)
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"				//from obj/machinery/bsa/full/proc/fire(): ()
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM 1

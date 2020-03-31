@@ -54,7 +54,7 @@
 	name = "Chief Medical Officer (Hardsuit)"
 
 	mask = /obj/item/clothing/mask/breath
-	suit = /obj/item/clothing/suit/space/hardsuit/medical
+	suit = /obj/item/clothing/suit/space/hardsuit/medical/cmo
 	suit_store = /obj/item/tank/internals/oxygen
 	r_pocket = /obj/item/flashlight/pen
 

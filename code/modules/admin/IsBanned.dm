@@ -54,7 +54,12 @@
 	if(!real_bans_only && !C && extreme_popcap && !admin)
 		var/popcap_value = GLOB.clients.len
 		if(popcap_value >= extreme_popcap && !GLOB.joined_player_list.Find(ckey))
-			if(!CONFIG_GET(flag/byond_member_bypass_popcap) || !world.IsSubscribed(ckey, "BYOND"))
+			if((!CONFIG_GET(flag/byond_member_bypass_popcap) || !world.IsSubscribed(ckey, "BYOND")) && !GLOB.patrons.Find(ckey))
+				var/redirect_address = CONFIG_GET(string/redirect_address)
+				if(redirect_address != "")
+					log_access("Failed Login: [key] - Population cap reached. Redirecting to overflow server.")
+					C << link(redirect_address)
+					return FALSE
 				log_access("Failed Login: [key] - Population cap reached")
 				return list("reason"="popcap", "desc"= "\nReason: [CONFIG_GET(string/extreme_popcap_message)]")
 
@@ -81,13 +86,17 @@
 							addclientmessage(ckey,"<span class='adminnotice'>Admin [key] has been allowed to bypass a matching non-admin ban on [i["key"]] [i["ip"]]-[i["computerid"]].</span>")
 						continue
 				var/expires = "This is a permanent ban."
+				var/global_ban = "This is a global ban from all of our servers."
 				if(i["expiration_time"])
 					expires = " The ban is for [DisplayTimeText(text2num(i["duration"]) MINUTES)] and expires on [i["expiration_time"]] (server time)."
+				if(!text2num(i["global_ban"]))
+					global_ban = "This is a single-server ban, and only applies to [i["server_name"]]."
 				var/desc = {"You, or another user of this computer or connection ([i["key"]]) is banned from playing here.
-				The ban reason is: [i["reason"]]
+				The ban reason is: [i["reason"]].
 				This ban (BanID #[i["id"]]) was applied by [i["admin_key"]] on [i["bantime"]] during round ID [i["round_id"]].
+				[global_ban]
 				[expires]"}
-				log_access("Failed Login: [key] [computer_id] [address] - Banned (#[i["id"]])")
+				log_access("Failed Login: [key] [computer_id] [address] - Banned (#[i["id"]]) [text2num(i["global_ban"]) ? "globally" : "locally"]")
 				return list("reason"="Banned","desc"="[desc]")
 
 	var/list/ban = ..()	//default pager ban stuff

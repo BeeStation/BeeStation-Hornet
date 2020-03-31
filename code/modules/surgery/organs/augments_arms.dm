@@ -3,7 +3,7 @@
 	desc = "You shouldn't see this! Adminhelp and report this as an issue on github!"
 	zone = BODY_ZONE_R_ARM
 	icon_state = "implant-toolkit"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_SMALL
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 	var/list/items_list = list()
@@ -121,7 +121,7 @@
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
 /obj/item/organ/cyberimp/arm/ui_action_click()
-	if(broken_cyber_organ || (!holder && !contents.len))
+	if((organ_flags & ORGAN_FAILING) || (!holder && !contents.len))
 		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
 		return
 
@@ -145,7 +145,7 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	if(prob(30/severity) && owner && !broken_cyber_organ)
+	if(prob(30/severity) && owner && !(organ_flags & ORGAN_FAILING))
 		Retract()
 		owner.visible_message("<span class='danger'>A loud bang comes from [owner]\'s [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm!</span>")
 		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, 1)
@@ -153,7 +153,7 @@
 		owner.adjust_fire_stacks(20)
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)
-		broken_cyber_organ = TRUE
+		organ_flags |= ORGAN_FAILING
 
 
 /obj/item/organ/cyberimp/arm/gun/laser
@@ -239,3 +239,9 @@
 	desc = "An internal power cord hooked up to a battery. Useful if you run on volts."
 	contents = newlist(/obj/item/apc_powercord)
 	zone = "l_arm" 
+
+/obj/item/organ/cyberimp/arm/esaw
+	name = "arm-mounted energy saw"
+	desc = "An illegal and highly dangerous implanted carbon-fiber blade that also has a toggleable hard-light edge."
+	icon_state = "esaw_0"
+	contents = newlist(/obj/item/melee/transforming/energy/sword/esaw)

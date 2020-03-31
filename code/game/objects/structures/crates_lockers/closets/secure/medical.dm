@@ -45,6 +45,8 @@
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/clothing/glasses/hud/health(src)
 	return
 
 /obj/structure/closet/secure_closet/CMO
@@ -109,6 +111,8 @@
 	new /obj/item/stack/ducts/fifty(src)			
 	new /obj/item/construction/plumbing(src)
 	new /obj/item/construction/plumbing(src)
+	new /obj/item/construction/plumbing(src)
+	new /obj/item/gun/syringe(src)
 
 /obj/structure/closet/secure_closet/chemical/heisenberg //contains one of each beaker, syringe etc.
 	name = "advanced chemical closet"
@@ -125,4 +129,4 @@
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)			
 	new /obj/item/construction/plumbing(src)
-	new /obj/item/construction/plumbing(src)
+	new /obj/item/gun/syringe(src)

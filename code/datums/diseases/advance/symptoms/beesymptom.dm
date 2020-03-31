@@ -2,7 +2,7 @@
 	name = "Bee Infestation"
 	desc = "Causes the host to cough toxin bees and occasionally synthesize toxin."
 	stealth = -2
-	resistance = 14
+	resistance = 2
 	stage_speed = 1
 	transmittable = 1
 	level = 9
