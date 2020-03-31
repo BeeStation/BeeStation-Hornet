@@ -1,5 +1,5 @@
 /obj/item/stack/cable_coil/building_checks(datum/stack_recipe/R, multiplier)
-	if(R.title == "noose")
+	if(R.result_type == /obj/structure/chair/noose)
 		if(!(locate(/obj/structure/chair) in get_turf(usr)))
 			to_chat(usr, "<span class='warning'>You have to be standing on top of a chair to make a noose!</span>")
 			return FALSE
@@ -12,7 +12,7 @@
 	icon = 'icons/obj/objects.dmi'
 	layer = FLY_LAYER
 	flags_1 = NODECONSTRUCT_1
-	var/image/over
+	var/mutable_appearance/overlay
 
 /obj/structure/chair/noose/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wirecutters))
@@ -33,9 +33,9 @@
 /obj/structure/chair/noose/Initialize()
 	. = ..()
 	pixel_y += 16 //Noose looks like it's "hanging" in the air
-	over = image(icon, "noose_overlay")
-	over.layer = FLY_LAYER
-	add_overlay(over, priority = 0)
+	overlay = image(icon, "noose_overlay")
+	overlay.layer = FLY_LAYER
+	add_overlay(overlay, priority = 0)
 
 /obj/structure/chair/noose/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -63,6 +63,7 @@
 				return
 			user.visible_message("<span class='notice'>[user] unties the noose over [M]'s neck!</span>",\
 								"<span class='notice'>You untie the noose over [M]'s neck!</span>")
+			M.Knockdown(60)
 		else
 			M.visible_message(\
 				"<span class='warning'>[M] struggles to untie the noose over their neck!</span>",\
@@ -77,9 +78,6 @@
 				"<span class='warning'>[M] unties the noose over their neck!</span>",\
 				"<span class='notice'>You untie the noose over your neck!</span>")
 			M.Knockdown(60)
-		if(istype(M, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = M
-			H.noosed = FALSE
 		unbuckle_all_mobs(force=1)
 		M.pixel_z = initial(M.pixel_z)
 		pixel_z = initial(pixel_z)
@@ -110,7 +108,6 @@
 				"<span class='userdanger'>[M != user ? "[user] ties" : "You tie"] \the [src] over your neck!</span>")
 			playsound(user.loc, 'sound/effects/noosed.ogg', 50, 1, -1)
 			log_combat(user, M, "hanged", src)
-			M.noosed = TRUE
 			return TRUE
 	user.visible_message(\
 		"<span class='warning'>[user] fails to tie \the [src] over [M]'s neck!</span>",\
@@ -131,9 +128,10 @@
 			animate(src, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
 			animate(m, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
 		if(buckled_mob.mob_has_gravity())
-			buckled_mob.adjustOxyLoss(5)
-			if(prob(40))
-				buckled_mob.emote("gasp")
+			if(!HAS_TRAIT(buckled_mob, TRAIT_NOBREATH))
+				buckled_mob.adjustOxyLoss(5)
+				if(prob(40))
+					buckled_mob.emote("gasp")
 			if(prob(20))
 				var/flavor_text = list("<span class='suicide'>[buckled_mob]'s legs flail for anything to stand on.</span>",\
 										"<span class='suicide'>[buckled_mob]'s hands are desperately clutching the noose.</span>",\
@@ -144,10 +142,4 @@
 				buckled_mob.visible_message(pick(flavor_text))
 				playsound(buckled_mob.loc, 'sound/effects/noose_idle.ogg', 30, 1, -3)
 
-/mob/living/carbon/human
-	var/noosed = FALSE
 
-/mob/living/carbon/human/proc/checknoosedrop()
-	if(noosed)
-		for(var/obj/structure/chair/noose/noose in get_turf(src))
-			noose.unbuckle_all_mobs(force = 1)
