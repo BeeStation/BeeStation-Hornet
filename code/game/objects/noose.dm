@@ -149,5 +149,5 @@
 
 /mob/living/carbon/human/proc/checknoosedrop()
 	if(noosed)
-		for(var/obj/structure/chair/noose/noose in loc)
+		for(var/obj/structure/chair/noose/noose in get_turf(src))
 			noose.unbuckle_all_mobs(force = 1)
