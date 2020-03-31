@@ -213,6 +213,7 @@
 		bomb_timer--
 	if(bomb_active && !bomb_defused && (bomb_timer <= 0))
 		if(bomb in src)
+			visible_message("<span class='danger'>No one out pizzas the hut!</span>")
 			bomb.detonate()
 			unprocess()
 			qdel(src)
