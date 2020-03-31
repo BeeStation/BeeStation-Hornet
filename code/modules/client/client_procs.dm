@@ -465,7 +465,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	GLOB.ckey_redirects -= ckey
 	if(GLOB.joined_player_list.Find(ckey))
 		GLOB.joined_player_list -= ckey
-	src << link(redirect_address)
+	src << link("[redirect_address]")
 	qdel(src)
 
 //////////////

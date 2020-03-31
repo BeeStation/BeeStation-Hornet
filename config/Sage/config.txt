@@ -513,4 +513,4 @@ TOPIC_MAX_SIZE 500
 
 ## Uncomment to enable redirecting to the specified address. If a user attempts to join after EXTREEME_POPCAP has been reached, redirect them to this address.
 ## The given address is a format example. "byond://" is required to function. Create a potential infinite loop at your own risk.
-#REDIRECT_ADDRESS "byond://golden.beestation13.com:7777"
+#REDIRECT_ADDRESS byond://golden.beestation13.com:7777
