@@ -1,4 +1,0 @@
-author: "qwertyquerty"
-delete-after: True
-changes: 
-  - bugfix: "Fixes lingchat always breaking"
