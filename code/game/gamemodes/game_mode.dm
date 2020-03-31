@@ -267,7 +267,7 @@
 
 /datum/game_mode/proc/send_intercept()
 	var/intercepttext = "<b><i>Central Command Status Summary</i></b><hr>"
-	intercepttext += "<b>Central Command has intercepted and partially decoded a Syndicate transmission with vital information regarding their movements. The following report outlines the most \
+	intercepttext += "<b>Central Command has intercepted and partially decoded a Pizza Hut transmission with vital information regarding their movements. The following report outlines the most \
 	likely threats to appear in your sector.</b>"
 	var/list/report_weights = config.mode_false_report_weight.Copy()
 	report_weights[report_type] = 0 //Prevent the current mode from being falsely selected.

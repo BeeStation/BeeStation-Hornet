@@ -54,7 +54,7 @@
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/syndicate_base
-	name = "Syndicate Lava Base"
+	name = "Pizza Hut Lava Base"
 	id = "lava-base"
 	description = "A secret base researching illegal bioweapons, it is closely guarded by an elite team of syndicate agents."
 	suffix = "lavaland_surface_syndicate_base1.dmm"
@@ -203,7 +203,7 @@
 /datum/map_template/ruin/lavaland/swarmer_boss
 	name = "Crashed Shuttle"
 	id = "swarmerboss"
-	description = "A Syndicate shuttle had an unfortunate stowaway..."
+	description = "A Pizza Hut shuttle had an unfortunate stowaway..."
 	suffix = "lavaland_surface_swarmer_crash.dmm"
 	allow_duplicates = FALSE
 	cost = 20
@@ -222,7 +222,7 @@
 	description = "Mystery to be solved."
 	suffix = "lavaland_surface_puzzle.dmm"
 	cost = 5
-  
+
 /datum/map_template/ruin/lavaland/elite_tumor
 	name = "Pulsating Tumor"
 	id = "tumor"

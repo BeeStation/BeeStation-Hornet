@@ -93,7 +93,7 @@
 /obj/item/folder/syndicate
 	icon_state = "folder_syndie"
 	name = "folder- 'TOP SECRET'"
-	desc = "A folder stamped \"Top Secret - Property of The Syndicate.\""
+	desc = "A folder stamped \"Top Secret - Property of Pizza Hut.\""
 
 /obj/item/folder/syndicate/red
 	icon_state = "folder_sred"

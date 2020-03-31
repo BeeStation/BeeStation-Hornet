@@ -402,7 +402,7 @@
 	required_reagents = list(/datum/reagent/consumable/ethanol/ale = 1, /datum/reagent/consumable/ethanol/irish_cream = 1)
 
 /datum/chemical_reaction/syndicatebomb
-	name = "Syndicate Bomb"
+	name = "Pizza Hut Bomb"
 	id = /datum/reagent/consumable/ethanol/syndicatebomb
 	results = list(/datum/reagent/consumable/ethanol/syndicatebomb = 2)
 	required_reagents = list(/datum/reagent/consumable/ethanol/beer = 1, /datum/reagent/consumable/ethanol/whiskey_cola = 1)

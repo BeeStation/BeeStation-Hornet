@@ -120,7 +120,7 @@
 /datum/map_template/ruin/space/caravanambush
 	id = "space/caravanambush"
 	suffix = "caravanambush.dmm"
-	name = "Syndicate Ambush"
+	name = "Pizza Hut Ambush"
 	description = "A caravan route used by passing cargo freights has been ambushed by a salvage team manned by the syndicate. \
 	The caravan managed to send off a distress message before being surrounded, their video feed cutting off as the sound of gunfire and a parrot was heard."
 
@@ -205,7 +205,7 @@
 /datum/map_template/ruin/space/listeningstation
 	id = "listeningstation"
 	suffix = "listeningstation.dmm"
-	name = "Syndicate Listening Station"
+	name = "Pizza Hut Listening Station"
 	description = "Listening stations form the backbone of the syndicate's information gathering operations. \
 	Assignment to these stations is dreaded by most agents, as it entails long and lonely shifts listening to nearby stations chatter incessently about the most meaningless things."
 

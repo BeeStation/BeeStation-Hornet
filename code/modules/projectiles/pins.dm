@@ -110,7 +110,7 @@
 	req_implant = /obj/item/implant/mindshield
 
 /obj/item/firing_pin/implant/pindicate
-	name = "syndicate firing pin"
+	name = "Pizza Hut firing pin"
 	icon_state = "firing_pin_pindi"
 	req_implant = /obj/item/implant/weapons_auth
 
@@ -185,7 +185,7 @@
 /obj/item/firing_pin/dna/dredd
 	desc = "This is a DNA-locked firing pin which only authorizes one user. Attempt to fire once to DNA-link. It has a small explosive charge on it."
 	selfdestruct = TRUE
-	
+
 // Paywall pin, brought to you by ARMA 3 DLC.
 // Checks if the user has a valid bank account on an ID and if so attempts to extract a one-time payment to authorize use of the gun. Otherwise fails to shoot.
 /obj/item/firing_pin/paywall
@@ -199,7 +199,7 @@
 	var/multi_payment = FALSE //if true, user has to pay everytime they fire the gun
 	var/owned = FALSE
 	var/active_prompt = FALSE //purchase prompt to prevent spamming it
-	
+
 /obj/item/firing_pin/paywall/attack_self(mob/user)
 	multi_payment = !multi_payment
 	to_chat(user, "<span class='notice'>You set the pin to [( multi_payment ) ? "process payment for every shot" : "one-time license payment"].</span>")
@@ -221,7 +221,7 @@
 		return
 	gun.desc += "<span class='notice'> This [gun.name] has a license permit cost of [payment_amount] credit[( payment_amount > 1 ) ? "s" : ""].</span>"
 	return
-	
+
 
 /obj/item/firing_pin/paywall/gun_remove(mob/living/user)
 	gun.desc = initial(desc)
@@ -247,12 +247,12 @@
 			to_chat(user, "<span class='warning'>ERROR: Invalid amount designated.</span>")
 			return
 		if(!transaction_amount)
-			return	
+			return
 		pin_owner = id
 		owned = TRUE
 		payment_amount = transaction_amount
 		gun_owners += user
-		to_chat(user, "<span class='notice'>You link the card to the firing pin.</span>")		
+		to_chat(user, "<span class='notice'>You link the card to the firing pin.</span>")
 
 /obj/item/firing_pin/paywall/pin_auth(mob/living/user)
 	if(!istype(user))//nice try commie
@@ -267,9 +267,9 @@
 				if(credit_card_details.adjust_money(-payment_amount))
 					pin_owner.registered_account.adjust_money(payment_amount)
 					return TRUE
-				to_chat(user, "<span class='warning'>ERROR: User balance insufficent for successful transaction!</span>")	
-				return FALSE	
-			return TRUE				
+				to_chat(user, "<span class='warning'>ERROR: User balance insufficent for successful transaction!</span>")
+				return FALSE
+			return TRUE
 		if(credit_card_details && !active_prompt)
 			var/license_request = alert(usr, "Do you wish to pay [payment_amount] credit[( payment_amount > 1 ) ? "s" : ""] for [( multi_payment ) ? "each shot of [gun.name]" : "usage license of [gun.name]"]?", "Weapon Purchase", "Yes", "No")
 			active_prompt = TRUE

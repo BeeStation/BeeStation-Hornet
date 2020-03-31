@@ -102,7 +102,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/halloween
 	name = "candy corn crossbow"
-	desc = "A weapon favored by Syndicate trick-or-treaters."
+	desc = "A weapon favored by Pizza Hut trick-or-treaters."
 	icon_state = "crossbow_halloween"
 	item_state = "crossbow"
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/halloween)
