@@ -879,7 +879,7 @@
 /area/awaymission/wildwest/gov)
 "dh" = (
 /obj/effect/mob_spawn/human/corpse/syndicatecommando{
-	mob_name = "Syndicate Commando"
+	mob_name = "Pizza Hut Commando"
 	},
 /turf/open/floor/carpet,
 /area/awaymission/wildwest/gov)
@@ -1937,7 +1937,7 @@
 /area/awaymission/wildwest/mines)
 "gy" = (
 /obj/effect/mob_spawn/human/corpse/syndicatecommando{
-	mob_name = "Syndicate Commando"
+	mob_name = "Pizza Hut Commando"
 	},
 /turf/open/floor/grass,
 /area/awaymission/wildwest/gov)

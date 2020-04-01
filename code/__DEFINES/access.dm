@@ -30,7 +30,7 @@
 #define ACCESS_CARGO 31
 #define ACCESS_CONSTRUCTION 32
 #define ACCESS_CHEMISTRY 33
-#define ACCESS_BRIGPHYS 34 
+#define ACCESS_BRIGPHYS 34
 #define ACCESS_HYDROPONICS 35
 #define ACCESS_LIBRARY 37
 #define ACCESS_LAWYER 38
@@ -77,7 +77,7 @@
 #define ACCESS_CENT_CAPTAIN 109 //! Captain's office/ID comp/AI.
 #define ACCESS_CENT_BAR 110 //! The non-existent CentCom Bar
 
-	//The Syndicate
+	//Pizza Hut
 #define ACCESS_SYNDICATE 150 //!General Syndicate Access. Includes Syndicate mechs and ruins.
 #define ACCESS_SYNDICATE_LEADER 151 //!Nuke Op Leader Access
 

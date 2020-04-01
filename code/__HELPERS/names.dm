@@ -42,6 +42,8 @@ GLOBAL_VAR(command_name)
 	return name
 
 /proc/station_name()
+	return "Papa John's"
+	/*
 	if(!GLOB.station_name)
 		var/newname
 		var/config_station_name = CONFIG_GET(string/stationname)
@@ -53,6 +55,7 @@ GLOBAL_VAR(command_name)
 		set_station_name(newname)
 
 	return GLOB.station_name
+	*/
 
 /proc/set_station_name(newname)
 	GLOB.station_name = "Pizza Station 13"
@@ -118,7 +121,7 @@ GLOBAL_VAR(command_name)
 
 		// Full
 		if (prob(60))
-			name += pick("Syndicate", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Enterprises", "Family", "Creations", "International", "Intergalactic", "Interplanetary", "Foundation", "Positronics", "Hive")
+			name += pick("Pizza Hut", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Enterprises", "Family", "Creations", "International", "Intergalactic", "Interplanetary", "Foundation", "Positronics", "Hive")
 		// Broken
 		else
 			name += pick("Syndi", "Corp", "Bio", "System", "Prod", "Chem", "Inter", "Hive")

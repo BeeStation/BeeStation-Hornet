@@ -211,7 +211,7 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/pizza
 	name = "pizza"
-	desc = "A personalized pan pizza meant for only one person."
+	desc = "A personalized Papa John's meant for only one person."
 	ingredients_placement = INGREDIENTS_SCATTER
 	ingMax = 8
 	slice_path = /obj/item/reagent_containers/food/snacks/pizzaslice/custom

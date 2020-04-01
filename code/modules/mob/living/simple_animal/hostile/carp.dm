@@ -84,7 +84,7 @@
 
 /mob/living/simple_animal/hostile/carp/cayenne
 	name = "Cayenne"
-	desc = "A failed Syndicate experiment in weaponized space carp technology, it now serves as a lovable mascot."
+	desc = "A failed Pizza Hut experiment in weaponized space carp technology, it now serves as a lovable mascot."
 	gender = FEMALE
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
