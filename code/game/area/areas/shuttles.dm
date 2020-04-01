@@ -30,27 +30,27 @@
 ////////////////////////////Syndicate infiltrator////////////////////////////
 
 /area/shuttle/syndicate
-	name = "Syndicate Infiltrator"
+	name = "Pizza Hut Infiltrator"
 	blob_allowed = FALSE
 	ambientsounds = HIGHSEC
 	canSmoothWithAreas = /area/shuttle/syndicate
 
 /area/shuttle/syndicate/bridge
-	name = "Syndicate Infiltrator Control"
+	name = "Pizza Hut Infiltrator Control"
 
 /area/shuttle/syndicate/medical
-	name = "Syndicate Infiltrator Medbay"
+	name = "Pizza Hut Infiltrator Medbay"
 
 /area/shuttle/syndicate/armory
-	name = "Syndicate Infiltrator Armory"
+	name = "Pizza Hut Infiltrator Armory"
 
 /area/shuttle/syndicate/eva
-	name = "Syndicate Infiltrator EVA"
+	name = "Pizza Hut Infiltrator EVA"
 
 /area/shuttle/syndicate/hallway
 
 /area/shuttle/syndicate/airlock
-	name = "Syndicate Infiltrator Airlock"
+	name = "Pizza Hut Infiltrator Airlock"
 
 ////////////////////////////Pirate Shuttle////////////////////////////
 
@@ -183,7 +183,7 @@
 	blob_allowed = FALSE
 
 /area/shuttle/syndicate_scout
-	name = "Syndicate Scout"
+	name = "Pizza Hut Scout"
 	blob_allowed = FALSE
 
 /area/shuttle/caravan
@@ -191,13 +191,13 @@
 	requires_power = TRUE
 
 /area/shuttle/caravan/syndicate1
-	name = "Syndicate Fighter"
+	name = "Pizza Hut Fighter"
 
 /area/shuttle/caravan/syndicate2
-	name = "Syndicate Fighter"
+	name = "Pizza Hut Fighter"
 
 /area/shuttle/caravan/syndicate3
-	name = "Syndicate Drop Ship"
+	name = "Pizza Hut Drop Ship"
 
 /area/shuttle/caravan/pirate
 	name = "Pirate Cutter"

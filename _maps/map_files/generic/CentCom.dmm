@@ -4108,7 +4108,7 @@
 	dwidth = 25;
 	height = 50;
 	id = "emergency_syndicate";
-	name = "Syndicate Auxillary Shuttle Dock";
+	name = "Pizza Hut Auxillary Shuttle Dock";
 	width = 50
 	},
 /turf/open/floor/plating/asteroid/snow/airless,
@@ -4198,7 +4198,7 @@
 "kv" = (
 /obj/machinery/door/poddoor/shuttledock{
 	checkdir = 1;
-	name = "syndicate blast door";
+	name = "Pizza Hut blast door";
 	turftype = /turf/open/floor/plating/asteroid/snow
 	},
 /turf/open/floor/plating,
@@ -17189,7 +17189,7 @@
 	dwidth = 12;
 	height = 17;
 	id = "syndicate_away";
-	name = "syndicate recon outpost";
+	name = "Pizza Hut recon outpost";
 	roundstart_template = /datum/map_template/shuttle/infiltrator/basic;
 	width = 23
 	},

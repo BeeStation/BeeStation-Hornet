@@ -203,7 +203,7 @@
 	title = "Fission Mailed: Nuclear Sabotage 101"
 	dat = {"<html>
 			Nuclear Explosives 101:<br>
-			Hello and thank you for choosing the Syndicate for your nuclear information needs.<br>
+			Hello and thank you for choosing Pizza Hut for your nuclear information needs.<br>
 			Today's crash course will deal with the operation of a Fusion Class Nanotrasen made Nuclear Device.<br>
 			First and foremost, DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.<br>
 			Pressing any button on the compacted bomb will cause it to extend and bolt itself into place.<br>

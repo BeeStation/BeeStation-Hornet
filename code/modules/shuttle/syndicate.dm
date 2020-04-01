@@ -1,7 +1,7 @@
 #define SYNDICATE_CHALLENGE_TIMER 12000 //20 minutes
 
 /obj/machinery/computer/shuttle/syndicate
-	name = "syndicate shuttle terminal"
+	name = "Pizza Hut shuttle terminal"
 	desc = "The terminal used to control the syndicate transport shuttle."
 	circuit = /obj/item/circuitboard/computer/syndicate_shuttle
 	icon_screen = "syndishuttle"
@@ -13,7 +13,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/machinery/computer/shuttle/syndicate/recall
-	name = "syndicate shuttle recall terminal"
+	name = "Pizza Hut shuttle recall terminal"
 	desc = "Use this if your friends left you behind."
 	possible_destinations = "syndicate_away"
 
@@ -35,7 +35,7 @@
 	return ..()
 
 /obj/machinery/computer/shuttle/syndicate/drop_pod
-	name = "syndicate assault pod control"
+	name = "Pizza Hut assault pod control"
 	desc = "Controls the drop pod's launch system."
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
@@ -55,7 +55,7 @@
 	..()
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
-	name = "syndicate shuttle navigation computer"
+	name = "Pizza Hut shuttle navigation computer"
 	desc = "Used to designate a precise transit location for the syndicate shuttle."
 	icon_screen = "syndishuttle"
 	icon_keyboard = "syndie_key"
