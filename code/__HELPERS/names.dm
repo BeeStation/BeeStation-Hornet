@@ -30,7 +30,7 @@ GLOBAL_VAR(command_name)
 	if (GLOB.command_name)
 		return GLOB.command_name
 
-	var/name = "Papa John's"
+	var/name = "Central Command"
 
 	GLOB.command_name = name
 	return name
