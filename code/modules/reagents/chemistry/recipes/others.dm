@@ -761,9 +761,3 @@
 	id = /datum/reagent/mutationtoxin/plasma
 	results = list(/datum/reagent/mutationtoxin/plasma = 1)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/toxin/plasma = 60, /datum/reagent/uranium = 20)
-
-/datum/chemical_reaction/spraytan
-	name = "Spray Tan"
-	id = /datum/reagent/spraytan
-	results = list(/datum/reagent/spraytan = 2)
-	required_reagents = list(/datum/reagent/consumable/orangejuice = 1, /datum/reagent/oil = 1)
