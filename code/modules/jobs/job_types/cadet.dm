@@ -34,15 +34,13 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 	belt = /obj/item/storage/belt/security/full
 	l_pocket = /obj/item/pda/security
-    backpack_contents = list(/obj/item/melee/baton/loaded=1)
-
+	backpack_contents = list(/obj/item/melee/baton/loaded=1)
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 	box = /obj/item/storage/box/survival
-
+	
 	implants = list(/obj/item/implant/mindshield)
-
 
 /datum/job/cadet/get_access()
 	var/list/L = list()
