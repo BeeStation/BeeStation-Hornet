@@ -14,7 +14,7 @@ GLOBAL_LIST(end_titles)
 
 		var/list/patrons = get_patrons()
 		if(patrons.len)
-			GLOB.end_titles += "<center><h1>Thank you to our patrons!</h1>"
+			GLOB.end_titles += "<center><h1>PAPA JOHN'S BENEFICIARIES!</h1>"
 			for(var/patron in patrons)
 				GLOB.end_titles += "<center><h2>[sanitize(patron)]</h2>"
 			GLOB.end_titles += "<br>"
@@ -22,13 +22,13 @@ GLOBAL_LIST(end_titles)
 
 		var/list/contribs = get_contribs()
 		if(contribs.len)
-			GLOB.end_titles += "<center><h1>Top Code Contributors</h1>"
+			GLOB.end_titles += "<center><h1>PAPA JOHN's DEV CREW</h1>"
 			for(var/contrib in contribs)
 				GLOB.end_titles += "<center><h2>[sanitize(contrib)]</h2>"
 			GLOB.end_titles += "<br>"
 			GLOB.end_titles += "<br>"
 
-		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
+		GLOB.end_titles += "<center><h1>EAT PAPA JOHN AGAIN!</h1>"
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.show_credits)
 			C.screen += new /obj/screen/credit/title_card(null, null, SSticker.mode.title_icon)

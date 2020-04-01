@@ -42,6 +42,8 @@ GLOBAL_VAR(command_name)
 	return name
 
 /proc/station_name()
+	return "Papa John's"
+	/*
 	if(!GLOB.station_name)
 		var/newname
 		var/config_station_name = CONFIG_GET(string/stationname)
@@ -53,6 +55,7 @@ GLOBAL_VAR(command_name)
 		set_station_name(newname)
 
 	return GLOB.station_name
+	*/
 
 /proc/set_station_name(newname)
 	GLOB.station_name = newname
