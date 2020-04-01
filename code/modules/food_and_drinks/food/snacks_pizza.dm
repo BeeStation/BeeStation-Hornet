@@ -1,6 +1,10 @@
 
 /////////////////////////////////////////////////PIZZA////////////////////////////////////////
 
+/obj/item/reagent_containers/food/snacks/pizza/Initialize()
+	. = ..()
+	GLOB.pizza_tracker++
+
 /obj/item/reagent_containers/food/snacks/pizza
 	icon = 'icons/obj/food/pizzaspaghetti.dmi'
 	w_class = WEIGHT_CLASS_NORMAL

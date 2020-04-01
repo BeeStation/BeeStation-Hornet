@@ -1,13 +1,13 @@
 /datum/reagent/blood
 	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null,"quirks"=null)
-	name = "Blood"
+	name = "Papa John's special sauce"
 	color = "#C80000" // rgb: 200, 0, 0
 	metabolization_rate = 5 //fast rate so it disappears fast.
 	taste_description = "iron"
 	taste_mult = 1.3
 	glass_icon_state = "glass_red"
-	glass_name = "glass of tomato juice"
-	glass_desc = "Are you sure this is tomato juice?"
+	glass_name = "glass of Papa John's special sauce"
+	glass_desc = "A refreshing glass of Papa John's special sauce."
 	shot_glass_icon_state = "shotglassred"
 
 /datum/reagent/blood/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
@@ -1878,7 +1878,7 @@
 	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
 	color = "#FAFF00"
 	taste_description = "acrid cinnamon"
-	random_unrestricted = FALSE	
+	random_unrestricted = FALSE
 
 /datum/reagent/concentrated_bz/on_mob_metabolize(mob/living/L)
 	..()
@@ -1893,20 +1893,20 @@
 		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
-			if(prob(30))	
+			if(prob(30))
 				L.losebreath += 1
 				L.adjustOxyLoss(3,5)
 				to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")
 
-		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)					
-	return ..()	
+		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
+	return ..()
 
 /datum/reagent/fake_cbz
 	name = "Concentrated BZ"
 	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
 	color = "#FAFF00"
 	taste_description = "acrid cinnamon"
-	random_unrestricted = FALSE	
+	random_unrestricted = FALSE
 
 /datum/reagent/fake_cbz/on_mob_life(mob/living/L)
 	L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)

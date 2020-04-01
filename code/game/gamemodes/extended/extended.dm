@@ -17,6 +17,8 @@
 	return "The transmission mostly failed to mention your sector. It is possible that there is nothing in the Syndicate that could threaten your station during this shift."
 
 /datum/game_mode/extended/generate_station_goals()
+	..()
+	return
 	for(var/T in subtypesof(/datum/station_goal))
 		var/datum/station_goal/G = new T
 		station_goals += G
