@@ -27,9 +27,9 @@
 	name = "Cadet"
 	jobtype = /datum/job/cadet
 
-    head = /obj/item/clothing/head/beret/sec/cadet
-    glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-    ears = /obj/item/radio/headset/headset_sec/alt
+	head = /obj/item/clothing/head/beret/sec/cadet
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/mallcop
 	shoes = /obj/item/clothing/shoes/jackboots
 	belt = /obj/item/storage/belt/security/full
