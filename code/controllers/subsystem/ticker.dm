@@ -64,7 +64,7 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/Initialize(timeofday)
 	load_mode()
 
-	var/list/byond_sound_formats = list(
+	/*var/list/byond_sound_formats = list(
 		"mid"  = TRUE,
 		"midi" = TRUE,
 		"mod"  = TRUE,
@@ -77,12 +77,12 @@ SUBSYSTEM_DEF(ticker)
 		"raw"  = TRUE,
 		"wma"  = TRUE,
 		"aiff" = TRUE
-	)
+	)*/
 
-	var/list/provisional_title_music = flist("[global.config.directory]/title_music/sounds/")
-	var/list/music = list()
-	var/use_rare_music = prob(1)
-
+	//var/list/provisional_title_music = flist("[global.config.directory]/title_music/sounds/")
+	var/list/music = list('sound/pizza/pizzatime.ogg', 'sound/pizza/pizzatime2.ogg')
+	//var/use_rare_music = prob(1)
+/*
 	for(var/S in provisional_title_music)
 		var/lower = lowertext(S)
 		var/list/L = splittext(lower,"+")
@@ -100,12 +100,12 @@ SUBSYSTEM_DEF(ticker)
 				if(L[1] == "exclude")
 					continue
 				music += S
-
+*/
 	var/old_login_music = trim(file2text("data/last_round_lobby_music.txt"))
 	if(music.len > 1)
 		music -= old_login_music
 
-	for(var/S in music)
+	/*perfor(var/S in music)
 		var/list/L = splittext(S,".")
 		if(L.len >= 2)
 			var/ext = lowertext(L[L.len]) //pick the real extension, no 'honk.ogg.exe' nonsense here
@@ -117,7 +117,9 @@ SUBSYSTEM_DEF(ticker)
 		music = world.file2list(ROUND_START_MUSIC_LIST, "\n")
 		login_music = pick(music)
 	else
-		login_music = "[global.config.directory]/title_music/sounds/[pick(music)]"
+		login_music = "[global.config.directory]/title_music/sounds/[pick(music)]"*/
+
+	login_music = "[pick(music)]"
 
 
 	if(!GLOB.syndicate_code_phrase)
@@ -646,17 +648,7 @@ SUBSYSTEM_DEF(ticker)
 	save_admin_data()
 	update_everything_flag_in_db()
 	if(!round_end_sound)
-		round_end_sound = pick(\
-		'sound/roundend/newroundsexy.ogg',
-		'sound/roundend/apcdestroyed.ogg',
-		'sound/roundend/bangindonk.ogg',
-		'sound/roundend/leavingtg.ogg',
-		'sound/roundend/its_only_game.ogg',
-		'sound/roundend/yeehaw.ogg',
-		'sound/roundend/disappointed.ogg',
-		'sound/roundend/scrunglartiy.ogg',
-		'sound/roundend/whyban.ogg'\
-		)
+		round_end_sound = 'sound/pizza/pizzatime_finale.ogg'
 
 	SEND_SOUND(world, sound(round_end_sound))
 	text2file(login_music, "data/last_round_lobby_music.txt")
