@@ -222,30 +222,6 @@
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 
 //Goon Chems. Ported mainly from Goonstation. Easily mixable (or not so easily) and provide a variety of effects.
-/datum/reagent/medicine/silver_sulfadiazine
-	name = "Silver Sulfadiazine"
-	description = "If used in touch-based applications, immediately restores burn wounds as well as restoring more over time. If ingested through other means, deals minor toxin damage."
-	reagent_state = LIQUID
-	color = "#C8A5DC"
-
-/datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
-	if(iscarbon(M) && M.stat != DEAD)
-		if(method in list(INGEST, VAPOR, INJECT))
-			M.adjustToxLoss(0.5*reac_volume)
-			if(show_message)
-				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
-		else if(M.getFireLoss())
-			M.adjustFireLoss(-reac_volume)
-			if(show_message)
-				to_chat(M, "<span class='danger'>You feel your burns healing! It stings like hell!</span>")
-			M.emote("scream")
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-	..()
-
-/datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(-2*REM, 0)
-	..()
-	. = 1
 
 /datum/reagent/medicine/oxandrolone
 	name = "Oxandrolone"
@@ -268,32 +244,6 @@
 		M.adjustFireLoss(4.5*REM, FALSE, FALSE, BODYPART_ORGANIC) // it's going to be healing either 4 or 0.5
 		. = 1
 	..()
-
-/datum/reagent/medicine/styptic_powder
-	name = "Styptic Powder"
-	description = "If used in touch-based applications, immediately restores bruising as well as restoring more over time. If ingested through other means, deals minor toxin damage."
-	reagent_state = LIQUID
-	color = "#FF9696"
-
-/datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
-	if(iscarbon(M) && M.stat != DEAD)
-		if(method in list(INGEST, VAPOR, INJECT))
-			M.adjustToxLoss(0.5*reac_volume)
-			if(show_message)
-				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
-		else if(M.getBruteLoss())
-			M.adjustBruteLoss(-reac_volume)
-			if(show_message)
-				to_chat(M, "<span class='danger'>You feel your bruises healing! It stings like hell!</span>")
-			M.emote("scream")
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-	..()
-
-
-/datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-2*REM, 0)
-	..()
-	. = 1
 
 /datum/reagent/medicine/salglu_solution
 	name = "Saline-Glucose Solution"
@@ -371,78 +321,6 @@
 	if(iscarbon(M))
 		var/mob/living/carbon/N = M
 		N.hal_screwyhud = SCREWYHUD_NONE
-	..()
-
-/datum/reagent/medicine/synthflesh
-	name = "Synthflesh"
-	description = "Has a 100% chance of instantly healing brute and burn damage. One unit of the chemical will heal one point of damage. Touch application only."
-	reagent_state = LIQUID
-	color = "#FFEBEB"
-
-/datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, reac_volume,show_message = 1)
-	if(iscarbon(M))
-		if (M.stat == DEAD)
-			show_message = 0
-		if(method in list(PATCH, TOUCH))
-			M.adjustBruteLoss(-1.25 * reac_volume)
-			M.adjustFireLoss(-1.25 * reac_volume)
-			if(show_message)
-				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-			//Has to be at less than THRESHOLD_UNHUSK burn damage and have 100 isntabitaluri before unhusking. Corpses dont metabolize.
-			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 100))
-				M.cure_husk("burn")
-				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
-	..()
-
-/datum/reagent/medicine/charcoal
-	name = "Charcoal"
-	description = "Heals toxin damage as well as slowly removing any other chemicals the patient has in their bloodstream."
-	reagent_state = LIQUID
-	color = "#000000"
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	taste_description = "ash"
-	process_flags = ORGANIC
-
-/datum/reagent/medicine/charcoal/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-2*REM, 0)
-	. = 1
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			M.reagents.remove_reagent(R.type,1)
-	..()
-
-/datum/reagent/medicine/system_cleaner
-	name = "System Cleaner"
-	description = "Neutralizes harmful chemical compounds inside synthetic systems."
-	reagent_state = LIQUID
-	color = "#F1C40F"
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	process_flags = SYNTHETIC
-
-/datum/reagent/medicine/system_cleaner/on_mob_life(mob/living/M)
-	M.adjustToxLoss(-2*REM, 0)
-	. = 1
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			M.reagents.remove_reagent(R.type,1)
-	..()
-
-/datum/reagent/medicine/liquid_solder
-	name = "Liquid Solder"
-	description = "Repairs brain damage in synthetics."
-	color = "#727272"
-	taste_description = "metallic"
-	process_flags = SYNTHETIC
-
-/datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, (-3*REM))
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(prob(30) && C.has_trauma_type(BRAIN_TRAUMA_SPECIAL))
-			C.cure_trauma_type(BRAIN_TRAUMA_SPECIAL)
-		if(prob(10) && C.has_trauma_type(BRAIN_TRAUMA_MILD))
-			C.cure_trauma_type(BRAIN_TRAUMA_MILD)
 	..()
 
 /datum/reagent/medicine/omnizine
@@ -527,7 +405,7 @@
 	if(M.getBruteLoss() > 50)
 		M.adjustBruteLoss(-4*REM, 0) //Twice as effective as styptic powder for severe bruising
 	else
-		M.adjustBruteLoss(-0.5*REM, 0) //But only a quarter as effective for more minor ones
+		M.adjustBruteLoss(-0.5*REM, 0)
 	..()
 	. = 1
 
@@ -550,19 +428,6 @@
 		M.losebreath -= 2
 	..()
 	. = 1
-
-/datum/reagent/medicine/perfluorodecalin
-	name = "Perfluorodecalin"
-	description = "Extremely rapidly restores oxygen deprivation, but inhibits speech. May also heal small amounts of bruising and burns."
-	reagent_state = LIQUID
-	color = "#FF6464"
-	metabolization_rate = 0.25 * REAGENTS_METABOLISM
-
-/datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
-	M.adjustOxyLoss(-12*REM, 0)
-	M.adjustToxLoss(0.3*REM, 0)
-	..()
-	return TRUE
 
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
@@ -981,40 +846,7 @@
 	M.reagents.remove_reagent(/datum/reagent/consumable/sugar, 3)
 	..()
 
-//Trek Chems, used primarily by medibots. Only heals a specific damage type, but is very efficient.
-/datum/reagent/medicine/bicaridine
-	name = "Bicaridine"
-	description = "Restores bruising. Overdose causes it instead."
-	reagent_state = LIQUID
-	color = "#C8A5DC"
-	overdose_threshold = 30
-
-/datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-2*REM, 0)
-	..()
-	. = 1
-
-/datum/reagent/medicine/bicaridine/overdose_process(mob/living/M)
-	M.adjustBruteLoss(4*REM, FALSE, FALSE, BODYPART_ORGANIC)
-	..()
-	. = 1
-
-/datum/reagent/medicine/dexalin
-	name = "Dexalin"
-	description = "Restores oxygen loss. Overdose causes it instead."
-	reagent_state = LIQUID
-	color = "#0080FF"
-	overdose_threshold = 30
-
-/datum/reagent/medicine/dexalin/on_mob_life(mob/living/carbon/M)
-	M.adjustOxyLoss(-2*REM, 0)
-	..()
-	. = 1
-
-/datum/reagent/medicine/dexalin/overdose_process(mob/living/M)
-	M.adjustOxyLoss(4*REM, 0)
-	..()
-	. = 1
+//Trek Chems, used primarily by medibots. Only heals a specific damage type, but is very efficient. I love how cobby didn't even remove this april fools aside
 
 /datum/reagent/medicine/dexalinp
 	name = "Dexalin Plus"
@@ -1421,3 +1253,77 @@
 	M.adjustToxLoss(1, 0)
 	..()
 	. = 1
+
+
+/datum/reagent/medicine/trophazole
+	name = "Trophazole"
+	description = "Orginally developed as fitness supplement, this chemical accelerates wound healing and if ingested turns nutriment into healing peptides"
+	reagent_state = LIQUID
+	color = "#FFFF6B"
+	overdose_threshold = 20
+
+/datum/reagent/medicine/trophazole/on_mob_life(mob/living/carbon/M)
+	M.adjustBruteLoss(-1.5*REM, 0.) // heals 3 brute & 0.5 burn if taken with food. compared to 2.5 brute from bicard + nutriment
+	..()
+	. = 1
+
+/datum/reagent/medicine/trophazole/overdose_process(mob/living/M)
+	M.adjustBruteLoss(3*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/trophazole/on_transfer(atom/A, method=INGEST, trans_volume)
+	if(method != INGEST || !iscarbon(A))
+		return
+
+	A.reagents.remove_reagent(/datum/reagent/medicine/trophazole, trans_volume * 0.05)
+	A.reagents.add_reagent(/datum/reagent/medicine/metafactor, trans_volume * 0.25)
+
+	..()
+
+/datum/reagent/medicine/metafactor
+	name = "Mitogen Metabolism Factor"
+	description = "This enzyme catalyzes the conversion of nutricious food into healing peptides."
+	metabolization_rate = 0.0625  * REAGENTS_METABOLISM //slow metabolism rate so the patient can self heal with food even after the troph has metabolized away for amazing reagent efficency.
+	reagent_state = SOLID
+	color = "#DC605D"
+	overdose_threshold = 10
+
+/datum/reagent/medicine/metafactor/overdose_start(mob/living/carbon/M)
+	metabolization_rate = 2  * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/metafactor/overdose_process(mob/living/carbon/M)
+	if(prob(25))
+		M.vomit()
+	..()
+
+/datum/reagent/medicine/rhigoxane
+	name = "Rhigoxane"
+	description = "A second generation burn treatment agent exibiting a cooling effect that is especially pronounced when deployed as a spray. It's high halogen content helps extiguish fires."
+	reagent_state = LIQUID
+	color = "#B6D2F2"
+	overdose_threshold = 25
+	reagent_weight = 0.6
+
+/datum/reagent/medicine/rhigoxane/on_mob_life(mob/living/carbon/M)
+	M.adjustFireLoss(-2*REM, 0.)
+	M.adjust_bodytemperature(-20 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	..()
+	. = 1
+
+/datum/reagent/medicine/rhigoxane/reaction_mob(mob/living/carbon/M, method=VAPOR, reac_volume)
+	if(method != VAPOR)
+		return
+
+	M.adjust_bodytemperature(-reac_volume * TEMPERATURE_DAMAGE_COEFFICIENT * 20, 200)
+	M.adjust_fire_stacks(-reac_volume / 2)
+	if(reac_volume >= metabolization_rate)
+		M.ExtinguishMob()
+
+	..()
+
+/datum/reagent/medicine/rhigoxane/overdose_process(mob/living/carbon/M)
+	M.adjustFireLoss(3*REM, 0.)
+	M.adjust_bodytemperature(-35 * TEMPERATURE_DAMAGE_COEFFICIENT, 50)
+	..()
+  

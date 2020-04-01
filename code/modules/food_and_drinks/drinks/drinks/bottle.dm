@@ -397,15 +397,15 @@
 	foodtype = FRUIT
 
 /obj/item/reagent_containers/food/drinks/bottle/synthflesh
-	name = "carton of synthflesh"
-	desc = "A No-Name carton of synthflesh. It seems moldy. And it seems that YOUR INCOMPETENT ASS IS THE ONLY FUCKING REASON THIS THING EVEN EXISTS!!!!"
+	name = "carton of instabitaluri"
+	desc = "A No-Name carton of instabitaluri. It seems moldy. And it seems that YOUR INCOMPETENT ASS IS THE ONLY FUCKING REASON THIS THING EVEN EXISTS!!!!"
 	custom_price = 10
 	icon_state = "synthflesh"
 	item_state = "carton"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
-	list_reagents = list(/datum/reagent/medicine/synthflesh = 100)
+	list_reagents = list(/datum/reagent/medicine/C2/instabitaluri = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/virusfood
 	name = "carton of virus food"

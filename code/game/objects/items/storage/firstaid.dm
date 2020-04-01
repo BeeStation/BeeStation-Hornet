@@ -70,8 +70,7 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/patch/silver_sulf = 3,
-		/obj/item/reagent_containers/pill/oxandrolone = 2,
+		/obj/item/reagent_containers/pill/patch/aiuri = 3,
 		/obj/item/reagent_containers/hypospray/medipen = 1,
 		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
@@ -95,8 +94,8 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/syringe/charcoal = 4,
-		/obj/item/storage/pill_bottle/charcoal = 2,
+	    /obj/item/storage/pill_bottle/multiver/less = 1,
+		/obj/item/reagent_containers/syringe/syriniver = 3,
 		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
 
@@ -117,8 +116,8 @@
 		new /obj/item/reagent_containers/pill/mutarad(src)
 	if(prob(80))
 		new /obj/item/reagent_containers/pill/antirad_plus(src)
-	new /obj/item/reagent_containers/syringe/charcoal(src)
-	new /obj/item/storage/pill_bottle/charcoal(src)
+	new /obj/item/reagent_containers/syringe/multiver(src)
+	new /obj/item/storage/pill_bottle/multiver(src)
 	new /obj/item/reagent_containers/pill/mutadone(src)
 	new /obj/item/reagent_containers/pill/antirad(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
@@ -140,9 +139,8 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/salbutamol = 2,
-		/obj/item/reagent_containers/hypospray/medipen = 2,
-		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
+		/obj/item/reagent_containers/syringe/convermol = 3,
+		/obj/item/reagent_containers/hypospray/medipen = 1,
 		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
 
@@ -161,8 +159,8 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/patch/styptic = 4,
-		/obj/item/stack/medical/gauze = 2,
+		/obj/item/reagent_containers/pill/patch/libital = 3,
+		/obj/item/stack/medical/gauze = 1,
 		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
 
@@ -177,7 +175,7 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/patch/synthflesh = 3,
+		/obj/item/reagent_containers/pill/patch/instabitaluri = 3,
 		/obj/item/reagent_containers/hypospray/medipen/atropine = 2,
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/storage/pill_bottle/penacid = 1)
@@ -199,10 +197,10 @@
 	new /obj/item/stack/medical/gauze(src)
 	new /obj/item/defibrillator/compact/combat/loaded(src)
 	new /obj/item/reagent_containers/hypospray/combat(src)
-	new /obj/item/reagent_containers/pill/patch/styptic(src)
-	new /obj/item/reagent_containers/pill/patch/styptic(src)
-	new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
-	new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/pill/patch/libital(src)
+	new /obj/item/reagent_containers/pill/patch/libital(src)
+	new /obj/item/reagent_containers/pill/patch/aiuri(src)
+	new /obj/item/reagent_containers/pill/patch/aiuri(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 
 //medibot assembly
@@ -256,13 +254,13 @@
 	user.visible_message("<span class='suicide'>[user] is trying to get the cap off [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (TOXLOSS)
 
-/obj/item/storage/pill_bottle/charcoal
-	name = "bottle of charcoal pills"
+/obj/item/storage/pill_bottle/multiver
+	name = "bottle of multiver pills"
 	desc = "Contains pills used to counter toxins."
 
-/obj/item/storage/pill_bottle/charcoal/PopulateContents()
+/obj/item/storage/pill_bottle/multiver/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/pill/charcoal(src)
+		new /obj/item/reagent_containers/pill/multiver(src)
 
 /obj/item/storage/pill_bottle/antirad
 	name = "bottle of anti-radiation pills"
@@ -271,6 +269,12 @@
 /obj/item/storage/pill_bottle/antirad/PopulateContents()
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/pill/antirad(src)
+
+/obj/item/storage/pill_bottle/multiver/less
+
+/obj/item/storage/pill_bottle/multiver/less/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/pill/multiver(src)
 
 /obj/item/storage/pill_bottle/epinephrine
 	name = "bottle of epinephrine pills"
@@ -309,9 +313,9 @@
 	desc = "Contains patches used to treat brute and burn damage."
 
 /obj/item/storage/pill_bottle/mining/PopulateContents()
-	new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/pill/patch/aiuri(src)
 	for(var/i in 1 to 3)
-		new /obj/item/reagent_containers/pill/patch/styptic(src)
+		new /obj/item/reagent_containers/pill/patch/libital(src)
 
 /obj/item/storage/pill_bottle/zoom
 	name = "suspicious pill bottle"

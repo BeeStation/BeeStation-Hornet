@@ -2689,6 +2689,7 @@
 #include "code\modules\reagents\chemistry\machinery\reagentgrinder.dm"
 #include "code\modules\reagents\chemistry\machinery\smoke_machine.dm"
 #include "code\modules\reagents\chemistry\reagents\alcohol_reagents.dm"
+#include "code\modules\reagents\chemistry\reagents\cat2_medicine_reagents.dm"
 #include "code\modules\reagents\chemistry\reagents\drink_reagents.dm"
 #include "code\modules\reagents\chemistry\reagents\drug_reagents.dm"
 #include "code\modules\reagents\chemistry\reagents\food_reagents.dm"
@@ -2696,6 +2697,7 @@
 #include "code\modules\reagents\chemistry\reagents\other_reagents.dm"
 #include "code\modules\reagents\chemistry\reagents\pyrotechnic_reagents.dm"
 #include "code\modules\reagents\chemistry\reagents\toxin_reagents.dm"
+#include "code\modules\reagents\chemistry\recipes\cat2_medicines.dm"
 #include "code\modules\reagents\chemistry\recipes\drugs.dm"
 #include "code\modules\reagents\chemistry\recipes\medicine.dm"
 #include "code\modules\reagents\chemistry\recipes\others.dm"
@@ -3035,4 +3037,3 @@
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
-

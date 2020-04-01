@@ -14,9 +14,9 @@
 		/obj/item/reagent_containers/glass/bottle/toxin = 1,
 		/obj/item/reagent_containers/glass/bottle/morphine = 2,
 		/obj/item/reagent_containers/glass/bottle/epinephrine= 3,
-		/obj/item/reagent_containers/glass/bottle/charcoal = 3,
+		/obj/item/reagent_containers/glass/bottle/multiver = 3,
 		/obj/item/storage/box/rxglasses = 1,
-		/obj/item/stack/ducts/fifty = 4,			
+		/obj/item/stack/ducts/fifty = 4,
 		/obj/item/construction/plumbing = 2)
 	generate_items_inside(items_inside,src)
 
@@ -108,7 +108,7 @@
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)			
+	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/construction/plumbing(src)
 	new /obj/item/construction/plumbing(src)
 
@@ -125,6 +125,6 @@
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)			
+	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/construction/plumbing(src)
 	new /obj/item/construction/plumbing(src)

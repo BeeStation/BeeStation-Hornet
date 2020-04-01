@@ -118,11 +118,11 @@
 	list_reagents = list(/datum/reagent/medicine/salbutamol = 30)
 	rename_with_volume = TRUE
 
-/obj/item/reagent_containers/pill/charcoal
-	name = "charcoal pill"
+/obj/item/reagent_containers/pill/multiver
+	name = "multiver pill"
 	desc = "Neutralizes many common toxins."
 	icon_state = "pill17"
-	list_reagents = list(/datum/reagent/medicine/charcoal = 10)
+	list_reagents = list(/datum/reagent/medicine/C2/multiver = 10)
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/epinephrine
@@ -198,14 +198,14 @@
 	name = "radiation plus pill"
 	desc = "Used to treat heavy radition poisoning."
 	icon_state = "pill3"
-	list_reagents = list(/datum/reagent/medicine/potass_iodide = 50, /datum/reagent/medicine/charcoal = 20)
+	list_reagents = list(/datum/reagent/medicine/potass_iodide = 50, /datum/reagent/medicine/C2/multiver = 20)
 
 /obj/item/reagent_containers/pill/antirad
 	name = "potassium iodide pill"
 	desc = "Used to treat radition used to counter radiation poisoning."
 	icon_state = "pill18"
 	list_reagents = list(/datum/reagent/medicine/potass_iodide = 30)
-	
+
 
 ///////////////////////////////////////// this pill is used only in a legion mob drop
 /obj/item/reagent_containers/pill/shadowtoxin
