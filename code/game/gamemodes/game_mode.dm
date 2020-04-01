@@ -606,8 +606,8 @@
 
 /datum/game_mode/proc/generate_station_goals()
 
-	var/datum/station_goal/pizza_delivery/papa
-	station_goals += new papa
+	var/datum/station_goal/pizza_delivery/papa = new
+	station_goals += papa
 	return
 
 	var/list/possible = list()
