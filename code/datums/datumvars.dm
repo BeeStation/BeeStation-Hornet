@@ -97,7 +97,20 @@
 					CLONE:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=clone' id='clone'>[M.getCloneLoss()]</a>
 					BRAIN:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brain' id='brain'>[M.getOrganLoss(ORGAN_SLOT_BRAIN)]</a>
 					STAMINA:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[M.getStaminaLoss()]</a>
-				</font>
+					"}
+			if(GLOB.Debug2)
+				atomsnowflake += {"
+					HEART:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=heart' id='heart'>[M.getOrganLoss(ORGAN_SLOT_HEART)]</a>
+					LIVER:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=liver' id='liver'>[M.getOrganLoss(ORGAN_SLOT_LIVER)]</a>
+					LUNGS:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=lungs' id='lungs'>[M.getOrganLoss(ORGAN_SLOT_LUNGS)]</a>
+					EYES:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=eye_sight' id='eye_sight'>[M.getOrganLoss(ORGAN_SLOT_EYES)]</a>
+					EARS:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=ears' id='ears'>[M.getOrganLoss(ORGAN_SLOT_EARS)]</a>
+					STOMACH:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stomach' id='stomach'>[M.getOrganLoss(ORGAN_SLOT_STOMACH)]</a>
+					TONGUE:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=tongue' id='tongue'>[M.getOrganLoss(ORGAN_SLOT_TONGUE)]</a>
+					APPENDIX:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=appendix' id='appendix'>[M.getOrganLoss(ORGAN_SLOT_APPENDIX)]</a>
+					"}
+			atomsnowflake += {"
+			</font>
 			"}
 		else
 			atomsnowflake += "<a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=name'><b id='name'>[D]</b></a>"
@@ -1361,6 +1374,30 @@
 				if("stamina")
 					L.adjustStaminaLoss(amount)
 					newamt = L.getStaminaLoss()
+				if("heart")
+					L.adjustOrganLoss(ORGAN_SLOT_HEART, amount)
+					newamt = L.getOrganLoss(ORGAN_SLOT_HEART)
+				if("liver")
+					L.adjustOrganLoss(ORGAN_SLOT_LIVER, amount)
+					newamt = L.getOrganLoss(ORGAN_SLOT_LIVER)
+				if("lungs")
+					L.adjustOrganLoss(ORGAN_SLOT_LUNGS, amount)
+					newamt = L.getOrganLoss(ORGAN_SLOT_LUNGS)
+				if("eye_sight")
+					L.adjustOrganLoss(ORGAN_SLOT_EYES, amount)
+					newamt = L.getOrganLoss(ORGAN_SLOT_EYES)
+				if("ears")
+					L.adjustOrganLoss(ORGAN_SLOT_EARS, amount)
+					newamt = L.getOrganLoss(ORGAN_SLOT_EARS)
+				if("stomach")
+					L.adjustOrganLoss(ORGAN_SLOT_STOMACH, amount)
+					newamt = L.getOrganLoss(ORGAN_SLOT_STOMACH)
+				if("tongue")
+					L.adjustOrganLoss(ORGAN_SLOT_TONGUE, amount)
+					newamt = L.getOrganLoss(ORGAN_SLOT_TONGUE)
+				if("appendix")
+					L.adjustOrganLoss(ORGAN_SLOT_APPENDIX, amount)
+					newamt = L.getOrganLoss(ORGAN_SLOT_APPENDIX)
 				else
 					to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
 					return

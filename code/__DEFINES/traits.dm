@@ -176,6 +176,12 @@
 #define TRAIT_TAGGER			"tagger"
 #define TRAIT_PHOTOGRAPHER		"photographer"
 #define TRAIT_MUSICIAN			"musician"
+#define TRAIT_PERMABONER		"permanent_arousal"
+#define TRAIT_NEVERBONER		"never_aroused"
+#define TRAIT_NYMPHO			"nymphomania"
+#define TRAIT_MASO              "masochism"
+#define	TRAIT_HIGH_BLOOD        "high_blood"
+#define TRAIT_PARA              "paraplegic"
 #define TRAIT_LIGHT_DRINKER		"light_drinker"
 #define TRAIT_EMPATH			"empath"
 #define TRAIT_FRIENDLY			"friendly"
@@ -201,6 +207,9 @@
 #define ABSTRACT_ITEM_TRAIT "abstract-item"
 #define STATUS_EFFECT_TRAIT "status-effect"
 #define CLOTHING_TRAIT "clothing"
+#define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
+#define GHOSTROLE_TRAIT "ghostrole"
+#define APHRO_TRAIT "aphro"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"

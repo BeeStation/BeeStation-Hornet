@@ -804,3 +804,85 @@
 	M.resize = 1/current_size
 	M.update_transform()
 	..()
+
+/datum/reagent/consumable/pinkmilk
+	name = "Strawberry Milk"
+	description = "A drink of a bygone era of milk and artificial sweetener back on a rock."
+	color = "#f76aeb"//rgb(247, 106, 235)
+	glass_icon_state = "pinkmilk"
+	quality = DRINK_FANTASTIC //Love drink
+	taste_description = "sweet strawberry and milk cream"
+	glass_name = "tall glass of strawberry milk"
+	glass_desc = "Delicious flavored strawberry syrup mixed with milk."
+
+/datum/reagent/consumable/tea/pinkmilk/on_mob_life(mob/living/carbon/M)
+	if(prob(15))
+		to_chat(M, "<span class = 'notice'>[pick("You cant help to smile.","You feel nostalgia all of sudden.","You remember to relax.")]</span>")
+	..()
+	. = 1
+
+/datum/reagent/consumable/pinktea //Tiny Tim song
+	name = "Strawberry Tea"
+	description = "A timeless classic!"
+	color = "#f76aeb"//rgb(247, 106, 235)
+	glass_icon_state = "pinktea"
+	quality = DRINK_FANTASTIC //Love drink
+	taste_description = "sweet tea with a hint of strawberry"
+	glass_name = "mug of strawberry tea"
+	glass_desc = "Delicious traditional tea flavored with strawberries."
+
+/datum/reagent/consumable/tea/pinktea/on_mob_life(mob/living/carbon/M)
+	if(prob(10))
+		to_chat(M, "<span class = 'notice'>[pick("Diamond skies where white deer fly.","Sipping strawberry tea.","Silver raindrops drift through timeless, Neverending June.","Crystal ... pearls free, with love!","Beaming love into me.")]</span>")
+	..()
+	. = 1
+
+/datum/reagent/consumable/catnip_tea
+	name = "Catnip Tea"
+	description = "A sleepy and tasty catnip tea!"
+	color = "#101000" // rgb: 16, 16, 0
+	nutriment_factor = 0
+	taste_description = "sugar and catnip"
+	glass_icon_state = "teaglass"
+	glass_name = "glass of catnip tea"
+	glass_desc = "A purrfect drink for a cat."
+
+/datum/reagent/consumable/catnip_tea/on_mob_life(mob/living/carbon/M)
+	M.adjustStaminaLoss(min(50 - M.getStaminaLoss(), 3))
+	if(prob(20))
+		M.emote("nya")
+	if(prob(20))
+		to_chat(M, "<span class = 'notice'>[pick("Headpats feel nice.", "Backrubs would be nice.", "Mew")]</span>")
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/list/adjusted = H.adjust_arousal(5,aphro = TRUE)
+		for(var/g in adjusted)
+			var/obj/item/organ/genital/G = g
+			to_chat(M, "<span class='userlove'>You feel like playing with your [G.name]!</span>")
+	..()
+
+/datum/reagent/consumable/monkey_energy
+	name = "Monkey Energy"
+	description = "The only drink that will make you unleash the ape."
+	color = "#f39b03" // rgb: 243, 155, 3
+	taste_description = "barbecue and nostalgia"
+	glass_icon_state = "monkey_energy_glass"
+	glass_name = "glass of Monkey Energy"
+	glass_desc = "You can unleash the ape, but without the pop of the can?"
+
+/datum/reagent/consumable/monkey_energy/on_mob_life(mob/living/carbon/M)
+	M.Jitter(20)
+	M.dizziness +=1
+	M.drowsyness = 0
+	M.AdjustSleeping(-40, FALSE)
+	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	..()
+
+/datum/reagent/consumable/bungojuice
+	name = "Bungo Juice"
+	color = "#F9E43D"
+	description = "Exotic! You feel like you are on vactation already."
+	taste_description = "succulent bungo"
+	glass_icon_state = "glass_yellow"
+	glass_name = "glass of bungo juice"
+	glass_desc = "Exotic! You feel like you are on vacation already."

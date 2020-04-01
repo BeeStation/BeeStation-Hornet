@@ -1979,3 +1979,52 @@
 	color = "#ED2939"
 	taste_description = "upside down"
 	can_synth = FALSE
+
+/datum/reagent/changeling_string/on_mob_metabolize(mob/living/carbon/C)
+	if(ishuman(C) && C.dna && data["desired_dna"])
+		original_dna = new C.dna.type
+		C.dna.copy_dna(original_dna)
+		var/datum/dna/new_dna = data["desired_dna"]
+		new_dna.transfer_identity(C, TRUE)
+		C.real_name = new_dna.real_name
+		C.updateappearance(mutcolor_update = TRUE)
+		C.domutcheck()
+	..()
+
+/datum/reagent/changeling_string/on_mob_end_metabolize(mob/living/carbon/C)
+	if(original_dna)
+		original_dna.transfer_identity(C, TRUE)
+		C.real_name = original_dna.real_name
+		C.updateappearance(mutcolor_update = TRUE)
+		C.domutcheck()
+	..()
+
+/datum/reagent/changeling_string/Destroy()
+	qdel(original_dna)
+	return ..()
+
+/datum/reagent/mustardgrind
+	name = "Mustardgrind"
+	description = "A powerd that is mixed with water and enzymes to make mustard."
+	color = "#BCC740" //RGB: 188, 199, 64
+	taste_description = "plant dust"
+
+/datum/reagent/pax/catnip
+	name = "catnip"
+	taste_description = "grass"
+	description = "A colorless liquid that makes people more peaceful and felines more happy."
+	metabolization_rate = 1.75 * REAGENTS_METABOLISM
+
+/datum/reagent/pax/catnip/on_mob_life(mob/living/carbon/M)
+	if(prob(20))
+		M.emote("nya")
+	if(prob(20))
+		to_chat(M, "<span class = 'notice'>[pick("Headpats feel nice.", "The feeling of a hairball...", "Backrubs would be nice.", "Whats behind those doors?")]</span>")
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/list/adjusted = H.adjust_arousal(2,aphro = TRUE)
+		for(var/g in adjusted)
+			var/obj/item/organ/genital/G = g
+			to_chat(M, "<span class='userlove'>You feel like playing with your [G.name]!</span>")
+
+	..()
