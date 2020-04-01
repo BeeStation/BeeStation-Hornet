@@ -280,7 +280,10 @@
 		C.access = J.get_access()
 		shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
 		C.registered_name = H.real_name
-		C.assignment = J.title
+		if (J.title == "Assistant")
+			C.assignment = J.title
+		else
+			C.assignment = "Papa John's Delivery Boy"
 		C.update_label()
 		for(var/A in SSeconomy.bank_accounts)
 			var/datum/bank_account/B = A
