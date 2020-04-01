@@ -28,18 +28,18 @@
 */
 
 GLOBAL_VAR_INIT(pizza_tracker, 0)
-GLOBAL_VAR_INIT(pizza_goal, 0)
 
 /datum/station_goal/pizza_delivery
 	name = "Pizza Delivery"
+	var/pizza_count
 
 /datum/station_goal/pizza_delivery/New()
 	..()
-	GLOB.pizza_goal = (GLOB.player_list.len + rand(0, GLOB.player_list.len))
+	pizza_count = (GLOB.player_list.len + rand(0, GLOB.player_list.len))
 
 /datum/station_goal/pizza_delivery/get_report()
 	return {"Incoming delivery order from Sector \Roman[rand(1,99)].
-	 We need you to bake [GLOB.pizza_goal] pizzas aboard your station.
+	 We need you to bake [pizza_count] pizzas aboard your station.
 
 	 Remember: Better Ingredients. Better Pizza.
 	 -Papa Johns Delivery Command"}
@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(pizza_goal, 0)
 /datum/station_goal/pizza_delivery/check_completion()
 	if(..())
 		return TRUE
-	if(GLOB.pizza_tracker >= GLOB.pizza_goal)
+	if(GLOB.pizza_tracker >= pizza_count)
 		return TRUE
 	return FALSE
 
