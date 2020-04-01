@@ -42,26 +42,28 @@ GLOBAL_VAR(command_name)
 	return name
 
 /proc/station_name()
+	return "Papa John's"
+	/*
 	if(!GLOB.station_name)
 		var/newname
 		var/config_station_name = CONFIG_GET(string/stationname)
 		if(config_station_name)
 			newname = config_station_name
 		else
-			newname = new_station_name()
+			newname = "Pizza Station 13"
 
 		set_station_name(newname)
 
 	return GLOB.station_name
+	*/
 
 /proc/set_station_name(newname)
-	GLOB.station_name = newname
-
+	GLOB.station_name = "Pizza Station 13"
 	var/config_server_name = CONFIG_GET(string/servername)
 	if(config_server_name)
-		world.name = "[config_server_name][config_server_name == GLOB.station_name ? "" : ": [GLOB.station_name]"]"
+		world.name = "[config_server_name]"
 	else
-		world.name = GLOB.station_name
+		world.name = "Papa Johns Station 13"
 
 
 /proc/new_station_name()
@@ -119,7 +121,7 @@ GLOBAL_VAR(command_name)
 
 		// Full
 		if (prob(60))
-			name += pick("Syndicate", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Enterprises", "Family", "Creations", "International", "Intergalactic", "Interplanetary", "Foundation", "Positronics", "Hive")
+			name += pick("Pizza Hut", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Enterprises", "Family", "Creations", "International", "Intergalactic", "Interplanetary", "Foundation", "Positronics", "Hive")
 		// Broken
 		else
 			name += pick("Syndi", "Corp", "Bio", "System", "Prod", "Chem", "Inter", "Hive")

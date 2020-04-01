@@ -26,7 +26,7 @@
 /datum/antagonist/ninja/proc/addMemories()
 	antag_memory += "I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><B>SPACE NINJA</B></font>!<br>"
 	antag_memory += "Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (//initialize your suit by clicking the initialize UI button, to use abilities like stealth)!<br>"
-	antag_memory += "Officially, [helping_station?"Nanotrasen":"The Syndicate"] are my employer.<br>"
+	antag_memory += "Officially, [helping_station?"Nanotrasen":"Pizza Hut"] are my employer.<br>"
 
 /datum/antagonist/ninja/proc/addObjectives(quantity = 3)
 	if(!give_objectives)
@@ -113,7 +113,7 @@
 	SEND_SOUND(owner.current, sound('sound/effects/ninja_greeting.ogg'))
 	to_chat(owner.current, "I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><B>SPACE NINJA</B></font>!")
 	to_chat(owner.current, "Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (//initialize your suit by right clicking on it, to use abilities like stealth)!")
-	to_chat(owner.current, "Officially, [helping_station?"Nanotrasen":"The Syndicate"] are my employer.")
+	to_chat(owner.current, "Officially, [helping_station?"Nanotrasen":"Pizza Hut"] are my employer.")
 	owner.announce_objectives()
 	return
 

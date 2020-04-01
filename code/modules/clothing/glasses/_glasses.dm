@@ -346,8 +346,8 @@
 	thermal_overload()
 
 /obj/item/clothing/glasses/thermal/xray
-	name = "syndicate xray goggles"
-	desc = "A pair of xray goggles manufactured by the Syndicate."
+	name = "Pizza Hut xray goggles"
+	desc = "A pair of xray goggles manufactured by Pizza Hut."
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	flash_protect = -1
 

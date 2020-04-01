@@ -1053,14 +1053,14 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "An Irish car bomb."
 
 /datum/reagent/consumable/ethanol/syndicatebomb
-	name = "Syndicate Bomb"
+	name = "Pizza Hut Bomb"
 	description = "Tastes like terrorism!"
 	color = "#2E6671" // rgb: 46, 102, 113
 	boozepwr = 90
 	quality = DRINK_GOOD
 	taste_description = "purified antagonism"
 	glass_icon_state = "syndicatebomb"
-	glass_name = "Syndicate Bomb"
+	glass_name = "Pizza Hut Bomb"
 	glass_desc = "A syndicate bomb."
 
 /datum/reagent/consumable/ethanol/syndicatebomb/on_mob_life(mob/living/carbon/M)
