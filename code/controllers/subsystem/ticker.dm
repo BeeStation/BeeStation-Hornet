@@ -524,7 +524,7 @@ SUBSYSTEM_DEF(ticker)
 		if(NUKE_SYNDICATE_BASE)
 			news_message = "In a daring raid, the heroic crew of [station_name()] detonated a nuclear device in the heart of a terrorist base."
 		if(STATION_DESTROYED_NUKE)
-			news_message = "We would like to reassure all employees that the reports of a Syndicate backed nuclear attack on [station_name()] are, in fact, a hoax. Have a secure day!"
+			news_message = "We would like to reassure all employees that the reports of a Pizza Hut backed nuclear attack on [station_name()] are, in fact, a hoax. Have a secure day!"
 		if(STATION_EVACUATED)
 			news_message = "The crew of [station_name()] has been evacuated amid unconfirmed reports of enemy activity."
 		if(BLOB_WIN)
@@ -540,11 +540,11 @@ SUBSYSTEM_DEF(ticker)
 		if(CULT_SUMMON)
 			news_message = "Company officials would like to clarify that [station_name()] was scheduled to be decommissioned following meteor damage earlier this year. Earlier reports of an unknowable eldritch horror were made in error."
 		if(NUKE_MISS)
-			news_message = "The Syndicate have bungled a terrorist attack [station_name()], detonating a nuclear weapon in empty space nearby."
+			news_message = "Pizza Hut have bungled a terrorist attack [station_name()], detonating a nuclear weapon in empty space nearby."
 		if(OPERATIVES_KILLED)
-			news_message = "Repairs to [station_name()] are underway after an elite Syndicate death squad was wiped out by the crew."
+			news_message = "Repairs to [station_name()] are underway after an elite Pizza Hut death squad was wiped out by the crew."
 		if(OPERATIVE_SKIRMISH)
-			news_message = "A skirmish between security forces and Syndicate agents aboard [station_name()] ended with both sides bloodied but intact."
+			news_message = "A skirmish between security forces and Pizza Hut agents aboard [station_name()] ended with both sides bloodied but intact."
 		if(REVS_WIN)
 			news_message = "Company officials have reassured investors that despite a union led revolt aboard [station_name()] there will be no wage increases for workers."
 		if(REVS_LOSE)

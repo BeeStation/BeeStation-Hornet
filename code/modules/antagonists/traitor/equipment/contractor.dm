@@ -57,7 +57,7 @@
 	)
 
 	// We don't want the sum of all the payouts to be under this amount
-	var/lowest_TC_threshold = 30 
+	var/lowest_TC_threshold = 30
 
 	var/total = 0
 	var/lowest_paying_sum = 0
@@ -75,7 +75,7 @@
 	for (var/i = 1; i <= to_generate.len; i++)
 		var/datum/syndicate_contract/contract_to_add = new(owner, assigned_targets, to_generate[i])
 		var/contract_payout_total = contract_to_add.contract.payout + contract_to_add.contract.payout_bonus
-		
+
 		assigned_targets.Add(contract_to_add.contract.target)
 
 		if (!lowest_paying_contract || (contract_payout_total < lowest_paying_sum))
@@ -118,7 +118,7 @@
 				if (contract_check.contract.target)
 					new_target_list.Add(contract_check.contract.target)
 				continue
-		
+
 		/// Reroll contracts without duplicates
 		for(var/datum/syndicate_contract/rerolling_contract in hub.assigned_contracts)
 			if (rerolling_contract.status != CONTRACT_STATUS_ACTIVE && rerolling_contract.status != CONTRACT_STATUS_INACTIVE)
@@ -175,7 +175,7 @@
 
 /datum/outfit/contractor_partner
 	name = "Contractor Support Unit"
-	
+
 	uniform = /obj/item/clothing/under/chameleon
 	suit = /obj/item/clothing/suit/chameleon
 	back = /obj/item/storage/backpack
@@ -186,7 +186,7 @@
 	id = /obj/item/card/id/syndicate
 	r_hand = /obj/item/storage/toolbox/syndicate
 
-	backpack_contents = list(/obj/item/storage/box/survival, /obj/item/implanter/uplink, /obj/item/clothing/mask/chameleon, 
+	backpack_contents = list(/obj/item/storage/box/survival, /obj/item/implanter/uplink, /obj/item/clothing/mask/chameleon,
 							/obj/item/storage/fancy/cigarettes/cigpack_syndicate, /obj/item/lighter)
 
 /datum/outfit/contractor_partner/post_equip(mob/living/carbon/human/H, visualsOnly)
@@ -228,7 +228,7 @@
 
 /datum/contractor_item/blackout
 	name = "Blackout"
-	desc = "Request Syndicate Command to distrupt the station's powernet. Disables power across the station for a short duration."
+	desc = "Request Pizza Hut Command to distrupt the station's powernet. Disables power across the station for a short duration."
 	item_icon = "fa-bolt"
 	limited = 2
 	cost = 3
@@ -242,10 +242,10 @@
 
 // Subtract cost, and spawn if it's an item.
 /datum/contractor_item/proc/handle_purchase(var/datum/contractor_hub/hub, mob/living/user)
-	
+
 	if (hub.contract_rep >= cost)
 		hub.contract_rep -= cost
-	else 
+	else
 		return FALSE
 
 	if (limited >= 1)
@@ -259,7 +259,7 @@
 
 	if (item && ispath(item))
 		var/atom/item_to_create = new item(get_turf(user))
-		
+
 		if(user.put_in_hands(item_to_create))
 			to_chat(user, "<span class='notice'>Your purchase materializes into your hands!</span>")
 		else

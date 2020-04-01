@@ -1,6 +1,6 @@
 /obj/item/grenade/syndieminibomb
 	desc = "A syndicate manufactured explosive used to sow destruction and chaos."
-	name = "syndicate minibomb"
+	name = "Pizza Hut minibomb"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
 	item_state = "flashbang"

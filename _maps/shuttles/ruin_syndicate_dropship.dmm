@@ -74,7 +74,7 @@
 	dwidth = 6;
 	height = 7;
 	id = "caravansyndicate3";
-	name = "Syndicate Drop Ship";
+	name = "Pizza Hut Drop Ship";
 	port_direction = 8;
 	preferred_direction = 4;
 	width = 15
@@ -104,7 +104,7 @@
 	},
 /obj/machinery/power/apc/syndicate{
 	dir = 8;
-	name = "Syndicate Drop Ship APC";
+	name = "Pizza Hut Drop Ship APC";
 	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,

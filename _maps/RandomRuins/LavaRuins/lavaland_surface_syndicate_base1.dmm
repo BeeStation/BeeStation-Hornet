@@ -396,7 +396,7 @@
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "lavalandsyndi";
-	name = "Syndicate Research Experimentation Shutters"
+	name = "Pizza Hut Research Experimentation Shutters"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -417,7 +417,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "lavalandsyndi";
-	name = "Syndicate Research Experimentation Shutters"
+	name = "Pizza Hut Research Experimentation Shutters"
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
@@ -666,7 +666,7 @@
 	},
 /obj/machinery/button/door{
 	id = "lavalandsyndi";
-	name = "Syndicate Experimentation Lockdown Control";
+	name = "Pizza Hut Experimentation Lockdown Control";
 	pixel_y = 26;
 	req_access_txt = "150"
 	},
@@ -2306,7 +2306,7 @@
 	icon_keyboard = "syndie_key";
 	icon_screen = "syndishuttle";
 	light_color = "#FA8282";
-	name = "syndicate cargo shuttle terminal";
+	name = "Pizza Hut cargo shuttle terminal";
 	possible_destinations = "syndielavaland_cargo";
 	req_access_txt = "150";
 	shuttleId = "syndie_cargo"
@@ -6010,7 +6010,7 @@
 /obj/structure/table/reinforced,
 /obj/item/radio/intercom{
 	freerange = 1;
-	name = "Syndicate Radio Intercom"
+	name = "Pizza Hut Radio Intercom"
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -6250,7 +6250,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "lavalandsyndi";
-	name = "Syndicate Research Experimentation Shutters"
+	name = "Pizza Hut Research Experimentation Shutters"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
