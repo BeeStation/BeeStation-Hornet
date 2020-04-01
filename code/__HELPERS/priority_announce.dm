@@ -9,8 +9,8 @@
 		if (title && length(title) > 0)
 			announcement += "<br><h2 class='alert'>[html_encode(title)]</h2>"
 	else if(type == "Captain")
-		announcement += "<h1 class='alert'>Captain Announces</h1>"
-		GLOB.news_network.SubmitArticle(text, "Captain's Announcement", "Station Announcements", null)
+		announcement += "<h1 class='alert'>Papa John Announces</h1>"
+		GLOB.news_network.SubmitArticle(text, "Papa John's Announcement", "Station Announcements", null)
 
 	else
 		if(!sender_override)
