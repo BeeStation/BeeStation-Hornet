@@ -48,13 +48,14 @@ GLOBAL_VAR(command_name)
 		if(config_station_name)
 			newname = config_station_name
 		else
-			newname = new_station_name()
+			newname = "Pizza Station 13"
 
 		set_station_name(newname)
 
 	return GLOB.station_name
 
 /proc/set_station_name(newname)
+	GLOB.station_name = "Pizza Station 13"
 	var/config_server_name = CONFIG_GET(string/servername)
 	if(config_server_name)
 		world.name = "[config_server_name]"
