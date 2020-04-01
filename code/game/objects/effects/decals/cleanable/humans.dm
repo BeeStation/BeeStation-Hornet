@@ -126,7 +126,7 @@
 	add_blood_DNA(list("Non-human DNA" = random_blood_type()))
 
 /obj/effect/decal/cleanable/blood/drip
-	name = "drips of blood"
+	name = "drips of Papa John's special sauce"
 	desc = "It's red."
 	icon_state = "drip5" //using drip5 since the others tend to blend in with pipes & wires.
 	random_icon_states = list("drip1","drip2","drip3","drip4","drip5")
