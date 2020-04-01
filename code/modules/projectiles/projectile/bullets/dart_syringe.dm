@@ -33,6 +33,14 @@
 	reagents.add_reagent(/datum/reagent/foaming_agent, 5)
 	reagents.add_reagent(/datum/reagent/toxin/acid/fluacid, 5)
 
+/obj/item/projectile/bullet/dart/tranq
+	name = "syringe"
+	icon_state = "syringeproj"
+
+/obj/item/projectile/bullet/dart/tranq/Initialize()
+	. = ..()
+	reagents.add_reagent(/datum/reagent/medicine/morphine, 7)
+
 /obj/item/projectile/bullet/dart/syringe
 	name = "syringe"
 	icon_state = "syringeproj"
