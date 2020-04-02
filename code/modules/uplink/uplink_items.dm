@@ -1801,6 +1801,13 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 3
 	restricted_roles = list("Roboticist", "Research Director")
 
+/datum/uplink_item/role_restricted/ipc_upload
+	name = "IPC Law Upload"
+	desc = "A modified ai upload board that allows the user to upload laws to IPCs. Make sure to silence them first."
+	item = /obj/item/circuitboard/computer/ipcupload
+	cost = 10
+	restricted_roles = list("Roboticist", "Research Director")
+
 /datum/uplink_item/role_restricted/haunted_magic_eightball
 	name = "Haunted Magic Eightball"
 	desc = "Most magic eightballs are toys with dice inside. Although identical in appearance to the harmless toys, this occult device reaches into the spirit world to find its answers. \

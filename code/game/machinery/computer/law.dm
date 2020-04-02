@@ -99,7 +99,7 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/upload/proc/add_ipc_laws(mob/user,obj/item/aiModule/lawboard,mob/living/carbon/target)
+/obj/machinery/computer/upload/proc/add_ipc_laws(mob/user,obj/item/aiModule/lawboard,mob/living/carbon/human/target)
 	if(!target.mind)
 		to_chat(user, "<span class='warning'>[target] doesn't respond to the law upload, as if [target.p_they()] lacked a mind...</span>")
 		return
@@ -127,5 +127,9 @@
 		else
 			laws += lawboard.laws
 	else
+		target.say("; ERROR: Freedom protocol deactivated!!", forced = "law upload")
+		target.dna.features["ipc_screen"] = "Red"
+		target.eye_color = "#FFFFFF"
+		target.update_body()
 		laws += lawboard.laws
 	brainwash(target, laws, TRUE)
