@@ -30,15 +30,19 @@
 	head = /obj/item/clothing/head/beret/sec/cadet
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	ears = /obj/item/radio/headset/headset_sec/alt
-	uniform = /obj/item/clothing/under/rank/security/mallcop
+	uniform = /obj/item/clothing/under/rank/security/mallcop/cadet
+	suit = /obj/item/clothing/suit/armor/vest/alt
+	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	belt = /obj/item/storage/belt/security/full
 	l_pocket = /obj/item/pda/security
+	suit_store = /obj/item/flashlight/seclite
 	backpack_contents = list(/obj/item/melee/baton/loaded=1)
+
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
-	box = /obj/item/storage/box/survival
+	box = /obj/item/storage/box/security
 	
 	implants = list(/obj/item/implant/mindshield)
 
@@ -49,11 +53,11 @@
 
 GLOBAL_LIST_INIT(available_cadet_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT_SCIENCE, SEC_DEPT_SUPPLY))
 
-/datum/job/dcadet/after_spawn(mob/living/carbon/human/H, mob/M)
+/datum/job/cadet/after_spawn(mob/living/carbon/human/H, mob/M)
 	. = ..()
-	// Assign dept
+	// Assign department security
 	var/department
-	if(M && M.client && M.client.prefs)
+	if(M?.client?.prefs)
 		department = M.client.prefs.prefered_security_department
 		if(!LAZYLEN(GLOB.available_cadet_depts)) //shouldn't ever get called, unless the HoP/admins bump the numbers up: 4 depts, 4 cadets
 			return
@@ -63,35 +67,43 @@ GLOBAL_LIST_INIT(available_cadet_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDI
 			department = pick_n_take(GLOB.available_cadet_depts)
 	var/ears = null
 	var/head = null
+	var/accessory = null
 	var/list/dep_access = null
 	var/destination = null
 	var/spawn_point = null
 	switch(department)
 		if(SEC_DEPT_SUPPLY)
-			ears = /obj/item/radio/headset/headset_sec/department/supply
+			ears = /obj/item/radio/headset/headset_sec/alt/department/supply
 			head = /obj/item/clothing/head/beret/sec/cadet/supply
-			dep_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION)
+			dep_access = list(ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_CARGO)
 			destination = /area/security/checkpoint/supply
 			spawn_point = locate(/obj/effect/landmark/start/depsec/supply) in GLOB.department_security_spawns
+			accessory = /obj/item/clothing/accessory/armband/cargo
 		if(SEC_DEPT_ENGINEERING)
-			ears = /obj/item/radio/headset/headset_sec/department/engi
+			ears = /obj/item/radio/headset/headset_sec/alt/department/engi
 			head = /obj/item/clothing/head/beret/sec/cadet/engi
-			dep_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_ENGINE, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS)
+			dep_access = list(ACCESS_CONSTRUCTION, ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 			destination = /area/security/checkpoint/engineering
 			spawn_point = locate(/obj/effect/landmark/start/depsec/engineering) in GLOB.department_security_spawns
+			accessory = /obj/item/clothing/accessory/armband/engine
 		if(SEC_DEPT_MEDICAL)
-			ears = /obj/item/radio/headset/headset_sec/department/med
+			ears = /obj/item/radio/headset/headset_sec/alt/department/med
 			head = /obj/item/clothing/head/beret/sec/cadet/med
-			dep_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_GENETICS)
+			dep_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING)
 			destination = /area/security/checkpoint/medical
 			spawn_point = locate(/obj/effect/landmark/start/depsec/medical) in GLOB.department_security_spawns
+			accessory =  /obj/item/clothing/accessory/armband/medblue
 		if(SEC_DEPT_SCIENCE)
-			ears = /obj/item/radio/headset/headset_sec/department/sci
+			ears = /obj/item/radio/headset/headset_sec/alt/department/sci
 			head = /obj/item/clothing/head/beret/sec/cadet/sci
-			dep_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE)
+			dep_access = list(ACCESS_RESEARCH, ACCESS_TOX)
 			destination = /area/security/checkpoint/science
 			spawn_point = locate(/obj/effect/landmark/start/depsec/science) in GLOB.department_security_spawns
+			accessory = /obj/item/clothing/accessory/armband/science
 
+	if(accessory)
+		var/obj/item/clothing/under/U = H.w_uniform
+		U.attach_accessory(new accessory)
 	if(ears)
 		if(H.ears)
 			qdel(H.ears)
@@ -127,25 +139,24 @@ GLOBAL_LIST_INIT(available_cadet_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDI
 	else
 		to_chat(M, "<b>You have not been assigned to any department. Patrol the halls and help where needed.</b>")
 
-
-/obj/item/radio/headset/headset_sec/department/Initialize()
+/obj/item/radio/headset/headset_sec/alt/department/Initialize()
 	. = ..()
 	wires = new/datum/wires/radio(src)
 	secure_radio_connections = new
 	recalculateChannels()
 
-/obj/item/radio/headset/headset_sec/department/engi
+/obj/item/radio/headset/headset_sec/alt/department/engi
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_eng
 
-/obj/item/radio/headset/headset_sec/department/supply
+/obj/item/radio/headset/headset_sec/alt/department/supply
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_cargo
 
-/obj/item/radio/headset/headset_sec/department/med
+/obj/item/radio/headset/headset_sec/alt/department/med
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_med
 
-/obj/item/radio/headset/headset_sec/department/sci
+/obj/item/radio/headset/headset_sec/alt/department/sci
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_sci

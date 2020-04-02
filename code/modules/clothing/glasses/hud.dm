@@ -96,7 +96,7 @@
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
 /obj/item/clothing/glasses/hud/security/deputy
-	name = "deputy's security HUD"
+	name = "deputy security HUD"
 	icon_state = "sunhudtoggle"
 
 /obj/item/clothing/glasses/hud/medsec

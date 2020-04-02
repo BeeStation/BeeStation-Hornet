@@ -28,7 +28,7 @@
 
 	belt = /obj/item/storage/belt/security/deputy
 	ears = /obj/item/radio/headset/headset_sec
-	uniform = /obj/item/clothing/under/rank/security/mallcop
+	uniform = /obj/item/clothing/under/rank/security/mallcop/deputy
 	accessory = /obj/item/clothing/accessory/armband/deputy
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	glasses = /obj/item/clothing/glasses/hud/security/deputy
@@ -38,3 +38,4 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
+	box = /obj/item/storage/box/survival

@@ -224,7 +224,7 @@
 	update_icon()
 
 /obj/item/storage/belt/security/deputy
-	name = "deputy's security belt"
+	name = "deputy security belt"
 
 /obj/item/storage/belt/security/deputy/PopulateContents()
 	new /obj/item/melee/classic_baton/deputy(src)
