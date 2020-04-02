@@ -80,7 +80,7 @@
 /obj/item/integrated_circuit/mining/mining_drill/do_work()
 	rock = get_pin_data(IC_INPUT, 1)
 
-	if(!(ismineralturf(rock) && (get_dist(assembly,rock) < 2)) || busy)
+	if(!(ismineralturf(rock) && rock.Adjacent(assembly)) || busy)
 		activate_pin(3)
 		return
 
