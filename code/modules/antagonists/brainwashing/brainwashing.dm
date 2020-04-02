@@ -1,4 +1,4 @@
-/proc/brainwash(mob/living/L, directives)
+/proc/brainwash(mob/living/L, directives, replace = FALSE)
 	if(!L.mind)
 		return
 	if(!islist(directives))
@@ -6,6 +6,8 @@
 	var/datum/mind/M = L.mind
 	var/datum/antagonist/brainwashed/B = M.has_antag_datum(/datum/antagonist/brainwashed)
 	if(B)
+		if(replace)
+			B.objectives = list()
 		for(var/O in directives)
 			var/datum/objective/brainwashing/objective = new(O)
 			B.objectives += objective

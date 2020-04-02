@@ -25,6 +25,9 @@
 			to_chat(user, "<span class='caution'>Upload failed!</span> Unable to establish a connection to [current.name]. You're too far away!")
 			current = null
 			return
+		if(isipc(current))
+			add_ipc_laws(user,M,current)
+			return
 		M.install(current.laws, user)
 	else
 		return ..()
@@ -74,3 +77,55 @@
 	if(B.scrambledcodes || B.emagged)
 		return FALSE
 	return ..()
+
+
+/obj/machinery/computer/upload/ipc
+	name = "IPC upload console"
+	desc = "Used to upload laws to IPCs."
+	circuit = /obj/item/circuitboard/computer/ipcupload
+
+/obj/machinery/computer/upload/ipc/interact(mob/user)
+	current = select_active_ipc(user)
+
+	if(!current)
+		to_chat(user, "<span class='caution'>No active IPCs detected!</span>")
+	else
+		to_chat(user, "[current.name] selected for law changes.")
+
+/obj/machinery/computer/upload/ipc/can_upload_to(mob/living/carbon/human/H)
+	if(!H || !isIPC(H))
+		return FALSE
+	if(H.stat == DEAD)
+		return FALSE
+	return TRUE
+
+/obj/machinery/computer/upload/proc/add_ipc_laws(mob/user,obj/item/aiModule/lawboard,mob/living/carbon/target)
+	if(!target.mind)
+		to_chat(user, "<span class='warning'>[target] doesn't respond to the law upload, as if [target.p_they()] lacked a mind...</span>")
+		return
+	if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
+		to_chat(user, "<span class='warning'>The law upload is blocked by [target]'s mindshield!</span>")
+		return
+	if(!lawboard.bypass_law_amt_check && (!lawboard.laws.len || lawboard.laws[1] == ""))
+		return
+	var/list/laws = list()
+	var/datum/antagonist/brainwashed/B = target.mind.has_antag_datum(/datum/antagonist/brainwashed)
+	if(B)
+		for(var/i in B.objectives)
+			var/datum/objective/X = i
+			laws += X.explanation_text
+		if(is_type_in_list(lawboard,list(/obj/item/aiModule/zeroth,/obj/item/aiModule/syndicate)))
+			laws = lawboard.laws + laws
+		else if(istype(lawboard,/obj/item/aiModule/core))
+			laws = lawboard.laws
+		else if(istype(lawboard,/obj/item/aiModule/remove))
+			var/obj/item/aiModule/remove/removeboard = lawboard
+			laws -= laws[removeboard.lawpos]
+		else if(istype(lawboard,/obj/item/aiModule/reset))
+			target.mind.remove_antag_datum(/datum/antagonist/brainwashed)
+			return
+		else
+			laws += lawboard.laws
+	else
+		laws += lawboard.laws
+	brainwash(target, laws, TRUE)

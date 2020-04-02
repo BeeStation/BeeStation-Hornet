@@ -17,7 +17,7 @@
 /obj/item/circuitboard/computer/advanced_camera
 	name = "Advanced Camera Console (Computer Board)"
 	build_path = /obj/machinery/computer/camera_advanced/syndie
-	
+
 /obj/item/circuitboard/computer/xenobiology
 	name = "circuit board (Xenobiology Console)"
 	build_path = /obj/machinery/computer/camera_advanced/xenobio
@@ -33,6 +33,10 @@
 /obj/item/circuitboard/computer/borgupload
 	name = "Cyborg Upload (Computer Board)"
 	build_path = /obj/machinery/computer/upload/borg
+
+/obj/item/circuitboard/computer/ipcupload
+	name = "IPC Upload (Computer Board)"
+	build_path = /obj/machinery/computer/upload/ipc
 
 /obj/item/circuitboard/computer/med_data
 	name = "Medical Records Console (Computer Board)"
