@@ -4,8 +4,8 @@
 	department_head = list("Head of Security")
 	department_flag = ENGSEC
 	faction = "Station"
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
@@ -20,7 +20,7 @@
 	paycheck_department = ACCOUNT_SEC
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
-	display_order = JOB_DISPLAY_ORDER_DEPUTY
+//	display_order = JOB_DISPLAY_ORDER_DEPUTY //see code/__DEFINES/jobs.dm
 
 /datum/outfit/job/deputy
 	name = "Deputy"
