@@ -1,16 +1,16 @@
-/// A deck of uno cards. Classic.
-/obj/item/toy/cards/deck/uno
-	name = "\improper UNO deck"
-	desc = "A deck of uno cards. House rules to argue over not included."
+/// A deck of unum cards. Classic.
+/obj/item/toy/cards/deck/unum
+	name = "\improper UNUM deck"
+	desc = "A deck of unum cards. House rules to argue over not included."
 	icon = 'icons/obj/toy.dmi'
-	icon_state = "deck_uno_full"
-	deckstyle = "uno"
+	icon_state = "deck_unum_full"
+	deckstyle = "unum"
 	original_size = 108
 
 //Populate the deck.
-/obj/item/toy/cards/deck/uno/populate_deck()
+/obj/item/toy/cards/deck/unum/populate_deck()
 	for(var/colour in list("Red","Yellow","Green","Blue"))
-		cards += "[colour] 0" //Uno decks have only one colour of each 0, weird huh?
+		cards += "[colour] 0" //Uno, i mean, cough cough, Unum decks have only one colour of each 0, weird huh?
 		for(var/k in 0 to 1) //two of each colour of number
 			cards += "[colour] skip"
 			cards += "[colour] reverse"
