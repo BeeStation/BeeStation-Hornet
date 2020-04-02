@@ -39,7 +39,6 @@
 	if(rock.mineralType)
 		mineral = "[rock.mineralType]"
 		mineral = copytext(mineral, findlasttextEx(mineral, "/")+1)
-
 	else
 		mineral = "rock"
 
