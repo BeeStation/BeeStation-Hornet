@@ -21,8 +21,8 @@
 			for(var/m in buckled_mobs)
 				var/mob/living/buckled_mob = m
 				if(buckled_mob.mob_has_gravity())
-					buckled_mob.visible_message("<span class='danger'>[buckled_mob] falls over and hits the ground!</span>",\
-												"<span class='userdanger'>You fall over and hit the ground!</span>")
+					buckled_mob.visible_message("<span class='danger'>[buckled_mob] falls over and hits the ground!</span>")
+					to_chat(buckled_mob, "<span class='userdanger'>You fall over and hit the ground!</span>")
 					buckled_mob.adjustBruteLoss(10)
 		var/obj/item/stack/cable_coil/C = new(get_turf(src))
 		C.amount = 25
@@ -57,26 +57,24 @@
 /obj/structure/chair/noose/user_unbuckle_mob(mob/living/M,mob/living/user)
 	if(has_buckled_mobs())
 		if(M != user)
-			user.visible_message("<span class='notice'>[user] begins to untie the noose over [M]'s neck...</span>",\
-								"<span class='notice'>You begin to untie the noose over [M]'s neck...</span>")
+			user.visible_message("<span class='notice'>[user] begins to untie the noose over [M]'s neck...</span>")
+			to_chat(user, "<span class='notice'>You begin to untie the noose over [M]'s neck...</span>")
 			if(!do_mob(user, M, 100))
 				return
-			user.visible_message("<span class='notice'>[user] unties the noose over [M]'s neck!</span>",\
-								"<span class='notice'>You untie the noose over [M]'s neck!</span>")
+			user.visible_message("<span class='notice'>[user] unties the noose over [M]'s neck!</span>")
+			to_chat(user,"<span class='notice'>You untie the noose over [M]'s neck!</span>")
 			M.Knockdown(60)
 		else
-			M.visible_message(\
-				"<span class='warning'>[M] struggles to untie the noose over their neck!</span>",\
-				"<span class='notice'>You struggle to untie the noose over your neck... (Stay still for 15 seconds.)</span>")
+			M.visible_message("<span class='warning'>[M] struggles to untie the noose over their neck!</span>")
+			to_chat(M,"<span class='notice'>You struggle to untie the noose over your neck... (Stay still for 15 seconds.)</span>")
 			if(!do_after(M, 150, target = src))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to untie yourself!</span>")
 				return
 			if(!M.buckled)
 				return
-			M.visible_message(\
-				"<span class='warning'>[M] unties the noose over their neck!</span>",\
-				"<span class='notice'>You untie the noose over your neck!</span>")
+			M.visible_message("<span class='warning'>[M] unties the noose over their neck!</span>")
+			to_chat(M,"<span class='notice'>You untie the noose over your neck!</span>")
 			M.Knockdown(60)
 		unbuckle_all_mobs(force=1)
 		M.pixel_z = initial(M.pixel_z)
@@ -96,22 +94,21 @@
 
 	add_fingerprint(user)
 
-	M.visible_message(\
-		"<span class='danger'>[user] attempts to tie \the [src] over [M]'s neck!</span>",\
-		"<span class='userdanger'>[user] ties \the [src] over your neck!</span>")
+	M.visible_message("<span class='danger'>[user] attempts to tie \the [src] over [M]'s neck!</span>")
 	if(user != M)
 		to_chat(user, "<span class='notice'>It will take 20 seconds and you have to stand still.</span>")
 	if(do_mob(user, M, user == M ? 0:200))
 		if(buckle_mob(M))
-			user.visible_message(\
-				"<span class='warning'>[user] ties \the [M != user ? "[user]" : "their"][src] over [M]'s neck!</span>",\
-				"<span class='userdanger'>[M != user ? "[user] ties" : "You tie"] \the [src] over your neck!</span>")
+			user.visible_message("<span class='warning'>[user] ties \the [src] over [M]'s neck!</span>")
+			if(user == M)
+				to_chat(M, "<span class='userdanger'>You tie \the [src] over your neck!</span>")
+			else
+				to_chat(M, "<span class='userdanger'>[user] ties \the [src] over your neck!</span>")
 			playsound(user.loc, 'sound/effects/noosed.ogg', 50, 1, -1)
 			log_combat(user, M, "hanged", src)
 			return TRUE
-	user.visible_message(\
-		"<span class='warning'>[user] fails to tie \the [src] over [M]'s neck!</span>",\
-		"<span class='warning'>You fail to tie \the [src] over [M]'s neck!</span>")
+	user.visible_message("<span class='warning'>[user] fails to tie \the [src] over [M]'s neck!</span>")
+	to_chat(user, "<span class='warning'>You fail to tie \the [src] over [M]'s neck!</span>")
 	return FALSE
 
 
