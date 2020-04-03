@@ -35,7 +35,7 @@ GLOBAL_VAR_INIT(pizza_goal, 0)
 
 /datum/station_goal/pizza_delivery/New()
 	..()
-	GLOB.pizza_goal = (GLOB.player_list.len + rand(0, GLOB.player_list.len))
+	GLOB.pizza_goal = round((GLOB.player_list.len * 1.5) + rand(0, GLOB.player_list.len))
 
 /datum/station_goal/pizza_delivery/get_report()
 	return {"Incoming delivery order from Sector \Roman[rand(1,99)].
