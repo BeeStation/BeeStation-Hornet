@@ -912,7 +912,7 @@
 /obj/item/toy/cards/singlecard/apply_card_vars(obj/item/toy/cards/singlecard/newobj,obj/item/toy/cards/sourceobj)
 	..()
 	newobj.card_embed_chance = sourceobj.card_embed_chance
-	newobj.embedding = newobj.embedding.setRating(embed_chance = card_embed_chance)
+	newobj.embedding = sourceobj.embedding
 	newobj.card_sharpness = sourceobj.card_sharpness
 	newobj.sharpness = newobj.card_sharpness
 
@@ -1013,7 +1013,7 @@
 	card_force = 5
 	card_throwforce = 12
 	card_throw_speed = 6
-	card_embed_chance = 80
+	embedding = list("pain_mult" = 1, "embed_chance" = 80, "fall_chance" = 0, "embed_chance_turf_mod" = 15) //less painful than throwing stars
 	card_sharpness = IS_SHARP
 	card_throw_range = 7
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
@@ -1522,7 +1522,7 @@
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
 		update_icon()
-	
+
 	var/choice = null
 	if(!LAZYLEN(cards))
 		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")

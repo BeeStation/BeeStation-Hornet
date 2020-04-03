@@ -168,6 +168,7 @@
 	to_chat(user, "[src] is now in [mode] mode.")
 
 /obj/item/grenade/barrier/prime()
+	. = ..()
 	new /obj/structure/barricade/security(get_turf(src.loc))
 	switch(mode)
 		if(VERTICAL)
@@ -186,7 +187,7 @@
 			var/target_turf2 = get_step(src, WEST)
 			if(!(is_blocked_turf(target_turf2)))
 				new /obj/structure/barricade/security(target_turf2)
-	qdel(src)
+	resolve()
 
 /obj/item/grenade/barrier/ui_action_click(mob/user)
 	toggle_mode(user)

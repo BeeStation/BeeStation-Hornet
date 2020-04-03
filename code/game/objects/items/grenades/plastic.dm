@@ -56,6 +56,7 @@
 	..()
 
 /obj/item/grenade/plastic/prime()
+	. = ..()
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
@@ -74,7 +75,7 @@
 	if(ismob(target))
 		var/mob/M = target
 		M.gib()
-	qdel(src)
+	resolve()
 
 //assembly stuff
 /obj/item/grenade/plastic/receive_signal()
@@ -126,7 +127,7 @@
 			I.throw_range = max(1, (I.throw_range - 3))
 			if(I.embedding)
 				I.embedding["embed_chance"] = 0
-				I.AddElement(/datum/element/embed, I.embedding)
+				I.updateEmbedding()
 		else if(istype(AM, /mob/living))
 			plastic_overlay.layer = FLOAT_LAYER
 
@@ -160,7 +161,7 @@
 	shout_syndicate_crap(user)
 	explosion(user,0,2,0) //Cheap explosion imitation because putting prime() here causes runtimes
 	user.gib(1, 1)
-	qdel(src)
+	resolve()
 
 /obj/item/grenade/plastic/update_icon()
 	if(nadeassembly)
@@ -211,6 +212,8 @@
 /obj/item/grenade/plastic/c4/prime()
 	if(QDELETED(src))
 		return
+
+	. = ..()
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
@@ -222,7 +225,7 @@
 		location = get_turf(src)
 	if(location)
 		explosion(location,0,0,3)
-	qdel(src)
+	resolve()
 
 /obj/item/grenade/plastic/c4/attack(mob/M, mob/user, def_zone)
 	return

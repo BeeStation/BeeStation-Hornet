@@ -1,3 +1,4 @@
+
 /obj/item/grenade/smokebomb
 	name = "smoke grenade"
 	desc = "The word 'Dank' is scribbled on it in crayon."
@@ -18,6 +19,7 @@
 	return ..()
 
 /obj/item/grenade/smokebomb/prime()
+	. = ..()
 	update_mob()
 	playsound(src, 'sound/effects/smoke.ogg', 50, 1, -3)
 	smoke.set_up(4, src)
@@ -28,4 +30,4 @@
 		var/damage = round(30/(get_dist(B,src)+1))
 		B.take_damage(damage, BURN, "melee", 0)
 	sleep(80)
-	qdel(src)
+	resolve()

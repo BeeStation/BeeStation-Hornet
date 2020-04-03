@@ -29,7 +29,7 @@
 		if(attack_verb_off.len)
 			attack_verb = attack_verb_off
 		if(embedding)
-			RemoveElement(/datum/element/embed, embedding)
+			updateEmbedding()
 	if(is_sharp())
 		AddComponent(/datum/component/butchering, 50, 100, 0, hitsound, !active)
 
@@ -62,7 +62,7 @@
 		icon_state = icon_state_on
 		w_class = w_class_on
 		if(embedding)
-			AddElement(/datum/element/embed, embedding)
+			updateEmbedding()
 	else
 		force = initial(force)
 		throwforce = initial(throwforce)
@@ -73,7 +73,7 @@
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)
 		if(embedding)
-			RemoveElement(/datum/element/embed, embedding)
+			disableEmbedding()
 	if(is_sharp())
 		var/datum/component/butchering/BT = LoadComponent(/datum/component/butchering)
 		BT.butchering_enabled = TRUE

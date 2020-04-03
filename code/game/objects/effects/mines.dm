@@ -32,7 +32,7 @@
 
 /obj/item/deployablemine/honk
 	name = "deployable honkblaster 1000"
-	desc = "An advanced pranking landmine for clowns, honk! Delivers an extra loud HONK to the head when triggered. It can be planted to arm it, or have its sound customised with a sound synthesiser."	
+	desc = "An advanced pranking landmine for clowns, honk! Delivers an extra loud HONK to the head when triggered. It can be planted to arm it, or have its sound customised with a sound synthesiser."
 	mine_type = /obj/effect/mine/sound
 
 /obj/item/deployablemine/traitor
@@ -195,10 +195,23 @@
 	disarm_product = /obj/item/deployablemine/heavy
 
 
+
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
 		victim.adjustStaminaLoss(stun_time)
 		victim.adjustBruteLoss(damage)
+
+/obj/effect/mine/shrapnel
+	name = "shrapnel mine"
+	var/shrapnel_type = /obj/item/projectile/bullet/shrapnel
+	var/shrapnel_magnitude = 3
+
+/obj/effect/mine/shrapnel/mineEffect(mob/victim)
+	AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_magnitude)
+
+/obj/effect/mine/shrapnel/sting
+	name = "stinger mine"
+	shrapnel_type = /obj/item/projectile/bullet/pellet/stingball
 
 /obj/effect/mine/kickmine
 	name = "kick mine"
@@ -244,7 +257,7 @@
 	if(istype(J, /obj/item/soundsynth))
 		to_chat(user, "<span class='notice'>You change the sound settings of the [src].</span>")
 		sound = J.selected_sound
-		
+
 
 /obj/effect/mine/sound/bwoink
 	name = "bwoink mine"
