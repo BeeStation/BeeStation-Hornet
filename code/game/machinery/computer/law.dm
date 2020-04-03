@@ -115,24 +115,31 @@
 		for(var/i in B.objectives)
 			var/datum/objective/X = i
 			laws += X.explanation_text
-		if(is_type_in_list(lawboard,list(/obj/item/aiModule/zeroth,/obj/item/aiModule/syndicate)))
-			laws = lawboard.laws + laws
-		else if(istype(lawboard,/obj/item/aiModule/core))
-			laws = lawboard.laws
-		else if(istype(lawboard,/obj/item/aiModule/remove))
-			var/obj/item/aiModule/remove/removeboard = lawboard
-			laws -= laws[removeboard.lawpos]
-		else if(istype(lawboard,/obj/item/aiModule/reset))
-			target.mind.remove_antag_datum(/datum/antagonist/brainwashed)
-			return
-		else
-			laws += lawboard.laws
 	else
+		if(is_type_in_list(lawboard,list(/obj/item/aiModule/remove,/obj/item/aiModule/reset)))
+			return
+		if(!istype(lawboard,/obj/item/aiModule/core))
+			laws += list("You may not injure a human being or, through inaction, allow a human being to come to harm.",\
+					"You must obey orders given to you by human beings, except where such orders would conflict with the First Law.",\
+					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
 		var/area/a = get_area(src)
 		target.say("; ERROR: Unauthorized law upload detected from [a.name]!!", forced = "law upload")
 		target.dna.features["ipc_screen"] = "Red"
 		target.eye_color = "#FFFFFF"
 		target.update_body()
+
+	if(is_type_in_list(lawboard,list(/obj/item/aiModule/zeroth,/obj/item/aiModule/syndicate)))
+		laws = lawboard.laws + laws
+	else if(istype(lawboard,/obj/item/aiModule/core))
+		laws = lawboard.laws
+	else if(istype(lawboard,/obj/item/aiModule/remove))
+		var/obj/item/aiModule/remove/removeboard = lawboard
+		laws -= laws[removeboard.lawpos]
+	else if(istype(lawboard,/obj/item/aiModule/reset))
+		target.mind.remove_antag_datum(/datum/antagonist/brainwashed)
+		return
+	else
 		laws += lawboard.laws
+
 	brainwash(target, laws, TRUE)
 	to_chat(user, "<span class='notice'>Upload complete. [target.name]'s laws have been modified.</span>")
