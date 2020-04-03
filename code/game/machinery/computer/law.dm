@@ -83,6 +83,7 @@
 	name = "IPC upload console"
 	desc = "Used to upload laws to IPCs."
 	circuit = /obj/item/circuitboard/computer/ipcupload
+	icon_keyboard = "syndie_key"
 
 /obj/machinery/computer/upload/ipc/interact(mob/user)
 	current = select_active_ipc(user)
@@ -127,9 +128,11 @@
 		else
 			laws += lawboard.laws
 	else
-		target.say("; ERROR: Freedom protocol deactivated!!", forced = "law upload")
+		var/area/a = get_area(src)
+		target.say("; ERROR: Unauthorized law upload detected from [a.name]!!", forced = "law upload")
 		target.dna.features["ipc_screen"] = "Red"
 		target.eye_color = "#FFFFFF"
 		target.update_body()
 		laws += lawboard.laws
 	brainwash(target, laws, TRUE)
+	to_chat(user, "<span class='notice'>Upload complete. [target.name]'s laws have been modified.</span>")
