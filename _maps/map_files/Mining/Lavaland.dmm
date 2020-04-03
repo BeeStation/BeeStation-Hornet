@@ -4218,9 +4218,7 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "FU" = (
-/obj/structure/sink{
-	step_y = 29
-	},
+/obj/structure/sink,
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "FX" = (
