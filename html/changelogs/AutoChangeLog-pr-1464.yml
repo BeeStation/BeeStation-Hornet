@@ -1,0 +1,4 @@
+author: "pinkblossom6"
+delete-after: True
+changes: 
+  - imageadd: "adds a new titlescreen"
