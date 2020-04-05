@@ -1,5 +1,0 @@
-author: "Shdorsh"
-delete-after: True
-changes: 
-  - rscadd: "A scanner circuit that can analyze 1 rock at the same time, working with a reference given by a sensor."
-  - rscadd: "A drill circuit that can mine a rock (only the ones found on the asteroid ofc) on its own. It can only mine 1 rock at the same time and it takes some time to do so."
