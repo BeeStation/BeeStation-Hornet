@@ -93,7 +93,7 @@
 		return FALSE //Can only noose someone if they're on the same tile as noose
 
 	add_fingerprint(user)
-
+	log_combat(user, M, "Attempted to Hang", src)
 	M.visible_message("<span class='danger'>[user] attempts to tie \the [src] over [M]'s neck!</span>")
 	if(user != M)
 		to_chat(user, "<span class='notice'>It will take 20 seconds and you have to stand still.</span>")
