@@ -29,20 +29,13 @@
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("kick", "chop", "hit", "slam")
-	///this is the critical hit damage added to the attack if it rolls, it starts at 0 because it'll be changed when rolled
-	var/crit_damage = 0
 	D.visible_message("<span class='danger'>[A] [atk_verb]s [D]!</span>", \
 					"<span class='userdanger'>[A] [atk_verb]s you!</span>", null, null, A)
 	to_chat(A, "<span class='danger'>You [atk_verb] [D]!</span>")
-	if(prob(10))
-		crit_damage += 20
-		playsound(get_turf(D), 'sound/weapons/bite.ogg', 50, TRUE, -1)
-		D.visible_message("<span class='warning'>[D] sputters blood as the blow strikes them with inhuman force!</span>", "<span class='userdanger'>You are struck with incredible precision by [A]!</span>")
-		log_combat(A, D, "critcal strong punched (Sleeping Carp)")//log it here because a critical can swing for 40 force and it's important for the sake of how hard they hit
-	else
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
-		log_combat(A, D, "strong punched (Sleeping Carp)")//so as to not double up on logging
-	D.apply_damage(20 + crit_damage, A.dna.species.attack_type, affecting)
+	playsound(get_turf(D), 'sound/weapons/bite.ogg', 50, TRUE, -1)
+	D.visible_message("<span class='warning'>[D] sputters blood as the blow strikes them with inhuman force!</span>", "<span class='userdanger'>You are struck with incredible precision by [A]!</span>")
+	log_combat(A, D, "strong punched (Sleeping Carp)")
+	D.apply_damage(25, A.dna.species.attack_type, affecting)
 	return
 
 ///Crashing Wave Kick: Harm Disarm combo, throws people seven tiles backwards
