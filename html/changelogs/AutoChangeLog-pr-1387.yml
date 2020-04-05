@@ -1,0 +1,8 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "Syndiebase has a bottle of viral base and two cans of laughter"
+  - tweak: "Virologists now spawn with viral base in their right pocket, and it no longer appears in the viro fridge"
+  - tweak: "virologist heirloom is now a dropper"
+  - tweak: "virology has been remapped on most maps to now have two separate isolated labs that can be bolted from inside, perfect for two antisocial virologists"
+  - config: "there are now two virologist slots"
