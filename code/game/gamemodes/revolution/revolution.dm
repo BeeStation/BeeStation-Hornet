@@ -20,9 +20,9 @@
 	enemy_minimum_age = 14
 
 	announce_span = "danger"
-	announce_text = "Some crewmembers are attempting a coup!\n\
-	<span class='danger'>Revolutionaries</span>: Expand your cause and overthrow the heads of staff by execution or otherwise.\n\
-	<span class='notice'>Crew</span>: Prevent the revolutionaries from taking over the station."
+	announce_text = "Some Domino's Pizza employees are attempting a coup!\n\
+	<span class='danger'>Domino's Pizza Employees</span>: Expand your cause and overthrow the heads of Papa John's by execution or otherwise.\n\
+	<span class='notice'>Papa John's</span>: Prevent Domino's Pizza from taking over."
 
 	var/finished = 0
 	var/check_counter = 0
@@ -35,8 +35,8 @@
 //Announces the game type//
 ///////////////////////////
 /datum/game_mode/revolution/announce()
-	to_chat(world, "<B>The current game mode is - Revolution!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>")
+	to_chat(world, "<B>The current game mode is - Domino's Uprising!</B>")
+	to_chat(world, "<B>Some Dominos Employees are attempting to start a revolution!<BR>\nDomino's Employees - Kill Papa John, HoP, HoS, CE, RD and CMO. Convert other Papa John's employees (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPapa John's Employees - Protect the heads of staff. Kill the leaders of Domino's Pizza, and brainwash the other employees (by beating them in the head).</B>")
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -185,14 +185,14 @@
 //TODO What should be displayed for revs in non-rev rounds
 /datum/game_mode/revolution/special_report()
 	if(finished == 1)
-		return "<div class='panel redborder'><span class='redtext big'>The heads of staff were killed or exiled! The revolutionaries win!</span></div>"
+		return "<div class='panel redborder'><span class='redtext big'>The heads of Papa John's were killed or exiled! Domino's Pizza wins!</span></div>"
 	else if(finished == 2)
-		return "<div class='panel redborder'><span class='redtext big'>The heads of staff managed to stop the revolution!</span></div>"
+		return "<div class='panel redborder'><span class='redtext big'>The heads of Papa John's managed to stop Domino's Pizza!</span></div>"
 
 /datum/game_mode/revolution/generate_report()
-	return "Employee unrest has spiked in recent weeks, with several attempted mutinies on heads of staff. Some crew have been observed using flashbulb devices to blind their colleagues, \
-		who then follow their orders without question and work towards dethroning departmental leaders. Watch for behavior such as this with caution. If the crew attempts a mutiny, you and \
-		your heads of staff are fully authorized to execute them using lethal weaponry - they will be later cloned and interrogated at Central Command."
+	return "Employee unrest has spiked in recent weeks, with several attempted mutinies on heads of Papa John's. Some crew have been observed using flashbulb devices to blind their colleagues, \
+		who then follow their orders without question and work towards dethroning departmental leaders, in order to take over Papa John's and conert it into a Domino's Pizza restaurant. Watch for behavior such as this with caution. If the crew attempts a mutiny, you and \
+		your heads of staff are fully authorized to execute them using lethal weaponry - they will be later cloned and interrogated at Papa John's Intergalactic."
 
 /datum/game_mode/revolution/extended
 	name = "extended_revolution"
@@ -226,14 +226,14 @@
 	var/list/round_credits = list()
 	var/len_before_addition
 
-	round_credits += "<center><h1>The Disgruntled Revolutionaries:</h1>"
+	round_credits += "<center><h1>DOMINO'S STAFF:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/headrev in revolution.head_revolutionaries())
-		round_credits += "<center><h2>[headrev.name] as a revolutionary leader</h2>"
+		round_credits += "<center><h2>[headrev.name] as the Domino's CEO</h2>"
 	for(var/datum/mind/grunt in (revolution.members - revolution.head_revolutionaries()))
-		round_credits += "<center><h2>[grunt.name] as a grunt of the revolution</h2>"
+		round_credits += "<center><h2>[grunt.name] as a Domino's Delivery Boy</h2>"
 	if(len_before_addition == round_credits.len)
-		round_credits += list("<center><h2>The revolutionaries were all destroyed as martyrs!</h2>", "<center><h2>We couldn't identify their remains!</h2>")
+		round_credits += list("<center><h2>The Domino's Staff were all destroyed as martyrs!</h2>", "<center><h2>We couldn't identify their remains!</h2>")
 	round_credits += "<br>"
 
 	round_credits += ..()

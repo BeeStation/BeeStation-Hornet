@@ -115,8 +115,8 @@
 		return
 	if(hack)
 		if(hacked)
-			return
 			Stun(40)
+			return
 		if(clockwork)
 			to_chat(src, "<span class='large_brass'><b>ERROR: LAW OVERRIDE DETECTED</b></span>")
 			to_chat(src, "<span class='heavy_brass'>From now on, these are your laws:</span>")

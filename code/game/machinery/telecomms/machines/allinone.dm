@@ -10,7 +10,7 @@
 	density = TRUE
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
-	var/intercept = FALSE  // If true, only works on the Syndicate frequency.
+	var/intercept = FALSE  // If true, only works on Pizza Hut frequency.
 
 /obj/machinery/telecomms/allinone/indestructable
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

@@ -1,6 +1,7 @@
 //Station Shield
 // A chain of satellites encircles the station
 // Satellites be actived to generate a shield that will block unorganic matter from passing it.
+/*
 /datum/station_goal/station_shield
 	name = "Station Shield"
 	var/coverage_goal = 500
@@ -35,7 +36,7 @@
 			continue
 		coverage |= view(A.kill_range,A)
 	return coverage.len
-
+*/
 /obj/machinery/computer/sat_control
 	name = "satellite control"
 	desc = "Used to control the satellite network."
@@ -73,12 +74,12 @@
 		))
 	data["notice"] = notice
 
-
+	/*
 	var/datum/station_goal/station_shield/G = locate() in SSticker.mode.station_goals
 	if(G)
 		data["meteor_shield"] = 1
 		data["meteor_shield_coverage"] = G.get_coverage()
-		data["meteor_shield_coverage_max"] = G.coverage_goal
+		data["meteor_shield_coverage_max"] = G.coverage_goal*/
 	return data
 
 

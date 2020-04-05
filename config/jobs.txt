@@ -34,7 +34,7 @@ Medical Doctor=7,4
 Paramedic=2,1
 Chemist=3,2
 Geneticist=3,2
-Virologist=1,1
+Virologist=2,2
 
 Scientist=6,4
 Roboticist=2,2

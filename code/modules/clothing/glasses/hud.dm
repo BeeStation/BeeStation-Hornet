@@ -105,7 +105,7 @@
 
 /obj/item/clothing/glasses/hud/security/chameleon
 	name = "chameleon security HUD"
-	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Provides flash protection."
+	desc = "A stolen security HUD integrated with Pizza Hut chameleon technology. Provides flash protection."
 	flash_protect = 1
 
 	// Yes this code is the same as normal chameleon glasses, but we don't
