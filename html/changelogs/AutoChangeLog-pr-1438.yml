@@ -1,0 +1,7 @@
+author: "ro5490"
+delete-after: True
+changes: 
+  - rscadd: "Added Nooses"
+  - soundadd: "added sound files for the noose"
+  - imageadd: "added icons for the noose"
+  - bugfix: "Take a cable coil, stand on a chair, build a noose, then drag whoever onto it to hang them"
