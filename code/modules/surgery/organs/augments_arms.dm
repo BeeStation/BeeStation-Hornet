@@ -239,3 +239,9 @@
 	desc = "An internal power cord hooked up to a battery. Useful if you run on volts."
 	contents = newlist(/obj/item/apc_powercord)
 	zone = "l_arm" 
+
+/obj/item/organ/cyberimp/arm/esaw
+	name = "arm-mounted energy saw"
+	desc = "An illegal and highly dangerous implanted carbon-fiber blade that also has a toggleable hard-light edge."
+	icon_state = "esaw_0"
+	contents = newlist(/obj/item/melee/transforming/energy/sword/esaw)

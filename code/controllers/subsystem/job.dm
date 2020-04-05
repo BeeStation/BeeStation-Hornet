@@ -313,7 +313,7 @@ SUBSYSTEM_DEF(job)
 
 		// Loop through all unassigned players
 		for(var/mob/dead/new_player/player in unassigned)
-			if(PopcapReached())
+			if(PopcapReached() && !GLOB.patrons.Find(player.ckey))
 				RejectPlayer(player)
 
 			// Loop through all jobs
@@ -367,7 +367,7 @@ SUBSYSTEM_DEF(job)
 
 //We couldn't find a job from prefs for this guy.
 /datum/controller/subsystem/job/proc/HandleUnassigned(mob/dead/new_player/player)
-	if(PopcapReached())
+	if(PopcapReached() && !GLOB.patrons.Find(player.ckey))
 		RejectPlayer(player)
 	else if(player.client.prefs.joblessrole == BEOVERFLOW)
 		var/allowed_to_be_a_loser = !is_banned_from(player.ckey, SSjob.overflow_role)
@@ -443,6 +443,9 @@ SUBSYSTEM_DEF(job)
 			else
 				handle_auto_deadmin_roles(M.client, rank)
 
+	to_chat(M, "<span class='boldannounce'>This round is brought to you by Papa Johns. Better Ingredients. Better Pizza.</span>")
+	to_chat(M, "<span class='boldannounce'>Use promo code [pick(GLOB.promo_codes)]</span>")
+	to_chat(M, "<span class='small boldannounce'>Offers good for a limited time at participating U.S. Papa John's restaurants. Not valid with any other coupons or discounts.</span>")
 	to_chat(M, "<b>You are the [rank].</b>")
 	if(job)
 		to_chat(M, "<b>As the [rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
@@ -559,7 +562,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/RejectPlayer(mob/dead/new_player/player)
 	if(player.mind && player.mind.special_role)
 		return
-	if(PopcapReached())
+	if(PopcapReached() && !GLOB.patrons.Find(player.ckey))
 		JobDebug("Popcap overflow Check observer located, Player: [player]")
 	JobDebug("Player rejected :[player]")
 	to_chat(player, "<b>You have failed to qualify for any job you desired.</b>")

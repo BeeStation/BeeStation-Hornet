@@ -4,6 +4,7 @@
 #define CREDIT_EASE_DURATION 12
 
 GLOBAL_LIST(end_titles)
+GLOBAL_LIST_INIT(patrons, world.file2list("[global.config.directory]/patrons.txt"))
 
 /proc/RollCredits()
 	set waitfor = FALSE
@@ -12,23 +13,22 @@ GLOBAL_LIST(end_titles)
 		GLOB.end_titles += "<br>"
 		GLOB.end_titles += "<br>"
 
-		var/list/patrons = get_patrons()
-		if(patrons.len)
-			GLOB.end_titles += "<center><h1>Thank you to our patrons!</h1>"
-			for(var/patron in patrons)
+		if(GLOB.patrons.len)
+			GLOB.end_titles += "<center><h1>PAPA JOHN'S BENEFICIARIES!</h1>"
+			for(var/patron in GLOB.patrons)
 				GLOB.end_titles += "<center><h2>[sanitize(patron)]</h2>"
 			GLOB.end_titles += "<br>"
 			GLOB.end_titles += "<br>"
 
 		var/list/contribs = get_contribs()
 		if(contribs.len)
-			GLOB.end_titles += "<center><h1>Top Code Contributors</h1>"
+			GLOB.end_titles += "<center><h1>PAPA JOHN's DEV CREW</h1>"
 			for(var/contrib in contribs)
 				GLOB.end_titles += "<center><h2>[sanitize(contrib)]</h2>"
 			GLOB.end_titles += "<br>"
 			GLOB.end_titles += "<br>"
 
-		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
+		GLOB.end_titles += "<center><h1>EAT PAPA JOHN AGAIN!</h1>"
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.show_credits)
 			C.screen += new /obj/screen/credit/title_card(null, null, SSticker.mode.title_icon)
@@ -83,15 +83,6 @@ GLOBAL_LIST(end_titles)
 	icon_state = title_icon_state
 	. = ..()
 	maptext = null
-
-
-/proc/get_patrons()
-	var/list/patrons = list()
-
-	if(fexists("[global.config.directory]/patrons.txt"))
-		patrons += world.file2list("[global.config.directory]/patrons.txt")
-
-	return patrons
 
 /proc/get_contribs()
 	var/list/contribs = list()

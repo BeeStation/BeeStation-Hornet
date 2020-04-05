@@ -9,8 +9,8 @@
 		if (title && length(title) > 0)
 			announcement += "<br><h2 class='alert'>[html_encode(title)]</h2>"
 	else if(type == "Captain")
-		announcement += "<h1 class='alert'>Captain Announces</h1>"
-		GLOB.news_network.SubmitArticle(text, "Captain's Announcement", "Station Announcements", null)
+		announcement += "<h1 class='alert'>Papa John Announces</h1>"
+		GLOB.news_network.SubmitArticle(text, "Papa John's Announcement", "Station Announcements", null)
 
 	else
 		if(!sender_override)
@@ -28,6 +28,7 @@
 
 	announcement += "<br><span class='alert'>[html_encode(text)]</span><br>"
 	announcement += "<br>"
+	announcement += "<span class='warning'>This message brought to you by Nanotrasen. A subsidiary of Papa John's Intergalactic, Inc.</span><br>"
 
 	var/s = sound(sound)
 	for(var/mob/M in GLOB.player_list)

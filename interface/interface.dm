@@ -231,7 +231,7 @@ Any-Mode: (hotkey doesn't need to be on)
 	set hidden = 1
 	var/donateurl = CONFIG_GET(string/donateurl)
 	if(donateurl)
-		if(alert("This will open the Doantion page in your browser. Are you sure?",,"Yes","No")!="Yes")
+		if(alert("This will open the Donation page in your browser. Are you sure?",,"Yes","No")!="Yes")
 			return
 		src << link(donateurl)
 	else

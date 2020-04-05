@@ -43,7 +43,7 @@
 			if(player.onCentCom())
 				survivor_list += "<span class='greentext'>[player.real_name] escaped to the safety of CentCom.</span>"
 			else if(player.onSyndieBase())
-				survivor_list += "<span class='greentext'>[player.real_name] escaped to the (relative) safety of Syndicate Space.</span>"
+				survivor_list += "<span class='greentext'>[player.real_name] escaped to the (relative) safety of Pizza Hut Space.</span>"
 			else
 				survivor_list += "<span class='neutraltext'>[player.real_name] survived but is stranded without any hope of rescue.</span>"
 

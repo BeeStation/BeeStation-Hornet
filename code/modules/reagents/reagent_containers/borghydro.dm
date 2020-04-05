@@ -161,8 +161,8 @@ Borg Hypospray
 	accepts_reagent_upgrades = FALSE
 
 /obj/item/reagent_containers/borghypo/syndicate
-	name = "syndicate cyborg hypospray"
-	desc = "An experimental piece of Syndicate technology used to produce powerful restorative nanites used to very quickly restore injuries of all types. Also metabolizes potassium iodide, for radiation poisoning, and morphine, for offense."
+	name = "Pizza Hut cyborg hypospray"
+	desc = "An experimental piece of Pizza Hut technology used to produce powerful restorative nanites used to very quickly restore injuries of all types. Also metabolizes potassium iodide, for radiation poisoning, and morphine, for offense."
 	icon_state = "borghypo_s"
 	charge_cost = 20
 	recharge_time = 2
@@ -185,8 +185,8 @@ Borg Shaker
 
 	reagent_ids = list(
 			/datum/reagent/consumable/ethanol/absinthe,
-			/datum/reagent/consumable/ethanol/ale, 
-			/datum/reagent/consumable/ethanol/beer, 
+			/datum/reagent/consumable/ethanol/ale,
+			/datum/reagent/consumable/ethanol/beer,
 			/datum/reagent/consumable/ethanol/cognac,
 			/datum/reagent/consumable/ethanol/gin,
 			/datum/reagent/consumable/ethanol/kahlua,
@@ -205,10 +205,10 @@ Borg Shaker
 			/datum/reagent/consumable/lemonjuice,
 			/datum/reagent/consumable/limejuice,
 			/datum/reagent/consumable/milk,
-			/datum/reagent/consumable/orangejuice, 
-			/datum/reagent/consumable/sodawater, 
-			/datum/reagent/consumable/space_cola, 
-			/datum/reagent/consumable/tomatojuice, 
+			/datum/reagent/consumable/orangejuice,
+			/datum/reagent/consumable/sodawater,
+			/datum/reagent/consumable/space_cola,
+			/datum/reagent/consumable/tomatojuice,
 			/datum/reagent/consumable/tonic)
 
 /obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)
