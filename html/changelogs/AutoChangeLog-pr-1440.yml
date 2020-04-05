@@ -1,0 +1,5 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - tweak: "Stun batons now do 75 apply_damage instead of 90 adjustStaminaLoss. This means you can do limb targeting, damage is reduced by armor and it may take a moment to knockdown once in stamcrit."
+  - tweak: "Limb disabling total damage increased, now only requires disabling three limbs to stamcrit not four."
