@@ -197,7 +197,7 @@
 		if(T && (T in targets))
 			L.blind_eyes(5)
 			L.visible_message("<span class='notice'>[L] blinks.</span>")
-6	return
+	return
 
 //Toggle Night Vision
 /obj/effect/proc_holder/spell/targeted/night_vision
