@@ -14,7 +14,7 @@
 	icon_state = "awaycontent3"
 
 /area/awaymission/moonoutpost19/syndicate
-	name = "Syndicate Outpost"
+	name = "Pizza Hut Outpost"
 	icon_state = "awaycontent4"
 
 /area/awaymission/moonoutpost19/main

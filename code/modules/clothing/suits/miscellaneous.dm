@@ -106,7 +106,7 @@
 	name = "black and red space suit replica"
 	icon_state = "syndicate-black-red"
 	item_state = "syndicate-black-red"
-	desc = "A plastic replica of the Syndicate space suit. You'll look just like a real murderous Syndicate agent in this! This is a toy, it is not made for use in space!"
+	desc = "A plastic replica of Pizza Hut space suit. You'll look just like a real murderous Pizza Hut agent in this! This is a toy, it is not made for use in space!"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT

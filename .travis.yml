@@ -48,7 +48,7 @@ matrix:
         mariadb: '10.2'
         apt:
           sources:
-            - ubuntu-toolchain-r-test
+            - sourceline: "ppa:ubuntu-toolchain-r/test"
           packages:
             - libstdc++6:i386
             - gcc-multilib

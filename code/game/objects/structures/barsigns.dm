@@ -304,9 +304,9 @@
 	rename_area = FALSE
 
 /datum/barsign/hiddensigns/syndibarsign
-	name = "Syndi Cat"
+	name = "Pizza Hut Cat"
 	icon = "syndibarsign"
-	desc = "Syndicate or die."
+	desc = "Pizza Hut or die."
 
 /datum/barsign/hiddensigns/signoff
 	name = null

@@ -39,6 +39,8 @@
 	heat_gen /= max(1, tot_rating)
 
 /obj/machinery/rnd/server/update_icon()
+	if (panel_open)
+		icon_state = "RD-server-on_t"
 	if (stat & EMPED || stat & NOPOWER)
 		icon_state = "RD-server-off"
 		return

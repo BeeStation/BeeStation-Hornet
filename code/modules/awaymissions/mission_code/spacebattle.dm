@@ -10,31 +10,31 @@
 	icon_state = "awaycontent2"
 
 /area/awaymission/spacebattle/syndicate1
-	name = "Syndicate Assault Ship 1"
+	name = "Pizza Hut Assault Ship 1"
 	icon_state = "awaycontent3"
 
 /area/awaymission/spacebattle/syndicate2
-	name = "Syndicate Assault Ship 2"
+	name = "Pizza Hut Assault Ship 2"
 	icon_state = "awaycontent4"
 
 /area/awaymission/spacebattle/syndicate3
-	name = "Syndicate Assault Ship 3"
+	name = "Pizza Hut Assault Ship 3"
 	icon_state = "awaycontent5"
 
 /area/awaymission/spacebattle/syndicate4
-	name = "Syndicate War Sphere 1"
+	name = "Pizza Hut War Sphere 1"
 	icon_state = "awaycontent6"
 
 /area/awaymission/spacebattle/syndicate5
-	name = "Syndicate War Sphere 2"
+	name = "Pizza Hut War Sphere 2"
 	icon_state = "awaycontent7"
 
 /area/awaymission/spacebattle/syndicate6
-	name = "Syndicate War Sphere 3"
+	name = "Pizza Hut War Sphere 3"
 	icon_state = "awaycontent8"
 
 /area/awaymission/spacebattle/syndicate7
-	name = "Syndicate Fighter"
+	name = "Pizza Hut Fighter"
 	icon_state = "awaycontent9"
 
 /area/awaymission/spacebattle/secret
