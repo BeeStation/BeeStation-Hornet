@@ -2850,6 +2850,11 @@
 #include "code\modules\shuttle\supply.dm"
 #include "code\modules\shuttle\syndicate.dm"
 #include "code\modules\shuttle\white_ship.dm"
+#include "code\modules\SPC\SCP-012.dm"
+#include "code\modules\SPC\SCP-151.dm"
+#include "code\modules\SPC\SCP-173.dm"
+#include "code\modules\SPC\SCP-294.dm"
+#include "code\modules\SPC\SCP-529.dm"
 #include "code\modules\spells\spell.dm"
 #include "code\modules\spells\spell_types\aimed.dm"
 #include "code\modules\spells\spell_types\area_teleport.dm"
@@ -3038,4 +3043,3 @@
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
-
