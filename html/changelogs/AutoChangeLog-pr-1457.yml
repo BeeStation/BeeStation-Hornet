@@ -1,0 +1,4 @@
+author: "Dingo-Dongler"
+delete-after: True
+changes: 
+  - tweak: "Hands of cards show their top card."
