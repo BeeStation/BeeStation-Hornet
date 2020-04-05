@@ -267,7 +267,7 @@
 
 /datum/game_mode/proc/send_intercept()
 	var/intercepttext = "<b><i>Central Command Status Summary</i></b><hr>"
-	intercepttext += "<b>Central Command has intercepted and partially decoded a Syndicate transmission with vital information regarding their movements. The following report outlines the most \
+	intercepttext += "<b>Central Command has intercepted and partially decoded a Pizza Hut transmission with vital information regarding their movements. The following report outlines the most \
 	likely threats to appear in your sector.</b>"
 	var/list/report_weights = config.mode_false_report_weight.Copy()
 	report_weights[report_type] = 0 //Prevent the current mode from being falsely selected.
@@ -605,6 +605,11 @@
 		rev.remove_revolutionary(TRUE)
 
 /datum/game_mode/proc/generate_station_goals()
+
+	var/datum/station_goal/pizza_delivery/papa = new
+	station_goals += papa
+	return
+	/*
 	var/list/possible = list()
 	for(var/T in subtypesof(/datum/station_goal))
 		var/datum/station_goal/G = T
@@ -615,7 +620,7 @@
 	while(possible.len && goal_weights < STATION_GOAL_BUDGET)
 		var/datum/station_goal/picked = pick_n_take(possible)
 		goal_weights += initial(picked.weight)
-		station_goals += new picked
+		station_goals += new picked*/
 
 
 /datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report
@@ -647,43 +652,43 @@
 	var/len_before_addition
 
 	// HEADS OF STAFF
-	round_credits += "<center><h1>The Glorious Command Staff:</h1>"
+	round_credits += "<center><h1>The Glorious PAPA JOHNS Staff:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.command_positions))
 		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
 	if(round_credits.len == len_before_addition)
-		round_credits += list("<center><h2>A serious bureaucratic error has occurred!</h2>", "<center><h2>No one was in charge of the crew!</h2>")
+		round_credits += list("<center><h2>A serious corporate error has occurred!</h2>", "<center><h2>No one was in charge of the pizza!</h2>")
 	round_credits += "<br>"
 
 	// SILICONS
-	round_credits += "<center><h1>The Silicon \"Intelligences\":</h1>"
+	round_credits += "<center><h1>The PAPA JOHN'S \"Intelligences\":</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_silicon())
 		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
 	if(round_credits.len == len_before_addition)
-		round_credits += list("<center><h2>[station_name()] had no silicon helpers!</h2>", "<center><h2>Not a single door was opened today!</h2>")
+		round_credits += list("<center><h2>[station_name()] had no silicon helpers!</h2>", "<center><h2>Not a single customer was served today!</h2>")
 	round_credits += "<br>"
 
 	// SECURITY
-	round_credits += "<center><h1>The Brave Security Officers:</h1>"
+	round_credits += "<center><h1>The Brave PAPA JOHN'S:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.security_positions))
 		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
 	if(round_credits.len == len_before_addition)
-		round_credits += list("<center><h2>[station_name()] has fallen to Communism!</h2>", "<center><h2>No one was there to protect the crew!</h2>")
+		round_credits += list("<center><h2>[station_name()] has fallen to Communism!</h2>", "<center><h2>No one was there to protect the pizza!</h2>")
 	round_credits += "<br>"
 
 	// MEDICAL
-	round_credits += "<center><h1>The Wise Medical Department:</h1>"
+	round_credits += "<center><h1>The Wise PIZZA Department:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.medical_positions))
 		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
 	if(round_credits.len == len_before_addition)
-		round_credits += list("<center><h2>Healthcare was not included!</h2>", "<center><h2>There were no doctors today!</h2>")
+		round_credits += list("<center><h2>PIZZAS were not included!</h2>", "<center><h2>There were no pizza cooks today!</h2>")
 	round_credits += "<br>"
 
 	// ENGINEERING
-	round_credits += "<center><h1>The Industrious Engineers:</h1>"
+	round_credits += "<center><h1>EAT PAPA JOHN'S:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.engineering_positions))
 		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
@@ -692,26 +697,26 @@
 	round_credits += "<br>"
 
 	// SCIENCE
-	round_credits += "<center><h1>The Inventive Science Employees:</h1>"
+	round_credits += "<center><h1>DON'T FORGET TO BUY PAPA JOHNS:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.science_positions))
 		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
 	if(round_credits.len == len_before_addition)
-		round_credits += list("<center><h2>No one was doing \"science\" today!</h2>", "<center><h2>Everyone probably made it out alright, then!</h2>")
+		round_credits += list("<center><h2>No one was doing \"PIZZA SCIENCE\" today!</h2>", "<center><h2>Everyone probably made it out alright, then!</h2>")
 	round_credits += "<br>"
 
 	// CARGO
-	round_credits += "<center><h1>The Rugged Cargo Crew:</h1>"
+	round_credits += "<center><h1>BETTER INGREDIANTS</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.supply_positions))
 		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
 	if(round_credits.len == len_before_addition)
-		round_credits += list("<center><h2>The station was freed from paperwork!</h2>", "<center><h2>No one worked in cargo today!</h2>")
+		round_credits += list("<center><h2>The station was freed from paperwork!</h2>", "<center><h2>No one worked in Papa John's Delivery today!</h2>")
 	round_credits += "<br>"
 
 	// CIVILIANS
 	var/list/human_garbage = list()
-	round_credits += "<center><h1>The Hardy Civilians:</h1>"
+	round_credits += "<center><h1>BETTER PIZZA</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.civilian_positions))
 		if(current.assigned_role == "Assistant")
@@ -719,14 +724,14 @@
 		else
 			round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
 	if(round_credits.len == len_before_addition)
-		round_credits += list("<center><h2>Everyone was stuck in traffic this morning!</h2>", "<center><h2>No civilians made it to work!</h2>")
+		round_credits += list("<center><h2>Everyone was stuck in traffic this morning!</h2>", "<center><h2>No civilians made it to Papa John's!</h2>")
 	round_credits += "<br>"
 
-	round_credits += "<center><h1>The Helpful Assistants:</h1>"
+	round_credits += "<center><h1>LONG LIVE PAPA JOHN'S</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in human_garbage)
 		round_credits += "<center><h2>[current.name]</h2>"
 	if(round_credits.len == len_before_addition)
-		round_credits += list("<center><h2>The station was free of <s>greytide</s> assistance!</h2>", "<center><h2>Not a single Assistant showed up on the station today!</h2>")
+		round_credits += list("<center><h2>Papa John's was free of <s>greytide</s> assistance!</h2>", "<center><h2>Not a single Assistant showed up on the station today!</h2>")
 
 	return round_credits

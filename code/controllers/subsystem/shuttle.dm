@@ -128,7 +128,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/threshold = CONFIG_GET(number/emergency_shuttle_autocall_threshold)
 	if(!threshold)
 		return
-	
+
 	var/alive = 0
 	for(var/I in GLOB.player_list)
 		var/mob/M = I
@@ -179,7 +179,6 @@ SUBSYSTEM_DEF(shuttle)
 			resolve this problem by loading an emergency shuttle template \
 			manually, and then calling register() on the mobile docking port. \
 			Good luck.")
-			return
 		emergency = backup_shuttle
 	var/srd = CONFIG_GET(number/shuttle_refuel_delay)
 	if(world.time - SSticker.round_start_time < srd)

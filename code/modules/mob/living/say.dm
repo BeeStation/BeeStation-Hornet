@@ -195,7 +195,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(language)
 		var/datum/language/L = GLOB.language_datum_instances[language]
 		spans |= L.spans
-	
+
 	if(message_mode == MODE_SING)
 	#if DM_VERSION < 513
 		var/randomnote = "~"
@@ -391,7 +391,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(message_mode == MODE_HEADSET)
 			imp.radio.talk_into(src, message, , spans, language)
 			return ITALICS | REDUCE_RANGE
-		if(message_mode == MODE_DEPARTMENT || message_mode in GLOB.radiochannels)
+		if(message_mode == MODE_DEPARTMENT || (message_mode in GLOB.radiochannels))
 			imp.radio.talk_into(src, message, message_mode, spans, language)
 			return ITALICS | REDUCE_RANGE
 

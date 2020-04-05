@@ -168,11 +168,12 @@
 	begin_month = APRIL
 
 /datum/holiday/april_fools/celebrate()
-	SSjob.set_overflow_role("Clown")
+	return //Cringe
+	/*SSjob.set_overflow_role("Clown")
 	SSticker.login_music = 'sound/ambience/clown.ogg'
 	for(var/mob/dead/new_player/P in GLOB.mob_list)
 		if(P.client)
-			P.client.playtitlemusic()
+			P.client.playtitlemusic()*/
 
 /datum/holiday/spess
 	name = "Cosmonautics Day"

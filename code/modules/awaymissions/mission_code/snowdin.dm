@@ -575,16 +575,16 @@
 	max_charges = 5
 
 /obj/effect/mob_spawn/human/syndicatesoldier/coldres
-	name = "Syndicate Snow Operative"
+	name = "Pizza Hut Snow Operative"
 	outfit = /datum/outfit/snowsyndie/corpse
 
 /datum/outfit/snowsyndie/corpse
-	name = "Syndicate Snow Operative Corpse"
+	name = "Pizza Hut Snow Operative Corpse"
 	implants = null
 
 /obj/effect/mob_spawn/human/syndicatesoldier/coldres/alive
 	name = "sleeper"
-	mob_name = "Syndicate Snow Operative"
+	mob_name = "Pizza Hut Snow Operative"
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
 	roundstart = FALSE
@@ -596,7 +596,7 @@
 	disposed of swiftly to assure no gathered information is stolen or lost. Try not to wander too far from the outpost as the caves can be a deadly place even for a trained operative such as yourself."
 
 /datum/outfit/snowsyndie
-	name = "Syndicate Snow Operative"
+	name = "Pizza Hut Snow Operative"
 	uniform = /obj/item/clothing/under/syndicate/coldres
 	shoes = /obj/item/clothing/shoes/combat/coldres
 	ears = /obj/item/radio/headset/syndicate/alt

@@ -150,7 +150,7 @@
 			if("Chemist")
 				heirloom_type = /obj/item/book/manual/wiki/chemistry
 			if("Virologist")
-				heirloom_type = /obj/item/reagent_containers/syringe
+				heirloom_type = /obj/item/reagent_containers/dropper
 			if("Geneticist")
 				heirloom_type = /obj/item/clothing/under/shorts/purple
 			//Engineering

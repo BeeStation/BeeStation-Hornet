@@ -80,7 +80,7 @@
 	..()
 
 /datum/game_mode/traitor/changeling/generate_report()
-	return "The Syndicate has started some experimental research regarding humanoid shapeshifting.  There are rumors that this technology will be field tested on a Nanotrasen station \
+	return "Pizza Hut has started some experimental research regarding humanoid shapeshifting.  There are rumors that this technology will be field tested on a Nanotrasen station \
 			for infiltration purposes.  Be advised that support personel may also be deployed to defend these shapeshifters. Trust nobody - suspect everybody. Do not announce this to the crew, \
 			as paranoia may spread and inhibit workplace efficiency."
 

@@ -120,7 +120,7 @@
 
 //Syndicates
 /area/syndicate_mothership
-	name = "Syndicate Mothership"
+	name = "Pizza Hut Mothership"
 	icon_state = "syndie-ship"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
@@ -130,12 +130,12 @@
 	ambientsounds = HIGHSEC
 
 /area/syndicate_mothership/control
-	name = "Syndicate Control Room"
+	name = "Pizza Hut Control Room"
 	icon_state = "syndie-control"
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/syndicate_mothership/elite_squad
-	name = "Syndicate Elite Squad"
+	name = "Pizza Hut Elite Squad"
 	icon_state = "syndie-elite"
 
 //CAPTURE THE FLAG

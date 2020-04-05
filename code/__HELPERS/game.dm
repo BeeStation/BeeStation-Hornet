@@ -462,7 +462,7 @@
 	var/list/result = list()
 	for(var/m in group)
 		var/mob/M = m
-		if(!M.key || !M.client || (ignore_category && GLOB.poll_ignore[ignore_category] && M.ckey in GLOB.poll_ignore[ignore_category]))
+		if(!M.key || !M.client || (ignore_category && GLOB.poll_ignore[ignore_category] && (M.ckey in GLOB.poll_ignore[ignore_category])))
 			continue
 		if(be_special_flag)
 			if(!(M.client.prefs) || !(be_special_flag in M.client.prefs.be_special))
@@ -598,7 +598,7 @@
 	for(var/turf/found_turf in turfs)
 		var/area/turf_area = get_area(found_turf)
 
-		// We check if both the turf is a floor, and that it's actually in the area. 
+		// We check if both the turf is a floor, and that it's actually in the area.
 		// We also want a location that's clear of any obstructions.
 		if (specific_area)
 			if (!istype(turf_area, specific_area))
