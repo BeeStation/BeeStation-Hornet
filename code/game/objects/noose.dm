@@ -125,18 +125,16 @@
 			animate(src, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
 			animate(m, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
 		if(buckled_mob.mob_has_gravity())
-			if(!HAS_TRAIT(buckled_mob, TRAIT_NOBREATH))
-				buckled_mob.adjustOxyLoss(5)
-				if(prob(40))
-					buckled_mob.emote("gasp")
-			if(prob(20))
-				var/flavor_text = list("<span class='suicide'>[buckled_mob]'s legs flail for anything to stand on.</span>",\
-										"<span class='suicide'>[buckled_mob]'s hands are desperately clutching the noose.</span>",\
-										"<span class='suicide'>[buckled_mob]'s limbs sway back and forth with diminishing strength.</span>")
-				if(buckled_mob.stat == DEAD)
-					flavor_text = list("<span class='suicide'>[buckled_mob]'s limbs lifelessly sway back and forth.</span>",\
-										"<span class='suicide'>[buckled_mob]'s eyes stare straight ahead.</span>")
-				buckled_mob.visible_message(pick(flavor_text))
-				playsound(buckled_mob.loc, 'sound/effects/noose_idle.ogg', 30, 1, -3)
+			if(buckled_mob.stat != DEAD)
+				if(!HAS_TRAIT(buckled_mob, TRAIT_NOBREATH))
+					buckled_mob.adjustOxyLoss(5)
+					if(prob(40))
+						buckled_mob.emote("gasp")
+				if(prob(20))
+					var/flavor_text = list("<span class='suicide'>[buckled_mob]'s legs flail for anything to stand on.</span>",\
+											"<span class='suicide'>[buckled_mob]'s hands are desperately clutching the noose.</span>",\
+											"<span class='suicide'>[buckled_mob]'s limbs sway back and forth with diminishing strength.</span>")
+					buckled_mob.visible_message(pick(flavor_text))
+			playsound(buckled_mob.loc, 'sound/effects/noose_idle.ogg', 30, 1, -3)
 
 
