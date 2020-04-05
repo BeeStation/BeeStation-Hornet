@@ -578,7 +578,7 @@
 /datum/reagent/consumable/honey/special
 	name = "Royal Honey"
 	description = "A special honey which heals the imbiber far faster than normal honey"
-	power = 1
+	power = 3
 
 /datum/reagent/consumable/mayonnaise
 	name = "Mayonnaise"

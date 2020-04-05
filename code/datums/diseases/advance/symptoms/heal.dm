@@ -360,7 +360,7 @@ obj/effect/sweatsplash/proc/splash()
 	switch(A.stage)
 		if(4, 5)
 			if(burnheal)
-				M.adjustFireLoss(-1 * power)
+				M.adjustFireLoss(-2 * power)
 			if(prob(5) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
 				if(prob(50))
@@ -436,11 +436,11 @@ obj/effect/sweatsplash/proc/splash()
 				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
 					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
 			if(tetsuo)
-				M.adjustBruteLoss(-4)
+				M.adjustBruteLoss(-8)
 				if(prob(20))
 					M.adjustCloneLoss(1)
 			else if(bruteheal)
-				M.adjustBruteLoss(-1)
+				M.adjustBruteLoss(-3)
 		else
 			if(prob(5))
 				to_chat(M, "<span class='notice'>[pick("You feel bloated.", "The station seems small", "You are the strongest")]</span>")
@@ -460,7 +460,7 @@ obj/effect/sweatsplash/proc/splash()
 	roundstart = FALSE
 	short_desc = "You are a living tumor. By all accounts, you should not exist."
 	flavour_text = {"
-	<b>You are a living teratoma, and your existence is misery. You feel the need to spread woe about the station- but not to kill.
+	<b>You are a living teratoma, and your existence is misery.
 	"}
 
 /obj/effect/mob_spawn/teratomamonkey/Initialize()
