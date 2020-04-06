@@ -276,6 +276,10 @@
 	healths = new /obj/screen/healths()
 	infodisplay += healths
 
+	tts = new /obj/screen/tts
+	tts.hud = src
+	infodisplay += tts
+
 	healthdoll = new /obj/screen/healthdoll()
 	infodisplay += healthdoll
 

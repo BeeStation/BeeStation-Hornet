@@ -3,18 +3,32 @@
 /datum/dna
 	var/unique_enzymes
 	var/uni_identity
+	///Blood type of the carbon
 	var/blood_type
-	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
-	var/list/features = list("FFF") //first value is mutant color
-	var/real_name //Stores the real name of the person who originally got this dna datum. Used primarely for changelings,
-	var/list/mutations = list()   //All mutations are from now on here
-	var/list/temporary_mutations = list() //Temporary changes to the UE
-	var/list/previous = list() //For temporary name/ui/ue/blood_type modifications
+	///The type of mutant race the player is if applicable (i.e. potato-man)
+	var/datum/species/species = new /datum/species/human
+	///first value is mutant color
+	var/list/features = list("FFF")
+	///Stores the real name of the person who originally got this dna datum. Used primarely for changelings,
+	var/real_name
+	///All mutations are from now on here
+	var/list/mutations = list()
+	///Temporary changes to the UE
+	var/list/temporary_mutations = list()
+	///For temporary name/ui/ue/blood_type modifications
+	var/list/previous = list()
+	///The actual Mob wh's DNA this is
 	var/mob/living/holder
-	var/delete_species = TRUE //Set to FALSE when a body is scanned by a cloner to fix #38875
-	var/mutation_index[DNA_MUTATION_BLOCKS] //List of which mutations this carbon has and its assigned block
+	//Set to FALSE when a body is scanned by a cloner to fix #38875
+	var/delete_species = TRUE
+	///List of which mutations this carbon has and its assigned block
+	var/mutation_index[DNA_MUTATION_BLOCKS]
+	///Genetic stability of the carbon
 	var/stability = 100
-	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
+	///Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
+	var/scrambled = FALSE
+	///Text-to-Speech voice
+	var/tts_voice = ""
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
@@ -42,6 +56,7 @@
 	destination.dna.unique_enzymes = unique_enzymes
 	destination.dna.uni_identity = uni_identity
 	destination.dna.blood_type = blood_type
+	destination.dna.tts_voice = tts_voice
 	destination.set_species(species.type, icon_update=0)
 	destination.dna.features = features.Copy()
 	destination.dna.real_name = real_name
@@ -58,6 +73,7 @@
 	new_dna.species = new species.type
 	new_dna.real_name = real_name
 	new_dna.mutations = mutations.Copy()
+	new_dna.tts_voice = tts_voice
 
 //See mutation.dm for what 'class' does. 'time' is time till it removes itself in decimals. 0 for no timer
 /datum/dna/proc/add_mutation(mutation, class = MUT_OTHER, time)
@@ -164,6 +180,16 @@
 		. += random_string(DNA_UNIQUE_ENZYMES_LEN, GLOB.hex_characters)
 	return .
 
+/**
+  *chooses a random gendered voice for [Text-to-Speech] [/datum/controller/subsystem/tts]
+  */
+/datum/dna/proc/create_random_voice()
+	var/mob/living/carbon/human/H = holder
+	if (H.gender == FEMALE)
+		tts_voice = pick("betty", "rita", "ursula", "wendy")
+	else
+		tts_voice = pick("dennis", "frank", "harry", "kit", "paul")
+
 /datum/dna/proc/update_ui_block(blocknumber)
 	if(!blocknumber || !ishuman(holder))
 		return
@@ -257,6 +283,7 @@
 /datum/dna/proc/update_dna_identity()
 	uni_identity = generate_uni_identity()
 	unique_enzymes = generate_unique_enzymes()
+	create_random_voice()
 
 /datum/dna/proc/initialize_dna(newblood_type, skip_index = FALSE)
 	if(newblood_type)
@@ -266,6 +293,7 @@
 	if(!skip_index) //I hate this
 		generate_dna_blocks()
 	features = random_features()
+	create_random_voice()
 
 
 /datum/dna/stored //subtype used by brain mob's stored_dna

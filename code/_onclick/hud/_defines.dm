@@ -105,6 +105,7 @@
 #define ui_health "EAST-1:28,CENTER-1:15"
 #define ui_internal "EAST-1:28,CENTER:17"
 #define ui_mood "EAST-1:28,CENTER-3:10"
+#define ui_tts "EAST-1:28,CENTER-4:12"
 
 //borgs
 #define ui_borg_health "EAST-1:28,CENTER-1:15"		//borgs have the health display where humans have the pressure damage indicator.

@@ -326,6 +326,13 @@
 			return
 	C.update_action_buttons_icon()
 
+/obj/screen/tts
+	icon = 'icons/mob/screen_gen.dmi'
+	name = "tts"
+	icon_state = "tts_ready"
+	screen_loc = ui_tts
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
 /obj/screen/mov_intent
 	name = "run/walk toggle"
 	icon = 'icons/mob/screen_midnight.dmi'
@@ -640,7 +647,7 @@
 	icon_state = "slime_health0"
 	screen_loc = ui_slime_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	
+
 /obj/screen/healths/lavaland_elite
 	icon = 'icons/mob/screen_elite.dmi'
 	icon_state = "elite_health0"

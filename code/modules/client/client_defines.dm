@@ -45,7 +45,11 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
+	///Text-to-speech cooldown
+	var/tts_cooldown = 0
+	///Currently playing ambience sound
 	var/ambience_playing= null
+	///Whether an ambience sound has been played and one shouldn't be played again, unset by a callback
 	var/played			= 0
 		////////////
 		//SECURITY//

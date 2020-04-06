@@ -613,7 +613,7 @@
 	return
 
 /mob/living/Move(atom/newloc, direct)
-	if(lying) 
+	if(lying)
 		if(direct & EAST)
 			lying = 90
 		if(direct & WEST)
@@ -846,7 +846,7 @@
 		who.show_inv(src)
 	else
 		src << browse(null,"window=mob[REF(who)]")
-	
+
 	who.update_equipment_speed_mods() // Updates speed in case stripped speed affecting item
 
 // The src mob is trying to place an item on someone
@@ -1368,3 +1368,11 @@
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+
+/**
+  *Resets the [Text-to-Speech] [/datum/controller/subsystem/tts]indicator after the sound plays
+  */
+/mob/living/proc/update_tts_hud()
+	if (!hud_used?.tts)
+		return
+	hud_used.tts.icon_state = "tts_ready"

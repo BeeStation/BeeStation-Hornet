@@ -212,6 +212,17 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, toggle_announcement_sound)()
 /datum/verbs/menu/Settings/Sound/toggle_announcement_sound/Get_checked(client/C)
 	return C.prefs.toggles & SOUND_ANNOUNCEMENTS
 
+TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, toggletts)() //Whether a player will hear tts sounds around them
+	set name = "Hear/Silence Text-to-Speech"
+	set category = "Preferences"
+	set desc = "Hear Any Text-to-Speech Sounds"
+	usr.client.prefs.toggles ^= SOUND_TTS
+	usr.client.prefs.save_preferences()
+	if(usr.client.prefs.toggles & SOUND_TTS)
+		to_chat(usr, "You will now hear any text-to-speech sounds.[CONFIG_GET(flag/enable_tts) ? "" : ". Text-to-speech is currently disabled by server-side configs."]")
+	else
+		to_chat(usr, "You will no longer hear text-to-speech sounds.[CONFIG_GET(flag/enable_tts) ? "" : ". Text-to-speech is currently disabled by server-side configs."]")
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Hearing Text-to-Speech", "[usr.client.prefs.toggles & SOUND_TTS ? "Enabled" : "Disabled"]"))
 
 /datum/verbs/menu/Settings/Sound/verb/stop_client_sounds()
 	set name = "Stop Sounds"
