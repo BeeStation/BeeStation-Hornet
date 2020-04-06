@@ -445,6 +445,7 @@
 #include "code\datums\diseases\advance\symptoms\beard.dm"
 #include "code\datums\diseases\advance\symptoms\beesymptom.dm"
 #include "code\datums\diseases\advance\symptoms\braindamage.dm"
+#include "code\datums\diseases\advance\symptoms\brew.dm"
 #include "code\datums\diseases\advance\symptoms\choking.dm"
 #include "code\datums\diseases\advance\symptoms\cockroach.dm"
 #include "code\datums\diseases\advance\symptoms\confusion.dm"
