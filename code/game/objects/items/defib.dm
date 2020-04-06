@@ -685,7 +685,7 @@
 	. = ..()
 
 /obj/item/twohanded/shockpaddles/syndicate
-	name = "Pizza Hut defibrillator paddles"
+	name = "syndicate defibrillator paddles"
 	desc = "A pair of paddles used to revive deceased operatives. They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
 	combat = TRUE
 	icon = 'icons/obj/defib.dmi'

@@ -128,7 +128,7 @@
 	},
 /obj/item/radio/intercom{
 	freerange = 1;
-	name = "Pizza Hut Radio Intercom"
+	name = "Syndicate Radio Intercom"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
@@ -1020,7 +1020,7 @@
 	},
 /obj/item/radio/intercom{
 	freerange = 1;
-	name = "Pizza Hut Radio Intercom";
+	name = "Syndicate Radio Intercom";
 	pixel_y = 22
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -1492,7 +1492,7 @@
 	hidden = 1;
 	id = "syndicate";
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
-	name = "Pizza Hut infiltrator";
+	name = "syndicate infiltrator";
 	port_direction = 4;
 	width = 23
 	},
@@ -1806,7 +1806,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom{
 	freerange = 1;
-	name = "Pizza Hut Radio Intercom";
+	name = "Syndicate Radio Intercom";
 	pixel_y = 22
 	},
 /turf/open/floor/mineral/plastitanium/red,

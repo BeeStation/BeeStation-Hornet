@@ -344,7 +344,7 @@
 
 /obj/item/melee/classic_baton/telescopic/contractor_baton
 	name = "contractor baton"
-	desc = "A compact, specialised baton assigned to Pizza Hut contractors. Applies light electrical shocks to targets."
+	desc = "A compact, specialised baton assigned to Syndicate contractors. Applies light electrical shocks to targets."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "contractor_baton_0"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
@@ -357,7 +357,7 @@
 
 	cooldown = 20
 	stamina_damage = 85
-	affect_silicon = TRUE
+	affect_silicon = TRUE 
 	on_sound = 'sound/weapons/contractorbatonextend.ogg'
 	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
 	stun_animation = TRUE

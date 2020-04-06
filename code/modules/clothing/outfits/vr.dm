@@ -14,7 +14,7 @@
 		id.access |= get_all_accesses()
 
 /datum/outfit/vr/syndicate
-	name = "Pizza Hut VR Operative - Basic"
+	name = "Syndicate VR Operative - Basic"
 	uniform = /obj/item/clothing/under/syndicate
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat

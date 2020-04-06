@@ -32,21 +32,21 @@
 	modules = list(/datum/mapGeneratorModule/bottomLayer/syndieFloor, \
 		/datum/mapGeneratorModule/border/syndieWalls,\
 		/datum/mapGeneratorModule/bottomLayer/repressurize)
-	buildmode_name = "Pattern: Shuttle Room: Pizza Hut"
+	buildmode_name = "Pattern: Shuttle Room: Syndicate"
 
 /datum/mapGenerator/syndicate/mobsonly
 	modules = list(/datum/mapGeneratorModule/bottomLayer/syndieFloor, \
 		/datum/mapGeneratorModule/border/syndieWalls,\
 		/datum/mapGeneratorModule/splatterLayer/syndieMobs, \
 		/datum/mapGeneratorModule/bottomLayer/repressurize)
-	buildmode_name = "Pattern: Shuttle Room: Pizza Hut: Mobs"
+	buildmode_name = "Pattern: Shuttle Room: Syndicate: Mobs"
 
 /datum/mapGenerator/syndicate/furniture
 	modules = list(/datum/mapGeneratorModule/bottomLayer/syndieFloor, \
 		/datum/mapGeneratorModule/border/syndieWalls,\
 		/datum/mapGeneratorModule/syndieFurniture, \
 		/datum/mapGeneratorModule/bottomLayer/repressurize)
-	buildmode_name = "Pattern: Shuttle Room: Pizza Hut: Furniture"
+	buildmode_name = "Pattern: Shuttle Room: Syndicate: Furniture"
 
 /datum/mapGenerator/syndicate/full
 	modules = list(/datum/mapGeneratorModule/bottomLayer/syndieFloor, \
@@ -54,4 +54,4 @@
 		/datum/mapGeneratorModule/syndieFurniture, \
 		/datum/mapGeneratorModule/splatterLayer/syndieMobs, \
 		/datum/mapGeneratorModule/bottomLayer/repressurize)
-	buildmode_name = "Pattern: Shuttle Room: Pizza Hut: All"
+	buildmode_name = "Pattern: Shuttle Room: Syndicate: All"

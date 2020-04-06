@@ -24,7 +24,7 @@
 		. += "<span class='notice'>It can access the following channels; [jointext(examine_text_list, ", ")].</span>"
 
 /obj/item/encryptionkey/syndicate
-	name = "Pizza Hut encryption key"
+	name = "syndicate encryption key"
 	icon_state = "syn_cypherkey"
 	channels = list(RADIO_CHANNEL_SYNDICATE = 1)
 	syndie = TRUE//Signifies that it de-crypts Syndicate transmissions

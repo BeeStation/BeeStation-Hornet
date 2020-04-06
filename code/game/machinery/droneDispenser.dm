@@ -60,7 +60,7 @@
 
 /obj/machinery/droneDispenser/syndrone //Please forgive me
 	name = "syndrone shell dispenser"
-	desc = "A suspicious machine that will create Pizza Hut exterminator drones when supplied with iron and glass. Disgusting."
+	desc = "A suspicious machine that will create Syndicate exterminator drones when supplied with iron and glass. Disgusting."
 	dispense_type = /obj/item/drone_shell/syndrone
 	//If we're gonna be a jackass, go the full mile - 10 second recharge timer
 	cooldownTime = 100
@@ -69,7 +69,7 @@
 
 /obj/machinery/droneDispenser/syndrone/badass //Please forgive me
 	name = "badass syndrone shell dispenser"
-	desc = "A suspicious machine that will create Pizza Hut exterminator drones when supplied with iron and glass. Disgusting. This one seems ominous."
+	desc = "A suspicious machine that will create Syndicate exterminator drones when supplied with iron and glass. Disgusting. This one seems ominous."
 	dispense_type = /obj/item/drone_shell/syndrone/badass
 	end_create_message = "dispenses an ominous suspicious drone shell."
 

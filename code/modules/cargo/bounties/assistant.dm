@@ -78,7 +78,7 @@
 
 /datum/bounty/item/assistant/donut
 	name = "Donuts"
-	description = "CentCom's security forces are facing heavy losses against Pizza Hut. Ship donuts to raise morale."
+	description = "CentCom's security forces are facing heavy losses against the Syndicate. Ship donuts to raise morale."
 	reward = 3000
 	required_count = 10
 	wanted_types = list(/obj/item/reagent_containers/food/snacks/donut)
@@ -199,7 +199,7 @@
 
 /datum/bounty/item/assistant/corgimeat
 	name = "Raw Corgi Meat"
-	description = "Pizza Hut recently stole all of CentCom's Corgi meat. Ship out a replacement immediately."
+	description = "The Syndicate recently stole all of CentCom's Corgi meat. Ship out a replacement immediately."
 	reward = 3000
 	wanted_types = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi)
 

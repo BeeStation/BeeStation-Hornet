@@ -254,7 +254,7 @@
 	item_state = "bl_suit"
 	item_color = "black"
 	desc = "It's a plain jumpsuit. It has a small dial on the wrist."
-	sensor_mode = SENSOR_OFF //Hey who's this guy on Pizza Hut Shuttle??
+	sensor_mode = SENSOR_OFF //Hey who's this guy on the Syndicate Shuttle??
 	random_sensor = FALSE
 	resistance_flags = NONE
 	can_adjust = FALSE

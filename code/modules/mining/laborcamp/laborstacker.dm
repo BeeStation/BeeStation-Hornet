@@ -15,6 +15,7 @@ GLOBAL_LIST(labor_sheet_values)
 	var/door_tag = "prisonshuttle"
 	var/obj/item/radio/Radio //needed to send messages to sec radio
 
+
 /obj/machinery/mineral/labor_claim_console/Initialize()
 	. = ..()
 	Radio = new/obj/item/radio(src)
@@ -137,27 +138,15 @@ GLOBAL_LIST(labor_sheet_values)
 	force_connect = TRUE
 	var/points = 0 //The unclaimed value of ore stacked.
 	damage_deflection = 21
-	var/last_beep = 0
-
-/obj/machinery/mineral/stacking_machine/laborstacker/process_sheet(obj/item/I)
-	points += 20
-	qdel(I) //Don't question it.
-
-/obj/machinery/mineral/stacking_machine/laborstacker/HasProximity(atom/movable/AM)
-	if(istype(AM, /obj/item/pizzabox))
-		var/obj/item/pizzabox/P = AM
-		if(P.pizza)
-			process_sheet(P)
-		else if(world.time >= (last_beep + (10 SECONDS)))
-			say("Error: Pizzabox is empty.")
-			last_beep = world.time
-	else if((istype(AM, /obj/item/reagent_containers/food/snacks/pizza) || istype(AM, /obj/item/reagent_containers/food/snacks/customizable/pizza)) && AM.loc == get_step(src, input_dir))
-		process_sheet(AM)
+/obj/machinery/mineral/stacking_machine/laborstacker/process_sheet(obj/item/stack/sheet/inp)
+	points += inp.point_value * inp.amount
+	..()
 
 /obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/living/user)
-	if((istype(I, /obj/item/reagent_containers/food/snacks/pizza) || istype(I, /obj/item/reagent_containers/food/snacks/customizable/pizza)) && user.canUnEquip(I))
-		points += 20
-		qdel(I) //Don't question it
+	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I))
+		var/obj/item/stack/sheet/inp = I
+		points += inp.point_value * inp.amount
+	return ..()
 
 /**********************Point Lookup Console**************************/
 /obj/machinery/mineral/labor_points_checker

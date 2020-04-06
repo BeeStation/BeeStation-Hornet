@@ -40,37 +40,37 @@
 	ambientsounds = HIGHSEC
 
 /area/ruin/unpowered/syndicate_lava_base/engineering
-	name = "Pizza Hut Lavaland Engineering"
+	name = "Syndicate Lavaland Engineering"
 
 /area/ruin/unpowered/syndicate_lava_base/medbay
-	name = "Pizza Hut Lavaland Medbay"
+	name = "Syndicate Lavaland Medbay"
 
 /area/ruin/unpowered/syndicate_lava_base/arrivals
-	name = "Pizza Hut Lavaland Arrivals"
+	name = "Syndicate Lavaland Arrivals"
 
 /area/ruin/unpowered/syndicate_lava_base/bar
-	name = "Pizza Hut Lavaland Bar"
+	name = "Syndicate Lavaland Bar"
 
 /area/ruin/unpowered/syndicate_lava_base/main
-	name = "Pizza Hut Lavaland Primary Hallway"
+	name = "Syndicate Lavaland Primary Hallway"
 
 /area/ruin/unpowered/syndicate_lava_base/cargo
-	name = "Pizza Hut Lavaland Cargo Bay"
+	name = "Syndicate Lavaland Cargo Bay"
 
 /area/ruin/unpowered/syndicate_lava_base/chemistry
-	name = "Pizza Hut Lavaland Chemistry"
+	name = "Syndicate Lavaland Chemistry"
 
 /area/ruin/unpowered/syndicate_lava_base/virology
-	name = "Pizza Hut Lavaland Virology"
+	name = "Syndicate Lavaland Virology"
 
 /area/ruin/unpowered/syndicate_lava_base/testlab
-	name = "Pizza Hut Lavaland Experimentation Lab"
+	name = "Syndicate Lavaland Experimentation Lab"
 
 /area/ruin/unpowered/syndicate_lava_base/dormitories
-	name = "Pizza Hut Lavaland Dormitories"
+	name = "Syndicate Lavaland Dormitories"
 
 /area/ruin/unpowered/syndicate_lava_base/telecomms
-	name = "Pizza Hut Lavaland Telecommunications"
+	name = "Syndicate Lavaland Telecommunications"
 
 //Xeno Nest
 

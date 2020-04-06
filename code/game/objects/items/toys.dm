@@ -110,7 +110,7 @@
 		item_state = "balloon-empty"
 
 /obj/item/toy/syndicateballoon
-	name = "Pizza Hut balloon"
+	name = "syndicate balloon"
 	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
 	throwforce = 0
 	throw_speed = 3

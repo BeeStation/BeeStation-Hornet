@@ -443,9 +443,6 @@ SUBSYSTEM_DEF(job)
 			else
 				handle_auto_deadmin_roles(M.client, rank)
 
-	to_chat(M, "<span class='boldannounce'>This round is brought to you by Papa Johns. Better Ingredients. Better Pizza.</span>")
-	to_chat(M, "<span class='boldannounce'>Use promo code [pick(GLOB.promo_codes)]</span>")
-	to_chat(M, "<span class='small boldannounce'>Offers good for a limited time at participating U.S. Papa John's restaurants. Not valid with any other coupons or discounts.</span>")
 	to_chat(M, "<b>You are the [rank].</b>")
 	if(job)
 		to_chat(M, "<b>As the [rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
