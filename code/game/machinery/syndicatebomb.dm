@@ -3,7 +3,7 @@
 
 /obj/machinery/syndicatebomb
 	icon = 'icons/obj/assemblies.dmi'
-	name = "Pizza Hut bomb"
+	name = "syndicate bomb"
 	icon_state = "syndicate-bomb"
 	desc = "A large and menacing device. Can be bolted down with a wrench."
 

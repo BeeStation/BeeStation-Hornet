@@ -43,12 +43,12 @@
 
 /datum/export/gear/space/syndiehelmet
 	cost = 150
-	unit_name = "Pizza Hut space helmet"
+	unit_name = "Syndicate space helmet"
 	export_types = list(/obj/item/clothing/head/helmet/space/syndicate)
 
 /datum/export/gear/space/syndiesuit
 	cost = 300
-	unit_name = "Pizza Hut space suit"
+	unit_name = "Syndicate space suit"
 	export_types = list(/obj/item/clothing/suit/space/syndicate)
 
 

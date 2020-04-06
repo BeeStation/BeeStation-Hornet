@@ -10,7 +10,7 @@
 	recommended_enemies = 4
 
 	announce_span = "danger"
-	announce_text = "There are sleeping Pizza Hut agents on the station who are trying to stage a coup!\n\
+	announce_text = "There are sleeping Syndicate agents on the station who are trying to stage a coup!\n\
 	<span class='danger'>Agents</span>: Accomplish your objectives, convert heads and targets, take control of the AI.\n\
 	<span class='notice'>Crew</span>: Do not let the agents succeed!"
 	var/list/initial_agents = list() // Why doesn't this exist at /game_mode level? Literally every gamemode has some sort of version for this, what the fuck

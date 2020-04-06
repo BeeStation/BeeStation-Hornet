@@ -482,7 +482,7 @@
 	if(SHUTTLE_UNLOCK_ALIENTECH in SSshuttle.shuttle_purchase_requirements_met)
 		return TRUE
 	return FALSE
-
+	
 /datum/map_template/shuttle/arrival/box
 	suffix = "box"
 	name = "arrival shuttle (Box)"
@@ -597,11 +597,11 @@
 
 /datum/map_template/shuttle/ruin/syndicate_dropship
 	suffix = "syndicate_dropship"
-	name = "Pizza Hut Dropship"
+	name = "Syndicate Dropship"
 
 /datum/map_template/shuttle/ruin/syndicate_fighter_shiv
 	suffix = "syndicate_fighter_shiv"
-	name = "Pizza Hut Fighter"
+	name = "Syndicate Fighter"
 
 /datum/map_template/shuttle/snowdin/mining
 	suffix = "mining"

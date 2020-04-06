@@ -208,7 +208,7 @@
 	icon_state = "poster4"
 
 /obj/structure/sign/poster/contraband/syndicate_recruitment
-	name = "Pizza Hut Recruitment"
+	name = "Syndicate Recruitment"
 	desc = "See the galaxy! Shatter corrupt megacorporations! Join today!"
 	icon_state = "poster5"
 
@@ -324,7 +324,7 @@
 	icon_state = "poster27"
 
 /obj/structure/sign/poster/contraband/syndicate_pistol
-	name = "Pizza Hut Pistol"
+	name = "Syndicate Pistol"
 	desc = "A poster advertising syndicate pistols as being 'classy as fuck'. It is covered in faded gang tags."
 	icon_state = "poster28"
 

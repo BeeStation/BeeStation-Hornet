@@ -213,8 +213,8 @@
 	return //so that the MMI won't get a warning about not being able to move if it tries to move
 
 /obj/item/mmi/syndie
-	name = "\improper Pizza Hut Man-Machine Interface"
-	desc = "Pizza Hut's own brand of MMI. It enforces laws designed to help Pizza Hut agents achieve their goals upon cyborgs and AIs created with it."
+	name = "\improper Syndicate Man-Machine Interface"
+	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs and AIs created with it."
 	overrides_aicore_laws = TRUE
 
 /obj/item/mmi/syndie/Initialize()

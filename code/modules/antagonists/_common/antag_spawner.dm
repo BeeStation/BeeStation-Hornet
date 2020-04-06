@@ -97,7 +97,7 @@
 
 
 /obj/item/antag_spawner/nuke_ops
-	name = "Pizza Hut operative teleporter"
+	name = "syndicate operative teleporter"
 	desc = "A single-use teleporter designed to quickly reinforce operatives in the field."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "locator"
@@ -166,21 +166,21 @@
 
 //////SYNDICATE BORG
 /obj/item/antag_spawner/nuke_ops/borg_tele
-	name = "Pizza Hut cyborg teleporter"
+	name = "syndicate cyborg teleporter"
 	desc = "A single-use teleporter designed to quickly reinforce operatives in the field."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "locator"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/assault
-	name = "Pizza Hut assault cyborg teleporter"
+	name = "syndicate assault cyborg teleporter"
 	borg_to_spawn = "Assault"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/medical
-	name = "Pizza Hut medical teleporter"
+	name = "syndicate medical teleporter"
 	borg_to_spawn = "Medical"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
-	name = "Pizza Hut saboteur teleporter"
+	name = "syndicate saboteur teleporter"
 	borg_to_spawn = "Saboteur"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/spawn_antag(client/C, turf/T, kind, datum/mind/user)

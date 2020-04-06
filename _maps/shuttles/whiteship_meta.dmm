@@ -434,7 +434,7 @@
 	},
 /mob/living/simple_animal/hostile/syndicate/ranged{
 	environment_smash = 0;
-	name = "Pizza Hut Salvage Worker"
+	name = "Syndicate Salvage Worker"
 	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)

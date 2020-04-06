@@ -9,14 +9,14 @@
 //List of different corpse types
 
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier
-	name = "Pizza Hut Operative"
+	name = "Syndicate Operative"
 	id_job = "Operative"
 	hair_style = "Bald"
 	facial_hair_style = "Shaved"
 	outfit = /datum/outfit/syndicatesoldiercorpse
 
 /datum/outfit/syndicatesoldiercorpse
-	name = "Pizza Hut Operative Corpse"
+	name = "Syndicate Operative Corpse"
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/combat
@@ -28,14 +28,14 @@
 	id = /obj/item/card/id/syndicate
 
 /obj/effect/mob_spawn/human/corpse/syndicatecommando
-	name = "Pizza Hut Commando"
+	name = "Syndicate Commando"
 	id_job = "Operative"
 	hair_style = "Bald"
 	facial_hair_style = "Shaved"
 	outfit = /datum/outfit/syndicatecommandocorpse
 
 /datum/outfit/syndicatecommandocorpse
-	name = "Pizza Hut Commando Corpse"
+	name = "Syndicate Commando Corpse"
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	shoes = /obj/item/clothing/shoes/combat
@@ -48,14 +48,14 @@
 
 
 /obj/effect/mob_spawn/human/corpse/syndicatestormtrooper
-	name = "Pizza Hut Stormtrooper"
+	name = "Syndicate Stormtrooper"
 	id_job = "Operative"
 	hair_style = "Bald"
 	facial_hair_style = "Shaved"
 	outfit = /datum/outfit/syndicatestormtroopercorpse
 
 /datum/outfit/syndicatestormtroopercorpse
-	name = "Pizza Hut Stormtrooper Corpse"
+	name = "Syndicate Stormtrooper Corpse"
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	shoes = /obj/item/clothing/shoes/combat

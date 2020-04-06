@@ -170,7 +170,7 @@
 		if(syndicate)
 			to_chat(owner.current,"<span class='userdanger'> All the loyalist agents are dead, and no more is required of you. Die a glorious death, agent. </span>")
 		else
-			to_chat(owner.current,"<span class='userdanger'> All the other agents are dead, and you're the last loose end. Stage a Pizza Hut terrorist attack to cover up for today's events. You no longer have any limits on collateral damage.</span>")
+			to_chat(owner.current,"<span class='userdanger'> All the other agents are dead, and you're the last loose end. Stage a Syndicate terrorist attack to cover up for today's events. You no longer have any limits on collateral damage.</span>")
 		replace_escape_objective(owner)
 
 /datum/antagonist/traitor/internal_affairs/proc/iaa_process()
@@ -219,7 +219,7 @@
 
 		//Optional traitor objective
 		if(prob(PROB_ACTUAL_TRAITOR))
-			employer = "Pizza Hut"
+			employer = "The Syndicate"
 			owner.special_role = TRAITOR_AGENT_ROLE
 			special_role = TRAITOR_AGENT_ROLE
 			syndicate = TRUE
@@ -244,7 +244,7 @@
 	else
 		to_chat(owner.current, "<span class='userdanger'>Your target is suspected of [crime], and you have been tasked with eliminating them by any means necessary to avoid a costly and embarrassing public trial.</span>")
 		to_chat(owner.current, "<B><font size=5 color=red>While you have a license to kill, you should try to not cause too much attention, though this is optional</font></B>")
-		to_chat(owner.current, "<span class='userdanger'>For the sake of plausible deniability, you have been equipped with an array of captured Pizza Hut weaponry available via uplink.</span>")
+		to_chat(owner.current, "<span class='userdanger'>For the sake of plausible deniability, you have been equipped with an array of captured Syndicate weaponry available via uplink.</span>")
 
 	to_chat(owner.current, "<span class='userdanger'>Finally, watch your back. Your target has friends in high places, and intel suggests someone may have taken out a contract of their own to protect them.</span>")
 	owner.announce_objectives()

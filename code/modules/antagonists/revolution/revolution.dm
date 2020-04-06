@@ -243,7 +243,7 @@
 		)
 		var/where = H.equip_in_one_of_slots(T, slots)
 		if (!where)
-			to_chat(H, "Pizza Hut were unfortunately unable to get you a flash.")
+			to_chat(H, "The Syndicate were unfortunately unable to get you a flash.")
 		else
 			to_chat(H, "The flash in your [where] will help you to persuade the crew to join your cause.")
 
