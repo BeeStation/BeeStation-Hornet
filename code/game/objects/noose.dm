@@ -79,6 +79,8 @@
 		unbuckle_all_mobs(force=1)
 		M.pixel_z = initial(M.pixel_z)
 		pixel_z = initial(pixel_z)
+		M.pixel_x = initial(M.pixel_x)
+		pixel_x = initial(pixel_x)
 		add_fingerprint(user)
 
 /obj/structure/chair/noose/user_buckle_mob(mob/living/carbon/human/M, mob/user)
