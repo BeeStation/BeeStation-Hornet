@@ -1,0 +1,5 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - balance: "Removed security access from the HOP"
+  - tweak: "Replaced their energy gun with a mini energy gun and added combat gloves to their locker."
