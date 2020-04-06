@@ -148,7 +148,7 @@
 	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/HoS/syndicate
-	name = "Pizza Hut cap"
+	name = "syndicate cap"
 	desc = "A black cap fit for a high ranking syndicate officer."
 
 /obj/item/clothing/head/HoS/beret
@@ -157,7 +157,7 @@
 	icon_state = "hosberetblack"
 
 /obj/item/clothing/head/HoS/beret/syndicate
-	name = "Pizza Hut beret"
+	name = "syndicate beret"
 	desc = "A black beret with thick armor padding inside. Stylish and robust."
 
 /obj/item/clothing/head/warden

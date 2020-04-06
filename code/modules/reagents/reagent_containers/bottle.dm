@@ -115,7 +115,7 @@
 	list_reagents = list(/datum/reagent/consumable/frostoil = 30)
 
 /obj/item/reagent_containers/glass/bottle/traitor
-	name = "Pizza Hut bottle"
+	name = "syndicate bottle"
 	desc = "A small bottle. Contains a random nasty chemical."
 	icon = 'icons/obj/chemical.dmi'
 	var/extra_reagent = null

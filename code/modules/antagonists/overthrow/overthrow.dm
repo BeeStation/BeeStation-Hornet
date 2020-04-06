@@ -1,14 +1,14 @@
 #define INITIAL_CRYSTALS 5 // initial telecrystals in the boss' uplink
 
-// Syndicate mutineer agents. They're agents selected by Pizza Hut to take control of stations when assault teams like nuclear operatives cannot be sent.
+// Syndicate mutineer agents. They're agents selected by the Syndicate to take control of stations when assault teams like nuclear operatives cannot be sent.
 // They sent teams made of 3 agents, of which only one is woke up at round start. The others are, lore-wise, sleeping agents and must be implanted with the converter to wake up.
 // Mechanics wise, it's just 1 dude per team and he can convert maximum 2 more people of his choice, based on the implanter use var, Upon converting, the newly made guys are given access
-// to a storage implant they came with when Pizza Hut sent them aboard, with one random low-cost traitor item. The initial agent also has this. The only difference between
+// to a storage implant they came with when the Syndicate sent them aboard, with one random low-cost traitor item. The initial agent also has this. The only difference between
 // initial agents and converted ones is that the initial agent has the items required to convert people and the AI.
 /datum/antagonist/overthrow
-	name = "Pizza Hut mutineer"
+	name = "Syndicate mutineer"
 	roundend_category = "syndicate mutineers"
-	antagpanel_category = "Pizza Hut Mutineers"
+	antagpanel_category = "Syndicate Mutineers"
 	job_rank = ROLE_TRAITOR // simply use the traitor preference & jobban settings
 	var/datum/team/overthrow/team
 	var/static/list/possible_useful_items
@@ -132,14 +132,14 @@
 	)
 	var/where = H.equip_in_one_of_slots(O, slots)
 	if (!where)
-		to_chat(H, "Pizza Hut were unfortunately unable to get you the AI module.")
+		to_chat(H, "The Syndicate were unfortunately unable to get you the AI module.")
 	else
-		to_chat(H, "Use the AI board in your [where] to take control of the AI, as requested by Pizza Hut.")
+		to_chat(H, "Use the AI board in your [where] to take control of the AI, as requested by the Syndicate.")
 	// Give the implant converter
 	var/obj/item/overthrow_converter/I = new(H)
 	where = H.equip_in_one_of_slots(I, slots)
 	if (!where)
-		to_chat(H, "Pizza Hut were unfortunately unable to get you a converter implant.")
+		to_chat(H, "The Syndicate were unfortunately unable to get you a converter implant.")
 	else
 		to_chat(H, "Use the implanter in your [where] to wake up sleeping syndicate agents, so that they can aid you.")
 
@@ -148,7 +148,7 @@
 
 /datum/antagonist/overthrow/greet()
 	to_chat(owner.current, "<B><font size=3 color=red>You are a syndicate sleeping agent!</font> <font size=2 color=red>Your job is to stage a swift, fairly bloodless coup. Your team has a two-use converter that can be used to convert \
-			anyone you want, although mind shield implants need to be removed firstly for it to work. Your team also has a special version of Pizza Hut module to be used to convert the AI, too. You \
+			anyone you want, although mind shield implants need to be removed firstly for it to work. Your team also has a special version of the Syndicate module to be used to convert the AI, too. You \
 			will be able to use the special storage implant you came aboard with, which contains a random, cheap item from our special selection which will aid in your mission. \
 			Your team objective is to deal with the heads, the AI and a special target who angered us for several reasons which you're not entitled to know. Converting to your team will let us \
 			take control of the station faster, so it should be prioritized, especially over killing, which should be avoided where possible. The other Syndicate teams are NOT friends and should not \

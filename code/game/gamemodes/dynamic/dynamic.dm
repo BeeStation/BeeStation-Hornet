@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(dynamic_midround_delay_max, (35 MINUTES))
 
 // Are HIGHLANDER_RULESETs allowed to stack?
 GLOBAL_VAR_INIT(dynamic_no_stacking, TRUE)
-// A number between -5 and +5.
+// A number between -5 and +5. 
 // A negative value will give a more peaceful round and
 // a positive value will give a round with higher threat.
 GLOBAL_VAR_INIT(dynamic_curve_centre, 0)
@@ -27,7 +27,7 @@ GLOBAL_VAR_INIT(dynamic_curve_centre, 0)
 // Higher value will favour extreme rounds and
 // lower value rounds closer to the average.
 GLOBAL_VAR_INIT(dynamic_curve_width, 1.8)
-// If enabled only picks a single starting rule and executes only autotraitor midround ruleset.
+// If enabled only picks a single starting rule and executes only autotraitor midround ruleset. 
 GLOBAL_VAR_INIT(dynamic_classic_secret, FALSE)
 // How many roundstart players required for high population override to take effect.
 GLOBAL_VAR_INIT(dynamic_high_pop_limit, 55)
@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(dynamic_forced_extended, FALSE)
 GLOBAL_VAR_INIT(dynamic_stacking_limit, 90)
 // List of forced roundstart rulesets.
 GLOBAL_LIST_EMPTY(dynamic_forced_roundstart_ruleset)
-// Forced threat level, setting this to zero or higher forces the roundstart threat to the value.
+// Forced threat level, setting this to zero or higher forces the roundstart threat to the value. 
 GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 /datum/game_mode/dynamic
@@ -50,14 +50,14 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	announce_text = "Dynamic mode!" // This needs to be changed maybe
 
 	reroll_friendly = FALSE;
-
+	
 	// Threat logging vars
 	/// The "threat cap", threat shouldn't normally go above this and is used in ruleset calculations
-	var/threat_level = 0
+	var/threat_level = 0 
 	/// Set at the beginning of the round. Spent by the mode to "purchase" rules.
-	var/threat = 0
+	var/threat = 0 
 	/// Running information about the threat. Can store text or datum entries.
-	var/list/threat_log = list()
+	var/list/threat_log = list() 
 	/// List of roundstart rules used for selecting the rules.
 	var/list/roundstart_rules = list()
 	/// List of latejoin rules used for selecting the rules.
@@ -77,9 +77,9 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/list/second_rule_req = list(100, 100, 80, 70, 60, 50, 30, 20, 10, 0)
 	/// The requirement used for checking if a third rule should be selected.
 	var/list/third_rule_req = list(100, 100, 100, 90, 80, 70, 60, 50, 40, 30)
-	/// Threat requirement for a second ruleset when high pop override is in effect.
+	/// Threat requirement for a second ruleset when high pop override is in effect. 
 	var/high_pop_second_rule_req = 40
-	/// Threat requirement for a third ruleset when high pop override is in effect.
+	/// Threat requirement for a third ruleset when high pop override is in effect. 
 	var/high_pop_third_rule_req = 60
 	/// Number of players who were ready on roundstart.
 	var/roundstart_pop_ready = 0
@@ -167,7 +167,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		show_threatlog(usr)
 	else if (href_list["stacking_limit"])
 		GLOB.dynamic_stacking_limit = input(usr,"Change the threat limit at which round-endings rulesets will start to stack.", "Change stacking limit", null) as num
-
+	
 	admin_panel() // Refreshes the window
 
 // Checks if there are HIGHLANDER_RULESETs and calls the rule's round_result() proc
@@ -198,7 +198,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			. += "Although your station lies within what is generally considered Nanotrasen-controlled space, the course of its orbit has caused it to cross unusually close to exogeological features with anomalous readings. Although these features offer opportunities for our research department, it is known that these little understood readings are often correlated with increased activity from competing interstellar organizations and individuals, among them the Wizard Federation and Cult of the Geometer of Blood - all known competitors for Anomaly Type B sites. Exercise elevated caution."
 		if(40 to 65)
 			. += "<b>Contested System</b></center><BR>"
-			. += "Your station's orbit passes along the edge of Nanotrasen's sphere of influence. While subversive elements remain the most likely threat against your station, hostile organizations are bolder here, where our grip is weaker. Exercise increased caution against elite Pizza Hut strike forces, or Executives forbid, some kind of ill-conceived unionizing attempt."
+			. += "Your station's orbit passes along the edge of Nanotrasen's sphere of influence. While subversive elements remain the most likely threat against your station, hostile organizations are bolder here, where our grip is weaker. Exercise increased caution against elite Syndicate strike forces, or Executives forbid, some kind of ill-conceived unionizing attempt."
 		if(66 to 79)
 			. += "<b>Uncharted Space</b></center><BR>"
 			. += "Congratulations and thank you for participating in the NT 'Frontier' space program! Your station is actively orbiting a high value system far from the nearest support stations. Little is known about your region of space, and the opportunity to encounter the unknown invites greater glory. You are encouraged to elevate security as necessary to protect Nanotrasen assets."
@@ -309,10 +309,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		return TRUE
 	if (roundstart_rules.len <= 0)
 		return TRUE
-
+	
 	if(GLOB.dynamic_forced_roundstart_ruleset.len > 0)
 		rigged_roundstart()
-	else
+	else 
 		roundstart()
 
 	var/starting_rulesets = ""
@@ -453,7 +453,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/datum/dynamic_ruleset/rule = pickweight(drafted_rules)
 	if(!rule)
 		return FALSE
-
+	
 	if(!forced)
 		if(only_ruleset_executed)
 			return FALSE
@@ -471,13 +471,13 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 					if(drafted_rules.len <= 0)
 						return FALSE
 					rule = pickweight(drafted_rules)
-
+	
 	if(!rule.repeatable)
 		if(rule.ruletype == "Latejoin")
 			latejoin_rules = remove_from_list(latejoin_rules, rule.type)
 		else if(rule.type == "Midround")
 			midround_rules = remove_from_list(midround_rules, rule.type)
-
+	
 	if (rule.execute())
 		log_game("DYNAMIC: Injected a [rule.ruletype == "latejoin" ? "latejoin" : "midround"] ruleset [rule.name].")
 		spend_threat(rule.cost)
@@ -508,10 +508,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		new_rule = ruletype
 	else
 		return FALSE
-
+	
 	if(!new_rule)
 		return FALSE
-
+	
 	if(!forced)
 		if(only_ruleset_executed)
 			return FALSE
@@ -523,7 +523,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			if(threat < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
 				if(highlander_executed)
 					return FALSE
-
+	
 	update_playercounts()
 	if ((forced || (new_rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && new_rule.cost <= threat)))
 		new_rule.trim_candidates()
@@ -556,19 +556,19 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	if (midround_injection_cooldown < world.time)
 		if (GLOB.dynamic_forced_extended)
 			return
-
+		
 		// Somehow it managed to trigger midround multiple times so this was moved here.
 		// There is no way this should be able to trigger an injection twice now.
 		var/midround_injection_cooldown_middle = 0.5*(GLOB.dynamic_midround_delay_max + GLOB.dynamic_midround_delay_min)
 		midround_injection_cooldown = (round(CLAMP(EXP_DISTRIBUTION(midround_injection_cooldown_middle), GLOB.dynamic_midround_delay_min, GLOB.dynamic_midround_delay_max)) + world.time)
-
+		
 		// Time to inject some threat into the round
 		if(EMERGENCY_ESCAPED_OR_ENDGAMED) // Unless the shuttle is gone
 			return
 
 		message_admins("DYNAMIC: Checking for midround injection.")
 		log_game("DYNAMIC: Checking for midround injection.")
-
+			
 		update_playercounts()
 		if (get_injection_chance())
 			var/list/drafted_rules = list()
@@ -582,7 +582,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 						drafted_rules[rule] = rule.get_weight()
 			if (drafted_rules.len > 0)
 				picking_midround_latejoin_rule(drafted_rules)
-
+	
 /// Updates current_players.
 /datum/game_mode/dynamic/proc/update_playercounts()
 	current_players[CURRENT_LIVING_PLAYERS] = list()
@@ -681,7 +681,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				if (threat < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
 					if(rule.flags & HIGHLANDER_RULESET && highlander_executed)
 						continue
-
+					
 				rule.candidates = list(newPlayer)
 				rule.trim_candidates()
 				if (rule.ready())

@@ -10,7 +10,7 @@
 #define VAULT_ARMOUR "Bone Reinforcement"
 #define VAULT_SPEED "Leg Muscle Stimulus"
 #define VAULT_QUICK "Arm Muscle Stimulus"
-/*
+
 /datum/station_goal/dna_vault
 	name = "DNA Vault"
 	var/animal_count
@@ -58,7 +58,7 @@
 			return TRUE
 	return FALSE
 
-*/
+
 /obj/item/dna_probe
 	name = "DNA Sampler"
 	desc = "Can be used to take chemical and genetic samples of pretty much anything."
@@ -145,7 +145,7 @@
 	var/list/power_lottery = list()
 
 	var/list/obj/structure/fillers = list()
-/*
+
 /obj/machinery/dna_vault/Initialize()
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
@@ -282,4 +282,3 @@
 			to_chat(H, "<span class='notice'>Your arms move as fast as lightning.</span>")
 			H.next_move_modifier = 0.5
 	power_lottery[H] = list()
-*/

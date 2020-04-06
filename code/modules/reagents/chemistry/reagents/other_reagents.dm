@@ -1,13 +1,13 @@
 /datum/reagent/blood
 	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null,"quirks"=null)
-	name = "Papa John's special sauce"
+	name = "Blood"
 	color = "#C80000" // rgb: 200, 0, 0
 	metabolization_rate = 5 //fast rate so it disappears fast.
 	taste_description = "iron"
 	taste_mult = 1.3
 	glass_icon_state = "glass_red"
-	glass_name = "glass of Papa John's special sauce"
-	glass_desc = "A refreshing glass of Papa John's special sauce."
+	glass_name = "glass of tomato juice"
+	glass_desc = "Are you sure this is tomato juice?"
 	shot_glass_icon_state = "shotglassred"
 
 /datum/reagent/blood/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
@@ -203,15 +203,15 @@
 
 /datum/reagent/water/holywater/on_mob_life(mob/living/carbon/M)
 	if(!data)
-		data = 1
-	data++
+		data = list("misc" = 1)
+	data["misc"]++
 	M.jitteriness = min(M.jitteriness+4,10)
 	if(iscultist(M))
 		for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 			to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
 			for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 				qdel(BS)
-	if(data >= 25)		// 10 units, 45 seconds @ metabolism 0.4 units & tick rate 1.8 sec
+	if(data["misc"] >= 25)		// 10 units, 45 seconds @ metabolism 0.4 units & tick rate 1.8 sec
 		if(!M.stuttering)
 			M.stuttering = 1
 		M.stuttering = min(M.stuttering+4, 10)
@@ -232,7 +232,7 @@
 					"You can't save him. Nothing can save him now", "It seems that Nar'Sie will triumph after all")].</span>")
 				if("emote")
 					M.visible_message("<span class='warning'>[M] [pick("whimpers quietly", "shivers as though cold", "glances around in paranoia")].</span>")
-	if(data >= 60)	// 30 units, 135 seconds
+	if(data["misc"] >= 60)	// 30 units, 135 seconds
 		if(iscultist(M) || is_servant_of_ratvar(M))
 			if(iscultist(M))
 				SSticker.mode.remove_cultist(M.mind, FALSE, TRUE)
@@ -656,7 +656,7 @@
 
 /datum/reagent/mulligan
 	name = "Mulligan Toxin"
-	description = "This toxin will rapidly change the DNA of human beings. Commonly used by Pizza Hut spies and assassins in need of an emergency ID change."
+	description = "This toxin will rapidly change the DNA of human beings. Commonly used by Syndicate spies and assassins in need of an emergency ID change."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	metabolization_rate = INFINITY
 	taste_description = "slime"
@@ -1878,7 +1878,7 @@
 	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
 	color = "#FAFF00"
 	taste_description = "acrid cinnamon"
-	random_unrestricted = FALSE
+	random_unrestricted = FALSE	
 
 /datum/reagent/concentrated_bz/on_mob_metabolize(mob/living/L)
 	..()
@@ -1893,20 +1893,20 @@
 		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
-			if(prob(30))
+			if(prob(30))	
 				L.losebreath += 1
 				L.adjustOxyLoss(3,5)
 				to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")
 
-		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
-	return ..()
+		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)					
+	return ..()	
 
 /datum/reagent/fake_cbz
 	name = "Concentrated BZ"
 	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
 	color = "#FAFF00"
 	taste_description = "acrid cinnamon"
-	random_unrestricted = FALSE
+	random_unrestricted = FALSE	
 
 /datum/reagent/fake_cbz/on_mob_life(mob/living/L)
 	L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)

@@ -8,7 +8,7 @@
 	ruletype = "Midround"
 	/// If the ruleset should be restricted from ghost roles.
 	var/restrict_ghost_roles = TRUE
-	/// What mob type the ruleset is restricted to.
+	/// What mob type the ruleset is restricted to. 
 	var/required_type = /mob/living/carbon/human
 	var/list/living_players = list()
 	var/list/living_antags = list()
@@ -48,7 +48,7 @@
 				candidates.Remove(M)
 				continue
 		if (M.mind)
-			if (restrict_ghost_roles && M.mind.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL]) // Are they playing a ghost role?
+			if (restrict_ghost_roles && (M.mind.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])) // Are they playing a ghost role?
 				trimmed_list.Remove(M)
 				continue
 			if (M.mind.assigned_role in restricted_roles || HAS_TRAIT(M, TRAIT_MINDSHIELD)) // Does their job allow it or are they mindshielded?
@@ -98,7 +98,7 @@
 	log_game("DYNAMIC: Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 
 	candidates = pollGhostCandidates("The mode is looking for volunteers to become [antag_flag] for [name]", antag_flag, SSticker.mode, antag_flag, poll_time = 300)
-
+	
 	if(!candidates || candidates.len <= 0)
 		message_admins("The ruleset [name] received no applications.")
 		log_game("DYNAMIC: The ruleset [name] received no applications.")
@@ -165,7 +165,7 @@
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/midround/autotraitor
-	name = "Pizza Hut Sleeper Agent"
+	name = "Syndicate Sleeper Agent"
 	antag_datum = /datum/antagonist/traitor
 	antag_flag = ROLE_TRAITOR
 	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel")
@@ -191,7 +191,7 @@
 	..()
 	for(var/mob/living/player in living_players)
 		if(issilicon(player)) // Your assigned role doesn't change when you are turned into a silicon.
-			living_players -= player
+			living_players -= player 
 			continue
 		if(is_centcom_level(player.z))
 			living_players -= player // We don't autotator people in CentCom

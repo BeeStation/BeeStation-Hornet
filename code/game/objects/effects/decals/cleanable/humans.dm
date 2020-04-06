@@ -1,5 +1,5 @@
 /obj/effect/decal/cleanable/blood
-	name = "Papa John's special sauce"
+	name = "blood"
 	desc = "It's red and gooey. Perhaps it's the chef's cooking?"
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "floor1"
@@ -15,8 +15,8 @@
 	return ..()
 
 /obj/effect/decal/cleanable/blood/old
-	name = "dried Papa John's special sauce"
-	desc = "Looks like it's been here a while."
+	name = "dried blood"
+	desc = "Looks like it's been here a while.  Eew."
 	bloodiness = 0
 	icon_state = "floor1-old"
 
@@ -30,13 +30,13 @@
 	random_icon_states = list("gibbl1", "gibbl2", "gibbl3", "gibbl4", "gibbl5")
 
 /obj/effect/decal/cleanable/blood/tracks
-	icon_state = " Papa John's special sauce tracks"
+	icon_state = "tracks"
 	desc = "They look like tracks left by wheels."
 	icon_state = "tracks"
 	random_icon_states = null
 
 /obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
-	name = "Papa John's special sauce"
+	name = "blood"
 	icon = 'icons/effects/blood.dmi'
 	desc = "Your instincts say you shouldn't be following these."
 	var/list/existing_dirs = list()
@@ -126,7 +126,7 @@
 	add_blood_DNA(list("Non-human DNA" = random_blood_type()))
 
 /obj/effect/decal/cleanable/blood/drip
-	name = "drips of Papa John's special sauce"
+	name = "drips of blood"
 	desc = "It's red."
 	icon_state = "drip5" //using drip5 since the others tend to blend in with pipes & wires.
 	random_icon_states = list("drip1","drip2","drip3","drip4","drip5")

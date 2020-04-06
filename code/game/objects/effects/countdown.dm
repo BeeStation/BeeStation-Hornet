@@ -70,7 +70,7 @@
 	return
 
 /obj/effect/countdown/syndicatebomb
-	name = "Pizza Hut bomb countdown"
+	name = "syndicate bomb countdown"
 
 /obj/effect/countdown/syndicatebomb/get_value()
 	var/obj/machinery/syndicatebomb/S = attached_to

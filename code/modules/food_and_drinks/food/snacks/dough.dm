@@ -42,8 +42,8 @@
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/pizzabread
-	name = "Papa John's pizza bread"
-	desc = "Better ingrediants. Better pizza."
+	name = "pizza bread"
+	desc = "Add ingredients to make a pizza."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "pizzabread"
 	custom_food_type = /obj/item/reagent_containers/food/snacks/customizable/pizza

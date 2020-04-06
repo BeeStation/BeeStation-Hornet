@@ -684,7 +684,7 @@
 "ch" = (
 /obj/structure/chair/comfy/black,
 /mob/living/simple_animal/hostile/syndicate{
-	name = "Pizza Hut Commander"
+	name = "Syndicate Commander"
 	},
 /turf/open/floor/carpet,
 /area/awaymission/challenge/end)
@@ -1117,7 +1117,7 @@
 	icon_state = "1-4"
 	},
 /mob/living/simple_animal/hostile/syndicate{
-	name = "Pizza Hut Technician"
+	name = "Syndicate Technician"
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/challenge/end)

@@ -67,7 +67,7 @@
 "vK" = (
 /obj/machinery/power/apc/highcap/fifteen_k{
 	dir = 8;
-	name = "Pizza Hut Fighter APC";
+	name = "Syndicate Fighter APC";
 	pixel_x = -25;
 	req_access = null;
 	req_access_txt = "150"
@@ -95,7 +95,7 @@
 	height = 5;
 	id = "caravansyndicate1";
 	ignitionTime = 25;
-	name = "Pizza Hut Fighter";
+	name = "Syndicate Fighter";
 	port_direction = 2;
 	preferred_direction = 4;
 	width = 9
