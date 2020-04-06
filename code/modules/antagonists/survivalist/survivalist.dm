@@ -24,7 +24,7 @@
 	. = ..()
 	var/datum/atom_hud/antag/survivalisthud = GLOB.huds[ANTAG_HUD_SURVIVALIST]
 	survivalisthud.join_hud(owner.current)
-	if(!owner.antag_hud_icon_state)	//Don't override traitor huds etc, they are more important
+	if(!owner.antag_hud_icon_state)	//Don't override traitor huds etc, they are more important.
 		set_antag_hud(owner.current, "survivalist")
 
 /datum/antagonist/survivalist/remove_innate_effects(mob/living/mob_override)
