@@ -1,5 +1,5 @@
 /obj/item/bombcore/miniature/pizza
-	name = "Papa Johns' pizza bomb"
+	name = "pizza bomb"
 	desc = "Special delivery!"
 	icon_state = "pizzabomb_inactive"
 	item_state = "eshield0"
@@ -7,8 +7,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 
 /obj/item/pizzabox
-	name = "Papa John's pizza box"
-	desc = "We're more than a pizza company. Were a pizza family."
+	name = "pizza box"
+	desc = "A box suited for pizzas."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "pizzabox"
 	item_state = "pizzabox"
@@ -213,12 +213,11 @@
 		bomb_timer--
 	if(bomb_active && !bomb_defused && (bomb_timer <= 0))
 		if(bomb in src)
-			visible_message("<span class='danger'>No one out pizzas the hut!</span>")
 			bomb.detonate()
 			unprocess()
 			qdel(src)
 	if(!bomb_active || bomb_defused)
-		if(bomb_defused && bomb in src)
+		if(bomb_defused && (bomb in src))
 			bomb.defuse()
 			bomb_active = FALSE
 			unprocess()
@@ -234,7 +233,7 @@
 		disperse_pizzas()
 
 /obj/item/pizzabox/proc/disperse_pizzas()
-	visible_message("<span class='warning'>THE PAPA JOHNS FALL EVERYWHERE!</span>")
+	visible_message("<span class='warning'>The pizzas fall everywhere!</span>")
 	for(var/V in boxes)
 		var/obj/item/pizzabox/P = V
 		var/fall_dir = pick(GLOB.alldirs)
@@ -268,7 +267,7 @@
 /obj/item/pizzabox/margherita/Initialize()
 	. = ..()
 	AddPizza()
-	boxtag = "Papa John's Grilled Chicken Margherita"
+	boxtag = "Margherita Deluxe"
 
 /obj/item/pizzabox/margherita/proc/AddPizza()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/margherita(src)
@@ -279,22 +278,22 @@
 /obj/item/pizzabox/vegetable/Initialize()
 	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/vegetable(src)
-	boxtag = "Papa John's Mediterranean Veggie"
+	boxtag = "Gourmet Vegatable"
 
 /obj/item/pizzabox/mushroom/Initialize()
 	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/mushroom(src)
-	boxtag = "Papa John's The Works"
+	boxtag = "Mushroom Special"
 
 /obj/item/pizzabox/meat/Initialize()
 	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/meat(src)
-	boxtag = "Papa John's THE MEATS"
+	boxtag = "Meatlover's Supreme"
 
 /obj/item/pizzabox/pineapple/Initialize()
 	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/pineapple(src)
-	boxtag = "Papa John's Super Hawaiian"
+	boxtag = "Honolulu Chew"
 
 //An anomalous pizza box that, when opened, produces the opener's favorite kind of pizza.
 /obj/item/pizzabox/infinite
@@ -319,7 +318,7 @@
 /obj/item/pizzabox/infinite/examine(mob/user)
 	. = ..()
 	if(isobserver(user))
-		. += "<span class='deadsay'>This pizza box is anomalous, and will produce infinite Papa John's.</span>"
+		. += "<span class='deadsay'>This pizza box is anomalous, and will produce infinite pizza.</span>"
 
 /obj/item/pizzabox/infinite/attack_self(mob/living/user)
 	QDEL_NULL(pizza)

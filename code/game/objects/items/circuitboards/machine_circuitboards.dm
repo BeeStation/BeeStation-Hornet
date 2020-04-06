@@ -957,7 +957,7 @@
 		/obj/item/vending_refill/donksoft = 1)
 
 /obj/item/circuitboard/machine/vending/syndicatedonksofttoyvendor
-	name = "Pizza Hut Donksoft Toy Vendor (Machine Board)"
+	name = "Syndicate Donksoft Toy Vendor (Machine Board)"
 	build_path = /obj/machinery/vending/toyliberationstation
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,

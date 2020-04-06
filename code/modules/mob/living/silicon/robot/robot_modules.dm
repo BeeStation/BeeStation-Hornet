@@ -329,7 +329,7 @@
 	moduleselect_icon = "engineer"
 	magpulsing = TRUE
 	hat_offset = -4
-
+	
 /obj/item/robot_module/deathsquad
 	name = "Centcom"
 	basic_modules = list(
@@ -613,7 +613,7 @@
 	return ..()
 
 /obj/item/robot_module/syndicate
-	name = "Pizza Hut Assault"
+	name = "Syndicate Assault"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/melee/transforming/energy/sword/cyborg,
@@ -644,7 +644,7 @@
 	Syndi.faction += "silicon" //ai is your bff now!
 
 /obj/item/robot_module/syndicate_medical
-	name = "Pizza Hut Medical"
+	name = "Syndicate Medical"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/reagent_containers/borghypo/syndicate,
@@ -675,7 +675,7 @@
 	hat_offset = 3
 
 /obj/item/robot_module/saboteur
-	name = "Pizza Hut Saboteur"
+	name = "Syndicate Saboteur"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/borg/sight/thermal,

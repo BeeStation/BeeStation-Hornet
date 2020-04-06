@@ -1,5 +1,5 @@
 /datum/round_event_control/portal_storm_syndicate
-	name = "Portal Storm: Pizza Hut Shocktroops"
+	name = "Portal Storm: Syndicate Shocktroops"
 	typepath = /datum/round_event/portal_storm/syndicate_shocktroop
 	weight = 2
 	min_players = 15

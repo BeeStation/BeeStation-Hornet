@@ -17,20 +17,20 @@
 	icon_state = "docs_verified"
 
 /obj/item/documents/syndicate
-	desc = "\"Top Secret\" documents detailing sensitive Pizza Hut operational intelligence."
+	desc = "\"Top Secret\" documents detailing sensitive Syndicate operational intelligence."
 
 /obj/item/documents/syndicate/red
 	name = "red secret documents"
-	desc = "\"Top Secret\" documents detailing sensitive Pizza Hut operational intelligence. These documents are verified with a red wax seal."
+	desc = "\"Top Secret\" documents detailing sensitive Syndicate operational intelligence. These documents are verified with a red wax seal."
 	icon_state = "docs_red"
 
 /obj/item/documents/syndicate/blue
 	name = "blue secret documents"
-	desc = "\"Top Secret\" documents detailing sensitive Pizza Hut operational intelligence. These documents are verified with a blue wax seal."
+	desc = "\"Top Secret\" documents detailing sensitive Syndicate operational intelligence. These documents are verified with a blue wax seal."
 	icon_state = "docs_blue"
 
 /obj/item/documents/syndicate/mining
-	desc = "\"Top Secret\" documents detailing Pizza Hut plasma mining operations."
+	desc = "\"Top Secret\" documents detailing Syndicate plasma mining operations."
 
 /obj/item/documents/photocopy
 	desc = "A copy of some top-secret documents. Nobody will notice they aren't the originals... right?"

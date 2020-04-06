@@ -7,6 +7,12 @@
 	results = list(/datum/reagent/space_cleaner/sterilizine = 3)
 	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/chlorine = 1)
 
+/datum/chemical_reaction/cooking_oil
+	name = "Cooking Oil"
+	id = /datum/reagent/consumable/cooking_oil
+	results = list(/datum/reagent/consumable/cooking_oil = 4)
+	required_reagents = list(/datum/reagent/hydrogen = 1, /datum/reagent/oil = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/carbon = 1)
+
 /datum/chemical_reaction/lube
 	name = "Space Lube"
 	id = /datum/reagent/lube

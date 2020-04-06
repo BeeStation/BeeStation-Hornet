@@ -303,7 +303,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 			//These three are weird. For best performance, they are only a number when they're not being changed by the SDQL searching/execution code. They only become numbers when they finish changing.
 	var/list/obj_count_all
 	var/list/obj_count_eligible
-	var/list/obj_count_finished
+	var/obj_count_finished
 
 	//Statclick
 	var/obj/effect/statclick/SDQL2_delete/delete_click
@@ -682,7 +682,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 					SDQL2_TICK_CHECK
 					SDQL2_HALT_CHECK
 	if(islist(obj_count_finished))
-		obj_count_finished = obj_count_finished.len
+		obj_count_finished = length(obj_count_finished)
 	state = SDQL2_STATE_SWITCHING
 
 /datum/SDQL2_query/proc/SDQL_print(object, list/text_list, print_nulls = TRUE)

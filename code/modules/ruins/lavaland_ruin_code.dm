@@ -102,7 +102,7 @@
 ///Syndicate Listening Post
 
 /obj/effect/mob_spawn/human/lavaland_syndicate
-	name = "Pizza Hut Bioweapon Scientist"
+	name = "Syndicate Bioweapon Scientist"
 	roundstart = FALSE
 	death = FALSE
 	random = TRUE
@@ -118,7 +118,7 @@
 	new_spawn.grant_language(/datum/language/codespeak)
 
 /datum/outfit/lavaland_syndicate
-	name = "Lavaland Pizza Hut Agent"
+	name = "Lavaland Syndicate Agent"
 	r_hand = /obj/item/gun/ballistic/automatic/sniper_rifle
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/toggle/labcoat
@@ -134,7 +134,7 @@
 	H.faction |= ROLE_SYNDICATE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms
-	name = "Pizza Hut Comms Agent"
+	name = "Syndicate Comms Agent"
 	short_desc = "You are a syndicate comms agent, employed in a top secret research facility developing biological weapons."
 	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Monitor enemy activity as best you can, and try to keep a low profile. Use the communication equipment to provide support to any field agents, and sow disinformation to throw Nanotrasen off your trail. Do not let the base fall into enemy hands!"
 	important_info = "DO NOT abandon the base."
@@ -152,7 +152,7 @@
 		return INITIALIZE_HINT_QDEL
 
 /datum/outfit/lavaland_syndicate/comms
-	name = "Lavaland Pizza Hut Comms Agent"
+	name = "Lavaland Syndicate Comms Agent"
 	r_hand = /obj/item/melee/transforming/energy/sword/saber
 	mask = /obj/item/clothing/mask/chameleon/gps
 	suit = /obj/item/clothing/suit/armor/vest

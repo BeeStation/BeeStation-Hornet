@@ -21,7 +21,7 @@
 
 /mob/living/simple_animal/bot/secbot/grievous/nullcrate
 	name = "General Griefsky"
-	desc = "Pizza Hut sends their regards."
+	desc = "The Syndicate sends their regards."
 	emagged = 2
 	noloot = TRUE
 

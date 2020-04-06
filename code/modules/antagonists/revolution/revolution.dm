@@ -2,9 +2,9 @@
 #define HEAD_UPDATE_PERIOD 300
 
 /datum/antagonist/rev
-	name = "Domino's Pizza Employee"
+	name = "Revolutionary"
 	roundend_category = "revolutionaries" // if by some miracle revolutionaries without revolution happen
-	antagpanel_category = "DOMINO'S PIZZA"
+	antagpanel_category = "Revolution"
 	job_rank = ROLE_REV
 	antag_moodlet = /datum/mood_event/revolution
 	var/hud_type = "rev"
@@ -35,14 +35,14 @@
 	. = ..()
 	create_objectives()
 	equip_rev()
-	owner.current.log_message("has been employed at Domino's Pizza!", LOG_ATTACK, color="red")
+	owner.current.log_message("has been converted to the revolution!", LOG_ATTACK, color="red")
 
 /datum/antagonist/rev/on_removal()
 	remove_objectives()
 	. = ..()
 
 /datum/antagonist/rev/greet()
-	to_chat(owner, "<span class='userdanger'>You are now a Domino's Pizza employee! Help your restaurant chain. Do not harm your fellow employees. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the Papa John's CEOs to win!</span>")
+	to_chat(owner, "<span class='userdanger'>You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</span>")
 	owner.announce_objectives()
 
 /datum/antagonist/rev/create_team(datum/team/revolution/new_team)
@@ -83,7 +83,7 @@
 	new_revhead.silent = TRUE
 	old_owner.add_antag_datum(new_revhead,old_team)
 	new_revhead.silent = FALSE
-	to_chat(old_owner, "<span class='userdanger'>You have proved your devotion to Domino's Pizza! You are a Domino's CEO now!</span>")
+	to_chat(old_owner, "<span class='userdanger'>You have proved your devotion to revolution! You are a head revolutionary now!</span>")
 
 /datum/antagonist/rev/get_admin_commands()
 	. = ..()
@@ -102,7 +102,7 @@
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has head-rev'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has head-rev'ed [key_name(new_owner)].")
-	to_chat(new_owner.current, "<span class='userdanger'>You are an employee at Domino's Pizza now!</span>")
+	to_chat(new_owner.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership now!</span>")
 
 /datum/antagonist/rev/head/get_admin_commands()
 	. = ..()
@@ -148,14 +148,14 @@
 	demote()
 
 /datum/antagonist/rev/head
-	name = "Domino'S Pizza CEO"
+	name = "Head Revolutionary"
 	hud_type = "rev_head"
 	var/remove_clumsy = FALSE
 	var/give_flash = FALSE
 	var/give_hud = TRUE
 
 /datum/antagonist/rev/head/antag_listing_name()
-	return ..() + "(CEO)"
+	return ..() + "(Leader)"
 
 /datum/antagonist/rev/proc/update_rev_icons_added(mob/living/M)
 	var/datum/atom_hud/antag/revhud = GLOB.huds[ANTAG_HUD_REV]
@@ -199,15 +199,15 @@
 	new_rev.silent = TRUE
 	old_owner.add_antag_datum(new_rev,old_team)
 	new_rev.silent = FALSE
-	to_chat(old_owner, "<span class='userdanger'>Domino's Pizza HQ has been disappointed of your leader traits! You are a Delivery Boy now!</span>")
+	to_chat(old_owner, "<span class='userdanger'>Revolution has been disappointed of your leader traits! You are a regular revolutionary now!</span>")
 
 /datum/antagonist/rev/farewell()
 	if(ishuman(owner.current) || ismonkey(owner.current))
-		owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] just remembered they worked at Domino's Pizza!</span>", null, null, null, owner.current)
-		to_chat(owner, "<span class='userdanger'>You are no longer a brainwashed Domino's Pizza employee! Your memory is hazy from the time you were a delivery boy...the only thing you remember is the name of the one who hired you...</span>")
+		owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] just remembered [owner.current.p_their()] real allegiance!</span>", null, null, null, owner.current)
+		to_chat(owner, "<span class='userdanger'>You are no longer a brainwashed revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</span>")
 	else if(issilicon(owner.current))
 		owner.current.visible_message("<span class='deconversion_message'>The frame beeps contentedly, purging the hostile memory engram from the MMI before initalizing it.</span>", null, null, null, owner.current)
-		to_chat(owner, "<span class='userdanger'>The frame's firmware detects and deletes your neural reprogramming! You remember nothing but the name of the one who hired you.</span>")
+		to_chat(owner, "<span class='userdanger'>The frame's firmware detects and deletes your neural reprogramming! You remember nothing but the name of the one who flashed you.</span>")
 
 //blunt trauma deconversions call this through species.dm spec_attacked_by()
 /datum/antagonist/rev/proc/remove_revolutionary(borged, deconverter)
@@ -231,7 +231,7 @@
 		return
 
 	if(remove_clumsy && owner.assigned_role == "Clown")
-		to_chat(owner, "Your Domino's Pizza training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
+		to_chat(owner, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 		H.dna.remove_mutation(CLOWNMUT)
 
 	if(give_flash)
@@ -243,17 +243,17 @@
 		)
 		var/where = H.equip_in_one_of_slots(T, slots)
 		if (!where)
-			to_chat(H, "Domino's Pizza HQ were unfortunately unable to get you a flash.")
+			to_chat(H, "The Syndicate were unfortunately unable to get you a flash.")
 		else
-			to_chat(H, "The flash in your [where] will help you to hire more Domino's Pizza employees.")
+			to_chat(H, "The flash in your [where] will help you to persuade the crew to join your cause.")
 
 	if(give_hud)
 		var/obj/item/organ/cyberimp/eyes/hud/security/syndicate/S = new(H)
 		S.Insert(H, special = FALSE, drop_if_replaced = FALSE)
-		to_chat(H, "Your eyes have been implanted with a cybernetic security HUD which will help you keep track of who is mindshield-implanted, and therefore unable to be employed at Domino's Pizza.")
+		to_chat(H, "Your eyes have been implanted with a cybernetic security HUD which will help you keep track of who is mindshield-implanted, and therefore unable to be recruited.")
 
 /datum/team/revolution
-	name = "DOMINO'S PIZZA TEAM"
+	name = "Revolution"
 	var/max_headrevs = 3
 
 /datum/team/revolution/proc/update_objectives(initial = FALSE)
@@ -322,7 +322,7 @@
 				if(is_revolutionary(survivor))
 					num_revs++
 	if(num_survivors)
-		result += "Papa John's Approval Rating: <B>[100 - round((num_revs/num_survivors)*100, 0.1)]%</B><br>"
+		result += "Command's Approval Rating: <B>[100 - round((num_revs/num_survivors)*100, 0.1)]%</B><br>"
 
 
 	var/list/targets = list()
@@ -330,19 +330,19 @@
 	var/list/datum/mind/revs = get_antag_minds(/datum/antagonist/rev,TRUE)
 	if(headrevs.len)
 		var/list/headrev_part = list()
-		headrev_part += "<span class='header'>The Domino's Pizza CEOS were:</span>"
+		headrev_part += "<span class='header'>The head revolutionaries were:</span>"
 		headrev_part += printplayerlist(headrevs,TRUE)
 		result += headrev_part.Join("<br>")
 
 	if(revs.len)
 		var/list/rev_part = list()
-		rev_part += "<span class='header'>The Domino's delivery boys were:</span>"
+		rev_part += "<span class='header'>The revolutionaries were:</span>"
 		rev_part += printplayerlist(revs,TRUE)
 		result += rev_part.Join("<br>")
 
 	var/list/heads = SSjob.get_all_heads()
 	if(heads.len)
-		var/head_text = "<span class='header'>The Papa John's CEOs:</span>"
+		var/head_text = "<span class='header'>The heads of staff were:</span>"
 		head_text += "<ul class='playerlist'>"
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
@@ -372,7 +372,7 @@
 	parts += antag_listing_footer()
 	common_part = parts.Join()
 
-	var/heads_report = "<b>Papa John's CEOs</b><br>"
+	var/heads_report = "<b>Heads of Staff</b><br>"
 	heads_report += "<table cellspacing=5>"
 	for(var/datum/mind/N in SSjob.get_living_heads())
 		var/mob/M = N.current

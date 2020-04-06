@@ -28,9 +28,6 @@
 	AddComponent(/datum/component/personal_crafting)
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)
 
-	var/obj/item/reagent_containers/food/snacks/pizzaslice/custom/slice = new (get_turf(src))
-	src.put_in_hands(slice, TRUE)
-
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
 	create_dna(src)
@@ -866,7 +863,7 @@
 				var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_HEAD)
 				if(BP)
 					BP.receive_damage(36) //so 3 toolbox hits
-
+				
 				T.visible_message("<span class='warning'>[src] curbstomps [T]!</span>", "<span class='warning'>[src] curbstomps you!</span>")
 
 				log_combat(src, T, "curbstomped")
@@ -905,7 +902,7 @@
 
 			src.pixel_x = 0
 			src.pixel_y = 0 //position reset
-
+		
 			src.is_busy = FALSE
 
 //src is the user that will be carrying, target is the mob to be carried
@@ -921,7 +918,7 @@
 			"<span class='notice'>You start lifting [target] onto your back...</span>")
 		if(do_after(src, 50, TRUE, target))
 			//Second check to make sure they're still valid to be carried
-			if(can_be_firemanned(target) && !incapacitated(FALSE, TRUE))
+			if(can_be_firemanned(target) && !incapacitated(FALSE, TRUE) && !target.buckled)
 				buckle_mob(target, TRUE, TRUE, 90, 1, 0)
 				return
 		visible_message("<span class='warning'>[src] fails to fireman carry [target]!")
@@ -1125,7 +1122,7 @@
 
 /mob/living/carbon/human/species/golem/snow
 	race = /datum/species/golem/snow
-
+	
 /mob/living/carbon/human/species/golem/clockwork
 	race = /datum/species/golem/clockwork
 
