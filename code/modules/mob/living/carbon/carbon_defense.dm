@@ -29,7 +29,7 @@
 		number += HHP.bang_protect
 
 	if(istype(src.ears, /obj/item/radio/headset))		//headset
-		var/obj/item/clothing/glasses/RHP = src.ears
+		/obj/item/radio/headset/RHP = src.ears
 		number += RHP.bang_protect
 
 	if(istype(src.ears, /obj/item/clothing/ears))		//ear slot. This is different from headset because headset is a subtype of radio
