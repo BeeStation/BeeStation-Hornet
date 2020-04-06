@@ -137,6 +137,42 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	use_power(6)
 	affecting = loc.contents - src		// moved items will be all in loc
 	addtimer(CALLBACK(src, .proc/convey, affecting), 1)
+	for(var/mob/living/carbon/human/H in view(1, src.loc))
+		var/OSHAVIOLATION = list("Long Bedhead", "Very Long Hair 1", "Very Long Hair 2", "Long Hair 1", "Long Hair 2", "Long Hair 3", "Long Side Part", )
+		if(H.head)
+			var/obj/item/I = H.head
+			if(I.flags_inv & HIDEHAIR)
+				continue
+		if(H.wear_mask)
+			var/obj/item/I = H.wear_mask
+			if(I.flags_inv & HIDEHAIR)
+				continue
+		if(H.hair_style == "Floorlength Bedhead" && prob(5)) //if you have a mass of hair this big you should not get anywhere NEAR industrial machinery
+			H.Paralyze(10)
+			H.throw_at(src, 1, 1, spin = FALSE)
+			H.emote("scream")
+			H.visible_message("<span class='notice'>[H] has their [H.hair_style] caught in the [src]!</span>")
+			H.apply_damage(15,"brute","head")
+			H.hair_style = "Long Bedhead"
+			H.update_hair()
+		if(H.hair_style == "Braid (Floorlength)" && prob(3))
+			H.Paralyze(10)
+			H.throw_at(src, 1, 1, spin = FALSE)
+			H.emote("scream")
+			H.visible_message("<span class='notice'>[H] has their [H.hair_style] caught in the [src]!</span>")
+			H.apply_damage(10,"brute","head")
+			if(prob(75))//braids are a bit stronger than normal strands of hair
+				H.hair_style = "braid"
+				H.update_hair()
+		if((H.hair_style in OSHAVIOLATION) && prob(1))
+			H.Paralyze(10)
+			H.throw_at(src, 1, 1, spin = FALSE)
+			H.emote("scream")
+			H.visible_message("<span class='notice'>[H] has their [H.hair_style] caught in the [src]!</span>")
+			H.apply_damage(15,"brute","head")
+			H.hair_style = "Bedhead"
+			H.update_hair()
+
 
 /obj/machinery/conveyor/proc/convey(list/affecting)
 	for(var/atom/movable/A in affecting)
