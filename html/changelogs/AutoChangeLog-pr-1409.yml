@@ -1,0 +1,5 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "fingergun emote"
+  - rscadd: "admin only lethal fingergun speedloader"
