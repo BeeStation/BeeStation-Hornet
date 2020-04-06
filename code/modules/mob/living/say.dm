@@ -480,8 +480,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/datum/language/message_language = get_message_language(tts_message)
 	if(message_language)
 		// No, you cannot speak in xenocommon just because you know the key
-		if(can_speak_language(message_language))
-			tts_language = message_language
+		tts_language = message_language
 		tts_message = copytext(tts_message, 3)
 
 		// Trim the space if they said ",0 I LOVE LANGUAGES"
@@ -489,7 +488,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			tts_message = copytext(tts_message, 2)
 
 	if(!tts_language)
-		tts_language = get_selected_language()
+		tts_language = get_default_language()
 
 	tts_message = treat_message(tts_message)
 	///Voice used by TTS generator

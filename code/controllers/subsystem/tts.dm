@@ -151,7 +151,7 @@ SUBSYSTEM_DEF(tts)
 			continue
 		if (!(listener.client.prefs.toggles & SOUND_TTS))
 			continue
-		if (TTS.language && !listener.can_speak_language(TTS.language))
+		if (TTS.language && !listener.has_language(TTS.language))
 			continue
 
 		listener.playsound_local(origin, TTS.filename + ".ogg", 100 * TTS.volume_mod, 0, channel=next_channel)	//play the file we made
