@@ -71,7 +71,7 @@
 	if(targets.len)
 		explanation_text = "Work with your team to convert, exile or kill "
 		explanation_text += english_list(targets)
-		explanation_text += ". Converting to your team will give you more points, whereas killing will give you the least. Pizza Huts don't want to stir up too many troubles."
+		explanation_text += ". Converting to your team will give you more points, whereas killing will give you the least. Syndicates don't want to stir up too many troubles."
 	else
 		explanation_text = "Wait until any heads arrive. Once that happens, check your objectives again to see the updated objective. It may require around [OBJECTIVE_UPDATING_TIME] seconds to update."
 
@@ -129,16 +129,16 @@
 		return TRUE
 	. = ..()
 
-// Overthrow target objective. A crewmember in particular has a certain bond with some centcom officials, and Pizza Hut want you to target him in particular, even though he's not a head.
+// Overthrow target objective. A crewmember in particular has a certain bond with some centcom officials, and the Syndicate want you to target him in particular, even though he's not a head.
 /datum/objective/overthrow/target
 
 /datum/objective/overthrow/target/update_explanation_text()
 	if(target)
-		explanation_text = "Work with your team to convert, exile or kill [target.name], the [target.assigned_role]. Converting to your team will give you more points, whereas killing will give you the least. Pizza Huts don't want to stir up too many troubles."
+		explanation_text = "Work with your team to convert, exile or kill [target.name], the [target.assigned_role]. Converting to your team will give you more points, whereas killing will give you the least. Syndicates don't want to stir up too many troubles."
 	else
 		explanation_text = "Nothing."
 
-/datum/objective/overthrow/target/is_unique_objective(datum/mind/possible_target,dupe_search_range)
+/datum/objective/overthrow/target/is_unique_objective(datum/mind/possible_target,dupe_search_range) 
 	if(possible_target.assigned_role in GLOB.command_positions)
 		return FALSE
 	return TRUE

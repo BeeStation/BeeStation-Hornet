@@ -1510,7 +1510,7 @@
 /obj/structure/grille/broken,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	name = "Pizza Hut agent remains"
+	name = "Syndicate agent remains"
 	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "damaged2"
@@ -4207,7 +4207,7 @@
 "oi" = (
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	name = "Pizza Hut agent remains"
+	name = "Syndicate agent remains"
 	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/derelict/se_solar)

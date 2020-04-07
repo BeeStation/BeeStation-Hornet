@@ -17,7 +17,7 @@
 /obj/item/circuitboard/computer/advanced_camera
 	name = "Advanced Camera Console (Computer Board)"
 	build_path = /obj/machinery/computer/camera_advanced/syndie
-
+	
 /obj/item/circuitboard/computer/xenobiology
 	name = "circuit board (Xenobiology Console)"
 	build_path = /obj/machinery/computer/camera_advanced/xenobio
@@ -370,7 +370,7 @@
 	build_path = /obj/machinery/computer/shuttle/monastery_shuttle
 
 /obj/item/circuitboard/computer/syndicate_shuttle
-	name = "Pizza Hut Shuttle (Computer Board)"
+	name = "Syndicate Shuttle (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle/syndicate
 	var/challenge = FALSE
 	var/moved = FALSE

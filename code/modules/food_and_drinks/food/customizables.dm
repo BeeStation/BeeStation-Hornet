@@ -209,15 +209,9 @@
 	foodtype = GRAIN | DAIRY
 
 
-/obj/item/reagent_containers/food/snacks/customizable/pizza/Initialize()
-	. = ..()
-	GLOB.pizza_tracker++
-	if(GLOB.pizza_goal > 0)
-		desc = "[initial(desc)] This is the [GLOB.pizza_tracker]th pizza that the station has baked out of our goal of [GLOB.pizza_goal]!"
-
 /obj/item/reagent_containers/food/snacks/customizable/pizza
 	name = "pizza"
-	desc = "A personalized Papa John's meant for only one person."
+	desc = "A personalized pan pizza meant for only one person."
 	ingredients_placement = INGREDIENTS_SCATTER
 	ingMax = 8
 	slice_path = /obj/item/reagent_containers/food/snacks/pizzaslice/custom

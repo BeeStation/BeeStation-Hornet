@@ -193,7 +193,7 @@ LINEN BINS
 	dream_messages = list("a unique ID", "authority", "artillery", "an ending")
 
 /obj/item/bedsheet/syndie
-	name = "Pizza Hut bedsheet"
+	name = "syndicate bedsheet"
 	desc = "It has a syndicate emblem and it has an aura of evil."
 	icon_state = "sheetsyndie"
 	item_color = "syndie"
@@ -257,7 +257,7 @@ LINEN BINS
 	var/type = pickweight(list("Colors" = 80, "Special" = 20))
 	switch(type)
 		if("Colors")
-			type = pick(list(/obj/item/bedsheet,
+			type = pick(list(/obj/item/bedsheet, 
 				/obj/item/bedsheet/blue,
 				/obj/item/bedsheet/green,
 				/obj/item/bedsheet/grey,

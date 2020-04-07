@@ -9,7 +9,7 @@
 **/
 /datum/component/uplink
 	dupe_mode = COMPONENT_DUPE_UNIQUE
-	var/name = "Pizza Hut uplink"
+	var/name = "syndicate uplink"
 	var/active = FALSE
 	var/lockable = TRUE
 	var/locked = TRUE

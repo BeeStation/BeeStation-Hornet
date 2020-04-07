@@ -64,7 +64,7 @@
 	name = "black space-helmet replica"
 	icon_state = "syndicate-helm-black-red"
 	item_state = "syndicate-helm-black-red"
-	desc = "A plastic replica of a Pizza Hut agent's space helmet. You'll look just like a real murderous Pizza Hut agent in this! This is a toy, it is not made for use in space!"
+	desc = "A plastic replica of a Syndicate agent's space helmet. You'll look just like a real murderous Syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 
 /obj/item/clothing/head/cueball

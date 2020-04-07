@@ -55,7 +55,7 @@
 	},
 /obj/item/radio/intercom{
 	freerange = 1;
-	name = "Pizza Hut Radio Intercom";
+	name = "Syndicate Radio Intercom";
 	pixel_x = -30
 	},
 /turf/open/floor/plasteel/dark,
@@ -946,7 +946,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/power/apc/syndicate{
 	dir = 4;
-	name = "Pizza Hut Listening Post APC";
+	name = "Syndicate Listening Post APC";
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1148,7 +1148,7 @@
 	dwidth = 6;
 	height = 7;
 	id = "caravansyndicate3_listeningpost";
-	name = "Pizza Hut Listening Post";
+	name = "Syndicate Listening Post";
 	width = 15
 	},
 /obj/docking_port/stationary{
@@ -1156,7 +1156,7 @@
 	dwidth = 4;
 	height = 5;
 	id = "caravansyndicate1_listeningpost";
-	name = "Pizza Hut Listening Post";
+	name = "Syndicate Listening Post";
 	width = 9
 	},
 /turf/template_noop,

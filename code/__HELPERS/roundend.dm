@@ -203,12 +203,12 @@
 						if(CO.check_completion())
 							C.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
 							break
-					
+
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
 	log_game("The round has ended.")
 	if(LAZYLEN(GLOB.round_end_notifiees))
 		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
-	
+
 	RollCredits()
 
 	var/popcount = gather_roundend_feedback()
@@ -336,8 +336,6 @@
 		parts += "[FOURSPACES]Executed rules:"
 		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
 			parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost] threat"
-	return parts.Join("<br>")
-
 	return parts.Join("<br>")
 
 /client/proc/roundend_report_file()
