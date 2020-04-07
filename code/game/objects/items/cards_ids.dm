@@ -378,7 +378,6 @@ update_label("John Doe", "Clowny")
 			if(!u)
 				registered_name = ""
 				return
-			registered_name = input_name
 			assignment = u
 			update_label()
 			
