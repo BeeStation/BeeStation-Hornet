@@ -1,0 +1,4 @@
+author: "Isy232"
+delete-after: True
+changes: 
+  - rscadd: "Re-Adds public autolathes to all stations."
