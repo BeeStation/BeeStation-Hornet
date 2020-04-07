@@ -1,0 +1,5 @@
+author: "jlsnow301"
+delete-after: True
+changes: 
+  - rscadd: "Flypeople now receive the beefriend trait"
+  - tweak: "Flypeople now also move faster and take more damage"
