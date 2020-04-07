@@ -1,0 +1,5 @@
+author: "Bastian0930"
+delete-after: True
+changes: 
+  - rscadd: "The syndicate have installed a SD card on the agent ID! You can now get a random name by putting in nothing and clicking OK."
+  - admin: "Logs agent ID names."
