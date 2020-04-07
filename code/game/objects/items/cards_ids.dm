@@ -380,12 +380,11 @@ update_label("John Doe", "Clowny")
 				return
 			assignment = u
 			update_label()
-			
-			var/choice = input(user) in available_icon_states	
-			if(!Adjacent(user))	
-				return	
-			if(!choice)	
-				return	
+			var/choice = input(user) in available_icon_states
+			if(!Adjacent(user))
+				return
+			if(!choice)
+				return
 			icon_state = choice
 			to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
 			// First time use automatically sets the account id to the user.
