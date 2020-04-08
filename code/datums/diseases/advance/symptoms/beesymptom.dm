@@ -6,7 +6,8 @@
 	stage_speed = 1
 	transmittable = 1
 	level = 9
-	severity = 5
+	severity = 3
+	baseseverity = 3
 	symptom_delay_min = 5
 	symptom_delay_max = 20
 	var/honey = FALSE
@@ -14,12 +15,18 @@
 	threshold_desc = "<b>Resistance 14:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host.<br>\
 					  <b>Transmission 10:</b> Bees now contain a completely random toxin, unless resistance exceeds 14"
 
+/datum/symptom/beesease/severityset(datum/disease/advance/A)
+	if(A.properties["resistance"] >= 14)
+		severity -= 4
+	if(A.properties["transmittable"] >= 10)
+		severity += 2
+	return..()
+
 /datum/symptom/beesease/Start(datum/disease/advance/A)
 	if(!..())
 		return
 	if(A.properties["resistance"] >= 14)
 		honey = TRUE
-		severity = 0
 	if(A.properties["transmittable"] >= 10)
 		toxic_bees = TRUE
 

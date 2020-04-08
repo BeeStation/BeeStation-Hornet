@@ -13,6 +13,8 @@
 	var/level = -1
 	// The severity level of the symptom. Higher is more dangerous.
 	var/severity = 0
+	//the base disease severity, used in severityreset. not used unless the symptom has dynamic severity
+	var/baseseverity = 10
 	// The hash tag for our diseases, we will add it up with our other symptoms to get a unique id! ID MUST BE UNIQUE!!!
 	var/id = ""
 	//Base chance of sending warning messages, so it can be modified
@@ -29,6 +31,7 @@
 	var/neutered = FALSE
 	var/list/thresholds
 	var/naturally_occuring = TRUE //if this symptom can appear from /datum/disease/advance/GenerateSymptoms()
+	var/dynamicseverity = FALSE //prevents severity from stacking
 
 /datum/symptom/New()
 	var/list/S = SSdisease.list_symptoms
@@ -44,6 +47,17 @@
 		return FALSE
 	next_activation = world.time + rand(symptom_delay_min * 10, symptom_delay_max * 10) //so it doesn't instantly activate on infection
 	return TRUE
+
+//called when a disease first tries to infect someone. 
+/datum/symptom/proc/severityset(datum/disease/advance/A)
+	dynamicseverity = TRUE
+	return
+
+/datum/symptom/proc/severityreset(datum/disease/advance/A)
+	if(!baseseverity == 10)
+		severity = baseseverity
+	dynamicseverity = FALSE
+	return
 
 // Called when the advance disease is going to be deleted or when the advance disease stops processing.
 /datum/symptom/proc/End(datum/disease/advance/A)

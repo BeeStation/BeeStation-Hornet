@@ -797,7 +797,7 @@
 		B.brain_death = FALSE
 	for(var/thing in diseases)
 		var/datum/disease/D = thing
-		if(D.severity != DISEASE_SEVERITY_POSITIVE)
+		if(D.channel >= 2)
 			D.cure(FALSE)
 	if(admin_revive)
 		suiciding = FALSE
