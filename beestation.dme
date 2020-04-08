@@ -444,6 +444,7 @@
 #include "code\datums\diseases\advance\presets.dm"
 #include "code\datums\diseases\advance\symptoms\beard.dm"
 #include "code\datums\diseases\advance\symptoms\beesymptom.dm"
+#include "code\datums\diseases\advance\symptoms\blobspores.dm"
 #include "code\datums\diseases\advance\symptoms\braindamage.dm"
 #include "code\datums\diseases\advance\symptoms\choking.dm"
 #include "code\datums\diseases\advance\symptoms\cockroach.dm"

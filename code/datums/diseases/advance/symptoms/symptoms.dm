@@ -74,11 +74,11 @@
 
 /datum/symptom/proc/generate_threshold_desc()
 	return
-	
-/datum/symptom/proc/OnDeath(datum/disease/advance/A)
+
+/datum/symptom/proc/OnDeath(datum/disease/advance/A)    //What happens when the host dies.
 	return !neutered
-	
-/datum/symptom/proc/OnAdd(datum/disease/advance/A)		//Overload when a symptom needs to be active before processing, like changing biotypes. 
+
+/datum/symptom/proc/OnAdd(datum/disease/advance/A)		//Overload when a symptom needs to be active before processing, like changing biotypes.
 	return
 
 /datum/symptom/proc/OnRemove(datum/disease/advance/A)	//But dont forget to remove them too.
