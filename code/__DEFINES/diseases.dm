@@ -26,7 +26,7 @@
 #define DISEASE_SEVERITY_MINOR		"Minor"	    //! Symptoms that can annoy in concrete ways (dizziness)
 #define DISEASE_SEVERITY_MEDIUM		"Medium"    //! Diseases that can do minor harm, or severe annoyance (vomit)
 #define DISEASE_SEVERITY_HARMFUL	"Harmful"   //! Diseases that can do significant harm, or severe disruption (brainrot)
-#define DISEASE_SEVERITY_DANGEROUS	"dangerous"  //! Diseases that are lethal if untreated (flesh eating)
+#define DISEASE_SEVERITY_DANGEROUS	"Dangerous"  //! Diseases that are lethal if untreated (flesh eating)
 #define DISEASE_SEVERITY_BIOHAZARD	"BIOHAZARD" //! Symptoms that can quickly kill an unprepared victim (fungal tb, gbs)
 #define DISEASE_SEVERITY_PANDEMIC	"PANDEMIC"  //! Symptoms so deadly you will likely die before being cured (ARDS, autophageocytosis)
 
