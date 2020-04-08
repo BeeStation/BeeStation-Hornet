@@ -1,0 +1,7 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "Rabid gorillas"
+  - tweak: "monkey leaders now become gorillas instead of normal monkeys"
+  - balance: "buffed gorillas slightly"
+  - bugfix: "fixed jungle fever so the code within it that gives antag monkeys the ability to ventcrawl universally works"
