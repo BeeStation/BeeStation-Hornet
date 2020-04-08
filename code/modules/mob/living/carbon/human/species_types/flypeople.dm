@@ -2,7 +2,7 @@
 	name = "Flyperson"
 	id = "fly"
 	say_mod = "buzzes"
-	species_traits = list(NOEYESPRITES, NO_UNDERWEAR)
+	species_traits = list(NOEYESPRITES, NO_UNDERWEAR, TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutanttongue = /obj/item/organ/tongue/fly
 	mutantliver = /obj/item/organ/liver/fly
@@ -10,9 +10,9 @@
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/fly
 	mutant_bodyparts = list("insect_type")
 	default_features = list("insect_type" = "housefly")
-	burnmod = 1.3
-	brutemod = 1.3
-	speedmod = 0.8
+	burnmod = 1.4
+	brutemod = 1.4
+	speedmod = 0.7
 	disliked_food = null
 	liked_food = GROSS | MEAT | RAW | FRUIT
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT

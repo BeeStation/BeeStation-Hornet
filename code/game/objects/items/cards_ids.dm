@@ -415,7 +415,6 @@ update_label("John Doe", "Clowny")
 			set_new_account(user)
 			return
 	return ..()
-
 /obj/item/card/id/syndicate/anyone
 	anyone = TRUE
 
