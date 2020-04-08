@@ -1,5 +1,0 @@
-author: "Bastian0930"
-delete-after: True
-changes: 
-  - rscadd: "The syndicate has loaded names onto the agent ID! By putting in no name, the ID will fabricate a random name!"
-  - admin: "A lot of shit related to grenades, killer tomatos, and doors is now logged."
