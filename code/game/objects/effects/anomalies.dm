@@ -176,8 +176,8 @@
 /obj/effect/anomaly/flux/detonate()
 	if(explosive)
 		explosion(src, 1, 4, 16, 18) //Low devastation, but hits a lot of stuff.
-		log_game("A flux anomaly has detonated at [loc]")
-		message_admins("A flux anomaly has detonated at [ADMIN_VERBOSEJMP(loc)]")
+		log_game("A flux anomaly has detonated at [loc].")
+		message_admins("A flux anomaly has detonated at [ADMIN_VERBOSEJMP(loc)].")
 	else
 		new /obj/effect/particle_effect/sparks(loc)
 
