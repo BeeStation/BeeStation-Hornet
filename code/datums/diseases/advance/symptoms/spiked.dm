@@ -85,9 +85,10 @@ Thresholds
 /datum/symptom/spiked/End(datum/disease/advance/A)
 	var/mob/living/carbon/human/H = A.affected_mob
 	if(!..() && A.stage >= 2)
-		return
 		if (armour == TRUE)
 			H.dna.species.armor -=20
+		return
+
 
 
 
