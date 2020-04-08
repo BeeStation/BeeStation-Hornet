@@ -35,7 +35,7 @@
 		var/mob/living/L = user
 		for(var/thing in L.diseases)
 			var/datum/disease/D = thing
-			if(!D.channel >= 2 && !D.sentient) //don't cure beneficial or sentient diseases
+			if(D.severity == DISEASE_SEVERITY_BENEFICIAL || D.severity == DISEASE_SEVERITY_POSITIVE)
 				continue
 			D.cure()
 	return TRUE

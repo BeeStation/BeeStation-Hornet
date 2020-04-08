@@ -189,8 +189,6 @@
 			return 7
 		if(DISEASE_SEVERITY_BIOHAZARD)
 			return 8
-		if(DISEASE_SEVERITY_BIOHAZARD)
-			return 8
 		if(DISEASE_SEVERITY_PANDEMIC)
 			return 9
 
