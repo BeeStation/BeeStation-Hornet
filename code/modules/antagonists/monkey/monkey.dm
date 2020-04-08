@@ -190,9 +190,9 @@
 	return FALSE
 
 /datum/team/monkey/proc/get_result()
-	if(infected_monkeys_escaped())
+	if(infected_monkeys_escaped() || infected_gorillas_escaped())
 		return MONKEYS_ESCAPED
-	if(infected_monkeys_alive())
+	if(infected_monkeys_alive() || infected_gorillas_alive())
 		return MONKEYS_LIVED
 	if(infected_humans_alive() || infected_humans_escaped())
 		return DISEASE_LIVED
