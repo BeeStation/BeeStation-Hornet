@@ -504,14 +504,18 @@
 	var/mob/living/carbon/human/U = user
 	if(ishuman(target))
 		if((user.zone_selected == BODY_ZONE_CHEST) || (user.zone_selected == BODY_ZONE_HEAD) || (user.zone_selected == BODY_ZONE_PRECISE_GROIN))
-			if(H.getarmor(type = "melee") < 25)
+			if(H.getarmor(type = "melee") < 16)
 				H.emote("scream")
-				H.Stun(5)
 				H.visible_message("<span class='danger'>[U] whips [H]!</span>", "<span class='userdanger'>[U] whips you! It stings!</span>")
 		if((user.zone_selected == BODY_ZONE_R_LEG) || (user.zone_selected == BODY_ZONE_L_LEG))
-			target.Knockdown((4-get_dist(H, U))*10)
-			log_combat(user, target, "tripped", src)
-			H.visible_message("<span class='danger'>[U] trips [H]!</span>", "<span class='userdanger'>[U] whips your legs out from under you!</span>")
+			var/dist = get_dist(H, U)
+			if(dist < 2)
+				to_chat(user, "<span class='warning'>[H] is too close to trip with the whip!</span>")
+				return
+			else
+				target.Knockdown(30)
+				log_combat(user, target, "tripped", src)
+				H.visible_message("<span class='danger'>[U] trips [H]!</span>", "<span class='userdanger'>[U] whips your legs out from under you!</span>")
 			return
 		if(user.zone_selected == BODY_ZONE_L_ARM)
 			var/obj/item/I = H.get_held_items_for_side("left")
