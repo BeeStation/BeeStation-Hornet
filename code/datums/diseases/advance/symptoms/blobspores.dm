@@ -6,23 +6,23 @@
 	stage_speed = -2
 	transmittable = 1
 	level = 9
-	severity = 6
+	severity = 3
 	var/ready_to_pop
 	var/factory_blob
 	var/strong_blob
 	var/node_blob
 	threshold_desc = "<b>Resistance 11:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
-					  <b>Transmission 8:</b> Spawns a strong blob instead of a normal blob \
-					  <b>Transmission 14:</b> Has a chance to spawn a blob node instead of a normal blob<br>"
+					  <b>Resistance 8:</b> Spawns a strong blob instead of a normal blob \
+					  <b>Resistance 14:</b> Has a chance to spawn a blob node instead of a normal blob<br>"
 
 /datum/symptom/blobspores/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 11)
+	if(A.properties["resistance"] >= 11)
 		factory_blob = TRUE
-	if(A.properties["transmittable"] >= 8)
+	if(A.properties["resistance"] >= 8)
 		strong_blob = TRUE
-	if(A.properties["transmittable"] >= 14)
+	if(A.properties["resistance"] >= 14)
 		node_blob = TRUE
 
 /datum/symptom/blobspores/Activate(datum/disease/advance/A)

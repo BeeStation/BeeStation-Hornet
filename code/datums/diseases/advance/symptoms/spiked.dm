@@ -23,7 +23,7 @@ Thresholds
 	level = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
-	severity = 4
+	severity = 2
 	base_message_chance = 5
 	var/Power = 1
 	var/get_damage = 0
@@ -34,6 +34,11 @@ Thresholds
 	var/mob/living/carbon/affected_mob = null
 	threshold_desc = "<b>Transmission 6:</b> Gives the host some armor against brute damage.<br>\
 					  <b>Resistance 6: Spikes grow faster and hurt you more often</b> ."
+
+/datum/symptom/spiked/severityset(datum/disease/advance/A)
+	if(A.properties["transmittable"] >= 6)
+		severity -= 1
+	return..()
 
 /datum/symptom/spiked/Start(datum/disease/advance/A)
 	if(!..())
