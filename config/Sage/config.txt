@@ -488,11 +488,6 @@ GRANT_METACURRENCY
 ## Comment this out to ignore global bans
 RESPECT_GLOBAL_BANS
 
-## Mob spam prevention. The number of each mobtype that can be alive at once. Stops people from crashing the server with chickens/monkeycubes/slimes. Altering these values is recommended based on server hardware.
-MAX_CUBE_MONKEYS 60
-MAX_CHICKENS 60
-MAX_SLIMES 60
-
 ### Fail2Topic settings
 ### fail2topic is a system for automating IP bans for abusers of the world/Topic API.
 ### Note that this subsystem respects the IPs listed in topic_rate_limit_whitelist.txt. They will not be considered for a ban.
