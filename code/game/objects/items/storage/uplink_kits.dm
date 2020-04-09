@@ -20,6 +20,8 @@
 			new /obj/item/clothing/shoes/chameleon/noslip(src) // 2 tc
 			new /obj/item/camera_bug(src) // 1 tc
 			new /obj/item/card/emag(src)
+			new /obj/item/doorCharge(src)
+			new /obj/item/doorCharge(src)
 			new /obj/item/multitool/ai_detect(src) // 1 tc
 			new /obj/item/encryptionkey/syndicate(src) // 2 tc
 			new /obj/item/reagent_containers/syringe/mulligan(src) // 4 tc
