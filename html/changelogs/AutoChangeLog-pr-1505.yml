@@ -1,4 +1,0 @@
-author: "ivanmixo"
-delete-after: True
-changes: 
-  - admin: "Adds a new verb, also creates logs when used."
