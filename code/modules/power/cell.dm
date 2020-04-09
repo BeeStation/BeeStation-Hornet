@@ -157,21 +157,20 @@
 			to_chat(H, "<span class='warning'>The [src] doesn't have enough power!</span>")
 			return
 		if(eth_species.ethereal_charge >= ETHEREAL_CHARGE_FULL - 5)
-
 			to_chat(H, "<span class='warning'>Your charge is full!</span>")
 			return
 		to_chat(H, "<span class='notice'>You clumsily channel power through the [src] and into your body, wasting some in the process.</span>")
 		if(do_after(user, 50, target = src))
-
 			if((charge >= 100) && (eth_species.ethereal_charge < ETHEREAL_CHARGE_FULL - 5))
-
 				to_chat(H, "<span class='notice'>You receive some charge from the [src].</span>")
 				eth_species.adjust_charge(5)
 				charge -= 100 //you waste way more than you receive, so that ethereals can't just steal one cell and forget about hunger
 			else
 				to_chat(H, "<span class='warning'>You can't receive charge from the [src]!</span>")
-		return
+			return
+
 		
+..()
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
 	ex_act(EXPLODE_DEVASTATE)
