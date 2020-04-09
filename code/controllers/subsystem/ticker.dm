@@ -647,7 +647,8 @@ SUBSYSTEM_DEF(ticker)
 	update_everything_flag_in_db()
 	if(!round_end_sound)
 		var/list/tracks = flist("sound/roundend/")
-		round_end_sound = "sound/roundend/[pick(tracks)]"
+		if(tracks.len)
+			round_end_sound = "sound/roundend/[pick(tracks)]"
 
 	SEND_SOUND(world, sound(round_end_sound))
 	text2file(login_music, "data/last_round_lobby_music.txt")
