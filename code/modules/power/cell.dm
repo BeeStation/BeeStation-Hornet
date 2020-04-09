@@ -170,7 +170,8 @@
 			return
 
 		
-..()
+	..()
+
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
 	ex_act(EXPLODE_DEVASTATE)

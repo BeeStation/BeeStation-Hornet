@@ -827,7 +827,7 @@
 				return
 			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
 			if(do_after(user, 30, target = src))
-				if(cell.charge <= cell.maxcharge + 20 && (eth_species.ethereal_charge > 20))
+				if(cell.charge + 20 <= cell.maxcharge && (eth_species.ethereal_charge > 20))
 					to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
 					eth_species.adjust_charge(-20)
 					cell.charge += 20
