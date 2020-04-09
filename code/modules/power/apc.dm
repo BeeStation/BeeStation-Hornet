@@ -816,7 +816,7 @@
 					to_chat(H, "<span class='warning'>You can't receive charge from the APC!</span>")
 			return
 		if(H.a_intent == INTENT_GRAB)
-			if(cell.charge == cell.maxcharge)
+			if(cell.charge >= cell.maxcharge)
 				to_chat(H, "<span class='warning'>The APC is full!</span>")
 				return
 			if(eth_species.ethereal_charge < 10)
