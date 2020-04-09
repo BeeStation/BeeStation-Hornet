@@ -799,6 +799,39 @@
 	. = ..()
 	if(.)
 		return
+	var/mob/living/carbon/human/H = user
+	var/datum/species/ethereal/eth_species = H.dna?.species
+	if(istype(H) && istype(eth_species))
+		if(H.a_intent == INTENT_HARM)
+			if(eth_species.ethereal_charge > 145)
+				to_chat(H, "<span class='warning'>Your charge is full!</span>")
+				return
+			to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
+			if(do_after(user, 70, target = src))
+				if(cell.charge >= (cell.maxcharge / 2) || (eth_species.ethereal_charge >= ETHEREAL_CHARGE_FULL))
+					to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
+					eth_species.adjust_charge(20)
+					cell.charge -= 20
+				else
+					to_chat(H, "<span class='warning'>You can't receive charge from the APC!</span>")
+			return
+		if(H.a_intent == INTENT_GRAB)
+			if(cell.charge == cell.maxcharge)
+				to_chat(H, "<span class='warning'>The APC is full!</span>")
+				return
+			if(eth_species.ethereal_charge < 10)
+				to_chat(H, "<span class='warning'>Your charge is too low!</span>")
+				return
+			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
+			if(do_after(user, 70, target = src))
+				if(cell.charge >= cell.maxcharge || (eth_species.ethereal_charge > 10))
+					to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
+					eth_species.adjust_charge(-20)
+					cell.charge += 20
+				else
+					to_chat(H, "<span class='warning'>You can't transfer power to the APC!</span>")
+			return
+	
 	if(opened && (!issilicon(user)))
 		if(cell)
 			user.visible_message("[user] removes \the [cell] from [src]!","<span class='notice'>You remove \the [cell].</span>")
