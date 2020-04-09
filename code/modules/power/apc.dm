@@ -811,7 +811,7 @@
 				if(cell.charge >= 100 && eth_species.ethereal_charge < ETHEREAL_CHARGE_FULL)
 					to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
 					eth_species.adjust_charge(20)
-					cell.charge -= 20
+					cell.charge -= 50 //Charging is inefficient
 				else
 					to_chat(H, "<span class='warning'>You can't receive charge from the APC!</span>")
 			return
