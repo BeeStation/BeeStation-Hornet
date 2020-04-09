@@ -1,0 +1,9 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "Disease channels: you can now have up to four advance diseases, dependent on severity (1 beneficial, 1 debilitating, 1 deadly, 1 sentient)"
+  - rscadd: "Dynamic disease severity: medhuds now actually care about all the symptoms in a disease, and the thresholds they meet"
+  - tweak: "changes most disease severity values"
+  - tweak: "SBG syndrome is no longer intentionally vague and spooky (RIP)"
+  - balance: "having a high resistance beneficial disease no longer makes you immune to AIDS"
+  - bugfix: "fixes a fuckload of disease thresholds not working"
