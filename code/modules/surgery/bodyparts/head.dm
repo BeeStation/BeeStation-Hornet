@@ -148,7 +148,7 @@
 			if(S.hair_color)
 				if(S.hair_color == "mutcolor")
 					facial_hair_color = H.dna.features["mcolor"]
-				else if(hair_color == "fixedmutcolor")
+				else if(S.hair_color == "fixedmutcolor")
 					facial_hair_color = "#[S.fixed_mut_color]"
 				else
 					facial_hair_color = S.hair_color
@@ -165,7 +165,7 @@
 			if(S.hair_color)
 				if(S.hair_color == "mutcolor")
 					hair_color = H.dna.features["mcolor"]
-				else if(hair_color == "fixedmutcolor")
+				else if(S.hair_color == "fixedmutcolor")
 					hair_color = "#[S.fixed_mut_color]"
 				else
 					hair_color = S.hair_color

@@ -807,7 +807,7 @@
 				to_chat(H, "<span class='warning'>Your charge is full!</span>")
 				return
 			to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
-			if(do_after(user, 70, target = src))
+			if(do_after(user, 30, target = src))
 				if(cell.charge >= 100 && eth_species.ethereal_charge < ETHEREAL_CHARGE_FULL)
 					to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
 					eth_species.adjust_charge(20)
@@ -819,12 +819,12 @@
 			if(cell.charge >= cell.maxcharge)
 				to_chat(H, "<span class='warning'>The APC is full!</span>")
 				return
-			if(eth_species.ethereal_charge < 10)
+			if(eth_species.ethereal_charge < 20)
 				to_chat(H, "<span class='warning'>Your charge is too low!</span>")
 				return
 			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
-			if(do_after(user, 70, target = src))
-				if(cell.charge >= cell.maxcharge || (eth_species.ethereal_charge > 10))
+			if(do_after(user, 30, target = src))
+				if(cell.charge <= cell.maxcharge + 20 && (eth_species.ethereal_charge > 20))
 					to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
 					eth_species.adjust_charge(-20)
 					cell.charge += 20
