@@ -638,3 +638,17 @@
 	icon_state = "joker_coat"
 	item_state = "joker_coat"
 	item_color = "joker_coat"
+
+/obj/item/clothing/suit/hooded/chaplain_hoodie/darklord
+	name = "a very dark hoodie"
+	desc = "A hoodie made of very dark coloured cloth"
+	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/darklord
+	armor = list("melee" = 15, "bullet" = 15, "laser" = 15,"energy" = 10, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/head/hooded/chaplain_hood/darklord
+	name = "dark hood"
+	desc = "A hood that seems to be darker than your average dark hoodie... Ominous."
+	icon_state = "chaplain_hood"
+	armor = list("melee" = 15, "bullet" = 15, "laser" = 15,"energy" = 10, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF

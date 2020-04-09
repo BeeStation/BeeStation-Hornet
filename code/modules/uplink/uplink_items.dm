@@ -888,6 +888,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/explosives
 	category = "Explosives"
 
+/datum/uplink_item/explosives/beenade
+	name = "Beenade"
+	desc = "Spawns several poisonous bees that inject random toxins into everyone they see."
+	item = /obj/item/grenade/spawnergrenade/buzzkill
+	cost = 3
+	surplus = 15
+
 /datum/uplink_item/explosives/bioterrorfoam
 	name = "Bioterror Foam Grenade"
 	desc = "A powerful chemical foam grenade which creates a deadly torrent of foam that will mute, blind, confuse, \
@@ -1851,14 +1858,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 5
 	restricted_roles = list("Virologist")
 	surplus = 20
-
-/datum/uplink_item/role_restricted/anxiety
-	name = "Anxiety Culture Bottle"
-	desc = "A bottle of pure contagious autism.\
-			At least, that's what the label says"
-	item = /obj/item/reagent_containers/glass/bottle/anxiety
-	cost = 4
-	restricted_roles = list("Virologist")
 
 /datum/uplink_item/role_restricted/explosive_hot_potato
 	name = "Exploding Hot Potato"

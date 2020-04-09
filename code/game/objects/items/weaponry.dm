@@ -345,7 +345,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] own throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS)
 
-/obj/item/switchblade/kitchen 
+/obj/item/switchblade/kitchen
 	name = "iron switchblade"
 	icon_state = "switchblade_ms"
 	desc = "A concealable spring-loaded knife with an iron blade."
@@ -355,7 +355,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	extended_throwforce = 15
 	extended_icon_state = "switchblade_ext_ms"
 
-/obj/item/switchblade/plastitanium 
+/obj/item/switchblade/plastitanium
 	name = "plastitanium switchblade"
 	icon_state = "switchblade_msf"
 	desc = "A concealable spring-loaded knife with a plastitanium blade."
@@ -446,7 +446,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/ectoplasm/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is inhaling [src]! It looks like [user.p_theyre()] trying to visit the astral plane!</span>")
 	return (OXYLOSS)
-	
+
 /obj/item/ectoplasm/angelic
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "angelplasm"
@@ -752,3 +752,28 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	else
 		user.visible_message("[user] is left hanging by [target].", "<span class='notice'>[target] leaves you hanging.</span>")
 		playsound(src, 'sound/weapons/punchmiss.ogg', 50, 0)
+
+/obj/item/melee/beesword
+	name = "The Stinger"
+	desc = "Taken from a giant bee and folded over one thousand times in pure honey. Can sting through anything."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "beesword"
+	item_state = "stinger"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_NORMAL
+	sharpness = IS_SHARP
+	force = 7
+	throwforce = 10
+	block_chance = 20
+	armour_penetration = 85
+	attack_verb = list("slashed", "stung", "prickled", "poked")
+	hitsound = 'sound/weapons/rapierhit.ogg'
+
+/obj/item/melee/beesword/afterattack(atom/target, mob/user, proximity = TRUE)
+	. = ..()
+	user.changeNext_move(CLICK_CD_RAPID)
+	if(iscarbon(target))
+		var/mob/living/carbon/H = target
+		H.reagents.add_reagent(/datum/reagent/toxin/histamine,(rand(3, 5)))

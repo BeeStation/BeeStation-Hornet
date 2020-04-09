@@ -133,10 +133,6 @@
 	name = "Inferno"
 	payload = /obj/item/grenade/chem_grenade/incendiary
 
-/obj/item/grenade/clusterbuster/antiweed
-	name = "RoundDown"
-	payload = /obj/item/grenade/chem_grenade/antiweed
-
 /obj/item/grenade/clusterbuster/cleaner
 	name = "Mr. Proper"
 	payload = /obj/item/grenade/chem_grenade/cleaner
@@ -168,6 +164,11 @@
 /obj/item/grenade/clusterbuster/clf3
 	name = "WELCOME TO HELL"
 	payload = /obj/item/grenade/chem_grenade/clf3
+
+/obj/item/grenade/clusterbuster/bee
+	name = "Honeymoon"
+	payload = /obj/item/grenade/spawnergrenade/buzzkill
+
 
 //random clusterbuster spawner
 /obj/item/grenade/clusterbuster/random

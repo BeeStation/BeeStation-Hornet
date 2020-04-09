@@ -218,3 +218,11 @@
 		item_state = initial(item_state)
 		lefthand_file = initial(lefthand_file)
 		righthand_file = initial(righthand_file)
+
+/obj/item/pen/fountain/captain/agent
+	desc = "It's an expensive and beatiful looking pen,it's tip is made of tungsten and is razor sharp."
+	force = 16
+	throwforce = 22
+	throw_speed = 6
+	throw_range = 7
+	sharpness = IS_SHARP

@@ -8,7 +8,7 @@
 
 /obj/item/grenade/syndieminibomb/prime()
 	update_mob()
-	explosion(src.loc,1,2,4,flame_range = 2)
+	explosion(src.loc,1,3,5,flame_range = 2)
 	qdel(src)
 
 /obj/item/grenade/syndieminibomb/concussion
@@ -18,7 +18,7 @@
 
 /obj/item/grenade/syndieminibomb/concussion/prime()
 	update_mob()
-	explosion(src.loc,0,2,3,flame_range = 3)
+	explosion(src.loc,0,3,6,flame_range = 5)
 	qdel(src)
 
 /obj/item/grenade/syndieminibomb/concussion/frag
@@ -27,14 +27,13 @@
 	icon_state = "frag"
 
 /obj/item/grenade/gluon
-	desc = "An advanced grenade that releases a harmful stream of gluons inducing radiation in those nearby. These gluon streams will also make victims feel exhausted, and induce shivering. This extreme coldness will also likely wet any nearby floors."
+	desc = "An advanced grenade that releases a harmful stream of gluons inducing radiation in those nearby. This extreme coldness will also likely wet any nearby floors."
 	name = "gluon frag grenade"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "bluefrag"
 	item_state = "flashbang"
-	var/freeze_range = 4
-	var/rad_damage = 350
-	var/stamina_damage = 30
+	var/freeze_range = 6
+	var/rad_damage = 1250 // because 350 rads does absolutely nothing.
 
 /obj/item/grenade/gluon/prime()
 	update_mob()
@@ -43,8 +42,7 @@
 	for(var/turf/T in view(freeze_range,loc))
 		if(isfloorturf(T))
 			var/turf/open/floor/F = T
-			F.MakeSlippery(TURF_WET_PERMAFROST, 6 MINUTES)
+			F.MakeSlippery(TURF_WET_PERMAFROST, 5 MINUTES)
 			for(var/mob/living/carbon/L in T)
-				L.adjustStaminaLoss(stamina_damage)
-				L.adjust_bodytemperature(-230)
+				L.adjust_bodytemperature(-320) // -230 temp ended up doing 7 burn damage along with a quite minor slow...
 	qdel(src)

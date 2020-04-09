@@ -321,6 +321,14 @@
 	desc = "A weapon that can only be used to its full potential by the truly robust."
 	pin = /obj/item/firing_pin
 
+/obj/item/gun/energy/temperature/mrfreeze
+	name = "frost gun"
+	desc = "Do you know what killed the dinosaurs?"
+	ammo_type = list(/obj/item/ammo_casing/energy/temp/mrfreeze)
+	pin = /obj/item/firing_pin
+	fire_delay = 0.75
+
+
 /obj/item/gun/energy/laser/instakill
 	name = "instakill rifle"
 	icon_state = "instagib"

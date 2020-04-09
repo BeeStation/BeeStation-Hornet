@@ -205,7 +205,7 @@
 	desc = "Used to treat radition used to counter radiation poisoning."
 	icon_state = "pill18"
 	list_reagents = list(/datum/reagent/medicine/potass_iodide = 30)
-	
+
 
 ///////////////////////////////////////// this pill is used only in a legion mob drop
 /obj/item/reagent_containers/pill/shadowtoxin
@@ -264,3 +264,8 @@
 	if(prob(20))
 		desc = pick(descs)
 
+/obj/item/reagent_containers/pill/maniac
+	name = "white pill"
+	desc = "Various stimulating drugs pressed into a pill. Take with caution"
+	icon_state = "pill19"
+	list_reagents = list(/datum/reagent/drug/methamphetamine = 3, /datum/reagent/medicine/antihol = 10, /datum/reagent/consumable/coffee = 10, /datum/reagent/drug/nicotine = 5, /datum/reagent/medicine/mannitol = 8)

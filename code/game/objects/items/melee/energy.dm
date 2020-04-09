@@ -271,3 +271,15 @@
 	desc = "An extremely sharp blade made out of hard light. Packs quite a punch."
 	icon_state = "lightblade"
 	item_state = "lightblade"
+
+/obj/item/melee/transforming/energy/sword/freeze
+	name = "crystalline sword"
+	desc = "The Ice age"
+	force = 0
+	throwforce = 0
+	damtype = BURN
+	force_on = 28
+	armour_penetration = 75
+	block_chance = 35
+	throwforce_on = 30
+	item_color = "blue"

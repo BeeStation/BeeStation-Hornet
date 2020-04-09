@@ -256,6 +256,14 @@
 	user.visible_message("<span class='suicide'>[user] is trying to get the cap off [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (TOXLOSS)
 
+/obj/item/storage/pill_bottle/maniac
+	name = "worn pill bottle"
+	desc = "Hello old friend."
+
+/obj/item/storage/pill_bottle/charcoal/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/pill/maniac(src)
+
 /obj/item/storage/pill_bottle/charcoal
 	name = "bottle of charcoal pills"
 	desc = "Contains pills used to counter toxins."
