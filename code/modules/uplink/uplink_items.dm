@@ -889,7 +889,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Explosives"
 
 /datum/uplink_item/explosives/beenade
-	name = "Beenade"
+	name = "Bee Grenade"
 	desc = "Spawns several poisonous bees that inject random toxins into everyone they see."
 	item = /obj/item/grenade/spawnergrenade/buzzkill
 	cost = 3
