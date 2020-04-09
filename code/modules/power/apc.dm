@@ -803,12 +803,15 @@
 	var/datum/species/ethereal/eth_species = H.dna?.species
 	if(istype(H) && istype(eth_species))
 		if(H.a_intent == INTENT_HARM)
-			if(eth_species.ethereal_charge >= ETHEREAL_CHARGE_FULL)
+			if(eth_species.ethereal_charge >= ETHEREAL_CHARGE_FULL - 19)
 				to_chat(H, "<span class='warning'>Your charge is full!</span>")
 				return
+					if(cell.charge < 100)
+						to_chat(H, "<span class='warning'>The cell has no charge!</span>")
+						return
 			to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
 			if(do_after(user, 30, target = src))
-				if(cell.charge >= 100 && eth_species.ethereal_charge < ETHEREAL_CHARGE_FULL)
+				if(cell.charge >= 100 && eth_species.ethereal_charge < ETHEREAL_CHARGE_FULL - 19)
 					to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
 					eth_species.adjust_charge(20)
 					cell.charge -= 50 //Charging is inefficient
