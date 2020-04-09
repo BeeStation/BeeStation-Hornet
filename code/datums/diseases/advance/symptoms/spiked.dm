@@ -31,7 +31,6 @@ Thresholds
 	var/armour = FALSE
 	var/done = FALSE
 	var/mob/living/C = null
-	var/mob/living/carbon/affected_mob = null
 	threshold_desc = "<b>Transmission 6:</b> Gives the host some armor against brute damage.<br>\
 					  <b>Resistance 6: Spikes grow faster and hurt you more often</b> ."
 
@@ -49,9 +48,6 @@ Thresholds
 		Power = 2
 
 /datum/symptom/spiked/Activate(var/datum/disease/advance/A)
-	var/mob/living/M = A.affected_mob
-	var/mob/living/carbon/human/H = A.affected_mob
-
 	if(!..())
 		return
 
@@ -60,38 +56,37 @@ Thresholds
 	else
 		closrf = 0
 
-	for (var/mob/living/C in oview(closrf, M))
+	for (var/mob/living/C in oview(closrf, A.affected_mob))
 		var/def_check = C.getarmor(type = "melee")
 		C.apply_damage(A.stage, BRUTE, blocked = def_check)
-		to_chat(M, "<span class='warning'>[C.name] is pricked on [M.name]'s spines.</span>")
-		playsound(get_turf(M), 'sound/weapons/slice.ogg', 50, 1)
+		to_chat(A.affected_mob, "<span class='warning'>[C.name] is pricked on [A.affected_mob.name]'s spines.</span>")
+		playsound(get_turf(A.affected_mob), 'sound/weapons/slice.ogg', 50, 1)
 	switch(A.stage)
 		if(1)
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='warning'>You feel goosebumps pop up on your skin.</span>")
+				to_chat(A.affected_mob, "<span class='warning'>You feel goosebumps pop up on your skin.</span>")
 		if(2)
 			if (done == FALSE)
 				if (armour == TRUE)
-					H.dna.species.armor +=20
-					to_chat(M, "<span class='warning'>Your goosebumps become small spines.</span>")
+					A.affected_mob.dna.species.armor +=20
+					to_chat(A.affected_mob, "<span class='warning'>Your goosebumps become small spines.</span>")
 					done = TRUE
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='warning'>The small spines spread to cover your entire body.</span>")
+				to_chat(A.affected_mob, "<span class='warning'>The small spines spread to cover your entire body.</span>")
 		if(3)
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='warning'> Your spines pierce your jumpsuit.</span>")
+				to_chat(A.affected_mob, "<span class='warning'> Your spines pierce your jumpsuit.</span>")
 		if(4)
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='warning'> You see the spikes getting sharper and elongated.</span>")
+				to_chat(A.affected_mob, "<span class='warning'> You see the spikes getting sharper and elongated.</span>")
 		if(5)
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='warning'>You look like a human hedgehog</span>")
+				to_chat(A.affected_mob, "<span class='warning'>You look like a human hedgehog</span>")
 
 /datum/symptom/spiked/End(datum/disease/advance/A)
-	var/mob/living/carbon/human/H = A.affected_mob
 	if(!..() && A.stage >= 2)
 		if (armour == TRUE)
-			H.dna.species.armor -=20
+			A.affected_mob.dna.species.armor -=20
 		return
 
 
