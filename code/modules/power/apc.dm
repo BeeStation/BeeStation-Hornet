@@ -803,7 +803,7 @@
 	var/datum/species/ethereal/eth_species = H.dna?.species
 	if(istype(H) && istype(eth_species))
 		if(H.a_intent == INTENT_HARM)
-			if(eth_species.ethereal_charge > 145)
+			if(eth_species.ethereal_charge >= ETHERAL_CHARGE_FULL)
 				to_chat(H, "<span class='warning'>Your charge is full!</span>")
 				return
 			to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
