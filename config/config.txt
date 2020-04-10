@@ -496,7 +496,6 @@ MAX_SLIMES 60
 MAX_SHUTTLE_COUNT 6
 MAX_SHUTTLE_SIZE 200
 
-=======
 
 ### Fail2Topic settings
 ### fail2topic is a system for automating IP bans for abusers of the world/Topic API.
