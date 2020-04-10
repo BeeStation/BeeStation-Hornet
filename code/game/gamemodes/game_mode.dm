@@ -97,8 +97,6 @@
 			continue
 		candidates += H
 
-	message_admins("There are [candidates.len] candidates available for a total of [allowed_special.len] special roles.")
-
 	for(var/special in allowed_special)
 		var/datum/antagonist/special/special_antag = new special()
 		if(!special_antag)
@@ -129,6 +127,7 @@
 			var/datum/antagonist/special/A = selected_mind.add_antag_datum(special_antag)
 			A.forge_objectives(selected_mind)
 			A.equip()
+			log_game("[key_name(selected_mind)] has been selected as a [A.name]")
 			special_antag = new special()
 		//Remove the final one, because otherwise we will have antags with no owner lying around which will break shit
 		qdel(special_antag)
