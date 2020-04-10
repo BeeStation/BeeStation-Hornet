@@ -487,11 +487,6 @@ GRANT_METACURRENCY
 ## Comment this out to ignore global bans
 RESPECT_GLOBAL_BANS
 
-## Mob spam prevention. The number of each mobtype that can be alive at once. Stops people from crashing the server with chickens/monkeycubes/slimes. Altering these values is recommended based on server hardware.
-MAX_CUBE_MONKEYS 60
-MAX_CHICKENS 60
-MAX_SLIMES 60
-
 ### Fail2Topic settings
 ### fail2topic is a system for automating IP bans for abusers of the world/Topic API.
 ### Note that this subsystem respects the IPs listed in topic_rate_limit_whitelist.txt. They will not be considered for a ban.
@@ -505,11 +500,6 @@ TOPIC_RULE_NAME "_DD_Fail2topic"
 TOPIC_MAX_SIZE 500
 ## Uncomment to enable Fail2Topic, comment-out to disable
 #TOPIC_ENABLED
-
-##Default view size, in tiles. Should *always* be square.
-## The alternative square viewport size if you're using a widescreen view size
-## You probably shouldn't ever be changing this, but it's here if you want to.
-DEFAULT_VIEW_SQUARE 15x15
 
 ## Enable automatic profiling - Byond 513.1506 and newer only.
 #AUTO_PROFILE
