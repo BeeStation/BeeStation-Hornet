@@ -1433,6 +1433,8 @@
 #include "code\modules\antagonists\revenant\revenant_blight.dm"
 #include "code\modules\antagonists\revenant\revenant_spawn_event.dm"
 #include "code\modules\antagonists\revolution\revolution.dm"
+#include "code\modules\antagonists\roundstart_special\special_antagonist.dm"
+#include "code\modules\antagonists\roundstart_special\undercover\undercover.dm"
 #include "code\modules\antagonists\santa\santa.dm"
 #include "code\modules\antagonists\separatist\separatist.dm"
 #include "code\modules\antagonists\slaughter\slaughter.dm"
