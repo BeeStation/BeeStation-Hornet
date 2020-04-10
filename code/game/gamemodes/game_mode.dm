@@ -91,7 +91,7 @@
 
 	var/list/candidates = list()
 	for(var/mob/living/carbon/human/H in living_crew)
-		if(!(H.client && H.client.prefs.allow_midround_antag && !is_centcom_level(H.z)))	//TODO CHANGE ALLOW MIDROUND TO SOMETHING SPECIAL
+		if(!(H.client && !is_centcom_level(H.z)))
 			continue
 		if(is_banned_from(H.ckey, list(ROLE_SPECIAL)))
 			continue
