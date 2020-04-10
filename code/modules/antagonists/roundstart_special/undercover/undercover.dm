@@ -24,7 +24,7 @@
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into an ex-security agent.")
 	log_admin("[key_name(admin)] made [key_name(new_owner)] into [name].")
 
-/datum/antagonist/special/undercover/forge_objectives(var/datum/mind/undercovermind)
+/datum/antagonist/special/undercover/forge_objectives()
 	var/datum/objective/saveshuttle/chosen_objective = new
 	chosen_objective.generate_people_goal()
 	objectives += chosen_objective
