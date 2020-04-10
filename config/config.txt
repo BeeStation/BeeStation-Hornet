@@ -489,7 +489,7 @@ RESPECT_GLOBAL_BANS
 
 ## Custom shuttle spam prevention. Changine these numbers allows you to change the maxsize and amount of custom shuttles.
 MAX_SHUTTLE_COUNT 6
-MAX_SHUTTLE_SIZE 200
+MAX_SHUTTLE_SIZE 300
 
 
 ### Fail2Topic settings
