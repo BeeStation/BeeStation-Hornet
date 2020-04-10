@@ -98,6 +98,7 @@
 		candidates += H
 
 	for(var/special in allowed_special)
+		//Create the role with default values from the datum, for comparisons
 		var/datum/antagonist/special/special_antag = new special()
 		if(!special_antag)
 			message_admins("Warning, incorrect antag datum input into the allowed_special variable of the current gamemode.")
