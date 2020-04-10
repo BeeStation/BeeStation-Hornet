@@ -1,0 +1,27 @@
+author: "PowerfulBacon"
+delete-after: True
+changes: 
+  - rscadd: "Added in new circuit board for plasma engine"
+  - rscadd: "Added in new circuit board for plasma engine heater"
+  - rscadd: "Added in new tool designs for custom shuttle creator"
+  - rscadd: "Added in new tech branch costing 10000 research points to unlock shuttle creation tools"
+  - rscadd: "Added the custom shuttle console"
+  - rscadd: "Added the plasma engine"
+  - rscadd: "Added the plasma engine heater"
+  - rscadd: "Added the Custom Shuttle Designator"
+  - rscadd: "Added the custom shuttle navigation computer"
+  - rscadd: "Researches to make shuttles more efficient"
+  - rscadd: "20% more efficient flight upgrade"
+  - rscadd: "40% more efficient flight upgrade"
+  - rscadd: "80% more efficient flight upgrade"
+  - rscadd: "Void thruster - Requires no fuel or heater to operate, produces a very good amount of thrust.
+icon: Added in new plasma engine icons
+icon: Added in new plasma heater icons
+icon: Added icon for shuttle creator"
+  - bugfix: "Rather than searching every atom of every turf, now we just store machines that need to be updated in a global list (Credit: Ike709 for idea)"
+  - bugfix: "Shuttle can now dock with stationary ports"
+  - bugfix: "Shuttles cannot dock on top of plating now"
+  - bugfix: "Shuttles can now be made on lavaland"
+  - bugfix: "You can no longer target new destinations while in transit"
+  - tweak: "Shuttle targetter stop working when war is declared"
+  - config: "Created 2 new config options defining shuttle max size and count of shuttles"
