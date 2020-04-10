@@ -1,5 +1,6 @@
 /datum/antagonist/special/undercover
 	name = "Ex-security agent"
+	roundend_category = "Special Roles"
 	probability = 65			//The probability of any spawning at all
 	proportion = 0.05			//The prbability per person of rolling it (5% is (5 in 100) (1 in 20))
 	max_amount = 4				//The maximum amount
