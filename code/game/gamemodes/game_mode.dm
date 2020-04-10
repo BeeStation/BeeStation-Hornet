@@ -93,6 +93,8 @@
 	for(var/mob/living/carbon/human/H in living_crew)
 		if(!(H.client && H.client.prefs.allow_midround_antag && !is_centcom_level(H.z)))	//TODO CHANGE ALLOW MIDROUND TO SOMETHING SPECIAL
 			continue
+		if(is_banned_from(H.ckey, list(ROLE_SPECIAL)))
+			continue
 		candidates += H
 
 	message_admins("There are [candidates.len] candidates available for a total of [allowed_special.len] special roles.")
