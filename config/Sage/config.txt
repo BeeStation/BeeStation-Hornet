@@ -488,11 +488,6 @@ GRANT_METACURRENCY
 ## Comment this out to ignore global bans
 RESPECT_GLOBAL_BANS
 
-## Mob spam prevention. The number of each mobtype that can be alive at once. Stops people from crashing the server with chickens/monkeycubes/slimes. Altering these values is recommended based on server hardware.
-MAX_CUBE_MONKEYS 60
-MAX_CHICKENS 60
-MAX_SLIMES 60
-
 ## Custom shuttle spam prevention. Changine these numbers allows you to change the maxsize and amount of custom shuttles.
 MAX_SHUTTLE_COUNT 6
 MAX_SHUTTLE_SIZE 200
