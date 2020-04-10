@@ -175,6 +175,9 @@
 	if(character.mind.antag_datums)
 		if(character.mind.antag_datums.len > 0)
 			return
+	//Check if they are banned
+	if(is_banned_from(character.ckey, list(ROLE_SPECIAL)) || QDELETED(character))
+		return
 	for(var/subantag in active_specials)
 		var/datum/antagonist/special/newAntag = new subantag
 		if(!newAntag.latejoin_allowed)

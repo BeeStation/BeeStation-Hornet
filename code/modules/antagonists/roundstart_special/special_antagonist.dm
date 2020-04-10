@@ -5,6 +5,7 @@
 	var/latejoin_allowed = TRUE		//Can latejoins be assigned to this?
 	var/allowAntagTargets = FALSE
 	var/role_name = "special role"
+	job_rank = ROLE_SPECIAL
 	var/list/protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician")
 
 /datum/antagonist/special/proc/equip()

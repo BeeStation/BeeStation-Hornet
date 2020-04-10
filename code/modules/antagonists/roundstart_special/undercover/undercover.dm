@@ -1,7 +1,6 @@
 /datum/antagonist/special/undercover
 	name = "Ex-security agent"
 	show_in_antagpanel = FALSE
-	job_rank = ROLE_EXSEC
 	show_name_in_check_antagonists = FALSE
 	antag_moodlet = /datum/mood_event/determined
 	role_name = "Undercover Agent"
