@@ -1,4 +1,5 @@
 /datum/antagonist/special
+	name = "Special Additional Role"
 	var/probability = 100			//The probability of any spawning
 	var/proportion = 1				//The prbability per person of rolling it
 	var/max_amount = 5				//The maximum amount
