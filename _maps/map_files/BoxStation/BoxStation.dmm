@@ -36,8 +36,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -949,8 +949,8 @@
 /area/ai_monitored/security/armory)
 "acm" = (
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 4;
 	areastring = "/area/ai_monitored/security/armory";
+	dir = 4;
 	name = "Armory APC";
 	pixel_x = 24
 	},
@@ -991,8 +991,8 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
@@ -1181,8 +1181,8 @@
 "acO" = (
 /obj/structure/closet/l3closet/security,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/main)
@@ -1664,7 +1664,9 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "adN" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -1947,7 +1949,9 @@
 	dir = 2;
 	pixel_y = 24
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -2057,8 +2061,8 @@
 /area/security/main)
 "aeC" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/security/main)
@@ -2295,8 +2299,8 @@
 	pixel_y = -3
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
@@ -2827,7 +2831,9 @@
 "agg" = (
 /obj/structure/closet/secure_closet/injection,
 /obj/structure/cable,
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
 "agh" = (
@@ -2964,8 +2970,8 @@
 "agv" = (
 /obj/machinery/computer/security/mining,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -3437,7 +3443,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "ahw" = (
@@ -3666,7 +3674,9 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants/random,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel,
 /area/security/main)
 "ahP" = (
@@ -3753,8 +3763,8 @@
 /obj/effect/turf_decal/tile/red,
 /obj/structure/closet/secure_closet/brig_phys,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/security/brig)
@@ -3887,8 +3897,8 @@
 /area/security/main)
 "ail" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -3927,8 +3937,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -4496,7 +4506,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "ajz" = (
@@ -4834,8 +4846,8 @@
 	dir = 2
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -4909,8 +4921,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -5950,8 +5962,8 @@
 "amB" = (
 /obj/machinery/stasis,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 9
+	dir = 9;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
@@ -6208,10 +6220,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
@@ -6499,8 +6513,8 @@
 	dir = 5
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
@@ -6654,8 +6668,8 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/security/processing)
@@ -6688,8 +6702,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -6745,8 +6759,8 @@
 	dir = 2
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -6955,7 +6969,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -7049,7 +7065,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
 "apB" = (
@@ -7058,8 +7076,8 @@
 	},
 /obj/machinery/power/smes,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
@@ -7463,7 +7481,9 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aqP" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -7646,7 +7666,9 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "ars" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -8130,7 +8152,9 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
@@ -8416,8 +8440,8 @@
 	pixel_y = -27
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/wood,
 /area/lawoffice)
@@ -8698,8 +8722,8 @@
 	pixel_y = 24
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 6
+	dir = 6;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
@@ -9016,7 +9040,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "avv" = (
@@ -9131,7 +9157,9 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "avL" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -9178,8 +9206,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
@@ -9243,7 +9271,9 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "awd" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -10409,7 +10439,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "ayP" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -11232,8 +11264,8 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -11318,7 +11350,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -11432,8 +11466,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
@@ -11674,7 +11708,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/nuke_storage)
 "aBU" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -11837,8 +11873,8 @@
 /area/ai_monitored/storage/eva)
 "aCj" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
@@ -11870,8 +11906,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/entry)
@@ -12065,7 +12101,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/auxiliary)
@@ -12153,7 +12191,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "aDi" = (
@@ -12338,8 +12378,8 @@
 	dir = 2
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
@@ -12651,7 +12691,9 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "aEz" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -12831,8 +12873,8 @@
 	},
 /obj/item/storage/firstaid/regular,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/gateway)
@@ -12942,8 +12984,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -12969,7 +13011,9 @@
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet)
 "aFi" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
@@ -13000,7 +13044,9 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/theatre)
 "aFl" = (
@@ -13126,8 +13172,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/auxiliary)
@@ -13193,8 +13239,8 @@
 	pixel_x = 24
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics/garden)
@@ -13300,8 +13346,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/nuke_storage)
@@ -14345,7 +14391,9 @@
 /area/hydroponics)
 "aIr" = (
 /obj/structure/filingcabinet,
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -14418,7 +14466,9 @@
 /obj/structure/bodycontainer/crematorium{
 	id = "crematoriumChapel"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -14462,7 +14512,9 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -14597,7 +14649,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -14642,8 +14696,8 @@
 "aJf" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
@@ -14839,8 +14893,8 @@
 /area/hallway/primary/central)
 "aJz" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet)
@@ -14896,7 +14950,9 @@
 /obj/structure/table/wood,
 /obj/item/stack/spacecash/c10,
 /obj/item/stack/spacecash/c100,
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -15333,7 +15389,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aKL" = (
@@ -15402,7 +15460,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/kitchen)
 "aKV" = (
@@ -15449,8 +15509,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
@@ -15683,7 +15743,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "aLH" = (
@@ -16075,8 +16137,8 @@
 /area/chapel/office)
 "aMM" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
@@ -16649,8 +16711,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
@@ -16979,8 +17041,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
@@ -17904,8 +17966,8 @@
 /area/library)
 "aRP" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -17936,7 +17998,9 @@
 /turf/open/floor/plasteel,
 /area/storage/tools)
 "aRV" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -24
@@ -18011,8 +18075,8 @@
 /area/hallway/secondary/entry)
 "aSf" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -18509,8 +18573,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
@@ -18530,7 +18594,9 @@
 /obj/structure/table,
 /obj/item/storage/crayons,
 /obj/item/storage/crayons,
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel,
 /area/storage/art)
@@ -18705,8 +18771,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -18798,8 +18864,8 @@
 /area/maintenance/starboard/fore)
 "aUy" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/wood,
 /area/vacant_room/office)
@@ -19000,8 +19066,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 5
+	dir = 5;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
@@ -19031,7 +19097,9 @@
 /turf/open/floor/plasteel,
 /area/bridge)
 "aVh" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -19040,8 +19108,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -19155,8 +19223,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
@@ -19376,8 +19444,8 @@
 /area/library)
 "aVV" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
@@ -19528,8 +19596,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -19807,17 +19875,17 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "aWW" = (
 /obj/machinery/power/apc/highcap/five_k{
+	areastring = "/area/bridge";
 	dir = 2;
 	name = "Bridge APC";
-	areastring = "/area/bridge";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable,
 /obj/machinery/light,
@@ -20295,8 +20363,8 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
@@ -20329,8 +20397,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -20444,7 +20512,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "aYF" = (
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -20570,8 +20640,8 @@
 "aYT" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
@@ -20583,7 +20653,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aYV" = (
@@ -20618,8 +20690,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -20661,8 +20733,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
@@ -21111,7 +21183,9 @@
 /turf/open/floor/carpet/green,
 /area/chapel/main)
 "baD" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -21185,7 +21259,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -21201,7 +21277,9 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet/locker)
 "baP" = (
@@ -21400,8 +21478,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -21419,7 +21497,9 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "bbu" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -22089,8 +22169,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -22118,8 +22198,8 @@
 /area/hallway/primary/starboard)
 "bds" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
@@ -22402,10 +22482,10 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "bed" = (
 /obj/machinery/power/apc/highcap/five_k{
+	areastring = "/area/ai_monitored/turret_protected/ai_upload";
 	dir = 2;
 	name = "Upload APC";
-	areastring = "/area/ai_monitored/turret_protected/ai_upload";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable,
 /turf/open/floor/circuit,
@@ -22491,8 +22571,8 @@
 /obj/structure/table/wood,
 /obj/item/storage/lockbox/medal,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
@@ -22617,8 +22697,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
@@ -22996,7 +23076,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bfP" = (
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
@@ -23253,8 +23335,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
@@ -23276,8 +23358,8 @@
 "bgG" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -23299,7 +23381,9 @@
 /area/bridge/meeting_room)
 "bgJ" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/wood,
 /area/bridge/meeting_room)
@@ -23413,7 +23497,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bgZ" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -24091,7 +24177,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /turf/open/floor/plating,
 /area/science/robotics/mechbay)
 "biH" = (
@@ -24258,8 +24346,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 6
+	dir = 6;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
@@ -24386,7 +24474,9 @@
 /obj/structure/table,
 /obj/item/clothing/head/soft,
 /obj/item/clothing/head/soft,
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -24470,8 +24560,8 @@
 	dir = 2
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
@@ -24726,15 +24816,17 @@
 	pixel_x = 24
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "bkc" = (
 /obj/machinery/space_heater,
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /turf/open/floor/plating,
 /area/storage/emergency/starboard)
 "bkd" = (
@@ -25248,8 +25340,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -25269,11 +25361,15 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "blp" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -25318,8 +25414,8 @@
 /obj/item/crowbar/large,
 /obj/machinery/light,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/mechbay)
@@ -26486,7 +26582,9 @@
 /area/medical/genetics)
 "boo" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -26508,7 +26606,9 @@
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bos" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -26839,7 +26939,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -26873,8 +26975,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
@@ -27029,7 +27131,9 @@
 /turf/open/floor/plating,
 /area/medical/chemistry)
 "bpG" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -27375,7 +27479,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/table,
 /obj/item/paper/guides/jobs/engi/gravity_gen{
 	layer = 3
@@ -27827,8 +27933,8 @@
 	},
 /obj/machinery/rnd/production/techfab/department/cargo,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -28065,8 +28171,8 @@
 	pixel_x = 30
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 9
+	dir = 9;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -28161,8 +28267,8 @@
 /area/science/robotics/lab)
 "bsS" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
@@ -28324,25 +28430,25 @@
 	id = "QMLoaddoor";
 	layer = 4;
 	name = "Loading Doors";
-	req_access_txt = "31";
 	pixel_x = -24;
-	pixel_y = -8
+	pixel_y = -8;
+	req_access_txt = "31"
 	},
 /obj/machinery/button/door{
 	dir = 2;
 	id = "QMLoaddoor2";
 	layer = 4;
 	name = "Loading Doors";
-	req_access_txt = "31";
 	pixel_x = -24;
-	pixel_y = 8
+	pixel_y = 8;
+	req_access_txt = "31"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -28475,7 +28581,9 @@
 /turf/open/floor/plasteel,
 /area/teleporter)
 "btI" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -28611,7 +28719,9 @@
 /area/quartermaster/storage)
 "buc" = (
 /obj/machinery/light,
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -28641,8 +28751,8 @@
 	pixel_y = -30
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hop)
@@ -28781,8 +28891,8 @@
 /area/medical/genetics)
 "buB" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "QMLoad";
-	dir = 8
+	dir = 8;
+	id = "QMLoad"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -29073,8 +29183,8 @@
 /area/science/research)
 "bvf" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 9
@@ -29215,8 +29325,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
@@ -29236,8 +29346,8 @@
 	pixel_x = 32
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 9
+	dir = 9;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
@@ -29374,8 +29484,8 @@
 /area/hallway/primary/central)
 "bvX" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -29442,8 +29552,8 @@
 	pixel_x = -32
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -29611,7 +29721,9 @@
 /obj/machinery/computer/med_data{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -29684,8 +29796,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
@@ -30035,8 +30147,8 @@
 /area/engine/gravity_generator)
 "bxL" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -30346,7 +30458,9 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "byA" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -30399,7 +30513,9 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "byF" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -30562,7 +30678,9 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
 "byU" = (
@@ -30754,8 +30872,8 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4;
 	external_pressure_bound = 140;
-	pressure_checks = 0;
-	name = "server vent"
+	name = "server vent";
+	pressure_checks = 0
 	},
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
@@ -30790,13 +30908,15 @@
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "bzy" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 6
+	dir = 6;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/server)
@@ -31299,8 +31419,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science)
@@ -31435,8 +31555,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
@@ -31533,8 +31653,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
@@ -31579,8 +31699,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -31670,8 +31790,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -31914,7 +32034,9 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science)
 "bCa" = (
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -31967,7 +32089,9 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bCf" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable,
 /obj/machinery/light_switch{
 	pixel_y = -23
@@ -31990,8 +32114,8 @@
 	pixel_y = -29
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/hor)
@@ -32026,8 +32150,8 @@
 	pixel_y = -32
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/engine,
 /area/science/explab)
@@ -32277,8 +32401,8 @@
 	pixel_x = -30
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -32427,7 +32551,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /turf/open/floor/plasteel,
 /area/janitor)
 "bDs" = (
@@ -32476,7 +32602,9 @@
 /turf/open/floor/plating,
 /area/storage/tech)
 "bDy" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -32525,8 +32653,8 @@
 	},
 /obj/machinery/iv_drip,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
@@ -32877,8 +33005,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 9
+	dir = 9;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
@@ -32906,7 +33034,9 @@
 /turf/open/floor/plasteel,
 /area/science/storage)
 "bEq" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -33492,7 +33622,9 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "bFX" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -33894,7 +34026,9 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -33919,14 +34053,16 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "bHe" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/science/storage)
@@ -34158,8 +34294,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -34186,7 +34322,9 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "bHV" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -34252,8 +34390,8 @@
 	},
 /obj/machinery/light,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 10
+	dir = 10;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
@@ -35098,8 +35236,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
@@ -35137,8 +35275,8 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -35597,7 +35735,9 @@
 /area/crew_quarters/heads/hor)
 "bLi" = (
 /obj/machinery/door/firedoor/heavy,
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable,
 /turf/open/floor/plasteel/white,
 /area/science/mixing/chamber)
@@ -35660,8 +35800,8 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	luminosity = 2;
-	initial_gas_mix = "o2=0.01;n2=0.01"
+	initial_gas_mix = "o2=0.01;n2=0.01";
+	luminosity = 2
 	},
 /area/science/test_area)
 "bLu" = (
@@ -35744,7 +35884,9 @@
 /area/security/detectives_office)
 "bLF" = (
 /obj/structure/filingcabinet/filingcabinet,
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -35920,7 +36062,9 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "bMg" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -36407,8 +36551,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 9
+	dir = 9;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
@@ -36553,8 +36697,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -36865,7 +37009,9 @@
 "bOM" = (
 /obj/structure/table,
 /obj/item/paper_bin,
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -36880,7 +37026,9 @@
 /turf/open/floor/plating,
 /area/security/detectives_office)
 "bOO" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -37118,7 +37266,9 @@
 /obj/item/paper_bin{
 	pixel_y = 6
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -37496,8 +37646,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/engineering)
@@ -37657,8 +37807,8 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
@@ -38209,8 +38359,8 @@
 "bSt" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
@@ -38222,8 +38372,8 @@
 /area/space/nearstation)
 "bSv" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/construction)
@@ -38458,10 +38608,10 @@
 /area/medical/virology)
 "bSX" = (
 /obj/machinery/power/apc/highcap/five_k{
+	areastring = "/area/medical/virology";
 	dir = 1;
 	name = "Virology APC";
-	areastring = "/area/medical/virology";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -38682,7 +38832,9 @@
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
 "bTJ" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -39414,8 +39566,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark/corner{
 	dir = 1
@@ -39717,10 +39869,10 @@
 	dir = 1
 	},
 /obj/machinery/power/apc/highcap/five_k{
+	areastring = "/area/tcommsat/server";
 	dir = 1;
 	name = "Telecomms Server APC";
-	areastring = "/area/tcommsat/server";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -39861,8 +40013,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -40320,8 +40472,8 @@
 	dir = 5
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -40728,8 +40880,8 @@
 	pixel_y = 2
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
@@ -40844,8 +40996,8 @@
 	pixel_y = -27
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
@@ -40938,7 +41090,9 @@
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "bZF" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -41093,8 +41247,8 @@
 "bZZ" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
@@ -41296,8 +41450,8 @@
 	name = "Port to Filter"
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -41569,8 +41723,8 @@
 /area/maintenance/port/aft)
 "cbl" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
@@ -41602,9 +41756,9 @@
 "cbp" = (
 /obj/structure/closet/secure_closet/engineering_chief,
 /obj/machinery/power/apc/highcap/five_k{
+	areastring = "/area/crew_quarters/heads/chief";
 	dir = 4;
 	name = "CE Office APC";
-	areastring = "/area/crew_quarters/heads/chief";
 	pixel_x = 24
 	},
 /obj/structure/cable/yellow{
@@ -41662,8 +41816,8 @@
 	dir = 2
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 9
+	dir = 9;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -41674,7 +41828,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "cbv" = (
@@ -41862,8 +42018,8 @@
 "cbV" = (
 /obj/machinery/light,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/engine,
 /area/science/misc_lab)
@@ -42466,7 +42622,9 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "cds" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -42474,8 +42632,8 @@
 	pixel_y = -32
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -42639,7 +42797,9 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "cdW" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -42811,8 +42971,8 @@
 /area/engine/break_room)
 "cex" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -43097,12 +43257,12 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 2;
 	external_pressure_bound = 140;
-	pressure_checks = 0;
-	name = "killroom vent"
+	name = "killroom vent";
+	pressure_checks = 0
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
@@ -43484,8 +43644,8 @@
 	},
 /obj/structure/closet/emcloset,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
@@ -43543,8 +43703,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -43708,8 +43868,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/engine/atmos)
@@ -44058,10 +44218,10 @@
 	},
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/power/apc/highcap/fifteen_k{
+	areastring = "/area/engine/engineering";
 	dir = 1;
 	name = "Engineering APC";
-	areastring = "/area/engine/engineering";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -44287,8 +44447,8 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
@@ -44332,11 +44492,13 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "ciR" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
@@ -44468,8 +44630,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
@@ -44519,8 +44681,8 @@
 /area/crew_quarters/heads/chief)
 "cjl" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -44558,7 +44720,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -44658,8 +44822,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -44859,7 +45023,9 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "ckt" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -45213,8 +45379,8 @@
 "cly" = (
 /obj/structure/chair/stool,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
@@ -45801,8 +45967,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_smes)
@@ -45829,8 +45995,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -46006,8 +46172,8 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
@@ -46565,7 +46731,9 @@
 /area/maintenance/port/aft)
 "cpS" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -46597,8 +46765,8 @@
 "cpV" = (
 /obj/structure/table,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -46694,8 +46862,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 10
+	dir = 10;
+	icon_state = "camera"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -46756,8 +46924,8 @@
 /area/engine/engineering)
 "cqp" = (
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -47575,8 +47743,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/machinery/light/small,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -47816,7 +47984,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/chair,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -47831,8 +48001,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -47885,8 +48055,8 @@
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -48065,8 +48235,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/atmos)
@@ -48109,8 +48279,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -48190,8 +48360,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/service)
@@ -48205,7 +48375,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/atmos)
 "cuM" = (
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -48298,7 +48470,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/service)
 "cuX" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -48566,8 +48740,8 @@
 "cvF" = (
 /obj/structure/lattice,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/space,
 /area/space/nearstation)
@@ -48604,8 +48778,8 @@
 "cvK" = (
 /obj/structure/lattice,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/space,
 /area/space/nearstation)
@@ -48685,7 +48859,9 @@
 /area/ai_monitored/turret_protected/aisat/hallway)
 "cwa" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "cwc" = (
@@ -48888,10 +49064,10 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/highcap/five_k{
+	areastring = "/area/ai_monitored/turret_protected/ai";
 	dir = 2;
 	name = "AI Chamber APC";
-	areastring = "/area/ai_monitored/turret_protected/ai";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/machinery/flasher{
 	id = "AI";
@@ -48931,8 +49107,8 @@
 "cwT" = (
 /obj/machinery/light/small,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
@@ -49593,7 +49769,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -49613,7 +49791,9 @@
 /area/maintenance/disposal)
 "cAJ" = (
 /obj/structure/closet,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/plating,
@@ -49713,8 +49893,8 @@
 "cAU" = (
 /obj/structure/lattice,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 9
+	dir = 9;
+	icon_state = "camera"
 	},
 /turf/open/space,
 /area/space/nearstation)
@@ -49746,8 +49926,8 @@
 "cAX" = (
 /obj/structure/lattice,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 5
+	dir = 5;
+	icon_state = "camera"
 	},
 /turf/open/space,
 /area/space/nearstation)
@@ -49855,8 +50035,8 @@
 "cBn" = (
 /obj/effect/landmark/event_spawn,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet/locker)
@@ -50558,8 +50738,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -50602,8 +50782,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -50663,8 +50843,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 6
+	dir = 6;
+	icon_state = "camera"
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -50878,8 +51058,8 @@
 "cFi" = (
 /obj/machinery/door/firedoor/heavy,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 9
@@ -51021,8 +51201,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 6
+	dir = 6;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
@@ -51736,7 +51916,9 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "cNS" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -52170,7 +52352,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -52241,7 +52425,9 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "cTM" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -52291,7 +52477,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plating,
 /area/storage/emergency/port)
 "cYY" = (
@@ -52582,7 +52770,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
 "ehl" = (
@@ -53287,8 +53477,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
@@ -53464,7 +53654,9 @@
 	pixel_y = 3
 	},
 /obj/item/stock_parts/scanning_module,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -53935,7 +54127,9 @@
 /area/maintenance/department/electrical)
 "iCT" = (
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "iEJ" = (
@@ -54016,7 +54210,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "jhL" = (
@@ -54059,7 +54255,9 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "jsv" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -54692,7 +54890,9 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "lff" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -54812,14 +55012,18 @@
 "lvv" = (
 /obj/structure/table/wood,
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "lxd" = (
 /obj/machinery/light_switch{
 	pixel_x = -20
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -54959,8 +55163,8 @@
 /obj/machinery/computer/nanite_cloud_controller,
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 4
+	dir = 4;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
@@ -55211,15 +55415,15 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 6
+	dir = 6;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "mLS" = (
 /obj/machinery/cryopod{
-	icon_state = "cryopod-open";
-	dir = 4
+	dir = 4;
+	icon_state = "cryopod-open"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -55296,7 +55500,9 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -55447,7 +55653,9 @@
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "nxv" = (
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -55697,7 +55905,6 @@
 /area/storage/primary)
 "oyM" = (
 /obj/machinery/atmospherics/pipe/manifold/general/hidden{
-	icon_state = "manifold-2";
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -55769,7 +55976,6 @@
 /area/maintenance/fore)
 "oMw" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
-	icon_state = "pipe11-2";
 	dir = 10
 	},
 /turf/open/floor/plating,
@@ -57148,8 +57354,8 @@
 /area/engine/break_room)
 "tmE" = (
 /obj/machinery/cryopod{
-	icon_state = "cryopod-open";
-	dir = 4
+	dir = 4;
+	icon_state = "cryopod-open"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -57470,8 +57676,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
@@ -57757,8 +57963,8 @@
 	pixel_y = -25
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 8
+	dir = 8;
+	icon_state = "camera"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
@@ -57800,6 +58006,18 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/dorms)
+"vBt" = (
+/obj/machinery/door/window/southright{
+	name = "Research and Development Desk";
+	req_one_access_txt = "7;29"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "rnd";
+	name = "research lab shutters"
+	},
+/obj/machinery/autolathe,
+/turf/open/floor/plasteel/white,
+/area/science/lab)
 "vCb" = (
 /obj/machinery/rnd/production/techfab/department/service,
 /turf/open/floor/plasteel,
@@ -57987,7 +58205,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -58264,7 +58484,9 @@
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "xfD" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
@@ -58371,7 +58593,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "xwM" = (
@@ -58386,8 +58610,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	icon_state = "camera";
-	dir = 1
+	dir = 1;
+	icon_state = "camera"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -58616,7 +58840,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -105558,7 +105784,7 @@ aYV
 aXq
 aYV
 bfX
-bhC
+vBt
 biU
 bks
 blI

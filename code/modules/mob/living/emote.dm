@@ -537,7 +537,6 @@
 		qdel(N)
 		to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
 
-
 /datum/emote/living/snap
 	key = "snap"
 	key_third_person = "snaps"
@@ -547,3 +546,18 @@
 
 /datum/emote/living/snap/get_sound(mob/living/user)
 	return pick('sound/misc/fingersnap1.ogg', 'sound/misc/fingersnap2.ogg')
+
+/datum/emote/living/fingergun
+	key = "fingergun"
+	key_third_person = "fingerguns"
+	message = "forms their fingers into the shape of a crude gun"
+	restraint_check = TRUE
+
+/datum/emote/living/fingergun/run_emote(mob/user, params)
+	. = ..()
+	var/obj/item/gun/ballistic/revolver/mime/N = new(user)
+	if(user.put_in_hands(N))
+		to_chat(user, "<span class='notice'>You form your fingers into a gun.</span>")
+	else
+		qdel(N)
+		to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")

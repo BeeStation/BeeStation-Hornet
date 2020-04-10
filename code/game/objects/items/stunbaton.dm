@@ -12,7 +12,7 @@
 	attack_verb = list("enforced the law upon")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 
-	var/stunforce = 90
+	var/stunforce = 75
 	var/status = 0
 	var/obj/item/stock_parts/cell/cell
 	var/hitcost = 1000
@@ -142,12 +142,11 @@
 			baton_stun(M, user)
 		..()
 
-
-/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
+/obj/item/melee/baton/proc/baton_stun(mob/living/target, mob/living/user)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
-			playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
+			playsound(target, 'sound/weapons/genhit.ogg', 50, 1)
 			return 0
 	if(iscyborg(loc))
 		var/mob/living/silicon/robot/R = loc
@@ -157,20 +156,23 @@
 		if(!deductcharge(hitcost))
 			return 0
 
-	L.adjustStaminaLoss(stunforce)
-	L.apply_effect(EFFECT_STUTTER, stunforce)
-	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK)
+	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
+	var/armor_block = target.run_armor_check(affecting, "energy")
+	// L.adjustStaminaLoss(stunforce)
+	target.apply_damage(stunforce, STAMINA, affecting, armor_block)
+	target.apply_effect(EFFECT_STUTTER, stunforce)
+	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
 	if(user)
-		L.lastattacker = user.real_name
-		L.lastattackerckey = user.ckey
-		L.visible_message("<span class='danger'>[user] has electrocuted [L] with [src]!</span>", \
+		target.lastattacker = user.real_name
+		target.lastattackerckey = user.ckey
+		target.visible_message("<span class='danger'>[user] has electrocuted [target] with [src]!</span>", \
 								"<span class='userdanger'>[user] has electrocuted you with [src]!</span>")
-		log_combat(user, L, "stunned")
+		log_combat(user, target, "stunned")
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
 		H.forcesay(GLOB.hit_appends)
 
 

@@ -1,23 +1,23 @@
 /datum/symptom/cockroach
 
 	name = "SBG Syndrome"
-	desc = "ERROR: BLUESPACE INTERFERENCE RENDERS COMPLETE ANALYSIS IMPOSSIBLE" 
+	desc = "Causes bluespace synchronicity with nearby air channels, making the roaches infesting the station's scrubbers crawl from the host's face"
 	stealth = 0
 	resistance = 3
 	stage_speed = 3
 	transmittable = 1
 	level = 0
-	severity = 6 //the joke here is that this relatively mundane and harmless symptom, which only spawns cockroaches, seems incredibly frightening
+	severity = 0 //rip funy
 	symptom_delay_min = 10
 	symptom_delay_max = 30
 	var/death_roaches = FALSE
-	threshold_desc = "<b>Stage Speed 8:</b> CALCULATIONS FORECAST HEIGHTENED ACTIVITY<br>\
-	<b>Transmission 8:</b> CALCULATIONS FORECAST BRIEFLY ESCALATED ACTIVITY IMMEDIATELY FOLLOWING CESSATION OF HOST LIFESIGNS<br>" 
+	threshold_desc = "<b>Stage Speed 8:</b>Increases roach speed<br>\
+	<b>Transmission 8:</b>When the host dies, more roaches spawn<br>" 
             
 /datum/symptom/cockroach/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_speed"] >= 8)
+	if(A.properties["stage_rate"] >= 8)
 		symptom_delay_min = 5
 		symptom_delay_max = 15
 	if(A.properties["transmittable"] >= 8) 

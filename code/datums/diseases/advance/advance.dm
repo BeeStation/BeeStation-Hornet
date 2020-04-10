@@ -26,12 +26,14 @@
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 
 	// NEW VARS
+	var/channel = 0 //used to set the symptom's "channel" when having multiple diseases
 	var/list/properties = list()
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
 	var/processing = FALSE
 	var/mutable = TRUE //set to FALSE to prevent most in-game methods of altering the disease via virology
 	var/oldres
+	var/sentient = FALSE //used to classify if a disease is sentient
 	// The order goes from easy to cure to hard to cure.
 	var/static/list/advance_cures = 	list(
 																/datum/reagent/consumable/sugar, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride, 
@@ -59,7 +61,12 @@
 	//diseases replaced in this way do not confer immunity
 	var/list/advance_diseases = list()
 	for(var/datum/disease/advance/P in infectee.diseases)
-		advance_diseases += P
+		if(sentient)
+			if(P.sentient)
+				advance_diseases += P
+			continue
+		if(channel == P.channel && !P.sentient)
+			advance_diseases += P
 	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //amount of diseases that need to be removed to fit this one
 	if(replace_num > 0)
 		sortTim(advance_diseases, /proc/cmp_advdisease_resistance_asc)
@@ -173,6 +180,8 @@
 /datum/disease/advance/proc/Refresh(new_name = FALSE)
 	GenerateProperties()
 	AssignProperties()
+	for(var/datum/symptom/S in symptoms)
+		S.severityreset(src)
 	id = null
 
 	var/the_id = GetDiseaseID()
@@ -191,8 +200,18 @@
 		properties["stealth"] += S.stealth
 		properties["stage_rate"] += S.stage_speed
 		properties["transmittable"] += S.transmittable
+		if(!S.dynamicseverity)
+			S.severityset(src)
 		if(!S.neutered)
-			properties["severity"] = max(properties["severity"], S.severity) // severity is based on the highest severity non-neutered symptom
+			switch(S.severity)
+				if(-INFINITY to 0)
+					properties["severity"] += S.severity
+				if(1 to 2)
+					properties["severity"] = min(3, (S.severity + properties["severity"]))
+				if(3 to 4)
+					properties["severity"] = min(4, (S.severity + properties["severity"]))
+				if(5 to INFINITY)
+					properties["severity"] += S.severity
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
@@ -240,22 +259,36 @@
 
 	switch(level_sev)
 
-		if(-INFINITY to 0)
+		if(-INFINITY to -2)
+			severity = DISEASE_SEVERITY_BENEFICIAL
+			channel = 1
+		if(-1)
 			severity = DISEASE_SEVERITY_POSITIVE
-		if(1)
+			channel = 1
+		if(0)
 			severity = DISEASE_SEVERITY_NONTHREAT
-		if(2)
+			channel = 1
+		if(1)
 			severity = DISEASE_SEVERITY_MINOR
-		if(3)
+			channel = 2
+		if(2)
 			severity = DISEASE_SEVERITY_MEDIUM
-		if(4)
+			channel = 2
+		if(3)
 			severity = DISEASE_SEVERITY_HARMFUL
-		if(5)
+			channel = 2
+		if(4)
 			severity = DISEASE_SEVERITY_DANGEROUS
-		if(6 to INFINITY)
+			channel = 2
+		if(5)
 			severity = DISEASE_SEVERITY_BIOHAZARD
+			channel = 3
+		if(6 to INFINITY)
+			severity = DISEASE_SEVERITY_PANDEMIC
+			channel = 3
 		else
 			severity = "Unknown"
+			channel = 2
 
 
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.

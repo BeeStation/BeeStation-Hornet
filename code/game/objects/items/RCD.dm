@@ -571,8 +571,6 @@ RLD
 	else
 		return FALSE
 
-		return FALSE
-
 /obj/item/construction/rcd/afterattack(atom/A, mob/user, proximity)
 	. = ..()
 	if(!prox_check(proximity))

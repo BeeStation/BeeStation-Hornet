@@ -23,7 +23,7 @@ Bonus
 	stage_speed = 0
 	transmittable = 4
 	level = 1
-	severity = 1
+	severity = 0
 	symptom_delay_min = 5
 	symptom_delay_max = 35
 	threshold_desc = "<b>Stealth 4:</b> The symptom remains hidden until active."
