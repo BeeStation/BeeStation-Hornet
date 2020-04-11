@@ -129,7 +129,7 @@
 		var/mob/living/carbon/human/H = M
 		var/location = user.zone_selected
 		var/mirror = FALSE
-		if(locate(/obj/structure/mirror) in range(1, H) || HAS_TRAIT(H, TRAIT_SELF_AWARE))
+		if(HAS_TRAIT(H, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in range(1, H))
 			mirror = TRUE
 		if((location in list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_HEAD)) && !H.get_bodypart(BODY_ZONE_HEAD))
 			to_chat(user, "<span class='warning'>[H] doesn't have a head!</span>")

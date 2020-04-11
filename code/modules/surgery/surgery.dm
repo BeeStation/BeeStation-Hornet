@@ -121,7 +121,7 @@
 	var/selfpenalty = 0
 	var/sleepbonus = 0
 	if(target == user)
-		if(locate(/obj/structure/mirror) in range(1, user) || HAS_TRAIT(user, TRAIT_SELF_AWARE))
+		if(HAS_TRAIT(H, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in range(1, H))
 			selfpenalty = 0.4
 		else
 			selfpenalty = 0.6
