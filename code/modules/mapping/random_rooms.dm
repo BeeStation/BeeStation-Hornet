@@ -5,22 +5,6 @@
 	var/template_height = 0
 	var/template_width = 0
 
-/datum/map_template/random_room/surgery
-	name = "Abandoned Surgery"
-	room_id = "surgery"
-	mappath = "_maps/RandomRooms/5x4/surgery.dmm"
-	centerspawner = FALSE
-	template_height = 4
-	template_width = 5
-
-/datum/map_template/random_room/electronics
-	name = "Electronics Den"
-	room_id = "electronics"
-	mappath = "_maps/RandomRooms/5x4/electronics.dmm"
-	centerspawner = FALSE
-	template_height = 4
-	template_width = 5
-
 /datum/map_template/random_room/sk_rdm001
 	name = "Maintenance Storage"
 	room_id = "sk_rdm001_9storage"
@@ -101,3 +85,10 @@
 	template_height = 3
 	template_width = 3
 
+/datum/map_template/random_room/sk_rdm011
+	name = "Barber Shop"
+	room_id = "sk_rdm011_barbershop"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm011_barbershop.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
