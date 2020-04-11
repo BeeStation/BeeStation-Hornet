@@ -1,6 +1,0 @@
-author: "dekunutkid"
-delete-after: True
-changes: 
-  - rscadd: "The ability for Ethereals to consume power from APCs while on harm intent, and give APCs power while on grab intent."
-  - rscadd: "All hair options are available for Ethereals with the color matching the Ethereal's color."
-  - rscadd: "Ethereals can now use a power cell in their hand and drain it at a 5% nutrition yield."
