@@ -1,0 +1,4 @@
+author: "ivanmixo"
+delete-after: True
+changes: 
+  - bugfix: "Fixes the labor camp point claim console, you can actually get your ID back now."
