@@ -41,12 +41,12 @@
 		locked = !locked
 		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the interface.</span>")
 		return
-	else if(istype(W, /obj/item/disk/cargo/bluespace_pod))
+	else if(istype(W, /obj/item/disk/cargo/bluespace_pod && isliving(usr)))
 		podType = /obj/structure/closet/supplypod/bluespacepod//doesnt effect circuit board, making reversal possible
 		to_chat(user, "<span class='notice'>You insert the disk into [src], allowing for advanced supply delivery vehicles.</span>")
 		qdel(W)
 		return TRUE
-	else if(istype(W, /obj/item/supplypod_beacon))
+	else if(istype(W, /obj/item/supplypod_beacon && isliving(usr)))
 		var/obj/item/supplypod_beacon/sb = W
 		if (sb.express_console != src)
 			sb.link_console(src, user)
@@ -70,14 +70,14 @@
 	meme_pack_data = list() // sorry for what?
 	for(var/pack in SSshuttle.supply_packs) // our quartermaster taught us not to be ashamed of our supply packs
 		var/datum/supply_pack/P = SSshuttle.supply_packs[pack]  // specially since they're such a good price and all
-		if(!meme_pack_data[P.group]) // yeah, I see that, your quartermaster gave you good advice
+		if(!meme_pack_data[P.group] && isliving(usr)) // yeah, I see that, your quartermaster gave you good advice
 			meme_pack_data[P.group] = list( // it gets cheaper when I return it
 				"name" = P.group, // mmhm
 				"packs" = list()  // sometimes, I return it so much, I rip the manifest
 			) // see, my quartermaster taught me a few things too
-		if((P.hidden) || (P.special)) // like, how not to rip the manifest
+		if((P.hidden) || (P.special) && isliving(usr)) // like, how not to rip the manifest
 			continue// by using someone else's crate
-		if(!(obj_flags & EMAGGED) && P.contraband) // will you show me?
+		if(!(obj_flags & EMAGGED) && P.contraband && isliving(usr)) // will you show me?
 			continue // i'd be right happy to
 		meme_pack_data[P.group]["packs"] += list(list(
 			"name" = P.name,
@@ -96,7 +96,7 @@
 	var/canBeacon = beacon && (isturf(beacon.loc) || ismob(beacon.loc))//is the beacon in a valid location?
 	var/list/data = list()
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
-	if(D)
+	if(D && isliving(usr))
 		data["points"] = D.account_balance
 	data["locked"] = locked//swipe an ID to unlock
 	data["siliconUser"] = user.has_unlimited_silicon_privilege
@@ -131,15 +131,15 @@
 	switch(action)
 		if("LZCargo")
 			usingBeacon = FALSE
-			if (beacon)
+			if (beacon && isliving(usr))
 				beacon.update_status(SP_UNREADY) //ready light on beacon will turn off
 		if("LZBeacon")
 			usingBeacon = TRUE
-			if (beacon)
+			if (beacon && isliving(usr))
 				beacon.update_status(SP_READY) //turns on the beacon's ready light
 		if("printBeacon")
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
-			if(D)
+			if(D && isliving(usr))
 				if(D.adjust_money(-BEACON_COST))
 					cooldown = 10//a ~ten second cooldown for printing beacons to prevent spam
 					var/obj/item/supplypod_beacon/C = new /obj/item/supplypod_beacon(drop_location())
@@ -156,11 +156,11 @@
 			var/name = "*None Provided*"
 			var/rank = "*None Provided*"
 			var/ckey = usr.ckey
-			if(ishuman(usr))
+			if(ishuman(usr) && isliving(usr))
 				var/mob/living/carbon/human/H = usr
 				name = H.get_authentification_name()
 				rank = H.get_assignment(hand_first = TRUE)
-			else if(issilicon(usr))
+			else if(issilicon(usr) && isliving(usr))
 				name = usr.real_name
 				rank = "Silicon"
 			var/reason = ""
@@ -168,9 +168,9 @@
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason)
 			var/points_to_check
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
-			if(D)
+			if(D && isliving(usr))
 				points_to_check = D.account_balance
-			if(!(obj_flags & EMAGGED))
+			if(!(obj_flags & EMAGGED) && isliving(usr))
 				if(SO.pack.cost <= points_to_check)
 					var/LZ
 					if (istype(beacon) && usingBeacon)//prioritize beacons over landing in cargobay
