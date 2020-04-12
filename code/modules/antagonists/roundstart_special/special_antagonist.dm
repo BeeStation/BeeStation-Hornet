@@ -13,6 +13,11 @@
 	var/role_name = "special role"
 	var/list/protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician")
 
+/datum/special_role/New()
+	. = ..()
+	if(spawn_mode != SPAWNTYPE_ROUNDSTART)
+
+
 /datum/special_role/proc/add_antag_status_to(var/datum/mind/M)
 	M.special_role = role_name
 	var/datum/antagonist/special/A = M.add_antag_datum(new attached_antag_datum())

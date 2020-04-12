@@ -100,7 +100,6 @@
 	for(var/role_to_init in allowed_special)
 		var/datum/special_role/new_role = new role_to_init
 		if(!prob(new_role.probability) || new_role.spawn_mode == 2)
-			qdel(new_role)
 			continue
 		active_specials += new_role
 
