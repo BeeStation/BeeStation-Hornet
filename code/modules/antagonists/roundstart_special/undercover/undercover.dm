@@ -41,7 +41,6 @@
 	objectives += chosen_objective
 
 	if(owner.assigned_role in list("Chief Engineer", "Station Engineer", "Atmospheric Technician"))
-		message_admins("hell yea")
 		var/datum/objective/protect_sm/objective = new
 		if(objective.get_target())
 			objective.update_explanation_text()
