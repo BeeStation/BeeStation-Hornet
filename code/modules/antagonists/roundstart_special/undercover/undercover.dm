@@ -90,6 +90,13 @@
 	explanation_text = "Protect the emergency shuttle from harm, ensuring that at least [target_amount] people make it on the shuttle alive."
 
 /datum/objective/saveshuttle/proc/generate_people_goal()
-	target_amount = rand(2, 8)			//This should really be made to scale with the population
+	var/potential_escapees = 0
+	for(var/mob/M in GLOB.mob_list)
+		if(M.mind)
+			potential_escapees ++
+	if(potential_escapees == 0)
+		explanation_text = "Free Objective"
+		return 0
+	target_amount = rand(1, round(potential_escapees * 0.2))			//This should really be made to scale with the population
 	update_explanation_text()
 	return target_amount

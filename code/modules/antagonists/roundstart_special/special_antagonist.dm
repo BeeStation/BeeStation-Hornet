@@ -57,6 +57,13 @@
 ////////////////////////////////
 //////    Round event    ///////
 ////////////////////////////////
+//The event that is associated with the special antag
+//If you are making a midround event that uses this system
+//Create a datum that implements /datum/round_event/create_special_antag
+//and put that datum as the event_typepath variable in
+//The controller.
+//If your role cannot spawn midround, don't bother making it.
+
 /datum/round_event/create_special_antag
 	fakeable = FALSE
 	var/role_name
@@ -101,6 +108,7 @@
 ////////////////////////////////
 //////  Antagonist Datum ///////
 ////////////////////////////////
+//The datum associated with the role
 
 /datum/antagonist/special
 	name = "Special Additional Role"
