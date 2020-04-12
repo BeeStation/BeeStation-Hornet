@@ -771,7 +771,6 @@
 			pulledby.stop_pulling()
 			return FALSE
 		else
-			adjustStaminaLoss(rand(8,15))//8 is from 7.5 rounded up
 			visible_message("<span class='danger'>[src] struggles as they fail to break free of [pulledby]'s grip!</span>")
 		if(moving_resist && client) //we resisted by trying to move
 			client.move_delay = world.time + 20
