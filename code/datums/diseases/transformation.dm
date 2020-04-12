@@ -302,7 +302,7 @@
 	cure_chance = 80
 	stage_prob = 5
 	agent = "Tranquility"
-	desc = "Consuming the flesh of a Gondola comes at a terrible price."
+	desc = "Consuming the flesh of a Gondola comes at a great price."
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list("You seem a little lighter in your step.")
@@ -337,7 +337,7 @@
 
 /datum/disease/transformation/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis"
-	cure_text = "Something that would kill off the tiny cats." 
+	cure_text = "Something that would kill off the tiny cats."
 	spread_text = "Acute"
 	disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
 	cures = list(/datum/reagent/consumable/coco) //kills all the tiny cats that infected your organism
