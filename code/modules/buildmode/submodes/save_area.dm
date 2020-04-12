@@ -92,7 +92,6 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 		var/header_chars = calculate_header_index(index, layers)
 		header += "\"[header_chars]\" = ("
 		//Get turfs and shit
-		var/first = TRUE
 		var/empty = TRUE
 		for(var/obj/thing in place)
 			if(istype(thing, /mob/living/carbon))		//Ignore people, but not animals
@@ -115,30 +114,30 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	fdel(temp_file)
 
 /datum/mapGeneratorModule/save_area/proc/generate_metadata(object)
+	//This idea was taken from https://github.com/WaspStation/WaspStation-1.0/pull/109/files
+	var/list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount")
+	var/list/dont_save_if_empty = list("icon_state")
 	var/obj/O = object
 	if(!istype(O))
 		return ""
 	var/dat = ""
 	var/data_to_add = list()
-	//Direction
-	data_to_add += "dir = [O.dir]"
-	//Name
-	if(O.name)
-		data_to_add += "name = \"[O.name]\""
-	//Description (Removed, since it's pretty much pointless and gives things their default description anyway)
-	//Pixel_
-	if(O.pixel_w != 0)
-		data_to_add += "pixel_w = \"[O.pixel_w]\""
-	if(O.pixel_x != 0)
-		data_to_add += "pixel_x = \"[O.pixel_x]\""
-	if(O.pixel_y != 0)
-		data_to_add += "pixel_y = \"[O.pixel_y]\""
-	if(O.pixel_z != 0)
-		data_to_add += "pixel_z = \"[O.pixel_z]\""
-	//Specific things (Could be important)
-	var/obj/item/stack/S = O
-	if(istype(S))
-		data_to_add += "amount = \"[S.amount]\""
+	for(var/V in O.vars)
+		if(!(V in vars_to_save))
+			continue
+		var/value = O.vars[V]
+		if(!value)
+			continue
+		if((!issaved(value)) || (value == initial(value)))
+			continue
+		if((V in dont_save_if_empty) && value == "")
+			continue
+		var/symbol = ""
+		if(istext(value))
+			symbol = "\""
+		else if(isicon(value) || isfile(value))
+			symbol = "\'"
+		data_to_add += "[V] = [symbol][value][symbol]"
 	//Process data to add
 	var/first = TRUE
 	for(var/data in data_to_add)
