@@ -103,10 +103,7 @@
 			continue
 		active_specials += new_role
 
-	for(var/active_special in active_specials)
-		var/datum/special_role/special = active_special
-		if(!istype(special))
-			continue
+	for(var/datum/special_role/special in active_specials)
 		if(special.spawn_mode == "midround")
 			continue
 		//To make it feel a little more random, and for efficiency reasons we just pick the person, then check their job and if they cannot be antag, we will just remove the slot
@@ -123,7 +120,7 @@
 			if(person.job in special.protected_jobs)
 				continue
 			//Would be annoying trying to assasinate someone with special statuses
-			if(selected_mind.isAntagTarget)
+			if(selected_mind.isAntagTarget && !special.allowAntagTargets)
 				continue
 			var/datum/antagonist/special/A = special.add_antag_status_to(selected_mind)
 			log_game("[key_name(selected_mind)] has been selected as a [A.name]")
@@ -191,10 +188,8 @@
 			continue
 		//Lower chance for midrounds than round starts
 		if(prob(subantag.proportion * 100))
-			character.mind.special_role = subantag.role_name
-			var/datum/antagonist/special/A = character.mind.add_antag_datum(subantag)
-			A.forge_objectives(character.mind)
-			A.equip()
+			var/datum/antagonist/special/A = subantag.add_antag_status_to(character.mind)
+			log_game("[key_name(character.mind)] has been selected as a [A.name]")
 			return
 
 ///Allows rounds to basically be "rerolled" should the initial premise fall through. Also known as mulligan antags.

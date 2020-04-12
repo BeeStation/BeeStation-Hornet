@@ -2,6 +2,10 @@
 #define SPAWNTYPE_MIDROUND "midround"
 #define SPAWNTYPE_EITHER "either"
 
+////////////////////////////////
+//////Special Role 'Controller'///////
+////////////////////////////////
+
 /datum/special_role
 	var/attached_antag_datum = /datum/antagonist/special
 	var/spawn_mode = SPAWNTYPE_ROUNDSTART
@@ -10,15 +14,19 @@
 	var/max_players = -1			//Max player count (-1 for no max count)
 	var/proportion = 0				//The prbability per person of rolling it
 	var/max_amount = 0				//The maximum amount
-	var/latejoin_allowed = TRUE		//Can latejoins be assigned to this?
-	var/allowAntagTargets = FALSE
 	var/role_name = "special role"
+	//----Required for roundspawn----
+	var/allowAntagTargets = FALSE	//Not used in events
+	var/latejoin_allowed = TRUE		//Can latejoins be assigned to this? If you want this to be a midround spawn, put these in the round_event
 	var/list/protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician")
-	//Midround event vars
+	//----Required for midround----
+	var/event_typepath = /datum/round_event/create_special_antag
 	var/weight = 10
 	var/earliest_start = 20 MINUTES
 	var/max_occurrences = 1
 	var/holidayID = ""
+	//Preferences
+	var/preference_type = ROLE_SPECIAL
 
 /datum/special_role/New()
 	. = ..()
@@ -26,6 +34,8 @@
 		return
 	//Create a new event for spawning the antag
 	var/datum/round_event_control/E = new()
+	E.name = role_name
+	E.typepath = event_typepath
 	E.weight = weight
 	E.holidayID = holidayID
 	if(config)
@@ -43,6 +53,54 @@
 	A.forge_objectives(M)
 	A.equip()
 	return(A)
+
+////////////////////////////////
+//////    Round event    ///////
+////////////////////////////////
+/datum/round_event/create_special_antag
+	fakeable = FALSE
+	var/role_name
+	var/antag_datum
+	var/preference_type = ROLE_SPECIAL
+	var/protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician")
+
+/datum/round_event/create_special_antag/start()
+	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
+		if(!H.client || !(preference_type in H.client.prefs.be_special) || !(H.client.prefs.allow_midround_antag))
+			message_admins("1")
+			continue
+		if(is_banned_from(H, list(preference_type)))
+			message_admins("2")
+			continue
+		if(H.stat == DEAD)
+			message_admins("3")
+			continue
+		if(!SSjob.GetJob(H.mind.assigned_role) || (H.mind.assigned_role in GLOB.nonhuman_positions)) //only station jobs sans nonhuman roles, prevents ashwalkers trying to stalk with crewmembers they never met
+			message_admins("4")
+			continue
+		if(H.mind.assigned_role in protected_jobs)
+			message_admins("5")
+			continue
+		if(H.mind.has_antag_datum(antag_datum))
+			message_admins("6")
+			continue
+		var/datum/mind/M = H.mind
+		M.special_role = role_name
+		var/datum/antagonist/special/A = M.add_antag_datum(antag_datum)
+		if(!A)
+			message_admins("[key_name(H.mind)] failed to become a [role_name]")
+			log_game("[key_name(H.mind)] failed to become a [role_name]")
+			return
+		A.forge_objectives(M)
+		A.equip()
+		message_admins("[key_name(H.mind)] was randomly selected as [A.name]")
+		log_game("[key_name(H.mind)] was randomly selected as [A.name]")
+		announce_to_ghosts(H)
+		break
+
+////////////////////////////////
+//////  Antagonist Datum ///////
+////////////////////////////////
 
 /datum/antagonist/special
 	name = "Special Additional Role"
