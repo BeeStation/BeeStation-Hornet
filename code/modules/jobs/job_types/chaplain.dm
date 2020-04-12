@@ -101,7 +101,7 @@
 			B.name = pick("Fanfiction Compendium","Japanese for Dummies","The Manganomicon","Establishing Your O.T.P")
 		if("gondola","taoism")
 			B.name = "Taoism for Dummies"
-			B.deity_name = pick("Gondola")
+			B.deity_name = "Gondola"
 			var/obj/item/reagent_containers/food/snacks/meat/slab/gondola/G = new
 			H.equip_to_slot_or_del(G, SLOT_IN_BACKPACK)
 		else
