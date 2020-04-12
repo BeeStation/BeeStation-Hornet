@@ -80,23 +80,21 @@ a creative player the means to solve many problems.  Circuits are held inside an
 		return user.canUseTopic(src, BE_CLOSE)
 
 /obj/item/integrated_circuit/Initialize()
-	. = ..()
 	displayed_name = name
 	setup_io(inputs, /datum/integrated_io, inputs_default, IC_INPUT)
 	setup_io(outputs, /datum/integrated_io, outputs_default, IC_OUTPUT)
 	setup_io(activators, /datum/integrated_io/activate, null, IC_ACTIVATOR)
-	materials[/datum/material/iron] = w_class * SScircuit.cost_multiplier
-
+	materials[MAT_METAL] = w_class * SScircuit.cost_multiplier
+	. = ..()
 
 /obj/item/integrated_circuit/proc/on_data_written() //Override this for special behaviour when new data gets pushed to the circuit.
 	return
 
 /obj/item/integrated_circuit/Destroy()
-	. = ..()
 	QDEL_LIST(inputs)
 	QDEL_LIST(outputs)
 	QDEL_LIST(activators)
-
+	. = ..()
 
 /obj/item/integrated_circuit/emp_act(severity)
 	for(var/k in inputs)
@@ -123,9 +121,6 @@ a creative player the means to solve many problems.  Circuits are held inside an
 	if(check_interactivity(M))
 		if(!input)
 			input = name
-		if(CHAT_FILTER_CHECK(input))
-			to_chat(M, "<span class='warning'>The circuit name contains prohibited words!</span>")
-			return
 		to_chat(M, "<span class='notice'>The circuit '[name]' is now labeled '[input]'.</span>")
 		displayed_name = input
 
@@ -145,7 +140,7 @@ a creative player the means to solve many problems.  Circuits are held inside an
 	var/table_middle_width = "40%"
 
 	var/datum/browser/popup = new(user, "scannernew", name, 800, 630) // Set up the popup browser window
-	popup.add_stylesheet("scannernew", 'html/browser/assembly_ui.css')
+	popup.add_stylesheet("scannernew", 'html/browser/circuits.css')
 
 	var/HTML = "<html><head><title>[src.displayed_name]</title></head><body> \
 		<div align='center'> \
@@ -181,7 +176,7 @@ a creative player the means to solve many problems.  Circuits are held inside an
 					io = get_pin_ref(IC_INPUT, i)
 					if(io)
 						words += "<b><a href='?src=[REF(src)];act=wire;pin=[REF(io)]'>[io.display_pin_type()] [io.name]</a> \
-							<a href='?src=[REF(src)];act=data;pin=[REF(io)]'>[io.display_data(io.data)]</a></b><br>"
+							[io.display_data(io.data)]</b><br>"
 						if(io.linked.len)
 							words += "<ul>"
 							for(var/k in io.linked)
@@ -202,7 +197,7 @@ a creative player the means to solve many problems.  Circuits are held inside an
 					io = get_pin_ref(IC_OUTPUT, i)
 					if(io)
 						words += "<b><a href='?src=[REF(src)];act=wire;pin=[REF(io)]'>[io.display_pin_type()] [io.name]</a> \
-							<a href='?src=[REF(src)];act=data;pin=[REF(io)]'>[io.display_data(io.data)]</a></b><br>"
+							[io.display_data(io.data)]</b><br>"
 						if(io.linked.len)
 							words += "<ul>"
 							for(var/k in io.linked)
