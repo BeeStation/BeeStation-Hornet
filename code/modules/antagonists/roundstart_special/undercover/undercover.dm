@@ -1,12 +1,23 @@
+////////////////////////////////
+////// Special Role Datum///////
+////////////////////////////////
+
+/datum/special_role/undercover
+	probability = 100//65			//The probability of any spawning at all
+	proportion = 1//0.05			//The prbability per person of rolling it (5% is (5 in 100) (1 in 20))
+	max_amount = 4				//The maximum amount
+	role_name = "Undercover Agent"
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician", "Clown")
+	attached_antag_datum = /datum/antagonist/special/undercover
+
+////////////////////////////////
+//////  Antagonist Datum ///////
+////////////////////////////////
+
 /datum/antagonist/special/undercover
 	name = "Ex-security agent"
 	roundend_category = "Special Roles"
-	probability = 65			//The probability of any spawning at all
-	proportion = 0.05			//The prbability per person of rolling it (5% is (5 in 100) (1 in 20))
-	max_amount = 4				//The maximum amount
 	antag_moodlet = /datum/mood_event/determined
-	role_name = "Undercover Agent"
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician", "Clown")
 
 /datum/antagonist/special/undercover/greet()
 	to_chat(owner, "<span class='userdanger'>You are an ex-security agent.</span>")

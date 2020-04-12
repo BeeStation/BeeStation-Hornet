@@ -97,20 +97,20 @@
 			continue
 		candidates += H
 
-	for(var/special in allowed_special)
-		//Create the role with default values from the datum, for comparisons
-		var/datum/antagonist/special/special_antag = new special()
-		if(!special_antag)
-			message_admins("Warning, incorrect antag datum input into the allowed_special variable of the current gamemode.")
+	for(var/role_to_init in allowed_special)
+		var/datum/special_role/new_role = new role_to_init
+		if(!prob(new_role.probability) || new_role.spawn_mode == 2)
+			qdel(new_role)
 			continue
-		if(!prob(special_antag.probability))
-			qdel(special_antag)
+		active_specials += new_role
+
+	for(var/active_special in active_specials)
+		var/datum/special_role/special = active_special
+		if(!istype(special))
 			continue
-		//Allow latejoins to become a special sub-antag
-		active_specials.Add(special)
 		//To make it feel a little more random, and for efficiency reasons we just pick the person, then check their job and if they cannot be antag, we will just remove the slot
-		var/amount = round(living_crew.len * special_antag.proportion)
-		amount = min(amount, special_antag.max_amount)
+		var/amount = round(living_crew.len * special.proportion)
+		amount = min(amount, special.max_amount)
 		for(var/i in 1 to amount)
 			var/mob/person = pick(candidates)
 			if(!person)
@@ -119,19 +119,17 @@
 			candidates.Remove(person)
 			if(selected_mind.special_role)
 				continue
-			if(person.job in special_antag.protected_jobs)
+			if(person.job in special.protected_jobs)
 				continue
 			//Would be annoying trying to assasinate someone with special statuses
 			if(selected_mind.isAntagTarget)
 				continue
-			selected_mind.special_role = special_antag.role_name
-			var/datum/antagonist/special/A = selected_mind.add_antag_datum(special_antag)
+			var/datum/antagonist/special/A = special.add_antag_status_to(selected_mind)
+			/*selected_mind.special_role = special.role_name
+			var/datum/antagonist/special/A = selected_mind.add_antag_datum(created_datum)
 			A.forge_objectives(selected_mind)
-			A.equip()
+			A.equip()*/
 			log_game("[key_name(selected_mind)] has been selected as a [A.name]")
-			special_antag = new special()
-		//Remove the final one, because otherwise we will have antags with no owner lying around which will break shit
-		qdel(special_antag)
 
 ///Everyone should now be on the station and have their normal gear.  This is the place to give the special roles extra things
 /datum/game_mode/proc/post_setup(report) //Gamemodes can override the intercept report. Passing TRUE as the argument will force a report.
@@ -180,30 +178,25 @@
 	//Check if they are banned
 	if(is_banned_from(character.ckey, list(ROLE_SPECIAL)) || QDELETED(character))
 		return
-	for(var/subantag in active_specials)
-		var/datum/antagonist/special/newAntag = new subantag
-		if(!newAntag.latejoin_allowed)
-			qdel(newAntag)
+	for(var/datum/special_role/subantag in active_specials)
+		if(!subantag.latejoin_allowed)
 			continue
 		var/count = 0
 		for(var/mob/living/M in GLOB.mob_list)
 			if(!M.mind)
 				continue
-			if(!is_special_type(M, subantag))
+			if(!is_special_type(M, subantag.attached_antag_datum))
 				continue
 			count ++
-		if(count >= newAntag.max_amount)
-			qdel(newAntag)
+		if(count >= subantag.max_amount)
 			continue
 		//Lower chance for midrounds than round starts
-		if(prob(newAntag.proportion * 100))
-			character.mind.special_role = newAntag.role_name
-			var/datum/antagonist/special/A = character.mind.add_antag_datum(newAntag)
+		if(prob(subantag.proportion * 100))
+			character.mind.special_role = subantag.role_name
+			var/datum/antagonist/special/A = character.mind.add_antag_datum(subantag)
 			A.forge_objectives(character.mind)
 			A.equip()
 			return
-		else
-			qdel(newAntag)
 
 ///Allows rounds to basically be "rerolled" should the initial premise fall through. Also known as mulligan antags.
 /datum/game_mode/proc/convert_roundtype()
