@@ -99,13 +99,15 @@
 
 	for(var/role_to_init in allowed_special)
 		var/datum/special_role/new_role = new role_to_init
-		if(!prob(new_role.probability) || new_role.spawn_mode == 2)
+		if(!prob(new_role.probability))
 			continue
 		active_specials += new_role
 
 	for(var/active_special in active_specials)
 		var/datum/special_role/special = active_special
 		if(!istype(special))
+			continue
+		if(special.spawn_mode == SPAWNTYPE_MIDROUND)
 			continue
 		//To make it feel a little more random, and for efficiency reasons we just pick the person, then check their job and if they cannot be antag, we will just remove the slot
 		var/amount = round(living_crew.len * special.proportion)
@@ -124,10 +126,6 @@
 			if(selected_mind.isAntagTarget)
 				continue
 			var/datum/antagonist/special/A = special.add_antag_status_to(selected_mind)
-			/*selected_mind.special_role = special.role_name
-			var/datum/antagonist/special/A = selected_mind.add_antag_datum(created_datum)
-			A.forge_objectives(selected_mind)
-			A.equip()*/
 			log_game("[key_name(selected_mind)] has been selected as a [A.name]")
 
 ///Everyone should now be on the station and have their normal gear.  This is the place to give the special roles extra things
@@ -179,6 +177,8 @@
 		return
 	for(var/datum/special_role/subantag in active_specials)
 		if(!subantag.latejoin_allowed)
+			continue
+		if(subantag.spawn_mode == SPAWNTYPE_MIDROUND)
 			continue
 		var/count = 0
 		for(var/mob/living/M in GLOB.mob_list)
