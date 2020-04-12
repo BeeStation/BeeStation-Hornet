@@ -1,6 +1,6 @@
-#define SPAWNTYPE_ROUNDSTART 1
-#define SPAWNTYPE_MIDROUND 2
-#define SPAWNTYPE_EITHER 3
+#define SPAWNTYPE_ROUNDSTART "roundstart"
+#define SPAWNTYPE_MIDROUND "midround"
+#define SPAWNTYPE_EITHER "either"
 
 /datum/special_role
 	var/attached_antag_datum = /datum/antagonist/special

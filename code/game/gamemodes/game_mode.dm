@@ -107,7 +107,7 @@
 		var/datum/special_role/special = active_special
 		if(!istype(special))
 			continue
-		if(special.spawn_mode == SPAWNTYPE_MIDROUND)
+		if(special.spawn_mode == "midround")
 			continue
 		//To make it feel a little more random, and for efficiency reasons we just pick the person, then check their job and if they cannot be antag, we will just remove the slot
 		var/amount = round(living_crew.len * special.proportion)
@@ -178,7 +178,7 @@
 	for(var/datum/special_role/subantag in active_specials)
 		if(!subantag.latejoin_allowed)
 			continue
-		if(subantag.spawn_mode == SPAWNTYPE_MIDROUND)
+		if(subantag.spawn_mode == "midround")
 			continue
 		var/count = 0
 		for(var/mob/living/M in GLOB.mob_list)
