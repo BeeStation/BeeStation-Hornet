@@ -40,7 +40,7 @@
 	chosen_objective.generate_people_goal()
 	objectives += chosen_objective
 
-	if(owner.assigned_role in list("Chief Engineer", "Station Engineer", "Atmospheric Technician"))
+	if(owner.assigned_role in GLOB.engineering_positions)
 		var/datum/objective/protect_sm/objective = new
 		if(objective.get_target())
 			objective.update_explanation_text()
