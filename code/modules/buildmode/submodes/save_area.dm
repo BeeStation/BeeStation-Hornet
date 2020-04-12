@@ -24,8 +24,8 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	"w",
 	"x",
 	"y",
-	"z"
-	/*"A",
+	"z",
+	"A",
 	"B",
 	"C",
 	"D",
@@ -50,34 +50,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	"W",
 	"X",
 	"Y",
-	"Z"*/))
-
-/datum/buildmode_mode/save_area
-	key = "save"
-	var/area/storedarea
-	var/image/areaimage
-
-/datum/buildmode_mode/save_area/show_help(client/c)
-	to_chat(c, "<span class='notice'>***********************************************************</span>")
-	to_chat(c, "<span class='notice'>Left click the corners of the area you want to save.</span>")
-	to_chat(c, "<span class='notice'>***********************************************************</span>")
-
-/datum/buildmode_mode/save_area/handle_selected_area(client/c, params)
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
-	if(left_click)
-		var/datum/mapGenerator/G = new /datum/mapGenerator/save_area
-		if(istype(G, /datum/mapGenerator/repair/reload_station_map))
-			if(GLOB.reloading_map)
-				to_chat(c, "<span class='boldwarning'>You are already reloading an area! Please wait for it to fully finish loading before trying to load another!</span>")
-				deselect_region()
-				return
-		G.defineRegion(cornerA, cornerB, 1)
-		highlight_region(G.map)
-		var/confirm = alert("Are you sure you want to save this area? Special data will not be saved (Door access restrictions etc.)", "Save", "Yes", "No")
-		if(confirm == "Yes")
-			G.generate()
-		log_admin("Build Mode: [key_name(c)] ran the map generator '[G.buildmode_name]' in the region from [AREACOORD(cornerA)] to [AREACOORD(cornerB)]")
+	"Z"))
 
 /datum/mapGenerator/save_area
 	buildmode_name = "Save Area"
