@@ -1,7 +1,0 @@
-author: "zeskorion"
-delete-after: True
-changes: 
-  - balance: "cqc and carp no longer bypass armor"
-  - tweak: "carp now deals 15 punch damage instead of 10-15, but no longer has an 8 second rng stun attached"
-  - balance: "aggro grabs now only stop the target from moving, they may act normally"
-  - code_imp: "removed non-functional code that made resisting aggro grabs deal stamina damage"
