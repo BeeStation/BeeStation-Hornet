@@ -1559,6 +1559,7 @@
 #include "code\modules\buildmode\submodes\copy.dm"
 #include "code\modules\buildmode\submodes\fill.dm"
 #include "code\modules\buildmode\submodes\mapgen.dm"
+#include "code\modules\buildmode\submodes\save_area.dm"
 #include "code\modules\buildmode\submodes\throwing.dm"
 #include "code\modules\buildmode\submodes\variable_edit.dm"
 #include "code\modules\cargo\bounty.dm"
