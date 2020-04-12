@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 		for(var/obj/thing in place)
 			if(istype(thing, /mob/living/carbon))		//Ignore people, but not animals
 				continue
-			header += "[empty?"":","][thing.type]{[thing.name ? "name = \"[thing.name]\";" : ""] dir = [thing.dir]}"
+			header += "[empty?"":","][thing.type][generate_metadata(thing)]"
 			empty = FALSE
 		header += "[empty?"":","][place.type],[get_area(place).type])\n"
 		contents += "[header_chars]"
@@ -113,6 +113,40 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 
 	//Step 4: Remove the file from the server (hopefully we can find a way to avoid step)
 	fdel(temp_file)
+
+/datum/mapGeneratorModule/save_area/proc/generate_metadata(object)
+	var/obj/O = object
+	if(!istype(O))
+		return ""
+	var/dat = ""
+	var/data_to_add = list()
+	//Direction
+	data_to_add += "dir = [O.dir]"
+	//Name
+	if(O.name)
+		data_to_add += "name = \"[O.name]\""
+	//Description (Removed, since it's pretty much pointless and gives things their default description anyway)
+	//Pixel_
+	if(O.pixel_w != 0)
+		data_to_add += "pixel_w = \"[O.pixel_w]\""
+	if(O.pixel_x != 0)
+		data_to_add += "pixel_x = \"[O.pixel_x]\""
+	if(O.pixel_y != 0)
+		data_to_add += "pixel_y = \"[O.pixel_y]\""
+	if(O.pixel_z != 0)
+		data_to_add += "pixel_z = \"[O.pixel_z]\""
+	//Specific things (Could be important)
+	var/obj/item/stack/S = O
+	if(istype(S))
+		data_to_add += "amount = \"[S.amount]\""
+	//Process data to add
+	var/first = TRUE
+	for(var/data in data_to_add)
+		dat += "[first ? "" : ";"][data]"
+		first = FALSE
+	if(dat)
+		dat = "{[dat]}"
+	return dat
 
 /datum/mapGeneratorModule/save_area/proc/calculate_header_index(index, layers)
 	var/output = ""
