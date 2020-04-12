@@ -39,6 +39,14 @@
 	var/datum/objective/saveshuttle/chosen_objective = new
 	chosen_objective.generate_people_goal()
 	objectives += chosen_objective
+
+	if(owner.assigned_role in list("Chief Engineer", "Station Engineer", "Atmospheric Technician"))
+		message_admins("hell yea")
+		var/datum/objective/protect_sm/objective = new
+		if(objective.get_target())
+			objective.update_explanation_text()
+			objectives += objective
+
 	owner.announce_objectives()
 
 /datum/antagonist/special/undercover/equip()
@@ -100,3 +108,24 @@
 	target_amount = rand(1, round(potential_escapees * 0.2))			//This should really be made to scale with the population
 	update_explanation_text()
 	return target_amount
+
+/datum/objective/protect_sm
+	name = "protect supermatter"
+	var/target_integrity = 20
+	var/target_sm
+
+/datum/objective/protect_sm/get_target()
+	for(var/obj/machinery/power/supermatter_crystal/S in GLOB.machines)
+		target_sm = S
+		return TRUE
+	log_runtime("Failed to find a supermatter crystal for the supermatter objective.")
+	return FALSE
+
+/datum/objective/protect_sm/update_explanation_text()
+	explanation_text = "Ensure the Supermatter crystal in [get_area(target_sm).name] remains stable and has above [target_integrity]% integrity at the end of the shift."
+
+/datum/objective/protect_sm/check_completion()
+	if(!target_sm)
+		return FALSE
+	var/obj/machinery/power/supermatter_crystal/S = target_sm
+	return S.get_integrity() > target_amount
