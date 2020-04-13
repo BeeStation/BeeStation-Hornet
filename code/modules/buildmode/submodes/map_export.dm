@@ -23,6 +23,12 @@
 
 		log_admin("Build Mode: [key_name(c)] exported the map area from [AREACOORD(cornerA)] through [AREACOORD(cornerB)]") //I put this before the actual saving of the map because it likely won't log if it crashes the fucking server
 
-		var map_text = write_map(cornerA.x, cornerA.y, cornerA.z, cornerB.x, cornerB.y, cornerB.z, 24)
+		var/x1 = min(cornerA.x, cornerB.x)
+		var/x2 = max(cornerA.x, cornerB.x)
+		var/y1 = min(cornerA.y, cornerB.y)
+		var/y2 = max(cornerA.y, cornerB.y)
+		var/z1 = min(cornerA.z, cornerB.z)
+		var/z2 = max(cornerA.z, cornerB.z)
+		var map_text = write_map(x1, y1, z1, x2, y2, z2, 24)
 		text2file(map_text, "data/[file_name].dmm")
 		usr << ftp("data/[file_name].dmm", "[file_name].dmm")
