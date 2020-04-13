@@ -1,0 +1,4 @@
+author: "PowerfulBacon"
+delete-after: True
+changes: 
+  - tweak: "Custom shuttles can land on non-station plating"
