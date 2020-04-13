@@ -83,7 +83,6 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	message_admins("log : [log(GLOB.save_file_chars.len, turfsNeeded)] Layers required [layers], width [width], height [height], turfs [turfsNeeded]")
 
 	//Step 1: Run through the area and generate file data
-	var/list/headers = list()
 	var/header = ""
 	var/contents = ""
 	for(var/index in 1 to mother.map.len)
