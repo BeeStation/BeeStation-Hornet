@@ -486,3 +486,15 @@ GLOBAL_LIST_EMPTY(species_list)
 		chosen = pick(mob_spawn_meancritters)
 	var/mob/living/simple_animal/C = new chosen(spawn_location)
 	return C
+
+/proc/get_living_mobs()
+	. = list()
+	for(var/mob/living in GLOB.mob_list)
+		if(player.stat != DEAD && player.mind && is_station_level(player.z) && !isnewplayer(Player) && !isbrain(Player))
+			. |= player.mind
+
+/proc/get_living_crew()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_list)
+		if(player.stat != DEAD && player.mind && is_station_level(player.z))
+			. |= player.mind

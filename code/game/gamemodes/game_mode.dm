@@ -504,16 +504,6 @@
 			. ++
 
 ////////////////////////////
-//Keeps track of all living//
-////////////////////////////
-
-/datum/game_mode/proc/get_living_crew()
-	. = list()
-	for(var/mob/living/carbon/human/player in GLOB.mob_list)
-		if(player.stat != DEAD && player.mind && is_station_level(player.z))
-			. |= player.mind
-
-////////////////////////////
 //Keeps track of all heads//
 ////////////////////////////
 
