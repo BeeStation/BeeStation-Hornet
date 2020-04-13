@@ -490,7 +490,7 @@ GLOBAL_LIST_EMPTY(species_list)
 /proc/get_living_mobs()
 	. = list()
 	for(var/mob/living/player in GLOB.mob_list)
-		if(player.stat != DEAD && player.mind && is_station_level(player.z) && !isnewplayer(Player) && !isbrain(Player))
+		if(player.stat != DEAD && player.mind && is_station_level(player.z) && !isnewplayer(player) && !isbrain(player))
 			. |= player.mind
 
 /proc/get_living_crew()
