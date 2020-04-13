@@ -96,7 +96,8 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 		for(var/obj/thing in place)
 			if(istype(thing, /mob/living/carbon))		//Ignore people, but not animals
 				continue
-			header += "[empty?"":","][thing.type][generate_metadata(thing)]"
+			var/metadata = generate_metadata(thing)
+			header += "[empty?"":","][thing.type][metadata]"
 			empty = FALSE
 		header += "[empty?"":","][place.type],[get_area(place).type])\n"
 		contents += "[header_chars]"
@@ -113,13 +114,10 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	//Step 4: Remove the file from the server (hopefully we can find a way to avoid step)
 	fdel(temp_file)
 
-/datum/mapGeneratorModule/save_area/proc/generate_metadata(object)
+/datum/mapGeneratorModule/save_area/proc/generate_metadata(var/atom/O)
 	//This idea was taken from https://github.com/WaspStation/WaspStation-1.0/pull/109/files
 	var/list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount")
 	var/list/dont_save_if_empty = list("icon_state")
-	var/obj/O = object
-	if(!istype(O))
-		return ""
 	var/dat = ""
 	var/data_to_add = list()
 	for(var/V in O.vars)
@@ -128,7 +126,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 		var/value = O.vars[V]
 		if(!value)
 			continue
-		if((!issaved(value)) || (value == initial(value)))
+		if(value == initial(O.vars[V]) || !issaved(O.vars[V]))
 			continue
 		if((V in dont_save_if_empty) && value == "")
 			continue
@@ -136,7 +134,9 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 		if(istext(value))
 			symbol = "\""
 		else if(isicon(value) || isfile(value))
-			symbol = "\'"
+			symbol = "'"
+		else if(!(isnum(value) || isicon(value)))
+			continue
 		data_to_add += "[V] = [symbol][value][symbol]"
 	//Process data to add
 	var/first = TRUE
@@ -153,6 +153,5 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 		var/l = GLOB.save_file_chars.len
 		var/c = FLOOR(index / (l ** (i - 1)), 1)
 		c = (c % l) + 1
-		log_game("[c] is selected and is associated with [GLOB.save_file_chars[c]]")
 		output = "[GLOB.save_file_chars[c]][output]"
 	return output
