@@ -371,6 +371,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NONE
 	force = 5
+	on = FALSE
+	var/knockdown_time_carbon = (1.5 SECONDS) // Knockdown length for carbons.
 
 	stamina_damage = 85
 	affect_silicon = TRUE
@@ -384,6 +386,8 @@
 	force_on = 10
 	force_off = 5
 	weight_class_on = WEIGHT_CLASS_NORMAL
+	
+	
 
 /obj/item/melee/classic_baton/contractor_baton/get_wait_description()
 	return "<span class='danger'>The baton is still charging!</span>"
@@ -391,6 +395,29 @@
 /obj/item/melee/classic_baton/contractor_baton/additional_effects_carbon(mob/living/target, mob/living/user)
 	target.Jitter(20)
 	target.stuttering += 20
+
+/obj/item/melee/classic_baton/contractor_baton/attack_self(mob/user)
+	on = !on
+	var/list/desc = get_on_description()
+
+	if(on)
+		to_chat(user, desc["local_on"])
+		icon_state = on_icon_state
+		item_state = on_item_state
+		w_class = weight_class_on
+		force = force_on
+		attack_verb = list("smacked", "struck", "cracked", "beaten")
+	else
+		to_chat(user, desc["local_off"])
+		icon_state = off_icon_state
+		item_state = null //no sprite for concealment even when in hand
+		slot_flags = ITEM_SLOT_BELT
+		w_class = WEIGHT_CLASS_SMALL
+		force = force_off
+		attack_verb = list("hit", "poked")
+
+	playsound(src.loc, on_sound, 50, 1)
+	add_fingerprint(user)
 
 /obj/item/melee/classic_baton/contractor_baton/attack(mob/living/target, mob/living/user)
 	if(!on)
