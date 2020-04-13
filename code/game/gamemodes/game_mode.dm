@@ -85,13 +85,11 @@
 
 /datum/game_mode/proc/create_special_antags()
 	var/list/living_crew = list()
-	for(var/mob/Player in GLOB.mob_list)
-		if(Player.mind && Player.stat != DEAD && !isnewplayer(Player) && !isbrain(Player) && Player.client)
-			living_crew += Player
+	living_crew = get_living_crew()
 
 	var/list/candidates = list()
 	for(var/mob/living/carbon/human/H in living_crew)
-		if(!(H.client && !is_centcom_level(H.z)))
+		if((!H.client) || (is_centcom_level(H.z)))
 			continue
 		if(is_banned_from(H.ckey, list(ROLE_SPECIAL)))
 			continue
@@ -112,7 +110,7 @@
 		for(var/i in 1 to amount)
 			var/mob/person = pick(candidates)
 			if(!person)
-				break
+				continue
 			var/datum/mind/selected_mind = person.mind
 			candidates.Remove(person)
 			if(selected_mind.special_role)
@@ -196,10 +194,8 @@
 /datum/game_mode/proc/convert_roundtype()
 	set waitfor = FALSE
 	var/list/living_crew = list()
+	living_crew = get_living_crew()
 
-	for(var/mob/Player in GLOB.mob_list)
-		if(Player.mind && Player.stat != DEAD && !isnewplayer(Player) && !isbrain(Player) && Player.client)
-			living_crew += Player
 	var/malc = CONFIG_GET(number/midround_antag_life_check)
 	if(living_crew.len / GLOB.joined_player_list.len <= malc) //If a lot of the player base died, we start fresh
 		message_admins("Convert_roundtype failed due to too many dead people. Limit is [malc * 100]% living crew")
@@ -506,6 +502,16 @@
 	for(var/mob/dead/new_player/P in GLOB.player_list)
 		if(P.client && P.ready == PLAYER_READY_TO_PLAY)
 			. ++
+
+////////////////////////////
+//Keeps track of all living//
+////////////////////////////
+
+/datum/game_mode/proc/get_living_crew()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_list)
+		if(player.stat != DEAD && player.mind && is_station_level(player.z))
+			. |= player.mind
 
 ////////////////////////////
 //Keeps track of all heads//

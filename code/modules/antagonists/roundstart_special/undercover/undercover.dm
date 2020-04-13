@@ -3,8 +3,8 @@
 ////////////////////////////////
 
 /datum/special_role/undercover
-	probability = 100//65			//The probability of any spawning at all
-	proportion = 1//0.05			//The prbability per person of rolling it (5% is (5 in 100) (1 in 20))
+	probability = 65			//The probability of any spawning at all
+	proportion = 0.05			//The prbability per person of rolling it (5% is (5 in 100) (1 in 20))
 	max_amount = 4				//The maximum amount
 	role_name = "Undercover Agent"
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician", "Clown")

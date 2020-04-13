@@ -52,7 +52,7 @@
 	var/datum/antagonist/special/A = M.add_antag_datum(new attached_antag_datum())
 	A.forge_objectives(M)
 	A.equip()
-	return(A)
+	return A
 
 ////////////////////////////////
 //////    Round event    ///////
@@ -74,22 +74,16 @@
 /datum/round_event/create_special_antag/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
 		if(!H.client || !(preference_type in H.client.prefs.be_special) || !(H.client.prefs.allow_midround_antag))
-			message_admins("1")
 			continue
 		if(is_banned_from(H, list(preference_type)))
-			message_admins("2")
 			continue
 		if(H.stat == DEAD)
-			message_admins("3")
 			continue
 		if(!SSjob.GetJob(H.mind.assigned_role) || (H.mind.assigned_role in GLOB.nonhuman_positions)) //only station jobs sans nonhuman roles, prevents ashwalkers trying to stalk with crewmembers they never met
-			message_admins("4")
 			continue
 		if(H.mind.assigned_role in protected_jobs)
-			message_admins("5")
 			continue
 		if(H.mind.has_antag_datum(antag_datum))
-			message_admins("6")
 			continue
 		var/datum/mind/M = H.mind
 		M.special_role = role_name
