@@ -937,7 +937,7 @@
 						security_level = AIRLOCK_SECURITY_PLASTEEL_O
 					return
 	if(C.tool_behaviour == TOOL_SCREWDRIVER)
-		if(panel_open && detonated || protectedDoor)
+		if((panel_open && detonated) || protectedDoor)
 			to_chat(user, "<span class='warning'>[src] has no maintenance panel!</span>")
 			return
 		panel_open = !panel_open
