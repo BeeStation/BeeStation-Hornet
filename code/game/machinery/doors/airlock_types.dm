@@ -337,10 +337,9 @@
 
 /obj/machinery/door/airlock/arrivals_external
 	name = "arrivals airlock"
-	icon = 'icons/obj/doors/airlocks/external/external.dmi'
+	icon = 'icons/obj/doors/airlocks/external/arrivals_external.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
-	assemblytype = /obj/structure/door_assembly/door_assembly_ext
 	protectedDoor = TRUE
 
 /obj/machinery/door/airlock/external/glass
