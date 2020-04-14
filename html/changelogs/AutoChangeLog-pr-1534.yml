@@ -1,0 +1,4 @@
+author: "Dingo-Dongler"
+delete-after: True
+changes: 
+  - bugfix: "Scooping vanilla ice cream out of the ice cream vat now works."
