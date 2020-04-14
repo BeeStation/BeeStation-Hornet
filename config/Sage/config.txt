@@ -240,7 +240,7 @@ FORUMURL https://forums.beestation13.com
 WIKIURL https://wiki.beestation13.com/view
 
 ## Rules address
-RULESURL https://beestation13.com/rules/rp
+RULESURL https://beestation13.com/rules?server=bs_sage
 
 ## Github address
 GITHUBURL https://www.github.com/beestation/beestation-hornet

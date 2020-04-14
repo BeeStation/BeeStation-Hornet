@@ -237,7 +237,7 @@ FORUMURL http://forums.beestation13.com
 WIKIURL https://wiki.beestation13.com/view
 
 ## Rules address
-RULESURL http://beestation13.com/rules
+RULESURL http://beestation13.com/rules?server=bs_golden
 
 ## Github address
 GITHUBURL https://www.github.com/beestation/beestation-hornet
