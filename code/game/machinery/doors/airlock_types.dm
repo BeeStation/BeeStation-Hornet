@@ -340,7 +340,7 @@
 	icon = 'icons/obj/doors/airlocks/external/arrivals_external.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
-	protectedDoor = TRUE
+	protected_door = TRUE
 
 /obj/machinery/door/airlock/external/glass
 	opacity = 0
