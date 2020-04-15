@@ -764,10 +764,10 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	sharpness = IS_SHARP
-	force = 7
+	force = 8
 	throwforce = 10
 	block_chance = 20
-	armour_penetration = 85
+	armour_penetration = 20
 	attack_verb = list("slashed", "stung", "prickled", "poked")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
