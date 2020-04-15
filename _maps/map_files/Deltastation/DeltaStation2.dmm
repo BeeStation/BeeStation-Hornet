@@ -54744,7 +54744,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "bNc" = (
@@ -65393,7 +65393,7 @@
 /obj/item/taperecorder{
 	pixel_x = 3
 	},
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
@@ -67765,11 +67765,11 @@
 "cgL" = (
 /obj/structure/table/wood,
 /obj/item/folder/yellow,
-/obj/item/clothing/glasses/sunglasses/big{
+/obj/item/clothing/glasses/sunglasses/advanced/big{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -103179,7 +103179,7 @@
 /area/maintenance/starboard/aft)
 "dpN" = (
 /obj/structure/table/wood/poker,
-/obj/item/clothing/glasses/sunglasses/big,
+/obj/item/clothing/glasses/sunglasses,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/abandoned_gambling_den)
 "dpO" = (

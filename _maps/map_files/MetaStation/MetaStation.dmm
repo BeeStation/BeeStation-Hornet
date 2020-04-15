@@ -5322,7 +5322,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/ears/earmuffs,
-/obj/item/clothing/glasses/sunglasses{
+/obj/item/clothing/glasses/sunglasses/advanced{
 	pixel_x = 3;
 	pixel_y = 3
 	},
@@ -13694,7 +13694,7 @@
 "azT" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -18327,7 +18327,7 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/wood,
 /area/lawoffice)
 "aIX" = (
@@ -19441,7 +19441,7 @@
 /obj/item/folder/red,
 /obj/item/folder/red,
 /obj/item/folder/red,
-/obj/item/clothing/glasses/sunglasses/big,
+/obj/item/clothing/glasses/sunglasses/advanced/big,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aLF" = (
@@ -46504,7 +46504,7 @@
 /obj/structure/table/wood,
 /obj/item/clothing/shoes/laceup,
 /obj/item/clothing/under/suit_jacket/really_black,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /obj/machinery/camera{
 	c_tag = "Corporate Showroom"
 	},

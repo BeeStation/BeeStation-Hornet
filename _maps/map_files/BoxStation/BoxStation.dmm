@@ -6033,11 +6033,11 @@
 /area/security/processing)
 "amN" = (
 /obj/structure/table,
-/obj/item/clothing/glasses/sunglasses{
+/obj/item/clothing/glasses/sunglasses/advanced{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/clothing/glasses/sunglasses{
+/obj/item/clothing/glasses/sunglasses/advanced{
 	pixel_x = 3;
 	pixel_y = 3
 	},
@@ -8210,7 +8210,7 @@
 /area/construction/mining/aux_base)
 "atc" = (
 /obj/structure/table/wood,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey{
 	pixel_x = 3
 	},
