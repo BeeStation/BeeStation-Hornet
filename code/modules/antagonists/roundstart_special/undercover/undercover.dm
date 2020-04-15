@@ -85,13 +85,9 @@
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return FALSE
 	var/count = 0
-	for(var/place in SSshuttle.emergency.shuttle_areas)
-		for(var/mob/living/carbon/human/person in place)
-			if(!person.mind)
-				continue
-			if(!considered_alive(person.mind))
-				continue
-			count++
+	for(var/mob/living/carbon/human/person in get_living_crew())
+		if(get_area(person) in SSshuttle.emergency.shuttle_areas)
+			count ++
 	return count >= target_amount
 
 /datum/objective/saveshuttle/update_explanation_text()
