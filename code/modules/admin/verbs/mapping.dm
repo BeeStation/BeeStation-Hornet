@@ -84,7 +84,8 @@ GLOBAL_PROTECT(admin_verbs_debug_mapping)
 	if(confirm != "Yes")
 		return
 
-	var map_text = write_map(start_x, start_y, z_level, end_x, end_y, z_level, 24)
+	var/map_text = write_map(start_x, start_y, z_level, end_x, end_y, z_level, 24)
+
 	text2file(map_text, "data/[file_name].dmm")
 	usr << ftp("data/[file_name].dmm", "[file_name].dmm")
 
