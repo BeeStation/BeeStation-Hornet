@@ -279,7 +279,7 @@
 	throwforce = 0
 	damtype = BURN
 	force_on = 28
-	armour_penetration = 75
-	block_chance = 35
+	armour_penetration = 35
+	block_chance = 50
 	throwforce_on = 30
 	item_color = "blue"
