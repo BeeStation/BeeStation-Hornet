@@ -66,11 +66,13 @@
 	var/where = H.equip_in_one_of_slots(T, slots)
 	H.equip_in_one_of_slots(T2, slots)
 	if (!where)
-		to_chat(owner, "<span class='warning'>You lost your weapon on the way here! You should be more careful next time.</span>")
+		if(!H.put_in_hands(T))
+			to_chat(owner, "<span class='warning'>Your weapon has been placed on the floor.</span>")
 
 	//Update ID
 	var/obj/item/card/id/ID = H.get_idcard()
-	ID.access += ACCESS_WEAPONS
+	if(ID)
+		ID.access += ACCESS_WEAPONS
 
 ////////////////////////////////
 //////     Objectives    ///////
@@ -89,7 +91,7 @@
 				continue
 			if(!considered_alive(person.mind))
 				continue
-			count ++
+			count++
 	return count >= target_amount
 
 /datum/objective/saveshuttle/update_explanation_text()
@@ -98,9 +100,9 @@
 
 /datum/objective/saveshuttle/proc/generate_people_goal()
 	var/potential_escapees = 0
-	for(var/mob/M in GLOB.mob_list)
+	for(var/mob/M in GLOB.mob_living_list)
 		if(M.mind)
-			potential_escapees ++
+			potential_escapees++
 	if(potential_escapees == 0)
 		explanation_text = "Free Objective"
 		return 0
@@ -111,20 +113,21 @@
 /datum/objective/protect_sm
 	name = "protect supermatter"
 	var/target_integrity = 20
-	var/target_sm
+	var/datum/weakref/target_sm
 
 /datum/objective/protect_sm/get_target()
 	for(var/obj/machinery/power/supermatter_crystal/S in GLOB.machines)
-		target_sm = S
+		target_sm = WEAKREF(S)
 		return TRUE
 	log_runtime("Failed to find a supermatter crystal for the supermatter objective.")
 	return FALSE
 
 /datum/objective/protect_sm/update_explanation_text()
-	explanation_text = "Ensure the Supermatter crystal in [get_area(target_sm).name] remains stable and has above [target_integrity]% integrity at the end of the shift."
+	var/obj/machinery/power/supermatter_crystal/S = target_sm.resolve()
+	explanation_text = "Ensure the Supermatter crystal in [get_area(S).name] remains stable and has above [target_integrity]% integrity at the end of the shift."
 
 /datum/objective/protect_sm/check_completion()
-	if(!target_sm)
+	var/obj/machinery/power/supermatter_crystal/S = target_sm.resolve()
+	if(!S)
 		return FALSE
-	var/obj/machinery/power/supermatter_crystal/S = target_sm
 	return S.get_integrity() > target_amount

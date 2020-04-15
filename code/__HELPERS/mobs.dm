@@ -487,14 +487,20 @@ GLOBAL_LIST_EMPTY(species_list)
 	var/mob/living/simple_animal/C = new chosen(spawn_location)
 	return C
 
-/proc/get_living_mobs()
+/proc/get_sentient_mobs()
 	. = list()
-	for(var/mob/living/player in GLOB.mob_list)
-		if(player.stat != DEAD && player.mind && is_station_level(player.z) && !isnewplayer(player) && !isbrain(player))
-			. |= player.mind
+	for(var/mob/living/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind && !is_centcom_level(player.z) && !isnewplayer(player) && !isbrain(player))
+			. |= player
 
-/proc/get_living_crew()
+/proc/get_living_station_crew()
 	. = list()
-	for(var/mob/living/carbon/human/player in GLOB.mob_list)
+	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind && is_station_level(player.z))
+			. |= player
+
+/proc/get_living_station_minds()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
 		if(player.stat != DEAD && player.mind && is_station_level(player.z))
 			. |= player.mind

@@ -85,7 +85,7 @@
 
 /datum/game_mode/proc/create_special_antags()
 	var/list/living_crew = list()
-	living_crew = get_living_crew()
+	living_crew = get_living_station_crew()
 
 	var/list/candidates = list()
 	for(var/mob/living/carbon/human/H in living_crew)
@@ -102,17 +102,18 @@
 		active_specials += new_role
 
 	for(var/datum/special_role/special in active_specials)
-		if(special.spawn_mode == "midround")
+		if(special.spawn_mode == SPAWNTYPE_MIDROUND)
 			continue
 		//To make it feel a little more random, and for efficiency reasons we just pick the person, then check their job and if they cannot be antag, we will just remove the slot
 		var/amount = round(living_crew.len * special.proportion)
 		amount = min(amount, special.max_amount)
 		for(var/i in 1 to amount)
-			var/mob/person = pick(candidates)
+			if(candidates.len == 0)
+				return	//No more candidates, end the selection process, and active specials at this time will be handled by latejoins or not included
+			var/mob/person = pick_n_take(candidates)
 			if(!person)
 				continue
 			var/datum/mind/selected_mind = person.mind
-			candidates.Remove(person)
 			if(selected_mind.special_role)
 				continue
 			if(person.job in special.protected_jobs)
@@ -173,15 +174,15 @@
 	for(var/datum/special_role/subantag in active_specials)
 		if(!subantag.latejoin_allowed)
 			continue
-		if(subantag.spawn_mode == "midround")
+		if(subantag.spawn_mode == SPAWNTYPE_MIDROUND)
 			continue
 		var/count = 0
-		for(var/mob/living/M in GLOB.mob_list)
+		for(var/mob/living/M in GLOB.mob_living_list)
 			if(!M.mind)
 				continue
 			if(!is_special_type(M, subantag.attached_antag_datum))
 				continue
-			count ++
+			count++
 		if(count >= subantag.max_amount)
 			continue
 		//Lower chance for midrounds than round starts
@@ -194,7 +195,7 @@
 /datum/game_mode/proc/convert_roundtype()
 	set waitfor = FALSE
 	var/list/living_crew = list()
-	living_crew = get_living_crew()
+	living_crew = get_living_station_crew()
 
 	var/malc = CONFIG_GET(number/midround_antag_life_check)
 	if(living_crew.len / GLOB.joined_player_list.len <= malc) //If a lot of the player base died, we start fresh

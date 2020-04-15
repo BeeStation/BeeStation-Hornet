@@ -1,7 +1,3 @@
-#define SPAWNTYPE_ROUNDSTART "roundstart"
-#define SPAWNTYPE_MIDROUND "midround"
-#define SPAWNTYPE_EITHER "either"
-
 ////////////////////////////////
 //////Special Role 'Controller'///////
 ////////////////////////////////
@@ -67,7 +63,7 @@
 /datum/round_event/create_special_antag
 	fakeable = FALSE
 	var/role_name
-	var/antag_datum
+	var/antag_datum	//The datum of the antag E.G. /datum/antagonist/special/undercover
 	var/preference_type = ROLE_SPECIAL
 	var/protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician")
 
