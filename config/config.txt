@@ -242,6 +242,10 @@ RULESURL http://beestation13.com/rules?server=bs_golden
 ## Github address
 GITHUBURL https://www.github.com/beestation/beestation-hornet
 
+## Label to tag ingame-registered issues with.
+## Uncomment this to enable them.
+#ISSUE_LABEL Ingame Issue Report
+
 ## Donation URL
 DONATEURL https://www.patreon.com/user?u=10639001
 
