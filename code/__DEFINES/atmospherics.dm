@@ -217,6 +217,8 @@
 #define ATMOS_GAS_MONITOR_WASTE_ENGINE "engine-waste_out"
 #define ATMOS_GAS_MONITOR_WASTE_ATMOS "atmos-waste_out"
 
+#define ATMOS_GAS_MONITOR_SENSOR_SM "sm_sense"
+
 //AIRLOCK CONTROLLER TAGS
 
 //RnD toxins burn chamber
