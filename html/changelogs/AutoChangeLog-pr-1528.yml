@@ -1,0 +1,5 @@
+author: "St0rmC4st3r"
+delete-after: True
+changes: 
+  - tweak: "The toxin treatment kit is no longer a box of charcoal and has some more powerful drugs."
+  - tweak: "Charcoal is no longer a universal answer to poisoning, but still very viable against poisoning being in progress."
