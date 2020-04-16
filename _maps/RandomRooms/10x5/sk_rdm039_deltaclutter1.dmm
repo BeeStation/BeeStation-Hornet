@@ -220,18 +220,12 @@
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /turf/open/floor/wood,
 /area/template_noop)
 "B" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
 /obj/item/pen,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/wood,
 /area/template_noop)
 "C" = (
@@ -241,15 +235,6 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "D" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/wood,
-/area/template_noop)
-"E" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken4"
 	},
@@ -302,17 +287,6 @@
 /area/template_noop)
 "I" = (
 /obj/machinery/light/small,
-/turf/open/floor/wood,
-/area/template_noop)
-"J" = (
-/obj/item/twohanded/required/kirbyplants/random,
-/obj/structure/cable/white,
-/obj/machinery/power/apc{
-	areastring = "/area/crew_quarters/electronic_marketing_den";
-	dir = 2;
-	name = "Electronics Marketing APC";
-	pixel_y = -24
-	},
 /turf/open/floor/wood,
 /area/template_noop)
 
@@ -376,13 +350,13 @@ n
 e
 n
 n
-D
+n
 m
 "}
 (10,1,1) = {"
 i
 r
 w
-E
-J
+D
+e
 "}
