@@ -1,0 +1,5 @@
+author: "francinum"
+delete-after: True
+changes: 
+  - code_imp: "Issues reported with the ingame tracker are now labeled automatically."
+  - config: "Config flag string/issue_label contains the setting."
