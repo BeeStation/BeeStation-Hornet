@@ -6222,7 +6222,7 @@
 "aoR" = (
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/clothing/ears/earmuffs,
-/obj/item/clothing/glasses/sunglasses/advanced,
+/obj/item/clothing/glasses/sunglasses,
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
@@ -60976,7 +60976,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/folder/blue,
-/obj/item/clothing/glasses/sunglasses/advanced,
+/obj/item/clothing/glasses/sunglasses,
 /turf/open/floor/carpet,
 /area/lawoffice)
 "uAZ" = (
@@ -61960,7 +61960,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/red,
 /obj/item/folder/red,
-/obj/item/clothing/glasses/sunglasses/advanced,
+/obj/item/clothing/glasses/sunglasses,
 /obj/item/radio/intercom{
 	pixel_x = 27
 	},

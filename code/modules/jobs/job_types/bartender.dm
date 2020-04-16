@@ -23,7 +23,7 @@
 	jobtype = /datum/job/bartender
 
 	id = /obj/item/card/id/job/serv
-	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
+	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	belt = /obj/item/pda/bar
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/bartender

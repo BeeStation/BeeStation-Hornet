@@ -35282,7 +35282,7 @@
 "byE" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes,
-/obj/item/clothing/glasses/sunglasses/advanced,
+/obj/item/clothing/glasses/sunglasses,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -42080,8 +42080,8 @@
 "bLZ" = (
 /obj/structure/table/wood,
 /obj/effect/landmark/event_spawn,
-/obj/item/clothing/glasses/sunglasses/advanced/big,
-/obj/item/clothing/glasses/sunglasses/advanced/big{
+/obj/item/clothing/glasses/sunglasses/big,
+/obj/item/clothing/glasses/sunglasses/big{
 	pixel_x = 3;
 	pixel_y = 3
 	},
