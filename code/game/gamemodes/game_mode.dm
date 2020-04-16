@@ -165,9 +165,8 @@
 	return
 
 /datum/game_mode/proc/make_special_antag_chance(mob/living/character)
-	if(character.mind.antag_datums)
-		if(character.mind.antag_datums.len > 0)
-			return
+	if(!character.mind.antag_datums)
+		return
 	//Check if they are banned
 	if(is_banned_from(character.ckey, list(ROLE_SPECIAL)) || QDELETED(character))
 		return
