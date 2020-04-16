@@ -417,7 +417,7 @@
 		if(O.client)
 			if(!notify_suiciders && (O in GLOB.suicided_mob_list))
 				continue
-			if (ignore_key && O.ckey in GLOB.poll_ignore[ignore_key])
+			if (ignore_key && (O.ckey in GLOB.poll_ignore[ignore_key]))
 				continue
 			var/orbit_link
 			if (source && action == NOTIFY_ORBIT)

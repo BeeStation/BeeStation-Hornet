@@ -101,6 +101,8 @@
 		to_chat(owner, "Unfortunately the syndicate was unable to provide you with nuclear authorization code.")
 
 /datum/antagonist/nukeop/proc/forge_objectives()
+	if(!give_objectives)
+		return
 	if(nuke_team)
 		objectives |= nuke_team.objectives
 

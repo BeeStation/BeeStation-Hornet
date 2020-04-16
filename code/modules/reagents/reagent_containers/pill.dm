@@ -30,7 +30,10 @@
 /obj/item/reagent_containers/pill/attack(mob/M, mob/user, def_zone)
 	if(!canconsume(M, user))
 		return FALSE
-
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(/datum/surgery/dental_implant in C.surgeries)
+			return
 	if(M == user)
 		M.visible_message("<span class='notice'>[user] attempts to [apply_method] [src].</span>")
 		if(self_delay)
@@ -255,7 +258,7 @@
 	, "Surely, there's no way this could go bad.")
 
 /obj/item/reagent_containers/pill/floorpill/Initialize()
-	list_reagents = list(get_random_reagent_id() = rand(10,50))
+	list_reagents = list(get_unrestricted_random_reagent_id() = rand(10,50))
 	. = ..()
 	name = pick(names)
 	if(prob(20))

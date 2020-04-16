@@ -18,6 +18,7 @@
 			<B>Admin Secrets</B><BR>
 			<BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=clear_virus'>Cure all diseases currently in existence</A><BR>
+			<A href='?src=[REF(src)];[HrefToken()];secrets=delete_virus'>Vaccinate all diseases currently in existence</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=list_bombers'>Bombing List</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=list_signalers'>Show last [length(GLOB.lastsignalers)] signalers</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=list_lawchanges'>Show last [length(GLOB.lawchanges)] law changes</A><BR>
@@ -53,7 +54,7 @@
 			<A href='?src=[REF(src)];[HrefToken()];secrets=unpower'>Make all areas unpowered</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=quickpower'>Power all SMES</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=tripleAI'>Triple AI mode (needs to be used in the lobby)</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=traitor_all'>Everyone is the traitor</A><BR>
+			<A href='?src=[REF(src)];[HrefToken()];secrets=traitor_all'>Mass Antag (Everyone is the traitor)</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=guns'>Summon Guns</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=magic'>Summon Magic</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=events'>Summon Events (Toggle)</A><BR>
@@ -144,12 +145,19 @@
 
 		if("clear_virus")
 
-			var/choice = input("Are you sure you want to cure all disease?") in list("Yes", "Cancel")
+			var/choice = input("Are you sure you want to remove all disease?") in list("Yes", "Cancel")
 			if(choice == "Yes")
 				message_admins("[key_name_admin(usr)] has cured all diseases.")
 				for(var/thing in SSdisease.active_diseases)
 					var/datum/disease/D = thing
 					D.cure(0)
+		if("delete_virus")
+			var/choice = input("Are you sure you want to vaccinate all disease?") in list("Yes", "Cancel")
+			if(choice == "Yes")
+				message_admins("[key_name_admin(usr)] has cured all diseases.")
+				for(var/thing in SSdisease.active_diseases)
+					var/datum/disease/D = thing
+					D.cure()
 		if("set_name")
 			if(!check_rights(R_ADMIN))
 				return
@@ -348,29 +356,65 @@
 				return
 			if(!GLOB.admin_objective_list)
 				generate_admin_objective_list()
+			if(!GLOB.admin_antag_list)
+				generate_admin_antag_list()
+			//Get Antag Type
+			var/default_antag
+			var/selected_antag = input("Select antag type:", "Antag type", default_antag) as null|anything in GLOB.admin_antag_list
+			selected_antag = GLOB.admin_antag_list[selected_antag]
+			if(!selected_antag)
+				return
+			//Get Objective
 			var/def_value
 			var/selected_type = input("Select objective type:", "Objective type", def_value) as null|anything in GLOB.admin_objective_list
 			selected_type = GLOB.admin_objective_list[selected_type]
 			if(!selected_type)
 				return
 			var/objective_explanation = new selected_type
-			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Traitor All", "[objective_explanation]"))
-			for(var/mob/living/H in GLOB.player_list)
+			var/datum/objective/new_objective = objective_explanation
+			new_objective.admin_edit(usr)
+			//Get Percentage
+			var/def_percentage
+			var/selected_percentage = input("Percentage of crew to convert (0-100):", "Antag Percentage", def_percentage) as num|null
+			if(!selected_percentage)
+				return
+			selected_percentage = selected_percentage > 100 ? 100 : selected_percentage
+			selected_percentage = selected_percentage < 0 ? 0 : selected_percentage
+			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Antag", "[objective_explanation]"))
+			//Pick antags
+			var/list/choices = list()
+			var/list/chosenPlayers = list()
+			for(var/player in GLOB.player_list)
+				choices.Add(player)
+			var/antagCount = round(GLOB.player_list.len * (selected_percentage / 100) + 0.999)
+			for(var/i in 0 to antagCount)
+				if(choices.len == 0)
+					break
+				var/chosenPlayer = pick(choices)
+				choices.Remove(chosenPlayer)
+				chosenPlayers.Add(chosenPlayer)
+			//Make the antags
+			for(var/mob/living/H in chosenPlayers)
 				if(!(ishuman(H)||istype(H, /mob/living/silicon/)))
 					continue
 				if(H.stat == DEAD || !H.client || !H.mind || ispAI(H))
 					continue
 				if(is_special_character(H))
 					continue
-				var/datum/antagonist/traitor/T = new()
+				var/datum/antagonist/T = new selected_antag()
 				T.give_objectives = FALSE
-				var/datum/objective/new_objective = new selected_type
+				var/datum/antagonist/A = H.mind.add_antag_datum(T)
+				A.objectives = list()
 				new_objective.owner = H
-				new_objective.admin_edit(H)
-				T.add_objective(new_objective)
-				H.mind.add_antag_datum(T)
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] used everyone is a traitor secret. Objective is [objective_explanation]</span>")
-			log_admin("[key_name(usr)] used everyone is a traitor secret. Objective is [objective_explanation]")
+				A.objectives += new_objective
+				var/obj_count = 1
+				to_chat(T.owner, "<span class='alertsyndie'>Your contractors have updated your objectives</span>")
+				for(var/objective in A.objectives)
+					var/datum/objective/O = objective
+					to_chat(T.owner, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
+					obj_count++
+			message_admins("<span class='adminnotice'>[key_name_admin(usr)] used mass antag secret. Objective is [objective_explanation]</span>")
+			log_admin("[key_name(usr)] used mass antag secret. Objective is [objective_explanation]")
 
 		if("changebombcap")
 			if(!check_rights(R_FUN))
@@ -464,7 +508,7 @@
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Braindamage"))
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
 				to_chat(H, "<span class='boldannounce'>You suddenly feel stupid.</span>")
-				H.adjustBrainLoss(60, 80)
+				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 60, 80)
 			message_admins("[key_name_admin(usr)] made everybody retarded")
 
 		if("aussify") //for rimjobtide

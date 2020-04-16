@@ -301,11 +301,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	embedding = list("embedded_pain_multiplier" = 8, "embed_chance" = 100, "embedded_fall_chance" = 0, "embedded_impact_pain_multiplier" = 15) //55 damage+embed on hit
 
 /obj/item/switchblade
-	name = "switchblade"
+	name = "long switchblade"
 	icon_state = "switchblade"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	desc = "A sharp, concealable, spring-loaded knife."
+	desc = "A sharp, concealable, spring-loaded knife with a long blade."
 	flags_1 = CONDUCT_1
 	force = 3
 	w_class = WEIGHT_CLASS_SMALL
@@ -317,23 +317,26 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb = list("stubbed", "poked")
 	resistance_flags = FIRE_PROOF
 	var/extended = 0
+	var/extended_force = 20
+	var/extended_throwforce = 23
+	var/extended_icon_state = "switchblade_ext"
 
 /obj/item/switchblade/attack_self(mob/user)
 	extended = !extended
 	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
 	if(extended)
-		force = 20
+		force = extended_force
 		w_class = WEIGHT_CLASS_NORMAL
-		throwforce = 23
-		icon_state = "switchblade_ext"
+		throwforce = extended_throwforce
+		icon_state = extended_icon_state
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		sharpness = IS_SHARP
 	else
-		force = 3
+		force = initial(force)
 		w_class = WEIGHT_CLASS_SMALL
-		throwforce = 5
-		icon_state = "switchblade"
+		throwforce = initial(throwforce)
+		icon_state = initial(icon_state)
 		attack_verb = list("stubbed", "poked")
 		hitsound = 'sound/weapons/genhit.ogg'
 		sharpness = IS_BLUNT
@@ -341,6 +344,26 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/switchblade/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] own throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS)
+
+/obj/item/switchblade/kitchen 
+	name = "iron switchblade"
+	icon_state = "switchblade_ms"
+	desc = "A concealable spring-loaded knife with an iron blade."
+	force = 2
+	throwforce = 3
+	extended_force = 12
+	extended_throwforce = 15
+	extended_icon_state = "switchblade_ext_ms"
+
+/obj/item/switchblade/plastitanium 
+	name = "plastitanium switchblade"
+	icon_state = "switchblade_msf"
+	desc = "A concealable spring-loaded knife with a plastitanium blade."
+	force = 3
+	throwforce = 4
+	extended_force = 15
+	extended_throwforce = 17
+	extended_icon_state = "switchblade_ext_msf"
 
 /obj/item/phone
 	name = "red phone"
@@ -522,12 +545,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "baseball_bat"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	force = 10
-	throwforce = 12
+	force = 13
+	throwforce = 6
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
 	var/homerun_ready = 0
 	var/homerun_able = 0
+	var/click_delay = 2
 
 /obj/item/melee/baseball_bat/homerun
 	name = "home run bat"
@@ -561,6 +585,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		return
 	else if(!target.anchored)
 		target.throw_at(throw_target, rand(1,2), 7, user)
+	user.changeNext_move(CLICK_CD_MELEE * click_delay)
+	return
+
 
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"

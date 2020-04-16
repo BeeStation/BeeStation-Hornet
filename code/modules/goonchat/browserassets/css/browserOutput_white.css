@@ -284,10 +284,10 @@ em						{font-style: normal;	font-weight: bold;}
 .sciradio				{color: #993399;}
 .comradio				{color: #948f02;}
 .secradio				{color: #a30000;}
-.medradio				{color: #94acb9;}
+.medradio				{color: #33ccff;}
 .engradio				{color: #fb5613;}
 .suppradio				{color: #a8732b;}
-.servradio				{color: #6eaa2c;}
+.servradio				{color: #4e7a1f}
 .syndradio				{color: #6d3f40;}
 .centcomradio			{color: #686868;}
 .aiprivradio			{color: #ff00ff;}
@@ -390,7 +390,7 @@ h1.alert, h2.alert		{color: #000000;}
 .bigassimilator			{color: #800080;	font-size: 32px ; font-weight: bold;}
 .alertsyndie			{color: #FF0000;	font-size: 24px ; font-weight: bold;}
 
-.spider					{color: #4d004d;}
+.spider					{color: #4d004d; font-weight: bold; font-size: 24px;}
 
 .interface				{color: #330033;}
 
@@ -406,6 +406,7 @@ h1.alert, h2.alert		{color: #000000;}
 .greentext				{color: #00FF00;	font-size: 24px;}
 .redtext				{color: #FF0000;	font-size: 24px;}
 .clown					{color: #FF69Bf;	font-size: 24px; font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
+.singing				{font-family: "Trebuchet MS", cursive, sans-serif; font-style: italic;}
 .his_grace				{color: #15D512;	font-family: "Courier New", cursive, sans-serif; font-style: italic;}
 .hypnophrase			{color: #0d0d0d;	font-weight: bold; animation: hypnocolor 1500ms infinite;}
 @keyframes hypnocolor {

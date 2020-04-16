@@ -66,6 +66,8 @@
 	return rev_team
 
 /datum/antagonist/rev/proc/create_objectives()
+	if(!give_objectives)
+		return
 	objectives |= rev_team.objectives
 
 /datum/antagonist/rev/proc/remove_objectives()

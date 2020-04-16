@@ -525,7 +525,7 @@
 			itemUser.adjustToxLoss(-1.5, forced = TRUE) //Because Slime People are people too
 			itemUser.adjustOxyLoss(-1.5)
 			itemUser.adjustStaminaLoss(-1.5)
-			itemUser.adjustBrainLoss(-1.5)
+			itemUser.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1.5)
 			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
 		//Heal all those around you, unbiased
 		for(var/mob/living/L in view(7, owner))
@@ -537,7 +537,7 @@
 				L.adjustToxLoss(-3.5, forced = TRUE) //Because Slime People are people too
 				L.adjustOxyLoss(-3.5)
 				L.adjustStaminaLoss(-3.5)
-				L.adjustBrainLoss(-3.5)
+				L.adjustOrganLoss(ORGAN_SLOT_BRAIN, -3.5)
 				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
 			else if(issilicon(L))
 				L.adjustBruteLoss(-3.5)
@@ -545,6 +545,48 @@
 			else if(isanimal(L))
 				var/mob/living/simple_animal/SM = L
 				SM.adjustHealth(-3.5, forced = TRUE)
+
+/obj/screen/alert/status_effect/regenerative_core
+	name = "Blessing of the Necropolis"
+	desc = "The power of the necropolis flows through you. You could get used to this..."
+	icon_state = "regenerative_core"
+	name = "Blessing of the Necropolis"
+
+/datum/status_effect/regenerative_core
+	id = "Regenerative Core"
+	duration = 300
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = /obj/screen/alert/status_effect/regenerative_core
+	var/power = 1
+	var/alreadyinfected = FALSE
+
+/datum/status_effect/regenerative_core/on_apply()
+	if(!HAS_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED))
+		to_chat(owner, "<span class='userdanger'>Tendrils of vile corruption knit your flesh together and strengthen your sinew. You resist the temptation of giving in to the corruption.</span>")
+	else
+		alreadyinfected = TRUE
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
+	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
+	if(owner.z == 5)
+		power = 2
+	owner.adjustBruteLoss(-50 * power)
+	owner.adjustFireLoss(-50 * power)
+	owner.cure_nearsighted()
+	owner.ExtinguishMob()
+	owner.fire_stacks = 0
+	owner.set_blindness(0)
+	owner.set_blurriness(0)
+	owner.restore_blood()
+	owner.bodytemperature = BODYTEMP_NORMAL
+	owner.restoreEars()
+	duration = rand(150, 450) * power
+	return TRUE
+
+/datum/status_effect/regenerative_core/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
+	REMOVE_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
+	if(!alreadyinfected)
+		to_chat(owner, "<span class='userdanger'>You feel empty as the vile tendrils slink out of your flesh and leave you, a fragile human once more.</span>")
 
 /datum/status_effect/good_music
 	id = "Good Music"
@@ -558,29 +600,6 @@
 	owner.jitteriness = max(0, owner.jitteriness - 2)
 	owner.confused = max(0, owner.confused - 1)
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "goodmusic", /datum/mood_event/goodmusic)
-
-/obj/screen/alert/status_effect/regenerative_core
-	name = "Reinforcing Tendrils"
-	desc = "You can move faster than your broken body could normally handle!"
-	icon_state = "regenerative_core"
-	name = "Regenerative Core Tendrils"
-
-/datum/status_effect/regenerative_core
-	id = "Regenerative Core"
-	duration = 1 MINUTES
-	status_type = STATUS_EFFECT_REPLACE
-	alert_type = /obj/screen/alert/status_effect/regenerative_core
-
-/datum/status_effect/regenerative_core/on_apply()
-	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
-	owner.adjustBruteLoss(-25)
-	owner.adjustFireLoss(-25)
-	owner.remove_CC()
-	owner.bodytemperature = BODYTEMP_NORMAL
-	return TRUE
-
-/datum/status_effect/regenerative_core/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 
 /datum/status_effect/antimagic
 	id = "antimagic"

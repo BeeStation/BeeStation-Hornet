@@ -526,6 +526,10 @@
 	flavour_text = "Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
 
+/obj/effect/mob_spawn/human/skeleton/alive/equip(mob/living/carbon/human/H)
+	var/obj/item/implant/exile/implant = new/obj/item/implant/exile(H)
+	implant.implant(H)
+
 /obj/effect/mob_spawn/human/zombie
 	name = "rotting corpse"
 	mob_name = "zombie"

@@ -14,6 +14,11 @@
 	construction_type = /obj/item/pipe/quaternary
 	pipe_state = "manifold4w"
 
+	FASTDMM_PROP(\
+		pipe_type = PIPE_TYPE_MANIFOLD4W,\
+		pipe_interference_group = "atmos-[piping_layer]"\
+	)
+
 	var/mutable_appearance/center
 
 /obj/machinery/atmospherics/pipe/manifold4w/New()

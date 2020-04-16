@@ -67,8 +67,19 @@
 	return ..()
 
 /datum/status_effect/incapacitating/sleeping/tick()
-	if(owner.getStaminaLoss())
-		owner.adjustStaminaLoss(-0.5) //reduce stamina loss by 0.5 per tick, 10 per 2 seconds
+	if(owner.maxHealth)
+		var/health_ratio = owner.health / owner.maxHealth
+		if(health_ratio > 0.8)
+			var/healing = -0.2
+			if((locate(/obj/structure/bed) in owner.loc))
+				healing -= 0.3
+			else
+				if((locate(/obj/structure/table) in owner.loc))
+					healing -= 0.1
+			owner.adjustBruteLoss(healing)
+			owner.adjustFireLoss(healing)
+			owner.adjustToxLoss(healing * 0.5, TRUE, TRUE)
+			owner.adjustStaminaLoss(healing)
 	if(human_owner?.drunkenness)
 		human_owner.drunkenness *= 0.997 //reduce drunkenness by 0.3% per tick, 6% per 2 seconds
 	if(prob(20))
@@ -751,6 +762,29 @@
 					to_chat(owner, "<span class='warning'>Your arm spasms!</span>")
 					owner.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
 					owner.throw_item(pick(targets))
+
+/datum/status_effect/convulsing
+	id = "convulsing"
+	duration = 	150
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /obj/screen/alert/status_effect/convulsing
+
+/datum/status_effect/convulsing/on_creation(mob/living/zappy_boy)
+	. = ..()
+	to_chat(zappy_boy, "<span class='boldwarning'>You feel a shock moving through your body! Your hands start shaking!</span>")
+
+/datum/status_effect/convulsing/tick()
+	var/mob/living/carbon/H = owner
+	if(prob(40))
+		var/obj/item/I = H.get_active_held_item()
+		if(I && H.dropItemToGround(I))
+			H.visible_message("<span class='notice'>[H]'s hand convulses, and they drop their [I.name]!</span>","<span class='userdanger'>Your hand convulses violently, and you drop what you were holding!</span>")
+			H.jitteriness += 5
+
+/obj/screen/alert/status_effect/convulsing
+	name = "Shaky Hands"
+	desc = "You've been zapped with something and your hands can't stop shaking! You can't seem to hold on to anything."
+	icon_state = "convulsing"
 
 /datum/status_effect/dna_melt
 	id = "dna_melt"

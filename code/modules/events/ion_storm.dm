@@ -11,10 +11,12 @@
 	var/shuffleLawsChance = 10 //chance the AI's laws are shuffled afterwards
 	var/botEmagChance = 1
 	var/ionMessage = null
+	var/lawsource = "Ion Storm"
 	announceWhen	= 1
 	announceChance = 33
 
 /datum/round_event/ion_storm/add_law_only // special subtype that adds a law only
+	lawsource = "unspecified, please report this to coders"
 	replaceLawsetChance = 0
 	removeRandomLawChance = 0
 	removeDontImproveChance = 0
@@ -43,6 +45,9 @@
 					M.replace_random_law(message, list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
 				else
 					M.add_ion_law(message)
+					log_law("[M.key]/([M.name]) had an ion law added, as follows:\"[message]\". Source: [lawsource].")
+					var/time = time2text(world.realtime,"hh:mm:ss")
+					GLOB.lawchanges.Add("[time] <B>:</B> [M.key]/([M.name]) had an ion law added, as follows:\"[message]\". Source: [lawsource].")
 
 			if(prob(shuffleLawsChance))
 				M.shuffle_laws(list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
