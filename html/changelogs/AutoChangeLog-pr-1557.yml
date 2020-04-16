@@ -1,4 +1,0 @@
-author: "zeskorion"
-delete-after: True
-changes: 
-  - tweak: "disposals loops are no longer inescapable if you dont have explosives"
