@@ -15,13 +15,12 @@
 	paycheck = PAYCHECK_ASSISTANT
 	paycheck_department = ACCOUNT_CIV
 
-	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
+	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 
 /datum/outfit/job/backalley_doc
 	name = "Barber"
 	jobtype = /datum/job/backalley_doc
 
-	id = /obj/item/card/id/job/med
 	belt = /obj/item/pda/unlicensed
 	ears = /obj/item/radio/headset
 	uniform = /obj/item/clothing/under/sl_suit
@@ -29,7 +28,3 @@
 	l_hand = /obj/item/storage/wallet
 	l_pocket = /obj/item/razor/straightrazor
 	backpack_contents = list(/obj/item/handmirror=1)
-
-	backpack = /obj/item/storage/backpack
-	satchel = /obj/item/storage/backpack/satchel
-	duffelbag = /obj/item/storage/backpack/duffelbag
