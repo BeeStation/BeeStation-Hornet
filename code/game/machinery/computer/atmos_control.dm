@@ -240,6 +240,8 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 
 /obj/machinery/computer/atmos_control/tank/sm
 	name = "Supermatter Air Monitor"
+	input_tag = ATMOS_GAS_MONITOR_INPUT_SM
+	output_tag = ATMOS_GAS_MONITOR_OUTPUT_SM
 	sensors = list(ATMOS_GAS_MONITOR_SENSOR_SM = "Supermatter Core")
 	circuit = /obj/item/circuitboard/computer/atmos_control/tank/incinerator
 
