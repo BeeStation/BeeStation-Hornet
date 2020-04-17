@@ -21,7 +21,20 @@
 	var/datum/mapGenerator/save_area/L = mother
 	if(!istype(L))
 		return
+	//If someone somehow gets build mode, stop them from using this.
+	if(!check_rights(R_ADMIN))
+		message_admins("[ckey(usr)] tried to run the map save generator but was rejected due to insufficient perms.")
+		to_chat(usr, "<span class='warning'>You must have R_ADMIN privellages to use this.</span>")
+		return
+	//Emergency check
+	if(L.map.len > 1600)
+		var/confirm = alert("Uhm, are you sure, the are is quiet large?", "Run generator", "Yes", "No")
+		if(confirm != "Yes")
+			return
+	//Log just in case something happens
+	log_game("[ckey(usr)] ran the save level map generator on [L.map.len] turfs.")
 
+	//Step 1: Get the data (This can take a while)
 	var/dat = convert_map_to_tgm(L.map)
 
 	//Step 2: Write the data to a file
@@ -35,3 +48,4 @@
 
 	//Step 4: Remove the file from the server (hopefully we can find a way to avoid step)
 	fdel(filedir)
+	log_game("[L.map.len] turfs have been saved by [ckey(usr)]")
