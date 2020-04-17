@@ -594,7 +594,8 @@
 	desc = "A botanical chemical dispenser on a budget."
 	flags_1 = NODECONSTRUCT_1
 	icon_state = "minidispenser"
-
+	working_state = "minidispenser_working"
+	nopower_state = "minidispenser_nopower"
 	dispensable_reagents = list(
 		/datum/reagent/toxin/mutagen,
 		/datum/reagent/saltpetre,
@@ -604,6 +605,12 @@
 		/datum/reagent/toxin/plantbgone/weedkiller,
 		/datum/reagent/toxin/pestkiller,
 		/datum/reagent/diethylamine)
+
+/obj/machinery/chem_dispenser/mutagensaltpetersmall/display_beaker()
+	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
+	b_o.pixel_y = -4
+	b_o.pixel_x = -4
+	return b_o
 
 /obj/machinery/chem_dispenser/mutagensaltpetersmall/Initialize() //Ugly.
 	. = ..()
