@@ -48,40 +48,51 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	var/list/header_dat 	= list()	//The data of the header, lines up with chars
 	var/header				= ""		//The actual header in text
 	var/contents			= ""		//The contents in text (bit at the end)
-	var/current_x_rel = 1
-	var/current_x_abs = 0
-	for(var/index in 1 to sortedmap.len)
-		var/turf/place = sortedmap[index]
-		//Check to see if a new row has been reached
-		if(place.x != current_x_abs)
-			contents += "[index != 1 ? "\"}" : ""]\n([current_x_rel],1,1) = {\"\n"
-			current_x_rel ++
-			current_x_abs = place.x
-		//Generate Header Character
-		var/header_char = calculate_tgm_header_index(index, layers)	//The characters of the header
-		var/current_header = "(\n"										//The actual stuff inside the header
-		//Add objects to the header file
-		var/empty = TRUE
-		for(var/obj/thing in place)
-			if(istype(thing, /mob/living/carbon))		//Ignore people, but not animals
-				continue
-			var/metadata = generate_tgm_metadata(thing)
-			current_header += "[empty?"":",\n"][thing.type][metadata]"
-			empty = FALSE
-		current_header += "[empty?"":",\n"][place.type],\n[get_area(place).type])\n"
-		//Check if the current header is already used, so we aren't repeating headers
-		var/position_of_header = header_dat.Find(current_header)
-		if(position_of_header)
-			//If the header has already been saved, change the character to the other saved header
-			header_char = header_chars[position_of_header]
-		else
-			header += "\"[header_char]\" = [current_header]"
-			header_chars += header_char
-			header_dat += current_header
-		//Add the header to the contents
-		contents += "[header_char]\n"
-	contents += "\"}"
-
+	for(var/x in 1 to width)
+		contents += "\n([x],1,1) = {\"\n"
+		for(var/y in height to 1 step -1)
+			//====Get turfs Data====
+			var/turf/place = sortedmap[x][y]
+			var/area/location
+			var/list/objects
+			//If there is nothing there, save as a noop (For odd shapes)
+			if(!place)
+				place = /turf/template_noop
+				location = /area/template_noop
+				objects = list()
+			//Ignore things in space, must be a space turf and the area has to be empty space
+			else if(istype(place, /turf/open/space) && get_area(place).type == /area/space && !(save_flag & SAVE_SPACE))
+				place = /turf/template_noop
+				location = /area/template_noop
+			//Stuff to add
+			else
+				location = get_area(place).type
+				objects = place
+				place = place.type
+			//====Generate Header Character====
+			var/header_char = calculate_tgm_header_index(y + (x * width), layers)	//The characters of the header
+			var/current_header = "(\n"										//The actual stuff inside the header
+			//Add objects to the header file
+			var/empty = TRUE
+			for(var/obj/thing in objects)
+				if(istype(thing, /mob/living/carbon))		//Ignore people, but not animals
+					continue
+				var/metadata = generate_tgm_metadata(thing)
+				current_header += "[empty?"":",\n"][thing.type][metadata]"
+				empty = FALSE
+			current_header += "[empty?"":",\n"][place],\n[location])\n"
+			//====Fill the contents file====
+			//Compression is done here
+			var/position_of_header = header_dat.Find(current_header)
+			if(position_of_header)
+				//If the header has already been saved, change the character to the other saved header
+				header_char = header_chars[position_of_header]
+			else
+				header += "\"[header_char]\" = [current_header]"
+				header_chars += header_char
+				header_dat += current_header
+			contents += "[header_char]\n"
+		contents += "\"}"
 	return "[header][contents]"
 
 //Sorts maps in terms of their positions, so scrambled / odd shaped maps can be saved
@@ -91,12 +102,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	var/allTurfs = new/list(width, height)
 	for(var/turf/place in map)
 		allTurfs[place.x - minx + 1][place.y - miny + 1] = place
-	var/list/output = list()
-	for(var/x in 1 to width)
-		for(var/y in height to 1 step -1)
-			if(allTurfs[x][y])
-				output += allTurfs[x][y]
-	return output
+	return allTurfs
 
 //vars_to_save = list() to save all vars
 /proc/generate_tgm_metadata(var/atom/O, var/list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"))
