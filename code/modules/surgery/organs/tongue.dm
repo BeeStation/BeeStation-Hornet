@@ -217,6 +217,13 @@
 	attack_verb = list("beeped", "booped")
 	taste_sensitivity = NO_TASTE_SENSITIVITY // Robots have no taste.
 
+/obj/item/organ/tongue/bee
+	name = "proboscis"
+	desc = "A freakish looking meat tube that apparently can take in liquids, this one smells slighlty like flowers."
+	icon_state = "tonguefly"
+	say_mod = "buzzes"
+	taste_sensitivity = 35 // you eat vomit, this is a mercy
+
 /obj/item/organ/tongue/robot/emp_act(severity)
 	owner.apply_effect(EFFECT_STUTTER, 120)
 	owner.emote("scream")
