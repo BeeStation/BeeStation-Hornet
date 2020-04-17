@@ -510,6 +510,6 @@
 /obj/structure/closet/on_object_saved()
 	var/dat = ""
 	for(var/obj/item in contents)
-		metadata = generate_tgm_metadata(item)
+		var/metadata = generate_tgm_metadata(item)
 		dat += "[dat ? ",\n" : ""][item.type][metadata]"
 	return dat
