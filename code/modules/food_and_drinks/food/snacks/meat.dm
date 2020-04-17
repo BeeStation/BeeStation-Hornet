@@ -141,7 +141,7 @@
 	foodtype = RAW | MEAT | TOXIC
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/apid
-	icon_state = "beemeat"
+	icon_state = "apidmeat"
 	desc = "Smells like flowers, hopefully doesn't taste like them."
 	filling_color = "#BEAD07"
 	tastes = list("honey" = 1, "flowers" = 1, "meat" = 2)
