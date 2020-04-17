@@ -1308,6 +1308,7 @@
 #include "code\modules\antagonists\changeling\powers\absorb.dm"
 #include "code\modules\antagonists\changeling\powers\adrenaline.dm"
 #include "code\modules\antagonists\changeling\powers\augmented_eyesight.dm"
+#include "code\modules\antagonists\changeling\powers\biodegrade.dm"
 #include "code\modules\antagonists\changeling\powers\chameleon_skin.dm"
 #include "code\modules\antagonists\changeling\powers\digitalcamo.dm"
 #include "code\modules\antagonists\changeling\powers\fakedeath.dm"
