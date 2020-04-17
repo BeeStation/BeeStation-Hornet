@@ -141,3 +141,23 @@
 /obj/item/sbeacondrop/constructshell
 	desc = "A label on it reads: <i>Warning: Activating this device will send a Nar'sian construct shell to your location</i>."
 	droptype = /obj/structure/constructshell
+
+/obj/item/sbeacondrop/semiautoturret
+	desc = "A label on it reads: <i>Warning: Activating this device will send a turret to your location</i>."
+	droptype = /obj/machinery/porta_turret/syndicate/pod
+
+/obj/item/sbeacondrop/semiautoturrettraitor
+	desc = "A label on it reads: <i>Warning: Activating this device will send a turret to your location</i>."
+	droptype = /obj/machinery/porta_turret/syndicate/pod/traitor
+
+/obj/item/sbeacondrop/heavylaserturret
+	desc = "A label on it reads: <i>Warning: Activating this device will send a turret to your location</i>."
+	droptype = /obj/machinery/porta_turret/syndicate/energy/heavy
+
+/obj/item/sbeacondrop/heavylaserturrettraitor
+	desc = "A label on it reads: <i>Warning: Activating this device will send a turret to your location</i>."
+	droptype = /obj/machinery/porta_turret/syndicate/energy/heavy/traitor
+
+/obj/item/sbeacondrop/penetratorturret
+	desc = "A label on it reads: <i>Warning: Activating this device will send a turret to your location</i>."
+	droptype = /obj/machinery/porta_turret/syndicate/shuttle

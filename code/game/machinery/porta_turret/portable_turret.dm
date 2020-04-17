@@ -675,6 +675,8 @@
 	desc = "An energy blaster auto-turret."
 
 /obj/machinery/porta_turret/syndicate/energy/heavy
+	name = "syndicate heavy laser turret"
+	desc = "A heavy laser auto-turret."
 	icon_state = "standard_lethal"
 	base_icon_state = "standard"
 	stun_projectile = /obj/item/projectile/energy/electrode
@@ -683,6 +685,9 @@
 	lethal_projectile_sound = 'sound/weapons/lasercannonfire.ogg'
 	desc = "An energy blaster auto-turret."
 
+/obj/machinery/porta_turret/syndicate/energy/heavy/traitor
+	faction = list(ROLE_TRAITOR)
+
 /obj/machinery/porta_turret/syndicate/energy/raven
 	stun_projectile =  /obj/item/projectile/beam/laser
 	stun_projectile_sound = 'sound/weapons/laser.ogg'
@@ -690,12 +695,19 @@
 
 
 /obj/machinery/porta_turret/syndicate/pod
+	name = "syndicate semi-auto turret"
+	desc = "A ballistic semi-automatic auto-turret."
 	integrity_failure = 20
 	max_integrity = 40
 	stun_projectile = /obj/item/projectile/bullet/syndicate_turret
 	lethal_projectile = /obj/item/projectile/bullet/syndicate_turret
 
+/obj/machinery/porta_turret/syndicate/pod/traitor
+	faction = list(ROLE_TRAITOR)
+
 /obj/machinery/porta_turret/syndicate/shuttle
+	name = "syndicate penetrator turret"
+	desc = "A ballistic penetrator auto-turret."
 	scan_range = 9
 	shot_delay = 3
 	stun_projectile = /obj/item/projectile/bullet/p50/penetrator/shuttle
