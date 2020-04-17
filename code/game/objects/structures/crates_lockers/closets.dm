@@ -506,3 +506,10 @@
 		user.resting = FALSE
 		togglelock(user)
 		T1.visible_message("<span class='warning'>[user] dives into [src]!</span>")
+
+/obj/structure/closet/on_object_saved()
+	var/dat = ""
+	for(var/obj/item in contents)
+		metadata = generate_tgm_metadata(item)
+		dat += "[dat ? ",\n" : ""][item.type][metadata]"
+	return dat
