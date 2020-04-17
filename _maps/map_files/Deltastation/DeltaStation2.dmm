@@ -32561,6 +32561,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
+/obj/machinery/chem_dispenser/mutagensaltpetersmall,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "beT" = (
