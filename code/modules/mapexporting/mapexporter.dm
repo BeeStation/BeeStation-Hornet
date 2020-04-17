@@ -70,9 +70,9 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 				objects = place
 				place = place.type
 			//====For toggling not saving areas and turfs====
-			if(save_flag & SAVE_AREAS)
+			if(!(save_flag & SAVE_AREAS))
 				location = /area/template_noop
-			if(save_flag & SAVE_TURFS)
+			if(!(save_flag & SAVE_TURFS))
 				place = /turf/template_noop
 			//====Generate Header Character====
 			var/header_char = calculate_tgm_header_index(y + (x * width), layers)	//The characters of the header
@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 					empty = FALSE
 			//====SAVING MOBS====
 			if(save_flag & SAVE_MOBS)
-				for(var/mob/thing in objects)
+				for(var/mob/living/thing in objects)
 					if(istype(thing, /mob/living/carbon))		//Ignore people, but not animals
 						continue
 					var/metadata = generate_tgm_metadata(thing)
