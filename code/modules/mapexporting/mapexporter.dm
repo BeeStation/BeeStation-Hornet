@@ -69,17 +69,30 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 				location = get_area(place).type
 				objects = place
 				place = place.type
+			//====For toggling not saving areas and turfs====
+			if(save_flag & SAVE_AREAS)
+				location = /area/template_noop
+			if(save_flag & SAVE_TURFS)
+				place = /turf/template_noop
 			//====Generate Header Character====
 			var/header_char = calculate_tgm_header_index(y + (x * width), layers)	//The characters of the header
 			var/current_header = "(\n"										//The actual stuff inside the header
 			//Add objects to the header file
 			var/empty = TRUE
-			for(var/obj/thing in objects)
-				if(istype(thing, /mob/living/carbon))		//Ignore people, but not animals
-					continue
-				var/metadata = generate_tgm_metadata(thing)
-				current_header += "[empty?"":",\n"][thing.type][metadata]"
-				empty = FALSE
+			//====SAVING OBJECTS====
+			if(save_flag & SAVE_OBJECTS)
+				for(var/obj/thing in objects)
+					var/metadata = generate_tgm_metadata(thing)
+					current_header += "[empty?"":",\n"][thing.type][metadata]"
+					empty = FALSE
+			//====SAVING MOBS====
+			if(save_flag & SAVE_MOBS)
+				for(var/mob/thing in objects)
+					if(istype(thing, /mob/living/carbon))		//Ignore people, but not animals
+						continue
+					var/metadata = generate_tgm_metadata(thing)
+					current_header += "[empty?"":",\n"][thing.type][metadata]"
+					empty = FALSE
 			current_header += "[empty?"":",\n"][place],\n[location])\n"
 			//====Fill the contents file====
 			//Compression is done here
