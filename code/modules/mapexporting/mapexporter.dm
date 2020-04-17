@@ -125,8 +125,6 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 
 //vars_to_save = list() to save all vars
 /proc/generate_tgm_metadata(var/atom/O, var/list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"))
-	//This idea was taken from https://github.com/WaspStation/WaspStation-1.0/pull/109/files
-	var/list/dont_save_if_empty = list("icon_state")
 	var/dat = ""
 	var/data_to_add = list()
 	for(var/V in O.vars)
@@ -136,8 +134,6 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 		if(!value)
 			continue
 		if(value == initial(O.vars[V]) || !issaved(O.vars[V]))
-			continue
-		if((V in dont_save_if_empty) && value == "")
 			continue
 		var/symbol = ""
 		if(istext(value))
