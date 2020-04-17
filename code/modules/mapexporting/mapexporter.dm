@@ -69,6 +69,12 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 				location = get_area(place).type
 				objects = place
 				place = place.type
+			//====Saving shuttles only / non shuttles only====
+			var/is_shuttle_area = istype(location, /area/shuttle)
+			if((is_shuttle_area && shuttle_area_flag == SAVE_SHUTTLEAREA_IGNORE) || (!is_shuttle_area && shuttle_area_flag == SAVE_SHUTTLEAREA_ONLY))
+				place = /turf/template_noop
+				location = /area/template_noop
+				objects = list()
 			//====For toggling not saving areas and turfs====
 			if(!(save_flag & SAVE_AREAS))
 				location = /area/template_noop
