@@ -54000,13 +54000,13 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "ccu" = (
-/obj/machinery/hydroponics/constructable,
 /obj/item/radio/intercom{
 	pixel_y = -29
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/chem_dispenser/mutagensaltpetersmall,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "ccv" = (
