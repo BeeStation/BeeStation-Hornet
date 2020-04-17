@@ -42,7 +42,7 @@
 		L.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
 		for(var/thing in L.diseases)
 			var/datum/disease/advance/D = thing
-			if(D.severity == DISEASE_SEVERITY_POSITIVE || D.severity == DISEASE_SEVERITY_BENEFICIAL || D.spread_flags = DISEASE_SPREAD_SPECIAL)
+			if(D.severity == DISEASE_SEVERITY_POSITIVE || D.severity == DISEASE_SEVERITY_BENEFICIAL || D.spread_flags == DISEASE_SPREAD_SPECIAL)
 				continue
 			if(D in subtypesof(/datum/disease/advance))
 				var/datum/disease/advance/A = D
