@@ -512,4 +512,7 @@
 	for(var/obj/item in contents)
 		var/metadata = generate_tgm_metadata(item)
 		dat += "[dat ? ",\n" : ""][item.type][metadata]"
+		//Save the contents of things inside the things inside us, EG saving the contents of bags inside lockers
+		var/custom_data = item.on_object_saved()
+		dat += "[custom_data ? ",\n[custom_data]" : ""]"
 	return dat
