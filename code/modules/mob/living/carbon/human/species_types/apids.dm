@@ -1,5 +1,5 @@
 /datum/species/apid
-	name = "Apid"
+	name = "Apids"
 	id = "apid"
 	say_mod = "buzzes"
 	default_color = "FFE800"
@@ -12,4 +12,5 @@
 	liked_foods = VEGETABLES | FRUIT
 	disliked_foods = GROSS | DAIRY
 	toxic_food = MEAT | RAW
+	mutanteyes = /obj/item/organ/eyes/apid
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
