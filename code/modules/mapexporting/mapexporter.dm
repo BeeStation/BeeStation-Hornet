@@ -91,6 +91,16 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 					var/metadata = generate_tgm_metadata(thing)
 					current_header += "[empty?"":",\n"][thing.type][metadata]"
 					empty = FALSE
+					//====SAVING CONTENTS OF THINGS (Lockers ETC.)====
+					//Saving contents temporarilly removed, because things like disposal pipes use it for some reason
+					/*if(save_flag & SAVE_CONTENTS)
+						for(var/obj/item in thing.contents)
+							metadata = generate_tgm_metadata(item)
+							current_header += ",\n[item.type][metadata]"*/
+					//====SAVING SPECIAL DATA====
+					if(save_flag & SAVE_OBJECT_PROPERTIES)
+						var/custom_data = thing.on_object_saved()
+						current_header += "[custom_data ? ",\n[custom_data]" : ""]"
 			//====SAVING MOBS====
 			if(save_flag & SAVE_MOBS)
 				for(var/mob/living/thing in objects)
