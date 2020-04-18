@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 ))
 
 //Converts a list of turfs into TGM file format
-/proc/convert_map_to_tgm(var/list/map, var/save_flag = SAVE_ALL, var/shuttle_area_flag = SAVE_SHUTTLEAREA_DONTCARE)
+/proc/convert_map_to_tgm(var/list/map, var/save_flag = SAVE_ALL, var/shuttle_area_flag = SAVE_SHUTTLEAREA_DONTCARE, var/list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"))
 	//Calculate the bounds
 	var/minx = 1024
 	var/miny = 1024
@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 			//====SAVING OBJECTS====
 			if(save_flag & SAVE_OBJECTS)
 				for(var/obj/thing in objects)
-					var/metadata = generate_tgm_metadata(thing)
+					var/metadata = generate_tgm_metadata(thing, vars_to_save)
 					current_header += "[empty?"":",\n"][thing.type][metadata]"
 					empty = FALSE
 					//====SAVING SPECIAL DATA====
@@ -101,7 +101,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 				for(var/mob/living/thing in objects)
 					if(istype(thing, /mob/living/carbon))		//Ignore people, but not animals
 						continue
-					var/metadata = generate_tgm_metadata(thing)
+					var/metadata = generate_tgm_metadata(thing, vars_to_save)
 					current_header += "[empty?"":",\n"][thing.type][metadata]"
 					empty = FALSE
 			current_header += "[empty?"":",\n"][place],\n[location])\n"
