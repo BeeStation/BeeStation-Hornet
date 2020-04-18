@@ -17,3 +17,8 @@
 	toxic_food = MEAT | RAW
 	mutanteyes = /obj/item/organ/eyes/apid
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
+
+/datum/species/fly/check_species_weakness(obj/item/weapon, mob/living/attacker)
+	if(istype(weapon, /obj/item/melee/flyswatter))
+		return 29 //Bees get x30 damage from flyswatters
+	return 0
