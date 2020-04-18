@@ -22,3 +22,9 @@
 	if(istype(weapon, /obj/item/melee/flyswatter))
 		return 29 //Bees get x30 damage from flyswatters
 	return 0
+
+/datum/species/apids/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+	. = ..()
+	if(chem.type == /datum/reagent/toxin/pestkiller)
+		H.adjustToxLoss(3)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
