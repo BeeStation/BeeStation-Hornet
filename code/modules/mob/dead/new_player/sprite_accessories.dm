@@ -1854,6 +1854,7 @@
 	icon_state = "m_apid_wings"
 
 /datum/sprite_accessory/apid_wings/open
+	name = "Open Apid Wings"
 	icon_state = "m_apid_wingsopen"
 
 // IPC accessories.
