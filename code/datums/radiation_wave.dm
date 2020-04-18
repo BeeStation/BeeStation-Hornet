@@ -44,7 +44,7 @@
 	else
 		strength = intensity
 
-	if(strength<RAD_BACKGROUND_RADIATION)
+	if(strength < RAD_WAVE_MINIMUM)
 		qdel(src)
 		return
 
@@ -114,4 +114,6 @@
 			if(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, strength) & COMPONENT_BLOCK_CONTAMINATION)
 				continue
 			var/rad_strength = (strength-RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT
-			thing.AddComponent(/datum/component/radioactive, rad_strength, source)
+
+			if (rad_strength >= RAD_WAVE_MINIMUM) // Don't even bother to add the component if its waves aren't going to do anything
+				thing.AddComponent(/datum/component/radioactive, rad_strength, source)

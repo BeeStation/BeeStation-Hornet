@@ -18,7 +18,7 @@
 	hl3_release_date = _half_life
 	can_contaminate = _can_contaminate
 
-	if(istype(parent, /atom)) 
+	if(istype(parent, /atom))
 		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/rad_examine)
 		if(istype(parent, /obj/item))
 			RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/rad_attack)
