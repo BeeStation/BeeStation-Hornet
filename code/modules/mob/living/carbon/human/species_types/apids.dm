@@ -4,6 +4,8 @@
 	say_mod = "buzzes"
 	default_color = "FFE800"
 	species_traits = list(LIPS, NOEYESPRITES)
+	mutant_bodyparts = list("wings")
+	default_features = list("wings" = "Apid Wings")
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutanttongue = /obj/item/organ/tongue/bee
 	attack_verb = "slash"
