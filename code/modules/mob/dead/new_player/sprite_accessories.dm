@@ -1850,6 +1850,7 @@
 
 /datum/sprite_accessory/apid_wings
 	name = "Apid Wings"
+	icon = "wings.dmi"
 	icon_state = "m_apid_wings"
 
 /datum/sprite_accessory/apid_wings/open
