@@ -143,21 +143,13 @@
 	droptype = /obj/structure/constructshell
 
 /obj/item/sbeacondrop/semiautoturret
-	desc = "A label on it reads: <i>Warning: Activating this device will send a turret to your location</i>."
-	droptype = /obj/machinery/porta_turret/syndicate/pod
-
-/obj/item/sbeacondrop/semiautoturrettraitor
-	desc = "A label on it reads: <i>Warning: Activating this device will send a turret to your location</i>."
-	droptype = /obj/machinery/porta_turret/syndicate/pod/traitor
+	desc = "A label on it reads: <i>Warning: Activating this device will send a semi-auto turret to your location</i>."
+	droptype = /obj/machinery/porta_turret/syndicate/pod/nuke
 
 /obj/item/sbeacondrop/heavylaserturret
-	desc = "A label on it reads: <i>Warning: Activating this device will send a turret to your location</i>."
+	desc = "A label on it reads: <i>Warning: Activating this device will send a heavy laser turret to your location</i>."
 	droptype = /obj/machinery/porta_turret/syndicate/energy/heavy
 
-/obj/item/sbeacondrop/heavylaserturrettraitor
-	desc = "A label on it reads: <i>Warning: Activating this device will send a turret to your location</i>."
-	droptype = /obj/machinery/porta_turret/syndicate/energy/heavy/traitor
-
 /obj/item/sbeacondrop/penetratorturret
-	desc = "A label on it reads: <i>Warning: Activating this device will send a turret to your location</i>."
+	desc = "A label on it reads: <i>Warning: Activating this device will send a penetrator turret to your location</i>."
 	droptype = /obj/machinery/porta_turret/syndicate/shuttle

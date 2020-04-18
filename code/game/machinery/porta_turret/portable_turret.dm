@@ -685,9 +685,6 @@
 	lethal_projectile_sound = 'sound/weapons/lasercannonfire.ogg'
 	desc = "An energy blaster auto-turret."
 
-/obj/machinery/porta_turret/syndicate/energy/heavy/traitor
-	faction = list(ROLE_TRAITOR)
-
 /obj/machinery/porta_turret/syndicate/energy/raven
 	stun_projectile =  /obj/item/projectile/beam/laser
 	stun_projectile_sound = 'sound/weapons/laser.ogg'
@@ -701,9 +698,6 @@
 	max_integrity = 40
 	stun_projectile = /obj/item/projectile/bullet/syndicate_turret
 	lethal_projectile = /obj/item/projectile/bullet/syndicate_turret
-
-/obj/machinery/porta_turret/syndicate/pod/traitor
-	faction = list(ROLE_TRAITOR)
 
 /obj/machinery/porta_turret/syndicate/shuttle
 	name = "syndicate penetrator turret"
