@@ -1,4 +1,4 @@
-#define CALF_KICK_COMBO "HGD" //Leg Strike - paralyse one leg
+#define CALF_KICK_COMBO "HGD" //Calf Kick - paralyse one leg
 #define FLOOR_KICK_COMBO "HGH" //Floor Stomp - brute and stamina damage if target isn't standing
 #define JUMPING_KNEE_COMBO "HDH" //Jumping Knee - knockdown and stamina damage
 #define KARATE_CHOP_COMBO "GHD" //Karate Chop - short confusion and blurred eyes
@@ -49,7 +49,7 @@
 	var/def_check = D.getarmor(BODY_ZONE_L_LEG, "melee")
 	if(!can_use(A))
 		return FALSE
-	if(!D.stat && !D.IsStun() && !D.IsParalyzed())
+	if(!D.stat)
 		log_combat(A, D, "calf kicked (Karate)")
 		D.visible_message("<span class='warning'>[A] roundhouse kicked [D] in the calf!</span>", \
 							"<span class='userdanger'>[A] roundhouse kicked you in the calf!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -64,7 +64,7 @@
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
 	if(!can_use(A))
 		return FALSE
-	if(!D.stat && !D.IsStun() && !D.IsParalyzed())
+	if(!D.stat)
 		log_combat(A, D, "jumped kneed (Karate)")
 		D.visible_message("<span class='warning'>[A] jumping kneed [D] in the stomach!</span>", \
 							"<span class='userdanger'>[A] jumping kneed you in the stomach!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -80,7 +80,7 @@
 /datum/martial_art/karate/proc/karateChop(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
-	if(!D.stat && !D.IsStun() && !D.IsParalyzed())
+	if(!D.stat)
 		log_combat(A, D, "karate chopped (Karate)")
 		D.visible_message("<span class='warning'>[A] karate chopped [D] in the neck!</span>", \
 							"<span class='userdanger'>[A] karate chopped you in the neck!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -115,7 +115,7 @@
 	set desc = "Remember the martial techniques of Karate."
 	set category = "Karate"
 
-	to_chat(usr, "<b><i>You try to remember the fundamentals of Karate.</i></b>")
+	to_chat(usr, "<b><i>You try to remember the fundamentals of Karate...</i></b>")
 
 	to_chat(usr, "<span class='notice'>Calf Kick</span>: Harm Grab Disarm. Paralyses one of your opponent's legs.")
 	to_chat(usr, "<span class='notice'>Jumping Knee</span>: Harm Disarm Harm. Deals significant stamina damage and knocks your opponent down briefly.")
