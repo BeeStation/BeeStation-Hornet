@@ -701,7 +701,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				if("moth_wings")
 					S = GLOB.moth_wings_list[H.dna.features["moth_wings"]]
 				if("apid_wings")
-					S = GLOB.moth_wings_list[H.dna.features["apid_wings"]]
+					S = GLOB.apid_wings_list[H.dna.features["apid_wings"]]
 				if("caps")
 					S = GLOB.caps_list[H.dna.features["caps"]]
 				if("ipc_screen")
