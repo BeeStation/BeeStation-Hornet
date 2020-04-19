@@ -13,13 +13,13 @@
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/apid
-	liked_foods = VEGETABLES | FRUIT
-	disliked_foods = GROSS | DAIRY
+	liked_food = VEGETABLES | FRUIT
+	disliked_food = GROSS | DAIRY
 	toxic_food = MEAT | RAW
 	mutanteyes = /obj/item/organ/eyes/apid
 	mutantlungs = /obj/item/organ/lungs/apid
-	heat_mod = 1.5
-	cold_mod = 1.5
+	heatmod = 1.5
+	coldmod = 1.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 
 /obj/effect/particle_effect/smoke/smoke_mob(mob/living/carbon/human/species_types/apids/H)
