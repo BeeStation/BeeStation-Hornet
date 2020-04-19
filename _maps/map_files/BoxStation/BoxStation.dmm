@@ -15033,9 +15033,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "aJN" = (
-/obj/structure/table,
-/obj/item/book/manual/hydroponics_pod_people,
-/obj/item/paper/guides/jobs/hydroponics,
+/obj/machinery/chem_dispenser/mutagensaltpetersmall,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aJO" = (
@@ -15563,6 +15561,8 @@
 	pixel_y = 5
 	},
 /obj/item/watertank,
+/obj/item/paper/guides/jobs/hydroponics,
+/obj/item/book/manual/hydroponics_pod_people,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aLe" = (
