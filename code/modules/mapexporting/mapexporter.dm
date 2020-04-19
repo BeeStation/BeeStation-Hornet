@@ -143,7 +143,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 		var/symbol = ""
 		if(istext(value))
 			symbol = "\""
-			value = sanitize_filename(value)
+			value = sanitize_simple(value, list("{"="", "}"="", "\""="", ";"="", ","=""))
 		else if(isicon(value) || isfile(value))
 			symbol = "'"
 		else if(!(isnum(value) || ispath(value)))
