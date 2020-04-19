@@ -1,0 +1,5 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - tweak: "makes flash blindness true blindness for half of the duration"
+  - bugfix: "fixes borg flash blindness"
