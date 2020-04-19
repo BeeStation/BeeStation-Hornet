@@ -6,7 +6,7 @@
 	ask_verb = "buzzes questioningly"
 	exclaim_verb = "buzzes loudly"
 	sing_verb = "groove"
-	key = "o"
+	key = "*"
 	flags = TONGUELESS_SPEECH
 	space_chance = 40
 	syllables = list(
