@@ -1,0 +1,4 @@
+author: "CthulhuOnIce"
+delete-after: True
+changes: 
+  - admin: "added a verb to display a humorous video in the case of a bug"
