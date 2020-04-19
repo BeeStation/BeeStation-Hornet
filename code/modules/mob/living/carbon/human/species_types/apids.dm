@@ -21,6 +21,10 @@
 	cold_mod = 1.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 
+/obj/effect/particle_effect/smoke/smoke_mob(mob/living/carbon/human/species_types/apids/H)
+	H.set_drugginess(25)
+
+
 /datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.grant_language(/datum/language/apidite)
 
