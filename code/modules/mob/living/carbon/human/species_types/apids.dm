@@ -16,14 +16,10 @@
 	disliked_foods = GROSS | DAIRY
 	toxic_food = MEAT | RAW
 	mutanteyes = /obj/item/organ/eyes/apid
+	mutantlungs = /obj/item/organ/lungs/apid
 	heat_mod = 1.5
 	cold_mod = 1.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
-
-if(radiation > 3)
-		confused += min(M.confused + 10, 20)
-		dizziness += min(M.dizziness + 10, 20)
-		drowsyness += min(M.drowsyness + 10, 20)
 
 /datum/species/apids/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))
