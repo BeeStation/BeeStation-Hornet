@@ -143,12 +143,13 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 		var/symbol = ""
 		if(istext(value))
 			symbol = "\""
+			value = sanitize_filename(value)
 		else if(isicon(value) || isfile(value))
 			symbol = "'"
 		else if(!(isnum(value) || ispath(value)))
 			continue
 		//Prevent symbols from being because otherwise you can name something [";},/obj/item/gun/energy/laser/instakill{name="da epic gun] and spawn yourself an instakill gun.
-		data_to_add += "[V] = [symbol][sanitize_filename(value)][symbol]"
+		data_to_add += "[V] = [symbol][value][symbol]"
 	//Process data to add
 	var/first = TRUE
 	for(var/data in data_to_add)
