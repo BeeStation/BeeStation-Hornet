@@ -1,0 +1,4 @@
+author: "qwertyquerty"
+delete-after: True
+changes: 
+  - tweak: "decreased reagent cap on carbon mobs to 1000"
