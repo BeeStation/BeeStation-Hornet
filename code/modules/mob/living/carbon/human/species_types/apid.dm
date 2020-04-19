@@ -35,3 +35,23 @@
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+
+/obj/item/clothing/shoes/bhop/apid
+	name = "Apid wings"
+	desc = "A pair of wings from an Apid, powerful enough to make leaps."
+	icon = wings.dmi
+	icon_state = "m_apid_wingsopen"
+	item_state = "m_apid_wingsopen"
+	actions_types = list(/datum/action/item_action/bhop)
+	slot_flags = ITEM_SLOT_BACK
+
+/obj/item/storage/backpacks/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, "apidwings")
+
+/datum/species/snail/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	var/obj/item/storage/backpack/bag = C.get_item_by_slot(SLOT_BACK)
+	if(!istype(shoe, /obj/item/clothing/shoes/bhop/apid))
+		if(C.dropItemToGround(bag))
+			C.equip_to_slot_or_del(new /obj/item/clothing/shoes/bhop/apid(C), SLOT_BACK)
