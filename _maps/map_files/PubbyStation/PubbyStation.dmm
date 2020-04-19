@@ -19618,15 +19618,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
-"aTT" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/hydroponics)
 "aTU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -53676,6 +53667,14 @@
 /obj/structure/chair/office/light,
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
+"eex" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/landmark/start/botanist,
+/turf/open/floor/plasteel,
+/area/hydroponics)
 "eeD" = (
 /obj/machinery/computer/cryopod{
 	pixel_y = 25
@@ -58144,6 +58143,16 @@
 	luminosity = 2
 	},
 /area/maintenance/department/science)
+"odI" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/effect/landmark/start/botanist,
+/turf/open/floor/plasteel,
+/area/hydroponics)
 "oep" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin,
@@ -88891,7 +88900,7 @@ aWQ
 aXS
 aYO
 aZT
-aZT
+eex
 aZT
 bdj
 beg
@@ -89141,7 +89150,7 @@ aPz
 aQJ
 aRL
 aSD
-aTT
+odI
 aXS
 aRL
 aWR

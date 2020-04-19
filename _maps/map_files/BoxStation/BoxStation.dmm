@@ -16035,16 +16035,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"aMy" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/hydroponics)
 "aMz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -52730,6 +52720,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
+"dWK" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/effect/landmark/start/botanist,
+/turf/open/floor/plasteel,
+/area/hydroponics)
 "dYq" = (
 /turf/closed/wall,
 /area/science/nanite)
@@ -53545,6 +53546,16 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/aisat_interior)
+"gDG" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/landmark/start/botanist,
+/turf/open/floor/plasteel,
+/area/hydroponics)
 "gES" = (
 /obj/item/radio/intercom{
 	pixel_x = 28;
@@ -99343,7 +99354,7 @@ aGC
 aIl
 aIp
 aKK
-aMy
+dWK
 aIp
 aOX
 aQm
@@ -99860,7 +99871,7 @@ fGf
 aMA
 aIp
 oau
-aQm
+gDG
 sJm
 aST
 aUk
