@@ -21,9 +21,9 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 
 if(radiation > 3)
-			confused += min(M.confused + 10, 20)
-			dizziness += min(M.dizziness + 10, 20)
-			drowsyness += min(M.drowsyness + 10, 20)
+		confused += min(M.confused + 10, 20)
+		dizziness += min(M.dizziness + 10, 20)
+		drowsyness += min(M.drowsyness + 10, 20)
 
 /datum/species/apids/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))
