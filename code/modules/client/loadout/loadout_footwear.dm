@@ -6,58 +6,58 @@
 
 //fancy shoes and stuff
 
-/datum/gear/shoes/laceup
+/datum/gear/footwear/laceup
 	display_name = "laceup shoes"
 	path = /obj/item/clothing/shoes/laceup
 
-/datum/gear/shoes/sandals
+/datum/gear/footwear/sandals
 	display_name = "wooden sandals"
 	path = /obj/item/clothing/shoes/sandal
 
-/datum/gear/shoes/winterboots
+/datum/gear/footwear/winterboots
 	display_name = "winter boots"
 	path = /obj/item/clothing/shoes/winterboots
 	cost = 4000
 
-/datum/gear/shoes/jackboots
+/datum/gear/footwear/jackboots
 	display_name = "jackboots"
 	path = /obj/item/clothing/shoes/jackboots
 	cost = 8000
 
 //Standard shoes
 
-/datum/gear/shoes/color
-	subtype_path = /datum/gear/shoes/color
+/datum/gear/footwear/color
+	subtype_path = /datum/gear/footwear/color
 	cost = 500
 
-/datum/gear/shoes/color/black
+/datum/gear/footwear/color/black
 	display_name = "black shoes"
 	path = /obj/item/clothing/shoes/sneakers/black
 
-/datum/gear/shoes/color/brown
+/datum/gear/footwear/color/brown
 	display_name = "brown shoes"
 	path = /obj/item/clothing/shoes/sneakers/brown
 
-/datum/gear/shoes/color/blue
+/datum/gear/footwear/color/blue
 	display_name = "blue shoes"
 	path = /obj/item/clothing/shoes/sneakers/blue
 
-/datum/gear/shoes/color/green
+/datum/gear/footwear/color/green
 	display_name = "green shoes"
 	path = /obj/item/clothing/shoes/sneakers/green
 
-/datum/gear/shoes/color/purple
+/datum/gear/footwear/color/purple
 	display_name = "purple shoes"
 	path = /obj/item/clothing/shoes/sneakers/purple
 
-/datum/gear/shoes/color/red
+/datum/gear/footwear/color/red
 	display_name = "red shoes"
 	path = /obj/item/clothing/shoes/sneakers/red
 
-/datum/gear/shoes/color/orange
+/datum/gear/footwear/color/orange
 	display_name = "orange shoes"
 	path = /obj/item/clothing/shoes/sneakers/orange
 
-/datum/gear/shoes/color/white
+/datum/gear/footwear/color/white
 	display_name = "white shoes"
 	path = /obj/item/clothing/shoes/sneakers/white

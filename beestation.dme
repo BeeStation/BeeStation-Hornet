@@ -1618,7 +1618,7 @@
 #include "code\modules\client\preferences_toggles.dm"
 #include "code\modules\client\loadout\loadout.dm"
 #include "code\modules\client\loadout\loadout_accessories.dm"
-#include "code\modules\client\loadout\loadout_cosmestics.dm"
+#include "code\modules\client\loadout\loadout_footwear.dm"
 #include "code\modules\client\loadout\loadout_general.dm"
 #include "code\modules\client\loadout\loadout_hat.dm"
 #include "code\modules\client\loadout\loadout_ooc.dm"

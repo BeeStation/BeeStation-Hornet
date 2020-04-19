@@ -3,13 +3,40 @@
 	slot = SLOT_WEAR_SUIT
 	sort_category = "External Wear"
 
-//HAZARD VEST
+//ALT ARMOR, HAZARD & MEDICAL VESTS, + LABCOATS
 
-/datum/gear/suit/hazard_vest
+/datum/gear/suit/vests/hazard_vest
 	display_name = "hazard vest"
 	path = /obj/item/clothing/suit/hazardvest
 	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician", "Quartermaster", "Cargo Technician")
+	cost = 2500
+
+/datum/gear/suit/vests/armor/alt //just the alternate appearance armor vest that is in sec lockers.
+	display_name = "type I-B armor vest"
+	path = /obj/item/clothing/suit/armor/vest/alt
+	allowed_roles = allowed_roles = list("Security Officer", "Warden", "Head of Security", "Head of Personnel")
 	cost = 5000
+
+/datum/gear/suit/vests/armor/blueshirt //about that beer I owe ya
+	display_name = "type H-L large armor vest"
+	path = /obj/item/clothing/suit/armor/vest/blueshirt
+	allowed_roles = allowed_roles = list("Security Officer", "Warden", "Head of Security", "Head of Personnel")
+	cost = 7500
+
+/datum/gear/suit/vests/hazard/brig_doc
+	display_name = "brig physician's hazard vest"
+	path = /obj/item/clothing/suit/hazardvest/brig_phys
+	allowed_roles = list("Brig Physician")
+
+/datum/gear/suit/vests/labcoat/brig_doc
+	display_name = "brig physician's labcoat"
+	path = /obj/item/clothing/suit/toggle/labcoat/brig_phys
+	allowed_roles = list("Brig Physician")
+
+/datum/gear/suit/vests/labcoat/emt
+	display_name = "EMT labcoat"
+	path = /obj/item/clothing/suit/toggle/labcoat/emt
+	allowed_roles = list("Medical Doctor", "Chief Medical Officer", "Chemist", "Geneticist")
 
 //WINTER COATS
 /datum/gear/suit/wintercoat
@@ -34,7 +61,7 @@
 /datum/gear/suit/wintercoat/medical
 	display_name = "medical winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list("Paramedic", "Medical Doctor", "Chief Medical Officer")
+	allowed_roles = list("Paramedic", "Medical Doctor", "Chief Medical Officer", "Chemist", "Geneticist")
 
 /datum/gear/suit/wintercoat/science
 	display_name = "science winter coat"

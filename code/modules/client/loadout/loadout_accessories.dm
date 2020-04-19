@@ -80,13 +80,12 @@
 	path = /obj/item/clothing/glasses/monocle
 	cost = 1200
 
-/datum/gear/lipstick
+/datum/gear/accessory/cosmetics/lipstick
 	display_name = "lipstick, black"
 	path = /obj/item/lipstick/black
-	sort_category = "Cosmetics"
 	cost = 1200
 
-/datum/gear/lipstick/red
+/datum/gear/accessory/cosmetics/lipstick/red
 	display_name = "lipstick, red"
 	path = /obj/item/lipstick
 	cost = 1200
