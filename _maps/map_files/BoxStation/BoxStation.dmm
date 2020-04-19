@@ -8208,15 +8208,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
-"atc" = (
-/obj/structure/table/wood,
-/obj/item/clothing/glasses/sunglasses,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
-	pixel_x = 3
-	},
-/obj/item/lighter,
-/turf/open/floor/carpet/red,
-/area/security/detectives_office)
 "atd" = (
 /obj/machinery/light{
 	dir = 4
@@ -54802,6 +54793,15 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
+"kSg" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+	pixel_x = 3
+	},
+/obj/item/lighter,
+/obj/item/clothing/glasses/hud/security/sunglasses,
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
 "kTx" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
@@ -86746,7 +86746,7 @@ baV
 bLE
 bLE
 pvj
-atc
+kSg
 aug
 apd
 awg
