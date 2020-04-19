@@ -5,7 +5,7 @@
 	speech_verb = "buzzes"
 	ask_verb = "buzzes questioningly"
 	exclaim_verb = "buzzes loudly"
-	sing_verb = "hums"
+	sing_verb = "groove"
 	key = "o"
 	flags = TONGUELESS_SPEECH
 	space_chance = 40
