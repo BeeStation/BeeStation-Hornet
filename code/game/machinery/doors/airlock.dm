@@ -94,6 +94,7 @@
 
 	var/air_tight = FALSE	//TRUE means density will be set as soon as the door begins to close
 	var/prying_so_hard = FALSE
+	var/protected_door = FALSE // Protects the door against any form of power outage, AI control, screwdrivers and welders.
 
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
@@ -244,7 +245,7 @@
 	bolt()
 
 /obj/machinery/door/airlock/proc/bolt()
-	if(locked)
+	if(locked || protected_door)
 		return
 	locked = TRUE
 	playsound(src,boltDown,30,0,3)
@@ -345,18 +346,26 @@
 	return FALSE
 
 /obj/machinery/door/airlock/proc/canAIControl(mob/user)
+	if(protected_door)
+		return FALSE
 	return ((aiControlDisabled != 1) && !isAllPowerCut())
 
 /obj/machinery/door/airlock/proc/canAIHack()
+	if(protected_door)
+		return FALSE
 	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerCut()));
 
 /obj/machinery/door/airlock/hasPower()
+	if(protected_door)
+		return TRUE
 	return ((!secondsMainPowerLost || !secondsBackupPowerLost) && !(stat & NOPOWER))
 
 /obj/machinery/door/airlock/requiresID()
 	return !(wires.is_cut(WIRE_IDSCAN) || aiDisabledIdScanner)
 
 /obj/machinery/door/airlock/proc/isAllPowerCut()
+	if(protected_door)
+		return FALSE
 	if((wires.is_cut(WIRE_POWER1) || wires.is_cut(WIRE_POWER2)) && (wires.is_cut(WIRE_BACKUP1) || wires.is_cut(WIRE_BACKUP2)))
 		return TRUE
 
@@ -928,7 +937,7 @@
 						security_level = AIRLOCK_SECURITY_PLASTEEL_O
 					return
 	if(C.tool_behaviour == TOOL_SCREWDRIVER)
-		if(panel_open && detonated)
+		if((panel_open && detonated) || protected_door)
 			to_chat(user, "<span class='warning'>[src] has no maintenance panel!</span>")
 			return
 		panel_open = !panel_open
@@ -983,7 +992,7 @@
 /obj/machinery/door/airlock/try_to_weld(obj/item/weldingtool/W, mob/user)
 	if(!operating && density)
 		if(user.a_intent != INTENT_HELP)
-			if(!W.tool_start_check(user, amount=0))
+			if(protected_door || !W.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is [welded ? "unwelding":"welding"] the airlock.", \
 							"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
@@ -1099,7 +1108,8 @@
 	if(forced < 2)
 		if(obj_flags & EMAGGED)
 			return FALSE
-		use_power(50)
+		if(!protected_door)
+			use_power(50)
 		playsound(src, doorOpen, 30, 1)
 		if(closeOther != null && istype(closeOther, /obj/machinery/door/airlock/) && !closeOther.density)
 			closeOther.close()
@@ -1146,7 +1156,8 @@
 	if(forced < 2)
 		if(obj_flags & EMAGGED)
 			return
-		use_power(50)
+		if(!protected_door)
+			use_power(50)
 		playsound(src, doorClose, 30, TRUE)
 	else
 		playsound(src, 'sound/machines/airlockforced.ogg', 30, TRUE)
@@ -1269,6 +1280,9 @@
 	return !density || (check_access(ID) && !locked && hasPower())
 
 /obj/machinery/door/airlock/emag_act(mob/user)
+	if(protected_door)
+		to_chat(user, "<span class='warning'>[src] has no maintenance panel!</span>")
+		return
 	if(!operating && density && hasPower() && !(obj_flags & EMAGGED))
 		operating = TRUE
 		update_icon(AIRLOCK_EMAG, 1)
