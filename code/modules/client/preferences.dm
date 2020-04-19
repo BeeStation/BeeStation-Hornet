@@ -685,7 +685,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(G.allowed_roles)
 					dat += "<font size=2>"
 					for(var/role in G.allowed_roles)
-						dat += role + " "
+						dat += role + ",	 "
 					dat += "</font>"
 				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
 			dat += "</table>"

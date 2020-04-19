@@ -1,7 +1,7 @@
-/datum/gear/shoes
-	subtype_path = /datum/gear/hat
+/datum/gear/footwear
+	subtype_path = /datum/gear/footwear
 	slot = SLOT_SHOES
-	sort_category = "Shoes"
+	sort_category = "Footwear"
 	cost = 1000
 
 //fancy shoes and stuff

@@ -110,6 +110,7 @@
 /datum/gear/suit/jacket/joker
 	display_name = "comedian's coat"
 	path = /obj/item/clothing/suit/joker
+	description = "You get what you deserve."
 	allowed_roles = list("Clown")
 	cost = 8000
 
@@ -118,12 +119,12 @@
 	path = /obj/item/clothing/suit/toggle/lawyer
 	allowed_roles = list("Lawyer")
 
-/datum/gear/suit/jacket/lawyer
+/datum/gear/suit/jacket/lawyer/purple
 	display_name = "purple suit jacket"
 	path = /obj/item/clothing/suit/toggle/lawyer/purple
 	allowed_roles = list("Lawyer")
 
-/datum/gear/suit/jacket/lawyer
+/datum/gear/suit/jacket/lawyer/black
 	display_name = "black suit jacket"
 	path = /obj/item/clothing/suit/toggle/lawyer/black
 	allowed_roles = list("Lawyer")
