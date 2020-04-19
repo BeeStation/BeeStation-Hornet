@@ -22,11 +22,6 @@
 	coldmod = 1.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 
-datum/species/apid/in_smoke(mob/living/carbon/human/H)
-	if(loc == /obj/effect/particle_effect/smoke)
-		H.set_drugginess(25)
-
-
 /datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.grant_language(/datum/language/apidite)
 
