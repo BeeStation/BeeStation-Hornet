@@ -21,6 +21,9 @@
 	cold_mod = 1.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 
+/datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	H.grant_language(/datum/language/apidite)
+
 /datum/species/apids/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))
 		return 29 //Bees get x30 damage from flyswatters
