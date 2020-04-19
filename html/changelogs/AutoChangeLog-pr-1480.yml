@@ -1,0 +1,6 @@
+author: "jlsnow301"
+delete-after: True
+changes: 
+  - rscadd: "Airlocks can now be marked as protected against power outages and sabotage."
+  - tweak: "Arrivals airlocks now use this function and open with or without power."
+  - rscadd: "New arrivals airlock sprite."
