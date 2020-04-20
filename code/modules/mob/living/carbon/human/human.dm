@@ -797,7 +797,10 @@
 		override = dna.species.override_float
 	..()
 
-/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)
+/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0, player_triggered = 0)
+	if(!blood && !player_triggered && isflyperson(src)) //Flypeople gain and lose nutrition entirely through vomit-related mechanics, so only they can trigger vomiting
+		return
+
 	if(blood && (NOBLOOD in dna.species.species_traits))
 		if(message)
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
@@ -863,7 +866,7 @@
 				var/obj/item/bodypart/BP = T.get_bodypart(BODY_ZONE_HEAD)
 				if(BP)
 					BP.receive_damage(36) //so 3 toolbox hits
-				
+
 				T.visible_message("<span class='warning'>[src] curbstomps [T]!</span>", "<span class='warning'>[src] curbstomps you!</span>")
 
 				log_combat(src, T, "curbstomped")
@@ -902,7 +905,7 @@
 
 			src.pixel_x = 0
 			src.pixel_y = 0 //position reset
-		
+
 			src.is_busy = FALSE
 
 //src is the user that will be carrying, target is the mob to be carried
@@ -1122,7 +1125,7 @@
 
 /mob/living/carbon/human/species/golem/snow
 	race = /datum/species/golem/snow
-	
+
 /mob/living/carbon/human/species/golem/clockwork
 	race = /datum/species/golem/clockwork
 
