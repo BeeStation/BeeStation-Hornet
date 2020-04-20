@@ -28078,12 +28078,12 @@
 	amount = 10
 	},
 /obj/item/stack/cable_coil,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/weak,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -44641,7 +44641,7 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/weak,
 /obj/item/stock_parts/cell/high/plus,
 /obj/item/reagent_containers/glass/bottle/welding_fuel,
 /obj/item/weldingtool,

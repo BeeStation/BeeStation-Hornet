@@ -68176,13 +68176,13 @@
 /obj/item/stack/sheet/plasteel{
 	amount = 10
 	},
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/weak,
 /obj/machinery/status_display/ai{
 	pixel_x = 32
 	},
