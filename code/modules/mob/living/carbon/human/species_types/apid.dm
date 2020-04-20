@@ -22,7 +22,7 @@
 	coldmod = 1.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 
-/datum/species/lizard/random_name(gender,unique,lastname)
+/datum/species/apid/random_name(gender,unique,lastname)
 	if(unique)
 		return random_unique_apid_name(gender)
 
