@@ -78,4 +78,5 @@
 	id = "ashlizard"
 	limbs_id = "lizard"
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS,DIGITIGRADE)
-	inherent_traits = list(TRAIT_NOGUNS,TRAIT_NOBREATH)
+	inherent_traits = list(TRAIT_NOGUNS)
+	mutantlungs = /obj/item/organ/lungs/ashwalker	

@@ -18,7 +18,7 @@
 	//Breath damage
 
 	var/safe_oxygen_min = 16 // Minimum safe partial pressure of O2, in kPa
-	var/safe_oxygen_max = 0
+	var/safe_oxygen_max = 50 //Too much of a good thing, in kPa as well.
 	var/safe_nitro_min = 0
 	var/safe_nitro_max = 0
 	var/safe_co2_min = 0
@@ -106,11 +106,25 @@
 
 	//Too much oxygen! //Yes, some species may not like it.
 	if(safe_oxygen_max)
-		if(O2_pp > safe_oxygen_max)
+		if((O2_pp > safe_oxygen_max) && safe_oxygen_max == 0)
 			var/ratio = (breath_gases[/datum/gas/oxygen][MOLES]/safe_oxygen_max) * 10
 			H.apply_damage_type(CLAMP(ratio, oxy_breath_dam_min, oxy_breath_dam_max), oxy_damage_type)
 			H.throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
+
+		else if((O2_pp > safe_oxygen_max) && !(safe_oxygen_max == 0))
+			if(!H.o2overloadtime)
+				H.o2overloadtime = world.time
+			else if(world.time - H.o2overloadtime > 120)
+				H.Dizzy(10) //An inital warning to get out of the area
+				H.adjustOxyLoss(3)
+				if(world.time - H.o2overloadtime > 300)
+					H.adjustOxyLoss(8)
+			if(prob(20))
+				H.emote("cough")
+			H.throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
+
 		else
+			H.o2overloadtime = 0
 			H.clear_alert("too_much_oxy")
 
 	//Too little oxygen!
@@ -138,6 +152,7 @@
 			var/ratio = (breath_gases[/datum/gas/nitrogen][MOLES]/safe_nitro_max) * 10
 			H.apply_damage_type(CLAMP(ratio, nitro_breath_dam_min, nitro_breath_dam_max), nitro_damage_type)
 			H.throw_alert("too_much_nitro", /obj/screen/alert/too_much_nitro)
+			H.losebreath += 2
 		else
 			H.clear_alert("too_much_nitro")
 
@@ -408,6 +423,7 @@
 	icon_state = "lungs-plasma"
 
 	safe_oxygen_min = 0 //We don't breath this
+	safe_oxygen_max = 0 //Like, at all.
 	safe_toxins_min = 16 //We breath THIS!
 	safe_toxins_max = 0
 
@@ -444,8 +460,24 @@
 	icon_state = "lungs-c-u"
 	safe_toxins_max = 20
 	safe_co2_max = 20
+	safe_oxygen_max = 250
 	maxHealth = 2 * STANDARD_ORGAN_THRESHOLD
 
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
+
+/obj/item/organ/lungs/ashwalker
+	name = "ash lungs"
+	desc = "blackened lungs identical from specimens recovered from lavaland, unsuited to higher air pressures."
+	icon_state = "lungs-ll"
+	safe_oxygen_min = 3	//able to handle much thinner oxygen, something something ash storm adaptation
+	safe_oxygen_max = 18 // Air standard is 22kpA of O2, LL is 14kpA
+	safe_nitro_max = 28 // Air standard is 82kpA of N2, LL is 23kpA
+
+	cold_level_1_threshold = 280 // Ash Lizards can't take the cold very well, station air is only just warm enough
+	cold_level_2_threshold = 240
+	cold_level_3_threshold = 200
+
+	heat_level_1_threshold = 400 // better adapted for heat, obv. Lavaland standard is 300
+	heat_level_2_threshold = 600 // up 200 from level 1, 1000 is silly but w/e for level 3
