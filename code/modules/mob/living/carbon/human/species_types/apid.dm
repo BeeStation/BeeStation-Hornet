@@ -25,7 +25,7 @@
 /datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.grant_language(/datum/language/apidite)
 
-/datum/species/apids/check_species_weakness(obj/item/weapon, mob/living/attacker)
+/datum/species/apid/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))
 		return 29 //Bees get x30 damage from flyswatters
 	return 0
