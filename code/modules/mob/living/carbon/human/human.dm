@@ -797,8 +797,8 @@
 		override = dna.species.override_float
 	..()
 
-/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0, player_triggered = 0)
-	if(!blood && !player_triggered && isflyperson(src)) //Flypeople gain and lose nutrition entirely through vomit-related mechanics, so only they can trigger vomiting
+/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0, forced = TRUE)
+	if(!blood && !forced && isflyperson(src)) //Flypeople gain and lose nutrition entirely through vomit-related mechanics, so only they can trigger vomiting
 		return
 
 	if(blood && (NOBLOOD in dna.species.species_traits))
