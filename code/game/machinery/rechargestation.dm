@@ -117,9 +117,9 @@
 		var/mob/living/carbon/human/H = occupant
 		var/datum/species/ethereal/E = H.dna?.species
 		if(E)
-			E.adjust_charge(recharge_speed / 40) //Around 5 per process if unupgraded
-			if(repairs && H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.reagents.add_reagent(/datum/reagent/consumable/liquidelectricity,repairs*0.2)
+			E.adjust_charge(repairs*2+5*-1 * recharge_speed/2)
+			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+				H.blood_volume += repairs*2+5 //actualy useful blood gain
 
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)
