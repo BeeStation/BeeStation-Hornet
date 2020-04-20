@@ -88,6 +88,8 @@
 	if(occupant)
 		if(iscyborg(occupant) || isethereal(occupant))
 			use_power = ACTIVE_POWER_USE
+			if(isethereal(occupant))
+				to_chat(occupant, "<span class='notice'><b>As you step into the cyborg recharging station, you feel your power condensing.</b></span>")
 		add_fingerprint(occupant)
 
 /obj/machinery/recharge_station/update_icon()
@@ -116,10 +118,16 @@
 	if(isethereal(occupant))
 		var/mob/living/carbon/human/H = occupant
 		var/datum/species/ethereal/E = H.dna?.species
-		if(E)
-			E.adjust_charge(repairs*2+5*-1 * recharge_speed/2)
+		if(E.ethereal_charge <= ETHEREAL_CHARGE_LOWPOWER)	
+			to_chat(H, "<span class='warning'>Your charge is too low to condense into Liquid Electricity!</span>")
+			return
+		else
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += repairs*2+5 //actualy useful blood gain
+				E.adjust_charge(-3) //Lose charge over time, turning it into ethereal blood.
+				H.blood_volume += repairs*2+5 //Scaling blood gain rate and efficiency based on Manipulator tier.
+			else
+				to_chat(H, "<span class='warning'>Your Liquid Electricity stores are full!")
+				return
 
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)
