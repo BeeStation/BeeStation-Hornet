@@ -22,6 +22,17 @@
 	coldmod = 1.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 
+/datum/species/lizard/random_name(gender,unique,lastname)
+	if(unique)
+		return random_unique_apid_name(gender)
+
+	var/randname = apid_name(gender)
+
+	if(lastname)
+		randname += " [lastname]"
+
+	return randname
+
 /datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()
 	C.equip_to_slot_or_del(new /obj/item/clothing/shoes/bhop/apid(C), SLOT_NECK)
