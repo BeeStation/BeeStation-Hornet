@@ -5,7 +5,7 @@
 
 /obj/item/flashbulb
 	name = "flashbulb"
-	desc = "A powerful bulb that when placed into a flash device can emit a bright light that will disorientate and subdue targets."
+	desc = "A powerful bulb that, when placed into a flash device can emit a bright light that will disorientate and subdue targets."
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = "flashbulb"
 	throwforce = 0

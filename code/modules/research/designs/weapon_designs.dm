@@ -355,7 +355,7 @@
 
 /datum/design/flashbulb
 	name = "Security Flashbulb"
-	desc = "A powerful bulb that when placed into a flash device can emit a bright light that will disorientate and subdue targets."
+	desc = "A powerful bulb that, when placed into a flash device can emit a bright light that will disorientate and subdue targets."
 	id = "flashbulb"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 300, /datum/material/glass = 150)
