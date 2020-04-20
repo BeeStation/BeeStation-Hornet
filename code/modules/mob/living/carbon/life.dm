@@ -154,6 +154,7 @@
 		return 0
 
 	var/safe_oxy_min = 16
+	var/safe_oxy_max = 50
 	var/safe_co2_max = 10
 	var/safe_tox_max = 0.05
 	var/SA_para_min = 1
@@ -167,8 +168,21 @@
 	var/Toxins_partialpressure = (breath_gases[/datum/gas/plasma][MOLES]/breath.total_moles())*breath_pressure
 	var/CO2_partialpressure = (breath_gases[/datum/gas/carbon_dioxide][MOLES]/breath.total_moles())*breath_pressure
 
+	//OXYGEN	
+	if(O2_partialpressure > safe_oxy_max) // Too much Oxygen - blatant CO2 effect copy/pasta
+		if(!o2overloadtime)
+			o2overloadtime = world.time
+		else if(world.time - o2overloadtime > 120)
+			Dizzy(10)	// better than a minute of you're fucked KO, but certainly a wake up call. Honk.
+			adjustOxyLoss(3)
+			if(world.time - o2overloadtime > 300)
+				adjustOxyLoss(8)
+		if(prob(20))
+			emote("cough")
+		throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
+		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "suffocation", /datum/mood_event/suffocation)
 
-	//OXYGEN
+
 	if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
 		if(prob(20))
 			emote("gasp")
@@ -184,6 +198,7 @@
 
 	else //Enough oxygen
 		failed_last_breath = 0
+		o2overloadtime = 0 //reset oxy overload
 		if(health >= crit_threshold)
 			adjustOxyLoss(-5)
 		oxygen_used = breath_gases[/datum/gas/oxygen][MOLES]
