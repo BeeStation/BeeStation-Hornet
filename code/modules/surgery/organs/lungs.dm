@@ -106,7 +106,7 @@
 
 	//Too much oxygen! //Yes, some species may not like it.
 	if(safe_oxygen_max)
-		if((O2_pp > safe_oxygen_max) && safe_oxygen_max == 0)
+		if((O2_pp > safe_oxygen_max) && safe_oxygen_max ==0)
 			var/ratio = (breath_gases[/datum/gas/oxygen][MOLES]/safe_oxygen_max) * 10
 			H.apply_damage_type(CLAMP(ratio, oxy_breath_dam_min, oxy_breath_dam_max), oxy_damage_type)
 			H.throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
@@ -152,7 +152,7 @@
 			var/ratio = (breath_gases[/datum/gas/nitrogen][MOLES]/safe_nitro_max) * 10
 			H.apply_damage_type(CLAMP(ratio, nitro_breath_dam_min, nitro_breath_dam_max), nitro_damage_type)
 			H.throw_alert("too_much_nitro", /obj/screen/alert/too_much_nitro)
-			H.losebreath += 2
+			H.losebreath +=2
 		else
 			H.clear_alert("too_much_nitro")
 
@@ -423,7 +423,7 @@
 	icon_state = "lungs-plasma"
 
 	safe_oxygen_min = 0 //We don't breath this
-	safe_oxygen_max = 0 //Like, at all.
+	safe_oxygen_max = 0 //like, at all.
 	safe_toxins_min = 16 //We breath THIS!
 	safe_toxins_max = 0
 
@@ -467,7 +467,7 @@
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
 
-/obj/item/organ/lungs/ashwalker
+obj/item/organ/lungs/ashwalker
 	name = "ash lungs"
 	desc = "blackened lungs identical from specimens recovered from lavaland, unsuited to higher air pressures."
 	icon_state = "lungs-ll"

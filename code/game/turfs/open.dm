@@ -87,7 +87,9 @@
 		icon_state = "necro[rand(2,3)]"
 
 /turf/open/indestructible/necropolis/air
-	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
+	//initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	initial_gas_mix = LAVALAND_DEFAULT_ATMOS //used to make ashwaler nest habitable for ashwalkers
+
 
 /turf/open/indestructible/boss //you put stone tiles on this and use it as a base
 	name = "necropolis floor"
@@ -97,6 +99,7 @@
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 
 /turf/open/indestructible/boss/air
+	//initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 
 /turf/open/indestructible/hierophant
