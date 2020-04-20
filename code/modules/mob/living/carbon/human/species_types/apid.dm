@@ -30,7 +30,7 @@
 		return 29 //Bees get x30 damage from flyswatters
 	return 0
 
-/datum/species/apids/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	. = ..()
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
