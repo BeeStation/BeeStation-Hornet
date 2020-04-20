@@ -32,7 +32,7 @@
 /obj/item/flashbulb/proc/use_flashbulb()
 	if(charges_left <= 0)
 		return FLASH_FAIL
-	charges_left --
+	charges_left--
 	if(charges_left == 0)
 		icon_state = "flashbulbburnt"
 		return FLASH_USE_BURNOUT
