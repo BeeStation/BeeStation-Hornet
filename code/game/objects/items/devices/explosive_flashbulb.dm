@@ -8,4 +8,4 @@
 	explosion(src, -1, 1, 3, 4)
 	charges_left = 0
 	icon_state = "flashbulbburnt"
-	return FLASH_USE_BURNOUT
+	return 1
