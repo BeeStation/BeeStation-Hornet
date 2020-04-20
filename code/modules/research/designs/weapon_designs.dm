@@ -352,3 +352,13 @@
 	build_path = /obj/item/ammo_casing/shotgun/dart/noreact
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/flashbulb
+	name = "Security Flashbulb"
+	desc = "A powerful bulb that when placed into a flash device can emit a bright light that will disorientate and subdue targets."
+	id = "flashbulb"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 300, /datum/material/glass = 150)
+	build_path = /obj/item/flashbulb
+	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
