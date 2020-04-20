@@ -64,7 +64,7 @@
 	light_power = FLASH_LIGHT_POWER
 	var/flashing_overlay = "flash-f"
 	var/last_used = 0 //last world.time it was used.
-	var/cooldown = 0
+	var/cooldown = 20
 	var/last_trigger = 0 //Last time it was successfully triggered.
 	var/burnt_out = FALSE
 	var/obj/item/flashbulb/bulb = /obj/item/flashbulb	//Store reference to object and run new when initialised.
