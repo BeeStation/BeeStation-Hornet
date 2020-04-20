@@ -54,6 +54,31 @@
 	recharging_time = 0 
 	slot_flags = ITEM_SLOT_NECK
 
+/obj/item/clothing/shoes/bhop/apid/ui_action_click(mob/user, action)
+	if(!isliving(user))
+		return
+
+	if(recharging_time > world.time)
+		to_chat(user, "<span class='warning'>The wings aren't ready to dash yet!</span>")
+		return
+
+	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
+
+	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE))
+		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		recharging_time = world.time + recharging_rate
+	else
+		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+
+/obj/item/clothing/shoes/bhop/apid/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, "apidwings")
+
+/datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	C.equip_to_slot_or_del(new /obj/item/clothing/shoes/bhop/apid(C), SLOT_NECK)
+
 /obj/item/clothing/shoes/bhop/apid/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, "apidwings")
