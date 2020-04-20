@@ -35,3 +35,29 @@
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+
+/obj/item/clothing/shoes/bhop/apid
+	name = "apid wings"
+	desc = "Apid wings that allow for the ability to dash forward."
+	icon = 'icons/mob/neck.dmi'
+	icon_state = "apid_wings"
+	item_state = "apid_wings"
+	item_color = null
+	resistance_flags = null
+	pocket_storage_component_path = null
+	actions_types = list(/datum/action/item_action/bhop)
+	permeability_coefficient = 0.05
+	strip_delay = 30
+	jumpdistance = 7 
+	jumpspeed = 4
+	recharging_rate = 45 
+	recharging_time = 0 
+	slot_flags = ITEM_SLOT_NECK
+
+/obj/item/clothing/shoes/bhop/apid/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, "apidwings")
+
+/datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	C.equip_to_slot_or_del(new /obj/item/clothing/shoes/bhop/apid(C), SLOT_NECK)
