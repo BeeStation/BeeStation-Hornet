@@ -222,7 +222,7 @@
 	desc = "A freakish looking meat tube that apparently can take in liquids, this one smells slighlty like flowers."
 	icon_state = "tonguefly"
 	say_mod = "buzzes"
-	taste_sensitivity = 35 // you eat vomit, this is a mercy
+	taste_sensitivity = 5
 
 /obj/item/organ/tongue/robot/emp_act(severity)
 	owner.apply_effect(EFFECT_STUTTER, 120)
