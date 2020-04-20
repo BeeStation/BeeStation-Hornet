@@ -22,8 +22,10 @@
 	coldmod = 1.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 
-/datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	H.grant_language(/datum/language/apidite)
+/datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	C.equip_to_slot_or_del(new /obj/item/clothing/shoes/bhop/apid(C), SLOT_NECK)
+	C.grant_language(/datum/language/apidite)
 
 /datum/species/apid/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))
@@ -61,6 +63,12 @@
 	if(recharging_time > world.time)
 		to_chat(user, "<span class='warning'>The wings aren't ready to dash yet!</span>")
 		return
+	
+	var/turf/T = get_turf(user)
+	var/datum/gas_mixture/environment = T.return_air()
+	if(environment && !(environment.return_pressure() > 30))
+		to_chat(user, "<span class='warning'>The atmosphere is too thin for you to dash!</span>")
+		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 
@@ -82,7 +90,3 @@
 /obj/item/clothing/shoes/bhop/apid/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, "apidwings")
-
-/datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
-	. = ..()
-	C.equip_to_slot_or_del(new /obj/item/clothing/shoes/bhop/apid(C), SLOT_NECK)
