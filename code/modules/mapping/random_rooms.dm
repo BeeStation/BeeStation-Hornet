@@ -280,7 +280,7 @@
 /datum/map_template/random_room/sk_rdm035
 	name = "Delta Surgery"
 	room_id = "sk_rdm035_deltasurgery"
-	mappath = "_maps/RandomRooms/5x4/ssk_rdm035_deltasurgery.dmm"
+	mappath = "_maps/RandomRooms/5x4/sk_rdm035_deltasurgery.dmm"
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
