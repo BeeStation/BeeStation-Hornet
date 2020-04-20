@@ -235,7 +235,7 @@
 		H.dna.remove_mutation(CLOWNMUT)
 
 	if(give_flash)
-		var/obj/item/assembly/flash/T = new(H)
+		var/obj/item/assembly/flash/strong/T = new(H)
 		var/list/slots = list (
 			"backpack" = SLOT_IN_BACKPACK,
 			"left pocket" = SLOT_L_STORE,
