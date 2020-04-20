@@ -32561,6 +32561,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
+/obj/machinery/chem_dispenser/mutagensaltpetersmall,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "beT" = (
@@ -126905,6 +126906,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
+"ihM" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/airlock/arrivals_external{
+	name = "Arrivals Airlock"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "imL" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
@@ -127034,6 +127050,22 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel,
 /area/maintenance/port)
+"jqH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/airlock/arrivals_external{
+	name = "Arrivals Airlock"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "jqM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -128081,6 +128113,22 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel,
 /area/library)
+"qyP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/airlock/arrivals_external{
+	name = "Arrivals Airlock"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "qzs" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -128573,6 +128621,21 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /turf/open/floor/plating,
 /area/maintenance/port)
+"uHG" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/airlock/arrivals_external{
+	name = "Arrivals Airlock"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "uMN" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
@@ -166068,14 +166131,14 @@ aaO
 abf
 adq
 aaO
-aee
+ihM
 aaO
 aeX
 afx
 afx
 agl
 aaO
-aee
+ihM
 aaO
 ads
 abf
@@ -166582,14 +166645,14 @@ aad
 aad
 aad
 aaO
-aec
+uHG
 aaO
 aad
 aaa
 aaa
 aad
 aaO
-aej
+qyP
 aaO
 aad
 aad
@@ -169152,14 +169215,14 @@ aad
 aad
 aad
 aaO
-aea
+jqH
 aaO
 aad
 aaa
 aaa
 aad
 aaO
-aea
+jqH
 aaO
 aad
 aad
@@ -169666,14 +169729,14 @@ aaO
 abf
 ads
 aaO
-aej
+qyP
 aaO
 afb
 afz
 afV
 agk
 aaO
-aec
+uHG
 aaO
 adq
 abf

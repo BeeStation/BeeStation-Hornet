@@ -24,6 +24,17 @@
 
 /mob/living/carbon/get_ear_protection()
 	var/number = ..()
+	if(istype(src.head, /obj/item/clothing/head))			//are they wearing something on their head
+		var/obj/item/clothing/head/HHP = src.head			//if yes gets the flash protection value from that item
+		number += HHP.bang_protect
+
+	if(istype(src.ears, /obj/item/radio/headset))		//headset
+		var/obj/item/radio/headset/RHP = src.ears
+		number += RHP.bang_protect
+
+	if(istype(src.ears, /obj/item/clothing/ears))		//ear slot. This is different from headset because headset is a subtype of radio
+		var/obj/item/clothing/ears/EHP = src.ears
+		number += EHP.bang_protect
 	var/obj/item/organ/ears/E = getorganslot(ORGAN_SLOT_EARS)
 	if(!E)
 		number = INFINITY
@@ -315,7 +326,7 @@
 	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 
-/mob/living/carbon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+/mob/living/carbon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, time = 25)
 	if(NOFLASH in dna?.species?.species_traits)
 		return
 	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)

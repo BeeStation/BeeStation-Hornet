@@ -19039,6 +19039,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/chem_dispenser/mutagensaltpetersmall,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aSD" = (
@@ -19613,15 +19614,6 @@
 /area/hydroponics)
 "aTS" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/hydroponics)
-"aTT" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -23424,8 +23416,8 @@
 /area/solar/starboard)
 "bbQ" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/external{
-	name = "Port Docking Bay 1"
+/obj/machinery/door/airlock/arrivals_external{
+	name = "Arrivals Airlock"
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
@@ -24259,8 +24251,8 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/airlock/external{
-	name = "Port Docking Bay 1"
+/obj/machinery/door/airlock/arrivals_external{
+	name = "Arrivals Airlock"
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
@@ -53675,6 +53667,14 @@
 /obj/structure/chair/office/light,
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
+"eex" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/landmark/start/botanist,
+/turf/open/floor/plasteel,
+/area/hydroponics)
 "eeD" = (
 /obj/machinery/computer/cryopod{
 	pixel_y = 25
@@ -58143,6 +58143,16 @@
 	luminosity = 2
 	},
 /area/maintenance/department/science)
+"odI" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/effect/landmark/start/botanist,
+/turf/open/floor/plasteel,
+/area/hydroponics)
 "oep" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin,
@@ -88890,7 +88900,7 @@ aWQ
 aXS
 aYO
 aZT
-aZT
+eex
 aZT
 bdj
 beg
@@ -89140,7 +89150,7 @@ aPz
 aQJ
 aRL
 aSD
-aTT
+odI
 aXS
 aRL
 aWR

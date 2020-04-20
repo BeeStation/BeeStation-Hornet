@@ -43,7 +43,7 @@ GLOBAL_LIST(labor_sheet_values)
 			to_chat(user, "<span class='notice'>You insert [I].</span>")
 			return
 		else
-			to_chat(user, "<span class='notice'>There's an ID inserted already.</span>")
+			to_chat(user, "<span class='notice'>There's an ID inserted already. Alt-Click this console to take it out.</span>")
 	return ..()
 
 /obj/machinery/mineral/labor_claim_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
@@ -52,6 +52,11 @@ GLOBAL_LIST(labor_sheet_values)
 	if(!ui)
 		ui = new(user, src, ui_key, "labor_claim_console", name, 450, 475, master_ui, state)
 		ui.open()
+
+/obj/machinery/mineral/labor_claim_console/AltClick(mob/user)
+	. = ..()
+	user.put_in_hands(inserted_id)
+	inserted_id = null
 
 /obj/machinery/mineral/labor_claim_console/ui_data(mob/user)
 	var/list/data = list()
@@ -95,7 +100,7 @@ GLOBAL_LIST(labor_sheet_values)
 		if("claim_points")
 			inserted_id.points += stacking_machine.points
 			stacking_machine.points = 0
-			to_chat(usr, "Points transferred.")
+			to_chat(usr, "Points transferred. Alt-Click this console to take your ID out.")
 		if("move_shuttle")
 			if(!alone_in_area(get_area(src), usr))
 				to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")

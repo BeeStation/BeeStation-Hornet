@@ -115,10 +115,11 @@
 	if(generic_message && M != user)
 		to_chat(M, "<span class='disarm'>[src] emits a blinding light!</span>")
 	if(targeted)
-		if(M.flash_act(1, 1))
+		if(M.flash_act(1, 1, time = 45))
 			if(M.confused < power)
 				var/diff = power * CONFUSION_STACK_MAX_MULTIPLIER - M.confused
 				M.confused += min(power, diff)
+			M.blind_eyes(10)
 			if(user)
 				terrible_conversion_proc(M, user)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
@@ -126,7 +127,7 @@
 				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
 			else
 				to_chat(M, "<span class='userdanger'>You are blinded by [src]!</span>")
-			M.Paralyze(70)
+
 		else if(user)
 			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 			to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
@@ -134,9 +135,8 @@
 		else
 			to_chat(M, "<span class='danger'>[src] fails to blind you!</span>")
 	else
-		if(M.flash_act())
-			var/diff = power * CONFUSION_STACK_MAX_MULTIPLIER - M.confused
-			M.confused += min(power, diff)
+		M.flash_act()
+		M.blind_eyes(5)
 
 /obj/item/assembly/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))
@@ -149,8 +149,6 @@
 		log_combat(user, R, "flashed", src)
 		update_icon(1)
 		R.Paralyze(70)
-		var/diff = 5 * CONFUSION_STACK_MAX_MULTIPLIER - M.confused
-		R.confused += min(5, diff)
 		R.flash_act(affect_silicon = 1)
 		user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")
 		return TRUE

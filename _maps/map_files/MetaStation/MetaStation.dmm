@@ -14840,7 +14840,7 @@
 "aCh" = (
 /obj/structure/safe,
 /obj/item/storage/secure/briefcase{
-	contents = newlist(/obj/item/clothing/suit/armor/vest,/obj/item/gun/ballistic/automatic/pistol,/obj/item/suppressor,/obj/item/melee/classic_baton/telescopic,/obj/item/clothing/mask/balaclava,/obj/item/bodybag,/obj/item/soap/nanotrasen)
+	contents = newlist(/obj/item/clothing/suit/armor/vest,/obj/item/gun/ballistic/automatic/pistol,/obj/item/suppressor,/obj/item/melee/classic_baton/police/telescopic,/obj/item/clothing/mask/balaclava,/obj/item/bodybag,/obj/item/soap/nanotrasen)
 	},
 /obj/item/storage/backpack/duffelbag/syndie/hitman,
 /obj/item/card/id/silver/reaper,
@@ -54000,13 +54000,13 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "ccu" = (
-/obj/machinery/hydroponics/constructable,
 /obj/item/radio/intercom{
 	pixel_y = -29
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/chem_dispenser/mutagensaltpetersmall,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "ccv" = (
@@ -80139,8 +80139,8 @@
 /area/engine/supermatter)
 "djz" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/external{
-	name = "Arrival Airlock"
+/obj/machinery/door/airlock/arrivals_external{
+	name = "Arrivals Airlock"
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
@@ -80161,8 +80161,8 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/airlock/external{
-	name = "Arrival Airlock"
+/obj/machinery/door/airlock/arrivals_external{
+	name = "Arrivals Airlock"
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)

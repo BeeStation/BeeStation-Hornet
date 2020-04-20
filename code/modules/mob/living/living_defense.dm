@@ -183,7 +183,6 @@
 				else
 					visible_message("<span class='danger'>[user] grabs [src] aggressively!</span>", \
 									"<span class='userdanger'>[user] grabs you aggressively!</span>")
-					drop_all_held_items()
 				stop_pulling()
 				log_combat(user, src, "grabbed", addition="aggressive grab[add_log]")
 			if(GRAB_NECK)
@@ -403,10 +402,10 @@
 
 
 //called when the mob receives a bright flash
-/mob/living/proc/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
+/mob/living/proc/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, time = 25, type = /obj/screen/fullscreen/flash)
 	if(get_eye_protection() < intensity && (override_blindness_check || !(HAS_TRAIT(src, TRAIT_BLIND))))
 		overlay_fullscreen("flash", type)
-		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
+		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), time)
 		return TRUE
 	return FALSE
 
