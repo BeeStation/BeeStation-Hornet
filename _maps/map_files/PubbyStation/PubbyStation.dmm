@@ -55452,6 +55452,11 @@
 "ika" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
 /obj/machinery/meter,
+/obj/effect/turf_decal/arrows/red{
+	dir = 1;
+	icon_state = "arrows_red";
+	pixel_x = -5
+	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "ikB" = (
@@ -55894,6 +55899,17 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
+	},
+/turf/open/floor/engine,
+/area/engine/engineering)
+"jmB" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 4
+	},
+/obj/effect/turf_decal/arrows/white{
+	dir = 8;
+	icon_state = "arrows_white";
+	pixel_y = -5
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -57373,6 +57389,11 @@
 /area/maintenance/department/science)
 "mFV" = (
 /obj/machinery/atmospherics/pipe/manifold/orange/visible,
+/obj/effect/turf_decal/arrows/red{
+	dir = 8;
+	icon_state = "arrows_red";
+	pixel_y = -5
+	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "mHy" = (
@@ -58700,6 +58721,10 @@
 "prr" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/airalarm/directional/south,
+/obj/machinery/modular_computer/console/preset/engineering{
+	icon_state = "console";
+	dir = 1
+	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "pvK" = (
@@ -59065,6 +59090,13 @@
 /obj/item/stack/sheet/mineral/wood,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
+"qgw" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/obj/effect/turf_decal/arrows/white{
+	pixel_x = 5
+	},
+/turf/open/floor/engine,
+/area/engine/engineering)
 "qgB" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "SupermatterExternal";
@@ -60163,6 +60195,15 @@
 	},
 /obj/item/clothing/glasses/meson,
 /turf/open/floor/plasteel,
+/area/engine/engineering)
+"sMY" = (
+/obj/machinery/atmospherics/pipe/simple/orange/visible,
+/obj/effect/turf_decal/arrows/red{
+	dir = 1;
+	icon_state = "arrows_red";
+	pixel_x = -5
+	},
+/turf/open/floor/engine,
 /area/engine/engineering)
 "sNz" = (
 /obj/structure/cable/yellow{
@@ -94344,8 +94385,8 @@ nxB
 nQt
 cCI
 ika
-kHw
-kHw
+sMY
+sMY
 qkM
 uRk
 mZR
@@ -94857,9 +94898,9 @@ tno
 sIS
 xVD
 nwg
-fyF
-fyF
-fyF
+qgw
+qgw
+qgw
 fyF
 wpI
 sWU
@@ -95370,7 +95411,7 @@ fwi
 tno
 dAq
 ulY
-meF
+jmB
 ulY
 ulY
 ulY
