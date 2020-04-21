@@ -1112,7 +1112,7 @@
 
 /datum/species/golem/capitalist/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	C.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses (), SLOT_GLASSES)
+	C.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses/advanced (), SLOT_GLASSES)
 	C.revive(full_heal = TRUE)
 
 	SEND_SOUND(C, sound('sound/misc/capitialism.ogg'))

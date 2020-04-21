@@ -186,32 +186,36 @@
 
 /obj/item/clothing/glasses/sunglasses
 	name = "sunglasses"
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks flashes."
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. They do not provide flash protection."
 	icon_state = "sun"
 	item_state = "sunglasses"
 	darkness_view = 1
-	flash_protect = 1
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/gray
 	dog_fashion = /datum/dog_fashion/head
 
-/obj/item/clothing/glasses/sunglasses/reagent
+/obj/item/clothing/glasses/sunglasses/advanced/
+	name = "advanced sunglasses"
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
+	flash_protect = 1
+
+/obj/item/clothing/glasses/sunglasses/advanced/reagent
 	name = "beer goggles"
-	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion."
+	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion. Has enhanced shielding which blocks flashes."
 	scan_reagents = TRUE
 
-/obj/item/clothing/glasses/sunglasses/reagent/equipped(mob/user, slot)
+/obj/item/clothing/glasses/sunglasses/advanced/reagent/equipped(mob/user, slot)
 	. = ..()
 	if(ishuman(user) && slot == SLOT_GLASSES)
 		ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 
-/obj/item/clothing/glasses/sunglasses/reagent/dropped(mob/user)
+/obj/item/clothing/glasses/sunglasses/advanced/reagent/dropped(mob/user)
 	. = ..()
 	REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 
-/obj/item/clothing/glasses/sunglasses/garb
+/obj/item/clothing/glasses/sunglasses/advanced/garb
 	name = "black gar glasses"
-	desc = "Go beyond impossible and kick reason to the curb!"
+	desc = "Go beyond impossible and kick reason to the curb!  Has enhanced shielding which blocks flashes."
 	icon_state = "garb"
 	item_state = "garb"
 	force = 10
@@ -221,17 +225,17 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 
-/obj/item/clothing/glasses/sunglasses/garb/supergarb
+/obj/item/clothing/glasses/sunglasses/advanced/garb/supergarb
 	name = "black giga gar glasses"
-	desc = "Believe in us humans."
+	desc = "Believe in us humans.  Has enhanced shielding which blocks flashes."
 	icon_state = "supergarb"
 	item_state = "garb"
 	force = 12
 	throwforce = 12
 
-/obj/item/clothing/glasses/sunglasses/gar
+/obj/item/clothing/glasses/sunglasses/advanced/gar
 	name = "gar glasses"
-	desc = "Just who the hell do you think I am?!"
+	desc = "Just who the hell do you think I am?!  Has enhanced shielding which blocks flashes."
 	icon_state = "gar"
 	item_state = "gar"
 	force = 10
@@ -242,9 +246,9 @@
 	sharpness = IS_SHARP
 	glass_colour_type = /datum/client_colour/glass_colour/orange
 
-/obj/item/clothing/glasses/sunglasses/gar/supergar
+/obj/item/clothing/glasses/sunglasses/advanced/gar/supergar
 	name = "giga gar glasses"
-	desc = "We evolve past the person we were a minute before. Little by little we advance with each turn. That's how a drill works!"
+	desc = "We evolve past the person we were a minute before. Little by little we advance with each turn. That's how a drill works!  Has enhanced shielding which blocks flashes."
 	icon_state = "supergar"
 	item_state = "gar"
 	force = 12
@@ -269,7 +273,7 @@
 
 /obj/item/clothing/glasses/welding/ghostbuster
 	name = "optical ecto-scanner"
-	desc = "A bulky pair of unwieldy glasses that lets you see things best left unseen. Obscures vision, but also gives a bit of eye protection"
+	desc = "A bulky pair of unwieldy glasses that lets you see things best left unseen. Obscures vision, but also has enhanced shielding which blocks flashes."
 	icon_state = "bustin-g"
 	item_state = "bustin-g"
 	invis_view = SEE_INVISIBLE_OBSERVER
@@ -324,8 +328,8 @@
 		M.color = "#[H.eye_color]"
 		. += M
 
-/obj/item/clothing/glasses/sunglasses/big
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Larger than average enhanced shielding blocks flashes."
+/obj/item/clothing/glasses/sunglasses/advanced/big
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	icon_state = "bigsunglasses"
 	item_state = "bigsunglasses"
 
