@@ -1,0 +1,4 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - bugfix: "Energy chainsaws no longer revert to normal chainsaws when implanted"
