@@ -392,19 +392,19 @@ SUBSYSTEM_DEF(air)
 
 	return pipe_init_dirs_cache[type]["[dir]"]
 
-//datum/controller/subsystem/air/proc/generate_atmos()
-	//atmos_gen = list()
-	//for(var/T in subtypesof(/datum/atmosphere))
-		//var/datum/atmosphere/atmostype = T
-		//atmos_gen[initial(atmostype.id)] = new atmostype
+/datum/controller/subsystem/air/proc/generate_atmos()
+	atmos_gen = list()
+	for(var/T in subtypesof(/datum/atmosphere))
+		var/datum/atmosphere/atmostype = T
+		atmos_gen[initial(atmostype.id)] = new atmostype
 
-//datum/controller/subsystem/air/proc/preprocess_gas_string(gas_string)
-	//if(!atmos_gen)
-		//generate_atmos()
-	//if(!atmos_gen[gas_string])
-		//return gas_string
-	//var/datum/atmosphere/mix = atmos_gen[gas_string]
-	//return mix.gas_string
+/datum/controller/subsystem/air/proc/preprocess_gas_string(gas_string)
+	if(!atmos_gen)
+		generate_atmos()
+	if(!atmos_gen[gas_string])
+		return gas_string
+	var/datum/atmosphere/mix = atmos_gen[gas_string]
+	return mix.gas_string
 
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY
