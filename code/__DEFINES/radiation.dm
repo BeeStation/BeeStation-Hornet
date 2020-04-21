@@ -45,8 +45,7 @@ Ask ninjanomnom if they're around
 #define RAD_CONTAMINATION_STR_COEFFICIENT 0.20		// Higher means higher strength scaling contamination strength
 #define RAD_DISTANCE_COEFFICIENT 1					// Lower means further rad spread
 
-#define RAD_HALF_LIFE 90							// The half-life of contaminated objects
+#define RAD_HALF_LIFE 45							// The half-life of contaminated objects
 
-
-#define RAD_WAVE_MINIMUM 12							// Radiation waves with less than this amount of power stop spreading
+#define RAD_WAVE_MINIMUM 9							// Radiation waves with less than this amount of power stop spreading
 													// WARNING: Reducing can make rads subsytem more expensive
