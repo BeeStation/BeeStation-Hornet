@@ -46,7 +46,7 @@
 	id_tag = ATMOS_GAS_MONITOR_SENSOR_SM
 
 /obj/machinery/air_sensor/update_icon()
-		icon_state = "gsensor[on]"
+	icon_state = "gsensor[on]"
 
 /obj/machinery/air_sensor/process_atmos()
 	if(on)
@@ -95,6 +95,8 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/computer/atmos_control
+	ui_x = 400
+	ui_y = 925
 
 	var/frequency = FREQ_ATMOS_STORAGE
 	var/list/sensors = list(
@@ -130,7 +132,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "atmos_control", name, 400, 925, master_ui, state)
+		ui = new(user, src, ui_key, "AtmosControlConsole", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/atmos_control/ui_data(mob/user)
@@ -280,7 +282,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "atmos_control", name, 500, 305, master_ui, state)
+		ui = new(user, src, ui_key, "AtmosControlConsole", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/atmos_control/tank/ui_data(mob/user)
@@ -307,7 +309,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 		if("rate")
 			var/target = text2num(params["rate"])
 			if(!isnull(target))
-				target = CLAMP(target, 0, MAX_TRANSFER_RATE)
+				target = clamp(target, 0, MAX_TRANSFER_RATE)
 				signal.data += list("tag" = input_tag, "set_volume_rate" = target)
 				. = TRUE
 		if("output")
@@ -316,7 +318,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 		if("pressure")
 			var/target = text2num(params["pressure"])
 			if(!isnull(target))
-				target = CLAMP(target, 0, 4500)
+				target = clamp(target, 0, 4500)
 				signal.data += list("tag" = output_tag, "set_internal_pressure" = target)
 				. = TRUE
 	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
