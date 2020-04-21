@@ -245,7 +245,7 @@
 		. += "<span class='notice'>You can remove the seated flash[single_flash ? "":"es"] with a <b>crowbar</b>.</span>"
 
 /obj/item/bodypart/head/robot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/assembly/flash/handheld))
+	if(istype(W, /obj/item/assembly/flash))
 		var/obj/item/assembly/flash/handheld/F = W
 		if(flash1 && flash2)
 			to_chat(user, "<span class='warning'>You have already inserted the eyes!</span>")

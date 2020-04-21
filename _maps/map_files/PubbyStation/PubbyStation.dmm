@@ -28167,13 +28167,13 @@
 /obj/item/stack/sheet/plasteel{
 	amount = 10
 	},
-/obj/item/assembly/flash/weak,
-/obj/item/assembly/flash/weak,
-/obj/item/assembly/flash/weak,
-/obj/item/assembly/flash/weak,
-/obj/item/assembly/flash/weak,
-/obj/item/assembly/flash/weak,
-/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
 /obj/machinery/airalarm{
 	dir = 8;
 	pixel_x = 23

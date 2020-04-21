@@ -69,10 +69,10 @@
 	var/burnt_out = FALSE
 	var/obj/item/flashbulb/bulb = /obj/item/flashbulb	//Store reference to object and run new when initialised.
 
-/obj/item/assembly/flash/weak
+/obj/item/assembly/flash/handheld/weak
 	bulb = /obj/item/flashbulb/weak
 
-/obj/item/assembly/flash/strong
+/obj/item/assembly/flash/handheld/strong
 	bulb = /obj/item/flashbulb/strong
 
 /obj/item/assembly/flash/Initialize()

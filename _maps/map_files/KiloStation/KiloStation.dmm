@@ -41382,12 +41382,12 @@
 	pixel_y = 2
 	},
 /obj/item/book/manual/wiki/robotics_cyborgs,
-/obj/item/assembly/flash/weak,
-/obj/item/assembly/flash/weak,
-/obj/item/assembly/flash/weak,
-/obj/item/assembly/flash/weak,
-/obj/item/assembly/flash/weak,
-/obj/item/assembly/flash/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bhC" = (
