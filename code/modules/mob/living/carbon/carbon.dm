@@ -438,7 +438,7 @@
 	if(!has_mouth())
 		return 1
 
-	if(nutrition < 100 && !blood && !isflyperson(src)) //Fly people need to be able to vomit to get nutrition
+	if(nutrition < 100 && !blood)
 		if(message)
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
 							"<span class='userdanger'>You try to throw up, but there's nothing in your stomach!</span>")
