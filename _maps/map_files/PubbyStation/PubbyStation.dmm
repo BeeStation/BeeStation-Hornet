@@ -54885,11 +54885,14 @@
 /turf/closed/wall,
 /area/maintenance/department/science)
 "hhb" = (
-/obj/machinery/airalarm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/obj/machinery/airalarm/engine{
+	dir = 1;
+	pixel_y = -28
+	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "hhi" = (
