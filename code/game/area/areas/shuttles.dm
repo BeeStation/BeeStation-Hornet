@@ -107,6 +107,10 @@
 /area/shuttle/custom
 	name = "Custom player shuttle"
 
+/area/shuttle/custom/powered
+	name = "Custom Powered player shuttle"
+	requires_power = FALSE
+
 /area/shuttle/arrival
 	name = "Arrival Shuttle"
 	unique = TRUE  // SSjob refers to this area for latejoiners

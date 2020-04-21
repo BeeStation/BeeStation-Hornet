@@ -452,7 +452,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "angelplasm"
 
 /obj/item/mounted_chainsaw
-	name = "mounted chainsaw"
+	name = "mounted chainsaw template"
 	desc = "A chainsaw that has replaced your arm."
 	icon_state = "chainsaw_on"
 	item_state = "mounted_chainsaw"
@@ -474,7 +474,10 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 
-/obj/item/mounted_chainsaw/Destroy()
+/obj/item/mounted_chainsaw/normal
+	name = "mounted chainsaw"
+
+/obj/item/mounted_chainsaw/normal/Destroy()
 	var/obj/item/bodypart/part
 	new /obj/item/twohanded/required/chainsaw(get_turf(src))
 	if(iscarbon(loc))
@@ -485,6 +488,50 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	. = ..()
 	if(part)
 		part.drop_limb()
+
+/obj/item/mounted_chainsaw/energy
+	name = "mounted energy chainsaw"
+	desc = "An energy chainsaw that has replaced your arm."
+	force = 40
+	armour_penetration = 50
+	block_chance = 50
+	hitsound = 'sound/weapons/echainsawhit1.ogg'
+
+/obj/item/mounted_chainsaw/energy/Destroy()
+	var/obj/item/bodypart/part
+	new /obj/item/twohanded/required/chainsaw/energy(get_turf(src))
+	if(iscarbon(loc))
+		var/mob/living/carbon/holder = loc
+		var/index = holder.get_held_index_of_item(src)
+		if(index)
+			part = holder.hand_bodyparts[index]
+	. = ..()
+	if(part)
+		part.drop_limb()
+
+/obj/item/mounted_chainsaw/super
+	name = "mounted super energy chainsaw"
+	desc = "A super energy chainsaw that has replaced your arm."
+	force = 60
+	armour_penetration = 75
+	block_chance = 75
+	hitsound = 'sound/weapons/echainsawhit1.ogg'
+
+/obj/item/mounted_chainsaw/super/Destroy()
+	var/obj/item/bodypart/part
+	new /obj/item/twohanded/required/chainsaw/energy/doom(get_turf(src))
+	if(iscarbon(loc))
+		var/mob/living/carbon/holder = loc
+		var/index = holder.get_held_index_of_item(src)
+		if(index)
+			part = holder.hand_bodyparts[index]
+	. = ..()
+	if(part)
+		part.drop_limb()
+
+/obj/item/mounted_chainsaw/super/attack(mob/living/target)
+	..()
+	target.Knockdown(4)
 
 /obj/item/statuebust
 	name = "bust"

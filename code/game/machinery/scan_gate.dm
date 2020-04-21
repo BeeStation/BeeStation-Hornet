@@ -191,13 +191,15 @@
 			reverse = !reverse
 			. = TRUE
 		if("set_disease_threshold")
-			var/new_threshold = input("Set disease threshold","Scan Mode") as null|anything in list(DISEASE_SEVERITY_POSITIVE,
+			var/new_threshold = input("Set disease threshold","Scan Mode") as null|anything in list(DISEASE_SEVERITY_BENEFICIAL,
+																								DISEASE_SEVERITY_POSITIVE,
 																								DISEASE_SEVERITY_NONTHREAT,
 																								DISEASE_SEVERITY_MINOR,
 																								DISEASE_SEVERITY_MEDIUM,
 																								DISEASE_SEVERITY_HARMFUL,
 																								DISEASE_SEVERITY_DANGEROUS,
-																								DISEASE_SEVERITY_BIOHAZARD)
+																								DISEASE_SEVERITY_BIOHAZARD,
+																								DISEASE_SEVERITY_PANDEMIC)
 			if(new_threshold)
 				disease_threshold = new_threshold
 			. = TRUE
