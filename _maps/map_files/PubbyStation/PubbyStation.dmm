@@ -53249,6 +53249,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"cUY" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/rack,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "cXW" = (
 /obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -53500,14 +53512,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
-"dye" = (
-/obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/structure/sign/departments/science{
-	pixel_y = 32
-	},
-/obj/item/kitchen/knife,
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "dym" = (
 /obj/item/stack/sheet/mineral/wood,
 /obj/item/stack/sheet/mineral/wood,
@@ -53651,6 +53655,13 @@
 	},
 /turf/open/floor/plating,
 /area/lawoffice)
+"ebS" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/mech_bay_recharge_port,
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "edl" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57500,15 +57511,6 @@
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
 /turf/open/floor/wood,
 /area/maintenance/department/engine)
-"mIa" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "mKc" = (
 /obj/structure/bookcase/random/nonfiction,
 /turf/open/floor/plasteel/dark,
@@ -58239,6 +58241,10 @@
 /obj/item/wrench/medical,
 /turf/open/floor/engine,
 /area/medical/chemistry)
+"opv" = (
+/obj/machinery/computer/mech_bay_power_console,
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "opz" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -59550,14 +59556,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
-"rhr" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken4"
-	},
-/area/maintenance/department/engine)
 "riF" = (
 /obj/machinery/computer/arcade,
 /obj/effect/turf_decal/tile/neutral{
@@ -59988,11 +59986,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
-"sij" = (
-/obj/structure/closet,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "skw" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
 /turf/closed/wall,
@@ -61002,6 +60995,12 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"uCI" = (
+/obj/structure/sign/departments/science{
+	pixel_y = 32
+	},
+/turf/open/floor/mech_bay_recharge_floor,
+/area/maintenance/department/engine)
 "uCS" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "aux_base_shutters";
@@ -61803,6 +61802,15 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
+"wDc" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/mecha_part_fabricator/maint{
+	name = "forgotten exosuit fabricator"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "wDm" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
@@ -62516,12 +62524,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"ydf" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "ydZ" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/tile/green{
@@ -85873,7 +85875,7 @@ oFI
 bva
 rse
 uIn
-mIa
+cUY
 qdj
 sXi
 bva
@@ -87413,7 +87415,7 @@ bva
 olc
 bva
 bva
-rhr
+ebS
 dym
 bDi
 ycx
@@ -87670,7 +87672,7 @@ klo
 bSv
 new
 bva
-dye
+uCI
 nVU
 bDi
 qBv
@@ -87927,9 +87929,9 @@ gjp
 lHX
 nDo
 bva
-sij
+opv
 bDi
-ydf
+wDc
 ihj
 ssx
 bva

@@ -8394,10 +8394,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/maintenance/department/electrical)
-"atE" = (
-/obj/machinery/power/port_gen/pacman,
-/turf/open/floor/plating,
-/area/maintenance/department/electrical)
 "atF" = (
 /turf/open/floor/mech_bay_recharge_floor,
 /area/maintenance/department/electrical)
@@ -9693,24 +9689,6 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/maintenance/department/electrical)
-"awU" = (
-/obj/structure/table,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/item/wallframe/camera,
-/obj/item/wallframe/camera,
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/item/assembly/prox_sensor{
-	pixel_x = -8;
-	pixel_y = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
 /area/maintenance/department/electrical)
 "awV" = (
 /obj/effect/turf_decal/stripes/line{
@@ -53582,6 +53560,12 @@
 	dir = 1
 	},
 /area/science/explab)
+"gKc" = (
+/obj/machinery/mecha_part_fabricator/maint{
+	name = "forgotten exosuit fabricator"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/electrical)
 "gKu" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -53972,6 +53956,26 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"ife" = (
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/wallframe/camera,
+/obj/item/wallframe/camera,
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/turf/open/floor/plasteel,
+/area/maintenance/department/electrical)
 "ifv" = (
 /obj/structure/table,
 /obj/item/clipboard,
@@ -55604,6 +55608,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"nlM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/port_gen/pacman,
+/turf/open/floor/plasteel,
+/area/maintenance/department/electrical)
 "nnC" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -104994,7 +105003,7 @@ aqD
 arz
 asB
 atD
-auJ
+nlM
 asB
 awQ
 asB
@@ -105507,7 +105516,7 @@ alP
 alP
 alP
 asB
-atE
+gKc
 auI
 auI
 awT
@@ -106538,7 +106547,7 @@ asB
 atH
 auM
 avO
-awU
+ife
 ayj
 azx
 aAB
