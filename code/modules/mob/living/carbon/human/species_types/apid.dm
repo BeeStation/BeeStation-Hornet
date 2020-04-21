@@ -18,8 +18,16 @@
 	toxic_food = MEAT | RAW
 	mutanteyes = /obj/item/organ/eyes/apid
 	mutantlungs = /obj/item/organ/lungs/apid
+	speedmod = 1.5
 	heatmod = 1.5
 	coldmod = 1.5
+	brutemod = 1.5	
+	burnmod = 1.5		
+	stunmod = 1.5
+	oxymod = 1.5
+	clonemod = 1.5
+	toxmod = 1.5
+	staminamod = 1.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 
 /datum/species/apid/random_name(gender,unique,lastname)
