@@ -178,6 +178,9 @@
 			move_delay = world.time + 10
 			to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
 			return TRUE
+		else if(mob.pulledby.grab_state == GRAB_AGGRESSIVE)
+			move_delay = world.time + 10
+			return TRUE
 		else
 			return mob.resist_grab(1)
 

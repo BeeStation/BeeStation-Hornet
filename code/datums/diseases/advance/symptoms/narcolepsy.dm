@@ -22,12 +22,18 @@ Bonus
 	level = 6
 	symptom_delay_min = 10
 	symptom_delay_max = 30
-	severity = 4
+	severity = 2
+	baseseverity = 2
 	var/sleep_level = 0
 	var/sleepy_ticks = 0
 	var/stamina = FALSE
 	threshold_desc = "<b>Transmission 7:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
 					  <b>Resistance 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
+
+/datum/symptom/narcolepsy/severityset(datum/disease/advance/A)
+	if(A.properties["resistance"] >= 10) //act more often
+		severity += 1
+	return..()
 
 /datum/symptom/narcolepsy/Start(datum/disease/advance/A)
 	if(!..())

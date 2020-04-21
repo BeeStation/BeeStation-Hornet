@@ -25,7 +25,7 @@ BONUS
 	stage_speed = 3
 	transmittable = 1
 	level = 1
-	severity = 1
+	severity = 0
 	symptom_delay_min = 5
 	symptom_delay_max = 25
 	var/scratch = FALSE

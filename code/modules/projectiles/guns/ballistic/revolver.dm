@@ -257,3 +257,26 @@
 		user.emote("scream")
 		user.drop_all_held_items()
 		user.Paralyze(80)
+
+/obj/item/gun/ballistic/revolver/mime
+	name = "finger gun"
+	desc = "Your hand, pointed into the shape of a gun."
+	fire_sound = null
+	dry_fire_sound = 'sound/misc/fingersnap1.ogg'
+	icon_state = "detective"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/mime
+	lefthand_file = null
+	righthand_file = null
+	item_flags = DROPDEL | ABSTRACT
+	w_class = WEIGHT_CLASS_HUGE
+	force = 0
+	throwforce = 0
+	throw_range = 0
+	throw_speed = 0
+
+/obj/item/gun/ballistic/revolver/mime/shoot_with_empty_chamber(mob/living/user as mob|obj)
+	to_chat(user, "<span class='warning'>Your fingergun is out of ammo!</span>")
+	qdel(src)
+
+/obj/item/gun/ballistic/revolver/mime/attack_self(mob/user)
+	qdel(src)
