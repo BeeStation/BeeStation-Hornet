@@ -5,6 +5,8 @@
 	desc = "A canister for the storage of gas."
 	icon_state = "yellow"
 	density = TRUE
+	ui_x = 346
+	ui_y = 268
 
 	var/valve_open = FALSE
 	var/obj/machinery/atmospherics/components/binary/passive_gate/pump
@@ -167,7 +169,6 @@
 	name = "prototype canister"
 	desc = "The best way to fix an atmospheric emergency... or the best way to introduce one."
 	icon_state = "proto"
-	icon_state = "proto"
 	volume = 5000
 	max_integrity = 300
 	temperature_resistance = 2000 + T0C
@@ -187,7 +188,7 @@
 
 
 /obj/machinery/portable_atmospherics/canister/New(loc, datum/gas_mixture/existing_mixture)
-	..()
+	. = ..()
 	if(existing_mixture)
 		air_contents.copy_from(existing_mixture)
 	else
@@ -361,7 +362,7 @@
 															datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "canister", name, 420, 405, master_ui, state)
+		ui = new(user, src, ui_key, "Canister", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/portable_atmospherics/canister/ui_data()
@@ -430,7 +431,7 @@
 				pressure = text2num(pressure)
 				. = TRUE
 			if(.)
-				release_pressure = CLAMP(round(pressure), can_min_release_pressure, can_max_release_pressure)
+				release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
 				investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
 		if("valve")
 			var/logmsg
@@ -474,7 +475,7 @@
 					var/N = text2num(user_input)
 					if(!N)
 						return
-					timer_set = CLAMP(N,minimum_timer_set,maximum_timer_set)
+					timer_set = clamp(N,minimum_timer_set,maximum_timer_set)
 					log_admin("[key_name(usr)] has activated a prototype valve timer")
 					. = TRUE
 				if("toggle_timer")

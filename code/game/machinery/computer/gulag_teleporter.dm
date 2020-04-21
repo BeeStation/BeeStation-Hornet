@@ -6,6 +6,9 @@
 	icon_keyboard = "security_key"
 	req_access = list(ACCESS_ARMORY)
 	circuit = /obj/item/circuitboard/computer/gulag_teleporter_console
+	ui_x = 350
+	ui_y = 295
+
 	var/default_goal = 200
 	var/obj/item/card/id/prisoner/id = null
 	var/obj/machinery/gulag_teleporter/teleporter = null
@@ -40,7 +43,7 @@
 									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "gulag_console", name, 455, 440, master_ui, state)
+		ui = new(user, src, ui_key, "GulagTeleporterConsole", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/gulag_teleporter_computer/ui_data(mob/user)
@@ -68,18 +71,26 @@
 		data["teleporter_location"] = "([teleporter.x], [teleporter.y], [teleporter.z])"
 		data["teleporter_lock"] = teleporter.locked
 		data["teleporter_state_open"] = teleporter.state_open
+	else
+		data["teleporter"] = null
 	if(beacon)
 		data["beacon"] = beacon
 		data["beacon_location"] = "([beacon.x], [beacon.y], [beacon.z])"
-	if(id)
+	else
+		data["beacon"] = null
+	if(contained_id)
 		data["id"] = id
 		data["id_name"] = id.registered_name
 		data["goal"] = id.goal
+	else
+		data["id"] = null
 	data["can_teleport"] = can_teleport
 
 	return data
 
 /obj/machinery/computer/gulag_teleporter_computer/ui_act(action, list/params)
+	if(isliving(usr))
+		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	if(..())
 		return
 	if(!allowed(usr))
@@ -88,8 +99,10 @@
 	switch(action)
 		if("scan_teleporter")
 			teleporter = findteleporter()
+			return TRUE
 		if("scan_beacon")
 			beacon = findbeacon()
+			return TRUE
 		if("handle_id")
 			if(id)
 				usr.put_in_hands(id)
@@ -101,7 +114,7 @@
 						return
 					id = I
 		if("set_goal")
-			var/new_goal = input("Set the amount of points:", "Points", id.goal) as num|null
+			var/new_goal = text2num(params["value"])
 			if(!isnum(new_goal))
 				return
 			if(!new_goal)
@@ -109,20 +122,24 @@
 			if (new_goal > 1000)
 				to_chat(usr, "The entered amount of points is too large. Points have instead been set to the maximum allowed amount.")
 			id.goal = CLAMP(new_goal, 0, 1000) //maximum 1000 points
+			return TRUE
 		if("toggle_open")
 			if(teleporter.locked)
-				to_chat(usr, "The teleporter is locked")
+				to_chat(usr, "<span class='alert'>The teleporter must be unlocked first.</span>")
 				return
 			teleporter.toggle_open()
+			return TRUE
 		if("teleporter_lock")
 			if(teleporter.state_open)
-				to_chat(usr, "Close the teleporter before locking!")
+				to_chat(usr, "<span class='alert'>The teleporter must be closed first.</span>")
 				return
 			teleporter.locked = !teleporter.locked
+			return TRUE
 		if("teleport")
 			if(!teleporter || !beacon)
 				return
 			addtimer(CALLBACK(src, .proc/teleport, usr), 5)
+			return TRUE
 
 /obj/machinery/computer/gulag_teleporter_computer/proc/scan_machinery()
 	teleporter = findteleporter()
