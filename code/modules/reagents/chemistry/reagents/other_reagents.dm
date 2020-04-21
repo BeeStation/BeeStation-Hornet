@@ -1872,11 +1872,11 @@
 		if(changeling)
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
 		else if(is_species(L, /datum/species/lizard/ashwalker))	//No changeling ashwalker shenanigans.
-			M.reagents.remove_reagent(/datum/reagent/bz_metabolites,5)
-			M.adjustToxLoss(-0.3*REM, 0)
-			M.adjustOxyLoss(-0.3*REM, 0)
-			M.adjustBruteLoss(-0.3*REM, 0)
-			M.adjustFireLoss(-0.3*REM, 0)
+			L.reagents.remove_reagent(/datum/reagent/bz_metabolites,5)
+			L.adjustToxLoss(-0.3*REM, 0)
+			L.adjustOxyLoss(-0.3*REM, 0)
+			L.adjustBruteLoss(-0.3*REM, 0)
+			L.adjustFireLoss(-0.3*REM, 0)
 	return ..()
 
 /datum/reagent/concentrated_bz
@@ -1884,7 +1884,7 @@
 	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
 	color = "#FAFF00"
 	taste_description = "acrid cinnamon"
-	random_unrestricted = FALSE	
+	random_unrestricted = FALSE
 
 /datum/reagent/concentrated_bz/on_mob_metabolize(mob/living/L)
 	..()
@@ -1899,20 +1899,20 @@
 		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			changeling.chem_charges = max(changeling.chem_charges-2, 0)
-			if(prob(30))	
+			if(prob(30))
 				L.losebreath += 1
 				L.adjustOxyLoss(3,5)
 				to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")
 
-		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)					
-	return ..()	
+		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)
+	return ..()
 
 /datum/reagent/fake_cbz
 	name = "Concentrated BZ"
 	description = "A hyperconcentrated liquid form of BZ gas, known to cause an extremely adverse reaction to changelings. Also causes minor brain damage."
 	color = "#FAFF00"
 	taste_description = "acrid cinnamon"
-	random_unrestricted = FALSE	
+	random_unrestricted = FALSE
 
 /datum/reagent/fake_cbz/on_mob_life(mob/living/L)
 	L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)

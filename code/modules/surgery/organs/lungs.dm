@@ -270,7 +270,7 @@
 				if(prob(33))
 					H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
 			H.reagents.add_reagent(/datum/reagent/bz_metabolites,5)
-			
+
 
 		else if(bz_pp > 0.01)
 			if(!BZ_is_harmless)
@@ -476,9 +476,10 @@ obj/item/organ/lungs/ashwalker
 	desc = "blackened lungs identical from specimens recovered from lavaland, unsuited to higher air pressures."
 	icon_state = "lungs-ll"
 	safe_oxygen_min = 3	//able to handle much thinner oxygen, something something ash storm adaptation
-	safe_oxygen_max = 18 // Air standard is 22kpA of O2, LL is 14kpA
-	safe_nitro_max = 28 // Air standard is 82kpA of N2, LL is 23kpA
-	//safe_toxins_max = 1 // Living in an enviorment with plasma in the air has its advantages
+	safe_oxygen_max = 18 // Air standard is 22kpA of O2, LL varies but can reach above 30
+	safe_nitro_max = 30 // Air standard is 82kpA of N2, LL varies but the nest can reach 40
+	safe_toxins_max = 1 // Living in an enviorment with plasma in the air has its advantages
+	safe_co2_max = 20
 	BZ_is_harmless = TRUE
 
 	cold_level_1_threshold = 280 // Ash Lizards can't take the cold very well, station air is only just warm enough

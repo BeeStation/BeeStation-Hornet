@@ -3,11 +3,11 @@
 	id = LAVALAND_DEFAULT_ATMOS
 
 	base_gases = list(
-		/datum/gas/oxygen=5,
-		/datum/gas/nitrogen=10,
+		/datum/gas/oxygen=10,
+		/datum/gas/nitrogen=5,
 	)
 	normal_gases = list(
-		/datum/gas/oxygen=10,
+		/datum/gas/oxygen=5,
 		/datum/gas/nitrogen=10,
 		/datum/gas/carbon_dioxide=10,
 	)
