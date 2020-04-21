@@ -273,7 +273,7 @@
 			if(H.stat != CONSCIOUS)
 				to_chat(user, "<span class='warning'>They must be conscious before you can convert [H.p_them()]!</span>")
 				return
-			else
+			if(!converter.add_revolutionary(H.mind))
 				to_chat(user, "<span class='warning'>This mind seems resistant to the flash!</span>")
 
 
