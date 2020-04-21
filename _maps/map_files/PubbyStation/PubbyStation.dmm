@@ -55015,6 +55015,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
+"htk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/engine,
+/area/engine/engineering)
 "hvW" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "xenobio4";
@@ -55749,6 +55756,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "iUX" = (
@@ -56527,6 +56535,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
+"kFH" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/airalarm/directional/west,
+/turf/open/floor/engine,
+/area/engine/engineering)
 "kHw" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
 /turf/open/floor/engine,
@@ -56786,17 +56801,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"los" = (
-/obj/machinery/door/airlock/engineering/glass/critical{
-	heat_proof = 1;
-	name = "Supermatter Chamber";
-	req_access_txt = "10"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/space)
 "lqc" = (
 /obj/item/toy/gun,
 /obj/effect/decal/cleanable/oil,
@@ -57098,20 +57102,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
-"lXM" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "engsm";
-	name = "Radiation Chamber Shutters"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/space)
 "lYf" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -58707,6 +58697,11 @@
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/exit/departure_lounge)
+"prr" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/airalarm/directional/south,
+/turf/open/floor/engine,
+/area/engine/engineering)
 "pvK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/cable/yellow{
@@ -61593,19 +61588,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
-"wmW" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/button/door{
-	id = "engsm";
-	name = "Radiation Shutters Control";
-	pixel_y = -24;
-	req_access_txt = "10"
-	},
-/obj/machinery/atmospherics/pipe/manifold/cyan/visible{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/space)
 "wnJ" = (
 /obj/structure/sign/warning,
 /turf/closed/wall,
@@ -91789,7 +91771,7 @@ cbj
 ceX
 wdp
 cfS
-wqF
+kFH
 qSa
 fFv
 xzn
@@ -94120,7 +94102,7 @@ aaa
 fon
 aaa
 aaa
-los
+aaa
 aaa
 aaa
 aaa
@@ -94634,8 +94616,8 @@ aaa
 fon
 aaa
 aaa
-wmW
-lXM
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -95652,7 +95634,7 @@ nIX
 nIX
 gaH
 wkA
-xyo
+prr
 bXk
 aht
 aht
@@ -95900,7 +95882,7 @@ cdI
 vCs
 cfg
 qrw
-cfY
+htk
 cfY
 kbV
 cfY
