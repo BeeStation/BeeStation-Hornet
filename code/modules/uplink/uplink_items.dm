@@ -448,9 +448,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/rapid
 	name = "Gloves of the North Star"
-	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed or the meaty fists of a hulk."
+	desc = "These gloves teaches the user a martial art which allows them to move their hands extremely quickly. \
+			You'll be able to punch people very fast and your new reflexes allow you to passively block melee strikes. \
+			Turning onthrow mode further increases your blocking ability. These gloves do not improve weapon attack \
+			speed or the meaty fists of a hulk however."
 	item = /obj/item/clothing/gloves/rapid
-	cost = 8
+	cost = 13
 
 /datum/uplink_item/dangerous/guardian
 	name = "Holoparasites"
