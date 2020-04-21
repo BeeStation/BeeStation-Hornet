@@ -1,0 +1,6 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - rscadd: "Non-flashproof sunglasses have been added to the ClothesMate."
+  - tweak: "All flashproof sunglasses are now named \"advanced sunglasses\" and subtypes have their descriptions changed."
+  - balance: "Meta and Delta static maint sunglasses have been swapped with dynamic loot spawns."
