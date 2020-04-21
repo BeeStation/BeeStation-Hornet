@@ -5322,7 +5322,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/ears/earmuffs,
-/obj/item/clothing/glasses/sunglasses{
+/obj/item/clothing/glasses/sunglasses/advanced{
 	pixel_x = 3;
 	pixel_y = 3
 	},
@@ -11073,7 +11073,7 @@
 "auz" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/gas,
-/obj/item/clothing/glasses/sunglasses,
+/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
@@ -18315,7 +18315,7 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/wood,
 /area/lawoffice)
 "aIX" = (
@@ -19429,7 +19429,7 @@
 /obj/item/folder/red,
 /obj/item/folder/red,
 /obj/item/folder/red,
-/obj/item/clothing/glasses/sunglasses/big,
+/obj/item/clothing/glasses/sunglasses/advanced/big,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aLF" = (
@@ -46492,7 +46492,7 @@
 /obj/structure/table/wood,
 /obj/item/clothing/shoes/laceup,
 /obj/item/clothing/under/suit_jacket/really_black,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /obj/machinery/camera{
 	c_tag = "Corporate Showroom"
 	},
@@ -54852,7 +54852,7 @@
 /area/maintenance/port/aft)
 "cer" = (
 /obj/structure/rack,
-/obj/item/clothing/glasses/sunglasses,
+/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/stack/rods{
 	amount = 23
@@ -64118,7 +64118,7 @@
 /area/maintenance/port/aft)
 "cwn" = (
 /obj/structure/rack,
-/obj/item/clothing/glasses/sunglasses,
+/obj/effect/spawner/lootdrop/maintenance,
 /obj/item/flashlight/pen,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
@@ -73867,7 +73867,7 @@
 "cOA" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/gas,
-/obj/item/clothing/glasses/sunglasses,
+/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/small{
 	dir = 4
