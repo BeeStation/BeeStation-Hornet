@@ -13,6 +13,8 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 
 /proc/animate_chat(mob/living/target, message, message_language, message_mode, list/show_to, duration)
 
+	var/text_color = pick("#83c0dd","#8396dd","#9983dd","","#dd83b6","#dd8383","#83dddc","#83dd9f","#a5dd83","#ddd983","#dda583","#dd8383")
+
 	var/spans = "<span class='chatOverhead'>"
 	var/spansend = "</span>"
 
@@ -23,13 +25,8 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 	if(copytext(message, length(message) - 1) == "!!" || istype(target.get_active_held_item(), /obj/item/megaphone))
 		spans += "<span class='Yell'>"
 		spansend += "</span>"
-
-	message = copytext(message, 1, 120)
-
-	var/text_color = pick("#83c0dd","#8396dd","#9983dd","","#dd83b6","#dd8383","#83dddc","#83dd9f","#a5dd83","#ddd983","#dda583","#dd8383")
-
-	if(istype(target.get_active_held_item(), /obj/item/megaphone/clown))
-		text_color = "#ff2abf"
+		if(istype(target.get_active_held_item(), /obj/item/megaphone/clown))
+			text_color = "#ff2abf"
 
 	var/datum/language/D = GLOB.language_datum_instances[message_language]
 
@@ -56,13 +53,22 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 
 	// find a client that's connected to measure the height of the message, so it knows how much to bump up the others
 	if(length(GLOB.clients))
-		var/client/C = GLOB.clients[1]
-		var/list/measuredText = splittext(C.MeasureText(I.maptext, width = 128), "x")
-		var/moveup = text2num(measuredText[2])
-		for(var/image/old in target.stored_chat_text)
-			if(old != I && old != O)
-				var/pixel_y_new = old.pixel_y + moveup
-				animate(old, 2, pixel_y = pixel_y_new)
+		var/client/C = null
+		for(var/client/player in GLOB.clients)
+			if(player.byond_build >= 513)
+				C = player
+				break
+		if(C)
+			var/moveup = text2num(splittext(C.MeasureText(I.maptext, width = 128), "x")[2])
+			for(var/image/old in target.stored_chat_text)
+				if(old != I && old != O)
+					var/pixel_y_new = old.pixel_y + moveup
+					animate(old, 2, pixel_y = pixel_y_new)
+		else // oh god this shouldn't happen, but MeasureText() was introduced in 513.1490 as a client proc
+			for(var/image/old in target.stored_chat_text)
+				if(old != I && old != O)
+					var/pixel_y_new = old.pixel_y + 10
+					animate(old, 2, pixel_y = pixel_y_new)
 
 	for(var/client/C in show_to)
 		if(C.mob.can_hear() && C.prefs.overhead_chat)
