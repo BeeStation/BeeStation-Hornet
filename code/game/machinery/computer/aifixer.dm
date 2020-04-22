@@ -84,21 +84,20 @@
 			if(oldstat != occupier.stat)
 				update_icon()
 
-/obj/machinery/computer/aifixer/update_overlays()
-	. = ..()
+/obj/machinery/computer/aifixer/update_icon()
+	..()
 	if(stat & (NOPOWER|BROKEN))
 		return
-
 	if(restoring)
-		. += "ai-fixer-on"
+		add_overlay("ai-fixer-on")
 	if (occupier)
 		switch (occupier.stat)
 			if (CONSCIOUS)
-				. += "ai-fixer-full"
+				add_overlay("ai-fixer-full")
 			if (UNCONSCIOUS)
-				. += "ai-fixer-404"
+				add_overlay("ai-fixer-404")
 	else
-		. += "ai-fixer-empty"
+		add_overlay("ai-fixer-empty")
 
 /obj/machinery/computer/aifixer/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())

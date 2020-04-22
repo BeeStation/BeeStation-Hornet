@@ -9,7 +9,6 @@
 	unsendable = 1
 	undeletable = 1
 	tgui_id = "synd_contract"
-	ui_style = "syndicate"
 	ui_x = 600
 	ui_y = 600
 	var/error = ""
@@ -33,7 +32,7 @@
 			// Set as the active contract
 			hard_drive.traitor_data.contractor_hub.assigned_contracts[contract_id].status = CONTRACT_STATUS_ACTIVE
 			hard_drive.traitor_data.contractor_hub.current_contract = hard_drive.traitor_data.contractor_hub.assigned_contracts[contract_id]
-			
+
 			program_icon_state = "single_contract"
 			return 1
 		if("PRG_login")
@@ -68,7 +67,7 @@
 				else
 					user.playsound_local(user, 'sound/machines/uplinkerror.ogg', 50)
 					error = "Either both you or your target aren't at the dropoff location, or the pod hasn't got a valid place to land. Clear space, or make sure you're both inside."
-			else 
+			else
 				user.playsound_local(user, 'sound/machines/uplinkerror.ogg', 50)
 				error = "Already extracting... Place the target into the pod. If the pod was destroyed, you will need to cancel this contract."
 
@@ -84,7 +83,7 @@
 			return 1
 		if("PRG_redeem_TC")
 			if (hard_drive.traitor_data.contractor_hub.contract_TC_to_redeem)
-				var/obj/item/stack/telecrystal/crystals = new /obj/item/stack/telecrystal(get_turf(user), 
+				var/obj/item/stack/telecrystal/crystals = new /obj/item/stack/telecrystal(get_turf(user),
 															hard_drive.traitor_data.contractor_hub.contract_TC_to_redeem)
 				if(ishuman(user))
 					var/mob/living/carbon/human/H = user
@@ -132,7 +131,7 @@
 			if (traitor_data.contractor_hub.current_contract.status == CONTRACT_STATUS_EXTRACTING)
 				data["extraction_enroute"] = TRUE
 				screen_to_be = "extracted"
-		
+
 		data["logged_in"] = TRUE
 		data["station_name"] = GLOB.station_name
 		data["redeemable_tc"] = traitor_data.contractor_hub.contract_TC_to_redeem
@@ -165,9 +164,9 @@
 		var/direction
 		if (traitor_data.contractor_hub.current_contract)
 			var/turf/curr = get_turf(user)
-			var/turf/dropoff_turf 
+			var/turf/dropoff_turf
 			data["current_location"] = "[get_area_name(curr, TRUE)]"
-			
+
 			for (var/turf/content in traitor_data.contractor_hub.current_contract.contract.dropoff.contents)
 				if (isturf(content))
 					dropoff_turf = content
@@ -184,12 +183,12 @@
 
 		if (page == CONTRACT_UPLINK_PAGE_HUB)
 			screen_to_be = "store"
-		
+
 		if (!screen_to_be)
 			screen_to_be = "contracts"
 	else
 		data["logged_in"] = FALSE
-		
+
 	if (!screen_to_be)
 		screen_to_be = "assign"
 
