@@ -147,7 +147,7 @@ window "mapwindow"
 		is-default = true
 		saved-params = "icon-size"
 		zoom-mode = distort
-		style = ".chatOverhead {font-family: 'Small Fonts'; -dm-text-outline: 1 black; font-size: 7px;}"
+		style = ".chatOverhead {font-family: 'Small Fonts'; -dm-text-outline: 1 black; font-size: 7px;} .Yell {font-size: 8px; font-weight: bold;} .Italicize {font-style: italic;}"
 
 window "infowindow"
 	elem "infowindow"
