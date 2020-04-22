@@ -167,7 +167,7 @@
 	icon_state = "unsmooth"
 	smooth = SMOOTH_MORE | SMOOTH_BORDER
 	canSmoothWith = list(/turf/open/lava/smooth)
-	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
+
 
 
 /turf/open/lava/smooth/lava_land_surface
