@@ -236,6 +236,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["asaycolor"], asaycolor)
 	WRITE_FILE(S["ooccolor"], ooccolor)
 	WRITE_FILE(S["lastchangelog"], lastchangelog)
+	WRITE_FILE(S["UI_style"], UI_style)
 	WRITE_FILE(S["overhead_chat"], overhead_chat)
 	WRITE_FILE(S["hotkeys"], hotkeys)
 	WRITE_FILE(S["tgui_fancy"], tgui_fancy)
