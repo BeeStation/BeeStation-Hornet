@@ -42,7 +42,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 //if your savefile is 3 months out of date, then 'tough shit'.
 
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
-	overhead_chat = TRUE
+	if(current_version < 29)
+		overhead_chat = TRUE
 	return
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
