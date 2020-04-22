@@ -1,4 +1,4 @@
-// Thanks to burgerstation for the foundation of this
+// Thanks to Burger from Burgerstation for the foundation for this
 
 /* 
 BYOND Forum posts that helped me:
