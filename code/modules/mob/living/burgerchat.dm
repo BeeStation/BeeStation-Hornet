@@ -20,7 +20,7 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 		spans += "<span class='Italicize'>"
 		spansend += "</span>"
 
-	if(copytext(message, length(message) - 1) == "!!" || )
+	if(copytext(message, length(message) - 1) == "!!")
 		spans += "<span class='Yell'>"
 		spansend += "</span>"
 
