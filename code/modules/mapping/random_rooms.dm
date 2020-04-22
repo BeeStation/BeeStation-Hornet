@@ -85,13 +85,13 @@
 	template_height = 3
 	template_width = 3
 
-/datum/map_template/random_room/sk_rdm011
+/*/datum/map_template/random_room/sk_rdm011
 	name = "Barber Shop"
 	room_id = "sk_rdm011_barbershop"
 	mappath = "_maps/RandomRooms/10x5/sk_rdm011_barbershop.dmm"
 	centerspawner = FALSE
 	template_height = 5
-	template_width = 10
+	template_width = 10*/
 
 /datum/map_template/random_room/sk_rdm012
 	name = "Box Bar"
