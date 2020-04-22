@@ -74,7 +74,7 @@
 /area/template_noop)
 "k" = (
 /obj/structure/table/wood/poker,
-/obj/item/clothing/glasses/sunglasses/big,
+/obj/item/clothing/glasses/sunglasses/advanced/big,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "l" = (

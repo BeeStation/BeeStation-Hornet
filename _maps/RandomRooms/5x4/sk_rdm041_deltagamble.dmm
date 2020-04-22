@@ -5,7 +5,7 @@
 /area/template_noop)
 "b" = (
 /obj/structure/table/wood,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "c" = (
