@@ -41,7 +41,7 @@
 		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, -100)
 		L.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
 		for(var/thing in L.diseases)
-			var/datum/disease/advance/D = thing
+			var/datum/disease/D = thing
 			if(D.severity == DISEASE_SEVERITY_POSITIVE || D.severity == DISEASE_SEVERITY_BENEFICIAL || D.spread_flags == DISEASE_SPREAD_SPECIAL)
 				continue
 			if(D in subtypesof(/datum/disease/advance))
