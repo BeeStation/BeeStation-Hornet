@@ -20,13 +20,16 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 		spans += "<span class='Italicize'>"
 		spansend += "</span>"
 
-	if(copytext(message, length(message) - 1) == "!!")
+	if(copytext(message, length(message) - 1) == "!!" || istype(target.get_active_held_item(), /obj/item/megaphone))
 		spans += "<span class='Yell'>"
 		spansend += "</span>"
 
 	message = copytext(message, 1, 120)
 
-	var/text_color = pick("#83c0dd","#8396dd","#9983dd","#c583dd","#dd83b6","#dd8383","#83dddc","#83dd9f","#a5dd83","#ddd983","#dda583","#dd8383")
+	var/text_color = pick("#83c0dd","#8396dd","#9983dd","","#dd83b6","#dd8383","#83dddc","#83dd9f","#a5dd83","#ddd983","#dda583","#dd8383")
+
+	if(istype(target.get_active_held_item(), /obj/item/megaphone/clown))
+		text_color = "#ff2abf"
 
 	var/datum/language/D = GLOB.language_datum_instances[message_language]
 
