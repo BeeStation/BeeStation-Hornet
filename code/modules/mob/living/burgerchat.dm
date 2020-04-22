@@ -13,20 +13,21 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 
 /proc/animate_chat(mob/living/target, message, message_language, message_mode, list/show_to, duration)
 
-	var/text_color = pick("#83c0dd","#8396dd","#9983dd","","#dd83b6","#dd8383","#83dddc","#83dd9f","#a5dd83","#ddd983","#dda583","#dd8383")
+	var/text_color = pick("#83c0dd","#8396dd","#9983dd","#dd83b6","#dd8383","#83dddc","#83dd9f","#a5dd83","#ddd983","#dda583","#dd8383")
 
-	var/spans = "<span class='chatOverhead'>"
-	var/spansend = "</span>"
+	var/css = ""
 
 	if((message_mode == MODE_WHISPER) || (message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
-		spans += "<span class='Italicize'>"
-		spansend += "</span>"
+		css += "font-style: italic;"
 
 	if(copytext(message, length(message) - 1) == "!!" || istype(target.get_active_held_item(), /obj/item/megaphone))
-		spans += "<span class='Yell'>"
-		spansend += "</span>"
+		css += "font-size: 8px; font-weight: bold;"
 		if(istype(target.get_active_held_item(), /obj/item/megaphone/clown))
 			text_color = "#ff2abf"
+	
+	css += "color: [text_color];"
+
+	message = copytext(message, 1, 120)
 
 	var/datum/language/D = GLOB.language_datum_instances[message_language]
 
@@ -38,7 +39,7 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 	I.maptext_height = 64
 	I.pixel_x = -48
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	I.maptext = "<center>[spans]<font color='[text_color]'>[message]</font>[spansend]</center>"
+	I.maptext = "<center><span class='chatOverhead' style='[css]'>[message]</span></center>"
 
 	var/image/O = image(loc = target, layer=FLY_LAYER)
 	O.alpha = 0
@@ -46,7 +47,7 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 	O.maptext_height = 64
 	O.pixel_x = -48
 	O.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	O.maptext = "<center>[spans]<font color='[text_color]'>[D.scramble(message)]</font>[spansend]</center>"
+	O.maptext = "<center><span class='chatOverhead' style='[css]'>[D.scramble(message)]</span></center>"
 
 	target.stored_chat_text += I
 	target.stored_chat_text += O
