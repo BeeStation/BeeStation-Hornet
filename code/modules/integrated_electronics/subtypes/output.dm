@@ -1,6 +1,7 @@
 /obj/item/integrated_circuit/output
 	category_text = "Output"
-
+	speech_span = SPAN_ROBOT
+	
 /obj/item/integrated_circuit/output/screen
 	name = "small screen"
 	extended_desc = " use &lt;br&gt; to start a new line"
@@ -432,7 +433,7 @@
 	if(!isnull(text))
 		var/atom/movable/A = get_object()
 		var/sanitized_text = sanitize(text)
-		radio.talk_into(A, sanitized_text, , get_spans())
+		radio.talk_into(A, sanitized_text, )
 		if (assembly)
 			log_say("[assembly] [REF(assembly)] : [sanitized_text]")
 
