@@ -197,7 +197,6 @@
 	name = "Pete's Speakeasy";
 	req_access_txt = "0"
 	},
-/obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/template_noop)
 "K" = (

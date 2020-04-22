@@ -2419,7 +2419,7 @@
 	name = "Locker Room Maintenance";
 	req_access_txt = "12"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/maintenance/port)
 "aeR" = (
 /obj/machinery/light/small{
