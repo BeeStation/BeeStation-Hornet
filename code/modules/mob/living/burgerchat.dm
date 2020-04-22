@@ -8,10 +8,10 @@ http://www.byond.com/forum/post/940994
 http://www.byond.com/docs/ref/skinparams.html#Fonts
 */
 
-/atom
+/mob/living
 	var/list/stored_chat_text = list()
 
-/proc/animate_chat(atom/target, message, message_language, message_mode, list/show_to, duration)
+/proc/animate_chat(mob/living/target, message, message_language, message_mode, list/show_to, duration)
 
 	var/spans = "<span class='chatOverhead'>"
 	var/spansend = "</span>"
