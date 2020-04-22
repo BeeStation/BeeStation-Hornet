@@ -26,7 +26,7 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 
 	message = copytext(message, 1, 120)
 
-	var/text_color = pick("#f4e0e1", "#f6a9bd", "#fee4a7", "#86dbd4", "#95c9e2")
+	var/text_color = pick("#83c0dd","#8396dd","#9983dd","#c583dd","#dd83b6","#dd8383","#83dddc","#83dd9f","#a5dd83","#ddd983","#dda583","#dd8383")
 
 	var/datum/language/D = GLOB.language_datum_instances[message_language]
 
@@ -84,4 +84,6 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 					C.images -= O
 
 		target.stored_chat_text -= I
+		target.stored_chat_text -= O
 		qdel(I)
+		qdel(O)
