@@ -27,6 +27,7 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/beam_rifle/hitscan)
+	internal_cell = TRUE //prevents you from giving it an OP cell
 	cell_type = /obj/item/stock_parts/cell/beam_rifle
 	canMouseDown = TRUE
 	pin = null

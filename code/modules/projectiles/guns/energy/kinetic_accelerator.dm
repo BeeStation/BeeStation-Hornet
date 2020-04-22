@@ -12,6 +12,7 @@
 	flight_x_offset = 15
 	flight_y_offset = 9
 	automatic_charge_overlays = FALSE
+	internal_cell = TRUE //prevents you from giving it an OP cell
 	var/overheat_time = 16
 	var/holds_charge = FALSE
 	var/unique_frequency = FALSE // modified by KA modkits

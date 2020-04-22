@@ -3,17 +3,17 @@
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun
-	projectile_type = /obj/item/projectile/beam/laser
-	e_cost = 83
+	projectile_type = /obj/projectile/beam/laser
+	e_cost = 830
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun/old
-	projectile_type = /obj/item/projectile/beam/laser
-	e_cost = 200
+	projectile_type = /obj/projectile/beam/laser
+	e_cost = 2000
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/hos
-	e_cost = 120
+	e_cost = 12000
 
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/item/projectile/beam/practice
@@ -38,8 +38,8 @@
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/ammo_casing/energy/laser/pulse
-	projectile_type = /obj/item/projectile/beam/pulse
-	e_cost = 200
+	projectile_type = /obj/projectile/beam/pulse
+	e_cost = 2000
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
@@ -60,8 +60,8 @@
 	projectile_type = /obj/item/projectile/beam/lasertag/redtag/hitscan
 
 /obj/item/ammo_casing/energy/xray
-	projectile_type = /obj/item/projectile/beam/xray
-	e_cost = 50
+	projectile_type = /obj/projectile/beam/xray
+	e_cost = 500
 	fire_sound = 'sound/weapons/laser3.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer

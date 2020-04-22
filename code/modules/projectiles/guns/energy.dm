@@ -4,8 +4,8 @@
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
 
-	var/obj/item/stock_parts/cell/cell //What type of power cell this uses
-	var/cell_type = /obj/item/stock_parts/cell
+	var/obj/item/stock_parts/cell/gun/cell //What type of power cell this uses
+	var/cell_type = /obj/item/stock_parts/cell/gun
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
 	var/select = 1 //The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
@@ -20,6 +20,18 @@
 	var/charge_delay = 4
 	var/use_cyborg_cell = FALSE //whether the gun's cell drains the cyborg user's cell to recharge
 	var/dead_cell = FALSE //set to true so the gun is given an empty cell
+
+	//Weapon Power Cells
+	var/internal_cell = FALSE ///if the gun's cell cannot be replaced
+	var/small_gun = FALSE ///if the gun is small and can only fit batteries that have less than a certain max charge
+	var/max_charge = 10000 ///if the gun is small, this is the highest amount of charge can be in a battery for it
+	var/unscrewing_time = 20 ///Time it takes to unscrew the internal cell
+
+	var/load_sound = 'sound/weapons/gun_magazine_insert_full_3.ogg' //Sound when inserting magazine. 
+	var/eject_sound = 'sound/weapons/gun_magazine_remove_empty_2.ogg' //Sound of ejecting a cell. 
+	var/sound_volume = 40 //Volume of loading/unloading sounds
+	var/load_sound_vary = TRUE //Should the load/unload sounds vary?
+	//Weapon Power Cells End
 
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()
@@ -83,6 +95,52 @@
 	if(ammo_type.len > 1)
 		select_fire(user)
 		update_icon()
+
+/obj/item/gun/energy/attackby(obj/item/A, mob/user, params)
+	. = ..()
+	if (.)
+		return
+	if (!internal_cell && istype(A, /obj/item/stock_parts/cell/gun))
+		var/obj/item/stock_parts/cell/gun/C = A
+		if (!cell)
+			insert_cell(user, C)
+
+/obj/item/gun/energy/proc/insert_cell(mob/user, obj/item/stock_parts/cell/gun/C)
+	if(small_gun && !istype(C, /obj/item/stock_parts/cell/gun/mini))
+		to_chat(user, "<span class='warning'>\The [C] doesn't seem to fit into \the [src]...</span>")
+		return FALSE
+	if(!small_gun && istype(C, /obj/item/stock_parts/cell/gun/mini))
+		to_chat(user, "<span class='warning'>\The [C] doesn't seem to fit into \the [src]...</span>")
+		return FALSE
+	if(user.transferItemToLoc(C, src))
+		cell = C
+		to_chat(user, "<span class='notice'>You load the [C] into \the [src].</span>")
+		playsound(src, load_sound, sound_volume, load_sound_vary)
+		update_icon()
+		return TRUE
+	else
+		to_chat(user, "<span class='warning'>You cannot seem to get \the [src] out of your hands!</span>")
+		return FALSE
+
+/obj/item/gun/energy/proc/eject_cell(mob/user, obj/item/stock_parts/cell/gun/tac_load = null)
+	playsound(src, load_sound, sound_volume, load_sound_vary)
+	cell.forceMove(drop_location())
+	var/obj/item/stock_parts/cell/gun/old_cell = cell
+	if (insert_cell(user, tac_load))
+		to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src].</span>")
+	else
+		to_chat(user, "<span class='warning'>You dropped the old cell, but the new one doesn't fit. How embarassing.</span>")
+		cell = null
+	user.put_in_hands(old_cell)
+	old_cell.update_icon()
+	to_chat(user, "<span class='notice'>You pull the cell out of \the [src].</span>")
+	update_icon()
+
+/obj/item/gun/energy/attack_hand(mob/user)
+	if(!internal_cell && loc == user && user.is_holding(src) && cell)
+		eject_cell(user)
+		return
+	return ..()
 
 /obj/item/gun/energy/can_shoot()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
