@@ -27,8 +27,6 @@ Lawyer=2,2
 
 Chaplain=1,1
 
-Barber=0,0
-
 Station Engineer=6,5
 Atmospheric Technician=4,2
 

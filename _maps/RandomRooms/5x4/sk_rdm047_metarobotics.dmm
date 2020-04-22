@@ -79,7 +79,7 @@
 /area/template_noop)
 "m" = (
 /obj/structure/rack,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/stack/rods{
 	amount = 23
