@@ -37,18 +37,18 @@
         play_laugh1()
     return ..()
 
-/obj/item/clothing/mask/cluwne/speechModification(message) //whenever you speak
+/obj/item/clothing/mask/cluwne/handle_speech(datum/source, list/speech_args)
     if(voicechange)
         if(prob(5)) //the brain isnt fully gone yet...
-            message = pick("HELP ME!!","PLEASE KILL ME!!","I WANT TO DIE!!", "END MY SUFFERING", "I CANT TAKE THIS ANYMORE!!" ,"SOMEBODY STOP ME!!")
+            speech_args[SPEECH_MESSAGE] = pick("HELP ME!!","PLEASE KILL ME!!","I WANT TO DIE!!", "END MY SUFFERING", "I CANT TAKE THIS ANYMORE!!" ,"SOMEBODY STOP ME!!")
             play_laugh2()
         if(prob(3))
-            message = pick("HOOOOINKKKKKKK!!", "HOINK HOINK HOINK HOINK!!","HOINK HOINK!!","HOOOOOOIIINKKKK!!") //but most of the time they cant speak,
+            speech_args[SPEECH_MESSAGE] = pick("HOOOOINKKKKKKK!!", "HOINK HOINK HOINK HOINK!!","HOINK HOINK!!","HOOOOOOIIINKKKK!!") //but most of the time they cant speak,
             play_laugh3()
         else
-            message = pick("HEEEENKKKKKK!!", "HONK HONK HONK HONK!!","HONK HONK!!","HOOOOOONKKKK!!") //More sounds,
+            speech_args[SPEECH_MESSAGE] = pick("HEEEENKKKKKK!!", "HONK HONK HONK HONK!!","HONK HONK!!","HOOOOOONKKKK!!") //More sounds,
             play_laugh1()
-    return message
+    return SPEECH_MESSAGE
 
 /obj/item/clothing/mask/cluwne/equipped(mob/user, slot)
     if(!ishuman(user))
