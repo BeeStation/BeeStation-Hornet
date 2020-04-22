@@ -16,11 +16,11 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 	var/spans = "<span class='chatOverhead'>"
 	var/spansend = "</span>"
 
-	if((message_mode == "whisper") || (message_mode == "headset") || (message_mode in GLOB.radiochannels))
+	if((message_mode == MODE_WHISPER) || (message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
 		spans += "<span class='Italicize'>"
 		spansend += "</span>"
 
-	if(copytext(message, length(message) - 1) == "!!")
+	if(copytext(message, length(message) - 1) == "!!" || )
 		spans += "<span class='Yell'>"
 		spansend += "</span>"
 
