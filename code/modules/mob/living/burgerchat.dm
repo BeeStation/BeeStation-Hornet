@@ -19,7 +19,7 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 
 	var/css = ""
 
-	if((message_modet == MODE_WHISPER) || (message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
+	if((message_mode == MODE_WHISPER) || (message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
 		css += "font-style: italic;"
 
 	if(copytext(message, length(message) - 1) == "!!" || istype(target.get_active_held_item(), /obj/item/megaphone))
