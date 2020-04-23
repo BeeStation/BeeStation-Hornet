@@ -89,16 +89,10 @@
 
 	using = new/obj/screen/language_menu
 	using.icon = ui_style
-	if(!widescreen_layout)
-		using.screen_loc = UI_BOXLANG
-	using.hud = src
 	static_inventory += using
 
 	using = new /obj/screen/area_creator
 	using.icon = ui_style
-	if(!widescreen_layout)
-		using.screen_loc = UI_BOXAREA
-	using.hud = src
 	static_inventory += using
 
 	action_intent = new /obj/screen/act_intent/segmented
