@@ -658,8 +658,20 @@
 	if(isobj(target))
 		if(actually_paints)
 			if(color_hex2num(paint_color) < 350 && !istype(target, /obj/structure/window)) //Colors too dark are rejected
-				to_chat(usr, "<span class='warning'>A colour that dark on an object like this? Surely not...</span>")
-				return FALSE
+				if(istype(target, /obj/item/clothing))
+					var/obj/item/clothing/C = target
+					if(((C.flags_cover & HEADCOVERSEYES) || (C.flags_cover & MASKCOVERSEYES) || (C.flags_cover & GLASSESCOVERSEYES)) && !HAS_TRAIT(C, TRAIT_SPRAYPAINTED))
+						C.flash_protect += 1
+						C.tint += 2
+						to_chat(usr, "<span class='warning'>You spray the [C] down, making it harder to see through!</span>")
+						usr.reload_fullscreen()
+						ADD_TRAIT(C, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
+					else
+						to_chat(usr, "<span class='warning'>A colour that dark on an object like this? Surely not...</span>")
+						return FALSE
+				else
+					to_chat(usr, "<span class='warning'>A colour that dark on an object like this? Surely not...</span>")
+					return FALSE
 
 			target.add_atom_colour(paint_color, WASHABLE_COLOUR_PRIORITY)
 

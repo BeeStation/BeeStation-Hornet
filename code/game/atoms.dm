@@ -805,6 +805,11 @@
 		return
 	if(coloration && atom_colours[colour_priority] != coloration)
 		return //if we don't have the expected color (for a specific priority) to remove, do nothing
+	if(istype(src, /obj/item/clothing) && HAS_TRAIT(src, TRAIT_SPRAYPAINTED))
+		var/obj/item/clothing/C = src
+		C.flash_protect -= 1
+		C.tint -= 2
+		REMOVE_TRAIT(C, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
 	atom_colours[colour_priority] = null
 	update_atom_colour()
 
