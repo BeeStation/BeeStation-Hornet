@@ -4,7 +4,6 @@
 	charges_left = 15
 
 /obj/item/flashbulb/bomb/use_flashbulb()
-	to_chat(usr, "<span class='userdanger'>You press down firmly on the top flash and hear a violent hiss!</span>")
 	explosion(src, -1, 1, 3, 4)
 	charges_left = 0
 	icon_state = "flashbulbburnt"
