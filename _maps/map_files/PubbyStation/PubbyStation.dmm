@@ -53233,6 +53233,26 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"cWo" = (
+/obj/structure/closet/secure_closet/warden,
+/obj/item/clothing/mask/gas/sechailer,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "Brig Control APC";
+	pixel_x = -24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = 30
+	},
+/obj/machinery/keycard_auth{
+	pixel_x = -26;
+	pixel_y = 26
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/security/warden)
 "cXW" = (
 /obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -53680,26 +53700,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"eeM" = (
-/obj/structure/closet/secure_closet/warden,
-/obj/item/clothing/mask/gas/sechailer,
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "Brig Control APC";
-	pixel_x = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_y = 30
-	},
-/obj/machinery/keycard_auth{
-	pixel_x = -26;
-	pixel_y = 26
-	},
-/turf/open/floor/plasteel/showroomfloor,
-/area/security/warden)
 "eeQ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -84238,7 +84238,7 @@ ajN
 akJ
 aly
 amg
-eeM
+cWo
 anC
 aop
 aoR
