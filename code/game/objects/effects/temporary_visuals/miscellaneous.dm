@@ -475,7 +475,7 @@
 	status = rcd_status
 	delay = rcd_delay
 	if (status == RCD_DECONSTRUCT)
-		addtimer(CALLBACK(src, /atom/.proc/update_icon), 11)
+		addtimer(CALLBACK(src, .proc/update_icon), 11)
 		delay -= 11
 		icon_state = "rcd_end_reverse"
 	else

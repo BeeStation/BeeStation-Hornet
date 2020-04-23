@@ -495,11 +495,15 @@
 
 ///Update the pulling hud icon
 /mob/proc/update_pull_hud_icon()
-	hud_used?.pull_icon?.update_icon()
+	if(hud_used)
+		if(hud_used.pull_icon)
+			hud_used.pull_icon.update_icon(src)
 
 ///Update the resting hud icon
 /mob/proc/update_rest_hud_icon()
-	hud_used?.rest_icon?.update_icon()
+	if(hud_used)
+		if(hud_used.rest_icon)
+			hud_used.rest_icon.update_icon(src)
 
 /**
   * Verb to activate the object in your held hand
