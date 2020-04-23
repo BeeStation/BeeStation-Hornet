@@ -1073,11 +1073,40 @@
 	contains = list(/obj/item/stack/sheet/glass/fifty)
 	crate_name = "glass sheets crate"
 
+/datum/supply_pack/materials/glass50
+	name = "50 Glass Sheets"
+	desc = "Let some nice light in with fifty glass sheets!"
+	cost = 1000
+	contains = list(/obj/item/stack/sheet/glass/fifty)
+	crate_name = "glass sheets crate"
+
+/datum/supply_pack/materials/glass250
+	name = "250 Iron Sheets"
+	desc = "Holy SHEET, thats a lot of glass!"
+	cost = 5000
+	contains = list(/obj/item/stack/sheet/glass/fifty,
+					/obj/item/stack/sheet/glass/fifty,
+					/obj/item/stack/sheet/glass/fifty,
+					/obj/item/stack/sheet/glass/fifty,
+					/obj/item/stack/sheet/glass/fifty,)
+	crate_name = "glass sheets crate"
+
 /datum/supply_pack/materials/iron50
 	name = "50 Iron Sheets"
 	desc = "Any construction project begins with a good stack of fifty iron sheets!"
 	cost = 1000
 	contains = list(/obj/item/stack/sheet/iron/fifty)
+	crate_name = "iron sheets crate"
+
+/datum/supply_pack/materials/iron250
+	name = "250 Iron Sheets"
+	desc = "For when you want to rebuild an entire station or create a cyborg army!"
+	cost = 5000
+	contains = list(/obj/item/stack/sheet/iron/fifty,
+					/obj/item/stack/sheet/iron/fifty,
+					/obj/item/stack/sheet/iron/fifty,
+					/obj/item/stack/sheet/iron/fifty,
+					/obj/item/stack/sheet/iron/fifty,)
 	crate_name = "iron sheets crate"
 
 /datum/supply_pack/materials/plasteel20
@@ -1093,6 +1122,104 @@
 	cost = 16500
 	contains = list(/obj/item/stack/sheet/plasteel/fifty)
 	crate_name = "plasteel sheets crate"
+
+/datum/supply_pack/materials/copper20
+	name = "20 Copper Sheets"
+	desc = "Copper sheets, for when the miners are not doing their jobs or you want to make the floors look pretty."
+	cost = 1000
+	contains = list(/obj/item/stack/sheet/mineral/copper/twenty)
+	crate_name = "copper sheets crate"
+
+/datum/supply_pack/materials/copper50
+	name = "50 Copper Sheets"
+	desc = "A lot of copper sheets, when you want to make the entire station have nice floors."
+	cost = 2500
+	contains = list(/obj/item/stack/sheet/mineral/copper/fifty)
+	crate_name = "copper sheets crate"
+
+/datum/supply_pack/materials/plasma20
+	name = "20 Plasma Sheets"
+	desc = "Plasma sheets, your supposed to be mining this, not buying it."
+	cost = 7500 // Plasma sheets sell for 200 points per sheet, so its gotta be expensive.
+	contains = list(/obj/item/stack/sheet/mineral/plasma/twenty)
+	crate_name = "plasma sheets crate"
+
+/datum/supply_pack/materials/plasma50
+	name = "50 Plasma Sheets"
+	desc = "Plasma sheets, your supposed to be mining this, not buying it."
+	cost = 18750 // Plasma sheets sell for 200 points per sheet, so its gotta be expensive.
+	contains = list(/obj/item/stack/sheet/mineral/plasma/fifty)
+	crate_name = "plasma sheets crate"
+
+/datum/supply_pack/materials/silver20
+	name = "20 Silver Sheets"
+	desc = "Silver sheets, for if you need some shiny stuff, you can have some, but it will cost you."
+	cost = 2000
+	contains = list(/obj/item/stack/sheet/mineral/silver/twenty)
+	crate_name = "silver sheets crate"
+
+/datum/supply_pack/materials/silver50
+	name = "50 Silver Sheets"
+	desc = "Silver sheets, for if you need some shiny stuff, you can have some, but it will cost you."
+	cost = 5000
+	contains = list(/obj/item/stack/sheet/mineral/silver/fifty)
+	crate_name = "silver sheets crate"
+
+/datum/supply_pack/materials/gold20
+	name = "20 Gold Sheets"
+	desc = "Gold sheets, for if you need some shiny stuff, you can have some, but it will cost you."
+	cost = 3000
+	contains = list(/obj/item/stack/sheet/mineral/gold/twenty)
+	crate_name = "gold sheets crate"
+
+/datum/supply_pack/materials/gold50
+	name = "50 Gold Sheets"
+	desc = "Gold sheets, for if you need some shiny stuff, you can have some, but it will cost you."
+	cost = 7500
+	contains = list(/obj/item/stack/sheet/mineral/gold/fifty)
+	crate_name = "gold sheets crate"
+
+/datum/supply_pack/materials/uranium20
+	name = "20 Uranium Sheets"
+	desc = "Uranium sheets, for if you run low on the stuff that looks green but makes your puke red."
+	cost = 2500
+	contains = list(/obj/item/stack/sheet/mineral/uranium/twenty)
+	crate_name = "uranium sheets crate"
+
+/datum/supply_pack/materials/uranium50
+	name = "50 Uranium Sheets"
+	desc = "Uranium sheets, for if you run low on the stuff that looks green but makes your puke red."
+	cost = 6250
+	contains = list(/obj/item/stack/sheet/mineral/uranium/fifty)
+	crate_name = "uranium sheets crate"
+
+/datum/supply_pack/materials/titanium20
+	name = "20 Titanium Sheets"
+	desc = "Titanium sheets, very useful for making combat mechas or advanced tools!"
+	cost = 3000
+	contains = list(/obj/item/stack/sheet/mineral/titanium/twenty)
+	crate_name = "Titanium sheets crate"
+
+/datum/supply_pack/materials/titanium50
+	name = "50 Titanium Sheets"
+	desc = "Titanium sheets, very useful for making combat mechas or advanced tools!"
+	cost = 7500
+	contains = list(/obj/item/stack/sheet/mineral/titanium/fifty)
+	crate_name = "Titanium sheets crate"
+
+/datum/supply_pack/materials/diamond5
+	name = "5 Diamond Sheets"
+	desc = "Diamond sheets, for if you like pretty things and advanced technology!"
+	cost = 4000 // Diamonds sell for 500 points per one, so they gotta be really expensive.
+	contains = list(/obj/item/stack/sheet/mineral/diamond/five)
+	crate_name = "Diamond sheets crate"
+
+/datum/supply_pack/materials/diamond20
+	name = "50 Diamond Sheets"
+	desc = "Diamond sheets, for if you like pretty things and advanced technology!"
+	cost = 10000 // Diamonds sell for 500 points per one, so they gotta be really expensive.
+	contains = list(/obj/item/stack/sheet/mineral/diamond/twenty)
+	crate_name = "Diamond sheets crate"
 
 /datum/supply_pack/materials/plastic50
 	name = "50 Plastic Sheets"
