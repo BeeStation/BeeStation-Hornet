@@ -2279,31 +2279,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
-"aeW" = (
-/obj/machinery/requests_console{
-	department = "Security";
-	departmentType = 5;
-	pixel_x = -30
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/rack,
-/obj/item/clothing/mask/gas/sechailer{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/mask/gas/sechailer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/machinery/camera/autoname{
-	dir = 4;
-	icon_state = "camera"
-	},
-/turf/open/floor/plasteel/showroomfloor,
-/area/security/warden)
 "aeX" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -45986,6 +45961,34 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"cnw" = (
+/obj/machinery/requests_console{
+	department = "Security";
+	departmentType = 5;
+	pixel_x = -30
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/rack,
+/obj/item/clothing/mask/gas/sechailer{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/clothing/mask/gas/sechailer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/machinery/camera/autoname{
+	dir = 4;
+	icon_state = "camera"
+	},
+/obj/machinery/keycard_auth{
+	pixel_y = 24
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/security/warden)
 "cnx" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -87241,7 +87244,7 @@ acv
 adi
 adi
 aaZ
-aeW
+cnw
 agQ
 ahv
 ahQ

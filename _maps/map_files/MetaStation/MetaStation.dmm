@@ -9978,18 +9978,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
-"ast" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen,
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_y = -32
-	},
-/turf/open/floor/plasteel/showroomfloor,
-/area/security/warden)
 "asu" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -11313,21 +11301,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
-"avb" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Brig - Hallway - Entrance"
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "avc" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -82585,6 +82558,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
+"mGI" = (
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen,
+/obj/machinery/keycard_auth{
+	pixel_y = -24
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/security/warden)
 "mGS" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -83581,6 +83566,24 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
+"vYe" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Brig - Hallway - Entrance"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "waD" = (
 /obj/machinery/computer/cryopod,
 /turf/closed/wall,
@@ -110673,7 +110676,7 @@ ann
 adY
 apM
 ard
-ast
+mGI
 adY
 auW
 awd
@@ -111703,7 +111706,7 @@ adY
 dhv
 anr
 adY
-avb
+vYe
 awh
 axi
 ayB
