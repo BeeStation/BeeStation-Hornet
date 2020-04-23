@@ -553,7 +553,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			and cannot be moved; upon ordering this item, a smaller beacon will be transported to you \
 			that will teleport the actual turret to it upon activation."
 	item = /obj/item/sbeacondrop/semiautoturret
-	cost = 4
+	cost = 8
 	include_modes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/heavylaserturret
@@ -562,16 +562,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			and cannot be moved; upon ordering this item, a smaller beacon will be transported to you \
 			that will teleport the actual turret to it upon activation."
 	item = /obj/item/sbeacondrop/heavylaserturret
-	cost = 7
-	include_modes = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/dangerous/penetratorturret
-	name = "Penetrator Turret"
-	desc = "An autoturret which shoots penetrator rounds over an extended range. The turret is bulky \
-			and cannot be moved; upon ordering this item, a smaller beacon will be transported to you \
-			that will teleport the actual turret to it upon activation."
-	item = /obj/item/sbeacondrop/penetratorturret
-	cost = 22
+	cost = 12
 	include_modes = list(/datum/game_mode/nuclear)
 
 
