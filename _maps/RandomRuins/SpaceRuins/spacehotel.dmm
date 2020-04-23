@@ -483,7 +483,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Guest Room APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -531,7 +531,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Guest Room APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -579,7 +579,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Guest Room APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -627,7 +627,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Guest Room APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -1070,7 +1070,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 1;
 	name = "Guest Room APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -1131,7 +1131,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 1;
 	name = "Guest Room APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -1460,7 +1460,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Laundry APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable,
 /turf/open/floor/plasteel/white,
@@ -1653,7 +1653,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Kitchen APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
@@ -2206,10 +2206,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/workroom)
-"gM" = (
-/obj/effect/mob_spawn/human/hotel_staff,
-/turf/open/floor/plasteel/dark,
-/area/ruin/space/has_grav/hotel/workroom)
 "gN" = (
 /obj/structure/filingcabinet,
 /turf/open/floor/plasteel/grimy,
@@ -2496,7 +2492,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Staff Room APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -2536,21 +2532,6 @@
 "hF" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
-/turf/open/floor/plasteel/dark,
-/area/ruin/space/has_grav/hotel/workroom)
-"hG" = (
-/obj/effect/mob_spawn/human/hotel_staff{
-	icon_state = "sleeper_s";
-	dir = 1
-	},
-/obj/machinery/light,
-/turf/open/floor/plasteel/dark,
-/area/ruin/space/has_grav/hotel/workroom)
-"hH" = (
-/obj/effect/mob_spawn/human/hotel_staff{
-	icon_state = "sleeper_s";
-	dir = 1
-	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "hI" = (
@@ -2868,7 +2849,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 1;
 	name = "Power Storage APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -3043,7 +3024,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Security APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -3090,7 +3071,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Pool APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -3139,7 +3120,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Dock APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable,
 /turf/open/floor/wood,
@@ -4291,20 +4272,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
-"lK" = (
-/obj/effect/mob_spawn/human/hotel_staff/security,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/ruin/space/has_grav/hotel/security)
 "lL" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -4877,7 +4844,7 @@
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 2;
 	name = "Custodial APC";
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -4984,6 +4951,10 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/power)
+"VX" = (
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/hotel/workroom)
 
 (1,1,1) = {"
 aa
@@ -6158,7 +6129,7 @@ lb
 lr
 lw
 jG
-lK
+lL
 lN
 lS
 jG
@@ -7819,10 +7790,10 @@ fM
 cF
 cF
 di
-gM
 gG
 gG
-hG
+gG
+VX
 di
 cF
 ij
@@ -7889,10 +7860,10 @@ fN
 fV
 cF
 di
-gM
 gG
 gG
-hH
+gG
+gG
 di
 hZ
 ik
@@ -7959,10 +7930,10 @@ am
 fK
 cF
 di
-gM
 gG
 gG
-hH
+gG
+gG
 di
 cF
 cL
