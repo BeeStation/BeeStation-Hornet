@@ -73,6 +73,8 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 				C = player
 				break
 		if(C)
+			if(get_mob_by_ckey("cthulhuonice"))
+				to_chat(get_mob_by_ckey("cthulhuonice"), "[C.ckey] - [C.MeasureText(I.maptext, width = 128)]")
 			var/moveup = text2num(splittext(C.MeasureText(I.maptext, width = 128), "x")[2])
 			for(var/image/old in target.stored_chat_text)
 				if(old != I && old != O)
