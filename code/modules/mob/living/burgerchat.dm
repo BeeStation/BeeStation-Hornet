@@ -10,21 +10,10 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 
 /mob/living
 	var/list/stored_chat_text = list()
-	/*
-	var/chatOverhead_name
-	var/chatOverhead_color
-	*/
 
 /proc/animate_chat(mob/living/target, message, message_language, message_mode, list/show_to, duration)
 
 	var/list/chatOverhead_colors = list("#83c0dd","#8396dd","#9983dd","#dd83b6","#dd8383","#83dddc","#83dd9f","#a5dd83","#ddd983","#dda583","#dd8383")
-
-	// color is based on name, but calculating color is a waste, so only calculate once for every time the name changes
-	/*if(target.name != target.chatOverhead_name)
-		target.chatOverhead_name = target.name
-		target.chatOverhead_color = chatOverhead_colors[text2num(md5(target.name)) % length(chatOverhead_colors)]
-
-	var/text_color = target.chatOverhead_color */
 
 	var/text_color = pick(chatOverhead_colors)
 
