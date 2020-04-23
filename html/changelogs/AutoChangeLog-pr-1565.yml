@@ -1,7 +1,0 @@
-author: "Vasily2013"
-delete-after: True
-changes: 
-  - rscadd: "Overhauled engineering compartment with new and improved TEG setup."
-  - rscadd: "A new, fancy SM chamber monitoring console so you can see exactly how fucked your gas mix is without a SM monitor. (Useful for if the SM ever gets dragged away somehow.)"
-  - rscdel: "The unrobust Radiation Collector engine."
-  - tweak: "tweaked engineering gameplay slightly, and probably a few engineering mains' nerves."
