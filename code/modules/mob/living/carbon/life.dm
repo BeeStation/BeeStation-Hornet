@@ -183,7 +183,7 @@
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "suffocation", /datum/mood_event/suffocation)
 
 
-	if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
+	else if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
 		if(prob(20))
 			emote("gasp")
 		if(O2_partialpressure > 0)

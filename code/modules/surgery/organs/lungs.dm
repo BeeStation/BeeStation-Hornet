@@ -107,12 +107,7 @@
 
 	//Too much oxygen! //Yes, some species may not like it.
 	if(safe_oxygen_max)
-		if((O2_pp > safe_oxygen_max) && safe_oxygen_max ==0)
-			var/ratio = (breath_gases[/datum/gas/oxygen][MOLES]/safe_oxygen_max) * 10
-			H.apply_damage_type(CLAMP(ratio, oxy_breath_dam_min, oxy_breath_dam_max), oxy_damage_type)
-			H.throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
-
-		else if((O2_pp > safe_oxygen_max) && !(safe_oxygen_max == 0))
+		if(O2_pp > safe_oxygen_max)
 			if(!H.o2overloadtime)
 				H.o2overloadtime = world.time
 			else if(world.time - H.o2overloadtime > 120)
@@ -427,7 +422,6 @@
 	icon_state = "lungs-plasma"
 
 	safe_oxygen_min = 0 //We don't breath this
-	safe_oxygen_max = 0 //like, at all.
 	safe_toxins_min = 16 //We breath THIS!
 	safe_toxins_max = 0
 
@@ -471,7 +465,7 @@
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
 
-obj/item/organ/lungs/ashwalker
+/obj/item/organ/lungs/ashwalker
 	name = "ash lungs"
 	desc = "blackened lungs identical from specimens recovered from lavaland, unsuited to higher air pressures."
 	icon_state = "lungs-ll"
@@ -482,9 +476,9 @@ obj/item/organ/lungs/ashwalker
 	safe_co2_max = 20
 	BZ_is_harmless = TRUE
 
-	cold_level_1_threshold = 280 // Ash Lizards can't take the cold very well, station air is only just warm enough
-	cold_level_2_threshold = 240
-	cold_level_3_threshold = 200
+	cold_level_1_threshold = 300 // Ash Lizards can't take the cold very well, station air is only just warm enough
+	cold_level_2_threshold = 280
+	cold_level_3_threshold = 240
 
 	heat_level_1_threshold = 400 // better adapted for heat, obv. Lavaland standard is 300
 	heat_level_2_threshold = 600 // up 200 from level 1, 1000 is silly but w/e for level 3
