@@ -243,8 +243,5 @@
 #define VR_ZONE_TRAIT "vr_zone_trait"
 #define GLUED_ITEM_TRAIT "glued-item"
 #define LEGION_CORE_TRAIT "legion_core_trait"
-<<<<<<< refs/remotes/Upstream/master
 #define MIRROR_TRAIT "mirror_trait"
-=======
 #define CRAYON_TRAIT "crayon_trait"
->>>>>>> adds spraypainting eye-covering items to make them flash protect
