@@ -1,5 +1,5 @@
 /datum/species/apid
-	// Beepeople, god damn it.
+	// Beepeople, god damn it. It's hip, and alive!
 	name = "Apids"
 	id = "apid"
 	say_mod = "buzzes"
