@@ -494,7 +494,7 @@
 /obj/structure/table/optable/Initialize()
 	. = ..()
 	for(var/direction in GLOB.cardinals)
-		computer = locate(/obj/machinery/computer/operating, get_step(src, direction))
+		computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
 		if(computer)
 			computer.table = src
 			break
@@ -508,16 +508,15 @@
 	pushed_mob.forceMove(loc)
 	pushed_mob.set_resting(TRUE, TRUE)
 	visible_message("<span class='notice'>[user] has laid [pushed_mob] on [src].</span>")
-	check_patient()
+	get_patient()
 
-/obj/structure/table/optable/proc/check_patient()
-	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
+/obj/structure/table/optable/proc/get_patient()
+	var/mob/living/carbon/M = locate(/mob/living/carbon) in loc
 	if(M)
 		if(M.resting)
 			set_patient(M)
 	else
 		set_patient(null)
-	return FALSE
 
 /obj/structure/table/optable/proc/set_patient(new_patient)
 	if(patient)
@@ -534,6 +533,9 @@
 	get_patient()
 	if(!patient)
 		return FALSE
+	if(ishuman(patient) || ismonkey(patient))
+		return TRUE
+	return FALSE
 
 /*
  * Racks

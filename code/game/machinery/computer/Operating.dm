@@ -21,11 +21,11 @@
 
 /obj/machinery/computer/operating/Destroy()
 	for(var/direction in GLOB.cardinals)
-		table = locate(/obj/structure/table/optable, get_step(src, direction))
+		table = locate(/obj/structure/table/optable) in get_step(src, direction)
 		if(table && table.computer == src)
 			table.computer = null
 		else
-			sbed = locate(/obj/machinery/stasis, get_step(src, direction))
+			sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
 			if(sbed && sbed.op_computer == src)
 				sbed.op_computer = null
 	. = ..()
@@ -50,12 +50,12 @@
 
 /obj/machinery/computer/operating/proc/find_table()
 	for(var/direction in GLOB.cardinals)
-		table = locate(/obj/structure/table/optable, get_step(src, direction))
+		table = locate(/obj/structure/table/optable) in get_step(src, direction)
 		if(table)
 			table.computer = src
 			break
 		else
-			sbed = locate(/obj/machinery/stasis, get_step(src, direction))
+			sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
 			if(sbed)
 				sbed.op_computer = src
 				break
@@ -90,14 +90,14 @@
 
 	if(table)
 		data["table"] = table
-		if(!table.check_patient())
+		if(!table.check_eligible_patient())
 			return data
 		data["patient"] = list()
 		patient = table.patient
 	else
 		if(sbed)
 			data["table"] = sbed
-			if(!sbed.check_patient())
+			if(!ishuman(sbed.occupant) &&  !ismonkey(sbed.occupant))
 				return data
 			data["patient"] = list()
 			if(isliving(sbed.occupant))
