@@ -547,6 +547,25 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	surplus = 10
 
+/datum/uplink_item/dangerous/semiautoturret
+	name = "Semi-Auto Turret"
+	desc = "An autoturret which shoots semi-automatic ballistic rounds. The turret is bulky \
+			and cannot be moved; upon ordering this item, a smaller beacon will be transported to you \
+			that will teleport the actual turret to it upon activation."
+	item = /obj/item/sbeacondrop/semiautoturret
+	cost = 8
+	include_modes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/dangerous/heavylaserturret
+	name = "Heavy Laser Turret"
+	desc = "An autoturret which shoots heavy lasers. The turret is bulky \
+			and cannot be moved; upon ordering this item, a smaller beacon will be transported to you \
+			that will teleport the actual turret to it upon activation."
+	item = /obj/item/sbeacondrop/heavylaserturret
+	cost = 12
+	include_modes = list(/datum/game_mode/nuclear)
+
+
 // Stealthy Weapons
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy Weapons"
