@@ -347,14 +347,14 @@
 /datum/supply_pack/security/hardsuit
 	name = "Security Hardsuit Crate"
 	desc = "Contains a security hardsuit for catching criminals in space! Requires Security access to open."
-	cost = 4000
+	cost = 8000
 	contains = list(/obj/item/clothing/suit/space/hardsuit/security)
 	crate_name = "security hardsuit crate"
 
 /datum/supply_pack/security/hardsuit3
 	name = "Bulk Security Hardsuit Crate"
 	desc = "Contains three security hardsuits for catching criminals in space! Requires Security access to open."
-	cost = 12000
+	cost = 24000
 	contains = list(/obj/item/clothing/suit/space/hardsuit/security)
 	crate_name = "bulk security hardsuit crate"
 
@@ -771,7 +771,7 @@
 /datum/supply_pack/engineering/hardsuit
 	name = "Engineering Hardsuit Crate"
 	desc = "All the engineers with hardsuits walk into the SM or die to space carp, not a problem!, for some money we can hook you up with another hardsuit!"
-	cost = 4000
+	cost = 8000
 	access = ACCESS_ENGINE
 	contains = list(/obj/item/clothing/suit/space/hardsuit/engine)
 	crate_name = "engineering hardsuit crate"
@@ -779,7 +779,7 @@
 /datum/supply_pack/engineering/hardsuit3
 	name = "Bulk Engineering Hardsuit Crate"
 	desc = "All the engineers with hardsuits walk into the SM or die to space carp, not a problem!, for some money we can hook you up with three more hardsuits!"
-	cost = 12000
+	cost = 24000
 	access = ACCESS_ENGINE
 	contains = list(/obj/item/clothing/suit/space/hardsuit/engine,
 					/obj/item/clothing/suit/space/hardsuit/engine,
@@ -789,7 +789,7 @@
 /datum/supply_pack/engineering/atmossuit
 	name = "Atmospherics Hardsuit Crate"
 	desc = "Atmospherics hardsuit suspiciously missing with multiple plasma fires throughout the station?, This hardsuit can help with that! They do cost a fair bit because of the materials required to insulate them. Requires engineering access to open."
-	cost = 6000
+	cost = 24000
 	access = ACCESS_ATMOSPHERICS
 	contains = list(/obj/item/clothing/suit/space/hardsuit/engine/atmos)
 	crate_name = "atmospherics hardsuit crate"
@@ -797,7 +797,7 @@
 /datum/supply_pack/engineering/atmossuit3
 	name = "Bulk Atmospherics Hardsuit Crate"
 	desc = "Three atmospherics hardsuits, enough for the whole gang to be safe from plasma fires! Requires engineering access to open."
-	cost = 18000
+	cost = 72000
 	access = ACCESS_ATMOSPHERICS
 	contains = list(/obj/item/clothing/suit/space/hardsuit/engine/atmos,
 					/obj/item/clothing/suit/space/hardsuit/engine/atmos,
@@ -1653,7 +1653,7 @@
 /datum/supply_pack/medical/hardsuit
 	name = "Medical Hardsuit Crate"
 	desc = "A medical hardsuit resistant to diseases and useful for retrieving patients in space! Requires medical access to open."
-	cost = 4000
+	cost = 6000
 	access = ACCESS_MEDICAL
 	contains = list(/obj/item/clothing/suit/space/hardsuit/medical)
 	crate_name = "medical hardsuit crate"
@@ -1661,7 +1661,7 @@
 /datum/supply_pack/medical/hardsuit3
 	name = "Bulk Medical Hardsuit Crate"
 	desc = "Three medical hardsuits, enough for the whole gang! Requires medical access to open."
-	cost = 12000
+	cost = 18000
 	access = ACCESS_MEDICAL
 	contains = list(/obj/item/clothing/suit/space/hardsuit/medical)
 	crate_name = "bulk medical hardsuit crate"
@@ -1750,7 +1750,7 @@
 /datum/supply_pack/science/hardsuit
 	name = "Science Hardsuit Crate"
 	desc = "A science hardsuit for added safety during explosives test or for scientific activies outside of the station! Requires science access to open."
-	cost = 4000
+	cost = 8000
 	access = ACCESS_RESEARCH
 	contains = list(/obj/item/clothing/suit/space/hardsuit/rd)
 	crate_name = "science hardsuit crate"
@@ -1758,7 +1758,7 @@
 /datum/supply_pack/science/hardsuit3
 	name = "Bulk Science Hardsuit Crate"
 	desc = "Three science hardsuits, enough for the whole science team! Requires science access to open."
-	cost = 12000
+	cost = 24000
 	access = ACCESS_RESEARCH
 	contains = list(/obj/item/clothing/suit/space/hardsuit/rd,
 					/obj/item/clothing/suit/space/hardsuit/rd,
