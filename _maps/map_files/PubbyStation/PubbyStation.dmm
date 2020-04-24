@@ -5379,22 +5379,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"amS" = (
-/obj/structure/closet/secure_closet/warden,
-/obj/item/clothing/mask/gas/sechailer,
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "Brig Control APC";
-	pixel_x = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_y = 30
-	},
-/turf/open/floor/plasteel/showroomfloor,
-/area/security/warden)
 "amT" = (
 /obj/machinery/computer/prisoner,
 /obj/machinery/airalarm{
@@ -53569,6 +53553,26 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"eeM" = (
+/obj/structure/closet/secure_closet/warden,
+/obj/item/clothing/mask/gas/sechailer,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "Brig Control APC";
+	pixel_x = -24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = 30
+	},
+/obj/machinery/keycard_auth{
+	pixel_x = -26;
+	pixel_y = 26
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/security/warden)
 "eeQ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -84273,7 +84277,7 @@ ajN
 akJ
 aly
 amg
-amS
+eeM
 anC
 aop
 aoR
