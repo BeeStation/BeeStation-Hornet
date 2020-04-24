@@ -664,8 +664,10 @@
 						C.flash_protect += 1
 						C.tint += 2
 						to_chat(usr, "<span class='warning'>You spray the [C] down, making it harder to see through!</span>")
-						usr.reload_fullscreen()
 						ADD_TRAIT(C, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
+						if(ishuman(usr))
+							var/mob/living/carbon/human/H = usr
+							H.head_update(C, forced = 1)
 					else
 						to_chat(usr, "<span class='warning'>A colour that dark on an object like this? Surely not...</span>")
 						return FALSE
