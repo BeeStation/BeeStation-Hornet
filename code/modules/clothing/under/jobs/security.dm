@@ -171,6 +171,15 @@
 	item_state = "labcoat_sec"
 	item_color = "brig_phys"
 
+/obj/item/clothing/under/rank/brig_phys/skirt
+	name = "brig physician's jumpskirt"
+	icon_state = "medical_skirt"
+	item_state = "w_suit"
+	item_color = "medical_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
+
 /*
  * Navy uniforms
  */
