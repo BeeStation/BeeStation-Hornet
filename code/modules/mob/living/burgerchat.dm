@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		if(istype(target.get_active_held_item(), /obj/item/megaphone/clown))
 			text_color = "#ff2abf"
 	else if((message_mode == MODE_WHISPER) || (message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
-		css += "font-size: 6px;"
+		css += "font-size: 5px;"
 
 	css += "color: [text_color];"
 
