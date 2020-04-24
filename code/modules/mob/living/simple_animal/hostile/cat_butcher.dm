@@ -10,7 +10,7 @@
 	projectilesound = 'sound/items/syringeproj.ogg'
 	ranged = 1
 	ranged_message = "fires the syringe gun at"
-	ranged_cooldown_time = 50
+	ranged_cooldown_time = 30
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes"
@@ -35,6 +35,7 @@
 	check_friendly_fire = 1
 	status_flags = CANPUSH
 	del_on_death = 1
+	var/impatience = 0
 
 /mob/living/simple_animal/hostile/cat_butcherer/CanAttack(atom/the_target)
 	if(iscarbon(target))
@@ -75,15 +76,34 @@
 			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
 			L.gain_trauma(/datum/brain_trauma/severe/pacifism, TRAUMA_RESILIENCE_SURGERY)
 			say("I'm a genius!!")
-		else if(L.stat >= UNCONSCIOUS) //heal them up out of crit without overdosing
+			L.health += 20 //he heals a bit whenever he finishes
+		else if(L.stat >= UNCONSCIOUS) //quickly heal them up and move on to our next target! 
 			visible_message("[src] injects [L] with an unknown medicine!", "<span class='notice'>You inject [L] with medicine.</span>")
-			if(L.reagents.get_reagent_amount(/datum/reagent/medicine/morphine) > 1)
-				L.reagents.add_reagent(/datum/reagent/medicine/charcoal, 5)
-			if(L.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine) < 15)
-				L.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 15)
-			if(L.reagents.get_reagent_amount(/datum/reagent/medicine/bicaridine) < 15)
-				L.reagents.add_reagent(/datum/reagent/medicine/bicaridine, 15)
-			if(L.reagents.get_reagent_amount(/datum/reagent/medicine/kelotane) < 15)
-				L.reagents.add_reagent(/datum/reagent/medicine/kelotane, 15)
+			L.SetSleeping(0, FALSE)
+			L.SetUnconscious(0, FALSE)
+			L.adjustOxyLoss(-50)// do CPR first
+			if(L.blood_volume <= 500) //bandage them up and give em some blood if they're bleeding
+				L.blood_volume += 30
+				L.suppress_bloodloss(1800)
+			if(L.getBruteLoss() >= 50)// first, did we beat them into crit? if so, heal that
+				var/healing = min(L.getBruteLoss(), 120)
+				L.adjustBruteLoss(-healing)
+				return
+			else if(L.getFireLoss() >= 50) // are they still down from other damage? fix it, but not as fast as the burns
+				var/healing = min(L.getFireLoss(), 50)
+				L.adjustFireLoss(-healing)
+			else //well, we probably got them with morphine then, let's fix that, in a fun way.
+				var/obj/effect/sweatsplash/S = new(L.loc) //I've gotten too addicted to this little block of code...
+				for(var/datum/reagent/R in L.reagents.reagent_list)
+					var/amount = R.volume
+					L.reagents.remove_reagent(R.type, amount)
+					S.reagents.add_reagent(R.type, amount)
+				S.splash()
+				FindTarget() //we want someone else! we can't fix this one.
+			impatience += 20
+			if(prob(impatience))
+				FindTarget()//so we don't focus on some unconscious dude when we could get our eyes on the prize
+				impatience = 0
+				say("Bah!!")
 			return
 	return ..()
