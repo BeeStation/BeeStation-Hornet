@@ -88,6 +88,7 @@
 			if(L.getBruteLoss() >= 50)// first, did we beat them into crit? if so, heal that
 				var/healing = min(L.getBruteLoss(), 120)
 				L.adjustBruteLoss(-healing)
+				L.suppress_bloodloss(1800)//bandage their ass
 				return
 			else if(L.getFireLoss() >= 50) // are they still down from other damage? fix it, but not as fast as the burns
 				var/healing = min(L.getFireLoss(), 50)
@@ -100,7 +101,7 @@
 					S.reagents.add_reagent(R.type, amount)
 				S.splash()
 				FindTarget() //we want someone else! we can't fix this one.
-			impatience += 20
+			impatience += 50
 			if(prob(impatience))
 				FindTarget()//so we don't focus on some unconscious dude when we could get our eyes on the prize
 				impatience = 0
