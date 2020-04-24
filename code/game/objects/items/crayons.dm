@@ -667,7 +667,7 @@
 						ADD_TRAIT(C, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
 						if(ishuman(usr))
 							var/mob/living/carbon/human/H = usr
-							H.head_update(C, forced = 1)
+							H.update_tint()
 					else
 						to_chat(usr, "<span class='warning'>A colour that dark on an object like this? Surely not...</span>")
 						return FALSE
@@ -676,7 +676,6 @@
 					return FALSE
 
 			target.add_atom_colour(paint_color, WASHABLE_COLOUR_PRIORITY)
-
 			if(istype(target, /obj/structure/window))
 				if(color_hex2num(paint_color) < 255)
 					target.set_opacity(255)
