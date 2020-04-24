@@ -183,8 +183,6 @@ export const PandemicSymptomDisplay = (props, context) => {
     neutered,
   } = symptom;
 
-  // const thresholds = map((desc, label) => ({ desc, label }))(
-  //   symptom.threshold_desc || {});
   // TODO: Needs proper porting of DM code from tg upstream.
   const thresholds_unsafe = symptom.threshold_desc;
 
@@ -223,11 +221,12 @@ export const PandemicSymptomDisplay = (props, context) => {
           </LabeledList>
         </Grid.Column>
       </Grid>
-      {thresholds.length > 0 && (
+      {thresholds_unsafe && (
         <Section
           title="Thresholds"
           level={3}>
           <div
+            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{
               __html: thresholds_unsafe,
             }} />

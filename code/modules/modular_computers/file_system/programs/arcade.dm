@@ -27,7 +27,6 @@
 
 /datum/computer_file/program/arcade/proc/game_check(mob/user)
 	sleep(5)
-	user?.mind?.adjust_experience(/datum/skill/gaming, 1)
 	if(boss_hp <= 0)
 		heads_up = "You have crushed [boss_name]! Rejoice!"
 		playsound(computer.loc, 'sound/arcade/win.ogg', 50, TRUE, extrarange = -3, falloff = 10)
@@ -36,7 +35,6 @@
 		if(istype(computer))
 			computer.update_icon()
 		ticket_count += 1
-		user?.mind?.adjust_experience(/datum/skill/gaming, 50)
 		sleep(10)
 	else if(player_hp <= 0 || player_mp <= 0)
 		heads_up = "You have been defeated... how will the station survive?"
@@ -45,7 +43,6 @@
 		program_icon_state = "arcade_off"
 		if(istype(computer))
 			computer.update_icon()
-		user?.mind?.adjust_experience(/datum/skill/gaming, 10)
 		sleep(10)
 
 /datum/computer_file/program/arcade/proc/enemy_check(mob/user)
@@ -97,17 +94,13 @@
 /datum/computer_file/program/arcade/ui_act(action, list/params)
 	if(..())
 		return TRUE
-	var/obj/item/computer_hardware/printer/printer
-	if(computer)
-		printer = computer.all_components[MC_PRINT]
 
-	var/gamerSkillLevel = usr.mind?.get_skill_level(/datum/skill/gaming)
-	var/gamerSkill = usr.mind?.get_skill_modifier(/datum/skill/gaming, SKILL_RANDS_MODIFIER)
+	// TODO: Has no supports for "skills" (tg skill leveling mechanics)
 	switch(action)
 		if("Attack")
 			var/attackamt = 0 //Spam prevention.
 			if(pause_state == FALSE)
-				attackamt = rand(2,6) + rand(0, gamerSkill)
+				attackamt = rand(2, 6)
 			pause_state = TRUE
 			heads_up = "You attack for [attackamt] damage."
 			playsound(computer.loc, 'sound/arcade/hit.ogg', 50, TRUE, extrarange = -3, falloff = 10)
@@ -120,11 +113,8 @@
 			var/healamt = 0 //More Spam Prevention.
 			var/healcost = 0
 			if(pause_state == FALSE)
-				healamt = rand(6,8) + rand(0, gamerSkill)
-				var/maxPointCost = 3
-				if(gamerSkillLevel >= SKILL_LEVEL_JOURNEYMAN)
-					maxPointCost = 2
-				healcost = rand(1, maxPointCost)
+				healamt = rand(6, 8)
+				healcost = rand(1, 3)
 			pause_state = TRUE
 			heads_up = "You heal for [healamt] damage."
 			playsound(computer.loc, 'sound/arcade/heal.ogg', 50, TRUE, extrarange = -3, falloff = 10)
@@ -137,7 +127,7 @@
 		if("Recharge_Power")
 			var/rechargeamt = 0 //As above.
 			if(pause_state == FALSE)
-				rechargeamt = rand(4,7) + rand(0, gamerSkill)
+				rechargeamt = rand(4, 7)
 			pause_state = TRUE
 			heads_up = "You regain [rechargeamt] magic power."
 			playsound(computer.loc, 'sound/arcade/mana.ogg', 50, TRUE, extrarange = -3, falloff = 10)
@@ -146,23 +136,6 @@
 			game_check()
 			enemy_check()
 			return TRUE
-		if("Dispense_Tickets")
-			if(!printer)
-				to_chat(usr, "<span class='notice'>Hardware error: A printer is required to redeem tickets.</span>")
-				return
-			if(printer.stored_paper <= 0)
-				to_chat(usr, "<span class='notice'>Hardware error: Printer is out of paper.</span>")
-				return
-			else
-				computer.visible_message("<span class='notice'>\The [computer] prints out paper.</span>")
-				if(ticket_count >= 1)
-					new /obj/item/stack/arcadeticket((get_turf(computer)), 1)
-					to_chat(usr, "<span class='notice'>[src] dispenses a ticket!</span>")
-					ticket_count -= 1
-					printer.stored_paper -= 1
-				else
-					to_chat(usr, "<span class='notice'>You don't have any stored tickets!</span>")
-				return TRUE
 		if("Start_Game")
 			game_active = TRUE
 			boss_hp = 45

@@ -27,6 +27,12 @@
 
 	. = ..()
 
+	GLOB.new_player_list += src
+
+/mob/dead/new_player/Destroy()
+	GLOB.new_player_list -= src
+	return ..()
+
 /mob/dead/new_player/prepare_huds()
 	return
 
@@ -504,7 +510,7 @@
 /mob/dead/new_player/proc/ViewManifest()
 	var/dat = "<html><body>"
 	dat += "<h4>Crew Manifest</h4>"
-	dat += GLOB.data_core.get_manifest(OOC = 1)
+	dat += GLOB.data_core.get_manifest_html()
 
 	src << browse(dat, "window=manifest;size=387x420;can_close=1")
 

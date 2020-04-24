@@ -1,4 +1,4 @@
-#define CARDCON_DEPARTMENT_CIVILIAN "Service"
+#define CARDCON_DEPARTMENT_CIVILIAN "Civilian"
 #define CARDCON_DEPARTMENT_SECURITY "Security"
 #define CARDCON_DEPARTMENT_MEDICAL "Medical"
 #define CARDCON_DEPARTMENT_SUPPLY "Supply"
@@ -33,7 +33,7 @@
 	. = ..()
 	sub_managers = list(
 		"[ACCESS_HOP]" = list(
-			"department" = list(CARDCON_DEPARTMENT_CIVILIAN, CARDCON_DEPARTMENT_COMMAND),
+			"department" = list(CARDCON_DEPARTMENT_SUPPLY, CARDCON_DEPARTMENT_COMMAND),
 			"region" = 1,
 			"head" = "Head of Personnel"
 		),
