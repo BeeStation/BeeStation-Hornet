@@ -1,5 +1,0 @@
-author: "Victor239"
-delete-after: True
-changes: 
-  - rscadd: "Warden's room gets a keycard authentication device."
-  - rscadd: "Security staff can use keycard authentication devices if necessary."
