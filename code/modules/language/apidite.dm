@@ -1,8 +1,7 @@
   
 /datum/language/apidite
 	name = "Apidite"
-	icon = 'icons/mob/bees.dmi'
-	icon_state = "queen_item"
+	icon_state = "apidite"
 	desc = "The language of Apids, oh god, that's a lot of buzzing."
 	speech_verb = "buzzes"
 	ask_verb = "buzzes questioningly"
