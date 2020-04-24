@@ -192,16 +192,16 @@ GLOBAL_LIST_EMPTY(gateway_destinations)
 	update_icon()
 
 /obj/machinery/gateway/process()
-	if((machine_stat & (NOPOWER)) && use_power)
+	if((stat & (NOPOWER)) && use_power)
 		if(target)
 			deactivate()
 		return
 
-/obj/machinery/gateway/update_icon_state()
+/obj/machinery/gateway/update_icon()
 	if(target)
 		icon_state = "on"
-	else
-		icon_state = "off"
+		return
+	icon_state = "off"
 
 /obj/machinery/gateway/safe_throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, gentle = FALSE)
 	return

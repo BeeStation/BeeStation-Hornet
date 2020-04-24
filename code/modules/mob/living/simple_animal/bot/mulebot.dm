@@ -29,6 +29,9 @@
 	model = "MULE"
 	bot_core_type = /obj/machinery/bot_core/mulebot
 
+	var/ui_x = 350
+	var/ui_y = 425
+
 	var/id
 
 	path_image_color = "#7F5200"

@@ -16,7 +16,7 @@
 	var/obj/item/clothing/head/helmet/space/helmet = null
 	var/obj/item/clothing/mask/mask = null
 	var/obj/item/storage = null
-								// if you add more storage slots, update cook() to clear their radiation too.
+	// if you add more storage slots, update cook() to clear their radiation too.
 
 	/// What type of spacesuit the unit starts with when spawned.
 	var/suit_type = null
@@ -59,17 +59,12 @@
 
 /obj/machinery/suit_storage_unit/captain
 	suit_type = /obj/item/clothing/suit/space/hardsuit/swat/captain
-	mask_type = /obj/item/clothing/mask/gas/atmos/captain
+	mask_type = /obj/item/clothing/mask/gas/sechailer
 	storage_type = /obj/item/tank/jetpack/oxygen/captain
 
 /obj/machinery/suit_storage_unit/engine
 	suit_type = /obj/item/clothing/suit/space/hardsuit/engine
 	mask_type = /obj/item/clothing/mask/breath
-
-/obj/machinery/suit_storage_unit/atmos
-	suit_type = /obj/item/clothing/suit/space/hardsuit/engine/atmos
-	mask_type = /obj/item/clothing/mask/gas/atmos
-	storage_type = /obj/item/watertank/atmos
 
 /obj/machinery/suit_storage_unit/ce
 	suit_type = /obj/item/clothing/suit/space/hardsuit/engine/elite
@@ -85,6 +80,11 @@
 	mask_type = /obj/item/clothing/mask/gas/sechailer
 	storage_type = /obj/item/tank/internals/oxygen
 
+/obj/machinery/suit_storage_unit/atmos
+	suit_type = /obj/item/clothing/suit/space/hardsuit/engine/atmos
+	mask_type = /obj/item/clothing/mask/gas
+	storage_type = /obj/item/watertank/atmos
+
 /obj/machinery/suit_storage_unit/mining
 	suit_type = /obj/item/clothing/suit/hooded/explorer
 	mask_type = /obj/item/clothing/mask/gas/explorer
@@ -94,9 +94,8 @@
 	mask_type = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/cmo
-	suit_type = /obj/item/clothing/suit/space/hardsuit/medical
-	mask_type = /obj/item/clothing/mask/breath/medical
-	storage_type = /obj/item/tank/internals/oxygen
+	suit_type = /obj/item/clothing/suit/space/hardsuit/medical/cmo
+	mask_type = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/rd
 	suit_type = /obj/item/clothing/suit/space/hardsuit/rd
@@ -157,29 +156,29 @@
 	QDEL_NULL(storage)
 	return ..()
 
-/obj/machinery/suit_storage_unit/update_overlays()
-	. = ..()
+/obj/machinery/suit_storage_unit/update_icon()
+	cut_overlays()
 
 	if(uv)
 		if(uv_super)
-			. += "super"
+			add_overlay("super")
 		else if(occupant)
-			. += "uvhuman"
+			add_overlay("uvhuman")
 		else
-			. += "uv"
+			add_overlay("uv")
 	else if(state_open)
-		if(machine_stat & BROKEN)
-			. += "broken"
+		if(stat & BROKEN)
+			add_overlay("broken")
 		else
-			. += "open"
+			add_overlay("open")
 			if(suit)
-				. += "suit"
+				add_overlay("suit")
 			if(helmet)
-				. += "helm"
+				add_overlay("helm")
 			if(storage)
-				. += "storage"
+				add_overlay("storage")
 	else if(occupant)
-		. += "human"
+		add_overlay("human")
 
 /obj/machinery/suit_storage_unit/power_change()
 	. = ..()
@@ -188,7 +187,7 @@
 		dump_contents()
 	update_icon()
 
-/obj/machinery/suit_storage_unit/dump_contents()
+/obj/machinery/suit_storage_unit/proc/dump_contents()
 	dropContents()
 	helmet = null
 	suit = null
@@ -200,7 +199,7 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		open_machine()
 		dump_contents()
-		new /obj/item/stack/sheet/metal (loc, 2)
+		new /obj/item/stack/sheet/iron (loc, 2)
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/living/user)
@@ -306,18 +305,6 @@
 		open_machine(FALSE)
 		if(occupant)
 			dump_contents()
-
-/obj/machinery/suit_storage_unit/process()
-	if(!suit)
-		return
-	if(!istype(suit, /obj/item/clothing/suit/space))
-		return
-	if(!suit.cell)
-		return
-
-	var/obj/item/stock_parts/cell/C = suit.cell
-	use_power(charge_rate)
-	C.give(charge_rate)
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))

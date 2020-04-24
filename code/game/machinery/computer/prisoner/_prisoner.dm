@@ -5,7 +5,7 @@
 	if(contained_id)
 		contained_id.forceMove(get_turf(src))
 	return ..()
-	
+
 
 /obj/machinery/computer/prisoner/examine(mob/user)
 	. = ..()

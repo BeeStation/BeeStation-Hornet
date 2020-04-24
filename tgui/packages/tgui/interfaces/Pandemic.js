@@ -183,8 +183,10 @@ export const PandemicSymptomDisplay = (props, context) => {
     neutered,
   } = symptom;
 
-  const thresholds = map((desc, label) => ({ desc, label }))(
-    symptom.threshold_desc || {});
+  // const thresholds = map((desc, label) => ({ desc, label }))(
+  //   symptom.threshold_desc || {});
+  // TODO: Needs proper porting of DM code from tg upstream.
+  const thresholds_unsafe = symptom.threshold_desc;
 
   return (
     <Section
@@ -224,18 +226,11 @@ export const PandemicSymptomDisplay = (props, context) => {
       {thresholds.length > 0 && (
         <Section
           title="Thresholds"
-          level={3} >
-          <LabeledList>
-            {thresholds.map(threshold => {
-              return (
-                <LabeledList.Item
-                  key={threshold.label}
-                  label={threshold.label} >
-                  {threshold.desc}
-                </LabeledList.Item>
-              );
-            })}
-          </LabeledList>
+          level={3}>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: thresholds_unsafe,
+            }} />
         </Section>
       )}
     </Section>

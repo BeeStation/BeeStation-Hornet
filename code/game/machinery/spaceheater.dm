@@ -58,17 +58,15 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Temperature range at <b>[settableTemperatureRange]°C</b>.<br>Heating power at <b>[heatingPower*0.001]kJ</b>.<br>Power consumption at <b>[(efficiency*-0.0025)+150]%</b>.</span>" //100%, 75%, 50%, 25%
 
-/obj/machinery/space_heater/update_icon_state()
+/obj/machinery/space_heater/update_icon()
 	if(on)
 		icon_state = "sheater-[mode]"
 	else
 		icon_state = "sheater-off"
 
-/obj/machinery/space_heater/update_overlays()
-	. = ..()
-
+	cut_overlays()
 	if(panel_open)
-		. += "sheater-open"
+		add_overlay("sheater-open")
 
 /obj/machinery/space_heater/process()
 	if(!on || !is_operational())
@@ -137,7 +135,7 @@
 
 /obj/machinery/space_heater/emp_act(severity)
 	. = ..()
-	if(machine_stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_CONTENTS)
+	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_CONTENTS)
 		return
 	if(cell)
 		cell.emp_act(severity)

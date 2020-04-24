@@ -11,6 +11,7 @@
 	var/list/network = list("ss13")
 	var/obj/machinery/camera/active_camera
 	var/list/concurrent_users = list()
+	var/long_ranged = FALSE
 
 	// Stuff needed to render the map
 	var/map_name

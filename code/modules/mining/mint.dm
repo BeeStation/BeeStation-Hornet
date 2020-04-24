@@ -107,11 +107,9 @@
 		if (!processing)
 			produced_coins = 0
 		processing = TRUE
-		begin_processing()
 		return TRUE
 	if (action == "stoppress")
 		processing = FALSE
-		end_processing()
 		return TRUE
 	if (action == "changematerial")
 		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)

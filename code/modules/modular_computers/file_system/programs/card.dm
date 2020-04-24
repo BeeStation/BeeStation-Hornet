@@ -1,4 +1,4 @@
-#define CARDCON_DEPARTMENT_SERVICE "Service"
+#define CARDCON_DEPARTMENT_CIVILIAN "Service"
 #define CARDCON_DEPARTMENT_SECURITY "Security"
 #define CARDCON_DEPARTMENT_MEDICAL "Medical"
 #define CARDCON_DEPARTMENT_SUPPLY "Supply"
@@ -33,7 +33,7 @@
 	. = ..()
 	sub_managers = list(
 		"[ACCESS_HOP]" = list(
-			"department" = list(CARDCON_DEPARTMENT_SERVICE, CARDCON_DEPARTMENT_COMMAND),
+			"department" = list(CARDCON_DEPARTMENT_CIVILIAN, CARDCON_DEPARTMENT_COMMAND),
 			"region" = 1,
 			"head" = "Head of Personnel"
 		),
@@ -281,7 +281,7 @@
 			CARDCON_DEPARTMENT_SCIENCE = GLOB.science_positions,
 			CARDCON_DEPARTMENT_SECURITY = GLOB.security_positions,
 			CARDCON_DEPARTMENT_SUPPLY = GLOB.supply_positions,
-			CARDCON_DEPARTMENT_SERVICE = GLOB.service_positions
+			CARDCON_DEPARTMENT_CIVILIAN = GLOB.civilian_positions
 		)
 	data["jobs"] = list()
 	for(var/department in departments)
@@ -354,7 +354,7 @@
 
 
 
-#undef CARDCON_DEPARTMENT_SERVICE
+#undef CARDCON_DEPARTMENT_CIVILIAN
 #undef CARDCON_DEPARTMENT_SECURITY
 #undef CARDCON_DEPARTMENT_MEDICAL
 #undef CARDCON_DEPARTMENT_SCIENCE

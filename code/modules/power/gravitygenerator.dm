@@ -238,7 +238,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	data["charge_count"] = charge_count
 	data["charging_state"] = charging_state
 	data["on"] = on
-	data["operational"] = (machine_stat & BROKEN) ? FALSE : TRUE
+	data["operational"] = (stat & BROKEN) ? FALSE : TRUE
 
 	return data
 
