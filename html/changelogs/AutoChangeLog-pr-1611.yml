@@ -1,0 +1,5 @@
+author: "Mick1299"
+delete-after: True
+changes: 
+  - bugfix: "fixed an oversight that allowed cyborgs to charge nearly instantly."
+  - code_imp: "added a boolean variable that prevents multiple instances of the charging loop from occurring at once."
