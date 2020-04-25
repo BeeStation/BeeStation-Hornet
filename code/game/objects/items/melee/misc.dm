@@ -294,11 +294,10 @@
 			if (wait_desc)
 				to_chat(user, wait_desc)
 
-/obj/item/melee/classic_baton/deputy
+/obj/item/melee/classic_baton/police/deputy
 	name = "deputy baton"
 	force = 12 
 	cooldown = 10 
-	knockdown_time_carbon = (0 SECONDS)
 	stamina_damage = 20
 
 //Telescopic Baton

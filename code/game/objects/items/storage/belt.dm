@@ -227,7 +227,7 @@
 	name = "deputy security belt"
 
 /obj/item/storage/belt/security/deputy/PopulateContents()
-	new /obj/item/melee/classic_baton/deputy(src)
+	new /obj/item/melee/classic_baton/police/deputy(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/restraints/handcuffs/cable(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
