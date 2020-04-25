@@ -58,6 +58,9 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	message = copytext(message, 1, 120)
 
+	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
+	message = replacetext(message, url_scheme, "")
+
 	var/datum/language/D = GLOB.language_datum_instances[message_language]
 
 	// create 2 messages, one that appears if you know the language, and one that appears when you don't know the language
