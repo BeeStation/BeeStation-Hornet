@@ -161,7 +161,9 @@
 	initialized = TRUE
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 	var/msg = "Initialized [name] subsystem within [time] second[time == 1 ? "" : "s"]!"
+#ifndef TESTING
 	to_chat(world, "<span class='boldannounce'>[msg]</span>")
+#endif
 	log_world(msg)
 	return time
 
