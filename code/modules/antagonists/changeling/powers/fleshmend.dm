@@ -21,3 +21,12 @@
 	return TRUE
 
 //Check buffs.dm for the fleshmend status effect code
+
+/datum/action/changeling/fleshmend/Remove(mob/user)
+	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
+	if(user.has_status_effect(STATUS_EFFECT_FLESHMEND))
+		to_chat(user, "<span class='warning'>We stop fleshmending!</span>")
+		user.remove_status_effect(STATUS_EFFECT_FLESHMEND)
+		changeling.chem_recharge_slowdown -= 0.5
+		return
+	..()
