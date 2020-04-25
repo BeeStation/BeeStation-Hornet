@@ -92,8 +92,8 @@
 /obj/machinery/portable_atmospherics/pump/ui_data()
 	var/data = list()
 	data["on"] = on
-	data["direction"] = direction
-	data["connected"] = connected_port ? 1 : 0
+	data["direction"] = direction == PUMP_IN ? TRUE : FALSE
+	data["connected"] = connected_port ? TRUE : FALSE
 	data["pressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
 	data["target_pressure"] = round(pump.target_pressure ? pump.target_pressure : 0)
 	data["default_pressure"] = round(PUMP_DEFAULT_PRESSURE)
