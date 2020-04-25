@@ -743,7 +743,7 @@
 /turf/open/floor/plasteel/dark,
 /area/awaymission/research/interior/gateway)
 "bT" = (
-/obj/machinery/gateway/centeraway{
+/obj/machinery/gateway/away{
 	calibrated = 0
 	},
 /turf/open/floor/plasteel/dark,

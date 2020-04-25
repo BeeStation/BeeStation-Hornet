@@ -90,7 +90,7 @@
 /turf/open/floor/circuit/green/off,
 /area/awaymission/wildwest/vault)
 "av" = (
-/obj/machinery/gateway/centeraway{
+/obj/machinery/gateway/away{
 	calibrated = 0
 	},
 /turf/open/floor/circuit/green/off,

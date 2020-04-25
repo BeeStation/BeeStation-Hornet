@@ -807,7 +807,7 @@
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "cp" = (
-/obj/machinery/gateway/centeraway,
+/obj/machinery/gateway/away,
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "cq" = (
