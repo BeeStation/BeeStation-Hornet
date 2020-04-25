@@ -8,14 +8,14 @@ http://www.byond.com/forum/post/940994
 http://www.byond.com/docs/ref/skinparams.html#Fonts
 */
 
-#define COLOR_JOB_UNKOWN "#dda583"
+#define COLOR_JOB_UNKNOWN "#dda583"
 #define COLOR_PERSON_UNKNOWN "#999999"
 
 //For jobs that aren't roundstart but still need colours
 GLOBAL_LIST_INIT(job_colors_pastel, list(
 	"Prisoner" = 		"#d38a5c",
 	"CentCom" = 		"#90FD6D",
-	"Unknown"=			COLOR_JOB_UNKOWN,
+	"Unknown"=			COLOR_JOB_UNKNOWN,
 ))
 
 /mob/living
@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		text_color = pick(chatOverhead_colors)
 
 	if(!text_color)	//Just in case.
-		text_color = COLOR_JOB_UNKOWN
+		text_color = COLOR_JOB_UNKNOWN
 
 	var/css = ""
 
