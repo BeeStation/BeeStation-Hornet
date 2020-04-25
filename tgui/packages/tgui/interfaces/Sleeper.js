@@ -1,7 +1,8 @@
 import { useBackend } from '../backend';
-import { Box, Section, LabeledList, Button, ProgressBar } from '../components';
+import { Box, Section, LabeledList, Button, ProgressBar, AnimatedNumber } from '../components';
 import { Fragment } from 'inferno';
 import { Window } from '../layouts';
+import { BeakerContents } from './common/BeakerContents';
 
 export const Sleeper = (props, context) => {
   const { act, data } = useBackend(context);
@@ -45,7 +46,7 @@ export const Sleeper = (props, context) => {
   ];
 
   return (
-    <Window>
+    <Window resizable>
       <Window.Content>
         <Section
           title={occupant.name ? occupant.name : 'No Occupant'}
@@ -116,6 +117,16 @@ export const Sleeper = (props, context) => {
                 chem: chem.id,
               })}
             />
+          ))}
+          {occupant?.reagents?.length > 0 && (
+            <Box mt={1} />
+          )}
+          {occupant?.reagents?.map(chemical => (
+            <Box key={chemical.name} color="label">
+              <AnimatedNumber
+                value={chemical.volume} />
+              {` units of ${chemical.name}`}
+            </Box>
           ))}
         </Section>
       </Window.Content>
