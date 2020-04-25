@@ -1,0 +1,4 @@
+author: "ike709"
+delete-after: True
+changes: 
+  - rscdel: "Removed subsystem initialization messages from roundstart."
