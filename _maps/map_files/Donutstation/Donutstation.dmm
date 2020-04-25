@@ -28078,12 +28078,12 @@
 	amount = 10
 	},
 /obj/item/stack/cable_coil,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -35282,7 +35282,7 @@
 "byE" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -42080,8 +42080,8 @@
 "bLZ" = (
 /obj/structure/table/wood,
 /obj/effect/landmark/event_spawn,
-/obj/item/clothing/glasses/sunglasses/big,
-/obj/item/clothing/glasses/sunglasses/big{
+/obj/item/clothing/glasses/sunglasses/advanced/big,
+/obj/item/clothing/glasses/sunglasses/advanced/big{
 	pixel_x = 3;
 	pixel_y = 3
 	},
@@ -44641,7 +44641,7 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/handheld/weak,
 /obj/item/stock_parts/cell/high/plus,
 /obj/item/reagent_containers/glass/bottle/welding_fuel,
 /obj/item/weldingtool,

@@ -1,0 +1,59 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/table,
+/obj/item/wirecutters,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/structure/closet/emcloset,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/template_noop)
+"d" = (
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/structure/closet/crate/medical,
+/obj/item/stack/medical/gauze,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/structure/bed,
+/obj/item/bedsheet/random,
+/obj/structure/table/optable,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+d
+f
+"}
+(2,1,1) = {"
+b
+e
+e
+"}
+(3,1,1) = {"
+c
+e
+g
+"}

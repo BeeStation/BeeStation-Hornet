@@ -41382,12 +41382,12 @@
 	pixel_y = 2
 	},
 /obj/item/book/manual/wiki/robotics_cyborgs,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bhC" = (
@@ -95117,11 +95117,11 @@
 	pixel_y = 4
 	},
 /obj/item/folder/red,
-/obj/item/clothing/glasses/sunglasses/big{
+/obj/item/clothing/glasses/sunglasses/advanced/big{
 	pixel_x = 4;
 	pixel_y = 8
 	},
-/obj/item/clothing/glasses/sunglasses/big,
+/obj/item/clothing/glasses/sunglasses/advanced/big,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "cID" = (
@@ -95709,7 +95709,7 @@
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/folder/red,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
 "cJu" = (

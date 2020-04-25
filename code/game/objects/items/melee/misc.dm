@@ -480,6 +480,7 @@
 
 			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
 			target.Knockdown(knockdown_time_carbon)
+			target.drop_all_held_items()
 			target.adjustStaminaLoss(stamina_damage)
 			additional_effects_carbon(target, user)
 

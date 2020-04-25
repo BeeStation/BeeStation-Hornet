@@ -242,3 +242,4 @@
 #define VR_ZONE_TRAIT "vr_zone_trait"
 #define GLUED_ITEM_TRAIT "glued-item"
 #define LEGION_CORE_TRAIT "legion_core_trait"
+#define MIRROR_TRAIT "mirror_trait"

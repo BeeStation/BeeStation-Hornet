@@ -87,8 +87,16 @@
 			"[user] finishes attaching [tool]!",
 			"[user] finishes the attachment procedure!")
 		qdel(tool)
-		if(istype(tool, /obj/item/twohanded/required/chainsaw))
-			var/obj/item/mounted_chainsaw/new_arm = new(target)
+		if(istype(tool, /obj/item/twohanded/required/chainsaw/energy/doom))
+			var/obj/item/mounted_chainsaw/super/new_arm = new(target)
+			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
+			return 1
+		else if(istype(tool, /obj/item/twohanded/required/chainsaw/energy))
+			var/obj/item/mounted_chainsaw/energy/new_arm = new(target)
+			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
+			return 1
+		else if(istype(tool, /obj/item/twohanded/required/chainsaw))
+			var/obj/item/mounted_chainsaw/normal/new_arm = new(target)
 			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			return 1
 		else if(istype(tool, /obj/item/melee/synthetic_arm_blade))

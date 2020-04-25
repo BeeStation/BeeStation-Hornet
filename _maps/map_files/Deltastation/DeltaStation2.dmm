@@ -3943,6 +3943,20 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"aiM" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = -30
+	},
+/turf/open/floor/plasteel,
+/area/security/warden)
 "aiQ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/stripes/line{
@@ -20905,7 +20919,7 @@
 /area/space/nearstation)
 "aMQ" = (
 /obj/structure/table/wood,
-/obj/item/clothing/glasses/sunglasses,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/abandoned_gambling_den/secondary)
 "aMR" = (
@@ -32561,6 +32575,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
+/obj/machinery/chem_dispenser/mutagensaltpetersmall,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "beT" = (
@@ -54731,22 +54746,6 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
-"bNb" = (
-/obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 3
-	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = -3
-	},
-/obj/item/clothing/mask/cigarette/cigar,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/item/clothing/glasses/sunglasses,
-/turf/open/floor/carpet/red,
-/area/security/detectives_office)
 "bNc" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -54902,29 +54901,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/security/warden)
-"bNo" = (
-/obj/structure/rack,
-/obj/item/storage/box/handcuffs,
-/obj/item/storage/box/flashbangs{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/radio/intercom{
-	pixel_x = 26
-	},
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/flashlight/seclite,
-/obj/item/flashlight/seclite,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
@@ -60057,20 +60033,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"bVl" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
-/obj/machinery/newscaster/security_unit{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/security/warden)
 "bVm" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -65393,7 +65355,7 @@
 /obj/item/taperecorder{
 	pixel_x = 3
 	},
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
@@ -67765,11 +67727,11 @@
 "cgL" = (
 /obj/structure/table/wood,
 /obj/item/folder/yellow,
-/obj/item/clothing/glasses/sunglasses/big{
+/obj/item/clothing/glasses/sunglasses/advanced/big{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -92572,7 +92534,7 @@
 "cXw" = (
 /obj/structure/table,
 /obj/item/gps,
-/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/handheld/weak,
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
@@ -103179,7 +103141,7 @@
 /area/maintenance/starboard/aft)
 "dpN" = (
 /obj/structure/table/wood/poker,
-/obj/item/clothing/glasses/sunglasses/big,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/abandoned_gambling_den)
 "dpO" = (
@@ -110259,8 +110221,8 @@
 /obj/item/bodypart/l_arm/robot{
 	pixel_x = -3
 	},
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
 /obj/structure/table/reinforced,
 /obj/machinery/light_switch{
 	pixel_x = -38;
@@ -110269,10 +110231,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
-/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
@@ -126905,6 +126867,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
+"ihM" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/airlock/arrivals_external{
+	name = "Arrivals Airlock"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "imL" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
@@ -127034,6 +127011,22 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel,
 /area/maintenance/port)
+"jqH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/airlock/arrivals_external{
+	name = "Arrivals Airlock"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "jqM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -127987,6 +127980,22 @@
 "pFh" = (
 /turf/open/floor/carpet/purple,
 /area/vacant_room/office)
+"pFv" = (
+/obj/structure/table/wood,
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 3
+	},
+/obj/item/clothing/mask/cigarette/cigar/havana{
+	pixel_x = -3
+	},
+/obj/item/clothing/mask/cigarette/cigar,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/item/clothing/glasses/hud/security/sunglasses,
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
 "pQm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -128081,6 +128090,22 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel,
 /area/library)
+"qyP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/airlock/arrivals_external{
+	name = "Arrivals Airlock"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "qzs" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -128344,6 +128369,29 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/space)
+"sEu" = (
+/obj/structure/rack,
+/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/flashbangs{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/flashlight/seclite,
+/obj/item/flashlight/seclite,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/keycard_auth{
+	pixel_x = 24
+	},
+/turf/open/floor/plasteel,
+/area/security/warden)
 "sJw" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -128573,6 +128621,21 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /turf/open/floor/plating,
 /area/maintenance/port)
+"uHG" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/airlock/arrivals_external{
+	name = "Arrivals Airlock"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "uMN" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
@@ -166068,14 +166131,14 @@ aaO
 abf
 adq
 aaO
-aee
+ihM
 aaO
 aeX
 afx
 afx
 agl
 aaO
-aee
+ihM
 aaO
 ads
 abf
@@ -166582,14 +166645,14 @@ aad
 aad
 aad
 aaO
-aec
+uHG
 aaO
 aad
 aaa
 aaa
 aad
 aaO
-aej
+qyP
 aaO
 aad
 aad
@@ -169152,14 +169215,14 @@ aad
 aad
 aad
 aaO
-aea
+jqH
 aaO
 aad
 aaa
 aaa
 aad
 aaO
-aea
+jqH
 aaO
 aad
 aad
@@ -169666,14 +169729,14 @@ aaO
 abf
 ads
 aaO
-aej
+qyP
 aaO
 afb
 afz
 afV
 agk
 aaO
-aec
+uHG
 aaO
 adq
 abf
@@ -176421,7 +176484,7 @@ aaa
 bHs
 bJk
 bLd
-bNb
+pFv
 bPi
 bRj
 bSY
@@ -181051,7 +181114,7 @@ bNm
 bPt
 bRq
 bTf
-bVl
+aiM
 bXJ
 bZR
 cbD
@@ -181561,7 +181624,7 @@ bFN
 bHG
 bFM
 bHL
-bNo
+sEu
 bPv
 bRs
 bTh
