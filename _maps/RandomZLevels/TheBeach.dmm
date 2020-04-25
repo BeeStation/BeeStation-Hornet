@@ -269,7 +269,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "aQ" = (
-/obj/machinery/gateway/away,
+/obj/machinery/gateway/centeraway,
 /obj/effect/turf_decal/sand,
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)

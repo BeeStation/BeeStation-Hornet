@@ -1031,7 +1031,7 @@
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "en" = (
-/obj/machinery/gateway/away{
+/obj/machinery/gateway/centeraway{
 	calibrated = 0
 	},
 /turf/open/floor/plating,

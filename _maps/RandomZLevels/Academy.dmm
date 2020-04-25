@@ -3748,7 +3748,7 @@
 /area/awaymission/academy/academyaft)
 "kI" = (
 /obj/structure/cable,
-/obj/machinery/gateway/away{
+/obj/machinery/gateway/centeraway{
 	calibrated = 1
 	},
 /turf/open/floor/plating,

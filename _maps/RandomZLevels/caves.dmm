@@ -430,7 +430,7 @@
 	},
 /area/awaymission/caves/BMP_asteroid/level_four)
 "bm" = (
-/obj/machinery/gateway/away{
+/obj/machinery/gateway/centeraway{
 	calibrated = 0
 	},
 /turf/open/floor/engine/cult{

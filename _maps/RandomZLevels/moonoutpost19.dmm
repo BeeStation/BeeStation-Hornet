@@ -295,7 +295,7 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "aP" = (
-/obj/machinery/gateway/away{
+/obj/machinery/gateway/centeraway{
 	calibrated = 0
 	},
 /turf/open/floor/plasteel/dark{
