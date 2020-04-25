@@ -16,6 +16,7 @@
 	var/detachable = TRUE // Set to FALSE for built-in equipment that cannot be removed
 	var/selectable = 1	// Set to 0 for passive equipment such as mining scanner or armor plates
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
+	var/destroy_sound = 'sound/mecha/critdestr.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
 	if(chassis)
@@ -36,9 +37,10 @@
 		if(chassis.selected == src)
 			chassis.selected = null
 		src.update_chassis_page()
-		chassis.occupant_message("<span class='danger'>[src] is destroyed!</span>")
 		log_message("[src] is destroyed.", LOG_MECHA)
-		SEND_SOUND(chassis.occupant, sound(istype(src, /obj/item/mecha_parts/mecha_equipment/weapon) ? 'sound/mecha/weapdestr.ogg' : 'sound/mecha/critdestr.ogg', volume=50))
+		if(chassis.occupant)
+			chassis.occupant_message("<span class='danger'>[src] is destroyed!</span>")
+			chassis.occupant.playsound_local(chassis, destroy_sound, 50)
 		chassis = null
 	return ..()
 
