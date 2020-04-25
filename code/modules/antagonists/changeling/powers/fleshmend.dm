@@ -24,9 +24,11 @@
 
 /datum/action/changeling/fleshmend/Remove(mob/user)
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	if(user.has_status_effect(STATUS_EFFECT_FLESHMEND))
-		to_chat(user, "<span class='warning'>We stop fleshmending!</span>")
-		user.remove_status_effect(STATUS_EFFECT_FLESHMEND)
-		changeling.chem_recharge_slowdown -= 0.5
-		return
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.has_status_effect(STATUS_EFFECT_FLESHMEND))
+			to_chat(L, "<span class='warning'>We stop fleshmending!</span>")
+			L.remove_status_effect(STATUS_EFFECT_FLESHMEND)
+			changeling.chem_recharge_slowdown -= 0.5
+			return
 	..()
