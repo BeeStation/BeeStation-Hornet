@@ -156,17 +156,7 @@
 	if(istype(I, /obj/item/mining_voucher))
 		RedeemVoucher(I, user)
 		return
-	if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/C = usr.get_active_held_item()
-		if(istype(C) && !istype(inserted_id))
-			if(!usr.transferItemToLoc(C, src))
-				return
-			inserted_id = C
-			to_chat(usr, "<span class='notice'>You insert the ID into [src]'s card slot.</span>")
-			interact(user)
-		return
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
-		updateUsrDialog()
 		return
 	if(default_deconstruction_crowbar(I))
 		return
@@ -207,7 +197,6 @@
 	do_sparks(5, TRUE, src)
 	if(prob(50 / severity) && severity < 3)
 		qdel(src)
-
 
 /****************Golem Point Vendor**************************/
 
