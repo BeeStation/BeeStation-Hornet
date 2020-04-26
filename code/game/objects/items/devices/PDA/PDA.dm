@@ -694,6 +694,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	tnote += "<i><b>&larr; From <a href='byond://?src=[REF(src)];choice=Message;target=[REF(signal.source)]'>[signal.data["name"]]</a> ([signal.data["job"]]):</b></i><br>[signal.format_message()]<br>"
 
 	if (!silent)
+		pingpopup("[ttone]", 16)
 		playsound(src, 'sound/machines/twobeep_high.ogg', 50, 1)
 		audible_message("[icon2html(src, hearers(src))] *[ttone]*", null, 3)
 	//Search for holder of the PDA.

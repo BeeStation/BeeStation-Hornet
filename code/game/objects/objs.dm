@@ -267,3 +267,36 @@
 
 /obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
 	return
+
+/obj/proc/pingpopup(text="Ping!", pixely = 24)
+
+	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
+	text = replacetext(text, url_scheme, "")
+
+	var/list/show_to = list()
+
+	var/image/I = image(loc = src, layer = FLY_LAYER)
+	I.alpha = 255
+	I.maptext_width = 128
+	I.maptext_height = 64
+	I.pixel_x = -48
+	I.pixel_y = pixely
+	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	I.maptext = "<center><span class='chatOverhead'>[text]</span></center>"
+
+	for(var/mob/M in get_hearers_in_view(7, src))
+		if(M.client && M.can_hear())
+			show_to |= M.client
+	
+	for(var/client/C in show_to)
+		C.images += I
+
+	animate(I, pixel_y = (pixely + 10), alpha = 0, time = 5)
+
+	addtimer(CALLBACK(src, .proc/unpingpopup, I, show_to), 10)
+
+
+/obj/proc/unpingpopup(image/I, show_to)
+	for(var/client/C in show_to)
+		C.images -= I
+	qdel(I)

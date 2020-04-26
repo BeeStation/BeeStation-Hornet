@@ -401,6 +401,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	messages += "[header][sending]"
 
 	if(!silenced)
+		pingpopup("Beep!", 18)
 		playsound(src, 'sound/machines/twobeep_high.ogg', 50, 1)
 		say(alert)
 
