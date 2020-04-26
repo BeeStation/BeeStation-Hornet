@@ -625,14 +625,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "abductor_headset"
 	item_state = "abductor_headset"
 	keyslot2 = new /obj/item/encryptionkey/heads/captain
+	bang_protect = 1
 
 /obj/item/radio/headset/abductor/Initialize(mapload)
 	. = ..()
 	make_syndie()
-
-/obj/item/radio/headset/abductor/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/wearertargeting/earprotection, list(SLOT_EARS))
 
 /obj/item/radio/headset/abductor/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)

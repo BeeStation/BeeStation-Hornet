@@ -24,6 +24,11 @@
 	symptoms = list(new/datum/symptom/necroseed)
 	..()
 
+/datum/disease/advance/blobitis/New()
+	name = "Blobitis"
+	symptoms = list(new/datum/symptom/blobspores)
+	..()
+
 //Randomly generated Disease, for virus crates and events
 /datum/disease/advance/random
 	name = "Experimental Disease"

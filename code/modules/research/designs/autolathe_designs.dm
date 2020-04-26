@@ -676,6 +676,15 @@
 	build_path = /obj/item/reagent_containers/syringe
 	category = list("initial", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+	
+/datum/design/dropper
+	name = "Dropper"
+	id = "dropper"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 10, /datum/material/glass = 30)
+	build_path = /obj/item/reagent_containers/dropper
+	category = list("initial", "Medical", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/prox_sensor
 	name = "Proximity Sensor"

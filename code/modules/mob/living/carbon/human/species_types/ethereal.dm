@@ -12,11 +12,13 @@
 	brutemod = 1.25 //They're weak to punches
 	attack_type = BURN //burn bish
 	damage_overlay_type = "" //We are too cool for regular damage overlays
-	species_traits = list(DYNCOLORS, NOSTOMACH, AGENDER, NO_UNDERWEAR)
+	species_traits = list(DYNCOLORS, NOSTOMACH, AGENDER, NO_UNDERWEAR, HAIR)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	inherent_traits = list(TRAIT_NOHUNGER)
 	sexes = FALSE //no fetish content allowed
 	toxic_food = NONE
+	hair_color = "fixedmutcolor"
+	hair_alpha = 140
 	var/current_color
 	var/ethereal_charge = ETHEREAL_CHARGE_FULL
 	var/EMPeffect = FALSE

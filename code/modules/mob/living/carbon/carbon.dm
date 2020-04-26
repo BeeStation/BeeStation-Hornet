@@ -3,7 +3,7 @@
 
 /mob/living/carbon/Initialize()
 	. = ..()
-	create_reagents(5000)
+	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
 	GLOB.carbon_list += src
 
@@ -161,7 +161,7 @@
 		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 
 /mob/living/carbon/restrained(ignore_grab)
-	. = (handcuffed || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE))
+	. = (handcuffed || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_NECK))
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return 0
@@ -380,7 +380,6 @@
 		else
 			dropItemToGround(I)
 			return
-		return TRUE
 
 /mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
 	if(lying)
@@ -524,7 +523,7 @@
 	staminaloss = round(total_stamina, DAMAGE_PRECISION)
 	update_stat()
 	update_mobility()
-	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD )
+	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD*2) && stat == DEAD )
 		become_husk("burn")
 	med_hud_set_health()
 	if(stat == SOFT_CRIT)
@@ -798,7 +797,7 @@
 		B.brain_death = FALSE
 	for(var/thing in diseases)
 		var/datum/disease/D = thing
-		if(D.severity != DISEASE_SEVERITY_POSITIVE)
+		if(D.severity != DISEASE_SEVERITY_BENEFICIAL && D.severity != DISEASE_SEVERITY_POSITIVE)
 			D.cure(FALSE)
 	if(admin_revive)
 		suiciding = FALSE

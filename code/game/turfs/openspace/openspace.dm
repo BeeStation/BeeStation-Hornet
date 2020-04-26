@@ -4,8 +4,6 @@
 	icon_state = "grey"
 	baseturfs = /turf/open/openspace
 	CanAtmosPassVertical = ATMOS_PASS_YES
-	plane = FLOOR_OPENSPACE_PLANE
-	layer = OPENSPACE_LAYER
 	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE
@@ -14,8 +12,10 @@
 	..()
 	return TRUE
 
-/turf/open/openspace/Initialize()
+/turf/open/openspace/Initialize() // handle plane and layer here so that they don't cover other obs/turfs in Dream Maker
 	. = ..()
+	plane = FLOOR_OPENSPACE_PLANE
+	layer = OPENSPACE_LAYER
 	return INITIALIZE_HINT_LATELOAD
 
 /turf/open/openspace/LateInitialize()
@@ -31,7 +31,7 @@
 	if(!T)
 		vis_contents.len = 0
 		if(prune_on_fail)
-			ChangeTurf(/turf/open/floor/plating)
+			ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		return FALSE
 	if(init)
 		vis_contents += T
@@ -106,7 +106,7 @@
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				to_chat(user, "<span class='notice'>You build a floor.</span>")
-				PlaceOnTop(/turf/open/floor/plating)
+				PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			else
 				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
 		else

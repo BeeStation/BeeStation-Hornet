@@ -91,6 +91,47 @@
 /obj/machinery/vending/medical/syndicate_access,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
+"am" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/box/syringes,
+/obj/machinery/power/apc/syndicate{
+	dir = 1;
+	name = "Virology APC";
+	pixel_y = 23
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/glass/bottle/viralbase,
+/turf/open/floor/plasteel/white/side{
+	dir = 9
+	},
+/area/ruin/unpowered/syndicate_lava_base/virology)
+"an" = (
+/obj/structure/table/glass,
+/obj/structure/reagent_dispensers/virusfood{
+	pixel_y = 28
+	},
+/obj/item/clothing/gloves/color/latex,
+/obj/item/healthanalyzer,
+/obj/item/clothing/glasses/hud/health,
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter,
+/obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter,
+/turf/open/floor/plasteel/white/side{
+	dir = 5
+	},
+/area/ruin/unpowered/syndicate_lava_base/virology)
 "ap" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -1285,44 +1326,6 @@
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 10
-	},
-/area/ruin/unpowered/syndicate_lava_base/virology)
-"fi" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/box/syringes,
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Virology APC";
-	pixel_y = 23
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/white/side{
-	dir = 9
-	},
-/area/ruin/unpowered/syndicate_lava_base/virology)
-"fj" = (
-/obj/structure/table/glass,
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_y = 28
-	},
-/obj/item/clothing/gloves/color/latex,
-/obj/item/healthanalyzer,
-/obj/item/clothing/glasses/hud/health,
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
-/turf/open/floor/plasteel/white/side{
-	dir = 5
 	},
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "fk" = (
@@ -7010,7 +7013,7 @@ ab
 ab
 ac
 eh
-fi
+am
 fA
 gu
 gV
@@ -7060,7 +7063,7 @@ ab
 ab
 ei
 eJ
-fj
+an
 fB
 gv
 gW

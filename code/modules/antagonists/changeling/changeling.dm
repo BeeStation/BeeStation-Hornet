@@ -342,6 +342,11 @@
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
 	if(isIPC(C))
 		C.set_species(/datum/species/human)
+		var/replacementName = random_unique_name(C.gender)
+		if(C.client.prefs.custom_names["human"])
+			C.fully_replace_character_name(C.real_name, C.client.prefs.custom_names["human"])
+		else
+			C.fully_replace_character_name(C.real_name, replacementName)
 	if(ishuman(C))
 		add_new_profile(C)
 

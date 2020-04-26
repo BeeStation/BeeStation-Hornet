@@ -251,7 +251,7 @@
 			if(!is_operational() || recording_recipe)
 				return
 			var/amount = text2num(params["amount"])
-			if(beaker && amount in beaker.possible_transfer_amounts)
+			if(beaker && (amount in beaker.possible_transfer_amounts))
 				beaker.reagents.remove_all(amount)
 				work_animation()
 				. = TRUE
@@ -588,6 +588,31 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
 	RefreshParts()
+
+/obj/machinery/chem_dispenser/mutagensaltpetersmall
+	name = "minor botanical chemical dispenser"
+	desc = "A botanical chemical dispenser on a budget."
+	icon_state = "minidispenser"
+	working_state = "minidispenser_working"
+	nopower_state = "minidispenser_nopower"
+	circuit = /obj/item/circuitboard/machine/chem_dispenser/botany
+	dispensable_reagents = list(
+		/datum/reagent/toxin/mutagen,
+		/datum/reagent/saltpetre,
+		/datum/reagent/water)
+	upgrade_reagents = list(
+		/datum/reagent/toxin/plantbgone,
+		/datum/reagent/toxin/plantbgone/weedkiller,
+		/datum/reagent/toxin/pestkiller,
+		/datum/reagent/diethylamine)
+
+/obj/machinery/chem_dispenser/mutagensaltpetersmall/display_beaker()
+	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
+	b_o.pixel_y = -4
+	b_o.pixel_x = -4
+	return b_o
+
+
 
 /obj/machinery/chem_dispenser/fullupgrade //fully ugpraded stock parts, emagged
 	desc = "Creates and dispenses chemicals. This model has had its safeties shorted out."

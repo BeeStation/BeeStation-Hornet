@@ -41,6 +41,9 @@
 /obj/machinery/air_sensor/atmos/incinerator_tank
 	name = "incinerator chamber gas sensor"
 	id_tag = ATMOS_GAS_MONITOR_SENSOR_INCINERATOR
+/obj/machinery/air_sensor/atmos/sm_core
+	name = "supermatter gas sensor"
+	id_tag = ATMOS_GAS_MONITOR_SENSOR_SM
 
 /obj/machinery/air_sensor/update_icon()
 		icon_state = "gsensor[on]"
@@ -105,7 +108,8 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 		ATMOS_GAS_MONITOR_LOOP_DISTRIBUTION = "Distribution Loop",
 		ATMOS_GAS_MONITOR_LOOP_ATMOS_WASTE = "Atmos Waste Loop",
 		ATMOS_GAS_MONITOR_SENSOR_INCINERATOR = "Incinerator Chamber",
-		ATMOS_GAS_MONITOR_SENSOR_TOXINS_LAB = "Toxins Mixing Chamber"
+		ATMOS_GAS_MONITOR_SENSOR_TOXINS_LAB = "Toxins Mixing Chamber",
+		ATMOS_GAS_MONITOR_SENSOR_SM = "Supermatter Core"
 	)
 	var/list/sensor_information = list()
 	var/datum/radio_frequency/radio_connection
@@ -232,6 +236,13 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	input_tag = ATMOS_GAS_MONITOR_INPUT_INCINERATOR
 	output_tag = ATMOS_GAS_MONITOR_OUTPUT_INCINERATOR
 	sensors = list(ATMOS_GAS_MONITOR_SENSOR_INCINERATOR = "Incinerator Chamber")
+	circuit = /obj/item/circuitboard/computer/atmos_control/tank/incinerator
+
+/obj/machinery/computer/atmos_control/tank/sm
+	name = "Supermatter Air Monitor"
+	input_tag = ATMOS_GAS_MONITOR_INPUT_SM
+	output_tag = ATMOS_GAS_MONITOR_OUTPUT_SM
+	sensors = list(ATMOS_GAS_MONITOR_SENSOR_SM = "Supermatter Core")
 	circuit = /obj/item/circuitboard/computer/atmos_control/tank/incinerator
 
 // This hacky madness is the evidence of the fact that a lot of machines were never meant to be constructable, im so sorry you had to see this

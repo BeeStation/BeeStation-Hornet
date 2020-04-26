@@ -66,7 +66,7 @@
 		O.setOrganDamage(0)
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
-		if(D.severity == DISEASE_SEVERITY_POSITIVE)
+		if(D.severity == DISEASE_SEVERITY_BENEFICIAL || D.severity == DISEASE_SEVERITY_POSITIVE)
 			continue
 		D.cure()
 	..()
@@ -206,6 +206,14 @@
 	M.Jitter(5)
 	..()
 	. = 1
+
+/datum/reagent/medicine/rezadone/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	. = ..()
+	if(iscarbon(M))
+		var/mob/living/carbon/patient = M
+		if(reac_volume >= 5 && HAS_TRAIT_FROM(patient, TRAIT_HUSK, "burn") && patient.getFireLoss() < THRESHOLD_UNHUSK) //One carp yields 12u rezadone.
+			patient.cure_husk("burn")
+			patient.visible_message("<span class='nicegreen'>[patient]'s body rapidly absorbs moisture from the enviroment, taking on a more healthy appearance.")
 
 /datum/reagent/medicine/spaceacillin
 	name = "Spaceacillin"
@@ -381,23 +389,27 @@
 			if(show_message)
 				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+			//Has to be at less than THRESHOLD_UNHUSK burn damage and have 100 isntabitaluri before unhusking. Corpses dont metabolize.
+			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 100))
+				M.cure_husk("burn")
+				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
 	..()
 
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
-	description = "Heals toxin damage as well as slowly removing any other chemicals the patient has in their bloodstream."
+	description = "Heals mild toxin damage as well as slowly removing any other chemicals the patient has in their bloodstream."
 	reagent_state = LIQUID
 	color = "#000000"
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolization_rate = REAGENTS_METABOLISM
 	taste_description = "ash"
 	process_flags = ORGANIC
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-2*REM, 0)
+	M.adjustToxLoss(-1*REM, 0)
 	. = 1
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.type,1)
+			M.reagents.remove_reagent(R.type,0.75)
 	..()
 
 /datum/reagent/medicine/system_cleaner

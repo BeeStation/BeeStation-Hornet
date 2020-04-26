@@ -45,6 +45,8 @@
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/clothing/glasses/hud/health(src)
 	return
 
 /obj/structure/closet/secure_closet/CMO
@@ -61,6 +63,7 @@
 	new /obj/item/clothing/head/bio_hood/cmo(src)
 	new /obj/item/clothing/suit/toggle/labcoat/cmo(src)
 	new /obj/item/clothing/under/rank/chief_medical_officer(src)
+	new /obj/item/clothing/under/rank/chief_medical_officer/skirt(src)
 	new /obj/item/clothing/shoes/sneakers/brown	(src)
 	new /obj/item/cartridge/cmo(src)
 	new /obj/item/radio/headset/heads/cmo(src)

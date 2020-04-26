@@ -308,7 +308,7 @@
 		var/datum/reagent/R = reagent
 		if(QDELETED(R.holder))
 			continue
-		
+
 		if(!C)
 			C = R.holder.my_atom
 		if(ishuman(C))
@@ -730,7 +730,6 @@
 	if(isnull(amount))
 		amount = 0
 		CRASH("null amount passed to reagent code")
-		return FALSE
 
 	if(!isnum(amount))
 		return FALSE

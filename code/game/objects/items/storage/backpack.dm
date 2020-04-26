@@ -474,7 +474,7 @@
 	new /obj/item/clothing/suit/toggle/lawyer/black(src)
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/clothing/head/fedora(src)
 
 /obj/item/storage/backpack/duffelbag/syndie/med

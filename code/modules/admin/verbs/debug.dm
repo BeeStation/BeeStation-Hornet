@@ -1006,6 +1006,16 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_admin("[key_name(src)] cleared dynamic transit space.")
 	SSmapping.wipe_reservations()				//this goes after it's logged, incase something horrible happens.
 
+/client/proc/fucky_wucky()
+	set category = "Debug"
+	set name = "Fucky Wucky"
+	set desc = "Inform the players that the code monkeys at our headquarters are working very hard to fix this."
+	for(var/m in GLOB.player_list)
+		var/datum/asset/fuckywucky = get_asset_datum(/datum/asset/simple/fuckywucky)
+		fuckywucky.send(m)
+		SEND_SOUND(m, 'sound/misc/fuckywucky.ogg')
+		to_chat(m, "<img src='fuckywucky.png'>")
+
 /client/proc/toggle_medal_disable()
 	set category = "Debug"
 	set name = "Toggle Medal Disable"
