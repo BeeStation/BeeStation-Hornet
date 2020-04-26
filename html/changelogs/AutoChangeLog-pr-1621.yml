@@ -1,0 +1,4 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "you can now tint an item that covers the eyes by spraying it with a dark color. This makes it obscure vision and protect against flashes. tint can be cleaned off with soap or a damp rag (damp rags can be made by clicking a sink with a bandage)"
