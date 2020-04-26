@@ -1511,7 +1511,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return 0 //item force is zero
 
 	//dismemberment
-	var/dismemberthreshold = (((affecting.max_damage * 3) / I.sharpness) - (affecting.get_damage() + ((I.w_class - 3) * 10) + (I.attack_weight * 15)))
+	var/dismemberthreshold = (((affecting.max_damage * 3) / I.sharpness) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))
 	if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER))
 		dismemberthreshold -= 50
 	if(I.sharpness)
