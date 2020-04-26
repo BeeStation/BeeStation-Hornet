@@ -9,7 +9,6 @@
 	spawn_positions = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
-	chat_color = "#C78B8B"
 	minimal_player_age = 7
 	exp_requirements = 240
 	exp_type = EXP_TYPE_CREW

@@ -8,7 +8,6 @@
 	spawn_positions = 2
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
-	chat_color = "#D4A07D"
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/atmos
