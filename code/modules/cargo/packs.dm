@@ -825,7 +825,7 @@
 	cost = 1000
 	crate_name = "toolbox crate"
 
-/datum/supply_pack/service/vending/engineering
+/datum/supply_pack/engineering/vending/engineering
 	name = "Engineering Vending Crate"
 	desc = "Sick of assistants breaking into engineering for tools? Contains one Engi-Vend refill and one YouTool refill."
 	cost = 2000
