@@ -451,8 +451,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
 	var/relative_dir = (dir2angle(get_dir(hitby, owner)) - dir2angle(owner.dir)) //shamelessly stolen from mech code
-	var/dir = dir2text(owner.dir)
-	var/relad = get_dir(owner, hitby)
 	var/final_block_level = block_level
 	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
 		return 0
