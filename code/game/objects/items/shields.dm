@@ -18,6 +18,10 @@
 /obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	if(durability)
 		var/attackforce = 0 
+		if(isprojectile(hitby))
+			var/obj/item/projectile/P = hitby
+			if(P.damtype != STAMINA)// disablers dont do shit to shields
+				attackforce = P.damage
 		if(isitem(hitby))
 			var/obj/item/I = hitby
 			attackforce = damage

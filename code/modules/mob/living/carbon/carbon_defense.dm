@@ -122,11 +122,11 @@
 						update_inv_head()
 
 		//dismemberment
-		var/dismemberthreshold = (((affecting.max_damage * 3) / I.sharpness) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))
+		var/dismemberthreshold = (((affecting.max_damage * 2) / I.sharpness) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))
 		if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER))
 			dismemberthreshold -= 50
 		if(I.sharpness)
-			dismemberthreshold = min((affecting.max_damage * 2), dismemberthreshold) //makes it so limbs wont become immune to being dismembered if the item is sharp
+			dismemberthreshold = min(((affecting.max_damage * 2) - affecting.get_damage()), dismemberthreshold) //makes it so limbs wont become immune to being dismembered if the item is sharp
 			if(stat == DEAD)
 				dismemberthreshold = dismemberthreshold / 3 
 		if(I.force >= dismemberthreshold && I.force >= 10)
