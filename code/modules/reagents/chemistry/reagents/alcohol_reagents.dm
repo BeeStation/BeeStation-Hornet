@@ -2146,6 +2146,6 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 	if(M.fire_stacks > 9)
 		if(M.on_fire)
-			M.adjustFireLoss(-20, 0)
+			M.adjustFireLoss(-16, 0)
 
 	..()
