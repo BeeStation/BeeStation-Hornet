@@ -2133,7 +2133,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	color = "#630480" // rgb: 99, 4, 128
 	boozepwr = 60
 	quality = DRINK_NICE
-	metabolization_rate = 0.8 * REAGENTS_METABOLISM
+	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 	taste_description = "a plasma fire in your mouth."
 	glass_icon_state = "plasmaflood"
 	glass_name = "Plasma Flood"
@@ -2143,6 +2143,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(prob(80))
 		M.IgniteMob()
 		M.adjust_fire_stacks(10)
-		M.adjustFireLoss(-25, 0)
-	..()
 
+	if(M.fire_stacks > 9)
+		if(M.on_fire)
+			M.adjustFireLoss(-30, 0)
+
+	..()
