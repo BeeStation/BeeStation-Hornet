@@ -48,7 +48,7 @@
 	id = "Fake CBZ"
 	results = list(/datum/reagent/fake_cbz = 1)
 	required_reagents = list(/datum/reagent/concentrated_bz = 1, /datum/reagent/medicine/neurine = 3)
-	
+
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"
 	id = /datum/reagent/cryptobiolin
@@ -736,13 +736,13 @@
 //	name = /datum/reagent/mutationtoxin/zombie
 //	id = /datum/reagent/mutationtoxin/zombie
 //	results = list(/datum/reagent/mutationtoxin/zombie = 1)
-//	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/toxin = 1, /datum/reagent/toxin/bad_food = 1) //Because rotting
+//	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/drug/krokodil = 10, /datum/reagent/liquidgibs = 10) //Because rotting and liquid gibs are more rotting than bad food
 
 /datum/chemical_reaction/mutationtoxin/goofzombie //go on. try it with holopara
 	name = /datum/reagent/mutationtoxin/goofzombie
 	id = /datum/reagent/mutationtoxin/goofzombie
 	results = list(/datum/reagent/mutationtoxin/goofzombie = 1)
-	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/drug/krokodil = 10, /datum/reagent/toxin/bad_food = 10) //Because rotting
+	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/drug/krokodil = 10, /datum/reagent/liquidgibs = 10) //Because rotting and liquid gibs are more rotting than bad food uga buga
 
 /datum/chemical_reaction/mutationtoxin/ash
 	name = /datum/reagent/mutationtoxin/ash
