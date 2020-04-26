@@ -10,6 +10,7 @@
 	var/datum/song/handheld/song
 	var/instrumentId = "generic"
 	var/instrumentExt = "mid"
+	block_upgrade_walk = 1
 
 /obj/item/instrument/Initialize()
 	. = ..()

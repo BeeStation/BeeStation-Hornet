@@ -93,10 +93,7 @@
 
 /mob/living/carbon/attacked_by(obj/item/I, mob/living/user)
 	var/obj/item/bodypart/affecting
-	if(user == src)
-		affecting = get_bodypart(check_zone(user.zone_selected)) //we're self-mutilating! yay!
-	else
-		affecting = get_bodypart(ran_zone(user.zone_selected))
+	affecting = get_bodypart(check_zone(user.zone_selected))
 	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
@@ -104,7 +101,7 @@
 	if(I.force)
 		apply_damage(I.force, I.damtype, affecting)
 		if(I.damtype == BRUTE && affecting.status == BODYPART_ORGANIC)
-			if(prob(33))
+			if(I.sharpness || I.force >= 10)
 				I.add_mob_blood(src)
 				var/turf/location = get_turf(src)
 				add_splatter_floor(location)
@@ -125,8 +122,14 @@
 						update_inv_head()
 
 		//dismemberment
-		var/probability = I.get_dismemberment_chance(affecting)
-		if(prob(probability))
+		var/dismemberthreshold = (((affecting.max_damage * 3) / I.sharpness) - (affecting.get_damage() + ((I.w_class - 3) * 10) + (I.attack_weight * 15)))
+		if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER))
+			dismemberthreshold -= 50
+		if(I.sharpness)
+			dismemberthreshold = min((affecting.max_damage * 2), dismemberthreshold) //makes it so limbs wont become immune to being dismembered if the item is sharp
+			if(stat == DEAD)
+				dismemberthreshold = dismemberthreshold / 3 
+		if(I.force >= dismemberthreshold && I.force >= 10)
 			if(affecting.dismember(I.damtype))
 				I.add_mob_blood(src)
 				playsound(get_turf(src), I.get_dismember_sound(), 80, 1)

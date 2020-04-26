@@ -1,12 +1,62 @@
 /obj/item/shield
 	name = "shield"
 	icon = 'icons/obj/shields.dmi'
-	block_chance = 50
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	block_level = 1
+	block_upgrade_walk = 1
+	active_blocking = FALSE
+	block_power = 50
+	projectile_blocking = TRUE
+	max_integrity =  75
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
+	var/durability = TRUE //the shield uses durability instead of stamina
 
-/obj/item/shield/proc/on_shield_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
-	return TRUE
+/obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(transparent && (hitby.pass_flags & PASSGLASS))
+		return FALSE
+	return ..()
+
+/obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	if(durability)
+		var/attackforce = 0 
+		if(isitem(hitby))
+			var/obj/item/I = hitby
+			attackforce = damage
+			if(I.sharpness)
+				attackforce = (attackforce * 1.5)//sharp weapons will split shields better
+			if(!I.damtype == BRUTE)
+				attackforce = (attackforce / 2)//as above, burning weapons, or weapons that deal other damage type probably dont get force from physical power
+			attackforce = (attackforce * I.attack_weight)
+		else if(isliving(hitby))
+			var/mob/living/L = hitby
+			attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
+			if(nasty_blocks)
+				L.attackby(src, owner)
+				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
+		if (obj_integrity <= attackforce)
+			var/turf/T = get_turf(owner)
+			T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")
+			shatter(owner)
+			return FALSE
+		take_damage(attackforce)
+		return TRUE
+	else
+		return ..()
+
+/obj/item/shield/examine(mob/user)
+	. = ..()
+	var/healthpercent = round((obj_integrity/max_integrity) * 100, 1)
+	switch(healthpercent)
+		if(50 to 99)
+			. += "<span class='info'>It looks slightly damaged.</span>"
+		if(25 to 50)
+			. += "<span class='info'>It appears heavily damaged.</span>"
+		if(0 to 25)
+			. += "<span class='warning'>It's falling apart!</span>"
+
+/obj/item/shield/proc/shatter(mob/living/carbon/human/owner)
+	playsound(owner, 'sound/effects/glassbr3.ogg', 100)
+	new /obj/item/shard((get_turf(src)))		
+	qdel(src)
 
 /obj/item/shield/riot
 	name = "riot shield"
@@ -15,6 +65,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
+	block_level = 2
 	force = 10
 	throwforce = 5
 	throw_speed = 2
@@ -24,16 +75,6 @@
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 	transparent = TRUE
-	max_integrity = 75
-
-/obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(transparent && (hitby.pass_flags & PASSGLASS))
-		return FALSE
-	if(attack_type == THROWN_PROJECTILE_ATTACK)
-		final_block_chance += 30
-	if(attack_type == LEAP_ATTACK)
-		final_block_chance = 100
-	return ..()
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/melee/baton))
@@ -52,31 +93,6 @@
 	else
 		return ..()
 
-/obj/item/shield/riot/examine(mob/user)
-	. = ..()
-	var/healthpercent = round((obj_integrity/max_integrity) * 100, 1)
-	switch(healthpercent)
-		if(50 to 99)
-			. += "<span class='info'>It looks slightly damaged.</span>"
-		if(25 to 50)
-			. += "<span class='info'>It appears heavily damaged.</span>"
-		if(0 to 25)
-			. += "<span class='warning'>It's falling apart!</span>"
-
-/obj/item/shield/riot/proc/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/glassbr3.ogg', 100)
-	new /obj/item/shard((get_turf(src)))
-
-/obj/item/shield/riot/on_shield_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
-	if (obj_integrity <= damage)
-		var/turf/T = get_turf(owner)
-		T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")
-		shatter(owner)
-		qdel(src)
-		return FALSE
-	take_damage(damage)
-	return ..()
-
 /obj/item/shield/riot/roman
 	name = "\improper Roman shield"
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>."
@@ -90,24 +106,27 @@
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
-	block_chance = 0
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	block_level = 1
+	block_upgrade_walk = 1
+	block_power = 0
 	max_integrity = 30
 
 /obj/item/shield/riot/roman/shatter(mob/living/carbon/human/owner)
 	playsound(owner, 'sound/effects/grillehit.ogg', 100)
 	new /obj/item/stack/sheet/iron(get_turf(src))
+	qdel(src)
 
 /obj/item/shield/riot/buckler
 	name = "wooden buckler"
 	desc = "A medieval wooden buckler."
 	icon_state = "buckler"
 	item_state = "buckler"
+	block_level = 1
+	block_upgrade_walk = 1
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	materials = list()
 	resistance_flags = FLAMMABLE
-	block_chance = 30
 	transparent = FALSE
 	max_integrity = 55
 	w_class = WEIGHT_CLASS_NORMAL
@@ -115,6 +134,7 @@
 /obj/item/shield/riot/buckler/shatter(mob/living/carbon/human/owner)
 	playsound(owner, 'sound/effects/bang.ogg', 50)
 	new /obj/item/stack/sheet/mineral/wood(get_turf(src))
+	qdel(src)
 
 /obj/item/shield/riot/flash
 	name = "strobe shield"
@@ -181,7 +201,7 @@
 
 /obj/item/shield/energy
 	name = "energy combat shield"
-	desc = "A shield that reflects almost all energy projectiles, but is useless against physical attacks. It can be retracted, expanded, and stored anywhere."
+	desc = "An advanced hard-light shield. It can be retracted, expanded, and stored anywhere, but can't take much punishment before needing a reset"
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
@@ -190,6 +210,8 @@
 	force = 3
 	throwforce = 3
 	throw_speed = 3
+	max_integrity = 25
+	block_sound = 'sound/weapons/genhit.ogg'
 	var/base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
 	var/on_force = 10
 	var/on_throwforce = 8
@@ -197,15 +219,26 @@
 	var/active = 0
 	var/clumsy_check = TRUE
 
+/obj/item/shield/energy/shatter(mob/living/carbon/human/owner)
+	playsound(owner, 'sound/effects/turbolift/turbolift-close.ogg', 50)
+	src.attack_self(owner)
+	to_chat(owner, "<span class='warning'>The [src] overheats!.</span>")
+	
+
 /obj/item/shield/energy/Initialize()
 	. = ..()
 	icon_state = "[base_icon_state]0"
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(active)
+		if(isprojectile(hitby))
+			var/obj/item/projectile/P = hitby
+			if(P.reflectable)
+				P.firer = src
+				P.setAngle(get_dir(owner, hitby))
+				return 1
+		return ..()
 	return 0
-
-/obj/item/shield/energy/IsReflect()
-	return (active)
 
 /obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))

@@ -5,6 +5,8 @@
 	clockwork_desc = "A powerful spear of Ratvarian making. It's more effective against enemy cultists and silicons."
 	icon_state = "ratvarian_spear"
 	item_state = "ratvarian_spear"
+	block_upgrade_walk = 1
+	block_level = 1
 	force = 15 //Extra damage is dealt to targets in attack()
 	throwforce = 25
 	armour_penetration = 10

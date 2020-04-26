@@ -41,6 +41,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	slot_flags = ITEM_SLOT_BELT
 	force = 2
 	throwforce = 1
+	block_level = 1
+	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -49,6 +51,14 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	user.visible_message("<span class='suicide'>[user] is trying to impale [user.p_them()]self with [src]! It might be a suicide attempt if it weren't so shitty.</span>", \
 	"<span class='suicide'>You try to impale yourself with [src], but it's USELESS...</span>")
 	return SHAME
+
+/obj/item/sord/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(isitem(hitby))
+		var/obj/item/I = hitby
+		owner.attackby(src)
+		owner.attackby(src, owner)
+		owner.visible_message("<span class='danger'>[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!</span>")
+	return ..()
 
 /obj/item/claymore
 	name = "claymore"
@@ -63,8 +73,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 40
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
+	attack_weight = 1
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	block_chance = 50
+	block_power = 40
+	block_upgrade_walk = 1
+	block_level = 1
+	nasty_blocks = TRUE
 	sharpness = IS_SHARP
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
@@ -83,7 +97,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	flags_1 = CONDUCT_1
 	item_flags = DROPDEL
 	slot_flags = null
-	block_chance = 0 //RNG WON'T HELP YOU NOW, PANSY
 	light_range = 3
 	attack_verb = list("brutalized", "eviscerated", "disemboweled", "hacked", "carved", "cleaved") //ONLY THE MOST VISCERAL ATTACK VERBS
 	var/notches = 0 //HOW MANY PEOPLE HAVE BEEN SLAIN WITH THIS BLADE
@@ -217,7 +230,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	block_chance = 50
+	block_power = 50
+	block_level = 1
+	block_upgrade_walk = 1
+	nasty_blocks = TRUE
+	projectile_blocking = TRUE //just like one of my japanese animes
 	sharpness = IS_SHARP
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
@@ -238,6 +255,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	flags_1 = CONDUCT_1
 	force = 9
 	throwforce = 10
+	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(/datum/material/iron=1150, /datum/material/glass=75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
@@ -393,6 +411,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	block_upgrade_walk = 1
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
@@ -406,6 +425,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "staff"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
+	block_upgrade_walk = 1
 	force = 3
 	throwforce = 5
 	throw_speed = 2
@@ -430,6 +450,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	block_upgrade_walk = 1
 	force = 3
 	throwforce = 5
 	throw_speed = 2
@@ -460,7 +481,10 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
+	block_upgrade_walk = 1 //doesnt get as much blocking as a chainsaw cuz there is no limb to disable
+	nasty_blocks = TRUE
 	force = 24
+	attack_weight = TRUE
 	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
@@ -539,6 +563,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon = 'icons/obj/statue.dmi'
 	icon_state = "bust"
 	force = 15
+	attack_weight = 2
 	throwforce = 10
 	throw_speed = 5
 	throw_range = 2
@@ -553,6 +578,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	name = "tail club"
 	desc = "For the beating to death of lizards with their own tails."
 	icon_state = "tailclub"
+	attack_weight = 2
+	block_upgrade_walk = 1
 	force = 14
 	throwforce = 1 // why are you throwing a club do you even weapon
 	throw_speed = 1
@@ -575,6 +602,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A skateboard. It can be placed on its wheels and ridden, or used as a strong weapon."
 	icon_state = "skateboard"
 	item_state = "skateboard"
+	block_level = 1
+	block_upgrade_walk = 1 //yes, you can use this to fend off attackers
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_NORMAL
@@ -618,6 +647,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "baseball_bat"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	block_upgrade_walk = 1
+	attack_weight = 2
 	force = 13
 	throwforce = 6
 	attack_verb = list("beat", "smacked")
@@ -667,6 +698,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "This bat is made of highly reflective, highly armored material."
 	icon_state = "baseball_bat_metal"
 	item_state = "baseball_bat_metal"
+	projectile_blocking = TRUE
+	block_level = 1
 	force = 12
 	throwforce = 15
 

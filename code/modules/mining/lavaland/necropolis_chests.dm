@@ -153,6 +153,10 @@
 	desc = "A wooden rod about the size of your forearm with a snake carved around it, winding its way up the sides of the rod. Something about it seems to inspire in you the responsibilty and duty to help others."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "asclepius_dormant"
+	block_upgrade_walk = 1 
+	block_level = 2
+	block_power = 40 //blocks very well to encourage using it. Just because you're a pacifist doesn't mean you can't defend yourself
+	active_blocking = FALSE
 	var/activated = FALSE
 	var/usedHand
 
@@ -410,6 +414,7 @@
 	max_charges = 1
 	item_flags = NEEDS_PERMIT | NOBLUDGEON
 	force = 18
+	attack_weight = 2
 
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
@@ -678,6 +683,7 @@
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	hitsound_on = 'sound/weapons/bladeslice.ogg'
+	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	sharpness = IS_SHARP
 	faction_bonus_force = 30
@@ -787,6 +793,10 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1
+	block_upgrade_walk = 1 
+	block_level = 1
+	block_power = 20
+	nasty_blocks = TRUE
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
 	var/summon_cooldown = 0

@@ -14,6 +14,12 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	var/clumsy_check = TRUE
 
+/obj/item/melee/transforming/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	if(active)
+		return ..()
+	return 0
+	
+
 /obj/item/melee/transforming/Initialize()
 	. = ..()
 	if(active)

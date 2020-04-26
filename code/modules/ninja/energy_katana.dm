@@ -7,12 +7,15 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 40
 	throwforce = 20
-	block_chance = 50
+	block_power = 50
+	block_level = 1
+	block_upgrade_walk = 1
+	nasty_blocks = TRUE
+	projectile_blocking = TRUE //just like one of my japanese animes
 	armour_penetration = 50
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	block_chance = 50
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 	sharpness = IS_SHARP
 	max_integrity = 200

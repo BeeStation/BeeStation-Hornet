@@ -21,6 +21,7 @@
 	cartridge_wording = "shell"
 	tac_reloads = FALSE
 	fire_rate = 1 //reee
+	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/shotgun/blow_up(mob/user)
 	. = 0
