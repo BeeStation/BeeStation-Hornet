@@ -75,16 +75,6 @@
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
-/obj/item/clothing/under/rank/prisoner/skirt
-	name = "prison jumpskirt"
-	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
-	icon_state = "prisoner_skirt"
-	item_state = "o_suit"
-	item_color = "prisoner_skirt"
-	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
-
 /obj/item/clothing/under/rank/mailman
 	name = "mailman's jumpsuit"
 	desc = "<i>'Special delivery!'</i>"
