@@ -8,7 +8,6 @@
 	spawn_positions = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
-	chat_color = "#75AEA3"
 	exp_type = EXP_TYPE_CREW
 	exp_requirements = 180
 

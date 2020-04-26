@@ -10,7 +10,6 @@
 	spawn_positions = 1
 	supervisors = "the captain"
 	selection_color = "#ffdddd"
-	chat_color = "#D33049"
 	req_admin_notify = 1
 	minimal_player_age = 14
 	exp_requirements = 480
