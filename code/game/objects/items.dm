@@ -453,7 +453,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/relative_dir = (dir2angle(get_dir(hitby, owner)) - dir2angle(owner.dir)) //shamelessly stolen from mech code
 	var/dir = dir2text(owner.dir)
 	var/relad = get_dir(owner, hitby)
-	owner.visible_message("<span class='danger'>[dir]! [relative_dir]! [relad]!</span>")
 	var/final_block_level = block_level
 	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
 		return 0
