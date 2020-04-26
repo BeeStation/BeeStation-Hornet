@@ -24,6 +24,9 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 /proc/animate_chat(mob/living/target, message, message_language, message_mode, list/show_to, duration)
 	var/text_color
 
+	if(message_mode == MODE_WHISPER)
+		return
+
 	var/mob/living/carbon/human/target_as_human = target
 	if(istype(target_as_human))
 		if(target_as_human.wear_id?.GetID())
@@ -49,7 +52,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		css += "font-size: 8px;"
 		if(istype(target.get_active_held_item(), /obj/item/megaphone/clown))
 			text_color = "#ff2abf"
-	else if((message_mode == MODE_WHISPER) || (message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
+	else if((message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
 		css += "font-size: 6px;"
 
 	css += "color: [text_color];"
@@ -109,7 +112,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	animate(I, 1, alpha = 255, pixel_y = 24)
 	animate(O, 1, alpha = 255, pixel_y = 24)
-  
+
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/fadeout_overhead_messages, I, O), duration)
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/delete_overhead_messages, I, O, show_to, target, message_language), duration+5)
 
