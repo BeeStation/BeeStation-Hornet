@@ -21,10 +21,8 @@
 		if(isitem(hitby))
 			var/obj/item/I = hitby
 			attackforce = damage
-			if(I.sharpness)
-				attackforce = (attackforce * 1.5)//sharp weapons will split shields better
 			if(!I.damtype == BRUTE)
-				attackforce = (attackforce / 2)//as above, burning weapons, or weapons that deal other damage type probably dont get force from physical power
+				attackforce = (attackforce / 2)
 			attackforce = (attackforce * I.attack_weight)
 		else if(isliving(hitby))
 			var/mob/living/L = hitby
