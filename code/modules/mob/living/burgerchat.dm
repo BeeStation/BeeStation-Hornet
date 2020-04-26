@@ -22,8 +22,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/list/stored_chat_text = list()
 
 /proc/animate_chat(mob/living/target, message, message_language, message_mode, list/show_to, duration)
-
-	var/static/list/chatOverhead_colors = list("#83c0dd","#8396dd","#9983dd","#dd83b6","#dd8383","#83dddc","#83dd9f","#a5dd83","#ddd983","#dda583","#dd8383")
 	var/text_color
 
 	var/mob/living/carbon/human/target_as_human = target
@@ -38,7 +36,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		else
 			text_color = COLOR_PERSON_UNKNOWN
 	else
-		text_color = pick(chatOverhead_colors)
+		text_color = target.mobsay_color
 
 	if(!text_color)	//Just in case.
 		text_color = COLOR_JOB_UNKNOWN
