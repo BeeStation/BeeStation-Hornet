@@ -9,7 +9,6 @@
 	spawn_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
 	selection_color = "#ffeeee"
-	chat_color = "#E6A3A3"
 	minimal_player_age = 7
 	exp_requirements = 420
 	exp_type = EXP_TYPE_CREW
