@@ -1,0 +1,4 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - rscadd: "Request consoles in every department."
