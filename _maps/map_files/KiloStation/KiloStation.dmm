@@ -716,7 +716,7 @@
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom{
-	step_y = 0;
+	dir = 8;
 	pixel_y = -28
 	},
 /turf/open/floor/plating,
@@ -28653,9 +28653,6 @@
 /turf/closed/wall,
 /area/medical/genetics/cloning)
 "aVI" = (
-/obj/machinery/chem_heater{
-	pixel_x = 0
-	},
 /obj/machinery/requests_console{
 	department = "Chemistry";
 	departmentType = 2;
@@ -28668,6 +28665,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/machinery/chem_heater,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "aVJ" = (
