@@ -13,13 +13,16 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 
 /proc/animate_chat(mob/living/target, message, message_language, message_mode, list/show_to, duration)
 
+	if(message_mode == MODE_WHISPER)
+		return // return to sublety in whispering
+
 	var/static/list/chatOverhead_colors = list("#83c0dd","#8396dd","#9983dd","#dd83b6","#dd8383","#83dddc","#83dd9f","#a5dd83","#ddd983","#dda583","#dd8383")
 
 	var/text_color = pick(chatOverhead_colors)
 
 	var/css = ""
 
-	if((message_mode == MODE_WHISPER) || (message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
+	if((message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
 		css += "font-style: italic;"
 
 	if(copytext(message, length(message) - 1) == "!!" || istype(target.get_active_held_item(), /obj/item/megaphone))
@@ -83,20 +86,23 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 	animate(I, 1, alpha = 255, pixel_y = 24)
 	animate(O, 1, alpha = 255, pixel_y = 24)
 
-	// wait a little bit, then delete the message
-	spawn(duration)
-		var/pixel_y_new = I.pixel_y + 10
-		animate(I, 2, pixel_y = pixel_y_new, alpha = 0)
-		animate(O, 2, pixel_y = pixel_y_new, alpha = 0)
-		sleep(2)
-		for(var/client/C in show_to)
-			if(C.mob.can_hear() && C.prefs.overhead_chat)
-				if(C.mob.can_speak_in_language(message_language))
-					C.images -= I
-				else
-					C.images -= O
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/fadeout_overhead_messages, I, O), duration)
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/delete_overhead_messages, I, O, show_to, target, message_language), duration+5)
 
-		target.stored_chat_text -= I
-		target.stored_chat_text -= O
-		qdel(I)
-		qdel(O)
+
+/proc/fadeout_overhead_messages(image/I, image/O)
+	var/pixel_y_new = I.pixel_y + 10
+	animate(I, 2, pixel_y = pixel_y_new, alpha = 0)
+	animate(O, 2, pixel_y = pixel_y_new, alpha = 0)
+
+/proc/delete_overhead_messages(image/I, image/O, list/show_to, mob/living/target, message_language)
+	for(var/client/C in show_to)
+		if(C.mob.can_hear() && C.prefs.overhead_chat)
+			if(C.mob.can_speak_in_language(message_language))
+				C.images -= I
+			else
+				C.images -= O
+	target.stored_chat_text -= I
+	target.stored_chat_text -= O
+	qdel(I)
+	qdel(O)
