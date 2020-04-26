@@ -508,6 +508,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!I.damtype == BRUTE)
 			attackforce = (attackforce / 2)//as above, burning weapons, or weapons that deal other damage type probably dont get force from physical power
 		attackforce = (attackforce * I.attack_weight)
+	else if(attack_type == UNARMED_ATTACK && isliving(hitby))
+		var/mob/living/L = hitby
+		attackforce = damage
+		if(nasty_blocks)
+			L.attackby(src, owner)
+			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 	else if(isliving(hitby))
 		var/mob/living/L = hitby
 		attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
