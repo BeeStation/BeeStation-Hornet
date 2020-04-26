@@ -1,7 +1,7 @@
 // Thanks to Burger from Burgerstation for the foundation for this
 
 /*
-BYOND Forum posts that helped me:
+BYOND Forum posts that helped me :
 http://www.byond.com/forum/post/1133166
 http://www.byond.com/forum/post/1072433
 http://www.byond.com/forum/post/940994
