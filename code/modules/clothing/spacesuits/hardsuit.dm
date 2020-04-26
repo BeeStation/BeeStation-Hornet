@@ -221,7 +221,7 @@
 	name = "advanced hardsuit"
 	desc = "An advanced suit that protects against hazardous, low pressure environments. Shines with a high polish."
 	item_state = "ce_hardsuit"
-	armor = list("melee" = 40, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 50, "bio" = 100, "rad" = 90, "fire" = 100, "acid" = 90)
+	armor = list("melee" = 40, "bullet" = 5, "laser" = 10, "energy" = 20, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 90)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
@@ -451,6 +451,15 @@
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
 	slowdown = 0.5
+
+/obj/item/clothing/head/helmet/space/hardsuit/medical/cmo
+	name = "chief medical officer's hardsuit helmet"
+	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort and protects the eyes from intense light."
+	flash_protect = 2
+
+/obj/item/clothing/suit/space/hardsuit/medical/cmo
+	name = "chief medical officer's hardsuit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical/cmo
 
 	//Research Director hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/rd
@@ -847,6 +856,32 @@
 	item_state = "deathsquad"
 	item_color = "syndi"
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 60, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	strip_delay = 130
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	actions_types = list()
+
+// Doomguy ERT version
+/obj/item/clothing/suit/space/hardsuit/shielded/doomguy
+	name = "juggernaut armor"
+	desc = "A somehow spaceworthy set of armor with outstanding protection against almost everything. Comes in an oddly nostalgic green. "
+	icon_state = "doomguy"
+	item_state = "doomguy"
+	max_charges = 1
+	current_charges = 1
+	recharge_delay = 100
+	armor = list("melee" = 135, "bullet" = 135, "laser" = 135, "energy" = 135, "bomb" = 135, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	strip_delay = 130
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	resistance_flags = FIRE_PROOF | ACID_PROOF | LAVA_PROOF
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
+	dog_fashion = /datum/dog_fashion/back/deathsquad
+
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
+	name = "juggernaut helmet"
+	desc = "A dusty old helmet, somehow capable of resisting the strongest of blows."
+	icon_state = "doomguy"
+	item_state = "doomguy"
+	armor = list("melee" = 135, "bullet" = 135, "laser" = 135, "energy" = 135, "bomb" = 135, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()

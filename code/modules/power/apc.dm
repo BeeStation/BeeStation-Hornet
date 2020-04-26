@@ -588,7 +588,6 @@
 		var/turf/host_turf = get_turf(src)
 		if(!host_turf)
 			CRASH("attackby on APC when it's not on a turf")
-			return
 		if (host_turf.intact)
 			to_chat(user, "<span class='warning'>You must remove the floor plating in front of the APC first!</span>")
 			return
@@ -720,7 +719,6 @@
 	else if(istype(W, /obj/item/apc_powercord))
 		return //because we put our fancy code in the right places, and this is all in the powercord's afterattack()
 
-		return
 	else if(panel_open && !opened && is_wire_tool(W))
 		wires.interact(user)
 	else
@@ -801,6 +799,42 @@
 	. = ..()
 	if(.)
 		return
+	var/mob/living/carbon/human/H = user
+	var/datum/species/ethereal/eth_species = H.dna?.species
+	if(istype(H) && istype(eth_species))
+		if(H.a_intent == INTENT_HARM)
+			if(eth_species.ethereal_charge >= ETHEREAL_CHARGE_FULL - 19)
+				to_chat(H, "<span class='warning'>Your charge is full!</span>")
+				return
+			if(cell.charge < 100)
+				to_chat(H, "<span class='warning'>The cell has no charge!</span>")
+				return
+			to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
+			if(do_after(user, 30, target = src))
+				if(cell.charge >= 100 && eth_species.ethereal_charge < ETHEREAL_CHARGE_FULL - 19)
+					to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
+					eth_species.adjust_charge(20)
+					cell.charge -= 50 //Charging is inefficient
+				else
+					to_chat(H, "<span class='warning'>You can't receive charge from the APC!</span>")
+			return
+		if(H.a_intent == INTENT_GRAB)
+			if(cell.charge >= cell.maxcharge)
+				to_chat(H, "<span class='warning'>The APC is full!</span>")
+				return
+			if(eth_species.ethereal_charge < 20)
+				to_chat(H, "<span class='warning'>Your charge is too low!</span>")
+				return
+			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
+			if(do_after(user, 30, target = src))
+				if(cell.charge + 20 <= cell.maxcharge && (eth_species.ethereal_charge > 20))
+					to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
+					eth_species.adjust_charge(-20)
+					cell.charge += 20
+				else
+					to_chat(H, "<span class='warning'>You can't transfer power to the APC!</span>")
+			return
+	
 	if(opened && (!issilicon(user)))
 		if(cell)
 			user.visible_message("[user] removes \the [cell] from [src]!","<span class='notice'>You remove \the [cell].</span>")
@@ -1002,7 +1036,7 @@
 		return
 	operating = !operating
 	add_hiddenprint(user)
-	log_combat(user, src, "turned [operating ? "on" : "off"]")
+	log_game("[key_name(user)] turned [operating ? "on" : "off"] the [src] in [AREACOORD(src)]")
 	update()
 	update_icon()
 

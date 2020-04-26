@@ -217,7 +217,7 @@
 			unprocess()
 			qdel(src)
 	if(!bomb_active || bomb_defused)
-		if(bomb_defused && bomb in src)
+		if(bomb_defused && (bomb in src))
 			bomb.defuse()
 			bomb_active = FALSE
 			unprocess()

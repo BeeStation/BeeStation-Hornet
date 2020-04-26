@@ -301,8 +301,10 @@
 	illustration = "flashbang"
 
 /obj/item/storage/box/flashes/PopulateContents()
-	for(var/i in 1 to 6)
+	for(var/i in 1 to 2)
 		new /obj/item/assembly/flash/handheld(src)
+	for(var/i in 1 to 6)
+		new /obj/item/flashbulb(src)
 
 /obj/item/storage/box/wall_flash
 	name = "wall-mounted flash kit"
@@ -819,6 +821,16 @@
 /obj/item/storage/box/beanbag/PopulateContents()
 	for(var/i in 1 to 6)
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
+
+/obj/item/storage/box/breacherslug
+	name = "box of breaching shotgun shells"
+	desc = "A box full of breaching slugs, designed for rapid entry."
+	icon_state = "breachershot_box"
+	illustration = null
+
+/obj/item/storage/box/breacherslug/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/breacher(src)
 
 /obj/item/storage/box/actionfigure
 	name = "box of action figures"

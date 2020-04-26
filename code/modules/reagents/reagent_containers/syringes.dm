@@ -186,6 +186,21 @@
 	desc = "Contains charcoal."
 	list_reagents = list(/datum/reagent/medicine/charcoal = 15)
 
+/obj/item/reagent_containers/syringe/antitoxin
+	name = "syringe (antitoxin)"
+	desc = "Contains antitoxin."
+	list_reagents = list(/datum/reagent/medicine/antitoxin = 15)
+
+/obj/item/reagent_containers/syringe/diphenhydramine
+	name = "syringe (diphenhydramine)"
+	desc = "Contains diphenhydramine, an antihistamine agent."
+	list_reagents = list(/datum/reagent/medicine/diphenhydramine = 15)
+	
+/obj/item/reagent_containers/syringe/calomel
+	name = "syringe (calomel)"
+	desc = "Contains calomel."
+	list_reagents = list(/datum/reagent/medicine/calomel = 15)
+
 /obj/item/reagent_containers/syringe/antiviral
 	name = "syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
@@ -254,3 +269,8 @@
 	name = "crude syringe"
 	desc = "A crudely made syringe. The flimsy wooden construction makes it hold up minimal amounts of reagents."
 	volume = 5
+
+/obj/item/reagent_containers/syringe/spider_extract
+	name = "spider extract syringe"
+	desc = "Contains crikey juice - makes any gold core create the most deadly companions in the world."
+	list_reagents = list(/datum/reagent/spider_extract = 1)

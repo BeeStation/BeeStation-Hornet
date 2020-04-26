@@ -267,7 +267,7 @@
 /obj/item/storage/box/syndicate/contract_kit/PopulateContents()
 	new /obj/item/modular_computer/tablet/syndicate_contract_uplink/preset/uplink(src)
 	new /obj/item/storage/box/syndicate/contractor_loadout(src)
-	new /obj/item/melee/classic_baton/telescopic/contractor_baton(src)
+	new /obj/item/melee/classic_baton/contractor_baton(src)
 
 	// All about 4 TC or less - some nukeops only items, but fit nicely to the theme.
 	var/list/item_list = list(
@@ -504,7 +504,7 @@
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/radio/headset/headset_cent/empty(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/storage/backpack/satchel(src)
 	new /obj/item/pda/heads(src)
 	new /obj/item/clipboard(src)
@@ -530,3 +530,12 @@
 /obj/item/storage/box/syndie_kit/bee_grenades/PopulateContents()
 	for(var/i in 1 to 3)
 		new /obj/item/grenade/spawnergrenade/buzzkill(src)
+
+/obj/item/storage/box/syndie_kit/cultconstructkit
+	name = "cult construct kit"
+	desc = "A sleek, sturdy box with an ominous, dark energy inside. Yikes."
+
+/obj/item/storage/box/syndie_kit/cultconstructkit/PopulateContents()
+	new /obj/item/storage/belt/soulstone/full/purified(src)
+	new /obj/item/sbeacondrop/constructshell(src)
+	new /obj/item/sbeacondrop/constructshell(src)

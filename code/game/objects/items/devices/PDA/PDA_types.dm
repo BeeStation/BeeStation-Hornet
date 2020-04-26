@@ -10,7 +10,7 @@
 
 /obj/item/pda/clown/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 7SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, .proc/AfterSlip), 7SECONDS)
+	AddComponent(/datum/component/slippery, 7SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, .proc/AfterSlip), 5SECONDS)
 
 /obj/item/pda/clown/proc/AfterSlip(mob/living/carbon/human/M)
 	if (istype(M) && (M.real_name != owner))
@@ -208,3 +208,10 @@
 	name = "geneticist PDA"
 	default_cartridge = /obj/item/cartridge/medical
 	icon_state = "pda-genetics"
+
+/obj/item/pda/unlicensed
+	name = "unlicensed PDA"
+	desc = "A shitty knockoff of a portable microcomputer by Thinktronic Systems, LTD. Complete with a cracked operating system."
+	note = "Error: Unlicensed OS. Please contact your supervisor."
+	icon_state = "pda-knockoff"
+

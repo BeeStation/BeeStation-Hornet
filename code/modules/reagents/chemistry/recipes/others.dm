@@ -1,9 +1,17 @@
 
+
+
 /datum/chemical_reaction/sterilizine
 	name = "Sterilizine"
 	id = /datum/reagent/space_cleaner/sterilizine
 	results = list(/datum/reagent/space_cleaner/sterilizine = 3)
 	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/chlorine = 1)
+
+/datum/chemical_reaction/cooking_oil
+	name = "Cooking Oil"
+	id = /datum/reagent/consumable/cooking_oil
+	results = list(/datum/reagent/consumable/cooking_oil = 4)
+	required_reagents = list(/datum/reagent/hydrogen = 1, /datum/reagent/oil = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/carbon = 1)
 
 /datum/chemical_reaction/lube
 	name = "Space Lube"
@@ -29,6 +37,18 @@
 	results = list(/datum/reagent/impedrezene = 2)
 	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/oxygen = 1, /datum/reagent/consumable/sugar = 1)
 
+/datum/chemical_reaction/concentrated_bz
+	name = "Concentrated BZ"
+	id = "Concentrated BZ"
+	results = list(/datum/reagent/concentrated_bz = 10)
+	required_reagents = list(/datum/reagent/toxin/plasma = 40, /datum/reagent/nitrous_oxide = 10)
+
+/datum/chemical_reaction/fake_cbz
+	name = "Fake CBZ"
+	id = "Fake CBZ"
+	results = list(/datum/reagent/fake_cbz = 1)
+	required_reagents = list(/datum/reagent/concentrated_bz = 1, /datum/reagent/medicine/neurine = 3)
+	
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"
 	id = /datum/reagent/cryptobiolin

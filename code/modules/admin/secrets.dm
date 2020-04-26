@@ -18,6 +18,7 @@
 			<B>Admin Secrets</B><BR>
 			<BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=clear_virus'>Cure all diseases currently in existence</A><BR>
+			<A href='?src=[REF(src)];[HrefToken()];secrets=delete_virus'>Vaccinate all diseases currently in existence</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=list_bombers'>Bombing List</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=list_signalers'>Show last [length(GLOB.lastsignalers)] signalers</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=list_lawchanges'>Show last [length(GLOB.lawchanges)] law changes</A><BR>
@@ -144,12 +145,19 @@
 
 		if("clear_virus")
 
-			var/choice = input("Are you sure you want to cure all disease?") in list("Yes", "Cancel")
+			var/choice = input("Are you sure you want to remove all disease?") in list("Yes", "Cancel")
 			if(choice == "Yes")
 				message_admins("[key_name_admin(usr)] has cured all diseases.")
 				for(var/thing in SSdisease.active_diseases)
 					var/datum/disease/D = thing
 					D.cure(0)
+		if("delete_virus")
+			var/choice = input("Are you sure you want to vaccinate all disease?") in list("Yes", "Cancel")
+			if(choice == "Yes")
+				message_admins("[key_name_admin(usr)] has cured all diseases.")
+				for(var/thing in SSdisease.active_diseases)
+					var/datum/disease/D = thing
+					D.cure()
 		if("set_name")
 			if(!check_rights(R_ADMIN))
 				return
@@ -500,7 +508,7 @@
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Braindamage"))
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
 				to_chat(H, "<span class='boldannounce'>You suddenly feel stupid.</span>")
-				H.adjustBrainLoss(60, 80)
+				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 60, 80)
 			message_admins("[key_name_admin(usr)] made everybody retarded")
 
 		if("aussify") //for rimjobtide

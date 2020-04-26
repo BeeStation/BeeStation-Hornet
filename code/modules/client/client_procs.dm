@@ -86,7 +86,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	//byond bug ID:2256651
-	if (asset_cache_job && asset_cache_job in completed_asset_jobs)
+	if (asset_cache_job && (asset_cache_job in completed_asset_jobs))
 		to_chat(src, "<span class='danger'>An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>")
 		src << browse("...", "window=asset_cache_browser")
 
@@ -455,6 +455,18 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			menuitem.Load_checked(src)
 
 	Master.UpdateTickRate()
+
+	if(GLOB.ckey_redirects.Find(ckey))
+		to_chat(src, "<span class='redtext'>The server is full. You will be redirected to [CONFIG_GET(string/redirect_address)] in 10 seconds.</span>")
+		addtimer(CALLBACK(src, .proc/time_to_redirect), (10 SECONDS))
+
+/client/proc/time_to_redirect()
+	var/redirect_address = CONFIG_GET(string/redirect_address)
+	GLOB.ckey_redirects -= ckey
+	if(GLOB.joined_player_list.Find(ckey))
+		GLOB.joined_player_list -= ckey
+	src << link("[redirect_address]")
+	qdel(src)
 
 //////////////
 //DISCONNECT//

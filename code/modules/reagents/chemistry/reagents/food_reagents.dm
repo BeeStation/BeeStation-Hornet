@@ -13,6 +13,7 @@
 	taste_mult = 4
 	var/nutriment_factor = 1 * REAGENTS_METABOLISM
 	var/quality = 0	//affects mood, typically higher for mixed drinks with more complex recipes
+	random_unrestricted = FALSE
 
 /datum/reagent/consumable/on_mob_life(mob/living/carbon/M)
 	current_cycle++
@@ -42,6 +43,7 @@
 	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
+	random_unrestricted = TRUE
 
 	var/brute_heal = 1
 	var/burn_heal = 0
@@ -221,6 +223,7 @@
 	description = "A special oil that noticably chills the body. Extracted from Icepeppers and slimes."
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	taste_description = "mint"
+	random_unrestricted = TRUE
 
 /datum/reagent/consumable/frostoil/on_mob_life(mob/living/carbon/M)
 	var/cooling = 0
@@ -544,7 +547,6 @@
 /datum/reagent/consumable/corn_syrup/on_mob_life(mob/living/carbon/M)
 	holder.add_reagent(/datum/reagent/consumable/sugar, 3)
 	..()
-
 /datum/reagent/consumable/honey
 	name = "Honey"
 	description = "Sweet sweet honey that decays into sugar. Has antibacterial and natural healing properties."
@@ -552,14 +554,17 @@
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 	taste_description = "sweetness"
+	var/power = 0
+	random_unrestricted = TRUE
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/M)
-	M.reagents.add_reagent(/datum/reagent/consumable/sugar,3)
+	if(power == 0)
+		M.reagents.add_reagent(/datum/reagent/consumable/sugar,3)
 	if(prob(55))
-		M.adjustBruteLoss(-1*REM, 0)
-		M.adjustFireLoss(-1*REM, 0)
-		M.adjustOxyLoss(-1*REM, 0)
-		M.adjustToxLoss(-1*REM, 0)
+		M.adjustBruteLoss(-1*REM+power, 0)
+		M.adjustFireLoss(-1*REM+power, 0)
+		M.adjustOxyLoss(-1*REM+power, 0)
+		M.adjustToxLoss(-1*REM+power, 0)
 	..()
 
 /datum/reagent/consumable/honey/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
@@ -569,6 +574,11 @@
       var/datum/surgery/S = s
       S.success_multiplier = max(0.6, S.success_multiplier) // +60% success probability on each step, compared to bacchus' blessing's ~46%
   ..()
+
+/datum/reagent/consumable/honey/special
+	name = "Royal Honey"
+	description = "A special honey which heals the imbiber far faster than normal honey"
+	power = 1
 
 /datum/reagent/consumable/mayonnaise
 	name = "Mayonnaise"
@@ -640,7 +650,7 @@
 		. = 1
 	if(prob(20))
 		M.losebreath += 4
-		M.adjustBrainLoss(2*REM, 150)
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2*REM, 150)
 		M.adjustToxLoss(3*REM,0)
 		M.adjustStaminaLoss(10*REM,0)
 		M.blur_eyes(5)

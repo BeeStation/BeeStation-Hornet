@@ -25,6 +25,7 @@ Bonus
 	transmittable = 0
 	level = 4
 	severity = 2
+	baseseverity = 2
 	base_message_chance = 25
 	symptom_delay_min = 10
 	symptom_delay_max = 30
@@ -32,6 +33,11 @@ Bonus
 	threshold_desc = "<b>Resistance 6:</b> Causes brain damage over time.<br>\
 					  <b>Transmission 6:</b> Increases confusion duration.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
+
+/datum/symptom/confusion/severityset(datum/disease/advance/A)
+	if(A.properties["resistance"] >= 6)
+		severity += 1
+	return..()
 
 /datum/symptom/confusion/Start(datum/disease/advance/A)
 	if(!..())
@@ -55,7 +61,7 @@ Bonus
 			to_chat(M, "<span class='userdanger'>You can't think straight!</span>")
 			M.confused = min(100 * power, M.confused + 8)
 			if(brain_damage)
-				M.adjustBrainLoss(3 * power, 80)
+				M.adjustOrganLoss(ORGAN_SLOT_BRAIN,3 * power, 80)
 				M.updatehealth()
 
 	return

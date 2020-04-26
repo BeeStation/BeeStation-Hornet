@@ -1,0 +1,149 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/structure/chair/wood/normal{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/light/small{
+	icon_state = "bulb";
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"d" = (
+/obj/structure/chair/wood/normal{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/structure/chair/wood/normal,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"h" = (
+/obj/structure/chair/stool/bar,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"i" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"j" = (
+/obj/structure/table/wood,
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"k" = (
+/obj/structure/table/wood/poker,
+/obj/item/clothing/glasses/sunglasses/advanced/big,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"l" = (
+/obj/structure/table/wood/poker,
+/obj/item/stack/spacecash/c10{
+	pixel_x = -16;
+	pixel_y = 8
+	},
+/obj/item/stack/spacecash/c100,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"m" = (
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck/syndicate{
+	pixel_y = 6
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"n" = (
+/obj/structure/chair/wood/normal{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"o" = (
+/obj/structure/table/wood/poker,
+/obj/item/stack/spacecash/c1000{
+	pixel_y = 8
+	},
+/obj/item/stack/spacecash/c500,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"p" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"q" = (
+/turf/open/floor/carpet/green,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+f
+j
+n
+"}
+(2,1,1) = {"
+b
+g
+g
+g
+"}
+(3,1,1) = {"
+c
+h
+k
+o
+"}
+(4,1,1) = {"
+d
+i
+l
+p
+"}
+(5,1,1) = {"
+e
+i
+m
+q
+"}

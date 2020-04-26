@@ -165,7 +165,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	gloves = /obj/item/clothing/gloves/color/black
 	ears = /obj/item/radio/headset
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	l_pocket = /obj/item/melee/transforming/energy/sword/saber
 	l_hand = /obj/item/storage/secure/briefcase
 	id = /obj/item/card/id/syndicate
@@ -346,7 +346,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/black
 	ears = /obj/item/radio/headset
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	r_hand = /obj/item/gun/ballistic/automatic/tommygun
 	id = /obj/item/card/id
 
@@ -415,6 +415,27 @@
 /datum/outfit/death_commando/officer
 	name = "Death Commando Officer"
 	head = /obj/item/clothing/head/helmet/space/beret
+
+/datum/outfit/death_commando/doomguy
+	name = "The Juggernaut"
+
+	suit = /obj/item/clothing/suit/space/hardsuit/shielded/doomguy
+	shoes = /obj/item/clothing/shoes/jackboots/fast
+	gloves = /obj/item/clothing/gloves/krav_maga/combatglovesplus
+	mask = /obj/item/clothing/mask/gas/sechailer
+	suit_store = /obj/item/gun/energy/pulse/destroyer
+	belt = /obj/item/storage/belt/grenade/full/webbing
+	back = /obj/item/storage/backpack/hammerspace
+	l_pocket = /obj/item/kitchen/knife/combat
+	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
+	r_hand = /obj/item/reagent_containers/hypospray/combat/supersoldier
+	backpack_contents = list(/obj/item/storage/box/engineer=1,\
+		/obj/item/reagent_containers/hypospray/combat,\
+		/obj/item/radio=1,\
+		/obj/item/twohanded/required/chainsaw/energy/doom=1,\
+		/obj/item/gun/ballistic/automatic/sniper_rifle=1,\
+		/obj/item/gun/grenadelauncher=1,\
+		/obj/item/gun/ballistic/automatic/ar=1)
 
 /datum/outfit/chrono_agent
 	name = "Timeline Eradication Agent"

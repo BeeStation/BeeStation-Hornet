@@ -38,3 +38,14 @@
 	desc = "A .38 Iceblox bullet casing."
 	caliber = "38"
 	projectile_type = /obj/item/projectile/bullet/c38/iceblox
+
+/obj/item/ammo_casing/caseless/mime
+	name = "invisible .38 bullet casing"
+	icon_state = null
+	desc = "You shouldnt be seeing this."
+	caliber = "mime"
+	projectile_type = /obj/item/projectile/bullet/c38/mime
+
+/obj/item/ammo_casing/caseless/mime/lethals
+	projectile_type = /obj/item/projectile/bullet/c38
+

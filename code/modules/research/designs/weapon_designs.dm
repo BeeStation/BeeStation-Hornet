@@ -83,6 +83,16 @@
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/breaching_slug/sec
+	name = "Breaching Slug"
+	desc = "A 12 gauge anti-material slug. Great for breaching airlocks and windows with minimal shots."
+	id = "sec_Brslug"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 4000)
+	build_path = /obj/item/ammo_casing/shotgun/breacher
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
 /datum/design/pin_testing
 	name = "Test-Range Firing Pin"
 	desc = "This safety firing pin allows firearms to be operated within proximity to a firing range."
@@ -342,3 +352,13 @@
 	build_path = /obj/item/ammo_casing/shotgun/dart/noreact
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/flashbulb
+	name = "Security Flashbulb"
+	desc = "A powerful bulb that, when placed into a flash device can emit a bright light that will disorientate and subdue targets."
+	id = "flashbulb"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 300, /datum/material/glass = 150)
+	build_path = /obj/item/flashbulb
+	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

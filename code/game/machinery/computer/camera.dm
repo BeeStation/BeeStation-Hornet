@@ -56,11 +56,9 @@
 	if (!network)
 		user.unset_machine()
 		CRASH("No camera network")
-		return
 	if (!(islist(network)))
 		user.unset_machine()
 		CRASH("Camera network is not a list")
-		return
 	if(..())
 		user.unset_machine()
 		return

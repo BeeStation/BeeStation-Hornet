@@ -210,6 +210,8 @@
 /datum/config_entry/string/githuburl
 	config_entry_value = "https://www.github.com/tgstation/-tg-station"
 
+/datum/config_entry/string/issue_label
+
 /datum/config_entry/string/donateurl
 	config_entry_value = "https://www.patreon.com/user?u=10639001"
 
@@ -515,3 +517,12 @@
 	config_entry_value = 500
 
 /datum/config_entry/flag/topic_enabled
+
+/datum/config_entry/flag/auto_profile
+
+/datum/config_entry/flag/ic_filter_enabled
+
+/datum/config_entry/flag/ooc_filter_enabled
+
+/datum/config_entry/string/redirect_address
+	config_entry_value = ""

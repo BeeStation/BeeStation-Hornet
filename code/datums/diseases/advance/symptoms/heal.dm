@@ -81,6 +81,7 @@
 	stage_speed = -3
 	transmittable = -2
 	level = 8
+	severity = -2
 	passive_message = "<span class='notice'>The pain from your wounds makes you feel oddly sleepy...</span>"
 	var/deathgasp = FALSE
 	var/stabilize = FALSE
@@ -166,6 +167,59 @@
 		return TRUE
 	return FALSE
 
+/datum/symptom/heal/surface
+	name = "Superficial Healing"
+	desc = "The virus accelerates the body's natural healing, causing the body to heal minor wounds quickly. Causes heavy scarring."
+	stealth = -1
+	resistance = -2
+	stage_speed = -2
+	transmittable = 1
+	severity = -1
+	level = 6
+	passive_message = "<span class='notice'>Your skin tingles.</span>"
+	var/threshhold = 15
+	var/scarcounter = 0
+
+	threshold_desc = "<b>Stage Speed 8:</b> Doubles healing speed.<br>\
+					  <b>Resistance 10:</b> Improves healing threshhold."
+
+/datum/symptom/heal/surface/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.properties["stage_rate"] >= 8) //stronger healing
+		power = 2
+	if(A.properties["resistance"] >= 10)
+		threshhold = 30
+
+/datum/symptom/heal/surface/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
+	var/healed = FALSE
+
+	if(M.getBruteLoss() && M.getBruteLoss() <= threshhold)
+		M.adjustBruteLoss(-power)
+		healed = TRUE
+		scarcounter++
+
+	if(M.getFireLoss() && M.getFireLoss() <= threshhold)
+		M.adjustFireLoss(-power)
+		healed = TRUE
+		scarcounter++
+	
+	if(M.getToxLoss() && M.getToxLoss() <= threshhold)
+		M.adjustToxLoss(-power)
+		healed = TRUE
+
+	if(healed)
+		if(prob(10))
+			to_chat(M, "<span class='notice'>Your wounds heal, granting you a new scar</span>")
+		if(scarcounter >= 200 && !HAS_TRAIT(M, TRAIT_DISFIGURED))
+			ADD_TRAIT(M, TRAIT_DISFIGURED, DISEASE_TRAIT)
+			M.visible_message("<span class='warning'>[M]'s face becomes unrecognizeable </span>", "<span class='userdanger'>Your scars have made your face unrecognizeable.</span>")
+	return healed
+
+
+/datum/symptom/heal/surface/passive_message_condition(mob/living/M)
+	return M.getBruteLoss() <= threshhold || M.getFireLoss() <= threshhold
+
 /*
 //////////////////////////////////////
 im not even gonna bother with these for the following symptoms. typed em out, code was deleted, had to start over, read the symptoms yourself.
@@ -176,18 +230,26 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/EMP
 	name = "Organic Flux Induction"
 	desc = "Causes electromagnetic interference around the subject"
-	stealth = -2
+	stealth = 0
 	resistance = -1
-	stage_speed = 0
+	stage_speed = -1
 	transmittable = -2
 	level = 6
-	severity = 4
+	severity = 2
+	baseseverity = 2
 	symptom_delay_min = 15
 	symptom_delay_max = 40
 	var/bigemp = FALSE
 	var/cellheal = FALSE
 	threshold_desc = "<b>Stealth 4:</b> The disease resets cell DNA, quickly curing cell damage and mutations<br>\
 					<b>transmission 8:</b> The EMP affects electronics adjacent to the subject as well."
+
+/datum/symptom/EMP/severityset(datum/disease/advance/A)
+	if(A.properties["stealth"] >= 4)
+		severity -= 1
+	if(A.properties["transmittable"] >= 8)
+		severity += 1
+	return..()
 
 /datum/symptom/EMP/Start(datum/disease/advance/A)
 	if(!..())
@@ -222,13 +284,18 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	stage_speed = 0
 	transmittable = 1
 	level = 6
-	severity = 4
+	severity = 1
 	symptom_delay_min = 10
 	symptom_delay_max = 30
 	var/bigsweat = FALSE
 	var/toxheal = FALSE
-	threshold_desc = "<b>transmission 6:</b> The sweat production ramps up to the point that it cleans messes and puts out fires in the general vicinity<br>\
+	threshold_desc = "<b>transmission 6:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity<br>\
 					<b>transmission 8:</b> The EMP affects electronics adjacent to the subject as well."
+
+/datum/symptom/sweat/severityset(datum/disease/advance/A)
+	if(A.properties["transmittable"] >= 8)
+		severity -= 1
+	return..()
 
 /datum/symptom/sweat/Start(datum/disease/advance/A)
 	if(!..())
@@ -269,7 +336,6 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /obj/effect/sweatsplash/Initialize()
 	create_reagents(1000)
 	reagents.add_reagent(/datum/reagent/water, 10)
-	reagents.add_reagent(/datum/reagent/space_cleaner, 10)
 
 obj/effect/sweatsplash/proc/splash()
 	chem_splash(loc, 2, list(reagents))
@@ -277,29 +343,37 @@ obj/effect/sweatsplash/proc/splash()
 
 /datum/symptom/teleport
 	name = "Thermal Retrostable Displacement"
-	desc = "When too hot or cold, the subject will return to a recent location they experienced safe homeostasis"
+	desc = "When too hot or cold, the subject will return to a recent location at which they experienced safe homeostasis"
 	stealth = 1
 	resistance = 2
 	stage_speed = -2
 	transmittable = -3
 	level = 8
 	severity = 0
+	baseseverity = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
-	var/telethreshold = 0
+	var/telethreshold = 15
 	var/burnheal = FALSE
 	var/turf/open/location_return = null
 	var/cooldowntimer = 0
-	threshold_desc = "<b>Resistance 8:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health<br>\
+	threshold_desc = "<b>Resistance 6:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health<br>\
 					<b>Transmission 8:</b> The disease becomes more active, activating in a smaller temperature range."
+
+/datum/symptom/teleport/severityset(datum/disease/advance/A)
+	if(A.properties["resistance"] >= 6)
+		severity -= 1
+		if(A.properties["transmittable"] >= 8)
+			severity -= 1
+	return..()
 
 /datum/symptom/teleport/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 8)
+	if(A.properties["resistance"] >= 6)
 		burnheal = TRUE
 	if(A.properties["transmittable"] >= 8)
-		telethreshold = 25
+		telethreshold = -10
 		power = 2
 
 /datum/symptom/teleport/Activate(datum/disease/advance/A)
@@ -314,7 +388,7 @@ obj/effect/sweatsplash/proc/splash()
 				location_return = get_turf(M)	//sets up return point
 				if(prob(50))
 					to_chat(M, "<span class='userwarning'>The lukewarm temperature makes you feel strange!</span>")
-			if(cooldowntimer == 0 && (M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT - telethreshold || M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT + telethreshold || (burnheal && M.getFireLoss() > 75 - telethreshold)))
+			if(cooldowntimer == 0 && ((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
 				do_sparks(5,FALSE,M)
 				to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spacial state!</span>")
 				do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
@@ -337,19 +411,27 @@ obj/effect/sweatsplash/proc/splash()
 	stage_speed = 1
 	transmittable = -2
 	level = 7
-	severity = 4
+	severity = 1
+	baseseverity = 1
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/current_size = 1
 	var/tetsuo = FALSE
 	var/bruteheal = FALSE
-	threshold_desc = "<b>Stage Speed 8:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors<br>\
+	threshold_desc = "<b>Stage Speed 6:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors<br>\
 					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced."
+
+/datum/symptom/growth/severityset(datum/disease/advance/A)
+	if(A.properties["stage_rate"] >= 6)
+		severity -= 1
+	if(A.properties["stage_rate"] >= 12)
+		severity += 3
+	return..()
 
 /datum/symptom/growth/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 8)
+	if(A.properties["stage_rate"] >= 6)
 		bruteheal = TRUE
 	if(A.properties["stage_rate"] >= 12)
 		tetsuo = TRUE
@@ -375,11 +457,12 @@ obj/effect/sweatsplash/proc/splash()
 			M.update_transform()
 			if(prob(5) && bruteheal)
 				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet</span>")
-				M.Knockdown(40)
-				new /obj/effect/gibspawner/human/bodypartless(M.loc)
+				M.Knockdown(10)
+				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
 				if(prob(80))
 					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
 				if(tetsuo && prob(30))
+					new /obj/effect/gibspawner/human/bodypartless(M.loc)
 					new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
 				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
 					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)

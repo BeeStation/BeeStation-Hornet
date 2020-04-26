@@ -285,8 +285,9 @@
 
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER)))
-			M.visible_message("<span class='warning'>[src] grabs [M] passively!</span>", \
-							"<span class='warning'>[src] grabs you passively!</span>")
+			M.visible_message("<span class='warning'>[src] grabs [M] [(zone_selected == "l_arm" || zone_selected == "r_arm")? "by their hands":"passively"]!</span>", \
+							"<span class='warning'>[src] grabs you [(zone_selected == "l_arm" || zone_selected == "r_arm")? "by your hands":"passively"]!</span>", null, null, src)
+			to_chat(src, "<span class='notice'>You grab [M] [(zone_selected == "l_arm" || zone_selected == "r_arm")? "by their hands":"passively"]!</span>")
 		if(!iscarbon(src))
 			M.LAssailant = null
 		else
@@ -568,7 +569,6 @@
 	setToxLoss(0, 0) //zero as second argument not automatically call updatehealth().
 	setOxyLoss(0, 0)
 	setCloneLoss(0, 0)
-	setBrainLoss(0)
 	setStaminaLoss(0, 0)
 	SetUnconscious(0, FALSE)
 	set_disgust(0)
@@ -771,7 +771,6 @@
 			pulledby.stop_pulling()
 			return FALSE
 		else
-			adjustStaminaLoss(rand(8,15))//8 is from 7.5 rounded up
 			visible_message("<span class='danger'>[src] struggles as they fail to break free of [pulledby]'s grip!</span>")
 		if(moving_resist && client) //we resisted by trying to move
 			client.move_delay = world.time + 20
@@ -1174,7 +1173,8 @@
 		mobility_flags |= MOBILITY_UI|MOBILITY_PULL
 
 
-
+	if(stat == UNCONSCIOUS)
+		drop_all_held_items()
 	var/canitem = !paralyzed && !stun && conscious && !chokehold && !restrained && has_arms
 	if(canitem)
 		mobility_flags |= (MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
@@ -1217,8 +1217,6 @@
 			remove_movespeed_modifier(MOVESPEED_ID_LIVING_LIMBLESS, update=TRUE)
 
 /mob/living/proc/fall(forced)
-	if(!(mobility_flags & MOBILITY_USE))
-		drop_all_held_items()
 
 /mob/living/proc/AddAbility(obj/effect/proc_holder/A)
 	abilities.Add(A)

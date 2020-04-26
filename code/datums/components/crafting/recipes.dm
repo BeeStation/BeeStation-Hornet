@@ -346,6 +346,41 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/switchblade_kitchen
+	name = "Iron Switchblade"
+	result = /obj/item/switchblade/kitchen
+	reqs = list(/obj/item/stack/sheet/iron = 2,
+				/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/kitchen/knife = 1,
+				/obj/item/stack/cable_coil = 2)
+	tools = list(TOOL_WELDER)
+	time = 45
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/switchblade_kitchenupgrade
+	name = "Plastitanium Switchblade"
+	result = /obj/item/switchblade/plastitanium 
+	reqs = list(/obj/item/switchblade/kitchen = 1,
+				/obj/item/stack/sheet/mineral/plastitanium = 2)
+	tools = list(TOOL_WELDER)
+	time = 20
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/switchblade_plastitanium
+	name = "Plastitanium Switchblade"
+	result = /obj/item/switchblade/plastitanium 
+	reqs = list(/obj/item/weaponcrafting/stock = 1,
+				/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/kitchen/knife = 1,
+				/obj/item/stack/cable_coil = 2,
+				/obj/item/stack/sheet/mineral/plastitanium = 2)
+	tools = list(TOOL_WELDER)
+	time = 65
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/spooky_camera
 	name = "Camera Obscura"
 	result = /obj/item/camera/spooky
@@ -399,6 +434,19 @@
 	reqs = list(/obj/item/stack/sheet/iron = 4,
 				/obj/item/stack/rods = 6)
 	time = 100
+	category = CAT_MISC
+
+/datum/crafting_recipe/motorized_wheelchair
+	name = "Motorized Wheelchair"
+	result = /obj/vehicle/ridden/wheelchair/motorized
+	reqs = list(/obj/item/stack/sheet/iron = 10,
+		/obj/item/stack/rods = 8,
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/capacitor = 1)
+	parts = list(/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/capacitor = 1)
+	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WRENCH)
+	time = 200
 	category = CAT_MISC
 
 /datum/crafting_recipe/mousetrap

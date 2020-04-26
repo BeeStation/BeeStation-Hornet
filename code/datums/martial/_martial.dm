@@ -12,6 +12,7 @@
 	var/help_verb
 	var/no_guns = FALSE
 	var/allow_temp_override = TRUE //if this martial art can be overridden by temporary martial arts
+	var/smashes_tables = FALSE //If the martial art smashes tables when performing table slams and head smashes
 
 /datum/martial_art/proc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	return 0

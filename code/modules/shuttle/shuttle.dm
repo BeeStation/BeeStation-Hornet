@@ -791,8 +791,8 @@
 	current_engines = max(0,current_engines + mod)
 	if(in_flight())
 		var/delta_coeff = engine_coeff / old_coeff
-		modTimer(delta_coeff) 
- 
+		modTimer(delta_coeff)
+
 /obj/docking_port/mobile/proc/count_engines()
 	. = 0
 	for(var/thing in shuttle_areas)
@@ -801,6 +801,10 @@
 			if(!QDELETED(E))
 				engine_list += E
 				. += E.engine_power
+		for(var/obj/machinery/shuttle/engine/E in areaInstance.contents)
+			if(!QDELETED(E))
+				engine_list += E
+				. += E.thruster_active ? 1 : 0
 
 // Double initial engines to get to 0.5 minimum
 // Lose all initial engines to get to 2

@@ -28,7 +28,7 @@
 	landmark_type = /obj/effect/landmark/abductor/scientist
 	greet_text = "Use your experimental console and surgical equipment to monitor your agent and experiment upon abducted humans."
 	show_in_antagpanel = TRUE
-	
+
 /datum/antagonist/abductor/scientist/onemanteam
 	name = "Abductor Solo"
 	outfit = /datum/outfit/abductor/scientist/onemanteam
@@ -61,6 +61,8 @@
 /datum/antagonist/abductor/greet()
 	to_chat(owner.current, "<span class='notice'>You are the [owner.special_role]!</span>")
 	to_chat(owner.current, "<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
+	to_chat(owner.current, "<span class='notice'>There are two of you! One can monitor cameras while the other infiltrates the station.</span>")
+	to_chat(owner.current, "<span class='notice'>Choose a worthy disguise and plan your targets carefully! Humans will kill you on sight.</span>")
 	to_chat(owner.current, "<span class='notice'>[greet_text]</span>")
 	owner.announce_objectives()
 

@@ -6,6 +6,7 @@
 	stage_speed = 1
 	transmittable = -3
 	level = 5
+	severity = -1
 	symptom_delay_min = 5
 	symptom_delay_max = 10
 	var/purge_alcohol = FALSE
@@ -51,7 +52,7 @@
 		M.hallucination = max(0, M.hallucination - 10)
 
 	if(A.stage >= 5)
-		M.adjustBrainLoss(-3)
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -3)
 		if(trauma_heal_mild && iscarbon(M))
 			var/mob/living/carbon/C = M
 			if(prob(10))
@@ -70,6 +71,7 @@
 	stage_speed = -2
 	transmittable = 2
 	level = 4
+	severity = -1
 	base_message_chance = 7
 	symptom_delay_min = 1
 	symptom_delay_max = 1

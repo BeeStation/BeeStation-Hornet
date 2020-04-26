@@ -168,18 +168,26 @@
 
 /datum/supply_pack/emergency/syndicate
 	name = "NULL_ENTRY"
-	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE@&!*() "
+	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE, BUT DON'T GET GREEDY- ORDER TOO MANY AND WE'LL BE SENDING OUR DEADLIEST ENFORCERS TO INVESTIGATE@&!*() "
 	hidden = TRUE
 	cost = 20000
 	contains = list()
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
 	dangerous = TRUE
+	var/beepsky_chance = -1
+	var/level = 1
 
 /datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
 	var/crate_value = 30
 	var/list/uplink_items = get_uplink_items(SSticker.mode)
+	beepsky_chance += min(level, 5) //1% chance per crate an item will be replaced with a beepsky and the crate stops spawning items. Doesnt act as a hardcap, making nullcrates far riskier and less predictable
 	while(crate_value)
+		if(prob(beepsky_chance) && prob(50))
+			new /mob/living/simple_animal/bot/secbot/grievous/nullcrate(C)
+			crate_value = 0
+			beepsky_chance = 0
+			level += 1
 		var/category = pick(uplink_items)
 		var/item = pick(uplink_items[category])
 		var/datum/uplink_item/I = uplink_items[category][item]
@@ -189,6 +197,11 @@
 			continue
 		crate_value -= I.cost
 		new I.item(C)
+	var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
+	if(istype(loneop))
+		loneop.weight += 7
+		message_admins("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
+		log_game("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
 
 /datum/supply_pack/emergency/plasma_spacesuit
 	name = "Plasmaman Space Envirosuits"
@@ -394,7 +407,7 @@
 	contains = list(/obj/item/storage/box/firingpins,
 					/obj/item/storage/box/firingpins)
 	crate_name = "firing pins crate"
-	
+
 /datum/supply_pack/security/firingpins/paywall
 	name = "Paywall Firing Pins Crate"
 	desc = "Specialized firing pins with a built-in configurable paywall. Requires Security access to open."
@@ -1209,6 +1222,17 @@
 	crate_name = "blood freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
+/datum/supply_pack/medical/synthflesh
+	name = "Synthflesh resupply pack"
+	desc = "Contains four 100u cartons of synthflesh in case the cloner ran out of it."
+	cost = 3000
+	contains = list(/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+					/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+					/obj/item/reagent_containers/food/drinks/bottle/synthflesh,
+					/obj/item/reagent_containers/food/drinks/bottle/synthflesh)
+	crate_name = "rusty freezer"
+	crate_type = /obj/structure/closet/crate/freezer
+
 /datum/supply_pack/medical/firstaidbruises_single
 	name = "Bruise Treatment Kit Single-Pack"
 	desc = "Contains one first aid kit focused on healing bruises and broken bones."
@@ -1330,28 +1354,33 @@
 	access = ACCESS_MEDICAL
 	contains = list(/obj/machinery/iv_drip/saline)
 
-/datum/supply_pack/medical/virus
-	name = "Virus Crate"
-	desc = "Contains twelve different bottles, containing several viral samples for virology research. Also includes seven beakers and syringes. Balled-up jeans not included. Requires CMO access to open."
-	cost = 2500
-	access = ACCESS_CMO
-	contains = list(/obj/item/reagent_containers/glass/bottle/flu_virion,
-					/obj/item/reagent_containers/glass/bottle/cold,
+/datum/supply_pack/medical/randomvirus
+	name = "Virus Sample Crate"
+	desc = "Contains five random experimental disease cultures for epidemiological research"
+	cost = 1500
+	access = ACCESS_VIROLOGY
+	contains = list(/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/fake_gbs,
-					/obj/item/reagent_containers/glass/bottle/magnitis,
-					/obj/item/reagent_containers/glass/bottle/pierrot_throat,
-					/obj/item/reagent_containers/glass/bottle/brainrot,
-					/obj/item/reagent_containers/glass/bottle/anxiety,
-					/obj/item/reagent_containers/glass/bottle/beesease,
-					/obj/item/storage/box/syringes,
-					/obj/item/storage/box/beakers,
-					/obj/item/reagent_containers/glass/bottle/mutagen)
-	crate_name = "virus crate"
+					/obj/item/reagent_containers/glass/bottle/random_virus)
+	crate_name = "virus sample crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
+	dangerous = TRUE
+
+/datum/supply_pack/medical/virology
+	name = "Junior Epidemiology Kit"
+	desc = "Contains the necessary supplies to start an epidemiological research lab. P.A.N.D.E.M.I.C. not included. Comes with a free virologist action figure!"
+	cost = 2000
+	access = ACCESS_VIROLOGY
+	contains = list(/obj/item/reagent_containers/food/snacks/monkeycube,
+					/obj/item/reagent_containers/food/drinks/bottle/virusfood,
+					/obj/item/reagent_containers/glass/bottle/mutagen,
+					/obj/item/reagent_containers/glass/bottle/formaldehyde,
+					/obj/item/reagent_containers/glass/bottle/synaptizine,
+					/obj/item/storage/box/beakers,
+					/obj/item/toy/figure/virologist)
+	crate_name = "Junior Epidemiology Kit"
 	dangerous = TRUE
 
 /datum/supply_pack/medical/vending
@@ -1361,6 +1390,22 @@
 	contains = list(/obj/item/vending_refill/medical,
 					/obj/item/vending_refill/wallmed)
 	crate_name = "medical vending crate"
+
+/datum/supply_pack/medical/virus
+	name = "Virus Crate"
+	desc = "Contains several contagious virus samples, ranging from annoying to lethal. Balled-up jeans not included. Requires CMO access to open."
+	cost = 2000
+	access = ACCESS_CMO
+	contraband = TRUE
+	contains = list(/obj/item/reagent_containers/glass/bottle/fake_gbs,
+					/obj/item/reagent_containers/glass/bottle/magnitis,
+					/obj/item/reagent_containers/glass/bottle/pierrot_throat,
+					/obj/item/reagent_containers/glass/bottle/brainrot,
+					/obj/item/reagent_containers/glass/bottle/anxiety,
+					/obj/item/reagent_containers/glass/bottle/beesease)
+	crate_name = "virus crate"
+	crate_type = /obj/structure/closet/crate/secure/plasma
+	dangerous = TRUE
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
@@ -1574,7 +1619,7 @@
 					/obj/item/stack/tile/carpet/royalblack/fifty,
 					/obj/item/stack/tile/carpet/royalblack/fifty)
 	crate_name = "exotic carpet crate"
-	
+
 /datum/supply_pack/service/lightbulbs
 	name = "Replacement Lights"
 	desc = "May the light of Aether shine upon this station! Or at least, the light of forty two light tubes and twenty one light bulbs."
