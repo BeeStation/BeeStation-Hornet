@@ -69,6 +69,9 @@
 		            /obj/item/clothing/under/skirt/blue = 2,
 		            /obj/item/clothing/under/skirt/red = 2,
 		            /obj/item/clothing/under/skirt/purple = 2,
+		            /obj/item/clothing/under/scratch/skirt = 2,
+		            /obj/item/clothing/under/gimmick/rank/captain/suit/skirt = 2,
+		            /obj/item/clothing/under/gimmick/rank/head_of_personnel/suit/skirt = 2,
 		            /obj/item/clothing/suit/jacket = 2,
 		            /obj/item/clothing/suit/jacket/puffer/vest = 2,
 		            /obj/item/clothing/suit/jacket/puffer = 2,
@@ -104,6 +107,7 @@
 		            /obj/item/clothing/suit/apron/purple_bartender = 2,
 		            /obj/item/clothing/under/rank/bartender/purple = 2)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
+					  /obj/item/clothing/under/syndicate/tacticool/skirt = 1,
 		              /obj/item/clothing/mask/balaclava = 1,
 		              /obj/item/clothing/head/ushanka = 1,
 		              /obj/item/clothing/under/soviet = 1,

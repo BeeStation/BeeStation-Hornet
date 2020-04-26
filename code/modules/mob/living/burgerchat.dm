@@ -109,21 +109,24 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	animate(I, 1, alpha = 255, pixel_y = 24)
 	animate(O, 1, alpha = 255, pixel_y = 24)
+  
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/fadeout_overhead_messages, I, O), duration)
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/delete_overhead_messages, I, O, show_to, target, message_language), duration+5)
 
-	// wait a little bit, then delete the message
-	spawn(duration)
-		var/pixel_y_new = I.pixel_y + 10
-		animate(I, 2, pixel_y = pixel_y_new, alpha = 0)
-		animate(O, 2, pixel_y = pixel_y_new, alpha = 0)
-		sleep(2)
-		for(var/client/C in show_to)
-			if(C.mob.can_hear() && C.prefs.overhead_chat)
-				if(C.mob.can_speak_in_language(message_language))
-					C.images -= I
-				else
-					C.images -= O
 
-		target.stored_chat_text -= I
-		target.stored_chat_text -= O
-		qdel(I)
-		qdel(O)
+/proc/fadeout_overhead_messages(image/I, image/O)
+	var/pixel_y_new = I.pixel_y + 10
+	animate(I, 2, pixel_y = pixel_y_new, alpha = 0)
+	animate(O, 2, pixel_y = pixel_y_new, alpha = 0)
+
+/proc/delete_overhead_messages(image/I, image/O, list/show_to, mob/living/target, message_language)
+	for(var/client/C in show_to)
+		if(C.mob.can_hear() && C.prefs.overhead_chat)
+			if(C.mob.can_speak_in_language(message_language))
+				C.images -= I
+			else
+				C.images -= O
+	target.stored_chat_text -= I
+	target.stored_chat_text -= O
+	qdel(I)
+	qdel(O)

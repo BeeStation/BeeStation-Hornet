@@ -3943,6 +3943,20 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"aiM" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = -30
+	},
+/turf/open/floor/plasteel,
+/area/security/warden)
 "aiQ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/stripes/line{
@@ -34802,21 +34816,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
-"biI" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/airalarm{
-	pixel_y = 22
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/security/main)
 "biJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -34831,22 +34830,6 @@
 	c_tag = "Security - Office Fore";
 	dir = 2
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/security/main)
-"biK" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/newscaster/security_unit{
-	pixel_y = 32
-	},
-/obj/item/twohanded/required/kirbyplants/random,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -44148,25 +44131,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
-"bxM" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 26
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/engine/break_room)
 "bxN" = (
 /obj/structure/closet/firecloset,
 /obj/machinery/light/small{
@@ -46244,20 +46208,6 @@
 "bAV" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/engine/break_room)
-"bAW" = (
-/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -54892,29 +54842,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/warden)
-"bNo" = (
-/obj/structure/rack,
-/obj/item/storage/box/handcuffs,
-/obj/item/storage/box/flashbangs{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/radio/intercom{
-	pixel_x = 26
-	},
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/flashlight/seclite,
-/obj/item/flashlight/seclite,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/security/warden)
 "bNp" = (
 /obj/machinery/flasher/portable,
 /obj/effect/turf_decal/tile/neutral{
@@ -60042,20 +59969,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"bVl" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
-/obj/machinery/newscaster/security_unit{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/security/warden)
 "bVm" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -89647,20 +89560,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"cSR" = (
-/obj/item/twohanded/required/kirbyplants/random,
-/obj/item/storage/pod{
-	pixel_x = 32;
-	pixel_y = 32
-	},
-/obj/machinery/airalarm{
-	pixel_y = 23
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "cSS" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -94581,19 +94480,6 @@
 "daR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/science/lab)
-"daS" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/twohanded/required/kirbyplants/random,
-/obj/machinery/status_display/evac{
-	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -127531,6 +127417,21 @@
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel,
 /area/science/lab)
+"mAj" = (
+/obj/item/storage/pod{
+	pixel_x = 32;
+	pixel_y = 32
+	},
+/obj/machinery/airalarm{
+	pixel_y = 23
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/item/storage/box/beakers,
+/obj/machinery/computer/cargo/request,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "mAW" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
@@ -128145,6 +128046,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"qLs" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/airalarm{
+	pixel_y = 22
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/computer/cargo/request,
+/turf/open/floor/plasteel,
+/area/security/main)
 "qNG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -128392,6 +128309,29 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/space)
+"sEu" = (
+/obj/structure/rack,
+/obj/item/storage/box/handcuffs,
+/obj/item/storage/box/flashbangs{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/flashlight/seclite,
+/obj/item/flashlight/seclite,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/keycard_auth{
+	pixel_x = 24
+	},
+/turf/open/floor/plasteel,
+/area/security/warden)
 "sJw" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -128423,6 +128363,20 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
+"sUX" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/machinery/computer/cargo/request,
+/turf/open/floor/plasteel,
+/area/engine/break_room)
 "tbR" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/soda_cans/thirteenloko,
@@ -128609,6 +128563,35 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/maintenance/department/science)
+"uth" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/newscaster/security_unit{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/security/main)
+"uyn" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/computer/cargo/request,
+/turf/open/floor/plasteel/white,
+/area/science/lab)
 "uCc" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -129010,6 +128993,23 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/research)
+"xQZ" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/machinery/vending/snack/random,
+/turf/open/floor/plasteel,
+/area/engine/break_room)
 "xRb" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -154117,9 +154117,9 @@ bor
 btU
 bvg
 bwy
-bxM
+xQZ
 bzp
-bAW
+sUX
 bCT
 bEJ
 bGo
@@ -166244,7 +166244,7 @@ cUi
 cQQ
 cXy
 cZm
-daS
+uyn
 dcG
 def
 dfs
@@ -174977,7 +174977,7 @@ cMg
 cHW
 cHW
 cPy
-cSR
+mAj
 cPv
 cPv
 cXX
@@ -181114,7 +181114,7 @@ bNm
 bPt
 bRq
 bTf
-bVl
+aiM
 bXJ
 bZR
 cbD
@@ -181606,7 +181606,7 @@ aFm
 aFm
 aIi
 bhd
-biI
+qLs
 bkt
 bmn
 bnN
@@ -181624,7 +181624,7 @@ bFN
 bHG
 bFM
 bHL
-bNo
+sEu
 bPv
 bRs
 bTh
@@ -182120,7 +182120,7 @@ bcP
 bcM
 aad
 bhd
-biK
+uth
 bku
 bmp
 bnP
