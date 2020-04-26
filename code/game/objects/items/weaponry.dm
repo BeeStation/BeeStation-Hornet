@@ -518,7 +518,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "An energy chainsaw that has replaced your arm."
 	force = 40
 	armour_penetration = 50
-	block_chance = 50
 	hitsound = 'sound/weapons/echainsawhit1.ogg'
 
 /obj/item/mounted_chainsaw/energy/Destroy()
@@ -538,7 +537,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A super energy chainsaw that has replaced your arm."
 	force = 60
 	armour_penetration = 75
-	block_chance = 75
 	hitsound = 'sound/weapons/echainsawhit1.ogg'
 
 /obj/item/mounted_chainsaw/super/Destroy()

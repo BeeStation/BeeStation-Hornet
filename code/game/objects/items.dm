@@ -500,7 +500,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			blockhand = BODY_ZONE_L_ARM
 	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
-		attackforce = (P.damage / 2)
+		if(P.damtype != STAMINA)// disablers dont do shit to shields
+			attackforce = (P.damage / 2)
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
 		attackforce = damage

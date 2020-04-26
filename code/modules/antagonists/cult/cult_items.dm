@@ -913,7 +913,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	force = 5
 	throwforce = 15
-	block_chance = 70 // higher than normal. This protects against greytiders with improvised weapons, but as soon as real weaponry comes out, the shield's breaking
 	throw_speed = 1
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
