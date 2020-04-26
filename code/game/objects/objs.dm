@@ -289,7 +289,8 @@
 			show_to |= M.client
 	
 	for(var/client/C in show_to)
-		C.images += I
+		if(C.prefs.overhead_chat)
+			C.images += I
 
 	animate(I, pixel_y = (pixely + 10), alpha = 0, time = 5)
 
@@ -298,5 +299,6 @@
 
 /obj/proc/unpingpopup(image/I, show_to)
 	for(var/client/C in show_to)
-		C.images -= I
+		if(C.prefs.overhead_chat)
+			C.images -= I
 	qdel(I)
