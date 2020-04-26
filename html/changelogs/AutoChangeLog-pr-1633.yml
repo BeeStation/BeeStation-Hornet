@@ -1,5 +1,0 @@
-author: "CthulhuOnIce"
-delete-after: True
-changes: 
-  - tweak: "runechat doesn't show whispers anymore"
-  - code_imp: "updates runechat to better code standards"
