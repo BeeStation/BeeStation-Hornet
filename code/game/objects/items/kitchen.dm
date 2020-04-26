@@ -66,6 +66,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	block_upgrade_walk = 1
+	nasty_blocks = TRUE
 	throw_speed = 3
 	throw_range = 6
 	materials = list(/datum/material/iron=12000)

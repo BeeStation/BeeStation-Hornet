@@ -129,6 +129,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/heat = 0
 	/// IS_BLUNT | IS_SHARP | IS_SHARP_ACCURATE Used to define whether the item is sharp or blunt. IS_SHARP is used if the item is supposed to be able to cut open things. See _DEFINES/combat.dm
 	var/sharpness = IS_BLUNT
+	//this multiplies an attacks force for secondary effects like attacking blocking implements, dismemberment, and knocking a target silly
+	var/attack_weight = 1
 
 	/// What this thing does when used like a tool. NONE if it isn't a tool. If I give a piece of paper TOOL_WRENCH I can use it to unwrench tables. See _DEFINES/tools.dm
 	var/tool_behaviour = NONE
@@ -136,7 +138,19 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/toolspeed = 1
 
 	/// The chance that holding this item will block attacks.
-	var/block_chance = 0
+	var/block_level = 0
+	//does the item block better if walking?
+	var/block_upgrade_walk = 0
+	//this item won't block if not in the active hand
+	var/active_blocking = TRUE
+	//does it block projectiles?
+	var/projectile_blocking = FALSE
+	//reduces stamina damage taken whilst blocking. block power of 0 means it takes the full force of the attacking weapon
+	var/block_power = 0
+	//what sound does blocking make
+	var/block_sound = 'sound/weapons/parry.ogg'
+	//if a mob hits this barehanded, are they in trouble?
+	var/nasty_blocks = FALSE
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
 	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
@@ -434,12 +448,76 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 // afterattack() and attack() prototypes moved to _onclick/item_attack.dm for consistency
 
-/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
-	if(prob(final_block_chance))
-		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-		return 1
+	var/relative_dir = (dir2angle(get_dir(hitby, owner)) - dir2angle(owner.dir)) //shamelessly stolen from mech code
+	var/dir = dir2text(owner.dir)
+	var/relad = get_dir(owner, hitby)
+	owner.visible_message("<span class='danger'>[dir]! [relative_dir]! [relad]!</span>")
+	var/final_block_level = block_level
+	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
+		return 0
+	if(active_blocking && !owner.get_active_held_item() == src)
+		return 0
+	if(!projectile_blocking && attack_type == PROJECTILE_ATTACK)
+		return 0
+	if(owner.m_intent == MOVE_INTENT_WALK)
+		final_block_level += block_upgrade_walk
+	switch(relative_dir)
+		if(180, -180)
+			if(final_block_level >= 1)
+				playsound(src, block_sound, 50, 1)
+				owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+				return 1		
+		if(135, 225, -135, -225)
+			if(final_block_level >= 2)
+				playsound(src, block_sound, 50, 1)
+				owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+				return 1
+		if(90, 270, -90, -270)
+			if(final_block_level >= 3)
+				owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+				playsound(src, block_sound, 50, 1)
+				return 1
+		if(45, 315, -45, -315)
+			if(final_block_level >= 4)
+				playsound(src, block_sound, 50, 1)
+				owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+				return 1
 	return 0
+
+/obj/item/proc/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	var/blockhand = 0
+	var/attackforce = 0 
+	if(owner.get_active_held_item() == src) //this feels so hacky...
+		if(owner.active_hand_index == 1)
+			blockhand = BODY_ZONE_L_ARM
+		else
+			blockhand = BODY_ZONE_R_ARM
+	else
+		if(owner.active_hand_index == 1)
+			blockhand = BODY_ZONE_R_ARM
+		else
+			blockhand = BODY_ZONE_L_ARM
+	if(isprojectile(hitby))
+		var/obj/item/projectile/P = hitby
+		attackforce = (P.damage / 2)
+	else if(isitem(hitby))
+		var/obj/item/I = hitby
+		attackforce = damage
+		if(I.sharpness)
+			attackforce = (attackforce / 2)//sharp weapons get much of their force by virtue of being sharp, not physical power
+		if(!I.damtype == BRUTE)
+			attackforce = (attackforce / 2)//as above, burning weapons, or weapons that deal other damage type probably dont get force from physical power
+		attackforce = (attackforce * I.attack_weight)
+	else if(isliving(hitby))
+		var/mob/living/L = hitby
+		attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
+		if(nasty_blocks)
+			L.attackby(src, owner)
+			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
+	owner.apply_damage(attackforce, STAMINA, blockhand, block_power) 
+	return TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language)
 	return ITALICS | REDUCE_RANGE
@@ -567,7 +645,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (!eyes)
 		return
 	M.adjust_blurriness(3)
-	eyes.applyOrganDamage(rand(2,4))
+	eyes.applyOrganDamage(3)
 	if(eyes.damage >= 10)
 		M.adjust_blurriness(15)
 		if(M.stat != DEAD)
@@ -575,14 +653,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!(HAS_TRAIT(M, TRAIT_BLIND) || HAS_TRAIT(M, TRAIT_NEARSIGHT)))
 			to_chat(M, "<span class='danger'>You become nearsighted!</span>")
 		M.become_nearsighted(EYE_DAMAGE)
-		if(prob(50))
-			if(M.stat != DEAD)
-				if(M.drop_all_held_items())
-					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
-			M.adjust_blurriness(10)
-			M.Unconscious(20)
-			M.Paralyze(40)
-		if (prob(eyes.damage - 10 + 1))
+		if (eyes.damage >= 60)
 			M.become_blind(EYE_DAMAGE)
 			to_chat(M, "<span class='danger'>You go blind!</span>")
 
@@ -660,11 +731,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/is_sharp()
 	return sharpness
-
-/obj/item/proc/get_dismemberment_chance(obj/item/bodypart/affecting)
-	if(affecting.can_dismember(src))
-		if((sharpness || damtype == BURN || (damtype == BRUTE && (affecting.owner.dna && affecting.owner.dna.species && (TRAIT_EASYDISMEMBER in affecting.owner.dna.species.species_traits)))) && w_class >= WEIGHT_CLASS_NORMAL && force >= 10)
-			. = force * (affecting.get_damage() / affecting.max_damage)
 
 /obj/item/proc/get_dismember_sound()
 	if(damtype == BURN)

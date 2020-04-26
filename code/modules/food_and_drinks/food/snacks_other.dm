@@ -428,7 +428,10 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/consumable/cherryjelly = 5)
 	force = 20
 	throwforce = 10
-	block_chance = 50
+	block_level = 2
+	block_upgrade_walk = 1
+	block_power = 40
+	attack_weight = 2
 	armour_penetration = 75
 	attack_verb = list("slapped", "slathered")
 	w_class = WEIGHT_CLASS_BULKY

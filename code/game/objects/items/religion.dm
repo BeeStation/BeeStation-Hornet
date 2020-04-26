@@ -379,10 +379,13 @@
 /obj/item/claymore/weak
 	desc = "This one is rusted."
 	force = 30
+	block_level = 1
+	block_upgrade_walk = 1
+	nasty_blocks = TRUE
 	armour_penetration = 15
 
 /obj/item/claymore/weak/ceremonial
 	desc = "A rusted claymore, once at the heart of a powerful scottish clan struck down and oppressed by tyrants, it has been passed down the ages as a symbol of defiance."
 	force = 15
-	block_chance = 30
+	block_power = 30
 	armour_penetration = 5
