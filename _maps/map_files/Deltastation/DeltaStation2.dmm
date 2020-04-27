@@ -50726,8 +50726,8 @@
 /area/security/brig)
 "bHx" = (
 /obj/structure/closet/secure_closet/brig{
-	id = "brig1";
-	name = "Cell 3 Locker"
+	id = "brig2";
+	name = "Cell 2 Locker"
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -52077,7 +52077,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/window/brigdoor/security/cell/westright{
-	id = "brig1";
+	id = "brig3";
 	name = "Cell 3"
 	},
 /obj/effect/turf_decal/tile/red{
@@ -54508,8 +54508,8 @@
 "bNk" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/machinery/door_timer{
-	id = "brig1";
-	name = "Cell 3";
+	id = "brig2";
+	name = "Cell 2";
 	pixel_x = -32
 	},
 /obj/machinery/light{
@@ -55901,8 +55901,8 @@
 /area/security/detectives_office)
 "bPo" = (
 /obj/structure/closet/secure_closet/brig{
-	id = "brig2";
-	name = "Cell 2 Locker"
+	id = "brig1";
+	name = "Cell 1 Locker"
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -57092,8 +57092,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/window/brigdoor/security/cell/westright{
-	id = "brig2";
-	name = "Cell 2"
+	id = "brig1";
+	name = "Cell 1"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -59714,8 +59714,8 @@
 "bVk" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/machinery/door_timer{
-	id = "brig2";
-	name = "Cell 2";
+	id = "brig1";
+	name = "Cell 1";
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -128195,8 +128195,8 @@
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/brig{
-	id = "brig1";
-	name = "Cell 1 Locker"
+	id = "brig3";
+	name = "Cell 3 Locker"
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -129175,8 +129175,8 @@
 "vxB" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door_timer{
-	id = "brig2";
-	name = "Cell 2";
+	id = "brig3";
+	name = "Cell 3";
 	pixel_x = -32
 	},
 /obj/machinery/light{
