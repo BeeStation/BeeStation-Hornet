@@ -50727,7 +50727,7 @@
 "bHx" = (
 /obj/structure/closet/secure_closet/brig{
 	id = "brig1";
-	name = "Cell 1 Locker"
+	name = "Cell 3 Locker"
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -52078,7 +52078,7 @@
 	},
 /obj/machinery/door/window/brigdoor/security/cell/westright{
 	id = "brig1";
-	name = "Cell 1"
+	name = "Cell 3"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -54509,7 +54509,7 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/machinery/door_timer{
 	id = "brig1";
-	name = "Cell 1";
+	name = "Cell 3";
 	pixel_x = -32
 	},
 /obj/machinery/light{
@@ -128149,6 +128149,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
+"pEV" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/structure/closet/secure_closet/brig{
+	id = "brig1";
+	name = "Cell 4 Locker"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "pFh" = (
 /turf/open/floor/carpet/purple,
 /area/vacant_room/office)
