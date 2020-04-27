@@ -85,7 +85,6 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 
-
 /obj/item/clothing/under/rank/mailman
 	name = "mailman's jumpsuit"
 	desc = "<i>'Special delivery!'</i>"
