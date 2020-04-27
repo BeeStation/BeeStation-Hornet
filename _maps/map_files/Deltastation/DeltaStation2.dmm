@@ -127520,6 +127520,25 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
+"msp" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/machinery/door/window/brigdoor/security/cell/westright,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "mvm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -128149,22 +128168,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
-"pEV" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/structure/closet/secure_closet/brig{
-	id = "brig1";
-	name = "Cell 4 Locker"
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "pFh" = (
 /turf/open/floor/carpet/purple,
 /area/vacant_room/office)
@@ -180331,7 +180334,7 @@ bJv
 oJj
 bNj
 bHz
-bJv
+msp
 bmc
 bNj
 bHz
