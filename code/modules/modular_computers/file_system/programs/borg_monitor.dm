@@ -17,15 +17,12 @@
 /datum/computer_file/program/borg_monitor/ui_data(mob/user)
 	var/list/data = get_header_data()
 
-	data["card"] = FALSE
-	if(computer.GetID())
-		data["card"] = TRUE
+	// Syndicate version doesn't require an ID - so we use this proc instead of computer.GetID()
+	data["card"] = !!get_id_name()
 
 	data["cyborgs"] = list()
 	for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
-		if((get_turf(computer)).get_virtual_z_level() != (get_turf(R)).get_virtual_z_level())
-			continue
-		if(R.scrambledcodes)
+		if(!evaluate_borg(R))
 			continue
 
 		var/list/upgrade
@@ -58,17 +55,53 @@
 			var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.silicon_mobs
 			if(!istype(R))
 				return
-			var/obj/item/card/id/ID = computer.GetID()
-			if(!ID)
+			var/sender_name = get_id_name()
+			if(!sender_name)
 				return
 			if(R.stat == DEAD) //Dead borgs will listen to you no longer
 				to_chat(usr, "<span class='warn'>Error -- Could not open a connection to unit:[R]</span>")
 			var/message = stripped_input(usr, message = "Enter message to be sent to remote cyborg.", title = "Send Message")
 			if(!message)
 				return
-			to_chat(R, "<br><br><span class='notice'>Message from [ID.registered_name] -- \"[message]\"</span><br>")
+			to_chat(R, "<br><br><span class='notice'>Message from [sender_name] -- \"[message]\"</span><br>")
 			SEND_SOUND(R, 'sound/machines/twobeep_high.ogg')
 			if(R.connected_ai)
-				to_chat(R.connected_ai, "<br><br><span class='notice'>Message from [ID.registered_name] to [R] -- \"[message]\"</span><br>")
+				to_chat(R.connected_ai, "<br><br><span class='notice'>Message from [sender_name] to [R] -- \"[message]\"</span><br>")
 				SEND_SOUND(R.connected_ai, 'sound/machines/twobeep_high.ogg')
-			R.logevent("Message from [ID] -- \"[message]\"")
+			R.logevent("Message from [sender_name] -- \"[message]\"")
+			usr.log_talk(message, LOG_PDA, tag="Cyborg Monitor Program: ID name \"[sender_name]\" to [R]")
+
+///This proc is used to determin if a borg should be shown in the list (based on the borg's scrambledcodes var). Syndicate version overrides this to show only syndicate borgs.
+/datum/computer_file/program/borg_monitor/proc/evaluate_borg(mob/living/silicon/robot/R)
+	if((get_turf(computer)).get_virtual_z_level() != (get_turf(R)).get_virtual_z_level())
+		return FALSE
+	if(R.scrambledcodes)
+		return FALSE
+	return TRUE
+
+///Gets the ID's name, if one is inserted into the device. This is a seperate proc solely to be overridden by the syndicate version of the app.
+/datum/computer_file/program/borg_monitor/proc/get_id_name()
+	var/obj/item/card/id/ID = computer.GetID()
+	if(!istype(ID))
+		return FALSE
+	return ID.registered_name
+
+/datum/computer_file/program/borg_monitor/syndicate
+	filename = "scyborgmonitor"
+	filedesc = "Mission-Specific Cyborg Remote Monitoring"
+	extended_desc = "This program allows for remote monitoring of mission-assigned cyborgs."
+	requires_ntnet = FALSE
+	available_on_ntnet = FALSE
+	available_on_syndinet = TRUE
+	transfer_access = null
+	tgui_id = "NtosCyborgRemoteMonitorSyndicate"
+
+/datum/computer_file/program/borg_monitor/syndicate/evaluate_borg(mob/living/silicon/robot/R)
+	if((get_turf(computer)).get_virtual_z_level() != (get_turf(R)).get_virtual_z_level())
+		return FALSE
+	if(!R.scrambledcodes)
+		return FALSE
+	return TRUE
+
+/datum/computer_file/program/borg_monitor/syndicate/get_id_name()
+	return "\[REDACTED\]" //no ID is needed for the syndicate version's message function, and the borg will see "[REDACTED]" as the message sender.
