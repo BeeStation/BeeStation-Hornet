@@ -825,12 +825,13 @@
 	cost = 1000
 	crate_name = "toolbox crate"
 
-/datum/supply_pack/service/vending/engivend
-	name = "EngiVend Supply Crate"
-	desc = "The engineers are out of metal foam grenades? This should help."
-	cost = 1500
-	contains = list(/obj/item/vending_refill/engivend)
-	crate_name = "engineering supply crate"
+/datum/supply_pack/engineering/vending/engineering
+	name = "Engineering Vending Crate"
+	desc = "Sick of assistants breaking into engineering for tools? Contains one Engi-Vend refill and one YouTool refill."
+	cost = 2000
+	contains = list(/obj/item/vending_refill/engivend,
+					/obj/item/vending_refill/tool)
+	crate_name = "engineering vending crate"
 
 /datum/supply_pack/engineering/bsa
 	name = "Bluespace Artillery Parts"

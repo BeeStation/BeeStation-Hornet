@@ -247,6 +247,7 @@
 		/obj/machinery/vending/wallmed = "NanoMed",
 		/obj/machinery/vending/assist  = "Vendomat",
 		/obj/machinery/vending/engivend = "Engi-Vend",
+		/obj/machinery/vending/tool = "YouTool",
 		/obj/machinery/vending/hydronutrients = "NutriMax",
 		/obj/machinery/vending/hydroseeds = "MegaSeed Servitor",
 		/obj/machinery/vending/sustenance = "Sustenance Vendor",
