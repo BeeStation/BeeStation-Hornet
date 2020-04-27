@@ -2137,7 +2137,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	taste_description = "a plasma fire in your mouth"
 	glass_icon_state = "plasmaflood"
 	glass_name = "Plasma Flood"
-	glass_desc = "A favorite of the grey tide. Ironically, not reccomended to stand in plasma while drinking this."
+	glass_desc = "A favorite of the grey tide. Ironically, not recommended to stand in plasma while drinking this."
 
 /datum/reagent/consumable/ethanol/plasmaflood/on_mob_life(mob/living/M)
 	if(prob(80))
