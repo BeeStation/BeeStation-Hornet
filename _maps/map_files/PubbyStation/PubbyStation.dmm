@@ -52297,12 +52297,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/library)
-"czp" = (
-/obj/structure/table/wood,
-/obj/item/disk/nuclear/fake,
-/obj/item/barcodescanner,
-/turf/open/floor/plasteel/dark,
-/area/library)
 "czq" = (
 /obj/machinery/airalarm{
 	dir = 8;
@@ -53837,6 +53831,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/engine,
 /area/science/explab)
+"eYf" = (
+/obj/structure/closet/crate,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/maintenance/department/science)
 "eYr" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -55406,13 +55406,6 @@
 	},
 /turf/open/floor/carpet,
 /area/library)
-"ijU" = (
-/obj/effect/spawner/lootdrop/organ_spawner,
-/obj/structure/closet/crate,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/maintenance/department/science)
 "ika" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
 /obj/machinery/meter,
@@ -55729,12 +55722,6 @@
 "iUX" = (
 /turf/closed/wall/r_wall,
 /area/science/mixing/chamber)
-"iVJ" = (
-/obj/effect/spawner/lootdrop/organ_spawner,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/maintenance/department/science)
 "iWV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
@@ -62148,6 +62135,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
+"xkv" = (
+/obj/structure/table/wood,
+/obj/item/barcodescanner,
+/turf/open/floor/plasteel/dark,
+/area/library)
 "xlA" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/abandoned,
@@ -81569,7 +81561,7 @@ cyT
 ick
 cyZ
 ckH
-czp
+xkv
 ckH
 ckH
 czP
@@ -107984,7 +107976,7 @@ bwm
 aht
 bwm
 ikB
-iVJ
+cDB
 izF
 typ
 bwm
@@ -109528,7 +109520,7 @@ bwm
 hFp
 abf
 abf
-ijU
+eYf
 bwm
 aht
 aed
