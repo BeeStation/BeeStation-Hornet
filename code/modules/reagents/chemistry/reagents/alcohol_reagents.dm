@@ -2126,3 +2126,26 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
 	..()
+
+/datum/reagent/consumable/ethanol/plasmaflood
+	name = "Plasma Flood"
+	description = "Not very popular with plasmamen, for obvious reasons."
+	color = "#630480" // rgb: 99, 4, 128
+	boozepwr = 60
+	quality = DRINK_NICE
+	metabolization_rate = 1.25 * REAGENTS_METABOLISM
+	taste_description = "a plasma fire in your mouth"
+	glass_icon_state = "plasmaflood"
+	glass_name = "Plasma Flood"
+	glass_desc = "A favorite of the grey tide. Ironically, not reccomended to stand in plasma while drinking this."
+
+/datum/reagent/consumable/ethanol/plasmaflood/on_mob_life(mob/living/M)
+	if(prob(80))
+		M.IgniteMob()
+		M.adjust_fire_stacks(10)
+
+	if(M.fire_stacks > 9)
+		if(M.on_fire)
+			M.adjustFireLoss(-16, 0)
+
+	..()
