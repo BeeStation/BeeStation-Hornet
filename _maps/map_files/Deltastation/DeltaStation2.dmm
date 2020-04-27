@@ -127536,7 +127536,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/machinery/door/window/brigdoor/security/cell/westright,
+/obj/machinery/door/window/brigdoor/security/cell/westright{
+	id = "brig2";
+	name = "Cell 2"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "mvm" = (
