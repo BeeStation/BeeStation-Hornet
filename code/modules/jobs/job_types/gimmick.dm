@@ -17,11 +17,7 @@
 
 /datum/job/gimmick/barber
 	title = "Barber"
-	flag = BARBER
-	selection_color = "#dddddd"
-
 	outfit = /datum/outfit/job/gimmick/barber
-
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
@@ -36,4 +32,23 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	l_hand = /obj/item/storage/wallet
 	l_pocket = /obj/item/razor/straightrazor
-	backpack_contents = list(/obj/item/handmirror=1)
+
+/datum/job/gimmick/magician
+	title = "Stage Magician"
+	outfit = /datum/outfit/job/gimmick/magician
+	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+	gimmick = TRUE
+
+/datum/outfit/job/gimmick/magician
+	name = "Stage Magician"
+	jobtype = /datum/job/gimmick/magician
+
+	belt = /obj/item/pda/unlicensed
+	head = /obj/item/clothing/head/that
+	ears = /obj/item/radio/headset
+	neck = /obj/item/bedsheet/magician
+	uniform = /obj/item/clothing/under/suit_jacket/really_black
+	shoes = /obj/item/clothing/shoes/laceup
+	l_hand = /obj/item/cane
+	backpack_contents = list(/obj/item/choice_beacon/magic=1)

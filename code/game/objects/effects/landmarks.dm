@@ -226,6 +226,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/randommaint/backalley_doc
 	name = "Barber"
 	job = "Barber"
+
+/obj/effect/landmark/start/randommaint/magician
+	name = "Stage Magician"
+	job = "Stage Magician"
 	
 //Department Security spawns
 
