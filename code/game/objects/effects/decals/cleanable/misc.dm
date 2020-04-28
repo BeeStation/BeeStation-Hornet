@@ -10,6 +10,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	mergeable_decal = FALSE
+	beauty = -50
 
 /obj/effect/decal/cleanable/ash/Initialize()
 	. = ..()
@@ -85,6 +86,11 @@
 /obj/effect/decal/cleanable/greenglow/filled/Initialize()
 	. = ..()
 	reagents.add_reagent(pick(/datum/reagent/uranium, /datum/reagent/uranium/radium), 5)
+
+/obj/effect/decal/cleanable/greenglow/ecto
+	name = "ectoplasmic puddle"
+	desc = "You know who to call."
+	light_power = 2
 
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"
