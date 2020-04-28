@@ -355,7 +355,9 @@
 	name = "Bulk Security Hardsuit Crate"
 	desc = "Contains three security hardsuits for catching criminals in space! Requires Security access to open."
 	cost = 24000
-	contains = list(/obj/item/clothing/suit/space/hardsuit/security)
+	contains = list(/obj/item/clothing/suit/space/hardsuit/security,
+					/obj/item/clothing/suit/space/hardsuit/security,
+					/obj/item/clothing/suit/space/hardsuit/security)
 	crate_name = "bulk security hardsuit crate"
 
 /datum/supply_pack/security/laser
