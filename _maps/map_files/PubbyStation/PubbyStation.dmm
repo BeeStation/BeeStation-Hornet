@@ -385,25 +385,9 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aaI" = (
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
+/obj/machinery/camera{
+	c_tag = "Cargo Mailroom";
 	dir = 8
-	},
-/obj/machinery/button/door{
-	id = "viroshutters2";
-	name = "Isolation Shutters Control";
-	pixel_x = 5;
-	pixel_y = -24;
-	req_access_txt = "39"
-	},
-/obj/machinery/button/door{
-	id = "Viro2";
-	name = "Isolation Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_x = -5;
-	pixel_y = -24;
-	req_access_txt = "39";
-	specialfunctions = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -2195,10 +2179,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
-"agn" = (
-/obj/machinery/vending/cola,
-/turf/open/floor/plasteel/dark,
-/area/security/prison)
 "ago" = (
 /obj/machinery/door/window/westleft{
 	base_state = "right";
@@ -18057,21 +18037,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
-"aQA" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/central)
 "aQB" = (
-/obj/structure/disposalpipe/junction/flip{
-	dir = 8
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -18979,14 +18950,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)
-"aSA" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -28
-	},
-/obj/machinery/hydroponics/constructable,
-/turf/open/floor/plasteel,
-/area/hydroponics)
 "aSB" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -18999,7 +18962,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/chem_dispenser/mutagensaltpetersmall,
+/obj/structure/closet/secure_closet/hydroponics,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aSD" = (
@@ -23124,11 +23087,7 @@
 /area/crew_quarters/kitchen)
 "bbh" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/food/condiment/peppermill,
+/obj/machinery/dish_drive,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "bbi" = (
@@ -23996,6 +23955,11 @@
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/enzyme{
 	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/condiment/peppermill,
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = 4;
+	pixel_y = 4
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -34170,6 +34134,9 @@
 /area/medical/virology)
 "bBb" = (
 /obj/effect/turf_decal/stripes/line,
+/mob/living/simple_animal/bot/cleanbot{
+	name = "McSweepsky"
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "bBc" = (
@@ -34979,6 +34946,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/item/gun/syringe,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "bCv" = (
@@ -39852,7 +39820,6 @@
 "bMK" = (
 /obj/item/soap/nanotrasen,
 /obj/item/clothing/neck/stethoscope,
-/obj/item/gun/syringe,
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -45468,6 +45435,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -53877,6 +53847,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
+"fdz" = (
+/obj/machinery/cryopod{
+	dir = 4;
+	icon_state = "cryopod-open"
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
+"fdK" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden,
+/obj/machinery/vending/cola,
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "fdQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -56809,6 +56791,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/closed/wall/r_wall,
 /area/maintenance/disposal/incinerator)
+"lwY" = (
+/obj/machinery/computer/cryopod{
+	step_y = -3
+	},
+/turf/closed/wall,
+/area/security/prison)
 "lzb" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1
@@ -61422,7 +61410,6 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/machinery/computer/cryopod,
 /obj/item/clothing/glasses/meson,
 /obj/item/clothing/glasses/meson,
 /turf/open/floor/plasteel,
@@ -62568,6 +62555,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
+"ygq" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/machinery/chem_dispenser/mutagensaltpetersmall,
+/turf/open/floor/plasteel,
+/area/hydroponics)
 "ygZ" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -82195,9 +82189,9 @@ aem
 aem
 aeT
 afn
-agy
-afZ
-agn
+lwY
+fdz
+aeU
 agy
 agy
 agy
@@ -82967,7 +82961,7 @@ aeE
 aeU
 afp
 afE
-aeU
+afZ
 aeU
 agy
 agK
@@ -83224,7 +83218,7 @@ aeF
 aeV
 afq
 afF
-agb
+fdK
 agb
 agA
 agA
@@ -86352,7 +86346,7 @@ aAL
 aMR
 aAL
 aAL
-aQA
+aHE
 aAL
 aAL
 aTO
@@ -88410,9 +88404,9 @@ aKP
 aNm
 aQG
 aRL
-aSA
-aTQ
 aUS
+aTQ
+aXS
 aRL
 aWP
 aXQ
@@ -89187,7 +89181,7 @@ aXS
 aRL
 aWR
 aXT
-aYO
+ygq
 aZU
 bbb
 bbZ
