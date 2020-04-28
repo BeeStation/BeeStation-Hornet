@@ -136,6 +136,7 @@
 		D.grabbedby(A, 1)
 		if(A.grab_state == GRAB_PASSIVE)
 			D.drop_all_held_items()
+			D.Stun(50)
 			A.setGrabState(GRAB_AGGRESSIVE) //Instant agressive grab if on grab intent
 			log_combat(A, D, "grabbed", addition="aggressively")
 			D.visible_message("<span class='warning'>[A] violently grabs [D]!</span>", \

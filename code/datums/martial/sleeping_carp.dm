@@ -1,6 +1,6 @@
-#define WRIST_WRENCH_COMBO "DD"
+#define WRIST_WRENCH_COMBO "GHD"
 #define BACK_KICK_COMBO "HG"
-#define STOMACH_KNEE_COMBO "GH"
+#define STOMACH_KNEE_COMBO "GHH"
 #define HEAD_KICK_COMBO "DHH"
 #define ELBOW_DROP_COMBO "HDHDH"
 
@@ -156,9 +156,9 @@
 
 	to_chat(usr, "<b><i>You retreat inward and recall the teachings of the Sleeping Carp...</i></b>")
 
-	to_chat(usr, "<span class='notice'>Wrist Wrench</span>: Disarm Disarm. Forces opponent to drop item in hand.")
+	to_chat(usr, "<span class='notice'>Wrist Wrench</span>: Grab Harm Disarm. Forces opponent to drop item in hand.")
 	to_chat(usr, "<span class='notice'>Back Kick</span>: Harm Grab. Opponent must be facing away. Knocks down.")
-	to_chat(usr, "<span class='notice'>Stomach Knee</span>: Grab Harm. Knocks the wind out of opponent and stuns.")
+	to_chat(usr, "<span class='notice'>Stomach Knee</span>: Grab Harm Harm. Knocks the wind out of opponent and stuns.")
 	to_chat(usr, "<span class='notice'>Head Kick</span>: Disarm Harm Harm. Decent damage, forces opponent to drop item in hand.")
 	to_chat(usr, "<span class='notice'>Elbow Drop</span>: Harm Disarm Harm Disarm Harm. Opponent must be on the ground. Deals huge damage, instantly kills anyone in critical condition.")
 
