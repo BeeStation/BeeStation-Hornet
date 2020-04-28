@@ -3,6 +3,7 @@ import { Box, Section, LabeledList, Button, ProgressBar, AnimatedNumber } from '
 import { Fragment } from 'inferno';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
+import { toFixed } from 'common/math';
 
 export const Sleeper = (props, context) => {
   const { act, data } = useBackend(context);
@@ -50,7 +51,7 @@ export const Sleeper = (props, context) => {
       <Window.Content>
         <Section
           title={occupant.name ? occupant.name : 'No Occupant'}
-          minHeight="210px"
+          minHeight="250px"
           buttons={!!occupant.stat && (
             <Box
               inline
@@ -93,6 +94,19 @@ export const Sleeper = (props, context) => {
                   color={occupant.brainLoss ? 'bad' : 'good'}>
                   {occupant.brainLoss ? 'Abnormal' : 'Healthy'}
                 </LabeledList.Item>
+                <LabeledList.Item label="Reagents">
+                  <Box color="label">
+                    {occupant.reagents.length === 0 && '—'}
+                    {occupant.reagents.map(chemical => (
+                      <Box key={chemical.name}>
+                        <AnimatedNumber
+                          value={chemical.volume}
+                          format={value => toFixed(value, 1)} />
+                        {` units of ${chemical.name}`}
+                      </Box>
+                    ))}
+                  </Box>
+                </LabeledList.Item>
               </LabeledList>
             </Fragment>
           )}
@@ -117,16 +131,6 @@ export const Sleeper = (props, context) => {
                 chem: chem.id,
               })}
             />
-          ))}
-          {occupant?.reagents?.length > 0 && (
-            <Box mt={1} />
-          )}
-          {occupant?.reagents?.map(chemical => (
-            <Box key={chemical.name} color="label">
-              <AnimatedNumber
-                value={chemical.volume} />
-              {` units of ${chemical.name}`}
-            </Box>
           ))}
         </Section>
       </Window.Content>
