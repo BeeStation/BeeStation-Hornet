@@ -733,3 +733,11 @@
 	taste_mult = 2
 	taste_description = "bitter sweetness"
 	reagent_state = SOLID
+
+/datum/reagent/consumable/bbqsauce
+	name = "BBQ Sauce"
+	description = "Sweet, Smokey, Savory, and gets everywhere. Perfect for Grilling."
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#78280A" // rgb: 120 40, 10
+	taste_mult = 2.5 //sugar's 1.5, capsacin's 1.5, so a good middle ground.
+	taste_description = "smokey sweetness"
