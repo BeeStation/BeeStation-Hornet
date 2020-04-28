@@ -73,6 +73,15 @@
 	src.equipment_path = path
 	src.cost = cost
 
+/obj/machinery/mineral/equipment_vendor/Initialize()
+	. = ..()
+	build_inventory()
+
+/obj/machinery/mineral/equipment_vendor/proc/build_inventory()
+	for(var/p in prize_list)
+		var/datum/data/mining_equipment/M = p
+		GLOB.vending_products[M.equipment_path] = 1
+
 /obj/machinery/mineral/equipment_vendor/power_change()
 	..()
 	update_icon()

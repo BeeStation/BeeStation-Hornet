@@ -702,28 +702,28 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/spritesheet/vending/register()
 	for (var/k in GLOB.vending_products)
 		var/atom/item = k
-
-
-		var/icon_file
-		var/icon_state
-		var/icon/I
-
-
 		if (!ispath(item, /atom))
 			continue
 
-		icon_file = initial(item.icon)
-		icon_state = initial(item.icon_state)
+		var/icon_file = initial(item.icon)
+		var/icon_state = initial(item.icon_state)
+		var/icon/I
 
-		if(icon_state in icon_states(icon_file))
+		var/icon_states_list = icon_states(icon_file)
+		if(icon_state in icon_states_list)
 			I = icon(icon_file, icon_state, SOUTH)
 			var/c = initial(item.color)
 			if (!isnull(c) && c != "#FFFFFF")
-				I.Blend(initial(c), ICON_MULTIPLY)
+				I.Blend(c, ICON_MULTIPLY)
 		else
-			item = new item()
-			I = icon(item.icon, item.icon_state, SOUTH)
-			qdel(item)
+			var/icon_states_string
+			for (var/an_icon_state in icon_states_list)
+				if (!icon_states_string)
+					icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
+				else
+					icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
+			stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
+			I = icon('icons/turf/floors.dmi', "", SOUTH)
 
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 

@@ -217,7 +217,8 @@
 /obj/item/clothing/head/wig
 	name = "wig"
 	desc = "A bunch of hair without a head attached."
-	icon_state = ""
+	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
+	icon_state = "hair_vlong"
 	item_state = "pwig"
 	flags_inv = HIDEHAIR
 	var/hair_style = "Very Long Hair"
@@ -351,7 +352,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
 	resistance_flags = NONE
 	dog_fashion = null
-	
+
 
 /obj/item/clothing/head/foilhat/plasmaman/attack_self(mob/user)
 	on = !on
