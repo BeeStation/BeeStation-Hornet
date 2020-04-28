@@ -181,28 +181,28 @@
 	item_color = "lawyer_blue"
 
 /obj/item/clothing/under/lawyer/bluesuit
-	name = "blue suit"
-	desc = "A classy suit and tie."
-	icon_state = "bluesuit"
-	item_state = "bluesuit"
-	item_color = "bluesuit"
+	name = "blue slacks"
+	desc = "A pair of comfortable freshly pressed slacks and an equally sharp dress shirt. Tie and suit coat not included."
+	icon_state = "blue_slacks"
+	item_state = "sl_suit"
+	item_color = "blue_slacks"
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
 /obj/item/clothing/under/lawyer/purpsuit
 	name = "purple suit"
 	icon_state = "lawyer_purp"
-	item_state = "lawyer_purp"
+	item_state = "p_suit"
 	item_color = "lawyer_purp"
 	fitted = NO_FEMALE_UNIFORM
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
 /obj/item/clothing/under/lawyer/blacksuit
-	name = "black suit"
-	desc = "A professional black suit. Nanotrasen Investigation Bureau approved!"
+	name = "black slcaks"
+	desc = "A professional set of black slacks and a white dress shirt. Nanotrasen Investigation Bureau approved! Tie and suit coat not included."
 	icon_state = "blacksuit"
-	item_state = "bar_suit"
+	item_state = "sl_suit"
 	item_color = "blacksuit"
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
