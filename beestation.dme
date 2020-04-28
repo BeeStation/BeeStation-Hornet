@@ -1763,6 +1763,7 @@
 #include "code\modules\events\shuttle_loan.dm"
 #include "code\modules\events\space_dragon.dm"
 #include "code\modules\events\spacevine.dm"
+#include "code\modules\events\special_antag_event.dm"
 #include "code\modules\events\spider_infestation.dm"
 #include "code\modules\events\spontaneous_appendicitis.dm"
 #include "code\modules\events\vent_clog.dm"
