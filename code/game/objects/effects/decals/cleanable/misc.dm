@@ -10,7 +10,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	mergeable_decal = FALSE
-	beauty = -50
 
 /obj/effect/decal/cleanable/ash/Initialize()
 	. = ..()
