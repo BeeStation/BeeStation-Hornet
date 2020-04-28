@@ -70,6 +70,15 @@
 	point_value = 30
 	var/crystal_type = /obj/item/stack/ore/bluespace_crystal/refined
 
+/obj/item/stack/sheet/bluespace_crystal/fifty
+	amount = 50
+
+/obj/item/stack/sheet/bluespace_crystal/twenty
+	amount = 20
+
+/obj/item/stack/sheet/bluespace_crystal/five
+	amount = 5
+
 /obj/item/stack/sheet/bluespace_crystal/attack_self(mob/user)// to prevent the construction menu from ever happening
 	to_chat(user, "<span class='warning'>You cannot crush the polycrystal in-hand, try breaking one off.</span>")
 

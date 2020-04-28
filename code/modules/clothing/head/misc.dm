@@ -122,7 +122,6 @@
 	icon_state = "flat_cap"
 	item_state = "detective"
 
-
 /obj/item/clothing/head/pirate
 	name = "pirate hat"
 	desc = "Yarr."

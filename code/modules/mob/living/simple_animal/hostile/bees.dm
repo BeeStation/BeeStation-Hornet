@@ -90,6 +90,7 @@
 	var/col = BEE_DEFAULT_COLOUR
 	if(beegent?.color)
 		col = beegent.color
+	mobsay_color = col
 
 	add_overlay("[icon_base]_base")
 
