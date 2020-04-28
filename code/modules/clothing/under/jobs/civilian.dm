@@ -10,7 +10,7 @@
 
 /obj/item/clothing/under/rank/bartender/purple
 	desc = "It looks like it has lots of flair!"
-	name = "purple bartender's uniform"
+	name = "purple bartender's skirt"
 	icon_state = "purplebartender"
 	item_state = "purplebartender"
 	item_color = "purplebartender"
