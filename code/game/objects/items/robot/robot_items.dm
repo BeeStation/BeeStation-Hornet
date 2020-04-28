@@ -151,6 +151,7 @@
 	icon_state = "charger_draw"
 	item_flags = NOBLUDGEON
 	var/mode = "draw"
+	var/active = FALSE
 	var/static/list/charge_machines = typecacheof(list(/obj/machinery/cell_charger, /obj/machinery/recharger, /obj/machinery/recharge_station, /obj/machinery/mech_bay_recharge_port))
 	var/static/list/charge_items = typecacheof(list(/obj/item/stock_parts/cell, /obj/item/gun/energy))
 
@@ -176,12 +177,20 @@
 	if(mode == "draw")
 		if(is_type_in_list(target, charge_machines))
 			var/obj/machinery/M = target
+
 			if((M.stat & (NOPOWER|BROKEN)) || !M.anchored)
 				to_chat(user, "<span class='warning'>[M] is unpowered!</span>")
 				return
 
+			if (active) //Prevents charge stacking from the same or multiple targets.
+				to_chat(user, "<span class ='notice'>You're already charging from [target].</span>")
+				return
+
+			active = TRUE
+
 			to_chat(user, "<span class='notice'>You connect to [M]'s power line...</span>")
 			while(do_after(user, 15, target = M, progress = 0))
+
 				if(!user || !user.cell || mode != "draw")
 					return
 
@@ -192,6 +201,8 @@
 					break
 
 				M.use_power(200)
+
+			active = FALSE
 
 			to_chat(user, "<span class='notice'>You stop charging yourself.</span>")
 
@@ -251,9 +262,16 @@
 		if(cell.charge >= cell.maxcharge)
 			to_chat(user, "<span class='warning'>[target] is already charged!</span>")
 
+		if (active) //Prevents stacking charging on the target.
+			to_chat(user, "<span class ='notice'>You're already charging [target].</span>")
+			return
+
 		to_chat(user, "<span class='notice'>You connect to [target]'s power port...</span>")
 
+		active = TRUE
+
 		while(do_after(user, 15, target = target, progress = 0))
+
 			if(!user || !user.cell || mode != "charge")
 				return
 
@@ -269,6 +287,8 @@
 			if(!cell.give(draw))
 				break
 			target.update_icon()
+
+		active = FALSE
 
 		to_chat(user, "<span class='notice'>You stop charging [target].</span>")
 

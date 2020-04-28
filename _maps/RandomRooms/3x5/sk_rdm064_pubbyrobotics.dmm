@@ -1,0 +1,74 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/structure/closet,
+/obj/item/clothing/under/color/black,
+/obj/item/clothing/under/color/red,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/item/weldingtool,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/oil{
+	icon_state = "floor6"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/item/toy/gun,
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/item/clothing/head/cone,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/turf/open/floor/circuit/green,
+/area/template_noop)
+"i" = (
+/obj/machinery/mech_bay_recharge_port,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/item/clothing/head/collectable/police,
+/turf/open/floor/mech_bay_recharge_floor,
+/area/template_noop)
+"k" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+d
+g
+h
+i
+"}
+(2,1,1) = {"
+b
+e
+g
+h
+j
+"}
+(3,1,1) = {"
+c
+f
+g
+h
+k
+"}

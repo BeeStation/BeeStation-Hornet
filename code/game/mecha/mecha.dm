@@ -1,24 +1,10 @@
-#define MECHA_INT_FIRE			(1<<0)
-#define MECHA_INT_TEMP_CONTROL	(1<<1)
-#define MECHA_INT_SHORT_CIRCUIT	(1<<2)
-#define MECHA_INT_TANK_BREACH	(1<<3)
-#define MECHA_INT_CONTROL_LOST	(1<<4)
-
-#define MELEE 1
-#define RANGED 2
-
-#define FRONT_ARMOUR 1
-#define SIDE_ARMOUR 2
-#define BACK_ARMOUR 3
-
-
 /obj/mecha
 	name = "mecha"
 	desc = "Exosuit"
 	icon = 'icons/mecha/mecha.dmi'
 	density = TRUE //Dense. To raise the heat.
 	opacity = 1 ///opaque. Menacing.
-	anchored = TRUE //no pulling around.
+	move_resist = MOVE_FORCE_OVERPOWERING //no pulling around.
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	layer = BELOW_MOB_LAYER//icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
@@ -36,10 +22,10 @@
 	max_integrity = 300 //max_integrity is base health
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
-	var/list/facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.5)
+	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/equipment_disabled = 0 //disabled due to EMP
 	var/obj/item/stock_parts/cell/cell
-	var/state = 0
+	var/construction_state = MECHA_LOCKED
 	var/last_message = 0
 	var/add_req_access = 1
 	var/maint_access = 0
@@ -222,8 +208,6 @@
 
 /obj/mecha/proc/restore_equipment()
 	equipment_disabled = 0
-	if(istype(src, /obj/mecha/combat))
-		mouse_pointer = 'icons/mecha/mecha_mouse.dmi'
 	if(occupant)
 		SEND_SOUND(occupant, sound('sound/items/timer.ogg', volume=50))
 		to_chat(occupant, "<span=notice>Equipment control unit has been rebooted successfuly.</span>")
@@ -479,7 +463,7 @@
 		return
 	if(user.incapacitated())
 		return
-	if(state)
+	if(construction_state)
 		occupant_message("<span class='warning'>Maintenance protocols in effect.</span>")
 		return
 	if(!get_charge())
@@ -568,7 +552,7 @@
 			occupant_message("<span class='warning'>Unable to move while connected to the air system port!</span>")
 			last_message = world.time
 		return 0
-	if(state)
+	if(construction_state)
 		occupant_message("<span class='danger'>Maintenance protocols in effect.</span>")
 		return
 	return domove(direction)
@@ -735,7 +719,7 @@
  //Transfer from core or card to mech. Proc is called by mech.
 	switch(interaction)
 		if(AI_TRANS_TO_CARD) //Upload AI from mech to AI card.
-			if(!state) //Mech must be in maint mode to allow carding.
+			if(!construction_state) //Mech must be in maint mode to allow carding.
 				to_chat(user, "<span class='warning'>[name] must have maintenance protocols active in order to allow a transfer.</span>")
 				return
 			AI = occupant

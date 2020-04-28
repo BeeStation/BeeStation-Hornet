@@ -8,6 +8,7 @@
 	spawn_positions = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
+	chat_color = "#8FBEB4"
 
 	outfit = /datum/outfit/job/emt
 

@@ -22,6 +22,7 @@
 	maxHealth = 50
 	speed = 10
 	glide_size = 2
+	mobsay_color = "#728AE6"
 
 	do_footstep = TRUE
 

@@ -113,6 +113,8 @@
 	var/ventcrawl_layer = PIPING_LAYER_DEFAULT
 	var/losebreath = 0
 
+	var/mobsay_color = "#CCCCCC"	//The say colour of the mob, for when ID say isn't available (simplemobs that are not /mob/living/carbon/human)
+
 	//List of active diseases
 	var/list/diseases = list() // list of all diseases in a mob
 	var/list/disease_resistances = list()
