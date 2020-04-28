@@ -1,5 +1,0 @@
-author: "Isy232"
-delete-after: True
-changes: 
-  - rscadd: "Adds new cargo crates."
-  - tweak: "Some cargo crates cost less or have more items."
