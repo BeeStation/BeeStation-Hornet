@@ -1,5 +1,0 @@
-author: "Victor239"
-delete-after: True
-changes: 
-  - rscadd: "Adds Deputies, a non-roundstart non-mindshieled security job. Ask the HOS to buy you the deputy bag from the SecTech and the HOP to promote you after."
-  - tweak: "Security playtime requirements increased."
