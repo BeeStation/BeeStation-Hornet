@@ -1,0 +1,6 @@
+author: "AyyRobotics"
+delete-after: True
+changes: 
+  - rscadd: "Added Safety Moth Posters"
+  - imageadd: "added _and updated_ the poster images"
+  - imagedel: "deleted the old image file so it could be replaced with the above"
