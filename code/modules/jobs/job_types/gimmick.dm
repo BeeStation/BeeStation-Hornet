@@ -15,9 +15,12 @@
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 
+	gimmick = TRUE
+
 /datum/job/gimmick/barber
 	title = "Barber"
 	flag = BARBER
+	selection_color = "#dddddd"
 
 	outfit = /datum/outfit/job/gimmick/barber
 

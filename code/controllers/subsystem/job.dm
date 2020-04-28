@@ -126,7 +126,7 @@ SUBSYSTEM_DEF(job)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			JobDebug("FOC incompatible with antagonist role, Player: [player]")
 			continue
-		if(job in subtypesof(/datum/job/gimmick) && player.client.prefs.job_preferences["Gimmick"] == level)
+		if(job.gimmick && player.client.prefs.job_preferences["Gimmick"] == level)
 			JobDebug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
 		else if(player.client.prefs.job_preferences[job.title] == level)
