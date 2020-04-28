@@ -1,4 +1,4 @@
-/datum/job/gimmick
+/datum/job/gimmick //gimmick var must be set to true for all gimmick jobs BUT the parent
 	title = "Gimmick"
 	flag = GIMMICK
 	department_flag = CIVILIAN
@@ -15,8 +15,6 @@
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 
-	gimmick = TRUE
-
 /datum/job/gimmick/barber
 	title = "Barber"
 	flag = BARBER
@@ -26,6 +24,7 @@
 
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
+	gimmick = TRUE
 
 /datum/outfit/job/gimmick/barber
 	name = "Barber"
