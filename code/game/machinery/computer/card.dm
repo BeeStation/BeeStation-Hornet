@@ -35,8 +35,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		"Chief Engineer",
 		"Research Director",
 		"Chief Medical Officer",
+<<<<<<< 498b2a8ea371f538e9adc9fe0111d6bd0a3e328a
 		"Brig Physician", 
 		"Deputy")
+=======
+		"Brig Physician",
+		"Gimmick",
+		"Barber")
+>>>>>>> adds random maint jobs. adds random maint to metastation
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players

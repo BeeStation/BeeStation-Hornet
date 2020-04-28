@@ -808,7 +808,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/datum/job/overflow = SSjob.GetJob(SSjob.overflow_role)
 
 		for(var/datum/job/job in sortList(SSjob.occupations, /proc/cmp_job_display_asc))
-
+			if(job in subtypesof(/datum/job/gimmick)) //dont include gimmick jobs!
+				continue
 			index += 1
 			if((index >= limit) || (job.title in splitJobs))
 				width += widthPerColumn
