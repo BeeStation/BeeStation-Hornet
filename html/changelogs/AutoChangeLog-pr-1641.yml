@@ -1,0 +1,6 @@
+author: "WhyIsCaeciliusTaken"
+delete-after: True
+changes: 
+  - rscadd: "Added Concentrated BZ bottle"
+  - rscadd: "You can now order CBZ in very small quantities from cargo at a ludicrous cost."
+  - bugfix: "fixed the inconsistent gasping issue with CBZ"
