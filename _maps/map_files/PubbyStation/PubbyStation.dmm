@@ -53603,6 +53603,13 @@
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/engine/engineering)
+"exx" = (
+/obj/machinery/cryopod{
+	dir = 4;
+	icon_state = "cryopod-open"
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "ezF" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -53847,18 +53854,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
-"fdz" = (
-/obj/machinery/cryopod{
-	dir = 4;
-	icon_state = "cryopod-open"
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/prison)
-"fdK" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden,
-/obj/machinery/vending/cola,
-/turf/open/floor/plasteel/dark,
-/area/security/prison)
 "fdQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -56791,12 +56786,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/closed/wall/r_wall,
 /area/maintenance/disposal/incinerator)
-"lwY" = (
-/obj/machinery/computer/cryopod{
-	step_y = -3
-	},
-/turf/closed/wall,
-/area/security/prison)
 "lzb" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1
@@ -56948,6 +56937,11 @@
 	},
 /turf/open/floor/plating,
 /area/storage/emergency/starboard)
+"lME" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden,
+/obj/machinery/vending/cola,
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "lMU" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/cable/yellow{
@@ -60656,6 +60650,13 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall/r_wall,
 /area/science/mixing)
+"ucI" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/machinery/chem_dispenser/mutagensaltpetersmall,
+/turf/open/floor/plasteel,
+/area/hydroponics)
 "uek" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -62154,6 +62155,12 @@
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/exit/departure_lounge)
+"xmB" = (
+/obj/machinery/computer/cryopod{
+	
+	},
+/turf/closed/wall,
+/area/security/prison)
 "xmE" = (
 /obj/structure/chair{
 	dir = 8
@@ -62555,13 +62562,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
-"ygq" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/machinery/chem_dispenser/mutagensaltpetersmall,
-/turf/open/floor/plasteel,
-/area/hydroponics)
 "ygZ" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -82189,8 +82189,8 @@ aem
 aem
 aeT
 afn
-lwY
-fdz
+xmB
+exx
 aeU
 agy
 agy
@@ -83218,7 +83218,7 @@ aeF
 aeV
 afq
 afF
-fdK
+lME
 agb
 agA
 agA
@@ -89181,7 +89181,7 @@ aXS
 aRL
 aWR
 aXT
-ygq
+ucI
 aZU
 bbb
 bbZ
