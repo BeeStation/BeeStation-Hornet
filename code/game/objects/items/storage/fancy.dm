@@ -364,4 +364,4 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.set_holdable(list(/obj/item/reagent_containers/food/snacks/nugget))
+	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/food/snacks/nugget))
