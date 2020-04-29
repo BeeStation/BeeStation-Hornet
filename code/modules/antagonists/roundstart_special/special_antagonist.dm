@@ -5,7 +5,7 @@
 //and setup the antag datum. See the undercover.dm file for help
 
 /datum/special_role
-	var/attatched_antag_datum = /datum/antagonist/special
+	var/attached_antag_datum = /datum/antagonist/special
 	var/spawn_mode = SPAWNTYPE_ROUNDSTART
 	var/probability = 0				//The probability of any spawning
 	var/min_players = 0				//Min player count (Forgot about this, might be important)
@@ -32,7 +32,7 @@
 	//Create a new event for spawning the antag
 	var/datum/round_event_control/spawn_special_antagonist/E = new()
 	E.name = role_name
-	E.antagonist_datum = attatched_antag_datum
+	E.antagonist_datum = attached_antag_datum
 	E.antag_name = role_name
 	E.preference_type = preference_type
 	E.protected_jobs = protected_jobs
@@ -50,7 +50,7 @@
 
 /datum/special_role/proc/add_antag_status_to(var/datum/mind/M)
 	M.special_role = role_name
-	var/datum/antagonist/special/A = M.add_antag_datum(new attatched_antag_datum())
+	var/datum/antagonist/special/A = M.add_antag_datum(new attached_antag_datum())
 	A.forge_objectives(M)
 	A.equip()
 	return A

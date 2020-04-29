@@ -179,7 +179,7 @@
 		for(var/mob/living/M in GLOB.mob_living_list)
 			if(!M.mind)
 				continue
-			if(!is_special_type(M, subantag.attatched_antag_datum))
+			if(!is_special_type(M, subantag.attached_antag_datum))
 				continue
 			count++
 		if(count >= subantag.max_amount)
