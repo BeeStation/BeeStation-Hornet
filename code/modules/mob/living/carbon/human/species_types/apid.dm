@@ -1,5 +1,5 @@
 /datum/species/apid
-	// Beepeople, god damn it. It's hip, and alive!
+	// Beepeople, god damn it. It's hip, and alive! - Fuck ubunutu edition
 	name = "Apids"
 	id = "apid"
 	say_mod = "buzzes"
