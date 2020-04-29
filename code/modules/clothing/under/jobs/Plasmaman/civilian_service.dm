@@ -27,6 +27,13 @@
 	item_state = "enviroslacks"
 	item_color = "enviroslacks"
 
+/obj/item/clothing/under/plasmaman/tux
+	name = "envirotux"
+	desc = "A flashy suit blended into an envirosuit."
+	icon_state = "really_black_suit"
+	item_state = "envirotux"
+	item_color = "envirotux"
+
 /obj/item/clothing/under/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit"
 	desc = "An envirosuit specially designed for only the most pious of plasmamen."

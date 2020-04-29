@@ -158,6 +158,12 @@
 			magic_item_list[initial(A.name)] = A
 	return magic_item_list
 
+/obj/item/storage/box/magic
+	name = "Tele-Gloves"
+
+/obj/item/storage/box/magic/PopulateContents()
+	new /obj/item/clothing/gloves/color/white/magic(src)
+
 /obj/item/storage/box/magic/cloak
 	name = "Invisibility Cloak"
 

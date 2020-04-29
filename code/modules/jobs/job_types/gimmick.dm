@@ -50,5 +50,6 @@
 	neck = /obj/item/bedsheet/magician
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	shoes = /obj/item/clothing/shoes/laceup
+	gloves = /obj/item/clothing/gloves/color/white
 	l_hand = /obj/item/cane
 	backpack_contents = list(/obj/item/choice_beacon/magic=1)
