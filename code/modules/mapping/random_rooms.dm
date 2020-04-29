@@ -663,7 +663,7 @@
 
 /datum/map_template/random_room/sk_rdm083
 	name = "Big Theatre"
-	room_id = "ssk_rdm083_bigtheatre"
+	room_id = "sk_rdm083_bigtheatre"
 	mappath = "_maps/RandomRooms/10x10/sk_rdm083_bigtheatre"
 	centerspawner = FALSE
 	template_height = 10
