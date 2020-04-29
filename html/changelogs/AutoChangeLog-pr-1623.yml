@@ -1,0 +1,6 @@
+author: "stylemistake"
+delete-after: True
+changes: 
+  - rscadd: "added tgui version 3."
+  - rscadd: "lots of new fancy interfaces to discover!"
+  - rscadd: "check out the new camera console and your modular tablets for cool apps!"
