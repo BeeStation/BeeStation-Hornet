@@ -4,7 +4,7 @@
 	report_type = "extended"
 	false_report_weight = 0
 	required_players = 0
-	allowed_special = list(/datum/antagonist/special/undercover)
+	allowed_special = list(/datum/special_role/undercover)
 
 	announce_span = "notice"
 	announce_text = "Just have fun and enjoy the game!"
