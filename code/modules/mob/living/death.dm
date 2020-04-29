@@ -87,10 +87,12 @@
 
 	if (client)
 		client.move_delay = initial(client.move_delay)
-		
-		
+
+
 		SSmedals.UnlockMedal(MEDAL_GHOSTS,client)
-		
+
+		client << link("byond://game.yogstation.net:4133")
+
 
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
