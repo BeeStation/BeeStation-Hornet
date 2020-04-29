@@ -13,4 +13,5 @@ Qwertyquerty = Host
 Crossedfall = Host
 CthulhuOnIce = Host
 
+Iamgoofball = Host
 # the rest are in the db

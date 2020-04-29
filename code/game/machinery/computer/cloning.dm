@@ -23,6 +23,7 @@
 
 	var/loading = FALSE // Nice loading text
 	var/autoprocess = FALSE
+	var/obj/item/reagent_containers/glass/beaker = null //Beaker full of what SHOULD be synthflesh
 
 	light_color = LIGHT_COLOR_BLUE
 

@@ -5,7 +5,9 @@
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/cable_coil = 1,
-		/obj/item/stack/sheet/glass = 2)
+		/obj/item/stack/sheet/glass = 2,
+		/obj/item/stock_parts/cell = 1)
+	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
 
 /obj/item/circuitboard/machine/announcement_system
 	name = "Announcement System (Machine Board)"

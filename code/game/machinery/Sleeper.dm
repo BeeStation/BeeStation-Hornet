@@ -12,6 +12,10 @@
 	density = FALSE
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/sleeper
+	ui_x = 250
+	ui_y = 550
+	var/obj/item/stock_parts/cell/cell //The sleeper's power cell.
+	var/poweruse = 250 //How much power it uses per injection, minimum 10 charge/10u
 	var/efficiency = 1
 	var/min_health = -25
 	var/list/available_chems
@@ -35,6 +39,8 @@
 
 /obj/machinery/sleeper/RefreshParts()
 	var/E
+	for(var/obj/item/stock_parts/cell/P in component_parts)
+		cell = P
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		E += B.rating
 	var/I
@@ -43,10 +49,14 @@
 
 	efficiency = initial(efficiency)* E
 	min_health = initial(min_health) * E
+	poweruse = max(100, 300/efficiency)
 	available_chems = list()
 	for(var/i in 1 to I)
 		available_chems |= possible_chems[i]
 	reset_chem_buttons()
+
+/obj/machinery/sleeper/get_cell()
+	return cell
 
 /obj/machinery/sleeper/update_icon()
 	if(state_open)
@@ -159,6 +169,11 @@
 
 /obj/machinery/sleeper/ui_data()
 	var/list/data = list()
+	data["cell"] = list()
+	if(cell) // someone who knows how tgui works please make this work
+		data["cell"]["poweruse"] = poweruse
+		data["cell"]["maxCharge"] = cell.maxcharge
+		data["cell"]["charge"] = cell.charge ? cell.charge : "0"
 	data["occupied"] = occupant ? 1 : 0
 	data["open"] = state_open
 
@@ -227,11 +242,18 @@
 	to_chat(user, "<span class='warning'>You scramble the sleeper's user interface!</span>")
 
 /obj/machinery/sleeper/proc/inject_chem(chem, mob/user)
-	if((chem in available_chems) && chem_allowed(chem))
+	if((chem in available_chems) && chem_allowed(chem) && cell.charge > poweruse)
+		cell.use(poweruse)
+		var/percent_used = (poweruse/cell.maxcharge) * 100
+		var/percent_remaining = (cell.charge/cell.maxcharge) * 100
+		say("Used [percent_used]% of the cell's power. [percent_remaining]% power remains.")
 		occupant.reagents.add_reagent(chem_buttons[chem], 10) //emag effect kicks in here so that the "intended" chem is used for all checks, for extra FUUU
 		if(user)
 			log_combat(user, occupant, "injected [chem] into", addition = "via [src]")
 		return TRUE
+	else
+		say("ERROR: Not enough power available!")
+		return FALSE
 
 /obj/machinery/sleeper/proc/chem_allowed(chem)
 	var/mob/living/mob_occupant = occupant
