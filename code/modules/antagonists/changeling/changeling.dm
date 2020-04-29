@@ -1,4 +1,4 @@
-#define LING_FAKEDEATH_TIME					400 //40 seconds
+#define LING_FAKEDEATH_TIME					600 //1 minute.
 #define LING_DEAD_GENETICDAMAGE_HEAL_CAP	50	//The lowest value of geneticdamage handle_changeling() can take it to while dead.
 #define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
 
@@ -17,7 +17,6 @@
 
 	var/list/stored_profiles = list() //list of datum/changelingprofile
 	var/datum/changelingprofile/first_prof = null
-	var/dna_max = 6 //How many extra DNA strands the changeling can store for transformation.
 	var/absorbedcount = 0
 	var/trueabsorbs = 0//dna gained using absorb, not dna sting
 	var/chem_charges = 20
@@ -32,7 +31,6 @@
 	var/islinking = 0
 	var/geneticpoints = 10
 	var/purchasedpowers = list()
-
 	var/mimicing = ""
 	var/canrespec = FALSE//set to TRUE in absorb.dm
 	var/changeling_speak = 0
@@ -82,8 +80,6 @@
 	reset_powers()
 	create_initial_profile()
 	if(give_objectives)
-		if(team_mode)
-			forge_team_objectives()
 		forge_objectives()
 	remove_clownmut()
 	. = ..()
@@ -235,12 +231,6 @@
 		return
 	if(!istype(user))
 		return
-	if(stored_profiles.len)
-		var/datum/changelingprofile/prof = stored_profiles[1]
-		if(prof.dna == user.dna && stored_profiles.len >= dna_max)//If our current DNA is the stalest, we gotta ditch it.
-			if(verbose)
-				to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
-			return
 	if(!target)
 		return
 	if(NO_DNA_COPY in target.dna.species.species_traits)
@@ -302,10 +292,6 @@
 	return prof
 
 /datum/antagonist/changeling/proc/add_profile(datum/changelingprofile/prof)
-	if(stored_profiles.len > dna_max)
-		if(!push_out_profile())
-			return
-
 	if(!first_prof)
 		first_prof = prof
 
@@ -378,29 +364,12 @@
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, "<span class='userdanger'>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
 
-/datum/antagonist/changeling/proc/forge_team_objectives()
-	if(GLOB.changeling_team_objective_type)
-		var/datum/objective/changeling_team_objective/team_objective = new GLOB.changeling_team_objective_type
-		team_objective.owner = owner
-		if(team_objective.prepare())//Setting up succeeded
-			objectives += team_objective
-		else
-			qdel(team_objective)
-	return
-
 /datum/antagonist/changeling/proc/forge_objectives()
 	//OBJECTIVES - random traitor objectives. Unique objectives "steal brain" and "identity theft".
 	//No escape alone because changelings aren't suited for it and it'd probably just lead to rampant robusting
 	//If it seems like they'd be able to do it in play, add a 10% chance to have to escape alone
 
 	var/escape_objective_possible = TRUE
-
-	//if there's a team objective, check if it's compatible with escape objectives
-	for(var/datum/objective/changeling_team_objective/CTO in objectives)
-		if(!CTO.escape_objective_compatible)
-			escape_objective_possible = FALSE
-			break
-
 	switch(competitive_objectives ? (team_mode ? rand(1,2) : rand(1,3)) : 1)
 		if(1)
 			var/datum/objective/absorb/absorb_objective = new

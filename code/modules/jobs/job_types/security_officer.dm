@@ -11,7 +11,7 @@
 	selection_color = "#ffeeee"
 	chat_color = "#E6A3A3"
 	minimal_player_age = 7
-	exp_requirements = 420
+	exp_requirements = 840
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/security

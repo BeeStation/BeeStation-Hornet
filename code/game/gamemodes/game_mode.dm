@@ -34,6 +34,8 @@
 	var/reroll_friendly 	//During mode conversion only these are in the running
 	var/continuous_sanity_checked	//Catches some cases where config options could be used to suggest that modes without antagonists should end when all antagonists die
 	var/enemy_minimum_age = 7 //How many days must players have been playing before they can play this antagonist
+	var/list/allowed_special = list()	//Special roles that can spawn (Add things like /datum/antagonist/special/undercover for them to be able to spawn during this gamemode)
+	var/list/active_specials = list()	//Special roles that have spawned, and can now spawn late
 
 	var/announce_span = "warning" //The gamemode's name will be in this span during announcement.
 	var/announce_text = "This gamemode forgot to set a descriptive text! Uh oh!" //Used to describe a gamemode when it's announced.
@@ -81,6 +83,47 @@
 /datum/game_mode/proc/pre_setup()
 	return 1
 
+/datum/game_mode/proc/create_special_antags()
+	var/list/living_crew = list()
+	living_crew = get_living_station_crew()
+
+	var/list/candidates = list()
+	for(var/mob/living/carbon/human/H in living_crew)
+		if((!H.client) || (is_centcom_level(H.z)))
+			continue
+		if(is_banned_from(H.ckey, list(ROLE_SPECIAL)))
+			continue
+		candidates += H
+
+	for(var/role_to_init in allowed_special)
+		var/datum/special_role/new_role = new role_to_init
+		if(!prob(new_role.probability))
+			continue
+		active_specials += new_role
+
+	for(var/datum/special_role/special in active_specials)
+		if(special.spawn_mode == SPAWNTYPE_MIDROUND)
+			continue
+		//To make it feel a little more random, and for efficiency reasons we just pick the person, then check their job and if they cannot be antag, we will just remove the slot
+		var/amount = round(living_crew.len * special.proportion)
+		amount = min(amount, special.max_amount)
+		for(var/i in 1 to amount)
+			if(candidates.len == 0)
+				return	//No more candidates, end the selection process, and active specials at this time will be handled by latejoins or not included
+			var/mob/person = pick_n_take(candidates)
+			if(!person)
+				continue
+			var/datum/mind/selected_mind = person.mind
+			if(selected_mind.special_role)
+				continue
+			if(person.job in special.protected_jobs)
+				continue
+			//Would be annoying trying to assasinate someone with special statuses
+			if(selected_mind.isAntagTarget && !special.allowAntagTargets)
+				continue
+			var/datum/antagonist/special/A = special.add_antag_status_to(selected_mind)
+			log_game("[key_name(selected_mind)] has been selected as a [A.name]")
+
 ///Everyone should now be on the station and have their normal gear.  This is the place to give the special roles extra things
 /datum/game_mode/proc/post_setup(report) //Gamemodes can override the intercept report. Passing TRUE as the argument will force a report.
 	if(!report)
@@ -109,6 +152,7 @@
 			qdel(query_round_game_mode)
 	if(report)
 		addtimer(CALLBACK(src, .proc/send_intercept, 0), rand(waittime_l, waittime_h))
+	create_special_antags()
 	generate_station_goals()
 	gamemode_ready = TRUE
 	return 1
@@ -120,15 +164,38 @@
 		replacementmode.make_antag_chance(character)
 	return
 
+/datum/game_mode/proc/make_special_antag_chance(mob/living/character)
+	if(!character.mind.antag_datums)
+		return
+	//Check if they are banned
+	if(is_banned_from(character.ckey, list(ROLE_SPECIAL)) || QDELETED(character))
+		return
+	for(var/datum/special_role/subantag in active_specials)
+		if(!subantag.latejoin_allowed)
+			continue
+		if(subantag.spawn_mode == SPAWNTYPE_MIDROUND)
+			continue
+		var/count = 0
+		for(var/mob/living/M in GLOB.mob_living_list)
+			if(!M.mind)
+				continue
+			if(!is_special_type(M, subantag.attached_antag_datum))
+				continue
+			count++
+		if(count >= subantag.max_amount)
+			continue
+		//Lower chance for midrounds than round starts
+		if(prob(subantag.proportion * 100))
+			var/datum/antagonist/special/A = subantag.add_antag_status_to(character.mind)
+			log_game("[key_name(character.mind)] has been selected as a [A.name]")
+			return
 
 ///Allows rounds to basically be "rerolled" should the initial premise fall through. Also known as mulligan antags.
 /datum/game_mode/proc/convert_roundtype()
 	set waitfor = FALSE
 	var/list/living_crew = list()
+	living_crew = get_living_station_crew()
 
-	for(var/mob/Player in GLOB.mob_list)
-		if(Player.mind && Player.stat != DEAD && !isnewplayer(Player) && !isbrain(Player) && Player.client)
-			living_crew += Player
 	var/malc = CONFIG_GET(number/midround_antag_life_check)
 	if(living_crew.len / GLOB.joined_player_list.len <= malc) //If a lot of the player base died, we start fresh
 		message_admins("Convert_roundtype failed due to too many dead people. Limit is [malc * 100]% living crew")
