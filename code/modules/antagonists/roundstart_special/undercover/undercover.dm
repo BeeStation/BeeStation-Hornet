@@ -74,6 +74,11 @@
 	if(ID)
 		ID.access += ACCESS_WEAPONS
 
+	//Mindshield
+	var/obj/item/implant/mindshield/P = new
+	if(!P.implant(H))
+		to_chat(owner, "<span class='warning'Through countless generations your mindshield has finally started to break, you are free!</span>")
+
 ////////////////////////////////
 //////     Objectives    ///////
 ////////////////////////////////
