@@ -81894,23 +81894,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
-<<<<<<< cfb665637fbbfb699f0aca708675e501a070ac1a
-"mrv" = (
-/obj/machinery/door/airlock/wood{
-	doorClose = 'sound/effects/doorcreaky.ogg';
-	doorOpen = 'sound/effects/doorcreaky.ogg';
-	name = "The Gobetting Barmaid"
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken6"
-	},
-/area/maintenance/port/aft)
-=======
 "msD" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/storage_shared)
->>>>>>> adds random maint jobs. adds random maint to metastation
 "mvj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -104488,17 +104475,10 @@ alC
 bWd
 bXJ
 dux
-<<<<<<< cfb665637fbbfb699f0aca708675e501a070ac1a
-bZV
-cbG
-cdn
-cev
-=======
 aqP
 arH
 arK
 waD
->>>>>>> adds random maint jobs. adds random maint to metastation
 cfH
 cgQ
 cif
