@@ -606,38 +606,4 @@
 	desc = "This informational poster teaches the viewer what carbon dioxide is."
 	icon_state = "poster35_legit"
 
-/obj/structure/sign/poster/official/moth1
-	name = "Safety Moth - Poisoning"
-	desc = "This informational poster uses Safety Moth(TM) to tell the viewer not to poison the station donuts. They don't make them like they used to."
-	icon_state = "poster36_legit"
-
-/obj/structure/sign/poster/official/moth2
-	name = "Safety Moth - BoH"
-	desc = "This informational poster uses Safety Moth(TM) to inform the viewer of the dangers of Bags of Holding."
-	icon_state = "poster37_legit"
-
-/obj/structure/sign/poster/official/moth3
-	name = "Safety Moth - Hardhats"
-	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to wear hardhats in cautious areas. It's like a lamp for your head!"
-	icon_state = "poster38_legit"
-
-/obj/structure/sign/poster/official/moth4
-	name = "Safety Moth - Smokey?"
-	desc = "This informational poster uses Safety Moth(TM) to promote safe handling of plasma, or promoting crew to combat them. We can't tell."
-	icon_state = "poster39_legit"
-
-/obj/structure/sign/poster/official/moth5
-	name = "Safety Moth - Piping"
-	desc = "This informational poster uses Safety Moth(TM) to tell atmospheric technicians correct types of piping to be used. Proper pipe placement prevents poor preformance!"
-	icon_state = "poster40_legit"
-
-/obj/structure/sign/poster/official/moth6
-	name = "Safety Moth - Supermatter"
-	desc = "This informational poster uses Safety Moth(TM) to promote proper safety equipment when working near a Supermatter Crystal."
-	icon_state = "poster41_legit"
-
-/obj/structure/sign/poster/official/moth7
-	name = "Safety Moth - Methamphetamine"
-	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to seek CMO approval before cooking methamphetamine. You shouldn't even be making this."
-	icon_state = "poster42_legit"
 #undef PLACE_SPEED
