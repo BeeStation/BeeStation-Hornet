@@ -38,9 +38,9 @@
 
 /datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()
-		var/obj/item/clothing/neck = C.get_item_by_slot(SLOT_NECK)
+	var/obj/item/clothing/neck = C.get_item_by_slot(SLOT_NECK)
 	if(!istype(neck, /obj/item/clothing/shoes/bhop/apid))
-		if(C.dropItemToGround(neck)) //returns TRUE even if its null
+		if(C.dropItemToGround(neck))
 	C.equip_to_slot_or_del(new /obj/item/clothing/shoes/bhop/apid(C), SLOT_NECK)
 
 /datum/species/apid/check_species_weakness(obj/item/weapon, mob/living/attacker)
