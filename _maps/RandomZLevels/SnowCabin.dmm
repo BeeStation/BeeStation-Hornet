@@ -1913,7 +1913,7 @@
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
 "fu" = (
-/obj/machinery/computer/prisoner{
+/obj/machinery/computer/prisoner/management{
 	desc = "Used to manage tracking implants placed inside criminals and the prison cells.";
 	dir = 4
 	},

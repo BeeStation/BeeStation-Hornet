@@ -48,7 +48,7 @@
 	next_activation = world.time + rand(symptom_delay_min * 10, symptom_delay_max * 10) //so it doesn't instantly activate on infection
 	return TRUE
 
-//called when a disease first tries to infect someone. 
+//called when a disease first tries to infect someone.
 /datum/symptom/proc/severityset(datum/disease/advance/A)
 	dynamicseverity = TRUE
 	return
