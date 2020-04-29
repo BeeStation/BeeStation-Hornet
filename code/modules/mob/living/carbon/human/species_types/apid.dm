@@ -22,6 +22,9 @@
 	staminamod = 2
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 
+/datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	H.grant_language(/datum/language/apidite)
+
 /datum/species/apid/random_name(gender,unique,lastname)
 	if(unique)
 		return random_unique_apid_name(gender)
@@ -35,8 +38,10 @@
 
 /datum/species/apid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()
+		var/obj/item/clothing/neck = C.get_item_by_slot(SLOT_NECK)
+	if(!istype(neck, /obj/item/clothing/shoes/bhop/apid)
+		if(C.dropItemToGround(neck)) //returns TRUE even if its null
 	C.equip_to_slot_or_del(new /obj/item/clothing/shoes/bhop/apid(C), SLOT_NECK)
-	C.grant_language(/datum/language/apidite)
 
 /datum/species/apid/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))
