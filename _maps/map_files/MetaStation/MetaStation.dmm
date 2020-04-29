@@ -3865,8 +3865,9 @@
 /turf/template_noop,
 /area/maintenance/fore)
 "ahe" = (
+/obj/effect/spawner/room/fivexfour,
 /turf/template_noop,
-/area/crew_quarters/fitness/recreation)
+/area/maintenance/fore)
 "ahf" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -12217,6 +12218,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/space)
+"awN" = (
+/obj/effect/spawner/room/threexfive,
+/turf/template_noop,
+/area/maintenance/fore)
 "awP" = (
 /obj/item/clothing/gloves/color/rainbow,
 /obj/item/clothing/shoes/sneakers/rainbow,
@@ -97059,7 +97064,7 @@ aox
 alK
 apd
 apd
-apd
+arl
 alK
 bSw
 bJq
@@ -116543,7 +116548,7 @@ agq
 ahd
 ahd
 ahd
-ahd
+ahe
 agq
 dhr
 ajD
@@ -117322,7 +117327,7 @@ ahd
 amF
 ahd
 ahd
-ahd
+awN
 axC
 ayK
 aAa
@@ -117568,9 +117573,9 @@ fLl
 sLL
 sEA
 acP
-ahe
-ahe
-ahe
+ahd
+ahd
+ahd
 ahd
 agq
 aoR
