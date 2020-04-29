@@ -5,6 +5,7 @@
 	slices_num = 5
 	tastes = list("bread" = 10)
 	foodtype = GRAIN
+	dunkable = TRUE
 	var/mutated = 0
 
 /obj/item/reagent_containers/food/snacks/store/bread/teleport_act()
@@ -25,6 +26,7 @@
 	slot_flags = ITEM_SLOT_HEAD
 	customfoodfilling = 0 //to avoid infinite bread-ception
 	foodtype = GRAIN
+	dunkable = TRUE
 	var/mutated = 0
 
 /obj/item/reagent_containers/food/snacks/breadslice/teleport_act()
