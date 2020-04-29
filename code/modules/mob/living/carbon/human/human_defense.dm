@@ -397,7 +397,7 @@
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return
 	..()
-	if (!severity)
+	if (!severity || QDELETED(src))
 		return
 	var/brute_loss = 0
 	var/burn_loss = 0
@@ -716,7 +716,7 @@
 /mob/living/carbon/human/proc/check_self_for_injuries()
 	if(stat == DEAD || stat == UNCONSCIOUS)
 		return
-		
+
 	visible_message("[src] examines [p_them()]self.", \
 		"<span class='notice'>You check yourself for injuries.</span>")
 
