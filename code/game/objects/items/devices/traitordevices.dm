@@ -190,7 +190,7 @@ effective or pretty fucking useless.
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 
-	var/equipslot = ITEM_SLOT_BELT
+	var/equipslot = SLOT_BELT
 	var/mob/living/carbon/human/user = null
 	var/charge = 300
 	var/max_charge = 300
@@ -243,7 +243,7 @@ effective or pretty fucking useless.
 			charge = max(0,charge - 25)//Quick decrease in light
 		else
 			charge = min(max_charge,charge + 50) //Charge in the dark
-		animate(user,alpha = clamp(255 - charge,0,255),time = 10)
+		animate(user,alpha = CLAMP(255 - charge,0,255),time = 10)
 
 /obj/item/shadowcloak/magician
 	name = "magician's cape"
@@ -252,7 +252,7 @@ effective or pretty fucking useless.
 	icon_state = "sheetmagician"
 	slot_flags = ITEM_SLOT_NECK
 	layer = MOB_LAYER
-	equipslot = ITEM_SLOT_NECK
+	equipslot = SLOT_NECK
 	attack_verb = null
 
 /obj/item/jammer
