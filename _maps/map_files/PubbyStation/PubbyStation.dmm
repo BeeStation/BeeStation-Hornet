@@ -13988,7 +13988,6 @@
 	id = "datboidetective";
 	name = "Privacy Shutters";
 	pixel_x = 25;
-	pixel_y = 0
 	},
 /turf/open/floor/carpet,
 /area/security/detectives_office)
@@ -54822,7 +54821,6 @@
 	freerange = 1;
 	name = "Station Intercom (Telecomms)";
 	pixel_x = 26;
-	pixel_y = 0
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
