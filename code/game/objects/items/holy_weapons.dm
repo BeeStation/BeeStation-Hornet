@@ -269,7 +269,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = ITEM_SLOT_BACK
-	active_blocking = FALSE
+	block_flags = PROJECTILE_BLOCKING
 	block_level = 2
 	var/shield_icon = "shield-red"
 
@@ -293,16 +293,12 @@
 	desc = "A weapon fit for a crusade!"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
+	block_flags = NASTY_BLOCKING | ACTIVE_BLOCKING
 	block_level = 1
 	block_power = 30
 	sharpness = IS_SHARP
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-
-/obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
 
 /obj/item/nullrod/claymore/darkblade
 	icon_state = "cultblade"
@@ -339,9 +335,9 @@
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
+	block_flags = NASTY_BLOCKING | ACTIVE_BLOCKING | PROJECTILE_BLOCKING
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	block_power = 0
-	projectile_blocking = TRUE //memes
 
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
@@ -408,7 +404,7 @@
 	armour_penetration = 35
 	block_level = 1
 	block_power = 15
-	nasty_blocks = TRUE
+	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = IS_SHARP
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -538,7 +534,7 @@
 	tool_behaviour = TOOL_SAW
 	toolspeed = 2 //slower than a real saw
 	attack_weight = 2
-	nasty_blocks = TRUE
+	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
 
 
 /obj/item/nullrod/chainsaw/Initialize()

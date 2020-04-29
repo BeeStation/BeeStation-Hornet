@@ -141,8 +141,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/block_level = 0
 	//does the item block better if walking?
 	var/block_upgrade_walk = 0
-	//this item won't block if not in the active hand
-	var/active_blocking = TRUE
+	//blocking flags
+	var/block_flags = ACTIVE_BLOCKING
 	//does it block projectiles?
 	var/projectile_blocking = FALSE
 	//reduces stamina damage taken whilst blocking. block power of 0 means it takes the full force of the attacking weapon
@@ -150,7 +150,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	//what sound does blocking make
 	var/block_sound = 'sound/weapons/parry.ogg'
 	//if a mob hits this barehanded, are they in trouble?
-	var/nasty_blocks = FALSE
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
 	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
@@ -454,9 +453,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/final_block_level = block_level
 	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
 		return 0
-	if(active_blocking && !owner.get_active_held_item() == src)
+	if((block_flags & ACTIVE_BLOCKING) && !owner.get_active_held_item() == src)
 		return 0
-	if(!projectile_blocking && attack_type == PROJECTILE_ATTACK)
+	if((!block_flags & PROJECTILE_BLOCKING) && attack_type == PROJECTILE_ATTACK)
 		return 0
 	if(owner.m_intent == MOVE_INTENT_WALK)
 		final_block_level += block_upgrade_walk
@@ -511,13 +510,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(attack_type == UNARMED_ATTACK && isliving(hitby))
 		var/mob/living/L = hitby
 		attackforce = damage
-		if(nasty_blocks)
+		if(block_flags & NASTY_BLOCKING)
 			L.attackby(src, owner)
 			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 	else if(isliving(hitby))
 		var/mob/living/L = hitby
 		attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
-		if(nasty_blocks)
+		if(block_flags & NASTY_BLOCKING)
 			L.attackby(src, owner)
 			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 	owner.apply_damage(attackforce, STAMINA, blockhand, block_power) 

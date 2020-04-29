@@ -162,7 +162,7 @@
 	item_state = "arm_blade"
 	force = 25
 	block_upgrade_walk = 1
-	nasty_blocks = TRUE
+	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
 	armour_penetration = 35
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'

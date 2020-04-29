@@ -156,7 +156,7 @@
 	block_upgrade_walk = 1 
 	block_level = 2
 	block_power = 40 //blocks very well to encourage using it. Just because you're a pacifist doesn't mean you can't defend yourself
-	active_blocking = FALSE
+	block_flags = null //not active, so it's null
 	var/activated = FALSE
 	var/usedHand
 
@@ -796,7 +796,7 @@
 	block_upgrade_walk = 1 
 	block_level = 1
 	block_power = 20
-	nasty_blocks = TRUE
+	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
 	var/summon_cooldown = 0
