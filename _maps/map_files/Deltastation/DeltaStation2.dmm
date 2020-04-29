@@ -6347,7 +6347,7 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint)
 "anx" = (
-/obj/machinery/computer/prisoner{
+/obj/machinery/computer/prisoner/management{
 	dir = 8
 	},
 /obj/machinery/status_display/evac{
@@ -38077,7 +38077,7 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "boc" = (
-/obj/machinery/computer/prisoner{
+/obj/machinery/computer/prisoner/management{
 	dir = 8
 	},
 /turf/open/floor/carpet/red,
@@ -40388,7 +40388,7 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "brE" = (
-/obj/machinery/computer/prisoner{
+/obj/machinery/computer/prisoner/management{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -41295,7 +41295,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
 "bth" = (
-/obj/machinery/computer/gulag_teleporter_computer{
+/obj/machinery/computer/prisoner/gulag_teleporter_computer{
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
@@ -44393,7 +44393,7 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "byk" = (
-/obj/machinery/computer/prisoner,
+/obj/machinery/computer/prisoner/management,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -58419,7 +58419,7 @@
 /turf/open/floor/plasteel,
 /area/security/warden)
 "bTh" = (
-/obj/machinery/computer/prisoner{
+/obj/machinery/computer/prisoner/management{
 	dir = 8
 	},
 /obj/structure/cable/yellow{
@@ -125829,7 +125829,7 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint/escape)
 "egj" = (
-/obj/machinery/computer/prisoner{
+/obj/machinery/computer/prisoner/management{
 	dir = 1
 	},
 /obj/structure/cable/yellow{

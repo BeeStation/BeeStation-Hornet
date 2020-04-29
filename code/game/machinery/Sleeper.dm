@@ -12,10 +12,10 @@
 	density = FALSE
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/sleeper
-	ui_x = 250
-	ui_y = 550
 	var/obj/item/stock_parts/cell/cell //The sleeper's power cell.
 	var/poweruse = 250 //How much power it uses per injection, minimum 10 charge/10u
+	ui_x = 310
+	ui_y = 520
 	var/efficiency = 1
 	var/min_health = -25
 	var/list/available_chems
@@ -145,7 +145,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "sleeper", name, 375, 550, master_ui, state)
+		ui = new(user, src, ui_key, "Sleeper", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/sleeper/AltClick(mob/user)
