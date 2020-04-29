@@ -152,33 +152,30 @@
 				var/datum/map_template/shuttle/S = locate(href_list["chosen_shuttle"]) in shuttles
 				if(S && istype(S))
 					if(SSshuttle.emergency.mode != SHUTTLE_RECALL && SSshuttle.emergency.mode != SHUTTLE_IDLE)
-						to_chat(usr, "It's a bit late to buy a new shuttle, don't you think?")
+						to_chat(usr, "<span class='alert'>It's a bit late to buy a new shuttle, don't you think?</span>")
 						return
 					if(SSshuttle.shuttle_purchased)
-						to_chat(usr, "A replacement shuttle has already been purchased.")
+						to_chat(usr, "<span class='alert'>A replacement shuttle has already been purchased.</span>")
 					else if(!S.prerequisites_met())
-						to_chat(usr, "You have not met the requirements for purchasing this shuttle.")
+						to_chat(usr, "<span class='alert'>You have not met the requirements for purchasing this shuttle.</span>")
 					else
 						var/points_to_check
 						var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 						if(D)
 							points_to_check = D.account_balance
 						if(points_to_check >= S.credit_cost)
-							var/obj/machinery/shuttle_manipulator/M = locate() in GLOB.machines
-							if(M)
-								SSshuttle.shuttle_purchased = TRUE
-								M.unload_preview()
-								M.load_template(S)
-								M.existing_shuttle = SSshuttle.emergency
-								M.action_load(S)
-								D.adjust_money(-S.credit_cost)
-								minor_announce("[usr.real_name] has purchased [S.name] for [S.credit_cost] credits." , "Shuttle Purchase")
-								message_admins("[ADMIN_LOOKUPFLW(usr)] purchased [S.name].")
-								SSblackbox.record_feedback("text", "shuttle_purchase", 1, "[S.name]")
-							else
-								to_chat(usr, "Something went wrong! The shuttle exchange system seems to be down.")
+							SSshuttle.shuttle_purchased = TRUE
+							SSshuttle.unload_preview()
+							SSshuttle.load_template(S)
+							SSshuttle.existing_shuttle = SSshuttle.emergency
+							SSshuttle.action_load(S)
+							D.adjust_money(-S.credit_cost)
+							minor_announce("[usr.real_name] has purchased [S.name] for [S.credit_cost] credits.[S.extra_desc ? " [S.extra_desc]" : ""]" , "Shuttle Purchase")
+							message_admins("[ADMIN_LOOKUPFLW(usr)] purchased [S.name].")
+							log_game("[key_name(usr)] has purchased [S.name].")
+							SSblackbox.record_feedback("text", "shuttle_purchase", 1, "[S.name]")
 						else
-							to_chat(usr, "Not enough credits.")
+							to_chat(usr, "<span class='alert'>Insufficient credits.</span>")
 
 		if("callshuttle")
 			state = STATE_DEFAULT

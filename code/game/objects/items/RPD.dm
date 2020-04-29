@@ -266,7 +266,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/pipes)
 		assets.send(user)
 
-		ui = new(user, src, ui_key, "rpd", name, 425, 472, master_ui, state)
+		ui = new(user, src, ui_key, "RapidPipeDispenser", name, 425, 515, master_ui, state)
 		ui.open()
 
 /obj/item/pipe_dispenser/ui_data(mob/user)

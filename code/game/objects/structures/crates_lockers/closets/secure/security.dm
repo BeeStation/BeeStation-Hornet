@@ -232,6 +232,15 @@
 	new	/obj/item/clothing/neck/tie/black(src)
 	new /obj/item/clothing/neck/tie/detective(src)
 
+/obj/structure/closet/secure_closet/deputy
+	name = "deputy's locker"
+	req_access = list(ACCESS_BRIG)
+
+/obj/structure/closet/secure_closet/deputy/PopulateContents()
+	..()
+	for(var/i in 1 to 4)
+		new /obj/item/storage/backpack/duffelbag/sec/deputy(src)
+	
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections"
 	req_access = list(ACCESS_HOS)

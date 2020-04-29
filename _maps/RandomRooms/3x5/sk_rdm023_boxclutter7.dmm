@@ -1,0 +1,82 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/item/toy/sword,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/structure/noticeboard{
+	dir = 8;
+	pixel_x = 27
+	},
+/obj/item/trash/plate,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/item/cigbutt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/mineral/copper,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/structure/chair,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/structure/rack,
+/obj/item/circuitboard/machine/monkey_recycler,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/table,
+/obj/item/stamp,
+/obj/item/poster/random_official,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/structure/closet/emcloset,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+d
+b
+g
+i
+"}
+(2,1,1) = {"
+b
+e
+b
+b
+b
+"}
+(3,1,1) = {"
+c
+d
+f
+h
+j
+"}
