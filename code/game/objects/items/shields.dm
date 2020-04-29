@@ -3,9 +3,8 @@
 	icon = 'icons/obj/shields.dmi'
 	block_level = 1
 	block_upgrade_walk = 1
-	active_blocking = FALSE
+	block_flags = PROJECTILE_BLOCKING
 	block_power = 50
-	projectile_blocking = TRUE
 	max_integrity =  75
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
 	var/durability = TRUE //the shield uses durability instead of stamina
@@ -31,7 +30,7 @@
 		else if(isliving(hitby))
 			var/mob/living/L = hitby
 			attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
-			if(nasty_blocks)
+			if(block_flags & NASTY_BLOCKING)
 				L.attackby(src, owner)
 				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 		if (obj_integrity <= attackforce)

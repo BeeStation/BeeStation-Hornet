@@ -10,8 +10,7 @@
 	block_power = 50
 	block_level = 1
 	block_upgrade_walk = 1
-	nasty_blocks = TRUE
-	projectile_blocking = TRUE //just like one of my japanese animes
+	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING | PROJECTILE_BLOCKING
 	armour_penetration = 50
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'

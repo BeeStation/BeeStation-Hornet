@@ -395,7 +395,8 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	block_upgrade_walk = 1
-	projectile_blocking = TRUE
+	block_level = 1
+	block_flags = NASTY_BLOCKING | ACTIVE_BLOCKING | PROJECTILE_BLOCKING
 
 /*
  * Snap pops

@@ -89,8 +89,7 @@
 	force = 20
 	armour_penetration = 75
 	block_level = 1
-	nasty_blocks = TRUE
-	projectile_blocking = TRUE //enchanted or some shit
+	block_flags = NASTY_BLOCKING | ACTIVE_BLOCKING | PROJECTILE_BLOCKING
 	sharpness = IS_SHARP
 	max_charges = 4
 

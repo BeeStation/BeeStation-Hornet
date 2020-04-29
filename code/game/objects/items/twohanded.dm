@@ -297,12 +297,11 @@
 	item_color = "green"
 	light_color = "#00ff00"//green
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	projectile_blocking = TRUE
 	block_level = 2
 	block_upgrade_walk = 1
 	block_power = 70
 	block_sound = 'sound/weapons/genhit.ogg'
-	nasty_blocks = TRUE
+	block_flags = NASTY_BLOCKING | ACTIVE_BLOCKING | PROJECTILE_BLOCKING
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
@@ -590,7 +589,7 @@
 	force = 13
 	block_power = 20
 	block_upgrade_walk = 2
-	nasty_blocks = TRUE
+	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
 	attack_weight = 2
 	var/force_on = 24
 	w_class = WEIGHT_CLASS_HUGE
@@ -838,8 +837,7 @@
 	block_power_wielded = 40
 	block_level = 1
 	block_upgrade_walk = 2
-	projectile_blocking = TRUE
-	nasty_blocks = TRUE
+	block_flags = NASTY_BLOCKING | ACTIVE_BLOCKING | PROJECTILE_BLOCKING
 	block_sound = 'sound/weapons/genhit.ogg'
 	throwforce = 20
 	throw_speed = 4

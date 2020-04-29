@@ -67,7 +67,7 @@
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	block_upgrade_walk = 1
-	nasty_blocks = TRUE
+	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
 	throw_speed = 3
 	throw_range = 6
 	materials = list(/datum/material/iron=12000)
