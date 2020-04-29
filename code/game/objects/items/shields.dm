@@ -38,7 +38,7 @@
 			T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")
 			shatter(owner)
 			return FALSE
-		take_damage(attackforce)
+		take_damage(attackforce * ((100-(block_power))/100))
 		return TRUE
 	else
 		return ..()
@@ -211,7 +211,7 @@
 	force = 3
 	throwforce = 3
 	throw_speed = 3
-	max_integrity = 25
+	max_integrity = 50
 	block_sound = 'sound/weapons/genhit.ogg'
 	var/base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
 	var/on_force = 10
@@ -221,7 +221,7 @@
 	var/clumsy_check = TRUE
 
 /obj/item/shield/energy/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/turbolift/turbolift-close.ogg', 50)
+	playsound(owner, 'sound/effects/turbolift/turbolift-close.ogg', 50, 0, -1)
 	src.attack_self(owner)
 	to_chat(owner, "<span class='warning'>The [src] overheats!.</span>")
 	
