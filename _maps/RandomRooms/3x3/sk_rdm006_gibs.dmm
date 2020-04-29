@@ -16,15 +16,11 @@
 "d" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /obj/effect/decal/cleanable/ash,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/open/floor/plating,
 /area/template_noop)
 "e" = (
 /obj/effect/decal/cleanable/oil,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/open/floor/plating,
 /area/template_noop)
 "f" = (
 /obj/effect/decal/cleanable/shreds,

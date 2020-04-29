@@ -1,7 +1,7 @@
 #define EGG_INCUBATION_TIME 120
 
 /mob/living/simple_animal/hostile/headcrab
-	name = "headslug"
+	name = "headspider"
 	desc = "Absolutely not de-beaked or harmless. Keep away from corpses."
 	icon_state = "headcrab"
 	icon_living = "headcrab"
@@ -41,7 +41,7 @@
 	if(. && !egg_lain && iscarbon(target) && !ismonkey(target))
 		// Changeling egg can survive in aliens!
 		var/mob/living/carbon/C = target
-		if(C.stat == DEAD)
+		if(C.stat >= UNCONSCIOUS)
 			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
 				to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
 				return

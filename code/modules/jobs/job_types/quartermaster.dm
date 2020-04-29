@@ -8,6 +8,7 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#d7b088"
+	chat_color = "#C79C52"
 
 	outfit = /datum/outfit/job/quartermaster
 
@@ -27,7 +28,7 @@
 	ears = /obj/item/radio/headset/headset_cargo
 	uniform = /obj/item/clothing/under/rank/cargo
 	shoes = /obj/item/clothing/shoes/sneakers/brown
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	l_hand = /obj/item/clipboard
 
 	chameleon_extras = /obj/item/stamp/qm

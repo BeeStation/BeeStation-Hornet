@@ -26,7 +26,7 @@
 	new /obj/item/storage/box/silver_ids(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
 	new /obj/item/radio/headset/heads/captain(src)
-	new /obj/item/clothing/glasses/sunglasses/gar/supergar(src)
+	new /obj/item/clothing/glasses/sunglasses/advanced/gar/supergar(src)
 	new /obj/item/clothing/gloves/color/captain(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 	new /obj/item/storage/belt/sabre(src)
@@ -55,7 +55,7 @@
 	new /obj/item/megaphone/command(src)
 	new /obj/item/clothing/suit/armor/vest/alt(src)
 	new /obj/item/assembly/flash/handheld(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 	new /obj/item/gun/energy/e_gun/mini(src)
 	new /obj/item/clothing/neck/petcollar(src)
@@ -232,6 +232,15 @@
 	new	/obj/item/clothing/neck/tie/black(src)
 	new /obj/item/clothing/neck/tie/detective(src)
 
+/obj/structure/closet/secure_closet/deputy
+	name = "deputy's locker"
+	req_access = list(ACCESS_BRIG)
+
+/obj/structure/closet/secure_closet/deputy/PopulateContents()
+	..()
+	for(var/i in 1 to 4)
+		new /obj/item/storage/backpack/duffelbag/sec/deputy(src)
+	
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections"
 	req_access = list(ACCESS_HOS)
