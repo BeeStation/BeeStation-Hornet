@@ -499,3 +499,31 @@ GLOBAL_LIST_EMPTY(species_list)
 	REMOVE_TRAIT(L, TRAIT_PASSTABLE, source)
 	if(!HAS_TRAIT(L, TRAIT_PASSTABLE))
 		L.pass_flags &= ~PASSTABLE
+
+//Gets the sentient mobs that are not on centcom and are alive
+/proc/get_sentient_mobs()
+	. = list()
+	for(var/mob/living/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind && !is_centcom_level(player.z) && !isnewplayer(player) && !isbrain(player))
+			. |= player
+
+//Gets all sentient humans that are alive
+/proc/get_living_crew()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind)
+			. |= player
+
+//Gets all sentient humans that are on the station
+/proc/get_living_station_crew()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind && is_station_level(player.z))
+			. |= player
+
+//Gets all the minds of humans that are on station
+/proc/get_living_station_minds()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind && is_station_level(player.z))
+			. |= player.mind
