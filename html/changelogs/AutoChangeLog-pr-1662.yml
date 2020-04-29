@@ -1,0 +1,7 @@
+author: "jlsnow301"
+delete-after: True
+changes: 
+  - rscadd: "Perma prisoners can now enter cryosleep as an escape from suffering."
+  - rscadd: "Boxstation now has a cryosleeper."
+  - rscadd: "Metastation gains an extra O2 canister in medbay."
+  - tweak: "All four maps receive facelifts, slight reworks."
