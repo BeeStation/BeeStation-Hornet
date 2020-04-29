@@ -37,31 +37,31 @@
 /area/template_noop)
 "c" = (
 /turf/open/floor/plasteel/cafeteria,
-/area/space)
+/area/template_noop)
 "d" = (
 /obj/structure/chair/sofa/right,
 /turf/open/floor/carpet/green,
-/area/space)
+/area/template_noop)
 "e" = (
 /obj/structure/chair/sofa/left,
 /turf/open/floor/carpet/green,
-/area/space)
+/area/template_noop)
 "f" = (
 /obj/effect/landmark/start/randommaint/backalley_doc,
 /turf/open/floor/plasteel/cafeteria,
-/area/space)
+/area/template_noop)
 "g" = (
 /obj/item/chair/stool/bar{
 	name = "barber's stool"
 	},
 /turf/open/floor/plasteel/ameridiner,
-/area/space)
+/area/template_noop)
 "h" = (
 /turf/open/floor/carpet/green,
-/area/space)
+/area/template_noop)
 "i" = (
 /turf/closed/wall,
-/area/space)
+/area/template_noop)
 "j" = (
 /obj/structure/dresser,
 /obj/item/flashlight/lamp{
