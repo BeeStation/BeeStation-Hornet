@@ -115,11 +115,7 @@ Class Procs:
 	var/atom/movable/occupant = null
 	var/speed_process = FALSE // Process as fast as possible?
 	var/obj/item/circuitboard/circuit // Circuit to be created and inserted when the machinery is created
-	var/obj/item/card/id/inserted_scan_id
-	var/obj/item/card/id/inserted_modify_id
-	var/list/region_access = null // For the identification console (card.dm)
-	var/list/head_subordinates = null // For the identification console (card.dm)
-	var/authenticated = 0 // For the identification console (card.dm)
+	var/damage_deflection = 0
 
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 	var/fair_market_price = 69
