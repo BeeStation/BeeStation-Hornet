@@ -448,7 +448,7 @@
 
 /datum/outfit/joker
 	name = "Joker"
-	uniform = /obj/item/clothing/under/joker
+	uniform = /obj/item/clothing/under/costume/joker
 	suit = /obj/item/clothing/suit/joker
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/white

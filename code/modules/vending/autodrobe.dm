@@ -112,7 +112,7 @@
 					/obj/item/clothing/head/snowman = 1,
 					/obj/item/clothing/mask/joy = 1,
 					/obj/item/clothing/head/cueball = 1,
-					/obj/item/clothing/under/joker = 2,
+					/obj/item/clothing/under/costume/joker = 2,
 					/obj/item/clothing/suit/joker = 2,
 					/obj/item/clothing/head/delinquent = 1,
 					/obj/item/clothing/ears/headphones = 2)
