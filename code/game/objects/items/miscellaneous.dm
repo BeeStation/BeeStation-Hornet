@@ -185,7 +185,7 @@
 	if(isliving(target))
 		var/mob/living/M = target
 		M.visible_message("<span class='warning'>[user] starts pulling [src] over [M]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
-		if(do_after_mob(user, M, (M.health + 100)))//+100 because anyone in crit will be instantly kidnapped otherwise. 
+		if(do_after_mob(user, M, max(M.health + 100, 100)))//+100 because anyone in crit will be instantly kidnapped otherwise. 
 			if(M == user)
 				M.drop_all_held_items()
 				if(HAS_TRAIT(src, TRAIT_NODROP))
