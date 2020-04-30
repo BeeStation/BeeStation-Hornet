@@ -293,7 +293,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	amount = 5
 
 GLOBAL_LIST_INIT(durathread_recipes, list ( \
-	new/datum/stack_recipe("durathread jumpsuit", /obj/item/clothing/under/durathread, 4, time = 40),
+	new/datum/stack_recipe("durathread jumpsuit", /obj/item/clothing/under/misc/durathread, 4, time = 40),
 	new/datum/stack_recipe("durathread beret", /obj/item/clothing/head/beret/durathread, 2, time = 40), \
 	new/datum/stack_recipe("durathread beanie", /obj/item/clothing/head/beanie/durathread, 2, time = 40), \
 	new/datum/stack_recipe("durathread bandana", /obj/item/clothing/mask/bandana/durathread, 1, time = 25), \

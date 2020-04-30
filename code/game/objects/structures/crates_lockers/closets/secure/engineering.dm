@@ -7,7 +7,7 @@
 	..()
 	new /obj/item/clothing/head/beret/ce(src)
 	new /obj/item/clothing/neck/cloak/ce(src)
-	new /obj/item/clothing/under/rank/chief_engineer(src)
+	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
 	new /obj/item/clothing/head/hardhat/white(src)
 	new /obj/item/clothing/head/hardhat/weldhat/white(src)
 	new /obj/item/clothing/head/welding(src)
