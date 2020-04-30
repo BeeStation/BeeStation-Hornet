@@ -13987,7 +13987,7 @@
 /obj/machinery/button/door{
 	id = "datboidetective";
 	name = "Privacy Shutters";
-	pixel_x = 25;
+	pixel_x = 25
 	},
 /turf/open/floor/carpet,
 /area/security/detectives_office)
@@ -27334,6 +27334,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
 "bkq" = (
@@ -54820,7 +54821,7 @@
 	dir = 8;
 	freerange = 1;
 	name = "Station Intercom (Telecomms)";
-	pixel_x = 26;
+	pixel_x = 26
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
