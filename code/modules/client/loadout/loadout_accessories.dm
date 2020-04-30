@@ -64,9 +64,16 @@
 	cost = 20000
 
 /datum/gear/accessory/necklace
-	display_name = "necklace, gold"
+	display_name = "dope necklace"
 	path = /obj/item/clothing/neck/necklace/dope
 	cost = 25000
+
+/datum/gear/accessory/headphones
+	display_name = "headphones"
+	path = /obj/item/clothing/ears/headphones
+	cost = 2000
+
+//GLASSES
 
 /datum/gear/accessory/eyepatch
 	display_name = "eyepatch"
@@ -80,12 +87,64 @@
 	path = /obj/item/clothing/glasses/monocle
 	cost = 1200
 
-/datum/gear/accessory/cosmetics/lipstick
-	display_name = "lipstick, black"
-	path = /obj/item/lipstick/black
+/datum/gear/accessory/glasses
+	display_name = "prescription glasses"
+	slot = SLOT_GLASSES
+	path = /obj/item/clothing/glasses/regular
 	cost = 1200
 
-/datum/gear/accessory/cosmetics/lipstick/red
+/datum/gear/accessory/glasses/jamjar
+	display_name = "jam jar glasses"
+	path = /obj/item/clothing/glasses/regular/jamjar
+
+/datum/gear/accessory/glasses/hipster
+	display_name = "hipster glasses"
+	path = /obj/item/clothing/glasses/regular/hipster
+
+/datum/gear/accessory/glasses/circle
+	display_name = "circular glasses"
+	path = /obj/item/clothing/glasses/regular/circle
+
+/datum/gear/accessory/glasses/sunglasses
+	display_name = "sunglasses"
+	path = /obj/item/clothing/glasses/sunglasses
+
+/datum/gear/accessory/glasses/cold
+	display_name = "cold goggles"
+	path = /obj/item/clothing/glasses/cold
+
+/datum/gear/accessory/glasses/heat
+	display_name = "heat goggles"
+	path = /obj/item/clothing/glasses/heat
+
+/datum/gear/accessory/glasses/orange
+	display_name = "sunglasses"
+	path = /obj/item/clothing/glasses/orange
+
+/datum/gear/accessory/glasses/red
+	display_name = "red glasses"
+	path = /obj/item/clothing/glasses/red
+
+//LIPSTICK
+
+/datum/gear/accessory/cosmetics/lipstick
 	display_name = "lipstick, red"
 	path = /obj/item/lipstick
 	cost = 1200
+
+/datum/gear/accessory/cosmetics/lipstick/black
+	display_name = "lipstick, black"
+	path = /obj/item/lipstick/black
+
+/datum/gear/accessory/cosmetics/lipstick/purple
+	display_name = "lipstick, purple"
+	path = /obj/item/lipstick/purple
+
+/datum/gear/accessory/cosmetics/lipstick/lime
+	display_name = "lipstick, lime"
+	path = /obj/item/lipstick/jade //its lime colored
+
+/datum/gear/accessory/cosmetics/lipstick/random
+	display_name = "lipstick, random color"
+	path = /obj/item/lipstick/random
+	cost = 1400

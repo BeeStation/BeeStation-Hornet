@@ -14,13 +14,13 @@
 /datum/gear/suit/vests/armor/alt //just the alternate appearance armor vest that is in sec lockers.
 	display_name = "type I-B armor vest"
 	path = /obj/item/clothing/suit/armor/vest/alt
-	allowed_roles = allowed_roles = list("Security Officer", "Warden", "Head of Security", "Head of Personnel")
+	allowed_roles = list("Security Officer", "Warden", "Head of Security", "Head of Personnel")
 	cost = 5000
 
 /datum/gear/suit/vests/armor/blueshirt //about that beer I owe ya
 	display_name = "type H-L large armor vest"
 	path = /obj/item/clothing/suit/armor/vest/blueshirt
-	allowed_roles = allowed_roles = list("Security Officer", "Warden", "Head of Security", "Head of Personnel")
+	allowed_roles = list("Security Officer", "Warden", "Head of Security", "Head of Personnel")
 	cost = 7500
 
 /datum/gear/suit/vests/hazard/brig_doc
