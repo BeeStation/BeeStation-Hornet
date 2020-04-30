@@ -1186,7 +1186,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(href_list["preference"] == "gear")
 		if(href_list["purchase_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[href_list["purchase_gear"]]
-			if(TG.cost > user.client.get_metabalance())
+			if(TG.cost < user.client.get_metabalance())
 				purchased_gear += TG.display_name
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
