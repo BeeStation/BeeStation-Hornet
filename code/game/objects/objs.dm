@@ -14,8 +14,9 @@
 	var/obj_integrity
 	/// The maximum integrity the object can have.
 	var/max_integrity = 500
-	/// The object will break once obj_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior.
-	var/integrity_failure = 0
+	var/integrity_failure = 0 //0 if we have no special broken behavior
+	///Damage under this value will be completely ignored
+	var/damage_deflection = 0
 
 	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
 	var/resistance_flags = NONE
