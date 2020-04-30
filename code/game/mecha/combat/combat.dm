@@ -6,3 +6,7 @@
 	mouse_pointer = 'icons/mecha/mecha_mouse.dmi'
 	destruction_sleep_duration = 40
 	exit_delay = 40
+
+/obj/mecha/combat/restore_equipment()
+	mouse_pointer = 'icons/mecha/mecha_mouse.dmi'
+	. = ..()
