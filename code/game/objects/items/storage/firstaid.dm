@@ -40,8 +40,8 @@
 
 /obj/item/storage/firstaid/medical
 	name = "medical aid kit"
-	icon_state = "firstaid_surgery"
-	item_state = "firstaid"
+	icon_state = "firstaid-surgery"
+	item_state = "firstaid-surgery"
 	desc = "A high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
 
 /obj/item/storage/firstaid/medical/ComponentInitialize()
