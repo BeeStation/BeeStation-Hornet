@@ -254,8 +254,6 @@ effective or pretty fucking useless.
 	layer = MOB_LAYER
 	equipslot = SLOT_NECK
 	attack_verb = null
-		animate(user,alpha = clamp(255 - charge,0,255),time = 10)
-
 
 /obj/item/jammer
 	name = "radio jammer"
