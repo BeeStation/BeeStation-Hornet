@@ -194,7 +194,7 @@
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(construction_state == MECHA_UNSECURE_CELL)
 			if(!cell)
-				if(!user.transferItemToLoc(W, src))
+				if(!user.transferItemToLoc(W, src, silent = FALSE))
 					return
 				var/obj/item/stock_parts/cell/C = W
 				to_chat(user, "<span class='notice'>You install the powercell.</span>")
@@ -341,3 +341,29 @@
 			else if(damtype == TOX)
 				visual_effect_icon = ATTACK_EFFECT_MECHTOXIN
 	..()
+
+/obj/mecha/obj_destruction()
+	if(wreckage)
+		var/mob/living/silicon/ai/AI
+		if(isAI(occupant))
+			AI = occupant
+			occupant = null
+		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
+		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
+			if(E.salvageable && prob(30))
+				WR.crowbar_salvage += E
+				E.detach(WR) //detaches from src into WR
+				E.equip_ready = 1
+			else
+				E.detach(loc)
+				qdel(E)
+		if(cell)
+			WR.crowbar_salvage += cell
+			cell.forceMove(WR)
+			cell.charge = rand(0, cell.charge)
+			cell = null
+		if(internal_tank)
+			WR.crowbar_salvage += internal_tank
+			internal_tank.forceMove(WR)
+			cell = null
+	. = ..()
