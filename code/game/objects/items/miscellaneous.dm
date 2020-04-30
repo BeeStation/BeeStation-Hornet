@@ -222,7 +222,7 @@
 /obj/item/clothing/head/that/bluespace/examine(mob/user)
 	. = ..()
 	if(contents.len)
-		. += "<span class='notice'>You can make out the shape\s of [contents.len] object\s in the hat.</span>"
+		. += "<span class='notice'>You can make out [contents.len] object\s in the hat.</span>"
 
 /obj/item/clothing/head/that/bluespace/Destroy()
 	for(var/atom/movable/A in contents)
