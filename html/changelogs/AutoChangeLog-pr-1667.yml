@@ -1,0 +1,6 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - tweak: "Pubby maximum pop changed from 80 to 50, and minimum removed."
+  - tweak: "Meta minimum pop changed from 30 to 15."
+  - tweak: "Delta minimum pop changed from 50 to 40."
