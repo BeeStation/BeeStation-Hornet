@@ -1712,7 +1712,6 @@
 #include "code\modules\clothing\under\jobs\civilian\curator.dm"
 #include "code\modules\clothing\under\jobs\Plasmaman\civilian_service.dm"
 #include "code\modules\clothing\under\jobs\Plasmaman\engineering.dm"
-#include "code\modules\clothing\under\jobs\Plasmaman\medsci.dm"
 #include "code\modules\clothing\under\jobs\Plasmaman\security.dm"
 #include "code\modules\crew_objectives\_crew_objectives.dm"
 #include "code\modules\crew_objectives\cargo_objectives.dm"
