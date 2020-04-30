@@ -253,7 +253,7 @@ effective or pretty fucking useless.
 	slot_flags = ITEM_SLOT_NECK
 	layer = MOB_LAYER
 	equipslot = SLOT_NECK
-	attack_verb = null 
+	attack_verb = null
 
 /obj/item/jammer
 	name = "radio jammer"
