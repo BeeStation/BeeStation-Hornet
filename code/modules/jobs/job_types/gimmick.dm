@@ -15,8 +15,13 @@
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 
+/datum/job/gimmick/New()
+	. = ..()
+	GLOB.civilian_positions += title
+
 /datum/job/gimmick/barber
 	title = "Barber"
+	flag = BARBER
 	outfit = /datum/outfit/job/gimmick/barber
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
@@ -35,6 +40,7 @@
 
 /datum/job/gimmick/magician
 	title = "Stage Magician"
+	flag = MAGICIAN
 	outfit = /datum/outfit/job/gimmick/magician
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
