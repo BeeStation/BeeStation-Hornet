@@ -1,6 +1,0 @@
-author: "Victor239"
-delete-after: True
-changes: 
-  - balance: "Gygax now has force 25 instead of 30"
-  - balance: "Gygax inflicts knockdown instead of unconscious"
-  - balance: "Leg acurator doesnt auto punch"
