@@ -144,6 +144,7 @@
 	var/progress_flash_divisor = 10  //copypasta is best pasta
 	var/light_intensity = 1
 	var/charge_weld = 25 //amount of charge used up to start action (multiplied by amount) and per progress_flash_divisor ticks of welding
+	weapon_weight = WEAPON_LIGHT
 
 /obj/item/gun/energy/plasmacutter/Initialize()
 	. = ..()
