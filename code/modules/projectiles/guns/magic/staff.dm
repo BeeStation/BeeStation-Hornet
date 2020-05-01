@@ -3,6 +3,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	item_flags = NEEDS_PERMIT | NO_MAT_REDEMPTION
+	weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"

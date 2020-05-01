@@ -13,6 +13,7 @@
 	internal_magazine = TRUE
 	bolt_type = BOLT_TYPE_NO_BOLT
 	tac_reloads = FALSE
+	fire_rate = 1.5 //slower than normal guns due to the damage factor
 	var/spin_delay = 10
 	var/recent_spin = 0
 
@@ -77,6 +78,7 @@
 	desc = "A classic, if not outdated, law enforcement firearm. Uses .38-special rounds."
 	fire_sound = 'sound/weapons/revolver38shot.ogg'
 	icon_state = "detective"
+	fire_rate = 2
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	obj_flags = UNIQUE_RENAME
 	unique_reskin = list("Default" = "detective",
@@ -96,6 +98,7 @@
 			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
 			to_chat(user, "<span class='userdanger'>[src] blows up in your face!</span>")
 			user.take_bodypart_damage(0,20)
+			explosion(src, 0, 0, 1, 1)
 			user.dropItemToGround(src)
 			return 0
 	..()
@@ -114,6 +117,7 @@
 				to_chat(user, "<span class='warning'>You can't modify it!</span>")
 				return TRUE
 			magazine.caliber = "357"
+			fire_rate = 1 //worse than a nromal .357
 			fire_sound = 'sound/weapons/revolver357shot.ogg'
 			desc = "The barrel and chamber assembly seems to have been modified."
 			to_chat(user, "<span class='notice'>You reinforce the barrel of [src]. Now it will fire .357 rounds.</span>")
@@ -128,6 +132,7 @@
 				to_chat(user, "<span class='warning'>You can't modify it!</span>")
 				return
 			magazine.caliber = "38"
+			fire_rate = null
 			fire_sound = 'sound/weapons/revolver38shot.ogg'
 			desc = initial(desc)
 			to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")
@@ -145,6 +150,7 @@
 	icon_state = "goldrevolver"
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
 	recoil = 8
+	fire_rate = 2 //keeping with the description's reference, this fires slightly faster than the normal gun
 	pin = /obj/item/firing_pin
 
 /obj/item/gun/ballistic/revolver/nagant

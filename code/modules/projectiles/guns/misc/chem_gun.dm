@@ -12,6 +12,7 @@
 	materials = list(/datum/material/iron=2000)
 	clumsy_check = FALSE
 	fire_sound = 'sound/items/syringeproj.ogg'
+	fire_rate = 1.5
 	var/time_per_syringe = 250
 	var/syringes_left = 4
 	var/max_syringes = 4

@@ -301,6 +301,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
+	automatic = 1
+	fire_rate = 6
 
 /obj/item/gun/energy/printer/update_icon()
 	return
@@ -314,6 +316,8 @@
 	desc = "A gun that changes temperatures."
 	ammo_type = list(/obj/item/ammo_casing/energy/temp, /obj/item/ammo_casing/energy/temp/hot)
 	cell_type = "/obj/item/stock_parts/cell/high"
+	automatic = 1
+	fire_rate = 4
 	pin = null
 
 /obj/item/gun/energy/temperature/security
