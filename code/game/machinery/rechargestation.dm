@@ -22,7 +22,7 @@
 	recharge_speed = 0
 	repairs = 0
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_speed += (C.rating * 100) + 100 // Starting boost, but inconsequential at t4
+		recharge_speed += (C.rating * 100) + 66 // Starting boost, but inconsequential at t4
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/stock_parts/cell/C in component_parts)
