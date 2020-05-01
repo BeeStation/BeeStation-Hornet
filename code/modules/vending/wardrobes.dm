@@ -52,7 +52,7 @@
 					/obj/item/clothing/under/rank/medical/doctor/blue = 4,
 					/obj/item/clothing/under/rank/medical/doctor/green = 4,
 					/obj/item/clothing/under/rank/medical/doctor/purple = 4,
-					/obj/item/clothing/under/rank/medical = 4,
+					/obj/item/clothing/under/rank/medical/doctor = 4,
 					/obj/item/clothing/under/plasmaman/medical = 4,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/medical = 4,
 					/obj/item/clothing/suit/toggle/labcoat = 4,
