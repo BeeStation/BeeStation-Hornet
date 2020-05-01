@@ -1,4 +1,5 @@
 /datum/gear/accessory
+	display_name = "accessory" //So we dont give warnings
 	subtype_path = /datum/gear/accessory
 	slot = SLOT_NECK
 	sort_category = "Accessories"
