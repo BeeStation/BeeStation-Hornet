@@ -3,21 +3,20 @@
 	slot = SLOT_NECK
 	sort_category = "Accessories"
 
-/datum/gear/accessory/scarf
-	subtype_path = /datum/gear/accessory/scarf
-	cost = 1000
-
 /datum/gear/accessory/scarf/red
 	display_name = "scarf, red"
 	path = /obj/item/clothing/neck/scarf/red
+	cost = 1000
 
 /datum/gear/accessory/scarf/green
 	display_name = "scarf, green"
 	path = /obj/item/clothing/neck/scarf/green
+	cost = 1000
 
 /datum/gear/accessory/scarf/darkblue
 	display_name = "scarf, dark blue"
 	path = /obj/item/clothing/neck/scarf/darkblue
+	cost = 1000
 
 /datum/gear/accessory/scarf/zebra
 	display_name = "scarf, zebra"
@@ -39,18 +38,15 @@
 	path = /obj/item/clothing/accessory/armband
 	cost = 1000
 
-
-/datum/gear/accessory/tie
-	subtype_path = /datum/gear/accessory/tie
-	cost = 1500
-
 /datum/gear/accessory/tie/blue
 	display_name = "tie, blue"
 	path = /obj/item/clothing/neck/tie/blue
+	cost = 1500
 
 /datum/gear/accessory/tie/red
 	display_name = "tie, red"
 	path = /obj/item/clothing/neck/tie/red
+	cost = 1500
 
 /datum/gear/accessory/tie/black
 	display_name = "tie, black"
