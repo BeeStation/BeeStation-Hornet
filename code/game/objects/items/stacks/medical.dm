@@ -100,8 +100,6 @@
 
 	use(1)
 
-
-
 /obj/item/stack/medical/bruise_pack
 	name = "bruise pack"
 	singular_name = "bruise pack"
@@ -119,14 +117,14 @@
 
 /obj/item/stack/medical/gauze
 	name = "medical gauze"
-	desc = "A roll of elastic cloth that is extremely effective at stopping bleeding, but does not heal wounds."
+	desc = "A roll of elastic cloth that is extremely effective at stopping bleeding, heals minor bruising."
 	gender = PLURAL
 	singular_name = "medical gauze"
 	icon_state = "gauze"
 	stop_bleeding = 1800
+	heal_brute = 5 //Reminder that you can not stack healing thus you wait out the 1800 timer.
 	self_delay = 20
 	max_amount = 12
-
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
@@ -150,6 +148,13 @@
 	singular_name = "improvised gauze"
 	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
 	stop_bleeding = 900
+	heal_brute = 0
+
+/obj/item/stack/medical/gauze/adv
+	name = "sterilized medical gauze"
+	desc = "A roll of elastic sterilized cloth that is extremely effective at stopping bleeding, heals minor wounds and cleans them."
+	singular_name = "sterilized medical gauze"
+	self_delay = 5
 
 /obj/item/stack/medical/gauze/cyborg
 	materials = list()
