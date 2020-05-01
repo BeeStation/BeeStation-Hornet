@@ -12,6 +12,7 @@
 			new /obj/item/grenade/syndieminibomb/concussion/frag(src) // ~2 tc each?
 			new /obj/item/grenade/syndieminibomb/concussion/frag(src) 
 			new /obj/item/flashlight/emp(src)
+			new /obj/item/book/granter/martial/karate(src)
 
 		if("bloodyspai") 
 			new /obj/item/clothing/under/chameleon(src) // 2 tc since it's not the full set
@@ -54,6 +55,7 @@
 			new /obj/item/clothing/suit/space/syndicate/black/red(src)
 			new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
 			new /obj/item/encryptionkey/syndicate(src)
+			new /obj/item/pen/edagger(src)
 
 		if("murder") 
 			new /obj/item/melee/transforming/energy/sword/saber(src)
@@ -81,6 +83,7 @@
 			new /obj/item/camera_bug(src)
 			new /obj/item/clothing/glasses/thermal/syndi(src)
 			new /obj/item/card/id/syndicate(src)
+			new /obj/item/pen/edagger(src)
 
 		if("lordsingulo") 
 			new /obj/item/sbeacondrop(src)
@@ -88,6 +91,7 @@
 			new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
 			new /obj/item/card/emag(src)
 			new /obj/item/storage/toolbox/syndicate(src)
+			new /obj/item/pen/edagger(src)
 
 		if("sabotage") 
 			new /obj/item/grenade/plastic/c4 (src)
@@ -125,11 +129,13 @@
 			new /obj/item/gun/ballistic/automatic/pistol(src)
 			new /obj/item/suppressor(src)
 			new /obj/item/ammo_box/magazine/m10mm(src)
-			new /obj/item/ammo_box/magazine/m10mm(src)
+			new /obj/item/ammo_box/magazine/m10mm/ap(src)
+			new /obj/item/ammo_box/magazine/m10mm/hp(src)
 			new /obj/item/clothing/under/chameleon(src)
 			new /obj/item/card/id/syndicate(src)
 			new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
 			new /obj/item/reagent_containers/glass/rag(src)
+			new /obj/item/encryptionkey/syndicate(src)
 			
 		if("ninja") 
 			new /obj/item/katana(src) // Unique , hard to tell how much tc this is worth. 8 tc?
@@ -273,23 +279,21 @@
 	var/list/item_list = list(
 		/obj/item/storage/backpack/duffelbag/syndie/x4,
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
-		/obj/item/gun/syringe/syndicate,
 		/obj/item/pen/edagger,
 		/obj/item/pen/sleepy,
-		/obj/item/flashlight/emp,
-		/obj/item/reagent_containers/syringe/mulligan,
+		/obj/item/storage/box/syndie_kit/emp,
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/storage/firstaid/tactical,
-		/obj/item/encryptionkey/syndicate,
+		/obj/item/encryptionkey/binary,
 		/obj/item/clothing/glasses/thermal/syndi,
 		/obj/item/slimepotion/slime/sentience/nuclear,
 		/obj/item/storage/box/syndie_kit/imp_radio,
-		/obj/item/storage/box/syndie_kit/imp_uplink,
 		/obj/item/clothing/gloves/krav_maga/combatglovesplus,
 		/obj/item/gun/ballistic/automatic/c20r/toy/unrestricted/riot,
 		/obj/item/reagent_containers/hypospray/medipen/stimulants,
-		/obj/item/storage/box/syndie_kit/imp_freedom,
-		/obj/item/toy/eightball/haunted
+		/obj/item/compressionkit,
+		/obj/item/book/granter/martial/karate,
+		/obj/item/storage/box/syndie_kit/imp_freedom
 	)
 
 	var/obj/item1 = pick_n_take(item_list)

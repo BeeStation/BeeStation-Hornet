@@ -13,8 +13,6 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(!(HAS_TRAIT(src, TRAIT_CLUMSY)) && !(H.mind && H.mind.assigned_role == "Clown"))
-		return
 	if(slot == SLOT_SHOES)
 		spells = new
 		for(var/spell in spelltypes)
