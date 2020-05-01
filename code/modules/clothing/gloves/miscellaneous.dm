@@ -64,13 +64,21 @@
 	transfer_prints = TRUE
 	var/warcry = "AT"
 
-/obj/item/clothing/gloves/rapid/Touch(mob/living/target,proximity = TRUE)
+/obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
 	var/mob/living/M = loc
-
-	if(M.a_intent == INTENT_HARM)
-		M.changeNext_move(CLICK_CD_RAPID)
-		if(warcry)
-			M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
+	if(A in range(1, M))
+		if(isliving(A) && M.a_intent == INTENT_HARM)
+			M.changeNext_move(CLICK_CD_RAPID)
+			if(warcry)
+				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
+			
+	else if(M.a_intent == INTENT_HARM)
+		for(var/mob/living/L in oview(1, M))
+			L.attack_hand(M)
+			M.changeNext_move(CLICK_CD_RAPID)
+			if(warcry)
+				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
+			break
 	.= FALSE
 
 /obj/item/clothing/gloves/rapid/attack_self(mob/user)
