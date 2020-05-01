@@ -177,6 +177,7 @@
 	new /obj/item/clothing/head/that/bluespace(src)
 
 /obj/item/clothing/head/that/bluespace //code shamelessly ripped from bluespace body bags, cuz that's basically what this is
+	var/itemheld = FALSE
 	var/capacity = 2
 	var/maximum_size = 2 //one human, two pets, unlimited tiny mobs, but no big boys like megafauna
 
@@ -197,15 +198,13 @@
 				to_chat(M, "<span class='userdanger'>[user] stuffs you into the [src]!</span>")
 			else
 				to_chat(user, "[M] will not fit in the tophat!")
-	else if (isitem(target) && !user.get_inactive_held_item() == target)
+	else if (isitem(target))
 		var/obj/item/I = target
-		if(I.w_class <= WEIGHT_CLASS_NORMAL && capacity >= 1)
+		if(I in user.contents)
+			return
+		if(!itemheld)
 			src.contents += I
-			capacity -= 1
-			user.visible_message("<span class='warning'>[user] stuffs [I] into the [src]!</span>")
-		else if(I.w_class <= WEIGHT_CLASS_HUGE && capacity >= 2)
-			src.contents += I
-			capacity -= 2
+			itemheld = TRUE
 			user.visible_message("<span class='warning'>[user] stuffs [I] into the [src]!</span>")
 		else
 			to_chat(user, "[I] will not fit in the tophat!")
@@ -213,11 +212,15 @@
 /obj/item/clothing/head/that/bluespace/attack_self(mob/user)
 	. = ..()
 	capacity = maximum_size
+	itemheld = FALSE
 	for(var/atom/movable/A in contents)
 		A.forceMove(get_turf(src))
 		user.visible_message("<span class='warning'>[user] pulls [A] out of the hat!</span>")
 		if(isliving(A))
 			to_chat(A, "<span class='notice'>You suddenly feel air around you! You're free!</span>")
+		if(isitem(A))
+			var/obj/item/I = A
+			user.put_in_hands(I)
 
 /obj/item/clothing/head/that/bluespace/examine(mob/user)
 	. = ..()

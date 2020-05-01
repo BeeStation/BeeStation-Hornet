@@ -4996,7 +4996,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/maintenance/port/fore)
 "ajm" = (
 /turf/closed/wall/r_wall,
@@ -5378,7 +5378,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/northleft,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/maintenance/port/fore)
 "ajP" = (
 /obj/structure/table/reinforced,
@@ -5386,7 +5386,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/maintenance/port/fore)
 "ajQ" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
@@ -10974,9 +10974,6 @@
 "aun" = (
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/dorms)
-"auo" = (
-/turf/open/space/basic,
-/area/maintenance/starboard/secondary)
 "aup" = (
 /obj/effect/spawner/room/tenxten,
 /turf/template_noop,
@@ -116810,9 +116807,9 @@ agq
 aur
 aqb
 aqb
+aqb
 asP
 aua
-aqb
 aqb
 aqb
 aqb
@@ -117067,8 +117064,8 @@ anE
 aoQ
 agq
 agq
-asQ
 agq
+asQ
 agq
 agq
 axC
@@ -117324,8 +117321,8 @@ agq
 aoP
 agq
 ahd
-amF
 ahd
+amF
 ahd
 awN
 axC
@@ -117581,9 +117578,9 @@ agq
 aoR
 agq
 ahd
+ahd
 air
 amX
-ahd
 ahd
 axC
 ayL
@@ -122276,10 +122273,10 @@ arF
 ovj
 ovj
 ovj
-auo
-auo
-auo
-auo
+aaa
+aaa
+aaa
+ctl
 aaf
 aaa
 aaa
@@ -122536,7 +122533,7 @@ cmc
 cpM
 crc
 aaf
-ctl
+aaa
 lMJ
 lMJ
 lMJ
