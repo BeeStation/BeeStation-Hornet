@@ -72,16 +72,6 @@
 	item_state = "gy_suit"
 	item_color = "warden"
 
-/obj/item/clothing/under/rank/warden/skirt
-	name = "warden's suitskirt"
-	desc = "A formal security suitskirt for officers complete with Nanotrasen belt buckle."
-	icon_state = "rwarden_skirt"
-	item_state = "r_suit"
-	item_color = "rwarden_skirt"
-	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
-
 /*
  * Detective
  */
@@ -104,16 +94,6 @@
 	item_state = "greydet"
 	item_color = "greydet"
 	alt_covers_chest = TRUE
-
-/obj/item/clothing/under/rank/det/grey/skirt
-	name = "noir suitskirt"
-	desc = "A hard-boiled private investigator's grey suitskirt, complete with tie clip."
-	icon_state = "greydet_skirt"
-	item_state = "greydet"
-	item_color = "greydet_skirt"
-	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
 
 /*
  * Head of Security
@@ -168,6 +148,14 @@
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
 
+/obj/item/clothing/under/rank/security/warden/formal
+	desc = "The insignia on this uniform tells you that this uniform belongs to the Warden."
+	name = "warden's formal uniform"
+	icon_state = "wardenblueclothes"
+	item_state = "wardenblueclothes"
+	item_color = "wardenblueclothes"
+	alt_covers_chest = TRUE
+	
 /obj/item/clothing/under/rank/security/head_of_security/formal
 	desc = "The insignia on this uniform tells you that this uniform belongs to the Head of Security."
 	name = "head of security's formal uniform"
@@ -209,13 +197,20 @@
 	has_sensor = LOCKED_SENSORS
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+	
+/*
+ * Triiodine's security uniforms
+ */
+ 
 
-/obj/item/clothing/under/rank/prisoner/skirt
-	name = "prison jumpskirt"
-	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
-	icon_state = "prisoner_skirt"
-	item_state = "o_suit"
-	item_color = "prisoner_skirt"
-	body_parts_covered = CHEST|GROIN|ARMS
+/obj/item/clothing/under/rank/security/mallcop
+	name = "NT mall cop uniform"
+	desc = "The radio and badge are sewn on, what a crappy knock off. Secway not included."
+	icon_state = "mallcop"
+	item_state = "gy_suit"
+	item_color = "mallcop"
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
+
+/obj/item/clothing/under/rank/security/mallcop/deputy
+	name = "deputy uniform"
+	desc = "A lightly armored formal uniform fit for wannabe security members."

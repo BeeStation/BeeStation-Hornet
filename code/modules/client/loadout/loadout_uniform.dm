@@ -10,8 +10,8 @@
 
 /datum/gear/uniform/skirt/blue
 	display_name = "skirt, blue"
-	path = /obj/item/clothing/under/skirt/blue
+	path = /obj/item/clothing/under/dress/skirt/blue
 
 /datum/gear/uniform/skirt/purple
 	display_name = "skirt, purple"
-	path = /obj/item/clothing/under/skirt/purple
+	path = /obj/item/clothing/under/dress/skirt/purple
