@@ -6034,7 +6034,7 @@
 	},
 /obj/item/wirerod,
 /obj/item/wrench,
-/obj/item/clothing/under/suit/waiter,
+/obj/item/clothing/under/waiter,
 /obj/item/clothing/accessory/waistcoat,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
@@ -41673,11 +41673,7 @@
 /obj/structure/closet/secure_closet/hos,
 /obj/item/clothing/head/HoS/beret,
 /obj/item/clothing/suit/armor/hos/trenchcoat,
-<<<<<<< HEAD
 /obj/item/clothing/under/rank/head_of_security/white,
-=======
-/obj/item/clothing/under/rank/security/head_of_security/grey,
->>>>>>> 6a26744... Clothing /under repath (#45548)
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -52102,7 +52098,9 @@
 /obj/item/clothing/suit/det_suit{
 	icon_state = "curator"
 	},
-/obj/item/clothing/under/rank/security/detective,
+/obj/item/clothing/under/rank/det{
+	icon_state = "curator"
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -64369,11 +64367,7 @@
 /area/security/warden)
 "cbF" = (
 /obj/structure/closet/secure_closet/warden,
-<<<<<<< HEAD
 /obj/item/clothing/under/rank/warden/white,
-=======
-/obj/item/clothing/under/rank/security/warden/grey,
->>>>>>> 6a26744... Clothing /under repath (#45548)
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
@@ -75447,57 +75441,8 @@
 /area/maintenance/starboard)
 "cuE" = (
 /obj/effect/decal/cleanable/dirt,
-<<<<<<< HEAD
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-=======
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
-"cuF" = (
-/obj/structure/table,
-/obj/item/storage/box/bodybags,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
-"cuG" = (
-/obj/structure/table,
-/obj/item/clothing/under/rank/security/officer,
-/obj/item/restraints/handcuffs,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
-/obj/machinery/power/apc{
-	areastring = "/area/maintenance/starboard";
-	name = "Starboard Maintenance APC";
-	pixel_y = -23
-	},
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
-"cuH" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
-/obj/item/clothing/shoes/jackboots,
-/obj/item/radio,
-/obj/item/storage/secure/briefcase,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
-"cuI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red,
-/turf/open/floor/plasteel,
-/area/maintenance/starboard)
-"cuK" = (
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_y = -32
->>>>>>> 6a26744... Clothing /under repath (#45548)
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -79827,7 +79772,7 @@
 	pixel_x = 26;
 	pixel_y = 26
 	},
-/obj/item/clothing/under/costume/kilt,
+/obj/item/clothing/under/kilt,
 /obj/item/clothing/head/beret,
 /obj/machinery/airalarm{
 	pixel_y = 23
@@ -79864,7 +79809,7 @@
 /obj/item/clothing/head/fedora{
 	icon_state = "detective"
 	},
-/obj/item/clothing/under/costume/geisha,
+/obj/item/clothing/under/geisha,
 /obj/item/clothing/head/fedora{
 	icon_state = "curator"
 	},
@@ -79872,7 +79817,7 @@
 	desc = "This looks awfully familiar...";
 	icon_state = "curator"
 	},
-/obj/item/clothing/under/rank/civilian/curator/treasure_hunter,
+/obj/item/clothing/under/rank/curator/treasure_hunter,
 /obj/machinery/airalarm{
 	pixel_y = 23
 	},
@@ -82317,7 +82262,10 @@
 	icon_state = "1-2"
 	},
 /obj/item/folder/blue,
-/obj/item/clothing/under/rank/centcom/commander,
+/obj/item/clothing/under/rank/centcom_commander{
+	desc = "A replica of a jumpsuit worn by the highest ranking commanders under Nanotrasen's central command.";
+	name = "Replica CentCom officer's jumpsuit"
+	},
 /obj/item/clothing/head/centhat{
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0);
 	desc = "A replica hat of a Central Commander's attire. It has a small tag on it saying, 'It's good to be emperor.'";
@@ -89804,7 +89752,9 @@
 /area/crew_quarters/fitness/recreation)
 "cTg" = (
 /obj/structure/table,
-/obj/item/clothing/under/suit/sl,
+/obj/item/clothing/under/sl_suit{
+	name = "referee suit"
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -90954,7 +90904,7 @@
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/jacket/letterman_nanotrasen,
 /obj/item/clothing/suit/toggle/lawyer,
-/obj/item/clothing/under/costume/maid,
+/obj/item/clothing/under/maid,
 /obj/item/clothing/head/kitty,
 /obj/machinery/airalarm{
 	dir = 1;
@@ -90982,7 +90932,7 @@
 /obj/item/clothing/head/fedora{
 	icon_state = "detective"
 	},
-/obj/item/clothing/under/rank/civilian/lawyer/female,
+/obj/item/clothing/under/lawyer/female,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
@@ -91006,7 +90956,7 @@
 	pixel_y = -32
 	},
 /obj/item/clothing/head/fedora,
-/obj/item/clothing/under/dress/redeveninggown,
+/obj/item/clothing/under/redeveninggown,
 /obj/item/clothing/head/rabbitears,
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/dorms)
@@ -94106,7 +94056,7 @@
 /area/crew_quarters/fitness/recreation)
 "dae" = (
 /obj/structure/table,
-/obj/item/clothing/under/suit/black_really,
+/obj/item/clothing/under/suit_jacket/really_black,
 /obj/item/cane,
 /obj/item/clothing/head/bowler{
 	pixel_y = 5
@@ -99490,7 +99440,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
 /obj/item/clothing/suit/toggle/owlwings,
-/obj/item/clothing/under/costume/owl,
+/obj/item/clothing/under/owl,
 /obj/item/clothing/mask/gas/owl_mask,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -111687,7 +111637,7 @@
 /area/medical/medbay/central)
 "dFk" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/costume/maid,
+/obj/item/clothing/under/maid,
 /obj/item/clothing/head/kitty,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
@@ -112439,7 +112389,7 @@
 /area/medical/morgue)
 "dGw" = (
 /obj/structure/closet/secure_closet/CMO,
-/obj/item/clothing/under/rank/medical/doctor,
+/obj/item/clothing/under/rank/nursesuit,
 /obj/item/clothing/head/nursehat,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -114633,7 +114583,7 @@
 /area/crew_quarters/theatre/abandoned)
 "dKr" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/costume/geisha,
+/obj/item/clothing/under/geisha,
 /obj/item/clothing/shoes/sandal,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -120495,7 +120445,7 @@
 /obj/item/radio/intercom{
 	pixel_x = -26
 	},
-/obj/item/clothing/under/misc/burial,
+/obj/item/clothing/under/burial,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -121734,7 +121684,7 @@
 /area/library/abandoned)
 "dYm" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/rank/civilian/curator,
+/obj/item/clothing/under/rank/curator,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/wood,
 /area/library/abandoned)
