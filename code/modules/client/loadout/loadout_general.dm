@@ -28,11 +28,6 @@
 	path = /obj/item/lighter/greyscale
 	cost = 400
 
-/datum/gear/misc/vape
-	display_name = "E-Cigarette"
-	path = /obj/item/clothing/mask/vape
-	cost = 1200
-
 /datum/gear/misc/cigarettes
 	display_name = "cigarettes, Space Cigarettes"
 	path = /obj/item/storage/fancy/cigarettes
