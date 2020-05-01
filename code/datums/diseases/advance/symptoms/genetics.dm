@@ -24,7 +24,6 @@ Bonus
 	transmittable = -3
 	level = 6
 	severity = 3
-	baseseverity = 3
 	var/list/possible_mutations
 	var/archived_dna = null
 	base_message_chance = 50
@@ -37,11 +36,11 @@ Bonus
 					  <b>Stealth 5:</b> The mutations persist even if the virus is cured."
 
 /datum/symptom/genetics/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["stage_rate"] >= 14)
 		severity = 0
 	else if(A.properties["resistance"] >= 8) 
 		severity += 1
-	return..()
 
 /datum/symptom/genetic_mutation/Activate(datum/disease/advance/A)
 	if(!..())
