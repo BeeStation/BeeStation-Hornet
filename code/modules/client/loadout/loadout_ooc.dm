@@ -1,6 +1,9 @@
+/datum/gear/ooc
+	display_name = "OOC Loadout Gear" //So we dont give warnings
+	sort_category = "OOC"
+
 /datum/gear/ooc/char_slot
 	display_name = "extra character slot"
-	sort_category = "OOC"
 	description = "An extra charslot. Pretty self-explanatory."
 	cost = 10000
 
@@ -9,7 +12,6 @@
 
 /datum/gear/ooc/real_antagtoken
 	display_name = "antag token"
-	sort_category = "OOC"
 	description = "If you can afford it, you deserve it."
 	cost = 100000
 
