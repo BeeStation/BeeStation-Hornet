@@ -4378,7 +4378,7 @@
 /area/maintenance/disposal/incinerator)
 "ahU" = (
 /obj/structure/falsewall,
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/crew_quarters/fitness/recreation)
 "ahV" = (
 /obj/structure/cable/yellow{
