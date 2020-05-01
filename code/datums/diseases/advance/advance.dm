@@ -34,6 +34,7 @@
 	var/mutable = TRUE //set to FALSE to prevent most in-game methods of altering the disease via virology
 	var/oldres
 	var/sentient = FALSE //used to classify if a disease is sentient
+	var/faltered = FALSE //used if a disease has been made non-contagious
 	// The order goes from easy to cure to hard to cure.
 	var/static/list/advance_cures = 	list(
 																/datum/reagent/consumable/sugar, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride, 
@@ -239,25 +240,29 @@
 
 // Assign the spread type and give it the correct description.
 /datum/disease/advance/proc/SetSpread(spread_id)
-	switch(spread_id)
-		if(DISEASE_SPREAD_NON_CONTAGIOUS)
-			spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
-			spread_text = "None"
-		if(DISEASE_SPREAD_SPECIAL)
-			spread_flags = DISEASE_SPREAD_SPECIAL
-			spread_text = "None"
-		if(DISEASE_SPREAD_BLOOD)
-			spread_flags = DISEASE_SPREAD_BLOOD
-			spread_text = "Blood"
-		if(DISEASE_SPREAD_CONTACT_FLUIDS)
-			spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS
-			spread_text = "Fluids"
-		if(DISEASE_SPREAD_CONTACT_SKIN)
-			spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
-			spread_text = "On contact"
-		if(DISEASE_SPREAD_AIRBORNE)
-			spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
-			spread_text = "Airborne"
+	if(faltered)
+		spread_flags = DISEASE_SPREAD_FALTERED
+		spread_text = "Intentional Injection"
+	else
+		switch(spread_id)
+			if(DISEASE_SPREAD_NON_CONTAGIOUS)
+				spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
+				spread_text = "None"
+			if(DISEASE_SPREAD_SPECIAL)
+				spread_flags = DISEASE_SPREAD_SPECIAL
+				spread_text = "None"
+			if(DISEASE_SPREAD_BLOOD)
+				spread_flags = DISEASE_SPREAD_BLOOD
+				spread_text = "Blood"
+			if(DISEASE_SPREAD_CONTACT_FLUIDS)
+				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS
+				spread_text = "Fluids"
+			if(DISEASE_SPREAD_CONTACT_SKIN)
+				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
+				spread_text = "On contact"
+			if(DISEASE_SPREAD_AIRBORNE)
+				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
+				spread_text = "Airborne"
 
 /datum/disease/advance/proc/SetSeverity(level_sev)
 

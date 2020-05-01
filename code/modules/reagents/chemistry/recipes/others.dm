@@ -217,19 +217,19 @@
 	name = "Unstable uranium gel"
 	id = "uraniumvirusfood_plasma"
 	results = list(/datum/reagent/uranium/uraniumvirusfood/unstable = 1)
-	required_reagents = list(/datum/reagent/uranium = 5, /datum/reagent/toxin/plasma/plasmavirusfood = 1)
+	required_reagents = list(/datum/reagent/uranium = 2, /datum/reagent/toxin/plasma/plasmavirusfood = 1)
 
 /datum/chemical_reaction/virus_food_uranium_plasma_gold
 	name = "Stable uranium gel"
 	id = "uraniumvirusfood_gold"
 	results = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
-	required_reagents = list(/datum/reagent/uranium = 10, /datum/reagent/gold = 10, /datum/reagent/toxin/plasma = 1)
+	required_reagents = list(/datum/reagent/uranium = 5, /datum/reagent/gold = 5, /datum/reagent/toxin/plasma = 5)
 
 /datum/chemical_reaction/virus_food_uranium_plasma_silver
 	name = "Stable uranium gel"
 	id = "uraniumvirusfood_silver"
 	results = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
-	required_reagents = list(/datum/reagent/uranium = 10, /datum/reagent/silver = 10, /datum/reagent/toxin/plasma = 1)
+	required_reagents = list(/datum/reagent/uranium = 5, /datum/reagent/silver = 5, /datum/reagent/toxin/plasma = 5)
 
 /datum/chemical_reaction/virus_food_laughter
 	name = "Anomolous virus food"
@@ -395,6 +395,33 @@
 		if(D)
 			D.Neuter()
 
+/datum/chemical_reaction/mix_virus/preserve_virus
+	name = "Preserve Virus"
+	id = "preservevirus"
+	required_reagents = list(/datum/reagent/medicine/cryoxadone = 1)
+	required_catalysts = list(/datum/reagent/blood = 1)
+
+/datum/chemical_reaction/mix_virus/preserve_virus/on_reaction(datum/reagents/holder, created_volume)
+
+	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
+	if(B?.data)
+		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
+		if(D)
+			D.mutable = FALSE
+
+/datum/chemical_reaction/mix_virus/falter_virus
+	name = "Falter Virus"
+	id = "faltervirus"
+	required_reagents = list(/datum/reagent/medicine/spaceacillin = 1)
+	required_catalysts = list(/datum/reagent/blood = 1)
+
+/datum/chemical_reaction/mix_virus/falter_virus/on_reaction(datum/reagents/holder, created_volume)
+
+	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
+	if(B?.data)
+		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
+		if(D)
+			D.faltered = TRUE
 
 
 ////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////
