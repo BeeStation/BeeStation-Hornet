@@ -6,6 +6,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "uglymine"
 	var/triggered = 0
+	var/smartmine = 0
 
 /obj/effect/mine/proc/mineEffect(mob/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
@@ -15,7 +16,7 @@
 		if(ismob(AM))
 			var/mob/MM = AM
 			if(!(MM.movement_type & FLYING))
-				triggermine(AM)
+				checksmartmine(AM)
 		else
 			triggermine(AM)
 
@@ -30,6 +31,10 @@
 	triggered = 1
 	qdel(src)
 
+/obj/effect/mine/proc/checksmartmine(mob/target, obj/effect/mine/boom)
+	if(target)
+		if(!(target && HAS_TRAIT(target, TRAIT_MINDSHIELD) && boom.smartmine == 1))
+			triggermine(target)
 
 /obj/effect/mine/explosive
 	name = "explosive mine"
@@ -49,6 +54,10 @@
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
 		victim.Paralyze(stun_time)
+
+/obj/effect/mine/stun/smartmine
+	name = "smart stun mine"
+	smartmine = 1
 
 /obj/effect/mine/kickmine
 	name = "kick mine"
