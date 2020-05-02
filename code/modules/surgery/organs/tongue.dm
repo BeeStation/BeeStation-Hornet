@@ -19,6 +19,7 @@
 		/datum/language/aphasia,
 		/datum/language/piratespeak,
 		/datum/language/rlyehian,
+		/datum/language/apidite
 	))
 
 /obj/item/organ/tongue/Initialize(mapload)
@@ -222,7 +223,7 @@
 	desc = "A freakish looking meat tube that apparently can take in liquids, this one smells slighlty like flowers."
 	icon_state = "tonguefly"
 	say_mod = "buzzes"
-	taste_sensitivity = 5
+	taste_sensitivity = 7
 
 /obj/item/organ/tongue/robot/emp_act(severity)
 	owner.apply_effect(EFFECT_STUTTER, 120)
