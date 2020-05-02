@@ -103,9 +103,8 @@
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list()
-	burst_size = 3
-	automatic = 0
-	fire_delay = 1
+	automatic = 1
+	fire_rate = 10
 	weapon_weight = WEAPON_HEAVY
 	fire_sound = 'sound/weapons/laser.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/minigun

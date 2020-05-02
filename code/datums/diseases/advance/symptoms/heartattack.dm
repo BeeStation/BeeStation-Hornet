@@ -24,7 +24,6 @@ Bonus
 	transmittable = -2
 	level = 9
 	severity = 5
-	baseseverity = 5
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/heartattack = FALSE 
@@ -32,9 +31,9 @@ Bonus
 					  <b>Stealth 2:</b> The disease is somewhat less noticable to the host."
 
 /datum/symptom/heartattack/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["transmittable"] >= 10)
 		severity += 1
-	return..()
 
 /datum/symptom/heartattack/Start(datum/disease/advance/A)
 	if(!..())

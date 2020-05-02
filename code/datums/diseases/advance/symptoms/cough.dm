@@ -25,7 +25,6 @@ BONUS
 	transmittable = 2
 	level = 1
 	severity = 0
-	baseseverity = 0
 	base_message_chance = 15
 	symptom_delay_min = 2
 	symptom_delay_max = 15
@@ -37,11 +36,11 @@ BONUS
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/cough/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["resistance"] >= 3)
 		severity += 1
 	if(A.properties["resistance"] >= 10) 
 		severity += 1
-	return..()
 
 /datum/symptom/cough/Start(datum/disease/advance/A)
 	if(!..())

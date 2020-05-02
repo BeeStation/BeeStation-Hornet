@@ -7,7 +7,6 @@
 	transmittable = -1
 	level = 8
 	severity = 3
-	baseseverity = 3
 	symptom_delay_min = 15
 	symptom_delay_max = 60
 	var/lethal = FALSE
@@ -16,9 +15,9 @@
 					  <b>Speed 9:</b> Host's brain develops even more traumas than normal."
 
 /datum/symptom/braindamage/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["transmittable"] >= 12)
 		severity += 1
-	return..()
 
 /datum/symptom/braindamage/Start(datum/disease/advance/A)
 	if(!..())

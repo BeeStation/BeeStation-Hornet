@@ -594,7 +594,7 @@
 /obj/structure/swarmer/trap/Crossed(atom/movable/AM)
 	if(isliving(AM))
 		var/mob/living/L = AM
-		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
+		if(!istype(L, /mob/living/simple_animal/hostile/swarmer) && !L.incorporeal_move)
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
 			L.electrocute_act(0, src, 1, 1, 1)
 			if(iscyborg(L))

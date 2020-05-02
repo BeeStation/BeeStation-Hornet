@@ -17,6 +17,7 @@
     health = 150
     speak = list("HONK! HONK! HONK! HONK!","AAAAAAAAAAAAAAAAAA!!", "KILLMEKILLME!!", "HONK HENK HONK!!", "Honk Honk!", "HEEEEEEEEEEEEENK!!")
     do_footstep = TRUE
+    mobsay_color = "#F37EF6"
 
 /mob/living/simple_animal/cluwne/Initialize()
     . = ..()

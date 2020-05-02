@@ -172,4 +172,3 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/honk
 	uniform = /obj/item/clothing/under/plasmaman/honk
-
