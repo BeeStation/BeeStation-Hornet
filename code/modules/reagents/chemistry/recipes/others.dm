@@ -736,7 +736,7 @@
 //	name = /datum/reagent/mutationtoxin/zombie
 //	id = /datum/reagent/mutationtoxin/zombie
 //	results = list(/datum/reagent/mutationtoxin/zombie = 1)
-//	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/drug/krokodil = 10, /datum/reagent/liquidgibs = 10) //Because rotting and liquid gibs are more rotting than bad food
+//	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/toxin = 1, /datum/reagent/toxin/bad_food = 1) //Because rotting
 
 /datum/chemical_reaction/mutationtoxin/goofzombie //go on. try it with holopara
 	name = /datum/reagent/mutationtoxin/goofzombie
