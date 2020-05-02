@@ -3,11 +3,10 @@
 	desc = "The host now sweats industrial lubricant from their feet, lubing tiles they walk on. Combine with Pierrot's throat for the penultimate form of torture."
 	stealth = 0
 	resistance = 0
-	stage_speed = 4
+	stage_speed = 5
 	transmittable = -2
 	level = 9
 	severity = 2
-	baseseverity = 2
 	symptom_delay_min = 1
 	symptom_delay_max = 3
 	var/morelube = FALSE
@@ -16,9 +15,9 @@
 					  <b>Resistance 14:</b> The host's feet turn into a pair of clown shoes."
 
 /datum/symptom/lubefeet/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["transmittable"] >= 10)
 		severity += 1
-	return..()
 
 /datum/symptom/lubefeet/Start(datum/disease/advance/A)
 	if(!..())
