@@ -331,16 +331,9 @@
 	slot_flags = ITEM_SLOT_BACK
 	actions_types = list()
 	mag_display = TRUE
-<<<<<<< refs/remotes/origin/master
 	automatic = 0
 	fire_rate = 1.5
-<<<<<<< HEAD
 	block_upgrade_walk = 1
-=======
-=======
-	block_upgrade_walk = 1
->>>>>>> 
->>>>>>> rngholocaust
 
 // Laser rifle (rechargeable magazine) //
 
