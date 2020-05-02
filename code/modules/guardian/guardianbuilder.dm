@@ -2,10 +2,11 @@
 	var/datum/guardian_stats/saved_stats = new
 	var/mob/living/target
 	var/guardian_name
+	var/guardian_color = "#FFFFFF"
 	var/max_points = 20
 	var/points = 20
 	var/mob_name = "Guardian"
-	var/theme = "magic"
+	var/theme = GUARDIAN_MAGIC
 	var/failure_message = "<span class='holoparasite bold'>..And draw a card! It's...blank? Maybe you should try again later.</span>"
 	var/used = FALSE
 	var/allow_special = FALSE
@@ -23,6 +24,7 @@
 		src.max_points = max_points
 	src.allow_special = allow_special
 	src.debug_mode = debug_mode
+	src.guardian_color = rgb(rand(1, 255), rand(1, 255), rand(1, 255))
 
 /datum/guardianbuilder/ui_interact(mob/user, ui_key, datum/tgui/ui = null, force_open, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -34,6 +36,7 @@
 /datum/guardianbuilder/ui_data(mob/user)
 	. = list()
 	.["guardian_name"] = guardian_name
+	.["guardian_color"] = guardian_color
 	.["name"] = mob_name
 	.["points"] = calc_points()
 	.["ratedskills"] = list()
@@ -120,6 +123,10 @@
 					if((points + (saved_stats.range > 1 ? saved_stats.range - 1 : 0)) >= lvl - 1 || lvl == 1)
 						saved_stats.range = lvl
 					. = TRUE
+		if("color")
+			var/color = input(usr, "What would you like your guardian's color to be?", "Choose Your Color", "#ffffff") as color|null
+			if(color)
+				guardian_color = color
 		if("clear_ability_major")
 			QDEL_NULL(saved_stats.ability)
 		if("ability_major")
@@ -189,6 +196,8 @@
 			G.real_name = guardian_name
 			G.name = guardian_name
 		G.summoner = user.mind
+		G.guardiancolor = guardian_color
+		G.mobsay_color = guardian_color
 		G.key = C.key
 		G.mind.enslave_mind_to_creator(user)
 		G.RegisterSignal(user, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/guardian.proc/OnMoved)

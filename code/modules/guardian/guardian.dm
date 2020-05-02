@@ -100,6 +100,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		barrier_images.Cut()
 
 /mob/living/simple_animal/hostile/guardian/proc/setup_barriers()
+	if(!client)
+		return
 	cut_barriers()
 	if(!summoner?.current || !is_deployed() || (range <= 1 || (stats && stats.range <= 1)) || get_dist_euclidian(summoner.current, src) < (range - world.view))
 		return
@@ -198,12 +200,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 				forceMove(summoner.current)
 				to_chat(src, "<span class='danger'>Your summoner has died!</span>")
 				visible_message("<span class='danger'><B>\The [src] dies along with its user!</B></span>")
-				summoner.current.visible_message("<span class='danger'><B>[summoner.current]'s body is completely consumed by the strain of sustaining [src]!</B></span>")
-				for(var/obj/item/W in summoner.current)
-					if(!summoner.current.dropItemToGround(W))
-						qdel(W)
 				death(TRUE)
-				summoner.current.dust()
 	else
 		if(transforming)
 			GoBerserk()
