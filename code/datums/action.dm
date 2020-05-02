@@ -684,6 +684,12 @@
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "jetboot"
 
+/datum/action/item_action/bhop/apid
+	name = "Apid Dash"
+	desc = "Uses your wings to dash forward 6 tiles."
+	icon_icon = 'icons/mob/neck.dmi'
+	button_icon_state = "apid_wings"
+
 /datum/action/language_menu
 	name = "Language Menu"
 	desc = "Open the language menu to review your languages, their keys, and select your default language."

@@ -15,6 +15,7 @@
 	can_flashlight = FALSE
 	pin = null
 	shaded_charge = 1
+	fire_rate = 1.5
 
 /obj/item/gun/energy/e_gun/advtaser
 	name = "hybrid taser"
@@ -66,4 +67,4 @@
 	can_flashlight = FALSE
 	flight_x_offset = 13
 	flight_y_offset = 12
-
+	weapon_weight = WEAPON_LIGHT
