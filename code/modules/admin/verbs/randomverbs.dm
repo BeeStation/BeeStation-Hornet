@@ -1142,6 +1142,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				return
 
 		if(ADMIN_PUNISHMENT_FLOORCLUWNE)
+			if(!ishuman(taret))
+				to_chat(usr,"<span class='warning'>You may only floorcluwne humans!</span>")
+				return
+
 			var/turf/T = get_turf(target)
 			var/mob/living/simple_animal/hostile/floor_cluwne/FC = new(T)
 			FC.invalid_area_typecache = list()  // works anywhere
