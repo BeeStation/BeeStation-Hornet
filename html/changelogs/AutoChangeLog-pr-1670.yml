@@ -1,0 +1,12 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "several new job-related items"
+  - rscadd: "the \"gimmick\" job. Enable \"gimmick\" in preferences to have a chance to roll jobs that spawn randomly in maint. Currently two gimmick jobs are available- Stage Magician and Barber"
+  - rscadd: "10 new maint rooms"
+  - tweak: "meta now has random maint"
+  - tweak: "disposals chutes no longer take damage when items are tossed into them"
+  - tweak: "meta maint has been expanded and is no longer anemic as fuck"
+  - tweak: "doors in maint are less likely to be obstructed"
+  - bugfix: "fixes box maint being spaced"
+  - imageadd: "new job related sprites"
