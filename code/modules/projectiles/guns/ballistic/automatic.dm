@@ -333,7 +333,17 @@
 	mag_display = TRUE
 	automatic = 0
 	fire_rate = 1.5
+<<<<<<< Updated upstream
 	block_upgrade_walk = 1
+=======
+<<<<<<< HEAD
+	block_upgrade_walk = 1
+=======
+=======
+	block_upgrade_walk = 1
+>>>>>>> 
+>>>>>>> rngholocaust
+>>>>>>> Stashed changes
 
 // Laser rifle (rechargeable magazine) //
 
