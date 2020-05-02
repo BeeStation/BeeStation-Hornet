@@ -72,6 +72,8 @@
 	desc = "A modification of the syringe gun design, using a rotating cylinder to store up to six syringes."
 	icon_state = "rapidsyringegun"
 	max_syringes = 6
+	automatic = 1
+	fire_rate = 2
 
 /obj/item/gun/syringe/syndicate
 	name = "dart pistol"

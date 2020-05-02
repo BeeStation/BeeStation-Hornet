@@ -512,7 +512,6 @@
 	name = "Gumball"
 	desc = "Why are you seeing this?!"
 	projectile_type = /obj/item/projectile/bullet/reusable/gumball
-	click_cooldown_override = 2
 
 
 /obj/item/projectile/bullet/reusable/gumball
@@ -533,7 +532,6 @@
 	name = "Lollipop"
 	desc = "Why are you seeing this?!"
 	projectile_type = /obj/item/projectile/bullet/reusable/lollipop
-	click_cooldown_override = 2
 
 /obj/item/projectile/bullet/reusable/lollipop
 	name = "lollipop"
