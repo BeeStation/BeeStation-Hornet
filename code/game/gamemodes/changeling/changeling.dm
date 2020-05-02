@@ -57,6 +57,13 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		setup_error = "Not enough changeling candidates"
 		return 0
 
+/datum/game_mode/changeling/post_setup()
+	for(var/datum/mind/changeling in changelings)
+		log_game("[key_name(changeling)] has been selected as a changeling")
+		var/datum/antagonist/changeling/new_antag = new()
+		changeling.add_antag_datum(new_antag)
+	..()
+
 /datum/game_mode/changeling/make_antag_chance(mob/living/carbon/human/character) //Assigns changeling to latejoiners
 	var/csc = CONFIG_GET(number/changeling_scaling_coeff)
 	var/changelingcap = min(round(GLOB.joined_player_list.len / (csc * 2)) + 2, round(GLOB.joined_player_list.len / csc))

@@ -49,15 +49,21 @@
 			var/list/to_mix = list()
 
 			for(var/datum/disease/advance/AD in mix1)
-				to_mix += AD
+				if(AD.mutable)
+					to_mix += AD
 			for(var/datum/disease/advance/AD in mix2)
-				to_mix += AD
+				if(AD.mutable)
+					to_mix += AD
 
 			var/datum/disease/advance/AD = Advance_Mix(to_mix)
 			if(AD)
 				var/list/preserve = list(AD)
 				for(var/D in data["viruses"])
-					if(!istype(D, /datum/disease/advance))
+					if(istype(D, /datum/disease/advance))
+						var/datum/disease/advance/A = D
+						if(!A.mutable)
+							preserve += A
+					else 
 						preserve += D
 				data["viruses"] = preserve
 	return 1
