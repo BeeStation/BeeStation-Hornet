@@ -118,6 +118,10 @@
 				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/food/drinks/bottle/holywater)
 			if("Assistant")
 				heirloom_type = /obj/item/storage/toolbox/mechanical/old/heirloom
+			if("Barber")
+				heirloom_type = /obj/item/handmirror
+			if("Stage Magician")
+				heirloom_type = /obj/item/gun/magic/wand
 			//Security/Command
 			if("Captain")
 				heirloom_type = /obj/item/reagent_containers/food/drinks/flask/gold
