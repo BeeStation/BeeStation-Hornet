@@ -1,0 +1,12 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "new fire rate var for guns"
+  - tweak: "phases out burstfire on guns that don't specifically need it in favor of true automatic fire"
+  - tweak: "universal fire rate changes"
+  - balance: "buffed plasma cutter damage"
+  - balance: "detective gun blowing up in your hand is now actually quite dangerous, but not lethal, and doesnt destroy the gun"
+  - balance: "lowered energy cost of temp gun projectiles by 60%"
+  - balance: "fixed up dual wielding, it's now mostly only useful for handguns and miner's guns"
+  - bugfix: "dual wielding now takes both offhand and main guns into account, instead of just offhand."
+  - code_imp: "fire rate is now tied to gun, and not ammo casing"
