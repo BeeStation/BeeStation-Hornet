@@ -15,6 +15,12 @@
 					  <b>Resistance 8:</b> Spawns a strong blob instead of a normal blob \
 					  <b>Resistance 14:</b> Has a chance to spawn a blob node instead of a normal blob<br>"
 
+/datum/symptom/blobspores/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["resistance"] >= 14)
+		severity += 1
+
+
 /datum/symptom/blobspores/Start(datum/disease/advance/A)
 	if(!..())
 		return
