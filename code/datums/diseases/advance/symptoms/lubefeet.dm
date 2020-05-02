@@ -3,7 +3,7 @@
 	desc = "The host now sweats industrial lubricant from their feet, lubing tiles they walk on. Combine with Pierrot's throat for the penultimate form of torture."
 	stealth = 0
 	resistance = 0
-	stage_speed = 4
+	stage_speed = 5
 	transmittable = -2
 	level = 9
 	severity = 2
