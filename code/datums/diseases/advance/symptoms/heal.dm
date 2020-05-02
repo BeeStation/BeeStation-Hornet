@@ -289,7 +289,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/bigsweat = FALSE
 	var/toxheal = FALSE
 	threshold_desc = "<b>transmission 6:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity<br>\
-					<b>transmission 8:</b> The EMP affects electronics adjacent to the subject as well."
+					<b>transmission 8:</b> The symptom heals toxin damage and purges chemicals."
 
 /datum/symptom/sweat/severityset(datum/disease/advance/A)
 	. = ..()
