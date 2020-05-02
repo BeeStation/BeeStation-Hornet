@@ -1142,7 +1142,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				return
 
 		if(ADMIN_PUNISHMENT_FLOORCLUWNE)
-			if(!ishuman(taret))
+			if(!ishuman(target))
 				to_chat(usr,"<span class='warning'>You may only floorcluwne humans!</span>")
 				return
 
