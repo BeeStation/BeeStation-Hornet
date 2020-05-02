@@ -1,0 +1,6 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - bugfix: "fixes severity depending on order symptoms are in"
+  - bugfix: "fixes severity ramping up when the virus spreads"
+  - code_imp: "cleans up dynamic severity code"
