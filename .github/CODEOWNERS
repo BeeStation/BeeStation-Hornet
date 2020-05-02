@@ -23,6 +23,12 @@ TGS3.json @crossedfall
 /code/modules/client/loadout @ike709
 
 
+# powerfulbacon
+
+/code/game/machinery/shuttle @powerfulbacon
+/code/modules/shuttle @powerfulbacon
+
+
 # qwertyquerty
 
 /code/datums/keybinding @qwertyquerty
