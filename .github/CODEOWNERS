@@ -7,6 +7,7 @@
 # crossedfall
 
 .dockerignore @crossedfall
+.github @crossedfall
 .travis.yml @crossedfall
 appveyor.yml @crossedfall
 /code/modules/tgs @crossedfall
@@ -36,3 +37,10 @@ TGS3.json @crossedfall
 /code/modules/metacoin @qwertyquerty
 /code/modules/NTNet @qwertyquerty
 /code/modules/qwerty @qwertyquerty
+
+# zeskorion
+
+/code/__DEFINES/diseases.dm @zeskorion
+/code/controllers/subsystem/disease.dm @zeskorion
+/code/datums/diseases @zeskorion
+/code/modules/antagonists/disease @zeskorion
