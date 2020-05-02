@@ -487,5 +487,5 @@
 	name = "apid lungs"
 	desc = "Lungs from an apid, or beeperson. Thanks to the many spiracles an apid has, these lungs are capable of gathering more oxygen from low-pressure enviroments."
 	icon_state = "lungs"
-	safe_oxygen_max = 8
+	safe_oxygen_min = 8
 	safe_oxygen_max = 50
