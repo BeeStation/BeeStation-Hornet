@@ -154,6 +154,7 @@
 #define TRAIT_MEDICAL_HUD		"med_hud"
 #define TRAIT_SECURITY_HUD		"sec_hud"
 #define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
+#define TRAIT_ONEWAYROAD	"one-way road"
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
@@ -251,3 +252,4 @@
 #define LEGION_CORE_TRAIT "legion_core_trait"
 #define MIRROR_TRAIT "mirror_trait"
 #define CRAYON_TRAIT "crayon_trait"
+#define GUARDIAN_TRAIT	"guardian_trait"

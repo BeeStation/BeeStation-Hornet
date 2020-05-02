@@ -310,6 +310,9 @@
 #define COMSIG_ACTION_TRIGGER "action_trigger"						//! from base of datum/action/proc/Trigger(): (datum/action)
 	#define COMPONENT_ACTION_BLOCK_TRIGGER 1
 
+// /datum/mind signals
+#define COMSIG_MIND_TRANSFER_TO	"mind_transfer_to"					// (mob/old, mob/new)
+
 /*******Non-Signal Component Related Defines*******/
 
 //Redirection component init flags

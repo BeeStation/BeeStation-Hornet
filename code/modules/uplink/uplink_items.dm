@@ -456,7 +456,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Holoparasites"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an \
 			organic host as a home base and source of fuel. Holoparasites come in various types and share damage with their host."
-	item = /obj/item/storage/box/syndie_kit/guardian
+	item = /obj/item/guardiancreator/tech
 	cost = 18
 	surplus = 10
 	surplus_nullcrates = 0
@@ -1915,7 +1915,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	name = "Holocarp Parasites"
 	desc = "Fishsticks prepared through ritualistic means in honor of the god Carp-sie, capable of binding a holocarp \
 			to act as a servent and guardian to their host."
-	item = /obj/item/storage/box/syndie_kit/carpian
+	item = /obj/item/guardiancreator/carp
 	cost = 18
 	surplus = 5
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
@@ -2040,11 +2040,13 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cant_discount = TRUE
 	illegal_tech = FALSE
 
-	/datum/uplink_item/badass/toy_holoparasites
+/*
+/datum/uplink_item/badass/toy_holoparasites
 	name = "Toy Holoparasites"
 	desc = "A holoparasite colony that is utterly useless. costs as much as real holoparasites."
 	item = /obj/item/guardiancreator/tech/toy
 	cost = 16
+*/
 
 /datum/uplink_item/badass/syndiecash
 	name = "Syndicate Briefcase Full of Cash"

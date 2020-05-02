@@ -30,8 +30,8 @@
 		if(locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in L.mind.spell_list) //People who can stop time are immune to its effects
 			immune[L] = TRUE
 	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.parasites)
-		if(G.summoner && locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.summoner.mind.spell_list) //It would only make sense that a person's stand would also be immune.
-			immune[G] = TRUE
+		if(G?.summoner?.current && locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.summoner.spell_list) //It would only make sense that a person's stand would also be immune.
+			immune[G.summoner.current] = TRUE
 	if(start)
 		timestop()
 
@@ -117,14 +117,14 @@
 	A.move_resist = frozen_things[A]
 	frozen_things -= A
 	global_frozen_atoms -= A
-	
+
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_mecha(obj/mecha/M)
 	M.completely_disabled = TRUE
 
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_mecha(obj/mecha/M)
 	M.completely_disabled = FALSE
-	
+
 
 /datum/proximity_monitor/advanced/timestop/proc/freeze_throwing(atom/movable/AM)
 	var/datum/thrownthing/T = AM.throwing
