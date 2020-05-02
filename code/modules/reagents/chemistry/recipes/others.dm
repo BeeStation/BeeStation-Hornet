@@ -422,6 +422,8 @@
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
 		if(D)
 			D.faltered = TRUE
+			D.spread_flags = DISEASE_SPREAD_FALTERED
+			D.spread_text = "Intentional Injection"
 
 
 ////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////

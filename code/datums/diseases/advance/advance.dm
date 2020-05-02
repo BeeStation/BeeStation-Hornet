@@ -121,6 +121,7 @@
 	A.properties = properties.Copy()
 	A.id = id
 	A.mutable = mutable
+	A.faltered = faltered
 	//this is a new disease starting over at stage 1, so processing is not copied
 	return A
 
