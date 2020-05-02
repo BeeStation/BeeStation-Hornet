@@ -934,6 +934,7 @@
 	..()
 	. = 1
 
+//Stimulants. Used in Adrenal Implant
 /datum/reagent/medicine/stimulants
 	name = "Stimulants"
 	description = "Increases stun resistance and movement speed in addition to restoring minor damage and weakness. Overdose causes weakness and toxin damage."
@@ -967,6 +968,43 @@
 		M.losebreath++
 		. = 1
 	..()
+
+
+//Pump-Up for Stimpack
+/datum/reagent/medicine/pumpup
+	name = "Pump-Up"
+	description = "Makes you immune to damage slowdown, resistant to all other kinds of slowdown and gives a minor speed boost. Overdose causes weakness and toxin damage."
+	color = "#78008C"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	overdose_threshold = 60
+
+/datum/reagent/medicine/pumpup/on_mob_life(mob/living/carbon/M as mob)
+	M.AdjustAllImmobility(-80, FALSE)
+	M.adjustStaminaLoss(-80, 0)
+	M.Jitter(300)
+	..()
+	return TRUE
+
+/datum/reagent/medicine/pumpup/on_mob_metabolize(mob/living/L)
+	..()
+	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	ADD_TRAIT(L, TRAIT_STUNRESISTANCE, type)
+	ADD_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+
+/datum/reagent/medicine/pumpup/on_mob_end_metabolize(mob/living/L)
+	..()
+	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	REMOVE_TRAIT(L, TRAIT_STUNRESISTANCE, type)
+	REMOVE_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+
+/datum/reagent/medicine/pumpup/overdose_process(mob/living/M)
+	if(prob(33))
+		M.adjustStaminaLoss(2.5*REM, 0)
+		M.adjustToxLoss(1*REM, 0)
+		M.losebreath++
+		. = 1
+	..()
+
 
 /datum/reagent/medicine/insulin
 	name = "Insulin"

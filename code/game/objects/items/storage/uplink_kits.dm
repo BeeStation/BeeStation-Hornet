@@ -133,7 +133,7 @@
 			new /obj/item/ammo_box/magazine/m10mm/hp(src)
 			new /obj/item/clothing/under/chameleon(src)
 			new /obj/item/card/id/syndicate(src)
-			new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
+			new /obj/item/reagent_containers/hypospray/medipen/pumpup(src)
 			new /obj/item/reagent_containers/glass/rag(src)
 			new /obj/item/encryptionkey/syndicate(src)
 			
@@ -290,7 +290,7 @@
 		/obj/item/storage/box/syndie_kit/imp_radio,
 		/obj/item/clothing/gloves/krav_maga/combatglovesplus,
 		/obj/item/gun/ballistic/automatic/c20r/toy/unrestricted/riot,
-		/obj/item/reagent_containers/hypospray/medipen/stimulants,
+		/obj/item/reagent_containers/hypospray/medipen/pumpup,
 		/obj/item/compressionkit,
 		/obj/item/book/granter/martial/karate,
 		/obj/item/storage/box/syndie_kit/imp_freedom

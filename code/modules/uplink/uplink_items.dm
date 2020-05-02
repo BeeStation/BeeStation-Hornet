@@ -1485,10 +1485,10 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 
 /datum/uplink_item/device_tools/stimpack
 	name = "Stimpack"
-	desc = "Stimpacks, the tool of many great heroes, make you nearly immune to stuns and knockdowns for about \
-			5 minutes after injection."
-	item = /obj/item/reagent_containers/hypospray/medipen/stimulants
-	cost = 7
+	desc = "Stimpacks, the tool for many great heroes, make you mostly immune to any form of slowdown (including damage slowdown) \
+			or stamina damage for about 5 minutes after injection."
+	item = /obj/item/reagent_containers/hypospray/medipen/pumpup
+	cost = 5
 	surplus = 90
 
 /datum/uplink_item/device_tools/medkit

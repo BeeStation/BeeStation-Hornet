@@ -175,14 +175,14 @@
 	desc = "A modified stimulants autoinjector for use in combat situations. Has a mild healing effect."
 	list_reagents = list(/datum/reagent/medicine/stimulants = 10, /datum/reagent/medicine/omnizine = 10)
 
-/obj/item/reagent_containers/hypospray/medipen/stimulants
-	name = "stimulant medipen"
-	desc = "Contains a very large amount of an incredibly powerful stimulant, vastly increasing your movement speed and reducing stuns by a very large amount for around five minutes. Do not take if pregnant."
+/obj/item/reagent_containers/hypospray/medipen/pumpup
+	name = "pumpup medipen"
+	desc = "Contains a very large amount of an incredibly powerful stimulant, vastly increasing your immunity and recovery from slowdowns for around five minutes. Do not take if pregnant."
 	icon_state = "syndipen"
 	item_state = "tbpen"
 	volume = 50
 	amount_per_transfer_from_this = 50
-	list_reagents = list(/datum/reagent/medicine/stimulants = 50)
+	list_reagents = list(/datum/reagent/medicine/pumpup = 50)
 
 /obj/item/reagent_containers/hypospray/medipen/morphine
 	name = "morphine medipen"
