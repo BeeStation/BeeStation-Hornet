@@ -470,15 +470,22 @@
 	desc = "blackened lungs identical from specimens recovered from lavaland, unsuited to higher air pressures."
 	icon_state = "lungs-ll"
 	safe_oxygen_min = 3	//able to handle much thinner oxygen, something something ash storm adaptation
-	safe_oxygen_max = 18 // Air standard is 22kpA of O2, LL varies but can reach above 30
-	safe_nitro_max = 30 // Air standard is 82kpA of N2, LL varies but the nest can reach 40
+	safe_oxygen_max = 18 // Air standard is 22kpA of O2, LL varies depending on the round
+	safe_nitro_max = 30 // Air standard is 82kpA of N2, LL varies depending on the round
 	safe_toxins_max = 1 // Living in an enviorment with plasma in the air has its advantages
 	safe_co2_max = 20
 	BZ_is_harmless = TRUE
 
 	cold_level_1_threshold = 300 // Ash Lizards can't take the cold very well, station air is only just warm enough
-	cold_level_2_threshold = 280
+	cold_level_2_threshold = 260
 	cold_level_3_threshold = 240
 
 	heat_level_1_threshold = 400 // better adapted for heat, obv. Lavaland standard is 300
 	heat_level_2_threshold = 600 // up 200 from level 1, 1000 is silly but w/e for level 3
+
+/obj/item/organ/lungs/apid
+	name = "apid lungs"
+	desc = "Lungs from an apid, or beeperson. Thanks to the many spiracles an apid has, these lungs are capable of gathering more oxygen from low-pressure enviroments."
+	icon_state = "lungs"
+	safe_oxygen_max = 8
+	safe_oxygen_max = 50
