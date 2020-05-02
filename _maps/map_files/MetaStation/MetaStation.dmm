@@ -10974,6 +10974,13 @@
 "aun" = (
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/dorms)
+"auo" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold4w/general/visible,
+/turf/open/floor/plasteel,
+/area/medical/cryo)
 "aup" = (
 /obj/effect/spawner/room/tenxten,
 /turf/template_noop,
@@ -60622,13 +60629,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/cryo)
-"cqf" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold4w/general/visible,
-/turf/open/floor/plasteel,
-/area/medical/cryo)
 "cqg" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
@@ -105055,7 +105055,7 @@ clg
 cev
 cnx
 coK
-cqf
+auo
 cru
 css
 cts
