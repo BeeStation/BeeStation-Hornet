@@ -7,7 +7,6 @@
 	transmittable = -2
 	level = 9
 	severity = 2
-	baseseverity = 2
 	symptom_delay_min = 1
 	symptom_delay_max = 3
 	var/morelube = FALSE
@@ -16,9 +15,9 @@
 					  <b>Resistance 14:</b> The host's feet turn into a pair of clown shoes."
 
 /datum/symptom/lubefeet/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["transmittable"] >= 10)
 		severity += 1
-	return..()
 
 /datum/symptom/lubefeet/Start(datum/disease/advance/A)
 	if(!..())

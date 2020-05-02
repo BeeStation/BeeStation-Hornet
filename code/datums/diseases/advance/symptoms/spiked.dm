@@ -36,9 +36,9 @@ Thresholds
 					  <b>Resistance 6: Spikes grow faster and hurt you more often</b> ."
 
 /datum/symptom/spiked/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["transmittable"] >= 6)
 		severity -= 1
-	return..()
 
 /datum/symptom/spiked/Start(datum/disease/advance/A)
 	if(!..())
