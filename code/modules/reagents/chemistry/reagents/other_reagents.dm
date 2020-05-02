@@ -49,15 +49,21 @@
 			var/list/to_mix = list()
 
 			for(var/datum/disease/advance/AD in mix1)
-				to_mix += AD
+				if(AD.mutable)
+					to_mix += AD
 			for(var/datum/disease/advance/AD in mix2)
-				to_mix += AD
+				if(AD.mutable)
+					to_mix += AD
 
 			var/datum/disease/advance/AD = Advance_Mix(to_mix)
 			if(AD)
 				var/list/preserve = list(AD)
 				for(var/D in data["viruses"])
-					if(!istype(D, /datum/disease/advance))
+					if(istype(D, /datum/disease/advance))
+						var/datum/disease/advance/A = D
+						if(!A.mutable)
+							preserve += A
+					else 
 						preserve += D
 				data["viruses"] = preserve
 	return 1
@@ -1902,6 +1908,7 @@
 			if(prob(30))
 				L.losebreath += 1
 				L.adjustOxyLoss(3,5)
+				L.emote("gasp")
 				to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")
 
 		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)

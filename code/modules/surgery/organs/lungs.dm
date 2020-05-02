@@ -465,6 +465,7 @@
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
 
+
 /obj/item/organ/lungs/ashwalker
 	name = "ash lungs"
 	desc = "blackened lungs identical from specimens recovered from lavaland, unsuited to higher air pressures."

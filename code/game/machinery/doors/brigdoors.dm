@@ -83,7 +83,6 @@
 	..()
 	update_icon()
 
-
 // open/closedoor checks if door_timer has power, if so it checks if the
 // linked door is open/closed (by density) then opens it/closes it.
 /obj/machinery/door_timer/proc/timer_start()
@@ -144,7 +143,7 @@
 		. /= 10
 
 /obj/machinery/door_timer/proc/set_timer(value)
-	var/new_time = CLAMP(value,0,MAX_TIMER)
+	var/new_time = clamp(value,0,MAX_TIMER)
 	. = new_time == timer_duration //return 1 on no change
 	timer_duration = new_time
 
@@ -152,7 +151,7 @@
 										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "brig_timer", name, 300, 200, master_ui, state)
+		ui = new(user, src, ui_key, "BrigTimer", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 //icon update function

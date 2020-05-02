@@ -27,7 +27,7 @@
 GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/bodybag = 1,
 	/obj/item/clothing/glasses/meson = 2,
-	/obj/item/clothing/glasses/sunglasses = 1,
+	/obj/item/clothing/glasses/sunglasses/advanced = 1,
 	/obj/item/clothing/gloves/color/fyellow = 1,
 	/obj/item/clothing/head/hardhat = 1,
 	/obj/item/clothing/head/hardhat/red = 1,

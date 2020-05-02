@@ -31,6 +31,7 @@
 	var/mob/living/simple_animal/mouse/movement_target
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
+	mobsay_color = "#FFD586"
 
 	do_footstep = TRUE
 
