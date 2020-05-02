@@ -331,12 +331,9 @@
 	slot_flags = ITEM_SLOT_BACK
 	actions_types = list()
 	mag_display = TRUE
-<<<<<<< refs/remotes/origin/master
 	automatic = 0
 	fire_rate = 1.5
-=======
 	block_upgrade_walk = 1
->>>>>>> 
 
 // Laser rifle (rechargeable magazine) //
 
@@ -350,8 +347,6 @@
 	actions_types = list()
 	fire_sound = 'sound/weapons/laser.ogg'
 	casing_ejector = FALSE
-<<<<<<< refs/remotes/origin/master
 	fire_rate = 2
-=======
 	block_upgrade_walk = 1
->>>>>>> 
+

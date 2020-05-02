@@ -381,7 +381,7 @@
 	force = 30
 	block_level = 1
 	block_upgrade_walk = 1
-	nasty_blocks = TRUE
+	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
 	armour_penetration = 15
 
 /obj/item/claymore/weak/ceremonial

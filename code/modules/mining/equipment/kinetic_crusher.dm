@@ -14,6 +14,7 @@
 	force_unwielded = 20 //It's never not wielded so these are the same
 	force_wielded = 0
 	throwforce = 5
+	block_upgrade_walk = 1
 	throw_speed = 4
 	armour_penetration = 10
 	materials = list(/datum/material/iron=1150, /datum/material/glass=2075)

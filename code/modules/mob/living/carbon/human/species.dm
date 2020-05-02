@@ -1328,12 +1328,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			target.apply_damage(damage, attack_type, affecting, armor_block)
 			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
 			log_combat(user, target, "punched")
-		switch(affecting)
-			if(BODY_ZONE_PRECISE_MOUTH)
-				if(armor_block <= damage)
-					target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3) //hitting the jaw knocks the brain about a bit
-			if(BODY_ZONE_CHEST)
-				target.adjustOxyLoss(damage) //knocks the air out of them
 
 /datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	return
@@ -1511,11 +1505,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return 0 //item force is zero
 
 	//dismemberment
-	var/dismemberthreshold = (((affecting.max_damage * 3) / I.sharpness) - (affecting.get_damage() + ((I.w_class - 3) * 10) + (I.attack_weight * 15)))
+	var/dismemberthreshold = (((affecting.max_damage * 2) / I.sharpness) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))
 	if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER))
 		dismemberthreshold -= 50
 	if(I.sharpness)
-		dismemberthreshold = min((affecting.max_damage * 2), dismemberthreshold) //makes it so limbs wont become immune to being dismembered if the item is sharp
+		dismemberthreshold = min(((affecting.max_damage * 2  - affecting.get_damage())), dismemberthreshold) //makes it so limbs wont become immune to being dismembered if the item is sharp
 		if(H.stat == DEAD)
 			dismemberthreshold = dismemberthreshold / 3 
 	if(I.force >= dismemberthreshold && I.force >= 10)
@@ -1540,13 +1534,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		switch(hit_area)
 			if(BODY_ZONE_HEAD)
-				if(!I.is_sharp())
-					if(I.force >= max(12, armor_block + 10))
-						H.adjustOrganLoss(ORGAN_SLOT_BRAIN, I.attack_weight)
-						if(H.stat == CONSCIOUS)
-							to_chat(H, "you reel from the blow")
-							H.confused = min(H.confused + I.attack_weight, I.force)
-							H.adjust_blurriness(5)
+				if(!I.sharpness)
 					if(H.mind && H.stat == CONSCIOUS && H != user && (H.health - (I.force * I.attack_weight)) <= 0) // rev deconversion through blunt trauma.
 						var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
 						if(rev)
@@ -1564,10 +1552,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						H.update_inv_glasses()
 
 			if(BODY_ZONE_CHEST)
-				if(H.stat == CONSCIOUS && !I.is_sharp() && armor_block < 50)
-					if(I.force >= max(12, armor_block + 10))
-						H.adjustOxyLoss(I.force / 2) //getting the wind knocked out of ya
-
 				if(bloody)
 					if(H.wear_suit)
 						H.wear_suit.add_mob_blood(H)

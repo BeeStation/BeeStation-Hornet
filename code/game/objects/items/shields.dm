@@ -3,9 +3,8 @@
 	icon = 'icons/obj/shields.dmi'
 	block_level = 1
 	block_upgrade_walk = 1
-	active_blocking = FALSE
+	block_flags = PROJECTILE_BLOCKING
 	block_power = 50
-	projectile_blocking = TRUE
 	max_integrity =  75
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
 	var/durability = TRUE //the shield uses durability instead of stamina
@@ -18,18 +17,20 @@
 /obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	if(durability)
 		var/attackforce = 0 
+		if(isprojectile(hitby))
+			var/obj/item/projectile/P = hitby
+			if(P.damtype != STAMINA)// disablers dont do shit to shields
+				attackforce = P.damage
 		if(isitem(hitby))
 			var/obj/item/I = hitby
 			attackforce = damage
-			if(I.sharpness)
-				attackforce = (attackforce * 1.5)//sharp weapons will split shields better
 			if(!I.damtype == BRUTE)
-				attackforce = (attackforce / 2)//as above, burning weapons, or weapons that deal other damage type probably dont get force from physical power
+				attackforce = (attackforce / 2)
 			attackforce = (attackforce * I.attack_weight)
 		else if(isliving(hitby))
 			var/mob/living/L = hitby
 			attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
-			if(nasty_blocks)
+			if(block_flags & NASTY_BLOCKING)
 				L.attackby(src, owner)
 				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 		if (obj_integrity <= attackforce)
@@ -37,7 +38,7 @@
 			T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")
 			shatter(owner)
 			return FALSE
-		take_damage(attackforce)
+		take_damage(attackforce * ((100-(block_power))/100))
 		return TRUE
 	else
 		return ..()
@@ -210,7 +211,7 @@
 	force = 3
 	throwforce = 3
 	throw_speed = 3
-	max_integrity = 25
+	max_integrity = 50
 	block_sound = 'sound/weapons/genhit.ogg'
 	var/base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
 	var/on_force = 10
@@ -220,7 +221,7 @@
 	var/clumsy_check = TRUE
 
 /obj/item/shield/energy/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/turbolift/turbolift-close.ogg', 50)
+	playsound(owner, 'sound/effects/turbolift/turbolift-close.ogg', 50, 0, -1)
 	src.attack_self(owner)
 	to_chat(owner, "<span class='warning'>The [src] overheats!.</span>")
 	

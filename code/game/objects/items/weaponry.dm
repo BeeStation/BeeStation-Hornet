@@ -78,7 +78,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_power = 40
 	block_upgrade_walk = 1
 	block_level = 1
-	nasty_blocks = TRUE
+	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
 	sharpness = IS_SHARP
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
@@ -233,8 +233,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_power = 50
 	block_level = 1
 	block_upgrade_walk = 1
-	nasty_blocks = TRUE
-	projectile_blocking = TRUE //just like one of my japanese animes
+	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING | PROJECTILE_BLOCKING
 	sharpness = IS_SHARP
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
@@ -482,7 +481,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	block_upgrade_walk = 1 //doesnt get as much blocking as a chainsaw cuz there is no limb to disable
-	nasty_blocks = TRUE
+	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
 	force = 24
 	attack_weight = TRUE
 	throwforce = 0
@@ -518,7 +517,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "An energy chainsaw that has replaced your arm."
 	force = 40
 	armour_penetration = 50
-	block_chance = 50
 	hitsound = 'sound/weapons/echainsawhit1.ogg'
 
 /obj/item/mounted_chainsaw/energy/Destroy()
@@ -538,7 +536,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A super energy chainsaw that has replaced your arm."
 	force = 60
 	armour_penetration = 75
-	block_chance = 75
 	hitsound = 'sound/weapons/echainsawhit1.ogg'
 
 /obj/item/mounted_chainsaw/super/Destroy()
@@ -698,7 +695,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "This bat is made of highly reflective, highly armored material."
 	icon_state = "baseball_bat_metal"
 	item_state = "baseball_bat_metal"
-	projectile_blocking = TRUE
+	block_flags = NASTY_BLOCKING | ACTIVE_BLOCKING | PROJECTILE_BLOCKING
 	block_level = 1
 	force = 12
 	throwforce = 15
