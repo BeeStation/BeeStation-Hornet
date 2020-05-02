@@ -6,7 +6,6 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "uglymine"
 	var/triggered = 0
-	var/smartmine = 0
 
 /obj/effect/mine/proc/mineEffect(mob/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
@@ -16,12 +15,7 @@
 		if(ismob(AM))
 			var/mob/MM = AM
 			if(!(MM.movement_type & FLYING))
-				if(smartmine == 0)
-					triggermine(AM)
-				else
-					for(var/obj/item/implant/I in MM.implants)
-						if(I.type == /obj/item/implant/mindshield)
-							triggermine(AM)	
+				triggermine(AM)
 		else
 			triggermine(AM)
 
@@ -55,10 +49,6 @@
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
 		victim.Paralyze(stun_time)
-
-/obj/effect/mine/stun/smart
-	name = "smart stun mine"
-	smartmine = 1		
 
 /obj/effect/mine/kickmine
 	name = "kick mine"
