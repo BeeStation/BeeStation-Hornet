@@ -92,6 +92,8 @@
 	temperature_archived = temperature
 
 /turf/open/archive()
+	if(!air)
+		return
 	air.archive()
 	archived_cycle = SSair.times_fired
 	temperature_archived = temperature
