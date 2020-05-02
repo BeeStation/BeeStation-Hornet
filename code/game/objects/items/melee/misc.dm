@@ -294,6 +294,12 @@
 			if (wait_desc)
 				to_chat(user, wait_desc)
 
+/obj/item/melee/classic_baton/police/deputy
+	name = "deputy baton"
+	force = 12 
+	cooldown = 10 
+	stamina_damage = 20
+
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
 	name = "telescopic baton"
@@ -480,6 +486,7 @@
 
 			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
 			target.Knockdown(knockdown_time_carbon)
+			target.drop_all_held_items()
 			target.adjustStaminaLoss(stamina_damage)
 			additional_effects_carbon(target, user)
 

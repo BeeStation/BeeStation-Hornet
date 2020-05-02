@@ -29,6 +29,9 @@
 	model = "MULE"
 	bot_core_type = /obj/machinery/bot_core/mulebot
 
+	var/ui_x = 350
+	var/ui_y = 425
+
 	var/id
 
 	path_image_color = "#7F5200"
@@ -150,7 +153,7 @@
 
 /mob/living/simple_animal/bot/mulebot/bullet_act(obj/item/projectile/Proj)
 	. = ..()
-	if(.)
+	if(. && !QDELETED(src)) //Got hit and not blown up yet.
 		if(prob(50) && !isnull(load))
 			unload(0)
 		if(prob(25))
@@ -169,7 +172,7 @@
 										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "mulebot", name, 600, 375, master_ui, state)
+		ui = new(user, src, ui_key, "Mule", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /mob/living/simple_animal/bot/mulebot/ui_data(mob/user)
@@ -189,12 +192,15 @@
 		else
 	data["load"] = load ? load.name : null
 	data["destination"] = destination ? destination : null
+	data["home"] = home_destination
+	data["destinations"] = GLOB.deliverybeacontags
 	data["cell"] = cell ? TRUE : FALSE
 	data["cellPercent"] = cell ? cell.percent() : null
 	data["autoReturn"] = auto_return
 	data["autoPickup"] = auto_pickup
 	data["reportDelivery"] = report_delivery
 	data["haspai"] = paicard ? TRUE : FALSE
+	data["id"] = id
 	return data
 
 /mob/living/simple_animal/bot/mulebot/ui_act(action, params)
@@ -214,10 +220,10 @@
 					return
 			. = TRUE
 		else
-			bot_control(action, usr) // Kill this later.
+			bot_control(action, usr, params) // Kill this later.
 			. = TRUE
 
-/mob/living/simple_animal/bot/mulebot/bot_control(command, mob/user, pda = FALSE)
+/mob/living/simple_animal/bot/mulebot/bot_control(command, mob/user, list/params = list(), pda = FALSE)
 	if(pda && wires.is_cut(WIRE_RX)) // MULE wireless is controlled by wires.
 		return
 
@@ -232,15 +238,27 @@
 			if(mode == BOT_IDLE || mode == BOT_DELIVER)
 				start_home()
 		if("destination")
-			var/new_dest = input(user, "Enter Destination:", name, destination) as null|anything in GLOB.deliverybeacontags
+			var/new_dest
+			if(pda)
+				new_dest = input(user, "Enter Destination:", name, destination) as null|anything in GLOB.deliverybeacontags
+			else
+				new_dest = params["value"]
 			if(new_dest)
 				set_destination(new_dest)
 		if("setid")
-			var/new_id = stripped_input(user, "Enter ID:", name, id, MAX_NAME_LEN)
+			var/new_id
+			if(pda)
+				new_id = stripped_input(user, "Enter ID:", name, id, MAX_NAME_LEN)
+			else
+				new_id = params["value"]
 			if(new_id)
 				set_id(new_id)
 		if("sethome")
-			var/new_home = input(user, "Enter Home:", name, home_destination) as null|anything in GLOB.deliverybeacontags
+			var/new_home
+			if(pda)
+				new_home = input(user, "Enter Home:", name, home_destination) as null|anything in GLOB.deliverybeacontags
+			else
+				new_home = params["value"]
 			if(new_home)
 				home_destination = new_home
 		if("unload")
@@ -336,7 +354,7 @@
 	if(user.incapacitated() || (istype(L) && !(L.mobility_flags & MOBILITY_STAND)))
 		return
 
-	if(!istype(AM))
+	if(!istype(AM) || isdead(AM) || iscameramob(AM) || istype(AM, /obj/effect/dummy/phased_mob))
 		return
 
 	load(AM)
@@ -451,10 +469,8 @@
 			process_bot()
 			num_steps--
 			if(mode != BOT_IDLE)
-				spawn(0)
-					for(var/i=num_steps,i>0,i--)
-						sleep(2)
-						process_bot()
+				var/process_timer = addtimer(CALLBACK(src, .proc/process_bot), 2, TIMER_LOOP|TIMER_STOPPABLE)
+				addtimer(CALLBACK(GLOBAL_PROC, /proc/deltimer, process_timer), (num_steps*2) + 1)
 
 /mob/living/simple_animal/bot/mulebot/proc/process_bot()
 	if(!on || client)
@@ -518,11 +534,7 @@
 							buzz(SIGH)
 							mode = BOT_WAIT_FOR_NAV
 							blockcount = 0
-							spawn(20)
-								calc_path(avoid=next)
-								if(path.len > 0)
-									buzz(DELIGHT)
-								mode = BOT_BLOCKED
+							addtimer(CALLBACK(src, .proc/process_blocked, next), 2 SECONDS)
 							return
 						return
 				else
@@ -535,18 +547,26 @@
 
 		if(BOT_NAV)	// calculate new path
 			mode = BOT_WAIT_FOR_NAV
-			spawn(0)
-				calc_path()
+			INVOKE_ASYNC(src, .proc/process_nav)
 
-				if(path.len > 0)
-					blockcount = 0
-					mode = BOT_BLOCKED
-					buzz(DELIGHT)
+/mob/living/simple_animal/bot/mulebot/proc/process_blocked(turf/next)
+	calc_path(avoid=next)
+	if(path.len > 0)
+		buzz(DELIGHT)
+	mode = BOT_BLOCKED
 
-				else
-					buzz(SIGH)
+/mob/living/simple_animal/bot/mulebot/proc/process_nav()
+	calc_path()
 
-					mode = BOT_NO_ROUTE
+	if(path.len > 0)
+		blockcount = 0
+		mode = BOT_BLOCKED
+		buzz(DELIGHT)
+
+	else
+		buzz(SIGH)
+
+		mode = BOT_NO_ROUTE
 
 // calculates a path to the current destination
 // given an optional turf to avoid
@@ -576,10 +596,12 @@
 /mob/living/simple_animal/bot/mulebot/proc/start_home()
 	if(!on)
 		return
-	spawn(0)
-		set_destination(home_destination)
-		mode = BOT_BLOCKED
+	INVOKE_ASYNC(src, .proc/do_start_home)
 	update_icon()
+
+/mob/living/simple_animal/bot/mulebot/proc/do_start_home()
+	set_destination(home_destination)
+	mode = BOT_BLOCKED
 
 // called when bot reaches current target
 /mob/living/simple_animal/bot/mulebot/proc/at_target()

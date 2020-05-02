@@ -132,7 +132,7 @@
 			if("Lawyer")
 				heirloom_type = pick(/obj/item/gavelhammer, /obj/item/book/manual/wiki/security_space_law)
 			if("Brig Physician")
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/roller, /obj/item/book/manual/wiki/security_space_law)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/book/manual/wiki/security_space_law)
 			//RnD
 			if("Research Director")
 				heirloom_type = /obj/item/toy/plush/slimeplushie
@@ -146,7 +146,7 @@
 			if("Medical Doctor")
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
 			if("Paramedic")
-				heirloom_type = pick(/obj/item/bodybag, /obj/item/roller)
+				heirloom_type = pick(/obj/item/bodybag)
 			if("Chemist")
 				heirloom_type = /obj/item/book/manual/wiki/chemistry
 			if("Virologist")

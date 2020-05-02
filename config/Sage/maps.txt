@@ -18,19 +18,18 @@ map boxstation
 endmap
 
 map metastation
-	minplayers 30
+	minplayers 15
 	maxplayers 100
 	votable
 endmap
 
 map pubbystation
-	minplayers 10
-	maxplayers 80
+	maxplayers 50
 	votable
 endmap
 
 map deltastation
-	minplayers 50
+	minplayers 40
 	votable
 endmap
 
