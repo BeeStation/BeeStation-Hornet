@@ -3,6 +3,7 @@
 	name = "Felinid"
 	id = "felinid"
 	limbs_id = "human"
+	say_mod = "annoyingly meows"
 
 	mutant_bodyparts = list("ears", "tail_human")
 	default_features = list("mcolor" = "FFF", "tail_human" = "Cat", "ears" = "Cat", "wings" = "None")
