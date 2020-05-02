@@ -213,13 +213,13 @@
 	template_height = 4
 	template_width = 5
 
-/datum/map_template/random_room/sk_rdm027
+/*/datum/map_template/random_room/sk_rdm027
 	name = "Box Hull Breach"
 	room_id = "sk_rdm027_hullbreach"
 	mappath = "_maps/RandomRooms/3x3/sk_rdm027_hullbreach.dmm"
 	centerspawner = FALSE
 	template_height = 3
-	template_width = 3
+	template_width = 3 */
 
 /datum/map_template/random_room/sk_rdm028
 	name = "Tranquility"
@@ -637,13 +637,13 @@
 	template_height = 5
 	template_width = 3
 
-/datum/map_template/random_room/sk_rdm080
+/*/datum/map_template/random_room/sk_rdm080
 	name = "Ancient Cloner"
 	room_id = "sk_rdm080_cloner"
 	mappath = "_maps/RandomRooms/5x3/sk_rdm080_cloner.dmm"
 	centerspawner = FALSE
 	template_height = 3
-	template_width = 5
+	template_width = 5*/
 
 /datum/map_template/random_room/sk_rdm081
 	name = "Maint Viro"
