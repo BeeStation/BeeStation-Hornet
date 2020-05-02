@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/machinery/conveyor/auto/Initialize(mapload, newdir)
 	. = ..()
-	affected = list()
+	affecting = list()
 	operating = TRUE
 	update_move_direction()
 
