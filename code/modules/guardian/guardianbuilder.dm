@@ -191,13 +191,11 @@
 	var/list/mob/dead/observer/candidates = debug_mode ? list(user) : pollGhostCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_HOLOPARASITE, null, FALSE, 100, POLL_IGNORE_HOLOPARASITE)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
-		var/mob/living/simple_animal/hostile/guardian/G = new(user, theme)
+		var/mob/living/simple_animal/hostile/guardian/G = new(user, theme, guardian_color)
 		if(guardian_name)
 			G.real_name = guardian_name
 			G.name = guardian_name
 		G.summoner = user.mind
-		G.guardiancolor = guardian_color
-		G.mobsay_color = guardian_color
 		G.key = C.key
 		G.mind.enslave_mind_to_creator(user)
 		G.RegisterSignal(user, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/guardian.proc/OnMoved)

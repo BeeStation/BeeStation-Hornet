@@ -1862,6 +1862,7 @@
 #include "code\modules\guardian\guardianability.dm"
 #include "code\modules\guardian\guardianbuilder.dm"
 #include "code\modules\guardian\guardianstats.dm"
+#include "code\modules\guardian\standarrow.dm"
 #include "code\modules\guardian\abilities\_ability.dm"
 #include "code\modules\guardian\abilities\major\assassin.dm"
 #include "code\modules\guardian\abilities\major\explosive.dm"

@@ -65,8 +65,11 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/list/pocket_dim
 	var/transforming = FALSE
 
-/mob/living/simple_animal/hostile/guardian/Initialize(mapload, theme)
+/mob/living/simple_animal/hostile/guardian/Initialize(mapload, theme, guardiancolor)
 	GLOB.parasites += src
+	if(guardiancolor)
+		src.guardiancolor = guardiancolor
+		src.mobsay_color = guardiancolor
 	updatetheme(theme)
 	battlecry = pick("ORA", "MUDA", "DORA", "ARRI", "VOLA", "AT")
 	return ..()
@@ -169,6 +172,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			attack_sound = 'sound/weapons/pierce.ogg'
 	if(!recolorentiresprite) //we want this to proc before stand logs in, so the overlay isnt gone for some reason
 		cooloverlay = mutable_appearance(icon, theme)
+		cooloverlay.color = guardiancolor
 		add_overlay(cooloverlay)
 
 /mob/living/simple_animal/hostile/guardian/Login() //if we have a mind, set its name to ours when it logs in
