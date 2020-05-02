@@ -1,0 +1,8 @@
+author: "zeskorion"
+delete-after: True
+changes: 
+  - rscadd: "Virus preservation- add cryoxadone to a disease to make it immutable"
+  - rscadd: "Virus Faltering- add spaceacillin to a disease to make it unable to spread"
+  - tweak: "some small stat changes to symptoms"
+  - tweak: "hacked medivends now have one experimental disease bottle"
+  - tweak: "made uranium virus foods more convenient to mix"
