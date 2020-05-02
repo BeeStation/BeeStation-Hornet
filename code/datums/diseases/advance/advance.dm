@@ -178,12 +178,12 @@
 	return generated
 
 /datum/disease/advance/proc/Refresh(new_name = FALSE)
+	for(var/datum/symptom/S in symptoms)
+		S.severity = initial(S.severity)
+		S.dynamicseverity = FALSE
 	GenerateProperties()
 	AssignProperties()
-	for(var/datum/symptom/S in symptoms)
-		S.severityreset(src)
 	id = null
-
 	var/the_id = GetDiseaseID()
 	if(!SSdisease.archive_diseases[the_id])
 		SSdisease.archive_diseases[the_id] = src // So we don't infinite loop
@@ -194,28 +194,32 @@
 //Generate disease properties based on the effects. Returns an associated list.
 /datum/disease/advance/proc/GenerateProperties()
 	properties = list("resistance" = 0, "stealth" = 0, "stage_rate" = 0, "transmittable" = 0, "severity" = 0)
-
-	for(var/datum/symptom/S in symptoms)
+	for(var/datum/symptom/S in symptoms) //I can't change the order of the symptom list by severity, so i have to loop through symptoms three times, one for each tier of severity, to keep it consistent
 		properties["resistance"] += S.resistance
 		properties["stealth"] += S.stealth
 		properties["stage_rate"] += S.stage_speed
 		properties["transmittable"] += S.transmittable
 		if(!S.dynamicseverity)
 			S.severityset(src)
+		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
+			properties["severity"] += S.severity
+	for(var/datum/symptom/S in symptoms) 
+		if(!S.dynamicseverity)
+			S.severityset(src)
 		if(!S.neutered)
-			switch(S.severity)
-				if(-INFINITY to 0)
-					properties["severity"] += S.severity
+			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
 				if(1 to 2)
-					properties["severity"] = min(3, (S.severity + properties["severity"]))
+					properties["severity"] = max(properties["severity"], min(3, (S.severity + properties["severity"])))
 				if(3 to 4)
-					properties["severity"] = min(4, (S.severity + properties["severity"]))
-				if(5 to INFINITY)
-					properties["severity"] += S.severity
+					properties["severity"] = max(properties["severity"], min(4, (S.severity + properties["severity"])))		
+	for(var/datum/symptom/S in symptoms) //benign and beneficial symptoms go last
+		if(!S.dynamicseverity)
+			S.severityset(src)
+		if(!S.neutered && S.severity <= 0)
+			properties["severity"] += S.severity		
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
-
 	if(properties && properties.len)
 		if(properties["stealth"] >= 2)
 			visibility_flags |= HIDDEN_SCANNER

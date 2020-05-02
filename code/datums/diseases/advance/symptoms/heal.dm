@@ -236,7 +236,6 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	transmittable = -2
 	level = 6
 	severity = 2
-	baseseverity = 2
 	symptom_delay_min = 15
 	symptom_delay_max = 40
 	var/bigemp = FALSE
@@ -245,11 +244,11 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					<b>transmission 8:</b> The EMP affects electronics adjacent to the subject as well."
 
 /datum/symptom/EMP/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["stealth"] >= 4)
 		severity -= 1
 	if(A.properties["transmittable"] >= 8)
 		severity += 1
-	return..()
 
 /datum/symptom/EMP/Start(datum/disease/advance/A)
 	if(!..())
@@ -293,9 +292,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					<b>transmission 8:</b> The EMP affects electronics adjacent to the subject as well."
 
 /datum/symptom/sweat/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["transmittable"] >= 8)
 		severity -= 1
-	return..()
 
 /datum/symptom/sweat/Start(datum/disease/advance/A)
 	if(!..())
@@ -350,7 +349,6 @@ obj/effect/sweatsplash/proc/splash()
 	transmittable = -3
 	level = 8
 	severity = 0
-	baseseverity = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/telethreshold = 15
@@ -361,11 +359,11 @@ obj/effect/sweatsplash/proc/splash()
 					<b>Transmission 8:</b> The disease becomes more active, activating in a smaller temperature range."
 
 /datum/symptom/teleport/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["resistance"] >= 6)
 		severity -= 1
 		if(A.properties["transmittable"] >= 8)
 			severity -= 1
-	return..()
 
 /datum/symptom/teleport/Start(datum/disease/advance/A)
 	if(!..())
@@ -412,7 +410,6 @@ obj/effect/sweatsplash/proc/splash()
 	transmittable = -2
 	level = 7
 	severity = 1
-	baseseverity = 1
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/current_size = 1
@@ -422,11 +419,11 @@ obj/effect/sweatsplash/proc/splash()
 					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced."
 
 /datum/symptom/growth/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["stage_rate"] >= 6)
 		severity -= 1
 	if(A.properties["stage_rate"] >= 12)
 		severity += 3
-	return..()
 
 /datum/symptom/growth/Start(datum/disease/advance/A)
 	if(!..())
