@@ -1,0 +1,5 @@
+author: "Victor239"
+delete-after: True
+changes: 
+  - balance: "Syndicate Revolver is now 12 TC down from 13. .357 speedloaders are 2 TC down from 4."
+  - balance: ".357 speedloaders no longer in the autolathe however individual bullets are."
