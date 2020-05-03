@@ -93,6 +93,36 @@
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/stunmine/sec
+	name = "Stun Mine"
+	desc = "A basic nonlethal stunning mine. Does very heavy stamina damage to anyone who walks over it."
+	id = "stunmine"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 4000, /datum/material/silver = 400, /datum/material/copper = 400)
+	build_path = /obj/item/deployablemine/stun
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/adv_stunmine/sec
+	name = "Smart Stun Mine"
+	desc = "A advanced nonlethal stunning mine. Uses advanced detection software to only trigger when activated by someone without a mindshield implant."
+	id = "stunmine_adv"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 8000, /datum/material/glass = 1500, /datum/material/silver = 600, /datum/material/copper = 600, /datum/material/uranium = 200)
+	build_path = /obj/item/deployablemine/smartstun
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/honkmine/clown
+	name = "Honkblaster 1000"
+	desc = "An advanced pressure activated pranking mine, honk!"
+	id = "serv_Honkmine"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 4000, /datum/material/silver = 400, /datum/material/copper = 400)
+	build_path = /obj/item/deployablemine/honk
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/pin_testing
 	name = "Test-Range Firing Pin"
 	desc = "This safety firing pin allows firearms to be operated within proximity to a firing range."

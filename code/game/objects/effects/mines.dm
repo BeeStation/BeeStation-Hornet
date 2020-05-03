@@ -92,7 +92,7 @@
 
 /obj/effect/mine/explosive/traitor
 	name = "rubber ducky"
-	desc = "Quack Quack!"
+	desc = "Rubber ducky you're so fine, you make bathtime lots of fuuun. Rubber ducky I'm awfully fooooond of yooooouuuu~"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "rubberducky"
 	var/sound = 'sound/items/bikehorn.ogg'
