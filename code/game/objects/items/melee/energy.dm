@@ -104,7 +104,7 @@
 	block_upgrade_walk = 1
 	block_power = 35
 	block_sound = 'sound/weapons/genhit.ogg'
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 
 /obj/item/melee/transforming/energy/sword/transform_weapon(mob/living/user, supress_message_text)
 	. = ..()

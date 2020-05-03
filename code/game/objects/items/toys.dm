@@ -396,7 +396,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	block_upgrade_walk = 1
 	block_level = 1
-	block_flags = NASTY_BLOCKING | ACTIVE_BLOCKING | PROJECTILE_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 
 /*
  * Snap pops

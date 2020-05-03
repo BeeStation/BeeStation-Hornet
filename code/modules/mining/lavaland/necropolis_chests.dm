@@ -796,7 +796,7 @@
 	block_upgrade_walk = 1 
 	block_level = 1
 	block_power = 20
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
 	var/summon_cooldown = 0

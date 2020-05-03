@@ -39,7 +39,8 @@
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	block_upgrade_walk = 1
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
+	block_level = 1
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 20
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -63,7 +64,7 @@
 	block_level = 1
 	block_upgrade_walk = 1
 	block_power = 50
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 75
@@ -384,7 +385,7 @@
 	icon_state = "contractor_baton_0"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	item_state = null
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -535,7 +536,7 @@
 	var/balanced = 1
 	block_level = 1
 	block_upgrade_walk = 1
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	force_string = "INFINITE"
 
 /obj/item/melee/supermatter_sword/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)

@@ -10,7 +10,7 @@
 	block_power = 50
 	block_level = 1
 	block_upgrade_walk = 1
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING | PROJECTILE_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	armour_penetration = 50
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'

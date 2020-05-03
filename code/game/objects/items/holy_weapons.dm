@@ -269,7 +269,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = ITEM_SLOT_BACK
-	block_flags = PROJECTILE_BLOCKING
+	block_flags = BLOCKING_PROJECTILE
 	block_level = 2
 	block_power = 20
 	var/shield_icon = "shield-red"
@@ -294,7 +294,7 @@
 	desc = "A weapon fit for a crusade!"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
-	block_flags = NASTY_BLOCKING | ACTIVE_BLOCKING
+	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1
 	block_power = 30
 	sharpness = IS_SHARP
@@ -336,7 +336,7 @@
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
-	block_flags = NASTY_BLOCKING | ACTIVE_BLOCKING | PROJECTILE_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	block_power = 0
 
@@ -405,7 +405,7 @@
 	armour_penetration = 35
 	block_level = 1
 	block_power = 15
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = IS_SHARP
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -535,7 +535,7 @@
 	tool_behaviour = TOOL_SAW
 	toolspeed = 2 //slower than a real saw
 	attack_weight = 2
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 
 
 /obj/item/nullrod/chainsaw/Initialize()

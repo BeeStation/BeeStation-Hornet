@@ -78,7 +78,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_power = 40
 	block_upgrade_walk = 1
 	block_level = 1
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = IS_SHARP
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
@@ -233,7 +233,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_power = 50
 	block_level = 1
 	block_upgrade_walk = 1
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING | PROJECTILE_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	sharpness = IS_SHARP
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
@@ -482,7 +482,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	w_class = WEIGHT_CLASS_HUGE
 	block_upgrade_walk = 2
 	block_power = 20
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 24
 	attack_weight = TRUE
 	throwforce = 0
@@ -696,7 +696,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "This bat is made of highly reflective, highly armored material."
 	icon_state = "baseball_bat_metal"
 	item_state = "baseball_bat_metal"
-	block_flags = NASTY_BLOCKING | ACTIVE_BLOCKING | PROJECTILE_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	block_level = 1
 	force = 12
 	throwforce = 15

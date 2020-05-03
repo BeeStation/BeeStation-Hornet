@@ -18,7 +18,7 @@
 	inhand_y_dimension = 32
 	w_class = WEIGHT_CLASS_SMALL
 	block_upgrade_walk = 1
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 15
 	throwforce = 12 // unlike normal daggers, this one is curved and not designed to be thrown
 	armour_penetration = 35
@@ -43,7 +43,7 @@
 	block_level = 1
 	block_upgrade_walk = 1
 	block_power = 30
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 30
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -91,7 +91,7 @@
 	block_level = 1
 	block_upgrade_walk = 1
 	block_power = 50
-	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING | PROJECTILE_BLOCKING
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	throwforce = 20
 	force = 35
 	armour_penetration = 45

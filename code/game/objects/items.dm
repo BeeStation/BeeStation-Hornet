@@ -142,9 +142,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	//does the item block better if walking?
 	var/block_upgrade_walk = 0
 	//blocking flags
-	var/block_flags = ACTIVE_BLOCKING
-	//does it block projectiles?
-	var/projectile_blocking = FALSE
+	var/block_flags = BLOCKING_ACTIVE
 	//reduces stamina damage taken whilst blocking. block power of 0 means it takes the full force of the attacking weapon
 	var/block_power = 0
 	//what sound does blocking make
@@ -469,9 +467,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return 0
 	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
 		return 0
-	if((block_flags & ACTIVE_BLOCKING) && !owner.get_active_held_item() == src)
+	if((block_flags & BLOCKING_ACTIVE) && !owner.get_active_held_item() == src)
 		return 0
-	if((!block_flags & PROJECTILE_BLOCKING) && attack_type == PROJECTILE_ATTACK)
+	if((!block_flags & BLOCKING_PROJECTILE) && attack_type == PROJECTILE_ATTACK)
 		return 0
 	if(owner.m_intent == MOVE_INTENT_WALK)
 		final_block_level += block_upgrade_walk
@@ -526,13 +524,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(attack_type == UNARMED_ATTACK && isliving(hitby))
 		var/mob/living/L = hitby
 		attackforce = damage
-		if(block_flags & NASTY_BLOCKING)
+		if(block_flags & BLOCKING_NASTY)
 			L.attackby(src, owner)
 			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 	else if(isliving(hitby))
 		var/mob/living/L = hitby
 		attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
-		if(block_flags & NASTY_BLOCKING)
+		if(block_flags & BLOCKING_NASTY)
 			L.attackby(src, owner)
 			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 	owner.apply_damage(attackforce, STAMINA, blockhand, block_power) 
