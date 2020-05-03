@@ -1,3 +1,48 @@
+/obj/item/deployablemine
+	name = "deployable mine"
+	desc = "An unarmed landmine. It can be planted to arm it."
+	icon_state = "uglymine"
+	var/mine_type = /obj/effect/mine
+
+/obj/item/deployablemine/stun
+	desc = "An unarmed stun mine. It can be planted to arm it."
+	mine_type = /obj/effect/mine/stun
+
+/obj/item/deployablemine/smartstun
+	desc = "An unarmed smart stun mine. It can be planted to arm it."
+	mine_type = /obj/effect/mine/stun/smart
+
+/obj/item/deployablemine/explosive
+	mine_type = /obj/effect/mine/explosive
+
+/obj/item/deployablemine/honk
+	name = "unarmed honkblaster 1000"
+	desc = "An advanced pranking landmine for clowns, honk! Delivers a harmless extra loud HONK to the head when triggered. It can be planted to arm it."
+	mine_type = /obj/effect/mine/sound
+
+/obj/item/deployablemine/traitor
+	name = "exploding rubber duck"
+	desc = "A pressure activated explosive disguised as a rubber duck. Plant it to arm."
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "rubberducky"
+	mine_type = /obj/effect/mine/explosive/traitor
+
+/obj/item/deployablemine/afterattack(atom/plantspot, mob/user, proximity)
+	if(!proximity)
+		return
+
+	if(isspaceturf(plantspot))
+		to_chat(user, "<span class='warning'>you cannot plant a mine in space!</span>")
+		return
+
+	if((istype(plantspot,/turf/open/lava)) || (istype(plantspot,/turf/open/chasm)))
+		to_chat(user, "<span class='warning'>You can't plant the mine here!</span>")
+
+	new mine_type(plantspot)
+	to_chat(user, "You plant and arm the landmine.")
+	log_combat(user, src, "planted and armed")
+	qdel(src)
+
 /obj/effect/mine
 	name = "dummy mine"
 	desc = "Better stay away from that thing."
@@ -33,7 +78,9 @@
 
 /obj/effect/mine/proc/checksmartmine(mob/target, obj/effect/mine/boom)
 	if(target)
-		if(!(target && HAS_TRAIT(target, TRAIT_MINDSHIELD) && boom.smartmine == 1))
+		if(!(target && HAS_TRAIT(target, TRAIT_MINDSHIELD)))
+			triggermine(target)
+		if(smartmine == 0)
 			triggermine(target)
 
 /obj/effect/mine/explosive
@@ -43,19 +90,33 @@
 	var/range_light = 2
 	var/range_flash = 3
 
+/obj/effect/mine/explosive/traitor
+	name = "rubber ducky"
+	desc = "Quack Quack!"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "rubberducky"
+	var/sound = 'sound/items/bikehorn.ogg'
+	range_heavy = 2
+	range_light = 3
+	range_flash = 4
+
 /obj/effect/mine/explosive/mineEffect(mob/victim)
+	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
+
+/obj/effect/mine/explosive/traitor/mineEffect(mob/victim)
+	playsound(loc, sound, 100, 1)
 	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
 
 
 /obj/effect/mine/stun
 	name = "stun mine"
-	var/stun_time = 80
+	var/stun_time = 120
 
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
-		victim.Paralyze(stun_time)
+		victim.adjustStaminaLoss(stun_time)
 
-/obj/effect/mine/stun/smartmine
+/obj/effect/mine/stun/smart
 	name = "smart stun mine"
 	smartmine = 1
 
