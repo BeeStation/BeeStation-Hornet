@@ -395,6 +395,7 @@
 #include "code\datums\components\swarming.dm"
 #include "code\datums\components\tether.dm"
 #include "code\datums\components\thermite.dm"
+#include "code\datums\components\thermo.dm"
 #include "code\datums\components\uplink.dm"
 #include "code\datums\components\waddling.dm"
 #include "code\datums\components\wearertargeting.dm"
