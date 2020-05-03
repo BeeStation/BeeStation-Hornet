@@ -30,7 +30,7 @@
 	triggered = 1
 	qdel(src)
 
-
+//UNGA
 /obj/effect/mine/explosive
 	name = "explosive mine"
 	var/range_devastation = 0
