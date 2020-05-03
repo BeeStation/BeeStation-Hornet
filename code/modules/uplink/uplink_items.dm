@@ -995,6 +995,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/emp
 	cost = 4
 
+/datum/uplink_item/explosives/ducky
+	name = "Exploding Rubber Duck"
+	desc = "A seemingly innocent rubber duck. When placed, it arms, and will violently explode when stepped on."
+	item = /obj/item/deployablemine/traitor
+	cost = 3
+
 /datum/uplink_item/explosives/virus_grenade
 	name = "Fungal Tuberculosis Grenade"
 	desc = "A primed bio-grenade packed into a compact box. Comes with five Bio Virus Antidote Kit (BVAK) \
@@ -1013,6 +1019,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	include_modes = list(/datum/game_mode/nuclear)
 	cost = 24
 	surplus = 0
+
+/datum/uplink_item/explosives/bigducky
+	name = "High Yield Exploding Rubber Duck"
+	desc = "A seemingly innocent rubber duck. When placed, it arms, and will violently explode when stepped on. \
+			This variant has been fitted with high yield X4 charges for a larger explosion."
+	item = /obj/item/deployablemine/traitor/bigboom
+	cost = 9
 
 /datum/uplink_item/explosives/pizza_bomb
 	name = "Pizza Bomb"

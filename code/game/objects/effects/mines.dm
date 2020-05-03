@@ -27,6 +27,11 @@
 	icon_state = "rubberducky"
 	mine_type = /obj/effect/mine/explosive/traitor
 
+/obj/item/deployablemine/traitor/bigboom
+	name = "high yield exploding rubber duck"
+	desc = "A pressure activated explosive disguised as a rubber duck. Plant it to arm. This version is fitted with high yield X4 for a larger blast."
+	mine_type = /obj/effect/mine/explosive/traitor/bigboom
+
 /obj/item/deployablemine/afterattack(atom/plantspot, mob/user, proximity)
 	if(!proximity)
 		return
@@ -100,6 +105,12 @@
 	range_light = 3
 	range_flash = 4
 
+/obj/effect/mine/explosive/traitor/bigboom
+	range_devastation = 2
+	range_heavy = 4
+	range_light = 6
+	range_flash = 4
+
 /obj/effect/mine/explosive/mineEffect(mob/victim)
 	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
 
@@ -151,14 +162,16 @@
 /obj/effect/mine/sound
 	name = "honkblaster 1000"
 	var/sound = 'sound/items/bikehorn.ogg'
+	var/volume = 150
 
 /obj/effect/mine/sound/mineEffect(mob/victim)
-	playsound(loc, sound, 100, 1)
+	playsound(loc, sound, volume, 1)
 
 
 /obj/effect/mine/sound/bwoink
 	name = "bwoink mine"
 	sound = 'sound/effects/adminhelp.ogg'
+	volume = 100
 
 /obj/effect/mine/pickup
 	name = "pickup"
