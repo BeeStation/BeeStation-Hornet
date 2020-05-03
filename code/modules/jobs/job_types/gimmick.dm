@@ -33,7 +33,7 @@
 
 	belt = /obj/item/pda/unlicensed
 	ears = /obj/item/radio/headset
-	uniform = /obj/item/clothing/under/sl_suit
+	uniform = /obj/item/clothing/under/suit/sl
 	shoes = /obj/item/clothing/shoes/laceup
 	l_hand = /obj/item/storage/wallet
 	l_pocket = /obj/item/razor/straightrazor
@@ -54,7 +54,7 @@
 	head = /obj/item/clothing/head/that
 	ears = /obj/item/radio/headset
 	neck = /obj/item/bedsheet/magician
-	uniform = /obj/item/clothing/under/suit_jacket/really_black
+	uniform = /obj/item/clothing/under/suit/black_really
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/white
 	l_hand = /obj/item/cane
