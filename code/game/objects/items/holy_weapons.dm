@@ -271,6 +271,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	block_flags = PROJECTILE_BLOCKING
 	block_level = 2
+	block_power = 20
 	var/shield_icon = "shield-red"
 
 /obj/item/nullrod/staff/worn_overlays(isinhands)

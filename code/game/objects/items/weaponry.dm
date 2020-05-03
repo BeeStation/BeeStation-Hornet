@@ -480,7 +480,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	block_upgrade_walk = 1 //doesnt get as much blocking as a chainsaw cuz there is no limb to disable
+	block_upgrade_walk = 2
+	block_power = 20
 	block_flags = ACTIVE_BLOCKING | NASTY_BLOCKING
 	force = 24
 	attack_weight = TRUE

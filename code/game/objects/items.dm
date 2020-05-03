@@ -451,6 +451,22 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
 	var/relative_dir = (dir2angle(get_dir(hitby, owner)) - dir2angle(owner.dir)) //shamelessly stolen from mech code
 	var/final_block_level = block_level
+	var/obj/item/bodypart/blockhand = null
+	if(owner.stat) //can't block if you're dead
+		return 0
+	if(owner.get_active_held_item() == src) //copypaste of this code for an edgecase-nodrops
+		if(owner.active_hand_index == 1)
+			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+		else
+			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
+	else
+		if(owner.active_hand_index == 1)
+			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
+		else
+			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+	if(blockhand.is_disabled())
+		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack<!/span>")
+		return 0
 	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
 		return 0
 	if((block_flags & ACTIVE_BLOCKING) && !owner.get_active_held_item() == src)
