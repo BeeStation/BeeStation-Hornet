@@ -272,7 +272,7 @@
 
 /datum/supply_pack/security
 	group = "Security"
-	access_any = ACCESS_SECURITY
+	access = ACCESS_SECURITY
 	crate_type = /obj/structure/closet/crate/secure/gear
 
 /datum/supply_pack/security/armor

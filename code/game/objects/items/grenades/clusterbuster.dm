@@ -14,7 +14,7 @@
 	var/max_spawned = 8
 	var/segment_chance = 35
 
-/obj/item/grenade/clusterbuster/prime()
+/obj/item/grenade/clusterbuster/prime(mob/living/lanced_by)
 	. = ..()
 	update_mob()
 	var/numspawned = rand(min_spawned,max_spawned)
@@ -29,8 +29,8 @@
 		new /obj/item/grenade/clusterbuster/segment(drop_location(), src)//Creates 'segments' that launches a few more payloads
 
 	new payload_spawner(drop_location(), payload, numspawned)//Launches payload
-	playsound(src, prime_sound, 75, 1, -3)
-	resolve()
+	playsound(src, prime_sound, 75, TRUE, -3)
+	qdel(src)
 
 //////////////////////
 //Clusterbang segment
@@ -60,10 +60,10 @@
 		step_away(src,loc)
 	addtimer(CALLBACK(src, .proc/prime), rand(15,60))
 
-/obj/item/grenade/clusterbuster/segment/prime()
+/obj/item/grenade/clusterbuster/segment/prime(mob/living/lanced_by)
 	new payload_spawner(drop_location(), payload, rand(min_spawned,max_spawned))
-	playsound(src, prime_sound, 75, 1, -3)
-	resolve()
+	playsound(src, prime_sound, 75, TRUE, -3)
+	qdel(src)
 
 //////////////////////////////////
 //The payload spawner effect

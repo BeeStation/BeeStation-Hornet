@@ -10,10 +10,10 @@
 	ex_flame = 2
 
 
-/obj/item/grenade/syndieminibomb/prime()
+/obj/item/grenade/syndieminibomb/prime(mob/living/lanced_by)
 	. = ..()
 	update_mob()
-	resolve()
+	qdel(src)
 
 /obj/item/grenade/syndieminibomb/concussion
 	name = "HE Grenade"
@@ -39,10 +39,10 @@
 	shrapnel_type = /obj/item/projectile/bullet/shrapnel/mega
 	shrapnel_radius = 12
 
-/obj/item/grenade/frag/prime()
+/obj/item/grenade/frag/prime(mob/living/lanced_by)
 	. = ..()
 	update_mob()
-	resolve()
+	qdel(src)
 
 /obj/item/grenade/gluon
 	desc = "An advanced grenade that releases a harmful stream of gluons inducing radiation in those nearby. These gluon streams will also make victims feel exhausted, and induce shivering. This extreme coldness will also likely wet any nearby floors."
@@ -54,7 +54,7 @@
 	var/rad_damage = 350
 	var/stamina_damage = 30
 
-/obj/item/grenade/gluon/prime()
+/obj/item/grenade/gluon/prime(mob/living/lanced_by)
 	. = ..()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
@@ -64,4 +64,4 @@
 		for(var/mob/living/carbon/L in F)
 			L.adjustStaminaLoss(stamina_damage)
 			L.adjust_bodytemperature(-230)
-	resolve()
+	qdel(src)

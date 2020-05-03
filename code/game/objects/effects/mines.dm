@@ -92,7 +92,7 @@
 	anchored = TRUE
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "uglymine"
-	var/triggered = 0
+	var/triggered = FALSE
 	var/smartmine = 0
 	var/disarm_time = 200
 	var/disarm_product = /obj/item/deployablemine // ie what drops when the mine is disarmed
@@ -111,6 +111,7 @@
 /obj/effect/mine/Crossed(atom/movable/AM as mob|obj)
 	if(!isturf(loc) || AM.throwing || (AM.movement_type & (FLYING | FLOATING)) || !AM.has_gravity())
 		return
+	. = ..()
 	if(ismob(AM))
 		checksmartmine(AM)
 	else
@@ -134,6 +135,9 @@
 	triggered = 1
 	qdel(src)
 
+/obj/effect/mine/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir)
+	. = ..()
+	triggermine()
 
 /obj/effect/mine/explosive
 	name = "explosive mine"

@@ -234,4 +234,3 @@
 
 	var/obj/item/bodypart/BP = pick(parts)
 	BP.dismember()
-

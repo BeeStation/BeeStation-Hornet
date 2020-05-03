@@ -7,7 +7,7 @@
 	var/forced_value = 0
 	var/duration = 300
 
-/obj/item/grenade/antigravity/prime()
+/obj/item/grenade/antigravity/prime(mob/living/lanced_by)
 	. = ..()
 	update_mob()
 
@@ -15,4 +15,4 @@
 		var/datum/component/C = T.AddComponent(/datum/component/forced_gravity,forced_value)
 		QDEL_IN(C,duration)
 
-	resolve()
+	qdel(src)

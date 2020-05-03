@@ -55,7 +55,7 @@
 		return
 	..()
 
-/obj/item/grenade/plastic/prime()
+/obj/item/grenade/plastic/prime(mob/living/lanced_by)
 	. = ..()
 	var/turf/location
 	if(target)
@@ -75,7 +75,7 @@
 	if(ismob(target))
 		var/mob/M = target
 		M.gib()
-	resolve()
+	qdel(src)
 
 //assembly stuff
 /obj/item/grenade/plastic/receive_signal()
@@ -161,7 +161,7 @@
 	shout_syndicate_crap(user)
 	explosion(user,0,2,0) //Cheap explosion imitation because putting prime() here causes runtimes
 	user.gib(1, 1)
-	resolve()
+	qdel(src)
 
 /obj/item/grenade/plastic/update_icon()
 	if(nadeassembly)
@@ -209,7 +209,7 @@
 	else
 		return ..()
 
-/obj/item/grenade/plastic/c4/prime()
+/obj/item/grenade/plastic/c4/prime(mob/living/lanced_by)
 	if(QDELETED(src))
 		return
 
@@ -225,7 +225,7 @@
 		location = get_turf(src)
 	if(location)
 		explosion(location,0,0,3)
-	resolve()
+	qdel(src)
 
 /obj/item/grenade/plastic/c4/attack(mob/M, mob/user, def_zone)
 	return
