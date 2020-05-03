@@ -4,7 +4,7 @@
 	density = TRUE
 	state_open = FALSE
 	icon = 'icons/obj/machines/autodoc.dmi'
-	icon_state = "autodoc"
+	icon_state = "autodoc_machine"
 	verb_say = "states"
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/autodoc
