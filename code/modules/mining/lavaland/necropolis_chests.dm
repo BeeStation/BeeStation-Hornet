@@ -331,8 +331,17 @@
 
 // Relic water bottle
 /obj/item/reagent_containers/glass/waterbottle/relic
-	desc = "A bottle of water filled at an old Earth bottling facility. It seems to be radiating some kind of energy."
+	desc = "A bottle of water filled with unknown liquids. It seems to be radiating some kind of energy."
 	flip_chance = 100 // FLIPP
+	list_reagents = list()
+
+/obj/item/reagent_containers/glass/waterbottle/relic/Initialize()
+	var/reagents = volume
+	while(reagents)
+		var/newreagent = rand(1, min(reagents, 30))
+		list_reagents += list(get_unrestricted_random_reagent_id() = newreagent)
+		reagents -= newreagent
+	. = ..()
 
 //Red/Blue Cubes
 /obj/item/warp_cube
