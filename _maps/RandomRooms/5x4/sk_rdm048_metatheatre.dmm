@@ -71,13 +71,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "m" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg2"
-	},
-/area/template_noop)
-"n" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/horsehead,
+/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
@@ -99,7 +95,7 @@
 a
 f
 j
-n
+m
 "}
 (2,1,1) = {"
 b
@@ -121,7 +117,7 @@ p
 "}
 (5,1,1) = {"
 e
+h
 i
-m
 q
 "}
