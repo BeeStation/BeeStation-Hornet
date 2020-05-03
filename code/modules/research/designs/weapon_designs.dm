@@ -133,6 +133,26 @@
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/lm6_stunmine/sec
+	name = "LM-6 Rapid Deployment Smartmine"
+	desc = "A advanced nonlethal stunning mine. Uses advanced detection software to only trigger when activated by someone without a mindshield implant. Can be rapidly placed and disarmed."
+	id = "stunmine_rapid"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 10000, /datum/material/glass = 4000, /datum/material/copper = 1000, /datum/material/silver = 500, /datum/material/uranium = 200)
+	build_path = /obj/item/deployablemine/lm6
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/lm12_stunmine/sec
+	name = "LM-12 Sledgehammer Smartmine"
+	desc = "A advanced nonlethal stunning mine. Uses advanced detection software to only trigger when activated by someone without a mindshield implant. Very powerful and hard to disarm."
+	id = "stunmine_heavy"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 10000, /datum/material/glass = 4000, /datum/material/copper = 1000, /datum/material/silver = 500, /datum/material/uranium = 200)
+	build_path = /obj/item/deployablemine/lm12
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
 /datum/design/honkmine
 	name = "Honkblaster 1000"
 	desc = "An advanced pressure activated pranking mine, honk!"

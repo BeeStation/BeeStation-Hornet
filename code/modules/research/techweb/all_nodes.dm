@@ -671,9 +671,9 @@
 	export_price = 5000
 
 /datum/techweb_node/smartmine
-	id = "nonlethal_mines"
+	id = "smart_mines"
 	display_name = "Smart Landmine Technology"
-	description = "Using IFF technolgy, we could develop smartmines that are only triggered by enemies."
+	description = "Using IFF technology, we could develop smartmines that are only triggered by enemies."
 	prereq_ids = list("weaponry", "nonlethal_mines", "adv_engi")
 	design_ids = list("stunmine_adv")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
@@ -686,6 +686,15 @@
 	prereq_ids = list("adv_engi", "weaponry")
 	design_ids = list("pin_loyalty")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	export_price = 5000
+
+/datum/techweb_node/smartmine
+	id = "adv_mines"
+	display_name = "Advanced Landmine Technology"
+	description = "We can develop some extremely capable landmines."
+	prereq_ids = list("weaponry", "smart_mines", "adv_engi")
+	design_ids = list("stunmine_rapid", "stunmine_heavy")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
 /datum/techweb_node/electric_weapons

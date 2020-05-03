@@ -10,8 +10,21 @@
 	mine_type = /obj/effect/mine/stun
 
 /obj/item/deployablemine/smartstun
+	name = "deployable smart mine"
 	desc = "An unarmed smart stun mine. It can be planted to arm it."
 	mine_type = /obj/effect/mine/stun/smart
+
+/obj/item/deployablemine/lm6
+	name = "unarmed LM-6 Rapid Deployment Mine"
+	desc = "An unarmed smart stun mine designed to be rapidly placeable."
+	mine_type = /obj/effect/mine/stun/smart/adv
+	arming_time = 10
+
+/obj/item/deployablemine/lm12
+	name = "unarmed LM-12 Sledgehammer Mine"
+	desc = "An unarmed smart heavy stun mine designed to be hard to disarm."
+	mine_type = /obj/effect/mine/stun/smart/heavy
+	arming_time = 50
 
 /obj/item/deployablemine/explosive
 	mine_type = /obj/effect/mine/explosive
@@ -79,6 +92,14 @@
 	icon_state = "uglymine"
 	var/triggered = 0
 	var/smartmine = 0
+	var/disarm_time = 70
+
+/obj/effect/mine/attackby(obj/I, mob/user, params)
+	if(istype(I, /obj/item/multitool))
+		to_chat(user, "You begin to disarm the [src]")
+		if(do_after(user, disarm_time, target = src))
+			to_chat(user, "You disarm the [src]")
+			qdel(src)
 
 /obj/effect/mine/proc/mineEffect(mob/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
@@ -145,14 +166,26 @@
 /obj/effect/mine/stun
 	name = "stun mine"
 	var/stun_time = 120
+	var/damage = 0
 
 /obj/effect/mine/stun/smart
 	name = "smart stun mine"
+	desc = "An advanced mine with IFF features, capable of ignoring people with mindshield implants."
 	smartmine = 1
 
+/obj/effect/mine/stun/smart/adv
+	name = "LM-6 Rapid Deployment Mine"
+	disarm_time = 50
+
+/obj/effect/mine/stun/smart/heavy
+	name = "LM-12 Sledgehammer Mine"
+	disarm_time = 120
+	stun_time = 180
+	damage = 40
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
-		victim.Paralyze(stun_time)
+		victim.adjustStaminaLoss(stun_time)
+		victim.adjustBruteLoss(damage)
 
 /obj/effect/mine/kickmine
 	name = "kick mine"
