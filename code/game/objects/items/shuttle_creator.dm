@@ -25,6 +25,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	resistance_flags = FIRE_PROOF
 	var/ready = TRUE
 	var/recorded_shuttle_area
+	var/overwritten_area = /area/space
 	var/list/loggedTurfs = list()
 	var/loggedOldArea
 	var/linkedShuttleId
@@ -177,6 +178,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.preferred_direction = 4
 	port.area_type = recorded_shuttle_area
 
+	stationary_port.area_type = overwritten_area
+
 	var/portDirection = getNonShuttleDirection(get_turf(port))
 	var/invertedDir = invertDir(portDirection)
 	if(!portDirection || !invertedDir)
@@ -214,7 +217,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.linkup(new_shuttle, stationary_port)
 
 	port.movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
-	port.initiate_docking(stationary_port, old_area_override = loggedOldArea)
+	port.initiate_docking(stationary_port, old_area_override = overwritten_area)
 
 	port.mode = SHUTTLE_IDLE
 	port.timer = 0
@@ -301,7 +304,11 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		if(!place)
 			to_chat(usr, "<span class='warning'>You can't seem to overpower the bluespace harmonics in this location, try somewhere else.</span>")
 			return FALSE
-		if(!istype(place, /area/space) && !istype(place, /area/lavaland))
+		if(istype(place, /area/space))
+			overwritten_area = /area/space
+		else if(istype(place, /area/lavaland/surface/outdoors))
+			overwritten_area = /area/lavaland/surface/outdoors
+		else
 			to_chat(usr, "<span class='warning'>Caution, shuttle must not use any material connected to the station. Your shuttle is currenly overlapping with [place.name]</span>")
 			return FALSE
 	return TRUE

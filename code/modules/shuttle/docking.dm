@@ -1,5 +1,5 @@
 /// This is the main proc. It instantly moves our mobile port to stationary port `new_dock`.
-/obj/docking_port/mobile/proc/initiate_docking(obj/docking_port/stationary/new_dock, movement_direction, force=FALSE, old_area_override=SHUTTLE_DEFAULT_UNDERLYING_AREA)
+/obj/docking_port/mobile/proc/initiate_docking(obj/docking_port/stationary/new_dock, movement_direction, force=FALSE)
 	// Crashing this ship with NO SURVIVORS
 	if(new_dock.get_docked() == src)
 		remove_ripples()
@@ -16,7 +16,7 @@
 	var/obj/docking_port/stationary/old_dock = get_docked()
 
 	// The area that gets placed under where the shuttle moved from
-	var/underlying_area_type = old_area_override
+	var/underlying_area_type = SHUTTLE_DEFAULT_UNDERLYING_AREA
 
 	if(old_dock) //Dock overwrites
 		underlying_area_type = old_dock.area_type
