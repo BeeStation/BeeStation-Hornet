@@ -2040,14 +2040,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cant_discount = TRUE
 	illegal_tech = FALSE
 
-/*
-/datum/uplink_item/badass/toy_holoparasites
-	name = "Toy Holoparasites"
-	desc = "A holoparasite colony that is utterly useless. costs as much as real holoparasites."
-	item = /obj/item/guardiancreator/tech/toy
-	cost = 16
-*/
-
 /datum/uplink_item/badass/syndiecash
 	name = "Syndicate Briefcase Full of Cash"
 	desc = "A secure briefcase containing 5000 space credits. Useful for bribing personnel, or purchasing goods \
