@@ -257,6 +257,11 @@
 	icon_state = "empdisable"
 	duration = 5
 
+/obj/effect/temp_visual/telegloves
+	name = "telekinetic force"
+	icon_state = "empdisable"
+	duration = 10
+
 /obj/effect/temp_visual/emp
 	name = "emp sparks"
 	icon_state = "empdisable"

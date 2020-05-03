@@ -777,7 +777,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 18, list/splitJobs = list("Chief Medical Officer"), widthPerColumn = 295, height = 620)
+/datum/preferences/proc/SetChoices(mob/user, limit = 16, list/splitJobs = list("Clown", "Research Director"), widthPerColumn = 295, height = 620)
 	if(!SSjob)
 		return
 
@@ -808,7 +808,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/datum/job/overflow = SSjob.GetJob(SSjob.overflow_role)
 
 		for(var/datum/job/job in sortList(SSjob.occupations, /proc/cmp_job_display_asc))
-
+			if(job.gimmick) //Gimmick jobs run off of a single pref
+				continue
 			index += 1
 			if((index >= limit) || (job.title in splitJobs))
 				width += widthPerColumn

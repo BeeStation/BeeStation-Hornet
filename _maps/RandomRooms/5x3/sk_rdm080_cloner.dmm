@@ -30,7 +30,6 @@
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 "c" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -73,6 +72,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 "f" = (
