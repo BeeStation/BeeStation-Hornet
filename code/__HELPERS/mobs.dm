@@ -116,6 +116,13 @@
 		if(!findname(.))
 			break
 
+/proc/random_unique_apid_name(gender, attempts_to_find_unique_name=10)
+	for(var/i in 1 to attempts_to_find_unique_name)
+		. = capitalize(apid_name(gender))
+
+		if(!findname(.))
+			break
+
 /proc/random_unique_plasmaman_name(attempts_to_find_unique_name=10)
 	for(var/i in 1 to attempts_to_find_unique_name)
 		. = capitalize(plasmaman_name())
@@ -486,6 +493,19 @@ GLOBAL_LIST_EMPTY(species_list)
 		chosen = pick(mob_spawn_meancritters)
 	var/mob/living/simple_animal/C = new chosen(spawn_location)
 	return C
+
+/proc/passtable_on(target, source)
+	var/mob/living/L = target
+	if (!HAS_TRAIT(L, TRAIT_PASSTABLE) && L.pass_flags & PASSTABLE)
+		ADD_TRAIT(L, TRAIT_PASSTABLE, INNATE_TRAIT)
+	ADD_TRAIT(L, TRAIT_PASSTABLE, source)
+	L.pass_flags |= PASSTABLE
+
+/proc/passtable_off(target, source)
+	var/mob/living/L = target
+	REMOVE_TRAIT(L, TRAIT_PASSTABLE, source)
+	if(!HAS_TRAIT(L, TRAIT_PASSTABLE))
+		L.pass_flags &= ~PASSTABLE
 
 //Gets the sentient mobs that are not on centcom and are alive
 /proc/get_sentient_mobs()

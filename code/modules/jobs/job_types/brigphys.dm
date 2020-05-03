@@ -35,7 +35,7 @@
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit = /obj/item/clothing/suit/hazardvest/brig_phys
 	suit_store = /obj/item/flashlight/seclite
-	l_hand = /obj/item/storage/firstaid/regular
+	l_hand = /obj/item/storage/firstaid/medical
 	head = /obj/item/clothing/head/soft/sec/brig_phys
 	implants = list(/obj/item/implant/mindshield)
 

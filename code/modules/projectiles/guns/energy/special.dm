@@ -144,6 +144,9 @@
 	var/progress_flash_divisor = 10  //copypasta is best pasta
 	var/light_intensity = 1
 	var/charge_weld = 25 //amount of charge used up to start action (multiplied by amount) and per progress_flash_divisor ticks of welding
+	weapon_weight = WEAPON_LIGHT
+	fire_rate = 3
+	automatic = 1
 
 /obj/item/gun/energy/plasmacutter/Initialize()
 	. = ..()
@@ -301,6 +304,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
+	automatic = 1
+	fire_rate = 6
 
 /obj/item/gun/energy/printer/update_icon()
 	return
@@ -314,6 +319,8 @@
 	desc = "A gun that changes temperatures."
 	ammo_type = list(/obj/item/ammo_casing/energy/temp, /obj/item/ammo_casing/energy/temp/hot)
 	cell_type = "/obj/item/stock_parts/cell/high"
+	automatic = 1
+	fire_rate = 4
 	pin = null
 
 /obj/item/gun/energy/temperature/security

@@ -482,7 +482,7 @@
 	cost = 10000
 	contains = list(/obj/item/reagent_containers/glass/bottle/concentrated_bz)
 	crate_name = "Changeling testing kit crate"
-	
+
 /datum/supply_pack/security/armory/chemimp
 	name = "Chemical Implants Crate"
 	desc = "Contains five Remote Chemical implants. Requires Armory access to open."
@@ -1442,20 +1442,6 @@
 					/obj/item/reagent_containers/blood/ethereal)
 	crate_name = "blood freezer"
 	crate_type = /obj/structure/closet/crate/freezer
-
-/datum/supply_pack/medical/advchem
-	name = "Advanced Chemistry Supplies Crate"
-	desc = "Contains two boxes of bluespace beakers, 4 large grenade casings an inducer and a power cell."
-	cost = 2500
-	contains = list(/obj/item/storage/box/beakers/bluespace,
-					/obj/item/storage/box/beakers/bluespace,
-					/obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0},
-					/obj/item/stock_parts/cell/high,
-					/obj/item/grenade/chem_grenade/large,
-					/obj/item/grenade/chem_grenade/large,
-					/obj/item/grenade/chem_grenade/large,
-					/obj/item/grenade/chem_grenade/large)
-	crate_name = "advanced chemistry supplies crate"
 
 /datum/supply_pack/medical/syringegun
 	name = "Syringe Gun Crate"
