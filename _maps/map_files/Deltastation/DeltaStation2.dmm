@@ -87427,10 +87427,10 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cPp" = (
-/obj/structure/chair,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/machinery/medical_kiosk,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cPq" = (

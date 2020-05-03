@@ -29320,20 +29320,17 @@
 "bwJ" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_y = 7;
-	
+	pixel_y = 7
 	},
 /obj/item/reagent_containers/glass/beaker/cryoxadone,
 /obj/machinery/camera/autoname,
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
 	pixel_x = 7;
-	pixel_y = 7;
-	
+	pixel_y = 7
 	},
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
 	pixel_x = 7;
-	pixel_y = 1;
-	
+	pixel_y = 1
 	},
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
@@ -56000,8 +55997,7 @@
 /area/hallway/primary/fore)
 "ssF" = (
 /obj/machinery/computer/cryopod{
-	pixel_y = 25;
-	
+	pixel_y = 25
 	},
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
@@ -57678,6 +57674,10 @@
 	},
 /turf/open/floor/carpet,
 /area/vacant_room/office)
+"xVV" = (
+/obj/machinery/medical_kiosk,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "xWE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -93949,7 +93949,7 @@ bcr
 aYV
 bet
 bfG
-bhe
+xVV
 sha
 bjV
 blj

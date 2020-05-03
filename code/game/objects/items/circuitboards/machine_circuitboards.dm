@@ -1042,7 +1042,6 @@
 
 /obj/item/circuitboard/machine/medical_kiosk
 	name = "Medical Kiosk (Machine Board)"
-	icon_state = "medical"
 	build_path = /obj/machinery/medical_kiosk
 	var/custom_cost = 10
 	req_components = list(
