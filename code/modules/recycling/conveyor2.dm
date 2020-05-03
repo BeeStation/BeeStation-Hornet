@@ -38,6 +38,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/machinery/conveyor/auto/Initialize(mapload, newdir)
 	. = ..()
+	affecting = list()
 	operating = TRUE
 	update_move_direction()
 
@@ -156,6 +157,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 			A.ConveyorMove(movedir)
 			//Give this a chance to yield if the server is busy
 			stoplag()
+	affecting.Cut()
 	conveying = FALSE
 
 // attack with item, place item on conveyor
