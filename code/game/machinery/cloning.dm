@@ -181,26 +181,20 @@
 	if(!empty) //Doesn't matter if we're just making a copy
 		clonemind = locate(mindref) in SSticker.minds
 		if(!istype(clonemind))	//not a mind
-			to_chat(world, "1")
 			return NONE
 		if(clonemind.last_death != last_death) //The soul has advanced, the record has not.
-			to_chat(world, "2")
 			return NONE
 		if(!QDELETED(clonemind.current))
 			if(clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
-				to_chat(world, "3")
 				return NONE
 			if(clonemind.current.suiciding) // Mind is associated with a body that is suiciding.
-				to_chat(world, "4")
 				return NONE
 		if(!clonemind.active)
 			// get_ghost() will fail if they're unable to reenter their body
 			var/mob/dead/observer/G = clonemind.get_ghost()
 			if(!G)
-				to_chat(world, "5")
 				return NONE
 			if(G.suiciding) // The ghost came from a body that is suiciding.
-				to_chat(world, "6")
 				return NONE
 		if(clonemind.damnation_type) //Can't clone the damned.
 			INVOKE_ASYNC(src, .proc/horrifyingsound)
@@ -209,7 +203,6 @@
 			update_icon()
 			return NONE
 		if(clonemind.no_cloning_at_all) // nope.
-			to_chat(world, "7")
 			return NONE
 		current_insurance = insurance
 	attempting = TRUE //One at a time!!
