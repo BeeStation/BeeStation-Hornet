@@ -294,7 +294,7 @@
 /area/template_noop)
 "U" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/rank/curator,
+/obj/item/clothing/under/rank/civilian/curator,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/wood,
 /area/template_noop)

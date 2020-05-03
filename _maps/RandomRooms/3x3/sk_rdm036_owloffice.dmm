@@ -9,7 +9,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
 /obj/item/clothing/suit/toggle/owlwings,
-/obj/item/clothing/under/owl,
+/obj/item/clothing/under/costume/owl,
 /obj/item/clothing/mask/gas/owl_mask,
 /turf/open/floor/plating,
 /area/template_noop)
