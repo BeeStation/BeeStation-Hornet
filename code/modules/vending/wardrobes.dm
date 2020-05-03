@@ -23,9 +23,12 @@
 					/obj/item/clothing/head/soft/sec = 3,
 					/obj/item/clothing/mask/bandana/red = 3,
 					/obj/item/clothing/under/rank/security/officer/skirt = 3,
-					/obj/item/clothing/under/rank/security/officer/grey = 3,
+					/obj/item/clothing/under/rank/security/officer/white = 3,
 					/obj/item/clothing/under/pants/khaki = 3,
-					/obj/item/clothing/under/rank/security/officer/blueshirt = 3)
+					/obj/item/clothing/under/rank/security/officer/blueshirt = 3,
+					/obj/item/clothing/under/rank/security/officer/mallcop = 3,
+					/obj/item/clothing/neck/tie/red = 6,
+					/obj/item/clothing/neck/tie/black = 6,)
 	premium = list(/obj/item/clothing/under/rank/security/officer/formal = 3,
 					/obj/item/clothing/suit/security/officer = 3,
 					/obj/item/clothing/head/beret/sec/navyofficer = 3)
@@ -263,7 +266,8 @@
 					/obj/item/circuitboard/machine/dish_drive = 1,
 					/obj/item/clothing/suit/toggle/chef = 1,
 					/obj/item/clothing/under/rank/civilian/chef = 1,
-					/obj/item/clothing/head/chefhat = 1,
+					/obj/item/clothing/under/rank/civilian/altchef = 1,
+					/obj/item/clothing/head/chefhat = 3,
 					/obj/item/reagent_containers/glass/rag = 1,
 					/obj/item/clothing/suit/hooded/wintercoat = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/chef_wardrobe

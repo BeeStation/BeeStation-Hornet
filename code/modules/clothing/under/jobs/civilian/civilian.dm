@@ -31,6 +31,13 @@
 	item_color = "chef"
 	alt_covers_chest = TRUE
 
+/obj/item/clothing/under/rank/civilian/altchef
+	name = "red cook's suit"
+	desc = "A flashier chef's suit, if a bit more impractical."
+	icon_state = "altchef"
+	item_color = "altchef"
+	alt_covers_chest = TRUE
+	
 /obj/item/clothing/under/rank/civilian/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
 	name = "head of personnel's jumpsuit"
