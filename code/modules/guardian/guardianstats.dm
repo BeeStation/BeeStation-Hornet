@@ -11,6 +11,9 @@
 /datum/guardian_stats/proc/Apply(mob/living/simple_animal/hostile/guardian/guardian)
 	guardian.range = range * 2
 	if(ranged)
+		guardian.melee_damage_lower = damage * 2.5
+		guardian.melee_damage_upper = damage * 2.5
+		guardian.obj_damage = damage * 6
 		guardian.ranged = TRUE
 		guardian.ranged_cooldown_time = 5 / speed
 	else
