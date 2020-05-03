@@ -1,3 +1,53 @@
+/obj/item/deployablemine
+	name = "deployable mine"
+	desc = "An unarmed landmine. It can be planted to arm it."
+	icon_state = "uglymine"
+	var/mine_type = /obj/effect/mine
+
+/obj/item/deployablemine/stun
+	desc = "An unarmed stun mine. It can be planted to arm it."
+	mine_type = /obj/effect/mine/stun
+
+/obj/item/deployablemine/smartstun
+	desc = "An unarmed smart stun mine. It can be planted to arm it."
+	mine_type = /obj/effect/mine/stun/smart
+
+/obj/item/deployablemine/explosive
+	mine_type = /obj/effect/mine/explosive
+
+/obj/item/deployablemine/honk
+	name = "unarmed honkblaster 1000"
+	desc = "An advanced pranking landmine for clowns, honk! Delivers a harmless extra loud HONK to the head when triggered. It can be planted to arm it."
+	mine_type = /obj/effect/mine/sound
+
+/obj/item/deployablemine/traitor
+	name = "exploding rubber duck"
+	desc = "A pressure activated explosive disguised as a rubber duck. Plant it to arm."
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "rubberducky"
+	mine_type = /obj/effect/mine/explosive/traitor
+
+/obj/item/deployablemine/traitor/bigboom
+	name = "high yield exploding rubber duck"
+	desc = "A pressure activated explosive disguised as a rubber duck. Plant it to arm. This version is fitted with high yield X4 for a larger blast."
+	mine_type = /obj/effect/mine/explosive/traitor/bigboom
+
+/obj/item/deployablemine/afterattack(atom/plantspot, mob/user, proximity)
+	if(!proximity)
+		return
+
+	if(isspaceturf(plantspot))
+		to_chat(user, "<span class='warning'>you cannot plant a mine in space!</span>")
+		return
+
+	if((istype(plantspot,/turf/open/lava)) || (istype(plantspot,/turf/open/chasm)))
+		to_chat(user, "<span class='warning'>You can't plant the mine here!</span>")
+		return
+	new mine_type(plantspot)
+	to_chat(user, "You plant and arm the [src].")
+	log_combat(user, src, "planted and armed")
+	qdel(src)
+
 /obj/effect/mine
 	name = "dummy mine"
 	desc = "Better stay away from that thing."
@@ -6,6 +56,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "uglymine"
 	var/triggered = 0
+	var/smartmine = 0
 
 /obj/effect/mine/proc/mineEffect(mob/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
@@ -15,9 +66,16 @@
 		if(ismob(AM))
 			var/mob/MM = AM
 			if(!(MM.movement_type & FLYING))
-				triggermine(AM)
+				checksmartmine(AM)
 		else
 			triggermine(AM)
+
+/obj/effect/mine/proc/checksmartmine(mob/target)
+	if(target)
+		if(!(target && HAS_TRAIT(target, TRAIT_MINDSHIELD)))
+			triggermine(target)
+		if(smartmine == 0)
+			triggermine(target)
 
 /obj/effect/mine/proc/triggermine(mob/victim)
 	if(triggered)
@@ -38,13 +96,37 @@
 	var/range_light = 2
 	var/range_flash = 3
 
+/obj/effect/mine/explosive/traitor
+	name = "rubber ducky"
+	desc = "Rubber ducky you're so fine, you make bathtime lots of fuuun. Rubber ducky I'm awfully fooooond of yooooouuuu~"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "rubberducky"
+	var/sound = 'sound/items/bikehorn.ogg'
+	range_heavy = 2
+	range_light = 3
+	range_flash = 4
+
+/obj/effect/mine/explosive/traitor/bigboom
+	range_devastation = 2
+	range_heavy = 4
+	range_light = 8
+	range_flash = 6
+
+
 /obj/effect/mine/explosive/mineEffect(mob/victim)
 	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
 
+/obj/effect/mine/explosive/traitor/mineEffect(mob/victim)
+	playsound(loc, sound, 100, 1)
+	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
 
 /obj/effect/mine/stun
 	name = "stun mine"
-	var/stun_time = 80
+	var/stun_time = 120
+
+/obj/effect/mine/stun/smart
+	name = "smart stun mine"
+	smartmine = 1
 
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
@@ -81,14 +163,16 @@
 /obj/effect/mine/sound
 	name = "honkblaster 1000"
 	var/sound = 'sound/items/bikehorn.ogg'
+	var/volume = 150
 
 /obj/effect/mine/sound/mineEffect(mob/victim)
-	playsound(loc, sound, 100, 1)
+	playsound(loc, sound, volume, 1)
 
 
 /obj/effect/mine/sound/bwoink
 	name = "bwoink mine"
 	sound = 'sound/effects/adminhelp.ogg'
+	volume = 100
 
 /obj/effect/mine/pickup
 	name = "pickup"
