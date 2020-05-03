@@ -413,7 +413,7 @@
 	description = "Honk?!"
 	prereq_ids = list("base")
 	design_ids = list("air_horn", "honker_main", "honker_peri", "honker_targ", "honk_chassis", "honk_head", "honk_torso", "honk_left_arm", "honk_right_arm",
-	"honk_left_leg", "honk_right_leg", "mech_banana_mortar", "mech_mousetrap_mortar", "mech_honker", "mech_punching_face", "implant_trombone", "borg_transform_clown")
+	"honk_left_leg", "honk_right_leg", "mech_banana_mortar", "mech_mousetrap_mortar", "mech_honker", "mech_punching_face", "implant_trombone", "borg_transform_clown", "Honkmine")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -651,6 +651,16 @@
 
 
 /////////////////////////weaponry tech/////////////////////////
+
+/datum/techweb_node/landmine
+	id = "nonlethal_mines"
+	display_name = "Nonlethal Landmine Technology"
+	description = "Our weapons technicians could perhaps work out methods for the creation of nonlethal landmines for security teams."
+	prereq_ids = list("engineering", "sec_basic")
+	design_ids = list("stunmine")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	export_price = 5000
+
 /datum/techweb_node/weaponry
 	id = "weaponry"
 	display_name = "Weapon Development Technology"
@@ -658,6 +668,15 @@
 	prereq_ids = list("engineering")
 	design_ids = list("pin_testing", "tele_shield", "sleepy")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	export_price = 5000
+
+/datum/techweb_node/smartmine
+	id = "nonlethal_mines"
+	display_name = "Smart Landmine Technology"
+	description = "Using IFF technolgy, we could develop smartmines that are only triggered by enemies."
+	prereq_ids = list("weaponry", "nonlethal_mines", "adv_engi")
+	design_ids = list("stunmine_adv")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
 /datum/techweb_node/adv_weaponry

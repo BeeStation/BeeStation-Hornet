@@ -136,12 +136,12 @@
 /datum/design/honkmine
 	name = "Honkblaster 1000"
 	desc = "An advanced pressure activated pranking mine, honk!"
-	id = "serv_Honkmine"
+	id = "Honkmine"
 	materials = list(/datum/material/iron = 4000, /datum/material/glass = 1000, /datum/material/copper = 400)
 	build_path = /obj/item/deployablemine/honk
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
-	
+
 /datum/design/stunrevolver
 	name = "Tesla Revolver"
 	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
