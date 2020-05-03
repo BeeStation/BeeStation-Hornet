@@ -32,6 +32,7 @@
 	req_access = list(ACCESS_RD) //ONLY THE R&D CAN CHANGE SERVER SETTINGS.
 
 /obj/machinery/rnd/server/Initialize(mapload)
+	thermo = LoadComponent(/datum/component/thermo,temp_tolerance_damage + 10,heating_power,heating_effecency)
 	. = ..()
 
 	server_id = 0
@@ -49,7 +50,6 @@
 	var/obj/item/circuitboard/machine/B = new /obj/item/circuitboard/machine/rdserver(null)
 	B.apply_default_parts(src)
 	// The +10 is so the sparks work
-	thermo = LoadComponent(/datum/component/thermo,temp_tolerance_damage + 10,heating_power,heating_effecency)
 	RefreshParts()
 
 /obj/machinery/rnd/server/Destroy()
@@ -144,8 +144,8 @@
 	icon_keyboard = "rd_key"
 	req_access = list(ACCESS_RD)
 	circuit = /obj/item/circuitboard/computer/rdservercontrol
-	pixel_x = 900
-	pixel_y = 750
+	ui_x = 900
+	ui_y = 750
 
 /obj/machinery/computer/rdservercontrol/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
 																	datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
