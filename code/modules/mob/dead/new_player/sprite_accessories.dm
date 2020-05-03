@@ -61,7 +61,6 @@
 	var/dimension_x = 32
 	var/dimension_y = 32
 	var/center = FALSE	//Should we center the sprite?
-	var/metacoin_locked = FALSE // if it needs to be bought with metacoins to have it
 	var/limbs_id // The limbs id supplied for full-body replacing features.
 
 //////////////////////
@@ -1455,7 +1454,7 @@
 /datum/sprite_accessory/socks/bee_knee
 	name = "Knee-high (Bee)"
 	icon_state = "bee_knee"
-	
+
 /datum/sprite_accessory/socks/black_norm
 	name = "Normal (Black)"
 	icon_state = "black_norm"
@@ -1511,7 +1510,7 @@
 /datum/sprite_accessory/socks/bee_thigh
 	name = "Thigh-high (Bee)"
 	icon_state = "bee_thigh"
-	
+
 //////////.//////////////////
 // MutantParts Definitions //
 /////////////////////////////
@@ -1846,7 +1845,7 @@
 	dimension_x = 46
 	center = TRUE
 	dimension_y = 34
-	metacoin_locked = TRUE
+	locked = TRUE
 
 // IPC accessories.
 

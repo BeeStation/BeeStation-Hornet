@@ -175,6 +175,13 @@ LINEN BINS
 	item_color = "qm"
 	dream_messages = list("a grey ID", "a shuttle", "a crate", "a sloth", "the quartermaster")
 
+/obj/item/bedsheet/magician
+	name = "magician's cape"
+	desc = "A magician never reveals his secrets."
+	icon_state = "sheetmagician"
+	item_color = "magician"
+	dream_messages = list("trickery", "crime", "a gullible mark", "an angry wizard", "pixie dust")
+
 /obj/item/bedsheet/brown
 	icon_state = "sheetbrown"
 	item_color = "cargo"
