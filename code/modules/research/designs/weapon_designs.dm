@@ -128,7 +128,7 @@
 	desc = "A advanced nonlethal stunning mine. Uses advanced detection software to only trigger when activated by someone without a mindshield implant."
 	id = "stunmine_adv"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 8000, /datum/material/glass = 3000, /datum/material/copper = 1000, /datum/material/uranium = 200)
+	materials = list(/datum/material/iron = 8000, /datum/material/glass = 3000, /datum/material/copper = 1000, /datum/material/silver = 200)
 	build_path = /obj/item/deployablemine/smartstun
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

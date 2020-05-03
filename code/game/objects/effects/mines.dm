@@ -3,6 +3,7 @@
 	desc = "An unarmed landmine. It can be planted to arm it."
 	icon_state = "uglymine"
 	var/mine_type = /obj/effect/mine
+	var/arming_time = 30
 
 /obj/item/deployablemine/stun
 	desc = "An unarmed stun mine. It can be planted to arm it."
@@ -32,8 +33,26 @@
 	desc = "A pressure activated explosive disguised as a rubber duck. Plant it to arm. This version is fitted with high yield X4 for a larger blast."
 	mine_type = /obj/effect/mine/explosive/traitor/bigboom
 
+/obj/item/deployablemine/gas
+	name = "oxygen gas mine"
+	desc = "An unarmed mine that releases oxygen into the air when triggered. Pretty pointless huh."
+	mine_type = /obj/effect/mine/gas
+
+/obj/item/deployablemine/plasma
+	name = "incendiary mine"
+	desc = "An unarmed mine that releases plasma into the air when triggered, then ignites it."
+	mine_type = /obj/effect/mine/gas/plasma
+
+/obj/item/deployablemine/sleepy
+	name = "knockout mine"
+	desc = "An unarmed mine that releases N2O into the air when triggered. Nighty Night!"
+	mine_type = /obj/effect/mine/gas/n2o
+
 /obj/item/deployablemine/afterattack(atom/plantspot, mob/user, proximity)
 	if(!proximity)
+		return
+
+	if(!istype(plantspot,/turf/open)) // you can't plant a mine inside a wall or on a mob
 		return
 
 	if(isspaceturf(plantspot))
@@ -43,10 +62,13 @@
 	if((istype(plantspot,/turf/open/lava)) || (istype(plantspot,/turf/open/chasm)))
 		to_chat(user, "<span class='warning'>You can't plant the mine here!</span>")
 		return
-	new mine_type(plantspot)
-	to_chat(user, "You plant and arm the [src].")
-	log_combat(user, src, "planted and armed")
-	qdel(src)
+
+	to_chat(user, "You start arming the [src]...")
+	if(do_after(user, arming_time, target = src))
+		new mine_type(plantspot)
+		to_chat(user, "You plant and arm the [src].")
+		log_combat(user, src, "planted and armed")
+		qdel(src)
 
 /obj/effect/mine
 	name = "dummy mine"
@@ -151,12 +173,12 @@
 
 
 /obj/effect/mine/gas/plasma
-	name = "plasma mine"
+	name = "incendiary mine"
 	gas_type = "plasma"
 
 
 /obj/effect/mine/gas/n2o
-	name = "\improper N2O mine"
+	name = "knockout mine"
 	gas_type = "n2o"
 
 
