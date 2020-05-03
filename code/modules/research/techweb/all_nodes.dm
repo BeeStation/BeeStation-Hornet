@@ -413,7 +413,7 @@
 	description = "Honk?!"
 	prereq_ids = list("base")
 	design_ids = list("air_horn", "honker_main", "honker_peri", "honker_targ", "honk_chassis", "honk_head", "honk_torso", "honk_left_arm", "honk_right_arm",
-	"honk_left_leg", "honk_right_leg", "mech_banana_mortar", "mech_mousetrap_mortar", "mech_honker", "mech_punching_face", "implant_trombone", "borg_transform_clown", "Honkmine")
+	"honk_left_leg", "honk_right_leg", "mech_banana_mortar", "mech_mousetrap_mortar", "mech_honker", "mech_punching_face", "implant_trombone", "borg_transform_clown", "clown_mine")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -688,7 +688,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
-/datum/techweb_node/smartmine
+/datum/techweb_node/advmine
 	id = "adv_mines"
 	display_name = "Advanced Landmine Technology"
 	description = "We can develop some extremely capable landmines."

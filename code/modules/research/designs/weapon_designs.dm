@@ -156,7 +156,7 @@
 /datum/design/honkmine
 	name = "Honkblaster 1000"
 	desc = "An advanced pressure activated pranking mine, honk!"
-	id = "Honkmine"
+	id = "clown_mine"
 	materials = list(/datum/material/iron = 4000, /datum/material/glass = 1000, /datum/material/copper = 400)
 	build_path = /obj/item/deployablemine/honk
 	category = list("Ammo")

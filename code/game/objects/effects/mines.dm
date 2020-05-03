@@ -76,10 +76,10 @@
 		to_chat(user, "<span class='warning'>You can't plant the mine here!</span>")
 		return
 
-	to_chat(user, "You start arming the [src]...")
+	to_chat(user, "<span class='notice'>You start arming the [src]...</span>")
 	if(do_after(user, arming_time, target = src))
 		new mine_type(plantspot)
-		to_chat(user, "You plant and arm the [src].")
+		to_chat(user, "<span class='notice'>You plant and arm the [src].</span>")
 		log_combat(user, src, "planted and armed")
 		qdel(src)
 
@@ -92,13 +92,15 @@
 	icon_state = "uglymine"
 	var/triggered = 0
 	var/smartmine = 0
-	var/disarm_time = 70
+	var/disarm_time = 200
+	var/disarm_product = /obj/item/deployablemine // ie what drops when the mine is disarmed
 
 /obj/effect/mine/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/multitool))
-		to_chat(user, "You begin to disarm the [src]")
+		to_chat(user, "<span class='notice'>You begin to disarm the [src]...</span>")
 		if(do_after(user, disarm_time, target = src))
-			to_chat(user, "You disarm the [src]")
+			to_chat(user, "<span class='notice'>You disarm the [src].</span>")
+			new disarm_product(user.loc)
 			qdel(src)
 
 /obj/effect/mine/proc/mineEffect(mob/victim)
@@ -138,6 +140,7 @@
 	var/range_heavy = 1
 	var/range_light = 2
 	var/range_flash = 3
+	disarm_product = /obj/item/deployablemine/explosive
 
 /obj/effect/mine/explosive/traitor
 	name = "rubber ducky"
@@ -148,13 +151,15 @@
 	range_heavy = 2
 	range_light = 3
 	range_flash = 4
+	disarm_time = 400
+	disarm_product = /obj/item/deployablemine/traitor
 
 /obj/effect/mine/explosive/traitor/bigboom
 	range_devastation = 2
 	range_heavy = 4
 	range_light = 8
 	range_flash = 6
-
+	disarm_product = /obj/item/deployablemine/traitor/bigboom
 
 /obj/effect/mine/explosive/mineEffect(mob/victim)
 	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
@@ -165,23 +170,30 @@
 
 /obj/effect/mine/stun
 	name = "stun mine"
-	var/stun_time = 120
+	var/stun_time = 150
 	var/damage = 0
+	disarm_product = /obj/item/deployablemine/stun
 
 /obj/effect/mine/stun/smart
 	name = "smart stun mine"
 	desc = "An advanced mine with IFF features, capable of ignoring people with mindshield implants."
 	smartmine = 1
+	disarm_time = 250
+	disarm_product = /obj/item/deployablemine/smartstun
 
 /obj/effect/mine/stun/smart/adv
 	name = "LM-6 Rapid Deployment Mine"
-	disarm_time = 50
+	disarm_time = 120
+	disarm_product = /obj/item/deployablemine/lm6
 
 /obj/effect/mine/stun/smart/heavy
 	name = "LM-12 Sledgehammer Mine"
-	disarm_time = 120
-	stun_time = 180
+	disarm_time = 350
+	stun_time = 230
 	damage = 40
+	disarm_product = /obj/item/deployablemine/lm12
+
+
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
 		victim.adjustStaminaLoss(stun_time)
@@ -200,6 +212,7 @@
 	name = "oxygen mine"
 	var/gas_amount = 360
 	var/gas_type = "o2"
+	disarm_product = /obj/item/deployablemine/gas
 
 /obj/effect/mine/gas/mineEffect(mob/victim)
 	atmos_spawn_air("[gas_type]=[gas_amount]")
@@ -208,17 +221,20 @@
 /obj/effect/mine/gas/plasma
 	name = "incendiary mine"
 	gas_type = "plasma"
+	disarm_product = /obj/item/deployablemine/plasma
 
 
 /obj/effect/mine/gas/n2o
 	name = "knockout mine"
 	gas_type = "n2o"
-
+	disarm_product = /obj/item/deployablemine/sleepy
 
 /obj/effect/mine/sound
 	name = "honkblaster 1000"
 	var/sound = 'sound/items/bikehorn.ogg'
 	var/volume = 150
+	disarm_time = 1200 // very long disarm time to expand the annoying factor
+	disarm_time = /obj/item/deployablemine/honk
 
 /obj/effect/mine/sound/mineEffect(mob/victim)
 	playsound(loc, sound, volume, 1)
