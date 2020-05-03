@@ -214,7 +214,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.linkup(new_shuttle, stationary_port)
 
 	port.movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
-	port.initiate_docking(stationary_port)
+	port.initiate_docking(stationary_port, old_area_override = loggedOldArea)
 
 	port.mode = SHUTTLE_IDLE
 	port.timer = 0
@@ -227,6 +227,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 /obj/item/shuttle_creator/proc/create_shuttle_area(mob/user)
 	if(!loggedTurfs)
+		return FALSE
+	if(!check_area(loggedTurfs))	//Makes sure nothing (Shuttles) has moved into the area during creation
 		return FALSE
 	//Create the new area
 	var/area/shuttle/custom/powered/newS
@@ -272,28 +274,34 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	if(user)
 		if(user.create_area_cooldown >= world.time)
 			to_chat(user, "<span class='warning'>Smoke vents from the [src], maybe you should let it cooldown before using it again.</span>")
-			return
+			return FALSE
 		user.create_area_cooldown = world.time + 10
 	//Detect the turfs connected in the curerrent enclosed area
 	var/list/turfs = detect_room(get_turf(user), area_or_turf_fail_types)
-	if(!turfs)
-		to_chat(user, "<span class='warning'>Shuttles must be created in an airtight space, ensure that the shuttle is airtight, including corners.</span>")
-		return
-	if(turfs.len > SHUTTLE_CREATOR_MAX_SIZE)
-		to_chat(user, "<span class='warning'>The [src]'s internal cooling system wizzes violently and a message appears on the screen, \"Caution, this device can only handle the creation of shuttles up to [SHUTTLE_CREATOR_MAX_SIZE] units in size. Please reduce your shuttle by [turfs.len-SHUTTLE_CREATOR_MAX_SIZE]. Sorry for the inconvinience\"</span>")
-		return
-	//Check to see if it's a valid shuttle
-	for(var/i in 1 to turfs.len)
-		var/area/space/place = get_area(turfs[i])
-		//If any of the turfs are on station / not in space, a shuttle cannot be forced there
-		if(!place)
-			to_chat(user, "<span class='warning'>You can't seem to overpower the bluespace harmonics in this location, try somewhere else.</span>")
-			return
-		if(!istype(place, /area/space))
-			to_chat(user, "<span class='warning'>Caution, shuttle must not use any material connected to the station. Your shuttle is currenly overlapping with [place.name]</span>")
-			return
+	if(!check_area(turfs))
+		return FALSE
 
 	loggedOldArea = get_area(get_turf(user))
 	loggedTurfs = turfs
 	icon_state = "rsd_used"
 	to_chat(user, "<span class='notice'>Your current area was logged into the [src], select an airlock to act as the docking point.</span>")
+	return TRUE
+
+/obj/item/shuttle_creator/proc/check_area(list/turfs)
+	if(!turfs)
+		to_chat(usr, "<span class='warning'>Shuttles must be created in an airtight space, ensure that the shuttle is airtight, including corners.</span>")
+		return FALSE
+	if(turfs.len > SHUTTLE_CREATOR_MAX_SIZE)
+		to_chat(usr, "<span class='warning'>The [src]'s internal cooling system wizzes violently and a message appears on the screen, \"Caution, this device can only handle the creation of shuttles up to [SHUTTLE_CREATOR_MAX_SIZE] units in size. Please reduce your shuttle by [turfs.len-SHUTTLE_CREATOR_MAX_SIZE]. Sorry for the inconvinience\"</span>")
+		return FALSE
+	//Check to see if it's a valid shuttle
+	for(var/i in 1 to turfs.len)
+		var/area/place = get_area(turfs[i])
+		//If any of the turfs are on station / not in space, a shuttle cannot be forced there
+		if(!place)
+			to_chat(usr, "<span class='warning'>You can't seem to overpower the bluespace harmonics in this location, try somewhere else.</span>")
+			return FALSE
+		if(!istype(place, /area/space) && !istype(place, /area/lavaland))
+			to_chat(usr, "<span class='warning'>Caution, shuttle must not use any material connected to the station. Your shuttle is currenly overlapping with [place.name]</span>")
+			return FALSE
+	return TRUE
