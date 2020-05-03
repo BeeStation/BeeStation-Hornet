@@ -217,7 +217,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.linkup(new_shuttle, stationary_port)
 
 	port.movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
-	port.initiate_docking(stationary_port, old_area_override = overwritten_area)
+	port.initiate_docking(stationary_port)
 
 	port.mode = SHUTTLE_IDLE
 	port.timer = 0
