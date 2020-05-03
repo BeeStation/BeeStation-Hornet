@@ -2054,8 +2054,6 @@
 #include "code\modules\mentor\mentorsay.dm"
 #include "code\modules\mentor\misc_hippiementors.dm"
 #include "code\modules\metacoin\metacoin.dm"
-#include "code\modules\metacoin\metacoin_items.dm"
-#include "code\modules\metacoin\metacoin_shop.dm"
 #include "code\modules\mining\abandoned_crates.dm"
 #include "code\modules\mining\aux_base.dm"
 #include "code\modules\mining\aux_base_camera.dm"
