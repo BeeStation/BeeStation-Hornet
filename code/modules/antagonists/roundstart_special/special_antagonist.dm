@@ -65,6 +65,8 @@
 	job_rank = ROLE_SPECIAL
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = FALSE
+	prevent_roundtype_conversion = FALSE
+	delay_roundend = FALSE
 
 /datum/antagonist/special/proc/equip()
 	return
