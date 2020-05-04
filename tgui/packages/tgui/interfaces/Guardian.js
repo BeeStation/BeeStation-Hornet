@@ -38,13 +38,13 @@ export const Guardian = (props, context) => {
             icon="fire-alt"
             selected={tab === 'major'}
             onClick={() => setTab('major')}>
-            Major Ability
+            Primary Ability
           </Tabs.Tab>
           <Tabs.Tab
             icon="burn"
             selected={tab === 'minor'}
             onClick={() => setTab('minor')}>
-            Secondary Ability
+            Secondary Abilities
           </Tabs.Tab>
           <Tabs.Tab
             icon="plus-square"
