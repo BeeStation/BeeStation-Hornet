@@ -30,7 +30,7 @@
 	desc = "Pounce towards a target."
 	school = "felinid"
 	charge_type = "recharge"
-	charge_max = 140
+	charge_max = 100
 	clothes_req = FALSE
 	invocation = "Nya~"
 	invocation_type = "shout"
