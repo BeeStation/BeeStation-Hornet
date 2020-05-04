@@ -41,8 +41,8 @@
 		number += EHP.bang_protect
 
 	if(istype(src.wear_neck, /obj/item/clothing/neck))		//neck
-		var/obj/item/clothing/neck/NFP = src.wear_neck
-		number += NFP.bang_protect
+		var/obj/item/clothing/neck/NHP = src.wear_neck
+		number += NHP.bang_protect
 
 	var/obj/item/organ/ears/E = getorganslot(ORGAN_SLOT_EARS)
 	if(!E)
