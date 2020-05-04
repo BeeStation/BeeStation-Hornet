@@ -25,8 +25,7 @@
 	//Preferences
 	var/preference_type = ROLE_SPECIAL
 
-/datum/special_role/New()
-	. = ..()
+/datum/special_role/proc/add_to_pool()
 	if(spawn_mode == SPAWNTYPE_ROUNDSTART)
 		return
 	//Create a new event for spawning the antag
