@@ -337,19 +337,6 @@
 				var/turf/T = SSmapping.get_station_center()
 				new /obj/structure/destructible/clockwork/massive/ratvar(T)
 				SSticker.force_ending = TRUE
-				var/x0 = T.x
-				var/y0 = T.y
-				for(var/I in spiral_range_turfs(255, T, tick_checked = TRUE))
-					var/turf/T2 = I
-					if(!T2)
-						continue
-					var/dist = cheap_hypotenuse(T2.x, T2.y, x0, y0)
-					if(dist < 100)
-						dist = TRUE
-					else
-						dist = FALSE
-					T.ratvar_act(dist)
-					CHECK_TICK
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/structure/destructible/clockwork/massive/celestial_gateway/attack_ghost(mob/user)

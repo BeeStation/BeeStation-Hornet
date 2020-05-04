@@ -170,6 +170,8 @@ Credit where due:
 	starter_servants = min(starter_servants, 8) //max 8 servants (that sould only happen with a ton of players)
 	while(starter_servants)
 		var/datum/mind/servant = antag_pick(antag_candidates, ROLE_SERVANT_OF_RATVAR)
+		if(!servant)
+			break
 		servants_to_serve += servant
 		antag_candidates -= servant
 		servant.assigned_role = ROLE_SERVANT_OF_RATVAR
@@ -186,6 +188,8 @@ Credit where due:
 			spread_out_spawns = GLOB.servant_spawns.Copy()
 		var/datum/mind/servant = S
 		log_game("[key_name(servant)] was made an initial servant of Ratvar")
+		if(!servant)	//Only triggers if there are not a full set of servants (Debugging)
+			continue
 		var/mob/living/L = servant.current
 		var/turf/T = pick_n_take(spread_out_spawns)
 		L.forceMove(T)

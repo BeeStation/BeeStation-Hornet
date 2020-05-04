@@ -13,6 +13,7 @@ export const ClockworkSlab = (props, context) => {
   {
     return (
       <Window
+        theme="clockwork"
         resizable>
         <Window.Content scrollable>
           <ClockworkRecollection />
@@ -24,6 +25,7 @@ export const ClockworkSlab = (props, context) => {
   {
     return (
       <Window
+        theme="clockwork"
         resizable>
         <Window.Content scrollable>
           <ClockworkGeneric />
@@ -95,32 +97,23 @@ export const ClockworkGeneric = (props, context) => {
         {scripturecolors}
       </Section>
       <Section>
-        {scripture.map(category => {
-          <ClockworkScripture
-            scripture={category} />;
-        })}
+        {scripture.map(category => (
+          <li
+            key={category.type}>
+            {category.tip} -
+            <Button
+              tooltip={category.tip}
+              onClick={() => act('recite', {
+                'category': category.type,
+              })}>
+              Recite {category.required}
+            </Button>
+            <ClockworkScriptureBindButton
+              scripture={category} />
+          </li>
+        ))}
       </Section>
     </Section>
-  );
-};
-
-export const ClockworkScripture = (props, context) => {
-  const {
-    scripture,
-  } = props;
-  const { act } = useBackend(context);
-
-  return (
-    <Tabs.Tab
-      tooltip={scripture.tip}
-      key={scripture.type}
-      onClick={() => act('recite', {
-        'category': scripture.type,
-      })}>
-      Recite {scripture.required}
-      <ClockworkScriptureBindButton
-        scripture={scripture} />
-    </Tabs.Tab>
   );
 };
 
