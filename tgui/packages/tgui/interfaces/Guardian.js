@@ -1,7 +1,7 @@
 import { Fragment } from 'inferno';
 import { Window } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Section, Tabs, Input, ColorBox } from '../components';
+import { Button, LabeledList, Section, Tabs, Input, ColorBox, Dimmer, Icon } from '../components';
 
 export const Guardian = (props, context) => {
   const { act, data } = useBackend(context);
@@ -9,6 +9,11 @@ export const Guardian = (props, context) => {
   return (
     <Window>
       <Window.Content scrollable>
+        {!!data.waiting && (
+          <Dimmer fontSize="32px">
+            <Icon name="spinner" spin={1} />
+          </Dimmer>
+        )}
         <LabeledList>
           <LabeledList.Item
             label="Points"

@@ -38,6 +38,7 @@
 	.["guardian_name"] = guardian_name
 	.["guardian_color"] = guardian_color
 	.["name"] = mob_name
+	.["waiting"] = used
 	.["points"] = calc_points()
 	.["ratedskills"] = list()
 	.["ratedskills"] += list(list(
