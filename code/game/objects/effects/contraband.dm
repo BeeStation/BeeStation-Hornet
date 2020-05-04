@@ -618,7 +618,7 @@
 
 /obj/structure/sign/poster/official/moth3
 	name = "Safety Moth - Hardhats"
-	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to wear hardhats in cautious areas. It's like a lamp for your head! It's signed by 'Aspev'."
+	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to wear hardhats in cautious areas. It's like a lamp for your head! It's signed by 'AspEv'."
 	icon_state = "poster38_legit"
 
 /obj/structure/sign/poster/official/moth4
