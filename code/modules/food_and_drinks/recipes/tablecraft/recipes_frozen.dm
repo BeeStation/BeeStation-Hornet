@@ -198,7 +198,8 @@
 		/datum/reagent/consumable/spacemountainwind = 5
 	)
 	result = /obj/item/reagent_containers/food/snacks/snowcones/spacemountainwind
-
+	subcategory = CAT_ICE
+	
 /datum/crafting_recipe/food/pwrgame_sc
 	name = "Pwrgame snowcone"
 	reqs = list(
