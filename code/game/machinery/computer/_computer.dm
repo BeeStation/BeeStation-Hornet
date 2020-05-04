@@ -32,14 +32,6 @@
 		return 0
 	return 1
 
-/obj/machinery/computer/ratvar_act()
-	if(!clockwork)
-		clockwork = TRUE
-		icon_screen = "ratvar[rand(1, 3)]"
-		icon_keyboard = "ratvar_key[rand(1, 2)]"
-		icon_state = "ratvarcomputer"
-		update_icon()
-
 /obj/machinery/computer/narsie_act()
 	if(clockwork && clockwork != initial(clockwork)) //if it's clockwork but isn't normally clockwork
 		clockwork = FALSE

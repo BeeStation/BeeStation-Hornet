@@ -30,7 +30,7 @@
 #define ACCESS_CARGO 31
 #define ACCESS_CONSTRUCTION 32
 #define ACCESS_CHEMISTRY 33
-#define ACCESS_BRIGPHYS 34 
+#define ACCESS_BRIGPHYS 34
 #define ACCESS_HYDROPONICS 35
 #define ACCESS_LIBRARY 37
 #define ACCESS_LAWYER 38
@@ -96,7 +96,6 @@
 
 	//Special, for anything that's basically internal
 #define ACCESS_BLOODCULT 250
-#define ACCESS_CLOCKCULT 251
 
 
 	// Mech Access, allows maintanenace of internal components and altering keycard requirements.

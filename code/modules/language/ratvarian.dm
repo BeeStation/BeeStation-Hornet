@@ -10,9 +10,6 @@
 	spans = list(SPAN_ROBOT)
 	icon_state = "ratvar"
 
-/datum/language/ratvar/scramble(var/input)
-	. = text2ratvar(input)
-
 /datum/language/ratvar/get_spoken_verb(msg_end)
 	if(!msg_end)
 		return pick(random_speech_verbs)

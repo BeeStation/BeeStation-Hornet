@@ -37,10 +37,6 @@
 	. = ..()
 	air_update_turf(TRUE)
 
-/obj/structure/falsewall/ratvar_act()
-	new /obj/structure/falsewall/brass(loc)
-	qdel(src)
-
 /obj/structure/falsewall/attack_hand(mob/user)
 	if(opening)
 		return
@@ -338,22 +334,6 @@
 	icon_state = "clockwork_wall"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1
-	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)
-	girder_type = /obj/structure/destructible/clockwork/wall_gear/displaced
+	canSmoothWith = list(/obj/structure/falsewall/brass)
 	walltype = /turf/closed/wall/clockwork
 	mineral = /obj/item/stack/tile/brass
-
-/obj/structure/falsewall/brass/New(loc)
-	..()
-	var/turf/T = get_turf(src)
-	new /obj/effect/temp_visual/ratvar/wall/false(T)
-	new /obj/effect/temp_visual/ratvar/beam/falsewall(T)
-	change_construction_value(4)
-
-/obj/structure/falsewall/brass/Destroy()
-	change_construction_value(-4)
-	return ..()
-
-/obj/structure/falsewall/brass/ratvar_act()
-	if(GLOB.ratvar_awakens)
-		obj_integrity = max_integrity

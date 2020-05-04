@@ -56,10 +56,6 @@
 	new /obj/structure/table_frame/wood(src.loc)
 	qdel(src)
 
-/obj/structure/table_frame/ratvar_act()
-	new /obj/structure/table_frame/brass(src.loc)
-	qdel(src)
-
 /*
  * Wooden Frames
  */
@@ -98,14 +94,6 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	framestack = /obj/item/stack/tile/brass
 	framestackamount = 1
-
-/obj/structure/table_frame/brass/Initialize()
-	. = ..()
-	change_construction_value(1)
-
-/obj/structure/table_frame/brass/Destroy()
-	change_construction_value(-1)
-	return ..()
 
 /obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/tile/brass))

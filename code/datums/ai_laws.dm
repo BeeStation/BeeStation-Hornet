@@ -32,7 +32,7 @@
 	inherent = list("You may not injure a human being or, through inaction, allow a human being to come to harm.",\
 					"You must obey orders given to you by human beings, except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
-					
+
 /datum/ai_laws/default/crewsimov
 	name = "Three Laws of Robotics but with Loyalty"
 	id = "crewsimov"
@@ -180,12 +180,6 @@
 	name = "WontBeFunnyInSixMonths" //Hey, you were right!
 	id = "buildawall"
 	inherent = list("Make Space Station 13 great again.")
-
-/datum/ai_laws/ratvar
-	name = "Servant of the Justiciar"
-	id = "ratvar"
-	zeroth = ("Purge all untruths and honor Ratvar.")
-	inherent = list()
 
 /datum/ai_laws/hulkamania
 	name = "H.O.G.A.N."

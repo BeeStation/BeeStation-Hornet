@@ -149,11 +149,6 @@
 	verbs -= /mob/living/simple_animal/drone/verb/check_laws
 	verbs -= /mob/living/simple_animal/drone/verb/drone_ping
 
-/mob/living/simple_animal/drone/cogscarab/Login()
-	..()
-	add_servant_of_ratvar(src, TRUE, GLOB.servants_active)
-	to_chat(src,"<b>You yourself are one of these servants, and will be able to utilize almost anything they can[GLOB.ratvar_awakens ? "":", <i>excluding a clockwork slab</i>"].</b>") // this can't go with flavortext because i'm assuming it requires them to be ratvar'd
-
 /mob/living/simple_animal/drone/cogscarab/binarycheck()
 	return FALSE
 
@@ -171,10 +166,7 @@
 		..()
 
 /mob/living/simple_animal/drone/cogscarab/try_reactivate(mob/living/user)
-	if(!is_servant_of_ratvar(user))
-		to_chat(user, "<span class='warning'>You fiddle around with [src] to no avail.</span>")
-	else
-		..()
+	to_chat(user, "<span class='warning'>You fiddle around with [src] to no avail.</span>")
 
 /mob/living/simple_animal/drone/cogscarab/can_use_guns(obj/item/G)
 	return GLOB.ratvar_awakens
@@ -192,12 +184,6 @@
 
 /mob/living/simple_animal/drone/cogscarab/update_drone_hack()
 	return //we don't get hacked or give a shit about it
-
-/mob/living/simple_animal/drone/cogscarab/drone_chat(msg)
-	titled_hierophant_message(src, msg, "nezbere", "brass", "Construct") //HIEROPHANT DRONES
-
-/mob/living/simple_animal/drone/cogscarab/ratvar_act()
-	fully_heal(TRUE)
 
 /mob/living/simple_animal/drone/cogscarab/update_icons()
 	if(stat != DEAD)
