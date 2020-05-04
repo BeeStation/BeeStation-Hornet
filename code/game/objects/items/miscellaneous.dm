@@ -180,13 +180,30 @@
 	var/itemheld = FALSE
 	var/capacity = 2
 	var/maximum_size = 2 //one human, two pets, unlimited tiny mobs, but no big boys like megafauna
+	var/kidnappingcoefficient = 1
 
+/obj/item/clothing/head/that/bluespace/attackby(obj/item/W, mob/user, params)
+	. = ..()
+	if(istype(W, /obj/item/upgradewand))
+		var/obj/item/upgradewand/wand = W
+		wand.used = TRUE
+		kidnappingcoefficient = 0.5
+		capacity = 4
+		maximum_size = 4
+		to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand]</span>")
+		playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
+	
 /obj/item/clothing/head/that/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/M = target
+		var/kidnaptime = max(10, (M.health * (M.mob_size / 2)))
+		if(iscarbon(target))
+			kidnaptime += 100
+		if(target == user)
+			kidnaptime = 10
 		M.visible_message("<span class='warning'>[user] starts pulling [src] over [M]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
-		if(do_after_mob(user, M, max(M.health + 100, 100)))//+100 because anyone in crit will be instantly kidnapped otherwise. 
+		if(do_after_mob(user, M, kidnaptime * kidnappingcoefficient))
 			if(M == user)
 				M.drop_all_held_items()
 				if(HAS_TRAIT(src, TRAIT_NODROP))
@@ -277,3 +294,12 @@
 			var/atom/A = V
 			ouija_spaghetti_list[initial(A.name)] = A
 	return ouija_spaghetti_list
+
+/obj/item/upgradewand
+	desc = "A wand laced with nanotech calibration devices."
+	name = "Upgrade Wand"
+	icon = 'icons/obj/guns/magic.dmi'
+	icon_state = "nothingwand"
+	item_state = "wand"
+	w_class = WEIGHT_CLASS_SMALL
+	var/used = FALSE

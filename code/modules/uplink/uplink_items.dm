@@ -1750,6 +1750,13 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Roboticist")
 	cost = 3
 
+/datum/uplink_item/role_restricted/upgrade_wand
+	name = "Upgrade Wand"
+	desc = "A powerful, single-use wand containing nanomachines that will calibrate the high-tech gadgets commonly employed by magicians to nearly double their potential."
+	item = /obj/item/upgradewand
+	restricted_roles = list("Stage Magician")
+	cost = 5
+
 /datum/uplink_item/role_restricted/clown_bomb
 	name = "Clown Bomb"
 	desc = "The Clown bomb is a hilarious device capable of massive pranks. It has an adjustable timer, \
