@@ -35,6 +35,7 @@
 	invocation = "Nya~"
 	invocation_type = "shout"
 	range = 20
+	action_icon_state = "pounce1"
 	var/base_icon_state = "pounce"
 
 /obj/effect/proc_holder/spell/pounce/Click()
