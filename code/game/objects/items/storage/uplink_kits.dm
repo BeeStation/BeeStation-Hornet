@@ -154,8 +154,8 @@
 			new /obj/item/clothing/suit/space/hardsuit/carp(src)
 			new /obj/item/clothing/mask/gas/carp(src)
 			new /obj/item/grenade/spawnergrenade/spesscarp(src)
-			new /obj/item/toy/plush/carpplushie/dehy_carp
-			new /obj/item/slimepotion/slime/sentience
+			new /obj/item/toy/plush/carpplushie/dehy_carp(src)
+			new /obj/item/slimepotion/slime/sentience(src)
 
 		if("mad_scientist")
 			new /obj/item/clothing/suit/toggle/labcoat/mad(src) // 0 tc
@@ -175,12 +175,12 @@
 			
 		if("bee") 
 			new /obj/item/paper/fluff/bee_objectives(src) // 0 tc (motivation)
-			new /obj/item/clothing/suit/hooded/bee_costume(src) // 0 tc
+			new /obj/item/clothing/suit/hooded/bee_costume/syndie(src) // 0 tc
 			new /obj/item/clothing/mask/rat/bee(src) // 0 tc
 			new /obj/item/storage/belt/fannypack/yellow(src) // 0 tc
 			new /obj/item/storage/box/syndie_kit/bee_grenades(src) // 15 tc
 			new /obj/item/reagent_containers/glass/bottle/beesease(src) // 10 tc?
-			new /obj/item/melee/transforming/energy/sword/bee(src) //priceless
+			new /obj/item/gun/chem/bee(src) //priceless
 			
 		if("mr_freeze")
 			new /obj/item/clothing/glasses/cold(src)

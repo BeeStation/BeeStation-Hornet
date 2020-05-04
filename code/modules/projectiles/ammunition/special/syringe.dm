@@ -27,6 +27,7 @@
 	desc = "A high-power spring, linked to an energy-based dart synthesiser."
 	projectile_type = /obj/item/projectile/bullet/dart
 	firing_effect_type = null
+	var/amount = 15
 
 /obj/item/ammo_casing/chemgun/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	if(!BB)
@@ -37,6 +38,24 @@
 			return
 		CG.reagents.trans_to(BB, 15, transfered_by = user)
 		BB.name = "chemical dart"
+		CG.syringes_left--
+	..()
+
+/obj/item/ammo_casing/bee
+	name = "bee synthesiser"
+	desc = "A beehive shoved into a gun."
+	projectile_type = /obj/item/projectile/bullet/dart/bee
+	firing_effect_type = null
+
+/obj/item/ammo_casing/bee/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
+	if(!BB)
+		return
+	if(istype(loc, /obj/item/gun/chem))
+		var/obj/item/gun/chem/CG = loc
+		if(CG.syringes_left <= 0)
+			return
+		CG.reagents.trans_to(BB, 5, transfered_by = user)
+		BB.name = "bee"
 		CG.syringes_left--
 	..()
 
@@ -59,3 +78,4 @@
 		S.forceMove(D)
 		D.injector = S
 	..()
+
