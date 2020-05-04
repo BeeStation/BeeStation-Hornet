@@ -1689,9 +1689,8 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	name = "Suspicious Pet Collar"
 	desc = "A red and black pet collar, that makes you feel much better about standing near flashbangs."
 	item = /obj/item/clothing/neck/petcollar/syndie
-	cost = 2
+	cost = 12
 	restricted_species = list("felinid")
-	illegal_tech = FALSE
 
 // Role-specific items
 /datum/uplink_item/role_restricted

@@ -202,13 +202,6 @@
 	tagname = copytext(sanitize(input(user, "Would you like to change the name on the tag?", "Name your new pet", "Spot") as null|text),1,MAX_NAME_LEN)
 	name = "[initial(name)] - [tagname]"
 
-/obj/item/clothing/neck/petcollar/syndie	//For true gamer felinids
-	name = "suspicious pet collar"
-	desc = "It's for pets. You probably shouldn't wear it yourself unless you want to be ridiculed. This one looks a little different."
-	icon_state = "petcollar_syndie"
-	flash_protect = 3
-	bang_protect = 5
-
 //////////////
 //DOPE BLING//
 //////////////
