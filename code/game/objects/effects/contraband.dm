@@ -641,4 +641,9 @@
 	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to seek CMO approval before cooking methamphetamine. You shouldn't even be making this. Its signed by 'AspEv'."
 	icon_state = "poster42_legit"
 
+/obj/structure/sign/poster/contraband/pill1
+	name = "Safety Pill - Methamphetamine"
+	desc = "A decommisioned poster that uses Safety Pill(TM?) to promote less-than-legal chemicals. This is one of the reasons we stopped outsourcing these posters. Its partially signed by 'Aspev'."
+	icon_state = "poster48"
+
 #undef PLACE_SPEED
