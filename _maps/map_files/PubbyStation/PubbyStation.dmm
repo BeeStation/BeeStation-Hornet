@@ -13987,7 +13987,7 @@
 /obj/machinery/button/door{
 	id = "datboidetective";
 	name = "Privacy Shutters";
-	pixel_x = 25;
+	pixel_x = 25
 	},
 /turf/open/floor/carpet,
 /area/security/detectives_office)
@@ -54820,7 +54820,7 @@
 	dir = 8;
 	freerange = 1;
 	name = "Station Intercom (Telecomms)";
-	pixel_x = 26;
+	pixel_x = 26
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -63012,6 +63012,19 @@
 /obj/item/stamp/law,
 /turf/open/floor/carpet,
 /area/lawoffice)
+"uVH" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/medical_kiosk,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "uXG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -95939,7 +95952,7 @@ aDZ
 aHN
 bjd
 bjc
-bke
+uVH
 bkh
 cqf
 boN
