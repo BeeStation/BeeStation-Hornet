@@ -172,6 +172,8 @@ Credit where due:
 		if(!antag_candidates)
 			break
 		var/datum/mind/servant = antag_pick(antag_candidates, ROLE_SERVANT_OF_RATVAR)
+		if(!servant)
+			break
 		servants_to_serve += servant
 		antag_candidates -= servant
 		servant.assigned_role = ROLE_SERVANT_OF_RATVAR
