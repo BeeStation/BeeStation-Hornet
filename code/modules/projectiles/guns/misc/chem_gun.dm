@@ -54,7 +54,7 @@
 	item_state = "chemgun"
 	fire_sound = 'sound/creatures/bee.ogg'
 	automatic = 1
-	fire_rate = 10
+	fire_rate = 5
 	time_per_syringe = 80
 	syringes_left = 20
 	max_syringes = 20
