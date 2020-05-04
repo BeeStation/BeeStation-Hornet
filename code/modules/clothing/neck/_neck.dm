@@ -205,12 +205,9 @@
 /obj/item/clothing/neck/petcollar/syndie
 	name = "suspicious pet collar"
 	desc = "It's for pets. You probably shouldn't wear it yourself unless you want to be ridiculed. This one looks a little different."
-	icon_state = "petcollar"
-	item_color = "petcollar"
-	tagname = null
+	icon_state = "petcollar_syndie"
 	flash_protect = 3
 	bang_protect = 5
-	color = "#CE4A4A"
 
 //////////////
 //DOPE BLING//

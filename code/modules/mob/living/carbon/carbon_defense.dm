@@ -14,6 +14,10 @@
 		var/obj/item/clothing/mask/MFP = src.wear_mask
 		number += MFP.flash_protect
 
+	if(istype(src.wear_neck, /obj/item/clothing/neck))		//neck
+		var/obj/item/clothing/neck/NFP = src.wear_neck
+		number += NFP.flash_protect
+
 	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 	if(!E)
 		number = INFINITY //Can't get flashed without eyes
@@ -35,6 +39,11 @@
 	if(istype(src.ears, /obj/item/clothing/ears))		//ear slot. This is different from headset because headset is a subtype of radio
 		var/obj/item/clothing/ears/EHP = src.ears
 		number += EHP.bang_protect
+
+	if(istype(src.wear_neck, /obj/item/clothing/neck))		//neck
+		var/obj/item/clothing/neck/NFP = src.wear_neck
+		number += NFP.bang_protect
+
 	var/obj/item/organ/ears/E = getorganslot(ORGAN_SLOT_EARS)
 	if(!E)
 		number = INFINITY
