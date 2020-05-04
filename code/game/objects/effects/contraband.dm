@@ -643,7 +643,7 @@
 
 /obj/structure/sign/poster/contraband/pill1
 	name = "Safety Pill - Methamphetamine"
-	desc = "A decommisioned poster that uses Safety Pill(TM?) to promote less-than-legal chemicals. This is one of the reasons we stopped outsourcing these posters. It's partially signed by 'Aspev'."
+	desc = "A decommisioned poster that uses Safety Pill(TM?) to promote less-than-legal chemicals. This is one of the reasons we stopped outsourcing these posters. It's partially signed by 'AspEv'."
 	icon_state = "poster48"
 
 #undef PLACE_SPEED
