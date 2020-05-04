@@ -1687,7 +1687,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 
 /datum/uplink_item/race_restricted/petcollar
 	name = "Suspicious Pet Collar"
-	desc = "A red and black pet collar, that makes you feel much better about standing near flashbangs."
+	desc = "A red and black pet collar, giving the wearer heightened agility and the ability to pounce. Sponsered by the Animal Rights Consortium."
 	item = /obj/item/clothing/neck/petcollar/syndie
 	cost = 12
 	restricted_species = list("felinid")
