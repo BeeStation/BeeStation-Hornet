@@ -1,7 +1,7 @@
 import { Fragment } from 'inferno';
 import { Window } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Section, Tabs, ColorBox } from '../components';
+import { Button, LabeledList, Section, Tabs, Input, ColorBox } from '../components';
 
 export const Guardian = (props, context) => {
   const { act, data } = useBackend(context);
@@ -74,9 +74,12 @@ const GuardianGeneral = (props, context) => {
     <LabeledList>
       <LabeledList.Item
         label="Name">
-        <Button
-          content={data.guardian_name || "Random Name"}
-          onClick={() => act('name')} />
+        <Input
+          value={data.guardian_name}
+          placeholder={data.name}
+          onChange={(e, value) => act('name', {
+            name: value,
+          })} />
       </LabeledList.Item>
       <LabeledList.Item
         label="Color">
@@ -218,7 +221,7 @@ const GuardianCreate = (props, context) => {
         title="Appearance">
         <LabeledList>
           <LabeledList.Item label="Name">
-            {data.guardian_name || "Random Name"}
+            {data.guardian_name || data.name}
           </LabeledList.Item>
           <LabeledList.Item label="Color">
             <ColorBox color={data.guardian_color || "#FFFFFF"}

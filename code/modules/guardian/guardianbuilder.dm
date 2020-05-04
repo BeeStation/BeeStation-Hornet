@@ -95,7 +95,7 @@
 	calc_points()
 	switch(action)
 		if("name")
-			guardian_name = stripped_input(usr, "Name your Guardian", ,"", MAX_NAME_LEN)
+			guardian_name = params["name"]
 		if("set")
 			switch(params["name"])
 				if("Damage")
