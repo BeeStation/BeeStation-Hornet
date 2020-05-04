@@ -191,7 +191,7 @@
 	item_color = "stripedbluescarf"
 	custom_price = 10
 
-/obj/item/clothing/neck/petcollar  // adding an OOC restriction to an IC action, like wearing a collar, is gay.
+/obj/item/clothing/neck/petcollar  // adding an OOC restriction to an IC action, like wearing a collar, is bad.
 	name = "pet collar"
 	desc = "It's for pets. You probably shouldn't wear it yourself unless you want to be ridiculed."
 	icon_state = "petcollar"
@@ -201,6 +201,16 @@
 /obj/item/clothing/neck/petcollar/attack_self(mob/user)
 	tagname = copytext(sanitize(input(user, "Would you like to change the name on the tag?", "Name your new pet", "Spot") as null|text),1,MAX_NAME_LEN)
 	name = "[initial(name)] - [tagname]"
+
+/obj/item/clothing/neck/petcollar/syndie
+	name = "suspicious pet collar"
+	desc = "It's for pets. You probably shouldn't wear it yourself unless you want to be ridiculed. This one looks a little different."
+	icon_state = "petcollar"
+	item_color = "petcollar"
+	tagname = null
+	flash_protect = 3
+	bang_protect = 5
+	color = "#CE4A4A"
 
 //////////////
 //DOPE BLING//

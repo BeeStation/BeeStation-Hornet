@@ -1685,6 +1685,14 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/grenade/discogrenade
 	restricted_species = list("ethereal")
 
+/datum/uplink_item/race_restricted/petcollar
+	name = "Suspicious Pet Collar"
+	desc = "A red and black pet collar, that makes you feel much better about standing near flashbangs."
+	item = /obj/item/clothing/neck/petcollar/syndie
+	cost = 2
+	restricted_species = list("felinid")
+	illegal_tech = FALSE
+
 // Role-specific items
 /datum/uplink_item/role_restricted
 	category = "Role-Restricted"
