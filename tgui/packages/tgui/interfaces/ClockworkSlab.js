@@ -68,7 +68,7 @@ export const ClockworkGeneric = (props, context) => {
   return (
     <Section>
       <Section>
-        {power}
+        {decodeHtmlEntities(power)}
       </Section>
       <Section>
         <Fragment>
@@ -90,11 +90,11 @@ export const ClockworkGeneric = (props, context) => {
               'category': 'Application',
             })}
             content="Applications" />
-          {tier_info}
+          {decodeHtmlEntities(tier_info)}
         </Fragment>
       </Section>
       <Section>
-        {scripturecolors}
+        {decodeHtmlEntities(scripturecolors)}
       </Section>
       <Section>
         {scripture.map(category => (
