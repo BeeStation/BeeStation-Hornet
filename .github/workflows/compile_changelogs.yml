@@ -1,38 +1,40 @@
 name: Compile changelogs
 
 on:
-  push:
-    branches:
-      - master
+  pull_request:
+    branches: [master]
+    types: [closed]
 
 jobs:
-  compile:
-    name: "Compile changelogs"
+  MakeCL:
+    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
-    if: github.repository == 'BeeStation/BeeStation-Hornet'
     steps:
-      - name: "Setup python"
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Python setup
         uses: actions/setup-python@v1
         with:
           python-version: '3.x'
-      - name: "Install deps"
+      - name: Install depends
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pyyaml
-      - name: "Checkout"
-        uses: actions/checkout@v1
-        with:
-          fetch-depth: 25
-      - name: "Compile"
-        run: |
-          python tools/ss13_genchangelog.py html/changelog.html html/changelogs
+          pip install pyyaml ruamel.yaml bs4
+      - name: Make CL
+        env:
+          PR_BODY: ${{ toJson(github.event.pull_request.body) }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: python tools/changelog/test.py "$PR_BODY" $PR_NUMBER "$PR_AUTHOR"
+      - name: Compile CL
+        run: python tools/changelog/ss13_genchangelog.py html/changelog.html html/changelogs
       - name: Commit
         run: |
           git config --local user.email "56381746+ss13-beebot@users.noreply.github.com"
           git config --local user.name "ss13-beebot"
           git pull origin master
           git commit -m "Automatic changelog compile [ci skip]" -a || true
-      - name: "Push"
+      - name: Push
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
