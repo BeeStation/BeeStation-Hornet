@@ -2,7 +2,6 @@
 /obj/effect/clockwork
 	name = "meme machine"
 	desc = "Still don't know what it is."
-	var/clockwork_desc = "A fabled artifact from beyond the stars. Contains concentrated meme essence." //Shown to clockwork cultists instead of the normal description
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "ratvars_flame"
 	anchored = TRUE
