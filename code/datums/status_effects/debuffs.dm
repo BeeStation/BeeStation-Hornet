@@ -435,67 +435,6 @@
 	. = ..()
 	deltimer(timerid)
 
-
-//Kindle: Used by servants of Ratvar. 10-second knockdown, reduced by 1 second per 5 damage taken while the effect is active.
-/datum/status_effect/kindle
-	id = "kindle"
-	status_type = STATUS_EFFECT_UNIQUE
-	tick_interval = 5
-	duration = 100
-	alert_type = /obj/screen/alert/status_effect/kindle
-	var/old_health
-
-/datum/status_effect/kindle/tick()
-	owner.Paralyze(15)
-	if(iscarbon(owner))
-		var/mob/living/carbon/C = owner
-		C.silent = max(2, C.silent)
-		C.stuttering = max(5, C.stuttering)
-	if(!old_health)
-		old_health = owner.health
-	var/health_difference = old_health - owner.health
-	if(!health_difference)
-		return
-	owner.visible_message("<span class='warning'>The light in [owner]'s eyes dims as [owner.p_theyre()] harmed!</span>", \
-	"<span class='boldannounce'>The dazzling lights dim as you're harmed!</span>")
-	health_difference *= 2 //so 10 health difference translates to 20 deciseconds of stun reduction
-	duration -= health_difference
-	old_health = owner.health
-
-/datum/status_effect/kindle/on_remove()
-	owner.visible_message("<span class='warning'>The light in [owner]'s eyes fades!</span>", \
-	"<span class='boldannounce'>You snap out of your daze!</span>")
-
-/obj/screen/alert/status_effect/kindle
-	name = "Dazzling Lights"
-	desc = "Blinding light dances in your vision, stunning and silencing you. <i>Any damage taken will shorten the light's effects!</i>"
-	icon_state = "kindle"
-	alerttooltipstyle = "clockcult"
-
-
-//Ichorial Stain: Applied to servants revived by a vitality matrix. Prevents them from being revived by one again until the effect fades.
-/datum/status_effect/ichorial_stain
-	id = "ichorial_stain"
-	status_type = STATUS_EFFECT_UNIQUE
-	duration = 600
-	examine_text = "<span class='warning'>SUBJECTPRONOUN is drenched in thick, blue ichor!</span>"
-	alert_type = /obj/screen/alert/status_effect/ichorial_stain
-
-/datum/status_effect/ichorial_stain/on_apply()
-	owner.visible_message("<span class='danger'>[owner] gets back up, [owner.p_their()] body dripping blue ichor!</span>", \
-	"<span class='userdanger'>Thick blue ichor covers your body; you can't be revived like this again until it dries!</span>")
-	return TRUE
-
-/datum/status_effect/ichorial_stain/on_remove()
-	owner.visible_message("<span class='danger'>The blue ichor on [owner]'s body dries out!</span>", \
-	"<span class='boldnotice'>The ichor on your body is dry - you can now be revived by vitality matrices again!</span>")
-
-/obj/screen/alert/status_effect/ichorial_stain
-	name = "Ichorial Stain"
-	desc = "Your body is covered in blue ichor! You can't be revived by vitality matrices."
-	icon_state = "ichorial_stain"
-	alerttooltipstyle = "clockcult"
-
 /datum/status_effect/gonbolaPacify
 	id = "gonbolaPacify"
 	status_type = STATUS_EFFECT_MULTIPLE
