@@ -43,7 +43,8 @@
 	if(!hl3_release_date)
 		return
 	strength -= strength / hl3_release_date
-	if(strength <= RAD_WAVE_MINIMUM)
+
+	if(strength < RAD_WAVE_MINIMUM)
 		qdel(src)
 		return PROCESS_KILL
 

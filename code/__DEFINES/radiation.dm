@@ -47,5 +47,5 @@ Ask ninjanomnom if they're around
 
 #define RAD_HALF_LIFE 45							// The half-life of contaminated objects
 
-#define RAD_WAVE_MINIMUM 9							// Radiation waves with less than this amount of power stop spreading
+#define RAD_WAVE_MINIMUM 10							// Radiation waves with less than this amount of power stop spreading
 													// WARNING: Reducing can make rads subsytem more expensive

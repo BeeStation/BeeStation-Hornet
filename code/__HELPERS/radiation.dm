@@ -26,7 +26,7 @@
 	if(!SSradiation.can_fire)
 		return
 
-	if(intensity < RAD_WAVE_MINIMUM) // Don't bother to spawn rad waves if they're just going to immediately go out
+	if(intensity >= RAD_WAVE_MINIMUM) // Don't bother to spawn rad waves if they're just going to immediately go out
 		for(var/dir in GLOB.cardinals)
 			new /datum/radiation_wave(source, dir, intensity, range_modifier, can_contaminate)
 
