@@ -6,7 +6,6 @@
 	job_rank = ROLE_SERVANT_OF_RATVAR
 
 /datum/antagonist/clockcult/silent
-	slient = TRUE
 	show_in_antagpanel = FALSE
 
 /datum/team/clockcult
