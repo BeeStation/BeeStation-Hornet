@@ -1,7 +1,7 @@
 import { Fragment } from 'inferno';
 import { Window } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Section, Tabs, Input, ColorBox, Dimmer, Icon } from '../components';
+import { Button, LabeledList, Section, Tabs, Input, ColorBox, Dimmer, Icon, Box, Tooltip } from '../components';
 
 export const Guardian = (props, context) => {
   const { act, data } = useBackend(context);
@@ -123,7 +123,14 @@ const GuardianStats = (props, context) => {
         <LabeledList.Item
           key={skill.name}
           className="candystripe"
-          label={skill.name}>
+          label={(
+            <Box position="relative">
+              {skill.name}
+              <Tooltip content={skill.desc}
+                position="bottom-right"
+              />
+            </Box>
+          )}>
           <Button
             content="A"
             selected={skill.level === 5}

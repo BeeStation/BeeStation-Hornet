@@ -43,22 +43,27 @@
 	.["ratedskills"] = list()
 	.["ratedskills"] += list(list(
 						name = "Damage",
+						desc = "Amount of damage the [mob_name] can deal per hit (melee or projectile).",
 						level = saved_stats.damage,
 					))
 	.["ratedskills"] += list(list(
 						name = "Defense",
+						desc = "Amount of damage the [mob_name] can absorb instead of transferring.",
 						level = saved_stats.defense
 					))
 	.["ratedskills"] += list(list(
 						name = "Speed",
+						desc = "How fast the [mob_name] can attack targets.",
 						level = saved_stats.speed
 					))
 	.["ratedskills"] += list(list(
 						name = "Potential",
+						desc = "Affects the power of the [mob_name]'s primary ability. Some abilities are not affected by this!",
 						level = saved_stats.potential
 					))
 	.["ratedskills"] += list(list(
 						name = "Range",
+						desc = "How far the the [mob_name] can travel from it's host.",
 						level = saved_stats.range
 					))
 	.["no_ability"] = (!saved_stats.ability || !istype(saved_stats.ability))

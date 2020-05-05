@@ -30,8 +30,14 @@
 		if(locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in L.mind.spell_list) //People who can stop time are immune to its effects
 			immune[L] = TRUE
 	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.parasites)
-		if(G?.summoner?.current && locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.summoner.spell_list) //It would only make sense that a person's stand would also be immune.
-			immune[G.summoner.current] = TRUE
+		if(G?.summoner?.current)
+			if(((locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.summoner.spell_list) || (locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.summoner.current.mob_spell_list))) //It would only make sense that a person's stand would also be immune.
+				immune[G] = TRUE
+			if(((locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.mind.spell_list) || (locate(/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop) in G.mob_spell_list))) //It would only make sense that a person's stand would also be immune.
+				immune[G.summoner.current] = TRUE
+				for(var/mob/living/simple_animal/hostile/guardian/GG in GLOB.parasites)
+					if(G.summoner == GG.summoner)
+						immune[GG] = TRUE
 	if(start)
 		timestop()
 
