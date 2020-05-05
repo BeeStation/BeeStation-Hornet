@@ -301,6 +301,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, /.proc/animate_speechbubble, I, speech_bubble_recipients, 30)
+	INVOKE_ASYNC(GLOBAL_PROC, /.proc/animate_chat, src, message, message_language, message_mode, speech_bubble_recipients, 50) // see chatheader.dm
 
 /proc/animate_speechbubble(image/I, list/show_to, duration)
 	var/matrix/M = matrix()
@@ -391,7 +392,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(message_mode == MODE_HEADSET)
 			imp.radio.talk_into(src, message, , spans, language)
 			return ITALICS | REDUCE_RANGE
-		if(message_mode == MODE_DEPARTMENT || (message_mode in GLOB.radiochannels))
+		if(message_mode == MODE_DEPARTMENT || (message_mode in imp.radio.channels))
 			imp.radio.talk_into(src, message, message_mode, spans, language)
 			return ITALICS | REDUCE_RANGE
 

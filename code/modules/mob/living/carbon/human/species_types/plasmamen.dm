@@ -70,14 +70,20 @@
 		if("Botanist")
 			O = new /datum/outfit/plasmaman/botany
 
-		if("Bartender", "Lawyer")
+		if("Bartender", "Lawyer", "Barber")
 			O = new /datum/outfit/plasmaman/bar
+
+		if("Stage Magician")
+			O = new /datum/outfit/plasmaman/magic
 
 		if("Cook")
 			O = new /datum/outfit/plasmaman/chef
 
 		if("Security Officer")
 			O = new /datum/outfit/plasmaman/security
+		
+		if("Deputy")
+			O = new /datum/outfit/plasmaman
 
 		if("Brig Physician")
 			O = new /datum/outfit/plasmaman/secmed

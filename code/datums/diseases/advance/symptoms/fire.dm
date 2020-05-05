@@ -111,7 +111,6 @@ Bonus
 	transmittable = -2
 	level = 9
 	severity = 5
-	baseseverity = 5
 	base_message_chance = 100
 	symptom_delay_min = 30
 	symptom_delay_max = 90
@@ -122,11 +121,11 @@ Bonus
 					  <b>Transmission 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
 
 /datum/symptom/alkali/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["resistance"] >= 9)
 		severity = 6
 	if(A.properties["stage_rate"] >= 10)
 		severity = 6
-	return..()
 
 /datum/symptom/alkali/Start(datum/disease/advance/A)
 	if(!..())

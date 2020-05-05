@@ -9,6 +9,7 @@
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials and Space law"
 	selection_color = "#ccccff"
+	chat_color = "#FFDC9B"
 	req_admin_notify = 1
 	minimal_player_age = 14
 	exp_requirements = 480
@@ -39,14 +40,14 @@
 
 	id = /obj/item/card/id/gold
 	belt = /obj/item/pda/captain
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	ears = /obj/item/radio/headset/heads/captain/alt
 	gloves = /obj/item/clothing/gloves/color/captain
 	uniform =  /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/caphat
-	backpack_contents = list(/obj/item/melee/classic_baton/telescopic=1, /obj/item/station_charter=1)
+	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1, /obj/item/station_charter=1)
 
 	backpack = /obj/item/storage/backpack/captain
 	satchel = /obj/item/storage/backpack/satchel/cap

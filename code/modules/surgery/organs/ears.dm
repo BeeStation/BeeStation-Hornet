@@ -93,7 +93,7 @@
 	name = "cat ears"
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "kitty"
-	damage_multiplier = 2
+	bang_protect = -2
 
 /obj/item/organ/ears/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
 	..()

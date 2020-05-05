@@ -676,6 +676,15 @@
 	build_path = /obj/item/reagent_containers/syringe
 	category = list("initial", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+	
+/datum/design/dropper
+	name = "Dropper"
+	id = "dropper"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 10, /datum/material/glass = 30)
+	build_path = /obj/item/reagent_containers/dropper
+	category = list("initial", "Medical", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/prox_sensor
 	name = "Proximity Sensor"
@@ -783,11 +792,11 @@
 	category = list("hacked", "Security")
 
 /datum/design/a357
-	name = "Speed Loader (.357)"
+	name = ".357 Casing"
 	id = "a357"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 30000)
-	build_path = /obj/item/ammo_box/a357
+	materials = list(/datum/material/iron = 4000)
+	build_path = /obj/item/ammo_casing/a357
 	category = list("hacked", "Security")
 
 /datum/design/c10mm

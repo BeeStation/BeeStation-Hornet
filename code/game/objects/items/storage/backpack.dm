@@ -414,6 +414,20 @@
 	new /obj/item/clothing/mask/surgical(src)
 	new /obj/item/reagent_containers/medspray/sterilizine(src)
 
+/obj/item/storage/backpack/duffelbag/sec/deputy
+	name = "deputy gear duffel bag"
+	desc = "A large duffel bag for holding extra supplies - this one has compartments for various clothes and gear."
+	custom_premium_price = 500
+
+/obj/item/storage/backpack/duffelbag/sec/deputy/PopulateContents()
+	new /obj/item/clothing/head/soft/sec(src) 
+	new /obj/item/radio/headset/headset_sec(src) 
+	new /obj/item/clothing/glasses/hud/security/deputy(src)
+	new /obj/item/clothing/under/rank/security/mallcop(src)
+	new /obj/item/clothing/shoes/sneakers/black(src)
+	new /obj/item/storage/belt/security/deputy(src)
+	new /obj/item/clothing/accessory/armband/deputy(src)
+
 /obj/item/storage/backpack/duffelbag/engineering
 	name = "industrial duffel bag"
 	desc = "A large duffel bag for holding extra tools and supplies."
@@ -474,7 +488,7 @@
 	new /obj/item/clothing/suit/toggle/lawyer/black(src)
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/clothing/head/fedora(src)
 
 /obj/item/storage/backpack/duffelbag/syndie/med

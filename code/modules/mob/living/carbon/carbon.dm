@@ -3,7 +3,7 @@
 
 /mob/living/carbon/Initialize()
 	. = ..()
-	create_reagents(5000)
+	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
 	GLOB.carbon_list += src
 
@@ -161,7 +161,7 @@
 		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 
 /mob/living/carbon/restrained(ignore_grab)
-	. = (handcuffed || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE))
+	. = (handcuffed || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_NECK))
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return 0

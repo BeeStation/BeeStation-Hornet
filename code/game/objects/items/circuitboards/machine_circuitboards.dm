@@ -247,6 +247,7 @@
 		/obj/machinery/vending/wallmed = "NanoMed",
 		/obj/machinery/vending/assist  = "Vendomat",
 		/obj/machinery/vending/engivend = "Engi-Vend",
+		/obj/machinery/vending/tool = "YouTool",
 		/obj/machinery/vending/hydronutrients = "NutriMax",
 		/obj/machinery/vending/hydroseeds = "MegaSeed Servitor",
 		/obj/machinery/vending/sustenance = "Sustenance Vendor",
@@ -680,6 +681,18 @@
 /obj/item/circuitboard/machine/chem_dispenser
 	name = "Chem Dispenser (Machine Board)"
 	build_path = /obj/machinery/chem_dispenser
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/cell = 1)
+	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
+	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/chem_dispenser/botany
+	name = "Minor Botanical Chem Dispenser (Machine Board)"
+	build_path = /obj/machinery/chem_dispenser/mutagensaltpetersmall
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/capacitor = 1,

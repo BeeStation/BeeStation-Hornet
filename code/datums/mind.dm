@@ -56,6 +56,7 @@
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE // If false, renders the character unable to sell their soul.
 	var/isholy = FALSE //is this person a chaplain or admin role allowed to use bibles
+	var/isAntagTarget = FALSE
 
 	var/mob/living/enslaved_to //If this mind's master is another mob (i.e. adamantine golems)
 	var/datum/language_holder/language_holder

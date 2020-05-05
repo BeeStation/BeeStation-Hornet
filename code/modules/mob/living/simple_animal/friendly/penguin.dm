@@ -15,6 +15,7 @@
 	turns_per_move = 10
 	icon = 'icons/mob/penguins.dmi'
 	butcher_results = list(/obj/item/organ/ears/penguin = 1, /obj/item/reagent_containers/food/snacks/meat/slab/penguin = 3)
+	mobsay_color = "#81D9FF"
 
 	do_footstep = TRUE
 
