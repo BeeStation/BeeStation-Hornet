@@ -1,6 +1,7 @@
 /datum/guardian_ability/minor/teleport
 	name = "Teleportation Pad"
 	desc = "The guardian can prepare a teleportation pad, and teleport things to it afterwards."
+	ui_icon = "shipping-fast"
 	cost = 3
 	spell_type = /obj/effect/proc_holder/spell/targeted/guardian/teleport
 

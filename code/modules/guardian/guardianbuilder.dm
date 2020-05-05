@@ -77,6 +77,7 @@
 			name = GA.name,
 			desc = GA.desc,
 			cost = GA.cost,
+			icon = GA.ui_icon,
 			selected = istype(saved_stats.ability, ability),
 			available = (points >= GA.cost) && GA.CanBuy(),
 			path = "[ability]",
@@ -90,6 +91,7 @@
 			name = GA.name,
 			desc = GA.desc,
 			cost = GA.cost,
+			icon = GA.ui_icon,
 			selected = saved_stats.HasMinorAbility(ability),
 			available = (points >= GA.cost) && GA.CanBuy(),
 			path = "[ability]"

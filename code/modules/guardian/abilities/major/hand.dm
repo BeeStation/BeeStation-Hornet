@@ -1,6 +1,7 @@
 /datum/guardian_ability/major/hand
 	name = "The Hand"
 	desc = "The guardian can use it's hand(s) to erase the space in front of it, bring any desired target closer."
+	ui_icon = "hand-lizard"
 	cost = 5
 	var/next_hand = 0
 

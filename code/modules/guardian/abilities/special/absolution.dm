@@ -1,6 +1,7 @@
 /datum/guardian_ability/major/special/onewayroad // a cookie for you if you get the reference
 	name = "Absolution"
 	desc = "The guardian forms an absolute shield around it's user, protecting them from all harm."
+	ui_icon = "shield-alt"
 	cost = 5
 
 /datum/guardian_ability/major/special/onewayroad/New()

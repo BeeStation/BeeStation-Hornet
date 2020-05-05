@@ -1,6 +1,7 @@
 /datum/guardian_ability/minor/snare
 	name = "Surveillance Snares"
 	desc = "The guardian can lay a surveillance snare, which alerts the guardian and the user to anyone who crosses it."
+	ui_icon = "exclamation-triangle"
 	cost = 1
 
 /datum/guardian_ability/minor/snare/Apply()

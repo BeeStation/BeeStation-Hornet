@@ -1,6 +1,7 @@
 /datum/guardian_ability/major/healing
 	name = "Healing"
 	desc = "Allows the guardian to heal anything, living or inanimate, by touch."
+	ui_icon = "briefcase-medical"
 	cost = 4
 	has_mode = TRUE
 	mode_on_msg = "<span class='danger'><B>You switch to healing mode.</span></B>"

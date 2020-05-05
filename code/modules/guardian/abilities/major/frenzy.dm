@@ -1,6 +1,7 @@
 /datum/guardian_ability/major/frenzy
 	name = "Frenzy"
 	desc = "The guardian is capable of high-speed fighting, and speeding up it's owner while manifested, too. REQUIRES RANGE C OR ABOVE."
+	ui_icon = "fighter-jet"
 	cost = 3 // low cost because this stand is pretty much LOUD AS FUCK, and using it is stealthily is pretty hard due to it's loud, unique sounds and abilities
 				// also because in order for this to be any good, you need to spread your points real good
 	spell_type = /obj/effect/proc_holder/spell/targeted/guardian/frenzy

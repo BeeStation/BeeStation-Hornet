@@ -2,6 +2,7 @@
 	var/name = "ERROR"
 	var/desc = "You should not see this!"
 	var/cost = 0
+	var/ui_icon
 	var/spell_type
 	var/obj/effect/proc_holder/spell/spell
 	var/datum/guardian_stats/master_stats

@@ -1,6 +1,7 @@
 /datum/guardian_ability/major/scout
 	name = "Scout"
 	desc = "The guardian can turn near-invisible and invincible and scout the station, although it cannot attack anything."
+	ui_icon = "binoculars"
 	cost = 1
 	has_mode = TRUE
 	recall_mode = TRUE
