@@ -14,14 +14,15 @@
 	desc = "An unarmed smart stun mine. It can be planted to arm it."
 	mine_type = /obj/effect/mine/stun/smart
 
-/obj/item/deployablemine/lm6
-	name = "unarmed LM-6 Rapid Deployment Mine"
+/obj/item/deployablemine/rapid
+	name = "deployable rapid smart mine"
 	desc = "An unarmed smart stun mine designed to be rapidly placeable."
 	mine_type = /obj/effect/mine/stun/smart/adv
 	arming_time = 10
+	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/deployablemine/lm12
-	name = "unarmed LM-12 Sledgehammer Mine"
+/obj/item/deployablemine/heavy
+	name = "deployable sledgehammer smart mine"
 	desc = "An unarmed smart heavy stun mine designed to be hard to disarm."
 	mine_type = /obj/effect/mine/stun/smart/heavy
 	arming_time = 50
@@ -40,6 +41,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "rubberducky"
 	mine_type = /obj/effect/mine/explosive/traitor
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/deployablemine/traitor/bigboom
 	name = "high yield exploding rubber duck"
@@ -100,7 +102,7 @@
 		to_chat(user, "<span class='notice'>You begin to disarm the [src]...</span>")
 		if(do_after(user, disarm_time, target = src))
 			to_chat(user, "<span class='notice'>You disarm the [src].</span>")
-			new disarm_product(user.loc)
+			new disarm_product(src.loc)
 			qdel(src)
 
 /obj/effect/mine/proc/mineEffect(mob/victim)
@@ -182,16 +184,16 @@
 	disarm_product = /obj/item/deployablemine/smartstun
 
 /obj/effect/mine/stun/smart/adv
-	name = "LM-6 Rapid Deployment Mine"
+	name = "rapid smart mine"
 	disarm_time = 120
-	disarm_product = /obj/item/deployablemine/lm6
+	disarm_product = /obj/item/deployablemine/rapid
 
 /obj/effect/mine/stun/smart/heavy
-	name = "LM-12 Sledgehammer Mine"
+	name = "sledgehammer smart mine"
 	disarm_time = 350
 	stun_time = 230
 	damage = 40
-	disarm_product = /obj/item/deployablemine/lm12
+	disarm_product = /obj/item/deployablemine/heavy
 
 
 /obj/effect/mine/stun/mineEffect(mob/living/victim)

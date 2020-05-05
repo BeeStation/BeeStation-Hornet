@@ -656,7 +656,7 @@
 	id = "nonlethal_mines"
 	display_name = "Nonlethal Landmine Technology"
 	description = "Our weapons technicians could perhaps work out methods for the creation of nonlethal landmines for security teams."
-	prereq_ids = list("engineering", "sec_basic")
+	prereq_ids = list("sec_basic")
 	design_ids = list("stunmine")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 	export_price = 5000
@@ -673,8 +673,8 @@
 /datum/techweb_node/smartmine
 	id = "smart_mines"
 	display_name = "Smart Landmine Technology"
-	description = "Using IFF technology, we could develop smartmines that are only triggered by enemies."
-	prereq_ids = list("weaponry", "nonlethal_mines", "adv_engi")
+	description = "Using IFF technology, we could develop smartmines that do not trigger for those who are mindshielded."
+	prereq_ids = list("weaponry", "nonlethal_mines", "engineering")
 	design_ids = list("stunmine_adv")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -691,7 +691,7 @@
 /datum/techweb_node/advmine
 	id = "adv_mines"
 	display_name = "Advanced Landmine Technology"
-	description = "We can develop some extremely capable landmines."
+	description = "We can further develop our smartmines to build some extremely capable designs."
 	prereq_ids = list("weaponry", "smart_mines", "adv_engi")
 	design_ids = list("stunmine_rapid", "stunmine_heavy")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)

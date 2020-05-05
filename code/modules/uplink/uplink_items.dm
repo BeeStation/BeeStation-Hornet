@@ -1026,7 +1026,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A seemingly innocent rubber duck. When placed, it arms, and will violently explode when stepped on. \
 			This variant has been fitted with high yield X4 charges for a larger explosion."
 	item = /obj/item/deployablemine/traitor/bigboom
-	cost = 9
+	cost = 10
 	include_modes = list(/datum/game_mode/nuclear/clown_ops)
 
 /datum/uplink_item/explosives/pizza_bomb

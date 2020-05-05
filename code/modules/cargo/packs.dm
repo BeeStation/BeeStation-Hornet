@@ -666,7 +666,25 @@
 	for(var/i in 1 to 10)
 		var/item = pick(contains)
 		new item(C)
+/datum/supply_pack/security/armory/smartmine
+	name = "Smart Mine Crate"
+	desc = "Contains three nonlethal pressure activated stun mines capable of ignoring mindshieled personnel. Requires Armory access to open."
+	cost = 4000
+	contains = list(/obj/item/deployablemine/smartstun,					
+					/obj/item/deployablemine/smartstun,
+					/obj/item/deployablemine/smartstun)
+	crate_name = "stun mine create"
 
+/datum/supply_pack/security/armory/stunmine
+	name = "Stun Mine Crate"
+	desc = "Contains five nonlethal pressure activated stun mines. Requires Armory access to open."
+	cost = 2500
+	contains = list(/obj/item/deployablemine/stun,
+					/obj/item/deployablemine/stun,
+					/obj/item/deployablemine/stun,
+					/obj/item/deployablemine/stun,
+					/obj/item/deployablemine/stun)
+	crate_name = "stun mine create"
 /datum/supply_pack/security/armory/swat
 	name = "SWAT Crate"
 	desc = "Contains two fullbody sets of tough, fireproof, pressurized suits designed in a joint effort by IS-ERI and Nanotrasen. Each set contains a suit, helmet, mask, combat belt, and combat gloves. Requires Armory access to open."
