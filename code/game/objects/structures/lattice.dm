@@ -77,8 +77,6 @@
 /obj/structure/lattice/clockwork/Initialize(mapload)
 	. = ..()
 	ratvar_act()
-	if(is_reebe(z))
-		resistance_flags |= INDESTRUCTIBLE
 
 /obj/structure/lattice/clockwork/ratvar_act()
 	if(ISODD(x+y))

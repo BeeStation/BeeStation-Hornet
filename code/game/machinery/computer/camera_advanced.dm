@@ -26,8 +26,6 @@
 			z_lock |= SSmapping.levels_by_trait(ZTRAIT_MINING)
 		if(lock_override & CAMERA_LOCK_CENTCOM)
 			z_lock |= SSmapping.levels_by_trait(ZTRAIT_CENTCOM)
-		if(lock_override & CAMERA_LOCK_REEBE)
-			z_lock |= SSmapping.levels_by_trait(ZTRAIT_REEBE)
 
 /obj/machinery/computer/camera_advanced/syndie
 	icon_keyboard = "syndie_key"

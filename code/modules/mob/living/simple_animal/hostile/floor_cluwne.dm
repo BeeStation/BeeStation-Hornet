@@ -39,7 +39,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	var/delete_after_target_killed = FALSE
 	var/interest = 0
 	var/target_area
-	var/invalid_area_typecache = list(/area/space, /area/lavaland, /area/centcom, /area/reebe, /area/shuttle/syndicate)
+	var/invalid_area_typecache = list(/area/space, /area/lavaland, /area/centcom, /area/shuttle/syndicate)
 	var/eating = FALSE
 	var/obj/effect/dummy/floorcluwne_orbit/poi
 	var/obj/effect/temp_visual/fcluwne_manifest/cluwnehole
