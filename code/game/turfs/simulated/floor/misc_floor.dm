@@ -139,7 +139,7 @@
 	floor_tile = /obj/item/stack/tile/noslip/white
 	broken_states = list("noslip-damaged1_white","noslip-damaged2_white","noslip-damaged3_white")
 	burnt_states = list("noslip-scorched1_white","noslip-scorched2_white")
-	
+
 /turf/open/floor/noslip/blue
 	name = "high-traction floor"
 	icon_state = "noslip_blue"
@@ -153,7 +153,7 @@
 	floor_tile = /obj/item/stack/tile/noslip/darkblue
 	broken_states = list("noslip-damaged1_darkblue","noslip-damaged2_darkblue","noslip-damaged3_darkblue")
 	burnt_states = list("noslip-scorched1_darkblue","noslip-scorched2_darkblue")
-	
+
 /turf/open/floor/noslip/dark
 	name = "high-traction floor"
 	icon_state = "noslip_dark"
@@ -211,34 +211,6 @@
 	. = ..()
 	for(var/obj/structure/lattice/L in src)
 		L.ratvar_act()
-
-/turf/open/floor/clockwork/Entered(atom/movable/AM)
-	..()
-	START_PROCESSING(SSobj, src)
-
-/turf/open/floor/clockwork/process()
-	if(!healservants())
-		STOP_PROCESSING(SSobj, src)
-
-/turf/open/floor/clockwork/proc/healservants()
-	for(var/mob/living/L in src)
-		if(L.stat == DEAD)
-			continue
-		. = 1
-		if(!is_servant_of_ratvar(L) || !L.toxloss)
-			continue
-
-		var/image/I = new('icons/effects/effects.dmi', src, "heal", ABOVE_MOB_LAYER) //fake a healing glow for servants
-		I.appearance_flags = RESET_COLOR
-		I.color = "#5A6068"
-		I.pixel_x = rand(-12, 12)
-		I.pixel_y = rand(-9, 0)
-		var/list/viewing = list()
-		for(var/mob/M in viewers(src))
-			if(M.client && (is_servant_of_ratvar(M) || isobserver(M) || M.stat == DEAD))
-				viewing += M.client
-		flick_overlay(I, viewing, 8)
-		L.adjustToxLoss(-3, TRUE, TRUE)
 
 /turf/open/floor/clockwork/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return

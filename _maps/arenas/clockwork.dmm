@@ -47,7 +47,6 @@
 /area/tdome/arena)
 "m" = (
 /obj/item/toy/plush/plushvar,
-/obj/structure/destructible/clockwork/eminence_spire,
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "n" = (

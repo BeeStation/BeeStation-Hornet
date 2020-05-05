@@ -11,7 +11,7 @@
 /obj/structure/lattice/catwalk/over
 	layer = CATWALK_LAYER
 	plane = GAME_PLANE
-	
+
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
 	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>sliced</b>.</span>")
@@ -48,7 +48,6 @@
 	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
 	canSmoothWith = list(/obj/structure/lattice,
 	/turf/open/floor,
-	/turf/open/indestructible/clock_spawn_room,
 	/turf/closed/wall,
 	/obj/structure/falsewall)
 	smooth = SMOOTH_MORE

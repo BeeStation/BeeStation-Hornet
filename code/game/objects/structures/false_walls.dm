@@ -348,12 +348,6 @@
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/ratvar/wall/false(T)
 	new /obj/effect/temp_visual/ratvar/beam/falsewall(T)
-	change_construction_value(4)
 
 /obj/structure/falsewall/brass/Destroy()
-	change_construction_value(-4)
 	return ..()
-
-/obj/structure/falsewall/brass/ratvar_act()
-	if(GLOB.ratvar_awakens)
-		obj_integrity = max_integrity

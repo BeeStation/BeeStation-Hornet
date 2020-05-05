@@ -14,28 +14,9 @@
 	w_class = WEIGHT_CLASS_BULKY
 	var/bonus_burn = 5
 
-/obj/item/clockwork/weapon/ratvarian_spear/ratvar_act()
-	if(GLOB.ratvar_awakens) //If Ratvar is alive, the spear is extremely powerful
-		force = 20
-		bonus_burn = 10
-		throwforce = 40
-		armour_penetration = 50
-	else
-		force = initial(force)
-		bonus_burn = initial(bonus_burn)
-		throwforce = initial(throwforce)
-		armour_penetration = initial(armour_penetration)
-
-/obj/item/clockwork/weapon/ratvarian_spear/examine(mob/user)
-	. = ..()
-	if(is_servant_of_ratvar(user) || isobserver(user))
-		. += "<span class='inathneq_small'>Attacks on living non-Servants will generate <b>[bonus_burn]</b> units of vitality.</span>"
-		if(!iscyborg(user))
-			. += "<span class='brass'>Throwing the spear will do massive damage, break the spear, and knock down the target.</span>"
-
 /obj/item/clockwork/weapon/ratvarian_spear/attack(mob/living/target, mob/living/carbon/human/user)
 	. = ..()
-	if(!QDELETED(target) && target.stat != DEAD && !target.anti_magic_check(major = FALSE) && !is_servant_of_ratvar(target)) //we do bonus damage on attacks unless they're a servant, have a null rod, or are dead
+	if(!QDELETED(target) && target.stat != DEAD && !target.anti_magic_check(major = FALSE)) //we do bonus damage on attacks unless they're a servant, have a null rod, or are dead
 		var/bonus_damage = bonus_burn //normally a total of 20 damage, 30 with ratvar
 		if(issilicon(target))
 			target.visible_message("<span class='warning'>[target] shudders violently at [src]'s touch!</span>", "<span class='userdanger'>ERROR: Temperature rising!</span>")
@@ -43,24 +24,17 @@
 		else if(iscultist(target) || isconstruct(target))
 			to_chat(target, "<span class='userdanger'>Your body flares with agony at [src]'s presence!</span>")
 			bonus_damage *= 3 //total 30 damage on cultists, 50 with ratvar
-		GLOB.clockwork_vitality += target.adjustFireLoss(bonus_damage) //adds the damage done to existing vitality
 
 /obj/item/clockwork/weapon/ratvarian_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)
 	if(isliving(hit_atom))
 		var/mob/living/L = hit_atom
-		if(is_servant_of_ratvar(L))
-			if(L.put_in_active_hand(src))
-				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
-			else
-				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
-		else if(!..())
+		if(!..())
 			if(!L.anti_magic_check())
 				if(issilicon(L) || iscultist(L))
 					L.Paralyze(100)
 				else
 					L.Paralyze(40)
-				GLOB.clockwork_vitality += L.adjustFireLoss(bonus_burn * 3) //normally a total of 40 damage, 70 with ratvar
 			break_spear(T)
 	else
 		..()
@@ -73,4 +47,3 @@
 			T.visible_message("<span class='warning'>[src] [pick("cracks in two and fades away", "snaps in two and dematerializes")]!</span>")
 			new /obj/effect/temp_visual/ratvar/spearbreak(T)
 			qdel(src)
-		action.weapon_reset(RATVARIAN_SPEAR_COOLDOWN)

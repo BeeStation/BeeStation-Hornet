@@ -7,18 +7,3 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "rare_pepe"
 	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/clockwork/Initialize()
-	. = ..()
-	ratvar_act()
-	GLOB.all_clockwork_objects += src
-
-/obj/item/clockwork/Destroy()
-	GLOB.all_clockwork_objects -= src
-	return ..()
-
-/obj/item/clockwork/examine(mob/user)
-	if((is_servant_of_ratvar(user) || isobserver(user)) && clockwork_desc)
-		desc = clockwork_desc
-	. = ..()
-	desc = initial(desc)

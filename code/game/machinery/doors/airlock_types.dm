@@ -571,10 +571,8 @@
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/door(loc)
 	new /obj/effect/temp_visual/ratvar/beam/door(loc)
-	change_construction_value(5)
 
 /obj/machinery/door/airlock/clockwork/Destroy()
-	change_construction_value(-5)
 	return ..()
 
 /obj/machinery/door/airlock/clockwork/examine(mob/user)
@@ -591,12 +589,6 @@
 	if(prob(80/severity))
 		open()
 
-/obj/machinery/door/airlock/clockwork/canAIControl(mob/user)
-	return (is_servant_of_ratvar(user) && !isAllPowerCut())
-
-/obj/machinery/door/airlock/clockwork/ratvar_act()
-	return 0
-
 /obj/machinery/door/airlock/clockwork/narsie_act()
 	..()
 	if(src)
@@ -610,8 +602,6 @@
 		return ..()
 
 /obj/machinery/door/airlock/clockwork/allowed(mob/M)
-	if(is_servant_of_ratvar(M))
-		return 1
 	return 0
 
 /obj/machinery/door/airlock/clockwork/hasPower()

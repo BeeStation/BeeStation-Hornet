@@ -9,17 +9,3 @@
 	density = FALSE
 	opacity = 0
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-
-/obj/effect/clockwork/Initialize()
-	. = ..()
-	GLOB.all_clockwork_objects += src
-
-/obj/effect/clockwork/Destroy()
-	GLOB.all_clockwork_objects -= src
-	return ..()
-
-/obj/effect/clockwork/examine(mob/user)
-	if((is_servant_of_ratvar(user) || isobserver(user)) && clockwork_desc)
-		desc = clockwork_desc
-	. = ..()
-	desc = initial(desc)

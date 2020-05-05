@@ -656,15 +656,6 @@
 	special_names = list("Remnant", "Relic", "Scrap", "Vestige") //RIP Ratvar
 	var/has_corpse
 
-/datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
-	. = ..()
-	H.faction |= "ratvar"
-
-/datum/species/golem/clockwork/on_species_loss(mob/living/carbon/human/H)
-	if(!is_servant_of_ratvar(H))
-		H.faction -= "ratvar"
-	. = ..()
-
 /datum/species/golem/clockwork/get_spans()
 	return SPAN_ROBOT //beep
 
