@@ -42,8 +42,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 //if your savefile is 3 months out of date, then 'tough shit'.
 
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
-	if(current_version < 28)
-		clientfps = 60
 	if(current_version < 30)
 		clientfps = 40
 	return
