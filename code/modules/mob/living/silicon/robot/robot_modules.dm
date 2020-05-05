@@ -13,6 +13,7 @@
 
 	var/list/basic_modules = list() //a list of paths, converted to a list of instances on New()
 	var/list/emag_modules = list() //ditto
+	var/list/ratvar_modules = list() //ditto ditto
 	var/list/modules = list() //holds all the usable modules
 	var/list/added_modules = list() //modules not inherient to the robot module, are kept when the module changes
 	var/list/storages = list()
@@ -46,10 +47,15 @@
 		var/obj/item/I = new i(src)
 		emag_modules += I
 		emag_modules -= i
+	for(var/i in ratvar_modules)
+		var/obj/item/I = new i(src)
+		ratvar_modules += I
+		ratvar_modules -= i
 
 /obj/item/robot_module/Destroy()
 	basic_modules.Cut()
 	emag_modules.Cut()
+	ratvar_modules.Cut()
 	modules.Cut()
 	added_modules.Cut()
 	storages.Cut()
@@ -129,6 +135,7 @@
 	basic_modules -= I
 	modules -= I
 	emag_modules -= I
+	ratvar_modules -= I
 	added_modules -= I
 	rebuild_modules()
 	if(delete_after)
@@ -164,6 +171,9 @@
 		add_module(I, FALSE, FALSE)
 	if(R.emagged)
 		for(var/obj/item/I in emag_modules)
+			add_module(I, FALSE, FALSE)
+	if(is_servant_of_ratvar(R))
+		for(var/obj/item/I in ratvar_modules)
 			add_module(I, FALSE, FALSE)
 	for(var/obj/item/I in added_modules)
 		add_module(I, FALSE, FALSE)
@@ -245,6 +255,10 @@
 		/obj/item/soap/nanotrasen,
 		/obj/item/borg/cyborghug)
 	emag_modules = list(/obj/item/melee/transforming/energy/sword/cyborg)
+	ratvar_modules = list(
+		/obj/item/clockwork/slab/cyborg,
+		/obj/item/clockwork/weapon/ratvarian_spear,
+		/obj/item/clockwork/replica_fabricator/cyborg)
 	moduleselect_icon = "standard"
 	hat_offset = -3
 
@@ -272,6 +286,9 @@
 		/obj/item/organ_storage,
 		/obj/item/borg/lollipop)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/hacked)
+	ratvar_modules = list(
+		/obj/item/clockwork/slab/cyborg/medical,
+		/obj/item/clockwork/weapon/ratvarian_spear)
 	cyborg_base_icon = "medical"
 	moduleselect_icon = "medical"
 	can_be_pushed = FALSE
@@ -305,6 +322,9 @@
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/cable_coil/cyborg)
 	emag_modules = list(/obj/item/borg/stun)
+	ratvar_modules = list(
+		/obj/item/clockwork/slab/cyborg/engineer,
+		/obj/item/clockwork/replica_fabricator/cyborg)
 	cyborg_base_icon = "engineer"
 	moduleselect_icon = "engineer"
 	magpulsing = TRUE
@@ -323,6 +343,8 @@
 		/obj/item/gun/energy/pulse/carbine/cyborg,
 		/obj/item/clothing/mask/gas/sechailer/cyborg)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
+	ratvar_modules = list(/obj/item/clockwork/slab/cyborg/security,
+		/obj/item/clockwork/weapon/ratvarian_spear)
 	cyborg_base_icon = "centcom"
 	moduleselect_icon = "malf"
 	can_be_pushed = FALSE
@@ -340,6 +362,8 @@
 		/obj/item/clothing/mask/gas/sechailer/cyborg,
 		/obj/item/extinguisher/mini)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
+	ratvar_modules = list(/obj/item/clockwork/slab/cyborg/security,
+		/obj/item/clockwork/weapon/ratvarian_spear)
 	cyborg_base_icon = "sec"
 	moduleselect_icon = "security"
 	can_be_pushed = FALSE
@@ -374,6 +398,9 @@
 		/obj/item/extinguisher,
 		/obj/item/borg/projectile_dampen)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
+	ratvar_modules = list(
+		/obj/item/clockwork/slab/cyborg/peacekeeper,
+		/obj/item/clockwork/weapon/ratvarian_spear)
 	cyborg_base_icon = "peace"
 	moduleselect_icon = "standard"
 	can_be_pushed = FALSE
@@ -403,6 +430,9 @@
 		/obj/item/holosign_creator/janibarrier,
 		/obj/item/reagent_containers/spray/cyborg_drying)
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
+	ratvar_modules = list(
+		/obj/item/clockwork/slab/cyborg/janitor,
+		/obj/item/clockwork/replica_fabricator/cyborg)
 	cyborg_base_icon = "janitor"
 	moduleselect_icon = "janitor"
 	hat_offset = -5
@@ -456,6 +486,10 @@
 	emag_modules = list(
 		/obj/item/reagent_containers/borghypo/clown/hacked,
 		/obj/item/reagent_containers/spray/waterflower/cyborg/hacked)
+	ratvar_modules = list(
+		/obj/item/clockwork/slab/cyborg,
+		/obj/item/clockwork/weapon/ratvarian_spear,
+		/obj/item/clockwork/replica_fabricator/cyborg)
 	moduleselect_icon = "service"
 	cyborg_base_icon = "clown"
 	hat_offset = -2
@@ -481,6 +515,8 @@
 		/obj/item/reagent_containers/borghypo/borgshaker,
 		/obj/item/borg/lollipop)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
+	ratvar_modules = list(/obj/item/clockwork/slab/cyborg/service,
+		/obj/item/borg/sight/xray/truesight_lens)
 	moduleselect_icon = "service"
 	special_light_key = "service"
 	hat_offset = 0
@@ -519,6 +555,10 @@
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/borg/charger,
 		/obj/item/borg/cyborghug/peacekeeper)
+	ratvar_modules = list(
+		/obj/item/clockwork/slab/cyborg,
+		/obj/item/clockwork/weapon/ratvarian_spear,
+		/obj/item/clockwork/replica_fabricator/cyborg)
 	cyborg_base_icon = "borgi"
 	moduleselect_icon = "standard"
 
@@ -539,6 +579,10 @@
 		/obj/item/gps/cyborg,
 		/obj/item/stack/marker_beacon)
 	emag_modules = list(/obj/item/borg/stun)
+	ratvar_modules = list(
+		/obj/item/clockwork/slab/cyborg/miner,
+		/obj/item/clockwork/weapon/ratvarian_spear,
+		/obj/item/borg/sight/xray/truesight_lens)
 	cyborg_base_icon = "miner"
 	moduleselect_icon = "miner"
 	hat_offset = 0
@@ -580,6 +624,10 @@
 		/obj/item/crowbar/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/pinpointer/syndicate_cyborg)
+
+	ratvar_modules = list(
+		/obj/item/clockwork/slab/cyborg/security,
+		/obj/item/clockwork/weapon/ratvarian_spear)
 	cyborg_base_icon = "synd_sec"
 	moduleselect_icon = "malf"
 	can_be_pushed = FALSE
@@ -618,6 +666,9 @@
 		/obj/item/stack/medical/gauze/cyborg,
 		/obj/item/gun/medbeam,
 		/obj/item/organ_storage)
+	ratvar_modules = list(
+		/obj/item/clockwork/slab/cyborg/medical,
+		/obj/item/clockwork/weapon/ratvarian_spear)
 	cyborg_base_icon = "synd_medical"
 	moduleselect_icon = "malf"
 	can_be_pushed = FALSE
@@ -650,6 +701,9 @@
 		/obj/item/pinpointer/syndicate_cyborg,
 		/obj/item/borg_chameleon,
 		)
+	ratvar_modules = list(
+		/obj/item/clockwork/slab/cyborg/engineer,
+		/obj/item/clockwork/replica_fabricator/cyborg)
 	cyborg_base_icon = "synd_engi"
 	moduleselect_icon = "malf"
 	can_be_pushed = FALSE

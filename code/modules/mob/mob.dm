@@ -26,6 +26,7 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
+	GLOB.all_clockwork_mobs -= src
 	GLOB.mob_directory -= tag
 	focus = null
 	for (var/alert in alerts)

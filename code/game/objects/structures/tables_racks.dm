@@ -51,6 +51,11 @@
 	qdel(src)
 	new /obj/structure/table/wood(A)
 
+/obj/structure/table/ratvar_act()
+	var/atom/A = loc
+	qdel(src)
+	new /obj/structure/table/reinforced/brass(A)
+
 /obj/structure/table/attack_paw(mob/user)
 	return attack_hand(user)
 
@@ -376,7 +381,7 @@
 	icon_state = "fancy_table_royalblue"
 	buildstack = /obj/item/stack/tile/carpet/royalblue
 	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
-
+	
 /*
  * Reinforced tables
  */
@@ -429,6 +434,14 @@
 	buildstackamount = 1
 	canSmoothWith = list(/obj/structure/table/reinforced/brass, /obj/structure/table/bronze)
 
+/obj/structure/table/reinforced/brass/Initialize()
+	. = ..()
+	change_construction_value(2)
+
+/obj/structure/table/reinforced/brass/Destroy()
+	change_construction_value(-2)
+	return ..()
+
 /obj/structure/table/reinforced/brass/tablepush(mob/living/user, mob/living/pushed_mob)
 	.= ..()
 	playsound(src, 'sound/magic/clockwork/fellowship_armory.ogg', 50, TRUE)
@@ -440,6 +453,9 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+
+/obj/structure/table/reinforced/brass/ratvar_act()
+	obj_integrity = max_integrity
 
 /obj/structure/table/bronze
 	name = "bronze table"

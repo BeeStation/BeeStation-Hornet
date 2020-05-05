@@ -447,6 +447,8 @@
 				C.stuttering += 15
 				C.cultslurring += 15
 				C.Jitter(15)
+			if(is_servant_of_ratvar(L))
+				L.adjustBruteLoss(15)
 		else
 			target.visible_message("<span class='warning'>[L] can't seem to hear you!</span>", \
 									   "<span class='userdanger'>[user] whispers something to you, but you can't quite make it out through your hearing protection.</span>")
