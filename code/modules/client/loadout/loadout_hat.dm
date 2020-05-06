@@ -61,45 +61,41 @@
 
 //SOFT CAPS
 
+/datum/gear/hat/soft
+	subtype_path = /datum/gear/hat/soft
+	cost = 1500
+
 /datum/gear/hat/soft/red
 	display_name = "cap, red"
 	path = /obj/item/clothing/head/soft/red
-	cost = 1500
 
 /datum/gear/hat/soft/blue
 	display_name = "cap, blue"
 	path = /obj/item/clothing/head/soft/blue
-	cost = 1500
 
 /datum/gear/hat/soft/green
 	display_name = "cap, green"
 	path = /obj/item/clothing/head/soft/green
-	cost = 1500
 
 /datum/gear/hat/soft/yellow
 	display_name = "cap, yellow"
 	path = /obj/item/clothing/head/soft/yellow
-	cost = 1500
 
 /datum/gear/hat/soft/grey
 	display_name = "cap, grey"
 	path = /obj/item/clothing/head/soft/grey
-	cost = 1500
 
 /datum/gear/hat/soft/orange
 	display_name = "cap, orange"
 	path = /obj/item/clothing/head/soft/orange
-	cost = 1500
 
 /datum/gear/hat/soft/purple
 	display_name = "cap, purple"
 	path = /obj/item/clothing/head/soft/purple
-	cost = 1500
 
 /datum/gear/hat/soft/black
 	display_name = "cap, black"
 	path = /obj/item/clothing/head/soft/black
-	cost = 1500
 
 //BEANIES
 

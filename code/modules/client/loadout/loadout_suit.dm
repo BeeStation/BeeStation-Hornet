@@ -2,20 +2,24 @@
 	subtype_path = /datum/gear/suit
 	slot = SLOT_WEAR_SUIT
 	sort_category = "External Wear"
+	cost = 2500
 
 //ALT ARMOR, MEDICAL VESTS, + LABCOATS
 
-/datum/gear/suit/vests/hazard/brig_doc
+/datum/gear/suit/labcoat
+	subtype_path = /datum/gear/suit/labcoat
+
+/datum/gear/suit/labcoat/brig_doc_hazard
 	display_name = "brig physician's hazard vest"
 	path = /obj/item/clothing/suit/hazardvest/brig_phys
 	allowed_roles = list("Brig Physician")
 
-/datum/gear/suit/vests/labcoat/brig_doc
+/datum/gear/suit/labcoat/brig_doc
 	display_name = "brig physician's labcoat"
 	path = /obj/item/clothing/suit/toggle/labcoat/brig_phys
 	allowed_roles = list("Brig Physician")
 
-/datum/gear/suit/vests/labcoat/emt
+/datum/gear/suit/labcoat/emt
 	display_name = "EMT labcoat"
 	path = /obj/item/clothing/suit/toggle/labcoat/emt
 	allowed_roles = list("Medical Doctor", "Chief Medical Officer", "Chemist", "Geneticist")

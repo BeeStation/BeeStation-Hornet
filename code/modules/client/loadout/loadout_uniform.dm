@@ -168,6 +168,9 @@
 	subtype_path = /datum/gear/uniform/suit
 	cost = 2500
 
+/datum/gear/uniform/suit/suit_jacket
+	subtype_path = /datum/gear/uniform/suit/suit_jacket
+
 /datum/gear/uniform/suit/suit_jacket/black
 	display_name = "black suit"
 	path = /obj/item/clothing/under/suit_jacket
@@ -222,6 +225,10 @@
 
 //MEME & COSTUME ITEMS
 
+/datum/gear/uniform/misc
+	subtype_path = /datum/gear/uniform/misc
+	cost = 5000
+
 /datum/gear/uniform/misc/jabroni
 	display_name = "jabroni leathers"
 	path = /obj/item/clothing/under/jabroni
@@ -230,17 +237,20 @@
 /datum/gear/uniform/misc/soviet
 	display_name = "soviet uniform"
 	path = /obj/item/clothing/under/soviet
-	cost = 5000
 
 /datum/gear/uniform/misc/pirate
 	display_name = "pirate outfit"
 	path = /obj/item/clothing/under/pirate
-	cost = 5000
 
 /datum/gear/uniform/misc/sailor
 	display_name = "sailor outfit"
 	path = /obj/item/clothing/under/sailor
-	cost = 5000
+
+//RANK SUBTYPE
+
+/datum/gear/uniform/rank
+	subtype_path = /datum/gear/uniform/rank
+	cost = 2500
 
 //ASSISTANTS FORMALS
 
@@ -262,7 +272,6 @@
 /datum/gear/uniform/rank/cook
 	subtype_path = /datum/gear/uniform/rank/cook
 	allowed_roles = list("Cook")
-	cost = 2500
 
 /datum/gear/uniform/rank/cook/red
 	display_name = "cook's suit, red"
@@ -273,7 +282,6 @@
 /datum/gear/uniform/rank/cargo
 	subtype_path = /datum/gear/uniform/rank/cargo
 	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner")
-	cost = 2500
 
 /datum/gear/uniform/rank/cargo/overalls
 	display_name = "laborer's overalls, light blue"
@@ -290,7 +298,6 @@
 /datum/gear/uniform/rank/medical
 	subtype_path = /datum/gear/uniform/rank/medical
 	allowed_roles = list("Paramedic", "Medical Doctor", "Chief Medical Officer")
-	cost = 2500
 
 /datum/gear/uniform/rank/medical/nurse_dress
 	display_name = "medical, nurse's dress"
@@ -317,7 +324,6 @@
 /datum/gear/uniform/rank/engineering
 	subtype_path = /datum/gear/uniform/rank/engineering
 	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
-	cost = 2500
 
 /datum/gear/uniform/rank/engineering/hazard
 	display_name = "engineering jumpsuit, hazard"
@@ -328,7 +334,6 @@
 /datum/gear/uniform/rank/security
 	subtype_path = /datum/gear/uniform/rank/security
 	allowed_roles = list("Security Officer")
-	cost = 2500
 
 /datum/gear/uniform/rank/security/white
 	display_name = "security jumpsuit, white"

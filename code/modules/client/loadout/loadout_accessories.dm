@@ -3,20 +3,21 @@
 	slot = SLOT_NECK
 	sort_category = "Accessories"
 
+/datum/gear/accessory/scarf
+	subtype_path = /datum/gear/accessory/scarf
+	cost = 1000
+
 /datum/gear/accessory/scarf/red
 	display_name = "scarf, red"
 	path = /obj/item/clothing/neck/scarf/red
-	cost = 1000
 
 /datum/gear/accessory/scarf/green
 	display_name = "scarf, green"
 	path = /obj/item/clothing/neck/scarf/green
-	cost = 1000
 
 /datum/gear/accessory/scarf/darkblue
 	display_name = "scarf, dark blue"
 	path = /obj/item/clothing/neck/scarf/darkblue
-	cost = 1000
 
 /datum/gear/accessory/scarf/zebra
 	display_name = "scarf, zebra"
@@ -38,25 +39,28 @@
 	path = /obj/item/clothing/accessory/armband
 	cost = 1000
 
+//ties
+/datum/gear/accessory/tie
+	subtype_path = /datum/gear/accessory/tie
+	cost = 1500
+
 /datum/gear/accessory/tie/blue
 	display_name = "tie, blue"
 	path = /obj/item/clothing/neck/tie/blue
-	cost = 1500
 
 /datum/gear/accessory/tie/red
 	display_name = "tie, red"
 	path = /obj/item/clothing/neck/tie/red
-	cost = 1500
 
 /datum/gear/accessory/tie/black
 	display_name = "tie, black"
 	path = /obj/item/clothing/neck/tie/black
-	cost = 2000
 
 /datum/gear/accessory/tie/horrible
 	display_name = "tie, horrible"
 	path = /obj/item/clothing/neck/tie/horrible
-	cost = 1000
+
+//necklaces and shiz
 
 /datum/gear/accessory/petcollar
 	display_name = "pet collar"
@@ -127,10 +131,13 @@
 
 //LIPSTICK
 
+/datum/gear/accessory/cosmetics
+	subtype_path = /datum/gear/accessory/cosmetics
+	cost = 1200
+
 /datum/gear/accessory/cosmetics/lipstick
 	display_name = "lipstick, red"
 	path = /obj/item/lipstick
-	cost = 1200
 
 /datum/gear/accessory/cosmetics/lipstick/black
 	display_name = "lipstick, black"
