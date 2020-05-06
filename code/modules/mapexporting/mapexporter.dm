@@ -6,6 +6,9 @@
 //============================
 //This has been made semi-modular so you should be able to use these functions
 //elsewhere in code if you ever need to get a file in the .dmm format
+/atom
+	//The variables that should be saved, will use default ones if not supplied with anything
+	var/list/vars_to_save
 
 GLOBAL_LIST_INIT(save_file_chars, list(
 	"a","b","c","d","e",
@@ -22,7 +25,11 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 ))
 
 //Converts a list of turfs into TGM file format
-/proc/convert_map_to_tgm(var/list/map, var/save_flag = SAVE_ALL, var/shuttle_area_flag = SAVE_SHUTTLEAREA_DONTCARE, var/list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"))
+/proc/convert_map_to_tgm(var/list/map,\
+						var/save_flag = SAVE_ALL, \
+						var/shuttle_area_flag = SAVE_SHUTTLEAREA_DONTCARE, \
+						var/list/vars_to_save = list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount"),\
+						var/list/obj_blacklist = list())
 	//Calculate the bounds
 	var/minx = 1024
 	var/miny = 1024
@@ -88,6 +95,8 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 			//====SAVING OBJECTS====
 			if(save_flag & SAVE_OBJECTS)
 				for(var/obj/thing in objects)
+					if(thing.type in obj_blacklist)
+						continue
 					var/metadata = generate_tgm_metadata(thing, vars_to_save)
 					current_header += "[empty?"":",\n"][thing.type][metadata]"
 					empty = FALSE
@@ -133,8 +142,12 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	var/dat = ""
 	var/data_to_add = list()
 	for(var/V in O.vars)
-		if(!(V in vars_to_save) && vars_to_save)
-			continue
+		if(O.vars_to_save)
+			if(!(V in O.vars_to_save))
+				continue
+		else
+			if(!(V in vars_to_save) && vars_to_save)
+				continue
 		var/value = O.vars[V]
 		if(!value)
 			continue
