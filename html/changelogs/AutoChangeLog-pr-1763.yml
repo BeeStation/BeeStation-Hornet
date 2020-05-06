@@ -1,0 +1,4 @@
+author: zeskorion
+delete-after: true
+changes:
+  - bugfix: HOP cant open gimmick jobs anymore
