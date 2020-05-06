@@ -37,7 +37,7 @@
 		return
 
 	// No more available directions? Shut down process().
-	if(avail_dirs.len==0)
+	if(!LAZYLEN(avail_dirs.len))
 		STOP_PROCESSING(SSobj, src)
 		return 1
 
@@ -58,7 +58,6 @@
 		spawn(10)
 			// Nom.
 			for(var/atom/movable/A in T)
-				
 				if(A)
 					if(istype(A, /obj/singularity/cascade/exit))
 						for(var/mob/M in GLOB.player_list)

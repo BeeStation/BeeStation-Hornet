@@ -43,4 +43,3 @@
 	
 /obj/singularity/cascade/exit/process()
 	eat()
-	return
