@@ -259,11 +259,12 @@ effective or pretty fucking useless.
 	. = ..()
 	if(istype(W, /obj/item/upgradewand))
 		var/obj/item/upgradewand/wand = W
-		wand.used = TRUE
-		charge = 450
-		max_charge = 450
-		to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand]</span>")
-		playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
+		if(!wand.used && max_charge == initial(max_charge))
+			wand.used = TRUE
+			charge = 450
+			max_charge = 450
+			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand]</span>")
+			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
 /obj/item/jammer
 	name = "radio jammer"

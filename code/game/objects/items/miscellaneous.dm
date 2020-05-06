@@ -186,12 +186,13 @@
 	. = ..()
 	if(istype(W, /obj/item/upgradewand))
 		var/obj/item/upgradewand/wand = W
-		wand.used = TRUE
-		kidnappingcoefficient = 0.5
-		capacity = 4
-		maximum_size = 4
-		to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand]</span>")
-		playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
+		if(!wand.used && kidnappingcoefficient == initial(kidnappingcoefficient))
+			wand.used = TRUE
+			kidnappingcoefficient = 0.5
+			capacity = 4
+			maximum_size = 4
+			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand]</span>")
+			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 	
 /obj/item/clothing/head/that/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
