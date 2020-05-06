@@ -53,6 +53,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ALIEN,
 	ROLE_PAI,
 	ROLE_CULTIST = /datum/game_mode/cult,
+	ROLE_SERVANT_OF_RATVAR = /datum/game_mode/clockcult,
 	ROLE_BLOB,
 	ROLE_NINJA,
 	ROLE_OBSESSED,
