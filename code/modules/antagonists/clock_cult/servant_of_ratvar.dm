@@ -27,6 +27,8 @@
 	if(!istype(H))
 		return FALSE
 
+//Grant access to the clockwork tools.
+//If AI, disconnect all active borgs and make it only able to control converted shells
 /datum/antagonist/servant_of_ratvar/proc/equip_silicon(mob/living/silicon/S)
 	if(!istype(S))
 		return FALSE
