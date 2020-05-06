@@ -3,7 +3,6 @@ DO NOT MANUALLY RUN THIS SCRIPT.
 """
 import sys
 import re
-import json
 from pathlib import Path
 from ruamel import yaml
 from github import Github
