@@ -58,7 +58,12 @@
 		spawn(10)
 			// Nom.
 			for(var/atom/movable/A in T)
+				
 				if(A)
+					if(istype(A, /obj/singularity/cascade/exit))
+						for(var/mob/M in GLOB.player_list)
+							to_chat(M, "<span class='boldannounce'>All hope is lost, the bluespace rift has closed.</span>")
+							SEND_SOUND(M, 'sound/effects/supermatter.ogg')
 					if(istype(A,/mob/living))
 						qdel(A)
 						A = null
@@ -71,6 +76,7 @@
 			var/turf/closed/indestructible/supermatter/wall/SM = T
 			if(SM.avail_dirs)
 				SM.avail_dirs -= get_dir(T, src)
+
 /turf/closed/indestructible/supermatter/wall/attack_hand(mob/user)
 	user.visible_message("<span class=\"warning\">\The [user] reaches out and touches \the [src]... And then blinks out of existance.</span>",\
 	"<span class=\"danger\">You reach out and touch \the [src]. Everything immediately goes quiet. Your last thought is \"That was not a wise decision.\"</span>",\
