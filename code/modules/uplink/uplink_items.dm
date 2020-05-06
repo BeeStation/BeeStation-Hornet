@@ -1685,6 +1685,14 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/grenade/discogrenade
 	restricted_species = list("ethereal")
 
+/datum/uplink_item/race_restricted/plasmachameleon
+	name = "Plasmaman Chameleon Kit"
+	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
+			Due to budget cuts, the shoes don't provide protection against slipping. The normal bells and whistles of a plasmaman's jumpsuit and helmet are gutted to make room for the chameleon machinery."
+	item = /obj/item/storage/box/syndie_kit/plasmachameleon
+	cost = 2
+	restricted_species = list("plasmaman")
+
 // Role-specific items
 /datum/uplink_item/role_restricted
 	category = "Role-Restricted"
