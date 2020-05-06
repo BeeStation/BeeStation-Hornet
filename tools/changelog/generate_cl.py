@@ -23,7 +23,7 @@ try:
     cl = CL_BODY.search(pr_body)
     cl_list = CL_SPLIT.findall(cl.group(2))
 except AttributeError:
-    print("No CL!")
+    print("No CL found!")
     exit(1)
 
 
