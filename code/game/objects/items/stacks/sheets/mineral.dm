@@ -16,8 +16,8 @@ Mineral Sheets
 	Others:
 		- Adamantine
 		- Mythril
-		- Enriched Uranium
-		- Abductor
+		- Alien Alloy
+		- Coal
 */
 
 /obj/item/stack/sheet/mineral/Initialize(mapload)
@@ -121,6 +121,15 @@ GLOBAL_LIST_INIT(diamond_recipes, list ( \
 	recipes = GLOB.diamond_recipes
 	. = ..()
 
+/obj/item/stack/sheet/mineral/diamond/fifty
+	amount = 50
+
+/obj/item/stack/sheet/mineral/diamond/twenty
+	amount = 20
+
+/obj/item/stack/sheet/mineral/diamond/five
+	amount = 5
+
 /*
  * Uranium
  */
@@ -146,6 +155,15 @@ GLOBAL_LIST_INIT(uranium_recipes, list ( \
 /obj/item/stack/sheet/mineral/uranium/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.uranium_recipes
 	. = ..()
+
+/obj/item/stack/sheet/mineral/uranium/fifty
+	amount = 50
+
+/obj/item/stack/sheet/mineral/uranium/twenty
+	amount = 20
+
+/obj/item/stack/sheet/mineral/uranium/five
+	amount = 5
 
 /*
  * Plasma
@@ -190,6 +208,15 @@ GLOBAL_LIST_INIT(plasma_recipes, list ( \
 	atmos_spawn_air("plasma=[amount*10];TEMP=[exposed_temperature]")
 	qdel(src)
 
+/obj/item/stack/sheet/mineral/plasma/fifty
+	amount = 50
+
+/obj/item/stack/sheet/mineral/plasma/twenty
+	amount = 20
+
+/obj/item/stack/sheet/mineral/plasma/five
+	amount = 5
+
 /*
  * Gold
  */
@@ -218,6 +245,15 @@ GLOBAL_LIST_INIT(gold_recipes, list ( \
 /obj/item/stack/sheet/mineral/gold/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.gold_recipes
 	. = ..()
+
+/obj/item/stack/sheet/mineral/gold/fifty
+	amount = 50
+
+/obj/item/stack/sheet/mineral/gold/twenty
+	amount = 20
+
+/obj/item/stack/sheet/mineral/gold/five
+	amount = 5
 
 /*
  * Silver
@@ -248,6 +284,15 @@ GLOBAL_LIST_INIT(silver_recipes, list ( \
 	recipes = GLOB.silver_recipes
 	. = ..()
 
+/obj/item/stack/sheet/mineral/silver/fifty
+	amount = 50
+
+/obj/item/stack/sheet/mineral/silver/twenty
+	amount = 20
+
+/obj/item/stack/sheet/mineral/silver/five
+	amount = 5
+
 /*
  * Copper
  */
@@ -271,6 +316,15 @@ GLOBAL_LIST_INIT(copper_recipes, list ( \
 /obj/item/stack/sheet/mineral/copper/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.copper_recipes
 	. = ..()
+
+/obj/item/stack/sheet/mineral/copper/fifty
+	amount = 50
+
+/obj/item/stack/sheet/mineral/copper/twenty
+	amount = 20
+
+/obj/item/stack/sheet/mineral/copper/five
+	amount = 5
 
 /*
  * Clown
@@ -324,6 +378,12 @@ GLOBAL_LIST_INIT(titanium_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/titanium/fifty
 	amount = 50
+
+/obj/item/stack/sheet/mineral/titanium/twenty
+	amount = 20
+
+/obj/item/stack/sheet/mineral/titanium/five
+	amount = 5
 
 
 /*
@@ -433,3 +493,36 @@ GLOBAL_LIST_INIT(abductor_recipes, list ( \
 /obj/item/stack/sheet/mineral/abductor/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.abductor_recipes
 	. = ..()
+
+/*
+ * Coal
+ */
+
+/obj/item/stack/sheet/mineral/coal
+	name = "coal"
+	desc = "Someone's gotten on the naughty list."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "slag"
+	singular_name = "coal lump"
+	merge_type = /obj/item/stack/sheet/mineral/coal
+	grind_results = list(/datum/reagent/carbon = 20)
+
+/obj/item/stack/sheet/mineral/coal/attackby(obj/item/W, mob/user, params)
+	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
+		var/turf/T = get_turf(src)
+		message_admins("Coal ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
+		log_game("Coal ignited by [key_name(user)] in [AREACOORD(T)]")
+		fire_act(W.is_hot())
+		return TRUE
+	else
+		return ..()
+
+/obj/item/stack/sheet/mineral/coal/fire_act(exposed_temperature, exposed_volume)
+	atmos_spawn_air("co2=[amount*10];TEMP=[exposed_temperature]")
+	qdel(src)
+
+/obj/item/stack/sheet/mineral/coal/five
+	amount = 5
+
+/obj/item/stack/sheet/mineral/coal/ten
+	amount = 10

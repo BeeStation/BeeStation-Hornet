@@ -1,0 +1,242 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/sunflower,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"b" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"c" = (
+/obj/structure/table,
+/obj/item/clothing/suit/apron/overalls,
+/obj/item/cultivator,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"d" = (
+/obj/machinery/biogenerator,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"e" = (
+/obj/structure/table,
+/obj/item/seeds/poppy/lily{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/seeds/poppy/geranium,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/grown/wheat,
+/obj/item/reagent_containers/food/snacks/grown/corn,
+/obj/item/reagent_containers/food/snacks/grown/apple,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"f" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/tea,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"g" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"h" = (
+/obj/structure/table,
+/obj/item/stack/packageWrap,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/hand_labeler,
+/obj/item/reagent_containers/food/snacks/grown/tea,
+/obj/item/reagent_containers/food/snacks/grown/grapes,
+/obj/item/reagent_containers/food/snacks/grown/cherries,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"i" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/poppy,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"j" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"k" = (
+/turf/open/floor/plasteel,
+/area/template_noop)
+"l" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/sign/departments/minsky/supply/hydroponics{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"m" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/obj/structure/sign/warning/nosmoking{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"n" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"o" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/harebell,
+/obj/machinery/light/small,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"p" = (
+/obj/structure/table,
+/obj/item/shovel/spade,
+/obj/item/reagent_containers/glass/bottle/nutrient/rh{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/glass/bottle/nutrient/ez{
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/syringe,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/white,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"q" = (
+/obj/machinery/seed_extractor,
+/obj/machinery/status_display/evac{
+	pixel_y = -32
+	},
+/obj/item/reagent_containers/glass/bucket,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"r" = (
+/obj/structure/table,
+/obj/item/plant_analyzer,
+/obj/item/hatchet,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"s" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"t" = (
+/obj/structure/table,
+/obj/item/crowbar,
+/obj/item/wrench,
+/obj/item/reagent_containers/glass/bucket,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"u" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/tower,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+j
+k
+m
+n
+"}
+(2,1,1) = {"
+b
+k
+k
+j
+o
+"}
+(3,1,1) = {"
+c
+k
+k
+k
+p
+"}
+(4,1,1) = {"
+d
+j
+k
+k
+q
+"}
+(5,1,1) = {"
+e
+j
+k
+k
+r
+"}
+(6,1,1) = {"
+f
+k
+k
+k
+s
+"}
+(7,1,1) = {"
+g
+k
+k
+k
+s
+"}
+(8,1,1) = {"
+h
+j
+k
+k
+t
+"}
+(9,1,1) = {"
+b
+j
+k
+j
+u
+"}
+(10,1,1) = {"
+i
+l
+j
+j
+n
+"}

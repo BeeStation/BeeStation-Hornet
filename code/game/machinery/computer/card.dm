@@ -35,6 +35,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		"Chief Engineer",
 		"Research Director",
 		"Chief Medical Officer",
+		"Brig Physician", 
+		"Deputy",
 		"Brig Physician")
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
@@ -54,6 +56,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/Initialize()
 	. = ..()
 	change_position_cooldown = CONFIG_GET(number/id_console_jobslot_delay)
+	for(var/datum/job/gimmick/J in typesof(/datum/job/gimmick))
+		blacklisted += J.title
 
 /obj/machinery/computer/card/attackby(obj/O, mob/user, params)//TODO:SANITY
 	if(istype(O, /obj/item/card/id))

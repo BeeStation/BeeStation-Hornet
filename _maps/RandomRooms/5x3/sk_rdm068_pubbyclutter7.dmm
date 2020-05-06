@@ -1,0 +1,87 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/shieldwallgen,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/item/stack/cable_coil/cut/random,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/structure/table,
+/obj/item/stack/rods{
+	amount = 5;
+	layer = 3.3
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/assembly/prox_sensor{
+	pixel_y = 2
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/item/wrench,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/structure/chair/office{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/table,
+/obj/item/assembly/igniter,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/item/weldingtool,
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/structure/table,
+/obj/item/assembly/timer,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+f
+a
+"}
+(2,1,1) = {"
+b
+f
+j
+"}
+(3,1,1) = {"
+c
+g
+f
+"}
+(4,1,1) = {"
+d
+h
+f
+"}
+(5,1,1) = {"
+e
+i
+k
+"}
