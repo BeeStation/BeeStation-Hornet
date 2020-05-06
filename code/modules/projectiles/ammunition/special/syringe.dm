@@ -27,7 +27,6 @@
 	desc = "A high-power spring, linked to an energy-based dart synthesiser."
 	projectile_type = /obj/item/projectile/bullet/dart
 	firing_effect_type = null
-	var/amount = 15
 
 /obj/item/ammo_casing/chemgun/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	if(!BB)
