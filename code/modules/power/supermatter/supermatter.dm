@@ -25,6 +25,8 @@
 #define POWER_PENALTY_THRESHOLD 5000          //Higher == Engine can generate more power before triggering the high power penalties.
 #define SEVERE_POWER_PENALTY_THRESHOLD 7000   //Same as above, but causes more dangerous effects
 #define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //Even more dangerous effects, threshold for tesla delamination
+#define CASCADE_POWER_PENALTY_THRESHOLD 11000 //Causes a bluespace cascade at these energies
+
 #define HEAT_PENALTY_THRESHOLD 40             //Higher == Crystal safe operational temperature is higher.
 #define DAMAGE_HARDCAP 0.002
 #define DAMAGE_INCREASE_MULTIPLIER 0.25
@@ -279,6 +281,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	explode()
 
 /obj/machinery/power/supermatter_crystal/proc/explode()
+	if(cascade_allowed && power > CASCADE_POWER_PENALTY_THRESHOLD) //hippie start
+		src.cascade()
+		return //hippie end
 	for(var/mob in GLOB.alive_mob_list)
 		var/mob/living/L = mob
 		if(istype(L) && L.z == z)
@@ -515,7 +520,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 				radio.talk_into(src, "Warning: Hyperstructure has reached dangerous power level.", engineering_channel, get_spans(), get_default_language())
 				if(powerloss_inhibitor < 0.5)
 					radio.talk_into(src, "DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.", engineering_channel, get_spans(), get_default_language())
-
+			if (power > CASCADE_POWER_PENALTY_THRESHOLD && damage > emergency_point)
+				radio.talk_into(src, "DANGER: SUPERMATTER CASCADE IMMINENT.", engineering_channel, get_spans(), get_default_language())
+			else if (power > CASCADE_POWER_PENALTY_THRESHOLD)
+				radio.talk_into(src, "Warning: Supermatter cascade will occur under these energy levels.", engineering_channel, get_spans(), get_default_language())
 			if(combined_gas > MOLE_PENALTY_THRESHOLD)
 				radio.talk_into(src, "Warning: Critical coolant mass reached.", engineering_channel, get_spans(), get_default_language())
 

@@ -200,6 +200,14 @@ SUBSYSTEM_DEF(shuttle)
 	return TRUE
 
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
+	if (GLOB.supermatter_cascade == TRUE)
+		if(user)
+			if(user.hallucinating())
+				var/msg = pick("the engines of your childhood spaceship","somebody repeating ones and zeros over and over", "your mother and father arguing","a smooth jazz tune","somebody speaking [pick("french","siik'tajr","gibberish")]","[pick("somebody","your parents","a gorilla","a man","a woman")] making [pick("chicken","cow","train","duck","cat","dog","strange","funny")] sounds", "a sine tone of exactly 15.3 KHz")
+				to_chat(user, "<span class='cult-small'>All you hear on the frequency is [msg]. There will be no shuttle call today.</span>")
+			else
+				to_chat(user, "<span class='cult-small'>All you hear on the frequency is static and crying. There will be no shuttle call today.</span>")
+		return 0
 	if(!emergency)
 		WARNING("requestEvac(): There is no emergency shuttle, but the \
 			shuttle was called. Using the backup shuttle instead.")
@@ -300,6 +308,8 @@ SUBSYSTEM_DEF(shuttle)
 	return 1
 
 /datum/controller/subsystem/shuttle/proc/autoEvac()
+	if (GLOB.supermatter_cascade == TRUE)
+		return
 	if (!SSticker.IsRoundInProgress())
 		return
 
@@ -470,10 +480,10 @@ SUBSYSTEM_DEF(shuttle)
 	// Then create a transit docking port in the middle
 	var/coords = M.return_coords(0, 0, dock_dir)
 	/*  0------2
-        |      |
-        |      |
-        |  x   |
-        3------1
+		|      |
+		|      |
+		|  x   |
+		3------1
 	*/
 
 	var/x0 = coords[1]
