@@ -3,9 +3,9 @@ DO NOT MANUALLY RUN THIS SCRIPT.
 """
 import sys
 import re
-import json
 from pathlib import Path
 from ruamel import yaml
+from github import Github
 
 CL_BODY = re.compile(r":cl:(.+)?\r\n((.|\n|\r)+?)\r\n\/:cl:", re.MULTILINE)
 CL_SPLIT = re.compile(r"(^\w+):\s+(\w.+)", re.MULTILINE)
@@ -14,9 +14,25 @@ if len(sys.argv) < 4:
     print("Missing arguments")
     exit(1)
 
-pr_body = bytes(sys.argv[1], "utf-8").decode("unicode_escape")
-pr_number = sys.argv[2]
-pr_author = sys.argv[3]
+# Blessed is the GoOnStAtIoN birb ZeWaKa for thinking of this first
+repo = sys.argv[1]
+token = sys.argv[2]
+sha = sys.argv[3]
+
+git = Github(token)
+repo = git.get_repo(repo)
+commit = repo.get_commit(sha)
+pr_list = commit.get_pulls()
+
+if not pr_list.totalCount:
+    print("Direct commit detected")
+    exit(1)
+
+pr = pr_list[0]
+
+pr_body = pr.body
+pr_number = pr.number
+pr_author = pr.user.login
 
 write_cl = {}
 try:
@@ -54,4 +70,4 @@ if write_cl['changes']:
     print("Done!")
 else:
     print("No CL changes detected!")
-    exit(1)
+    exit(0)
