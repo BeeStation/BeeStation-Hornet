@@ -1,4 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - bugfix: CLs are properly generated when a PR comes from an external fork.
