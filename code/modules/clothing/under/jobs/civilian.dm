@@ -48,7 +48,7 @@
 	name = "chaplain's jumpsuit"
 	icon_state = "chaplain"
 	item_state = "bl_suit"
-	item_color = "chapblack"
+	item_color = "chaplain"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/chef
