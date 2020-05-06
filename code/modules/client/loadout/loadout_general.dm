@@ -21,17 +21,17 @@
 /datum/gear/misc/lighter
 	display_name = "Zippo lighter"
 	path = /obj/item/lighter
-	cost = 800
+	cost = 1500
 
 /datum/gear/misc/lighter/random
 	display_name = "random cheap lighter"
 	path = /obj/item/lighter/greyscale
-	cost = 400
+	cost = 1000
 
 /datum/gear/misc/cigarettes
 	display_name = "cigarettes, Space Cigarettes"
 	path = /obj/item/storage/fancy/cigarettes
-	cost = 600
+	cost = 800
 
 /datum/gear/misc/cigarettes/dromedaryco
 	display_name = "cigarettes, DromedaryCo"
@@ -56,9 +56,9 @@
 /datum/gear/misc/cigarettes/cohiba
 	display_name = "cigar, Cohiba Robusto"
 	path = /obj/item/clothing/mask/cigarette/cigar/cohiba
-	cost = 1000
+	cost = 2400
 
 /datum/gear/misc/cigarettes/havana
 	display_name = "cigar, premium Havanian"
 	path = /obj/item/clothing/mask/cigarette/cigar/havana
-	cost = 1000
+	cost = 2400

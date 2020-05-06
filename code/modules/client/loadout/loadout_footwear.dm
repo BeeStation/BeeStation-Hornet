@@ -19,11 +19,6 @@
 	path = /obj/item/clothing/shoes/winterboots
 	cost = 4000
 
-/datum/gear/footwear/jackboots
-	display_name = "jackboots"
-	path = /obj/item/clothing/shoes/jackboots
-	cost = 8000
-
 //Standard shoes
 
 /datum/gear/footwear/color

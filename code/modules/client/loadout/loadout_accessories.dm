@@ -91,7 +91,7 @@
 	display_name = "prescription glasses"
 	slot = SLOT_GLASSES
 	path = /obj/item/clothing/glasses/regular
-	cost = 1200
+	cost = 3000
 
 /datum/gear/accessory/glasses/jamjar
 	display_name = "jam jar glasses"

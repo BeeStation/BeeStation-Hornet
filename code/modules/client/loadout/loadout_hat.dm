@@ -3,7 +3,7 @@
 	slot = SLOT_HEAD
 	sort_category = "Headwear"
 	species_blacklist = list("plasmaman") //Their helmet takes up the head slot
-	cost = 800
+	cost = 2000
 
 //HARDHATS
 
@@ -11,53 +11,49 @@
 	display_name = "hardhat, yellow"
 	path = /obj/item/clothing/head/hardhat
 	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
+	cost = 2500
 
 /datum/gear/hat/hhat_orange
 	display_name = "hardhat, orange"
 	path = /obj/item/clothing/head/hardhat/orange
 	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
+	cost = 2500
 
 /datum/gear/hat/hhat_blue
 	display_name = "hardhat, blue"
 	path = /obj/item/clothing/head/hardhat/dblue
 	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
+	cost = 2500
 
 //CIVILIAN HATS & MISC
 
 /datum/gear/hat/that
 	display_name = "tophat"
 	path = /obj/item/clothing/head/that
-	cost = 1000
 
 /datum/gear/hat/red_beret
 	display_name = "red beret"
 	path = /obj/item/clothing/head/beret
-	cost = 2000
 
 /datum/gear/hat/bowler
 	display_name = "bowler hat"
 	path = /obj/item/clothing/head/bowler
-	cost = 2000
 
 /datum/gear/hat/ushanka
 	display_name = "space ushanka"
 	path = /obj/item/clothing/head/ushanka
-	cost = 2000
 
 /datum/gear/hat/flatcap
 	display_name = "flatcap"
 	path = /obj/item/clothing/head/flatcap
-	cost = 2000
 
 /datum/gear/hat/fedora
 	display_name = "fedora"
 	path = /obj/item/clothing/head/fedora
-	cost = 2000
 
 /datum/gear/hat/sombrero
 	display_name = "sombrero"
 	path = /obj/item/clothing/head/sombrero
-	cost = 2000
 
 /datum/gear/hat/sombrero/green
 	display_name = "green sombrero"
@@ -198,12 +194,3 @@
 	path = /obj/item/clothing/head/pirate
 	cost = 5000
 
-/datum/gear/hat/tinfoil
-	display_name = "tinfoil hat"
-	path = /obj/item/clothing/head/foilhat
-	cost = 100000
-
-/datum/gear/hat/tinfoil/plasmaman
-	display_name = "tinfoil envirosuit helmet"
-	path = /obj/item/clothing/head/foilhat/plasmaman
-	species_whitelist = list("plasmaman")
