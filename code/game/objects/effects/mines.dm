@@ -31,8 +31,8 @@
 	mine_type = /obj/effect/mine/explosive
 
 /obj/item/deployablemine/honk
-	name = "unarmed honkblaster 1000"
-	desc = "An advanced pranking landmine for clowns, honk! Delivers a harmless extra loud HONK to the head when triggered. It can be planted to arm it."
+	name = "deployable honkblaster 1000"
+	desc = "An advanced pranking landmine for clowns, honk! Delivers an extra loud HONK to the head when triggered. It can be planted to arm it, or have its sound customised with a sound synthesiser."	
 	mine_type = /obj/effect/mine/sound
 
 /obj/item/deployablemine/traitor
@@ -234,18 +234,22 @@
 /obj/effect/mine/sound
 	name = "honkblaster 1000"
 	var/sound = 'sound/items/bikehorn.ogg'
-	var/volume = 150
+	var/volume = 100
 	disarm_time = 1200 // very long disarm time to expand the annoying factor
-	disarm_time = /obj/item/deployablemine/honk
+	disarm_product = /obj/item/deployablemine/honk
 
 /obj/effect/mine/sound/mineEffect(mob/victim)
 	playsound(loc, sound, volume, 1)
 
+/obj/effect/mine/sound/attackby(obj/item/soundsynth/J, mob/user, params)
+	if(istype(J, /obj/item/soundsynth))
+		to_chat(user, "<span class='notice'>You change the sound settings of the [src].</span>")
+		sound = J.selected_sound
+		
 
 /obj/effect/mine/sound/bwoink
 	name = "bwoink mine"
 	sound = 'sound/effects/adminhelp.ogg'
-	volume = 100
 
 /obj/effect/mine/pickup
 	name = "pickup"

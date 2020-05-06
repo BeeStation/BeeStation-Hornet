@@ -158,7 +158,7 @@
 	desc = "An advanced pressure activated pranking mine, honk!"
 	id = "clown_mine"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 4000, /datum/material/glass = 1000, /datum/material/copper = 400)
+	materials = list(/datum/material/iron = 4000, /datum/material/glass = 1000, /datum/material/bananium = 500)
 	build_path = /obj/item/deployablemine/honk
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
