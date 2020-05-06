@@ -1,0 +1,4 @@
+author: "jlsnow301"
+delete-after: True
+changes: 
+  - rscadd: "Apids are now given beefriend trait, like flypeople, and are no longer stung by them."
