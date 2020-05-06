@@ -51,7 +51,7 @@ if write_cl['changes']:
         yaml.indent(sequence=4, offset=2)
         yaml.dump(write_cl, file)
 
-    print(f"Done!")
+    print("Done!")
 else:
     print("No CL changes detected!")
     exit(1)
