@@ -124,6 +124,7 @@ GLOBAL_LIST_EMPTY(objectives)
 			possible_targets = all_possible_targets
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
+		target.isAntagTarget = TRUE
 	update_explanation_text()
 	return target
 
@@ -146,6 +147,7 @@ GLOBAL_LIST_EMPTY(objectives)
 				possible_targets += possible_target
 	if(length(possible_targets))
 		target = pick(possible_targets)
+		target.isAntagTarget = TRUE
 	update_explanation_text()
 	return target
 

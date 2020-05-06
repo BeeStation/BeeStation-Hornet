@@ -8,7 +8,6 @@
 	level = 9
 	base_message_chance = 5
 	severity = -1
-	baseseverity = -1
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/tendrils = FALSE
@@ -22,11 +21,11 @@
 	var/tentacle_recheck_cooldown = 100
 
 /datum/symptom/necroseed/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["stealth"] >= 8)
 		severity += 2
 	if(A.properties["resistance"] >= 20)
 		severity -= 1
-	return..()
 
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
 	if(!..())

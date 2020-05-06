@@ -34,6 +34,7 @@
 	var/mutable = TRUE //set to FALSE to prevent most in-game methods of altering the disease via virology
 	var/oldres
 	var/sentient = FALSE //used to classify if a disease is sentient
+	var/faltered = FALSE //used if a disease has been made non-contagious
 	// The order goes from easy to cure to hard to cure.
 	var/static/list/advance_cures = 	list(
 																/datum/reagent/consumable/sugar, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride, 
@@ -120,6 +121,7 @@
 	A.properties = properties.Copy()
 	A.id = id
 	A.mutable = mutable
+	A.faltered = faltered
 	//this is a new disease starting over at stage 1, so processing is not copied
 	return A
 
@@ -178,12 +180,12 @@
 	return generated
 
 /datum/disease/advance/proc/Refresh(new_name = FALSE)
+	for(var/datum/symptom/S in symptoms)
+		S.severity = initial(S.severity)
+		S.dynamicseverity = FALSE
 	GenerateProperties()
 	AssignProperties()
-	for(var/datum/symptom/S in symptoms)
-		S.severityreset(src)
 	id = null
-
 	var/the_id = GetDiseaseID()
 	if(!SSdisease.archive_diseases[the_id])
 		SSdisease.archive_diseases[the_id] = src // So we don't infinite loop
@@ -194,28 +196,32 @@
 //Generate disease properties based on the effects. Returns an associated list.
 /datum/disease/advance/proc/GenerateProperties()
 	properties = list("resistance" = 0, "stealth" = 0, "stage_rate" = 0, "transmittable" = 0, "severity" = 0)
-
-	for(var/datum/symptom/S in symptoms)
+	for(var/datum/symptom/S in symptoms) //I can't change the order of the symptom list by severity, so i have to loop through symptoms three times, one for each tier of severity, to keep it consistent
 		properties["resistance"] += S.resistance
 		properties["stealth"] += S.stealth
 		properties["stage_rate"] += S.stage_speed
 		properties["transmittable"] += S.transmittable
 		if(!S.dynamicseverity)
 			S.severityset(src)
+		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
+			properties["severity"] += S.severity
+	for(var/datum/symptom/S in symptoms) 
+		if(!S.dynamicseverity)
+			S.severityset(src)
 		if(!S.neutered)
-			switch(S.severity)
-				if(-INFINITY to 0)
-					properties["severity"] += S.severity
+			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
 				if(1 to 2)
-					properties["severity"] = min(3, (S.severity + properties["severity"]))
+					properties["severity"] = max(properties["severity"], min(3, (S.severity + properties["severity"])))
 				if(3 to 4)
-					properties["severity"] = min(4, (S.severity + properties["severity"]))
-				if(5 to INFINITY)
-					properties["severity"] += S.severity
+					properties["severity"] = max(properties["severity"], min(4, (S.severity + properties["severity"])))		
+	for(var/datum/symptom/S in symptoms) //benign and beneficial symptoms go last
+		if(!S.dynamicseverity)
+			S.severityset(src)
+		if(!S.neutered && S.severity <= 0)
+			properties["severity"] += S.severity		
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
-
 	if(properties && properties.len)
 		if(properties["stealth"] >= 2)
 			visibility_flags |= HIDDEN_SCANNER
@@ -235,25 +241,29 @@
 
 // Assign the spread type and give it the correct description.
 /datum/disease/advance/proc/SetSpread(spread_id)
-	switch(spread_id)
-		if(DISEASE_SPREAD_NON_CONTAGIOUS)
-			spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
-			spread_text = "None"
-		if(DISEASE_SPREAD_SPECIAL)
-			spread_flags = DISEASE_SPREAD_SPECIAL
-			spread_text = "None"
-		if(DISEASE_SPREAD_BLOOD)
-			spread_flags = DISEASE_SPREAD_BLOOD
-			spread_text = "Blood"
-		if(DISEASE_SPREAD_CONTACT_FLUIDS)
-			spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS
-			spread_text = "Fluids"
-		if(DISEASE_SPREAD_CONTACT_SKIN)
-			spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
-			spread_text = "On contact"
-		if(DISEASE_SPREAD_AIRBORNE)
-			spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
-			spread_text = "Airborne"
+	if(faltered)
+		spread_flags = DISEASE_SPREAD_FALTERED
+		spread_text = "Intentional Injection"
+	else
+		switch(spread_id)
+			if(DISEASE_SPREAD_NON_CONTAGIOUS)
+				spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
+				spread_text = "None"
+			if(DISEASE_SPREAD_SPECIAL)
+				spread_flags = DISEASE_SPREAD_SPECIAL
+				spread_text = "None"
+			if(DISEASE_SPREAD_BLOOD)
+				spread_flags = DISEASE_SPREAD_BLOOD
+				spread_text = "Blood"
+			if(DISEASE_SPREAD_CONTACT_FLUIDS)
+				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS
+				spread_text = "Fluids"
+			if(DISEASE_SPREAD_CONTACT_SKIN)
+				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
+				spread_text = "On contact"
+			if(DISEASE_SPREAD_AIRBORNE)
+				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
+				spread_text = "Airborne"
 
 /datum/disease/advance/proc/SetSeverity(level_sev)
 
