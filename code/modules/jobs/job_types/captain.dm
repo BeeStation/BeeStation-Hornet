@@ -9,6 +9,7 @@
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials and Space law"
 	selection_color = "#ccccff"
+	chat_color = "#FFDC9B"
 	req_admin_notify = 1
 	minimal_player_age = 14
 	exp_requirements = 480

@@ -1,0 +1,91 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/table,
+/obj/item/kitchen/rollingpin,
+/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/item/reagent_containers/food/condiment/sugar,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/structure/table,
+/obj/machinery/microwave,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/structure/sink/kitchen{
+	dir = 8;
+	pixel_x = 11
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/structure/chair/stool,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/structure/table,
+/obj/item/kitchen/knife,
+/obj/item/storage/box/donkpockets,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/food/snacks/mint{
+	pixel_y = 9
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/machinery/processor,
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/machinery/light/small,
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+d
+e
+h
+j
+"}
+(2,1,1) = {"
+b
+e
+e
+g
+k
+"}
+(3,1,1) = {"
+c
+f
+g
+i
+l
+"}

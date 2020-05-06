@@ -144,6 +144,111 @@
 	new choice(get_turf(M))
 	to_chat(M, "You hear something crackle from the beacon for a moment before a voice speaks.  \"Please stand by for a message from S.E.L.F. Message as follows: <span class='bold'>Item request received. Your package has been transported, use the autosurgeon supplied to apply the upgrade.</span> Message ends.\"")
 
+/obj/item/choice_beacon/magic
+	name = "beacon of summon magic"
+	desc = "Not actually magical."
+
+/obj/item/choice_beacon/magic/generate_display_names()
+	var/static/list/magic_item_list
+	if(!magic_item_list)
+		magic_item_list = list()
+		var/list/templist = typesof(/obj/item/storage/box/magic) //we have to convert type = name to name = type, how lovely!
+		for(var/V in templist)
+			var/atom/A = V
+			magic_item_list[initial(A.name)] = A
+	return magic_item_list
+
+/obj/item/storage/box/magic
+	name = "Tele-Gloves"
+
+/obj/item/storage/box/magic/PopulateContents()
+	new /obj/item/clothing/gloves/color/white/magic(src)
+
+/obj/item/storage/box/magic/cloak
+	name = "Invisibility Cloak"
+
+/obj/item/storage/box/magic/cloak/PopulateContents()
+	new /obj/item/shadowcloak/magician(src)
+
+/obj/item/storage/box/magic/hat
+	name = "Bottomless Top Hat"
+
+/obj/item/storage/box/magic/hat/PopulateContents()
+	new /obj/item/clothing/head/that/bluespace(src)
+
+/obj/item/clothing/head/that/bluespace //code shamelessly ripped from bluespace body bags, cuz that's basically what this is
+	var/itemheld = FALSE
+	var/capacity = 2
+	var/maximum_size = 2 //one human, two pets, unlimited tiny mobs, but no big boys like megafauna
+
+/obj/item/clothing/head/that/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(isliving(target))
+		var/mob/living/M = target
+		M.visible_message("<span class='warning'>[user] starts pulling [src] over [M]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
+		if(do_after_mob(user, M, max(M.health + 100, 100)))//+100 because anyone in crit will be instantly kidnapped otherwise. 
+			if(M == user)
+				M.drop_all_held_items()
+				if(HAS_TRAIT(src, TRAIT_NODROP))
+					return
+			if(M.mob_size <= capacity)
+				src.contents += M
+				capacity -= M.mob_size
+				user.visible_message("<span class='warning'>[user] stuffs [M] into the [src]!</span>")
+				to_chat(M, "<span class='userdanger'>[user] stuffs you into the [src]!</span>")
+			else
+				to_chat(user, "[M] will not fit in the tophat!")
+	else if (isitem(target))
+		var/obj/item/I = target
+		if(I in user.contents)
+			return
+		if(!itemheld)
+			src.contents += I
+			itemheld = TRUE
+			user.visible_message("<span class='warning'>[user] stuffs [I] into the [src]!</span>")
+		else
+			to_chat(user, "[I] will not fit in the tophat!")
+
+/obj/item/clothing/head/that/bluespace/attack_self(mob/user)
+	. = ..()
+	capacity = maximum_size
+	itemheld = FALSE
+	for(var/atom/movable/A in contents)
+		A.forceMove(get_turf(src))
+		user.visible_message("<span class='warning'>[user] pulls [A] out of the hat!</span>")
+		if(isliving(A))
+			to_chat(A, "<span class='notice'>You suddenly feel air around you! You're free!</span>")
+		if(isitem(A))
+			var/obj/item/I = A
+			user.put_in_hands(I)
+
+/obj/item/clothing/head/that/bluespace/examine(mob/user)
+	. = ..()
+	if(contents.len)
+		. += "<span class='notice'>You can make out [contents.len] object\s in the hat.</span>"
+
+/obj/item/clothing/head/that/bluespace/Destroy()
+	for(var/atom/movable/A in contents)
+		A.forceMove(get_turf(src))
+		if(isliving(A))
+			to_chat(A, "<span class='notice'>You suddenly feel the space around you torn apart! You're free!</span>")
+	return ..()
+
+/obj/item/clothing/head/that/bluespace/container_resist(mob/living/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't get out while you're restrained like this!</span>")
+		return
+	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.last_special = world.time + CLICK_CD_BREAKOUT
+	to_chat(user, "<span class='notice'>You claw at the fabric of [src], trying to tear it open...</span>")
+	to_chat(loc, "<span class='warning'>Someone starts trying to break free of [src]!</span>")
+	if(!do_after(user, 100, target = src))
+		to_chat(loc, "<span class='warning'>The pressure subsides. It seems that they've stopped resisting...</span>")
+		return
+	loc.visible_message("<span class='warning'>[user] suddenly appears in front of [loc]!</span>", "<span class='userdanger'>[user] breaks free of [src]!</span>")
+	user.forceMove(get_turf(src))
+	capacity += user.mob_size
+
 /obj/item/skub
 	desc = "It's skub."
 	name = "skub"

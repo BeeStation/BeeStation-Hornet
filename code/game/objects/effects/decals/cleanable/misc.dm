@@ -86,6 +86,11 @@
 	. = ..()
 	reagents.add_reagent(pick(/datum/reagent/uranium, /datum/reagent/uranium/radium), 5)
 
+/obj/effect/decal/cleanable/greenglow/ecto
+	name = "ectoplasmic puddle"
+	desc = "You know who to call."
+	light_power = 2
+
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"
 	desc = "Somebody should remove that."

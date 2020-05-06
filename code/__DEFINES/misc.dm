@@ -365,6 +365,7 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define ION_FILE "ion_laws.json"
 #define PIRATE_NAMES_FILE "pirates.json"
 #define REDPILL_FILE "redpill.json"
+#define WANTED_FILE "wanted_message.json"
 
 
 //Fullscreen overlay resolution in tiles.

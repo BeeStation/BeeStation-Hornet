@@ -13,6 +13,8 @@
 	///whitelist of chems but their name instead of path
 	var/list/english_right = list()
 
+	ui_x = 500
+	ui_y = 300
 
 /obj/machinery/plumbing/filter/Initialize(mapload, bolt)
 	. = ..()
@@ -21,7 +23,7 @@
 /obj/machinery/plumbing/filter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "chemical_filter", name, 500, 300, master_ui, state)
+		ui = new(user, src, ui_key, "ChemFilter", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/plumbing/filter/ui_data(mob/user)
@@ -36,7 +38,7 @@
 	. = TRUE
 	switch(action)
 		if("add")
-			var/new_chem_name = input("Enter chemical to filter:", name) as text|null
+			var/new_chem_name = params["name"]
 			var/chem_id = get_chem_id(new_chem_name)
 			if(chem_id)
 				switch(params["which"])

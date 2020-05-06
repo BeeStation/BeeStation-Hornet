@@ -309,7 +309,6 @@
 						/obj/item/gun/energy/pulse,
 						/obj/item/book/granter/martial/carp,
 						/obj/item/melee/supermatter_sword,
-						/obj/item/shield/changeling,
 						/obj/item/lava_staff,
 						/obj/item/energy_katana,
 						/obj/item/hierophant_club,
