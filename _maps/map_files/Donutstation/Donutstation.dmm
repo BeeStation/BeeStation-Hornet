@@ -37828,7 +37828,7 @@
 /obj/item/trash/cheesie,
 /obj/item/trash/raisins,
 /obj/item/trash/candy,
-/obj/item/trash/coal,
+/obj/item/stack/sheet/mineral/coal,
 /obj/item/trash/can,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
@@ -49621,7 +49621,7 @@
 	},
 /obj/structure/closet/crate/trashcart,
 /obj/item/storage/bag/trash,
-/obj/item/trash/coal,
+/obj/item/stack/sheet/mineral/coal,
 /obj/item/trash/can,
 /obj/item/trash/can,
 /obj/item/trash/can,
