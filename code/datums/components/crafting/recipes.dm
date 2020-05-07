@@ -749,7 +749,7 @@
 
 /datum/crafting_recipe/upgraded_gauze
 	name = "Improved Gauze"
-	result = /obj/item/stack/medical/gauze/adv
+	result = /obj/item/stack/medical/gauze/adv/one
 	time = 1
 	reqs = list(/obj/item/stack/medical/gauze = 1,
 				/datum/reagent/space_cleaner/sterilizine = 10)
@@ -757,7 +757,7 @@
 
 /datum/crafting_recipe/bruise_pack
 	name = "Bruise Pack"
-	result = /obj/item/stack/medical/bruise_pack
+	result = /obj/item/stack/medical/bruise_pack/one
 	time = 1
 	reqs = list(/obj/item/stack/medical/gauze = 1,
 				/datum/reagent/medicine/styptic_powder = 10)
@@ -765,7 +765,7 @@
 
 /datum/crafting_recipe/burn_pack
 	name = "Burn Ointment"
-	result = /obj/item/stack/medical/ointment
+	result = /obj/item/stack/medical/ointment/one
 	time = 1
 	reqs = list(/obj/item/stack/medical/gauze = 1,
 				/datum/reagent/medicine/silver_sulfadiazine = 10)
