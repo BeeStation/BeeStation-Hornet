@@ -95,6 +95,10 @@
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
+/obj/item/clothing/glasses/hud/security/deputy
+	name = "deputy security HUD"
+	icon_state = "sunhudtoggle"
+
 /obj/item/clothing/glasses/hud/medsec
 	name = "medsec HUD"
 	desc = "A combination HUD, providing the user the use of a Medical and Security HUD."

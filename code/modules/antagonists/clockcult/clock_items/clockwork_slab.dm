@@ -176,7 +176,6 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "clockwork_slab", name, 800, 420, master_ui, state)
 		ui.set_autoupdate(FALSE) //we'll update this occasionally, but not as often as possible
-		ui.set_style("clockwork")
 		ui.open()
 
 /obj/item/clockwork/slab/proc/recite_scripture(datum/clockwork_scripture/scripture, mob/living/user)
