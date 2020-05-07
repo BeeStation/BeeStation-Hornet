@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Special antagonists no longer randomly spawn mid round.
-  - code_imp: Added code to stop events automatically getting added to the event control
