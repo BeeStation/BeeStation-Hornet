@@ -17,7 +17,7 @@
 
 /datum/job/gimmick/New()
 	. = ..()
-	GLOB.civilian_positions += title
+	GLOB.civilian_positions |= title
 
 /datum/job/gimmick/barber
 	title = "Barber"

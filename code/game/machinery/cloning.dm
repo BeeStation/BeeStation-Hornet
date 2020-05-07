@@ -202,6 +202,8 @@
 			icon_state = "pod_g"
 			update_icon()
 			return NONE
+		if(clonemind.no_cloning_at_all) // nope.
+			return NONE
 		current_insurance = insurance
 	attempting = TRUE //One at a time!!
 	countdown.start()
