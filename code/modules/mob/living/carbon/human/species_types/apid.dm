@@ -4,7 +4,7 @@
 	id = "apid"
 	say_mod = "buzzes"
 	default_color = "FFE800"
-	species_traits = list(LIPS, NOEYESPRITES)
+	species_traits = list(LIPS, NOEYESPRITES, TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutanttongue = /obj/item/organ/tongue/bee
 	attack_verb = "slash"
