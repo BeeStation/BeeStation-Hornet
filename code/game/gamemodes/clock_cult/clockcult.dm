@@ -64,8 +64,6 @@
 	if(!istype(M))
 		return
 	var/antagdatum = /datum/antagonist/servant_of_ratvar
-
-	var/datum/antagonist/servant_of_ratvar/S = new antagdatum(M.mind)
 	. = M.mind.add_antag_datum(antagdatum)
 
 /proc/is_servant_of_ratvar(mob/living/M)

@@ -6,6 +6,7 @@
 	name = "Abscond"
 	desc = "Return you and anyone you are dragging back to Reebe."
 	tip = "Transports you and anyone you are dragging to Reebe."
+	button_icon_state = "Abscond"
 	power_cost = 5
 	invokation_time = 50
 	invokation_text = list("As we bid farewell, and return to the stars...", "...we shall find our way home.")
@@ -30,6 +31,7 @@
 		animate(invoker.client, color = client_color, time = 25)
 	if(istype(P))
 		P.forceMove(T)
+		P.Paralyze(30)
 		to_chat(P, "<span class='warning'>You feel sick and confused as your suddenly appear in a strange, forgotten land.</span>")
 
 /datum/clockcult/scripture/abscond/invoke_fail()
@@ -43,6 +45,7 @@
 	name = "Kindle"
 	desc = "Stuns and mutes a target from a short range."
 	tip = "Stuns and mutes a target from a short range."
+	button_icon_state = "Kindle"
 	power_cost = 125
 	invokation_time = 30
 	invokation_text = list("Divinity, show them your light!")
@@ -106,6 +109,7 @@
 	name = "Hateful Menacles"
 	desc = "Forms replicant manacles around a target's wrists that function like handcuffs."
 	tip = "Handcuff a target at close range."
+	button_icon_state = "Hateful Manacles"
 	power_cost = 25
 	invokation_time = 15
 	invokation_text = list("Shackle the heretic...", "...Break them in body and spirit!")

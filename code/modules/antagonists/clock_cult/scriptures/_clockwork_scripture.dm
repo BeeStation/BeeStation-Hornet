@@ -67,7 +67,7 @@
 	slab.invoking_scripture = null
 
 //==================================//
-// !       Structure Creation       ! //
+// !      Structure Creation      ! //
 //==================================//
 
 //==================================//
@@ -150,8 +150,8 @@
 //==================================//
 
 /datum/action/innate/clockcult
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
-	background_icon_state = "bg_demon"
+	icon_icon = 'icons/mob/actions/actions_clockcult.dmi'
+	background_icon_state = "bg_clock"
 	buttontooltipstyle = "brass"
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_CONSCIOUS
 
@@ -165,6 +165,7 @@
 /datum/action/innate/clockcult/quick_bind/Grant(mob/living/M)
 	name = scripture.name
 	desc = scripture.tip
+	button_icon_state = scripture.button_icon_state
 	if(scripture.power_cost)
 		desc += "<br>Draws <b>[scripture.power_cost]W</b> from the ark per use."
 	..(M)
