@@ -52,7 +52,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "n" = (
-/obj/item/clockwork/component/belligerent_eye/blind_eye,
+//obj/item/clockwork/component/belligerent_eye/blind_eye,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "o" = (
@@ -108,7 +108,7 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "y" = (
-/obj/item/clockwork/component/geis_capacitor/fallen_armor,
+//obj/item/clockwork/component/geis_capacitor/fallen_armor,
 /turf/open/floor/clockwork{
 	initial_gas_mix = "LAVALAND_ATMOS"
 	},

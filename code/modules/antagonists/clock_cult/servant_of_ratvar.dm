@@ -9,6 +9,15 @@
 	antag_moodlet = /datum/mood_event/cult
 	job_rank = ROLE_SERVANT_OF_RATVAR
 
+	//The class of the servant
+	var/datum/clockcult/servant_class/servant_class = /datum/clockcult/servant_class
+
+/datum/antagonist/servant_of_ratvar/New(datum/mind/M)
+	. = ..()
+	//Assign the default class
+	servant_class = new servant_class()
+	message_admins("Servant class assigned.")
+
 /datum/antagonist/servant_of_ratvar/greet()
 	if(!owner.current)
 		return

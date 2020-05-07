@@ -9,20 +9,11 @@
 	var/list/servant_of_ratvar_messages = list("ayy" = FALSE, "lmao" = TRUE) //Fluff, shown to servants of Ratvar on a low chance, if associated value is TRUE, will automatically apply ratvarian
 	var/message_span = "heavy_brass"
 
-/obj/item/clockwork/component/pickup(mob/living/user)
-	..()
-	if(iscultist(user) || (user.mind && user.mind.isholy))
-		to_chat(user, "<span class='[message_span]'>[cultist_message]</span>")
-		if(user.mind?.isholy)
-			to_chat(user, "<span class='boldannounce'>The power of your faith melts away [src]!</span>")
-			var/obj/item/stack/ore/slag/wrath = new /obj/item/stack/ore/slag
-			qdel(src)
-			user.put_in_active_hand(wrath)
-
 /obj/item/clockwork/component/belligerent_eye
 	name = "belligerent eye"
 	desc = "A brass construct with a rotating red center. It's as though it's looking for something to hurt."
 	icon_state = "belligerent_eye"
+	component_id = BELLIGERENT_EYE
 	cultist_message = "The eye gives you an intensely hateful glare."
 	servant_of_ratvar_messages = list("\"...\"" = FALSE, "For a moment, your mind is flooded with extremely violent thoughts." = FALSE, "\"...Die.\"" = TRUE)
 	message_span = "neovgre"
@@ -52,6 +43,7 @@
 	name = "vanguard cogwheel"
 	desc = "A sturdy brass cog with a faintly glowing blue gem in its center."
 	icon_state = "vanguard_cogwheel"
+	component_id = VANGUARD_COGWHEEL
 	cultist_message = "\"Pray to your god that we never meet.\""
 	servant_of_ratvar_messages = list("\"Be safe, child.\"" = FALSE, "You feel unexplainably comforted." = FALSE, "\"Never forget: Pain is temporary. What you do for the Justiciar is eternal.\"" = FALSE)
 	message_span = "inathneq"
@@ -70,6 +62,7 @@
 	name = "geis capacitor"
 	desc = "A curiously cold brass doodad. It seems as though it really doesn't appreciate being held."
 	icon_state = "geis_capacitor"
+	component_id = GEIS_CAPACITOR
 	cultist_message = "\"Try not to lose your mind - I'll need it. Heh heh...\""
 	servant_of_ratvar_messages = list("\"Disgusting.\"" = FALSE, "\"Well, aren't you an inquisitive fellow?\"" = FALSE, "A foul presence pervades your mind, then vanishes." = FALSE, \
 	"\"The fact that Ratvar has to depend on simpletons like you is appalling.\"" = FALSE)
@@ -97,6 +90,7 @@
 	name = "replicant alloy"
 	desc = "A seemingly strong but very malleable chunk of metal. It seems as though it wants to be molded into something greater."
 	icon_state = "replicant_alloy"
+	component_id = REPLICANT_ALLOY
 	cultist_message = "The alloy takes on the appearance of a screaming face for a moment."
 	servant_of_ratvar_messages = list("\"There's always something to be done. Get to it.\"" = FALSE, "\"Idle hands are worse than broken ones. Get to work.\"" = FALSE, \
 	"A detailed image of Ratvar appears in the alloy for a moment." = FALSE)
@@ -125,6 +119,7 @@
 	name = "hierophant ansible"
 	desc = "Some sort of transmitter? It seems as though it's trying to say something."
 	icon_state = "hierophant_ansible"
+	component_id = HIEROPHANT_ANSIBLE
 	cultist_message = "\"Gur obff fnlf vg'f abg ntnvafg gur ehyrf gb-xvyy lbh.\""
 	servant_of_ratvar_messages = list("\"Exile is such a bore. There's nothing I can hunt in here.\"" = TRUE, "\"What's keeping you? I want to go kill something.\"" = TRUE, \
 	"\"HEHEHEHEHEHEH!\"" = FALSE, "\"If I killed you fast enough, do you think the boss would notice?\"" = TRUE)
@@ -158,6 +153,11 @@
 		icon_state = "[icon_state][rand(1, randomspritemax)]"
 		pixel_x = rand(-sprite_shift, sprite_shift)
 		pixel_y = rand(-sprite_shift, sprite_shift)
+
+/obj/item/clockwork/alloy_shards/examine(mob/user)
+	. = ..()
+	if(is_servant_of_ratvar(user) || isobserver(user))
+		. += "<span class='brass'>Can be consumed by a replica fabricator as a source of power.</span>"
 
 /obj/item/clockwork/alloy_shards/proc/replace_name_desc()
 	name = "replicant alloy shard"
