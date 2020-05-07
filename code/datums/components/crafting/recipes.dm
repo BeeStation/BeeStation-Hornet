@@ -764,7 +764,7 @@
 	category = CAT_MISC
 
 /datum/crafting_recipe/burn_pack
-	name = "Brun Ointment"
+	name = "Burn Ointment"
 	result = /obj/item/stack/medical/ointment
 	time = 1
 	reqs = list(/obj/item/stack/medical/gauze = 1,
