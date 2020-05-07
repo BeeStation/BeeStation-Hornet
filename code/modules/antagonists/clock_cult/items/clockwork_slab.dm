@@ -11,19 +11,71 @@
 
 	var/holder_class
 	var/list/scriptures = list()
-	var/list/quick_bound_scriptures = list()
+
+	var/charge_overlay
+
+	//Initialise an empty list for quickbinding
+	var/list/quick_bound_scriptures = list(
+		1 = null,
+		2 = null,
+		3 = null,
+		4 = null,
+		5 = null
+	)
+
+	//The default scriptures that get auto-assigned.
+	var/list/default_scriptures = list(
+		/datum/clockcult/scripture/abscond,
+		/datum/clockcult/scripture/slab/kindle,
+		/datum/clockcult/scripture/slab/hateful_manacles
+	)
+
+/obj/item/clockwork/clockwork_slab/Initialize()
+	var/pos = 1
+	for(var/script in default_scriptures)
+		if(!script)
+			continue
+		var/datum/clockcult/scripture/default_script = new script
+		message_admins("Assigning [default_script.name] to [name]")
+		bind_spell(null, default_script, pos++)
+	..()
 
 /obj/item/clockwork/clockwork_slab/dropped(mob/user)
 	//Clear quickbinds
-	for(var/datum/action/innate/script in quick_bound_scriptures)
+	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
 		script.Remove(user)
 	. = ..()
 
 /obj/item/clockwork/clockwork_slab/pickup(mob/user)
 	. = ..()
-	//Grant quickbinds
-	for(var/datum/action/innate/script in quick_bound_scriptures)
+	//Grant quickbound spells
+	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
+		message_admins("Granting [script.name] to [user.ckey]")
 		script.Grant(user)
+
+/obj/item/clockwork/clockwork_slab/update_icon()
+	. = ..()
+	cut_overlays()
+	if(charge_overlay)
+		add_overlay(charge_overlay)
+
+//==================================//
+// !   Quick bind spell handling  ! //
+//==================================//
+
+/obj/item/clockwork/clockwork_slab/proc/bind_spell(mob/living/M, datum/clockcult/scripture/spell, position = 1)
+	if(position > quick_bound_scriptures.len || position <= 0)
+		return
+	if(quick_bound_scriptures[position])
+		//Unbind the scripture that is quickbound
+		qdel(quick_bound_scriptures[position])
+	//Put the quickbound action onto the slab, the slab should grant when picked up
+	var/datum/action/innate/clockcult/quick_bind/quickbound = new
+	quickbound.scripture = spell
+	quickbound.activation_slab = src
+	quick_bound_scriptures[position] = quickbound
+	if(M)
+		quickbound.Grant(M)
 
 //==================================//
 // ! UI HANDLING BELOW THIS POINT ! //

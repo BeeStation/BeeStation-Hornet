@@ -586,7 +586,7 @@ This was coded to handle DNA gene-splicing.
 #define string2charlist(string) (splittext(string, regex("(.)")) - splittext(string, ""))
 
 /proc/rot13(text = "")
-	var/list/textlist = string2charlist(text)
+	var/list/textlist = splittext(text, "")
 	var/list/result = list()
 	for(var/c in textlist)
 		var/ca = text2ascii(c)

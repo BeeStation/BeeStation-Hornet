@@ -19,3 +19,5 @@
 #define INVOKATION_INSTANT 0 //Instantly calls the invokation effect after casted
 #define INVOKATION_ATTACK_CULTIST 1 //For being used on cultists
 #define INVOKATION_ATTACK_NON_CULTIST 2 //Once invoked, click on a non cultist to trigger effect
+
+#define DEFAULT_CLOCKSCRIPTS "6:-29,4:-2"
