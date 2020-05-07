@@ -66,4 +66,3 @@
 	can_flashlight = FALSE
 	flight_x_offset = 13
 	flight_y_offset = 12
-
