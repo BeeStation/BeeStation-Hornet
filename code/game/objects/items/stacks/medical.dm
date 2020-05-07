@@ -111,6 +111,9 @@
 	self_delay = 20
 	grind_results = list(/datum/reagent/medicine/styptic_powder = 10)
 
+/obj/item/stack/medical/bruise_pack/one
+	amount = 1
+
 /obj/item/stack/medical/bruise_pack/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is bludgeoning [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS)
@@ -156,6 +159,9 @@
 	singular_name = "sterilized medical gauze"
 	self_delay = 5
 
+/obj/item/stack/medical/gauze/adv/one
+	amount = 1
+
 /obj/item/stack/medical/gauze/cyborg
 	materials = list()
 	is_cyborg = 1
@@ -172,6 +178,9 @@
 	heal_burn = 40
 	self_delay = 20
 	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = 10)
+
+/obj/item/stack/medical/ointment/one
+	amount = 1
 
 /obj/item/stack/medical/ointment/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is squeezing \the [src] into [user.p_their()] mouth! [user.p_do(TRUE)]n't [user.p_they()] know that stuff is toxic?</span>")
