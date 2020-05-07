@@ -220,6 +220,15 @@
 	new /obj/item/reagent_containers/syringe/piercing(src)
 	new /obj/item/reagent_containers/syringe/bluespace(src)
 
+/obj/item/storage/box/syringes/cryo
+	name = "box of cryo syringes"
+	desc = "A box full of cryo syringes."
+	illustration = "syringe"
+
+/obj/item/storage/box/syringes/cryo/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/syringe/noreact(src)
+
 /obj/item/storage/box/medipens
 	name = "box of medipens"
 	desc = "A box full of epinephrine MediPens."
@@ -265,6 +274,18 @@
 	new /obj/item/reagent_containers/glass/beaker/meta(src)
 	new /obj/item/reagent_containers/glass/beaker/noreact(src)
 	new /obj/item/reagent_containers/glass/beaker/bluespace(src)
+
+/obj/item/storage/box/beakers/advchem
+	name = "advanced beaker variety box"
+
+/obj/item/storage/box/beakers/advchem/PopulateContents()
+	new /obj/item/reagent_containers/glass/beaker/plastic(src)
+	new /obj/item/reagent_containers/glass/beaker/meta(src)
+	new /obj/item/reagent_containers/glass/beaker/meta(src)
+	new /obj/item/reagent_containers/glass/beaker/meta(src)
+	new /obj/item/reagent_containers/glass/beaker/meta(src)
+	new /obj/item/reagent_containers/glass/beaker/noreact(src)
+	new /obj/item/reagent_containers/glass/beaker/noreact(src)
 
 /obj/item/storage/box/medsprays
 	name = "box of medical sprayers"

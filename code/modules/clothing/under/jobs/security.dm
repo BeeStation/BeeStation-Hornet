@@ -171,6 +171,9 @@
 	item_color = "mallcop"
 	can_adjust = FALSE
 
+/obj/item/clothing/under/rank/security/mallcop/deputy
+	name = "deputy uniform"
+	desc = "A lightly armored formal uniform fit for wannabe security members."
 /*
  *Spacepol
  */

@@ -1896,6 +1896,7 @@
 			if(prob(30))	
 				L.losebreath += 1
 				L.adjustOxyLoss(3,5)
+				L.emote("gasp")
 				to_chat(L, "<font size=3 color=red><b>You can't breathe!</b></font>")
 
 		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 50)					
