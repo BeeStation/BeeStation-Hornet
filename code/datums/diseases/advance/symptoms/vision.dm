@@ -25,7 +25,6 @@ Bonus
 	transmittable = -2
 	level = 5
 	severity = 3
-	baseseverity = 3
 	base_message_chance = 50
 	symptom_delay_min = 25
 	symptom_delay_max = 80
@@ -34,9 +33,9 @@ Bonus
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/visionloss/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["resistance"] >= 12) //goodbye eyes
 		severity += 1
-	return..()
 
 /datum/symptom/visionloss/Start(datum/disease/advance/A)
 	if(!..())

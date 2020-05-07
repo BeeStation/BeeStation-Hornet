@@ -99,6 +99,7 @@
 		var/datum/special_role/new_role = new role_to_init
 		if(!prob(new_role.probability))
 			continue
+		new_role.add_to_pool()
 		active_specials += new_role
 
 	for(var/datum/special_role/special in active_specials)

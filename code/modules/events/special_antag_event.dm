@@ -1,6 +1,7 @@
 /datum/round_event_control/spawn_special_antagonist
 	name = "Special Antagonist Spawn Event"
 	typepath = /datum/round_event/create_special_antag
+	auto_add = FALSE
 	//Antagonist data
 	var/antagonist_datum = /datum/antagonist/special
 	var/antag_name	//The datum of the antag E.G. /datum/antagonist/special/undercover

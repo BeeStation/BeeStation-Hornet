@@ -1,22 +1,22 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/effect/overlay/palmtree_r,
-/turf/open/floor/plating/asteroid/airless,
+/obj/structure/flora/tree/jungle/small,
+/turf/open/floor/grass,
 /area/template_noop)
 "b" = (
-/turf/open/floor/plating/asteroid/airless,
+/turf/open/floor/grass,
 /area/template_noop)
 "c" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/plating/asteroid/airless,
+/turf/open/floor/grass,
 /area/template_noop)
 "d" = (
 /mob/living/simple_animal/pet/gondola,
-/turf/open/floor/plating/asteroid/airless,
+/turf/open/floor/grass,
 /area/template_noop)
 "e" = (
 /obj/structure/flora/ausbushes/sunnybush,
-/turf/open/floor/plating/asteroid/airless,
+/turf/open/floor/grass,
 /area/template_noop)
 
 (1,1,1) = {"

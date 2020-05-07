@@ -85,13 +85,13 @@
 	template_height = 3
 	template_width = 3
 
-/*/datum/map_template/random_room/sk_rdm011
+/datum/map_template/random_room/sk_rdm011
 	name = "Barber Shop"
 	room_id = "sk_rdm011_barbershop"
 	mappath = "_maps/RandomRooms/10x5/sk_rdm011_barbershop.dmm"
 	centerspawner = FALSE
 	template_height = 5
-	template_width = 10*/
+	template_width = 10
 
 /datum/map_template/random_room/sk_rdm012
 	name = "Box Bar"
@@ -213,13 +213,13 @@
 	template_height = 4
 	template_width = 5
 
-/datum/map_template/random_room/sk_rdm027
+/*/datum/map_template/random_room/sk_rdm027
 	name = "Box Hull Breach"
 	room_id = "sk_rdm027_hullbreach"
 	mappath = "_maps/RandomRooms/3x3/sk_rdm027_hullbreach.dmm"
 	centerspawner = FALSE
 	template_height = 3
-	template_width = 3
+	template_width = 3 */
 
 /datum/map_template/random_room/sk_rdm028
 	name = "Tranquility"
@@ -637,10 +637,90 @@
 	template_height = 5
 	template_width = 3
 
-/datum/map_template/random_room/sk_rdm080
+/*/datum/map_template/random_room/sk_rdm080
 	name = "Ancient Cloner"
 	room_id = "sk_rdm080_cloner"
 	mappath = "_maps/RandomRooms/5x3/sk_rdm080_cloner.dmm"
 	centerspawner = FALSE
 	template_height = 3
+	template_width = 5*/
+
+/datum/map_template/random_room/sk_rdm081
+	name = "Maint Viro"
+	room_id = "sk_rdm081_biohazard"
+	mappath = "_maps/RandomRooms/3x3/sk_rdm081_biohazard.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
+	
+/datum/map_template/random_room/sk_rdm082
+	name = "Maint Chemistry"
+	room_id = "sk_rdm_082_maintmedical"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm_082_maintmedical.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+
+/datum/map_template/random_room/sk_rdm083
+	name = "Big Theatre"
+	room_id = "sk_rdm083_bigtheatre"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm083_bigtheatre.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+
+/datum/map_template/random_room/sk_rdm084
+	name = "Monky Paradise"
+	room_id = "sk_rdm084_monky"
+	mappath = "_maps/RandomRooms/3x5/sk_rdm084_monky.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 3
+
+/datum/map_template/random_room/sk_rdm085
+	name = "Hank's Room"
+	room_id = "sk_rdm085_hank"
+	mappath = "_maps/RandomRooms/3x5/sk_rdm085_hank.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 3
+
+/datum/map_template/random_room/sk_rdm086
+	name = "Max Tide's Last Stand"
+	room_id = "sk_rdm086_laststand"
+	mappath = "_maps/RandomRooms/3x5/sk_rdm086_laststand.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 3
+
+/datum/map_template/random_room/sk_rdm087
+	name = "Junk Closet"
+	room_id = "sk_rdm087_junkcloset"
+	mappath = "_maps/RandomRooms/3x5/sk_rdm087_junkcloset.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 3
+
+/datum/map_template/random_room/sk_rdm088
+	name = "Construction Zone"
+	room_id = "sk_rdm088_bigconstruction"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm088_bigconstruction.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+
+/datum/map_template/random_room/sk_rdm089
+	name = "Nasty Trap"
+	room_id = "sk_rdm089_nastytrap"
+	mappath = "_maps/RandomRooms/5x3/sk_rdm089_nastytrap.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 5
+
+/datum/map_template/random_room/sk_rdm090
+	name = "Tiny Barber's Shop"
+	room_id = "sk_rdm090_tinybarbershop"
+	mappath = "_maps/RandomRooms/5x4/sk_rdm090_tinybarbershop.dmm"
+	centerspawner = FALSE
+	template_height = 4
 	template_width = 5

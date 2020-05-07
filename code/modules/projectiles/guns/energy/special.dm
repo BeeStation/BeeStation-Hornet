@@ -11,6 +11,7 @@
 	ammo_x_offset = 3
 	flight_x_offset = 17
 	flight_y_offset = 9
+	block_upgrade_walk = 1
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
@@ -80,6 +81,7 @@
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
 	icon_state = "xray"
 	item_state = null
+	block_upgrade_walk = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
 
@@ -134,6 +136,7 @@
 	flags_1 = CONDUCT_1
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
+	block_upgrade_walk = 1
 	sharpness = IS_SHARP
 	can_charge = FALSE
 
@@ -144,6 +147,9 @@
 	var/progress_flash_divisor = 10  //copypasta is best pasta
 	var/light_intensity = 1
 	var/charge_weld = 25 //amount of charge used up to start action (multiplied by amount) and per progress_flash_divisor ticks of welding
+	weapon_weight = WEAPON_LIGHT
+	fire_rate = 3
+	automatic = 1
 
 /obj/item/gun/energy/plasmacutter/Initialize()
 	. = ..()
@@ -301,6 +307,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
+	automatic = 1
+	fire_rate = 6
 
 /obj/item/gun/energy/printer/update_icon()
 	return
@@ -314,12 +322,16 @@
 	desc = "A gun that changes temperatures."
 	ammo_type = list(/obj/item/ammo_casing/energy/temp, /obj/item/ammo_casing/energy/temp/hot)
 	cell_type = "/obj/item/stock_parts/cell/high"
+	automatic = 1
+	fire_rate = 4
 	pin = null
+	block_upgrade_walk = 1
 
 /obj/item/gun/energy/temperature/security
 	name = "security temperature gun"
 	desc = "A weapon that can only be used to its full potential by the truly robust."
 	pin = /obj/item/firing_pin
+	block_upgrade_walk = 1
 
 /obj/item/gun/energy/laser/instakill
 	name = "instakill rifle"
@@ -328,6 +340,7 @@
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit."
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
+	block_upgrade_walk = 1
 
 /obj/item/gun/energy/laser/instakill/red
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a red design."

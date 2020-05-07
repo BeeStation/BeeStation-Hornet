@@ -431,3 +431,9 @@ GLOBAL_LIST_INIT(pda_styles, list(MONO, VT, ORBITRON, SHARE))
 #define GRENADE_EMPTY 1
 #define GRENADE_WIRED 2
 #define GRENADE_READY 3
+
+//guardian themes
+#define GUARDIAN_TECH	"tech"
+#define GUARDIAN_CARP	"carp"
+#define GUARDIAN_MAGIC	"magic"
+#define GUARDIAN_HIVE	"hive"
