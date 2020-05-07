@@ -57,6 +57,7 @@
 	var/hasSoul = TRUE // If false, renders the character unable to sell their soul.
 	var/isholy = FALSE //is this person a chaplain or admin role allowed to use bibles
 	var/isAntagTarget = FALSE
+	var/no_cloning_at_all = FALSE
 
 	var/mob/living/enslaved_to //If this mind's master is another mob (i.e. adamantine golems)
 	var/datum/language_holder/language_holder
@@ -129,6 +130,7 @@
 	RegisterSignal(new_character, COMSIG_MOB_DEATH, .proc/set_death_time)
 	if(active || force_key_move)
 		new_character.key = key		//now transfer the key to link the client to our new body
+	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
 
 /datum/mind/proc/set_death_time()
 	last_death = world.time
