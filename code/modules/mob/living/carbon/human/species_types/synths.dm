@@ -24,9 +24,7 @@
 	name = "Military Synth"
 	id = "military_synth"
 	armor = 25
-	punchdamagelow = 10
-	punchdamagehigh = 19
-	punchstunthreshold = 14 //about 50% chance to stun
+	punchdamage = 14
 	disguise_fail_health = 50
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 

@@ -10,6 +10,8 @@
 	flight_x_offset = 15
 	flight_y_offset = 10
 	weapon_weight = WEAPON_MEDIUM
+	dual_wield_spread = 60
+	block_upgrade_walk = 1
 
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"
