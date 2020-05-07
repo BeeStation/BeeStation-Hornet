@@ -1,0 +1,13 @@
+author: steamp0rt
+delete-after: true
+changes:
+  - rscadd: Guardians/holoparasites are no longer seperated into types
+  - rscadd: Instead, you get to "build" one, with a limited amount of points, selecting
+      different stats and abilities
+  - rscadd: 'The following major abilities are available to holoparasites: Assassin,
+      Explosive, Frenzy, Gravitokinetic, The Hand, Healing, Predator, Scout, and Time
+      Erasure.'
+  - rscadd: 'The following minor abilities are available to holoparasites: Surveillance
+      Snares, Teleportation Pad'
+  - rscdel: "Holoparasite types that didn't make the cut: Toy, Lightning, Protector,\
+      \ Dextrous, Charger, Chaos"
