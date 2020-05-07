@@ -21,8 +21,6 @@
 /datum/component/thermo/UnregisterFromParent()
 	STOP_PROCESSING(SSobj, src)
 
-
-
 /datum/component/thermo/proc/get_env_temp()
 	// if we are on and ran though one tick
 	if(on && current_temp >= 0)
