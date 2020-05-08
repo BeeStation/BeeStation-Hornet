@@ -23,7 +23,7 @@
 	var/max_occurrences = 1
 	var/holidayID = ""
 	//Preferences
-	var/preference_type = ROLE_SPECIAL
+	var/preference_type = ROLE_TRAITOR
 
 /datum/special_role/proc/add_to_pool()
 	if(spawn_mode == SPAWNTYPE_ROUNDSTART)
@@ -60,8 +60,8 @@
 //The datum associated with the role
 
 /datum/antagonist/special
-	name = "Special Additional Role"
-	job_rank = ROLE_SPECIAL
+	name = "Role that should not be accessable in game."
+	job_rank = ROLE_SYNDICATE
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = FALSE
 	prevent_roundtype_conversion = FALSE

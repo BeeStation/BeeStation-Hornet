@@ -37,7 +37,6 @@
 #define ROLE_LAVALAND			"Lavaland"
 #define ROLE_INTERNAL_AFFAIRS	"Internal Affairs Agent"
 #define ROLE_GANG				"Gangster"
-#define ROLE_SPECIAL			"Special Antagonists"
 #define ROLE_HOLOPARASITE		"Holoparasite"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
@@ -67,7 +66,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_INTERNAL_AFFAIRS = /datum/game_mode/traitor/internal_affairs,
 	ROLE_SENTIENCE,
 	ROLE_GANG = /datum/game_mode/gang,
-	ROLE_SPECIAL,
 	ROLE_HOLOPARASITE
 ))
 
