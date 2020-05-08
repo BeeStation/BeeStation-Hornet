@@ -310,7 +310,6 @@
 
 /obj/item/paper/Topic(href, href_list)
 	if(next_write_time > world.time)
-		to_chat(usr, "Please wait a second between attempting to use a piece of paper.")
 		message_admins("[usr.ckey] may be spamming paper Topic() calls, likely malicious if this message continues repeating")
 		return
 
