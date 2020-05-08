@@ -40,6 +40,11 @@
 /mob/living/simple_animal/hostile/aeon_guardian/handle_automated_action()
 	if(loc == master)
 		return FALSE
+	if(get_dist(master, src) >= 9)
+		new /obj/effect/temp_visual/guardian/phase/out(loc)
+		forceMove(get_turf(master))
+		if(target && get_dist(master, target) >= 9)
+			LoseTarget()
 	. = ..()
 	if(.)
 		var/mob/living/runner
@@ -47,12 +52,12 @@
 			if(L.stat == DEAD || !L.ckey || L == master || L == src)
 				continue
 			var/dist = get_dist(master, L)
-			if(dist >= (mob_dist_tracking[L] * 0.8) && (!target || get_dist(master, target) > dist) && (!runner || get_dist(master, runner) > dist))
+			if(dist <= (mob_dist_tracking[L] * 0.8) && (!target || get_dist(master, target) > dist) && (!runner || get_dist(master, runner) > dist))
 				runner = L
 			mob_dist_tracking[L] = dist
 		if(runner)
 			GiveTarget(runner)
-			if(next_dash >= world.time && prob(80))
+			if(world.time >= next_dash && prob(80))
 				Dash()
 
 /mob/living/simple_animal/hostile/aeon_guardian/proc/Dash()
@@ -87,3 +92,9 @@
 	. = ..()
 	guardian = new(src)
 	guardian.master = src
+
+/mob/living/simple_animal/hostile/megafauna/aeon/FindTarget(list/possible_targets, HasTargetsList)
+	if(guardian.loc == src)
+		new /obj/effect/temp_visual/guardian/phase/out(loc)
+		guardian.forceMove(loc)
+	guardian.GiveTarget(guardian.PickTarget())
