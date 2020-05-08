@@ -182,7 +182,7 @@
 	//anti-riot equipment is also anti-push
 	for(var/obj/item/I in M.held_items)
 		if(!istype(M, /obj/item/clothing))
-			if(prob(I.block_chance*2))
+			if(I.block_power >= 50)
 				return
 
 /mob/living/get_photo_description(obj/item/camera/camera)

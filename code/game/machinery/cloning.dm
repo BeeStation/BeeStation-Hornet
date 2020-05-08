@@ -6,7 +6,7 @@
 #define CLONE_INITIAL_DAMAGE     150    //Clones in clonepods start with 150 cloneloss damage and 150 brainloss damage, thats just logical
 #define MINIMUM_HEAL_LEVEL 40
 
-#define SPEAK(message) radio.talk_into(src, message, radio_channel, get_spans(), get_default_language())
+#define SPEAK(message) radio.talk_into(src, message, radio_channel)
 
 /obj/machinery/clonepod
 	name = "cloning pod"
@@ -201,6 +201,8 @@
 			mess = TRUE
 			icon_state = "pod_g"
 			update_icon()
+			return NONE
+		if(clonemind.no_cloning_at_all) // nope.
 			return NONE
 		current_insurance = insurance
 	attempting = TRUE //One at a time!!

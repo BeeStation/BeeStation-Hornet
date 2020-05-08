@@ -8,6 +8,7 @@
 	flags_1 = CONDUCT_1
 	attack_verb = list("whacked", "fisted", "power-punched")
 	force = 20
+	attack_weight = 1
 	throwforce = 10
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
@@ -40,10 +41,13 @@
 		switch(fisto_setting)
 			if(1)
 				fisto_setting = 2
+				attack_weight = 2
 			if(2)
 				fisto_setting = 3
+				attack_weight = 3
 			if(3)
 				fisto_setting = 1
+				attack_weight = 1
 		W.play_tool_sound(src)
 		to_chat(user, "<span class='notice'>You tweak \the [src]'s piston valve to [fisto_setting].</span>")
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)

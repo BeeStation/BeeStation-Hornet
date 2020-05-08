@@ -72,6 +72,10 @@
 /area/ruin/unpowered/syndicate_lava_base/telecomms
 	name = "Syndicate Lavaland Telecommunications"
 
+/area/ruin/unpowered/standruin
+	name = "Forgotten Ruin"
+	icon_state = "dk_yellow"
+
 //Xeno Nest
 
 /area/ruin/unpowered/xenonest

@@ -5,6 +5,9 @@
 	item_flags = NEEDS_PERMIT | NO_MAT_REDEMPTION
 	weapon_weight = WEAPON_MEDIUM
 	fire_rate = 1.5
+	block_power = 20 //staffs can block shit if you're walking
+	block_upgrade_walk = 1
+	block_level = 1
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
@@ -86,7 +89,7 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	force = 20
 	armour_penetration = 75
-	block_chance = 50
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	sharpness = IS_SHARP
 	max_charges = 4
 

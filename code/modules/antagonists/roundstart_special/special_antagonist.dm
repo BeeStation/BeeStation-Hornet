@@ -25,8 +25,7 @@
 	//Preferences
 	var/preference_type = ROLE_TRAITOR
 
-/datum/special_role/New()
-	. = ..()
+/datum/special_role/proc/add_to_pool()
 	if(spawn_mode == SPAWNTYPE_ROUNDSTART)
 		return
 	//Create a new event for spawning the antag
@@ -65,6 +64,8 @@
 	job_rank = ROLE_SYNDICATE
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = FALSE
+	prevent_roundtype_conversion = FALSE
+	delay_roundend = FALSE
 
 /datum/antagonist/special/proc/equip()
 	return
