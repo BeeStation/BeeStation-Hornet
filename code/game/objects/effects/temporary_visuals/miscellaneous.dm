@@ -506,3 +506,7 @@
 
 /obj/effect/constructing_effect/proc/end()
 	qdel(src)
+
+/obj/effect/temp_visual/parry
+	icon_state = "shield-flash"
+	duration = 5
