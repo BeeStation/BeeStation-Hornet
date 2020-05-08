@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - code_imp: Antags can now have the ability to not delay the end of the round
