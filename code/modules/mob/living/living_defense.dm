@@ -423,3 +423,15 @@
 		used_item = get_active_held_item()
 	..()
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
+
+
+/mob/living/proc/parry()//A bit janky, but i couldnt think of another way to do the cooldown that worked
+	if(!HAS_TRAIT(src, TRAIT_NOPARRY))
+		ADD_TRAIT(src, TRAIT_PARRY, PARRY_TRAIT)
+		ADD_TRAIT(src, TRAIT_NOPARRY, PARRY_TRAIT)
+		playsound(src, 'sound/weapons/fwoosh.ogg', 75, 0)
+		new /obj/effect/temp_visual/parry(src.loc)
+		sleep(5)
+		REMOVE_TRAIT(src, TRAIT_PARRY, PARRY_TRAIT)
+		sleep(10)
+		REMOVE_TRAIT(src, TRAIT_NOPARRY, PARRY_TRAIT)
