@@ -11,6 +11,7 @@
 
 	//The class of the servant
 	var/datum/clockcult/servant_class/servant_class = /datum/clockcult/servant_class
+	var/datum/action/innate/clockcult/transmit/transmit_spell
 
 /datum/antagonist/servant_of_ratvar/New(datum/mind/M)
 	. = ..()
@@ -22,12 +23,29 @@
 	if(!owner.current)
 		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', 60, FALSE, pressure_affected = FALSE)
+	GLOB.servants_of_ratvar |= owner
+	transmit_spell = new()
+	transmit_spell.Grant(owner.current)
+
+/datum/antagonist/servant_of_ratvar/farewell()
+	. = ..()
+	GLOB.servants_of_ratvar -= owner
+
+/datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
+	. = ..()
+	transmit_spell.Remove(M)
+
+/datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
+	. = ..()
+	message_admins("Giving spells")
 
 //Remove clown mutation
 //Give the device
-/datum/antagonist/servant_of_ratvar/proc/equip_servant()
+/datum/antagonist/servant_of_ratvar/proc/equip_servant_basic(var/give_class_equipment = FALSE)
 	var/mob/living/H = owner.current
 	if(istype(H, /mob/living/carbon))
+		if(give_class_equipment)
+			servant_class.equip_mob(H)
 		return equip_carbon(H)
 	else if(istype(H, /mob/living/silicon))
 		return equip_silicon(H)

@@ -246,6 +246,9 @@
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
+/turf/open/floor/clockwork/ratvar_act(force, ignore_mobs)
+	return 0
+
 /turf/open/floor/clockwork/reebe
 	name = "cogplate"
 	desc = "Warm brass plating. You can feel it gently vibrating, as if machinery is on the other side."

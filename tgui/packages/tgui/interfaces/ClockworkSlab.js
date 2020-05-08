@@ -9,140 +9,36 @@ export const ClockworkSlab = (props, context) => {
   const { data } = useBackend(context);
   const { power } = data;
   const { recollection } = data;
-  if (recollection)
-  {
-    return (
-      <Window
-        theme="clockwork"
-        resizable>
-        <Window.Content scrollable>
-          <ClockworkRecollection />
-        </Window.Content>
-      </Window>
-    );
-  }
-  else
-  {
-    return (
-      <Window
-        theme="clockwork"
-        resizable>
-        <Window.Content scrollable>
-          <ClockworkGeneric />
-        </Window.Content>
-      </Window>
-    );
-  }
-};
-
-export const ClockworkRecollection = (props, context) => {
-  const { data } = useBackend(context);
-  const { rec_text } = data;
-  const { rec_section } = data;
-  const { rec_binds } = data;
-  const { rec_category } = data;
-  const { recollection_categories } = data;
   return (
-    <Section>
-      {rec_text}
-      {recollection_categories.map(category => (
-        <Tabs.Tab
-          key={category.name}
-          onClick={() => rec_category(category.name)}>
-          {category.name} - {category.desc}
-        </Tabs.Tab>
-      ))}
-      {rec_section}
-      {rec_binds}
-    </Section>
+    <Window
+      theme="clockwork"
+      resizable>
+      <Window.Content scrollable>
+        <ClockworkClassSelection />
+      </Window.Content>
+    </Window>
   );
 };
 
-export const ClockworkGeneric = (props, context) => {
+export const ClockworkClassSelection = (props, context) => {
   const { act, data } = useBackend(context);
-  const { power } = data;
-  const { tier_info } = data;
-  const { scripturecolors } = data;
-  const { scripture } = data;
-  const { selected } = data;
+  const {
+    servant_classes = [],
+  } = data;
   return (
     <Section>
-      <Section>
-        {decodeHtmlEntities(power)}
-      </Section>
-      <Section>
-        <Fragment>
-          <Button
-            selected={selected === "Driver"}
-            onClick={() => act('select', {
-              'category': 'Driver',
-            })}
-            content="Driver" />
-          <Button
-            selected={selected === "Script"}
-            onClick={() => act('select', {
-              'category': 'Script',
-            })}
-            content="Scripts" />
-          <Button
-            selected={selected === "Application"}
-            onClick={() => act('select', {
-              'category': 'Application',
-            })}
-            content="Applications" />
-          {decodeHtmlEntities(tier_info)}
-        </Fragment>
-      </Section>
-      <Section>
-        {decodeHtmlEntities(scripturecolors)}
-      </Section>
-      <Section>
-        {scripture.map(category => (
-          <li
-            key={category.type}>
-            {category.tip} -
-            <Button
-              tooltip={category.tip}
-              onClick={() => act('recite', {
-                'category': category.type,
-              })}>
-              Recite {category.required}
-            </Button>
-            <ClockworkScriptureBindButton
-              scripture={category} />
-          </li>
+      <Tabs vertical>
+        {servant_classes.map(category => (
+          <Tabs.Tab
+            key={category.class_name}
+            selected={false}
+            onClick={() => act('setClass', {
+              class: category,
+            })}>
+            {category.class_name} - {category.class_description}
+          </Tabs.Tab>
         ))}
-      </Section>
+      </Tabs>
     </Section>
   );
-};
-
-export const ClockworkScriptureBindButton = (props, context) => {
-  const {
-    scripture,
-  } = props;
-  const { act } = useBackend(context);
-  if (scripture.quickbind)
-  {
-    if (scripture.bound)
-    {
-      return (
-        <Button
-          onClick={() => act('bind', {
-            'category': scripture.type,
-          })}
-          content={'Unbind' + scripture.bound} />
-      );
-    }
-    else
-    {
-      return (
-        <Button
-          onClick={() => act('bind', {
-            'category': scripture.type,
-          })}
-          content={'Quickbind'} />
-      );
-    }
-  }
 };

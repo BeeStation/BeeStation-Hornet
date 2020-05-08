@@ -597,6 +597,9 @@
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
+/obj/machinery/door/airlock/clockwork/ratvar_act()
+	return 0
+
 /obj/machinery/door/airlock/clockwork/attackby(obj/item/I, mob/living/user, params)
 	if(!attempt_construction(I, user))
 		return ..()

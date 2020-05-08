@@ -6,6 +6,7 @@
 	var/invokation_time = 0
 	var/list/invokation_text = list()
 	var/button_icon_state = "telerune"
+	var/invokers_required = 1
 
 	var/mob/living/invoker
 	var/obj/item/clockwork/clockwork_slab/invoking_slab
@@ -35,7 +36,16 @@
 	invokation_chant_timer = null
 	if(!invoking_slab || !invoking_slab.invoking_scripture)
 		return
-	clockwork_say(invoker, text2ratvar(invokation_text[text_point]), TRUE)
+	var/invokers_left = invokers_required
+	if(invokers_left > 1)
+		for(var/mob/living/M in view(invoker))
+			if(!invokers_left)
+				break
+			if(is_servant_of_ratvar(M))
+				clockwork_say(M, text2ratvar(invokation_text[text_point]), TRUE)
+				invokers_left--
+	else
+		clockwork_say(invoker, text2ratvar(invokation_text[text_point]), TRUE)
 	if(text_point < stop_at)
 		invokation_chant_timer = addtimer(CALLBACK(src, .proc/recite, text_point+1, wait_time, stop_at), wait_time)
 
@@ -46,6 +56,13 @@
 	if(invoker.get_active_held_item() != invoking_slab)
 		to_chat(invoker, "<span class='brass'>You fail to invoke [name].</span>")
 		return FALSE
+	var/invokers
+	for(var/mob/living/M in view(invoker))
+		if(is_servant_of_ratvar(M))
+			invokers++
+	if(invokers < invokers_required)
+		to_chat(invoker, "<span class='brass'>You need [invokers_required] servants to channel [name]!</span>")
+		return FALSE
 	return TRUE
 
 /datum/clockcult/scripture/proc/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab)
@@ -55,8 +72,11 @@
 	slab.invoking_scripture = src
 	invoker = M
 	invoking_slab = slab
+	if(!check_special_requirements())
+		slab.invoking_scripture = null
+		return
 	recital()
-	if(do_after(M, invokation_time, target=M/*, extra_checks=CALLBACK(src, .proc/check_special_requirements)*/))
+	if(do_after(M, invokation_time, target=M, extra_checks=CALLBACK(src, .proc/check_special_requirements)))
 		invoke()
 		to_chat(M, "<span class='brass'>You invoke [name].</span>")
 	else
@@ -69,6 +89,18 @@
 //==================================//
 // !      Structure Creation      ! //
 //==================================//
+/datum/clockcult/scripture/create_structure
+	var/summoned_structure
+
+/datum/clockcult/scripture/create_structure/check_special_requirements()
+	if(!..())
+		return FALSE
+	for(var/obj/structure in get_turf(invoker))
+		return FALSE
+	return TRUE
+
+/datum/clockcult/scripture/create_structure/invoke_success()
+	return new summoned_structure(get_turf(invoker))
 
 //==================================//
 // !       Slab Empowerment       ! //
@@ -188,4 +220,27 @@
 	if(!activation_slab.invoking_scripture)
 		scripture.begin_invoke(owner, activation_slab)
 	else
-		to_chat(owner, "<span class='brass'>DEBUG: You fail to invoke [name].</span>")
+		to_chat(owner, "<span class='brass'>You fail to invoke [name].</span>")
+
+//==================================//
+// !     Hierophant Transmit      ! //
+//==================================//
+/datum/action/innate/clockcult/transmit
+	name = "Hierophant Transmit"
+	button_icon_state = "hierophant"
+	desc = "Transmit a message to your allies through the Hierophant."
+
+/datum/action/innate/clockcult/transmit/IsAvailable()
+	if(!is_servant_of_ratvar(owner))
+		return FALSE
+	if(owner.incapacitated())
+		return FALSE
+	return ..()
+
+/datum/action/innate/clockcult/transmit/Activate()
+	hierophant_message(stripped_input(owner, "What do you want to tell your allies?", "Hierphant Transmit", ""), owner, "<span class='brass'>")
+
+/datum/action/innate/clockcult/transmit/Grant(mob/M)
+	..(M)
+	button.locked = TRUE
+	button.ordered = TRUE

@@ -21,3 +21,6 @@
 #define INVOKATION_ATTACK_NON_CULTIST 2 //Once invoked, click on a non cultist to trigger effect
 
 #define DEFAULT_CLOCKSCRIPTS "6:-29,4:-2"
+
+GLOBAL_VAR(celestial_gateway)
+GLOBAL_VAR_INIT(clockcult_gateway_opened, FALSE)

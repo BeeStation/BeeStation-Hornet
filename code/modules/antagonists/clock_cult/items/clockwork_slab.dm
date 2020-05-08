@@ -27,7 +27,9 @@
 	var/list/default_scriptures = list(
 		/datum/clockcult/scripture/abscond,
 		/datum/clockcult/scripture/slab/kindle,
-		/datum/clockcult/scripture/slab/hateful_manacles
+		/datum/clockcult/scripture/slab/hateful_manacles,
+		/datum/clockcult/scripture/create_structure/sigil_submission,
+		/datum/clockcult/scripture/ark_activation
 	)
 
 /obj/item/clockwork/clockwork_slab/Initialize()
@@ -90,3 +92,23 @@
 		ui = new(user, src, ui_key, "ClockworkSlab", name, 800, 420, master_ui, state)
 		ui.set_autoupdate(FALSE) //we'll update this occasionally, but not as often as possible
 		ui.open()
+
+/obj/item/clockwork/clockwork_slab/ui_static_data(mob/user)
+	var/list/data = list()
+	data["servant_classes"] = GLOB.servant_classes
+	return data
+
+/obj/item/clockwork/clockwork_slab/ui_act(action, params)
+	switch(action)
+		if("setClass")
+			var/mob/living/M = usr
+			if(!istype(M))
+				return FALSE
+			var/datum/antagonist/servant_of_ratvar/S = is_servant_of_ratvar(M)
+			if(!S)
+				return FALSE
+			if(S.servant_class != /datum/clockcult/servant_class)
+				return FALSE
+			S.servant_class = params["class"]
+			to_chat(usr, "<span class='brass'>You call upon [S.servant_class.class_name] and are blessed with their knowledge and might!</span>")
+			return TRUE

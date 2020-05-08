@@ -137,3 +137,44 @@
 		M.update_handcuffed()
 		return TRUE
 	return FALSE
+
+//==================================//
+// !      Dimensional Breach      ! //
+//==================================//
+/datum/clockcult/scripture/ark_activation
+	name = "Ark Activation"
+	desc = "Prepares the Ark for activation."
+	tip = "Prepares the Ark for activation, alerting the crew of your existance."
+	button_icon_state = "Spatial Gateway"
+	power_cost = 5
+	invokation_time = 140
+	invokation_text = list("The dimensional viel is faultering...", "...it is time to rise...", "...through stars you shall come...", "...to rise again!")
+	invokers_required = 2
+
+/datum/clockcult/scripture/ark_activation/check_special_requirements()
+	if(!..())
+		return FALSE
+	if(!is_reebe(get_area(invoker).z))
+		to_chat(invoker, "<span class='brass'>You need to be near the gateway to channel its energy!</span>")
+		return FALSE
+	return TRUE
+
+/datum/clockcult/scripture/ark_activation/invoke_success()
+	var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
+	if(!gateway)
+		to_chat(invoker, "<span class='brass'>No celestial gateway located, contact the admins.</span>")
+		return FALSE
+	gateway.open_gateway()
+
+//==================================//
+// !      Sigil of Submission     ! //
+//==================================//
+/datum/clockcult/scripture/create_structure/sigil_submission
+	name = "Sigil of Submission"
+	desc = "Creates a sigil of submission."
+	tip = "Creats a sigil of submission, useful for showing untruths the light."
+	button_icon_state = "Sigil of Submission"
+	power_cost = 250
+	invokation_time = 50
+	invokation_text = list("Relax you animal...", "...for I shall show you the truth.")
+	summoned_structure = /obj/structure/destructible/clockwork/sigil/submission
