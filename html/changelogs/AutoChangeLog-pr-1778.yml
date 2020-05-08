@@ -1,0 +1,4 @@
+author: Iamgoofball
+delete-after: true
+changes:
+  - bugfix: Conveyors work again.
