@@ -1,6 +1,0 @@
-author: Victor239
-delete-after: true
-changes:
-  - balance: Plasmamen helmets no longer have flash/welding protection by default.
-      Instead they have a toggleable visor which acts like a normal welding helmet.
-      It being active can be noticed on the sprite.
