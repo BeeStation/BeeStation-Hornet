@@ -1,6 +1,6 @@
 //tgstation-server DMAPI
 
-#define TGS_DMAPI_VERSION "5.1.0"
+#define TGS_DMAPI_VERSION "5.0.0"
 
 //All functions and datums outside this document are subject to change with any version and should not be relied on
 
@@ -85,6 +85,7 @@
 //REQUIRED HOOKS
 
 //Call this somewhere in /world/New() that is always run
+//IMPORTANT: This function may sleep! Other TGS functions will not succeed until it completes
 //event_handler: optional user defined event handler. The default behaviour is to broadcast the event in english to all connected admin channels
 //minimum_required_security_level: The minimum required security level to run the game in which the DMAPI is integrated
 /world/proc/TgsNew(datum/tgs_event_handler/event_handler, minimum_required_security_level = TGS_SECURITY_ULTRASAFE)
@@ -126,6 +127,10 @@
 
 //if the tgs_version is a wildcard version
 /datum/tgs_version/proc/Wildcard()
+	return
+
+//if the tgs_version equals some other_version
+/datum/tgs_version/proc/Equals(datum/tgs_version/other_version)
 	return
 
 //represents a merge of a GitHub pull request
@@ -184,12 +189,16 @@
 	return
 
 //Returns TRUE if the world was launched under the server tools and the API matches, FALSE otherwise
-//No function below this succeeds if it returns FALSE
+//No function below this succeeds if it returns FALSE or if TgsNew() has yet to be called
 /world/proc/TgsAvailable()
 	return
 
 //Gets the current /datum/tgs_version of the server tools running the server
 /world/proc/TgsVersion()
+	return
+
+//Gets the current /datum/tgs_version of the DMAPI being used
+/world/proc/TgsApiVersion()
 	return
 
 //Gets the name of the TGS instance running the game
