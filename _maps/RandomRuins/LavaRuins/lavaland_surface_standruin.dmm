@@ -305,6 +305,7 @@
 /area/ruin/unpowered/standruin)
 "aS" = (
 /obj/structure/stone_tile/slab,
+/mob/living/simple_animal/hostile/megafauna/aeon,
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aT" = (
