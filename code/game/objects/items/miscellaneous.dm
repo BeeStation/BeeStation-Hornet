@@ -297,7 +297,7 @@
 	return ouija_spaghetti_list
 
 /obj/item/upgradewand
-	desc = "A wand laced with nanotech calibration devices."
+	desc = "A wand laced with nanotech calibration devices, used to enhance gear commonly used by modern stage magicians."
 	name = "Upgrade Wand"
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "nothingwand"
