@@ -36,6 +36,7 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	melee_damage = 35
+	mob_size = MOB_SIZE_LARGE
 	armour_penetration = 30
 	pixel_x = -16
 	turns_per_move = 5
