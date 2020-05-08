@@ -107,7 +107,7 @@
 	var/pick = show_radial_menu(user, src, items, custom_check = CALLBACK(src, .proc/check_menu, user), radius = 38, require_near = TRUE)
 	if(!pick)
 		return
-		items = sortList(items)
+	items = sortList(items)
 	switch(pick)
 		if("Trash bag")
 			if(!mybag)
