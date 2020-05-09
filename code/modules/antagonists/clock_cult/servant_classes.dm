@@ -5,6 +5,7 @@ GLOBAL_LIST_INIT(servant_classes, list())
 /datum/clockcult/servant_class
 	var/class_name = "haqrsvarq"
 	var/class_description = "The great power of ratvar has granted this with... nothing?"
+	var/class_ID = 0
 	var/list/class_clothing = list(
 		SLOT_BACK = /obj/item/storage/backpack/chameleon,
 		SLOT_HEAD = /obj/item/clothing/head/chameleon,

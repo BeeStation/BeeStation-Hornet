@@ -33,7 +33,7 @@ export const ClockworkClassSelection = (props, context) => {
             key={category.class_name}
             selected={false}
             onClick={() => act('setClass', {
-              class: category,
+              class: category.id,
             })}>
             {category.class_name} - {category.class_description}
           </Tabs.Tab>

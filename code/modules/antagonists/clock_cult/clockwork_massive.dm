@@ -14,7 +14,7 @@
 	GLOB.celestial_gateway = src
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/Destroy()
-	hierophant_message("The Ark has been destroyed, Reebe is finally collapsing, ")
+	hierophant_message("The Ark has been destroyed, Reebe is finally collapsing", null, "<span class='big_brass'>")
 	if(GLOB.clockcult_gateway_opened || !istype(SSticker.mode, /datum/game_mode/clockcult))
 		return
 	flee_reebe(FALSE)

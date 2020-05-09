@@ -95,7 +95,14 @@
 
 /obj/item/clockwork/clockwork_slab/ui_static_data(mob/user)
 	var/list/data = list()
-	data["servant_classes"] = GLOB.servant_classes
+	data["servant_classes"] = list()
+	for(var/datum/clockcult/servant_class/class in GLOB.servant_classes)
+		var/list/C = list(
+			"classname" = class.class_name,
+			"classdesc" = class.class_description,
+			"id" = class.class_ID
+		)
+		data["servant_classes"] += list(C)
 	return data
 
 /obj/item/clockwork/clockwork_slab/ui_act(action, params)

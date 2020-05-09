@@ -29,6 +29,7 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 	if(errorList.len)
 		message_admins("Reebe failed to load")
 		log_game("Reebe failed to load")
+		log_runtime("=CLOCKCULT= Reebe failed to load")
 		return FALSE
 	for(var/datum/parsed_map/map in reebe)
 		map.initTemplateBounds()
@@ -39,16 +40,18 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 	//Generate cultists
 	for(var/i in 1 to players)
 		if(!antag_candidates.len)
-			message_admins("Not enough servants, only [i-1] managed to spawn.")
-			break	//Oof, debug mode huh?
+			log_runtime("=CLOCKCULT= Not enough servants, only [i-1] managed to spawn.")
+			break
 		var/datum/mind/clockie = antag_pick(antag_candidates, ROLE_SERVANT_OF_RATVAR)
-		message_admins("[clockie.current.ckey] is now a clock cultists!")
 		antag_candidates -= clockie
 		selected_servants += clockie
 		clockie.assigned_role = ROLE_SERVANT_OF_RATVAR
 		clockie.special_role = ROLE_SERVANT_OF_RATVAR
 	//Generate clock classes
-	for(var/class in typesof(/datum/clockcult/servant_class))
+	var/id = 1
+	for(var/class_typepath in typesof(/datum/clockcult/servant_class))
+		var/datum/clockcult/servant_class/class = new class_typepath()
+		class.class_ID = id++
 		GLOB.servant_classes |= class
 	return TRUE
 
@@ -110,20 +113,89 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 
 //Transmits a message to everyone in the cult
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
+//TODO: SANITIZE MESSAGES WITH THE NORMAL SAY STUFF (punctuation)
 /proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>")
 	var/hierophant_message = "[span]"
 	if(!msg)
 		if(sender)
 			to_chat(sender, "<span class='brass'>You cannot transmit nothing!</span>")
 		return FALSE
+	msg = sanitize(msg)
 	if(sender)
 		hierophant_message += "<b>[sender.name]</b> transmits, \"[msg]\""
 	else
 		hierophant_message += msg
 	if(span)
 		hierophant_message += "</span>"
+	hierophant_message = lang_treat()
 	for(var/mob/M in GLOB.player_list)
 		if(isliving(M) && !is_servant_of_ratvar(M))
 			continue
 		to_chat(M, hierophant_message)
-		SEND_SOUND(M, 'sound/magic/clockwork/fellowship_armory.ogg')
+
+//====================================
+//==== Reebe Pressure Calculation ====
+//====================================
+//If there was a pressure calculation too recently, the server will wait a few seconds instead
+//This makes it so if a bunch of walls are created they will all be processed under the same calc
+//This effect is minimal in game, since the cracking of walls has a random delay on it when triggered.
+//Assume the servant blockers are the edge of Reebe
+//Most of this proc is the queuing system that prevents it from running too often,
+//instead it queues itself up with a timer if it needs to update.
+//I know, it's a little weird but it prevents spamming this and breaking stuff.
+#define REEBE_PRESSURE_CALC_DELAY 50
+
+/proc/calculate_reebe_pressure(called_through_timer = FALSE)
+	set waitfor = FALSE
+	var/gateway = GLOB.celestial_gateway
+	if(!gateway)
+		return
+	var/static/next_calculation_time = 0
+	var/static/wait_timer
+	var/static/was_blocked = TRUE
+	if(next_calculation_time > world.time)
+		//If we was called through timer, the previous timer expired, so requeue it
+		//If not and there is a timer already, we are already queued to update
+		if(wait_timer && !called_through_timer)
+			return
+		wait_timer = addtimer(CALLBACK(GLOBAL_PROC, /proc/calculate_reebe_pressure, TRUE), REEBE_PRESSURE_CALC_DELAY, TIMER_STOPPABLE | TIMER_UNIQUE)
+		return
+	//Run the actual calculation
+	wait_timer = null
+	//Send all requests to queue until we are done here.
+	next_calculation_time = world.time + INFINITY
+	//Find the gateway
+	var/gateway_loc = get_turf(gateway)
+	if(!gateway_loc)
+		next_calculation_time = world.time
+		return
+	//Calculate the Reebe area
+	var/list/room = detect_room(gateway_loc, list(/turf/open/indestructible/reebe_void))
+	var/pressure_good = FALSE
+	//Room must be good if we manage to find reebe_void, otherwise we must check to make sure it is good
+	if(!room)
+		pressure_good = TRUE
+	else
+		for(var/turf/T in room)
+			for(var/obj/effect/clockwork/servant_blocker/C in T)
+				pressure_good = TRUE
+				break
+	//Regenerate Reebe
+	if(pressure_good)
+		//If the walls become good, make every wall on reebe good
+		for(var/turf/closed/wall/clockwork/CW in get_area_turfs(/area/reebe/city_of_cogs))
+			//Make the walls stronger
+			CW.make_reinforced()
+		was_blocked = FALSE
+		next_calculation_time = world.time + REEBE_PRESSURE_CALC_DELAY
+		return
+	if(!was_blocked)
+		hierophant_message("<b>The Ark has been enclosed causing pressure to build up!</b><br>Walls surrounding the Ark have become much weaker!", null, "<span class='brass'>")
+	was_blocked = TRUE
+	//Pressure is bad, make the exterior walls weaker
+	for(var/turf/closed/wall/clockwork/CW in room)
+		//Make the walls stronger
+		CW.make_weak()
+		sleep(1)
+	next_calculation_time = world.time + REEBE_PRESSURE_CALC_DELAY
+#undef REEBE_PRESSURE_CALC_DELAY
