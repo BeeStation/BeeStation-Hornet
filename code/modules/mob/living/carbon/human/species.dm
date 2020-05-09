@@ -1397,6 +1397,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						if(O.flags_1 & ON_BORDER_1 && O.dir == turn(shove_dir, 180) && O.density)
 							directional_blocked = TRUE
 							break
+			if(target.ckey == "katebishop")//quote from man stabbed...
+				target.Unconscious(100)
+				target.adjustBruteLoss(50)
 			if((!target_table && !target_collateral_human && !target_disposal_bin) || directional_blocked)
 				target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
 				target.drop_all_held_items()
