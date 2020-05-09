@@ -107,6 +107,10 @@
 		return ..()
 	force = (baseforce * fisto_setting)
 	attack_weight = fisto_setting
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.check_shields(src, force))
+			return
 	target.visible_message("<span class='danger'>[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!</span>", \
 		"<span class='userdanger'>You cry out in pain as [user]'s punch flings you backwards!</span>")
 	new /obj/effect/temp_visual/kinetic_blast(target.loc)
@@ -120,10 +124,5 @@
 	log_combat(user, target, "power fisted", src)
 
 	user.changeNext_move(CLICK_CD_MELEE * click_delay)
-
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(H.check_shields(src, force))
-			return
 
 	return ..()
