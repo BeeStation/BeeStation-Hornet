@@ -73,7 +73,11 @@ SUBSYSTEM_DEF(research)
 	last_income = world.time
 
 /datum/controller/subsystem/research/proc/calculate_server_coefficient()	//Diminishing returns.
-	var/amt = servers.len
+	var/list/obj/machinery/rnd/server/active
+	for(var/obj/machinery/rnd/server/miner in servers)
+			if(miner.working)
+				active.Add(miner)
+	var/amt = active.len
 	if(!amt)
 		return 0
 	var/coeff = 100
