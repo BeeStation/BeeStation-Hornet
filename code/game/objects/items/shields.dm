@@ -20,7 +20,7 @@
 		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
 			if(P.damtype != STAMINA)// disablers dont do shit to shields
-				attackforce = P.damage
+				attackforce = (P.damage / 2)
 		if(isitem(hitby))
 			var/obj/item/I = hitby
 			attackforce = damage
@@ -42,6 +42,20 @@
 		return TRUE
 	else
 		return ..()
+
+/obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, params)
+	if(obj_integrity < max_integrity)
+		if(!W.tool_start_check(user, amount=0))
+			return
+		user.visible_message("[user] is welding the [src].", \
+								"<span class='notice'>You begin repairing the [src]]...</span>")
+		if(W.use_tool(src, user, 40, volume=50))
+			obj_integrity += 10
+			user.visible_message("[user.name] has repaired some dents on [src].", \
+								"<span class='notice'>You finish repairing some of the dents on [src].</span>")
+		else
+			to_chat(user, "<span class='notice'>The [src] doesn't need repairing.</span>")
+	return ..()
 
 /obj/item/shield/examine(mob/user)
 	. = ..()
@@ -254,7 +268,8 @@
 		throw_speed = on_throw_speed
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		to_chat(user, "<span class='notice'>[src] is now active and back at full power.</span>")
+		obj_integrity = max_integrity
 	else
 		force = initial(force)
 		throwforce = initial(throwforce)

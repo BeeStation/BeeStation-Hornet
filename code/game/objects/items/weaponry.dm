@@ -484,7 +484,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_power = 20
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 24
-	attack_weight = TRUE
+	attack_weight = 2
 	throwforce = 0
 	throw_range = 0
 	throw_speed = 0

@@ -230,9 +230,8 @@
 	righthand_file = 'icons/mob/inhands/weapons/axes_righthand.dmi'
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
-	attack_weight = 2
+	attack_weight = 3
 	block_power_wielded = 25
-	block_level = 1
 	block_upgrade_walk = 1
 	force = 5
 	throwforce = 15
@@ -372,12 +371,9 @@
 	if((wielded) && prob(50))
 		INVOKE_ASYNC(src, .proc/jedi_spin, user)
 
-/obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
-	for(var/i in list(NORTH,SOUTH,EAST,WEST,EAST,SOUTH,NORTH,SOUTH,EAST,WEST,EAST,SOUTH))
-		user.setDir(i)
-		if(i == WEST)
-			user.emote("flip")
-		sleep(1)
+/obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user) //rip complex code, but this fucked up blocking
+	user.emote("flip")
+	sleep(1)
 
 /obj/item/twohanded/dualsaber/proc/impale(mob/living/user)
 	to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
