@@ -160,6 +160,10 @@
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_BEFORE_FIRE, src, original)
 	// i know that this is probably more with wands and gun mods in mind, but it's a bit silly that the projectile on_hit signal doesn't ping the projectile itself.
 	// maybe we care what the projectile thinks! See about combining these via args some time when it's not 5AM
+	var/obj/item/bodypart/hit_limb
+	if(isliving(target))
+		var/mob/living/L = target
+		hit_limb = L.check_limb_hit(def_zone)
 	if(SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, hit_limb) & COMPONENT_PROJECTILE_SELF_ON_HIT_SELF_DELETE)
 		return BULLET_ACT_HIT
 	var/turf/target_loca = get_turf(target)
@@ -210,7 +214,7 @@
 			new impact_effect_type(target_loca, hitx, hity)
 
 		var/organ_hit_text = ""
-		var/limb_hit = L.check_limb_hit(def_zone)//to get the correct message info.
+		var/limb_hit = hit_limb
 		if(limb_hit)
 			organ_hit_text = " in \the [parse_zone(limb_hit)]"
 		if(suppressed==SUPPRESSED_VERY)
