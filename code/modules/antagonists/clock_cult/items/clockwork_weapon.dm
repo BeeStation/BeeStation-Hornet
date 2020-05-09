@@ -1,6 +1,7 @@
 /obj/item/twohanded/clockwork
 	name = "Clockwork Weapon"
 	desc = "Something"
+	icon = 'icons/obj/clockwork_objects.dmi'
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK

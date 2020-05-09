@@ -139,7 +139,7 @@
 	SEND_SOUND(world, 'sound/effects/ratvar_reveal.ogg')
 	to_chat(world, "<span class='big_brass'>The bluespace veil gives way to Ratvar, this realm shall be shone in his light!</span>")
 	SSticker.force_ending = 1
-	UnregisterSignal(src, COMSIG_ATOM_BSA_BEAM, .proc/bluespace_reaction)
+	UnregisterSignal(src, COMSIG_ATOM_BSA_BEAM)
 
 //tasty
 /obj/singularity/ratvar/process()
