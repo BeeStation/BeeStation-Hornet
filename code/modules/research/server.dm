@@ -99,7 +99,7 @@
 				var/heat_capacity = removed.heat_capacity()
 				if(heat_capacity == 0 || heat_capacity == null)
 					heat_capacity = 1
-				removed.temperature = min((removed.temperature*heat_capacity + 10000)/heat_capacity, 1000)
+				removed.temperature = min((removed.temperature*heat_capacity + heating_power)/heat_capacity, 1000)
 
 			current_temp = removed.temperature
 			env.merge(removed)
