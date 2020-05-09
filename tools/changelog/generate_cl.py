@@ -46,7 +46,7 @@ pr_list = commit.get_pulls()
 
 if not pr_list.totalCount:
     print("Direct commit detected")
-    exit(1) # Change to '0' if you do not want the action to count this is a failure
+    exit(1) # Change to '0' if you do not want the action to fail when a direct commit is detected
 
 pr = pr_list[0]
 
@@ -60,7 +60,7 @@ try:
     cl_list = CL_SPLIT.findall(cl.group(2))
 except AttributeError:
     print("No CL found!")
-    exit(1) # Change to '0' if you do not want the action to count this is a failure
+    exit(1) # Change to '0' if you do not want the action to fail when no CL is provided
 
 
 if cl.group(1) is not None:
@@ -76,7 +76,7 @@ with open(Path.cwd().joinpath("tools/changelog/tags.yml")) as file:
 write_cl['changes'] = []
 
 for k, v in cl_list:
-    if k in tags['tags'].keys(): # Check to see if there are any of the correct tags
+    if k in tags['tags'].keys(): # Check to see if there are any valid tags, as determined by tags.yml
         v = v.rstrip()
         if v not in list(tags['defaults'].values()): # Check to see if the tags are associated with something that isn't the default text
             write_cl['changes'].append({tags['tags'][k]: v})
@@ -93,4 +93,4 @@ if write_cl['changes']:
     print("Done!")
 else:
     print("No CL changes detected!")
-    exit(0) # Change to a '1' if you want the action to count this as a failure
+    exit(0) # Change to a '1' if you want the action to count lacking CL changes as a failure
