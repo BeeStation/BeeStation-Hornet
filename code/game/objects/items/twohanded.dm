@@ -373,7 +373,6 @@
 
 /obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user) //rip complex code, but this fucked up blocking
 	user.emote("flip")
-	sleep(1)
 
 /obj/item/twohanded/dualsaber/proc/impale(mob/living/user)
 	to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
