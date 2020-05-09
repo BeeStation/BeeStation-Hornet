@@ -28,7 +28,6 @@
 	var/temp_tolerance_high = T20C
 	var/temp_tolerance_damage = T0C + 200		// Most CPUS get up to 200C they start breaking.  TODO: Start doing damage to the server?
 	var/temp_penalty_coefficient = 0.5	//1 = -1 points per degree above high tolerance. 0.5 = -0.5 points per degree above high tolerance.
-	var/heating_power
 	var/current_temp = -1
 	req_access = list(ACCESS_RD) //ONLY THE R&D CAN CHANGE SERVER SETTINGS.
 
