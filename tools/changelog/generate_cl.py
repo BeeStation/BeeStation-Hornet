@@ -5,12 +5,12 @@ DO NOT MANUALLY RUN THIS SCRIPT.
 This script is designed to generate and push a CL file that can be later compiled.
 The body of the changelog is determined by the description of the PR that was merged.
 
-If a commit is pushed without being associated with a PR or if a PR is missing a CL
+If a commit is pushed without being associated with a PR, or if a PR is missing a CL,
 the script is designed to exit as a failure. This is to help keep track of PRs without
-CLs and direct commits. See the relating comment in the below source to disable this function.
+CLs and direct commits. See the relating comments in the below source to disable this function.
 
 This script depends on the tags.yml file located in the same directory. You can use that
-file to configure the exact tags you'd like this script to use when generating your CL.
+file to configure the exact tags you'd like this script to use when generating changelog entries.
 If this is being used in a /tg/ or Bee downstream, the default tags should work.
 
 Expected envrionmental variables:
