@@ -653,9 +653,6 @@
 	special_names = list("Remnant", "Relic", "Scrap", "Vestige") //RIP Ratvar
 	var/has_corpse
 
-/datum/species/golem/clockwork/get_spans()
-	return SPAN_ROBOT //beep
-
 /datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	RegisterSignal(H, COMSIG_MOB_SAY, .proc/handle_speech)
