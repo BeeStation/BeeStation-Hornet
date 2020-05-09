@@ -466,8 +466,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return 0
 	if((block_flags & BLOCKING_ACTIVE) && !owner.get_active_held_item() == src)
 		return 0
-	if((!block_flags & BLOCKING_PROJECTILE) && attack_type == PROJECTILE_ATTACK)
-		return 0
+	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
+		var/obj/item/projectile/P = hitby
+		if(block_flags & BLOCKING_PROJECTILE)
+			if(P.movement_type & UNSTOPPABLE) //you can't block piercing rounds!
+				return 0
+		else
+			return 0 
 	if(owner.m_intent == MOVE_INTENT_WALK)
 		final_block_level += block_upgrade_walk
 	switch(relative_dir)
@@ -509,7 +514,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.damtype != STAMINA)// disablers dont do shit to shields
-			attackforce = (P.damage / 2)
+			attackforce = (P.damage)
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
 		attackforce = damage
