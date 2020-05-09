@@ -60,7 +60,7 @@
 
 /proc/log_objective(whom, objective, admin_involved)
 	if (CONFIG_GET(flag/log_objective))
-		WRITE_LOG(GLOB.world_objective_log, "OBJ: [key_name(whom)] was assigned the following objective [admin_involved ? "by [key_name(admin_involved)]" : "automatically"]:")
+		WRITE_LOG(GLOB.world_objective_log, "OBJ: [key_name(whom)] was assigned the following objective [admin_involved ? "by [key_name(admin_involved)]" : "automatically"]: [objective]")
 
 /proc/log_mecha(text)
 	if (CONFIG_GET(flag/log_mecha))
