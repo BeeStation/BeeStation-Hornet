@@ -476,8 +476,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				return 0
 		else
 			return 0 
-	if(owner.m_intent == MOVE_INTENT_WALK)
+	if(owner.m_intent == MOVE_INTENT_WALK && !HAS_TRAIT(owner, TRAIT_JITTERS))
 		final_block_level += block_upgrade_walk
+	if(HAS_TRAIT(owner, TRAIT_JITTERS))
+		final_block_level -= 1
 	switch(relative_dir)
 		if(180, -180)
 			if(final_block_level >= 1)

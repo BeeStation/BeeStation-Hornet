@@ -36,6 +36,7 @@
 		if (obj_integrity <= attackforce)
 			var/turf/T = get_turf(owner)
 			T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")
+			obj_integrity = 1
 			shatter(owner)
 			return FALSE
 		take_damage(attackforce * ((100-(block_power))/100))
@@ -233,12 +234,17 @@
 	var/on_throw_speed = 2
 	var/active = 0
 	var/clumsy_check = TRUE
+	var/cooldown_duration = 100
+	var/cooldown_timer
 
 /obj/item/shield/energy/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/turbolift/turbolift-close.ogg', 50, 0, -1)
+	playsound(owner, 'sound/effects/turbolift/turbolift-close.ogg', 200, 1)
 	src.attack_self(owner)
 	to_chat(owner, "<span class='warning'>The [src] overheats!.</span>")
-	
+	cooldown_timer = world.time + cooldown_duration
+	sleep(100)
+	playsound(owner, 'sound/effects/beepskyspinsabre.ogg', 35, 1)
+	to_chat(owner, "<span class='warning'>The [src] is ready to use!.</span>")
 
 /obj/item/shield/energy/Initialize()
 	. = ..()
@@ -256,12 +262,13 @@
 	return 0
 
 /obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
+	if(cooldown_timer >= world.time)
+		return
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
 		user.take_bodypart_damage(5)
 	active = !active
 	icon_state = "[base_icon_state][active]"
-
 	if(active)
 		force = on_force
 		throwforce = on_throwforce
@@ -269,7 +276,8 @@
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
 		to_chat(user, "<span class='notice'>[src] is now active and back at full power.</span>")
-		obj_integrity = max_integrity
+		if(obj_integrity <= 1)
+			obj_integrity = max_integrity
 	else
 		force = initial(force)
 		throwforce = initial(throwforce)
