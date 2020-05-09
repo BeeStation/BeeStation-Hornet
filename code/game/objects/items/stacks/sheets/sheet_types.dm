@@ -573,7 +573,7 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	tableVariant = /obj/structure/table/bronze
 
 /obj/item/stack/tile/bronze/attack_self(mob/living/user)
-	to_chat(user, "<span class='danger'>Wha... what is this cheap imitation crap? This isn't brass at all!</span>")
+	..()
 
 /obj/item/stack/tile/bronze/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.bronze_recipes
