@@ -75,8 +75,8 @@ SUBSYSTEM_DEF(research)
 /datum/controller/subsystem/research/proc/calculate_server_coefficient()	//Diminishing returns.
 	var/list/obj/machinery/rnd/server/active
 	for(var/obj/machinery/rnd/server/miner in servers)
-			if(miner.working)
-				active.Add(miner)
+		if(miner.working)
+			active.Add(miner)
 	var/amt = active.len
 	if(!amt)
 		return 0
