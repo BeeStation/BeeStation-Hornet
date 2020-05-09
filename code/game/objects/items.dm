@@ -467,7 +467,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return 0
 	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
 		return 0
-	if((block_flags & BLOCKING_ACTIVE) && !owner.get_active_held_item() == src)
+	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src)
 		return 0
 	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
 		var/obj/item/projectile/P = hitby
