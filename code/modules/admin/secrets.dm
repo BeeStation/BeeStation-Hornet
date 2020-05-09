@@ -407,6 +407,7 @@
 				A.objectives = list()
 				new_objective.owner = H
 				A.objectives += new_objective
+				log_objective(A, new_objective.explanation_text, usr)
 				var/obj_count = 1
 				to_chat(T.owner, "<span class='alertsyndie'>Your contractors have updated your objectives</span>")
 				for(var/objective in A.objectives)

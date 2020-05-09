@@ -10,10 +10,12 @@
 	var/datum/objective/O = new /datum/objective/disease_infect()
 	O.owner = owner
 	objectives += O
+	log_objective(owner, O.explanation_text)
 
 	O = new /datum/objective/disease_infect_centcom()
 	O.owner = owner
 	objectives += O
+	log_objective(owner, O.explanation_text)
 
 	. = ..()
 

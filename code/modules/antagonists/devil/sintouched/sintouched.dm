@@ -40,6 +40,8 @@
 /datum/antagonist/sintouched/on_gain()
 	forge_objectives()
 	. = ..()
+	for(var/datum/objective/O in objectives)
+		log_objective(owner, O.explanation_text)
 
 /datum/antagonist/sintouched/greet()
 	owner.announce_objectives()

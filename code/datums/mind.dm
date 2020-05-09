@@ -469,6 +469,7 @@
 			target_antag.objectives += new_objective
 			message_admins("[key_name_admin(usr)] added a new objective for [current]: [new_objective.explanation_text]")
 			log_admin("[key_name(usr)] added a new objective for [current]: [new_objective.explanation_text]")
+			log_objective(new_objective.owner, new_objective.explanation_text, usr)
 		else
 			if(old_objective.type == selected_type)
 				//Edit the old

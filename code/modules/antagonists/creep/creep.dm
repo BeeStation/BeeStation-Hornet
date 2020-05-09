@@ -69,29 +69,35 @@
 				spendtime.owner = owner
 				spendtime.target = obsessionmind
 				objectives += spendtime
+				log_objective(owner, spendtime.explanation_text)
 			if("polaroid")
 				var/datum/objective/polaroid/polaroid = new
 				polaroid.owner = owner
 				polaroid.target = obsessionmind
 				objectives += polaroid
+				log_objective(owner, polaroid.explanation_text)
 			if("hug")
 				var/datum/objective/hug/hug = new
 				hug.owner = owner
 				hug.target = obsessionmind
 				objectives += hug
+				log_objective(owner, hug.explanation_text)
 			if("heirloom")
 				var/datum/objective/steal/heirloom_thief/heirloom_thief = new
 				heirloom_thief.owner = owner
 				heirloom_thief.target = obsessionmind//while you usually wouldn't need this for stealing, we need the name of the obsession
 				heirloom_thief.steal_target = family_heirloom.heirloom
 				objectives += heirloom_thief
+				log_objective(owner, heirloom_thief.explanation_text)
 			if("jealous")
 				var/datum/objective/assassinate/jealous/jealous = new
 				jealous.owner = owner
 				jealous.target = obsessionmind//will reroll into a coworker on the objective itself
 				objectives += jealous
+				log_objective(owner, jealous.explanation_text)
 
 	objectives += kill//finally add the assassinate last, because you'd have to complete it last to greentext.
+	log_objective(owner, kill.explanation_text)
 	for(var/datum/objective/O in objectives)
 		O.update_explanation_text()
 

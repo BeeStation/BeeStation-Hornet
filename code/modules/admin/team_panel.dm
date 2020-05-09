@@ -92,6 +92,7 @@
 			team_antag.name = custom_antag_name
 			M.add_antag_datum(team_antag,src)
 		team_antag.objectives |= O
+		log_objective(M, O.explanation_text, usr)
 
 	message_admins("[key_name_admin(usr)] added objective \"[O.explanation_text]\" to [name]")
 	log_admin("[key_name(usr)] added objective \"[O.explanation_text]\" to [name]")

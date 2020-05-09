@@ -149,6 +149,8 @@
 	var/datum/objective/monkey/O = new()
 	O.team = src
 	objectives += O
+	for(var/datum/mind/M in members)
+		log_objective(M, O.explanation_text)
 
 /datum/team/monkey/proc/infected_monkeys_alive()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
