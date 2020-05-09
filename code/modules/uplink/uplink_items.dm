@@ -456,7 +456,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Holoparasites"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an \
 			organic host as a home base and source of fuel. Holoparasites come in various types and share damage with their host."
-	item = /obj/item/storage/box/syndie_kit/guardian
+	item = /obj/item/guardiancreator/tech
 	cost = 18
 	surplus = 10
 	surplus_nullcrates = 0
@@ -518,7 +518,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Revolver"
 	desc = "A brutally simple Syndicate revolver that fires .357 Magnum rounds and has 7 chambers."
 	item = /obj/item/gun/ballistic/revolver
-	cost = 13
+	cost = 12
 	surplus = 50
 	exclude_modes = list(/datum/game_mode/nuclear/clown_ops)
 
@@ -779,7 +779,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A speed loader that contains seven additional .357 Magnum rounds; usable with the Syndicate revolver. \
 			For when you really need a lot of things dead."
 	item = /obj/item/ammo_box/a357
-	cost = 4
+	cost = 2
 	exclude_modes = list(/datum/game_mode/nuclear/clown_ops)
 	illegal_tech = FALSE
 
@@ -995,6 +995,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/emp
 	cost = 4
 
+/datum/uplink_item/explosives/ducky
+	name = "Exploding Rubber Duck"
+	desc = "A seemingly innocent rubber duck. When placed, it arms, and will violently explode when stepped on."
+	item = /obj/item/deployablemine/traitor
+	cost = 4
+	include_modes = list(/datum/game_mode/nuclear/clown_ops)
+	
 /datum/uplink_item/explosives/virus_grenade
 	name = "Fungal Tuberculosis Grenade"
 	desc = "A primed bio-grenade packed into a compact box. Comes with five Bio Virus Antidote Kit (BVAK) \
@@ -1013,6 +1020,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	include_modes = list(/datum/game_mode/nuclear)
 	cost = 24
 	surplus = 0
+
+/datum/uplink_item/explosives/bigducky
+	name = "High Yield Exploding Rubber Duck"
+	desc = "A seemingly innocent rubber duck. When placed, it arms, and will violently explode when stepped on. \
+			This variant has been fitted with high yield X4 charges for a larger explosion."
+	item = /obj/item/deployablemine/traitor/bigboom
+	cost = 10
+	include_modes = list(/datum/game_mode/nuclear/clown_ops)
 
 /datum/uplink_item/explosives/pizza_bomb
 	name = "Pizza Bomb"
@@ -1915,7 +1930,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	name = "Holocarp Parasites"
 	desc = "Fishsticks prepared through ritualistic means in honor of the god Carp-sie, capable of binding a holocarp \
 			to act as a servent and guardian to their host."
-	item = /obj/item/storage/box/syndie_kit/carpian
+	item = /obj/item/guardiancreator/carp
 	cost = 18
 	surplus = 5
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
@@ -2039,12 +2054,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cost = 20
 	cant_discount = TRUE
 	illegal_tech = FALSE
-
-	/datum/uplink_item/badass/toy_holoparasites
-	name = "Toy Holoparasites"
-	desc = "A holoparasite colony that is utterly useless. costs as much as real holoparasites."
-	item = /obj/item/guardiancreator/tech/toy
-	cost = 16
 
 /datum/uplink_item/badass/syndiecash
 	name = "Syndicate Briefcase Full of Cash"

@@ -264,6 +264,14 @@
 	if(istype(H))
 		H.toggle_welding_screen(owner)
 
+/datum/action/item_action/toggle_welding_screen/plasmaman
+	name = "Toggle Welding Screen"
+
+/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger()
+	var/obj/item/clothing/head/helmet/space/plasmaman/H = target
+	if(istype(H))
+		H.toggle_welding_screen(owner)
+
 /datum/action/item_action/toggle_headphones
 	name = "Toggle Headphones"
 	desc = "UNTZ UNTZ UNTZ"
@@ -683,6 +691,12 @@
 	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "jetboot"
+
+/datum/action/item_action/bhop/apid
+	name = "Apid Dash"
+	desc = "Uses your wings to dash forward 6 tiles."
+	icon_icon = 'icons/mob/neck.dmi'
+	button_icon_state = "apid_wings"
 
 /datum/action/language_menu
 	name = "Language Menu"

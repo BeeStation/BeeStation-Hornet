@@ -1,6 +1,7 @@
 
 /obj
 	animate_movement = SLIDE_STEPS
+	speech_span = SPAN_ROBOT
 	var/obj_flags = CAN_BE_HIT
 
 	/// ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
@@ -181,10 +182,6 @@
 /obj/proc/container_resist(mob/living/user)
 	return
 
-/obj/proc/update_icon()
-	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
-	return
-
 /mob/proc/unset_machine()
 	if(machine)
 		machine.on_unset_machine(src)
@@ -213,9 +210,6 @@
 	..()
 	if(!anchored || current_size >= STAGE_FIVE)
 		step_towards(src,S)
-
-/obj/get_spans()
-	return ..() | SPAN_ROBOT
 
 /obj/get_dumping_location(datum/component/storage/source,mob/user)
 	return get_turf(src)

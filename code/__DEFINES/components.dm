@@ -49,6 +49,8 @@
 	#define EXAMINE_POSITION_BEFORE 2
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED 1
+#define COMSIG_ATOM_UPDATE_ICON "atom_update_icon"				//from base of atom/update_icon(): ()
+	#define COMSIG_ATOM_NO_UPDATE_ICON_STATE 1
 #define COMSIG_ATOM_ENTERED "atom_entered"                      //! from base of atom/Entered(): (atom/movable/entering, /atom)
 #define COMSIG_ATOM_EXIT "atom_exit"							//! from base of atom/Exit(): (/atom/movable/exiting, /atom/newloc)
 	#define COMPONENT_ATOM_BLOCK_EXIT 1
@@ -159,6 +161,16 @@
 #define COMSIG_MOB_THROW "mob_throw"							//! from base of /mob/throw_item(): (atom/target)
 #define COMSIG_MOB_UPDATE_SIGHT "mob_update_sight"				//! from base of /mob/update_sight(): ()
 #define COMSIG_MOB_EXAMINATE "mob_examinate"					//from base of /mob/verb/examinate(): (atom/target)
+#define COMSIG_MOB_SAY "mob_say" // from /mob/living/say(): (proc args list)
+	#define COMPONENT_UPPERCASE_SPEECH 1
+	// used to access COMSIG_MOB_SAY argslist
+	#define SPEECH_MESSAGE 1
+	// #define SPEECH_BUBBLE_TYPE 2
+	#define SPEECH_SPANS 3
+	/* #define SPEECH_SANITIZE 4
+	#define SPEECH_LANGUAGE 5
+	#define SPEECH_IGNORE_SPAM 6
+	#define SPEECH_FORCED 7 */
 
 // /mob/living signals
 #define COMSIG_LIVING_RESIST "living_resist"					//! from base of mob/living/resist() (/mob/living)
@@ -197,7 +209,6 @@
 #define COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH "obj_default_unfasten_wrench"
 #define COMSIG_OBJ_DECONSTRUCT "obj_deconstruct"				//! from base of obj/deconstruct(): (disassembled)
 #define COMSIG_OBJ_SETANCHORED "obj_setanchored"				//! called in /obj/structure/setAnchored(): (value)
-#define COMSIG_OBJ_UPDATE_ICON	"obj_update_icon"				//Called by obj to itself whenever update_icon is run. Useful for containers that want to detect this change
 
 // /obj/item signals
 #define COMSIG_ITEM_ATTACK "item_attack"						//! from base of obj/item/attack(): (/mob/living/target, /mob/living/user)
@@ -309,6 +320,9 @@
 // /datum/action signals
 #define COMSIG_ACTION_TRIGGER "action_trigger"						//! from base of datum/action/proc/Trigger(): (datum/action)
 	#define COMPONENT_ACTION_BLOCK_TRIGGER 1
+
+// /datum/mind signals
+#define COMSIG_MIND_TRANSFER_TO	"mind_transfer_to"					// (mob/old, mob/new)
 
 /*******Non-Signal Component Related Defines*******/
 

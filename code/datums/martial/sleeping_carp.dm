@@ -170,6 +170,8 @@
 	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 10
 	force_wielded = 24
+	block_power_wielded = 50
+	block_power_unwielded = 25
 	throwforce = 20
 	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
@@ -177,11 +179,12 @@
 	icon_state = "bostaff0"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
-	block_chance = 50
+	block_level = 1
+	block_upgrade_walk = 1
+	block_power = 25
 
-/obj/item/twohanded/bostaff/update_icon()
+/obj/item/twohanded/bostaff/update_icon_state()
 	icon_state = "bostaff[wielded]"
-	return
 
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)

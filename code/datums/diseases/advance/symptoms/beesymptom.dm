@@ -7,7 +7,6 @@
 	transmittable = 1
 	level = 9
 	severity = 3
-	baseseverity = 3
 	symptom_delay_min = 5
 	symptom_delay_max = 20
 	var/honey = FALSE
@@ -16,11 +15,11 @@
 					  <b>Transmission 10:</b> Bees now contain a completely random toxin, unless resistance exceeds 14"
 
 /datum/symptom/beesease/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["resistance"] >= 14)
 		severity -= 4
 	if(A.properties["transmittable"] >= 10)
 		severity += 2
-	return..()
 
 /datum/symptom/beesease/Start(datum/disease/advance/A)
 	if(!..())
