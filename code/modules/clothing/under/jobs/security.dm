@@ -164,7 +164,7 @@
 *Blart Uniform
 */
 /obj/item/clothing/under/rank/security/mallcop
-	name = "NT mall cop uniform"
+	name = "NanoTrasen mall cop uniform"
 	desc = "The radio and badge are sewn on, what a crappy knock off. Secway not included."
 	icon_state = "mallcop"
 	item_state = "gy_suit"

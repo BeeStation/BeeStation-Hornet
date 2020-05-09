@@ -1653,3 +1653,7 @@ config_setting should be one of the following:
 			return "."
 		if(189)
 			return "-"
+
+/proc/get_final_z(atom/A)
+	var/turf/T = get_turf(A)
+	return T ? T.z : A.z

@@ -167,7 +167,7 @@
 		if(ALIEN_BODYPART,LARVA_BODYPART) //aliens take double burn //nothing can burn with so much snowflake code around
 			burn *= 2
 
-	var/can_inflict = max_damage - get_damage()
+	var/can_inflict = (max_damage * 2) - get_damage()
 	if(can_inflict <= 0)
 		return FALSE
 
