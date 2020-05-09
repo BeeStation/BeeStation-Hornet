@@ -28,11 +28,11 @@
 	var/temp_tolerance_high = T20C
 	var/temp_tolerance_damage = T0C + 200		// Most CPUS get up to 200C they start breaking.  TODO: Start doing damage to the server?
 	var/temp_penalty_coefficient = 0.5	//1 = -1 points per degree above high tolerance. 0.5 = -0.5 points per degree above high tolerance.
-	var/datum/component/thermo/thermo
+	var/heating_power
+	var/current_temp = -1
 	req_access = list(ACCESS_RD) //ONLY THE R&D CAN CHANGE SERVER SETTINGS.
 
 /obj/machinery/rnd/server/Initialize(mapload)
-	thermo = LoadComponent(/datum/component/thermo,temp_tolerance_damage + 10,heating_power,heating_effecency)
 	. = ..()
 
 	server_id = 0
@@ -53,7 +53,6 @@
 	RefreshParts()
 
 /obj/machinery/rnd/server/Destroy()
-	thermo = null
 	SSresearch.servers -= src
 	return ..()
 
@@ -61,8 +60,7 @@
 	var/tot_rating = 0
 	for(var/obj/item/stock_parts/SP in src)
 		tot_rating += SP.rating
-	if(thermo)
-		thermo.heatingPower = heating_power / max(1, tot_rating)
+	heating_power = heating_power / max(1, tot_rating)
 
 /obj/machinery/rnd/server/update_icon()
 	if (panel_open)
@@ -79,6 +77,47 @@
 	. = ..()
 	refresh_working()
 	return
+
+/obj/machinery/rnd/server/process()
+	if(!working)
+		current_temp = -1
+		return
+	var/turf/L = get_turf(src)
+	var/datum/gas_mixture/env
+	if(istype(L))
+		env = L.return_air()
+		// This is from the RD server code.  It works well enough but I need to move over the
+		// sspace heater code so we can caculate power used per tick as well and making this both
+		// exothermic and an endothermic component
+		if(env && env.temperature < T20C + 80)
+
+			var/transfer_moles = 0.25 * env.total_moles()
+
+			var/datum/gas_mixture/removed = env.remove(transfer_moles)
+
+			if(removed)
+				var/heat_capacity = removed.heat_capacity()
+				if(heat_capacity == 0 || heat_capacity == null)
+					heat_capacity = 1
+				removed.temperature = min((removed.temperature*heat_capacity + 10000)/heat_capacity, 1000)
+
+			current_temp = removed.temperature
+			env.merge(removed)
+			src.air_update_turf()
+		else
+			current_temp = env ? env.temperature : -1
+
+/obj/machinery/rnd/server/proc/get_env_temp()
+	// if we are on and ran though one tick
+	if(working && current_temp >= 0)
+		return current_temp
+	else
+		// otherwise we get the temp from the turf
+		var/turf/L = get_turf(src)
+		var/datum/gas_mixture/env
+		if(istype(L))
+			env = L.return_air()
+		return env ? env.temperature : T20C			// env might be null at round start.  This stops runtimes
 
 /obj/machinery/rnd/server/proc/refresh_working()
 	var/current_temp  = get_env_temp()
@@ -132,10 +171,6 @@
 		return list(TECHWEB_POINT_TYPE_GENERIC = max(base_mining_income - penalty, 0))
 	else
 		return list(TECHWEB_POINT_TYPE_GENERIC = 0)
-
-/obj/machinery/rnd/server/proc/get_env_temp()
-	return thermo.get_env_temp()
-
 
 /obj/machinery/computer/rdservercontrol
 	name = "R&D Server Controller"
