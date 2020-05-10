@@ -6,9 +6,8 @@
 //============================
 //This has been made semi-modular so you should be able to use these functions
 //elsewhere in code if you ever need to get a file in the .dmm format
-/atom
-	//The variables that should be saved, will use default ones if not supplied with anything
-	var/list/vars_to_save
+/atom/proc/get_save_vars()
+	return list()
 
 GLOBAL_LIST_INIT(save_file_chars, list(
 	"a","b","c","d","e",
@@ -142,8 +141,8 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	var/dat = ""
 	var/data_to_add = list()
 	for(var/V in O.vars)
-		if(O.vars_to_save)
-			if(!(V in O.vars_to_save))
+		if(O.get_save_vars())
+			if(!(V in O.get_save_vars()))
 				continue
 		else
 			if(!(V in vars_to_save) && vars_to_save)
