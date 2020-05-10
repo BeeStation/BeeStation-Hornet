@@ -243,7 +243,7 @@
 	src.attack_self(owner)
 	to_chat(owner, "<span class='warning'>The [src] overheats!.</span>")
 	cooldown_timer = world.time + cooldown_duration
-	sleep(100)
+	sleep(cooldown_duration)
 	playsound(owner, 'sound/effects/beepskyspinsabre.ogg', 35, 1)
 	to_chat(owner, "<span class='warning'>The [src] is ready to use!.</span>")
 
