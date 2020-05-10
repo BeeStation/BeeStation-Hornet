@@ -277,6 +277,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 						dat += "<li><a href='byond://?src=[REF(src)];choice=54'>[PDAIMG(medbot)]Bots Access</a></li>"
 					if (cartridge.access & CART_JANITOR)
 						dat += "<li><a href='byond://?src=[REF(src)];choice=49'>[PDAIMG(bucket)]Custodial Locator</a></li>"
+					if(cartridge.access & CART_MIME)
+						dat += "<li><a href='byond://?src=[REF(src)];choice=55'>[PDAIMG(emoji)]Emoji Guidebook</a></li>"
 					if (istype(cartridge.radio))
 						dat += "<li><a href='byond://?src=[REF(src)];choice=40'>[PDAIMG(signaler)]Signaler System</a></li>"
 					if (cartridge.access & CART_NEWSCASTER)
@@ -659,7 +661,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 		"name" = "[owner]",
 		"job" = "[ownjob]",
 		"message" = message,
-		"targets" = string_targets
+		"targets" = string_targets,
+		"emojis" = allow_emojis,
 	))
 	if (picture)
 		signal.data["photo"] = picture
@@ -674,6 +677,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return
 
 	var/target_text = signal.format_target()
+	if(allow_emojis)
+		message = emoji_parse(message)//already sent- this just shows the sent emoji as one to the sender in the to_chat
+		signal.data["message"] = emoji_parse(signal.data["message"])
+
 	// Log it in our logs
 	tnote += "<i><b>&rarr; To [target_text]:</b></i><br>[signal.format_message()]<br>"
 	// Show it to ghosts
@@ -712,6 +719,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 			hrefend = "</a>"
 
 		to_chat(L, "[icon2html(src)] <b>Message from [hrefstart][signal.data["name"]] ([signal.data["job"]])[hrefend], </b>[signal.format_message()] (<a href='byond://?src=[REF(src)];choice=Message;skiprefresh=1;target=[REF(signal.source)]'>Reply</a>)")
+
+		var/inbound_message = signal.format_message()
+		if(signal.data["emojis"] == TRUE)//so will not parse emojis as such from pdas that don't send emojis
+			inbound_message = emoji_parse(inbound_message)
+
+		to_chat(L, "[icon2html(src)] <b>Message from [hrefstart][signal.data["name"]] ([signal.data["job"]])[hrefend], </b>[inbound_message] [reply]")
 
 	update_icon()
 	add_overlay(icon_alert)
