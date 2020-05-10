@@ -186,6 +186,7 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 		for(var/turf/closed/wall/clockwork/CW in get_area_turfs(/area/reebe/city_of_cogs))
 			//Make the walls stronger
 			CW.make_reinforced()
+			CHECK_TICK
 		was_blocked = FALSE
 		next_calculation_time = world.time + REEBE_PRESSURE_CALC_DELAY
 		return
