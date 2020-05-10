@@ -45,17 +45,18 @@
 		return ..()
 
 /obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, params)
-	if(obj_integrity < max_integrity)
-		if(!W.tool_start_check(user, amount=0))
-			return
-		user.visible_message("[user] is welding the [src].", \
-								"<span class='notice'>You begin repairing the [src]]...</span>")
-		if(W.use_tool(src, user, 40, volume=50))
-			obj_integrity += 10
-			user.visible_message("[user.name] has repaired some dents on [src].", \
-								"<span class='notice'>You finish repairing some of the dents on [src].</span>")
-		else
-			to_chat(user, "<span class='notice'>The [src] doesn't need repairing.</span>")
+	if(istype(W))
+		if(obj_integrity < max_integrity)
+			if(!W.tool_start_check(user, amount=0))
+				return
+			user.visible_message("[user] is welding the [src].", \
+									"<span class='notice'>You begin repairing the [src]]...</span>")
+			if(W.use_tool(src, user, 40, volume=50))
+				obj_integrity += 10
+				user.visible_message("[user.name] has repaired some dents on [src].", \
+									"<span class='notice'>You finish repairing some of the dents on [src].</span>")
+			else
+				to_chat(user, "<span class='notice'>The [src] doesn't need repairing.</span>")
 	return ..()
 
 /obj/item/shield/examine(mob/user)
