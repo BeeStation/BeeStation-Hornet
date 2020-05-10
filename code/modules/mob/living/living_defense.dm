@@ -426,7 +426,7 @@
 
 
 /mob/living/proc/parry()//A bit janky, but i couldnt think of another way to do the cooldown that worked
-	if(!HAS_TRAIT(src, TRAIT_NOPARRY))
+	if(!HAS_TRAIT(src, TRAIT_NOPARRY) && !stat)
 		ADD_TRAIT(src, TRAIT_PARRY, PARRY_TRAIT)
 		ADD_TRAIT(src, TRAIT_NOPARRY, PARRY_TRAIT)
 		playsound(src, 'sound/weapons/fwoosh.ogg', 75, 0)
