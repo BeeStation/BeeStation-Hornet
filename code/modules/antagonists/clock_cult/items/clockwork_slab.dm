@@ -36,7 +36,6 @@
 		if(!script)
 			continue
 		var/datum/clockcult/scripture/default_script = new script
-		message_admins("Assigning [default_script.name] to [name]")
 		bind_spell(null, default_script, pos++)
 	..()
 
@@ -50,7 +49,6 @@
 	. = ..()
 	//Grant quickbound spells
 	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
-		message_admins("Granting [script.name] to [user.ckey]")
 		script.Grant(user)
 
 /obj/item/clockwork/clockwork_slab/update_icon()
@@ -114,7 +112,7 @@
 			"cost" = scripture.power_cost
 		)
 		//We don't need it anymore
-		qdel(script_datum)
+		qdel(scripture)
 		//Add it to the correct list
 		switch(scripture.scripture_type)
 			if(SCRIPTURE)
@@ -147,15 +145,12 @@
 		if("setClass")
 			var/datum/antagonist/servant_of_ratvar/S = is_servant_of_ratvar(M)
 			if(!S)
-				message_admins("no servant")
 				return FALSE
 			if(S.servant_class.type != /datum/clockcult/servant_class)
-				message_admins("already chosen")
 				return FALSE
 			var/selected_name = params["class"]
 			var/datum/clockcult/servant_class/class = GLOB.servant_classes[selected_name]
 			if(!class)
-				message_admins("Invalid class selected.")
 				return FALSE
 			to_chat(M, "<span class='brass'>You begin calling upon [class.class_name] for guidance!</span>")
 			M.say("[text2ratvar("Oh great [class.class_name], [pick("show me the way!", "bless me with your light!", "teach my the way!")]")]")
@@ -181,10 +176,10 @@
 				return FALSE
 			var/list/positions = list()
 			for(var/i in 1 to 5)
-				positions[i] = "([i])[quick_bound_scriptures[i] ? " - [quick_bound_scriptures[i].name]" : ""]"
+				positions += "([i])[quick_bound_scriptures[i] ? " - [quick_bound_scriptures[i].name]" : ""]"	//CC_ERROR: LIST INDEX OUT OF BOUNDS
 			var/position = input("Where to quickbind to?", "Quickbind Slot", null) as null|anything in positions
 			if(!position)
 				return FALSE
 			//Create and assign the quickbind
 			var/datum/clockcult/scripture/new_scripture = new S.type()
-			bind_spell(M, new_scripture, position)
+			bind_spell(M, new_scripture, positions.Find(position))

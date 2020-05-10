@@ -29,7 +29,7 @@
 	name = "brass battle-hammer"
 	desc = "A powerful hamer "
 	icon_state = "ratvarian_spear"
-	force = 24
+	force = 20
 	throwforce = 24
 	armour_penetration = 6
 	sharpness = IS_BLUNT
@@ -39,7 +39,7 @@
 	name = "brass longsword"
 	desc = "A large sword made of brass."
 	icon_state = "ratvarian_spear"
-	force = 20
+	force = 16
 	throwforce = 20
 	armour_penetration = 12
 	attack_verb = list("attacked", "slashed", "cut", "torn", "gored")

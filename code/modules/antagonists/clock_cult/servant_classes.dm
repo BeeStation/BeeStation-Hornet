@@ -11,20 +11,23 @@ GLOBAL_LIST_INIT(servant_global_scriptures, list(
 	/datum/clockcult/scripture/slab/kindle,
 	/datum/clockcult/scripture/slab/hateful_manacles,
 	/datum/clockcult/scripture/create_structure/sigil_submission,
-	/datum/clockcult/scripture/ark_activation
+	/datum/clockcult/scripture/ark_activation,
+	/datum/clockcult/scripture/clockwork_armaments
 ))
 
 /datum/clockcult/servant_class
 	var/class_name = "haqrsvarq"
 	var/class_description = "The great power of ratvar has granted this with... nothing?"
 	var/class_ID = 0
+	var/selectable = FALSE
 	var/list/class_clothing = list(
-		SLOT_BACK = /obj/item/storage/backpack/chameleon,
-		SLOT_HEAD = /obj/item/clothing/head/chameleon,
-		SLOT_SHOES = /obj/item/clothing/shoes/chameleon,
-		SLOT_W_UNIFORM = /obj/item/clothing/under/chameleon,
-		SLOT_GLOVES = /obj/item/clothing/gloves/color/yellow,
-		SLOT_WEAR_ID = /obj/item/card/id
+		/obj/item/clothing/under/chameleon/ratvar = SLOT_W_UNIFORM,
+		/obj/item/storage/backpack/chameleon = SLOT_BACK,
+		/obj/item/storage/belt/utility/servant = SLOT_BELT,
+		/obj/item/clothing/shoes/chameleon = SLOT_SHOES,
+		/obj/item/clothing/gloves/color/yellow = SLOT_GLOVES,
+		/obj/item/card/id/syndicate/anyone = SLOT_WEAR_ID,
+		/obj/item/clothing/glasses/chameleon = SLOT_GLASSES
 	)
 	var/list/class_equiptment = list()
 	var/list/class_scriptures = list()
@@ -32,24 +35,40 @@ GLOBAL_LIST_INIT(servant_global_scriptures, list(
 /datum/clockcult/servant_class/proc/equip_mob(mob/living/carbon/C, drop_old=TRUE)
 	if(!istype(C))
 		return FALSE
-	for(var/slot in class_clothing)
-		C.equip_to_slot_or_del(class_clothing[slot], slot)
+	for(var/clothes in class_clothing)
+		C.equip_to_slot_or_del(new clothes, class_clothing[clothes])
 	for(var/equipment in class_equiptment)
-		C.equip_to_slot_or_del(class_equiptment[equipment], equipment)
+		C.equip_to_appropriate_slot(new equipment)
 	return TRUE
 
 /datum/clockcult/servant_class/vanguard
 	class_name = "Inath-Neq"
 	class_description = "Good for converting and sabotage. Crossbow"
+	selectable = TRUE
+	class_equiptment = list(
+		/obj/item/twohanded/clockwork/brass_sword
+	)
 
 /datum/clockcult/servant_class/fright
 	class_name = "Sevtug"
 	class_description = "Strong weapons, offensive capability, the best defense is offense. Sword"
+	selectable = TRUE
+	class_equiptment = list(
+		/obj/item/twohanded/clockwork/brass_sword
+	)
 
 /datum/clockcult/servant_class/armorer
 	class_name = "Nezbere"
 	class_description = "Good armour, defensive structures, in charge of keeping /them/ out. Hammer"
+	selectable = TRUE
+	class_equiptment = list(
+		/obj/item/twohanded/clockwork/brass_sword
+	)
 
 /datum/clockcult/servant_class/amperage
 	class_name = "Nzcrentr"
 	class_description = "Supportive class, in charge of maintaining the warriors. Spear"
+	selectable = TRUE
+	class_equiptment = list(
+		/obj/item/twohanded/clockwork/brass_spear
+	)

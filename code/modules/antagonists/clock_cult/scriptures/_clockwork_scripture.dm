@@ -18,7 +18,7 @@
 
 /datum/clockcult/scripture/New()
 	. = ..()
-	GLOB.clockcult_all_scriptures[name] += src
+	GLOB.clockcult_all_scriptures[name] = src
 
 /datum/clockcult/scripture/proc/invoke()
 	invoke_success()
@@ -40,6 +40,8 @@
 	recite(1, time_between_say, steps)
 
 /datum/clockcult/scripture/proc/recite(text_point, wait_time, stop_at = 0)
+	if(QDELETED(src))
+		return
 	invokation_chant_timer = null
 	if(!invoking_slab || !invoking_slab.invoking_scripture)
 		return
@@ -54,7 +56,7 @@
 	else
 		clockwork_say(invoker, text2ratvar(invokation_text[text_point]), TRUE)
 	if(text_point < stop_at)
-		invokation_chant_timer = addtimer(CALLBACK(src, .proc/recite, text_point+1, wait_time, stop_at), wait_time)
+		invokation_chant_timer = addtimer(CALLBACK(src, .proc/recite, text_point+1, wait_time, stop_at), wait_time, TIMER_STOPPABLE)
 
 /datum/clockcult/scripture/proc/check_special_requirements()
 	if(!invoker || !invoking_slab)
@@ -143,7 +145,10 @@
 	..()
 
 /datum/clockcult/scripture/slab/Destroy()
+	if(progress)
+		qdel(progress)
 	if(PH && !QDELETED(PH))
+		PH.remove_ranged_ability()
 		QDEL_NULL(PH)
 
 /datum/clockcult/scripture/slab/invoke()
@@ -157,11 +162,13 @@
 	invoke_success()
 
 /datum/clockcult/scripture/slab/proc/count_down()
+	if(QDELETED(src))
+		return
 	progress.update(time_left)
 	time_left --
 	loop_timer_id = null
 	if(time_left > 0)
-		loop_timer_id = addtimer(CALLBACK(src, .proc/count_down), 1)
+		loop_timer_id = addtimer(CALLBACK(src, .proc/count_down), 1, TIMER_STOPPABLE)
 	else
 		end_invokation()
 
@@ -209,6 +216,10 @@
 	desc = "A quick bound spell."
 	var/obj/item/clockwork/clockwork_slab/activation_slab
 	var/datum/clockcult/scripture/scripture
+
+/datum/action/innate/clockcult/quick_bind/Destroy()
+	Remove(owner)
+	. = ..()
 
 /datum/action/innate/clockcult/quick_bind/Grant(mob/living/M)
 	name = scripture.name

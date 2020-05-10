@@ -47,7 +47,7 @@
 	if(currently_affecting != AM)
 		return
 	currently_affecting = null
-	animate(src, color=idle_color, 5)
+	animate(src, color=idle_color, alpha=initial(alpha), time=5)
 	if(active_timer)
 		deltimer(active_timer)
 		active_timer = null

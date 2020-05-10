@@ -150,6 +150,7 @@
 	invokation_time = 140
 	invokation_text = list("The dimensional viel is faultering...", "...it is time to rise...", "...through stars you shall come...", "...to rise again!")
 	invokers_required = 2
+	scripture_type = APPLICATION
 
 /datum/clockcult/scripture/ark_activation/check_special_requirements()
 	if(!..())
@@ -178,3 +179,22 @@
 	invokation_time = 50
 	invokation_text = list("Relax you animal...", "...for I shall show you the truth.")
 	summoned_structure = /obj/structure/destructible/clockwork/sigil/submission
+
+//==================================//
+// !           Armaments          ! //
+//==================================//
+/datum/clockcult/scripture/clockwork_armaments
+	name = "Clockwork Armaments"
+	desc = "Summon clockwork armor and weapons, to be ready for battle."
+	tip = "Summon clockwork armor and weapons, to be ready for battle."
+	button_icon_state = "ratvarian_spear"
+	power_cost = 250
+	invokation_time = 20
+	invokation_text = list("Through courage and hope...", "...we shall protect thee!")
+
+/datum/clockcult/scripture/clockwork_armaments/invoke_success()
+	var/mob/living/M = invoker
+	var/datum/antagonist/servant_of_ratvar/servant = is_servant_of_ratvar(M)
+	if(!servant)
+		return FALSE
+	servant.servant_class.equip_mob(M)

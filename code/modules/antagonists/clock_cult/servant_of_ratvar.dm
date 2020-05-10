@@ -17,7 +17,6 @@
 	. = ..()
 	//Assign the default class
 	servant_class = new servant_class()
-	message_admins("Servant class assigned.")
 
 /datum/antagonist/servant_of_ratvar/greet()
 	if(!owner.current)
@@ -37,7 +36,6 @@
 
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
-	message_admins("Giving spells")
 
 //Remove clown mutation
 //Give the device

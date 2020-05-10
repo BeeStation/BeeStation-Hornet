@@ -29,7 +29,6 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 	if(errorList.len)
 		message_admins("Reebe failed to load")
 		log_game("Reebe failed to load")
-		log_runtime("=CLOCKCULT= Reebe failed to load")
 		return FALSE
 	for(var/datum/parsed_map/map in reebe)
 		map.initTemplateBounds()
@@ -40,7 +39,6 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 	//Generate cultists
 	for(var/i in 1 to players)
 		if(!antag_candidates.len)
-			log_runtime("=CLOCKCULT= Not enough servants, only [i-1] managed to spawn.")
 			break
 		var/datum/mind/clockie = antag_pick(antag_candidates, ROLE_SERVANT_OF_RATVAR)
 		antag_candidates -= clockie
