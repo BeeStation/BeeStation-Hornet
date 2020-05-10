@@ -283,7 +283,7 @@
 	desc = "A multicolor helmet that smellls of bananium and securitys tears."
 	icon_state = "honk_envirohelm"
 	item_state = "honk_envirohelm"
-	
+
 //command helms
 
 /obj/item/clothing/head/helmet/space/plasmaman/command
@@ -291,44 +291,44 @@
 	desc = "A helmet issued to the head of the command staff. Sleak and Stylish, as all captains should be."
 	icon_state = "command_envirohelm"
 	item_state = "command_envirohelm"
-	
+
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce
 	name = "chief engineers envirohelmet"
 	desc = "An envirohelmet designed for the chief engineer. It reeks of poly and plasma."
 	icon_state = "ce_envirohelm"
 	item_state = "ce_envirohelm"
-	
+
 /obj/item/clothing/head/helmet/space/plasmaman/cmo
 	name = "chief medical officers envirohelmet"
 	desc = "A helmet issued to the head of the command staff. Sleak and Stylish, as all captains should be."
 	icon_state = "cmo_envirohelm"
 	item_state = "cmo_envirohelm"
-	
+
 /obj/item/clothing/head/helmet/space/plasmaman/security/hos
 	name = "head of securitys helmet"
 	desc = "A reinforced envirohelmet issued to the head of the security staff. You'll need it."
 	icon_state = "hos_envirohelm"
 	item_state = "hos_envirohelm"
-	
+
 /obj/item/clothing/head/helmet/space/plasmaman/rd
 	name = "research directors envirosuit helmet"
 	desc = "A custom made envirosuit helmet made using advanced nanofibers. Fashionable and easy to wear."
 	icon_state = "rd_envirohelm"
 	item_state = "rd_envirohelm"
-	
+
 /obj/item/clothing/head/helmet/space/plasmaman/hop
 	name = "head of personnels envirosuit helmet"
 	desc = "An envirosuit helmet made for the Head of Personnel. Some corgi hair is stuck to it."
 	icon_state = "hop_envirohelm"
 	item_state = "hop_envirohelm"
-	
+
 //replacements for vendors
 /obj/item/clothing/head/helmet/space/plasmaman/replacement
 	name = "replacement envirosuit helmet"
 	desc = "An outdated helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment, still kept in use as replacement helmets. While it is space worthy, it lacks the UV protection newer models come with.."
 	flash_protect = 0
 
-	/obj/item/clothing/head/helmet/space/plasmaman/replacement/security
+/obj/item/clothing/head/helmet/space/plasmaman/replacement/security
 	name = "replacement security envirosuit helmet"
 	desc = "An outdated containment helmet designed for security officers, lacks the UV shielding a standard helmet possesses."
 	icon_state = "security_envirohelm"

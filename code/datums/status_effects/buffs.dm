@@ -568,8 +568,8 @@
 	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
 	if(owner.z == 5)
 		power = 2
-	owner.adjustBruteLoss(-50 * power)
-	owner.adjustFireLoss(-50 * power)
+	owner.adjustBruteLoss(-35 * power)
+	owner.adjustFireLoss(-35 * power)
 	owner.cure_nearsighted()
 	owner.ExtinguishMob()
 	owner.fire_stacks = 0
