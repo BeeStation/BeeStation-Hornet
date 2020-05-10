@@ -1510,14 +1510,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return 0 //item force is zero
 
 	//dismemberment
-	var/dismemberthreshold = (((affecting.max_damage * 2) / I.sharpness) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))
+	var/dismemberthreshold = ((affecting.max_damage * 2) - affecting.get_damage()) //don't take the current hit into account.
+	var/attackforce = (((I.w_class - 3) * 5) + ((I.attack_weight - 1) * 14) + ((I.sharpness-1) * 20)) //all the variables that go into ripping off a limb in one handy package. Force is absent because it's already been taken into account by the limb being damaged
 	if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER))
-		dismemberthreshold -= 50
+		dismemberthreshold -= 30
 	if(I.sharpness)
-		dismemberthreshold = min(((affecting.max_damage * 2  - affecting.get_damage())), dismemberthreshold) //makes it so limbs wont become immune to being dismembered if the item is sharp
-		if(H.stat == DEAD)
-			dismemberthreshold = dismemberthreshold / 3 
-	if(I.force >= dismemberthreshold && I.force >= 10)
+		attackforce = max(attackforce, I.force)
+	if(attackforce >= dismemberthreshold && I.force >= 10)
 		if(affecting.dismember(I.damtype))
 			I.add_mob_blood(H)
 			playsound(get_turf(H), I.get_dismember_sound(), 80, 1)

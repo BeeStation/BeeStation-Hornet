@@ -462,14 +462,24 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(blockhand.is_disabled())
 		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack<!/span>")
 		return 0
+	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
+		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack<!/span>")
+		return 0
 	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
 		return 0
-	if((block_flags & BLOCKING_ACTIVE) && !owner.get_active_held_item() == src)
+	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src)
 		return 0
-	if((!block_flags & BLOCKING_PROJECTILE) && attack_type == PROJECTILE_ATTACK)
-		return 0
-	if(owner.m_intent == MOVE_INTENT_WALK)
+	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
+		var/obj/item/projectile/P = hitby
+		if(block_flags & BLOCKING_PROJECTILE)
+			if(P.movement_type & UNSTOPPABLE) //you can't block piercing rounds!
+				return 0
+		else
+			return 0 
+	if(owner.m_intent == MOVE_INTENT_WALK && !HAS_TRAIT(owner, TRAIT_JITTERS))
 		final_block_level += block_upgrade_walk
+	if(HAS_TRAIT(owner, TRAIT_JITTERS))
+		final_block_level -= 1
 	switch(relative_dir)
 		if(180, -180)
 			if(final_block_level >= 1)
@@ -509,7 +519,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.damtype != STAMINA)// disablers dont do shit to shields
-			attackforce = (P.damage / 2)
+			attackforce = (P.damage)
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
 		attackforce = damage

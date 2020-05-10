@@ -18,6 +18,8 @@
 	inhand_y_dimension = 32
 	w_class = WEIGHT_CLASS_SMALL
 	block_upgrade_walk = 1
+	block_power = 0
+	block_level = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 15
 	throwforce = 12 // unlike normal daggers, this one is curved and not designed to be thrown
@@ -914,6 +916,7 @@
 	throwforce = 15
 	throw_speed = 1
 	throw_range = 4
+	max_integrity = 50
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bumped", "prodded")
 	hitsound = 'sound/weapons/smash.ogg'
