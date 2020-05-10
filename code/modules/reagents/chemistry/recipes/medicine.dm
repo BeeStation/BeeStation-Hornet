@@ -231,8 +231,8 @@
 /datum/chemical_reaction/kelotane
 	name = "Kelotane"
 	id = /datum/reagent/medicine/kelotane
-	results = list(/datum/reagent/medicine/kelotane = 2)
-	required_reagents = list(/datum/reagent/carbon = 1, /datum/reagent/silicon = 1)
+	results = list(/datum/reagent/medicine/kelotane = 3)
+	required_reagents = list(/datum/reagent/carbon = 1, /datum/reagent/water = 1, /datum/reagent/silicon = 1)
 
 /datum/chemical_reaction/antitoxin
 	name = "Antitoxin"
