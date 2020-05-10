@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Shuttles can now be built on lavaland
+  - bugfix: You cannot define other shuttles as a custom shuttle if they fly into
+      the shuttle area before you define it as a shuttle.
