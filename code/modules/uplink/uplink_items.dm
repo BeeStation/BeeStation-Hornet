@@ -461,7 +461,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 10
 	surplus_nullcrates = 0
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
-	player_minimum = 25
+	player_minimum = 15
 	restricted = TRUE
 
 /datum/uplink_item/dangerous/machinegun
