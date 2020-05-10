@@ -39,7 +39,7 @@
 		animate(invoker.client, color = client_color, time = 10)
 
 //==================================//
-// !       Kindle       ! //
+// !            Kindle            ! //
 //==================================//
 /datum/clockcult/scripture/slab/kindle
 	name = "Kindle"
@@ -142,7 +142,7 @@
 // !      Dimensional Breach      ! //
 //==================================//
 /datum/clockcult/scripture/ark_activation
-	name = "Ark Activation"
+	name = "Ark Invigoration"
 	desc = "Prepares the Ark for activation."
 	tip = "Prepares the Ark for activation, alerting the crew of your existance."
 	button_icon_state = "Spatial Gateway"
@@ -191,6 +191,7 @@
 	power_cost = 250
 	invokation_time = 20
 	invokation_text = list("Through courage and hope...", "...we shall protect thee!")
+	scripture_type = SCRIPTURE
 
 /datum/clockcult/scripture/clockwork_armaments/invoke_success()
 	var/mob/living/M = invoker
