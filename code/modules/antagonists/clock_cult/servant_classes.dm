@@ -1,6 +1,18 @@
 //Inath-Neq, Sevtug, Nezbere, and Nzcrentr
+//Note that there are only the set amount of classes of instantiated classes at once
+//Every servant stores a reference to the class it uses
+//So if 2 servants use  the same class, they will have the same reference to the class
+//This means dynamically updating the vars for one servant will update for all others
+//Which means you shouldn't have vars here related to individuals
 
 GLOBAL_LIST_INIT(servant_classes, list())
+GLOBAL_LIST_INIT(servant_global_scriptures, list(
+	/datum/clockcult/scripture/abscond,
+	/datum/clockcult/scripture/slab/kindle,
+	/datum/clockcult/scripture/slab/hateful_manacles,
+	/datum/clockcult/scripture/create_structure/sigil_submission,
+	/datum/clockcult/scripture/ark_activation
+))
 
 /datum/clockcult/servant_class
 	var/class_name = "haqrsvarq"
@@ -15,11 +27,6 @@ GLOBAL_LIST_INIT(servant_classes, list())
 		SLOT_WEAR_ID = /obj/item/card/id
 	)
 	var/list/class_equiptment = list()
-	var/list/global_scriptures = list(
-		/datum/clockcult/scripture/abscond,
-		/datum/clockcult/scripture/slab/kindle,
-		/datum/clockcult/scripture/slab/hateful_manacles
-	)
 	var/list/class_scriptures = list()
 
 /datum/clockcult/servant_class/proc/equip_mob(mob/living/carbon/C, drop_old=TRUE)

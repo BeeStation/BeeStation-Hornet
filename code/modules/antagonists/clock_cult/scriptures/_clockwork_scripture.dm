@@ -7,6 +7,7 @@
 	var/list/invokation_text = list()
 	var/button_icon_state = "telerune"
 	var/invokers_required = 1
+	var/scripture_type = SCRIPTURE
 
 	var/mob/living/invoker
 	var/obj/item/clockwork/clockwork_slab/invoking_slab

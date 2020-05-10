@@ -52,7 +52,7 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 	for(var/class_typepath in typesof(/datum/clockcult/servant_class))
 		var/datum/clockcult/servant_class/class = new class_typepath()
 		class.class_ID = id++
-		GLOB.servant_classes |= class
+		GLOB.servant_classes[class.class_name] = class
 	return TRUE
 
 /datum/game_mode/clockcult/post_setup(report)
@@ -122,12 +122,11 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 		return FALSE
 	msg = sanitize(msg)
 	if(sender)
-		hierophant_message += "<b>[sender.name]</b> transmits, \"[msg]\""
+		hierophant_message += "<b>[sender.name]</b> transmits, \"[sanitize(msg)]\""
 	else
-		hierophant_message += msg
+		hierophant_message += sanitize(msg)
 	if(span)
 		hierophant_message += "</span>"
-	hierophant_message = lang_treat()
 	for(var/mob/M in GLOB.player_list)
 		if(isliving(M) && !is_servant_of_ratvar(M))
 			continue
@@ -185,7 +184,10 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 		//If the walls become good, make every wall on reebe good
 		for(var/turf/closed/wall/clockwork/CW in get_area_turfs(/area/reebe/city_of_cogs))
 			//Make the walls stronger
-			CW.make_reinforced()
+			if(CW.reinforced)
+				return
+			CW.reinforced = TRUE
+			addtimer(CALLBACK(CW, /turf/closed/wall/clockwork.proc/make_reinforced), rand(0, 50))
 			CHECK_TICK
 		was_blocked = FALSE
 		next_calculation_time = world.time + REEBE_PRESSURE_CALC_DELAY
@@ -193,10 +195,13 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 	if(!was_blocked)
 		hierophant_message("<b>The Ark has been enclosed causing pressure to build up!</b><br>Walls surrounding the Ark have become much weaker!", null, "<span class='brass'>")
 	was_blocked = TRUE
-	//Pressure is bad, make the exterior walls weaker
-	for(var/turf/closed/wall/clockwork/CW in room)
+	//Pressure is bad, to prevent exploiting make all walls weak
+	for(var/turf/closed/wall/clockwork/CW in get_area_turfs(/area/reebe/city_of_cogs))
 		//Make the walls stronger
-		CW.make_weak()
-		sleep(1)
+		if(!CW.reinforced)
+			return
+		CW.reinforced = FALSE
+		addtimer(CALLBACK(CW, /turf/closed/wall/clockwork.proc/make_weak), rand(0, 80))
+		CHECK_TICK
 	next_calculation_time = world.time + REEBE_PRESSURE_CALC_DELAY
 #undef REEBE_PRESSURE_CALC_DELAY

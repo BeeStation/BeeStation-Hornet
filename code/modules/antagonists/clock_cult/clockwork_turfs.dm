@@ -116,11 +116,6 @@
 		new/obj/item/clockwork/alloy_shards/small(src)
 
 /turf/closed/wall/clockwork/proc/make_reinforced()
-	set waitfor = FALSE
-	if(reinforced)
-		return
-	reinforced = TRUE
-	sleep(rand(0, 50))
 	if(!reinforced)
 		return
 	new /obj/effect/temp_visual/ratvar/wall(get_turf(src))
@@ -129,11 +124,6 @@
 	return
 
 /turf/closed/wall/clockwork/proc/make_weak()
-	set waitfor = FALSE
-	if(!reinforced)
-		return
-	reinforced = FALSE
-	sleep(rand(0, 80))
 	if(reinforced)
 		return
 	playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 30)

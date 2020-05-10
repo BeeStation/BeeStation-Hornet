@@ -2040,7 +2040,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cant_discount = TRUE
 	illegal_tech = FALSE
 
-	/datum/uplink_item/badass/toy_holoparasites
+/datum/uplink_item/badass/toy_holoparasites
 	name = "Toy Holoparasites"
 	desc = "A holoparasite colony that is utterly useless. costs as much as real holoparasites."
 	item = /obj/item/guardiancreator/tech/toy

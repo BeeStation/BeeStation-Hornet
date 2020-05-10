@@ -24,3 +24,8 @@
 
 GLOBAL_VAR(celestial_gateway)
 GLOBAL_VAR_INIT(clockcult_gateway_opened, FALSE)
+
+//scripture types
+#define SCRIPTURE 0
+#define DRIVER 1
+#define APPLICATION 2
