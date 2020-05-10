@@ -1,0 +1,7 @@
+author: zeskorion
+delete-after: true
+changes:
+  - rscadd: the upgrade wand, a magician only traitor item that upgrades his gear
+  - balance: lowers teleglove range by 1
+  - balance: bottomless top hat now kidnaps non-carbons faster, and works better on
+      the user
