@@ -106,6 +106,7 @@ export const ClockworkTabButtons = (props, context) => {
 };
 
 export const ClockworkScriptureMenu = (props, context) => {
+  const { act } = useBackend(context);
   const { scriptures } = props;
   return (
     <Table>
@@ -127,8 +128,7 @@ export const ClockworkScriptureMenu = (props, context) => {
               tooltipPosition="left"
               onClick={() => act("invoke", {
                 scriptureName: script.name,
-              })}>
-            </Button>
+              })} />
           </Table.Cell>
           <Table.Cell collapsing textAlign="right">
             <Button
@@ -137,10 +137,9 @@ export const ClockworkScriptureMenu = (props, context) => {
               disabled={false}
               tooltip={script.tip}
               tooltipPosition="left"
-              onClick={() => act("invoke", {
+              onClick={() => act("quickbind", {
                 scriptureName: script.name,
-              })}>
-            </Button>
+              })} />
           </Table.Cell>
         </TableRow>
       ))}

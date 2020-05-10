@@ -100,17 +100,21 @@
 	var/datum/antagonist/servant_of_ratvar/servant_datum = is_servant_of_ratvar(user)
 	if(!servant_datum)
 		return data
-	var/list/accessable_scriptures = servant_datum.servant_class.class_scriptures
-	accessable_scriptures += GLOB.servant_global_scriptures
+	var/list/accessable_scriptures = GLOB.servant_global_scriptures
+	for(var/scripture in servant_datum.servant_class.class_scriptures)
+		accessable_scriptures |= scripture
 	//2 scriptures accessable at the same time will cause issues
-	for(var/datum/clockcult/scripture/scripture in accessable_scriptures)
+	for(var/script_datum in accessable_scriptures)
 		//Get the appropriate data
+		var/datum/clockcult/scripture/scripture = new script_datum()
 		var/list/S = list(
 			"name" = scripture.name,
 			"desc" = scripture.desc,
 			"tip" = scripture.tip,
 			"cost" = scripture.power_cost
 		)
+		//We don't need it anymore
+		qdel(script_datum)
 		//Add it to the correct list
 		switch(scripture.scripture_type)
 			if(SCRIPTURE)
@@ -136,15 +140,11 @@
 	return data
 
 /obj/item/clockwork/clockwork_slab/ui_act(action, params)
-	message_admins("action: [action]")
-	for(var/param in params)
-		message_admins("param: [param] = [params[param]]")
+	var/mob/living/M = usr
+	if(!istype(M))
+		return FALSE
 	switch(action)
 		if("setClass")
-			var/mob/living/M = usr
-			if(!istype(M))
-				message_admins("not living mob")
-				return FALSE
 			var/datum/antagonist/servant_of_ratvar/S = is_servant_of_ratvar(M)
 			if(!S)
 				message_admins("no servant")
@@ -163,3 +163,28 @@
 				to_chat(M, "<span class='brass'>You call upon [class.class_name] and are blessed with their knowledge and might!</span>")
 				S.servant_class = class
 			return TRUE
+		if("invoke")
+			var/datum/clockcult/scripture/S = GLOB.clockcult_all_scriptures[params["scriptureName"]]
+			if(!S)
+				return FALSE
+			if(invoking_scripture)
+				to_chat(M, "<span class='brass'>You fail to invoke [name].</span>")
+				return FALSE
+			var/datum/clockcult/scripture/new_scripture = new S.type()
+			//Create a new scripture temporarilly to process, when it's done it will be qdeleted.
+			new_scripture.qdel_on_completion = TRUE
+			new_scripture.begin_invoke(M, src)
+			return TRUE
+		if("quickbind")
+			var/datum/clockcult/scripture/S = GLOB.clockcult_all_scriptures[params["scriptureName"]]
+			if(!S)
+				return FALSE
+			var/list/positions = list()
+			for(var/i in 1 to 5)
+				positions[i] = "([i])[quick_bound_scriptures[i] ? " - [quick_bound_scriptures[i].name]" : ""]"
+			var/position = input("Where to quickbind to?", "Quickbind Slot", null) as null|anything in positions
+			if(!position)
+				return FALSE
+			//Create and assign the quickbind
+			var/datum/clockcult/scripture/new_scripture = new S.type()
+			bind_spell(M, new_scripture, position)

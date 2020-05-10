@@ -8,11 +8,17 @@
 	var/button_icon_state = "telerune"
 	var/invokers_required = 1
 	var/scripture_type = SCRIPTURE
+	var/end_on_invokation = TRUE	//Only set to false if you call end_invoke somewhere in your sciprture
 
 	var/mob/living/invoker
 	var/obj/item/clockwork/clockwork_slab/invoking_slab
 
 	var/invokation_chant_timer = null
+	var/qdel_on_completion = FALSE
+
+/datum/clockcult/scripture/New()
+	. = ..()
+	GLOB.clockcult_all_scriptures[name] += src
 
 /datum/clockcult/scripture/proc/invoke()
 	invoke_success()
@@ -74,18 +80,25 @@
 	invoker = M
 	invoking_slab = slab
 	if(!check_special_requirements())
-		slab.invoking_scripture = null
+		end_invoke()
 		return
 	recital()
 	if(do_after(M, invokation_time, target=M, extra_checks=CALLBACK(src, .proc/check_special_requirements)))
 		invoke()
 		to_chat(M, "<span class='brass'>You invoke [name].</span>")
+		if(end_on_invokation)
+			end_invoke()
 	else
 		invoke_fail()
 		if(invokation_chant_timer)
 			deltimer(invokation_chant_timer)
 			invokation_chant_timer = null
-	slab.invoking_scripture = null
+		end_invoke()
+
+/datum/clockcult/scripture/proc/end_invoke()
+	invoking_slab.invoking_scripture = null
+	if(qdel_on_completion)
+		qdel(src)
 
 //==================================//
 // !      Structure Creation      ! //
@@ -116,6 +129,7 @@
 	var/datum/progressbar/progress
 	var/uses = 1
 	var/after_use_text = ""
+	end_on_invokation = FALSE
 
 	var/obj/effect/proc_holder/slab/PH
 
@@ -168,6 +182,7 @@
 	PH.remove_ranged_ability()
 	invoking_slab.charge_overlay = null
 	invoking_slab.update_icon()
+	end_invoke()
 
 /datum/clockcult/scripture/slab/proc/apply_affects(atom/A)
 	return TRUE

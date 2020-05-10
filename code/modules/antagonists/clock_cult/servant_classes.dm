@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(servant_global_scriptures, list(
 /datum/clockcult/servant_class/proc/equip_mob(mob/living/carbon/C, drop_old=TRUE)
 	if(!istype(C))
 		return FALSE
-	for(var/slot in class_equiptment)
+	for(var/slot in class_clothing)
 		C.equip_to_slot_or_del(class_clothing[slot], slot)
 	for(var/equipment in class_equiptment)
 		C.equip_to_slot_or_del(class_equiptment[equipment], equipment)

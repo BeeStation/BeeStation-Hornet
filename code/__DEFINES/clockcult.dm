@@ -25,6 +25,10 @@
 GLOBAL_VAR(celestial_gateway)
 GLOBAL_VAR_INIT(clockcult_gateway_opened, FALSE)
 
+//A useful list containing all scriptures with the index of the name.
+//This should only be used for looking up scriptures
+GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
+
 //scripture types
 #define SCRIPTURE 0
 #define DRIVER 1

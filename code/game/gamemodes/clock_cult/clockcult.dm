@@ -53,6 +53,10 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 		var/datum/clockcult/servant_class/class = new class_typepath()
 		class.class_ID = id++
 		GLOB.servant_classes[class.class_name] = class
+	//Generate scriptures
+	for(var/scripture_typepath in typesof(/datum/clockcult/scripture))
+		var/datum/clockcult/scripture/S = new scripture_typepath
+		GLOB.clockcult_all_scriptures[S.name] = S
 	return TRUE
 
 /datum/game_mode/clockcult/post_setup(report)
