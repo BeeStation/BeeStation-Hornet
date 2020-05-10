@@ -1,6 +1,0 @@
-author: Trilbyspaceclone
-delete-after: true
-changes:
-  - rscadd: New crafting for Medical patches such as bruise packs and burn ointment.
-      As well as new type of Gauze!
-  - rscadd: Gauze now heal 5 brute, thats it. Makeshift heals 0
