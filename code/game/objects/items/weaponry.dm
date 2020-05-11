@@ -572,18 +572,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A bust of the famous Greek physician Hippocrates of Kos, often referred to as the father of western medicine."
 	icon_state = "hippocratic"
 
-/obj/item/tailclub
-	name = "tail club"
-	desc = "For the beating to death of lizards with their own tails."
-	icon_state = "tailclub"
-	attack_weight = 2
-	block_upgrade_walk = 1
-	force = 14
-	throwforce = 1 // why are you throwing a club do you even weapon
-	throw_speed = 1
-	throw_range = 1
-	attack_verb = list("clubbed", "bludgeoned")
-
 /obj/item/melee/chainofcommand/tailwhip
 	name = "liz o' nine tails"
 	desc = "A whip fashioned from the severed tails of lizards."
@@ -856,3 +844,42 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	else
 		user.visible_message("[user] is left hanging by [target].", "<span class='notice'>[target] leaves you hanging.</span>")
 		playsound(src, 'sound/weapons/punchmiss.ogg', 50, 0)
+
+/obj/item/club
+	name = "Billy club"
+	desc = "Used to bash heads and break down defenses."
+	icon_state = "billyclub"
+	item_state = "classic_baton"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	force = 10
+	throwforce = 5
+	block_upgrade_walk = 1
+	attack_verb = list("clubbed", "bludgeoned")
+	var/breakforce = 30
+	var/stamforce = 15
+
+/obj/item/club/attack(mob/living/M, mob/living/user)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.check_shields(src, breakforce))
+			return
+		else 
+			var/def_check = H.getarmor(type = "melee")
+			H.apply_damage(stamforce, STAMINA, blocked = def_check)
+	return ..()
+	
+/obj/item/club/tailclub
+	name = "tail club"
+	desc = "For the beating to death of lizards with their own tails."
+	icon_state = "tailclub"
+	force = 14
+	breakforce = 40
+
+/obj/item/club/ghettoclub
+	name = "improvised maul"
+	desc = "A bundle of heavy stuff on a stick."
+	icon_state = "ghettoclub"
+	force = 14
+	breakforce = 25
+	stamforce = 5
