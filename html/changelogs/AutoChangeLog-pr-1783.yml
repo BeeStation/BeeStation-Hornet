@@ -1,0 +1,8 @@
+author: zeskorion
+delete-after: true
+changes:
+  - rscadd: adds clubs. clubs deal minor brute and stamina damage, but they do a lot
+      of damage to blocks
+  - rscadd: adds clubs to sec belts and starting inventories
+  - rscadd: adds a ghetto club to the crafting menu
+  - tweak: sec belts have one more slot, and can hold clubs
