@@ -1,4 +1,0 @@
-author: WarlockD
-delete-after: true
-changes:
-  - rscadd: Research Servers now actually generate points, and are sensitive to heat.
