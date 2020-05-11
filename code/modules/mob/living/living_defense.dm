@@ -431,7 +431,7 @@
 		ADD_TRAIT(src, TRAIT_NOPARRY, PARRY_TRAIT)
 		playsound(src, 'sound/weapons/fwoosh.ogg', 75, 0)
 		new /obj/effect/temp_visual/parry(src.loc)
-		sleep(5)
+		stoplag(5)
 		REMOVE_TRAIT(src, TRAIT_PARRY, PARRY_TRAIT)
 		stoplag(10)
 		REMOVE_TRAIT(src, TRAIT_NOPARRY, PARRY_TRAIT)

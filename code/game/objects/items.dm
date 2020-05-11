@@ -467,12 +467,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return 0
 	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
 		return 0
-	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src)
+	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src && !HAS_TRAIT(owner, TRAIT_PARRY)) //you can still parry with the offhand
 		return 0
 	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
 		var/obj/item/projectile/P = hitby
 		if(block_flags & BLOCKING_PROJECTILE)
-			if(P.movement_type & UNSTOPPABLE) //you can't block piercing rounds!
+			if(P.movement_type & UNSTOPPABLE && !HAS_TRAIT(owner, TRAIT_PARRY)) //you can't block piercing rounds!
 				return 0
 		else
 			return 0 
@@ -505,7 +505,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	var/blockhand = 0
-	var/attackforce = 0 
+	var/attackforce = 0
+	var/obj/item/riposte = src
+	if(owner.get_active_held_item()) //parry with our active item if we have it
+		riposte = owner.get_active_held_item()
 	if(owner.get_active_held_item() == src) //this feels so hacky...
 		if(owner.active_hand_index == 1)
 			blockhand = BODY_ZONE_L_ARM
@@ -520,6 +523,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/obj/item/projectile/P = hitby
 		if(P.damtype != STAMINA)// disablers dont do shit to shields
 			attackforce = (P.damage)
+			if(HAS_TRAIT(owner, TRAIT_PARRY))
+				owner.visible_message("<span class='danger'>[owner] deflects [P] with the [src]!</span>")
+				playsound(src, 'sound/weapons/effects/ric1.ogg', 75, 0)
+				stoplag(4)
+				playsound(src, 'sound/weapons/bulletremove.ogg', 75, 0)
+				attackforce = 0
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
 		attackforce = damage
@@ -530,7 +539,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		attackforce = (attackforce * I.attack_weight)
 		if(isliving(I.loc) && HAS_TRAIT(owner, TRAIT_PARRY))
 			var/mob/living/L = I.loc
-			L.attackby(src, owner)
+			L.attackby(riposte, owner)
 			owner.visible_message("<span class='danger'>[owner] parries [L]'s [I] with the [src]!</span>")
 			playsound(src, 'sound/weapons/sonic_jackhammer.ogg', 75, 0)
 			attackforce = 0
@@ -538,7 +547,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/mob/living/L = hitby
 		attackforce = damage
 		if(HAS_TRAIT(owner, TRAIT_PARRY))
-			L.attackby(src, owner)
+			L.attackby(riposte, owner)
 			attackforce = 0
 			owner.visible_message("<span class='danger'>[owner] parries [L] with the [src]!</span>")
 			playsound(src, 'sound/weapons/sonic_jackhammer.ogg', 75, 0)
@@ -549,7 +558,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/mob/living/L = hitby
 		attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
 		if(HAS_TRAIT(owner, TRAIT_PARRY))
-			L.attackby(src, owner)
+			L.attackby(riposte, owner)
 			owner.visible_message("<span class='danger'>[owner] parries [L] with the [src]!</span>")
 			playsound(src, 'sound/weapons/sonic_jackhammer.ogg', 75, 0)
 		if(block_flags & BLOCKING_NASTY)
