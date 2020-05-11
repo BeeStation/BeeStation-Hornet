@@ -183,9 +183,9 @@
 /obj/item/clothing/under/lawyer/bluesuit
 	name = "blue slacks"
 	desc = "A pair of comfortable freshly pressed slacks and an equally sharp dress shirt. Tie and suit coat not included."
-	icon_state = "blue_slacks"
+	icon_state = "blueslacks"
 	item_state = "sl_suit"
-	item_color = "blue_slacks"
+	item_color = "blueslacks"
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
@@ -201,9 +201,9 @@
 /obj/item/clothing/under/lawyer/blacksuit
 	name = "black slacks"
 	desc = "A professional set of black slacks and a white dress shirt. Nanotrasen Investigation Bureau approved! Tie and suit coat not included."
-	icon_state = "black_slacks"
+	icon_state = "blackslacks"
 	item_state = "sl_suit"
-	item_color = "black_slacks"
+	item_color = "blackslacks"
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
