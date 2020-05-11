@@ -40,7 +40,7 @@
 				var/mob/living/L = I.loc
 				L.attackby(riposte, owner)
 				owner.visible_message("<span class='danger'>[owner] parries [L]'s [I] with the [src]!</span>")
-				playsound(src, 'sound/weapons/sonic_jackhammer.ogg', 75, 0)
+				playsound(src, 'sound/weapons/deflect.ogg', 75, 0)
 				attackforce = 0
 		else if(isliving(hitby))
 			var/mob/living/L = hitby
@@ -49,7 +49,7 @@
 				L.attackby(riposte, owner)
 				attackforce = 0
 				owner.visible_message("<span class='danger'>[owner] parries [L] with the [src]!</span>")
-				playsound(src, 'sound/weapons/sonic_jackhammer.ogg', 75, 0)
+				playsound(src, 'sound/weapons/deflect.ogg', 75, 0)
 			if(block_flags & BLOCKING_NASTY)
 				L.attackby(src, owner)
 				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
