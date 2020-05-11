@@ -28,7 +28,7 @@
 		return
 	last_irc_check = rtod
 	var/server = CONFIG_GET(string/server)
-	return "[GLOB.round_id ? "Round #[GLOB.round_id]: " : ""][GLOB.clients.len] players on [SSmapping.config.map_name], Mode: [GLOB.master_mode]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] -- [server ? server : "[world.internet_address]:[world.port]"]" 
+	return "[GLOB.round_id ? "Round #[GLOB.round_id]: " : ""][GLOB.clients.len] players on [SSmapping.config.map_name], Mode: [GLOB.master_mode]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] -- [server ? server : "[world.internet_address]:[world.port]"]"
 
 /datum/tgs_chat_command/ahelp
 	name = "ahelp"
@@ -64,6 +64,14 @@
 	log_admin("Chat Name Check: [sender.friendly_name] on [params]")
 	message_admins("Name checking [params] from [sender.friendly_name]")
 	return keywords_lookup(params, 1)
+
+/datum/tgs_chat_command/who
+	name = "who"
+	help_text = "Lists players currently on the server"
+	admin_only = FALSE
+
+/datum/tgs_chat_command/who/Run(datum/tgs_chat_user/sender, params)
+	return ircwho()
 
 /datum/tgs_chat_command/adminwho
 	name = "adminwho"
@@ -103,7 +111,7 @@ GLOBAL_LIST(round_end_notifiees)
 	var/list/text_res = results.Copy(1, 3)
 	var/list/refs = results.len > 3 ? results.Copy(4) : null
 	. = "[text_res.Join("\n")][refs ? "\nRefs: [refs.Join(" ")]" : ""]"
-	
+
 /datum/tgs_chat_command/reload_admins
 	name = "reload_admins"
 	help_text = "Forces the server to reload admins."

@@ -639,6 +639,20 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	for(var/I in servers)
 		world.Export("[servers[I]]?[list2params(message)]")
 
+/proc/ircwho()
+	var/list/message = list("Players:\n")
+	var/list/player_keys = list()
+	for(var/client in GLOB.clients)
+		var/client/C = client
+		player_keys += "[C]"
+
+	for(var/clients in player_keys)
+		if(LAZYLEN(message) > 1)
+			message += "\n[clients]"
+		else
+			message += "[clients]"
+
+	return jointext(message, "")
 
 /proc/ircadminwho()
 	var/list/message = list("Admins: ")
