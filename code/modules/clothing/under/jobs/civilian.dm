@@ -199,11 +199,11 @@
 	alt_covers_chest = TRUE
 
 /obj/item/clothing/under/lawyer/blacksuit
-	name = "black slcaks"
+	name = "black slacks"
 	desc = "A professional set of black slacks and a white dress shirt. Nanotrasen Investigation Bureau approved! Tie and suit coat not included."
-	icon_state = "blacksuit"
+	icon_state = "black_slacks"
 	item_state = "sl_suit"
-	item_color = "blacksuit"
+	item_color = "black_slacks"
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
