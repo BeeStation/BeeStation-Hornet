@@ -849,7 +849,7 @@
 #include "code\game\objects\effects\spawners\traps.dm"
 #include "code\game\objects\effects\spawners\vaultspawner.dm"
 #include "code\game\objects\effects\spawners\xeno_egg_delivery.dm"
-#include "code\game\objects\effects\temporary_visuals\clockcult.dm"
+#include "code\game\objects\effects\temporary_visuals\clockwork.dm"
 #include "code\game\objects\effects\temporary_visuals\cult.dm"
 #include "code\game\objects\effects\temporary_visuals\miscellaneous.dm"
 #include "code\game\objects\effects\temporary_visuals\temporary_visual.dm"

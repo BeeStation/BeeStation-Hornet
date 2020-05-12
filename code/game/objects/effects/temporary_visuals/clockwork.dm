@@ -1,4 +1,4 @@
-//temporary visual effects(/obj/effect/temp_visual) used by clockcult stuff
+//temporary visual effects(/obj/effect/temp_visual) used by clockwork stuff
 /obj/effect/temp_visual/ratvar
 	name = "ratvar's light"
 	icon = 'icons/effects/clockwork_effects.dmi'
