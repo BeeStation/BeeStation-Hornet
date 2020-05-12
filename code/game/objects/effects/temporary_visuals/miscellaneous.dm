@@ -540,3 +540,7 @@
 		var/turf/T = get_step(src, V)
 		new/obj/effect/temp_visual/steam(T, V)
 	return INITIALIZE_HINT_QDEL
+
+/obj/effect/temp_visual/parry
+	icon_state = "shield-flash"
+	duration = 5

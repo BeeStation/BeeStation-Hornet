@@ -253,7 +253,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 8
 	throwforce = 10
-	block_level = 1
 	block_upgrade_walk = 1
 	block_power = 20
 	throw_range = 3

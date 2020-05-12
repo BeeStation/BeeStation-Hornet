@@ -230,9 +230,8 @@
 	righthand_file = 'icons/mob/inhands/weapons/axes_righthand.dmi'
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
-	attack_weight = 2
+	attack_weight = 3
 	block_power_wielded = 25
-	block_level = 1
 	block_upgrade_walk = 1
 	force = 5
 	throwforce = 15
@@ -290,6 +289,7 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	force_unwielded = 3
 	force_wielded = 34
+	block_power_wielded = 75
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
 	hitsound = "swing_hit"
@@ -300,7 +300,7 @@
 	block_level = 2
 	block_upgrade_walk = 1
 	block_power = 70
-	block_sound = 'sound/weapons/genhit.ogg'
+	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
@@ -372,12 +372,8 @@
 	if((wielded) && prob(50))
 		INVOKE_ASYNC(src, .proc/jedi_spin, user)
 
-/obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
-	for(var/i in list(NORTH,SOUTH,EAST,WEST,EAST,SOUTH,NORTH,SOUTH,EAST,WEST,EAST,SOUTH))
-		user.setDir(i)
-		if(i == WEST)
-			user.emote("flip")
-		sleep(1)
+/obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user) //rip complex code, but this fucked up blocking
+	user.emote("flip")
 
 /obj/item/twohanded/dualsaber/proc/impale(mob/living/user)
 	to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
@@ -387,9 +383,9 @@
 		user.adjustStaminaLoss(25)
 
 /obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
-		return ..()
-	return 0
+	if(!wielded)
+		return 0
+	return ..()
 
 /obj/item/twohanded/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
 	if(wielded)
