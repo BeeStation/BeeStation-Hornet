@@ -1,0 +1,4 @@
+author: Cenrus
+delete-after: true
+changes:
+  - bugfix: Felinid virus works properly again
