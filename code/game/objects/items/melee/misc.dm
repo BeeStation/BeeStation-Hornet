@@ -304,8 +304,8 @@
 
 /obj/item/melee/classic_baton/police/deputy
 	name = "deputy baton"
-	force = 12 
-	cooldown = 10 
+	force = 12
+	cooldown = 10
 	stamina_damage = 20
 
 //Telescopic Baton
@@ -406,8 +406,8 @@
 	force_on = 10
 	force_off = 5
 	weight_class_on = WEIGHT_CLASS_NORMAL
-	
-	
+
+
 
 /obj/item/melee/classic_baton/contractor_baton/get_wait_description()
 	return "<span class='danger'>The baton is still charging!</span>"
@@ -703,7 +703,7 @@
 /obj/item/melee/roastingstick/Initialize()
 	. = ..()
 	if (!ovens)
-		ovens = typecacheof(list(/obj/singularity, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire, /obj/structure/destructible/clockwork/massive/ratvar))
+		ovens = typecacheof(list(/obj/singularity, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire))
 
 /obj/item/melee/roastingstick/attack_self(mob/user)
 	on = !on
