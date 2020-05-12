@@ -191,7 +191,7 @@
 	power_cost = 250
 	invokation_time = 20
 	invokation_text = list("Through courage and hope...", "...we shall protect thee!")
-	scripture_type = SCRIPTURE
+	scripture_type = DRIVER
 
 /datum/clockcult/scripture/clockwork_armaments/invoke_success()
 	var/mob/living/M = invoker

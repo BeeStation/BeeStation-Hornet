@@ -15,7 +15,7 @@
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/Destroy()
 	hierophant_message("The Ark has been destroyed, Reebe is finally collapsing", null, "<span class='big_brass'>")
-	if(GLOB.clockcult_gateway_opened || !istype(SSticker.mode, /datum/game_mode/clockcult))
+	if(GLOB.ratvar_risen || !istype(SSticker.mode, /datum/game_mode/clockcult))
 		return
 	flee_reebe(FALSE)
 	. = ..()
@@ -57,6 +57,7 @@
 	icon_state = "clockwork_gateway_charging"
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
 		SEND_SOUND(M.current, s)
+		to_chat(M, "<span class='big_brass'>The Ark has been activated, you will be transported soon!</span>")
 	addtimer(CALLBACK(src, .proc/announce_gateway), 300)
 	addtimer(CALLBACK(src, .proc/recall_sound), 270)
 
@@ -72,22 +73,27 @@
 	set_security_level(SEC_LEVEL_DELTA)
 	SSshuttle.registerHostileEnvironment(src)
 	SSshuttle.lockdown = TRUE
+	mass_recall()
+	addtimer(CALLBACK(src, .proc/begin_assault), 3000)
+	priority_announce("Massive [Gibberish("bluespace", 100)] anomaly detected on all frequencies. All crew are directed to \
+	@!$, [text2ratvar("PURGE ALL UNTRUTHS")] <&. the anomalies and destroy their source to prevent further damage to corporate property. This is \
+	not a drill.[grace_period ? " Estimated time of appearance: [grace_period] seconds. Use this time to prepare for an attack on [station_name()]." : ""]"\
+	,"Central Command Higher Dimensional Affairs", 'sound/magic/clockwork/ark_activation.ogg')
+	sound_to_playing_players(volume = 10, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_charging.ogg', TRUE))
+	GLOB.ratvar_arrival_tick = world.time + 9000
+
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/mass_recall()
 	var/list/spawns = GLOB.servant_spawns.Copy()
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
 		var/mob/living/servant = M.current
 		if(!servant)
 			continue
 		servant.forceMove(pick_n_take(spawns))
-		var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
-		servant.add_overlay(forbearance)
-		var/datum/antagonist/servant_of_ratvar/antag_datum = is_servant_of_ratvar(servant)
-		antag_datum.servant_class.equip_mob()
-	priority_announce("Massive [Gibberish("bluespace", 100)] anomaly detected on all frequencies. All crew are directed to \
-	@!$, [text2ratvar("PURGE ALL UNTRUTHS")] <&. the anomalies and destroy their source to prevent further damage to corporate property. This is \
-	not a drill.[grace_period ? " Estimated time of appearance: [grace_period] seconds. Use this time to prepare for an attack on [station_name()]." : ""]"\
-	,"Central Command Higher Dimensional Affairs", 'sound/magic/clockwork/ark_activation.ogg')
-	sound_to_playing_players(volume = 10, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_charging.ogg', TRUE))
-	addtimer(CALLBACK(src, .proc/begin_assault), 3000)
+		if(ishuman(servant))
+			var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+			servant.add_overlay(forbearance)
+	for(var/mob/M in GLOB.player_list)
+		SEND_SOUND(M, 'sound/magic/clockwork/invoke_general.ogg')
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_assault()
 	addtimer(CALLBACK(src, .proc/begin_activation), 2400)
@@ -109,7 +115,7 @@
 	hierophant_message("Ratvar approaches, you shall be eternally rewarded for your servitude!", null, "<span class='large_brass'>")
 	resistance_flags |= INDESTRUCTIBLE
 	sound_to_playing_players(volume = 100, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/ratvar_rises.ogg')) //End the sounds
-	GLOB.clockcult_gateway_opened = TRUE
+	GLOB.ratvar_risen = TRUE
 	var/original_matrix = matrix()
 	animate(src, transform = original_matrix * 1.5, alpha = 255, time = 125)
 	sleep(125)

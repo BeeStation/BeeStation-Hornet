@@ -17,6 +17,7 @@
 	/obj/item/clockwork/alloy_shards/small = 3) //Parts left behind when a structure breaks
 	var/construction_value = 0 //How much value the structure contributes to the overall "power" of the structures on the station
 	var/immune_to_servant_attacks = FALSE //if we ignore attacks from servants of ratvar instead of taking damage
+	var/datum/mind/owner = null	//The person who placed this structure
 
 //for the ark and Ratvar
 /obj/structure/destructible/clockwork/massive

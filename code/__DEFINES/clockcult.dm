@@ -1,7 +1,7 @@
 #define CLOCKCULT_MIN_SERVANTS 4
 #define CLOCKCULT_MAX_SERVANTS 8
 
-#define CLOCKCULT_CREW_PER_CULT 12
+#define CLOCKCULT_CREW_PER_CULT 12	//The amount of crew per each servant. 0-48: 4 | 49 - 60: 5 | 61 - 72:6 | 73 - 84: 7 | >85 : 8
 
 //component id defines; sometimes these may not make sense in regards to their use in scripture but important ones are bright
 #define BELLIGERENT_EYE "belligerent_eye" //! Use this for offensive and damaging scripture!
@@ -15,15 +15,17 @@
 #define INVOKATION_SPOKEN 2
 #define INVOKATION_SHOUT 3
 
-//Invokation types
-#define INVOKATION_INSTANT 0 //Instantly calls the invokation effect after casted
-#define INVOKATION_ATTACK_CULTIST 1 //For being used on cultists
-#define INVOKATION_ATTACK_NON_CULTIST 2 //Once invoked, click on a non cultist to trigger effect
-
 #define DEFAULT_CLOCKSCRIPTS "6:-29,4:-2"
 
-GLOBAL_VAR(celestial_gateway)
-GLOBAL_VAR_INIT(clockcult_gateway_opened, FALSE)
+GLOBAL_LIST_EMPTY(servants_of_ratvar)	//List of minds in the cult
+
+GLOBAL_VAR(clockcult_team)
+
+GLOBAL_VAR(ratvar_arrival_tick)	//The world.time that Ratvar will arrive if the gateway is not disrupted
+
+GLOBAL_VAR(celestial_gateway)	//The celestial gateway
+GLOBAL_VAR_INIT(ratvar_risen, FALSE)	//Has ratvar risen?
+GLOBAL_VAR_INIT(gateway_opening, FALSE)	//Is the gateway currently active?
 
 //A useful list containing all scriptures with the index of the name.
 //This should only be used for looking up scriptures

@@ -414,6 +414,33 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	final.Turn(difference)
 	animate(src, transform = final, time = 5, loop = 0)
 
+//CLOCKCULT
+/obj/screen/alert/clockwork/clocksense
+	name = "The Ark of the Clockwork Justicar"
+	desc = "Shows infomation about the Ark of the Clockwork Justicar"
+	icon_state = "clockinfo"
+	alerttooltipstyle = "brass"
+
+/obj/screen/alert/clockwork/clocksense/Initialize()
+	. = ..()
+	START_PROCESSING(SSprocessing, src)
+
+/obj/screen/alert/clockwork/clocksense/Destroy()
+	. = ..()
+	STOP_PROCESSING(SSprocessing, src)
+
+/obj/screen/alert/clockwork/clocksense/process()
+	var/datum/antagonist/servant_of_ratvar/servant_antagonist = is_servant_of_ratvar(mob_viewer)
+	if(!(servant_antagonist?.team))
+		return
+	desc = "Stored Power - [DisplayPower(servant_antagonist.team.power)].\n"
+	desc += "Stored Vitality - [servant_antagonist.team.vitality].\n"
+	if(GLOB.ratvar_arrival_tick)
+		if(GLOB.ratvar_arrival_tick - world.time > 3000)
+			desc += "The Ark is preparing to open, it will activate in [round((GLOB.ratvar_arrival_tick - world.time - 3000) / 10)] seconds.\n"
+		else
+			desc += "Ratvar will rise in [round((GLOB.ratvar_arrival_tick - world.time) / 10)] seconds, protect the Ark with your life!\n"
+
 //GUARDIANS
 
 /obj/screen/alert/cancharge

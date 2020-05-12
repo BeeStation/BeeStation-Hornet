@@ -116,7 +116,10 @@
 	return TRUE
 
 /datum/clockcult/scripture/create_structure/invoke_success()
-	return new summoned_structure(get_turf(invoker))
+	var/created_structure = new summoned_structure(get_turf(invoker))
+	var/obj/structure/destructible/clockwork/clockwork_structure = created_structure
+	if(istype(clockwork_structure))
+		clockwork_structure.owner = invoker.mind
 
 //==================================//
 // !       Slab Empowerment       ! //

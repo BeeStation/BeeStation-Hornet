@@ -2,9 +2,6 @@
 //===Clock cult Gamemode ===
 //==========================
 
-GLOBAL_LIST_EMPTY(servants_of_ratvar)
-GLOBAL_VAR_INIT(gateway_opening, FALSE)
-
 /datum/game_mode/clockcult
 	name = "clockcult"
 	config_tag = "clockcult"
@@ -59,10 +56,13 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 
 /datum/game_mode/clockcult/post_setup(report)
 	var/list/spawns = GLOB.servant_spawns.Copy()
+	//Create team
 	for(var/datum/mind/servant_mind in selected_servants)
 		servant_mind.current.forceMove(pick_n_take(spawns))
 		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current)
-		S.equip_servant_basic(TRUE)
+		S.equip_carbon(servant_mind.current)
+		S.equip_servant()
+		S.create_team()
 	return ..()
 
 /datum/game_mode/clockcult/check_finished(force_ending)
@@ -72,11 +72,14 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 //==== Clock cult procs ====
 //==========================
 
-/proc/add_servant_of_ratvar(mob/M)
+//If there is a clockcult team (clockcult gamemode), add them to the team
+/proc/add_servant_of_ratvar(mob/M, add_team = TRUE)
 	if(!istype(M))
 		return
-	var/antagdatum = /datum/antagonist/servant_of_ratvar
-	. = M.mind.add_antag_datum(antagdatum)
+	var/datum/antagonist/servant_of_ratvar/antagdatum = /datum/antagonist/servant_of_ratvar
+	antagdatum = M.mind.add_antag_datum(antagdatum)
+	antagdatum.create_team()
+	return antagdatum
 
 /proc/is_servant_of_ratvar(mob/living/M)
 	return M?.mind?.has_antag_datum(/datum/antagonist/servant_of_ratvar)
@@ -180,6 +183,8 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)
 		for(var/turf/T in room)
 			for(var/obj/effect/clockwork/servant_blocker/C in T)
 				pressure_good = TRUE
+				break
+			if(pressure_good)
 				break
 	//Regenerate Reebe
 	if(pressure_good)

@@ -13,6 +13,8 @@
 	var/datum/clockcult/servant_class/servant_class = /datum/clockcult/servant_class
 	var/datum/action/innate/clockcult/transmit/transmit_spell
 
+	var/datum/team/clock_cult/team
+
 /datum/antagonist/servant_of_ratvar/New(datum/mind/M)
 	. = ..()
 	//Assign the default class
@@ -22,47 +24,77 @@
 	if(!owner.current)
 		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', 60, FALSE, pressure_affected = FALSE)
-	GLOB.servants_of_ratvar |= owner
-	transmit_spell = new()
-	transmit_spell.Grant(owner.current)
-
-/datum/antagonist/servant_of_ratvar/farewell()
-	. = ..()
-	GLOB.servants_of_ratvar -= owner
-
-/datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
-	. = ..()
-	transmit_spell.Remove(M)
 
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
+	owner.current.faction |= "ratvar"
+	GLOB.servants_of_ratvar |= owner
+	transmit_spell = new()
+	transmit_spell.Grant(owner.current)
+	owner.current.throw_alert("clockinfo", /obj/screen/alert/clockwork/clocksense)
+
+/datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
+	. = ..()
+	M.faction -= "ratvar"
+	GLOB.servants_of_ratvar -= owner
+	owner.current.clear_alert("clockinfo")
+	transmit_spell.Remove(transmit_spell.owner)
+
+/datum/antagonist/servant_of_ratvar/proc/equip_servant_conversion()
+	to_chat(owner.current, "<span class='heavy_brass'>You feel a flash of light and the world spin around you!</span>")
+	to_chat(owner.current, "<span class='brass'>You suddenly understand so much more than you did before and are commited to a life of servitude.</span>")
+	to_chat(owner.current, "<span class='brass'>Using your clockwork slab you can invoke a variety of powers to help you complete Ratvar's will.</span>")
+	//Equipment apply
+	var/mob/living/H = owner.current
+	if(istype(H, /mob/living/carbon))
+		equip_carbon(H)
+	else if(istype(H, /mob/living/silicon))
+		equip_silicon(H)
 
 //Remove clown mutation
 //Give the device
-/datum/antagonist/servant_of_ratvar/proc/equip_servant_basic(var/give_class_equipment = FALSE)
+/datum/antagonist/servant_of_ratvar/proc/equip_servant()
 	var/mob/living/H = owner.current
 	if(istype(H, /mob/living/carbon))
-		if(give_class_equipment)
-			servant_class.equip_mob(H)
-		return equip_carbon(H)
-	else if(istype(H, /mob/living/silicon))
-		return equip_silicon(H)
+		servant_class.equip_mob(H)
 
 /datum/antagonist/servant_of_ratvar/proc/equip_carbon(mob/living/carbon/H)
-	if(!istype(H))
-		return FALSE
+	//Convert all items in their inventory to Ratvarian
+	var/list/contents = H.get_contents()
+	for(var/atom/A in contents)
+		A.ratvar_act()
+	//Equip them with a slab
+	var/obj/item/clockwork/clockwork_slab/slab = new(get_turf(H))
+	H.equip_to_appropriate_slot(slab)
+	return FALSE
 
 //Grant access to the clockwork tools.
 //If AI, disconnect all active borgs and make it only able to control converted shells
 /datum/antagonist/servant_of_ratvar/proc/equip_silicon(mob/living/silicon/S)
-	if(!istype(S))
-		return FALSE
+	return FALSE
+
+/datum/antagonist/servant_of_ratvar/create_team(datum/team/newteam)
+	if(!newteam)
+		if(GLOB.clockcult_team)
+			team = GLOB.clockcult_team
+			return
+		else
+			var/datum/team/clock_cult/clock_team = new()
+			GLOB.clockcult_team = clock_team
+			team = clock_team
+			return
+	team = newteam
+
+/datum/antagonist/servant_of_ratvar/get_team()
+	return team
 
 //==========================
 //==== Clock cult team  ====
 //==========================
 
-/datum/team/servant_of_ratvar
-	name = "Clockcult"
+/datum/team/clock_cult
+	name = "Servants Of Ratvar"
 	var/list/objective
-	var/datum/mind/eminence
+
+	var/power = 0
+	var/vitality = 0

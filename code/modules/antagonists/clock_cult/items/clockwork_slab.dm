@@ -176,7 +176,11 @@
 				return FALSE
 			var/list/positions = list()
 			for(var/i in 1 to 5)
-				positions += "([i])[quick_bound_scriptures[i] ? " - [quick_bound_scriptures[i].name]" : ""]"	//CC_ERROR: LIST INDEX OUT OF BOUNDS
+				var/datum/clockcult/scripture/QB = quick_bound_scriptures[i]
+				if(!S)
+					positions += "([i])"
+				else
+					positions += "([i]) - [QB.name]"
 			var/position = input("Where to quickbind to?", "Quickbind Slot", null) as null|anything in positions
 			if(!position)
 				return FALSE
