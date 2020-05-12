@@ -1,0 +1,10 @@
+author: zeskorion
+delete-after: true
+changes:
+  - rscadd: parries. start walking (hold ALT on hotkey mode) to parry attacks you
+      block for 0.5 seconds. this makes you not take stamina damage from blocking
+      and makes you automatically hit an attack against the attacker. No matter what
+      you parry with, the riposte will be done with the item in the active hand, unless
+      the active hand is empty. Parrying ignores restrictions on active blocking.
+  - tweak: beestation is now the dark souls of ss13
+  - soundadd: parry sound, big thanks to GizkaFreeman
