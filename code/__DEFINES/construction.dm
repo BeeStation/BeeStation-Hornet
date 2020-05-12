@@ -20,10 +20,7 @@
 
 // cwall construction states
 #define COG_COVER 1
-#define COG_PLATING 2
 #define COG_EXPOSED 3
-#define OUTER_BRASS 4
-#define COG_WHEEL 5
 
 // window construction states
 #define WINDOW_OUT_OF_FRAME 0

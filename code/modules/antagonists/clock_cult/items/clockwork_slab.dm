@@ -177,7 +177,7 @@
 			var/list/positions = list()
 			for(var/i in 1 to 5)
 				var/datum/clockcult/scripture/QB = quick_bound_scriptures[i]
-				if(!S)
+				if(!QB)
 					positions += "([i])"
 				else
 					positions += "([i]) - [QB.name]"

@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(servant_global_scriptures, list(
 		/obj/item/storage/belt/utility/servant = SLOT_BELT,
 		/obj/item/clothing/shoes/chameleon = SLOT_SHOES,
 		/obj/item/clothing/gloves/color/yellow = SLOT_GLOVES,
-		/obj/item/card/id/syndicate/anyone = SLOT_WEAR_ID,
+		/obj/item/card/id/syndicate/ratvar = SLOT_WEAR_ID,
 		/obj/item/clothing/glasses/chameleon = SLOT_GLASSES
 	)
 	var/list/class_equiptment = list()

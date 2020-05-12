@@ -15,24 +15,13 @@
 /datum/clockcult/scripture/abscond/recital()
 	client_color = invoker.client.color
 	animate(invoker.client, color = "#AF0AAF", time = invokation_time)
-	do_sparks(5, TRUE, invoker)
 	. = ..()
 
 /datum/clockcult/scripture/abscond/invoke_success()
-	var/mob/living/M = invoker
-	var/mob/living/P = M.pulling
 	var/turf/T = get_turf(pick(GLOB.servant_spawns))
-	playsound(invoker, 'sound/magic/magic_missile.ogg', 50, TRUE)
-	playsound(T, 'sound/magic/magic_missile.ogg', 50, TRUE)
-	do_sparks(5, TRUE, invoker)
-	do_sparks(5, TRUE, T)
-	M.forceMove(T)
+	try_warp_servant(invoker, T, TRUE)
 	if(invoker.client)
 		animate(invoker.client, color = client_color, time = 25)
-	if(istype(P))
-		P.forceMove(T)
-		P.Paralyze(30)
-		to_chat(P, "<span class='warning'>You feel sick and confused as your suddenly appear in a strange, forgotten land.</span>")
 
 /datum/clockcult/scripture/abscond/invoke_fail()
 	if(invoker?.client)

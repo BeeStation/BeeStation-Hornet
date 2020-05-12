@@ -5,43 +5,33 @@
 	TOOL_WELDER,\
 	TOOL_SCREWDRIVER,\
 	TOOL_CROWBAR,\
-	TOOL_WELDER,\
-	TOOL_CROWBAR,\
-	TOOL_SCREWDRIVER\
+	TOOL_WRENCH\
 )
 
 #define COGWALL_START_DECON_MESSAGES list(\
-	"You begin welding off the outer cover.",\
+	"You begin welding off the outer plating.",\
 	"You begin screwing out the maintenance hatch.",\
 	"You begin prying open the maintenance hatch.",\
-	"You begin welding off the outer plating.",\
-	"You begin prying open the outer plating.",\
-	"You begin screwing the frame apart."\
+	"You begin deconstructing the wall."\
 )
 
 #define COGWALL_END_DECON_MESSAGES list(\
-	"You weld off the outer cover.",\
+	"You weld off the outer plating.",\
 	"You remove the screws from the maintenance hatch.",\
 	"You pry open the maintenance hatch.",\
-	"You weld off the outer plating.",\
-	"You pry open the outer plating.",\
-	"You screw the frame apart."\
+	"You deconstruct the wall."\
 )
 
 #define COGWALL_START_RECON_MESSAGES list(\
-	"You begin welding the outer cover back together.",\
-	"You begin screwing in the maintenance hatch.",\
-	"You begin prying the maintenance hatch shut.",\
 	"You begin welding the outer plating back together.",\
-	"You begin prying the outer plating shut.",\
+	"You begin screwing in the maintenance hatch.",\
+	"You begin to pry the maintenance hatch back into place."\
 )
 
 #define COGWALL_END_RECON_MESSAGES list(\
-	"You weld the outer cover back together.",\
+	"You weld the out plating back together.",\
 	"You insert the screws into the maintenance hatch.",\
-	"You pry the maintenance hatch shut.",\
-	"You weld together the outer plating.",\
-	"You pry the outer plating shut.",\
+	"You pry the maintenance hatch back into place."\
 )
 
 /turf/closed/wall/clockwork
@@ -143,14 +133,8 @@
 				return "<span class='notice'>The wall looks weak enough to <b>weld</b> the brass plates off.</span>"
 		if(COG_COVER)
 			return "<span class='notice'>The outer cover has been <i>welded</i> open, and an inner plate secured by <b>screws</b> is visable.</span>"
-		if(COG_PLATING)
-			return "<span class='notice'>The inner plating has been <i>unscrewed</i>, and it looks like it can be <b>pried</b> out!</span>"
 		if(COG_EXPOSED)
-			return "<span class='notice'>The inner plating has been <i>pried</i> open. The exterior plating is <b>welded</b> in place</span>"
-		if(OUTER_BRASS)
-			return "<span class='notice'>The exterior plating has been <i>welded</i> out and could be easily <b>pried</b> open!</span>"
-		if(COG_WHEEL)
-			return "<span class='notice'>The exterior plating has been <i>pried</i> open and only a couple of <b>screws</b> hold the frame together.</span>"
+			return "<span class='notice'>The inner plating has been <i>screwed</i> open. The exterior plating could be easily <b>pried</b> out.</span>"
 
 /turf/closed/wall/clockwork/try_decon(obj/item/I, mob/user, turf/T)
 	if(is_servant_of_ratvar(user) || !reinforced)
@@ -177,9 +161,9 @@
 		if(I.use_tool(src, user, 40, volume=100))
 			if(!istype(src, /turf/closed/wall/clockwork) || d_state != wall_state)
 				return 0
-			if(wall_state == COG_WHEEL)
-				dismantle_wall()
 			to_chat(user, "<span class='warning'>[COGWALL_END_DECON_MESSAGES[d_state+1]]</span>")
+			if(wall_state == COG_EXPOSED)
+				dismantle_wall()
 			d_state = decon_state
 			update_icon()
 			return 1
@@ -414,7 +398,9 @@
 		return ..()
 
 /obj/machinery/door/airlock/clockwork/allowed(mob/M)
-	return 0
+	if(is_servant_of_ratvar(M))
+		return TRUE
+	return FALSE
 
 /obj/machinery/door/airlock/clockwork/hasPower()
 	return TRUE //yes we do have power

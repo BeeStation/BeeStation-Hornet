@@ -126,7 +126,7 @@
 
 /proc/flee_reebe(allow_servant_exit = FALSE)
 	for(var/mob/living/M in GLOB.mob_list)
-		if(!is_reebe(get_area(M).z))
+		if(!is_reebe(M.z))
 			continue
 		var/safe_place = find_safe_turf()
 		if(is_servant_of_ratvar(M))
@@ -173,6 +173,7 @@
 	set waitfor = FALSE
 	var/gateway = GLOB.celestial_gateway
 	if(!gateway)
+		log_runtime("Error, no celestial gateway found. Reebe pressure calculation failed!")
 		return
 	var/static/next_calculation_time = 0
 	var/static/wait_timer
@@ -191,6 +192,7 @@
 	//Find the gateway
 	var/gateway_loc = get_turf(gateway)
 	if(!gateway_loc)
+		log_runtime("Error, celestial gateway has no turf!")
 		next_calculation_time = world.time
 		return
 	//Calculate the Reebe area
@@ -212,7 +214,7 @@
 		for(var/turf/closed/wall/clockwork/CW in get_area_turfs(/area/reebe/city_of_cogs))
 			//Make the walls stronger
 			if(CW.reinforced)
-				return
+				continue
 			CW.reinforced = TRUE
 			addtimer(CALLBACK(CW, /turf/closed/wall/clockwork.proc/make_reinforced), rand(0, 50))
 			CHECK_TICK
@@ -226,7 +228,7 @@
 	for(var/turf/closed/wall/clockwork/CW in get_area_turfs(/area/reebe/city_of_cogs))
 		//Make the walls stronger
 		if(!CW.reinforced)
-			return
+			continue
 		CW.reinforced = FALSE
 		addtimer(CALLBACK(CW, /turf/closed/wall/clockwork.proc/make_weak), rand(0, 80))
 		CHECK_TICK

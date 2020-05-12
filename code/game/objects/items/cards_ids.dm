@@ -213,7 +213,7 @@
 			to_chat(user, "<span class='notice'>The provided account has been linked to this ID card.</span>")
 
 			return TRUE
-			
+
 	to_chat(user, "<span class='warning'>The account ID number provided is invalid.</span>")
 	return
 
@@ -338,6 +338,7 @@ update_label("John Doe", "Clowny")
 		"ert",
 		"centcom",
 		"syndicate",
+		"ratvar",
 	)
 
 /obj/item/card/id/syndicate/Initialize()
@@ -390,7 +391,7 @@ update_label("John Doe", "Clowny")
 			forged = TRUE
 			to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
 			log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\".")
-			
+
 			// First time use automatically sets the account id to the user.
 			if (first_use && !registered_account)
 				if(ishuman(user))
@@ -421,6 +422,11 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/syndicate/nuke_leader
 	name = "lead agent card"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
+
+/obj/item/card/id/syndicate/ratvar
+	name = "servant ID card"
+	icon_state = "ratvar"
+	access = list(ACCESS_CLOCKCULT, ACCESS_MAINT_TUNNELS)
 
 /obj/item/card/id/syndicate_command
 	name = "syndicate ID card"

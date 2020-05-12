@@ -18,13 +18,6 @@
 /obj/machinery/door/airlock/clockwork/brass,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
-"af" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clockwork/slab,
-/obj/item/clockwork/slab,
-/obj/item/clockwork/slab,
-/turf/open/floor/clockwork/reebe,
-/area/reebe/city_of_cogs)
 "ag" = (
 /obj/machinery/door/airlock/clockwork/brass{
 	name = "Summoning Chamber"
@@ -225,6 +218,13 @@
 	name = "paper - 'Station Radio Frequencies'"
 	},
 /turf/closed/wall/clockwork,
+/area/reebe/city_of_cogs)
+"XE" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clockwork/clockwork_slab,
+/obj/item/clockwork/clockwork_slab,
+/obj/item/clockwork/clockwork_slab,
+/turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 
 (1,1,1) = {"
@@ -18907,7 +18907,7 @@ aj
 aj
 aj
 ah
-af
+XE
 aj
 aj
 ag
@@ -19309,7 +19309,7 @@ aj
 aj
 aj
 ah
-af
+XE
 ax
 aj
 aj

@@ -112,6 +112,7 @@
 	if(!..())
 		return FALSE
 	for(var/obj/structure in get_turf(invoker))
+		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
 		return FALSE
 	return TRUE
 

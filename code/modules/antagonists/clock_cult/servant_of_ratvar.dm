@@ -34,11 +34,11 @@
 	owner.current.throw_alert("clockinfo", /obj/screen/alert/clockwork/clocksense)
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
-	. = ..()
 	M.faction -= "ratvar"
 	GLOB.servants_of_ratvar -= owner
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
+	. = ..()
 
 /datum/antagonist/servant_of_ratvar/proc/equip_servant_conversion()
 	to_chat(owner.current, "<span class='heavy_brass'>You feel a flash of light and the world spin around you!</span>")
@@ -65,7 +65,7 @@
 		A.ratvar_act()
 	//Equip them with a slab
 	var/obj/item/clockwork/clockwork_slab/slab = new(get_turf(H))
-	H.equip_to_appropriate_slot(slab)
+	H.put_in_hands(slab)
 	return FALSE
 
 //Grant access to the clockwork tools.
