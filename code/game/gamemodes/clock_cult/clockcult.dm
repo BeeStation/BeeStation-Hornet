@@ -68,6 +68,26 @@
 /datum/game_mode/clockcult/check_finished(force_ending)
 	return FALSE
 
+/datum/game_mode/clockcult/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	if(GLOB.ratvar_risen)
+		round_credits += "<center><h1>Ratvar has been released from his prison!</h1>"
+	else
+		round_credits += "<center><h1>The clock cultists failed to summon Ratvar, he will remain trapped forever to rust!</h1>"
+	round_credits += "<center><h1>The Servants of Ratvar:</h1>"
+	len_before_addition = round_credits.len
+	for(var/datum/mind/operative in GLOB.servants_of_ratvar)
+		round_credits += "<center><h2>[operative.name] as a servant of Ratvar!</h2>"
+	if(len_before_addition == round_credits.len)
+		round_credits += list("<center><h2>The servants were annihilated!</h2>", "<center><h2>Their remains could not be identified!</h2>")
+		round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits
+
+
 //==========================
 //==== Clock cult procs ====
 //==========================

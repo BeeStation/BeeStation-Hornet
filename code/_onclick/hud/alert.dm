@@ -419,7 +419,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	name = "The Ark of the Clockwork Justicar"
 	desc = "Shows infomation about the Ark of the Clockwork Justicar"
 	icon_state = "clockinfo"
-	alerttooltipstyle = "brass"
+	alerttooltipstyle = "clockcult"
 
 /obj/screen/alert/clockwork/clocksense/Initialize()
 	. = ..()
