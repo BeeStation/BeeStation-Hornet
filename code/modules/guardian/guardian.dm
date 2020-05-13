@@ -395,8 +395,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		if(stats.ability)
 			stats.ability.AfterAttack(target)
 
-/mob/living/simple_animal/hostile/guardian/flash_act()
-	return FALSE // you cannot flash the magical floating spirit
+/mob/living/simple_animal/hostile/guardian/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
+	return FALSE
 
 /mob/living/simple_animal/hostile/guardian/death()
 	. = ..()
