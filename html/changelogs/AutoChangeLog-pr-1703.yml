@@ -1,0 +1,13 @@
+author: Victor239
+delete-after: true
+changes:
+  - balance: Lots of traitor item costs rebalanced.
+  - balance: Taeclowndo shoes now usable by anyone, but still can only be bought by
+      Clown if not discounted.
+  - balance: Stimpack now uses Pump-Up instead of Stimulants. This makes you immune
+      to damage slowdown, recover 80% faster from stuns/slips/knockdowns and gain
+      80 stamina regen. Also makes you jitter quite a bit.
+  - balance: Player minimum requirement for No-Slips removed.
+  - balance: Contract Kit has it's set of random items tweaked.
+  - balance: Syndi-Kit Special "Bond" kit gets a diversity of magazines and a syndi
+      encryption key.
