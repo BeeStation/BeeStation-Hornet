@@ -7,7 +7,7 @@
 //This has been made semi-modular so you should be able to use these functions
 //elsewhere in code if you ever need to get a file in the .dmm format
 /atom/proc/get_save_vars()
-	return list()
+	return
 
 GLOBAL_LIST_INIT(save_file_chars, list(
 	"a","b","c","d","e",
