@@ -321,7 +321,7 @@
 	switch(action)
 		if("beginScan_1")
 			inuse()
-			if(paying_customer == TRUE)
+			if(paying_customer)
 				scan_active_1 = TRUE
 				paying_customer = FALSE
 		if("beginScan_2")
