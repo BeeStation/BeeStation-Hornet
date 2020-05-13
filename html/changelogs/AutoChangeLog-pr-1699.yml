@@ -1,0 +1,6 @@
+author: jlsnow301
+delete-after: true
+changes:
+  - rscadd: Podperson cloning is now a bit more efficient
+  - tweak: T1 Cyborg recharging is no longer abysmally slow.
+  - tweak: Ethereal hunger rate reduced.
