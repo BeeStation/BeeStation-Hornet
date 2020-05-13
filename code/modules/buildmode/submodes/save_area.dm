@@ -28,7 +28,7 @@
 		return
 	//Emergency check
 	if(L.map.len > 1600)
-		var/confirm = alert("Uhm, are you sure, the are is quiet large?", "Run generator", "Yes", "No")
+		var/confirm = alert("Uhm, are you sure, the area is quiet large?", "Run generator", "Yes", "No")
 		if(confirm != "Yes")
 			return
 	//Log just in case something happens
