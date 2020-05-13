@@ -164,7 +164,7 @@
 	if(altPatient == null)
 		say("Scanner reset.")
 		altPatient = user
-	else if(patient_distance>5)
+	else if(patient_distance > 5)
 		altPatient = null
 		say("Patient out of range. Resetting biometrics.")
 		clearScans()
