@@ -76,6 +76,9 @@
 		if("Stage Magician")
 			O = new /datum/outfit/plasmaman/magic
 
+		if("Debtor")
+			O = new /datum/outfit/plasmaman/hobo
+
 		if("Cook")
 			O = new /datum/outfit/plasmaman/chef
 
