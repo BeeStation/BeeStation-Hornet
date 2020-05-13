@@ -642,9 +642,11 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	can_adjust = FALSE
 	strip_delay = 80
+	resistance_flags = FIRE_PROOF
 	var/next_extinguish = 0
 	var/extinguish_cooldown = 100
 	var/extinguishes_left = 5
+	envirosealed = TRUE
 
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
