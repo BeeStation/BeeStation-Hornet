@@ -54506,9 +54506,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
-"gjp" = (
-/turf/closed/wall,
-/area/space/nearstation)
 "gjq" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
@@ -111000,7 +110997,7 @@ bwm
 bwm
 fzu
 bwm
-gjp
+bwm
 aaa
 aaa
 aaa
@@ -112028,7 +112025,7 @@ bwm
 bwm
 bwm
 bwm
-gjp
+bwm
 aaa
 aaa
 aaa
