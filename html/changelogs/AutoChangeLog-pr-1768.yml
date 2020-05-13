@@ -1,7 +1,0 @@
-author: zeskorion
-delete-after: true
-changes:
-  - rscadd: plasmaman chameleon kit
-  - tweak: plasmaman suits no longer burn off
-  - code_imp: refactored plasmaman fire code a bit. any spaceworthy helmet will function
-      as an envirohelm now.
