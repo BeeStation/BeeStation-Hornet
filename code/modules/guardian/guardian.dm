@@ -3,6 +3,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 #define GUARDIAN_HANDS_LAYER 1
 #define GUARDIAN_TOTAL_LAYERS 1
+#define GUARDIAN_RESET_COOLDOWN	30 SECONDS
 
 /mob/living/simple_animal/hostile/guardian
 	name = "Guardian Spirit"
@@ -39,6 +40,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	AIStatus = AI_OFF
 	hud_type = /datum/hud/guardian
 	mobsay_color = "#ffffff"
+	var/next_reset = 0
 	var/guardiancolor = "#ffffff"
 	var/mutable_appearance/cooloverlay
 	var/recolorentiresprite = FALSE
@@ -657,6 +659,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(LAZYLEN(guardians))
 		var/mob/living/simple_animal/hostile/guardian/G = input(src, "Pick the guardian you wish to reset", "Guardian Reset") as null|anything in guardians
 		if(G)
+			if(G.next_reset > world.time)
+				to_chat(src, "<span class='holoparasite'>You need to wait [DisplayTimeText(G.next_reset - world.time)] to reset <font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> again!</span>")
+				return
+			G.next_reset = world.time + GUARDIAN_RESET_COOLDOWN
 			to_chat(src, "<span class='holoparasite'>You attempt to reset <font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font>'s personality...</span>")
 			var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as [src.real_name]'s [G.real_name]?", ROLE_HOLOPARASITE, null, FALSE, 100)
 			if(LAZYLEN(candidates))
