@@ -113,6 +113,56 @@
 	category = list("Firing Pins")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/stunmine/sec/
+	name = "Stun Mine"
+	desc = "A basic nonlethal stunning mine. Does very heavy stamina damage to anyone who walks over it."
+	id = "stunmine"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 4000, /datum/material/glass = 1000, /datum/material/copper = 400)
+	build_path = /obj/item/deployablemine/stun
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/adv_stunmine/sec
+	name = "Smart Stun Mine"
+	desc = "A advanced nonlethal stunning mine. Uses advanced detection software to only trigger when activated by someone without a mindshield implant."
+	id = "stunmine_adv"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 8000, /datum/material/glass = 3000, /datum/material/copper = 1000, /datum/material/silver = 200)
+	build_path = /obj/item/deployablemine/smartstun
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/lm6_stunmine/sec
+	name = "Rapid Deployment Smartmine"
+	desc = "A advanced nonlethal stunning mine. Uses advanced detection software to only trigger when activated by someone without a mindshield implant. Can be rapidly placed and disarmed."
+	id = "stunmine_rapid"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 10000, /datum/material/glass = 4000, /datum/material/copper = 1000, /datum/material/silver = 500, /datum/material/uranium = 200)
+	build_path = /obj/item/deployablemine/rapid
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/lm12_stunmine/sec
+	name = "Sledgehammer Smartmine"
+	desc = "A advanced nonlethal stunning mine. Uses advanced detection software to only trigger when activated by someone without a mindshield implant. Very powerful and hard to disarm."
+	id = "stunmine_heavy"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 10000, /datum/material/glass = 4000, /datum/material/copper = 1000, /datum/material/silver = 500, /datum/material/uranium = 200)
+	build_path = /obj/item/deployablemine/heavy
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/honkmine
+	name = "Honkblaster 1000"
+	desc = "An advanced pressure activated pranking mine, honk!"
+	id = "clown_mine"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 4000, /datum/material/glass = 1000, /datum/material/bananium = 500)
+	build_path = /obj/item/deployablemine/honk
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/stunrevolver
 	name = "Tesla Revolver"
 	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
@@ -352,3 +402,13 @@
 	build_path = /obj/item/ammo_casing/shotgun/dart/noreact
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/flashbulb
+	name = "Security Flashbulb"
+	desc = "A powerful bulb that, when placed into a flash device can emit a bright light that will disorientate and subdue targets."
+	id = "flashbulb"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 300, /datum/material/glass = 150)
+	build_path = /obj/item/flashbulb
+	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

@@ -42,6 +42,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	dextrous_hud_type = /datum/hud/dextrous/guardian //if we're set to dextrous, account for it.
 	var/mutable_appearance/cooloverlay
 	var/guardiancolor = "#ffffff"
+	mobsay_color = "#ffffff"
 	var/recolorentiresprite
 	var/theme
 	var/list/guardian_overlays[GUARDIAN_TOTAL_LAYERS]
@@ -143,6 +144,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/proc/guardianrecolor()
 	guardiancolor = input(src,"What would you like your color to be?","Choose Your Color","#ffffff") as color|null
+	mobsay_color = guardiancolor
 	if(!guardiancolor) //redo proc until we get a color
 		to_chat(src, "<span class='warning'>Not a valid color, please try again.</span>")
 		guardianrecolor()
@@ -587,10 +589,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 		if("Dextrous")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/dextrous
-			
+
 		if("Gravitokinetic")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/gravitokinetic
-			
+
 		if("Toy")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/toy
 
@@ -624,7 +626,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /obj/item/guardiancreator/choose
 	random = FALSE
-	
+
 /obj/item/guardiancreator/toy
 	name = "funny tarot card"
 	desc = "An enchanted deck tarot card. This one looks like it was printed as a joke."
@@ -752,7 +754,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /obj/item/storage/box/syndie_kit/carpian
 	name = "Holocarp fishstick kit"
-	
+
 /obj/item/storage/box/syndie_kit/carpian/PopulateContents()
 	new /obj/item/guardiancreator/carp/choose(src)
 	new /obj/item/paper/guides/antag/guardian(src)

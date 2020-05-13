@@ -22,7 +22,7 @@
 	recharge_speed = 0
 	repairs = 0
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_speed += C.rating * 100
+		recharge_speed += (C.rating * 100) + 66 // Starting boost, but inconsequential at t4
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/stock_parts/cell/C in component_parts)
@@ -129,9 +129,10 @@
 				to_chat(H, "<span class='warning'>Your Liquid Electricity stores are full!")
 				return
 
+
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)
 		var/mob/living/silicon/robot/R = occupant
 		if(R?.module)
-			var/coeff = recharge_speed * 0.005
+			var/coeff = recharge_speed * 0.025
 			R.module.respawn_consumable(R, coeff)

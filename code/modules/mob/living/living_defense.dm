@@ -349,10 +349,10 @@
 /mob/living/singularity_act()
 	var/gain = 20
 
-	
+
 	if (client)
 		SSmedals.UnlockMedal(MEDAL_SINGULARITY_DEATH,client)
-	
+
 
 	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_SINGULO) //Oh that's where the clown ended up!
 	gib()
@@ -361,13 +361,6 @@
 /mob/living/narsie_act()
 	if(status_flags & GODMODE || QDELETED(src))
 		return
-
-	if(is_servant_of_ratvar(src) && !stat)
-		to_chat(src, "<span class='userdanger'>You resist Nar'Sie's influence... but not all of it. <i>Run!</i></span>")
-		adjustBruteLoss(35)
-		if(src && reagents)
-			reagents.add_reagent(/datum/reagent/toxin/heparin, 5)
-		return FALSE
 	if(GLOB.cult_narsie && GLOB.cult_narsie.souls_needed[src])
 		GLOB.cult_narsie.souls_needed -= src
 		GLOB.cult_narsie.souls += 1
@@ -391,21 +384,11 @@
 	return TRUE
 
 
-/mob/living/ratvar_act()
-	if(status_flags & GODMODE)
-		return
-	if(stat != DEAD && !is_servant_of_ratvar(src))
-		to_chat(src, "<span class='userdanger'>A blinding light boils you alive! <i>Run!</i></span>")
-		adjust_fire_stacks(20)
-		IgniteMob()
-		return FALSE
-
-
 //called when the mob receives a bright flash
-/mob/living/proc/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, time = 25, type = /obj/screen/fullscreen/flash)
+/mob/living/proc/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
 	if(get_eye_protection() < intensity && (override_blindness_check || !(HAS_TRAIT(src, TRAIT_BLIND))))
 		overlay_fullscreen("flash", type)
-		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), time)
+		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
 		return TRUE
 	return FALSE
 
@@ -423,3 +406,20 @@
 		used_item = get_active_held_item()
 	..()
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
+
+
+/mob/living/proc/parry()//A bit janky, but i couldnt think of another way to do the cooldown that worked
+	var/canparry = FALSE
+	for(var/obj/item/I in held_items)
+		if(I.block_level || I.block_upgrade_walk)
+			canparry = TRUE
+			break 
+	if(!HAS_TRAIT(src, TRAIT_NOPARRY) && !stat && canparry)
+		ADD_TRAIT(src, TRAIT_PARRY, PARRY_TRAIT)
+		ADD_TRAIT(src, TRAIT_NOPARRY, PARRY_TRAIT)
+		playsound(src, 'sound/weapons/fwoosh.ogg', 75, 0)
+		new /obj/effect/temp_visual/parry(src.loc)
+		stoplag(5)
+		REMOVE_TRAIT(src, TRAIT_PARRY, PARRY_TRAIT)
+		stoplag(10)
+		REMOVE_TRAIT(src, TRAIT_NOPARRY, PARRY_TRAIT)

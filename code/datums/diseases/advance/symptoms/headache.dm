@@ -26,7 +26,6 @@ BONUS
 	transmittable = 0
 	level = 1
 	severity = 0
-	baseseverity = 0
 	base_message_chance = 100
 	symptom_delay_min = 15
 	symptom_delay_max = 30
@@ -35,11 +34,11 @@ BONUS
 					  <b>Stealth 4:</b> Reduces headache frequency until later stages."
 
 /datum/symptom/headache/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["stage_rate"] >= 6)
 		severity += 1
 	if(A.properties["stage_rate"] >= 9)
 		severity += 1
-	return..()
 
 /datum/symptom/headache/Start(datum/disease/advance/A)
 	if(!..())

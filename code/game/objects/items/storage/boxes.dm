@@ -301,8 +301,10 @@
 	illustration = "flashbang"
 
 /obj/item/storage/box/flashes/PopulateContents()
-	for(var/i in 1 to 6)
+	for(var/i in 1 to 2)
 		new /obj/item/assembly/flash/handheld(src)
+	for(var/i in 1 to 6)
+		new /obj/item/flashbulb(src)
 
 /obj/item/storage/box/wall_flash
 	name = "wall-mounted flash kit"

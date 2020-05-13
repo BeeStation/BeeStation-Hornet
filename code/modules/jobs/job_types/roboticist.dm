@@ -8,6 +8,7 @@
 	spawn_positions = 2
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
+	chat_color = "#AC71BA"
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/roboticist

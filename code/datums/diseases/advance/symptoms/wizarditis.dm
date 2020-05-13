@@ -7,7 +7,6 @@
 	transmittable = -1
 	level = 0
 	severity = 0
-	baseseverity = 0
 	symptom_delay_min = 15
 	symptom_delay_max = 45
 	var/teleport = FALSE
@@ -16,11 +15,11 @@
 					  <b>Speed 7:</b> The host grows a set of wizard robes."
 
 /datum/symptom/wizarditis/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["transmittable"] >= 12)
 		severity += 1
 	if(A.properties["speed"] >= 7)
 		severity += 1
-	return..()
 
 /datum/symptom/wizarditis/Start(datum/disease/advance/A)
 	if(!..())

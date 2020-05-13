@@ -66,3 +66,8 @@
 
 #define CONTRACT_UPLINK_PAGE_CONTRACTS "CONTRACTS"
 #define CONTRACT_UPLINK_PAGE_HUB "HUB"
+
+//Special Antagonists
+#define SPAWNTYPE_ROUNDSTART "roundstart"
+#define SPAWNTYPE_MIDROUND "midround"
+#define SPAWNTYPE_EITHER "either"
