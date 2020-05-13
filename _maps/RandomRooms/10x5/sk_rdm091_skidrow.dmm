@@ -38,6 +38,9 @@
 "h" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/table_frame/wood,
+/obj/item/trash/tray{
+	pixel_x = 3
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
@@ -51,10 +54,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
-/obj/item/trash/tray{
-	pixel_x = 3
-	},
 /obj/effect/decal/cleanable/cobweb,
+/obj/machinery/computer/arcade/amputation,
 /turf/open/floor/plating,
 /area/template_noop)
 "m" = (

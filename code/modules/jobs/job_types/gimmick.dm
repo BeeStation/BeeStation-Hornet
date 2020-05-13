@@ -76,6 +76,7 @@
 	ears = null //hobos dont start with a headset
 	uniform = /obj/item/clothing/under/pants/jeans
 	suit = /obj/item/clothing/suit/jacket
+	
 
 /datum/outfit/job/gimmick/hobo/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -88,3 +89,4 @@
 	H.equip_to_slot_or_del(I,SLOT_IN_BACKPACK)
 	var/datum/martial_art/psychotic_brawling/junkie = new //this fits well, but i'm unsure about it, cuz this martial art is so fucking rng dependent i swear...
 	junkie.teach(H)
+	ADD_TRAIT(H, TRAIT_APPRAISAL, JOB_TRAIT)
