@@ -1,0 +1,4 @@
+author: zeskorion
+delete-after: true
+changes:
+  - tweak: you can only parry while holding an item that can parry
