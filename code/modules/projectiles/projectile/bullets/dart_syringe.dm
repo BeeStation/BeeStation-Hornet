@@ -61,23 +61,29 @@
 				for(var/datum/reagent/R in reagents.reagent_list)
 					B.assign_reagent(GLOB.chemical_reagents_list[R.type])
 					break
+					
 			else
 				playsound(src, 'sound/effects/splat.ogg', 40, 1)
 				new /obj/effect/decal/cleanable/insectguts(src.loc)
+				
 		else if (prob(20)) //high velocity bees die easily
 			var/mob/living/simple_animal/hostile/poison/bees/B = new(M.loc)
 			for(var/datum/reagent/R in reagents.reagent_list)
 				B.assign_reagent(GLOB.chemical_reagents_list[R.type])
 				break
+				
 		else
 			playsound(src, 'sound/effects/splat.ogg', 40, 1)
 			new /obj/effect/decal/cleanable/insectguts(src.loc)
+			
 	else if(prob(20))
 		var/mob/living/simple_animal/hostile/poison/bees/B = new(src.loc)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			B.assign_reagent(GLOB.chemical_reagents_list[R.type])
 			break
+			
 	else
 		playsound(src, 'sound/effects/splat.ogg', 40, 1)
 		new /obj/effect/decal/cleanable/insectguts(src.loc)
+		
 	return ..()
