@@ -3,8 +3,8 @@
 	desc = "An advanced machine used for inserting organs and implants into the occupant."
 	density = TRUE
 	state_open = FALSE
-	icon = 'icons/obj/machines/fat_sucker.dmi'
-	icon_state = "fat"
+	icon = 'icons/obj/machines/autodoc.dmi'
+	icon_state = "autodoc_machine"
 	verb_say = "states"
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/autodoc
