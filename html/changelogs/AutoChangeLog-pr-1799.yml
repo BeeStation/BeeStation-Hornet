@@ -1,0 +1,5 @@
+author: Kmc2000
+delete-after: true
+changes:
+  - rscadd: Ported full auto from NSV. Guns will continue firing at your cursor's
+      location while you hold left click, assuming they have a full auto mode.
