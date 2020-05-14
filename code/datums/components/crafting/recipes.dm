@@ -371,7 +371,7 @@
 
 /datum/crafting_recipe/switchblade_kitchenupgrade
 	name = "Plastitanium Switchblade"
-	result = /obj/item/switchblade/plastitanium 
+	result = /obj/item/switchblade/plastitanium
 	reqs = list(/obj/item/switchblade/kitchen = 1,
 				/obj/item/stack/sheet/mineral/plastitanium = 2)
 	tools = list(TOOL_WELDER)
@@ -381,7 +381,7 @@
 
 /datum/crafting_recipe/switchblade_plastitanium
 	name = "Plastitanium Switchblade"
-	result = /obj/item/switchblade/plastitanium 
+	result = /obj/item/switchblade/plastitanium
 	reqs = list(/obj/item/weaponcrafting/stock = 1,
 				/obj/item/weaponcrafting/receiver = 1,
 				/obj/item/kitchen/knife = 1,
@@ -605,6 +605,38 @@
 	reqs = list(/obj/item/stack/sheet/bone = 10,
 				/obj/item/stack/sheet/sinew = 2,
 				/obj/item/stack/sheet/animalhide/ashdrake = 5)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/watcherbola
+	name = "Watcher Bola"
+	result = /obj/item/restraints/legcuffs/bola/watcher
+	time = 30
+	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 2,
+				/obj/item/restraints/handcuffs/cable/sinew = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/goliathshield
+	name = "Goliath shield"
+	result = /obj/item/shield/riot/goliath
+	time = 60
+	reqs = list(/obj/item/stack/sheet/bone = 4,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 3)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bonesword
+	name = "Bone Sword"
+	result = /obj/item/claymore/bone
+	time = 40
+	reqs = list(/obj/item/stack/sheet/bone = 3,
+				/obj/item/stack/sheet/sinew = 2)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/hunterbelt
+	name = "Hunters Belt"
+	result = /obj/item/storage/belt/mining/primitive
+	time = 20
+	reqs = list(/obj/item/stack/sheet/sinew = 2,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 2)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/firebrand

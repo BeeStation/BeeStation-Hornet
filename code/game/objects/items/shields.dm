@@ -8,6 +8,7 @@
 	max_integrity =  75
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
 	var/durability = TRUE //the shield uses durability instead of stamina
+	var/hunter = FALSE // The shield is better at defending against fauna
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(transparent && (hitby.pass_flags & PASSGLASS))
@@ -16,7 +17,7 @@
 
 /obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	if(durability)
-		var/attackforce = 0 
+		var/attackforce = 0
 		var/obj/item/riposte = src
 		if(owner.get_active_held_item()) //parry with our active item if we have it
 			riposte = owner.get_active_held_item()
@@ -44,7 +45,10 @@
 				attackforce = 0
 		else if(isliving(hitby))
 			var/mob/living/L = hitby
-			attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
+			if(hunter == TRUE)
+				attackforce = (damage)
+			else
+				attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
 			if(HAS_TRAIT(owner, TRAIT_PARRY))
 				L.attackby(riposte, owner)
 				attackforce = 0
@@ -92,7 +96,7 @@
 
 /obj/item/shield/proc/shatter(mob/living/carbon/human/owner)
 	playsound(owner, 'sound/effects/glassbr3.ogg', 100)
-	new /obj/item/shard((get_turf(src)))		
+	new /obj/item/shard((get_turf(src)))
 	qdel(src)
 
 /obj/item/shield/riot
@@ -171,6 +175,26 @@
 /obj/item/shield/riot/buckler/shatter(mob/living/carbon/human/owner)
 	playsound(owner, 'sound/effects/bang.ogg', 50)
 	new /obj/item/stack/sheet/mineral/wood(get_turf(src))
+	qdel(src)
+
+/obj/item/shield/riot/goliath
+	name = "Goliath shield"
+	desc = "A shield made from interwoven plates of goliath hide."
+	icon_state = "goliath_shield"
+	item_state = "goliath_shield"
+	block_level = 1
+	block_upgrade_walk = 1
+	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
+	materials = list ()
+	transparent = FALSE
+	max_integrity = 70
+	hunter = TRUE
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/shield/riot/goliath/shatter(mob/living/carbon/human/owner)
+	playsound(owner, 'sound/effects/bang.ogg', 50)
+	new /obj/item/stack/sheet/animalhide/goliath_hide(get_turf(src))
 	qdel(src)
 
 /obj/item/shield/riot/flash
