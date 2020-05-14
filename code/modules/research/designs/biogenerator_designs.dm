@@ -136,7 +136,7 @@
 	id = "cloth"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 50)
-	build_path = /obj/item/stack/sheet/cloth
+	build_path = /obj/item/stack/sheet/cotton/cloth
 	category = list("initial","Organic Materials")
 
 /datum/design/cardboard
