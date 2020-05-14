@@ -15,7 +15,6 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	var/backwards		// hopefully self-explanatory
 	var/movedir			// the actual direction to move stuff in
 
-	var/list/affecting	// the list of all items that will be moved this ptick
 	var/id = ""			// the control ID	- must match controller ID
 	var/verted = 1		// Inverts the direction the conveyor belt moves.
 	speed_process = TRUE
@@ -38,7 +37,6 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/machinery/conveyor/auto/Initialize(mapload, newdir)
 	. = ..()
-	affecting = list()
 	operating = TRUE
 	update_move_direction()
 
@@ -134,31 +132,25 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/machinery/conveyor/process()
 	if(stat & (BROKEN | NOPOWER))
 		return
-	//If the conveyor is broken or already moving items
-	if(!operating || conveying)
+	if(!operating)
 		return
-
+	var/turf/T = get_turf(src)
 	use_power(6)
 	//get the first 30 items in contents
 	var/i = 0
-	for(var/item in loc.contents)
-		if(item == src)
+	for(var/atom/movable/M in T)
+		if(M == src)
 			continue
-		i++ // we're sure it's a real target to move at this point
+		i++
+		if(!QDELETED(M) && (M.loc == loc) && !M.anchored && M.move_resist != INFINITY && M.has_gravity())
+			if(isliving(M))
+				var/mob/living/L = M
+				if((L.movement_type & FLYING) && !L.stat)
+					continue
+			step(M, movedir)
 		if(i >= MAX_CONVEYOR_ITEMS_MOVE)
 			break
-		affecting.Add(item)
-	conveying = TRUE
-	addtimer(CALLBACK(src, .proc/convey, affecting), 1)
-
-/obj/machinery/conveyor/proc/convey(list/affecting)
-	for(var/atom/movable/A in affecting)
-		if(!QDELETED(A) && (A.loc == loc))
-			A.ConveyorMove(movedir)
-			//Give this a chance to yield if the server is busy
-			stoplag()
-	affecting.Cut()
-	conveying = FALSE
+		CHECK_TICK
 
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(obj/item/I, mob/user, params)

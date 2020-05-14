@@ -377,8 +377,12 @@
 				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs out a furball.</span>")
 				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
 
-/datum/disease/transformation/felinid/speechModification(message) //blatantly stolen from the italian moustache.
-	if(copytext(message, 1, 2) != "*")
+/datum/disease/transformation/felinid/after_add()
+	RegisterSignal(affected_mob, COMSIG_MOB_SAY, .proc/handle_speech)
+
+/datum/disease/transformation/felinid/proc/handle_speech(datum/source, list/speech_args)
+	var/message = speech_args[SPEECH_MESSAGE]
+	if(message[1] != "*")
 		message = " [message]"
 		var/list/whole_words = strings("owo_talk.json", "wowds")
 		var/list/owo_sounds = strings("owo_talk.json", "sounds")
@@ -403,8 +407,15 @@
 
 		if(prob(3))
 			message += pick(" Nya!"," Meow!"," OwO!!", " Nya-nya!")
-	return trim(message)
+	speech_args[SPEECH_MESSAGE] = trim(message)
 
+/datum/disease/transformation/felinid/Destroy()
+	UnregisterSignal(affected_mob, COMSIG_MOB_SAY)
+	return ..()
+
+/datum/disease/transformation/felinid/remove_disease()
+	UnregisterSignal(affected_mob, COMSIG_MOB_SAY)
+	return ..()
 
 /datum/disease/transformation/felinid/contagious
 	spread_text = "Blood, Fluids, Contact"

@@ -10,14 +10,11 @@
 
 		..()
 
-/mob/living/brain/get_spans()
-	return ..() | SPAN_ROBOT
-
 /mob/living/brain/radio(message, message_mode, list/spans, language)
 	if(message_mode == MODE_HEADSET && istype(container, /obj/item/mmi))
 		var/obj/item/mmi/R = container
 		if(R.radio)
-			R.radio.talk_into(src, message, , get_spans(), language)
+			R.radio.talk_into(src, message, language = language)
 			return ITALICS | REDUCE_RANGE
 	else
 		return ..()
@@ -28,10 +25,3 @@
 /mob/living/brain/treat_message(message)
 	message = capitalize(message)
 	return message
-
-/mob/living/brain/could_speak_in_language(datum/language/dt)
-	if(istype(container, /obj/item/mmi/posibrain/soul_vessel))
-		// soul vessels can only speak ratvarian.
-		. = ispath(dt, /datum/language/ratvar)
-	else
-		. = ..()

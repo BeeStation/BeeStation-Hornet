@@ -395,12 +395,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		if(stats.ability)
 			stats.ability.AfterAttack(target)
 
-/*/mob/living/simple_animal/hostile/guardian/CanMobAutoclick(object, location, params)
-	if(istype(object, /obj/screen) || istype(object, /obj/effect))
-		return FALSE
-	if(erased_time)
-		return FALSE
-	return atk_cooldown*/
+/mob/living/simple_animal/hostile/guardian/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
+	return FALSE
 
 /mob/living/simple_animal/hostile/guardian/death()
 	. = ..()
@@ -599,9 +595,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		revive()
 		RegisterSignal(new_body, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/guardian.proc/OnMoved)
 		var/mob/gost = grab_ghost(TRUE)
-		if(QDELETED(gost) || !gost.ckey)
-			ResetMe()
-		else
+		if(!QDELETED(gost) && gost.ckey)
 			ckey = gost.ckey
 		to_chat(src, "<span class='notice'>You manifest into existence, as your master's soul appears in a new body!</span>")
 		new_body.verbs |= /mob/living/proc/guardian_comm

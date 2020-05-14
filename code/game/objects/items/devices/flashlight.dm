@@ -207,6 +207,7 @@
 	force = 9 // Not as good as a stun baton.
 	brightness_on = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
+	block_upgrade_walk = 1
 
 // the desk lamps are a bit special
 /obj/item/flashlight/lamp
