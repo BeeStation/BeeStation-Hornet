@@ -659,7 +659,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(LAZYLEN(guardians))
 		var/mob/living/simple_animal/hostile/guardian/G = input(src, "Pick the guardian you wish to reset", "Guardian Reset") as null|anything in guardians
 		if(G)
-			if(G.client)
+			if(G.client && !G.client.is_afk())
 				if(G.next_reset > world.time)
 					to_chat(src, "<span class='holoparasite'>You need to wait [DisplayTimeText(G.next_reset - world.time)] to reset <font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> again!</span>")
 					return
