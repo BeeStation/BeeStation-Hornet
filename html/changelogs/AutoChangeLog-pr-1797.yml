@@ -1,0 +1,6 @@
+author: zeskorion
+delete-after: true
+changes:
+  - rscadd: hobo gimmick job
+  - rscadd: two new maint rooms, both for hobo dens
+  - rscadd: random maint to pubby
