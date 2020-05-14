@@ -55,6 +55,7 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+	autofire_target = null
 
 /obj/item/gun/ballistic/automatic/c20r
 	name = "\improper C-20r SMG"

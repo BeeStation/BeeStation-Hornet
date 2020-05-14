@@ -236,6 +236,10 @@
 	name = "Mech Bay Power Control Console (Computer Board)"
 	build_path = /obj/machinery/computer/mech_bay_power_console
 
+/obj/item/circuitboard/computer/warrant
+	name = "Security Warrant Viewer (Computer Board)"
+	build_path = /obj/machinery/computer/warrant
+
 /obj/item/circuitboard/computer/cargo
 	name = "Supply Console (Computer Board)"
 	build_path = /obj/machinery/computer/cargo
