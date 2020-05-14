@@ -162,6 +162,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_JITTERS			"jitters"
 #define TRAIT_PARRY					"parry"
 #define TRAIT_NOPARRY				"noparry"
+#define TRAIT_APPRAISAL			"appraisal"
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
