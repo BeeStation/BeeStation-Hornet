@@ -22,17 +22,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install ruamel.yaml PyGithub
       - name: Make CL
-        run: python tools/changelog/generate_cl.py $GITHUB_REPOSITORY ${{ secrets.GITHUB_TOKEN }} $GITHUB_SHA
-      - name: Commit
         env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          git config --local user.email "56381746+ss13-beebot@users.noreply.github.com"
-          git config --local user.name "ss13-beebot"
-          git pull origin master
-          git add -A html/changelogs/.
-          git commit -m " Automatic changelog generation for PR #$PR_NUMBER [ci skip]" -a || true
-      - name: Push
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_EMAIL: "56381746+ss13-beebot@users.noreply.github.com"
+          GIT_NAME: "ss13-beebot"
+        run: python tools/changelog/generate_cl.py

@@ -30,15 +30,19 @@
 		var/obj/item/clothing/CH = H.head
 		if (CS.clothing_flags & CH.clothing_flags & STOPSPRESSUREDAMAGE)
 			atmos_sealed = TRUE
-	if((!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/foilhat/plasmaman) && !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)) && !atmos_sealed)
-		if(environment)
-			if(environment.total_moles())
-				if(environment.gases[/datum/gas/oxygen] && (environment.gases[/datum/gas/oxygen][MOLES]) >= 1) //Same threshhold that extinguishes fire
-					H.adjust_fire_stacks(0.5)
-					if(!H.on_fire && H.fire_stacks > 0)
-						H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
-					H.IgniteMob()
-					internal_fire = TRUE
+	if(H.w_uniform && H.head)
+		var/obj/item/clothing/CU = H.w_uniform
+		var/obj/item/clothing/CH = H.head
+		if (CU.envirosealed && (CH.clothing_flags & STOPSPRESSUREDAMAGE))
+			atmos_sealed = TRUE
+	if(environment && !atmos_sealed)
+		if(environment.total_moles())
+			if(environment.gases[/datum/gas/oxygen] && (environment.gases[/datum/gas/oxygen][MOLES]) >= 1) //Same threshhold that extinguishes fire
+				H.adjust_fire_stacks(0.5)
+				if(!H.on_fire && H.fire_stacks > 0)
+					H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
+				H.IgniteMob()
+				internal_fire = TRUE
 	else
 		if(H.fire_stacks)
 			var/obj/item/clothing/under/plasmaman/P = H.w_uniform
@@ -75,6 +79,9 @@
 
 		if("Stage Magician")
 			O = new /datum/outfit/plasmaman/magic
+
+		if("Debtor")
+			O = new /datum/outfit/plasmaman/hobo
 
 		if("Cook")
 			O = new /datum/outfit/plasmaman/chef

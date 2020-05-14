@@ -8,6 +8,7 @@
 	amount_per_transfer_from_this = 10
 	volume = 100
 	throwforce = 15
+	block_upgrade_walk = 1
 	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
@@ -15,6 +16,14 @@
 	isGlass = TRUE
 	foodtype = ALCOHOL
 
+/obj/item/reagent_containers/food/drinks/bottle/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	if(isliving(hitby))
+		var/mob/living/L = hitby
+		smash(L)
+	else 
+		smash()
+	return TRUE
+	
 
 /obj/item/reagent_containers/food/drinks/bottle/smash(mob/living/target, mob/thrower, ranged = FALSE)
 	//Creates a shattering noise and replaces the bottle with a broken_bottle
