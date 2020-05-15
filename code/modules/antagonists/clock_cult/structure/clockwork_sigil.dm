@@ -105,7 +105,7 @@
 /obj/structure/destructible/clockwork/sigil/submission/can_affect(mob/living/M)
 	if(!..())
 		return FALSE
-	return is_convertable_to_clockcult()
+	return is_convertable_to_clockcult(M)
 
 /obj/structure/destructible/clockwork/sigil/submission/apply_affects(mob/living/M)
 	if(!..())
