@@ -282,6 +282,7 @@
 /obj/item/guardiancreator/debug
 	desc = "If you're seeing this and you're not debugging, yell at @Zyzarda"
 	debug_mode = TRUE
+	allowspecial = TRUE
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
