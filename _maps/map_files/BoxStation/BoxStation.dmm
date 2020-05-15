@@ -8353,6 +8353,9 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "ata" = (
+/obj/machinery/computer/warrant{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "atb" = (
@@ -53313,10 +53316,12 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "kdH" = (
+/obj/machinery/computer/warrant{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/security/courtroom)
 "keW" = (

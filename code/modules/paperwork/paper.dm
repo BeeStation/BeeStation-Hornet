@@ -33,6 +33,8 @@
 	var/contact_poison_volume = 0
 	var/datum/oracle_ui/ui = null
 
+	var/next_write_time = 0
+
 /obj/item/paper/pickup(user)
 	if(contact_poison && ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -306,8 +308,11 @@
 		\[cell\] : Adds a cell to a \[row\]. Required even for the first cell. Can be followed by \[field\] to make the cell a field.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
-
 /obj/item/paper/Topic(href, href_list)
+	if(next_write_time > world.time)
+		message_admins("[usr.ckey] may be spamming paper Topic() calls, likely malicious if this message continues repeating")
+		return
+
 	..()
 	var/literate = usr.is_literate()
 	if(!usr.canUseTopic(src, BE_CLOSE, literate))
@@ -317,6 +322,7 @@
 		openhelp(usr)
 		return
 	if(href_list["write"])
+		next_write_time = world.time + (1 SECONDS)
 		var/id = href_list["write"]
 		var/t =  stripped_multiline_input("Enter what you want to write:", "Write", no_trim=TRUE)
 		if(!t || !usr.canUseTopic(src, BE_CLOSE, literate))

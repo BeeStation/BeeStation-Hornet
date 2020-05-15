@@ -70,8 +70,8 @@ datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	if(change_screen)
 		change_screen.Remove(C)
 
-/datum/species/ipc/get_spans()
-	return SPAN_ROBOT
+/datum/species/ipc/proc/handle_speech(datum/source, list/speech_args)
+	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
 
 /datum/species/ipc/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.grant_language(/datum/language/machine)

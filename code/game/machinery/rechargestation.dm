@@ -22,7 +22,7 @@
 	recharge_speed = 0
 	repairs = 0
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_speed += C.rating * 100
+		recharge_speed += (C.rating * 100) + 66 // Starting boost, but inconsequential at t4
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/stock_parts/cell/C in component_parts)
@@ -117,7 +117,7 @@
 		var/mob/living/carbon/human/H = occupant
 		var/datum/species/ethereal/E = H.dna?.species
 		if(E)
-			E.adjust_charge(recharge_speed / 40) //Around 5 per process if unupgraded
+			E.adjust_charge(recharge_speed / 30) //Around 5 per process if unupgraded
 			if(repairs && H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.reagents.add_reagent(/datum/reagent/consumable/liquidelectricity,repairs*0.2)
 
@@ -125,5 +125,5 @@
 	if(occupant)
 		var/mob/living/silicon/robot/R = occupant
 		if(R?.module)
-			var/coeff = recharge_speed * 0.005
+			var/coeff = recharge_speed * 0.025
 			R.module.respawn_consumable(R, coeff)
