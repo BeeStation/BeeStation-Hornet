@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: You can no longer queue hundreds of messages to the other station resulting
-      in the bombardment of everyone onlines ears as 100 simultaneous sounds play.
