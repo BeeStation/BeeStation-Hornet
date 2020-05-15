@@ -1,0 +1,8 @@
+author: Nemvar, Wjohnston sprites and Mey Ha Zah for some help getting those sprites
+  into a sane form
+delete-after: true
+changes:
+  - rscadd: The flight potion now works with lizards. Use it as a liz to get cool
+      derg wings.
+  - code_imp: Improved the way factions are applied to species.
+  - bugfix: Shadowpeople no longer get attacked by faithless simplemobs.
