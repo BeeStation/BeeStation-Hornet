@@ -389,10 +389,6 @@
 	to_chat(S, "<span class='warning'>This object is receiving unactivated swarmer shells to help us. Aborting.</span>")
 	return FALSE
 
-/obj/structure/destructible/clockwork/massive/celestial_gateway/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This object is multiplying existing resources. Aborting.</span>")
-	return FALSE
-
 /obj/structure/lattice/catwalk/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	. = ..()
 	var/turf/here = get_turf(src)

@@ -108,9 +108,20 @@
 
 /datum/crafting_recipe/tailclub
 	name = "Tail Club"
-	result = /obj/item/tailclub
+	result = /obj/item/club/tailclub
 	reqs = list(/obj/item/organ/tail/lizard = 1,
 	            /obj/item/stack/sheet/iron = 1)
+	time = 40
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/club
+	name = "improvised maul"
+	result = /obj/item/club/ghettoclub
+	reqs = list(/obj/item/stack/sheet/iron = 1,
+				/obj/item/stack/rods = 1,
+				/obj/item/restraints/handcuffs/cable = 2,
+				/obj/item/stack/sheet/cloth = 3)
 	time = 40
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON

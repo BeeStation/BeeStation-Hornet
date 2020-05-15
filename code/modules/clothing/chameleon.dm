@@ -262,6 +262,15 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
+/obj/item/clothing/under/chameleon/envirosuit
+	name = "plasma envirosuit"
+	desc = "A special containment suit that allows plasma-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy. It has a small dial on the wrist."
+	icon_state = "plasmaman"
+	item_state = "plasmaman"
+	item_color = "plasmaman"
+	resistance_flags = FIRE_PROOF
+	envirosealed = TRUE
+
 /obj/item/clothing/under/chameleon/ratvar
 	name = "ratvarian engineer's jumpsuit"
 	desc = "A tough jumpsuit woven from alloy threads. It can take on the appearance of other jumpsuits."
@@ -401,6 +410,23 @@
 /obj/item/clothing/head/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/head/chameleon/envirohelm
+	name = "plasma envirosuit helmet"
+	desc = "A special containment helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment. It is space-worthy, and may be worn in tandem with other EVA gear."
+	icon_state = "plasmaman-helm"
+	item_state = "plasmaman-helm"
+	resistance_flags = FIRE_PROOF
+	strip_delay = 80
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	cold_protection = HEAD
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	heat_protection = HEAD
+	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
+	flash_protect = 2
+	bang_protect = 1
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
 
 /obj/item/clothing/head/chameleon/drone
 	// The camohat, I mean, holographic hat projection, is part of the

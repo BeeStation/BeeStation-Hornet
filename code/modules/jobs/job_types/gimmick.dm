@@ -59,3 +59,34 @@
 	gloves = /obj/item/clothing/gloves/color/white
 	l_hand = /obj/item/cane
 	backpack_contents = list(/obj/item/choice_beacon/magic=1)
+
+/datum/job/gimmick/hobo
+	title = "Debtor"
+	flag = HOBO
+	outfit = /datum/outfit/job/gimmick/hobo
+	access = list(ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_MAINT_TUNNELS)
+	gimmick = TRUE
+
+/datum/outfit/job/gimmick/hobo
+	name = "Debtor"
+	jobtype = /datum/job/gimmick/hobo
+	belt = /obj/item/pda/unlicensed
+	head = /obj/item/clothing/head/foilhat
+	ears = null //hobos dont start with a headset
+	uniform = /obj/item/clothing/under/pants/jeans
+	suit = /obj/item/clothing/suit/jacket
+	
+
+/datum/outfit/job/gimmick/hobo/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	to_chat(H, "<span class='userdanger'>Although you're down on your luck, you're still a nanotrasen employee, and you are held to the same legal standards.</span>")
+	var/list/possible_drugs = list(/obj/item/storage/pill_bottle/happy, /obj/item/storage/pill_bottle/zoom, /obj/item/storage/pill_bottle/stimulant, /obj/item/storage/pill_bottle/lsd, /obj/item/storage/pill_bottle/aranesp, /obj/item/storage/pill_bottle/floorpill/full)
+	var/chosen_drugs = pick(possible_drugs)
+	var/obj/item/storage/pill_bottle/I = new chosen_drugs(src)
+	H.equip_to_slot_or_del(I,SLOT_IN_BACKPACK)
+	var/datum/martial_art/psychotic_brawling/junkie = new //this fits well, but i'm unsure about it, cuz this martial art is so fucking rng dependent i swear...
+	junkie.teach(H)
+	ADD_TRAIT(H, TRAIT_APPRAISAL, JOB_TRAIT)
