@@ -583,20 +583,26 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		var/mob/dead/observer/C = pick(candidates)
 		key = C.key
 
-/mob/living/simple_animal/hostile/guardian/proc/BringMeBackToLife(datum/_source, mob/old_body, mob/new_body)
+/mob/living/simple_animal/hostile/guardian/proc/Reviveify()
+	revive()
+	var/mob/gost = grab_ghost(TRUE)
+	if(!QDELETED(gost) && gost.ckey)
+		ckey = gost.ckey
+
+/mob/living/simple_animal/hostile/guardian/proc/OnMindTransfer(datum/_source, mob/old_body, mob/new_body)
 	if(!QDELETED(old_body))
 		old_body.verbs -= /mob/living/proc/guardian_comm
 		old_body.verbs -= /mob/living/proc/guardian_recall
 		old_body.verbs -= /mob/living/proc/guardian_reset
+		UnregisterSignal(old_body, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(old_body, COMSIG_LIVING_REVIVE)
 	if(isliving(new_body))
 		if(new_body.stat == DEAD)
 			return
 		forceMove(new_body)
-		revive()
+		Reviveify()
 		RegisterSignal(new_body, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/guardian.proc/OnMoved)
-		var/mob/gost = grab_ghost(TRUE)
-		if(!QDELETED(gost) && gost.ckey)
-			ckey = gost.ckey
+		RegisterSignal(new_body, COMSIG_LIVING_REVIVE, /mob/living/simple_animal/hostile/guardian.proc/Reviveify)
 		to_chat(src, "<span class='notice'>You manifest into existence, as your master's soul appears in a new body!</span>")
 		new_body.verbs |= /mob/living/proc/guardian_comm
 		new_body.verbs |= /mob/living/proc/guardian_recall
