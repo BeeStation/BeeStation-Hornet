@@ -366,7 +366,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		fly.Remove(C)
 		QDEL_NULL(fly)
 		if(C.movement_type & FLYING)
-			ToggleFlight(C)
+			toggle_flight(C)
 	if(C.dna && C.dna.species && (C.dna.features["wings"] == wings_icon))
 		if("wings" in C.dna.species.mutant_bodyparts)
 			C.dna.species.mutant_bodyparts -= "wings"
@@ -818,7 +818,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if((H.health < H.crit_threshold) && takes_crit_damage)
 			H.adjustBruteLoss(1)
 	if(flying_species)
-		HandleFlight(H)
+		handle_flight(H)
 
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
 	return
@@ -1889,7 +1889,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
 	if(flying_species && H.movement_type & FLYING)
-		ToggleFlight(H)
+		toggle_flight(H)
 		flyslip(H)
 	. = stunmod * H.physiology.stun_mod * amount
 
@@ -1925,7 +1925,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 //FLIGHT SHIT//
 ///////////////
 
-/datum/species/proc/GiveSpeciesFlight(mob/living/carbon/human/H)
+/datum/species/proc/give_species_flight(mob/living/carbon/human/H)
 	if(flying_species) //species that already have flying traits should not work with this proc
 		return
 	flying_species = TRUE
@@ -1937,10 +1937,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		H.dna.features["wings"] = wings_icon
 		H.update_body()
 
-/datum/species/proc/HandleFlight(mob/living/carbon/human/H)
+/datum/species/proc/handle_flight(mob/living/carbon/human/H)
 	if(H.movement_type & FLYING)
 		if(!CanFly(H))
-			ToggleFlight(H)
+			toggle_flight(H)
 			return FALSE
 		return TRUE
 	else
@@ -1986,7 +1986,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	return TRUE
 
 //UNSAFE PROC, should only be called through the Activate or other sources that check for CanFly
-/datum/species/proc/ToggleFlight(mob/living/carbon/human/H)
+/datum/species/proc/toggle_flight(mob/living/carbon/human/H)
 	if(!(H.movement_type & FLYING))
 		stunmod *= 2
 		speedmod -= 0.35
