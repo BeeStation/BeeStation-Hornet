@@ -394,7 +394,8 @@ GLOBAL_LIST_EMPTY(pocket_mirrors)
 	if(!is_pocketdim_level(get_final_z(owner)))
 		owner.remove_status_effect(src)
 		return
-	owner.health = max(owner.crit_threshold + 1, owner.health)
+	if(owner.health <= owner.crit_threshold)
+		owner.heal_ordered_damage(abs(owner.health - owner.crit_threshold) + 1, list(CLONE, OXY, TOX, BURN, BRUTE, BRAIN, STAMINA))
 	owner.AdjustAllImmobility(-100, FALSE)
 	owner.stat = CONSCIOUS
 	owner.update_mobility()
