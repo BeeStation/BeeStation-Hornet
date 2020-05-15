@@ -16,9 +16,7 @@
 	speed = 3
 	maxHealth = 75
 	health = 75
-	harm_intent_damage = 5
-	melee_damage_lower = 0
-	melee_damage_upper = 0
+	melee_damage = 0
 	attacktext = "lashes out at"
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/pierce.ogg'
@@ -72,9 +70,7 @@
 	maxHealth = 1
 	health = 1
 	movement_type = FLYING
-	harm_intent_damage = 5
-	melee_damage_lower = 2
-	melee_damage_upper = 2
+	melee_damage = 2
 	attacktext = "slashes"
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/pierce.ogg'
@@ -101,8 +97,7 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	mouse_opacity = MOUSE_OPACITY_ICON
 	obj_damage = 60
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	attacktext = "lashes out at"
 	speak_emote = list("echoes")
 	attack_sound = 'sound/weapons/pierce.ogg'
@@ -167,9 +162,7 @@
 	vision_range = 10
 	maxHealth = 1
 	health = 5
-	harm_intent_damage = 5
-	melee_damage_lower = 12
-	melee_damage_upper = 12
+	melee_damage = 12
 	attacktext = "bites"
 	speak_emote = list("echoes")
 	attack_sound = 'sound/weapons/pierce.ogg'
@@ -226,8 +219,7 @@
 	icon_dead = "legion"
 	health = 450
 	maxHealth = 450
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage = 20
 	anchored = FALSE
 	AIStatus = AI_ON
 	stop_automated_movement = FALSE

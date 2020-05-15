@@ -20,9 +20,7 @@
 
 	pixel_x = -16
 
-	harm_intent_damage = 5
-	melee_damage_lower = 8
-	melee_damage_upper = 12
+	melee_damage = 10
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("pines")
@@ -39,6 +37,7 @@
 	loot = list(/obj/item/stack/sheet/mineral/wood)
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
+	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/tree/Life()
 	..()

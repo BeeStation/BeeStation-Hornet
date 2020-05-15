@@ -9,8 +9,7 @@
 	gender = NEUTER
 	health = 50
 	maxHealth = 50
-	melee_damage_lower = 5
-	melee_damage_upper = 5
+	melee_damage = 10
 	attacktext = "chomps"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")

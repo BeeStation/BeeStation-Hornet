@@ -20,8 +20,7 @@
         health = 20
         maxHealth = 20
         attacktext = "bites"
-        melee_damage_lower = 5
-        melee_damage_upper = 6
+        melee_damage = 6
         response_help  = "pets"
         response_disarm = "shoos"
         response_harm   = "steps on"
