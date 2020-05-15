@@ -29,15 +29,22 @@
 	. = ..()
 	owner.current.faction |= "ratvar"
 	GLOB.servants_of_ratvar |= owner
+	if(ishuman(owner.current))
+		GLOB.human_servants_of_ratvar |= owner
+	check_ark_status()
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
 	owner.current.throw_alert("clockinfo", /obj/screen/alert/clockwork/clocksense)
+	SSticker.mode.update_clockcult_icons_added(owner)
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
 	M.faction -= "ratvar"
 	GLOB.servants_of_ratvar -= owner
+	if(ishuman(owner.current))
+		GLOB.human_servants_of_ratvar -= owner
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
+	SSticker.mode.update_clockcult_icons_removed(owner)
 	. = ..()
 
 /datum/antagonist/servant_of_ratvar/proc/equip_servant_conversion()
@@ -66,6 +73,7 @@
 	//Equip them with a slab
 	var/obj/item/clockwork/clockwork_slab/slab = new(get_turf(H))
 	H.put_in_hands(slab)
+	slab.pickup(H)
 	return FALSE
 
 //Grant access to the clockwork tools.

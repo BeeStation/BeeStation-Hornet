@@ -1,3 +1,18 @@
+GLOBAL_LIST_EMPTY(servants_of_ratvar)	//List of minds in the cult
+GLOBAL_LIST_EMPTY(human_servants_of_ratvar)	//Humans in the cult
+
+GLOBAL_VAR(clockcult_team)
+
+GLOBAL_VAR(ratvar_arrival_tick)	//The world.time that Ratvar will arrive if the gateway is not disrupted
+
+GLOBAL_VAR(celestial_gateway)	//The celestial gateway
+GLOBAL_VAR_INIT(ratvar_risen, FALSE)	//Has ratvar risen?
+GLOBAL_VAR_INIT(gateway_opening, FALSE)	//Is the gateway currently active?
+
+//A useful list containing all scriptures with the index of the name.
+//This should only be used for looking up scriptures
+GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
+
 //==========================
 //===Clock cult Gamemode ===
 //==========================
@@ -63,6 +78,8 @@
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
 		S.create_team()
+	//Setup the conversion limits for auto opening the ark
+	calculate_clockcult_values()
 	return ..()
 
 /datum/game_mode/clockcult/check_finished(force_ending)
@@ -87,19 +104,19 @@
 	round_credits += ..()
 	return round_credits
 
+/datum/game_mode/proc/update_clockcult_icons_added(datum/mind/cult_mind)
+	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CLOCKWORK]
+	culthud.join_hud(cult_mind.current)
+	set_antag_hud(cult_mind.current, "clockwork")
+
+/datum/game_mode/proc/update_clockcult_icons_removed(datum/mind/cult_mind)
+	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CLOCKWORK]
+	culthud.leave_hud(cult_mind.current)
+	set_antag_hud(cult_mind.current, null)
 
 //==========================
 //==== Clock cult procs ====
 //==========================
-
-//If there is a clockcult team (clockcult gamemode), add them to the team
-/proc/add_servant_of_ratvar(mob/M, add_team = TRUE)
-	if(!istype(M))
-		return
-	var/datum/antagonist/servant_of_ratvar/antagdatum = /datum/antagonist/servant_of_ratvar
-	antagdatum = M.mind.add_antag_datum(antagdatum)
-	antagdatum.create_team()
-	return antagdatum
 
 /proc/is_servant_of_ratvar(mob/living/M)
 	return M?.mind?.has_antag_datum(/datum/antagonist/servant_of_ratvar)
@@ -120,9 +137,7 @@
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		return FALSE
-	if(ishuman(M) || isbrain(M) || isguardian(M) || issilicon(M))
-		return TRUE
-	return FALSE
+	return TRUE
 
 /proc/flee_reebe(allow_servant_exit = FALSE)
 	for(var/mob/living/M in GLOB.mob_list)
@@ -147,6 +162,7 @@
 		return FALSE
 	msg = sanitize(msg)
 	if(sender)
+		sender.say("#[text2ratvar(msg)]")
 		hierophant_message += "<b>[sender.name]</b> transmits, \"[sanitize(msg)]\""
 	else
 		hierophant_message += sanitize(msg)

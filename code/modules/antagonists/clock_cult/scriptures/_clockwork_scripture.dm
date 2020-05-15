@@ -177,6 +177,8 @@
 		end_invokation()
 
 /datum/clockcult/scripture/slab/proc/click_on(atom/A)
+	if(!invoker.can_interact_with(A))
+		return
 	if(apply_affects(A))
 		uses_left --
 		if(uses_left <= 0)

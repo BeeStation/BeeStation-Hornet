@@ -4,7 +4,10 @@
 	icon_state = "generic_camera"
 
 /datum/action/innate/clockcult/warp
+	name = "Warp"
+	desc = "Warp to a location."
 	button_icon_state = "warp_down"
+	var/warping = FALSE
 
 /datum/action/innate/clockcult/warp/IsAvailable()
 	if(!is_servant_of_ratvar(owner) || owner.incapacitated())
@@ -14,6 +17,11 @@
 /datum/action/innate/clockcult/warp/Activate()
 	if(!isliving(owner))
 		return
+	if(warping)
+		button_icon_state = "warp_down"
+		owner.update_action_buttons_icon()
+		warping = FALSE
+		return
 	var/mob/living/M = owner
 	var/mob/camera/aiEye/remote/ratvar/cam = M.remote_control
 	var/target_loc = get_turf(cam)
@@ -21,14 +29,24 @@
 		to_chat(owner, "<span class='brass'>[get_area(target_loc).clockwork_warp_fail]</span>")
 		return
 	do_sparks(5, TRUE, get_turf(cam))
-	if(do_after(M, 50, target=target_loc))
+	warping = TRUE
+	button_icon_state = "warp_cancel"
+	owner.update_action_buttons_icon()
+	if(do_after(M, 50, target=target_loc, extra_checks=CALLBACK(src, .proc/special_check)))
 		try_warp_servant(M, target_loc, 50, FALSE)
+	else
+		button_icon_state = "warp_down"
+		owner.update_action_buttons_icon()
+		warping = FALSE
+
+/datum/action/innate/clockcult/warp/proc/special_check()
+	return warping
 
 /obj/machinery/computer/camera_advanced/ratvar
 	name = "ratvarian observation console"
 	desc = "Used by the servants of Ratvar to conduct operations on Nanotrasen property."
-	icon_screen = "cameras"
-	icon_keyboard = "security_key"
+	icon_screen = "ratvar1"
+	icon_keyboard = "ratvar_key1"
 	icon_state = "ratvarcomputer"
 	clockwork = TRUE
 	lock_override = CAMERA_LOCK_STATION

@@ -17,20 +17,6 @@
 
 #define DEFAULT_CLOCKSCRIPTS "6:-29,4:-2"
 
-GLOBAL_LIST_EMPTY(servants_of_ratvar)	//List of minds in the cult
-
-GLOBAL_VAR(clockcult_team)
-
-GLOBAL_VAR(ratvar_arrival_tick)	//The world.time that Ratvar will arrive if the gateway is not disrupted
-
-GLOBAL_VAR(celestial_gateway)	//The celestial gateway
-GLOBAL_VAR_INIT(ratvar_risen, FALSE)	//Has ratvar risen?
-GLOBAL_VAR_INIT(gateway_opening, FALSE)	//Is the gateway currently active?
-
-//A useful list containing all scriptures with the index of the name.
-//This should only be used for looking up scriptures
-GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
-
 //scripture types
 #define SCRIPTURE 0
 #define DRIVER 1

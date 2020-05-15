@@ -4,6 +4,9 @@
 	obj_integrity = 250
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_components"
+	pixel_x = -32
+	pixel_y = -32
+	density = TRUE
 
 	var/activated = FALSE
 	var/grace_period = 300
@@ -14,7 +17,9 @@
 	GLOB.celestial_gateway = src
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/Destroy()
-	hierophant_message("The Ark has been destroyed, Reebe is finally collapsing", null, "<span class='big_brass'>")
+	if(GLOB.ratvar_risen)
+		return
+	hierophant_message("The Ark has been destroyed, Reebe is becomming unstable!", null, "<span class='big_brass'>")
 	if(GLOB.ratvar_risen || !istype(SSticker.mode, /datum/game_mode/clockcult))
 		return
 	flee_reebe(FALSE)
@@ -134,8 +139,11 @@
 	desc = "Oh, that's ratvar!"
 	icon = 'icons/effects/512x512.dmi'
 	icon_state = "ratvar"
+	density = FALSE
 	current_size = STAGE_SIX
 	allowed_size = STAGE_SIX
+	pixel_x = -236
+	pixel_y = -256
 	var/range = 1
 
 /obj/singularity/ratvar/Initialize(mapload, starting_energy = 50)
@@ -161,8 +169,17 @@
 		for(var/thing in T)
 			if(isturf(loc) && thing != src)
 				var/atom/movable/X = thing
-				X.ratvar_act()
+				consume(X)
 			CHECK_TICK
 	if(range < 50)
 		range ++
 	return
+
+/obj/singularity/ratvar/consume(atom/A)
+	A.ratvar_act()
+
+/obj/singularity/ratvar/Bump(atom/A)
+	var/turf/T = get_turf(A)
+	if(T == loc)
+		T = get_step(A, A.dir) //please don't slam into a window like a bird, Ratvar
+	forceMove(T)
