@@ -421,4 +421,4 @@ GLOBAL_LIST_EMPTY(pocket_mirrors)
 /obj/screen/alert/status_effect/dimensional_mending
 	name = "Dimensional Mending"
 	desc = "The very fabrics of reality that comprise this dimension wind themselves through your body, holding you together no matter what."
-	icon_state = "shadow_mend"
+	icon_state = "dim_mend"
