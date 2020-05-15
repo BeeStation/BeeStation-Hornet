@@ -3113,7 +3113,7 @@
 "hS" = (
 /mob/living/simple_animal/hostile/tree{
 	desc = "I am death. I will have my vengeance upon my enemies.";
-	melee_damage_upper = 8;
+	melee_damage = 8;
 	wander = 0
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -4853,7 +4853,7 @@
 /mob/living/simple_animal/hostile/bear/russian{
 	desc = "He'll hold the line against you!";
 	light_range = 3;
-	melee_damage_upper = 25;
+	melee_damage = 30;
 	name = "Artyom";
 	speak = list("Blyat!","Rawr!","GRR!","Growl!");
 	wander = 0

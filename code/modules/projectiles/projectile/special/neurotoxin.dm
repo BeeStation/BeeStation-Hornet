@@ -10,7 +10,6 @@
 		nodamage = TRUE
 	if(iscarbon(target))
 		var/mob/living/carbon/human/H = target
-		var/def_check = H.getarmor("bio")
-		if(def_check < 100)
-			H.Stun(100 - def_check)
+		if(H.can_inject())
+			H.Stun(100)
 	return ..()
