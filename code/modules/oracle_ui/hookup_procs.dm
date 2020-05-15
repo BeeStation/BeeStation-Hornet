@@ -23,6 +23,8 @@
 		return TRUE
 	if(user.incapacitated())
 		return FALSE
+	if(isobj(src.loc) && get_dist(src, user) < 2)
+		return TRUE
 	if(isturf(src.loc) && Adjacent(user))
 		return TRUE
 	return FALSE
