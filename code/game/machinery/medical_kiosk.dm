@@ -164,7 +164,7 @@
 	if(altPatient == null)
 		say("Scanner reset.")
 		altPatient = user
-	else if(patient_distance>5)
+	else if(patient_distance > 5)
 		altPatient = null
 		say("Patient out of range. Resetting biometrics.")
 		clearScans()
@@ -321,7 +321,7 @@
 	switch(action)
 		if("beginScan_1")
 			inuse()
-			if(paying_customer == TRUE)
+			if(paying_customer)
 				scan_active_1 = TRUE
 				paying_customer = FALSE
 		if("beginScan_2")
