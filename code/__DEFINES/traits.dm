@@ -158,6 +158,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SECURITY_HUD		"sec_hud"
 #define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
 #define TRAIT_PASSTABLE			"passtable"
+#define TRAIT_ONEWAYROAD	"one-way road"
+#define TRAIT_JITTERS			"jitters"
+#define TRAIT_PARRY					"parry"
+#define TRAIT_NOPARRY				"noparry"
+#define TRAIT_APPRAISAL			"appraisal"
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
@@ -257,3 +262,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define LEGION_CORE_TRAIT "legion_core_trait"
 #define MIRROR_TRAIT "mirror_trait"
 #define CRAYON_TRAIT "crayon_trait"
+#define GUARDIAN_TRAIT	"guardian_trait"
+#define PARRY_TRAIT	"parry_trait"

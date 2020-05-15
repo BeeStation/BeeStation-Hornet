@@ -17044,7 +17044,9 @@
 /area/hallway/primary/fore)
 "aGo" = (
 /obj/effect/turf_decal/tile/red,
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/machinery/computer/warrant{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "aGp" = (
@@ -82813,6 +82815,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
+"uhY" = (
+/obj/machinery/computer/warrant{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/courtroom)
 "urv" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/security/prison)
@@ -113231,7 +113239,7 @@ aPD
 aSa
 aSa
 aTp
-aIT
+uhY
 aTk
 aXS
 dCE

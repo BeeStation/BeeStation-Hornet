@@ -70,6 +70,7 @@
 	var/zoom_out_amt = 0
 	var/datum/action/toggle_scope_zoom/azoom
 	var/fire_rate = null //how many times per second can a gun fire? default is 2.5
+	var/atom/autofire_target = null //What are we aiming at? This will change if you move your mouse whilst spraying.
 
 /obj/item/gun/Initialize()
 	. = ..()
@@ -77,6 +78,7 @@
 		pin = new pin(src)
 	if(gun_light)
 		alight = new(src)
+	canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
 
 /obj/item/gun/Destroy()

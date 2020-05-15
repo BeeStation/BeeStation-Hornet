@@ -1691,7 +1691,7 @@
 /area/holodeck/rec_center/thunderdome1218)
 "eA" = (
 /obj/structure/table/wood,
-/obj/item/tailclub,
+/obj/item/club/tailclub,
 /obj/item/twohanded/spear,
 /turf/open/floor/holofloor/asteroid,
 /area/holodeck/rec_center/thunderdome1218)

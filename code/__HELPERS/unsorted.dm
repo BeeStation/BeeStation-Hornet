@@ -1465,13 +1465,6 @@ If it ever becomes necesary to get a more performant REF(), this lies here in wa
 		. = CB.Invoke()
 	usr = temp
 
-/// Returns a list of all servants of Ratvar and observers.
-/proc/servants_and_ghosts()
-	. = list()
-	for(var/V in GLOB.player_list)
-		if(is_servant_of_ratvar(V) || isobserver(V))
-			. += V
-
 /// datum may be null, but it does need to be a typed var
 #define NAMEOF(datum, X) (#X || ##datum.##X)
 
@@ -1660,3 +1653,7 @@ config_setting should be one of the following:
 			return "."
 		if(189)
 			return "-"
+
+/proc/get_final_z(atom/A)
+	var/turf/T = get_turf(A)
+	return T ? T.z : A.z

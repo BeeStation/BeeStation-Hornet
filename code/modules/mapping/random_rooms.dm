@@ -724,3 +724,20 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
+
+
+/datum/map_template/random_room/sk_rdm091
+	name = "Trash Room"
+	room_id = "sk_rdm091_skidrow"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm091_skidrow.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+
+/datum/map_template/random_room/sk_rdm092
+	name = "Hobo Den"
+	room_id = "sk_rdm092_hobohut"
+	mappath = "_maps/RandomRooms/3x3/sk_rdm092_hobohut.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
