@@ -8,7 +8,6 @@
 	max_integrity =  75
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
 	var/durability = TRUE //the shield uses durability instead of stamina
-	var/hunter = FALSE // The shield is better at defending against fauna
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(transparent && (hitby.pass_flags & PASSGLASS))
@@ -45,7 +44,7 @@
 				attackforce = 0
 		else if(isliving(hitby))
 			var/mob/living/L = hitby
-			if(hunter == TRUE)
+			if(block_flags & BLOCKING_HUNTER)
 				attackforce = (damage)
 			else
 				attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
@@ -189,7 +188,7 @@
 	materials = list ()
 	transparent = FALSE
 	max_integrity = 70
-	hunter = TRUE
+	block_flags = BLOCKING_HUNTER | BLOCKING_PROJECTILE
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/shield/riot/goliath/shatter(mob/living/carbon/human/owner)
