@@ -2013,7 +2013,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/mob/living/carbon/human/H = owner
 	var/datum/species/S = H.dna.species
 	if(S.CanFly(H))
-		S.ToggleFlight(H)
+		S.toggle_flight(H)
 		if(!(H.movement_type & FLYING))
 			to_chat(H, "<span class='notice'>You settle gently back onto the ground...</span>")
 		else

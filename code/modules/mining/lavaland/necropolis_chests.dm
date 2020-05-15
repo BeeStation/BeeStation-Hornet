@@ -626,7 +626,7 @@
 			return ..()
 
 		to_chat(C, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
-		C.dna.species.GiveSpeciesFlight(C)
+		C.dna.species.give_species_flight(C)
 		if(holycheck)
 			to_chat(C, "<span class='notice'>You feel blessed!</span>")
 			ADD_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
