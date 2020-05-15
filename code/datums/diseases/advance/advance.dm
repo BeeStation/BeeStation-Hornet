@@ -26,12 +26,15 @@
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 
 	// NEW VARS
+	var/channel = 0 //used to set the symptom's "channel" when having multiple diseases
 	var/list/properties = list()
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
 	var/processing = FALSE
 	var/mutable = TRUE //set to FALSE to prevent most in-game methods of altering the disease via virology
 	var/oldres
+	var/sentient = FALSE //used to classify if a disease is sentient
+	var/faltered = FALSE //used if a disease has been made non-contagious
 	// The order goes from easy to cure to hard to cure.
 	var/static/list/advance_cures = 	list(
 																/datum/reagent/consumable/sugar, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride, 
@@ -59,7 +62,12 @@
 	//diseases replaced in this way do not confer immunity
 	var/list/advance_diseases = list()
 	for(var/datum/disease/advance/P in infectee.diseases)
-		advance_diseases += P
+		if(sentient)
+			if(P.sentient)
+				advance_diseases += P
+			continue
+		if(channel == P.channel && !P.sentient)
+			advance_diseases += P
 	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //amount of diseases that need to be removed to fit this one
 	if(replace_num > 0)
 		sortTim(advance_diseases, /proc/cmp_advdisease_resistance_asc)
@@ -113,6 +121,7 @@
 	A.properties = properties.Copy()
 	A.id = id
 	A.mutable = mutable
+	A.faltered = faltered
 	//this is a new disease starting over at stage 1, so processing is not copied
 	return A
 
@@ -171,10 +180,12 @@
 	return generated
 
 /datum/disease/advance/proc/Refresh(new_name = FALSE)
+	for(var/datum/symptom/S in symptoms)
+		S.severity = initial(S.severity)
+		S.dynamicseverity = FALSE
 	GenerateProperties()
 	AssignProperties()
 	id = null
-
 	var/the_id = GetDiseaseID()
 	if(!SSdisease.archive_diseases[the_id])
 		SSdisease.archive_diseases[the_id] = src // So we don't infinite loop
@@ -185,18 +196,32 @@
 //Generate disease properties based on the effects. Returns an associated list.
 /datum/disease/advance/proc/GenerateProperties()
 	properties = list("resistance" = 0, "stealth" = 0, "stage_rate" = 0, "transmittable" = 0, "severity" = 0)
-
-	for(var/datum/symptom/S in symptoms)
+	for(var/datum/symptom/S in symptoms) //I can't change the order of the symptom list by severity, so i have to loop through symptoms three times, one for each tier of severity, to keep it consistent
 		properties["resistance"] += S.resistance
 		properties["stealth"] += S.stealth
 		properties["stage_rate"] += S.stage_speed
 		properties["transmittable"] += S.transmittable
+		if(!S.dynamicseverity)
+			S.severityset(src)
+		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
+			properties["severity"] += S.severity
+	for(var/datum/symptom/S in symptoms) 
+		if(!S.dynamicseverity)
+			S.severityset(src)
 		if(!S.neutered)
-			properties["severity"] = max(properties["severity"], S.severity) // severity is based on the highest severity non-neutered symptom
+			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
+				if(1 to 2)
+					properties["severity"] = max(properties["severity"], min(3, (S.severity + properties["severity"])))
+				if(3 to 4)
+					properties["severity"] = max(properties["severity"], min(4, (S.severity + properties["severity"])))		
+	for(var/datum/symptom/S in symptoms) //benign and beneficial symptoms go last
+		if(!S.dynamicseverity)
+			S.severityset(src)
+		if(!S.neutered && S.severity <= 0)
+			properties["severity"] += S.severity		
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
-
 	if(properties && properties.len)
 		if(properties["stealth"] >= 2)
 			visibility_flags |= HIDDEN_SCANNER
@@ -216,46 +241,64 @@
 
 // Assign the spread type and give it the correct description.
 /datum/disease/advance/proc/SetSpread(spread_id)
-	switch(spread_id)
-		if(DISEASE_SPREAD_NON_CONTAGIOUS)
-			spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
-			spread_text = "None"
-		if(DISEASE_SPREAD_SPECIAL)
-			spread_flags = DISEASE_SPREAD_SPECIAL
-			spread_text = "None"
-		if(DISEASE_SPREAD_BLOOD)
-			spread_flags = DISEASE_SPREAD_BLOOD
-			spread_text = "Blood"
-		if(DISEASE_SPREAD_CONTACT_FLUIDS)
-			spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS
-			spread_text = "Fluids"
-		if(DISEASE_SPREAD_CONTACT_SKIN)
-			spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
-			spread_text = "On contact"
-		if(DISEASE_SPREAD_AIRBORNE)
-			spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
-			spread_text = "Airborne"
+	if(faltered)
+		spread_flags = DISEASE_SPREAD_FALTERED
+		spread_text = "Intentional Injection"
+	else
+		switch(spread_id)
+			if(DISEASE_SPREAD_NON_CONTAGIOUS)
+				spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
+				spread_text = "None"
+			if(DISEASE_SPREAD_SPECIAL)
+				spread_flags = DISEASE_SPREAD_SPECIAL
+				spread_text = "None"
+			if(DISEASE_SPREAD_BLOOD)
+				spread_flags = DISEASE_SPREAD_BLOOD
+				spread_text = "Blood"
+			if(DISEASE_SPREAD_CONTACT_FLUIDS)
+				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS
+				spread_text = "Fluids"
+			if(DISEASE_SPREAD_CONTACT_SKIN)
+				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
+				spread_text = "On contact"
+			if(DISEASE_SPREAD_AIRBORNE)
+				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
+				spread_text = "Airborne"
 
 /datum/disease/advance/proc/SetSeverity(level_sev)
 
 	switch(level_sev)
 
-		if(-INFINITY to 0)
+		if(-INFINITY to -2)
+			severity = DISEASE_SEVERITY_BENEFICIAL
+			channel = 1
+		if(-1)
 			severity = DISEASE_SEVERITY_POSITIVE
-		if(1)
+			channel = 1
+		if(0)
 			severity = DISEASE_SEVERITY_NONTHREAT
-		if(2)
+			channel = 1
+		if(1)
 			severity = DISEASE_SEVERITY_MINOR
-		if(3)
+			channel = 2
+		if(2)
 			severity = DISEASE_SEVERITY_MEDIUM
-		if(4)
+			channel = 2
+		if(3)
 			severity = DISEASE_SEVERITY_HARMFUL
-		if(5)
+			channel = 2
+		if(4)
 			severity = DISEASE_SEVERITY_DANGEROUS
-		if(6 to INFINITY)
+			channel = 2
+		if(5)
 			severity = DISEASE_SEVERITY_BIOHAZARD
+			channel = 3
+		if(6 to INFINITY)
+			severity = DISEASE_SEVERITY_PANDEMIC
+			channel = 3
 		else
 			severity = "Unknown"
+			channel = 2
 
 
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.

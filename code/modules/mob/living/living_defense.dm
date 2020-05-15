@@ -183,7 +183,6 @@
 				else
 					visible_message("<span class='danger'>[user] grabs [src] aggressively!</span>", \
 									"<span class='userdanger'>[user] grabs you aggressively!</span>")
-					drop_all_held_items()
 				stop_pulling()
 				log_combat(user, src, "grabbed", addition="aggressive grab[add_log]")
 			if(GRAB_NECK)
@@ -350,10 +349,10 @@
 /mob/living/singularity_act()
 	var/gain = 20
 
-	
+
 	if (client)
 		SSmedals.UnlockMedal(MEDAL_SINGULARITY_DEATH,client)
-	
+
 
 	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_SINGULO) //Oh that's where the clown ended up!
 	gib()

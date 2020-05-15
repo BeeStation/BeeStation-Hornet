@@ -30,6 +30,7 @@
 #define BLOB_SPREAD_COST 4
 #define BLOB_ATTACK_REFUND 2 //blob refunds this much if it attacks and doesn't spread
 #define BLOB_REFLECTOR_COST 15
+#define BLOB_STRAIN_COLOR_LIST list("#BE5532", "#7D6EB4", "#EC8383", "#00E5B1", "#00668B", "#FFF68", "#BBBBAA", "#CD7794", "#57787B", "#3C6EC8", "#AD6570", "#823ABB")
 
 //Shuttle hijacking
 #define HIJACK_NEUTRAL 0 //Does not stop hijacking but itself won't hijack
@@ -49,7 +50,7 @@
 //gang dominators
 #define NOT_DOMINATING			-1
 #define MAX_LEADERS_GANG		3
-#define INITIAL_DOM_ATTEMPTS	3 
+#define INITIAL_DOM_ATTEMPTS	3
 
 //Syndicate Contracts
 #define CONTRACT_STATUS_INACTIVE 1
@@ -65,3 +66,8 @@
 
 #define CONTRACT_UPLINK_PAGE_CONTRACTS "CONTRACTS"
 #define CONTRACT_UPLINK_PAGE_HUB "HUB"
+
+//Special Antagonists
+#define SPAWNTYPE_ROUNDSTART "roundstart"
+#define SPAWNTYPE_MIDROUND "midround"
+#define SPAWNTYPE_EITHER "either"

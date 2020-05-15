@@ -421,11 +421,9 @@
 
 
 //Used by changelings to rapidly heal
-//Heals 10 brute and oxygen damage every second, and 5 fire
 //Being on fire will suppress this healing
 /datum/status_effect/fleshmend
 	id = "fleshmend"
-	duration = 100
 	alert_type = /obj/screen/alert/status_effect/fleshmend
 
 /datum/status_effect/fleshmend/tick()
@@ -434,9 +432,10 @@
 		return
 	else
 		linked_alert.icon_state = "fleshmend"
-	owner.adjustBruteLoss(-6, FALSE)
-	owner.adjustFireLoss(-5, FALSE)
-	owner.adjustOxyLoss(-6)
+	owner.adjustBruteLoss(-1.5, FALSE)
+	owner.adjustFireLoss(-0.25, FALSE)
+	owner.adjustToxLoss(-0.5, FALSE)
+	owner.adjustCloneLoss(-0.5)
 
 /obj/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"

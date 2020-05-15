@@ -8,6 +8,8 @@
 	name = "portable air pump"
 	icon_state = "psiphon:0"
 	density = TRUE
+	ui_x = 300
+	ui_y = 315
 
 	var/on = FALSE
 	var/direction = PUMP_OUT
@@ -84,14 +86,14 @@
 														datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "portable_pump", name, 420, 415, master_ui, state)
+		ui = new(user, src, ui_key, "PortablePump", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/portable_atmospherics/pump/ui_data()
 	var/data = list()
 	data["on"] = on
-	data["direction"] = direction
-	data["connected"] = connected_port ? 1 : 0
+	data["direction"] = direction == PUMP_IN ? TRUE : FALSE
+	data["connected"] = connected_port ? TRUE : FALSE
 	data["pressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
 	data["target_pressure"] = round(pump.target_pressure ? pump.target_pressure : 0)
 	data["default_pressure"] = round(PUMP_DEFAULT_PRESSURE)
@@ -102,6 +104,8 @@
 		data["holding"] = list()
 		data["holding"]["name"] = holding.name
 		data["holding"]["pressure"] = round(holding.air_contents.return_pressure())
+	else
+		data["holding"] = null
 	return data
 
 /obj/machinery/portable_atmospherics/pump/ui_act(action, params)
@@ -138,15 +142,11 @@
 			else if(pressure == "max")
 				pressure = PUMP_MAX_PRESSURE
 				. = TRUE
-			else if(pressure == "input")
-				pressure = input("New release pressure ([PUMP_MIN_PRESSURE]-[PUMP_MAX_PRESSURE] kPa):", name, pump.target_pressure) as num|null
-				if(!isnull(pressure) && !..())
-					. = TRUE
 			else if(text2num(pressure) != null)
 				pressure = text2num(pressure)
 				. = TRUE
 			if(.)
-				pump.target_pressure = CLAMP(round(pressure), PUMP_MIN_PRESSURE, PUMP_MAX_PRESSURE)
+				pump.target_pressure = clamp(round(pressure), PUMP_MIN_PRESSURE, PUMP_MAX_PRESSURE)
 				investigate_log("was set to [pump.target_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
 		if("eject")
 			if(holding)

@@ -1043,7 +1043,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Debug"
 	set name = "Modify goals"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_DEBUG))
 		return
 
 	holder.modify_goals()
@@ -1140,15 +1140,19 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(!puzzle_imprison(target))
 				to_chat(usr,"<span class='warning'>Imprisonment failed!</span>")
 				return
-			
+
 		if(ADMIN_PUNISHMENT_FLOORCLUWNE)
+			if(!ishuman(target))
+				to_chat(usr,"<span class='warning'>You may only floorcluwne humans!</span>")
+				return
+
 			var/turf/T = get_turf(target)
 			var/mob/living/simple_animal/hostile/floor_cluwne/FC = new(T)
 			FC.invalid_area_typecache = list()  // works anywhere
 			FC.delete_after_target_killed = TRUE
 			FC.force_target(target)
 			FC.stage = 4
-		
+
 		if(ADMIN_PUNISHMENT_CLUWNE)
 			message_admins("[usr] cluwned [target]")
 			target.cluwne()
@@ -1232,3 +1236,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		message_admins("[key_name_admin(usr)] has [newstate ? "activated" : "deactivated"] job exp exempt status on [key_name_admin(C)]")
 		log_admin("[key_name(usr)] has [newstate ? "activated" : "deactivated"] job exp exempt status on [key_name(C)]")
+
+/client/proc/spawnhuman()
+	set name = "Spawn human"
+	set desc = "Spawns a mindless human"
+	set category = "Fun"
+
+	if(!check_rights(R_FUN))
+		return
+
+	var/turf/T = get_turf(usr)
+	new /mob/living/carbon/human(T)
+	log_admin("[key_name(usr)] spawned a mindless human.")

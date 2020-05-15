@@ -1,0 +1,191 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/template_noop)
+"b" = (
+/obj/structure/chair/office,
+/turf/open/floor/wood,
+/area/template_noop)
+"c" = (
+/obj/structure/chair/office,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/template_noop)
+"d" = (
+/mob/living/simple_animal/cockroach,
+/turf/open/floor/wood,
+/area/template_noop)
+"e" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/structure/sign/poster/official/do_not_question{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"f" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"g" = (
+/obj/structure/table/wood,
+/obj/item/folder/white{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/folder/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"h" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"i" = (
+/turf/open/floor/wood,
+/area/template_noop)
+"j" = (
+/obj/structure/table/wood,
+/obj/item/clothing/gloves/color/black,
+/obj/item/storage/box/evidence,
+/obj/item/taperecorder,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"k" = (
+/obj/structure/frame/computer,
+/obj/item/circuitboard/computer/secure_data,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/status_display/evac{
+	pixel_x = -32
+	},
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"l" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"m" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/cigarettes/cigpack_uplift{
+	pixel_x = 6
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_carp{
+	pixel_x = -3
+	},
+/obj/item/lighter,
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"n" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/template_noop)
+"o" = (
+/obj/structure/rack,
+/obj/item/storage/briefcase{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/secure/briefcase,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"p" = (
+/obj/structure/frame/computer,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"q" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"r" = (
+/turf/open/floor/carpet/red,
+/area/template_noop)
+"s" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/template_noop)
+"t" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/suit/jacket{
+	desc = "All the class of a trenchcoat without the security fibers.";
+	icon_state = "greydet";
+	name = "trenchcoat"
+	},
+/obj/item/clothing/suit/jacket{
+	desc = "All the class of a trenchcoat without the security fibers.";
+	icon_state = "detective";
+	name = "trenchcoat"
+	},
+/obj/item/clothing/head/fedora,
+/obj/item/clothing/head/fedora{
+	icon_state = "detective"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+f
+k
+p
+"}
+(2,1,1) = {"
+b
+g
+l
+q
+"}
+(3,1,1) = {"
+c
+h
+m
+r
+"}
+(4,1,1) = {"
+d
+i
+n
+s
+"}
+(5,1,1) = {"
+e
+j
+o
+t
+"}

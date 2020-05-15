@@ -48,29 +48,3 @@
 			to_chat(src, "<span class='rose bold'>[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account! Reason: [reason]</span>")
 		else
 			to_chat(src, "<span class='rose bold'>[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account!</span>")
-
-
-
-
-
-
-// PROCS FOR HANDLING CHECKING WHAT ITEMS USER HAS
-
-/client
-	/// A cached list of "onlyone" metacoin items this client has bought.
-	var/list/metacoin_items = list()
-
-/client/proc/update_metacoin_items()
-	metacoin_items = list()
-
-	var/datum/DBQuery/query_get_metacoin_purchases
-	query_get_metacoin_purchases = SSdbcore.NewQuery("SELECT item_id,item_class FROM [format_table_name("metacoin_item_purchases")] WHERE ckey = '[ckey]'")
-
-	if(!query_get_metacoin_purchases.warn_execute())
-		return
-
-	while (query_get_metacoin_purchases.NextRow())
-		var/id = query_get_metacoin_purchases.item[1]
-		metacoin_items += id
-
-	qdel(query_get_metacoin_purchases)

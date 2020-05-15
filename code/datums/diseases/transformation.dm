@@ -112,7 +112,7 @@
 	stage_prob = 4
 	visibility_flags = 0
 	agent = "Kongey Vibrion M-909"
-	new_form = /mob/living/carbon/monkey
+	new_form = null
 	bantype = ROLE_MONKEY
 
 
@@ -127,9 +127,11 @@
 	if(affected_mob.mind && !is_monkey(affected_mob.mind))
 		add_monkey(affected_mob.mind)
 	if(ishuman(affected_mob))
-		var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
-		M.ventcrawler = VENTCRAWLER_ALWAYS
-
+		if(affected_mob && !is_monkey_leader(affected_mob.mind))
+			var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
+			M.ventcrawler = VENTCRAWLER_ALWAYS
+		else
+			affected_mob.junglegorillize()
 
 /datum/disease/transformation/jungle_fever/stage_act()
 	..()

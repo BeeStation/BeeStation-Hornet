@@ -807,7 +807,7 @@
 /area/holodeck/rec_center/basketball)
 "cl" = (
 /obj/item/clothing/under/color/rainbow,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/holofloor/beach,
 /area/holodeck/rec_center/beach)
 "cm" = (
@@ -1497,7 +1497,7 @@
 "dX" = (
 /obj/structure/table/wood,
 /obj/item/folder,
-/obj/item/melee/classic_baton/telescopic,
+/obj/item/melee/classic_baton/police/telescopic,
 /turf/open/floor/holofloor,
 /area/holodeck/rec_center/school)
 "dY" = (
@@ -3866,7 +3866,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/control)
 "jS" = (
-/obj/machinery/computer/prisoner,
+/obj/machinery/computer/prisoner/management,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/centcom/control)
@@ -5917,7 +5917,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/control)
 "nY" = (
-/obj/machinery/computer/prisoner{
+/obj/machinery/computer/prisoner/management{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -10998,7 +10998,7 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
 "yv" = (
-/obj/machinery/computer/prisoner{
+/obj/machinery/computer/prisoner/management{
 	dir = 1
 	},
 /obj/machinery/light,

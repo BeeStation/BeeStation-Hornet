@@ -130,8 +130,8 @@
 				for(var/datum/reagent/R in reagents.reagent_list)
 					if (istype(R, /datum/reagent/consumable))
 						var/datum/reagent/consumable/nutri_check = R
-						if(nutri_check.nutriment_factor >0)
-							H.adjust_nutrition(nutri_check.nutriment_factor * nutri_check.volume)
+						if(nutri_check.nutriment_factor > 0)
+							H.adjust_nutrition(nutri_check.nutriment_factor * nutri_check.volume * 15) //Volume is typically really low so it needs a multiplier
 							reagents.remove_reagent(nutri_check.type,nutri_check.volume)
 			reagents.trans_to(H, reagents.total_volume, transfered_by = user)
 			qdel(src)

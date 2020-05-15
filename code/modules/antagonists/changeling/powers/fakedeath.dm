@@ -37,18 +37,6 @@
 		return
 	user.cure_fakedeath("changeling")
 	user.revive(full_heal = TRUE)
-	var/list/missing = user.get_missing_limbs()
-	missing -= BODY_ZONE_HEAD // headless changelings are funny
-	if(missing.len)
-		playsound(user, 'sound/magic/demon_consume.ogg', 50, 1)
-		user.visible_message("<span class='warning'>[user]'s missing limbs \
-			reform, making a loud, grotesque sound!</span>",
-			"<span class='userdanger'>Your limbs regrow, making a \
-			loud, crunchy sound and giving you great pain!</span>",
-			"<span class='italics'>You hear organic matter ripping \
-			and tearing!</span>")
-		user.emote("scream")
-		user.regenerate_limbs(0, list(BODY_ZONE_HEAD))
 	user.regenerate_organs()
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(mob/user)
@@ -64,6 +52,9 @@
 			revive_ready = TRUE
 
 /datum/action/changeling/fakedeath/can_sting(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_HUSK))
+		to_chat(user, "<span class='warning'>This body is too damaged to revive!.</span>")
+		return
 	if(HAS_TRAIT_FROM(user, TRAIT_DEATHCOMA, "changeling") && !revive_ready)
 		to_chat(user, "<span class='warning'>We are already reviving.</span>")
 		return

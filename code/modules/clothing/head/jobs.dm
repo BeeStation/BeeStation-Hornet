@@ -299,6 +299,13 @@
 	armor = list(bomb = 5, bio = 5, fire = 5, acid = 10)
 	strip_delay = 60
 
+/obj/item/clothing/head/beret/supply
+	name = "supply beret"
+	desc = "A brown beret with the supply insignia emblazoned on it. You can't help but wonder how much it'd sell for."
+	icon_state = "beret_supply"
+	armor = list(rad = 10, fire = 10)
+	strip_delay = 60
+
 //Medical
 /obj/item/clothing/head/beret/med
 	name = "medical beret"

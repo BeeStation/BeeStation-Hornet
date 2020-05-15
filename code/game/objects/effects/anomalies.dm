@@ -176,6 +176,8 @@
 /obj/effect/anomaly/flux/detonate()
 	if(explosive)
 		explosion(src, 1, 4, 16, 18) //Low devastation, but hits a lot of stuff.
+		log_game("A flux anomaly has detonated at [loc].")
+		message_admins("A flux anomaly has detonated at [ADMIN_VERBOSEJMP(loc)].")
 	else
 		new /obj/effect/particle_effect/sparks(loc)
 
@@ -276,6 +278,8 @@
 	var/turf/open/T = get_turf(src)
 	if(istype(T))
 		T.atmos_spawn_air("o2=500;plasma=500;TEMP=1000") //Make it hot and burny for the new slime
+		log_game("A pyroclastic anomaly has detonated at [loc].")
+		message_admins("A pyroclastic anomaly has detonated at [ADMIN_VERBOSEJMP(loc)].")
 	var/new_colour = pick("red", "orange")
 	var/mob/living/simple_animal/slime/S = new(T, new_colour)
 	S.rabid = TRUE

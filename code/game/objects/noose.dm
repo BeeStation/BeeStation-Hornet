@@ -79,6 +79,8 @@
 		unbuckle_all_mobs(force=1)
 		M.pixel_z = initial(M.pixel_z)
 		pixel_z = initial(pixel_z)
+		M.pixel_x = initial(M.pixel_x)
+		pixel_x = initial(pixel_x)
 		add_fingerprint(user)
 
 /obj/structure/chair/noose/user_buckle_mob(mob/living/carbon/human/M, mob/user)
@@ -125,16 +127,25 @@
 			animate(src, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
 			animate(m, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
 		if(buckled_mob.mob_has_gravity())
-			if(buckled_mob.stat != DEAD)
-				if(!HAS_TRAIT(buckled_mob, TRAIT_NOBREATH))
-					buckled_mob.adjustOxyLoss(5)
-					if(prob(40))
-						buckled_mob.emote("gasp")
-				if(prob(20))
-					var/flavor_text = list("<span class='suicide'>[buckled_mob]'s legs flail for anything to stand on.</span>",\
-											"<span class='suicide'>[buckled_mob]'s hands are desperately clutching the noose.</span>",\
-											"<span class='suicide'>[buckled_mob]'s limbs sway back and forth with diminishing strength.</span>")
-					buckled_mob.visible_message(pick(flavor_text))
-			playsound(buckled_mob.loc, 'sound/effects/noose_idle.ogg', 30, 1, -3)
+			if(buckled_mob.get_bodypart("head"))
+				if(buckled_mob.stat != DEAD)
+					if(!HAS_TRAIT(buckled_mob, TRAIT_NOBREATH))
+						buckled_mob.adjustOxyLoss(5)
+						if(prob(40))
+							buckled_mob.emote("gasp")
+					if(prob(20))
+						var/flavor_text = list("<span class='suicide'>[buckled_mob]'s legs flail for anything to stand on.</span>",\
+												"<span class='suicide'>[buckled_mob]'s hands are desperately clutching the noose.</span>",\
+												"<span class='suicide'>[buckled_mob]'s limbs sway back and forth with diminishing strength.</span>")
+						buckled_mob.visible_message(pick(flavor_text))
+				playsound(buckled_mob.loc, 'sound/effects/noose_idle.ogg', 30, 1, -3)
+			else
+				buckled_mob.visible_message("<span class='danger'>[buckled_mob] drops from the noose!</span>")
+				buckled_mob.Knockdown(60)
+				buckled_mob.pixel_z = initial(buckled_mob.pixel_z)
+				pixel_z = initial(pixel_z)
+				buckled_mob.pixel_x = initial(buckled_mob.pixel_x)
+				pixel_x = initial(pixel_x)
+				unbuckle_all_mobs(force=1)
 
 

@@ -1027,7 +1027,7 @@
 "Xq" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/item/melee/classic_baton,
+/obj/item/melee/classic_baton/police,
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/caravan/pirate)

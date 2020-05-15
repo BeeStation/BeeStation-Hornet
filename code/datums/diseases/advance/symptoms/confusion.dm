@@ -33,6 +33,11 @@ Bonus
 					  <b>Transmission 6:</b> Increases confusion duration.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 
+/datum/symptom/confusion/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["resistance"] >= 6)
+		severity += 1
+
 /datum/symptom/confusion/Start(datum/disease/advance/A)
 	if(!..())
 		return

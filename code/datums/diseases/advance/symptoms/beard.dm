@@ -23,7 +23,7 @@ BONUS
 	stage_speed = 2
 	transmittable = 1
 	level = 4
-	severity = 1
+	severity = 0
 	symptom_delay_min = 18
 	symptom_delay_max = 36
 

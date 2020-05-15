@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	"A" = 1, "B" = 1, "C" = 1, "D" = 1, "E" = 1, "F" = 1, "G" = 1, "H" = 1, "I" = 1, "J" = 1, "K" = 1, "L" = 1, "M" = 1,
 	"N" = 1, "O" = 1, "P" = 1, "Q" = 1, "R" = 1, "S" = 1, "T" = 1, "U" = 1, "V" = 1, "W" = 1, "X" = 1, "Y" = 1, "Z" = 1,
 	"0" = 1, "1" = 1, "2" = 1, "3" = 1, "4" = 1, "5" = 1, "6" = 1, "7" = 1, "8" = 1, "9" = 1,
-	"-" = 1, "=" = 1, "\[" = 1, "\]" = 1, "\\" = 1, "." = 1, "," = 1, "<" = 1, ">" = 1, "/" = 1, "`" = 1, "Capslock" = 1,
+	"-" = 1, "=" = 1, "+" = 1, "\[" = 1, "\]" = 1, "\\" = 1, "." = 1, "," = 1, "<" = 1, ">" = 1, "/" = 1, "`" = 1, "Capslock" = 1,
 	"Numpad0" = 1, "Numpad1" = 1, "Numpad2" = 1, "Numpad3" = 1, "Numpad4" = 1, "Numpad5" = 1, "Numpad6" = 1, "Numpad7" = 1, "Numpad8" = 1, "Numpad9" = 1,
 	"North" = 1, "South" = 1, "East" = 1, "West" = 1, "Northwest" = 1, "Southwest" = 1, "Northeast" = 1, "Southeast" = 1,
 	"Center" = 1, "Return" = 1, "Escape" = 1, "Tab" = 1, "Space" = 1, "Back" = 1, "Insert" = 1, "Delete" = 1, "Pause" = 1, "Snapshot" = 1,
@@ -20,14 +20,14 @@ GLOBAL_LIST_INIT(valid_keys, list(
 /proc/input_sanity_check(client/C, key)
 	if(GLOB.valid_keys[key])
 		return FALSE
-		
+
 	if(length(key) > 32)
 		log_admin("[key_name(C)] just attempted to send an invalid keypress with length over 32 characters, likely malicious.")
 		message_admins("Mob [(C.mob)] with the ckey [(C.ckey)] just attempted to send an invalid keypress with length over 32 characters, likely malicious.")
 	else
 		log_admin_private("[key_name(C)] just attempted to send an invalid keypress - \"[key]\", possibly malicious.")
 		message_admins("Mob [(C.mob)] with the ckey [(C.ckey)] just attempted to send an invalid keypress - \"[key]\", possibly malicious.")
-	
+
 	return TRUE
 
 /client/verb/keyDown(_key as text)

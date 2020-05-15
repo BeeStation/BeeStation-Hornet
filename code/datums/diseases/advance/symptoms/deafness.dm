@@ -24,12 +24,17 @@ Bonus
 	stage_speed = -1
 	transmittable = -3
 	level = 4
-	severity = 4
+	severity = 2
 	base_message_chance = 100
 	symptom_delay_min = 25
 	symptom_delay_max = 80
 	threshold_desc = "<b>Resistance 9:</b> Causes permanent deafness, instead of intermittent.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
+
+/datum/symptom/deafness/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["resistance"] >= 9) 
+		severity += 1
 
 /datum/symptom/deafness/Start(datum/disease/advance/A)
 	if(!..())

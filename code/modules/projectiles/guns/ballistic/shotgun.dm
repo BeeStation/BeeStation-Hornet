@@ -20,6 +20,7 @@
 	bolt_wording = "pump"
 	cartridge_wording = "shell"
 	tac_reloads = FALSE
+	fire_rate = 1 //reee
 
 /obj/item/gun/ballistic/shotgun/blow_up(mob/user)
 	. = 0
@@ -50,9 +51,9 @@
 
 // Automatic Shotguns//
 
-/obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user as mob|obj)
+/obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user)
 	..()
-	src.rack()
+	rack()
 
 /obj/item/gun/ballistic/shotgun/automatic/combat
 	name = "combat shotgun"
@@ -142,6 +143,8 @@
 	semi_auto = TRUE
 	internal_magazine = FALSE
 	tac_reloads = TRUE
+	fire_rate = 2
+	automatic = 1
 
 
 /obj/item/gun/ballistic/shotgun/bulldog/unrestricted
@@ -173,6 +176,7 @@
 						)
 	semi_auto = TRUE
 	bolt_type = BOLT_TYPE_NO_BOLT
+	fire_rate = 2 //being double barrelled, you don't rely on internal mechanisms.
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/AltClick(mob/user)
 	. = ..()

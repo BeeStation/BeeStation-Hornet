@@ -66,7 +66,7 @@
 		O.setOrganDamage(0)
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
-		if(D.severity == DISEASE_SEVERITY_POSITIVE)
+		if(D.severity == DISEASE_SEVERITY_BENEFICIAL || D.severity == DISEASE_SEVERITY_POSITIVE)
 			continue
 		D.cure()
 	..()
@@ -397,19 +397,19 @@
 
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
-	description = "Heals toxin damage as well as slowly removing any other chemicals the patient has in their bloodstream."
+	description = "Heals mild toxin damage as well as slowly removing any other chemicals the patient has in their bloodstream."
 	reagent_state = LIQUID
 	color = "#000000"
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolization_rate = REAGENTS_METABOLISM
 	taste_description = "ash"
 	process_flags = ORGANIC
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-2*REM, 0)
+	M.adjustToxLoss(-1*REM, 0)
 	. = 1
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.type,1)
+			M.reagents.remove_reagent(R.type,0.75)
 	..()
 
 /datum/reagent/medicine/system_cleaner

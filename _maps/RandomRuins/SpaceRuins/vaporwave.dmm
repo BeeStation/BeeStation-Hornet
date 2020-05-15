@@ -82,7 +82,7 @@
 /area/ruin/space/has_grav/powered/aesthetic)
 "s" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/glasses/sunglasses/big{
+/obj/item/clothing/glasses/sunglasses/advanced/big{
 	name = "aesthetic sunglasses"
 	},
 /turf/open/floor/plasteel/vaporwave,

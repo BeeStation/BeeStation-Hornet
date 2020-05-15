@@ -1,0 +1,44 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/structure/bed,
+/obj/item/bedsheet/dorms,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/item/trash/sosjerky,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/item/electronics/airalarm,
+/obj/item/circuitboard/machine/seed_extractor,
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+d
+b
+"}
+(2,1,1) = {"
+b
+b
+b
+"}
+(3,1,1) = {"
+c
+e
+b
+"}

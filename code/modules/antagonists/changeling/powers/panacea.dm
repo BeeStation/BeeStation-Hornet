@@ -1,7 +1,7 @@
 /datum/action/changeling/panacea
-	name = "Anatomic Panacea"
-	desc = "Expels impurifications from our form; curing diseases, removing parasites, sobering us, purging toxins and radiation, and resetting our genetic code completely. Costs 20 chemicals."
-	helptext = "Can be used while unconscious."
+	name = "Total purge"
+	desc = "Expels impurities in our form, causing us to heal toxin damage, expel all chemicals, curing most diseases, brain damage, and traumas and resetting our genetic code completely. Costs 20 chemicals."
+	helptext = "Obvious when used, as it sprays all reagents out in a violent manner. Can be used while unconscious."
 	button_icon_state = "panacea"
 	chemical_cost = 20
 	dna_cost = 1
@@ -26,16 +26,27 @@
 			C.vomit(0, toxic = TRUE)
 		O.forceMove(get_turf(user))
 
-	user.reagents.add_reagent(/datum/reagent/medicine/mutadone, 10)
-	user.reagents.add_reagent(/datum/reagent/medicine/pen_acid, 20)
-	user.reagents.add_reagent(/datum/reagent/medicine/antihol, 10)
-	user.reagents.add_reagent(/datum/reagent/medicine/mannitol, 25)
+	var/obj/effect/sweatsplash/S = new(user.loc)
+	for(var/datum/reagent/R in user.reagents.reagent_list) //Not just toxins!
+		var/amount = R.volume
+		user.reagents.remove_reagent(R.type, amount)
+		S.reagents.add_reagent(R.type, amount)
+	S.splash()
+	user.reagents.add_reagent(/datum/reagent/medicine/mutadone, 1)
 
-	if(isliving(user))
-		var/mob/living/L = user
+	if(iscarbon(user))
+		var/mob/living/carbon/L = user
+		L.drunkenness = 0
+		L.setToxLoss(0, 0)
+		L.adjustOrganLoss(ORGAN_SLOT_BRAIN, -100)
+		L.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
 		for(var/thing in L.diseases)
 			var/datum/disease/D = thing
-			if(D.severity == DISEASE_SEVERITY_POSITIVE)
+			if(D.severity == DISEASE_SEVERITY_POSITIVE || D.severity == DISEASE_SEVERITY_BENEFICIAL || D.spread_flags == DISEASE_SPREAD_SPECIAL)
 				continue
-			D.cure()
+			if(D in subtypesof(/datum/disease/advance))
+				var/datum/disease/advance/A = D
+				if(A.properties["resistance"] >= 12)
+					continue
+			D.cure(FALSE)
 	return TRUE

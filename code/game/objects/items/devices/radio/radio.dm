@@ -118,7 +118,7 @@
 				ui_height += 6 + channels.len * 21
 			else
 				ui_height += 24
-		ui = new(user, src, ui_key, "radio", name, ui_width, ui_height, master_ui, state)
+		ui = new(user, src, ui_key, "Radio", name, ui_width, ui_height, master_ui, state)
 		ui.open()
 
 /obj/item/radio/ui_data(mob/user)
@@ -137,7 +137,7 @@
 	data["useCommand"] = use_command
 	data["subspace"] = subspace_transmission
 	data["subspaceSwitchable"] = subspace_switchable
-	data["headset"] = istype(src, /obj/item/radio/headset)
+	data["headset"] = FALSE
 
 	return data
 
@@ -357,11 +357,14 @@
 	for (var/ch_name in channels)
 		channels[ch_name] = 0
 	on = FALSE
-	spawn(200)
-		if(emped == curremp) //Don't fix it if it's been EMP'd again
-			emped = 0
-			if (!istype(src, /obj/item/radio/intercom)) // intercoms will turn back on on their own
-				on = TRUE
+	addtimer(CALLBACK(src, .proc/end_emp_effect, curremp), 200)
+
+/obj/item/radio/proc/end_emp_effect(curremp)
+	if(emped != curremp) //Don't fix it if it's been EMP'd again
+		return FALSE
+	emped = FALSE
+	on = TRUE
+	return TRUE
 
 ///////////////////////////////
 //////////Borg Radios//////////

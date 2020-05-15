@@ -29,6 +29,7 @@
 	var/neutered = FALSE
 	var/list/thresholds
 	var/naturally_occuring = TRUE //if this symptom can appear from /datum/disease/advance/GenerateSymptoms()
+	var/dynamicseverity = FALSE //prevents severity from stacking
 
 /datum/symptom/New()
 	var/list/S = SSdisease.list_symptoms
@@ -44,6 +45,10 @@
 		return FALSE
 	next_activation = world.time + rand(symptom_delay_min * 10, symptom_delay_max * 10) //so it doesn't instantly activate on infection
 	return TRUE
+
+//called when a disease first tries to infect someone.
+/datum/symptom/proc/severityset(datum/disease/advance/A)
+	dynamicseverity = TRUE
 
 // Called when the advance disease is going to be deleted or when the advance disease stops processing.
 /datum/symptom/proc/End(datum/disease/advance/A)
@@ -74,11 +79,11 @@
 
 /datum/symptom/proc/generate_threshold_desc()
 	return
-	
-/datum/symptom/proc/OnDeath(datum/disease/advance/A)
+
+/datum/symptom/proc/OnDeath(datum/disease/advance/A)    //What happens when the host dies.
 	return !neutered
-	
-/datum/symptom/proc/OnAdd(datum/disease/advance/A)		//Overload when a symptom needs to be active before processing, like changing biotypes. 
+
+/datum/symptom/proc/OnAdd(datum/disease/advance/A)		//Overload when a symptom needs to be active before processing, like changing biotypes.
 	return
 
 /datum/symptom/proc/OnRemove(datum/disease/advance/A)	//But dont forget to remove them too.

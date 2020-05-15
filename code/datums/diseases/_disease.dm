@@ -137,7 +137,7 @@
 	qdel(src)
 
 /datum/disease/proc/IsSame(datum/disease/D)
-	if(istype(src, D.type))
+	if(istype(D, type))
 		return TRUE
 	return FALSE
 
@@ -173,20 +173,24 @@
 //Use this to compare severities
 /proc/get_disease_severity_value(severity)
 	switch(severity)
-		if(DISEASE_SEVERITY_POSITIVE)
+		if(DISEASE_SEVERITY_BENEFICIAL)
 			return 1
-		if(DISEASE_SEVERITY_NONTHREAT)
+		if(DISEASE_SEVERITY_POSITIVE)
 			return 2
-		if(DISEASE_SEVERITY_MINOR)
+		if(DISEASE_SEVERITY_NONTHREAT)
 			return 3
-		if(DISEASE_SEVERITY_MEDIUM)
+		if(DISEASE_SEVERITY_MINOR)
 			return 4
-		if(DISEASE_SEVERITY_HARMFUL)
+		if(DISEASE_SEVERITY_MEDIUM)
 			return 5
-		if(DISEASE_SEVERITY_DANGEROUS)
+		if(DISEASE_SEVERITY_HARMFUL)
 			return 6
-		if(DISEASE_SEVERITY_BIOHAZARD)
+		if(DISEASE_SEVERITY_DANGEROUS)
 			return 7
+		if(DISEASE_SEVERITY_BIOHAZARD)
+			return 8
+		if(DISEASE_SEVERITY_PANDEMIC)
+			return 9
 
 /datum/disease/proc/speechModification(message)
 	return message

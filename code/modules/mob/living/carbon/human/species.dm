@@ -412,6 +412,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				if(hair_color)
 					if(hair_color == "mutcolor")
 						facial_overlay.color = "#" + H.dna.features["mcolor"]
+					else if (hair_color =="fixedmutcolor")
+						facial_overlay.color = "#[fixed_mut_color]"
 					else
 						facial_overlay.color = "#" + hair_color
 				else
@@ -472,6 +474,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					if(hair_color)
 						if(hair_color == "mutcolor")
 							hair_overlay.color = "#" + H.dna.features["mcolor"]
+						else if(hair_color == "fixedmutcolor")
+							hair_overlay.color = "#[fixed_mut_color]"
 						else
 							hair_overlay.color = "#" + hair_color
 					else
@@ -1389,7 +1393,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		if(target.IsKnockdown() && !target.IsParalyzed())
 			target.Paralyze(SHOVE_CHAIN_PARALYZE)
-			target.visible_message("<span class='danger'>[user.name] kicks [target.name] onto their side!</span>",
+			target.visible_message("<span class='danger'>[user.name] kicks [target.name] onto [target.p_their()] side!</span>",
 				"<span class='danger'>[user.name] kicks you onto your side!</span>", null, COMBAT_MESSAGE_RANGE)
 			addtimer(CALLBACK(target, /mob/living/proc/SetKnockdown, 0), SHOVE_CHAIN_PARALYZE)
 			log_combat(user, target, "kicks", "onto their side (paralyzing)")
@@ -1407,11 +1411,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						if(O.flags_1 & ON_BORDER_1 && O.dir == turn(shove_dir, 180) && O.density)
 							directional_blocked = TRUE
 							break
-			if((!target_table && !target_collateral_human) || directional_blocked)
+			if((!target_table && !target_collateral_human && !target_disposal_bin) || directional_blocked)
 				target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
 				target.drop_all_held_items()
-				user.visible_message("<span class='danger'>[user.name] shoves [target.name], knocking them down!</span>",
-					"<span class='danger'>You shove [target.name], knocking them down!</span>", null, COMBAT_MESSAGE_RANGE)
+				user.visible_message("<span class='danger'>[user.name] shoves [target.name], knocking [target.p_them()] down!</span>",
+					"<span class='danger'>You shove [target.name], knocking [target.p_them()] down!</span>", null, COMBAT_MESSAGE_RANGE)
 				log_combat(user, target, "shoved", "knocking them down")
 			else if(target_table)
 				target.Knockdown(SHOVE_KNOCKDOWN_TABLE)

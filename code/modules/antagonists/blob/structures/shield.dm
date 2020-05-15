@@ -56,3 +56,4 @@
 	if(!(P.reflectable & REFLECT_FAKEPROJECTILE))
 		visible_message("<span class='warning'>[P] reflects off [src]!</span>")
 	return TRUE
+

@@ -294,3 +294,4 @@
 /mob/living/simple_animal/hostile/blob/blobbernaut/independent
 	independent = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
+

@@ -106,7 +106,7 @@
 
 /datum/crafting_recipe/beergoggles
 	name = "Beer Goggles"
-	result = /obj/item/clothing/glasses/sunglasses/reagent
+	result = /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/science = 1,
@@ -119,7 +119,7 @@
 	result = /obj/item/clothing/glasses/sunglasses
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	reqs = list(/obj/item/clothing/glasses/sunglasses/reagent = 1)
+	reqs = list(/obj/item/clothing/glasses/sunglasses/advanced/reagent = 1)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/ghostsheet
