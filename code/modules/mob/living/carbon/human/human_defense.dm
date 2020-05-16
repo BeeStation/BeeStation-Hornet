@@ -124,7 +124,7 @@
 	if(wear_neck)
 		if(wear_neck.hit_reaction(src, AM, attack_text, damage, attack_type))
 			return TRUE
-  return FALSE
+	return FALSE
 
 /mob/living/carbon/human/proc/check_block()
 	if(mind)
