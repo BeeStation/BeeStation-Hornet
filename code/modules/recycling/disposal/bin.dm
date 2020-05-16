@@ -486,7 +486,7 @@
 		var/mob/M = AM
 		if(prob(2)) // to prevent mobs being stuck in infinite loops
 			to_chat(M, "<span class='warning'>You hit the edge of the chute.</span>")
-			return 
+			return
 		M.forceMove(src)
 	flush()
 
