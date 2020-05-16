@@ -12,6 +12,19 @@
 	var/subcategory = CAT_NONE
 	var/always_availible = TRUE //Set to FALSE if it needs to be learned first.
 
+/datum/crafting_recipe/New()
+	if(!(result in reqs))
+		blacklist += result
+
+/**
+  * Run custom pre-craft checks for this recipe
+  *
+  * user: the /mob that initiated the crafting
+  * collected_requirements: A list of lists of /obj/item instances that satisfy reqs. Top level list is keyed by requirement path.
+  */
+/datum/crafting_recipe/proc/check_requirements(mob/user, list/collected_requirements)
+	return TRUE
+
 /datum/crafting_recipe/pin_removal
 	name = "Pin Removal"
 	result = /obj/item/gun
@@ -21,6 +34,12 @@
 	time = 50
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/pin_removal/check_requirements(mob,user, list/collected_requirements)
+	var/obj/item/gun/G = collected_requirements[/obj/item/gun][1]
+	if (G.no_pin_required || !G.pin)
+		return FALSE
+	return TRUE
 
 /datum/crafting_recipe/IED
 	name = "IED"
@@ -246,6 +265,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/pipebow
+	name = "Pipe Bow"
+	result = /obj/item/gun/ballistic/bow/pipe
+	reqs = list(/obj/item/pipe = 5,
+				/obj/item/stack/sheet/plastic = 15,
+				/obj/item/weaponcrafting/silkstring = 10)
+	time = 450
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/meteorslug
 	name = "Meteorslug Shell"
 	result = /obj/item/ammo_casing/shotgun/meteorslug
@@ -320,6 +349,45 @@
 				/obj/item/stock_parts/micro_laser/high = 1)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/arrow
+	name = "Arrow"
+	result = /obj/item/ammo_casing/caseless/arrow/wood
+	time = 30
+	reqs = list(/obj/item/stack/sheet/mineral/wood = 1,
+				/obj/item/stack/sheet/silk = 1,
+				/obj/item/stack/rods = 1) //1 metal sheet = 2 rods= 2 arrows
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/bone_arrow
+	name = "Bone Arrow"
+	result = /obj/item/ammo_casing/caseless/arrow/bone
+	time = 30
+	reqs = list(/obj/item/stack/sheet/bone = 1,
+				/obj/item/stack/sheet/sinew = 1,
+				/obj/item/ammo_casing/caseless/arrow/ash = 1)
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/ashen_arrow
+	name = "Fire hardened arrow"
+	result = /obj/item/ammo_casing/caseless/arrow/ash
+	tools = list(TOOL_WELDER)
+	time = 30
+	reqs = list(/obj/item/ammo_casing/caseless/arrow/wood = 1)
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/bronze_arrow
+	name = "Bronze arrow"
+	result = /obj/item/ammo_casing/caseless/arrow/bronze
+	time = 30
+	reqs = list(/obj/item/stack/sheet/mineral/wood = 1,
+				/obj/item/stack/tile/bronze = 1,
+				/obj/item/stack/sheet/silk = 1)
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
@@ -637,6 +705,22 @@
 	time = 20
 	reqs = list(/obj/item/stack/sheet/sinew = 2,
 				/obj/item/stack/sheet/animalhide/goliath_hide = 2)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/quiver
+	name = "Quiver"
+	result = /obj/item/storage/belt/quiver
+	time = 80
+	reqs = list(/obj/item/stack/sheet/leather = 3,
+				/obj/item/stack/sheet/sinew = 4)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bone_bow
+	name = "Bone Bow"
+	result = /obj/item/gun/ballistic/bow/ashen
+	time = 200
+	reqs = list(/obj/item/stack/sheet/bone = 8,
+				/obj/item/stack/sheet/sinew = 4)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/firebrand
