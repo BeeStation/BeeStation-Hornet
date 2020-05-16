@@ -398,10 +398,10 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		ui.open()
 
 /datum/admin_help/ui_data(mob/user)
-	var/datum/admins/admin_datum = GLOB.admin_datums[usr.ckey]
+	var/datum/admins/admin_datum = GLOB.admin_datums[user.ckey]
 	if(!admin_datum)
-		message_admins("[usr] sent a request to interact with the ticket window without sufficient rights.")
-		log_admin_private("[usr] sent a request to interact with the ticket window without sufficient rights.")
+		message_admins("[user] sent a request to interact with the ticket window without sufficient rights.")
+		log_admin_private("[user] sent a request to interact with the ticket window without sufficient rights.")
 		return
 	var/list/data = list()
 	//Messages
