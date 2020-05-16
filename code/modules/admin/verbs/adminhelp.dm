@@ -773,12 +773,12 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	else
 		C = what
 	if(istype(C) && C.current_ticket)
-		C.current_ticket.AddInteraction("white", message, whofrom, whoto)
+		C.current_ticket.AddInteraction(color, message, whofrom, whoto)
 		return C.current_ticket
 	if(istext(what))	//ckey
 		var/datum/admin_help/AH = GLOB.ahelp_tickets.CKey2ActiveTicket(what)
 		if(AH)
-			AH.AddInteraction("white", message, whofrom, whoto)
+			AH.AddInteraction(color, message, whofrom, whoto)
 			return AH
 
 
