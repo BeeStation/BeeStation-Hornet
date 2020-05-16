@@ -37,7 +37,7 @@ Actual Adjacent procs :
 //! ### A* nodes variables
 /datum/PathNode
 	/// turf associated with the PathNode
-	var/turf/source 
+	var/turf/source
 	/// link to the parent PathNode
 	var/datum/PathNode/prevNode
 	/// A* Node weight `(f = g + h)`
@@ -46,7 +46,7 @@ Actual Adjacent procs :
 	var/g
 	/// A* heuristic variable
 	var/h
-	/// count the number of Nodes traversed	
+	/// count the number of Nodes traversed
 	var/nt
 	/// bitflag for dir to expand.Some sufficiently advanced motherfuckery
 	var/bf
@@ -214,5 +214,8 @@ Actual Adjacent procs :
 	for(var/obj/O in T)
 		if(!O.CanAStarPass(ID, rdir, caller))
 			return TRUE
+	/*for(var/obj/machinery/door/firedoor/border_only/W in src) //TODO: Uncomment after porting firedoors
+		if(!W.CanAStarPass(ID, adir, caller))
+			return TRUE*/
 
 	return FALSE
