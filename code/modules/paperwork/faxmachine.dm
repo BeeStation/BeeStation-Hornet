@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(alldepartments)
 		ui.open()
 
 /obj/machinery/photocopier/faxmachine/ui_data(mob/user)
-	var/list/data = list()
+	var/data = list()
 	var/is_authenticated = is_authenticated(user)
 
 	if(scan)
