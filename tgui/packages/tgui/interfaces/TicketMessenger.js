@@ -4,7 +4,7 @@ import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Collapsible,
 import { Window, Layout } from '../layouts';
 import { round } from 'common/math';
 
-export const TicketMessanger = (props, context) => {
+export const TicketMessenger = (props, context) => {
   return (
     <Window
       theme="admin">
