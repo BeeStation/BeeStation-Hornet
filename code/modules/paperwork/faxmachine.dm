@@ -70,7 +70,7 @@ GLOBAL_LIST_EMPTY(alldepartments)
 /obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "faxmachine", "Fax Machine UI", 540, 450, master_ui, state)
+		ui = new(user, src, ui_key, "FaxMachine", "Fax Machine UI", 540, 450, master_ui, state)
 		ui.open()
 
 /obj/machinery/photocopier/faxmachine/ui_data(mob/user)
@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(alldepartments)
 		data["paperinserted"] = TRUE
 	else
 		data["paper"] = "-----"
-		data["paperinserted"] = TRUE
+		data["paperinserted"] = FALSE
 	data["destination"] = destination
 	data["cooldown"] = sendcooldown
 	if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments))
