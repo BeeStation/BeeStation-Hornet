@@ -3466,7 +3466,7 @@
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior/cryo)
 "gR" = (
-/obj/item/melee/classic_baton/telescopic,
+/obj/item/melee/classic_baton/police/telescopic,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},

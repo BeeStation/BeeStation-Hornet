@@ -267,6 +267,43 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
+/////////////////////////shuttle tech/////////////////////////
+/datum/techweb_node/basic_shuttle_tech
+	id = "basic_shuttle"
+	display_name = "Basic Shuttle Research"
+	description = "Research the technology required to create and use basic shuttles."
+	prereq_ids = list("bluespace_travel", "adv_engi")
+	design_ids = list("shuttle_creator", "engine_plasma", "engine_heater", "shuttle_control", "shuttle_docker")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_route_upgrade
+	id = "shuttle_route_upgrade"
+	display_name = "Route Optimisation Upgrade"
+	description = "Research into bluespace tunnelling, allowing us to reduce flight times by up to 20%!"
+	prereq_ids = list("basic_shuttle")
+	design_ids = list("disk_shuttle_route")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 2500
+
+/datum/techweb_node/shuttle_route_upgrade_hyper
+	id = "shuttle_route_upgrade_hyper"
+	display_name = "Hyperlane Optimisation Upgrade"
+	description = "Research into bluespace hyperlane, allowing us to reduce flight times by up to 40%!"
+	prereq_ids = list("shuttle_route_upgrade", "micro_bluespace")
+	design_ids = list("disk_shuttle_route_hyper")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_route_upgrade_void
+	id = "shuttle_route_upgrade_void"
+	display_name = "Nullspace Breaching Upgrade"
+	description = "Research into voidspace tunnelling, allowing us to significantly reduce flight times."
+	prereq_ids = list("shuttle_route_upgrade_hyper", "alientech")
+	design_ids = list("disk_shuttle_route_void", "engine_void")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
+	export_price = 5000
+
 /////////////////////////robotics tech/////////////////////////
 /datum/techweb_node/robotics
 	id = "robotics"
@@ -376,7 +413,7 @@
 	description = "Honk?!"
 	prereq_ids = list("base")
 	design_ids = list("air_horn", "honker_main", "honker_peri", "honker_targ", "honk_chassis", "honk_head", "honk_torso", "honk_left_arm", "honk_right_arm",
-	"honk_left_leg", "honk_right_leg", "mech_banana_mortar", "mech_mousetrap_mortar", "mech_honker", "mech_punching_face", "implant_trombone", "borg_transform_clown")
+	"honk_left_leg", "honk_right_leg", "mech_banana_mortar", "mech_mousetrap_mortar", "mech_honker", "mech_punching_face", "implant_trombone", "borg_transform_clown", "clown_mine")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -589,7 +626,7 @@
 	id = "sec_basic"
 	display_name = "Basic Security Equipment"
 	description = "Standard equipment used by security."
-	design_ids = list("seclite", "pepperspray", "bola_energy", "zipties", "evidencebag")
+	design_ids = list("seclite", "pepperspray", "bola_energy", "zipties", "evidencebag", "flashbulb")
 	prereq_ids = list("base")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 	export_price = 5000
@@ -614,6 +651,16 @@
 
 
 /////////////////////////weaponry tech/////////////////////////
+
+/datum/techweb_node/landmine
+	id = "nonlethal_mines"
+	display_name = "Nonlethal Landmine Technology"
+	description = "Our weapons technicians could perhaps work out methods for the creation of nonlethal landmines for security teams."
+	prereq_ids = list("sec_basic")
+	design_ids = list("stunmine")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	export_price = 5000
+
 /datum/techweb_node/weaponry
 	id = "weaponry"
 	display_name = "Weapon Development Technology"
@@ -623,6 +670,15 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
+/datum/techweb_node/smartmine
+	id = "smart_mines"
+	display_name = "Smart Landmine Technology"
+	description = "Using IFF technology, we could develop smartmines that do not trigger for those who are mindshielded."
+	prereq_ids = list("weaponry", "nonlethal_mines", "engineering")
+	design_ids = list("stunmine_adv")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+
 /datum/techweb_node/adv_weaponry
 	id = "adv_weaponry"
 	display_name = "Advanced Weapon Development Technology"
@@ -630,6 +686,15 @@
 	prereq_ids = list("adv_engi", "weaponry")
 	design_ids = list("pin_loyalty")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	export_price = 5000
+
+/datum/techweb_node/advmine
+	id = "adv_mines"
+	display_name = "Advanced Landmine Technology"
+	description = "We can further develop our smartmines to build some extremely capable designs."
+	prereq_ids = list("weaponry", "smart_mines", "adv_engi")
+	design_ids = list("stunmine_rapid", "stunmine_heavy")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
 /datum/techweb_node/electric_weapons

@@ -107,6 +107,9 @@
 		if(objectives)
 			if(!A)
 				A = MM.add_antag_datum(/datum/antagonist/custom)
+				//Don't delay roundend with ghost role created antags
+				A.delay_roundend = FALSE
+				A.prevent_roundtype_conversion = FALSE
 			for(var/objective in objectives)
 				var/datum/objective/O = new/datum/objective(objective)
 				O.owner = MM
@@ -393,7 +396,7 @@
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	suit = /obj/item/clothing/suit/armor/vest
-	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	id = /obj/item/card/id
 
 /obj/effect/mob_spawn/human/beach
@@ -447,7 +450,7 @@
 	uniform = /obj/item/clothing/under/rank/centcom_officer
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	shoes = /obj/item/clothing/shoes/sneakers/black
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	id = /obj/item/card/id/gold
 
 
@@ -581,4 +584,4 @@
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	suit = /obj/item/clothing/suit/armor/vest
-	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent

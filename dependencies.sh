@@ -13,7 +13,7 @@ if [[ -f "Dockerfile" ]]; then
 fi
 
 #rust_g git tag
-export RUST_G_VERSION=0.4.2
+export RUST_G_VERSION=0.4.3
 
 #bsql git tag
 export BSQL_VERSION=v1.4.0.0

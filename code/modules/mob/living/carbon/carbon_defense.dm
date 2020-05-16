@@ -24,6 +24,17 @@
 
 /mob/living/carbon/get_ear_protection()
 	var/number = ..()
+	if(istype(src.head, /obj/item/clothing/head))			//are they wearing something on their head
+		var/obj/item/clothing/head/HHP = src.head			//if yes gets the flash protection value from that item
+		number += HHP.bang_protect
+
+	if(istype(src.ears, /obj/item/radio/headset))		//headset
+		var/obj/item/radio/headset/RHP = src.ears
+		number += RHP.bang_protect
+
+	if(istype(src.ears, /obj/item/clothing/ears))		//ear slot. This is different from headset because headset is a subtype of radio
+		var/obj/item/clothing/ears/EHP = src.ears
+		number += EHP.bang_protect
 	var/obj/item/organ/ears/E = getorganslot(ORGAN_SLOT_EARS)
 	if(!E)
 		number = INFINITY
@@ -82,10 +93,7 @@
 
 /mob/living/carbon/attacked_by(obj/item/I, mob/living/user)
 	var/obj/item/bodypart/affecting
-	if(user == src)
-		affecting = get_bodypart(check_zone(user.zone_selected)) //we're self-mutilating! yay!
-	else
-		affecting = get_bodypart(ran_zone(user.zone_selected))
+	affecting = get_bodypart(check_zone(user.zone_selected))
 	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
@@ -93,7 +101,7 @@
 	if(I.force)
 		apply_damage(I.force, I.damtype, affecting)
 		if(I.damtype == BRUTE && affecting.status == BODYPART_ORGANIC)
-			if(prob(33))
+			if(I.sharpness || I.force >= 10)
 				I.add_mob_blood(src)
 				var/turf/location = get_turf(src)
 				add_splatter_floor(location)
@@ -114,8 +122,14 @@
 						update_inv_head()
 
 		//dismemberment
-		var/probability = I.get_dismemberment_chance(affecting)
-		if(prob(probability))
+		var/dismemberthreshold = (((affecting.max_damage * 2) / I.sharpness) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))
+		if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER))
+			dismemberthreshold -= 50
+		if(I.sharpness)
+			dismemberthreshold = min(((affecting.max_damage * 2) - affecting.get_damage()), dismemberthreshold) //makes it so limbs wont become immune to being dismembered if the item is sharp
+			if(stat == DEAD)
+				dismemberthreshold = dismemberthreshold / 3 
+		if(I.force >= dismemberthreshold && I.force >= 10)
 			if(affecting.dismember(I.damtype))
 				I.add_mob_blood(src)
 				playsound(get_turf(src), I.get_dismember_sound(), 80, 1)

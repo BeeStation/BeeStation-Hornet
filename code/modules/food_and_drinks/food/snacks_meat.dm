@@ -104,7 +104,7 @@
 /obj/item/reagent_containers/food/snacks/meatball
 	name = "meatball"
 	desc = "A great meal all round. Not a cord of wood."
-	icon_state = "faggot"
+	icon_state = "meatball"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 1)
 	filling_color = "#800000"
 	tastes = list("meat" = 1)
@@ -118,48 +118,12 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("meat" = 1)
-	foodtype = MEAT
+	foodtype = MEAT | BREAKFAST
 	var/roasted = FALSE
 
 /obj/item/reagent_containers/food/snacks/sausage/Initialize()
 	. = ..()
 	eatverb = pick("bite","chew","nibble","deep throat","gobble","chomp")
-
-/obj/item/reagent_containers/food/snacks/kebab
-	trash = /obj/item/stack/rods
-	icon_state = "kebab"
-	w_class = WEIGHT_CLASS_NORMAL
-	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
-	tastes = list("meat" = 3, "metal" = 1)
-	foodtype = MEAT
-
-/obj/item/reagent_containers/food/snacks/kebab/human
-	name = "human-kebab"
-	desc = "A human meat, on a stick."
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 6)
-	tastes = list("tender meat" = 3, "metal" = 1)
-	foodtype = MEAT | GROSS
-
-/obj/item/reagent_containers/food/snacks/kebab/monkey
-	name = "meat-kebab"
-	desc = "Delicious meat, on a stick."
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
-	tastes = list("meat" = 3, "metal" = 1)
-	foodtype = MEAT
-
-/obj/item/reagent_containers/food/snacks/kebab/tofu
-	name = "tofu-kebab"
-	desc = "Vegan meat, on a stick."
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1)
-	tastes = list("tofu" = 3, "metal" = 1)
-	foodtype = VEGETABLES
-
-/obj/item/reagent_containers/food/snacks/kebab/tail
-	name = "lizard-tail kebab"
-	desc = "Severed lizard tail on a stick."
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 4)
-	tastes = list("meat" = 8, "metal" = 4, "scales" = 1)
-	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/rawkhinkali
 	name = "raw khinkali"
@@ -300,6 +264,68 @@
 	filling_color = "#800000"
 	tastes = list("meat" = 1, "butter" = 1)
 
+/obj/item/reagent_containers/food/snacks/bbqribs
+	name = "bbq ribs"
+	desc = "BBQ ribs, slathered in a healthy coating of BBQ sauce. The least vegan thing to ever exist."
+	icon_state = "ribs"
+	w_class = WEIGHT_CLASS_NORMAL
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/bbqsauce = 5)
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
+	tastes = list("meat" = 3, "smokey sauce" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/meatclown
+	name = "meat clown"
+	desc = "A delicious, round piece of meat clown. How horrifying."
+	icon_state = "meatclown"
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 1, /datum/reagent/consumable/banana = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
+	tastes = list("meat" = 5, "clowns" = 3, "sixteen teslas" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/meatclown/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/slippery, 30)
+
+//////////////////////////////////////////// KEBABS AND OTHER SKEWERS ////////////////////////////////////////////
+
+/obj/item/reagent_containers/food/snacks/kebab
+	trash = /obj/item/stack/rods
+	icon_state = "kebab"
+	w_class = WEIGHT_CLASS_NORMAL
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
+	tastes = list("meat" = 3, "metal" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/kebab/human
+	name = "human-kebab"
+	desc = "A human meat, on a stick."
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 6)
+	tastes = list("tender meat" = 3, "metal" = 1)
+	foodtype = MEAT | GROSS
+
+/obj/item/reagent_containers/food/snacks/kebab/monkey
+	name = "meat-kebab"
+	desc = "Delicious meat, on a stick."
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
+	tastes = list("meat" = 3, "metal" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/kebab/tofu
+	name = "tofu-kebab"
+	desc = "Vegan meat, on a stick."
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1)
+	tastes = list("tofu" = 3, "metal" = 1)
+	foodtype = VEGETABLES
+
+
+/obj/item/reagent_containers/food/snacks/kebab/tail
+	name = "lizard-tail kebab"
+	desc = "Severed lizard tail on a stick."
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 4)
+	tastes = list("meat" = 8, "metal" = 4, "scales" = 1)
+	foodtype = MEAT
+
 /obj/item/reagent_containers/food/snacks/kebab/rat
 	name = "rat-kebab"
 	desc = "Not so delicious rat meat, on a stick."
@@ -322,6 +348,11 @@
 	bonus_reagents = list(/datum/reagent/consumable/vitfro = 2)
 	tastes = list("tough meat" = 2, "bubblegum" = 1)
 	foodtype = MEAT
+/obj/item/reagent_containers/food/snacks/kebab/fiesta
+	name = "fiesta skewer"
+	icon_state = "fiestaskewer"
+	tastes = list("tex-mex" = 3, "cumin" = 2)
+	bonus_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/consumable/capsaicin = 3)
 
 /obj/item/reagent_containers/food/snacks/dolphinmeat
   name = "dolphin fillet"
@@ -336,3 +367,14 @@
 /obj/item/reagent_containers/food/snacks/dolphinmeat/Initialize()
   . = ..()
   eatverb = pick("bite","chew","choke down","gnaw","swallow","chomp")
+
+
+/obj/item/reagent_containers/food/snacks/bbqribs
+	name = "bbq ribs"
+	desc = "BBQ ribs, slathered in a healthy coating of BBQ sauce. The least vegan thing to ever exist."
+	icon_state = "ribs"
+	w_class = WEIGHT_CLASS_NORMAL
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/bbqsauce = 5)
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
+	tastes = list("meat" = 3, "smokey sauce" = 1)
+	foodtype = MEAT

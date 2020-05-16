@@ -1,0 +1,60 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/item/storage/toolbox/emergency,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"f" = (
+/obj/item/tank/internals/air,
+/obj/item/tank/internals/air,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/item/storage/box/lights/mixed,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/closet/firecloset,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+d
+g
+"}
+(2,1,1) = {"
+b
+e
+h
+"}
+(3,1,1) = {"
+c
+f
+i
+"}

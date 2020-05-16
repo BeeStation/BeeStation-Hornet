@@ -29,6 +29,7 @@
 	animal_species = /mob/living/simple_animal/pet/hamster
 	gold_core_spawnable = FRIENDLY_SPAWN
 	can_be_held = TRUE
+	mobsay_color = "#D3B277"
 
 /mob/living/simple_animal/pet/hamster/vector
 	name = "Vector"

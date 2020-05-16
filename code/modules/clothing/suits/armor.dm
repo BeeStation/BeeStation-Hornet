@@ -25,7 +25,7 @@
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/clothing/suit/armor/vest/alt
-	desc = "A Type I-B armored vest that provides decent protection against most types of damage. A bit heavier on the shoulders than it's type I-A cousin."
+	desc = "An alternate style Type I-B armored vest that provides decent protection against most types of damage. They perform identically in the field."
 	icon_state = "armor"
 	item_state = "armor"
 
@@ -38,7 +38,7 @@
 
 /obj/item/clothing/suit/armor/vest/blueshirt
 	name = "large armor vest"
-	desc = "A large, yet comfortable piece of armor, protecting you from some threats."
+	desc = "A large, yet comfortable piece of armor, protecting you from some threats. Type H-L"
 	icon_state = "blueshift"
 	item_state = "blueshift"
 	custom_premium_price = 600
@@ -118,7 +118,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 	blocks_shove_knockdown = TRUE
 	strip_delay = 80
 	equip_delay_other = 60

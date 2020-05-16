@@ -33,7 +33,7 @@ First-time installation should be fairly straightforward. First, you'll need
 BYOND installed. You can get it from https://www.byond.com/download. Once you've done
 that, extract the game files to wherever you want to keep them. This is a
 sourcecode-only release, so the next step is to compile the server files.
-Open tgstation.dme by double-clicking it, open the Build menu, and click
+Open beestation.dme by double-clicking it, open the Build menu, and click
 compile. This'll take a little while, and if everything's done right you'll get
 a message like this:
 
@@ -74,7 +74,7 @@ and install it themselves. Directions can be found at the [rust-g
 repo](https://github.com/tgstation/rust-g).
 
 Finally, to start the server, run Dream Daemon and enter the path to your
-compiled tgstation.dmb file. Make sure to set the port to the one you
+compiled beestation.dmb file. Make sure to set the port to the one you
 specified in the config.txt, and set the Security box to 'Safe'. Then press GO
 and the server should start up and be ready to join. It is also recommended that
 you set up the SQL backend (see below).
@@ -117,7 +117,7 @@ Anytime you want to make changes to a map it's imperative you use the [Map Mergi
 
 ## AWAY MISSIONS
 
-/tg/station supports loading away missions however they are disabled by default.
+BeeStation supports loading away missions however they are disabled by default.
 
 Map files for away missions are located in the _maps/RandomZLevels directory. Each away mission includes it's own code definitions located in /code/modules/awaymissions/mission_code. These files must be included and compiled with the server beforehand otherwise the server will crash upon trying to load away missions that lack their code.
 
@@ -125,7 +125,7 @@ To enable an away mission open `config/awaymissionconfig.txt` and uncomment one 
 
 ## SQL SETUP
 
-The SQL backend requires a Mariadb server running 10.2 or later. Mysql is not supported but Mariadb is a drop in replacement for mysql. SQL is required for the library, stats tracking, admin notes, and job-only bans, among other features, mostly related to server administration. Your server details go in /config/dbconfig.txt, and the SQL schema is in /SQL/tgstation_schema.sql and /SQL/tgstation_schema_prefix.sql depending on if you want table prefixes.  More detailed setup instructions are located here: https://wiki.beestation13.com/view/Downloading_the_source_code#Setting_up_the_database
+The SQL backend requires a Mariadb server running 10.2 or later. Mysql is not supported but Mariadb is a drop in replacement for mysql. SQL is required for the library, stats tracking, admin notes, and job-only bans, among other features, mostly related to server administration. Your server details go in /config/dbconfig.txt, and the SQL schema is in /SQL/beestation_schema.sql and /SQL/beestation_schema_prefix.sql depending on if you want table prefixes.  More detailed setup instructions are located here: https://wiki.beestation13.com/view/Downloading_the_source_code#Setting_up_the_database
 
 If you are hosting a testing server on windows you can use a standalone version of MariaDB pre load with a blank (but initialized) tgdb database. Find them here: https://tgstation13.download/database/ Just unzip and run for a working (but insecure) database server. Includes a zipped copy of the data folder for easy resetting back to square one.
 

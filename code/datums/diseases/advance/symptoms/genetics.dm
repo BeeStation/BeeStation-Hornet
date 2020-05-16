@@ -23,7 +23,7 @@ Bonus
 	stage_speed = 0
 	transmittable = -3
 	level = 6
-	severity = 4
+	severity = 3
 	var/list/possible_mutations
 	var/archived_dna = null
 	base_message_chance = 50
@@ -34,6 +34,13 @@ Bonus
 					  <b>Stage Speed 10:</b> Increases mutation frequency.<br>\
 					  <b>Stage Speed 14:</b> Mutations will be beneficial.<br>\
 					  <b>Stealth 5:</b> The mutations persist even if the virus is cured."
+
+/datum/symptom/genetics/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["stage_rate"] >= 14)
+		severity = 0
+	else if(A.properties["resistance"] >= 8) 
+		severity += 1
 
 /datum/symptom/genetic_mutation/Activate(datum/disease/advance/A)
 	if(!..())

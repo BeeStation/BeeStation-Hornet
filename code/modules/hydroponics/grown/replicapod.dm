@@ -9,7 +9,7 @@
 	product = /mob/living/carbon/human //verrry special -- Urist
 	lifespan = 50
 	endurance = 8
-	maturation = 10
+	maturation = 8
 	production = 1
 	yield = 1 //seeds if there isn't a dna inside
 	potency = 30
@@ -44,6 +44,8 @@
 				quirks = B.data["quirks"]
 				contains_sample = TRUE
 				visible_message("<span class='notice'>The [src] is injected with a fresh blood sample.</span>")
+				mind.grab_ghost()
+				to_chat(mind, "<span class='notice'><b>Consciousness slowly creeps over you as your body sprouts into a new form.</b><br><i>Am I being planted?</i></span>")
 				log_cloning("[key_name(mind)]'s cloning record was added to [src] at [AREACOORD(src)].")
 			else
 				visible_message("<span class='warning'>The [src] rejects the sample!</span>")
@@ -118,6 +120,8 @@
 			new V(podman)
 		podman.hardset_dna(null,null,podman.real_name,blood_type, new /datum/species/pod,features)//Discard SE's and UI's, podman cloning is inaccurate, and always make them a podman
 		podman.set_cloned_appearance()
+		to_chat(podman, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
+		podman.flash_act()
 		log_cloning("[key_name(mind)] cloned as a podman via [src] in [parent] at [AREACOORD(parent)].")
 
 	else //else, one packet of seeds. maybe two

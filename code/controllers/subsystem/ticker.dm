@@ -646,17 +646,9 @@ SUBSYSTEM_DEF(ticker)
 	save_admin_data()
 	update_everything_flag_in_db()
 	if(!round_end_sound)
-		round_end_sound = pick(\
-		'sound/roundend/newroundsexy.ogg',
-		'sound/roundend/apcdestroyed.ogg',
-		'sound/roundend/bangindonk.ogg',
-		'sound/roundend/leavingtg.ogg',
-		'sound/roundend/its_only_game.ogg',
-		'sound/roundend/yeehaw.ogg',
-		'sound/roundend/disappointed.ogg',
-		'sound/roundend/scrunglartiy.ogg',
-		'sound/roundend/whyban.ogg'\
-		)
+		var/list/tracks = flist("sound/roundend/")
+		if(tracks.len)
+			round_end_sound = "sound/roundend/[pick(tracks)]"
 
 	SEND_SOUND(world, sound(round_end_sound))
 	text2file(login_music, "data/last_round_lobby_music.txt")

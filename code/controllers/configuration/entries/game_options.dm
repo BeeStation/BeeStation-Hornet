@@ -396,4 +396,11 @@
 /datum/config_entry/number/max_slimes
 	config_entry_value = 100
 
+//Shuttle size limiter
+/datum/config_entry/number/max_shuttle_count
+	config_entry_value = 6
+
+/datum/config_entry/number/max_shuttle_size
+	config_entry_value = 250
+
 /datum/config_entry/flag/restricted_suicide

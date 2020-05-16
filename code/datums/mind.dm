@@ -56,6 +56,8 @@
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE // If false, renders the character unable to sell their soul.
 	var/isholy = FALSE //is this person a chaplain or admin role allowed to use bibles
+	var/isAntagTarget = FALSE
+	var/no_cloning_at_all = FALSE
 
 	var/mob/living/enslaved_to //If this mind's master is another mob (i.e. adamantine golems)
 	var/datum/language_holder/language_holder
@@ -128,6 +130,7 @@
 	RegisterSignal(new_character, COMSIG_MOB_DEATH, .proc/set_death_time)
 	if(active || force_key_move)
 		new_character.key = key		//now transfer the key to link the client to our new body
+	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
 
 /datum/mind/proc/set_death_time()
 	last_death = world.time
@@ -332,9 +335,6 @@
 	else if(is_revolutionary(creator))
 		var/datum/antagonist/rev/converter = creator.mind.has_antag_datum(/datum/antagonist/rev,TRUE)
 		converter.add_revolutionary(src,FALSE)
-
-	else if(is_servant_of_ratvar(creator))
-		add_servant_of_ratvar(current)
 
 	else if(is_nuclear_operative(creator))
 		var/datum/antagonist/nukeop/converter = creator.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE)

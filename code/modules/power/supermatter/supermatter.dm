@@ -63,6 +63,9 @@
 
 #define SUPERMATTER_COUNTDOWN_TIME 30 SECONDS
 
+///to prevent accent sounds from layering
+#define SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN 2 SECONDS
+
 GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 /obj/machinery/power/supermatter_crystal
@@ -155,6 +158,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	var/moveable = FALSE
 
+	/// cooldown tracker for accent sounds, 
+	var/last_accent_sound = 0
+
 /obj/machinery/power/supermatter_crystal/Initialize()
 	. = ..()
 	uid = gl_uid++
@@ -192,9 +198,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		var/mob/living/carbon/C = user
 		if (!istype(C.glasses, /obj/item/clothing/glasses/meson) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 			. += "<span class='danger'>You get headaches just from looking at it.</span>"
-
-/obj/machinery/power/supermatter_crystal/get_spans()
-	return list(SPAN_ROBOT)
 
 #define CRITICAL_TEMPERATURE 10000
 
@@ -253,10 +256,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	add_overlay(causality_field, TRUE)
 
 	var/speaking = "[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated."
-	radio.talk_into(src, speaking, common_channel, get_spans(), get_default_language())
+	radio.talk_into(src, speaking, common_channel, language = get_default_language())
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
 		if(damage < explosion_point) // Cutting it a bit close there engineers
-			radio.talk_into(src, "[safe_alert] Failsafe has been disengaged.", common_channel, get_spans(), get_default_language())
+			radio.talk_into(src, "[safe_alert] Failsafe has been disengaged.", common_channel)
 			cut_overlay(causality_field, TRUE)
 			final_countdown = FALSE
 			return
@@ -267,7 +270,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			speaking = "[DisplayTimeText(i, TRUE)] remain before causality stabilization."
 		else
 			speaking = "[i*0.1]..."
-		radio.talk_into(src, speaking, common_channel, get_spans(), get_default_language())
+		radio.talk_into(src, speaking, common_channel)
 		sleep(10)
 
 	explode()
@@ -324,7 +327,20 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		return
 
 	if(power)
-		soundloop.volume = min(40, (round(power/100)/50)+1) // 5 +1 volume per 20 power. 2500 power is max
+		soundloop.volume = CLAMP((50 + (power / 50)), 50, 100)
+	if(damage >= 300)
+		soundloop.mid_sounds = list('sound/machines/sm/loops/delamming.ogg' = 1)
+	else
+		soundloop.mid_sounds = list('sound/machines/sm/loops/calm.ogg' = 1)
+
+	if(last_accent_sound < world.time && prob(20))
+		var/aggression = min(((damage / 800) * (power / 2500)), 1.0) * 100
+		if(damage >= 300)
+			playsound(src, "smdelam", max(50, aggression), FALSE, 10)
+		else
+			playsound(src, "smcalm", max(50, aggression), FALSE, 10)
+		var/next_sound = round((100 - aggression) * 5)
+		last_accent_sound = world.time + max(SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN, next_sound)
 
 	//Ok, get the air from the turf
 	var/datum/gas_mixture/env = T.return_air()
@@ -355,8 +371,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 			//capping damage
 			damage = min(damage_archived + (DAMAGE_HARDCAP * explosion_point),damage)
-			if(damage > damage_archived && prob(10))
-				playsound(get_turf(src), 'sound/effects/empulse.ogg', 50, 1)
 
 		removed.assert_gases(/datum/gas/oxygen, /datum/gas/plasma, /datum/gas/carbon_dioxide, /datum/gas/nitrous_oxide, /datum/gas/nitrogen, /datum/gas/pluoxium, /datum/gas/tritium, /datum/gas/bz)
 		//calculating gas related values
@@ -480,27 +494,27 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			alarm()
 
 			if(damage > emergency_point)
-				radio.talk_into(src, "[emergency_alert] Integrity: [get_integrity()]%", common_channel, get_spans(), get_default_language())
+				radio.talk_into(src, "[emergency_alert] Integrity: [get_integrity()]%", common_channel)
 				lastwarning = REALTIMEOFDAY
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", INVESTIGATE_SUPERMATTER)
 					message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
 					has_reached_emergency = TRUE
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.talk_into(src, "[warning_alert] Integrity: [get_integrity()]%", engineering_channel, get_spans(), get_default_language())
+				radio.talk_into(src, "[warning_alert] Integrity: [get_integrity()]%", engineering_channel)
 				lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
 
 			else                                                 // Phew, we're safe
-				radio.talk_into(src, "[safe_alert] Integrity: [get_integrity()]%", engineering_channel, get_spans(), get_default_language())
+				radio.talk_into(src, "[safe_alert] Integrity: [get_integrity()]%", engineering_channel)
 				lastwarning = REALTIMEOFDAY
 
 			if(power > POWER_PENALTY_THRESHOLD)
-				radio.talk_into(src, "Warning: Hyperstructure has reached dangerous power level.", engineering_channel, get_spans(), get_default_language())
+				radio.talk_into(src, "Warning: Hyperstructure has reached dangerous power level.", engineering_channel)
 				if(powerloss_inhibitor < 0.5)
-					radio.talk_into(src, "DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.", engineering_channel, get_spans(), get_default_language())
+					radio.talk_into(src, "DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.", engineering_channel)
 
 			if(combined_gas > MOLE_PENALTY_THRESHOLD)
-				radio.talk_into(src, "Warning: Critical coolant mass reached.", engineering_channel, get_spans(), get_default_language())
+				radio.talk_into(src, "Warning: Critical coolant mass reached.", engineering_channel)
 
 		if(damage > explosion_point)
 			countdown()

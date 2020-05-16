@@ -164,13 +164,16 @@
 *Blart Uniform
 */
 /obj/item/clothing/under/rank/security/mallcop
-	name = "NT mall cop uniform"
+	name = "NanoTrasen mall cop uniform"
 	desc = "The radio and badge are sewn on, what a crappy knock off. Secway not included."
 	icon_state = "mallcop"
 	item_state = "gy_suit"
 	item_color = "mallcop"
 	can_adjust = FALSE
 
+/obj/item/clothing/under/rank/security/mallcop/deputy
+	name = "deputy uniform"
+	desc = "A lightly armored formal uniform fit for wannabe security members."
 /*
  *Spacepol
  */

@@ -17,7 +17,7 @@
 /obj/item/circuitboard/computer/advanced_camera
 	name = "Advanced Camera Console (Computer Board)"
 	build_path = /obj/machinery/computer/camera_advanced/syndie
-	
+
 /obj/item/circuitboard/computer/xenobiology
 	name = "circuit board (Xenobiology Console)"
 	build_path = /obj/machinery/computer/camera_advanced/xenobio
@@ -194,9 +194,10 @@
 /obj/item/circuitboard/computer/prisoner
 	name = "Prisoner Management Console (Computer Board)"
 	build_path = /obj/machinery/computer/prisoner
+
 /obj/item/circuitboard/computer/gulag_teleporter_console
 	name = "Labor Camp teleporter console (Computer Board)"
-	build_path = /obj/machinery/computer/gulag_teleporter_computer
+	build_path = /obj/machinery/computer/prisoner/gulag_teleporter_computer
 
 /obj/item/circuitboard/computer/rdconsole/production
 	name = "R&D Console Production Only (Computer Board)"
@@ -234,6 +235,10 @@
 /obj/item/circuitboard/computer/mech_bay_power_console
 	name = "Mech Bay Power Control Console (Computer Board)"
 	build_path = /obj/machinery/computer/mech_bay_power_console
+
+/obj/item/circuitboard/computer/warrant
+	name = "Security Warrant Viewer (Computer Board)"
+	build_path = /obj/machinery/computer/warrant
 
 /obj/item/circuitboard/computer/cargo
 	name = "Supply Console (Computer Board)"
@@ -398,3 +403,11 @@
 /obj/item/circuitboard/computer/nanite_cloud_controller
 	name = "Nanite Cloud Control (Computer Board)"
 	build_path = /obj/machinery/computer/nanite_cloud_controller
+
+/obj/item/circuitboard/computer/shuttle/flight_control
+	name = "Shuttle Flight Control (Computer Board)"
+	build_path = /obj/machinery/computer/custom_shuttle
+
+/obj/item/circuitboard/computer/shuttle/docker
+	name = "Shuttle Navigation Computer (Computer Board)"
+	build_path = /obj/machinery/computer/camera_advanced/shuttle_docker/custom

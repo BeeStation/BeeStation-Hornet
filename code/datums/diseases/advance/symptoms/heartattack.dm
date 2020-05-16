@@ -23,12 +23,17 @@ Bonus
 	stage_speed = -6
 	transmittable = -2
 	level = 9
-	severity = 6
+	severity = 5
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/heartattack = FALSE 
 	threshold_desc = "<b>Transmission 10:</b> When the victim has a heart attack, their heart will pop right out of their chest, and attack!.<br>\
 					  <b>Stealth 2:</b> The disease is somewhat less noticable to the host."
+
+/datum/symptom/heartattack/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["transmittable"] >= 10)
+		severity += 1
 
 /datum/symptom/heartattack/Start(datum/disease/advance/A)
 	if(!..())

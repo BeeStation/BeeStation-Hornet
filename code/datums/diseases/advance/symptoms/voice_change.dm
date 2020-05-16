@@ -36,6 +36,11 @@ Bonus
 					  <b>Stage Speed 7:</b> Changes voice more often.<br>\
 					  <b>Stealth 3:</b> The symptom remains hidden until active."
 
+/datum/symptom/voice_change/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["transmittable"] >= 14) //random language
+		severity += 1
+
 /datum/symptom/voice_change/Start(datum/disease/advance/A)
 	if(!..())
 		return

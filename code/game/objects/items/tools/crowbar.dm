@@ -10,6 +10,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	throwforce = 7
+	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(/datum/material/iron=50)
 

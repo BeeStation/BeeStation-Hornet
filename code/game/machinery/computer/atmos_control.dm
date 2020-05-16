@@ -41,9 +41,12 @@
 /obj/machinery/air_sensor/atmos/incinerator_tank
 	name = "incinerator chamber gas sensor"
 	id_tag = ATMOS_GAS_MONITOR_SENSOR_INCINERATOR
+/obj/machinery/air_sensor/atmos/sm_core
+	name = "supermatter gas sensor"
+	id_tag = ATMOS_GAS_MONITOR_SENSOR_SM
 
 /obj/machinery/air_sensor/update_icon()
-		icon_state = "gsensor[on]"
+	icon_state = "gsensor[on]"
 
 /obj/machinery/air_sensor/process_atmos()
 	if(on)
@@ -92,6 +95,8 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/computer/atmos_control
+	ui_x = 400
+	ui_y = 925
 
 	var/frequency = FREQ_ATMOS_STORAGE
 	var/list/sensors = list(
@@ -105,7 +110,8 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 		ATMOS_GAS_MONITOR_LOOP_DISTRIBUTION = "Distribution Loop",
 		ATMOS_GAS_MONITOR_LOOP_ATMOS_WASTE = "Atmos Waste Loop",
 		ATMOS_GAS_MONITOR_SENSOR_INCINERATOR = "Incinerator Chamber",
-		ATMOS_GAS_MONITOR_SENSOR_TOXINS_LAB = "Toxins Mixing Chamber"
+		ATMOS_GAS_MONITOR_SENSOR_TOXINS_LAB = "Toxins Mixing Chamber",
+		ATMOS_GAS_MONITOR_SENSOR_SM = "Supermatter Core"
 	)
 	var/list/sensor_information = list()
 	var/datum/radio_frequency/radio_connection
@@ -126,7 +132,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "atmos_control", name, 400, 925, master_ui, state)
+		ui = new(user, src, ui_key, "AtmosControlConsole", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/atmos_control/ui_data(mob/user)
@@ -234,6 +240,13 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	sensors = list(ATMOS_GAS_MONITOR_SENSOR_INCINERATOR = "Incinerator Chamber")
 	circuit = /obj/item/circuitboard/computer/atmos_control/tank/incinerator
 
+/obj/machinery/computer/atmos_control/tank/sm
+	name = "Supermatter Air Monitor"
+	input_tag = ATMOS_GAS_MONITOR_INPUT_SM
+	output_tag = ATMOS_GAS_MONITOR_OUTPUT_SM
+	sensors = list(ATMOS_GAS_MONITOR_SENSOR_SM = "Supermatter Core")
+	circuit = /obj/item/circuitboard/computer/atmos_control/tank/incinerator
+
 // This hacky madness is the evidence of the fact that a lot of machines were never meant to be constructable, im so sorry you had to see this
 /obj/machinery/computer/atmos_control/tank/proc/reconnect(mob/user)
 	var/list/IO = list()
@@ -269,7 +282,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "atmos_control", name, 500, 305, master_ui, state)
+		ui = new(user, src, ui_key, "AtmosControlConsole", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/atmos_control/tank/ui_data(mob/user)
@@ -296,7 +309,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 		if("rate")
 			var/target = text2num(params["rate"])
 			if(!isnull(target))
-				target = CLAMP(target, 0, MAX_TRANSFER_RATE)
+				target = clamp(target, 0, MAX_TRANSFER_RATE)
 				signal.data += list("tag" = input_tag, "set_volume_rate" = target)
 				. = TRUE
 		if("output")
@@ -305,7 +318,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 		if("pressure")
 			var/target = text2num(params["pressure"])
 			if(!isnull(target))
-				target = CLAMP(target, 0, 4500)
+				target = clamp(target, 0, 4500)
 				signal.data += list("tag" = output_tag, "set_internal_pressure" = target)
 				. = TRUE
 	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)

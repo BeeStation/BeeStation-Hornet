@@ -152,12 +152,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	animate(src, color = old_color, time = 10, flags = ANIMATION_PARALLEL)
 	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 10)
 
-/mob/dead/observer/ratvar_act()
-	var/old_color = color
-	color = "#FAE48C"
-	animate(src, color = old_color, time = 10, flags = ANIMATION_PARALLEL)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 10)
-
 /mob/dead/observer/Destroy()
 	GLOB.ghost_images_default -= ghostimage_default
 	QDEL_NULL(ghostimage_default)
@@ -180,7 +174,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
  * Hair will always update its dir, so if your sprite has no dirs the haircut will go all over the place.
  * |- Ricotez
  */
-/mob/dead/observer/proc/update_icon(new_form)
+/mob/dead/observer/update_icon(new_form)
+	. = ..()
+
 	if(client) //We update our preferences in case they changed right before update_icon was called.
 		ghost_accs = client.prefs.ghost_accs
 		ghost_others = client.prefs.ghost_others
@@ -640,7 +636,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/dat
 	dat += "<h4>Crew Manifest</h4>"
-	dat += GLOB.data_core.get_manifest()
+	dat += GLOB.data_core.get_manifest_html()
 
 	src << browse(dat, "window=manifest;size=387x420;can_close=1")
 
@@ -736,7 +732,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set_ghost_appearance()
 	if(client?.prefs)
 		deadchat_name = client.prefs.real_name
-		mind.ghostname = client.prefs.real_name
+		if(mind)
+			mind.ghostname = client.prefs.real_name
 		name = client.prefs.real_name
 
 /mob/dead/observer/proc/set_ghost_appearance()

@@ -57,7 +57,7 @@
 			for(var/i in 1 to 7)
 				new /obj/item/clothing/neck/tie/horrible(src)
 		if(51 to 52) // 2% chance
-			new /obj/item/melee/classic_baton(src)
+			new /obj/item/melee/classic_baton/police(src)
 		if(53 to 54)
 			new /obj/item/toy/balloon(src)
 		if(55 to 56)

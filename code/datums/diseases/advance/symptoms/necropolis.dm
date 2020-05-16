@@ -7,7 +7,7 @@
 	transmittable = -3
 	level = 9
 	base_message_chance = 5
-	severity = 0
+	severity = -1
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/tendrils = FALSE
@@ -19,6 +19,13 @@
 	var/list/cached_tentacle_turfs
 	var/turf/last_location
 	var/tentacle_recheck_cooldown = 100
+
+/datum/symptom/necroseed/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["stealth"] >= 8)
+		severity += 2
+	if(A.properties["resistance"] >= 20)
+		severity -= 1
 
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
 	if(!..())
@@ -44,9 +51,7 @@
 		if(5)
 			if(tendrils)
 				tendril(A)
-			M.dna.species.punchdamagelow = 5
-			M.dna.species.punchdamagehigh = 15
-			M.dna.species.punchstunthreshold = 11
+			M.dna.species.punchdamage = 12
 			M.dna.species.brutemod = 0.6
 			M.dna.species.burnmod = 0.6
 			M.dna.species.heatmod = 0.6
@@ -86,9 +91,7 @@
 		return
 	var/mob/living/carbon/M = A.affected_mob
 	to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable.</span>")
-	M.dna.species.punchdamagelow = 1
-	M.dna.species.punchdamagehigh = 5
-	M.dna.species.punchstunthreshold = 10
+	M.dna.species.punchdamage = 3
 	M.dna.species.brutemod = 1.5
 	M.dna.species.burnmod = 1.5
 	M.dna.species.heatmod = 1.5

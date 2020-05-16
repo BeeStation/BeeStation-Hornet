@@ -21,7 +21,18 @@
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
-		return 1
+		return TRUE
+	if(istype(chem, /datum/reagent/consumable))
+		var/datum/reagent/consumable/nutri_check = chem
+		if(nutri_check.nutriment_factor > 0)
+			var/turf/pos = get_turf(H)
+			H.vomit(0, FALSE, FALSE, 2, TRUE)
+			playsound(pos, 'sound/effects/splat.ogg', 50, 1)
+			H.visible_message("<span class='danger'>[H] vomits on the floor!</span>", \
+						"<span class='userdanger'>You throw up on the floor!</span>")
+		return TRUE
+
+	..()
 
 // Change body types
 /datum/species/fly/on_species_gain(mob/living/carbon/C)
@@ -31,17 +42,6 @@
 		var/species = C.dna.features["insect_type"]
 		var/datum/sprite_accessory/insect_type/player_species = GLOB.insect_type_list[species]
 		C.dna.species.limbs_id = player_species.limbs_id
-
-/datum/species/fly/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	if(istype(chem, /datum/reagent/consumable))
-		var/datum/reagent/consumable/nutri_check = chem
-		if(nutri_check.nutriment_factor > 0)
-			var/turf/pos = get_turf(H)
-			H.vomit(0, FALSE, FALSE, 2, TRUE)
-			playsound(pos, 'sound/effects/splat.ogg', 50, 1)
-			H.visible_message("<span class='danger'>[H] vomits on the floor!</span>", \
-						"<span class='userdanger'>You throw up on the floor!</span>")
-	..()
 
 /datum/species/fly/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))
