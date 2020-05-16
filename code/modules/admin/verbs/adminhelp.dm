@@ -534,7 +534,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		initiator.current_ticket = null
 
 /datum/admin_help/proc/Claim(key_name = key_name_admin(usr), silent = FALSE)
-	if(initiator)
+	if(initiator && !claimed_admin)
 		to_chat(initiator, "<font color='red'>Your issue is being investigated by [usr.ckey], please stand by.</span>")
 	if(state == AHELP_UNCLAIMED)
 		GLOB.ahelp_tickets.unclaimed_tickets -= src
