@@ -41649,7 +41649,6 @@
 /area/crew_quarters/heads/hos)
 "btB" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/med_data/laptop,
 /obj/machinery/newscaster/security_unit{
 	pixel_x = 32
 	},
@@ -41666,6 +41665,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Head of Security"
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
@@ -52692,10 +52694,6 @@
 /area/crew_quarters/heads/chief)
 "bJT" = (
 /obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/gps/engineering{
-	gpstag = "CE0"
-	},
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
@@ -52711,6 +52709,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Engineer"
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
@@ -56906,8 +56907,9 @@
 /area/bridge/meeting_room/council)
 "bQy" = (
 /obj/structure/table/wood,
-/obj/item/folder/red,
-/obj/item/book/manual/wiki/security_space_law,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Bridge"
+	},
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
 "bQz" = (
@@ -58253,8 +58255,9 @@
 /area/crew_quarters/heads/captain)
 "bSQ" = (
 /obj/structure/table/wood,
-/obj/item/storage/photo_album,
-/obj/item/camera,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Captain"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "bSR" = (
@@ -62432,6 +62435,10 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/item/clipboard,
+/obj/item/gps/engineering{
+	gpstag = "CE0"
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
@@ -106563,8 +106570,6 @@
 "dwo" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light,
-/obj/item/storage/secure/briefcase,
-/obj/item/taperecorder,
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
@@ -106573,6 +106578,9 @@
 	pixel_y = -26
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/photocopier/faxmachine{
+	department = "Research Director"
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hor)
 "dwp" = (
@@ -110967,8 +110975,6 @@
 /area/medical/morgue)
 "dDW" = (
 /obj/structure/table/glass,
-/obj/item/folder/white,
-/obj/item/storage/secure/briefcase,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
@@ -110979,6 +110985,9 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
+	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Medical Officer"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/cmo)

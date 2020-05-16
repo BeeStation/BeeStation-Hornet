@@ -5744,6 +5744,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Head of Security"
+	},
+/obj/structure/table/wood,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "anU" = (
@@ -7296,20 +7300,19 @@
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
-/obj/item/folder/yellow{
-	pixel_y = 4
-	},
 /obj/structure/table/glass,
 /obj/machinery/light{
 	dir = 1;
 	light_color = "#e8eaff"
 	},
-/obj/item/pen,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Bridge"
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -13333,7 +13336,9 @@
 /area/crew_quarters/heads/captain)
 "aEz" = (
 /obj/structure/table/wood,
-/obj/item/storage/photo_album,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Captain"
+	},
 /turf/open/floor/carpet,
 /area/crew_quarters/heads/captain)
 "aEA" = (
@@ -35276,6 +35281,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/item/stamp/cmo,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "bCu" = (
@@ -36494,8 +36500,6 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "bEG" = (
-/obj/item/folder/blue,
-/obj/item/stamp/cmo,
 /obj/structure/table,
 /obj/machinery/firealarm{
 	dir = 1;
@@ -36506,6 +36510,9 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Medical Officer"
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
@@ -36662,13 +36669,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
 "bET" = (
-/obj/item/paper_bin{
-	layer = 2.9;
-	pixel_x = -2;
-	pixel_y = 5
-	},
 /obj/item/folder/white,
-/obj/item/pen,
 /obj/item/stamp/rd,
 /obj/machinery/status_display/evac{
 	pixel_y = -30
@@ -36682,6 +36683,9 @@
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
+	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Research Director"
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
@@ -36704,6 +36708,12 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/item/paper_bin{
+	layer = 2.9;
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/pen,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
 "bEV" = (
@@ -43852,7 +43862,6 @@
 	req_access_txt = "24"
 	},
 /obj/structure/table/reinforced,
-/obj/item/folder/yellow,
 /obj/item/paper/monitorkey,
 /obj/item/pen,
 /obj/effect/turf_decal/tile/yellow{
@@ -43862,6 +43871,9 @@
 	dir = 8
 	},
 /mob/living/simple_animal/parrot/Poly,
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Engineer"
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "bVE" = (
