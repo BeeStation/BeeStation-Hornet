@@ -17,39 +17,21 @@
 /obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	if(durability)
 		var/attackforce = 0 
-		var/obj/item/riposte = src
-		if(owner.get_active_held_item()) //parry with our active item if we have it
-			riposte = owner.get_active_held_item()
 		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
-			if(P.damtype != STAMINA)// disablers dont do shit to shields
+			if(P.damage_type != STAMINA)// disablers dont do shit to shields
 				attackforce = (P.damage / 2)
-				if(HAS_TRAIT(owner, TRAIT_PARRY))
-					owner.visible_message("<span class='danger'>[owner] deflects [P] with the [src]!</span>")
-					playsound(src, 'sound/weapons/effects/ric1.ogg', 75, 0)
-					stoplag(4)
-					playsound(src, 'sound/weapons/bulletremove.ogg', 75, 0)
-					attackforce = 0
 		if(isitem(hitby))
 			var/obj/item/I = hitby
 			attackforce = damage
 			if(!I.damtype == BRUTE)
 				attackforce = (attackforce / 2)
 			attackforce = (attackforce * I.attack_weight)
-			if(isliving(I.loc) && HAS_TRAIT(owner, TRAIT_PARRY))
-				var/mob/living/L = I.loc
-				L.attackby(riposte, owner)
-				owner.visible_message("<span class='danger'>[owner] parries [L]'s [I] with the [src]!</span>")
-				playsound(src, 'sound/weapons/deflect.ogg', 75, 0)
+			if(I.damtype == STAMINA)//pure stamina damage wont affect blocks
 				attackforce = 0
-		else if(isliving(hitby))
+		else if(isliving(hitby)) //not putting an anti stamina clause in here. only stamina damage simplemobs i know of are swarmers, and them eating shields makes sense
 			var/mob/living/L = hitby
 			attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
-			if(HAS_TRAIT(owner, TRAIT_PARRY))
-				L.attackby(riposte, owner)
-				attackforce = 0
-				owner.visible_message("<span class='danger'>[owner] parries [L] with the [src]!</span>")
-				playsound(src, 'sound/weapons/deflect.ogg', 75, 0)
 			if(block_flags & BLOCKING_NASTY)
 				L.attackby(src, owner)
 				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
