@@ -93,8 +93,8 @@
 			addtimer(CALLBACK(src, .proc/disable_busy,), 15)
 		else
 			break
-	return c
 	updateUsrDialog()
+	return c
 
 /obj/machinery/photocopier/proc/disable_busy()
 	busy = FALSE
