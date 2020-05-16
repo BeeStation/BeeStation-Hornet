@@ -63,7 +63,7 @@
 
 
 /obj/item/paper/examine(mob/user)
-	..()
+	. = ..()
 	var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/simple/paper)
 	assets.send(user)
 
@@ -75,7 +75,7 @@
 			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[burnt ? info : stars(info)]<HR>[stamps]</BODY></HTML>", "window=[name]")
 			onclose(user, "[name]")
 	else
-		to_chat(user, "<span class='notice'>It is too far away.</span>")
+		. += "<span class='notice'>It is too far away.</span>"
 
 /obj/item/paper/verb/rename()
 	set name = "Rename paper"
