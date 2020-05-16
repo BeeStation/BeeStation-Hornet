@@ -41666,7 +41666,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/photocopier/faxmachine/longrange{
+/obj/machinery/photocopier/faxmachine{
 	department = "Head of Security"
 	},
 /turf/open/floor/plasteel/dark,
@@ -56907,7 +56907,7 @@
 /area/bridge/meeting_room/council)
 "bQy" = (
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
+/obj/machinery/photocopier/faxmachine{
 	department = "Bridge"
 	},
 /turf/open/floor/wood,
@@ -68809,6 +68809,7 @@
 	name = "'Law Office RC";
 	pixel_y = -64
 	},
+/obj/item/paper_bin,
 /obj/item/folder/blue{
 	pixel_x = 3;
 	pixel_y = 3
@@ -69819,7 +69820,9 @@
 /area/lawoffice)
 "ckf" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Internal Affairs"
+	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "ckg" = (
@@ -128742,6 +128745,10 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /turf/open/floor/plating,
 /area/maintenance/port)
+"uCk" = (
+/obj/item/folder/red,
+/turf/closed/wall,
+/area/lawoffice)
 "uHG" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -176653,7 +176660,7 @@ ceV
 cgJ
 cbp
 cbp
-cbp
+uCk
 cbk
 cbk
 cbk
