@@ -277,8 +277,8 @@
 /area/ruin/unpowered/ash_walkers)
 "aO" = (
 /obj/structure/stone_tile/surrounding/cracked{
-	dir = 1;
-	icon_state = "cracked_surrounding1"
+	icon_state = "cracked_surrounding1";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -341,6 +341,19 @@
 	dir = 1
 	},
 /turf/open/indestructible/boss/air,
+/area/ruin/unpowered/ash_walkers)
+"aY" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "aZ" = (
 /obj/structure/stone_tile/cracked{
@@ -980,8 +993,8 @@
 /area/ruin/unpowered/ash_walkers)
 "cA" = (
 /obj/structure/stone_tile/slab/cracked{
-	dir = 4;
-	icon_state = "cracked_slab1"
+	icon_state = "cracked_slab1";
+	dir = 4
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -1049,6 +1062,22 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"cL" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/twohanded/spear,
+/obj/item/scythe,
+/turf/open/indestructible/boss,
+/area/ruin/unpowered/ash_walkers)
 "cM" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -1212,23 +1241,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"dm" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/table/wood,
-/obj/item/twohanded/spear,
-/obj/item/scythe,
-/obj/item/cultivator,
-/turf/open/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
 "dn" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -1381,21 +1393,6 @@
 	},
 /turf/closed/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"fh" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/obj/item/seeds/cotton,
-/obj/item/seeds/cotton,
-/turf/open/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
 
 (1,1,1) = {"
 aa
@@ -1492,7 +1489,7 @@ ac
 as
 aB
 aN
-fh
+aY
 am
 bw
 ak
@@ -1745,7 +1742,7 @@ dj
 as
 cz
 cD
-dm
+cL
 as
 ah
 "}
