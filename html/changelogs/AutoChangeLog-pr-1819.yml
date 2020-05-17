@@ -1,0 +1,5 @@
+author: qwertyquerty
+delete-after: true
+changes:
+  - bugfix: Ghosts and incapacitated users can no longer interact with machines using
+      control/alt-click
