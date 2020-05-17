@@ -1,7 +1,0 @@
-author: steamp0rt
-delete-after: true
-changes:
-  - bugfix: Guardians should always be properly revived with their masters now.
-  - tweak: Guardians obtained via the arrow can name themselves.
-  - balance: Guardian masters in a pocket dimension will no longer be GODMODE. Instead,
-      they can no longer enter crit, pass out, or die while inside.

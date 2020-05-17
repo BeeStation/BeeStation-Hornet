@@ -1,5 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - bugfix: If you have a keyboard with F13-F24, you will no longer secretly warn
-      admins when you press one of those keys.
