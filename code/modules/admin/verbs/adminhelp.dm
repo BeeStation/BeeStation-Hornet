@@ -546,7 +546,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	if(claimed_admin)
 		var/confirm = alert("This ticket is already claimed, override claim?",,"Yes", "No")
 
-		if(confirm == "no")
+		if(confirm == "No")
+
 			return
 	if(initiator && !claimed_admin)
 		to_chat(initiator, "<font color='red'>Your issue is being investigated by an administrator, please stand by.</span>")
