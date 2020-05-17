@@ -20,7 +20,8 @@
 	height = 708
 
 	//Thing we are tracking
-	var/mob/track_object
+	var/tracked_ckey
+	var/menu_open = FALSE
 
 	var/view_range = 7
 
@@ -57,6 +58,9 @@
 	qdel(cam_background)
 	. = ..()
 
+/datum/admin_ui_component/admin_cam/process()
+	update_position()
+
 /datum/admin_ui_component/admin_cam/ui_interact(\
 		mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
 		datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
@@ -71,21 +75,25 @@
 		ui = new(user, src, default_ui_key, default_ui_name, window_name, width, height, master_ui, state)
 		ui.open()
 
+		cam_background.icon_state = "clear"
+		cam_background.fill_rect(1, 1, default_map_size, default_map_size)
+		START_PROCESSING(SSprocessing, src)
+
 /datum/admin_ui_component/admin_cam/ui_data()
 	var/list/data = list()
 	data["network"] = list("players")
 	data["activeCamera"] = null
-	if(track_object)
+
+	if(tracked_ckey)
 		data["activeCamera"] = list(
-			name = track_object.ckey,
+			name = tracked_ckey,
 			status = TRUE,
 		)
-	var/list/players = get_all_players()
+	var/list/players = get_all_ckeys()
 	data["cameras"] = list()
 	for(var/i in players)
-		var/mob/M = players[i]
 		data["cameras"] += list(list(
-			name = M.ckey,
+			name = i,
 		))
 	return data
 
@@ -101,30 +109,25 @@
 
 	if(action == "switch_camera")
 		var/a_tag = params["name"]
-		var/list/players = get_all_players()
-		var/mob/A = players[a_tag]
-		track_object = A
+		tracked_ckey = a_tag
 		update_position()
 
 /datum/admin_ui_component/admin_cam/ui_close(mob/user)
+	STOP_PROCESSING(SSprocessing, src)
 	user.client.clear_map(map_name)
 
 /datum/admin_ui_component/admin_cam/proc/update_position()
-	var/list/visible_turfs = list()
-	for(var/turf/T in range(view_range, track_object))
-		visible_turfs += T
+	var/mob/tracked_obj = get_tracked_object()
+	if(!tracked_obj)
+		return
+	cam_screen.vis_contents = range(view_range, tracked_obj)
 
-	var/list/bbox = get_bbox_of_atoms(visible_turfs)
-	var/size_x = bbox[3] - bbox[1] + 1
-	var/size_y = bbox[4] - bbox[2] + 1
-
-	cam_screen.vis_contents = visible_turfs
-	cam_background.icon_state = "clear"
-	cam_background.fill_rect(1, 1, size_x, size_y)
-
-/datum/admin_ui_component/admin_cam/proc/get_all_players()
+/datum/admin_ui_component/admin_cam/proc/get_all_ckeys()
 	var/list/D = list()
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
-		D["[M.ckey]"] = M
+		D += M.ckey
 	return D
+
+/datum/admin_ui_component/admin_cam/proc/get_tracked_object()
+	return get_mob_by_ckey(tracked_ckey)
