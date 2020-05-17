@@ -42,7 +42,7 @@ GLOBAL_VAR_INIT(save_area_executing, FALSE)
 	GLOB.save_area_executing = TRUE
 
 	//Log just in case something happens
-	log_game("[ckey(usr)] ran the save level map generator on [L.map.len] turfs.")
+	log_game("[key_name(usr)] ran the save level map generator on [L.map.len] turfs.")
 	message_admins("[ckey(usr)] ran the save level map generator on [L.map.len] turfs.")
 
 	//Step 1: Get the data (This can take a while)
