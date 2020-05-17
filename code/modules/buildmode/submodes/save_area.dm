@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(save_area_executing, FALSE)
+
 /datum/mapGenerator/save_area
 	buildmode_name = "Save Area"
 	modules = list(/datum/mapGeneratorModule/save_area)
@@ -21,6 +23,9 @@
 	var/datum/mapGenerator/save_area/L = mother
 	if(!istype(L))
 		return
+	if(GLOB.save_area_executing)
+		to_chat(usr, "<span class='warning'>Someone is already running the generator! Try again in a bit.</span>")
+		return
 	//If someone somehow gets build mode, stop them from using this.
 	if(!check_rights(R_ADMIN))
 		message_admins("[ckey(usr)] tried to run the map save generator but was rejected due to insufficient perms.")
@@ -31,8 +36,13 @@
 		var/confirm = alert("Uhm, are you sure, the area is quiet large?", "Run generator", "Yes", "No")
 		if(confirm != "Yes")
 			return
+
+	to_chat(usr, "<span class='warning'>Saving, please wait...</span>")
+	GLOB.save_area_executing = TRUE
+
 	//Log just in case something happens
 	log_game("[ckey(usr)] ran the save level map generator on [L.map.len] turfs.")
+	message_admins("[ckey(usr)] ran the save level map generator on [L.map.len] turfs.")
 
 	//Step 1: Get the data (This can take a while)
 	var/dat = "//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE\n"
@@ -50,3 +60,5 @@
 	//Step 4: Remove the file from the server (hopefully we can find a way to avoid step)
 	fdel(filedir)
 	log_game("[L.map.len] turfs have been saved by [ckey(usr)]")
+	alert("Area saved successfully.", "Action Successful!", "Ok")
+	save_area_executing.save_area_executing = FALSE
