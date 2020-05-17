@@ -39,6 +39,6 @@ GLOBAL_VAR_INIT(next_unique_datum_id, 1)
 
 	// We might locate a client instead of a datum, but just using : is easier
 	// than actually checking and typecasting
-	if(D && D:unique_datum_id == uid)
+	if(D && D.unique_datum_id == uid)
 		return D
 	return null
