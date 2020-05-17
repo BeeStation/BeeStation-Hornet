@@ -49,7 +49,7 @@ This system lets you spray and pray with guns when dragging the mouse.
 	var/mob/user = src.loc
 	autofire_target = object //When we start firing, we start firing at whatever you clicked on initially. When the user drags their mouse, this shall change.
 	while(autofire_target)  //While will only run while we have a user (loc) that is a mob, and we are being actively held by this mob, they have a client (as to prevent disconnecting mid-fight causing you to perma-fire) and of course, if we passed the previous check about autofiring.
-		stoplag(max(fire_delay, 0.15 SECONDS)) //Default fire delay to prevent you from instantly dumping an entire mag out.
+		stoplag(max((10 / fire_rate), 1)) //Default fire delay to prevent you from instantly dumping an entire mag out.
 		if(can_fire_at(autofire_target, user))
 			afterattack(autofire_target, user)
 		else

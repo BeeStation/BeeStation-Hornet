@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(pocket_mirrors)
 	guardian.AddSpell(PDM)
 	if(!LAZYLEN(guardian.pocket_dim))
 		var/list/errorList = list()
-		var/pocket_dim = SSmapping.LoadGroup(errorList, "Pocket Dimension [GLOB.pocket_dim]", "templates", "pocket_dimension.dmm", default_traits = list("Pocket Dimension" = TRUE, "Pocket Dimension [GLOB.pocket_dim]" = TRUE, ZTRAIT_BOMBCAP_MULTIPLIER = 0), silent = TRUE)
+		var/pocket_dim = SSmapping.LoadGroup(errorList, "Pocket Dimension [GLOB.pocket_dim]", "templates", "pocket_dimension.dmm", default_traits = list(ZTRAIT_POCKETDIM = TRUE, "Pocket Dimension [GLOB.pocket_dim]" = TRUE, ZTRAIT_BOMBCAP_MULTIPLIER = 0), silent = TRUE)
 		if(errorList.len)	// reebe failed to load
 			message_admins("A pocket dimension failed to load!")
 			log_game("A pocket dimension failed to load!")
@@ -109,7 +109,7 @@ GLOBAL_LIST_EMPTY(pocket_mirrors)
 		take_effects(L)
 
 /datum/guardian_ability/major/special/pocket/proc/add_effects(mob/living/L)
-	L.status_flags |= GODMODE
+	L.apply_status_effect(/datum/status_effect/dimensional_mending)
 	ADD_TRAIT(L, TRAIT_NOHARDCRIT, GUARDIAN_TRAIT)
 	ADD_TRAIT(L, TRAIT_NOSOFTCRIT, GUARDIAN_TRAIT)
 	ADD_TRAIT(L, TRAIT_NODEATH, GUARDIAN_TRAIT)
@@ -119,7 +119,7 @@ GLOBAL_LIST_EMPTY(pocket_mirrors)
 		G.status_flags |= GODMODE
 
 /datum/guardian_ability/major/special/pocket/proc/take_effects(mob/living/L)
-	L.status_flags &= ~GODMODE
+	L.remove_status_effect(/datum/status_effect/dimensional_mending)
 	REMOVE_TRAIT(L, TRAIT_NOHARDCRIT, GUARDIAN_TRAIT)
 	REMOVE_TRAIT(L, TRAIT_NOSOFTCRIT, GUARDIAN_TRAIT)
 	REMOVE_TRAIT(L, TRAIT_NODEATH, GUARDIAN_TRAIT)
@@ -203,6 +203,9 @@ GLOBAL_LIST_EMPTY(pocket_mirrors)
 		guardian.visible_message("<span class='warning'>The distorted space surronding [guardian] is sucked in!</span>")
 		var/list/people_to_suck_in = list(guardian)
 		if(summoner)
+			summoner.AdjustAllImmobility(-100, FALSE)
+			summoner.health = max(summoner.health, HEALTH_THRESHOLD_CRIT + 1)
+			summoner.update_mobility()
 			people_to_suck_in += summoner
 			for(var/mob/living/L in summoner.hasparasites())
 				people_to_suck_in |= L
@@ -380,3 +383,42 @@ GLOBAL_LIST_EMPTY(pocket_mirrors)
 			var/turf/open/indestructible/pocketspace/PS = locate(px + 1, py + 1, pocket_z)
 			if(PS && istype(PS))
 				PS.vis_contents.Cut()
+
+/datum/status_effect/dimensional_mending
+	id = "dim_mend"
+	duration = -1
+	tick_interval = 2
+	alert_type = /obj/screen/alert/status_effect/dimensional_mending
+
+/datum/status_effect/dimensional_mending/tick()
+	if(!is_pocketdim_level(get_final_z(owner)))
+		owner.remove_status_effect(src)
+		return
+	if(owner.health <= owner.crit_threshold)
+		owner.heal_ordered_damage(abs(owner.health - owner.crit_threshold) + 1, list(CLONE, OXY, TOX, BURN, BRUTE, BRAIN, STAMINA))
+	owner.AdjustAllImmobility(-100, FALSE)
+	owner.stat = CONSCIOUS
+	owner.update_mobility()
+
+/datum/status_effect/dimensional_mending/on_apply()
+	if(!is_pocketdim_level(get_final_z(owner)))
+		return FALSE
+	ADD_TRAIT(owner, TRAIT_NODEATH, id)
+	ADD_TRAIT(owner, TRAIT_NOCRITDAMAGE, id)
+	ADD_TRAIT(owner, TRAIT_NOHARDCRIT, id)
+	ADD_TRAIT(owner, TRAIT_NOSOFTCRIT, id)
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
+	return ..()
+
+/datum/status_effect/dimensional_mending/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_NODEATH, id)
+	REMOVE_TRAIT(owner, TRAIT_NOCRITDAMAGE, id)
+	REMOVE_TRAIT(owner, TRAIT_NOHARDCRIT, id)
+	REMOVE_TRAIT(owner, TRAIT_NOSOFTCRIT, id)
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
+
+/obj/screen/alert/status_effect/dimensional_mending
+	name = "Dimensional Mending"
+	desc = "The very fabrics of reality that comprise this dimension wind themselves through your body, holding you together no matter what."
+	icon_state = "dim_mend"

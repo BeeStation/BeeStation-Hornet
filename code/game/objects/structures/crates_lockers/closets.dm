@@ -506,3 +506,15 @@
 		user.resting = FALSE
 		togglelock(user)
 		T1.visible_message("<span class='warning'>[user] dives into [src]!</span>")
+
+/obj/structure/closet/on_object_saved(var/depth = 0)
+	if(depth >= 10)
+		return ""
+	var/dat = ""
+	for(var/obj/item in contents)
+		var/metadata = generate_tgm_metadata(item)
+		dat += "[dat ? ",\n" : ""][item.type][metadata]"
+		//Save the contents of things inside the things inside us, EG saving the contents of bags inside lockers
+		var/custom_data = item.on_object_saved(depth++)
+		dat += "[custom_data ? ",\n[custom_data]" : ""]"
+	return dat

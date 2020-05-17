@@ -201,13 +201,15 @@
 		var/mob/dead/observer/C = pick(candidates)
 		var/mob/living/simple_animal/hostile/guardian/G = new(user, theme, guardian_color)
 		if(guardian_name)
+			G.mind.name = guardian_name
 			G.real_name = guardian_name
 			G.name = guardian_name
 		G.summoner = user.mind
 		G.key = C.key
 		G.mind.enslave_mind_to_creator(user)
 		G.RegisterSignal(user, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/guardian.proc/OnMoved)
-		G.RegisterSignal(user.mind, COMSIG_MIND_TRANSFER_TO, /mob/living/simple_animal/hostile/guardian.proc/BringMeBackToLife)
+		G.RegisterSignal(user, COMSIG_LIVING_REVIVE, /mob/living/simple_animal/hostile/guardian.proc/Reviveify)
+		G.RegisterSignal(user.mind, COMSIG_MIND_TRANSFER_TO, /mob/living/simple_animal/hostile/guardian.proc/OnMindTransfer)
 		var/datum/antagonist/guardian/S = new
 		S.stats = saved_stats
 		S.summoner = user.mind
@@ -280,6 +282,7 @@
 /obj/item/guardiancreator/debug
 	desc = "If you're seeing this and you're not debugging, yell at @Zyzarda"
 	debug_mode = TRUE
+	allowspecial = TRUE
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
