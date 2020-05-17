@@ -65,7 +65,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/manipulate(var/mob/living/simple_animal/hostile/morph/M)
 	var/list/choices = list()
-	var/list/mobfunctions = list("Drop", "Digest", "Disguise as", "Heal", "Throw", "Strip") //heal function opens the way for a morph to act benevolent
+	var/list/mobfunctions = list("Drop", "Digest", "Disguise as", "Throw", "Strip")
 	var/list/itemfunctions = list("Use", "Throw", "Drop", "Use and Throw", "Digest", "Disguise as")
 	for(var/atom/movable/A in contents)
 		choices += A
@@ -93,13 +93,6 @@
 					playsound(src, 'sound/effects/splat.ogg', 50, 1)
 			if("Disguise as")
 				ShiftClickOn(L)
-			if("Heal")
-				to_chat(src, "<span class ='danger'> You mending [L]'s flesh</span>")
-				if(do_mob(src, src, L.maxHealth))
-					L.adjustFireLoss(-30)
-					L.adjustBruteLoss(-30)
-					to_chat(src, "<span class ='danger'> You mend [L]'s flesh</span>")
-					playsound(src, 'sound/effects/splat.ogg', 50, 1)
 			if("Throw")
 				if(throwatom)
 					to_chat(src, "<span class ='danger'> You are already preparing to throw [throwatom]</span>")

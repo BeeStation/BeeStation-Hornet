@@ -34,6 +34,8 @@
         obj_damage = 0
         environment_smash = ENVIRONMENT_SMASH_NONE
         mobsay_color = "#26F55A"
+        poison_per_bite = 3
+        poison_type = /datum/reagent/toxin/venom
 
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)

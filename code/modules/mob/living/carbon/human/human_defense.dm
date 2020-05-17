@@ -272,7 +272,6 @@
 			apply_damage(20, BRUTE, affecting, armor_block)
 
 		if(M.a_intent == INTENT_DISARM)
-			drop_all_held_items()
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			Knockdown(20)
 			log_combat(M, src, "tackled")
@@ -280,7 +279,7 @@
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			var/armor_block = run_armor_check(affecting, "melee","","",10)
-			apply_damage(20, STAMINA, affecting, armor_block)
+			apply_damage(30, STAMINA, affecting, armor_block)
 			visible_message("<span class='danger'>[M] tackles [src] down!</span>", \
 					"<span class='userdanger'>[M] tackles you down!</span>")
 
