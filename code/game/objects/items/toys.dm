@@ -399,6 +399,32 @@
 	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE
 	block_power = -500 //not to be used on anything more effective than nerf darts
 
+/obj/item/toy/katana/bloodedge
+	name = "Bloodedge"
+	desc = "Folded thirty-one times by children in a sweatshop, this katana can't cut through anything"
+	icon_state = "bloodkatana"
+	block_power = -150
+	var/list/attacks = list("BLOOD SLASH!!", "BLOOD THRUST!!", "BLOOD STAB!!", "BLOOD SLICE!!", "BLOOD DICE!!")
+	var/blockphrase = "BLOOD DEFLECT!!"
+
+/obj/item/toy/katana/bloodedge/attack(mob/living/M, mob/living/user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.say(pick(attacks))
+		new /obj/effect/decal/cleanable/food/tomato_smudge(M.loc)
+	return ..()
+
+/obj/item/toy/katana/bloodedge/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	owner.say(blockphrase)
+	new /obj/effect/decal/cleanable/food/tomato_smudge(owner.loc)
+	return ..()
+
+/obj/item/toy/katana/bloodedge/localized
+	name = "Sharpedge"
+	desc = "Made by authentic space asians, this katana is really cool!"
+	attacks = list("SUPER SLASH!!", "HYPER THRUST!!", "DANGEROUS HIT!!", "KETCHUP SLICE!!", "AWESOME SPIN!!")
+	blockphrase = "AURA BLOCK!!"
+
 /*
  * Snap pops
  */

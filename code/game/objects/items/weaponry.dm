@@ -246,6 +246,26 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>")
 	return(BRUTELOSS)
 
+/obj/item/katana/bloodedge
+	name = "Bloodedge"
+	desc = "Folded thirty-one million times by thousand year old dragons who still look like children, this katana can cut through anything"
+	icon_state = "bloodkatana"
+	armour_penetration = 100
+	sharpness = IS_SHARP_ACCURATE
+	var/list/attacks = list("BLOOD SLASH!!", "BLOOD THRUST!!", "BLOOD STAB!!", "BLOOD SLICE!!", "BLOOD DICE!!")
+
+/obj/item/katana/bloodedge/attack(mob/living/M, mob/living/user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.say(pick(attacks))
+		new /obj/effect/decal/cleanable/blood/splatter(M.loc)
+	return ..()
+
+/obj/item/katana/bloodedge/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	owner.say("BLOOD DEFLECT!!")
+	new /obj/effect/decal/cleanable/blood/splatter(owner.loc)
+	return ..()
+	
 /obj/item/wirerod
 	name = "wired rod"
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
