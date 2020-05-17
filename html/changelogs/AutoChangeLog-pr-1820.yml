@@ -1,0 +1,4 @@
+author: steamp0rt
+delete-after: true
+changes:
+  - balance: Healing stands will now only heal half of their full potential if unmanifested.
