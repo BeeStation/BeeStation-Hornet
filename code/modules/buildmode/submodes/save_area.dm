@@ -23,9 +23,6 @@ GLOBAL_VAR_INIT(save_area_executing, FALSE)
 	var/datum/mapGenerator/save_area/L = mother
 	if(!istype(L))
 		return
-	if(GLOB.save_area_executing)
-		to_chat(usr, "<span class='warning'>Someone is already running the generator! Try again in a bit.</span>")
-		return
 	//If someone somehow gets build mode, stop them from using this.
 	if(!check_rights(R_ADMIN))
 		message_admins("[ckey(usr)] tried to run the map save generator but was rejected due to insufficient perms.")
@@ -36,6 +33,10 @@ GLOBAL_VAR_INIT(save_area_executing, FALSE)
 		var/confirm = alert("Uhm, are you sure, the area is quiet large?", "Run generator", "Yes", "No")
 		if(confirm != "Yes")
 			return
+
+	if(GLOB.save_area_executing)
+		to_chat(usr, "<span class='warning'>Someone is already running the generator! Try again in a bit.</span>")
+		return
 
 	to_chat(usr, "<span class='warning'>Saving, please wait...</span>")
 	GLOB.save_area_executing = TRUE
