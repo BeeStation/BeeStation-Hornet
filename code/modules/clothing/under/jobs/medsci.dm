@@ -10,6 +10,15 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 10, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 35)
 	can_adjust = FALSE
 
+/obj/item/clothing/under/rank/research_director/hazard
+	name = "research director's jumpsuit"
+	desc = "It's made of a special fiber that provides minor protection against biohazards. Though never formally retired, the standard issue Research Director's jumpsuit is a rare sight. For the working man."
+	icon_state = "rd_hazard"
+	item_state = "w_suit"
+	item_color = "rd_hazard"
+	can_adjust = TRUE
+	alt_covers_chest = TRUE
+
 /obj/item/clothing/under/rank/research_director/alt
 	desc = "Maybe you'll engineer your own half-man, half-pig creature some day. Its fabric provides minor protection from biological contaminants."
 	name = "research director's tan suit"
