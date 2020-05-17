@@ -544,7 +544,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	if(claimed_admin == usr)
 		return
 	if(claimed_admin)
-		var/confirm = alert("This ticket is already claimed, overwride claim?",,"Yes", "No")
+		var/confirm = alert("This ticket is already claimed, override claim?",,"Yes", "No")
+
 		if(confirm == "no")
 			return
 	if(initiator && !claimed_admin)
