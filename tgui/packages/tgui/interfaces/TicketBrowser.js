@@ -37,7 +37,8 @@ export const TicketBrowser = (props, context) => {
           <TicketMenu
             ticket_list={open_tickets}
             name={"Claimed Tickets"}
-            actions={[["flw", "blue"], ["claim", "average"], ["resolve", "good"],
+            actions={[["flw", "blue"], ["claim", "average"],
+              ["resolve", "good"],
               ["reject", "bad"], ["close", "label"], ["mhelp", "label"],
               ["ic", "label"]]} />
           <TicketMenu
