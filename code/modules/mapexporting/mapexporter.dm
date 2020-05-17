@@ -54,6 +54,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	var/list/header_dat 	= list()	//The data of the header, lines up with chars
 	var/header				= ""		//The actual header in text
 	var/contents			= ""		//The contents in text (bit at the end)
+	var/index = 1
 	for(var/x in 1 to width)
 		contents += "\n([x],1,1) = {\"\n"
 		for(var/y in height to 1 step -1)
@@ -87,7 +88,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 			if(!(save_flag & SAVE_TURFS))
 				place = /turf/template_noop
 			//====Generate Header Character====
-			var/header_char = calculate_tgm_header_index(y + (x * width), layers)	//The characters of the header
+			var/header_char = calculate_tgm_header_index(index, layers)	//The characters of the header
 			var/current_header = "(\n"										//The actual stuff inside the header
 			//Add objects to the header file
 			var/empty = TRUE
@@ -123,6 +124,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 				header += "\"[header_char]\" = [current_header]"
 				header_chars += header_char
 				header_dat += current_header
+				index ++
 			contents += "[header_char]\n"
 		contents += "\"}"
 	return "[header][contents]"

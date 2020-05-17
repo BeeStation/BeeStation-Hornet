@@ -35,7 +35,8 @@
 	log_game("[ckey(usr)] ran the save level map generator on [L.map.len] turfs.")
 
 	//Step 1: Get the data (This can take a while)
-	var/dat = convert_map_to_tgm(L.map)
+	var/dat = "//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE\n"
+	dat += convert_map_to_tgm(L.map)
 
 	//Step 2: Write the data to a file
 	var/filedir = file("data/temp.dmm")
