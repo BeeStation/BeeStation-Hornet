@@ -492,8 +492,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			show_individual_logging_panel(get_mob_by_ckey(initiator.ckey))
 		if("smite")
 			usr.client.smite(get_mob_by_ckey(initiator.ckey))
-	if(claim_ticket == CLAIM_OVERRIDE || (claim_ticket == CLAIM_CLAIMIFNONE && !ticket.claimed_admin))
-		ticket.Claim()
+	if(claim_ticket == CLAIM_OVERRIDE || (claim_ticket == CLAIM_CLAIMIFNONE && !claimed_admin))
+		Claim()
 
 /datum/admin_help/proc/MessageNoRecipient(msg)
 	var/ref_src = "[REF(src)]"
