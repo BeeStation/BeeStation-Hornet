@@ -43,7 +43,7 @@ GLOBAL_VAR_INIT(save_area_executing, FALSE)
 
 	//Log just in case something happens
 	log_game("[key_name(usr)] ran the save level map generator on [L.map.len] turfs.")
-	message_admins("[ckey(usr)] ran the save level map generator on [L.map.len] turfs.")
+	message_admins("[key_name(usr)] ran the save level map generator on [L.map.len] turfs.")
 
 	//Step 1: Get the data (This can take a while)
 	var/dat = "//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE\n"
