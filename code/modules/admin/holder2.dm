@@ -29,7 +29,7 @@ GLOBAL_PROTECT(href_token)
 	var/deadmined
 
 	//Admin help manager
-	var/datum/admin_help_ui/admin_interface
+	var/datum/admin_ui_holder/admin_interface
 
 /datum/admins/New(datum/admin_rank/R, ckey, force_active = FALSE, protected)
 	if(IsAdminAdvancedProcCall())
@@ -51,6 +51,7 @@ GLOBAL_PROTECT(href_token)
 	rank = R
 	admin_signature = "Nanotrasen Officer #[rand(0,9)][rand(0,9)][rand(0,9)]"
 	href_token = GenerateToken()
+	admin_interface = new()
 	if(R.rights & R_DEBUG) //grant profile access
 		world.SetConfig("APP/admin", ckey, "role=admin")
 	//only admins with +ADMIN start admined

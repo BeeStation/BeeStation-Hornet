@@ -3,7 +3,11 @@
 	var/datum/admin_help/current_ticket	//the current ticket the (usually) not-admin client is dealing with
 
 // UI holder for admins
-/datum/admin_help_ui
+/datum/admin_ui_component/admin_help_ui
+	unique_id = "ahelp_ticket_manager"
+	default_ui_key = "ticket_panel"
+	default_ui_name= "TicketBrowser"
+	window_name = "Ticket Browser"
 
 /client/proc/openTicketManager()
 	set name = "Ticket Manager"
@@ -12,7 +16,7 @@
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
-	GLOB.ahelp_tickets.BrowseTickets(src)
+	GLOB.ahelp_tickets.BrowseTickets(usr)
 
 //
 // Ticket manager
@@ -92,19 +96,10 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		message_admins("[C.ckey] attempted to browse tickets, but had no admin datum")
 		return
 	if(!admin_datum.admin_interface)
-		admin_datum.admin_interface = new(user)
-	admin_datum.admin_interface.ui_interact(user)
+		admin_datum.admin_interface = new()
+	admin_datum.admin_interface.display_ui("ahelp_ticket_manager", user)
 
-//TGUI TICKET THINGS
-/datum/admin_help_ui/ui_interact(mob/user, ui_key = "ticket_panel", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		log_admin_private("[user.ckey] opened the ticket panel.")
-		ui = new(user, src, ui_key, "TicketBrowser", "ticket browser", 600, 480, master_ui, state)
-		ui.set_autoupdate(TRUE)
-		ui.open()
-
-/datum/admin_help_ui/ui_data(mob/user)
+/datum/admin_ui_component/admin_help_ui/ui_data(mob/user)
 	var/datum/admins/admin_datum = GLOB.admin_datums[user.ckey]
 	if(!admin_datum)
 		log_admin_private("[user] sent a request to interact with the ticket browser without sufficient rights.")
@@ -118,7 +113,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	data["resolved_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_RESOLVED)
 	return data
 
-/datum/admin_help_ui/ui_act(action, params)
+/datum/admin_ui_component/admin_help_ui/ui_act(action, params)
 	var/datum/admins/admin_datum = GLOB.admin_datums[usr.ckey]
 	if(!admin_datum)
 		message_admins("[usr] sent a request to interact with the ticket browser without sufficient rights.")
