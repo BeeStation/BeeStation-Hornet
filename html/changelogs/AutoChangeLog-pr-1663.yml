@@ -1,0 +1,17 @@
+author: Triiodine (Feat. Azlan)
+delete-after: true
+changes:
+  - rscadd: Added a standard styled Research Director's jumpsuit and associated labcoat.
+      Comes with one free middle school science fair medal.
+  - spellcheck: Changed the name of the purple bartender's jumpsuit to purple bartender's
+      skirt. Lawyer's blue suit to blue slacks. Lawyer's black suit to black slacks
+  - spellcheck: Changed the description of the CMO's labcoat, blue slacks, and black
+      slacks.
+  - imageadd: Resprited the Medical Doctor's, Chief Medical Officer's, Geneticist's,
+      Chemist's, and Virologist's, jumpsuits and labcoats.
+  - imageadd: Resprited the Mad's green labcoat.
+  - imageadd: Resprited the Chemist's, Virologist's, Scientist's, and Geneticist's
+      backpacks and satchels.
+  - imageadd: Resprited the Medical Doctor's backpack.
+  - tweak: Spriters and coders rejoice, the uniforms mob and object sprite sheets
+      have been sorted and match each other in layout.
