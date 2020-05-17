@@ -47,7 +47,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/clothing/shoes/kindleKicks = 2,
 		/obj/item/storage/belt/military/snack = 2,
 		/obj/item/toy/katana/bloodedge = 1,
-		/obj/item/toy/katana/bloodedge/localized = 2))
+		/obj/item/toy/katana/bloodedge/localized = 2,
+		/obj/item/clothing/glasses/sunglasses/advanced/gar = 1))
 
 /obj/machinery/computer/arcade
 	name = "random arcade"

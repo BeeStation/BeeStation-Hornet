@@ -251,6 +251,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "Folded thirty-one million times by thousand year old dragons who still look like children, this katana can cut through anything"
 	icon_state = "bloodkatana"
 	armour_penetration = 100
+	block_sound = 'sound/weapons/deflect.ogg'
 	sharpness = IS_SHARP_ACCURATE
 	var/list/attacks = list("BLOOD SLASH!!", "BLOOD THRUST!!", "BLOOD STAB!!", "BLOOD SLICE!!", "BLOOD DICE!!")
 

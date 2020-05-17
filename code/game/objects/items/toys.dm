@@ -404,6 +404,7 @@
 	desc = "Folded thirty-one times by children in a sweatshop, this katana can't cut through anything"
 	icon_state = "bloodkatana"
 	block_power = -150
+	block_sound = 'sound/weapons/deflect.ogg'
 	var/list/attacks = list("BLOOD SLASH!!", "BLOOD THRUST!!", "BLOOD STAB!!", "BLOOD SLICE!!", "BLOOD DICE!!")
 	var/blockphrase = "BLOOD DEFLECT!!"
 
