@@ -1,3 +1,7 @@
+#define CLAIM_DONTCLAIM 0
+#define CLAIM_CLAIMIFNONE 1
+#define CLAIM_OVERRIDE 2
+
 /client
 	var/adminhelptimerid = 0	//a timer id for returning the ahelp verb
 	var/datum/admin_help/current_ticket	//the current ticket the (usually) not-admin client is dealing with
@@ -129,34 +133,38 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/ticket_id = text2num(params["id"])
 	var/datum/admin_help/ticket = GLOB.ahelp_tickets.TicketByID(ticket_id)
 	//Doing action on a ticket claims it
-	var/claim_ticket = FALSE
+	var/claim_ticket = CLAIM_DONTCLAIM
 	switch(action)
 		if("claim")
-			claim_ticket = TRUE
+			if(ticket.claimed_admin)
+				var/confirm = alert("This ticket is already claimed, override claim?",,"Yes", "No")
+				if(confirm == "No")
+					return
+			claim_ticket = CLAIM_OVERRIDE
 		if("reject")
-			claim_ticket = TRUE
+			claim_ticket = CLAIM_OVERRIDE
 			ticket.Reject()
 		if("ic")
-			claim_ticket = TRUE
+			claim_ticket = CLAIM_OVERRIDE
 			ticket.ICIssue()
 		if("mhelp")
-			claim_ticket = TRUE
+			claim_ticket = CLAIM_OVERRIDE
 			ticket.MHelpThis()
 		if("resolve")
-			claim_ticket = TRUE
+			claim_ticket = CLAIM_OVERRIDE
 			ticket.Resolve()
 		if("reopen")
-			claim_ticket = TRUE
+			claim_ticket = CLAIM_OVERRIDE
 			ticket.Reopen()
 		if("close")
-			claim_ticket = TRUE
+			claim_ticket = CLAIM_OVERRIDE
 			ticket.Close()
 		if("view")
 			ticket.TicketPanel()
 		if("pm")
 			usr.client.cmd_ahelp_reply(ticket.initiator)
-			claim_ticket = TRUE
-	if(claim_ticket)
+			claim_ticket = CLAIM_CLAIMIFNONE
+	if(claim_ticket == CLAIM_OVERRIDE || (claim_ticket == CLAIM_CLAIMIFNONE && !ticket.claimed_admin))
 		ticket.Claim()
 
 /datum/admin_help_tickets/proc/get_ui_ticket_data(state)
@@ -417,7 +425,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	data["world_time"] = world.time
 	data["antag_status"] = "None"
 	var/mob/living/M = initiator.mob
-	if(M.mind.antag_datums)
+	if(M?.mind?.antag_datums)
 		var/datum/antagonist/AD = M.mind.antag_datums[1]
 		data["antag_status"] = AD.name
 	data["messages"] = list()
@@ -544,10 +552,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 /datum/admin_help/proc/Claim(key_name = key_name_admin(usr), silent = FALSE)
 	if(claimed_admin == usr)
 		return
-	if(claimed_admin)
-		var/confirm = alert("This ticket is already claimed, override claim?",,"Yes", "No")
-		if(confirm == "No")
-			return
 	if(initiator && !claimed_admin)
 		to_chat(initiator, "<font color='red'>Your issue is being investigated by an administrator, please stand by.</span>")
 	if(state == AHELP_UNCLAIMED)
@@ -941,3 +945,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			return founds
 
 	return msg
+
+#undef CLAIM_DONTCLAIM
+#undef CLAIM_CLAIMIFNONE
+#undef CLAIM_OVERRIDE
