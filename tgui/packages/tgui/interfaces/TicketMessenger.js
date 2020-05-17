@@ -31,16 +31,40 @@ export const TicketActionBar = (props, context) => {
     ticket_state,
     claimee,
     claimee_key,
+    antag_status,
     id,
     sender,
   } = data;
   return (
     <Box>
       <Box
-        bold>
+        bold
+        inline>
         Admin Help Ticket #{id} : {sender}
       </Box>
-      <Box>
+      <Box
+        inline
+        color={antag_status==="None"?"green":"red"}>
+        Antag: {antag_status}
+      </Box>
+      <Box />
+      <Box
+        inline
+        color={claimee_key?"blue":"red"}
+        bold>
+        Claimed by {claimee_key ? claimee_key : "Nobody"}
+      </Box>
+      <Box
+        inline>
+        |
+      </Box>
+      <Box
+        inline
+        bold>
+        Opened {round((world_time - time_opened)/600)} minutes ago
+      </Box>
+      <Box
+        inline>
         {" |"}
         <Button
           color="transparent"

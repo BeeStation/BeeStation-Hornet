@@ -318,7 +318,7 @@
 	to_chat(C, "<span class='adminsay'>Admin PM from-<b><a href='?priv_msg=[stealthkey]'>[adminname]</A></b>: [msg]</span>")
 	to_chat(C, "<span class='adminsay'><i>Click on the administrator's name to reply.</i></span>")
 
-	admin_ticket_log(C, msg, irc_tagged, null, "purple")
+	admin_ticket_log(C, msg, adminname, null, "cyan")
 
 	window_flash(C, ignorepref = TRUE)
 	//always play non-admin recipients the adminhelp sound

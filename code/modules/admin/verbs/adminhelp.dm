@@ -131,8 +131,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	switch(action)
 		if("claim")
 			claim_ticket = TRUE
-			log_admin_private("Ticket [ticket.id] was claimed by [usr.ckey]")
-			message_admins("Ticket [ticket.id] was claimed by [usr.ckey]")
 		if("reject")
 			claim_ticket = TRUE
 			ticket.Reject()
@@ -191,6 +189,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 //Tickets statpanel
 /datum/admin_help_tickets/proc/stat_entry()
 	var/num_disconnected = 0
+	stat("Browse Ticket Manager")
 	stat("Active Tickets:", astatclick.update("[active_tickets.len]"))
 	for(var/l in list(active_tickets, unclaimed_tickets))
 		for(var/I in l)
@@ -414,6 +413,10 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	data["id"] = id
 	data["sender"] = initiator_key_name
 	data["world_time"] = world.time
+	data["antag_status"] = "None"
+	var/mob/living/M = initiator.mob
+	if(M.mind.antag_datums)
+		data["antag_status"] = M.mind.antag_datums[1].name
 	data["messages"] = list()
 	for(var/datum/ticket_interaction/message in _interactions)
 		var/list/msg = list(
@@ -439,7 +442,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	switch(action)
 		if("sendpm")
 			usr.client.cmd_ahelp_reply_instant(initiator, params["text"])
-			Claim()
+			if(!claimed_admin)
+				Claim()
 		if("reject")
 			Reject()
 		if("mentorhelp")
@@ -514,7 +518,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	if(initiator)
 		initiator.current_ticket = src
 
-	AddInteraction("purple", "Reopened by [usr]")
+	AddInteraction("purple", "Reopened by [key_name_admin(usr)]")
 	var/msg = "<span class='adminhelp'>Ticket [TicketHref("#[id]")] reopened by [key_name_admin(usr)].</span>"
 	message_admins(msg)
 	log_admin_private(msg)
@@ -537,23 +541,33 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 /datum/admin_help/proc/Claim(key_name = key_name_admin(usr), silent = FALSE)
 	if(claimed_admin == usr)
 		return
+	if(claimed_admin)
+		var/confirm = alert("This ticket is already claimed, overwride claim?",,"Yes", "No")
+		if(confirm == "no")
+			return
+	log_admin_private("Ticket [ticket.id] was claimed by [usr.ckey]")
+	message_admins("Ticket [ticket.id] was claimed by [usr.ckey]")
 	if(initiator && !claimed_admin)
-		to_chat(initiator, "<font color='red'>Your issue is being investigated by [usr.ckey], please stand by.</span>")
+		to_chat(initiator, "<font color='red'>Your issue is being investigated by an administrator, please stand by.</span>")
 	if(state == AHELP_UNCLAIMED)
 		GLOB.ahelp_tickets.unclaimed_tickets -= src
 		state = AHELP_ACTIVE
 		GLOB.ahelp_tickets.ListInsert(src)
-	AddInteraction("blue", "Claimed by [key_name]")
+	var/updated = claimed_admin
+	if(updated)
+		AddInteraction("blue", "Claimed by [key_name] (Overwritten from [updated])")
+	else
+		AddInteraction("blue", "Claimed by [key_name]")
 	claimed_admin = usr
 	claimed_admin_key_name = usr.ckey
-	if(!silent)
+	if(!silent && !updated)
 		SSblackbox.record_feedback("tally", "ahelp_stats", 1, "claimed")
 		var/msg = "Ticket [TicketHref("#[id]")] claimed by [key_name]."
 		message_admins(msg)
 		log_admin_private(msg)
 
-	if(!bwoink && !silent)
-		discordsendmsg("ahelp", "Ticket #[id] claimed by [key_name(usr, include_link=0)]")
+	if(!bwoink && !silent && !updated)
+		discordsendmsg("ahelp", "Ticket #[id] is being investigated by [key_name(usr, include_link=0)]")
 
 //Mark open ticket as closed/meme
 /datum/admin_help/proc/Close(key_name = key_name_admin(usr), silent = FALSE)
