@@ -62,4 +62,4 @@ GLOBAL_VAR_INIT(save_area_executing, FALSE)
 	fdel(filedir)
 	log_game("[L.map.len] turfs have been saved by [ckey(usr)]")
 	alert("Area saved successfully.", "Action Successful!", "Ok")
-	save_area_executing.save_area_executing = FALSE
+	GLOB.save_area_executing = FALSE
