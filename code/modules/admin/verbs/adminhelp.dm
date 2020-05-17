@@ -418,7 +418,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	data["antag_status"] = "None"
 	var/mob/living/M = initiator.mob
 	if(M.mind.antag_datums)
-		data["antag_status"] = M.mind.antag_datums[1].name
+		var/datum/antagonist/AD = M.mind.antag_datums[1]
+		data["antag_status"] = AD.name
 	data["messages"] = list()
 	for(var/datum/ticket_interaction/message in _interactions)
 		var/list/msg = list(
