@@ -32,22 +32,22 @@ export const TicketBrowser = (props, context) => {
           <TicketMenu
             ticket_list={unclaimed_tickets}
             name={"Unclaimed Tickets"}
-            actions={[["claim", "good"], ["reject", "bad"],
+            actions={[["flw", "blue"], ["claim", "good"], ["reject", "bad"],
               ["ic", "label"], ["mhelp", "label"]]} />
           <TicketMenu
             ticket_list={open_tickets}
             name={"Claimed Tickets"}
-            actions={[["claim", "average"], ["resolve", "good"],
+            actions={[["flw", "blue"], ["claim", "average"], ["resolve", "good"],
               ["reject", "bad"], ["close", "label"], ["mhelp", "label"],
               ["ic", "label"]]} />
           <TicketMenu
             ticket_list={resolved_tickets}
             name={"Resolved Tickets"}
-            actions={[["reopen", "good"]]} />
+            actions={[["flw", "blue"], ["reopen", "good"]]} />
           <TicketMenu
             ticket_list={closed_tickets}
             name={"Closed Tickets"}
-            actions={[["reopen", "good"]]} />
+            actions={[["flw", "blue"], ["reopen", "good"]]} />
         </Section>
       </Window.Content>
     </Window>
