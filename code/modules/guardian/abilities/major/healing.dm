@@ -26,7 +26,7 @@
 			guardian.do_attack_animation(L)
 			var/heals = -(master_stats.potential * 1.5))
 			if(!guardian.is_deployed())
-				heals *= 0.45
+				heals = max(heals * 0.5, 2)
 			L.adjustBruteLoss(heals)
 			L.adjustFireLoss(heals)
 			L.adjustOxyLoss(heals)
