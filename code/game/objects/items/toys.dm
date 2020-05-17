@@ -395,7 +395,9 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	block_upgrade_walk = 1
+	block_level = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE
+	block_power = -500 //not to be used on anything more effective than nerf darts
 
 /*
  * Snap pops

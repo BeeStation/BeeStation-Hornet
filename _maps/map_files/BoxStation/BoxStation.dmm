@@ -8353,6 +8353,9 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "ata" = (
+/obj/machinery/computer/warrant{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "atb" = (
@@ -29320,20 +29323,17 @@
 "bwJ" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_y = 7;
-	
+	pixel_y = 7
 	},
 /obj/item/reagent_containers/glass/beaker/cryoxadone,
 /obj/machinery/camera/autoname,
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
 	pixel_x = 7;
-	pixel_y = 7;
-	
+	pixel_y = 7
 	},
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
 	pixel_x = 7;
-	pixel_y = 1;
-	
+	pixel_y = 1
 	},
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
@@ -53316,10 +53316,12 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "kdH" = (
+/obj/machinery/computer/warrant{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/security/courtroom)
 "keW" = (
@@ -56000,8 +56002,7 @@
 /area/hallway/primary/fore)
 "ssF" = (
 /obj/machinery/computer/cryopod{
-	pixel_y = 25;
-	
+	pixel_y = 25
 	},
 /turf/open/floor/plasteel,
 /area/medical/sleeper)

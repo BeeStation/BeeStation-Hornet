@@ -227,6 +227,7 @@
 	description = "If used in touch-based applications, immediately restores burn wounds as well as restoring more over time. If ingested through other means, deals minor toxin damage."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	overdose_threshold = 40
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -234,6 +235,8 @@
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
+		else if(M.reagents.has_reagent(/datum/reagent/medicine/silver_sulfadiazine, 40) && M.getFireLoss())
+			to_chat(M, "<span class='danger'>Silver sulfadiazine foams as it fails to heal your burns!</span>")
 		else if(M.getFireLoss())
 			M.adjustFireLoss(-reac_volume)
 			if(show_message)
@@ -244,6 +247,14 @@
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/M)
 	M.adjustFireLoss(-2*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/silver_sulfadiazine/overdose_process(mob/living/M)
+	M.adjustFireLoss(2*REM, FALSE, FALSE, BODYPART_ORGANIC)
+	if(volume > overdose_threshold+10)
+		if(prob(33))
+			M.adjustToxLoss(1*REM, FALSE, FALSE, BODYPART_ORGANIC)
 	..()
 	. = 1
 
@@ -274,6 +285,7 @@
 	description = "If used in touch-based applications, immediately restores bruising as well as restoring more over time. If ingested through other means, deals minor toxin damage."
 	reagent_state = LIQUID
 	color = "#FF9696"
+	overdose_threshold = 40
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -281,6 +293,8 @@
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
+		else if(M.reagents.has_reagent(/datum/reagent/medicine/styptic_powder, 40) && M.getBruteLoss())
+			to_chat(M, "<span class='danger'>Styptic powder foams as it fails to heal your bruises!</span>")
 		else if(M.getBruteLoss())
 			M.adjustBruteLoss(-reac_volume)
 			if(show_message)
@@ -292,6 +306,14 @@
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-2*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/styptic_powder/overdose_process(mob/living/M)
+	M.adjustBruteLoss(2*REM, 0)
+	if(volume > overdose_threshold+10)
+		if(prob(33))
+			M.adjustToxLoss(1*REM, FALSE, FALSE, BODYPART_ORGANIC)
 	..()
 	. = 1
 
@@ -934,6 +956,7 @@
 	..()
 	. = 1
 
+//Stimulants. Used in Adrenal Implant
 /datum/reagent/medicine/stimulants
 	name = "Stimulants"
 	description = "Increases stun resistance and movement speed in addition to restoring minor damage and weakness. Overdose causes weakness and toxin damage."
@@ -967,6 +990,43 @@
 		M.losebreath++
 		. = 1
 	..()
+
+
+//Pump-Up for Stimpack
+/datum/reagent/medicine/pumpup
+	name = "Pump-Up"
+	description = "Makes you immune to damage slowdown, resistant to all other kinds of slowdown and gives a minor speed boost. Overdose causes weakness and toxin damage."
+	color = "#78008C"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	overdose_threshold = 60
+
+/datum/reagent/medicine/pumpup/on_mob_life(mob/living/carbon/M as mob)
+	M.AdjustAllImmobility(-80, FALSE)
+	M.adjustStaminaLoss(-80, 0)
+	M.Jitter(300)
+	..()
+	return TRUE
+
+/datum/reagent/medicine/pumpup/on_mob_metabolize(mob/living/L)
+	..()
+	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	ADD_TRAIT(L, TRAIT_STUNRESISTANCE, type)
+	ADD_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+
+/datum/reagent/medicine/pumpup/on_mob_end_metabolize(mob/living/L)
+	..()
+	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	REMOVE_TRAIT(L, TRAIT_STUNRESISTANCE, type)
+	REMOVE_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
+
+/datum/reagent/medicine/pumpup/overdose_process(mob/living/M)
+	if(prob(33))
+		M.adjustStaminaLoss(2.5*REM, 0)
+		M.adjustToxLoss(1*REM, 0)
+		M.losebreath++
+		. = 1
+	..()
+
 
 /datum/reagent/medicine/insulin
 	name = "Insulin"
@@ -1464,4 +1524,4 @@
 /datum/reagent/medicine/polypyr/overdose_process(mob/living/M)
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 0.5)
 	..()
-	. = 1 
+	. = 1
