@@ -321,6 +321,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	statclick = new(null, src)
 	_interactions = list()
 
+	GLOB.ahelp_tickets.unclaimed_tickets += src
+
 	if(is_bwoink)
 		AddInteraction("blue", name, usr.ckey, initiator_key_name)
 		message_admins("<font color='blue'>Ticket [TicketHref("#[id]")] created</font>")
@@ -334,8 +336,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		if(admin_number_present <= 0)
 			to_chat(C, "<span class='notice'>No active admins are online, your adminhelp was sent to the admin irc.</span>")
 			heard_by_no_admins = TRUE
-
-	GLOB.ahelp_tickets.unclaimed_tickets += src
 
 	bwoink = is_bwoink
 	if(!bwoink)
@@ -450,25 +450,32 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		message_admins("[usr] sent a request to interact with the ticket window without sufficient rights. (Requires: R_ADMIN)")
 		log_admin_private("[usr] sent a request to interact with the ticket window without sufficient rights.")
 		return
+	//Doing action on a ticket claims it
+	var/claim_ticket = CLAIM_DONTCLAIM
 	switch(action)
 		if("sendpm")
 			usr.client.cmd_ahelp_reply_instant(initiator, params["text"])
-			if(!claimed_admin)
-				Claim()
+			claim_ticket = CLAIM_CLAIMIFNONE
 		if("reject")
 			Reject()
+			claim_ticket = CLAIM_OVERRIDE
 		if("mentorhelp")
 			MHelpThis()
+			claim_ticket = CLAIM_OVERRIDE
 		if("close")
 			Close()
+			claim_ticket = CLAIM_OVERRIDE
 		if("resolve")
 			Resolve()
+			claim_ticket = CLAIM_OVERRIDE
 		if("markic")
 			ICIssue()
+			claim_ticket = CLAIM_OVERRIDE
 		if("retitle")
 			Retitle()
 		if("reopen")
 			Reopen()
+			claim_ticket = CLAIM_OVERRIDE
 		if("moreinfo")
 			admin_datum.admin_more_info(get_mob_by_ckey(initiator.ckey))
 		if("playerpanel")
@@ -485,6 +492,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			show_individual_logging_panel(get_mob_by_ckey(initiator.ckey))
 		if("smite")
 			usr.client.smite(get_mob_by_ckey(initiator.ckey))
+	if(claim_ticket == CLAIM_OVERRIDE || (claim_ticket == CLAIM_CLAIMIFNONE && !ticket.claimed_admin))
+		ticket.Claim()
 
 /datum/admin_help/proc/MessageNoRecipient(msg)
 	var/ref_src = "[REF(src)]"
