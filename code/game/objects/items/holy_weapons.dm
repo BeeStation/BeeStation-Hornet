@@ -270,7 +270,7 @@
 	force = 5
 	slot_flags = ITEM_SLOT_BACK
 	block_flags = BLOCKING_PROJECTILE
-	block_level = 2
+	block_level = 1
 	block_power = 20
 	var/shield_icon = "shield-red"
 
@@ -646,7 +646,7 @@
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, it is now used to harass the clown."
 	w_class = WEIGHT_CLASS_BULKY
-	force = 15
+	force = 14
 	block_power = 40
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = IS_BLUNT
