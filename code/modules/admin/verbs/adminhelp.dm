@@ -102,7 +102,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		log_admin_private("[user.ckey] opened the ticket panel.")
-		ui = new(user, src, ui_key, "TicketBrowser", "ticket browser", 600, 480, master_ui, state)
+		ui = new(user, src, ui_key, "TicketBrowser", "ticket browser", 660, 480, master_ui, state)
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
