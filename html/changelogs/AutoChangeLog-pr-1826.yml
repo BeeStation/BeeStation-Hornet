@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Disconnected clients now have a history
