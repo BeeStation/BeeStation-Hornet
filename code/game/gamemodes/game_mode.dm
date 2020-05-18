@@ -295,7 +295,7 @@
 				if(!Player.mind)
 					continue
 				//Gamemodes like revs do not give antag status, but special roles instead.
-				if(Player.mind?.special_role && !LAZYLEN(Player.mind.antag_datums))
+				if(Player.mind.special_role && !LAZYLEN(Player.mind.antag_datums))
 					continuous_sanity_checked = TRUE
 					return FALSE
 				for(var/datum/antagonist/A in Player.mind.antag_datums)
