@@ -112,7 +112,7 @@
 	name = "blue slacks"
 	desc = "A pair of comfortable freshly pressed slacks and an equally sharp dress shirt. Tie and suit coat not included."
 	icon_state = "blueslacks"
-	item_state = "blue_slacks"
+	item_state = "blueslacks"
 	item_color = "blueslacks"
 	can_adjust = TRUE
 	alt_covers_chest = TRUE

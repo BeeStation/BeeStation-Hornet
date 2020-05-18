@@ -35,7 +35,7 @@
 	name = "black slacks"
 	desc = "A professional set of black slacks and a white dress shirt. Nanotrasen Investigation Bureau approved! Tie and suit coat not included."
 	icon_state = "blackslacks"
-	item_state = "sl_suit"
+	item_state = "blackslacks"
 	item_color = "blackslacks"
 
 /obj/item/clothing/under/suit/black/skirt
