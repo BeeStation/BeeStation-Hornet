@@ -34,12 +34,9 @@
 			for(var/datum/mutation/human/HM in dna.mutations)
 				HM.on_life()
 
-		if(stat != DEAD)
+		if(stat != DEAD && undergoing_cardiac_arrest())
 			//heart attack stuff
 			var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
-
-			if(!undergoing_cardiac_arrest())
-				return
 
 			if(we_breath)
 				adjustOxyLoss(8)
