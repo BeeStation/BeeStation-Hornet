@@ -1010,11 +1010,22 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set category = "Debug"
 	set name = "Fucky Wucky"
 	set desc = "Inform the players that the code monkeys at our headquarters are working very hard to fix this."
+
+	if(!check_rights(R_DEBUG))
+		return
+	verbs -= /client/proc/fucky_wucky
+	message_admins("<span class='adminnotice'>[key_name_admin(src)] did a fucky wucky.</span>")
+	log_admin("[key_name(src)] did a fucky wucky.")
 	for(var/m in GLOB.player_list)
 		var/datum/asset/fuckywucky = get_asset_datum(/datum/asset/simple/fuckywucky)
 		fuckywucky.send(m)
 		SEND_SOUND(m, 'sound/misc/fuckywucky.ogg')
 		to_chat(m, "<img src='fuckywucky.png'>")
+
+	addtimer(CALLBACK(src, .proc/restore_fucky_wucky), 600)
+
+/client/proc/restore_fucky_wucky()
+	verbs += /client/proc/fucky_wucky
 
 /client/proc/toggle_medal_disable()
 	set category = "Debug"
