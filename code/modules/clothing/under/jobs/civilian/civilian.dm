@@ -10,7 +10,7 @@
 
 /obj/item/clothing/under/rank/civilian/bartender/purple
 	desc = "It looks like it has lots of flair!"
-	name = "purple bartender's uniform"
+	name = "purple bartender's skirt"
 	icon_state = "purplebartender"
 	item_state = "purplebartender"
 	item_color = "purplebartender"
@@ -21,7 +21,7 @@
 	name = "chaplain's jumpsuit"
 	icon_state = "chaplain"
 	item_state = "bl_suit"
-	item_color = "chapblack"
+	item_color = "chaplain"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/civilian/chef
@@ -109,11 +109,11 @@
 	item_color = "lawyer_blue"
 
 /obj/item/clothing/under/rank/civilian/lawyer/bluesuit
-	name = "blue suit"
-	desc = "A classy suit and tie."
-	icon_state = "bluesuit"
-	item_state = "b_suit"
-	item_color = "bluesuit"
+	name = "blue slacks"
+	desc = "A pair of comfortable freshly pressed slacks and an equally sharp dress shirt. Tie and suit coat not included."
+	icon_state = "blueslacks"
+	item_state = "sl_suit"
+	item_color = "blueslacks"
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 

@@ -449,6 +449,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/obj/item/bodypart/blockhand = null
 	if(owner.stat) //can't block if you're dead
 		return 0
+	if(HAS_TRAIT(owner, TRAIT_NOBLOCK) && istype(src, /obj/item/shield)) //shields can always block, because they break instead of using stamina damage
+		return 0
 	if(owner.get_active_held_item() == src) //copypaste of this code for an edgecase-nodrops
 		if(owner.active_hand_index == 1)
 			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
@@ -467,19 +469,17 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return 0
 	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
 		return 0
-	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src && !HAS_TRAIT(owner, TRAIT_PARRY)) //you can still parry with the offhand
+	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src) //you can still parry with the offhand
 		return 0
 	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
 		var/obj/item/projectile/P = hitby
 		if(block_flags & BLOCKING_PROJECTILE)
-			if(P.movement_type & UNSTOPPABLE && !HAS_TRAIT(owner, TRAIT_PARRY)) //you can't block piercing rounds!
+			if(P.movement_type & UNSTOPPABLE) //you can't block piercing rounds!
 				return 0
 		else
 			return 0 
-	if(owner.m_intent == MOVE_INTENT_WALK && !HAS_TRAIT(owner, TRAIT_JITTERS))
+	if(owner.m_intent == MOVE_INTENT_WALK)
 		final_block_level += block_upgrade_walk
-	if(HAS_TRAIT(owner, TRAIT_JITTERS))
-		final_block_level -= 1
 	switch(relative_dir)
 		if(180, -180)
 			if(final_block_level >= 1)
@@ -506,9 +506,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	var/blockhand = 0
 	var/attackforce = 0
-	var/obj/item/riposte = src
-	if(owner.get_active_held_item()) //parry with our active item if we have it
-		riposte = owner.get_active_held_item()
 	if(owner.get_active_held_item() == src) //this feels so hacky...
 		if(owner.active_hand_index == 1)
 			blockhand = BODY_ZONE_L_ARM
@@ -521,14 +518,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			blockhand = BODY_ZONE_L_ARM
 	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
-		if(P.damtype != STAMINA)// disablers dont do shit to shields
+		if(P.damage_type != STAMINA)// disablers dont do shit to shields
 			attackforce = (P.damage)
-			if(HAS_TRAIT(owner, TRAIT_PARRY))
-				owner.visible_message("<span class='danger'>[owner] deflects [P] with the [src]!</span>")
-				playsound(src, 'sound/weapons/effects/ric1.ogg', 75, 0)
-				stoplag(4)
-				playsound(src, 'sound/weapons/bulletremove.ogg', 75, 0)
-				attackforce = 0
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
 		attackforce = damage
@@ -537,34 +528,23 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!I.damtype == BRUTE)
 			attackforce = (attackforce / 2)//as above, burning weapons, or weapons that deal other damage type probably dont get force from physical power
 		attackforce = (attackforce * I.attack_weight)
-		if(isliving(I.loc) && HAS_TRAIT(owner, TRAIT_PARRY))
-			var/mob/living/L = I.loc
-			L.attackby(riposte, owner)
-			owner.visible_message("<span class='danger'>[owner] parries [L]'s [I] with the [src]!</span>")
-			playsound(src, 'sound/weapons/deflect.ogg', 75, 0)
+		if(I.damtype == STAMINA)//pure stamina damage wont affect blocks
 			attackforce = 0
 	else if(attack_type == UNARMED_ATTACK && isliving(hitby))
 		var/mob/living/L = hitby
 		attackforce = damage
-		if(HAS_TRAIT(owner, TRAIT_PARRY))
-			L.attackby(riposte, owner)
-			attackforce = 0
-			owner.visible_message("<span class='danger'>[owner] parries [L] with the [src]!</span>")
-			playsound(src, 'sound/weapons/deflect.ogg', 75, 0)
 		if(block_flags & BLOCKING_NASTY)
 			L.attackby(src, owner)
 			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 	else if(isliving(hitby))
 		var/mob/living/L = hitby
 		attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
-		if(HAS_TRAIT(owner, TRAIT_PARRY))
-			L.attackby(riposte, owner)
-			owner.visible_message("<span class='danger'>[owner] parries [L] with the [src]!</span>")
-			playsound(src, 'sound/weapons/deflect.ogg', 75, 0)
 		if(block_flags & BLOCKING_NASTY)
 			L.attackby(src, owner)
 			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 	owner.apply_damage(attackforce, STAMINA, blockhand, block_power) 
+	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
+		owner.blockbreak()
 	return TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language)

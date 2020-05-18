@@ -32,12 +32,11 @@
 	can_adjust = FALSE
 
 /obj/item/clothing/under/suit/black
-	name = "black suit"
-	desc = "A black suit and red tie. Very formal."
-	icon_state = "black_suit"
-	item_state = "bl_suit"
-	item_color = "black_suit"
-	can_adjust = FALSE
+	name = "black slacks"
+	desc = "A professional set of black slacks and a white dress shirt. Nanotrasen Investigation Bureau approved! Tie and suit coat not included."
+	icon_state = "blackslacks"
+	item_state = "sl_suit"
+	item_color = "blackslacks"
 
 /obj/item/clothing/under/suit/black/skirt
 	name = "black suitskirt"
