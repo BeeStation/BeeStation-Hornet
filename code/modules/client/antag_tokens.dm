@@ -16,12 +16,14 @@
 	var/datum/DBQuery/query_set_antag_tokens = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET antag_tokens = '[token_count]' WHERE ckey = '[ckey]'")
 	if(!query_set_antag_tokens.warn_execute())
 		qdel(query_set_antag_tokens)
-		return
+		return FALSE
 	qdel(query_set_antag_tokens)
+	return TRUE
 
 /client/proc/inc_antag_token_count(token_count)
 	var/datum/DBQuery/query_inc_antag_tokens = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET antag_tokens = antag_tokens + [token_count] WHERE ckey = '[ckey]'")
 	if(!query_inc_antag_tokens.warn_execute())
 		qdel(query_inc_antag_tokens)
-		return
+		return FALSE
 	qdel(query_inc_antag_tokens)
+	return TRUE

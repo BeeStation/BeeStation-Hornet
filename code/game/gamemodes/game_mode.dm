@@ -416,6 +416,14 @@
 		var/spend = min(((role in player.client.prefs.be_special) ? p_rep : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
 		current += spend
 
+		if(mind?.client?.requesting_antag_token_usage && mind?.client?.get_antag_token_count() >= 1)
+			if(mind.client.inc_antag_token_count(-1))
+				to_chat(mind, "<font color='green'>You have successfully used an antagonist token!</span>")
+				mind.client.requesting_antag_token_usage = FALSE
+				return mind
+			else
+				to_chat(mind, "<span class='warning'></span>")
+
 		if(antag_select >= previous && antag_select <= (current-1))
 			SSpersistence.antag_rep_change[p_ckey] = -(spend - DEFAULT_ANTAG_TICKETS)
 //			WARNING("AR_DEBUG: Player [mind.key] won spending [spend] tickets from starting value [SSpersistence.antag_rep[p_ckey]]")
