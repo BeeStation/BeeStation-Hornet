@@ -62,4 +62,4 @@
 	desc = "A crude projectile weapon made from silk string, pipe and lots of bending."
 	icon_state = "pipebow"
 	item_state = "pipebow"
-	force = 0
+	force = 7
