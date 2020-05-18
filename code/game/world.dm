@@ -5,8 +5,9 @@ GLOBAL_VAR(restart_counter)
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
 /world/New()
-	if(fexists("byond-extools.dll"))
-		call("byond-extools.dll", "maptick_initialize")()
+	var/extools = world.GetConfig("env", "EXTOOLS_DLL") || (world.system_type == MS_WINDOWS ? "./byond-extools.dll" : "./libbyond-extools.so")
+	if (fexists(extools))
+		call(extools, "maptick_initialize")()
 
 	//Early profile for auto-profiler - will be stopped on profiler init if necessary.
 #if DM_VERSION >= 513 && DM_BUILD >= 1506
