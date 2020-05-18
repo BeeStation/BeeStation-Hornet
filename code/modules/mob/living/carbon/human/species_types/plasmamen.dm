@@ -37,7 +37,7 @@
 			atmos_sealed = TRUE
 	if(environment && !atmos_sealed)
 		if(environment.total_moles())
-			if(environment.gases[/datum/gas/oxygen] && (environment.gases[/datum/gas/oxygen][MOLES]) >= 1) //Same threshhold that extinguishes fire
+			if(environment.get_moles(/datum/gas/oxygen) >= 1) //Same threshhold that extinguishes fire
 				H.adjust_fire_stacks(0.5)
 				if(!H.on_fire && H.fire_stacks > 0)
 					H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
@@ -88,7 +88,7 @@
 
 		if("Security Officer")
 			O = new /datum/outfit/plasmaman/security
-		
+
 		if("Deputy")
 			O = new /datum/outfit/plasmaman
 

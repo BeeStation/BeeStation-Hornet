@@ -88,7 +88,7 @@
 		// This is from the RD server code.  It works well enough but I need to move over the
 		// sspace heater code so we can caculate power used per tick as well and making this both
 		// exothermic and an endothermic component
-		if(env && env.temperature < T20C + 80)
+		if(env && env.return_temperature() < T20C + 80)
 
 			var/transfer_moles = 0.25 * env.total_moles()
 
@@ -98,7 +98,7 @@
 				var/heat_capacity = removed.heat_capacity()
 				if(heat_capacity == 0 || heat_capacity == null)
 					heat_capacity = 1
-				removed.temperature = min((removed.temperature*heat_capacity + heating_power)/heat_capacity, 1000)
+				removed.set_temperature(min((removed.return_temperature()*heat_capacity + heating_power)/heat_capacity, 1000))
 
 			current_temp = removed.temperature
 			env.merge(removed)
