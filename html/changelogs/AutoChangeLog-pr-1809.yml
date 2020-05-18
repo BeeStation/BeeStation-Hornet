@@ -1,0 +1,5 @@
+author: tralezab
+delete-after: true
+changes:
+  - rscadd: The mime's PDA messages are silent now!
+  - tweak: Mime's invisible box lasts twice as long.
