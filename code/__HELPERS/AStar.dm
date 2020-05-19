@@ -214,8 +214,8 @@ Actual Adjacent procs :
 	for(var/obj/O in T)
 		if(!O.CanAStarPass(ID, rdir, caller))
 			return TRUE
-	/*for(var/obj/machinery/door/firedoor/border_only/W in src) //TODO: Uncomment after porting firedoors
+	for(var/obj/machinery/door/firedoor/border_only/W in src)
 		if(!W.CanAStarPass(ID, adir, caller))
-			return TRUE*/
+			return TRUE
 
 	return FALSE
