@@ -201,7 +201,6 @@
 		var/mob/dead/observer/C = pick(candidates)
 		var/mob/living/simple_animal/hostile/guardian/G = new(user, theme, guardian_color)
 		if(guardian_name)
-			G.mind.name = guardian_name
 			G.real_name = guardian_name
 			G.name = guardian_name
 		G.summoner = user.mind
