@@ -134,6 +134,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set OOC Color") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
+
 /client/verb/resetcolorooc()
 	set name = "Reset Your OOC Color"
 	set desc = "Returns your OOC Color to default"
@@ -254,7 +255,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	chatOutput.start()
 	chatOutput.load()
 	alert(src, "Your chat has been force recreated. If this still hasnt fixed issues, please make an issue report, with your BYOND version, Windows version, and IE Version.", "Done", "Ok")
-				
+
 /client/verb/motd()
 	set name = "MOTD"
 	set category = "OOC"
@@ -382,3 +383,20 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 		pct += delta
 		winset(src, "mainwindow.split", "splitter=[pct]")
+
+/client/verb/use_antag_token()
+	set name = "Use Antagonist Token"
+	set desc = "Use an antagonist token to become an antagonist in the next round."
+	set category = "OOC"
+
+	var/antag_token_count = get_antag_token_count()
+	if(!antag_token_count)
+		to_chat(usr, "<span class='warning'>You have no antag tokens!</span>")
+		return
+
+	var/confimation = input(usr, "Are you sure you want to use an antag token if possible (You have [antag_token_count] remaining)?", "Antag Token", "Yes", "No")
+
+	if(confimation != "Yes")
+		return
+
+	usr.mind.requesting_antag_token_usage = TRUE

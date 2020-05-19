@@ -71,6 +71,8 @@
 	var/list/learned_recipes //List of learned recipe TYPES.
 	var/list/crew_objectives = list()
 
+	var/requesting_antag_token_usage = FALSE	//If the client wants to use an antagonist token
+
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src
