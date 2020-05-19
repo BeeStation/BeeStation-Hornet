@@ -523,8 +523,6 @@ GENE SCANNER
 		else
 			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/plasma), 0.01)] mol)</span>")
 
-		environment.garbage_collect()
-
 		for(var/id in environment.get_gases())
 			if(id in GLOB.hardcoded_gases)
 				continue

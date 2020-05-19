@@ -83,26 +83,23 @@
 
 /datum/gas_reaction/nitrous_decomp/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
-	var/old_heat_capacity = air.heat_capacity()
-	var/list/cached_gases = air.gases //this speeds things up because accessing datum vars is slow
-	var/temperature = air.temperature
+	var/old_heat_capacity = air.heat_capacity() //this speeds things up because accessing datum vars is slow
+	var/temperature = air.return_temperature()
 	var/burned_fuel = 0
 
 
-	burned_fuel = max(0,0.00002*(temperature-(0.00001*(temperature**2))))*cached_gases[/datum/gas/nitrous_oxide][MOLES]
-	cached_gases[/datum/gas/nitrous_oxide][MOLES] -= burned_fuel
+	burned_fuel = max(0,0.00002*(temperature-(0.00001*(temperature**2))))*air.get_moles(/datum/gas/nitrous_oxide)
+	air.set_moles(/datum/gas/nitrous_oxide, air.get_moles(/datum/gas/nitrous_oxide) - burned_fuel)
 
 	if(burned_fuel)
 		energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)
 
-		ASSERT_GAS(/datum/gas/oxygen, air)
-		cached_gases[/datum/gas/oxygen][MOLES] += burned_fuel/2
-		ASSERT_GAS(/datum/gas/nitrogen, air)
-		cached_gases[/datum/gas/nitrogen][MOLES] += burned_fuel
+		air.set_moles(/datum/gas/oxygen, air.get_moles(/datum/gas/oxygen) + burned_fuel/2)
+		air.set_moles(/datum/gas/nitrogen, air.get_moles(/datum/gas/nitrogen) + burned_fuel)
 
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.temperature = (temperature*old_heat_capacity + energy_released)/new_heat_capacity
+			air.set_temperature((temperature*old_heat_capacity + energy_released)/new_heat_capacity)
 		return REACTING
 	return NO_REACTION
 
@@ -484,6 +481,7 @@
 		/datum/gas/plasma = MINIMUM_MOLE_COUNT,
 		"TEMP" = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
 	)
+
 /datum/gas_reaction/stim_ball/react(datum/gas_mixture/air, datum/holder)
 	var/turf/open/location
 	var/old_heat_capacity = air.heat_capacity()
@@ -494,7 +492,7 @@
 		location = get_turf(holder)
 	var/ball_shot_angle = 180*cos(air.get_moles(/datum/gas/water_vapor)/air.get_moles(/datum/gas/nitryl))+180
 	var/stim_used = min(STIM_BALL_GAS_AMOUNT/air.get_moles(/datum/gas/plasma),air.get_moles(/datum/gas/stimulum))
-	var/pluox_used = min(STIM_BALL_GAS_AMOUNT/air.get_moles(/datum/gas/plasma),air.get_moles([/datum/gas/pluoxium))
+	var/pluox_used = min(STIM_BALL_GAS_AMOUNT/air.get_moles(/datum/gas/plasma),air.get_moles(/datum/gas/pluoxium))
 	var/energy_released = stim_used*STIMULUM_HEAT_SCALE//Stimulum has a lot of stored energy, and breaking it up releases some of it
 	location.fire_nuclear_particle(ball_shot_angle)
 	air.adjust_moles(/datum/gas/carbon_dioxide, 4*pluox_used)

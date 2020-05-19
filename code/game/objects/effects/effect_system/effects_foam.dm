@@ -44,7 +44,6 @@
 		absorbed_plasma += plas_amt
 		if(G.return_temperature() > T20C)
 			G.set_temperature(max(G.return_temperature()/2,T20C))
-		G.garbage_collect()
 		T.air_update_turf()
 
 /obj/effect/particle_effect/foam/firefighting/kill_foam()

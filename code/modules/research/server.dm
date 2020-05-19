@@ -100,11 +100,11 @@
 					heat_capacity = 1
 				removed.set_temperature(min((removed.return_temperature()*heat_capacity + heating_power)/heat_capacity, 1000))
 
-			current_temp = removed.temperature
+			current_temp = removed.return_temperature()
 			env.merge(removed)
 			src.air_update_turf()
 		else
-			current_temp = env ? env.temperature : -1
+			current_temp = env ? env.return_temperature() : -1
 
 /obj/machinery/rnd/server/proc/get_env_temp()
 	// if we are on and ran though one tick
@@ -116,7 +116,7 @@
 		var/datum/gas_mixture/env
 		if(istype(L))
 			env = L.return_air()
-		return env ? env.temperature : T20C			// env might be null at round start.  This stops runtimes
+		return env ? env.return_temperature() : T20C			// env might be null at round start.  This stops runtimes
 
 /obj/machinery/rnd/server/proc/refresh_working()
 	var/current_temp  = get_env_temp()

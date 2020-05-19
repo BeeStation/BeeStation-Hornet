@@ -235,8 +235,6 @@
 		total_gas_mixture.merge(G)
 		total_volume += G.return_volume()
 
-	total_gas_mixture.temperature = total_heat_capacity ? total_thermal_energy/total_heat_capacity : 0
-
 	if(total_volume > 0)
 		//Update individual gas_mixtures by volume ratio
 		for(var/i in GL)

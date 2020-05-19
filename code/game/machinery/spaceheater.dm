@@ -98,7 +98,7 @@
 			return
 
 		var/heat_capacity = env.heat_capacity()
-		var/requiredPower = abs(env.temperature - targetTemperature) * heat_capacity
+		var/requiredPower = abs(env.return_temperature() - targetTemperature) * heat_capacity
 		requiredPower = min(requiredPower, heatingPower)
 
 		if(requiredPower < 1)

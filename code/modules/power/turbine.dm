@@ -331,7 +331,7 @@
 	data["online"] = compressor?.starter
 	data["power"] = DisplayPower(compressor?.turbine?.lastgen)
 	data["rpm"] = compressor?.rpm
-	data["temp"] = compressor?.gas_contained.temperature
+	data["temp"] = compressor?.gas_contained.return_temperature()
 	return data
 
 /obj/machinery/computer/turbine_computer/ui_act(action, params)

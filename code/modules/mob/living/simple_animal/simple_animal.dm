@@ -217,8 +217,6 @@
 			var/n2  = ST.air.get_moles(/datum/gas/nitrogen)
 			var/co2 = ST.air.get_moles(/datum/gas/carbon_dioxide)
 
-			ST.air.garbage_collect()
-
 			if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 				. = FALSE
 			else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
