@@ -2,6 +2,8 @@
 
 /proc/init_gas_reactions()
 	. = list()
+	for(var/type in subtypesof(/datum/gas))
+		.[type] = list()
 
 	for(var/r in subtypesof(/datum/gas_reaction))
 		var/datum/gas_reaction/reaction = r
@@ -14,12 +16,21 @@
 				var/datum/gas/req_gas = req
 				if (!reaction_key || initial(reaction_key.rarity) > initial(req_gas.rarity))
 					reaction_key = req_gas
-		reaction.major_gas = reaction_key
-		. += reaction
-	sortTim(., /proc/cmp_gas_reaction)
+		.[reaction_key] += list(reaction)
+		sortTim(., /proc/cmp_gas_reactions, TRUE)
 
-/proc/cmp_gas_reaction(datum/gas_reaction/a, datum/gas_reaction/b) // compares lists of reactions by the maximum priority contained within the list
-	return b.priority - a.priority
+/proc/cmp_gas_reactions(list/datum/gas_reaction/a, list/datum/gas_reaction/b) // compares lists of reactions by the maximum priority contained within the list
+	if (!length(a) || !length(b))
+		return length(b) - length(a)
+	var/maxa
+	var/maxb
+	for (var/datum/gas_reaction/R in a)
+		if (R.priority > maxa)
+			maxa = R.priority
+	for (var/datum/gas_reaction/R in b)
+		if (R.priority > maxb)
+			maxb = R.priority
+	return maxb - maxa
 
 /datum/gas_reaction
 	//regarding the requirements lists: the minimum or maximum requirements must be non-zero.
