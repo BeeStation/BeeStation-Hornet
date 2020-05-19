@@ -386,17 +386,29 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 /client/verb/use_antag_token()
 	set name = "Use Antagonist Token"
-	set desc = "Use an antagonist token to become an antagonist in the next round."
+	set desc = "Toggle whether or not you want to use an antagonist token to become an antagonist in the next round."
 	set category = "OOC"
+
+	if(!(SSticker.current_state == GAME_STATE_PREGAME || SSticker.current_state == GAME_STATE_STARTUP))
+		usr.mind.requesting_antag_token_usage = FALSE
+		to_chat(usr, "<span class='warning'>You cannot use an antagonist token after the round has started.</span>")
+		return
+
+	if(usr.mind.requesting_antag_token_usage)
+		usr.mind.requesting_antag_token_usage = FALSE
+		to_chat(usr, "<span class='warning'>You are no longer using an antagonist token.</span>")
+		return
 
 	var/antag_token_count = get_antag_token_count()
 	if(!antag_token_count)
 		to_chat(usr, "<span class='warning'>You have no antag tokens!</span>")
 		return
 
-	var/confimation = input(usr, "Are you sure you want to use an antag token if possible (You have [antag_token_count] remaining)?", "Antag Token", "Yes", "No")
+	var/confimation = alert(usr, "Are you sure you want to use an antag token if possible (You have [antag_token_count] remaining)? (You may be given antagonists that you have disabled in your preferences)", "Antag Token", "Yes", "No")
 
 	if(confimation != "Yes")
 		return
 
 	usr.mind.requesting_antag_token_usage = TRUE
+	to_chat(usr, "<font color='green'>You are now requesting to use an antagonist token. Your chance of becoming antagonist has been greatly increased!</font>")
+	to_chat(usr, "<font color='green'>Your antagonist token will only be used if you qualify for an antagonist role (This includes antagonist roles you have disabled in your preferences).</font>")

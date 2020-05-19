@@ -418,7 +418,7 @@
 
 		if(mind.requesting_antag_token_usage && mind.current?.client?.get_antag_token_count() >= 1)
 			if(mind.current?.client?.inc_antag_token_count(-1))
-				to_chat(mind, "<font color='green'>You have successfully used an antagonist token!</span>")
+				to_chat(mind, "<font color='green'>You have successfully used an antagonist token!</font>")
 				mind.requesting_antag_token_usage = FALSE
 				return mind
 			else
