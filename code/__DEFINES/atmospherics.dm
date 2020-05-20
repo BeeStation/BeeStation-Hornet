@@ -169,7 +169,7 @@
 #define ATMOS_TANK_AIRMIX			"o2=2644;n2=10580;TEMP=293.15"
 
 //LAVALAND
-#define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50 //! what pressure you have to be under to increase the effect of equipment meant for lavaland
+#define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 90 //! what pressure you have to be under to increase the effect of equipment meant for lavaland
 
 //ATMOS MIX IDS
 #define LAVALAND_DEFAULT_ATMOS		"LAVALAND_ATMOS"

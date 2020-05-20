@@ -48,12 +48,12 @@
 
 	// That last one put us over the limit, remove some of it
 	while(gasmix.return_pressure() > target_pressure)
-		gasmix.set_moles(gastype, gasmix.get_moles(gastype) * 0.1)
+		gasmix.set_moles(gastype, gasmix.get_moles(gastype) - (gasmix.get_moles(gastype) * 0.1))
 	gasmix.set_moles(gastype, FLOOR(gasmix.get_moles(gastype), 0.1))
 
 	// Now finally lets make that string
 	var/list/gas_string_builder = list()
 	for(var/i in gasmix.get_gases())
-		gas_string_builder += "[GLOB.meta_gas_info[i][META_GAS_NAME]]=[gasmix.get_moles(i)]"
+		gas_string_builder += "[GLOB.meta_gas_info[i][META_GAS_ID]]=[gasmix.get_moles(i)]"
 	gas_string_builder += "TEMP=[gasmix.return_temperature()]"
 	gas_string = gas_string_builder.Join(";")
