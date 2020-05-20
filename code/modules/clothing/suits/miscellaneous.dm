@@ -639,6 +639,14 @@
 	flags_inv = HIDEGLOVES|HIDEEARS|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	alternate_worn_layer = UNDER_HEAD_LAYER
 
+/obj/item/clothing/under/costume/joker
+	name = "comedian suit"
+	desc = "The worst part of having a mental illness is people expect you to behave as if you don’t."
+	icon_state = "joker"
+	item_state = "joker"
+	item_color = "joker"
+	can_adjust = FALSE	
+
 /obj/item/clothing/suit/joker
 	name = "comedian coat"
 	desc = "I mean, don’t you have to be funny to be a comedian?"
