@@ -6,7 +6,7 @@
 	},
 /obj/item/wirerod,
 /obj/item/wrench,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/suit/waiter,
 /obj/item/clothing/accessory/waistcoat,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32

@@ -148,6 +148,15 @@
 					categories -= "Range"
 	INVOKE_ASYNC(src, .proc/get_stand, H, stats)
 
+/obj/item/stand_arrow/proc/pick_name(mob/living/simple_animal/hostile/guardian/G)
+	set waitfor = FALSE
+	var/new_name = input("Set your name!", "Guardian Name") as text|null
+	if(new_name)
+		if(G.mind)
+			G.mind.name = new_name
+		G.real_name = new_name
+		G.name = new_name
+
 /obj/item/stand_arrow/proc/get_stand(mob/living/carbon/H, datum/guardian_stats/stats)
 	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the Guardian Spirit of [H.real_name]?", ROLE_HOLOPARASITE, null, FALSE, 100, POLL_IGNORE_HOLOPARASITE)
 	if(LAZYLEN(candidates))
@@ -157,7 +166,8 @@
 		G.key = C.key
 		G.mind.enslave_mind_to_creator(H)
 		G.RegisterSignal(H, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/guardian.proc/OnMoved)
-		G.RegisterSignal(H.mind, COMSIG_MIND_TRANSFER_TO, /mob/living/simple_animal/hostile/guardian.proc/BringMeBackToLife)
+		G.RegisterSignal(H, COMSIG_LIVING_REVIVE, /mob/living/simple_animal/hostile/guardian.proc/Reviveify)
+		G.RegisterSignal(H.mind, COMSIG_MIND_TRANSFER_TO, /mob/living/simple_animal/hostile/guardian.proc/OnMindTransfer)
 		var/datum/antagonist/guardian/S = new
 		S.stats = stats
 		S.summoner = H.mind
@@ -175,6 +185,7 @@
 		in_use = FALSE
 		H.visible_message("<span class='danger bold'>\The [src] falls out of [H]!</span>")
 		forceMove(H.drop_location())
+		pick_name(G)
 		if(!uses)
 			visible_message("<span class='warning'>\The [src] falls apart!</span>")
 			qdel(src)
