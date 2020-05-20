@@ -453,7 +453,7 @@
 		if(istype(user, /mob/living/carbon))
 			var/mob/living/carbon/C = user
 			evilpaper_specialaction(C)
-			..()
+			. = ..()
 		else
 			// This should never happen, but just in case someone is adminbussing
 			evilpaper_selfdestruct()
