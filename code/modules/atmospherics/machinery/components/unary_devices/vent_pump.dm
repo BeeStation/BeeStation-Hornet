@@ -32,6 +32,8 @@
 	var/radio_filter_out
 	var/radio_filter_in
 
+	var/obj/machinery/advanced_airlock_controller/aac = null
+
 	pipe_state = "uvent"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/New()
@@ -44,6 +46,8 @@
 	if (A)
 		A.air_vent_names -= id_tag
 		A.air_vent_info -= id_tag
+	if(aac)
+		aac.vents -= src
 
 	SSradio.remove_object(src,frequency)
 	radio_connection = null
@@ -154,7 +158,8 @@
 		"checks" = pressure_checks,
 		"internal" = internal_pressure_bound,
 		"external" = external_pressure_bound,
-		"sigtype" = "status"
+		"sigtype" = "status",
+		"has_aac" = aac != null
 	))
 
 	var/area/A = get_area(src)

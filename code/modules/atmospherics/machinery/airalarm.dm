@@ -295,7 +295,7 @@
 		for(var/id_tag in A.air_vent_names)
 			var/long_name = A.air_vent_names[id_tag]
 			var/list/info = A.air_vent_info[id_tag]
-			if(!info || info["frequency"] != frequency)
+			if(!info || info["frequency"] != frequency || info["has_aac"])
 				continue
 			data["vents"] += list(list(
 					"id_tag"	= id_tag,
