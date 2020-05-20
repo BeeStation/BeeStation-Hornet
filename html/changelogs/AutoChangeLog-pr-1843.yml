@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - tweak: The default number of space ruins to load in has been reduced.
