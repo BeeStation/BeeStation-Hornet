@@ -30,7 +30,7 @@
 /obj/item/gun/ballistic/bow/attack_self(mob/living/user)
 	if (chambered)
 		var/obj/item/I = usr.get_active_held_item()
-		if (!do_mob(user,I,10))
+		if (do_mob(user,I,10))
 			var/obj/item/ammo_casing/AC = magazine.get_round(0)
 			user.put_in_hands(AC)
 			chambered = null
@@ -53,14 +53,14 @@
 	return chambered
 
 /obj/item/gun/ballistic/bow/ashen
-	name = "Bone bow"
+	name = "Bone Bow"
 	desc = "Some sort of primitive projectile weapon made of bone and wrapped sinew."
 	icon_state = "ashenbow"
 	item_state = "ashenbow"
 	force = 8
 
 /obj/item/gun/ballistic/bow/pipe
-	name = "Pipe bow"
+	name = "Pipe Bow"
 	desc = "A crude projectile weapon made from silk string, pipe and lots of bending."
 	icon_state = "pipebow"
 	item_state = "pipebow"
