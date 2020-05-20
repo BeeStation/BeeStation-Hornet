@@ -1,0 +1,4 @@
+author: qwertyquerty
+delete-after: true
+changes:
+  - server: Update DMAPI to 5.2
