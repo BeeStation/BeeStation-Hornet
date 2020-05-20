@@ -156,6 +156,7 @@ GLOBAL_VAR(restart_counter)
 	log_runtime(GLOB.revdata.get_log_message())
 
 /world/Topic(T, addr, master, key)
+	TGS_TOPIC	//redirect to server tools if necessary
 
 	var/list/response[] = list()
 	if (SSfail2topic?.IsRateLimited(addr))
@@ -167,8 +168,6 @@ GLOBAL_VAR(restart_counter)
 		response["statuscode"] = 413
 		response["response"] = "Payload too large."
 		return json_encode(response)
-
-	TGS_TOPIC	//redirect to server tools if necessary
 
 	var/static/list/topic_handlers = TopicHandlers()
 
