@@ -29,10 +29,12 @@
 
 /obj/item/gun/ballistic/bow/attack_self(mob/living/user)
 	if (chambered)
-		var/obj/item/ammo_casing/AC = magazine.get_round(0)
-		user.put_in_hands(AC)
-		chambered = null
-		to_chat(user, "<span class='notice'>You gently release the bowstring, removing the arrow.</span>")
+		var/obj/item/I = usr.get_active_held_item()
+		if (!do_mob(user,I,10))
+			var/obj/item/ammo_casing/AC = magazine.get_round(0)
+			user.put_in_hands(AC)
+			chambered = null
+			to_chat(user, "<span class='notice'>You gently release the bowstring, removing the arrow.</span>")
 	else if (get_ammo())
 		to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
 		playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies

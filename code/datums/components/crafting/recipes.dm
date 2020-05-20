@@ -35,12 +35,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
-/datum/crafting_recipe/pin_removal/check_requirements(mob,user, list/collected_requirements)
-	var/obj/item/gun/G = collected_requirements[/obj/item/gun][1]
-	if (G.no_pin_required || !G.pin)
-		return FALSE
-	return TRUE
-
 /datum/crafting_recipe/IED
 	name = "IED"
 	result = /obj/item/grenade/iedcasing
