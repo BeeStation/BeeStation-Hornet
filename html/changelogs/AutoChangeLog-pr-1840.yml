@@ -1,4 +1,0 @@
-author: MCterra10
-delete-after: true
-changes:
-  - bugfix: can no longer bomb with just a single BoH in the vicinity
