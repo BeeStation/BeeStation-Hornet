@@ -9,6 +9,13 @@ INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 4);
 In any query remember to add a prefix to the table names if you use one.
 
 ----------------------------------------------------
+Version 5.5 21 May 2020, by Crossedfall
+Adds a new `hidden` column in the `ban` table that allows for server maintainers to hide specific ban entries if needed (e.g. in cases where the GDPR is invoked)
+
+ALTER TABLE `ban`
+ADD `hidden` tinyint(1) unsigned NOT NULL DEFAULT '0';
+
+----------------------------------------------------
 Version 5.4 2 Jan 2020, by ike709
 Adds the ability to specify a minimum playtime requirement (in hours) to vote in a server poll.
 
