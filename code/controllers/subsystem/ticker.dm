@@ -645,10 +645,10 @@ SUBSYSTEM_DEF(ticker)
 	gather_newscaster() //called here so we ensure the log is created even upon admin reboot
 	save_admin_data()
 	update_everything_flag_in_db()
-	if(!round_end_sound)
-		var/list/tracks = flist("sound/roundend/")
-		if(tracks.len)
-			round_end_sound = "sound/roundend/[pick(tracks)]"
-
-	SEND_SOUND(world, sound(round_end_sound))
+	//if(!round_end_sound)
+	//	var/list/tracks = flist("sound/roundend/")
+	//	if(tracks.len)
+	//		round_end_sound = "sound/roundend/[pick(tracks)]"
+//
+//	SEND_SOUND(world, sound(round_end_sound))
 	text2file(login_music, "data/last_round_lobby_music.txt")
