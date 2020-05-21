@@ -160,6 +160,7 @@
 			if(!do_after(user, 20, TRUE, src)) // give them a few seconds to reconsider their decision.
 				return
 			log_game("[key_name(user)] has opened a firelock with a pressure difference at [AREACOORD(loc)]")
+			user.log_message("has opened a firelock with a pressure difference at [AREACOORD(loc)]", LOG_ATTACK)
 			// since we have high-pressure-ness, close all other firedoors on the tile
 			whack_a_mole()
 		if(welded || operating || !density)

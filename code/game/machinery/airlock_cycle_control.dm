@@ -85,10 +85,8 @@
 	var/obj/vis_target = null
 
 /obj/machinery/advanced_airlock_controller/lavaland
-	exterior_pressure = 36.896 // according to very reliable asay this is the correct pressure.
-	// lavaland isn't exactly a contaminant so I'll let it have a high depressurization margin
-	// (also miners dont appreciate vacuum)
-	depressurization_margin = 36.896
+	exterior_pressure = WARNING_LOW_PRESSURE + 10
+	depressurization_margin = WARNING_LOW_PRESSURE + 10
 
 /obj/machinery/advanced_airlock_controller/mix_chamber
 	depressurization_margin = 0.15 // The minimum - We really don't want contamination.

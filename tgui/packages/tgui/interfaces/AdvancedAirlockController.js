@@ -105,7 +105,7 @@ export const AACStatus = (props, context) => {
           <LabeledList.Item
             label="Pressure">
             <ProgressBar
-              ranged={{
+              ranges={{
                 good: [0.75, Infinity],
                 average: [0.25, 0.75],
                 bad: [-Infinity, 0.25],
