@@ -5,6 +5,7 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NumberInput, Section, ProgressBar } from '../components';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 import { classes } from 'common/react';
+import { Window } from '../layouts';
 
 const STATE_INOPEN = 0;
 const STATE_INOPENING = 1;
@@ -21,26 +22,36 @@ const ROLE_INT_DEPRESSURIZE = 2;
 const ROLE_EXT_PRESSURIZE = 4;
 const ROLE_EXT_DEPRESSURIZE = 8;
 
-export const AdvancedAirlockController = props => {
+export const AdvancedAirlockController = (props, context) => {
   const { state } = props;
-  const { act, data } = useBackend(props);
+  const { act, data } = useBackend(context);
   const locked = data.locked && !data.siliconUser;
   return (
-    <Fragment>
-      <InterfaceLockNoticeBox
-        siliconUser={data.siliconUser}
-        locked={data.locked}
-        onLockStatusChange={() => act('lock')} />
-      <AACStatus state={state} />
-      {!locked && (
-        <AACControl state={state} />
-      )}
-    </Fragment>
+    <Window>
+      <Window.Content>
+        <Fragment>
+          <InterfaceLockNoticeBox
+            siliconUser={data.siliconUser}
+            locked={data.locked}
+            onLockStatusChange={() => act('lock')} />
+          <AACStatus state={state} />
+          {!locked && (
+            <AACControl state={state} />
+          )}
+        </Fragment>
+      </Window.Content>
+    </Window>
   );
 };
 
-const AACStatus = props => {
-  const { act, data } = useBackend(props);
+export const AACStatus = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    cyclestate,
+    pressure,
+    maxpressure,
+    emagged,
+  } = data;
   const stateMap = {
     [STATE_INOPEN]: {
       color: 'good',
@@ -67,7 +78,6 @@ const AACStatus = props => {
       color: 'average',
       localStatusText: 'Depressurizing (exterior)',
     },
-
     [STATE_CLOSED]: {
       color: 'average',
       localStatusText: 'Unknown',
@@ -78,63 +88,75 @@ const AACStatus = props => {
     },
     [STATE_ERROR]: {
       color: 'bad',
-      localStatusText: 'Error. Contact an atmospheric technician for assistance.',
+      localStatusText: 'Error. Contact an atmospheric\
+      technician for assistance.',
     },
   };
-  const localStatus = stateMap[data.cyclestate] || stateMap[0];
+  const localStatus = stateMap[cyclestate] || stateMap[0];
+  const {
+    color,
+    localStatusText,
+  } = localStatus;
   return (
-    <Section title="Airlock Status">
+    <Section
+      title="Airlock Status">
       <LabeledList>
         <Fragment>
           <LabeledList.Item
             label="Pressure">
             <ProgressBar
-              ranges={{
+              ranged={{
                 good: [0.75, Infinity],
                 average: [0.25, 0.75],
                 bad: [-Infinity, 0.25],
               }}
-              value={data.pressure / data.maxpressure}>
-              {toFixed(data.pressure, 2)} kPa
+              value={pressure / maxpressure} >
+              {toFixed(pressure, 2)} kPa
             </ProgressBar>
           </LabeledList.Item>
           <LabeledList.Item
             label="Status"
-            color={localStatus.color}>
-            {localStatus.localStatusText}
+            color={color} >
+            {localStatusText}
           </LabeledList.Item>
-          {!!data.emagged && (
+          {!!emagged && (
             <LabeledList.Item
               label="Warning"
               color="bad">
-              Safety measures offline. Device may exhibit abnormal behavior.
+              Safety measures offline. Device may exhibit abnormal behaviour.
             </LabeledList.Item>
           )}
+          <LabeledList.Item />
         </Fragment>
       </LabeledList>
-      {(data.cyclestate === STATE_INOPEN || data.cyclestate === STATE_CLOSED
-      || data.cyclestate === STATE_INOPENING || data.cyclestate === STATE_OUTCLOSING) && <Button
+      {(cyclestate === STATE_INOPEN || cyclestate === STATE_CLOSED
+      || cyclestate === STATE_INOPENING || cyclestate
+      === STATE_OUTCLOSING) && <Button
         icon="sync-alt"
         content="Cycle to Exterior"
         onClick={() => act('cycle', {
           exterior: 1,
         })} />}
       {(data.cyclestate === STATE_OUTOPEN || data.cyclestate === STATE_CLOSED
-      || data.cyclestate === STATE_OUTOPENING || data.cyclestate === STATE_INCLOSING) && <Button
+      || data.cyclestate === STATE_OUTOPENING || data.cyclestate
+      === STATE_INCLOSING) && <Button
         icon="sync-alt"
         content="Cycle to Interior"
         onClick={() => act('cycle', {
           exterior: 0,
         })} />}
-      {(data.cyclestate === STATE_OUTOPENING || data.cyclestate === STATE_INOPENING
-      || data.cyclestate === STATE_OUTCLOSING || data.cyclestate === STATE_INCLOSING) && <Button
-        ico n="forward"
+      {(data.cyclestate === STATE_OUTOPENING || data.cyclestate
+      === STATE_INOPENING|| data.cyclestate === STATE_OUTCLOSING
+      || data.cyclestate=== STATE_INCLOSING) && <Button
+        icon="forward"
         content={"Skip "
-          + ((data.cyclestate === STATE_OUTOPENING || data.cyclestate === STATE_INOPENING)
+          + ((data.cyclestate === STATE_OUTOPENING
+            || data.cyclestate === STATE_INOPENING)
             ? "pressurization"
             : "depressurization")
           + ((data.skip_timer < data.skip_delay)
-            ? " (in " + Math.round((data.skip_delay - data.skip_timer)/10) + " seconds)"
+            ? " (in " + Math.round((data.skip_delay - data.skip_timer)/10)
+            + " seconds)"
             : "")}
         color="danger"
         disabled={data.skip_timer < data.skip_delay}
@@ -144,15 +166,26 @@ const AACStatus = props => {
   );
 };
 
-const AACControl = props => {
-  const { state } = props;
-  const { data, act } = useBackend(props);
-  /* Why not use NoticeBox? because its fucking broken and doesnt work
-  thanks tg */
+export const AACControl = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    state,
+  } = props;
+  const {
+    cyclestate,
+    config_error_str,
+    interior_pressure,
+    exterior_pressure,
+    depressurization_margin,
+    skip_delay,
+    vents,
+    airlocks,
+  } = data;
   return (
-    <Section title="Configuration">
-      {(data.cyclestate === STATE_ERROR && !!data.config_error_str)
-        && <Box className={classes(['NoticeBox'])}>{data.config_error_str}</Box>}
+    <Section
+      title="Configuration">
+      {(cyclestate === STATE_ERROR && !!config_error_str)
+        && <Box className={classes(['NoticeBox'])}>{config_error_str}</Box>}
       <LabeledList>
         <LabeledList.Item label="Actions"><Button
           icon="search"
@@ -162,7 +195,7 @@ const AACControl = props => {
         <LabeledList.Item label="Interior Pressure">
           <NumberInput
             animated
-            value={parseFloat(data.interior_pressure)}
+            value={parseFloat(interior_pressure)}
             unit="kPa"
             width="125px"
             minValue={0}
@@ -175,7 +208,7 @@ const AACControl = props => {
         <LabeledList.Item label="Exterior Pressure">
           <NumberInput
             animated
-            value={parseFloat(data.exterior_pressure)}
+            value={parseFloat(exterior_pressure)}
             unit="kPa"
             width="125px"
             minValue={0}
@@ -188,7 +221,7 @@ const AACControl = props => {
         <LabeledList.Item label="Depressurization Margin">
           <NumberInput
             animated
-            value={parseFloat(data.depressurization_margin)}
+            value={parseFloat(depressurization_margin)}
             unit="kPa"
             width="125px"
             minValue={0.15}
@@ -201,7 +234,7 @@ const AACControl = props => {
         <LabeledList.Item label="Time before Skip Allowed">
           <NumberInput
             animated
-            value={Math.round(parseFloat(data.skip_delay))/10}
+            value={Math.round(parseFloat(skip_delay))/10}
             unit="seconds"
             width="125px"
             minValue={0}
@@ -213,15 +246,15 @@ const AACControl = props => {
         </LabeledList.Item>
       </LabeledList>
 
-      {(!data.vents || data.vents.length === 0)
+      {(!vents || vents.length === 0)
         ? (<Box className={classes(['NoticeBox'])}>No vents</Box>)
-        : data.vents.map(vent => (
+        : vents.map(vent => (
           <Vent key={vent.vent_id}
             state={state}
             {...vent} />))}
-      {(!data.airlocks || data.airlocks.length === 0)
+      {(!airlocks || airlocks.length === 0)
         ? (<Box className={classes(['NoticeBox'])}>No Airlocks</Box>)
-        : data.airlocks.map(airlock => (
+        : airlocks.map(airlock => (
           <Airlock key={airlock.airlock_id}
             state={state}
             {...airlock} />))}
@@ -229,13 +262,13 @@ const AACControl = props => {
   );
 };
 
-const Vent = props => {
+export const Vent = (props, context) => {
+  const { act } = useBackend(context);
   const {
     vent_id,
     name,
     role,
   } = props;
-  const { act } = useBackend(props);
   return (
     <Section
       level={2}
@@ -284,14 +317,14 @@ const Vent = props => {
   );
 };
 
-const Airlock = props => {
+export const Airlock = (props, context) => {
+  const { act } = useBackend(context);
   const {
     airlock_id,
     name,
     role,
     access,
   } = props;
-  const { act } = useBackend(props);
   return (
     <Section
       level={2}
