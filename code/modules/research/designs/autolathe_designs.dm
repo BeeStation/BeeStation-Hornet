@@ -199,7 +199,7 @@
 	name = "Airlock Controller Electronics"
 	id = "aac_electronics"
 	build_type = AUTOLATHE | PROTOLATHE
-	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
+	materials = list(M/datum/material/iron = 50, /datum/material/glass = 50)
 	build_path = /obj/item/electronics/advanced_airlock_controller
 	category = list("initial", "Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
