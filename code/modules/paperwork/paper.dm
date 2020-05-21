@@ -417,7 +417,7 @@
 
 /obj/item/paper/construction/Initialize()
 	. = ..()
-	color = pick("FF0000", "#33cc33", "#ffb366", "#551A8B", "#ff80d5", "#4d94ff")
+	color = pick("#FF0000", "#33cc33", "#ffb366", "#551A8B", "#ff80d5", "#4d94ff")
 
 /*
  * Natural paper
