@@ -203,9 +203,6 @@
 /obj/machinery/door/airlock{
 	name = "Labor Camp External Access"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
-	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "aJ" = (
@@ -261,9 +258,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
 /turf/open/floor/plasteel/white,
 /area/mine/laborcamp)
 "aS" = (
@@ -272,9 +266,6 @@
 	icon_state = "unloader-corner";
 	input_dir = 1;
 	output_dir = 2
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
 	},
 /turf/open/floor/plating,
 /area/mine/laborcamp)
@@ -347,9 +338,7 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "bb" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "bc" = (
@@ -619,6 +608,9 @@
 /obj/machinery/advanced_airlock_controller/lavaland{
 	pixel_y = 29
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 6
+	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "bK" = (
@@ -630,6 +622,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple,
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "bL" = (
@@ -747,11 +742,11 @@
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "bV" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
@@ -759,6 +754,9 @@
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
@@ -784,9 +782,8 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/layer3,
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "bZ" = (
@@ -893,16 +890,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
-"cm" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/mine/production)
 "cn" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -920,22 +907,16 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "cp" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
 /turf/open/floor/plating,
 /area/mine/eva)
 "cq" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
+	dir = 5
 	},
 /turf/open/floor/mech_bay_recharge_floor,
 /area/mine/eva)
@@ -950,8 +931,11 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/layer3{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 9
 	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
@@ -959,6 +943,9 @@
 /obj/structure/ore_box,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
@@ -2953,9 +2940,6 @@
 /area/lavaland/surface/outdoors)
 "gU" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 9
-	},
 /turf/closed/wall,
 /area/mine/laborcamp)
 "gY" = (
@@ -3422,15 +3406,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"lk" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/mine/production)
 "ll" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -4274,9 +4249,6 @@
 /obj/machinery/advanced_airlock_controller/lavaland{
 	pixel_y = -29
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/layer3{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "DO" = (
@@ -4488,12 +4460,6 @@
 /obj/effect/turf_decal/tile/brown,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
-"Ra" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/turf/closed/wall,
-/area/mine/laborcamp)
 "RO" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/components/unary/outlet_injector/on/layer3{
@@ -4530,13 +4496,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"US" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/turf/closed/wall,
-/area/mine/laborcamp)
 "VD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/door/airlock/security/glass{
@@ -4643,13 +4602,6 @@
 "WY" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/mine/eva)
-"XT" = (
-/obj/effect/spawner/structure/window,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
@@ -11323,7 +11275,7 @@ au
 aq
 az
 aM
-Ra
+aq
 iJ
 bd
 aq
@@ -11836,7 +11788,7 @@ aA
 aC
 aq
 aI
-US
+CG
 gU
 Cw
 aq
@@ -20069,7 +20021,7 @@ ab
 iL
 bD
 bQ
-cm
+Uh
 cE
 Uh
 Pr
@@ -20326,7 +20278,7 @@ ab
 iL
 bE
 bR
-lk
+cn
 cF
 cI
 cP
@@ -20583,7 +20535,7 @@ bf
 bf
 bF
 bS
-XT
+bF
 bf
 cJ
 bq
