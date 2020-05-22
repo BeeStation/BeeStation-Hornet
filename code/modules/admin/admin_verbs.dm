@@ -338,7 +338,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 
 /client/proc/admin_ghost()
-	set category = "Admin"
+	set category = "Adminbus" //new era: Moved to Adminbus category
 	set name = "Aghost"
 	if(!holder)
 		return
