@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - rscdel: No more messages with clickable links in OOC unless you're an admin.
