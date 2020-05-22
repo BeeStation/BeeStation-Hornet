@@ -1030,9 +1030,6 @@
 /mob/living/carbon/human/species/android
 	race = /datum/species/android
 
-/mob/living/carbon/human/species/angel
-	race = /datum/species/angel
-
 /mob/living/carbon/human/species/corporate
 	race = /datum/species/corporate
 
@@ -1158,6 +1155,9 @@
 
 /mob/living/carbon/human/species/moth
 	race = /datum/species/moth
+
+/mob/living/carbon/human/species/apid
+	race = /datum/species/apid
 
 /mob/living/carbon/human/species/mush
 	race = /datum/species/mush

@@ -111,7 +111,7 @@
 	return 0 //multiplier for whatever head armor you wear as a drone
 
 /mob/living/simple_animal/drone/proc/update_drone_hack(hack, clockwork)
-	if(!istype(src) || !mind)
+	if(!mind)
 		return
 	if(hack)
 		if(hacked)
@@ -150,8 +150,6 @@
 		mind.special_role = null
 		ventcrawler = initial(ventcrawler)
 		speed = initial(speed)
-		if(is_servant_of_ratvar(src))
-			remove_servant_of_ratvar(src, TRUE)
 		message_admins("[ADMIN_LOOKUPFLW(src)], a hacked drone, was restored to factory defaults!")
 	update_drone_icon()
 

@@ -9,9 +9,7 @@
 	speedmod = 2
 	armor = 55
 	siemens_coeff = 0
-	punchdamagelow = 5
-	punchdamagehigh = 14
-	punchstunthreshold = 11 //about 40% chance to stun
+	punchdamage = 11
 	no_equip = list(SLOT_WEAR_MASK, SLOT_WEAR_SUIT, SLOT_GLOVES, SLOT_SHOES, SLOT_W_UNIFORM, SLOT_S_STORE)
 	nojumpsuit = 1
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
@@ -166,7 +164,6 @@
 	name = "Silver Golem"
 	id = "silver golem"
 	fixed_mut_color = "ddd"
-	punchstunthreshold = 9 //60% chance, from 40%
 	meat = /obj/item/stack/ore/silver
 	info_text = "As a <span class='danger'>Silver Golem</span>, your attacks have a higher chance of stunning. Being made of silver, your body is immune to most types of magic."
 	prefix = "Silver"
@@ -186,9 +183,7 @@
 	id = "plasteel golem"
 	fixed_mut_color = "bbb"
 	stunmod = 0.4
-	punchdamagelow = 12
-	punchdamagehigh = 21
-	punchstunthreshold = 18 //still 40% stun chance
+	punchdamage = 18
 	speedmod = 4 //pretty fucking slow
 	meat = /obj/item/stack/ore/iron
 	info_text = "As a <span class='danger'>Plasteel Golem</span>, you are slower, but harder to stun, and hit very hard when punching. You also magnetically attach to surfaces and so don't float without gravity and cannot have positions swapped with other beings."
@@ -285,16 +280,7 @@
 	special_names = list("Bark", "Willow", "Catalpa", "Woody", "Oak", "Sap", "Twig", "Branch", "Maple", "Birch", "Elm", "Basswood", "Cottonwood", "Larch", "Aspen", "Ash", "Beech", "Buckeye", "Cedar", "Chestnut", "Cypress", "Fir", "Hawthorn", "Hazel", "Hickory", "Ironwood", "Juniper", "Leaf", "Mangrove", "Palm", "Pawpaw", "Pine", "Poplar", "Redwood", "Redbud", "Sassafras", "Spruce", "Sumac", "Trunk", "Walnut", "Yew")
 	human_surname_chance = 0
 	special_name_chance = 100
-
-/datum/species/golem/wood/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.faction |= "plants"
-	C.faction |= "vines"
-
-/datum/species/golem/wood/on_species_loss(mob/living/carbon/C)
-	. = ..()
-	C.faction -= "plants"
-	C.faction -= "vines"
+	inherent_factions = list("plants", "vines")
 
 /datum/species/golem/wood/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
@@ -509,9 +495,7 @@
 	id = "bananium golem"
 	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES)
 	say_mod = "honks"
-	punchdamagelow = 0
-	punchdamagehigh = 1
-	punchstunthreshold = 2 //Harmless and can't stun
+	punchdamage = 0
 	meat = /obj/item/stack/ore/bananium
 	info_text = "As a <span class='danger'>Bananium Golem</span>, you are made for pranking. Your body emits natural honks, and you can barely even hurt people when punching them. Your skin also bleeds banana peels when damaged."
 	attack_verb = "honk"
@@ -530,6 +514,11 @@
 	..()
 	last_banana = world.time
 	last_honk = world.time
+	RegisterSignal(C, COMSIG_MOB_SAY, .proc/handle_speech)
+
+/datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
+	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_SAY)
 
 /datum/species/golem/bananium/random_name(gender,unique,lastname)
 	var/clown_name = pick(GLOB.clown_names)
@@ -578,9 +567,8 @@
 /datum/species/golem/bananium/spec_death(gibbed, mob/living/carbon/human/H)
 	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, 0)
 
-/datum/species/golem/bananium/get_spans()
-	return list(SPAN_CLOWN)
-
+/datum/species/golem/bananium/proc/handle_speech(datum/source, list/speech_args)
+	speech_args[SPEECH_SPANS] |= SPAN_CLOWN
 
 /datum/species/golem/runic
 	name = "Runic Golem"
@@ -592,6 +580,7 @@
 	prefix = "Runic"
 	special_names = null
 	random_eligible = FALSE //Zesko claims runic golems break the game
+	inherent_factions = list("cult")
 
 	var/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/golem/phase_shift
 	var/obj/effect/proc_holder/spell/targeted/abyssal_gaze/abyssal_gaze
@@ -605,7 +594,6 @@
 
 /datum/species/golem/runic/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	C.faction |= "cult"
 	phase_shift = new
 	phase_shift.charge_counter = 0
 	C.AddSpell(phase_shift)
@@ -618,7 +606,6 @@
 
 /datum/species/golem/runic/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	C.faction -= "cult"
 	if(phase_shift)
 		C.RemoveSpell(phase_shift)
 	if(abyssal_gaze)
@@ -654,19 +641,19 @@
 	damage_overlay_type = "synth"
 	prefix = "Clockwork"
 	special_names = list("Remnant", "Relic", "Scrap", "Vestige") //RIP Ratvar
+	inherent_factions = list("ratvar")
 	var/has_corpse
 
 /datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	H.faction |= "ratvar"
+	RegisterSignal(H, COMSIG_MOB_SAY, .proc/handle_speech)
 
 /datum/species/golem/clockwork/on_species_loss(mob/living/carbon/human/H)
-	if(!is_servant_of_ratvar(H))
-		H.faction -= "ratvar"
+	UnregisterSignal(H, COMSIG_MOB_SAY)
 	. = ..()
 
-/datum/species/golem/clockwork/get_spans()
-	return SPAN_ROBOT //beep
+/datum/species/golem/clockwork/proc/handle_speech(datum/source, list/speech_args)
+	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
 
 /datum/species/golem/clockwork/spec_death(gibbed, mob/living/carbon/human/H)
 	gibbed = !has_corpse ? FALSE : gibbed
@@ -702,9 +689,7 @@
 	armor = 15 //feels no pain, but not too resistant
 	burnmod = 2 // don't get burned
 	speedmod = 1 // not as heavy as stone
-	punchdamagelow = 4
-	punchstunthreshold = 7
-	punchdamagehigh = 8 // not as heavy as stone
+	punchdamage = 6
 	prefix = "Cloth"
 	special_names = null
 
@@ -906,9 +891,7 @@
 	burnmod = 1.25
 	heatmod = 2
 	speedmod = 1.5
-	punchdamagelow = 4
-	punchstunthreshold = 7
-	punchdamagehigh = 8
+	punchdamage = 6
 	var/last_creation = 0
 	var/brother_creation_cooldown = 300
 
@@ -1117,9 +1100,11 @@
 
 	SEND_SOUND(C, sound('sound/misc/capitialism.ogg'))
 	C.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock ())
+	RegisterSignal(C, COMSIG_MOB_SAY, .proc/handle_speech)
 
 /datum/species/golem/capitalist/on_species_loss(mob/living/carbon/C)
 	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_SAY)
 	for(var/obj/effect/proc_holder/spell/aoe_turf/knock/spell in C.mob_spell_list)
 		C.RemoveSpell(spell)
 
@@ -1132,9 +1117,9 @@
 		return
 	target.adjust_nutrition(40)
 
-/datum/species/golem/capitalist/handle_speech(message, mob/living/carbon/human/H)
-	playsound(H, 'sound/misc/mymoney.ogg', 25, 0)
-	return "Hello, I like money!"
+/datum/species/golem/capitalist/proc/handle_speech(datum/source, list/speech_args)
+	playsound(source, 'sound/misc/mymoney.ogg', 25, 0)
+	speech_args[SPEECH_MESSAGE] = "Hello, I like money!"
 
 /datum/species/golem/soviet
 	name = "Soviet Golem"
@@ -1157,11 +1142,13 @@
 
 	SEND_SOUND(C, sound('sound/misc/Russian_Anthem_chorus.ogg'))
 	C.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock ())
+	RegisterSignal(C, COMSIG_MOB_SAY, .proc/handle_speech)
 
 /datum/species/golem/soviet/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	for(var/obj/effect/proc_holder/spell/aoe_turf/knock/spell in C.mob_spell_list)
 		C.RemoveSpell(spell)
+	UnregisterSignal(C, COMSIG_MOB_SAY, .proc/handle_speech)
 
 /datum/species/golem/soviet/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	..()
@@ -1172,6 +1159,6 @@
 		return
 	target.adjust_nutrition(-40)
 
-/datum/species/golem/soviet/handle_speech(message, mob/living/carbon/human/H)
-	playsound(H, 'sound/misc/Cyka Blyat.ogg', 25, 0)
-	return "Cyka Blyat"
+/datum/species/golem/soviet/proc/handle_speech(datum/source, list/speech_args)
+	playsound(source, 'sound/misc/Cyka Blyat.ogg', 25, 0)
+	speech_args[SPEECH_MESSAGE] = "Cyka Blyat"

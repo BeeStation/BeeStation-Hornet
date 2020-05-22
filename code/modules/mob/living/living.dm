@@ -182,7 +182,7 @@
 	//anti-riot equipment is also anti-push
 	for(var/obj/item/I in M.held_items)
 		if(!istype(M, /obj/item/clothing))
-			if(prob(I.block_chance*2))
+			if(I.block_power >= 50)
 				return
 
 /mob/living/get_photo_description(obj/item/camera/camera)
@@ -533,6 +533,7 @@
 
 //proc used to ressuscitate a mob
 /mob/living/proc/revive(full_heal = 0, admin_revive = 0)
+	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, src, full_heal, admin_revive)
 	if(full_heal)
 		fully_heal(admin_revive)
 	if(stat == DEAD && can_be_revived()) //in some cases you can't revive (e.g. no brain)
@@ -613,7 +614,7 @@
 	return
 
 /mob/living/Move(atom/newloc, direct)
-	if(lying) 
+	if(lying)
 		if(direct & EAST)
 			lying = 90
 		if(direct & WEST)
@@ -845,7 +846,7 @@
 		who.show_inv(src)
 	else
 		src << browse(null,"window=mob[REF(who)]")
-	
+
 	who.update_equipment_speed_mods() // Updates speed in case stripped speed affecting item
 
 // The src mob is trying to place an item on someone
@@ -1119,11 +1120,6 @@
 						"[C] topples over [src]!", \
 						"[C] leaps out of [src]'s way!")]</span>")
 	C.Paralyze(40)
-
-/mob/living/ConveyorMove()
-	if((movement_type & FLYING) && !stat)
-		return
-	..()
 
 /mob/living/can_be_pulled()
 	return ..() && !(buckled && buckled.buckle_prevents_pull)

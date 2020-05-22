@@ -194,9 +194,10 @@
 /obj/item/circuitboard/computer/prisoner
 	name = "Prisoner Management Console (Computer Board)"
 	build_path = /obj/machinery/computer/prisoner
+
 /obj/item/circuitboard/computer/gulag_teleporter_console
 	name = "Labor Camp teleporter console (Computer Board)"
-	build_path = /obj/machinery/computer/gulag_teleporter_computer
+	build_path = /obj/machinery/computer/prisoner/gulag_teleporter_computer
 
 /obj/item/circuitboard/computer/rdconsole/production
 	name = "R&D Console Production Only (Computer Board)"
@@ -234,6 +235,10 @@
 /obj/item/circuitboard/computer/mech_bay_power_console
 	name = "Mech Bay Power Control Console (Computer Board)"
 	build_path = /obj/machinery/computer/mech_bay_power_console
+
+/obj/item/circuitboard/computer/warrant
+	name = "Security Warrant Viewer (Computer Board)"
+	build_path = /obj/machinery/computer/warrant
 
 /obj/item/circuitboard/computer/cargo
 	name = "Supply Console (Computer Board)"

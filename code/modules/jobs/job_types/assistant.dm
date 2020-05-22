@@ -10,6 +10,7 @@ Assistant
 	spawn_positions = 5
 	supervisors = "absolutely everyone"
 	selection_color = "#dddddd"
+	chat_color = "#bdbdbd"
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()
 	outfit = /datum/outfit/job/assistant
@@ -32,12 +33,6 @@ Assistant
 /datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/H)
 	..()
 	if (CONFIG_GET(flag/grey_assistants))
-		if(H.jumpsuit_style == PREF_SUIT)
-			uniform = /obj/item/clothing/under/color/grey
-		else
-			uniform = /obj/item/clothing/under/skirt/color/grey
+		uniform = /obj/item/clothing/under/color/grey
 	else
-		if(H.jumpsuit_style == PREF_SUIT)
-			uniform = /obj/item/clothing/under/color/random
-		else
-			uniform = /obj/item/clothing/under/skirt/color/random
+		uniform = /obj/item/clothing/under/color/random

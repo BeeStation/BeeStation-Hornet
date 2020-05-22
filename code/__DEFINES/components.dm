@@ -49,6 +49,8 @@
 	#define EXAMINE_POSITION_BEFORE 2
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED 1
+#define COMSIG_ATOM_UPDATE_ICON "atom_update_icon"				//from base of atom/update_icon(): ()
+	#define COMSIG_ATOM_NO_UPDATE_ICON_STATE 1
 #define COMSIG_ATOM_ENTERED "atom_entered"                      //! from base of atom/Entered(): (atom/movable/entering, /atom)
 #define COMSIG_ATOM_EXIT "atom_exit"							//! from base of atom/Exit(): (/atom/movable/exiting, /atom/newloc)
 	#define COMPONENT_ATOM_BLOCK_EXIT 1
@@ -133,6 +135,13 @@
 #define COMSIG_MOVABLE_Z_CHANGED "movable_ztransit" 			//! from base of atom/movable/onTransitZ(): (old_z, new_z)
 #define COMSIG_MOVABLE_SECLUDED_LOCATION "movable_secluded" 	//! called when the movable is placed in an unaccessible area, used for stationloving: ()
 #define COMSIG_MOVABLE_HEAR "movable_hear"						//! from base of atom/movable/Hear(): (message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode)
+	#define HEARING_MESSAGE 1
+	#define HEARING_SPEAKER 2
+//	#define HEARING_LANGUAGE 3
+	#define HEARING_RAW_MESSAGE 4
+	/* #define HEARING_RADIO_FREQ 5
+	#define HEARING_SPANS 6
+	#define HEARING_MESSAGE_MODE 7 */
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"			//! called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 
 // /mob signals
@@ -152,8 +161,19 @@
 #define COMSIG_MOB_THROW "mob_throw"							//! from base of /mob/throw_item(): (atom/target)
 #define COMSIG_MOB_UPDATE_SIGHT "mob_update_sight"				//! from base of /mob/update_sight(): ()
 #define COMSIG_MOB_EXAMINATE "mob_examinate"					//from base of /mob/verb/examinate(): (atom/target)
+#define COMSIG_MOB_SAY "mob_say" // from /mob/living/say(): (proc args list)
+	#define COMPONENT_UPPERCASE_SPEECH 1
+	// used to access COMSIG_MOB_SAY argslist
+	#define SPEECH_MESSAGE 1
+	// #define SPEECH_BUBBLE_TYPE 2
+	#define SPEECH_SPANS 3
+	/* #define SPEECH_SANITIZE 4
+	#define SPEECH_LANGUAGE 5
+	#define SPEECH_IGNORE_SPAM 6
+	#define SPEECH_FORCED 7 */
 
 // /mob/living signals
+#define COMSIG_LIVING_REVIVE "living_revive"					//! from base of mob/living/revive() (/mob/living, full_heal, admin_revive)
 #define COMSIG_LIVING_RESIST "living_resist"					//! from base of mob/living/resist() (/mob/living)
 #define COMSIG_LIVING_IGNITED "living_ignite"					//! from base of mob/living/IgniteMob() (/mob/living)
 #define COMSIG_LIVING_EXTINGUISHED "living_extinguished"		//! from base of mob/living/ExtinguishMob() (/mob/living)
@@ -190,7 +210,6 @@
 #define COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH "obj_default_unfasten_wrench"
 #define COMSIG_OBJ_DECONSTRUCT "obj_deconstruct"				//! from base of obj/deconstruct(): (disassembled)
 #define COMSIG_OBJ_SETANCHORED "obj_setanchored"				//! called in /obj/structure/setAnchored(): (value)
-#define COMSIG_OBJ_UPDATE_ICON	"obj_update_icon"				//Called by obj to itself whenever update_icon is run. Useful for containers that want to detect this change
 
 // /obj/item signals
 #define COMSIG_ITEM_ATTACK "item_attack"						//! from base of obj/item/attack(): (/mob/living/target, /mob/living/user)
@@ -263,22 +282,26 @@
 #define COMSIG_COMPONENT_NTNET_RECEIVE "ntnet_receive"			//! called on an object by its NTNET connection component on receive. (sending_id(number), sending_netname(text), data(datum/netdata))
 
 //Nanites
-#define COMSIG_HAS_NANITES "has_nanites"						//! () returns TRUE if nanites are found
-#define COMSIG_NANITE_GET_PROGRAMS	"nanite_get_programs"		//! (list/nanite_programs) - makes the input list a copy the nanites' program list
-#define COMSIG_NANITE_SET_VOLUME "nanite_set_volume"			//! (amount) Sets current nanite volume to the given amount
-#define COMSIG_NANITE_GET_VOLUME "nanite_get_volume"			//! (amount) Returns nanite amount
-#define COMSIG_NANITE_ADJUST_VOLUME "nanite_adjust"				//! (amount) Adjusts nanite volume by the given amount
-#define COMSIG_NANITE_SET_MAX_VOLUME "nanite_set_max_volume"	//! (amount) Sets maximum nanite volume to the given amount
-#define COMSIG_NANITE_SET_CLOUD "nanite_set_cloud"				//! (amount(0-100)) Sets cloud ID to the given amount
-#define COMSIG_NANITE_SET_SAFETY "nanite_set_safety"			//! (amount) Sets safety threshold to the given amount
-#define COMSIG_NANITE_SET_REGEN "nanite_set_regen"				//! (amount) Sets regeneration rate to the given amount
-#define COMSIG_NANITE_SIGNAL "nanite_signal"					//! (code(1-9999)) Called when sending a nanite signal to a mob.
-#define COMSIG_NANITE_SCAN "nanite_scan"						//! (mob/user, full_scan) - sends to chat a scan of the nanites to the user, returns TRUE if nanites are detected
-#define COMSIG_NANITE_UI_DATA "nanite_ui_data"					//! (list/data, scan_level) - adds nanite data to the given data list - made for ui_data procs
-#define COMSIG_NANITE_ADD_PROGRAM "nanite_add_program"			//! (datum/nanite_program/new_program, datum/nanite_program/source_program) Called when adding a program to a nanite component
-	#define COMPONENT_PROGRAM_INSTALLED		1					//! Installation successful
-	#define COMPONENT_PROGRAM_NOT_INSTALLED		2				//! Installation failed, but there are still nanites
-#define COMSIG_NANITE_SYNC "nanite_sync"						//! (datum/component/nanites, full_overwrite, copy_activation) Called to sync the target's nanites to a given nanite component
+#define COMSIG_HAS_NANITES "has_nanites"						//() returns TRUE if nanites are found
+#define COMSIG_NANITE_IS_STEALTHY "nanite_is_stealthy"			//() returns TRUE if nanites have stealth
+#define COMSIG_NANITE_DELETE "nanite_delete"					//() deletes the nanite component
+#define COMSIG_NANITE_GET_PROGRAMS	"nanite_get_programs"		//(list/nanite_programs) - makes the input list a copy the nanites' program list
+#define COMSIG_NANITE_GET_VOLUME "nanite_get_volume"			//(amount) Returns nanite amount
+#define COMSIG_NANITE_SET_VOLUME "nanite_set_volume"			//(amount) Sets current nanite volume to the given amount
+#define COMSIG_NANITE_ADJUST_VOLUME "nanite_adjust"				//(amount) Adjusts nanite volume by the given amount
+#define COMSIG_NANITE_SET_MAX_VOLUME "nanite_set_max_volume"	//(amount) Sets maximum nanite volume to the given amount
+#define COMSIG_NANITE_SET_CLOUD "nanite_set_cloud"				//(amount(0-100)) Sets cloud ID to the given amount
+#define COMSIG_NANITE_SET_CLOUD_SYNC "nanite_set_cloud_sync"	//(method) Modify cloud sync status. Method can be toggle, enable or disable
+#define COMSIG_NANITE_SET_SAFETY "nanite_set_safety"			//(amount) Sets safety threshold to the given amount
+#define COMSIG_NANITE_SET_REGEN "nanite_set_regen"				//(amount) Sets regeneration rate to the given amount
+#define COMSIG_NANITE_SIGNAL "nanite_signal"					//(code(1-9999)) Called when sending a nanite signal to a mob.
+#define COMSIG_NANITE_COMM_SIGNAL "nanite_comm_signal"			//(comm_code(1-9999), comm_message) Called when sending a nanite comm signal to a mob.
+#define COMSIG_NANITE_SCAN "nanite_scan"						//(mob/user, full_scan) - sends to chat a scan of the nanites to the user, returns TRUE if nanites are detected
+#define COMSIG_NANITE_UI_DATA "nanite_ui_data"					//(list/data, scan_level) - adds nanite data to the given data list - made for ui_data procs
+#define COMSIG_NANITE_ADD_PROGRAM "nanite_add_program"			//(datum/nanite_program/new_program, datum/nanite_program/source_program) Called when adding a program to a nanite component
+	#define COMPONENT_PROGRAM_INSTALLED		1					//Installation successful
+	#define COMPONENT_PROGRAM_NOT_INSTALLED		2				//Installation failed, but there are still nanites
+#define COMSIG_NANITE_SYNC "nanite_sync"						//(datum/component/nanites, full_overwrite, copy_activation) Called to sync the target's nanites to a given nanite component
 
 // /datum/component/storage signals
 #define COMSIG_CONTAINS_STORAGE "is_storage"						//! () - returns bool.
@@ -298,6 +321,9 @@
 // /datum/action signals
 #define COMSIG_ACTION_TRIGGER "action_trigger"						//! from base of datum/action/proc/Trigger(): (datum/action)
 	#define COMPONENT_ACTION_BLOCK_TRIGGER 1
+
+// /datum/mind signals
+#define COMSIG_MIND_TRANSFER_TO	"mind_transfer_to"					// (mob/old, mob/new)
 
 /*******Non-Signal Component Related Defines*******/
 

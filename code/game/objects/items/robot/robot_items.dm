@@ -512,7 +512,6 @@
 	name = "Gumball"
 	desc = "Why are you seeing this?!"
 	projectile_type = /obj/item/projectile/bullet/reusable/gumball
-	click_cooldown_override = 2
 
 
 /obj/item/projectile/bullet/reusable/gumball
@@ -533,7 +532,6 @@
 	name = "Lollipop"
 	desc = "Why are you seeing this?!"
 	projectile_type = /obj/item/projectile/bullet/reusable/lollipop
-	click_cooldown_override = 2
 
 /obj/item/projectile/bullet/reusable/lollipop
 	name = "lollipop"
@@ -792,7 +790,7 @@
 
 /obj/item/borg/apparatus/Exited(atom/A)
 	if(A == stored) //sanity check
-		UnregisterSignal(stored, COMSIG_OBJ_UPDATE_ICON)
+		UnregisterSignal(stored, COMSIG_ATOM_UPDATE_ICON)
 		stored = null
 	update_icon()
 	. = ..()
@@ -826,7 +824,7 @@
 			var/obj/item/O = A
 			O.forceMove(src)
 			stored = O
-			RegisterSignal(stored, COMSIG_OBJ_UPDATE_ICON, .proc/update_icon)
+			RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, /atom/.proc/update_icon)
 			update_icon()
 			return
 	else
@@ -854,7 +852,7 @@
 /obj/item/borg/apparatus/beaker/Initialize()
 	. = ..()
 	stored = new /obj/item/reagent_containers/glass/beaker/large(src)
-	RegisterSignal(stored, COMSIG_OBJ_UPDATE_ICON, .proc/update_icon)
+	RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, /atom/.proc/update_icon)
 	update_icon()
 
 /obj/item/borg/apparatus/beaker/Destroy()

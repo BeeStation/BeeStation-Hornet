@@ -48,6 +48,11 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			log_admin("[key_name(src)] has attempted to advertise in OOC: [msg]")
 			message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 			return
+		if(findtext(msg, "://") || findtext(msg, "www."))
+			to_chat(src, "<B>Posting clickable links in OOC is not allowed.</B>")
+			log_admin("[key_name(src)] has attempted to post a clickable link in OOC: [msg]")
+			message_admins("[key_name_admin(src)] has attempted to post a clickable link in OOC: [msg]")
+			return
 
 	if(!(prefs.chat_toggles & CHAT_OOC))
 		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
@@ -254,7 +259,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	chatOutput.start()
 	chatOutput.load()
 	alert(src, "Your chat has been force recreated. If this still hasnt fixed issues, please make an issue report, with your BYOND version, Windows version, and IE Version.", "Done", "Ok")
-				
+
 /client/verb/motd()
 	set name = "MOTD"
 	set category = "OOC"

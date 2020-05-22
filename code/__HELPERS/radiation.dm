@@ -25,8 +25,10 @@
 /proc/radiation_pulse(atom/source, intensity, range_modifier, log=FALSE, can_contaminate=TRUE)
 	if(!SSradiation.can_fire)
 		return
-	for(var/dir in GLOB.cardinals)
-		new /datum/radiation_wave(source, dir, intensity, range_modifier, can_contaminate)
+
+	if(intensity >= RAD_WAVE_MINIMUM) // Don't bother to spawn rad waves if they're just going to immediately go out
+		for(var/dir in GLOB.cardinals)
+			new /datum/radiation_wave(source, dir, intensity, range_modifier, can_contaminate)
 
 	var/list/things = get_rad_contents(source) //copypasta because I don't want to put special code in waves to handle their origin
 	for(var/k in 1 to things.len)

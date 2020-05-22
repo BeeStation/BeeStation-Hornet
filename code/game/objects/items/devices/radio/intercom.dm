@@ -15,29 +15,6 @@
 /obj/item/radio/intercom/unscrewed
 	unfastened = TRUE
 
-/obj/item/radio/intercom/ratvar
-	name = "hierophant intercom"
-	desc = "A modified intercom that uses the Hierophant network instead of subspace tech. Can listen to and broadcast on any frequency."
-	icon_state = "intercom_ratvar"
-	freerange = TRUE
-
-/obj/item/radio/intercom/ratvar/attackby(obj/item/I, mob/living/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		to_chat(user, "<span class='danger'>[src] is fastened to the wall with [is_servant_of_ratvar(user) ? "replicant alloy" : "some material you've never seen"], and can't be removed.</span>")
-		return //no unfastening!
-	. = ..()
-
-/obj/item/radio/intercom/ratvar/process()
-	if(!istype(SSticker.mode, /datum/game_mode/clockwork_cult))
-		invisibility = INVISIBILITY_OBSERVER
-		alpha = 125
-		emped = TRUE
-	else
-		invisibility = initial(invisibility)
-		alpha = initial(alpha)
-		emped = FALSE
-	..()
-
 /obj/item/radio/intercom/Initialize(mapload, ndir, building)
 	. = ..()
 	if(building)
@@ -129,7 +106,7 @@
 		if(!A || emped)
 			on = FALSE
 		else
-			on = A.powered(EQUIP) // set "on" to the power status
+			on = A.powered(AREA_USAGE_EQUIP) // set "on" to the power status
 
 		if(!on)
 			icon_state = "intercom-p"
@@ -138,6 +115,12 @@
 
 /obj/item/radio/intercom/add_blood_DNA(list/blood_dna)
 	return FALSE
+
+/obj/item/radio/intercom/end_emp_effect(curremp)
+	. = ..()
+	if(!.)
+		return
+	on = FALSE
 
 //Created through the autolathe or through deconstructing intercoms. Can be applied to wall to make a new intercom on it!
 /obj/item/wallframe/intercom

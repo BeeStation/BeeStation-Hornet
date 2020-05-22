@@ -38,6 +38,9 @@
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
+	block_upgrade_walk = 1
+	block_level = 1
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 20
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -58,14 +61,18 @@
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
 	force = 15
+	block_level = 1
+	block_upgrade_walk = 1
+	block_power = 50
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
-	block_chance = 50
 	armour_penetration = 75
 	sharpness = IS_SHARP
 	attack_verb = list("slashed", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(/datum/material/iron = 1000)
+
 
 /obj/item/melee/sabre/Initialize()
 	. = ..()
@@ -137,6 +144,7 @@
 	item_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	block_upgrade_walk = 1
 	slot_flags = ITEM_SLOT_BELT
 	force = 12 //9 hit crit
 	w_class = WEIGHT_CLASS_NORMAL
@@ -294,6 +302,12 @@
 			if (wait_desc)
 				to_chat(user, wait_desc)
 
+/obj/item/melee/classic_baton/police/deputy
+	name = "deputy baton"
+	force = 12
+	cooldown = 10
+	stamina_damage = 20
+
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
 	name = "telescopic baton"
@@ -317,7 +331,12 @@
 	force_off = 0
 	weight_class_on = WEIGHT_CLASS_BULKY
 
-/obj/item/melee/classic_baton/police/telescopic/suicide_act(mob/user)
+/obj/item/melee/classic_baton/telescopic/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(on)
+		return ..()
+	return 0
+
+/obj/item/melee/classic_baton/telescopic/suicide_act(mob/user)
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/brain/B = H.getorgan(/obj/item/organ/brain)
 
@@ -366,6 +385,7 @@
 	icon_state = "contractor_baton_0"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	item_state = null
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -386,8 +406,8 @@
 	force_on = 10
 	force_off = 5
 	weight_class_on = WEIGHT_CLASS_NORMAL
-	
-	
+
+
 
 /obj/item/melee/classic_baton/contractor_baton/get_wait_description()
 	return "<span class='danger'>The baton is still charging!</span>"
@@ -514,7 +534,15 @@
 	armour_penetration = 1000
 	var/obj/machinery/power/supermatter_crystal/shard
 	var/balanced = 1
+	block_level = 1
+	block_upgrade_walk = 1
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	force_string = "INFINITE"
+
+/obj/item/melee/supermatter_sword/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	qdel(hitby)
+	owner.visible_message("<span class='danger'>[hitby] evaporates in midair!</span>")
+	return TRUE
 
 /obj/item/melee/supermatter_sword/Initialize()
 	. = ..()
@@ -665,6 +693,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NONE
 	force = 0
+	block_upgrade_walk = 1
 	attack_verb = list("hit", "poked")
 	var/obj/item/reagent_containers/food/snacks/sausage/held_sausage
 	var/static/list/ovens
@@ -674,7 +703,7 @@
 /obj/item/melee/roastingstick/Initialize()
 	. = ..()
 	if (!ovens)
-		ovens = typecacheof(list(/obj/singularity, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire, /obj/structure/destructible/clockwork/massive/ratvar))
+		ovens = typecacheof(list(/obj/singularity, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire))
 
 /obj/item/melee/roastingstick/attack_self(mob/user)
 	on = !on
@@ -777,6 +806,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 0
 	throwforce = 0
+	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("repelled")
 	var/cooldown = 0

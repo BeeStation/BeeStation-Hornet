@@ -13,6 +13,7 @@
 	mob_biotypes = list(MOB_ROBOTIC)
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	deathsound = 'sound/voice/borg_deathsound.ogg'
+	speech_span = SPAN_ROBOT
 
 	var/datum/ai_laws/laws = null//Now... THEY ALL CAN ALL HAVE LAWS
 	var/last_lawchange_announce = 0
@@ -327,7 +328,7 @@
 
 /mob/living/silicon/proc/ai_roster()
 	var/datum/browser/popup = new(src, "airoster", "Crew Manifest", 387, 420)
-	popup.set_content(GLOB.data_core.get_manifest())
+	popup.set_content(GLOB.data_core.get_manifest_html())
 	popup.open()
 
 /mob/living/silicon/proc/set_autosay() //For allowing the AI and borgs to set the radio behavior of auto announcements (state laws, arrivals).

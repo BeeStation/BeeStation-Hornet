@@ -8,6 +8,7 @@
 	spawn_positions = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
+	chat_color = "#75AEA3"
 	exp_type = EXP_TYPE_CREW
 	exp_requirements = 180
 
@@ -27,7 +28,7 @@
 	id = /obj/item/card/id/job/med
 	belt = /obj/item/pda/viro
 	ears = /obj/item/radio/headset/headset_med
-	uniform = /obj/item/clothing/under/rank/virologist
+	uniform = /obj/item/clothing/under/rank/medical/virologist
 	mask = /obj/item/clothing/mask/surgical
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/virologist

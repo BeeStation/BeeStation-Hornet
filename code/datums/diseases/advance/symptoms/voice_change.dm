@@ -25,7 +25,6 @@ Bonus
 	transmittable = 2
 	level = 6
 	severity = 2
-	baseseverity = 2
 	base_message_chance = 100
 	symptom_delay_min = 60
 	symptom_delay_max = 120
@@ -38,9 +37,9 @@ Bonus
 					  <b>Stealth 3:</b> The symptom remains hidden until active."
 
 /datum/symptom/voice_change/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["transmittable"] >= 14) //random language
 		severity += 1
-	return..()
 
 /datum/symptom/voice_change/Start(datum/disease/advance/A)
 	if(!..())

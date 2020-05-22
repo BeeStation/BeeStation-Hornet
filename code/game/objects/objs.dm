@@ -1,6 +1,7 @@
 
 /obj
 	animate_movement = SLIDE_STEPS
+	speech_span = SPAN_ROBOT
 	var/obj_flags = CAN_BE_HIT
 
 	/// ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
@@ -181,10 +182,6 @@
 /obj/proc/container_resist(mob/living/user)
 	return
 
-/obj/proc/update_icon()
-	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
-	return
-
 /mob/proc/unset_machine()
 	if(machine)
 		machine.on_unset_machine(src)
@@ -213,9 +210,6 @@
 	..()
 	if(!anchored || current_size >= STAGE_FIVE)
 		step_towards(src,S)
-
-/obj/get_spans()
-	return ..() | SPAN_ROBOT
 
 /obj/get_dumping_location(datum/component/storage/source,mob/user)
 	return get_turf(src)
@@ -267,3 +261,33 @@
 
 /obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
 	return
+
+//For returning special data when the object is saved
+//For example, or silos will return a list of their materials which will be dumped on top of them
+//Can be customised if you have something that contains something you want saved
+//If you put an incorrect format it will break outputting, so don't use this if you don't know what you are doing
+//NOTE: Contents is automatically saved, so if you store your things in the contents var, don't worry about this
+//====Output Format Examples====:
+//===Single Object===
+//	"/obj/item/folder/blue"
+//===Multiple Objects===
+//	"/obj/item/folder/blue,\n
+//	/obj/item/folder/red"
+//===Single Object with metadata===
+//	"/obj/item/folder/blue{\n
+//	\tdir = 8;\n
+//	\tname = "special folder"\n
+//	\t}"
+//===Multiple Objects with metadata===
+//	"/obj/item/folder/blue{\n
+//	\tdir = 8;\n
+//	\tname = "special folder"\n
+//	\t},\n
+//	/obj/item/folder/red"
+//====How to save easily====:
+//	return "[thing.type][generate_tgm_metadata(thing)]"
+//Where thing is the additional thing you want to same (For example ores inside an ORM)
+//Just add ,\n between each thing
+//generate_tgm_metadata(thing) handles everything inside the {} for you
+/obj/proc/on_object_saved(var/depth = 0)
+	return ""

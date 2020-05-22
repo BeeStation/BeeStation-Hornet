@@ -35,6 +35,8 @@
 	//Sellection screen color
 	var/selection_color = "#ffffff"
 
+	//Overhead chat message colour
+	var/chat_color = "#ffffff"
 
 	//If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
 	var/req_admin_notify
@@ -61,6 +63,7 @@
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
 
 	var/tmp/list/gear_leftovers = list()
+	var/gimmick = FALSE //least hacky way i could think of for this
 
 //Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 //H is usually a human unless an /equip override transformed it
@@ -266,16 +269,6 @@
 			back = duffelbag //Department duffel bag
 		else
 			back = backpack //Department backpack
-
-	//converts the uniform string into the path we'll wear, whether it's the skirt or regular variant
-	var/holder
-	if(H.jumpsuit_style == PREF_SKIRT)
-		holder = "[uniform]/skirt"
-		if(!text2path(holder))
-			holder = "[uniform]"
-	else
-		holder = "[uniform]"
-	uniform = text2path(holder)
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)

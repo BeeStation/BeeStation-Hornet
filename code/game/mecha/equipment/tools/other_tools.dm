@@ -10,7 +10,7 @@
 	icon_state = "mecha_teleport"
 	equip_cooldown = 150
 	energy_drain = 1000
-	range = RANGED
+	range = MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/action(atom/target)
 	if(!action_checks(target) || is_centcom_level(loc.z))
@@ -30,7 +30,7 @@
 	icon_state = "mecha_wholegen"
 	equip_cooldown = 50
 	energy_drain = 300
-	range = RANGED
+	range = MECHA_RANGED
 
 
 /obj/item/mecha_parts/mecha_equipment/wormhole_generator/action(atom/target)
@@ -73,7 +73,7 @@
 	icon_state = "mecha_teleport"
 	equip_cooldown = 10
 	energy_drain = 100
-	range = MELEE|RANGED
+	range = MECHA_MELEE|MECHA_RANGED
 	var/atom/movable/locked
 	var/mode = 1 //1 - gravsling 2 - gravpush
 
@@ -277,7 +277,7 @@
 	energy_drain = 0
 	range = 0
 	var/coeff = 100
-	var/list/use_channels = list(EQUIP,ENVIRON,LIGHT)
+	var/list/use_channels = list(AREA_USAGE_EQUIP,AREA_USAGE_ENVIRON,AREA_USAGE_LIGHT)
 	selectable = 0
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Destroy()
@@ -340,7 +340,7 @@
 		var/area/A = get_area(chassis)
 		if(A)
 			var/pow_chan
-			for(var/c in list(EQUIP,ENVIRON,LIGHT))
+			for(var/c in use_channels)
 				if(A.powered(c))
 					pow_chan = c
 					break
@@ -359,7 +359,7 @@
 	name = "exosuit plasma converter"
 	desc = "An exosuit module that generates power using solid plasma as fuel. Pollutes the environment."
 	icon_state = "tesla"
-	range = MELEE
+	range = MECHA_MELEE
 	var/coeff = 100
 	var/obj/item/stack/sheet/fuel
 	var/max_fuel = 150000
