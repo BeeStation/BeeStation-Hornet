@@ -594,6 +594,9 @@
 	else if(href_list["delay_round_end"])
 		if(!check_rights(R_ADMIN))
 			return
+		//new era: kept old code for upstream purposes; this is now a verb
+		delay_round_end()
+		/*
 		if(!SSticker.delay_end)
 			SSticker.admin_delay_notice = input(usr, "Enter a reason for delaying the round end", "Round Delay Reason") as null|text
 			if(isnull(SSticker.admin_delay_notice))
@@ -609,6 +612,7 @@
 		message_admins("[key_name_admin(usr)] [msg]")
 		if(SSticker.ready_for_reboot && !SSticker.delay_end) //we undelayed after standard reboot would occur
 			SSticker.standard_reboot()
+		*/
 
 	else if(href_list["end_round"])
 		if(!check_rights(R_ADMIN))
@@ -2079,6 +2083,7 @@
 				if(M)
 					T.admin_remove_member(usr,M)
 		check_teams()
+		//Trigg todo: fucking let em edit objectives too
 
 	else if(href_list["newbankey"])
 		var/player_key = href_list["newbankey"]
