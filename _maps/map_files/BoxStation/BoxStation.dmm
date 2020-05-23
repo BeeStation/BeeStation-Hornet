@@ -20872,11 +20872,11 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 5
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
@@ -39795,6 +39795,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "cgB" = (
@@ -47654,6 +47655,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
+"ddL" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 5
+	},
+/turf/closed/wall,
+/area/maintenance/port/aft)
 "dfx" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
@@ -47855,11 +47862,8 @@
 /obj/machinery/door/airlock/external{
 	name = "Port Docking Bay 2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 9
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
@@ -48975,6 +48979,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
+"fpd" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "fqr" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -50528,6 +50542,15 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"ieK" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "ifv" = (
 /obj/structure/table,
 /obj/item/clipboard,
@@ -51824,6 +51847,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"kzh" = (
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "kzO" = (
 /obj/machinery/door/airlock{
 	name = "Kitchen";
@@ -52652,8 +52684,8 @@
 	name = "External Access";
 	req_access_txt = "13"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
@@ -53160,7 +53192,8 @@
 "mqa" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
-	name = "Air Outlet Pump"
+	name = "Air Outlet Pump";
+	target_pressure = 500
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -53827,9 +53860,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "npz" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 9
-	},
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "nqZ" = (
@@ -54269,6 +54300,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
+"olP" = (
+/obj/machinery/atmospherics/pipe/layer_manifold,
+/turf/closed/wall/r_wall,
+/area/hallway/secondary/entry)
 "onR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -54763,15 +54798,15 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /obj/machinery/door/airlock/external{
 	name = "Solar Maintenance";
 	req_access_txt = "10; 13"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 9
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
@@ -55143,11 +55178,11 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "pPH" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 10
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -55238,6 +55273,12 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit)
+"pYA" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 9
+	},
+/turf/closed/wall,
+/area/maintenance/port/aft)
 "pYX" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -57909,6 +57950,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
+"uHG" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 10
+	},
+/turf/closed/wall/r_wall,
+/area/maintenance/solars/port/aft)
 "uJU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -57920,6 +57967,12 @@
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"uJZ" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 6
+	},
+/turf/closed/wall/r_wall,
+/area/maintenance/solars/port/aft)
 "uKe" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -59343,8 +59396,8 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -59988,6 +60041,10 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"xKU" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/closed/wall/r_wall,
+/area/maintenance/solars/port/aft)
 "xLF" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/layer_manifold,
@@ -72513,8 +72570,8 @@ aPv
 mtL
 aRZ
 asE
-aAF
-arB
+fpd
+olP
 dsL
 qnV
 baF
@@ -72770,7 +72827,7 @@ aym
 mtL
 ayl
 kkD
-aQH
+ieK
 rZt
 wSZ
 eMs
@@ -73027,8 +73084,8 @@ ayl
 mtL
 ayl
 rmG
-aSf
-ayl
+kzh
+iDi
 pPH
 aWc
 baG
@@ -79247,8 +79304,8 @@ bCq
 bCq
 bCq
 bCq
-cfw
-cfw
+uJZ
+xKU
 pic
 nKZ
 uRR
@@ -79504,7 +79561,7 @@ afR
 afR
 afR
 agZ
-cfw
+uHG
 cgA
 bfI
 jgH
@@ -80796,7 +80853,7 @@ bHE
 bLu
 dNh
 lHu
-bCq
+ddL
 aaa
 aaa
 aaf
@@ -81053,7 +81110,7 @@ gpk
 gpk
 ucy
 npz
-bCq
+pYA
 bLv
 bLv
 bLv
