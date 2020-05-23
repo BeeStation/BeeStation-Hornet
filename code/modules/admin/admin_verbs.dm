@@ -742,6 +742,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	for(var/turf/open/T in view())
 		T.air?.copy_from_turf(T)
+		T.air_update_turf(1)
 		T.update_visuals()
 
 		for(var/obj/machinery/atmospherics/pipe/P in T.contents)

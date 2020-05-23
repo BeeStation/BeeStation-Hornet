@@ -308,5 +308,11 @@
 	piping_layer = 3
 	icon_state = "scrub_map_on-3"
 
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/lavaland
+	filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/plasma, /datum/gas/water_vapor, /datum/gas/bz)
+
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland
+	filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/plasma, /datum/gas/water_vapor, /datum/gas/bz)
+
 #undef SIPHONING
 #undef SCRUBBING

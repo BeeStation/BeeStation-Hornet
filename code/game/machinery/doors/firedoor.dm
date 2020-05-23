@@ -305,6 +305,7 @@
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	flags_1 = ON_BORDER_1
 	CanAtmosPass = ATMOS_PASS_PROC
+	assemblytype = /obj/structure/firelock_frame/border
 
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"
@@ -418,6 +419,10 @@
 	density = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
+	var/is_border = FALSE
+
+/obj/structure/firelock_frame/border
+	is_border = TRUE
 
 /obj/structure/firelock_frame/examine(mob/user)
 	. = ..()
@@ -471,7 +476,10 @@
 				if(reinforced)
 					new /obj/machinery/door/firedoor/heavy(get_turf(src))
 				else
-					new /obj/machinery/door/firedoor(get_turf(src))
+					if(is_border)
+						new /obj/machinery/door/firedoor/border_only(get_turf(src))
+					else
+						new /obj/machinery/door/firedoor(get_turf(src))
 				qdel(src)
 				return
 			if(istype(C, /obj/item/stack/sheet/plasteel))
