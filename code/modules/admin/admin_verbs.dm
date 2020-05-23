@@ -640,7 +640,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
-	set category = "Round"
+	set category = "Admin"
 	if(holder)
 		src.holder.output_ai_laws()
 

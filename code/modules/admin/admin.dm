@@ -468,7 +468,7 @@
 
 
 /datum/admins/proc/restart()
-	set category = "Round"
+	set category = "Server"
 	set name = "Reboot World"
 	set desc="Restarts the world immediately"
 	if (!usr.client.holder)
