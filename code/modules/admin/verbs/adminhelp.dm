@@ -16,7 +16,8 @@
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
-	GLOB.ahelp_tickets.BrowseTickets(src)
+	//new era: now works.
+	GLOB.ahelp_tickets.BrowseTickets(usr)
 
 //
 // Ticket manager
