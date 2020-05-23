@@ -212,7 +212,7 @@
 
 
 /datum/admins/proc/access_news_network() //MARKER
-	set category = "Round" //new era: Moved to Round category
+	set category = "Round"
 	set name = "Access Newscaster Network"
 	set desc = "Allows you to view, add and edit news feeds."
 
@@ -429,7 +429,7 @@
 		"}
 	if(GLOB.master_mode == "secret")
 		dat += "<A href='?src=[REF(src)];[HrefToken()];f_secret=1'>(Force Secret Mode)</A><br>"
-		
+
 	if(GLOB.master_mode == "dynamic")
 		if(SSticker.current_state <= GAME_STATE_PREGAME)
 			dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart=1'>(Force Roundstart Rulesets)</A><br>"
@@ -468,7 +468,7 @@
 
 
 /datum/admins/proc/restart()
-	set category = "Round" //new era: Moved to Round category
+	set category = "Round"
 	set name = "Reboot World"
 	set desc="Restarts the world immediately"
 	if (!usr.client.holder)
@@ -508,7 +508,7 @@
 					world.TgsEndProcess()
 
 /datum/admins/proc/end_round()
-	set category = "Round" //new era: Moved to Round category
+	set category = "Round"
 	set name = "End Round"
 	set desc = "Attempts to produce a round end report and then restart the server organically."
 
@@ -524,7 +524,7 @@
 /datum/admins/proc/dynamic_mode_options(mob/user)
 	var/dat = {"
 		<center><B><h2>Dynamic Mode Options</h2></B></center><hr>
-		<br/> 
+		<br/>
 		<h3>Common options</h3>
 		<i>All these options can be changed midround.</i> <br/>
 		<br/>
@@ -559,7 +559,7 @@
 
 	user << browse(dat, "window=dyn_mode_options;size=900x650")
 /datum/admins/proc/announce()
-	set category = "Admin" //new era: moved to Admin category
+	set category = "Admin"
 	set name = "Announce"
 	set desc="Announce your desires to the world"
 	if(!check_rights(0))
@@ -575,7 +575,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/set_admin_notice()
-	set category = "Adminbus" //new era: Special Verbs has been renamed to Adminbus
+	set category = "Adminbus"
 	set name = "Set Admin Notice"
 	set desc ="Set an announcement that appears to everyone who joins the server. Only lasts this round"
 	if(!check_rights(0))
@@ -617,7 +617,7 @@
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Dead OOC", "[GLOB.dooc_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/startnow()
-	set category = "Round" //new era: Moved to Round category
+	set category = "Round"
 	set desc="Start the round RIGHT NOW"
 	set name="Start Now"
 	if(SSticker.current_state == GAME_STATE_PREGAME || SSticker.current_state == GAME_STATE_STARTUP)
@@ -680,7 +680,7 @@
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Respawn", "[!new_nores ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/delay()
-	set category = "Round" //new era: Moved to Round category
+	set category = "Round"
 	set desc="Delay the game start"
 	set name="Delay pre-game"
 
@@ -699,8 +699,6 @@
 			log_admin("[key_name(usr)] set the pre-game delay to [DisplayTimeText(newtime)].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay Game Start") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-//New era: "New" verb - Moved from.. The check antagonists panel.
-//Seriously, why was it there?
 /datum/admins/proc/delay_round_end()
 	set category = "Round"
 	set desc= "Delay server from rebooting the server after the round has ended"

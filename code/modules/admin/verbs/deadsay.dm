@@ -1,5 +1,5 @@
 /client/proc/dsay(msg as text)
-	set category = "Adminbus" //new era: Special Verbs has been renamed to Adminbus
+	set category = "Adminbus"
 	set name = "Dsay"
 	set hidden = 1
 	if(!holder)
