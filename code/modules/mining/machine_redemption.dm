@@ -12,7 +12,10 @@
 	req_access = list(ACCESS_MINERAL_STOREROOM)
 	speed_process = TRUE
 	circuit = /obj/item/circuitboard/machine/ore_redemption
+	ui_x = 440
+	ui_y = 550
 	layer = BELOW_OBJ_LAYER
+
 	var/obj/item/card/id/inserted_id
 	var/points = 0
 	var/ore_pickup_rate = 15
@@ -32,6 +35,7 @@
 
 /obj/machinery/mineral/ore_redemption/Destroy()
 	QDEL_NULL(stored_research)
+	materials = null
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
@@ -49,11 +53,11 @@
 	sheet_per_ore = round(sheet_per_ore_temp, 0.01)
 
 /obj/machinery/mineral/ore_redemption/examine(mob/user)
-	..()
+	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		to_chat(user, "<span class='notice'>The status display reads: Smelting <b>[sheet_per_ore]</b> sheet(s) per piece of ore.<br>Reward point generation at <b>[point_upgrade*100]%</b>.<br>Ore pickup speed at <b>[ore_pickup_rate]</b>.<span>")
+		. += "<span class='notice'>The status display reads: Smelting <b>[sheet_per_ore]</b> sheet(s) per piece of ore.<br>Reward point generation at <b>[point_upgrade*100]%</b>.<br>Ore pickup speed at <b>[ore_pickup_rate]</b>.<span>"
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Alt-click to rotate the input and output direction.</span>")
+		. += "<span class='notice'>Alt-click to rotate the input and output direction.</span>"
 
 /obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/stack/ore/O)
 	var/datum/component/material_container/mat_container = materials.mat_container
@@ -137,9 +141,14 @@
 	if(!has_minerals)
 		return
 
-	for(var/obj/machinery/requests_console/D in GLOB.allConsoles)
-		if(D.receive_ore_updates)
-			D.createmessage("Ore Redemption Machine", "New minerals available!", msg, 1, 0)
+	var/datum/signal/subspace/messaging/rc/signal = new(src, list(
+		"ore_update" = TRUE,
+		"sender" = "Ore Redemption Machine",
+		"message" = msg,
+		"verified" = "<font color='green'><b>Verified by Ore Redemption Machine</b></font>",
+		"priority" = REQ_NORMAL_MESSAGE_PRIORITY
+	))
+	signal.send_to_receivers()
 
 /obj/machinery/mineral/ore_redemption/process()
 	if(!materials.mat_container || panel_open || !powered())
@@ -200,7 +209,7 @@
 /obj/machinery/mineral/ore_redemption/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ore_redemption_machine", "Ore Redemption Machine", 440, 550, master_ui, state)
+		ui = new(user, src, ui_key, "OreRedemptionMachine", "Ore Redemption Machine", ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/mineral/ore_redemption/ui_data(mob/user)

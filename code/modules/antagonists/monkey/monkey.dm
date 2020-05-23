@@ -62,6 +62,8 @@
 	monkey_team = new_team
 
 /datum/antagonist/monkey/proc/forge_objectives()
+	if(!give_objectives)
+		return
 	objectives |= monkey_team.objectives
 
 /datum/antagonist/monkey/admin_remove(mob/admin)
@@ -162,6 +164,17 @@
 			return TRUE
 	return FALSE
 
+/datum/team/monkey/proc/infected_gorillas_alive()
+	for(var/mob/living/simple_animal/hostile/gorilla/rabid/M in GLOB.alive_mob_list)
+		return TRUE
+	return FALSE
+
+/datum/team/monkey/proc/infected_gorillas_escaped()
+	for(var/mob/living/simple_animal/hostile/gorilla/rabid/M in GLOB.alive_mob_list)
+		if(M.onCentCom() || M.onSyndieBase())
+			return TRUE
+	return FALSE
+
 /datum/team/monkey/proc/infected_humans_escaped()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/human/M in GLOB.alive_mob_list)
@@ -177,9 +190,9 @@
 	return FALSE
 
 /datum/team/monkey/proc/get_result()
-	if(infected_monkeys_escaped())
+	if(infected_monkeys_escaped() || infected_gorillas_escaped())
 		return MONKEYS_ESCAPED
-	if(infected_monkeys_alive())
+	if(infected_monkeys_alive() || infected_gorillas_alive())
 		return MONKEYS_LIVED
 	if(infected_humans_alive() || infected_humans_escaped())
 		return DISEASE_LIVED

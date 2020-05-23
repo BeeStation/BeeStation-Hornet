@@ -308,8 +308,7 @@
 		var/datum/reagent/R = reagent
 		if(QDELETED(R.holder))
 			continue
-		if(liverless && !R.self_consuming) //need to be metabolized
-			continue
+
 		if(!C)
 			C = R.holder.my_atom
 		if(ishuman(C))
@@ -343,7 +342,12 @@
 			R.on_mob_metabolize(C)
 
 		if(C && R)
-			if(C.reagent_check(R) != 1)
+			if(C.reagent_check(R) != TRUE)
+				if(liverless && !R.self_consuming) //need to be metabolized
+					continue
+				if(!R.metabolizing)
+					R.metabolizing = TRUE
+					R.on_mob_metabolize(C)
 				if(can_overdose)
 					if(R.overdose_threshold)
 						if(R.volume >= R.overdose_threshold && !R.overdosed)
@@ -726,7 +730,6 @@
 	if(isnull(amount))
 		amount = 0
 		CRASH("null amount passed to reagent code")
-		return FALSE
 
 	if(!isnum(amount))
 		return FALSE
@@ -917,12 +920,22 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents
+/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents and most foods and drinks
 	var/static/list/random_reagents = list()
 	if(!random_reagents.len)
 		for(var/thing  in subtypesof(/datum/reagent))
 			var/datum/reagent/R = thing
-			if(initial(R.can_synth))
+			if(initial(R.can_synth) && initial(R.random_unrestricted))
+				random_reagents += R
+	var/picked_reagent = pick(random_reagents)
+	return picked_reagent
+
+/proc/get_unrestricted_random_reagent_id()	// Returns a random reagent ID minus most foods and drinks
+	var/static/list/random_reagents = list()
+	if(!random_reagents.len)
+		for(var/thing  in subtypesof(/datum/reagent))
+			var/datum/reagent/R = thing
+			if(initial(R.random_unrestricted))
 				random_reagents += R
 	var/picked_reagent = pick(random_reagents)
 	return picked_reagent

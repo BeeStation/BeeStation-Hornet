@@ -5,7 +5,7 @@
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
 	species_traits = list(NOBLOOD,NOTRANSSTING)
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_RADIMMUNE,TRAIT_NOHUNGER,TRAIT_CALCIUM_HEALER,TRAIT_ALWAYS_CLEAN)
+	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_RADIMMUNE,TRAIT_NOHUNGER,TRAIT_ALWAYS_CLEAN)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	mutantlungs = /obj/item/organ/lungs/plasmaman
 	mutanttongue = /obj/item/organ/tongue/bone/plasmaman
@@ -20,6 +20,7 @@
 	disliked_food = FRUIT
 	liked_food = VEGETABLES
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
+	outfit_important_for_life = /datum/outfit/plasmaman
 
 /datum/species/plasmaman/spec_life(mob/living/carbon/human/H)
 	var/datum/gas_mixture/environment = H.loc.return_air()
@@ -29,15 +30,19 @@
 		var/obj/item/clothing/CH = H.head
 		if (CS.clothing_flags & CH.clothing_flags & STOPSPRESSUREDAMAGE)
 			atmos_sealed = TRUE
-	if((!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)) && !atmos_sealed)
-		if(environment)
-			if(environment.total_moles())
-				if(environment.gases[/datum/gas/oxygen] && (environment.gases[/datum/gas/oxygen][MOLES]) >= 1) //Same threshhold that extinguishes fire
-					H.adjust_fire_stacks(0.5)
-					if(!H.on_fire && H.fire_stacks > 0)
-						H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
-					H.IgniteMob()
-					internal_fire = TRUE
+	if(H.w_uniform && H.head)
+		var/obj/item/clothing/CU = H.w_uniform
+		var/obj/item/clothing/CH = H.head
+		if (CU.envirosealed && (CH.clothing_flags & STOPSPRESSUREDAMAGE))
+			atmos_sealed = TRUE
+	if(environment && !atmos_sealed)
+		if(environment.total_moles())
+			if(environment.gases[/datum/gas/oxygen] && (environment.gases[/datum/gas/oxygen][MOLES]) >= 1) //Same threshhold that extinguishes fire
+				H.adjust_fire_stacks(0.5)
+				if(!H.on_fire && H.fire_stacks > 0)
+					H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
+				H.IgniteMob()
+				internal_fire = TRUE
 	else
 		if(H.fire_stacks)
 			var/obj/item/clothing/under/plasmaman/P = H.w_uniform
@@ -69,14 +74,26 @@
 		if("Botanist")
 			O = new /datum/outfit/plasmaman/botany
 
-		if("Bartender", "Lawyer")
+		if("Bartender", "Lawyer", "Barber")
 			O = new /datum/outfit/plasmaman/bar
+
+		if("Stage Magician")
+			O = new /datum/outfit/plasmaman/magic
+
+		if("Debtor")
+			O = new /datum/outfit/plasmaman/hobo
 
 		if("Cook")
 			O = new /datum/outfit/plasmaman/chef
 
 		if("Security Officer")
 			O = new /datum/outfit/plasmaman/security
+		
+		if("Deputy")
+			O = new /datum/outfit/plasmaman
+
+		if("Brig Physician")
+			O = new /datum/outfit/plasmaman/secmed
 
 		if("Detective")
 			O = new /datum/outfit/plasmaman/detective
@@ -92,9 +109,9 @@
 
 		if("Medical Doctor")
 			O = new /datum/outfit/plasmaman/medical
-		
+
 		if("Paramedic")
-			O = new /datum/outfit/plasmaman/medical
+			O = new /datum/outfit/plasmaman/emt
 
 		if("Chemist")
 			O = new /datum/outfit/plasmaman/chemist
@@ -122,25 +139,25 @@
 
 		if("Chief Engineer")
 			O = new /datum/outfit/plasmaman/ce
-		
+
 		if("Chief Medical Officer")
 			O = new /datum/outfit/plasmaman/cmo
-		
+
 		if("Head of Security")
 			O = new /datum/outfit/plasmaman/hos
-			
+
 		if("Research Director")
 			O = new /datum/outfit/plasmaman/rd
-			
+
 		if("Head of Personnel")
 			O = new /datum/outfit/plasmaman/hop
-		
+
 		if("Clown")
 			O = new /datum/outfit/plasmaman/honk
-			
+
 		if("Mime")
 			O = new /datum/outfit/plasmaman/mime
-			
+
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.get_item_for_held_index(2)
 	H.update_internals_hud_icon(1)
@@ -163,3 +180,18 @@
 		randname += " [lastname]"
 
 	return randname
+
+/datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+	. = ..()
+	if(chem.type == /datum/reagent/consumable/milk)
+		if(chem.volume >= 6)
+			H.reagents.remove_reagent(chem.type, chem.volume - 5)
+			to_chat(H, "<span class='warning'>The excess milk is dripping off your bones!</span>")
+		H.heal_bodypart_damage(1.5,0, 0)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+		return TRUE
+
+	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
+		H.adjustBruteLoss(0.5, 0)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+		return TRUE

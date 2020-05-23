@@ -26,7 +26,7 @@
 			return FALSE
 	else
 		return FALSE
-	if(HAS_TRAIT(M, TRAIT_MINDSHIELD) || issilicon(M) || isbot(M) || isdrone(M) || is_servant_of_ratvar(M) || !M.client)
+	if(HAS_TRAIT(M, TRAIT_MINDSHIELD) || issilicon(M) || isbot(M) || isdrone(M) || !M.client)
 		return FALSE //can't convert machines, shielded, braindead, or ratvar's dogs
 	return TRUE
 
@@ -35,8 +35,8 @@
 	config_tag = "cult"
 	report_type = "cult"
 	antag_flag = ROLE_CULTIST
-	false_report_weight = 10
-	restricted_jobs = list("Chaplain","AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel")
+	false_report_weight = 1
+	restricted_jobs = list("Chaplain","AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Brig Physician")
 	protected_jobs = list()
 	required_players = 29
 	required_enemies = 4
@@ -77,7 +77,7 @@
 	for(var/cultists_number = 1 to recommended_enemies)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/cultist = antag_pick(antag_candidates)
+		var/datum/mind/cultist = antag_pick(antag_candidates, ROLE_CULTIST)
 		antag_candidates -= cultist
 		cultists_to_cult += cultist
 		cultist.special_role = ROLE_CULTIST

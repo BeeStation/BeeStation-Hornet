@@ -66,6 +66,8 @@
 	return rev_team
 
 /datum/antagonist/rev/proc/create_objectives()
+	if(!give_objectives)
+		return
 	objectives |= rev_team.objectives
 
 /datum/antagonist/rev/proc/remove_objectives()
@@ -233,7 +235,7 @@
 		H.dna.remove_mutation(CLOWNMUT)
 
 	if(give_flash)
-		var/obj/item/assembly/flash/T = new(H)
+		var/obj/item/assembly/flash/handheld/strong/T = new(H)
 		var/list/slots = list (
 			"backpack" = SLOT_IN_BACKPACK,
 			"left pocket" = SLOT_L_STORE,

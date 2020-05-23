@@ -27,6 +27,7 @@
 	var/datum/wires/connected = null
 
 	var/next_activate = 0 //When we're next allowed to activate - for spam control
+	var/activate_delay = 30
 
 /obj/item/assembly/get_part_rating()
 	return 1
@@ -78,7 +79,7 @@
 /obj/item/assembly/proc/activate()
 	if(QDELETED(src) || !secured || (next_activate > world.time))
 		return FALSE
-	next_activate = world.time + 30
+	next_activate = world.time + activate_delay
 	return TRUE
 
 
@@ -111,8 +112,8 @@
 	return TRUE
 
 /obj/item/assembly/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>\The [src] [secured? "is secured and ready to be used!" : "can be attached to other things."]</span>")
+	. = ..()
+	. += "<span class='notice'>\The [src] [secured? "is secured and ready to be used!" : "can be attached to other things."]</span>"
 
 
 /obj/item/assembly/attack_self(mob/user)

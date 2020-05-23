@@ -90,6 +90,8 @@
 #define CAT_SANDWICH	"Sandwiches"
 #define CAT_SOUP	"Soups"
 #define CAT_SPAGHETTI	"Spaghettis"
+#define CAT_ICE	"Frozen"
+#define CAT_DRINK "Drinks"
 
 
 // rcd buildtype defines
@@ -100,3 +102,7 @@
 #define RCD_LADDER 5
 #define RCD_MACHINE 8
 #define RCD_COMPUTER 16
+
+#define RCD_UPGRADE_FRAMES	1
+#define RCD_UPGRADE_SIMPLE_CIRCUITS	2
+#define RCD_UPGRADE_SILO_LINK	4

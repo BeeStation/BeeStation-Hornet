@@ -100,7 +100,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	var/atom/movable/the_prize = pick(contents)
 	visible_message("<span class='notice'>[src] dispenses [the_prize]!</span>", "<span class='notice'>You hear a chime and a clunk.</span>")
 	the_prize.forceMove(get_turf(src))
-	
+
 /obj/machinery/computer/arcade/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/coin/arcade_token) || istype(W, /obj/item/coin/bananium))
 		to_chat(user, "<span class='notice'>You insert the [W] into the [src].")
@@ -1140,13 +1140,13 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	var/active = 0 //if the ship is on
 
 /obj/item/orion_ship/examine(mob/user)
-	..()
+	. = ..()
 	if(!(in_range(user, src)))
 		return
 	if(!active)
-		to_chat(user, "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>")
+		. += "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>"
 	else
-		to_chat(user, "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>")
+		. += "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>"
 
 /obj/item/orion_ship/attack_self(mob/user) //Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse
 	if(active)

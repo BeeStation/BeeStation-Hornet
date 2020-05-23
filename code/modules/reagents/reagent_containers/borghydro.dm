@@ -127,21 +127,21 @@ Borg Hypospray
 	return
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
-	usr = user
-	..()
-	DescribeContents()	//Because using the standardized reagents datum was just too cool for whatever fuckwit wrote this
+	. = ..()
+	. += DescribeContents()	//Because using the standardized reagents datum was just too cool for whatever fuckwit wrote this
 
 /obj/item/reagent_containers/borghypo/proc/DescribeContents()
-	var/empty = 1
+	. = list()
+	var/empty = TRUE
 
 	for(var/datum/reagents/RS in reagent_list)
 		var/datum/reagent/R = locate() in RS.reagent_list
 		if(R)
-			to_chat(usr, "<span class='notice'>It currently has [R.volume] unit\s of [R.name] stored.</span>")
-			empty = 0
+			. += "<span class='notice'>It currently has [R.volume] unit\s of [R.name] stored.</span>"
+			empty = FALSE
 
 	if(empty)
-		to_chat(usr, "<span class='warning'>It is currently empty! Allow some time for the internal syntheszier to produce more.</span>")
+		. += "<span class='warning'>It is currently empty! Allow some time for the internal synthesizer to produce more.</span>"
 
 /obj/item/reagent_containers/borghypo/hacked
 	icon_state = "borghypo_s"
@@ -183,7 +183,33 @@ Borg Shaker
 	recharge_time = 3
 	accepts_reagent_upgrades = FALSE
 
-	reagent_ids = list(/datum/reagent/consumable/ethanol/beer, /datum/reagent/consumable/orangejuice, /datum/reagent/consumable/grenadine, /datum/reagent/consumable/limejuice, /datum/reagent/consumable/tomatojuice, /datum/reagent/consumable/space_cola, /datum/reagent/consumable/tonic, /datum/reagent/consumable/sodawater, /datum/reagent/consumable/ice, /datum/reagent/consumable/cream, /datum/reagent/consumable/ethanol/whiskey, /datum/reagent/consumable/ethanol/vodka, /datum/reagent/consumable/ethanol/rum, /datum/reagent/consumable/ethanol/gin, /datum/reagent/consumable/ethanol/tequila, /datum/reagent/consumable/ethanol/vermouth, /datum/reagent/consumable/ethanol/wine, /datum/reagent/consumable/ethanol/kahlua, /datum/reagent/consumable/ethanol/cognac, /datum/reagent/consumable/ethanol/ale, /datum/reagent/consumable/milk, /datum/reagent/consumable/coffee, /datum/reagent/consumable/banana, /datum/reagent/consumable/lemonjuice)
+	reagent_ids = list(
+			/datum/reagent/consumable/ethanol/absinthe,
+			/datum/reagent/consumable/ethanol/ale, 
+			/datum/reagent/consumable/ethanol/beer, 
+			/datum/reagent/consumable/ethanol/cognac,
+			/datum/reagent/consumable/ethanol/gin,
+			/datum/reagent/consumable/ethanol/kahlua,
+			/datum/reagent/consumable/ethanol/rum,
+			/datum/reagent/consumable/ethanol/tequila,
+			/datum/reagent/consumable/ethanol/triple_sec,
+			/datum/reagent/consumable/ethanol/vermouth,
+			/datum/reagent/consumable/ethanol/vodka,
+			/datum/reagent/consumable/ethanol/whiskey,
+			/datum/reagent/consumable/ethanol/wine,
+			/datum/reagent/consumable/banana,
+			/datum/reagent/consumable/coffee,
+			/datum/reagent/consumable/cream,
+			/datum/reagent/consumable/grenadine,
+			/datum/reagent/consumable/ice,
+			/datum/reagent/consumable/lemonjuice,
+			/datum/reagent/consumable/limejuice,
+			/datum/reagent/consumable/milk,
+			/datum/reagent/consumable/orangejuice, 
+			/datum/reagent/consumable/sodawater, 
+			/datum/reagent/consumable/space_cola, 
+			/datum/reagent/consumable/tomatojuice, 
+			/datum/reagent/consumable/tonic)
 
 /obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)
 	return //Can't inject stuff with a shaker, can we? //not with that attitude
@@ -218,16 +244,12 @@ Borg Shaker
 		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution to [target].</span>")
 
 /obj/item/reagent_containers/borghypo/borgshaker/DescribeContents()
-	var/empty = 1
-
 	var/datum/reagents/RS = reagent_list[mode]
 	var/datum/reagent/R = locate() in RS.reagent_list
 	if(R)
-		to_chat(usr, "<span class='notice'>It currently has [R.volume] unit\s of [R.name] stored.</span>")
-		empty = 0
-
-	if(empty)
-		to_chat(usr, "<span class='warning'>It is currently empty! Please allow some time for the synthesizer to produce more.</span>")
+		return "<span class='notice'>It currently has [R.volume] unit\s of [R.name] stored.</span>"
+	else
+		return "<span class='warning'>It is currently empty! Please allow some time for the synthesizer to produce more.</span>"
 
 /obj/item/reagent_containers/borghypo/borgshaker/hacked
 	name = "cyborg shaker"

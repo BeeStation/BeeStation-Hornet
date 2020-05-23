@@ -86,6 +86,7 @@
 			atomsnowflake += "<a href='?_src_=vars;[HrefToken()];rename=[refid]'><b id='name'>[D]</b></a>"
 			atomsnowflake += "<br><font size='1'><a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=left'><<</a> <a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(A.dir) || A.dir]</a> <a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=right'>>></a></font>"
 			var/mob/living/M = A
+
 			atomsnowflake += {"
 				<br><font size='1'><a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=ckey' id='ckey'>[M.ckey || "No ckey"]</a> / <a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=real_name' id='real_name'>[M.real_name || "No real name"]</a></font>
 				<br><font size='1'>
@@ -94,7 +95,7 @@
 					TOXIN:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=toxin' id='toxin'>[M.getToxLoss()]</a>
 					OXY:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=oxygen' id='oxygen'>[M.getOxyLoss()]</a>
 					CLONE:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=clone' id='clone'>[M.getCloneLoss()]</a>
-					BRAIN:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brain' id='brain'>[M.getBrainLoss()]</a>
+					BRAIN:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=brain' id='brain'>[M.getOrganLoss(ORGAN_SLOT_BRAIN)]</a>
 					STAMINA:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[M.getStaminaLoss()]</a>
 				</font>
 			"}
@@ -1233,7 +1234,7 @@
 
 			if(result)
 				var/newtype = GLOB.species_list[result]
-				admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [H] to [result]")
+				admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [H] to [result]", color="orange")
 				H.set_species(newtype)
 
 		else if(href_list["editbodypart"])
@@ -1287,7 +1288,7 @@
 								to_chat(usr, "[C] doesn't have such bodypart.")
 						else
 							to_chat(usr, "Only humans can be augmented.")
-			admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [C]")
+			admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [C]", color="orange")
 
 
 		else if(href_list["purrbation"])
@@ -1310,16 +1311,16 @@
 			if(success)
 				to_chat(usr, "Put [H] on purrbation.")
 				log_admin("[key_name(usr)] has put [key_name(H)] on purrbation.")
-				var/msg = "<span class='notice'>[key_name_admin(usr)] has put [key_name(H)] on purrbation.</span>"
+				var/msg = "[key_name_admin(usr)] has put [key_name(H)] on purrbation."
 				message_admins(msg)
-				admin_ticket_log(H, msg)
+				admin_ticket_log(H, msg, color="orange")
 
 			else
 				to_chat(usr, "Removed [H] from purrbation.")
 				log_admin("[key_name(usr)] has removed [key_name(H)] from purrbation.")
 				var/msg = "<span class='notice'>[key_name_admin(usr)] has removed [key_name(H)] from purrbation.</span>"
 				message_admins(msg)
-				admin_ticket_log(H, msg)
+				admin_ticket_log(H, msg, color="orange")
 
 		else if(href_list["adjustDamage"] && href_list["mobToDamage"])
 			if(!check_rights(NONE))
@@ -1352,8 +1353,8 @@
 					L.adjustOxyLoss(amount)
 					newamt = L.getOxyLoss()
 				if("brain")
-					L.adjustBrainLoss(amount)
-					newamt = L.getBrainLoss()
+					L.adjustOrganLoss(ORGAN_SLOT_BRAIN, amount)
+					newamt = L.getOrganLoss(ORGAN_SLOT_BRAIN)
 				if("clone")
 					L.adjustCloneLoss(amount)
 					newamt = L.getCloneLoss()
@@ -1368,7 +1369,7 @@
 				var/log_msg = "[key_name(usr)] dealt [amount] amount of [Text] damage to [key_name(L)]"
 				message_admins("[key_name(usr)] dealt [amount] amount of [Text] damage to [ADMIN_LOOKUPFLW(L)]")
 				log_admin(log_msg)
-				admin_ticket_log(L, "<font color='blue'>[log_msg]</font>")
+				admin_ticket_log(L, "[log_msg]", color="blue")
 				vv_update_display(L, Text, "[newamt]")
 		else if(href_list["copyoutfit"])
 			if(!check_rights(R_SPAWN))

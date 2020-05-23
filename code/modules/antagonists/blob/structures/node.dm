@@ -34,3 +34,8 @@
 /obj/structure/blob/node/process()
 	if(overmind)
 		Pulse_Area(overmind, 10, 3, 2)
+
+/obj/structure/blob/node/lone/process()
+	Pulse_Area(overmind, 10, 3, 2)
+
+

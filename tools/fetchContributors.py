@@ -6,6 +6,12 @@ import requests
 import argparse
 import operator
 
+# List of github usernames to excluse from the output file
+blacklist = [
+	"ss13-beebot",
+	"dependabot[bot]"
+]
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--pages', type=int, default=15, help='The program looks at the past 100*pages commits. Default: 15')
@@ -31,7 +37,12 @@ for page in range(1,args_ns.pages+1):
 	
 	for commit in commits:
 		if "author" in commit and commit["author"]:
+			
 			author = commit["author"]["login"]
+
+			if author in blacklist:
+				continue
+			
 			if author in contributors:
 				contributors[author] += 1
 			else:

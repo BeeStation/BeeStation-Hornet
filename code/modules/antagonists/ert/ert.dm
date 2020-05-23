@@ -10,12 +10,14 @@
 	var/datum/outfit/outfit = /datum/outfit/ert/security
 	var/role = "Security Officer"
 	var/list/name_source
+	var/random_names = TRUE
 	show_in_antagpanel = FALSE
 	antag_moodlet = /datum/mood_event/focused
 	can_hijack = HIJACK_PREVENT
 
 /datum/antagonist/ert/on_gain()
-	update_name()
+	if(random_names)
+		update_name()
 	forge_objectives()
 	equipERT()
 	. = ..()
@@ -108,6 +110,23 @@
 	outfit = /datum/outfit/death_commando/officer
 	role = "Officer"
 
+/datum/antagonist/ert/intern
+	name = "CentCom Intern"
+	outfit = /datum/outfit/centcom_intern
+	random_names = FALSE
+	role = "Intern"
+
+/datum/antagonist/ert/intern/leader
+	name = "CentCom Head Intern"
+	outfit = /datum/outfit/centcom_intern/leader
+	role = "Head Intern"
+
+/datum/antagonist/ert/doomguy
+	name = "The Juggernaut"
+	outfit = /datum/outfit/death_commando/doomguy
+	random_names = FALSE
+	role = "The Juggernaut"
+
 /datum/antagonist/ert/create_team(datum/team/ert/new_team)
 	if(istype(new_team))
 		ert_team = new_team
@@ -150,6 +169,21 @@
 		missiondesc += " Lead your squad to ensure the completion of the mission. Board the shuttle when your team is ready."
 	else
 		missiondesc += " Follow orders given to you by your squad leader."
+
+	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
+	to_chat(owner,missiondesc)
+
+/datum/antagonist/ert/doomguy/greet()
+	if(!ert_team)
+		return
+
+	to_chat(owner, "<B><font size=3 color=red>You are the Juggernaut, the latest in Nanotrasen's biologically-enhanced supersoldiers.</font></B>")
+
+	var/missiondesc = "You are being sent on a mission to [station_name()] by the one of the highest ranking Nanotrasen officials around."
+	if(leader) //If Squad Leader
+		missiondesc += " Take stock of your equipment and teammates (if any) and board the transit shuttle when you are ready."
+	else
+		missiondesc += " Rip and tear."
 
 	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
 	to_chat(owner,missiondesc)

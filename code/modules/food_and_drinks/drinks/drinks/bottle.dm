@@ -8,6 +8,7 @@
 	amount_per_transfer_from_this = 10
 	volume = 100
 	throwforce = 15
+	block_upgrade_walk = 1
 	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
@@ -15,6 +16,14 @@
 	isGlass = TRUE
 	foodtype = ALCOHOL
 
+/obj/item/reagent_containers/food/drinks/bottle/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	if(isliving(hitby))
+		var/mob/living/L = hitby
+		smash(L)
+	else 
+		smash()
+	return TRUE
+	
 
 /obj/item/reagent_containers/food/drinks/bottle/smash(mob/living/target, mob/thrower, ranged = FALSE)
 	//Creates a shattering noise and replaces the bottle with a broken_bottle
@@ -338,7 +347,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/orangejuice = 100)
-	foodtype = FRUIT
+	foodtype = FRUIT | BREAKFAST
 
 /obj/item/reagent_containers/food/drinks/bottle/cream
 	name = "milk cream"
@@ -396,6 +405,28 @@
 	list_reagents = list(/datum/reagent/consumable/grenadine = 100)
 	foodtype = FRUIT
 
+/obj/item/reagent_containers/food/drinks/bottle/synthflesh
+	name = "carton of synthflesh"
+	desc = "A No-Name carton of synthflesh. It seems moldy. And it seems that YOUR INCOMPETENT ASS IS THE ONLY FUCKING REASON THIS THING EVEN EXISTS!!!!"
+	custom_price = 10
+	icon_state = "synthflesh"
+	item_state = "carton"
+	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	isGlass = FALSE
+	list_reagents = list(/datum/reagent/medicine/synthflesh = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/virusfood
+	name = "carton of virus food"
+	desc = "A carton of ready-mixed virus food. Do not drink."
+	custom_price = 10
+	icon_state = "virusfood"
+	item_state = "carton"
+	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	isGlass = FALSE
+	list_reagents = list(/datum/reagent/consumable/virus_food = 100)
+
 /obj/item/reagent_containers/food/drinks/bottle/applejack
 	name = "Buckin' Bronco's Applejack"
 	desc = "Kicks like a horse, tastes like an apple!"
@@ -427,6 +458,33 @@
 	volume = 50
 	list_reagents = list(/datum/reagent/consumable/ethanol/trappist = 50)
 
+/obj/item/reagent_containers/food/drinks/bottle/hooch
+	name = "hooch bottle"
+	desc = "A bottle of rotgut. Its owner has applied some street wisdom to cleverly disguise it as a brown paper bag."
+	icon_state = "hoochbottle"
+	list_reagents = list(/datum/reagent/consumable/ethanol/hooch = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/moonshine
+	name = "moonshine jug"
+	desc = "It is said that the ancient Applalacians used these stoneware jugs to capture lightning in a bottle."
+	icon_state = "moonshinebottle"
+	list_reagents = list(/datum/reagent/consumable/ethanol/moonshine = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/blank //Don't let players print these from a lathe, bottles should be obtained in mass from the bar only.
+	name = "glass bottle"
+	desc = "This blank bottle is unyieldingly anonymous, offering no clues to it's contents."
+	icon_state = "glassbottle"
+	fill_icon_thresholds = list(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)
+
+/obj/item/reagent_containers/food/drinks/bottle/blank/update_icon()
+	..()
+	add_overlay("[initial(icon_state)]shine")
+
+/obj/item/reagent_containers/food/drinks/bottle/blank/small
+	name = "small glass bottle"
+	desc = "This small bottle is unyieldingly anonymous, offering no clues to it's contents."
+	icon_state = "glassbottlesmall"
+	volume = 50
 
 ////////////////////////// MOLOTOV ///////////////////////
 /obj/item/reagent_containers/food/drinks/bottle/molotov

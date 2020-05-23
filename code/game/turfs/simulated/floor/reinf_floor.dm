@@ -15,13 +15,13 @@
 /turf/open/floor/engine/examine(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>The reinforcement plates are <b>wrenched</b> firmly in place.</span>")
-	
+
 /turf/open/floor/engine/light
 	icon_state = "engine_light"
 
 /turf/open/floor/engine/airless
 	initial_gas_mix = AIRLESS_ATMOS
-	
+
 /turf/open/floor/engine/airless/light
 	icon_state = "engine_light"
 
@@ -49,7 +49,7 @@
 			return TRUE
 		if(floor_tile)
 			new floor_tile(src, 1)
-		ScrapeAway()
+		ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 	return TRUE
 
 /turf/open/floor/engine/acid_act(acidpwr, acid_volume)
@@ -62,23 +62,23 @@
 	if(severity != 1 && shielded && target != src)
 		return
 	if(target == src)
-		ScrapeAway()
+		ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 		return
 	switch(severity)
 		if(1)
 			if(prob(80))
 				if(!length(baseturfs) || !ispath(baseturfs[baseturfs.len-1], /turf/open/floor))
-					ScrapeAway()
+					ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 					ReplaceWithLattice()
 				else
-					ScrapeAway(2)
+					ScrapeAway(2, flags = CHANGETURF_INHERIT_AIR)
 			else if(prob(50))
-				ScrapeAway(2)
+				ScrapeAway(2, flags = CHANGETURF_INHERIT_AIR)
 			else
-				ScrapeAway()
+				ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 		if(2)
 			if(prob(50))
-				ScrapeAway()
+				ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /turf/open/floor/engine/singularity_pull(S, current_size)
 	..()
@@ -105,28 +105,28 @@
 	article = "an"
 	name = "\improper N2O floor"
 	initial_gas_mix = ATMOS_TANK_N2O
-	
+
 /turf/open/floor/engine/n2o/light
 	icon_state = "engine_light"
 
 /turf/open/floor/engine/co2
 	name = "\improper CO2 floor"
 	initial_gas_mix = ATMOS_TANK_CO2
-	
+
 /turf/open/floor/engine/co2/light
 	icon_state = "engine_light"
 
 /turf/open/floor/engine/plasma
 	name = "plasma floor"
 	initial_gas_mix = ATMOS_TANK_PLASMA
-	
+
 /turf/open/floor/engine/plasma/light
 	icon_state = "engine_light"
 
 /turf/open/floor/engine/o2
 	name = "\improper O2 floor"
 	initial_gas_mix = ATMOS_TANK_O2
-	
+
 /turf/open/floor/engine/o2/light
 	icon_state = "engine_light"
 
@@ -134,14 +134,14 @@
 	article = "an"
 	name = "\improper N2 floor"
 	initial_gas_mix = ATMOS_TANK_N2
-	
+
 /turf/open/floor/engine/n2/light
 	icon_state = "engine_light"
 
 /turf/open/floor/engine/air
 	name = "air floor"
 	initial_gas_mix = ATMOS_TANK_AIRMIX
-	
+
 /turf/open/floor/engine/air/light
 	icon_state = "engine_light"
 
@@ -173,14 +173,6 @@
 /turf/open/floor/engine/cult/proc/be_removed()
 	qdel(realappearance)
 	realappearance = null
-
-/turf/open/floor/engine/cult/ratvar_act()
-	. = ..()
-	if(istype(src, /turf/open/floor/engine/cult)) //if we haven't changed type
-		var/previouscolor = color
-		color = "#FAE48C"
-		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
 /turf/open/floor/engine/cult/airless
 	initial_gas_mix = AIRLESS_ATMOS

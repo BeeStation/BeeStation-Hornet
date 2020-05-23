@@ -26,7 +26,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/welding/attack_self(mob/user)
@@ -42,12 +42,21 @@
 	icon_state = "hardhat0_cakehat"
 	item_state = "hardhat0_cakehat"
 	item_color = "cakehat"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	hitsound = 'sound/weapons/tap.ogg'
+	var/hitsound_on = 'sound/weapons/sear.ogg' //so we can differentiate between cakehat and energyhat
+	var/hitsound_off = 'sound/weapons/tap.ogg'
+	var/force_on = 15
+	var/throwforce_on = 15
+	var/damtype_on = BURN
 	flags_inv = HIDEEARS|HIDEHAIR
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	brightness_on = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
 	heat = 999
+
+	dog_fashion = /datum/dog_fashion/head
 
 /obj/item/clothing/head/hardhat/cakehat/process()
 	var/turf/location = src.loc
@@ -59,24 +68,48 @@
 	if(isturf(location))
 		location.hotspot_expose(700, 1)
 
-/obj/item/clothing/head/hardhat/cakehat/turn_on()
+/obj/item/clothing/head/hardhat/cakehat/turn_on(mob/living/user)
 	..()
-	force = 15
-	throwforce = 15
-	damtype = BURN
-	hitsound = 'sound/weapons/sear.ogg'
+	force = force_on
+	throwforce = throwforce_on
+	damtype = damtype_on
+	hitsound = hitsound_on
 	START_PROCESSING(SSobj, src)
 
-/obj/item/clothing/head/hardhat/cakehat/turn_off()
+/obj/item/clothing/head/hardhat/cakehat/turn_off(mob/living/user)
 	..()
 	force = 0
 	throwforce = 0
 	damtype = BRUTE
-	hitsound = 'sound/weapons/tap.ogg'
+	hitsound = hitsound_off
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/hardhat/cakehat/is_hot()
 	return on * heat
+
+/obj/item/clothing/head/hardhat/cakehat/energycake
+	name = "energy cake"
+	desc = "You put the energy sword on your cake. Brilliant."
+	icon_state = "hardhat0_energycake"
+	item_state = "hardhat0_energycake"
+	item_color = "energycake"
+	hitsound = 'sound/weapons/tap.ogg'
+	hitsound_on = 'sound/weapons/blade1.ogg'
+	hitsound_off = 'sound/weapons/tap.ogg'
+	damtype_on = BRUTE
+	force_on = 18 //same as epen (but much more obvious)
+	brightness_on = 3
+	heat = 0
+
+/obj/item/clothing/head/hardhat/cakehat/energycake/turn_on(mob/living/user)
+	playsound(user, 'sound/weapons/saberon.ogg', 5, TRUE)
+	to_chat(user, "<span class='warning'>You turn on \the [src].</span>")
+	..()
+
+/obj/item/clothing/head/hardhat/cakehat/energycake/turn_off(mob/living/user)
+	playsound(user, 'sound/weapons/saberoff.ogg', 5, TRUE)
+	to_chat(user, "<span class='warning'>You turn off \the [src].</span>")
+	..()
 /*
  * Ushanka
  */
@@ -184,7 +217,8 @@
 /obj/item/clothing/head/wig
 	name = "wig"
 	desc = "A bunch of hair without a head attached."
-	icon_state = ""
+	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
+	icon_state = "hair_vlong"
 	item_state = "pwig"
 	flags_inv = HIDEHAIR
 	var/hair_style = "Very Long Hair"
@@ -299,3 +333,59 @@
 			to_chat(user, "<span class='userdanger'>Why would you want to take this off? Do you want them to get into your mind?!</span>")
 			return
 	..()
+
+/obj/item/clothing/head/foilhat/plasmaman
+	name = "tinfoil envirosuit helmet"
+	desc = "The Syndicate is a hoax! Dogs are fake! Space Station 13 is just a money laundering operation! See the truth!"
+	icon_state = "tinfoil_envirohelm"
+	item_state = "tinfoil_envirohelm"
+	strip_delay = 150
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 50, "acid" = 50)
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	var/brightness_on = 4 //luminosity when the light is on
+	var/on = FALSE
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+	dynamic_hair_suffix = ""
+	dynamic_fhair_suffix = ""
+	flash_protect = 2
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	resistance_flags = NONE
+	dog_fashion = null
+
+
+/obj/item/clothing/head/foilhat/plasmaman/attack_self(mob/user)
+	on = !on
+	icon_state = "[initial(icon_state)][on ? "-light":""]"
+	item_state = icon_state
+	user.update_inv_head() //So the mob overlay updates
+
+	if(on)
+		set_light(brightness_on)
+	else
+		set_light(0)
+
+	for(var/X in actions)
+		var/datum/action/A=X
+		A.UpdateButtonIcon()
+
+/obj/item/clothing/head/speedwagon
+	name = "hat of ultimate masculinity"
+	desc = "Even the mere act of wearing this makes you want to pose menacingly."
+	alternate_worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	icon_state = "speedwagon"
+	item_state = "speedwagon"
+	worn_x_dimension = 64
+	worn_y_dimension = 64
+
+/obj/item/clothing/head/speedwagon/cursed
+	name = "ULTIMATE HAT"
+	desc = "You feel weak and pathetic in comparison to this exceptionally beautiful hat."
+	icon_state = "speedwagon_cursed"
+	item_state = "speedwagon_cursed"
+
+/obj/item/clothing/head/franks_hat
+	name = "Frank's Hat"
+	desc = "You feel ashamed about what you had to do to get this hat"
+	icon_state = "cowboy"
+	item_state = "cowboy"

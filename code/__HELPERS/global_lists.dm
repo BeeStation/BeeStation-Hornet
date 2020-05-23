@@ -34,6 +34,7 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_screens, GLOB.ipc_screens_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_antennas, GLOB.ipc_antennas_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_chassis, GLOB.ipc_chassis_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))
@@ -43,6 +44,11 @@
 	//Surgeries
 	for(var/path in subtypesof(/datum/surgery))
 		GLOB.surgeries_list += new path()
+
+	//Materials
+	for(var/path in subtypesof(/datum/material))
+		var/datum/material/D = new path()
+		GLOB.materials_list[D.id] = D
 
 	GLOB.emote_list = init_emote_list()
 

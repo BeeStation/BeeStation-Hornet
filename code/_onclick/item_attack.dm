@@ -2,9 +2,17 @@
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
 	if(!tool_attack_chain(user, target) && pre_attack(target, user, params))
 		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
-		var/resolved = target.attackby(src, user, params)
+		var/resolved
+		if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
+			resolved = user.attackby(src, user, params) // you just hit yourself
+		else
+			resolved = target.attackby(src, user, params)
 		if(!resolved && target && !QDELETED(src))
-			afterattack(target, user, 1, params) // 1: clicking something Adjacent
+			 // 1: clicking something Adjacent
+			if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
+				afterattack(user, user, 1, params)
+			else
+				afterattack(target, user, 1, params)
 
 
 //Checks if the item can work as a tool, calling the appropriate tool behavior on the target
@@ -55,7 +63,8 @@
 
 
 /obj/item/proc/attack(mob/living/M, mob/living/user)
-	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user) & COMPONENT_ITEM_NO_ATTACK)
+		return
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 	if(item_flags & NOBLUDGEON)
 		return
@@ -149,7 +158,7 @@
 	var/attack_message_local = "You're [message_verb][message_hit_area] with [I]!"
 	if(user in viewers(src, null))
 		attack_message = "[user] [message_verb] [src][message_hit_area] with [I]!"
-		attack_message_local = "[src] [message_verb] you[message_hit_area] with [I]!"
+		attack_message_local = "[user] [message_verb] you[message_hit_area] with [I]!"
 	visible_message("<span class='danger'>[attack_message]</span>",\
 		"<span class='userdanger'>[attack_message_local]</span>", null, COMBAT_MESSAGE_RANGE)
 	return 1

@@ -1,6 +1,7 @@
 /datum/mutation/human/cluwne
 
 	name = "Cluwne"
+	desc = "Turns a person into a Cluwne, a poor soul cursed to a short and miserable life by the honkmother."
 	quality = NEGATIVE
 	locked = TRUE
 	text_gain_indication = "<span class='danger'>You feel like your brain is tearing itself apart.</span>"
@@ -10,10 +11,11 @@
 		return
 	owner.dna.add_mutation(CLOWNMUT)
 	owner.dna.add_mutation(EPILEPSY)
-	owner.setBrainLoss(200)
-
+	owner.setOrganLoss(ORGAN_SLOT_BRAIN, 199)
+	
 	var/mob/living/carbon/human/H = owner
-
+	
+	playsound(H.loc, 'sound/misc/bikehorn_creepy.ogg', 50, 1)
 	if(!istype(H.wear_mask, /obj/item/clothing/mask/cluwne))
 		if(!H.doUnEquip(H.wear_mask))
 			qdel(H.wear_mask)
@@ -32,7 +34,7 @@
 
 /datum/mutation/human/cluwne/on_life(mob/living/carbon/human/owner)
 	if((prob(15) && owner.IsUnconscious()))
-		owner.setBrainLoss(200) // there I changed it to setBrainLoss
+		owner.setOrganLoss(ORGAN_SLOT_BRAIN, 199)
 		switch(rand(1, 6))
 			if(1)
 				owner.say("HONK")

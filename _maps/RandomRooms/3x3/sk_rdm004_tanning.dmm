@@ -1,0 +1,65 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/light{
+	icon_state = "tube";
+	dir = 8
+	},
+/obj/machinery/light{
+	icon_state = "tube";
+	dir = 1
+	},
+/obj/item/cigbutt,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/item/reagent_containers/spray/spraytan,
+/obj/machinery/light{
+	icon_state = "tube";
+	dir = 4
+	},
+/obj/machinery/light{
+	icon_state = "tube";
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/structure/bed,
+/obj/item/clothing/glasses/sunglasses/advanced/big,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/machinery/light{
+	icon_state = "tube";
+	dir = 8
+	},
+/obj/machinery/light,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/machinery/light,
+/obj/machinery/light{
+	icon_state = "tube";
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+b
+e
+"}
+(2,1,1) = {"
+b
+d
+b
+"}
+(3,1,1) = {"
+c
+b
+f
+"}

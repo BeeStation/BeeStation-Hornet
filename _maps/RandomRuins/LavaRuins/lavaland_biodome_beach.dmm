@@ -19,9 +19,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/clothing/glasses/sunglasses/big,
-/obj/item/clothing/glasses/sunglasses/big,
-/obj/item/clothing/glasses/sunglasses/big,
+/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses,
 /turf/open/floor/plating,
 /area/ruin/powered/beach)
 "ag" = (
@@ -485,7 +485,7 @@
 	dir = 4
 	},
 /turf/open/floor/pod/dark{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+	initial_gas_mix = "LAVALAND_ATMOS"
 	},
 /area/ruin/powered/beach)
 "lM" = (
@@ -608,7 +608,7 @@
 	dir = 8
 	},
 /turf/open/floor/pod/dark{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+	initial_gas_mix = "LAVALAND_ATMOS"
 	},
 /area/ruin/powered/beach)
 "VO" = (

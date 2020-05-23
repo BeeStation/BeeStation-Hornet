@@ -1,0 +1,37 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/effect/decal/cleanable/vomit,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/plating,
+/area/template_noop)
+"E" = (
+/obj/item/clothing/mask/gas,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+b
+b
+"}
+(2,1,1) = {"
+E
+d
+b
+"}
+(3,1,1) = {"
+c
+b
+b
+"}

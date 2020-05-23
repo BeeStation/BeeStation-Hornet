@@ -132,6 +132,13 @@
 	integer = FALSE
 	min_val = 0
 
+/datum/config_entry/flag/equal_job_weight
+
+/datum/config_entry/number/default_rep_value
+	config_entry_value = 5
+	integer = FALSE
+	min_val = 0
+
 /datum/config_entry/number/midround_antag_time_check	// How late (in minutes you want the midround antag system to stay on, setting this to 0 will disable the system)
 	config_entry_value = 60
 	integer = FALSE
@@ -379,8 +386,21 @@
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
 
-/datum/config_entry/number/monkeycap
-	config_entry_value = 64
-	min_val = 0
-
 /datum/config_entry/flag/allow_crew_objectives
+
+//Mob spam prevention
+/datum/config_entry/number/max_cube_monkeys
+	config_entry_value = 100
+/datum/config_entry/number/max_chickens
+	config_entry_value = 100
+/datum/config_entry/number/max_slimes
+	config_entry_value = 100
+
+//Shuttle size limiter
+/datum/config_entry/number/max_shuttle_count
+	config_entry_value = 6
+
+/datum/config_entry/number/max_shuttle_size
+	config_entry_value = 250
+
+/datum/config_entry/flag/restricted_suicide

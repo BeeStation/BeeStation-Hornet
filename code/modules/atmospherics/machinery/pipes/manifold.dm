@@ -15,6 +15,11 @@
 	construction_type = /obj/item/pipe/trinary
 	pipe_state = "manifold"
 
+	FASTDMM_PROP(\
+		pipe_type = PIPE_TYPE_MANIFOLD,\
+		pipe_interference_group = "atmos-[piping_layer]"\
+	)
+
 	var/mutable_appearance/center
 
 /* We use New() instead of Initialize() because these values are used in update_icon()

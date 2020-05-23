@@ -16,12 +16,25 @@
 	symptoms = list(new/datum/symptom/cough)
 	..()
 
+/datum/disease/advance/necropolis
+	copy_type = /datum/disease/advance
+
+/datum/disease/advance/necropolis/New()
+	name = "Necropolis Seed"
+	symptoms = list(new/datum/symptom/necroseed)
+	..()
+
+/datum/disease/advance/blobitis/New()
+	name = "Blobitis"
+	symptoms = list(new/datum/symptom/blobspores)
+	..()
+
 //Randomly generated Disease, for virus crates and events
 /datum/disease/advance/random
 	name = "Experimental Disease"
 	copy_type = /datum/disease/advance
 
-/datum/disease/advance/random/New(max_symptoms, max_level = 8)
+/datum/disease/advance/random/New(max_symptoms, max_level = 9)
 	if(!max_symptoms)
 		max_symptoms = rand(1, VIRUS_SYMPTOM_LIMIT)
 	var/list/datum/symptom/possible_symptoms = list()

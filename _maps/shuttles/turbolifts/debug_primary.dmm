@@ -1,0 +1,62 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/indestructible/turbolift,
+/area/shuttle/turbolift/primary)
+"b" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/indestructible/turbolift,
+/area/shuttle/turbolift/primary)
+"c" = (
+/turf/open/indestructible/turbolift,
+/area/shuttle/turbolift/primary)
+"d" = (
+/obj/machinery/computer/turbolift{
+	pixel_y = -32;
+	shuttle_id = "turbolift_primary"
+	},
+/turf/open/indestructible/turbolift,
+/area/shuttle/turbolift/primary)
+"e" = (
+/obj/docking_port/mobile/turbolift{
+	dwidth = 2;
+	height = 4;
+	id = "turbolift_primary";
+	width = 5
+	},
+/turf/closed/indestructible/turbolift,
+/area/shuttle/turbolift/primary)
+"R" = (
+/obj/machinery/light,
+/turf/open/indestructible/turbolift,
+/area/shuttle/turbolift/primary)
+
+(1,1,1) = {"
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+b
+c
+c
+a
+"}
+(3,1,1) = {"
+b
+c
+d
+e
+"}
+(4,1,1) = {"
+b
+c
+R
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+"}

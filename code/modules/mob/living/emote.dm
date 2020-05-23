@@ -251,7 +251,7 @@
 				H.Paralyze(20)
 			else
 				message_param = "<span class='userdanger'>bumps [user.p_their()] head on the ground</span> trying to motion towards %t."
-				H.adjustBrainLoss(5)
+				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
 	..()
 
 /datum/emote/living/pout
@@ -521,3 +521,43 @@
 		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
 	else
 		to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
+		
+/datum/emote/living/raisehand
+	key = "highfive"
+	key_third_person = "highfives"
+	message = "raises their hand"
+	restraint_check = TRUE
+
+/datum/emote/living/raisehand/run_emote(mob/user, params)
+	. = ..()
+	var/obj/item/highfive/N = new(user)
+	if(user.put_in_hands(N))
+		to_chat(user, "<span class='notice'>You raise your hand for a high-five.</span>")
+	else
+		qdel(N)
+		to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
+
+/datum/emote/living/snap
+	key = "snap"
+	key_third_person = "snaps"
+	message = "snaps their fingers."
+	message_param = "snaps their fingers at %t."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/snap/get_sound(mob/living/user)
+	return pick('sound/misc/fingersnap1.ogg', 'sound/misc/fingersnap2.ogg')
+
+/datum/emote/living/fingergun
+	key = "fingergun"
+	key_third_person = "fingerguns"
+	message = "forms their fingers into the shape of a crude gun"
+	restraint_check = TRUE
+
+/datum/emote/living/fingergun/run_emote(mob/user, params)
+	. = ..()
+	var/obj/item/gun/ballistic/revolver/mime/N = new(user)
+	if(user.put_in_hands(N))
+		to_chat(user, "<span class='notice'>You form your fingers into a gun.</span>")
+	else
+		qdel(N)
+		to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")

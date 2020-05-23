@@ -1,9 +1,17 @@
 
+
+
 /datum/chemical_reaction/sterilizine
 	name = "Sterilizine"
 	id = /datum/reagent/space_cleaner/sterilizine
 	results = list(/datum/reagent/space_cleaner/sterilizine = 3)
 	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/chlorine = 1)
+
+/datum/chemical_reaction/cooking_oil
+	name = "Cooking Oil"
+	id = /datum/reagent/consumable/cooking_oil
+	results = list(/datum/reagent/consumable/cooking_oil = 4)
+	required_reagents = list(/datum/reagent/hydrogen = 1, /datum/reagent/oil = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/carbon = 1)
 
 /datum/chemical_reaction/lube
 	name = "Space Lube"
@@ -29,6 +37,18 @@
 	results = list(/datum/reagent/impedrezene = 2)
 	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/oxygen = 1, /datum/reagent/consumable/sugar = 1)
 
+/datum/chemical_reaction/concentrated_bz
+	name = "Concentrated BZ"
+	id = "Concentrated BZ"
+	results = list(/datum/reagent/concentrated_bz = 10)
+	required_reagents = list(/datum/reagent/toxin/plasma = 40, /datum/reagent/nitrous_oxide = 10)
+
+/datum/chemical_reaction/fake_cbz
+	name = "Fake CBZ"
+	id = "Fake CBZ"
+	results = list(/datum/reagent/fake_cbz = 1)
+	required_reagents = list(/datum/reagent/concentrated_bz = 1, /datum/reagent/medicine/neurine = 3)
+	
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"
 	id = /datum/reagent/cryptobiolin
@@ -68,7 +88,7 @@
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/stack/sheet/mineral/gold(location)
-		
+
 /datum/chemical_reaction/adamantinesolidification
 	name = "Adamantine Sheet"
 	id = "solidadam"
@@ -197,19 +217,32 @@
 	name = "Unstable uranium gel"
 	id = "uraniumvirusfood_plasma"
 	results = list(/datum/reagent/uranium/uraniumvirusfood/unstable = 1)
-	required_reagents = list(/datum/reagent/uranium = 5, /datum/reagent/toxin/plasma/plasmavirusfood = 1)
+	required_reagents = list(/datum/reagent/uranium = 2, /datum/reagent/toxin/plasma/plasmavirusfood = 1)
 
 /datum/chemical_reaction/virus_food_uranium_plasma_gold
 	name = "Stable uranium gel"
 	id = "uraniumvirusfood_gold"
 	results = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
-	required_reagents = list(/datum/reagent/uranium = 10, /datum/reagent/gold = 10, /datum/reagent/toxin/plasma = 1)
+	required_reagents = list(/datum/reagent/uranium = 5, /datum/reagent/gold = 5, /datum/reagent/toxin/plasma = 5)
 
 /datum/chemical_reaction/virus_food_uranium_plasma_silver
 	name = "Stable uranium gel"
 	id = "uraniumvirusfood_silver"
 	results = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
-	required_reagents = list(/datum/reagent/uranium = 10, /datum/reagent/silver = 10, /datum/reagent/toxin/plasma = 1)
+	required_reagents = list(/datum/reagent/uranium = 5, /datum/reagent/silver = 5, /datum/reagent/toxin/plasma = 5)
+
+/datum/chemical_reaction/virus_food_laughter
+	name = "Anomolous virus food"
+	id = "virusfood_laughter"
+	results = list(/datum/reagent/consumable/laughter/laughtervirusfood = 1)
+	required_reagents = list(/datum/reagent/consumable/laughter = 5, /datum/reagent/consumable/virus_food = 1)
+
+/datum/chemical_reaction/virus_food_admin
+	name = "Highly unstable virus Food"
+	id = "virusfood_admin"
+	results = list(/datum/reagent/consumable/virus_food/advvirusfood = 1)
+	required_reagents = list(/datum/reagent/consumable/virus_food/viralbase = 1, /datum/reagent/uranium = 20)
+	mix_message = "The mixture turns every colour of the rainbow, soon settling on a bright white. There's no way this isn't a good idea."
 
 /datum/chemical_reaction/mix_virus
 	name = "Mix Virus"
@@ -317,6 +350,22 @@
 	level_min = 8
 	level_max = 8
 
+/datum/chemical_reaction/mix_virus/mix_virus_13
+
+	name = "Mix Virus 13"
+	id = "mixvirus13"
+	required_reagents = list(/datum/reagent/consumable/laughter/laughtervirusfood = 1)
+	level_min = 0
+	level_max = 0
+
+/datum/chemical_reaction/mix_virus/mix_virus_14
+
+	name = "Mix Virus 14"
+	id = "mixvirus14"
+	required_reagents = list(/datum/reagent/consumable/virus_food/advvirusfood = 1)
+	level_min = 9
+	level_max = 9
+
 /datum/chemical_reaction/mix_virus/rem_virus
 
 	name = "Devolve Virus"
@@ -346,6 +395,35 @@
 		if(D)
 			D.Neuter()
 
+/datum/chemical_reaction/mix_virus/preserve_virus
+	name = "Preserve Virus"
+	id = "preservevirus"
+	required_reagents = list(/datum/reagent/medicine/cryoxadone = 1)
+	required_catalysts = list(/datum/reagent/blood = 1)
+
+/datum/chemical_reaction/mix_virus/preserve_virus/on_reaction(datum/reagents/holder, created_volume)
+
+	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
+	if(B?.data)
+		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
+		if(D)
+			D.mutable = FALSE
+
+/datum/chemical_reaction/mix_virus/falter_virus
+	name = "Falter Virus"
+	id = "faltervirus"
+	required_reagents = list(/datum/reagent/medicine/spaceacillin = 1)
+	required_catalysts = list(/datum/reagent/blood = 1)
+
+/datum/chemical_reaction/mix_virus/falter_virus/on_reaction(datum/reagents/holder, created_volume)
+
+	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
+	if(B?.data)
+		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
+		if(D)
+			D.faltered = TRUE
+			D.spread_flags = DISEASE_SPREAD_FALTERED
+			D.spread_text = "Intentional Injection"
 
 
 ////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////
@@ -611,8 +689,8 @@
 	id = /datum/reagent/pax
 	results = list(/datum/reagent/pax = 3)
 	required_reagents  = list(/datum/reagent/toxin/mindbreaker = 1, /datum/reagent/medicine/synaptizine = 1, /datum/reagent/water = 1)
-	
-	
+
+
 //////////////////EXPANDED MUTATION TOXINS/////////////////////
 
 /datum/chemical_reaction/mutationtoxin/stable
@@ -632,7 +710,7 @@
 	id = /datum/reagent/mutationtoxin/felinid
 	results = list(/datum/reagent/mutationtoxin/felinid = 1)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/toxin/fentanyl = 10, /datum/reagent/impedrezene = 10)
-	
+
 /datum/chemical_reaction/mutationtoxin/fly
 	name = /datum/reagent/mutationtoxin/fly
 	id = /datum/reagent/mutationtoxin/fly
@@ -644,7 +722,7 @@
 	id = /datum/reagent/mutationtoxin/moth
 	results = list(/datum/reagent/mutationtoxin/moth = 1)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/toxin/lipolicide = 10) //I know it's the opposite of what moths like, but I am out of ideas for this.
-	
+
 /datum/chemical_reaction/mutationtoxin/pod
 	name = /datum/reagent/mutationtoxin/pod
 	id = /datum/reagent/mutationtoxin/pod
@@ -662,13 +740,19 @@
 	id = /datum/reagent/mutationtoxin/abductor
 	results = list(/datum/reagent/mutationtoxin/abductor = 1)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/medicine/morphine = 10, /datum/reagent/toxin/mutetoxin = 10)
-	
+
+/datum/chemical_reaction/mutationtoxin/squid
+	name = /datum/reagent/mutationtoxin/squid
+	id = /datum/reagent/mutationtoxin/squid
+	results = list(/datum/reagent/mutationtoxin/squid = 1)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/teslium = 20)
+
 /datum/chemical_reaction/mutationtoxin/ipc
 	name = /datum/reagent/mutationtoxin/ipc
 	id = /datum/reagent/mutationtoxin/ipc
 	results = list(/datum/reagent/mutationtoxin/ipc = 1)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/teslium = 20)
-	
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 1, /datum/reagent/consumable/sodiumchloride = 10, /datum/reagent/water = 20)
+
 //////////////Mutatuion toxins made out of advanced toxin/////////////
 
 /datum/chemical_reaction/mutationtoxin/skeleton
@@ -683,18 +767,24 @@
 //	results = list(/datum/reagent/mutationtoxin/zombie = 1)
 //	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/toxin = 1, /datum/reagent/toxin/bad_food = 1) //Because rotting
 
+/datum/chemical_reaction/mutationtoxin/goofzombie //go on. try it with holopara
+	name = /datum/reagent/mutationtoxin/goofzombie
+	id = /datum/reagent/mutationtoxin/goofzombie
+	results = list(/datum/reagent/mutationtoxin/goofzombie = 1)
+	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/drug/krokodil = 10, /datum/reagent/toxin/bad_food = 10) //Because rotting
+
 /datum/chemical_reaction/mutationtoxin/ash
 	name = /datum/reagent/mutationtoxin/ash
 	id = /datum/reagent/mutationtoxin/ash
 	results = list(/datum/reagent/mutationtoxin/ash = 1)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/mutationtoxin/lizard = 1, /datum/reagent/ash = 10, /datum/reagent/consumable/entpoly = 5)
-	
+
 /datum/chemical_reaction/mutationtoxin/shadow
 	name = /datum/reagent/mutationtoxin/shadow
 	id = /datum/reagent/mutationtoxin/shadow
 	results = list(/datum/reagent/mutationtoxin/shadow = 1)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/liquid_dark_matter = 30, /datum/reagent/water/holywater = 10) //You need a tiny bit of thinking how to mix it
-	
+
 /datum/chemical_reaction/mutationtoxin/plasma
 	name = /datum/reagent/mutationtoxin/plasma
 	id = /datum/reagent/mutationtoxin/plasma

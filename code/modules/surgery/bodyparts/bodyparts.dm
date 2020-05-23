@@ -24,7 +24,7 @@
 
 	var/disabled = BODYPART_NOT_DISABLED //If disabled, limb is as good as missing
 	var/body_damage_coeff = 1 //Multiplier of the limb's damage that gets applied to the mob
-	var/stam_damage_coeff = 0.5
+	var/stam_damage_coeff = 0.7
 	var/brutestate = 0
 	var/burnstate = 0
 	var/brute_dam = 0
@@ -65,11 +65,11 @@
 	var/heavy_burn_msg = "peeling away"
 
 /obj/item/bodypart/examine(mob/user)
-	..()
+	. = ..()
 	if(brute_dam > DAMAGE_PRECISION)
-		to_chat(user, "<span class='warning'>This limb has [brute_dam > 30 ? "severe" : "minor"] bruising.</span>")
+		. += "<span class='warning'>This limb has [brute_dam > 30 ? "severe" : "minor"] bruising.</span>"
 	if(burn_dam > DAMAGE_PRECISION)
-		to_chat(user, "<span class='warning'>This limb has [burn_dam > 30 ? "severe" : "minor"] burns.</span>")
+		. += "<span class='warning'>This limb has [burn_dam > 30 ? "severe" : "minor"] burns.</span>"
 
 /obj/item/bodypart/blob_act()
 	take_damage(max_damage)
@@ -167,7 +167,7 @@
 		if(ALIEN_BODYPART,LARVA_BODYPART) //aliens take double burn //nothing can burn with so much snowflake code around
 			burn *= 2
 
-	var/can_inflict = max_damage - get_damage()
+	var/can_inflict = (max_damage * 2) - get_damage()
 	if(can_inflict <= 0)
 		return FALSE
 
@@ -472,6 +472,10 @@
 	icon_state = "default_monkey_chest"
 	animal_origin = MONKEY_BODYPART
 
+/obj/item/bodypart/chest/monkey/teratoma
+	icon_state = "teratoma_chest"
+	animal_origin = TERATOMA_BODYPART
+
 /obj/item/bodypart/chest/alien
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "alien_chest"
@@ -543,6 +547,10 @@
 	px_x = -5
 	px_y = -3
 
+/obj/item/bodypart/l_arm/monkey/teratoma
+	icon_state = "teratoma_l_arm"
+	animal_origin = TERATOMA_BODYPART
+
 /obj/item/bodypart/l_arm/alien
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "alien_l_arm"
@@ -607,6 +615,10 @@
 	px_x = 5
 	px_y = -3
 
+/obj/item/bodypart/r_arm/monkey/teratoma
+	icon_state = "teratoma_r_arm"
+	animal_origin = TERATOMA_BODYPART
+
 /obj/item/bodypart/r_arm/alien
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "alien_r_arm"
@@ -662,6 +674,10 @@
 	icon_state = "default_monkey_l_leg"
 	animal_origin = MONKEY_BODYPART
 	px_y = 4
+
+/obj/item/bodypart/l_leg/monkey/teratoma
+	icon_state = "teratoma_l_leg"
+	animal_origin = TERATOMA_BODYPART
 
 /obj/item/bodypart/l_leg/alien
 	icon = 'icons/mob/animal_parts.dmi'
@@ -720,6 +736,10 @@
 	icon_state = "default_monkey_r_leg"
 	animal_origin = MONKEY_BODYPART
 	px_y = 4
+
+/obj/item/bodypart/r_leg/monkey/teratoma
+	icon_state = "teratoma_r_leg"
+	animal_origin = TERATOMA_BODYPART
 
 /obj/item/bodypart/r_leg/alien
 	icon = 'icons/mob/animal_parts.dmi'

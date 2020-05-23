@@ -7,6 +7,7 @@
 	magic_fluff_string = "<span class='holoparasite'>..And draw the Drone, a dextrous master of construction and repair.</span>"
 	tech_fluff_string = "<span class='holoparasite'>Boot sequence complete. Dextrous combat modules loaded. Holoparasite swarm online.</span>"
 	carp_fluff_string = "<span class='holoparasite'>CARP CARP CARP! You caught one! It can hold stuff in its fins, sort of.</span>"
+	hive_fluff_string = "<span class='holoparasite'>The mass seems to be able to... hold stuff?</span>"
 	dextrous = TRUE
 	held_items = list(null, null)
 	var/obj/item/internal_storage //what we're storing within ourself
@@ -18,18 +19,15 @@
 
 /mob/living/simple_animal/hostile/guardian/dextrous/examine(mob/user)
 	if(dextrous)
-		var/msg = "<span class='info'>*---------*\nThis is [icon2html(src)] \a <b>[src]</b>!\n"
-		msg += "[desc]\n"
-
+		. = list("<span class='info'>*---------*\nThis is [icon2html(src)] \a <b>[src]</b>!\n[desc]")
 		for(var/obj/item/I in held_items)
 			if(!(I.item_flags & ABSTRACT))
-				msg += "It has [I.get_examine_string(user)] in its [get_held_index_name(get_held_index_of_item(I))].\n"
+				. += "It has [I.get_examine_string(user)] in its [get_held_index_name(get_held_index_of_item(I))]."
 		if(internal_storage && !(internal_storage.item_flags & ABSTRACT))
-			msg += "It is holding [internal_storage.get_examine_string(user)] in its internal storage.\n"
-		msg += "*---------*</span>"
-		to_chat(user, msg)
+			. += "It is holding [internal_storage.get_examine_string(user)] in its internal storage."
+		. += "*---------*</span>"
 	else
-		..()
+		return ..()
 
 /mob/living/simple_animal/hostile/guardian/dextrous/Recall(forced)
 	if(!summoner || loc == summoner || (cooldown > world.time && !forced))

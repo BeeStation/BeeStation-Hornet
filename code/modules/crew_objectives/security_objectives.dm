@@ -28,3 +28,14 @@
 		if(!(M.mind.assigned_role in GLOB.security_positions) && istype(get_area(M), /area/security/prison)) //there's no list of incarcerated players, so we just assume any non-security people in prison are prisoners, and assume that any security people aren't prisoners
 			return FALSE
 	return TRUE
+
+/datum/objective/crew/justicemed
+	explanation_text = "Ensure there are no dead bodies in the security wing when the shift ends."
+	jobs = "brigphysician"
+
+/datum/objective/crew/justicemed/check_completion()
+	var/list/security_areas = typecacheof(list(/area/security, /area/security/brig, /area/security/main, /area/security/prison, /area/security/processing))
+	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
+		if(H.stat == DEAD && is_station_level(H.z) && is_type_in_typecache(get_area(H), security_areas)) // If person is dead and corpse is in one of these areas
+			return FALSE
+	return TRUE

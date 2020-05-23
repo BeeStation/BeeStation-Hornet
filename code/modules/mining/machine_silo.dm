@@ -34,6 +34,8 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		var/datum/component/remote_materials/mats = C
 		mats.disconnect_from(src)
 
+	connected = null
+
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 
@@ -80,7 +82,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		var/sheets = round(amount) / MINERAL_MATERIAL_AMOUNT
 		var/ref = REF(M)
 		if (sheets)
-			if (sheets >= 1)	
+			if (sheets >= 1)
 				ui += "<a href='?src=[REF(src)];ejectsheet=[ref];eject_amt=1'>Eject</a>"
 			else
 				ui += "<span class='linkOff'>Eject</span>"
@@ -183,8 +185,22 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	flick("silo_active", src)
 
 /obj/machinery/ore_silo/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>[src] can be linked to techfabs, circuit printers and protolathes with a multitool.</span>")
+	. = ..()
+	. += "<span class='notice'>[src] can be linked to techfabs, circuit printers and protolathes with a multitool.</span>"
+
+/obj/machinery/ore_silo/on_object_saved(var/depth = 0)
+	if(depth >= 10)
+		return ""
+	var/dat
+	var/datum/component/material_container/material_holder = GetComponent(/datum/component/material_container)
+	for(var/each in material_holder.materials)
+		var/amount = material_holder.materials[each] / MINERAL_MATERIAL_AMOUNT
+		var/datum/material/material_datum = each
+		while(amount > 0)
+			var/amount_in_stack = max(1, min(50, amount))
+			amount -= amount_in_stack
+			dat += "[dat ? ",\n" : ""][material_datum.sheet_type]{\n\tamount = [amount_in_stack]\n\t}"
+	return dat
 
 /datum/ore_silo_log
 	var/name  // for VV

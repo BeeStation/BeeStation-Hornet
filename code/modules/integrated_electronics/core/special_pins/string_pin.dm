@@ -5,6 +5,9 @@
 /datum/integrated_io/string/ask_for_pin_data(mob/user)
 	var/new_data = stripped_multiline_input(user, "Please type in a string.","[src] string writing", no_trim = TRUE)
 	if(holder.check_interactivity(user) )
+		if(!isnull(new_data) && istext(new_data) && CHAT_FILTER_CHECK(new_data))
+			to_chat(user, "<span class='warning'>Your input contains prohibited words.</span>")
+			return
 		to_chat(user, "<span class='notice'>You input [new_data ? "[new_data]" : "NULL"] into the pin.</span>")
 		write_data_to_pin(new_data)
 

@@ -58,7 +58,7 @@
 	medical_record_text = "Patient has a tumor in their brain that is slowly driving them to brain death."
 
 /datum/quirk/brainproblems/on_process()
-	quirk_holder.adjustBrainLoss(0.2)
+	quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2)
 
 /datum/quirk/deafness
 	name = "Deaf"
@@ -118,6 +118,10 @@
 				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/food/drinks/bottle/holywater)
 			if("Assistant")
 				heirloom_type = /obj/item/storage/toolbox/mechanical/old/heirloom
+			if("Barber")
+				heirloom_type = /obj/item/handmirror
+			if("Stage Magician")
+				heirloom_type = /obj/item/gun/magic/wand
 			//Security/Command
 			if("Captain")
 				heirloom_type = /obj/item/reagent_containers/food/drinks/flask/gold
@@ -131,6 +135,8 @@
 				heirloom_type = /obj/item/reagent_containers/food/drinks/bottle/whiskey
 			if("Lawyer")
 				heirloom_type = pick(/obj/item/gavelhammer, /obj/item/book/manual/wiki/security_space_law)
+			if("Brig Physician")
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/book/manual/wiki/security_space_law)
 			//RnD
 			if("Research Director")
 				heirloom_type = /obj/item/toy/plush/slimeplushie
@@ -144,11 +150,11 @@
 			if("Medical Doctor")
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
 			if("Paramedic")
-				heirloom_type = pick(/obj/item/bodybag, /obj/item/roller)
+				heirloom_type = pick(/obj/item/bodybag)
 			if("Chemist")
 				heirloom_type = /obj/item/book/manual/wiki/chemistry
 			if("Virologist")
-				heirloom_type = /obj/item/reagent_containers/syringe
+				heirloom_type = /obj/item/reagent_containers/dropper
 			if("Geneticist")
 				heirloom_type = /obj/item/clothing/under/shorts/purple
 			//Engineering
@@ -204,6 +210,15 @@
 
 /datum/quirk/family_heirloom/on_clone(data)
 	heirloom = data
+
+/datum/quirk/frail
+	name = "Frail"
+	desc = "Your bones might as well be made of glass! Your limbs can take less damage before they become disabled."
+	value = -2
+	mob_trait = TRAIT_EASYLIMBDISABLE
+	gain_text = "<span class='danger'>You feel frail.</span>"
+	lose_text = "<span class='notice'>You feel sturdy again.</span>"
+	medical_record_text = "Patient has unusually frail bones, recommend calcium-rich diet."
 
 /datum/quirk/heavy_sleeper
 	name = "Heavy Sleeper"
@@ -365,6 +380,15 @@
 /datum/quirk/prosthetic_limb/post_add()
 	to_chat(quirk_holder, "<span class='boldannounce'>Your [slot_string] has been replaced with a surplus prosthetic. It is fragile and will easily come apart under duress. Additionally, \
 	you need to use a welding tool and cables to repair it, instead of bruise packs and ointment.</span>")
+
+/datum/quirk/pushover
+	name = "Pushover"
+	desc = "Your first instinct is always to let people push you around. Resisting out of grabs will take conscious effort."
+	value = -2
+	mob_trait = TRAIT_GRABWEAKNESS
+	gain_text = "<span class='danger'>You feel like a pushover.</span>"
+	lose_text = "<span class='notice'>You feel like standing up for yourself.</span>"
+	medical_record_text = "Patient presents a notably unassertive personality and is easy to manipulate."
 
 /datum/quirk/insanity
 	name = "Reality Dissociation Syndrome"

@@ -22,18 +22,18 @@
 	recharge_speed = 0
 	repairs = 0
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_speed += C.rating * 100
+		recharge_speed += (C.rating * 100) + 66 // Starting boost, but inconsequential at t4
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/stock_parts/cell/C in component_parts)
 		recharge_speed *= C.maxcharge / 10000
 
 /obj/machinery/recharge_station/examine(mob/user)
-	..()
+	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		to_chat(user, "<span class='notice'>The status display reads: Recharging <b>[recharge_speed]J</b> per cycle.<span>")
+		. += "<span class='notice'>The status display reads: Recharging <b>[recharge_speed]J</b> per cycle.<span>"
 		if(repairs)
-			to_chat(user, "<span class='notice'>[src] has been upgraded to support automatic repairs.<span>")
+			. += "<span class='notice'>[src] has been upgraded to support automatic repairs.<span>"
 
 /obj/machinery/recharge_station/process()
 	if(!is_operational())
@@ -117,11 +117,13 @@
 		var/mob/living/carbon/human/H = occupant
 		var/datum/species/ethereal/E = H.dna?.species
 		if(E)
-			E.adjust_charge(recharge_speed / 70) //Around 3 per process if unupgraded
+			E.adjust_charge(recharge_speed / 30) //Around 5 per process if unupgraded
+			if(repairs && H.blood_volume < BLOOD_VOLUME_NORMAL)
+				H.reagents.add_reagent(/datum/reagent/consumable/liquidelectricity,repairs*0.2)
 
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)
 		var/mob/living/silicon/robot/R = occupant
 		if(R?.module)
-			var/coeff = recharge_speed * 0.005
+			var/coeff = recharge_speed * 0.025
 			R.module.respawn_consumable(R, coeff)

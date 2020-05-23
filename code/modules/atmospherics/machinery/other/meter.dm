@@ -4,7 +4,7 @@
 	icon = 'icons/obj/atmospherics/pipes/meter.dmi'
 	icon_state = "meterX"
 	layer = GAS_PUMP_LAYER
-	power_channel = ENVIRON
+	power_channel = AREA_USAGE_ENVIRON
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
@@ -110,8 +110,8 @@
 		. = "The connect error light is blinking."
 
 /obj/machinery/meter/examine(mob/user)
-	..()
-	to_chat(user, status())
+	. = ..()
+	. += status()
 
 /obj/machinery/meter/wrench_act(mob/user, obj/item/I)
 	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")

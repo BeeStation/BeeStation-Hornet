@@ -38,7 +38,6 @@
 /obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
 	name = "blood"
 	icon = 'icons/effects/blood.dmi'
-	icon_state = "ltrails_1"
 	desc = "Your instincts say you shouldn't be following these."
 	var/list/existing_dirs = list()
 
@@ -201,8 +200,6 @@
 		for(var/shoe in shoe_types)
 			var/obj/item/clothing/shoes/S = shoe
 			. += "[icon2html(initial(S.icon), user)] Some <B>[initial(S.name)]</B>.\n"
-
-	to_chat(user, .)
 
 /obj/effect/decal/cleanable/blood/footprints/replace_decal(obj/effect/decal/cleanable/C)
 	if(blood_state != C.blood_state) //We only replace footprints of the same type as us

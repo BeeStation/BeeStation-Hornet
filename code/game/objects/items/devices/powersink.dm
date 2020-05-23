@@ -141,8 +141,8 @@
 				if(istype(T.master, /obj/machinery/power/apc))
 					var/obj/machinery/power/apc/A = T.master
 					if(A.operating && A.cell)
+						power_drained += min(A.cell.charge, 50)
 						A.cell.charge = max(0, A.cell.charge - 50)
-						power_drained += 50
 						if(A.charging == 2) // If the cell was full
 							A.charging = 1 // It's no longer full
 				if(drained >= drain_rate)

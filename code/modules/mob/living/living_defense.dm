@@ -38,7 +38,8 @@
 
 /mob/living/proc/is_eyes_covered(check_glasses = 1, check_head = 1, check_mask = 1)
 	return FALSE
-
+/mob/living/proc/is_pepper_proof(check_head = TRUE, check_mask = TRUE)
+	return FALSE
 /mob/living/proc/on_hit(obj/item/projectile/P)
 	return BULLET_ACT_HIT
 
@@ -171,7 +172,7 @@
 			if(user.a_intent != INTENT_GRAB)
 				to_chat(user, "<span class='notice'>You must be on grab intent to upgrade your grab further!<span>")
 				return 0
-		user.grab_state++
+		user.setGrabState(user.grab_state + 1)
 		switch(user.grab_state)
 			if(GRAB_AGGRESSIVE)
 				var/add_log = ""
@@ -182,7 +183,6 @@
 				else
 					visible_message("<span class='danger'>[user] grabs [src] aggressively!</span>", \
 									"<span class='userdanger'>[user] grabs you aggressively!</span>")
-					drop_all_held_items()
 				stop_pulling()
 				log_combat(user, src, "grabbed", addition="aggressive grab[add_log]")
 			if(GRAB_NECK)
@@ -349,10 +349,10 @@
 /mob/living/singularity_act()
 	var/gain = 20
 
-	
+
 	if (client)
 		SSmedals.UnlockMedal(MEDAL_SINGULARITY_DEATH,client)
-	
+
 
 	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_SINGULO) //Oh that's where the clown ended up!
 	gib()
@@ -361,13 +361,6 @@
 /mob/living/narsie_act()
 	if(status_flags & GODMODE || QDELETED(src))
 		return
-
-	if(is_servant_of_ratvar(src) && !stat)
-		to_chat(src, "<span class='userdanger'>You resist Nar'Sie's influence... but not all of it. <i>Run!</i></span>")
-		adjustBruteLoss(35)
-		if(src && reagents)
-			reagents.add_reagent(/datum/reagent/toxin/heparin, 5)
-		return FALSE
 	if(GLOB.cult_narsie && GLOB.cult_narsie.souls_needed[src])
 		GLOB.cult_narsie.souls_needed -= src
 		GLOB.cult_narsie.souls += 1
@@ -389,16 +382,6 @@
 	spawn_dust()
 	gib()
 	return TRUE
-
-
-/mob/living/ratvar_act()
-	if(status_flags & GODMODE)
-		return
-	if(stat != DEAD && !is_servant_of_ratvar(src))
-		to_chat(src, "<span class='userdanger'>A blinding light boils you alive! <i>Run!</i></span>")
-		adjust_fire_stacks(20)
-		IgniteMob()
-		return FALSE
 
 
 //called when the mob receives a bright flash
@@ -423,3 +406,4 @@
 		used_item = get_active_held_item()
 	..()
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
+

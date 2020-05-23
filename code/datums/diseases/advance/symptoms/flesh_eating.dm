@@ -84,13 +84,13 @@ Bonus
 /datum/symptom/flesh_death
 
 	name = "Autophagocytosis Necrosis"
-	desc = "The virus rapidly consumes infected cells, leading to heavy and widespread damage."
+	desc = "The virus rapidly consumes infected cells, leading to heavy and widespread damage. Contains dormant prions- expert virologists believe it to be the precursor to Romerol, though the mechanism through which they are activated is largely unknown"
 	stealth = -2
 	resistance = -2
 	stage_speed = 1
 	transmittable = -2
-	level = 7
-	severity = 6
+	level = 9
+	severity = 4
 	base_message_chance = 50
 	symptom_delay_min = 3
 	symptom_delay_max = 6
@@ -106,6 +106,8 @@ Bonus
 		suppress_warning = TRUE
 	if(A.properties["stage_rate"] >= 7) //bleeding and hunger
 		chems = TRUE
+	if((A.properties["stealth"] >= 2) && (A.properties["stage_rate"] >= 12))
+		zombie = TRUE
 
 /datum/symptom/flesh_death/Activate(datum/disease/advance/A)
 	if(!..())
@@ -126,5 +128,8 @@ Bonus
 	if(chems)
 		M.reagents.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))
 	if(zombie)
-		M.reagents.add_reagent(/datum/reagent/romerol, 1)
+		if(ishuman(A.affected_mob))
+			if(!A.affected_mob.getorganslot(ORGAN_SLOT_ZOMBIE))
+				var/obj/item/organ/zombie_infection/ZI = new()
+				ZI.Insert(M)
 	return 1

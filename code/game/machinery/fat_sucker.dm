@@ -42,9 +42,9 @@
 
 /obj/machinery/fat_sucker/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>Alt-Click to toggle the safety hatch.</span>")
-	to_chat(user, "<span class='notice'>Removing [bite_size] nutritional units per operation.</span>")
-	to_chat(user, "<span class='notice'>Requires [nutrient_to_meat] nutritional units per meat slab.</span>")
+	. += {"<span class='notice'>Alt-Click to toggle the safety hatch.</span>
+				<span class='notice'>Removing [bite_size] nutritional units per operation.</span>
+				<span class='notice'>Requires [nutrient_to_meat] nutritional units per meat slab.</span>"}
 
 /obj/machinery/fat_sucker/close_machine(mob/user)
 	if(panel_open)
@@ -117,12 +117,12 @@
 		else
 			overlays += "[icon_state]_door_off"
 			if(occupant)
-				if(powered(EQUIP))
+				if(powered(AREA_USAGE_EQUIP))
 					overlays += "[icon_state]_stack"
 					overlays += "[icon_state]_yellow"
 			else
 				overlays += "[icon_state]_red"
-	else if(powered(EQUIP))
+	else if(powered(AREA_USAGE_EQUIP))
 		overlays += "[icon_state]_red"
 	if(panel_open)
 		overlays += "[icon_state]_panel"
@@ -130,7 +130,7 @@
 /obj/machinery/fat_sucker/process()
 	if(!processing)
 		return
-	if(!powered(EQUIP) || !occupant || !iscarbon(occupant))
+	if(!powered() || !occupant || !iscarbon(occupant))
 		open_machine()
 		return
 
@@ -151,7 +151,7 @@
 	use_power(500)
 
 /obj/machinery/fat_sucker/proc/start_extracting()
-	if(state_open || !occupant || processing || !powered(EQUIP))
+	if(state_open || !occupant || processing || !powered())
 		return
 	if(iscarbon(occupant))
 		var/mob/living/carbon/C = occupant

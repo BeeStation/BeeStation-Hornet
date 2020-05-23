@@ -27,6 +27,8 @@
 	. = ..()
 
 /datum/antagonist/blob/proc/create_objectives()
+	if(!give_objectives)
+		return
 	var/datum/objective/blob_takeover/main = new
 	main.owner = owner
 	objectives += main

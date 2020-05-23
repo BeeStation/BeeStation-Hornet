@@ -37,20 +37,29 @@ RLD
 	var/has_ammobar = FALSE	//controls whether or not does update_icon apply ammo indicator overlays
 	var/ammo_sections = 10	//amount of divisions in the ammo indicator overlay/number of ammo indicator states
 	var/upgrade = FALSE
+	var/datum/component/remote_materials/silo_mats //remote connection to the silo
+	var/silo_link = FALSE //switch to use internal or remote storage
 
 /obj/item/construction/Initialize()
 	. = ..()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
+	if(upgrade & RCD_UPGRADE_SILO_LINK)
+		silo_mats = AddComponent(/datum/component/remote_materials, "RCD", FALSE)
 
 /obj/item/construction/examine(mob/user)
-	..()
-	to_chat(user, "\A [src]. It currently holds [matter]/[max_matter] matter-units." )
+	. = ..()
+	. += "\A [src]. It currently holds [matter]/[max_matter] matter-units."
+	if(upgrade & RCD_UPGRADE_SILO_LINK)
+		. += "\A [src]. Remote storage link state: [silo_link ? "[silo_mats.on_hold() ? "ON HOLD" : "ON"]" : "OFF"]."
+		if(silo_link && !silo_mats.on_hold())
+			. += "\A [src]. Remote connection have iron in equivalent to [silo_mats.mat_container.get_material_amount(/datum/material/iron)/500] rcd units." // 1 matter for 1 floortile, as 4 tiles are produced from 1 iron
 
 /obj/item/construction/Destroy()
 	QDEL_NULL(spark_system)
-	. = ..()
+	silo_mats = null
+	return ..()
 
 /obj/item/construction/attackby(obj/item/W, mob/user, params)
 	if(iscyborg(user))
@@ -83,9 +92,13 @@ RLD
 	if(loaded)
 		to_chat(user, "<span class='notice'>[src] now holds [matter]/[max_matter] matter-units.</span>")
 	else if(istype(W, /obj/item/rcd_upgrade))
-		upgrade = TRUE
-		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		qdel(W)
+		var/obj/item/rcd_upgrade/rcd_up = W
+		if(!(upgrade & rcd_up.upgrade))
+			upgrade |= rcd_up.upgrade
+			if((rcd_up.upgrade & RCD_UPGRADE_SILO_LINK) && !silo_mats)
+				silo_mats = AddComponent(/datum/component/remote_materials, "RCD", FALSE, FALSE)
+			playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+			qdel(W)
 	else
 		return ..()
 	update_icon()	//ensures that ammo counters (if present) get updated
@@ -111,16 +124,37 @@ RLD
 		spark_system.start()
 
 /obj/item/construction/proc/useResource(amount, mob/user)
-	if(matter < amount)
-		if(user)
-			to_chat(user, no_ammo_message)
-		return 0
-	matter -= amount
-	update_icon()
-	return 1
+	if(!silo_mats || !silo_link)
+		if(matter < amount)
+			if(user)
+				to_chat(user, no_ammo_message)
+			return FALSE
+		matter -= amount
+		update_icon()
+		return TRUE
+	else
+		if(silo_mats.on_hold())
+			if(user)
+				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
+			return FALSE
+		if(!silo_mats.mat_container.has_materials(list(/datum/material/iron = 500), amount))
+			if(user)
+				to_chat(user, no_ammo_message)
+			return FALSE
+
+		silo_mats.mat_container.use_materials(list(/datum/material/iron = 500), amount)
+		silo_mats.silo_log(src, "consume", -amount, "build", list(/datum/material/iron = 500))
+		return TRUE
 
 /obj/item/construction/proc/checkResource(amount, mob/user)
-	. = matter >= amount
+	if(!silo_mats || !silo_link)
+		. = matter >= amount
+	else
+		if(silo_mats.on_hold())
+			if(user)
+				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
+			return FALSE
+		. = silo_mats.mat_container.has_materials(list(/datum/material/iron = 500), amount)
 	if(!. && user)
 		to_chat(user, no_ammo_message)
 		if(has_ammobar)
@@ -155,6 +189,7 @@ RLD
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_price = 150
 	max_matter = 160
+	slot_flags = ITEM_SLOT_BELT
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
 	has_ammobar = TRUE
 	var/mode = RCD_FLOORWALL
@@ -193,6 +228,14 @@ RLD
 		window_type_name = "glass"
 
 	to_chat(user, "<span class='notice'>You change \the [src]'s window mode to [window_type_name].</span>")
+
+/obj/item/construction/rcd/proc/toggle_silo_link(mob/user)
+	if(silo_mats)
+		silo_link = !silo_link
+		to_chat(user, "<span class='notice'>You change \the [src]'s storage link state: [silo_link ? "ON" : "OFF"].</span>")
+	else
+		to_chat(user, "<span class='warning'>\the [src] dont have remote storage connection.</span>")
+
 
 /obj/item/construction/rcd/proc/change_airlock_access(mob/user)
 	if (!ishuman(user) && !user.has_unlimited_silicon_privilege)
@@ -437,13 +480,18 @@ RLD
 	var/list/rcd_results = A.rcd_vals(user, src)
 	if(!rcd_results)
 		return FALSE
-	if(do_after(user, rcd_results["delay"] * delay_mod, target = A))
-		if(checkResource(rcd_results["cost"], user))
-			if(A.rcd_act(user, src, rcd_results["mode"]))
-				useResource(rcd_results["cost"], user)
-				activate()
-				playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-				return TRUE
+	var/delay = rcd_results["delay"] * delay_mod
+	var/obj/effect/constructing_effect/rcd_effect = new(get_turf(A), delay, src.mode)
+	if(checkResource(rcd_results["cost"], user))
+		if(do_after(user, delay, target = A))
+			if(checkResource(rcd_results["cost"], user))
+				if(A.rcd_act(user, src, rcd_results["mode"]))
+					rcd_effect.end_animation()
+					useResource(rcd_results["cost"], user)
+					activate()
+					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					return TRUE
+	qdel(rcd_effect)
 
 /obj/item/construction/rcd/Initialize()
 	. = ..()
@@ -461,11 +509,15 @@ RLD
 		"Grilles & Windows" = image(icon = 'icons/mob/radial.dmi', icon_state = "grillewindow"),
 		"Floors & Walls" = image(icon = 'icons/mob/radial.dmi', icon_state = "wallfloor")
 	)
-	if(upgrade)
+	if(upgrade & RCD_UPGRADE_FRAMES)
 		choices += list(
 		"Machine Frames" = image(icon = 'icons/mob/radial.dmi', icon_state = "machine"),
 		"Computer Frames" = image(icon = 'icons/mob/radial.dmi', icon_state = "computer_dir"),
 		"Ladders" = image(icon = 'icons/mob/radial.dmi', icon_state = "ladder")
+		)
+	if(upgrade & RCD_UPGRADE_SILO_LINK)
+		choices += list(
+		"Silo Link" = image(icon = 'icons/obj/mining.dmi', icon_state = "silo"),
 		)
 	if(mode == RCD_AIRLOCK)
 		choices += list(
@@ -504,6 +556,9 @@ RLD
 			return
 		if("Change Window Type")
 			toggle_window_type(user)
+			return
+		if("Silo Link")
+			toggle_silo_link(user)
 			return
 		else
 			return
@@ -645,7 +700,7 @@ RLD
 
 
 /obj/item/construction/rld
-	name = "rapid-light-device (RLD)"
+	name = "Rapid Lighting Device (RLD)"
 	desc = "A device used to rapidly provide lighting sources to an area. Reload with iron, plasteel, glass or compressed matter cartridges."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rld-5"
@@ -654,6 +709,7 @@ RLD
 	matter = 200
 	max_matter = 200
 	var/mode = LIGHT_MODE
+	slot_flags = ITEM_SLOT_BELT
 	actions_types = list(/datum/action/item_action/pick_color)
 
 	var/wallcost = 10
@@ -805,6 +861,7 @@ RLD
 	desc = "An expertly modified RCD outfitted to construct plumbing machinery."
 	icon_state = "plumberer2"
 	icon = 'icons/obj/tools.dmi'
+	slot_flags = ITEM_SLOT_BELT
 
 	matter = 200
 	max_matter = 200
@@ -814,10 +871,10 @@ RLD
 	///index, used in the attack self to get the type. stored here since it doesnt change
 	var/list/choices = list()
 	///index, used in the attack self to get the type. stored here since it doesnt change
-	var/list/name_to_type = list() 
+	var/list/name_to_type = list()
 	///
 	var/list/machinery_data = list("cost" = list(), "delay" = list())
-	
+
 /obj/item/construction/plumbing/attack_self(mob/user)
 	..()
 	if(!choices.len)
@@ -832,7 +889,7 @@ RLD
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
-	
+
 	blueprint = name_to_type[choice]
 	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)
 	to_chat(user, "<span class='notice'>You change [name]s blueprint to '[choice]'.</span>")
@@ -876,9 +933,22 @@ RLD
 
 /obj/item/rcd_upgrade
 	name = "RCD advanced design disk"
-	desc = "It contains the design for machine frames and computer frames."
+	desc = "It seems to be empty."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk3"
+	var/upgrade
+
+/obj/item/rcd_upgrade/frames
+	desc = "It contains the design for machine frames and computer frames."
+	upgrade = RCD_UPGRADE_FRAMES
+
+/obj/item/rcd_upgrade/simple_circuits
+	desc = "It contains the design for firelock, air alarm, fire alarm, apc circuits and crap power cells."
+	upgrade = RCD_UPGRADE_SIMPLE_CIRCUITS
+
+/obj/item/rcd_upgrade/silo_link
+	desc = "It contains direct silo connection RCD upgrade."
+	upgrade = RCD_UPGRADE_SILO_LINK
 
 #undef GLOW_MODE
 #undef LIGHT_MODE

@@ -46,10 +46,10 @@
 
 /**
   * Default implementation of clean-up code.
-  * 
+  *
   * This should be overridden to remove all references pointing to the object being destroyed, if
   * you do override it, make sure to call the parent and return it's return value by default
-  * 
+  *
   * Return an appropriate QDEL_HINT to modify handling of your deletion;
   * in most cases this is QDEL_HINT_QUEUE.
   *
@@ -59,7 +59,7 @@
   * * Notifying datums listening to signals from this datum that we are going away
   *
   * Returns QDEL_HINT_QUEUE
-  */ 
+  */
 /datum/proc/Destroy(force=FALSE, ...)
 	tag = null
 	datum_flags &= ~DF_USE_TAG //In case something tries to REF us
@@ -171,11 +171,9 @@
 	if(!islist(jsonlist))
 		if(!istext(jsonlist))
 			CRASH("Invalid JSON")
-			return
 		jsonlist = json_decode(jsonlist)
 		if(!islist(jsonlist))
 			CRASH("Invalid JSON")
-			return
 	if(!jsonlist["DATUM_TYPE"])
 		return
 	if(!ispath(jsonlist["DATUM_TYPE"]))

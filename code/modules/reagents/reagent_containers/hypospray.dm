@@ -87,21 +87,44 @@
 	list_reagents = list(/datum/reagent/water/holywater = 150, /datum/reagent/peaceborg/tire = 50, /datum/reagent/peaceborg/confuse = 50)
 	amount_per_transfer_from_this = 50
 
+/obj/item/reagent_containers/hypospray/combat/supersoldier
+	name = "Supersoldier Nanites"
+	desc = "The key ingredient to Nanotrasen's supersoldier program, regular doses of nanites must be taken before every mission to unlock the supersoldier's true capabilities."
+	item_state = "nanite_hypo"
+	icon_state = "nanite_hypo"
+	list_reagents = list(/datum/reagent/mutationtoxin/supersoldier = 5)
+
+/*
+/obj/item/reagent_containers/hypospray/supersoldier/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+	if(iscarbon(M) && M.stat != DEAD)
+		if(!ishumanbasic(M) || reac_volume < 5) // implying xenohumans are holy
+			if(method == INGEST && show_message)
+				to_chat(M, "<span class='notice'><i>You feel nothing, your DNA must not be compatible.</i></span>")
+			return ..()
+
+		to_chat(M, "<span class='userdanger'>A flare of pain washes over you as the nanites restructure your body!</span>")
+		M.set_species(/datum/species/human/supersoldier)
+		playsound(M.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
+		M.adjustBruteLoss(10)
+		M.emote("scream")
+	..()
+	*/
+
 //MediPens
 
 /obj/item/reagent_containers/hypospray/medipen
 	name = "epinephrine medipen"
-	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
+	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge. Contains a powerful preservative that can delay decomposition when applied to a dead body."
 	icon_state = "medipen"
 	item_state = "medipen"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	amount_per_transfer_from_this = 10
-	volume = 10
+	amount_per_transfer_from_this = 13
+	volume = 13
 	ignore_flags = 1 //so you can medipen through hardsuits
 	reagent_flags = DRAWABLE
 	flags_1 = null
-	list_reagents = list(/datum/reagent/medicine/epinephrine = 10)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 10, /datum/reagent/toxin/formaldehyde = 3)
 	custom_price = 40
 
 /obj/item/reagent_containers/hypospray/medipen/suicide_act(mob/living/carbon/user)
@@ -133,11 +156,11 @@
 		icon_state = "[initial(icon_state)]0"
 
 /obj/item/reagent_containers/hypospray/medipen/examine()
-	..()
+	. = ..()
 	if(reagents && reagents.reagent_list.len)
-		to_chat(usr, "<span class='notice'>It is currently loaded.</span>")
+		. += "<span class='notice'>It is currently loaded.</span>"
 	else
-		to_chat(usr, "<span class='notice'>It is spent.</span>")
+		. += "<span class='notice'>It is spent.</span>"
 
 /obj/item/reagent_containers/hypospray/medipen/stimpack //goliath kiting
 	name = "stimpack medipen"
@@ -152,6 +175,15 @@
 	desc = "A modified stimulants autoinjector for use in combat situations. Has a mild healing effect."
 	list_reagents = list(/datum/reagent/medicine/stimulants = 10, /datum/reagent/medicine/omnizine = 10)
 
+/obj/item/reagent_containers/hypospray/medipen/pumpup
+	name = "pumpup medipen"
+	desc = "Contains a very large amount of an incredibly powerful stimulant, vastly increasing your immunity and recovery from slowdowns for around five minutes. Do not take if pregnant."
+	icon_state = "syndipen"
+	item_state = "tbpen"
+	volume = 50
+	amount_per_transfer_from_this = 50
+	list_reagents = list(/datum/reagent/medicine/pumpup = 50)
+
 /obj/item/reagent_containers/hypospray/medipen/morphine
 	name = "morphine medipen"
 	desc = "A rapid way to get you out of a tight situation and fast! You'll feel rather drowsy, though."
@@ -159,6 +191,13 @@
 	item_state = "morphen"
 	list_reagents = list(/datum/reagent/medicine/morphine = 10)
 
+/obj/item/reagent_containers/hypospray/medipen/dexalin
+	name = "dexalin medipen"
+	icon_state = "dexpen"
+	item_state = "dexpen"
+	desc = "A autoinjector containing dexalin, used to heal oxygen damage quickly."
+	list_reagents = list(/datum/reagent/medicine/dexalin = 10)
+	
 /obj/item/reagent_containers/hypospray/medipen/tuberculosiscure
 	name = "BVAK autoinjector"
 	desc = "Bio Virus Antidote Kit autoinjector. Has a two use system for yourself, and someone else. Inject when infected."

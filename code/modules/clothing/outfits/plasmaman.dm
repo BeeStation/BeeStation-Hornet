@@ -4,6 +4,18 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/white
 	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
 
+/datum/outfit/plasmaman/magic
+	name = "Magician Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/hat
+	uniform = /obj/item/clothing/under/plasmaman/tux
+
+/datum/outfit/plasmaman/hobo
+	name = "Hobo Plasmaman"
+
+	head = /obj/item/clothing/head/foilhat/plasmaman
+	uniform = /obj/item/clothing/under/plasmaman
+
 /datum/outfit/plasmaman/chef
 	name = "Chef Plasmaman"
 
@@ -53,6 +65,12 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	uniform = /obj/item/clothing/under/plasmaman/security/warden
 
+/datum/outfit/plasmaman/secmed
+	name = "Brig Physician Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/security/secmed
+	uniform = /obj/item/clothing/under/plasmaman/security/secmed
+
 /datum/outfit/plasmaman/cargo
 	name = "Cargo Plasmaman"
 
@@ -94,6 +112,12 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/science
 	uniform = /obj/item/clothing/under/plasmaman/science
+
+/datum/outfit/plasmaman/emt
+	name = "Paramedic Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/emt
+	uniform = /obj/item/clothing/under/plasmaman/emt
 
 /datum/outfit/plasmaman/robotics
 	name = "Robotics Plasmaman"
@@ -160,4 +184,3 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/honk
 	uniform = /obj/item/clothing/under/plasmaman/honk
-

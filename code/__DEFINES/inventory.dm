@@ -152,6 +152,7 @@
 #define HEADCOVERSEYES		(1<<2)		//! feel free to realloc these numbers for other purposes
 #define MASKCOVERSMOUTH		(1<<3)		//! on other items, these are just for mask/head
 #define HEADCOVERSMOUTH		(1<<4)
+#define PEPPERPROOF			(1<<5)	//protects against pepperspray
 
 #define TINT_DARKENED 2			//! Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//! Threshold of tint level to obscure vision fully
@@ -174,6 +175,7 @@ GLOBAL_LIST_INIT(security_hardsuit_allowed, typecacheof(list(
 	/obj/item/flashlight,
 	/obj/item/gun/ballistic,
 	/obj/item/gun/energy,
+	/obj/item/gun/grenadelauncher,
 	/obj/item/melee/baton,
 	/obj/item/reagent_containers/spray/pepper,
 	/obj/item/restraints/handcuffs,
@@ -187,9 +189,10 @@ GLOBAL_LIST_INIT(detective_vest_allowed, typecacheof(list(
 	/obj/item/taperecorder,
 	/obj/item/gun/ballistic,
 	/obj/item/gun/energy,
+	/obj/item/gun/grenadelauncher,
 	/obj/item/lighter,
 	/obj/item/melee/baton,
-	/obj/item/melee/classic_baton,
+	/obj/item/melee/classic_baton/police,
 	/obj/item/reagent_containers/spray/pepper,
 	/obj/item/restraints/handcuffs,
 	/obj/item/storage/fancy/cigarettes,
@@ -202,9 +205,10 @@ GLOBAL_LIST_INIT(security_vest_allowed, typecacheof(list(
 	/obj/item/flashlight,
 	/obj/item/gun/ballistic,
 	/obj/item/gun/energy,
+	/obj/item/gun/grenadelauncher,
 	/obj/item/kitchen/knife/combat,
 	/obj/item/melee/baton,
-	/obj/item/melee/classic_baton/telescopic,
+	/obj/item/melee/classic_baton/police/telescopic,
 	/obj/item/reagent_containers/spray/pepper,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals/emergency_oxygen,
@@ -217,9 +221,10 @@ GLOBAL_LIST_INIT(security_wintercoat_allowed, typecacheof(list(
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/gun/ballistic,
 	/obj/item/gun/energy,
+	/obj/item/gun/grenadelauncher,
 	/obj/item/lighter,
 	/obj/item/melee/baton,
-	/obj/item/melee/classic_baton/telescopic,
+	/obj/item/melee/classic_baton/police/telescopic,
 	/obj/item/reagent_containers/spray/pepper,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals/emergency_oxygen,

@@ -44,6 +44,118 @@
 /datum/gang_item/proc/get_extra_info(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	return
 
+
+
+///////////////////
+//Essential Gang Tools
+///////////////////
+
+/datum/gang_item/essentials
+	category = "Purchase Essential Items:"
+
+
+
+/datum/gang_item/essentials/gangtool
+	id = "gangtool"
+	cost = 10
+
+/datum/gang_item/essentials/gangtool/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	var/item_type
+	if(gang)
+		item_type = /obj/item/device/gangtool/spare/lt
+		if(gang.leaders.len < MAX_LEADERS_GANG)
+			to_chat(user, "<span class='notice'><b>Gangtools</b> allow you to promote a gangster to be your Lieutenant, enabling them to recruit and purchase items like you. Simply have them register the gangtool. You may promote up to [MAX_LEADERS_GANG-gang.leaders.len] more Lieutenants</span>")
+	else
+		item_type = /obj/item/device/gangtool/spare
+	var/obj/item/device/gangtool/spare/tool = new item_type(user.loc)
+	user.put_in_hands(tool)
+
+/datum/gang_item/essentials/gangtool/get_name_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	if(gang && (gang.leaders.len < gang.max_leaders))
+		return "Promote a Gangster"
+	return "Spare Gangtool"
+
+/datum/gang_item/essentials/spraycan
+	name = "Territory Spraycan"
+	id = "spraycan"
+	cost = 5
+	item_path = /obj/item/toy/crayon/spraycan/gang
+
+/datum/gang_item/essentials/spraycan/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	var/obj/item/O = new item_path(user.loc, gang)
+	user.put_in_hands(O)
+
+
+/datum/gang_item/essentials/pen
+	name = "Recruitment Pen"
+	id = "pen"
+	cost = 10
+	item_path = /obj/item/pen/gang
+	spawn_msg = "<span class='notice'>More <b>recruitment pens</b> will allow you to recruit gangsters faster. Only gang leaders can recruit with pens.</span>"
+
+/datum/gang_item/essentials/pen/purchase(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	if(..())
+		gangtool.free_pen = FALSE
+		return TRUE
+	return FALSE
+
+/datum/gang_item/essentials/pen/get_cost(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	if(gangtool?.free_pen)
+		return 0
+	return ..()
+
+/datum/gang_item/essentials/pen/get_cost_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	if(gangtool?.free_pen)
+		return "(GET ONE FREE)"
+	return ..()
+
+
+
+/datum/gang_item/essentials/dominator
+	name = "Station Dominator"
+	id = "dominator"
+	cost = 30
+	item_path = /obj/machinery/dominator
+	spawn_msg = "<span class='notice'>The <b>dominator</b> will secure your gang's dominance over the station. Turn it on when you are ready to defend it.</span>"
+
+/datum/gang_item/essentials/dominator/can_buy(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	if(!gang || !gang.dom_attempts)
+		return FALSE
+	return ..()
+
+/datum/gang_item/essentials/dominator/get_name_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	if(!gang || !gang.dom_attempts)
+		return ..()
+	return "<b>[..()]</b>"
+
+/datum/gang_item/essentials/dominator/get_cost_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	if(!gang || !gang.dom_attempts)
+		return "(Out of stock)"
+	return ..()
+
+/datum/gang_item/essentials/dominator/get_extra_info(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	if(gang)
+		return "This device requires a 5x5 area clear of walls to work. (Estimated Takeover Time: [round(gang.determine_domination_time()/60,0.1)] minutes)"
+
+/datum/gang_item/essentials/dominator/purchase(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	var/area/userarea = get_area(user)
+	if(!(userarea.type in gang.territories|gang.new_territories))
+		to_chat(user,"<span class='warning'>The <b>dominator</b> can be spawned only on territory controlled by your gang!</span>")
+		return FALSE
+	for(var/obj/obj in get_turf(user))
+		if(obj.density)
+			to_chat(user, "<span class='warning'>There's not enough room here!</span>")
+			return FALSE
+
+	return ..()
+
+/datum/gang_item/essentials/dominator/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	new item_path(user.loc)
+	to_chat(user, spawn_msg)
+
+
+
+
 ///////////////////
 //CLOTHING
 ///////////////////
@@ -162,6 +274,13 @@
 	cost = 3
 	item_path = /obj/item/throwing_star
 
+/datum/gang_item/weapon/frag
+	name = "Fragmentation Grenade"
+	id = "frag nade"
+	cost = 18
+	item_path = /obj/item/grenade/syndieminibomb/concussion/frag
+
+
 /datum/gang_item/weapon/switchblade
 	name = "Switchblade"
 	id = "switchblade"
@@ -218,16 +337,6 @@
 	category = "Purchase Equipment:"
 
 
-/datum/gang_item/equipment/spraycan
-	name = "Territory Spraycan"
-	id = "spraycan"
-	cost = 5
-	item_path = /obj/item/toy/crayon/spraycan/gang
-
-/datum/gang_item/equipment/spraycan/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/O = new item_path(user.loc, gang)
-	user.put_in_hands(O)
-
 /datum/gang_item/equipment/sharpener
 	name = "Sharpener"
 	id = "whetstone"
@@ -246,12 +355,6 @@
 	id = "c4"
 	cost = 7
 	item_path = /obj/item/grenade/plastic/c4
-
-/datum/gang_item/equipment/frag
-	name = "Fragmentation Grenade"
-	id = "frag nade"
-	cost = 18
-	item_path = /obj/item/grenade/syndieminibomb/concussion/frag
 
 /datum/gang_item/equipment/implant_breaker
 	name = "Implant Breaker"
@@ -275,89 +378,3 @@
 	desc = "A gang's best hitmen are prepared for anything."
 	permeability_coefficient = 0.01
 	clothing_flags = NOSLIP
-
-/datum/gang_item/equipment/pen
-	name = "Recruitment Pen"
-	id = "pen"
-	cost = 10
-	item_path = /obj/item/pen/gang
-	spawn_msg = "<span class='notice'>More <b>recruitment pens</b> will allow you to recruit gangsters faster. Only gang leaders can recruit with pens.</span>"
-
-/datum/gang_item/equipment/pen/purchase(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(..())
-		gangtool.free_pen = FALSE
-		return TRUE
-	return FALSE
-
-/datum/gang_item/equipment/pen/get_cost(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(gangtool?.free_pen)
-		return 0
-	return ..()
-
-/datum/gang_item/equipment/pen/get_cost_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(gangtool?.free_pen)
-		return "(GET ONE FREE)"
-	return ..()
-
-
-/datum/gang_item/equipment/gangtool
-	id = "gangtool"
-	cost = 10
-
-/datum/gang_item/equipment/gangtool/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/item_type
-	if(gang)
-		item_type = /obj/item/device/gangtool/spare/lt
-		if(gang.leaders.len < MAX_LEADERS_GANG)
-			to_chat(user, "<span class='notice'><b>Gangtools</b> allow you to promote a gangster to be your Lieutenant, enabling them to recruit and purchase items like you. Simply have them register the gangtool. You may promote up to [MAX_LEADERS_GANG-gang.leaders.len] more Lieutenants</span>")
-	else
-		item_type = /obj/item/device/gangtool/spare
-	var/obj/item/device/gangtool/spare/tool = new item_type(user.loc)
-	user.put_in_hands(tool)
-
-/datum/gang_item/equipment/gangtool/get_name_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(gang && (gang.leaders.len < gang.max_leaders))
-		return "Promote a Gangster"
-	return "Spare Gangtool"
-
-/datum/gang_item/equipment/dominator
-	name = "Station Dominator"
-	id = "dominator"
-	cost = 30
-	item_path = /obj/machinery/dominator
-	spawn_msg = "<span class='notice'>The <b>dominator</b> will secure your gang's dominance over the station. Turn it on when you are ready to defend it.</span>"
-
-/datum/gang_item/equipment/dominator/can_buy(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(!gang || !gang.dom_attempts)
-		return FALSE
-	return ..()
-
-/datum/gang_item/equipment/dominator/get_name_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(!gang || !gang.dom_attempts)
-		return ..()
-	return "<b>[..()]</b>"
-
-/datum/gang_item/equipment/dominator/get_cost_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(!gang || !gang.dom_attempts)
-		return "(Out of stock)"
-	return ..()
-
-/datum/gang_item/equipment/dominator/get_extra_info(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(gang)
-		return "This device requires a 5x5 area clear of walls to work. (Estimated Takeover Time: [round(gang.determine_domination_time()/60,0.1)] minutes)"
-
-/datum/gang_item/equipment/dominator/purchase(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/area/userarea = get_area(user)
-	if(!(userarea.type in gang.territories|gang.new_territories))
-		to_chat(user,"<span class='warning'>The <b>dominator</b> can be spawned only on territory controlled by your gang!</span>")
-		return FALSE
-	for(var/obj/obj in get_turf(user))
-		if(obj.density)
-			to_chat(user, "<span class='warning'>There's not enough room here!</span>")
-			return FALSE
-
-	return ..()
-
-/datum/gang_item/equipment/dominator/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	new item_path(user.loc)
-	to_chat(user, spawn_msg) 

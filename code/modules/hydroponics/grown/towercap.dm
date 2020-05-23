@@ -36,6 +36,7 @@
 	desc = "It's better than bad, it's good!"
 	icon_state = "logs"
 	force = 5
+	block_upgrade_walk = 1
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 2
@@ -229,7 +230,7 @@ obj/item/seeds/bamboo
 		var/turf/open/O = loc
 		if(O.air)
 			var/loc_gases = O.air.gases
-			if(loc_gases[/datum/gas/oxygen][MOLES] > 13)
+			if(loc_gases[/datum/gas/oxygen][MOLES] >= 5)
 				return TRUE
 	return FALSE
 

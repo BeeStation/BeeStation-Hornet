@@ -41,6 +41,7 @@
 	movement_type = FLYING
 	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = 1 //have to find those plant trays!
+	ventcrawler = VENTCRAWLER_ALWAYS
 
 	//Spaceborn beings don't get hurt by space
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -77,10 +78,10 @@
 
 
 /mob/living/simple_animal/hostile/poison/bees/examine(mob/user)
-	..()
+	. = ..()
 
 	if(!beehome)
-		to_chat(user, "<span class='warning'>This bee is homeless!</span>")
+		. += "<span class='warning'>This bee is homeless!</span>"
 
 
 /mob/living/simple_animal/hostile/poison/bees/proc/generate_bee_visuals()
@@ -89,6 +90,7 @@
 	var/col = BEE_DEFAULT_COLOUR
 	if(beegent?.color)
 		col = beegent.color
+	mobsay_color = col
 
 	add_overlay("[icon_base]_base")
 

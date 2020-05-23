@@ -13,23 +13,26 @@
 	girder_type = /obj/structure/girder/reinforced
 	explosion_block = 2
 	rad_insulation = RAD_HEAVY_INSULATION
+	FASTDMM_PROP(\
+		pipe_astar_cost = 50 \
+	)
 
 /turf/closed/wall/r_wall/deconstruction_hints(mob/user)
 	switch(d_state)
 		if(INTACT)
-			to_chat(user, "<span class='notice'>The outer <b>grille</b> is fully intact.</span>")
+			return "<span class='notice'>The outer <b>grille</b> is fully intact.</span>"
 		if(SUPPORT_LINES)
-			to_chat(user, "<span class='notice'>The outer <i>grille</i> has been cut, and the support lines are <b>screwed</b> securely to the outer cover.</span>")
+			return "<span class='notice'>The outer <i>grille</i> has been cut, and the support lines are <b>screwed</b> securely to the outer cover.</span>"
 		if(COVER)
-			to_chat(user, "<span class='notice'>The support lines have been <i>unscrewed</i>, and the metal cover is <b>welded</b> firmly in place.</span>")
+			return "<span class='notice'>The support lines have been <i>unscrewed</i>, and the metal cover is <b>welded</b> firmly in place.</span>"
 		if(CUT_COVER)
-			to_chat(user, "<span class='notice'>The metal cover has been <i>sliced through</i>, and is <b>connected loosely</b> to the girder.</span>")
+			return "<span class='notice'>The metal cover has been <i>sliced through</i>, and is <b>connected loosely</b> to the girder.</span>"
 		if(ANCHOR_BOLTS)
-			to_chat(user, "<span class='notice'>The outer cover has been <i>pried away</i>, and the bolts anchoring the support rods are <b>wrenched</b> in place.</span>")
+			return "<span class='notice'>The outer cover has been <i>pried away</i>, and the bolts anchoring the support rods are <b>wrenched</b> in place.</span>"
 		if(SUPPORT_RODS)
-			to_chat(user, "<span class='notice'>The bolts anchoring the support rods have been <i>loosened</i>, but are still <b>welded</b> firmly to the girder.</span>")
+			return "<span class='notice'>The bolts anchoring the support rods have been <i>loosened</i>, but are still <b>welded</b> firmly to the girder.</span>"
 		if(SHEATH)
-			to_chat(user, "<span class='notice'>The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.</span>")
+			return "<span class='notice'>The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.</span>"
 
 /turf/closed/wall/r_wall/devastate_wall()
 	new sheet_type(src, sheet_amount)
@@ -202,15 +205,20 @@
 				return 1
 	return 0
 
-/turf/closed/wall/r_wall/proc/update_icon()
+/turf/closed/wall/r_wall/update_icon()
+	. = ..()
 	if(d_state != INTACT)
 		smooth = SMOOTH_FALSE
 		clear_smooth_overlays()
-		icon_state = "r_wall-[d_state]"
 	else
 		smooth = SMOOTH_TRUE
 		queue_smooth_neighbors(src)
 		queue_smooth(src)
+
+/turf/closed/wall/r_wall/update_icon_state()
+	if(d_state != INTACT)
+		icon_state = "r_wall-[d_state]"
+	else
 		icon_state = "r_wall"
 
 /turf/closed/wall/r_wall/wall_singularity_pull(current_size)
@@ -252,4 +260,3 @@
 /turf/closed/wall/r_wall/syndicate/overspace
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
-

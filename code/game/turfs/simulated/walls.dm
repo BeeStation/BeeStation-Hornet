@@ -12,6 +12,10 @@
 
 	baseturfs = /turf/open/floor/plating
 
+	FASTDMM_PROP(\
+		pipe_astar_cost = 35\
+	)
+
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
 	var/slicing_duration = 100  //default time taken to slice the wall
 	var/sheet_type = /obj/item/stack/sheet/iron
@@ -32,11 +36,11 @@
 	var/list/dent_decals
 
 /turf/closed/wall/examine(mob/user)
-	..()
-	deconstruction_hints(user)
+	. += ..()
+	. += deconstruction_hints(user)
 
 /turf/closed/wall/proc/deconstruction_hints(mob/user)
-	to_chat(user, "<span class='notice'>The outer plating is <b>welded</b> firmly in place.</span>")
+	return "<span class='notice'>The outer plating is <b>welded</b> firmly in place.</span>"
 
 /turf/closed/wall/attack_tk()
 	return

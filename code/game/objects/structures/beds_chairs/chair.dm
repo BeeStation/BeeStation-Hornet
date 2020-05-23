@@ -15,10 +15,10 @@
 	layer = OBJ_LAYER
 
 /obj/structure/chair/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>")
+	. = ..()
+	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 	if(!has_buckled_mobs())
-		to_chat(user, "<span class='notice'>Drag your sprite to sit in it.</span>")
+		. += "<span class='notice'>Drag your sprite to sit in it.</span>"
 
 /obj/structure/chair/Initialize()
 	. = ..()
@@ -63,11 +63,6 @@
 /obj/structure/chair/narsie_act()
 	var/obj/structure/chair/wood/W = new/obj/structure/chair/wood(get_turf(src))
 	W.setDir(dir)
-	qdel(src)
-
-/obj/structure/chair/ratvar_act()
-	var/obj/structure/chair/brass/B = new(get_turf(src))
-	B.setDir(dir)
 	qdel(src)
 
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
@@ -258,9 +253,10 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 8
 	throwforce = 10
+	block_upgrade_walk = 1
+	block_power = 20
 	throw_range = 3
 	hitsound = 'sound/items/trayhit1.ogg'
-	hit_reaction_chance = 50
 	materials = list(/datum/material/iron = 2000)
 	var/break_chance = 5 //Likely hood of smashing the chair.
 	var/obj/structure/chair/origin_type = /obj/structure/chair
@@ -305,15 +301,6 @@
 	else if(materials[/datum/material/iron])
 		new /obj/item/stack/rods(get_turf(loc), 2)
 	qdel(src)
-
-
-
-
-/obj/item/chair/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == UNARMED_ATTACK && prob(hit_reaction_chance))
-		owner.visible_message("<span class='danger'>[owner] fends off [attack_text] with [src]!</span>")
-		return 1
-	return 0
 
 /obj/item/chair/afterattack(atom/target, mob/living/carbon/user, proximity)
 	. = ..()
@@ -389,9 +376,6 @@
 	if(turns >= 8)
 		STOP_PROCESSING(SSfastprocess, src)
 
-/obj/structure/chair/brass/ratvar_act()
-	return
-
 /obj/structure/chair/brass/AltClick(mob/living/user)
 	turns = 0
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -418,3 +402,18 @@
 	. = ..()
 	if(has_gravity())
 		playsound(src, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
+
+/obj/structure/chair/mime
+	name = "invisible chair"
+	desc = "The mime needs to sit down and shut up."
+	anchored = FALSE
+	icon_state = null
+	buildstacktype = null
+	item_chair = null
+	flags_1 = NODECONSTRUCT_1
+
+/obj/structure/chair/mime/post_buckle_mob(mob/living/M)
+	M.pixel_y += 5
+
+/obj/structure/chair/mime/post_unbuckle_mob(mob/living/M)
+	M.pixel_y -= 5

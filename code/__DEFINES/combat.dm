@@ -156,6 +156,11 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define REFLECT_NORMAL 				(1<<0)
 #define REFLECT_FAKEPROJECTILE		(1<<1)
 
+//blocking flags
+#define BLOCKING_ACTIVE				(1<<0) //does the item need to be in hand to block
+#define BLOCKING_PROJECTILE			(1<<1) //does the item block projectiles
+#define BLOCKING_NASTY				(1<<2) //if it parries a bare hand, will the attacker be hurt?
+
 // Object/Item sharpness
 #define IS_BLUNT			0
 #define IS_SHARP			1
@@ -176,6 +181,7 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define EXPLODE_DEVASTATE 1
 #define EXPLODE_HEAVY 2
 #define EXPLODE_LIGHT 3
+#define EXPLODE_GIB_THRESHOLD 50	//ex_act() with EXPLODE_DEVASTATE severity will gib mobs with less than this much bomb armor
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2

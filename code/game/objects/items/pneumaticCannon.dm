@@ -7,6 +7,7 @@
 	desc = "A gas-powered cannon that can fire any object loaded into it."
 	w_class = WEIGHT_CLASS_BULKY
 	force = 8 //Very heavy
+	block_upgrade_walk = 1
 	attack_verb = list("bludgeoned", "smashed", "beaten")
 	icon = 'icons/obj/pneumaticCannon.dmi'
 	icon_state = "pneumaticCannon"
@@ -57,7 +58,7 @@
 	return automatic
 
 /obj/item/pneumatic_cannon/examine(mob/user)
-	..()
+	. = ..()
 	var/list/out = list()
 	if(!in_range(user, src))
 		out += "<span class='notice'>You'll need to get closer to see any more.</span>"
@@ -67,7 +68,7 @@
 		CHECK_TICK
 	if(tank)
 		out += "<span class='notice'>[icon2html(tank, user)] It has \a [tank] mounted onto it.</span>"
-	to_chat(user, out.Join("<br>"))
+	. += out.Join("\n")
 
 /obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -295,8 +296,8 @@
 	charge_ticks = 2		//4 second/pie
 
 /obj/item/pneumatic_cannon/speargun
-	name = "kinetic speargun"
-	desc = "A weapon favored by carp hunters. Fires specialized spears using kinetic energy."
+	name = "magnetic speargun"
+	desc = "A weapon favored by carp hunters. Fires specialized spears using magnetic energy. A savvy- or desperate- hunter may be able to find more esoteric payloads"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "speargun"
 	item_state = "speargun"
@@ -305,11 +306,12 @@
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	gasPerThrow = 0
 	checktank = FALSE
+	pressureSetting = 2
 	range_multiplier = 3
 	throw_amount = 1
-	maxWeightClass = 2 //a single magspear
+	maxWeightClass = 4 //a single magspear or spear
 	spin_item = FALSE
-	var/static/list/magspear_typecache = typecacheof(/obj/item/throwing_star/magspear)
+	var/static/list/magspear_typecache = typecacheof(list(/obj/item/throwing_star/magspear, /obj/item/twohanded/spear, /obj/item/stack/rods/fifty, /obj/item/stack/rods, /obj/item/stack/rods/twentyfive, /obj/item/stack/rods/ten, /obj/item/katana, /obj/item/katana/cursed, /obj/item/toy/katana, /obj/item/twohanded/spear/explosive, /obj/item/clockwork/weapon/ratvarian_spear))
 
 /obj/item/pneumatic_cannon/speargun/Initialize()
 	. = ..()
@@ -324,13 +326,13 @@
 /obj/item/storage/backpack/magspear_quiver/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 20
-	STR.max_combined_w_class = 40
+	STR.max_items = 30
+	STR.max_combined_w_class = 120
 	STR.display_numerical_stacking = TRUE
 	STR.can_hold = typecacheof(list(
 		/obj/item/throwing_star/magspear
 		))
 
 /obj/item/storage/backpack/magspear_quiver/PopulateContents()
-	for(var/i in 1 to 20)
+	for(var/i in 1 to 30)
 		new /obj/item/throwing_star/magspear(src)

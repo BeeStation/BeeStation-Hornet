@@ -42,11 +42,11 @@
 	return holy_item_list
 
 /obj/item/choice_beacon/holy/spawn_option(obj/choice,mob/living/M)
-	if(!SSreligion.holy_armor_type)
+	if(!GLOB.holy_armor_type)
 		..()
 		playsound(src, 'sound/effects/pray_chaplain.ogg', 40, 1)
 		SSblackbox.record_feedback("tally", "chaplain_armor", 1, "[choice]")
-		SSreligion.holy_armor_type = choice
+		GLOB.holy_armor_type = choice
 	else
 		to_chat(M, "<span class='warning'>A selection has already been made. Self-Destructing...</span>")
 		return
@@ -124,6 +124,26 @@
 	item_state = "witchhunterhat"
 	flags_cover = HEADCOVERSEYES
 
+/obj/item/storage/box/holy/adept
+	name = "Divine Adept Kit"
+
+/obj/item/storage/box/holy/adept/PopulateContents()
+	new /obj/item/clothing/suit/armor/riot/chaplain/adept(src)
+	new /obj/item/clothing/head/helmet/chaplain/adept(src)
+
+/obj/item/clothing/head/helmet/chaplain/adept
+	name = "adept hood"
+	desc = "Its only heretical when others do it."
+	icon_state = "crusader"
+	item_state = "crusader"
+	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/suit/armor/riot/chaplain/adept
+	name = "adept robes"
+	desc = "The ideal outfit for burning the unfaithful."
+	icon_state = "crusader"
+	item_state = "crusader"
+
 /obj/item/storage/box/holy/follower
 	name = "Followers of the Chaplain Kit"
 
@@ -172,6 +192,7 @@
 	item_state = "nullrod"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	block_upgrade_walk = 1
 	force = 18
 	throw_speed = 3
 	throw_range = 4
@@ -194,7 +215,7 @@
 		reskin_holy_weapon(user)
 
 /obj/item/nullrod/proc/reskin_holy_weapon(mob/M)
-	if(SSreligion.holy_weapon_type)
+	if(GLOB.holy_weapon_type)
 		return
 	var/obj/item/nullrod/holy_weapon
 	var/list/holy_weapons_list = typesof(/obj/item/nullrod)
@@ -211,7 +232,7 @@
 	var/A = display_names[choice] // This needs to be on a separate var as list member access is not allowed for new
 	holy_weapon = new A
 
-	SSreligion.holy_weapon_type = holy_weapon.type
+	GLOB.holy_weapon_type = holy_weapon.type
 
 	SSblackbox.record_feedback("tally", "chaplain_weapon", 1, "[choice]")
 
@@ -232,6 +253,7 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
 	attack_verb = list("punched", "cross countered", "pummeled")
+	block_upgrade_walk = 0
 
 /obj/item/nullrod/godhand/Initialize()
 	. = ..()
@@ -247,7 +269,9 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = ITEM_SLOT_BACK
-	block_chance = 50
+	block_flags = BLOCKING_PROJECTILE
+	block_level = 1
+	block_power = 20
 	var/shield_icon = "shield-red"
 
 /obj/item/nullrod/staff/worn_overlays(isinhands)
@@ -270,15 +294,12 @@
 	desc = "A weapon fit for a crusade!"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
-	block_chance = 30
+	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
+	block_level = 1
+	block_power = 30
 	sharpness = IS_SHARP
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-
-/obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
 
 /obj/item/nullrod/claymore/darkblade
 	icon_state = "cultblade"
@@ -300,6 +321,8 @@
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
+	tool_behaviour = TOOL_SAW
+	toolspeed = 1.5 //slower than a real saw
 
 /obj/item/nullrod/claymore/glowing
 	icon_state = "swordon"
@@ -313,7 +336,9 @@
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
+	block_power = 0
 
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
@@ -329,6 +354,7 @@
 /obj/item/nullrod/claymore/saber
 	name = "light energy sword"
 	hitsound = 'sound/weapons/blade1.ogg'
+	icon = 'icons/obj/transforming_energy.dmi'
 	icon_state = "swordblue"
 	item_state = "swordblue"
 	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
@@ -358,6 +384,15 @@
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	block_level = 1
+
+/obj/item/nullrod/sord/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(isitem(hitby))
+		var/obj/item/I = hitby
+		owner.attackby(src)
+		owner.attackby(src, owner)
+		owner.visible_message("<span class='danger'>[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!</span>")
+	return ..()
 
 /obj/item/nullrod/scythe
 	icon_state = "scythe1"
@@ -368,6 +403,9 @@
 	desc = "Ask not for whom the bell tolls..."
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
+	block_level = 1
+	block_power = 15
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = IS_SHARP
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -386,6 +424,19 @@
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
+/obj/item/nullrod/Hypertool
+	icon = 'icons/obj/device.dmi'
+	icon_state = "hypertool"
+	item_state = "hypertool"
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	slot_flags = ITEM_SLOT_BELT
+	name = "hypertool"
+	desc = "A tool so powerful even you cannot perfectly use it."
+	armour_penetration = 35
+	damtype = BRAIN
+	attack_verb = list("pulsed", "mended", "cut")
+	hitsound = 'sound/effects/sparks4.ogg'
 
 /obj/item/nullrod/scythe/spellblade
 	icon_state = "spellblade"
@@ -428,7 +479,7 @@
 		S.fully_replace_character_name(null, "The spirit of [name]")
 		S.status_flags |= GODMODE
 		S.language_holder = user.language_holder.copy(S)
-		var/input = stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN)
+		var/input = sanitize_name(stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN))
 
 		if(src && input)
 			name = input
@@ -453,6 +504,8 @@
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
+	tool_behaviour = TOOL_SAW
+	toolspeed = 0.5 //faster than normal saw
 
 
 /obj/item/nullrod/hammmer
@@ -465,6 +518,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("smashed", "bashed", "hammered", "crunched")
+	attack_weight = 2
 
 /obj/item/nullrod/chainsaw
 	name = "chainsaw hand"
@@ -478,6 +532,11 @@
 	sharpness = IS_SHARP
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
+	tool_behaviour = TOOL_SAW
+	toolspeed = 2 //slower than a real saw
+	attack_weight = 2
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+
 
 /obj/item/nullrod/chainsaw/Initialize()
 	. = ..()
@@ -504,6 +563,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	attack_verb = list("attacked", "smashed", "crushed", "splattered", "cracked")
 	hitsound = 'sound/weapons/blade1.ogg'
+	attack_weight = 2
 
 /obj/item/nullrod/pride_hammer/afterattack(atom/A as mob|obj|turf|area, mob/user, proximity)
 	. = ..()
@@ -543,6 +603,7 @@
 /obj/item/nullrod/armblade
 	name = "dark blessing"
 	desc = "Particularly twisted deities grant gifts of dubious value."
+	icon = 'icons/obj/changeling_items.dmi'
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
@@ -585,8 +646,8 @@
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, it is now used to harass the clown."
 	w_class = WEIGHT_CLASS_BULKY
-	force = 15
-	block_chance = 40
+	force = 14
+	block_power = 40
 	slot_flags = ITEM_SLOT_BACK
 	sharpness = IS_BLUNT
 	hitsound = "swing_hit"

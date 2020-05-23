@@ -24,6 +24,8 @@
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport/santa)
 
 /datum/antagonist/santa/proc/give_objective()
+	if(!give_objectives)
+		return
 	var/datum/objective/santa_objective = new()
 	santa_objective.explanation_text = "Bring joy and presents to the station!"
 	santa_objective.completed = TRUE //lets cut our santas some slack.

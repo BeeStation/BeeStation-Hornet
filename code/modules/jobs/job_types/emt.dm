@@ -7,7 +7,8 @@
 	total_positions = 2
 	spawn_positions = 1
 	supervisors = "the chief medical officer"
-	selection_color = "#ffeef0"
+	selection_color = "#d4ebf2"
+	chat_color = "#8FBEB4"
 
 	outfit = /datum/outfit/job/emt
 
@@ -25,11 +26,11 @@
 	id = /obj/item/card/id/job/med
 	belt = /obj/item/pda/medical
 	ears = /obj/item/radio/headset/headset_med
-	uniform = /obj/item/clothing/under/rank/medical
+	uniform = /obj/item/clothing/under/rank/medical/emt
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	head = /obj/item/clothing/head/soft/emt
 	suit =  /obj/item/clothing/suit/toggle/labcoat/emt
-	l_hand = /obj/item/storage/firstaid/regular
+	l_hand = /obj/item/storage/firstaid/medical
 	l_pocket = /obj/item/pinpointer/crew
 	suit_store = /obj/item/sensor_device
 

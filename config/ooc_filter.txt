@@ -1,0 +1,7 @@
+#################################################################################################################
+# Words that will block OOC chat messages from sending. These will also be added to the IC filter list.		#
+# Case is not important. Commented-out examples are listed below, just remove the "#".        			#
+#################################################################################################################
+#lol
+#omg
+#wtf

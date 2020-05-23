@@ -1,5 +1,8 @@
 /turf/open
 	plane = FLOOR_PLANE
+	FASTDMM_PROP(\
+		pipe_astar_cost = 1.5\
+	)
 	var/slowdown = 0 //negative for faster, positive for slower
 
 	var/postdig_icon_change = FALSE
@@ -49,7 +52,7 @@
 /turf/open/indestructible/singularity_act()
 	return
 
-/turf/open/indestructible/TerraformTurf(path, defer_change = FALSE, ignore_air = FALSE)
+/turf/open/indestructible/TerraformTurf(path, new_baseturf, flags, defer_change = FALSE, ignore_air = FALSE)
 	return
 
 /turf/open/indestructible/sound
@@ -133,41 +136,6 @@
 	blocks_air = TRUE
 	baseturfs = /turf/open/indestructible/airblock
 
-/turf/open/indestructible/clock_spawn_room
-	name = "cogmetal floor"
-	desc = "Brass plating that gently radiates heat. For some reason, it reminds you of blood."
-	icon_state = "reebe"
-	baseturfs = /turf/open/indestructible/clock_spawn_room
-	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-
-/turf/open/indestructible/clock_spawn_room/Entered()
-	..()
-	START_PROCESSING(SSfastprocess, src)
-
-/turf/open/indestructible/clock_spawn_room/Destroy()
-	STOP_PROCESSING(SSfastprocess, src)
-	. = ..()
-
-/turf/open/indestructible/clock_spawn_room/process()
-	if(!port_servants())
-		STOP_PROCESSING(SSfastprocess, src)
-
-/turf/open/indestructible/clock_spawn_room/proc/port_servants()
-	. = FALSE
-	for(var/mob/living/L in src)
-		if(is_servant_of_ratvar(L) && L.stat != DEAD)
-			. = TRUE
-			L.forceMove(get_turf(pick(GLOB.servant_spawns)))
-			visible_message("<span class='warning'>[L] vanishes in a flash of red!</span>")
-			L.visible_message("<span class='warning'>[L] appears in a flash of red!</span>", \
-			"<span class='bold cult'>sas'so c'arta forbici</span><br><span class='danger'>You're yanked away from [src]!</span>")
-			playsound(src, 'sound/magic/enter_blood.ogg', 50, TRUE)
-			playsound(L, 'sound/magic/exit_blood.ogg', 50, TRUE)
-			flash_color(L, flash_color = "#C80000", flash_time = 10)
-
 /turf/open/Initalize_Atmos(times_fired)
 	excited = 0
 	update_visuals()
@@ -243,10 +211,12 @@
 		C.moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 		if(!(lube & SLIDE_ICE))
 			C.Knockdown(knockdown_amount)
+			C.drop_all_held_items()
 			C.Paralyze(paralyze_amount)
 			C.stop_pulling()
 		else
 			C.Knockdown(15)
+			C.drop_all_held_items()
 
 		if(buckled_obj)
 			buckled_obj.unbuckle_mob(C)

@@ -14,6 +14,8 @@
 	rack_sound = "sound/weapons/mosinboltout.ogg"
 	bolt_drop_sound = "sound/weapons/mosinboltin.ogg"
 	tac_reloads = FALSE
+	weapon_weight = WEAPON_MEDIUM
+	block_upgrade_walk = 1
 
 obj/item/gun/ballistic/rifle/update_icon()
 	..()
@@ -41,8 +43,8 @@ obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
 	return ..()
 
 /obj/item/gun/ballistic/rifle/examine(mob/user)
-	..()
-	to_chat(user, "The bolt is [bolt_locked ? "open" : "closed"].")
+	. = ..()
+	. += "The bolt is [bolt_locked ? "open" : "closed"]."
 
 ///////////////////////
 // BOLT ACTION RIFLE //

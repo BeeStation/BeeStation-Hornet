@@ -66,6 +66,21 @@
 	},
 /turf/closed/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"am" = (
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/item/stack/marker_beacon/ten,
+/obj/item/seeds/tobacco/lavaland,
+/turf/open/indestructible/boss,
+/area/ruin/unpowered/ash_walkers)
 "aq" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -276,7 +291,7 @@
 	dir = 8
 	},
 /obj/machinery/iv_drip,
-/obj/item/reagent_containers/glass/beaker/waterbottle/large,
+/obj/item/reagent_containers/glass/waterbottle/large,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "aR" = (
@@ -441,20 +456,6 @@
 	dir = 4
 	},
 /obj/item/storage/bag/plants/portaseeder,
-/turf/open/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
-"bk" = (
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/item/stack/marker_beacon/ten,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bl" = (
@@ -1251,10 +1252,10 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "do" = (
-/obj/structure/stone_tile{
-	dir = 8
+/obj/structure/sink/puddle{
+	pixel_x = -3;
+	pixel_y = 1
 	},
-/obj/structure/reagent_dispensers/watertank,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -1489,7 +1490,7 @@ as
 aB
 aN
 aY
-bk
+am
 bw
 ak
 cb

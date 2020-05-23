@@ -17,11 +17,25 @@
 	var/stasis_can_toggle = 0
 	var/mattress_state = "stasis_on"
 	var/obj/effect/overlay/vis/mattress_on
+	var/obj/machinery/computer/operating/op_computer
+
+/obj/machinery/stasis/Initialize()
+	. = ..()
+	for(var/direction in GLOB.cardinals)
+		op_computer = locate(/obj/machinery/computer/operating, get_step(src, direction))
+		if(op_computer)
+			op_computer.sbed = src
+			break
+
+/obj/machinery/stasis/Destroy()
+	. = ..()
+	if(op_computer && op_computer.sbed == src)
+		op_computer.sbed = null
 
 /obj/machinery/stasis/examine(mob/user)
-	..()
-	var/turn_on_or_off = stasis_enabled ? "turn off" : "turn on"
-	to_chat(user, "<span class='notice'>Alt-click to [turn_on_or_off] the machine.</span>")
+	. = ..()
+	. += "<span class='notice'>Alt-click to [stasis_enabled ? "turn off" : "turn on"] the machine.</span>"
+	. += "<span class='notice'>[src] is [op_computer ? "linked" : "<b>NOT</b> linked"] to an operating computer.</span>"
 
 /obj/machinery/stasis/proc/play_power_sound()
 	var/_running = stasis_running()
@@ -34,7 +48,7 @@
 		last_stasis_sound = _running
 
 /obj/machinery/stasis/AltClick(mob/user)
-	if(world.time >= stasis_can_toggle && user.canUseTopic(src))
+	if(world.time >= stasis_can_toggle && user.canUseTopic(src, !issilicon(user)))
 		stasis_enabled = !stasis_enabled
 		stasis_can_toggle = world.time + STASIS_TOGGLE_COOLDOWN
 		playsound(src, 'sound/machines/click.ogg', 60, TRUE)
@@ -111,6 +125,12 @@
 	if(stasis_running() && check_nap_violations())
 		chill_out(L)
 	update_icon()
+
+/obj/machinery/stasis/proc/check_patient()
+	if(occupant)
+		return TRUE
+	else
+		return FALSE
 
 /obj/machinery/stasis/post_unbuckle_mob(mob/living/L)
 	thaw_them(L)

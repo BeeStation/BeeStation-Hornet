@@ -48,7 +48,17 @@
 /proc/sanitize_filename(t)
 	return sanitize_simple(t, list("\n"="", "\t"="", "/"="", "\\"="", "?"="", "%"="", "*"="", ":"="", "|"="", "\""="", "<"="", ">"=""))
 
-/// Runs byond's sanitization proc along-side sanitize_simple
+///returns nothing with an alert instead of the message if it contains something in the ic filter, and sanitizes normally if the name is fine. It returns nothing so it backs out of the input the same way as if you had entered nothing.
+/proc/sanitize_name(t,list/repl_chars = null)
+	if(CHAT_FILTER_CHECK(t))
+		alert("You cannot set a name that contains a word prohibited in IC chat!")
+		return ""
+	if(t == "space" || t == "floor" || t == "wall" || t == "r-wall" || t == "monkey" || t == "unknown" || t == "inactive ai")	//prevents these common metagamey names
+		alert("Invalid name.")
+		return ""
+	return sanitize(t)
+
+//Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(t,list/repl_chars = null)
 	return html_encode(sanitize_simple(t,repl_chars))
 
@@ -293,9 +303,9 @@
 /proc/stringmerge(text,compare,replace = "*")
 
 	var/newtext = text
-	if(lentext(text) != lentext(compare))
+	if(length(text) != length(compare))
 		return 0
-	for(var/i = 1, i < lentext(text), i++)
+	for(var/i = 1, i < length(text), i++)
 		var/a = copytext(text,i,i+1)
 		var/b = copytext(compare,i,i+1)
 //if it isn't both the same letter, or if they are both the replacement character
@@ -314,7 +324,7 @@
 	if(!text || !character)
 		return 0
 	var/count = 0
-	for(var/i = 1, i <= lentext(text), i++)
+	for(var/i = 1, i <= length(text), i++)
 		var/a = copytext(text,i,i+1)
 		if(a == character)
 			count++
@@ -605,8 +615,8 @@ This was coded to handle DNA gene-splicing.
 			continue
 		var/buffer = ""
 		var/early_culling = TRUE
-		for(var/pos = 1, pos <= lentext(string), pos++)
-			var/let = copytext(string, pos, (pos + 1) % lentext(string))
+		for(var/pos = 1, pos <= length(string), pos++)
+			var/let = copytext(string, pos, (pos + 1) % length(string))
 			if(early_culling && !findtext(let,GLOB.is_alphanumeric))
 				continue
 			early_culling = FALSE
@@ -614,9 +624,9 @@ This was coded to handle DNA gene-splicing.
 		if(!findtext(buffer,GLOB.is_alphanumeric))
 			continue
 		var/punctbuffer = ""
-		var/cutoff = lentext(buffer)
-		for(var/pos = lentext(buffer), pos >= 0, pos--)
-			var/let = copytext(buffer, pos, (pos + 1) % lentext(buffer))
+		var/cutoff = length(buffer)
+		for(var/pos = length(buffer), pos >= 0, pos--)
+			var/let = copytext(buffer, pos, (pos + 1) % length(buffer))
 			if(findtext(let,GLOB.is_alphanumeric))
 				break
 			if(findtext(let,GLOB.is_punctuation))
@@ -626,8 +636,8 @@ This was coded to handle DNA gene-splicing.
 			var/exclaim = FALSE
 			var/question = FALSE
 			var/periods = 0
-			for(var/pos = lentext(punctbuffer), pos >= 0, pos--)
-				var/punct = copytext(punctbuffer, pos, (pos + 1) % lentext(punctbuffer))
+			for(var/pos = length(punctbuffer), pos >= 0, pos--)
+				var/punct = copytext(punctbuffer, pos, (pos + 1) % length(punctbuffer))
 				if(!exclaim && findtext(punct,"!"))
 					exclaim = TRUE
 				if(!question && findtext(punct,"?"))
@@ -649,7 +659,7 @@ This was coded to handle DNA gene-splicing.
 			buffer = copytext(buffer, 1, cutoff) + punctbuffer
 		if(!findtext(buffer,GLOB.is_alphanumeric))
 			continue
-		if(!buffer || lentext(buffer) > 280 || lentext(buffer) <= cullshort || buffer in accepted)
+		if(!buffer || length(buffer) > 280 || length(buffer) <= cullshort || (buffer in accepted))
 			continue
 
 		accepted += buffer
@@ -788,7 +798,7 @@ This was coded to handle DNA gene-splicing.
 		var/cword = pick(words)
 		words.Remove(cword)
 		var/suffix = copytext(cword,length(cword)-1,length(cword))
-		while(length(cword)>0 && suffix in list(".",",",";","!",":","?"))
+		while(length(cword)>0 && (suffix in list(".",",",";","!",":","?")))
 			cword  = copytext(cword,1              ,length(cword)-1)
 			suffix = copytext(cword,length(cword)-1,length(cword)  )
 		if(length(cword))
@@ -796,6 +806,28 @@ This was coded to handle DNA gene-splicing.
 	message = "[prefix][jointext(rearranged," ")]"
 	. = message
 
+
+/proc/readable_corrupted_text(text)
+	var/list/corruption_options = list("..", "£%", "~~\"", "!!", "*", "^", "$!", "-", "}", "?")
+	var/corrupted_text = ""
+
+	// Have every letter have a chance of creating corruption on either side
+	// Small chance of letters being removed in place of corruption - still overall readable
+	for(var/letter_index = 1; letter_index <= length(text); letter_index++)
+		var/letter = text[letter_index]
+
+		if (prob(15))
+			corrupted_text += pick(corruption_options)
+
+		if (prob(95))
+			corrupted_text += letter
+		else
+			corrupted_text += pick(corruption_options)
+
+	if (prob(15))
+		corrupted_text += pick(corruption_options)
+
+	return corrupted_text
 
 #define is_alpha(X) ((text2ascii(X) <= 122) && (text2ascii(X) >= 97))
 #define is_digit(X) ((length(X) == 1) && (length(text2num(X)) == 1))

@@ -18,3 +18,19 @@ GLOBAL_VAR_INIT(bsa_unlock, FALSE)	//! BSA unlocked by head ID swipes
 GLOBAL_LIST_EMPTY(player_details)	//! ckey -> /datum/player_details
 
 GLOBAL_VAR_INIT(remote_control, TRUE) //! circuit shit
+
+// All religion stuff
+GLOBAL_VAR(religion)
+GLOBAL_VAR(deity)
+GLOBAL_VAR(bible_name)
+GLOBAL_VAR(bible_icon_state)
+GLOBAL_VAR(bible_item_state)
+GLOBAL_VAR(holy_weapon_type)
+GLOBAL_VAR(holy_armor_type)
+
+// Monkeycube/chicken/slime spam prevention
+GLOBAL_VAR_INIT(total_cube_monkeys, 0)
+GLOBAL_VAR_INIT(total_chickens, 0)
+GLOBAL_VAR_INIT(total_slimes, 0)
+
+GLOBAL_VAR_INIT(internal_tick_usage, 0.2 * world.tick_lag) //This var is updated every tick by a DLL if present, used to reduce lag

@@ -580,7 +580,7 @@
 /area/awaymission/caves/BMP_asteroid/level_four)
 "bH" = (
 /obj/effect/decal/remains/human,
-/obj/item/clothing/under/patriotsuit,
+/obj/item/clothing/under/misc/patriotsuit,
 /turf/open/floor/plating/asteroid/basalt/lava{
 	initial_gas_mix = "n2=23;o2=14"
 	},
@@ -924,8 +924,8 @@
 /area/awaymission/caves/BMP_asteroid/level_two)
 "cK" = (
 /obj/structure/sign/warning/securearea{
-	desc = "A warning sign which reads 'HOLY SHIT NIGGA WHAT ARE YOU DOING'.";
-	name = "\improper HOLY SHIT NIGGA WHAT ARE YOU DOING"
+	desc = "A warning sign which reads 'HOLY SHIT WHAT ARE YOU DOING'.";
+	name = "\improper HOLY SHIT WHAT ARE YOU DOING"
 	},
 /turf/closed/wall,
 /area/awaymission/caves/BMP_asteroid/level_two)

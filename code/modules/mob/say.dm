@@ -45,7 +45,7 @@
 		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
 		return
 
-	var/jb = is_banned_from(ckey, "OOC")
+	var/jb = is_banned_from(ckey, "DSAY")
 	if(QDELETED(src))
 		return
 
@@ -74,15 +74,10 @@
 		if(name != real_name)
 			alt_name = " (died as [real_name])"
 
-	var/K
-
-	if(key)
-		K = src.key
-
-	var/spanned = src.say_quote(message, get_spans())
+	var/spanned = say_quote(message)
 	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>[name]</span>[alt_name] <span class='message'>[emoji_parse(spanned)]</span></span>"
 	log_talk(message, LOG_SAY, tag="DEAD")
-	deadchat_broadcast(rendered, follow_target = src, speaker_key = K)
+	deadchat_broadcast(rendered, follow_target = src, speaker_key = key)
 
 ///Check if this message is an emote
 /mob/proc/check_emote(message, forced)
@@ -103,6 +98,7 @@
   *
   * Result can be
   * * MODE_WHISPER (Quiet speech)
+  * * MODE_SING (Singing)
   * * MODE_HEADSET (Common radio channel)
   * * A department radio (lots of values here)
   */
@@ -110,6 +106,8 @@
 	var/key = copytext(message, 1, 2)
 	if(key == "#")
 		return MODE_WHISPER
+	else if(key == "%")
+		return MODE_SING
 	else if(key == ";")
 		return MODE_HEADSET
 	else if(length(message) > 2 && (key in GLOB.department_radio_prefixes))

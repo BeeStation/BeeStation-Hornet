@@ -21,7 +21,7 @@
 	var/monkeys_to_win = 1
 	var/escaped_monkeys = 0
 
-	var/players_per_carrier = 30
+	var/players_per_carrier = 10
 
 	var/datum/team/monkey/monkey_team
 

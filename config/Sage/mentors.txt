@@ -1,0 +1,15 @@
+# Like admins.txt, but for mentors and without ranks.
+# Just put ckeys in the format of one ckey per line, and all the ckeys listed here will be made mentors.
+Carbonhell
+Jesslynbrooke
+MACIEKBAKI
+Pandolphina
+MiniMeatwad
+Daman453
+MiasmaToast
+Leonid Zurnadzhi
+MrGravyCakes
+that guy is taken
+Penginh
+Singulo
+lukanoktorios

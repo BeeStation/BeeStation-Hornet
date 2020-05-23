@@ -132,7 +132,8 @@
 	if(awakening || isspaceturf(user.loc))
 		return
 	to_chat(user, "<span class='notice'>You begin to awaken the Killer Tomato...</span>")
-	awakening = 1
+	awakening = TRUE
+	log_game("[key_name(user)] awakened a killer tomato at [AREACOORD(user)].")
 
 	spawn(30)
 		if(!QDELETED(src))

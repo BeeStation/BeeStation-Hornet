@@ -21,8 +21,13 @@
 		           /obj/item/weldingtool/hugetank = 2,
 		           /obj/item/clothing/head/welding = 2,
 		           /obj/item/clothing/gloves/color/yellow = 1)
+	refill_canister = /obj/item/vending_refill/tool
 	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
 	default_price = 20
 	extra_price = 80
 	payment_department = ACCOUNT_ENG
+
+/obj/item/vending_refill/tool
+	machine_name = "YouTool"
+	icon_state = "refill_engi"

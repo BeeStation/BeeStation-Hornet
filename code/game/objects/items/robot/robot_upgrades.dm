@@ -37,7 +37,7 @@
 	one_use = TRUE
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
-	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	heldname = sanitize_name(stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN))
 
 /obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/R)
 	. = ..()
@@ -269,8 +269,8 @@
 		R.SetEmagged(FALSE)
 
 /obj/item/borg/upgrade/lavaproof
-	name = "mining cyborg lavaproof tracks"
-	desc = "An upgrade kit to apply specialized coolant systems and insulation layers to mining cyborg tracks, enabling them to withstand exposure to molten rock."
+	name = "mining cyborg lavaproof chassis"
+	desc = "An upgrade kit to apply specialized coolant systems and insulation layers to a mining cyborg's chassis, enabling them to withstand exposure to molten rock."
 	icon_state = "ash_plating"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	require_module = 1
@@ -590,17 +590,18 @@
 
 /obj/item/borg/upgrade/pinpointer
 	name = "medical cyborg crew pinpointer"
-	desc = "A crew pinpointer module for the medical cyborg."
+	desc = "A crew pinpointer module for the medical cyborg. Permits remote access to the crew monitor."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinpointer_crew"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
+	var/datum/action/crew_monitor
 
 /obj/item/borg/upgrade/pinpointer/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 
-		var/obj/item/pinpointer/crew/PP = locate() in R
+		var/obj/item/pinpointer/crew/PP = locate() in R.module
 		if(PP)
 			to_chat(user, "<span class='warning'>This unit is already equipped with a pinpointer module.</span>")
 			return FALSE
@@ -608,13 +609,26 @@
 		PP = new(R.module)
 		R.module.basic_modules += PP
 		R.module.add_module(PP, FALSE, TRUE)
+		crew_monitor = new /datum/action/item_action/crew_monitor(src)
+		crew_monitor.Grant(R)
+		icon_state = "scanner"
+
 
 /obj/item/borg/upgrade/pinpointer/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
+		icon_state = "pinpointer_crew"
+		crew_monitor.Remove(R)
+		QDEL_NULL(crew_monitor)
 		var/obj/item/pinpointer/crew/PP = locate() in R.module
-		if (PP)
-			R.module.remove_module(PP, TRUE)
+		R.module.remove_module(PP, TRUE)
+
+/obj/item/borg/upgrade/pinpointer/ui_action_click()
+	if(..())
+		return
+	var/mob/living/silicon/robot/Cyborg = usr
+	GLOB.crewmonitor.show(Cyborg,Cyborg)
+
 
 /obj/item/borg/upgrade/transform
 	name = "borg module picker (Standard)"

@@ -35,6 +35,8 @@
 	//Sellection screen color
 	var/selection_color = "#ffffff"
 
+	//Overhead chat message colour
+	var/chat_color = "#ffffff"
 
 	//If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
 	var/req_admin_notify
@@ -61,6 +63,7 @@
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
 
 	var/tmp/list/gear_leftovers = list()
+	var/gimmick = FALSE //least hacky way i could think of for this
 
 //Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 //H is usually a human unless an /equip override transformed it
@@ -151,6 +154,11 @@
 	return TRUE
 
 /datum/job/proc/GetAntagRep()
+	if(CONFIG_GET(flag/equal_job_weight))
+		var/rep_value = CONFIG_GET(number/default_rep_value)
+		if(!rep_value)
+			rep_value = 0
+		return rep_value
 	. = CONFIG_GET(keyed_list/antag_rep)[lowertext(title)]
 	if(. == null)
 		return antag_rep
@@ -159,14 +167,14 @@
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
 	if(!H)
 		return FALSE
-	if(!visualsOnly)
-		var/datum/bank_account/bank_account = new(H.real_name, src)
-		bank_account.payday(STARTING_PAYCHECKS, TRUE)
-		H.account_id = bank_account.account_id
 	if(CONFIG_GET(flag/enforce_human_authority) && (title in GLOB.command_positions))
 		if(H.dna.species.id != "human")
 			H.set_species(/datum/species/human)
 			H.apply_pref_name("human", preference_source)
+	if(!visualsOnly)
+		var/datum/bank_account/bank_account = new(H.real_name, src)
+		bank_account.payday(STARTING_PAYCHECKS, TRUE)
+		H.account_id = bank_account.account_id
 
 	//Equip the rest of the gear
 	H.dna.species.before_equip_job(src, H, visualsOnly)

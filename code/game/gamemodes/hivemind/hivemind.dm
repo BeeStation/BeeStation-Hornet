@@ -82,7 +82,7 @@
 	for(var/j = 0, j < num_hosts, j++)
 		if (!antag_candidates.len)
 			break
-		var/datum/mind/host = antag_pick(antag_candidates)
+		var/datum/mind/host = antag_pick(antag_candidates, ROLE_HIVE)
 		hosts += host
 		host.special_role = ROLE_HIVE
 		host.restricted_roles = restricted_jobs

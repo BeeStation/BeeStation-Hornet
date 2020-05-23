@@ -74,6 +74,9 @@
 		if(!str || !length(str))
 			to_chat(user, "<span class='warning'>Invalid text!</span>")
 			return
+		if(CHAT_FILTER_CHECK(str))
+			to_chat(user, "<span class='warning'>Text contains prohibited word(s)!</span>")
+			return
 		label = str
 		to_chat(user, "<span class='notice'>You set the text to '[str]'.</span>")
 	else

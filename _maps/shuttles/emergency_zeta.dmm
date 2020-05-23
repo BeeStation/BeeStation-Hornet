@@ -219,7 +219,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "J" = (
-/obj/machinery/sleeper/survival_pod,
+/obj/machinery/stasis,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "K" = (
@@ -264,8 +264,8 @@
 	dir = 8
 	},
 /obj/structure/closet/abductor,
-/obj/item/clothing/under/pj/blue,
-/obj/item/clothing/under/pj/red,
+/obj/item/clothing/under/misc/pj/blue,
+/obj/item/clothing/under/misc/pj,
 /obj/item/clothing/shoes/sneakers/white,
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/glasses/eyepatch,

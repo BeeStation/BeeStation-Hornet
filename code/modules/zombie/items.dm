@@ -33,7 +33,10 @@
 		return
 	else if(isliving(target))
 		if(ishuman(target))
-			try_to_zombie_infect(target)
+			var/mob/living/carbon/human/H = target
+			var/flesh_wound = ran_zone(user.zone_selected)
+			if(prob(100-H.getarmor(flesh_wound, "melee")))
+				try_to_zombie_infect(target)
 		else
 			check_feast(target, user)
 
@@ -72,5 +75,5 @@
 		user.adjustFireLoss(-hp_gained, 0)
 		user.adjustCloneLoss(-hp_gained, 0)
 		user.updatehealth()
-		user.adjustBrainLoss(-hp_gained) // Zom Bee gibbers "BRAAAAISNSs!1!"
+		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, -hp_gained) // Zom Bee gibbers "BRAAAAISNSs!1!"
 		user.set_nutrition(min(user.nutrition + hp_gained, NUTRITION_LEVEL_FULL))

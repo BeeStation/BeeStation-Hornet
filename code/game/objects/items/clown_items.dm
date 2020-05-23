@@ -49,7 +49,7 @@
 				msg = "It's started to get a little smaller than it used to be, but it'll definitely still last for a while."
 			else
 				msg = "It's seen some light use, but it's still pretty fresh."
-	to_chat(user, "<span class='notice'>[msg]</span>")
+	. += "<span class='notice'>[msg]</span>"
 
 /obj/item/soap/nanotrasen
 	desc = "A heavy duty bar of Nanotrasen brand soap. Smells of plasma."
@@ -123,6 +123,13 @@
 		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+			if(istype(target, /obj/item/clothing) && HAS_TRAIT(target, TRAIT_SPRAYPAINTED))
+				var/obj/item/clothing/C = target
+				var/mob/living/carbon/human/H = user
+				C.flash_protect -= 1
+				C.tint -= 2
+				H.update_tint()
+				REMOVE_TRAIT(target, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
 			for(var/obj/effect/decal/cleanable/C in target)
 				qdel(C)
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)

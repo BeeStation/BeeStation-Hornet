@@ -4,8 +4,7 @@ Changes here can have widespread effects: make sure you test well.
 Ask ninjanomnom if they're around
 */
 
-#define RAD_BACKGROUND_RADIATION 9 					// How much radiation is harmless to a mob, this is also when radiation waves stop spreading
-													// WARNING: Lowering this value significantly increases SSradiation load
+#define RAD_BACKGROUND_RADIATION 9 					// How much radiation is harmless to a mob
 
 // apply_effect((amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION), IRRADIATE, blocked)
 #define RAD_MOB_COEFFICIENT 0.20					// Radiation applied is multiplied by this
@@ -43,7 +42,10 @@ Ask ninjanomnom if they're around
 // contamination_strength = 	(strength-RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT
 #define RAD_MINIMUM_CONTAMINATION 350				// How strong does a radiation wave have to be to contaminate objects
 #define RAD_CONTAMINATION_CHANCE_COEFFICIENT 0.01	// Higher means higher strength scaling contamination chance
-#define RAD_CONTAMINATION_STR_COEFFICIENT 0.25		// Higher means higher strength scaling contamination strength
+#define RAD_CONTAMINATION_STR_COEFFICIENT 0.20		// Higher means higher strength scaling contamination strength
 #define RAD_DISTANCE_COEFFICIENT 1					// Lower means further rad spread
 
-#define RAD_HALF_LIFE 90							// The half-life of contaminated objects
+#define RAD_HALF_LIFE 45							// The half-life of contaminated objects
+
+#define RAD_WAVE_MINIMUM 10							// Radiation waves with less than this amount of power stop spreading
+													// WARNING: Reducing can make rads subsytem more expensive

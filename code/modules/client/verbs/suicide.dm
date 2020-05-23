@@ -232,9 +232,13 @@
 
 /mob/living/proc/suicide_log()
 	log_game("[key_name(src)] committed suicide at [AREACOORD(src)] as [src.type].")
+	if(CONFIG_GET(flag/restricted_suicide))
+		message_admins("[key_name(src)] committed suicide at [AREACOORD(src)] as [src.type].")
 
 /mob/living/carbon/human/suicide_log()
 	log_game("[key_name(src)] (job: [src.job ? "[src.job]" : "None"]) committed suicide at [AREACOORD(src)].")
+	if(CONFIG_GET(flag/restricted_suicide))
+		message_admins("[key_name(src)] (job: [src.job ? "[src.job]" : "None"]) committed suicide at [AREACOORD(src)].")
 
 /mob/living/proc/canSuicide()
 	switch(stat)
@@ -254,4 +258,14 @@
 	if(!(mobility_flags & MOBILITY_USE))	//just while I finish up the new 'fun' suiciding verb. This is to prevent metagaming via suicide
 		to_chat(src, "You can't commit suicide whilst immobile! ((You can type Ghost instead however.))")
 		return
+	if(CONFIG_GET(flag/restricted_suicide))
+		if(alert("Commiting suicide is strongly discouraged, and in some cases may be against the rules. Consider entering the cryopods or contacting admins. Are you sure you want to continue?",,"Confirm","Cancel") != "Confirm")
+			return
+		if(world.time < (SSticker.round_start_time + (15 MINUTES)))
+			var/timeleft = ((SSticker.round_start_time + (15 MINUTES)) - world.time)
+			to_chat(src, "<span class='boldannounce'>Committing suicide at the start of the round is not allowed. Time until suicide is possible: [DisplayTimeText(timeleft)].</span>")
+			if(src.job)
+				message_admins("[key_name(src)] (job: [src.job]) attempted to commit suicide at [AREACOORD(src)]. Time until suicide is possible: [DisplayTimeText(timeleft)].")
+			return
+
 	return TRUE

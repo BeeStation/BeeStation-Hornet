@@ -16,7 +16,7 @@
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
 	req_access = list(ACCESS_SEC_DOORS)
-	power_channel = EQUIP	//drains power from the EQUIPMENT channel
+	power_channel = AREA_USAGE_EQUIP	//drains power from the EQUIPMENT channel
 
 	var/base_icon_state = "standard"
 	var/scan_range = 7
@@ -560,6 +560,7 @@
 	//Shooting Code:
 	A.preparePixelProjectile(target, T)
 	A.firer = src
+	A.fired_from = src
 	A.fire()
 	return A
 
@@ -674,6 +675,8 @@
 	desc = "An energy blaster auto-turret."
 
 /obj/machinery/porta_turret/syndicate/energy/heavy
+	name = "syndicate heavy laser turret"
+	desc = "A heavy laser auto-turret."
 	icon_state = "standard_lethal"
 	base_icon_state = "standard"
 	stun_projectile = /obj/item/projectile/energy/electrode
@@ -689,12 +692,16 @@
 
 
 /obj/machinery/porta_turret/syndicate/pod
+	name = "syndicate semi-auto turret"
+	desc = "A ballistic semi-automatic auto-turret."
 	integrity_failure = 20
 	max_integrity = 40
 	stun_projectile = /obj/item/projectile/bullet/syndicate_turret
 	lethal_projectile = /obj/item/projectile/bullet/syndicate_turret
 
 /obj/machinery/porta_turret/syndicate/shuttle
+	name = "syndicate penetrator turret"
+	desc = "A ballistic penetrator auto-turret."
 	scan_range = 9
 	shot_delay = 3
 	stun_projectile = /obj/item/projectile/bullet/p50/penetrator/shuttle
@@ -826,10 +833,10 @@
 		T.cp = src
 
 /obj/machinery/turretid/examine(mob/user)
-	..()
+	. += ..()
 	if(issilicon(user) && (!stat & BROKEN))
-		to_chat(user, "<span class='notice'>Ctrl-click [src] to [ enabled ? "disable" : "enable"] turrets.</span>")
-		to_chat(user, "<span class='notice'>Alt-click [src] to set turrets to [ lethal ? "stun" : "kill"].</span>")
+		. += {"<span class='notice'>Ctrl-click [src] to [ enabled ? "disable" : "enable"] turrets.</span>
+					<span class='notice'>Alt-click [src] to set turrets to [ lethal ? "stun" : "kill"].</span>"}
 
 /obj/machinery/turretid/attackby(obj/item/I, mob/user, params)
 	if(stat & BROKEN)

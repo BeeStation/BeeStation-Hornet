@@ -75,7 +75,7 @@
 	name = "Change Minds!"
 	weight = 1
 	typepath = /datum/round_event/wizard/shuffleminds
-	max_occurrences = 3
+	max_occurrences = 0
 	earliest_start = 0 MINUTES
 
 /datum/round_event/wizard/shuffleminds/start()

@@ -6,3 +6,4 @@ aurora_caelus.ogg is Music for Manatees, by Kevin Macleod. It has been licensed 
 	It has been cropped for use ingame, and also fades out.
 antag/assimilation.ogg is Alien Spaceship UFO Sound effect, by Daniel Simon (http://soundbible.com/2213-Alien-Spaceship-UFO.html). It has been licensed under CC-BY 3.0 license.
 	It has been cropped for use ingame, and also fades out
+title0.ogg is Endless Space by Solus. It has been licensed under CC-BY 3.0 license. Source file downloaded from https://www.newgrounds.com/audio/listen/74946

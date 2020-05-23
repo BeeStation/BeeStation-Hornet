@@ -35,8 +35,8 @@
 		recharge_newshot()
 
 /obj/item/gun/syringe/examine(mob/user)
-	..()
-	to_chat(user, "Can hold [max_syringes] syringe\s. Has [syringes.len] syringe\s remaining.")
+	. = ..()
+	. += "Can hold [max_syringes] syringe\s. Has [syringes.len] syringe\s remaining."
 
 /obj/item/gun/syringe/attack_self(mob/living/user)
 	if(!syringes.len)
@@ -72,6 +72,8 @@
 	desc = "A modification of the syringe gun design, using a rotating cylinder to store up to six syringes."
 	icon_state = "rapidsyringegun"
 	max_syringes = 6
+	automatic = 1
+	fire_rate = 2
 
 /obj/item/gun/syringe/syndicate
 	name = "dart pistol"

@@ -31,6 +31,7 @@
 	var/mob/living/simple_animal/mouse/movement_target
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
+	mobsay_color = "#FFD586"
 
 	do_footstep = TRUE
 
@@ -156,7 +157,7 @@
 	cats_deployed = 1
 	for(var/cat_type in family)
 		if(family[cat_type] > 0)
-			for(var/i in 1 to min(family[cat_type],100)) //Limits to about 500 cats, you wouldn't think this would be needed (BUT IT IS)
+			for(var/i in 1 to min(family[cat_type],25)) //Limits to about 25 cats, whoever thought leaving the max at 500 was a genius. Prevents catsplosions.
 				new cat_type(loc)
 
 /mob/living/simple_animal/pet/cat/Proc
@@ -283,8 +284,8 @@
 	if(health < maxHealth)
 		adjustBruteLoss(-8) //Fast life regen
 	for(var/obj/item/reagent_containers/food/snacks/donut/D in range(1, src)) //Frosts nearby donuts!
-		if(!D.is_frosted)
-			D.frost_donut()
+		if(!D.is_decorated)
+			D.decorate_donut()
 
 /mob/living/simple_animal/pet/cat/cak/attack_hand(mob/living/L)
 	..()

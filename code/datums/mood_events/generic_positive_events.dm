@@ -94,6 +94,11 @@
 	mood_change = 10 //maybe being a cultist isnt that bad after all
 	hidden = TRUE
 
+/datum/mood_event/determined
+	description = "<span class='nicegreen'>I am determined to keep my friends safe.</span>\n"
+	mood_change = 2
+	hidden = TRUE
+
 /datum/mood_event/family_heirloom
 	description = "<span class='nicegreen'>My family heirloom is safe with me.</span>\n"
 	mood_change = 1
@@ -144,6 +149,22 @@
 	description = "<span class='nicegreen'>That work of art was so great it made me believe in the goodness of humanity. Says a lot in a place like this.</span>\n"
 	mood_change = 6
 	timeout = 5 MINUTES
+
+/datum/mood_event/bottle_flip
+	description = "<span class='nicegreen'>The bottle landing like that was satisfying.</span>\n"
+	mood_change = 2
+	timeout = 3 MINUTES
+
+/datum/mood_event/hope_lavaland
+	description = "<span class='nicegreen'>What a peculiar emblem.  It makes me feel hopeful for my future.</span>\n"
+	mood_change = 5
+
+/datum/mood_event/nanite_happiness
+	description = "<span class='nicegreen robot'>+++++++HAPPINESS ENHANCEMENT+++++++</span>\n"
+	mood_change = 7
+
+/datum/mood_event/nanite_happiness/add_effects(message)
+	description = "<span class='nicegreen robot'>+++++++[message]+++++++</span>\n"
 
 /datum/mood_event/area
 	description = "" //Fill this out in the area

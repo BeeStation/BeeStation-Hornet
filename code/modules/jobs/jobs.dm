@@ -52,7 +52,9 @@ GLOBAL_LIST_INIT(security_positions, list(
 	"Head of Security",
 	"Warden",
 	"Detective",
-	"Security Officer"))
+	"Security Officer",
+	"Brig Physician",
+	"Deputy"))
 
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(

@@ -33,7 +33,7 @@
 #  KEY `idx_ban_isbanned` (`ckey`,`role`,`unbanned_datetime`,`expiration_time`),
 #  KEY `idx_ban_isbanned_details` (`ckey`,`ip`,`computerid`,`role`,`unbanned_datetime`,`expiration_time`),
 #  KEY `idx_ban_count` (`bantime`,`a_ckey`,`applies_to_admins`,`unbanned_datetime`,`expiration_time`)
-#) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+#) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 #This is to prevent the destruction of existing data and allow rollbacks to be performed in the event of an error during conversion
 #Once conversion is complete remember to rename the old and new ban tables; it's up to you if you want to keep the old table
 #

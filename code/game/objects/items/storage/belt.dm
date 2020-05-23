@@ -27,11 +27,6 @@
 	. = ..()
 	update_icon()
 
-/obj/item/storage/belt/examine(mob/user)
-	..()
-	clothing_resistance_flag_examine_message(user)
-
-
 /obj/item/storage/belt/utility
 	name = "toolbelt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
 	desc = "Holds tools."
@@ -43,6 +38,8 @@
 /obj/item/storage/belt/utility/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 21
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
@@ -62,7 +59,11 @@
 		/obj/item/holosign_creator/engineering,
 		/obj/item/forcefield_projector,
 		/obj/item/assembly/signaler,
-		/obj/item/lightreplacer
+		/obj/item/lightreplacer,
+		/obj/item/construction/rcd,
+		/obj/item/pipe_dispenser,
+		/obj/item/inducer,
+		/obj/item/plunger
 		))
 	STR.can_hold = can_hold
 
@@ -129,6 +130,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_w_class = WEIGHT_CLASS_BULKY
+	STR.max_combined_w_class = 21
 	STR.can_hold = typecacheof(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
@@ -175,7 +177,10 @@
 		/obj/item/implant,
 		/obj/item/implanter,
 		/obj/item/pinpointer/crew,
-		/obj/item/holosign_creator/medical
+		/obj/item/holosign_creator/medical,
+		/obj/item/pipe_dispenser/plumbing,
+		/obj/item/construction/plumbing,
+		/obj/item/plunger
 		))
 
 /obj/item/storage/belt/security
@@ -188,11 +193,11 @@
 /obj/item/storage/belt/security/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 5
+	STR.max_items = 6
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.can_hold = typecacheof(list(
 		/obj/item/melee/baton,
-		/obj/item/melee/classic_baton,
+		/obj/item/melee/classic_baton/police,
 		/obj/item/grenade,
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/restraints/handcuffs,
@@ -203,11 +208,12 @@
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/kitchen/knife/combat,
 		/obj/item/flashlight/seclite,
-		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/melee/classic_baton/police/telescopic,
 		/obj/item/radio,
 		/obj/item/clothing/gloves,
 		/obj/item/restraints/legcuffs/bola,
-		/obj/item/holosign_creator/security
+		/obj/item/holosign_creator/security,
+		/obj/item/club
 		))
 
 /obj/item/storage/belt/security/full/PopulateContents()
@@ -216,6 +222,18 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/club(src)
+	update_icon()
+
+/obj/item/storage/belt/security/deputy
+	name = "deputy security belt"
+
+/obj/item/storage/belt/security/deputy/PopulateContents()
+	new /obj/item/melee/classic_baton/police/deputy(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/restraints/handcuffs/cable(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/flashlight/seclite(src)
 	update_icon()
 
 /obj/item/storage/belt/security/webbing
@@ -323,6 +341,10 @@
 /obj/item/storage/belt/soulstone/full/chappy/PopulateContents()
 	for(var/i in 1 to 6)
 		new /obj/item/soulstone/anybody/chaplain(src)
+
+/obj/item/storage/belt/soulstone/full/purified/PopulateContents()
+	for(var/i in 1 to 6)
+		new /obj/item/soulstone/anybody/purified(src)
 
 /obj/item/storage/belt/champion
 	name = "championship belt"
@@ -451,6 +473,8 @@
 		/obj/item/multitool,
 		/obj/item/reagent_containers/food/drinks/bottle/molotov,
 		/obj/item/grenade/plastic/c4,
+		/obj/item/reagent_containers/food/snacks/grown/cherry_bomb,
+		/obj/item/reagent_containers/food/snacks/grown/firelemon
 		))
 
 /obj/item/storage/belt/grenade/full/PopulateContents()
@@ -468,6 +492,11 @@
 		/obj/item/multitool = 1)
 	generate_items_inside(items_inside,src)
 
+/obj/item/storage/belt/grenade/full/webbing
+	name = "grenadier chest rig"
+	desc = "A set of tactical webbing stocked full of grenades."
+	icon_state = "militarywebbing"
+	item_state = "militarywebbing"
 
 /obj/item/storage/belt/wands
 	name = "wand belt"
@@ -517,7 +546,8 @@
 		/obj/item/key/janitor,
 		/obj/item/clothing/gloves,
 		/obj/item/melee/flyswatter,
-		/obj/item/assembly/mousetrap
+		/obj/item/assembly/mousetrap,
+		/obj/item/paint/paint_remover
 		))
 
 /obj/item/storage/belt/janitor/full/PopulateContents()
@@ -641,6 +671,13 @@
 	item_state = "fannypack_yellow"
 	item_color = "yellow"
 
+/obj/item/storage/belt/fannypack/bustin
+	name = "exterminator's belt"
+	desc = " "
+	icon_state = "bustinbelt"
+	item_state = "bustinbelt"
+	item_color = "bustinbelt"
+
 /obj/item/storage/belt/sabre
 	name = "sabre sheath"
 	desc = "An ornate sheath designed to hold an officer's blade."
@@ -659,9 +696,9 @@
 		))
 
 /obj/item/storage/belt/sabre/examine(mob/user)
-	..()
+	. = ..()
 	if(length(contents))
-		to_chat(user, "<span class='notice'>Alt-click it to quickly draw the blade.</span>")
+		. += "<span class='notice'>Alt-click it to quickly draw the blade.</span>"
 
 /obj/item/storage/belt/sabre/AltClick(mob/user)
 	if(!iscarbon(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))

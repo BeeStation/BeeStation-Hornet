@@ -4,7 +4,7 @@
 	helptext = "Will alert nearby crew if any external limbs are regenerated. Can be used while unconscious."
 	button_icon_state = "regenerate"
 	chemical_cost = 10
-	dna_cost = 0
+	dna_cost = 1
 	req_stat = UNCONSCIOUS
 
 /datum/action/changeling/regenerate/sting_action(mob/living/user)
@@ -30,7 +30,7 @@
 				B = new C.dna.species.mutant_brain()
 			else
 				B = new()
-			B.vital = FALSE
+			B.organ_flags &= ~ORGAN_VITAL
 			B.decoy_override = TRUE
 			B.Insert(C)
 		C.regenerate_organs()

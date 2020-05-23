@@ -1,0 +1,56 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/washing_machine,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/machinery/washing_machine,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/clothing/neck/scarf/black,
+/obj/item/clothing/neck/scarf/purple,
+/obj/item/clothing/neck/scarf/yellow,
+/obj/item/clothing/neck/tie/black,
+/obj/item/clothing/neck/tie/black,
+/obj/item/clothing/suit/bluetag,
+/obj/item/clothing/suit/bluetag,
+/obj/item/clothing/suit/redtag,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/machinery/washing_machine,
+/obj/item/clothing/shoes/wheelys,
+/obj/item/clothing/shoes/laceup{
+	pixel_y = 5
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/machinery/washing_machine,
+/obj/item/clothing/head/santa,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+b
+e
+"}
+(2,1,1) = {"
+b
+b
+b
+"}
+(3,1,1) = {"
+i
+d
+c
+"}

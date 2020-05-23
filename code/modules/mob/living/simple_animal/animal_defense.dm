@@ -115,21 +115,23 @@
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return
 	..()
+	if(QDELETED(src))
+		return
 	var/bomb_armor = getarmor(null, "bomb")
 	switch (severity)
-		if (1)
+		if (EXPLODE_DEVASTATE)
 			if(prob(bomb_armor))
 				adjustBruteLoss(500)
 			else
 				gib()
 				return
-		if (2)
+		if (EXPLODE_HEAVY)
 			var/bloss = 60
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5
 			adjustBruteLoss(bloss)
 
-		if(3)
+		if(EXPLODE_LIGHT)
 			var/bloss = 30
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5

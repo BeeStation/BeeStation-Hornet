@@ -215,6 +215,19 @@
 	results = list(/datum/reagent/medicine/bicaridine = 3)
 	required_reagents = list(/datum/reagent/carbon = 1, /datum/reagent/oxygen = 1, /datum/reagent/consumable/sugar = 1)
 
+/datum/chemical_reaction/dexalin
+	name = "Dexalin"
+	id = "dexalin"
+	results = list(/datum/reagent/medicine/dexalin = 5)
+	required_reagents = list(/datum/reagent/oxygen = 5)
+	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
+
+/datum/chemical_reaction/dexalinp
+	name = "Dexalin Plus"
+	id = "dexalinp"
+	results = list(/datum/reagent/medicine/dexalinp = 3)
+	required_reagents = list(/datum/reagent/medicine/dexalin = 1, /datum/reagent/carbon = 1, /datum/reagent/iron = 1)
+
 /datum/chemical_reaction/kelotane
 	name = "Kelotane"
 	id = /datum/reagent/medicine/kelotane
@@ -275,6 +288,20 @@
 	name = "Liquid Solder"
 	id = /datum/reagent/medicine/liquid_solder
 	results = list(/datum/reagent/medicine/liquid_solder = 3)
-	required_reagents = list( /datum/reagent/consumable/ethanol = 1, /datum/reagent/copper = 1, /datum/reagent/silver = 1)
+	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/copper = 1, /datum/reagent/silver = 1)
 	required_temp = 370
 	mix_message = "The mixture becomes a metallic slurry."
+
+/datum/chemical_reaction/carthatoline
+	name = "Carthatoline"
+	id = "carthatoline"
+	results = list(/datum/reagent/medicine/carthatoline = 3)
+	required_reagents = list(/datum/reagent/medicine/antitoxin = 1, /datum/reagent/carbon = 2)
+	required_catalysts = list(/datum/reagent/toxin/plasma = 1)
+
+/datum/chemical_reaction/hepanephrodaxon
+	name = "Hepanephrodaxon"
+	id = "hepanephrodaxon"
+	results = list(/datum/reagent/medicine/hepanephrodaxon = 5)
+	required_reagents = list(/datum/reagent/medicine/carthatoline = 2, /datum/reagent/carbon = 2, /datum/reagent/lithium = 1)
+	required_catalysts = list(/datum/reagent/toxin/plasma = 5)

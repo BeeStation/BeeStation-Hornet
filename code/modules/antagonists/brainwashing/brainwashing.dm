@@ -45,6 +45,22 @@
 	to_chat(owner, "<big><span class='warning'><b>You feel the weight of the Directives disappear! You no longer have to obey them.</b></span></big>")
 	owner.announce_objectives()
 
+/datum/antagonist/brainwashed/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Give traitor appearence on hud (If they are not an antag already)
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
+	traitorhud.join_hud(owner.current)
+	if(!owner.antag_hud_icon_state)
+		set_antag_hud(owner.current, "brainwash")
+
+/datum/antagonist/brainwashed/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Clear the hud if they haven't become something else and had the hud overwritten
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
+	traitorhud.leave_hud(owner.current)
+	if(owner.antag_hud_icon_state == "brainwash")
+		set_antag_hud(owner.current, null)
+
 /datum/antagonist/brainwashed/admin_add(datum/mind/new_owner,mob/admin)
 	var/mob/living/carbon/C = new_owner.current
 	if(!istype(C))
