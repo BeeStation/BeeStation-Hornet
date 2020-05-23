@@ -1243,6 +1243,7 @@
 	name = "blast door"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/security/execution/transfer)
 "ada" = (
@@ -2496,6 +2497,7 @@
 /area/security/execution/transfer)
 "afu" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/security/execution/transfer)
 "afv" = (
@@ -3983,6 +3985,7 @@
 /area/security/brig)
 "aiA" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "aiB" = (
@@ -7052,6 +7055,7 @@
 /area/maintenance/port/fore)
 "aqQ" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "aqR" = (
@@ -9145,6 +9149,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "ayB" = (
@@ -9152,6 +9157,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "ayE" = (
@@ -9163,6 +9169,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "ayG" = (
@@ -13192,6 +13199,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/hallway/primary/port)
 "aJe" = (
@@ -13703,6 +13711,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/hallway/primary/port)
 "aKu" = (
@@ -13710,6 +13719,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/hallway/primary/port)
 "aKv" = (
@@ -13721,6 +13731,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/hallway/primary/port)
 "aKw" = (
@@ -13758,6 +13769,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/hallway/primary/port)
 "aKy" = (
@@ -15540,6 +15552,7 @@
 	id = "bridge blast";
 	name = "bridge blast door"
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/bridge)
 "aPT" = (
@@ -15551,6 +15564,7 @@
 	name = "bridge blast door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/bridge)
 "aPU" = (
@@ -15566,6 +15580,7 @@
 	id = "bridge blast";
 	name = "bridge blast door"
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/bridge)
 "aPV" = (
@@ -15583,6 +15598,7 @@
 	id = "bridge blast";
 	name = "bridge blast door"
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/bridge)
 "aPW" = (
@@ -15598,6 +15614,7 @@
 	id = "bridge blast";
 	name = "bridge blast door"
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/bridge)
 "aPX" = (
@@ -15609,6 +15626,7 @@
 	id = "bridge blast";
 	name = "bridge blast door"
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/bridge)
 "aPY" = (
@@ -22169,8 +22187,9 @@
 /area/maintenance/starboard)
 "bja" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
-/area/maintenance/disposal)
+/area/maintenance/port/fore)
 "bjb" = (
 /obj/machinery/conveyor{
 	id = "garbage"
@@ -22794,6 +22813,7 @@
 /area/maintenance/disposal)
 "bkD" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "bkE" = (
@@ -30514,6 +30534,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/storage/tech)
 "bEV" = (
@@ -30527,6 +30548,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/storage/tech)
 "bEW" = (
@@ -30537,6 +30559,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/storage/tech)
 "bEX" = (
@@ -30550,6 +30573,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/storage/tech)
 "bEZ" = (
@@ -31020,6 +31044,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/storage/tech)
 "bGs" = (
@@ -32475,6 +32500,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/storage/tech)
 "bKs" = (
@@ -32486,6 +32512,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/storage/tech)
 "bKt" = (
@@ -32945,6 +32972,7 @@
 /area/maintenance/port/aft)
 "bLv" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bLw" = (
@@ -33277,6 +33305,7 @@
 /area/science/xenobiology)
 "bMs" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/science/research)
 "bMt" = (
@@ -34253,6 +34282,7 @@
 /area/engine/atmos)
 "bPn" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "bPo" = (
@@ -37447,6 +37477,7 @@
 /area/engine/break_room)
 "bZi" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bZm" = (
@@ -37958,6 +37989,7 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "caJ" = (
@@ -44838,6 +44870,7 @@
 "czQ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "czT" = (
@@ -47179,6 +47212,7 @@
 /area/maintenance/starboard/aft)
 "cOT" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "cPA" = (
@@ -47924,6 +47958,7 @@
 "drr" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "dsL" = (
@@ -48508,6 +48543,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "epI" = (
@@ -50242,6 +50278,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/hallway/secondary/exit)
 "hhs" = (
@@ -51513,6 +51550,7 @@
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/hallway/secondary/exit)
 "jOu" = (
@@ -52779,6 +52817,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/hallway/secondary/exit)
 "lIv" = (
@@ -53231,11 +53270,13 @@
 "mko" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "mlA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "mnC" = (
@@ -53254,6 +53295,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "moM" = (
@@ -53432,6 +53474,7 @@
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 1
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "mAO" = (
@@ -55952,6 +55995,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "qSg" = (
@@ -56684,6 +56728,7 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "smZ" = (
@@ -57251,6 +57296,7 @@
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "tsR" = (
@@ -59255,6 +59301,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "wyd" = (
@@ -60165,6 +60212,7 @@
 "xLF" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "xLQ" = (
@@ -73983,7 +74031,7 @@ beO
 beP
 bgj
 beO
-bja
+tLw
 beO
 tLw
 tLw
@@ -75746,7 +75794,7 @@ aaa
 aaa
 aaf
 aaa
-ali
+bja
 aoX
 qMr
 xpo
@@ -76003,7 +76051,7 @@ aaa
 aaa
 aaf
 aaa
-ali
+bja
 amC
 oeC
 alU
@@ -78314,9 +78362,9 @@ alU
 aad
 aad
 abe
-ali
+bja
 aoV
-ali
+bja
 aad
 aad
 aad
@@ -78571,9 +78619,9 @@ alU
 aad
 aad
 aad
-ali
+bja
 aaf
-ali
+bja
 aad
 aad
 aad
@@ -78830,7 +78878,7 @@ aad
 aad
 alU
 aoV
-ali
+bja
 aad
 aad
 aad
@@ -79854,9 +79902,9 @@ aaa
 aaa
 aaa
 aaa
-ali
+bja
 anK
-ali
+bja
 aaH
 atR
 alU
@@ -80119,8 +80167,8 @@ aaf
 aaf
 aaH
 alU
-ali
-ali
+bja
+bja
 alU
 axm
 ayz
@@ -80368,9 +80416,9 @@ aaa
 aaa
 aaa
 aaa
-ali
+bja
 aKY
-ali
+bja
 asC
 aaf
 aaH
@@ -80625,9 +80673,9 @@ aaa
 aae
 aaa
 aaf
-ali
+bja
 amC
-ali
+bja
 asC
 aaH
 aaf
@@ -80880,8 +80928,8 @@ aaa
 aaa
 aaa
 aaa
-ali
-ali
+bja
+bja
 alU
 ank
 alU
@@ -81137,7 +81185,7 @@ aaa
 aaa
 aaa
 aaa
-ali
+bja
 aad
 aad
 aad
@@ -81394,7 +81442,7 @@ aaa
 aaa
 aaa
 aaa
-ali
+bja
 aad
 aad
 aad
@@ -81651,7 +81699,7 @@ aaa
 aaa
 aaa
 aaa
-ali
+bja
 aad
 aad
 aad
@@ -81908,10 +81956,10 @@ aaa
 aaa
 aaa
 aaa
-ali
-ali
+bja
+bja
 alU
-ali
+bja
 alU
 alU
 alU
@@ -103755,7 +103803,7 @@ aaf
 aaa
 aaa
 aaf
-alO
+nvp
 abg
 abg
 abz
@@ -104012,7 +104060,7 @@ aaf
 aaa
 aaa
 aaa
-alO
+nvp
 abg
 abg
 abg
@@ -104269,7 +104317,7 @@ aaf
 aaf
 aaa
 aaa
-alO
+nvp
 abg
 abg
 abg
@@ -104784,7 +104832,7 @@ aaa
 aaf
 aaf
 aaa
-alO
+nvp
 anf
 apD
 alP
@@ -105298,7 +105346,7 @@ aaa
 aaa
 aaa
 aaf
-alO
+nvp
 aoQ
 anf
 alP
@@ -106322,7 +106370,7 @@ aaa
 aaa
 aaa
 aaa
-alO
+nvp
 amx
 anf
 anf
@@ -110216,7 +110264,7 @@ aPq
 aPq
 maR
 aPq
-aNa
+hUH
 hUH
 hUH
 aaa
@@ -110459,7 +110507,7 @@ aaa
 aaa
 aaa
 aaf
-aNa
+hUH
 jsS
 aPq
 aPq
@@ -110473,7 +110521,7 @@ aPq
 aPq
 maR
 aPq
-aNa
+hUH
 aaf
 aaf
 aaf
@@ -110716,7 +110764,7 @@ aaa
 aaa
 aaa
 aaf
-aNa
+hUH
 uxz
 mfh
 kkh
@@ -110973,16 +111021,16 @@ aaa
 aaa
 aaa
 aaa
-aNa
-aNa
+hUH
+hUH
 vbZ
 gKL
 aMZ
 gKL
 lHF
-aNa
-aNa
-aNa
+hUH
+hUH
+hUH
 lHF
 gKL
 aMZ
@@ -111499,7 +111547,7 @@ aaf
 aaa
 pXU
 hQr
-ebe
+aMZ
 msQ
 xxx
 aaa
