@@ -1090,7 +1090,6 @@
 	name = "blast door"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/window/westright{
 	dir = 1;
 	name = "Transfer Room";
@@ -1108,6 +1107,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
@@ -2314,7 +2317,6 @@
 	name = "Armory";
 	req_access_txt = "3"
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -2322,6 +2324,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "aeZ" = (
@@ -2863,7 +2869,6 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "agq" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/window/southleft{
 	base_state = "right";
 	icon_state = "right";
@@ -2883,6 +2888,10 @@
 	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "agr" = (
@@ -12394,7 +12403,6 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint/auxiliary)
 "aHa" = (
-/obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
 /obj/item/paper,
 /obj/machinery/door/window/westright{
@@ -12403,6 +12411,10 @@
 	req_access_txt = "1"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "aHb" = (
@@ -13721,7 +13733,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -13736,6 +13747,10 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/port)
 "aKx" = (
@@ -14881,7 +14896,6 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/kitchen)
 "aNN" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
 	name = "Hydroponics";
 	req_access_txt = "35"
@@ -14891,6 +14905,10 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aNO" = (
@@ -16969,8 +16987,13 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "aUi" = (
@@ -17433,8 +17456,13 @@
 /area/crew_quarters/kitchen)
 "aVA" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
 /obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "aVB" = (
@@ -19024,11 +19052,14 @@
 /area/hydroponics)
 "ban" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/window/northleft{
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bao" = (
@@ -19045,12 +19076,15 @@
 /area/crew_quarters/heads/captain)
 "bap" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/window/westright{
 	dir = 1;
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "baq" = (
@@ -20880,10 +20914,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
-"bfJ" = (
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "bfK" = (
 /turf/closed/wall,
 /area/security/checkpoint/medical)
@@ -21855,10 +21885,15 @@
 	name = "Chemistry Desk";
 	req_access_txt = "33"
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "chemistry_shutters";
 	name = "Chemistry shutters"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/medical/chemistry)
@@ -22198,6 +22233,12 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
@@ -23032,10 +23073,15 @@
 	name = "Chemistry Desk";
 	req_access_txt = "33"
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "chemistry_shutters";
 	name = "Chemistry shutters"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/medical/chemistry)
@@ -24411,10 +24457,12 @@
 /area/quartermaster/office)
 "boS" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/window/westleft{
 	name = "Cargo Desk";
 	req_access_txt = "31"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -24701,7 +24749,10 @@
 	name = "Chemistry Desk";
 	req_access_txt = "33"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plating,
 /area/medical/chemistry)
 "bpG" = (
@@ -32647,7 +32698,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bKP" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/window/westleft{
 	name = "Delivery Desk";
 	req_access_txt = "50"
@@ -32658,6 +32708,12 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -34856,7 +34912,6 @@
 /area/engine/atmos)
 "bRs" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor/heavy,
 /obj/machinery/door/window/northleft{
 	dir = 4;
 	name = "Atmospherics Desk";
@@ -34867,6 +34922,12 @@
 	name = "Atmospherics Blast Door"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bRu" = (
@@ -48525,7 +48586,10 @@
 	input_dir = 2;
 	output_dir = 1
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "eyO" = (
@@ -56253,7 +56317,12 @@
 	req_access_txt = "47"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor/heavy,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "rKg" = (
@@ -98546,7 +98615,7 @@ bnF
 bqQ
 bsx
 bhh
-bfJ
+eLl
 eFe
 bhh
 bhh
@@ -98803,7 +98872,7 @@ bol
 bqQ
 bsx
 bst
-bfJ
+eLl
 bhh
 bhh
 bwK
