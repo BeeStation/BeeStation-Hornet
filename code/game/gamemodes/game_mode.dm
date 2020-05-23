@@ -292,11 +292,16 @@
 	if(!round_converted && (!continuous[config_tag] || (continuous[config_tag] && midround_antag[config_tag]))) //Non-continuous or continous with replacement antags
 		if(!continuous_sanity_checked) //make sure we have antags to be checking in the first place
 			for(var/mob/Player in GLOB.mob_list)
-				if(Player.mind?.special_role)
-					for(var/datum/antagonist/A in Player.mind.antag_datums)
-						if(A.delay_roundend)
-							continuous_sanity_checked = TRUE
-							return FALSE
+				if(!Player.mind)
+					continue
+				//Gamemodes like revs do not give antag status, but special roles instead.
+				if(Player.mind.special_role && !LAZYLEN(Player.mind.antag_datums))
+					continuous_sanity_checked = TRUE
+					return FALSE
+				for(var/datum/antagonist/A in Player.mind.antag_datums)
+					if(A.delay_roundend)
+						continuous_sanity_checked = TRUE
+						return FALSE
 			if(!continuous_sanity_checked)
 				message_admins("The roundtype ([config_tag]) has no antagonists, continuous round has been defaulted to on and midround_antag has been defaulted to off.")
 				continuous[config_tag] = TRUE
