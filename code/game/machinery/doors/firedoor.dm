@@ -281,6 +281,7 @@
 /obj/machinery/door/firedoor/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/obj/structure/firelock_frame/F = new assemblytype(get_turf(src))
+		F.dir = src.dir
 		F.firelock_type = src.type
 		if(disassembled)
 			F.constructionStep = CONSTRUCTION_PANEL_OPEN
@@ -475,7 +476,9 @@
 				if(reinforced)
 					new /obj/machinery/door/firedoor/heavy(get_turf(src))
 				else
-					new firelock_type(get_turf(src))
+					var/obj/machinery/door/firedoor/F = new firelock_type(get_turf(src))
+					F.dir = src.dir
+					F.update_icon()
 				qdel(src)
 				return
 			if(istype(C, /obj/item/stack/sheet/plasteel))
@@ -629,11 +632,21 @@
 	name = "heavy firelock frame"
 	reinforced = TRUE
 
-/obj/structure/firelock_frame/border //TODO: Custom sprite
+/obj/structure/firelock_frame/border
 	name = "firelock frame"
+	icon = 'icons/obj/doors/edge_Doorfire.dmi'
+	icon_state = "door_frame"
 
-/obj/structure/firelock_frame/window //TODO: Custom sprite
+/obj/structure/firelock_frame/border/update_icon()
+	return
+
+/obj/structure/firelock_frame/window
 	name = "window firelock frame"
+	icon = 'icons/obj/doors/doorfirewindow.dmi'
+	icon_state = "door_frame"
+
+/obj/structure/firelock_frame/window/update_icon()
+	return
 
 #undef CONSTRUCTION_COMPLETE
 #undef CONSTRUCTION_PANEL_OPEN
