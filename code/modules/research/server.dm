@@ -64,6 +64,7 @@
 /obj/machinery/rnd/server/update_icon()
 	if (panel_open)
 		icon_state = "RD-server-on_t"
+		return
 	if (stat & EMPED || stat & NOPOWER)
 		icon_state = "RD-server-off"
 		return
