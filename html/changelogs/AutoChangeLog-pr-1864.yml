@@ -1,7 +1,0 @@
-author: Trigg
-delete-after: true
-changes:
-  - bugfix: The title screen no longer occasionally fails to load.
-  - bugfix: R&D Servers no longer look active when their panels are open.
-  - bugfix: The Bluespace Compression Kit can now be properly examined.
-  - bugfix: Construction paper now also comes in red colors, as originally intended.
