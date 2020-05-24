@@ -11,10 +11,10 @@ This system lets you spray and pray with guns when dragging the mouse.
 
 	if(target == user) //so we can't shoot ourselves with autofire
 		return FALSE
-	
+
 	if(user.stat != CONSCIOUS) //No firing in softcrit
 		return FALSE
-	
+
 	if(user.get_active_held_item() != src)
 		return FALSE
 
@@ -49,10 +49,13 @@ This system lets you spray and pray with guns when dragging the mouse.
 
 /obj/item/gun/onMouseDown(object, location, params)
 	set waitfor = FALSE //Asynchronous processing is required here due to the while loop. In other words. Don't hold up the client's clicking while we run a loop that can go on for ages (potentially!)
+	if(world.time < next_autofire)
+		return FALSE
+	next_autofire = world.time + 0.25 SECONDS //Get out of here with your stupid autoclicker...
 	var/mob/user = src.loc
 	autofire_target = object //When we start firing, we start firing at whatever you clicked on initially. When the user drags their mouse, this shall change.
 	while(autofire_target)  //While will only run while we have a user (loc) that is a mob, and we are being actively held by this mob, they have a client (as to prevent disconnecting mid-fight causing you to perma-fire) and of course, if we passed the previous check about autofiring.
-		stoplag(max((10 / fire_rate), 1)) //Default fire delay to prevent you from instantly dumping an entire mag out.
+		stoplag(max((10 / fire_rate), 0.15 SECONDS)) //Default fire delay to prevent you from instantly dumping an entire mag out.
 		if(can_fire_at(autofire_target, user))
 			afterattack(autofire_target, user)
 		else
