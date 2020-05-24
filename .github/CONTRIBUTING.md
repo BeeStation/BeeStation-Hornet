@@ -24,7 +24,6 @@ BeeStation doesn't have any kind of design document outlining planned changes; w
 If you want to contribute the first thing you'll need to do is set up a decent development environment. The default tools for working with BYOND simply aren't sufficient, and the next section explains what we use. We also have a few guides to help you get started with git and making a pull request:
 
 * [Here](https://forums.beestation13.com/t/github-building-the-hive/1334) is a guide for setting up Git and GitKraken.
-* [Here](https://thooloo.tk/babbypr.html) is a guide for setting up VSCode and making your first PR. Note that it contains some of the same steps as the previous guide.
 
 For beginners, it is strongly recommended you work on small projects like bugfixes or very minor features at first. While we are willing to assist you, we have no desire to write your code for you.
 
