@@ -2072,7 +2072,6 @@
 				if(M)
 					T.admin_remove_member(usr,M)
 		check_teams()
-		//Trigg todo: fucking let em edit objectives too
 
 	else if(href_list["newbankey"])
 		var/player_key = href_list["newbankey"]
