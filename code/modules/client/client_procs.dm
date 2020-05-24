@@ -450,6 +450,10 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		if (menuitem)
 			menuitem.Load_checked(src)
 
+	view_size = new(src, getScreenSize(prefs.widescreenpref))
+	view_size.resetFormat()
+	view_size.setZoomMode()
+	fit_viewport()
 	Master.UpdateTickRate()
 
 	if(GLOB.ckey_redirects.Find(ckey))
@@ -882,7 +886,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		if ("key")
 			return FALSE
 		if("view")
-			change_view(var_value)
+			view_size.setDefault(var_value)
 			return TRUE
 	. = ..()
 
@@ -890,9 +894,9 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	var/viewscale = getviewsize(view)
 	var/x = viewscale[1]
 	var/y = viewscale[2]
-	x = CLAMP(x+change, min, max)
-	y = CLAMP(y+change, min,max)
-	change_view("[x]x[y]")
+	x = clamp(x+change, min, max)
+	y = clamp(y+change, min,max)
+	view_size.setDefault("[x]x[y]")
 
 /client/proc/change_view(new_size)
 	if (isnull(new_size))
