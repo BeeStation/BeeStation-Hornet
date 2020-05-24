@@ -281,6 +281,7 @@
 /obj/machinery/door/firedoor/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/obj/structure/firelock_frame/F = new assemblytype(get_turf(src))
+		F.firelock_type = src.type
 		if(disassembled)
 			F.constructionStep = CONSTRUCTION_PANEL_OPEN
 		else
@@ -403,6 +404,7 @@
 	max_integrity = 100
 	resistance_flags = 0 // not fireproof
 	heat_proof = FALSE
+	assemblytype = /obj/structure/firelock_frame/window
 
 /obj/item/electronics/firelock
 	name = "firelock circuitry"
@@ -419,10 +421,7 @@
 	density = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
-	var/is_border = FALSE
-
-/obj/structure/firelock_frame/border
-	is_border = TRUE
+	var/firelock_type
 
 /obj/structure/firelock_frame/examine(mob/user)
 	. = ..()
@@ -476,10 +475,7 @@
 				if(reinforced)
 					new /obj/machinery/door/firedoor/heavy(get_turf(src))
 				else
-					if(is_border)
-						new /obj/machinery/door/firedoor/border_only(get_turf(src))
-					else
-						new /obj/machinery/door/firedoor(get_turf(src))
+					new firelock_type(get_turf(src))
 				qdel(src)
 				return
 			if(istype(C, /obj/item/stack/sheet/plasteel))
@@ -632,6 +628,12 @@
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"
 	reinforced = TRUE
+
+/obj/structure/firelock_frame/border //TODO: Custom sprite
+	name = "firelock frame"
+
+/obj/structure/firelock_frame/window //TODO: Custom sprite
+	name = "window firelock frame"
 
 #undef CONSTRUCTION_COMPLETE
 #undef CONSTRUCTION_PANEL_OPEN
