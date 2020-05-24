@@ -1,0 +1,4 @@
+author: Kmc2000
+delete-after: true
+changes:
+  - bugfix: You can no longer magdump full auto weapons instantly
