@@ -92,6 +92,8 @@
 /obj/item/survivalcapsule/space
 	name = "space shelter capsule"
 	desc = "A spaceworthy shelter designed for emergencies/construction in a bluespace capsule."
+	icon_state = "capsuleeng"
+	icon = 'icons/obj/mining.dmi'
 	template_id = "shelter_eta"
 	
 /obj/item/survivalcapsule/barricade
