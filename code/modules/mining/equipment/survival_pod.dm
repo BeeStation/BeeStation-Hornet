@@ -77,6 +77,30 @@
 	desc = "A luxury bar in a capsule. Bartender required and not included."
 	template_id = "shelter_charlie"
 
+/obj/item/survivalcapsule/encampment
+	name = "mining encampment capsule"
+	desc = "A medium-sized mining encampment in a capsule. A home away from home, away from home!"
+	template_id = "shelter_delta"
+
+/obj/item/survivalcapsule/medical
+	name = "emergency medical capsule"
+	desc = "A small pod with medical facilities designed for station emergencies inside a bluespace capsule. Do NOT swallow."
+	icon_state = "capsulemed"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "shelter_echo"
+	
+/obj/item/survivalcapsule/space
+	name = "space shelter capsule"
+	desc = "A spaceworthy shelter designed for emergencies/construction in a bluespace capsule."
+	template_id = "shelter_eta"
+	
+/obj/item/survivalcapsule/barricade
+	name = "barricade capsule"
+	desc = "A 3x3 glass barricade designed for security use with energy weapons."
+	icon_state = "capsulesec"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "capsule_barricade"
+
 //Pod objects
 
 //Window
