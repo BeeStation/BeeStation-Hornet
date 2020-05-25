@@ -206,13 +206,13 @@
 "aT" = (
 /obj/structure/closet,
 /obj/item/clothing/shoes/workboots/mining,
-/obj/item/clothing/under/rank/miner,
 /obj/item/clothing/gloves/fingerless,
 /obj/item/reagent_containers/food/drinks/beer,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/item/pickaxe/mini,
+/obj/item/clothing/under/rank/miner/lavaland,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aU" = (
@@ -233,10 +233,10 @@
 "aX" = (
 /obj/structure/closet,
 /obj/item/clothing/shoes/workboots/mining,
-/obj/item/clothing/under/rank/miner,
 /obj/item/clothing/gloves/fingerless,
 /obj/item/reagent_containers/food/drinks/beer,
 /obj/item/pickaxe/mini,
+/obj/item/clothing/under/rank/miner/lavaland,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aY" = (
