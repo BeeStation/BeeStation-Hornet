@@ -1,0 +1,7 @@
+author: ike709
+delete-after: true
+changes:
+  - rscadd: Your emergency survival box now contains a skinsuit, which is an emergency
+      spacesuit that protects against low pressure (but not against cold!).
+  - rscadd: Unroll the skinsuit to equip it, roll it back up to fit it back in the
+      box.
