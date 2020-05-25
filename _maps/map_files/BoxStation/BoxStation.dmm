@@ -8998,7 +8998,6 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "axZ" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Door"
 	},
@@ -9007,6 +9006,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 6
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
@@ -9613,7 +9618,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance{
 	name = "EVA Maintenance";
 	req_access_txt = "18"
@@ -9622,6 +9626,12 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -13611,7 +13621,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "aKc" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Gateway Access";
 	req_access_txt = "62"
@@ -13619,10 +13628,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/gateway)
 "aKd" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	id = "stationawaygate";
 	name = "Gateway Access Shutters"
@@ -13631,6 +13643,10 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/gateway)
 "aKe" = (
@@ -13793,11 +13809,14 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "aKA" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	id = "stationawaygate";
 	name = "Gateway Access Shutters"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/gateway)
 "aKB" = (
@@ -15500,6 +15519,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/storage/art)
 "aPI" = (
@@ -19288,7 +19311,6 @@
 "baU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	id = "commissaryshutter";
 	name = "Vacant Commissary Shutter"
@@ -19301,6 +19323,12 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
@@ -21515,12 +21543,15 @@
 /turf/open/floor/plating,
 /area/storage/emergency/starboard)
 "bhu" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	id = "Skynet_launch";
 	name = "mech bay"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/science/robotics/mechbay)
 "bhv" = (
@@ -24476,6 +24507,9 @@
 	},
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -27779,7 +27813,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "byh" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Server Room";
 	req_access_txt = "30"
@@ -27787,6 +27820,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "byi" = (
@@ -28808,10 +28845,15 @@
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "bAB" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Room";
 	req_access_txt = "30"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/server)
@@ -33110,7 +33152,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor/heavy,
 /obj/machinery/door/airlock/maintenance{
 	name = "Atmospherics Maintenance";
 	req_access_txt = "24"
@@ -33119,6 +33160,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "bLQ" = (
@@ -35009,10 +35054,15 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Distribution Loop";
 	req_access_txt = "24"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -40134,13 +40184,18 @@
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
 "chr" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
 	name = "Kill Chamber";
 	req_access_txt = "55"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
@@ -52343,6 +52398,9 @@
 	id = "kitchen";
 	name = "kitchen shutters"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -54160,7 +54218,6 @@
 	pixel_x = 27
 	},
 /obj/item/twohanded/required/kirbyplants/random,
-/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/storage/art)
 "nKZ" = (
@@ -54252,7 +54309,6 @@
 "nXi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	id = "commissaryshutter";
 	name = "Vacant Commissary Shutter"
@@ -54264,6 +54320,12 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "nXB" = (
@@ -58396,6 +58458,9 @@
 	id = "kitchen";
 	name = "kitchen shutters"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -58674,14 +58739,10 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "vCP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/storage/art)
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/space)
 "vDl" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -58883,9 +58944,14 @@
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "vQH" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Door"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
@@ -60313,7 +60379,10 @@
 	id = "telelab";
 	name = "test chamber blast door"
 	},
-/obj/machinery/door/firedoor/heavy,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/engine,
 /area/science/explab)
 "xXU" = (
@@ -79975,7 +80044,7 @@ bCq
 bCq
 tyh
 mnP
-aaa
+vCP
 aaf
 bCq
 afR
@@ -80956,7 +81025,7 @@ aLN
 aLE
 rEC
 aPH
-vCP
+igW
 igW
 aTG
 aPG
