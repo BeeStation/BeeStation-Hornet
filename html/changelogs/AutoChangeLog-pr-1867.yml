@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Shuttles will now be saved with the correct size vars, meaning you can
-      actually use them
