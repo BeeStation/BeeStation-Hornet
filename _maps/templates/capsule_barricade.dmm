@@ -1,0 +1,12 @@
+"a" = (/obj/effect/spawner/structure/window/hollow/reinforced,/obj/structure/grille,/turf/template_noop,/area/template_noop)
+"b" = (/obj/machinery/door/window/brigdoor{dir = 1; name = "secure door"; req_access_txt = "0"},/turf/template_noop,/area/template_noop)
+"c" = (/obj/machinery/door/window/brigdoor{icon_state = "leftsecure"; dir = 8},/turf/template_noop,/area/template_noop)
+"d" = (/turf/template_noop,/area/template_noop)
+"e" = (/obj/machinery/door/window/brigdoor{icon_state = "leftsecure"; dir = 4},/turf/template_noop,/area/template_noop)
+"f" = (/obj/machinery/door/window/brigdoor,/turf/template_noop,/area/template_noop)
+
+(1,1,1) = {"
+aba
+cde
+afa
+"}
