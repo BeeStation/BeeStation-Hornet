@@ -620,6 +620,14 @@
 	reqs = list(/obj/item/stack/sheet/bone = 6)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/heavybonearmor
+	name = "Heavy Bone Armor"
+	result = /obj/item/clothing/suit/hooded/cloak/bone
+	time = 60
+	reqs = list(/obj/item/stack/sheet/bone = 8,
+				/obj/item/stack/sheet/sinew = 3)
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/bonetalisman
 	name = "Bone Talisman"
 	result = /obj/item/clothing/accessory/talisman
