@@ -69,12 +69,11 @@
 	var/turf/there = get_turf(target)
 
 	if(here.z != there.z)
-		if(here.z != there.z)
-			if(here.z > there.z)
-				add_overlay("pinon_below[icon_suffix]")
-			else
-				add_overlay("pinon_above[icon_suffix]")
-			return
+		if(here.z > there.z)
+			add_overlay("pinon_below[icon_suffix]")
+		else
+			add_overlay("pinon_above[icon_suffix]")
+		return
 	if(get_dist_euclidian(here,there) <= minimum_range)
 		add_overlay("pinon[alert ? "alert" : ""]direct[icon_suffix]")
 	else
