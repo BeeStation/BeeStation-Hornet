@@ -269,7 +269,7 @@
 							"unit" = "kPa",
 							"danger_level" = cur_tlv.get_danger_level(pressure)
 	))
-	var/temperature = environment.temperature
+	var/temperature = environment.return_temperature()
 	cur_tlv = TLV["temperature"]
 	data["environment_data"] += list(list(
 							"name" = "Temperature",
@@ -278,16 +278,16 @@
 							"danger_level" = cur_tlv.get_danger_level(temperature)
 	))
 	var/total_moles = environment.total_moles()
-	var/partial_pressure = R_IDEAL_GAS_EQUATION * environment.temperature / environment.volume
-	for(var/gas_id in environment.gases)
+	var/partial_pressure = R_IDEAL_GAS_EQUATION * environment.return_temperature() / environment.return_volume()
+	for(var/gas_id in environment.get_gases())
 		if(!(gas_id in TLV)) // We're not interested in this gas, it seems.
 			continue
 		cur_tlv = TLV[gas_id]
 		data["environment_data"] += list(list(
-								"name" = environment.gases[gas_id][GAS_META][META_GAS_NAME],
-								"value" = environment.gases[gas_id][MOLES] / total_moles * 100,
+								"name" = GLOB.meta_gas_info[gas_id][META_GAS_NAME],
+								"value" = environment.get_moles(gas_id) / total_moles * 100,
 								"unit" = "%",
-								"danger_level" = cur_tlv.get_danger_level(environment.gases[gas_id][MOLES] * partial_pressure)
+								"danger_level" = cur_tlv.get_danger_level(environment.get_moles(gas_id) * partial_pressure)
 		))
 
 	if(!locked || user.has_unlimited_silicon_privilege)
@@ -295,7 +295,7 @@
 		for(var/id_tag in A.air_vent_names)
 			var/long_name = A.air_vent_names[id_tag]
 			var/list/info = A.air_vent_info[id_tag]
-			if(!info || info["frequency"] != frequency)
+			if(!info || info["frequency"] != frequency || info["has_aac"])
 				continue
 			data["vents"] += list(list(
 					"id_tag"	= id_tag,
@@ -645,24 +645,21 @@
 	var/datum/tlv/cur_tlv
 
 	var/datum/gas_mixture/environment = location.return_air()
-	var/list/env_gases = environment.gases
-	var/partial_pressure = R_IDEAL_GAS_EQUATION * environment.temperature / environment.volume
+	var/partial_pressure = R_IDEAL_GAS_EQUATION * environment.return_temperature() / environment.return_volume()
 
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 
 	cur_tlv = TLV["temperature"]
-	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
+	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.return_temperature())
 
 	var/gas_dangerlevel = 0
-	for(var/gas_id in env_gases)
+	for(var/gas_id in environment.get_gases())
 		if(!(gas_id in TLV)) // We're not interested in this gas, it seems.
 			continue
 		cur_tlv = TLV[gas_id]
-		gas_dangerlevel = max(gas_dangerlevel, cur_tlv.get_danger_level(env_gases[gas_id][MOLES] * partial_pressure))
-
-	environment.garbage_collect()
+		gas_dangerlevel = max(gas_dangerlevel, cur_tlv.get_danger_level(environment.get_moles(gas_id) * partial_pressure))
 
 	var/old_danger_level = danger_level
 	danger_level = max(pressure_dangerlevel, temperature_dangerlevel, gas_dangerlevel)
@@ -684,12 +681,15 @@
 		"zone" = get_area_name(src),
 		"type" = "Atmospheric"
 	))
+	var/area/A = get_area(src)
 	if(alert_level==2)
 		alert_signal.data["alert"] = "severe"
+		A.set_vacuum_alarm_effect()
 	else if (alert_level==1)
 		alert_signal.data["alert"] = "minor"
 	else if (alert_level==0)
 		alert_signal.data["alert"] = "clear"
+		A.unset_vacuum_alarm_effect()
 
 	frequency.post_signal(src, alert_signal, range = -1)
 

@@ -116,12 +116,12 @@
 		return
 	var/datum/gas_mixture/env = heatTurf.return_air()
 	var/heat_cap = env.heat_capacity()
-	var/req_power = abs(env.temperature - ENGINE_HEAT_TARGET) * heat_cap
+	var/req_power = abs(env.return_temperature() - ENGINE_HEAT_TARGET) * heat_cap
 	req_power = min(req_power, ENGINE_HEATING_POWER)
 	var/deltaTemperature = req_power / heat_cap
 	if(deltaTemperature < 0)
 		return
-	env.temperature += deltaTemperature
+	env.set_temperature(env.return_temperature() + deltaTemperature)
 	air_update_turf()
 
 /obj/machinery/shuttle/engine/attackby(obj/item/I, mob/living/user, params)

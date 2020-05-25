@@ -34,6 +34,9 @@
 	///Delete this port after ship fly off.
 	var/delete_after = FALSE
 
+/obj/docking_port/get_save_vars()
+	return list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount", "width", "height", "dwidth", "dheight")
+
 	//these objects are indestructible
 /obj/docking_port/Destroy(force)
 	// unless you assert that you know what you're doing. Horrible things
