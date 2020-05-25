@@ -1,0 +1,7 @@
+author: SomeAngryMiner
+delete-after: true
+changes:
+  - imageadd: All the spacesuits got a brand new, fresh look! (voidsuits and hardsuits
+      not included)
+  - bugfix: right hand inhands of the blue syndiesuit now properly work
+  - bugfix: the EVA helmets now have proper inhands.
