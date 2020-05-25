@@ -1236,12 +1236,12 @@
 		activate_pin(3)
 		return
 
-	var/list/gases = air_contents.gases
+	var/list/gases = air_contents.get_gases()
 	var/list/gas_names = list()
 	var/list/gas_amounts = list()
 	for(var/id in gases)
-		var/name = gases[id][GAS_META][META_GAS_NAME]
-		var/amt = round(gases[id][MOLES], 0.001)
+		var/name = GLOB.meta_gas_info[id][META_GAS_NAME]
+		var/amt = round(air_contents.get_moles(id), 0.001)
 		gas_names.Add(name)
 		gas_amounts.Add(amt)
 
@@ -1249,7 +1249,7 @@
 	set_pin_data(IC_OUTPUT, 2, gas_amounts)
 	set_pin_data(IC_OUTPUT, 3, round(air_contents.total_moles(), 0.001))
 	set_pin_data(IC_OUTPUT, 4, round(air_contents.return_pressure(), 0.001))
-	set_pin_data(IC_OUTPUT, 5, round(air_contents.temperature, 0.001))
+	set_pin_data(IC_OUTPUT, 5, round(air_contents.return_temperature(), 0.001))
 	set_pin_data(IC_OUTPUT, 6, round(air_contents.return_volume(), 0.001))
 	push_data()
 	activate_pin(2)

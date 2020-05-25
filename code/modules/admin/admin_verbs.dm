@@ -736,25 +736,27 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 /client/proc/stabilize_atmos()
 	set name = "Stabilize Atmos"
 	set category = "Admin"
-	set desc = "Resets the air contents of every turf and pipe in view to normal. Closes all canisters in view."
+	set desc = "Resets the air contents of every turf in view to normal. Closes all canisters in view."
 
-	var/list/datum/pipeline/pipelines = list()
+	if(!check_rights(R_ADMIN))
+		return
 
-	for(var/turf/open/T in view())
-		T.air?.copy_from_turf(T)
-		T.update_visuals()
+	var/turf/T = get_turf(usr.loc)
+	message_admins("[key_name_admin(usr)] stabilized atmos at [AREACOORD(T)]")
+	log_game("[key_name_admin(usr)] stabilized atmos at [AREACOORD(T)]")
 
-		for(var/obj/machinery/atmospherics/pipe/P in T.contents)
-			pipelines |= P.parent
+	var/datum/gas_mixture/GM = new
+	for(var/turf/open/F in view())
+		if(F.blocks_air)
+		//skip walls
+			continue
+		GM.parse_gas_string(F.initial_gas_mix)
+		F.copy_air(GM)
+		F.update_visuals()
 
 	for(var/obj/machinery/portable_atmospherics/canister/can in view())
 		can.valve_open = FALSE
 		can.update_icon()
-
-	for(var/datum/pipeline/line in pipelines)
-		line.air = new
-		for(var/obj/machinery/atmospherics/pipe/P in line.members)
-			P.air_temporary = new
 
 
 
