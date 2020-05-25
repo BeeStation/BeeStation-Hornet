@@ -152,7 +152,8 @@
 	set waitfor = FALSE
 	var/new_name = input("Set your name!", "Guardian Name") as text|null
 	if(new_name)
-		G.mind.name = new_name
+		if(G.mind)
+			G.mind.name = new_name
 		G.real_name = new_name
 		G.name = new_name
 

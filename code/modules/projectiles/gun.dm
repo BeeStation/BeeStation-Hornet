@@ -70,7 +70,9 @@
 	var/zoom_out_amt = 0
 	var/datum/action/toggle_scope_zoom/azoom
 	var/fire_rate = null //how many times per second can a gun fire? default is 2.5
+	//Autofire
 	var/atom/autofire_target = null //What are we aiming at? This will change if you move your mouse whilst spraying.
+	var/next_autofire = 0 //As to stop mag dumps, Whoops!
 
 /obj/item/gun/Initialize()
 	. = ..()

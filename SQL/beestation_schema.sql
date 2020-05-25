@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `SS13_ban` (
   `unbanned_computerid` varchar(32) DEFAULT NULL,
   `unbanned_round_id` int(11) unsigned DEFAULT NULL,
   `global_ban` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `hidden` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_ban_isbanned` (`ckey`,`role`,`unbanned_datetime`,`expiration_time`),
   KEY `idx_ban_isbanned_details` (`ckey`,`ip`,`computerid`,`role`,`unbanned_datetime`,`expiration_time`),
@@ -471,6 +472,7 @@ CREATE TABLE IF NOT EXISTS `SS13_schema_revision` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`major`,`minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 5);
 
 
 
