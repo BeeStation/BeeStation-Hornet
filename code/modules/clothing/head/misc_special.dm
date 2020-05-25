@@ -264,7 +264,7 @@
 
 /obj/item/clothing/head/wig/random/Initialize(mapload)
 	hair_style = pick(GLOB.hair_styles_list - "Bald") //Don't want invisible wig
-	hair_color = "#[random_short_color()]"
+	hair_color = "#[random_hair_color()]"
 	. = ..()
 
 /obj/item/clothing/head/wig/natural

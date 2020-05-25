@@ -170,6 +170,30 @@ GLOBAL_LIST_INIT(skin_tones, list(
 	"african2"
 	))
 
+/proc/random_hair_color()
+	return pick(GLOB.hair_colors)
+
+GLOBAL_LIST_INIT(hair_colors, list(
+	"110",
+	"210",
+	"420",
+	"642",
+	"840",
+	"A64",
+	"EDB",
+	"A75",
+	"BAA",
+	"766",
+	"954",
+	"D72",
+	"FEC",
+	"F70",
+	"A53",
+	"653",
+	"520",
+	"222"
+	))
+
 GLOBAL_LIST_EMPTY(species_list)
 
 /proc/age2agedescription(age)
