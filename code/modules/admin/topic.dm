@@ -2273,7 +2273,7 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='notice'>This can only be used on instances of type /mob/living/carbon/human.</span>")
 			return
-		var/etypes = list("Borgification","Corgification","Death By Fire","Demotion Notice")
+		var/etypes = list("Borgification","Corgification","Death By Fire","Demotion Notice","Creampie")
 		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
 		if(!(eviltype in etypes))
 			return

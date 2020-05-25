@@ -509,6 +509,9 @@
 			target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
 		else if(myeffect == "Demotion Notice")
 			priority_announce("[mytarget] is hereby demoted to the rank of Assistant. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+		else if(myeffect == "Creampie")
+			var/obj/item/reagent_containers/food/snacks/pie/cream/honk = new(get_turf(target))
+			honk.splat(target)
 		else
 			message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")
 	used = TRUE
