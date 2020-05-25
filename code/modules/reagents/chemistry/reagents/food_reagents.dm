@@ -261,7 +261,7 @@
 		if(isopenturf(T))
 			var/turf/open/OT = T
 			OT.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=100, wet_time_to_add=reac_volume SECONDS) // Is less effective in high pressure/high heat capacity environments. More effective in low pressure.
-			OT.air.temperature -= MOLES_CELLSTANDARD*100*reac_volume/OT.air.heat_capacity() // reduces environment temperature by 5K per unit.
+			OT.air.set_temperature(OT.air.return_temperature() - MOLES_CELLSTANDARD*100*reac_volume/OT.air.heat_capacity()) // reduces environment temperature by 5K per unit.
 
 /datum/reagent/consumable/condensedcapsaicin
 	name = "Condensed Capsaicin"
@@ -442,7 +442,7 @@
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
-		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
+		lowertemp.set_temperature(max( min(lowertemp.return_temperature()-2000,lowertemp.return_temperature() / 2) ,0))
 		lowertemp.react(src)
 		T.assume_air(lowertemp)
 		qdel(hotspot)

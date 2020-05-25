@@ -82,6 +82,20 @@ SUBSYSTEM_DEF(vote)
 						var/default_map = global.config.defaultmap.map_name
 						choices[default_map] += 1
 						greatest_votes = max(greatest_votes, choices[default_map])
+			else if(mode == "transfer")
+				var/factor = 1 // factor defines how non-voters are weighted towards calling the shuttle
+				switch(world.time / (1 MINUTES))
+					if(0 to 60)
+						factor = 0.5
+					if(61 to 120)
+						factor = 0.8
+					if(121 to 240)
+						factor = 1
+					if(241 to 300)
+						factor = 1.2
+					else
+						factor = 1.4
+				choices["Initiate Crew Transfer"] += round(non_voters.len * factor)
 	//get all options with that many votes and return them in a list
 	. = list()
 	if(greatest_votes)
@@ -137,6 +151,12 @@ SUBSYSTEM_DEF(vote)
 			if("map")
 				SSmapping.changemap(global.config.maplist[.])
 				SSmapping.map_voted = TRUE
+			if("transfer")
+				if(. == "Initiate Crew Transfer")
+					SSshuttle.requestEvac(null, "Crew Transfer Requested.")
+					var/obj/machinery/computer/communications/C = locate() in GLOB.machines
+					if(C)
+						C.post_status("shuttle")
 	if(restart)
 		var/active_admins = 0
 		for(var/client/C in GLOB.admins)
@@ -196,6 +216,8 @@ SUBSYSTEM_DEF(vote)
 					shuffle_inplace(maps)
 				for(var/valid_map in maps)
 					choices.Add(valid_map)
+			if("transfer")
+				choices.Add("Initiate Crew Transfer", "Continue Playing")
 			if("custom")
 				question = stripped_input(usr,"What is the vote for?")
 				if(!question)
@@ -210,7 +232,7 @@ SUBSYSTEM_DEF(vote)
 		mode = vote_type
 		initiator = initiator_key
 		started_time = world.time
-		var/text = "[capitalize(mode)] vote started by [initiator]."
+		var/text = "[capitalize(mode)] vote started by [initiator ? initiator : "CentCom"]."
 		if(mode == "custom")
 			text += "\n[question]"
 		log_vote(text)

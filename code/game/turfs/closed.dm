@@ -6,9 +6,14 @@
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 
+/turf/closed/Initialize()
+	. = ..()
+	update_air_ref()
+
 /turf/closed/AfterChange()
 	. = ..()
 	SSair.high_pressure_delta -= src
+	update_air_ref()
 
 /turf/closed/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
@@ -81,7 +86,7 @@
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "map-shuttle"
 	smooth = SMOOTH_MORE
-	
+
 /turf/closed/indestructible/riveted/uranium
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
@@ -117,7 +122,7 @@
 	icon_state = null
 	underlays += mutable_appearance('icons/obj/structures.dmi', "grille")
 	underlays += mutable_appearance('icons/turf/floors.dmi', "plating")
-	
+
 /turf/closed/indestructible/fakedoor
 	name = "CentCom Access"
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
