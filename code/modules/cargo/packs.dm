@@ -101,6 +101,16 @@
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
 
+/datum/supply_pack/emergency/medical
+	name = "Emergency Medical Crate"
+	desc = "For when the shit hits the fan and medical can't keep up. Comes with a 7x5 Medical capsule and 2 Medibots for emergencies."
+	cost = 3500
+	contains = list(/mob/living/simple_animal/bot/medbot,
+					/mob/living/simple_animal/bot/medbot,
+					/obj/item/survivalcapsule/medical)
+	crate_name = "emergency medical crate"
+	crate_type = /obj/structure/closet/crate/medical
+
 /datum/supply_pack/emergency/bomb
 	name = "Explosive Emergency Crate"
 	desc = "Science gone bonkers? Beeping behind the airlock? Buy now and be the hero the station des... I mean needs! (time not included)"
@@ -574,6 +584,16 @@
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 
+/datum/supply_pack/security/armory/securitybarriersxl
+	name = "Security Barrier Capsules XL"
+	desc = "3x3 Reinforced glass barricades for when the nukies come knocking. Requires Security access to open."
+	small_item = TRUE
+	contains = list(/obj/item/survivalcapsule/barricade,
+					/obj/item/survivalcapsule/barricade,
+					/obj/item/survivalcapsule/barricade)
+	cost = 2500
+	crate_name = "security barriers crate XL"
+
 /datum/supply_pack/security/armory/mindshield
 	name = "Mindshield Implants Crate"
 	desc = "Prevent against radical thoughts with three Mindshield implants. Requires Armory access to open."
@@ -796,6 +816,19 @@
 					/obj/item/clothing/gloves/color/yellow,
 					/obj/item/clothing/gloves/color/yellow)
 	crate_name = "insulated gloves crate"
+	crate_type = /obj/structure/closet/crate/engineering/electrical
+
+/datum/supply_pack/engineering/spacecapsule
+	name = "Space Shelter Capsule"
+	desc = "A crate containing an RCD, some compressed matter cartridges, and a single bluespace capsule containing a spaceworthy shelter for construction/emergencies."
+	cost = 2000
+	contains = list(/obj/item/survivalcapsule/space,
+					/obj/item/construction/rcd,
+					/obj/item/rcd_ammo,
+					/obj/item/rcd_ammo,
+					/obj/item/rcd_ammo,
+					/obj/item/rcd_ammo)
+	crate_name = "space shelter crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
 /obj/item/stock_parts/cell/inducer_supply
