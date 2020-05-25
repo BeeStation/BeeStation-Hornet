@@ -869,6 +869,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "abX" = (
@@ -1296,8 +1297,10 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "acS" = (
-/obj/item/book/manual/wiki/security_space_law,
 /obj/structure/table/wood,
+/obj/machinery/photocopier/faxmachine{
+	department = "Head of Security"
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "acT" = (
@@ -7998,10 +8001,14 @@
 /area/maintenance/fore)
 "arT" = (
 /obj/structure/rack,
-/obj/item/storage/briefcase,
 /obj/machinery/airalarm{
 	pixel_y = 23
 	},
+/obj/item/clothing/glasses/sunglasses/advanced{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/briefcase,
 /turf/open/floor/wood,
 /area/lawoffice)
 "arU" = (
@@ -8025,11 +8032,9 @@
 /area/security/detectives_office)
 "arX" = (
 /obj/structure/table/wood,
-/obj/item/folder/blue,
-/obj/item/folder/blue,
-/obj/item/folder/blue,
-/obj/item/folder/blue,
-/obj/item/stamp/law,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Internal Affairs"
+	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "arZ" = (
@@ -8514,6 +8519,12 @@
 /obj/machinery/camera/autoname{
 	dir = 1;
 	icon_state = "camera"
+	},
+/obj/item/stamp/law{
+	pixel_y = 12
+	},
+/obj/item/pen/red{
+	pixel_x = 4
 	},
 /turf/open/floor/wood,
 /area/lawoffice)
@@ -17738,6 +17749,12 @@
 /obj/structure/table/reinforced,
 /obj/item/assembly/flash/handheld,
 /obj/item/assembly/flash/handheld,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen,
+/obj/item/assembly/flash/handheld,
 /turf/open/floor/plasteel,
 /area/bridge)
 "aSw" = (
@@ -20039,17 +20056,15 @@
 	pixel_y = -24
 	},
 /obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Bridge"
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
@@ -21324,6 +21339,9 @@
 /area/bridge/meeting_room)
 "bbZ" = (
 /obj/structure/table/wood,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Captain"
+	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "bca" = (
@@ -29607,12 +29625,21 @@
 /area/storage/primary)
 "bxl" = (
 /obj/structure/rack,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/item/cartridge/signal/toxins{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/cartridge/signal/toxins{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/cartridge/signal/toxins,
 /obj/item/circuitboard/aicore{
 	pixel_x = -2;
 	pixel_y = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
@@ -31652,21 +31679,15 @@
 /area/crew_quarters/heads/hor)
 "bCg" = (
 /obj/structure/table,
-/obj/item/cartridge/signal/toxins,
-/obj/item/cartridge/signal/toxins{
-	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/item/cartridge/signal/toxins{
-	pixel_x = 4;
-	pixel_y = 6
-	},
 /obj/item/radio/intercom{
 	pixel_y = -29
 	},
 /obj/machinery/camera/autoname{
 	dir = 1;
 	icon_state = "camera"
+	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Research Director"
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/hor)
@@ -32503,6 +32524,8 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
 	},
+/obj/item/clothing/neck/stethoscope,
+/obj/item/pen,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "bEi" = (
@@ -32511,8 +32534,6 @@
 /area/crew_quarters/heads/cmo)
 "bEj" = (
 /obj/structure/table/glass,
-/obj/item/pen,
-/obj/item/clothing/neck/stethoscope,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -32522,7 +32543,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 8
 	},
-/mob/living/simple_animal/pet/cat/Runtime,
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Medical Officer"
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "bEk" = (
@@ -41731,6 +41754,9 @@
 /obj/item/paper/monitorkey,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Engineer"
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "cdn" = (
@@ -51376,6 +51402,7 @@
 /area/medical/virology)
 "dtc" = (
 /obj/machinery/photocopier,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/open/floor/wood,
 /area/lawoffice)
 "dtD" = (
@@ -52269,9 +52296,6 @@
 /area/maintenance/starboard/fore)
 "gpE" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/pen/red,
 /obj/machinery/button/door{
 	id = "lawyer_blast";
 	name = "Privacy Shutters";
@@ -52279,6 +52303,11 @@
 	pixel_y = 8
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/folder/blue,
+/obj/item/folder/blue,
+/obj/item/folder/blue,
+/obj/item/folder/blue,
+/obj/item/folder/blue,
 /turf/open/floor/wood,
 /area/lawoffice)
 "gpT" = (
@@ -54801,6 +54830,7 @@
 	dir = 8
 	},
 /obj/structure/bed/dogbed/runtime,
+/mob/living/simple_animal/pet/cat/Runtime,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "oDF" = (
