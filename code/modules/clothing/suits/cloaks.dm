@@ -105,7 +105,7 @@
 
 /obj/item/clothing/head/hooded/cloakhood/bone
 	name = "bone helmet"
-	icon_state = "skull"
+	icon_state = "hskull"
 	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
 	armor = list("melee" = 35, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	heat_protection = HEAD
