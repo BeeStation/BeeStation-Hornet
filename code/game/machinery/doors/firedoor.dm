@@ -465,7 +465,8 @@
 				update_icon()
 				return
 			if(C.tool_behaviour == TOOL_WRENCH)
-				if(locate(/obj/machinery/door/firedoor) in get_turf(src))
+				var/obj/machinery/door/firedoor/A = locate(/obj/machinery/door/firedoor) in get_turf(src)
+				if(A && A.dir == src.dir)
 					to_chat(user, "<span class='warning'>There's already a firelock there.</span>")
 					return
 				C.play_tool_sound(src)
@@ -473,7 +474,8 @@
 									 "<span class='notice'>You begin bolting [src]...</span>")
 				if(!C.use_tool(src, user, 30))
 					return
-				if(locate(/obj/machinery/door/firedoor) in get_turf(src))
+				var/obj/machinery/door/firedoor/D = locate(/obj/machinery/door/firedoor) in get_turf(src)
+				if(D && D.dir == src.dir)
 					return
 				user.visible_message("<span class='notice'>[user] finishes the firelock.</span>", \
 									 "<span class='notice'>You finish the firelock.</span>")
