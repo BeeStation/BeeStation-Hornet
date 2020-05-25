@@ -195,7 +195,7 @@
 	category = list("initial", "Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/airalarm_electronics
+/datum/design/aac_electronics
 	name = "Airlock Controller Electronics"
 	id = "aac_electronics"
 	build_type = AUTOLATHE | PROTOLATHE
