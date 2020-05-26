@@ -801,4 +801,5 @@
 	reqs = list(/obj/item/mop = 1,
 				/obj/item/shard = 1)
 	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
 	tools = list(TOOL_WIRECUTTER)
