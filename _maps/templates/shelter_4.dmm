@@ -205,14 +205,14 @@
 /area/survivalpod)
 "aT" = (
 /obj/structure/closet,
-/obj/item/clothing/shoes/workboots/mining,
+/obj/item/clothing/under/rank/cargo/miner/lavaland,
 /obj/item/clothing/gloves/fingerless,
 /obj/item/reagent_containers/food/drinks/beer,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/item/pickaxe/mini,
-/obj/item/clothing/under/rank/miner/lavaland,
+/obj/item/clothing/under/rank/cargo/miner/lavaland,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aU" = (
