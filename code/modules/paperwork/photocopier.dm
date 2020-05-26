@@ -94,14 +94,42 @@
 	busy = FALSE
 
 /obj/machinery/photocopier/proc/photocopy(var/obj/item/photo/photocopy)
+	var/obj/item/photo/p
 	for(var/i = 0, i < copies, i++)
 		if(toner >= 5 && !busy && photocopy)  //Was set to = 0, but if there was say 3 toner left and this ran, you would get -2 which would be weird for ink
-			new /obj/item/photo (loc, photocopy.picture.Copy(greytoggle == "Greyscale"? TRUE : FALSE))
+			p = new /obj/item/photo (loc)
+			var/icon/I = icon(photocopy.icon, photocopy.icon_state)
+			var/icon/img = icon(photocopy.picture.picture_image)
+			if(greytoggle == "Greyscale")
+				if(toner > 10) //plenty of toner, go straight greyscale
+					I.MapColors(rgb(77,77,77), rgb(150,150,150), rgb(28,28,28), rgb(0,0,0)) //I'm not sure how expensive this is, but given the many limitations of photocopying, it shouldn't be an issue.
+					img.MapColors(rgb(77,77,77), rgb(150,150,150), rgb(28,28,28), rgb(0,0,0))
+				else //not much toner left, lighten the photo
+					I.MapColors(rgb(77,77,77), rgb(150,150,150), rgb(28,28,28), rgb(100,100,100))
+					img.MapColors(rgb(77,77,77), rgb(150,150,150), rgb(28,28,28), rgb(100,100,100))
+				toner -= 5	//photos use a lot of ink!
+			else if(greytoggle == "Color")
+				if(toner >= 10)
+					toner -= 10 //Color photos use even more ink!
+				else
+					continue
+			p.icon = I
+			p.picture.picture_image = img
+			p.name = photocopy.name
+			p.desc = photocopy.desc
+			p.scribble = photocopy.scribble
+			p.pixel_x = rand(-10, 10)
+			p.pixel_y = rand(-10, 10)
+			p.picture.has_blueprints = photocopy.picture.has_blueprints //a copy of a picture is still good enough for the syndicate
 			busy = TRUE
-			sleep(20)
+			sleep(15)
 			busy = FALSE
 		else
 			break
+	return p
+
+
+
 
 /obj/machinery/photocopier/Topic(href, href_list)
 
