@@ -209,7 +209,7 @@
 	dir = 8
 	},
 /obj/item/pickaxe/mini,
-/obj/item/clothing/under/rank/miner/lavaland,
+/obj/item/clothing/under/rank/cargo/miner/lavaland,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aU" = (
@@ -233,7 +233,7 @@
 /obj/item/clothing/gloves/fingerless,
 /obj/item/reagent_containers/food/drinks/beer,
 /obj/item/pickaxe/mini,
-/obj/item/clothing/under/rank/miner/lavaland,
+/obj/item/clothing/under/rank/cargo/miner/lavaland,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aY" = (
