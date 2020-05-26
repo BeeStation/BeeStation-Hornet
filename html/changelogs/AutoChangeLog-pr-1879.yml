@@ -1,0 +1,5 @@
+author: zeskorion
+delete-after: true
+changes:
+  - bugfix: delta cargo and dorms have been fixed
+  - rscdel: a maint room causing runtimes was commented out
