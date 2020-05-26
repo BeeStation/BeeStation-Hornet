@@ -5536,9 +5536,7 @@
 /area/crew_quarters/heads/hos)
 "anj" = (
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine{
-	department = "Head of Security"
-	},
+/obj/item/phone,
 /turf/open/floor/carpet,
 /area/crew_quarters/heads/hos)
 "ank" = (
@@ -7453,19 +7451,20 @@
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
+/obj/item/folder/yellow{
+	pixel_y = 4
+	},
 /obj/structure/table/glass,
 /obj/machinery/light{
 	dir = 1;
 	light_color = "#e8eaff"
 	},
+/obj/item/pen,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
-	},
-/obj/machinery/photocopier/faxmachine{
-	department = "Bridge"
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -11706,9 +11705,6 @@
 /area/crew_quarters/heads/captain)
 "aAx" = (
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain"
-	},
 /turf/open/floor/carpet,
 /area/crew_quarters/heads/captain)
 "aAy" = (
@@ -37461,9 +37457,6 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/photocopier/faxmachine{
-	department = "Chief Medical Officer"
-	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "bEH" = (
@@ -37660,9 +37653,6 @@
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
-	},
-/obj/machinery/photocopier/faxmachine{
-	department = "Research Director"
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
@@ -44966,9 +44956,6 @@
 	dir = 8
 	},
 /mob/living/simple_animal/parrot/Poly,
-/obj/machinery/photocopier/faxmachine{
-	department = "Chief Engineer"
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "bVE" = (
@@ -59467,9 +59454,6 @@
 /obj/item/taperecorder,
 /obj/item/cartridge/lawyer,
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "Internal Affairs"
-	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "mXs" = (
