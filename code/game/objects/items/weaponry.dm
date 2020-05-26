@@ -222,7 +222,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "bone_sword"
 	item_state = "bone_sword"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	force = 15
 	throwforce = 10
