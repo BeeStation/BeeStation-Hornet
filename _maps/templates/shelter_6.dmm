@@ -37,6 +37,7 @@
 /area/survivalpod)
 "k" = (
 /obj/structure/table/survival_pod,
+/obj/item/storage/firstaid,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "l" = (
