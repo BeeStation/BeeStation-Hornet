@@ -4,7 +4,7 @@
 /area/template_noop)
 "ab" = (
 /obj/effect/spawner/structure/window/plastitanium,
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "ac" = (
 /obj/structure/table/reinforced,
