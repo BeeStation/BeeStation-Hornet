@@ -3358,6 +3358,10 @@
 /area/crew_quarters/heads/hos)
 "agi" = (
 /obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
 /obj/item/stamp/hos,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
@@ -3386,12 +3390,11 @@
 /area/crew_quarters/heads/hos)
 "agl" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Head of Security"
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
@@ -18739,6 +18742,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -31
 	},
+/obj/item/clothing/glasses/sunglasses/advanced/big,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aIV" = (
@@ -19262,6 +19266,15 @@
 /obj/item/folder/blue,
 /obj/item/folder/blue,
 /obj/item/folder/blue,
+/obj/item/folder/red{
+	pixel_x = 3
+	},
+/obj/item/folder/red{
+	pixel_x = 3
+	},
+/obj/item/folder/red{
+	pixel_x = 3
+	},
 /obj/item/stamp/law,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
@@ -19923,10 +19936,9 @@
 /area/lawoffice)
 "aLE" = (
 /obj/structure/table/wood,
-/obj/item/folder/red,
-/obj/item/folder/red,
-/obj/item/folder/red,
-/obj/item/clothing/glasses/sunglasses/advanced/big,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Internal Affairs"
+	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aLF" = (
@@ -27137,8 +27149,10 @@
 /area/crew_quarters/heads/chief)
 "aZD" = (
 /obj/structure/table/reinforced,
-/obj/item/flashlight/lamp,
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Engineer"
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "aZE" = (
@@ -30508,6 +30522,9 @@
 	pixel_x = -30;
 	pixel_y = 1
 	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Captain"
+	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "bfz" = (
@@ -31459,9 +31476,6 @@
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
-/obj/item/folder/yellow{
-	pixel_y = 4
-	},
 /obj/machinery/camera{
 	c_tag = "Bridge - Central"
 	},
@@ -31471,6 +31485,9 @@
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
+	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Bridge"
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -32463,10 +32480,6 @@
 /turf/open/floor/plating,
 /area/bridge)
 "biZ" = (
-/obj/item/folder/white{
-	pixel_x = 4;
-	pixel_y = -3
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -60510,6 +60523,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/item/storage/secure/briefcase,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "cnD" = (
@@ -62642,12 +62656,14 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/item/storage/secure/briefcase,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Medical Officer"
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
@@ -64434,6 +64450,15 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
+/obj/item/cartridge/signal/toxins{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/cartridge/signal/toxins{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/cartridge/signal/toxins,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -65546,21 +65571,15 @@
 /area/crew_quarters/heads/hor)
 "cwR" = (
 /obj/structure/table,
-/obj/item/cartridge/signal/toxins,
-/obj/item/cartridge/signal/toxins{
-	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/item/cartridge/signal/toxins{
-	pixel_x = 4;
-	pixel_y = 6
-	},
 /obj/machinery/camera{
 	c_tag = "Research Director's Office";
 	dir = 1;
 	network = list("ss13","rd")
 	},
 /obj/machinery/light,
+/obj/machinery/photocopier/faxmachine{
+	department = "Research Director"
+	},
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
