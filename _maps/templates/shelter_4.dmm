@@ -78,11 +78,11 @@
 /area/survivalpod)
 "at" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/fans/tiny,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "au" = (
 /obj/machinery/door/airlock/survival_pod,
+/obj/structure/fans/tiny,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "av" = (
@@ -110,7 +110,6 @@
 /area/survivalpod)
 "aA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/fans/tiny,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "aB" = (
@@ -132,6 +131,7 @@
 "aE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/survival_pod,
+/obj/structure/fans/tiny,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "aF" = (
@@ -161,6 +161,7 @@
 /area/survivalpod)
 "aK" = (
 /obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aL" = (
@@ -193,10 +194,6 @@
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
-"aR" = (
-/obj/structure/fans/tiny,
-/turf/open/floor/pod/light,
-/area/survivalpod)
 "aS" = (
 /obj/structure/sign/mining/survival{
 	dir = 8
@@ -212,7 +209,7 @@
 	dir = 8
 	},
 /obj/item/pickaxe/mini,
-/obj/item/clothing/under/rank/cargo/miner/lavaland,
+/obj/item/clothing/under/rank/miner/lavaland,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aU" = (
@@ -236,7 +233,7 @@
 /obj/item/clothing/gloves/fingerless,
 /obj/item/reagent_containers/food/drinks/beer,
 /obj/item/pickaxe/mini,
-/obj/item/clothing/under/rank/cargo/miner/lavaland,
+/obj/item/clothing/under/rank/miner/lavaland,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aY" = (
@@ -518,7 +515,7 @@ aE
 ab
 aJ
 aL
-aR
+ak
 aV
 ag
 aC

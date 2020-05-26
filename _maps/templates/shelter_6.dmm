@@ -32,6 +32,7 @@
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "j" = (
+/obj/machinery/door/airlock/survival_pod/glass,
 /obj/structure/fans/tiny,
 /turf/open/floor/pod/light,
 /area/survivalpod)
@@ -85,7 +86,7 @@ a
 m
 d
 d
-f
+j
 d
 d
 a
@@ -107,7 +108,7 @@ b
 b
 f
 i
-j
+i
 i
 f
 b
@@ -129,7 +130,7 @@ a
 a
 d
 d
-f
+j
 d
 d
 a

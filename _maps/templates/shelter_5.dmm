@@ -60,6 +60,7 @@
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
 "U" = (
+/obj/machinery/door/airlock/survival_pod/glass,
 /obj/structure/fans/tiny,
 /turf/open/floor/pod/light,
 /area/survivalpod)
@@ -86,11 +87,11 @@ l
 a
 "}
 (4,1,1) = {"
-b
-f
 U
 f
-b
+f
+f
+U
 "}
 (5,1,1) = {"
 c
