@@ -14909,7 +14909,7 @@
 	id = "cargounload";
 	name = "supply dock unloading door"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/quartermaster/storage)
 "aCh" = (
 /obj/effect/turf_decal/stripes/line{
@@ -84546,6 +84546,10 @@
 	name = "Cabin 1"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/wood{
 	icon_state = "wood-broken7"
 	},
@@ -85066,10 +85070,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
