@@ -59,6 +59,10 @@
 	},
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
+"U" = (
+/obj/structure/fans/tiny,
+/turf/open/floor/pod/light,
+/area/survivalpod)
 
 (1,1,1) = {"
 a
@@ -84,7 +88,7 @@ a
 (4,1,1) = {"
 b
 f
-f
+U
 f
 b
 "}
