@@ -971,8 +971,8 @@
 /obj/item/twohanded/bamboospear/update_icon()
 	icon_state = "bamboo_spear[wielded]"
 
-/obj/item/twohanded/broom
-	name = "broom"
+/obj/item/twohanded/pushbroom
+	name = "push broom"
 	desc = "This is my BROOMSTICK! It can be used manually or braced with two hands to sweep items as you move. It has a telescopic handle for compact storage."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "broom0"
@@ -988,27 +988,27 @@
 	attack_verb = list("swept", "brushed off", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
 
-/obj/item/twohanded/broom/update_icon_state()
+/obj/item/twohanded/pushbroom/update_icon_state()
 	icon_state = "broom[wielded]"
 
-/obj/item/twohanded/broom/wield(mob/user)
+/obj/item/twohanded/pushbroom/wield(mob/user)
 	. = ..()
 	if(!wielded)
 		return
 	to_chat(user, "<span class='notice'>You brace the [src] against the ground in a firm sweeping stance.</span>")
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/sweep)
 
-/obj/item/twohanded/broom/unwield(mob/user)
+/obj/item/twohanded/pushbroom/unwield(mob/user)
 	. = ..()
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 
-/obj/item/twohanded/broom/afterattack(atom/A, mob/user, proximity)
+/obj/item/twohanded/pushbroom/afterattack(atom/A, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
 	sweep(user, A, FALSE)
 
-/obj/item/twohanded/broom/proc/sweep(mob/user, atom/A, moving = TRUE)
+/obj/item/twohanded/pushbroom/proc/sweep(mob/user, atom/A, moving = TRUE)
 	var/turf/target
 	if (!moving)
 		if (isturf(A))
@@ -1029,7 +1029,7 @@
 	if(i >= 1)
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 30, TRUE, -1)
 
-/obj/item/twohanded/broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J) //bless you whoever fixes this copypasta
+/obj/item/twohanded/pushbroom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	J.put_in_cart(src, user)
 	J.mybroom=src
 	J.update_icon()
