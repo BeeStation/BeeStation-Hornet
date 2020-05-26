@@ -102,8 +102,12 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "aq" = (
+/obj/machinery/door/airlock/survival_pod{
+	name = "Emergency Shuttle Brig";
+	req_one_access_txt = "2"
+	},
 /obj/structure/fans/tiny,
-/turf/open/floor/pod/light,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "ar" = (
 /obj/structure/table/reinforced,
@@ -123,11 +127,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/pod/dark,
-/area/shuttle/escape)
-"at" = (
-/obj/structure/fans/tiny,
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "au" = (
@@ -182,6 +181,7 @@
 	name = "Emergency Shuttle Bridge";
 	req_one_access_txt = "19"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "aE" = (
@@ -435,6 +435,7 @@
 /obj/machinery/door/airlock/survival_pod/glass{
 	name = "Emergency Shuttle Medbay"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "bu" = (
@@ -547,9 +548,9 @@ aa
 aa
 ai
 ao
-at
+bb
 ay
-ax
+aq
 al
 aK
 ah
@@ -625,7 +626,7 @@ al
 bt
 aZ
 be
-aq
+al
 bm
 bo
 bq
@@ -634,7 +635,7 @@ bq
 ab
 af
 al
-aq
+al
 al
 al
 aD
