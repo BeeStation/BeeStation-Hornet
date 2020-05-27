@@ -1,5 +1,0 @@
-author: covertcorvid
-delete-after: true
-changes:
-  - rscadd: Added multi-z support for pinpointers
-  - imageadd: Added above and below overlays for pinpointers
