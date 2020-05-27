@@ -42371,7 +42371,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/photocopier/faxmachine/longrange{
+/obj/machinery/photocopier/faxmachine{
 	department = "Head of Security"
 	},
 /turf/open/floor/plasteel/dark,
@@ -57871,7 +57871,7 @@
 /area/bridge/meeting_room/council)
 "bQy" = (
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
+/obj/machinery/photocopier/faxmachine{
 	department = "Bridge"
 	},
 /turf/open/floor/wood,
@@ -69936,6 +69936,9 @@
 	},
 /obj/item/folder/red,
 /obj/item/stamp/law,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Internal Affairs"
+	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "ciw" = (

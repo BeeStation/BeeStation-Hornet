@@ -807,6 +807,9 @@
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/machinery/photocopier/faxmachine{
+	department = "Head of Security"
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "abX" = (
@@ -7290,6 +7293,9 @@
 /obj/item/folder/blue,
 /obj/item/folder/blue,
 /obj/item/stamp/law,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Internal Affairs"
+	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "arZ" = (
@@ -18520,17 +18526,15 @@
 	pixel_y = -24
 	},
 /obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Bridge"
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
@@ -19707,6 +19711,9 @@
 /area/bridge/meeting_room)
 "bbZ" = (
 /obj/structure/table/wood,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Captain"
+	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "bca" = (
@@ -29535,6 +29542,9 @@
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Research Director"
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/hor)
 "bCh" = (
@@ -30353,7 +30363,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 8
 	},
-/mob/living/simple_animal/pet/cat/Runtime,
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Medical Officer"
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "bEk" = (
@@ -39041,6 +39053,9 @@
 /obj/item/paper/monitorkey,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Engineer"
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "cdn" = (
@@ -54634,6 +54649,7 @@
 	dir = 8
 	},
 /obj/structure/bed/dogbed/runtime,
+/mob/living/simple_animal/pet/cat/Runtime,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "oCr" = (
