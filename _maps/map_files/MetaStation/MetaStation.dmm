@@ -3373,6 +3373,9 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/photocopier/faxmachine{
+	department = "Head of Security"
+	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "agk" = (
@@ -19927,6 +19930,9 @@
 /obj/item/folder/red,
 /obj/item/folder/red,
 /obj/item/clothing/glasses/sunglasses/advanced/big,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Internal Affairs"
+	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aLF" = (
@@ -27150,6 +27156,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Engineer"
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "aZF" = (
@@ -30507,6 +30516,9 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_x = -30;
 	pixel_y = 1
+	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Captain"
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
@@ -39694,9 +39706,11 @@
 /area/bridge)
 "bww" = (
 /obj/structure/table/wood,
-/obj/item/folder/yellow,
 /obj/machinery/firealarm{
 	pixel_y = 28
+	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Bridge"
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -62649,6 +62663,9 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Medical Officer"
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "crB" = (
@@ -65561,6 +65578,9 @@
 	network = list("ss13","rd")
 	},
 /obj/machinery/light,
+/obj/machinery/photocopier/faxmachine{
+	department = "Research Director"
+	},
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
