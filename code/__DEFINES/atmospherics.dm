@@ -105,6 +105,10 @@
 
 #define FIRE_IMMUNITY_MAX_TEMP_PROTECT	35000		//! what max_heat_protection_temperature is set to for firesuit quality suits and helmets. MUST NOT BE 0.
 
+//Emergency skinsuits
+#define EMERGENCY_HELM_MIN_TEMP_PROTECT		2.0		//The helmet is pressurized with air from the oxygen tank. If they don't take damage from that they won't take damage here
+#define EMERGENCY_SUIT_MIN_TEMP_PROTECT		237		//This is the approximate average temperature of Mt. Everest in the winter
+
 #define HELMET_MIN_TEMP_PROTECT				160		//For normal helmets
 #define HELMET_MAX_TEMP_PROTECT				600		//For normal helmets
 #define ARMOR_MIN_TEMP_PROTECT				160		//For armor
@@ -140,7 +144,7 @@
 #define TANK_FRAGMENT_SCALE	    			(6.*ONE_ATMOSPHERE)		//! +1 for each SCALE kPa aboe threshold
 #define TANK_MAX_RELEASE_PRESSURE 			(ONE_ATMOSPHERE*3)
 #define TANK_MIN_RELEASE_PRESSURE 			0
-#define TANK_DEFAULT_RELEASE_PRESSURE 		16
+#define TANK_DEFAULT_RELEASE_PRESSURE 		17
 
 //CANATMOSPASS
 #define ATMOS_PASS_YES 1
@@ -169,7 +173,7 @@
 #define ATMOS_TANK_AIRMIX			"o2=2644;n2=10580;TEMP=293.15"
 
 //LAVALAND
-#define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50 //! what pressure you have to be under to increase the effect of equipment meant for lavaland
+#define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 90 //! what pressure you have to be under to increase the effect of equipment meant for lavaland
 
 //ATMOS MIX IDS
 #define LAVALAND_DEFAULT_ATMOS		"LAVALAND_ATMOS"
@@ -279,25 +283,23 @@
 	T.pixel_x = (PipingLayer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_P_X;\
 	T.pixel_y = (PipingLayer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_P_Y;
 
-#define THERMAL_ENERGY(gas) (gas.temperature * gas.heat_capacity())
-
-#define ADD_GAS(gas_id, out_list)\
-	var/list/tmp_gaslist = GLOB.gaslist_cache[gas_id]; out_list[gas_id] = tmp_gaslist.Copy();
-
-#define ASSERT_GAS(gas_id, gas_mixture) if (!gas_mixture.gases[gas_id]) { ADD_GAS(gas_id, gas_mixture.gases) };
-
-//prefer this to gas_mixture/total_moles in performance critical areas
-#define TOTAL_MOLES(cached_gases, out_var)\
-	out_var = 0;\
-	for(var/total_moles_id in cached_gases){\
-		out_var += cached_gases[total_moles_id][MOLES];\
-	}
 #ifdef TESTING
 GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 #define CALCULATE_ADJACENT_TURFS(T) if (SSadjacent_air.queue[T]) { GLOB.atmos_adjacent_savings[1] += 1 } else { GLOB.atmos_adjacent_savings[2] += 1; SSadjacent_air.queue[T] = 1 }
 #else
 #define CALCULATE_ADJACENT_TURFS(T) SSadjacent_air.queue[T] = 1
 #endif
+
+GLOBAL_VAR(atmos_extools_initialized) // this must be an uninitialized (null) one or init_monstermos will be called twice because reasons
+#define ATMOS_EXTOOLS_CHECK if(!GLOB.atmos_extools_initialized){\
+	GLOB.atmos_extools_initialized=TRUE;\
+	if(fexists(world.system_type == MS_WINDOWS ? "byond-extools.dll" : "libbyond-extools.so")){\
+		var/result = call((world.system_type == MS_WINDOWS ? "byond-extools.dll" : "libbyond-extools.so"),"init_monstermos")();\
+		if(result != "ok") {CRASH(result);}\
+	} else {\
+		CRASH("byond-extools.dll does not exist!");\
+	}\
+}
 
 GLOBAL_LIST_INIT(pipe_paint_colors, list(
 		"amethyst" = rgb(130,43,255), //supplymain

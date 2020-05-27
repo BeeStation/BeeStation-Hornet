@@ -8,6 +8,7 @@
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
 	antagpanel_category = "Ash Walkers"
+	delay_roundend = FALSE
 	var/datum/team/ashwalkers/ashie_team
 
 /datum/antagonist/ashwalker/create_team(datum/team/team)

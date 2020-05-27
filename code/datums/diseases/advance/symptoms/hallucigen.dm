@@ -24,7 +24,6 @@ Bonus
 	transmittable = -1
 	level = 5
 	severity = 1
-	baseseverity = 1
 	base_message_chance = 25
 	symptom_delay_min = 10
 	symptom_delay_max = 70
@@ -33,9 +32,9 @@ Bonus
 					  <b>Stealth 2:</b> The virus mimics positive symptoms.."
 
 /datum/symptom/hallucigen/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["stage_rate"] >= 7)
 		severity += 1
-	return..()
 
 /datum/symptom/hallucigen/Start(datum/disease/advance/A)
 	if(!..())

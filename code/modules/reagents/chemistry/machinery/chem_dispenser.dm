@@ -170,7 +170,7 @@
 											datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "chem_dispenser", name, 565, 550, master_ui, state)
+		ui = new(user, src, ui_key, "ChemDispenser", name, ui_x, ui_y, master_ui, state)
 		if(user.hallucinating())
 			ui.set_autoupdate(FALSE) //to not ruin the immersion by constantly changing the fake chemicals
 		ui.open()
@@ -679,7 +679,11 @@
 		/datum/reagent/drug/space_drugs,
 		/datum/reagent/toxin,
 		/datum/reagent/toxin/plasma,
-		/datum/reagent/uranium
+		/datum/reagent/uranium,
+		/datum/reagent/toxin/carpotoxin,
+		/datum/reagent/medicine/rezadone,
+		/datum/reagent/medicine/silibinin,
+		/datum/reagent/medicine/polypyr	
 	)
 
 /obj/machinery/chem_dispenser/abductor/Initialize()

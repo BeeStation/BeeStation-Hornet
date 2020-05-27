@@ -1,4 +1,7 @@
 GLOBAL_LIST_INIT(ai_names, world.file2list("strings/names/ai.txt"))
+GLOBAL_LIST_INIT(apid_names_male, world.file2list("strings/names/apid_first_male.txt"))
+GLOBAL_LIST_INIT(apid_names_female, world.file2list("strings/names/apid_first_female.txt"))
+GLOBAL_LIST_INIT(apid_names_last, world.file2list("strings/names/apid_last.txt"))
 GLOBAL_LIST_INIT(wizard_first, world.file2list("strings/names/wizardfirst.txt"))
 GLOBAL_LIST_INIT(wizard_second, world.file2list("strings/names/wizardsecond.txt"))
 GLOBAL_LIST_INIT(ninja_titles, world.file2list("strings/names/ninjatitle.txt"))

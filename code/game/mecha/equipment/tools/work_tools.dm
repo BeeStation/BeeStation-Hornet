@@ -175,7 +175,7 @@
 	icon_state = "mecha_exting"
 	equip_cooldown = 5
 	energy_drain = 0
-	range = MELEE|RANGED
+	range = MECHA_MELEE|MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/Initialize()
 	. = ..()
@@ -242,7 +242,7 @@
 	icon_state = "mecha_rcd"
 	equip_cooldown = 10
 	energy_drain = 250
-	range = MELEE|RANGED
+	range = MECHA_MELEE|MECHA_RANGED
 	item_flags = NO_MAT_REDEMPTION
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 
@@ -506,8 +506,17 @@
 		N.cell = M.cell
 		M.cell.forceMove(N)
 		M.cell = null
-	N.step_energy_drain = M.step_energy_drain //For the scanning module
-	N.armor = N.armor.setRating(energy = M.armor["energy"]) //for the capacitor
+	QDEL_NULL(N.scanmod)
+	if (M.scanmod)
+		N.scanmod = M.scanmod
+		M.scanmod.forceMove(N)
+		M.scanmod = null
+	QDEL_NULL(N.capacitor)
+	if (M.capacitor)
+		N.capacitor = M.capacitor
+		M.capacitor.forceMove(N)
+		M.capacitor = null
+	N.update_part_values()
 	for(var/obj/item/mecha_parts/E in M.contents)
 		if(istype(E, /obj/item/mecha_parts/concealed_weapon_bay)) //why is the bay not just a variable change who did this
 			E.forceMove(N)

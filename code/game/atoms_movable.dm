@@ -18,6 +18,7 @@
 	var/verb_whisper = "whispers"
 	var/verb_sing = "sings"
 	var/verb_yell = "yells"
+	var/speech_span
 	var/inertia_dir = 0
 	var/atom/inertia_last_loc
 	var/inertia_moving = 0
@@ -847,12 +848,6 @@
 
 	H.selected_default_language = .
 	. = chosen_langtype
-
-/* End language procs */
-/atom/movable/proc/ConveyorMove(movedir)
-	set waitfor = FALSE
-	if(!anchored && has_gravity())
-		step(src, movedir)
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()

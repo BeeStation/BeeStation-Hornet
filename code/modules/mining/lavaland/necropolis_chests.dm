@@ -153,6 +153,10 @@
 	desc = "A wooden rod about the size of your forearm with a snake carved around it, winding its way up the sides of the rod. Something about it seems to inspire in you the responsibilty and duty to help others."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "asclepius_dormant"
+	block_upgrade_walk = 1 
+	block_level = 2
+	block_power = 40 //blocks very well to encourage using it. Just because you're a pacifist doesn't mean you can't defend yourself
+	block_flags = null //not active, so it's null
 	var/activated = FALSE
 	var/usedHand
 
@@ -331,8 +335,17 @@
 
 // Relic water bottle
 /obj/item/reagent_containers/glass/waterbottle/relic
-	desc = "A bottle of water filled at an old Earth bottling facility. It seems to be radiating some kind of energy."
+	desc = "A bottle of water filled with unknown liquids. It seems to be radiating some kind of energy."
 	flip_chance = 100 // FLIPP
+	list_reagents = list()
+
+/obj/item/reagent_containers/glass/waterbottle/relic/Initialize()
+	var/reagents = volume
+	while(reagents)
+		var/newreagent = rand(1, min(reagents, 30))
+		list_reagents += list(get_unrestricted_random_reagent_id() = newreagent)
+		reagents -= newreagent
+	. = ..()
 
 //Red/Blue Cubes
 /obj/item/warp_cube
@@ -410,6 +423,7 @@
 	max_charges = 1
 	item_flags = NEEDS_PERMIT | NOBLUDGEON
 	force = 18
+	attack_weight = 2
 
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
@@ -618,16 +632,21 @@
 
 /datum/reagent/flightpotion/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
-		if(!ishumanbasic(M) || reac_volume < 5) // implying xenohumans are holy
+		var/mob/living/carbon/C = M
+		var/holycheck = ishumanbasic(C)
+		if(!(holycheck || islizard(C)) || reac_volume < 5) // implying xenohumans are holy //as with all things,
 			if(method == INGEST && show_message)
-				to_chat(M, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
+				to_chat(C, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
 			return ..()
 
-		to_chat(M, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
-		M.set_species(/datum/species/angel)
-		playsound(M.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
-		M.adjustBruteLoss(20)
-		M.emote("scream")
+		to_chat(C, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
+		C.dna.species.give_species_flight(C)
+		if(holycheck)
+			to_chat(C, "<span class='notice'>You feel blessed!</span>")
+			ADD_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
+		playsound(C.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
+		C.adjustBruteLoss(20)
+		C.emote("scream")
 	..()
 
 
@@ -644,7 +663,7 @@
 	to_chat(user, "<span class='notice'>You unfold the ladder. It extends much farther than you were expecting.</span>")
 	var/last_ladder = null
 	for(var/i in 1 to world.maxz)
-		if(is_centcom_level(i) || is_reserved_level(i) || is_reebe(i) || is_away_level(i))
+		if(is_centcom_level(i) || is_reserved_level(i) || is_away_level(i))
 			continue
 		var/turf/T2 = locate(ladder_x, ladder_y, i)
 		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
@@ -678,6 +697,7 @@
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	hitsound_on = 'sound/weapons/bladeslice.ogg'
+	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	sharpness = IS_SHARP
 	faction_bonus_force = 30
@@ -787,6 +807,10 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1
+	block_upgrade_walk = 1 
+	block_level = 1
+	block_power = 20
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
 	var/summon_cooldown = 0

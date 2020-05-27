@@ -81,7 +81,7 @@
 	item_state = "banner_security"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list("Security Officer", "Warden", "Detective", "Head of Security", "Brig Physician")
+	job_loyalties = list("Security Officer", "Warden", "Detective", "Head of Security", "Brig Physician", "Deputy")
 	warcry = "EVERYONE DOWN ON THE GROUND!!"
 
 /obj/item/banner/security/mundane
@@ -92,7 +92,7 @@
 	result = /obj/item/banner/security/mundane
 	time = 40
 	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/rank/security = 1)
+				/obj/item/clothing/under/rank/security/officer = 1)
 	category = CAT_MISC
 
 /obj/item/banner/medical
@@ -145,7 +145,7 @@
 	result = /obj/item/banner/science/mundane
 	time = 40
 	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/rank/scientist = 1)
+				/obj/item/clothing/under/rank/rnd/scientist = 1)
 	category = CAT_MISC
 
 /obj/item/banner/cargo
@@ -166,7 +166,7 @@
 	result = /obj/item/banner/cargo/mundane
 	time = 40
 	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/rank/cargotech = 1)
+				/obj/item/clothing/under/rank/cargo/tech = 1)
 	category = CAT_MISC
 
 /obj/item/banner/engineering
@@ -190,7 +190,7 @@
 	result = /obj/item/banner/engineering/mundane
 	time = 40
 	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/rank/engineer = 1)
+				/obj/item/clothing/under/rank/engineering/engineer = 1)
 	category = CAT_MISC
 
 /obj/item/banner/command
@@ -211,7 +211,7 @@
 	result = /obj/item/banner/command/mundane
 	time = 40
 	reqs = list(/obj/item/stack/rods = 2,
-				/obj/item/clothing/under/captainparade = 1)
+				/obj/item/clothing/under/rank/captain/parade = 1)
 	category = CAT_MISC
 
 /obj/item/banner/red
@@ -379,10 +379,13 @@
 /obj/item/claymore/weak
 	desc = "This one is rusted."
 	force = 30
+	block_level = 1
+	block_upgrade_walk = 1
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	armour_penetration = 15
 
 /obj/item/claymore/weak/ceremonial
 	desc = "A rusted claymore, once at the heart of a powerful scottish clan struck down and oppressed by tyrants, it has been passed down the ages as a symbol of defiance."
 	force = 15
-	block_chance = 30
+	block_power = 30
 	armour_penetration = 5

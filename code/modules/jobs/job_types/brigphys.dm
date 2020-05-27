@@ -8,9 +8,11 @@
 	spawn_positions = 1
 	supervisors = "the head of security and chief medical officer"
 	selection_color = "#ffeeee"
+	chat_color = "#b16789"
 	minimal_player_age = 7
-	exp_requirements = 300
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
+	exp_type_department = EXP_TYPE_SECURITY
 
 	outfit = /datum/outfit/job/brig_phys
 
@@ -33,7 +35,7 @@
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit = /obj/item/clothing/suit/hazardvest/brig_phys
 	suit_store = /obj/item/flashlight/seclite
-	l_hand = /obj/item/storage/firstaid/regular
+	l_hand = /obj/item/storage/firstaid/medical
 	head = /obj/item/clothing/head/soft/sec/brig_phys
 	implants = list(/obj/item/implant/mindshield)
 

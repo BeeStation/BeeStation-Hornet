@@ -1,40 +1,70 @@
 // Thanks to Burger from Burgerstation for the foundation for this
 
-/* 
-BYOND Forum posts that helped me:
+/*
+BYOND Forum posts that helped me :
 http://www.byond.com/forum/post/1133166
 http://www.byond.com/forum/post/1072433
 http://www.byond.com/forum/post/940994
 http://www.byond.com/docs/ref/skinparams.html#Fonts
 */
 
+#define COLOR_JOB_UNKNOWN "#dda583"
+#define COLOR_PERSON_UNKNOWN "#999999"
+
+//For jobs that aren't roundstart but still need colours
+GLOBAL_LIST_INIT(job_colors_pastel, list(
+	"Prisoner" = 		"#d38a5c",
+	"CentCom" = 		"#90FD6D",
+	"Unknown"=			COLOR_JOB_UNKNOWN,
+))
+
 /mob/living
 	var/list/stored_chat_text = list()
 
 /proc/animate_chat(mob/living/target, message, message_language, message_mode, list/show_to, duration)
+	var/text_color
 
-	var/static/list/chatOverhead_colors = list("#83c0dd","#8396dd","#9983dd","#dd83b6","#dd8383","#83dddc","#83dd9f","#a5dd83","#ddd983","#dda583","#dd8383")
+	if(message_mode == MODE_WHISPER)
+		return
 
-	var/text_color = pick(chatOverhead_colors)
+	var/mob/living/carbon/human/target_as_human = target
+	if(istype(target_as_human))
+		if(target_as_human.wear_id?.GetID())
+			var/obj/item/card/id/idcard = target_as_human.wear_id
+			var/datum/job/wearer_job = SSjob.GetJob(idcard.GetJobName())
+			if(wearer_job)
+				text_color = wearer_job.chat_color
+			else
+				text_color = GLOB.job_colors_pastel[idcard.GetJobName()]
+		else
+			text_color = COLOR_PERSON_UNKNOWN
+	else
+		text_color = target.mobsay_color
+
+	if(!text_color)	//Just in case.
+		text_color = COLOR_JOB_UNKNOWN
 
 	var/css = ""
 
-	if((message_mode == MODE_WHISPER) || (message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
-		css += "font-style: italic;"
-
-	if(copytext(message, length(message) - 1) == "!!" || istype(target.get_active_held_item(), /obj/item/megaphone))
-		css += "font-size: 8px; font-weight: bold;"
+	if(copytext(message, length(message) - 1) == "!!")
+		css += "font-weight: bold;"
+	if(istype(target.get_active_held_item(), /obj/item/megaphone))
+		css += "font-size: 8px;"
 		if(istype(target.get_active_held_item(), /obj/item/megaphone/clown))
 			text_color = "#ff2abf"
-	
+	else if((message_mode == MODE_WHISPER_CRIT) || (message_mode == MODE_HEADSET) || (message_mode in GLOB.radiochannels))
+		css += "font-size: 6px;"
+
 	css += "color: [text_color];"
 
 	message = copytext(message, 1, 120)
 
+	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
+	message = replacetext(message, url_scheme, "")
+
 	var/datum/language/D = GLOB.language_datum_instances[message_language]
 
 	// create 2 messages, one that appears if you know the language, and one that appears when you don't know the language
-
 	var/image/I = image(loc = target, layer=FLY_LAYER)
 	I.alpha = 0
 	I.maptext_width = 128
@@ -83,20 +113,23 @@ http://www.byond.com/docs/ref/skinparams.html#Fonts
 	animate(I, 1, alpha = 255, pixel_y = 24)
 	animate(O, 1, alpha = 255, pixel_y = 24)
 
-	// wait a little bit, then delete the message
-	spawn(duration)
-		var/pixel_y_new = I.pixel_y + 10
-		animate(I, 2, pixel_y = pixel_y_new, alpha = 0)
-		animate(O, 2, pixel_y = pixel_y_new, alpha = 0)
-		sleep(2)
-		for(var/client/C in show_to)
-			if(C.mob.can_hear() && C.prefs.overhead_chat)
-				if(C.mob.can_speak_in_language(message_language))
-					C.images -= I
-				else
-					C.images -= O
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/fadeout_overhead_messages, I, O), duration)
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/delete_overhead_messages, I, O, show_to, target, message_language), duration+5)
 
-		target.stored_chat_text -= I
-		target.stored_chat_text -= O
-		qdel(I)
-		qdel(O)
+
+/proc/fadeout_overhead_messages(image/I, image/O)
+	var/pixel_y_new = I.pixel_y + 10
+	animate(I, 2, pixel_y = pixel_y_new, alpha = 0)
+	animate(O, 2, pixel_y = pixel_y_new, alpha = 0)
+
+/proc/delete_overhead_messages(image/I, image/O, list/show_to, mob/living/target, message_language)
+	for(var/client/C in show_to)
+		if(C.mob.can_hear() && C.prefs.overhead_chat)
+			if(C.mob.can_speak_in_language(message_language))
+				C.images -= I
+			else
+				C.images -= O
+	target.stored_chat_text -= I
+	target.stored_chat_text -= O
+	qdel(I)
+	qdel(O)

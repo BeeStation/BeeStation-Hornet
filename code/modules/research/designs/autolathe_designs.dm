@@ -195,6 +195,15 @@
 	category = list("initial", "Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/aac_electronics
+	name = "Airlock Controller Electronics"
+	id = "aac_electronics"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
+	build_path = /obj/item/electronics/advanced_airlock_controller
+	category = list("initial", "Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
 /datum/design/firealarm_electronics
 	name = "Fire Alarm Electronics"
 	id = "firealarm_electronics"
@@ -676,7 +685,7 @@
 	build_path = /obj/item/reagent_containers/syringe
 	category = list("initial", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
-	
+
 /datum/design/dropper
 	name = "Dropper"
 	id = "dropper"
@@ -792,11 +801,11 @@
 	category = list("hacked", "Security")
 
 /datum/design/a357
-	name = "Speed Loader (.357)"
+	name = ".357 Casing"
 	id = "a357"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 30000)
-	build_path = /obj/item/ammo_box/a357
+	materials = list(/datum/material/iron = 4000)
+	build_path = /obj/item/ammo_casing/a357
 	category = list("hacked", "Security")
 
 /datum/design/c10mm

@@ -15701,7 +15701,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/computer/prisoner{
+/obj/machinery/computer/prisoner/management{
 	dir = 4;
 	icon_state = "computer"
 	},
@@ -48783,7 +48783,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
 "brJ" = (
-/obj/machinery/computer/prisoner{
+/obj/machinery/computer/prisoner/management{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
@@ -54166,7 +54166,7 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_x = -28
 	},
-/obj/machinery/computer/prisoner{
+/obj/machinery/computer/prisoner/management{
 	dir = 4;
 	icon_state = "computer"
 	},
@@ -70443,7 +70443,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/prisoner,
+/obj/machinery/computer/prisoner/management,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},

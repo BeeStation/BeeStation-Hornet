@@ -9,9 +9,11 @@
 	spawn_positions = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
+	chat_color = "#C78B8B"
 	minimal_player_age = 7
-	exp_requirements = 240
+	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
+	exp_type_department = EXP_TYPE_SECURITY
 
 	outfit = /datum/outfit/job/detective
 
@@ -30,7 +32,7 @@
 	id = /obj/item/card/id/job/detective
 	belt = /obj/item/pda/detective
 	ears = /obj/item/radio/headset/headset_sec/alt
-	uniform = /obj/item/clothing/under/rank/det
+	uniform = /obj/item/clothing/under/rank/security/detective
 	neck = /obj/item/clothing/neck/tie/detective
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/det_suit

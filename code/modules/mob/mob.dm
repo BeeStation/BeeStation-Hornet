@@ -26,7 +26,6 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
-	GLOB.all_clockwork_mobs -= src
 	GLOB.mob_directory -= tag
 	focus = null
 	for (var/alert in alerts)
@@ -120,11 +119,10 @@
 	var/datum/gas_mixture/environment = loc.return_air()
 
 	var/t =	"<span class='notice'>Coordinates: [x],[y] \n</span>"
-	t +=	"<span class='danger'>Temperature: [environment.temperature] \n</span>"
-	for(var/id in environment.gases)
-		var/gas = environment.gases[id]
-		if(gas[MOLES])
-			t+="<span class='notice'>[gas[GAS_META][META_GAS_NAME]]: [gas[MOLES]] \n</span>"
+	t +=	"<span class='danger'>Temperature: [environment.return_temperature()] \n</span>"
+	for(var/id in environment.get_gases())
+		if(environment.get_moles(id))
+			t+="<span class='notice'>[GLOB.meta_gas_info[id][META_GAS_NAME]]: [environment.get_moles(id)] \n</span>"
 
 	to_chat(usr, t)
 
@@ -495,15 +493,11 @@
 
 ///Update the pulling hud icon
 /mob/proc/update_pull_hud_icon()
-	if(hud_used)
-		if(hud_used.pull_icon)
-			hud_used.pull_icon.update_icon(src)
+	hud_used?.pull_icon?.update_icon()
 
 ///Update the resting hud icon
 /mob/proc/update_rest_hud_icon()
-	if(hud_used)
-		if(hud_used.rest_icon)
-			hud_used.rest_icon.update_icon(src)
+	hud_used?.rest_icon?.update_icon()
 
 /**
   * Verb to activate the object in your held hand

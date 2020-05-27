@@ -47,3 +47,11 @@
 		if(do_after(user,30, target = A))
 			user.visible_message("[user] finishes wiping off [A]!", "<span class='notice'>You finish wiping off [A].</span>")
 			SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
+			A.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+			if(istype(A, /obj/item/clothing) && HAS_TRAIT(A, TRAIT_SPRAYPAINTED))
+				var/obj/item/clothing/C = A
+				var/mob/living/carbon/human/H = user
+				C.flash_protect -= 1
+				C.tint -= 2
+				H.update_tint()
+				REMOVE_TRAIT(A, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)

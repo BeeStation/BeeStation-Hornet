@@ -136,43 +136,8 @@
 	blocks_air = TRUE
 	baseturfs = /turf/open/indestructible/airblock
 
-/turf/open/indestructible/clock_spawn_room
-	name = "cogmetal floor"
-	desc = "Brass plating that gently radiates heat. For some reason, it reminds you of blood."
-	icon_state = "reebe"
-	baseturfs = /turf/open/indestructible/clock_spawn_room
-	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-
-/turf/open/indestructible/clock_spawn_room/Entered()
-	..()
-	START_PROCESSING(SSfastprocess, src)
-
-/turf/open/indestructible/clock_spawn_room/Destroy()
-	STOP_PROCESSING(SSfastprocess, src)
-	. = ..()
-
-/turf/open/indestructible/clock_spawn_room/process()
-	if(!port_servants())
-		STOP_PROCESSING(SSfastprocess, src)
-
-/turf/open/indestructible/clock_spawn_room/proc/port_servants()
-	. = FALSE
-	for(var/mob/living/L in src)
-		if(is_servant_of_ratvar(L) && L.stat != DEAD)
-			. = TRUE
-			L.forceMove(get_turf(pick(GLOB.servant_spawns)))
-			visible_message("<span class='warning'>[L] vanishes in a flash of red!</span>")
-			L.visible_message("<span class='warning'>[L] appears in a flash of red!</span>", \
-			"<span class='bold cult'>sas'so c'arta forbici</span><br><span class='danger'>You're yanked away from [src]!</span>")
-			playsound(src, 'sound/magic/enter_blood.ogg', 50, TRUE)
-			playsound(L, 'sound/magic/exit_blood.ogg', 50, TRUE)
-			flash_color(L, flash_color = "#C80000", flash_time = 10)
-
 /turf/open/Initalize_Atmos(times_fired)
-	excited = 0
+	set_excited(FALSE)
 	update_visuals()
 
 	current_cycle = times_fired
@@ -180,19 +145,19 @@
 	for(var/i in atmos_adjacent_turfs)
 		var/turf/open/enemy_tile = i
 		var/datum/gas_mixture/enemy_air = enemy_tile.return_air()
-		if(!excited && air.compare(enemy_air))
+		if(!get_excited() && air.compare(enemy_air))
 			//testing("Active turf found. Return value of compare(): [is_active]")
-			excited = TRUE
+			set_excited(TRUE)
 			SSair.active_turfs |= src
 
 /turf/open/proc/GetHeatCapacity()
 	. = air.heat_capacity()
 
 /turf/open/proc/GetTemperature()
-	. = air.temperature
+	. = air.return_temperature()
 
 /turf/open/proc/TakeTemperature(temp)
-	air.temperature += temp
+	air.set_temperature(air.return_temperature() + temp)
 	air_update_turf()
 
 /turf/open/proc/freon_gas_act()
@@ -279,10 +244,8 @@
 
 /turf/open/rad_act(pulse_strength)
 	. = ..()
-	if (air.gases[/datum/gas/carbon_dioxide] && air.gases[/datum/gas/oxygen])
-		pulse_strength = min(pulse_strength,air.gases[/datum/gas/carbon_dioxide][MOLES]*1000,air.gases[/datum/gas/oxygen][MOLES]*2000) //Ensures matter is conserved properly
-		air.gases[/datum/gas/carbon_dioxide][MOLES]=max(air.gases[/datum/gas/carbon_dioxide][MOLES]-(pulse_strength/1000),0)
-		air.gases[/datum/gas/oxygen][MOLES]=max(air.gases[/datum/gas/oxygen][MOLES]-(pulse_strength/2000),0)
-		air.assert_gas(/datum/gas/pluoxium)
-		air.gases[/datum/gas/pluoxium][MOLES]+=(pulse_strength/4000)
-		air.garbage_collect()
+	if (air.get_moles(/datum/gas/carbon_dioxide) && air.get_moles(/datum/gas/oxygen))
+		pulse_strength = min(pulse_strength,air.get_moles(/datum/gas/carbon_dioxide)*1000,air.get_moles(/datum/gas/oxygen)*2000) //Ensures matter is conserved properly
+		air.set_moles(/datum/gas/carbon_dioxide, max(air.get_moles(/datum/gas/carbon_dioxide)-(pulse_strength/1000),0))
+		air.set_moles(/datum/gas/oxygen, max(air.get_moles(/datum/gas/oxygen)-(pulse_strength/2000),0))
+		air.adjust_moles(/datum/gas/pluoxium, pulse_strength/4000)

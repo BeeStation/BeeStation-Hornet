@@ -28,6 +28,7 @@
 					CAT_BURGER,
 					CAT_CAKE,
 					CAT_EGG,
+					CAT_ICE,
 					CAT_MEAT,
 					CAT_MISCFOOD,
 					CAT_PASTRY,
@@ -315,7 +316,7 @@
 			cur_subcategory = subcats[1]
 		else
 			cur_subcategory = CAT_NONE
-		ui = new(user, src, ui_key, "personal_crafting", "Crafting Menu", 700, 800, master_ui, state)
+		ui = new(user, src, ui_key, "PersonalCrafting", "Crafting Menu", 700, 800, master_ui, state)
 		ui.open()
 
 

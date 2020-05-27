@@ -177,3 +177,9 @@
 	new /obj/item/reagent_containers/food/snacks/salad/ricebowl(location)
 	if(holder?.my_atom)
 		qdel(holder.my_atom)
+
+/datum/chemical_reaction/bbqsauce
+	name = "BBQ Sauce"
+	id = /datum/reagent/consumable/bbqsauce
+	results = list(/datum/reagent/consumable/bbqsauce = 5)
+	required_reagents = list(/datum/reagent/ash = 1, /datum/reagent/consumable/tomatojuice = 1, /datum/reagent/medicine/salglu_solution = 3, /datum/reagent/consumable/blackpepper = 1)

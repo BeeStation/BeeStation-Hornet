@@ -268,7 +268,7 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
 	var/area/t_area = get_area(t)
-	if(t_area && (t_area.name == "Space" || findtext(t_area.name, "huttle")))
+	if(istype(t_area, /area/space) || istype(t_area, /area/solar) || istype(t_area, /area/asteroid))
 		return FALSE
 	else
 		return TRUE
@@ -337,7 +337,7 @@
 			visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
 			sleep(50)
 			if(mode == BOT_REPAIRING && F && src.loc == F)
-				F.broken = FALSE 
+				F.broken = FALSE
 				F.burnt = FALSE
 				F.PlaceOnTop(/turf/open/floor/plasteel, flags = CHANGETURF_INHERIT_AIR)
 

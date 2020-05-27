@@ -206,6 +206,7 @@
 	spillable = TRUE
 	resistance_flags = FREEZE_PROOF
 	isGlass = FALSE
+	foodtype = BREAKFAST
 
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
@@ -263,6 +264,13 @@
 	icon_state = "beer"
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 30)
 	foodtype = GRAIN | ALCOHOL
+
+/obj/item/reagent_containers/food/drinks/ftliver
+	name = "Faster-Than-Liver"
+	desc = "They've gone into plaid!"
+	icon_state = "ftliver"
+	list_reagents = list(/datum/reagent/consumable/ethanol/ftliver = 30)
+	foodtype = ALCOHOL
 
 /obj/item/reagent_containers/food/drinks/beer/light
 	name = "Carp Lite"
@@ -322,12 +330,12 @@
 				icon_state = "orangebox"
 				name = "orange juice box"
 				desc = "A great source of vitamins. Stay healthy!"
-				foodtype = FRUIT
+				foodtype = FRUIT | BREAKFAST
 			if(/datum/reagent/consumable/milk)
 				icon_state = "milkbox"
 				name = "carton of milk"
 				desc = "An excellent source of calcium for growing space explorers."
-				foodtype = DAIRY
+				foodtype = DAIRY | BREAKFAST
 			if(/datum/reagent/consumable/applejuice)
 				icon_state = "juicebox"
 				name = "apple juice box"
@@ -544,6 +552,13 @@
 	desc = "Grey Bull, it gives you gloves!"
 	icon_state = "energy_drink"
 	list_reagents = list(/datum/reagent/consumable/grey_bull = 20)
+	foodtype = SUGAR | JUNKFOOD
+
+/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy
+	name = "Monkey Energy"
+	desc = "Unleash the ape!"
+	icon_state = "monkey_energy"
+	list_reagents = list(/datum/reagent/consumable/monkey_energy = 50)
 	foodtype = SUGAR | JUNKFOOD
 
 /obj/item/reagent_containers/food/drinks/soda_cans/air

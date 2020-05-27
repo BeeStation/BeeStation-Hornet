@@ -92,7 +92,6 @@
 	var/shuttledocked = 0
 	var/delayed_close_requested = FALSE // TRUE means the door will automatically close the next time it's opened.
 
-	var/air_tight = FALSE	//TRUE means density will be set as soon as the door begins to close
 	var/prying_so_hard = FALSE
 	var/protected_door = FALSE // Protects the door against any form of power outage, AI control, screwdrivers and welders.
 
@@ -133,7 +132,7 @@
 	if(abandoned)
 		var/outcome = rand(1,100)
 		switch(outcome)
-			if(1 to 9)
+			if(1 to 5)
 				var/turf/here = get_turf(src)
 				for(var/turf/closed/T in range(2, src))
 					here.PlaceOnTop(T.type)
@@ -142,14 +141,14 @@
 				here.PlaceOnTop(/turf/closed/wall)
 				qdel(src)
 				return
-			if(9 to 11)
+			if(5 to 6)
 				lights = FALSE
 				locked = TRUE
-			if(12 to 15)
+			if(6 to 8)
 				locked = TRUE
-			if(16 to 23)
+			if(8 to 10)
 				welded = TRUE
-			if(24 to 30)
+			if(10 to 30)
 				panel_open = TRUE
 	update_icon()
 
@@ -338,6 +337,9 @@
 				cyclelinkedairlock.delayed_close_requested = TRUE
 			else
 				addtimer(CALLBACK(cyclelinkedairlock, .proc/close), 2)
+	if(locked && allowed(user) && aac)
+		aac.request_from_door(src)
+		return
 	..()
 
 /obj/machinery/door/airlock/proc/isElectrified()
@@ -753,7 +755,11 @@
 	return attack_hand(user)
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
-	. = ..()
+	if(locked && allowed(user) && aac)
+		aac.request_from_door(src)
+		. = TRUE
+	else
+		. = ..()
 	if(.)
 		return
 	if(!(issilicon(user) || IsAdminGhost(user)))
@@ -1149,7 +1155,7 @@
 			return
 	if(safe)
 		for(var/atom/movable/M in get_turf(src))
-			if(M.density && M != src) //something is blocking the door
+			if(M.density && !(M.flags_1 & ON_BORDER_1) && M != src) //something is blocking the door
 				autoclose_in(60)
 				return
 
@@ -1446,7 +1452,7 @@
 													datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ai_airlock", name, 500, 390, master_ui, state)
+		ui = new(user, src, ui_key, "AiAirlock", name, 500, 390, master_ui, state)
 		ui.open()
 	return TRUE
 

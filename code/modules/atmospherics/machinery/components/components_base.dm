@@ -16,8 +16,7 @@
 	..()
 
 	for(var/i in 1 to device_type)
-		var/datum/gas_mixture/A = new
-		A.volume = 200
+		var/datum/gas_mixture/A = new(200)
 		airs[i] = A
 
 // Iconnery
@@ -31,7 +30,7 @@
 	underlays.Cut()
 
 	var/turf/T = loc
-	if(level == 2 || !T.intact)
+	if(level == 2 || (istype(T) && !T.intact))
 		showpipe = TRUE
 		plane = GAME_PLANE
 	else
@@ -118,7 +117,7 @@
 		var/times_lost = 0
 		for(var/i in 1 to device_type)
 			var/datum/gas_mixture/air = airs[i]
-			lost += pressures*environment.volume/(air.temperature * R_IDEAL_GAS_EQUATION)
+			lost += pressures*environment.return_volume()/(air.return_temperature() * R_IDEAL_GAS_EQUATION)
 			times_lost++
 		var/shared_loss = lost/times_lost
 

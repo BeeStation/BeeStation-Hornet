@@ -37,9 +37,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		LC.gear[use_name] = GLOB.gear_datums[use_name]
 
 	GLOB.loadout_categories = sortAssoc(GLOB.loadout_categories)
-	for(var/loadout_category in GLOB.loadout_categories)
-		var/datum/loadout_category/LC = GLOB.loadout_categories[loadout_category]
-		LC.gear = sortAssoc(LC.gear)
 	return 1
 
 /datum/gear

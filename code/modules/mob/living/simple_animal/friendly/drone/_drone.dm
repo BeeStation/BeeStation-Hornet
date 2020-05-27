@@ -37,6 +37,7 @@
 	gender = NEUTER
 	mob_biotypes = list(MOB_ROBOTIC)
 	speak_emote = list("chirps")
+	speech_span = SPAN_ROBOT
 	bubble_icon = "machine"
 	initial_language_holder = /datum/language_holder/drone
 	mob_size = MOB_SIZE_SMALL
@@ -77,6 +78,7 @@
 	"<span class='notify'>     - Interacting with non-living beings (dragging bodies, looting bodies, etc.)</span>\n"+\
 	"<span class='warning'>These rules are at admin discretion and will be heavily enforced.</span>\n"+\
 	"<span class='warning'><u>If you do not have the regular drone laws, follow your laws to the best of your ability.</u></span>"
+	mobsay_color = "#8AB48C"
 
 /mob/living/simple_animal/drone/Initialize()
 	. = ..()
@@ -151,23 +153,6 @@
 
 /mob/living/simple_animal/drone/gib()
 	dust()
-
-/mob/living/simple_animal/drone/ratvar_act()
-	if(status_flags & GODMODE)
-		return
-
-	if(internal_storage)
-		dropItemToGround(internal_storage)
-	if(head)
-		dropItemToGround(head)
-	var/mob/living/simple_animal/drone/cogscarab/ratvar/R = new /mob/living/simple_animal/drone/cogscarab/ratvar(loc)
-	R.setDir(dir)
-	if(mind)
-		mind.transfer_to(R, 1)
-	else
-		R.key = key
-	qdel(src)
-
 
 /mob/living/simple_animal/drone/examine(mob/user)
 	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <b>[src]</b>!")

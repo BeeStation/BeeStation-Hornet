@@ -164,7 +164,7 @@
 /obj/structure/bed/nest,
 /obj/effect/decal/cleanable/blood/gibs,
 /obj/item/clothing/mask/facehugger/impregnated,
-/obj/item/clothing/under/rank/security,
+/obj/item/clothing/under/rank/security/officer,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/melee/baton/loaded,
 /obj/item/clothing/head/helmet,
@@ -5633,7 +5633,7 @@
 	locked = 0;
 	req_access_txt = "201"
 	},
-/obj/item/clothing/under/suit_jacket/navy,
+/obj/item/clothing/under/suit/navy,
 /turf/open/floor/carpet{
 	heat_capacity = 1e+006
 	},
@@ -5921,7 +5921,7 @@
 	name = "Kitchen Crate"
 	},
 /obj/item/storage/box/mousetraps,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/suit/waiter,
 /turf/open/floor/plasteel/showroomfloor{
 	heat_capacity = 1e+006;
 	temperature = 273.15
@@ -6564,7 +6564,7 @@
 	locked = 0;
 	req_access_txt = "201"
 	},
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /turf/open/floor/carpet{
 	heat_capacity = 1e+006
 	},
@@ -6732,7 +6732,7 @@
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /obj/item/clothing/neck/tie/black,
-/obj/item/clothing/under/lawyer/blacksuit,
+/obj/item/clothing/under/suit/black,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -6974,7 +6974,7 @@
 	locked = 0;
 	req_access_txt = "201"
 	},
-/obj/item/clothing/under/suit_jacket/burgundy,
+/obj/item/clothing/under/suit/burgundy,
 /turf/open/floor/carpet{
 	heat_capacity = 1e+006
 	},

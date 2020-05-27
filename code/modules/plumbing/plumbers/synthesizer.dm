@@ -49,7 +49,7 @@
 	)
 
 	ui_x = 300
-	ui_y = 360
+	ui_y = 375
 
 /obj/machinery/plumbing/synthesizer/Initialize(mapload, bolt)
 	. = ..()
@@ -65,7 +65,7 @@
 /obj/machinery/plumbing/synthesizer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "synthesizer", name, 300, 435, master_ui, state)
+		ui = new(user, src, ui_key, "ChemSynthesizer", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/plumbing/synthesizer/ui_data(mob/user)
