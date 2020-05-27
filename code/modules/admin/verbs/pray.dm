@@ -57,6 +57,8 @@
 	var/msg = copytext(sanitize(text), 1, MAX_MESSAGE_LEN)
 	msg = "<span class='adminnotice'><b><font color=orange>CENTCOM:</font>[ADMIN_FULLMONTY(Sender)] [ADMIN_CENTCOM_REPLY(Sender)]:</b> [msg]</span>"
 	to_chat(GLOB.admins, msg)
+	for(var/client/C in GLOB.admins)
+		SEND_SOUND(C, sound('sound/effects/centcomm_message.ogg'))
 	for(var/obj/machinery/computer/communications/C in GLOB.machines)
 		C.overrideCooldown()
 
@@ -64,6 +66,9 @@
 	var/msg = copytext(sanitize(text), 1, MAX_MESSAGE_LEN)
 	msg = "<span class='adminnotice'><b><font color=crimson>SYNDICATE:</font>[ADMIN_FULLMONTY(Sender)] [ADMIN_SYNDICATE_REPLY(Sender)]:</b> [msg]</span>"
 	to_chat(GLOB.admins, msg)
+	for(var/client/C in GLOB.admins)
+		//replace this with something more syndicate
+		SEND_SOUND(C, sound('sound/effects/centcomm_message.ogg'))
 	for(var/obj/machinery/computer/communications/C in GLOB.machines)
 		C.overrideCooldown()
 
@@ -71,5 +76,8 @@
 	var/msg = copytext(sanitize(text), 1, MAX_MESSAGE_LEN)
 	msg = "<span class='adminnotice'><b><font color=orange>NUKE CODE REQUEST:</font>[ADMIN_FULLMONTY(Sender)] [ADMIN_CENTCOM_REPLY(Sender)] [ADMIN_SET_SD_CODE]:</b> [msg]</span>"
 	to_chat(GLOB.admins, msg)
+	for(var/client/C in GLOB.admins)
+		//and this should be replaced with something more Chornobylish
+		SEND_SOUND(C, sound('sound/effects/centcomm_message.ogg'))
 	for(var/obj/machinery/computer/communications/C in GLOB.machines)
 		C.overrideCooldown()
