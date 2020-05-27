@@ -29,6 +29,7 @@
 "h" = (
 /obj/structure/table,
 /obj/item/storage/firstaid,
+/obj/item/holosign_creator/medical,
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
 "i" = (
@@ -59,6 +60,16 @@
 	},
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
+"F" = (
+/obj/structure/sign/departments/medbay/alt,
+/turf/closed/wall/mineral/titanium/survival,
+/area/survivalpod)
+"N" = (
+/obj/structure/sign/departments/medbay/alt,
+/obj/structure/sign/departments/minsky/medical/medical2,
+/obj/structure/sign/departments/medbay/alt2,
+/turf/closed/wall/mineral/titanium/survival,
+/area/survivalpod)
 "U" = (
 /obj/machinery/door/airlock/survival_pod/glass,
 /obj/structure/fans/tiny,
@@ -69,11 +80,11 @@
 a
 a
 b
-a
+F
 a
 "}
 (2,1,1) = {"
-a
+N
 d
 f
 k
@@ -105,11 +116,11 @@ a
 h
 f
 j
-a
+N
 "}
 (7,1,1) = {"
 a
-a
+F
 b
 a
 a

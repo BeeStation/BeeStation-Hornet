@@ -58,6 +58,10 @@
 	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
+"D" = (
+/obj/structure/sign/mining/survival,
+/turf/closed/wall/mineral/titanium/survival,
+/area/survivalpod)
 
 (1,1,1) = {"
 a
@@ -87,7 +91,7 @@ m
 d
 d
 j
-d
+D
 d
 a
 a
@@ -129,7 +133,7 @@ a
 a
 a
 d
-d
+D
 j
 d
 d
