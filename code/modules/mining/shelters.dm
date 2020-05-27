@@ -106,3 +106,9 @@
 	shelter_id = "capsule_barricade"
 	description = "A 3x3 glass barricade, perfect for security and laserguns."
 	mappath = "_maps/templates/capsule_barricade.dmm"
+
+/datum/map_template/shelter/theta
+	name = "Shelter Theta"
+	shelter_id = "shelter_theta"
+	description = "A large party area fit for station parties."
+	mappath = "_maps/templates/shelter_7.dmm"
