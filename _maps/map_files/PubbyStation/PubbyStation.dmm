@@ -7464,7 +7464,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/photocopier/faxmachine{
+/obj/machinery/photocopier/faxmachine/longrange{
 	department = "Bridge"
 	},
 /turf/open/floor/plasteel/dark,
