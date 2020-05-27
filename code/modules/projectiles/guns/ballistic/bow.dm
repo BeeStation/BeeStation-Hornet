@@ -9,7 +9,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	fire_sound = 'sound/weapons/bowfire.ogg'
 	slot_flags = ITEM_SLOT_BACK
-	item_flags = NONE
+	item_flags = NEEDS_PERMIT
 	casing_ejector = FALSE
 	internal_magazine = TRUE
 	pin = null
