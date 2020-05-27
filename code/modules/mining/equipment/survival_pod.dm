@@ -70,16 +70,19 @@
 /obj/item/survivalcapsule/luxury
 	name = "luxury bluespace shelter capsule"
 	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace."
+	icon_state = "capsulelux"
 	template_id = "shelter_beta"
 
 /obj/item/survivalcapsule/luxuryelite
 	name = "luxury elite bar capsule"
 	desc = "A luxury bar in a capsule. Bartender required and not included."
+	icon_state = "capsuleluxelite"
 	template_id = "shelter_charlie"
 
 /obj/item/survivalcapsule/encampment
 	name = "mining encampment capsule"
 	desc = "A medium-sized mining encampment in a capsule. A home away from home, away from home!"
+	icon_state = "capsulecamp"
 	template_id = "shelter_delta"
 
 /obj/item/survivalcapsule/medical
@@ -102,6 +105,13 @@
 	icon_state = "capsulesec"
 	icon = 'icons/obj/mining.dmi'
 	template_id = "capsule_barricade"
+
+/obj/item/survivalcapsule/party
+	name = "party capsule"
+	desc = "A 7x7 party area, fit with tables and a dancefloor. Groovy."
+	icon_state = "capsuleparty"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "shelter_theta"
 
 //Pod objects
 
