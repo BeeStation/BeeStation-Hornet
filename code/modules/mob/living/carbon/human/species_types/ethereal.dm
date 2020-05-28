@@ -37,9 +37,9 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		default_color = "#" + H.dna.features["ethcolor"]
-		r1 = GetRedPart(default_color)
-		g1 = GetGreenPart(default_color)
-		b1 = GetBluePart(default_color)
+		r1 = GETREDPART(default_color)
+		g1 = GETGREENPART(default_color)
+		b1 = GETBLUEPART(default_color)
 		spec_updatehealth(H)
 
 /datum/species/ethereal/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)

@@ -45,6 +45,7 @@
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
+	component_type = /datum/component/storage/concrete/bluespace/bag_of_holding
 
 /obj/item/storage/backpack/holding/ComponentInitialize()
 	. = ..()
@@ -418,10 +419,10 @@
 	custom_premium_price = 500
 
 /obj/item/storage/backpack/duffelbag/sec/deputy/PopulateContents()
-	new /obj/item/clothing/head/soft/sec(src) 
-	new /obj/item/radio/headset/headset_sec(src) 
+	new /obj/item/clothing/head/soft/sec(src)
+	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/clothing/glasses/hud/security/deputy(src)
-	new /obj/item/clothing/under/rank/security/mallcop(src)
+	new /obj/item/clothing/under/rank/security/officer/mallcop(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/storage/belt/security/deputy(src)
 	new /obj/item/clothing/accessory/armband/deputy(src)
@@ -481,7 +482,7 @@
 	item_state = "duffel-syndieammo"
 
 /obj/item/storage/backpack/duffelbag/syndie/hitman/PopulateContents()
-	new /obj/item/clothing/under/lawyer/blacksuit(src)
+	new /obj/item/clothing/under/suit/black(src)
 	new /obj/item/clothing/accessory/waistcoat(src)
 	new /obj/item/clothing/suit/toggle/lawyer/black(src)
 	new /obj/item/clothing/shoes/laceup(src)
@@ -617,7 +618,7 @@
 
 /obj/item/storage/backpack/duffelbag/clown/syndie/PopulateContents()
 	new /obj/item/pda/clown(src)
-	new /obj/item/clothing/under/rank/clown(src)
+	new /obj/item/clothing/under/rank/civilian/clown(src)
 	new /obj/item/clothing/shoes/clown_shoes(src)
 	new /obj/item/clothing/mask/gas/clown_hat(src)
 	new /obj/item/bikehorn(src)

@@ -61,8 +61,7 @@
 	},
 /obj/structure/sign/barsign{
 	pixel_y = -32;
-	req_access = null;
-	req_access_txt = "0"
+	req_access = null
 	},
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
@@ -1330,7 +1329,6 @@
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "fk" = (
 /obj/machinery/power/apc/syndicate{
-	dir = 2;
 	name = "Experimentation Lab APC";
 	pixel_y = -23
 	},
@@ -1394,15 +1392,10 @@
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/southleft{
-	base_state = "left";
-	dir = 2;
-	icon_state = "left";
 	name = "Chemistry"
 	},
 /obj/machinery/door/window/southleft{
-	base_state = "left";
 	dir = 1;
-	icon_state = "left";
 	name = "Chemistry";
 	req_access_txt = "150"
 	},
@@ -1797,9 +1790,7 @@
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "gs" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/white,
@@ -1982,9 +1973,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -2693,7 +2682,6 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "ib" = (
 /obj/effect/mob_spawn/human/lavaland_syndicate{
-	icon_state = "sleeper_s";
 	dir = 4
 	},
 /turf/open/floor/plasteel/grimy,
@@ -2733,8 +2721,7 @@
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "ie" = (
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms{
-	dir = 8;
-	icon_state = "sleeper_s"
+	dir = 8
 	},
 /turf/open/floor/plasteel/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
@@ -2978,7 +2965,6 @@
 	dir = 1
 	},
 /obj/machinery/firealarm{
-	dir = 2;
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
@@ -3150,9 +3136,7 @@
 "iT" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -3185,7 +3169,6 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/syndicate{
-	dir = 2;
 	name = "Dormitories APC";
 	pixel_y = -23
 	},
@@ -3394,7 +3377,6 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "jn" = (
 /obj/effect/mob_spawn/human/lavaland_syndicate{
-	icon_state = "sleeper_s";
 	dir = 4
 	},
 /obj/machinery/airalarm/syndicate{
@@ -3420,8 +3402,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "jq" = (
 /obj/effect/mob_spawn/human/lavaland_syndicate{
-	dir = 8;
-	icon_state = "sleeper_s"
+	dir = 8
 	},
 /obj/machinery/airalarm/syndicate{
 	pixel_y = 24
@@ -3815,9 +3796,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "kd" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -3888,9 +3867,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "kj" = (
@@ -5004,7 +4981,6 @@
 /obj/machinery/light/small,
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/syndicate{
-	dir = 2;
 	name = "Bar APC";
 	pixel_y = -23
 	},
@@ -5531,9 +5507,7 @@
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "nw" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -5829,7 +5803,6 @@
 	dir = 4
 	},
 /obj/machinery/firealarm{
-	dir = 2;
 	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
@@ -6033,7 +6006,6 @@
 	},
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/syndicate{
-	dir = 2;
 	name = "Telecommunications APC";
 	pixel_y = -23
 	},
@@ -6197,8 +6169,7 @@
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "oG" = (
 /obj/structure/cable,
-/obj/machinery/power/turbine{
-	dir = 2;
+/obj/machinery/power/turbine/lavaland{
 	luminosity = 2
 	},
 /turf/open/floor/engine/vacuum,

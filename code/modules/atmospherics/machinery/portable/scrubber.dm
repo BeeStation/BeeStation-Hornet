@@ -38,21 +38,14 @@
 		scrub(T.return_air())
 
 /obj/machinery/portable_atmospherics/scrubber/proc/scrub(var/datum/gas_mixture/mixture)
-	var/transfer_moles = min(1, volume_rate / mixture.volume) * mixture.total_moles()
+	var/transfer_moles = min(1, volume_rate / mixture.return_volume()) * mixture.total_moles()
 
 	var/datum/gas_mixture/filtering = mixture.remove(transfer_moles) // Remove part of the mixture to filter.
-	var/datum/gas_mixture/filtered = new
 	if(!filtering)
 		return
 
-	filtered.temperature = filtering.temperature
-	for(var/gas in filtering.gases & scrubbing)
-		filtered.add_gas(gas)
-		filtered.gases[gas][MOLES] = filtering.gases[gas][MOLES] // Shuffle the "bad" gasses to the filtered mixture.
-		filtering.gases[gas][MOLES] = 0
-	filtering.garbage_collect() // Now that the gasses are set to 0, clean up the mixture.
+	filtering.scrub_into(air_contents, scrubbing)
 
-	air_contents.merge(filtered) // Store filtered out gasses.
 	mixture.merge(filtering) // Returned the cleaned gas.
 	if(!holding)
 		air_update_turf()
