@@ -1001,7 +1001,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/deployablemine/traitor
 	cost = 4
 	include_modes = list(/datum/game_mode/nuclear/clown_ops)
-	
+
 /datum/uplink_item/explosives/virus_grenade
 	name = "Fungal Tuberculosis Grenade"
 	desc = "A primed bio-grenade packed into a compact box. Comes with five Bio Virus Antidote Kit (BVAK) \
@@ -2093,3 +2093,10 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 	illegal_tech = FALSE
+
+/datum/uplink_item/role_restricted/traitorous_cloner
+	name = "Defective Cloner"
+	desc = "A box that cointains boards and tools to setup defective clone machinery for making defective clones."
+	item = /obj/item/storage/box/syndicate/traitorous_cloner
+	cost = 4
+	restricted_roles = list("Geneticist", "Chief Medical Officer")

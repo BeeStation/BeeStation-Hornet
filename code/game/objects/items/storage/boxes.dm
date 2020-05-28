@@ -1135,3 +1135,24 @@
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/screwdriver = 1)
 	generate_items_inside(items_inside,src)
+
+obj/item/storage/box/syndicate/traitorous_cloner/
+	name = "traitorous cloner box"
+	desc = "a very suspicious box"
+	icon_state = "syndiebox"
+	illustration = null
+
+obj/item/storage/box/syndicate/traitorous_cloner/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 6
+
+obj/item/storage/box/syndicate/traitorous_cloner/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/circuitboard/machine/clonepod/traitorous = 1,
+		/obj/item/circuitboard/computer/prototype_cloning_traitorous = 1,
+		/obj/item/crowbar = 1,
+		/obj/item/wirecutters = 1,
+		/obj/item/multitool = 1,
+		/obj/item/screwdriver = 1)
+	generate_items_inside(items_inside, src)
