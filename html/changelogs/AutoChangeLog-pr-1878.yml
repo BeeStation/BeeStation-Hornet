@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - bugfix: The second worst shuttle should work again. Now stop buying it.
