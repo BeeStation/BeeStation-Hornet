@@ -1,4 +1,4 @@
-#define AIR_CONTENTS	((25*ONE_ATMOSPHERE)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature))
+#define AIR_CONTENTS	((25*ONE_ATMOSPHERE)*(air_contents.return_volume())/(R_IDEAL_GAS_EQUATION*air_contents.return_temperature()))
 /obj/machinery/atmospherics/components/unary/tank
 	icon = 'icons/obj/atmospherics/pipes/pressure_tank.dmi'
 	icon_state = "generic"
@@ -17,12 +17,11 @@
 /obj/machinery/atmospherics/components/unary/tank/New()
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	air_contents.volume = volume
-	air_contents.temperature = T20C
+	air_contents.set_volume(volume)
+	air_contents.set_temperature(T20C)
 	if(gas_type)
-		air_contents.assert_gas(gas_type)
-		air_contents.gases[gas_type][MOLES] = AIR_CONTENTS
-		name = "[name] ([air_contents.gases[gas_type][GAS_META][META_GAS_NAME]])"
+		air_contents.set_moles(AIR_CONTENTS)
+		name = "[name] ([GLOB.meta_gas_info[gas_type][META_GAS_NAME]])"
 	setPipingLayer(piping_layer)
 
 
@@ -33,9 +32,8 @@
 /obj/machinery/atmospherics/components/unary/tank/air/New()
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	air_contents.assert_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
-	air_contents.gases[/datum/gas/oxygen][MOLES] = AIR_CONTENTS * 0.2
-	air_contents.gases[/datum/gas/nitrogen][MOLES] = AIR_CONTENTS * 0.8
+	air_contents.set_moles(/datum/gas/oxygen, AIR_CONTENTS * 0.2)
+	air_contents.set_moles(/datum/gas/nitrogen, AIR_CONTENTS * 0.8)
 
 /obj/machinery/atmospherics/components/unary/tank/carbon_dioxide
 	gas_type = /datum/gas/carbon_dioxide
