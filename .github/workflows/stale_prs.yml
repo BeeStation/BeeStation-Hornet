@@ -7,7 +7,7 @@ on:
 jobs:
   stale:
     runs-on: ubuntu-latest
-    if: github.repository == 'BeeStation/BeeStation-Hornet'
+    if: github.repository == 'DeltaKris/New-Era-Station'
     steps:
     - uses: actions/stale@v1
       with:

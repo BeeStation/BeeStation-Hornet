@@ -7,7 +7,7 @@ on:
 jobs:
   CompileCL:
     runs-on: ubuntu-latest
-    if: github.repository == 'BeeStation/BeeStation-Hornet'
+    if: github.repository == 'DeltaKris/New-Era-Station'
     steps:
       - name: Checkout
         uses: actions/checkout@v1
