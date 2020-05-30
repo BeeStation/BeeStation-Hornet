@@ -33,6 +33,21 @@
 	icon_state = "platingdmg1"
 	},
 /area/template_noop)
+"ap" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/plant_analyzer,
+/obj/item/shovel/spade,
+/obj/item/cultivator{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
+/turf/open/floor/grass,
+/area/template_noop)
 "au" = (
 /obj/effect/turf_decal/stripes{
 	dir = 4
@@ -288,6 +303,28 @@
 /obj/effect/turf_decal/stripes,
 /turf/open/floor/plating,
 /area/template_noop)
+"bW" = (
+/obj/structure/closet{
+	name = "beekeeping wardrobe"
+	},
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/melee/flyswatter,
+/obj/item/melee/flyswatter,
+/obj/item/melee/flyswatter,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
 "bY" = (
 /obj/structure/chair/stool,
 /turf/open/floor/carpet,
@@ -347,6 +384,15 @@
 /obj/item/storage/box/ingredients/vegetarian,
 /obj/item/storage/box/ingredients/carnivore,
 /turf/open/floor/plasteel/white,
+/area/template_noop)
+"cu" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/liberty,
+/turf/open/floor/grass,
+/area/template_noop)
+"cy" = (
+/obj/structure/beebox,
+/turf/open/floor/grass,
 /area/template_noop)
 "cz" = (
 /obj/structure/table_frame/wood,
@@ -1693,6 +1739,11 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
+"nM" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/cannabis,
+/turf/open/floor/grass,
+/area/template_noop)
 "nN" = (
 /obj/structure/chair/pew{
 	dir = 1
@@ -1784,6 +1835,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/space)
+"oq" = (
+/mob/living/simple_animal/butterfly,
+/turf/open/floor/grass,
+/area/template_noop)
 "ox" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/effect/turf_decal/tile/blue{
@@ -1810,6 +1865,9 @@
 /obj/structure/table,
 /turf/open/floor/plasteel,
 /area/space)
+"oJ" = (
+/turf/open/floor/grass,
+/area/template_noop)
 "oO" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/wood,
@@ -1974,6 +2032,11 @@
 "qj" = (
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/plating,
+/area/template_noop)
+"qm" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/ambrosia,
+/turf/open/floor/grass,
 /area/template_noop)
 "qo" = (
 /obj/effect/decal/cleanable/oil{
@@ -2461,6 +2524,25 @@
 /obj/item/pen,
 /turf/open/floor/wood,
 /area/template_noop)
+"ut" = (
+/obj/structure/closet{
+	name = "beekeeping supplies"
+	},
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
 "ux" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
@@ -2551,6 +2633,11 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
+/area/template_noop)
+"uX" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/cabbage,
+/turf/open/floor/grass,
 /area/template_noop)
 "vb" = (
 /obj/structure/table,
@@ -3281,6 +3368,11 @@
 	icon_state = "wood-broken4"
 	},
 /area/template_noop)
+"Bn" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/glowshroom,
+/turf/open/floor/grass,
+/area/template_noop)
 "Bo" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken"
@@ -3494,6 +3586,10 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/wood,
 /area/template_noop)
+"Dn" = (
+/obj/structure/sink/puddle,
+/turf/open/floor/grass,
+/area/template_noop)
 "Dp" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -3611,6 +3707,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/space)
+"Ey" = (
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/grass,
+/area/template_noop)
 "Ez" = (
 /obj/item/stack/cable_coil/cut,
 /obj/effect/landmark/blobstart,
@@ -3620,6 +3720,10 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/space/basic,
 /area/space)
+"EI" = (
+/obj/structure/flora/grass/jungle,
+/turf/open/floor/grass,
+/area/template_noop)
 "EK" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -3874,6 +3978,10 @@
 /obj/item/clothing/head/wig/random,
 /turf/open/floor/monotile,
 /area/space)
+"GF" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/template_noop)
 "GL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mech_bay_recharge_floor,
@@ -4117,6 +4225,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/space)
+"ID" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/grass,
+/area/template_noop)
 "IH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
 	dir = 8
@@ -4346,6 +4458,11 @@
 "Kb" = (
 /obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
+/area/template_noop)
+"Kc" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/bamboo,
+/turf/open/floor/grass,
 /area/template_noop)
 "Kk" = (
 /obj/structure/flora/grass/jungle/b,
@@ -4637,6 +4754,12 @@
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
+"Mv" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
 "Mz" = (
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/closet/crate,
@@ -4717,6 +4840,10 @@
 	pixel_y = -32
 	},
 /turf/open/floor/plating,
+/area/template_noop)
+"Nk" = (
+/obj/machinery/biogenerator,
+/turf/open/floor/grass,
 /area/template_noop)
 "Nq" = (
 /obj/structure/closet/firecloset/full,
@@ -4799,6 +4926,11 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/open/floor/plating,
+/area/template_noop)
+"OI" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/carrot,
+/turf/open/floor/grass,
 /area/template_noop)
 "OJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4928,6 +5060,10 @@
 /obj/item/reagent_containers/food/snacks/deadmouse,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
+"Qh" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/grass,
+/area/template_noop)
 "Ql" = (
 /obj/item/trash/popcorn,
 /turf/open/floor/wood,
@@ -5043,6 +5179,12 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
+/area/template_noop)
+"Rc" = (
+/obj/structure/flora/ausbushes/reedbush{
+	pixel_y = 5
+	},
+/turf/open/floor/grass,
 /area/template_noop)
 "Rf" = (
 /obj/item/chair/stool/bar{
@@ -5328,6 +5470,10 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
+"To" = (
+/obj/item/stack/cable_coil/blue,
+/turf/open/floor/plating,
+/area/template_noop)
 "Tp" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/monotile,
@@ -5456,6 +5602,10 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
+/area/template_noop)
+"TQ" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/grass,
 /area/template_noop)
 "TR" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -5627,6 +5777,10 @@
 	pixel_x = 4
 	},
 /turf/open/floor/carpet,
+/area/template_noop)
+"Va" = (
+/obj/machinery/seed_extractor,
+/turf/open/floor/grass,
 /area/template_noop)
 "Vc" = (
 /obj/item/trash/can{
@@ -6301,6 +6455,11 @@
 	dir = 4
 	},
 /turf/open/floor/wood,
+/area/template_noop)
+"ZU" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/replicapod,
+/turf/open/floor/grass,
 /area/template_noop)
 "ZV" = (
 /obj/structure/window/reinforced/spawner/west,
@@ -23624,7 +23783,7 @@ md
 md
 Rh
 md
-md
+ML
 md
 md
 md
@@ -23881,15 +24040,15 @@ md
 md
 md
 Rh
-md
-md
-md
-md
-md
-md
-md
-md
-md
+ML
+cn
+GF
+GF
+rw
+rw
+GF
+GF
+cn
 md
 Rh
 md
@@ -24140,15 +24299,15 @@ md
 md
 Rh
 md
-md
-md
-md
-md
-md
-md
-md
-md
-md
+GF
+Bn
+uX
+oJ
+oJ
+oJ
+cu
+GF
+Cv
 Rh
 md
 md
@@ -24397,15 +24556,15 @@ md
 md
 md
 Rh
-md
-md
-md
-md
-md
-md
-md
-md
-md
+jL
+GF
+qm
+oJ
+oJ
+EI
+oJ
+ZU
+GF
 md
 Rh
 md
@@ -24656,14 +24815,14 @@ md
 md
 Rh
 md
-md
-md
-md
-md
-md
-md
-md
-md
+Mv
+cy
+ID
+Qh
+Dn
+oJ
+ut
+GF
 md
 Rh
 md
@@ -24913,15 +25072,15 @@ md
 md
 md
 Rh
-md
-md
-md
-md
-md
-md
-md
-md
-md
+gL
+Mv
+cy
+oJ
+Ey
+Rc
+oq
+bW
+GF
 md
 Rh
 md
@@ -25172,14 +25331,14 @@ md
 md
 Rh
 md
-md
-md
-md
-md
-md
-md
-md
-md
+GF
+Kc
+TQ
+oJ
+oJ
+Kk
+Va
+GF
 md
 Rh
 md
@@ -25429,16 +25588,16 @@ md
 md
 md
 Rh
-md
-md
-md
-md
-md
-md
-md
-md
-md
-md
+jL
+GF
+nM
+OI
+oJ
+oJ
+ap
+Nk
+GF
+To
 Rh
 md
 md
@@ -25688,15 +25847,15 @@ md
 md
 Rh
 md
-md
-md
-md
-md
-md
-md
-md
-md
-md
+cn
+GF
+GF
+rw
+rw
+GF
+GF
+cn
+ML
 Rh
 md
 md
@@ -25953,7 +26112,7 @@ md
 md
 md
 md
-md
+ML
 md
 Rh
 md
