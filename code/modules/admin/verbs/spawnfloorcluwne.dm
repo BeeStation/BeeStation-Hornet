@@ -7,6 +7,10 @@
 	if(!check_rights(R_FUN))
 		return
 
+	//new era: confirmation
+	if(alert(usr, "Are you sure you want to do this? You may be punished harshly for it!", "Unleash floor demon", "YES", "HELL NO") != "YES")
+		return
+
 	var/turf/T = get_turf(usr)
 	target = input("Any specific target in mind? Please note only live, non cluwned, human targets are valid.", "Target", target) as null|anything in GLOB.player_list
 	if(target && ishuman(target))
