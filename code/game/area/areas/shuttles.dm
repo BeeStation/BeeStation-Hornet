@@ -52,6 +52,18 @@
 /area/shuttle/syndicate/airlock
 	name = "Syndicate Infiltrator Airlock"
 
+// So, the nukie shuttle is called the infiltrator
+// and the infiltrator shuttle is called the cutter.
+/area/shuttle/stealthcruiser
+	name = "Syndicate Infiltration Cruiser"
+	blob_allowed = FALSE
+
+/area/shuttle/stealthcruiser/poweralert(state, obj/source)
+	return
+
+/area/shuttle/stealthcruiser/atmosalert(danger_level, obj/source)
+	return
+
 ////////////////////////////Pirate Shuttle////////////////////////////
 
 /area/shuttle/pirate

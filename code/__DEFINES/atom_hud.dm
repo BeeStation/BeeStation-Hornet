@@ -63,6 +63,7 @@
 #define ANTAG_HUD_FUGITIVE	26
 #define ANTAG_HUD_BRAINWASHED   27
 #define ANTAG_HUD_SURVIVALIST   28
+#define ANTAG_HUD_INFILTRATOR 29 //yoinked from hippie (infiltrators)
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

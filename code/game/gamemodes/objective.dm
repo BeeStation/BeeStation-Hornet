@@ -547,17 +547,31 @@ GLOBAL_LIST_EMPTY(possible_items)
 
 		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
 
-		for(var/obj/I in all_items) //Check for items
-			if(istype(I, steal_target))
-				if(!targetinfo) //If there's no targetinfo, then that means it was a custom objective. At this point, we know you have the item, so return 1.
-					return TRUE
-				else if(targetinfo.check_special_completion(I))//Returns 1 by default. Items with special checks will return 1 if the conditions are fulfilled.
-					return TRUE
+		.= find_item(all_items)
 
-			if(targetinfo && (I.type in targetinfo.altitems)) //Ok, so you don't have the item. Do you have an alternative, at least?
-				if(targetinfo.check_special_completion(I))//Yeah, we do! Don't return 0 if we don't though - then you could fail if you had 1 item that didn't pass and got checked first!
-					return TRUE
-	return FALSE
+	// Consider complete if in the nukie shuttle or infiltrator base/cutter.
+	// What matters is that it is in the syndicate's hands.
+	var/list/ok_areas = list(/area/infiltrator_base, /area/syndicate_mothership, /area/shuttle/stealthcruiser)
+	var/list/compiled_areas = list()
+	for(var/A in ok_areas)
+		compiled_areas += typesof(A)
+	for(var/A in compiled_areas)
+		var/area/AR = locate(A) in GLOB.sortedAreas
+		if(AR)
+			.= find_item(AR.GetAllContents())
+		CHECK_TICK
+
+/datum/objective/steal/proc/find_item(where)
+	for(var/obj/I in where) //Check for items
+		if(istype(I, steal_target))
+			if(!targetinfo) //If there's no targetinfo, then that means it was a custom objective. At this point, we know you have the item, so return 1.
+				return TRUE
+			else if(targetinfo.check_special_completion(I))//Returns 1 by default. Items with special checks will return 1 if the conditions are fulfilled.
+				return TRUE
+
+		if(targetinfo && (I.type in targetinfo.altitems)) //Ok, so you don't have the item. Do you have an alternative, at least?
+			if(targetinfo.check_special_completion(I))//Yeah, we do! Don't return 0 if we don't though - then you could fail if you had 1 item that didn't pass and got checked first!
+				return TRUE
 
 GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/steal/special //ninjas are so special they get their own subtype good for them
@@ -909,6 +923,10 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/nuclear,
 		/datum/objective/capture,
 		/datum/objective/absorb,
+		/datum/objective/infiltrator/power, // new era -- self explanatory
+		/datum/objective/infiltrator/exploit,
+		/datum/objective/infiltrator/kidnap,
+		/datum/objective/infiltrator/miner, // new era end
 		/datum/objective/custom
 	),/proc/cmp_typepaths_asc)
 

@@ -510,6 +510,10 @@
 	suffix = "basic"
 	name = "advanced syndicate infiltrator"
 
+/datum/map_template/shuttle/infiltrator/cutter
+	suffix = "cutter"
+	name = "syndicate infiltration cutter"
+
 /datum/map_template/shuttle/cargo/delta
 	suffix = "delta"
 	name = "cargo ferry (Delta)"

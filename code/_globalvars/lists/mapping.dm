@@ -17,6 +17,9 @@ GLOBAL_LIST_EMPTY(start_landmarks_list)			//list of all spawn points created
 GLOBAL_LIST_EMPTY(department_security_spawns)	//list of all department security spawns
 GLOBAL_LIST_EMPTY(generic_event_spawns)			//handles clockwork portal+eminence teleport destinations
 GLOBAL_LIST_EMPTY(jobspawn_overrides)			//These will take precedence over normal spawnpoints if created.
+GLOBAL_LIST_EMPTY(stationroom_landmarks)		//new era -- list of all spawns for stationrooms
+												//TODO: Try to make this useless by seeing if I can use
+												//whatever system beestation is using to spawn random maint.
 
 GLOBAL_LIST_EMPTY(wizardstart)
 GLOBAL_LIST_EMPTY(nukeop_start)

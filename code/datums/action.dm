@@ -534,6 +534,13 @@
 		cooldown = world.time
 		owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
 
+//Infiltrator dusting implant
+/datum/action/item_action/dusting_implant
+	check_flags =  NONE
+	name = "Activate Dusting Implant"
+	icon_icon = 'icons/effects/blood.dmi'
+	button_icon_state = "remains"
+
 //Preset for spells
 /datum/action/spell_action
 	check_flags = NONE
