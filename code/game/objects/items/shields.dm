@@ -16,7 +16,7 @@
 
 /obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	if(durability)
-		var/attackforce = 0 
+		var/attackforce = 0
 		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
 			if(P.damage_type != STAMINA)// disablers dont do shit to shields
@@ -31,7 +31,10 @@
 				attackforce = 0
 		else if(isliving(hitby)) //not putting an anti stamina clause in here. only stamina damage simplemobs i know of are swarmers, and them eating shields makes sense
 			var/mob/living/L = hitby
-			attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
+			if(block_flags & BLOCKING_HUNTER)
+				attackforce = (damage) //some shields are better at blocking simple mobs
+			else
+				attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
 			if(block_flags & BLOCKING_NASTY)
 				L.attackby(src, owner)
 				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
