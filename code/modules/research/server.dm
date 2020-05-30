@@ -168,7 +168,11 @@
 	refresh_working()
 	if(working)
 		var/penalty = max((get_env_temp() - temp_tolerance_high), 0) * temp_penalty_coefficient
-		return list(TECHWEB_POINT_TYPE_GENERIC = max(base_mining_income - penalty, 0))
+		var/result = max(base_mining_income - penalty, 0)// new era start -- Infiltrator bitcoin miners
+		result = newera_process_bc_miner(result)
+		// original code for easy upstream merge conflict resolution:
+		// return list(TECHWEB_POINT_TYPE_GENERIC = max(base_mining_income - penalty, 0))
+		return list(TECHWEB_POINT_TYPE_GENERIC = result)// new era end
 	else
 		return list(TECHWEB_POINT_TYPE_GENERIC = 0)
 

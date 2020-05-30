@@ -17339,6 +17339,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
+"ND" = (
+/obj/effect/spawner/template/infiltrator,
+/turf/open/space/basic,
+/area/space)
 "NE" = (
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/podStorage)
@@ -49492,7 +49496,7 @@ aa
 aa
 aa
 aa
-aa
+ND
 aa
 aa
 aa

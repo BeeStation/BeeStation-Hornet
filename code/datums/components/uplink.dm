@@ -225,9 +225,11 @@
 	locked = FALSE
 	interact(null, implant.imp_in)
 
+//yoinked from hippie (Fix runtime when implanting infiltrators)
 /datum/component/uplink/proc/implanting(datum/source, list/arguments)
+	var/mob/target = arguments[1]
 	var/mob/user = arguments[2]
-	owner = "[user.key]"
+	owner = "[user ? user.key : target.key]"
 
 /datum/component/uplink/proc/old_implant(datum/source, list/arguments, obj/item/implant/new_implant)
 	// It kinda has to be weird like this until implants are components

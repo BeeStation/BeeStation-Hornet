@@ -212,8 +212,9 @@
 		thing.update_slot_icon()
 	UpdateButtonIcon()
 
-/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
-	target.name = initial(picked_item.name)
+/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item, obj/item/target = src.target) //yoinked from hippie -- add support for cham hardsuits
+	if(!istype(target, /obj/item/card/id) && !istype(target, /obj/item/pda)) //yoinked from hippie -- Avoid having an already forged ID card be called "identification card" when setting disguise.
+		target.name = initial(picked_item.name)
 	target.desc = initial(picked_item.desc)
 	target.icon_state = initial(picked_item.icon_state)
 	if(isitem(target))

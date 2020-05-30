@@ -909,6 +909,10 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/nuclear,
 		/datum/objective/capture,
 		/datum/objective/absorb,
+		/datum/objective/infiltrator/power, // new era -- self explanatory
+		/datum/objective/infiltrator/exploit,
+		/datum/objective/infiltrator/kidnap,
+		/datum/objective/infiltrator/miner, // new era end
 		/datum/objective/custom
 	)
 
