@@ -369,6 +369,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.registered_name = H.real_name
+	W.access += ACCESS_THEATRE
 	W.update_label(W.registered_name, W.assignment)
 	H.dna.add_mutation(CLOWNMUT)
 
