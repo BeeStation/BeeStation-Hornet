@@ -355,6 +355,24 @@
 
 	implants = list(/obj/item/implant/sad_trombone)
 
+
+/datum/outfit/centcom_clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
+
+	var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
+	L.implant(H, null, 1)
+
+	var/obj/item/radio/R = H.ears
+	R.set_frequency(FREQ_CENTCOM)
+	R.freqlock = TRUE
+
+	var/obj/item/card/id/W = H.wear_id
+	W.registered_name = H.real_name
+	W.update_label(W.registered_name, W.assignment)
+	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names)) //rename the mob AFTER they're equipped so their ID gets updated properly.
+	H.dna.add_mutation(CLOWNMUT)
+
 /datum/outfit/centcom_clown/honk_squad
 	name = "HONK Squad Trooper"
 	back = /obj/item/storage/backpack/holding/clown
