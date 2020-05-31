@@ -1,0 +1,7 @@
+author: Mickyan, Bobbahbrown, OnePlusOne, Nickkoranda
+delete-after: true
+changes:
+  - rscadd: Added sharpened mop crafting recipe
+  - rscadd: Added brooms for sweeping, check the JaniDrobe vending machine
+  - imageadd: Caution sign resprited
+  - tweak: You can wear wet floor signs
