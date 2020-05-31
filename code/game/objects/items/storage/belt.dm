@@ -549,7 +549,8 @@
 		/obj/item/clothing/gloves,
 		/obj/item/melee/flyswatter,
 		/obj/item/assembly/mousetrap,
-		/obj/item/paint/paint_remover
+		/obj/item/paint/paint_remover,
+		/obj/item/twohanded/pushbroom
 		))
 
 /obj/item/storage/belt/janitor/full/PopulateContents()

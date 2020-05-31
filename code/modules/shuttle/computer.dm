@@ -11,6 +11,10 @@
 	var/no_destination_swap = 0
 
 /obj/machinery/computer/shuttle/ui_interact(mob/user)
+	//Ash walkers cannot use the console because they are unga bungas
+	if(user.mind?.has_antag_datum(/datum/antagonist/ashwalker))
+		to_chat(user, "<span class='warning'>This computer has been designed to keep the natives like you from meddling with it, you have no hope of using it.</span>")
+		return
 	. = ..()
 	var/list/options = params2list(possible_destinations)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
