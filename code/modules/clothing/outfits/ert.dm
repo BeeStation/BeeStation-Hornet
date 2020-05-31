@@ -370,7 +370,6 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.registered_name = H.real_name
 	W.update_label(W.registered_name, W.assignment)
-	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names)) //rename the mob AFTER they're equipped so their ID gets updated properly.
 	H.dna.add_mutation(CLOWNMUT)
 
 /datum/outfit/centcom_clown/honk_squad
