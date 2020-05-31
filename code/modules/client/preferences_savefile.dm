@@ -175,6 +175,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["pda_style"]			>> pda_style
 	S["pda_color"]			>> pda_color
 	S["show_credits"] >> show_credits
+	S["widescreenpref"] >> widescreenpref //new era: widescreen
 
 	S["key_bindings"]		>> key_bindings
 
@@ -211,6 +212,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	pda_style		= sanitize_inlist(pda_style, GLOB.pda_styles, initial(pda_style))
 	pda_color		= sanitize_hexcolor(pda_color, 6, 1, initial(pda_color))
 	show_credits		= sanitize_integer(show_credits, 0, 1, initial(show_credits))
+	widescreenpref		= sanitize_integer(widescreenpref, 0, 1, initial(widescreenpref)) //new era: widescreen
 
 	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
 	if (!key_bindings)
@@ -268,6 +270,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["pda_style"], pda_style)
 	WRITE_FILE(S["pda_color"], pda_color)
 	WRITE_FILE(S["show_credits"], show_credits)
+	WRITE_FILE(S["widescreenpref"], widescreenpref) //new era: widescreen
 	WRITE_FILE(S["purchased_gear"], purchased_gear)
 	WRITE_FILE(S["equipped_gear"], equipped_gear)
 
