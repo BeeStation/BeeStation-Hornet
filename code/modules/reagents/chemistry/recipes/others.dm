@@ -388,10 +388,8 @@
 /datum/chemical_reaction/mix_virus/preserve_virus
 	name = "Preserve Virus"
 	id = "preservevirus"
-	required_reagents = list(/datum/reagent/nitrogen = 1 )
+	required_reagents = list(/datum/reagent/cryostylane = 1 )
 	required_catalysts = list(/datum/reagent/blood = 1)
-	is_cold_recipe = 1
-	required_temp = 250
 
 /datum/chemical_reaction/mix_virus/preserve_virus/on_reaction(datum/reagents/holder, created_volume)
 
