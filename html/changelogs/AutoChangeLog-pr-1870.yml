@@ -1,0 +1,5 @@
+author: Chessus
+delete-after: true
+changes:
+  - rscdel: N2O removed as ingredient for Nitryl Gas
+  - rscadd: Added Pluoxium in place of N2O as Catalyst for Nitryl
