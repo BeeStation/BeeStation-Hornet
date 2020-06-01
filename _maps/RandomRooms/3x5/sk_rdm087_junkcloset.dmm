@@ -22,7 +22,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/item/clothing/under/rank/mailman,
+/obj/item/clothing/under/misc/mailman,
 /obj/item/clothing/head/mailman,
 /obj/structure/closet,
 /obj/effect/landmark/blobstart,

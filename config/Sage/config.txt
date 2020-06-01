@@ -518,3 +518,11 @@ TOPIC_MAX_SIZE 500
 ## Uncomment to enable redirecting to the specified address. If a user attempts to join after EXTREEME_POPCAP has been reached, redirect them to this address.
 ## The given address is a format example. "byond://" is required to function. Create a potential infinite loop at your own risk.
 #REDIRECT_ADDRESS byond://golden.beestation13.com:7777
+
+### Autotransfer Settings
+## Uncomment to enable shuttle autotransfer
+VOTE_AUTOTRANSFER_ENABLED
+## Time (in deciseconds) before the first transfer vote. Default: 2 hours
+VOTE_AUTOTRANSFER_INITIAL 72000
+## Time (in deciseconds) between subsequent transfer votes. Default: 30 minutes
+VOTE_AUTOTRANSFER_INTERVAL 18000

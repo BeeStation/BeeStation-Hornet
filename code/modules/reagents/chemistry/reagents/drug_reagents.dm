@@ -72,11 +72,11 @@
 	addiction_threshold = 10
 
 /datum/reagent/drug/crank/on_mob_metabolize(mob/living/L)
-	ADD_TRAIT(L, TRAIT_JITTERS, type)
+	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
 	..()
 
 /datum/reagent/drug/crank/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_JITTERS, type)
+	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
 	..()
 
 /datum/reagent/drug/crank/on_mob_life(mob/living/carbon/M)
@@ -185,7 +185,7 @@
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 
 /datum/reagent/drug/methamphetamine/on_mob_metabolize(mob/living/L)
-	ADD_TRAIT(L, TRAIT_JITTERS, type)
+	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
 	..()
 	if (L.client)
 		SSmedals.UnlockMedal(MEDAL_APPLY_REAGENT_METH,L.client)
@@ -193,7 +193,7 @@
 	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-2, blacklisted_movetypes=(FLYING|FLOATING))
 
 /datum/reagent/drug/methamphetamine/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_JITTERS, type)
+	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
 	L.remove_movespeed_modifier(type)
 	..()
 
@@ -280,7 +280,7 @@
 	ADD_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 	ADD_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	ADD_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
-	ADD_TRAIT(L, TRAIT_JITTERS, type)
+	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
 	if(iscarbon(L))
 		var/mob/living/carbon/C = L
 		rage = new()
@@ -292,7 +292,7 @@
 	REMOVE_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 	REMOVE_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	REMOVE_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
-	REMOVE_TRAIT(L, TRAIT_JITTERS, type)
+	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
 	if(rage)
 		QDEL_NULL(rage)
 	..()
@@ -377,11 +377,11 @@
 	color = "#78FFF0"
 
 /datum/reagent/drug/aranesp/on_mob_metabolize(mob/living/L)
-	ADD_TRAIT(L, TRAIT_JITTERS, type)
+	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
 	..()
 
 /datum/reagent/drug/aranesp/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_JITTERS, type)
+	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
 	..()
 
 /datum/reagent/drug/aranesp/on_mob_life(mob/living/carbon/M)

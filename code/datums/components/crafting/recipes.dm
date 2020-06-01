@@ -701,7 +701,7 @@
 
 /datum/crafting_recipe/mummy/body
 	name = "Mummification Bandages (Body)"
-	result = /obj/item/clothing/under/mummy
+	result = /obj/item/clothing/under/costume/mummy
 	reqs = list(/obj/item/stack/sheet/cloth = 5)
 
 /datum/crafting_recipe/chaplain_hood
@@ -793,3 +793,13 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	always_availible = TRUE
+
+/datum/crafting_recipe/sharpmop
+	name = "Sharpened Mop"
+	result = /obj/item/mop/sharp
+	time = 30
+	reqs = list(/obj/item/mop = 1,
+				/obj/item/shard = 1)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	tools = list(TOOL_WIRECUTTER)
