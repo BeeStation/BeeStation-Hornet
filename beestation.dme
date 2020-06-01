@@ -3049,7 +3049,6 @@
 #include "newerastation\code\datums\action.dm"
 #include "newerastation\code\datums\shuttles.dm"
 #include "newerastation\code\datums\diseases\transformation.dm"
-#include "newerastation\code\datums\shuttles.dm"
 #include "newerastation\code\game\area\areas\centcom.dm"
 #include "newerastation\code\game\area\areas\shuttles.dm"
 #include "newerastation\code\game\gamemodes\objective.dm"

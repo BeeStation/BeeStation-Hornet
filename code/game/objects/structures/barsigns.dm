@@ -1,7 +1,7 @@
 /obj/structure/sign/barsign // All Signs are 64 by 32 pixels, they take two tiles
 	name = "bar sign"
 	desc = "A bar sign which has not been initialized, somehow. Complain at a coder!"
-	icon = 'icons/obj/barsigns.dmi'
+	icon = 'newerastation/icons/obj/barsigns.dmi' //new era: due to how bar signs are loaded, we'll just make this use our own icon file
 	icon_state = "empty"
 	req_access = list(ACCESS_BAR)
 	max_integrity = 500
@@ -288,6 +288,11 @@
 	name = "The Loose Goose"
 	icon = "goose"
 	desc = "Drink till you puke and/or break the laws of reality!"
+
+/datum/barsign/vsfdante //new era add. This could have been modularized, yes. But I didn't want to make a file with 4 lines in it. Suck it up.
+	name = "vsf dante"
+	icon = "vsfdante"
+	desc = "vsf dante"
 
 /datum/barsign/hiddensigns
 	hidden = TRUE
