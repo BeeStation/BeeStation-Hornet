@@ -3083,5 +3083,6 @@
 #include "newerastation\code\modules\mob\living\silicon\ai\life.dm"
 #include "newerastation\code\modules\research\server.dm"
 #include "newerastation\code\modules\shuttle\syndicate.dm"
+#include "newerastation\code\modules\surgery\organs\augments_arms.dm"
 #include "newerastation\code\modules\uplink\uplink_items.dm"
 // END_INCLUDE
