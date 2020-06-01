@@ -64,6 +64,7 @@
 #define ANTAG_HUD_BRAINWASHED   27
 #define ANTAG_HUD_SURVIVALIST   28
 #define ANTAG_HUD_INFILTRATOR 29 //yoinked from hippie (infiltrators)
+#define ANTAG_HUD_BFLAUNCHPAD 30 //new era add -- given by the briefcase launchpad remote
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

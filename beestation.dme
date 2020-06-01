@@ -3056,6 +3056,7 @@
 #include "newerastation\code\game\gamemodes\objective_items.dm"
 #include "newerastation\code\game\gamemodes\dynamic\dynamic_rulesets_roundstart.dm"
 #include "newerastation\code\game\gamemodes\infiltration\infiltration.dm"
+#include "newerastation\code\game\machinery\launch_pad.dm"
 #include "newerastation\code\game\machinery\suit_storage_unit.dm"
 #include "newerastation\code\game\objects\effects\landmarks.dm"
 #include "newerastation\code\game\objects\effects\spawners\mapping.dm"

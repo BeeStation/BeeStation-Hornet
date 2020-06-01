@@ -33,7 +33,8 @@ GLOBAL_LIST_INIT(huds, list(
 	ANTAG_HUD_HIVEAWAKE = new/datum/atom_hud/antag(),
 	ANTAG_HUD_BRAINWASHED = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_SURVIVALIST = new/datum/atom_hud/antag/hidden(),
-	ANTAG_HUD_INFILTRATOR = new/datum/atom_hud/antag() //yoinked from hippie (infiltrators)
+	ANTAG_HUD_INFILTRATOR = new/datum/atom_hud/antag(), //yoinked from hippie (infiltrators)
+	ANTAG_HUD_BFLAUNCHPAD = new/datum/atom_hud/launchpad_hud() //new era add -- given by the briefcase launchpad remote
 	))
 
 /datum/atom_hud
