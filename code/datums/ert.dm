@@ -87,7 +87,7 @@
 	teamsize = 7
 	opendoors = FALSE
 	rename_team = "The Circus"
-	mission = "Provide vital morale support to the station in this time of crisis."
+	mission = "Provide vital morale support to the station in this time of crisis"
 	code = "Banana"
 
 /datum/ert/honk
