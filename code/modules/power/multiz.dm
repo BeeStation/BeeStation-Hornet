@@ -41,7 +41,7 @@
 		else
 			to_chat(user, "You need 15 cables to rewire [src].")
 			return
-	if(istype(I, /obj/item/stack/sheet/metal) && broken_status == RELAY_ADD_METAL)
+	if(istype(I, /obj/item/stack/sheet/iron) && broken_status == RELAY_ADD_METAL)
 		var/obj/item/stack/S = I
 		if(S.use(10))
 			to_chat(user, "<span class='notice'>You reseal the insulation for [src].</span>")
