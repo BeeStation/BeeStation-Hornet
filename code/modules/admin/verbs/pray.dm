@@ -59,6 +59,7 @@
 	to_chat(GLOB.admins, msg)
 	for(var/client/C in GLOB.admins)
 		SEND_SOUND(C, sound('sound/effects/centcom_message.ogg'))
+		//travis broke so this is a pointless change that should unfuck him
 	for(var/obj/machinery/computer/communications/C in GLOB.machines)
 		C.overrideCooldown()
 
