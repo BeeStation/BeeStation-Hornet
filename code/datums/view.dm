@@ -118,7 +118,7 @@
 	//Ready for this one?
 	setTo(radius)
 
-/proc/getScreenSize(widescreen)
+/proc/getScreenSize(widescreen) //IMPORTANT: If widescreen toggle preference gets ported, several uses of this proc need to be changed from FALSE to the player pref
 	if(widescreen)
 		return CONFIG_GET(string/default_view)
-	return CONFIG_GET(string/default_view_square)
+	return "15x15" //IMPORTANT: If widescreen toggle preference gets ported, this needs to be set to the square view config
