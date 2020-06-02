@@ -1073,7 +1073,8 @@
 		target.log_message(reverse_message, LOG_ATTACK, color="orange", log_globally=FALSE)
 
 /atom/movable/proc/add_filter(name,priority,list/params)
-	LAZYINITLIST(filter_data)
+	if(!filter_data)
+		filter_data = list()
 	var/list/p = params.Copy()
 	p["priority"] = priority
 	filter_data[name] = p
@@ -1081,7 +1082,7 @@
 
 /atom/movable/proc/update_filters()
 	filters = null
-	filter_data = sortTim(filter_data, /proc/cmp_filter_data_priority, TRUE)
+	sortTim(filter_data,associative = TRUE)
 	for(var/f in filter_data)
 		var/list/data = filter_data[f]
 		var/list/arguments = data.Copy()
@@ -1093,7 +1094,7 @@
 		return filters[filter_data.Find(name)]
 
 /atom/proc/intercept_zImpact(atom/movable/AM, levels = 1)
-	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, AM, levels)
+	return FALSE
 
 ///Sets the custom materials for an item.
 /atom/proc/set_custom_materials(var/list/materials, multiplier = 1)
