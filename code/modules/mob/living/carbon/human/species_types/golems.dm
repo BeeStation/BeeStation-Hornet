@@ -1,7 +1,8 @@
 /datum/species/golem
 	// Animated beings of stone. They have increased defenses, and do not need to breathe. They're also slow as fuuuck.
 	name = "Golem"
-	id = "iron golem"
+	id = "iron_golem"
+	say_mod = "rumbles"
 	species_traits = list(NOBLOOD,MUTCOLORS,NO_UNDERWEAR)
 	inherent_traits = list(TRAIT_RESISTHEAT,TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOFIRE,TRAIT_NOGUNS,TRAIT_RADIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
@@ -42,7 +43,7 @@
 	return golem_name
 
 /datum/species/golem/random
-	name = "Random Golem"
+	name = "Random golem"
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN
 	var/static/list/random_golem_types
 
@@ -61,7 +62,7 @@
 
 /datum/species/golem/adamantine
 	name = "Adamantine Golem"
-	id = "adamantine golem"
+	id = "adamantine_golem"
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/golem/adamantine
 	mutant_organs = list(/obj/item/organ/adamantine_resonator, /obj/item/organ/vocal_cords/adamantine)
 	fixed_mut_color = "4ed"
@@ -80,7 +81,7 @@
 //The suicide bombers of golemkind
 /datum/species/golem/plasma
 	name = "Plasma Golem"
-	id = "plasma golem"
+	id = "plasma_golem"
 	fixed_mut_color = "a3d"
 	meat = /obj/item/stack/ore/plasma
 	//Can burn and takes damage from heat
@@ -139,7 +140,7 @@
 //Harder to hurt
 /datum/species/golem/diamond
 	name = "Diamond Golem"
-	id = "diamond golem"
+	id = "diamond_golem"
 	fixed_mut_color = "0ff"
 	armor = 70 //up from 55
 	meat = /obj/item/stack/ore/diamond
@@ -150,7 +151,7 @@
 //Faster but softer and less armoured
 /datum/species/golem/gold
 	name = "Gold Golem"
-	id = "gold golem"
+	id = "gold_golem"
 	fixed_mut_color = "cc0"
 	speedmod = 1
 	armor = 25 //down from 55
@@ -162,7 +163,7 @@
 //Heavier, thus higher chance of stunning when punching
 /datum/species/golem/silver
 	name = "Silver Golem"
-	id = "silver golem"
+	id = "silver_golem"
 	fixed_mut_color = "ddd"
 	meat = /obj/item/stack/ore/silver
 	info_text = "As a <span class='danger'>Silver Golem</span>, your attacks have a higher chance of stunning. Being made of silver, your body is immune to most types of magic."
@@ -176,11 +177,24 @@
 /datum/species/golem/silver/on_species_loss(mob/living/carbon/C)
 	REMOVE_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
 	..()
+// Softer and faster, but conductive
+/datum/species/golem/copper
+	name = "Copper Golem"
+	id = "copper_golem"
+	fixed_mut_color = "#d95802"
+	speedmod = 1.5
+	armor = 30
+	meat = /obj/item/stack/ore/copper
+	siemens_coeff = 1 //set as conductive, next line sets shock immunity
+	inherent_traits = list(TRAIT_RESISTHEAT,TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOFIRE,TRAIT_NOGUNS,TRAIT_RADIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER, TRAIT_SHOCKIMMUNE)
+	info_text = "As a <span class='danger'>Copper Golem</span>, you are faster but less resistant than the average golem. You also act as a conduit for electricity, while not being affected by it."
+	prefix = "Copper"
+	special_names = list("Wire")
 
 //Harder to stun, deals more damage, massively slowpokes, but gravproof and obstructive. Basically, The Wall.
 /datum/species/golem/plasteel
 	name = "Plasteel Golem"
-	id = "plasteel golem"
+	id = "plasteel_golem"
 	fixed_mut_color = "bbb"
 	stunmod = 0.4
 	punchdamage = 18
@@ -206,7 +220,7 @@
 //Immune to ash storms
 /datum/species/golem/titanium
 	name = "Titanium Golem"
-	id = "titanium golem"
+	id = "titanium_golem"
 	fixed_mut_color = "fff"
 	meat = /obj/item/stack/ore/titanium
 	info_text = "As a <span class='danger'>Titanium Golem</span>, you are immune to ash storms, and slightly more resistant to burn damage."
@@ -225,7 +239,7 @@
 //Immune to ash storms and lava
 /datum/species/golem/plastitanium
 	name = "Plastitanium Golem"
-	id = "plastitanium golem"
+	id = "plastitanium_golem"
 	fixed_mut_color = "888"
 	meat = /obj/item/stack/ore/titanium
 	info_text = "As a <span class='danger'>Plastitanium Golem</span>, you are immune to both ash storms and lava, and slightly more resistant to burn damage."
@@ -246,7 +260,7 @@
 //Fast and regenerates... but can only speak like an abductor
 /datum/species/golem/alloy
 	name = "Alien Alloy Golem"
-	id = "alloy golem"
+	id = "alloy_golem"
 	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES)
 	limbs_id = "a_golem"
 	meat = /obj/item/stack/sheet/mineral/abductor
@@ -267,7 +281,7 @@
 //Since this will usually be created from a collaboration between podpeople and free golems, wood golems are a mix between the two races
 /datum/species/golem/wood
 	name = "Wood Golem"
-	id = "wood golem"
+	id = "wood_golem"
 	fixed_mut_color = "9E704B"
 	meat = /obj/item/stack/sheet/mineral/wood
 	//Can burn and take damage from heat
@@ -280,16 +294,7 @@
 	special_names = list("Bark", "Willow", "Catalpa", "Woody", "Oak", "Sap", "Twig", "Branch", "Maple", "Birch", "Elm", "Basswood", "Cottonwood", "Larch", "Aspen", "Ash", "Beech", "Buckeye", "Cedar", "Chestnut", "Cypress", "Fir", "Hawthorn", "Hazel", "Hickory", "Ironwood", "Juniper", "Leaf", "Mangrove", "Palm", "Pawpaw", "Pine", "Poplar", "Redwood", "Redbud", "Sassafras", "Spruce", "Sumac", "Trunk", "Walnut", "Yew")
 	human_surname_chance = 0
 	special_name_chance = 100
-
-/datum/species/golem/wood/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.faction |= "plants"
-	C.faction |= "vines"
-
-/datum/species/golem/wood/on_species_loss(mob/living/carbon/C)
-	. = ..()
-	C.faction -= "plants"
-	C.faction -= "vines"
+	inherent_factions = list("plants", "vines")
 
 /datum/species/golem/wood/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
@@ -318,7 +323,7 @@
 //Radioactive
 /datum/species/golem/uranium
 	name = "Uranium Golem"
-	id = "uranium golem"
+	id = "uranium_golem"
 	fixed_mut_color = "7f0"
 	meat = /obj/item/stack/ore/uranium
 	info_text = "As an <span class='danger'>Uranium Golem</span>, you emit radiation pulses every once in a while. It won't harm fellow golems, but organic lifeforms will be affected."
@@ -340,7 +345,7 @@
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand
 	name = "Sand Golem"
-	id = "sand golem"
+	id = "sand_golem"
 	fixed_mut_color = "ffdc8f"
 	meat = /obj/item/stack/ore/glass //this is sand
 	armor = 0
@@ -371,7 +376,7 @@
 //Reflects lasers and resistant to burn damage, but very vulnerable to brute damage. Shatters on death.
 /datum/species/golem/glass
 	name = "Glass Golem"
-	id = "glass golem"
+	id = "glass_golem"
 	fixed_mut_color = "5a96b4aa" //transparent body
 	meat = /obj/item/shard
 	armor = 0
@@ -408,7 +413,7 @@
 //Teleports when hit or when it wants to
 /datum/species/golem/bluespace
 	name = "Bluespace Golem"
-	id = "bluespace golem"
+	id = "bluespace_golem"
 	fixed_mut_color = "33f"
 	meat = /obj/item/stack/ore/bluespace_crystal
 	info_text = "As a <span class='danger'>Bluespace Golem</span>, you are spatially unstable: You will teleport when hit, and you can teleport manually at a long distance."
@@ -501,7 +506,7 @@
 //honk
 /datum/species/golem/bananium
 	name = "Bananium Golem"
-	id = "bananium golem"
+	id = "bananium_golem"
 	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES)
 	say_mod = "honks"
 	punchdamage = 0
@@ -581,7 +586,7 @@
 
 /datum/species/golem/runic
 	name = "Runic Golem"
-	id = "runic golem"
+	id = "runic_golem"
 	limbs_id = "cultgolem"
 	sexes = FALSE
 	info_text = "As a <span class='danger'>Runic Golem</span>, you possess eldritch powers granted by the Elder Goddess Nar'Sie."
@@ -589,6 +594,7 @@
 	prefix = "Runic"
 	special_names = null
 	random_eligible = FALSE //Zesko claims runic golems break the game
+	inherent_factions = list("cult")
 
 	var/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/golem/phase_shift
 	var/obj/effect/proc_holder/spell/targeted/abyssal_gaze/abyssal_gaze
@@ -602,7 +608,6 @@
 
 /datum/species/golem/runic/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	C.faction |= "cult"
 	phase_shift = new
 	phase_shift.charge_counter = 0
 	C.AddSpell(phase_shift)
@@ -615,7 +620,6 @@
 
 /datum/species/golem/runic/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	C.faction -= "cult"
 	if(phase_shift)
 		C.RemoveSpell(phase_shift)
 	if(abyssal_gaze)
@@ -636,7 +640,7 @@
 
 /datum/species/golem/clockwork
 	name = "Clockwork Golem"
-	id = "clockwork golem"
+	id = "clockwork_golem"
 	say_mod = "clicks"
 	limbs_id = "clockgolem"
 	info_text = "<span class='bold alloy'>As a </span><span class='bold brass'>Clockwork Golem</span><span class='bold alloy'>, you are faster than other types of golems. On death, you will break down into scrap.</span>"
@@ -651,6 +655,7 @@
 	damage_overlay_type = "synth"
 	prefix = "Clockwork"
 	special_names = list("Remnant", "Relic", "Scrap", "Vestige") //RIP Ratvar
+	inherent_factions = list("ratvar")
 	var/has_corpse
 
 /datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
@@ -687,7 +692,7 @@
 
 /datum/species/golem/cloth
 	name = "Cloth Golem"
-	id = "cloth golem"
+	id = "cloth_golem"
 	limbs_id = "clothgolem"
 	sexes = FALSE
 	info_text = "As a <span class='danger'>Cloth Golem</span>, you are able to reform yourself after death, provided your remains aren't burned or destroyed. You are, of course, very flammable. \
@@ -800,7 +805,7 @@
 
 /datum/species/golem/plastic
 	name = "Plastic Golem"
-	id = "plastic golem"
+	id = "plastic_golem"
 	prefix = "Plastic"
 	special_names = list("Sheet", "Bag", "Bottle")
 	fixed_mut_color = "fffa"
@@ -816,7 +821,7 @@
 
 /datum/species/golem/bronze
 	name = "Bronze Golem"
-	id = "bronze golem"
+	id = "bronze_golem"
 	prefix = "Bronze"
 	special_names = list("Bell")
 	fixed_mut_color = "cd7f32"
@@ -885,7 +890,7 @@
 
 /datum/species/golem/cardboard //Faster but weaker, can also make new shells on its own
 	name = "Cardboard Golem"
-	id = "cardboard golem"
+	id = "cardboard_golem"
 	prefix = "Cardboard"
 	special_names = list("Box")
 	info_text = "As a <span class='danger'>Cardboard Golem</span>, you aren't very strong, but you are a bit quicker and can easily create more brethren by using cardboard on yourself."
@@ -931,7 +936,7 @@
 
 /datum/species/golem/leather
 	name = "Leather Golem"
-	id = "leather golem"
+	id = "leather_golem"
 	special_names = list("Face", "Man", "Belt") //Ah dude 4 strength 4 stam leather belt AHHH
 	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOGUNS,TRAIT_RADIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER, TRAIT_STRONG_GRABBER)
 	prefix = "Leather"
@@ -942,7 +947,7 @@
 
 /datum/species/golem/durathread
 	name = "Durathread Golem"
-	id = "durathread golem"
+	id = "durathread_golem"
 	prefix = "Durathread"
 	limbs_id = "d_golem"
 	special_names = list("Boll","Weave")
@@ -957,7 +962,7 @@
 
 /datum/species/golem/bone
 	name = "Bone Golem"
-	id = "bone golem"
+	id = "bone_golem"
 	say_mod = "rattles"
 	prefix = "Bone"
 	limbs_id = "b_golem"
@@ -1036,7 +1041,7 @@
 
 /datum/species/golem/snow
 	name = "Snow Golem"
-	id = "snow golem"
+	id = "snow_golem"
 	limbs_id = "sn_golem"
 	fixed_mut_color = "null" //custom sprites
 	armor = 45 //down from 55
@@ -1087,7 +1092,7 @@
 
 /datum/species/golem/capitalist
 	name = "Capitalist Golem"
-	id = "capitalist golem"
+	id = "capitalist_golem"
 	prefix = "Capitalist"
 	attack_verb = "monopoliz"
 	limbs_id = "ca_golem"
@@ -1132,7 +1137,7 @@
 
 /datum/species/golem/soviet
 	name = "Soviet Golem"
-	id = "soviet golem"
+	id = "soviet_golem"
 	prefix = "Comrade"
 	attack_verb = "nationaliz"
 	limbs_id = "s_golem"

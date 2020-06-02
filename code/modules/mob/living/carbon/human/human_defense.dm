@@ -115,7 +115,16 @@
 			if(I.hit_reaction(src, AM, attack_text, damage, attack_type))
 				I.on_block(src, AM, attack_text, damage, attack_type)
 				return 1
-  return FALSE
+	if(wear_suit)
+		if(wear_suit.hit_reaction(src, AM, attack_text, damage, attack_type))
+			return TRUE
+	if(w_uniform)
+		if(w_uniform.hit_reaction(src, AM, attack_text, damage, attack_type))
+			return TRUE
+	if(wear_neck)
+		if(wear_neck.hit_reaction(src, AM, attack_text, damage, attack_type))
+			return TRUE
+	return FALSE
 
 /mob/living/carbon/human/proc/check_block()
 	if(mind)
@@ -898,3 +907,9 @@
 
 	for(var/obj/item/I in torn_items)
 		I.take_damage(damage_amount, damage_type, damage_flag, 0)
+	
+/mob/living/carbon/human/proc/blockbreak()
+	to_chat(src, "<span class ='userdanger'>Your block was broken!</span>")
+	ADD_TRAIT(src, TRAIT_NOBLOCK, type)
+	stoplag(50)
+	REMOVE_TRAIT(src, TRAIT_NOBLOCK, type)

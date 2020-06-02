@@ -517,6 +517,7 @@
 	give_objectives = FALSE
 	show_in_roundend = FALSE //These are here for admin tracking purposes only
 	you_are_greet = FALSE
+	geneticpoints = 3
 
 /datum/antagonist/changeling/roundend_report()
 	var/list/parts = list()

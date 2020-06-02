@@ -134,7 +134,7 @@
 "at" = (
 /obj/structure/stone_tile,
 /obj/effect/decal/remains/xeno,
-/obj/item/clothing/under/gladiator/ash_walker,
+/obj/item/clothing/under/costume/gladiator/ash_walker,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "au" = (
@@ -155,7 +155,7 @@
 /area/ruin/unpowered/standruin)
 "ax" = (
 /obj/effect/decal/remains/human,
-/obj/item/clothing/under/rank/miner/lavaland,
+/obj/item/clothing/under/rank/cargo/miner/lavaland,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "ay" = (
