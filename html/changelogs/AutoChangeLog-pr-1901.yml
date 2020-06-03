@@ -1,5 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - tweak: Crew transfer vote will occur at the 90 minute mark, and every 30 minutes
-      thereafter.
