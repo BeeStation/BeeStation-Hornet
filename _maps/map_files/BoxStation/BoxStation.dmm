@@ -37680,16 +37680,6 @@
 /obj/machinery/atmospherics/components/binary/valve,
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"bZR" = (
-/obj/machinery/airalarm{
-	pixel_y = 23
-	},
-/obj/item/wrench,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "bZS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -49331,6 +49321,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
+"fJH" = (
+/obj/item/wrench,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "fKx" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -101558,7 +101555,7 @@ bWj
 bWj
 bWj
 bNd
-bZR
+fJH
 caQ
 bzs
 ccK
