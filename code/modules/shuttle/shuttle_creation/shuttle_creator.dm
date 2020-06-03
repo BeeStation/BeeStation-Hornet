@@ -4,6 +4,7 @@
 GLOBAL_VAR_INIT(custom_shuttle_count, 0)		//The amount of custom shuttles created to prevent creating hundreds
 GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (Heaters, engines)
 
+//============ Shuttle Creator Object ============
 /obj/item/shuttle_creator
 	name = "Rapid Shuttle Designator"
 	icon = 'icons/obj/tools.dmi'
@@ -24,19 +25,41 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
 	var/ready = TRUE
-	var/recorded_shuttle_area
+	//pre-designation
+	var/override_max_shuttles = FALSE
+	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_shuttle_creator
+	//During designation
 	var/overwritten_area = /area/space
 	var/list/loggedTurfs = list()
 	var/loggedOldArea
+	var/recorded_shuttle_area
+	var/datum/shuttle_creator_overlay_holder/overlay_holder
+	//After designation
 	var/linkedShuttleId
+
+/obj/item/shuttle_creator/Initialize()
+	. = ..()
+	internal_shuttle_creator = new()
+	internal_shuttle_creator.owner_rsd = src
+	overlay_holder = new()
+
+/obj/item/shuttle_creator/Destroy()
+	. = ..()
+	if(internal_shuttle_creator)
+		qdel(internal_shuttle_creator)
+	if(overlay_holder)
+		qdel(overlay_holder)
 
 /obj/item/shuttle_creator/attack_self(mob/user)
 	..()
 	if(linkedShuttleId)
 		return
-	if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT)
+	if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT && override_max_shuttles)
+		to_chat(user, "<span class='warning'>Too many shuttles have been created.</span>")
+		message_admins("[ADMIN_FLW(user)] attempted to create a shuttle, however [CUSTOM_SHUTTLE_LIMIT] have already been created.")
 		return
-	return check_current_area(user)
+	overlay_holder.add_client(user.client)
+	internal_shuttle_creator.attack_hand(user)
 
 /obj/item/shuttle_creator/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
@@ -45,21 +68,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return
 	if(!proximity_flag)
 		return
-	if(istype(target, /obj/machinery/door/airlock))
-		if(get_area(target) != loggedOldArea)
-			to_chat(user, "<span class='warning'>Caution, airlock must be on the shuttle to function as a dock.</span>")
-			return
-		if(linkedShuttleId)
-			return
-		if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT)
-			to_chat(user, "<span class='warning'>Shuttle limit reached, sorry.</span>")
-			return
-		if(!create_shuttle_area(user))
-			return
-		if(shuttle_create_docking_port(target, user))
-			to_chat(user, "<span class='notice'>Shuttle created!</span>")
-		return
-	else if(istype(target, /obj/machinery/computer/custom_shuttle))
+	if(istype(target, /obj/machinery/computer/custom_shuttle))
 		if(!linkedShuttleId)
 			to_chat(user, "<span class='warning'>Error, no defined shuttle linked to device</span>")
 			return
@@ -78,6 +87,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	to_chat(user, "<span class='warning'>The [src] bleeps. Select an airlock to create a docking port, or a valid machine to link.</span>")
 	return
 
+//=========== shuttle designation actions ============
 /obj/item/shuttle_creator/proc/calculate_bounds(obj/docking_port/mobile/port)
 	if(!port || !istype(port, /obj/docking_port/mobile))
 		return FALSE
@@ -122,7 +132,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 			port.height = width
 			port.dwidth = offset_y - 1
 			port.dheight = width - offset_x
-	to_chat(usr, "Created shuttle with dir [port.dir], width [port.width], height [port.height], dwidth [port.dwidth], dheight [port.dheight]")
 	return TRUE
 
 //Go through all the all_turfs and check which direction doesn't have the shuttle
@@ -144,7 +153,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		if(position != null)
 			return null
 		position = WEST
-	to_chat(usr, "Direction to space is [position]")
 	return position
 
 /obj/item/shuttle_creator/proc/invertDir(var/input_dir)
@@ -223,12 +231,21 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.timer = 0
 
 	port.register()
+
+	//Clear highlights
+	overlay_holder.clear_highlights()
 	GLOB.custom_shuttle_count ++
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a new shuttle with a [src] at [ADMIN_VERBOSEJMP(user)] ([GLOB.custom_shuttle_count] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
 	log_game("[key_name(user)] created a new shuttle with a [src] at [AREACOORD(user)] ([GLOB.custom_shuttle_count] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
 	return TRUE
 
 /obj/item/shuttle_creator/proc/create_shuttle_area(mob/user)
+	//Check to see if the user can make a new area to prevent spamming
+	if(user)
+		if(user.create_area_cooldown >= world.time)
+			to_chat(user, "<span class='warning'>Smoke vents from the [src], maybe you should let it cooldown before using it again.</span>")
+			return FALSE
+		user.create_area_cooldown = world.time + 10
 	if(!loggedTurfs)
 		return FALSE
 	if(!check_area(loggedTurfs))	//Makes sure nothing (Shuttles) has moved into the area during creation
@@ -268,28 +285,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		FD.CalculateAffectingAreas()
 	return TRUE
 
-/obj/item/shuttle_creator/proc/check_current_area(mob/user)
-	var/static/area_or_turf_fail_types = typecacheof(list(
-		/turf/open/space,
-		/area/shuttle
-		))
-	//Check to see if the user can make a new area to prevent spamming
-	if(user)
-		if(user.create_area_cooldown >= world.time)
-			to_chat(user, "<span class='warning'>Smoke vents from the [src], maybe you should let it cooldown before using it again.</span>")
-			return FALSE
-		user.create_area_cooldown = world.time + 10
-	//Detect the turfs connected in the curerrent enclosed area
-	var/list/turfs = detect_room(get_turf(user), area_or_turf_fail_types)
-	if(!check_area(turfs))
-		return FALSE
-
-	loggedOldArea = get_area(get_turf(user))
-	loggedTurfs = turfs
-	icon_state = "rsd_used"
-	to_chat(user, "<span class='notice'>Your current area was logged into the [src], select an airlock to act as the docking point.</span>")
-	return TRUE
-
+//Checks an area to ensure that the turfs provided are valid to be made into a shuttle
 /obj/item/shuttle_creator/proc/check_area(list/turfs)
 	if(!turfs)
 		to_chat(usr, "<span class='warning'>Shuttles must be created in an airtight space, ensure that the shuttle is airtight, including corners.</span>")
@@ -312,3 +308,34 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 			to_chat(usr, "<span class='warning'>Caution, shuttle must not use any material connected to the station. Your shuttle is currenly overlapping with [place.name]</span>")
 			return FALSE
 	return TRUE
+
+/obj/item/shuttle_creator/proc/turf_in_list(turf/T)
+	return loggedTurfs.Find(T)
+
+/obj/item/shuttle_creator/proc/add_single_turf(turf/T)
+	if(!check_area(list(T)))
+		return FALSE
+	loggedTurfs |= T
+	loggedOldArea = get_area(T)
+	overlay_holder.highlight_turf(T)
+
+/obj/item/shuttle_creator/proc/add_saved_area(mob/user)
+	var/static/area_or_turf_fail_types = typecacheof(list(
+		/turf/open/space,
+		/area/shuttle
+		))
+	//Detect the turfs connected in the curerrent enclosed area
+	var/list/turfs = detect_room(get_turf(user), area_or_turf_fail_types)
+	if(!check_area(turfs))
+		return FALSE
+	loggedOldArea = get_area(get_turf(user))
+	loggedTurfs |= turfs
+	overlay_holder.highlight_area(turfs)
+	//TODO READD THIS SHIT: icon_state = "rsd_used"
+	to_chat(user, "<span class='notice'>You add the area into the buffer of the [src], you made add more areas or select an airlock to act as a docking port to complete the shuttle.</span>")
+	return turfs
+
+/obj/item/shuttle_creator/proc/reset_saved_area()
+	overlay_holder.clear_highlights()
+	loggedTurfs.Cut()
+	to_chat(usr, "<span class='notice'>You reset the area buffer on the [src].</span>")
