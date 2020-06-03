@@ -25,7 +25,7 @@
 		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.")
 		return
 
-	var/body = "<body>Options panel for <b>[M]</b>"
+	var/body = "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b>"
 		body += " <A href='?_src_=holder;[HrefToken()];editrights=[(GLOB.admin_datums[M.client.ckey] || GLOB.deadmins[M.client.ckey]) ? "rank" : "add"];key=[M.key]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>"
@@ -429,7 +429,7 @@
 		"}
 	if(GLOB.master_mode == "secret")
 		dat += "<A href='?src=[REF(src)];[HrefToken()];f_secret=1'>(Force Secret Mode)</A><br>"
-		
+
 	if(GLOB.master_mode == "dynamic")
 		if(SSticker.current_state <= GAME_STATE_PREGAME)
 			dat += "<A href='?src=[REF(src)];[HrefToken()];f_dynamic_roundstart=1'>(Force Roundstart Rulesets)</A><br>"
@@ -524,7 +524,7 @@
 /datum/admins/proc/dynamic_mode_options(mob/user)
 	var/dat = {"
 		<center><B><h2>Dynamic Mode Options</h2></B></center><hr>
-		<br/> 
+		<br/>
 		<h3>Common options</h3>
 		<i>All these options can be changed midround.</i> <br/>
 		<br/>

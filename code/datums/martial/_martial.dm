@@ -33,7 +33,7 @@
 		restraining = 0
 	streak = streak+element
 	if(length(streak) > max_streak_length)
-		streak = copytext(streak,2)
+		streak = copytext(streak, 1 + length(streak[1]))
 	return
 
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A,mob/living/carbon/human/D)
