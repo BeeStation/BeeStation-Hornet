@@ -169,6 +169,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	materials = list ()
 	transparent = FALSE
+	block_power = 25
 	max_integrity = 70
 	block_flags = BLOCKING_HUNTER | BLOCKING_PROJECTILE
 	w_class = WEIGHT_CLASS_BULKY
