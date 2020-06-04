@@ -69937,7 +69937,7 @@
 /obj/item/folder/red,
 /obj/item/stamp/law,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Internal Affairs"
+	department = "Law Office"
 	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)

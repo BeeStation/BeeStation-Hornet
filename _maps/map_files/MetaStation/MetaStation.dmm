@@ -19931,7 +19931,7 @@
 /obj/item/folder/red,
 /obj/item/clothing/glasses/sunglasses/advanced/big,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Internal Affairs"
+	department = "Law Office"
 	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)

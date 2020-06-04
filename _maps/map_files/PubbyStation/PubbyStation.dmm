@@ -59468,7 +59468,7 @@
 /obj/item/cartridge/lawyer,
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Internal Affairs"
+	department = "Law Office"
 	},
 /turf/open/floor/wood,
 /area/lawoffice)

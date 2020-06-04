@@ -7294,7 +7294,7 @@
 /obj/item/folder/blue,
 /obj/item/stamp/law,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Internal Affairs"
+	department = "Law Office"
 	},
 /turf/open/floor/wood,
 /area/lawoffice)
