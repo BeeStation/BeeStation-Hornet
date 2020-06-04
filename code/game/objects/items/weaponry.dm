@@ -216,6 +216,24 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	name = new_name
 	playsound(user, 'sound/items/screwdriver2.ogg', 50, 1)
 
+/obj/item/claymore/bone
+	name = "Bone Sword"
+	desc = "Jagged pieces of bone are tied to what looks like a goliaths femur."
+	icon_state = "bone_sword"
+	item_state = "bone_sword"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
+	force = 15
+	throwforce = 10
+	armour_penetration = 15
+	w_class = WEIGHT_CLASS_NORMAL
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	block_level = 0
+	block_power = 30
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+
 /obj/item/katana
 	name = "katana"
 	desc = "Woefully underpowered in D20."
@@ -362,7 +380,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] own throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS)
 
-/obj/item/switchblade/kitchen 
+/obj/item/switchblade/kitchen
 	name = "iron switchblade"
 	icon_state = "switchblade_ms"
 	desc = "A concealable spring-loaded knife with an iron blade."
@@ -372,7 +390,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	extended_throwforce = 15
 	extended_icon_state = "switchblade_ext_ms"
 
-/obj/item/switchblade/plastitanium 
+/obj/item/switchblade/plastitanium
 	name = "plastitanium switchblade"
 	icon_state = "switchblade_msf"
 	desc = "A concealable spring-loaded knife with a plastitanium blade."
@@ -466,7 +484,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/ectoplasm/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is inhaling [src]! It looks like [user.p_theyre()] trying to visit the astral plane!</span>")
 	return (OXYLOSS)
-	
+
 /obj/item/ectoplasm/angelic
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "angelplasm"
@@ -864,11 +882,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(src, breakforce))
 			return
-		else 
+		else
 			var/def_check = H.getarmor(type = "melee")
 			H.apply_damage(stamforce, STAMINA, blocked = def_check)
 	return ..()
-	
+
 /obj/item/club/tailclub
 	name = "tail club"
 	desc = "For the beating to death of lizards with their own tails."
