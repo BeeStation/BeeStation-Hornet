@@ -1,0 +1,24 @@
+author: Flakkyboo
+delete-after: true
+changes:
+  - rscadd: Added a Goliath shield and it takes less damage from fauna.
+  - rscadd: Added a new Watcher bola, slightly better than the standard bola.
+  - rscadd: Added a new one handed bone sword.
+  - rscadd: Added a new belt quiver to carry arrows.
+  - rscadd: Two new craftable bow types "pipe bow" and "bone bow".
+  - rscadd: 4 new arrow types wood, ash, bone and bronze.
+  - rscadd: New export prices for bows, arrows.
+  - rscadd: New bounty for a bow.
+  - rscadd: New variation of bone armor (heavy bone armor)
+  - rscadd: Cotton seeds in askwalker nest for bowcrafting.
+  - rscadd: QOL cultivator for ashwalkers added to nest.
+  - tweak: blowgun no longer needs a firing pin and can be used by anyone
+  - soundadd: New sounds for drawing the arrow and firing.
+  - rscadd: New weapon and ammo type for bows.
+  - bugfix: Added a crafting recipe for the primal explorers belt.
+  - rscadd: A new material Silk which can be made from cloth on the loom. (needed
+      in bowcrafting)
+  - imageadd: Added Sprites for the new items and materials.
+  - imageadd: New sprites for existing bone equipment.
+  - refactor: Cloth is now a subtype of cotton and coded in descending order of creation.
+  - refactor: Crafting refactor
