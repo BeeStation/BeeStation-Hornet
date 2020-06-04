@@ -48,5 +48,7 @@
 	..()
 	if(eye_user?.client)
 		eye_user.client.images -= user_image
-		user_image = image(icon, loc, icon_state, FLY_LAYER, dir)
+		var/image/I = image(icon, loc, icon_state, FLY_LAYER, dir)
+		I.plane = MASSIVE_OBJ_LAYER
+		user_image = I
 		eye_user.client.images += user_image

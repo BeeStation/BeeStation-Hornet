@@ -58,6 +58,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		to_chat(user, "<span class='warning'>Too many shuttles have been created.</span>")
 		message_admins("[ADMIN_FLW(user)] attempted to create a shuttle, however [CUSTOM_SHUTTLE_LIMIT] have already been created.")
 		return
+	if(!internal_shuttle_creator)
+		return
 	overlay_holder.add_client(user.client)
 	internal_shuttle_creator.attack_hand(user)
 
@@ -232,6 +234,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 	port.register()
 
+	icon_state = "rsd_used"
+
 	//Clear highlights
 	overlay_holder.clear_highlights()
 	GLOB.custom_shuttle_count ++
@@ -334,6 +338,13 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	//TODO READD THIS SHIT: icon_state = "rsd_used"
 	to_chat(user, "<span class='notice'>You add the area into the buffer of the [src], you made add more areas or select an airlock to act as a docking port to complete the shuttle.</span>")
 	return turfs
+
+/obj/item/shuttle_creator/proc/remove_single_turf(turf/T)
+	if(!turf_in_list(T))
+		return
+	loggedTurfs -= T
+	loggedOldArea = get_area(T)
+	overlay_holder.unhighlight_turf(T)
 
 /obj/item/shuttle_creator/proc/reset_saved_area()
 	overlay_holder.clear_highlights()

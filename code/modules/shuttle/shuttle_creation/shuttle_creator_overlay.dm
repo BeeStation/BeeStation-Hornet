@@ -30,9 +30,23 @@
 	holder.images += I
 	turfs += T
 
+/datum/shuttle_creator_overlay_holder/proc/remove_hightlight(turf/T)
+	if(!(T in turfs))
+		return
+	turfs -= T
+	holder.images -= images
+	for(var/image/I in images)
+		if(get_turf(I) != T)
+			continue
+		images -= I
+	holder.images += images
+
 /datum/shuttle_creator_overlay_holder/proc/highlight_area(list/turfs)
 	for(var/turf/T in turfs)
 		highlight_turf(T)
 
 /datum/shuttle_creator_overlay_holder/proc/highlight_turf(turf/T)
 	create_hightlight(T)
+
+/datum/shuttle_creator_overlay_holder/proc/unhighlight_turf(turf/T)
+	remove_hightlight(T)
