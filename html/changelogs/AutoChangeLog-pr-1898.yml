@@ -1,0 +1,28 @@
+author: ike709 and a bunch of TG coders
+delete-after: true
+changes:
+  - bugfix: MONSTERMOS IS NO LONGER JANKY, IT SHOULD WORK PERFECTLY NOW
+  - refactor: Moved the pixel scaling and zoom methods from the menu bar to the Game
+      Preferences window. You'll need to reset them.
+  - bugfix: Yellow slime power cells will charge SMES units.
+  - bugfix: Fixed a monstermos runtime.
+  - bugfix: Fixed a ton of other runtimes.
+  - rscadd: Simple mobs will now receive an alert about being in too hot/cold environment.
+  - rscadd: Simple mobs will now receive an alert about choking to death.
+  - bugfix: A bunch of visual fixes related to multi-z.
+  - tweak: Multi-Z power relays can repaired but must be manually updated with a multi-tool
+      when reinstalling/moving around.
+  - bugfix: You can now place cables on catwalks that go over openspace.
+  - bugfix: AI can now look up/down zlevels on multi-z.
+  - rscadd: Added railings for multi-z.
+  - bugfix: Tank Dispensers, Ore Boxes and Coin Presses are no longer usable by ghosts
+  - refactor: Refactored client.view into a datum, changed some zoom values to work
+      properly
+  - rscadd: Fully adds widescreen support to zooming
+  - bugfix: Pixel size will now automatically update on zoom, so you won't end up
+      with ui buttons you can't see.
+  - tweak: Most input windows now have sorted lists of choices.
+  - bugfix: walking downstair won't show the falling visible message anymore.
+  - bugfix: Mechs can now go down (stairs)
+  - bugfix: Mechs can't push (non-anchored) objects and mobs with move resistance
+      greater than "very strong" anymore.
