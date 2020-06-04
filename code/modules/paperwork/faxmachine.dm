@@ -103,9 +103,9 @@ GLOBAL_LIST_EMPTY(alldepartments)
 	data["destination"] = destination
 	data["cooldown"] = sendcooldown
 	if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments))
-		data["respectcooldown"] = TRUE
-	else
 		data["respectcooldown"] = FALSE
+	else
+		data["respectcooldown"] = TRUE
 
 	return data
 
@@ -273,7 +273,6 @@ GLOBAL_LIST_EMPTY(alldepartments)
 //Prevents copypasta for evil faxes
 /obj/machinery/photocopier/faxmachine/proc/handle_animation()
 	flick(print_anim, src)
-	playsound(loc, 'goon/sound/machinery/printer_dotmatrix.ogg', 50, 1)
 
 /obj/machinery/photocopier/faxmachine/proc/handle_copying(var/obj/item/incoming)
 	use_power(active_power_usage)
