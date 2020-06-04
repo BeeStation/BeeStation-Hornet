@@ -236,6 +236,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		O.completed = TRUE
 		O.explanation_text = "AVENGE YOUR MASTER."
 		S.objectives |= O
+		log_objective(mind, O.explanation_text)
 		mind.announce_objectives()
 	if(stats.ability)
 		stats.ability.Berserk()

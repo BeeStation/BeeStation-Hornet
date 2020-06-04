@@ -77430,7 +77430,7 @@
 /area/crew_quarters/fitness/recreation)
 "cwf" = (
 /obj/structure/table,
-/obj/item/stack/sheet/cloth/ten,
+/obj/item/stack/sheet/cotton/cloth/ten,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
