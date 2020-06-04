@@ -263,8 +263,9 @@
 	list_reagents = list(get_unrestricted_random_reagent_id() = rand(10,50))
 	. = ..()
 	name = pick(names)
+	desc = "It's surface is feels moist and scratched everywhere. You guess there is only one way left to find out what's inside. "
 	if(prob(20))
-		desc = pick(descs)
+		desc = desc+ pick(descs)
 
 /obj/item/reagent_containers/pill/floorpill/examine(mob/user)
 	. = ..()
