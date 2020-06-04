@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	..()
 	if(linkedShuttleId)
 		return
-	if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT && override_max_shuttles)
+	if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT && !override_max_shuttles)
 		to_chat(user, "<span class='warning'>Too many shuttles have been created.</span>")
 		message_admins("[ADMIN_FLW(user)] attempted to create a shuttle, however [CUSTOM_SHUTTLE_LIMIT] have already been created.")
 		return
