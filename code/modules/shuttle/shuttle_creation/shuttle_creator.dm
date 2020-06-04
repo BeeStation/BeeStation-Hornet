@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 /obj/item/shuttle_creator/Destroy()
 	. = ..()
 	if(internal_shuttle_creator)
-		qdel(internal_shuttle_creator)
+		QDEL_NULL(internal_shuttle_creator)
 	if(overlay_holder)
 		qdel(overlay_holder)
 
