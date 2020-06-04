@@ -339,6 +339,10 @@
 	summon_objective.team = src
 	objectives += summon_objective
 
+	for(var/datum/mind/M in members)
+		log_objective(M, sac_objective.explanation_text)
+		log_objective(M, summon_objective.explanation_text)
+
 
 /datum/objective/sacrifice
 	var/sacced = FALSE

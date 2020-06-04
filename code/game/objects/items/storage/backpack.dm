@@ -47,6 +47,12 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
 	component_type = /datum/component/storage/concrete/bluespace/bag_of_holding
 
+/obj/item/storage/backpack/holding/clown
+	name = "bag of honking"
+	desc = "An advanced clowning backpack for holding large quantities of pranking gear"
+	icon_state = "clownpack"
+	item_state = "clownpack"
+
 /obj/item/storage/backpack/holding/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
