@@ -85,6 +85,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/datum/material/inserted_material in materials.materials)
 		var/amount = materials.get_material_amount(inserted_material)
+
 		if(!amount)
 			continue
 		data["inserted_materials"] += list(list(
@@ -100,23 +101,23 @@
 	return data;
 
 /obj/machinery/mineral/mint/ui_act(action, params, datum/tgui/ui)
+
 	. = ..()
 	if(.)
 		return
-	if(action == "startpress")
-		if (!processing)
-			produced_coins = 0
-		processing = TRUE
-		return TRUE
-	if (action == "stoppress")
-		processing = FALSE
-		return TRUE
-	if (action == "changematerial")
-		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-		for(var/datum/material/mat in materials.materials)
-			if (params["material_name"] == mat.name)
-				chosen = mat
-		return TRUE
+
+	switch(action)
+		if ("startpress")
+			if (!processing)
+				produced_coins = 0
+			processing = TRUE
+		if ("stoppress")
+			processing = FALSE
+		if ("changematerial")
+			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+			for(var/datum/material/mat in materials.materials)
+				if (params["material_name"] == mat.name)
+					chosen = mat
 
 /obj/machinery/mineral/mint/proc/create_coins()
 	var/turf/T = get_step(src,output_dir)

@@ -261,6 +261,8 @@
 		var/datum/objective/O = new core_objective
 		O.team = src
 		objectives += O
+		for(var/datum/mind/M in members)
+			log_objective(M, O.explanation_text)
 
 /datum/team/nuclear/proc/disk_rescued()
 	for(var/obj/item/disk/nuclear/D in GLOB.poi_list)

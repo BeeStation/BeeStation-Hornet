@@ -4,7 +4,8 @@
 	icon = 'icons/mecha/mecha.dmi'
 	density = TRUE //Dense. To raise the heat.
 	opacity = 1 ///opaque. Menacing.
-	move_resist = MOVE_FORCE_OVERPOWERING //no pulling around.
+	move_force = MOVE_FORCE_VERY_STRONG
+	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	layer = BELOW_MOB_LAYER//icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
@@ -659,11 +660,11 @@
 					step(src,dir)
 		if(isobj(obstacle))
 			var/obj/O = obstacle
-			if(!O.anchored)
+			if(!O.anchored && O.move_resist <= move_force)
 				step(obstacle, dir)
 		else if(ismob(obstacle))
 			var/mob/M = obstacle
-			if(!M.anchored)
+			if(M.move_resist <= move_force)
 				step(obstacle, dir)
 
 
@@ -1083,7 +1084,7 @@
 
 	if(L?.client)
 		L.update_mouse_pointer()
-		L.client.change_view(CONFIG_GET(string/default_view))
+		L.client.view_size.resetToDefault() 
 		zoom_mode = 0
 
 /////////////////////////
