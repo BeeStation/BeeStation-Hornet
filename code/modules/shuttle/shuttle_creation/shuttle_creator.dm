@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	if(internal_shuttle_creator)
 		QDEL_NULL(internal_shuttle_creator)
 	if(overlay_holder)
-		qdel(overlay_holder)
+		QDEL_NULL(overlay_holder)
 
 /obj/item/shuttle_creator/attack_self(mob/user)
 	..()
