@@ -58,7 +58,7 @@
 	. = ..()
 	owner_rsd.overlay_holder.remove_client()
 	eyeobj.invisibility = INVISIBILITY_MAXIMUM
-	if(eyeobj.visible_icon && user.client)
+	if(user.client)
 		user.client.images -= eyeobj.user_image
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/attack_hand(mob/user)
