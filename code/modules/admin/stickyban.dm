@@ -371,6 +371,7 @@
 		banhtml += stickyban_gethtml(ckey)
 
 	var/html = {"
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 	<head>
 		<title>Sticky Bans</title>
 	</head>
