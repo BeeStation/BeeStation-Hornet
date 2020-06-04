@@ -32,6 +32,10 @@
 	if(..())
 		return
 	var/turf/T = get_turf(remote_eye)
+	if(!LAZYLEN(T.contents))
+		to_chat(usr, "<span class='warning'>You cannot designate empty space, build some support girders.</span>")
+		return
+
 	if(!shuttle_creator.check_area(list(T)))
 		return
 	if(shuttle_creator.turf_in_list(T))

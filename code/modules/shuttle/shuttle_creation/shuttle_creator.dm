@@ -1,5 +1,7 @@
 #define SHUTTLE_CREATOR_MAX_SIZE CONFIG_GET(number/max_shuttle_size)
 #define CUSTOM_SHUTTLE_LIMIT CONFIG_GET(number/max_shuttle_count)
+#define CARDINAL_DIRECTIONS_X list(1, 0, -1, 0)
+#define CARDINAL_DIRECTIONS_Y list(0, 1, 0, -1)
 
 GLOBAL_VAR_INIT(custom_shuttle_count, 0)		//The amount of custom shuttles created to prevent creating hundreds
 GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (Heaters, engines)
@@ -311,7 +313,22 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		else
 			to_chat(usr, "<span class='warning'>Caution, shuttle must not use any material connected to the station. Your shuttle is currenly overlapping with [place.name]</span>")
 			return FALSE
-	return TRUE
+	//Finally, check to see if the area is actually attached
+	if(!loggedTurfs)
+		return TRUE
+	for(var/turf/T in turfs)
+		if(turf_connected_to_saved_turfs(T))
+			return TRUE
+		CHECK_TICK
+	to_chat(usr, "<span class='warning'>Caution, new areas of the shuttle must be connected to the other areas of the shuttle.</span>")
+	return FALSE
+
+/obj/item/shuttle_creator/proc/turf_connected_to_saved_turfs(turf/T)
+	for(var/i in 1 to 4)
+		var/turf/T = get_offset_target_turf(T, CARDINAL_DIRECTIONS_X[i], CARDINAL_DIRECTIONS_Y[i])
+		if(T in loggedTurfs)
+			return TRUE
+	return FALSE
 
 /obj/item/shuttle_creator/proc/turf_in_list(turf/T)
 	return loggedTurfs.Find(T)
@@ -350,3 +367,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	overlay_holder.clear_highlights()
 	loggedTurfs.Cut()
 	to_chat(usr, "<span class='notice'>You reset the area buffer on the [src].</span>")
+
+#undef CARDINAL_DIRECTIONS_X
+#undef CARDINAL_DIRECTIONS_Y
