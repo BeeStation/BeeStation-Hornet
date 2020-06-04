@@ -8,6 +8,7 @@
 	var/datum/objective/hijack/hijack = new
 	hijack.owner = owner
 	objectives += hijack
+	log_objective(owner, hijack.explanation_text)
 
 /datum/antagonist/wishgranter/on_gain()
 	owner.special_role = "Avatar of the Wish Granter"
