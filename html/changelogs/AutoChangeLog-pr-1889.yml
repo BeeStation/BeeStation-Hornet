@@ -1,5 +1,0 @@
-author: Mick1299
-delete-after: true
-changes:
-  - tweak: small change to preserve_virus recipe
-  - refactor: changed some spacing, added comments
