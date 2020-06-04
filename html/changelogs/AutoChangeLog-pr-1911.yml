@@ -1,5 +1,0 @@
-author: Sarchutar
-delete-after: true
-changes:
-  - rscadd: Ghosts get a message when someone changes laws of AIs/Unsynced cyborgs
-  - rscadd: Ghosts get a message when someone builds an AI
