@@ -296,7 +296,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	if(!turfs)
 		to_chat(usr, "<span class='warning'>Shuttles must be created in an airtight space, ensure that the shuttle is airtight, including corners.</span>")
 		return FALSE
-	if(turfs.len > SHUTTLE_CREATOR_MAX_SIZE)
+	if(turfs.len + loggedTurfs.len > SHUTTLE_CREATOR_MAX_SIZE)
 		to_chat(usr, "<span class='warning'>The [src]'s internal cooling system wizzes violently and a message appears on the screen, \"Caution, this device can only handle the creation of shuttles up to [SHUTTLE_CREATOR_MAX_SIZE] units in size. Please reduce your shuttle by [turfs.len-SHUTTLE_CREATOR_MAX_SIZE]. Sorry for the inconvinience\"</span>")
 		return FALSE
 	//Check to see if it's a valid shuttle
@@ -325,8 +325,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 /obj/item/shuttle_creator/proc/turf_connected_to_saved_turfs(turf/T)
 	for(var/i in 1 to 4)
-		var/turf/T = get_offset_target_turf(T, CARDINAL_DIRECTIONS_X[i], CARDINAL_DIRECTIONS_Y[i])
-		if(T in loggedTurfs)
+		var/turf/adjacentT = get_offset_target_turf(T, CARDINAL_DIRECTIONS_X[i], CARDINAL_DIRECTIONS_Y[i])
+		if(adjacentT in loggedTurfs)
 			return TRUE
 	return FALSE
 
