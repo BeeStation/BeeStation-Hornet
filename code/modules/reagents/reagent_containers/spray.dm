@@ -338,6 +338,14 @@
 	last_generate = world.time
 	reagents.add_reagent(generate_type, generate_amount)
 
+/obj/item/reagent_containers/spray/chemsprayer/janitor/clown
+	name = "lubinator 8000"
+	desc = "A modified industrial cleaning sprayer, capable of coating entire hallways in high performance lubricant, honk!"
+	icon_state = "chemsprayer"
+	item_state = "chemsprayer"
+	list_reagents = list(/datum/reagent/lube = 1000)
+	generate_type = /datum/reagent/lube
+
 // Plant-B-Gone
 /obj/item/reagent_containers/spray/plantbgone // -- Skie
 	name = "Plant-B-Gone"
