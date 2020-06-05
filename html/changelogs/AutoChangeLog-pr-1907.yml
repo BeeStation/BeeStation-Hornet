@@ -1,7 +1,0 @@
-author: Trigg
-delete-after: true
-changes:
-  - bugfix: That annoying (but harmless?) runtime in jobs.dm literally every initialization
-      is gone.
-  - bugfix: Abductor species no longer runtime on creation.
-  - bugfix: Flashbangs no longer runtime when banging completely unprotected targets.
