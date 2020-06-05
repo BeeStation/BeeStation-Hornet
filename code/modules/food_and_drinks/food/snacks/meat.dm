@@ -241,6 +241,15 @@
 	tastes = list("meat" = 1)
 	foodtype = RAW | MEAT | TOXIC
 
+/obj/item/reagent_containers/food/snacks/meat/slab/grub
+	name = "gold grub meat"
+	desc = "A slab of gold grub meat. It looks disgusting."
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/toxin = 5, /datum/reagent/consumable/cooking_oil = 3)
+	icon_state = "grubmeat"
+	tastes = list("insect" = 1)
+	cooked_type = /obj/item/reagent_containers/food/snacks/meat/steak/grub
+	foodtype = RAW | MEAT | TOXIC
+
 /obj/item/reagent_containers/food/snacks/meat/slab/goliath/burn()
 	visible_message("[src] finishes cooking!")
 	new /obj/item/reagent_containers/food/snacks/meat/steak/goliath(loc)
@@ -366,6 +375,11 @@
 /obj/item/reagent_containers/food/snacks/meat/steak/spider
 	name = "spider steak"
 	tastes = list("cobwebs" = 1)
+/obj/item/reagent_containers/food/snacks/meat/steak/grub
+	name = "grub steak"
+	tastes = list("maggots" = 1)
+	foodtype = MEAT | GROSS
+	icon_state = "cooked_grubmeat"
 
 /obj/item/reagent_containers/food/snacks/meat/steak/goliath
 	name = "goliath steak"

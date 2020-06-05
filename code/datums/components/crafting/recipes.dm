@@ -371,7 +371,7 @@
 
 /datum/crafting_recipe/switchblade_kitchenupgrade
 	name = "Plastitanium Switchblade"
-	result = /obj/item/switchblade/plastitanium 
+	result = /obj/item/switchblade/plastitanium
 	reqs = list(/obj/item/switchblade/kitchen = 1,
 				/obj/item/stack/sheet/mineral/plastitanium = 2)
 	tools = list(TOOL_WELDER)
@@ -381,7 +381,7 @@
 
 /datum/crafting_recipe/switchblade_plastitanium
 	name = "Plastitanium Switchblade"
-	result = /obj/item/switchblade/plastitanium 
+	result = /obj/item/switchblade/plastitanium
 	reqs = list(/obj/item/weaponcrafting/stock = 1,
 				/obj/item/weaponcrafting/receiver = 1,
 				/obj/item/kitchen/knife = 1,
@@ -681,6 +681,15 @@
 				  /obj/item/stack/cable_coil = 2,
 				  /obj/item/assembly/igniter = 1)
 	category = CAT_MISC
+
+/datum/crafting_recipe/lasso
+	name = "Bone Lasso"
+	reqs = list(
+            /obj/item/stack/sheet/bone = 1,
+            /obj/item/stack/sheet/sinew = 5)
+	result = /obj/item/key/lasso
+	category = CAT_PRIMAL
+
 
 
 /datum/crafting_recipe/rcl

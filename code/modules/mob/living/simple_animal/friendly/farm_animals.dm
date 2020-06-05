@@ -262,7 +262,7 @@
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/chicken = 2)
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
-	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
+	food_type = list(/obj/item/reagent_containers/food/snacks/grown/wheat)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"

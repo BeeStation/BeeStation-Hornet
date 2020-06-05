@@ -86,8 +86,14 @@
 
 	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
 
-	//domestication
-	var/tame = 0
+	///Domestication.
+	var/tame = FALSE
+	///What the mob eats, typically used for taming or animal husbandry.
+	var/list/food_type
+	///Starting success chance for taming.
+	var/tame_chance
+	///Added success chance after every failed tame attempt.
+	var/bonus_tame_chance
 
 	var/my_z // I don't want to confuse this with client registered_z
 
@@ -120,6 +126,25 @@
 		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
 
 	return ..()
+
+/mob/living/simple_animal/attackby(obj/item/O, mob/user, params)
+	if(!is_type_in_list(O, food_type))
+		..()
+		return
+	else
+		user.visible_message("<span class='notice'>[user] hand-feeds [O] to [src].</span>", "<span class='notice'>You hand-feed [O] to [src].</span>")
+		qdel(O)
+		if(tame)
+			return
+		if (prob(tame_chance)) //note: lack of feedback message is deliberate, keep them guessing!
+			tame = TRUE
+			tamed(user)
+		else
+			tame_chance += bonus_tame_chance
+
+///Extra effects to add when the mob is tamed, such as adding a riding component
+/mob/living/simple_animal/proc/tamed(whomst)
+	return
 
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
