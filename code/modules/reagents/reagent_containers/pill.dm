@@ -264,7 +264,6 @@
 	. = ..()
 	name = pick(names)
 
-	if(prob(20))
 
 /obj/item/reagent_containers/pill/floorpill/examine(mob/user)
 	. = ..()
