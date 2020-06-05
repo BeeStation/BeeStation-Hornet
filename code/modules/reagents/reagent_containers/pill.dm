@@ -263,7 +263,6 @@
 	list_reagents = list(get_unrestricted_random_reagent_id() = rand(10,50))
 	. = ..()
 	name = pick(names)
-	desc = "Its surface feels moist and scratched. Your guess is that there is only one way to find out what's inside. "
 
 	if(prob(20))
 
