@@ -15465,26 +15465,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
-"aDh" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external{
-	name = "Supply Dock Airlock";
-	req_access_txt = "31"
-	},
-/turf/open/space/basic,
-/area/quartermaster/storage)
 "aDi" = (
 /obj/docking_port/stationary{
 	dir = 4;
@@ -130061,6 +130041,26 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"lpo" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/airlock/external{
+	name = "Supply Dock Airlock";
+	req_access_txt = "31"
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "lrC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -179589,9 +179589,9 @@ aaa
 aaa
 aAK
 aCd
-aDh
+lpo
 aEi
-aDh
+lpo
 aGF
 aHX
 aaa
