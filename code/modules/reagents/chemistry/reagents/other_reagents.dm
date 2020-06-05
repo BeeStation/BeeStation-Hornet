@@ -144,7 +144,7 @@
 	if(hotspot && !isspaceturf(T))
 		if(T.air)
 			var/datum/gas_mixture/G = T.air
-			G.temperature = max(min(G.temperature-(CT*1000),G.temperature/CT),TCMB)
+			G.set_temperature(max(min(G.return_temperature()-(CT*1000),G.return_temperature()/CT),TCMB))
 			G.react(src)
 			qdel(hotspot)
 	var/obj/effect/acid/A = (locate(/obj/effect/acid) in T)
@@ -938,7 +938,8 @@
 			var/obj/effect/decal/cleanable/greenglow/GG = locate() in T.contents
 			if(!GG)
 				GG = new/obj/effect/decal/cleanable/greenglow(T)
-			GG.reagents.add_reagent(type, reac_volume)
+			if(!QDELETED(GG))
+				GG.reagents.add_reagent(type, reac_volume)
 
 /datum/reagent/uranium/radium
 	name = "Radium"
