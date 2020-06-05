@@ -266,7 +266,6 @@
 	desc = "Its surface feels moist and scratched. Your guess is that there is only one way to find out what's inside. "
 
 	if(prob(20))
-		desc = desc + pick(descs)
 
 /obj/item/reagent_containers/pill/floorpill/examine(mob/user)
 	. = ..()
