@@ -23,6 +23,8 @@
 	a_intent = INTENT_HELP
 	speak_emote = list("screeches")
 	throw_message = "sinks in slowly, before being pushed out of "
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/grub = 3)
+	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/grub = 1)
 	deathmessage = "spits up the contents of its stomach before dying!"
 	status_flags = CANPUSH
 	search_objects = 1

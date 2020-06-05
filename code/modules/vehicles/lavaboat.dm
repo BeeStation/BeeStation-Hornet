@@ -14,7 +14,7 @@
 /obj/vehicle/ridden/lavaboat/Initialize()
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.keytype = /obj/item/oar
+	D.keytype = list(/obj/item/oar)
 	D.allowed_turf_typecache = typecacheof(/turf/open/lava)
 
 /obj/item/oar
@@ -26,8 +26,6 @@
 	righthand_file = 'icons/mob/inhands/misc/lavaland_righthand.dmi'
 	desc = "Not to be confused with the kind Research hassles you for."
 	force = 12
-	block_level = 1
-	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
