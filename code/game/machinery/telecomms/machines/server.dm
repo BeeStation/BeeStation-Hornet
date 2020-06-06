@@ -75,7 +75,7 @@
 
 /obj/machinery/telecomms/server/presets/science
 	id = "Science Server"
-	freq_listening = list(FREQ_SCIENCE)
+	freq_listening = list(FREQ_SCIENCE, FREQ_EXPLORATION)
 	autolinkers = list("science")
 
 /obj/machinery/telecomms/server/presets/medical

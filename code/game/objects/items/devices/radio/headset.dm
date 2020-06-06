@@ -2,6 +2,7 @@
 GLOBAL_LIST_INIT(channel_tokens, list(
 	RADIO_CHANNEL_COMMON = RADIO_KEY_COMMON,
 	RADIO_CHANNEL_SCIENCE = RADIO_TOKEN_SCIENCE,
+	RADIO_CHANNEL_EXPLORATION = RADIO_TOKEN_EXPLORATION,
 	RADIO_CHANNEL_COMMAND = RADIO_TOKEN_COMMAND,
 	RADIO_CHANNEL_MEDICAL = RADIO_TOKEN_MEDICAL,
 	RADIO_CHANNEL_ENGINEERING = RADIO_TOKEN_ENGINEERING,
@@ -145,6 +146,12 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "A sciency headset. Like usual."
 	icon_state = "sci_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sci
+
+/obj/item/radio/headset/headset_exp
+	name = "exploration radio headset"
+	desc = "A headset optimised for communications away from station."
+	icon_state = "sci_headset"
+	keyslot = new /obj/item/encryptionkey/headset_exp
 
 /obj/item/radio/headset/headset_medsci
 	name = "medical research radio headset"

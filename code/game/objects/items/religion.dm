@@ -131,7 +131,7 @@
 	item_state = "banner_science"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list("Scientist", "Roboticist", "Research Director")
+	job_loyalties = list("Scientist", "Roboticist", "Exploration Crew", "Research Director")
 	warcry = "For Cuban Pete!"
 
 /obj/item/banner/science/mundane

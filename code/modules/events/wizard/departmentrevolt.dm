@@ -24,7 +24,7 @@
 			jobs_to_revolt = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
 			nation_name = pick("Atomo", "Engino", "Power", "Teleco")
 		if("purple")
-			jobs_to_revolt = list("Research Director","Scientist", "Roboticist")
+			jobs_to_revolt = list("Research Director","Scientist", "Roboticist", "Exploration Crew")
 			nation_name = pick("Sci", "Griffa", "Explosi", "Mecha", "Xeno")
 		if("brown")
 			jobs_to_revolt = list("Quartermaster", "Cargo Technician", "Shaft Miner")

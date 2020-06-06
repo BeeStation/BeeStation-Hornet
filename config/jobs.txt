@@ -38,6 +38,7 @@ Virologist=2,2
 
 Scientist=6,4
 Roboticist=2,2
+Exploration Crew=3,3
 
 Warden=1,1
 Detective=1,1

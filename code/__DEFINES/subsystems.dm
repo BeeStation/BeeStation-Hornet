@@ -132,6 +132,7 @@
 #define INIT_ORDER_LIGHTING			-20
 #define INIT_ORDER_SHUTTLE			-21
 #define INIT_ORDER_MINOR_MAPPING	-40
+#define INIT_ORDER_BS_EXPLORATION	-45
 #define INIT_ORDER_PATH				-50
 #define INIT_ORDER_PERSISTENCE		-100
 #define INIT_ORDER_CHAT				-150 //Should be last to ensure chat remains smooth during init.

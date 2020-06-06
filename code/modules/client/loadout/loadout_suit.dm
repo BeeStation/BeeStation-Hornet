@@ -52,7 +52,7 @@
 /datum/gear/suit/wintercoat/science
 	display_name = "science winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
-	allowed_roles = list("Scientist", "Roboticist", "Research Director")
+	allowed_roles = list("Scientist", "Roboticist", "Research Director", "Exploration Crew")
 
 /datum/gear/suit/wintercoat/engineering
 	display_name = "engineering winter coat"

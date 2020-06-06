@@ -10,6 +10,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	MODE_KEY_DEPARTMENT = MODE_DEPARTMENT,
 	RADIO_KEY_COMMAND = RADIO_CHANNEL_COMMAND,
 	RADIO_KEY_SCIENCE = RADIO_CHANNEL_SCIENCE,
+	RADIO_KEY_EXPLORATION = RADIO_CHANNEL_EXPLORATION,
 	RADIO_KEY_MEDICAL = RADIO_CHANNEL_MEDICAL,
 	RADIO_KEY_ENGINEERING = RADIO_CHANNEL_ENGINEERING,
 	RADIO_KEY_SECURITY = RADIO_CHANNEL_SECURITY,
@@ -40,6 +41,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	"ð" = MODE_DEPARTMENT,
 	"ñ" = RADIO_CHANNEL_COMMAND,
 	"ò" = RADIO_CHANNEL_SCIENCE,
+	"п" = RADIO_CHANNEL_EXPLORATION,
 	"ü" = RADIO_CHANNEL_MEDICAL,
 	"ó" = RADIO_CHANNEL_ENGINEERING,
 	"û" = RADIO_CHANNEL_SECURITY,
@@ -376,7 +378,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(clockslurring)
 		message = clockslur(message)
-   
+
 	// check for and apply punctuation
 	var/end = copytext(message, length(message))
 	if(!(end in list("!", ".", "?", ":", "\"", "-")))
