@@ -48,7 +48,6 @@
 /obj/item/clockwork/clockwork_slab/pickup(mob/user)
 	. = ..()
 	//Grant quickbound spells
-	var/base_position = 0
 	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
 		script.Grant(user)
 	user.update_action_buttons()
