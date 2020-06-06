@@ -21,6 +21,7 @@
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	path_image_color = "#FF0000"
 
+	var/noloot = TRUE
 	var/baton_type = /obj/item/melee/baton
 	var/mob/living/carbon/target
 	var/oldtarget_name
@@ -416,7 +417,8 @@ Auto Patrol: []"},
 	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
-	drop_part(baton_type, Tsec)
+	if(!noloot)
+		drop_part(baton_type, Tsec)
 
 	if(prob(50))
 		drop_part(robot_arm, Tsec)

@@ -51,15 +51,6 @@
 					T.air.adjust_moles(/datum/gas/carbon_dioxide, -amt)
 					T.atmos_spawn_air("o2=[amt]")
 
-/mob/living/simple_animal/hostile/tree/AttackingTarget()
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		if(prob(15))
-			C.Paralyze(60)
-			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
-					"<span class='userdanger'>\The [src] knocks you down!</span>")
-
 /mob/living/simple_animal/hostile/tree/festivus
 	name = "festivus pole"
 	desc = "Serenity now... SERENITY NOW!"
