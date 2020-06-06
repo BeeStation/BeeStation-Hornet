@@ -1,0 +1,4 @@
+author: zeskorion
+delete-after: true
+changes:
+  - bugfix: delta and pubby should repressurize proper now
