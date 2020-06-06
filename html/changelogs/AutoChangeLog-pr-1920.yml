@@ -1,0 +1,5 @@
+author: Monster860
+delete-after: true
+changes:
+  - bugfix: Fixed an issue where openspace turfs would crash the game instantly on
+      round load.
