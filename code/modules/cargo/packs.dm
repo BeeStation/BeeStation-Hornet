@@ -656,7 +656,7 @@
 	name = "Smart Mine Crate"
 	desc = "Contains three nonlethal pressure activated stun mines capable of ignoring mindshieled personnel. Requires Armory access to open."
 	cost = 4000
-	contains = list(/obj/item/deployablemine/smartstun,					
+	contains = list(/obj/item/deployablemine/smartstun,
 					/obj/item/deployablemine/smartstun,
 					/obj/item/deployablemine/smartstun)
 	crate_name = "stun mine create"
@@ -920,6 +920,28 @@
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	crate_name= "shield control board crate"
 
+/datum/supply_pack/engineering/shuttle_construction
+	name = "Shuttle Construction Kit"
+	desc = "A DIY kit for building your own shuttle! Comes with all the parts you need to get your people to the stars!"
+	cost = 6000
+	contains = list(
+		/obj/machinery/portable_atmospherics/canister/toxins,
+		/obj/item/construction/rcd/loaded,
+		/obj/item/rcd_ammo/large,
+		/obj/item/rcd_ammo/large,
+		/obj/item/shuttle_creator,
+		/obj/item/pipe_dispenser,
+		/obj/item/storage/toolbox/mechanical,
+		/obj/item/storage/toolbox/electrical,
+		/obj/item/circuitboard/computer/shuttle/docker,
+		/obj/item/circuitboard/computer/shuttle/flight_control,
+		/obj/item/circuitboard/machine/shuttle/engine/plasma,
+		/obj/item/circuitboard/machine/shuttle/engine/plasma,
+		/obj/item/circuitboard/machine/shuttle/heater,
+		/obj/item/circuitboard/machine/shuttle/heater
+		)
+	crate_name = "shuttle construction crate"
+	crate_type = /obj/structure/closet/crate/large
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////// Engine Construction /////////////////////////////////

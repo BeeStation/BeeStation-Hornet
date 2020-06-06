@@ -42,7 +42,7 @@ LINEN BINS
 
 /obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
-		var/obj/item/stack/sheet/cloth/C = new (get_turf(src), 3)
+		var/obj/item/stack/sheet/cotton/cloth/C = new (get_turf(src), 3)
 		transfer_fingerprints_to(C)
 		C.add_fingerprint(user)
 		qdel(src)
@@ -264,7 +264,7 @@ LINEN BINS
 	var/type = pickweight(list("Colors" = 80, "Special" = 20))
 	switch(type)
 		if("Colors")
-			type = pick(list(/obj/item/bedsheet, 
+			type = pick(list(/obj/item/bedsheet,
 				/obj/item/bedsheet/blue,
 				/obj/item/bedsheet/green,
 				/obj/item/bedsheet/grey,
