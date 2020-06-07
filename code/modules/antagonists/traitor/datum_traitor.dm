@@ -57,6 +57,7 @@
 
 /datum/antagonist/traitor/proc/add_objective(datum/objective/O)
 	objectives += O
+	log_objective(owner, O.explanation_text)
 
 /datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
 	objectives -= O

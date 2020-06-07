@@ -114,6 +114,7 @@
 				var/datum/objective/O = new/datum/objective(objective)
 				O.owner = MM
 				A.objectives += O
+				log_objective(O.owner, O.explanation_text)
 		if(assignedrole)
 			M.mind.assigned_role = assignedrole
 		special(M, name)
