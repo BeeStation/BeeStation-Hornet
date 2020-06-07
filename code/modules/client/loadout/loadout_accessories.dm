@@ -68,7 +68,7 @@
 	cost = 20000
 
 /datum/gear/accessory/necklace
-	display_name = "dope necklace"
+	display_name = "necklace, gold"
 	path = /obj/item/clothing/neck/necklace/dope
 	cost = 25000
 
