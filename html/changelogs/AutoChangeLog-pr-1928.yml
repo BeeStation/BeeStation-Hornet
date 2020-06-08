@@ -1,0 +1,6 @@
+author: ike709
+delete-after: true
+changes:
+  - tweak: Being moved by space wind is a bit rarer.
+  - tweak: Cycling airlock skip delay reduced from 30 seconds to 15. Reminder that
+      a higher distro pipe pressure makes them repressurize quicker.
