@@ -13,8 +13,8 @@
 
 	outfit = /datum/outfit/job/exploration_crew/leader
 
-	access = list(ACCESS_RESEARCH, ACCESS_EVA)
-	minimal_access = list(ACCESS_RESEARCH, ACCESS_EVA)
+	access = list(ACCESS_RESEARCH, ACCESS_EVA, ACCESS_EXPLORATION)
+	minimal_access = list(ACCESS_RESEARCH, ACCESS_EVA, ACCESS_EXPLORATION)
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_SCI
 
@@ -64,8 +64,6 @@
 
 	pda_slot = SLOT_L_STORE
 
-	crew_role = "Team Leader"
-
 /datum/outfit/job/exploration_crew/scientist
 	name = "Exploration Crew Scientist"
 	jobtype = /datum/job/exploration_crew
@@ -82,8 +80,6 @@
 
 	pda_slot = SLOT_L_STORE
 
-	crew_role = "Scientist"
-
 /datum/outfit/job/exploration_crew/engineer
 	name = "Exploration Crew Engineer"
 	jobtype = /datum/job/exploration_crew
@@ -99,5 +95,3 @@
 	satchel = /obj/item/storage/backpack/satchel/tox
 
 	pda_slot = SLOT_L_STORE
-
-	crew_role = "Operations Manager"

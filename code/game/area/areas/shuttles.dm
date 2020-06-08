@@ -99,6 +99,35 @@
 /area/shuttle/abandoned/pod
 	name = "Abandoned Ship Pod"
 
+////////////////////////////Exploration Shuttle////////////////////////////
+
+/area/shuttle/exploration
+	name = "Pathfinder"
+	blob_allowed = FALSE
+	requires_power = TRUE
+	canSmoothWithAreas = /area/shuttle/exploration
+
+/area/shuttle/exploration/command
+	name = "Pathfinder Bridge"
+
+/area/shuttle/exploration/warp_drive
+	name = "Pathfinder Warp Drive"
+
+/area/shuttle/exploration/atmospherics
+	name = "Pathfinder Atmospherics"
+
+/area/shuttle/exploration/engineering
+	name = "Pathfinder Engineering"
+
+/area/shuttle/exploration/science
+	name = "Pathfinder Science"
+
+/area/shuttle/exploration/service
+	name = "Pathfinder Service"
+
+/area/shuttle/exploration/medical
+	name = "Pathfinder Medical"
+
 ////////////////////////////Single-area shuttles////////////////////////////
 
 /area/shuttle/transit

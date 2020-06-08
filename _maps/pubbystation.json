@@ -6,6 +6,7 @@
 	    "emergency": "emergency_pubby",
 	    "whiteship": "whiteship_pubby",
 	    "ferry": "ferry_fancy",
-	    "cargo": "cargo_box"
+		"cargo": "cargo_box",
+		"exploration": "exploration_box"
     }
 }

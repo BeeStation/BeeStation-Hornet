@@ -126,6 +126,10 @@
 	port_id = "mining"
 	can_be_bought = FALSE
 
+/datum/map_template/shuttle/exploration
+	port_id = "exploration"
+	can_be_bought = FALSE
+
 /datum/map_template/shuttle/arrival
 	port_id = "arrival"
 	can_be_bought = FALSE
@@ -621,6 +625,10 @@
 /datum/map_template/shuttle/snowdin/excavation
 	suffix = "excavation"
 	name = "Snowdin Excavation Elevator"
+
+/datum/map_template/shuttle/exploration/box
+	suffix = "box"
+	name = "exploration shuttle (Box)"
 
  // Turbolifts
 /datum/map_template/shuttle/turbolift/debug/primary
