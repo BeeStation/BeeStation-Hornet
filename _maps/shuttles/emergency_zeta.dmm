@@ -98,13 +98,6 @@
 /obj/item/twohanded/required/kirbyplants/photosynthetic,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"at" = (
-/obj/machinery/door/airlock/abductor{
-	name = "Command Center";
-	req_access_txt = "19"
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
 "au" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -119,24 +112,11 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"ax" = (
-/obj/machinery/door/airlock/abductor{
-	name = "Holding Facility";
-	req_access_txt = "2"
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
 "ay" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/item/twohanded/required/kirbyplants/photosynthetic,
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"az" = (
-/obj/machinery/door/airlock/abductor{
-	name = "Repair Bay"
-	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "aB" = (
@@ -166,12 +146,6 @@
 	pixel_x = -13
 	},
 /obj/item/multitool/abductor,
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"aF" = (
-/obj/machinery/door/airlock/abductor{
-	name = "Experimentation Lab"
-	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "aG" = (
@@ -302,12 +276,41 @@
 /obj/machinery/iv_drip,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"hm" = (
+"cD" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Repair Bay"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"qB" = (
 /obj/effect/spawner/structure/window/plastitanium,
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"yI" = (
+"tG" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Transport Ship Theta"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"yL" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Experimentation Lab"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"zQ" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Command Center";
+	req_access_txt = "19"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"BU" = (
 /obj/machinery/door/airlock/abductor{
 	name = "Transport Ship Theta"
 	},
@@ -317,16 +320,13 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"yL" = (
+"Mw" = (
 /obj/machinery/door/airlock/abductor{
-	name = "Transport Ship Theta"
+	name = "Holding Facility";
+	req_access_txt = "2"
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"Ul" = (
-/obj/structure/fans/tiny/invisible,
-/turf/closed/wall/mineral/abductor,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -335,17 +335,17 @@ aa
 aa
 aa
 aa
-Ul
-Ul
-yI
-hm
-Ul
-hm
-Ul
-hm
-yL
-Ul
-Ul
+ab
+ab
+BU
+qB
+ab
+qB
+ab
+qB
+tG
+ab
+ab
 aa
 aa
 aa
@@ -357,8 +357,8 @@ aa
 aa
 aa
 aa
-Ul
-Ul
+ab
+ab
 al
 al
 al
@@ -368,8 +368,8 @@ ay
 al
 al
 al
-Ul
-Ul
+ab
+ab
 aa
 aa
 aa
@@ -379,8 +379,8 @@ aa
 aa
 aa
 aa
-Ul
-Ul
+ab
+ab
 ao
 al
 al
@@ -392,8 +392,8 @@ al
 al
 al
 am
-Ul
-Ul
+ab
+ab
 aa
 aa
 aa
@@ -401,8 +401,8 @@ aa
 (4,1,1) = {"
 aa
 aa
-Ul
-Ul
+ab
+ab
 ao
 al
 al
@@ -416,15 +416,15 @@ al
 al
 al
 am
-Ul
-Ul
+ab
+ab
 aa
 aa
 "}
 (5,1,1) = {"
 aa
-Ul
-Ul
+ab
+ab
 ao
 al
 al
@@ -440,13 +440,13 @@ al
 al
 al
 am
-Ul
-Ul
+ab
+ab
 aa
 "}
 (6,1,1) = {"
-Ul
-Ul
+ab
+ab
 aj
 al
 ar
@@ -464,11 +464,11 @@ ar
 ar
 al
 aQ
-Ul
-Ul
+ab
+ab
 "}
 (7,1,1) = {"
-Ul
+ab
 ab
 ab
 ab
@@ -488,10 +488,10 @@ ab
 ab
 ab
 ab
-Ul
+ab
 "}
 (8,1,1) = {"
-Ul
+ab
 ad
 ak
 ap
@@ -511,10 +511,10 @@ aJ
 aJ
 aR
 aU
-Ul
+ab
 "}
 (9,1,1) = {"
-hm
+qB
 ae
 al
 al
@@ -529,15 +529,15 @@ ao
 al
 al
 al
-ac
+qB
 al
 al
 al
 aV
-hm
+qB
 "}
 (10,1,1) = {"
-hm
+qB
 af
 ak
 al
@@ -552,20 +552,20 @@ ao
 al
 al
 al
-ac
+qB
 al
 al
 al
 aW
-hm
+qB
 "}
 (11,1,1) = {"
-hm
+qB
 ag
 am
 al
 al
-at
+zQ
 al
 al
 al
@@ -575,15 +575,15 @@ ao
 al
 al
 al
-aF
+yL
 al
 al
 al
 aX
-hm
+qB
 "}
 (12,1,1) = {"
-hm
+qB
 af
 ak
 al
@@ -598,15 +598,15 @@ ao
 al
 al
 al
-ac
+qB
 aK
 al
 al
 aY
-hm
+qB
 "}
 (13,1,1) = {"
-hm
+qB
 ah
 al
 al
@@ -621,15 +621,15 @@ ao
 al
 al
 al
-ac
+qB
 aL
 al
 al
 al
-hm
+qB
 "}
 (14,1,1) = {"
-Ul
+ab
 ai
 ak
 aq
@@ -649,10 +649,10 @@ aM
 aO
 aS
 aZ
-Ul
+ab
 "}
 (15,1,1) = {"
-Ul
+ab
 ab
 ab
 ab
@@ -672,74 +672,74 @@ ab
 ab
 ab
 ab
-Ul
+ab
 "}
 (16,1,1) = {"
-Ul
-Ul
+ab
+ab
 an
 al
 ap
 au
 au
 au
-ac
+qB
 al
 al
 al
-ac
+qB
 aB
 al
 aG
 ap
 al
 aT
-Ul
-Ul
+ab
+ab
 "}
 (17,1,1) = {"
 aa
-Ul
-Ul
+ab
+ab
 ao
 al
 al
 al
 al
-ac
+qB
 al
 al
 al
-ac
+qB
 al
 al
 al
 al
 aP
-Ul
-Ul
+ab
+ab
 aa
 "}
 (18,1,1) = {"
 aa
 aa
-Ul
-Ul
+ab
+ab
 ao
 al
 al
 al
-ax
+Mw
 al
 al
 al
-az
+cD
 al
 al
 aH
 aN
-Ul
-Ul
+ab
+ab
 aa
 aa
 "}
@@ -747,21 +747,21 @@ aa
 aa
 aa
 aa
-Ul
-Ul
+ab
+ab
 ar
 al
 al
-ac
+qB
 al
 al
 al
-ac
+qB
 al
 aD
 aI
-Ul
-Ul
+ab
+ab
 aa
 aa
 aa
@@ -771,19 +771,19 @@ aa
 aa
 aa
 aa
-Ul
-Ul
+ab
+ab
 ar
 aw
-ac
+qB
 ar
 ar
 ar
-ac
+qB
 aC
 aE
-Ul
-Ul
+ab
+ab
 aa
 aa
 aa
@@ -795,17 +795,17 @@ aa
 aa
 aa
 aa
-Ul
-Ul
-Ul
-Ul
-hm
-hm
-hm
-Ul
-Ul
-Ul
-Ul
+ab
+ab
+ab
+ab
+qB
+qB
+qB
+ab
+ab
+ab
+ab
 aa
 aa
 aa
