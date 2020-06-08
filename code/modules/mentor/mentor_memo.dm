@@ -27,7 +27,7 @@
 	if(!SSdbcore.IsConnected())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
 		return
-	var/sql_ckey = sanitizeSQL(ckey)
+	var/sql_ckey = ckey
 	switch(task)
 		if("Write")
 			var/datum/DBQuery/query_memocheck = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor_memo")] WHERE ckey = '[sql_ckey]'")
@@ -44,7 +44,6 @@
 			if(!memotext)
 				qdel(query_memocheck)
 				return
-			memotext = sanitizeSQL(memotext)
 			var/timestamp = SQLtime()
 			var/datum/DBQuery/query_memoadd = SSdbcore.NewQuery("INSERT INTO [format_table_name("mentor_memo")] (ckey, memotext, timestamp) VALUES ('[sql_ckey]', '[memotext]', '[timestamp]')")
 			if(!query_memoadd.Execute())
@@ -76,7 +75,7 @@
 			if(!target_ckey)
 				qdel(query_memolist)
 				return
-			var/target_sql_ckey = sanitizeSQL(target_ckey)
+			var/target_sql_ckey = target_ckey
 			var/datum/DBQuery/query_memofind = SSdbcore.NewQuery("SELECT memotext FROM [format_table_name("mentor_memo")] WHERE ckey = '[target_sql_ckey]'")
 			if(!query_memofind.Execute())
 				var/err = query_memofind.ErrorMsg()
@@ -91,9 +90,7 @@
 					qdel(query_memolist)
 					qdel(query_memofind)
 					return
-				new_memo = sanitizeSQL(new_memo)
 				var/edit_text = "Edited by [sql_ckey] on [SQLtime()] from<br>[old_memo]<br>to<br>[new_memo]<hr>"
-				edit_text = sanitizeSQL(edit_text)
 				var/datum/DBQuery/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("mentor_memo")] SET memotext = '[new_memo]', last_editor = '[sql_ckey]', edits = CONCAT(IFNULL(edits,''),'[edit_text]') WHERE ckey = '[target_sql_ckey]'")
 				if(!update_query.Execute())
 					var/err = update_query.ErrorMsg()
@@ -153,7 +150,7 @@
 			if(!target_ckey)
 				qdel(query_memodellist)
 				return
-			var/target_sql_ckey = sanitizeSQL(target_ckey)
+			var/target_sql_ckey = target_ckey
 			var/datum/DBQuery/query_memodel = SSdbcore.NewQuery("DELETE FROM [format_table_name("mentor_memo")] WHERE ckey = '[target_sql_ckey]'")
 			if(!query_memodel.Execute())
 				var/err = query_memodel.ErrorMsg()
