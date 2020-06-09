@@ -18,14 +18,20 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/spawner/room/LateInitialize()
+	var/list/possibletemplates = list()
+	var/cantidate = null
 	shuffle_inplace(SSmapping.random_room_templates)
 	for(var/ID in SSmapping.random_room_templates)
-		template = SSmapping.random_room_templates[ID]
-		if(istype(template, /datum/map_template/random_room) && room_height == template.template_height && room_width == template.template_width)
+		cantidate = SSmapping.random_room_templates[ID]
+		if(istype(cantidate, /datum/map_template/random_room) && room_height == cantidate.template_height && room_width == cantidate.template_width)
 			if(!template.spawned)
-				template.spawned = TRUE
-				addtimer(CALLBACK(src, /obj/effect/spawner/room.proc/LateSpawn), 600)
-				break
+				possibletemplates += cantidate
+		cantidate = null
+	if(possibletemplates.len)
+		template = pickweight(possibletemplates)
+		template.spawned = TRUE
+		addtimer(CALLBACK(src, /obj/effect/spawner/room.proc/LateSpawn), 600)
+	else 
 		template = null
 	if(!template)
 		qdel(src)

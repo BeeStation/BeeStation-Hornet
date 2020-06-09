@@ -4,6 +4,7 @@
 	var/centerspawner = TRUE
 	var/template_height = 0
 	var/template_width = 0
+	var/weight = 10 //weight a room has to appear
 
 /datum/map_template/random_room/sk_rdm001
 	name = "Maintenance Storage"
