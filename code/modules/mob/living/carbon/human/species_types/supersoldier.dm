@@ -18,7 +18,7 @@
 			H.adjustToxLoss(-1)
 			H.adjustOxyLoss(-1)
 
-/datum/species/human/supersoldier_syndie
+/datum/species/human/supersoldier/syndie
 	name = "Syndicate Super Soldier" //inherited from the real species, for health scanners and things
 	id = "supersoldier_syndie"
 	species_traits = list(NOTRANSSTING) //all of these + whatever we inherit from the real species
@@ -26,7 +26,7 @@
 	mutanteyes = /obj/item/organ/eyes/night_vision
 	changesource_flags = MIRROR_BADMIN
 
-/datum/species/human/supersoldier_syndie/spec_life(mob/living/carbon/human/H)
+/datum/species/human/supersoldier/syndie/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing

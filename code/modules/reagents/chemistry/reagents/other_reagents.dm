@@ -589,11 +589,11 @@
 	mutationtext = "<span class='danger'>The pain subsides. You feel... like you can take on anything.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/mutationtoxin/supersoldier_syndie
+/datum/reagent/mutationtoxin/supersoldier/syndie
 	name = "Syndicate Super Soldier Toxin"
 	description = "A flesh-sculpting toxin."
 	color = "#ff0400" //RGB: 255, 4, 0
-	race = /datum/species/human/supersoldier_syndie
+	race = /datum/species/human/supersoldier/syndie
 	mutationtext = "<span class='danger'>The pain subsides. You feel... like you can take on almost anything.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 
