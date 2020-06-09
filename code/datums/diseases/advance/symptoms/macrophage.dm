@@ -51,38 +51,27 @@
 				Burst(A, M)
 
 /datum/symptom/macrophage/proc/Burst(datum/disease/advance/A, var/mob/living/M, var/gigagerms = FALSE)
+	var/mob/living/simple_animal/hostile/macrophage/phage
 	if(gigagerms)
-		var/mob/living/simple_animal/hostile/macrophage/aggro/phage = new(M.loc)
-		phage.health += A.properties["resistance"]
-		phage.maxHealth += A.properties["resistance"]
-		phage.melee_damage_upper += max(0, A.properties["resistance"])
+		phage = new /mob/living/simple_animal/hostile/macrophage/aggro(M.loc)
 		phage.melee_damage_lower += max(0, A.properties["resistance"])
-		phage.infections += A
-		phage.basedisease = A
-		if(A.properties["transmittable"] >= 12)
-			for(var/datum/disease/D in M.diseases)
-				if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
-					continue
-				if(D == A)
-					continue
-				phage.infections += D
 		M.take_overall_damage(brute = rand(10, 20), required_status = BODYPART_ORGANIC)
 		playsound(M, 'sound/effects/splat.ogg', 50, 1)
 		M.emote("scream")
 	else
-		var/mob/living/simple_animal/hostile/macrophage/phage = new(M.loc)
-		phage.health += A.properties["resistance"]
-		phage.maxHealth += A.properties["resistance"]
-		phage.melee_damage_upper += max(0, A.properties["resistance"])
-		phage.infections += A
-		phage.basedisease = A
-		if(A.properties["transmittable"] >= 12)
-			for(var/datum/disease/D in M.diseases)
-				if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
-					continue
-				if(D == A)
-					continue
-				phage.infections += D
+		phage = new(M.loc)
 		M.take_overall_damage(brute = rand(1, 7), required_status = BODYPART_ORGANIC)
+	phage.health += A.properties["resistance"]
+	phage.maxHealth += A.properties["resistance"]
+	phage.melee_damage_upper += max(0, A.properties["resistance"])
+	phage.infections += A
+	phage.basedisease = A
+	if(A.properties["transmittable"] >= 12)
+		for(var/datum/disease/D in M.diseases)
+			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
+				continue
+			if(D == A)
+				continue
+			phage.infections += D
 	M.visible_message("<span class='danger'>A strange creature bursts out of [M]!</span>", \
 	  "<span class='userdanger'>A slimy creature bursts forth from your flesh!</span>")
