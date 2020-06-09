@@ -1,0 +1,5 @@
+author: ArcaneMusic, zxaber
+delete-after: true
+changes:
+  - bugfix: Railings have icon states
+  - tweak: You can now create and deconstruct linen bins from iron rods
