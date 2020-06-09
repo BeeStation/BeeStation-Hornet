@@ -99,7 +99,7 @@
 	desc = "A reverse engineered nanotrasen supersoldier injector."
 	item_state = "nanite_hypo_syndie"
 	icon_state = "nanite_hypo_syndie"
-	list_reagents = list(/datum/reagent/mutationtoxin/supersoldier/syndie = 5)
+	list_reagents = list(/datum/reagent/mutationtoxin/supersoldier_syndie = 1)
 
 /*
 /obj/item/reagent_containers/hypospray/supersoldier/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
