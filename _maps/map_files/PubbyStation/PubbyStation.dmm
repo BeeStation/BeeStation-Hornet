@@ -41167,7 +41167,8 @@
 "bNg" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
-	name = "Air to Distro"
+	name = "Air to Distro";
+	target_pressure = 500
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4

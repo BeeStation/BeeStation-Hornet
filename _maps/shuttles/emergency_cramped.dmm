@@ -2,17 +2,6 @@
 "a" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"b" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"c" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "d" = (
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -54,18 +43,6 @@
 /obj/machinery/status_display/evac,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"k" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/docking_port/mobile/emergency{
-	dwidth = 3;
-	height = 5;
-	name = "Secure Transport Vessel 5";
-	width = 14
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "l" = (
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -92,12 +69,6 @@
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
-/area/shuttle/escape)
-"q" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "r" = (
 /obj/structure/closet/crate/secure/weapon,
@@ -141,25 +112,58 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
+"B" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock";
+	req_access_txt = "2"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"C" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"E" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/docking_port/mobile/emergency{
+	dwidth = 3;
+	height = 5;
+	name = "Secure Transport Vessel 5";
+	width = 14
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"Q" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 a
-c
+B
 a
-k
+E
 a
-b
-b
-b
+Q
+Q
+Q
 a
-q
+C
 a
-q
+C
 a
 a
 "}
 (2,1,1) = {"
-b
+Q
 d
 g
 l
@@ -175,7 +179,7 @@ t
 u
 "}
 (3,1,1) = {"
-b
+Q
 e
 h
 l
@@ -191,7 +195,7 @@ t
 u
 "}
 (4,1,1) = {"
-b
+Q
 f
 i
 v
@@ -212,9 +216,9 @@ a
 j
 a
 a
-b
-b
-b
+Q
+Q
+Q
 a
 a
 a
