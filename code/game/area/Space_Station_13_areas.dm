@@ -60,6 +60,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	blob_allowed = FALSE //Nope, no winning on the asteroid as a blob. Gotta eat the station.
 	valid_territory = FALSE
 	ambientsounds = MINING
+	sound_environment = SOUND_ENV_CAVE
 
 /area/asteroid/nearstation
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
@@ -80,7 +81,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	valid_territory = FALSE
 	mood_bonus = -1
 	mood_message = "<span class='nicegreen'>It's kind of cramped in here!\n</span>"
-
+	sound_environment = SOUND_ENV_ALLEY
 
 //Departments
 
@@ -235,6 +236,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //Hallway
 
+/area/hallway
+	sound_environment = SOUND_ENV_HALLWAY
+
 /area/hallway/primary/aft
 	name = "Aft Primary Hallway"
 	icon_state = "hallA"
@@ -285,6 +289,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Bridge"
 	icon_state = "bridge"
 	ambientsounds = list('sound/ambience/signal.ogg')
+	sound_environment = SOUND_ENV_ROOM
 
 /area/bridge/meeting_room
 	name = "Heads of Staff Meeting Room"
@@ -297,6 +302,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/bridge/showroom/corporate
 	name = "Corporate Showroom"
 	icon_state = "showroom"
+
+/area/crew_quarters
+	sound_environment = SOUND_ENV_LIVINGROOM
 
 /area/crew_quarters/heads/captain
 	name = "Captain's Office"
@@ -329,6 +337,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/comms
 	name = "Communications Relay"
 	icon_state = "tcomsatcham"
+	sound_environment = SOUND_ENV_ROOM
 
 /area/server
 	name = "Messaging Server Room"
@@ -351,6 +360,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/toilet
 	name = "Dormitory Toilets"
 	icon_state = "toilet"
+	sound_environment = SOUND_ENV_BATHROOM
 
 /area/crew_quarters/toilet/auxiliary
 	name = "Auxiliary Restrooms"
@@ -429,6 +439,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Library"
 	icon_state = "library"
 	flags_1 = NONE
+	sound_environment = SOUND_ENV_LIVINGROOM
 
 /area/library/lounge
 	name = "Library Lounge"
@@ -476,6 +487,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/engine
 	ambientsounds = ENGINEERING
+	sound_environment = SOUND_ENV_HANGAR
 
 /area/engine/engine_smes
 	name = "Engineering SMES"
@@ -511,6 +523,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "engine_foyer"
 	mood_bonus = 2
 	mood_message = "<span class='nicegreen'>Ahhh, time to take a break.\n</span>"
+	sound_environment = SOUND_ENV_ROOM
 
 /area/engine/gravity_generator
 	name = "Gravity Generator Room"
@@ -618,11 +631,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Teleporter Room"
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING
+	sound_environment = SOUND_ENV_ROOM
 
 /area/gateway
 	name = "Gateway"
 	icon_state = "gateway"
 	ambientsounds = ENGINEERING
+	sound_environment = SOUND_ENV_ROOM
 
 //MedBay
 
@@ -632,7 +647,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambientsounds = MEDICAL
 	mood_bonus = 2
 	mood_message = "<span class='nicegreen'>I feel safe in here!\n</span>"
-
+	sound_environment = SOUND_ENV_AUDITORIUM
 
 /area/medical/abandoned
 	name = "Abandoned Medbay"
@@ -664,6 +679,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical/patients_rooms
 	name = "Patients' Rooms"
 	icon_state = "patients"
+	sound_environment = SOUND_ENV_LIVINGROOM
 
 /area/medical/patients_rooms/room_a
 	name = "Patient Room A"
@@ -724,6 +740,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Security"
 	icon_state = "security"
 	ambientsounds = HIGHSEC
+	sound_environment = SOUND_ENV_AUDITORIUM
 
 /area/security/main
 	name = "Security Office"
@@ -759,6 +776,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Detective's Office"
 	icon_state = "detective"
 	ambientsounds = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg')
+	sound_environment = SOUND_ENV_LIVINGROOM
 
 /area/security/detectives_office/private_investigators_office
 	name = "Private Investigator's Office"
@@ -786,6 +804,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/ai_monitored/nuke_storage
 	name = "Vault"
 	icon_state = "nuke_storage"
+	sound_environment = SOUND_ENV_ROOM
 
 /area/security/checkpoint
 	name = "Security Checkpoint"
@@ -830,6 +849,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/quartermaster
 	name = "Quartermasters"
 	icon_state = "quart"
+	sound_environment = SOUND_ENV_HANGAR
 
 /area/quartermaster/sorting
 	name = "Delivery Office"
@@ -842,6 +862,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/quartermaster/office
 	name = "Cargo Office"
 	icon_state = "quartoffice"
+	sound_environment = SOUND_ENV_ROOM
 
 /area/quartermaster/storage
 	name = "Cargo Bay"
@@ -850,6 +871,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/quartermaster/qm
 	name = "Quartermaster's Office"
 	icon_state = "quart"
+	sound_environment = SOUND_ENV_ROOM
 
 /area/quartermaster/miningdock
 	name = "Mining Dock"
@@ -865,6 +887,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	flags_1 = NONE
 	mood_bonus = -1
 	mood_message = "<span class='nicegreen'>It feels dirty in here!\n</span>"
+	sound_environment = SOUND_ENV_ROOM
 
 /area/hydroponics
 	name = "Hydroponics"
@@ -890,6 +913,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/science
 	name = "Science Division"
 	icon_state = "toxlab"
+	sound_environment = SOUND_ENV_AUDITORIUM
 
 /area/science/lab
 	name = "Research and Development"
@@ -928,6 +952,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/science/server
 	name = "Research Division Server Room"
 	icon_state = "server"
+	sound_environment = SOUND_ENV_ROOM
 
 /area/science/explab
 	name = "Experimentation Lab"
@@ -958,6 +983,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "toxmisc"
 
 //Storage
+
+/area/storage
+	sound_environment = SOUND_ENV_ROOM
 
 /area/storage/tools
 	name = "Auxiliary Tool Storage"
@@ -999,6 +1027,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Construction Area"
 	icon_state = "yellow"
 	ambientsounds = ENGINEERING
+	sound_environment = SOUND_ENV_PARKINGLOT
 
 /area/construction/mining/aux_base
 	name = "Auxiliary Base Construction"
@@ -1014,6 +1043,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 	ambientsounds = MAINTENANCE
 	icon_state = "vacant_room"
+	sound_environment = SOUND_ENV_ROOM
 
 /area/vacant_room/office
 	name = "Vacant Office"
@@ -1029,16 +1059,19 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Armory"
 	icon_state = "armory"
 	ambientsounds = HIGHSEC
+	sound_environment = SOUND_ENV_ROOM
 
 /area/ai_monitored/storage/eva
 	name = "EVA Storage"
 	icon_state = "eva"
 	ambientsounds = HIGHSEC
+	sound_environment = SOUND_ENV_ROOM
 
 /area/ai_monitored/storage/satellite
 	name = "AI Satellite Maint"
 	icon_state = "storage"
 	ambientsounds = HIGHSEC
+	sound_environment = SOUND_ENV_ROOM
 
 	//Turret_protected
 
@@ -1048,6 +1081,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/ai_monitored/turret_protected/ai_upload
 	name = "AI Upload Chamber"
 	icon_state = "ai_upload"
+	sound_environment = SOUND_ENV_AUDITORIUM
 
 /area/ai_monitored/turret_protected/ai_upload_foyer
 	name = "AI Upload Access"
@@ -1056,10 +1090,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/ai_monitored/turret_protected/ai
 	name = "AI Chamber"
 	icon_state = "ai_chamber"
+	sound_environment = SOUND_ENV_AUDITORIUM
 
 /area/ai_monitored/turret_protected/aisat
 	name = "AI Satellite"
 	icon_state = "ai"
+	sound_environment = SOUND_ENV_AUDITORIUM
 
 /area/ai_monitored/turret_protected/aisat/atmos
 	name = "AI Satellite Atmos"
@@ -1076,6 +1112,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/ai_monitored/turret_protected/aisat/hallway
 	name = "AI Satellite Hallway"
 	icon_state = "ai"
+	sound_environment = SOUND_ENV_HALLWAY
 
 /area/aisat
 	name = "AI Satellite Exterior"
@@ -1101,6 +1138,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	clockwork_warp_fail = "For safety reasons, warping here is disallowed; the radio and bluespace noise could cause catastrophic results."
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg', 'sound/ambience/ambitech.ogg',\
 											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
+	sound_environment = SOUND_ENV_HALLWAY
 
 /area/tcommsat/computer
 	name = "Telecomms Control Room"

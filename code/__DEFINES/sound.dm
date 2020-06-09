@@ -7,11 +7,15 @@
 #define CHANNEL_HEARTBEAT 1019 //sound channel for heartbeats
 #define CHANNEL_AMBIENCE 1018
 #define CHANNEL_BUZZ 1017
+#define CHANNEL_SHIP_ALERT 1016 //nsv13 - sound channel for looping ship alerts, EG general quarters
+#define CHANNEL_REACTOR_ALERT 1015 //nsv13 - sound channel for the nuclear storm drive meltdown sfx.
+#define CHANNEL_SHIP_FX 1014 //nsv13 - sound channel for general ship ambience / FX
+#define CHANNEL_IMPORTANT_SHIP_ALERT 1013 //nsv13 - sound channel for really REALLY IMPORTANT ship
 
 //THIS SHOULD ALWAYS BE THE LOWEST ONE!
 //KEEP IT UPDATED
 
-#define CHANNEL_HIGHEST_AVAILABLE 1015
+#define CHANNEL_HIGHEST_AVAILABLE 1012 //Nsv13 - ADDED LOADS OF SOUND CHANNELS. KEEP THIS UP TO DATE
 
 
 #define SOUND_MINIMUM_PRESSURE 10
@@ -69,3 +73,33 @@
 	'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
 	'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
 	'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
+
+//Nsv / Bee change: Soundscape definitions for areas.
+//Definitions are found here: http://www.byond.com/docs/ref/info.html#/sound/var/environment
+
+#define SOUND_ENV_GENERIC 0
+#define SOUND_ENV_PADDED_CELL 1
+#define SOUND_ENV_ROOM 2
+#define SOUND_ENV_BATHROOM 3
+#define SOUND_ENV_LIVINGROOM 4
+#define SOUND_ENV_STONEROOM 5
+#define SOUND_ENV_AUDITORIUM 6
+#define SOUND_ENV_CONCERTHALL 7
+#define SOUND_ENV_CAVE 8
+#define SOUND_ENV_ARENA 9
+#define SOUND_ENV_HANGAR 10
+#define SOUND_ENV_CARPETED_HALLWAY 11
+#define SOUND_ENV_HALLWAY 12
+#define SOUND_ENV_STONE_CORRIDOR 13
+#define SOUND_ENV_ALLEY 14
+#define SOUND_ENV_FOREST 15
+#define SOUND_ENV_CITY 16
+#define SOUND_ENV_MOUNTAINS 17
+#define SOUND_ENV_QUARRY 18
+#define SOUND_ENV_PLAIN 19
+#define SOUND_ENV_PARKINGLOT 20
+#define SOUND_ENV_SEWER_PIPE 21
+#define SOUND_ENV_UNDERWATER 22
+#define SOUND_ENV_DRUGGED 23
+#define SOUND_ENV_DIZZY 24
+#define SOUND_ENV_PSYCHOTIC 25

@@ -42,6 +42,18 @@
 			S.frequency = frequency
 		else
 			S.frequency = get_rand_frequency()
+	//Nsv / Bee change - Area based ambience.
+	var/area/AR = get_area(turf_source)
+	if(AR.sound_environment)
+		S.environment = AR.sound_environment
+	if(isliving(src))
+		var/mob/living/L = src
+		var/mob/living/carbon/C = null
+		if(iscarbon(src))
+			C = src
+		if(L.IsUnconscious() || L.IsSleeping() || L.IsInStasis() || C?.drunkenness >= 40) //If you're really drunk / sleepy, you hear things weirdly
+			S.environment = SOUND_ENV_DRUGGED
+	//Nsv / Bee end
 
 	if(isturf(turf_source))
 		var/turf/T = get_turf(src)

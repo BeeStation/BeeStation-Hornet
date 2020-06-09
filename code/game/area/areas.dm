@@ -69,6 +69,7 @@
 	var/list/canSmoothWithAreas
 
 	var/list/power_usage
+	var/sound_environment = null //Nsv / Bee change. Allows for proper soundscapes.
 
 
 /**
