@@ -7,15 +7,11 @@
 #define CHANNEL_HEARTBEAT 1019 //sound channel for heartbeats
 #define CHANNEL_AMBIENCE 1018
 #define CHANNEL_BUZZ 1017
-#define CHANNEL_SHIP_ALERT 1016 //nsv13 - sound channel for looping ship alerts, EG general quarters
-#define CHANNEL_REACTOR_ALERT 1015 //nsv13 - sound channel for the nuclear storm drive meltdown sfx.
-#define CHANNEL_SHIP_FX 1014 //nsv13 - sound channel for general ship ambience / FX
-#define CHANNEL_IMPORTANT_SHIP_ALERT 1013 //nsv13 - sound channel for really REALLY IMPORTANT ship
 
 //THIS SHOULD ALWAYS BE THE LOWEST ONE!
 //KEEP IT UPDATED
 
-#define CHANNEL_HIGHEST_AVAILABLE 1012 //Nsv13 - ADDED LOADS OF SOUND CHANNELS. KEEP THIS UP TO DATE
+#define CHANNEL_HIGHEST_AVAILABLE 1015
 
 
 #define SOUND_MINIMUM_PRESSURE 10
