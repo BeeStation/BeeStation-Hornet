@@ -588,6 +588,8 @@
 	race = /datum/species/human/supersoldier
 	mutationtext = "<span class='danger'>The pain subsides. You feel... like you can take on anything.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = FALSE
+	random_unrestricted = FALSE 
 
 
 //DANGEROUS RACES
