@@ -25,3 +25,16 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 /datum/controller/subsystem/bluespace_exploration/proc/generate_z_level(difficulty = 0)
 	wipe_z_level()
+
+/datum/controller/subsystem/bluespace_exploration/proc/shuttle_translation(shuttle_id)
+	if(!check_z_level())
+		return FALSE
+	var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttle_id)
+	if(!shuttle)
+		return FALSE
+	//Send the shuttle to the transit level
+	shuttle.destination = null
+	shuttle.mode = SHUTTLE_IGNITING
+	shuttle.setTimer(shuttle.ignitionTime)
+	//Generate the z_level, sending the shuttle to it on completion
+	generate_z_level()

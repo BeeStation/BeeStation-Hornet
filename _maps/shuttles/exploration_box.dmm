@@ -118,12 +118,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/exploration/engineering)
-"cs" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/visible{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/exploration/atmospherics)
 "cQ" = (
 /obj/machinery/autolathe,
 /obj/effect/turf_decal/stripes/line{
@@ -282,13 +276,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/exploration/command)
-"gT" = (
-/obj/machinery/light,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 9
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/exploration/atmospherics)
 "gU" = (
 /obj/machinery/power/smes,
 /obj/structure/cable{
@@ -296,10 +283,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration/engineering)
-"hT" = (
-/obj/machinery/atmospherics/components/unary/tank/nitrogen,
-/turf/open/floor/plating,
-/area/shuttle/exploration/atmospherics)
 "ib" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
@@ -340,6 +323,21 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/exploration/command)
+"it" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/airlock/external/glass,
+/obj/docking_port/mobile{
+	dir = 4;
+	dwidth = 8;
+	height = 20;
+	id = "exploration";
+	name = "Pathfinder";
+	port_direction = 4;
+	preferred_direction = 2;
+	width = 16
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration/engineering)
 "iw" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
@@ -860,6 +858,12 @@
 /obj/structure/lattice,
 /turf/open/space,
 /area/shuttle/exploration/service)
+"xU" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 9
+	},
+/turf/closed/wall/mineral/titanium/interior,
+/area/shuttle/exploration/medical)
 "yh" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -884,6 +888,13 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration/command)
+"yI" = (
+/obj/machinery/light,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/atmospherics)
 "yN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -895,18 +906,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/exploration/atmospherics)
+"yO" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/visible{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/atmospherics)
 "yV" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/airlock/external/glass,
-/obj/docking_port/mobile/emergency{
-	dwidth = 8;
-	height = 20;
-	id = "exploration";
-	name = "Pathfinder";
-	width = 16
+/obj/machinery/atmospherics/components/unary/tank/nitrogen{
+	dir = 4;
+	initialize_directions = 4
 	},
 /turf/open/floor/plating,
-/area/shuttle/exploration/engineering)
+/area/shuttle/exploration/atmospherics)
 "yY" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/wood,
@@ -990,21 +1002,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration/engineering)
-"BI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/exploration/atmospherics)
 "Cl" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 8
@@ -1480,6 +1477,40 @@
 "Oc" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration/command)
+"Oj" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/airlock/science,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 9
+	},
+/turf/open/floor/plasteel/white,
+/area/shuttle/exploration/medical)
 "Ok" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/airalarm/directional/north,
@@ -1802,6 +1833,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/exploration/atmospherics)
+"VV" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration/atmospherics)
 "Wk" = (
 /obj/machinery/rnd/production/protolathe/department/science,
 /obj/effect/turf_decal/stripes/line{
@@ -1848,39 +1894,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/exploration/engineering)
-"XK" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/airlock/science,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/shuttle/exploration/medical)
 "YB" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1961,7 +1974,7 @@ TK
 TK
 TK
 gE
-yV
+it
 gE
 TK
 TK
@@ -2001,7 +2014,7 @@ Dt
 Op
 On
 Op
-hT
+yV
 Ss
 lf
 jF
@@ -2044,7 +2057,7 @@ Lm
 yN
 rp
 YK
-cs
+yO
 jF
 "}
 (6,1,1) = {"
@@ -2062,8 +2075,8 @@ JQ
 uE
 RA
 kl
-BI
-gT
+VV
+yI
 uR
 "}
 (7,1,1) = {"
@@ -2081,8 +2094,8 @@ Ln
 to
 to
 to
-XK
-to
+Oj
+xU
 Tq
 "}
 (8,1,1) = {"

@@ -2877,12 +2877,12 @@
 "Vo" = (
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 8;
-	height = 20;
+	dwidth = 10;
+	height = 21;
 	id = "exploration_home";
 	name = "exploration shuttle bay";
-	roundstart_template = /datum/map_template/shuttle/exploration/box;
-	width = 16
+	json_key = "exploration";
+	width = 20
 	},
 /turf/open/space,
 /area/space)

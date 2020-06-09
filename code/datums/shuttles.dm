@@ -127,6 +127,7 @@
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/exploration
+	name = "Base Shuttle Template (Exploration)"
 	port_id = "exploration"
 	can_be_bought = FALSE
 
