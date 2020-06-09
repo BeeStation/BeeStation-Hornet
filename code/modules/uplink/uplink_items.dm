@@ -1712,6 +1712,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	desc = "A reverse engineered Nanotrasen supersoldier injector. Not as powerful as the Nanotrasen version but will still make you hella robust."
 	item = /obj/item/reagent_containers/hypospray/combat/supersoldier_syndie
 	cost = 20
+	player_minimum = 25
 	restricted_species = list("human")
 
 // Role-specific items
