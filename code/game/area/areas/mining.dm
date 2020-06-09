@@ -3,6 +3,7 @@
 /area/mine
 	icon_state = "mining"
 	has_gravity = STANDARD_GRAVITY
+	sound_environment = SOUND_ENV_ROOM
 
 /area/mine/explored
 	name = "Mine"
@@ -53,6 +54,7 @@
 
 /area/mine/maintenance
 	name = "Mining Station Communications"
+	sound_environment = SOUND_ENV_ALLEY
 
 /area/mine/cafeteria
 	name = "Mining Station Cafeteria"
@@ -80,6 +82,7 @@
 	icon_state = "mining"
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
+	sound_environment = SOUND_ENV_CAVE
 
 /area/lavaland/surface
 	name = "Lavaland"
