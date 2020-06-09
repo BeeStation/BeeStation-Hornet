@@ -36,10 +36,11 @@
 
 /obj/structure/table/Bumped(mob/living/carbon/human/H)
 	. = ..()
-	if(!istype(H) || H.shoes)
+	if(!istype(H) || H.shoes || !(H.mobility_flags & MOBILITY_STAND))
 		return ..()
 	if(prob(5))
 		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")
+		H.emote("scream")
 		H.apply_damage(2, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 		H.Paralyze(20)
 
