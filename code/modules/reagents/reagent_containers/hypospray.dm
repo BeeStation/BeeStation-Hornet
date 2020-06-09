@@ -94,6 +94,13 @@
 	icon_state = "nanite_hypo"
 	list_reagents = list(/datum/reagent/mutationtoxin/supersoldier = 5)
 
+/obj/item/reagent_containers/hypospray/combat/supersoldier_syndie
+	name = "Syndicate Supersoldier Nanites"
+	desc = "A reverse engineered nanotrasen supersoldier injector."
+	item_state = "nanite_hypo_syndie"
+	icon_state = "nanite_hypo_syndie"
+	list_reagents = list(/datum/reagent/mutationtoxin/supersoldier_syndie = 5)
+
 /*
 /obj/item/reagent_containers/hypospray/supersoldier/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -197,7 +204,7 @@
 	item_state = "dexpen"
 	desc = "A autoinjector containing dexalin, used to heal oxygen damage quickly."
 	list_reagents = list(/datum/reagent/medicine/dexalin = 10)
-	
+
 /obj/item/reagent_containers/hypospray/medipen/tuberculosiscure
 	name = "BVAK autoinjector"
 	desc = "Bio Virus Antidote Kit autoinjector. Has a two use system for yourself, and someone else. Inject when infected."

@@ -1001,7 +1001,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/deployablemine/traitor
 	cost = 4
 	include_modes = list(/datum/game_mode/nuclear/clown_ops)
-	
+
 /datum/uplink_item/explosives/virus_grenade
 	name = "Fungal Tuberculosis Grenade"
 	desc = "A primed bio-grenade packed into a compact box. Comes with five Bio Virus Antidote Kit (BVAK) \
@@ -1706,6 +1706,13 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/storage/box/syndie_kit/plasmachameleon
 	cost = 2
 	restricted_species = list("plasmaman")
+
+/datum/uplink_item/race_restricted/syndie_discount_supersoldier_juice
+	name = "Syndicate Supersoldier Toxin"
+	desc = "A reverse engineered Nanotrasen supersoldier injector. Not as powerful as the Nanotrasen version but will still make you hella robust."
+	item = /obj/item/reagent_containers/hypospray/combat/supersoldier_syndie
+	cost = 20
+	restricted_species = list("human")
 
 // Role-specific items
 /datum/uplink_item/role_restricted
