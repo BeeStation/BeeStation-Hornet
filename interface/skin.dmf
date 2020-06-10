@@ -145,8 +145,6 @@ window "mapwindow"
 		font-size = 7
 		text-color = none
 		is-default = true
-		saved-params = "icon-size"
-		zoom-mode = distort
 		style = ".chatOverhead {font-family: 'Small Fonts'; -dm-text-outline: 1 black; font-size: 7px;}"
 
 window "infowindow"

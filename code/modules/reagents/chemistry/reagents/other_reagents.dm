@@ -592,6 +592,8 @@
 	race = /datum/species/human/supersoldier
 	mutationtext = "<span class='danger'>The pain subsides. You feel... like you can take on anything.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = FALSE
+	random_unrestricted = FALSE 
 
 
 //DANGEROUS RACES
@@ -942,7 +944,8 @@
 			var/obj/effect/decal/cleanable/greenglow/GG = locate() in T.contents
 			if(!GG)
 				GG = new/obj/effect/decal/cleanable/greenglow(T)
-			GG.reagents.add_reagent(type, reac_volume)
+			if(!QDELETED(GG))
+				GG.reagents.add_reagent(type, reac_volume)
 
 /datum/reagent/uranium/radium
 	name = "Radium"

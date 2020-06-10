@@ -101,6 +101,9 @@ LOG_ACCESS
 ## log game actions (start of round, results, etc.)
 LOG_GAME
 
+## log antag objectives
+LOG_OBJECTIVE
+
 ## log player votes
 LOG_VOTE
 
