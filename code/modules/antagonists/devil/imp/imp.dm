@@ -73,3 +73,4 @@
 	newobjective.explanation_text = "Try to get a promotion to a higher devilic rank."
 	newobjective.owner = owner
 	objectives += newobjective
+	log_objective(owner, newobjective.explanation_text)

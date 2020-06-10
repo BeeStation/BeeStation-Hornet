@@ -76,7 +76,7 @@
 	var/scan_on_late_init = FALSE
 	var/depressurization_margin = 10 // use a lower value to reduce cross-contamination
 	var/overlays_hash = null
-	var/skip_delay = 300
+	var/skip_delay = 150
 	var/skip_timer = 0
 	var/is_skipping = FALSE
 
