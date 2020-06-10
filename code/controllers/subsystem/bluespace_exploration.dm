@@ -25,7 +25,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 //===================CLEARING Z LEVEL PROCS===================
 
-/datum/controller/subsystem/bluespace_exploration/proc/wipe_z_level()
+/datum/controller/subsystem/bluespace_exploration/proc/wipe_z_level(spawn_ruins = FALSE)
 	var/list/turfs = get_area_turfs(/area, reserved_bs_level.z_value, TRUE)
 	var/list/divided_turfs = list()
 	var/section_process_time = CLEAR_TURF_PROCESSING_TIME / 2	//There are 3 processes, cleaing atoms, cleaing turfs and then reseting atmos
@@ -40,14 +40,14 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		if(i % group_size == 0)
 			divided_turfs += list(current_group)
 			current_group = list()
-	divided_turfs += list(current_group)
+	divided_turfs += list(current_group, spawn_ruins)
 
 	var/i = 0
 	continue_wipe(divided_turfs, i)
 
 	message_admins("[turfs.len] inside [groups] groups each with [group_size]")
 
-/datum/controller/subsystem/bluespace_exploration/proc/continue_wipe(list/divided_turfs, process_num)
+/datum/controller/subsystem/bluespace_exploration/proc/continue_wipe(list/divided_turfs, process_num, spawn_ruins = FALSE)
 	var/list_element = (process_num % (CLEAR_TURF_PROCESSING_TIME/2)) + 1
 	message_admins("group [process_num] processing")
 	switch(process_num)
@@ -56,9 +56,10 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		if((CLEAR_TURF_PROCESSING_TIME/2) to (CLEAR_TURF_PROCESSING_TIME-1))
 			reset_turfs(divided_turfs[list_element])
 		else
+			addtimer(CALLBACK(src, .proc/place_ruins), 0)
 			message_admins("Wiping z-level completed")
 			return
-	addtimer(CALLBACK(src, .proc/continue_wipe, divided_turfs, process_num + 1), 1, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, .proc/continue_wipe, divided_turfs, process_num + 1, spawn_ruins), 1, TIMER_UNIQUE)
 
 /datum/controller/subsystem/bluespace_exploration/proc/clear_turf_atoms(list/turfs)
 	//Clear atoms
@@ -118,7 +119,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 /datum/controller/subsystem/bluespace_exploration/proc/generate_z_level(difficulty = 1)
 	wipe_z_level()
-	addtimer(CALLBACK(src, .proc/place_ruins), 0, TIMER_UNIQUE)
 
 /datum/controller/subsystem/bluespace_exploration/proc/shuttle_translation(shuttle_id)
 	if(!check_z_level())
