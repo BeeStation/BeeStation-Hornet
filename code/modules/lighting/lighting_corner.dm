@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 
 	for (var/TT in masters)
 		var/turf/T = TT
-		if (!T?.lighting_object.needs_update)
+		if (T.lighting_object && !T.lighting_object.needs_update)
 			T.lighting_object.needs_update = TRUE
 			GLOB.lighting_update_objects += T.lighting_object
 
