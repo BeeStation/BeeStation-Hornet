@@ -238,10 +238,19 @@
 	name = "power cord implant"
 	desc = "An internal power cord hooked up to a battery. Useful if you run on volts."
 	contents = newlist(/obj/item/apc_powercord)
-	zone = "l_arm" 
+	zone = "l_arm"
 
 /obj/item/organ/cyberimp/arm/esaw
 	name = "arm-mounted energy saw"
 	desc = "An illegal and highly dangerous implanted carbon-fiber blade that also has a toggleable hard-light edge."
 	icon_state = "esaw_0"
 	contents = newlist(/obj/item/melee/transforming/energy/sword/esaw)
+
+/obj/item/organ/cyberimp/arm/hydraulic_blade
+	name = "arm-mounted hydraulic blade"
+	desc = "Highly dangerous implanted bluespace edged blade."
+	icon_state = "hydraulic_blade"
+	contents = newlist(/obj/item/melee/transforming/hydraulic_blade)
+
+/obj/item/organ/cyberimp/arm/hydraulic_blade/l
+	zone = BODY_ZONE_L_ARM

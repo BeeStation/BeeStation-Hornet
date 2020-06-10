@@ -411,6 +411,16 @@
 	category = list("Misc", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/cyberimp_hydraulic_blade
+	name = "Hydraulic Blade"
+	desc = "Highly dangerous implanted bluespace edged blade."
+	id = "hydraulic_blade"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 5000, /datum/material/silver = 15000, /datum/material/diamond = 3000, /datum/material/titanium = 8000, /datum/material/bluespace = 3000)
+	build_path = /obj/item/organ/cyberimp/arm/hydraulic_blade
+	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /////////////////////////////////////////
 ////////////Regular Implants/////////////
 /////////////////////////////////////////
