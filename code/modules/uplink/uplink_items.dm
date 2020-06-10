@@ -1709,7 +1709,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 
 /datum/uplink_item/race_restricted/syndie_discount_supersoldier_juice
 	name = "Syndicate Supersoldier Toxin"
-	desc = "A reverse engineered Nanotrasen supersoldier injector. Not as powerful as the Nanotrasen version but will still make you hella robust."
+	desc = "A reverse engineered Nanotrasen supersoldier injector. Not as powerful as the Nanotrasen version but will still make you hella robust. Side effects include invisibility on your whole body except your eyes."
 	item = /obj/item/reagent_containers/hypospray/combat/supersoldier_syndie
 	cost = 20
 	player_minimum = 25
