@@ -72,8 +72,8 @@
 
 //Nsv / Bee change: Soundscape definitions for areas.
 //Definitions are found here: http://www.byond.com/docs/ref/info.html#/sound/var/environment
+//NOTE: Never EVER EVER use the SOUND_GENERIC one that byond specifies. It'll cause major issues by making sound effects apply globally and giving everyone a bad time. See here for coderspeak explanation: https://github.com/Baystation12/Baystation12/pull/9942
 
-#define SOUND_ENV_GENERIC 0
 #define SOUND_ENV_PADDED_CELL 1
 #define SOUND_ENV_ROOM 2
 #define SOUND_ENV_BATHROOM 3
