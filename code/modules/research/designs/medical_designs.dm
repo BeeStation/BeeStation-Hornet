@@ -419,8 +419,8 @@
 	construction_time = 80
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 5000, /datum/material/silver = 10000, /datum/material/diamond = 3000, /datum/material/titanium = 8000, /datum/material/bluespace = 2000, /datum/material/plasma = 5000)
 	build_path = /obj/item/organ/cyberimp/arm/hydraulic_blade
-	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+	category = list("Misc", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /////////////////////////////////////////
 ////////////Regular Implants/////////////
