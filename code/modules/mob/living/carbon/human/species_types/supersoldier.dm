@@ -22,10 +22,5 @@
 /datum/species/human/supersoldier/syndie
 	id = "supersoldier_syndie"
 	species_traits = list(NOTRANSSTING) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_IGNORESLOWDOWN,TRAIT_IGNOREDAMAGESLOWDOWN,TRAIT_STUNIMMUNE,TRAIT_CONFUSEIMMUNE,TRAIT_SLEEPIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_STRONG_GRABBER,TRAIT_ALWAYS_CLEAN,TRAIT_FEARLESS,SYNDIE_SUPERSOLDIER_EYES)
-	heal_modifier = 0.75
-/datum/species/human/supersoldier/syndie/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
-	. = ..()
-	var/t_His = C.gender == "male" ? "his" : "her"
-	if( HAS_TRAIT(src, SYNDIE_SUPERSOLDIER_EYES))
-		. += "<span class='warning'><B>[t_His] eyes are glowing with abnormal rage!</B></span>"
+	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_IGNORESLOWDOWN,TRAIT_IGNOREDAMAGESLOWDOWN,TRAIT_STUNIMMUNE,TRAIT_CONFUSEIMMUNE,TRAIT_SLEEPIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_STRONG_GRABBER,TRAIT_ALWAYS_CLEAN,TRAIT_FEARLESS)
+	heal_modifier = 0.65
