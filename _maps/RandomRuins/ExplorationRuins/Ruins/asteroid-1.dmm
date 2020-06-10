@@ -1,0 +1,131 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"k" = (
+/turf/open/floor/plating/asteroid/airless,
+/area/space)
+"D" = (
+/turf/closed/mineral/random/high_chance,
+/area/space)
+"G" = (
+/turf/open/space/basic,
+/area/space)
+
+(1,1,1) = {"
+G
+G
+G
+G
+k
+k
+k
+k
+G
+G
+"}
+(2,1,1) = {"
+G
+G
+k
+k
+k
+k
+D
+k
+k
+k
+"}
+(3,1,1) = {"
+G
+D
+D
+D
+k
+D
+D
+D
+D
+k
+"}
+(4,1,1) = {"
+D
+D
+D
+D
+D
+D
+D
+D
+D
+D
+"}
+(5,1,1) = {"
+D
+D
+D
+D
+D
+D
+D
+D
+D
+D
+"}
+(6,1,1) = {"
+D
+D
+D
+D
+D
+D
+D
+D
+D
+D
+"}
+(7,1,1) = {"
+k
+D
+D
+D
+D
+D
+D
+D
+D
+G
+"}
+(8,1,1) = {"
+G
+D
+D
+D
+D
+D
+D
+k
+k
+G
+"}
+(9,1,1) = {"
+G
+G
+k
+k
+k
+k
+k
+k
+G
+G
+"}
+(10,1,1) = {"
+G
+G
+G
+k
+k
+G
+k
+G
+G
+G
+"}
