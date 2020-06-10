@@ -1,0 +1,4 @@
+author: zeskorion
+delete-after: true
+changes:
+  - bugfix: legion cores no longer apply if you fail the do_mob
