@@ -248,7 +248,7 @@
 
 /obj/item/organ/cyberimp/arm/hydraulic_blade
 	name = "arm-mounted hydraulic blade"
-	desc = "Highly dangerous implanted bluespace edged blade."
+	desc = "Highly dangerous implanted plasteel blade."
 	icon_state = "hydraulic_blade"
 	contents = newlist(/obj/item/melee/transforming/hydraulic_blade)
 
