@@ -21,6 +21,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	weight = 2
 
 /datum/map_template/random_room/sk_rdm003
 	name = "Maintenance"
@@ -181,6 +182,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	weight = 7
 
 /datum/map_template/random_room/sk_rdm023
 	name = "Box Clutter 7"
@@ -229,6 +231,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	weight = 1
 
 /datum/map_template/random_room/sk_rdm029
 	name = "Delta Bar"
@@ -253,6 +256,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
+	weight = 5
 
 /datum/map_template/random_room/sk_rdm032
 	name = "Delta EVA"
@@ -261,6 +265,7 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
+	weight = 3
 
 /datum/map_template/random_room/sk_rdm033
 	name = "Delta Library"
@@ -294,6 +299,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	weight = 7
 
 /datum/map_template/random_room/sk_rdm037
 	name = "Delta Janitor Closet"
@@ -302,6 +308,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	weight = 8
 
 /datum/map_template/random_room/sk_rdm038
 	name = "Delta Dressing Room"
@@ -326,6 +333,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
+	weight = 9
 
 /datum/map_template/random_room/sk_rdm041
 	name = "Delta Gambling Den"
@@ -366,6 +374,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
+	weight = 7
 
 /datum/map_template/random_room/sk_rdm046
 	name = "Delta Arcade"
@@ -382,6 +391,7 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
+	weight = 5
 
 /datum/map_template/random_room/sk_rdm048
 	name = "Meta Theatre"
@@ -414,6 +424,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	weight = 6
 
 /datum/map_template/random_room/sk_rdm052
 	name = "Meta Clutter 1"
@@ -486,6 +497,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
+	weight = 6
 
 /datum/map_template/random_room/sk_rdm061
 	name = "Pubby Clutter 4"
@@ -502,7 +514,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 7
+	weight = 6
 
 /datum/map_template/random_room/sk_rdm063
 	name = "Pubby Clutter 5"
@@ -583,6 +595,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	weight = 6
 
 /datum/map_template/random_room/sk_rdm073
 	name = "Kilo Mech Recharger"
@@ -615,6 +628,7 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
+	weight = 4
 
 /datum/map_template/random_room/sk_rdm077
 	name = "Kilo Maid Den"
@@ -623,6 +637,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	weight = 4
 
 /datum/map_template/random_room/sk_rdm078
 	name = "Kilo Clutter"
@@ -639,7 +654,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
-	weight = 5
+	weight = 3
 
 /datum/map_template/random_room/sk_rdm080
 	name = "Ancient Cloner"
@@ -657,6 +672,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	weight = 3
 	
 /datum/map_template/random_room/sk_rdm082
 	name = "Maint Chemistry"
@@ -665,6 +681,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
+	weight = 6
 
 /datum/map_template/random_room/sk_rdm083
 	name = "Big Theatre"
@@ -673,6 +690,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
+	weight = 9
 
 /datum/map_template/random_room/sk_rdm084
 	name = "Monky Paradise"
@@ -681,6 +699,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
+	weight = 4
 
 /datum/map_template/random_room/sk_rdm085
 	name = "Hank's Room"
@@ -689,6 +708,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
+	weight = 1
 
 /datum/map_template/random_room/sk_rdm086
 	name = "Max Tide's Last Stand"
@@ -697,6 +717,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
+	weight = 3
 
 /datum/map_template/random_room/sk_rdm087
 	name = "Junk Closet"
@@ -722,6 +743,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 5
+	weight = 4
 
 /datum/map_template/random_room/sk_rdm090
 	name = "Tiny Barber's Shop"
@@ -730,6 +752,7 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
+	weight = 7
 
 
 /datum/map_template/random_room/sk_rdm091
@@ -747,6 +770,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	weight = 8
 
 /datum/map_template/random_room/sk_rdm093
 	name = "Bubblegum Altar"
@@ -772,6 +796,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
+	weight = 4
 
 /datum/map_template/random_room/sk_rdm096
 	name = "Computer Room"
@@ -813,9 +838,10 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
+	weight = 7
 
 /datum/map_template/random_room/sk_rdm101
-	name = "Small Break"
+	name = "Small Breakroom"
 	room_id = "sk_rdm101_minibreakroom"
 	mappath = "_maps/RandomRooms/5x3/sk_rdm101_minibreakroom.dmm"
 	centerspawner = FALSE
@@ -829,6 +855,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
+	weight = 6
 
 /datum/map_template/random_room/sk_rdm103
 	name = "'stroreroom'"
