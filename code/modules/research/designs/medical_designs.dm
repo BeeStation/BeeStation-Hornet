@@ -413,7 +413,7 @@
 
 /datum/design/cyberimp_hydraulic_blade
 	name = "Hydraulic Blade"
-	desc = "Highly dangerous implanted bluespace edged blade."
+	desc = "Highly dangerous implanted plasteel blade."
 	id = "hydraulic_blade"
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 250
