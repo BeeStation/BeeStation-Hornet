@@ -1,0 +1,188 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"c" = (
+/turf/closed/mineral/random/high_chance,
+/area/exploration_away/outside)
+"f" = (
+/obj/item/pickaxe,
+/turf/open/floor/plating/asteroid/airless,
+/area/exploration_away/outside)
+"k" = (
+/obj/item/flashlight/lantern,
+/turf/open/floor/plating/asteroid/airless,
+/area/exploration_away/outside)
+"n" = (
+/turf/template_noop,
+/area/template_noop)
+"Q" = (
+/turf/open/floor/plating/asteroid/airless,
+/area/exploration_away/outside)
+
+(1,1,1) = {"
+n
+n
+n
+c
+c
+c
+c
+c
+n
+n
+n
+"}
+(2,1,1) = {"
+n
+n
+c
+c
+c
+c
+c
+c
+n
+n
+n
+"}
+(3,1,1) = {"
+n
+c
+c
+c
+c
+c
+c
+c
+n
+n
+n
+"}
+(4,1,1) = {"
+c
+c
+c
+c
+c
+Q
+c
+c
+c
+n
+n
+"}
+(5,1,1) = {"
+c
+c
+c
+Q
+Q
+Q
+c
+c
+c
+n
+n
+"}
+(6,1,1) = {"
+c
+c
+Q
+Q
+k
+Q
+Q
+c
+c
+n
+n
+"}
+(7,1,1) = {"
+c
+c
+Q
+Q
+Q
+Q
+Q
+Q
+c
+c
+n
+"}
+(8,1,1) = {"
+c
+c
+c
+c
+Q
+Q
+Q
+Q
+c
+c
+c
+"}
+(9,1,1) = {"
+n
+c
+c
+c
+c
+c
+f
+Q
+c
+c
+c
+"}
+(10,1,1) = {"
+n
+c
+c
+c
+c
+c
+c
+c
+c
+c
+n
+"}
+(11,1,1) = {"
+n
+n
+n
+c
+c
+c
+c
+c
+c
+n
+n
+"}
+(12,1,1) = {"
+n
+n
+n
+n
+c
+c
+c
+c
+c
+n
+n
+"}
+(13,1,1) = {"
+n
+n
+n
+n
+n
+c
+c
+c
+n
+n
+n
+"}

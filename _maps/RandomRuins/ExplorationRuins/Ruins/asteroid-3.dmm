@@ -1,0 +1,143 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"d" = (
+/obj/machinery/computer,
+/turf/open/floor/plating/airless,
+/area/exploration_away/outside)
+"l" = (
+/turf/template_noop,
+/area/template_noop)
+"u" = (
+/turf/closed/mineral/random,
+/area/exploration_away/outside)
+"y" = (
+/obj/item/reagent_containers/glass/bucket,
+/turf/open/floor/plating/airless,
+/area/exploration_away/outside)
+"C" = (
+/obj/effect/mob_spawn/human/corpse/pirate,
+/turf/open/floor/plating/airless,
+/area/exploration_away/outside)
+"H" = (
+/turf/open/floor/plating/airless,
+/area/exploration_away/outside)
+
+(1,1,1) = {"
+l
+l
+l
+l
+l
+u
+u
+l
+l
+l
+"}
+(2,1,1) = {"
+l
+l
+l
+u
+u
+u
+u
+u
+l
+l
+"}
+(3,1,1) = {"
+l
+u
+u
+u
+u
+u
+u
+u
+l
+l
+"}
+(4,1,1) = {"
+u
+u
+u
+u
+u
+y
+u
+u
+u
+l
+"}
+(5,1,1) = {"
+u
+u
+u
+u
+H
+H
+u
+u
+u
+l
+"}
+(6,1,1) = {"
+l
+u
+u
+u
+d
+C
+u
+u
+u
+u
+"}
+(7,1,1) = {"
+l
+u
+u
+u
+u
+u
+u
+u
+u
+u
+"}
+(8,1,1) = {"
+l
+l
+u
+u
+u
+u
+u
+u
+u
+l
+"}
+(9,1,1) = {"
+l
+l
+u
+u
+u
+u
+u
+l
+l
+l
+"}
+(10,1,1) = {"
+l
+l
+l
+u
+u
+l
+l
+l
+l
+l
+"}

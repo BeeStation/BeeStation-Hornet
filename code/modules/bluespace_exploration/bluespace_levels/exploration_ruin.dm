@@ -3,23 +3,41 @@
 	var/limited = TRUE
 	var/min_risk = 0	//0 to 10 for danger
 	var/max_risk = 10	//0 to 10, measure of danger
-	var/list/feature_type = FEATURE_DEFAULT
+	var/list/feature_type = list(FEATURE_DEFAULT)
 
 /datum/map_template/ruin/exploration/ruin/asteroid
-	name = "Asteroid"
 	description = "An asteroid."
-	cost = 5
+	cost = 2
 	limited = FALSE
-	feature_type = FEATURE_ASTEROIDS
+	feature_type = list(FEATURE_ASTEROIDS)
 
 /datum/map_template/ruin/exploration/ruin/asteroid/one
-	id = "asteroid-1"
+	id = "asteroid-one"
 	suffix = "asteroid-1.dmm"
+
+/datum/map_template/ruin/exploration/ruin/asteroid/two
+	id = "asteroid-two"
+	suffix = "asteroid-2.dmm"
+
+/datum/map_template/ruin/exploration/ruin/asteroid/three
+	id = "asteroid-three"
+	suffix = "asteroid-3.dmm"
+	limited = TRUE
+
+/datum/map_template/ruin/exploration/ruin/asteroid/four
+	id = "asteroid-four"
+	suffix = "asteroid-4.dmm"
+
+/datum/map_template/ruin/exploration/ruin/asteroid/five
+	id = "asteroid-five"
+	suffix = "asteroid-5.dmm"
+	limited = TRUE
 
 /datum/map_template/ruin/exploration/ruin/asteroid/tow
 	id = "asteroid-tow"
 	suffix = "asteroid-tow.dmm"
 	limited = TRUE
+	cost = 4
 
 /datum/map_template/ruin/exploration/ruin/try_to_place(z,allowed_areas)
 	var/sanity = PLACEMENT_TRIES

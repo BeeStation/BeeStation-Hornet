@@ -1,22 +1,142 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/structure/marker_beacon,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"c" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/airless,
+/area/exploration_away/no_gravity)
+"d" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 4
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
 "e" = (
 /obj/structure/marker_beacon,
 /turf/open/floor/plasteel/airless,
 /area/exploration_away/no_gravity)
+"f" = (
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/plating/airless,
+/area/exploration_away/no_gravity)
+"g" = (
+/obj/item/stack/sheet/mineral/plasma,
+/turf/template_noop,
+/area/template_noop)
+"h" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 10
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
 "i" = (
-/obj/structure/lattice,
-/obj/item/pickaxe,
-/turf/open/space/basic,
-/area/space)
+/obj/item/stack/tile/plasteel,
+/turf/template_noop,
+/area/template_noop)
+"j" = (
+/obj/structure/marker_beacon,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"k" = (
+/turf/template_noop,
+/area/template_noop)
+"l" = (
+/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"m" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"n" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"o" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 9
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"p" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
 "q" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/item/stack/sheet/mineral/plasma,
 /turf/open/floor/plating/airless,
 /area/exploration_away/no_gravity)
-"r" = (
+"s" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"t" = (
+/obj/structure/marker_beacon,
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 4
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"u" = (
+/obj/structure/lattice,
 /turf/closed/mineral/random/high_chance,
-/area/space)
+/area/exploration_away/outside)
+"v" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
 "w" = (
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"x" = (
+/obj/item/stack/tile/plasteel,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating/airless,
+/area/exploration_away/no_gravity)
+"y" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 9
+	},
 /turf/open/floor/plasteel/airless,
 /area/exploration_away/no_gravity)
 "z" = (
@@ -26,31 +146,100 @@
 "A" = (
 /turf/open/floor/plating/airless,
 /area/exploration_away/no_gravity)
+"B" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/exploration_away/no_gravity)
 "C" = (
-/obj/item/stack/sheet/mineral/plasma,
+/obj/machinery/shuttle/engine/plasma{
+	dir = 4
+	},
+/turf/open/space/basic,
+/area/exploration_away/no_gravity)
+"E" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"F" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plasteel/airless,
 /area/exploration_away/no_gravity)
 "H" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
-"K" = (
+/turf/template_noop,
+/area/exploration_away/outside)
+"I" = (
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 4
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"J" = (
 /obj/item/stack/tile/plasteel,
-/turf/open/space/basic,
-/area/space)
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/airless,
+/area/exploration_away/no_gravity)
+"K" = (
+/obj/structure/lattice,
+/obj/item/pickaxe,
+/turf/template_noop,
+/area/exploration_away/outside)
+"L" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"M" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/airless,
+/area/exploration_away/no_gravity)
 "N" = (
 /obj/item/stack/tile/plasteel,
 /turf/open/floor/plating/airless,
 /area/exploration_away/no_gravity)
-"P" = (
-/obj/item/stack/sheet/mineral/plasma,
-/turf/open/space/basic,
-/area/space)
-"R" = (
-/turf/open/space/basic,
-/area/space)
+"O" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"Q" = (
+/obj/item/stack/tile/plasteel,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating/airless,
+/area/exploration_away/no_gravity)
 "S" = (
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 4
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"T" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"U" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/airless,
+/area/exploration_away/no_gravity)
+"V" = (
+/obj/machinery/atmospherics/components/unary/vent_pump{
 	dir = 4
 	},
 /turf/open/floor/plasteel/airless,
@@ -58,171 +247,181 @@
 "W" = (
 /turf/closed/wall/mineral/titanium,
 /area/exploration_away/no_gravity)
-"Y" = (
-/obj/machinery/shuttle/engine/plasma{
+"X" = (
+/obj/item/stack/sheet/mineral/plasma,
+/obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 4
 	},
 /turf/open/floor/plasteel/airless,
 /area/exploration_away/no_gravity)
+"Y" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating/airless,
+/area/exploration_away/no_gravity)
+"Z" = (
+/turf/closed/mineral/random/high_chance,
+/area/exploration_away/outside)
 
 (1,1,1) = {"
-R
-R
-R
-R
-R
-r
-r
-r
-R
-R
-R
-R
-R
-R
-R
+k
+k
+k
+k
+k
+Z
+Z
+Z
+k
+k
+k
+k
+k
+k
+k
 "}
 (2,1,1) = {"
-R
-R
-R
-r
-r
-r
-r
-r
-r
-r
-R
-R
-R
-R
-R
+k
+k
+k
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+k
+k
+k
+k
+k
 "}
 (3,1,1) = {"
-R
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-R
-R
+k
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+k
+k
 "}
 (4,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+u
 "}
 (5,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
+u
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
 H
 "}
 (6,1,1) = {"
 H
-R
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-R
+k
+u
+Z
+u
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+u
+k
 H
 "}
 (7,1,1) = {"
 H
 H
-i
-R
+K
+k
 H
-r
-r
-r
-r
-r
-r
-r
+Z
+u
+Z
+Z
+Z
+Z
+Z
 H
-R
+k
 H
 "}
 (8,1,1) = {"
-R
-R
+k
+k
 H
 H
 H
-R
+k
 H
-r
-r
-r
-r
-R
+Z
+u
+Z
+u
+k
 H
 H
 H
 "}
 (9,1,1) = {"
-R
-R
-R
-R
+k
+k
+k
+k
 H
-R
+k
 H
-R
+k
 H
-R
+k
 H
 H
 H
-R
-R
+k
+k
 "}
 (10,1,1) = {"
-R
-R
-R
-R
+k
+k
+k
+k
 H
 H
 H
@@ -230,50 +429,50 @@ H
 H
 H
 H
-R
-R
-R
-R
+k
+k
+k
+k
 "}
 (11,1,1) = {"
-R
-R
-R
-R
+k
+k
+k
+k
 H
-R
+k
 H
-R
+k
 H
-R
+k
 H
-R
-R
-R
-R
+k
+k
+k
+k
 "}
 (12,1,1) = {"
-R
-R
-R
-R
+k
+k
+k
+k
 H
-R
+k
 H
-R
+k
 H
-R
+k
 H
-R
-R
-R
-R
+k
+k
+k
+k
 "}
 (13,1,1) = {"
-R
-R
-R
-R
+k
+k
+k
+k
 W
 W
 W
@@ -281,212 +480,212 @@ W
 W
 W
 W
-R
-R
-R
-R
+k
+k
+k
+k
 "}
 (14,1,1) = {"
-R
-R
-R
-R
-W
-w
+k
+k
 C
+C
+W
 w
-e
+X
+I
+t
 w
 W
-R
-R
-R
-R
+C
+C
+k
+k
 "}
 (15,1,1) = {"
-R
+k
 W
-Y
-Y
+S
+S
 W
 N
-w
-w
-w
+h
+l
+y
 w
 W
-Y
-Y
+S
+S
 W
-R
+k
 "}
 (16,1,1) = {"
-R
+k
 W
-S
-S
-w
-w
-w
-w
-w
-w
-w
-S
-S
+h
+d
+O
+O
+O
+d
+O
+O
+O
+d
+o
 W
-R
+k
 "}
 (17,1,1) = {"
-R
+k
 W
 w
-N
-e
+Q
+j
+m
+s
+n
+x
+V
 w
 w
-w
-N
-w
-w
-w
-w
+L
 W
-R
+k
 "}
 (18,1,1) = {"
-R
+k
 W
 w
+L
 w
-w
-w
-e
+T
+b
 z
-w
-w
-N
-w
-w
+E
+v
+J
+n
+F
 W
-R
+k
 "}
 (19,1,1) = {"
-R
+k
 W
 W
-A
-w
-w
-A
-A
-A
-w
+Y
+n
+U
+M
+M
+M
+p
 w
 e
 W
 W
-R
+k
 "}
 (20,1,1) = {"
-R
-R
+k
+k
 W
-A
-A
+W
+W
 w
-A
-K
-R
-A
+f
+i
+B
+c
 q
-w
 W
-R
-R
+W
+k
+k
 "}
 (21,1,1) = {"
-R
-K
-R
-R
-R
+k
+i
+k
+k
+B
 A
-R
-R
-R
-R
-R
+B
+k
+k
+k
+B
 A
 W
-R
-R
+k
+k
 "}
 (22,1,1) = {"
-R
-R
-R
-R
-R
-R
-R
-R
-R
-K
-R
-R
-K
-R
-R
+k
+k
+k
+k
+k
+B
+k
+k
+k
+i
+k
+B
+i
+k
+k
 "}
 (23,1,1) = {"
-R
-R
-R
-R
-K
-R
-R
-R
-P
-R
-R
-R
-R
-R
-R
+k
+k
+k
+k
+i
+k
+k
+k
+g
+k
+k
+B
+k
+k
+k
 "}
 (24,1,1) = {"
-R
-R
-R
-R
-R
-R
-R
-R
-R
-R
-K
-R
-R
-R
-R
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+i
+k
+k
+k
+k
 "}
 (25,1,1) = {"
-R
-R
-R
-R
-R
-R
-R
-R
-R
-R
-R
-R
-R
-R
-R
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
 "}

@@ -8,7 +8,7 @@
 	valid_territory = FALSE
 	ambientsounds = SPACE
 
-/area/exploration_away/space
+/area/exploration_away/outside
 	name = "\improper Uncharted Space"
 	has_gravity = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
