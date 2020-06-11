@@ -4,7 +4,7 @@
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "emitter"
 	anchored = TRUE
-	var/projectile_type = /obj/item/projectile/bullet/shuttle/missile/breach
+	var/projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser
 	var/ammunition_type = /obj/item/ammo_box/c9mm
 	var/flight_time = 10
 
@@ -16,7 +16,7 @@
 
 /obj/machinery/shuttle_weapon/examine(mob/user)
 	. = ..()
-	fire(user)	//Debug lol
+	fire(user, TRUE)	//Debug lol
 
 /obj/machinery/shuttle_weapon/proc/check_ammo(ammount = 0)
 	return TRUE
@@ -26,7 +26,7 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/shuttle_weapon/proc/fire(atom/target)
+/obj/machinery/shuttle_weapon/proc/fire(atom/target, initial_shot = FALSE)
 	if(!consume_ammo())
 		return
 	playsound(loc, fire_sound, 75, 1)
@@ -35,11 +35,11 @@
 	P.fire(dir2angle(dir))
 	addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, get_turf(target)), flight_time)
 	//Multishot cannons
-	if(shots > 1)
-		add_timer(CALLBACK(src, .proc/fire_again, target, shots - 1), shot_time)
+	if(initial_shot && shots > 1)
+		addtimer(CALLBACK(src, .proc/fire_again, target, shots - 1), shot_time)
 
 /obj/machinery/shuttle_weapon/proc/fire_again(atom/target, times_left = 0)
-	fire(target)
+	fire(target, FALSE)
 	if(times_left > 0)
 		addtimer(CALLBACK(src, .proc/fire_again, target, times_left--), shot_time)
 
