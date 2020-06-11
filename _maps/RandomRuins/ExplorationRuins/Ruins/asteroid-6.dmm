@@ -1,0 +1,43 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"o" = (
+/turf/template_noop,
+/area/template_noop)
+"U" = (
+/turf/closed/mineral/random/high_chance,
+/area/exploration_away/outside)
+
+(1,1,1) = {"
+o
+U
+U
+U
+o
+"}
+(2,1,1) = {"
+U
+U
+U
+U
+U
+"}
+(3,1,1) = {"
+U
+U
+U
+U
+U
+"}
+(4,1,1) = {"
+U
+U
+U
+U
+o
+"}
+(5,1,1) = {"
+o
+U
+U
+o
+o
+"}

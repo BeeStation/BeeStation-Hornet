@@ -1,0 +1,116 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"q" = (
+/turf/closed/mineral/random/high_chance,
+/area/exploration_away/outside)
+"X" = (
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+X
+X
+X
+q
+q
+X
+X
+"}
+(2,1,1) = {"
+X
+X
+q
+q
+q
+X
+X
+"}
+(3,1,1) = {"
+X
+q
+q
+q
+q
+q
+X
+"}
+(4,1,1) = {"
+q
+q
+q
+q
+q
+q
+X
+"}
+(5,1,1) = {"
+q
+q
+q
+q
+q
+q
+q
+"}
+(6,1,1) = {"
+q
+q
+q
+q
+q
+q
+q
+"}
+(7,1,1) = {"
+q
+q
+q
+q
+q
+q
+q
+"}
+(8,1,1) = {"
+q
+q
+q
+q
+q
+q
+q
+"}
+(9,1,1) = {"
+X
+q
+q
+q
+q
+q
+X
+"}
+(10,1,1) = {"
+X
+q
+q
+q
+q
+q
+X
+"}
+(11,1,1) = {"
+X
+X
+q
+q
+q
+X
+X
+"}
+(12,1,1) = {"
+X
+X
+X
+q
+q
+X
+X
+"}

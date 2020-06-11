@@ -724,6 +724,12 @@
 "ts" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration/engineering)
+"ut" = (
+/obj/machinery/shuttle_weapon{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/exploration/command)
 "uu" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
@@ -2273,7 +2279,7 @@ TK
 TK
 TK
 xQ
-TK
+ut
 Oc
 lx
 NU
@@ -2283,7 +2289,7 @@ qr
 Gj
 gr
 Oc
-TK
+ut
 IY
 TK
 TK

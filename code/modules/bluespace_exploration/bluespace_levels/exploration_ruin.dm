@@ -33,6 +33,18 @@
 	suffix = "asteroid-5.dmm"
 	limited = TRUE
 
+/datum/map_template/ruin/exploration/ruin/asteroid/six
+	id = "asteroid-six"
+	suffix = "asteroid-6.dmm"
+
+/datum/map_template/ruin/exploration/ruin/asteroid/seven
+	id = "asteroid-seven"
+	suffix = "asteroid-7.dmm"
+
+/datum/map_template/ruin/exploration/ruin/asteroid/eight
+	id = "asteroid-eight"
+	suffix = "asteroid-8.dmm"
+
 /datum/map_template/ruin/exploration/ruin/asteroid/tow
 	id = "asteroid-tow"
 	suffix = "asteroid-tow.dmm"
