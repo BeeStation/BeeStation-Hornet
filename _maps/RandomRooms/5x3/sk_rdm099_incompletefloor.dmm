@@ -1,0 +1,21 @@
+"a" = (/obj/effect/turf_decal/stripes/corner,/turf/open/floor/plasteel,/area/template_noop)
+"b" = (/obj/item/clothing/head/cone,/turf/open/floor/plating,/area/template_noop)
+"c" = (/obj/item/stack/tile/plasteel,/obj/item/stack/tile/plasteel,/obj/item/stack/tile/plasteel,/obj/item/stack/tile/plasteel,/obj/effect/turf_decal/stripes/line,/turf/open/floor/plasteel,/area/template_noop)
+"d" = (/obj/effect/turf_decal/stripes/line,/obj/item/stack/cable_coil/random/five{step_x = -3; step_y = -8},/obj/structure/sign/warning{step_y = 31},/turf/open/floor/plasteel,/area/template_noop)
+"e" = (/obj/effect/turf_decal/stripes/corner{dir = 8},/turf/open/floor/plasteel,/area/template_noop)
+"f" = (/obj/effect/turf_decal/stripes/line{dir = 4},/turf/open/floor/plasteel,/area/template_noop)
+"g" = (/turf/open/floor/plating{icon_state = "platingdmg1"},/area/template_noop)
+"h" = (/obj/effect/decal/cleanable/oil/slippery,/turf/open/floor/plating,/area/template_noop)
+"i" = (/turf/open/floor/circuit,/area/template_noop)
+"j" = (/obj/effect/turf_decal/stripes/line{dir = 8},/turf/open/floor/plasteel,/area/template_noop)
+"k" = (/obj/effect/turf_decal/stripes/corner{dir = 4},/turf/open/floor/plasteel,/area/template_noop)
+"l" = (/obj/effect/turf_decal/stripes/line{dir = 1},/obj/item/stack/tile/circuit{step_x = 6; step_y = 6},/obj/item/stack/tile/circuit{step_x = 6; step_y = 6},/turf/open/floor/plasteel,/area/template_noop)
+"m" = (/obj/item/clothing/head/cone{step_x = -3; step_y = 6},/turf/open/floor/plating,/area/template_noop)
+"n" = (/obj/effect/turf_decal/stripes/line{dir = 1},/obj/machinery/light/broken,/turf/open/floor/plasteel,/area/template_noop)
+"o" = (/obj/effect/turf_decal/stripes/corner{dir = 1},/obj/item/crowbar/large,/turf/open/floor/plasteel,/area/template_noop)
+
+(1,1,1) = {"
+abcde
+fghij
+klmno
+"}

@@ -1,0 +1,8 @@
+"a" = (/turf/open/floor/fakepit,/area/template_noop)
+"b" = (/obj/item/toy/plush/bubbleplush,/turf/open/floor/grass/fakebasalt,/area/template_noop)
+
+(1,1,1) = {"
+aaa
+aba
+aaa
+"}

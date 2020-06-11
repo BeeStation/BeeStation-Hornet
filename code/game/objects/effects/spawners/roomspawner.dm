@@ -19,13 +19,13 @@
 
 /obj/effect/spawner/room/LateInitialize()
 	var/list/possibletemplates = list()
-	var/cantidate = null
+	var/datum/map_template/random_room/cantidate = null
 	shuffle_inplace(SSmapping.random_room_templates)
 	for(var/ID in SSmapping.random_room_templates)
 		cantidate = SSmapping.random_room_templates[ID]
 		if(istype(cantidate, /datum/map_template/random_room) && room_height == cantidate.template_height && room_width == cantidate.template_width)
-			if(!template.spawned)
-				possibletemplates += cantidate
+			if(!cantidate.spawned)
+				possibletemplates[cantidate] = cantidate.weight
 		cantidate = null
 	if(possibletemplates.len)
 		template = pickweight(possibletemplates)

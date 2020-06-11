@@ -1,0 +1,20 @@
+"a" = (/obj/effect/decal/cleanable/cobweb,/obj/structure/reagent_dispensers/watertank,/turf/open/floor/plasteel,/area/template_noop)
+"b" = (/obj/structure/closet/crate,/obj/item/clothing/head/hardhat/red,/obj/item/clothing/head/hardhat/red,/obj/item/clothing/head/hardhat/red,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/obj/item/bodypart/r_arm/robot,/obj/item/bodypart/r_arm/robot,/obj/item/bodypart/r_arm/robot,/obj/item/extinguisher,/obj/item/extinguisher,/obj/item/extinguisher,/obj/effect/turf_decal/bot_red,/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel,/area/template_noop)
+"c" = (/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel,/area/template_noop)
+"d" = (/obj/structure/closet/firecloset/full,/obj/effect/turf_decal/bot_red/right,/obj/effect/decal/cleanable/dirt,/obj/machinery/light{dir = 1},/turf/open/floor/plasteel,/area/template_noop)
+"e" = (/obj/structure/closet/firecloset/full,/obj/effect/turf_decal/bot_red/left,/turf/open/floor/plasteel,/area/template_noop)
+"f" = (/turf/open/floor/plasteel,/area/template_noop)
+"g" = (/obj/structure/table,/obj/machinery/microwave{step_x = 0; step_y = 8},/turf/open/floor/plasteel/cafeteria,/area/template_noop)
+"h" = (/obj/structure/table,/obj/item/storage/box/donkpockets{step_x = 0; step_y = 7},/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/cafeteria,/area/template_noop)
+"i" = (/obj/structure/bed,/obj/item/bedsheet/dorms,/obj/item/radio/intercom{step_x = 27},/turf/open/floor/plasteel,/area/template_noop)
+"j" = (/obj/structure/sink{dir = 8; pixel_x = -12; pixel_y = 2},/obj/effect/decal/cleanable/dirt,/turf/open/floor/plasteel/cafeteria,/area/template_noop)
+"k" = (/obj/machinery/light,/turf/open/floor/plasteel/cafeteria,/area/template_noop)
+"l" = (/obj/structure/bed,/obj/item/bedsheet/dorms,/turf/open/floor/plasteel,/area/template_noop)
+"m" = (/obj/effect/decal/cleanable/dirt,/obj/structure/festivus,/turf/open/floor/plasteel,/area/template_noop)
+
+(1,1,1) = {"
+abcde
+fffcf
+ghmfi
+jkccl
+"}
