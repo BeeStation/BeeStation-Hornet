@@ -8,7 +8,7 @@
 	var/ammunition_type = /obj/item/ammo_box/c9mm
 	var/flight_time = 10
 
-	var/shots =3
+	var/shots = 3
 	var/shot_time = 5
 	var/cooldown = 150
 
@@ -16,7 +16,7 @@
 
 /obj/machinery/shuttle_weapon/examine(mob/user)
 	. = ..()
-	fire(user, TRUE)	//Debug lol
+	fire(user)	//Debug lol
 
 /obj/machinery/shuttle_weapon/proc/check_ammo(ammount = 0)
 	return TRUE
@@ -26,7 +26,7 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/shuttle_weapon/proc/fire(atom/target, initial_shot = FALSE)
+/obj/machinery/shuttle_weapon/proc/fire(atom/target, shots_left = shots)
 	if(!consume_ammo())
 		return
 	playsound(loc, fire_sound, 75, 1)
@@ -35,13 +35,8 @@
 	P.fire(dir2angle(dir))
 	addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, get_turf(target)), flight_time)
 	//Multishot cannons
-	if(initial_shot && shots > 1)
-		addtimer(CALLBACK(src, .proc/fire_again, target, shots - 1), shot_time)
-
-/obj/machinery/shuttle_weapon/proc/fire_again(atom/target, times_left = 0)
-	fire(target, FALSE)
-	if(times_left > 0)
-		addtimer(CALLBACK(src, .proc/fire_again, target, times_left--), shot_time)
+	if(shots_left > 0)
+		addtimer(CALLBACK(src, .proc/fire, target, shots_left - 1), shot_time)
 
 /obj/machinery/shuttle_weapon/proc/spawn_incoming_fire(obj/item/projectile/P, atom/target)
 	if(QDELETED(P))

@@ -2986,6 +2986,7 @@
 #include "code\modules\shuttle\shuttle_creation\shuttle_upgrades.dm"
 #include "code\modules\shuttle_weapons\shuttle_projectile_spawner.dm"
 #include "code\modules\shuttle_weapons\shuttle_weapon.dm"
+#include "code\modules\shuttle_weapons\triple_laser.dm"
 #include "code\modules\shuttle_weapons\weapon_controller.dm"
 #include "code\modules\spells\spell.dm"
 #include "code\modules\spells\spell_types\aimed.dm"
