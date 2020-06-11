@@ -16,9 +16,10 @@
 	ricochet_chance = 0
 
 //Penetrates the first layer of hull, then bounces around a lot on the inside.
-/obj/item/projectile/bullet/shuttle/beam/on_ricochet(atom/A)
+/obj/item/projectile/bullet/shuttle/beam/check_ricochet()
 	if(ricochet_chance < 80)
 		ricochet_chance += 20
+	return ..()
 
 /obj/item/projectile/bullet/shuttle/beam/on_hit(atom/target, blocked)
 	var/turf/T = target
@@ -33,3 +34,6 @@
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
 	impact_type = /obj/effect/projectile/impact/laser
+
+/obj/item/projectile/bullet/shuttle/beam/laser/heavy
+	damage = 65
