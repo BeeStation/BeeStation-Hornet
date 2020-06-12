@@ -2875,7 +2875,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "Vo" = (
-/obj/docking_port/stationary{
+/obj/docking_port/stationary/exploration_tracked{
 	dir = 4;
 	dwidth = 10;
 	height = 21;

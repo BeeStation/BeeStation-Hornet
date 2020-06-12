@@ -2,16 +2,39 @@
 
 SUBSYSTEM_DEF(bluespace_exploration)
 	name = "Bluespace Exploration"
-	flags = SS_NO_FIRE
+	wait = 5 SECONDS
+	priority = FIRE_PRIORITY_EXPLORATION
 	init_order = INIT_ORDER_BS_EXPLORATION
 
 	var/datum/space_level/reserved_bs_level
 	var/list/ruin_templates = list()
 	var/obj/docking_port/stationary/away_mission_port
 
+	var/list/spawnable_ships = list()
+
+	var/list/tracked_ships = list()
+
+/datum/controller/subsystem/bluespace_exploration/fire(resumed = 0)
+	for(var/ship_key in tracked_ships)
+		var/datum/ship_datum/SD = tracked_ships[ship_key]
+		SD.update_ship()
+		if(QDELETED(SD))
+			tracked_ships -= ship_key
+		CHECK_TICK
+
+/datum/controller/subsystem/bluespace_exploration/proc/register_new_ship(shuttle_id)
+	if(shuttle_id in tracked_ships)
+		return tracked_ships[shuttle_id]
+	var/datum/ship_datum/SD = new()
+	SD.mobile_port_id = shuttle_id
+	SD.update_ship()
+	if(QDELETED(SD))
+		return null
+	tracked_ships[shuttle_id] = SD
+	return SD
+
 //====================================
 //These procs are very expensive
-//Thus have a lot of check ticks.
 //Bluespace Drives take a long time, so loading of the new z_levels
 //can be slowly done in the back ground while in transit.
 //However, it should be noted if the server is under high load,
@@ -133,6 +156,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		selected_ruin.try_to_place(reserved_bs_level.z_value, /area/space)
 		message_admins("Spawning ruin [selected_ruin.name]")
 		CHECK_TICK
+	spawn_and_register_shuttle(spawnable_ships["Syndicate Fighter"])
 	message_admins("ruin spawnings done")
 	addtimer(CALLBACK(src, .proc/on_generation_complete, data_holder), 0)
 

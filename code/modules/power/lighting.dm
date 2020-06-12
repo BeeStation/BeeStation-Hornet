@@ -242,6 +242,8 @@
 	var/bulb_vacuum_colour = "#4F82FF"	// colour of the light when air alarm is set to severe
 	var/bulb_vacuum_brightness = 8
 
+	var/force_emergency_mode = FALSE
+
 /obj/machinery/light/broken
 	status = LIGHT_BROKEN
 	icon_state = "tube-broken"
@@ -359,7 +361,7 @@
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
-	emergency_mode = FALSE
+	emergency_mode = force_emergency_mode
 	if(on)
 		var/BR = brightness
 		var/PO = bulb_power

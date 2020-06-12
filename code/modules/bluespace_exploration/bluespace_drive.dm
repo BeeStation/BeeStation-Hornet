@@ -9,6 +9,10 @@ GLOBAL_LIST_INIT(bluespace_drives, list())
 	. = ..()
 	GLOB.bluespace_drives += src
 
+/obj/machinery/bluespace_drive/examine(mob/user)
+	. = ..()
+	SSbluespace_exploration.spawn_and_register_shuttle(SSbluespace_exploration.spawnable_ships["Syndicate Fighter"])
+
 /obj/machinery/bluespace_drive/proc/engage()
 	if(world.time < cooldown_world_time)
 		return

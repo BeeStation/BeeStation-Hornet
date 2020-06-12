@@ -297,6 +297,26 @@
 	var/can_move_docking_ports = FALSE
 	var/list/hidden_turfs = list()
 
+/obj/docking_port/stationary/exploration_tracked
+	name = "exploration dock"
+
+/obj/docking_port/stationary/exploration_tracked/load_roundstart()
+	if(json_key)
+		var/sid = SSmapping.config.shuttles[json_key]
+		roundstart_template = SSmapping.shuttle_templates[sid]
+		if(!roundstart_template)
+			CRASH("json_key:[json_key] value \[[sid]\] resulted in a null shuttle template for [src]")
+	else if(roundstart_template) // passed a PATH
+		var/sid = "[initial(roundstart_template.port_id)]_[initial(roundstart_template.suffix)]"
+
+		roundstart_template = SSmapping.shuttle_templates[sid]
+		if(!roundstart_template)
+			CRASH("Invalid path ([roundstart_template]) passed to docking port.")
+
+	if(roundstart_template)
+		var/obj/docking_port/mobile/shuttle = SSshuttle.action_load(roundstart_template, src)
+		SSbluespace_exploration.register_new_ship(shuttle.id)
+
 /obj/docking_port/mobile/proc/register()
 	SSshuttle.mobile += src
 

@@ -405,6 +405,9 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		shuttle_templates[S.shuttle_id] = S
 		map_templates[S.shuttle_id] = S
 
+		if(istype(S, /datum/map_template/shuttle/ship))
+			SSbluespace_exploration.spawnable_ships[S.name] = S
+
 /datum/controller/subsystem/mapping/proc/preloadShelterTemplates()
 	for(var/item in subtypesof(/datum/map_template/shelter))
 		var/datum/map_template/shelter/shelter_type = item
