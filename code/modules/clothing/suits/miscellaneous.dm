@@ -42,6 +42,7 @@
 /obj/item/clothing/head/hooded/flashsuit
 	name = "flash button"
 	desc = "You will learn to fear the flash."
+	clothing_flags = SNUG_FIT
 	icon_state = "flashsuit"
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACIALHAIR|HIDEFACE|HIDEMASK
@@ -254,6 +255,7 @@
 /obj/item/clothing/head/hooded/carp_hood
 	name = "carp hood"
 	desc = "A hood attached to a carp costume."
+	clothing_flags = SNUG_FIT
 	icon_state = "carp_casual"
 	body_parts_covered = HEAD
 	cold_protection = HEAD
@@ -285,6 +287,7 @@
 /obj/item/clothing/head/hooded/ian_hood
 	name = "corgi hood"
 	desc = "A hood that looks just like a corgi's head, it won't guarantee dog biscuits."
+	clothing_flags = SNUG_FIT
 	icon_state = "ian"
 	body_parts_covered = HEAD
 	//cold_protection = HEAD
@@ -305,7 +308,7 @@
 	desc = "A hood attached to a bee costume."
 	icon_state = "bee"
 	body_parts_covered = HEAD
-	clothing_flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL | SNUG_FIT
 	flags_inv = HIDEHAIR|HIDEEARS
 	dynamic_hair_suffix = ""
 
@@ -330,6 +333,7 @@
 /obj/item/clothing/head/hooded/human_head
 	name = "bloated human head"
 	desc = "A horribly bloated and mismatched human head."
+	clothing_flags = SNUG_FIT
 	icon_state = "lingspacehelmet"
 	body_parts_covered = HEAD
 	flags_cover = HEADCOVERSEYES
@@ -522,6 +526,7 @@
 /obj/item/clothing/head/hooded/winterhood
 	name = "winter hood"
 	desc = "A hood attached to a heavy winter jacket."
+	clothing_flags = SNUG_FIT
 	icon_state = "winterhood"
 	body_parts_covered = HEAD
 	cold_protection = HEAD
