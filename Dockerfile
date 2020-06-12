@@ -99,7 +99,8 @@ COPY --from=bsql /bsql/artifacts/src/BSQL/libBSQL.so ./
 COPY --from=build /deploy ./
 
 #bsql fexists memes
-RUN ln -s /beestation/libBSQL.so /root/.byond/bin/libBSQL.so
+RUN ln -s /beestation/libBSQL.so /root/.byond/bin/libBSQL.so \
+    && ln -s /beestation/libbyond-extools.so /root/.byond/bin/libbyond-extools.so
 
 VOLUME [ "/beestation/config", "/beestation/data" ]
 
