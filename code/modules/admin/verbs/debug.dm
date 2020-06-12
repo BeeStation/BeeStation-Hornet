@@ -377,8 +377,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			/mob = "M"
 		)
 		for (var/tn in TYPES_SHORTCUTS)
-			if (copytext(typename,1, length("[tn]/")+1)=="[tn]/" /*findtextEx(typename,"[tn]/",1,2)*/ )
-				typename = TYPES_SHORTCUTS[tn]+copytext(typename,length("[tn]/"))
+			if(copytext(typename, 1, length("[tn]/") + 1) == "[tn]/" /*findtextEx(typename,"[tn]/",1,2)*/ )
+				typename = TYPES_SHORTCUTS[tn] + copytext(typename, length("[tn]/"))
 				break
 		.[typename] = type
 
