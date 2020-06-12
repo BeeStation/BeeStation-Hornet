@@ -23,7 +23,7 @@
 	update_weapons()
 
 /datum/ship_datum/npc/proc/update_flee()
-	if(integrity_remaining / total_integrity_remaining < battle_mode)
+	if(integrity_remaining / (max(max_ship_integrity, 1) * SHIP_INTEGRITY_FACTOR) < battle_mode)
 		wants_to_flee = TRUE
 
 /datum/ship_datum/npc/proc/update_weapons()
