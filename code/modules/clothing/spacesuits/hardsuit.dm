@@ -2,7 +2,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-engineering"
 	item_state = "eng_helm"
 	max_integrity = 300
@@ -15,7 +14,6 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH	| PEPPERPROOF
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
-
 	var/rad_count = 0
 	var/rad_record = 0
 	var/grace_count = 0
@@ -170,7 +168,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/engine
 	name = "engineering hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-engineering"
 	item_state = "eng_helm"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 12, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 100, "acid" = 75)
@@ -190,7 +187,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos
 	name = "atmospherics hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has thermal shielding."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-atmospherics"
 	item_state = "atmo_helm"
 	item_color = "atmospherics"
@@ -213,7 +209,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
 	name = "advanced hardsuit helmet"
 	desc = "An advanced helmet designed for work in a hazardous, low pressure environment. Shines with a high polish."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-white"
 	item_state = "ce_helm"
 	item_color = "white"
@@ -236,7 +231,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/mining
 	name = "mining hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has reinforced plating for wildlife encounters and dual floodlights."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-mining"
 	item_state = "mining_helm"
 	item_color = "mining"
@@ -272,7 +266,6 @@
 	name = "blood-red hardsuit helmet"
 	desc = "A dual-mode advanced helmet designed for work in special operations. It is in EVA mode. Property of Gorlex Marauders."
 	alt_desc = "A dual-mode advanced helmet designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_helm"
 	item_color = "syndi"
@@ -365,7 +358,6 @@
 	name = "elite syndicate hardsuit helmet"
 	desc = "An elite version of the syndicate helmet, with improved armour and fireproofing. It is in EVA mode. Property of Gorlex Marauders."
 	alt_desc = "An elite version of the syndicate helmet, with improved armour and fireproofing. It is in combat mode. Property of Gorlex Marauders."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-syndielite"
 	item_color = "syndielite"
 	armor = list("melee" = 60, "bullet" = 60, "laser" = 50, "energy" = 60, "bomb" = 55, "bio" = 100, "rad" = 70, "fire" = 100, "acid" = 100)
@@ -390,7 +382,6 @@
 	name = "owl hardsuit helmet"
 	desc = "A dual-mode advanced helmet designed for any crime-fighting situation. It is in travel mode."
 	alt_desc = "A dual-mode advanced helmet designed for any crime-fighting situation. It is in combat mode."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit1-owl"
 	item_state = "s_helmet"
 	item_color = "owl"
@@ -412,7 +403,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/wizard
 	name = "gem-encrusted hardsuit helmet"
 	desc = "A bizarre gem-encrusted helmet that radiates magical energies."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-wiz"
 	item_state = "wiz_helm"
 	item_color = "wiz"
@@ -445,7 +435,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/medical
 	name = "medical hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort, but does not protect the eyes from intense light."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-medical"
 	item_state = "medical_helm"
 	item_color = "medical"
@@ -466,7 +455,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/medical/cmo
 	name = "chief medical officer's hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort and protects the eyes from intense light."
-	clothing_flags = SNUG_FIT
 	flash_protect = 2
 
 /obj/item/clothing/suit/space/hardsuit/medical/cmo
@@ -477,7 +465,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/rd
 	name = "prototype hardsuit helmet"
 	desc = "A prototype helmet designed for research in a hazardous, low pressure environment. Scientific data flashes across the visor."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-rd"
 	item_color = "rd"
 	resistance_flags = ACID_PROOF | FIRE_PROOF
@@ -521,7 +508,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/security
 	name = "security hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-sec"
 	item_state = "sec_helm"
 	item_color = "sec"
@@ -544,7 +530,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	name = "head of security's hardsuit helmet"
 	desc = "A special bulky helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-hos"
 	item_color = "hos"
 	armor = list("melee" = 45, "bullet" = 25, "laser" = 30, "energy" = 40, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 95, "acid" = 95)
@@ -564,7 +549,6 @@
 	icon_state = "swat2helm"
 	item_state = "swat2helm"
 	desc = "A tactical SWAT helmet MK.II."
-	clothing_flags = SNUG_FIT
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 60, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	heat_protection = HEAD
@@ -594,7 +578,6 @@
 	icon_state = "capspace"
 	item_state = "capspacehelmet"
 	desc = "A tactical MK.II SWAT helmet boasting better protection and a horrible fashion sense."
-	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/suit/space/hardsuit/swat/captain
 	name = "captain's SWAT suit"
@@ -607,7 +590,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/clown
 	name = "cosmohonk hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-humor environment. Has radiation shielding."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-clown"
 	item_state = "hardsuit0-clown"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 60, "acid" = 30)
@@ -634,7 +616,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	name = "prototype RIG hardsuit helmet"
 	desc = "Early prototype RIG hardsuit helmet, designed to quickly shift over a user's head. Design constraints of the helmet mean it has no inbuilt cameras, thus it restricts the users visability."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-ancient"
 	item_state = "anc_helm"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 5, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 75)
@@ -749,7 +730,6 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	clothing_flags = SNUG_FIT
 
 ///////////////Capture the Flag////////////////////
 
@@ -786,7 +766,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf
 	name = "shielded hardsuit helmet"
 	desc = "Standard issue hardsuit helmet for playing capture the flag."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-ert_medical"
 	item_state = "hardsuit0-ert_medical"
 	item_color = "ert_medical"
@@ -797,12 +776,10 @@
 	icon_state = "hardsuit0-ert_security"
 	item_state = "hardsuit0-ert_security"
 	item_color = "ert_security"
-	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf/blue
 	name = "shielded hardsuit helmet"
 	desc = "Standard issue hardsuit helmet for playing capture the flag."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "hardsuit0-ert_commander"
 	item_color = "ert_commander"
@@ -850,7 +827,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	name = "blood-red hardsuit helmet"
 	desc = "An advanced hardsuit helmet with built in energy shielding."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_helm"
 	item_color = "syndi"
@@ -876,7 +852,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat
 	name = "death commando helmet"
 	desc = "A tactical helmet with built in energy shielding."
-	clothing_flags = SNUG_FIT
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
 	item_color = "syndi"
@@ -896,7 +871,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat/honk
 	name = "honk squad helmet"
 	desc = "A hilarious helmet with built in anti-mime propaganda shielding."
-	clothing_flags = SNUG_FIT
 	icon_state = "hardsuit0-clown"
 	item_state = "hardsuit0-clown"
 	item_color = "clown"
@@ -921,7 +895,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
 	name = "juggernaut helmet"
 	desc = "A dusty old helmet, somehow capable of resisting the strongest of blows."
-	clothing_flags = SNUG_FIT
 	icon_state = "doomguy"
 	item_state = "doomguy"
 	armor = list("melee" = 135, "bullet" = 135, "laser" = 135, "energy" = 135, "bomb" = 135, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
