@@ -49,7 +49,7 @@
 	room_width = 5
 	room_height = 3
 
-/obj/effect/spawner/room/threexfive
+/obj/effect/spawner/room/threexfiveuk
 	name = "3x5 room spawner"
 	room_width = 3
 	room_height = 5

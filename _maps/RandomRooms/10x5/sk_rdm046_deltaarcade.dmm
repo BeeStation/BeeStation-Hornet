@@ -193,6 +193,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/item/paper/crumpled/beernuke,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "r" = (

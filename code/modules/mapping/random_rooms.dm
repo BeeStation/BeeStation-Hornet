@@ -881,3 +881,21 @@
 	template_height = 3
 	template_width = 5
 	stock = 2
+
+/datum/map_template/random_room/sk_rdm104
+	name = "pill lottery"
+	room_id = "sk_rdm104_pills"
+	mappath = "_maps/RandomRooms/5x3/sk_rdm104_pills"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 5
+	weight = 1
+
+/datum/map_template/random_room/sk_rdm105
+	name = "biohazard exclusion zone"
+	room_id = "sk_rdm105_phage"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm105_phage"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 3
