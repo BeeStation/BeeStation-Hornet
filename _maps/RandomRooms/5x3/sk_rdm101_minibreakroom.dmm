@@ -33,19 +33,13 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "h" = (
-/obj/item/trash/cheesie{
-	step_x = -9;
-	step_y = -7
-	},
+/obj/item/trash/cheesie,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "i" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/mug{
-	step_x = 8;
-	step_y = 3
-	},
+/obj/item/reagent_containers/food/drinks/mug,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "j" = (

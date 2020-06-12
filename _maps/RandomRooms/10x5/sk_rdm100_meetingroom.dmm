@@ -67,9 +67,7 @@
 /area/template_noop)
 "h" = (
 /obj/structure/table,
-/obj/item/paper_bin{
-	step_y = 4
-	},
+/obj/item/paper_bin,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "i" = (

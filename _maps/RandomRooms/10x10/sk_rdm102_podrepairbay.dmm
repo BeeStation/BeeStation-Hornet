@@ -13,10 +13,7 @@
 /area/template_noop)
 "d" = (
 /obj/structure/table,
-/obj/item/storage/toolbox/electrical{
-	step_x = 16;
-	step_y = 9
-	},
+/obj/item/storage/toolbox/electrical,
 /obj/item/stack/sheet/iron/five,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -117,9 +114,7 @@
 "A" = (
 /obj/structure/table,
 /obj/item/stack/rods/ten,
-/obj/effect/spawner/lootdrop/maintenance{
-	step_x = 31
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (

@@ -46,16 +46,15 @@
 "g" = (
 /obj/structure/table,
 /obj/machinery/microwave{
-	step_x = 0;
-	step_y = 8
+	pixel_y = 6
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "h" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
-	step_x = 0;
-	step_y = 7
+	pixel_y = 8;
+	pixel_x = -3
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/cafeteria,
@@ -64,7 +63,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
 /obj/item/radio/intercom{
-	step_x = 27
+	pixel_x = 25
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -87,8 +86,11 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "m" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/festivus,
+/obj/structure/festivus{
+	desc = "This fireman's pole serves no purpose, leading nowhere.";
+	name = "fireman pole";
+	pixel_x = -16
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 
@@ -107,13 +109,13 @@ k
 (3,1,1) = {"
 c
 f
-m
+c
 c
 "}
 (4,1,1) = {"
 d
 c
-f
+m
 c
 "}
 (5,1,1) = {"

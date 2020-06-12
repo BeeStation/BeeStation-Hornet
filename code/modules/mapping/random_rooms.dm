@@ -5,6 +5,7 @@
 	var/template_height = 0
 	var/template_width = 0
 	var/weight = 10 //weight a room has to appear
+	var/stock = 1 //how many times this room can appear in a round
 
 /datum/map_template/random_room/sk_rdm001
 	name = "Maintenance Storage"
@@ -13,6 +14,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+
 
 /datum/map_template/random_room/sk_rdm002
 	name = "Maintenance Shrine"
@@ -54,6 +56,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm007
 	name = "Maintenance"
@@ -70,6 +73,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm009
 	name = "Air Refilling Station"
@@ -78,6 +82,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm010
 	name = "Maintenance HAZMAT"
@@ -126,6 +131,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 5
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm016
 	name = "Box Clutter 2"
@@ -134,6 +140,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm017
 	name = "Box Clutter 3"
@@ -191,6 +198,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm024
 	name = "Box Bedroom"
@@ -240,6 +248,7 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm030
 	name = "Delta Lounge"
@@ -433,6 +442,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 5
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm053
 	name = "Meta Clutter 2"
@@ -539,6 +549,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm066
 	name = "Pubby Bedroom"
@@ -604,6 +615,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm074
 	name = "Kilo Theatre"
@@ -620,6 +632,7 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
+	stock = 2 //because i hate you
 
 /datum/map_template/random_room/sk_rdm076
 	name = "Kilo Haunted Library"
@@ -655,6 +668,7 @@
 	template_height = 5
 	template_width = 3
 	weight = 3
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm080
 	name = "Ancient Cloner"
@@ -726,6 +740,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm088
 	name = "Construction Zone"
@@ -788,6 +803,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
+	stock = 2
 
 /datum/map_template/random_room/sk_rdm095
 	name = "Durand Wreck"
@@ -838,7 +854,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
-	weight = 7
+	weight = 6
 
 /datum/map_template/random_room/sk_rdm101
 	name = "Small Breakroom"
@@ -864,3 +880,4 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 5
+	stock = 2

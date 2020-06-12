@@ -17,13 +17,8 @@
 /area/template_noop)
 "d" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/item/stack/cable_coil/random/five{
-	step_x = -3;
-	step_y = -8
-	},
-/obj/structure/sign/warning{
-	step_y = 31
-	},
+/obj/item/stack/cable_coil/random/five,
+/obj/structure/sign/warning,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "e" = (
@@ -66,21 +61,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/item/stack/tile/circuit{
-	step_x = 6;
-	step_y = 6
-	},
-/obj/item/stack/tile/circuit{
-	step_x = 6;
-	step_y = 6
-	},
+/obj/item/stack/tile/circuit,
+/obj/item/stack/tile/circuit,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "m" = (
-/obj/item/clothing/head/cone{
-	step_x = -3;
-	step_y = 6
-	},
+/obj/item/clothing/head/cone,
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (

@@ -2,23 +2,16 @@
 "a" = (
 /obj/structure/table,
 /obj/item/wallframe/camera,
-/obj/item/stack/cable_coil/random/five{
-	step_x = 1;
-	step_y = 5
-	},
+/obj/item/stack/cable_coil/random/five,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "b" = (
 /obj/machinery/status_display/evac{
-	step_y = 31
+	pixel_y = 25
 	},
 /obj/structure/table,
-/obj/item/paper_bin{
-	step_y = 5
-	},
-/obj/item/pen{
-	step_y = 6
-	},
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "c" = (
@@ -27,7 +20,7 @@
 /area/template_noop)
 "d" = (
 /obj/machinery/status_display/evac{
-	step_y = 31
+	pixel_y = 25
 	},
 /obj/machinery/photocopier,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -39,10 +32,7 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "f" = (
-/obj/item/paper/crumpled{
-	step_x = 6;
-	step_y = -6
-	},
+/obj/item/paper/crumpled,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "g" = (

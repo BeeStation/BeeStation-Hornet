@@ -29,7 +29,10 @@
 		cantidate = null
 	if(possibletemplates.len)
 		template = pickweight(possibletemplates)
-		template.spawned = TRUE
+		template.stock --
+		template.weight = (template.weight / 2)
+		if(template.stock <= 0)
+			template.spawned = TRUE
 		addtimer(CALLBACK(src, /obj/effect/spawner/room.proc/LateSpawn), 600)
 	else 
 		template = null
