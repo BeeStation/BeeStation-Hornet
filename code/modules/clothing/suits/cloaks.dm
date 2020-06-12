@@ -64,7 +64,6 @@
 	name = "goliath cloak hood"
 	icon_state = "golhood"
 	desc = "A protective & concealing hood."
-	clothing_flags = SNUG_FIT
 	armor = list("melee" = 50, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
 	flags_inv = HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	transparent_protection = HIDEMASK
@@ -87,7 +86,6 @@
 	name = "drake helm"
 	icon_state = "dragon"
 	desc = "The skull of a dragon."
-	clothing_flags = SNUG_FIT
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 50, "energy" = 40, "bomb" = 70, "bio" = 60, "rad" = 50, "fire" = 100, "acid" = 100)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -109,7 +107,6 @@
 	name = "bone helmet"
 	icon_state = "hskull"
 	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
-	clothing_flags = SNUG_FIT
 	armor = list("melee" = 35, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT

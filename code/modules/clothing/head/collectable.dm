@@ -128,6 +128,7 @@
 	desc = "WARNING! Offers no real protection, or luminosity, but damn, is it fancy!"
 	icon_state = "hardhat0_yellow"
 	item_state = "hardhat0_yellow"
+	clothing_flags = SNUG_FIT
 
 	dog_fashion = /datum/dog_fashion/head
 

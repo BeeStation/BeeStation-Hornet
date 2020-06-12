@@ -179,7 +179,6 @@
 /obj/item/clothing/head/hooded/techpriest
 	name = "techpriest's hood"
 	desc = "A hood for those who REALLY love their toasters."
-	clothing_flags = SNUG_FIT
 	icon_state = "techpriesthood"
 	item_state = "techpriesthood"
 	body_parts_covered = HEAD

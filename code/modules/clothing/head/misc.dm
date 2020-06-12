@@ -8,6 +8,7 @@
 	flags_inv = 0
 	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	strip_delay = 80
+	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
 
 /obj/item/clothing/head/powdered_wig
 	name = "powdered wig"
@@ -318,7 +319,6 @@
 	desc = "A paper sack with crude holes cut out for eyes and a sketchy smile drawn on the front. Not creepy at all."
 	icon_state = "papersack_smile"
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
-	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/crown
 	name = "crown"
@@ -343,6 +343,7 @@
 	desc = "When everything's going to crab, protecting your head is the best choice."
 	icon_state = "lobster_hat"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/drfreezehat
 	name = "doctor freeze's wig"

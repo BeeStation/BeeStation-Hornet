@@ -57,7 +57,6 @@
 /obj/item/clothing/head/hooded/monkfrock
 	name = "monk's hood"
 	desc = "For when a man wants to cover up his tonsure."
-	clothing_flags = SNUG_FIT
 	icon_state = "monkhood"
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEEARS
