@@ -38,6 +38,8 @@
 #define VOICEBOX_TOGGLABLE (1<<6) //! The voicebox in this clothing can be toggled.
 #define VOICEBOX_DISABLED (1<<7) //! The voicebox is currently turned off.
 #define SHOWEROKAY				(1<<8)	//! prevents you from being stupid if you shower in them
+#define SNUG_FIT                (1<<9)  //! prevents hat throwing from knocking this hat off
+#define EFFECT_HAT              (1<<10) //! For hats with an effect that shouldn't get knocked off ie finfoil
 
 /// Flags for the organ_flags var on /obj/item/organ
 
