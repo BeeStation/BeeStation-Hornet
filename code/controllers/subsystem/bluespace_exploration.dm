@@ -22,10 +22,10 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			tracked_ships -= ship_key
 		CHECK_TICK
 
-/datum/controller/subsystem/bluespace_exploration/proc/register_new_ship(shuttle_id)
+/datum/controller/subsystem/bluespace_exploration/proc/register_new_ship(shuttle_id, override_type = /datum/ship_datum)
 	if(shuttle_id in tracked_ships)
 		return tracked_ships[shuttle_id]
-	var/datum/ship_datum/SD = new()
+	var/datum/ship_datum/SD = new override_type()
 	SD.mobile_port_id = shuttle_id
 	SD.update_ship()
 	if(QDELETED(SD))

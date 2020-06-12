@@ -4,6 +4,8 @@
 
 	var/max_ship_integrity	//The ship integrity at it's highest
 	var/current_ship_integrity	//The ships current ingerity
+
+	var/total_integrity_remaining
 	var/integrity_remaining
 
 	var/mobile_port_id = ""
@@ -27,6 +29,7 @@
 	//Boom
 	if(integrity_remaining < 0)
 		hull_critical(turfs)
+	return turfs
 
 /datum/ship_datum/proc/calculate_health(list/turfs)
 	var/calculated_health = 0
@@ -42,6 +45,7 @@
 			if(!istype(T, /turf/open/floor/plating))
 				calculated_health += 2
 	if(calculated_health > max_ship_integrity)
+		total_integrity_remaining = max_ship_integrity * SHIP_INTEGRITY_FACTOR
 		max_ship_integrity = calculated_health
 	message_admins("Ship has [calculated_health] integrity")
 	current_ship_integrity = calculated_health

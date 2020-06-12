@@ -5,4 +5,4 @@
 	var/obj/docking_port/mobile/M = S.try_to_place(reserved_bs_level.z_value, /area/space)
 	if(!istype(M))
 		return
-	register_new_ship(M.id)
+	register_new_ship(M.id, /datum/ship_datum/npc)

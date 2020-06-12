@@ -16,6 +16,8 @@
 
 	var/innaccuracy = 3	//The range that things will hit
 
+	var/next_shot_world_time = 0
+
 /obj/machinery/shuttle_weapon/examine(mob/user)
 	. = ..()
 	fire(user)	//Debug lol
@@ -29,8 +31,11 @@
 	return TRUE
 
 /obj/machinery/shuttle_weapon/proc/fire(atom/target, shots_left = shots)
+	if(world.time < next_shot_world_time)
+		return FALSE
 	if(!consume_ammo())
 		return
+	next_shot_world_time = world.time
 	var/turf/target_turf = locate(target.x + rand(-innaccuracy, innaccuracy), target.y + rand(-innaccuracy, innaccuracy), target.z)
 	playsound(loc, fire_sound, 75, 1)
 	//Spawn the projectile to make it look like its firing from your end
@@ -38,7 +43,7 @@
 	P.fire(dir2angle(dir))
 	addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, target_turf), flight_time)
 	//Multishot cannons
-	if(shots_left > 0)
+	if(shots_left > 1)
 		addtimer(CALLBACK(src, .proc/fire, target, shots_left - 1), shot_time)
 
 /obj/machinery/shuttle_weapon/proc/spawn_incoming_fire(obj/item/projectile/P, atom/target)
