@@ -1,0 +1,11 @@
+author: zeskorion
+delete-after: true
+changes:
+  - rscadd: macrophage disease symptom and corresponding mob
+  - rscadd: currently admin only macrophage mob that spawns with a disease inside
+      of it which contains the macrophage symptom. Phage has appropriate stats for
+      the disease
+  - tweak: changes up random experimental diseases a bit codewise, to support random
+      spawning diseases with one symptom fixed. This feature has been added to the
+      necroseed culture tendril loot, so it's now a bit of a gamble to drink
+  - imageadd: macrophage sprites, done by Slyonic
