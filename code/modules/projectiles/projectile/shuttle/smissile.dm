@@ -15,6 +15,7 @@
 	if(get_turf(target) != original)
 		return FALSE
 	explosion(target, devastation, heavy, light_r, flash, 0, flame_range = fire)
+	qdel(src)
 	return BULLET_ACT_HIT
 
 /obj/item/projectile/bullet/shuttle/missile/breach

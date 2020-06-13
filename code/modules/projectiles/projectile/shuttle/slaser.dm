@@ -27,6 +27,7 @@
 		if(T.flags_1 & CHECK_RICOCHET_1)
 			return ..()
 		T.ex_act(EXPLODE_LIGHT)
+		qdel(src)
 		return BULLET_ACT_HIT
 	. = ..()
 
