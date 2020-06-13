@@ -39,6 +39,8 @@
 	var/interval
 	///Indicates a poll is set to not start in the future, still visible for editing but not voting on.
 	var/future_poll
+	///Minimum playtime in hours to vote on the poll
+	var/minimumplaytime = 0
 
 /**
   * Datum which holds details of a poll option loaded from the database.
@@ -172,6 +174,21 @@
 				<div class='inputbox'></div>
 			</label>
 			<input type='text' name='startdatetimetext' size='24' value='[poll?.start_datetime ? "[poll.start_datetime]" : "YYYY-MM-DD HH:MM:SS"]'>
+			Minimum playtime to vote (in hours)
+			<br>
+			<label class='inputlabel radio'>
+				None
+				<input type='radio' id='noplaytime' name='radioplaytime' value='noplaytime'[!poll?.minimumplaytime ? " checked" : ""]>
+				<div class='inputbox'></div>
+			</label>
+			</div>
+			<br>
+			<label class='inputlabel radio'>
+				At playtime
+				<input type='radio' id='setplaytime' name='radioplaytime' value='setplaytime'[poll?.minimumplaytime ? " checked" : ""]>
+				<div class='inputbox'></div>
+			</label>
+			<input type='text' name='minimumplaytimetext' size='24' value='[poll?.minimumplaytime]'>
 		</div></div>
 		<div class='row'>
 		<div class='column left'>
@@ -245,7 +262,7 @@
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>", confidential = TRUE)
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	var/list/error_state = list()
 	var/new_poll = FALSE
@@ -275,6 +292,14 @@
 				poll.start_datetime = href_list["startdatetimetext"]
 			else
 				error_state += "Start datetime was selected but none was provided."
+	switch(href_list["radioplaytime"])
+		if("noplaytime")
+			poll.minimumplaytime = 0
+		if("setplaytime")
+			if(href_list["minimumplaytimetext"] && href_list["minimumplaytimetext"] > 0)
+				poll.minimumplaytime = round(text2num(href_list["minimumplaytimetext"]))
+			else
+				poll.minimumplaytime = 0
 	if(href_list["question"])
 		poll.question = href_list["question"]
 	else
@@ -309,9 +334,9 @@
 		error_state += "This poll type requires at least one option."
 	if(error_state.len)
 		if(poll.edit_ready)
-			to_chat(usr, "<span class='danger'>Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]</span>", confidential = TRUE)
+			to_chat(usr, "<span class='danger'>Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]</span>")
 		else
-			to_chat(usr, "<span class='danger'>Poll not [new_poll ? "initialized" : "submitted"] because the following errors were present:\n[error_state.Join("\n")]</span>", confidential = TRUE)
+			to_chat(usr, "<span class='danger'>Poll not [new_poll ? "initialized" : "submitted"] because the following errors were present:\n[error_state.Join("\n")]</span>")
 			if(new_poll)
 				qdel(poll)
 		return
@@ -322,7 +347,7 @@
 			poll.save_all_options()
 	poll_management_panel(poll)
 
-/datum/poll_question/New(id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, vote_count, creator, future, dbload = FALSE)
+/datum/poll_question/New(id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, vote_count, creator, future, minimumplaytime, dbload = FALSE)
 	poll_id = text2num(id)
 	poll_type = polltype
 	start_datetime = starttime
@@ -336,6 +361,7 @@
 	poll_votes = text2num(vote_count) || 0
 	created_by = creator
 	future_poll = text2num(future)
+	minimumplaytime = text2num(minimumplaytime) || 0
 	edit_ready = dbload
 	GLOB.polls += src
 
@@ -354,7 +380,7 @@
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>", confidential = TRUE)
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	var/datum/DBQuery/query_delete_poll = SSdbcore.NewQuery("CALL set_poll_deleted('[sanitizeSQL(poll_id)]')")
 	if(!query_delete_poll.warn_execute())
@@ -380,7 +406,7 @@
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>", confidential = TRUE)
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	var/poll_id_sql = "[sanitizeSQL(poll_id)]"
 	var/new_poll = FALSE
@@ -398,6 +424,7 @@
 	var/allow_revoting_sql = sanitizeSQL(allow_revoting)
 	var/admin_ckey = sanitizeSQL(created_by)
 	var/admin_ip = sanitizeSQL(usr.client.address)
+	var/minimumplaytime_sql = sanitizeSQL(minimumplaytime)
 	var/end_datetime_sql
 	if(interval)
 		end_datetime_sql = "NOW() + INTERVAL [sanitizeSQL(duration)] [sanitizeSQL(interval)]"
@@ -410,7 +437,7 @@
 		start_datetime_sql = "'[sanitizeSQL(start_datetime)]'"
 	var/kn = key_name(usr)
 	var/kna = key_name_admin(usr)
-	var/datum/DBQuery/query_save_poll = SSdbcore.NewQuery("INSERT INTO [format_table_name("poll_question")] (id, polltype, created_datetime, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, createdby_ckey, createdby_ip, dontshow, allow_revoting) VALUES ([poll_id_sql], '[poll_type_sql]', NOW(), [start_datetime_sql], [end_datetime_sql], '[question_sql]', '[subtitle_sql]', '[admin_only_sql]', [options_allowed_sql], '[admin_ckey]', INET_ATON('[admin_ip]'), '[dont_show_sql]', '[allow_revoting_sql]') ON DUPLICATE KEY UPDATE starttime = [start_datetime_sql], endtime = [end_datetime_sql], question = '[question_sql]', subtitle = '[subtitle_sql]', adminonly = '[admin_only_sql]', multiplechoiceoptions = [options_allowed_sql], dontshow = '[dont_show_sql]', allow_revoting = '[allow_revoting_sql]'")
+	var/datum/DBQuery/query_save_poll = SSdbcore.NewQuery("INSERT INTO [format_table_name("poll_question")] (id, polltype, created_datetime, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, createdby_ckey, createdby_ip, dontshow, allow_revoting, minimumplaytime) VALUES ([poll_id_sql], '[poll_type_sql]', NOW(), [start_datetime_sql], [end_datetime_sql], '[question_sql]', '[subtitle_sql]', '[admin_only_sql]', [options_allowed_sql], '[admin_ckey]', INET_ATON('[admin_ip]'), '[dont_show_sql]', '[allow_revoting_sql]', '[minimumplaytime]') ON DUPLICATE KEY UPDATE starttime = [start_datetime_sql], endtime = [end_datetime_sql], question = '[question_sql]', subtitle = '[subtitle_sql]', adminonly = '[admin_only_sql]', multiplechoiceoptions = [options_allowed_sql], dontshow = '[dont_show_sql]', allow_revoting = '[allow_revoting_sql]', minimumplaytime = '[minimumplaytime_sql]'")
 	if(!query_save_poll.warn_execute())
 		qdel(query_save_poll)
 		return
@@ -448,7 +475,7 @@
   */
 /datum/poll_question/proc/save_all_options()
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>", confidential = TRUE)
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	for(var/o in options)
 		var/datum/poll_option/option = o
@@ -469,7 +496,7 @@
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>", confidential = TRUE)
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	var/table = "poll_vote"
 	if(poll_type == POLLTYPE_TEXT)
@@ -480,7 +507,7 @@
 		return
 	qdel(query_clear_poll_votes)
 	poll_votes = 0
-	to_chat(usr, "<span class='danger'>Poll [poll_type == POLLTYPE_TEXT ? "responses" : "votes"] cleared.</span>", confidential = TRUE)
+	to_chat(usr, "<span class='danger'>Poll [poll_type == POLLTYPE_TEXT ? "responses" : "votes"] cleared.</span>")
 
 /**
   * Show the options for creating a poll option or editing its parameters.
@@ -549,7 +576,7 @@
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>", confidential = TRUE)
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	var/list/error_state = list()
 	var/new_option = FALSE
@@ -607,10 +634,10 @@
 			option.desc_max = null
 	if(error_state.len)
 		if(new_option)
-			to_chat(usr, "<span class='danger'>Option not added because the following errors were present:\n[error_state.Join("\n")]</span>", confidential = TRUE)
+			to_chat(usr, "<span class='danger'>Option not added because the following errors were present:\n[error_state.Join("\n")]</span>")
 			qdel(option)
 		else
-			to_chat(usr, "<span class='danger'>Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]</span>", confidential = TRUE)
+			to_chat(usr, "<span class='danger'>Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]</span>")
 		return
 	if(new_option)
 		poll.options += option
@@ -647,7 +674,7 @@
 	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>", confidential = TRUE)
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	var/list/columns = list("text", "default_percentage_calc", "pollid", "id")
 	var/list/values = list("'[sanitizeSQL(text)]'", "[sanitizeSQL(default_percentage_calc)]", "[sanitizeSQL(parent_poll.poll_id)]")
@@ -693,7 +720,7 @@
 	. = parent_poll
 	if(option_id)
 		if(!SSdbcore.Connect())
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>", confidential = TRUE)
+			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 			return
 		var/datum/DBQuery/query_delete_poll_option = SSdbcore.NewQuery("UPDATE [format_table_name("poll_option")] AS o INNER JOIN [format_table_name("poll_vote")] AS v ON o.id = v.optionid SET o.deleted = 1, v.deleted = 1 WHERE o.id = [sanitizeSQL(option_id)]")
 		if(!query_delete_poll_option.warn_execute())
@@ -708,15 +735,15 @@
   */
 /proc/load_poll_data()
 	if(!SSdbcore.Connect())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>", confidential = TRUE)
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
-	var/datum/DBQuery/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype='TEXT',(SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT byond_key FROM [format_table_name("player")] AS p WHERE p.ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0) FROM [format_table_name("poll_question")] AS q WHERE NOW() < endtime AND deleted = 0")
+	var/datum/DBQuery/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype='TEXT',(SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT byond_key FROM [format_table_name("player")] AS p WHERE p.ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0) FROM [format_table_name("poll_question")] AS q WHERE NOW() < endtime AND deleted = 0, minimumplaytime")
 	if(!query_load_polls.Execute())
 		qdel(query_load_polls)
 		return
 	var/list/poll_ids = list()
 	while(query_load_polls.NextRow())
-		new /datum/poll_question(query_load_polls.item[1], query_load_polls.item[2], query_load_polls.item[3], query_load_polls.item[4], query_load_polls.item[5], query_load_polls.item[6], query_load_polls.item[7], query_load_polls.item[8], query_load_polls.item[9], query_load_polls.item[10], query_load_polls.item[11], query_load_polls.item[12], query_load_polls.item[13], TRUE)
+		new /datum/poll_question(query_load_polls.item[1], query_load_polls.item[2], query_load_polls.item[3], query_load_polls.item[4], query_load_polls.item[5], query_load_polls.item[6], query_load_polls.item[7], query_load_polls.item[8], query_load_polls.item[9], query_load_polls.item[10], query_load_polls.item[11], query_load_polls.item[12], query_load_polls.item[13], query_load_polls.item[14], TRUE)
 		poll_ids += query_load_polls.item[1]
 	qdel(query_load_polls)
 	if(length(poll_ids))
