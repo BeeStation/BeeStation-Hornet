@@ -1,0 +1,13 @@
+author: zeskorion
+delete-after: true
+changes:
+  - rscadd: random room weighting. Some rooms will seem rarer now
+  - rscadd: random room stocking. Some rooms are allowed to spawn more than once
+  - rscadd: 11 new rooms by GizkaFreechman
+  - rscadd: two other new rooms
+  - rscadd: paper that spawns beernuke codes. Fun for the whole family. spawns in
+      randommaint
+  - tweak: the random maint experimental cloner is no longer commented out, as weighting
+      balances it out instead
+  - tweak: weighting has been applied to current room pool
+  - bugfix: bananium room now has real bananium walls instead of falsewalls
