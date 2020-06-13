@@ -35,7 +35,7 @@
 		return FALSE
 	if(!consume_ammo())
 		return
-	next_shot_world_time = world.time
+	next_shot_world_time = world.time + cooldown
 	var/turf/target_turf = locate(target.x + rand(-innaccuracy, innaccuracy), target.y + rand(-innaccuracy, innaccuracy), target.z)
 	playsound(loc, fire_sound, 75, 1)
 	//Spawn the projectile to make it look like its firing from your end
