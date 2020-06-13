@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 		if(!target_turf)
 			return
 		target = target_turf
-	if(world.time < next_shot_world_time || forced)
+	if(world.time < next_shot_world_time && !forced)
 		return FALSE
 	if(!consume_ammo())
 		return

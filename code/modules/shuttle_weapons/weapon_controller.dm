@@ -138,15 +138,17 @@
 
 			//Target.return_turfs() but with added range
 			var/list/L = target.return_coords()
-			var/turf/T0 = locate(CLAMP(L[1]-extra_range, 1, world.maxx), CLAMP(L[2]+extra_range, 1, world.maxy), z)
-			var/turf/T1 = locate(CLAMP(L[3]-extra_range, 1, world.maxx), CLAMP(L[4]+extra_range, 1, world.maxy), z)
+			var/turf/T0 = locate(CLAMP(L[1]-extra_range, 1, world.maxx), CLAMP(L[2]+extra_range, 1, world.maxy), target.z)
+			var/turf/T1 = locate(CLAMP(L[3]+extra_range, 1, world.maxx), CLAMP(L[4]-extra_range, 1, world.maxy), target.z)
 			var/list/visible_turfs = block(T0,T1)
 
 			cam_screen.vis_contents = visible_turfs
 			cam_background.icon_state = "clear"
 
-			var/list/projection = target.return_coords()
-			cam_background.fill_rect(1, 1, abs(projection[3] - projection[1]) + 1, abs(projection[4] - projection[2]) + 1)
+			var/list/bbox = get_bbox_of_atoms(visible_turfs)
+			var/size_x = bbox[3] - bbox[1] + 1
+			var/size_y = bbox[4] - bbox[2] + 1
+			cam_background.fill_rect(1, 1, size_x, size_y)
 			return TRUE
 		if("set_weapon_target")
 			//Select the weapon system
