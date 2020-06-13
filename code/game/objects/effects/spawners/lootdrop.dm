@@ -240,7 +240,7 @@
 		/mob/living/simple_animal/hostile/netherworld/blankbody = 2,
 		/mob/living/simple_animal/cluwne = 1,
 		/mob/living/simple_animal/hostile/retaliate/clown = 1,
-		/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/chlown = 1,
+		/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/honcmunculus = 1,
 		/mob/living/simple_animal/hostile/retaliate/clown/longface = 1,
 		/mob/living/simple_animal/pet/gondola = 2,
 		/mob/living/simple_animal/hostile/macrophage/aggro/vector = 2,
