@@ -899,3 +899,11 @@
 	template_height = 5
 	template_width = 10
 	weight = 3
+
+/datum/map_template/random_room/sk_rdm106
+	name = "Psychiatrist's Office"
+	room_id = "sk_rdm106_sanitarium"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm106_sanitarium"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
