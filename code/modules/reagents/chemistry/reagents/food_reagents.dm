@@ -172,6 +172,12 @@
 	color = "#899613" // rgb: 137, 150, 19
 	taste_description = "watery milk"
 
+/datum/reagent/consumable/virus_food/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	for(var/datum/disease/D in M.diseases)
+		if(prob(D.stage_prob * 10))
+			D.update_stage(min(D.stage += 1, D.max_stages))
+
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
 	description = "A salty sauce made from the soy plant."
