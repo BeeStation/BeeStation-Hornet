@@ -43,8 +43,9 @@
 		if(chosen_symptom)
 			var/datum/symptom/S = new chosen_symptom
 			symptoms += S
-	var/datum/symptom/special = new specialsymptom
-	symptoms += special
+	if(specialsymptom)
+		var/datum/symptom/special = new specialsymptom
+		symptoms += special
 	Refresh()
 	if(randomname)
 		name = "Sample #[rand(1,10000)]"
