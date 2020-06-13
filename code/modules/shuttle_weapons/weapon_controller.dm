@@ -13,6 +13,11 @@
 	var/selected_ship_id = null
 	var/list/concurrent_users = list()
 
+	var/extra_range = 3
+
+	//Weapon systems
+	var/datum/weakref/selected_weapon_system = null
+
 	// Stuff needed to render the map
 	var/map_name
 	var/const/default_map_size = 15
@@ -96,6 +101,7 @@
 	for(var/turf/T in turfs)
 		for(var/obj/machinery/shuttle_weapon/weapon in T)
 			var/list/active_weapon = list(
+				id = weapon.unique_id,
 				name = weapon.name,
 				cooldownLeft = max(weapon.next_shot_world_time - world.time, 0),
 				cooldown = weapon.cooldown,
@@ -130,14 +136,43 @@
 				show_camera_static()
 				return TRUE
 
-			var/list/visible_turfs = target.return_turfs()
+			//Target.return_turfs() but with added range
+			var/list/L = target.return_coords()
+			var/turf/T0 = locate(CLAMP(L[1]-extra_range, 1, world.maxx), CLAMP(L[2]+extra_range, 1, world.maxy), z)
+			var/turf/T1 = locate(CLAMP(L[3]-extra_range, 1, world.maxx), CLAMP(L[4]+extra_range, 1, world.maxy), z)
+			var/list/visible_turfs = block(T0,T1)
 
 			cam_screen.vis_contents = visible_turfs
 			cam_background.icon_state = "clear"
 
 			var/list/projection = target.return_coords()
 			cam_background.fill_rect(1, 1, abs(projection[3] - projection[1]) + 1, abs(projection[4] - projection[2]) + 1)
-
+			return TRUE
+		if("set_weapon_target")
+			//Select the weapon system
+			var/id = params["id"]
+			var/found_weapon = GLOB.shuttle_weapons["[id]"]
+			if(!found_weapon)
+				to_chat(usr, "<span class='warning'>Failed to locate weapon system.</span>")
+				return
+			selected_weapon_system = WEAKREF(found_weapon)
+			//Grant spell for selection (Intercepts next click)
+			var/mob/living/user = usr
+			if(!istype(user))
+				return FALSE
+			var/obj/effect/proc_holder/spell/set_weapon_target/spell = new
+			user.mob_spell_list += spell
+			spell.linked_console = src
+			spell.add_ranged_ability(user, "", TRUE)
+			to_chat(usr, "<span class='notice'>Weapon targetting enabled, select target location.</span>")
+			return TRUE
+		if("fire")	//Unused atm
+			var/id = params["id"]
+			var/obj/machinery/shuttle_weapon/found_weapon = GLOB.shuttle_weapons["[id]"]
+			if(!found_weapon)
+				to_chat(usr, "<span class='warning'>Failed to locate weapon system.</span>")
+				return
+			found_weapon.fire()
 			return TRUE
 
 /obj/machinery/computer/weapons/proc/show_camera_static()
@@ -156,3 +191,14 @@
 	if(length(concurrent_users) == 0 && is_living)
 		playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
 		use_power(0)
+	//Remove spell from user if they have it.
+	user.RemoveSpell(/obj/effect/proc_holder/spell/set_weapon_target)
+
+/obj/machinery/computer/weapons/proc/on_target_location(turf/T)
+	var/obj/machinery/shuttle_weapon/weapon = selected_weapon_system.resolve()
+	if(!weapon)
+		log_runtime("[usr] attempted to target a location, but somehow managed to not have the weapon system targetted.")
+		return
+	weapon.target_turf = T
+	weapon.fire()
+	to_chat(usr, "<span class='notice'>Weapon target selected successfully</span>")

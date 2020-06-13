@@ -58,7 +58,8 @@
 	if(!LAZYLEN(turfs))
 		WARNING("Ship [ship_name], port_id [mobile_port_id] has no turfs.")
 		return
-	message_admins("The [ship_name], port_id [mobile_port_id] has been destroyed, at [ADMIN_JMP(turfs[1])]")
+	var/turf/first_turf = turfs[1]
+	message_admins("The [ship_name], port_id [mobile_port_id] has been destroyed, at [ADMIN_JMP(first_turf)]")
 	log_attack("The [ship_name], port_id [mobile_port_id] has been destroyed!")
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(mobile_port_id, FALSE)
 	if(M)

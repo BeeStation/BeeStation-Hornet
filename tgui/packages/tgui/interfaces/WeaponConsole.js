@@ -47,14 +47,19 @@ export const WeaponSelection = (props, context) => {
         <Table.Row>
           {weapons.map(weapon => (
             <Table.Cell
-              key={weapon.name}
+              key={weapon.id}
               className={classes([
                 'Button',
                 'Button--fluid',
                 'Button--color--transparent',
                 'Button--ellipsis',
                 'Button--selected',
-              ])}>
+              ])}
+              onClick={() => {
+                act('set_weapon_target', {
+                  id: weapon.id,
+                });
+              }}>
               <Box
                 textAlign="center">
                 <b>
@@ -153,7 +158,7 @@ export const ShipSearchContent = (props, context) => {
                       color="grey">
                       Lock Target
                     </NoticeBox>
-                )}
+                  )}
               </Fragment>
             )
           )}
