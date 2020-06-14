@@ -4,7 +4,6 @@
 	var/suffix
 	var/port_id
 	var/shuttle_id
-
 	var/description
 	var/prerequisites
 	var/admin_notes

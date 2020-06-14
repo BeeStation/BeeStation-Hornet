@@ -58,13 +58,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/caravan/syndicate1)
-"qk" = (
-/obj/machinery/shuttle_weapon{
-	dir = 4;
-	pixel_y = 32
-	},
-/turf/closed/wall/mineral/plastitanium,
-/area/shuttle/caravan/syndicate1)
 "qx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -72,6 +65,12 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/caravan/syndicate1)
+"tn" = (
+/obj/machinery/shuttle_weapon/laser/triple{
+	dir = 4
+	},
+/turf/closed/wall/mineral/plastitanium,
 /area/shuttle/caravan/syndicate1)
 "uW" = (
 /obj/machinery/button/door{
@@ -100,13 +99,6 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/caravan/syndicate1)
-"Ao" = (
-/obj/machinery/shuttle_weapon{
-	dir = 4;
-	pixel_y = -32
-	},
-/turf/closed/wall/mineral/plastitanium,
 /area/shuttle/caravan/syndicate1)
 "Jv" = (
 /turf/template_noop,
@@ -166,7 +158,7 @@ YX
 fp
 "}
 (5,1,1) = {"
-Ao
+tn
 Jv
 Jv
 Jv
@@ -174,5 +166,5 @@ Jv
 Jv
 Jv
 Jv
-qk
+tn
 "}

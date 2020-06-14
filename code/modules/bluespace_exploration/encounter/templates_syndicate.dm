@@ -1,5 +1,5 @@
 /datum/map_template/shuttle/ship/syndicate
-	faction = "syndicate"
+	faction = /datum/faction/syndicate
 
 /datum/map_template/shuttle/ship/syndicate/fighter
 	name = "Syndicate Fighter"

@@ -22,11 +22,12 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			tracked_ships -= ship_key
 		CHECK_TICK
 
-/datum/controller/subsystem/bluespace_exploration/proc/register_new_ship(shuttle_id, override_type = /datum/ship_datum)
+/datum/controller/subsystem/bluespace_exploration/proc/register_new_ship(shuttle_id, override_type = /datum/ship_datum, faction = /datum/faction/station)
 	if(shuttle_id in tracked_ships)
 		return tracked_ships[shuttle_id]
 	var/datum/ship_datum/SD = new override_type()
 	SD.mobile_port_id = shuttle_id
+	SD.ship_faction = new faction
 	SD.update_ship()
 	if(QDELETED(SD))
 		return null
@@ -97,7 +98,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		for(var/i in 1 to allowed_contents.len)
 			var/thing = allowed_contents[i]
 			qdel(thing, force=TRUE)
-		//ehhh this should be done on it's own
 		SSair.remove_from_active(T)
 
 /datum/controller/subsystem/bluespace_exploration/proc/reset_turfs(list/turfs)
@@ -108,7 +108,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			newT = T
 		else
 			newT = T.ChangeTurf(/turf/open/space)
-		SSair.add_to_active(newT,1)
 		new_turfs += newT
 	return new_turfs
 
@@ -116,7 +115,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 //TODO: Make this slower and spread over a time limit
 /datum/controller/subsystem/bluespace_exploration/proc/place_ruins(data_holder)
-	message_admins("ruin spawnings started")
 	//(Temp) get randomly created level
 	var/datum/exploration_location/location = new()
 	location.sector_features = list(FEATURE_ASTEROIDS)
@@ -154,10 +152,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		//Subtract Cost
 		cost_limit -= selected_ruin.cost
 		selected_ruin.try_to_place(reserved_bs_level.z_value, /area/space)
-		message_admins("Spawning ruin [selected_ruin.name]")
 		CHECK_TICK
+	//Debug, spawn syndie fighter
 	spawn_and_register_shuttle(spawnable_ships["Syndicate Fighter"])
-	message_admins("ruin spawnings done")
 	addtimer(CALLBACK(src, .proc/on_generation_complete, data_holder), 0)
 
 /datum/controller/subsystem/bluespace_exploration/proc/on_generation_complete(data_holder)

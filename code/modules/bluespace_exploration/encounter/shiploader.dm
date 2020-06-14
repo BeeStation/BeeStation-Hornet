@@ -1,5 +1,5 @@
 /datum/map_template/shuttle/ship
-	var/faction = "unset"
+	var/faction = /datum/faction/station
 
 	var/allowed_weapons = list()
 
@@ -10,6 +10,11 @@
 	suffix = null
 
 	can_be_bought = FALSE
+
+/datum/map_template/shuttle/ship/New()
+	if(!islist(faction))
+		faction = subtypesof(faction)
+	. = ..()
 
 /datum/map_template/shuttle/ship/proc/try_to_place(z,allowed_areas)
 	//To give unique ids to all the spawned ships

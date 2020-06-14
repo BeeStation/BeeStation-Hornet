@@ -1,6 +1,6 @@
 /datum/ship_datum
 	var/ship_name = "cringelord"
-	var/ship_faction = "nanotrasen"
+	var/ship_faction = /datum/faction/station
 
 	var/max_ship_integrity	//The ship integrity at it's highest
 	var/current_ship_integrity	//The ships current ingerity
@@ -10,6 +10,10 @@
 	var/mobile_port_id = ""
 
 	var/critical = FALSE
+
+/datum/ship_datum/New()
+	. = ..()
+	ship_faction = new ship_faction
 
 /datum/ship_datum/proc/update_ship()
 	if(critical)
