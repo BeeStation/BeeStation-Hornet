@@ -21,12 +21,13 @@
 		if(target == guardian)
 			to_chat(guardian, "<span class='danger bold'>You can't heal yourself!</span>")
 			return TRUE
+		if(!guardian.is_deployed())
+			to_chat(guardian, "<span class='danger bold'>You must manifest to heal!</span>")
+			return TRUE
 		if(isliving(target))
 			var/mob/living/L = target
 			guardian.do_attack_animation(L)
 			var/heals = -(master_stats.potential * 1.5)
-			if(!guardian.is_deployed())
-				heals = max(heals * 0.5, 2)
 			L.adjustBruteLoss(heals)
 			L.adjustFireLoss(heals)
 			L.adjustOxyLoss(heals)
