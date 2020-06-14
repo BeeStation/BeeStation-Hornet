@@ -32,6 +32,7 @@
 	var/datum/objective/blob_takeover/main = new
 	main.owner = owner
 	objectives += main
+	log_objective(owner, main.explanation_text)
 
 /datum/antagonist/blob/apply_innate_effects(mob/living/mob_override)
 	if(!isovermind(owner.current))

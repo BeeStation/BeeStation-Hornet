@@ -13,6 +13,8 @@
 	var/datum/objective/revenantFluff/objective2 = new
 	objective2.owner = owner
 	objectives += objective2
+	log_objective(owner, objective.explanation_text)
+	log_objective(owner, objective2.explanation_text)
 
 /datum/antagonist/revenant/on_gain()
 	forge_objectives()

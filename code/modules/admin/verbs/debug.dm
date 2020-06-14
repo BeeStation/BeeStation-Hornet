@@ -296,7 +296,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	for(var/mob/C in GLOB.mob_list)
 		if(C.key)
 			available.Add(C)
-	var/mob/choice = input("Choose a player to play the pAI", "Spawn pAI") in available
+	var/mob/choice = input("Choose a player to play the pAI", "Spawn pAI") in sortNames(available)
 	if(!choice)
 		return 0
 	if(!isobserver(choice))
@@ -377,8 +377,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			/mob = "M"
 		)
 		for (var/tn in TYPES_SHORTCUTS)
-			if (copytext(typename,1, length("[tn]/")+1)=="[tn]/" /*findtextEx(typename,"[tn]/",1,2)*/ )
-				typename = TYPES_SHORTCUTS[tn]+copytext(typename,length("[tn]/"))
+			if(copytext(typename, 1, length("[tn]/") + 1) == "[tn]/" /*findtextEx(typename,"[tn]/",1,2)*/ )
+				typename = TYPES_SHORTCUTS[tn] + copytext(typename, length("[tn]/"))
 				break
 		.[typename] = type
 
@@ -415,7 +415,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	if(matches.len==0)
 		return
-	var/hsbitem = input(usr, "Choose an object to delete.", "Delete:") as null|anything in matches
+	var/hsbitem = input(usr, "Choose an object to delete.", "Delete:") as null|anything in sortList(matches)
 	if(hsbitem)
 		hsbitem = matches[hsbitem]
 		var/counter = 0
@@ -769,7 +769,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if(initial(O.can_be_admin_equipped))
 				job_outfits[initial(O.name)] = path
 
-		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in job_outfits
+		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in sortList(job_outfits)
 		dresscode = job_outfits[dresscode]
 		if(isnull(dresscode))
 			return
@@ -778,7 +778,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/list/custom_names = list()
 		for(var/datum/outfit/D in GLOB.custom_outfits)
 			custom_names[D.name] = D
-		var/selected_name = input("Select outfit", "Robust quick dress shop") as null|anything in custom_names
+		var/selected_name = input("Select outfit", "Robust quick dress shop") as null|anything in sortList(custom_names)
 		dresscode = custom_names[selected_name]
 		if(isnull(dresscode))
 			return
@@ -936,7 +936,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 		names[name] = ruin_landmark
 
-	var/ruinname = input("Select ruin", "Jump to Ruin") as null|anything in names
+	var/ruinname = input("Select ruin", "Jump to Ruin") as null|anything in sortList(names)
 
 
 	var/obj/effect/landmark/ruin/landmark = names[ruinname]
@@ -967,7 +967,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	for(var/name in SSmapping.lava_ruins_templates)
 		names[name] = list(SSmapping.lava_ruins_templates[name], ZTRAIT_LAVA_RUINS, /area/lavaland/surface/outdoors/unexplored)
 
-	var/ruinname = input("Select ruin", "Spawn Ruin") as null|anything in names
+	var/ruinname = input("Select ruin", "Spawn Ruin") as null|anything in sortList(names)
 	var/data = names[ruinname]
 	if (!data)
 		return

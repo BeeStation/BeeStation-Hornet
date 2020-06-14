@@ -40,6 +40,8 @@
 
 	var/drag_slowdown // Amont of multiplicative slowdown applied if pulled. >1 makes you slower, <1 makes you faster.
 
+	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
+
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
 		if("anchored")
@@ -69,15 +71,14 @@
 		var/flagslist = splittext(set_obj_flags,";")
 		var/list/string_to_objflag = GLOB.bitfields["obj_flags"]
 		for (var/flag in flagslist)
-			if (findtext(flag,"!",1,2))
-				flag = copytext(flag,1-(length(flag))) // Get all but the initial !
+			if(flag[1] == "!")
+				flag = copytext(flag, length(flag[1]) + 1) // Get all but the initial !
 				obj_flags &= ~string_to_objflag[flag]
 			else
 				obj_flags |= string_to_objflag[flag]
 	if((obj_flags & ON_BLUEPRINTS) && isturf(loc))
 		var/turf/T = loc
 		T.add_blueprints_preround(src)
-
 
 /obj/Destroy(force=FALSE)
 	if(!ismachinery(src))
@@ -246,7 +247,7 @@
 		var/output = icon2html(src, M, unique_reskin[V])
 		to_chat(M, "[V]: <span class='reallybig'>[output]</span>")
 
-	var/choice = input(M,"Warning, you can only reskin [src] once!","Reskin Object") as null|anything in unique_reskin
+	var/choice = input(M,"Warning, you can only reskin [src] once!","Reskin Object") as null|anything in sortList(unique_reskin)
 	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
 		if(!unique_reskin[choice])
 			return

@@ -101,6 +101,9 @@ LOG_ACCESS
 ## log game actions (start of round, results, etc.)
 LOG_GAME
 
+## log antag objectives
+LOG_OBJECTIVE
+
 ## log player votes
 LOG_VOTE
 
@@ -523,8 +526,8 @@ TOPIC_MAX_SIZE 500
 
 ### Autotransfer Settings
 ## Uncomment to enable shuttle autotransfer
-#VOTE_AUTOTRANSFER_ENABLED
-## Time (in deciseconds) before the first transfer vote. Default: 2 hours
-VOTE_AUTOTRANSFER_INITIAL 72000
+VOTE_AUTOTRANSFER_ENABLED
+## Time (in deciseconds) before the first transfer vote. Default: 90 minutes
+VOTE_AUTOTRANSFER_INITIAL 54000
 ## Time (in deciseconds) between subsequent transfer votes. Default: 30 minutes
 VOTE_AUTOTRANSFER_INTERVAL 18000

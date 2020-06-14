@@ -344,9 +344,13 @@
 
 			if(MUTCOLORS in N.dna.species.species_traits) //take current alien color and darken it slightly
 				var/newcolor = ""
-				var/len = length(N.dna.features["mcolor"])
-				for(var/i=1, i<=len, i+=1)
-					var/ascii = text2ascii(N.dna.features["mcolor"],i)
+				var/string = N.dna.features["mcolor"]
+				var/len = length(string)
+				var/char = ""
+				var/ascii = 0
+				for(var/i=1, i<=len, i += length(char))
+					char = string[i]
+					ascii = text2ascii(char)
 					switch(ascii)
 						if(48)
 							newcolor += "0"
@@ -357,7 +361,7 @@
 						if(98 to 102)
 							newcolor += ascii2text(ascii-1)	//letters b to f lowercase
 						if(65)
-							newcolor +="9"
+							newcolor += "9"
 						if(66 to 70)
 							newcolor += ascii2text(ascii+31)	//letters B to F - translates to lowercase
 						else
@@ -588,6 +592,8 @@
 	race = /datum/species/human/supersoldier
 	mutationtext = "<span class='danger'>The pain subsides. You feel... like you can take on anything.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = FALSE
+	random_unrestricted = FALSE 
 
 
 //DANGEROUS RACES
@@ -938,7 +944,8 @@
 			var/obj/effect/decal/cleanable/greenglow/GG = locate() in T.contents
 			if(!GG)
 				GG = new/obj/effect/decal/cleanable/greenglow(T)
-			GG.reagents.add_reagent(type, reac_volume)
+			if(!QDELETED(GG))
+				GG.reagents.add_reagent(type, reac_volume)
 
 /datum/reagent/uranium/radium
 	name = "Radium"
