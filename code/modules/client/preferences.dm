@@ -1730,7 +1730,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("ghost_pda")
 					chat_toggles ^= CHAT_GHOSTPDA
-				
+
 				if("ghost_laws")
 					chat_toggles ^= CHAT_GHOSTLAWS
 
