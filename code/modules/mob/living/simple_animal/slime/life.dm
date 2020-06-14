@@ -211,7 +211,7 @@
 		var/mob/living/simple_animal/SA = M
 
 		var/totaldamage = 0 //total damage done to this unfortunate animal
-		totaldamage += SA.adjustCloneLoss(4)
+		totaldamage += SA.adjustCloneLoss(2)
 		totaldamage += SA.adjustToxLoss(2)
 
 		if(totaldamage <= 0) //if we did no(or negative!) damage to it, stop
@@ -222,7 +222,7 @@
 		Feedstop(0, 0)
 		return
 
-	add_nutrition((18 * CONFIG_GET(number/damage_multiplier)))
+	add_nutrition((11 * CONFIG_GET(number/damage_multiplier)))
 
 	//Heal yourself.
 	adjustBruteLoss(-5)
