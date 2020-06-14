@@ -1,6 +1,6 @@
-FROM beestation/byond:513.1521 as base
+FROM beestation/byond:513.1525 as base
 ONBUILD ENV BYOND_MAJOR=513
-ONBUILD ENV BYOND_MINOR=1521
+ONBUILD ENV BYOND_MINOR=1525
 
 FROM base as build_base
 
@@ -99,7 +99,8 @@ COPY --from=bsql /bsql/artifacts/src/BSQL/libBSQL.so ./
 COPY --from=build /deploy ./
 
 #bsql fexists memes
-RUN ln -s /beestation/libBSQL.so /root/.byond/bin/libBSQL.so
+RUN ln -s /beestation/libBSQL.so /root/.byond/bin/libBSQL.so \
+    && ln -s /beestation/libbyond-extools.so /root/.byond/bin/libbyond-extools.so
 
 VOLUME [ "/beestation/config", "/beestation/data" ]
 

@@ -348,6 +348,12 @@
 	var/sacced = FALSE
 	var/sac_image
 
+/datum/objective/sacrifice/is_valid_target(possible_target)
+	. = ..()
+	var/datum/mind/M = possible_target
+	if(istype(M) && isIPC(M.current))
+		return FALSE
+
 /datum/objective/sacrifice/check_completion()
 	return sacced || completed
 
