@@ -1,0 +1,4 @@
+author: zeskorion
+delete-after: true
+changes:
+  - code_imp: fixes a runtime in experimental diseases that dont have a special symptom
