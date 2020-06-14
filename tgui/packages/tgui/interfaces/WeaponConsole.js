@@ -1,11 +1,9 @@
-import { filter, sortBy } from 'common/collections';
-import { flow } from 'common/fp';
+
 import { classes } from 'common/react';
-import { createSearch } from 'common/string';
 import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from '../backend';
-import { Button, ByondUi, Input, Section, Box, Divider, ProgressBar, NoticeBox, Flex, Table } from '../components';
-import { refocusLayout, Window } from '../layouts';
+import { useBackend } from '../backend';
+import { ByondUi, Section, Box, Divider, ProgressBar, NoticeBox, Table } from '../components';
+import { Window } from '../layouts';
 
 export const WeaponConsole = (props, context) => {
   const { act, data, config } = useBackend(context);

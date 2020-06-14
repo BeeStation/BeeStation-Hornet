@@ -6,13 +6,23 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	priority = FIRE_PRIORITY_EXPLORATION
 	init_order = INIT_ORDER_BS_EXPLORATION
 
+	//Starmap generation
+	var/datum/star_system/current_system = null
+	var/list/star_systems = list()
+	var/list/star_links = list()
+
+	//Ruin generation
 	var/datum/space_level/reserved_bs_level
 	var/list/ruin_templates = list()
 	var/obj/docking_port/stationary/away_mission_port
 
+	//Ship combat
 	var/list/spawnable_ships = list()
-
 	var/list/tracked_ships = list()
+
+/datum/controller/subsystem/bluespace_exploration/Initialize(start_timeofday)
+	generate_starmap()
+	. = ..()
 
 /datum/controller/subsystem/bluespace_exploration/fire(resumed = 0)
 	for(var/ship_key in tracked_ships)
