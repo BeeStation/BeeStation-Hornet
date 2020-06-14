@@ -398,6 +398,12 @@
 /datum/config_entry/number/max_slimes
 	config_entry_value = 100
 
+//Maximum citation fine
+/datum/config_entry/number/maxfine
+	config_entry_value = 1000
+	min_val = 0
+
+
 //Shuttle size limiter
 /datum/config_entry/number/max_shuttle_count
 	config_entry_value = 6
