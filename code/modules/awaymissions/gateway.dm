@@ -253,11 +253,11 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	name = "Confidential Correspondence, Pg 1"
 
 /obj/item/paper/fluff/itemnotice
-	info = "Notice: Over the last few weeks increased reports of surplus, trash items such as wrappers being found in Bluespace Capsule Products. In the event this encampment has any such item, please dispose of them within a wastebin or the provided bonfire, especially if such items include frivolous, frankly embarassing things. We apologise for the inconvienence. Thank you. -- Nanotrasen BS Productions"
+	info = "Notice: Over the last few weeks there have been increased reports of surplus, trash items such as wrappers being found in Bluespace Capsule Products. In the event this encampment has any such item, please dispose of them within a wastebin or the provided bonfire, especially if such items include frivolous, frankly embarassing things. We apologise for the inconvienence. Thank you. -- Nanotrasen BS Productions"
 	name = "Surplus Item Removal Notice"
 
 /obj/item/paper/fluff/encampmentwelcome
-	info = "Welcome! If you are reading this, then you have bought and deployed the new line of bluespace capsule shelters, the mining encampment! This capsule provides standard equipment that the originals, and more, such as an expanded food vendor, floor safe, restroom, suit storage, spare equipment, and a personal requisitions vendor! The outside has even been lined with basalt tiles, just so no rocks get in the way of the cozy courtyard! We hope you stay safe, and enjoy the amenities! - Nanotrasen BS Productions"
+	info = "Welcome! If you are reading this, then you have bought and deployed the new line of bluespace capsule shelters, the mining encampment! This capsule provides standard shelter equipment and more, such as an expanded food vendor, floor safe, restroom, suit storage, spare equipment, and a personal requisitions vendor! The outside has even been lined with basalt tiles, just so no rocks get in the way of the cozy courtyard! We hope you stay safe, and enjoy the amenities! - Nanotrasen BS Productions"
 	name = "Welcome!"
 
 /obj/item/paper/fluff/shuttlenotice
