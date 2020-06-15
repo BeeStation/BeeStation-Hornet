@@ -1001,7 +1001,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/deployablemine/traitor
 	cost = 4
 	include_modes = list(/datum/game_mode/nuclear/clown_ops)
-	
+
 /datum/uplink_item/explosives/virus_grenade
 	name = "Fungal Tuberculosis Grenade"
 	desc = "A primed bio-grenade packed into a compact box. Comes with five Bio Virus Antidote Kit (BVAK) \
@@ -2060,11 +2060,11 @@ datum/uplink_item/role_restricted/superior_honkrender
 	desc = "Nothing is more terrifying than clowns with fully automatic weaponry."
 	item = /obj/item/storage/backpack/duffelbag/clown/syndie
 
-/datum/uplink_item/badass/balloon
-	name = "Syndicate Balloon"
-	desc = "For showing that you are THE BOSS: A useless red balloon with the Syndicate logo on it. \
-			Can blow the deepest of covers."
-	item = /obj/item/toy/syndicateballoon
+/datum/uplink_item/badass/noobbodybag
+	name = "Syndicate Body Bag"
+	desc = "Send them back to the people... In a body bag. \
+			Demoralizes even the most strong willed crew members!"
+	item = /obj/item/bodybag/noob
 	cost = 20
 	cant_discount = TRUE
 	illegal_tech = FALSE
