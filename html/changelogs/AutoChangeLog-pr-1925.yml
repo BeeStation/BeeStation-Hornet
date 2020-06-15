@@ -1,0 +1,8 @@
+author: Flakkyboo
+delete-after: true
+changes:
+  - tweak: Reduced loom time for cloth to silk.
+  - balance: Reduced Material cost and buildtime for the pipebow making it easier
+      to make.
+  - imageadd: edited unloaded bow sprites to make reloading easier by giving you more
+      valid space to click
