@@ -82,6 +82,18 @@
 		qdel(src)
 
 
+
+
+/obj/structure/closet/body_bag/noob
+	name = "syndicate body bag"
+	desc = "Developed by the Syndicate, this body bag was engineered to demoralize the spirits of the dead to deter them from haunting Syndicate members after a successful mission."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "noobbodybag"
+	open_sound = 'sound/misc/fart1.ogg'
+	close_sound = 'sound/misc/fart1.ogg'
+
+// bluespace body bag
+
 /obj/structure/closet/body_bag/bluespace
 	name = "bluespace body bag"
 	desc = "A bluespace body bag designed for the storage and transportation of cadavers."
