@@ -261,5 +261,5 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	name = "Welcome!"
 
 /obj/item/paper/fluff/shuttlenotice
-	info = "To the acting captain of NT Research Station SS13, Due to the nature of your emergency, we sadly had to expedite the process of constructing this shuttle, and as such it does not follow standard sanitary regulations. We appreciate your purchase, and apologise for the inconvienence. Thank you, and have a safe flight! -- Nanotrasen BS Productions Engineering Team"
+	info = "To the acting captain of Nanotrasen Research Station SS13, Due to the nature of your emergency, we sadly had to expedite the process of constructing this shuttle, and as such it does not follow standard sanitary regulations. We appreciate your purchase, and apologise for the inconvienence. Thank you, and have a safe flight! -- Nanotrasen BS Productions Engineering Team"
 	name = "Shuttle Notice"
