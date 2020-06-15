@@ -264,8 +264,8 @@
 	result = /obj/item/gun/ballistic/bow/pipe
 	reqs = list(/obj/item/pipe = 5,
 				/obj/item/stack/sheet/plastic = 15,
-				/obj/item/weaponcrafting/silkstring = 10)
-	time = 450
+				/obj/item/weaponcrafting/silkstring = 4)
+	time = 120
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -367,7 +367,7 @@
 	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/ashen_arrow
-	name = "Fire hardened arrow"
+	name = "Ashen arrow"
 	result = /obj/item/ammo_casing/caseless/arrow/ash
 	tools = list(TOOL_WELDER)
 	time = 30
