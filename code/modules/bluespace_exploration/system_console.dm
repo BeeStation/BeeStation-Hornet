@@ -49,7 +49,8 @@
 			"name" = star.name,
 			"x" = star.map_x,
 			"y" = star.map_y,
-			"orbitting" = current_system == star,
+			"orbitting" = SSbluespace_exploration.current_system == star,
+			"can_jump" = SSbluespace_exploration.current_system ? (star in SSbluespace_exploration.current_system.linked_stars) : FALSE,
 		)
 		data["stars"] += list(formatted_star)
 	for(var/datum/star_link/link in SSbluespace_exploration.star_links)

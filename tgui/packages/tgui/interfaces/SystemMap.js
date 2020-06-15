@@ -92,6 +92,18 @@ export const StarMapSvg = (props, context) => {
             }}
             top={(star.y-16)+"px"}
             left={(star.x-16)+"px"} />
+          {star.orbitting
+            ? (
+              <Box
+                position="absolute"
+                className={icon_cache[0].class_name}
+                style={{
+                  'transform': 'scale(1.5, 1.5);',
+                }}
+                top={(star.y-16)+"px"}
+                left={(star.x-16)+"px"} />
+            )
+            : ""}
         </Fragment>
       ))}
     </Fragment>
