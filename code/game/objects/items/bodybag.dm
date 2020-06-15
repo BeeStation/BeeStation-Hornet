@@ -33,6 +33,14 @@
 		playsound(src, 'sound/items/zip.ogg', 15, 1, -3)
 		return (OXYLOSS)
 	..()
+//noob bodybag lol
+/obj/item/bodybag/noob
+	name = "syndicate body bag"
+	desc = "Developed by the Syndicate, this body bag was engineered to demoralize the spirits of the dead to deter them from haunting Syndicate members after a successful mission."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "noobbodybag_folded"
+	unfoldedbag_path = /obj/structure/closet/body_bag/noob
+	w_class = WEIGHT_CLASS_SMALL
 
 // Bluespace bodybag
 
