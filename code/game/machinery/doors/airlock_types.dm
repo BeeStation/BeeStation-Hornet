@@ -7,7 +7,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_com
 	wiretypepath = /datum/wires/airlock/command
 	normal_integrity = 450
-	security_level = 3
+	security_level = 1
 
 /obj/machinery/door/airlock/security
 	icon = 'icons/obj/doors/airlocks/station/security.dmi'
