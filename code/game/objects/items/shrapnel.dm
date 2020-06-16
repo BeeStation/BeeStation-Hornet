@@ -1,6 +1,6 @@
 /obj/item/shrapnel // frag grenades
 	name = "shrapnel shard"
-	embedding = list(embed_chance=70, ignore_throwspeed_threshold=TRUE, fall_chance=4, embed_chance_turf_mod=-100)
+	embedding = list(embed_chance=70, ignore_throwspeed_threshold=TRUE, fall_chance=4)
 	custom_materials = list(/datum/material/iron=50)
 	armour_penetration = -20
 	icon = 'icons/obj/shards.dmi'
@@ -10,7 +10,7 @@
 
 /obj/item/shrapnel/stingball // stingbang grenades
 	name = "stingball"
-	embedding = list(embed_chance=90, fall_chance=3, jostle_chance=7, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.7, pain_mult=5, jostle_pain_mult=6, rip_time=15, embed_chance_turf_mod=-100)
+	embedding = list(embed_chance=90, fall_chance=3, jostle_chance=7, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.7, pain_mult=5, jostle_pain_mult=6, rip_time=15)
 	icon_state = "tiny"
 
 /obj/item/shrapnel/bullet // bullets
@@ -24,7 +24,7 @@
 
 /obj/item/shrapnel/bullet/c38/dumdum // .38 DumDum round
 	name = "\improper .38 DumDum bullet"
-	embedding = list(embed_chance=70, fall_chance=7, jostle_chance=7, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.4, pain_mult=5, jostle_pain_mult=6, rip_time=10, embed_chance_turf_mod=-100)
+	embedding = list(embed_chance=70, fall_chance=7, jostle_chance=7, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.4, pain_mult=5, jostle_pain_mult=6, rip_time=10)
 
 /obj/item/projectile/bullet/shrapnel
 	name = "flying shrapnel shard"
