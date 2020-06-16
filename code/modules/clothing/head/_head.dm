@@ -29,8 +29,8 @@
 		return	
 	if(iscarbon(hit_atom))
 		var/mob/living/carbon/H = hit_atom
-		if(istype(H.head, /obj/item))
-			var/obj/item/WH = H.head
+		if(istype(H.head, /obj/item/clothing))
+			var/obj/item/clothing/WH = H.head
 			///check if the item has NODROP
 			if(HAS_TRAIT(WH, TRAIT_NODROP))
 				H.visible_message("<span class='warning'>[src] bounces off [H]'s [WH.name]!</span>", "<span class='warning'>[src] bounces off your [WH.name], falling to the floor.</span>")
