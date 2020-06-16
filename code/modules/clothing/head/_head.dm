@@ -26,7 +26,7 @@
 		return
 	///if the hat happens to be capable of holding contents and has something in it. mostly to prevent super cheesy stuff like stuffing a mini-bomb in a hat and throwing it
 	if(LAZYLEN(contents))
-		return	
+		return
 	if(iscarbon(hit_atom))
 		var/mob/living/carbon/H = hit_atom
 		if(istype(H.head, /obj/item/clothing))
