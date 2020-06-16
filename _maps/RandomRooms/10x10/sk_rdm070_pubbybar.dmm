@@ -26,6 +26,7 @@
 /obj/effect/spawner/lootdrop/three_course_meal,
 /obj/effect/spawner/lootdrop/three_course_meal,
 /obj/structure/closet/crate,
+/obj/item/paper/crumpled/beernuke,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},

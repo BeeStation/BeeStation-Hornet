@@ -558,6 +558,9 @@ ROUNDSTART_TRAITS
 ## Sets shift time to server time at roundstart. Overridden by RANDOMIZE_SHIFT_TIME ##
 #SHIFT_TIME_REALTIME
 
+## Maximum fine for a citation
+MAXFINE 2000
+
 ## Enable the capitalist agenda on your server.
 ECONOMY
 
