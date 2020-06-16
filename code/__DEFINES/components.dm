@@ -8,7 +8,7 @@
 #define ELEMENT_INCOMPATIBLE 1 //! Return value to cancel attaching
 
 // /datum/element flags
-/// Causes the detach proc to be called when the host object is being deleted 
+/// Causes the detach proc to be called when the host object is being deleted
 #define ELEMENT_DETACH		(1 << 0)
 /**
   * Only elements created with the same arguments given after `id_arg_index` share an element instance
@@ -103,6 +103,7 @@
 
 /////////////////
 
+#define COMSIG_AREA_POWER_CHANGE "area_power_change"			//! from base of area/proc/power_change(): ()
 #define COMSIG_ENTER_AREA "enter_area" 							//! from base of area/Entered(): (/area)
 #define COMSIG_EXIT_AREA "exit_area" 							//! from base of area/Exited(): (/area)
 
