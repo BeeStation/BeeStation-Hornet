@@ -128,10 +128,10 @@
 		<input type='checkbox' id='allowrevoting' name='allowrevoting' value='1'[poll?.allow_revoting ? " checked" : ""]>
 		<div class='inputbox'></div>
 	</label>
-	<br>
+	<hr>
 	<div class='row'>
 		<div class='column left'>
-			Duration
+			<b>Duration</b>
 			<br>
 			<label class='inputlabel radio'>
 				Run for
@@ -159,7 +159,7 @@
 			<input type='text' name='enddatetimetext' size='24' value='[poll?.end_datetime ? "[poll.end_datetime]" : "YYYY-MM-DD HH:MM:SS"]'>
 		</div>
 		<div class='column'>
-			Start
+			<b>Start</b>
 			<br>
 			<label class='inputlabel radio'>
 				Now
@@ -174,7 +174,8 @@
 				<div class='inputbox'></div>
 			</label>
 			<input type='text' name='startdatetimetext' size='24' value='[poll?.start_datetime ? "[poll.start_datetime]" : "YYYY-MM-DD HH:MM:SS"]'>
-			Minimum playtime to vote (in hours)
+		<div class='column'>
+			<b>Minimum playtime to vote (in hours)</b>
 			<br>
 			<label class='inputlabel radio'>
 				None
