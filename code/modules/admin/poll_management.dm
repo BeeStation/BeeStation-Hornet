@@ -296,7 +296,7 @@
 		if("noplaytime")
 			poll.minimumplaytime = 0
 		if("setplaytime")
-			if(href_list["minimumplaytimetext"] && href_list["minimumplaytimetext"] > 0)
+			if(href_list["minimumplaytimetext"] && text2num(href_list["minimumplaytimetext"]) > 0)
 				poll.minimumplaytime = round(text2num(href_list["minimumplaytimetext"]))
 			else
 				poll.minimumplaytime = 0
