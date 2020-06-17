@@ -185,7 +185,7 @@
 			<br>
 			<label class='inputlabel radio'>
 				At playtime
-				<input type='radio' id='setplaytime' name='radioplaytime' value='setplaytime'[poll?.minimumplaytime ? " checked" : ""]>
+				<input type='radio' id='setplaytime' name='radioplaytime' value='[poll?.minimumplaytime ? "[poll?.minimumplaytime]" : ""]'[poll?.minimumplaytime ? " checked" : ""]>
 				<div class='inputbox'></div>
 			</label>
 			<input type='text' name='minimumplaytimetext' size='24' value='[poll?.minimumplaytime ? "[poll?.minimumplaytime]" : ""]'>
@@ -212,7 +212,7 @@
 		<a href='[CONFIG_GET(string/wikiurl)]/Guide_to_poll_types'>Which poll type should I use?</a>
 		"}
 	else
-		output += "<input type='hidden' name='submitpoll' value='[REF(poll)]'><input type='submit' value='Submit poll'>"
+		output += "<br><input type='hidden' name='submitpoll' value='[REF(poll)]'><input type='submit' value='Submit poll'>"
 		if(poll.edit_ready)
 			output += {"<label class='inputlabel checkbox'>Clear votes on edit
 			<input type='checkbox' id='clearvotesedit' name='clearvotesedit' value='1' checked>
