@@ -177,13 +177,11 @@
 		<div class='column'>
 			<b>Minimum playtime to vote (in hours)</b>
 			<br>
-			<br>
 			<label class='inputlabel radio'>
 				None
 				<input type='radio' id='noplaytime' name='radioplaytime' value='noplaytime'[!poll?.minimumplaytime ? " checked" : ""]>
 				<div class='inputbox'></div>
 			</label>
-			</div>
 			<br>
 			<label class='inputlabel radio'>
 				At playtime
