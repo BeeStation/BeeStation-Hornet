@@ -71,7 +71,7 @@
 	throw_speed = 3
 	throw_range = 6
 	materials = list(/datum/material/iron=12000)
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	sharpness = IS_SHARP_ACCURATE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	var/bayonet = FALSE	//Can this be attached to a gun?
@@ -113,7 +113,7 @@
 	force = 15
 	throwforce = 10
 	materials = list(/datum/material/iron=18000)
-	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = 60
 
@@ -124,7 +124,7 @@
 	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 65, "embedded_fall_chance" = 10, "embedded_ignore_throwspeed_threshold" = TRUE)
 	force = 20
 	throwforce = 20
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
+	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "cut")
 	bayonet = TRUE
 
 /obj/item/kitchen/knife/combat/survival
