@@ -5,14 +5,14 @@ This system lets you spray and pray with guns when dragging the mouse.
 
 */
 
-/obj/item/gun/proc/can_fire_at(atom/target, mob/user)
+/obj/item/gun/proc/can_fire_at(atom/target, mob/living/user)
 	if(!target)
 		return FALSE
 
 	if(target == user) //so we can't shoot ourselves with autofire
 		return FALSE
 
-	if(user.stat != CONSCIOUS) //No firing in softcrit
+	if(user.stat != CONSCIOUS || user.IsInStasis()) //No firing in softcrit, stasis, or whatever else.
 		return FALSE
 
 	if(user.get_active_held_item() != src)
@@ -49,15 +49,18 @@ This system lets you spray and pray with guns when dragging the mouse.
 	return ..()
 
 /obj/item/gun/onMouseDown(object, location, params)
+	. = ..()
+	if(!autofire_target && world.time >= next_autofire)
+		start_autofiring(object)
+
+/obj/item/gun/proc/start_autofiring(object)
 	set waitfor = FALSE //Asynchronous processing is required here due to the while loop. In other words. Don't hold up the client's clicking while we run a loop that can go on for ages (potentially!)
-	if(world.time < next_autofire)
-		autofire_target = null
-		return FALSE
-	next_autofire = world.time + 0.25 SECONDS //Get out of here with your stupid autoclicker...
+	next_autofire = world.time + 1 SECONDS
 	var/mob/user = src.loc
 	autofire_target = object //When we start firing, we start firing at whatever you clicked on initially. When the user drags their mouse, this shall change.
 	while(autofire_target)  //While will only run while we have a user (loc) that is a mob, and we are being actively held by this mob, they have a client (as to prevent disconnecting mid-fight causing you to perma-fire) and of course, if we passed the previous check about autofiring.
 		if(can_fire_at(autofire_target, user))
+			user.setDir(get_dir(user, object))
 			afterattack(autofire_target, user)
 		else
 			autofire_target = null
