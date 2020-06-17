@@ -205,7 +205,7 @@
 		</div></div>
 		</form>
 		<hr>
-		First enter the poll question details and press Initialize Question.
+		First enter the poll question, duration, start, and playtime requirement then press Initialize Question.
 		<br>
 		Then add poll options and press Submit Poll to save and create the question and options. No options are required for Text Reply polls.
 		<br>
