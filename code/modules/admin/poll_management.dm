@@ -186,7 +186,6 @@
 			<label class='inputlabel radio'>
 				At playtime
 				<input type='radio' id='setplaytime' name='radioplaytime' value='setplaytime'[poll?.minimumplaytime ? " checked" : ""]>
-				<input type='text' name='duration' size='7'[poll?.interval ? " value='[poll?.duration]''" : ""]'>
 				<div class='inputbox'></div>
 			</label>
 			<input type='text' name='minimumplaytimetext' size='24' value='[poll?.minimumplaytime ? "[poll?.minimumplaytime]" : ""]'>
@@ -201,7 +200,7 @@
 		"}
 	var/option_count = 0
 	if(!poll)
-		output += {"<input type='hidden' name='initializepoll' value='1'>
+		output += {"<br><input type='hidden' name='initializepoll' value='1'>
 		<input type='submit' value='Initialize Question'>
 		</div></div>
 		</form>
