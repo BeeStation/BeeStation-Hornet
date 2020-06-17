@@ -249,7 +249,7 @@
 	for(var/atom/movable/A in contents)
 		A.forceMove(get_turf(src))
 		if(isliving(A))
-			to_chat(A, "<span class='notice'>You suddenly feel the space around you torn apart! You're free!</span>")
+			to_chat(A, "<span class='notice'>You suddenly feel the space around you tear apart! You're free!</span>")
 	return ..()
 
 /obj/item/clothing/head/that/bluespace/container_resist(mob/living/user)
