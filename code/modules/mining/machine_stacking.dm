@@ -101,6 +101,8 @@
 	return ..()
 
 /obj/machinery/mineral/stacking_machine/HasProximity(atom/movable/AM)
+	if(QDELETED(AM))
+		return
 	if(istype(AM, /obj/item/stack/sheet) && AM.loc == get_step(src, input_dir))
 		var/obj/effect/portal/P = locate() in AM.loc
 		if(P)
@@ -122,6 +124,8 @@
 			return TRUE
 
 /obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
+	if(QDELETED(inp))
+		return
 	var/key = inp.merge_type
 	var/obj/item/stack/sheet/storage = stack_list[key]
 	if(!storage) //It's the first of this sheet added
