@@ -574,7 +574,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("adjust_pay")
 			//Adjust the paycheck of a crew member. Can't be less than zero.
-			to_chat(usr, "<span class='warning'>adjust pay</span>")
 			var/account_name = href_list["account"]
 			var/datum/bank_account/account = null
 			for(var/datum/bank_account/B in SSeconomy.bank_accounts)
@@ -584,9 +583,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(isnull(account))
 				updateUsrDialog()
 				return
-			to_chat(usr, "<span class='warning'>[account.account_holder]</span>")
 			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", account.paycheck_amount) as num|null, 1)
-			to_chat(usr, "<span class='warning'>after input</span>")
 			if(isnull(new_pay))
 				updateUsrDialog()
 				return
