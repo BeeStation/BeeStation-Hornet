@@ -212,7 +212,7 @@
 		<a href='[CONFIG_GET(string/wikiurl)]/Guide_to_poll_types'>Which poll type should I use?</a>
 		"}
 	else
-		output += "<input type='hidden' name='submitpoll' value='[REF(poll)]'><input type='submit' value='Submit poll'>"
+		output += "<br><input type='hidden' name='submitpoll' value='[REF(poll)]'><input type='submit' value='Submit poll'>"
 		if(poll.edit_ready)
 			output += {"<label class='inputlabel checkbox'>Clear votes on edit
 			<input type='checkbox' id='clearvotesedit' name='clearvotesedit' value='1' checked>
