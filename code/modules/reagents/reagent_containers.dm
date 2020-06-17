@@ -14,6 +14,7 @@
 	var/spillable = FALSE
 	var/list/fill_icon_thresholds = null
 	var/fill_icon_state = null // Optional custom name for reagent fill icon_state prefix
+	var/prevent_grinding = FALSE //used for ungrindable stuff
 
 /obj/item/reagent_containers/Initialize(mapload, vol)
 	. = ..()

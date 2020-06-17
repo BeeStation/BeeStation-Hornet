@@ -565,6 +565,9 @@ RANDOMIZE_SHIFT_TIME
 ## A cap on how many monkeys may be created via monkey cubes
 MONKEYCAP 100
 
+## Maximum fine for a citation
+MAXFINE 2000
+
 ## Enable the capitalist agenda on your server.
 ECONOMY
 
