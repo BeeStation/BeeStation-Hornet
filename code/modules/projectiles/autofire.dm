@@ -24,7 +24,8 @@ This system lets you spray and pray with guns when dragging the mouse.
 	if(target in user.contents) //can't shoot stuff inside us.
 		return FALSE
 
-	if(user.a_intent == INTENT_HARM) //melee attacks are handled by attackby, not autofire
+	if(get_dist(target, user) <= 1 && !isturf(target))
+		target.attackby(target, user)
 		return FALSE
 
 	if(isliving(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
