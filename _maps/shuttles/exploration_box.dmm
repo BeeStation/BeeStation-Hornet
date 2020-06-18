@@ -523,6 +523,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/wood,
 /area/shuttle/exploration/service)
+"or" = (
+/obj/machinery/shuttle_weapon/laser/triple{
+	dir = 4;
+	side = 1
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/command)
 "oT" = (
 /obj/structure/sign/directions/medical{
 	dir = 8;
@@ -616,6 +623,12 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/exploration/service)
+"qQ" = (
+/obj/machinery/shuttle_weapon/laser/triple{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/command)
 "ro" = (
 /turf/closed/wall/mineral/titanium/interior,
 /area/shuttle/exploration/command)
@@ -1192,6 +1205,16 @@
 	pixel_x = -12
 	},
 /turf/open/floor/plasteel,
+/area/shuttle/exploration/command)
+"Ht" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/computer/system_map/exploration{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
 /area/shuttle/exploration/command)
 "HV" = (
 /obj/machinery/shieldgen,
@@ -1900,12 +1923,6 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/exploration/command)
-"Yk" = (
-/obj/machinery/shuttle_weapon/laser/triple{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/exploration/command)
 "YB" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2279,8 +2296,8 @@ TK
 TK
 TK
 xQ
-Yk
-Oc
+TK
+qQ
 lx
 NU
 Zx
@@ -2288,8 +2305,8 @@ rG
 qr
 Gj
 gr
-Oc
-Yk
+or
+TK
 IY
 TK
 TK
@@ -2340,7 +2357,7 @@ TK
 oj
 oj
 zL
-gf
+Ht
 gf
 gf
 vg

@@ -1,10 +1,14 @@
+#define WEAPON_SIDE_LEFT -1
+#define WEAPON_SIDE_RIGHT 1
+#define WEAPON_SIDE_NONE 0
+
 GLOBAL_LIST_EMPTY(shuttle_weapons)
 
 /obj/machinery/shuttle_weapon
 	name = "Mounted Emplacement"
 	desc = "A weapon system mounted onto a shuttle system."
-	icon = 'icons/obj/singularity.dmi'
-	icon_state = "emitter"
+	icon = 'icons/obj/shuttle_weapons.dmi'
+	icon_state = "cannon_left"
 	anchored = TRUE
 	var/unique_id
 	var/projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser
@@ -22,15 +26,44 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	var/turf/target_turf
 	var/next_shot_world_time = 0
 
+	var/side = WEAPON_SIDE_LEFT
+	var/directional_offset = 32
+	var/offset_turf_x = 0
+	var/offset_turf_y = 0
+
 /obj/machinery/shuttle_weapon/Initialize()
 	. = ..()
 	var/static/weapon_systems = 0
 	unique_id = weapon_systems++
 	GLOB.shuttle_weapons["[unique_id]"] = src
+	set_directional_offset(dir, TRUE)
 
-/obj/machinery/shuttle_weapon/examine(mob/user)
+/obj/machinery/shuttle_weapon/setDir(newdir)
 	. = ..()
-	fire(target_turf)	//Debug lol
+	//Shuttle rotations handle the pixel_x changes, and this shouldn't be rotatable, unless rotated from a shuttle
+	set_directional_offset(newdir, FALSE)
+
+/obj/machinery/shuttle_weapon/proc/set_directional_offset(newdir, update_pixel = FALSE)
+	var/offset_value = directional_offset * side
+	offset_turf_x = 0
+	offset_turf_y = 0
+	switch(newdir)
+		if(1)
+			if(update_pixel)
+				pixel_x = offset_value
+			offset_turf_x = side
+		if(2)
+			if(update_pixel)
+				pixel_x = -offset_value
+			offset_turf_x = -side
+		if(4)
+			if(update_pixel)
+				pixel_y = -offset_value
+			offset_turf_y = -side
+		if(8)
+			if(update_pixel)
+				pixel_y = offset_value
+			offset_turf_y = side
 
 /obj/machinery/shuttle_weapon/proc/check_ammo(ammount = 0)
 	return TRUE
@@ -54,7 +87,7 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	var/turf/current_target_turf = locate(target.x + rand(-innaccuracy, innaccuracy), target.y + rand(-innaccuracy, innaccuracy), target.z)
 	playsound(loc, fire_sound, 75, 1)
 	//Spawn the projectile to make it look like its firing from your end
-	var/obj/item/projectile/P = new projectile_type(get_turf(src))
+	var/obj/item/projectile/P = new projectile_type(get_offset_target_turf(get_turf(src), offset_turf_x, offset_turf_y))
 	P.fire(dir2angle(dir))
 	addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, current_target_turf), flight_time)
 	//Multishot cannons

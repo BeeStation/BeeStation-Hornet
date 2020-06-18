@@ -22,7 +22,10 @@
 	//Locate the shuttle ID we are attatched to (if we are attatched)
 	if(!shuttle_id)
 		var/turf/our_turf = get_turf(src)
-		for(var/obj/docking_port/mobile/M as anything in SSbluespace_exploration.tracked_ships)
+		for(var/shuttle_dock_id in SSbluespace_exploration.tracked_ships)
+			var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_dock_id)
+			if(!M)
+				continue
 			if(M.z != z)
 				continue
 			if(our_turf in M.return_turfs())
@@ -32,7 +35,7 @@
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_id)
 	if(M)
 		for(var/obj/machinery/bluespace_drive/BSD as anything in GLOB.bluespace_drives)
-			if(BSD in M.return_turfs())
+			if(get_turf(BSD) in M.return_turfs())
 				linked_bluespace_drive = WEAKREF(BSD)
 				break
 	//expertly copypasted from pill_press, with some minor altercations to make use of staticness
@@ -84,7 +87,7 @@
 	data["icon_cache"] = starmap_icons_cache
 	data["stars"] = list()
 	data["links"] = list()
-	data["jump_state"] = linked_bluespace_drive ? TRUE : FALSE
+	data["jump_state"] = linked_bluespace_drive.resolve() ? TRUE : FALSE
 	for(var/datum/star_system/star as anything in SSbluespace_exploration.star_systems)
 		var/list/formatted_star = list(
 			"name" = star.name,

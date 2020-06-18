@@ -20,7 +20,7 @@ export const SystemMap = (props, context) => {
         <Window.Content scrollable>
           { bluespace_drive
             ? <StarMapStarList />
-            : <StarMapStarList />}
+            : <StarMapNoJump />}
         </Window.Content>
       </div>
       <div className="SystemMap__right">
@@ -33,6 +33,40 @@ export const SystemMap = (props, context) => {
         </div>
       </div>
     </Window>
+  );
+};
+
+export const StarMapNoJump = (props, context) => {
+  return (
+    <Section>
+      <Box
+        className={classes([
+          'Button',
+          'Button--fluid',
+          'Button--color--transparent',
+          'Button--ellipsis',
+          'Button--selected',
+        ])}>
+        <b>
+          Sol
+        </b>
+        <Divider />
+        Current Location
+      </Box>
+      <Box
+        className={classes([
+          'Button',
+          'Button--fluid',
+          'Button--color--grey',
+          'Button--ellipsis',
+        ])}>
+        <b>
+          Hyperspace Travel
+        </b>
+        <Divider />
+        Emergency jump into hyperspace, allowing you time to repair for the next fight.
+      </Box>
+    </Section>
   );
 };
 
