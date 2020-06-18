@@ -5826,21 +5826,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"amB" = (
-/obj/structure/girder,
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/structure/barricade/wooden,
-/turf/open/floor/plating,
-/area/science/misc_lab/range)
-"amC" = (
-/turf/closed/wall,
-/area/science/misc_lab/range)
-"amD" = (
-/obj/effect/spawner/room/threexthree,
-/turf/open/floor/plating,
-/area/science/misc_lab/range)
 "amE" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/closed/wall,
@@ -5951,10 +5936,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
-"amM" = (
-/obj/effect/spawner/room/fivexthree,
-/turf/open/floor/plating,
-/area/science/misc_lab/range)
 "amN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -6477,10 +6458,6 @@
 	},
 /turf/open/space,
 /area/space)
-"anR" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/library/abandoned)
 "anS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -6492,7 +6469,7 @@
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
 	},
-/area/library/abandoned)
+/area/maintenance/port/aft)
 "anT" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -6507,8 +6484,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
-/area/library/abandoned)
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "anU" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 1
@@ -108876,14 +108853,14 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
 "dIc" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
 "dId" = (
 /obj/structure/cable/yellow{
@@ -112432,9 +112409,6 @@
 "dOM" = (
 /turf/closed/wall,
 /area/maintenance/port/aft)
-"dON" = (
-/turf/closed/wall,
-/area/library/abandoned)
 "dOP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -112445,12 +112419,12 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/library/abandoned)
+/area/maintenance/port/aft)
 "dOQ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/library/abandoned)
+/area/maintenance/port/aft)
 "dOR" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -112786,8 +112760,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
-/area/library/abandoned)
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "dPz" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -112801,13 +112775,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
-/area/library/abandoned)
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "dPA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/barricade/wooden,
 /turf/open/floor/plating,
-/area/library/abandoned)
+/area/maintenance/port/aft)
 "dPF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -113205,10 +113179,6 @@
 "dQl" = (
 /turf/closed/wall,
 /area/medical/virology)
-"dQt" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plating,
-/area/library/abandoned)
 "dQz" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating,
@@ -114073,25 +114043,6 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"dSr" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plating,
-/area/library/abandoned)
-"dSs" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/library/abandoned)
-"dSt" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
-	},
-/turf/open/floor/plating,
-/area/library/abandoned)
 "dSz" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -116424,22 +116375,7 @@
 "dYj" = (
 /obj/effect/spawner/room/tenxten,
 /turf/open/floor/plating,
-/area/library/abandoned)
-"dYr" = (
-/turf/open/floor/plating,
-/area/library/abandoned)
-"dYt" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/library/abandoned)
+/area/maintenance/port/aft)
 "dYu" = (
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
@@ -122203,9 +122139,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"lak" = (
-/turf/open/floor/plating,
-/area/science/misc_lab/range)
 "ldk" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -149999,12 +149932,12 @@ caE
 caE
 caE
 alV
-amB
+alV
 saw
 saw
 saw
 saw
-cnI
+saw
 caE
 caE
 dzc
@@ -150256,12 +150189,12 @@ dgl
 caE
 djn
 dle
-amC
+caE
 saw
 nDZ
 drz
 amT
-cnI
+saw
 cea
 cea
 cea
@@ -150513,12 +150446,12 @@ dgn
 caE
 cea
 cea
-amD
+dfY
 saw
 tMk
 pmQ
 amU
-cnI
+saw
 cea
 cea
 cea
@@ -150770,12 +150703,12 @@ pDB
 caE
 cea
 cea
-lak
+cea
 saw
 rCv
 drA
 amV
-cnI
+saw
 cea
 cea
 cea
@@ -151027,12 +150960,12 @@ lEm
 caE
 cea
 cea
-lak
+cea
 saw
 tMk
 drA
 amU
-cnI
+saw
 jeu
 ccl
 gKr
@@ -151284,12 +151217,12 @@ dgn
 caE
 caE
 sTI
-amC
+caE
 saw
 lOY
 lXM
 anz
-cnI
+saw
 cCM
 cea
 cea
@@ -151541,12 +151474,12 @@ lEm
 caE
 cea
 cea
-amM
+cYB
 saw
 dqa
 drC
 anB
-cnI
+saw
 cCM
 cea
 cea
@@ -151798,12 +151731,12 @@ lEm
 caE
 cea
 cea
-lak
+cea
 dol
 dqb
 drD
 anC
-cnI
+saw
 cCM
 cea
 cea
@@ -152055,12 +151988,12 @@ dgn
 alR
 cea
 cea
-lak
+cea
 saw
 dqc
 gUH
 anD
-cnI
+saw
 cCM
 cea
 dzi
@@ -152312,12 +152245,12 @@ lEm
 caE
 cea
 cea
-lak
+cea
 saw
 amN
 gUH
 anE
-cnI
+saw
 cCM
 cea
 cLs
@@ -152569,12 +152502,12 @@ dgn
 caE
 cea
 cea
-lak
+cea
 saw
 dqd
 gUH
 anN
-cnI
+saw
 cCM
 cea
 cLs
@@ -152826,12 +152759,12 @@ dgp
 fGq
 fGq
 dll
-amC
+caE
 saw
 dqe
 amQ
 saw
-cnI
+saw
 cCM
 cea
 cLs
@@ -153875,19 +153808,19 @@ dEn
 dLJ
 gSi
 vPa
-dON
-dON
-dON
-dON
-dON
-dON
-dON
-dON
-dON
-dON
-dON
-dON
-dON
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
 aad
 eal
 eaT
@@ -154132,19 +154065,19 @@ dKA
 dLK
 gSi
 dOc
-dON
-dON
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
+dOM
+dOM
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
 dYj
-dON
+dOM
 dOM
 eal
 eaU
@@ -154389,19 +154322,19 @@ oSQ
 dLL
 gSi
 dOd
-anR
-dON
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dON
+dLW
+dOM
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dOM
 dZH
 eam
 eaV
@@ -154647,18 +154580,18 @@ dLM
 gSi
 dOe
 dOP
-dON
-dYr
-dYr
-dSr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dON
+dOM
+dYu
+dYu
+ecs
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dOM
 dOl
 ean
 jpl
@@ -154905,17 +154838,17 @@ gSi
 dOk
 dOP
 dPA
-dYr
-dYr
-dSs
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dON
+dYu
+dYu
+dOl
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dOM
 fvH
 ePW
 dOM
@@ -155162,16 +155095,16 @@ gSi
 dOf
 dOQ
 dPy
-dQt
-dQt
-dSt
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
+dQz
+dQz
+ecq
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
 anT
 dOl
 eao
@@ -155417,18 +155350,18 @@ gSi
 gSi
 gSi
 dOg
-anR
+dLW
 dPz
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
 dPz
 dZJ
 eap
@@ -155676,17 +155609,17 @@ dNt
 dOh
 dOP
 dPA
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dON
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dOM
 dSD
 dRA
 dOM
@@ -155931,19 +155864,19 @@ hrP
 dLQ
 dNu
 dOi
-anR
-dON
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dON
+dLW
+dOM
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dOM
 dZK
 eaq
 dOM
@@ -156188,19 +156121,19 @@ dFH
 dLR
 dNv
 dOj
-anR
-dON
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dON
+dLW
+dOM
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dOM
 dOl
 eaq
 dOM
@@ -156446,18 +156379,18 @@ dLS
 dNw
 dOk
 anS
-dON
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dYr
-dON
+dOM
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dYu
+dOM
 dOl
 ear
 dOM
@@ -156703,18 +156636,18 @@ dLT
 dNx
 dOk
 anS
-dON
-dON
-dON
-dON
-dON
-dON
-dON
-dON
-dON
-dON
-dON
-dON
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
+dOM
 anU
 eas
 ebb
@@ -156960,18 +156893,18 @@ dLU
 dNx
 dOl
 anS
-anR
+dLW
 anS
-anR
-dON
-dYt
-dYt
-dYt
-dYt
-dYr
-dYr
-dYt
-dYr
+dLW
+dOM
+dLS
+dLS
+dLS
+dLS
+dYu
+dYu
+dLS
+dYu
 dOl
 eap
 dOM
@@ -157220,15 +157153,15 @@ dOR
 dPF
 dLW
 dRx
-dON
-dYt
-dYr
-dYt
-dYr
-dYt
-dYr
-dYr
-dYr
+dOM
+dLS
+dYu
+dLS
+dYu
+dLS
+dYu
+dYu
+dYu
 aow
 dRA
 dOM
