@@ -17,6 +17,12 @@
 			return debug_variable(var_name, list(), 0, src)
 	return debug_variable(var_name, vars[var_name], 0, src)
 
+/datum/proc/vv_get_var2(var_name)
+	switch(var_name)
+		if ("vars")
+			return debug_variable2(var_name, list(), 0, src)
+	return debug_variable2(var_name, vars[var_name], 0, src)
+
 /datum/proc/can_vv_mark()
 	return TRUE
 
@@ -30,6 +36,15 @@
 	VV_DROPDOWN_OPTION(VV_HK_DELETE, "Delete")
 	VV_DROPDOWN_OPTION(VV_HK_EXPOSE, "Show VV To Player")
 	VV_DROPDOWN_OPTION(VV_HK_MODIFY_TRAITS, "Modify Traits")
+
+/datum/proc/vv_get_dropdown2()
+	. = list()
+	VV_DROPDOWN_OPTION2("", "---")
+	VV_DROPDOWN_OPTION2(VV_HK_CALLPROC, "Call Proc")
+	VV_DROPDOWN_OPTION2(VV_HK_MARK, "Mark Object")
+	VV_DROPDOWN_OPTION2(VV_HK_DELETE, "Delete")
+	VV_DROPDOWN_OPTION2(VV_HK_EXPOSE, "Show VV To Player")
+	VV_DROPDOWN_OPTION2(VV_HK_MODIFY_TRAITS, "Modify Traits")
 
 //This proc is only called if everything topic-wise is verified. The only verifications that should happen here is things like permission checks!
 //href_list is a reference, modifying it in these procs WILL change the rest of the proc in topic.dm of admin/view_variables!
@@ -47,6 +62,12 @@
 	. = list()
 	if(("name" in vars) && !isatom(src))
 		. += "<b>[vars["name"]]</b><br>"
+
+/datum/proc/vv_get_snowflake() //Just their name. Not much else to display, really.
+	//Though this proc will be added to
+	. = list()
+	if(("name" in vars) && !isatom(src))
+		.["name"] = vars["name"]
 
 /datum/proc/on_reagent_change(changetype)
 	return

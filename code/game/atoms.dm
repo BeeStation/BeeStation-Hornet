@@ -871,6 +871,19 @@
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
 
+/atom/vv_get_dropdown2()
+	. = ..()
+	VV_DROPDOWN_OPTION2("", "---------")
+	/*if(!ismovableatom(src))
+		var/turf/curturf = get_turf(src)
+		if(curturf)
+			. += "<option value='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]'>Jump To</option>"
+	*/
+	VV_DROPDOWN_OPTION2(VV_HK_MODIFY_TRANSFORM, "Modify Transform")
+	VV_DROPDOWN_OPTION2(VV_HK_ADD_REAGENT, "Add Reagent")
+	VV_DROPDOWN_OPTION2(VV_HK_TRIGGER_EMP, "EMP Pulse")
+	VV_DROPDOWN_OPTION2(VV_HK_TRIGGER_EXPLOSION, "Explosion")
+
 /atom/vv_do_topic(list/href_list)
 	. = ..()
 	if(href_list[VV_HK_ADD_REAGENT] && check_rights(R_VAREDIT))
@@ -934,6 +947,10 @@
 	var/refid = REF(src)
 	. += "<a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=name'><b id='name'>[src]</b></a>"
 	. += "<br><font size='1'><a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=left'><<</a> <a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(dir) || dir]</a> <a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=right'>>></a></font>"
+
+/atom/vv_get_snowflake()
+	. = ..()
+	.["flags"] += list("rotate")
 
 ///Where atoms should drop if taken from this atom
 /atom/proc/drop_location()

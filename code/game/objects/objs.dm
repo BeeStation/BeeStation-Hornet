@@ -228,6 +228,13 @@
 	VV_DROPDOWN_OPTION(VV_HK_OSAY, "Object Say")
 	VV_DROPDOWN_OPTION(VV_HK_ARMOR_MOD, "Modify armor values")
 
+/obj/vv_get_dropdown2()
+	. = ..()
+	VV_DROPDOWN_OPTION2("", "---")
+	VV_DROPDOWN_OPTION2(VV_HK_MASS_DEL_TYPE, "Delete all of type")
+	VV_DROPDOWN_OPTION2(VV_HK_OSAY, "Object Say")
+	VV_DROPDOWN_OPTION2(VV_HK_ARMOR_MOD, "Modify armor values")
+
 /obj/vv_do_topic(list/href_list)
 	if(!(. = ..()))
 		return

@@ -851,6 +851,18 @@
 	VV_DROPDOWN_OPTION(VV_HK_SET_SPECIES, "Set Species")
 	VV_DROPDOWN_OPTION(VV_HK_PURRBATION, "Toggle Purrbation")
 
+/mob/living/carbon/human/vv_get_dropdown2()
+	. = ..()
+	VV_DROPDOWN_OPTION2("", "---------")
+	VV_DROPDOWN_OPTION2(VV_HK_COPY_OUTFIT, "Copy Outfit")
+	VV_DROPDOWN_OPTION2(VV_HK_MOD_QUIRKS, "Add/Remove Quirks")
+	VV_DROPDOWN_OPTION2(VV_HK_MAKE_MONKEY, "Make Monkey")
+	VV_DROPDOWN_OPTION2(VV_HK_MAKE_CYBORG, "Make Cyborg")
+	VV_DROPDOWN_OPTION2(VV_HK_MAKE_SLIME, "Make Slime")
+	VV_DROPDOWN_OPTION2(VV_HK_MAKE_ALIEN, "Make Alien")
+	VV_DROPDOWN_OPTION2(VV_HK_SET_SPECIES, "Set Species")
+	VV_DROPDOWN_OPTION2(VV_HK_PURRBATION, "Toggle Purrbation")
+
 /mob/living/carbon/human/vv_do_topic(list/href_list)
 	. = ..()
 	if(href_list[VV_HK_COPY_OUTFIT])

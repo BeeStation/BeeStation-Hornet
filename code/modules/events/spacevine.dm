@@ -385,6 +385,10 @@
 	. = ..()
 	VV_DROPDOWN_OPTION(VV_HK_SPACEVINE_PURGE, "Delete Vines")
 
+/datum/spacevine_controller/vv_get_dropdown2()
+	. = ..()
+	VV_DROPDOWN_OPTION2(VV_HK_SPACEVINE_PURGE, "Delete Vines")
+
 /datum/spacevine_controller/vv_do_topic(href_list)
 	. = ..()
 	if(href_list[VV_HK_SPACEVINE_PURGE])

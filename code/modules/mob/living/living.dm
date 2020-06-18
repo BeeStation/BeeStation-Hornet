@@ -1379,3 +1379,25 @@
 			STAMINA:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[getStaminaLoss()]</a>
 		</font>
 	"}
+
+/mob/living/vv_get_snowflake()
+	. = ..()
+	.["DamageStats"] = list(
+		"Body" = list(
+			"brute"   = getBruteLoss(),
+			"fire"    = getFireLoss(),
+			"toxin"   = getToxLoss(),
+			"oxy"     = getOxyLoss(),
+			"clone"   = getCloneLoss(),
+			"stamina" = getStaminaLoss()
+		),
+		"Organ" = list(
+			"brain"     = getOrganLoss(ORGAN_SLOT_BRAIN),
+			"stomach"   = getOrganLoss(ORGAN_SLOT_STOMACH),
+			"ears"      = getOrganLoss(ORGAN_SLOT_EARS),
+			"eye_sight" = getOrganLoss(ORGAN_SLOT_EYES),
+			"lungs"     = getOrganLoss(ORGAN_SLOT_LUNGS),
+			"heart"     = getOrganLoss(ORGAN_SLOT_HEART),
+			"liver"     = getOrganLoss(ORGAN_SLOT_LIVER)
+		)
+	)

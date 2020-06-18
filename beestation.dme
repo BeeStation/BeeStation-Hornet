@@ -1276,6 +1276,7 @@
 #include "code\modules\admin\view_variables\topic.dm"
 #include "code\modules\admin\view_variables\topic_basic.dm"
 #include "code\modules\admin\view_variables\topic_list.dm"
+#include "code\modules\admin\view_variables\trigg_variables.dm"
 #include "code\modules\admin\view_variables\view_variables.dm"
 #include "code\modules\antagonists\_common\antag_datum.dm"
 #include "code\modules\antagonists\_common\antag_helpers.dm"

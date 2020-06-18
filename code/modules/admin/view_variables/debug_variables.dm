@@ -85,4 +85,130 @@
 
 	return "[header][item]</li>"
 
+/proc/debug_variable2(name, value, level, datum/D, sanitize = TRUE)
+	var/list/item
+	var/index
+	if(D && islist(D))
+		//If D is a list, 'name' will be index, and 'value' will be the associated value.
+		//We're not really interested in that, however. So let's get what we want.
+		//Can't just dump the index however, we'll need it in case the user wants to edit the list.
+		index = name //on the TGUI side we'll also use the presence of "index" to know if an item is under a list.
+
+		if(value)
+			name = D[name]
+		else
+			value = D[name]
+
+	if (isnull(value))
+		item = "[name] = null"
+		item = list(
+			"name" = name,
+			"value" = "null"
+		)
+
+	else if (istext(value))
+		item = "[name] = \"[value]\""
+		item = list(
+			"name" = name,
+			"value" = "\"[value]\""
+		)
+
+	//oh god looks like complex shit I'm skipping this
+	else if (isicon(value))
+		#ifdef VARSICON
+		var/icon/I = icon(value)
+		var/rnd = rand(1,10000)
+		var/rname = "tmp[REF(I)][rnd].png"
+		usr << browse_rsc(I, rname)
+		item = "[VV_HTML_ENCODE(name)] = (<span class='value'>[value]</span>) <img class=icon src=\"[rname]\">"
+		#else
+		item = "[VV_HTML_ENCODE(name)] = /icon (<span class='value'>[value]</span>)"
+		#endif
+		item = list(
+			"name" = name,
+			"value" = "((icon))"
+		)
+
+	else if (isfile(value))
+		item = "[name] = '[value]'"
+		item = list(
+			"name" = name,
+			"value" = "((file))"
+		)
+
+	else if(istype(value,/matrix)) // Needs to be before datum
+		var/matrix/M = value
+		item = list(
+			"name" = name,
+			"value" = "((table))",
+			"matrix" = list(M.a, M.b, M.c, M.d, M.e, M.f) //Matrixes in DM always only have these 6 elements (for now?) so this hardcode should be fine
+		)
+
+	else if (istype(value, /datum))
+		var/datum/DV = value
+		if ("[DV]" != "[DV.type]") //if the thing as a name var, lets use it.
+			item = list(
+				"name" = "[name] [REF(value)]",
+				"value" = "[DV] [DV.type]",
+				"ref" = REF(value)
+			)
+		else
+			item = list(
+				"name" = "[name] [REF(value)]",
+				"value" = DV.type,
+				"ref" = REF(value)
+			)
+
+	else if (islist(value))
+		var/list/L = value
+		var/list/items = list()
+
+		if (L.len > 0 && !(name == "underlays" || name == "overlays" || L.len > (IS_NORMAL_LIST(L) ? VV_NORMAL_LIST_NO_EXPAND_THRESHOLD : VV_SPECIAL_LIST_NO_EXPAND_THRESHOLD)))
+			for (var/i in 1 to L.len)
+				var/key = L[i]
+				var/val
+				if (IS_NORMAL_LIST(L) && !isnum(key))
+					val = L[key]
+				if (isnull(val)) // we still want to display non-null false values, such as 0 or ""
+					val = key
+					key = i
+
+				items += list(debug_variable2(key, val, level + 1, sanitize = sanitize))
+
+			//The TGUI side will treat it like a list if "items" is defined.
+			item = list(
+				"name" = name,
+				"value" = "/list ([L.len])",
+				"items" = items,
+				"ref" = REF(value)
+			)
+		else //Better to not render lists of these, they are usually pretty long
+			item = list(
+				"name" = name,
+				"value" = "/list ([L.len])",
+				"items" = list(),
+				"ref" = REF(value)
+			)
+
+	else if (name in GLOB.bitfields)
+		var/list/flags = list()
+		for (var/i in GLOB.bitfields[name])
+			if (value & GLOB.bitfields[name][i])
+				flags += i
+			item = list(
+				"name" = name,
+				"value" = jointext(flags, ", ")
+			)
+	else
+		item = list(
+			"name" = name,
+			"value" = value
+		)
+
+
+	if(index)
+		item += list("index" = name)
+
+	return item
+
 #undef VV_HTML_ENCODE

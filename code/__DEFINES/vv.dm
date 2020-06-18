@@ -47,6 +47,7 @@
 
 //Helpers for vv_get_dropdown()
 #define VV_DROPDOWN_OPTION(href_key, name) . += "<option value='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(src)]'>[name]</option>"
+#define VV_DROPDOWN_OPTION2(href_key, name) . += list(list(href_key, name))
 
 // VV HREF KEYS
 #define VV_HK_TARGET "target"

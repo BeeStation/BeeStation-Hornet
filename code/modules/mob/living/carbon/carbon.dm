@@ -897,6 +897,17 @@
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_TRAUMA, "Give Brain Trauma")
 	VV_DROPDOWN_OPTION(VV_HK_CURE_TRAUMA, "Cure Brain Traumas")
 
+/mob/living/carbon/vv_get_dropdown2()
+	. = ..()
+	VV_DROPDOWN_OPTION2("", "---------")
+	VV_DROPDOWN_OPTION2(VV_HK_MAKE_AI, "Make AI")
+	VV_DROPDOWN_OPTION2(VV_HK_MODIFY_BODYPART, "Modify bodypart")
+	VV_DROPDOWN_OPTION2(VV_HK_MODIFY_ORGANS, "Modify organs")
+	VV_DROPDOWN_OPTION2(VV_HK_HALLUCINATION, "Hallucinate")
+	VV_DROPDOWN_OPTION2(VV_HK_MARTIAL_ART, "Give Martial Arts")
+	VV_DROPDOWN_OPTION2(VV_HK_GIVE_TRAUMA, "Give Brain Trauma")
+	VV_DROPDOWN_OPTION2(VV_HK_CURE_TRAUMA, "Cure Brain Traumas")
+
 /mob/living/carbon/vv_do_topic(list/href_list)
 	. = ..()
 	if(href_list[VV_HK_MODIFY_BODYPART])
