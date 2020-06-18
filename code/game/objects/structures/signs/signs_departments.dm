@@ -75,7 +75,7 @@
 
 /obj/structure/sign/departments/medbay/alt2
 	icon_state = "medicalsign"
-	desc = "An image of the Caduceus, with a small cross. Makes no sense to someone not versed in human mythology. You'll probably get help here."
+	desc = "An image of the Caduceus, with a small cross. Makes sense to someone not well-versed in human mythology. You'll probably get help here."
 
 /obj/structure/sign/departments/minsky/research/research
 	name = "Research Department"
