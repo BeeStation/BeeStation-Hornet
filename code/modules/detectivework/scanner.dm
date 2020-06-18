@@ -67,9 +67,11 @@
 	set waitfor = 0
 	if(!scanning)
 		// Can remotely scan objects and mobs.
-		if((get_dist(A, user) > range) || (!(A in view(range, user)) && view_check) || (loc != user))
+		if((get_dist(A, user) > range) || (loc != user))
 			return
-
+		if(!can_see(A, user, range))
+			to_chat(user, "<span class='notice'>You can't scan \the [A] through solid material.</span>")
+			return
 		scanning = 1
 
 		user.visible_message("\The [user] points the [src.name] at \the [A] and performs a forensic scan.")
