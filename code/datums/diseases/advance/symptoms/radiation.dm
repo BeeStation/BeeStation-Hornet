@@ -7,7 +7,6 @@
 	transmittable = 2
 	level = 8
 	severity = 3
-	baseseverity = 3
 	symptom_delay_min = 10
 	symptom_delay_max = 40
 	var/fastrads = FALSE
@@ -15,9 +14,9 @@
 	threshold_desc = "<b>Speed 8:</b> Host takes radiation damage faster."
 
 /datum/symptom/radiation/severityset(datum/disease/advance/A)
+	. = ..()
 	if(A.properties["stage_rate"] >= 8)
 		severity += 1
-	return..()
 
 /datum/symptom/radiation/Start(datum/disease/advance/A)
 	if(!..())

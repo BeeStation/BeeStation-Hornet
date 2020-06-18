@@ -47,8 +47,7 @@
 	speak_chance = 1 //1% (1 in 100) chance every tick; So about once per 150 seconds, assuming an average tick is 1.5s
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/cracker/ = 1)
-	melee_damage_upper = 10
-	melee_damage_lower = 5
+	melee_damage = 5
 
 	response_help  = "pets"
 	response_disarm = "gently moves aside"
@@ -60,6 +59,7 @@
 	mob_size = MOB_SIZE_SMALL
 	movement_type = FLYING
 	gold_core_spawnable = FRIENDLY_SPAWN
+	mobsay_color = "#A6E398"
 
 	var/parrot_damage_upper = 10
 	var/parrot_state = PARROT_WANDER //Hunt for a perch when created
@@ -208,8 +208,8 @@
 				ears.forceMove(drop_location())
 				ears = null
 				for(var/possible_phrase in speak)
-					if(copytext(possible_phrase,1,3) in GLOB.department_radio_keys)
-						possible_phrase = copytext(possible_phrase,3)
+					if(copytext_char(possible_phrase, 2, 3) in GLOB.department_radio_keys)
+						possible_phrase = copytext_char(possible_phrase, 3)
 
 	//Adding things to inventory
 	else if(href_list["add_inv"])
@@ -305,7 +305,7 @@
 	if(parrot_state == PARROT_PERCH)
 		parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
 
-	if(M.melee_damage_upper > 0 && !stat)
+	if(M.melee_damage > 0 && !stat)
 		parrot_interest = M
 		parrot_state = PARROT_SWOOP | PARROT_ATTACK //Attack other animals regardless
 		icon_state = icon_living
@@ -418,8 +418,8 @@
 						if(prob(50))
 							useradio = 1
 
-						if((copytext(possible_phrase,1,2) in GLOB.department_radio_prefixes) && (copytext(possible_phrase,2,3) in GLOB.department_radio_keys))
-							possible_phrase = "[useradio?pick(available_channels):""][copytext(possible_phrase,3)]" //crop out the channel prefix
+						if((possible_phrase[1] in GLOB.department_radio_prefixes) && (copytext_char(possible_phrase, 2, 3) in GLOB.department_radio_keys))
+							possible_phrase = "[useradio?pick(available_channels):""][copytext_char(possible_phrase, 3)]" //crop out the channel prefix
 						else
 							possible_phrase = "[useradio?pick(available_channels):""][possible_phrase]"
 
@@ -427,8 +427,8 @@
 
 				else //If we have no headset or channels to use, dont try to use any!
 					for(var/possible_phrase in speak)
-						if((copytext(possible_phrase,1,2) in GLOB.department_radio_prefixes) && (copytext(possible_phrase,2,3) in GLOB.department_radio_keys))
-							possible_phrase = copytext(possible_phrase,3) //crop out the channel prefix
+						if((possible_phrase[1] in GLOB.department_radio_prefixes) && (copytext_char(possible_phrase, 2, 3) in GLOB.department_radio_keys))
+							possible_phrase = copytext_char(possible_phrase, 3) //crop out the channel prefix
 						newspeak.Add(possible_phrase)
 				speak = newspeak
 
@@ -554,8 +554,8 @@
 			return
 
 		var/mob/living/L = parrot_interest
-		if(melee_damage_upper == 0)
-			melee_damage_upper = parrot_damage_upper
+		if(melee_damage == 0)
+			melee_damage = parrot_damage_upper
 			a_intent = INTENT_HARM
 
 		//If the mob is close enough to interact with
@@ -852,10 +852,10 @@
 		return
 
 	if(a_intent != INTENT_HELP)
-		melee_damage_upper = 0
+		melee_damage = 0
 		a_intent = INTENT_HELP
 	else
-		melee_damage_upper = parrot_damage_upper
+		melee_damage = parrot_damage_upper
 		a_intent = INTENT_HARM
 	to_chat(src, "You will now [a_intent] others.")
 	return
@@ -954,12 +954,6 @@
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
 
-/mob/living/simple_animal/parrot/Poly/ratvar_act()
-	playsound(src, 'sound/magic/clockwork/fellowship_armory.ogg', 75, TRUE)
-	var/mob/living/simple_animal/parrot/clock_hawk/H = new(loc)
-	H.setDir(dir)
-	qdel(src)
-
 /mob/living/simple_animal/parrot/Poly/ghost
 	name = "The Ghost of Poly"
 	desc = "Doomed to squawk the Earth."
@@ -1012,6 +1006,3 @@
 	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
 	deathsound = 'sound/magic/clockwork/anima_fragment_death.ogg'
-
-/mob/living/simple_animal/parrot/clock_hawk/ratvar_act()
-	return

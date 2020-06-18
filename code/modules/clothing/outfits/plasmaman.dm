@@ -4,6 +4,18 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/white
 	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
 
+/datum/outfit/plasmaman/magic
+	name = "Magician Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/hat
+	uniform = /obj/item/clothing/under/plasmaman/tux
+
+/datum/outfit/plasmaman/hobo
+	name = "Hobo Plasmaman"
+
+	head = /obj/item/clothing/head/foilhat/plasmaman
+	uniform = /obj/item/clothing/under/plasmaman
+
 /datum/outfit/plasmaman/chef
 	name = "Chef Plasmaman"
 
@@ -172,4 +184,3 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/honk
 	uniform = /obj/item/clothing/under/plasmaman/honk
-

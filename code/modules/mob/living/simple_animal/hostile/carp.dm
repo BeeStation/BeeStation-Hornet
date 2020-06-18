@@ -21,13 +21,12 @@
 	health = 25
 	spacewalk = TRUE
 
-	harm_intent_damage = 8
 	obj_damage = 50
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage = 20
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("gnashes")
+	mobsay_color = "#B15FB9"
 
 	//Space carp aren't affected by cold.
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -59,16 +58,14 @@
 	mob_size = MOB_SIZE_LARGE
 
 	obj_damage = 80
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage = 20
 
 	var/regen_cooldown = 0
 
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize()
 	. = ..()
 	name = "[pick(GLOB.megacarp_first_names)] [pick(GLOB.megacarp_last_names)]"
-	melee_damage_lower += rand(2, 10)
-	melee_damage_upper += rand(10,20)
+	melee_damage += rand(10,20) //this is on initialize so even with rng the damage will be consistent
 	maxHealth += rand(30,60)
 	move_to_delay = rand(3,7)
 

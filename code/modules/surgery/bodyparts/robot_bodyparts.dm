@@ -250,8 +250,8 @@
 		if(flash1 && flash2)
 			to_chat(user, "<span class='warning'>You have already inserted the eyes!</span>")
 			return
-		else if(F.burnt_out)
-			to_chat(user, "<span class='warning'>You can't use a broken flash!</span>")
+		else if(F.burnt_out || !F.bulb)
+			to_chat(user, "<span class='warning'>You need a functional flash!</span>")
 			return
 		else
 			if(!user.transferItemToLoc(F, src))

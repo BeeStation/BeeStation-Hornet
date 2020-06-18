@@ -18,6 +18,7 @@
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
 	gold_core_spawnable = FRIENDLY_SPAWN
+	mobsay_color = "#FFAE64"
 
 	do_footstep = TRUE
 

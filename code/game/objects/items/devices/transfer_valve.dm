@@ -7,12 +7,14 @@
 	righthand_file = 'icons/mob/inhands/weapons/bombs_righthand.dmi'
 	desc = "Regulates the transfer of air between two tanks."
 	w_class = WEIGHT_CLASS_BULKY
+	var/ui_x = 310
+	var/ui_y = 320
 	var/obj/item/tank/tank_one
 	var/obj/item/tank/tank_two
 	var/obj/item/assembly/attached_device
 	var/mob/attacher = null
 	var/valve_open = FALSE
-	var/toggle = 1
+	var/toggle = TRUE
 
 /obj/item/transfer_valve/IsAssemblyHolder()
 	return TRUE
@@ -78,7 +80,8 @@
 	if(attached_device)
 		attached_device.Crossed(AM)
 
-/obj/item/transfer_valve/attack_hand()//Triggers mousetraps
+//Triggers mousetraps
+/obj/item/transfer_valve/attack_hand()
 	. = ..()
 	if(.)
 		return
@@ -172,8 +175,8 @@
 		target_self = TRUE
 	if(change_volume)
 		if(!target_self)
-			target.volume += tank_two.volume
-		target.volume += tank_one.air_contents.volume
+			target.set_volume(target.return_volume() + tank_two.air_contents.return_volume())
+		target.set_volume(target.return_volume() + tank_one.air_contents.return_volume())
 	var/datum/gas_mixture/temp
 	temp = tank_one.air_contents.remove_ratio(1)
 	target.merge(temp)
@@ -184,11 +187,11 @@
 /obj/item/transfer_valve/proc/split_gases()
 	if (!valve_open || !tank_one || !tank_two)
 		return
-	var/ratio1 = tank_one.air_contents.volume/tank_two.air_contents.volume
+	var/ratio1 = tank_one.air_contents.return_volume()/tank_two.air_contents.return_volume()
 	var/datum/gas_mixture/temp
 	temp = tank_two.air_contents.remove_ratio(ratio1)
 	tank_one.air_contents.merge(temp)
-	tank_two.air_contents.volume -=  tank_one.air_contents.volume
+	tank_two.air_contents.set_volume(tank_two.air_contents.return_volume() - tank_one.air_contents.return_volume())
 
 	/*
 	Exadv1: I know this isn't how it's going to work, but this was just to check
@@ -220,7 +223,6 @@
 			admin_bomber_message = " - Last touched by: [ADMIN_LOOKUPFLW(bomber)]"
 			bomber_message = " - Last touched by: [key_name_admin(bomber)]"
 
-
 		var/admin_bomb_message = "Bomb valve opened in [ADMIN_VERBOSEJMP(bombturf)][admin_attachment_message][admin_bomber_message]"
 		GLOB.bombers += admin_bomb_message
 		message_admins(admin_bomb_message)
@@ -228,7 +230,7 @@
 
 		merge_gases()
 		for(var/i in 1 to 6)
-			addtimer(CALLBACK(src, .proc/update_icon), 20 + (i - 1) * 10)
+			addtimer(CALLBACK(src, /atom/.proc/update_icon), 20 + (i - 1) * 10)
 
 	else if(valve_open && tank_one && tank_two)
 		split_gases()
@@ -239,3 +241,52 @@
 // eventually maybe have it update icon to show state (timer, prox etc.) like old bombs
 /obj/item/transfer_valve/proc/c_state()
 	return
+
+/obj/item/transfer_valve/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
+									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "TransferValve", name, ui_x, ui_y, master_ui, state)
+		ui.open()
+
+/obj/item/transfer_valve/ui_data(mob/user)
+	var/list/data = list()
+	data["tank_one"] = tank_one
+	data["tank_two"] = tank_two
+	data["attached_device"] = attached_device
+	data["valve"] = valve_open
+	return data
+
+/obj/item/transfer_valve/ui_act(action, params)
+	if(..())
+		return
+
+	switch(action)
+		if("tankone")
+			if(tank_one)
+				split_gases()
+				valve_open = FALSE
+				tank_one.forceMove(drop_location())
+				tank_one = null
+				. = TRUE
+		if("tanktwo")
+			if(tank_two)
+				split_gases()
+				valve_open = FALSE
+				tank_two.forceMove(drop_location())
+				tank_two = null
+				. = TRUE
+		if("toggle")
+			toggle_valve()
+			. = TRUE
+		if("device")
+			if(attached_device)
+				attached_device.attack_self(usr)
+				. = TRUE
+		if("remove_device")
+			if(attached_device)
+				attached_device.on_detach()
+				attached_device = null
+				. = TRUE
+
+	update_icon()

@@ -24,12 +24,12 @@
 	health = 40
 	maxHealth = 40
 	minbodytemp = 180
-	melee_damage_lower = 1
-	melee_damage_upper = 2
+	melee_damage = 5
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	stop_automated_movement_when_pulled = 1
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
+	mobsay_color = "#B2CEB3"
 
 	do_footstep = TRUE
 
@@ -132,6 +132,7 @@
 	var/obj/item/udder/udder = null
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
+	mobsay_color = "#FFFFFF"
 
 	do_footstep = TRUE
 
@@ -198,7 +199,7 @@
 	density = FALSE
 	speak_chance = 2
 	turns_per_move = 2
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/chicken = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -210,6 +211,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = FRIENDLY_SPAWN
+	mobsay_color = "#FFDC9B"
 
 	do_footstep = TRUE
 
@@ -257,7 +259,7 @@
 	density = FALSE
 	speak_chance = 2
 	turns_per_move = 3
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/chicken = 2)
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
 	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
 	response_help  = "pets"
@@ -278,6 +280,7 @@
 	var/list/validColors = list("brown","black","white")
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/static/chicken_count = 0
+	mobsay_color = "#FFDC9B"
 
 	do_footstep = TRUE
 
@@ -360,6 +363,7 @@
 	feedMessages = list("It gobbles up the food voraciously.","It clucks happily.")
 	validColors = list("plain")
 	gold_core_spawnable = FRIENDLY_SPAWN
+	mobsay_color = "#FFDC9B"
 
 /obj/item/udder
 	name = "udder"

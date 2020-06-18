@@ -123,7 +123,7 @@
 		return TRUE
 
 /datum/wires/proc/is_dud(wire)
-	return dd_hasprefix(wire, WIRE_DUD_PREFIX)
+	return findtext(wire, WIRE_DUD_PREFIX, 1, length(WIRE_DUD_PREFIX) + 1)
 
 /datum/wires/proc/is_dud_color(color)
 	return is_dud(get_wire(color))
@@ -221,7 +221,7 @@
 							datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "wires", "[holder.name] Wires", 350, 150 + wires.len * 30, master_ui, state)
+		ui = new(user, src, ui_key, "Wires", "[holder.name] Wires", 350, 150 + wires.len * 30, master_ui, state)
 		ui.open()
 
 /datum/wires/ui_data(mob/user)

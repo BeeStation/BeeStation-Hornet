@@ -24,10 +24,10 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 	/// List of all assets sent to this client by the asset cache.
 	var/list/cache = list()
 	/// List of all completed asset jobs, awaiting acknowledgement.
-	var/list/completed_asset_jobs = list() 
+	var/list/completed_asset_jobs = list()
 	var/list/sending = list()
 	/// The last asset job done.
-	var/last_asset_job = 0 
+	var/last_asset_job = 0
 
 //This proc sends the asset to the client, but only if it needs it.
 //This proc blocks(sleeps) unless verify is set to false
@@ -391,18 +391,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/simple/tgui
 	assets = list(
-		// tgui
-		"tgui.css" = 'tgui/assets/tgui.css',
-		"tgui.js" = 'tgui/assets/tgui.js',
-		// tgui-next
-		"tgui-main.html" = 'tgui-next/packages/tgui/public/tgui-main.html',
-		"tgui-fallback.html" = 'tgui-next/packages/tgui/public/tgui-fallback.html',
-		"tgui.bundle.js" = 'tgui-next/packages/tgui/public/tgui.bundle.js',
-		"tgui.bundle.css" = 'tgui-next/packages/tgui/public/tgui.bundle.css',
-		"shim-html5shiv.js" = 'tgui-next/packages/tgui/public/shim-html5shiv.js',
-		"shim-ie8.js" = 'tgui-next/packages/tgui/public/shim-ie8.js',
-		"shim-dom4.js" = 'tgui-next/packages/tgui/public/shim-dom4.js',
-		"shim-css-om.js" = 'tgui-next/packages/tgui/public/shim-css-om.js',
+		"tgui.bundle.js" = 'tgui/packages/tgui/public/tgui.bundle.js',
+		"tgui.bundle.css" = 'tgui/packages/tgui/public/tgui.bundle.css',
 	)
 
 /datum/asset/group/tgui
@@ -470,7 +460,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"scanner"		= 'icons/pda_icons/pda_scanner.png',
 		"signaler"		= 'icons/pda_icons/pda_signaler.png',
 		"status"		= 'icons/pda_icons/pda_status.png',
-		"dronephone"	= 'icons/pda_icons/pda_dronephone.png'
+		"dronephone"	= 'icons/pda_icons/pda_dronephone.png',
+		"emoji"			= 'icons/pda_icons/pda_emoji.png'
 	)
 
 /datum/asset/spritesheet/simple/paper
@@ -493,6 +484,11 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/simple/IRV
 	assets = list(
 		"jquery-ui.custom-core-widgit-mouse-sortable-min.js" = 'html/IRV/jquery-ui.custom-core-widgit-mouse-sortable-min.js',
+	)
+
+/datum/asset/simple/fuckywucky
+	assets = list(
+		"fuckywucky.png" = 'html/fuckywucky.png'
 	)
 
 /datum/asset/group/IRV
@@ -589,6 +585,16 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"minor_button.png" = 'html/minor_button.png',
 		"none_button.png" = 'html/none_button.png',
 	)
+
+/datum/asset/simple/arcade
+	assets = list(
+		"boss1.gif" = 'icons/UI_Icons/Arcade/boss1.gif',
+		"boss2.gif" = 'icons/UI_Icons/Arcade/boss2.gif',
+		"boss3.gif" = 'icons/UI_Icons/Arcade/boss3.gif',
+		"boss4.gif" = 'icons/UI_Icons/Arcade/boss4.gif',
+		"boss5.gif" = 'icons/UI_Icons/Arcade/boss5.gif',
+		"boss6.gif" = 'icons/UI_Icons/Arcade/boss6.gif',
+		)
 
 /datum/asset/spritesheet/simple/pills
 	name ="pills"
@@ -697,28 +703,28 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/spritesheet/vending/register()
 	for (var/k in GLOB.vending_products)
 		var/atom/item = k
-
-
-		var/icon_file
-		var/icon_state
-		var/icon/I
-
-
 		if (!ispath(item, /atom))
 			continue
 
-		icon_file = initial(item.icon)
-		icon_state = initial(item.icon_state)
+		var/icon_file = initial(item.icon)
+		var/icon_state = initial(item.icon_state)
+		var/icon/I
 
-		if(icon_state in icon_states(icon_file))
+		var/icon_states_list = icon_states(icon_file)
+		if(icon_state in icon_states_list)
 			I = icon(icon_file, icon_state, SOUTH)
 			var/c = initial(item.color)
 			if (!isnull(c) && c != "#FFFFFF")
-				I.Blend(initial(c), ICON_MULTIPLY)
+				I.Blend(c, ICON_MULTIPLY)
 		else
-			item = new item()
-			I = icon(item.icon, item.icon_state, SOUTH)
-			qdel(item)
+			var/icon_states_string
+			for (var/an_icon_state in icon_states_list)
+				if (!icon_states_string)
+					icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
+				else
+					icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
+			stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
+			I = icon('icons/turf/floors.dmi', "", SOUTH)
 
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 
@@ -768,4 +774,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"scitool.png" = 'html/img/scitool.png',
 		"alienorgan.png"= 'html/img/alienorgan.png',
 		"abaton.png"= 'html/img/abaton.png'
+	)
+
+
+/datum/asset/simple/vv
+	assets = list(
+		"view_variables.css" = 'html/admin/view_variables.css'
 	)

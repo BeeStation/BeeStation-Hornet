@@ -27,7 +27,7 @@
 GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/bodybag = 1,
 	/obj/item/clothing/glasses/meson = 2,
-	/obj/item/clothing/glasses/sunglasses = 1,
+	/obj/item/clothing/glasses/sunglasses/advanced = 1,
 	/obj/item/clothing/gloves/color/fyellow = 1,
 	/obj/item/clothing/head/hardhat = 1,
 	/obj/item/clothing/head/hardhat/red = 1,
@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/clothing/head/welding = 1,
 	/obj/item/clothing/mask/gas = 15,
 	/obj/item/clothing/suit/hazardvest = 1,
-	/obj/item/clothing/under/rank/vice = 1,
+	/obj/item/clothing/under/misc/vice_officer = 1,
 	/obj/item/clothing/suit/hooded/flashsuit = 2,
 	/obj/item/assembly/prox_sensor = 4,
 	/obj/item/assembly/timer = 3,

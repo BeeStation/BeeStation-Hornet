@@ -20,8 +20,7 @@
         health = 20
         maxHealth = 20
         attacktext = "bites"
-        melee_damage_lower = 5
-        melee_damage_upper = 6
+        melee_damage = 6
         response_help  = "pets"
         response_disarm = "shoos"
         response_harm   = "steps on"
@@ -34,6 +33,9 @@
         gold_core_spawnable = FRIENDLY_SPAWN
         obj_damage = 0
         environment_smash = ENVIRONMENT_SMASH_NONE
+        mobsay_color = "#26F55A"
+        poison_per_bite = 3
+        poison_type = /datum/reagent/toxin/venom
 
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)

@@ -21,6 +21,9 @@
 	density = TRUE
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/machine/smes
+	ui_x = 340
+	ui_y = 350
+
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
 
@@ -35,6 +38,7 @@
 	var/output_level = 50000 // amount of power the SMES attempts to output
 	var/output_level_max = 200000 // cap on output_level
 	var/output_used = 0 // amount of power actually outputted. may be less than output_level if the powernet returns excess power
+	var/process_cells = FALSE //We have self-recharging cells
 
 	var/obj/machinery/power/terminal/terminal = null
 
@@ -67,9 +71,13 @@
 		IO += CP.rating
 	input_level_max = initial(input_level_max) * IO
 	output_level_max = initial(output_level_max) * IO
+	var/recharging_cells = FALSE
 	for(var/obj/item/stock_parts/cell/PC in component_parts)
 		MC += PC.maxcharge
 		C += PC.charge
+		if(PC.self_recharge)
+			recharging_cells = TRUE
+	process_cells = recharging_cells
 	capacity = MC / (15000) * 1e6
 	if(!initial(charge) && !charge)
 		charge = C / 15000 * 1e6
@@ -158,6 +166,7 @@
 
 /obj/machinery/power/smes/wirecutter_act(mob/living/user, obj/item/I)
 	//disassembling the terminal
+	. = ..()
 	if(terminal && panel_open)
 		terminal.dismantle(user, I)
 		return TRUE
@@ -224,7 +233,7 @@
 
 
 /obj/machinery/power/smes/proc/chargedisplay()
-	return CLAMP(round(5.5*charge/capacity),0,5)
+	return clamp(round(5.5*charge/capacity),0,5)
 
 /obj/machinery/power/smes/process()
 	if(stat & BROKEN)
@@ -239,7 +248,15 @@
 	if(terminal && input_attempt)
 		input_available = terminal.surplus()
 
+		if(process_cells) //We have self-charging cells
+			for(var/obj/item/stock_parts/cell/cell in component_parts)
+				if(cell.self_recharge)
+					cell.process()
+					charge += min((capacity-charge)/SMESRATE, ((cell.charge / 15000 * 1e6) * SMESRATE))
+					cell.charge = 0 //SMES power math is weird so let's just zero it to simplify things
+
 		if(inputting)
+
 			if(input_available > 0)		// if there's power available, try to charge
 
 				var/load = min(min((capacity-charge)/SMESRATE, input_level), input_available)		// charge at set rate, limited to spare capacity
@@ -317,28 +334,26 @@
 										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "smes", name, 340, 440, master_ui, state)
+		ui = new(user, src, ui_key, "Smes", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/power/smes/ui_data()
 	var/list/data = list(
-		"capacityPercent" = round(100*charge/capacity, 0.1),
 		"capacity" = capacity,
+		"capacityPercent" = round(100*charge/capacity, 0.1),
 		"charge" = charge,
-
 		"inputAttempt" = input_attempt,
 		"inputting" = inputting,
 		"inputLevel" = input_level,
 		"inputLevel_text" = DisplayPower(input_level),
 		"inputLevelMax" = input_level_max,
-		"inputAvailable" = DisplayPower(input_available),
-
+		"inputAvailable" = input_available,
 		"outputAttempt" = output_attempt,
 		"outputting" = outputting,
 		"outputLevel" = output_level,
 		"outputLevel_text" = DisplayPower(output_level),
 		"outputLevelMax" = output_level_max,
-		"outputUsed" = DisplayPower(output_used)
+		"outputUsed" = output_used,
 	)
 	return data
 
@@ -359,11 +374,7 @@
 		if("input")
 			var/target = params["target"]
 			var/adjust = text2num(params["adjust"])
-			if(target == "input")
-				target = input("New input target (0-[input_level_max]):", name, input_level) as num|null
-				if(!isnull(target) && !..())
-					. = TRUE
-			else if(target == "min")
+			if(target == "min")
 				target = 0
 				. = TRUE
 			else if(target == "max")
@@ -376,16 +387,12 @@
 				target = text2num(target)
 				. = TRUE
 			if(.)
-				input_level = CLAMP(target, 0, input_level_max)
+				input_level = clamp(target, 0, input_level_max)
 				log_smes(usr)
 		if("output")
 			var/target = params["target"]
 			var/adjust = text2num(params["adjust"])
-			if(target == "input")
-				target = input("New output target (0-[output_level_max]):", name, output_level) as num|null
-				if(!isnull(target) && !..())
-					. = TRUE
-			else if(target == "min")
+			if(target == "min")
 				target = 0
 				. = TRUE
 			else if(target == "max")
@@ -398,7 +405,7 @@
 				target = text2num(target)
 				. = TRUE
 			if(.)
-				output_level = CLAMP(target, 0, output_level_max)
+				output_level = clamp(target, 0, output_level_max)
 				log_smes(usr)
 
 /obj/machinery/power/smes/proc/log_smes(mob/user)

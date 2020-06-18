@@ -169,8 +169,8 @@
 
 /obj/machinery/computer/custom_shuttle/proc/SetTargetLocation(var/newTarget)
 	if(!(newTarget in params2list(possible_destinations)))
-		log_admin("[usr] attempted to href dock exploit on [src] with target location \"[newTarget]\"")
-		message_admins("[usr] just attempted to href dock exploit on [src] with target location \"[newTarget]\"")
+		log_admin("[usr] attempted to forge a target location through a href exploit on [src]")
+		message_admins("[ADMIN_FULLMONTY(usr)] attempted to forge a target location through a href exploit on [src]")
 		return
 	targetLocation = newTarget
 	say("Shuttle route calculated.")
@@ -229,7 +229,12 @@
 	name = "Shuttle Navigation Computer"
 	desc = "Used to designate a precise transit location for private ships."
 	lock_override = NONE
-	whitelist_turfs = list(/turf/open/space, /turf/open/lava)
+	whitelist_turfs = list(/turf/open/space,
+		/turf/open/lava,
+		/turf/open/floor/plating/beach,
+		/turf/open/floor/plating/ashplanet,
+		/turf/open/floor/plating/asteroid,
+		/turf/open/floor/plating/lavaland_baseturf)
 	jumpto_ports = list("whiteship_home" = 1)
 	view_range = 12
 	designate_time = 100

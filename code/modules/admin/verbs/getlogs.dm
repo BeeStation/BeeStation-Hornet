@@ -14,6 +14,11 @@
 	browseserverlogs("[GLOB.log_directory]/")
 
 /client/proc/browseserverlogs(path = "data/logs/")
+	if(IsAdminAdvancedProcCall())
+		log_admin_private("BROWSEFILES: Admin proc call blocked")
+		message_admins("BROWSEFILES: Admin proc call blocked")
+		return null
+
 	path = browse_files(path)
 	if(!path)
 		return

@@ -2,14 +2,14 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/select = 1
 	can_suppress = TRUE
-	burst_size = 3
-	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
 	semi_auto = TRUE
 	fire_sound = "sound/weapons/smgshot.ogg"
 	fire_sound_volume = 80
 	vary_fire_sound = FALSE
+	automatic = 1
 	rack_sound = "sound/weapons/smgrack.ogg"
+	weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/ballistic/automatic/proto
 	name = "\improper Nanotrasen Saber SMG"
@@ -17,8 +17,10 @@
 	icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	pin = null
+	fire_rate = 5
 	bolt_type = BOLT_TYPE_LOCKING
 	mag_display = TRUE
+	weapon_weight = WEAPON_LIGHT
 
 /obj/item/gun/ballistic/automatic/proto/unrestricted
 	pin = /obj/item/firing_pin
@@ -53,6 +55,7 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+	autofire_target = null
 
 /obj/item/gun/ballistic/automatic/c20r
 	name = "\improper C-20r SMG"
@@ -69,6 +72,7 @@
 	mag_display = TRUE
 	mag_display_ammo = TRUE
 	empty_indicator = TRUE
+	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/c20r/unrestricted
 	pin = /obj/item/firing_pin
@@ -83,9 +87,7 @@
 	icon_state = "wt550"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
-	fire_delay = 2
 	can_suppress = FALSE
-	burst_size = 0
 	actions_types = list()
 	can_bayonet = TRUE
 	knife_x_offset = 25
@@ -93,15 +95,17 @@
 	mag_display = TRUE
 	mag_display_ammo = TRUE
 	empty_indicator = TRUE
+	fire_rate = 3
+	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/mini_uzi
 	name = "\improper Type U3 Uzi"
-	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
+	desc = "A lightweight submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	icon_state = "miniuzi"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
-	burst_size = 2
 	bolt_type = BOLT_TYPE_OPEN
 	mag_display = TRUE
+	fire_rate = 4
 	rack_sound = "sound/weapons/pistollock.ogg"
 
 /obj/item/gun/ballistic/automatic/m90
@@ -118,6 +122,7 @@
 	pin = /obj/item/firing_pin/implant/pindicate
 	mag_display = TRUE
 	empty_indicator = TRUE
+	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/m90/Initialize()
 	. = ..()
@@ -186,10 +191,10 @@
 	slot_flags = 0
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
+	fire_rate = 5
 	can_suppress = FALSE
-	burst_size = 4
-	fire_delay = 1
 	bolt_type = BOLT_TYPE_OPEN
+	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/ar
 	name = "\improper NT-ARG 'Boarder'"
@@ -200,8 +205,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m556
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	can_suppress = FALSE
-	burst_size = 3
-	fire_delay = 1
+	fire_rate = 4
 
 
 // L6 SAW //
@@ -217,8 +221,7 @@
 	weapon_weight = WEAPON_HEAVY
 	var/cover_open = FALSE
 	can_suppress = FALSE
-	burst_size = 3
-	fire_delay = 1
+	fire_rate = 6
 	spread = 7
 	pin = /obj/item/firing_pin/implant/pindicate
 	bolt_type = BOLT_TYPE_OPEN
@@ -227,6 +230,7 @@
 	tac_reloads = FALSE
 	fire_sound = 'sound/weapons/rifleshot.ogg'
 	rack_sound = 'sound/weapons/chunkyrack.ogg'
+	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/l6_saw/unrestricted
 	pin = /obj/item/firing_pin
@@ -300,10 +304,11 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	zoomable = TRUE
 	zoom_amt = 10 //Long range, enough to see in front of you, but no tiles behind you.
-	zoom_out_amt = 13
+	zoom_out_amt = 5
 	slot_flags = ITEM_SLOT_BACK
 	actions_types = list()
 	mag_display = TRUE
+	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
@@ -321,14 +326,15 @@
 	item_state = "moistnugget"
 	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/m10mm/rifle
-	fire_delay = 30
-	burst_size = 1
 	can_unsuppress = TRUE
 	can_suppress = TRUE
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = ITEM_SLOT_BACK
 	actions_types = list()
 	mag_display = TRUE
+	automatic = 0
+	fire_rate = 1.5
+	block_upgrade_walk = 1
 
 // Laser rifle (rechargeable magazine) //
 
@@ -338,9 +344,10 @@
 	icon_state = "oldrifle"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/recharge
-	fire_delay = 2
 	can_suppress = FALSE
-	burst_size = 0
 	actions_types = list()
 	fire_sound = 'sound/weapons/laser.ogg'
 	casing_ejector = FALSE
+	fire_rate = 2
+	block_upgrade_walk = 1
+

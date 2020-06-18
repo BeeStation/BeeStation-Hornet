@@ -77,6 +77,16 @@
 	desc = "A small bottle of formaldehyde."
 	list_reagents = list(/datum/reagent/toxin/formaldehyde = 30)
 
+/obj/item/reagent_containers/glass/bottle/cryostylane
+	name = "cryostylane bottle"
+	desc = "A small bottle of cryostylane. It feels cold to the touch"
+	list_reagents = list(/datum/reagent/cryostylane = 30)
+
+/obj/item/reagent_containers/glass/bottle/concentrated_bz
+	name = "concentrated BZ bottle"
+	desc = "A small bottle of concentrated BZ"
+	list_reagents = list(/datum/reagent/concentrated_bz = 30)
+
 /obj/item/reagent_containers/glass/bottle/ammonia
 	name = "ammonia bottle"
 	desc = "A small bottle of ammonia."
@@ -292,12 +302,7 @@
 	name = "bowl of blood"
 	desc = "A clay bowl containing a fledgling Necropolis, preserved in blood. A robust virologist may be able to unlock its full potential..."
 	icon_state = "mortar"
-	spawned_disease = /datum/disease/advance/necropolis
-
-/obj/item/reagent_containers/glass/bottle/blobitis
-	name = "Blobitis bottle"
-	desc = "A bottle filled by liquid blob. Might not want to drink this one."
-	spawned_disease = /datum/disease/advance/blobitis
+	spawned_disease = /datum/disease/advance/random/necropolis
 
 /obj/item/reagent_containers/glass/bottle/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis culture bottle"

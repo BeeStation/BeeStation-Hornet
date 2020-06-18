@@ -73,13 +73,13 @@
 
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/combined_heat_capacity = heat_capacity + air_heat_capacity
-	var/old_temperature = air_contents.temperature
+	var/old_temperature = air_contents.return_temperature()
 
 	if(combined_heat_capacity > 0)
-		var/combined_energy = heat_capacity * target_temperature + air_heat_capacity * air_contents.temperature
-		air_contents.temperature = combined_energy/combined_heat_capacity
+		var/combined_energy = heat_capacity * target_temperature + air_heat_capacity * air_contents.return_temperature()
+		air_contents.set_temperature(combined_energy/combined_heat_capacity)
 
-	var/temperature_delta= abs(old_temperature - air_contents.temperature)
+	var/temperature_delta= abs(old_temperature - air_contents.return_temperature())
 	if(temperature_delta > 1)
 		active_power_usage = (heat_capacity * temperature_delta) / 10 + idle_power_usage
 		update_parents()
@@ -128,7 +128,7 @@
 																	datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "thermomachine", name, 400, 240, master_ui, state)
+		ui = new(user, src, ui_key, "ThermoMachine", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/ui_data(mob/user)
@@ -141,7 +141,7 @@
 	data["initial"] = initial(target_temperature)
 
 	var/datum/gas_mixture/air1 = airs[1]
-	data["temperature"] = air1.temperature
+	data["temperature"] = air1.return_temperature()
 	data["pressure"] = air1.return_pressure()
 	return data
 
@@ -170,13 +170,13 @@
 				target = text2num(target)
 				. = TRUE
 			if(.)
-				target_temperature = CLAMP(target, min_temperature, max_temperature)
+				target_temperature = clamp(target, min_temperature, max_temperature)
 				investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 	update_icon()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/CtrlClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
+	if(!can_interact(user))
 		return
 	on = !on
 	update_icon()
@@ -215,7 +215,7 @@
 	min_temperature = max(T0C - (initial(min_temperature) + L * 15), TCMB) //73.15K with T1 stock parts
 
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/AltClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
+	if(!can_interact(user))
 		return
 	target_temperature = min_temperature
 
@@ -241,6 +241,6 @@
 	max_temperature = T20C + (initial(max_temperature) * L) //573.15K with T1 stock parts
 
 /obj/machinery/atmospherics/components/unary/thermomachine/heater/AltClick(mob/living/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
+	if(!can_interact(user))
 		return
 	target_temperature = max_temperature

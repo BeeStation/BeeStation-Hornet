@@ -193,11 +193,11 @@
 /obj/item/storage/belt/security/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 5
+	STR.max_items = 6
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.can_hold = typecacheof(list(
 		/obj/item/melee/baton,
-		/obj/item/melee/classic_baton,
+		/obj/item/melee/classic_baton/police,
 		/obj/item/grenade,
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/restraints/handcuffs,
@@ -208,11 +208,12 @@
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/kitchen/knife/combat,
 		/obj/item/flashlight/seclite,
-		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/melee/classic_baton/police/telescopic,
 		/obj/item/radio,
 		/obj/item/clothing/gloves,
 		/obj/item/restraints/legcuffs/bola,
-		/obj/item/holosign_creator/security
+		/obj/item/holosign_creator/security,
+		/obj/item/club
 		))
 
 /obj/item/storage/belt/security/full/PopulateContents()
@@ -221,6 +222,18 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/club(src)
+	update_icon()
+
+/obj/item/storage/belt/security/deputy
+	name = "deputy security belt"
+
+/obj/item/storage/belt/security/deputy/PopulateContents()
+	new /obj/item/melee/classic_baton/police/deputy(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/restraints/handcuffs/cable(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/flashlight/seclite(src)
 	update_icon()
 
 /obj/item/storage/belt/security/webbing
@@ -285,7 +298,9 @@
 		/obj/item/organ/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon
+		/obj/item/stack/marker_beacon,
+		/obj/item/restraints/legcuffs/bola/watcher,
+		/obj/item/claymore/bone
 		))
 
 
@@ -534,7 +549,8 @@
 		/obj/item/clothing/gloves,
 		/obj/item/melee/flyswatter,
 		/obj/item/assembly/mousetrap,
-		/obj/item/paint/paint_remover
+		/obj/item/paint/paint_remover,
+		/obj/item/twohanded/pushbroom
 		))
 
 /obj/item/storage/belt/janitor/full/PopulateContents()
@@ -583,6 +599,24 @@
 		/obj/item/gun/ballistic/revolver/detective = 1,
 		/obj/item/ammo_box/c38 = 2)
 	generate_items_inside(items_inside,src)
+
+/obj/item/storage/belt/quiver
+	name = "leather quiver"
+	desc = "A quiver made from the hide of some animal. Used to hold arrows."
+	icon_state = "quiver"
+	item_state = "quiver"
+
+/obj/item/storage/belt/quiver/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 15
+	STR.display_numerical_stacking = TRUE
+	STR.can_hold = typecacheof(list(
+		/obj/item/ammo_casing/caseless/arrow/wood,
+		/obj/item/ammo_casing/caseless/arrow/ash,
+		/obj/item/ammo_casing/caseless/arrow/bone,
+		/obj/item/ammo_casing/caseless/arrow/bronze
+		))
 
 /obj/item/storage/belt/fannypack
 	name = "fannypack"

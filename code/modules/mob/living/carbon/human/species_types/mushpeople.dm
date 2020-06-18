@@ -12,11 +12,10 @@
 	say_mod = "poofs" //what does a mushroom sound like
 	species_traits = list(MUTCOLORS, NOEYESPRITES,NOFLASH, NO_UNDERWEAR)
 	inherent_traits = list(TRAIT_NOBREATH)
+	inherent_factions = list("mushroom")
 	speedmod = 1.5 //faster than golems but not by much
 
-	punchdamagelow = 6
-	punchdamagehigh = 14
-	punchstunthreshold = 14 //about 44% chance to stun
+	punchdamage = 12
 
 	no_equip = list(SLOT_WEAR_MASK, SLOT_WEAR_SUIT, SLOT_GLOVES, SLOT_SHOES, SLOT_W_UNIFORM)
 
@@ -40,13 +39,11 @@
 		if(!H.dna.features["caps"])
 			H.dna.features["caps"] = "Round"
 			handle_mutant_bodyparts(H)
-		H.faction |= "mushroom"
 		mush = new(null)
 		mush.teach(H)
 
 /datum/species/mush/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	C.faction -= "mushroom"
 	mush.remove(C)
 	QDEL_NULL(mush)
 

@@ -162,7 +162,7 @@
 /datum/mood_event/notcreepingsevere/add_effects(name)
 	var/list/unstable = list(name)
 	for(var/i in 1 to rand(3,5))
-		unstable += copytext(name, -1)
+		unstable += copytext_char(name, -1)
 	var/unhinged = uppertext(unstable.Join(""))//example Tinea Luxor > TINEA LUXORRRR (with randomness in how long that slur is)
 	description = "<span class='boldwarning'>THEY NEEEEEEED [unhinged]!!</span>\n"
 
@@ -202,3 +202,9 @@
 	description = "<span class='boldwarning'>HE'S CUTTING ME OPEN!!</span>\n"
 	mood_change = -8
 
+/datum/mood_event/nanite_sadness
+	description = "<span class='warning robot'>+++++++HAPPINESS SUPPRESSION+++++++</span>\n"
+	mood_change = -7
+
+/datum/mood_event/nanite_sadness/add_effects(message)
+	description = "<span class='warning robot'>+++++++[message]+++++++</span>\n"

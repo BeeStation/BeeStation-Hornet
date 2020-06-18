@@ -10,7 +10,6 @@
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "d" = (
-/obj/structure/destructible/clockwork/powered/clockwork_obelisk,
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "e" = (
@@ -26,7 +25,6 @@
 /turf/open/floor/bronze,
 /area/tdome/arena)
 "h" = (
-/obj/structure/destructible/clockwork/wall_gear,
 /turf/open/floor/bronze,
 /area/tdome/arena)
 "i" = (
@@ -47,7 +45,6 @@
 /area/tdome/arena)
 "m" = (
 /obj/item/toy/plush/plushvar,
-/obj/structure/destructible/clockwork/eminence_spire,
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "n" = (

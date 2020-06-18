@@ -144,7 +144,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "crayon", name, 600, 600,
+		ui = new(user, src, ui_key, "Crayon", name, 600, 600,
 			master_ui, state)
 		ui.open()
 
@@ -394,7 +394,7 @@
 		to_chat(user, "<span class='notice'>You spray a [temp] on \the [target.name]</span>")
 
 	if(length(text_buffer) > 1)
-		text_buffer = copytext(text_buffer,2)
+		text_buffer = copytext(text_buffer, length(text_buffer[1]) + 1)
 		SStgui.update_uis(src)
 
 	if(post_noise)
@@ -658,11 +658,24 @@
 	if(isobj(target))
 		if(actually_paints)
 			if(color_hex2num(paint_color) < 350 && !istype(target, /obj/structure/window)) //Colors too dark are rejected
-				to_chat(usr, "<span class='warning'>A colour that dark on an object like this? Surely not...</span>")
-				return FALSE
+				if(istype(target, /obj/item/clothing))
+					var/obj/item/clothing/C = target
+					if(((C.flags_cover & HEADCOVERSEYES) || (C.flags_cover & MASKCOVERSEYES) || (C.flags_cover & GLASSESCOVERSEYES)) && !HAS_TRAIT(C, TRAIT_SPRAYPAINTED))
+						C.flash_protect += 1
+						C.tint += 2
+						to_chat(usr, "<span class='warning'>You spray the [C] down, making it harder to see through!</span>")
+						ADD_TRAIT(C, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
+						if(ishuman(usr))
+							var/mob/living/carbon/human/H = usr
+							H.update_tint()
+					else
+						to_chat(usr, "<span class='warning'>A colour that dark on an object like this? Surely not...</span>")
+						return FALSE
+				else
+					to_chat(usr, "<span class='warning'>A colour that dark on an object like this? Surely not...</span>")
+					return FALSE
 
 			target.add_atom_colour(paint_color, WASHABLE_COLOUR_PRIORITY)
-
 			if(istype(target, /obj/structure/window))
 				if(color_hex2num(paint_color) < 255)
 					target.set_opacity(255)

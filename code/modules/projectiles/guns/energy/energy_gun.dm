@@ -9,7 +9,9 @@
 	ammo_x_offset = 3
 	flight_x_offset = 15
 	flight_y_offset = 10
+	weapon_weight = WEAPON_MEDIUM
 	dual_wield_spread = 60
+	block_upgrade_walk = 1
 
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"
@@ -21,6 +23,7 @@
 	ammo_x_offset = 2
 	charge_sections = 3
 	can_flashlight = FALSE // Can't attach or detach the flashlight, and override it's icon update
+	weapon_weight = WEAPON_LIGHT
 
 /obj/item/gun/energy/e_gun/mini/Initialize()
 	gun_light = new /obj/item/flashlight/seclite(src)
@@ -57,6 +60,8 @@
 	cell_type = /obj/item/stock_parts/cell{charge = 1200; maxcharge = 1200}
 	icon_state = "hoslaser"
 	force = 10
+	automatic = 1
+	fire_rate = 3
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler/hos)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -71,6 +76,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/net, /obj/item/ammo_casing/energy/trap)
 	can_flashlight = FALSE
 	ammo_x_offset = 1
+	fire_rate = 1.5
 
 /obj/item/gun/energy/e_gun/dragnet/snare
 	name = "Energy Snare Launcher"
@@ -84,11 +90,14 @@
 	item_state = "turretlaser"
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
+	cell_type = /obj/item/stock_parts/cell{charge = 10000; maxcharge = 10000}
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_HEAVY
 	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
+	automatic = 1
+	fire_rate = 5
 
 /obj/item/gun/energy/e_gun/nuclear
 	name = "advanced energy gun"
@@ -110,7 +119,7 @@
 		fail_tick--
 	..()
 
-/obj/item/gun/energy/e_gun/nuclear/shoot_live_shot()
+/obj/item/gun/energy/e_gun/nuclear/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	failcheck()
 	update_icon()
 	..()

@@ -36,6 +36,8 @@
 	create_objectives()
 	equip_rev()
 	owner.current.log_message("has been converted to the revolution!", LOG_ATTACK, color="red")
+	for(var/datum/objective/O in objectives)
+		log_objective(owner, O.explanation_text)
 
 /datum/antagonist/rev/on_removal()
 	remove_objectives()
@@ -235,7 +237,7 @@
 		H.dna.remove_mutation(CLOWNMUT)
 
 	if(give_flash)
-		var/obj/item/assembly/flash/T = new(H)
+		var/obj/item/assembly/flash/handheld/strong/T = new(H)
 		var/list/slots = list (
 			"backpack" = SLOT_IN_BACKPACK,
 			"left pocket" = SLOT_L_STORE,
@@ -269,6 +271,8 @@
 	for(var/datum/mind/M in members)
 		var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
 		R.objectives |= objectives
+		for(var/datum/objective/O in objectives)
+			log_objective(M, O.explanation_text)
 
 	addtimer(CALLBACK(src,.proc/update_objectives),HEAD_UPDATE_PERIOD,TIMER_UNIQUE)
 

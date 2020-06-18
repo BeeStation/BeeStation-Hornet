@@ -28,7 +28,7 @@
 /area/template_noop)
 "d" = (
 /obj/structure/bed,
-/obj/item/clothing/glasses/sunglasses/big,
+/obj/item/clothing/glasses/sunglasses/advanced/big,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (

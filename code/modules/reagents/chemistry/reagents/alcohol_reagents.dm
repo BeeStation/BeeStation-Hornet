@@ -89,6 +89,30 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "glass of beer"
 	glass_desc = "A freezing pint of beer."
 
+/datum/reagent/consumable/ethanol/ftliver
+	name = "Faster-Than-Liver"
+	description = "A beverage born among the stars, it's said drinking too much feels just like FTL transit."
+	color = "#0D0D0D" // rgb: 13, 13, 13
+	boozepwr = 52
+	taste_description = "empty space"
+	glass_icon_state = "ftliver"
+	glass_name = "glass of Faster-Than-Liver"
+	glass_desc = "My god, it's full of stars!"
+	var/HasTraveled = 0
+
+/datum/reagent/consumable/ethanol/ftliver/on_mob_life(mob/living/carbon/M)
+	if(!HasTraveled && prob(volume))
+		HasTraveled = 1
+		M.AdjustKnockdown(15)
+		M.become_nearsighted("ftliver")
+		shake_camera(M,15)
+		M.playsound_local(M.loc,"sound/effects/hyperspace_end.ogg",50)
+		addtimer(CALLBACK(src, .proc/Recover, M), 55)
+	return ..()
+
+/datum/reagent/consumable/ethanol/ftliver/proc/Recover(mob/living/M)
+	M.cure_nearsighted("ftliver")
+
 /datum/reagent/consumable/ethanol/beer/light
 	name = "Light Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. This variety has reduced calorie and alcohol content."
@@ -620,6 +644,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(!HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		B = new()
 		M.gain_trauma(B, TRAUMA_RESILIENCE_ABSOLUTE)
+	ADD_TRAIT(M, TRAIT_NOBLOCK, type) //sorry sec, but you dont get a special stam heal to help with blocking
 	..()
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/carbon/M)
@@ -636,6 +661,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_end_metabolize(mob/living/carbon/M)
 	if(B)
 		QDEL_NULL(B)
+	REMOVE_TRAIT(M, TRAIT_NOBLOCK, type)
 	return ..()
 
 /datum/reagent/consumable/ethanol/beepsky_smash/overdose_start(mob/living/carbon/M)
@@ -1633,7 +1659,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		var/mob/living/carbon/human/thehuman = L
 		for(var/obj/item/shield/theshield in thehuman.contents)
 			mighty_shield = theshield
-			mighty_shield.block_chance += 10
+			mighty_shield.block_power += 15
 			to_chat(thehuman, "<span class='notice'>[theshield] appears polished, although you don't recall polishing it.</span>")
 			return TRUE
 
@@ -1644,7 +1670,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/alexander/on_mob_end_metabolize(mob/living/L)
 	if(mighty_shield)
-		mighty_shield.block_chance -= 10
+		mighty_shield.block_power -= 15
 		to_chat(L,"<span class='notice'>You notice [mighty_shield] looks worn again. Weird.</span>")
 	..()
 
@@ -2125,4 +2151,27 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if (prob(5))
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
+	..()
+
+/datum/reagent/consumable/ethanol/plasmaflood
+	name = "Plasma Flood"
+	description = "Not very popular with plasmamen, for obvious reasons."
+	color = "#630480" // rgb: 99, 4, 128
+	boozepwr = 60
+	quality = DRINK_NICE
+	metabolization_rate = 1.25 * REAGENTS_METABOLISM
+	taste_description = "a plasma fire in your mouth"
+	glass_icon_state = "plasmaflood"
+	glass_name = "Plasma Flood"
+	glass_desc = "A favorite of the grey tide. Ironically, not recommended to stand in plasma while drinking this."
+
+/datum/reagent/consumable/ethanol/plasmaflood/on_mob_life(mob/living/M)
+	if(prob(80))
+		M.IgniteMob()
+		M.adjust_fire_stacks(10)
+
+	if(M.fire_stacks > 9)
+		if(M.on_fire)
+			M.adjustFireLoss(-16, 0)
+
 	..()

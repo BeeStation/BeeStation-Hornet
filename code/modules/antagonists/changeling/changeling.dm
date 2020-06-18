@@ -1,4 +1,4 @@
-#define LING_FAKEDEATH_TIME					400 //40 seconds
+#define LING_FAKEDEATH_TIME					600 //1 minute.
 #define LING_DEAD_GENETICDAMAGE_HEAL_CAP	50	//The lowest value of geneticdamage handle_changeling() can take it to while dead.
 #define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
 
@@ -17,7 +17,6 @@
 
 	var/list/stored_profiles = list() //list of datum/changelingprofile
 	var/datum/changelingprofile/first_prof = null
-	var/dna_max = 6 //How many extra DNA strands the changeling can store for transformation.
 	var/absorbedcount = 0
 	var/trueabsorbs = 0//dna gained using absorb, not dna sting
 	var/chem_charges = 20
@@ -32,7 +31,6 @@
 	var/islinking = 0
 	var/geneticpoints = 10
 	var/purchasedpowers = list()
-
 	var/mimicing = ""
 	var/canrespec = FALSE//set to TRUE in absorb.dm
 	var/changeling_speak = 0
@@ -82,8 +80,6 @@
 	reset_powers()
 	create_initial_profile()
 	if(give_objectives)
-		if(team_mode)
-			forge_team_objectives()
 		forge_objectives()
 	remove_clownmut()
 	. = ..()
@@ -235,12 +231,6 @@
 		return
 	if(!istype(user))
 		return
-	if(stored_profiles.len)
-		var/datum/changelingprofile/prof = stored_profiles[1]
-		if(prof.dna == user.dna && stored_profiles.len >= dna_max)//If our current DNA is the stalest, we gotta ditch it.
-			if(verbose)
-				to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
-			return
 	if(!target)
 		return
 	if(NO_DNA_COPY in target.dna.species.species_traits)
@@ -302,10 +292,6 @@
 	return prof
 
 /datum/antagonist/changeling/proc/add_profile(datum/changelingprofile/prof)
-	if(stored_profiles.len > dna_max)
-		if(!push_out_profile())
-			return
-
 	if(!first_prof)
 		first_prof = prof
 
@@ -342,6 +328,11 @@
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
 	if(isIPC(C))
 		C.set_species(/datum/species/human)
+		var/replacementName = random_unique_name(C.gender)
+		if(C.client.prefs.custom_names["human"])
+			C.fully_replace_character_name(C.real_name, C.client.prefs.custom_names["human"])
+		else
+			C.fully_replace_character_name(C.real_name, replacementName)
 	if(ishuman(C))
 		add_new_profile(C)
 
@@ -373,43 +364,29 @@
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, "<span class='userdanger'>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
 
-/datum/antagonist/changeling/proc/forge_team_objectives()
-	if(GLOB.changeling_team_objective_type)
-		var/datum/objective/changeling_team_objective/team_objective = new GLOB.changeling_team_objective_type
-		team_objective.owner = owner
-		if(team_objective.prepare())//Setting up succeeded
-			objectives += team_objective
-		else
-			qdel(team_objective)
-	return
-
 /datum/antagonist/changeling/proc/forge_objectives()
 	//OBJECTIVES - random traitor objectives. Unique objectives "steal brain" and "identity theft".
 	//No escape alone because changelings aren't suited for it and it'd probably just lead to rampant robusting
 	//If it seems like they'd be able to do it in play, add a 10% chance to have to escape alone
 
 	var/escape_objective_possible = TRUE
-
-	//if there's a team objective, check if it's compatible with escape objectives
-	for(var/datum/objective/changeling_team_objective/CTO in objectives)
-		if(!CTO.escape_objective_compatible)
-			escape_objective_possible = FALSE
-			break
-
 	switch(competitive_objectives ? (team_mode ? rand(1,2) : rand(1,3)) : 1)
 		if(1)
 			var/datum/objective/absorb/absorb_objective = new
 			absorb_objective.owner = owner
 			absorb_objective.gen_amount_goal(6, 8)
 			objectives += absorb_objective
+			log_objective(owner, absorb_objective.explanation_text)
 		if(2)
 			var/datum/objective/absorb_most/ac = new
 			ac.owner = owner
 			objectives += ac
+			log_objective(owner, ac.explanation_text)
 		if(3) //only give the murder other changelings goal if they're not in a team.
 			var/datum/objective/absorb_changeling/ac = new
 			ac.owner = owner
 			objectives += ac
+			log_objective(owner, ac.explanation_text)
 
 	if(prob(60))
 		if(prob(85))
@@ -417,11 +394,13 @@
 			steal_objective.owner = owner
 			steal_objective.find_target()
 			objectives += steal_objective
+			log_objective(owner, steal_objective.explanation_text)
 		else
 			var/datum/objective/download/download_objective = new
 			download_objective.owner = owner
 			download_objective.gen_amount_goal()
 			objectives += download_objective
+			log_objective(owner, download_objective.explanation_text)
 
 	var/list/active_ais = active_ais()
 	if(active_ais.len && prob(100/GLOB.joined_player_list.len))
@@ -429,6 +408,7 @@
 		destroy_objective.owner = owner
 		destroy_objective.find_target()
 		objectives += destroy_objective
+		log_objective(owner, destroy_objective.explanation_text)
 	else
 		if(prob(70))
 			var/datum/objective/assassinate/kill_objective = new
@@ -438,6 +418,7 @@
 			else
 				kill_objective.find_target()
 			objectives += kill_objective
+			log_objective(owner, kill_objective.explanation_text)
 		else
 			var/datum/objective/maroon/maroon_objective = new
 			maroon_objective.owner = owner
@@ -446,6 +427,7 @@
 			else
 				maroon_objective.find_target()
 			objectives += maroon_objective
+			log_objective(owner, maroon_objective.explanation_text)
 
 			if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 				var/datum/objective/escape/escape_with_identity/identity_theft = new
@@ -453,6 +435,7 @@
 				identity_theft.target = maroon_objective.target
 				identity_theft.update_explanation_text()
 				objectives += identity_theft
+				log_objective(owner, identity_theft.explanation_text)
 				escape_objective_possible = FALSE
 
 	if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
@@ -460,6 +443,7 @@
 			var/datum/objective/escape/escape_objective = new
 			escape_objective.owner = owner
 			objectives += escape_objective
+			log_objective(owner, escape_objective.explanation_text)
 		else
 			var/datum/objective/escape/escape_with_identity/identity_theft = new
 			identity_theft.owner = owner
@@ -468,6 +452,7 @@
 			else
 				identity_theft.find_target()
 			objectives += identity_theft
+			log_objective(owner, identity_theft.explanation_text)
 		escape_objective_possible = FALSE
 
 /datum/antagonist/changeling/proc/update_changeling_icons_added()
