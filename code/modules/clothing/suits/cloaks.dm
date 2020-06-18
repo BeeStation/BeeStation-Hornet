@@ -50,6 +50,18 @@
 	desc = "Worn by the Head of Personnel. It smells faintly of bureaucracy."
 	icon_state = "hopcloak"
 
+/obj/item/clothing/neck/cloak/syndcap
+	name = "syndicate captain's cloak"
+	desc = "A cloak that inspires fear among Nanotrasen employees, worn by the greatest Syndicate captains."
+	icon_state = "syndcapt"
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 0, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 70)
+
+/obj/item/clothing/neck/cloak/syndadmiral
+	name = "syndicate admiral's cloak"
+	desc = "A deep red cloak, worn by only the greatest of the Syndicate. If you are looking at this, you probably won't be looking at it for much longer."
+	icon_state = "syndadmiral"
+	armor = list("melee" = 15, "bullet" = 20, "laser" = 0, "energy" = 40, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
+
 /obj/item/clothing/suit/hooded/cloak/goliath
 	name = "goliath cloak"
 	icon_state = "goliath_cloak"

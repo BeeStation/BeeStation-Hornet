@@ -9,12 +9,18 @@ import { refocusLayout, Window } from '../layouts';
 import { GridColumn } from '../components/Grid';
 
 export const SystemMap = (props, context) => {
+  const { data } = useBackend(context);
+  const {
+    bluespace_drive,
+  } = data;
   return (
     <Window
       resizable>
       <div className="SystemMap__left">
         <Window.Content scrollable>
-          <StarMapStarList />
+          { bluespace_drive
+            ? <StarMapStarList />
+            : <StarMapStarList />}
         </Window.Content>
       </div>
       <div className="SystemMap__right">
@@ -31,22 +37,29 @@ export const SystemMap = (props, context) => {
 };
 
 export const StarMapStarList = (props, context) => {
+  const { data, act } = useBackend(context);
+  const {
+    jump_locations,
+  } = data;
   return (
     <Section>
-      <Box
-        className={classes([
-          'Button',
-          'Button--fluid',
-          'Button--color--transparent',
-          'Button--ellipsis',
-          'Button--selected',
-        ])}>
-        <b>
-          Star Name
-        </b>
-        <Divider />
-        Distance: 0ly
-      </Box>
+      {jump_locations.map(jump_destination => (
+        <Box
+          key={jump_destination.id}
+          className={classes([
+            'Button',
+            'Button--fluid',
+            'Button--color--transparent',
+            'Button--ellipsis',
+            'Button--selected',
+          ])}>
+          <b>
+            {jump_destination.name}
+          </b>
+          <Divider />
+          Distance: 0ly
+        </Box>
+      ))}
     </Section>
   );
 };
