@@ -403,3 +403,21 @@
 	..()
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
+/mob/living/extrapolator_act(mob/user, /obj/item/extrapolator/E, scan = TRUE)
+	if(scan)
+		if(diseases.len)
+			to_chat(user, "<span class='alert'>[src] has the following diseases:</span>")
+			for(var/datum/disease/D in diseases)
+				if(istype(D, /datum/disease/advance))
+					var/datum/disease/advance/A = D
+					if(A.properties["stealth"] >= 4) //the extrapolator can detect diseases of higher stealth than a normal scanner
+						continue
+					to_chat(user, "<span class='info'><font color='green'><b>[A.name]</b></color></span>")
+					to_chat(user, "<span class='alert'>[A] has the following symptoms:</span>")
+					for(var/datum/symptom/S in A.symptoms)
+						to_chat(user, "<span class='info'>[S.name]</span>")
+				else
+					to_chat(user, "<span class='info'><font color='green'><b>[D.name]</b></color></span>")
+		else 
+			return FALSE
+

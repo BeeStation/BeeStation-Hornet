@@ -823,3 +823,32 @@ GENE SCANNER
 		return  "[HM.name] ([HM.alias])"
 	else
 		return HM.alias
+
+/obj/item/extrapolator
+	name = "virus extrapolator"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "extrapolator_scan"
+	desc = "A bulky scanning device, used to extract genetic material of potential pathogens"
+	item_flags = NOBLUDGEON
+	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_NORMAL
+	var/scan = TRUE
+
+/obj/item/extrapolator/attack_self(mob/user)
+	. = ..()
+	playsound(src, 'sound/machines/click.ogg', 50, 1)
+	if(scan)
+		icon_state = "extrapolator_sample"
+		scan = FALSE
+		to_chat(user, "<span class='notice'>You remove the probe from the device and set it to EXTRACT</span>")
+	else 
+		icon_state = "extrapolator_scan"
+		scan = TRUE
+		to_chat(user, "<span class='notice'>You put the probe back in the device and set it to SCAN</span>")
+
+/obj/item/extrapolator/attack(atom/AM, mob/living/user)
+	if(!AM.extrapolator_act(user, src, scan))
+		if(scan)
+			to_chat(user, "<span class='notice'>the extrapolator fails to return any data</span>")
+		else
+			to_chat(user, "<span class='notice'>the extrapolator's probe wont work here</span>")

@@ -686,6 +686,13 @@
 	SEND_SIGNAL(src,COMSIG_ATOM_TELEPORT_ACT)
 
 /**
+  * Respond to our atom being checked by a virus extrapolator
+  *
+  * Default behaviour is to return FALSE
+  */
+/atom/proc/extrapolator_act(mob/user, /obj/item/extrapolator/src, scan = TRUE)
+	return FALSE
+/**
   * Implement the behaviour for when a user click drags a storage object to your atom
   *
   * This behaviour is usually to mass transfer, but this is no longer a used proc as it just
