@@ -91,8 +91,7 @@
 	return TRUE
 
 /mob/living/simple_animal/hostile/illusion/doppelganger
-	melee_damage_lower = 0
-	melee_damage_upper = 0
+	melee_damage = 0
 	speed = -1
 	obj_damage = 0
 	vision_range = 0

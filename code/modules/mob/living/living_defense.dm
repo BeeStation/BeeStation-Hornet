@@ -226,7 +226,7 @@
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
-	if(M.melee_damage_upper == 0)
+	if(M.melee_damage == 0)
 		M.visible_message("<span class='notice'>\The [M] [M.friendly] [src]!</span>", \
 						"<span class='notice'>\The [M] [M.friendly] you!</span>")
 		return FALSE
@@ -258,15 +258,11 @@
 			to_chat(M, "<span class='warning'>You can't bite with your mouth covered!</span>")
 			return FALSE
 		M.do_attack_animation(src, ATTACK_EFFECT_BITE)
-		if (prob(75))
-			log_combat(M, src, "attacked")
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-			visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-					"<span class='userdanger'>[M.name] bites you!</span>", null, COMBAT_MESSAGE_RANGE)
-			return TRUE
-		else
-			visible_message("<span class='danger'>[M.name]'s bite misses [src]!</span>", \
-				"<span class='userdanger'>[M.name]'s bite misses you!</span>", null, COMBAT_MESSAGE_RANGE)
+		log_combat(M, src, "attacked")
+		playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+		visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
+				"<span class='userdanger'>[M.name] bites you!</span>", null, COMBAT_MESSAGE_RANGE)
+		return TRUE
 	return FALSE
 
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)
