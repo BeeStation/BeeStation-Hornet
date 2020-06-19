@@ -6,6 +6,14 @@
 	max_ammo = 7
 	multiple_sprites = 1
 
+/obj/item/ammo_box/shotgun_lethal
+	name = "speed loader (buckshot)"
+	desc = "Designed to quickly reload shell-based revolvers."
+	icon_state = "shotlethal"
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	max_ammo = 6
+	multiple_sprites = 1
+
 /obj/item/ammo_box/c38
 	name = "speed loader (.38)"
 	desc = "Designed to quickly reload revolvers."

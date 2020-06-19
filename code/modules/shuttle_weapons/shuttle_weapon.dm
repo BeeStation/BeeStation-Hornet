@@ -19,9 +19,11 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	var/shot_time = 2
 	var/cooldown = 150
 
-	var/fire_sound = 'sound/weapons/laser.ogg'
+	var/fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
-	var/innaccuracy = 3	//The range that things will hit
+	var/hit_chance = 60		//The chance that it will hit
+	var/miss_chance = 40	//The chance it will miss completely instead of hit nearby (60% hit | 24% hit nearby (inaccuracy) | 16% miss)
+	var/innaccuracy = 1		//The range that things will hit, if it doesn't get a perfect hit
 
 	var/turf/target_turf
 	var/next_shot_world_time = 0
@@ -42,6 +44,9 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	. = ..()
 	//Shuttle rotations handle the pixel_x changes, and this shouldn't be rotatable, unless rotated from a shuttle
 	set_directional_offset(newdir, FALSE)
+
+/obj/machinery/shuttle_weapon/obj_break(damage_flag)
+	qdel(src)
 
 /obj/machinery/shuttle_weapon/proc/set_directional_offset(newdir, update_pixel = FALSE)
 	var/offset_value = directional_offset * side
@@ -84,19 +89,24 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 		return
 	if(!forced)
 		next_shot_world_time = world.time + cooldown
-	var/turf/current_target_turf = locate(target.x + rand(-innaccuracy, innaccuracy), target.y + rand(-innaccuracy, innaccuracy), target.z)
+	var/turf/current_target_turf = get_turf(target)
+	var/missed = FALSE
+	if(!prob(hit_chance))
+		current_target_turf = locate(target.x + rand(-innaccuracy, innaccuracy), target.y + rand(-innaccuracy, innaccuracy), target.z)
+		if(prob(miss_chance))
+			missed = TRUE
 	playsound(loc, fire_sound, 75, 1)
 	//Spawn the projectile to make it look like its firing from your end
 	var/obj/item/projectile/P = new projectile_type(get_offset_target_turf(get_turf(src), offset_turf_x, offset_turf_y))
 	P.fire(dir2angle(dir))
-	addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, current_target_turf), flight_time)
+	addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, current_target_turf, missed), flight_time)
 	//Multishot cannons
 	if(shots_left > 1)
 		addtimer(CALLBACK(src, .proc/fire, target, shots_left - 1, TRUE), shot_time)
 
-/obj/machinery/shuttle_weapon/proc/spawn_incoming_fire(obj/item/projectile/P, atom/target)
+/obj/machinery/shuttle_weapon/proc/spawn_incoming_fire(obj/item/projectile/P, atom/target, missed = FALSE)
 	if(QDELETED(P))
 		return
 	qdel(P)
 	//Spawn the projectile to come in FTL style
-	fire_projectile_towards(target, projectile_type = projectile_type)
+	fire_projectile_towards(target, projectile_type = projectile_type, missed = missed)

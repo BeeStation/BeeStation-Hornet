@@ -38,14 +38,17 @@
 	neck = /obj/item/clothing/neck/cloak/syndcap
 	shoes = /obj/item/clothing/shoes/combat/swat
 
+//This has evolved from borderline overpowered to just plain overpowered overtime, but its pretty fucking epic for admins
 /datum/outfit/encounter/syndicate/admiral
 	name = "Syndicate Admiral"
 	belt = /obj/item/storage/belt/sabre
-	suit = /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
+	head = /obj/item/clothing/head/helmet/space/beret
+	suit = /obj/item/clothing/suit/armor/vest/capcarapace/syndicate/admiral
 	suit_store = /obj/item/gun/ballistic/shotgun/automatic/pistol
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	neck = /obj/item/clothing/neck/cloak/syndadmiral
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
 	l_pocket = /obj/item/lighter
-	back = null
+	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	shoes = /obj/item/clothing/shoes/combat/swat
+	backpack_contents = list(/obj/item/storage/box/survival=1,/obj/item/clipboard=1,/obj/item/ammo_box/shotgun_lethal=3)

@@ -8,6 +8,12 @@
 	reflectable = NONE
 
 	var/obj_damage = 0
+	var/miss = FALSE
+
+/obj/item/projectile/bullet/shuttle/on_hit(atom/target, blocked)
+	if(miss)
+		return
+	. = ..()
 
 /obj/item/projectile/bullet/shuttle/pixel_move(trajectory_multiplier, hitscanning)
 	. = ..()

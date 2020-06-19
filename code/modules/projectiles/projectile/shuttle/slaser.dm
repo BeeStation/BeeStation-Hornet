@@ -13,23 +13,28 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_RED
 	ricochets_max = 50	//Honk!
-	ricochet_chance = 0
+	ricochet_chance = 50
+	var/ignore_ricochet_chance = 70
 
-//Penetrates the first layer of hull, then bounces around a lot on the inside.
-/obj/item/projectile/bullet/shuttle/beam/check_ricochet()
-	if(ricochet_chance < 80)
-		ricochet_chance += 20
-	return ..()
+/obj/item/projectile/bullet/shuttle/beam/Initialize()
+	. = ..()
+	if(prob(ignore_ricochet_chance))
+		ricochet_chance = 0
 
 /obj/item/projectile/bullet/shuttle/beam/on_hit(atom/target, blocked)
+	if(miss)
+		return
 	var/turf/T = target
+	//Make it so it can damage turfs
 	if(istype(T))
-		if(T.flags_1 & CHECK_RICOCHET_1)
-			return ..()
+		if(impact_effect_type && !hitscan)
+			new impact_effect_type(T, target.pixel_x + rand(-8, 8), target.pixel_y + rand(-8, 8))
 		T.ex_act(EXPLODE_LIGHT)
+		for(var/obj/object in T)
+			object.obj_integrity -= damage
 		qdel(src)
 		return BULLET_ACT_HIT
-	. = ..()
+	return ..()
 
 /obj/item/projectile/bullet/shuttle/beam/laser
 	tracer_type = /obj/effect/projectile/tracer/laser
