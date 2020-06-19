@@ -45,6 +45,11 @@ $color-separator: colors.$primary !default;
   padding: 8px 6px;
 }
 
+.Section__content__scroll {
+  padding: 8px 6px;
+  overflow-y: scroll;
+}
+
 .Section--level--1 .Section__titleText {
   font-size: 14px;
 }
