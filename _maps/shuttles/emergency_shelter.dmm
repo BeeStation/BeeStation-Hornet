@@ -197,6 +197,7 @@
 	name = "Emergency Shuttle Airlock"
 	},
 /obj/docking_port/mobile/emergency,
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "aH" = (
@@ -454,6 +455,13 @@
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
+"Ma" = (
+/obj/machinery/door/airlock/survival_pod{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -469,7 +477,7 @@ ab
 ab
 ab
 ah
-bs
+Ma
 ah
 bs
 ah
