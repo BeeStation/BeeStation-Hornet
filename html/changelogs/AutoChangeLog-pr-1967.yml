@@ -1,0 +1,4 @@
+author: FleshGordo
+delete-after: true
+changes:
+  - config: Made Flypeople a roundstart race once more
