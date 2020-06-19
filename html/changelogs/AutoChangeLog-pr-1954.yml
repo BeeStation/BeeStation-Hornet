@@ -1,0 +1,5 @@
+author: zeskorion
+delete-after: true
+changes:
+  - balance: stimulum renders you unable to block with non-shields instead of dealing
+      toxin damage to you
