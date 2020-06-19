@@ -2,10 +2,6 @@
 "a" = (
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
-"b" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/turf/open/floor/pod/light,
-/area/survivalpod)
 "c" = (
 /obj/machinery/vending/wallmed/survival_pod,
 /turf/closed/wall/mineral/titanium/survival,
@@ -79,7 +75,7 @@
 (1,1,1) = {"
 a
 a
-b
+U
 F
 a
 "}
@@ -121,7 +117,7 @@ N
 (7,1,1) = {"
 a
 F
-b
+U
 a
 a
 "}

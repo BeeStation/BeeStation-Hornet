@@ -17,10 +17,6 @@
 /obj/item/gps/computer,
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
-"f" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/turf/open/floor/pod/light,
-/area/survivalpod)
 "g" = (
 /obj/machinery/smartfridge/survival_pod,
 /turf/closed/wall/mineral/titanium/survival,
@@ -110,11 +106,11 @@ a
 (5,1,1) = {"
 b
 b
-f
+j
 i
 i
 i
-f
+j
 b
 b
 "}
