@@ -47,7 +47,7 @@ $color-separator: colors.$primary !default;
 
 .Section__content__scroll {
   padding: 8px 6px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .Section--level--1 .Section__titleText {
