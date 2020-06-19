@@ -690,7 +690,7 @@
   *
   * Default behaviour is to return FALSE
   */
-/atom/proc/extrapolator_act(mob/user, /obj/item/extrapolator/src, scan = TRUE)
+/atom/proc/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	return FALSE
 /**
   * Implement the behaviour for when a user click drags a storage object to your atom
