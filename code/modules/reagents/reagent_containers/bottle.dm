@@ -302,12 +302,7 @@
 	name = "bowl of blood"
 	desc = "A clay bowl containing a fledgling Necropolis, preserved in blood. A robust virologist may be able to unlock its full potential..."
 	icon_state = "mortar"
-	spawned_disease = /datum/disease/advance/necropolis
-
-/obj/item/reagent_containers/glass/bottle/blobitis
-	name = "Blobitis bottle"
-	desc = "A bottle filled by liquid blob. Might not want to drink this one."
-	spawned_disease = /datum/disease/advance/blobitis
+	spawned_disease = /datum/disease/advance/random/necropolis
 
 /obj/item/reagent_containers/glass/bottle/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis culture bottle"

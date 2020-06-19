@@ -37594,8 +37594,7 @@
 	icon_living = "magicarp";
 	icon_state = "magicarp";
 	maxHealth = 200;
-	melee_damage_lower = 20;
-	melee_damage_upper = 20;
+	melee_damage = 20;
 	name = "Lia"
 	},
 /turf/open/floor/carpet/red,

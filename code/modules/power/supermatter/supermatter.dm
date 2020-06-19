@@ -578,7 +578,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 /obj/machinery/power/supermatter_crystal/attack_animal(mob/living/simple_animal/S)
 	var/murder
-	if(!S.melee_damage_upper && !S.melee_damage_lower)
+	if(!S.melee_damage)
 		murder = S.friendly
 	else
 		murder = S.attacktext

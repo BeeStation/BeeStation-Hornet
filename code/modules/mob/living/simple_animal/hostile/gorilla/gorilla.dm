@@ -19,8 +19,7 @@
 	response_disarm = "challenges"
 	response_harm   = "thumps"
 	speed = 1
-	melee_damage_lower = 15
-	melee_damage_upper = 18
+	melee_damage = 16
 	damage_coeff = list(BRUTE = 1, BURN = 1.5, TOX = 1.5, CLONE = 0, STAMINA = 0, OXY = 1.5)
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_WALLS
@@ -35,6 +34,7 @@
 	minbodytemp = 270
 	maxbodytemp = 350
 	unique_name = TRUE
+	hardattacks = TRUE
 	var/list/gorilla_overlays[GORILLA_TOTAL_LAYERS]
 	var/oogas = 0
 	var/diseased = FALSE
@@ -126,8 +126,7 @@
 	health = 220
 	loot = list(/obj/effect/gibspawner/generic/animal)
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/gorilla = 4)
-	melee_damage_lower = 15
-	melee_damage_upper = 25
+	melee_damage = 20
 	damage_coeff = list(BRUTE = 0.8, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 1)
 	obj_damage = 50
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
