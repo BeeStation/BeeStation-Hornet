@@ -26,8 +26,7 @@
 	icon_gib = "syndicate_gib"
 	maxHealth = 800
 	health = 800
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	attacktext = "smashes into the side of"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	throw_message = "merely dinks off of the"

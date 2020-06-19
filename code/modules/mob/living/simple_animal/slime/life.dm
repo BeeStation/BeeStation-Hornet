@@ -2,7 +2,6 @@
 /mob/living/simple_animal/slime
 	var/AIproc = 0 // determines if the AI loop is activated
 	var/Atkcool = 0 // attack cooldown
-	var/Tempstun = 0 // temporary temperature stuns
 	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
 	var/SStun = 0 // stun variable
 
@@ -117,17 +116,12 @@
 	//Account for massive pressure differences
 
 	if(bodytemperature < (T0C + 5)) // start calculating temperature damage etc
-		if(bodytemperature <= (T0C - 40)) // stun temperature
-			Tempstun = 1
 
 		if(bodytemperature <= (T0C - 50)) // hurt temperature
 			if(bodytemperature <= 50) // sqrting negative numbers is bad
 				adjustBruteLoss(200)
 			else
 				adjustBruteLoss(round(sqrt(bodytemperature)) * 2)
-
-	else
-		Tempstun = 0
 
 	if(stat != DEAD)
 		var/bz_percentage = environment.total_moles() ? (environment.get_moles(/datum/gas/bz) / environment.total_moles()) : 0
@@ -194,16 +188,15 @@
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
 
 		if(M.client && ishuman(M))
-			if(prob(85))
-				rabid = 1 //we go rabid after finishing to feed on a human with a client.
+			rabid = 1 //we go rabid after finishing to feed on a human with a client.
 
 		Feedstop()
 		return
 
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustCloneLoss(rand(2,4))
-		C.adjustToxLoss(rand(1,2))
+		C.adjustCloneLoss(4)
+		C.adjustToxLoss(2)
 
 		if(prob(10) && C.client)
 			to_chat(C, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
@@ -218,8 +211,8 @@
 		var/mob/living/simple_animal/SA = M
 
 		var/totaldamage = 0 //total damage done to this unfortunate animal
-		totaldamage += SA.adjustCloneLoss(rand(2,4))
-		totaldamage += SA.adjustToxLoss(rand(1,2))
+		totaldamage += SA.adjustCloneLoss(2)
+		totaldamage += SA.adjustToxLoss(2)
 
 		if(totaldamage <= 0) //if we did no(or negative!) damage to it, stop
 			Feedstop(0, 0)
@@ -229,10 +222,10 @@
 		Feedstop(0, 0)
 		return
 
-	add_nutrition((rand(7, 15) * CONFIG_GET(number/damage_multiplier)))
+	add_nutrition((11 * CONFIG_GET(number/damage_multiplier)))
 
 	//Heal yourself.
-	adjustBruteLoss(-3)
+	adjustBruteLoss(-5)
 
 /mob/living/simple_animal/slime/proc/handle_nutrition()
 
@@ -245,8 +238,7 @@
 
 	if(nutrition <= 0)
 		set_nutrition(0)
-		if(prob(75))
-			adjustBruteLoss(rand(0,5))
+		adjustBruteLoss(1)
 
 	else if (nutrition >= get_grow_nutrition() && amount_grown < SLIME_EVOLUTION_THRESHOLD)
 		adjust_nutrition(-20)
@@ -275,9 +267,6 @@
 
 /mob/living/simple_animal/slime/proc/handle_targets()
 	update_mobility()
-	if(Tempstun)
-		if(!buckled) // not while they're eating!
-			mobility_flags &= ~MOBILITY_MOVE
 
 	if(attacked > 50)
 		attacked = 50

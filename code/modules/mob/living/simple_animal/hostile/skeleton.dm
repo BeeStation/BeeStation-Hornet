@@ -14,9 +14,7 @@
 	maxHealth = 40
 	health = 40
 	speed = 1
-	harm_intent_damage = 5
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	minbodytemp = 0
 	maxbodytemp = 1500
 	healable = 0 //they're skeletons how would bruise packs help them??
@@ -35,6 +33,7 @@
 	loot = list(/obj/effect/decal/remains/human)
 
 	do_footstep = TRUE
+	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/skeleton/eskimo
 	name = "undead eskimo"
@@ -46,8 +45,7 @@
 	health = 55
 	weather_immunities = list("snow")
 	gold_core_spawnable = NO_SPAWN
-	melee_damage_lower = 17
-	melee_damage_upper = 20
+	melee_damage = 20
 	deathmessage = "collapses into a pile of bones, its gear falling to the floor!"
 	loot = list(/obj/effect/decal/remains/human,
 				/obj/item/twohanded/spear,
@@ -70,8 +68,7 @@
 	speak = list("THE GODS WILL IT!","DEUS VULT!","REMOVE KABAB!")
 	force_threshold = 10 //trying to simulate actually having armor
 	obj_damage = 50
-	melee_damage_lower = 25
-	melee_damage_upper = 30
+	melee_damage = 30
 	deathmessage = "collapses into a pile of bones, its gear clanging as it hits the ground!"
 	loot = list(/obj/effect/decal/remains/human,
 				/obj/item/clothing/suit/armor/riot/chaplain,
@@ -96,9 +93,7 @@
 	icon_dead = "plasma_miner"
 	maxHealth = 150
 	health = 150
-	harm_intent_damage = 10
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage = 17
 	light_color = LIGHT_COLOR_PURPLE
 	attacktext = "slashes"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
@@ -112,11 +107,10 @@
 	icon_dead = "plasma_miner_tool"
 	maxHealth = 185
 	health = 185
-	harm_intent_damage = 15
-	melee_damage_lower = 20
-	melee_damage_upper = 25
+	melee_damage = 22
 	attacktext = "blasts"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
+	environment_smash = ENVIRONMENT_SMASH_WALLS
 	loot = list(/obj/effect/decal/remains/plasma, /obj/item/pickaxe/drill/jackhammer)
 
 /mob/living/simple_animal/hostile/skeleton/plasmaminer/Initialize()

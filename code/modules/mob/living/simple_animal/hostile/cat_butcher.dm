@@ -21,9 +21,7 @@
 	robust_searching = 1
 	maxHealth = 100
 	health = 100
-	harm_intent_damage = 5
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	attacktext = "slashes at"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	a_intent = INTENT_HARM
@@ -36,12 +34,20 @@
 	status_flags = CANPUSH
 	del_on_death = 1
 	var/impatience = 0
+	hardattacks = TRUE
+
+/mob/living/simple_animal/hostile/cat_butcherer/Life()
+	. = ..()
+	if(prob(10) && health <= maxHealth && !target) //heal himself when not in combat
+		var/healamount = min(maxHealth-health, 20)
+		visible_message("[src] medicates themself.", "<span class='notice'>You medicate yourself.</span>")
+		health += healamount
 
 /mob/living/simple_animal/hostile/cat_butcherer/CanAttack(atom/the_target)
 	if(iscarbon(target))
 		var/mob/living/carbon/human/C = target
 		if(C.getorgan(/obj/item/organ/ears/cat) && C.getorgan(/obj/item/organ/tail/cat) && C.has_trauma_type(/datum/brain_trauma/severe/pacifism))//he wont attack his creations
-			if(C.stat >= UNCONSCIOUS && (!HAS_TRAIT(C, TRAIT_NOMETABOLISM) || !istype(C.dna.species, /datum/species/ipc)))//unless they need healing
+			if(C.stat && (!HAS_TRAIT(C, TRAIT_NOMETABOLISM) || !istype(C.dna.species, /datum/species/ipc)))//unless they need healing
 				return ..()
 			else
 				return FALSE 
@@ -50,7 +56,7 @@
 /mob/living/simple_animal/hostile/cat_butcherer/AttackingTarget()
 	if(iscarbon(target))
 		var/mob/living/carbon/human/L = target
-		if(!L.getorgan(/obj/item/organ/ears/cat) && L.stat >= UNCONSCIOUS) //target doesnt have cat ears
+		if(!L.getorgan(/obj/item/organ/ears/cat) && L.stat) //target doesnt have cat ears
 			if(L.getorgan(/obj/item/organ/ears)) //slice off the old ears
 				var/obj/item/organ/ears/ears = L.getorgan(/obj/item/organ/ears)
 				visible_message("[src] slices off [L]'s ears!", "<span class='notice'>You slice [L]'s ears off.</span>")
@@ -61,7 +67,7 @@
 				var/obj/item/organ/ears/cat/newears = new
 				newears.Insert(L, drop_if_replaced = FALSE)
 				return
-		else if(!L.getorgan(/obj/item/organ/tail/cat) && L.stat >= UNCONSCIOUS)
+		else if(!L.getorgan(/obj/item/organ/tail/cat) && L.stat)
 			if(L.getorgan(/obj/item/organ/tail)) //cut off the tail if they have one already
 				var/obj/item/organ/tail/tail = L.getorgan(/obj/item/organ/tail)
 				visible_message("[src] severs [L]'s tail in one swift swipe!", "<span class='notice'>You sever [L]'s tail in one swift swipe.</span>")
@@ -72,12 +78,16 @@
 				var/obj/item/organ/tail/cat/newtail = new
 				newtail.Insert(L, drop_if_replaced = FALSE)
 				return
-		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.stat >= UNCONSCIOUS) //still does damage
+		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat)) //still does damage. This also lacks a Stat check- felinids beware.
 			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
+			if(!L.stat)
+				L.emote("scream")
 			L.gain_trauma(/datum/brain_trauma/severe/pacifism, TRAUMA_RESILIENCE_SURGERY)
 			say("I'm a genius!!")
-			L.health += 20 //he heals a bit whenever he finishes
-		else if(L.stat >= UNCONSCIOUS) //quickly heal them up and move on to our next target! 
+			if(L.mind && maxHealth <= 300) //if he robusts a tider, he becomes stronger
+				maxHealth += 20
+			L.health = maxHealth //he heals whenever he finishes
+		else if(L.stat) //quickly heal them up and move on to our next target! 
 			visible_message("[src] injects [L] with an unknown medicine!", "<span class='notice'>You inject [L] with medicine.</span>")
 			L.SetSleeping(0, FALSE)
 			L.SetUnconscious(0, FALSE)

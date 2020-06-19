@@ -6,6 +6,7 @@
 	status_flags = 0
 	a_intent = INTENT_HARM
 	gender = NEUTER
+	hardattacks = TRUE
 	var/list/boss_abilities = list() //list of /datum/action/boss
 	var/datum/boss_active_timed_battle/atb
 	var/point_regen_delay = 1

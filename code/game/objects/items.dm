@@ -532,16 +532,21 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			attackforce = 0
 	else if(attack_type == UNARMED_ATTACK && isliving(hitby))
 		var/mob/living/L = hitby
-		attackforce = damage
-		if(block_flags & BLOCKING_NASTY)
+		if(block_flags & BLOCKING_NASTY && !HAS_TRAIT(L, TRAIT_PIERCEIMMUNE))
 			L.attackby(src, owner)
 			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 	else if(isliving(hitby))
 		var/mob/living/L = hitby
 		attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
 		if(block_flags & BLOCKING_NASTY)
-			L.attackby(src, owner)
-			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
+			if(istype(L, /mob/living/simple_animal))
+				var/mob/living/simple_animal/S = L
+				if(!S.hardattacks)
+					S.attackby(src, owner)
+					owner.visible_message("<span class='danger'>[S] injures themselves on [owner]'s [src]!</span>")
+			else
+				L.attackby(src, owner)
+				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 	owner.apply_damage(attackforce, STAMINA, blockhand, block_power) 
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
