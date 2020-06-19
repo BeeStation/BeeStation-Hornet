@@ -80,8 +80,8 @@ export const ViewVariables = (props, context) => {
       <Button
         content={entry.name}
         title={entry.ref
-          ? "View "+entry.ref
-          : "Edit "+entry.name+" ("+entry.type+")"}
+          ? `View ${entry.ref}`
+          : `Edit ${entry.name} (${entry.type})`}
         fluid
         ellipsis
         maxWidth={15}
@@ -193,7 +193,7 @@ export const ViewVariables = (props, context) => {
             fluid
 
             backgroundColor={color}
-            content={content+": "+entry[1]||" "}
+            content={`${content}: ${entry[1]}`||""}
             onClick={() => act("adjustdamage", { type: entry[0] })} />
         </FlexItem>
       );
@@ -255,7 +255,7 @@ export const ViewVariables = (props, context) => {
 
   const topSection = (
     <Section
-      title={objectinfo.name+" ("+objectinfo.class+")"}
+      title={`${objectinfo.name} (${objectinfo.class})`}
       buttons={DropdownButton}>
 
       <Flex
