@@ -593,7 +593,7 @@
 	mutationtext = "<span class='danger'>The pain subsides. You feel... like you can take on anything.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 	can_synth = FALSE
-	random_unrestricted = FALSE 
+	random_unrestricted = FALSE
 
 /datum/reagent/mutationtoxin/supersoldier_syndie
 	name = "Syndicate Super Soldier Toxin"
@@ -602,7 +602,8 @@
 	race = /datum/species/human/supersoldier/syndie
 	mutationtext = "<span class='danger'>The pain subsides. You feel... like you can take on almost anything.</span>"
 	process_flags = ORGANIC | SYNTHETIC
-
+	can_synth = FALSE
+	random_unrestricted = FALSE
 
 //DANGEROUS RACES
 /datum/reagent/mutationtoxin/shadow
