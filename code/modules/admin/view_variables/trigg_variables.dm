@@ -36,7 +36,7 @@
 /datum/trigg_variables/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ViewVariables", VV_TITLE(D), 700, 700, master_ui, state)
+		ui = new(user, src, ui_key, "ViewVariables", "[REF(D)] ([objtype])", 700, 700, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -58,10 +58,11 @@
 	.["snowflake"] = get_snowflake()
 	.["vars"] = get_vars()
 	.["objectinfo"] = list(
-		"name" = D,
-		"ref" = REF(D),
-		"type" = objtype,
-		"class" = C.vv_get_class(D, D)
+		"name"  = D,
+		"ref"   = REF(D),
+		"type"  = objtype,
+		"class" = C.vv_get_class(D, D),
+		"title" = VV_TITLE(D)||"unnamed... for some reason. shit."
 	)
 	.["dropdown"] = get_dropdown()
 
@@ -74,9 +75,6 @@
 
 	if(sprite)
 		.["sprite_base64"] = icon2base64(sprite, iconKey = "VV")
-
-	.["title"] = VV_TITLE(D)||"unnamed... for some reason. shit."
-	.["type"] = objtype
 
 	. += D.vv_get_snowflake()
 
@@ -108,7 +106,7 @@
 			var/link = .[name]
 			.[i] = "<option value[link? "='[link]'":""]>[name]</option>"
 	else
-		.= D.vv_get_dropdown()
+		.= D.vv_get_dropdown2()
 
 
 //The part that matters, the VARIABLES!

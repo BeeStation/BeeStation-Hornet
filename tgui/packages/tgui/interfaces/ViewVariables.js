@@ -183,8 +183,8 @@ export const ViewVariables = (props, context) => {
 
   let LivingInfo;
   if (snowflake.DamageStats) {
-    let Body = Object.entries(snowflake.DamageStats.Body);
-    // let Organ = Object.entries(snowflake.DamageStats.Organ);
+    const Body = Object.entries(snowflake.DamageStats.Body);
+    // const Organ = Object.entries(snowflake.DamageStats.Organ);
     const makedamagebutton = entry => {
       let [color, content] = damagebuttonswitch(entry);
       return (
@@ -214,6 +214,26 @@ export const ViewVariables = (props, context) => {
   // Complete package.
 
 
+
+
+  // Neither Dropdown or Checkbox or literally anything else served
+  // So I had to make this amalgamation. I am not proud of it.
+  // It gets a bit too long when there are too many options,
+  // don't know what to do yet. Make it scrollable, somehow?
+
+  const [
+    DropdownOpen,
+    Setdropdown,
+  ] = useLocalState(context, 'DropdownOpen', false);
+
+  const DropdownButton = (
+    <Button
+      color="transparent"
+      icon="bars"
+      selected={DropdownOpen}
+      onClick={() => Setdropdown(!DropdownOpen)} />
+  );
+
   const makeDropdown = item => {
     return (
       <Button
@@ -223,49 +243,26 @@ export const ViewVariables = (props, context) => {
     );
   };
 
-  // Neither Dropdown or Checkbox or literally anything else served
-  // So I had to make this amalgamation. I am not proud of it.
-
-  const [
-    DropdownOpen,
-    Setdropdown,
-  ] = useLocalState(context, 'DropdownOpen', false);
-
-  const DropdownBoi = () => {
-    if (DropdownOpen) {
-      return (
-        <Button
-          color="transparent"
-          icon={DropdownOpen ? 'check-square-o' : 'square-o'}
-          selected={DropdownOpen}
-          onClick={() => Setdropdown(!DropdownOpen)}
-          content="aa" />
-      );
-    }
-
-    else {
-      return (
-        <Button
-          color="transparent"
-          icon={DropdownOpen ? 'check-square-o' : 'square-o'}
-          selected={DropdownOpen}
-          onClick={() => Setdropdown(!DropdownOpen)}
-          content="bb" />
-      );
-    }
-  };
-
+  const DropdownMenu = (DropdownOpen && (
+    <FlexItem align="baseline">
+      <Section>
+        <Flex direction="column">
+          {dropdown.map(makeDropdown)}
+        </Flex>
+      </Section>
+    </FlexItem>
+  ));
 
   const topSection = (
     <Section
-      title="AAAAAAAAAA"
-      buttons={DropdownBoi()}>
+      title={objectinfo.name+" ("+objectinfo.class+")"}
+      buttons={DropdownButton}>
+
       <Flex
-        justify="center"
         wrap="wrap"
+        justify="center"
         textAlign="center"
         align="center">
-
 
         <FlexItem grow={1}>
           <Section>
@@ -273,6 +270,10 @@ export const ViewVariables = (props, context) => {
             {BasicInfo}
           </Section>
         </FlexItem>
+
+
+        {DropdownMenu}
+
 
         {
         // For some reason the flex LivingInfo has
