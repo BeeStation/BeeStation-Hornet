@@ -11,14 +11,14 @@ import { GridColumn } from '../components/Grid';
 export const SystemMap = (props, context) => {
   const { data } = useBackend(context);
   const {
-    bluespace_drive,
+    jump_state,
   } = data;
   return (
     <Window
       resizable>
       <div className="SystemMap__left">
         <Window.Content scrollable>
-          { bluespace_drive
+          { jump_state
             ? <StarMapStarList />
             : <StarMapNoJump />}
         </Window.Content>

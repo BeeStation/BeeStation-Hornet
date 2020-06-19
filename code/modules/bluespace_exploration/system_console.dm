@@ -87,7 +87,7 @@
 	data["icon_cache"] = starmap_icons_cache
 	data["stars"] = list()
 	data["links"] = list()
-	data["jump_state"] = linked_bluespace_drive.resolve() ? TRUE : FALSE
+	data["jump_state"] = linked_bluespace_drive ? TRUE : FALSE
 	for(var/datum/star_system/star as anything in SSbluespace_exploration.star_systems)
 		var/list/formatted_star = list(
 			"name" = star.name,

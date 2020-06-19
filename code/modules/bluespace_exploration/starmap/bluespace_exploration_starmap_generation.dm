@@ -13,8 +13,11 @@
 	var/sanity = 101
 	//Place the starting star
 	var/datum/star_system/first_star = new
+	first_star.name = "Srolnar-13"	//TODO: Add this to config <3
+	first_star.is_station_z = TRUE	//Tell it not to generate shit
 	stars_to_process["5_5"] += first_star
 	stars_to_place["5_5"] = first_star
+	current_system = first_star
 	//============Make stars===========
 	while(sanity > 0 && LAZYLEN(stars_to_process))
 		sanity --
