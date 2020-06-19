@@ -643,7 +643,22 @@
 
 /obj/structure/sign/poster/contraband/pill1
 	name = "Safety Pill - Methamphetamine"
-	desc = "A decommisioned poster that uses Safety Pill(TM?) to promote less-than-legal chemicals. This is one of the reasons we stopped outsourcing these posters. It's partially signed by 'AspEv'."
+	desc = "A decommisioned poster that uses Safety Pill(TM?) to promote less-than-legal chemicals. This is one of the reasons we stopped outsourcing these posters. It's signed by 'AspEv'."
 	icon_state = "poster48"
+
+/obj/structure/sign/poster/official/moth8
+	name = "Safety Moth - Epinephrine"
+	desc = "This informational poster uses Safety Moth(TM) to inform the viewer to help injured/deceased crewmen with their epinephrine injectors. It's signed by 'AspEv'."
+	icon_state = "poster43_legit"
+
+/obj/structure/sign/poster/official/moth9
+	name = "Safety Moth - Delamination Safety Precautions"
+	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to hide in lockers when the Supermatter Crystal has delaminated. Running away might be a better strategy. It's signed by 'AspEv'."
+	icon_state = "poster44_legit"
+
+/obj/structure/sign/poster/contraband/syndiemoth
+	name = "Syndie Moth - Nuclear Operation"
+	desc = "A Syndicate-commissioned poster that uses Syndie Moth(TM?) to tell the viewer to keep the nuclear authentication disk unsecured. No, we aren't doing that. It's signed by 'AspEv'."
+	icon_state = "poster49"
 
 #undef PLACE_SPEED
