@@ -245,8 +245,8 @@ export const ViewVariables = (props, context) => {
 
   const DropdownMenu = (DropdownOpen && (
     <FlexItem align="baseline">
-      <Section>
-        <Flex direction="column">
+      <Section scrollable>
+        <Flex height={20} direction="column">
           {dropdown.map(makeDropdown)}
         </Flex>
       </Section>
