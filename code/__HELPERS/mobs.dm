@@ -439,6 +439,8 @@ GLOBAL_LIST_EMPTY(species_list)
 			override = TRUE
 		if(HAS_TRAIT(M, TRAIT_SIXTHSENSE))
 			override = TRUE
+		if(SSticker.current_state == GAME_STATE_FINISHED)
+			override = TRUE
 		if(isnewplayer(M) && !override)
 			continue
 		if(M.stat != DEAD && !override)
