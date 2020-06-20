@@ -40502,6 +40502,7 @@
 /area/medical/virology)
 "bLA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/mob/living/simple_animal/pet/hamster/vector,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "bLF" = (

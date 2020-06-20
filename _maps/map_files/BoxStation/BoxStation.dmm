@@ -35005,6 +35005,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/mob/living/simple_animal/pet/hamster/vector,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "bRQ" = (
