@@ -53,6 +53,7 @@
 /datum/symptom/macrophage/proc/Burst(datum/disease/advance/A, var/mob/living/M, var/gigagerms = FALSE)
 	var/mob/living/simple_animal/hostile/macrophage/phage
 	if(gigagerms)
+		phage.melee_damage == max(5, A.properties["resistance"])
 		phage = new /mob/living/simple_animal/hostile/macrophage/aggro(M.loc)
 		M.take_overall_damage(brute = rand(10, 20), required_status = BODYPART_ORGANIC)
 		playsound(M, 'sound/effects/splat.ogg', 50, 1)
@@ -62,7 +63,6 @@
 		M.take_overall_damage(brute = rand(1, 7), required_status = BODYPART_ORGANIC)
 	phage.health += A.properties["resistance"]
 	phage.maxHealth += A.properties["resistance"]
-	phage.melee_damage += max(0, A.properties["resistance"])
 	phage.infections += A
 	phage.basedisease = A
 	if(A.properties["transmittable"] >= 12)
