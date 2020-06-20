@@ -1,0 +1,5 @@
+author: Sinmero
+delete-after: true
+changes:
+  - bugfix: People who bought gold necklace in beecoin shop before its name change
+      should have access to it again.
