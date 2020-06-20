@@ -35,6 +35,7 @@
 	del_on_death = 1
 	var/impatience = 0
 	hardattacks = TRUE
+	dodging = TRUE
 
 /mob/living/simple_animal/hostile/cat_butcherer/Life()
 	. = ..()
