@@ -32,12 +32,7 @@
 				shuttle_id = M.id
 				break
 	//Locate the bluespace drive
-	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_id)
-	if(M)
-		for(var/obj/machinery/bluespace_drive/BSD as anything in GLOB.bluespace_drives)
-			if(get_turf(BSD) in M.return_turfs())
-				linked_bluespace_drive = WEAKREF(BSD)
-				break
+	addtimer(CALLBACK(src, .proc/locate_bluespace_drive), 10)
 	//expertly copypasted from pill_press, with some minor altercations to make use of staticness
 	starmap_icons_cache = list()
 	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/starmap)
@@ -70,6 +65,8 @@
 /obj/machinery/computer/system_map/ui_act(action, params)
 	switch(action)
 		if("jump")
+			//Locate the BS drive and then trigger jump
+
 			return
 
 /obj/machinery/computer/system_map/ui_data(mob/user)
@@ -106,3 +103,12 @@
 		)
 		data["links"] += list(formatted_link)
 	return data
+
+//Do this a few frames after loading everything, since if it loads at the same time as the drive it can fail to be located
+/obj/machinery/computer/system_map/proc/locate_bluespace_drive()
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_id)
+	if(M)
+		for(var/obj/machinery/bluespace_drive/BSD as anything in GLOB.bluespace_drives)
+			if(get_turf(BSD) in M.return_turfs())
+				linked_bluespace_drive = WEAKREF(BSD)
+				return

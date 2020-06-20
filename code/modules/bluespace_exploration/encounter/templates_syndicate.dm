@@ -9,3 +9,4 @@
 
 	difficulty = 4	//These are super easy and super small
 	allowed_weapons = list()
+	

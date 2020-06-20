@@ -16,13 +16,12 @@
 	first_star.name = "Srolnar-13"	//TODO: Add this to config <3
 	first_star.is_station_z = TRUE	//Tell it not to generate shit
 	stars_to_process["5_5"] += first_star
-	stars_to_place["5_5"] = first_star
 	current_system = first_star
 	//============Make stars===========
 	while(sanity > 0 && LAZYLEN(stars_to_process))
 		sanity --
 		var/star_coords = stars_to_process[1]
-		if(prob(55) || LAZYLEN(stars_to_place) < 5)
+		if(prob(55) || stars_to_place.len < 5)
 			stars_to_place[star_coords] = stars_to_process[star_coords]
 		var/current_x = text2num(splittext(star_coords, "_")[1])
 		var/current_y = text2num(splittext(star_coords, "_")[2])
@@ -38,7 +37,7 @@
 		var/datum/star_system/SS = stars_to_place[star]
 		var/current_x = text2num(splittext(star, "_")[1])
 		var/current_y = text2num(splittext(star, "_")[2])
-		SS.map_x = (current_x * STARMAP_GRID_SIZE) + rand(0, STARMAP_GRID_SIZE)
+		SS.map_x = (current_x * STARMAP_G`RID_SIZE) + rand(0, STARMAP_GRID_SIZE)
 		SS.map_y = (current_y * STARMAP_GRID_SIZE) + rand(0, STARMAP_GRID_SIZE)
 		SSbluespace_exploration.star_systems += SS
 	//===========Generate Links===========
