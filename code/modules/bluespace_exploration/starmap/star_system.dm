@@ -7,7 +7,7 @@
 
 	var/visited = FALSE
 	var/star_color = "#ffffff"
-	var/star_difficulty = 3
+	var/star_difficulty = 3	//The further away from safe space you go, the scarier it gets
 
 	var/is_station_z = FALSE
 

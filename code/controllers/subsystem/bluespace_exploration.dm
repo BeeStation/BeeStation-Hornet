@@ -206,7 +206,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 /datum/controller/subsystem/bluespace_exploration/proc/generate_z_level(data_holder)
 	wipe_z_level(data_holder, TRUE)
 
-/datum/controller/subsystem/bluespace_exploration/proc/shuttle_translation(shuttle_id)
+/datum/controller/subsystem/bluespace_exploration/proc/shuttle_translation(shuttle_id, datum/star_system/system)
 	if(!check_z_level())
 		return FALSE
 	var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttle_id)
