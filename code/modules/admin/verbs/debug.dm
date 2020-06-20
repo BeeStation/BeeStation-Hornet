@@ -845,7 +845,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	profile_show(src, sort)
 
 /client/proc/reload_configuration()
-	set category = "Debug"
+	set category = "Server"
 	set name = "Reload Configuration"
 	set desc = "Force config reload to world default"
 	if(!check_rights(R_DEBUG))
