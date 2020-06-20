@@ -1,0 +1,7 @@
+author: zeskorion
+delete-after: true
+changes:
+  - rscadd: Psychiatrist maint job. Other than being somewhat  rare (about as rare
+      as the magician), a bit more money and access, and having a weirdo locked in
+      the back, he has nothing out of the ordinary
+  - rscadd: adds random maint to delta
