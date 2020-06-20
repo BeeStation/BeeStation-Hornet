@@ -45,16 +45,15 @@
 		if(5)
 			if(gigagerms && phagecounter <= 0) //only ever spawn one big germ
 				Burst(A, M, TRUE)
-				phagecounter += 5 //but big germs spawn small ones more frequently
-			while(phagecounter <= 0)
 				phagecounter += 10
+			while(phagecounter <= 0)
+				phagecounter += 5
 				Burst(A, M)
 
 /datum/symptom/macrophage/proc/Burst(datum/disease/advance/A, var/mob/living/M, var/gigagerms = FALSE)
 	var/mob/living/simple_animal/hostile/macrophage/phage
 	if(gigagerms)
 		phage = new /mob/living/simple_animal/hostile/macrophage/aggro(M.loc)
-		phage.melee_damage += max(0, A.properties["resistance"])
 		M.take_overall_damage(brute = rand(10, 20), required_status = BODYPART_ORGANIC)
 		playsound(M, 'sound/effects/splat.ogg', 50, 1)
 		M.emote("scream")

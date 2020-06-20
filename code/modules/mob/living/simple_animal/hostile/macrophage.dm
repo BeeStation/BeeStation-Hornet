@@ -9,13 +9,12 @@
 	response_help  = "shoos"
 	response_disarm = "swats away"
 	response_harm   = "squashes"
-	maxHealth = 10
-	health = 10
+	maxHealth = 6
+	health = 6
 	spacewalk = TRUE
 	faction = list("hostile")
 	move_to_delay = 0
 	obj_damage = 0
-	harm_intent_damage = 10
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	density = FALSE
@@ -69,8 +68,10 @@
 	desc = "An incredibly huge virus!"
 	icon_state = "macrovirus_large"
 	melee_damage = 5
-	maxHealth = 20
-	health = 20
+	maxHealth = 12
+	health = 12
+	pass_flags = PASSTABLE | PASSGRILLE
+	density = TRUE
 	aggressive = TRUE
 
 /mob/living/simple_animal/hostile/macrophage/aggro/vector
