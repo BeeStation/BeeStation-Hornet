@@ -1,0 +1,10 @@
+author: Trigg
+delete-after: true
+changes:
+  - admin: Admin verbs and tabs have been moved and reorganized all around. You should
+      find each tab to be more intuitive and less cluttered with unrelated verbs.
+  - admin: The "Ticket Manager" verb now works. It's... Identical to the "Open Ticket
+      Browser" verb.
+  - admin: An old and mostly unknown admin verb now features logging.
+  - admin: You can now edit team objectives from the team panel. No more removing
+      and adding!
