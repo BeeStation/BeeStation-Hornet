@@ -296,6 +296,7 @@
  * optional force bool If the update should be sent regardless of state.
  */
 /datum/tgui/proc/push_data(data, static_data, force = FALSE)
+	message_admins("UI data being pushed - Data: [LAZYLEN(data)] | Static Data: [LAZYLEN(static_data)]")
 	// Update the window state.
 	update_status(push = FALSE)
 	// Cannot update UI if it is not set up yet.

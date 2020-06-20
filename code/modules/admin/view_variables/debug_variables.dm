@@ -100,14 +100,12 @@
 			value = D[name]
 
 	if (isnull(value))
-		item = "[name] = null"
 		item = list(
 			"name" = name,
 			"value" = "null"
 		)
 
 	else if (istext(value))
-		item = "[name] = \"[value]\""
 		item = list(
 			"name" = name,
 			"value" = "\"[value]\""

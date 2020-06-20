@@ -127,3 +127,141 @@
 		if(istype(DAT, /datum) || istype(DAT, /client))
 			debug_variables(DAT)
 
+/datum/trigg_variables/proc/view_var_Topic2(action, list/params)
+	if( (usr.client != C) || !C.holder )
+		return //This is VV, not meant to be called by anything else.
+	var/target = GET_VV_TARGET2
+	message_admins("going through view_var_Topic2")
+	C.vv_do_basic2(target, action, params)
+	if(istype(target, /datum))
+		var/datum/D = target
+		D.vv_do_topic2(action, params)
+	else if(islist(target))
+		C.vv_do_list2(target, action, params)
+
+	switch(action)
+		if("refresh")
+			update_static_data(usr)
+			return TRUE
+
+		if("view")
+			C.trigg_VV(target)
+
+//Stuff below aren't in dropdowns/etc.
+
+	if(check_rights(R_VAREDIT))
+		switch(action)
+			//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and datacore records).
+			if("rename")
+				if(!check_rights(NONE)) //Hol up.. the fuck is this? Completely alien to me, best to not touch it. - Trigg
+					return
+
+				var/mob/M = locate(params[0]) in GLOB.mob_list
+				if(!istype(M))
+					to_chat(usr, "This can only be used on instances of type /mob")
+					return
+
+				var/new_name = stripped_input(usr,"What would you like to name this mob?","Input a name",M.real_name,MAX_NAME_LEN)
+				if( !new_name || !M )
+					return
+
+				message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
+				M.fully_replace_character_name(M.real_name,new_name)
+				C.vv_update_display(M, "name", new_name)
+				C.vv_update_display(M, "real_name", M.real_name || "No real name")
+
+			if("rotatedatum")
+				if(!check_rights(NONE))
+					return
+
+				var/atom/A = locate(params[0])
+				if(!istype(A))
+					to_chat(usr, "This can only be done to instances of type /atom")
+					return
+
+				switch(params[1])
+					if("right")
+						A.setDir(turn(A.dir, -45))
+					if("left")
+						A.setDir(turn(A.dir, 45))
+				C.vv_update_display(A, "dir", dir2text(A.dir))
+
+			/*
+			if("makehuman")
+				if(!check_rights(R_SPAWN))
+					return
+
+				var/mob/living/carbon/monkey/Mo = locate(href_list["makehuman"]) in GLOB.mob_list
+				if(!istype(Mo))
+					to_chat(usr, "This can only be done to instances of type /mob/living/carbon/monkey")
+					return
+
+				if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")
+					return
+				if(!Mo)
+					to_chat(usr, "This mob doesn't exist anymore.")
+					return
+				holder.Topic(href, list("humanone"=href_list["makehuman"]))
+				//why is the proc under holder.Topic? gonna move it to /mob later
+			*/
+
+			/*
+			else if(href_list["adjustDamage"] && href_list["mobToDamage"])
+				if(!check_rights(NONE))
+					return
+
+				var/mob/living/L = locate(href_list["mobToDamage"]) in GLOB.mob_list
+				if(!istype(L))
+					return
+
+				var/Text = href_list["adjustDamage"]
+
+				var/amount =  input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
+
+				if(!L)
+					to_chat(usr, "Mob doesn't exist anymore")
+					return
+
+				var/newamt
+				switch(Text)
+					if("brute")
+						L.adjustBruteLoss(amount)
+						newamt = L.getBruteLoss()
+					if("fire")
+						L.adjustFireLoss(amount)
+						newamt = L.getFireLoss()
+					if("toxin")
+						L.adjustToxLoss(amount)
+						newamt = L.getToxLoss()
+					if("oxygen")
+						L.adjustOxyLoss(amount)
+						newamt = L.getOxyLoss()
+					if("brain")
+						L.adjustOrganLoss(ORGAN_SLOT_BRAIN, amount)
+						newamt = L.getOrganLoss(ORGAN_SLOT_BRAIN)
+					if("clone")
+						L.adjustCloneLoss(amount)
+						newamt = L.getCloneLoss()
+					if("stamina")
+						L.adjustStaminaLoss(amount)
+						newamt = L.getStaminaLoss()
+					else
+						to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
+						return
+
+				if(amount != 0)
+					var/log_msg = "[key_name(usr)] dealt [amount] amount of [Text] damage to [key_name(L)]"
+					message_admins("[key_name(usr)] dealt [amount] amount of [Text] damage to [ADMIN_LOOKUPFLW(L)]")
+					log_admin(log_msg)
+					admin_ticket_log(L, "<font color='blue'>[log_msg]</font>")
+					vv_update_display(L, Text, "[newamt]")
+			*/
+
+
+	//Finally, refresh if something modified the list.
+	/*
+	if(href_list["datumrefresh"])
+		var/datum/DAT = locate(href_list["datumrefresh"])
+		if(istype(DAT, /datum) || istype(DAT, /client))
+			debug_variables(DAT)
+	*/

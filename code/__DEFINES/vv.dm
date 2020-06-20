@@ -40,7 +40,9 @@
 #define VV_HREF_TARGET_1V(target, href_key, text, varname) "<a href='[VV_HREF_TARGET_INTERNAL(target, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>"		//for stuff like basic varedits, one variable
 
 #define GET_VV_TARGET locate(href_list[VV_HK_TARGET])
+#define GET_VV_TARGET2 locate(params[VV_HK_TARGET])
 #define GET_VV_VAR_TARGET href_list[VV_HK_VARNAME]
+#define GET_VV_VAR_TARGET2 params["targetvar"]
 
 //Helper for getting something to vv_do_topic in general
 #define VV_TOPIC_LINK(datum, href_key, text) "<a href='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(datum)]'>text</a>"

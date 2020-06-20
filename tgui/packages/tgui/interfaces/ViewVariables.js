@@ -1,26 +1,26 @@
 import { Fragment, Component } from 'inferno';
-import { createSearch } from 'common/string';
+import { createSearch, capitalize } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import { Button, Flex, Input, Section, Collapsible, LabeledList, Modal, ColorBox, Box, Icon, Dropdown } from '../components';
 import { Window } from '../layouts';
 import { FlexItem } from '../components/Flex';
 
 
-const colorboxify = entry => {
+const colorboxify = Var => {
   // add a helpful little ColorBox to visually tell
   // which color a string represents. cool, eh?
-  if (entry.type === "Text"
-    && entry.value[1] === "#"
-    && entry.value.length === 9) {
+  if (Var.type === "Text"
+    && Var.value[1] === "#"
+    && Var.value.length === 9) {
     // entry.value should be something like "#aabbcc" (commas included)
     return (
       <Fragment>
-        <ColorBox color={entry.value.slice(1, 8)} />
+        <ColorBox color={Var.value.slice(1, 8)} />
         {" "}
-        {entry.value}
+        {Var.value}
       </Fragment>
     ); }
-  return (entry.value);
+  return (Var.value);
 };
 
 
@@ -75,33 +75,33 @@ export const ViewVariables = (props, context) => {
     return Search(entry.name)||Search(entry.value.toString());
   };
 
-  const Label = entry => {
+  const Label = Var => {
     return (
       <Button
-        content={entry.name}
-        title={entry.ref
-          ? `View ${entry.ref}`
-          : `Edit ${entry.name} (${entry.type})`}
+        content={Var.name}
+        title={Var.ref
+          ? `View ${Var.ref}`
+          : `Edit ${Var.name} (${Var.type})`}
         fluid
         ellipsis
         maxWidth={15}
         color="transparent"
-        onClick={entry.ref
+        onClick={Var.ref
           // if ref is defined, we wanna open it in another
           // window instead of attempting to edit
           // see debug_variables.dm @/proc/debug_variable2
-          ? () => act("view", { target: entry.ref })
-          : () => act("edit", {
-            targetdatum: objectinfo.ref,
-            targetvar: entry.name })} />
+          ? () => act("view", { target: Var.ref })
+          : () => act("datumedit", {
+            target: objectinfo.ref,
+            targetvar: Var.name })} />
     );
   };
 
-  const Value = entry => {
+  const Value = Var => {
     return (
       <Fragment>
-        {colorboxify(entry) || "null"}
-        {entry.items && entry.items.map(
+        {colorboxify(Var) || "null"}
+        {Var.items && Var.items.map(
           item => { return Entry(item); })}
       </Fragment>
     );
@@ -164,15 +164,16 @@ export const ViewVariables = (props, context) => {
         </Button>
       </FlexItem>
 
-      <FlexItem>
-        <Button color="transparent" icon="undo"
-          onClick={() => act("rotateLeft")} />
+      {snowflake.direction && (
+        <FlexItem>
+          <Button color="transparent" icon="undo"
+            onClick={() => act("rotateLeft")} />
 
-        <Box inline fontSize={1.2}>{"South"}</Box>
+          <Box inline fontSize={1.2}>{capitalize(snowflake.direction)}</Box>
 
-        <Button color="transparent" icon="redo"
-          onClick={() => act("rotateRight")} />
-      </FlexItem>
+          <Button color="transparent" icon="redo"
+            onClick={() => act("rotateRight")} />
+        </FlexItem>) }
 
       <FlexItem>
         {objectinfo.type}

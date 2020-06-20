@@ -18,8 +18,12 @@
 /datum/trigg_variables
 	var/client/C
 	var/datum/D
+	var/datum/tgui/UI
 	var/islist
 	var/objtype
+
+	var/list/data = list()
+	var/list/staticdata = list()
 
 /datum/trigg_variables/New(mob/user, target)
 	C = user.client
@@ -29,9 +33,17 @@
 		CRASH("What the hell... No target?")
 	D = target
 
+	if(!D)
+		CRASH("Boi D is null I'm outta here")
+		return
+
 	islist = islist(D)
 	objtype = islist? /list : D.type
 	//Or, in English; '/list' if islist, else it's a datum so we can just 'D.type'
+
+	if(!islist && !istype(D))
+		CRASH("Uhhhh what the fuck did you just give me?")
+		return
 
 /datum/trigg_variables/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -39,43 +51,32 @@
 		ui = new(user, src, ui_key, "ViewVariables", "[REF(D)] ([objtype])", 700, 700, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
+	UI = ui
 
 /datum/trigg_variables/ui_data(mob/user)
 	message_admins("UI data update!")
-	if(!D)
-		message_admins("Boi D is null I'm outta here")
-		return
 
-	if(!islist && !istype(D))
-		message_admins("Uhhhh what the fuck did you just give me?")
-		return
-
-	.=list() // cursed
-	.["flags"] = get_flags()
+	data["flags"] = get_flags()
+	if(!islist)
+		data["snowflake"] = get_snowflake()
+	return data
 
 /datum/trigg_variables/ui_static_data(mob/user)
-	. = list()
-	.["snowflake"] = get_snowflake()
-	.["vars"] = get_vars()
-	.["objectinfo"] = list(
+	message_admins("UI static data update!")
+
+	staticdata["vars"] = get_vars()
+	staticdata["objectinfo"] = list(
 		"name"  = D,
 		"ref"   = REF(D),
 		"type"  = objtype,
 		"class" = C.vv_get_class(D, D),
 		"title" = VV_TITLE(D)||"unnamed... for some reason. shit."
 	)
-	.["dropdown"] = get_dropdown()
+	staticdata["dropdown"] = get_dropdown()
+	return staticdata
 
 /datum/trigg_variables/proc/get_snowflake()
 	. = list()
-	var/icon/sprite
-
-	if(istype(D, /atom))
-		sprite = getFlatIcon(D, no_anim = TRUE)
-
-	if(sprite)
-		.["sprite_base64"] = icon2base64(sprite, iconKey = "VV")
-
 	. += D.vv_get_snowflake()
 
 /datum/trigg_variables/proc/get_flags()
@@ -141,18 +142,28 @@
 
 /datum/trigg_variables/ui_close(mob/user)
 	message_admins("UI CLOSE!")
+	if(UI)
+		message_admins("Found ui.. Closing it..")
+	qdel(UI)
 	qdel(src)
-	if(src)
+	if(UI)
 		message_admins("Uh... I think I'm still alive. What.")
 
 /datum/trigg_variables/ui_act(action, params)
+	if(..())
+		return
+
 	message_admins("UI act! Action: '[action]' | Params: '[english_list(params)]'")
 	if(!C)
 		message_admins("Erm what client is ded")
 		return
 
-	switch(action)
+	if(view_var_Topic2(action, params))
+		return TRUE //quick reminder for anyone code diving: returning TRUE makes the UI update.
 
+	//CRASH("hm")
+	/*
+	switch(action)
 		if("refresh")
 			update_static_data(usr)
 			return TRUE //quick reminder for anyone code diving: returning TRUE makes the UI update.
@@ -173,10 +184,14 @@
 				return
 
 			if(!C.modify_variables(D, params["targetvar"], TRUE))
+				//staticdata["vars"]["name"] = "FUCK FUCK FUCK"
+				//UI.push_data(staticdata)
 				return TRUE
 
-	message_admins("Oh you forgot an early return somewhere mate ya gotta use em they make it 1% faster")
-	return
+		else
+			message_admins("Hm.. Looks like an unhandled action has been passed to ui_act: Action: '[action]' | Params: '[english_list(params)]'")
+			return
+	*/
 
 #undef VV_TITLE
 

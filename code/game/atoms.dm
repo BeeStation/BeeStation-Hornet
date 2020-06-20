@@ -950,7 +950,11 @@
 
 /atom/vv_get_snowflake()
 	. = ..()
-	.["flags"] += list("rotate")
+	.["direction"] += list(dir2text(dir) || dir)
+	var/icon/sprite = getFlatIcon(src, no_anim = TRUE)
+	if(sprite)
+		.["sprite_base64"] = icon2base64(sprite, iconKey = "VV")
+
 
 ///Where atoms should drop if taken from this atom
 /atom/proc/drop_location()

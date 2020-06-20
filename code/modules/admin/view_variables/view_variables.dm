@@ -1,3 +1,5 @@
+/client/proc/debug_variables2(datum/D in world)
+	trigg_VV(D)
 /client/proc/debug_variables(datum/D in world)
 	set category = "Debug"
 	set name = "View Variables"
