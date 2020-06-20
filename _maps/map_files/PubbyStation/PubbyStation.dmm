@@ -247,6 +247,7 @@
 	id = "viroshutters2";
 	name = "isolation shutters"
 	},
+/obj/item/extrapolator,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aaw" = (
@@ -286,10 +287,6 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/virologist,
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
-"aaz" = (
-/obj/structure/chrono_field,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aaA" = (
@@ -91417,7 +91414,7 @@ aai
 aal
 bEr
 aax
-aaz
+bGW
 bGW
 aaF
 bEr
