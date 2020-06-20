@@ -38,7 +38,7 @@
 		for(var/datum/disease/D in M.diseases)
 			if(D.GetDiseaseID() == basedisease.GetDiseaseID())
 				if(aggressive)
-					if(D.stage >= 3)
+					if(D.stage >= 4)
 						alreadyinfected = TRUE
 				else
 					alreadyinfected = TRUE
