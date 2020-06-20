@@ -46,6 +46,16 @@
 	if(alreadyinfected)
 		return FALSE
 
+/mob/living/simple_animal/hostile/macrophage/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(scan)
+		E.scan(src, infections, user)
+	else
+		if(E.create_culture(basedisease, user))
+			dust()
+			user.visible_message("<span class='danger'>[user] stabs [src] with [E], sucking it up!</span>", \
+	 				 "<span class='danger'>You stab [src] with [E]'s probe, destroying it!</span>")
+	return TRUE
+
 /mob/living/simple_animal/hostile/macrophage/AttackingTarget()
 	. = ..()
 	if(. && isliving(target))

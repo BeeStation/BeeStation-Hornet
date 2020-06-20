@@ -833,7 +833,7 @@ GENE SCANNER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	var/scan = TRUE
-	var/cooldown = 0
+	var/cooldown = -1200 //so it's charged roundstart
 	var/obj/item/stock_parts/scanning_module/scanner //used for upgrading!
 
 /obj/item/extrapolator/Initialize()
@@ -890,6 +890,8 @@ GENE SCANNER
 	. = ..()
 	if(scanner)
 		if(!target.extrapolator_act(user, src, scan))
+			if(locate(/datum/component/infective) in target.datum_components)
+				return //so the failure message does not show when we can actually extrapolate from a component
 			if(scan)
 				to_chat(user, "<span class='notice'>the extrapolator fails to return any data</span>")
 			else
@@ -904,14 +906,14 @@ GENE SCANNER
 			var/datum/disease/advance/A = D
 			if(A.properties["stealth"] >= (2 + scanner.rating)) //the extrapolator can detect diseases of higher stealth than a normal scanner
 				continue
-			to_chat(user, "<span class='info'><font color='green'><b>[A.name], stage [A.stage]/5</b></color></span>")
+			to_chat(user, "<span class='info'><font color='green'><b>[A.name]</b>, stage [A.stage]/5</color></span>")
 			to_chat(user, "<span class='info'><b>[A] has the following symptoms:</b></span>")
 			for(var/datum/symptom/S in A.symptoms)
 				to_chat(user, "<span class='info'>[S.name]</span>")
 		else
 			to_chat(user, "<span class='info'><font color='green'><b>[D.name]</b>, stage [D.stage]/[D.max_stages].</color></span>")
 
-/obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE)
+/obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 200)
 	var/list/advancediseases = list()
 	var/list/symptoms = list()
 	if(cooldown > world.time - (1200 / scanner.rating))
@@ -934,13 +936,13 @@ GENE SCANNER
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
 		if(do_mob(user, AM, (600 / scanner.rating)))
 			create_culture(symptomholder, user)
-	else if(do_mob(user, AM, (200 / scanner.rating)))
+	else if(do_mob(user, AM, (timer / scanner.rating)))
 		create_culture(A, user)
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
 	if(cooldown > world.time - (1200 / scanner.rating))
 		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
-		return
+		return FALSE
 	var/list/data = list("viruses" = list(A))
 	var/obj/item/reagent_containers/glass/bottle/B = new(user.loc)
 	cooldown = world.time
@@ -949,4 +951,5 @@ GENE SCANNER
 	B.reagents.add_reagent(/datum/reagent/blood, 20, data)
 	user.put_in_hands(B)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
+	return TRUE
 	
