@@ -8,7 +8,7 @@
 /datum/guardian_ability/major/hand/RangedAttack(atom/target)
 	if(world.time < next_hand || guardian.Adjacent(target) || !isturf(guardian.loc) || !guardian.is_deployed())
 		return ..()
-	playsound(guardian, 'sound/effects/zahando.ogg', 100, TRUE) // dubstep fart lol
+	playsound(guardian, 'sound/magic/blink.ogg', 100, TRUE) // blink lol
 	next_hand = world.time + ((10 / master_stats.potential) * 10)
 	var/turf/hand_turf = get_step(guardian, get_dir(guardian, target))
 	for(var/atom/movable/AM in get_turf(target))

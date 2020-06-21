@@ -33,7 +33,7 @@
 			for(var/mob/living/simple_animal/hostile/guardian/GG in G.summoner.current.hasparasites())
 				immune |= GG
 	for(var/mob/living/L in immune)
-		SEND_SOUND(L, sound('sound/effects/kingcrimson_start.ogg'))
+		SEND_SOUND(L, sound('sound/magic/timeparadox2.ogg'))
 		var/image/I = image(icon = 'icons/effects/blood.dmi', icon_state = null, loc = L)
 		I.override = TRUE
 		if(isturf(L.loc))
@@ -58,11 +58,10 @@
 	sleep(length)
 	if(LAZYLEN(fakes))
 		var/mob/living/simple_animal/hostile/illusion/doppelganger/DP = pick(fakes)
-		playsound(DP.loc, 'sound/effects/kingcrimson_end.ogg', 100)
+		playsound(DP.loc, 'sound/magic/timeparadox2.ogg', 75, TRUE, frequency = -1) //reverse!
 	for(var/mob/living/simple_animal/hostile/illusion/doppelganger/DG in fakes)
 		DG.death()
 	for(var/mob/living/L in immune)
-		SEND_SOUND(L, sound('sound/effects/kingcrimson_end.ogg'))
 		if(isguardian(L))
 			var/mob/living/simple_animal/hostile/guardian/G = L
 			G.erased_time = FALSE
