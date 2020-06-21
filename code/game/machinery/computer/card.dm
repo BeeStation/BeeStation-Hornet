@@ -233,29 +233,27 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat = "<a href='?src=[REF(src)];choice=return'>Return</a>"
 		dat += " || Confirm Identity: "
 		var/S
+		var/list/paycheck_departments = list()
 		if(scan)
 			S = html_encode(scan.name)
+			//Checking all the accesses and their corresponding departments
+			if((ACCESS_HOP in scan.access) && ((target_dept==DEPT_HOP) || !target_dept))
+				paycheck_departments |= ACCOUNT_SRV
+				paycheck_departments |= ACCOUNT_CAR
+				paycheck_departments |= ACCOUNT_CIV
+			if((ACCESS_HOS in scan.access) && ((target_dept==DEPT_SEC) || !target_dept))
+				paycheck_departments |= ACCOUNT_SEC
+			if((ACCESS_CMO in scan.access) && ((target_dept==DEPT_MED) || !target_dept))
+				paycheck_departments |= ACCOUNT_MED
+			if((ACCESS_RD in scan.access) && ((target_dept==DEPT_SCI) || !target_dept))
+				paycheck_departments |= ACCOUNT_SCI
+			if((ACCESS_CE in scan.access) && ((target_dept==DEPT_ENG) || !target_dept))
+				paycheck_departments |= ACCOUNT_ENG
 		else
 			S = "--------"
 		dat += "<a href='?src=[REF(src)];choice=scan'>[S]</a>"
 		dat += "<table>"
 		dat += "<tr><td style='width:25%'><b>Name</b></td><td style='width:25%'><b>Job</b></td><td style='width:25%'><b>Paycheck</b></td><td style='width:25%'><b>Pay Bonus</b></td></tr>"
-
-		//Checking all the accesses and their corresponding departments
-		var/list/paycheck_departments = list()
-		if((ACCESS_HOP in scan.access) && ((target_dept==DEPT_HOP) || !target_dept))
-			paycheck_departments |= ACCOUNT_SRV
-			paycheck_departments |= ACCOUNT_CAR
-			paycheck_departments |= ACCOUNT_CIV
-		if((ACCESS_HOS in scan.access) && ((target_dept==DEPT_SEC) || !target_dept))
-			paycheck_departments |= ACCOUNT_SEC
-		if((ACCESS_CMO in scan.access) && ((target_dept==DEPT_MED) || !target_dept))
-			region_access |= DEPT_MED
-			paycheck_departments |= ACCOUNT_MED
-		if((ACCESS_RD in scan.access) && ((target_dept==DEPT_SCI) || !target_dept))
-			paycheck_departments |= ACCOUNT_SCI
-		if((ACCESS_CE in scan.access) && ((target_dept==DEPT_ENG) || !target_dept))
-			paycheck_departments |= ACCOUNT_ENG
 
 		for(var/A in SSeconomy.bank_accounts)
 			var/datum/bank_account/B = A
