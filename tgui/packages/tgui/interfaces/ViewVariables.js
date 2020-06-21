@@ -149,7 +149,7 @@ export const ViewVariables = (props, context) => {
 
   // topSection time.
   let Sprite;
-  if (snowflake.sprite_base64) {
+  if (snowflake?.sprite_base64) {
     Sprite = (
       <img src={`data:image/jpeg;base64,${snowflake.sprite_base64}`} />
     );
@@ -168,14 +168,14 @@ export const ViewVariables = (props, context) => {
         </Button>
       </FlexItem>
 
-      {snowflake.direction && (
+      {snowflake?.direction && (
         <FlexItem>
-          <Button color="transparent" icon="undo"
+          <Button m={0} color="transparent" icon="undo"
             onClick={() => act("rotate", { dir: "left" })} />
 
           <Box inline fontSize={1.2}>{capitalize(snowflake.direction)}</Box>
 
-          <Button color="transparent" icon="redo"
+          <Button m={0} color="transparent" icon="redo"
             onClick={() => act("rotate", { dir: "right" })} />
         </FlexItem>) }
 
@@ -188,7 +188,7 @@ export const ViewVariables = (props, context) => {
 
 
   let LivingInfo;
-  if (snowflake.DamageStats) {
+  if (snowflake?.DamageStats) {
     const Body = Object.entries(snowflake.DamageStats.Body);
     // const Organ = Object.entries(snowflake.DamageStats.Organ);
     const makedamagebutton = entry => {
