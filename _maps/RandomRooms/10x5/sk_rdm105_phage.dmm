@@ -27,6 +27,10 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"n" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel,
+/area/template_noop)
 "o" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -44,7 +48,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/clothing/gloves/color/yellow,
-/obj/effect/decal/cleanable/blood/gibs,
+/obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (
@@ -53,7 +57,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/mob_spawn/human/clown/corpse,
-/obj/effect/decal/cleanable/blood/gibs,
+/obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "y" = (
@@ -97,12 +101,14 @@
 /area/template_noop)
 "K" = (
 /obj/structure/barricade/sandbags,
-/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (
-/obj/effect/decal/cleanable/blood/gibs,
-/turf/open/floor/plasteel,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
 /area/template_noop)
 "N" = (
 /turf/open/floor/plating,
@@ -130,6 +136,7 @@
 "W" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Y" = (
@@ -147,7 +154,7 @@ h
 a
 "}
 (2,1,1) = {"
-U
+L
 t
 r
 t
@@ -158,7 +165,7 @@ a
 t
 u
 t
-a
+n
 "}
 (4,1,1) = {"
 y
@@ -190,7 +197,7 @@ t
 "}
 (8,1,1) = {"
 D
-L
+a
 C
 H
 U
