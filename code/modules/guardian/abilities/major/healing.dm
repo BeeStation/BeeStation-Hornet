@@ -24,12 +24,12 @@
 		if(isliving(target))
 			var/mob/living/L = target
 			guardian.do_attack_animation(L)
-			var/heals = -(master_stats.potential * 1.5)
+			var/heals = -(master_stats.potential * 0.8 + 3)
 			if(!guardian.is_deployed())
 				heals = max(heals * 0.5, 2)
-			L.adjustBruteLoss(heals)
-			L.adjustFireLoss(heals)
-			L.adjustOxyLoss(heals)
+			heals -= L.adjustBruteLoss(heals)
+			heals -= L.adjustFireLoss(heals)
+			heals -= L.adjustOxyLoss(heals)
 			L.adjustToxLoss(heals)
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(L))
 			H.color = guardian.guardiancolor

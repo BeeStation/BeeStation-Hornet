@@ -203,6 +203,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			else
 				forceMove(summoner.current)
 				to_chat(src, "<span class='danger'>Your summoner has died!</span>")
+				to_chat(summoner, "<span class='userdanger'>'No...' you think to yourself as your bones crumple to dust.</span>")
+				summoner.current.dust()
 				visible_message("<span class='danger'><B>\The [src] dies along with its user!</B></span>")
 				death(TRUE)
 	else
@@ -402,8 +404,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/death()
 	. = ..()
 	if(summoner?.current && summoner.current.stat != DEAD)
-		to_chat(summoner, "<span class='danger'><B>Your [name] died somehow!</span></B>")
-		summoner.current.death()
+		to_chat(summoner, "<span class='userdanger'>'No...' you think to yourself as your bones crumple to dust, as you watch your stand somehow die.</span>")
+		summoner.current.dust()
 	ghostize(FALSE)
 	nullspace() // move ourself into nullspace for the time being
 
@@ -462,7 +464,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	death()
 	if(summoner?.current)
 		to_chat(summoner.current, "<span class='danger'><B>Your [src] was blown up!</span></B>")
-		summoner.current.gib()
+		summoner.current.dust()
 
 /mob/living/simple_animal/hostile/guardian/AltClickOn(atom/A)
 	if(stats.ability && stats.ability.AltClickOn(A))
