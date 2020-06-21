@@ -12,6 +12,7 @@
 	var/list/name_source
 	var/random_names = TRUE
 	show_in_antagpanel = FALSE
+	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	can_hijack = HIJACK_PREVENT
 
