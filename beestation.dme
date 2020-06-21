@@ -1260,6 +1260,7 @@
 #include "code\modules\admin\verbs\pray.dm"
 #include "code\modules\admin\verbs\randomverbs.dm"
 #include "code\modules\admin\verbs\reestablish_db_connection.dm"
+#include "code\modules\admin\verbs\secretspanel.dm"
 #include "code\modules\admin\verbs\shuttlepanel.dm"
 #include "code\modules\admin\verbs\spawnfloorcluwne.dm"
 #include "code\modules\admin\verbs\spawnobjasmob.dm"
