@@ -55,6 +55,29 @@
 	else
 		return ..()
 
+/obj/item/kitchen/knife/poison
+	name = "venom knife"
+	icon_state = "poisonknife"
+	force = 12
+	throwforce = 15
+	throw_speed = 5
+	throw_range = 7
+	desc = "An infamous knife of syndicate design,it has a tiny hole going through the blade to the handle which stores toxins."
+	materials = null
+
+/obj/item/kitchen/knife/poison/Initialize()
+	. = ..()
+	create_reagents(40,OPENCONTAINER)
+
+/obj/item/kitchen/knife/poison/attack(mob/living/M, mob/user)
+	if (!istype(M))
+		return
+	. = ..()
+	if (!reagents.total_volume || !M.reagents)
+		return
+	var/amount = min(5/reagents.total_volume,1)
+	reagents.reaction(M,INJECT,amount)
+	reagents.trans_to(M,5)
 
 /obj/item/kitchen/knife
 	name = "kitchen knife"
