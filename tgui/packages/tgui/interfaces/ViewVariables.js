@@ -6,21 +6,21 @@ import { Window } from '../layouts';
 import { FlexItem } from '../components/Flex';
 
 
-const colorboxify = Var => {
+const colorboxify = item => {
   // add a helpful little ColorBox to visually tell
   // which color a string represents. cool, eh?
-  if (Var.type === "Text"
-    && Var.value[1] === "#"
-    && Var.value.length === 9) {
+  if (item.type === "Text"
+    && item.value[1] === "#"
+    && item.value.length === 9) {
     // entry.value should be something like "#aabbcc" (commas included)
     return (
       <Fragment>
-        <ColorBox color={Var.value.slice(1, 8)} />
+        <ColorBox color={item.value.slice(1, 8)} />
         {" "}
-        {Var.value}
+        {item.value}
       </Fragment>
     ); }
-  return (Var.value);
+  return (item.value);
 };
 
 
@@ -75,33 +75,33 @@ export const ViewVariables = (props, context) => {
     return Search(entry.name)||Search(entry.value.toString());
   };
 
-  const Label = Var => {
+  const Label = item => {
     return (
       <Button
-        content={Var.name}
-        title={Var.ref
-          ? `View ${Var.ref}`
-          : `Edit ${Var.name} (${Var.type})`}
+        content={item.name}
+        title={item.ref
+          ? `View ${item.ref}`
+          : `Edit ${item.name} (${item.type})`}
         fluid
         ellipsis
         maxWidth={15}
         color="transparent"
-        onClick={Var.ref
+        onClick={item.ref
           // if ref is defined, we wanna open it in another
           // window instead of attempting to edit
           // see debug_variables.dm @/proc/debug_variable2
-          ? () => act("view", { target: Var.ref })
+          ? () => act("view", { target: item.ref })
           : () => act("datumedit", {
             target: objectinfo.ref,
-            targetvar: Var.name })} />
+            targetvar: item.name })} />
     );
   };
 
-  const Value = Var => {
+  const Value = item => {
     return (
       <Fragment>
-        {colorboxify(Var) || "null"}
-        {Var.items && Var.items.map(
+        {colorboxify(item) || "null"}
+        {item.items && item.items.map(
           item => { return Entry(item); })}
       </Fragment>
     );
@@ -159,7 +159,11 @@ export const ViewVariables = (props, context) => {
     <Flex direction="column" align="center">
 
       <FlexItem>
-        <Button color="transparent" textColor="white" fontSize={1.5}>
+        <Button
+          color="transparent"
+          textColor="white"
+          fontSize={1.5}
+          onClick={() => act("rename")}>
           {objectinfo.name}
         </Button>
       </FlexItem>
@@ -167,12 +171,12 @@ export const ViewVariables = (props, context) => {
       {snowflake.direction && (
         <FlexItem>
           <Button color="transparent" icon="undo"
-            onClick={() => act("rotateLeft")} />
+            onClick={() => act("rotate", { dir: "left" })} />
 
           <Box inline fontSize={1.2}>{capitalize(snowflake.direction)}</Box>
 
           <Button color="transparent" icon="redo"
-            onClick={() => act("rotateRight")} />
+            onClick={() => act("rotate", { dir: "right" })} />
         </FlexItem>) }
 
       <FlexItem>
@@ -181,6 +185,7 @@ export const ViewVariables = (props, context) => {
 
     </Flex>
   );
+
 
   let LivingInfo;
   if (snowflake.DamageStats) {
@@ -221,6 +226,8 @@ export const ViewVariables = (props, context) => {
   // So I had to make this amalgamation. I am not proud of it.
   // It gets a bit too long when there are too many options,
   // don't know what to do yet. Make it scrollable, somehow?
+  // Edit: Yes. I made it scrollable. But I had to touch tgui's source.
+  // Not optimal.
 
   const [
     DropdownOpen,

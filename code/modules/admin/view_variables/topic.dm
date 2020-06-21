@@ -153,10 +153,10 @@
 		switch(action)
 			//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and datacore records).
 			if("rename")
-				if(!check_rights(NONE)) //Hol up.. the fuck is this? Completely alien to me, best to not touch it. - Trigg
+				if(!check_rights(NONE))
 					return
 
-				var/mob/M = locate(params[0]) in GLOB.mob_list
+				var/mob/M = D
 				if(!istype(M))
 					to_chat(usr, "This can only be used on instances of type /mob")
 					return
@@ -169,22 +169,24 @@
 				M.fully_replace_character_name(M.real_name,new_name)
 				C.vv_update_display(M, "name", new_name)
 				C.vv_update_display(M, "real_name", M.real_name || "No real name")
+				return TRUE
 
-			if("rotatedatum")
+			if("rotate")
 				if(!check_rights(NONE))
 					return
 
-				var/atom/A = locate(params[0])
+				var/atom/A = D
 				if(!istype(A))
 					to_chat(usr, "This can only be done to instances of type /atom")
 					return
 
-				switch(params[1])
+				switch(params["dir"])
 					if("right")
 						A.setDir(turn(A.dir, -45))
 					if("left")
 						A.setDir(turn(A.dir, 45))
 				C.vv_update_display(A, "dir", dir2text(A.dir))
+				return TRUE
 
 			/*
 			if("makehuman")
