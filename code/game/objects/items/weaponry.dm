@@ -902,7 +902,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	breakforce = 25
 	stamforce = 5
 
-/obj/item/melee/hydraulic_blade
+/obj/item/hydraulic_blade
 	name = "hydraulic blade"
 	desc = "Extremely sharp and dangerous weapon."
 	icon_state = "hydraulic_blade"
