@@ -37,7 +37,7 @@
 	name = /datum/reagent/toxin/sulfonal
 	id = /datum/reagent/toxin/sulfonal
 	results = list(/datum/reagent/toxin/sulfonal = 3)
-	required_reagents = list(/datum/reagent/acetone = 1, /datum/reagent/diethylamine = 1, /datum/reagent/sulfur = 1)
+	required_reagents = list(/datum/reagent/medicine/perfluorodecalin = 1, /datum/reagent/diethylamine = 1, /datum/reagent/sulfur = 1)
 
 /datum/chemical_reaction/lipolicide
 	name = /datum/reagent/toxin/lipolicide
@@ -55,7 +55,7 @@
 	name = "Lexorin"
 	id = /datum/reagent/toxin/lexorin
 	results = list(/datum/reagent/toxin/lexorin = 3)
-	required_reagents = list(/datum/reagent/toxin/plasma = 1, /datum/reagent/hydrogen = 1, /datum/reagent/oxygen = 1)
+	required_reagents = list(/datum/reagent/toxin/plasma = 1, /datum/reagent/hydrogen = 1, /datum/reagent/oxygen = 1, /datum/reagent/toxin/sulfonal = 1)
 
 /datum/chemical_reaction/chloralhydrate
 	name = "Chloral Hydrate"
