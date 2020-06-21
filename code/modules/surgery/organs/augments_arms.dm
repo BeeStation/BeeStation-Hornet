@@ -185,9 +185,9 @@
 	zone = BODY_ZONE_L_ARM
 
 /obj/item/organ/cyberimp/arm/toolset/emag_act()
-	if(!(locate(/obj/item/hydraulic_blade) in items_list))
+	if(!(locate(/obj/item/melee/hydraulic_blade) in items_list))
 		to_chat(usr, "<span class='notice'>You unlock [src]'s integrated blade!</span>")
-		items_list += new /obj/item/hydraulic_blade(src)
+		items_list += new /obj/item/melee/hydraulic_blade(src)
 		return 1
 	return 0
 
@@ -250,7 +250,7 @@
 	name = "arm-mounted hydraulic blade"
 	desc = "Highly dangerous implanted plasteel blade."
 	icon_state = "hydraulic_blade"
-	contents = newlist(/obj/item/hydraulic_blade)
+	contents = newlist(/obj/item/melee/hydraulic_blade)
 
 /obj/item/organ/cyberimp/arm/hydraulic_blade/l
 	zone = BODY_ZONE_L_ARM
