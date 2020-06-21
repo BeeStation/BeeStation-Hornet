@@ -1,0 +1,4 @@
+author: bobbahbrown
+delete-after: true
+changes:
+  - refactor: Improved performance of lighting code
