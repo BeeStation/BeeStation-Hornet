@@ -434,7 +434,7 @@ Contains:
 	icon = 'icons/obj/clothing/suits.dmi'
 	alternate_worn_icon = 'icons/mob/suit.dmi'
 	icon_state = "skinsuit_rolled"
-	slowdown = 3 //Higher is slower
+	slowdown = 2 //Higher is slower
 	w_class = WEIGHT_CLASS_SMALL
 	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY
 	gas_transfer_coefficient = 0.5
