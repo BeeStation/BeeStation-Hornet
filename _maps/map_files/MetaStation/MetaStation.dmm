@@ -17582,9 +17582,8 @@
 /area/engine/engineering)
 "aGZ" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/components/binary/volume_pump/on{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
-	icon_state = "volpump_on_map-2";
 	name = "External Gas to Loop"
 	},
 /turf/open/floor/plasteel/dark,
@@ -19340,9 +19339,8 @@
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/binary/volume_pump/on{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
-	icon_state = "volpump_map-2";
 	name = "Mix Bypass"
 	},
 /turf/open/floor/engine,
@@ -20017,12 +20015,11 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "aMi" = (
+/obj/machinery/atmospherics/components/binary/pump/on{
+	name = "Gas to Filter"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
-	},
-/obj/machinery/atmospherics/components/binary/volume_pump/on{
-	icon_state = "volpump_on_map-2";
-	name = "Gas to Filter"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -79094,14 +79091,14 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "dek" = (
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "Mix to Gas"
+	},
 /obj/structure/cable/white{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/machinery/atmospherics/components/binary/volume_pump{
-	name = "Mix to Gas"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -79118,16 +79115,15 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "dem" = (
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1;
+	name = "Gas to Mix"
+	},
 /obj/structure/cable/white{
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/machinery/atmospherics/components/binary/volume_pump{
-	dir = 1;
-	icon_state = "volpump_map-2";
-	name = "Gas to Mix"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -79595,6 +79591,10 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "dfI" = (
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 4;
+	name = "Cooling Loop Bypass"
+	},
 /obj/structure/cable/white{
 	icon_state = "2-4"
 	},
@@ -79603,11 +79603,6 @@
 	},
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/machinery/atmospherics/components/binary/volume_pump/on{
-	dir = 4;
-	icon_state = "volpump_map-2";
-	name = "Cooling Loop Bypass"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -79643,9 +79638,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/binary/volume_pump/on{
+/obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
-	icon_state = "volpump_map-2";
 	name = "Atmos to Loop"
 	},
 /turf/open/floor/engine,
@@ -79663,14 +79657,13 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "dfR" = (
+/obj/machinery/atmospherics/components/binary/pump/on{
+	name = "Gas to Cold Loop"
+	},
 /obj/structure/cable/white{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/binary/volume_pump/on{
-	icon_state = "volpump_on_map-1";
-	name = "Cold to Atmos"
-	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "dfS" = (
@@ -79685,10 +79678,12 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "dfU" = (
-/obj/machinery/atmospherics/components/binary/volume_pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
-	icon_state = "volpump_on_map-1";
-	name = "Cold loop to Gas"
+	name = "Cold Loop to Gas"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -81644,8 +81639,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /mob/living/carbon/monkey,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "dBS" = (
@@ -86640,8 +86635,8 @@
 /turf/open/floor/plasteel,
 /area/janitor)
 "xqf" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /mob/living/carbon/monkey,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "xse" = (
