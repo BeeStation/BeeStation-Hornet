@@ -27,10 +27,10 @@
 			var/heals = -(master_stats.potential * 0.8 + 3)
 			if(!guardian.is_deployed())
 				heals = max(heals * 0.5, 2)
-			heals -= min(L.bruteloss, -L.adjustBruteLoss(heals))	//L.adjustBruteLoss returns amount for some reason
-			heals -= min(L.fireloss, -L.adjustFireLoss(heals))
-			heals -= min(L.oxyloss, -L.adjustOxyLoss(heals))
-			heals -= min(L.toxloss, -L.adjustToxLoss(heals))
+			L.adjustBruteLoss(heals)
+			L.adjustFireLoss(heals)
+			L.adjustOxyLoss(heals)
+			L.adjustToxLoss(heals)
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(L))
 			H.color = guardian.guardiancolor
 			if(L == guardian.summoner?.current)
