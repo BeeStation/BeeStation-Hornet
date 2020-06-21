@@ -904,7 +904,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/melee/hydraulic_blade
 	name = "hydraulic blade"
-	desc = "Extremely dangerous and sharp weapon."
+	desc = "Extremely sharp and dangerous weapon."
 	icon_state = "hydraulic_blade"
 	item_state = "hydraulic_blade"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
