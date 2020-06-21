@@ -1,9 +1,10 @@
 #define DEPT_ALL 0
-#define DEPT_HOP 1
+#define DEPT_GEN 1
 #define DEPT_SEC 2
 #define DEPT_MED 3
 #define DEPT_SCI 4
 #define DEPT_ENG 5
+#define DEPT_SUP 6
 
 //Keeps track of the time for the ID console. Having it as a global variable prevents people from dismantling/reassembling it to
 //increase the slots of many jobs.
@@ -237,10 +238,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if(scan)
 			S = html_encode(scan.name)
 			//Checking all the accesses and their corresponding departments
-			if((ACCESS_HOP in scan.access) && ((target_dept==DEPT_HOP) || !target_dept))
+			if((ACCESS_HOP in scan.access) && ((target_dept==DEPT_GEN) || !target_dept))
 				paycheck_departments |= ACCOUNT_SRV
-				paycheck_departments |= ACCOUNT_CAR
 				paycheck_departments |= ACCOUNT_CIV
+				paycheck_departments |= ACCOUNT_CAR //Currently no seperation between service/civillian and supply
 			if((ACCESS_HOS in scan.access) && ((target_dept==DEPT_SEC) || !target_dept))
 				paycheck_departments |= ACCOUNT_SEC
 			if((ACCESS_CMO in scan.access) && ((target_dept==DEPT_MED) || !target_dept))
@@ -422,9 +423,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						playsound(src, 'sound/machines/terminal_on.ogg', 50, 0)
 
 					else
-						if((ACCESS_HOP in scan.access) && ((target_dept==DEPT_HOP) || !target_dept))
-							region_access |= DEPT_HOP
-							region_access |= 6
+						if((ACCESS_HOP in scan.access) && ((target_dept==DEPT_GEN) || !target_dept))
+							region_access |= DEPT_GEN
+							region_access |= DEPT_SUP //Currently no seperation between service/civillian and supply
 							get_subordinates("Head of Personnel")
 						if((ACCESS_HOS in scan.access) && ((target_dept==DEPT_SEC) || !target_dept))
 							region_access |= DEPT_SEC
@@ -723,8 +724,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	light_color = LIGHT_COLOR_YELLOW
 
 #undef DEPT_ALL
-#undef DEPT_HOP
+#undef DEPT_GEN
 #undef DEPT_SEC
 #undef DEPT_MED
 #undef DEPT_SCI
 #undef DEPT_ENG
+#undef DEPT_SUP
