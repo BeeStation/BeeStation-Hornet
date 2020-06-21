@@ -62,12 +62,27 @@
 	throwforce = 15
 	throw_speed = 5
 	throw_range = 7
-	desc = "An infamous knife of syndicate design,it has a tiny hole going through the blade to the handle which stores toxins."
+	var/amount_per_transfer_from_this = 5
+	var/list/possible_transfer_amounts = list(3,5)
+	desc = "An infamous knife of syndicate design, it has a tiny hole going through the blade to the handle which stores toxins."
 	materials = null
 
 /obj/item/kitchen/knife/poison/Initialize()
 	. = ..()
 	create_reagents(40,OPENCONTAINER)
+
+/obj/item/kitchen/knife/poison/attack_self(mob/user)
+	if(possible_transfer_amounts.len)
+		var/i=0
+		for(var/A in possible_transfer_amounts)
+			i++
+			if(A == amount_per_transfer_from_this)
+				if(i<possible_transfer_amounts.len)
+					amount_per_transfer_from_this = possible_transfer_amounts[i+1]
+				else
+					amount_per_transfer_from_this = possible_transfer_amounts[1]
+				to_chat(user, "<span class='notice'>[src]'s transfer amount is now [amount_per_transfer_from_this] units.</span>")
+				return
 
 /obj/item/kitchen/knife/poison/attack(mob/living/M, mob/user)
 	if (!istype(M))
@@ -75,9 +90,9 @@
 	. = ..()
 	if (!reagents.total_volume || !M.reagents)
 		return
-	var/amount = min(5/reagents.total_volume,1)
+	var/amount = min(amount_per_transfer_from_this/reagents.total_volume,1)
 	reagents.reaction(M,INJECT,amount)
-	reagents.trans_to(M,5)
+	reagents.trans_to(M,amount_per_transfer_from_this)
 
 /obj/item/kitchen/knife
 	name = "kitchen knife"
