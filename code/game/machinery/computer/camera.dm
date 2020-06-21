@@ -124,10 +124,9 @@
 			return TRUE
 
 		var/list/visible_turfs = list()
-		var/C_turf = get_turf(C)
 		for(var/turf/T in (C.isXRay() \
 				? range(C.view_range, C) \
-				: view(C.view_range, C_turf)))
+				: view(C.view_range, get_turf(C))))
 			visible_turfs += T
 
 		var/list/bbox = get_bbox_of_atoms(visible_turfs)
