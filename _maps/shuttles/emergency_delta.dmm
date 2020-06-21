@@ -393,15 +393,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
-"aF" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
 "aG" = (
 /obj/item/storage/firstaid/fire,
 /obj/item/storage/firstaid/regular{
@@ -483,15 +474,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
-"aO" = (
-/obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/shuttle/escape)
 "aP" = (
 /obj/structure/sign/departments/medbay/alt,
 /turf/closed/wall/mineral/titanium,
@@ -525,30 +507,6 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/shuttle/escape)
-"aV" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"aW" = (
-/obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/docking_port/mobile/emergency{
-	dheight = 0;
-	dwidth = 11;
-	height = 18;
-	name = "Delta emergency shuttle";
-	width = 30;
-	preferred_direction = 2;
-	port_direction = 4
-	},
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "aX" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -684,15 +642,6 @@
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
-"bk" = (
-/obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Cargo"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
 "bl" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/fire/firefighter,
@@ -756,33 +705,6 @@
 /obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
-/area/shuttle/escape)
-"bt" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Holding Area";
-	req_access_txt = "2"
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"bu" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"bv" = (
-/obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "bw" = (
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -979,16 +901,6 @@
 "bX" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"bY" = (
-/obj/machinery/door/airlock/command{
-	name = "Emergency Recovery Airlock";
-	req_access_txt = "19"
-	},
-/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -1382,9 +1294,148 @@
 /obj/machinery/light/small,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
+"eY" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
 "hB" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"uQ" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Holding Area";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"zd" = (
+/obj/machinery/door/airlock/command{
+	name = "Emergency Recovery Airlock";
+	req_access_txt = "19"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Ay" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plasteel/white,
+/area/shuttle/escape)
+"Ej" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Holding Area";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Ey" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Emergency Shuttle Cargo"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Hh" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Cockpit";
+	req_access_txt = "19"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Ky" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"KD" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Emergency Shuttle Airlock";
+	req_access_txt = "2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plasteel/white,
+/area/shuttle/escape)
+"TQ" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/docking_port/mobile/emergency{
+	dheight = 0;
+	dwidth = 11;
+	height = 18;
+	name = "Delta emergency shuttle";
+	port_direction = 4;
+	preferred_direction = 2;
+	width = 30
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"Yt" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -1393,21 +1444,21 @@ ac
 ae
 af
 af
-hB
-hB
+Ky
+Ky
 af
 af
-aO
+Ay
 aT
-aW
+TQ
 af
-hB
-hB
-hB
+Ky
+Ky
+Ky
 af
-aO
+Ay
 af
-bv
+KD
 af
 af
 af
@@ -1452,7 +1503,7 @@ aa
 (3,1,1) = {"
 ab
 ad
-hB
+Ky
 ai
 ao
 ao
@@ -1468,12 +1519,12 @@ ao
 ao
 ao
 bo
-bt
+uQ
 bw
 bw
 bw
 bU
-hB
+Ky
 aa
 aa
 aa
@@ -1483,7 +1534,7 @@ aa
 (4,1,1) = {"
 ab
 ad
-hB
+Ky
 ai
 ao
 aw
@@ -1538,7 +1589,7 @@ bU
 af
 af
 aT
-hB
+Ky
 af
 af
 "}
@@ -1576,7 +1627,7 @@ af
 (7,1,1) = {"
 ab
 ad
-hB
+Ky
 ai
 ao
 ao
@@ -1594,7 +1645,7 @@ ao
 bp
 af
 af
-bt
+Ej
 hB
 aT
 af
@@ -1602,7 +1653,7 @@ cb
 cf
 cf
 cr
-hB
+Ky
 "}
 (8,1,1) = {"
 ac
@@ -1633,12 +1684,12 @@ cc
 cc
 cl
 cs
-hB
+Ky
 "}
 (9,1,1) = {"
 ab
 ad
-hB
+Ky
 ai
 ao
 ax
@@ -1654,22 +1705,22 @@ bj
 aX
 ao
 bo
-bu
+Hh
 ai
 ao
 ao
 bX
-bu
+Hh
 cc
 cc
 cm
 ct
-hB
+Ky
 "}
 (10,1,1) = {"
 ab
 ad
-hB
+Ky
 ai
 ao
 av
@@ -1685,17 +1736,17 @@ av
 av
 ao
 bo
-bu
+Hh
 ai
 ao
 ao
 bX
-bu
+Hh
 cc
 cc
 cn
 cu
-hB
+Ky
 "}
 (11,1,1) = {"
 ac
@@ -1726,12 +1777,12 @@ cc
 cg
 cl
 cv
-hB
+Ky
 "}
 (12,1,1) = {"
 ab
 ad
-hB
+Ky
 ah
 ap
 aw
@@ -1751,13 +1802,13 @@ af
 aT
 af
 af
-bY
+zd
 af
 cb
 ch
 ch
 cw
-hB
+Ky
 "}
 (13,1,1) = {"
 ab
@@ -1766,16 +1817,16 @@ af
 af
 aq
 ag
-aF
-aF
+eY
+eY
 ag
 aP
 af
 af
 af
 af
-bk
-bk
+Ey
+Ey
 af
 af
 af
@@ -1817,14 +1868,14 @@ af
 af
 af
 aT
-hB
+Ky
 af
 af
 "}
 (15,1,1) = {"
 ab
 ad
-hB
+Ky
 ak
 as
 az
@@ -1832,7 +1883,7 @@ ao
 ao
 aM
 aR
-aV
+Yt
 aE
 bb
 bg
@@ -1855,7 +1906,7 @@ aa
 (16,1,1) = {"
 ab
 ad
-hB
+Ky
 al
 at
 aA
@@ -1863,7 +1914,7 @@ ao
 ao
 aM
 aR
-aV
+Yt
 aE
 bc
 bh
@@ -1876,7 +1927,7 @@ bC
 bJ
 ai
 bZ
-hB
+Ky
 aa
 aa
 aa
@@ -1919,25 +1970,25 @@ aa
 ac
 ae
 af
-hB
-hB
-hB
-hB
+Ky
+Ky
+Ky
+Ky
 af
 af
 aT
 af
-hB
-hB
-hB
-hB
-hB
+Ky
+Ky
+Ky
+Ky
+Ky
 af
 af
-hB
+Ky
 bL
 bL
-hB
+Ky
 af
 aa
 aa

@@ -15,10 +15,8 @@
 							/obj/item/stack/sheet/animalhide/xeno = 1)
 	maxHealth = 125
 	health = 125
-	harm_intent_damage = 5
 	obj_damage = 60
-	melee_damage_lower = 25
-	melee_damage_upper = 25
+	melee_damage = 25
 	attacktext = "slashes"
 	speak_emote = list("hisses")
 	bubble_icon = "alien"
@@ -44,8 +42,7 @@
 	icon_state = "aliend"
 	icon_living = "aliend"
 	icon_dead = "aliend_dead"
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	var/plant_cooldown = 30
 	var/plants_off = 0
 
@@ -65,8 +62,7 @@
 	icon_dead = "aliens_dead"
 	health = 150
 	maxHealth = 150
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5
@@ -81,8 +77,7 @@
 	icon_dead = "alienq_dead"
 	health = 250
 	maxHealth = 250
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5
@@ -159,8 +154,7 @@
 
 /mob/living/simple_animal/hostile/alien/maid
 	name = "lusty xenomorph maid"
-	melee_damage_lower = 0
-	melee_damage_upper = 0
+	melee_damage = 0
 	a_intent = INTENT_HELP
 	friendly = "caresses"
 	obj_damage = 0

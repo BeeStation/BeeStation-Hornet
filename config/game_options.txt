@@ -432,7 +432,7 @@ ROUNDSTART_RACES human
 
 ## Races that are strictly worse than humans that could probably be turned on without balance concerns
 ROUNDSTART_RACES lizard
-#ROUNDSTART_RACES fly
+ROUNDSTART_RACES fly
 ROUNDSTART_RACES moth
 ROUNDSTART_RACES plasmaman
 ROUNDSTART_RACES felinid
@@ -557,6 +557,9 @@ ROUNDSTART_TRAITS
 
 ## Sets shift time to server time at roundstart. Overridden by RANDOMIZE_SHIFT_TIME ##
 #SHIFT_TIME_REALTIME
+
+## Maximum fine for a citation
+MAXFINE 2000
 
 ## Enable the capitalist agenda on your server.
 ECONOMY

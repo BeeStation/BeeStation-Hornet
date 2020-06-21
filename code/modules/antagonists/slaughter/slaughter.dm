@@ -30,11 +30,11 @@
 	healable = 0
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	obj_damage = 50
-	melee_damage_lower = 30
-	melee_damage_upper = 30
+	melee_damage = 30
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	bloodcrawl = BLOODCRAWL_EAT
+	hardattacks = TRUE 
 	var/playstyle_string = "<span class='big bold'>You are a slaughter demon,</span><B> a terrible creature from another realm. You have a single desire: To kill.  \
 							You may use the \"Blood Crawl\" ability near blood pools to travel through them, appearing and disappearing from the station at will. \
 							Pulling a dead or unconscious mob while you enter a pool will pull them in with you, allowing you to feast and regain your health. \
@@ -122,8 +122,8 @@
 	feast_sound = 'sound/spookoween/scary_horn2.ogg'
 	deathsound = 'sound/misc/sadtrombone.ogg'
 
-	icon_state = "bowmon"
-	icon_living = "bowmon"
+	icon_state = "honkmon"
+	icon_living = "honkmon"
 	deathmessage = "fades out, as all of its friends are released from its \
 		prison of hugs."
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})

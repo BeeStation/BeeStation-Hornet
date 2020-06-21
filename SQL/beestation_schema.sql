@@ -326,6 +326,7 @@ CREATE TABLE IF NOT EXISTS `SS13_poll_option` (
   `descmid` varchar(32) DEFAULT NULL,
   `descmax` varchar(32) DEFAULT NULL,
   `default_percentage_calc` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_pop_pollid` (`pollid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8mb4;
@@ -337,18 +338,22 @@ DROP TABLE IF EXISTS `SS13_poll_question`;
 CREATE TABLE IF NOT EXISTS `SS13_poll_question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `polltype` enum('OPTION','TEXT','NUMVAL','MULTICHOICE','IRV') NOT NULL,
+  `created_datetime` datetime NOT NULL,
   `starttime` datetime NOT NULL,
   `endtime` datetime NOT NULL,
   `question` varchar(255) NOT NULL,
+  `subtitle` varchar(255) DEFAULT NULL,
   `adminonly` tinyint(1) unsigned NOT NULL,
   `multiplechoiceoptions` int(2) DEFAULT NULL,
-  `createdby_ckey` varchar(32) DEFAULT NULL,
+  `createdby_ckey` varchar(32) NOT NULL,
   `createdby_ip` int(10) unsigned NOT NULL,
   `dontshow` tinyint(1) unsigned NOT NULL,
   `minimumplaytime` int(4) NOT NULL,
+  `allow_revoting` tinyint(1) unsigned NOT NULL,
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_pquest_question_time_ckey` (`question`,`starttime`,`endtime`,`createdby_ckey`,`createdby_ip`),
-  KEY `idx_pquest_time_admin` (`starttime`,`endtime`,`adminonly`),
+  KEY `idx_pquest_time_deleted_id` (`starttime`,`endtime`, `deleted`, `id`),
   KEY `idx_pquest_id_time_type_admin` (`id`,`starttime`,`endtime`,`polltype`,`adminonly`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
 
@@ -363,7 +368,8 @@ CREATE TABLE IF NOT EXISTS `SS13_poll_textreply` (
   `ckey` varchar(32) NOT NULL,
   `ip` int(10) unsigned NOT NULL,
   `replytext` varchar(2048) NOT NULL,
-  `adminrank` varchar(32) NOT NULL DEFAULT 'Player',
+  `adminrank` varchar(32) NOT NULL,
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_ptext_pollid_ckey` (`pollid`,`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=220 DEFAULT CHARSET=utf8mb4;
@@ -381,6 +387,7 @@ CREATE TABLE IF NOT EXISTS `SS13_poll_vote` (
   `ip` int(10) unsigned NOT NULL,
   `adminrank` varchar(32) NOT NULL,
   `rating` int(2) DEFAULT NULL,
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_pvote_pollid_ckey` (`pollid`,`ckey`),
   KEY `idx_pvote_optionid_ckey` (`optionid`,`ckey`)
@@ -523,7 +530,19 @@ CREATE TABLE IF NOT EXISTS `SS13_stickyban_matched_ip` (
   PRIMARY KEY (`stickyban`,`matched_ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
+DELIMITER $$
+CREATE PROCEDURE `set_poll_deleted`(
+	IN `poll_id` INT
+)
+SQL SECURITY INVOKER
+BEGIN
+UPDATE `SS13_poll_question` SET deleted = 1 WHERE id = poll_id;
+UPDATE `SS13_poll_option` SET deleted = 1 WHERE pollid = poll_id;
+UPDATE `SS13_poll_vote` SET deleted = 1 WHERE pollid = poll_id;
+UPDATE `SS13_poll_textreply` SET deleted = 1 WHERE pollid = poll_id;
+END
+$$
+DELIMITER ;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
