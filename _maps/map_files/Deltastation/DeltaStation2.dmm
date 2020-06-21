@@ -4631,12 +4631,10 @@
 /area/hallway/secondary/entry)
 "ajZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/entry)
 "aka" = (
@@ -122293,6 +122291,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"lrr" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/turf/open/floor/plating,
+/area/hallway/secondary/entry)
 "lrC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -122350,6 +122354,17 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
+"lEc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/components/binary/dp_vent_pump{
+	dir = 4
+	},
+/obj/machinery/advanced_airlock_controller{
+	pixel_x = 30
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "lEm" = (
@@ -122717,6 +122732,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
+"mRN" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 10
+	},
+/turf/closed/wall,
+/area/hallway/secondary/entry)
 "mTY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -122867,6 +122888,18 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
+"ntQ" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/plasteel/white/corner{
+	dir = 1
+	},
+/area/hallway/secondary/entry)
 "nvD" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/holopad,
@@ -123321,6 +123354,12 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"pqG" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/plating,
+/area/hallway/secondary/entry)
 "psi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bodycontainer/morgue{
@@ -124893,6 +124932,15 @@
 	heat_capacity = 1e+006
 	},
 /area/maintenance/port)
+"weF" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
+/turf/open/floor/plasteel/white/corner{
+	dir = 1
+	},
+/area/hallway/secondary/entry)
 "wfT" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -159589,9 +159637,9 @@ aaa
 aaa
 aaa
 avT
-avT
-avT
-ajw
+hFO
+lrr
+weF
 ajV
 aky
 alm
@@ -159846,7 +159894,7 @@ aaa
 aaa
 aid
 aiA
-aeb
+lEc
 ajf
 ajw
 ajV
@@ -160103,9 +160151,9 @@ aaa
 aaa
 aaa
 avT
-avT
-avT
-ajw
+mRN
+pqG
+ntQ
 ajZ
 akA
 alo
