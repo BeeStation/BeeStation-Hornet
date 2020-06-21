@@ -54,7 +54,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/summoner_visible = TRUE
 	var/battlecry = "AT"
 	var/do_the_cool_invisible_thing = TRUE
-	var/erased_time = FALSE
 	var/berserk = FALSE
 	var/requiem = FALSE
 	// ability stuff below
@@ -197,7 +196,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(berserk || stat == DEAD)
 		return
 	if(!QDELETED(summoner) && !QDELETED(summoner.current))
-		if(summoner.current.stat == DEAD)
+		if(summoner.current.stat == DEAD || (HAS_TRAIT(summoner.current, TRAIT_NODEATH) && summoner.current.health <= -100))
 			if(transforming)
 				GoBerserk()
 			else
@@ -364,9 +363,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(transforming)
 		to_chat(src, "<span class='holoparasite italics'>No... no... you can't!</span>")
 		return
-	if(erased_time)
-		to_chat(src, "<span class='danger'>There is no time, and you cannot intefere!</span>")
-		return
 	if(stats.ability && stats.ability.RangedAttack(A))
 		return
 	return ..()
@@ -374,9 +370,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/AttackingTarget()
 	if(transforming)
 		to_chat(src, "<span class='holoparasite italics'>No... no... you can't!</span>")
-		return FALSE
-	if(erased_time)
-		to_chat(src, "<span class='danger'>There is no time, and you cannot intefere!</span>")
 		return FALSE
 	if(stats.ability && stats.ability.Attack(target))
 		return FALSE

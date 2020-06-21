@@ -26,17 +26,19 @@
 		guardian.summoner.current.remove_movespeed_modifier("frenzy")
 
 /datum/guardian_ability/major/frenzy/Attack(atom/target)
+	return world.time < next_rush	//True if on cooldown
+
+/datum/guardian_ability/major/frenzy/AfterAttack(atom/target)
 	if(isliving(target) && world.time >= next_rush && guardian.is_deployed())
 		var/mob/living/L = target
-		if(guardian.summoner?.current && get_dist_euclidian(guardian.summoner.current, L) > master_stats.range)
-			to_chat(guardian, "<span class='danger italics'>[L] is out of your range!</span>")
+		if(target == guardian.summoner?.current)
+			to_chat(guardian, "<span class='danger italics'>You can't attack your summoner!</span>")
 			return
-		playsound(guardian, 'sound/magic/teleport_app.ogg', 75, FALSE)
+		playsound(guardian, 'sound/magic/blind.ogg', 60, FALSE)
 		guardian.forceMove(get_step(get_turf(L), get_dir(guardian, L)))
-		guardian.target = L
-		guardian.AttackingTarget()
-		L.throw_at(get_edge_target_turf(L, get_dir(L, guardian)), 20, 4, guardian, TRUE)
-		next_rush = world.time + ((0.1 SECONDS * (5 - master_stats.potential)) + 0.5)	//1 second at level 0, 0.5 at 5
+		if(master_stats.potential > 3)
+			L.throw_at(get_edge_target_turf(L, get_dir(guardian, L)), 2, 4, guardian, TRUE)
+		next_rush = world.time + ((0.2 SECONDS * (5 - master_stats.potential)) + 2)	//2 to 3 seconds
 
 /datum/guardian_ability/major/frenzy/Stat()
 	. = ..()
