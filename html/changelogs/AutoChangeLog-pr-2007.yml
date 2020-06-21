@@ -1,4 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - config: Versions older than 513.1526 are no longer supported.
