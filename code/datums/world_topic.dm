@@ -97,17 +97,6 @@
 /datum/world_topic/news_report/Run(list/input, addr)
 	minor_announce(input["message"], "Breaking Update From [input["message_sender"]]")
 
-/datum/world_topic/server_hop
-	keyword = "server_hop"
-
-/datum/world_topic/server_hop/Run(list/input, addr)
-	var/expected_key = input[keyword]
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(O.key == expected_key)
-			if(O.client?.address == addr)
-				new /obj/screen/splash(O.client, TRUE)
-			break
-
 /datum/world_topic/adminmsg
 	keyword = "adminmsg"
 	require_comms_key = TRUE
@@ -150,11 +139,8 @@
 	.["players"] = GLOB.clients.len
 	.["revision"] = GLOB.revdata.commit
 	.["revision_date"] = GLOB.revdata.date
+	.["hub"] = GLOB.hub_visibility
 
-	var/client_num = 0
-	for(var/client/C in GLOB.clients)
-		.["client[client_num]"] = C.key
-		client_num++
 
 	var/list/adm = get_admin_counts()
 	var/list/presentmins = adm["present"]
@@ -191,3 +177,4 @@
 		// Shuttle status, see /__DEFINES/stat.dm
 		.["shuttle_timer"] = SSshuttle.emergency.timeLeft()
 		// Shuttle timer, in seconds
+
