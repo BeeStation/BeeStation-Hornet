@@ -52,7 +52,7 @@
 			damage *= 1.3
 		H.apply_damage(damage, BRUTE, picked_def_zone)
 
-		if(!COOLDOWN_CHECK(src, caltrop_cooldown))
+		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
 			COOLDOWN_START(src, caltrop_cooldown, 1 SECONDS) //cooldown to avoid message spam.
 			var/atom/A = parent
 			if(!H.incapacitated(ignore_restraints = TRUE))
