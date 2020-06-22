@@ -6,6 +6,7 @@
  *		Butcher's cleaver
  *		Combat Knife
  *		Rolling Pins
+ *      Poison Knife
  */
 
 /obj/item/kitchen
@@ -90,9 +91,12 @@
 	. = ..()
 	if (!reagents.total_volume || !M.reagents)
 		return
-	var/amount = min(amount_per_transfer_from_this/reagents.total_volume,1)
+	var/amount_inject = amount_per_transfer_from_this
+	if(!M.can_inject(user, 1))
+		amount_inject = 1
+	var/amount = min(amount_inject/reagents.total_volume,1)
 	reagents.reaction(M,INJECT,amount)
-	reagents.trans_to(M,amount_per_transfer_from_this)
+	reagents.trans_to(M,amount_inject)
 
 /obj/item/kitchen/knife
 	name = "kitchen knife"
