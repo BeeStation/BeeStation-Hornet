@@ -510,6 +510,7 @@
 			validtypes -= type
 		else
 			objective.find_target()
+		log_objective(D, objective.explanation_text)
 
 //////////////////////////////////////////////
 //                                          //

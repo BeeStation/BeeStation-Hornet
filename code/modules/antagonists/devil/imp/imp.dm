@@ -29,8 +29,7 @@
 	healable = 0
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	obj_damage = 40
-	melee_damage_lower = 10
-	melee_damage_upper = 15
+	melee_damage = 10
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	var/boost = 0
@@ -73,3 +72,4 @@
 	newobjective.explanation_text = "Try to get a promotion to a higher devilic rank."
 	newobjective.owner = owner
 	objectives += newobjective
+	log_objective(owner, newobjective.explanation_text)

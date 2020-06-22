@@ -407,6 +407,7 @@
 				A.objectives = list()
 				new_objective.owner = H
 				A.objectives += new_objective
+				log_objective(A, new_objective.explanation_text, usr)
 				var/obj_count = 1
 				to_chat(T.owner, "<span class='alertsyndie'>Your contractors have updated your objectives</span>")
 				for(var/objective in A.objectives)
@@ -497,7 +498,7 @@
 				if("Random")
 					E = new /datum/round_event/disease_outbreak()
 				if("Choose")
-					var/virus = input("Choose the virus to spread", "BIOHAZARD") as null|anything in typesof(/datum/disease)
+					var/virus = input("Choose the virus to spread", "BIOHAZARD") as null|anything in sortList(typesof(/datum/disease, /proc/cmp_typepaths_asc))
 					E = new /datum/round_event/disease_outbreak{}()
 					var/datum/round_event/disease_outbreak/DO = E
 					DO.virus_type = virus

@@ -20,9 +20,7 @@
 
 	pixel_x = -16
 
-	harm_intent_damage = 5
-	melee_damage_lower = 8
-	melee_damage_upper = 12
+	melee_damage = 10
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("pines")
@@ -39,6 +37,7 @@
 	loot = list(/obj/item/stack/sheet/mineral/wood)
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
+	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/tree/Life()
 	..()
@@ -51,15 +50,6 @@
 					var/amt = min(co2, 9)
 					T.air.adjust_moles(/datum/gas/carbon_dioxide, -amt)
 					T.atmos_spawn_air("o2=[amt]")
-
-/mob/living/simple_animal/hostile/tree/AttackingTarget()
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		if(prob(15))
-			C.Paralyze(60)
-			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
-					"<span class='userdanger'>\The [src] knocks you down!</span>")
 
 /mob/living/simple_animal/hostile/tree/festivus
 	name = "festivus pole"

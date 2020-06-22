@@ -442,7 +442,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			winset(src, "[child]", "[entries[child]]")
 			if (!ispath(child, /datum/verbs/menu))
 				var/procpath/verbpath = child
-				if (copytext(verbpath.name,1,2) != "@")
+				if (verbpath.name[1] != "@")
 					new child(src)
 
 	for (var/thing in prefs.menuoptions)
@@ -450,6 +450,10 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		if (menuitem)
 			menuitem.Load_checked(src)
 
+	view_size = new(src, getScreenSize(FALSE))
+	view_size.resetFormat()
+	view_size.setZoomMode()
+	fit_viewport()
 	Master.UpdateTickRate()
 
 	if(GLOB.ckey_redirects.Find(ckey))
@@ -882,17 +886,12 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		if ("key")
 			return FALSE
 		if("view")
-			change_view(var_value)
+			view_size.setDefault(var_value)
 			return TRUE
 	. = ..()
 
 /client/proc/rescale_view(change, min, max)
-	var/viewscale = getviewsize(view)
-	var/x = viewscale[1]
-	var/y = viewscale[2]
-	x = CLAMP(x+change, min, max)
-	y = CLAMP(y+change, min,max)
-	change_view("[x]x[y]")
+	view_size.setTo(clamp(change, min, max), clamp(change, min, max))
 
 /client/proc/change_view(new_size)
 	if (isnull(new_size))

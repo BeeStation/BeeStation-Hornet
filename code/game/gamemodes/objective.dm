@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(target?.current)
 		def_value = target.current
 
-	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in possible_targets
+	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in sortNames(possible_targets)
 	if (!new_target)
 		return
 
@@ -517,8 +517,8 @@ GLOBAL_LIST_EMPTY(possible_items)
 		return
 
 /datum/objective/steal/admin_edit(mob/admin)
-	var/list/possible_items_all = GLOB.possible_items+"custom"
-	var/new_target = input(admin,"Select target:", "Objective target", steal_target) as null|anything in possible_items_all
+	var/list/possible_items_all = GLOB.possible_items
+	var/new_target = input(admin,"Select target:", "Objective target", steal_target) as null|anything in sortNames(possible_items_all)+"custom"
 	if (!new_target)
 		return
 
@@ -821,7 +821,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/destroy/admin_edit(mob/admin)
 	var/list/possible_targets = active_ais(1)
 	if(possible_targets.len)
-		var/mob/new_target = input(admin,"Select target:", "Objective target") as null|anything in possible_targets
+		var/mob/new_target = input(admin,"Select target:", "Objective target") as null|anything in sortNames(possible_targets)
 		target = new_target.mind
 	else
 		to_chat(admin, "No active AIs with minds")
@@ -894,7 +894,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /proc/generate_admin_objective_list()
 	GLOB.admin_objective_list = list()
 
-	var/list/allowed_types = list(
+	var/list/allowed_types = sortList(list(
 		/datum/objective/assassinate,
 		/datum/objective/maroon,
 		/datum/objective/debrain,
@@ -910,7 +910,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/capture,
 		/datum/objective/absorb,
 		/datum/objective/custom
-	)
+	),/proc/cmp_typepaths_asc)
 
 	for(var/T in allowed_types)
 		var/datum/objective/X = T

@@ -87,20 +87,6 @@
 	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
-"aq" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"ar" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Cockpit";
-	req_access_txt = "19"
-	},
-/turf/open/floor/carpet,
-/area/shuttle/escape)
 "as" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock";
@@ -169,13 +155,6 @@
 "aB" = (
 /turf/closed/wall/mineral/titanium/interior,
 /area/shuttle/escape)
-"aC" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "aD" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
@@ -219,15 +198,6 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"aK" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/docking_port/mobile/emergency{
-	name = "Scrapheap Challenge"
-	},
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "aL" = (
 /obj/structure/chair/comfy/shuttle{
@@ -305,12 +275,6 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/shuttle/escape)
-"aZ" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ba" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
@@ -337,12 +301,6 @@
 /obj/machinery/status_display/evac,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"bd" = (
-/obj/machinery/door/airlock{
-	name = "Unisex Restrooms"
-	},
-/turf/open/floor/plasteel/freezer,
-/area/shuttle/escape)
 "be" = (
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/escape)
@@ -352,24 +310,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 1
-	},
-/turf/open/floor/plasteel/freezer,
-/area/shuttle/escape)
-"bg" = (
-/obj/machinery/door/airlock{
-	name = "Unit 1"
-	},
-/turf/open/floor/plasteel/freezer,
-/area/shuttle/escape)
-"bh" = (
-/obj/machinery/door/airlock{
-	name = "Unit 2"
-	},
-/turf/open/floor/plasteel/freezer,
-/area/shuttle/escape)
-"bi" = (
-/obj/machinery/door/airlock{
-	name = "Unit B"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/escape)
@@ -426,6 +366,123 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"bL" = (
+/obj/machinery/door/airlock{
+	name = "Unit 2"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/escape)
+"cq" = (
+/obj/structure/grille/broken,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"gl" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock";
+	req_access_txt = "2"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"jr" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/docking_port/mobile/emergency{
+	name = "Scrapheap Challenge"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"ly" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"mJ" = (
+/obj/machinery/door/airlock{
+	name = "Unisex Restrooms"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/escape)
+"mN" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"Dc" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Gw" = (
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"KJ" = (
+/obj/machinery/door/airlock{
+	name = "Unit 1"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/escape)
+"NP" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Cockpit";
+	req_access_txt = "19"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/carpet,
+/area/shuttle/escape)
+"Ow" = (
+/obj/machinery/door/airlock{
+	name = "Unit B"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/escape)
+"Uc" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -435,17 +492,17 @@ aa
 ab
 ab
 ab
-aC
+gl
 ab
-aK
+jr
 ab
-ac
-ac
-ac
+Uc
+Uc
+Uc
 ab
-aZ
+mN
 ab
-aZ
+mN
 ab
 ab
 ab
@@ -462,7 +519,7 @@ ax
 aD
 ab
 bp
-aA
+cq
 aG
 aw
 aR
@@ -470,7 +527,7 @@ aX
 av
 ab
 be
-bg
+KJ
 bj
 ab
 ab
@@ -480,7 +537,7 @@ ab
 ad
 ai
 am
-aq
+Dc
 at
 ay
 aE
@@ -518,7 +575,7 @@ aY
 av
 ab
 bf
-bh
+bL
 bj
 bl
 bn
@@ -558,15 +615,15 @@ aA
 aF
 aw
 aw
-aw
+Gw
 aw
 aw
 aL
 ac
 av
-bd
+mJ
 be
-bi
+Ow
 bk
 bl
 bn
@@ -576,7 +633,7 @@ ac
 af
 ak
 ap
-ar
+NP
 av
 ac
 aG
@@ -600,7 +657,7 @@ ac
 ah
 al
 aa
-ac
+Uc
 ac
 aB
 bo
@@ -626,7 +683,7 @@ aa
 aa
 as
 aw
-aw
+Gw
 aw
 aw
 aL
@@ -648,8 +705,8 @@ aa
 aa
 aa
 aa
-ac
-ac
+Uc
+Uc
 aB
 aH
 aw
@@ -678,7 +735,7 @@ ab
 aI
 aJ
 aM
-aM
+ly
 aM
 aJ
 aW

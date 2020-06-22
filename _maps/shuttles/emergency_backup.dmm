@@ -5,11 +5,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape/backup)
-"c" = (
-/obj/machinery/door/airlock/titanium,
-/obj/docking_port/mobile/emergency/backup,
-/turf/open/floor/plating,
-/area/shuttle/escape/backup)
 "f" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/random,
@@ -17,6 +12,12 @@
 /area/shuttle/escape/backup)
 "g" = (
 /turf/open/floor/mineral/titanium,
+/area/shuttle/escape/backup)
+"i" = (
+/obj/machinery/door/airlock/titanium,
+/obj/docking_port/mobile/emergency/backup,
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
 /area/shuttle/escape/backup)
 "m" = (
 /turf/closed/wall/mineral/titanium,
@@ -55,7 +56,7 @@
 (1,1,1) = {"
 m
 m
-c
+i
 m
 m
 m

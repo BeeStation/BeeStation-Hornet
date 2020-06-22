@@ -38,7 +38,7 @@
 	var/list/display_names = generate_display_names()
 	if(!display_names.len)
 		return
-	var/choice = input(M,"Which item would you like to order?","Select an Item") as null|anything in display_names
+	var/choice = input(M,"Which item would you like to order?","Select an Item") as null|anything in sortList(display_names)
 	if(!choice || !M.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 
@@ -249,7 +249,7 @@
 	for(var/atom/movable/A in contents)
 		A.forceMove(get_turf(src))
 		if(isliving(A))
-			to_chat(A, "<span class='notice'>You suddenly feel the space around you torn apart! You're free!</span>")
+			to_chat(A, "<span class='notice'>You suddenly feel the space around you tear apart! You're free!</span>")
 	return ..()
 
 /obj/item/clothing/head/that/bluespace/container_resist(mob/living/user)

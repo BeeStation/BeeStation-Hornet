@@ -35,8 +35,7 @@ Difficulty: Very Hard
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("roars")
 	armour_penetration = 40
-	melee_damage_lower = 40
-	melee_damage_upper = 40
+	melee_damage = 40
 	speed = 10
 	move_to_delay = 10
 	ranged = TRUE
@@ -636,7 +635,7 @@ Difficulty: Very Hard
 	speak_emote = list("oscillates")
 	maxHealth = 2
 	health = 2
-	harm_intent_damage = 1
+	harm_intent_damage = 1 //leaving this at 1 so lightgeists don't get beat to death
 	friendly = "mends"
 	density = FALSE
 	movement_type = FLYING
@@ -715,7 +714,7 @@ Difficulty: Very Hard
 		if(ishuman(user))
 			var/mobcheck = FALSE
 			for(var/mob/living/simple_animal/A in range(1, src))
-				if(A.melee_damage_upper > 5 || A.mob_size >= MOB_SIZE_LARGE || A.ckey || A.stat)
+				if(A.melee_damage > 5 || A.mob_size >= MOB_SIZE_LARGE || A.ckey || A.stat)
 					break
 				var/obj/structure/closet/stasis/S = new /obj/structure/closet/stasis(A)
 				user.forceMove(S)
