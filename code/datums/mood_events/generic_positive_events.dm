@@ -166,6 +166,11 @@
 /datum/mood_event/nanite_happiness/add_effects(message)
 	description = "<span class='nicegreen robot'>+++++++[message]+++++++</span>\n"
 
+/datum/mood_event/heretics
+	description = "<span class='nicegreen'>THE HIGHER I RISE THE MORE I SEE</span>"
+	mood_change = 10
+	hidden = TRUE
+
 /datum/mood_event/area
 	description = "" //Fill this out in the area
 	mood_change = 0

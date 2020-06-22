@@ -67,6 +67,12 @@
 #define CONTRACT_UPLINK_PAGE_CONTRACTS "CONTRACTS"
 #define CONTRACT_UPLINK_PAGE_HUB "HUB"
 
+#define IS_HERETIC(mob) (mob.mind && mob.mind?.has_antag_datum(/datum/antagonist/heretic))
+#define PATH_SIDE "Side"
+#define PATH_ASH "Ash"
+#define PATH_RUST "Rust"
+#define PATH_FLESH "Flesh"
+
 //Special Antagonists
 #define SPAWNTYPE_ROUNDSTART "roundstart"
 #define SPAWNTYPE_MIDROUND "midround"

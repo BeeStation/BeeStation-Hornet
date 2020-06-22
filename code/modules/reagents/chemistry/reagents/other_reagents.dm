@@ -593,7 +593,7 @@
 	mutationtext = "<span class='danger'>The pain subsides. You feel... like you can take on anything.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 	can_synth = FALSE
-	random_unrestricted = FALSE 
+	random_unrestricted = FALSE
 
 
 //DANGEROUS RACES
@@ -1978,3 +1978,12 @@
 	color = "#ED2939"
 	taste_description = "upside down"
 	can_synth = FALSE
+
+
+
+/datum/reagent/eldritch
+	name = "Eldritch Essence"
+	description = "Strange liquid that defies the laws of physics"
+	taste_description = "Ag'hsj'saje'sh"
+	color = "#1f8016"
+

@@ -235,6 +235,11 @@
 	if(the_rcd.canRturf)
 		return ..()
 
+/turf/closed/wall/r_wall/rust_heretic_act()
+	if(prob(50))
+		return
+	ChangeTurf(/turf/closed/wall/r_wall/rust)
+
 /turf/closed/wall/r_wall/syndicate
 	name = "hull"
 	desc = "The armored hull of an ominous looking ship."

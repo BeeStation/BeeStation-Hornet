@@ -304,3 +304,6 @@
 
 /turf/open/floor/stone
 	icon_state = "stone"
+
+/turf/open/floor/plating/rust/rust_heretic_act()
+	return

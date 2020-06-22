@@ -12,3 +12,5 @@ GLOBAL_VAR_INIT(sac_image, null)
 
 //TODO clear this one up too
 GLOBAL_DATUM(cult_narsie, /obj/singularity/narsie/large/cult)
+
+GLOBAL_DATUM(reality_smash_track, /datum/reality_smash_tracker)
