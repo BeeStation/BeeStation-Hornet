@@ -32,9 +32,8 @@ This system lets you spray and pray with guns when dragging the mouse.
 		var/mob/living/L = user
 		if(!can_trigger_gun(L))
 			return FALSE
-		if(clumsy_check)//If theyre a clown, they can't autofire.
-			if (HAS_TRAIT(user, TRAIT_CLUMSY))
-				return FALSE
+	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY))//If theyre a clown, they can't autofire.
+		return FALSE
 
 	if(!can_shoot()) //Just because you can pull the trigger doesn't mean it can shoot. (*CLICK*)
 		return FALSE
@@ -50,6 +49,12 @@ This system lets you spray and pray with guns when dragging the mouse.
 
 /obj/item/gun/onMouseDown(object, location, params)
 	. = ..()
+	var/list/modifier = params2list(params)
+	if(modifier["shift"] || modifier["alt"] || modifier["ctrl"])
+		return
+	var/mob/living/user = loc
+	if(user.in_throw_mode)
+		return
 	if(!autofire_target && world.time >= next_autofire)
 		start_autofiring(object)
 
