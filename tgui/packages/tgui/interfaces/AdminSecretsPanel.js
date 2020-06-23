@@ -2,7 +2,7 @@ import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import { Button, Flex, Input, Section, Table, Collapsible } from '../components';
 import { Window } from '../layouts';
-import { FlexItem } from '../components/Flex';
+import { isFalsy } from 'common/react';
 
 const pick = array => array[Math.floor(Math.random() * array.length)];
 const possTitles = [
@@ -58,37 +58,47 @@ export const AdminSecretsPanel = (props, context) => {
       } />
   );
 
-  const makebutton = command => {
+  const makeButton = command => {
     return (
-      <FlexItem
-        basis="50%">
+      <Flex.Item grow={1} basis="49%">
         <Button
+          fluid
+          ellipsis
+          my={0.5}
           onClick={() => act(command[1])}
-          color={(command[2] || "")}>
-          {command[0]}
-        </Button>
-      </FlexItem>
+          content={command[0]} />
+      </Flex.Item>
     );
   };
 
-  const Items = (
-    <Section>
-      {Categories.flatMap(Category => (
+  const makeCategory = Category => {
+    let Commands = Category[1]
+      .filter(filterSearch)
+      .map(makeButton);
+    if (Commands.length) {
+      return (
         <Collapsible
-          title={Category.name}
+          title={`${Category[0]} (${Commands.length})`}
           bold
           key>
-          <Flex
-            wrap="wrap"
-            textAlign="center"
-            justify="space-between">
-            {Category.commands
-              .filter(filterSearch)
-              .map(makebutton)}
-          </Flex>
+          <Section>
+            <Flex
+              spacing={1}
+              wrap="wrap"
+              textAlign="center"
+              justify="center">
+              {Commands}
+            </Flex>
+          </Section>
         </Collapsible>
-      ))}
-    </Section>
+      ); }
+  };
+  const Items = (
+    Object.entries(Categories)
+      .map(makeCategory)
+      .filter(cat => !isFalsy(cat))
+      // remove null categories
+      // so Items.length can be properly counted
   );
 
   return (
@@ -97,17 +107,10 @@ export const AdminSecretsPanel = (props, context) => {
       resizable>
       <Window.Content scrollable>
         {Header}
-        {Items}
-        <Flex
-          textAlign="center"
-          justify="space-between">
-          <FlexItem
-            basis="100%">
-            <Button onClick={() => act("open_old_panel")}>
-              No I wanna go back to the old secrets panel
-            </Button>
-          </FlexItem>
-        </Flex>
+        <Section>
+          {Items}
+          {Items.length === 0 && "No results found"}
+        </Section>
       </Window.Content>
     </Window>
   );
