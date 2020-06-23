@@ -444,8 +444,8 @@
 				C.cultslurring += 15
 				C.Jitter(15)
 		else
-			target.visible_message("<span class='warning'>[L] can't seem to hear you!</span>", \
-									   "<span class='userdanger'>[user] whispers something to you, but you can't quite make it out through your hearing protection.</span>")
+			target.visible_message("<span class='warning'>You fail to corrupt [L]'s mind!</span>", \
+									   "<span class='userdanger'>Your mindshield protects you from the heresy of [user]!</span>")
 		uses--
 	..()
 
