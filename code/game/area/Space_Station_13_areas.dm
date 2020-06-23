@@ -360,7 +360,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/toilet
 	name = "Dormitory Toilets"
 	icon_state = "toilet"
-	sound_environment = SOUND_ENV_BATHROOM
+	sound_environment = SOUND_ENV_ROOM
 
 /area/crew_quarters/toilet/auxiliary
 	name = "Auxiliary Restrooms"
