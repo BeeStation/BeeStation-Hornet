@@ -430,7 +430,7 @@
 			if(istype(anti_magic_source, /obj/item))
 				target.visible_message("<span class='warning'>[L] is utterly unphased by your utterance!</span>", \
 									   "<span class='userdanger'>[user] whispers gibberish into your ear. Was that supposed to do something?</span>")
-		else if(L.get_ear_protection() <= 0)
+		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD))
 			to_chat(user, "<span class='cultitalic'>[L] falls to the ground, gibbering madly!</span>")
 			L.Paralyze(160)
 			L.flash_act(1,1)
