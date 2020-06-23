@@ -237,7 +237,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //Hallway
 
 /area/hallway
-	sound_environment = SOUND_ENV_PARKINGLOT //hallway was a tad echoey, parkinglot is a nice balance
+	sound_environment = SOUND_ENV_ROOM //hallway was a way too echoey, parkinglot is a nice balance, but beeple wanted no echo.
 
 /area/hallway/primary/aft
 	name = "Aft Primary Hallway"
@@ -487,7 +487,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/engine
 	ambientsounds = ENGINEERING
-	sound_environment = SOUND_ENV_HALLWAY //A bit of echo, but not too much.
+	sound_environment = SOUND_ENV_PARKINGLOT
 
 /area/engine/engine_smes
 	name = "Engineering SMES"
