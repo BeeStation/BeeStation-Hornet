@@ -64,7 +64,8 @@
 		money_to_transfer += paycheck_bonus
 	if(free)
 		adjust_money(money_to_transfer)
-		paycheck_bonus = 0
+		if(paycheck_bonus > 0) //Get rid of bonus if we have one
+			paycheck_bonus = 0
 	else
 		var/datum/bank_account/D = SSeconomy.get_dep_account(account_job.paycheck_department)
 		if(D)
@@ -74,7 +75,8 @@
 			else
 				bank_card_talk("Payday processed, account now holds $[account_balance].")
 				//The bonus only resets once it goes through.
-				paycheck_bonus = 0
+				if(paycheck_bonus > 0) //And we're not getting rid of debt
+					paycheck_bonus = 0
 				return TRUE
 	bank_card_talk("ERROR: Payday aborted, unable to contact departmental account.")
 	return FALSE
