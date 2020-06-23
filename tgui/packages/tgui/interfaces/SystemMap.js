@@ -89,6 +89,7 @@ export const StarMapStarList = (props, context) => {
           ])}>
           <b>
             {jump_destination.name}
+            {jump_destination.dist}
           </b>
           <Divider />
           Distance: 0ly

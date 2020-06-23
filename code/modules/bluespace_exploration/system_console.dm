@@ -73,10 +73,11 @@
 	var/list/data = list()
 	data["jump_locations"] = list()
 	for(var/datum/star_system/star as anything in SSbluespace_exploration.current_system.linked_stars)
-		data["jump_locations"] += list(
+		data["jump_locations"] += list(list(
 			"name" = star.name,
 			"id" = star.unique_id,
-		)
+			"dist" = star.distance_from_center,
+		))
 	return data
 
 /obj/machinery/computer/system_map/ui_static_data(mob/user)

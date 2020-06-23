@@ -21,7 +21,9 @@
 		"romeda", "retigo", "liga", "risoft"
 	)
 
-/datum/star_system/New()
+	var/distance_from_center = 0
+
+/datum/star_system/New(distance)
 	. = ..()
 	var/static/stars = 0
 	unique_id = stars ++

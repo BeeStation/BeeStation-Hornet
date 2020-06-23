@@ -28,7 +28,9 @@
 		for(var/i in 1 to 4)
 			var/x_offset = DIRECTIONS_X[i] + current_x
 			var/y_offset = DIRECTIONS_Y[i] + current_y
-			if("[x_offset]_[y_offset]" in stars_to_process)
+			if(stars_to_process.Find("[x_offset]_[y_offset]"))
+				continue
+			if(stars_to_place.Find("[x_offset]_[y_offset]"))
 				continue
 			stars_to_process["[x_offset]_[y_offset]"] = new /datum/star_system
 		stars_to_process -= star_coords
@@ -37,7 +39,7 @@
 		var/datum/star_system/SS = stars_to_place[star]
 		var/current_x = text2num(splittext(star, "_")[1])
 		var/current_y = text2num(splittext(star, "_")[2])
-		SS.map_x = (current_x * STARMAP_G`RID_SIZE) + rand(0, STARMAP_GRID_SIZE)
+		SS.map_x = (current_x * STARMAP_GRID_SIZE) + rand(0, STARMAP_GRID_SIZE)
 		SS.map_y = (current_y * STARMAP_GRID_SIZE) + rand(0, STARMAP_GRID_SIZE)
 		SSbluespace_exploration.star_systems += SS
 	//===========Generate Links===========
@@ -53,8 +55,13 @@
 			if(!("[x_offset]_[y_offset]" in stars_to_place))
 				continue
 			SS.linked_stars |= stars_to_place["[x_offset]_[y_offset]"]
-			//Create star links if the star we are linked to isn't already linked with us
 			var/datum/star_system/connected_system = stars_to_place["[x_offset]_[y_offset]"]
+			//Adjust distance from center
+			if(connected_system.distance_from_center < SS.distance_from_center)
+				SS.distance_from_center = connected_system.distance_from_center + 1
+			if(connected_system.distance_from_center > SS.distance_from_center)
+				connected_system.distance_from_center = SS.distance_from_center + 1
+			//Create star links if the star we are linked to isn't already linked with us
 			if(!(SS in connected_system.linked_stars))
 				//=====Create a new link=====
 				var/datum/star_link/SL = new
