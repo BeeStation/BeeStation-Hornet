@@ -141,6 +141,10 @@
 	.["revision_date"] = GLOB.revdata.date
 	.["hub"] = GLOB.hub_visibility
 
+	var/client_num = 0
+	for(var/client/C in GLOB.clients)
+		.["client[client_num]"] = C.key
+		client_num++
 
 	var/list/adm = get_admin_counts()
 	var/list/presentmins = adm["present"]
