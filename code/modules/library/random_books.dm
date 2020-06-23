@@ -63,9 +63,9 @@
 		while(query_get_random_books.NextRow())
 			var/obj/item/book/B = new(location)
 			. += B
-			B.author	=	query_get_random_books.item[2]
-			B.title		=	query_get_random_books.item[3]
-			B.dat		=	query_get_random_books.item[4]
+			B.author	=	query_get_random_books.item[1]
+			B.title		=	query_get_random_books.item[2]
+			B.dat		=	query_get_random_books.item[3]
 			B.name		=	"Book: [B.title]"
 			B.icon_state=	"book[rand(1,8)]"
 	qdel(query_get_random_books)

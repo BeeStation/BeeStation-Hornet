@@ -569,6 +569,7 @@
 			"a_computerid" = admin_cid,
 			"who" = who,
 			"adminwho" = adminwho,
+			"global_ban" = global_ban
 		))
 	if(!SSdbcore.MassInsert(format_table_name("ban"), sql_ban, warn = TRUE, special_columns = special_columns))
 		return
@@ -700,8 +701,8 @@
 		"}, list(
 			"player_key" = ckey(player_key),
 			"admin_key" = ckey(admin_key),
-			"player_ip" = player_ip,
-			"player_cid" = player_cid,
+			"player_ip" = player_ip || null,
+			"player_cid" = player_cid || null,
 			"skip" = bansperpage * page,
 			"take" = bansperpage,
 		))
