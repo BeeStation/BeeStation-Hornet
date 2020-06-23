@@ -337,7 +337,7 @@
 	min_requirements = list(
 		/datum/gas/oxygen = 20,
 		/datum/gas/nitrogen = 20,
-		/datum/gas/nitrous_oxide = 5,
+		/datum/gas/pluoxium = 5, //Gates Nitryl behind pluoxium to offset N2O burning up during formation
 		"TEMP" = FIRE_MINIMUM_TEMPERATURE_TO_EXIST*60
 	)
 

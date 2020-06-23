@@ -26,8 +26,7 @@
 	icon_gib = "syndicate_gib"
 	maxHealth = 800
 	health = 800
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage = 20
 	attacktext = "preaches to"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	throw_message = "doesn't affect the purity of"

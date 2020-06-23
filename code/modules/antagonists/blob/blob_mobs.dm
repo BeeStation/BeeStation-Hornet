@@ -81,8 +81,7 @@
 	verb_ask = "psychically probes"
 	verb_exclaim = "psychically yells"
 	verb_yell = "psychically screams"
-	melee_damage_lower = 2
-	melee_damage_upper = 4
+	melee_damage = 4
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "hits"
@@ -121,8 +120,7 @@
 	name = "blob zombie"
 	desc = "A shambling corpse animated by the blob."
 	mob_biotypes += MOB_HUMANOID
-	melee_damage_lower += 8
-	melee_damage_upper += 11
+	melee_damage += 11
 	movement_type = GROUND
 	death_cloud_size = 0
 	icon = H.icon
@@ -184,8 +182,7 @@
 	name = "fragile blob spore"
 	health = 15
 	maxHealth = 15
-	melee_damage_lower = 1
-	melee_damage_upper = 2
+	melee_damage = 2
 	death_cloud_size = 0
 
 /////////////////
@@ -201,8 +198,7 @@
 	health = 200
 	maxHealth = 200
 	damage_coeff = list(BRUTE = 0.5, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage = 20
 	obj_damage = 60
 	attacktext = "slams"
 	attack_sound = 'sound/effects/blobattack.ogg'
@@ -276,12 +272,10 @@
 /mob/living/simple_animal/hostile/blob/blobbernaut/update_icons()
 	..()
 	if(overmind) //if we have an overmind, we're doing chemical reactions instead of pure damage
-		melee_damage_lower = 4
-		melee_damage_upper = 4
+		melee_damage = 4
 		attacktext = overmind.blobstrain.blobbernaut_message
 	else
-		melee_damage_lower = initial(melee_damage_lower)
-		melee_damage_upper = initial(melee_damage_upper)
+		melee_damage = initial(melee_damage)
 		attacktext = initial(attacktext)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)

@@ -20,6 +20,8 @@
 /datum/antagonist/fugitive/on_gain()
 	forge_objectives()
 	. = ..()
+	for(var/datum/objective/O in objectives)
+		log_objective(owner, O.explanation_text)
 
 /datum/antagonist/fugitive/proc/forge_objectives() //this isn't the actual survive objective because it's about who in the team survives
 	var/datum/objective/survive = new /datum/objective

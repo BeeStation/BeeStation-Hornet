@@ -11,7 +11,15 @@
 	if(!IsInStasis())
 
 		//Reagent processing needs to come before breathing, to prevent edge cases.
-		handle_organs()
+		if(stat != DEAD)
+			for(var/V in internal_organs)
+				var/obj/item/organ/O = V
+				O.on_life()
+		else
+			if(!reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
+				for(var/V in internal_organs)
+					var/obj/item/organ/O = V
+					O.on_death() //Needed so organs decay while inside the body.
 
 		. = ..()
 
@@ -27,8 +35,10 @@
 				update_stamina() //needs to go before updatehealth to remove stamcrit
 				updatehealth()
 
-		if(stat != DEAD)
-			handle_brain_damage()
+		if(stat != DEAD) //Handle brain damage
+			for(var/T in get_traumas())
+				var/datum/brain_trauma/BT = T
+				BT.on_life()
 
 	else
 		. = ..()
@@ -37,8 +47,15 @@
 		stop_sound_channel(CHANNEL_HEARTBEAT)
 		LoadComponent(/datum/component/rot/corpse)
 
-	//Updates the number of stored chemicals for powers
-	handle_changeling()
+	//Updates the number of stored chemicals for changeling powers
+	if(hud_used?.lingchemdisplay && !isalien(src) && mind)
+		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(changeling)
+			changeling.regenerate()
+			hud_used.lingchemdisplay.invisibility = 0
+			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(changeling.chem_charges)]</font></div>"
+		else
+			hud_used.lingchemdisplay.invisibility = INVISIBILITY_ABSTRACT
 
 	if(stat != DEAD)
 		return 1
@@ -324,18 +341,6 @@
 		if(BP.needs_processing)
 			. |= BP.on_life(stam_regen)
 
-/mob/living/carbon/proc/handle_organs()
-	if(stat != DEAD)
-		for(var/V in internal_organs)
-			var/obj/item/organ/O = V
-			O.on_life()
-	else
-		if(reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
-			return
-		for(var/V in internal_organs)
-			var/obj/item/organ/O = V
-			O.on_death() //Needed so organs decay while inside the body.
-
 /mob/living/carbon/handle_diseases()
 	for(var/thing in diseases)
 		var/datum/disease/D = thing
@@ -344,18 +349,6 @@
 
 		if(stat != DEAD || D.process_dead)
 			D.stage_act()
-
-//todo generalize this and move hud out
-/mob/living/carbon/proc/handle_changeling()
-	if(mind && hud_used && hud_used.lingchemdisplay)
-		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			changeling.regenerate()
-			hud_used.lingchemdisplay.invisibility = 0
-			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(changeling.chem_charges)]</font></div>"
-		else
-			hud_used.lingchemdisplay.invisibility = INVISIBILITY_ABSTRACT
-
 
 /mob/living/carbon/handle_mutations_and_radiation()
 	if(dna && dna.temporary_mutations.len)
@@ -608,16 +601,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 	adjustToxLoss(4, TRUE,  TRUE)
 	if(prob(30))
 		to_chat(src, "<span class='warning'>You feel a stabbing pain in your abdomen!</span>")
-
-
-////////////////
-//BRAIN DAMAGE//
-////////////////
-
-/mob/living/carbon/proc/handle_brain_damage()
-	for(var/T in get_traumas())
-		var/datum/brain_trauma/BT = T
-		BT.on_life()
 
 /////////////////////////////////////
 //MONKEYS WITH TOO MUCH CHOLOESTROL//
