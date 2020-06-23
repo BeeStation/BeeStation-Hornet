@@ -45,7 +45,8 @@
 	catchphrase = "R'CH T'H TR'TH"
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
+	if(!proximity_flag)
+		return
 	playsound(user, 'sound/items/welder.ogg', 75, TRUE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
@@ -92,10 +93,10 @@
 	desc = "Spreads rust onto nearby turfs."
 	range = 2
 
-/obj/effect/proc_holder/spell/targeted/touch/ash_leech
+/obj/effect/proc_holder/spell/targeted/touch/blood_siphon
 	name = "Blood Siphon"
 	desc = "Touch spell that heals you while damaging the enemy, has a chance to transfer wounds between you and your enemy."
-	hand_path = /obj/item/melee/touch_attack/ash_leech
+	hand_path = /obj/item/melee/touch_attack/blood_siphon
 	school = "evocation"
 	charge_max = 150
 	clothes_req = FALSE
@@ -105,21 +106,21 @@
 	action_icon_state = "blood_siphon"
 	action_background_icon_state = "bg_ecult"
 
-/obj/item/melee/touch_attack/ash_leech
+/obj/item/melee/touch_attack/blood_siphon
 	name = "Blood Siphon"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	catchphrase = "R'BRTH"
 
-/obj/item/melee/touch_attack/ash_leech/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/touch_attack/blood_syphon/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	playsound(user, 'sound/magic/demon_attack1.ogg', 75, TRUE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
 		if(tar.anti_magic_check())
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
-			return
+			return ..()
 	var/mob/living/carbon/C2 = user
 	if(isliving(target))
 		var/mob/living/L = target
@@ -131,7 +132,7 @@
 		C1.blood_volume -= 20
 		if(C2.blood_volume < BLOOD_VOLUME_MAXIMUM) //we dont want to explode after all
 			C2.blood_volume += 20
-		return
+		return ..()
 
 /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave
 	name = "Patron's Reach"
@@ -183,7 +184,7 @@
 	range = 7
 	speed = 2
 
-/obj/effect/proc_holder/spell/pointed/ash_cleave
+/obj/effect/proc_holder/spell/pointed/cleave
 	name = "Cleave"
 	desc = "Causes severe bleeding on a target and people around them"
 	school = "transmutation"
@@ -196,7 +197,7 @@
 	action_icon_state = "cleave"
 	action_background_icon_state = "bg_ecult"
 
-/obj/effect/proc_holder/spell/pointed/ash_cleave/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/pointed/cleave/cast(list/targets, mob/user)
 	if(!targets.len)
 		to_chat(user, "<span class='warning'>No target found in range!</span>")
 		return FALSE
@@ -226,7 +227,7 @@
 		target.IgniteMob(5)
 		new /obj/effect/temp_visual/cleave(target.drop_location())
 
-/obj/effect/proc_holder/spell/pointed/ash_cleave/can_target(atom/target, mob/user, silent)
+/obj/effect/proc_holder/spell/pointed/cleave/can_target(atom/target, mob/user, silent)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -236,7 +237,7 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/pointed/ash_cleave/long
+/obj/effect/proc_holder/spell/pointed/cleave/long
 	charge_max = 650
 
 /obj/effect/proc_holder/spell/pointed/touch/mad_touch

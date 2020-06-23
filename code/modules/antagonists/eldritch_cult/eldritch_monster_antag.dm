@@ -5,7 +5,7 @@
 	antagpanel_category = "Heretic Beast"
 	antag_moodlet = /datum/mood_event/heretics
 	job_rank = ROLE_HERETIC
-	var/datum/antagonist/heretic/master
+	var/datum/antagonist/master
 
 /datum/antagonist/heretic_monster/admin_add(datum/mind/new_owner,mob/admin)
 	new_owner.add_antag_datum(src)
@@ -22,7 +22,7 @@
 		owner = null
 	return ..()
 
-/datum/antagonist/heretic_monster/proc/set_owner(datum/antagonist/heretic/_master)
+/datum/antagonist/heretic_monster/proc/set_owner(datum/antagonist/_master)
 	master = _master
 	var/datum/objective/master_obj = new
 	master_obj.owner = src

@@ -23,10 +23,17 @@
 
 /datum/eldritch_knowledge/flesh_ghoul/on_finished_recipe(mob/living/user,list/atoms,loc)
 	var/mob/living/carbon/human/humie = locate() in atoms
-	if(!humie)
+	if(QDELETED(humie) || humie.stat != DEAD)
 		return
 
-	humie?.grab_ghost()
+	if(length(ghouls) >= max_amt)
+		return
+
+	if(HAS_TRAIT(humie,TRAIT_HUSK))
+		return
+
+	if(humie.stat != DEAD)
+		return
 
 	if(!humie.mind || !humie.client)
 		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [humie.real_name], a voiceless dead", ROLE_HERETIC, null, ROLE_HERETIC, 50,humie)
@@ -36,9 +43,6 @@
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(humie)]) to replace an AFK player.")
 		humie.ghostize(0)
 		humie.key = C.key
-
-	if(!check_ghouls(user) || HAS_TRAIT(humie,TRAIT_HUSK))
-		return
 
 	ADD_TRAIT(humie,TRAIT_MUTE,MAGIC_TRAIT)
 	log_game("[key_name_admin(humie)] has become a voiceless dead, their master is [user.real_name]")
@@ -68,6 +72,14 @@
 		return FALSE
 	return TRUE
 
+/datum/eldritch_knowledge/flesh_ghoul/proc/remove_ghoul(datum/source)
+
+	var/mob/living/carbon/human/humie = source
+	listclearnulls(ghouls)
+	ghouls -= humie
+
+	humie.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
+
 /datum/eldritch_knowledge/flesh_grasp
 	name = "Grasp of Flesh"
 	gain_text = "My new found desire, it drove me to do great things! The Priest said."
@@ -80,7 +92,7 @@
 
 /datum/eldritch_knowledge/flesh_grasp/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!ishuman(target))
+	if(!ishuman(target) || target == user)
 		return
 	var/mob/living/carbon/human/human_target = target
 	var/datum/status_effect/eldritch/eldritch_effect = human_target.has_status_effect(/datum/status_effect/eldritch/rust) || human_target.has_status_effect(/datum/status_effect/eldritch/ash) || human_target.has_status_effect(/datum/status_effect/eldritch/flesh)
@@ -90,13 +102,15 @@
 			human_target.adjustBruteLoss(60)
 			human_target.bleed_rate += 10
 
+	if(QDELETED(human_target) || human_target.stat != DEAD)
+		return
+
 	human_target.grab_ghost()
 
 	if(!human_target.mind || !human_target.client)
 		to_chat(user, "<span class='warning'>There is no soul connected to this body...</span>")
 		return
 
-	check_ghouls(user)
 	if(HAS_TRAIT(human_target, TRAIT_HUSK))
 		to_chat(user, "<span class='warning'>You cannot revive a dead ghoul!</span>")
 		return
@@ -119,21 +133,10 @@
 	heretic_monster.set_owner(master)
 	return
 
-/datum/eldritch_knowledge/flesh_grasp/proc/check_ghouls(mob/user)
-	if(LAZYLEN(spooky_scaries) == 0)
-		return
-
-	for(var/spook in spooky_scaries)
-		if(!ishuman(spook))
-			LAZYREMOVE(spooky_scaries, spook)
-			continue
-		var/mob/living/carbon/human/ghoul = spook
-		if(ghoul.stat == DEAD)
-			ghoul?.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
-			LAZYREMOVE(spooky_scaries, spook)
-			continue
-
-	listclearnulls(spooky_scaries)
+/datum/eldritch_knowledge/flesh_grasp/proc/remove_ghoul(datum/source)
+	var/mob/living/carbon/human/humie = source
+	spooky_scaries -= humie
+	humie.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
 
 /datum/eldritch_knowledge/flesh_mark
 	name = "Mark of flesh"
@@ -209,7 +212,7 @@
 	gain_text = "Our blood is all the same after all, the owl told me."
 	desc = "You gain a spell that drains enemies health and restores yours."
 	cost = 1
-	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/ash_leech
+	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
 	next_knowledge = list(/datum/eldritch_knowledge/spell/rust_wave,/datum/eldritch_knowledge/spell/mad_touch)
 
 /datum/eldritch_knowledge/final/flesh_final
@@ -238,6 +241,7 @@
 			log_game("[key_name_admin(ghost_candidate)] has taken control of ([key_name_admin(summoned)]).")
 			summoned.ghostize(FALSE)
 			summoned.key = ghost_candidate.key
+			summoned.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 			var/datum/antagonist/heretic_monster/monster = summoned.mind.has_antag_datum(/datum/antagonist/heretic_monster)
 			var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 			monster.set_owner(master)

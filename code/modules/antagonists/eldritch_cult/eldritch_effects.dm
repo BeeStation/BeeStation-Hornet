@@ -107,8 +107,8 @@
   * Fixes any bugs that are caused by late Generate() or exchanging clients
   */
 /datum/reality_smash_tracker/proc/ReworkNetwork()
-	listclearnulls(targets)
 	listclearnulls(smashes)
+	listclearnulls(targets)
 	for(var/mind in targets)
 		for(var/X in smashes)
 			var/obj/effect/reality_smash/reality_smash = X
@@ -164,6 +164,8 @@
 	name = "Pierced reality"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "pierced_illusion"
+	anchored = TRUE
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/broken_illusion/examine(mob/user)
 	if(!IS_HERETIC(user) && ishuman(user))
@@ -181,6 +183,8 @@
 	var/list/minds = list()
 	//Tracked image
 	var/image/img
+	anchored = TRUE
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/reality_smash/Initialize()
 	. = ..()
@@ -199,6 +203,7 @@
 			cultie.current.client.images -= img
 		//clear the list
 		minds -= cultie
+		GLOB.reality_smash_track.smashes -= src
 	img = null
 	new /obj/effect/broken_illusion(drop_location())
 

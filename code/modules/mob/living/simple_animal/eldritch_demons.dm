@@ -72,6 +72,7 @@
 	health = 200
 	melee_damage = 13
 	move_resist = MOVE_FORCE_OVERPOWERING+1
+	movement_type = GROUND
 	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/worm_contract)
 	///Previous segment in the chain
 	var/mob/living/simple_animal/hostile/eldritch/armsy/back
@@ -126,6 +127,11 @@
 			prev.front = next
 			prev.AIStatus = AI_OFF
 		next = prev
+
+
+//we are literally a vessel of otherworldly destruction, we bring our own gravity unto this plane
+/mob/living/simple_animal/hostile/eldritch/armsy/has_gravity(turf/T)
+	return TRUE
 
 /mob/living/simple_animal/hostile/eldritch/armsy/can_be_pulled()
 	return FALSE
@@ -184,6 +190,7 @@
 
 	adjustBruteLoss(-maxHealth * 0.5, FALSE)
 	adjustFireLoss(-maxHealth * 0.5 ,FALSE)
+
 
 /mob/living/simple_animal/hostile/eldritch/armsy/AttackingTarget()
 	if(istype(target,/obj/item/bodypart/r_arm) || istype(target,/obj/item/bodypart/l_arm))
@@ -277,7 +284,7 @@
 	health = 75
 	melee_damage = 18
 	sight = SEE_TURFS
-	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,/obj/effect/proc_holder/spell/pointed/ash_cleave/long,/obj/effect/proc_holder/spell/aoe_turf/fire_cascade)
+	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,/obj/effect/proc_holder/spell/pointed/cleave/long,/obj/effect/proc_holder/spell/aoe_turf/fire_cascade)
 
 /mob/living/simple_animal/hostile/eldritch/stalker
 	name = "Flesh Stalker"
