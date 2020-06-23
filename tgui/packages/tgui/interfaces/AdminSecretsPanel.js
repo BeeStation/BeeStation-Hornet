@@ -103,13 +103,12 @@ export const AdminSecretsPanel = (props, context) => {
 
   return (
     <Window
-      theme="admin"
       resizable>
       <Window.Content scrollable>
         {Header}
         <Section>
           {Items}
-          {Items.length === 0 && "No results found"}
+          {Items.length === 0 && "No results found."}
         </Section>
       </Window.Content>
     </Window>
