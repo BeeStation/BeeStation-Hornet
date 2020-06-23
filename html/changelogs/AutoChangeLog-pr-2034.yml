@@ -1,0 +1,4 @@
+author: bobbahbrown
+delete-after: true
+changes:
+  - rscdel: Removed exploitable world/topic command server_hop
