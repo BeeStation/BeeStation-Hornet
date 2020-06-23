@@ -59,3 +59,8 @@
 	name = "Necropolis Seed"
 	setsymptom = /datum/symptom/necroseed
 	randomname = FALSE
+
+/datum/disease/advance/random/blob // had to do it this way due to an odd glitch
+	name = "Blob Spores"
+	setsymptom = /datum/symptom/blobspores
+	randomname = FALSE

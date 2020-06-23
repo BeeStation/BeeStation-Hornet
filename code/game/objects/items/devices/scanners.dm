@@ -921,8 +921,9 @@ GENE SCANNER
 		return
 	for(var/datum/disease/advance/cantidate in diseases)
 		advancediseases += cantidate
-	if(!advancediseases.len)
+	if(!LAZYLEN(advancediseases))
 		to_chat(user, "<span class='warning'>There are no valid diseases to make a culture from.</span>")
+		return
 	var/datum/disease/advance/A = input(user,"What disease do you wish to extract") in null|advancediseases
 	if(isolate)
 		for(var/datum/symptom/S in A.symptoms)
@@ -930,7 +931,10 @@ GENE SCANNER
 				symptoms += S 
 			continue
 		var/datum/symptom/chosen = input(user,"What symptom do you wish to isolate") in null|symptoms
-		var/datum/disease/advance/symptomholder = new 
+		var/datum/disease/advance/symptomholder = new
+		if(!symptoms.len || !chosen) 
+			to_chat(user, "<span class='warning'>There are no valid diseases to isolate a symptom from.</span>")	
+			return
 		symptomholder.name = chosen.name
 		symptomholder.symptoms += chosen
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")

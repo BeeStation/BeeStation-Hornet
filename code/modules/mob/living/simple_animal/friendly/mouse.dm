@@ -36,7 +36,7 @@
 	icon_state = "mouse_[body_color]"
 	icon_living = "mouse_[body_color]"
 	icon_dead = "mouse_[body_color]_dead"
-	if(prob(20))
+	if(prob(40))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 4))
 		ratdisease += R
 
