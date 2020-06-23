@@ -71,9 +71,6 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	dog_fashion = /datum/dog_fashion/head
-	drop_sound = 'sound/items/handling/paper_drop.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
-	grind_results = list(/datum/reagent/cellulose = 3)
 	color = "white"
 	/// What's actually written on the paper.
 	var/info = ""
@@ -232,7 +229,7 @@
 		return FALSE
 	if(resistance_flags & ON_FIRE)		// Are we on fire?  Hard ot read if so
 		return FALSE
-	if(user.is_blind())					// Even harder to read if your blind...braile? humm
+	if(is_blind(user))					// Even harder to read if your blind...braile? humm
 		return FALSE
 	return user.can_read(src)			// checks if the user can read.
 
@@ -281,7 +278,7 @@
 
 		create_ui(user, state)
 		return /// Normaly you just stamp, you don't need to read the thing
-	else if(P.get_temperature())
+	else if(P.is_hot())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
