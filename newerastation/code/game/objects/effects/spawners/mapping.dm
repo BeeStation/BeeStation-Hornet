@@ -1,4 +1,3 @@
-//yoinked from hippie (infiltrators)
 /obj/effect/spawner/template
 	name = "map template spawner"
 	var/template_name

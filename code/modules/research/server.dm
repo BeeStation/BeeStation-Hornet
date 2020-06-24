@@ -174,8 +174,10 @@
 	else
 		return list(TECHWEB_POINT_TYPE_GENERIC = 0)
 
-/obj/machinery/rnd/server/proc/mine_hooks(points) //To be implemented/overwritten
-	return
+/obj/machinery/rnd/server/proc/mine_hooks(points)
+	// Anything related to intercepting a server's production goes here. Note that order probably matters!
+	points = infiltrator_miner_intercept(points)
+	return points
 
 /obj/machinery/computer/rdservercontrol
 	name = "R&D Server Controller"

@@ -1,4 +1,3 @@
-//yoinked from hippie (infiltrators)
 /obj/item/implant/dusting
 	name = "duster implant"
 	desc = "An alarm which monitors host vital signs, transmitting a radio message and dusting the corpse on death."

@@ -52,7 +52,7 @@
 #define MAX_LEADERS_GANG		3
 #define INITIAL_DOM_ATTEMPTS	3
 
-//yoinked from hippie (infiltrators):
+//infiltrators
 #define ANTAG_DATUM_INFILTRATOR	/datum/antagonist/infiltrator
 #define ANTAG_DATUM_HIJACKEDAI	/datum/antagonist/hijacked_ai
 

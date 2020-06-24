@@ -35,7 +35,6 @@
 	qdel(src)
 	return TRUE
 
-//yoinked from hippie (infiltrators)
 /obj/effect/landmark/start/infiltrator
 	name = "infiltrator"
 	icon = 'icons/effects/landmarks_static.dmi'

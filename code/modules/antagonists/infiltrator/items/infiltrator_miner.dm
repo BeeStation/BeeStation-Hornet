@@ -49,8 +49,7 @@ GLOBAL_VAR_INIT(infil_miner_transmitted, 0)
 		return
 	return ..()
 
-/obj/machinery/rnd/server/mine_hooks(points)
-	..()
+/obj/machinery/rnd/server/proc/infiltrator_miner_intercept(points)
 	var/obj/item/infiltrator_miner/B = locate(/obj/item/infiltrator_miner) in src.contents
 	if(!B?.target_reached)
 		var/intercepted = points*0.6

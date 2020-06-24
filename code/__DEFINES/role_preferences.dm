@@ -37,7 +37,7 @@
 #define ROLE_INTERNAL_AFFAIRS	"Internal Affairs Agent"
 #define ROLE_GANG				"Gangster"
 #define ROLE_HOLOPARASITE		"Holoparasite"
-#define ROLE_INFILTRATOR		"Syndicate Infiltrator" //yoinked from hippie (infiltrators)
+#define ROLE_INFILTRATOR		"Syndicate Infiltrator"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SENTIENCE,
 	ROLE_GANG = /datum/game_mode/gang,
 	ROLE_HOLOPARASITE,
-	ROLE_INFILTRATOR = /datum/game_mode/infiltration //yoinked from hippie (infiltrators)
+	ROLE_INFILTRATOR = /datum/game_mode/infiltration,
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection

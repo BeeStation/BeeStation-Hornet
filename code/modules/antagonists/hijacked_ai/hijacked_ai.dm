@@ -1,4 +1,3 @@
-//yoinked from hippie (infiltrators)
 /datum/antagonist/hijacked_ai
 	name = "Hijacked AI"
 	roundend_category = "hijacked AIs"
