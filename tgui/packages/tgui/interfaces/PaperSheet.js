@@ -6,7 +6,7 @@
  * @license MIT
  */
 import { Component } from 'inferno';
-import { Tabs, Box, Flex, TextArea, Divider, Section, Table, Grid } from '../components';
+import { Tabs, Box, Flex, TextArea, Table } from '../components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import marked from 'marked';
@@ -16,7 +16,6 @@ import { classes, isFalsy } from "common/react";
 // Might as well use a proper one then
 
 import { createLogger } from '../logging';
-import { Fragment } from 'inferno';
 import { vecCreate, vecAdd, vecSubtract } from 'common/vector';
 const logger = createLogger('PaperSheet');
 const MAX_PAPER_LENGTH = 5000; // Question, should we send this with ui_data?
