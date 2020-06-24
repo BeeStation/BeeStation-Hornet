@@ -1,0 +1,6 @@
+author: Sinmero
+delete-after: true
+changes:
+  - rscadd: Added Hydraulic blade implant
+  - rscadd: Added Advanced Combat Cybernetic Implants tech
+  - imageadd: Added Hydraulic blade sprites
