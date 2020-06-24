@@ -3,9 +3,6 @@
 set -euo pipefail
 EXIT_CODE=0
 
-#!/bin/bash
-set -euo pipefail
-
 tools/deploy.sh travis_test
 mkdir travis_test/config
 
