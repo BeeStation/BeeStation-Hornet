@@ -20,6 +20,9 @@ its mentors, not actual dangerous perms
     html += "<tr><th>Mentor Ckey</th><th>Remove</th></tr>\n"
 
     var/datum/DBQuery/query_mentor_list = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor")]")
+    if(!query_mentor_list.warn_execute())
+            to_chat(src, "<span class='danger'>Unable to pull the mentor list from the database.</span>")
+			qdel(query_mentor_list)
     query_mentor_list.Execute()
     while(query_mentor_list.NextRow())
         html += "<tr><td>[query_mentor_list.item[1]]</td><td><A HREF='?mentor_edit=remove;mentor_ckey=[query_mentor_list.item[1]]'>X</A></td></tr>\n"
@@ -27,6 +30,7 @@ its mentors, not actual dangerous perms
     html += "</table>"
 
     usr << browse("<!DOCTYPE html><html>[html]</html>","window=editmentors;size=1000x650")
+    qdel(query_mentor_list)
 
 /client/Topic(href, href_list)
     ..()
@@ -45,9 +49,12 @@ its mentors, not actual dangerous perms
                 "INSERT INTO [format_table_name("mentor")] (ckey) VALUES (:newguy)",
                 list("newguy" = newguy)
             )
-            query_add_mentor.Execute()
+            if(!query_add_mentor.warn_execute())
+                qdel(query_get_messages)
+                return
             message_admins("[key_name(usr)] made [newguy] a mentor.")
             log_admin("[key_name(usr)] made [newguy] a mentor.")
+            qdel(query_get_messages)
             return
 
         if(href_list["mentor_edit"] == "remove")
@@ -56,7 +63,9 @@ its mentors, not actual dangerous perms
                 "DELETE FROM [format_table_name("mentor")] WHERE ckey = :removed_mentor",
                 list("removed_mentor" = removed_mentor)
             )
-            query_remove_mentor.Execute()
+            if(!query_get_messages.warn_execute())
+                qdel(query_get_messages)
+                return
             message_admins("[key_name(usr)] de-mentored [href_list["mentor_ckey"]]")
             log_admin("[key_name(usr)] de-mentored [href_list["mentor_ckey"]]")
-            return
+            qdel(query_get_messages)
