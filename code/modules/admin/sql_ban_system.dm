@@ -22,10 +22,11 @@
 			"must_apply_to_admins" = !!(GLOB.admin_datums[player_ckey] || GLOB.deadmins[player_ckey]),
 		)
 		var/ssqlname = CONFIG_GET(string/serversqlname)
+		var/server_check
 		if(CONFIG_GET(flag/respect_global_bans))
-			values["server_check"] = "(server_name = '[ssqlname]' OR global_ban = '1')"
+			server_check = "(server_name = '[ssqlname]' OR global_ban = '1')"
 		else
-			values["server_check"] = "server_name = '[ssqlname]'"
+			server_check = "server_name = '[ssqlname]'"
 		var/sql_roles
 		if(islist(roles))
 			var/list/sql_roles_list = list()
@@ -43,7 +44,7 @@
 				role IN ([sql_roles]) AND
 				unbanned_datetime IS NULL
 				AND (expiration_time IS NULL OR expiration_time > NOW())
-				AND :server_check
+				AND [server_check]
 				AND (NOT :must_apply_to_admins OR applies_to_admins = 1)
 		"}, values)
 		if(!query_check_ban.warn_execute())
@@ -84,10 +85,10 @@
 		WHERE role = :role
 			AND (ckey = :ckey OR ip = INET_ATON(:ip) OR computerid = :computerid)
 			AND unbanned_datetime IS NULL
-			AND :server_check
+			AND [server_check]
 			AND (expiration_time IS NULL OR expiration_time > NOW())
 		ORDER BY bantime DESC
-	"}, list("role" = role, "ckey" = player_ckey, "ip" = player_ip, "computerid" = player_cid, "server_check" = server_check))
+	"}, list("role" = role, "ckey" = player_ckey, "ip" = player_ip, "computerid" = player_cid))
 	if(!query_check_ban.warn_execute())
 		qdel(query_check_ban)
 		return
@@ -113,8 +114,8 @@
 			server_check = "server_name = '[ssqlname]'"
 
 		var/datum/DBQuery/query_build_ban_cache = SSdbcore.NewQuery(
-			"SELECT role, applies_to_admins FROM [format_table_name("ban")] WHERE ckey = :ckey AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) AND :server_check",
-			list("ckey" = C.ckey, "server_check" = server_check))
+			"SELECT role, applies_to_admins FROM [format_table_name("ban")] WHERE ckey = :ckey AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) AND [server_check]",
+			list("ckey" = C.ckey))
 		if(!query_build_ban_cache.warn_execute())
 			qdel(query_build_ban_cache)
 			return
