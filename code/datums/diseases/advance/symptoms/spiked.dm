@@ -23,7 +23,7 @@ Thresholds
 	level = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
-	severity = 2
+	severity = 1
 	base_message_chance = 5
 	var/Power = 1
 	var/get_damage = 0
@@ -36,16 +36,16 @@ Thresholds
 					  <b>Resistance 6: Spikes grow faster and hurt you more often</b> ."
 
 /datum/symptom/spiked/severityset(datum/disease/advance/A)
-	if(A.properties["transmittable"] >= 6)
+	. = ..()
+	if(A.properties["resistance"] >= 6)
 		severity -= 1
-	return..()
 
 /datum/symptom/spiked/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 6) //armor
+	if(A.properties["resistance"] >= 6) //armor
 		armour = TRUE
-	if(A.properties["resistance"] >= 6) //higher damage
+	if(A.properties["transmittable"] >= 6) //higher damage
 		Power = 2
 
 /datum/symptom/spiked/Activate(var/datum/disease/advance/A)

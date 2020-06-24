@@ -91,14 +91,13 @@
 	for(var/mob/living/carbon/human/H in living_crew)
 		if((!H.client) || (is_centcom_level(H.z)))
 			continue
-		if(is_banned_from(H.ckey, list(ROLE_SPECIAL)))
-			continue
 		candidates += H
 
 	for(var/role_to_init in allowed_special)
 		var/datum/special_role/new_role = new role_to_init
 		if(!prob(new_role.probability))
 			continue
+		new_role.add_to_pool()
 		active_specials += new_role
 
 	for(var/datum/special_role/special in active_specials)
@@ -111,6 +110,8 @@
 			if(candidates.len == 0)
 				return	//No more candidates, end the selection process, and active specials at this time will be handled by latejoins or not included
 			var/mob/person = pick_n_take(candidates)
+			if(is_banned_from(person.ckey, special.preference_type))
+				continue
 			if(!person)
 				continue
 			var/datum/mind/selected_mind = person.mind
@@ -139,15 +140,20 @@
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/reopen_roundstart_suicide_roles), delay)
 
 	if(SSdbcore.Connect())
-		var/sql
+		var/list/to_set = list()
+		var/arguments = list()
 		if(SSticker.mode)
-			sql += "game_mode = '[SSticker.mode]'"
+			to_set += "game_mode = :game_mode"
+			arguments["game_mode"] = SSticker.mode
 		if(GLOB.revdata.originmastercommit)
-			if(sql)
-				sql += ", "
-			sql += "commit_hash = '[GLOB.revdata.originmastercommit]'"
-		if(sql)
-			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET [sql] WHERE id = [GLOB.round_id]")
+			to_set += "commit_hash = :commit_hash"
+			arguments["commit_hash"] = GLOB.revdata.originmastercommit
+		if(to_set.len)
+			arguments["round_id"] = GLOB.round_id
+			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery(
+				"UPDATE [format_table_name("round")] SET [to_set.Join(", ")] WHERE id = :round_id",
+				arguments
+			)
 			query_round_game_mode.Execute()
 			qdel(query_round_game_mode)
 	if(report)
@@ -168,7 +174,7 @@
 	if(!character.mind.antag_datums)
 		return
 	//Check if they are banned
-	if(is_banned_from(character.ckey, list(ROLE_SPECIAL)) || QDELETED(character))
+	if(QDELETED(character))
 		return
 	for(var/datum/special_role/subantag in active_specials)
 		if(!subantag.latejoin_allowed)
@@ -180,6 +186,8 @@
 			if(!M.mind)
 				continue
 			if(!is_special_type(M, subantag.attached_antag_datum))
+				continue
+			if(is_banned_from(M.ckey, list(subantag.preference_type)))
 				continue
 			count++
 		if(count >= subantag.max_amount)
@@ -289,10 +297,16 @@
 	if(!round_converted && (!continuous[config_tag] || (continuous[config_tag] && midround_antag[config_tag]))) //Non-continuous or continous with replacement antags
 		if(!continuous_sanity_checked) //make sure we have antags to be checking in the first place
 			for(var/mob/Player in GLOB.mob_list)
-				if(Player.mind)
-					if(Player.mind.special_role || LAZYLEN(Player.mind.antag_datums))
-						continuous_sanity_checked = 1
-						return 0
+				if(!Player.mind)
+					continue
+				//Gamemodes like revs do not give antag status, but special roles instead.
+				if(Player.mind.special_role && !LAZYLEN(Player.mind.antag_datums))
+					continuous_sanity_checked = TRUE
+					return FALSE
+				for(var/datum/antagonist/A in Player.mind.antag_datums)
+					if(A.delay_roundend)
+						continuous_sanity_checked = TRUE
+						return FALSE
 			if(!continuous_sanity_checked)
 				message_admins("The roundtype ([config_tag]) has no antagonists, continuous round has been defaulted to on and midround_antag has been defaulted to off.")
 				continuous[config_tag] = TRUE

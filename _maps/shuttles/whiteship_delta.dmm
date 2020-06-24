@@ -605,8 +605,7 @@
 	environment_smash = 0;
 	health = 60;
 	maxHealth = 60;
-	melee_damage_lower = 5;
-	melee_damage_upper = 10;
+	melee_damage = 10;
 	name = "scrawny spider"
 	},
 /turf/open/floor/plasteel,
@@ -749,14 +748,8 @@
 	dir = 1
 	},
 /obj/item/storage/wallet/random,
-/obj/item/clothing/under/rank/centcom_officer{
-	desc = "A badge on the arm indicates that it's meant to be worn by CentCom recovery teams. This one seems dusty and clearly hasn't been cleaned in some time.";
-	name = "\improper dusty old CentCom jumpsuit"
-	},
-/obj/item/clothing/under/rank/centcom_commander{
-	desc = "A badge on the arm indicates that it's meant to be worn by CentCom recovery teams. This one seems dusty and clearly hasn't been cleaned in some time.";
-	name = "\improper dusty old CentCom jumpsuit"
-	},
+/obj/item/clothing/under/rank/centcom/officer,
+/obj/item/clothing/under/rank/centcom/commander,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -1257,8 +1250,7 @@
 	environment_smash = 0;
 	health = 150;
 	maxHealth = 150;
-	melee_damage_lower = 20;
-	melee_damage_upper = 25;
+	melee_damage = 20;
 	name = "scrawny tarantula"
 	},
 /turf/open/floor/plasteel/dark,
@@ -2242,8 +2234,7 @@
 	environment_smash = 0;
 	health = 60;
 	maxHealth = 60;
-	melee_damage_lower = 5;
-	melee_damage_upper = 10;
+	melee_damage = 10;
 	name = "scrawny spider"
 	},
 /turf/open/floor/plasteel,

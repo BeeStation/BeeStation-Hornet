@@ -54,6 +54,8 @@
 
 /datum/config_entry/flag/log_game	// log game events
 
+/datum/config_entry/flag/log_objective	// log antag objectives
+
 /datum/config_entry/flag/log_mecha	// log mech data
 
 /datum/config_entry/flag/log_virus	// log virology data
@@ -526,3 +528,15 @@
 
 /datum/config_entry/string/redirect_address
 	config_entry_value = ""
+
+/datum/config_entry/flag/vote_autotransfer_enabled //toggle for autotransfer system
+
+/datum/config_entry/number/vote_autotransfer_initial //length of time before the first autotransfer vote is called (deciseconds, default 2 hours)
+	config_entry_value = 72000
+	integer = FALSE
+	min_val = 0
+
+/datum/config_entry/number/vote_autotransfer_interval //length of time to wait before subsequent autotransfer votes (deciseconds, default 30 minutes)
+	config_entry_value = 18000
+	integer = FALSE
+	min_val = 0

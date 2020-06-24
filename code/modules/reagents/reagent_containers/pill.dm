@@ -251,16 +251,25 @@
 
 /obj/item/reagent_containers/pill/floorpill
 	name = "floorpill"
-	desc = "A strange pill found in the depths of maintenance"
+	desc = "A strange pill found in the depths of maintenance. Somehow, it can't be dissolved or used in a grinder."
 	icon_state = "pill21"
 	var/static/list/names = list("maintenance pill","floorpill","mystery pill","suspicious pill","strange pill")
 	var/static/list/descs = list("Your feeling is telling you no, but...","Drugs are expensive, you can't afford not to eat any pills that you find."\
 	, "Surely, there's no way this could go bad.")
+	prevent_grinding = TRUE
+	dissolvable = FALSE
 
 /obj/item/reagent_containers/pill/floorpill/Initialize()
 	list_reagents = list(get_unrestricted_random_reagent_id() = rand(10,50))
 	. = ..()
 	name = pick(names)
-	if(prob(20))
-		desc = pick(descs)
 
+
+/obj/item/reagent_containers/pill/floorpill/examine(mob/user)
+	. = ..()
+	if(prob(20))
+		. += "[pick(descs)]"
+	if(HAS_TRAIT(user, TRAIT_APPRAISAL))
+		if(length(reagents.reagent_list))
+			for(var/datum/reagent/R in reagents.reagent_list)
+				. += "It contains [R.volume] units of [R.name]"

@@ -75,7 +75,7 @@
 
 /obj/mecha/attack_animal(mob/living/simple_animal/user)
 	log_message("Attack by simple animal. Attacker - [user].", LOG_MECHA, color="red")
-	if(!user.melee_damage_upper && !user.obj_damage)
+	if(!user.melee_damage && !user.obj_damage)
 		user.emote("custom", message = "[user.friendly] [src].")
 		return 0
 	else
@@ -83,7 +83,7 @@
 		if(user.environment_smash)
 			play_soundeffect = 0
 			playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		var/animal_damage = rand(user.melee_damage_lower,user.melee_damage_upper)
+		var/animal_damage = user.melee_damage
 		if(user.obj_damage)
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
@@ -192,16 +192,45 @@
 		return
 
 	if(istype(W, /obj/item/stock_parts/cell))
-		if(construction_state == MECHA_UNSECURE_CELL)
+		if(construction_state == MECHA_OPEN_HATCH)
 			if(!cell)
 				if(!user.transferItemToLoc(W, src))
 					return
 				var/obj/item/stock_parts/cell/C = W
-				to_chat(user, "<span class='notice'>You install the powercell.</span>")
+				to_chat(user, "<span class='notice'>You install the power cell.</span>")
+				playsound(src, 'sound/items/screwdriver2.ogg', 50, FALSE)
 				cell = C
 				log_message("Powercell installed", LOG_MECHA)
 			else
-				to_chat(user, "<span class='notice'>There's already a powercell installed.</span>")
+				to_chat(user, "<span class='notice'>There's already a power cell installed.</span>")
+		return
+
+	if(istype(W, /obj/item/stock_parts/scanning_module))
+		if(construction_state == MECHA_OPEN_HATCH)
+			if(!scanmod)
+				if(!user.transferItemToLoc(W, src))
+					return
+				to_chat(user, "<span class='notice'>You install the scanning module.</span>")
+				playsound(src, 'sound/items/screwdriver2.ogg', 50, FALSE)
+				scanmod = W
+				log_message("[W] installed", LOG_MECHA)
+				update_part_values()
+			else
+				to_chat(user, "<span class='notice'>There's already a scanning module installed.</span>")
+		return
+
+	if(istype(W, /obj/item/stock_parts/capacitor))
+		if(construction_state == MECHA_OPEN_HATCH)
+			if(!capacitor)
+				if(!user.transferItemToLoc(W, src))
+					return
+				to_chat(user, "<span class='notice'>You install the capacitor.</span>")
+				playsound(src, 'sound/items/screwdriver2.ogg', 50, FALSE)
+				capacitor = W
+				log_message("[W] installed", LOG_MECHA)
+				update_part_values()
+			else
+				to_chat(user, "<span class='notice'>There's already a capacitor installed.</span>")
 		return
 
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -250,19 +279,6 @@
 		clearInternalDamage(MECHA_INT_TEMP_CONTROL)
 		to_chat(user, "<span class='notice'>You repair the damaged temperature controller.</span>")
 		return
-	if(!cell)
-		to_chat(user, "<span class='notice'>There is no cell in [src].</span>")
-		return
-	if(construction_state == MECHA_OPEN_HATCH)
-		cell.forceMove(loc)
-		cell = null
-		construction_state = MECHA_UNSECURE_CELL
-		to_chat(user, "<span class='notice'>You unscrew and pry out the powercell.</span>")
-		log_message("Powercell removed", LOG_MECHA)
-		return
-	if(construction_state == MECHA_UNSECURE_CELL)
-		construction_state = MECHA_OPEN_HATCH
-		to_chat(user, "<span class='notice'>You screw the cell in place.</span>")
 
 /obj/mecha/welder_act(mob/living/user, obj/item/W)
 	. = ..()
@@ -320,16 +336,6 @@
 /obj/mecha/narsie_act()
 	emp_act(EMP_HEAVY)
 
-/obj/mecha/ratvar_act()
-	if((GLOB.ratvar_awakens || GLOB.clockwork_gateway_activated) && occupant)
-		if(is_servant_of_ratvar(occupant)) //reward the minion that got a mech by repairing it
-			full_repair(TRUE)
-		else
-			var/mob/living/L = occupant
-			go_out(TRUE)
-			if(L)
-				L.ratvar_act()
-
 /obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect)
 		if(selected)
@@ -341,3 +347,29 @@
 			else if(damtype == TOX)
 				visual_effect_icon = ATTACK_EFFECT_MECHTOXIN
 	..()
+
+/obj/mecha/obj_destruction()
+	if(wreckage)
+		var/mob/living/silicon/ai/AI
+		if(isAI(occupant))
+			AI = occupant
+			occupant = null
+		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
+		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
+			if(E.salvageable && prob(30))
+				WR.crowbar_salvage += E
+				E.detach(WR) //detaches from src into WR
+				E.equip_ready = 1
+			else
+				E.detach(loc)
+				qdel(E)
+		if(cell)
+			WR.crowbar_salvage += cell
+			cell.forceMove(WR)
+			cell.charge = rand(0, cell.charge)
+			cell = null
+		if(internal_tank)
+			WR.crowbar_salvage += internal_tank
+			internal_tank.forceMove(WR)
+			cell = null
+	. = ..()

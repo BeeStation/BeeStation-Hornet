@@ -185,9 +185,9 @@
 	zone = BODY_ZONE_L_ARM
 
 /obj/item/organ/cyberimp/arm/toolset/emag_act()
-	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
-		to_chat(usr, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
-		items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
+	if(!(locate(/obj/item/melee/hydraulic_blade) in items_list))
+		to_chat(usr, "<span class='notice'>You unlock [src]'s integrated blade!</span>")
+		items_list += new /obj/item/melee/hydraulic_blade(src)
 		return 1
 	return 0
 
@@ -238,10 +238,19 @@
 	name = "power cord implant"
 	desc = "An internal power cord hooked up to a battery. Useful if you run on volts."
 	contents = newlist(/obj/item/apc_powercord)
-	zone = "l_arm" 
+	zone = "l_arm"
 
 /obj/item/organ/cyberimp/arm/esaw
 	name = "arm-mounted energy saw"
 	desc = "An illegal and highly dangerous implanted carbon-fiber blade that also has a toggleable hard-light edge."
 	icon_state = "esaw_0"
 	contents = newlist(/obj/item/melee/transforming/energy/sword/esaw)
+
+/obj/item/organ/cyberimp/arm/hydraulic_blade
+	name = "arm-mounted hydraulic blade"
+	desc = "Highly dangerous implanted plasteel blade."
+	icon_state = "hydraulic_blade"
+	contents = newlist(/obj/item/melee/hydraulic_blade)
+
+/obj/item/organ/cyberimp/arm/hydraulic_blade/l
+	zone = BODY_ZONE_L_ARM

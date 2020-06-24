@@ -7,6 +7,9 @@
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 8
 	throwforce = 10
+	block_upgrade_walk = 1 
+	block_level = 1
+	block_power = 20
 	throw_speed = 3
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
@@ -22,7 +25,6 @@
 /obj/item/mop/Initialize()
 	. = ..()
 	create_reagents(mopcap)
-
 
 /obj/item/mop/proc/clean(turf/A)
 	if(reagents.has_reagent(/datum/reagent/water, 1) || reagents.has_reagent(/datum/reagent/water/holywater, 1) || reagents.has_reagent(/datum/reagent/consumable/ethanol/vodka, 1) || reagents.has_reagent(/datum/reagent/space_cleaner, 1))
@@ -120,3 +122,13 @@
 
 /obj/item/mop/advanced/cyborg
 	insertable = FALSE
+
+/obj/item/mop/sharp //Basically a slightly worse spear.
+	desc = "A mop with a sharpened handle. Careful!"
+	name = "sharpened mop"
+	force = 10
+	throwforce = 15
+	throw_speed = 4
+	attack_verb = list("mopped", "stabbed", "shanked", "jousted")
+	sharpness = IS_SHARP
+	embedding = list("embedded_impact_pain_multiplier" = 3)

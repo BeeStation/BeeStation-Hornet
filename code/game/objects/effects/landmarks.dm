@@ -212,6 +212,33 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/brig_phys
 	name = "Brig Physician"
 
+/obj/effect/landmark/start/randommaint
+	name = "maintjobstart"
+	icon_state = "x3" 
+	var/job = "Gimmick" //put the title of the job here. 
+
+/obj/effect/landmark/start/randommaint/New() //automatically opens up a job slot when the job's spawner loads in
+	..()
+	var/datum/job/J = SSjob.GetJob(job)
+	J.total_positions += 1
+	J.spawn_positions += 1
+
+/obj/effect/landmark/start/randommaint/backalley_doc
+	name = "Barber"
+	job = "Barber"
+
+/obj/effect/landmark/start/randommaint/magician
+	name = "Stage Magician"
+	job = "Stage Magician"
+
+/obj/effect/landmark/start/randommaint/hobo
+	name = "Debtor"
+	job = "Debtor"
+	
+/obj/effect/landmark/start/randommaint/shrink
+	name = "Psychiatrist"
+	job = "Psychiatrist"
+
 //Department Security spawns
 
 /obj/effect/landmark/start/depsec
