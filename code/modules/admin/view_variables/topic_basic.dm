@@ -49,3 +49,5 @@
 		usr.client.mark_datum(target)
 	if(href_list[VV_HK_CALLPROC])
 		usr.client.callproc_datum(target)
+	if(href_list[VV_HK_VIEW_REFERENCES])
+		usr.client.view_refs(target)

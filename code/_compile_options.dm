@@ -20,6 +20,9 @@
 //#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
 #endif
 
+//#define REFERENCE_TRACKING		//Enables extools-powered reference tracking system, letting you see what is
+									//referencing objects that refuse to hard delete
+
 //#define UNIT_TESTS			//If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
 
 #ifndef PRELOAD_RSC				//set to:
