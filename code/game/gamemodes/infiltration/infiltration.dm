@@ -1,4 +1,3 @@
-//yoinked from hippie (infiltrators)
 /datum/game_mode/infiltration
 	name = "infiltration"
 	config_tag = "infiltration"

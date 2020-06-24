@@ -133,9 +133,11 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	dat += "<B>Install Module:</B><BR>"
 	dat += "<I>The number afterwards is the amount of processing time it consumes.</I><BR>"
 	for(var/datum/AI_Module/large/module in possible_modules)
-		dat += "<A href='byond://?src=[REF(src)];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=[REF(src)];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
+		if(module.can_be_bought(user))
+			dat += "<A href='byond://?src=[REF(src)];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=[REF(src)];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
 	for(var/datum/AI_Module/small/module in possible_modules)
-		dat += "<A href='byond://?src=[REF(src)];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=[REF(src)];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
+		if(module.can_be_bought(user))
+			dat += "<A href='byond://?src=[REF(src)];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=[REF(src)];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
 	dat += "<HR>"
 	if(temp)
 		dat += "[temp]"
@@ -211,6 +213,9 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 /datum/AI_Module/proc/upgrade(mob/living/silicon/ai/AI) //Apply upgrades!
 	return
 
+/datum/AI_Module/proc/can_be_bought(mob/living/silicon/ai/AI)
+	return TRUE
+
 /datum/AI_Module/large //Big, powerful stuff that can only be used once.
 /datum/AI_Module/small //Weak, usually localized stuff with multiple uses.
 
@@ -224,6 +229,9 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/nuke_station
 	unlock_text = "<span class='notice'>You slowly, carefully, establish a connection with the on-station self-destruct. You can now activate it at any time.</span>"
+
+/datum/AI_Module/large/nuke_station/can_be_bought(mob/living/silicon/ai/AI)
+	return AI.mind && !AI.mind.has_antag_datum(ANTAG_DATUM_HIJACKEDAI) //AIs hijacked by infiltrators going doomsday is no bueno
 
 /datum/action/innate/ai/nuke_station
 	name = "Doomsday Device"
@@ -417,6 +425,9 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	power_type = /datum/action/innate/ai/lockdown
 	unlock_text = "<span class='notice'>You upload a sleeper trojan into the door control systems. You can send a signal to set it off at any time.</span>"
 	unlock_sound = 'sound/machines/boltsdown.ogg'
+
+/datum/AI_Module/large/lockdown/can_be_bought(mob/living/silicon/ai/AI)
+	return AI.mind && !AI.mind.has_antag_datum(ANTAG_DATUM_HIJACKEDAI) //Not exactly stealthy, huh? Don't.
 
 /datum/action/innate/ai/lockdown
 	name = "Lockdown"

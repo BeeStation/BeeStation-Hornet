@@ -1,4 +1,3 @@
-//yoinked from hippie (infiltrators)
 #define MODE_CUTTER 1
 #define MODE_TARGET 2
 
@@ -77,7 +76,7 @@
 		if(!DAI || !DAI.infiltrator_team)
 			return ..()
 		team = DAI.infiltrator_team
-		icon = 'newerastation/icons/obj/device.dmi'
+		icon = 'icons/obj/device.dmi'
 		icon_state = "pinpointer_upgraded"
 		upgraded = TRUE
 		to_chat(user, "<span class='notice'>You attach the new antenna to [src].</span>")
@@ -90,7 +89,7 @@
 /obj/item/infiltrator_pinpointer_upgrade
 	name = "infiltration pinpointer upgrade"
 	desc = "Upgrades your pinpointer to allow for tracking objective targets."
-	icon = 'newerastation/icons/obj/device.dmi'
+	icon = 'icons/obj/device.dmi'
 	icon_state = "shitty_antenna"
 
 #undef MODE_CUTTER

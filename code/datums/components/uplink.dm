@@ -225,7 +225,6 @@
 	locked = FALSE
 	interact(null, implant.imp_in)
 
-//yoinked from hippie (Fix runtime when implanting infiltrators)
 /datum/component/uplink/proc/implanting(datum/source, list/arguments)
 	var/mob/target = arguments[1]
 	var/mob/user = arguments[2]

@@ -1,10 +1,9 @@
-//NOT yoinked from hippie. aw yeah.
 GLOBAL_VAR_INIT(infil_miner_transmitted, 0)
 
 /obj/item/infiltrator_miner
 	name = "strange wireless device"
 	desc = "A small circuit board attached to an antenna, branded with a large red S." //bad writing reeee
-	icon = 'newerastation/icons/obj/module.dmi'
+	icon = 'icons/obj/module.dmi'
 	icon_state = "bitcoin_minerp"
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -24,8 +23,7 @@ GLOBAL_VAR_INIT(infil_miner_transmitted, 0)
 /obj/item/infiltrator_miner/examine(mob/user)
 	. = ..()
 	if(paper)
-		. += ("<span class='notice'>It has a written note on it. Alt click to remove it.</span>")
-
+		. += ("<span class='notice'>It has a written note on it. Alt-click to remove it.</span>")
 
 /obj/item/infiltrator_miner/AltClick(mob/user)
 	if(issilicon(usr) || !usr.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
@@ -41,7 +39,7 @@ GLOBAL_VAR_INIT(infil_miner_transmitted, 0)
 /obj/machinery/rnd/server/attackby(obj/item/infiltrator_miner/I, mob/user, params)
 	if(istype(I) && src.panel_open)
 		if(!locate(/obj/item/infiltrator_miner) in src.contents)
-			user.visible_message("<span class='warning'>[user] begins attaching something to [src]...</span>")
+			user.visible_message("<span class='warning'>[user] begins attaching something to [src]...</span>", "<span class='notice'>You begin attaching the device to [src]...</span>")
 			if(do_after(user,55,target = src))
 				user.dropItemToGround(I)
 				I.forceMove(src)
@@ -50,6 +48,15 @@ GLOBAL_VAR_INIT(infil_miner_transmitted, 0)
 			to_chat(user, "<span class='warning'>This server already has a miner in it!</span>")
 		return
 	return ..()
+
+/obj/machinery/rnd/server/mine_hooks(points)
+	..()
+	var/obj/item/infiltrator_miner/B = locate(/obj/item/infiltrator_miner) in src.contents
+	if(!B?.target_reached)
+		var/intercepted = points*0.6
+		B.on_mine(intercepted)
+		points =- intercepted
+	return points
 
 /obj/item/infiltrator_miner/proc/on_mine(stolen)
 	GLOB.infil_miner_transmitted += stolen

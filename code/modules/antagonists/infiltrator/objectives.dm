@@ -1,9 +1,7 @@
-//originally yoinked from hippie (infiltrators)
-//(comments are both from hippie and new era)
 #define MIN_POWER_DRAIN 25000000
 #define MAX_POWER_DRAIN 100000000
-#define MIN_TECH_DRAIN 10000
-#define MAX_TECH_DRAIN 20000
+#define MIN_TECH_DRAIN 2000
+#define MAX_TECH_DRAIN 5000
 
 GLOBAL_LIST_INIT(infiltrator_kidnap_areas, typecacheof(list(/area/shuttle/stealthcruiser, /area/infiltrator_base)))
 
@@ -20,6 +18,10 @@ GLOBAL_LIST_INIT(infiltrator_kidnap_areas, typecacheof(list(/area/shuttle/stealt
 		for(var/turf/T in GLOB.infiltrator_objective_items)
 			if(!(item_type in T.contents))
 				new item_type(T)
+
+/datum/objective/infiltrator/find_target(dupe_search_range) //needed because find_target() is called in infiltrator/team.dm
+	return //and the found target would otherwise pop up in the pinpointer. bad.
+
 
 /datum/objective/infiltrator/exploit
 	name = "infiltrator exploit"
@@ -73,13 +75,10 @@ GLOBAL_LIST_INIT(infiltrator_kidnap_areas, typecacheof(list(/area/shuttle/stealt
 
 /datum/objective/infiltrator/power/admin_edit(mob/admin)
 	var/new_amount = input(admin,"Select target amount IN WATTS:", "Power sink target") as null|num
-	target_amount = max(0, new_amount) //don't know what would happen with a negative value, and don't want to find out.
-	for(var/obj/item/infiltrator_miner/O in linked_gear)
-		O.target = target_amount
+	target_amount = max(0, new_amount)
+	for(var/obj/item/powersink/infiltrator/PS in linked_gear)
+		PS.target = target_amount
 	update_explanation_text()
-
-/datum/objective/infiltrator/power/find_target(dupe_search_range, blacklist) //needed because find_target() is called in infiltrator/team.dm
-	return //and the found target would otherwise pop up in the pinpointer. bad.
 
 /datum/objective/infiltrator/power/update_explanation_text()
 	..()
@@ -120,9 +119,6 @@ GLOBAL_LIST_INIT(infiltrator_kidnap_areas, typecacheof(list(/area/shuttle/stealt
 	else
 		explanation_text = "You were supposed to steal some sweet-ass nanotrasen technology, but something went wrong."
 
-/datum/objective/infiltrator/miner/find_target(dupe_search_range, blacklist)
-	return
-
 /datum/objective/infiltrator/miner/check_completion()
 	return !target_amount || (GLOB.infil_miner_transmitted >= target_amount)
 
@@ -130,7 +126,6 @@ GLOBAL_LIST_INIT(infiltrator_kidnap_areas, typecacheof(list(/area/shuttle/stealt
 /datum/objective/infiltrator/kidnap
 	name = "infiltrator kidnap"
 	explanation_text = "You were supposed to kidnap someone, but we couldn't find anyone to kidnap!"
-
 
 /datum/objective/infiltrator/kidnap/find_target(dupe_search_range)
 	var/list/possible_targets = SSjob.get_living_heads()
@@ -153,7 +148,7 @@ GLOBAL_LIST_INIT(infiltrator_kidnap_areas, typecacheof(list(/area/shuttle/stealt
 		explanation_text = "You were supposed to kidnap someone, but we couldn't find anyone to kidnap! Here, have a free objective!"
 
 /datum/objective/infiltrator/kidnap/check_completion()
-	if (!target)
+	if(!target)
 		return TRUE
 	var/target_area = get_area(target.current)
 	return (target.current && target.current.suiciding) || ((considered_alive(target) || issilicon(target.current)) && is_type_in_typecache(target_area, GLOB.infiltrator_kidnap_areas))

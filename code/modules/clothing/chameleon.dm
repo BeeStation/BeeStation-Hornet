@@ -212,8 +212,8 @@
 		thing.update_slot_icon()
 	UpdateButtonIcon()
 
-/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item, obj/item/target = src.target) //yoinked from hippie -- add support for cham hardsuits
-	if(!istype(target, /obj/item/card/id) && !istype(target, /obj/item/pda)) //yoinked from hippie -- Avoid having an already forged ID card be called "identification card" when setting disguise.
+/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item, obj/item/target = src.target)
+	if(!istype(target, /obj/item/card/id) && !istype(target, /obj/item/pda))
 		target.name = initial(picked_item.name)
 	target.desc = initial(picked_item.desc)
 	target.icon_state = initial(picked_item.icon_state)
@@ -226,6 +226,26 @@
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
 	target.icon = initial(picked_item.icon)
+
+	// Infiltrator cham hardsuits, breaks if the disguised hardsuit doesn't have lights
+	// Because the suit adds the toggle lights action, which tries to change between nonexistant on and off sprites
+	if(istype(target, /obj/item/clothing/suit/space/hardsuit/infiltration))
+		var/obj/item/clothing/suit/space/hardsuit/infiltration/I = target
+		var/obj/item/clothing/suit/space/hardsuit/HS = new picked_item
+		var/obj/item/clothing/head/helmet/space/hardsuit/HH = new HS.helmettype
+		update_item(HS.helmettype, I.head_piece)
+		I.head_piece.basestate = initial(HH.basestate)
+		I.head_piece.icon_state = initial(HH.icon_state)
+		I.head_piece.item_state = initial(HH.item_state)
+		I.head_piece.item_color = initial(HH.item_color)
+
+		var/mob/living/M = owner
+		if(istype(M))
+			M.update_inv_head()
+			M.update_action_buttons_icon()
+
+		qdel(HS)
+		qdel(HH)
 
 /datum/action/item_action/chameleon/change/Trigger()
 	if(!IsAvailable())

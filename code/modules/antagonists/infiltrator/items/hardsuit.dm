@@ -1,6 +1,5 @@
-//yoinked from hippie (infiltrators)
 /obj/item/clothing/head/helmet/space/hardsuit/infiltration
-	name = "chameleon hardsuit helmet"
+	name = "security hardsuit helmet"
 	icon_state = "hardsuit0-sec"
 	item_state = "sec_helm"
 	item_color = "sec"
@@ -13,7 +12,7 @@
 		I.head_piece = src
 
 /obj/item/clothing/suit/space/hardsuit/infiltration
-	name = "chameleon hardsuit"
+	name = "security hardsuit"
 	icon_state = "hardsuit-sec"
 	item_state = "sec_hardsuit"
 	item_color = "sec"

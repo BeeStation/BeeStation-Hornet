@@ -1,4 +1,3 @@
-//yoinked from hippie (infiltrators)
 /datum/map_template/infiltrator_base
 	name = "syndicate infiltrator base"
 	mappath = "_maps/templates/infiltrator_base.dmm"

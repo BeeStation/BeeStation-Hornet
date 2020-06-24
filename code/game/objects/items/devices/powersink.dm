@@ -133,20 +133,7 @@
 		var/drained = min ( drain_rate, attached.newavail() )
 		attached.add_delayedload(drained)
 		power_drained += drained
-
-		// if tried to drain more than available on powernet
-		// now look for APCs and drain their cells
-		if(drained < drain_rate)
-			for(var/obj/machinery/power/terminal/T in PN.nodes)
-				if(istype(T.master, /obj/machinery/power/apc))
-					var/obj/machinery/power/apc/A = T.master
-					if(A.operating && A.cell)
-						power_drained += min(A.cell.charge, 50)
-						A.cell.charge = max(0, A.cell.charge - 50)
-						if(A.charging == 2) // If the cell was full
-							A.charging = 1 // It's no longer full
-				if(drained >= drain_rate)
-					break
+		on_drain(drained)
 
 	if(power_drained > max_power * 0.98)
 		if (!admins_warned)
@@ -158,3 +145,41 @@
 		STOP_PROCESSING(SSobj, src)
 		explosion(src.loc, 4,8,16,32)
 		qdel(src)
+
+/obj/item/powersink/proc/on_drain(drained)
+	// if tried to drain more than available on powernet
+	// now look for APCs and drain their cells
+	var/datum/powernet/PN = attached.powernet
+	if(drained < drain_rate)
+		for(var/obj/machinery/power/terminal/T in PN.nodes)
+			if(istype(T.master, /obj/machinery/power/apc))
+				var/obj/machinery/power/apc/A = T.master
+				if(A.operating && A.cell)
+					power_drained += min(A.cell.charge, 50)
+					A.cell.charge = max(0, A.cell.charge - 50)
+					if(A.charging == 2) // If the cell was full
+						A.charging = 1 // It's no longer full
+			if(drained >= drain_rate)
+				break
+
+GLOBAL_VAR_INIT(powersink_transmitted, 0)
+/obj/item/powersink/infiltrator
+	var/target
+	var/target_reached = FALSE
+	var/obj/item/radio/alert_radio
+
+/obj/item/powersink/infiltrator/Initialize()
+	. = ..()
+	alert_radio = new(src)
+	alert_radio.make_syndie()
+	alert_radio.listening = FALSE
+	alert_radio.canhear_range = 0
+
+/obj/item/powersink/infiltrator/on_drain(drained)
+	GLOB.powersink_transmitted += drained
+	if(GLOB.powersink_transmitted >= target && !target_reached)
+		alert_radio.talk_into(src, "Power objective reached.", "Syndicate")
+		visible_message("<span class='notice'>[src] beeps.</span>")
+		playsound(src, 'sound/machines/ping.ogg', 50, 1)
+		target_reached = TRUE
+	return ..()

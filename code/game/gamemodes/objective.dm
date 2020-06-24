@@ -156,14 +156,21 @@ GLOBAL_LIST_EMPTY(objectives)
 		explanation_text = team_explanation_text
 
 /datum/objective/proc/give_special_equipment(special_equipment)
-	var/datum/mind/receiver = pick(get_owners())
-	if(receiver && receiver.current)
-		if(ishuman(receiver.current))
-			var/mob/living/carbon/human/H = receiver.current
-			var/list/slots = list("backpack" = SLOT_IN_BACKPACK)
-			for(var/eq_path in special_equipment)
-				var/obj/O = new eq_path
-				H.equip_in_one_of_slots(O, slots)
+	if(istype(team, /datum/team/infiltrator))
+		for(var/eq_path in special_equipment)
+			if(eq_path)
+				for(var/turf/T in GLOB.infiltrator_objective_items)
+					if(!(eq_path in T.contents))
+						new eq_path(T)
+	else
+		var/datum/mind/receiver = pick(get_owners())
+		if(receiver && receiver.current)
+			if(ishuman(receiver.current))
+				var/mob/living/carbon/human/H = receiver.current
+				var/list/slots = list("backpack" = SLOT_IN_BACKPACK)
+				for(var/eq_path in special_equipment)
+					var/obj/O = new eq_path
+					H.equip_in_one_of_slots(O, slots)
 
 /datum/objective/assassinate
 	name = "assasinate"

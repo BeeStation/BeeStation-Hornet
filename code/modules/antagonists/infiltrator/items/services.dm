@@ -1,4 +1,3 @@
-//yoinked from hippie (infiltrators)
 GLOBAL_VAR_INIT(next_button_push, 0)
 
 /obj/item/service

@@ -1,4 +1,3 @@
-//yoinked from hippie (infiltrators)
 #define MIN_MAJOR_OBJECTIVES 1
 #define MAX_MAJOR_OBJECTIVES 2
 #define MIN_MINOR_OBJECTIVES 3

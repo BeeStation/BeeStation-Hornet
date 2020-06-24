@@ -1,4 +1,3 @@
-//yoinked from hippie (infiltrators)
 /datum/antagonist/infiltrator
 	name = "Syndicate Infiltrator"
 	roundend_category = "syndicate infiltrators" //just in case
@@ -29,14 +28,13 @@
 	update_synd_icons_removed(M)
 
 /datum/antagonist/infiltrator/greet()
-	owner.current.playsound_local(get_turf(owner.current), 'newerastation/sound/ambience/antag/infiltrator.ogg',100,0)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/infiltrator.ogg',100,0)
 	to_chat(owner, "<span class='userdanger'>You are a syndicate infiltrator!</span>")
 	to_chat(owner, "<span class='notice bold'>Your job is to infiltrate [station_name()], and complete our objectives.</span>")
 	to_chat(owner, "<span class='notice'>You have an uplink implant, precharged with 30 TC. Use it wisely.</span>")
 	to_chat(owner, "<span class='notice'>You also have an internal radio, for communicating with your team-mates at all times.</span>")
 	to_chat(owner, "<span class='notice'>You have a dusting implant, to ensure that Nanotrasen does not get their hands on Syndicate gear. Only activate it, if you are compromised.</span>")
 	to_chat(owner, "<span class='notice bold'>Do NOT kill or destroy needlessly, as this defeats the purpose of an 'infiltration'!</span>")
-	to_chat(owner, "<span class='notice italics bold'>Once your objectives are complete, return to base, with all living infiltrators, to end the round.</span>")
 
 /datum/antagonist/infiltrator/on_gain()
 	var/mob/living/carbon/human/H = owner.current

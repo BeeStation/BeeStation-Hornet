@@ -1,4 +1,3 @@
-//yoinked from hippie (infiltrators)
 /datum/round_event_control/infiltrators
 	name = "Infiltrators"
 	typepath = /datum/round_event/ghost_role/infiltrators
