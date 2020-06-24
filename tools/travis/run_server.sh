@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -euo pipefail
 EXIT_CODE=0
 
