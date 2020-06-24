@@ -245,4 +245,3 @@
 	desc = "An illegal and highly dangerous implanted carbon-fiber blade that also has a toggleable hard-light edge."
 	icon_state = "esaw_0"
 	contents = newlist(/obj/item/melee/transforming/energy/sword/esaw)
-	
