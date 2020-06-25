@@ -26,6 +26,8 @@
 	var/category = "Any"
 	var/author
 	var/SQLquery
+	var/approval_time = 1200
+	var/response_timer_id = null
 	clockwork = TRUE //it'd look weird
 
 /obj/machinery/computer/libraryconsole/ui_interact(mob/user)
@@ -411,7 +413,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			if(scanner.cache)
 				var/choice = input("Are you certain you wish to upload this title to the Archive?") in list("Confirm", "Abort")
 				if(choice == "Confirm")
-					if (!SSdbcore.Connect())
+					if (SSdbcore.Connect())//removed the ! as a testing
 						alert("Connection to Archive has been severed. Aborting.")
 					else
 						var/msg = "[key_name(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs"
@@ -497,6 +499,37 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			say("Printer currently unavailable, please wait a moment.")
 	add_fingerprint(usr)
 	updateUsrDialog()
+
+/*
+ * Libray upload procs
+ */
+/obj/machinery/computer/libraryconsole/bookmanagement/proc/accept_proposed(user)
+	var/sqltitle = sanitizeSQL(scanner.cache.name)
+	var/sqlauthor = sanitizeSQL(scanner.cache.author)
+	var/sqlcontent = sanitizeSQL(scanner.cache.dat)
+	var/sqlcategory = sanitizeSQL(upload_category)
+	var/sqlckey = sanitizeSQL(usr.ckey)
+	var/msg = "[key_name(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs"
+	var/datum/DBQuery/query_library_upload = SSdbcore.NewQuery("INSERT INTO [format_table_name("library")] (author, title, content, category, ckey, datetime, round_id_created) VALUES ('[sqlauthor]', '[sqltitle]', '[sqlcontent]', '[sqlcategory]', '[sqlckey]', Now(), '[GLOB.round_id]')")
+	if(!query_library_upload.Execute())
+		qdel(query_library_upload)
+		alert("Database error encountered uploading to Archive")
+		return
+	else
+		log_game(msg)
+		qdel(query_library_upload)
+		alert("Upload Complete. Uploaded title will be unavailable for printing for a short period")
+
+/obj/machinery/computer/libraryconsole/bookmanagement/proc/reject_proposed(user)
+	alert("your proposed book titled [scanner.cache.name] has been rejected by your employers. please consider revising your book.")
+	var/m = "[key_name(user)] has rejected the proposed Book upload."
+
+	message_admins(m)
+	log_admin(m)
+
+	deltimer(response_timer_id)
+	response_timer_id = null
+
 
 /*
  * Library Scanner
