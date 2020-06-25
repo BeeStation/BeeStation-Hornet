@@ -9,7 +9,7 @@
 	var/total_sacrifices = 0
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner, mob/admin)
-	give_equipment = FALSE
+	give_equipment = TRUE
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has heresized [key_name_admin(new_owner)].")
 	log_admin("[key_name_admin(admin)] has heresized [key_name(new_owner)].")
@@ -62,21 +62,22 @@
 
 /datum/antagonist/heretic/proc/ecult_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"left pocket" = ITEM_SLOT_POCKET,
+		"backpack" = SLOT_IN_BACKPACK,
+		"left pocket" = SLOT_L_STORE,
+		"right pocket" = SLOT_R_STORE
 	)
 
 	var/T = new item_path(H)
 	var/item_name = initial(item_path.name)
 	var/where = H.equip_in_one_of_slots(T, slots)
 	if(!where)
-		to_chat(owner.current, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1)</span>")
-		return FALSE
+		to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1).</span>")
+		return 0
 	else
 		to_chat(H, "<span class='danger'>You have a [item_name] in your [where].</span>")
 		if(where == "backpack")
 			SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_SHOW, H)
-			return TRUE
+		return TRUE
 
 /datum/antagonist/heretic/process()
 

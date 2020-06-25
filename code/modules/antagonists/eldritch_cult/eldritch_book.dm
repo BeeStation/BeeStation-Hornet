@@ -54,7 +54,7 @@
 	var/A = get_turf(target)
 	to_chat(target, "<span class='danger'>You start drawing a rune...</span>")
 
-	if(do_after(user,30 SECONDS,A))
+	if(do_after(user,10 SECONDS,A))
 
 		new /obj/effect/eldritch/big(A)
 
