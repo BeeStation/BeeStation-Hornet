@@ -533,6 +533,7 @@
 /obj/effect/mob_spawn/human/skeleton/alive/equip(mob/living/carbon/human/H)
 	var/obj/item/implant/exile/implant = new/obj/item/implant/exile(H)
 	implant.implant(H)
+	H.set_species(/datum/species/skeleton)
 
 /obj/effect/mob_spawn/human/zombie
 	name = "rotting corpse"

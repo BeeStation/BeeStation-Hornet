@@ -928,11 +928,15 @@
 				var/angle = input(usr, "Choose angle to rotate","Transform Mod") as null|num
 				if(!isnull(angle))
 					transform = M.Turn(angle)
+	if(href_list[VV_HK_AUTO_RENAME] && check_rights(R_VAREDIT))
+		var/newname = input(usr, "What do you want to rename this to?", "Automatic Rename") as null|text
+		if(newname)
+			vv_auto_rename(newname)
 
 /atom/vv_get_header()
 	. = ..()
 	var/refid = REF(src)
-	. += "<a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=name'><b id='name'>[src]</b></a>"
+	. += "[VV_HREF_TARGETREF(refid, VV_HK_AUTO_RENAME, "<b id='name'>[src]</b>")]"
 	. += "<br><font size='1'><a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=left'><<</a> <a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(dir) || dir]</a> <a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=right'>>></a></font>"
 
 ///Where atoms should drop if taken from this atom
@@ -941,6 +945,9 @@
 	if(!L)
 		return null
 	return L.AllowDrop() ? L : L.drop_location()
+
+/atom/proc/vv_auto_rename(newname)
+	name = newname
 
 /**
   * An atom has entered this atom's contents

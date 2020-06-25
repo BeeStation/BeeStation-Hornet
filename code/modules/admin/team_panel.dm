@@ -11,7 +11,10 @@
 		content += "<br>"
 		content += "Objectives:<br><ol>"
 		for(var/datum/objective/O in T.objectives)
-			content += "<li>[O.explanation_text] - <a href='?_src_=holder;[HrefToken()];team_command=remove_objective;team=[REF(T)];tobjective=[REF(O)]'>Remove</a></li>"
+			content += "<li>[O.explanation_text] - "
+			content += "<a href='?_src_=holder;[HrefToken()];team_command=edit_objective;team=[REF(T)];tobjective=[REF(O)]'>Edit</a>"
+			content += "<a href='?_src_=holder;[HrefToken()];team_command=remove_objective;team=[REF(T)];tobjective=[REF(O)]'>Remove</a>"
+			content += "</li>"
 		content += "</ol><a href='?_src_=holder;[HrefToken()];team_command=add_objective;team=[REF(T)]'>Add Objective</a><br>"
 		content += "Members: <br><ul>"
 		for(var/datum/mind/M in T.members)
@@ -96,6 +99,42 @@
 
 	message_admins("[key_name_admin(usr)] added objective \"[O.explanation_text]\" to [name]")
 	log_admin("[key_name(usr)] added objective \"[O.explanation_text]\" to [name]")
+
+/datum/team/proc/admin_edit_objective(mob/user,datum/objective/old_objective)
+	if(!GLOB.admin_objective_list)
+		generate_admin_objective_list()
+
+	var/selected_type = input("Select objective type:", "Objective type") as null|anything in GLOB.admin_objective_list
+	selected_type = GLOB.admin_objective_list[selected_type]
+	if (!selected_type)
+		return
+
+	var/objective_pos = src.objectives.Find(old_objective) //Keep them in the same order, else it breaks muh immursion
+	var/datum/objective/new_objective
+
+	new_objective = new selected_type
+	new_objective.team = src
+	new_objective.admin_edit(user)
+
+	//Apply it to the team
+	objectives -= old_objective
+	objectives.Insert(objective_pos, new_objective)
+
+	//Now apply it to the members
+	for(var/datum/mind/M in members)
+		objective_pos = 0
+		for(var/datum/antagonist/A in M.antag_datums)
+			objective_pos = A.objectives.Find(old_objective)
+			if(objective_pos) //Just in case an admin messed with their individual objectives
+				//And yes, we'll assume it was intentional. They can always remove and re-add the objective.
+				A.objectives -= old_objective
+				A.objectives.Insert(objective_pos, new_objective)
+				break
+		if(!objective_pos)
+			to_chat(user, "<span class='warning'>It seems like [M.current] does not have this objective despite being part of the team. If this is not intentional, consider removing and re-adding the objective.</span>")
+
+	message_admins("[key_name_admin(usr)] edited team [src.name]'s objective to [new_objective.explanation_text]")
+	log_admin("[key_name(usr)] edited team [src.name]'s objective to [new_objective.explanation_text]")
 
 /datum/team/proc/admin_remove_objective(mob/user,datum/objective/O)
 	for(var/datum/mind/M in members)
