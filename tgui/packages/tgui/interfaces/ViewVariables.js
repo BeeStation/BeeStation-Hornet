@@ -100,7 +100,13 @@ export const ViewVariables = (props, context) => {
   const Value = item => {
     return (
       <Fragment>
-        {colorboxify(item) || "null"}
+        <Button
+          // color="transparent"
+          onClick={() => act("view", { target: item.ref })}>
+          {item.file && <Icon name="file" mr={1} />}
+          {item.icon && <Icon name="image" mr={1} />}
+          {colorboxify(item) || "null"}
+        </Button>
         {item.items && item.items.map(
           item => { return Entry(item); })}
       </Fragment>

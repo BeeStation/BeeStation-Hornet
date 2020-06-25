@@ -102,66 +102,60 @@
 	if (isnull(value))
 		item = list(
 			"name" = varname,
-			"value" = "null"
+			"value" = "",
 		)
 
 	else if (istext(value))
 		item = list(
 			"name" = varname,
-			"value" = "\"[value]\""
+			"value" = "\"[value]\"",
 		)
 
-	//oh god looks like complex shit I'm skipping this
 	else if (isicon(value))
-		#ifdef VARSICON
-		var/icon/I = icon(value)
-		var/rnd = rand(1,10000)
-		var/rname = "tmp[REF(I)][rnd].png"
-		usr << browse_rsc(I, rname)
-		item = "[VV_HTML_ENCODE(varname)] = (<span class='value'>[value]</span>) <img class=icon src=\"[rname]\">"
-		#else
-		item = "[VV_HTML_ENCODE(varname)] = /icon (<span class='value'>[value]</span>)"
-		#endif
 		item = list(
 			"name" = varname,
-			"value" = "((icon))"
+			"value" = "[value]",
+			// Let's not have the menu take 2 years to load a mob, eh?
+			// "icon" = icon2base64(icon(value)),
+			"icon" = TRUE,
 		)
 
 	else if (isfile(value))
 		item = "[varname] = '[value]'"
 		item = list(
 			"name" = varname,
-			"value" = "((file))"
+			"value" = "'[value]'",
+			"file" = TRUE // Just a way to tell tgui to render a cool lil document icon by the side
 		)
 
 	else if(istype(value,/matrix)) // Needs to be before datum
 		var/matrix/M = value
 		item = list(
 			"name" = varname,
-			"value" = "((table))",
+			"value" = "[value]",
 			"matrix" = list(M.a, M.b, M.c, M.d, M.e, M.f) //Matrices in DM always only have these 6 elements (for now?) so this hardcode should be fine
 		)
 
 	else if (istype(value, /datum))
 		var/datum/DV = value
-		if ("[DV]" != "[DV.type]") //if the thing as a name var, lets use it.
+		if ("[DV]" != "[DV.type]") // If it has a "name" var, let's use it.
 			item = list(
 				"name" = "[varname] [REF(value)]",
 				"value" = "[DV] [DV.type]",
-				"ref" = REF(value)
+				"ref" = REF(value),
 			)
 		else
 			item = list(
 				"name" = "[varname] [REF(value)]",
 				"value" = DV.type,
-				"ref" = REF(value)
+				"ref" = REF(value),
 			)
 
 	else if (islist(value))
 		var/list/L = value
 		var/list/items = list()
 
-		if (L.len > 0 && !(varname == "underlays" || varname == "overlays" || L.len > (IS_NORMAL_LIST(L) ? VV_NORMAL_LIST_NO_EXPAND_THRESHOLD : VV_SPECIAL_LIST_NO_EXPAND_THRESHOLD)))
+		if (L.len > 0 && !(varname == "underlays" || varname == "overlays" || varname == "limb_icon_cache" || L.len > (IS_NORMAL_LIST(L) ? VV_NORMAL_LIST_NO_EXPAND_THRESHOLD : VV_SPECIAL_LIST_NO_EXPAND_THRESHOLD)))
 			for (var/i in 1 to L.len)
 				var/key = L[i]
 				var/val
@@ -178,14 +172,14 @@
 				"name" = varname,
 				"value" = "/list ([L.len])",
 				"items" = items,
-				"ref" = REF(value)
+				"ref" = REF(value),
 			)
 		else //Better to not render lists of these, they are usually pretty long
 			item = list(
 				"name" = varname,
 				"value" = "/list ([L.len])",
 				"items" = list(),
-				"ref" = REF(value)
+				"ref" = REF(value),
 			)
 
 	else if (varname in GLOB.bitfields)
@@ -195,12 +189,12 @@
 				flags += i
 			item = list(
 				"name" = varname,
-				"value" = jointext(flags, ", ")
+				"value" = jointext(flags, ", "),
 			)
 	else
 		item = list(
 			"name" = varname,
-			"value" = value
+			"value" = value,
 		)
 
 
