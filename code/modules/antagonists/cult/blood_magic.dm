@@ -139,7 +139,7 @@
 //Cult Blood Spells
 /datum/action/innate/cult/blood_spell/stun
 	name = "Stun"
-	desc = "Empowers your hand to stun and mute a victim on contact."
+	desc = "Empowers your hand to stun and mute a weak-minded victim on contact."
 	button_icon_state = "hand"
 	magic_path = "/obj/item/melee/blood_magic/stun"
 	health_cost = 10
@@ -403,7 +403,7 @@
 //Stun
 /obj/item/melee/blood_magic/stun
 	name = "Forbidden Whispers"
-	desc = "A forgotten word that will drive the target to madness for a short time if their ears are unprotected."
+	desc = "A forgotten word that will drive the target to madness for a short time if their mind is unprotected."
 	color = RUNE_COLOR_RED
 	invocation = "Fuu ma'jin!"
 
@@ -430,7 +430,17 @@
 			if(istype(anti_magic_source, /obj/item))
 				target.visible_message("<span class='warning'>[L] is utterly unphased by your utterance!</span>", \
 									   "<span class='userdanger'>[user] whispers gibberish into your ear. Was that supposed to do something?</span>")
-		else if(L.get_ear_protection() <= 0)
+		else if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
+			var/mob/living/carbon/C = L
+			to_chat(user, "<span class='cultitalic'>Their mind was protected, but you still managed to do some damage!</span>")
+			to_chat(target,"<span class='userdanger'> Your mindshield partially protects you from the heresy of [user]!</span>")
+			C.stuttering += 8
+			C.dizziness += 30
+			C.Jitter(8)
+			C.drop_all_held_items()
+			C.bleed(40)
+			C.apply_damage(60, STAMINA, BODY_ZONE_CHEST)
+		else
 			to_chat(user, "<span class='cultitalic'>[L] falls to the ground, gibbering madly!</span>")
 			L.Paralyze(160)
 			L.flash_act(1,1)
@@ -443,9 +453,6 @@
 				C.stuttering += 15
 				C.cultslurring += 15
 				C.Jitter(15)
-		else
-			target.visible_message("<span class='warning'>[L] can't seem to hear you!</span>", \
-									   "<span class='userdanger'>[user] whispers something to you, but you can't quite make it out through your hearing protection.</span>")
 		uses--
 	..()
 
