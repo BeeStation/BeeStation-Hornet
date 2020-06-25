@@ -54,7 +54,7 @@
 	var/mob/living/simple_animal/hostile/macrophage/phage
 	if(gigagerms)
 		phage = new /mob/living/simple_animal/hostile/macrophage/aggro(M.loc)
-		phage.melee_damage_lower += max(0, A.properties["resistance"])
+		phage.melee_damage += max(0, A.properties["resistance"])
 		M.take_overall_damage(brute = rand(10, 20), required_status = BODYPART_ORGANIC)
 		playsound(M, 'sound/effects/splat.ogg', 50, 1)
 		M.emote("scream")
@@ -63,7 +63,7 @@
 		M.take_overall_damage(brute = rand(1, 7), required_status = BODYPART_ORGANIC)
 	phage.health += A.properties["resistance"]
 	phage.maxHealth += A.properties["resistance"]
-	phage.melee_damage_upper += max(0, A.properties["resistance"])
+	phage.melee_damage += max(0, A.properties["resistance"])
 	phage.infections += A
 	phage.basedisease = A
 	if(A.properties["transmittable"] >= 12)

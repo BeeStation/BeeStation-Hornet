@@ -169,8 +169,8 @@
 
 /obj/machinery/computer/custom_shuttle/proc/SetTargetLocation(var/newTarget)
 	if(!(newTarget in params2list(possible_destinations)))
-		log_admin("[usr] attempted to href dock exploit on [src] with target location \"[newTarget]\"")
-		message_admins("[usr] just attempted to href dock exploit on [src] with target location \"[newTarget]\"")
+		log_admin("[usr] attempted to forge a target location through a href exploit on [src]")
+		message_admins("[ADMIN_FULLMONTY(usr)] attempted to forge a target location through a href exploit on [src]")
 		return
 	targetLocation = newTarget
 	say("Shuttle route calculated.")

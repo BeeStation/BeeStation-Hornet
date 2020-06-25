@@ -1362,10 +1362,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	return
 
-/datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+/datum/species/proc/disarm(mob/living/carbon/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
 		user.visible_message("<span class='userdanger'>Your wrist twists unnaturally as you attempt to shove [target]!</span>", "<span class='warning'>[user]'s wrist twists unnaturally away from [target]!</span>")
-		user.apply_damage(rand(15, 25), BRUTE, pick(list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)))
+		user.apply_damage(15, BRUTE, pick(list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)))
 		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s shoving attempt!</span>", \
@@ -1396,7 +1396,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/shove_blocked = FALSE //Used to check if a shove is blocked so that if it is knockdown logic can be applied
 
 		//Thank you based whoneedsspace
-		target_collateral_human = locate(/mob/living/carbon/human) in target_shove_turf.contents
+		target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
 		if(target_collateral_human)
 			shove_blocked = TRUE
 		else
@@ -1454,7 +1454,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		else
 			user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
 				"<span class='danger'>You shove [target.name]!</span>", null, COMBAT_MESSAGE_RANGE)
-			var/target_held_item = target.get_active_held_item()
+			/*var/target_held_item = target.get_active_held_item()
 			var/knocked_item = FALSE
 			if(!is_type_in_typecache(target_held_item, GLOB.shove_disarming_types))
 				target_held_item = null
@@ -1474,8 +1474,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				if(knocked_item)
 					append_message = "causing them to drop [target_held_item]"
 				else
-					append_message = "loosening their grip on [target_held_item]"
-			log_combat(user, target, "shoved", append_message)
+					append_message = "loosening their grip on [target_held_item]"*/
+			log_combat(user, target, "shoved")
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	return
@@ -1609,7 +1609,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		BP = def_zone
 	else
 		if(!def_zone)
-			def_zone = ran_zone(def_zone)
+			def_zone = check_zone(def_zone)
 		BP = H.get_bodypart(check_zone(def_zone))
 		if(!BP)
 			BP = H.bodyparts[1]

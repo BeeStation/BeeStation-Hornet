@@ -239,7 +239,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 5
 	force_wielded = 24
-	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
+	attack_verb = list("attacked", "chopped", "cleaved", "tore", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	max_integrity = 200
@@ -296,7 +296,7 @@
 	armour_penetration = 35
 	item_color = "green"
 	light_color = "#00ff00"//green
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	block_level = 2
 	block_upgrade_walk = 1
 	block_power = 70
@@ -484,7 +484,7 @@
 	armour_penetration = 10
 	materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharpness = IS_SHARP
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
@@ -593,7 +593,7 @@
 	throw_speed = 2
 	throw_range = 4
 	materials = list(/datum/material/iron=13000)
-	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
+	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = "swing_hit"
 	sharpness = IS_SHARP
 	actions_types = list(/datum/action/item_action/startchainsaw)
@@ -883,7 +883,7 @@
 	embedding = list("embedded_impact_pain_multiplier" = 3)
 	armour_penetration = 15				//Enhanced armor piercing
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharpness = IS_SHARP
 
 /obj/item/twohanded/bonespear/update_icon()
@@ -965,7 +965,7 @@
 	embedding = list("embedded_impact_pain_multiplier" = 2)
 	armour_penetration = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharpness = IS_SHARP
 
 /obj/item/twohanded/bamboospear/update_icon()

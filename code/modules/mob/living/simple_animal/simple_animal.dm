@@ -28,7 +28,7 @@
 	var/response_help   = "pokes"
 	var/response_disarm = "shoves"
 	var/response_harm   = "hits"
-	var/harm_intent_damage = 3
+	var/harm_intent_damage = 6 //the damage dealt to a mob when punched. default is default punch damage
 	var/force_threshold = 0 //Minimum force required to deal any damage
 
 	//Temperature effect
@@ -43,8 +43,7 @@
 	var/unsuitable_atmos_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
 
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
-	var/melee_damage_lower = 0
-	var/melee_damage_upper = 0
+	var/melee_damage = 0
 	var/obj_damage = 0 //how much damage this simple animal does to objects, if any
 	var/armour_penetration = 0 //How much armour they ignore, as a flat reduction from the targets armour value
 	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
@@ -53,6 +52,7 @@
 	var/attack_sound = null
 	var/friendly = "nuzzles" //If the mob does no damage with it's attack
 	var/environment_smash = ENVIRONMENT_SMASH_NONE //Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
+	var/hardattacks = FALSE //if true, a simplemob is unaffected by NASTY_BLOCKING
 
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
 

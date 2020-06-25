@@ -49,7 +49,7 @@
 	force = 30
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "rended")
 
 /obj/item/melee/cultblade/Initialize()
 	. = ..()
@@ -94,7 +94,7 @@
 	throw_range = 3
 	sharpness = IS_SHARP
 	light_color = "#ff0000"
-	attack_verb = list("cleaved", "slashed", "torn", "hacked", "ripped", "diced", "carved")
+	attack_verb = list("cleaved", "slashed", "tore", "hacked", "ripped", "diced", "carved")
 	icon_state = "cultbastard"
 	item_state = "cultbastard"
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -629,7 +629,7 @@
 	throw_speed = 2
 	armour_penetration = 30
 	block_upgrade_walk = 1
-	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
+	attack_verb = list("attacked", "impaled", "stabbed", "tore", "gored")
 	sharpness = IS_SHARP
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/datum/action/innate/cult/spear/spear_act

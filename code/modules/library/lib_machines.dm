@@ -84,21 +84,21 @@
 			title = sanitize(newtitle)
 		else
 			title = null
-		title = sanitizeSQL(title)
+		title = sanitize(title)
 	if(href_list["setcategory"])
 		var/newcategory = input("Choose a category to search for:") in list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion")
 		if(newcategory)
 			category = sanitize(newcategory)
 		else
 			category = "Any"
-		category = sanitizeSQL(category)
+		category = sanitize(category)
 	if(href_list["setauthor"])
 		var/newauthor = input("Enter an author to search for:") as text|null
 		if(newauthor)
 			author = sanitize(newauthor)
 		else
 			author = null
-		author = sanitizeSQL(author)
+		author = sanitize(author)
 	if(href_list["search"])
 		SQLquery = "SELECT author, title, category, id FROM [format_table_name("library")] WHERE isnull(deleted) AND "
 		if(category == "Any")
@@ -416,25 +416,19 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 					if (SSdbcore.Connect())//removed the ! as a testing
 						alert("Connection to Archive has been severed. Aborting.")
 					else
-						to_chat(usr, "Your book has been sent to your employers for approval.")
-						response_timer_id = addtimer(CALLBACK(src, .proc/accept_proposed, .proc/reject_proposed), approval_time, TIMER_STOPPABLE)
-						to_chat(GLOB.admins, "<span class='adminnotice'><b><font color=orange>LIBRARY UPLOAD:</font></b>[ADMIN_LOOKUPFLW(usr)] proposes to upload the book titled [scanner.cache.name] to the library (will autodeny in [DisplayTimeText(approval_time)]). [ADMIN_SMITE(usr)] (<A HREF='?_src_=holder;[HrefToken(TRUE)];accept_proposed=[REF(src)]'>ACCEPT</A>) (<A HREF='?_src_=holder;[HrefToken(TRUE)];reject_proposed=[REF(src)]'>REJECT</A>) [ADMIN_CENTCOM_REPLY(usr)]</span>")
-
-						//var/sqltitle = sanitizeSQL(scanner.cache.name)
-						//var/sqlauthor = sanitizeSQL(scanner.cache.author)
-						//var/sqlcontent = sanitizeSQL(scanner.cache.dat)
-						//var/sqlcategory = sanitizeSQL(upload_category)
-						//var/sqlckey = sanitizeSQL(usr.ckey)
-						//var/msg = "[key_name(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs"
-						//var/datum/DBQuery/query_library_upload = SSdbcore.NewQuery("INSERT INTO [format_table_name("library")] (author, title, content, category, ckey, datetime, round_id_created) VALUES ('[sqlauthor]', '[sqltitle]', '[sqlcontent]', '[sqlcategory]', '[sqlckey]', Now(), '[GLOB.round_id]')")
-						//if(!query_library_upload.Execute())
-							//qdel(query_library_upload)
-							//alert("Database error encountered uploading to Archive")
-							//return
-						//else
-							//log_game(msg)
-							//qdel(query_library_upload)
-							//alert("Upload Complete. Uploaded title will be unavailable for printing for a short period")
+						var/msg = "[key_name(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs"
+						var/datum/DBQuery/query_library_upload = SSdbcore.NewQuery({"
+							INSERT INTO [format_table_name("library")] (author, title, content, category, ckey, datetime, round_id_created)
+							VALUES (:author, :title, :content, :category, :ckey, Now(), :round_id)
+						"}, list("title" = scanner.cache.name, "author" = scanner.cache.author, "content" = scanner.cache.dat, "category" = upload_category, "ckey" = usr.ckey, "round_id" = GLOB.round_id))
+						if(!query_library_upload.Execute())
+							qdel(query_library_upload)
+							alert("Database error encountered uploading to Archive")
+							return
+						else
+							log_game(msg)
+							qdel(query_library_upload)
+							alert("Upload Complete. Uploaded title will be unavailable for printing for a short period")
 	if(href_list["newspost"])
 		if(!GLOB.news_network)
 			alert("No news network found on station. Aborting.")
@@ -457,14 +451,17 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 					href_list["targetid"] = num2text(orderid)
 
 	if(href_list["targetid"])
-		var/sqlid = sanitizeSQL(href_list["targetid"])
+		var/id = href_list["targetid"]
 		if (!SSdbcore.Connect())
 			alert("Connection to Archive has been severed. Aborting.")
 		if(cooldown > world.time)
 			say("Printer unavailable. Please allow a short time before attempting to print.")
 		else
 			cooldown = world.time + PRINTER_COOLDOWN
-			var/datum/DBQuery/query_library_print = SSdbcore.NewQuery("SELECT * FROM [format_table_name("library")] WHERE id=[sqlid] AND isnull(deleted)")
+			var/datum/DBQuery/query_library_print = SSdbcore.NewQuery(
+				"SELECT * FROM [format_table_name("library")] WHERE id=:id AND isnull(deleted)",
+				list("id" = id)
+			)
 			if(!query_library_print.Execute())
 				qdel(query_library_print)
 				say("PRINTER ERROR! Failed to print document (0x0000000F)")
