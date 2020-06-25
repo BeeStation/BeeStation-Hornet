@@ -34,6 +34,18 @@
 	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (OXYLOSS)
 
+/obj/item/storage/pill_bottle/dice_cup
+	name = "dice cup"
+	desc = "For rolling several dice at once. A favorite of street urchins."
+	icon = 'icons/obj/dice.dmi'
+	icon_state = "dicecup"
+
+/obj/item/storage/pill_bottle/dice_cup/attack_self(mob/user)
+	var/turf/throw_target = get_step(loc,user.dir) //with telekinesis, throws the direction the user is facing
+	for(var/obj/item/dice/die in src)
+		die.forceMove(drop_location())
+		die.throw_at(throw_target,1,1,user)
+
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
 	name = "die"
 	desc = "A die with six sides. Basic and serviceable."
@@ -53,6 +65,10 @@
 	if(!result)
 		result = roll(sides)
 	update_icon()
+
+/obj/item/dice/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[result] is face up.</span>"
 
 /obj/item/dice/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
