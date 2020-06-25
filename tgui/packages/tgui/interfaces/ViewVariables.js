@@ -247,7 +247,7 @@ export const ViewVariables = (props, context) => {
       <Button
         fluid
         content={item[1]}
-        onClick={() => act(item[0])} />
+        onClick={() => act(item[0], { target: objectinfo.ref })} />
     );
   };
 

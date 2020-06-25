@@ -159,38 +159,6 @@
 	if(view_var_Topic2(action, params))
 		return TRUE //quick reminder for anyone code diving: returning TRUE makes the UI update.
 
-	//CRASH("hm")
-	/*
-	switch(action)
-		if("refresh")
-			update_static_data(usr)
-			return TRUE //quick reminder for anyone code diving: returning TRUE makes the UI update.
-
-		if("view")
-			var/target = params["target"]
-			message_admins("Boi ok. What is target? '[target]'")
-			C.trigg_VV(locate(target))
-			return
-
-		if("edit")
-			if(!check_rights(NONE))
-				return
-
-			var/datum/D = locate(params["targetdatum"])
-			if(!istype(D, /datum))
-				to_chat(usr, "This can only be used on datums.")
-				return
-
-			if(!C.modify_variables(D, params["targetvar"], TRUE))
-				//staticdata["vars"]["name"] = "FUCK FUCK FUCK"
-				//UI.push_data(staticdata)
-				return TRUE
-
-		else
-			message_admins("Hm.. Looks like an unhandled action has been passed to ui_act: Action: '[action]' | Params: '[english_list(params)]'")
-			return
-	*/
-
 #undef VV_TITLE
 
 

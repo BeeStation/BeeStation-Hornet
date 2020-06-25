@@ -133,6 +133,12 @@
 	var/target = GET_VV_TARGET2
 	message_admins("going through view_var_Topic2")
 	C.vv_do_basic2(target, action, params)
+
+	// This goes only one of two ways, partner:
+	// Ya either gave me some type of datum,
+	// in which case we take advantage of
+	// Object Oriented Programming...
+	// Or ya gave me a list, which ain't a datum.
 	if(istype(target, /datum))
 		var/datum/D = target
 		D.vv_do_topic2(action, params)
