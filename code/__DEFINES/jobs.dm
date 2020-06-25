@@ -48,6 +48,7 @@
 #define BARBER		    (1<<15)
 #define MAGICIAN        (1<<16)
 #define HOBO            (1<<17)
+#define SHRINK          (1<<18)
 
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1
