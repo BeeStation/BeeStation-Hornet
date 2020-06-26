@@ -414,7 +414,7 @@
 	if(iscultist(target))
 		return
 	if(iscultist(user))
-		user.visible_message("<span class='warning'>[user] whispers an unintelligable phrase into [L]'s ear.</span>", \
+		user.visible_message("<span class='warning'>[user] floods [L]'s mind with an eldritch energy!</span>", \
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 
 		user.mob_light(_color = LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 2)
@@ -429,7 +429,7 @@
 
 			if(istype(anti_magic_source, /obj/item))
 				target.visible_message("<span class='warning'>[L] is utterly unphased by your utterance!</span>", \
-									   "<span class='userdanger'>[user] whispers gibberish into your ear. Was that supposed to do something?</span>")
+									   "<span class='userdanger'>[GLOB.deity] protects you from the heresy of [user]!</span>")
 		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD))
 			to_chat(user, "<span class='cultitalic'>[L] falls to the ground, gibbering madly!</span>")
 			L.Paralyze(160)
