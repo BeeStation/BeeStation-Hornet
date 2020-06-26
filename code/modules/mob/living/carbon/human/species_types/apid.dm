@@ -21,9 +21,7 @@
 	burnmod = 2
 	staminamod = 2
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
-
-/datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	H.grant_language(/datum/language/apidite)
+	species_language_holder = /datum/language_holder/apid
 
 /datum/species/apid/random_name(gender,unique,lastname)
 	if(unique)
