@@ -1403,8 +1403,8 @@
 	)
 /mob/living/vv_get_dropdown2()
 	. = ..()
-	VV_DROPDOWN_OPTION2("", "---")
-	VV_DROPDOWN_OPTION2(VV_HK_AHEAL, "Rejuvenate")
+	VV_DROPDOWN_OPTION2("", "/mob/living options:")
+	VV_DROPDOWN_OPTION2(VV_HK_AHEAL, "Instant Heal")
 
 /mob/living/vv_do_topic2(action, params)
 	message_admins("Going through mob/living/vv_do_topic2")

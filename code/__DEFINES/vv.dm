@@ -46,6 +46,10 @@
 
 //Helper for getting something to vv_do_topic in general
 #define VV_TOPIC_LINK(datum, href_key, text) "<a href='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(datum)]'>text</a>"
+// For ease when we want to call a proc under admin/topic or something
+// Getting the admin token is already handled in view_var_Topic2()
+// And.. I don't THINK it's exploitable?
+#define VV_PARAMS_2_TOPIC(href_key) params + list(href_key)
 
 //Helpers for vv_get_dropdown()
 #define VV_DROPDOWN_OPTION(href_key, name) . += "<option value='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(src)]'>[name]</option>"
@@ -82,6 +86,10 @@
 #define VV_HK_ADD_REAGENT "addreagent"
 #define VV_HK_TRIGGER_EMP "empulse"
 #define VV_HK_TRIGGER_EXPLOSION "explode"
+
+// /atom/movable
+#define VV_HK_GET "get"
+#define VV_HK_FOLLOW "follow"
 
 // /obj
 #define VV_HK_OSAY "osay"

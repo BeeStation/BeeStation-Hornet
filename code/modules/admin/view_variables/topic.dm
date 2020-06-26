@@ -130,6 +130,8 @@
 /datum/trigg_variables/proc/view_var_Topic2(action, list/params)
 	if( (usr.client != C) || !C.holder )
 		return //This is VV, not meant to be called by anything else.
+
+	params["admin_token"]=RawHrefToken() // Think there have already been enough permission and sanity checks to safely do this
 	var/target = GET_VV_TARGET2
 	message_admins("going through view_var_Topic2")
 	C.vv_do_basic2(target, action, params)

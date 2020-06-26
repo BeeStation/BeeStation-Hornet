@@ -102,7 +102,7 @@
 	if (isnull(value))
 		item = list(
 			"name" = varname,
-			"value" = "",
+			"value" = "null",
 		)
 
 	else if (istext(value))
