@@ -403,7 +403,7 @@
 //Stun
 /obj/item/melee/blood_magic/stun
 	name = "Forbidden Whispers"
-	desc = "A forgotten word that will drive the target to madness for a short time if their ears are unprotected."
+	desc = "A coil of death wrapped around your hand, anyone inflicted with this will have their mind flooded with the forbidden whispers of Nar'Sie, causing them to collapse in to a frenzy if they lack protection for their mind."
 	color = RUNE_COLOR_RED
 	invocation = "Fuu ma'jin!"
 
