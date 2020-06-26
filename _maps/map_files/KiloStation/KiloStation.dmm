@@ -79218,6 +79218,11 @@
 	},
 /turf/closed/wall,
 /area/maintenance/solars/port/fore)
+"sSt" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/flora/rock/pile,
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "sTc" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -91039,7 +91044,7 @@ akO
 bnW
 aeU
 aeU
-aeU
+aUz
 bul
 aeU
 aUz
@@ -91551,7 +91556,7 @@ ahS
 ahS
 ahS
 ahS
-bnW
+sSt
 aeU
 aeU
 bul
@@ -92323,7 +92328,7 @@ bqN
 bqJ
 bnW
 bnW
-aUz
+aeU
 amt
 amx
 bxc
