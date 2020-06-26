@@ -8,6 +8,7 @@
 	ui_x = 870
 	ui_y = 708
 
+	var/bs_drive_name = "Bluespace Drive"
 	var/datum/weakref/linked_bluespace_drive
 
 	//A list of all the icons used on the starmap
@@ -16,6 +17,7 @@
 
 /obj/machinery/computer/system_map/exploration
 	shuttle_id = "exploration"
+	bs_drive_name = "Nanotrasen Bluespace Drive"
 
 /obj/machinery/computer/system_map/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
@@ -65,6 +67,14 @@
 /obj/machinery/computer/system_map/ui_act(action, params)
 	switch(action)
 		if("jump")
+			var/obj/machinery/bluespace_drive/bs_drive = null
+			if(linked_bluespace_drive)
+				bs_drive = linked_bluespace_drive.resolve()
+			if(!bs_drive || QDELETED(bs_drive))
+				say("Your [bs_drive_name] is experiencing issues. Please contact your ships engineer, or report to a repair depot in the sector.")
+				return
+			//Locate Star
+
 			//Locate the BS drive and then trigger jump
 
 			return

@@ -86,7 +86,10 @@ export const StarMapStarList = (props, context) => {
             'Button--color--transparent',
             'Button--ellipsis',
             'Button--selected',
-          ])}>
+          ])}
+          onClick={() => act('jump', {
+            id: jump_destination.id,
+          })} >
           <b>
             {jump_destination.name}
             {jump_destination.dist}
