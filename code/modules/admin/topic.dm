@@ -1126,17 +1126,7 @@
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(L)] to the thunderdome. (Observer.)")
 
 	else if(href_list["revive"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/mob/living/L = locate(href_list["revive"])
-		if(!istype(L))
-			to_chat(usr, "This can only be used on instances of type /mob/living.")
-			return
-
-		L.revive(full_heal = 1, admin_revive = 1)
-		message_admins("<span class='danger'>Admin [key_name_admin(usr)] healed / revived [key_name_admin(L)]!</span>")
-		log_admin("[key_name(usr)] healed / Revived [key_name(L)].")
+		usr.client.cmd_admin_rejuvenate(locate(href_list["revive"]))
 
 	else if(href_list["makeai"])
 		if(!check_rights(R_SPAWN))
