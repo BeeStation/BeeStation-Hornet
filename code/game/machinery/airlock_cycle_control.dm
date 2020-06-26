@@ -298,6 +298,10 @@
 	if(!door.wires.is_cut(WIRE_BOLTS))
 		door.unbolt()
 
+/obj/machinery/advanced_airlock_controller/process()
+	. = ..()
+	process_atmos()
+
 /obj/machinery/advanced_airlock_controller/process_atmos()
 	if((stat & (NOPOWER|BROKEN)) || shorted)
 		update_icon(TRUE)
