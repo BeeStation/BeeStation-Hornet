@@ -626,7 +626,8 @@
 		"vents" = list(),
 		"airlocks" = list(),
 		"skip_timer" = (world.time - skip_timer),
-		"skip_delay" = skip_delay
+		"skip_delay" = skip_delay,
+		"vis_target" = "\ref[vis_target]"
 	)
 
 	if((locked && !user.has_unlimited_silicon_privilege) || (user.has_unlimited_silicon_privilege && aidisabled))
