@@ -71,7 +71,25 @@ export const ViewVariables = (props, context) => {
     entry.name + String(entry.value)
   ));
 
+
   const Label = item => {
+    const LabelOnClick = e => {
+      if (e.shiftKey && e.ctrlKey) {
+        act("massedit", { target: objectinfo.ref, targetvar: item.name });
+      }
+      else if (e.shiftKey) {
+        act("datumchange", { target: objectinfo.ref, targetvar: item.name });
+      }
+      /* nothing for now
+      else if (e.ctrlKey) {
+        act("", { target: item.ref} )
+      }
+      */
+      else {
+        act("datumedit", { target: objectinfo.ref, targetvar: item.name });
+      }
+    };
+
     return (
       <Button
         content={item.name}
@@ -82,6 +100,7 @@ export const ViewVariables = (props, context) => {
         ellipsis
         maxWidth={15}
         color="transparent"
+        /*
         onClick={item.ref
           // if ref is defined, we wanna open it in another
           // window instead of attempting to edit
@@ -90,6 +109,8 @@ export const ViewVariables = (props, context) => {
           : () => act("datumedit", {
             target: objectinfo.ref,
             targetvar: item.name })} />
+        */
+        onClick={e => LabelOnClick(e)} />
     );
   };
 
