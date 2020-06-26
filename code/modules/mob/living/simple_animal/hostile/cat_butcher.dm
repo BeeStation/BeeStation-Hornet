@@ -87,7 +87,7 @@
 			say("I'm a genius!!")
 			if(L.mind && maxHealth <= 300) //if he robusts a tider, he becomes stronger
 				maxHealth += 20
-				adjustHealth(-(maxHealth)) //he heals whenever he finishes
+			adjustHealth(-(maxHealth)) //he heals whenever he finishes
 		else if(L.stat) //quickly heal them up and move on to our next target! 
 			visible_message("[src] injects [L] with an unknown medicine!", "<span class='notice'>You inject [L] with medicine.</span>")
 			L.SetSleeping(0, FALSE)
