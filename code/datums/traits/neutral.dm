@@ -20,14 +20,14 @@
 
 /datum/quirk/foreigner/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(ishuman(H) && !isipc(H) && H.job != "Curator")
-		H.add_blocked_language(/datum/language/common)
+	H.add_blocked_language(/datum/language/common)
+	if(ishuman(H) || isfelinid(H))
 		H.grant_language(/datum/language/uncommon)
 
 /datum/quirk/foreigner/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(ishuman(H) && !isipc(H) && H.job != "Curator")
-		H.remove_blocked_language(/datum/language/common)
+	H.remove_blocked_language(/datum/language/common)
+	if(ishuman(H) || isfelinid(H))
 		H.remove_language(/datum/language/uncommon)
 
 /datum/quirk/vegetarian
