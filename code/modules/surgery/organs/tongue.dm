@@ -11,16 +11,20 @@
 	var/modifies_speech = FALSE
 	var/static/list/languages_possible_base = typecacheof(list(
 		/datum/language/common,
+		/datum/language/uncommon,
 		/datum/language/draconic,
 		/datum/language/codespeak,
 		/datum/language/monkey,
 		/datum/language/narsie,
-		/datum/language/beachbum,
 		/datum/language/ratvar,
+		/datum/language/beachbum,
 		/datum/language/aphasia,
-		/datum/language/piratespeak,
-		/datum/language/rlyehian,
 		/datum/language/apidite,
+		/datum/language/piratespeak,
+		/datum/language/moffic,
+		/datum/language/sylvan,
+		/datum/language/shadowtongue,
+		/datum/language/terrum,
 	))
 
 /obj/item/organ/tongue/Initialize(mapload)
@@ -250,3 +254,11 @@
 		else
 			new_message += message[i]
 	speech_args[SPEECH_MESSAGE] = new_message
+
+/obj/item/organ/tongue/ethereal
+	name = "electric discharger"
+	desc = "A sophisticated ethereal organ, capable of synthesising speech via electrical discharge."
+	icon_state = "electrotongue"
+	say_mod = "crackles"
+	attack_verb = list("shocked", "jolted", "zapped")
+	taste_sensitivity = 101 // Not a tongue, they can't taste shit
