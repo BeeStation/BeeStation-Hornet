@@ -1,6 +1,0 @@
-author: Dingo-Dongler
-delete-after: true
-changes:
-  - rscadd: Added the dice cup, which throws all dice inside it when used. Craftable
-      with two leather.
-  - tweak: Dice now show what side is face up when examined
