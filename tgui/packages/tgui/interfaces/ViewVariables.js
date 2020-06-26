@@ -67,13 +67,9 @@ export const ViewVariables = (props, context) => {
     setSearchText,
   ] = useLocalState(context, 'searchText', '');
 
-  const Search = createSearch(searchText, item => {
-    return item;
-  });
-
-  const varSearch = entry => {
-    return Search(entry.name)||Search(entry.value.toString());
-  };
+  const testSearchTerms = createSearch(searchText, entry => (
+    entry.name + String(entry.value)
+  ));
 
   const Label = item => {
     return (
@@ -145,7 +141,7 @@ export const ViewVariables = (props, context) => {
       }>
       <LabeledList>
         {vars
-          .filter(varSearch)
+          .filter(testSearchTerms)
           .map(Entry)}
       </LabeledList>
 
