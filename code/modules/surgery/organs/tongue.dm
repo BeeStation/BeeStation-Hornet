@@ -10,21 +10,23 @@
 	var/taste_sensitivity = 15 // lower is more sensitive.
 	var/modifies_speech = FALSE
 	var/static/list/languages_possible_base = typecacheof(list(
-		/datum/language/common,
-		/datum/language/uncommon,
-		/datum/language/draconic,
-		/datum/language/codespeak,
-		/datum/language/monkey,
-		/datum/language/narsie,
-		/datum/language/ratvar,
-		/datum/language/beachbum,
 		/datum/language/aphasia,
 		/datum/language/apidite,
-		/datum/language/piratespeak,
+		/datum/language/beachbum,
+		/datum/language/buzzwords,
+		/datum/language/calcic,
+		/datum/language/codespeak,
+		/datum/language/common,
+		/datum/language/draconic,
 		/datum/language/moffic,
-		/datum/language/sylvan,
+		/datum/language/monkey,
+		/datum/language/narsie,
+		/datum/language/piratespeak,
+		/datum/language/ratvar,
 		/datum/language/shadowtongue,
+		/datum/language/sylvan,
 		/datum/language/terrum,
+		/datum/language/uncommon,
 	))
 
 /obj/item/organ/tongue/Initialize(mapload)
