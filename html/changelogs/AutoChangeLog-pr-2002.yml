@@ -1,5 +1,0 @@
-author: xboxnoob
-delete-after: true
-changes:
-  - tweak: Changed pumps in reactor room to volumetrics so they wont get cloged in
-      Metastation (other stations will be done in the future)
