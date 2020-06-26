@@ -1,4 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - server: SQL Query arguments are now logged more reliably.
