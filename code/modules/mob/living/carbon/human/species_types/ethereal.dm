@@ -20,11 +20,6 @@
 	inherent_traits = list(TRAIT_NOHUNGER)
 	sexes = FALSE //no fetish content allowed
 	toxic_food = NONE
-	// Body temperature for ethereals is much higher then humans as they like hotter environments
-	bodytemp_normal = (BODYTEMP_NORMAL + 50)
-	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_SPREAD // about 150C
-	// Cold temperatures hurt faster as it is harder to move with out the heat energy
-	bodytemp_cold_damage_limit = (T20C - 10) // about 10c
 	hair_color = "fixedmutcolor"
 	hair_alpha = 140
 	var/current_color
@@ -135,19 +130,8 @@
 		if(ETHEREAL_CHARGE_LOWPOWER to ETHEREAL_CHARGE_NORMAL)
 			H.throw_alert("ethereal_charge", /obj/screen/alert/etherealcharge, 1)
 			brutemod = 1.5
-		if(ETHEREAL_CHARGE_FULL to ETHEREAL_CHARGE_OVERLOAD)
-			H.throw_alert("ethereal_overcharge", /obj/screen/alert/ethereal_overcharge, 1)
-			apply_damage(0.2, TOX, null, null, H)
-			brutemod = 1.5
-		if(ETHEREAL_CHARGE_OVERLOAD to ETHEREAL_CHARGE_DANGEROUS)
-			H.throw_alert("ethereal_overcharge", /obj/screen/alert/ethereal_overcharge, 2)
-			apply_damage(0.65, TOX, null, null, H)
-			brutemod = 1.75
-			if(prob(10)) //10% each tick for ethereals to explosively release excess energy if it reaches dangerous levels
-				discharge_process(H)
 		else
 			H.clear_alert("ethereal_charge")
-			H.clear_alert("ethereal_overcharge")
 
 /datum/species/ethereal/proc/discharge_process(mob/living/carbon/human/H)
 	to_chat(H, "<span class='warning'>You begin to lose control over your charge!</span>")
