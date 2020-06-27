@@ -113,6 +113,14 @@
 		if(2)
 			owner.nutrition = 250
 			to_chat(owner, "<span class='warning'>Alert: EMP Detected. Cycling battery.</span>")
+			
+/obj/item/organ/stomach/cell/Insert(mob/living/carbon/M, special = 0)
+	..()
+	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
+
+/obj/item/organ/stomach/cell/proc/charge(datum/source, amount, repairs)
+	if(repairs)
+		owner.nutrition += amount //IPCs can feed themselves from a borg recharging station
 
 /obj/item/organ/stomach/ethereal
 	name = "biological battery"
