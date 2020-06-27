@@ -1,6 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - tweak: Push broom must be wielded in both hands to sweep.
-  - bugfix: Push broom no longer causes really bad things to happen if you try to
-      put it in a full backpack.
