@@ -123,7 +123,7 @@
 	..()
 
 /obj/item/organ/stomach/cell/proc/charge(datum/source, amount, repairs)
-	owner.nutrition += amount //IPCs can feed themselves from a borg recharging station
+	owner.nutrition += (amount / 70) //IPCs can feed themselves from a borg recharging station
 
 /obj/item/organ/stomach/ethereal
 	name = "biological battery"
