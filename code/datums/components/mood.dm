@@ -1,4 +1,4 @@
-e#define MINOR_INSANITY_PEN 3
+#define MINOR_INSANITY_PEN 3
 #define MAJOR_INSANITY_PEN 6
 
 /datum/component/mood
