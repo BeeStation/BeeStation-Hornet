@@ -51,7 +51,7 @@
 	UnregisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 	M.RegisterSignal(M, COMSIG_MOB_SAY, /mob/living/carbon/.proc/handle_tongueless_speech)
 
-/obj/item/organ/tongue/could_speak_in_language(datum/language/dt)
+/obj/item/organ/tongue/could_speak_language(datum/language/dt)
 	return is_type_in_typecache(dt, languages_possible)
 
 /obj/item/organ/tongue/lizard
@@ -238,7 +238,7 @@
 	owner.emote("scream")
 	to_chat(owner, "<span class='warning'>Alert: Vocal cords are malfunctioning.</span>")
 
-/obj/item/organ/tongue/robot/can_speak_in_language(datum/language/dt)
+/obj/item/organ/tongue/robot/can_speak_language(datum/language/dt)
 	return TRUE // THE MAGIC OF ELECTRONICS
 
 /obj/item/organ/tongue/robot/handle_speech(datum/source, list/speech_args)
