@@ -44,7 +44,7 @@
 		H.dna.features["moth_wings"] = "Burnt Off"
 		if(flying_species) //This is all exclusive to if the person has the effects of a potion of flight
 			if(H.movement_type & FLYING)
-				ToggleFlight(H)
+				toggle_flight(H)
 				H.Knockdown(1.5 SECONDS)
 			fly.Remove(H)
 			QDEL_NULL(fly)
