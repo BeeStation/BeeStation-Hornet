@@ -906,12 +906,12 @@ GENE SCANNER
 			var/datum/disease/advance/A = D
 			if(A.properties["stealth"] >= (2 + scanner.rating)) //the extrapolator can detect diseases of higher stealth than a normal scanner
 				continue
-			to_chat(user, "<span class='info'><font color='green'><b>[A.name]</b>, stage [A.stage]/5</color></span>")
+			to_chat(user, "<span class='info'><font color='green'><b>[A.name]</b>, stage [A.stage]/5</b><</color></span>")
 			to_chat(user, "<span class='info'><b>[A] has the following symptoms:</b></span>")
 			for(var/datum/symptom/S in A.symptoms)
 				to_chat(user, "<span class='info'>[S.name]</span>")
 		else
-			to_chat(user, "<span class='info'><font color='green'><b>[D.name]</b>, stage [D.stage]/[D.max_stages].</color></span>")
+			to_chat(user, "<span class='info'><font color='green'><b>[D.name]</b>, stage [D.stage]/[D.max_stages].</b></color></span>")
 
 /obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 200)
 	var/list/advancediseases = list()
