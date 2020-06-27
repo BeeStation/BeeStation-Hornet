@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(dbcore)
 		var/datum/DBQuery/Q = I
 		if(world.time - Q.last_activity_time > (5 MINUTES))
 			message_admins("Found undeleted query, please check the server logs and notify coders.")
-			log_sql("Undeleted query: \"[Q.sql]\" LA: [Q.last_activity] LAT: [Q.last_activity_time]")
+			log_sql("Undeleted query: \"[Q.sql]\" ARGS: \"[list2params(Q.arguments)]\" LA: [Q.last_activity] LAT: [Q.last_activity_time]")
 			qdel(Q)
 		if(MC_TICK_CHECK)
 			return
@@ -346,12 +346,13 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	. = run_query(async)
 	var/timed_out = !. && findtext(last_error, "Operation timed out")
 	if(!. && log_error)
-		log_sql("[last_error] | Query used: [sql]")
+		log_sql("[last_error] | Query used: [sql] | Arguments: [list2params(arguments)]")
 	if(!async && timed_out)
 		log_query_debug("Query execution started at [start_time]")
 		log_query_debug("Query execution ended at [REALTIMEOFDAY]")
 		log_query_debug("Slow query timeout detected.")
 		log_query_debug("Query used: [sql]")
+		log_query_debug("Arguments: [list2params(arguments)]")
 		slow_query_check()
 
 /datum/DBQuery/proc/run_query(async)

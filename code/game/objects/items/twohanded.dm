@@ -1006,7 +1006,10 @@
 	. = ..()
 	if(!proximity)
 		return
-	sweep(user, A, FALSE)
+	if(wielded)
+		sweep(user, A, FALSE)
+	else
+		to_chat(user, "<span class='warning'>You need to wield \the [src] in both hands to sweep!</span>")
 
 /obj/item/twohanded/pushbroom/proc/sweep(mob/user, atom/A, moving = TRUE)
 	var/turf/target
@@ -1014,9 +1017,9 @@
 		if (isturf(A))
 			target = A
 		else
-			target = A.loc
+			target = get_turf(A)
 	else
-		target = user.loc
+		target = get_turf(user)
 	if (locate(/obj/structure/table) in target.contents)
 		return
 	var/i = 0
