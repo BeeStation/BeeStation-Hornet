@@ -23,6 +23,7 @@
 		/datum/language/narsie,
 		/datum/language/piratespeak,
 		/datum/language/ratvar,
+		/datum/language/rlyehian,
 		/datum/language/shadowtongue,
 		/datum/language/sylvan,
 		/datum/language/terrum,
