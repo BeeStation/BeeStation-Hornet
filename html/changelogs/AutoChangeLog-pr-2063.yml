@@ -1,0 +1,4 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - rscdel: Removed default squid names that were against our rules
