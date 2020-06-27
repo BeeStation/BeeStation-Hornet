@@ -16,7 +16,7 @@
 	// Stuff needed to render the map
 	var/map_name
 	var/const/default_map_size = 15
-	var/obj/screen/cam_screen
+	var/obj/screen/map_view/cam_screen
 	var/obj/screen/plane_master/lighting/cam_plane_master
 	var/obj/screen/background/cam_background
 
@@ -126,7 +126,7 @@
 		var/list/visible_turfs = list()
 		for(var/turf/T in (C.isXRay() \
 				? range(C.view_range, C) \
-				: view(C.view_range, C)))
+				: view(C.view_range, get_turf(C))))
 			visible_turfs += T
 
 		var/list/bbox = get_bbox_of_atoms(visible_turfs)
