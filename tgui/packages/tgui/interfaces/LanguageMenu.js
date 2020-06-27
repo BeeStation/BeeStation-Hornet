@@ -91,7 +91,9 @@ export const LanguageMenu = (props, context) => {
                   {' '}
                   Key: ,{language.key}
                   {' '}
-                  {!!language.shadow && '(gained from mob)'}
+                  {language.can_understand
+                    ? 'Can understand.'
+                    : 'Cannot understand.'}
                   {' '}
                   {language.can_speak
                     ? 'Can speak.'
