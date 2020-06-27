@@ -347,10 +347,6 @@
 			clear_event(null, "charge")
 		if(ETHEREAL_CHARGE_ALMOSTFULL to ETHEREAL_CHARGE_FULL)
 			add_event(null, "charge", /datum/mood_event/charged)
-		if(ETHEREAL_CHARGE_FULL to ETHEREAL_CHARGE_OVERLOAD)
-			add_event(null, "charge", /datum/mood_event/overcharged)
-		if(ETHEREAL_CHARGE_OVERLOAD to ETHEREAL_CHARGE_DANGEROUS)
-			add_event(null, "charge", /datum/mood_event/supercharged)
 
 /datum/component/mood/proc/HandleHygiene(mob/living/carbon/human/H)
 	if(H.hygiene <= HYGIENE_LEVEL_DIRTY)
