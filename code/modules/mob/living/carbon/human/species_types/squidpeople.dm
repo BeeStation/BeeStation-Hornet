@@ -20,7 +20,7 @@
     no_equip = list(SLOT_SHOES)
     skinned_type = /obj/item/stack/sheet/animalhide/human
     toxic_food = FRIED
-	species_language_holder = /datum/language_holder/squid
+    species_language_holder = /datum/language_holder/squid
 
 /mob/living/carbon/human/species/squid
     race = /datum/species/squid
