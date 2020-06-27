@@ -123,9 +123,9 @@
 	..()
 
 /obj/item/organ/stomach/cell/proc/charge(datum/source, amount, repairs)
-	if(H.nutrition < NUTRITION_LEVEL_WELL_FED)
+	if(owner.nutrition < NUTRITION_LEVEL_WELL_FED)
 		owner.nutrition += (amount / 10) //IPCs can feed themselves from a borg recharging station
-	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
+	if(owner.nutrition >= NUTRITION_LEVEL_WELL_FED)
 		to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 		return
 
