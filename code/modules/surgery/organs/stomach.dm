@@ -118,9 +118,12 @@
 	..()
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
 
+/obj/item/organ/stomach/cell/Remove(mob/living/carbon/M, special = 0)
+	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
+	..()
+
 /obj/item/organ/stomach/cell/proc/charge(datum/source, amount, repairs)
-	if(repairs)
-		owner.nutrition += amount //IPCs can feed themselves from a borg recharging station
+	owner.nutrition += 100 //IPCs can feed themselves from a borg recharging station
 
 /obj/item/organ/stomach/ethereal
 	name = "biological battery"
