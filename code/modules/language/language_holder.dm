@@ -241,7 +241,7 @@ Key procs
 	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
 								/datum/language/apidite = list(LANGUAGE_ATOM))
 	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
-							/datum/language/adidite = list(LANGUAGE_ATOM))
+							/datum/language/apidite = list(LANGUAGE_ATOM))
 
 /datum/language_holder/clockmob
 	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
