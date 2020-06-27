@@ -135,30 +135,6 @@
 		else
 			H.clear_alert("ethereal_charge")
 
-/datum/species/ethereal/proc/discharge_process(mob/living/carbon/human/H)
-	to_chat(H, "<span class='warning'>You begin to lose control over your charge!</span>")
-	H.visible_message("<span class='danger'>[H] begins to spark violently!</span>")
-	var/static/mutable_appearance/overcharge //shameless copycode from lightning spell
-	overcharge = overcharge || mutable_appearance('icons/effects/effects.dmi', "electricity", EFFECTS_LAYER)
-	H.add_overlay(overcharge)
-	if(do_mob(H, H, 50, 1))
-		H.flash_lighting_fx(5, 7, current_color)
-		var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
-		playsound(H, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
-		H.cut_overlay(overcharge)
-		tesla_zap(H, 2, stomach.crystal_charge*50, ZAP_OBJ_DAMAGE | ZAP_ALLOW_DUPLICATES)
-		if(istype(stomach))
-			stomach.adjust_charge(100 - stomach.crystal_charge)
-		to_chat(H, "<span class='warning'>You violently discharge energy!</span>")
-		H.visible_message("<span class='danger'>[H] violently discharges energy!</span>")
-		if(prob(10)) //chance of developing heart disease to dissuade overcharging oneself
-			var/datum/disease/D = new /datum/disease/heart_failure
-			H.ForceContractDisease(D)
-			to_chat(H, "<span class='userdanger'>You're pretty sure you just felt your heart stop for a second there..</span>")
-			H.playsound_local(H, 'sound/effects/singlebeat.ogg', 100, 0)
-		H.Paralyze(100)
-		return
-
 /datum/species/ethereal/proc/get_charge(mob/living/carbon/H) //this feels like it should be somewhere else. Eh?
 	var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
 	if(istype(stomach))
