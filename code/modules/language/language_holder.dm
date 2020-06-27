@@ -383,7 +383,7 @@ Key procs
 	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
 							/datum/language/shadowtongue = list(LANGUAGE_ATOM))
 
-/datum/language_holder_squid
+/datum/language_holder/squid
 	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
 								/datum/language/rlyehian = list(LANGUAGE_ATOM))
 	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
