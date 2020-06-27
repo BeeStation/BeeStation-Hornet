@@ -126,7 +126,7 @@
 	if(owner.nutrition < NUTRITION_LEVEL_WELL_FED)
 		owner.nutrition += (amount / 10) //IPCs can feed themselves from a borg recharging station
 	if(owner.nutrition >= NUTRITION_LEVEL_WELL_FED)
-		to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+		to_chat(owner, "<span class='warning'>You are already fully charged!</span>")
 		return
 
 /obj/item/organ/stomach/ethereal
