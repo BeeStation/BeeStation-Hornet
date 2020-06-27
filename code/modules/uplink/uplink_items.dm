@@ -1977,6 +1977,13 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/storage/box/syndie_kit/mimery
 	restricted_roles = list("Mime")
 	surplus = 0
+/datum/uplink_item/role_restricted/mime_sword
+	name = "Baguette Sword"
+	desc = "An ancient french weapon, its monomolecular edge is capable of cutting through flesh and bone with ease. Only a true mime can use it."
+	cost = 14
+	item = /obj/item/storage/belt/sabre/mime
+	restricted_roles = list("Mime")
+	surplus = 0
 
 /datum/uplink_item/role_restricted/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"

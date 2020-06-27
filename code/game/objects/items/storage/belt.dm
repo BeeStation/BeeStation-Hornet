@@ -699,6 +699,33 @@
 	item_state = "bustinbelt"
 	item_color = "bustinbelt"
 
+/obj/item/storage/belt/sabre/mime
+	name = "baguette"
+	desc = "What a nice baguette...WAIT A MINUTE"
+	icon_state = "m_sheath"
+	item_state = "m_sheath"
+	w_class = WEIGHT_CLASS_BULKY
+/obj/item/storage/belt/sabre/mime/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.can_hold = typecacheof(list(
+		/obj/item/melee/baguette_sword
+		))
+/obj/item/storage/belt/sabre/mime/update_icon()
+	icon_state = "m_sheath"
+	item_state = "m_sheath"
+	desc = "Bon appetit!"
+	if(contents.len)
+		icon_state += "-sabre"
+		item_state += "-sabre"
+	if(loc && isliving(loc))
+		var/mob/living/L = loc
+		L.regenerate_icons()
+	..()
+
+/obj/item/storage/belt/sabre/mime/PopulateContents()
+	new/obj/item/melee/baguette_sword(src)
+	update_icon()
 /obj/item/storage/belt/sabre
 	name = "sabre sheath"
 	desc = "An ornate sheath designed to hold an officer's blade."

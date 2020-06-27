@@ -135,7 +135,53 @@
 		user.adjustBruteLoss(200)
 		user.death(FALSE)
 	REMOVE_TRAIT(src, TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
+/obj/item/melee/baguette_sword
+	name = "baguette sword"
+	desc = "An ancient french weapon, its monomolecular edge is capable of cutting through flesh and bone with ease. Only a true mime can use it."
+	icon_state = "baguette_sword"
+	item_state = "baguette_sword"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	flags_1 = CONDUCT_1
+	force = 15
+	block_level = 1
+	block_upgrade_walk = 1
+	block_power = 50
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	throwforce = 10
+	w_class = WEIGHT_CLASS_BULKY
+	armour_penetration = 80
+	sharpness = IS_SHARP
+	attack_verb = list("slashed", "cut")
+	hitsound = 'sound/weapons/rapierhit.ogg'
 
+/obj/item/melee/baguette_sword/Initialize()
+	. = ..()
+	AddComponent(/datum/component/butchering, 30, 95, 5) //fast and effective, but as a sword, it might damage the results.
+
+/obj/item/melee/baguette_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 5 //I dobut anyone will be lucky enough to reflect a projectile but why not
+	return ..()
+
+/obj/item/melee/baguette_sword/on_exit_storage(datum/component/storage/concrete/S)
+	var/obj/item/storage/belt/sabre/B = S.real_location()
+	if(istype(B))
+		playsound(B, 'sound/items/unsheath.ogg', 25, TRUE)
+
+/obj/item/melee/baguette_sword/on_enter_storage(datum/component/storage/concrete/S)
+	var/obj/item/storage/belt/sabre/B = S.real_location()
+	if(istype(B))
+		playsound(B, 'sound/items/sheath.ogg', 25, TRUE)
+/obj/item/melee/baguette_sword/attack(mob/target, mob/living/carbon/human/user)
+	if(user.mind && user.mind.assigned_role == "Mime")
+		return ..()
+	else
+		user.visible_message("<span class='warning'>[user] somehow manages to stab [user.p_them()]self!</span>", "<span class='userdanger'>You somehow stab yourself! What the fuck?</span>")
+		user.emote("scream")
+		user.drop_all_held_items()
+		user.Paralyze(40)
+		user.apply_damage(rand(force/30, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_CHEST,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG,BODY_ZONE_HEAD))
 /obj/item/melee/classic_baton
 	name = "classic baton"
 	desc = "A wooden truncheon for beating criminal scum."
