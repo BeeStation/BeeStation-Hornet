@@ -1,3 +1,4 @@
+
 #define ETHEREAL_COLORS list("#00ffff", "#ffc0cb", "#9400D3", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FF7F00", "#FF0000")
 
 /datum/species/ethereal
@@ -23,6 +24,7 @@
 	hair_color = "fixedmutcolor"
 	hair_alpha = 140
 	var/current_color
+	var/ethereal_charge = ETHEREAL_CHARGE_FULL
 	var/EMPeffect = FALSE
 	var/emageffect = FALSE
 	var/r1
@@ -162,3 +164,9 @@
 	if(istype(stomach))
 		return stomach.crystal_charge
 	return ETHEREAL_CHARGE_NONE
+	
+/datum/species/ethereal/proc/adjust_charge(var/change)
+	ethereal_charge = CLAMP(ethereal_charge + change, ETHEREAL_CHARGE_NONE, ETHEREAL_CHARGE_FULL)
+
+/datum/species/ethereal/proc/set_charge(var/change)
+	ethereal_charge = CLAMP(change, ETHEREAL_CHARGE_NONE, ETHEREAL_CHARGE_FULL)
