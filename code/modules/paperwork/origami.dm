@@ -2,7 +2,7 @@
 	name = "origami"
 	desc = "Paper folded to resemble... something."
 	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "papercrane"
+	icon_state = "scrap"
 	throw_range = 1
 	throw_speed = 1
 	throwforce = 0
@@ -67,17 +67,14 @@
 		internalPaper.attackby(P, user) //spoofed attack to update internal paper.
 		update_icon()
 
-
 	else if(P.is_hot())
-		/*
-		if(user.has_trait(TRAIT_CLUMSY) && prob(10))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 				"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
 			user.dropItemToGround(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
-		*/
 
 		if(!(in_range(user, src))) //to prevent issues as a result of telepathically lighting a paper
 			return
@@ -86,7 +83,6 @@
 		fire_act()
 
 	add_fingerprint(user)
-
 
 /obj/item/origami/papercrane
 	name = "paper crane"
