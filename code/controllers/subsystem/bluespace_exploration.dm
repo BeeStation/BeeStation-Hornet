@@ -6,6 +6,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	priority = FIRE_PRIORITY_EXPLORATION
 	init_order = INIT_ORDER_BS_EXPLORATION
 
+	var/generating = FALSE
+
 	//Starmap generation
 	var/datum/star_system/current_system = null
 	var/list/star_systems = list()
@@ -65,7 +67,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 //Under low load, this wont push the server to the tick limit, since it is spread out and done evenly.
 //More time reliable at low and high tickrates than using CHECK_TICK
 
-/datum/controller/subsystem/bluespace_exploration/proc/wipe_z_level(data_holder)
+/datum/controller/subsystem/bluespace_exploration/proc/wipe_z_level(datum/data_holder/bluespace_exploration/data_holder)
 	var/list/turfs = get_area_turfs(/area, reserved_bs_level.z_value, TRUE)
 	var/list/divided_turfs = list()
 	var/section_process_time = CLEAR_TURF_PROCESSING_TIME / 2	//There are 3 processes, cleaing atoms, cleaing turfs and then reseting atmos
@@ -84,7 +86,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/i = 0
 	continue_wipe(data_holder, divided_turfs, i)
 
-/datum/controller/subsystem/bluespace_exploration/proc/continue_wipe(data_holder, list/divided_turfs, process_num, spawn_ruins = FALSE)
+/datum/controller/subsystem/bluespace_exploration/proc/continue_wipe(datum/data_holder/bluespace_exploration/data_holder, list/divided_turfs, process_num, spawn_ruins = FALSE)
 	var/list_element = (process_num % (CLEAR_TURF_PROCESSING_TIME/2)) + 1
 	switch(process_num)
 		if(0 to (CLEAR_TURF_PROCESSING_TIME/2)-1)
@@ -124,7 +126,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 //===================SPAWNING RUINS PROCS===================
 
 //TODO: Make this slower and spread over a time limit
-/datum/controller/subsystem/bluespace_exploration/proc/place_ruins(data_holder)
+/datum/controller/subsystem/bluespace_exploration/proc/place_ruins(datum/data_holder/bluespace_exploration/data_holder)
 	//(Temp) get randomly created level
 	var/datum/exploration_location/location = new()
 	location.sector_features = list(FEATURE_ASTEROIDS)
@@ -167,7 +169,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	spawn_and_register_shuttle(spawnable_ships["Syndicate Fighter"])
 	addtimer(CALLBACK(src, .proc/on_generation_complete, data_holder), 0)
 
-/datum/controller/subsystem/bluespace_exploration/proc/on_generation_complete(data_holder)
+/datum/controller/subsystem/bluespace_exploration/proc/on_generation_complete(datum/data_holder/bluespace_exploration/data_holder)
 	message_admins("generating shuttle dock")
 	var/datum/data_holder/bluespace_exploration/data = data_holder
 	var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(data.shuttle_id)
@@ -202,8 +204,10 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		shuttle.destination = shuttle.previous
 		message_admins("Docking failed, return shuttle to home")
 	shuttle.setTimer(shuttle.ignitionTime)
+	current_system = data_holder.target_star_system
+	generating = FALSE
 
-/datum/controller/subsystem/bluespace_exploration/proc/generate_z_level(data_holder)
+/datum/controller/subsystem/bluespace_exploration/proc/generate_z_level(datum/data_holder/bluespace_exploration/data_holder)
 	wipe_z_level(data_holder, TRUE)
 
 /datum/controller/subsystem/bluespace_exploration/proc/shuttle_translation(shuttle_id, datum/star_system/system)
@@ -212,6 +216,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttle_id)
 	if(!shuttle)
 		return FALSE
+	if(generating)
+		return FALSE
+	generating = TRUE
 	if(away_mission_port && away_mission_port.get_docked())
 		away_mission_port.delete_after = TRUE
 		away_mission_port.id = null
@@ -225,6 +232,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/datum/data_holder/bluespace_exploration/data_holder = new()
 	data_holder.shuttle_id = shuttle_id
 	data_holder.spawn_ruins = TRUE
+	data_holder.target_star_system = system
 	//Clear the z-level after the shuttle leaves
 	addtimer(CALLBACK(src, .proc/generate_z_level, data_holder), shuttle.ignitionTime + 50, TIMER_UNIQUE)
 
@@ -232,3 +240,4 @@ SUBSYSTEM_DEF(bluespace_exploration)
 /datum/data_holder/bluespace_exploration
 	var/shuttle_id
 	var/spawn_ruins = FALSE
+	var/target_star_system

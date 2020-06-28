@@ -112,6 +112,7 @@ export const StarMapSvg = (props, context) => {
     stars = [],
     links = [],
     icon_cache = [],
+    current_star_loc,
   } = data;
   return (
     <Fragment>
@@ -143,7 +144,7 @@ export const StarMapSvg = (props, context) => {
             }}
             top={(star.y-16)+"px"}
             left={(star.x-16)+"px"} />
-          {star.orbitting
+          {star.id === current_star_loc
             ? (
               <Box
                 position="absolute"

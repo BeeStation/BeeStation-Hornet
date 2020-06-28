@@ -41,7 +41,7 @@
 		var/current_y = text2num(splittext(star, "_")[2])
 		SS.map_x = (current_x * STARMAP_GRID_SIZE) + rand(0, STARMAP_GRID_SIZE)
 		SS.map_y = (current_y * STARMAP_GRID_SIZE) + rand(0, STARMAP_GRID_SIZE)
-		SSbluespace_exploration.star_systems += SS
+		SSbluespace_exploration.star_systems["[SS.unique_id]"] = SS
 	//===========Generate Links===========
 	//! THIS REQUIRES THE LINK POSITIONS TO BE SET UP FIRST TO WORK
 	for(var/star in stars_to_place)

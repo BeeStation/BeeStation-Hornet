@@ -15,8 +15,13 @@ GLOBAL_LIST_INIT(bluespace_drives, list())
 	. = ..()
 	SSbluespace_exploration.spawn_and_register_shuttle(SSbluespace_exploration.spawnable_ships["Syndicate Fighter"])
 
-/obj/machinery/bluespace_drive/proc/engage()
+/obj/machinery/bluespace_drive/proc/engage(datum/star_system/target)
 	if(world.time < cooldown_world_time)
+		say("Bluespace Drive is currently recharging.")
+		return
+	if(target.visited)
+		say("Bluespace instability detected. Cannot return to selected sector.")
 		return
 	//Find what shuttle we are on
-	SSbluespace_exploration.shuttle_translation(shuttle_id)
+	say("Initiating bluespace translation protocols...")
+	SSbluespace_exploration.shuttle_translation(shuttle_id, target)

@@ -74,14 +74,18 @@
 				say("Your [bs_drive_name] is experiencing issues. Please contact your ships engineer, or report to a repair depot in the sector.")
 				return
 			//Locate Star
-
+			var/star_id = params["id"]
+			var/star = SSbluespace_exploration.star_systems[star_id]
+			if(!star)
+				return
 			//Locate the BS drive and then trigger jump
-
+			bs_drive.engage(star)
 			return
 
 /obj/machinery/computer/system_map/ui_data(mob/user)
 	var/list/data = list()
 	data["jump_locations"] = list()
+	data["current_star_loc"] = SSbluespace_exploration.current_system.unique_id
 	for(var/datum/star_system/star as anything in SSbluespace_exploration.current_system.linked_stars)
 		data["jump_locations"] += list(list(
 			"name" = star.name,
@@ -96,12 +100,13 @@
 	data["stars"] = list()
 	data["links"] = list()
 	data["jump_state"] = linked_bluespace_drive ? TRUE : FALSE
-	for(var/datum/star_system/star as anything in SSbluespace_exploration.star_systems)
+	for(var/star_id in SSbluespace_exploration.star_systems)
+		var/datum/star_system/star = SSbluespace_exploration.star_systems[star_id]
 		var/list/formatted_star = list(
 			"name" = star.name,
 			"x" = star.map_x,
 			"y" = star.map_y,
-			"orbitting" = SSbluespace_exploration.current_system == star,
+			"id" = star.unique_id,
 			"can_jump" = SSbluespace_exploration.current_system ? (star in SSbluespace_exploration.current_system.linked_stars) : FALSE,
 		)
 		data["stars"] += list(formatted_star)
