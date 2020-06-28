@@ -35,7 +35,7 @@
 				sql_roles_list += ":role[i]"
 			sql_roles = sql_roles_list.Join(", ")
 		else
-			sql_roles = roles
+			sql_roles = "'[roles]'"
 		var/datum/DBQuery/query_check_ban = SSdbcore.NewQuery({"
 			SELECT 1
 			FROM [format_table_name("ban")]
@@ -888,13 +888,13 @@
 	var/datum/DBQuery/query_edit_ban = SSdbcore.NewQuery({"
 		UPDATE [format_table_name("ban")]
 		SET
-			expiration_time = IF(:duration IS NULL, NULL, bantime + INTERVAL :duration [interval])
+			expiration_time = IF(:duration IS NULL, NULL, bantime + INTERVAL :duration [interval]),
 			applies_to_admins = :applies_to_admins,
 			reason = :reason,
-			gloabl_ban = :global_ban
+			global_ban = :global_ban,
 			ckey = :ckey,
 			ip = INET_ATON(:ip),
-			computerid = :ci
+			computerid = :cid,
 			edits = CONCAT(IFNULL(edits,''), :change_message)
 		WHERE [where]
 	"}, arguments)
