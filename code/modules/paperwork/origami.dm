@@ -47,7 +47,7 @@
 	var/list/stamped = internalPaper.stamped
 	if(stamped)
 		for(var/S in stamped)
-			add_overlay("paperplane_[S]")
+			add_overlay("paper_[S]")
 
 /obj/item/origami/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>You unfold [src].</span>")
