@@ -1,8 +1,8 @@
 /proc/apid_name(gender)
 	if(gender == MALE)
-		return "[pick(GLOB.apid_names_male)] [pick(GLOB.apid_names_last)]"
+		return "Drone [rand(1000, 9999)]"
 	else
-		return "[pick(GLOB.apid_names_female)] [pick(GLOB.apid_names_last)]"
+		return "Worker [rand(1000, 9999)]"
 
 /proc/lizard_name(gender)
 	if(gender == MALE)
