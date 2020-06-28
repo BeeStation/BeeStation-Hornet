@@ -35,7 +35,7 @@
 				sql_roles_list += ":role[i]"
 			sql_roles = sql_roles_list.Join(", ")
 		else
-			sql_roles = roles
+			sql_roles = "'[roles]'"
 		var/datum/DBQuery/query_check_ban = SSdbcore.NewQuery({"
 			SELECT 1
 			FROM [format_table_name("ban")]
