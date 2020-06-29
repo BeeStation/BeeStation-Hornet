@@ -60,6 +60,7 @@
 	gender = NEUTER
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
+	custom_fire_overlay = "paper_onfire_overlay"
 	item_state = "paper"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
@@ -74,6 +75,7 @@
 	color = "white"
 	/// What's actually written on the paper.
 	var/info = ""
+	var/show_written_words = TRUE
 
 	/// The (text for the) stamps on the paper.
 	var/list/stamps			/// Positioning for the stamp in tgui
@@ -155,18 +157,13 @@
 	. = ..()
 	pixel_y = rand(-8, 8)
 	pixel_x = rand(-9, 9)
-	update_icon_state()
+	update_icon()
 
 /obj/item/paper/update_icon()
 
 /obj/item/paper/update_icon_state()
-	if(resistance_flags & ON_FIRE)
-		icon_state = "paper_onfire"
-		return
-	if(info)
-		icon_state = "paper_words"
-		return
-	icon_state = "paper"
+	if(info && show_written_words)
+		icon_state = "[initial(icon_state)]_words"
 
 /obj/item/paper/ui_base_html(html)
 	/// This might change in a future PR
@@ -301,16 +298,11 @@
 
 
 /obj/item/paper/fire_act(exposed_temperature, exposed_volume)
-	..()
-	if(!(resistance_flags & FIRE_PROOF))
-		icon_state = "paper_onfire"
-		info = "<font face=\"[SIGNFONT]\"><i>The paper has been burned. You can't make anything out.</i></font>"
-		stamps = null
+	. = ..()
+	if(!(resistance_flags & FIRE_PROOF) && !(resistance_flags & ON_FIRE))
 		burnt = TRUE
-
-/obj/item/paper/extinguish()
-	..()
-	update_icon()
+		stamps = null
+		info = "<font face=\"[SIGNFONT]\"><i>The paper has been burned. You can't make anything out.</i></font>"
 
 /obj/item/paper/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/default/paper_state/state = new)
 	ui_key = "main-[REF(user)]"
@@ -460,6 +452,7 @@
 	name = "paper scrap"
 	icon_state = "scrap"
 	slot_flags = null
+	show_written_words = FALSE
 
 /obj/item/paper/crumpled/update_icon()
 	return

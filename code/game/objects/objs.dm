@@ -34,6 +34,8 @@
 	var/req_access_txt = "0"
 	var/list/req_one_access
 	var/req_one_access_txt = "0"
+	/// Custom fire overlay icon
+	var/custom_fire_overlay
 
 	/// Set when a player uses a pen on a renamable object
 	var/renamedByPlayer = FALSE
@@ -361,3 +363,10 @@
 //generate_tgm_metadata(thing) handles everything inside the {} for you
 /obj/proc/on_object_saved(var/depth = 0)
 	return ""
+
+/obj/update_overlays()
+	. = ..()
+	if(acid_level)
+		. += GLOB.acid_overlay
+	if(resistance_flags & ON_FIRE)
+		. += custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay
