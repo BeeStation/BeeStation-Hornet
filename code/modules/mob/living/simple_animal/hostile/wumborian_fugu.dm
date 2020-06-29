@@ -138,3 +138,12 @@
 		A.environment_smash |= ENVIRONMENT_SMASH_STRUCTURES | ENVIRONMENT_SMASH_RWALLS
 		to_chat(user, "<span class='info'>You increase the size of [A], giving it a surge of strength!</span>")
 		qdel(src)
+
+/obj/item/fugu_gland/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(scan)
+		to_chat(user, "<span class='info'>[src] has potential for extrapolation.</span>")
+	else
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 4+(rand(1, 5)), /datum/symptom/growth)
+		if(E.create_culture(R, user))
+			qdel(src)
+	return TRUE

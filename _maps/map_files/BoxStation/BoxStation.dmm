@@ -31822,10 +31822,16 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname,
+/obj/structure/table/glass,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/healthanalyzer,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "bIJ" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 4
+	},
+/obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "bIK" = (
@@ -33787,6 +33793,9 @@
 /obj/machinery/airalarm{
 	pixel_y = 23
 	},
+/obj/structure/table/glass,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "bOo" = (
@@ -34056,6 +34065,7 @@
 	dir = 8
 	},
 /obj/machinery/light,
+/obj/machinery/reagentgrinder,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "bOQ" = (
@@ -34995,6 +35005,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/mob/living/simple_animal/pet/hamster/vector,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "bRQ" = (
@@ -37351,6 +37362,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
+/obj/item/extrapolator,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "bYY" = (
@@ -99436,7 +99448,7 @@ bJE
 bof
 bof
 bNd
-bIJ
+bVa
 bPo
 bQE
 bRM
@@ -99694,7 +99706,7 @@ bIo
 bLU
 bNd
 bII
-pRO
+bIJ
 bQD
 bOr
 bMa
@@ -100207,7 +100219,7 @@ bof
 bCR
 bLV
 bNd
-bOm
+bNh
 bPp
 bQF
 bRN
