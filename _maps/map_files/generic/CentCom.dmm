@@ -10613,13 +10613,6 @@
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/grass,
 /area/wizard_station)
-"yL" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "yM" = (
 /obj/structure/table/wood/bar,
 /obj/structure/safe/floor,
@@ -16983,6 +16976,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"Nr" = (
+/obj/structure/window/reinforced/fulltile/indestructable,
+/turf/open/floor/circuit/red,
+/area/ctf)
 "Nt" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -17176,6 +17173,11 @@
 /obj/item/clothing/under/costume/roman,
 /turf/open/floor/wood,
 /area/centcom/holding)
+"OZ" = (
+/obj/structure/window/reinforced/fulltile/indestructable,
+/obj/structure/grille/indestructable,
+/turf/open/floor/circuit/telecomms,
+/area/ctf)
 "Pa" = (
 /obj/machinery/washing_machine,
 /turf/open/floor/plasteel/white,
@@ -17458,6 +17460,11 @@
 /obj/machinery/deepfryer,
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
+"QG" = (
+/obj/structure/grille/indestructable,
+/obj/structure/window/reinforced/fulltile/indestructable,
+/turf/open/floor/circuit/red,
+/area/ctf)
 "QH" = (
 /obj/machinery/chem_master/condimaster{
 	desc = "Used to separate out liquids - useful for purifying botanical extracts. Also dispenses condiments.";
@@ -17506,13 +17513,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod)
-"QP" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "QT" = (
 /obj/machinery/chem_dispenser/drinks,
 /turf/closed/indestructible{
@@ -17889,6 +17889,10 @@
 /obj/effect/turf_decal/tile/brown,
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/two)
+"Te" = (
+/obj/structure/window/reinforced/fulltile/indestructable,
+/turf/open/floor/circuit/telecomms,
+/area/ctf)
 "Tj" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey{
@@ -18018,10 +18022,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
-"TO" = (
-/obj/effect/spawner/structure/window/reinforced/indestructable,
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "TT" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
@@ -18110,10 +18110,6 @@
 /obj/structure/chair/stool/bar,
 /turf/open/floor/wood,
 /area/centcom/holding)
-"UF" = (
-/obj/effect/spawner/structure/window/reinforced/indestructable,
-/turf/open/floor/circuit/red,
-/area/ctf)
 "UH" = (
 /obj/machinery/light{
 	dir = 8
@@ -18372,6 +18368,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"Wx" = (
+/obj/structure/window/reinforced/fulltile/indestructable,
+/obj/structure/grille/indestructable,
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "WA" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/tile/blue{
@@ -18431,10 +18432,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
-"WV" = (
-/obj/effect/spawner/structure/window/reinforced/indestructable,
-/turf/open/floor/circuit/telecomms,
-/area/ctf)
 "WY" = (
 /obj/structure/mineral_door/paperframe{
 	name = "Arcade"
@@ -65776,18 +65773,18 @@ fZ
 Xu
 Xu
 gb
-WV
+Te
 gx
 hC
 ht
-WV
+Te
 gw
 Xu
 Xu
 fZ
-WV
-WV
-WV
+Te
+Te
+Te
 fZ
 aa
 aa
@@ -66536,13 +66533,13 @@ aa
 aa
 aa
 fZ
-WV
-WV
-WV
-WV
-WV
-WV
-WV
+Te
+Te
+Te
+Te
+Te
+Te
+Te
 fZ
 ht
 YF
@@ -67568,9 +67565,9 @@ Xu
 Xu
 Xu
 fZ
-WV
-WV
-WV
+OZ
+OZ
+OZ
 fZ
 fZ
 fZ
@@ -67825,9 +67822,9 @@ Xu
 Xu
 Xu
 fZ
-WV
-WV
-WV
+OZ
+OZ
+OZ
 fZ
 Xu
 Xu
@@ -68849,13 +68846,13 @@ aa
 aa
 aa
 fZ
-WV
-WV
+Te
+Te
 Xu
 Xu
 Xu
-WV
-WV
+Te
+Te
 fZ
 Xu
 Xu
@@ -69107,11 +69104,11 @@ aa
 aa
 fZ
 Qd
-WV
+Te
 Xu
 Xu
 Xu
-WV
+Te
 Qd
 fZ
 Xu
@@ -72720,7 +72717,7 @@ zw
 zw
 zw
 zw
-QP
+gM
 fZ
 fZ
 fZ
@@ -73224,8 +73221,8 @@ Xu
 Xu
 Hz
 fZ
-TO
-TO
+Wx
+Wx
 fZ
 fZ
 gw
@@ -73741,7 +73738,7 @@ fZ
 ZB
 ZB
 hQ
-TO
+Wx
 gw
 gh
 Qi
@@ -73998,7 +73995,7 @@ fZ
 ZB
 ZB
 ZB
-TO
+Wx
 gw
 gh
 Up
@@ -74255,7 +74252,7 @@ YR
 YR
 YR
 YR
-TO
+Wx
 Bt
 gh
 Up
@@ -74512,7 +74509,7 @@ YE
 YE
 YE
 WI
-TO
+Wx
 PB
 gh
 Up
@@ -74769,7 +74766,7 @@ fZ
 gR
 gR
 Rr
-TO
+Wx
 Tw
 gh
 Up
@@ -75026,7 +75023,7 @@ fZ
 gR
 gR
 gR
-TO
+Wx
 Tw
 gh
 UX
@@ -75537,8 +75534,8 @@ gR
 gR
 gq
 fZ
-TO
-TO
+Wx
+Wx
 fZ
 fZ
 Tw
@@ -76061,7 +76058,7 @@ gp
 gp
 gp
 gp
-yL
+ic
 fZ
 fZ
 fZ
@@ -79644,11 +79641,11 @@ aa
 aa
 fZ
 SA
-UF
+Nr
 gR
 gR
 gR
-UF
+Nr
 SA
 fZ
 gR
@@ -79900,13 +79897,13 @@ aa
 aa
 aa
 fZ
-UF
-UF
+Nr
+Nr
 gR
 gR
 gR
-UF
-UF
+Nr
+Nr
 fZ
 gR
 gR
@@ -80932,9 +80929,9 @@ gR
 gR
 gR
 fZ
-UF
-UF
-UF
+QG
+QG
+QG
 fZ
 gR
 gR
@@ -81189,9 +81186,9 @@ gR
 gR
 gR
 fZ
-UF
-UF
-UF
+QG
+QG
+QG
 fZ
 fZ
 fZ
@@ -82213,13 +82210,13 @@ aa
 aa
 aa
 fZ
-UF
-UF
-UF
-UF
-UF
-UF
-UF
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
 fZ
 gd
 Nt
@@ -82995,18 +82992,18 @@ fZ
 gR
 gR
 ge
-UF
+Nr
 ZA
 hC
 PS
-UF
+Nr
 gz
 gR
 gR
 fZ
-WV
-WV
-WV
+Te
+Te
+Te
 fZ
 aa
 aa
