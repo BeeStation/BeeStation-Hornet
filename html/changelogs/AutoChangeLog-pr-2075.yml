@@ -1,0 +1,4 @@
+author: Mick1299
+delete-after: true
+changes:
+  - bugfix: Bot navigation beacon outside engineering on Metastation
