@@ -64450,6 +64450,7 @@
 	name = "Lawyer's Privacy Control";
 	pixel_y = 24
 	},
+/obj/item/cartridge/lawyer,
 /turf/open/floor/wood,
 /area/lawoffice)
 "cdh" = (
