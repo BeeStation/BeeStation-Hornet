@@ -128,11 +128,11 @@
 	var/origami_selected = show_radial_menu(user, src, radial_list)
 	if(!origami_selected || !user || user.stat == DEAD)
 		return
-	user.temporarilyRemoveItemFromInventory(src)
 
 	var/origami_type = origami_nametotype(origami_selected)
 	if(!origami_type)
 		return
+	user.temporarilyRemoveItemFromInventory(src)
 	I = new origami_type(user, src)
 	to_chat(user, "<span class='notice'>You fold [src] into the shape of a [I.name]!</span>")
 	user.put_in_hands(I)
