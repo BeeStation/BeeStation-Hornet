@@ -1,0 +1,7 @@
+author: zeskorion
+delete-after: true
+changes:
+  - balance: you can no longer beat cat surgeon by standing still and facetanking
+      his saw whilst punching
+  - bugfix: cat surgeon properly heals when finishing operations
+  - tweak: cat surgeon is rarer
