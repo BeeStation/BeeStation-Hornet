@@ -99,7 +99,7 @@
 	desc = "Paper folded to look like a frog."
 	icon_state = "paperfrog"
 
-/obj/item/origami/syndicate
+/obj/item/origami/papersyndicate
 	name = "paper S"
 	desc = "Paper folded into the letter S. Could this be the work of a syndicate agent?"
 	icon_state = "papersyndicate"
@@ -111,19 +111,38 @@
 /obj/item/paper/AltClick(mob/living/carbon/user, obj/item/I)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
-	var/list/origami_list = subtypesof(/obj/item/origami)
+
+	var/list/radial_list = list(
+		"Paper plane" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paperplane"),
+		"Paper crane" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "papercrane"),
+		"Paper frog" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paperfrog"),
+		"Paper boat" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paperboat")
+	)
 
 	var/datum/action/innate/origami/origami_action = locate() in user.actions
-	if(!(origami_action))
-		//Not Origami Master
-		origami_list -= /obj/item/origami/paperplane/syndicate
-		origami_list -= /obj/item/origami/syndicate
+	if(origami_action)
+		//Origami Master
+		radial_list["Syndicate paper plane"] = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paperplanesyndicate")
+		radial_list["Paper S"] = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "papersyndicate")
 
-	var/origami_select = input(user, "Choose what kind of origami to make.", "Origami Folding") as null|anything in sortList(origami_list, /proc/cmp_typepaths_asc)
-	if(!origami_select)
+	var/origami_selected = show_radial_menu(user, src, radial_list)
+	if(!origami_selected || !user || user.stat == DEAD)
 		return
 	user.temporarilyRemoveItemFromInventory(src)
 
-	I = new origami_select(user, src)
+	var/origami_type = origami_nametotype(origami_selected)
+	if(!origami_type)
+		return
+	I = new origami_type(user, src)
 	to_chat(user, "<span class='notice'>You fold [src] into the shape of a [I.name]!</span>")
 	user.put_in_hands(I)
+
+//God I wish radial menu just took types. It would clean up rcd code too.
+/proc/origami_nametotype(name)
+	switch(name)
+		if("Paper plane") return /obj/item/origami/paperplane
+		if("Paper crane") return /obj/item/origami/papercrane
+		if("Paper frog") return /obj/item/origami/paperfrog
+		if("Paper boat") return /obj/item/origami/paperboat
+		if("Syndicate paper plane") return /obj/item/origami/paperplane/syndicate
+		if("Paper S") return /obj/item/origami/papersyndicate
