@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - code_imp: Changes some stats to not be multi-column which reduced lag in testing.
