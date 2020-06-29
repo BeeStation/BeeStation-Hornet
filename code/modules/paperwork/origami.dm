@@ -105,8 +105,8 @@
 	icon_state = "papersyndicate"
 
 /obj/item/paper/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>Alt-click [src] to fold it into origami.</span>")
+	. = ..()
+	. += "<span class='notice'>Alt-click [src] to fold it into origami.</span>"
 
 /obj/item/paper/AltClick(mob/living/carbon/user, obj/item/I)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -125,7 +125,7 @@
 		radial_list["Syndicate paper plane"] = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paperplanesyndicate")
 		radial_list["Paper S"] = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "papersyndicate")
 
-	var/origami_selected = show_radial_menu(user, src, radial_list)
+	var/origami_selected = show_radial_menu(user, src, radial_list, require_near = TRUE, tooltips = TRUE)
 	if(!origami_selected || !user || user.stat == DEAD)
 		return
 
