@@ -1,7 +1,6 @@
 //Assassin
 /mob/living/simple_animal/hostile/guardian/assassin
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
@@ -49,8 +48,7 @@
 
 /mob/living/simple_animal/hostile/guardian/assassin/ToggleMode(forced = 0)
 	if(toggle)
-		melee_damage_lower = initial(melee_damage_lower)
-		melee_damage_upper = initial(melee_damage_upper)
+		melee_damage = initial(melee_damage)
 		armour_penetration = initial(armour_penetration)
 		obj_damage = initial(obj_damage)
 		environment_smash = initial(environment_smash)
@@ -67,8 +65,7 @@
 		if(src.loc == summoner)
 			to_chat(src, "<span class='danger'><B>You have to be manifested to enter stealth!</span></B>")
 			return
-		melee_damage_lower = 50
-		melee_damage_upper = 50
+		melee_damage = 50
 		armour_penetration = 100
 		obj_damage = 0
 		environment_smash = ENVIRONMENT_SMASH_NONE

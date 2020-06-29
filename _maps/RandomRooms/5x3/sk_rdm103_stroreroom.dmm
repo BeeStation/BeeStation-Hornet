@@ -32,6 +32,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
+"r" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"s" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -40,11 +49,11 @@ d
 "}
 (2,1,1) = {"
 a
-c
+s
 e
 "}
 (3,1,1) = {"
-b
+r
 b
 c
 "}
@@ -55,6 +64,6 @@ f
 "}
 (5,1,1) = {"
 a
-b
+r
 g
 "}

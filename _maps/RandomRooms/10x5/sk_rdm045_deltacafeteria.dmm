@@ -307,6 +307,14 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/template_noop)
+"R" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"Y" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plasteel/white,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -367,7 +375,7 @@ x
 (9,1,1) = {"
 i
 p
-o
+Y
 p
 y
 "}
@@ -375,6 +383,6 @@ y
 j
 q
 p
-o
+R
 z
 "}

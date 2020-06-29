@@ -77,6 +77,10 @@
 /obj/structure/mecha_wreckage/ripley,
 /turf/open/floor/plating,
 /area/template_noop)
+"p" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plating,
+/area/template_noop)
 "s" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
@@ -252,7 +256,7 @@ h
 N
 J
 i
-N
+p
 O
 "}
 (6,1,1) = {"
@@ -271,7 +275,7 @@ x
 "}
 (8,1,1) = {"
 y
-N
+p
 s
 D
 c

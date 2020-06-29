@@ -4,8 +4,7 @@
 	icon_state = "macrovirus_small"
 	speak_emote = list("Blubbers")
 	emote_hear = list("Blubbers")
-	melee_damage_lower = 1
-	melee_damage_upper = 1
+	melee_damage = 1
 	attacktext = "pierces"
 	response_help  = "shoos"
 	response_disarm = "swats away"
@@ -47,6 +46,16 @@
 	if(alreadyinfected)
 		return FALSE
 
+/mob/living/simple_animal/hostile/macrophage/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(scan)
+		E.scan(src, infections, user)
+	else
+		if(E.create_culture(basedisease, user))
+			dust()
+			user.visible_message("<span class='danger'>[user] stabs [src] with [E], sucking it up!</span>", \
+	 				 "<span class='danger'>You stab [src] with [E]'s probe, destroying it!</span>")
+	return TRUE
+
 /mob/living/simple_animal/hostile/macrophage/AttackingTarget()
 	. = ..()
 	if(. && isliving(target))
@@ -69,8 +78,7 @@
 	name = "Giant Germ"
 	desc = "An incredibly huge virus!"
 	icon_state = "macrovirus_large"
-	melee_damage_lower = 5
-	melee_damage_upper = 5
+	melee_damage = 5
 	maxHealth = 20
 	health = 20
 	aggressive = TRUE
@@ -82,8 +90,7 @@
 	var/datum/disease/advance/random/macrophage/D = new
 	health += D.properties["resistance"]
 	maxHealth += D.properties["resistance"]
-	melee_damage_upper += max(0, D.properties["resistance"])
-	melee_damage_lower += max(0, D.properties["resistance"])
+	melee_damage += max(0, D.properties["resistance"])
 	infections += D
 	basedisease = D
 

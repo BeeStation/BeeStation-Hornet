@@ -1,7 +1,6 @@
 //Standard
 /mob/living/simple_animal/hostile/guardian/punch
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage = 20
 	obj_damage = 80
 	next_move_modifier = 0.8 //attacks 20% faster
 	environment_smash = ENVIRONMENT_SMASH_WALLS

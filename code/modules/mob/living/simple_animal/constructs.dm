@@ -33,6 +33,7 @@
 	initial_language_holder = /datum/language_holder/construct
 	deathmessage = "collapses in a shattered heap."
 	hud_type = /datum/hud/constructs
+	hardattacks = TRUE
 	var/list/construct_spells = list()
 	var/playstyle_string = "<span class='big bold'>You are a generic construct!</span><b> Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/master = null
@@ -126,8 +127,7 @@
 	response_harm = "harmlessly punches"
 	harm_intent_damage = 0
 	obj_damage = 90
-	melee_damage_lower = 25
-	melee_damage_upper = 25
+	melee_damage = 25
 	attacktext = "smashes their armored gauntlet into"
 	speed = 2.5
 	environment_smash = ENVIRONMENT_SMASH_WALLS
@@ -193,8 +193,7 @@
 	icon_living = "floating"
 	maxHealth = 65
 	health = 65
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage = 20
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -249,10 +248,8 @@
 	maxHealth = 50
 	health = 50
 	response_harm = "viciously beats"
-	harm_intent_damage = 5
 	obj_damage = 60
-	melee_damage_lower = 5
-	melee_damage_upper = 5
+	melee_damage = 5
 	retreat_distance = 10
 	minimum_distance = 10 //AI artificers will flee like fuck
 	attacktext = "rams"
@@ -295,7 +292,7 @@
 		if(isconstruct(L) && L.health >= L.maxHealth) //is this target an unhurt construct? stop trying to heal it
 			LoseTarget()
 			return 0
-		if(L.health <= melee_damage_lower+melee_damage_upper) //ey bucko you're hurt as fuck let's go hit you
+		if(L.health <= melee_damage) //ey bucko you're hurt as fuck let's go hit you
 			retreat_distance = null
 			minimum_distance = 1
 
@@ -343,8 +340,7 @@
 	maxHealth = 40
 	health = 40
 	sight = SEE_MOBS
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage = 15
 	attacktext = "butchers"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/area_conversion,
