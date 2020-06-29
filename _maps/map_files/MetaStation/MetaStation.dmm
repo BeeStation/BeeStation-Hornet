@@ -44820,17 +44820,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"bHn" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=13.3-Engineering-Central";
-	location = "13.2-Tcommstore"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plasteel,
-/area/hallway/primary/starboard)
 "bHo" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -85622,6 +85611,17 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"sJB" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=14-Starboard-Central";
+	location = "13.2-Tcommstore"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "sJW" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/engine/break_room)
@@ -126060,7 +126060,7 @@ bAy
 bAy
 bDN
 bFD
-bHn
+sJB
 bIG
 bKt
 bLV
