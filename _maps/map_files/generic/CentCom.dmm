@@ -2340,22 +2340,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
-"gf" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "gg" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -11114,6 +11098,15 @@
 /obj/item/reagent_containers/food/snacks/carpmeat,
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
+"zW" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/east,
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "zX" = (
 /obj/structure/table,
 /obj/machinery/light{
@@ -11398,6 +11391,18 @@
 "AH" = (
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/one)
+"AJ" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/north,
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "AL" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/seclite,
@@ -16895,19 +16900,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/ctf)
-"MY" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/railing{
-	dir = 5
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "Nd" = (
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
@@ -16999,6 +16991,20 @@
 /obj/machinery/recharge_station,
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"Nx" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/structure/window/reinforced/spawner/north,
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "Ny" = (
 /obj/machinery/modular_computer/console/preset/research,
 /obj/machinery/light{
@@ -17372,6 +17378,17 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
+"Qb" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/west,
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "Qd" = (
 /obj/machinery/power/emitter/ctf{
 	dir = 8
@@ -17419,22 +17436,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
-/turf/open/floor/plasteel/dark,
-/area/ctf)
-"Qp" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/railing{
-	dir = 1
-	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "Qq" = (
@@ -17521,33 +17522,18 @@
 	smooth = 1
 	},
 /area/centcom/holding)
-"QU" = (
-/obj/structure/railing{
-	dir = 10
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "QW" = (
 /obj/structure/closet/secure_closet/freezer/kitchen{
 	locked = 0
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
-"QX" = (
+"QY" = (
 /obj/effect/turf_decal/tile/blue,
-/obj/structure/railing{
-	dir = 5
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "Rd" = (
@@ -17666,6 +17652,32 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"RG" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner,
+/turf/open/floor/plasteel/dark,
+/area/ctf)
+"RI" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/north,
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "RM" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -17686,19 +17698,6 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
-"RT" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/railing{
-	dir = 6
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "Sd" = (
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
@@ -17920,6 +17919,20 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"To" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/structure/window/reinforced/spawner/north,
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "Tp" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -18123,21 +18136,6 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
-"UL" = (
-/obj/structure/railing{
-	dir = 9
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "UM" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -18339,18 +18337,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"Wp" = (
-/obj/structure/railing{
-	dir = 9
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "Wt" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -18358,16 +18344,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/four)
-"Wu" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "Wx" = (
 /obj/structure/window/reinforced/fulltile/indestructable,
 /obj/structure/grille/indestructable,
@@ -18570,6 +18546,16 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Yb" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner/west,
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "Yd" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -18603,18 +18589,6 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
-"Yp" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "Yq" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
@@ -18733,6 +18707,18 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/holding)
+"Zc" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner,
+/turf/open/floor/plasteel/dark,
+/area/ctf)
 "Zh" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -72976,7 +72962,7 @@ gh
 gh
 Qq
 gh
-Qp
+To
 AF
 AF
 AF
@@ -73233,13 +73219,13 @@ gh
 gh
 Qq
 gh
-QX
-RT
+zW
+Zc
 ZD
 ig
 CS
-MY
-Wu
+AJ
+QY
 fZ
 aa
 aa
@@ -75546,13 +75532,13 @@ gh
 gh
 ge
 gh
-Wp
-QU
+Qb
+RG
 VW
 TI
 DK
-UL
-Yp
+RI
+Yb
 fZ
 aa
 aa
@@ -75803,7 +75789,7 @@ gh
 gh
 ge
 gh
-gf
+Nx
 Pg
 Pg
 Pg
