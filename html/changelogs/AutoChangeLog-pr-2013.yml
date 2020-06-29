@@ -1,0 +1,17 @@
+author: zeskorion
+delete-after: true
+changes:
+  - rscadd: The disease extrapolator, a scanner that can scan or extract diseases
+      and their symptoms, whatever they're in. it spawns in viro and the cmo locker,
+      and virologists start with one
+  - rscadd: mice, vector, old bloodstains, crusty vomit, and used syringes can now
+      contain extractable diseases. A few more minor sources also contain diseases
+      to extract
+  - rscadd: sharing syringes spreads diseases
+  - rscdel: viro no longer spawns with highly potent viral base
+  - tweak: viro now has maint access
+  - tweak: medical lathe can print scanning modules
+  - bugfix: fixed double-viro on box and meta. no idea when it got reverted, and why
+      it was only on two maps...
+  - imageadd: extrapolator sprites
+  - tweak: maint is a bit grosser
