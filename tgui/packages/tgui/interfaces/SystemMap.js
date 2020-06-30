@@ -37,6 +37,7 @@ export const SystemMap = (props, context) => {
 };
 
 export const StarMapNoJump = (props, context) => {
+  const { act } = useBackend(context);
   return (
     <Section>
       <Box
@@ -46,7 +47,10 @@ export const StarMapNoJump = (props, context) => {
           'Button--color--transparent',
           'Button--ellipsis',
           'Button--selected',
-        ])}>
+        ])}
+        onClick={() => act('subjump', {
+          target: "system",
+        })}>
         <b>
           Sol
         </b>
@@ -59,7 +63,10 @@ export const StarMapNoJump = (props, context) => {
           'Button--fluid',
           'Button--color--grey',
           'Button--ellipsis',
-        ])}>
+        ])}
+        onClick={() => act('subjump', {
+          target: "hyperspace",
+        })}>
         <b>
           Hyperspace Travel
         </b>

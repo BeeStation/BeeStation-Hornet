@@ -81,6 +81,24 @@
 			//Locate the BS drive and then trigger jump
 			bs_drive.engage(star)
 			return
+		if("subjump")
+			switch(params["target"])
+				if("hyperspace")
+					var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttle_id)
+					if(!shuttle)
+						return FALSE
+					//Send the shuttle to the transit level
+					shuttle.destination = null
+					shuttle.mode = SHUTTLE_IGNITING
+					shuttle.setTimer(shuttle.ignitionTime)
+				if("system")
+					var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttle_id)
+					if(!shuttle)
+						return FALSE
+					//Send the shuttle to the transit level
+					shuttle.destination = null
+					shuttle.mode = SHUTTLE_IGNITING
+					shuttle.setTimer(shuttle.ignitionTime)
 
 /obj/machinery/computer/system_map/ui_data(mob/user)
 	var/list/data = list()

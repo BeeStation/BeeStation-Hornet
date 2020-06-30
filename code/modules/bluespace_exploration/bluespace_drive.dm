@@ -8,12 +8,6 @@ GLOBAL_LIST_INIT(bluespace_drives, list())
 /obj/machinery/bluespace_drive/Initialize()
 	. = ..()
 	GLOB.bluespace_drives += src
-	if(prob(110))
-		message_admins("hi")
-
-/obj/machinery/bluespace_drive/examine(mob/user)
-	. = ..()
-	SSbluespace_exploration.spawn_and_register_shuttle(SSbluespace_exploration.spawnable_ships["Syndicate Fighter"])
 
 /obj/machinery/bluespace_drive/proc/engage(datum/star_system/target)
 	if(world.time < cooldown_world_time)
