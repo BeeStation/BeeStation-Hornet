@@ -11,4 +11,4 @@
 	if(istype(P) && bring_dragging)
 		P.forceMove(target_location)
 		P.Paralyze(30)
-		to_chat(P, "<span class='warning'>You feel sick and confused as your suddenly appear in a strange, forgotten land.</span>")
+		to_chat(P, "<span class='warning'>You feel sick and confused...</span>")

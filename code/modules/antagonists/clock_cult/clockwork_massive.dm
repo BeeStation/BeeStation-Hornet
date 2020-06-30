@@ -1,3 +1,5 @@
+GLOBAL_LIST_INIT(clockwork_portals, list())
+
 /obj/structure/destructible/clockwork/massive/celestial_gateway
 	name = "ark of the Clockwork Justicar"
 	max_integrity = 250
@@ -101,6 +103,17 @@
 		SEND_SOUND(M, 'sound/magic/clockwork/invoke_general.ogg')
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_assault()
+	priority_announce("Space-time anomalies detected near the station. Source determined to be a temporal\
+		energy pulse eminating from J1523-215. All crew are to enter [text2ratvar("prep#re %o di%")]\
+		and destroy the [text2ratvar("I'd *ik£ to s#e yo! try")], which has been determined to be the source of the\
+		pulse.\n Glory to Nanotrasen.", "Anomaly Alert", 'sound/ai/spanomalies.ogg')
+	var/list/pick_turfs = list()
+	for(var/turf/open/floor/T in world)
+		if(is_station_level(T.z))
+			pick_turfs += T
+	for(var/i in 1 to 100)
+		var/turf/T = pick(pick_turfs)
+		GLOB.clockwork_portals += new /obj/effect/portal/wormhole/clockcult(T, null, 0, null, FALSE)
 	addtimer(CALLBACK(src, .proc/begin_activation), 2400)
 	return
 

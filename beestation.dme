@@ -1355,6 +1355,7 @@
 #include "code\modules\antagonists\clock_cult\structure\clockwork_overlay.dm"
 #include "code\modules\antagonists\clock_cult\structure\clockwork_sigil.dm"
 #include "code\modules\antagonists\clock_cult\structure\clockwork_structure.dm"
+#include "code\modules\antagonists\clock_cult\structure\dimensional_rift.dm"
 #include "code\modules\antagonists\clock_cult\structure\wall_gear.dm"
 #include "code\modules\antagonists\creep\creep.dm"
 #include "code\modules\antagonists\cult\blood_magic.dm"

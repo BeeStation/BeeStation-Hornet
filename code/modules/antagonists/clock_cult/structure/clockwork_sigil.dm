@@ -36,11 +36,11 @@
 		return
 	currently_affecting = AM
 	if(!effect_stand_time)
-		apply_affects(AM)
+		apply_effects(AM)
 		return
 	do_sparks(5, TRUE, src)
 	animate(src, color=invokation_color, alpha=SIGIL_INVOKATION_ALPHA, effect_stand_time)
-	active_timer = addtimer(CALLBACK(src, .proc/apply_affects, AM), effect_stand_time, TIMER_UNIQUE | TIMER_STOPPABLE)
+	active_timer = addtimer(CALLBACK(src, .proc/apply_effects, AM), effect_stand_time, TIMER_UNIQUE | TIMER_STOPPABLE)
 
 /obj/structure/destructible/clockwork/sigil/Uncrossed(atom/movable/AM)
 	. = ..()
@@ -70,7 +70,7 @@
 	alpha = 140
 	animate(src, transform=matrix(), color=idle_color, alpha = initial(alpha), time=5)
 
-/obj/structure/destructible/clockwork/sigil/proc/apply_affects(mob/living/M)
+/obj/structure/destructible/clockwork/sigil/proc/apply_effects(mob/living/M)
 	if(!can_affect(M))
 		fail_invokation()
 		return FALSE
@@ -107,7 +107,7 @@
 		return FALSE
 	return is_convertable_to_clockcult(M)
 
-/obj/structure/destructible/clockwork/sigil/submission/apply_affects(mob/living/M)
+/obj/structure/destructible/clockwork/sigil/submission/apply_effects(mob/living/M)
 	if(!..())
 		M.visible_message("<span class='warning'>[M] resists conversion!</span>")
 		return FALSE
@@ -135,7 +135,7 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/destructible/clockwork/sigil/transgression/apply_affects(mob/living/M)
+/obj/structure/destructible/clockwork/sigil/transgression/apply_effects(mob/living/M)
 	if(!..())
 		return FALSE
 	M.Paralyze(60)

@@ -16,6 +16,8 @@
 	var/invokation_chant_timer = null
 	var/qdel_on_completion = FALSE
 
+	var/sound/recital_sound = null
+
 /datum/clockcult/scripture/New()
 	. = ..()
 	GLOB.clockcult_all_scriptures[name] = src
@@ -55,6 +57,8 @@
 				invokers_left--
 	else
 		clockwork_say(invoker, text2ratvar(invokation_text[text_point]), TRUE)
+	if(recital_sound)
+		SEND_SOUND(invoker, recital_sound)
 	if(text_point < stop_at)
 		invokation_chant_timer = addtimer(CALLBACK(src, .proc/recite, text_point+1, wait_time, stop_at), wait_time, TIMER_STOPPABLE)
 
@@ -161,6 +165,7 @@
 	time_left = use_time
 	invoking_slab.charge_overlay = slab_overlay
 	invoking_slab.update_icon()
+	invoking_slab.active_scripture = src
 	PH.add_ranged_ability(invoker, "<span class='brass'>You prepare [name]. <b>Click on a target to use.</b></span>")
 	count_down()
 	invoke_success()
@@ -179,7 +184,7 @@
 /datum/clockcult/scripture/slab/proc/click_on(atom/A)
 	if(!invoker.can_interact_with(A))
 		return
-	if(apply_affects(A))
+	if(apply_effects(A))
 		uses_left --
 		if(uses_left <= 0)
 			if(after_use_text)
@@ -195,9 +200,10 @@
 	PH.remove_ranged_ability()
 	invoking_slab.charge_overlay = null
 	invoking_slab.update_icon()
+	invoking_slab.active_scripture = null
 	end_invoke()
 
-/datum/clockcult/scripture/slab/proc/apply_affects(atom/A)
+/datum/clockcult/scripture/slab/proc/apply_effects(atom/A)
 	return TRUE
 
 /obj/effect/proc_holder/slab

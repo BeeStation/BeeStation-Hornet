@@ -59,7 +59,7 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 		clockie.special_role = ROLE_SERVANT_OF_RATVAR
 	//Generate clock classes
 	var/id = 1
-	for(var/class_typepath in typesof(/datum/clockcult/servant_class))
+	for(var/class_typepath in subtypesof(/datum/clockcult/servant_class))
 		var/datum/clockcult/servant_class/class = new class_typepath()
 		class.class_ID = id++
 		GLOB.servant_classes[class.class_name] = class
@@ -129,7 +129,9 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 		return FALSE
 	if(ishuman(M) && (M.mind.assigned_role in list("Captain", "Chaplain")))
 		return FALSE
-	if(M.mind.enslaved_to && !is_servant_of_ratvar(M.mind.enslaved_to))
+	if(is_servant_of_ratvar(M.mind.enslaved_to))
+		return FALSE
+	if(M.mind.enslaved_to)
 		return FALSE
 	if(M.mind.unconvertable)
 		return FALSE

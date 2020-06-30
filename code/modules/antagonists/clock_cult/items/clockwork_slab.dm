@@ -6,7 +6,8 @@
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
 
-	var/datum/clockcult/scripture/invoking_scripture
+	var/datum/clockcult/scripture/invoking_scripture	//The scripture currently being invoked
+	var/datum/clockcult/scripture/slab/active_scripture		//For scriptures that power the slab
 	var/datum/progressbar/invokation_bar
 
 	var/holder_class
@@ -81,6 +82,18 @@
 //==================================//
 /obj/item/clockwork/clockwork_slab/attack_self(mob/living/user)
 	. = ..()
+	if(iscultist(user))
+		to_chat(user, "<span class='big_brass'>You shouldn't be playing with my toys...</span>")
+		user.Stun(60)
+		user.adjust_blindness(150)
+		user.electrocute_act(10, "[name]")
+		return
+	if(!is_servant_of_ratvar(user))
+		to_chat(user, "<span class='warning'>You cannot figure out what the device is used for!</span>")
+		return
+	if(active_scripture)
+		active_scripture.end_invokation()
+		return
 	ui_interact(user)
 
 /obj/item/clockwork/clockwork_slab/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)

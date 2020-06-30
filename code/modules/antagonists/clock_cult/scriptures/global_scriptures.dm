@@ -20,6 +20,10 @@
 /datum/clockcult/scripture/abscond/invoke_success()
 	var/turf/T = get_turf(pick(GLOB.servant_spawns))
 	try_warp_servant(invoker, T, TRUE)
+	invoker.filters += filter(type="outline", size=1, color="#AF0AAF")
+	var/prev_alpha = invoker.alpha
+	invoker.alpha = 0
+	animate(invoker, alpha=prev_alpha, time=10)
 	if(invoker.client)
 		animate(invoker.client, color = client_color, time = 25)
 
@@ -42,7 +46,7 @@
 	slab_overlay = "volt"
 	use_time = 150
 
-/datum/clockcult/scripture/slab/kindle/apply_affects(atom/A)
+/datum/clockcult/scripture/slab/kindle/apply_effects(atom/A)
 	var/mob/living/M = A
 	if(!istype(M))
 		return FALSE
@@ -105,7 +109,7 @@
 	slab_overlay = "hateful_manacles"
 	use_time = 200
 
-/datum/clockcult/scripture/slab/hateful_manacles/apply_affects(atom/A)
+/datum/clockcult/scripture/slab/hateful_manacles/apply_effects(atom/A)
 	. = ..()
 	var/mob/living/carbon/M = A
 	if(!istype(M))
@@ -137,9 +141,10 @@
 	button_icon_state = "Spatial Gateway"
 	power_cost = 5
 	invokation_time = 140
-	invokation_text = list("The dimensional viel is faultering...", "...it is time to rise...", "...through stars you shall come...", "...to rise again!")
+	invokation_text = list("Oh great Engine, take my soul...", "...it is time for you to rise...", "...through rifts you shall come...", "...to rise among the stars again!")
 	invokers_required = 2
 	scripture_type = APPLICATION
+	recital_sound = 'sound/magic/clockwork/narsie_attack.ogg'
 
 /datum/clockcult/scripture/ark_activation/check_special_requirements()
 	if(!..())
