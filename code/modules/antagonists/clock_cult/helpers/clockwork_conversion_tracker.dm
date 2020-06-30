@@ -8,9 +8,7 @@ GLOBAL_VAR(critical_servant_count)
 	if(!istype(M))
 		return
 	var/datum/antagonist/servant_of_ratvar/antagdatum = /datum/antagonist/servant_of_ratvar
-	antagdatum = M.mind.add_antag_datum(antagdatum)
-	antagdatum.create_team()
-	return antagdatum
+	return M.mind.add_antag_datum(antagdatum)
 
 /proc/calculate_clockcult_values()
 	var/playercount = get_active_player_count()

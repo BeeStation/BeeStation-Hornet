@@ -113,7 +113,7 @@
 		return FALSE
 	M.Paralyze(50)
 	if(M.client)
-		var/previous_colour = M.client
+		var/previous_colour = M.client.color
 		M.client.color = LIGHT_COLOR_CLOCKWORK
 		animate(M.client, color=previous_colour, time=10)
 	var/datum/antagonist/servant_of_ratvar/R = add_servant_of_ratvar(M)
