@@ -210,6 +210,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(force_string)
 		item_flags |= FORCE_STRING_OVERRIDE
 
+	if(istype(loc, /obj/item/storage))
+		item_flags |= IN_STORAGE
+
+	if(istype(loc, /obj/item/robot_module))
+		item_flags |= IN_INVENTORY
+
 	if(!hitsound)
 		if(damtype == "fire")
 			hitsound = 'sound/items/welder.ogg'
@@ -873,11 +879,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/timedelay = usr.client.prefs.tip_delay/100
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
-		var/mob/living/L = user
-		if(istype(L) && L.incapacitated())
-			apply_outline(COLOR_RED_GRAY)
-		else
-			apply_outline()
+	var/mob/living/L = usr
+	if(istype(L) && L.incapacitated())
+		apply_outline(COLOR_RED_GRAY)
+	else
+		apply_outline()
 
 /obj/item/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	. = ..()
@@ -889,6 +895,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	remove_outline()
 
 /obj/item/proc/apply_outline(colour = null)
+	if(!(item_flags & IN_INVENTORY || item_flags & IN_STORAGE) || QDELETED(src))
+		return
 	if(usr.client)
 		if(!usr.client.prefs.outline_enabled)
 			return
