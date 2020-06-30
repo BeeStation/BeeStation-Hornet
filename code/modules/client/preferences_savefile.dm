@@ -44,6 +44,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
 	if(current_version < 29)
 		overhead_chat = TRUE
+		outline_enabled = TRUE
+		outline_color = COLOR_BLUE_GRAY
 	return
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
@@ -143,6 +145,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["lastchangelog"]		>> lastchangelog
 	S["UI_style"]			>> UI_style
 	S["overhead_chat"]		>> overhead_chat
+	S["outline_color"]		>> outline_color
+	S["outline_enabled"]	>> outline_enabled
 	S["hotkeys"]			>> hotkeys
 	S["tgui_fancy"]			>> tgui_fancy
 	S["tgui_lock"]			>> tgui_lock
@@ -243,6 +247,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["lastchangelog"], lastchangelog)
 	WRITE_FILE(S["UI_style"], UI_style)
 	WRITE_FILE(S["overhead_chat"], overhead_chat)
+	WRITE_FILE(S["outline_enabled"], outline_enabled)
+	WRITE_FILE(S["outline_color"], outline_color)
 	WRITE_FILE(S["hotkeys"], hotkeys)
 	WRITE_FILE(S["tgui_fancy"], tgui_fancy)
 	WRITE_FILE(S["tgui_lock"], tgui_lock)
