@@ -5,7 +5,7 @@
 //	You do not need to raise this if you are adding new values that have sane defaults.
 //	Only raise this value when changing the meaning/format/name/layout of an existing value
 //	where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX	29
+#define SAVEFILE_VERSION_MAX	30
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -44,6 +44,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
 	if(current_version < 29)
 		overhead_chat = TRUE
+	if(current_version < 30)
 		outline_enabled = TRUE
 		outline_color = COLOR_BLUE_GRAY
 	return
