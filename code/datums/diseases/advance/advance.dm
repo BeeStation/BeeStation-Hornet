@@ -300,9 +300,9 @@
 		if(4)
 			return 2
 		if(5)
-			return 5
+			return 3
 		if(6 to INFINITY)
-			return 5
+			return 3
 		else
 			return 2
 
