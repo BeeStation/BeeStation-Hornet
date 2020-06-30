@@ -31,14 +31,22 @@
 /obj/item/slimecross/gentle/attack_self(mob/user)
 	if(cooldown > 0)
 		return
-	var/newcooldown = extract.activate(user,null,SLIME_ACTIVATE_MINOR)
+	var/datum/species/species
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		species = H.dna.species
+	var/newcooldown = extract.activate(user,species,SLIME_ACTIVATE_MINOR)
 	if(newcooldown)
 		cooldown = newcooldown/10 //activate gives cooldown in deciseconds
 
 /obj/item/slimecross/gentle/AltClick(mob/living/carbon/user, obj/item/I)
 	if(cooldown > 0)
 		return
-	var/newcooldown = extract.activate(user,null,SLIME_ACTIVATE_MAJOR)
+	var/datum/species/species
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		species = H.dna.species
+	var/newcooldown = extract.activate(user,species,SLIME_ACTIVATE_MAJOR)
 	if(newcooldown)
 		cooldown = newcooldown/10
 
