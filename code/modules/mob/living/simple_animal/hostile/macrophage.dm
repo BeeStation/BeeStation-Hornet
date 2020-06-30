@@ -9,13 +9,12 @@
 	response_help  = "shoos"
 	response_disarm = "swats away"
 	response_harm   = "squashes"
-	maxHealth = 10
-	health = 10
+	maxHealth = 6
+	health = 6
 	spacewalk = TRUE
 	faction = list("hostile")
 	move_to_delay = 0
 	obj_damage = 0
-	harm_intent_damage = 10
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	density = FALSE
@@ -39,7 +38,7 @@
 		for(var/datum/disease/D in M.diseases)
 			if(D.GetDiseaseID() == basedisease.GetDiseaseID())
 				if(aggressive)
-					if(D.stage >= 3)
+					if(D.stage >= 4)
 						alreadyinfected = TRUE
 				else
 					alreadyinfected = TRUE
@@ -72,6 +71,10 @@
 					if(M.ForceContractDisease(D))
 						to_chat(src, "<span class ='notice'>You infect [M] with [D]</span>")
 				to_chat(M, "<span class ='userdanger'>[src] pierces your protection, and you feel a sharp stab!</span>")
+
+/mob/living/simple_animal/hostile/macrophage/proc/shrivel()
+	visible_message("<span class='danger'>the [src] shrivels up and dies!</span>")
+	dust()
 		
 
 /mob/living/simple_animal/hostile/macrophage/aggro
@@ -79,8 +82,10 @@
 	desc = "An incredibly huge virus!"
 	icon_state = "macrovirus_large"
 	melee_damage = 5
-	maxHealth = 20
-	health = 20
+	maxHealth = 12
+	health = 12
+	pass_flags = PASSTABLE | PASSGRILLE
+	density = TRUE
 	aggressive = TRUE
 
 /mob/living/simple_animal/hostile/macrophage/aggro/vector
