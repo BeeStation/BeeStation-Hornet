@@ -889,11 +889,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/apply_outline(colour = null)
 	if(usr.client)
-		if(!usr.client.prefs.overhead_chat)
+		if(!usr.client.prefs.outline_enabled)
 			return
 	if(!colour)
 		if(usr.client)
-			colour = COLOR_BLUE_GRAY
+			colour = usr.client.prefs.outline_color
+			if(!colour)
+				colour = COLOR_BLUE_GRAY
 		else
 			colour = COLOR_BLUE_GRAY
 	if(outline_filter)
