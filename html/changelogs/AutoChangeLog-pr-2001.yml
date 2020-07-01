@@ -1,0 +1,4 @@
+author: yorii
+delete-after: true
+changes:
+  - balance: reverted meth damage to a sensible number
