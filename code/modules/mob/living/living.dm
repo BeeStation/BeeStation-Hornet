@@ -1405,6 +1405,7 @@
 	. = ..()
 	VV_DROPDOWN_OPTION2("", "/mob/living options:")
 	VV_DROPDOWN_OPTION2(VV_HK_AHEAL, "Instant Heal")
+	VV_DROPDOWN_OPTION2(VV_HK_SMITE, "Smite")
 
 /mob/living/vv_do_topic2(action, params)
 	message_admins("Going through mob/living/vv_do_topic2")
@@ -1413,3 +1414,5 @@
 		switch(action)
 			if(VV_HK_AHEAL)
 				usr.client.cmd_admin_rejuvenate(src)
+			if(VV_HK_SMITE)
+				usr.client.smite(src)
