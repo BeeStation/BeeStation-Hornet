@@ -1,0 +1,7 @@
+author: Mick1299
+delete-after: true
+changes:
+  - rscadd: you can throw hats onto heads, knocking the old hat off
+  - rscadd: SNUG_FIT, and EFFECT_HAT object flags, target_zone var to thrown objects
+  - code_imp: code interaction with head item slot and thrown hats
+  - refactor: adds consistent indentation to obj_flags.dm
