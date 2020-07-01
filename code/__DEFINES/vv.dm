@@ -111,6 +111,7 @@
 
 // /mob/living
 #define VV_HK_AHEAL "aheal"
+#define VV_HK_SMITE "smite"
 
 // /mob/living/carbon
 #define VV_HK_MAKE_AI "aiify"
