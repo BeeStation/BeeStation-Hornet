@@ -71,7 +71,8 @@ export const StarMapNoJump = (props, context) => {
           Hyperspace Travel
         </b>
         <Divider />
-        Emergency jump into hyperspace, allowing you time to repair for the next fight.
+        Emergency jump into hyperspace, allowing you
+        time to repair for the next fight.
       </Box>
     </Section>
   );
@@ -110,8 +111,10 @@ export const StarMapStarList = (props, context) => {
 };
 
 /*
- * The star map is an SVG element with a bunch of circles and lines representing the stars
- * It is a way way way overcomplicated thing to just draw a bunch of planets, but as far as I know, it works
+ * The star map is an SVG element with a bunch of
+ * circles and lines representing the stars
+ * It is a way way way overcomplicated thing to just
+ * draw a bunch of planets, but as far as I know, it works
 */
 export const StarMapSvg = (props, context) => {
   const { data } = useBackend(context);
@@ -126,10 +129,17 @@ export const StarMapSvg = (props, context) => {
       <svg
         height="1000"
         width="1000"
-        style="background-color:black">
+        backgroundCol
+        or="black">
         <StarMapBackground />
         {links.map(link => (
-          <line x1={link.x1} y1={link.y1} x2={link.x2} y2={link.y2} stroke="#CEF0FF" />
+          <line
+            key={link}
+            x1={link.x1}
+            y1={link.y1}
+            x2={link.x2}
+            y2={link.y2}
+            stroke="#CEF0FF" />
         ))}
         {stars.map(star => (
           <Star
@@ -172,15 +182,15 @@ export const StarMapSvg = (props, context) => {
 export const StarMapBackground = (props, context) => {
   const gridRows = [100, 200, 300, 400, 500, 600, 700, 800, 900];
   return (
-    <Fragment>
+    <Box>
       {gridRows.map(row => (
-        <Fragment
+        <Box
           key={row}>
           <line x1={row} x2={row} y1={0} y2={1000} stroke="#333333" />
           <line y1={row} y2={row} x1={0} x2={1000} stroke="#333333" />
-        </Fragment>
+        </Box>
       ))}
-    </Fragment>
+    </Box>
   );
 };
 
@@ -196,7 +206,7 @@ export const Star = (props, context) => {
     color,
   } = props;
   return (
-    <Fragment>
+    <Box>
       <text
         x={map_x}
         y={map_y+30}
@@ -204,6 +214,6 @@ export const Star = (props, context) => {
         text-anchor="middle">
         {starName}
       </text>
-    </Fragment>
+    </Box>
   );
 };
