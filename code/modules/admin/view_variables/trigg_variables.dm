@@ -22,6 +22,7 @@
 	var/islist
 	var/objtype
 
+	//We'll cache these to avoid rescanning everything on every single UI update
 	var/list/data = list()
 	var/list/staticdata = list()
 
@@ -55,7 +56,7 @@
 	message_admins("UI data update!")
 
 	data["flags"] = get_flags()
-	if(!islist)
+	if(!islist) //no snowflakes for lists
 		data["snowflake"] = get_snowflake()
 	return data
 
@@ -64,12 +65,12 @@
 
 	staticdata["vars"] = get_vars()
 	staticdata["objectinfo"] = list(
-		"name"  = D,
+		"name"  = islist ? "/list" : D,
 		"ref"   = REF(D),
-		"type"  = objtype,
+		"type"  = islist ? "" : objtype,
 		"class" = C.vv_get_class(D, D),
-		"title" = VV_TITLE(D)||"unnamed... for some reason. shit."
-	)
+		"title" = VV_TITLE(D),
+		)
 	staticdata["dropdown"] = get_dropdown()
 	return staticdata
 
@@ -89,21 +90,13 @@
 /datum/trigg_variables/proc/get_dropdown()
 	.= list()
 	if(islist)
-		var/refid = REF(D)
-		.= list(
-			"---",
-			"Add Item" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ADD),
-			"Remove Nulls" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ERASE_NULLS),
-			"Remove Dupes" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_ERASE_DUPES),
-			"Set len" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SET_LENGTH),
-			"Shuffle" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SHUFFLE),
-			"Show VV To Player" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_EXPOSE),
-			"---"
-			)
-		for(var/i in 1 to length(.))
-			var/name = .[i]
-			var/link = .[name]
-			.[i] = "<option value[link? "='[link]'":""]>[name]</option>"
+		. = list()
+		VV_DROPDOWN_OPTION2(VV_HK_LIST_ADD, "Add Item")
+		VV_DROPDOWN_OPTION2(VV_HK_LIST_ERASE_NULLS, "Remove Nulls")
+		VV_DROPDOWN_OPTION2(VV_HK_LIST_ERASE_DUPES, "Remove Dupes")
+		VV_DROPDOWN_OPTION2(VV_HK_LIST_SET_LENGTH, "Set len")
+		VV_DROPDOWN_OPTION2(VV_HK_LIST_SHUFFLE, "Shuffle")
+		VV_DROPDOWN_OPTION2(VV_HK_EXPOSE, "Show VV To Player")
 	else
 		.= D.vv_get_dropdown2()
 
@@ -128,6 +121,7 @@
 				value = L[key]
 			item = debug_variable2(i, value, 0, L)
 			item += list("type" = C.vv_get_class(item["name"], item["value"]))
+			item += list("index" = i)
 			.+= list(item)
 	else
 		names = sortList(names)

@@ -24,39 +24,6 @@ const colorboxify = item => {
 };
 
 
-const damagebuttonswitch = dmg => {
-  switch (dmg[0]) {
-    case "brute":
-      return ["#FF0000", "Brute"];
-    case "fire":
-      return ["#FF6600", "Fire"];
-    case "toxin":
-      return ["#008000", "Toxin"];
-    case "oxy":
-      return ["#1515AA", "Oxy"];
-    case "clone":
-      return ["#990099", "Clone"];
-    case "stamina":
-      return ["#B7A200", "Stamina"];
-
-    case "brain":
-      return ["#6d697a", "Brain"];
-    case "stomach":
-      return ["#6d697a", "Stomach"];
-    case "ears":
-      return ["#6d697a", "Ears"];
-    case "eye_sight":
-      return ["#6d697a", "Eyes"];
-    case "lungs":
-      return ["#6d697a", "Lungs"];
-    case "heart":
-      return ["#6d697a", "Heart"];
-    case "liver":
-      return ["#6d697a", "Liver"];
-    default: // the fuq did you give me
-      return ["#6d697a", dmg[0]];
-  } };
-
 export const ViewVariables = (props, context) => {
   const { act, data } = useBackend(context);
   const { objectinfo, vars, snowflake, dropdown } = data;
@@ -94,22 +61,39 @@ export const ViewVariables = (props, context) => {
       <Button
         content={item.name}
         title={item.ref
-          ? `View ${item.ref}`
+          ? `View ${item.name}`
           : `Edit ${item.name} (${item.type})`}
         fluid
         ellipsis
         maxWidth={15}
         color="transparent"
-        /*
-        onClick={item.ref
-          // if ref is defined, we wanna open it in another
-          // window instead of attempting to edit
-          // see debug_variables.dm @/proc/debug_variable2
-          ? () => act("view", { target: item.ref })
-          : () => act("datumedit", {
-            target: objectinfo.ref,
-            targetvar: item.name })} />
-        */
+        onClick={e => LabelOnClick(e)} />
+    );
+  };
+
+  const ListLabel = item => {
+    const LabelOnClick = e => {
+      if (e.shiftKey && e.ctrlKey) {
+        act("listremove", { target: objectinfo.ref, targetvar: item.index });
+      }
+      else if (e.shiftKey) {
+        act("listchange", { target: objectinfo.ref, targetvar: item.index });
+      }
+      else {
+        act("listedit", { target: objectinfo.ref, targetvar: item.index });
+      }
+    };
+
+    return (
+      <Button
+        content={item.name}
+        title={item.ref
+          ? `View ${item.name}`
+          : `Edit ${item.name} (${item.type})`}
+        fluid
+        ellipsis
+        maxWidth={15}
+        color="transparent"
         onClick={e => LabelOnClick(e)} />
     );
   };
@@ -122,7 +106,7 @@ export const ViewVariables = (props, context) => {
           onClick={() => act("view", { target: item.ref })}>
           {item.file && <Icon name="file" mr={1} />}
           {item.icon && <Icon name="image" mr={1} />}
-          {colorboxify(item) || "null"}
+          {colorboxify(item) || item.value}
         </Button>
         {item.items && item.items.map(
           item => { return Entry(item); })}
@@ -136,7 +120,7 @@ export const ViewVariables = (props, context) => {
     return (
       <LabeledList.Item
         className="candystripe"
-        label={Label(item)}
+        label={(objectinfo.name === "/list")?ListLabel(item):Label(item)}
         content={Value(item)} />
     );
   };
@@ -209,6 +193,38 @@ export const ViewVariables = (props, context) => {
     </Flex>
   );
 
+  const damagebuttonswitch = dmg => {
+    switch (dmg[0]) {
+      case "brute":
+        return ["#FF0000", "Brute"];
+      case "fire":
+        return ["#FF6600", "Fire"];
+      case "toxin":
+        return ["#008000", "Toxin"];
+      case "oxy":
+        return ["#1515AA", "Oxy"];
+      case "clone":
+        return ["#990099", "Clone"];
+      case "stamina":
+        return ["#B7A200", "Stamina"];
+
+      case "brain":
+        return ["#6d697a", "Brain"];
+      case "stomach":
+        return ["#6d697a", "Stomach"];
+      case "ears":
+        return ["#6d697a", "Ears"];
+      case "eye_sight":
+        return ["#6d697a", "Eyes"];
+      case "lungs":
+        return ["#6d697a", "Lungs"];
+      case "heart":
+        return ["#6d697a", "Heart"];
+      case "liver":
+        return ["#6d697a", "Liver"];
+      default: // the fuq did you give me
+        return ["#6d697a", dmg[0]];
+    } };
 
   let LivingInfo;
   if (snowflake?.DamageStats) {
@@ -223,7 +239,8 @@ export const ViewVariables = (props, context) => {
 
             backgroundColor={color}
             content={`${content}: ${entry[1]}`||""}
-            onClick={() => act("adjustdamage", { type: entry[0] })} />
+            onClick={() => act("adjustdamage",
+              { target: objectinfo.ref, type: entry[0] })} />
         </FlexItem>
       );
     };

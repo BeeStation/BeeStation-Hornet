@@ -87,13 +87,9 @@
 
 /proc/debug_variable2(varname, value, level, datum/D, sanitize = TRUE)
 	var/list/item
-	var/index
 	if(D && islist(D))
 		//If D is a list, 'varname' will be index, and 'value' will be the associated value.
 		//We're not really interested in that, however. So let's get what we want.
-		//Can't just dump the index however, we'll need it in case the user wants to edit the list.
-		index = varname //on the TGUI side we'll also use the presence of "index" to know if an item is under a list.
-
 		if(value)
 			varname = D[varname]
 		else
@@ -102,7 +98,7 @@
 	if (isnull(value))
 		item = list(
 			"name" = varname,
-			"value" = "null",
+			"value" = "null", //null as a string here so you can actually search for "null" in the panel
 		)
 
 	else if (istext(value))
@@ -125,7 +121,7 @@
 		item = list(
 			"name" = varname,
 			"value" = "'[value]'",
-			"file" = TRUE // Just a way to tell tgui to render a cool lil document icon by the side
+			"file" = TRUE, // Just a way to tell tgui to render a cool lil document icon by the side
 		)
 
 	else if(istype(value,/matrix)) // Needs to be before datum
@@ -133,7 +129,7 @@
 		item = list(
 			"name" = varname,
 			"value" = "[value]",
-			"matrix" = list(M.a, M.b, M.c, M.d, M.e, M.f) //Matrices in DM always only have these 6 elements (for now?) so this hardcode should be fine
+			"matrix" = list(M.a, M.b, M.c, M.d, M.e, M.f), //Matrices in DM always only have these 6 elements (for now?) so this hardcode should be fine
 		)
 
 	else if (istype(value, /datum))
@@ -167,7 +163,6 @@
 
 				items += list(debug_variable2(key, val, level + 1, sanitize = sanitize))
 
-			//The TGUI side will treat it like a list if "items" is defined.
 			item = list(
 				"name" = varname,
 				"value" = "/list ([L.len])",
@@ -196,10 +191,6 @@
 			"name" = varname,
 			"value" = value,
 		)
-
-
-	if(index)
-		item += list("index" = varname)
 
 	return item
 

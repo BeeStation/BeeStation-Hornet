@@ -155,8 +155,7 @@
 		if("view")
 			C.trigg_VV(target)
 
-//Stuff below aren't in dropdowns/etc.
-
+	//Actions below aren't in dropdowns/etc.
 	if(check_rights(R_VAREDIT))
 		switch(action)
 			//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and datacore records).
@@ -175,8 +174,8 @@
 
 				message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
 				M.fully_replace_character_name(M.real_name,new_name)
-				C.vv_update_display(M, "name", new_name)
-				C.vv_update_display(M, "real_name", M.real_name || "No real name")
+				// C.vv_update_display(M, "name", new_name)
+				// C.vv_update_display(M, "real_name", M.real_name || "No real name")
 				return TRUE
 
 			if("rotate")
@@ -193,68 +192,39 @@
 						A.setDir(turn(A.dir, -45))
 					if("left")
 						A.setDir(turn(A.dir, 45))
-				C.vv_update_display(A, "dir", dir2text(A.dir))
+				// C.vv_update_display(A, "dir", dir2text(A.dir))
 				return TRUE
 
-			/*
-			if("makehuman")
-				if(!check_rights(R_SPAWN))
-					return
-
-				var/mob/living/carbon/monkey/Mo = locate(href_list["makehuman"]) in GLOB.mob_list
-				if(!istype(Mo))
-					to_chat(usr, "This can only be done to instances of type /mob/living/carbon/monkey")
-					return
-
-				if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")
-					return
-				if(!Mo)
-					to_chat(usr, "This mob doesn't exist anymore.")
-					return
-				holder.Topic(href, list("humanone"=href_list["makehuman"]))
-				//why is the proc under holder.Topic? gonna move it to /mob later
-			*/
-
-			/*
-			else if(href_list["adjustDamage"] && href_list["mobToDamage"])
+			if("adjustdamage")
 				if(!check_rights(NONE))
 					return
 
-				var/mob/living/L = locate(href_list["mobToDamage"]) in GLOB.mob_list
+				var/mob/living/L = locate(target) in GLOB.mob_list
 				if(!istype(L))
 					return
 
-				var/Text = href_list["adjustDamage"]
-
+				var/Text = params["type"]
 				var/amount =  input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
 
 				if(!L)
-					to_chat(usr, "Mob doesn't exist anymore")
+					to_chat(usr, "This Mob doesn't exist anymore.")
 					return
 
-				var/newamt
 				switch(Text)
 					if("brute")
-						L.adjustBruteLoss(amount)
-						newamt = L.getBruteLoss()
+						L.adjustBruteLoss(amount, forced=TRUE)
 					if("fire")
-						L.adjustFireLoss(amount)
-						newamt = L.getFireLoss()
+						L.adjustFireLoss(amount, forced=TRUE)
 					if("toxin")
-						L.adjustToxLoss(amount)
-						newamt = L.getToxLoss()
+						L.adjustToxLoss(amount, forced=TRUE)
 					if("oxygen")
-						L.adjustOxyLoss(amount)
-						newamt = L.getOxyLoss()
+						L.adjustOxyLoss(amount, forced=TRUE)
 					if("brain")
-						L.adjustOrganLoss(ORGAN_SLOT_BRAIN, amount)
-						newamt = L.getOrganLoss(ORGAN_SLOT_BRAIN)
+						L.adjustOrganLoss(ORGAN_SLOT_BRAIN, amount, forced=TRUE)
 					if("clone")
-						L.adjustCloneLoss(amount)
-						newamt = L.getCloneLoss()
+						L.adjustCloneLoss(amount, forced=TRUE)
 					if("stamina")
-						L.adjustStaminaLoss(amount)
-						newamt = L.getStaminaLoss()
+						L.adjustStaminaLoss(amount, forced=TRUE)
 					else
 						to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
 						return
@@ -264,8 +234,7 @@
 					message_admins("[key_name(usr)] dealt [amount] amount of [Text] damage to [ADMIN_LOOKUPFLW(L)]")
 					log_admin(log_msg)
 					admin_ticket_log(L, "<font color='blue'>[log_msg]</font>")
-					vv_update_display(L, Text, "[newamt]")
-			*/
+					return TRUE
 
 
 	//Finally, refresh if something modified the list.
