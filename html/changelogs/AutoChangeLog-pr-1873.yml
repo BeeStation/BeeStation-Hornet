@@ -1,0 +1,8 @@
+author: AyyRobotics
+delete-after: true
+changes:
+  - rscadd: Added 5 new bluespace capsules
+  - rscadd: Added a new shuttle
+  - rscadd: Adds Bluespace Productions as a Nanotrasen subsidiary
+  - imageadd: added new capsule icons
+  - balance: Party Crate costs 2500 due to the addition of a capsule.
