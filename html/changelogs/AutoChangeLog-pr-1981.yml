@@ -1,0 +1,5 @@
+author: ike709
+delete-after: true
+changes:
+  - rscadd: Item cremation is now logged.
+  - rscadd: Deep frying is now logged.
