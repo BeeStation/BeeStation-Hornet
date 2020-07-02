@@ -114,6 +114,7 @@
 /datum/reagent/consumable/cooking_oil/reaction_obj(obj/O, reac_volume)
 	if(holder && holder.chem_temp >= fry_temperature)
 		if(isitem(O) && !istype(O, /obj/item/reagent_containers/food/snacks/deepfryholder))
+			log_game("[O.name] ([O.type]) has been deep fried by a reaction with cooking oil reagent at [AREACOORD(O)].")
 			O.loc.visible_message("<span class='warning'>[O] rapidly fries as it's splashed with hot oil! Somehow.</span>")
 			var/obj/item/reagent_containers/food/snacks/deepfryholder/F = new(O.drop_location(), O)
 			F.fry(volume)
@@ -171,6 +172,12 @@
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#899613" // rgb: 137, 150, 19
 	taste_description = "watery milk"
+
+/datum/reagent/consumable/virus_food/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	for(var/datum/disease/D in M.diseases)
+		if(prob(D.stage_prob * 10))
+			D.update_stage(min(D.stage += 1, D.max_stages))
 
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"

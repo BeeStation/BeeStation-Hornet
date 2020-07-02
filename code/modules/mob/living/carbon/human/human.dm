@@ -64,48 +64,48 @@
 			if (!internal.air_contents)
 				qdel(internal)
 			else
-				stat("Internal Atmosphere Info", internal.name)
-				stat("Tank Pressure", internal.air_contents.return_pressure())
-				stat("Distribution Pressure", internal.distribute_pressure)
+				stat(null, "Internal Atmosphere Info: [internal.name]")
+				stat(null, "Tank Pressure: [internal.air_contents.return_pressure()]")
+				stat(null, "Distribution Pressure: [internal.distribute_pressure]")
 
 		if(mind)
 			var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling)
-				stat("Chemical Storage", "[changeling.chem_charges]/[changeling.chem_storage]")
-				stat("Absorbed DNA", changeling.absorbedcount)
+				stat(null, "Chemical Storage: [changeling.chem_charges]/[changeling.chem_storage]")
+				stat(null, "Absorbed DNA: [changeling.absorbedcount]")
 			var/datum/antagonist/hivemind/hivemind = mind.has_antag_datum(/datum/antagonist/hivemind)
 			if(hivemind)
-				stat("Hivemind Vessels", "[hivemind.hive_size] (+[hivemind.size_mod])")
-				stat("Psychic Link Duration", "[(hivemind.track_bonus + TRACKER_DEFAULT_TIME)/10] seconds")
+				stat(null, "Hivemind Vessels: [hivemind.hive_size] (+[hivemind.size_mod])")
+				stat(null, "Psychic Link Duration: [(hivemind.track_bonus + TRACKER_DEFAULT_TIME)/10] seconds")
 
 	//NINJACODE
 	if(istype(wear_suit, /obj/item/clothing/suit/space/space_ninja)) //Only display if actually a ninja.
 		var/obj/item/clothing/suit/space/space_ninja/SN = wear_suit
 		if(statpanel("SpiderOS"))
-			stat("SpiderOS Status:","[SN.s_initialized ? "Initialized" : "Disabled"]")
-			stat("Current Time:", "[station_time_timestamp()]")
+			stat(null,"SpiderOS Status: [SN.s_initialized ? "Initialized" : "Disabled"]")
+			stat(null, "Current Time: [station_time_timestamp()]")
 			if(SN.s_initialized)
 				//Suit gear
-				stat("Energy Charge:", "[round(SN.cell.charge/100)]%")
-				stat("Smoke Bombs:", "\Roman [SN.s_bombs]")
+				stat(null, "Energy Charge: [round(SN.cell.charge/100)]%")
+				stat(null, "Smoke Bombs: \Roman [SN.s_bombs]")
 				//Ninja status
-				stat("Fingerprints:", "[md5(dna.uni_identity)]")
-				stat("Unique Identity:", "[dna.unique_enzymes]")
-				stat("Overall Status:", "[stat > 1 ? "dead" : "[health]% healthy"]")
-				stat("Nutrition Status:", "[nutrition]")
-				stat("Oxygen Loss:", "[getOxyLoss()]")
-				stat("Toxin Levels:", "[getToxLoss()]")
-				stat("Burn Severity:", "[getFireLoss()]")
-				stat("Brute Trauma:", "[getBruteLoss()]")
-				stat("Radiation Levels:","[radiation] rad")
-				stat("Body Temperature:","[bodytemperature-T0C] degrees C ([bodytemperature*1.8-459.67] degrees F)")
+				stat(null, "Fingerprints: [md5(dna.uni_identity)]")
+				stat(null, "Unique Identity: [dna.unique_enzymes]")
+				stat(null, "Overall Status: [stat > 1 ? "dead" : "[health]% healthy"]")
+				stat(null, "Nutrition Status: [nutrition]")
+				stat(null, "Oxygen Loss: [getOxyLoss()]")
+				stat(null, "Toxin Levels: [getToxLoss()]")
+				stat(null, "Burn Severity: [getFireLoss()]")
+				stat(null, "Brute Trauma: [getBruteLoss()]")
+				stat(null,"Radiation Levels: [radiation] rad")
+				stat(null,"Body Temperature: [bodytemperature-T0C] degrees C ([bodytemperature*1.8-459.67] degrees F)")
 
 				//Diseases
 				if(diseases.len)
-					stat("Viruses:", null)
+					stat(null, "Viruses:")
 					for(var/thing in diseases)
 						var/datum/disease/D = thing
-						stat("*", "[D.name], Type: [D.spread_text], Stage: [D.stage]/[D.max_stages], Possible Cure: [D.cure_text]")
+						stat(null, "* [D.name], Type: [D.spread_text], Stage: [D.stage]/[D.max_stages], Possible Cure: [D.cure_text]")
 
 
 /mob/living/carbon/human/show_inv(mob/user)

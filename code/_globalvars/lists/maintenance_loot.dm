@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/assembly/igniter = 2,
 	/obj/item/assembly/signaler = 2,
 	/obj/item/assembly/mousetrap = 2,
-	/obj/item/reagent_containers/syringe = 2,
+	/obj/item/reagent_containers/syringe/used = 4,
 	/obj/effect/spawner/lootdrop/gloves = 8,
 	/obj/item/clothing/shoes/laceup = 1,
 	/obj/item/storage/secure/briefcase = 3,

@@ -2,24 +2,24 @@
 "aO" = (
 /obj/structure/bookcase/random,
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "bI" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "bN" = (
 /obj/machinery/door/airlock/wood,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "cl" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/poster/contraband/sun_kist{
 	pixel_x = 30
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "ec" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -50,17 +50,17 @@
 	pixel_x = -12
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "eX" = (
 /obj/structure/table/reinforced,
 /obj/item/healthanalyzer,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "fJ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/carpet/cyan,
-/area/space)
+/area/template_noop)
 "gK" = (
 /obj/item/bedsheet,
 /obj/structure/bed,
@@ -69,15 +69,16 @@
 	pixel_x = 30
 	},
 /turf/open/floor/carpet/cyan,
-/area/space)
+/area/template_noop)
 "gO" = (
 /obj/item/chair,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_x = -30
 	},
+/obj/effect/spawner/lootdrop/sanitarium,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "iK" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -86,7 +87,7 @@
 	},
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "iY" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -96,11 +97,11 @@
 	pixel_x = -30
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "jc" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "jT" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -109,20 +110,20 @@
 	pixel_x = -30
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "jY" = (
 /obj/structure/sign/poster/official/nanomichi_ad{
 	pixel_y = -30
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "lF" = (
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "lL" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/cyan,
-/area/space)
+/area/template_noop)
 "ml" = (
 /obj/structure/table/wood,
 /obj/item/storage/pill_bottle/happiness{
@@ -134,42 +135,42 @@
 	},
 /obj/item/pen,
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "mV" = (
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "ni" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "nO" = (
 /obj/machinery/light,
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_y = -30
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "pk" = (
 /obj/structure/chair/sofa/left,
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "ql" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/blue,
 /obj/item/storage/pill_bottle/mannitol,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "sc" = (
 /obj/machinery/door/airlock/wood{
 	id_tag = "sanitarium2"
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "st" = (
 /obj/machinery/door/airlock/wood,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "sz" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -179,28 +180,28 @@
 	},
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "tz" = (
 /obj/structure/chair/sofa/corner{
 	dir = 8
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "uS" = (
 /obj/structure/chair/office,
 /obj/effect/landmark/start/randommaint/shrink,
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "yb" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "yM" = (
 /obj/structure/sign/poster/contraband/clown{
 	pixel_y = -30
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "yQ" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	id_tag = "sanitarium1";
@@ -209,7 +210,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "zX" = (
 /obj/machinery/light{
 	dir = 1
@@ -219,7 +220,7 @@
 	pixel_y = 30
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "Ah" = (
 /obj/machinery/button/flasher{
 	id = "sanitarium2";
@@ -236,7 +237,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "At" = (
 /obj/item/electropack,
 /obj/item/storage/toolbox/mechanical{
@@ -271,26 +272,26 @@
 /obj/item/storage/pill_bottle/mannitol,
 /obj/item/clothing/glasses/hud/health,
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "Cz" = (
 /turf/closed/wall,
-/area/space)
+/area/template_noop)
 "Eq" = (
 /obj/structure/chair/sofa/right,
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "Eu" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "Gz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/poster/official/moth1{
 	pixel_y = -30
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "IY" = (
 /obj/machinery/door/window,
 /obj/machinery/disposal/deliveryChute{
@@ -302,24 +303,23 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "Jd" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_y = 30
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "Jg" = (
 /obj/structure/toilet,
 /obj/machinery/flasher{
 	id = "sanitarium1";
 	pixel_y = 28
 	},
-/obj/effect/spawner/lootdrop/sanitarium,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "Kr" = (
 /obj/structure/table/wood,
 /obj/item/storage/pill_bottle/happiness{
@@ -335,7 +335,7 @@
 	pixel_y = -30
 	},
 /turf/open/floor/carpet/cyan,
-/area/space)
+/area/template_noop)
 "KA" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/button/flasher{
@@ -359,13 +359,13 @@
 	pixel_x = -30
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "KL" = (
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "KV" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/sillycup{
@@ -380,13 +380,13 @@
 /obj/item/reagent_containers/food/drinks/sillycup,
 /obj/item/reagent_containers/food/drinks/sillycup,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "Ls" = (
 /obj/structure/sign/poster/official/ian{
 	pixel_x = -30
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "Ms" = (
 /obj/machinery/light{
 	dir = 8
@@ -396,7 +396,7 @@
 	pixel_y = -30
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "Ov" = (
 /obj/structure/dresser,
 /obj/item/flashlight/lamp/green{
@@ -408,7 +408,7 @@
 	pixel_x = -28
 	},
 /turf/open/floor/carpet/cyan,
-/area/space)
+/area/template_noop)
 "Pg" = (
 /obj/structure/chair/sofa/right{
 	dir = 8
@@ -417,27 +417,27 @@
 	pixel_x = 30
 	},
 /turf/open/floor/carpet/blue,
-/area/space)
+/area/template_noop)
 "RY" = (
 /obj/structure/chair/office,
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_y = 30
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "SI" = (
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_y = -30
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "VC" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "VT" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -448,7 +448,7 @@
 	pixel_y = 30
 	},
 /turf/open/floor/carpet/cyan,
-/area/space)
+/area/template_noop)
 "WC" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -457,13 +457,13 @@
 /obj/item/pen/red,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "XI" = (
 /obj/structure/sign/poster/official/the_owl{
 	pixel_x = 30
 	},
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 
 (1,1,1) = {"
 aO

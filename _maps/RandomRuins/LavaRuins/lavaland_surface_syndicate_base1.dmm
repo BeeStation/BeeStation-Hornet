@@ -106,7 +106,14 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bottle/viralbase,
+/obj/item/reagent_containers/glass/bottle/random_virus,
+/obj/item/reagent_containers/glass/bottle/random_virus,
+/obj/item/reagent_containers/glass/bottle/random_virus,
+/obj/item/reagent_containers/glass/bottle/random_virus,
+/obj/item/reagent_containers/glass/bottle/random_virus,
+/obj/item/reagent_containers/glass/bottle/random_virus,
+/obj/item/reagent_containers/glass/bottle/random_virus,
+/obj/item/reagent_containers/glass/bottle/random_virus,
 /turf/open/floor/plasteel/white/side{
 	dir = 9
 	},
@@ -127,6 +134,7 @@
 	},
 /obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter,
 /obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter,
+/obj/item/extrapolator,
 /turf/open/floor/plasteel/white/side{
 	dir = 5
 	},
@@ -577,6 +585,8 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
+/obj/item/extrapolator,
+/obj/item/extrapolator,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "ed" = (
@@ -1593,6 +1603,7 @@
 	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/extrapolator,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "fF" = (
