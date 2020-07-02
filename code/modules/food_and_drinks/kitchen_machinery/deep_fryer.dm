@@ -101,6 +101,8 @@ God bless America.
 			return ..()
 		else if(!frying && user.transferItemToLoc(I, src))
 			to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+			log_game("[key_name(user)] deep fried [I.name] ([I.type]) at [AREACOORD(src)].")
+			user.log_message("deep fried [I.name] ([I.type]) at [AREACOORD(src)].", LOG_GAME)
 			frying = new/obj/item/reagent_containers/food/snacks/deepfryholder(src, I)
 			icon_state = "fryer_on"
 			fry_loop.start()
