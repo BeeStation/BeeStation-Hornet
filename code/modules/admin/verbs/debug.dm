@@ -884,7 +884,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(alert(usr, "Are you absolutely sure you want to reload the configuration from the default path on the disk, wiping any in-round modificatoins?", "Really reset?", "No", "Yes") == "Yes")
 		config.admin_reload()
 
-/client/proc/modify_canister_gas(obj/machinery/portable_atmospherics/canister/C in world)
+/client/proc/modify_canister_gas(obj/machinery/portable_atmospherics/canister/C)
 	set category = "Debug"
 	set name = "Modify Canister Gas"
 	set desc = "Add/modify a gas in a canister"
