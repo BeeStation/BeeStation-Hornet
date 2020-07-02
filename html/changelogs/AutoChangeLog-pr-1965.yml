@@ -1,5 +1,0 @@
-author: Ravellon
-delete-after: true
-changes:
-  - tweak: changed the healing power of healing stand while not deployed so it actually
-      heals, at 1/3 power compared to deployed stand.
