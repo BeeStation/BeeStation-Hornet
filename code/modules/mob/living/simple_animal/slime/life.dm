@@ -48,7 +48,7 @@
 				spawn(45)
 					Atkcool = 0
 					Target.attack_slime(src)
-		else if(Target in view(7, src))s
+		else if(Target in view(7, src))
 			step_to(src, Target)
 		else
 			AIproc = 0
