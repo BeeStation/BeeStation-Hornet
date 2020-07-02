@@ -66,6 +66,7 @@
         spam_flag = world.timeofday
 
 /obj/item/soundsynth/AltClick(mob/living/carbon/user, obj/item/I)
+	. = ..()
 	pick_sound()
 
 /obj/item/soundsynth/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
