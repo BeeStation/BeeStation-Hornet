@@ -158,15 +158,17 @@
 		"A sharp, deep pain bathes every inch of your body!")]</span>")
 
 	if(iscarbon(M))
+		var/mob/living/carbon/C = M
 		var/monkeydamage = 0
 		if(ismonkey(M))
 			monkeydamage = 2
 
-		M/living/carbon.adjustCloneLoss(4 + monkeydamage)
-		M/living/carbon.adjustToxLoss(2)
+		C.adjustCloneLoss(4 + monkeydamage)
+		C.adjustToxLoss(2)
 	else if(isanimal(M))
-		M/living/simple_animal.adjustCloneLoss(4)
-		M/living/simple_animal.adjustToxLoss(2)
+		var/mob/living/simple_animal/SA = M
+		SA.adjustCloneLoss(4)
+		SA.adjustToxLoss(2)
 
 	add_nutrition((15 * CONFIG_GET(number/damage_multiplier)))
 	adjustBruteLoss(-5)
