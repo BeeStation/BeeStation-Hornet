@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - rscadd: Admins can now easily modify a gas in a canister using VV dropdown.
