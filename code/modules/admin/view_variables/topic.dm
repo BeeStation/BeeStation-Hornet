@@ -220,7 +220,7 @@
 					if("oxygen")
 						L.adjustOxyLoss(amount, forced=TRUE)
 					if("brain")
-						L.adjustOrganLoss(ORGAN_SLOT_BRAIN, amount, forced=TRUE)
+						L.adjustOrganLoss(ORGAN_SLOT_BRAIN, amount)
 					if("clone")
 						L.adjustCloneLoss(amount, forced=TRUE)
 					if("stamina")
