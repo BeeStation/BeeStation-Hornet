@@ -1,0 +1,4 @@
+author: Dingo-Dongler
+delete-after: true
+changes:
+  - tweak: Alt-clicking the sound synthesizer lets you select the sound played.
