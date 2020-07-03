@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - rscadd: Optional and customisable outlining on inventory items.
-  - bugfix: Fixes a bug with storages on the ground not removing IN_STORAGE flag from
-      items taken out of them.
