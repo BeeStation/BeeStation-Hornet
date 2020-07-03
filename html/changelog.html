@@ -56,6 +56,96 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">03 July 2020</h2>
+			<h3 class="author">Dingo-Dongler updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Alt-clicking the sound synthesizer lets you select the sound played.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Optional and customisable outlining on inventory items.</li>
+				<li class="bugfix">Fixes a bug with storages on the ground not removing IN_STORAGE flag from items taken out of them.</li>
+			</ul>
+
+			<h2 class="date">02 July 2020</h2>
+			<h3 class="author">AyyRobotics updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added 5 new bluespace capsules</li>
+				<li class="rscadd">Added a new shuttle</li>
+				<li class="rscadd">Adds Bluespace Productions as a Nanotrasen subsidiary</li>
+				<li class="imageadd">added new capsule icons</li>
+				<li class="balance">Party Crate costs 2500 due to the addition of a capsule.</li>
+			</ul>
+			<h3 class="author">Ravellon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">changed the healing power of healing stand while not deployed so it actually heals, at 1/3 power compared to deployed stand.</li>
+			</ul>
+			<h3 class="author">ike709 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Admins can now easily modify a gas in a canister using VV dropdown.</li>
+				<li class="rscadd">Item cremation is now logged.</li>
+				<li class="rscadd">Deep frying is now logged.</li>
+			</ul>
+			<h3 class="author">zeskorion updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">drinking virus food makes any diseases you have  progress faster</li>
+			</ul>
+
+			<h2 class="date">01 July 2020</h2>
+			<h3 class="author">Mick1299 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">you can throw hats onto heads, knocking the old hat off</li>
+				<li class="rscadd">SNUG_FIT, and EFFECT_HAT object flags, target_zone var to thrown objects</li>
+				<li class="code_imp">code interaction with head item slot and thrown hats</li>
+				<li class="refactor">adds consistent indentation to obj_flags.dm</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Replaced the out and outdated CTF map with a new one.</li>
+			</ul>
+			<h3 class="author">yorii updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">reverted meth damage to a sensible number</li>
+			</ul>
+
+			<h2 class="date">30 June 2020</h2>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a P.R.O.V.E cartridge to deltastion.</li>
+			</ul>
+			<h3 class="author">zeskorion updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">nerfs macrophage</li>
+				<li class="bugfix">fixes a bug with death plagues taking up the beneficial channel</li>
+				<li class="code_imp">cleans up dynamic severity</li>
+				<li class="refactor">refactors disease channels</li>
+			</ul>
+
+			<h2 class="date">29 June 2020</h2>
+			<h3 class="author">Mick1299 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Bot navigation beacon outside engineering on Metastation</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Changes some stats to not be multi-column which reduced lag in testing.</li>
+			</ul>
+			<h3 class="author">zeskorion updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">The disease extrapolator, a scanner that can scan or extract diseases and their symptoms, whatever they're in. it spawns in viro and the cmo locker, and virologists start with one</li>
+				<li class="rscadd">mice, vector, old bloodstains, crusty vomit, and used syringes can now contain extractable diseases. A few more minor sources also contain diseases to extract</li>
+				<li class="rscadd">sharing syringes spreads diseases</li>
+				<li class="rscdel">viro no longer spawns with highly potent viral base</li>
+				<li class="tweak">viro now has maint access</li>
+				<li class="tweak">medical lathe can print scanning modules</li>
+				<li class="bugfix">fixed double-viro on box and meta. no idea when it got reverted, and why it was only on two maps...</li>
+				<li class="imageadd">extrapolator sprites</li>
+				<li class="tweak">maint is a bit grosser</li>
+				<li class="balance">you can no longer beat cat surgeon by standing still and facetanking his saw whilst punching</li>
+				<li class="bugfix">cat surgeon properly heals when finishing operations</li>
+				<li class="tweak">cat surgeon is rarer</li>
+			</ul>
+
 			<h2 class="date">28 June 2020</h2>
 			<h3 class="author">Crossedfall updated:</h3>
 			<ul class="changes bgimages16">
@@ -1059,101 +1149,6 @@
 				<li class="tweak">doors in maint are less likely to be obstructed</li>
 				<li class="bugfix">fixes box maint being spaced</li>
 				<li class="imageadd">new job related sprites</li>
-			</ul>
-
-			<h2 class="date">30 April 2020</h2>
-			<h3 class="author">Victor239 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Medical staff spawn with a unique first-aid kit with surgical tools needed for Tend Wounds.</li>
-				<li class="tweak">Pubby maximum pop changed from 80 to 50, and minimum removed.</li>
-				<li class="tweak">Meta minimum pop changed from 30 to 15.</li>
-				<li class="tweak">Delta minimum pop changed from 50 to 40.</li>
-				<li class="balance">Augmentation surgery is now two steps less. Now it is: scalpel -> hemostat -> retractor -> robotic limb.</li>
-				<li class="balance">Gygax now has force 25 instead of 30</li>
-				<li class="balance">Gygax inflicts knockdown instead of unconscious</li>
-				<li class="balance">Leg acurator doesnt auto punch</li>
-			</ul>
-
-			<h2 class="date">29 April 2020</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Implements the code for roundstart special roles</li>
-			</ul>
-			<h3 class="author">jlsnow301 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Perma prisoners can now enter cryosleep as an escape from suffering.</li>
-				<li class="rscadd">Boxstation now has a cryosleeper.</li>
-				<li class="rscadd">Metastation gains an extra O2 canister in medbay.</li>
-				<li class="tweak">All four maps receive facelifts, slight reworks.</li>
-			</ul>
-			<h3 class="author">stylemistake updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">added tgui version 3.</li>
-				<li class="rscadd">lots of new fancy interfaces to discover!</li>
-				<li class="rscadd">check out the new camera console and your modular tablets for cool apps!</li>
-			</ul>
-
-			<h2 class="date">28 April 2020</h2>
-			<h3 class="author">AyyRobotics updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added Safety Moth Posters</li>
-				<li class="imageadd">added _and updated_ the poster images</li>
-				<li class="imagedel">deleted the old image file so it could be replaced with the above</li>
-			</ul>
-			<h3 class="author">Isy232 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds new cargo crates.</li>
-				<li class="tweak">Some cargo crates cost less or have more items.</li>
-			</ul>
-			<h3 class="author">Victor239 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds Deputies, a non-roundstart non-mindshieled security job. Ask the HOS to buy you the deputy bag from the SecTech and the HOP to promote you after.</li>
-				<li class="tweak">Security playtime requirements increased.</li>
-			</ul>
-			<h3 class="author">WhyIsCaeciliusTaken updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added Concentrated BZ bottle</li>
-				<li class="rscadd">You can now order CBZ in very small quantities from cargo at a ludicrous cost.</li>
-				<li class="bugfix">fixed the inconsistent gasping issue with CBZ</li>
-			</ul>
-			<h3 class="author">zeskorion updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed team lings</li>
-				<li class="rscdel">removed ling's shield</li>
-				<li class="rscdel">Since it was near useless, the hivemind link ability was axed</li>
-				<li class="tweak">changelings no longer have a cap on genomes</li>
-				<li class="tweak">Hivemind and Regenerate are no longer default changeling abilities</li>
-				<li class="tweak">headslugs can now be used whilst incapacitated or dead, and no longer cause an explosion.</li>
-				<li class="tweak">spread infestation now spawns a single, reskinned, player controlled tumor monkey to cause mayhem</li>
-				<li class="tweak">pheremone receptors no longer slows chem regen</li>
-				<li class="tweak">mimic voice no longer slows chem regen</li>
-				<li class="tweak">augmented eyesight no longer gives flash protection while inactive</li>
-				<li class="tweak">changelings cannot absorb targets that cannot die</li>
-				<li class="tweak">absorbing other lings no longer gives you all of their points, instead giving you a flat +2, and not increasing your chem storage.</li>
-				<li class="balance">chameleon skin cost halved, and it no longer costs chems to toggle</li>
-				<li class="balance">fleshmend is now a passive heal that slows regen, instead of a quick, active combat heal</li>
-				<li class="balance">anatomic panacea has been buffed and now no longer relies on spawning healing chems in the user</li>
-				<li class="balance">Changelings can no longer revive when husked</li>
-				<li class="balance">armblade damage reduced by 5. it now deals 20 damage, slightly more than a dark blessing</li>
-				<li class="balance">resonant screech respects hearing protection (FINALLY)</li>
-				<li class="imageadd">headslugs are now headspiders, and no longer look like weird purple things</li>
-			</ul>
-
-			<h2 class="date">27 April 2020</h2>
-			<h3 class="author">JJRcop updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed brain damage never giving traumas.</li>
-			</ul>
-			<h3 class="author">Mick1299 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">YouTool refill canister, and a way to order it</li>
-				<li class="bugfix">Soviet Soda and YouTool construction, deconstruction, and refilling</li>
-				<li class="code_imp">Defines refill_canister for YouTool and sovietsoda</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">overhead chat now based on job name.</li>
-				<li class="tweak">certain simplemobs have custom colours too</li>
 			</ul>
 		</div>
 
