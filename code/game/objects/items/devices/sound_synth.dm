@@ -65,7 +65,7 @@
         playsound(src, selected_sound, volume, shiftpitch)
         spam_flag = world.timeofday
 
-/obj/item/soundsynth/AltClick(mob/living/carbon/user, obj/item/I)
+/obj/item/soundsynth/AltClick(mob/living/carbon/user)
 	. = ..()
 	pick_sound()
 
