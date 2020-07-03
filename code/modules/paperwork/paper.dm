@@ -256,7 +256,7 @@
 		user.dropItemToGround(src)
 	user.visible_message(ignition_message)
 	add_fingerprint(user)
-	fire_act(I.get_temperature())
+	fire_act(I.is_hot())
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
 	if(burn_paper_product_attackby_check(P, user))
