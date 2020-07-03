@@ -573,6 +573,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("adjust_pay")
 			//Adjust the paycheck of a crew member. Can't be less than zero.
+			if(!scan)
+				updateUsrDialog()
+				return
 			var/account_name = href_list["account"]
 			var/datum/bank_account/account = null
 			for(var/datum/bank_account/B in SSeconomy.bank_accounts)
@@ -582,6 +585,27 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(isnull(account))
 				updateUsrDialog()
 				return
+			switch(account.account_job.paycheck_department) //Checking if the user has access to change pay.
+				if(ACCOUNT_SRV,ACCOUNT_CIV,ACCOUNT_CAR)
+					if(!(ACCESS_HOP in scan.access))
+						updateUsrDialog()
+						return
+				if(ACCOUNT_SEC)
+					if(!(ACCESS_HOS in scan.access))
+						updateUsrDialog()
+						return
+				if(ACCOUNT_MED)
+					if(!(ACCESS_CMO in scan.access))
+						updateUsrDialog()
+						return
+				if(ACCOUNT_SCI)
+					if(!(ACCESS_RD in scan.access))
+						updateUsrDialog()
+						return
+				if(ACCOUNT_ENG)
+					if(!(ACCESS_CE in scan.access))
+						updateUsrDialog()
+						return
 			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", account.paycheck_amount) as num|null, 1)
 			if(isnull(new_pay))
 				updateUsrDialog()
@@ -594,6 +618,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("adjust_bonus")
 			//Adjust the bonus pay of a crew member. Negative amounts dock pay.
+			if(!scan)
+				updateUsrDialog()
+				return
 			var/account_name = href_list["account"]
 			var/datum/bank_account/account = null
 			for(var/datum/bank_account/B in SSeconomy.bank_accounts)
@@ -603,6 +630,27 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(isnull(account))
 				updateUsrDialog()
 				return
+			switch(account.account_job.paycheck_department) //Checking if the user has access to change pay.
+				if(ACCOUNT_SRV,ACCOUNT_CIV,ACCOUNT_CAR)
+					if(!(ACCESS_HOP in scan.access))
+						updateUsrDialog()
+						return
+				if(ACCOUNT_SEC)
+					if(!(ACCESS_HOS in scan.access))
+						updateUsrDialog()
+						return
+				if(ACCOUNT_MED)
+					if(!(ACCESS_CMO in scan.access))
+						updateUsrDialog()
+						return
+				if(ACCOUNT_SCI)
+					if(!(ACCESS_RD in scan.access))
+						updateUsrDialog()
+						return
+				if(ACCOUNT_ENG)
+					if(!(ACCESS_CE in scan.access))
+						updateUsrDialog()
+						return
 			var/new_bonus = FLOOR(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", account.paycheck_bonus) as num|null, 1)
 			if(isnull(new_bonus))
 				updateUsrDialog()
