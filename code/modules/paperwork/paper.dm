@@ -125,7 +125,7 @@
 	var/obj/item/paper/N = new(arglist(args))
 	N.info = info
 	N.color = color
-	N.update_icon_state()
+	N.update_icon()
 	N.stamps = stamps
 	N.stamped = stamped.Copy()
 	N.form_fields = form_fields.Copy()
@@ -142,7 +142,7 @@
 	info = text
 	form_fields = null
 	field_counter = 0
-	update_icon_state()
+	update_icon()
 
 /obj/item/paper/pickup(user)
 	if(contact_poison && ishuman(user))
@@ -160,8 +160,6 @@
 	update_icon()
 
 /obj/item/paper/update_icon()
-
-/obj/item/paper/update_icon_state()
 	if(info && show_written_words)
 		icon_state = "[initial(icon_state)]_words"
 
@@ -218,7 +216,7 @@
 	stamps = null
 	LAZYCLEARLIST(stamped)
 	cut_overlays()
-	update_icon_state()
+	update_icon()
 
 
 /obj/item/paper/can_interact(mob/user)
