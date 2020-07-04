@@ -127,10 +127,6 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		operating = FALSE
 	icon_state = "conveyor[operating * verted]"
 
-/obj/machinery/conveyor/proc/convey(items)
-	for(var/M in items)
-		step(M, movedir)
-
 	// machine process
 	// move items to the target location
 /obj/machinery/conveyor/process()
@@ -159,6 +155,11 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	if(affected.len)
 		//moving is slightly delayed to prevent moving to a conveyor which has yet to be ticked, creating bluespace-tier conveyor speeds
 		addtimer(CALLBACK(src, .proc/convey, affected), 0)
+
+/obj/machinery/conveyor/proc/convey(items)
+	if(operating) //the problem with slightly delaying movement is that stuff gets confused right after the conveyors are turned off
+		for(var/M in items)
+			step(M, movedir)
 
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(obj/item/I, mob/user, params)
