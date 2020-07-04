@@ -1,6 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - bugfix: Fixed a divide-by-zero runtime when determining if a blunt object will
-      dismember someone. I can't wait to see what hilarious dismemberment bugs will
-      ensue.
