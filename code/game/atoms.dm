@@ -680,11 +680,19 @@
 /**
   * Respond to our atom being teleported
   *
-  * Default behaviour is to send COMSIG_ATOM_TELEPORT_ACT and return
+  * Default behaviour is to send COMSIG_ATOM_TELEPORT_ACT
   */
 /atom/proc/teleport_act()
 	SEND_SIGNAL(src,COMSIG_ATOM_TELEPORT_ACT)
 
+/**
+  * Respond to our atom being checked by a virus extrapolator
+  *
+  * Default behaviour is to send COMSIG_ATOM_EXTRAPOLATOR_ACT and return FALSE
+  */
+/atom/proc/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	SEND_SIGNAL(src,COMSIG_ATOM_EXTRAPOLATOR_ACT, user, E, scan)
+	return FALSE
 /**
   * Implement the behaviour for when a user click drags a storage object to your atom
   *
@@ -928,6 +936,10 @@
 				var/angle = input(usr, "Choose angle to rotate","Transform Mod") as null|num
 				if(!isnull(angle))
 					transform = M.Turn(angle)
+	if(href_list[VV_HK_AUTO_RENAME] && check_rights(R_VAREDIT))
+		var/newname = input(usr, "What do you want to rename this to?", "Automatic Rename") as null|text
+		if(newname)
+			vv_auto_rename(newname)
 
 
 /atom/vv_get_dropdown2()
@@ -1011,7 +1023,7 @@
 /atom/vv_get_header()
 	. = ..()
 	var/refid = REF(src)
-	. += "<a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=name'><b id='name'>[src]</b></a>"
+	. += "[VV_HREF_TARGETREF(refid, VV_HK_AUTO_RENAME, "<b id='name'>[src]</b>")]"
 	. += "<br><font size='1'><a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=left'><<</a> <a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(dir) || dir]</a> <a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=right'>>></a></font>"
 
 /atom/vv_get_snowflake()
@@ -1028,6 +1040,9 @@
 	if(!L)
 		return null
 	return L.AllowDrop() ? L : L.drop_location()
+
+/atom/proc/vv_auto_rename(newname)
+	name = newname
 
 /**
   * An atom has entered this atom's contents

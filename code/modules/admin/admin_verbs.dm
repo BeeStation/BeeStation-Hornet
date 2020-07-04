@@ -47,6 +47,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/centcom_podlauncher,/*Open a window to launch a Supplypod and configure it or it's contents*/
 	/client/proc/check_antagonists,		/*shows all antags*/
+	/client/proc/check_teams,			/*shows all antag teams*/
 	/datum/admins/proc/access_news_network,	/*allows access of newscasters*/
 	/client/proc/jumptocoord,			/*we ghost and jump to a coordinate*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
@@ -121,6 +122,7 @@ GLOBAL_PROTECT(admin_verbs_server)
 	/datum/admins/proc/restart,
 	/datum/admins/proc/end_round,
 	/datum/admins/proc/delay,
+	/datum/admins/proc/delay_round_end,
 	/datum/admins/proc/toggleaban,
 	/client/proc/everyone_random,
 	/datum/admins/proc/toggleAI,
@@ -172,7 +174,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_display_init_log,
 	/client/proc/cmd_display_overlay_log,
 	/client/proc/reload_configuration,
-	/datum/admins/proc/create_or_modify_area,
+	/datum/admins/proc/create_or_modify_area
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, /proc/release))
@@ -222,6 +224,7 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/datum/admins/proc/startnow,
 	/datum/admins/proc/restart,
 	/datum/admins/proc/delay,
+	/datum/admins/proc/delay_round_end,
 	/datum/admins/proc/toggleaban,
 	/client/proc/everyone_random,
 	/datum/admins/proc/toggleAI,
@@ -340,7 +343,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 
 /client/proc/admin_ghost()
-	set category = "Admin"
+	set category = "Adminbus"
 	set name = "Aghost"
 	if(!holder)
 		return
@@ -391,13 +394,23 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/check_antagonists()
 	set name = "Check Antagonists"
-	set category = "Admin"
+	set category = "Round"
 	if(holder)
 		holder.check_antagonists()
 		log_admin("[key_name(usr)] checked antagonists.")	//for tsar~
 		if(!isobserver(usr) && SSticker.HasRoundStarted())
 			message_admins("[key_name_admin(usr)] checked antagonists.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antagonists") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/check_teams()
+	set name = "Check Teams"
+	set category = "Round"
+	if(holder)
+		holder.check_teams()
+		log_admin("[key_name(usr)] checked antagonist teams.")
+		if(!isobserver(usr) && SSticker.HasRoundStarted())
+			message_admins("[key_name_admin(usr)] checked antagonist teams.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Teams") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/ban_panel()
 	set name = "Banning Panel"
@@ -417,14 +430,14 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/game_panel()
 	set name = "Game Panel"
-	set category = "Admin"
+	set category = "Adminbus"
 	if(holder)
 		holder.Game()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Game Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/secrets()
 	set name = "Secrets"
-	set category = "Admin"
+	set category = "Adminbus"
 	if (holder)
 		holder.Secrets()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Secrets Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -483,7 +496,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/drop_bomb()
-	set category = "Special Verbs"
+	set category = "Fun"
 	set name = "Drop Bomb"
 	set desc = "Cause an explosion of varying strength at your location."
 
@@ -525,7 +538,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/drop_dynex_bomb()
-	set category = "Special Verbs"
+	set category = "Fun"
 	set name = "Drop DynEx Bomb"
 	set desc = "Cause an explosion of varying strength at your location."
 
@@ -624,7 +637,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name_admin(T)] the disease [D].</span>")
 
 /client/proc/object_say(obj/O in world)
-	set category = "Special Verbs"
+	set category = "Adminbus"
 	set name = "OSay"
 	set desc = "Makes an object say something."
 	var/message = input(usr, "What do you want the message to be?", "Make Sound") as text | null
@@ -636,7 +649,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Object Say") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 /client/proc/togglebuildmodeself()
 	set name = "Toggle Build Mode Self"
-	set category = "Special Verbs"
+	set category = "Adminbus"
 	if (!(holder.rank.rights & R_BUILD))
 		return
 	if(src.mob)
@@ -728,7 +741,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/toggle_AI_interact()
 	set name = "Toggle Admin AI Interact"
-	set category = "Admin"
+	set category = "Adminbus"
 	set desc = "Allows you to interact with most machines as an AI would as a ghost"
 
 	AI_Interact = !AI_Interact
@@ -742,7 +755,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/stabilize_atmos()
 	set name = "Stabilize Atmos"
-	set category = "Admin"
+	set category = "Adminbus"
 	set desc = "Resets the air contents of every turf in view to normal. Closes all canisters in view."
 
 	if(!check_rights(R_ADMIN))
