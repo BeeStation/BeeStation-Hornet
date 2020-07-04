@@ -194,6 +194,16 @@
 	if(href_list[VV_HK_MODIFY_CANISTER_GAS])
 		usr.client.modify_canister_gas(src)
 
+/obj/machinery/portable_atmospherics/canister/vv_get_dropdown2()
+	. = ..()
+	VV_DROPDOWN_OPTION2(VV_HK_MODIFY_CANISTER_GAS, "Modify Canister Gas")
+
+/obj/machinery/portable_atmospherics/canister/vv_do_topic2(action, params)
+	. = ..()
+	switch(action)
+		if(VV_HK_MODIFY_CANISTER_GAS)
+			usr.client.modify_canister_gas(src)
+
 /obj/machinery/portable_atmospherics/canister/New(loc, datum/gas_mixture/existing_mixture)
 	. = ..()
 	if(existing_mixture)
