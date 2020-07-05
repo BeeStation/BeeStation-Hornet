@@ -305,6 +305,10 @@
 /area/ruin/unpowered/standruin)
 "aS" = (
 /obj/structure/stone_tile/slab,
+/obj/structure/sacrificealtar,
+/obj/item/stand_arrow/ruin{
+	name = "Mysterious Arrow"
+	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aT" = (
