@@ -196,3 +196,5 @@
 	. = ..()
 	if(isobserver(user))
 		. += "The arrow has a [kill_chance]% chance of killing the user."
+/obj/item/stand_arrow/ruin
+	gps_name = "Powerful Signal"
