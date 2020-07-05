@@ -231,11 +231,3 @@
 	cost = 5
 	always_place = TRUE
 	allow_duplicates = TRUE
-/datum/map_template/ruin/lavaland/stand_ruin
-	name = "Mysterious Ruin"
-	id = "stand ruin"
-	description = "A mysterious altar holding an arrow of unimaginable power."
-	suffix = "lavaland_surface_standruin.dmm"
-	cost = 10
-	always_place = TRUE
-	allow_duplicates = FALSE
