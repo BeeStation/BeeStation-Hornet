@@ -1,0 +1,4 @@
+author: Trigg
+delete-after: true
+changes:
+  - rscadd: TGUI admin Secrets Panel
