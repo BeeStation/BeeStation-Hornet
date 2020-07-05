@@ -201,7 +201,7 @@ export const ViewVariables = (props, context) => {
         return ["#FF6600", "Fire"];
       case "toxin":
         return ["#008000", "Toxin"];
-      case "oxy":
+      case "oxygen":
         return ["#1515AA", "Oxy"];
       case "clone":
         return ["#990099", "Clone"];
@@ -222,6 +222,7 @@ export const ViewVariables = (props, context) => {
         return ["#6d697a", "Heart"];
       case "liver":
         return ["#6d697a", "Liver"];
+
       default: // the fuq did you give me
         return ["#6d697a", dmg[0]];
     } };

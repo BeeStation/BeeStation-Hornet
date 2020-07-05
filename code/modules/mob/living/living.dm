@@ -1387,7 +1387,7 @@
 			"brute"   = getBruteLoss(),
 			"fire"    = getFireLoss(),
 			"toxin"   = getToxLoss(),
-			"oxy"     = getOxyLoss(),
+			"oxygen"  = getOxyLoss(),
 			"clone"   = getCloneLoss(),
 			"stamina" = getStaminaLoss()
 		),

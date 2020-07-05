@@ -163,7 +163,7 @@
 				if(!check_rights(NONE))
 					return
 
-				var/mob/M = D
+				var/mob/M = target
 				if(!istype(M))
 					to_chat(usr, "This can only be used on instances of type /mob")
 					return
@@ -199,7 +199,7 @@
 				if(!check_rights(NONE))
 					return
 
-				var/mob/living/L = locate(target) in GLOB.mob_list
+				var/mob/living/L = target
 				if(!istype(L))
 					return
 

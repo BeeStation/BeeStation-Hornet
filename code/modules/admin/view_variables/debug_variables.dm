@@ -88,7 +88,7 @@
 /proc/debug_variable2(varname, value, level, datum/D)
 	var/list/item
 	if(D && islist(D))
-		//If D is a list, 'varname' will be index, and 'value' will be the associated value.
+		//If D is a list, 'varname' will be index, and 'value' will be null.
 		//We're not really interested in that, however. So let's get what we want.
 		if(value)
 			value = D[varname]
