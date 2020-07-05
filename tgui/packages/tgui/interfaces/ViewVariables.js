@@ -39,50 +39,39 @@ export const ViewVariables = (props, context) => {
   ));
 
 
-  const Label = item => {
-    const LabelOnClick = e => {
-      if (e.shiftKey && e.ctrlKey) {
-        act("massedit", { target: objectinfo.ref, targetvar: item.name });
-      }
-      else if (e.shiftKey) {
-        act("datumchange", { target: objectinfo.ref, targetvar: item.name });
-      }
-      /* nothing for now
-      else if (e.ctrlKey) {
-        act("", { target: item.ref} )
-      }
-      */
-      else {
-        act("datumedit", { target: objectinfo.ref, targetvar: item.name });
-      }
-    };
-
-    return (
-      <Button
-        content={item.name}
-        title={item.ref
-          ? `View ${item.name}`
-          : `Edit ${item.name} (${item.type})`}
-        fluid
-        ellipsis
-        maxWidth={15}
-        color="transparent"
-        onClick={e => LabelOnClick(e)} />
-    );
-  };
-
-  const ListLabel = item => {
-    const LabelOnClick = e => {
-      if (e.shiftKey && e.ctrlKey) {
-        act("listremove", { target: objectinfo.ref, targetvar: item.index });
-      }
-      else if (e.shiftKey) {
-        act("listchange", { target: objectinfo.ref, targetvar: item.index });
-      }
-      else {
-        act("listedit", { target: objectinfo.ref, targetvar: item.index });
-      }
-    };
+  const Label = (item, islist) => {
+    let LabelOnClick;
+    if (islist) {
+      LabelOnClick = e => {
+        if (e.shiftKey && e.ctrlKey) {
+          act("listremove", { target: objectinfo.ref, targetvar: item.index });
+        }
+        else if (e.shiftKey) {
+          act("listchange", { target: objectinfo.ref, targetvar: item.index });
+        }
+        else {
+          act("listedit", { target: objectinfo.ref, targetvar: item.index });
+        }
+      };
+    }
+    else {
+      LabelOnClick = e => {
+        if (e.shiftKey && e.ctrlKey) {
+          act("massedit", { target: objectinfo.ref, targetvar: item.name });
+        }
+        else if (e.shiftKey) {
+          act("datumchange", { target: objectinfo.ref, targetvar: item.name });
+        }
+        /* nothing for now
+        else if (e.ctrlKey) {
+          act("", { target: item.ref} )
+        }
+        */
+        else {
+          act("datumedit", { target: objectinfo.ref, targetvar: item.name });
+        }
+      };
+    }
 
     return (
       <Button
@@ -120,7 +109,7 @@ export const ViewVariables = (props, context) => {
     return (
       <LabeledList.Item
         className="candystripe"
-        label={(objectinfo.name === "/list")?ListLabel(item):Label(item)}
+        label={Label(item, (objectinfo.name === "/list"))}
         content={Value(item)} />
     );
   };
