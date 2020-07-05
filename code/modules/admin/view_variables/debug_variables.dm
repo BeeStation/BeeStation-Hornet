@@ -85,15 +85,15 @@
 
 	return "[header][item]</li>"
 
-/proc/debug_variable2(varname, value, level, datum/D, sanitize = TRUE)
+/proc/debug_variable2(varname, value, level, datum/D)
 	var/list/item
 	if(D && islist(D))
 		//If D is a list, 'varname' will be index, and 'value' will be the associated value.
 		//We're not really interested in that, however. So let's get what we want.
 		if(value)
-			varname = D[varname]
+			value = D[varname]
 		else
-			varname = D[varname]
+			value = D[varname]
 
 	if (isnull(value))
 		item = list(
@@ -161,7 +161,7 @@
 					val = key
 					key = i
 
-				items += list(debug_variable2(key, val, level + 1, sanitize = sanitize))
+				items += list(debug_variable2(key, val, level + 1))
 
 			item = list(
 				"name" = varname,
