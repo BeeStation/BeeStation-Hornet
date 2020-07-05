@@ -47877,24 +47877,6 @@
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
-"bNE" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 6
-	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
-"bNF" = (
-/obj/machinery/gibber,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
 "bNG" = (
 /obj/structure/kitchenspike,
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
@@ -48537,13 +48519,6 @@
 /obj/machinery/chem_master/condimaster{
 	name = "CondiMaster Neo";
 	pixel_x = -4
-	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
-"bPa" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
@@ -49880,52 +49855,6 @@
 	},
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
 /area/crew_quarters/kitchen/coldroom)
-"bRY" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/camera{
-	c_tag = "Kitchen - Coldroom";
-	dir = 1
-	},
-/obj/machinery/airalarm/kitchen_cold_room{
-	dir = 1;
-	pixel_y = -24
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 5
-	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
-"bRZ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_y = -26
-	},
-/obj/machinery/light,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
-	dir = 8
-	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
-"bSa" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold4w/dark/visible,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
 "bSd" = (
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/plating,
@@ -50348,68 +50277,6 @@
 /obj/machinery/smartfridge,
 /turf/closed/wall,
 /area/hydroponics)
-"bSX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/dark/visible{
-	dir = 8
-	},
-/turf/open/floor/plasteel/kitchen_coldroom,
-/area/crew_quarters/kitchen/coldroom)
-"bSY" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 8
-	},
-/turf/open/floor/plasteel/kitchen_coldroom,
-/area/crew_quarters/kitchen/coldroom)
-"bSZ" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Kitchen Maintenance";
-	req_access_txt = "28"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard)
-"bTa" = (
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard)
-"bTb" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "bTc" = (
 /obj/machinery/power/apc{
 	areastring = "/area/maintenance/starboard";
@@ -51010,16 +50877,6 @@
 /obj/item/reagent_containers/glass/bucket,
 /turf/open/floor/plasteel,
 /area/hydroponics)
-"bUp" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom{
-	dir = 1
-	},
-/turf/open/floor/plasteel/kitchen_coldroom,
-/area/crew_quarters/kitchen/coldroom)
 "bUq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -56864,23 +56721,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
-"cgF" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 28
-	},
-/obj/structure/reagent_dispensers/cooking_oil,
-/obj/machinery/atmospherics/pipe/simple/dark/visible{
-	dir = 9
-	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
 "cgG" = (
 /obj/structure/closet/emcloset/anchored,
 /obj/effect/turf_decal/stripes/line{
@@ -77436,10 +77276,6 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
-"dbn" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
 "dbo" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -82199,6 +82035,20 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"ejv" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/structure/reagent_dispensers/cooking_oil,
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen/coldroom)
 "enV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/neutral{
@@ -82262,6 +82112,16 @@
 /obj/item/toy/figure/engineer,
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
+"eBw" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/kitchen_coldroom,
+/area/crew_quarters/kitchen/coldroom)
 "eCs" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
@@ -82482,17 +82342,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"fwt" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
-	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 10
-	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
 "fBA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
@@ -82808,6 +82657,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"gDI" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/kitchen_coldroom,
+/area/crew_quarters/kitchen/coldroom)
 "gEk" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -82908,6 +82763,18 @@
 	},
 /turf/closed/wall/r_wall,
 /area/maintenance/disposal/incinerator)
+"hbZ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "heM" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
@@ -83029,6 +82896,14 @@
 /obj/structure/sign/departments/minsky/medical/medical2,
 /turf/closed/wall,
 /area/medical/medbay/central)
+"hRL" = (
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink";
+	pixel_y = 28
+	},
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen/coldroom)
 "hSZ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -83520,6 +83395,9 @@
 	},
 /turf/closed/wall,
 /area/maintenance/solars/port/aft)
+"jOn" = (
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen/coldroom)
 "jSj" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
@@ -83771,6 +83649,23 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"kAn" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/camera{
+	c_tag = "Kitchen - Coldroom";
+	dir = 1
+	},
+/obj/machinery/airalarm/kitchen_cold_room{
+	dir = 1;
+	pixel_y = -24
+	},
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen/coldroom)
 "kAX" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
@@ -84638,6 +84533,13 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"oqZ" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/kitchen_coldroom,
+/area/crew_quarters/kitchen/coldroom)
 "osb" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 10
@@ -85292,6 +85194,10 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/cryopods)
+"rmi" = (
+/obj/machinery/gibber,
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen/coldroom)
 "roe" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -85349,12 +85255,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
-"rFZ" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
-	dir = 1
-	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
-/area/crew_quarters/kitchen/coldroom)
 "rHt" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -85733,6 +85633,16 @@
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space)
+"tst" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Kitchen Maintenance";
+	req_access_txt = "28"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "tsx" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -86105,6 +86015,19 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
+"vkI" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_y = -26
+	},
+/obj/machinery/light,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen/coldroom)
 "vlx" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -86143,6 +86066,15 @@
 	dir = 8
 	},
 /area/engine/storage_shared)
+"vBB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen/coldroom)
 "vCq" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -86542,6 +86474,18 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plasteel,
 /area/janitor)
+"xfm" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 6
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "xgg" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -86752,6 +86696,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
+"xAu" = (
+/mob/living/simple_animal/hostile/retaliate/goat{
+	name = "Pete"
+	},
+/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/area/crew_quarters/kitchen/coldroom)
 "xCu" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -122729,10 +122679,10 @@ bHe
 dCU
 bKm
 rUK
-bNE
-dbn
-dbn
-bRY
+hRL
+jOn
+jOn
+kAn
 bST
 bUo
 bVy
@@ -122986,10 +122936,10 @@ bHf
 byC
 bKn
 rUK
-bNF
+rmi
 bOZ
 bQJ
-bRZ
+vkI
 rUK
 rUK
 rUK
@@ -123243,12 +123193,12 @@ bHe
 byC
 bKo
 rUK
-fwt
-bPa
-rFZ
-bSa
-bSX
-bUp
+hRL
+xAu
+jOn
+vBB
+gDI
+oqZ
 rUK
 bWV
 bYm
@@ -123503,8 +123453,8 @@ rUK
 bNG
 bNG
 bZx
-cgF
-bSY
+ejv
+eBw
 bUq
 rUK
 diw
@@ -123761,7 +123711,7 @@ rUK
 rUK
 rUK
 rUK
-bSZ
+tst
 bUr
 rUK
 bST
@@ -124018,7 +123968,7 @@ dil
 bPb
 diq
 byN
-bTa
+hbZ
 bUs
 bVz
 bWX
@@ -124275,7 +124225,7 @@ bNI
 bPc
 dir
 byN
-bTb
+xfm
 bUt
 bVA
 nyo
