@@ -1,0 +1,7 @@
+author: MrLostman
+delete-after: true
+changes:
+  - bugfix: fixed slimes randomly needing 3 monkies
+  - bugfix: fixed slimes not targeting simple mobs
+  - bugfix: fixed slime discipline
+  - bugfix: fixed slime target patience
