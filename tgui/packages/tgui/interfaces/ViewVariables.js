@@ -4,6 +4,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, Flex, Input, Section, Collapsible, LabeledList, Modal, ColorBox, Box, Icon, Dropdown } from '../components';
 import { Window } from '../layouts';
 import { FlexItem } from '../components/Flex';
+import { isFalsy } from 'common/react';
 
 
 const colorboxify = item => {
@@ -23,6 +24,19 @@ const colorboxify = item => {
   return (item.value);
 };
 
+const matrixify = item => {
+  const M = item.matrix;
+  if (isFalsy(M)) {
+    return;
+  }
+  return (
+    <Flex inline direction="column">
+      <Flex.Item>{M[0]} {M[1]} 0</Flex.Item>
+      <Flex.Item>{M[2]} {M[3]} 0</Flex.Item>
+      <Flex.Item>{M[4]} {M[5]} 1</Flex.Item>
+    </Flex>
+  );
+};
 
 export const ViewVariables = (props, context) => {
   const { act, data } = useBackend(context);
@@ -95,7 +109,7 @@ export const ViewVariables = (props, context) => {
           onClick={() => act("view", { target: item.ref })}>
           {item.file && <Icon name="file" mr={1} />}
           {item.icon && <Icon name="image" mr={1} />}
-          {colorboxify(item) || item.value}
+          {matrixify(item) || colorboxify(item) || item.value}
         </Button>
         {item.items && item.items.map(
           item => { return Entry(item); })}
