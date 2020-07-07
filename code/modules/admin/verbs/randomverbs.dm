@@ -1112,7 +1112,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						alert("ERROR: Incorrect / improper path given.")
 						return
 				new delivery(pod)
-			new /obj/effect/DPtarget(get_turf(target), pod)
+			new /obj/effect/pod_landingzone(get_turf(target), pod)
 		if(ADMIN_PUNISHMENT_SUPPLYPOD)
 			var/datum/centcom_podlauncher/plaunch  = new(usr)
 			if(!holder)
@@ -1243,12 +1243,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /datum/admins/proc/modify_traits(datum/D)
 	if(!D)
 		return
-	
+
 	var/add_or_remove = input("Remove/Add?", "Trait Remove/Add") as null|anything in list("Add","Remove")
 	if(!add_or_remove)
 		return
 	var/list/available_traits = list()
-	
+
 	switch(add_or_remove)
 		if("Add")
 			for(var/key in GLOB.traits_by_type)
@@ -1261,7 +1261,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				var/name = GLOB.trait_name_map[trait] || trait
 				available_traits[name] = trait
 
-	var/chosen_trait = input("Select trait to modify", "Trait") as null|anything in available_traits 
+	var/chosen_trait = input("Select trait to modify", "Trait") as null|anything in available_traits
 	if(!chosen_trait)
 		return
 	chosen_trait = available_traits[chosen_trait]
