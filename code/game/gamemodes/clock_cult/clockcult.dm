@@ -5,6 +5,8 @@ GLOBAL_VAR(clockcult_team)
 
 GLOBAL_VAR(ratvar_arrival_tick)	//The world.time that Ratvar will arrive if the gateway is not disrupted
 
+GLOBAL_VAR_INIT(installed_integration_cogs, 0)
+
 GLOBAL_VAR(celestial_gateway)	//The celestial gateway
 GLOBAL_VAR_INIT(ratvar_risen, FALSE)	//Has ratvar risen?
 GLOBAL_VAR_INIT(gateway_opening, FALSE)	//Is the gateway currently active?
@@ -129,9 +131,9 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 		return FALSE
 	if(ishuman(M) && (M.mind.assigned_role in list("Captain", "Chaplain")))
 		return FALSE
-	if(is_servant_of_ratvar(M.mind.enslaved_to))
+	if(is_servant_of_ratvar(M))
 		return FALSE
-	if(M.mind.enslaved_to)
+	if(M.mind.enslaved_to && !is_servant_of_ratvar(M.mind.enslaved_to))
 		return FALSE
 	if(M.mind.unconvertable)
 		return FALSE
@@ -156,18 +158,19 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 //Transmits a message to everyone in the cult
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
 //TODO: SANITIZE MESSAGES WITH THE NORMAL SAY STUFF (punctuation)
-/proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>")
+/proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE)
 	var/hierophant_message = "[span]"
 	if(!msg)
 		if(sender)
 			to_chat(sender, "<span class='brass'>You cannot transmit nothing!</span>")
 		return FALSE
-	msg = sanitize(msg)
+	if(use_sanitisation)
+		msg = sanitize(msg)
 	if(sender)
 		sender.say("#[text2ratvar(msg)]")
-		hierophant_message += "<b>[sender.name]</b> transmits, \"[sanitize(msg)]\""
+		hierophant_message += "<b>[sender.name]</b> transmits, \"[msg]\""
 	else
-		hierophant_message += sanitize(msg)
+		hierophant_message += msg
 	if(span)
 		hierophant_message += "</span>"
 	for(var/mob/M in GLOB.player_list)
@@ -176,7 +179,7 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 		to_chat(M, hierophant_message)
 
 //====================================
-//==== Reebe Pressure Calculation ====
+//==== Reebe Pressure Calculation (Depreciated :( )) ====
 //====================================
 //If there was a pressure calculation too recently, the server will wait a few seconds instead
 //This makes it so if a bunch of walls are created they will all be processed under the same calc

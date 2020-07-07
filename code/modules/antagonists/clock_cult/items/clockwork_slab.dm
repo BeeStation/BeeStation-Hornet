@@ -1,3 +1,5 @@
+GLOBAL_LIST_INIT(clockwork_slabs, list())
+
 /obj/item/clockwork/clockwork_slab
 	name = "Clockwork Slab"
 	desc = "A mechanical-looking device filled with intricate cogs that swirl to their own accord."
@@ -15,6 +17,12 @@
 
 	var/charge_overlay
 
+	var/calculated_cogs = 0
+	var/cogs = 0
+	var/list/purchased_scriptures = list(
+		/datum/clockcult/scripture/ark_activation
+	)
+
 	//Initialise an empty list for quickbinding
 	var/list/quick_bound_scriptures = list(
 		1 = null,
@@ -27,15 +35,17 @@
 	//The default scriptures that get auto-assigned.
 	var/list/default_scriptures = list(
 		/datum/clockcult/scripture/abscond,
-		/datum/clockcult/scripture/slab/kindle,
-		/datum/clockcult/scripture/slab/hateful_manacles
+		/datum/clockcult/scripture/integration_cog
 	)
 
 /obj/item/clockwork/clockwork_slab/Initialize()
 	var/pos = 1
+	cogs = GLOB.installed_integration_cogs
+	GLOB.clockwork_slabs += src
 	for(var/script in default_scriptures)
 		if(!script)
 			continue
+		purchased_scriptures += script
 		var/datum/clockcult/scripture/default_script = new script
 		bind_spell(null, default_script, pos++)
 	..()
@@ -58,6 +68,16 @@
 	cut_overlays()
 	if(charge_overlay)
 		add_overlay(charge_overlay)
+
+/obj/item/clockwork/clockwork_slab/proc/update_integration_cogs()
+	//Calculate cogs
+	if(calculated_cogs != GLOB.installed_integration_cogs)
+		var/difference = GLOB.installed_integration_cogs - calculated_cogs
+		calculated_cogs += difference
+		cogs += difference
+		if(ismob(loc))
+			var/mob/m = loc
+			ui_interact(m)
 
 //==================================//
 // !   Quick bind spell handling  ! //
@@ -99,12 +119,16 @@
 /obj/item/clockwork/clockwork_slab/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ClockworkSlab", name, 800, 420, master_ui, state)
+		ui = new(user, src, ui_key, "ClockworkSlab", name, 860, 700, master_ui, state)
 		ui.set_autoupdate(FALSE) //we'll update this occasionally, but not as often as possible
 		ui.open()
 
 /obj/item/clockwork/clockwork_slab/ui_data(mob/user)
+	//Data
 	var/list/data = list()
+	data["cogs"] = cogs
+	data["vitality"] = 0
+	data["power"] = 0
 	data["scriptures"] = list()
 	data["drivers"] = list()
 	data["applications"] = list()
@@ -123,7 +147,9 @@
 			"name" = scripture.name,
 			"desc" = scripture.desc,
 			"tip" = scripture.tip,
-			"cost" = scripture.power_cost
+			"cost" = scripture.power_cost,
+			"purchased" = (script_datum in purchased_scriptures),
+			"cog_cost" = scripture.cogs_required
 		)
 		//We don't need it anymore
 		qdel(scripture)
@@ -176,13 +202,22 @@
 			var/datum/clockcult/scripture/S = GLOB.clockcult_all_scriptures[params["scriptureName"]]
 			if(!S)
 				return FALSE
-			if(invoking_scripture)
-				to_chat(M, "<span class='brass'>You fail to invoke [name].</span>")
-				return FALSE
-			var/datum/clockcult/scripture/new_scripture = new S.type()
-			//Create a new scripture temporarilly to process, when it's done it will be qdeleted.
-			new_scripture.qdel_on_completion = TRUE
-			new_scripture.begin_invoke(M, src)
+			if(S.type in purchased_scriptures)
+				if(invoking_scripture)
+					to_chat(M, "<span class='brass'>You fail to invoke [name].</span>")
+					return FALSE
+				var/datum/clockcult/scripture/new_scripture = new S.type()
+				//Create a new scripture temporarilly to process, when it's done it will be qdeleted.
+				new_scripture.qdel_on_completion = TRUE
+				new_scripture.begin_invoke(M, src)
+			else
+				if(cogs >= S.cogs_required)
+					cogs -= S.cogs_required
+					to_chat(M, "<span class='brass'>You unlocked [S.name]. It can now be invoked and quickbound through your slab.</span>")
+					purchased_scriptures += S.type
+				else
+					to_chat(M, "<span class='brass'>You need [S.cogs_required] cogs to unlock [S.name], you only have [cogs] left!</span>")
+					to_chat(M, "<span class='brass'><b>Tip:</b> Invoke integration cog and insert the cog into APCs to get more.</span>")
 			return TRUE
 		if("quickbind")
 			var/datum/clockcult/scripture/S = GLOB.clockcult_all_scriptures[params["scriptureName"]]

@@ -20,7 +20,6 @@
 /datum/clockcult/scripture/abscond/invoke_success()
 	var/turf/T = get_turf(pick(GLOB.servant_spawns))
 	try_warp_servant(invoker, T, TRUE)
-	invoker.filters += filter(type="outline", size=1, color="#AF0AAF")
 	var/prev_alpha = invoker.alpha
 	invoker.alpha = 0
 	animate(invoker, alpha=prev_alpha, time=10)
@@ -30,6 +29,28 @@
 /datum/clockcult/scripture/abscond/invoke_fail()
 	if(invoker?.client)
 		animate(invoker.client, color = client_color, time = 10)
+
+//==================================//
+// !       Integration Cog       ! //
+//==================================//
+
+/datum/clockcult/scripture/integration_cog
+	name = "Integration Cog"
+	desc = "Fabricates an integration cog, which can be inserted into APCs to draw power and unlock scriptures."
+	tip = "Install integration cogs into APCs to power the cult and unlock new scriptures."
+	button_icon_state = "Integration Cog"
+	power_cost = 0
+	invokation_time = 10
+	invokation_text = list("Tick tock Eng'Ine...")
+
+/datum/clockcult/scripture/integration_cog/invoke_success()
+	var/obj/item/clockwork/integration_cog/IC = new()
+	if(invoker.put_in_hands(IC, TRUE))
+		to_chat(invoker, "<span class='brass'>You summon an integration cog!</span>")
+		playsound(src, 'sound/machines/click.ogg', 50)
+	else
+		to_chat(invoker, "<span class='brass'>You need to have your inactive hand free to summon an integration cog!</span>")
+		return FALSE
 
 //==================================//
 // !            Kindle            ! //
@@ -45,6 +66,7 @@
 	after_use_text = "Let the power flow through you!"
 	slab_overlay = "volt"
 	use_time = 150
+	cogs_required = 1
 
 /datum/clockcult/scripture/slab/kindle/apply_effects(atom/A)
 	var/mob/living/M = A
@@ -108,6 +130,7 @@
 	invokation_text = list("Shackle the heretic...", "...Break them in body and spirit!")
 	slab_overlay = "hateful_manacles"
 	use_time = 200
+	cogs_required = 1
 
 /datum/clockcult/scripture/slab/hateful_manacles/apply_effects(atom/A)
 	. = ..()
@@ -173,6 +196,7 @@
 	invokation_time = 50
 	invokation_text = list("Relax you animal...", "...for I shall show you the truth.")
 	summoned_structure = /obj/structure/destructible/clockwork/sigil/submission
+	cogs_required = 1
 
 //==================================//
 // !           Armaments          ! //
@@ -186,6 +210,7 @@
 	invokation_time = 20
 	invokation_text = list("Through courage and hope...", "...we shall protect thee!")
 	scripture_type = DRIVER
+	cogs_required = 1
 
 /datum/clockcult/scripture/clockwork_armaments/invoke_success()
 	var/mob/living/M = invoker
@@ -193,3 +218,20 @@
 	if(!servant)
 		return FALSE
 	servant.servant_class.equip_mob(M)
+
+//==================================//
+// !           Cogscarab          ! //
+//==================================//
+/datum/clockcult/scripture/cogscarab
+	name = "Summon Cogscarab"
+	desc = "Summon a Cogscarab shell, which will be possessed by fallen Rat'Varian soldiers."
+	tip = "Use Cogscarabs to fortify Reebe while the human servants convert and sabotage the crew."
+	button_icon_state = "Cogscarab"
+	power_cost = 500
+	invokation_time = 120
+	invokation_text = list("Here you go, good coggy")
+	scripture_type = DRIVER
+	cogs_required = 6
+
+/datum/clockcult/scripture/clockwork_armaments/invoke_success()
+	new /obj/item/drone_shell/cogscarab(get_turf(invoker))

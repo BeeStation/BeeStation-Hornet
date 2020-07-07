@@ -3,6 +3,7 @@
 	var/desc = ""
 	var/tip = ""
 	var/power_cost = 0
+	var/cogs_required = 0
 	var/invokation_time = 0
 	var/list/invokation_text = list()
 	var/button_icon_state = "telerune"
@@ -85,6 +86,10 @@
 	slab.invoking_scripture = src
 	invoker = M
 	invoking_slab = slab
+	if(!(type in slab.purchased_scriptures))
+		log_runtime("CLOCKCULT: Attempting to invoke a scripture that has not been unlocked. Either there is a bug, or [ADMIN_LOOKUP(invoker)] is using some wacky exploits.")
+		end_invoke()
+		return
 	if(!check_special_requirements())
 		end_invoke()
 		return
@@ -271,6 +276,7 @@
 
 /datum/action/innate/clockcult/transmit/IsAvailable()
 	if(!is_servant_of_ratvar(owner))
+		Remove(owner)
 		return FALSE
 	if(owner.incapacitated())
 		return FALSE

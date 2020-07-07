@@ -7,6 +7,7 @@ GLOBAL_VAR(critical_servant_count)
 /proc/add_servant_of_ratvar(mob/M, add_team = TRUE)
 	if(!istype(M))
 		return
+	hierophant_message("<b>[M]</b> has sworn their allegiance to Rat'Var!", use_sanitisation=FALSE)
 	var/datum/antagonist/servant_of_ratvar/antagdatum = /datum/antagonist/servant_of_ratvar
 	return M.mind.add_antag_datum(antagdatum)
 

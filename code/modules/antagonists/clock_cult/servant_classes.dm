@@ -8,6 +8,7 @@
 GLOBAL_LIST_INIT(servant_classes, list())
 GLOBAL_LIST_INIT(servant_global_scriptures, list(
 	/datum/clockcult/scripture/abscond,
+	/datum/clockcult/scripture/integration_cog,
 	/datum/clockcult/scripture/slab/kindle,
 	/datum/clockcult/scripture/slab/hateful_manacles,
 	/datum/clockcult/scripture/create_structure/sigil_submission,
