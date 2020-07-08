@@ -2,7 +2,7 @@
 // !      Tinkerer's Cache     ! //
 //==================================//
 /datum/clockcult/scripture/create_structure/tinkerers_cache
-	name = "Sigil of Submission"
+	name = "Tinkerer's Cache"
 	desc = "Creates a tinkerer's cache, a powerful forge capable of crafting elite equiptment."
 	tip = "Use the cache to create more powerful equiptment with a cooldown."
 	button_icon_state = "Tinkerer's Cache"

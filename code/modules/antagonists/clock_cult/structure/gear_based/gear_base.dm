@@ -13,6 +13,7 @@
 	if(do_after(user, 40, target=src))
 		anchored = !anchored
 		update_icon_state()
+		return TRUE
 	else
 		return ..()
 

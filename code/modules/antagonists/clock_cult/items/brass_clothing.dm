@@ -76,3 +76,69 @@
 		do_sparks(3, FALSE, user)
 		user.filters = null
 		animate(user, alpha=previous_alpha, time=30)
+
+/obj/item/clothing/glasses/clockwork
+	name = "base clock glasses"
+	icon = 'icons/obj/clothing/clockwork_garb.dmi'
+	icon_state = "clockwork_cuirass"
+
+/obj/item/clothing/glasses/clockwork/equipped(mob/user, slot)
+	. = ..()
+	if(!is_servant_of_ratvar(user))
+		to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
+		user.dropItemToGround(src, TRUE)
+		var/mob/living/carbon/C = user
+		if(ishuman(C))
+			var/mob/living/carbon/human/H = C
+			H.electrocution_animation(20)
+		C.jitteriness += 1000
+		C.do_jitter_animation(C.jitteriness)
+		C.stuttering += 1
+		spawn(20)
+		if(C)
+			C.jitteriness = max(C.jitteriness - 990, 10)
+
+/obj/item/clothing/glasses/clockwork/wraith_spectacles
+	name = "wraith spectacles"
+	desc = "Mystical glasses that glow with a bright energy. Some say they can see things that shouldn't be seen."
+	icon_state = "wraith_specs"
+	invis_view = SEE_INVISIBLE_OBSERVER
+	invis_override = null
+	flash_protect = -1
+	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	glass_colour_type = /datum/client_colour/glass_colour/yellow
+	var/mob/living/wearer
+	var/applied_eye_damage
+
+/obj/item/clothing/glasses/clockwork/wraith_spectacles/Destroy()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/clothing/glasses/clockwork/wraith_spectacles/equipped(mob/living/user, slot)
+	. = ..()
+	if(!isliving(user))
+		return
+	if(slot == ITEM_SLOT_EYES)
+		wearer = user
+		applied_eye_damage = 0
+		START_PROCESSING(SSobj, src)
+		to_chat(user, "<span class='nezbere'>You suddenly see so much more, but your eyes begin to faulter...</span>")
+
+/obj/item/clothing/glasses/clockwork/wraith_spectacles/process()
+	. = ..()
+	if(!wearer)
+		STOP_PROCESSING(SSobj, src)
+		return
+	//~1 damage every 2 seconds, maximum of 70 after 140 seconds
+	wearer.adjustOrganLoss(ORGAN_SLOT_EYES, 1, 70)
+	applied_eye_damage = min(applied_eye_damage + 1, 70)
+
+/obj/item/clothing/glasses/clockwork/wraith_spectacles/dropped(mob/user)
+	. = ..()
+	if(wearer && is_servant_of_ratvar(wearer))
+		to_chat(user, "<span class='nezbere'>You feel your eyes slowly recovering.</span>")
+		addtimer(CALLBACK(wearer, /mob/living.proc/adjustOrganLoss, ORGAN_SLOT_EYES, -applied_eye_damage), 1200)
+		wearer = null
+		applied_eye_damage = 0
+		STOP_PROCESSING(SSobj, src)

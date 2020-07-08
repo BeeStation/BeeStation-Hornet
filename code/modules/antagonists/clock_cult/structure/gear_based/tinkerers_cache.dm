@@ -3,7 +3,7 @@
 	desc = "A bronze store filled with parts and components."
 	clockwork_desc = "A bronze store filled with parts and components. Can be used to forge powerful Ratvarian items."
 	default_icon_state = "tinkerers_cache"
-	anchored = FALSE
+	anchored = TRUE
 	var/cooldowntime = 0
 
 /obj/structure/destructible/clockwork/gear_base/tinkerers_cache/attack_hand(mob/living/user)
@@ -19,15 +19,15 @@
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='brass'>The [src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
-	var/choice = alert(user,"You begin putting components together in the forge.",,"Robes of Divinity","Shrouding Cloak","Something Else")
+	var/choice = alert(user,"You begin putting components together in the forge.",,"Robes of Divinity","Shrouding Cloak","Wraith Spectacles")
 	var/list/pickedtype = list()
 	switch(choice)
 		if("Robes of Divinity")
 			pickedtype += /obj/item/clothing/suit/clockwork/speed
 		if("Shrouding Cloak")
 			pickedtype += /obj/item/clothing/suit/clockwork/cloak
-		if("Mirror Shield")
-			pickedtype += /obj/item/shield/mirror
+		if("Wraith Spectacles")
+			pickedtype += /obj/item/clothing/glasses/clockwork/wraith_spectacles
 	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && is_servant_of_ratvar(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
