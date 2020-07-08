@@ -60,14 +60,3 @@
 	set waitfor = FALSE
 	spread()
 	update()
-
-/mob/verb/test_spacedrugs()
-	var/obj/puddle/puddle = new(loc)
-	puddle.reagents.add_reagent(/datum/reagent/drug/space_drugs, puddle.reagents.maximum_volume)
-	puddle.update()
-
-/mob/verb/test_crank()
-	var/obj/puddle/puddle = new(loc)
-	puddle.reagents.add_reagent(/datum/reagent/drug/crank, puddle.reagents.maximum_volume)
-	puddle.update()
-
