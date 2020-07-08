@@ -227,7 +227,6 @@
 		realappearence.linked = src
 
 /turf/open/floor/clockwork/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	if(uses_overlay && realappearence)
 		QDEL_NULL(realappearence)
 	return ..()
@@ -281,6 +280,9 @@
 	baseturfs = /turf/open/floor/clockwork/reebe
 	uses_overlay = FALSE
 	planetary_atmos = TRUE
+
+/turf/open/floor/clockwork/ex_act(severity, target)
+	return
 
 //=================================================
 //Clockwork Lattice: It's a lattice for the ratvar
@@ -451,7 +453,7 @@
 		return 1
 	return 0
 
-/obj/machinery/door/airlock/clockwork/brass
+/obj/machinery/door/airlock/clockwork/glass
 	glass = TRUE
 	opacity = 0
 
@@ -468,3 +470,110 @@
 	if(is_servant_of_ratvar(mover))
 		return FALSE
 	return ..()
+
+//=================================================
+//Ratvar Grille: It's just a grille
+//=================================================
+
+/obj/structure/grille/ratvar
+	icon_state = "ratvargrille"
+	name = "cog grille"
+	desc = "A strangely-shaped grille."
+	broken_type = /obj/structure/grille/ratvar/broken
+
+/obj/structure/grille/ratvar/Initialize()
+	. = ..()
+	if(broken)
+		new /obj/effect/temp_visual/ratvar/grille/broken(get_turf(src))
+	else
+		new /obj/effect/temp_visual/ratvar/grille(get_turf(src))
+		new /obj/effect/temp_visual/ratvar/beam/grille(get_turf(src))
+
+/obj/structure/grille/ratvar/narsie_act()
+	take_damage(rand(1, 3), BRUTE)
+	if(src)
+		var/previouscolor = color
+		color = "#960000"
+		animate(src, color = previouscolor, time = 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+
+/obj/structure/grille/ratvar/ratvar_act()
+	return
+
+/obj/structure/grille/ratvar/broken
+	icon_state = "brokenratvargrille"
+	density = FALSE
+	obj_integrity = 20
+	broken = TRUE
+	rods_amount = 1
+	rods_broken = FALSE
+	grille_type = /obj/structure/grille/ratvar
+	broken_type = null
+
+//=================================================
+//Ratvar Window: A transparent window
+//=================================================
+
+/obj/structure/window/reinforced/clockwork
+	name = "brass window"
+	desc = "A paper-thin pane of translucent yet reinforced brass."
+	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
+	icon_state = "clockwork_window_single"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	max_integrity = 80
+	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
+	decon_speed = 40
+	glass_type = /obj/item/stack/tile/brass
+	glass_amount = 1
+	reinf = FALSE
+	var/made_glow = FALSE
+
+/obj/structure/window/reinforced/clockwork/spawnDebris(location)
+	. = list()
+	var/gearcount = fulltile ? 4 : 2
+	for(var/i in 1 to gearcount)
+		. += new /obj/item/clockwork/alloy_shards/medium/gear_bit(location)
+
+/obj/structure/window/reinforced/clockwork/setDir(direct)
+	if(!made_glow)
+		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/window/single(get_turf(src))
+		E.setDir(direct)
+		made_glow = TRUE
+	..()
+
+/obj/structure/window/reinforced/clockwork/narsie_act()
+	take_damage(rand(25, 75), BRUTE)
+	if(!QDELETED(src))
+		var/previouscolor = color
+		color = "#960000"
+		animate(src, color = previouscolor, time = 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+
+/obj/structure/window/reinforced/clockwork/unanchored
+	anchored = FALSE
+
+/obj/structure/window/reinforced/clockwork/fulltile
+	icon_state = "clockwork_window"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
+	fulltile = TRUE
+	flags_1 = PREVENT_CLICK_UNDER_1
+	dir = FULLTILE_WINDOW_DIR
+	max_integrity = 120
+	level = 3
+	glass_amount = 2
+
+/obj/structure/window/reinforced/clockwork/spawnDebris(location)
+	. = list()
+	for(var/i in 1 to 4)
+		. += new /obj/item/clockwork/alloy_shards/medium/gear_bit(location)
+
+/obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)
+	made_glow = TRUE
+	new /obj/effect/temp_visual/ratvar/window(get_turf(src))
+	return ..()
+
+
+/obj/structure/window/reinforced/clockwork/fulltile/unanchored
+	anchored = FALSE

@@ -189,7 +189,7 @@
 //==================================//
 /datum/clockcult/scripture/create_structure/sigil_submission
 	name = "Sigil of Submission"
-	desc = "Creates a sigil of submission."
+	desc = "Summons a sigil of submission, used to enlighten weak minds."
 	tip = "Creats a sigil of submission, useful for showing untruths the light."
 	button_icon_state = "Sigil of Submission"
 	power_cost = 250
@@ -233,5 +233,5 @@
 	scripture_type = DRIVER
 	cogs_required = 6
 
-/datum/clockcult/scripture/clockwork_armaments/invoke_success()
+/datum/clockcult/scripture/cogscarab/invoke_success()
 	new /obj/item/drone_shell/cogscarab(get_turf(invoker))

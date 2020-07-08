@@ -77,7 +77,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		cogs += difference
 		if(ismob(loc))
 			var/mob/m = loc
-			ui_interact(m)
+			SStgui.try_update_ui(m, src, null, null, null)
 
 //==================================//
 // !   Quick bind spell handling  ! //

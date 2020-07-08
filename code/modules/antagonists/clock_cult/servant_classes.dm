@@ -13,7 +13,8 @@ GLOBAL_LIST_INIT(servant_global_scriptures, list(
 	/datum/clockcult/scripture/slab/hateful_manacles,
 	/datum/clockcult/scripture/create_structure/sigil_submission,
 	/datum/clockcult/scripture/ark_activation,
-	/datum/clockcult/scripture/clockwork_armaments
+	/datum/clockcult/scripture/clockwork_armaments,
+	/datum/clockcult/scripture/cogscarab
 ))
 
 /datum/clockcult/servant_class

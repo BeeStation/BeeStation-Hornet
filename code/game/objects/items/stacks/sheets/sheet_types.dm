@@ -506,6 +506,17 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list ( \
  * Brass
  */
 
+GLOBAL_LIST_INIT(brass_recipes, list ( \
+	new/datum/stack_recipe("wall gear", /obj/structure/destructible/clockwork/wall_gear, 2, time = 20, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("brass grille", /obj/structure/grille/ratvar, 2, time=20, one_per_turf = TRUE, on_floor = TRUE), \
+	null, \
+	new/datum/stack_recipe("brass fulltile window", /obj/structure/grille/ratvar, 4, time=10, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("brass directional window", /obj/structure/window/reinforced/clockwork/fulltile/unanchored, 2, time=10, one_per_turf = TRUE, on_floor = TRUE), \
+	null, \
+	new/datum/stack_recipe("pinion airlock", /obj/machinery/door/airlock/clockwork, 5, time=40, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("pinion windowed airlock", /obj/machinery/door/airlock/clockwork/glass, 5, time=40, one_per_turf = TRUE, on_floor = TRUE), \
+))
+
 /obj/item/stack/tile/brass
 	name = "brass"
 	desc = "Sheets made out of brass."
@@ -528,11 +539,14 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list ( \
 	qdel(src)
 
 /obj/item/stack/tile/brass/attack_self(mob/living/user)
-	to_chat(user, "<span class='danger'>[src] seems far too fragile and rigid to build with.</span>") //haha that's because it's actually replicant alloy you DUMMY
-	return
+	if(!is_servant_of_ratvar(user))
+		to_chat(user, "<span class='danger'>[src] seems far too fragile and rigid to build with.</span>") //haha that's because it's actually replicant alloy you DUMMY << WOAH TOOO FAR!
+	else
+		return ..()
 
 /obj/item/stack/tile/brass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
+	recipes = GLOB.brass_recipes
 	pixel_x = 0
 	pixel_y = 0
 
@@ -572,7 +586,10 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	tableVariant = /obj/structure/table/bronze
 
 /obj/item/stack/tile/bronze/attack_self(mob/living/user)
-	to_chat(user, "<span class='danger'>Wha... what is this cheap imitation crap? This isn't brass at all!</span>")
+	if(is_servant_of_ratvar(user))
+		to_chat(user, "<span class='danger'>Wha... what is this cheap imitation crap? This isn't brass at all!</span>")
+	else
+		return ..()
 
 /obj/item/stack/tile/bronze/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.bronze_recipes

@@ -15,11 +15,11 @@
 /turf/open/indestructible/reebe_void,
 /area/reebe/city_of_cogs)
 "ae" = (
-/obj/machinery/door/airlock/clockwork/brass,
+/obj/machinery/door/airlock/clockwork/glass,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "ag" = (
-/obj/machinery/door/airlock/clockwork/brass{
+/obj/machinery/door/airlock/clockwork/glass{
 	name = "Summoning Chamber"
 	},
 /turf/open/floor/clockwork/reebe,
@@ -60,7 +60,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "ap" = (
-/obj/machinery/door/airlock/clockwork/brass{
+/obj/machinery/door/airlock/clockwork/glass{
 	name = "Ark Chamber"
 	},
 /turf/open/floor/clockwork/reebe,
@@ -119,7 +119,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "aA" = (
-/obj/machinery/door/airlock/clockwork/brass{
+/obj/machinery/door/airlock/clockwork/glass{
 	name = "Infirmary"
 	},
 /turf/open/floor/clockwork/reebe,
@@ -136,13 +136,13 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "aD" = (
-/obj/machinery/door/airlock/clockwork/brass{
+/obj/machinery/door/airlock/clockwork/glass{
 	name = "Listening Station"
 	},
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "aE" = (
-/obj/machinery/door/airlock/clockwork/brass{
+/obj/machinery/door/airlock/clockwork/glass{
 	name = "Observation Room"
 	},
 /turf/open/floor/clockwork/reebe,

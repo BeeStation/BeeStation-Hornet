@@ -119,6 +119,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_combined_w_class = 25
+	STR.max_items = 9
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,

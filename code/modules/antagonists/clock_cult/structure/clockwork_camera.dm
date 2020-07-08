@@ -34,10 +34,11 @@
 	owner.update_action_buttons_icon()
 	if(do_after(M, 50, target=target_loc, extra_checks=CALLBACK(src, .proc/special_check)))
 		try_warp_servant(M, target_loc, 50, FALSE)
-	else
-		button_icon_state = "warp_down"
-		owner.update_action_buttons_icon()
-		warping = FALSE
+		var/obj/machinery/computer/camera_advanced/console = cam.origin
+		console.remove_eye_control(target)
+	button_icon_state = "warp_down"
+	owner.update_action_buttons_icon()
+	warping = FALSE
 
 /datum/action/innate/clockcult/warp/proc/special_check()
 	return warping
@@ -55,6 +56,13 @@
 /obj/machinery/computer/camera_advanced/ratvar/Initialize()
 	. = ..()
 	warp_action = new
+
+/obj/machinery/computer/camera_advanced/ratvar/can_use(mob/living/user)
+	. = ..()
+	if(!is_servant_of_ratvar(user))
+		return FALSE
+	if(!ishuman(user))
+		return FALSE
 
 /obj/machinery/computer/camera_advanced/ratvar/GrantActions(mob/living/user)
 	. = ..()
