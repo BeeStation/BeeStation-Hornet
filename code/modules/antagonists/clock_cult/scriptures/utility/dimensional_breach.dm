@@ -6,11 +6,11 @@
 	desc = "Prepares the Ark for activation."
 	tip = "Prepares the Ark for activation, alerting the crew of your existance."
 	button_icon_state = "Spatial Gateway"
-	power_cost = 5
+	power_cost = 10000
 	invokation_time = 140
 	invokation_text = list("Oh great Engine, take my soul...", "...it is time for you to rise...", "...through rifts you shall come...", "...to rise among the stars again!")
 	invokers_required = 2
-	scripture_type = APPLICATION
+	category = SPELLTYPE_SERVITUDE
 	recital_sound = 'sound/magic/clockwork/narsie_attack.ogg'
 
 /datum/clockcult/scripture/ark_activation/check_special_requirements()

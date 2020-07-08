@@ -59,15 +59,9 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 		selected_servants += clockie
 		clockie.assigned_role = ROLE_SERVANT_OF_RATVAR
 		clockie.special_role = ROLE_SERVANT_OF_RATVAR
-	//Generate clock classes
-	var/id = 1
-	for(var/class_typepath in subtypesof(/datum/clockcult/servant_class))
-		var/datum/clockcult/servant_class/class = new class_typepath()
-		class.class_ID = id++
-		GLOB.servant_classes[class.class_name] = class
 	//Generate scriptures
-	for(var/scripture_typepath in typesof(/datum/clockcult/scripture))
-		var/datum/clockcult/scripture/S = new scripture_typepath
+	for(var/categorypath in typesof(/datum/clockcult/scripture))
+		var/datum/clockcult/scripture/S = new categorypath
 		GLOB.clockcult_all_scriptures[S.name] = S
 	return TRUE
 

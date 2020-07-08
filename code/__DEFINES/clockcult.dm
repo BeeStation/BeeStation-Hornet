@@ -18,6 +18,7 @@
 #define DEFAULT_CLOCKSCRIPTS "6:-29,4:-2"
 
 //scripture types
-#define SCRIPTURE 0
-#define DRIVER 1
-#define APPLICATION 2
+#define SPELLTYPE_ABSTRACT "Abstract"
+#define SPELLTYPE_SERVITUDE "Servitude"
+#define SPELLTYPE_DEFENSE "Defense"
+#define SPELLTYPE_MANUFACTORING "Manufactoring"

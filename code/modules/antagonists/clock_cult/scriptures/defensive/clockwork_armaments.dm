@@ -9,7 +9,7 @@
 	power_cost = 250
 	invokation_time = 20
 	invokation_text = list("Through courage and hope...", "...we shall protect thee!")
-	scripture_type = DRIVER
+	category = SPELLTYPE_DEFENSE
 	cogs_required = 1
 
 /datum/clockcult/scripture/clockwork_armaments/invoke_success()
@@ -17,4 +17,6 @@
 	var/datum/antagonist/servant_of_ratvar/servant = is_servant_of_ratvar(M)
 	if(!servant)
 		return FALSE
-	servant.servant_class.equip_mob(M)
+	//Equip mob with gamer gear
+	var/static/datum/outfit/clockcult/armaments/armaments = new
+	armaments.equip(M)

@@ -12,6 +12,7 @@
 	slab_overlay = "hateful_manacles"
 	use_time = 200
 	cogs_required = 1
+	category = SPELLTYPE_SERVITUDE
 
 /datum/clockcult/scripture/slab/hateful_manacles/apply_effects(atom/A)
 	. = ..()

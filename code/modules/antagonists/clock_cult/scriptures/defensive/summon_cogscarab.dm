@@ -9,7 +9,7 @@
 	power_cost = 500
 	invokation_time = 120
 	invokation_text = list("Here you go, good coggy")
-	scripture_type = DRIVER
+	category = SPELLTYPE_DEFENSE
 	cogs_required = 6
 
 /datum/clockcult/scripture/cogscarab/invoke_success()

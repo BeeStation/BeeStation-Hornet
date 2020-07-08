@@ -14,7 +14,7 @@ export const ClockworkSlab = (props, context) => {
   const [
     selectedTab,
     setSelectedTab,
-  ] = useLocalState(context, 'selectedTab', "Scriptures");
+  ] = useLocalState(context, 'selectedTab', "Servitude");
   return (
     <Window
       theme="clockwork"
@@ -280,56 +280,53 @@ export const ClockworkSpellList = (props, context) => {
   const { selectedTab } = props;
   const {
     scriptures = [],
-    drivers = [],
-    applications = [],
   } = data;
-  let tabSpells = selectedTab === "Scriptures"
-    ? scriptures
-    : selectedTab === "Drivers"
-      ? drivers
-      : applications;
   return (
     <Table>
-      {tabSpells.map(script => (
-        <Fragment
-          key={script}>
-          <TableRow>
-            <Table.Cell bold>
-              {script.name}
-            </Table.Cell>
-            <Table.Cell collapsing textAlign="right">
-              <Button
-                fluid
-                color={script.purchased
-                  ? "default"
-                  : "average"}
-                content={script.purchased
-                  ? "Invoke " + script.cost + "W"
-                  : script.cog_cost + " Cogs"}
-                disabled={false}
-                onClick={() => act("invoke", {
-                  scriptureName: script.name,
-                })} />
-            </Table.Cell>
-          </TableRow>
-          <TableRow>
-            <Table.Cell>
-              {script.desc}
-            </Table.Cell>
-            <Table.Cell collapsing textAlign="right">
-              <Button
-                fluid
-                content={"Quickbind"}
-                disabled={!script.purchased}
-                onClick={() => act("quickbind", {
-                  scriptureName: script.name,
-                })} />
-            </Table.Cell>
-          </TableRow>
-          <Table.Cell>
-            <Divider />
-          </Table.Cell>
-        </Fragment>
+      {scriptures.map(script => (
+        script.type === selectedTab
+          ? (
+            <Fragment
+              key={script}>
+              <TableRow>
+                <Table.Cell bold>
+                  {script.name}
+                </Table.Cell>
+                <Table.Cell collapsing textAlign="right">
+                  <Button
+                    fluid
+                    color={script.purchased
+                      ? "default"
+                      : "average"}
+                    content={script.purchased
+                      ? "Invoke " + script.cost + "W"
+                      : script.cog_cost + " Cogs"}
+                    disabled={false}
+                    onClick={() => act("invoke", {
+                      scriptureName: script.name,
+                    })} />
+                </Table.Cell>
+              </TableRow>
+              <TableRow>
+                <Table.Cell>
+                  {script.desc}
+                </Table.Cell>
+                <Table.Cell collapsing textAlign="right">
+                  <Button
+                    fluid
+                    content={"Quickbind"}
+                    disabled={!script.purchased}
+                    onClick={() => act("quickbind", {
+                      scriptureName: script.name,
+                    })} />
+                </Table.Cell>
+              </TableRow>
+              <Table.Cell>
+                <Divider />
+              </Table.Cell>
+            </Fragment>
+          )
+          : <Box key={script} />
       ))}
     </Table>
   );
@@ -413,7 +410,7 @@ export const ClockworkButtonSelection = (props, context) => {
     selectedTab,
     setSelectedTab,
   ] = useLocalState(context, 'selectedTab', {});
-  const tabs = ["Scriptures", "Drivers", "Applications", "Class Selection"];
+  const tabs = ["Servitude", "Defense", "Manufactoring"];
   return (
     <Table>
       <Table.Row>

@@ -11,3 +11,4 @@
 	invokation_text = list("Relax you animal...", "...for I shall show you the truth.")
 	summoned_structure = /obj/structure/destructible/clockwork/sigil/submission
 	cogs_required = 1
+	category = SPELLTYPE_SERVITUDE

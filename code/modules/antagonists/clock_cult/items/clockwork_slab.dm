@@ -130,51 +130,24 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	data["vitality"] = 0
 	data["power"] = 0
 	data["scriptures"] = list()
-	data["drivers"] = list()
-	data["applications"] = list()
 	//Generate Scriptures Infomation
 	var/datum/antagonist/servant_of_ratvar/servant_datum = is_servant_of_ratvar(user)
 	if(!servant_datum)
 		return data
-	var/list/accessable_scriptures = GLOB.servant_global_scriptures
-	for(var/scripture in servant_datum.servant_class.class_scriptures)
-		accessable_scriptures |= scripture
 	//2 scriptures accessable at the same time will cause issues
-	for(var/script_datum in accessable_scriptures)
-		//Get the appropriate data
-		var/datum/clockcult/scripture/scripture = new script_datum()
+	for(var/scripture_name in GLOB.clockcult_all_scriptures)
+		var/datum/clockcult/scripture/scripture = GLOB.clockcult_all_scriptures[scripture_name]
 		var/list/S = list(
 			"name" = scripture.name,
 			"desc" = scripture.desc,
+			"type" = scripture.category,
 			"tip" = scripture.tip,
 			"cost" = scripture.power_cost,
-			"purchased" = (script_datum in purchased_scriptures),
+			"purchased" = (scripture.type in purchased_scriptures),
 			"cog_cost" = scripture.cogs_required
 		)
-		//We don't need it anymore
-		qdel(scripture)
 		//Add it to the correct list
-		switch(scripture.scripture_type)
-			if(SCRIPTURE)
-				data["scriptures"] += list(S)
-			if(DRIVER)
-				data["drivers"] += list(S)
-			if(APPLICATION)
-				data["applications"] += list(S)
-	return data
-
-/obj/item/clockwork/clockwork_slab/ui_static_data(mob/user)
-	var/list/data = list()
-	//Class Infomation
-	data["servant_classes"] = list()
-	for(var/class_name in GLOB.servant_classes)
-		var/datum/clockcult/servant_class/class = GLOB.servant_classes[class_name]
-		var/list/C = list(
-			"classname" = class.class_name,
-			"classdesc" = class.class_description,
-			"id" = class.class_ID
-		)
-		data["servant_classes"] += list(C)
+		data["scriptures"] += list(S)
 	return data
 
 /obj/item/clockwork/clockwork_slab/ui_act(action, params)
@@ -182,22 +155,6 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	if(!istype(M))
 		return FALSE
 	switch(action)
-		if("setClass")
-			var/datum/antagonist/servant_of_ratvar/S = is_servant_of_ratvar(M)
-			if(!S)
-				return FALSE
-			if(S.servant_class.type != /datum/clockcult/servant_class)
-				return FALSE
-			var/selected_name = params["class"]
-			var/datum/clockcult/servant_class/class = GLOB.servant_classes[selected_name]
-			if(!class)
-				return FALSE
-			to_chat(M, "<span class='brass'>You begin calling upon [class.class_name] for guidance!</span>")
-			M.say("[text2ratvar("Oh great [class.class_name], [pick("show me the way!", "bless me with your light!", "teach my the way!")]")]")
-			if(do_after(M, 100, target=M))
-				to_chat(M, "<span class='brass'>You call upon [class.class_name] and are blessed with their knowledge and might!</span>")
-				S.servant_class = class
-			return TRUE
 		if("invoke")
 			var/datum/clockcult/scripture/S = GLOB.clockcult_all_scriptures[params["scriptureName"]]
 			if(!S)

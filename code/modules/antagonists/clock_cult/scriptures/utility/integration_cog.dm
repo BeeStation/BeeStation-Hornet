@@ -10,6 +10,7 @@
 	power_cost = 0
 	invokation_time = 10
 	invokation_text = list("Tick tock Eng'Ine...")
+	category = SPELLTYPE_SERVITUDE
 
 /datum/clockcult/scripture/integration_cog/invoke_success()
 	var/obj/item/clockwork/integration_cog/IC = new()

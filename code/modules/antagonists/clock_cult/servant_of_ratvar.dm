@@ -10,15 +10,9 @@
 	job_rank = ROLE_SERVANT_OF_RATVAR
 
 	//The class of the servant
-	var/datum/clockcult/servant_class/servant_class = /datum/clockcult/servant_class
 	var/datum/action/innate/clockcult/transmit/transmit_spell
 
 	var/datum/team/clock_cult/team
-
-/datum/antagonist/servant_of_ratvar/New(datum/mind/M)
-	. = ..()
-	//Assign the default class
-	servant_class = new servant_class()
 
 /datum/antagonist/servant_of_ratvar/greet()
 	if(!owner.current)
@@ -62,8 +56,9 @@
 //Give the device
 /datum/antagonist/servant_of_ratvar/proc/equip_servant()
 	var/mob/living/H = owner.current
+	var/datum/outfit/clockwork_outfit = new /datum/outfit/clockcult
 	if(istype(H, /mob/living/carbon))
-		servant_class.equip_mob(H)
+		clockwork_outfit.equip(H)
 
 /datum/antagonist/servant_of_ratvar/proc/equip_carbon(mob/living/carbon/H)
 	//Convert all items in their inventory to Ratvarian

@@ -8,7 +8,7 @@
 	var/list/invokation_text = list()
 	var/button_icon_state = "telerune"
 	var/invokers_required = 1
-	var/scripture_type = SCRIPTURE
+	var/category = SPELLTYPE_ABSTRACT
 	var/end_on_invokation = TRUE	//Only set to false if you call end_invoke somewhere in your sciprture
 
 	var/mob/living/invoker
@@ -21,7 +21,6 @@
 
 /datum/clockcult/scripture/New()
 	. = ..()
-	GLOB.clockcult_all_scriptures[name] = src
 
 /datum/clockcult/scripture/proc/invoke()
 	invoke_success()
