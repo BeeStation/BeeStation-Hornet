@@ -7,12 +7,12 @@
 /obj/puddle/Initialize()
 	. = ..()
 	SSpuddle.puddlelist += src
-	reagents = new(1500)
+	reagents = new(1250)
 
 /obj/puddle/proc/update()
 	color = mix_color_from_reagents(reagents.reagent_list)
 	var/one = reagents.total_volume / reagents.maximum_volume
-	alpha = 75 + (one * 180)
+	alpha = 40 + (one * 215)
 	layer = one * 5
 	if(reagents.total_volume == 0)
 		qdel(src)
@@ -20,10 +20,17 @@
 
 /obj/puddle/proc/spread()
 	var/percent = (reagents.total_volume / reagents.maximum_volume) * 100
-	if(percent < 1)
+	if(percent < 4)
 		return
 
 	var/turf/t_loc = get_turf(src)
+	for(var/obj/puddle/puddle in t_loc) // condense all puddles on the same tile into one puddle
+		if(src == puddle)
+			continue
+		if(puddle.reagents.total_volume + reagents.total_volume <= puddle.reagents.maximum_volume)
+			reagents.trans_to(puddle, reagents.total_volume)
+			qdel(src)
+
 	for(var/turf/T in t_loc.GetAtmosAdjacentTurfs())
 		if(locate(/obj/puddle) in T)
 			continue
@@ -49,16 +56,6 @@
 
 /obj/puddle/proc/called()
 	set waitfor = FALSE
+
 	spread()
 	update()
-
-
-/mob/verb/test_spacedrugs()
-	var/obj/puddle/puddle = new(loc)
-	puddle.reagents.add_reagent(/datum/reagent/drug/space_drugs, puddle.reagents.maximum_volume)
-	puddle.update()
-
-/mob/verb/test_crank()
-	var/obj/puddle/puddle = new(loc)
-	puddle.reagents.add_reagent(/datum/reagent/drug/crank, puddle.reagents.maximum_volume)
-	puddle.update()

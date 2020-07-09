@@ -12,8 +12,10 @@ SUBSYSTEM_DEF(puddle)
 	..("P: [length(puddlelist)]")
 
 /datum/controller/subsystem/puddle/fire(resumed)
-	set waitfor = FALSE
-	for(var/obj/puddle/puddle in puddlelist)
+	// used on the machines subsystem, apparently makes this faster
+	var/list/pudl = src.puddlelist
+	
+	for(var/obj/puddle/puddle in pudl)
 		puddle.called()
 	/*
 		INVOKE_ASYNC(puddle, /obj/puddle/proc/spread)
