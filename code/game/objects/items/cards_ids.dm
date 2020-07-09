@@ -155,6 +155,15 @@
 	else if(istype(W, /obj/item/coin))
 		insert_money(W, user, TRUE)
 		return
+	else if(istype(W, /obj/item/storage/bag/money))
+		var/obj/item/storage/bag/money/money_bag = W
+		var/list/money_contained = money_bag.contents
+
+		var/money_added = mass_insert_money(money_contained, user)
+
+		if (money_added)
+			to_chat(user, "<span class='notice'>You stuff the contents into the card! They disappear in a puff of bluespace smoke, adding [money_added] worth of credits to the linked account.</span>")
+		return
 	else
 		return ..()
 
@@ -176,6 +185,25 @@
 	to_chat(user, "<span class='notice'>The linked account now reports a balance of $[registered_account.account_balance].</span>")
 	qdel(I)
 
+/obj/item/card/id/proc/mass_insert_money(list/money, mob/user)
+	if(!registered_account)
+		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit into!</span>")
+		return FALSE
+
+	if (!money || !money.len)
+		return FALSE
+
+	var/total = 0
+
+	for (var/obj/item/physical_money in money)
+		total += physical_money.get_item_credit_value()
+		CHECK_TICK
+
+	registered_account.adjust_money(total)
+	SSblackbox.record_feedback("amount", "credits_inserted", total)
+	QDEL_LIST(money)
+
+	return total
 
 /obj/item/card/id/proc/alt_click_can_use_id(mob/living/user)
 	if(!isliving(user))
