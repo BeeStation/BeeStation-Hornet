@@ -159,13 +159,12 @@
 		return ..()
 
 /obj/item/card/id/proc/insert_money(obj/item/I, mob/user, physical_currency)
+	if(!registered_account)
+		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit [I] into!</span>")
+		return
 	var/cash_money = I.get_item_credit_value()
 	if(!cash_money)
 		to_chat(user, "<span class='warning'>[I] doesn't seem to be worth anything!</span>")
-		return
-
-	if(!registered_account)
-		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit [I] into!</span>")
 		return
 
 	registered_account.adjust_money(cash_money)
@@ -213,7 +212,7 @@
 			to_chat(user, "<span class='notice'>The provided account has been linked to this ID card.</span>")
 
 			return TRUE
-			
+
 	to_chat(user, "<span class='warning'>The account ID number provided is invalid.</span>")
 	return
 
@@ -390,7 +389,7 @@ update_label("John Doe", "Clowny")
 			forged = TRUE
 			to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
 			log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\".")
-			
+
 			// First time use automatically sets the account id to the user.
 			if (first_use && !registered_account)
 				if(ishuman(user))
