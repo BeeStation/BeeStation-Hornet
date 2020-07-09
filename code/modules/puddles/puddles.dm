@@ -4,7 +4,8 @@
 	icon_state = "puddle" // just use error state for now
 	alpha = 0
 
-/obj/puddle/New()
+/obj/puddle/Initialize()
+	. = ..()
 	SSpuddle.puddlelist += src
 	reagents = new(1500)
 
@@ -22,27 +23,17 @@
 	if(percent < 1)
 		return
 
-	// get list of turfs with and without nearby puddles
-	var/list/nearby_puddles = list()
-	var/list/nearby_empty_turfs = list()
-	for(var/turf/open/O in range(1, src))
-		if(loc == O)  // my home
+	var/turf/t_loc = get_turf(src)
+	for(var/turf/T in t_loc.GetAtmosAdjacentTurfs())
+		if(locate(/obj/puddle) in T)
 			continue
-		var/obj/puddle/P = locate() in O
-		if(P)
-			nearby_puddles |= P
-		else
-			if(isspaceturf(O))
-				continue
-			var/obj/machinery/door/airlock/A = locate() in O
-			if(A && A.density)
-				continue
-			nearby_empty_turfs |= O
-
-	for(var/turf/open/O in nearby_empty_turfs) // create new puddles
-		var/obj/puddle/new_puddle = new(O)
-		nearby_puddles += new_puddle
+		new /obj/puddle(T)
 	
+	var/list/nearby_puddles = list()
+
+	for(var/obj/puddle/p in range(1, src))
+		nearby_puddles += p
+
 	var/transfer_amt = (reagents.total_volume / 2) / length(nearby_puddles)
 
 	for(var/obj/puddle/puddle in nearby_puddles)
@@ -60,3 +51,14 @@
 	set waitfor = FALSE
 	spread()
 	update()
+
+
+/mob/verb/test_spacedrugs()
+	var/obj/puddle/puddle = new(loc)
+	puddle.reagents.add_reagent(/datum/reagent/drug/space_drugs, puddle.reagents.maximum_volume)
+	puddle.update()
+
+/mob/verb/test_crank()
+	var/obj/puddle/puddle = new(loc)
+	puddle.reagents.add_reagent(/datum/reagent/drug/crank, puddle.reagents.maximum_volume)
+	puddle.update()
