@@ -1,0 +1,7 @@
+author: ike709
+delete-after: true
+changes:
+  - rscadd: Paper has been completely revamped to use markdown instead of pencode.
+  - rscadd: Use %sign to sign the new paper or [______] to create a field. Everything
+      else is just normal markdown.
+  - rscdel: All of the pencode forms on the wiki are now outdated.
