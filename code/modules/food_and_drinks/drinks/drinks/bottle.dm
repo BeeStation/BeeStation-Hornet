@@ -12,9 +12,10 @@
 	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
-	var/const/duration = 13 //Directly relates to the 'knockdown' duration. Lowered by armor (i.e. helmets)
 	isGlass = TRUE
 	foodtype = ALCOHOL
+	///Directly relates to the 'knockdown' duration. Lowered by armor (i.e. helmets)
+	var/bottle_knockdown_duration = 1.3 SECONDS
 
 /obj/item/reagent_containers/food/drinks/bottle/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	if(isliving(hitby))
@@ -87,13 +88,13 @@
 			headarmor = 0
 
 		//Calculate the knockdown duration for the target.
-		armor_duration = (duration - headarmor) + force
+		armor_duration = (bottle_knockdown_duration - headarmor) + force
 
 	else
 		//Only humans can have armor, right?
 		armor_block = target.run_armor_check(affecting, "melee")
 		if(affecting == BODY_ZONE_HEAD)
-			armor_duration = duration + force
+			armor_duration = bottle_knockdown_duration + force
 
 	//Apply the damage!
 	armor_block = min(90,armor_block)
