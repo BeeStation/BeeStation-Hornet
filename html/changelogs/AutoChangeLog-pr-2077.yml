@@ -1,0 +1,4 @@
+author: Dingo-Dongler
+delete-after: true
+changes:
+  - tweak: Autolathes can no longer print surgical tools.
