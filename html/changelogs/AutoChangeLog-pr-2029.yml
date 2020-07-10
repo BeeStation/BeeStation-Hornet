@@ -1,4 +1,0 @@
-author: FLME
-delete-after: true
-changes:
-  - rscadd: grav gen and tcomms SMESes are now wired
