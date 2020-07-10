@@ -65,6 +65,10 @@
         playsound(src, selected_sound, volume, shiftpitch)
         spam_flag = world.timeofday
 
+/obj/item/soundsynth/AltClick(mob/living/carbon/user)
+	. = ..()
+	pick_sound()
+
 /obj/item/soundsynth/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
     if(M == user)
         pick_sound()

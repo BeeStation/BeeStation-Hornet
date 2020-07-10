@@ -93,12 +93,25 @@
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = 0
 	gold_core_spawnable = HOSTILE_SPAWN
+	var/list/disease = list()
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
 	. = ..()
+	/*var/datum/disease/advance/random/blob/R = new //either viro is cooperating with xenobio, or a blob has spawned and the round is probably over sooner than they can make a virus for this
+	disease += R*/
+
+/mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(scan)
+		E.scan(src, disease, user)
+	else
+		if(E.create_culture(disease, user))
+			dust()
+			user.visible_message("<span class='danger'>[user] stabs [src] with [E], sucking it up!</span>", \
+	 				 "<span class='danger'>You stab [src] with [E]'s probe, destroying it!</span>")
+	return TRUE
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life()
 	if(!is_zombie && isturf(src.loc))
