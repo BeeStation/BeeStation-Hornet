@@ -1263,6 +1263,12 @@
 			charging = 0
 			chargecount = 0
 
+		//=====Clock Cult=====
+		if(integration_cog && cell.charge >= 0)
+			var/power_delta = CLAMP(cell.charge - 20, 0, 20)
+			GLOB.clockcult_power += power_delta
+			cell.charge -= power_delta
+
 	else // no cell, switch everything off
 
 		charging = APC_NOT_CHARGING

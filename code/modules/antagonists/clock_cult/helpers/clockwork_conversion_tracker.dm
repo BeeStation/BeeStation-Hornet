@@ -4,11 +4,12 @@ GLOBAL_VAR(minimum_servant_count)
 GLOBAL_VAR(critical_servant_count)
 
 //If there is a clockcult team (clockcult gamemode), add them to the team
-/proc/add_servant_of_ratvar(mob/M, add_team = TRUE)
+/proc/add_servant_of_ratvar(mob/M, add_team = TRUE, silent=FALSE, servant_type = /datum/antagonist/servant_of_ratvar)
 	if(!istype(M))
 		return
-	hierophant_message("<b>[M]</b> has sworn their allegiance to Rat'Var!", use_sanitisation=FALSE)
-	var/datum/antagonist/servant_of_ratvar/antagdatum = /datum/antagonist/servant_of_ratvar
+	if(!silent)
+		hierophant_message("<b>[M]</b> has been successfully converted!", span = "<span class='sevtug'>", use_sanitisation=FALSE)
+	var/datum/antagonist/servant_of_ratvar/antagdatum = servant_type
 	return M.mind.add_antag_datum(antagdatum)
 
 /proc/calculate_clockcult_values()

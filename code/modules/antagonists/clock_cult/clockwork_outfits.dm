@@ -14,4 +14,3 @@
 
 	suit = /obj/item/clothing/suit/clockwork
 	suit_store = /obj/item/twohanded/clockwork/brass_spear
-	shoes = /obj/item/clothing/shoes/bronze

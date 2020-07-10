@@ -15,6 +15,9 @@ GLOBAL_VAR_INIT(gateway_opening, FALSE)	//Is the gateway currently active?
 //This should only be used for looking up scriptures
 GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 
+GLOBAL_VAR_INIT(clockcult_power, 2500)
+GLOBAL_VAR_INIT(clockcult_vitality, 200)
+
 //==========================
 //===Clock cult Gamemode ===
 //==========================

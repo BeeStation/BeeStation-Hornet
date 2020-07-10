@@ -33,7 +33,7 @@
 		if(!A.clock_cog_rewarded)
 			GLOB.installed_integration_cogs ++
 			A.clock_cog_rewarded = TRUE
-			hierophant_message("<b>[user]</b> has installed an integration cog into \an [A]", use_sanitisation=FALSE)
+			hierophant_message("<b>[user]</b> has installed an integration cog into \an [A]", span="<span class='nzcrentr'>", use_sanitisation=FALSE)
 			//Update the cog counts
 			for(var/obj/item/clockwork/clockwork_slab/S in GLOB.clockwork_slabs)
 				S.update_integration_cogs()

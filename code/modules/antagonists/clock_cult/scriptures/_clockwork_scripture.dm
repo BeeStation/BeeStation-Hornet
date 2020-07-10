@@ -119,7 +119,7 @@
 /datum/clockcult/scripture/create_structure/check_special_requirements()
 	if(!..())
 		return FALSE
-	for(var/obj/structure in get_turf(invoker))
+	for(var/obj/structure/structure in get_turf(invoker))
 		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
 		return FALSE
 	return TRUE
@@ -129,6 +129,7 @@
 	var/obj/structure/destructible/clockwork/clockwork_structure = created_structure
 	if(istype(clockwork_structure))
 		clockwork_structure.owner = invoker.mind
+
 
 //==================================//
 // !       Slab Empowerment       ! //

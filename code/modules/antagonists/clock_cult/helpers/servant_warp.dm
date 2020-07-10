@@ -8,6 +8,7 @@
 	do_sparks(5, TRUE, servant)
 	do_sparks(5, TRUE, target_location)
 	M.forceMove(target_location)
+	to_chat(servant, "<span class='inathneq'>You warp to [get_area(target_location)].</span>")
 	if(istype(P) && bring_dragging)
 		P.forceMove(target_location)
 		P.Paralyze(30)

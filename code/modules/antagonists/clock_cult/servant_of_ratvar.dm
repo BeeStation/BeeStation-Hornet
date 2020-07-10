@@ -11,8 +11,9 @@
 
 	//The class of the servant
 	var/datum/action/innate/clockcult/transmit/transmit_spell
-
 	var/datum/team/clock_cult/team
+
+	var/counts_towards_total = TRUE//Counts towards the total number of servants.
 
 /datum/antagonist/servant_of_ratvar/greet()
 	if(!owner.current)
@@ -22,9 +23,10 @@
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
 	owner.current.faction |= "ratvar"
-	GLOB.servants_of_ratvar |= owner
-	if(ishuman(owner.current))
-		GLOB.human_servants_of_ratvar |= owner
+	if(counts_towards_total)
+		GLOB.servants_of_ratvar |= owner
+		if(ishuman(owner.current))
+			GLOB.human_servants_of_ratvar |= owner
 	check_ark_status()
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
@@ -80,12 +82,11 @@
 	if(!newteam)
 		if(GLOB.clockcult_team)
 			team = GLOB.clockcult_team
-			return
 		else
 			var/datum/team/clock_cult/clock_team = new()
 			GLOB.clockcult_team = clock_team
 			team = clock_team
-			return
+		return
 	team = newteam
 
 /datum/antagonist/servant_of_ratvar/get_team()

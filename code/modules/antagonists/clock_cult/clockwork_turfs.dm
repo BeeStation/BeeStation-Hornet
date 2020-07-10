@@ -123,6 +123,10 @@
 	update_icon()
 	return
 
+//No cheesing it
+/turf/closed/wall/clockwork/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
+	return FALSE
+
 //========Deconstruction Handled Here=======
 /turf/closed/wall/clockwork/deconstruction_hints(mob/user)
 	switch(d_state)

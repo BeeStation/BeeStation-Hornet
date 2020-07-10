@@ -7,6 +7,18 @@ import { Window } from '../layouts';
 import { TableRow } from '../components/Table';
 import { GridColumn } from '../components/Grid';
 
+export const convertPower = power_in => {
+  const units = ["W", "kW", "MW", "GW"];
+  let power = 0;
+  let value = power_in;
+  while (value >= 1000 && power < units.length)
+  {
+    power ++;
+    value /= 1000;
+  }
+  return ((Math.round((value + Number.EPSILON) * 100)/100) + units[power]);
+};
+
 export const ClockworkSlab = (props, context) => {
   const { data } = useBackend(context);
   const { power } = data;
@@ -299,7 +311,7 @@ export const ClockworkSpellList = (props, context) => {
                       ? "default"
                       : "average"}
                     content={script.purchased
-                      ? "Invoke " + script.cost + "W"
+                      ? "Invoke " + (convertPower(script.cost))
                       : script.cog_cost + " Cogs"}
                     disabled={false}
                     onClick={() => act("invoke", {
@@ -357,9 +369,9 @@ export const ClockworkOverview = (props, context) => {
       <ClockworkOverviewStat
         title="Power"
         amount={power}
-        maxAmount={power + (50 / power)}
+        maxAmount={power + (500000 / power)}
         iconName="battery-half "
-        unit="W" />
+        overrideText={convertPower(power)} />
       <ClockworkOverviewStat
         title="Vitality"
         amount={vitality}
@@ -377,6 +389,7 @@ export const ClockworkOverviewStat = (props, context) => {
     amount,
     maxAmount,
     unit,
+    overrideText,
   } = props;
   return (
     <Box height="22px" fontSize="16px">
@@ -397,7 +410,9 @@ export const ClockworkOverviewStat = (props, context) => {
               average: [maxAmount/4, maxAmount/2],
               bad: [-Infinity, maxAmount/4],
             }}>
-            {amount + " " + unit}
+            {overrideText
+              ? overrideText
+              : amount + " " + unit}
           </ProgressBar>
         </Grid.Column>
       </Grid>

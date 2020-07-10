@@ -91,34 +91,6 @@
 		active_timer = null
 	qdel(src)
 
-//==========Submission=========
-/obj/structure/destructible/clockwork/sigil/submission
-	name = "sigil of submission"
-	desc = "a strange sigil, with otherworldy drawings on it."
-	icon_state = "sigilsubmission"
-	effect_stand_time = 80
-	idle_color = "#FFFFFF"
-	invokation_color = "#cc941b"
-	pulse_color = "#EBC670"
-	fail_color = "#d47433"
-
-/obj/structure/destructible/clockwork/sigil/submission/can_affect(mob/living/M)
-	if(!..())
-		return FALSE
-	return is_convertable_to_clockcult(M)
-
-/obj/structure/destructible/clockwork/sigil/submission/apply_effects(mob/living/M)
-	if(!..())
-		M.visible_message("<span class='warning'>[M] resists conversion!</span>")
-		return FALSE
-	M.Paralyze(50)
-	if(M.client)
-		var/previous_colour = M.client.color
-		M.client.color = LIGHT_COLOR_CLOCKWORK
-		animate(M.client, color=previous_colour, time=10)
-	var/datum/antagonist/servant_of_ratvar/R = add_servant_of_ratvar(M)
-	R.equip_servant_conversion()
-
 //==========Transgression=========
 /obj/structure/destructible/clockwork/sigil/transgression
 	name = "sigil of transgression"
