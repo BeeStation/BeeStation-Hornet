@@ -1,0 +1,5 @@
+author: Tamuren
+delete-after: true
+changes:
+  - rscadd: 'New research point type: nanite'
+  - rscadd: Added code to all_nodes.dm to make nanite programs available
