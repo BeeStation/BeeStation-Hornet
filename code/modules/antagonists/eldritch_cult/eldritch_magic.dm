@@ -48,12 +48,13 @@
 	catchphrase = "R'CH T'H TR'TH"
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-
 	if(!proximity_flag || target == user)
 		return
 	playsound(user, 'sound/items/welder.ogg', 75, TRUE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
+		if(check_shields(tar,10, "the [tar.name]"))
+			return ..()
 		if(tar.anti_magic_check())
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 			return ..()
@@ -105,7 +106,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
 	name = "Blood Siphon"
-	desc = "Touch spell that heals you while damaging the enemy, has a chance to transfer wounds between you and your enemy."
+	desc = "Touch spell that heals you while damaging the enemy."
 	hand_path = /obj/item/melee/touch_attack/blood_siphon
 	school = "evocation"
 	charge_max = 150

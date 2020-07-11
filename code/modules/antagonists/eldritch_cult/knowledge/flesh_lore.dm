@@ -154,7 +154,7 @@
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.blood_volume -= 10
+		H.bleed_rate+= 2
 
 
 /datum/eldritch_knowledge/summon/raw_prophet

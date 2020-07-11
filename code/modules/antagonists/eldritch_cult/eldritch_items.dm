@@ -43,6 +43,8 @@
 	flags_1 = CONDUCT_1
 	sharpness = IS_SHARP
 	w_class = WEIGHT_CLASS_NORMAL
+	block_upgrade_walk = 1
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 17
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
