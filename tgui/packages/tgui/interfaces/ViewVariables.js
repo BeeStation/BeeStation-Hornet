@@ -196,6 +196,15 @@ export const ViewVariables = (props, context) => {
     </Flex>
   );
 
+  const basicsnowflake = (
+    <FlexItem grow={1}>
+      <Section height="100%">
+        {Sprite}
+        {BasicInfo}
+      </Section>
+    </FlexItem>
+  );
+
   const damagebuttonswitch = dmg => {
     switch (dmg[0]) {
       case "brute":
@@ -268,10 +277,6 @@ export const ViewVariables = (props, context) => {
 
   // Neither Dropdown or Checkbox or literally anything else served
   // So I had to make this amalgamation. I am not proud of it.
-  // It gets a bit too long when there are too many options,
-  // don't know what to do yet. Make it scrollable, somehow?
-  // Edit: Yes. I made it scrollable. But I had to touch tgui's source.
-  // Not optimal.
 
   const [
     DropdownOpen,
@@ -297,7 +302,7 @@ export const ViewVariables = (props, context) => {
 
   const DropdownMenu = (DropdownOpen && (
     <FlexItem align="baseline">
-      <Section scrollable>
+      <Section overflowY="scroll">
         <Flex height={20} direction="column">
           {dropdown.map(makeDropdown)}
         </Flex>
@@ -316,23 +321,11 @@ export const ViewVariables = (props, context) => {
         textAlign="center"
         align="center">
 
-        <FlexItem grow={1}>
-          <Section>
-            {Sprite}
-            {BasicInfo}
-          </Section>
-        </FlexItem>
-
+        {basicsnowflake}
 
         {DropdownMenu}
 
-
-        {
-        // For some reason the flex LivingInfo has
-        // doesn't wrap if this width isn't set
-        // It then scales properly to fit so no problem
-        }
-        <FlexItem width={100}>
+        <FlexItem basis="100%">
           {LivingInfo}
         </FlexItem>
 

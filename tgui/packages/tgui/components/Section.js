@@ -9,7 +9,6 @@ export const Section = props => {
     buttons,
     content,
     children,
-    scrollable,
     ...rest
   } = props;
   const hasTitle = !isFalsy(title) || !isFalsy(buttons);
@@ -33,9 +32,7 @@ export const Section = props => {
         </div>
       )}
       {hasContent && (
-        <div className={scrollable
-          ?"Section__content__scroll"
-          :"Section__content"}>
+        <div className="Section__content">
           {content}
           {children}
         </div>
