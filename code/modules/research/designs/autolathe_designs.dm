@@ -455,7 +455,7 @@
 /datum/design/scalpel
 	name = "Scalpel"
 	id = "scalpel"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 4000, /datum/material/glass = 1000)
 	build_path = /obj/item/scalpel
 	category = list("initial", "Medical", "Tool Designs")
@@ -464,7 +464,7 @@
 /datum/design/circular_saw
 	name = "Circular Saw"
 	id = "circular_saw"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 10000, /datum/material/glass = 6000)
 	build_path = /obj/item/circular_saw
 	category = list("initial", "Medical", "Tool Designs")
@@ -473,7 +473,7 @@
 /datum/design/surgicaldrill
 	name = "Surgical Drill"
 	id = "surgicaldrill"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 10000, /datum/material/glass = 6000)
 	build_path = /obj/item/surgicaldrill
 	category = list("initial", "Medical", "Tool Designs")
@@ -482,7 +482,7 @@
 /datum/design/retractor
 	name = "Retractor"
 	id = "retractor"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 6000, /datum/material/glass = 3000)
 	build_path = /obj/item/retractor
 	category = list("initial", "Medical", "Tool Designs")
@@ -491,7 +491,7 @@
 /datum/design/cautery
 	name = "Cautery"
 	id = "cautery"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2500, /datum/material/glass = 750)
 	build_path = /obj/item/cautery
 	category = list("initial", "Medical", "Tool Designs")
@@ -500,7 +500,7 @@
 /datum/design/hemostat
 	name = "Hemostat"
 	id = "hemostat"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500)
 	build_path = /obj/item/hemostat
 	category = list("initial", "Medical", "Tool Designs")
