@@ -510,11 +510,15 @@ GLOBAL_LIST_INIT(brass_recipes, list ( \
 	new/datum/stack_recipe("wall gear", /obj/structure/destructible/clockwork/wall_gear, 2, time = 20, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("brass grille", /obj/structure/grille/ratvar, 2, time=20, one_per_turf = TRUE, on_floor = TRUE), \
 	null, \
-	new/datum/stack_recipe("brass fulltile window", /obj/structure/grille/ratvar, 4, time=10, one_per_turf = TRUE, on_floor = TRUE), \
-	new/datum/stack_recipe("brass directional window", /obj/structure/window/reinforced/clockwork/fulltile/unanchored, 2, time=10, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("brass fulltile window", /obj/structure/window/reinforced/clockwork/fulltile/unanchored, 4, time=10, on_floor = TRUE, window_checks=TRUE), \
+	new/datum/stack_recipe("brass directional window", /obj/structure/window/reinforced/clockwork/unanchored, 2, time=10, on_floor = TRUE, window_checks=TRUE), \
+	new/datum/stack_recipe("brass windoor", /obj/machinery/door/window/clockwork, 5, time=40, on_floor = TRUE, window_checks=TRUE), \
 	null, \
 	new/datum/stack_recipe("pinion airlock", /obj/machinery/door/airlock/clockwork, 5, time=40, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("pinion windowed airlock", /obj/machinery/door/airlock/clockwork/glass, 5, time=40, one_per_turf = TRUE, on_floor = TRUE), \
+	null, \
+	new/datum/stack_recipe("brass chair", /obj/structure/chair/brass, 5, time=40, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 5, time=40, one_per_turf = TRUE, on_floor = TRUE), \
 ))
 
 /obj/item/stack/tile/brass
@@ -596,7 +600,6 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	. = ..()
 	pixel_x = 0
 	pixel_y = 0
-
 /obj/item/stack/tile/bronze/thirty
 	amount = 30
 

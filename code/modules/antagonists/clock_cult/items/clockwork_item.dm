@@ -12,4 +12,4 @@
 		. = clockwork_desc
 	else
 		. = desc
-	. += . += "[gender == PLURAL ? "They are" : "It is"] a [weightclass2text(w_class)] item."
+	. += "[gender == PLURAL ? "They are" : "It is"] a [weightclass2text(w_class)] item."

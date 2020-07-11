@@ -2,13 +2,13 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway
 	name = "ark of the Clockwork Justicar"
-	max_integrity = 250
-	obj_integrity = 250
+	max_integrity = 400
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_components"
 	pixel_x = -32
 	pixel_y = -32
 	density = TRUE
+	can_be_repaired = FALSE
 
 	var/activated = FALSE
 	var/grace_period = 300

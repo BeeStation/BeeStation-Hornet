@@ -388,6 +388,11 @@
 /obj/machinery/door/window/clockwork/hasPower()
 	return TRUE //yup that's power all right
 
+/obj/machinery/door/window/clockwork/allowed(mob/M)
+	if(is_servant_of_ratvar(M))
+		return TRUE
+	return FALSE
+
 /obj/machinery/door/window/clockwork/narsie_act()
 	take_damage(rand(30, 60), BRUTE)
 	if(src)
@@ -395,9 +400,6 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
-
-/obj/machinery/door/window/clockwork/allowed(mob/M)
-	return 0
 
 /obj/machinery/door/window/northleft
 	dir = NORTH
