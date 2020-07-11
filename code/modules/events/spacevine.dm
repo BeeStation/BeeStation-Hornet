@@ -9,13 +9,13 @@
 	fakeable = FALSE
 
 /datum/round_event/spacevine/start()
-	var/list/turfs = list() //list of all the empty floor turfs in the hallway areas
+	var/list/turfs = list() //list of all the empty floor turfs in the maintenance areas
 
 	var/obj/structure/spacevine/SV = new()
 
-	for(var/area/hallway/A in world)
+	for(var/area/maintenance/A in world)
 		for(var/turf/F in A)
-			if(F.Enter(SV))
+			if(F.Enter(SV) && !isspaceturf(F))
 				turfs += F
 
 	qdel(SV)
@@ -377,6 +377,8 @@
 	init_subtypes(/datum/spacevine_mutation/, vine_mutations_list)
 	if(potency != null)
 		mutativeness = potency / 10
+	else
+		mutativeness = rand(1, 6)
 	if(production != null)
 		spread_cap *= production / 5
 		spread_multiplier /= production / 5
@@ -497,6 +499,13 @@
 /obj/structure/spacevine/proc/spread()
 	var/direction = pick(GLOB.cardinals)
 	var/turf/stepturf = get_step(src,direction)
+	if(locate(/obj/structure, stepturf) || locate(/obj/machinery, stepturf))//if we can't grow into a turf, we'll start digging into it
+		for(var/obj/structure/S in stepturf)
+			if(S.density && !istype(S, /obj/structure/reagent_dispensers/fueltank)) //don't breach the station!
+				S.take_damage(25)
+		for(var/obj/machinery/M in stepturf)
+			if(M.density && !istype(M, /obj/machinery/power/smes) && !istype(M, /obj/machinery/door/airlock/external) && !istype(M, /obj/machinery/door/firedoor)) //please don't sabotage power or cause a hullbreach!
+				M.take_damage(40) //more damage, because machines are more commonplace and tend to be more durable
 	if (!isspaceturf(stepturf) && stepturf.Enter(src))
 		for(var/datum/spacevine_mutation/SM in mutations)
 			SM.on_spread(src, stepturf)
