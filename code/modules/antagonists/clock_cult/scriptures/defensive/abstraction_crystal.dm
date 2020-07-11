@@ -4,6 +4,7 @@
 GLOBAL_LIST_INIT(abstraction_crystals, list())
 
 /datum/antagonist/servant_of_ratvar/manifestation
+	name = "Servant Manifestation"
 	counts_towards_total = FALSE
 
 /datum/clockcult/scripture/create_structure/abstraction_crystal
@@ -21,7 +22,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 /datum/clockcult/scripture/create_structure/abstraction_crystal/check_special_requirements()
 	if(!..())
 		return FALSE
-	for(var/obj/structure/structure in get_turf(invoker))
+	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
 		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
 		return FALSE
 	for(var/obj/structure/destructible/clockwork/abstraction_crystal/AC in range(5))
@@ -76,7 +77,6 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	if(QDELETED(owner) || QDELETED(src))
 		return
 	if(QDELETED(linked_crystal))
-		dust()
 		return
 	. = ..()
 	//Convert any body part damage loss to clone
@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	var/health_delta_needed = max(health - required_health, 0)
 	adjustCloneLoss(health_delta_needed)	//Adjust clone loss so that our health = crystals health
 	last_check_health = health
-	if(incapacitated())
+	if(incapacitated() || get_dist(src, linked_crystal) > ABSTRACTION_CRYSTAL_RANGE)
 		linked_crystal.deconstruct(FALSE)
 
 /mob/living/carbon/human/abstraction_hologram/proc/damage_crystal(amount)
@@ -114,6 +114,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	var/mob/living/carbon/human/abstraction_hologram/active_hologram
 	var/list/tracked_items
 	var/processing = FALSE
+	var/dusting_hologram = FALSE	//Prevents us from crashing the game by dusting a hologram being dusted
 
 /obj/structure/destructible/clockwork/abstraction_crystal/Initialize()
 	. = ..()
@@ -125,11 +126,13 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 		return
 	if(!iscarbon(user))
 		return
-	if(istype(user, /mob/living/carbon/human/abstraction_hologram))
-		return
 	if(!QDELETED(active_hologram))
+		if(istype(user, /mob/living/carbon/human/abstraction_hologram))
+			if(user == active_hologram)
+				clear_ghost_items()
+			return
 		return
-	var/list/valid_crystals = GLOB.abstraction_crystals
+	var/list/valid_crystals = GLOB.abstraction_crystals.Copy()
 	valid_crystals.Remove(key_word)
 	var/selected = input(user, "Select a crystal to manifest at", "Manifestation") as null|anything in valid_crystals
 	if(!selected || !(selected in valid_crystals))
@@ -149,6 +152,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 		return
 	clear_ghost_items()	//This dusts the manifestation, so make sure it is before the creation of the mob or the game will crash hard.
 	activator = C
+	dusting_hologram = FALSE
 	active_hologram = new(get_turf(src))
 	active_hologram.owner = C
 	active_hologram.linked_crystal = src
@@ -161,6 +165,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 
 	to_chat(active_hologram, "<span class='neovgre'>You manifest yourself at the [src].</span>")
 	to_chat(active_hologram, "<span class='neovgre'>You will only take a fraction of the damage your manifestation recieves.</span>")
+	to_chat(active_hologram, "<span class='neovgre'>Peer into the crystal again to return to your old body.</span>")
 
 	//Equip with generic gear
 	add_servant_of_ratvar(active_hologram, silent=TRUE, servant_type=/datum/antagonist/servant_of_ratvar/manifestation)
@@ -189,12 +194,17 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 				derez(I)
 
 /obj/structure/destructible/clockwork/abstraction_crystal/proc/clear_ghost_items()
+	if(dusting_hologram)
+		return
+	dusting_hologram = TRUE
 	if(processing)
 		STOP_PROCESSING(SSobj, src)
 		processing = FALSE
 	for(var/obj/I as anything in tracked_items)
 		derez(I)
 	if(!QDELETED(active_hologram))
+		for(var/atom/movable/M in active_hologram.get_contents())//Drop everything so real items don't get dusted
+			M.forceMove(get_turf(active_hologram))
 		active_hologram.dust()
 	tracked_items = list()
 

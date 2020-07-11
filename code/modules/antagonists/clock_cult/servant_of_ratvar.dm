@@ -34,9 +34,9 @@
 	SSticker.mode.update_clockcult_icons_added(owner)
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
-	M.faction -= "ratvar"
+	owner.current.faction -= "ratvar"
 	GLOB.servants_of_ratvar -= owner
-	if(ishuman(owner.current))
+	if(owner in GLOB.human_servants_of_ratvar)
 		GLOB.human_servants_of_ratvar -= owner
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
@@ -71,6 +71,11 @@
 	var/obj/item/clockwork/clockwork_slab/slab = new(get_turf(H))
 	H.put_in_hands(slab)
 	slab.pickup(H)
+	//Remove cuffs
+	if(H.handcuffed)
+		H.handcuffed.forceMove(get_turf(H))
+		H.handcuffed = null
+		H.update_handcuffed()
 	return FALSE
 
 //Grant access to the clockwork tools.

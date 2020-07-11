@@ -17,6 +17,9 @@
 /datum/action/innate/clockcult/warp/Activate()
 	if(!isliving(owner))
 		return
+	if(GLOB.gateway_opening)
+		to_chat(owner, "<span class='brass'>You cannot warp while the gateway is opening!</span>")
+		return
 	if(warping)
 		button_icon_state = "warp_down"
 		owner.update_action_buttons_icon()

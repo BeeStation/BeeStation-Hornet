@@ -22,15 +22,24 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	if(GLOB.ratvar_risen)
 		return
 	hierophant_message("The Ark has been destroyed, Reebe is becomming unstable!", null, "<span class='big_brass'>")
-	if(GLOB.ratvar_risen || !istype(SSticker.mode, /datum/game_mode/clockcult))
+	if(GLOB.ratvar_risen)
 		return
-	flee_reebe(FALSE)
+	for(var/mob/living/M in GLOB.mob_list)
+		if(!is_reebe(M.z))
+			continue
+		if(is_servant_of_ratvar(M))
+			to_chat(M, "<span class='reallybig hypnophrase'>You hear a thousound screams and the crashing of cogs... <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i></span>")
+			continue
+		var/safe_place = find_safe_turf()
+		M.SetSleeping(50)
+		to_chat(M, "<span class='reallybig hypnophrase'>You hear a thousound screams and the crashing of cogs...</span>")
+		to_chat(M, "<span class='hypnophrase'>The only thing you remember is suddenly feeling warm and safe.</span>")
+		M.forceMove(safe_place)
 	. = ..()
 	for(var/i in 1 to 30)
 		explosion(pick(get_area_turfs(/area/reebe/city_of_cogs)), 0, 2, 4, 4, FALSE)
 		sleep(5)
 	explosion(pick(GLOB.servant_spawns), 50, 40, 30, 30, FALSE, TRUE)
-	SSticker.force_ending = TRUE
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -132,6 +141,8 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/ratvar_approaches()
 	hierophant_message("Ratvar approaches, you shall be eternally rewarded for your servitude!", null, "<span class='large_brass'>")
 	resistance_flags |= INDESTRUCTIBLE
+	for(var/mob/living/M in GLOB.servants_of_ratvar)
+		M.status_flags |= GODMODE
 	sound_to_playing_players(volume = 100, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/ratvar_rises.ogg')) //End the sounds
 	GLOB.ratvar_risen = TRUE
 	var/original_matrix = matrix()
@@ -165,7 +176,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	desc = "[text2ratvar("That's Ratvar, the Clockwork Justicar. The great one has risen.")]"
 	SEND_SOUND(world, 'sound/effects/ratvar_reveal.ogg')
 	to_chat(world, "<span class='big_brass'>The bluespace veil gives way to Ratvar, this realm shall be shone in his light!</span>")
-	SSticker.force_ending = 1
+	trigger_clockcult_victory(src)
 	UnregisterSignal(src, COMSIG_ATOM_BSA_BEAM)
 
 //tasty

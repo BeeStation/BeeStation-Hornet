@@ -1,5 +1,7 @@
 //Helps track the living % of the crew that are servants for when opening the ark automatically
 
+GLOBAL_VAR(ark_transport_triggered)
+
 GLOBAL_VAR(minimum_servant_count)
 GLOBAL_VAR(critical_servant_count)
 
@@ -20,13 +22,16 @@ GLOBAL_VAR(critical_servant_count)
 /proc/check_ark_status()
 	if(!GLOB.critical_servant_count)
 		return
+	if(GLOB.ark_transport_triggered)
+		return
 	//Cogscarabs will not trigger the gateway to open
 	if(GLOB.human_servants_of_ratvar.len < GLOB.critical_servant_count)
 		return FALSE
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
 		SEND_SOUND(M.current, 'sound/magic/clockwork/scripture_tier_up.ogg')
-	hierophant_message("The Ark is preparing to open, you will be transported in 5 minutes!", null, "<span class='large_brass'>")
+	hierophant_message("The Ark's cogs whir to life, it will open in 5 minutes!", null, "<span class='large_brass'>")
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/force_open_ark), 3000)
+	GLOB.ark_transport_triggered = TRUE
 	return TRUE
 
 /proc/force_open_ark()

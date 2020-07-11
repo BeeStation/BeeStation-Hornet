@@ -23,6 +23,14 @@
 	. = ..()
 
 /datum/clockcult/scripture/proc/invoke()
+	if(GLOB.clockcult_power < power_cost)
+		invoke_fail()
+		if(invokation_chant_timer)
+			deltimer(invokation_chant_timer)
+			invokation_chant_timer = null
+		end_invoke()
+		return
+	GLOB.clockcult_power -= power_cost
 	invoke_success()
 
 /datum/clockcult/scripture/proc/invoke_success()
@@ -119,7 +127,7 @@
 /datum/clockcult/scripture/create_structure/check_special_requirements()
 	if(!..())
 		return FALSE
-	for(var/obj/structure/structure in get_turf(invoker))
+	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
 		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
 		return FALSE
 	return TRUE

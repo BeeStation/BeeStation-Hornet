@@ -140,15 +140,12 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 		return FALSE
 	return TRUE
 
-/proc/flee_reebe(allow_servant_exit = FALSE)
+/proc/flee_reebe()
 	for(var/mob/living/M in GLOB.mob_list)
 		if(!is_reebe(M.z))
 			continue
 		var/safe_place = find_safe_turf()
-		if(is_servant_of_ratvar(M))
-			if(!allow_servant_exit)
-				continue
-		else
+		if(!is_servant_of_ratvar(M))
 			M.SetSleeping(50)
 		M.forceMove(safe_place)
 
