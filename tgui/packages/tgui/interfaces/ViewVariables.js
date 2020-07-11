@@ -161,7 +161,10 @@ export const ViewVariables = (props, context) => {
   let Sprite;
   if (snowflake?.sprite_base64) {
     Sprite = (
-      <img src={`data:image/jpeg;base64,${snowflake.sprite_base64}`} />
+      <img
+        height="100%"
+        width="100%"
+        src={`data:image/jpeg;base64,${snowflake.sprite_base64}`} />
     );
   }
 
@@ -198,9 +201,11 @@ export const ViewVariables = (props, context) => {
 
   const basicsnowflake = (
     <FlexItem grow={1}>
-      <Section height="100%">
-        {Sprite}
-        {BasicInfo}
+      <Section>
+        <Flex inline direction="column">
+          {Sprite}
+          {BasicInfo}
+        </Flex>
       </Section>
     </FlexItem>
   );
@@ -302,8 +307,8 @@ export const ViewVariables = (props, context) => {
 
   const DropdownMenu = (DropdownOpen && (
     <FlexItem align="baseline">
-      <Section overflowY="scroll">
-        <Flex height={20} direction="column">
+      <Section height={20} overflowY="scroll">
+        <Flex direction="column">
           {dropdown.map(makeDropdown)}
         </Flex>
       </Section>
