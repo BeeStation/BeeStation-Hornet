@@ -68,6 +68,6 @@
 	if(sheets == 0)
 		return
 	GLOB.clockcult_power -= sheets * BRASS_POWER_COST
-	var/obj/item/stack/tile/brass/B = new(target, sheets)
+	new /obj/item/stack/tile/brass(target, sheets)
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 	to_chat(user, "<span class='brass'>You fabricate [sheets] brass.</span>")

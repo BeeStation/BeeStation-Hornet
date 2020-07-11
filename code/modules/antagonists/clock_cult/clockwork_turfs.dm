@@ -54,13 +54,11 @@
 	new /obj/effect/temp_visual/ratvar/beam(src)
 	realappearence = new /obj/effect/clockwork/overlay/wall(src)
 	realappearence.linked = src
-	calculate_reebe_pressure()
 
 /turf/closed/wall/clockwork/Destroy()
 	if(realappearence)
 		qdel(realappearence)
 		realappearence = null
-	calculate_reebe_pressure()
 	return ..()
 
 /turf/closed/wall/clockwork/ReplaceWithLattice()

@@ -64,8 +64,6 @@
 	. = ..()
 	if(!is_servant_of_ratvar(user))
 		return FALSE
-	if(!ishuman(user))
-		return FALSE
 
 /obj/machinery/computer/camera_advanced/ratvar/GrantActions(mob/living/user)
 	. = ..()

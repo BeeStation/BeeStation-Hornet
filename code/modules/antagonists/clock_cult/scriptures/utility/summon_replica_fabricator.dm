@@ -13,6 +13,6 @@
 	invokation_text = list("Their technology is no match for the power of Eng'ine.")
 	category = SPELLTYPE_MANUFACTORING
 
-/datum/clockcult/scripture/abscond/invoke_success()
+/datum/clockcult/scripture/replica_fabricator/invoke_success()
 	var/obj/item/clockwork/replica_fabricator/RF = new(get_turf(invoker))
 	invoker.put_in_inactive_hand(RF)

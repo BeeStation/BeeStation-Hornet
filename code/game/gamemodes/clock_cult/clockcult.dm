@@ -182,7 +182,7 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 //Most of this proc is the queuing system that prevents it from running too often,
 //instead it queues itself up with a timer if it needs to update.
 //I know, it's a little weird but it prevents spamming this and breaking stuff.
-#define REEBE_PRESSURE_CALC_DELAY 50
+/*#define REEBE_PRESSURE_CALC_DELAY 50
 
 /proc/calculate_reebe_pressure(called_through_timer = FALSE)
 	set waitfor = FALSE
@@ -248,4 +248,4 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 		addtimer(CALLBACK(CW, /turf/closed/wall/clockwork.proc/make_weak), rand(0, 80))
 		CHECK_TICK
 	next_calculation_time = world.time + REEBE_PRESSURE_CALC_DELAY
-#undef REEBE_PRESSURE_CALC_DELAY
+#undef REEBE_PRESSURE_CALC_DELAY*/

@@ -10,8 +10,8 @@
 	icon_dead = "drone_clock_dead"
 	health = 60
 	maxHealth = 60
-	faction = list("neutral","silicon","turret", "ratvar")
-	default_storage = /obj/item/storage/belt/utility/servant
+	faction = list("neutral", "silicon", "turret", "ratvar")
+	default_storage = /obj/item/storage/belt/utility/servant/drone
 	visualAppearence = CLOCKDRONE
 	bubble_icon = "clock"
 	picked = TRUE
