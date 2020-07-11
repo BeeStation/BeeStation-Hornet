@@ -53,7 +53,7 @@
 	playsound(user, 'sound/items/welder.ogg', 75, TRUE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
-		if(tar,check_shields(src,10, "the [tar.name]"))
+		if(tar.check_shields(src,10, "the [tar.name]"))
 			return ..()
 		if(tar.anti_magic_check())
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
