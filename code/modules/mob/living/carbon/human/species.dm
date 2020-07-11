@@ -1496,6 +1496,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						"<span class='userdanger'>[M] attempts to touch you!</span>")
 		return 0
 	SEND_SIGNAL(M, COMSIG_MOB_ATTACK_HAND, M, H, attacker_style)
+	SEND_SIGNAL(H, COMSIG_MOB_HAND_ATTACKED, H, M, attacker_style)
 	switch(M.a_intent)
 		if("help")
 			help(M, H, attacker_style)
