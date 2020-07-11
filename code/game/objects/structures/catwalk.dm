@@ -6,7 +6,7 @@
 	number_of_rods = 2
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
-	obj_flags = CAN_BE_HIT | BLOCK_Z_FALL
+	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/lattice/catwalk/over
 	layer = CATWALK_LAYER
