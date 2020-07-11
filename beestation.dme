@@ -1363,6 +1363,7 @@
 #include "code\modules\antagonists\clock_cult\scriptures\utility\integration_cog.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\utility\sigil_of_vitality.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\utility\summon_replica_fabricator.dm"
+#include "code\modules\antagonists\clock_cult\scriptures\utility\vanguard.dm"
 #include "code\modules\antagonists\clock_cult\structure\clockwork_camera.dm"
 #include "code\modules\antagonists\clock_cult\structure\clockwork_overlay.dm"
 #include "code\modules\antagonists\clock_cult\structure\clockwork_sigil.dm"

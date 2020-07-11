@@ -54,10 +54,14 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	//Clear quickbinds
 	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
 		script.Remove(user)
+	if(active_scripture)
+		active_scripture.end_invokation()
 	. = ..()
 
 /obj/item/clockwork/clockwork_slab/pickup(mob/user)
 	. = ..()
+	if(!is_servant_of_ratvar(user))
+		return
 	//Grant quickbound spells
 	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
 		script.Grant(user)

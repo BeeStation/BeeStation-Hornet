@@ -257,3 +257,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define LEGION_CORE_TRAIT "legion_core_trait"
 #define MIRROR_TRAIT "mirror_trait"
 #define CRAYON_TRAIT "crayon_trait"
+#define HOLYWATER_TRAIT "holywater"
+#define VANGUARD_TRAIT "vanguard"

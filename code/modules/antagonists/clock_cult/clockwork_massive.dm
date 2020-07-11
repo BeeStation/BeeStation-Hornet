@@ -9,6 +9,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	pixel_y = -32
 	density = TRUE
 	can_be_repaired = FALSE
+	immune_to_servant_attacks = TRUE
 
 	var/activated = FALSE
 	var/grace_period = 300
@@ -21,7 +22,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 /obj/structure/destructible/clockwork/massive/celestial_gateway/Destroy()
 	if(GLOB.ratvar_risen)
 		return
-	hierophant_message("The Ark has been destroyed, Reebe is becomming unstable!", null, "<span class='big_brass'>")
+	hierophant_message("The Ark has been destroyed, Reebe is becomming unstable!", null, "<span class='large_brass'>")
 	if(GLOB.ratvar_risen)
 		return
 	for(var/mob/living/M in GLOB.mob_list)
@@ -124,19 +125,16 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		var/turf/T = pick(pick_turfs)
 		GLOB.clockwork_portals += new /obj/effect/portal/wormhole/clockcult(T, null, 0, null, FALSE)
 	addtimer(CALLBACK(src, .proc/begin_activation), 2400)
-	return
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_activation()
 	icon_state = "clockwork_gateway_active"
 	sound_to_playing_players(volume = 25, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_active.ogg', TRUE))
 	addtimer(CALLBACK(src, .proc/begin_ratvar_arrival), 2400)
-	return
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_ratvar_arrival()
 	sound_to_playing_players(volume = 30, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_closing.ogg', TRUE))
 	icon_state = "clockwork_gateway_closing"
 	addtimer(CALLBACK(src, .proc/ratvar_approaches), 1200)
-	return
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/ratvar_approaches()
 	hierophant_message("Ratvar approaches, you shall be eternally rewarded for your servitude!", null, "<span class='large_brass'>")
@@ -153,9 +151,8 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	QDEL_IN(src, 3)
 	sleep(3)
 	var/turf/center_station = SSmapping.get_station_center()
-	new /obj/singularity/ratvar(center_station)
 	flee_reebe(TRUE)
-	return
+	new /obj/singularity/ratvar(center_station)
 
 //=========Ratvar==========
 /obj/singularity/ratvar

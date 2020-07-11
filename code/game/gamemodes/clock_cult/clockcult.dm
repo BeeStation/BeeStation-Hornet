@@ -145,15 +145,19 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 		if(!is_reebe(M.z))
 			continue
 		var/safe_place = find_safe_turf()
+		M.forceMove(safe_place)
 		if(!is_servant_of_ratvar(M))
 			M.SetSleeping(50)
-		M.forceMove(safe_place)
 
 //Transmits a message to everyone in the cult
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
 //TODO: SANITIZE MESSAGES WITH THE NORMAL SAY STUFF (punctuation)
 /proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE)
 	var/hierophant_message = "[span]"
+	if(sender)
+		if(sender.reagents.has_reagent(/datum/reagent/water/holywater, 1))
+			to_chat(sender, "<span class='nezbere'>[pick("You fail to transmit your cries for help.", "Your calls into the void go unanswered.", "You try to transmit your message, but the hierophant network is silent.")]</span>")
+			return FALSE
 	if(!msg)
 		if(sender)
 			to_chat(sender, "<span class='brass'>You cannot transmit nothing!</span>")
@@ -167,8 +171,13 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 		hierophant_message += msg
 	if(span)
 		hierophant_message += "</span>"
-	for(var/mob/M in GLOB.player_list)
+	for(var/datum/mind/mind in GLOB.servants_of_ratvar)
+		var/mob/M = mind.current
 		if(isliving(M) && !is_servant_of_ratvar(M))
+			continue
+		if(M.reagents.has_reagent(/datum/reagent/water/holywater, 1))
+			if(pick(20))
+				to_chat(M, "<span class='nezbere'>You hear the cogs whispering to you, but cannot understand their words.</span>")
 			continue
 		to_chat(M, hierophant_message)
 

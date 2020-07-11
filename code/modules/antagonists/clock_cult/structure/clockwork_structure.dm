@@ -19,6 +19,11 @@
 	var/immune_to_servant_attacks = FALSE //if we ignore attacks from servants of ratvar instead of taking damage
 	var/datum/mind/owner = null	//The person who placed this structure
 
+/obj/structure/destructible/clockwork/attacked_by(obj/item/I, mob/living/user)
+	if(immune_to_servant_attacks && is_servant_of_ratvar(user))
+		return
+	. = ..()
+
 //for the ark and Ratvar
 /obj/structure/destructible/clockwork/massive
 	name = "massive construct"

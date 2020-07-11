@@ -13,6 +13,10 @@
 	category = SPELLTYPE_SERVITUDE
 	recital_sound = 'sound/magic/clockwork/narsie_attack.ogg'
 
+/datum/clockcult/scripture/ark_activation/New()
+	. = ..()
+	invokers_required = GLOB.minimum_servant_count
+
 /datum/clockcult/scripture/ark_activation/check_special_requirements()
 	if(!..())
 		return FALSE

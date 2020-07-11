@@ -14,6 +14,19 @@ GLOBAL_VAR(critical_servant_count)
 	var/datum/antagonist/servant_of_ratvar/antagdatum = servant_type
 	return M.mind.add_antag_datum(antagdatum)
 
+/proc/remove_servant_of_ratvar(datum/mind/cult_mind, silent, stun)
+	if(cult_mind.current)
+		to_chat(cult_mind, "<span class='large_brass'>Never forget th...[text2ratvar("e will of Eng'ine!")]...</span>")
+		to_chat(cult_mind, "<span class='warning'>The quiet ticking in the back of your mind slowly fades away...</span>")
+		var/datum/antagonist/servant_of_ratvar/cult_datum = cult_mind.has_antag_datum(/datum/antagonist/servant_of_ratvar)
+		if(!cult_datum)
+			return FALSE
+		cult_datum.silent = silent
+		cult_datum.on_removal()
+		if(stun)
+			cult_mind.current.Unconscious(100)
+		return TRUE
+
 /proc/calculate_clockcult_values()
 	var/playercount = get_active_player_count()
 	GLOB.minimum_servant_count = round(CLAMP((playercount/12)+4, 6, 12))
