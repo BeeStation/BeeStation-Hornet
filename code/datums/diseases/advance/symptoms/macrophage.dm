@@ -35,7 +35,7 @@
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
-	phagecounter -= max(1, A.properties["stage_rate"])
+	phagecounter -= max(2, A.properties["stage_rate"])
 	switch(A.stage)
 		if(1-3)
 			to_chat(M, "<span class='notice'>Your skin crawls.</span>")
@@ -45,16 +45,16 @@
 		if(5)
 			if(gigagerms && phagecounter <= 0) //only ever spawn one big germ
 				Burst(A, M, TRUE)
-				phagecounter += 5 //but big germs spawn small ones more frequently
-			while(phagecounter <= 0)
 				phagecounter += 10
+			while(phagecounter <= 0)
+				phagecounter += 5
 				Burst(A, M)
 
 /datum/symptom/macrophage/proc/Burst(datum/disease/advance/A, var/mob/living/M, var/gigagerms = FALSE)
 	var/mob/living/simple_animal/hostile/macrophage/phage
 	if(gigagerms)
+		phage.melee_damage = max(5, A.properties["resistance"])
 		phage = new /mob/living/simple_animal/hostile/macrophage/aggro(M.loc)
-		phage.melee_damage += max(0, A.properties["resistance"])
 		M.take_overall_damage(brute = rand(10, 20), required_status = BODYPART_ORGANIC)
 		playsound(M, 'sound/effects/splat.ogg', 50, 1)
 		M.emote("scream")
@@ -63,7 +63,6 @@
 		M.take_overall_damage(brute = rand(1, 7), required_status = BODYPART_ORGANIC)
 	phage.health += A.properties["resistance"]
 	phage.maxHealth += A.properties["resistance"]
-	phage.melee_damage += max(0, A.properties["resistance"])
 	phage.infections += A
 	phage.basedisease = A
 	if(A.properties["transmittable"] >= 12)
@@ -75,3 +74,4 @@
 			phage.infections += D
 	M.visible_message("<span class='danger'>A strange creature bursts out of [M]!</span>", \
 	  "<span class='userdanger'>A slimy creature bursts forth from your flesh!</span>")
+	addtimer(CALLBACK(phage, /mob/living/simple_animal/hostile/macrophage.proc/shrivel), 3000)

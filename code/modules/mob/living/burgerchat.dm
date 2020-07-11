@@ -86,11 +86,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	// find a client that's connected to measure the height of the message, so it knows how much to bump up the others
 	if(length(GLOB.clients))
-		var/client/C = null
-		for(var/client/player in GLOB.clients)
-			if(player.byond_version >= 513)
-				C = player
-				break
+		var/client/C = GLOB.clients[1]
 		if(C)
 			var/moveup = text2num(splittext(C.MeasureText(I.maptext, width = 128), "x")[2])
 			for(var/image/old in target.stored_chat_text)

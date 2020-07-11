@@ -258,11 +258,12 @@
   */
 /mob/proc/attack_ui(slot)
 	var/obj/item/W = get_active_held_item()
-
 	if(istype(W))
+		//IF HELD TRY APPLY TO SLOT
 		if(equip_to_slot_if_possible(W, slot,0,0,0))
+			W.apply_outline()
 			return 1
-
+	//IF NO ITEM IS HELD, APPLY TO SLOT
 	if(!W)
 		// Activate the item
 		var/obj/item/I = get_item_by_slot(slot)
