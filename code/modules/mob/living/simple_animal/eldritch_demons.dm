@@ -5,12 +5,9 @@
 	gender = NEUTER
 	mob_biotypes = NONE
 	speak_emote = list("screams")
-	response_help_continuous = "thinks better of touching"
-	response_help_simple = "think better of touching"
-	response_disarm_continuous = "flails at"
-	response_disarm_simple = "flail at"
-	response_harm_continuous = "reaps"
-	response_harm_simple = "tears"
+	response_help = "think better of touching"
+	response_disarm = "flail at"
+	response_harm = "tears"
 	speak_chance = 1
 	icon = 'icons/mob/eldritch_mobs.dmi'
 	speed = 0
@@ -54,8 +51,7 @@
 	icon_state = "raw_prophet"
 	status_flags = CANPUSH
 	icon_living = "raw_prophet"
-	melee_damage_lower = 5
-	melee_damage_upper = 10
+	melee_damage = 10
 	maxHealth = 50
 	health = 50
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
@@ -73,8 +69,7 @@
 	icon_living = "armsy_start"
 	maxHealth = 200
 	health = 200
-	melee_damage_lower = 10
-	melee_damage_upper = 15
+	melee_damage = 15
 	move_resist = MOVE_FORCE_OVERPOWERING+1
 	movement_type = GROUND
 	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/worm_contract)
@@ -243,8 +238,7 @@
 	real_name = "Master of Decay"
 	maxHealth = 400
 	health = 400
-	melee_damage_lower = 20
-	melee_damage_upper = 25
+	melee_damage = 25
 
 /mob/living/simple_animal/hostile/eldritch/armsy/prime/Initialize(mapload,spawn_more = TRUE,len = 9)
 	. = ..()
@@ -261,8 +255,7 @@
 	icon_living = "rust_walker_s"
 	maxHealth = 75
 	health = 75
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage = 20
 	sight = SEE_TURFS
 	spells_to_add = list(/obj/effect/proc_holder/spell/aoe_turf/rust_conversion/small,/obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave/short)
 
@@ -296,8 +289,7 @@
 	icon_living = "ash_walker"
 	maxHealth = 75
 	health = 75
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage = 20
 	sight = SEE_TURFS
 	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,/obj/effect/proc_holder/spell/pointed/cleave/long,/obj/effect/proc_holder/spell/aoe_turf/fire_cascade)
 
@@ -310,7 +302,6 @@
 	icon_living = "stalker"
 	maxHealth = 150
 	health = 150
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage = 20
 	sight = SEE_MOBS
 	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,/obj/effect/proc_holder/spell/targeted/shapeshift/eldritch,/obj/effect/proc_holder/spell/targeted/emplosion/eldritch)

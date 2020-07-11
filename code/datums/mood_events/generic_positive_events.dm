@@ -173,3 +173,8 @@
 /datum/mood_event/area/add_effects(list/param)
 	mood_change = param[1]
 	description = param[2]
+
+/datum/mood_event/heretics
+	description = "<span class='nicegreen'>THE HIGHER I RISE , THE MORE I SEE.</span>\n"
+	mood_change = 10 //maybe being a cultist isnt that bad after all
+	hidden = TRUE

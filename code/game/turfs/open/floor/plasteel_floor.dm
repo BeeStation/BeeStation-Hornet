@@ -14,6 +14,8 @@
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
 
+/turf/open/floor/plasteel/rust_heretic_act()
+	ChangeTurf(/turf/open/floor/plating/rust)
 
 /turf/open/floor/plasteel/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -156,7 +158,7 @@
 /turf/open/floor/plasteel/tech
 	icon_state = "techfloor_grey"
 	floor_tile = /obj/item/stack/tile/
-	
+
 /turf/open/floor/plasteel/tech/grid
 	icon_state = "techfloor_grid"
 	floor_tile = /obj/item/stack/tile/
@@ -175,7 +177,7 @@
 /turf/open/floor/plasteel/grid
 	icon_state = "grid"
 	floor_tile = /obj/item/stack/tile/grid
-	
+
 /turf/open/floor/plasteel/grid/steel
 	icon_state = "steel_grid"
 
@@ -190,11 +192,11 @@
 /turf/open/floor/plasteel/tech
 	icon_state = "techfloor_grey"
 	floor_tile = /obj/item/stack/tile/techgrey
-	
+
 /turf/open/floor/plasteel/tech/grid
 	icon_state = "techfloor_grid"
 	floor_tile = /obj/item/stack/tile/techgrid
-	
+
 /turf/open/floor/plasteel/techmaint
 	icon_state = "techmaint"
 	floor_tile = /obj/item/stack/tile/techmaint

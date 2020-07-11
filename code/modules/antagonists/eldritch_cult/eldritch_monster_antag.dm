@@ -5,8 +5,8 @@
 	antagpanel_category = "Heretic Beast"
 	antag_moodlet = /datum/mood_event/heretics
 	job_rank = ROLE_HERETIC
-	antag_hud_type = ANTAG_HUD_HERETIC
-	antag_hud_name = "heretic_beast"
+	var/antag_hud_type = ANTAG_HUD_HERETIC
+	var/antag_hud_name = "heretic_beast"
 	var/datum/antagonist/master
 
 /datum/antagonist/heretic_monster/admin_add(datum/mind/new_owner,mob/admin)

@@ -35,7 +35,7 @@
 	desc = "A sickly green crescent blade, decorated with an ornamental eye. You feel like you're being watched..."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "eldritch_blade"
-	inhand_icon_state = "eldritch_blade"
+	item_state = "eldritch_blade"
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
@@ -70,19 +70,19 @@
 	name = "Rusted Blade"
 	desc = "This crescent blade is decrepit, wasting to dust. Yet still it bites, catching flesh with jagged, rotten teeth."
 	icon_state = "rust_blade"
-	inhand_icon_state = "rust_blade"
+	item_state = "rust_blade"
 
 /obj/item/melee/sickly_blade/ash
 	name = "Ashen Blade"
 	desc = "Molten and unwrought, a hunk of metal warped to cinders and slag. Unmade, it aspires to be more than it is, and shears soot-filled wounds with a blunt edge."
 	icon_state = "ash_blade"
-	inhand_icon_state = "ash_blade"
+	item_state = "ash_blade"
 
 /obj/item/melee/sickly_blade/flesh
 	name = "Flesh Blade"
 	desc = "A crescent blade born from a fleshwarped creature. Keenly aware, it seeks to spread to others the excruitations it has endured from dread origins."
 	icon_state = "flesh_blade"
-	inhand_icon_state = "flesh_blade"
+	item_state = "flesh_blade"
 
 /obj/item/clothing/neck/eldritch_amulet
 	name = "Warm Eldritch Medallion"
@@ -115,13 +115,13 @@
 	desc = "A torn, dust-caked hood. Strange eyes line the inside."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
-	flash_protect = FLASH_PROTECTION_WELDER
+	flash_protect = 1
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch
 	name = "ominous armor"
 	desc = "A ragged, dusty set of robes. Strange eyes line the inside."
 	icon_state = "eldritch_armor"
-	inhand_icon_state = "eldritch_armor"
+	item_state = "eldritch_armor"
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/forbidden_book)

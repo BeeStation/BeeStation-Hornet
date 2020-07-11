@@ -4,8 +4,8 @@
 	antagpanel_category = "Heretic"
 	antag_moodlet = /datum/mood_event/heretics
 	job_rank = ROLE_HERETIC
-	antag_hud_type = ANTAG_HUD_HERETIC
-	antag_hud_name = "heretic"
+	var/antag_hud_type = ANTAG_HUD_HERETIC
+	var/antag_hud_name = "heretic"
 	var/give_equipment = TRUE
 	var/list/researched_knowledge = list()
 	var/total_sacrifices = 0
@@ -66,8 +66,7 @@
 /datum/antagonist/heretic/proc/ecult_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
 		"backpack" = ITEM_SLOT_BACKPACK,
-		"left pocket" = ITEM_SLOT_LPOCKET,
-		"right pocket" = ITEM_SLOT_RPOCKET
+		"left pocket" = ITEM_SLOT_POCKET
 	)
 
 	var/T = new item_path(H)

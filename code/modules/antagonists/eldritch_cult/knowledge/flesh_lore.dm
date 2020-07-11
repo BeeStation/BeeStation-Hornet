@@ -83,11 +83,9 @@
 	if(eldritch_effect)
 		. = TRUE
 		eldritch_effect.on_effect()
-		if(iscarbon(target))
-			var/mob/living/carbon/carbon_target = target
-			var/obj/item/bodypart/bodypart = pick(carbon_target.bodyparts)
-			var/datum/wound/brute/cut/severe/crit_wound = new
-			crit_wound.apply_wound(bodypart)
+		if(ishuman(target))
+			var/mob/living/carbon/human/htarget = target
+			htarget.bleed_rate += 10
 
 	if(QDELETED(human_target) || human_target.stat != DEAD)
 		return
@@ -154,11 +152,10 @@
 
 /datum/eldritch_knowledge/flesh_blade_upgrade/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/carbon_target = target
-		var/obj/item/bodypart/bodypart = pick(carbon_target.bodyparts)
-		var/datum/wound/brute/cut/severe/crit_wound = new
-		crit_wound.apply_wound(bodypart)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.blood_volume -= 10
+
 
 /datum/eldritch_knowledge/summon/raw_prophet
 	name = "Raw Ritual"

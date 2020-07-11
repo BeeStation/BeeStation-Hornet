@@ -167,3 +167,6 @@
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return 0
 	return 1
+
+/turf/open/floor/plating/rust_heretic_act()
+	ChangeTurf(/turf/open/floor/plating/rust)
