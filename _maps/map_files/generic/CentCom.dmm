@@ -2359,6 +2359,9 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"gl" = (
+/turf/closed/indestructible/fakeglass,
+/area/space)
 "gp" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -2532,20 +2535,6 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/ctf)
-"hQ" = (
-/obj/structure/closet/crate,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
@@ -16968,10 +16957,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
-"Nr" = (
-/obj/structure/window/reinforced/fulltile/indestructable,
-/turf/open/floor/circuit/red,
-/area/ctf)
 "Nt" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -17179,11 +17164,6 @@
 /obj/item/clothing/under/costume/roman,
 /turf/open/floor/wood,
 /area/centcom/holding)
-"OZ" = (
-/obj/structure/window/reinforced/fulltile/indestructable,
-/obj/structure/grille/indestructable,
-/turf/open/floor/circuit/telecomms,
-/area/ctf)
 "Pa" = (
 /obj/machinery/washing_machine,
 /turf/open/floor/plasteel/white,
@@ -17438,6 +17418,9 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"Qn" = (
+/turf/closed/indestructible/fakeglass,
+/area/ctf)
 "Qq" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -17461,11 +17444,6 @@
 /obj/machinery/deepfryer,
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
-"QG" = (
-/obj/structure/grille/indestructable,
-/obj/structure/window/reinforced/fulltile/indestructable,
-/turf/open/floor/circuit/red,
-/area/ctf)
 "QH" = (
 /obj/machinery/chem_master/condimaster{
 	desc = "Used to separate out liquids - useful for purifying botanical extracts. Also dispenses condiments.";
@@ -17594,20 +17572,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/centcom/supplypod)
-"Rr" = (
-/obj/structure/closet/crate,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "Ru" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -17888,10 +17852,6 @@
 /obj/effect/turf_decal/tile/brown,
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/two)
-"Te" = (
-/obj/structure/window/reinforced/fulltile/indestructable,
-/turf/open/floor/circuit/telecomms,
-/area/ctf)
 "Tj" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey{
@@ -18344,36 +18304,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/four)
-"Wx" = (
-/obj/structure/window/reinforced/fulltile/indestructable,
-/obj/structure/grille/indestructable,
-/turf/open/floor/plasteel/dark,
-/area/ctf)
-"WA" = (
-/obj/structure/closet/crate,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/dark,
-/area/ctf)
-"WI" = (
-/obj/structure/closet/crate,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/ctf)
 "WJ" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Administration";
@@ -65759,18 +65689,18 @@ fZ
 Xu
 Xu
 gb
-Te
+gl
 gx
 hC
 ht
-Te
+gl
 gw
 Xu
 Xu
 fZ
-Te
-Te
-Te
+gl
+gl
+gl
 fZ
 aa
 aa
@@ -66519,13 +66449,13 @@ aa
 aa
 aa
 fZ
-Te
-Te
-Te
-Te
-Te
-Te
-Te
+gl
+gl
+gl
+gl
+gl
+gl
+gl
 fZ
 ht
 YF
@@ -67551,9 +67481,9 @@ Xu
 Xu
 Xu
 fZ
-OZ
-OZ
-OZ
+Qn
+Qn
+Qn
 fZ
 fZ
 fZ
@@ -67808,9 +67738,9 @@ Xu
 Xu
 Xu
 fZ
-OZ
-OZ
-OZ
+Qn
+Qn
+Qn
 fZ
 Xu
 Xu
@@ -68832,13 +68762,13 @@ aa
 aa
 aa
 fZ
-Te
-Te
+gl
+gl
 Xu
 Xu
 Xu
-Te
-Te
+gl
+gl
 fZ
 Xu
 Xu
@@ -69090,11 +69020,11 @@ aa
 aa
 fZ
 Qd
-Te
+gl
 Xu
 Xu
 Xu
-Te
+gl
 Qd
 fZ
 Xu
@@ -73207,8 +73137,8 @@ Xu
 Xu
 Hz
 fZ
-Wx
-Wx
+Qn
+Qn
 fZ
 fZ
 gw
@@ -73465,8 +73395,8 @@ Xu
 Xu
 fZ
 ZB
-hQ
-WA
+ZB
+AF
 fZ
 gw
 gh
@@ -73723,8 +73653,8 @@ Xu
 fZ
 ZB
 ZB
-hQ
-Wx
+ZB
+Qn
 gw
 gh
 Qi
@@ -73981,7 +73911,7 @@ fZ
 ZB
 ZB
 ZB
-Wx
+Qn
 gw
 gh
 Up
@@ -74238,7 +74168,7 @@ YR
 YR
 YR
 YR
-Wx
+Qn
 Bt
 gh
 Up
@@ -74494,8 +74424,8 @@ YE
 YE
 YE
 YE
-WI
-Wx
+YE
+Qn
 PB
 gh
 Up
@@ -74751,8 +74681,8 @@ gR
 fZ
 gR
 gR
-Rr
-Wx
+gR
+Qn
 Tw
 gh
 Up
@@ -75009,7 +74939,7 @@ fZ
 gR
 gR
 gR
-Wx
+Qn
 Tw
 gh
 UX
@@ -75263,8 +75193,8 @@ gR
 gR
 gR
 fZ
-Rr
-Rr
+gR
+gR
 gR
 fZ
 Tw
@@ -75520,8 +75450,8 @@ gR
 gR
 gq
 fZ
-Wx
-Wx
+Qn
+Qn
 fZ
 fZ
 Tw
@@ -79627,11 +79557,11 @@ aa
 aa
 fZ
 SA
-Nr
+gl
 gR
 gR
 gR
-Nr
+gl
 SA
 fZ
 gR
@@ -79883,13 +79813,13 @@ aa
 aa
 aa
 fZ
-Nr
-Nr
+gl
+gl
 gR
 gR
 gR
-Nr
-Nr
+gl
+gl
 fZ
 gR
 gR
@@ -80915,9 +80845,9 @@ gR
 gR
 gR
 fZ
-QG
-QG
-QG
+gl
+gl
+gl
 fZ
 gR
 gR
@@ -81172,9 +81102,9 @@ gR
 gR
 gR
 fZ
-QG
-QG
-QG
+gl
+gl
+gl
 fZ
 fZ
 fZ
@@ -82196,13 +82126,13 @@ aa
 aa
 aa
 fZ
-Nr
-Nr
-Nr
-Nr
-Nr
-Nr
-Nr
+gl
+gl
+gl
+gl
+gl
+gl
+gl
 fZ
 gd
 Nt
@@ -82978,18 +82908,18 @@ fZ
 gR
 gR
 ge
-Nr
+gl
 ZA
 hC
 PS
-Nr
+gl
 gz
 gR
 gR
 fZ
-Te
-Te
-Te
+gl
+gl
+gl
 fZ
 aa
 aa

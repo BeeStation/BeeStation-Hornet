@@ -460,6 +460,7 @@
 			to_chat(user, "<span class='notice'>You start to unfasten [src]'s securing bolts...</span>")
 			if(W.use_tool(src, user, 50, volume=50) && !cell)
 				user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
+				log_attack("[key_name(user)] deconstructed [name] at [AREACOORD(src)].")
 				deconstruct()
 
 	else if(istype(W, /obj/item/aiModule))

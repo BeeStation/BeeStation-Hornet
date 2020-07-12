@@ -11,7 +11,7 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/debug_variables,		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 	/client/proc/dsay,					/*talk in deadchat using our ckey/fakekey*/
 	/client/proc/investigate_show,		/*various admintools for investigation. Such as a singulo grief-log*/
-	/client/proc/secrets,
+	/client/proc/secrets,				/*from useful quick commands, to memes*/
 	/client/proc/toggle_hear_radio,		/*allows admins to hide all radio output*/
 	/client/proc/reload_admins,
 	/client/proc/reestablish_db_connection, /*reattempt a connection to the database*/
@@ -438,7 +438,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set name = "Secrets"
 	set category = "Adminbus"
 	if (holder)
-		holder.Secrets()
+		GLOB.admin_secrets.ui_interact(usr)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Secrets Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/poll_panel()
