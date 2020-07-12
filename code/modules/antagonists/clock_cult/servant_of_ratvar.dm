@@ -104,6 +104,3 @@
 /datum/team/clock_cult
 	name = "Servants Of Ratvar"
 	var/list/objective
-
-	var/power = 0
-	var/vitality = 0
