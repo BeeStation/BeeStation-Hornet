@@ -5,7 +5,7 @@
 	var/power_cost = 0
 	var/cogs_required = 0
 	var/invokation_time = 0
-	var/list/invokation_text = list()
+	var/list/invokation_text = list()	//This is all translated to rat'var so doesn't matter if its cringey or doesn't make sense, since most people can't read it
 	var/button_icon_state = "telerune"
 	var/invokers_required = 1
 	var/category = SPELLTYPE_ABSTRACT

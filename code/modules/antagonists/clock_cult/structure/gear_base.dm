@@ -4,6 +4,7 @@
 	clockwork_desc = "A large cog lying on the floor at feet level."
 	anchored = FALSE
 	var/default_icon_state = "gear_base"
+	var/unwrenched_suffix = "_unwrenched"
 
 /obj/structure/destructible/clockwork/gear_base/Initialize()
 	. = ..()
@@ -21,4 +22,4 @@
 	. = ..()
 	icon_state = default_icon_state
 	if(!anchored)
-		icon_state += "_unwrenched"
+		icon_state += unwrenched_suffix

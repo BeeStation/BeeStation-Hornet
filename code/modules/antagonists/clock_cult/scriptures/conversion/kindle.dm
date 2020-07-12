@@ -22,8 +22,8 @@
 		return FALSE
 	if(!is_servant_of_ratvar(invoker))
 		M = invoker
-	/*if(is_servant_of_ratvar(M))
-		return FALSE*/
+	if(is_servant_of_ratvar(M))
+		return FALSE
 	//Anti magic abilities
 	var/anti_magic_source = M.anti_magic_check()
 	if(anti_magic_source)
@@ -49,7 +49,10 @@
 		return TRUE
 	//Successful Invokation
 	invoker.mob_light(_color = LIGHT_COLOR_CLOCKWORK, _range = 2, _duration = 10)
-	M.Paralyze(150)
+	if(!HAS_TRAIT(M, TRAIT_MINDSHIELD))
+		M.Paralyze(150)
+	else
+		to_chat(invoker, "<span class='brass'>You fail to stun [M]!</span>")
 	if(issilicon(M))
 		var/mob/living/silicon/S = M
 		S.emp_act(EMP_HEAVY)

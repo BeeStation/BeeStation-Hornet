@@ -3,8 +3,8 @@
 //==================================//
 /datum/clockcult/scripture/create_structure/sigil_submission
 	name = "Sigil of Submission"
-	desc = "Summons a sigil of submission, used to enlighten weak minds."
-	tip = "Creates a sigil of submission, useful for showing untruths the light."
+	desc = "Summons a sigil of submission, which will convert anyone placed on top of it to the faith of Rat'var."
+	tip = "Convert the crew into servants using a sigil of submission."
 	button_icon_state = "Sigil of Submission"
 	power_cost = 250
 	invokation_time = 50
