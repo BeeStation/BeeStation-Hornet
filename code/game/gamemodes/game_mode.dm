@@ -434,7 +434,7 @@
 	WARNING("Something has gone terribly wrong. /datum/game_mode/proc/antag_pick failed to select a candidate. Falling back to pick()")
 	return pick(candidates)
 
-/datum/game_mode/proc/get_players_for_role/(role)
+/datum/game_mode/proc/get_players_for_role(role)
 	var/list/players = list()
 	var/list/candidates = list()
 	var/list/drafted = list()
