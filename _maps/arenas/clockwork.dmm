@@ -42,7 +42,7 @@
 /turf/open/floor/bronze,
 /area/tdome/arena)
 "l" = (
-//obj/item/clockwork/component/hierophant_ansible/obelisk,
+/obj/item/clockwork/component/hierophant_ansible/obelisk,
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "m" = (
@@ -76,7 +76,7 @@
 /turf/open/floor/bronze,
 /area/tdome/arena)
 "r" = (
-//obj/item/clockwork/component/vanguard_cogwheel/onyx_prism,
+/obj/item/clockwork/component/vanguard_cogwheel/onyx_prism,
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "s" = (
