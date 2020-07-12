@@ -38,7 +38,7 @@
 	var/list/display_names = generate_display_names()
 	if(!display_names.len)
 		return
-	var/choice = input(M,"Which item would you like to order?","Select an Item") as null|anything in display_names
+	var/choice = input(M,"Which item would you like to order?","Select an Item") as null|anything in sortList(display_names)
 	if(!choice || !M.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 
@@ -84,7 +84,7 @@
 /obj/item/storage/box/hero/PopulateContents()
 	new /obj/item/clothing/head/fedora/curator(src)
 	new /obj/item/clothing/suit/curator(src)
-	new /obj/item/clothing/under/rank/curator/treasure_hunter(src)
+	new /obj/item/clothing/under/rank/civilian/curator/treasure_hunter(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/melee/curator_whip(src)
 
@@ -101,7 +101,7 @@
 	name = "Braveheart, the Scottish rebel - 1300's."
 
 /obj/item/storage/box/hero/scottish/PopulateContents()
-	new /obj/item/clothing/under/kilt(src)
+	new /obj/item/clothing/under/costume/kilt(src)
 	new /obj/item/claymore/weak/ceremonial(src)
 	new /obj/item/toy/crayon/spraycan(src)
 	new /obj/item/clothing/shoes/sandal(src)
@@ -180,13 +180,31 @@
 	var/itemheld = FALSE
 	var/capacity = 2
 	var/maximum_size = 2 //one human, two pets, unlimited tiny mobs, but no big boys like megafauna
+	var/kidnappingcoefficient = 1
 
+/obj/item/clothing/head/that/bluespace/attackby(obj/item/W, mob/user, params)
+	. = ..()
+	if(istype(W, /obj/item/upgradewand))
+		var/obj/item/upgradewand/wand = W
+		if(!wand.used && kidnappingcoefficient == initial(kidnappingcoefficient))
+			wand.used = TRUE
+			kidnappingcoefficient = 0.5
+			capacity = 4
+			maximum_size = 4
+			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
+			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
+	
 /obj/item/clothing/head/that/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/M = target
+		var/kidnaptime = max(10, (M.health * (M.mob_size / 2)))
+		if(iscarbon(target))
+			kidnaptime += 100
+		if(target == user)
+			kidnaptime = 10
 		M.visible_message("<span class='warning'>[user] starts pulling [src] over [M]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
-		if(do_after_mob(user, M, max(M.health + 100, 100)))//+100 because anyone in crit will be instantly kidnapped otherwise. 
+		if(do_after_mob(user, M, kidnaptime * kidnappingcoefficient))
 			if(M == user)
 				M.drop_all_held_items()
 				if(HAS_TRAIT(src, TRAIT_NODROP))
@@ -231,7 +249,7 @@
 	for(var/atom/movable/A in contents)
 		A.forceMove(get_turf(src))
 		if(isliving(A))
-			to_chat(A, "<span class='notice'>You suddenly feel the space around you torn apart! You're free!</span>")
+			to_chat(A, "<span class='notice'>You suddenly feel the space around you tear apart! You're free!</span>")
 	return ..()
 
 /obj/item/clothing/head/that/bluespace/container_resist(mob/living/user)
@@ -277,3 +295,12 @@
 			var/atom/A = V
 			ouija_spaghetti_list[initial(A.name)] = A
 	return ouija_spaghetti_list
+
+/obj/item/upgradewand
+	desc = "A wand laced with nanotech calibration devices, used to enhance gear commonly used by modern stage magicians."
+	name = "Upgrade Wand"
+	icon = 'icons/obj/guns/magic.dmi'
+	icon_state = "nothingwand"
+	item_state = "wand"
+	w_class = WEIGHT_CLASS_SMALL
+	var/used = FALSE

@@ -211,7 +211,7 @@
 	if(!CONFIG_GET(flag/disable_secborg))
 		modulelist["Security"] = /obj/item/robot_module/security
 
-	var/input_module = input("Please, select a module!", "Robot", null, null) as null|anything in modulelist
+	var/input_module = input("Please, select a module!", "Robot", null, null) as null|anything in sortList(modulelist)
 	if(!input_module || module.type != /obj/item/robot_module)
 		return
 
@@ -301,15 +301,15 @@
 	..()
 	if(statpanel("Status"))
 		if(cell)
-			stat("Charge Left:", "[cell.charge]/[cell.maxcharge]")
+			stat(null, "Charge Left: [cell.charge]/[cell.maxcharge]")
 		else
 			stat(null, text("No Cell Inserted!"))
 
 		if(module)
 			for(var/datum/robot_energy_storage/st in module.storages)
-				stat("[st.name]:", "[st.energy]/[st.max_energy]")
+				stat(null, "[st.name]: [st.energy]/[st.max_energy]")
 		if(connected_ai)
-			stat("Master AI:", connected_ai.name)
+			stat(null, "Master AI: [connected_ai.name]")
 
 /mob/living/silicon/robot/restrained(ignore_grab)
 	. = 0

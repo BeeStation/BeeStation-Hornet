@@ -26,7 +26,6 @@
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 
 	// NEW VARS
-	var/channel = 0 //used to set the symptom's "channel" when having multiple diseases
 	var/list/properties = list()
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
@@ -61,12 +60,14 @@
 	//see if we are more transmittable than enough diseases to replace them
 	//diseases replaced in this way do not confer immunity
 	var/list/advance_diseases = list()
+	var/channel = CheckChannel() //we do this because this can break otherwise, for some obscure reason i cannot fathom
 	for(var/datum/disease/advance/P in infectee.diseases)
+		var/otherchannel = P.CheckChannel()
 		if(sentient)
 			if(P.sentient)
 				advance_diseases += P
 			continue
-		if(channel == P.channel && !P.sentient)
+		if(channel == otherchannel && !P.sentient)
 			advance_diseases += P
 	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //amount of diseases that need to be removed to fit this one
 	if(replace_num > 0)
@@ -180,9 +181,6 @@
 	return generated
 
 /datum/disease/advance/proc/Refresh(new_name = FALSE)
-	for(var/datum/symptom/S in symptoms)
-		S.severity = initial(S.severity)
-		S.dynamicseverity = FALSE
 	GenerateProperties()
 	AssignProperties()
 	id = null
@@ -201,13 +199,11 @@
 		properties["stealth"] += S.stealth
 		properties["stage_rate"] += S.stage_speed
 		properties["transmittable"] += S.transmittable
-		if(!S.dynamicseverity)
-			S.severityset(src)
+		S.severityset(src)
 		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
 			properties["severity"] += S.severity
 	for(var/datum/symptom/S in symptoms) 
-		if(!S.dynamicseverity)
-			S.severityset(src)
+		S.severityset(src)
 		if(!S.neutered)
 			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
 				if(1 to 2)
@@ -215,8 +211,7 @@
 				if(3 to 4)
 					properties["severity"] = max(properties["severity"], min(4, (S.severity + properties["severity"])))		
 	for(var/datum/symptom/S in symptoms) //benign and beneficial symptoms go last
-		if(!S.dynamicseverity)
-			S.severityset(src)
+		S.severityset(src)
 		if(!S.neutered && S.severity <= 0)
 			properties["severity"] += S.severity		
 
@@ -266,40 +261,50 @@
 				spread_text = "Airborne"
 
 /datum/disease/advance/proc/SetSeverity(level_sev)
-
 	switch(level_sev)
-
 		if(-INFINITY to -2)
 			severity = DISEASE_SEVERITY_BENEFICIAL
-			channel = 1
 		if(-1)
 			severity = DISEASE_SEVERITY_POSITIVE
-			channel = 1
 		if(0)
 			severity = DISEASE_SEVERITY_NONTHREAT
-			channel = 1
 		if(1)
 			severity = DISEASE_SEVERITY_MINOR
-			channel = 2
 		if(2)
 			severity = DISEASE_SEVERITY_MEDIUM
-			channel = 2
 		if(3)
 			severity = DISEASE_SEVERITY_HARMFUL
-			channel = 2
 		if(4)
 			severity = DISEASE_SEVERITY_DANGEROUS
-			channel = 2
 		if(5)
 			severity = DISEASE_SEVERITY_BIOHAZARD
-			channel = 3
 		if(6 to INFINITY)
 			severity = DISEASE_SEVERITY_PANDEMIC
-			channel = 3
 		else
 			severity = "Unknown"
-			channel = 2
 
+/datum/disease/advance/proc/CheckChannel() //i hate that i have to  use this to make this work
+	switch(properties["severity"])
+		if(-INFINITY to -2)
+			return 1
+		if(-1)
+			return 1
+		if(0)
+			return 1
+		if(1)
+			return 2
+		if(2)
+			return 2
+		if(3)
+			return 2
+		if(4)
+			return 2
+		if(5)
+			return 3
+		if(6 to INFINITY)
+			return 3
+		else
+			return 2
 
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure()
@@ -447,7 +452,7 @@
 	symptoms += SSdisease.list_symptoms.Copy()
 	do
 		if(user)
-			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in symptoms
+			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in sortList(symptoms, /proc/cmp_typepaths_asc)
 			if(isnull(symptom))
 				return
 			else if(istext(symptom))

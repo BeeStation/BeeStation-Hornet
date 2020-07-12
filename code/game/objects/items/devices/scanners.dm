@@ -30,7 +30,7 @@ GENE SCANNER
 
 /obj/item/t_scanner/proc/toggle_on()
 	on = !on
-	icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
+	icon_state = copytext_char(icon_state, 1, -1) + "[on]"
 	if(on)
 		START_PROCESSING(SSobj, src)
 	else
@@ -359,6 +359,8 @@ GENE SCANNER
 			mutant = TRUE
 		else if (S.mutantstomach != initial(S.mutantstomach))
 			mutant = TRUE
+		else if (S.flying_species != initial(S.flying_species))
+			mutant = TRUE
 
 		to_chat(user, "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>")
 	to_chat(user, "<span class='info'>Body temperature: [round(M.bodytemperature-T0C,0.1)] &deg;C ([round(M.bodytemperature*1.8-459.67,0.1)] &deg;F)</span>")
@@ -496,42 +498,37 @@ GENE SCANNER
 	else
 		to_chat(user, "<span class='alert'>Pressure: [round(pressure, 0.01)] kPa</span>")
 	if(total_moles)
-		var/list/env_gases = environment.gases
-
-		environment.assert_gases(arglist(GLOB.hardcoded_gases))
-		var/o2_concentration = env_gases[/datum/gas/oxygen][MOLES]/total_moles
-		var/n2_concentration = env_gases[/datum/gas/nitrogen][MOLES]/total_moles
-		var/co2_concentration = env_gases[/datum/gas/carbon_dioxide][MOLES]/total_moles
-		var/plasma_concentration = env_gases[/datum/gas/plasma][MOLES]/total_moles
+		var/o2_concentration = environment.get_moles(/datum/gas/oxygen)/total_moles
+		var/n2_concentration = environment.get_moles(/datum/gas/nitrogen)/total_moles
+		var/co2_concentration = environment.get_moles(/datum/gas/carbon_dioxide)/total_moles
+		var/plasma_concentration = environment.get_moles(/datum/gas/plasma)/total_moles
 
 		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(env_gases[/datum/gas/nitrogen][MOLES], 0.01)] mol)</span>")
+			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/nitrogen), 0.01)] mol)</span>")
 		else
-			to_chat(user, "<span class='alert'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(env_gases[/datum/gas/nitrogen][MOLES], 0.01)] mol)</span>")
+			to_chat(user, "<span class='alert'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/nitrogen), 0.01)] mol)</span>")
 
 		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(user, "<span class='info'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(env_gases[/datum/gas/oxygen][MOLES], 0.01)] mol)</span>")
+			to_chat(user, "<span class='info'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/oxygen), 0.01)] mol)</span>")
 		else
-			to_chat(user, "<span class='alert'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(env_gases[/datum/gas/oxygen][MOLES], 0.01)] mol)</span>")
+			to_chat(user, "<span class='alert'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/oxygen), 0.01)] mol)</span>")
 
 		if(co2_concentration > 0.01)
-			to_chat(user, "<span class='alert'>CO2: [round(co2_concentration*100, 0.01)] % ([round(env_gases[/datum/gas/carbon_dioxide][MOLES], 0.01)] mol)</span>")
+			to_chat(user, "<span class='alert'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/carbon_dioxide), 0.01)] mol)</span>")
 		else
-			to_chat(user, "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(env_gases[/datum/gas/carbon_dioxide][MOLES], 0.01)] mol)</span>")
+			to_chat(user, "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/carbon_dioxide), 0.01)] mol)</span>")
 
 		if(plasma_concentration > 0.005)
-			to_chat(user, "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(env_gases[/datum/gas/plasma][MOLES], 0.01)] mol)</span>")
+			to_chat(user, "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/plasma), 0.01)] mol)</span>")
 		else
-			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(env_gases[/datum/gas/plasma][MOLES], 0.01)] mol)</span>")
+			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/plasma), 0.01)] mol)</span>")
 
-		environment.garbage_collect()
-
-		for(var/id in env_gases)
+		for(var/id in environment.get_gases())
 			if(id in GLOB.hardcoded_gases)
 				continue
-			var/gas_concentration = env_gases[id][MOLES]/total_moles
-			to_chat(user, "<span class='alert'>[env_gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(env_gases[id][MOLES], 0.01)] mol)</span>")
-		to_chat(user, "<span class='info'>Temperature: [round(environment.temperature-T0C, 0.01)] &deg;C ([round(environment.temperature, 0.01)] K)</span>")
+			var/gas_concentration = environment.get_moles(id)/total_moles
+			to_chat(user, "<span class='alert'>[GLOB.meta_gas_info[id][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(environment.get_moles(id), 0.01)] mol)</span>")
+		to_chat(user, "<span class='info'>Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)</span>")
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
 	..()
@@ -615,7 +612,7 @@ GENE SCANNER
 		var/total_moles = air_contents.total_moles()
 		var/pressure = air_contents.return_pressure()
 		var/volume = air_contents.return_volume() //could just do mixture.volume... but safety, I guess?
-		var/temperature = air_contents.temperature
+		var/temperature = air_contents.return_temperature()
 		var/cached_scan_results = air_contents.analyzer_results
 
 		if(total_moles > 0)
@@ -623,10 +620,9 @@ GENE SCANNER
 			to_chat(user, "<span class='notice'>Volume: [volume] L</span>")
 			to_chat(user, "<span class='notice'>Pressure: [round(pressure,0.01)] kPa</span>")
 
-			var/list/cached_gases = air_contents.gases
-			for(var/id in cached_gases)
-				var/gas_concentration = cached_gases[id][MOLES]/total_moles
-				to_chat(user, "<span class='notice'>[cached_gases[id][GAS_META][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(cached_gases[id][MOLES], 0.01)] mol)</span>")
+			for(var/id in air_contents.get_gases())
+				var/gas_concentration = air_contents.get_moles(id)/total_moles
+				to_chat(user, "<span class='notice'>[GLOB.meta_gas_info[id][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(air_contents.get_moles(id), 0.01)] mol)</span>")
 			to_chat(user, "<span class='notice'>Temperature: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)</span>")
 
 		else
@@ -794,7 +790,7 @@ GENE SCANNER
 	for(var/A in buffer)
 		options += get_display_name(A)
 
-	var/answer = input(user, "Analyze Potential", "Sequence Analyzer")  as null|anything in options
+	var/answer = input(user, "Analyze Potential", "Sequence Analyzer")  as null|anything in sortList(options)
 	if(answer && ready && user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		var/sequence
 		for(var/A in buffer) //this physically hurts but i dont know what anything else short of an assoc list
@@ -804,10 +800,10 @@ GENE SCANNER
 
 		if(sequence)
 			var/display
-			for(var/i in 0 to length(sequence) / DNA_MUTATION_BLOCKS-1)
+			for(var/i in 0 to length_char(sequence) / DNA_MUTATION_BLOCKS-1)
 				if(i)
 					display += "-"
-				display += copytext(sequence, 1 + i*DNA_MUTATION_BLOCKS, DNA_MUTATION_BLOCKS*(1+i) + 1)
+				display += copytext_char(sequence, 1 + i*DNA_MUTATION_BLOCKS, DNA_MUTATION_BLOCKS*(1+i) + 1)
 
 			to_chat(user, "<span class='boldnotice'>[display]</span><br>")
 
@@ -827,3 +823,137 @@ GENE SCANNER
 		return  "[HM.name] ([HM.alias])"
 	else
 		return HM.alias
+
+/obj/item/extrapolator
+	name = "virus extrapolator"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "extrapolator_scan"
+	desc = "A bulky scanning device, used to extract genetic material of potential pathogens"
+	item_flags = NOBLUDGEON
+	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_NORMAL
+	var/scan = TRUE
+	var/cooldown = -1200 //so it's charged roundstart
+	var/obj/item/stock_parts/scanning_module/scanner //used for upgrading!
+
+/obj/item/extrapolator/Initialize()
+	. = ..()
+	scanner = new(src)
+
+/obj/item/extrapolator/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/stock_parts/scanning_module))
+		if(!scanner)
+			if(!user.transferItemToLoc(W, src))
+				return
+			scanner = W
+			to_chat(user, "<span class='notice'>You install a [scanner.name] in [src].</span>")
+		else
+			to_chat(user, "<span class='notice'>[src] already has a scanner installed.</span>")
+
+	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
+		if(scanner)
+			to_chat(user, "<span class='notice'>You remove the [scanner.name] from \the [src].</span>")
+			scanner.forceMove(drop_location())
+			scanner = null
+	else
+		return ..()
+
+/obj/item/extrapolator/attack_self(mob/user)
+	. = ..()
+	playsound(src, 'sound/machines/click.ogg', 50, 1)
+	if(scan)
+		icon_state = "extrapolator_sample"
+		scan = FALSE
+		to_chat(user, "<span class='notice'>You remove the probe from the device and set it to EXTRACT</span>")
+	else 
+		icon_state = "extrapolator_scan"
+		scan = TRUE
+		to_chat(user, "<span class='notice'>You put the probe back in the device and set it to SCAN</span>")
+
+/obj/item/extrapolator/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || isobserver(user))
+		if(!scanner)
+			. += "<span class='notice'>The scanner is missing.<span>"
+		else
+			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.<span>"
+		if(cooldown > world.time - (1200 / scanner.rating))
+			. += "<span class='warning'>The extrapolator is still recharging!</span>"
+		else
+			. += "<span class='info'>The extrapolator is ready to use!</span>"
+	
+
+/obj/item/extrapolator/attack(atom/AM, mob/living/user)
+	return 
+
+/obj/item/extrapolator/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(scanner)
+		if(!target.extrapolator_act(user, src, scan))
+			if(locate(/datum/component/infective) in target.datum_components)
+				return //so the failure message does not show when we can actually extrapolate from a component
+			if(scan)
+				to_chat(user, "<span class='notice'>the extrapolator fails to return any data</span>")
+			else
+				to_chat(user, "<span class='notice'>the extrapolator's probe detects no diseases</span>")
+	else 
+		to_chat(user, "<span class='warning'>the extrapolator has no scanner installed</span>")
+
+/obj/item/extrapolator/proc/scan(atom/AM, var/list/diseases = list(), mob/user)
+	to_chat(user, "<span class='notice'><b>[src] detects the following diseases:</b></span>")
+	for(var/datum/disease/D in diseases)
+		if(istype(D, /datum/disease/advance))
+			var/datum/disease/advance/A = D
+			if(A.properties["stealth"] >= (2 + scanner.rating)) //the extrapolator can detect diseases of higher stealth than a normal scanner
+				continue
+			to_chat(user, "<span class='info'><font color='green'><b>[A.name]</b>, stage [A.stage]/5</font></span>")
+			to_chat(user, "<span class='info'><b>[A] has the following symptoms:</b></span>")
+			for(var/datum/symptom/S in A.symptoms)
+				to_chat(user, "<span class='info'>[S.name]</span>")
+		else
+			to_chat(user, "<span class='info'><font color='green'><b>[D.name]</b>, stage [D.stage]/[D.max_stages].</font></span>")
+
+/obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 200)
+	var/list/advancediseases = list()
+	var/list/symptoms = list()
+	if(cooldown > world.time - (1200 / scanner.rating))
+		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
+		return
+	for(var/datum/disease/advance/cantidate in diseases)
+		advancediseases += cantidate
+	if(!LAZYLEN(advancediseases))
+		to_chat(user, "<span class='warning'>There are no valid diseases to make a culture from.</span>")
+		return
+	var/datum/disease/advance/A = input(user,"What disease do you wish to extract") in null|advancediseases
+	if(isolate)
+		for(var/datum/symptom/S in A.symptoms)
+			if(S.level <= 6 + scanner.rating)
+				symptoms += S 
+			continue
+		var/datum/symptom/chosen = input(user,"What symptom do you wish to isolate") in null|symptoms
+		var/datum/disease/advance/symptomholder = new
+		if(!symptoms.len || !chosen) 
+			to_chat(user, "<span class='warning'>There are no valid diseases to isolate a symptom from.</span>")	
+			return
+		symptomholder.name = chosen.name
+		symptomholder.symptoms += chosen
+		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
+		if(do_mob(user, AM, (600 / scanner.rating)))
+			create_culture(symptomholder, user)
+	else if(do_mob(user, AM, (timer / scanner.rating)))
+		create_culture(A, user)
+
+/obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
+	if(cooldown > world.time - (1200 / scanner.rating))
+		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
+		return FALSE
+	var/list/data = list("viruses" = list(A))
+	var/obj/item/reagent_containers/glass/bottle/B = new(user.loc)
+	cooldown = world.time
+	B.name = "[A.name] culture bottle"
+	B.desc = "A small bottle. Contains [A.agent] culture in synthblood medium."
+	B.reagents.add_reagent(/datum/reagent/blood, 20, data)
+	user.put_in_hands(B)
+	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
+	return TRUE
+	

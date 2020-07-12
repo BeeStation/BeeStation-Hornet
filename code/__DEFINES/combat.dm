@@ -156,6 +156,12 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define REFLECT_NORMAL 				(1<<0)
 #define REFLECT_FAKEPROJECTILE		(1<<1)
 
+//blocking flags
+#define BLOCKING_ACTIVE				(1<<0) //does the item need to be in hand to block
+#define BLOCKING_PROJECTILE			(1<<1) //does the item block projectiles
+#define BLOCKING_NASTY				(1<<2) //if it parries a bare hand, will the attacker be hurt?
+#define BLOCKING_HUNTER				(1<<3) //is the item more suited to fighting fauna?
+
 // Object/Item sharpness
 #define IS_BLUNT			0
 #define IS_SHARP			1

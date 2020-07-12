@@ -11,7 +11,8 @@
 	var/datum/action/innate/camera_off/off_action = new
 	var/datum/action/innate/camera_jump/jump_action = new
 	var/list/actions = list()
-
+	///Should we supress any view changes?
+	var/should_supress_view_changes  = TRUE
 	light_color = LIGHT_COLOR_RED
 
 /obj/machinery/computer/camera_advanced/Initialize()
@@ -26,8 +27,6 @@
 			z_lock |= SSmapping.levels_by_trait(ZTRAIT_MINING)
 		if(lock_override & CAMERA_LOCK_CENTCOM)
 			z_lock |= SSmapping.levels_by_trait(ZTRAIT_CENTCOM)
-		if(lock_override & CAMERA_LOCK_REEBE)
-			z_lock |= SSmapping.levels_by_trait(ZTRAIT_REEBE)
 
 /obj/machinery/computer/camera_advanced/syndie
 	icon_keyboard = "syndie_key"
@@ -70,7 +69,8 @@
 
 	current_user = null
 	user.unset_machine()
-	playsound(src, 'sound/machines/terminal_off.ogg', 25, 0)
+	user.client.view_size.unsupress()
+	playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
 	if( (stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.eye_blind || user.incapacitated() )
@@ -155,6 +155,8 @@
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
 	eyeobj.setLoc(eyeobj.loc)
+	if(should_supress_view_changes )
+		user.client.view_size.supress()
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"

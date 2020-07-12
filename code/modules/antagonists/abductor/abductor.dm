@@ -6,6 +6,7 @@
 	antagpanel_category = "Abductor"
 	job_rank = ROLE_ABDUCTOR
 	show_in_antagpanel = FALSE //should only show subtypes
+	show_to_ghosts = TRUE
 	var/datum/team/abductor_team/team
 	var/sub_role
 	var/outfit
@@ -47,6 +48,8 @@
 	owner.special_role = "[name]"
 	owner.assigned_role = "[name]"
 	objectives += team.objectives
+	for(var/datum/objective/O in objectives)
+		log_objective(owner.current, O.explanation_text)
 	finalize_abductor()
 	ADD_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
 	return ..()
@@ -144,6 +147,8 @@
 	O.team = src
 	O.update_explanation_text()
 	objectives += O
+	for(var/datum/mind/abductor_mind in members)
+		log_objective(abductor_mind, O.explanation_text)
 
 /datum/team/abductor_team/roundend_report()
 	var/list/result = list()
@@ -185,6 +190,7 @@
 	var/objtype = (prob(75) ? /datum/objective/abductee/random : pick(subtypesof(/datum/objective/abductee/) - /datum/objective/abductee/random))
 	var/datum/objective/abductee/O = new objtype()
 	objectives += O
+	log_objective(H, O.explanation_text)
 
 /datum/antagonist/abductee/apply_innate_effects(mob/living/mob_override)
 	update_abductor_icons_added(mob_override ? mob_override.mind : owner,"abductee")

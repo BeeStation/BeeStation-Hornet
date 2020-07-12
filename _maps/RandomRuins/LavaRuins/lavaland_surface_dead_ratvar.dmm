@@ -10,7 +10,6 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "d" = (
-/obj/structure/destructible/clockwork/wall_gear,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "e" = (
@@ -101,7 +100,6 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "x" = (
-/obj/structure/destructible/clockwork/wall_gear,
 /obj/item/stack/tile/brass,
 /turf/open/floor/clockwork{
 	initial_gas_mix = "LAVALAND_ATMOS"
@@ -114,7 +112,6 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "z" = (
-/obj/structure/destructible/clockwork/wall_gear,
 /turf/open/floor/clockwork{
 	initial_gas_mix = "LAVALAND_ATMOS"
 	},

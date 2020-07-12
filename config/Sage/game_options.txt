@@ -16,7 +16,11 @@ REVIVAL_BRAIN_LIFE -1
 
 ## OOC DURING ROUND ###
 ## Comment this out if you want OOC to be automatically disabled during the round, it will be enabled during the lobby and after the round end results.
-OOC_DURING_ROUND
+#OOC_DURING_ROUND
+
+## LOOC
+## Comment this out to disable LOOC
+LOOC_ENABLED
 
 ## EMOJI ###
 ## Comment this out if you want to disable emojis
@@ -104,7 +108,6 @@ PROBABILITY MONKEY 1
 PROBABILITY WIZARD 1
 PROBABILITY CLOWNOPS 0
 PROBABILITY METEOR 0
-PROBABILITY CLOCKWORK_CULT 0
 PROBABILITY DEVIL_AGENTS 0
 
 ## You probably want to keep sandbox off by default for secret and random.
@@ -124,7 +127,6 @@ CONTINUOUS INTERNAL_AFFAIRS
 #CONTINUOUS NUCLEAR
 #CONTINUOUS REVOLUTION
 CONTINUOUS CULT
-CONTINUOUS CLOCKWORK_CULT
 CONTINUOUS CHANGELING
 CONTINUOUS WIZARD
 #CONTINUOUS MONKEY
@@ -147,7 +149,6 @@ MIDROUND_ANTAG INTERNAL_AFFAIRS
 #MIDROUND_ANTAG  NUCLEAR
 #MIDROUND_ANTAG  REVOLUTION
 MIDROUND_ANTAG CULT
-#MIDROUND_ANTAG CLOCKWORK_CULT
 MIDROUND_ANTAG CHANGELING
 MIDROUND_ANTAG WIZARD
 #MIDROUND_ANTAG  MONKEY
@@ -178,9 +179,6 @@ MAX_POP REVOLUTION -1
 
 MIN_POP CULT 24
 MAX_POP CULT -1
-
-MIN_POP CLOCKWORK_CULT 24
-MAX_POP CLOCKWORK_CULT -1
 
 MIN_POP CHANGELING 15
 MAX_POP CHANGELING -1
@@ -437,7 +435,7 @@ ROUNDSTART_RACES human
 
 ## Races that are strictly worse than humans that could probably be turned on without balance concerns
 ROUNDSTART_RACES lizard
-#ROUNDSTART_RACES fly
+ROUNDSTART_RACES fly
 ROUNDSTART_RACES moth
 ROUNDSTART_RACES felinid
 ROUNDSTART_RACES squid
@@ -449,13 +447,13 @@ ROUNDSTART_RACES apid
 #ROUNDSTART_RACES jelly
 #ROUNDSTART_RACES shadow
 ROUNDSTART_RACES plasmaman
-#ROUNDSTART_RACES golem
-#ROUNDSTART_RACES adamantine
-#ROUNDSTART_RACES plasma
-#ROUNDSTART_RACES diamond
-#ROUNDSTART_RACES gold
-#ROUNDSTART_RACES silver
-#ROUNDSTART_RACES uranium
+#ROUNDSTART_RACES iron_golem
+#ROUNDSTART_RACES adamantine_golem
+#ROUNDSTART_RACES plasma_golem
+#ROUNDSTART_RACES diamond_golem
+#ROUNDSTART_RACES gold_golem
+#ROUNDSTART_RACES silver_golem
+#ROUNDSTART_RACES uranium_golem
 #ROUNDSTART_RACES abductor
 #ROUNDSTART_RACES synth
 ROUNDSTART_RACES ipc
@@ -523,10 +521,10 @@ BOMBCAP 24
 ## a less lootfilled or smaller or less round effecting ruin costs less to
 ## spawn, while the converse is true. Alter this number to affect the amount
 ## of ruins.
-LAVALAND_BUDGET 75
+LAVALAND_BUDGET 60
 
 ## Space Ruin Budged
-Space_Budget 20
+Space_Budget 8
 
 ## Time in ds from when a player latejoins till the arrival shuttle docks at the station
 ## Must be at least 30. At least 55 recommended to be visually/aurally appropriate
@@ -566,6 +564,9 @@ RANDOMIZE_SHIFT_TIME
 
 ## A cap on how many monkeys may be created via monkey cubes
 MONKEYCAP 100
+
+## Maximum fine for a citation
+MAXFINE 2000
 
 ## Enable the capitalist agenda on your server.
 ECONOMY

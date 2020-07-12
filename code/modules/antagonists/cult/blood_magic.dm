@@ -428,10 +428,6 @@
 			addtimer(CALLBACK(L, /atom/proc/cut_overlay, forbearance), 100)
 
 			if(istype(anti_magic_source, /obj/item))
-				var/obj/item/ams_object = anti_magic_source
-				target.visible_message("<span class='warning'>[L] seems too distracted to hear you!</span>", \
-									   "<span class='userdanger'>Your [ams_object.name] throbs, and you can't quite make out what [user] says!</span>")
-			else
 				target.visible_message("<span class='warning'>[L] is utterly unphased by your utterance!</span>", \
 									   "<span class='userdanger'>[user] whispers gibberish into your ear. Was that supposed to do something?</span>")
 		else if(L.get_ear_protection() <= 0)

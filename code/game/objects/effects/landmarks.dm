@@ -230,7 +230,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/randommaint/magician
 	name = "Stage Magician"
 	job = "Stage Magician"
+
+/obj/effect/landmark/start/randommaint/hobo
+	name = "Debtor"
+	job = "Debtor"
 	
+/obj/effect/landmark/start/randommaint/shrink
+	name = "Psychiatrist"
+	job = "Psychiatrist"
+
 //Department Security spawns
 
 /obj/effect/landmark/start/depsec

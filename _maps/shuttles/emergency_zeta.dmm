@@ -1,22 +1,22 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
+"aa" = (
 /turf/template_noop,
 /area/space)
-"b" = (
+"ab" = (
 /turf/closed/wall/mineral/abductor,
 /area/shuttle/escape)
-"c" = (
+"ac" = (
 /obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"d" = (
+"ad" = (
 /obj/structure/table/abductor,
 /obj/item/abductor/mind_device{
 	desc = "Just holding this makes your head ache."
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"e" = (
+"ae" = (
 /obj/structure/table/abductor,
 /obj/item/anomaly_neutralizer{
 	pixel_x = -15
@@ -24,47 +24,47 @@
 /obj/item/reagent_containers/food/snacks/soylentgreen,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"f" = (
+"af" = (
 /obj/machinery/abductor/console,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"g" = (
+"ag" = (
 /obj/machinery/computer/emergency_shuttle,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"h" = (
+"ah" = (
 /obj/structure/table/abductor,
 /obj/machinery/recharger,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"i" = (
+"ai" = (
 /obj/structure/table/abductor,
 /obj/item/gun/energy/alien,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"j" = (
+"aj" = (
 /obj/item/twohanded/required/kirbyplants/photosynthetic,
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"k" = (
+"ak" = (
 /obj/structure/chair/office{
 	dir = 1
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"l" = (
+"al" = (
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"m" = (
+"am" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"n" = (
+"an" = (
 /obj/structure/table/abductor,
 /obj/machinery/recharger,
 /obj/item/abductor/baton{
@@ -72,55 +72,39 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"o" = (
+"ao" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"p" = (
+"ap" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"q" = (
+"aq" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"r" = (
+"ar" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"s" = (
+"as" = (
 /obj/item/twohanded/required/kirbyplants/photosynthetic,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"t" = (
-/obj/machinery/door/airlock/abductor{
-	name = "Command Center";
-	req_access_txt = "19"
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"u" = (
+"au" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"v" = (
-/obj/machinery/door/airlock/abductor{
-	name = "Transport Ship Theta"
-	},
-/obj/docking_port/mobile/emergency{
-	name = "Zeta emergency shuttle"
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"w" = (
+"aw" = (
 /obj/structure/table/abductor,
 /obj/item/storage/box/alienhandcuffs,
 /obj/machinery/light{
@@ -128,44 +112,25 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"x" = (
-/obj/machinery/door/airlock/abductor{
-	name = "Holding Facility";
-	req_access_txt = "2"
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"y" = (
+"ay" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/item/twohanded/required/kirbyplants/photosynthetic,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"z" = (
-/obj/machinery/door/airlock/abductor{
-	name = "Repair Bay"
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"A" = (
-/obj/machinery/door/airlock/abductor{
-	name = "Transport Ship Theta"
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"B" = (
+"aB" = (
 /obj/machinery/abductor/experiment,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"C" = (
+"aC" = (
 /obj/structure/chair/office,
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"D" = (
+"aD" = (
 /obj/structure/table/abductor,
 /obj/item/screwdriver/abductor{
 	pixel_y = -5
@@ -175,22 +140,15 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"E" = (
+"aE" = (
 /obj/structure/table/abductor,
 /obj/item/crowbar/abductor{
-	pixel_x = -13;
-	
+	pixel_x = -13
 	},
 /obj/item/multitool/abductor,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"F" = (
-/obj/machinery/door/airlock/abductor{
-	name = "Experimentation Lab"
-	},
-/turf/open/floor/plating/abductor,
-/area/shuttle/escape)
-"G" = (
+"aG" = (
 /obj/structure/table/abductor,
 /obj/item/stock_parts/subspace/crystal{
 	pixel_x = -8
@@ -204,13 +162,13 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"H" = (
+"aH" = (
 /obj/structure/chair/office{
 	dir = 4
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"I" = (
+"aI" = (
 /obj/structure/table/abductor,
 /obj/item/abductor/gizmo,
 /obj/item/wirecutters/abductor{
@@ -218,60 +176,60 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"J" = (
+"aJ" = (
 /obj/machinery/stasis,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"K" = (
+"aK" = (
 /obj/machinery/dna_scannernew,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"L" = (
+"aL" = (
 /obj/machinery/computer/prototype_cloning,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"M" = (
+"aM" = (
 /obj/machinery/clonepod/experimental,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"N" = (
+"aN" = (
 /obj/machinery/abductor/pad{
 	desc = "A funky looking disc, built into the floor."
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"O" = (
+"aO" = (
 /obj/machinery/shower{
 	dir = 8;
 	name = "emergency shower"
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"P" = (
+"aP" = (
 /obj/structure/closet/abductor,
 /obj/item/stack/sheet/mineral/abductor{
 	amount = 50
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"Q" = (
+"aQ" = (
 /obj/item/twohanded/required/kirbyplants/photosynthetic,
 /obj/machinery/light,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"R" = (
+"aR" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/closet/abductor,
-/obj/item/clothing/under/pj/blue,
-/obj/item/clothing/under/pj/red,
+/obj/item/clothing/under/misc/pj/blue,
+/obj/item/clothing/under/misc/pj,
 /obj/item/clothing/shoes/sneakers/white,
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/glasses/eyepatch,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"S" = (
+"aS" = (
 /obj/item/lazarus_injector,
 /obj/structure/table/abductor,
 /obj/machinery/light{
@@ -279,22 +237,22 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"T" = (
+"aT" = (
 /obj/machinery/recharge_station,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"U" = (
+"aU" = (
 /obj/machinery/abductor/gland_dispenser{
 	desc = "A tank filled with grotesque bits of flesh."
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"V" = (
+"aV" = (
 /obj/structure/table/optable/abductor,
 /obj/item/surgical_drapes,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"W" = (
+"aW" = (
 /obj/structure/table/abductor,
 /obj/item/scalpel/alien,
 /obj/item/cautery/alien,
@@ -304,501 +262,553 @@
 /obj/item/surgicaldrill/alien,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"X" = (
+"aX" = (
 /obj/structure/table/abductor,
 /obj/item/organ/heart/gland/egg,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"Y" = (
+"aY" = (
 /obj/machinery/fat_sucker,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
-"Z" = (
+"aZ" = (
 /obj/structure/bed/abductor,
 /obj/machinery/iv_drip,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
+"cD" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Repair Bay"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"qB" = (
+/obj/effect/spawner/structure/window/plastitanium,
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"tG" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Transport Ship Theta"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"yL" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Experimentation Lab"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"zQ" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Command Center";
+	req_access_txt = "19"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"BU" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Transport Ship Theta"
+	},
+/obj/docking_port/mobile/emergency{
+	name = "Zeta emergency shuttle"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
+"Mw" = (
+/obj/machinery/door/airlock/abductor{
+	name = "Holding Facility";
+	req_access_txt = "2"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/plating/abductor,
+/area/shuttle/escape)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-b
-b
-v
-c
-b
-c
-b
-c
-A
-b
-b
-a
-a
-a
-a
-a
+aa
+aa
+aa
+aa
+aa
+ab
+ab
+BU
+qB
+ab
+qB
+ab
+qB
+tG
+ab
+ab
+aa
+aa
+aa
+aa
+aa
 "}
 (2,1,1) = {"
-a
-a
-a
-a
-b
-b
-l
-l
-l
-y
-l
-y
-l
-l
-l
-b
-b
-a
-a
-a
-a
+aa
+aa
+aa
+aa
+ab
+ab
+al
+al
+al
+ay
+al
+ay
+al
+al
+al
+ab
+ab
+aa
+aa
+aa
+aa
 "}
 (3,1,1) = {"
-a
-a
-a
-b
-b
-o
-l
-l
-l
-l
-l
-l
-l
-l
-l
-m
-b
-b
-a
-a
-a
+aa
+aa
+aa
+ab
+ab
+ao
+al
+al
+al
+al
+al
+al
+al
+al
+al
+am
+ab
+ab
+aa
+aa
+aa
 "}
 (4,1,1) = {"
-a
-a
-b
-b
-o
-l
-l
-l
-r
-r
-r
-r
-r
-l
-l
-l
-m
-b
-b
-a
-a
+aa
+aa
+ab
+ab
+ao
+al
+al
+al
+ar
+ar
+ar
+ar
+ar
+al
+al
+al
+am
+ab
+ab
+aa
+aa
 "}
 (5,1,1) = {"
-a
-b
-b
-o
-l
-l
-l
-l
-b
-b
-c
-b
-b
-l
-l
-l
-l
-m
-b
-b
-a
+aa
+ab
+ab
+ao
+al
+al
+al
+al
+ab
+ab
+ac
+ab
+ab
+al
+al
+al
+al
+am
+ab
+ab
+aa
 "}
 (6,1,1) = {"
-b
-b
-j
-l
-r
-r
-r
-l
-u
-u
-u
-u
-u
-l
-r
-r
-r
-l
-Q
-b
-b
+ab
+ab
+aj
+al
+ar
+ar
+ar
+al
+au
+au
+au
+au
+au
+al
+ar
+ar
+ar
+al
+aQ
+ab
+ab
 "}
 (7,1,1) = {"
-b
-b
-b
-b
-b
-b
-b
-l
-l
-l
-l
-l
-l
-l
-b
-b
-b
-b
-b
-b
-b
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+al
+al
+al
+al
+al
+al
+al
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 "}
 (8,1,1) = {"
-b
-d
-k
-p
-s
-b
-s
-l
-l
-l
-q
-l
-l
-l
-s
-b
-J
-J
-R
-U
-b
+ab
+ad
+ak
+ap
+as
+ab
+as
+al
+al
+al
+aq
+al
+al
+al
+as
+ab
+aJ
+aJ
+aR
+aU
+ab
 "}
 (9,1,1) = {"
-c
-e
-l
-l
-l
-b
-l
-l
-l
-m
-b
-o
-l
-l
-l
-c
-l
-l
-l
-V
-c
+qB
+ae
+al
+al
+al
+ab
+al
+al
+al
+am
+ab
+ao
+al
+al
+al
+qB
+al
+al
+al
+aV
+qB
 "}
 (10,1,1) = {"
-c
-f
-k
-l
-l
-b
-l
-l
-l
-m
-b
-o
-l
-l
-l
-c
-l
-l
-l
-W
-c
+qB
+af
+ak
+al
+al
+ab
+al
+al
+al
+am
+ab
+ao
+al
+al
+al
+qB
+al
+al
+al
+aW
+qB
 "}
 (11,1,1) = {"
-c
-g
-m
-l
-l
-t
-l
-l
-l
-m
-c
-o
-l
-l
-l
-F
-l
-l
-l
-X
-c
+qB
+ag
+am
+al
+al
+zQ
+al
+al
+al
+am
+ac
+ao
+al
+al
+al
+yL
+al
+al
+al
+aX
+qB
 "}
 (12,1,1) = {"
-c
-f
-k
-l
-l
-b
-l
-l
-l
-m
-b
-o
-l
-l
-l
-c
-K
-l
-l
-Y
-c
+qB
+af
+ak
+al
+al
+ab
+al
+al
+al
+am
+ab
+ao
+al
+al
+al
+qB
+aK
+al
+al
+aY
+qB
 "}
 (13,1,1) = {"
-c
-h
-l
-l
-l
-b
-l
-l
-l
-m
-b
-o
-l
-l
-l
-c
-L
-l
-l
-l
-c
+qB
+ah
+al
+al
+al
+ab
+al
+al
+al
+am
+ab
+ao
+al
+al
+al
+qB
+aL
+al
+al
+al
+qB
 "}
 (14,1,1) = {"
-b
-i
-k
-q
-s
-b
-s
-l
-l
-l
-p
-l
-l
-q
-s
-b
-M
-O
-S
-Z
-b
+ab
+ai
+ak
+aq
+as
+ab
+as
+al
+al
+al
+ap
+al
+al
+aq
+as
+ab
+aM
+aO
+aS
+aZ
+ab
 "}
 (15,1,1) = {"
-b
-b
-b
-b
-b
-b
-b
-b
-b
-l
-l
-l
-b
-b
-b
-b
-b
-b
-b
-b
-b
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+al
+al
+al
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 "}
 (16,1,1) = {"
-b
-b
-n
-l
-p
-u
-u
-u
-c
-l
-l
-l
-c
-B
-l
-G
-p
-l
-T
-b
-b
+ab
+ab
+an
+al
+ap
+au
+au
+au
+qB
+al
+al
+al
+qB
+aB
+al
+aG
+ap
+al
+aT
+ab
+ab
 "}
 (17,1,1) = {"
-a
-b
-b
-o
-l
-l
-l
-l
-c
-l
-l
-l
-c
-l
-l
-l
-l
-P
-b
-b
-a
+aa
+ab
+ab
+ao
+al
+al
+al
+al
+qB
+al
+al
+al
+qB
+al
+al
+al
+al
+aP
+ab
+ab
+aa
 "}
 (18,1,1) = {"
-a
-a
-b
-b
-o
-l
-l
-l
-x
-l
-l
-l
-z
-l
-l
-H
-N
-b
-b
-a
-a
+aa
+aa
+ab
+ab
+ao
+al
+al
+al
+Mw
+al
+al
+al
+cD
+al
+al
+aH
+aN
+ab
+ab
+aa
+aa
 "}
 (19,1,1) = {"
-a
-a
-a
-b
-b
-r
-l
-l
-c
-l
-l
-l
-c
-l
-D
-I
-b
-b
-a
-a
-a
+aa
+aa
+aa
+ab
+ab
+ar
+al
+al
+qB
+al
+al
+al
+qB
+al
+aD
+aI
+ab
+ab
+aa
+aa
+aa
 "}
 (20,1,1) = {"
-a
-a
-a
-a
-b
-b
-r
-w
-c
-r
-r
-r
-c
-C
-E
-b
-b
-a
-a
-a
-a
+aa
+aa
+aa
+aa
+ab
+ab
+ar
+aw
+qB
+ar
+ar
+ar
+qB
+aC
+aE
+ab
+ab
+aa
+aa
+aa
+aa
 "}
 (21,1,1) = {"
-a
-a
-a
-a
-a
-b
-b
-b
-b
-c
-c
-c
-b
-b
-b
-b
-a
-a
-a
-a
-a
+aa
+aa
+aa
+aa
+aa
+ab
+ab
+ab
+ab
+qB
+qB
+qB
+ab
+ab
+ab
+ab
+aa
+aa
+aa
+aa
+aa
 "}

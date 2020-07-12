@@ -294,7 +294,7 @@
 /area/template_noop)
 "U" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/rank/curator,
+/obj/item/clothing/under/rank/civilian/curator,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/wood,
 /area/template_noop)
@@ -324,6 +324,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/taperecorder,
 /turf/open/floor/plasteel/dark,
+/area/template_noop)
+"Z" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -356,7 +360,7 @@ l
 l
 c
 e
-e
+Z
 F
 d
 M
@@ -387,7 +391,7 @@ B
 B
 "}
 (6,1,1) = {"
-e
+Z
 e
 e
 e

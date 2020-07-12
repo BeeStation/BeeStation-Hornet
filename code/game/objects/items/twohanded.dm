@@ -26,6 +26,8 @@
 	var/wielded = 0
 	var/force_unwielded = 0
 	var/force_wielded = 0
+	var/block_power_wielded = 0
+	var/block_power_unwielded = 0
 	var/wieldsound = null
 	var/unwieldsound = null
 
@@ -33,11 +35,16 @@
 	if(!wielded || !user)
 		return
 	wielded = 0
+
 	if(!isnull(force_unwielded))
 		force = force_unwielded
-	var/sf = findtext(name," (Wielded)")
+
+	if(!isnull(block_power_unwielded))
+		block_power = block_power_unwielded
+
+	var/sf = findtext(name, " (Wielded)", -10)//10 == length(" (Wielded)")
 	if(sf)
-		name = copytext(name,1,sf)
+		name = copytext(name, 1, sf)
 	else //something wrong
 		name = "[initial(name)]"
 	update_icon()
@@ -72,6 +79,8 @@
 	wielded = 1
 	if(force_wielded)
 		force = force_wielded
+	if(block_power_wielded)
+		block_power = block_power_wielded
 	name = "[name] (Wielded)"
 	update_icon()
 	if(iscyborg(user))
@@ -221,13 +230,16 @@
 	righthand_file = 'icons/mob/inhands/weapons/axes_righthand.dmi'
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
+	attack_weight = 3
+	block_power_wielded = 25
+	block_upgrade_walk = 1
 	force = 5
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 5
 	force_wielded = 24
-	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
+	attack_verb = list("attacked", "chopped", "cleaved", "tore", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	max_integrity = 200
@@ -277,14 +289,19 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	force_unwielded = 3
 	force_wielded = 34
+	block_power_wielded = 75
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
 	hitsound = "swing_hit"
 	armour_penetration = 35
 	item_color = "green"
 	light_color = "#00ff00"//green
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	block_chance = 75
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
+	block_level = 2
+	block_upgrade_walk = 1
+	block_power = 70
+	block_sound = 'sound/weapons/egloves.ogg'
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
@@ -355,12 +372,8 @@
 	if((wielded) && prob(50))
 		INVOKE_ASYNC(src, .proc/jedi_spin, user)
 
-/obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
-	for(var/i in list(NORTH,SOUTH,EAST,WEST,EAST,SOUTH,NORTH,SOUTH,EAST,WEST,EAST,SOUTH))
-		user.setDir(i)
-		if(i == WEST)
-			user.emote("flip")
-		sleep(1)
+/obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user) //rip complex code, but this fucked up blocking
+	user.emote("flip")
 
 /obj/item/twohanded/dualsaber/proc/impale(mob/living/user)
 	to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
@@ -370,9 +383,9 @@
 		user.adjustStaminaLoss(25)
 
 /obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
-		return ..()
-	return 0
+	if(!wielded)
+		return 0
+	return ..()
 
 /obj/item/twohanded/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
 	if(wielded)
@@ -463,13 +476,15 @@
 	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 10
 	force_wielded = 18
+	block_power_wielded = 25
+	block_upgrade_walk = 1
 	throwforce = 20
 	throw_speed = 4
 	embedding = list("embedded_impact_pain_multiplier" = 3)
 	armour_penetration = 10
 	materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharpness = IS_SHARP
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
@@ -568,13 +583,17 @@
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	flags_1 = CONDUCT_1
 	force = 13
+	block_power = 20
+	block_upgrade_walk = 2
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	attack_weight = 2
 	var/force_on = 24
 	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
 	materials = list(/datum/material/iron=13000)
-	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
+	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = "swing_hit"
 	sharpness = IS_SHARP
 	actions_types = list(/datum/action/item_action/startchainsaw)
@@ -618,10 +637,6 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/twohanded/required/chainsaw/get_dismemberment_chance()
-	if(wielded)
-		. = ..()
-
 /obj/item/twohanded/required/chainsaw/doomslayer
 	name = "THE GREAT COMMUNICATOR"
 	desc = "<span class='warning'>VRRRRRRR!!!</span>"
@@ -647,7 +662,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("sawed", "shred", "rended", "gutted", "eviscerated")
 	actions_types = list(/datum/action/item_action/startchainsaw)
-	block_chance = 50
+	block_power = 50
 	armour_penetration = 50
 	light_color = "#ff0000"
 	var/onsound
@@ -684,7 +699,9 @@
 	desc = "The chainsaw you want when you need to kill every damn thing in the room."
 	force_on = 60
 	w_class = WEIGHT_CLASS_NORMAL
-	block_chance = 75
+	block_power = 75
+	block_level = 1
+	attack_weight = 3 //fear him
 	armour_penetration = 75
 	var/knockdown = 1
 	brightness_on = 6
@@ -701,6 +718,7 @@
 	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
 	force_unwielded = 15
 	force_wielded = 25
+	block_level = 1
 	throwforce = 20
 	throw_speed = 4
 	attack_verb = list("gored")
@@ -728,6 +746,9 @@
 	desc = "A simple tool used for moving hay."
 	force = 7
 	throwforce = 15
+	block_power_wielded = 25
+	block_level = 1
+	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	force_unwielded = 7
 	force_wielded = 15
@@ -809,7 +830,11 @@
 	force_unwielded = 20
 	force_wielded = 40
 	armour_penetration = 100
-	block_chance = 40
+	block_power_wielded = 40
+	block_level = 1
+	block_upgrade_walk = 2
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
+	block_sound = 'sound/weapons/genhit.ogg'
 	throwforce = 20
 	throw_speed = 4
 	sharpness = IS_SHARP
@@ -821,20 +846,6 @@
 /obj/item/twohanded/vibro_weapon/Initialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 20, 105)
-
-/obj/item/twohanded/vibro_weapon/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
-		final_block_chance *= 2
-	if(wielded || attack_type != PROJECTILE_ATTACK)
-		if(prob(final_block_chance))
-			if(attack_type == PROJECTILE_ATTACK)
-				owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
-				playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, 1)
-				return 1
-			else
-				owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
-				return 1
-	return 0
 
 /obj/item/twohanded/vibro_weapon/update_icon()
 	icon_state = "hfrequency[wielded]"
@@ -863,6 +874,8 @@
 	force = 11
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	block_power_wielded = 25
+	block_upgrade_walk = 1
 	force_unwielded = 11
 	force_wielded = 20					//I have no idea how to balance
 	throwforce = 22
@@ -870,7 +883,7 @@
 	embedding = list("embedded_impact_pain_multiplier" = 3)
 	armour_penetration = 15				//Enhanced armor piercing
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharpness = IS_SHARP
 
 /obj/item/twohanded/bonespear/update_icon()
@@ -943,6 +956,8 @@
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	block_power_wielded = 25
+	block_upgrade_walk = 1
 	force_unwielded = 10
 	force_wielded = 18
 	throwforce = 22
@@ -950,8 +965,82 @@
 	embedding = list("embedded_impact_pain_multiplier" = 2)
 	armour_penetration = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharpness = IS_SHARP
 
 /obj/item/twohanded/bamboospear/update_icon()
 	icon_state = "bamboo_spear[wielded]"
+
+/obj/item/twohanded/pushbroom
+	name = "push broom"
+	desc = "This is my BROOMSTICK! It can be used manually or braced with two hands to sweep items as you move. It has a telescopic handle for compact storage."
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "broom0"
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	force = 8
+	throwforce = 10
+	throw_speed = 3
+	throw_range = 7
+	w_class = WEIGHT_CLASS_NORMAL
+	force_unwielded = 8
+	force_wielded = 12
+	attack_verb = list("swept", "brushed off", "bludgeoned", "whacked")
+	resistance_flags = FLAMMABLE
+
+/obj/item/twohanded/pushbroom/update_icon_state()
+	icon_state = "broom[wielded]"
+
+/obj/item/twohanded/pushbroom/wield(mob/user)
+	. = ..()
+	if(!wielded)
+		return
+	to_chat(user, "<span class='notice'>You brace the [src] against the ground in a firm sweeping stance.</span>")
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/sweep)
+
+/obj/item/twohanded/pushbroom/unwield(mob/user)
+	. = ..()
+	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+
+/obj/item/twohanded/pushbroom/afterattack(atom/A, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if(wielded)
+		sweep(user, A, FALSE)
+	else
+		to_chat(user, "<span class='warning'>You need to wield \the [src] in both hands to sweep!</span>")
+
+/obj/item/twohanded/pushbroom/proc/sweep(mob/user, atom/A, moving = TRUE)
+	var/turf/target
+	if (!moving)
+		if (isturf(A))
+			target = A
+		else
+			target = get_turf(A)
+	else
+		target = get_turf(user)
+	if (locate(/obj/structure/table) in target.contents)
+		return
+	var/i = 0
+	var/turf/target_turf = get_step(target, user.dir)
+	var/obj/machinery/disposal/bin/target_bin = locate(/obj/machinery/disposal/bin) in target_turf.contents
+	for(var/obj/item/garbage in target.contents)
+		if(!garbage.anchored)
+			if (target_bin)
+				garbage.forceMove(target_bin)
+			else
+				garbage.Move(target_turf, user.dir)
+			i++
+		if(i > 19)
+			break
+	if(i > 0)
+		if (target_bin)
+			target_bin.update_icon()
+			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [target_bin].</span>")
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 30, TRUE, -1)
+
+/obj/item/twohanded/pushbroom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	J.put_in_cart(src, user)
+	J.mybroom=src
+	J.update_icon()

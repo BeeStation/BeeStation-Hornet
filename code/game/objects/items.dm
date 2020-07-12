@@ -129,6 +129,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/heat = 0
 	/// IS_BLUNT | IS_SHARP | IS_SHARP_ACCURATE Used to define whether the item is sharp or blunt. IS_SHARP is used if the item is supposed to be able to cut open things. See _DEFINES/combat.dm
 	var/sharpness = IS_BLUNT
+	//this multiplies an attacks force for secondary effects like attacking blocking implements, dismemberment, and knocking a target silly
+	var/attack_weight = 1
 
 	/// What this thing does when used like a tool. NONE if it isn't a tool. If I give a piece of paper TOOL_WRENCH I can use it to unwrench tables. See _DEFINES/tools.dm
 	var/tool_behaviour = NONE
@@ -136,7 +138,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/toolspeed = 1
 
 	/// The chance that holding this item will block attacks.
-	var/block_chance = 0
+	var/block_level = 0
+	//does the item block better if walking?
+	var/block_upgrade_walk = 0
+	//blocking flags
+	var/block_flags = BLOCKING_ACTIVE
+	//reduces stamina damage taken whilst blocking. block power of 0 means it takes the full force of the attacking weapon
+	var/block_power = 0
+	//what sound does blocking make
+	var/block_sound = 'sound/weapons/parry.ogg'
+	//if a mob hits this barehanded, are they in trouble?
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
 	/// In tiles, how far this weapon can reach; 1 for adjacent, which is default
@@ -170,6 +181,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// A reagent list containing the reagents this item produces when JUICED in a grinder!
 	var/list/juice_results
 
+	//the outline filter on hover
+	var/outline_filter
+
 /obj/item/Initialize()
 
 	materials =	typelist("materials", materials)
@@ -195,6 +209,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(force_string)
 		item_flags |= FORCE_STRING_OVERRIDE
+
+	if(istype(loc, /obj/item/storage))
+		item_flags |= IN_STORAGE
+
+	if(istype(loc, /obj/item/robot_module))
+		item_flags |= IN_INVENTORY
 
 	if(!hitsound)
 		if(damtype == "fire")
@@ -310,9 +330,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	research_msg += "."
 	. += research_msg.Join()
 
-/obj/item/proc/speechModification(message)			//for message modding by mask slot.
-	return message
-
 /obj/item/interact(mob/user)
 	add_fingerprint(user)
 	ui_interact(user)
@@ -382,6 +399,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
+	remove_outline()
 	pickup(user)
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
@@ -434,12 +452,115 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 // afterattack() and attack() prototypes moved to _onclick/item_attack.dm for consistency
 
-/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
-	if(prob(final_block_chance))
-		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-		return 1
+	var/relative_dir = (dir2angle(get_dir(hitby, owner)) - dir2angle(owner.dir)) //shamelessly stolen from mech code
+	var/final_block_level = block_level
+	var/obj/item/bodypart/blockhand = null
+	if(owner.stat) //can't block if you're dead
+		return 0
+	if(HAS_TRAIT(owner, TRAIT_NOBLOCK) && istype(src, /obj/item/shield)) //shields can always block, because they break instead of using stamina damage
+		return 0
+	if(owner.get_active_held_item() == src) //copypaste of this code for an edgecase-nodrops
+		if(owner.active_hand_index == 1)
+			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+		else
+			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
+	else
+		if(owner.active_hand_index == 1)
+			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
+		else
+			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+	if(blockhand.is_disabled())
+		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack<!/span>")
+		return 0
+	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
+		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack<!/span>")
+		return 0
+	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
+		return 0
+	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src) //you can still parry with the offhand
+		return 0
+	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
+		var/obj/item/projectile/P = hitby
+		if(block_flags & BLOCKING_PROJECTILE)
+			if(P.movement_type & UNSTOPPABLE) //you can't block piercing rounds!
+				return 0
+		else
+			return 0
+	if(owner.m_intent == MOVE_INTENT_WALK)
+		final_block_level += block_upgrade_walk
+	switch(relative_dir)
+		if(180, -180)
+			if(final_block_level >= 1)
+				playsound(src, block_sound, 50, 1)
+				owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+				return 1
+		if(135, 225, -135, -225)
+			if(final_block_level >= 2)
+				playsound(src, block_sound, 50, 1)
+				owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+				return 1
+		if(90, 270, -90, -270)
+			if(final_block_level >= 3)
+				owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+				playsound(src, block_sound, 50, 1)
+				return 1
+		if(45, 315, -45, -315)
+			if(final_block_level >= 4)
+				playsound(src, block_sound, 50, 1)
+				owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+				return 1
 	return 0
+
+/obj/item/proc/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	var/blockhand = 0
+	var/attackforce = 0
+	if(owner.get_active_held_item() == src) //this feels so hacky...
+		if(owner.active_hand_index == 1)
+			blockhand = BODY_ZONE_L_ARM
+		else
+			blockhand = BODY_ZONE_R_ARM
+	else
+		if(owner.active_hand_index == 1)
+			blockhand = BODY_ZONE_R_ARM
+		else
+			blockhand = BODY_ZONE_L_ARM
+	if(isprojectile(hitby))
+		var/obj/item/projectile/P = hitby
+		if(P.damage_type != STAMINA)// disablers dont do shit to shields
+			attackforce = (P.damage)
+	else if(isitem(hitby))
+		var/obj/item/I = hitby
+		attackforce = damage
+		if(I.sharpness)
+			attackforce = (attackforce / 2)//sharp weapons get much of their force by virtue of being sharp, not physical power
+		if(!I.damtype == BRUTE)
+			attackforce = (attackforce / 2)//as above, burning weapons, or weapons that deal other damage type probably dont get force from physical power
+		attackforce = (attackforce * I.attack_weight)
+		if(I.damtype == STAMINA)//pure stamina damage wont affect blocks
+			attackforce = 0
+	else if(attack_type == UNARMED_ATTACK && isliving(hitby))
+		var/mob/living/L = hitby
+		if(block_flags & BLOCKING_NASTY && !HAS_TRAIT(L, TRAIT_PIERCEIMMUNE))
+			L.attackby(src, owner)
+			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
+	else if(isliving(hitby))
+		var/mob/living/L = hitby
+		attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
+		if(block_flags & BLOCKING_NASTY)
+			if(istype(L, /mob/living/simple_animal))
+				var/mob/living/simple_animal/S = L
+				if(!S.hardattacks)
+					S.attackby(src, owner)
+					owner.visible_message("<span class='danger'>[S] injures themselves on [owner]'s [src]!</span>")
+			else
+				L.attackby(src, owner)
+				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
+	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
+	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
+		owner.blockbreak()
+	return TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language)
 	return ITALICS | REDUCE_RANGE
@@ -452,6 +573,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		qdel(src)
 	item_flags &= ~IN_INVENTORY
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	remove_outline()
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -567,7 +689,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (!eyes)
 		return
 	M.adjust_blurriness(3)
-	eyes.applyOrganDamage(rand(2,4))
+	eyes.applyOrganDamage(3)
 	if(eyes.damage >= 10)
 		M.adjust_blurriness(15)
 		if(M.stat != DEAD)
@@ -575,14 +697,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!(HAS_TRAIT(M, TRAIT_BLIND) || HAS_TRAIT(M, TRAIT_NEARSIGHT)))
 			to_chat(M, "<span class='danger'>You become nearsighted!</span>")
 		M.become_nearsighted(EYE_DAMAGE)
-		if(prob(50))
-			if(M.stat != DEAD)
-				if(M.drop_all_held_items())
-					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
-			M.adjust_blurriness(10)
-			M.Unconscious(20)
-			M.Paralyze(40)
-		if (prob(eyes.damage - 10 + 1))
+		if (eyes.damage >= 60)
 			M.become_blind(EYE_DAMAGE)
 			to_chat(M, "<span class='danger'>You go blind!</span>")
 
@@ -661,11 +776,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/is_sharp()
 	return sharpness
 
-/obj/item/proc/get_dismemberment_chance(obj/item/bodypart/affecting)
-	if(affecting.can_dismember(src))
-		if((sharpness || damtype == BURN || (damtype == BRUTE && (affecting.owner.dna && affecting.owner.dna.species && (TRAIT_EASYDISMEMBER in affecting.owner.dna.species.species_traits)))) && w_class >= WEIGHT_CLASS_NORMAL && force >= 10)
-			. = force * (affecting.get_damage() / affecting.max_damage)
-
 /obj/item/proc/get_dismember_sound()
 	if(damtype == BURN)
 		. = 'sound/weapons/sear.ogg'
@@ -689,11 +799,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		. = "<span class='notice'>[user] lights [A] with [src].</span>"
 	else
 		. = ""
-
-
-//when an item modify our speech spans when in our active hand. Override this to modify speech spans.
-/obj/item/proc/get_held_item_speechspans(mob/living/carbon/user)
-	return
 
 /obj/item/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	return
@@ -774,11 +879,43 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/timedelay = usr.client.prefs.tip_delay/100
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
+	var/mob/living/L = usr
+	if(istype(L) && L.incapacitated())
+		apply_outline(COLOR_RED_GRAY)
+	else
+		apply_outline()
+
+/obj/item/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
+	. = ..()
+	remove_outline()
 
 /obj/item/MouseExited()
 	deltimer(tip_timer)//delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
+	remove_outline()
 
+/obj/item/proc/apply_outline(colour = null)
+	if(!(item_flags & IN_INVENTORY || item_flags & IN_STORAGE) || QDELETED(src))
+		return
+	if(usr.client)
+		if(!usr.client.prefs.outline_enabled)
+			return
+	if(!colour)
+		if(usr.client)
+			colour = usr.client.prefs.outline_color
+			if(!colour)
+				colour = COLOR_BLUE_GRAY
+		else
+			colour = COLOR_BLUE_GRAY
+	if(outline_filter)
+		filters -= outline_filter
+	outline_filter = filter(type="outline", size=1, color=colour)
+	filters += outline_filter
+
+/obj/item/proc/remove_outline()
+	if(outline_filter)
+		filters -= outline_filter
+		outline_filter = null
 
 // Called when a mob tries to use the item as a tool.
 // Handles most checks.

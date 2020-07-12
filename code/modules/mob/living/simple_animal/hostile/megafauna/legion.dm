@@ -21,8 +21,7 @@ Difficulty: Medium
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	speak_emote = list("echoes")
 	armour_penetration = 50
-	melee_damage_lower = 25
-	melee_damage_upper = 25
+	melee_damage = 25
 	speed = 5
 	ranged = TRUE
 	del_on_death = TRUE
@@ -177,7 +176,6 @@ Difficulty: Medium
 	hitsound = 'sound/weapons/sear.ogg'
 	var/storm_type = /datum/weather/ash_storm
 	var/storm_cooldown = 0
-	var/static/list/excluded_areas = list(/area/reebe/city_of_cogs)
 
 /obj/item/staff/storm/attack_self(mob/user)
 	if(storm_cooldown > world.time)
@@ -186,7 +184,7 @@ Difficulty: Medium
 
 	var/area/user_area = get_area(user)
 	var/turf/user_turf = get_turf(user)
-	if(!user_area || !user_turf || (user_area.type in excluded_areas))
+	if(!user_area || !user_turf)
 		to_chat(user, "<span class='warning'>Something is preventing you from using the staff here.</span>")
 		return
 	var/datum/weather/A

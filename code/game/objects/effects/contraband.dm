@@ -128,7 +128,7 @@
 	if (smooth & SMOOTH_DIAGONAL)
 		for (var/O in overlays)
 			var/image/I = O
-			if (copytext(I.icon_state, 1, 3) == "d-")
+			if(copytext(I.icon_state, 1, 3) == "d-") //3 == length("d-") + 1
 				return
 
 	var/stuff_on_wall = 0
@@ -605,5 +605,60 @@
 	name = "Carbon Dioxide"
 	desc = "This informational poster teaches the viewer what carbon dioxide is."
 	icon_state = "poster35_legit"
+
+/obj/structure/sign/poster/official/moth1
+	name = "Safety Moth - Poisoning"
+	desc = "This informational poster uses Safety Moth(TM) to tell the viewer not to poison the station donuts. It's signed by 'AspEv'."
+	icon_state = "poster36_legit"
+
+/obj/structure/sign/poster/official/moth2
+	name = "Safety Moth - BoH"
+	desc = "This informational poster uses Safety Moth(TM) to inform the viewer of the dangers of Bags of Holding. It's signed by 'AspEv'."
+	icon_state = "poster37_legit"
+
+/obj/structure/sign/poster/official/moth3
+	name = "Safety Moth - Hardhats"
+	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to wear hardhats in cautious areas. It's like a lamp for your head! It's signed by 'AspEv'."
+	icon_state = "poster38_legit"
+
+/obj/structure/sign/poster/official/moth4
+	name = "Safety Moth - Smokey?"
+	desc = "This informational poster uses Safety Moth(TM) to promote safe handling of plasma, or promoting crew to combat plasmafires. We can't tell. It's signed by 'AspEv'."
+	icon_state = "poster39_legit"
+
+/obj/structure/sign/poster/official/moth5
+	name = "Safety Moth - Piping"
+	desc = "This informational poster uses Safety Moth(TM) to tell atmospheric technicians correct types of piping to be used. Proper pipe placement prevents poor preformance! It's signed by 'AspEv'."
+	icon_state = "poster40_legit"
+
+/obj/structure/sign/poster/official/moth6
+	name = "Safety Moth - Supermatter"
+	desc = "This informational poster uses Safety Moth(TM) to promote proper safety equipment when working near a Supermatter Crystal. It's signed by 'AspEv'."
+	icon_state = "poster41_legit"
+
+/obj/structure/sign/poster/official/moth7
+	name = "Safety Moth - Methamphetamine"
+	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to seek CMO approval before cooking methamphetamine. You shouldn't even be making this. It's signed by 'AspEv'."
+	icon_state = "poster42_legit"
+
+/obj/structure/sign/poster/contraband/pill1
+	name = "Safety Pill - Methamphetamine"
+	desc = "A decommisioned poster that uses Safety Pill(TM?) to promote less-than-legal chemicals. This is one of the reasons we stopped outsourcing these posters. It's signed by 'AspEv'."
+	icon_state = "poster48"
+
+/obj/structure/sign/poster/official/moth8
+	name = "Safety Moth - Epinephrine"
+	desc = "This informational poster uses Safety Moth(TM) to inform the viewer to help injured/deceased crewmen with their epinephrine injectors. It's signed by 'AspEv'."
+	icon_state = "poster43_legit"
+
+/obj/structure/sign/poster/official/moth9
+	name = "Safety Moth - Delamination Safety Precautions"
+	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to hide in lockers when the Supermatter Crystal has delaminated. Running away might be a better strategy. It's signed by 'AspEv'."
+	icon_state = "poster44_legit"
+
+/obj/structure/sign/poster/contraband/syndiemoth
+	name = "Syndie Moth - Nuclear Operation"
+	desc = "A Syndicate-commissioned poster that uses Syndie Moth(TM?) to tell the viewer to keep the nuclear authentication disk unsecured. No, we aren't doing that. It's signed by 'AspEv'."
+	icon_state = "poster49"
 
 #undef PLACE_SPEED

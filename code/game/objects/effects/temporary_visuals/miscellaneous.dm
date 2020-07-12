@@ -506,3 +506,52 @@
 
 /obj/effect/constructing_effect/proc/end()
 	qdel(src)
+
+/obj/effect/temp_visual/steam
+	name = "steam"
+	desc = "Steam! It's hot. It also serves as a game distribution platform."
+	icon_state = "smoke"
+	duration = 15
+
+/obj/effect/temp_visual/steam/Initialize(mapload, steam_direction)
+	. = ..()
+	setDir(steam_direction)
+	var/x_offset = 0
+	var/y_offset = 0
+	switch(dir)
+		if(NORTH)
+			y_offset = 8
+		if(EAST)
+			x_offset = 4
+			y_offset = 4
+		if(SOUTH)
+			y_offset = 2
+		if(WEST)
+			x_offset = -4
+			y_offset = 4
+	animate(src, pixel_x = x_offset, pixel_y = y_offset, alpha = 50, time = 15)
+
+/obj/effect/temp_visual/steam_release
+	name = "all the steam"
+
+/obj/effect/temp_visual/steam_release/Initialize()
+	..()
+	for(var/V in GLOB.cardinals)
+		var/turf/T = get_step(src, V)
+		new/obj/effect/temp_visual/steam(T, V)
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/temp_visual/parry
+	icon_state = "shield-flash"
+	duration = 5
+
+/obj/effect/temp_visual/dir_setting/space_wind
+	icon = 'icons/effects/atmospherics.dmi'
+	icon_state = "space_wind"
+	layer = FLY_LAYER
+	duration = 20
+	mouse_opacity = 0
+
+/obj/effect/temp_visual/dir_setting/space_wind/Initialize(mapload, set_dir, set_alpha = 255)
+	. = ..()
+	alpha = set_alpha
