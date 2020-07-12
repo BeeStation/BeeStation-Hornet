@@ -52,7 +52,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "n" = (
-//obj/item/clockwork/component/belligerent_eye/blind_eye,
+/obj/item/clockwork/component/belligerent_eye/blind_eye,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "o" = (
