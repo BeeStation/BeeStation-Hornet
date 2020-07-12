@@ -34,6 +34,10 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 	enemy_minimum_age = 14
 
 	title_icon = "clockcult"
+	announce_span = "danger"
+	announce_text = "A powerful group of fanatics is trying to summon their deity!\n\
+	<span class='danger'>Servants</span>: Convert more servants and defend the Ark of the Clockwork Justicar!\n\
+	<span class='notice'>Crew</span>: Prepare yourselfs and destroy the Ark of the Clockwork Justicar."
 
 	var/datum/team/clockcult/clockcult_team
 	var/clock_cultists = CLOCKCULT_MIN_SERVANTS
@@ -98,7 +102,7 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 		round_credits += "<center><h2>[operative.name] as a servant of Ratvar!</h2>"
 	if(len_before_addition == round_credits.len)
 		round_credits += list("<center><h2>The servants were annihilated!</h2>", "<center><h2>Their remains could not be identified!</h2>")
-		round_credits += "<br>"
+	round_credits += "<br>"
 
 	round_credits += ..()
 	return round_credits
