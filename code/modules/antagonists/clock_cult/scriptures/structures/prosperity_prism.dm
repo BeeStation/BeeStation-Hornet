@@ -9,7 +9,7 @@
 	power_cost = 300
 	invokation_time = 80
 	invokation_text = list("Your light shall heal the wounds beneath my skin.")
-	summoned_structure = /obj/structure/destructible/clockwork/gear_base/stargazer
+	summoned_structure = /obj/structure/destructible/clockwork/gear_base/prosperityprism
 	cogs_required = 2
 	category = SPELLTYPE_DEFENSE
 
