@@ -30,6 +30,7 @@
 		A.panel_open = FALSE
 		A.update_icon()
 		to_chat(user, "<span class='notice'>You insert \the [src] into \the [A].</span>")
+		playsound(get_turf(user), 'sound/machines/clockcult/integration_cog_install.ogg', 20)
 		if(!A.clock_cog_rewarded)
 			GLOB.installed_integration_cogs ++
 			A.clock_cog_rewarded = TRUE

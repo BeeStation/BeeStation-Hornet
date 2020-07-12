@@ -185,4 +185,5 @@
 	for(var/V in GLOB.cardinals)
 		var/turf/T = get_step(src, V)
 		new/obj/effect/temp_visual/steam(T, V)
+	playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 30)
 	return INITIALIZE_HINT_QDEL

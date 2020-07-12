@@ -3,6 +3,7 @@
 	desc = "A large cog lying on the floor at feet level."
 	clockwork_desc = "A large cog lying on the floor at feet level."
 	anchored = FALSE
+	break_message = "<span class='warning'>Oh, the gear base broke.</span>"
 	var/default_icon_state = "gear_base"
 	var/unwrenched_suffix = "_unwrenched"
 

@@ -150,6 +150,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	var/mob/living/carbon/C = user
 	if(!QDELETED(active_hologram))
 		return
+	new /obj/effect/temp_visual/steam_release(get_turf(src))
 	clear_ghost_items()	//This dusts the manifestation, so make sure it is before the creation of the mob or the game will crash hard.
 	activator = C
 	dusting_hologram = FALSE
