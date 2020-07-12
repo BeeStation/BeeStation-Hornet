@@ -159,6 +159,14 @@
 	description = "<span class='nicegreen'>What a peculiar emblem.  It makes me feel hopeful for my future.</span>\n"
 	mood_change = 5
 
+/datum/mood_event/soothing
+	description = "<span class='nicegreen'>Having this soothing item in my possession makes me feel at peace.</span>\n"
+	mood_change = 6
+	timeout = 3 SECONDS
+
+/datum/mood_event/soothing/add_effects(obj/item/soother)
+	description = "<span class='nicegreen'>Having [soother] in my possession makes me feel at peace.</span>\n"
+
 /datum/mood_event/nanite_happiness
 	description = "<span class='nicegreen robot'>+++++++HAPPINESS ENHANCEMENT+++++++</span>\n"
 	mood_change = 7
