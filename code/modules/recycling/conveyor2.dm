@@ -138,6 +138,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	use_power(6)
 	//get the first 30 items in contents
 	var/i = 0
+	var/list/affected = list()
 	for(var/atom/movable/M in T)
 		if(M == src)
 			continue
@@ -147,10 +148,18 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 				var/mob/living/L = M
 				if((L.movement_type & FLYING) && !L.stat)
 					continue
-			step(M, movedir)
+			affected.Add(M)
 		if(i >= MAX_CONVEYOR_ITEMS_MOVE)
 			break
 		CHECK_TICK
+	if(affected.len)
+		//moving is slightly delayed to prevent moving to a conveyor which has yet to be ticked, creating bluespace-tier conveyor speeds
+		addtimer(CALLBACK(src, .proc/convey, affected), 0)
+
+/obj/machinery/conveyor/proc/convey(items)
+	if(operating) //the problem with slightly delaying movement is that stuff gets confused right after the conveyors are turned off
+		for(var/M in items)
+			step(M, movedir)
 
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(obj/item/I, mob/user, params)
