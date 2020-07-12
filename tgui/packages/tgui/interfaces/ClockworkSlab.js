@@ -425,7 +425,7 @@ export const ClockworkButtonSelection = (props, context) => {
     selectedTab,
     setSelectedTab,
   ] = useLocalState(context, 'selectedTab', {});
-  const tabs = ["Servitude", "Defense", "Manufactoring"];
+  const tabs = ["Servitude", "Preservation", "Structures"];
   return (
     <Table>
       <Table.Row>

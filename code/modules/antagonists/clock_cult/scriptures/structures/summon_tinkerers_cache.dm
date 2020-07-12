@@ -11,7 +11,7 @@
 	invokation_text = list("Guide my hand and we shall create greatness.")
 	summoned_structure = /obj/structure/destructible/clockwork/gear_base/tinkerers_cache
 	cogs_required = 4
-	category = SPELLTYPE_MANUFACTORING
+	category = SPELLTYPE_STRUCTURES
 
 //===============
 //Tinkerer's Cache Structure

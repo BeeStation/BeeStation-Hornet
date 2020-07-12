@@ -20,5 +20,5 @@
 //scripture types
 #define SPELLTYPE_ABSTRACT "Abstract"
 #define SPELLTYPE_SERVITUDE "Servitude"
-#define SPELLTYPE_DEFENSE "Defense"
-#define SPELLTYPE_MANUFACTORING "Manufactoring"
+#define SPELLTYPE_PRESERVATION "Preservation"
+#define SPELLTYPE_STRUCTURES "Structures"

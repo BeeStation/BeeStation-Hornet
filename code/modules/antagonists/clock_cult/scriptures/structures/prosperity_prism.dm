@@ -11,7 +11,7 @@
 	invokation_text = list("Your light shall heal the wounds beneath my skin.")
 	summoned_structure = /obj/structure/destructible/clockwork/gear_base/prosperityprism
 	cogs_required = 2
-	category = SPELLTYPE_DEFENSE
+	category = SPELLTYPE_STRUCTURES
 
 //Stargazer structure
 /obj/structure/destructible/clockwork/gear_base/prosperityprism

@@ -6,7 +6,7 @@
 	tip = "Use on any servant in trouble to heal their wounds."
 	invokation_time = 10
 	button_icon_state = "Sentinel's Compromise"
-	category = SPELLTYPE_DEFENSE
+	category = SPELLTYPE_PRESERVATION
 	cogs_required = 1
 	power_cost = 80
 

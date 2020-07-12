@@ -6,7 +6,7 @@
 	tip = "Gain temporary immunity against batons and disablers."
 	invokation_time = 10
 	button_icon_state = "Vanguard"
-	category = SPELLTYPE_DEFENSE
+	category = SPELLTYPE_PRESERVATION
 	cogs_required = 1
 	power_cost = 150
 	var/last_recorded_stam_dam = 0

@@ -11,7 +11,7 @@
 	invokation_text = list("A light of Eng'ine shall empower my armaments!")
 	summoned_structure = /obj/structure/destructible/clockwork/gear_base/stargazer
 	cogs_required = 2
-	category = SPELLTYPE_MANUFACTORING
+	category = SPELLTYPE_STRUCTURES
 
 //Stargazer light
 

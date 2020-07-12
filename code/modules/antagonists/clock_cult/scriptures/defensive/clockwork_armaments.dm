@@ -9,7 +9,7 @@
 	power_cost = 250
 	invokation_time = 20
 	invokation_text = list("Through courage and hope...", "...we shall protect thee!")
-	category = SPELLTYPE_DEFENSE
+	category = SPELLTYPE_PRESERVATION
 	cogs_required = 1
 
 /datum/clockcult/scripture/clockwork_armaments/invoke_success()

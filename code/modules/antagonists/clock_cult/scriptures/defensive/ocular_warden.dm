@@ -11,7 +11,7 @@
 	invokation_text = list("Summon thee to defend our temple")
 	summoned_structure = /obj/structure/destructible/clockwork/ocular_warden
 	cogs_required = 3
-	category = SPELLTYPE_DEFENSE
+	category = SPELLTYPE_STRUCTURES
 
 /datum/clockcult/scripture/create_structure/ocular_warden/check_special_requirements()
 	if(!..())

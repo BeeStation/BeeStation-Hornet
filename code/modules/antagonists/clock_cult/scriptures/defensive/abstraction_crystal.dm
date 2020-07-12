@@ -17,7 +17,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	invokation_text = list("Through the boundaries and planes..", "..we break with ease")
 	summoned_structure = /obj/structure/destructible/clockwork/abstraction_crystal
 	cogs_required = 5
-	category = SPELLTYPE_DEFENSE
+	category = SPELLTYPE_STRUCTURES
 
 /datum/clockcult/scripture/create_structure/abstraction_crystal/check_special_requirements()
 	if(!..())
