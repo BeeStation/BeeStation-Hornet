@@ -432,7 +432,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	STOP_PROCESSING(SSprocessing, src)
 
 /obj/screen/alert/clockwork/clocksense/process()
-	var/datum/antagonist/servant_of_ratvar/servant_antagonist = is_servant_of_ratvar(mob_viewer)
+	var/datum/antagonist/servant_of_ratvar/servant_antagonist = is_servant_of_ratvar(owner)
 	if(!(servant_antagonist?.team))
 		return
 	desc = "Stored Power - <b>[DisplayPower(servant_antagonist.team.power)]</b>.<br>"
