@@ -637,7 +637,7 @@
 //Clock cult
 /datum/status_effect/interdiction
 	id = "interdicted"
-	duration = 15
+	duration = 25
 	status_type = STATUS_EFFECT_REFRESH
 	tick_interval = 1
 	alert_type = /obj/screen/alert/status_effect/interdiction

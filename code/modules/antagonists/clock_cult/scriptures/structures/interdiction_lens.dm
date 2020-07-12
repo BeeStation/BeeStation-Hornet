@@ -37,7 +37,7 @@
 			L.apply_status_effect(STATUS_EFFECT_INTERDICTION)
 	for(var/obj/item/projectile/P in range(INTERDICTION_LENS_RANGE, src))
 		if(isliving(P) || !is_servant_of_ratvar(P.firer))
-			P.speed /= 2
+			P.speed *= 2
 			P.damage /= 1.4
 			P.visible_message("<span class='warning'>\The [P] appears to slow in midair!</span>")
 	for(var/obj/mecha/M in range(INTERDICTION_LENS_RANGE, src))
