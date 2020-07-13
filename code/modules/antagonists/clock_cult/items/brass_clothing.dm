@@ -37,7 +37,7 @@
 
 /obj/item/clothing/suit/clockwork/cloak
 	name = "shrouding cloak"
-	desc = "A faultering cloak that bends light around it, distorting the user making it hard to see with the naked eye, however provides very little protection."
+	desc = "A faltering cloak that bends light around it, distorting the user's appearance, making it hard to see them with the naked eye. However, it provides very little protection."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cloak"
 	armor = list("melee" = 15, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)

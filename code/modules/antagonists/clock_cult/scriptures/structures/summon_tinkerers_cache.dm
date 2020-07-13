@@ -3,8 +3,8 @@
 //==================================//
 /datum/clockcult/scripture/create_structure/tinkerers_cache
 	name = "Tinkerer's Cache"
-	desc = "Creates a tinkerer's cache, a powerful forge capable of crafting elite equiptment."
-	tip = "Use the cache to create more powerful equiptment with a cooldown."
+	desc = "Creates a tinkerer's cache, a powerful forge capable of crafting elite equipment."
+	tip = "Use the cache to create more powerful equipment with a cooldown."
 	button_icon_state = "Tinkerer's Cache"
 	power_cost = 700
 	invokation_time = 50
@@ -31,13 +31,13 @@
 	if(.)
 		return
 	if(!is_servant_of_ratvar(user))
-		to_chat(user, "<span class='warning'>You try to put your hand into \the [src], but almost burn yourself!</span>")
+		to_chat(user, "<span class='warning'>You try to put your hand into [src], but almost burn yourself!</span>")
 		return
 	if(!anchored)
-		to_chat(user, "<span class='brass'>You need to anchor [src] to the floor with your dagger first.</span>")
+		to_chat(user, "<span class='brass'>You need to anchor [src] to the floor first.</span>")
 		return
 	if(cooldowntime > world.time)
-		to_chat(user, "<span class='brass'>The [src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
+		to_chat(user, "<span class='brass'>[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
 	var/choice = alert(user,"You begin putting components together in the forge.",,"Robes of Divinity","Shrouding Cloak","Wraith Spectacles")
 	var/list/pickedtype = list()
@@ -52,5 +52,5 @@
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
 			new N(get_turf(src))
-			to_chat(user, "<span class='brass'>You craft a [choice] to near perfection, the [src] burning down.</span>")
+			to_chat(user, "<span class='brass'>You craft a [choice] to near perfection, [src] burning down.</span>")
 

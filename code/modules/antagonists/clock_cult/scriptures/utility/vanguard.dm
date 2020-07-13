@@ -2,7 +2,7 @@
 	name = "Vanguard"
 	use_time = 300
 	slab_overlay = "vanguard"
-	desc = "Provides the user with 30 seconds of stun immunity, but half of the stun absorbed will be applied at once, knocking you unconcious if you recieve more than 15 seconds of stuns."
+	desc = "Provides the user with 30 seconds of stun immunity, but half of the stun absorbed will be applied at once, knocking you unconscious if you receive more than 15 seconds of stuns."
 	tip = "Gain temporary immunity against batons and disablers."
 	invokation_time = 10
 	button_icon_state = "Vanguard"

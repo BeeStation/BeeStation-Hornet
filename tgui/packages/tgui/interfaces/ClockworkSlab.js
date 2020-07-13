@@ -113,7 +113,7 @@ export const ClockworkHelp = (props, context) => {
             </font>
             ,&nbsp;
             <font color="#F19096">
-              Hateful Menacles&nbsp;
+              Hateful Manacles&nbsp;
             </font>
             and summon a&nbsp;
             <font color="#9EA7E5">
@@ -179,7 +179,7 @@ export const ClockworkHelp = (props, context) => {
           by invoking&nbsp;
           <b>
             <font color="#F19096">
-              Hateful Menacles&nbsp;
+              Hateful Manacles&nbsp;
             </font>
           </b>
           , you can restrain targets

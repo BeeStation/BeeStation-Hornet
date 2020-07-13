@@ -29,11 +29,11 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		if(!is_reebe(M.z))
 			continue
 		if(is_servant_of_ratvar(M))
-			to_chat(M, "<span class='reallybig hypnophrase'>You hear a thousound screams and the crashing of cogs... <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i></span>")
+			to_chat(M, "<span class='reallybig hypnophrase'>You hear a thousand screams and the crashing of cogs... <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i></span>")
 			continue
 		var/safe_place = find_safe_turf()
 		M.SetSleeping(50)
-		to_chat(M, "<span class='reallybig hypnophrase'>You hear a thousound screams and the crashing of cogs...</span>")
+		to_chat(M, "<span class='reallybig hypnophrase'>You hear a thousand screams and the crashing of cogs...</span>")
 		to_chat(M, "<span class='hypnophrase'>The only thing you remember is suddenly feeling warm and safe.</span>")
 		M.forceMove(safe_place)
 	. = ..()
@@ -114,7 +114,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_assault()
 	priority_announce("Space-time anomalies detected near the station. Source determined to be a temporal\
-		energy pulse eminating from J1523-215. All crew are to enter [text2ratvar("prep#re %o di%")]\
+		energy pulse emanating from J1523-215. All crew are to enter [text2ratvar("prep#re %o di%")]\
 		and destroy the [text2ratvar("I'd *ik£ to s#e yo! try")], which has been determined to be the source of the\
 		pulse.\n Glory to Nanotrasen.", "Anomaly Alert", 'sound/ai/spanomalies.ogg')
 	var/list/pick_turfs = list()

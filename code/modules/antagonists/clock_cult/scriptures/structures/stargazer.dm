@@ -99,48 +99,48 @@
 		. = ..()
 		return
 	if(!anchored)
-		to_chat(user, "<span class='brass'>You need to anchor [src] to the floor with your dagger first.</span>")
+		to_chat(user, "<span class='brass'>You need to anchor [src] to the floor first.</span>")
 		return
 	if(cooldowntime > world.time)
-		to_chat(user, "<span class='brass'>The [src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
+		to_chat(user, "<span class='brass'>[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
 	if(HAS_TRAIT(I, TRAIT_STARGAZED))
-		to_chat(user, "<span class='brass'>\The [I] has already been enhanced!</span>")
+		to_chat(user, "<span class='brass'>[I] has already been enhanced!</span>")
 		return
-	to_chat(user, "<span class='brass'>You begin placing \the [I] onto \the [src].</span>")
+	to_chat(user, "<span class='brass'>You begin placing [I] onto [src].</span>")
 	if(do_after(user, 60, target=I))
 		if(cooldowntime > world.time)
-			to_chat(user, "<span class='brass'>The [src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
+			to_chat(user, "<span class='brass'>[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
 			return
 		if(HAS_TRAIT(I, TRAIT_STARGAZED))
-			to_chat(user, "<span class='brass'>\The [I] has already been enhanced!</span>")
+			to_chat(user, "<span class='brass'>[I] has already been enhanced!</span>")
 			return
 		if(istype(I, /obj/item/twohanded/clockwork))
 			upgrade_weapon(I, user)
 			cooldowntime = world.time + STARGAZER_COOLDOWN
 			return
-		to_chat(user, "<span class='brass'>You cannot upgrade \the [I].</span>")
+		to_chat(user, "<span class='brass'>You cannot upgrade [I].</span>")
 
 /obj/structure/destructible/clockwork/gear_base/stargazer/proc/upgrade_weapon(obj/item/I, mob/living/user)
 	ADD_TRAIT(I, TRAIT_STARGAZED, STARGAZER_TRAIT)
 	switch(rand(1, 10))
 		if(1)
-			to_chat(user, "<span class='neovgre'>You feel \the [I] tighten to your hand.</span>")
+			to_chat(user, "<span class='neovgre'>You feel [I] tighten to your hand.</span>")
 			ADD_TRAIT(I, TRAIT_NODROP, STARGAZER_TRAIT)
 			return
 		if(2)
-			to_chat(user, "<span class='neovgre'>\The [I] looks as if it could cut through anything.</span>")
+			to_chat(user, "<span class='neovgre'>[I] looks as if it could cut through anything.</span>")
 			I.force += 6
 			return
 		if(3)
 			I.w_class = WEIGHT_CLASS_TINY
-			to_chat(user, "<span class='neovgre'>\The [I] suddenly shrinks!</span>")
+			to_chat(user, "<span class='neovgre'>[I] suddenly shrinks!</span>")
 			return
 		if(4)
 			I.light_power = 3
 			I.light_range = 2
 			I.light_color = LIGHT_COLOR_CLOCKWORK
-			to_chat(user, "<span class='neovgre'>\The [I] shines with a brilliant light!</span>")
+			to_chat(user, "<span class='neovgre'>[I] shines with a brilliant light!</span>")
 			return
 		if(5)
 			I.damtype = BURN
@@ -148,14 +148,14 @@
 			I.light_power = 1.5
 			I.light_range = 2
 			I.light_color = LIGHT_COLOR_FIRE
-			to_chat(user, "<span class='neovgre'>\The [I] emits off an intense heat!</span>")
+			to_chat(user, "<span class='neovgre'>[I] emits off an intense heat!</span>")
 			return
 		if(6)
 			I.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-			to_chat(user, "<span class='neovgre'>\The [I] becomes unbreakable!</span>")
+			to_chat(user, "<span class='neovgre'>[I] becomes unbreakable!</span>")
 			return
 		if(7)
-			to_chat(user, "<span class='neovgre'>You feel \the [I] attempting to communicate with you.</span>")
+			to_chat(user, "<span class='neovgre'>You feel [I] attempting to communicate with you.</span>")
 			var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the spirit of [user.real_name]'s [I]?", ROLE_PAI, null, FALSE, 100, POLL_IGNORE_POSSESSED_BLADE)
 			if(LAZYLEN(candidates))
 				var/mob/dead/observer/C = pick(candidates)
@@ -173,7 +173,7 @@
 				to_chat(user, "<span class='neovgre'>The [I] stops talking to you...</span>")
 			return
 		if(8)
-			to_chat(user, "<span class='neovgre'>\The [I] goes blunt.</span>")
+			to_chat(user, "<span class='neovgre'>[I] goes blunt.</span>")
 			I.force = max(I.force - 4, 0)
 			return
 		if(9)
@@ -181,7 +181,7 @@
 			I.AddComponent(/datum/component/anti_magic, TRUE, TRUE)
 			return
 		if(10)
-			to_chat(user, "<span class='neovgre'>\The [I] suddenly transforms, gaining the magical properties of shungite, it will protect your from all the evil forces!</span>")
+			to_chat(user, "<span class='neovgre'>[I] suddenly transforms, gaining the magical properties of shungite, it will protect your from all the evil forces!</span>")
 			I.AddComponent(/datum/component/empprotection)
 			I.AddComponent(/datum/component/anti_magic, TRUE, TRUE)
 			I.color = COLOR_ALMOST_BLACK

@@ -81,7 +81,16 @@
 //Grant access to the clockwork tools.
 //If AI, disconnect all active borgs and make it only able to control converted shells
 /datum/antagonist/servant_of_ratvar/proc/equip_silicon(mob/living/silicon/S)
-	return FALSE
+	S.laws = new /datum/ai_laws/ratvar
+	S.laws.associate(S)
+	S.update_icons()
+	if(isAI(S))
+		var/mob/living/silicon/ai/AI = S
+		for(var/mob/living/silicon/robot/R in AI.connected_robots)
+			R.connected_ai = null
+	else if(iscyborg(S))
+		var/mob/living/silicon/robot/R = S
+		R.connected_ai = null
 
 /datum/antagonist/servant_of_ratvar/create_team(datum/team/newteam)
 	if(!newteam)

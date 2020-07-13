@@ -4,7 +4,7 @@
 /datum/clockcult/scripture/ark_activation
 	name = "Ark Invigoration"
 	desc = "Prepares the Ark for activation."
-	tip = "Prepares the Ark for activation, alerting the crew of your existance."
+	tip = "Prepares the Ark for activation, alerting the crew of your existence."
 	button_icon_state = "Spatial Gateway"
 	power_cost = 10000
 	invokation_time = 140

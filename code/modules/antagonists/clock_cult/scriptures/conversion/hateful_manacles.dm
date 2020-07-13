@@ -2,7 +2,7 @@
 // !       Hateful Manacles       ! //
 //==================================//
 /datum/clockcult/scripture/slab/hateful_manacles
-	name = "Hateful Menacles"
+	name = "Hateful Manacles"
 	desc = "Forms replicant manacles around a target's wrists that function like handcuffs."
 	tip = "Handcuff a target at close range."
 	button_icon_state = "Hateful Manacles"

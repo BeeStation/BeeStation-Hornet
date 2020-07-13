@@ -291,7 +291,7 @@
 	return ..()
 
 /datum/action/innate/clockcult/transmit/Activate()
-	hierophant_message(stripped_input(owner, "What do you want to tell your allies?", "Hierphant Transmit", ""), owner, "<span class='brass'>")
+	hierophant_message(stripped_input(owner, "What do you want to tell your allies?", "Hierophant Transmit", ""), owner, "<span class='brass'>")
 
 /datum/action/innate/clockcult/transmit/Grant(mob/M)
 	..(M)

@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
 		return FALSE
 	for(var/obj/structure/destructible/clockwork/abstraction_crystal/AC in range(5))
-		to_chat(invoker, "<span class='brass'>There is an Abstraction Crystal nearby, you cannot place this there.</span>")
+		to_chat(invoker, "<span class='brass'>There is an Abstraction Crystal nearby, you cannot place this here.</span>")
 		return FALSE
 	return TRUE
 
@@ -64,8 +64,9 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 
 /mob/living/carbon/human/abstraction_hologram/death(gibbed)
 	//Put the person back in their body
-	owner.key = key
-	owner.log_message("lost control of the abstraction crystal they were manifested at", LOG_ATTACK)
+	if(!QDELETED(owner))
+		owner.key = key
+		owner.log_message("lost control of the abstraction crystal they were manifested at", LOG_ATTACK)
 	. = ..()
 
 /mob/living/carbon/human/abstraction_hologram/Move(NewLoc, direct)
@@ -108,7 +109,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	icon_state = "obelisk_inactive"
 	clockwork_desc = "A powerful crystal allowing the user to manifest themselves at other abstraction crystals."
 	max_integrity = 100
-	break_message = "<span class='warning'>The crystal explodes in to a shower of shards!</span>"
+	break_message = "<span class='warning'>The crystal explodes into a shower of shards!</span>"
 	var/key_word = ""
 	var/mob/living/activator
 	var/mob/living/carbon/human/abstraction_hologram/active_hologram
@@ -164,8 +165,8 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 	active_hologram.add_overlay(forbearance)
 
-	to_chat(active_hologram, "<span class='neovgre'>You manifest yourself at the [src].</span>")
-	to_chat(active_hologram, "<span class='neovgre'>You will only take a fraction of the damage your manifestation recieves.</span>")
+	to_chat(active_hologram, "<span class='neovgre'>You manifest yourself at [src].</span>")
+	to_chat(active_hologram, "<span class='neovgre'>You will only take a fraction of the damage your manifestation receives.</span>")
 	to_chat(active_hologram, "<span class='neovgre'>Peer into the crystal again to return to your old body.</span>")
 
 	//Equip with generic gear

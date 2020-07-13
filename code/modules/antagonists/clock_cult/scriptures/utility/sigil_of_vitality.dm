@@ -17,6 +17,7 @@
 /obj/structure/destructible/clockwork/sigil/vitality
 	name = "vitality matrix"
 	desc = "A twisting, confusing artifact that drains the unenlightended on contact."
+	clockwork_desc = "A beautiful artifact that will drain the life of heretics placed on top of it."
 	icon_state = "sigilvitality"
 	effect_stand_time = 20
 	idle_color = "#5e87c4"
@@ -77,7 +78,7 @@
 			return
 		addtimer(CALLBACK(src, .proc/try_restart, M), 5)
 		if(M.client)
-			M.visible_message("<span class='neovgre'>[src] looks weak as the color fades from their body.</span>", "<span class='neovgre'>You feel weak and your soul faultering...</span>")
+			M.visible_message("<span class='neovgre'>[src] looks weak as the color fades from their body.</span>", "<span class='neovgre'>You feel your soul faltering...</span>")
 			GLOB.clockcult_vitality += 15
 		GLOB.clockcult_vitality += 5
 

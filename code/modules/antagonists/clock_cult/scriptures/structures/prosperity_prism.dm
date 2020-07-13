@@ -62,7 +62,7 @@
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/attack_hand(mob/user)
 	if(is_servant_of_ratvar(user))
 		toggled_on = !toggled_on
-		to_chat(user, "<span class='notice'>You flick the switch on \the [src]!</span>")
+		to_chat(user, "<span class='notice'>You flick the switch on [src]!</span>")
 	else
 		. = ..()
 

@@ -2,7 +2,7 @@
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens
 	name = "interdiction lens"
-	desc = "A mesmorising light that flashes to a rhythm that you just can't stop tapping to."
+	desc = "A mesmerizing light that flashes to a rhythm that you just can't stop tapping to."
 	clockwork_desc = "A small device which will slow down nearby attackers at a small power cost."
 	default_icon_state = "interdiction_lens_inactive"
 	anchored = TRUE
@@ -20,7 +20,7 @@
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/attack_hand(mob/user)
 	if(is_servant_of_ratvar(user))
 		enabled = !enabled
-		to_chat(user, "<span class='brass'>You toggle \the [src] [enabled?"on":"off"].</span>")
+		to_chat(user, "<span class='brass'>You toggle [src] [enabled?"on":"off"].</span>")
 		if(enabled)
 			START_PROCESSING(SSobj, src)
 			icon_state = "interdiction_lens_active"
@@ -59,7 +59,7 @@
 			GLOB.clockcult_power -= 5
 			P.speed *= 2
 			P.damage /= 1.4
-			P.visible_message("<span class='warning'>\The [P] appears to slow in midair!</span>")
+			P.visible_message("<span class='warning'>[P] appears to slow in midair!</span>")
 	for(var/obj/mecha/M in range(INTERDICTION_LENS_RANGE, src))
 		if(GLOB.clockcult_power < 5)
 			return
