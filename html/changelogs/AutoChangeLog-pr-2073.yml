@@ -1,7 +1,0 @@
-author: Valtosin
-delete-after: true
-changes:
-  - rscadd: custom vendor + price tagger port from /tg/station
-  - rscadd: adds price tagger, refill and circuit for custom vendor in vendomat
-  - rscadd: autolathe can too produce price tagger and custom refill
-  - bugfix: some missing spans in _vending.dm
