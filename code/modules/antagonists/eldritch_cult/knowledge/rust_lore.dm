@@ -87,7 +87,7 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
-		carbon_target.reagents.add_reagent(/datum/reagent/eldritch, 5)
+		carbon_target.reagents.add_reagent(/datum/reagent/eldritch, 2)
 
 /datum/eldritch_knowledge/spell/rust_wave
 	name = "Wave of Rust"
