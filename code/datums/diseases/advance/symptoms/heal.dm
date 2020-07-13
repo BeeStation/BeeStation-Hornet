@@ -177,7 +177,7 @@
 	transmittable = 1
 	severity = -1
 	level = 6
-	passive_message = "<span class='notice'>Your ski tingles.</span>"
+	passive_message = "<span class='notice'>Your skin tingles.</span>"
 	var/threshhold = 15
 	var/scarcounter = 0
 
