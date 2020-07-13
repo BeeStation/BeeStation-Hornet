@@ -89,10 +89,17 @@
 /obj/item/clothing/head/hardhat/cakehat/is_hot()
 	return on * heat
 
+/obj/item/clothing/head/hardhat/cakehat/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
+	. = ..()
+	if(ishuman(hit_atom) && . && single_use)
+		splat(hit_atom)
+
 /obj/item/clothing/head/hardhat/cakehat/attack(mob/M, mob/user, def_zone)
 	. = ..()
-	if(!. || single_use)
-		return
+	if(. && single_use)
+		splat(M)
+
+/obj/item/clothing/head/hardhat/cakehat/proc/splat(mob/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/C = M
 		var/mutable_appearance/overlay = mutable_appearance('icons/effects/creampie.dmi')
