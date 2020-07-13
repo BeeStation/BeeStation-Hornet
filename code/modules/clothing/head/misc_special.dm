@@ -360,6 +360,7 @@
 	dynamic_fhair_suffix = ""
 	flash_protect = 2
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	bang_protect = 1 //make this consistent with other plasmaman helmets
 	resistance_flags = NONE
 	dog_fashion = null
 
