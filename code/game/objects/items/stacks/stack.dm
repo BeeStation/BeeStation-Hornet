@@ -397,7 +397,7 @@
 
 /obj/item/stack/proc/merge_check(obj/o)
 	if(istype(o,merge_type))
-		if(!istype(o,/obj/item/stack))
+		if(!istype(o,/obj/item/stack)) //Not a stack, but can be stacked.
 			return TRUE
 		else
 			var/obj/item/stack/ostack = o
