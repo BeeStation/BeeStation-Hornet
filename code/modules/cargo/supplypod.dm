@@ -36,6 +36,7 @@
 	var/effectCircle = FALSE //If true, allows the pod to come in at any angle. Bit of a weird feature but whatever its here
 	var/style = STYLE_STANDARD //Style is a variable that keeps track of what the pod is supposed to look like. It acts as an index to the POD_STYLES list in cargo.dm defines to get the proper icon/name/desc for the pod.
 	var/reversing = FALSE //If true, the pod will not send any items. Instead, after opening, it will close again (picking up items/mobs) and fly back to centcom
+	var/turf/reverse_dropoff_turf //Turf that the reverse pod will drop off it's newly-acquired cargo to
 	var/fallDuration = 4
 	var/fallingSoundLength = 11
 	var/fallingSound = 'sound/weapons/mortar_long_whistle.ogg'//Admin sound to play before the pod lands
@@ -43,7 +44,6 @@
 	var/openingSound //Admin sound to play when the pod opens
 	var/leavingSound //Admin sound to play when the pod leaves
 	var/soundVolume = 80 //Volume to play sounds at. Ignores the cap
-	var/bay //Used specifically for the centcom_podlauncher datum. Holds the current bay the user is launching objects from. Bays are specific rooms on the centcom map.
 	var/list/explosionSize = list(0,0,2,3)
 	var/stay_after_drop = FALSE
 	var/specialised = FALSE // It's not a general use pod for cargo/admin use
@@ -88,6 +88,10 @@
 	. = ..()
 	setStyle(style, TRUE) //Upon initialization, give the supplypod an iconstate, name, and description based on the "style" variable. This system is important for the centcom_podlauncher to function correctly
 
+/obj/structure/closet/supplypod/extractionpod/Initialize()
+	. = ..()
+	reverse_dropoff_turf = pick(GLOB.holdingfacility)
+
 /obj/structure/closet/supplypod/proc/setStyle(chosenStyle, var/duringInit = FALSE) //Used to give the sprite an icon state, name, and description. Should only be called once
 	if (!duringInit && style == chosenStyle) //Check if the input style is already the same as the pod's style. This happens in centcom_podlauncher, and as such we set the style to STYLE_CENTCOM.
 		setStyle(STYLE_CENTCOM) //We make sure to not check this during initialize() so the standard supplypod works correctly.
@@ -106,6 +110,14 @@
 /obj/structure/closet/supplypod/proc/SetReverseIcon()
 	fin_mask = "bottomfin"
 	icon_state = initial(icon_state) + "_reverse"
+	pixel_x = initial(pixel_x)
+	transform = matrix()
+	update_icon()
+
+/obj/structure/closet/supplypod/proc/backToNonReverseIcon()
+	fin_mask = initial(fin_mask)
+	if (POD_STYLES[style][POD_SHAPE] == POD_SHAPE_NORML)
+		icon_state = POD_STYLES[style][POD_BASE]
 	pixel_x = initial(pixel_x)
 	transform = matrix()
 	update_icon()
@@ -169,21 +181,22 @@
 /obj/structure/closet/supplypod/open(mob/living/user, force = TRUE)
 	return
 
-/obj/structure/closet/supplypod/extractionpod/handleReturningClose(atom/movable/holder = src)
+/obj/structure/closet/supplypod/proc/handleReturnAfterDeparting(atom/movable/holder = src)
 	reversing = FALSE //Now that we're done reversing, we set this to false (otherwise we would get stuck in an infinite loop of calling the close proc at the bottom of open_pod() )
 	bluespace = TRUE //Make it so that the pod doesn't stay in centcom forever
-	audible_message("<span class='notice'>The pod hisses, closing quickly and launching itself away from the station.</span>", "<span class='notice'>The ground vibrates.</span>")
+	audible_message("<span class='notice'>The pod hisses, closing and launching itself away from the station.</span>", "<span class='notice'>The ground vibrates, and you hear the sound of engines firing.</span>")
 	stay_after_drop = FALSE
-	holder.forceMove(pick(GLOB.holdingfacility)) // land in ninja jail
 	holder.pixel_z = initial(holder.pixel_z)
-	open_pod(holder, forced = TRUE)
-
-/obj/structure/closet/supplypod/proc/handleReturningClose(atom/movable/holder = src)
-	holder.forceMove(bay) //Move the pod back to centcom, where it belongs
-	holder.pixel_z = initial(holder.pixel_z)
-	reversing = FALSE //Now that we're done reversing, we set this to false (otherwise we would get stuck in an infinite loop of calling the close proc at the bottom of open_pod() )
-	bluespace = TRUE //Make it so that the pod doesn't stay in centcom forever
-	open_pod(holder, forced = TRUE)
+	holder.alpha = initial(holder.alpha)
+	var/shippingLane = GLOB.areas_by_type[/area/centcom/supplypod/fly_me_to_the_moon]
+	forceMove(shippingLane) //Move to the centcom-z-level until the pod_landingzone says we can drop back down again
+	if (!reverse_dropoff_turf) //If we're centcom-launched, the reverse dropoff turf will be a centcom loading bay. If we're an extraction pod, it should be the ninja jail.
+		reverse_dropoff_turf = locate(/area/centcom/supplypod/loading/one) in GLOB.sortedAreas
+	landingDelay = initial(landingDelay) //Reset the landing timers so we land on whatever turf we're aiming at normally. Will be changed to be editable later (tm)
+	fallDuration = initial(fallDuration) //This is so if someone adds a really long dramatic landing time they don't have to sit through it twice on the pod's return trip
+	openingDelay = initial(openingDelay)
+	backToNonReverseIcon()
+	new /obj/effect/pod_landingzone(reverse_dropoff_turf, src)
 
 /obj/structure/closet/supplypod/proc/preOpen() //Called before the open_pod() proc. Handles anything that occurs right as the pod lands.
 	var/turf/T = get_turf(src)
@@ -260,14 +273,14 @@
 	if (broken) //If the pod is opening because it's been destroyed, we end here
 		return
 	if (style == STYLE_SEETHROUGH)
-		depart(src)
+		startExitSequence(src)
 	else
 		if (reversing)
 			addtimer(CALLBACK(src, .proc/SetReverseIcon), departureDelay/2) //Finish up the pod's duties after a certain amount of time
 		if(!stay_after_drop) // Departing should be handled manually
-			addtimer(CALLBACK(src, .proc/depart, holder), departureDelay) //Finish up the pod's duties after a certain amount of time
+			addtimer(CALLBACK(src, .proc/startExitSequence, holder), departureDelay) //Finish up the pod's duties after a certain amount of time
 
-/obj/structure/closet/supplypod/proc/depart(atom/movable/holder)
+/obj/structure/closet/supplypod/proc/startExitSequence(atom/movable/holder)
 	if (reversing) //If we're reversing, we call the close proc. This sends the pod back up to centcom
 		close(holder)
 	else if (bluespace) //If we're a bluespace pod, then delete ourselves (along with our holder, if a seperate holder exists)
@@ -284,7 +297,7 @@
 	take_contents(holder)
 	playsound(holder, close_sound, close_sound_volume, TRUE, -3)
 	holder.setClosed()
-	addtimer(CALLBACK(src, .proc/preReturn, holder), 10) //Finish up the pod's duties after a certain amount of time
+	addtimer(CALLBACK(src, .proc/preReturn, holder), 10) //Start to leave a second after closing for cinematic effect
 
 /obj/structure/closet/supplypod/take_contents(atom/movable/holder)
 	var/atom/L = holder.drop_location()
@@ -327,7 +340,7 @@
 	animate(holder, alpha = 0, time = 8, easing = QUAD_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
 	animate(holder, pixel_z = 400, time = 10, easing = QUAD_EASING|EASE_IN, flags = ANIMATION_PARALLEL) //Animate our rising pod
 
-	addtimer(CALLBACK(src, .proc/handleReturningClose, holder), 15) //Finish up the pod's duties after a certain amount of time
+	addtimer(CALLBACK(src, .proc/handleReturnAfterDeparting, holder), 15) //Finish up the pod's duties after a certain amount of time
 
 /obj/structure/closet/supplypod/setOpened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE
@@ -450,14 +463,15 @@
 	else
 		verticle_offset = initial(verticle_offset)
 	pixel_y = verticle_offset
-/obj/effect/supplypod_target_helper
+
+/obj/effect/pod_landingzone_effect
 	name = ""
 	desc = ""
 	icon = 'icons/obj/supplypods_32x32.dmi'
 	icon_state = "LZ_Slider"
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 
-/obj/effect/supplypod_target_helper/Initialize(mapload, obj/structure/closet/supplypod/pod)
+/obj/effect/pod_landingzone_effect/Initialize(mapload, obj/structure/closet/supplypod/pod)
 	transform = matrix() * 1.5
 	animate(src, transform = matrix()*0.01, time = pod.landingDelay+pod.fallDuration)
 	..()
@@ -466,12 +480,13 @@
 	name = "Landing Zone Indicator"
 	desc = "A holographic projection designating the landing zone of something. It's probably best to stand back."
 	icon = 'icons/obj/supplypods_32x32.dmi'
-	icon_state = ""
+	icon_state = "LZ"
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	light_range = 2
 	anchored = TRUE
-	var/obj/structure/closet/supplypod/pod //The supplyPod that will be landing ontop of this target
-	var/obj/effect/supplypod_target_helper/helper
+	alpha = 0
+	var/obj/structure/closet/supplypod/pod //The supplyPod that will be landing ontop of this pod_landingzone
+	var/obj/effect/pod_landingzone_effect/helper
 	var/list/smoke_effects = new /list(13)
 
 /obj/effect/ex_act()
@@ -484,7 +499,7 @@
 	pod = podParam
 	if (!pod.effectStealth)
 		helper = new (drop_location(), pod)
-		icon_state = "LZ"
+		alpha = 255
 	animate(src, transform = matrix().Turn(90), time = pod.landingDelay+pod.fallDuration)
 	if (single_order)
 		if (istype(single_order, /datum/supply_order))

@@ -23,6 +23,8 @@
 	var/turf/oldTurf //Keeps track of where the user was at if they use the "teleport to centcom" button, so they can go back
 	var/client/holder //client of whoever is using this datum
 	var/area/bay //What bay we're using to launch shit from.
+	var/turf/dropoff_turf //If we're reversing, where the reverse pods go
+	var/picking_dropoff_turf
 	var/launchClone = FALSE //If true, then we don't actually launch the thing in the bay. Instead we call duplicateObject() and send the result
 	var/launchRandomItem = FALSE //If true, lauches a single random item instead of everything on a turf.
 	var/launchChoice = 1 //Determines if we launch all at once (0) , in order (1), or at random(2)
@@ -67,7 +69,9 @@
 	var/B = (istype(bay, /area/centcom/supplypod/loading/one)) ? 1 : (istype(bay, /area/centcom/supplypod/loading/two)) ? 2 : (istype(bay, /area/centcom/supplypod/loading/three)) ? 3 : (istype(bay, /area/centcom/supplypod/loading/four)) ? 4 : (istype(bay, /area/centcom/supplypod/loading/ert)) ? 5 : 0 //top ten THICCEST FUCKING TERNARY CONDITIONALS OF 2036
 	data["bay"] = bay //Holds the current bay the user is launching objects from. Bays are specific rooms on the centcom map.
 	data["bayNumber"] = B //Holds the bay as a number. Useful for comparisons in centcom_podlauncher.ract
-	data["oldArea"] = (oldTurf ? get_area(oldTurf) : null) //Holds the name of the area that the user was in before using the teleportCentCom action
+	data["oldArea"] = (oldTurf ? get_area(oldTurf) : null) //Holds the name of the area that the user was in before using the teleportCentcom action
+	data["picking_dropoff_turf"] = picking_dropoff_turf //If we're picking or have picked a dropoff turf. Only works when pod is in reverse mode
+	data["dropoff_turf"] = dropoff_turf //The turf that reverse pods will drop their newly acquired cargo off at
 	data["launchClone"] = launchClone //Do we launch the actual items in the bay or just launch clones of them?
 	data["launchRandomItem"] = launchRandomItem //Do we launch a single random item instead of everything on the turf?
 	data["launchChoice"] = launchChoice //Launch turfs all at once (0), ordered (1), or randomly(1)
@@ -124,6 +128,21 @@
 		if("bay5")
 			bay =  locate(/area/centcom/supplypod/loading/ert) in GLOB.sortedAreas
 			refreshBay()
+			. = TRUE
+		if("pickDropoffTurf") //Enters a mode that lets you pick the dropoff location for reverse pods
+			if (picking_dropoff_turf)
+				picking_dropoff_turf = FALSE
+				updateCursor(FALSE, FALSE) //Update the cursor of the user to a cool looking target icon
+				return
+			if (launcherActivated)
+				launcherActivated = FALSE //We don't want to have launch mode enabled while we're picking a turf
+			picking_dropoff_turf = TRUE
+			updateCursor(FALSE, TRUE) //Update the cursor of the user to a cool looking target icon
+			. = TRUE
+		if("clearDropoffTurf")
+			picking_dropoff_turf = FALSE
+			dropoff_turf = null
+			updateCursor(FALSE, FALSE)
 			. = TRUE
 		if("teleportCentcom") //Teleports the user to the centcom supply loading facility.
 			var/mob/M = holder.mob //We teleport whatever mob the client is attached to at the point of clicking
@@ -183,7 +202,7 @@
 			var/list/expNames = list("Devastation", "Heavy Damage", "Light Damage", "Flame") //Explosions have a range of different types of damage
 			var/list/boomInput = list()
 			for (var/i=1 to expNames.len) //Gather input from the user for the value of each type of damage
-				boomInput.Add(input("[expNames[i]] Range", "Enter the [expNames[i]] range of the explosion. WARNING: This ignores the bomb cap!", 0) as null|num)
+				boomInput.Add(input("Enter the [expNames[i]] range of the explosion. WARNING: This ignores the bomb cap!", "[expNames[i]] Range",  0) as null|num)
 				if (isnull(boomInput[i]))
 					return
 				if (!isnum_safe(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
@@ -205,7 +224,7 @@
 				damageChoice = 0
 				temp_pod.damage = 0
 				return
-			var/damageInput = input("How much damage to deal", "Enter the amount of brute damage dealt by getting hit", 0) as null|num
+			var/damageInput = input("Enter the amount of brute damage dealt by getting hit","How much damage to deal",  0) as null|num
 			if (isnull(damageInput))
 				return
 			if (!isnum_safe(damageInput)) //Sanitize the input for damage to deal.s
@@ -434,7 +453,7 @@
 			. = TRUE
 		if("giveLauncher") //Enters the "Launch Mode". When the launcher is activated, temp_pod is cloned, and the result it filled and launched anywhere the user clicks (unless specificTarget is true)
 			launcherActivated = !launcherActivated
-			updateCursor(launcherActivated) //Update the cursor of the user to a cool looking target icon
+			updateCursor(launcherActivated, FALSE) //Update the cursor of the user to a cool looking target icon
 			. = TRUE
 		if("clearBay") //Delete all mobs and objs in the selected bay
 			if(alert(usr, "This will delete all objs and mobs in [bay]. Are you sure?", "Confirmation", "Delete that shit", "No") == "Delete that shit")
@@ -445,20 +464,25 @@
 /datum/centcom_podlauncher/ui_close() //Uses the destroy() proc. When the user closes the UI, we clean up the temp_pod and supplypod_selector variables.
 	qdel(src)
 
-/datum/centcom_podlauncher/proc/updateCursor(var/launching) //Update the moues of the user
-	if (holder) //Check to see if we have a client
-		if (launching) //If the launching param is true, we give the user new mouse icons.
+/datum/centcom_podlauncher/proc/updateCursor(var/launching, var/turf_picking) //Update the mouse of the user
+	if (!holder) //Can't update the mouse icon if the client doesnt exist!
+		return
+	if (launching || turf_picking) //If the launching param is true, we give the user new mouse icons.
+		if(launching)
 			holder.mouse_up_icon = 'icons/effects/supplypod_target.dmi' //Icon for when mouse is released
 			holder.mouse_down_icon = 'icons/effects/supplypod_down_target.dmi' //Icon for when mouse is pressed
-			holder.mouse_pointer_icon = holder.mouse_up_icon //Icon for idle mouse (same as icon for when released)
-			holder.click_intercept = src //Create a click_intercept so we know where the user is clicking
-		else
-			var/mob/M = holder.mob
-			holder.mouse_up_icon = null
-			holder.mouse_down_icon = null
-			holder.click_intercept = null
-			if (M)
-				M.update_mouse_pointer() //set the moues icons to null, then call update_moues_pointer() which resets them to the correct values based on what the mob is doing (in a mech, holding a spell, etc)()
+		if(turf_picking)
+			holder.mouse_up_icon = 'icons/effects/supplypod_pickturf.dmi' //Icon for when mouse is released
+			holder.mouse_down_icon = 'icons/effects/supplypod_pickturf_down.dmi' //Icon for when mouse is pressed
+		holder.mouse_pointer_icon = holder.mouse_up_icon //Icon for idle mouse (same as icon for when released)
+		holder.click_intercept = src //Create a click_intercept so we know where the user is clicking
+	else
+		var/mob/M = holder.mob
+		holder.mouse_up_icon = null
+		holder.mouse_down_icon = null
+		holder.click_intercept = null
+		if (M)
+			M.update_mouse_pointer() //set the moues icons to null, then call update_moues_pointer() which resets them to the correct values based on what the mob is doing (in a mech, holding a spell, etc)()
 
 /datum/centcom_podlauncher/proc/InterceptClickOn(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
 	var/list/pa = params2list(params)
@@ -497,6 +521,15 @@
 					else
 						launch(target) //If we couldn't locate an adjacent turf, just launch at the normal target
 					sleep(rand()*2) //looks cooler than them all appearing at once. Gives the impression of burst fire.
+	else if (picking_dropoff_turf)
+		//Clicking on UI elements shouldn't pick a dropoff turf
+		if(istype(target,/obj/screen))
+			return FALSE
+
+		. = TRUE
+		if(left_click) //When we left click:
+			dropoff_turf = get_turf(target)
+			to_chat(user, "<span class = 'notice'> You've selected [dropoff_turf] at [COORD(dropoff_turf)] as your dropoff location.</span>")
 
 /datum/centcom_podlauncher/proc/refreshBay() //Called whenever the bay is switched, as well as wheneber a pod is launched
 	orderedArea = createOrderedArea(bay) //Create an ordered list full of turfs form the bay
@@ -554,7 +587,10 @@
 	if (isnull(A))
 		return
 	var/obj/structure/closet/supplypod/centcompod/toLaunch = DuplicateObject(temp_pod) //Duplicate the temp_pod (which we have been varediting or configuring with the UI) and store the result
-	toLaunch.bay = bay //Bay is currently a nonstatic expression, so it cant go into toLaunch using DuplicateObject
+	if(dropoff_turf)
+		toLaunch.reverse_dropoff_turf = dropoff_turf
+	else
+		toLaunch.reverse_dropoff_turf = bay //Bay is currently a nonstatic expression, so it cant go into toLaunch using DuplicateObject
 	toLaunch.update_icon()//we update_icon() here so that the door doesnt "flicker on" right after it lands
 	var/shippingLane = GLOB.areas_by_type[/area/centcom/supplypod/flyMeToTheMoon]
 	toLaunch.forceMove(shippingLane)
@@ -593,7 +629,7 @@
 		qdel(M)
 
 /datum/centcom_podlauncher/Destroy() //The Destroy() proc. This is called by ui_close proc, or whenever the user leaves the game
-	updateCursor(FALSE) //Make sure our moues cursor resets to default. False means we are not in launch mode
+	updateCursor(FALSE, FALSE) //Make sure our moues cursor resets to default. False means we are not in launch mode
 	qdel(temp_pod) //Delete the temp_pod
 	qdel(selector) //Delete the selector effect
 	. = ..()
