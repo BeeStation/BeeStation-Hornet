@@ -91,12 +91,12 @@
 
 /obj/item/clothing/head/hardhat/cakehat/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
 	. = ..()
-	if(ishuman(hit_atom) && . && single_use)
+	if(ishuman(hit_atom) && single_use)
 		splat(hit_atom)
 
 /obj/item/clothing/head/hardhat/cakehat/attack(mob/M, mob/user, def_zone)
 	. = ..()
-	if(. && single_use)
+	if(single_use)
 		splat(M)
 
 /obj/item/clothing/head/hardhat/cakehat/proc/splat(mob/M)
