@@ -177,7 +177,7 @@
 	transmittable = 1
 	severity = -1
 	level = 6
-	passive_message = "<span class='notice'>Your skin tingles.</span>"
+	passive_message = "<span class='notice'>Your ski tingles.</span>"
 	var/threshhold = 15
 	var/scarcounter = 0
 
@@ -194,7 +194,6 @@
 
 /datum/symptom/heal/surface/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
 	var/healed = FALSE
-	to_chat(M, "Begin heal, threshold = [threshhold]")
 
 	if(M.getBruteLoss() && M.getBruteLoss() <= threshhold)
 		M.adjustBruteLoss(-power)
