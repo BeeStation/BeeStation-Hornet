@@ -15,9 +15,10 @@
 
 /datum/symptom/heal/Start(datum/disease/advance/A)
 	if(!..())
-		return
+		return FALSE
 	if(A.properties["stage_rate"] >= 6) //stronger healing
 		power = 2
+	return TRUE //For super calls of subclasses
 
 /datum/symptom/heal/Activate(datum/disease/advance/A)
 	if(!..())
@@ -193,6 +194,7 @@
 
 /datum/symptom/heal/surface/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
 	var/healed = FALSE
+	to_chat(M, "Begin heal, threshold = [threshhold]")
 
 	if(M.getBruteLoss() && M.getBruteLoss() <= threshhold)
 		M.adjustBruteLoss(-power)
@@ -203,7 +205,7 @@
 		M.adjustFireLoss(-power)
 		healed = TRUE
 		scarcounter++
-	
+
 	if(M.getToxLoss() && M.getToxLoss() <= threshhold)
 		M.adjustToxLoss(-power)
 		healed = TRUE
