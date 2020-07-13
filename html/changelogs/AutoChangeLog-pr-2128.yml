@@ -1,0 +1,4 @@
+author: Dingo-Dongler
+delete-after: true
+changes:
+  - bugfix: Superficial healing's resistance 10 threshhold should now work properly.
