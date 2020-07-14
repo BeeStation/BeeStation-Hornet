@@ -1369,6 +1369,7 @@
 #include "code\modules\antagonists\clock_cult\items\integration_cog.dm"
 #include "code\modules\antagonists\clock_cult\items\replica_fabricator.dm"
 #include "code\modules\antagonists\clock_cult\mobs\cogscarab.dm"
+#include "code\modules\antagonists\clock_cult\mobs\eminence.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\_clockwork_scripture.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\summon_spear.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\conversion\hateful_manacles.dm"

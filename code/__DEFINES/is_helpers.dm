@@ -139,6 +139,10 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isclown(A) (istype(A, /mob/living/simple_animal/hostile/retaliate/clown))
 
+#define iseminence(A) (istype(A, /mob/living/simple_animal/eminence))
+
+#define iscogscarab(A) (istype(A, /mob/living/simple_animal/drone/cogscarab))
+
 GLOBAL_LIST_INIT(shoefootmob, typecacheof(list(
 	/mob/living/carbon/human/,
 	/mob/living/simple_animal/cow,
