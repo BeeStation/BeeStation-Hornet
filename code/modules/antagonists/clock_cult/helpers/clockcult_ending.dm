@@ -6,7 +6,7 @@
 	for(var/mob/living/M in GLOB.player_list)
 		SEND_SOUND(M, sound('sound/misc/airraid.ogg', 1))
 	sleep(500)
-	priority_announce("Station [GLOB.station_name] is in the wa#e %o[text2ratvar("YOU WILL SEE THE LIGHT")] acction imminent. Glory[text2ratvar(" TO ENG'INE")].","Central Command Anomolous Materials Division", 'sound/machines/alarm.ogg')
+	priority_announce("Station [GLOB.station_name] is in the wa#e %o[text2ratvar("YOU WILL SEE THE LIGHT")] action imminent. Glory[text2ratvar(" TO ENG'INE")].","Central Command Anomolous Materials Division", 'sound/machines/alarm.ogg')
 	for(var/mob/living/M in GLOB.player_list)
 		if(M.client)
 			M.client.color = COLOR_WHITE
