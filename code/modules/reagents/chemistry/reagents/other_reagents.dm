@@ -1021,7 +1021,7 @@
 
 /datum/reagent/space_cleaner
 	name = "Space cleaner"
-	description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
+	description = "A compound used to clean things. Now with 50% more sodium hypochlorite! Not safe for consumption. If ingested, contact poison control immediately"
 	color = "#A5F0EE" // rgb: 165, 240, 238
 	taste_description = "sourness"
 	reagent_weight = 0.6 //so it sprays further
@@ -1085,7 +1085,6 @@
 			SEND_SIGNAL(M, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
 	else if(method == INGEST || method == INJECT) //why the fuck did you drink space cleaner you fucking buffoon
 		toxic = TRUE
-
 
 /datum/reagent/space_cleaner/ez_clean
 	name = "EZ Clean"
