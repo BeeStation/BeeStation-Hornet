@@ -38,7 +38,7 @@
 
 	//Legacy Browser
 	message_admins("[key_name_admin(src)] accessed file: [path]")
-	if(!log_reader || options in list("Open", "Download"))
+	if(!log_reader || (options in list("Open", "Download")))
 		switch(options)
 			if ("View")
 				src << browse("<pre style='word-wrap: break-word;'>[html_encode(file2text(file(path)))]</pre>", list2params(list("window" = "viewfile.[path]")))
