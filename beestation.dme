@@ -1354,6 +1354,7 @@
 #include "code\modules\antagonists\clock_cult\clockwork_massive.dm"
 #include "code\modules\antagonists\clock_cult\clockwork_outfits.dm"
 #include "code\modules\antagonists\clock_cult\clockwork_turfs.dm"
+#include "code\modules\antagonists\clock_cult\ratvarian_cyborg_modules.dm"
 #include "code\modules\antagonists\clock_cult\ratvarian_language.dm"
 #include "code\modules\antagonists\clock_cult\servant_of_ratvar.dm"
 #include "code\modules\antagonists\clock_cult\helpers\clockcult_ending.dm"

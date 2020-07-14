@@ -83,7 +83,7 @@
 /datum/antagonist/servant_of_ratvar/proc/equip_silicon(mob/living/silicon/S)
 	S.laws = new /datum/ai_laws/ratvar
 	S.laws.associate(S)
-	S.update_icons()
+	S.show_laws()
 	if(isAI(S))
 		var/mob/living/silicon/ai/AI = S
 		AI.disconnect_shell()

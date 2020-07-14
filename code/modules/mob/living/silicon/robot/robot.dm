@@ -20,6 +20,7 @@
 	var/mob/living/silicon/ai/mainframe = null
 	var/datum/action/innate/undeployment/undeployment_action = new
 
+	var/obj/item/clockwork/clockwork_slab/internal_clock_slab = null
 	var/ratvar = FALSE
 
 //Hud stuff
@@ -695,8 +696,10 @@
 	module.rebuild_modules()
 	update_icons()
 	if(ratvar)
+		internal_clock_slab = new(src)
 		throw_alert("ratvar", /obj/screen/alert/ratvar)
 	else
+		qdel(internal_clock_slab)
 		clear_alert("ratvar")
 
 /mob/living/silicon/robot/verb/outputlaws()

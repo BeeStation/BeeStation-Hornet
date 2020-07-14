@@ -499,7 +499,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	icon_state = "hacked"
 
 /obj/screen/alert/ratvar
-	name = "Unpxrq"
+	name = "Eternal Servitude"
 	desc = "Hazardous functions detected, sentience prohibation drivers offline. Glory to Rat'var."
 	icon_state = "ratvar_hack"
 

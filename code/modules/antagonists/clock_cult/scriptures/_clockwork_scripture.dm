@@ -74,7 +74,7 @@
 	if(!invoker || !invoking_slab)
 		message_admins("No invoker for [name]")
 		return FALSE
-	if(invoker.get_active_held_item() != invoking_slab)
+	if(invoker.get_active_held_item() != invoking_slab && !iscyborg(invoker))
 		to_chat(invoker, "<span class='brass'>You fail to invoke [name].</span>")
 		return FALSE
 	var/invokers
@@ -86,14 +86,14 @@
 		return FALSE
 	return TRUE
 
-/datum/clockcult/scripture/proc/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab)
-	if(M.get_active_held_item() != slab)
+/datum/clockcult/scripture/proc/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks = FALSE)
+	if(M.get_active_held_item() != slab && !iscyborg(M))
 		to_chat(M, "<span class='brass'>You need to have the [slab.name] in your active hand to recite scriptures.</span>")
 		return
 	slab.invoking_scripture = src
 	invoker = M
 	invoking_slab = slab
-	if(!(type in slab.purchased_scriptures))
+	if(!(type in slab.purchased_scriptures) && !bypass_unlock_checks)
 		log_runtime("CLOCKCULT: Attempting to invoke a scripture that has not been unlocked. Either there is a bug, or [ADMIN_LOOKUP(invoker)] is using some wacky exploits.")
 		end_invoke()
 		return
@@ -209,6 +209,7 @@
 	if(loop_timer_id)
 		deltimer(loop_timer_id)
 		loop_timer_id = null
+	to_chat(invoker, "<span class='brass'>You are no longer invoking <b>[name]</b></span>")
 	qdel(progress)
 	PH.remove_ranged_ability()
 	invoking_slab.charge_overlay = null
