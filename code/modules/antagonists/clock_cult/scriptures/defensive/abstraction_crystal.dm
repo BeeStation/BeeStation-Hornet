@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 
 /mob/living/carbon/human/abstraction_hologram
 	var/obj/structure/destructible/clockwork/abstraction_crystal/linked_crystal
-	var/mob/living/carbon/owner
+	var/mob/living/owner
 	var/last_check_health = 0
 
 /mob/living/carbon/human/abstraction_hologram/Initialize()
@@ -94,7 +94,9 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 /mob/living/carbon/human/abstraction_hologram/proc/damage_crystal(amount)
 	if(QDELETED(src) || QDELETED(linked_crystal) || QDELETED(owner))
 		return
-	owner.take_overall_damage(amount * 0.4)
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
+		C.take_overall_damage(amount * 0.4)
 	linked_crystal.take_damage(amount)
 
 //===================
@@ -141,26 +143,32 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	var/obj/structure/destructible/clockwork/abstraction_crystal/AC = GLOB.abstraction_crystals[selected]
 	AC.manifest(user)
 
+/obj/structure/destructible/clockwork/abstraction_crystal/eminence_act(mob/living/simple_animal/eminence/eminence)
+	manifest(eminence)
+
 /obj/structure/destructible/clockwork/abstraction_crystal/proc/manifest(mob/living/user)
 	if(!is_servant_of_ratvar(user))
 		return
-	if(!iscarbon(user))
+	if(!(iscarbon(user) || iseminence(user)))
 		return
 	if(istype(user, /mob/living/carbon/human/abstraction_hologram))
 		return
-	var/mob/living/carbon/C = user
 	if(!QDELETED(active_hologram))
 		return
 	new /obj/effect/temp_visual/steam_release(get_turf(src))
 	clear_ghost_items()	//This dusts the manifestation, so make sure it is before the creation of the mob or the game will crash hard.
-	activator = C
+	activator = user
 	dusting_hologram = FALSE
 	active_hologram = new(get_turf(src))
-	active_hologram.owner = C
+	active_hologram.owner = user
 	active_hologram.linked_crystal = src
-	active_hologram.real_name = C.real_name
 	active_hologram.alpha = 150 //Makes them translucent
-	active_hologram.key = C.key
+	active_hologram.key = user.key
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		active_hologram.real_name = C.real_name
+	else
+		active_hologram.real_name = "the eminence"
 
 	var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 	active_hologram.add_overlay(forbearance)

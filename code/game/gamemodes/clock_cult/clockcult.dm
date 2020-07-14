@@ -106,6 +106,9 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 		SSticker.mode_result = "loss - staff destroyed the ark"
 		SSticker.news_report = CLOCK_PROSELYTIZATION
 
+/datum/game_mode/clockcult/check_finished(force_ending)
+	return force_ending
+
 /datum/game_mode/clockcult/proc/check_cult_victory()
 	return GLOB.ratvar_risen
 
@@ -179,7 +182,7 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 //TODO: SANITIZE MESSAGES WITH THE NORMAL SAY STUFF (punctuation)
 /proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE)
 	var/hierophant_message = "[span]"
-	if(sender)
+	if(sender?.reagents)
 		if(sender.reagents.has_reagent(/datum/reagent/water/holywater, 1))
 			to_chat(sender, "<span class='nezbere'>[pick("You fail to transmit your cries for help.", "Your calls into the void go unanswered.", "You try to transmit your message, but the hierophant network is silent.")]</span>")
 			return FALSE

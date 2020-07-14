@@ -33,3 +33,8 @@
 	unique_name = TRUE
 	hud_possible = list(ANTAG_HUD)
 	hud_type = /datum/hud/revenant
+
+/mob/living/simple_animal/eminence/ClickOn(atom/A, params)
+	. = ..()
+	if(!.)
+		A.eminence_act(src)
