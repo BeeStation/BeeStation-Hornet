@@ -96,7 +96,7 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 
 /datum/game_mode/clockcult/set_round_result()
 	..()
-	if(check_cult_victory)
+	if(check_cult_victory())
 		SSticker.mode_result = "win - clockcult win"
 		SSticker.news_report = CLOCK_SUMMON
 	else if(LAZYLEN(GLOB.cyborg_servants_of_ratvar))
