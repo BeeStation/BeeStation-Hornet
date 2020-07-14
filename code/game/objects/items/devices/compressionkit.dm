@@ -11,8 +11,8 @@
 	// var/damage_multiplier = 0.2 Not in use yet.
 
 /obj/item/compressionkit/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>It has [charges] charges left. Recharge with bluespace crystals.</span>")
+	. = ..()
+	. += ("<span class='notice'>It has [charges] charges left. Recharge with bluespace crystals.</span>")
 
 /obj/item/compressionkit/proc/sparks()
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread

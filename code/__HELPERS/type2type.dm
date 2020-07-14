@@ -1,7 +1,6 @@
 /*
  * Holds procs designed to change one type of value, into another.
  * Contains:
- *			hex2num & num2hex
  *			file2list
  *			angle2dir
  *			angle2text
@@ -9,63 +8,10 @@
  *			text2dir_extended & dir2text_short
  */
 
-//Returns an integer given a hex input, supports negative values "-ff". Skips preceding invalid characters, and breaks when hittin invalid characters thereafter. If safe=TRUE, returns null on incorrect input strings instead of CRASHing
-/proc/hex2num(hex, safe=FALSE)
-	. = 0
-	var/place = 1
-	for(var/i in length(hex) to 1 step -1)
-		var/num = text2ascii(hex, i)
-		switch(num)
-			if(48 to 57)
-				num -= 48	//0-9
-			if(97 to 102)
-				num -= 87	//a-f
-			if(65 to 70)
-				num -= 55	//A-F
-			if(45)
-				return . * -1 // -
-			else
-				if(safe)
-					return null
-				else
-					CRASH("Malformed hex number")
 
-		. += num * place
-		place *= 16
 
-//Returns the hex value of a decimal number
-//len == length of returned string
-//if len < 0 then the returned string will be as long as it needs to be to contain the data
-//Only supports positive numbers
-//if an invalid number is provided, it assumes num==0
-//Note, unlike previous versions, this one works from low to high <-- that way
-/proc/num2hex(num, len=2)
-	if(!isnum(num))
-		num = 0
-	num = round(abs(num))
-	. = ""
-	var/i=0
-	while(1)
-		if(len<=0)
-			if(!num)
-				break
-		else
-			if(i>=len)
-				break
-		var/remainder = num/16
-		num = round(remainder)
-		remainder = (remainder - num) * 16
-		switch(remainder)
-			if(9,8,7,6,5,4,3,2,1)
-				. = "[remainder]" + .
-			if(10,11,12,13,14,15)
-				. = ascii2text(remainder+87) + .
-			else
-				. = "0" + .
-		i++
-	return .
-
-/// Splits the text of a file at seperator and returns them in a list. Returns an empty list if the file doesn't exist
+//Splits the text of a file at seperator and returns them in a list.
+//returns an empty list if the file doesn't exist
 /world/proc/file2list(filename, seperator="\n", trim = TRUE)
 	if (trim)
 		return splittext(trim(file2text(filename)),seperator)
@@ -530,17 +476,17 @@ Takes a string and a datum. The string is well, obviously the string being check
 
 /// Converts a hex code to a number
 /proc/color_hex2num(A)
-	if(!A)
+	if(!A || length(A) != length_char(A))
 		return 0
-	var/R = hex2num(copytext(A,2,4))
-	var/G = hex2num(copytext(A,4,6))
-	var/B = hex2num(copytext(A,6,0))
+	var/R = hex2num(copytext(A, 2, 4))
+	var/G = hex2num(copytext(A, 4, 6))
+	var/B = hex2num(copytext(A, 6, 8))
 	return R+G+B
 
 //word of warning: using a matrix like this as a color value will simplify it back to a string after being set
 /proc/color_hex2color_matrix(string)
 	var/length = length(string)
-	if(length != 7 && length != 9)
+	if((length != 7 && length != 9) || length != length_char(string))
 		return color_matrix_identity()
 	var/r = hex2num(copytext(string, 2, 4))/255
 	var/g = hex2num(copytext(string, 4, 6))/255
@@ -601,8 +547,8 @@ Takes a string and a datum. The string is well, obviously the string being check
 	var/r
 	var/c
 	for(var/i = 1 to length(str))
-		c= text2ascii(str,i)
-		r+= num2hex(c)
+		c = text2ascii(str,i)
+		r += num2hex(c, 1)
 	return r
 
 /// Decodes hex to raw byte string. If safe=TRUE, returns null on incorrect input strings instead of CRASHing
@@ -612,7 +558,7 @@ Takes a string and a datum. The string is well, obviously the string being check
 	var/r
 	var/c
 	for(var/i = 1 to length(str)/2)
-		c = hex2num(copytext(str,i*2-1,i*2+1), safe)
+		c = hex2num(copytext(str,i*2-1,i*2+1))
 		if(isnull(c))
 			return null
 		r += ascii2text(c)

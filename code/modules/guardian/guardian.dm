@@ -3,6 +3,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 #define GUARDIAN_HANDS_LAYER 1
 #define GUARDIAN_TOTAL_LAYERS 1
+#define GUARDIAN_RESET_COOLDOWN	5 MINUTES
 
 /mob/living/simple_animal/hostile/guardian
 	name = "Guardian Spirit"
@@ -34,11 +35,11 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.5, TOX = 0.5, CLONE = 0.5, STAMINA = 0, OXY = 0.5) //how much damage from each damage type we transfer to the owner
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	obj_damage = 40
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	AIStatus = AI_OFF
 	hud_type = /datum/hud/guardian
 	mobsay_color = "#ffffff"
+	var/next_reset = 0
 	var/guardiancolor = "#ffffff"
 	var/mutable_appearance/cooloverlay
 	var/recolorentiresprite = FALSE
@@ -46,7 +47,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/theme = GUARDIAN_MAGIC
 	var/atk_cooldown = 10
 	var/range = 10
-	var/reset = 0 //if the summoner has reset the guardian already
 	var/cooldown = 0
 	var/datum/mind/summoner
 	var/toggle_button_type = /obj/screen/guardian/ToggleMode
@@ -54,7 +54,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/summoner_visible = TRUE
 	var/battlecry = "AT"
 	var/do_the_cool_invisible_thing = TRUE
-	var/erased_time = FALSE
 	var/berserk = FALSE
 	var/requiem = FALSE
 	// ability stuff below
@@ -197,12 +196,14 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(berserk || stat == DEAD)
 		return
 	if(!QDELETED(summoner) && !QDELETED(summoner.current))
-		if(summoner.current.stat == DEAD)
+		if(summoner.current.stat == DEAD || (HAS_TRAIT(summoner.current, TRAIT_NODEATH) && summoner.current.health <= -100))
 			if(transforming)
 				GoBerserk()
 			else
 				forceMove(summoner.current)
 				to_chat(src, "<span class='danger'>Your summoner has died!</span>")
+				to_chat(summoner, "<span class='userdanger'>'No...' you think to yourself as your bones crumple to dust.</span>")
+				summoner.current.dust()
 				visible_message("<span class='danger'><B>\The [src] dies along with its user!</B></span>")
 				death(TRUE)
 	else
@@ -235,6 +236,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		O.completed = TRUE
 		O.explanation_text = "AVENGE YOUR MASTER."
 		S.objectives |= O
+		log_objective(mind, O.explanation_text)
 		mind.announce_objectives()
 	if(stats.ability)
 		stats.ability.Berserk()
@@ -361,9 +363,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(transforming)
 		to_chat(src, "<span class='holoparasite italics'>No... no... you can't!</span>")
 		return
-	if(erased_time)
-		to_chat(src, "<span class='danger'>There is no time, and you cannot intefere!</span>")
-		return
 	if(stats.ability && stats.ability.RangedAttack(A))
 		return
 	return ..()
@@ -371,9 +370,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/AttackingTarget()
 	if(transforming)
 		to_chat(src, "<span class='holoparasite italics'>No... no... you can't!</span>")
-		return FALSE
-	if(erased_time)
-		to_chat(src, "<span class='danger'>There is no time, and you cannot intefere!</span>")
 		return FALSE
 	if(stats.ability && stats.ability.Attack(target))
 		return FALSE
@@ -401,8 +397,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/death()
 	. = ..()
 	if(summoner?.current && summoner.current.stat != DEAD)
-		to_chat(summoner, "<span class='danger'><B>Your [name] died somehow!</span></B>")
-		summoner.current.death()
+		to_chat(summoner, "<span class='userdanger'>'No...' you think to yourself as your bones crumple to dust, as you watch your stand somehow die.</span>")
+		summoner.current.dust()
 	ghostize(FALSE)
 	nullspace() // move ourself into nullspace for the time being
 
@@ -461,7 +457,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	death()
 	if(summoner?.current)
 		to_chat(summoner.current, "<span class='danger'><B>Your [src] was blown up!</span></B>")
-		summoner.current.gib()
+		summoner.current.dust()
 
 /mob/living/simple_animal/hostile/guardian/AltClickOn(atom/A)
 	if(stats.ability && stats.ability.AltClickOn(A))
@@ -583,20 +579,26 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		var/mob/dead/observer/C = pick(candidates)
 		key = C.key
 
-/mob/living/simple_animal/hostile/guardian/proc/BringMeBackToLife(datum/_source, mob/old_body, mob/new_body)
+/mob/living/simple_animal/hostile/guardian/proc/Reviveify()
+	revive()
+	var/mob/gost = grab_ghost(TRUE)
+	if(!QDELETED(gost) && gost.ckey)
+		ckey = gost.ckey
+
+/mob/living/simple_animal/hostile/guardian/proc/OnMindTransfer(datum/_source, mob/old_body, mob/new_body)
 	if(!QDELETED(old_body))
 		old_body.verbs -= /mob/living/proc/guardian_comm
 		old_body.verbs -= /mob/living/proc/guardian_recall
 		old_body.verbs -= /mob/living/proc/guardian_reset
+		UnregisterSignal(old_body, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(old_body, COMSIG_LIVING_REVIVE)
 	if(isliving(new_body))
 		if(new_body.stat == DEAD)
 			return
 		forceMove(new_body)
-		revive()
+		Reviveify()
 		RegisterSignal(new_body, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/guardian.proc/OnMoved)
-		var/mob/gost = grab_ghost(TRUE)
-		if(!QDELETED(gost) && gost.ckey)
-			ckey = gost.ckey
+		RegisterSignal(new_body, COMSIG_LIVING_REVIVE, /mob/living/simple_animal/hostile/guardian.proc/Reviveify)
 		to_chat(src, "<span class='notice'>You manifest into existence, as your master's soul appears in a new body!</span>")
 		new_body.verbs |= /mob/living/proc/guardian_comm
 		new_body.verbs |= /mob/living/proc/guardian_recall
@@ -644,18 +646,19 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		G.Recall()
 
 /mob/living/proc/guardian_reset()
-	set name = "Reset Guardian Player (One Use)"
+	set name = "Reset Guardian Player"
 	set category = "Guardian"
-	set desc = "Re-rolls which ghost will control your Guardian. One use per Guardian."
+	set desc = "Re-rolls which ghost will control your Guardian."
 
 	var/list/guardians = hasparasites()
-	for(var/para in guardians)
-		var/mob/living/simple_animal/hostile/guardian/P = para
-		if(P.reset)
-			guardians -= P //clear out guardians that are already reset
-	if(guardians.len)
+	if(LAZYLEN(guardians))
 		var/mob/living/simple_animal/hostile/guardian/G = input(src, "Pick the guardian you wish to reset", "Guardian Reset") as null|anything in guardians
 		if(G)
+			if(!!G.client?.is_afk())
+				if(G.next_reset > world.time)
+					to_chat(src, "<span class='holoparasite'>You need to wait [DisplayTimeText(G.next_reset - world.time)] to reset <font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> again!</span>")
+					return
+				G.next_reset = world.time + GUARDIAN_RESET_COOLDOWN
 			to_chat(src, "<span class='holoparasite'>You attempt to reset <font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font>'s personality...</span>")
 			var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as [src.real_name]'s [G.real_name]?", ROLE_HOLOPARASITE, null, FALSE, 100)
 			if(LAZYLEN(candidates))
@@ -665,7 +668,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 				log_game("[key_name(src)] has reset their holoparasite, it is now [key_name(G)].")
 				G.ghostize(FALSE)
 				G.key = C.key
-				G.reset = TRUE
 				switch(G.theme)
 					if(GUARDIAN_TECH)
 						to_chat(src, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> is now online!</span>")
@@ -675,9 +677,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 						to_chat(src, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been caught!</span>")
 					if(GUARDIAN_HIVE)
 						to_chat(src, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been reborn from the core!</span>")
-				guardians -= G
-				if(!guardians.len)
-					verbs -= /mob/living/proc/guardian_reset
 			else
 				to_chat(src, "<span class='holoparasite'>There were no ghosts willing to take control of <font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font>. Looks like you're stuck with it for now.</span>")
 		else

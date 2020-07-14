@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(title)
 	fdel("data/previous_title.dat")
 
 	var/list/provisional_title_screens = flist("[global.config.directory]/title_screens/images/")
-
+	LAZYREMOVE(provisional_title_screens, "exclude")
 	if(length(provisional_title_screens))
 		file_path = "[global.config.directory]/title_screens/images/[pick(provisional_title_screens)]"
 	else

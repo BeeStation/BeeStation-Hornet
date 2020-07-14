@@ -39,12 +39,14 @@
 	var/datum/objective/saveshuttle/chosen_objective = new
 	chosen_objective.generate_people_goal()
 	objectives += chosen_objective
+	log_objective(owner, chosen_objective.explanation_text)
 
 	if(owner.assigned_role in GLOB.engineering_positions)
 		var/datum/objective/protect_sm/objective = new
 		if(objective.get_target())
 			objective.update_explanation_text()
 			objectives += objective
+			log_objective(owner, objective.explanation_text)
 
 	owner.announce_objectives()
 

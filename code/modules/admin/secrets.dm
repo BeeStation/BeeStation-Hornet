@@ -1,118 +1,117 @@
-/datum/admins/proc/Secrets()
+GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
+
+/datum/admin_secrets
+
+/datum/admin_secrets/ui_interact(mob/user, ui_key = "secrets_panel", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	if(!check_rights(0))
 		return
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		log_admin_private("[user.ckey] opened the Secrets panel.")
+		ui = new(user, src, ui_key, "AdminSecretsPanel", "Secrets", 720, 480, master_ui, state)
+		ui.open()
 
-	var/list/dat = list("<B>The first rule of adminbuse is: you don't talk about the adminbuse.</B><HR>")
+/datum/admin_secrets/ui_data(mob/user)
+	/*
+	Each command is a list that will be read like [Name, Action(see ui_act)]
+	"omg but you could have done it like X"
+	But I didn't. This is how I did it. And it works. And it's simple.
+	And lets us keep each command entry to one line. Gotta stay compact, yo.
+	*/
+	. = list()
+	.["Categories"] = list()
 
-	dat +={"
-			<B>General Secrets</B><BR>
-			<BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=admin_log'>Admin Log</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=mentor_log'>Mentor Log</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=show_admins'>Show Admin List</A><BR>
-			<BR>
-			"}
+	.["Categories"]["General Secrets"] = list(
+		list("Admin Log", "admin_log"),
+		list("Mentor Log", "mentor_log"),
+		list("Show Admin List", "show_admins")
+		)
 
 	if(check_rights(R_ADMIN,0))
-		dat += {"
-			<B>Admin Secrets</B><BR>
-			<BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=clear_virus'>Cure all diseases currently in existence</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=delete_virus'>Vaccinate all diseases currently in existence</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=list_bombers'>Bombing List</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=list_signalers'>Show last [length(GLOB.lastsignalers)] signalers</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=list_lawchanges'>Show last [length(GLOB.lawchanges)] law changes</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=showailaws'>Show AI Laws</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=showgm'>Show Game Mode</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=manifest'>Show Crew Manifest</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=DNA'>List DNA (Blood)</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=fingerprints'>List Fingerprints</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=ctfbutton'>Enable/Disable CTF</A><BR><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=tdomereset'>Reset Thunderdome to default state</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=set_name'>Rename Station Name</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=reset_name'>Reset Station Name</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=night_shift_set'>Set Night Shift Mode</A><BR>
-			<BR>
-			<B>Shuttles</B><BR>
-			<BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=moveferry'>Move Ferry</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=togglearrivals'>Toggle Arrivals Ferry</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=moveminingshuttle'>Move Mining Shuttle</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=movelaborshuttle'>Move Labor Shuttle</A><BR>
-			<BR>
-			"}
+		.["Categories"]["Admin Secrets"] = list(
+			list("Cure all diseases currently in existence", "clear_virus"),
+			list("Vaccinate all diseases currently in existence", "delete_virus"),
+			list("Bombing List", "list_bombers"),
+			list("Show last [length(GLOB.lastsignalers)] signalers", "list_signalers"),
+			list("Show last [length(GLOB.lawchanges)] law changes", "list_lawchanges"),
+			list("Show AI Laws", "showailaws"),
+			list("Show Game Mode", "showgm"),
+			list("Show Crew Manifest", "manifest"),
+			list("List DNA (Blood)", "DNA"),
+			list("List Fingerprints", "fingerprints"),
+			list("Enable/Disable CTF", "ctfbutton"),
+			list("Reset Thunderdome to default state", "tdomereset"),
+			list("Rename Station Name", "set_name"),
+			list("Reset Station Name", "reset_name"),
+			list("Set Night Shift Mode", "night_shift_set")
+			)
+
+		.["Categories"]["Shuttles"] += list(
+			list("Move Ferry", "moveferry"),
+			list("Toggle Arrivals Ferry", "togglearrivals"),
+			list("Move Mining Shuttle", "moveminingshuttle"),
+			list("Move Labor Shuttle", "movelaborshuttle")
+			)
 
 	if(check_rights(R_FUN,0))
-		dat += {"
-			<B>Fun Secrets</B><BR>
-			<BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=virus'>Trigger a Virus Outbreak</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=monkey'>Turn all humans into monkeys</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=anime'>Chinese Cartoons</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=allspecies'>Change the species of all humans</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=power'>Make all areas powered</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=unpower'>Make all areas unpowered</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=quickpower'>Power all SMES</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=tripleAI'>Triple AI mode (needs to be used in the lobby)</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=traitor_all'>Mass Antag (Everyone is the traitor)</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=guns'>Summon Guns</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=magic'>Summon Magic</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=events'>Summon Events (Toggle)</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=onlyone'>There can only be one!</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=delayed_onlyone'>There can only be one! (40-second delay)</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=retardify'>Make all players retarded</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=aussify'>Make all players Australian</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=eagles'>Egalitarian Station Mode</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=ancap'>Anarcho-Capitalist Station Mode</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=blackout'>Break all lights</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=whiteout'>Fix all lights</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=floorlava'>The floor is lava! (DANGEROUS: extremely lame)</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=customportal'>Spawn a custom portal storm</A><BR>
-			<BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=flipmovement'>Flip client movement directions</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=randommovement'>Randomize client movement directions</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=custommovement'>Set each movement direction manually</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=resetmovement'>Reset movement directions to default</A><BR>
-			<BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=changebombcap'>Change bomb cap</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=masspurrbation'>Mass Purrbation</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=massremovepurrbation'>Mass Remove Purrbation</A><BR>
-			"}
-
-	dat += "<BR>"
+		.["Categories"]["Fun Secrets"] += list(
+			list("Trigger a Virus Outbreak", "virus"),
+			list("Turn all humans into monkeys", "monkey"),
+			list("Chinese Cartoons", "anime"),
+			list("Change the species of all humans", "allspecies"),
+			list("Make all areas powered", "power"),
+			list("Make all areas unpowered", "unpower"),
+			list("Power all SMES", "quickpower"),
+			list("Triple AI mode (needs to be used in the lobby)", "tripleAI"),
+			list("Mass Antag (Everyone is the traitor)", "traitor_all"),
+			list("Summon Guns", "guns"),
+			list("Summon Magic", "magic"),
+			list("Summon Events (Toggle)", "events"),
+			list("There can only be one!", "onlyone"),
+			list("There can only be one! (40-second delay)", "delayed_onlyone"),
+			list("Make all players retarded", "retardify"),
+			list("Make all players Australian", "aussify"),
+			list("Egalitarian Station Mode", "eagles"),
+			list("Anarcho-Capitalist Station Mode", "ancap"),
+			list("Break all lights", "blackout"),
+			list("Fix all lights", "whiteout"),
+			list("The floor is lava! (DANGEROUS: extremely lame)", "floorlava"),
+			list("Spawn a custom portal storm", "customportal"),
+			list("Flip client movement directions", "flipmovement"),
+			list("Randomize client movement directions", "randommovement"),
+			list("Set each movement direction manually", "custommovement"),
+			list("Reset movement directions to default", "resetmovement"),
+			list("Change bomb cap", "changebombcap"),
+			list("Mass Purrbation", "masspurrbation"),
+			list("Mass Remove Purrbation", "massremovepurrbation")
+			)
 
 	if(check_rights(R_DEBUG,0))
-		dat += {"
-			<B>Security Level Elevated</B><BR>
-			<BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=maint_access_engiebrig'>Change all maintenance doors to engie/brig access only</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=maint_access_brig'>Change all maintenance doors to brig access only</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=infinite_sec'>Remove cap on security officers</A><BR>
-			<BR>
-			"}
+		.["Categories"]["Security Level Elevated"] = list(
+			list("Change all maintenance doors to engie/brig access only", "maint_access_engiebrig"),
+			list("Change all maintenance doors to brig access only", "maint_access_brig"),
+			list("Remove cap on security officers", "infinite_sec")
+			)
 
-	usr << browse(dat.Join(), "window=secrets")
-	return
-
-
-
-
-
-/datum/admins/proc/Secrets_topic(item,href_list)
+/datum/admin_secrets/ui_act(action, params)
+	var/datum/admins/admin_datum = GLOB.admin_datums[usr.ckey]
+	if(!admin_datum) // Should have already been blocked by ui_state, but juuust in case
+		message_admins("[usr] sent a request to interact with the secrets panel without sufficient rights.")
+		log_admin_private("[usr] sent a request to interact with the secrets panel without sufficient rights.")
+		return
 	var/datum/round_event/E
 	var/ok = 0
-	switch(item)
+	switch(action)
 		if("admin_log")
 			var/dat = "<B>Admin Log<HR></B>"
 			for(var/l in GLOB.admin_log)
 				dat += "<li>[l]</li>"
 			if(!GLOB.admin_log.len)
-				dat += "No-one has done anything this round!"
+				dat += "No one has done anything this round!"
 			usr << browse(dat, "window=admin_log")
 
-
 		if("mentor_log") // hippie start -- access mentor log
-			MentorLogSecret() // hippie end
+			admin_datum.MentorLogSecret() // hippie end
 
 		if("show_admins")
 			var/dat = "<B>Current admins:</B><HR>"
@@ -258,7 +257,7 @@
 		if("showailaws")
 			if(!check_rights(R_ADMIN))
 				return
-			output_ai_laws()
+			admin_datum.output_ai_laws()
 		if("showgm")
 			if(!check_rights(R_ADMIN))
 				return
@@ -407,21 +406,22 @@
 				A.objectives = list()
 				new_objective.owner = H
 				A.objectives += new_objective
+				log_objective(A, new_objective.explanation_text, usr)
 				var/obj_count = 1
-				to_chat(T.owner, "<span class='alertsyndie'>Your contractors have updated your objectives</span>")
+				to_chat(T.owner, "<span class='alertsyndie'>Your contractors have updated your objectives.</span>")
 				for(var/objective in A.objectives)
 					var/datum/objective/O = objective
 					to_chat(T.owner, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
 					obj_count++
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] used mass antag secret. Objective is [objective_explanation]</span>")
-			log_admin("[key_name(usr)] used mass antag secret. Objective is [objective_explanation]")
+			message_admins("<span class='adminnotice'>[key_name_admin(usr)] used mass antag secret. Objective is: [objective_explanation]</span>")
+			log_admin("[key_name(usr)] used mass antag secret. Objective is: [objective_explanation]")
 
 		if("changebombcap")
 			if(!check_rights(R_FUN))
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Bomb Cap"))
 
-			var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be above 4)", "New Bomb Cap", GLOB.MAX_EX_LIGHT_RANGE) as num|null
+			var/newBombCap = input(usr,"What would you like the new bomb cap to be? (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be above 4)", "New Bomb Cap", GLOB.MAX_EX_LIGHT_RANGE) as num|null
 			if (!CONFIG_SET(number/bombcap, newBombCap))
 				return
 
@@ -443,7 +443,7 @@
 
 			var/droptype
 			if(animetype =="Yes")
-				droptype = alert("Make the uniforms Nodrop?",,"Yes","No","Cancel")
+				droptype = alert("Make the uniforms undroppable?",,"Yes","No","Cancel")
 
 			if(animetype == "Cancel" || droptype == "Cancel")
 				return
@@ -465,8 +465,8 @@
 					H.fully_replace_character_name(H.real_name,newname)
 					H.update_mutant_bodyparts()
 					if(animetype == "Yes")
-						var/seifuku = pick(typesof(/obj/item/clothing/under/schoolgirl))
-						var/obj/item/clothing/under/schoolgirl/I = new seifuku
+						var/seifuku = pick(typesof(/obj/item/clothing/under/costume/schoolgirl))
+						var/obj/item/clothing/under/costume/schoolgirl/I = new seifuku
 						var/olduniform = H.w_uniform
 						H.temporarilyRemoveItemFromInventory(H.w_uniform, TRUE, FALSE)
 						H.equip_to_slot_or_del(I, SLOT_W_UNIFORM)
@@ -497,7 +497,7 @@
 				if("Random")
 					E = new /datum/round_event/disease_outbreak()
 				if("Choose")
-					var/virus = input("Choose the virus to spread", "BIOHAZARD") as null|anything in typesof(/datum/disease)
+					var/virus = input("Choose the virus to spread", "BIOHAZARD") as null|anything in sortList(typesof(/datum/disease, /proc/cmp_typepaths_asc))
 					E = new /datum/round_event/disease_outbreak{}()
 					var/datum/round_event/disease_outbreak/DO = E
 					DO.virus_type = virus
@@ -792,7 +792,7 @@
 				E.announceChance = 0
 		E.processing = TRUE
 	if (usr)
-		log_admin("[key_name(usr)] used secret [item]")
+		log_admin("[key_name(usr)] used secret [action]")
 		if (ok)
 			to_chat(world, text("<B>A secret has been activated by []!</B>", usr.key))
 

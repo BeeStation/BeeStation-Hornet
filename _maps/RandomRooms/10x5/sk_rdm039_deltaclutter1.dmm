@@ -6,7 +6,7 @@
 	},
 /obj/item/wirerod,
 /obj/item/wrench,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/suit/waiter,
 /obj/item/clothing/accessory/waistcoat,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
@@ -289,6 +289,18 @@
 /obj/machinery/light/small,
 /turf/open/floor/wood,
 /area/template_noop)
+"O" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"R" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"V" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/wood,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -299,9 +311,9 @@ F
 "}
 (2,1,1) = {"
 b
-k
+R
 j
-k
+O
 G
 "}
 (3,1,1) = {"
@@ -321,7 +333,7 @@ z
 (5,1,1) = {"
 e
 n
-n
+V
 r
 n
 "}
@@ -349,7 +361,7 @@ n
 (9,1,1) = {"
 e
 n
-n
+V
 n
 m
 "}

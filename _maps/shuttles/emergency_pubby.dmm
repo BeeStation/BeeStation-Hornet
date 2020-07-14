@@ -5,10 +5,6 @@
 "ab" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ac" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -133,12 +129,6 @@
 "ax" = (
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"ay" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "az" = (
 /obj/structure/chair/comfy{
 	dir = 1
@@ -255,12 +245,6 @@
 /area/shuttle/escape)
 "aH" = (
 /turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"aI" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "First Class"
-	},
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "aJ" = (
 /obj/structure/chair/comfy/shuttle,
@@ -503,7 +487,7 @@
 /obj/structure/window/reinforced,
 /obj/structure/table,
 /obj/item/storage/bag/tray,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/suit/waiter,
 /turf/open/floor/plasteel/cafeteria,
 /area/shuttle/escape)
 "bg" = (
@@ -598,11 +582,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"bv" = (
-/obj/structure/window/plastitanium,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "bw" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -624,12 +603,6 @@
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs,
 /obj/item/melee/baton,
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"bA" = (
-/obj/machinery/door/airlock/public/glass{
-	req_access_txt = "2"
-	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bB" = (
@@ -672,13 +645,72 @@
 /obj/machinery/light,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"bK" = (
+"kK" = (
+/obj/structure/window/plastitanium,
+/obj/structure/grille,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"lf" = (
 /obj/machinery/door/airlock/public/glass{
-	name = "Economy Class"
+	name = "First Class"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"bL" = (
+"lO" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Service"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"ub" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"wl" = (
+/obj/machinery/door/airlock/public/glass{
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"xt" = (
+/obj/structure/window/reinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"yT" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Service"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"IC" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"Kg" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock"
 	},
@@ -691,33 +723,7 @@
 	preferred_direction = 1;
 	width = 46
 	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"bO" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"bQ" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Service"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"bT" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Brig";
-	req_access_txt = "2"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"xt" = (
-/obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Uu" = (
@@ -726,52 +732,84 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"UT" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Brig";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"XN" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Cockpit";
+	req_access_txt = "19"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"Zi" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Economy Class"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
 ab
-ac
-ac
+ub
+ub
 ab
 aa
 ab
 ab
-ac
+ub
 ab
-ac
+ub
 ab
-ac
-ab
-ab
-aa
-ab
-ab
-ac
-ab
-ac
-ab
-ac
+ub
 ab
 ab
 aa
 ab
 ab
-ac
+ub
 ab
-ac
+ub
 ab
-ac
+ub
+ab
+ab
+aa
+ab
+ab
+ub
+ab
+ub
+ab
+ub
 ab
 ab
 aa
 bs
 bs
-bv
-bv
+kK
+kK
 bs
 bs
-bv
-bv
+kK
+kK
 bs
 bs
 "}
@@ -824,7 +862,7 @@ bE
 bc
 "}
 (3,1,1) = {"
-ac
+ub
 ad
 al
 br
@@ -865,20 +903,20 @@ bH
 ax
 ax
 ax
-bA
+wl
 ax
 bI
 bE
 bc
 "}
 (4,1,1) = {"
-ac
+ub
 ae
 ah
 aH
-bO
+XN
 xt
-aI
+lf
 ar
 ar
 ar
@@ -886,9 +924,9 @@ ar
 ar
 ar
 ar
-aI
+lf
 xt
-bK
+Zi
 ar
 ar
 ar
@@ -896,9 +934,9 @@ ar
 ar
 ar
 ar
-bK
+Zi
 xt
-bQ
+lO
 au
 au
 au
@@ -906,9 +944,9 @@ au
 au
 au
 au
-bQ
+yT
 xt
-bT
+UT
 ax
 ax
 by
@@ -920,13 +958,13 @@ bE
 bc
 "}
 (5,1,1) = {"
-ac
+ub
 af
 ah
 aH
-bO
+XN
 Uu
-aI
+lf
 ar
 ar
 ar
@@ -934,9 +972,9 @@ ar
 ar
 ar
 ar
-aI
+lf
 Uu
-bK
+Zi
 ar
 ar
 ar
@@ -944,9 +982,9 @@ ar
 ar
 ar
 ar
-bK
+Zi
 Uu
-bQ
+lO
 au
 au
 au
@@ -954,9 +992,9 @@ au
 au
 au
 au
-bQ
+yT
 Uu
-bT
+UT
 ax
 ax
 bz
@@ -968,7 +1006,7 @@ bE
 bc
 "}
 (6,1,1) = {"
-ac
+ub
 ad
 aq
 bt
@@ -1009,7 +1047,7 @@ bH
 ax
 ax
 ax
-bA
+wl
 ax
 bI
 bE
@@ -1066,48 +1104,48 @@ bc
 (8,1,1) = {"
 aa
 ab
-ac
-ac
+ub
+ub
 ab
 aa
 ab
 ab
 ab
 ab
-ay
+IC
 ab
-ay
-ab
-ab
-aa
-ab
-ab
-bL
-ab
-ay
-ab
-ac
+IC
 ab
 ab
 aa
 ab
 ab
-ac
+Kg
 ab
-ac
+IC
 ab
-ac
+ub
+ab
+ab
+aa
+ab
+ab
+ub
+ab
+ub
+ab
+ub
 ab
 ab
 aa
 bs
 bs
-bv
-bv
+kK
+kK
 bs
 bs
-bv
-bv
+kK
+kK
 bs
 bs
 "}

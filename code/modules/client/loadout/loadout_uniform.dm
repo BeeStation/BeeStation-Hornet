@@ -136,31 +136,31 @@
 
 /datum/gear/uniform/skirt/blue
 	display_name = "skirt, blue"
-	path = /obj/item/clothing/under/skirt/blue
+	path = /obj/item/clothing/under/dress/skirt/blue
 
 /datum/gear/uniform/skirt/purple
 	display_name = "skirt, purple"
-	path = /obj/item/clothing/under/skirt/purple
+	path = /obj/item/clothing/under/dress/skirt/purple
 
 /datum/gear/uniform/skirt/red
 	display_name = "skirt, red"
-	path = /obj/item/clothing/under/skirt/red
+	path = /obj/item/clothing/under/dress/skirt/red
 
 /datum/gear/uniform/skirt/plaid_skirt
 	display_name = "skirt, plaid red"
-	path = /obj/item/clothing/under/plaid_skirt
+	path = /obj/item/clothing/under/dress/skirt/plaid
 
 /datum/gear/uniform/skirt/plaid_skirt/blue
 	display_name = "skirt, plaid blue"
-	path = /obj/item/clothing/under/plaid_skirt/blue
+	path = /obj/item/clothing/under/dress/skirt/plaid/blue
 
 /datum/gear/uniform/skirt/plaid_skirt/purple
 	display_name = "skirt, plaid purple"
-	path = /obj/item/clothing/under/plaid_skirt/purple
+	path = /obj/item/clothing/under/dress/skirt/plaid/purple
 
 /datum/gear/uniform/skirt/plaid_skirt/green
 	display_name = "skirt, plaid green"
-	path = /obj/item/clothing/under/plaid_skirt/green
+	path = /obj/item/clothing/under/dress/skirt/plaid/green
 
 //SUITS & SUIT JACKETS
 
@@ -173,55 +173,55 @@
 
 /datum/gear/uniform/suit/suit_jacket/black
 	display_name = "black suit"
-	path = /obj/item/clothing/under/suit_jacket
+	path = /obj/item/clothing/under/suit/black
 
 /datum/gear/uniform/suit/suit_jacket/really_black
 	display_name = "executive suit (male)"
-	path = /obj/item/clothing/under/suit_jacket/really_black
+	path = /obj/item/clothing/under/suit/black_really
 
 /datum/gear/uniform/suit/suit_jacket/female
 	display_name = "executive suit (female)"
-	path = /obj/item/clothing/under/suit_jacket/female
+	path = /obj/item/clothing/under/suit/black/skirt
 
 /datum/gear/uniform/suit/suit_jacket/green
 	display_name = "green suit"
-	path = /obj/item/clothing/under/suit_jacket/green
+	path = /obj/item/clothing/under/suit/green
 
 /datum/gear/uniform/suit/suit_jacket/red
 	display_name = "red suit"
-	path = /obj/item/clothing/under/suit_jacket/red
+	path = /obj/item/clothing/under/suit/red
 
 /datum/gear/uniform/suit/suit_jacket/charcoal
 	display_name = "charcoal suit"
-	path = /obj/item/clothing/under/suit_jacket/charcoal
+	path = /obj/item/clothing/under/suit/charcoal
 
 /datum/gear/uniform/suit/suit_jacket/navy
 	display_name = "navy suit"
-	path = /obj/item/clothing/under/suit_jacket/navy
+	path = /obj/item/clothing/under/suit/navy
 
 /datum/gear/uniform/suit/suit_jacket/burgundy
 	display_name = "burgundy suit"
-	path = /obj/item/clothing/under/suit_jacket/burgundy
+	path = /obj/item/clothing/under/suit/burgundy
 
 /datum/gear/uniform/suit/suit_jacket/checkered
 	display_name = "checkered suit"
-	path = /obj/item/clothing/under/suit_jacket/checkered
+	path = /obj/item/clothing/under/suit/checkered
 
 /datum/gear/uniform/suit/suit_jacket/tan
 	display_name = "tan suit"
-	path = /obj/item/clothing/under/suit_jacket/tan
+	path = /obj/item/clothing/under/suit/tan
 
 /datum/gear/uniform/suit/suit_jacket/white
 	display_name = "white suit"
-	path = /obj/item/clothing/under/suit_jacket/white
+	path = /obj/item/clothing/under/suit/white
 
 /datum/gear/uniform/suit/scratch
 	display_name = "white and green suit"
-	path = /obj/item/clothing/under/scratch
+	path = /obj/item/clothing/under/suit/white_on_white
 
 /datum/gear/uniform/suit/sl_suit
 	display_name = "amish suit"
-	path = /obj/item/clothing/under/sl_suit
+	path = /obj/item/clothing/under/suit/sl
 
 //MEME & COSTUME ITEMS
 
@@ -231,20 +231,20 @@
 
 /datum/gear/uniform/misc/jabroni
 	display_name = "jabroni leathers"
-	path = /obj/item/clothing/under/jabroni
+	path = /obj/item/clothing/under/costume/jabroni
 	cost = 20000
 
 /datum/gear/uniform/misc/soviet
 	display_name = "soviet uniform"
-	path = /obj/item/clothing/under/soviet
+	path = /obj/item/clothing/under/costume/soviet
 
 /datum/gear/uniform/misc/pirate
 	display_name = "pirate outfit"
-	path = /obj/item/clothing/under/pirate
+	path = /obj/item/clothing/under/costume/pirate
 
 /datum/gear/uniform/misc/sailor
 	display_name = "sailor outfit"
-	path = /obj/item/clothing/under/sailor
+	path = /obj/item/clothing/under/costume/sailor
 
 //RANK SUBTYPE
 
@@ -260,11 +260,11 @@
 
 /datum/gear/uniform/rank/assistant/formal
 	display_name = "assistant's formal uniform"
-	path = /obj/item/clothing/under/assistantformal
+	path = /obj/item/clothing/under/misc/assistantformal
 
 /datum/gear/uniform/rank/assistant/vice
 	display_name = "vice officer's jumpsuit"
-	path = /obj/item/clothing/under/rank/vice
+	path = /obj/item/clothing/under/misc/vice_officer
 
 
 //COOKING ALT UNI
@@ -275,7 +275,7 @@
 
 /datum/gear/uniform/rank/cook/red
 	display_name = "cook's suit, red"
-	path = /obj/item/clothing/under/rank/altchef
+	path = /obj/item/clothing/under/rank/civilian/altchef
 
 //CARGO ALT UNIS
 
@@ -285,12 +285,12 @@
 
 /datum/gear/uniform/rank/cargo/overalls
 	display_name = "laborer's overalls, light blue"
-	path = /obj/item/clothing/under/overalls
+	path = /obj/item/clothing/under/misc/overalls
 
 /datum/gear/uniform/rank/cargo/mining_classic
 	display_name = "miner's overalls, asteroid purple"
 	description = "Purple jumpsuit, dirty overalls. Standard NanoTrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
-	path = /obj/item/clothing/under/rank/miner
+	path = /obj/item/clothing/under/rank/cargo/miner
 	allowed_roles = list ("Shaft Miner")
 
 //MEDICAL ALT UNIS
@@ -301,7 +301,7 @@
 
 /datum/gear/uniform/rank/medical/nurse_dress
 	display_name = "medical, nurse's dress"
-	path = /obj/item/clothing/under/rank/nursesuit
+	path = /obj/item/clothing/under/rank/medical/doctor
 
 /datum/gear/uniform/rank/medical/emt
 	display_name = "medical scrubs, EMT"
@@ -309,15 +309,15 @@
 
 /datum/gear/uniform/rank/medical/scrubs_blue
 	display_name = "medical scrubs, baby blue"
-	path = /obj/item/clothing/under/rank/medical/blue
+	path = /obj/item/clothing/under/rank/medical/doctor/blue
 
 /datum/gear/uniform/rank/medical/scrubs_green
 	display_name = "medical scrubs, green"
-	path = /obj/item/clothing/under/rank/medical/green
+	path = /obj/item/clothing/under/rank/medical/doctor/green
 
 /datum/gear/uniform/rank/medical/scrubs_purple
 	display_name = "medical scrubs, purple"
-	path = /obj/item/clothing/under/rank/medical/purple
+	path = /obj/item/clothing/under/rank/medical/doctor/purple
 
 //ENGINEERING ALT UNIS
 
@@ -327,7 +327,7 @@
 
 /datum/gear/uniform/rank/engineering/hazard
 	display_name = "engineering jumpsuit, hazard"
-	path = /obj/item/clothing/under/rank/engineer/hazard
+	path = /obj/item/clothing/under/rank/engineering/engineer/hazard
 
 //SECURITY ALT UNIS
 
@@ -337,11 +337,11 @@
 
 /datum/gear/uniform/rank/security/white
 	display_name = "security jumpsuit, white"
-	path = /obj/item/clothing/under/rank/security/white
+	path = /obj/item/clothing/under/rank/security/officer/white
 
 /datum/gear/uniform/rank/security/skirt
 	display_name = "security jumpskirt"
-	path = /obj/item/clothing/under/rank/security/skirt
+	path = /obj/item/clothing/under/rank/security/officer/skirt
 
 /datum/gear/uniform/rank/security/blueshift
 	display_name = "security jumpsuit, blue shirt and tie"
@@ -350,5 +350,5 @@
 
 /datum/gear/uniform/rank/security/blart
 	display_name = "security jumpsuit, NanoTrasen mall cop uniform"
-	path = /obj/item/clothing/under/rank/security/mallcop
+	path = /obj/item/clothing/under/rank/security/officer/mallcop
 	cost = 7500

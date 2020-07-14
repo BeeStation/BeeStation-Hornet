@@ -33,7 +33,7 @@
 
 	belt = /obj/item/pda/unlicensed
 	ears = /obj/item/radio/headset
-	uniform = /obj/item/clothing/under/sl_suit
+	uniform = /obj/item/clothing/under/suit/sl
 	shoes = /obj/item/clothing/shoes/laceup
 	l_hand = /obj/item/storage/wallet
 	l_pocket = /obj/item/razor/straightrazor
@@ -54,7 +54,7 @@
 	head = /obj/item/clothing/head/that
 	ears = /obj/item/radio/headset
 	neck = /obj/item/bedsheet/magician
-	uniform = /obj/item/clothing/under/suit_jacket/really_black
+	uniform = /obj/item/clothing/under/suit/black_really
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/white
 	l_hand = /obj/item/cane
@@ -90,3 +90,22 @@
 	var/datum/martial_art/psychotic_brawling/junkie = new //this fits well, but i'm unsure about it, cuz this martial art is so fucking rng dependent i swear...
 	junkie.teach(H)
 	ADD_TRAIT(H, TRAIT_APPRAISAL, JOB_TRAIT)
+
+
+/datum/job/gimmick/shrink
+	title = "Psychiatrist"
+	flag = SHRINK
+	outfit = /datum/outfit/job/gimmick/shrink
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
+	paycheck = PAYCHECK_EASY
+	gimmick = TRUE
+
+/datum/outfit/job/gimmick/shrink //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
+	name = "Psychiatrist"
+	jobtype = /datum/job/gimmick/shrink
+
+	belt = /obj/item/pda/medical
+	ears = /obj/item/radio/headset/headset_med
+	uniform = /obj/item/clothing/under/suit/black
+	shoes = /obj/item/clothing/shoes/laceup

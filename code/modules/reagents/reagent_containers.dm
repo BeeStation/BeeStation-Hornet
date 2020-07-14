@@ -14,6 +14,7 @@
 	var/spillable = FALSE
 	var/list/fill_icon_thresholds = null
 	var/fill_icon_state = null // Optional custom name for reagent fill icon_state prefix
+	var/prevent_grinding = FALSE //used for ungrindable stuff
 
 /obj/item/reagent_containers/Initialize(mapload, vol)
 	. = ..()
@@ -153,3 +154,14 @@
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		add_overlay(filling)
 	. = ..()
+
+/obj/item/reagent_containers/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = FALSE)
+	var/datum/reagent/blood/B = locate() in reagents.reagent_list
+	if(!B)
+		return FALSE
+	if(scan)
+		E.scan(src, B.get_diseases(), user)
+		return TRUE
+	else 
+		E.extrapolate(src, B.get_diseases(), user, TRUE)
+		return TRUE

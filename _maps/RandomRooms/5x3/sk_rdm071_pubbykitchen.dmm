@@ -65,6 +65,10 @@
 /obj/effect/decal/cleanable/food/egg_smudge,
 /turf/open/floor/plating,
 /area/template_noop)
+"Y" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -78,8 +82,8 @@ j
 "}
 (3,1,1) = {"
 c
-c
-c
+Y
+Y
 "}
 (4,1,1) = {"
 d

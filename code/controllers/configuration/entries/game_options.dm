@@ -213,6 +213,8 @@
 
 /datum/config_entry/flag/ooc_during_round
 
+/datum/config_entry/flag/looc_enabled
+
 /datum/config_entry/flag/emojis
 
 /datum/config_entry/keyed_list/multiplicative_movespeed
@@ -395,6 +397,12 @@
 	config_entry_value = 100
 /datum/config_entry/number/max_slimes
 	config_entry_value = 100
+
+//Maximum citation fine
+/datum/config_entry/number/maxfine
+	config_entry_value = 1000
+	min_val = 0
+
 
 //Shuttle size limiter
 /datum/config_entry/number/max_shuttle_count

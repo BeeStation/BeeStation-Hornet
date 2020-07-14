@@ -101,6 +101,7 @@ Slimecrossing Armor
 	icon_state = "peaceflower"
 	item_state = "peaceflower"
 	slot_flags = ITEM_SLOT_HEAD
+	clothing_flags = EFFECT_HAT | SNUG_FIT
 	body_parts_covered = NONE
 	dynamic_hair_suffix = ""
 	force = 0

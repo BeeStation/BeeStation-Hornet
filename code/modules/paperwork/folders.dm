@@ -35,6 +35,8 @@
 
 
 /obj/item/folder/attackby(obj/item/W, mob/user, params)
+	if(burn_paper_product_attackby_check(W, user))
+		return
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/documents))
 		if(!user.transferItemToLoc(W, src))
 			return
@@ -44,9 +46,14 @@
 		if(!user.is_literate())
 			to_chat(user, "<span class='notice'>You scribble illegibly on the cover of [src]!</span>")
 			return
-		var/n_name = copytext(sanitize(input(user, "What would you like to label the folder?", "Folder Labelling", null) as text), 1, MAX_NAME_LEN)
+
+		var/inputvalue = stripped_input(user, "What would you like to label the folder?", "Folder Labelling", "", MAX_NAME_LEN)
+
+		if(!inputvalue)
+			return
+
 		if(user.canUseTopic(src, BE_CLOSE))
-			name = "folder[(n_name ? " - '[n_name]'" : null)]"
+			name = "folder[(inputvalue ? " - '[inputvalue]'" : null)]"
 
 
 /obj/item/folder/attack_self(mob/user)
