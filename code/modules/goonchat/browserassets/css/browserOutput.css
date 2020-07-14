@@ -362,7 +362,7 @@ em						{font-style: normal;	font-weight: bold;}
 .heavy_brass			{color: #BE8700; font-weight: bold; font-style: italic;}
 .large_brass			{color: #BE8700; font-size: 24px;}
 .big_brass				{color: #BE8700; font-size: 24px; font-weight: bold; font-style: italic;}
-.ratvar					{color: #BE8700; font-size: 48px; font-weight: bold; font-style: italic; animation: ratvarcolor 2000ms infinite;}
+.ratvar					{color: #BE8700; font-size: 48px; font-weight: bold; font-style: italic; animation: ratvarcolor 5000ms infinite;}
 .alloy					{color: #42474D;}
 .heavy_alloy			{color: #42474D; font-weight: bold; font-style: italic;}
 .nezbere_large			{color: #42474D; font-size: 24px; font-weight: bold; font-style: italic;}
