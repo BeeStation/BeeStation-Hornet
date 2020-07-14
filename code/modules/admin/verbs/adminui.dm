@@ -1,10 +1,9 @@
-/datum/admin_ui_holder
-	var/datum/admins/owner
+GLOBAL_DATUM_INIT(admin_ui, /datum/admin_ui_holder)
 
+/datum/admin_ui_holder
 	var/list/active_uis = list()
 
 /datum/admin_ui_holder/New(admin_owner)
-	owner = admin_owner
 	init_components()
 
 /datum/admin_ui_holder/proc/init_components()

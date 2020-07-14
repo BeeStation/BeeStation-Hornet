@@ -28,9 +28,6 @@ GLOBAL_PROTECT(href_token)
 
 	var/deadmined
 
-	//Admin help manager
-	var/datum/admin_ui_holder/admin_interface
-
 /datum/admins/New(datum/admin_rank/R, ckey, force_active = FALSE, protected)
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"

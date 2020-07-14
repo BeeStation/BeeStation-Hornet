@@ -95,9 +95,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	if(!admin_datum)
 		message_admins("[C.ckey] attempted to browse tickets, but had no admin datum")
 		return
-	if(!admin_datum.admin_interface)
-		admin_datum.admin_interface = new()
-	admin_datum.admin_interface.display_ui("ahelp_ticket_manager", user)
+	GLOB.admin_ui.display_ui("ahelp_ticket_manager", user)
 
 /datum/admin_ui_component/admin_help_ui/ui_data(mob/user)
 	var/datum/admins/admin_datum = GLOB.admin_datums[user.ckey]
