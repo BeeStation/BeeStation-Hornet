@@ -1351,6 +1351,7 @@
 #include "code\modules\antagonists\changeling\powers\teratoma.dm"
 #include "code\modules\antagonists\changeling\powers\tiny_prick.dm"
 #include "code\modules\antagonists\changeling\powers\transform.dm"
+#include "code\modules\antagonists\clock_cult\clockcult_objectives.dm"
 #include "code\modules\antagonists\clock_cult\clockwork_massive.dm"
 #include "code\modules\antagonists\clock_cult\clockwork_outfits.dm"
 #include "code\modules\antagonists\clock_cult\clockwork_turfs.dm"

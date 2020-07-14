@@ -28,7 +28,6 @@
 				return
 		cult_team = new /datum/team/cult
 		cult_team.setup_objectives()
-		return
 	if(!istype(new_team))
 		stack_trace("Wrong team type passed to [type] initialization.")
 	cult_team = new_team

@@ -2,8 +2,6 @@ GLOBAL_LIST_EMPTY(servants_of_ratvar)	//List of minds in the cult
 GLOBAL_LIST_EMPTY(human_servants_of_ratvar)	//Humans in the cult
 GLOBAL_LIST_EMPTY(cyborg_servants_of_ratvar)
 
-GLOBAL_VAR(clockcult_team)
-
 GLOBAL_VAR(ratvar_arrival_tick)	//The world.time that Ratvar will arrive if the gateway is not disrupted
 
 GLOBAL_VAR_INIT(installed_integration_cogs, 0)
@@ -40,9 +38,10 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 	<span class='danger'>Servants</span>: Convert more servants and defend the Ark of the Clockwork Justicar!\n\
 	<span class='notice'>Crew</span>: Prepare yourselfs and destroy the Ark of the Clockwork Justicar."
 
-	var/datum/team/clockcult/clockcult_team
 	var/clock_cultists = CLOCKCULT_MIN_SERVANTS
 	var/list/selected_servants = list()
+
+	var/datum/team/clock_cult/main_cult
 
 /datum/game_mode/clockcult/pre_setup()
 	//Load Reebe
@@ -75,13 +74,14 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 
 /datum/game_mode/clockcult/post_setup(report)
 	var/list/spawns = GLOB.servant_spawns.Copy()
+	main_cult = new
+	main_cult.setup_objectives()
 	//Create team
 	for(var/datum/mind/servant_mind in selected_servants)
 		servant_mind.current.forceMove(pick_n_take(spawns))
-		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current)
+		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
-		S.create_team()
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return ..()
@@ -198,7 +198,7 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 		hierophant_message += "</span>"
 	for(var/datum/mind/mind in GLOB.servants_of_ratvar)
 		var/mob/M = mind.current
-		if(isliving(M) && !is_servant_of_ratvar(M))
+		if((isliving(M) && !is_servant_of_ratvar(M)) || isnewplayer(M))
 			continue
 		if(M.reagents.has_reagent(/datum/reagent/water/holywater, 1))
 			if(pick(20))

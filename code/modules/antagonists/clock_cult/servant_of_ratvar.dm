@@ -15,14 +15,18 @@
 
 	var/counts_towards_total = TRUE//Counts towards the total number of servants.
 
+/datum/antagonist/servant_of_ratvar/New()
+	. = ..()
+
 /datum/antagonist/servant_of_ratvar/greet()
 	if(!owner.current)
 		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', 60, FALSE, pressure_affected = FALSE)
 
-/datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
+/datum/antagonist/servant_of_ratvar/on_gain()
 	. = ..()
-	owner.current.faction |= "ratvar"
+	create_team()
+	add_objectives()
 	if(counts_towards_total)
 		GLOB.servants_of_ratvar |= owner
 		if(ishuman(owner.current))
@@ -30,6 +34,19 @@
 		else if(iscyborg(owner.current))
 			GLOB.cyborg_servants_of_ratvar |= owner
 	check_ark_status()
+	owner.announce_objectives()
+
+/datum/antagonist/servant_of_ratvar/on_removal()
+	. = ..()
+	GLOB.servants_of_ratvar -= owner
+	if(owner in GLOB.human_servants_of_ratvar)
+		GLOB.human_servants_of_ratvar -= owner
+	if(owner in GLOB.cyborg_servants_of_ratvar)
+		GLOB.cyborg_servants_of_ratvar -= owner
+
+/datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
+	. = ..()
+	owner.current.faction |= "ratvar"
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
 	owner.current.throw_alert("clockinfo", /obj/screen/alert/clockwork/clocksense)
@@ -37,11 +54,6 @@
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
 	owner.current.faction -= "ratvar"
-	GLOB.servants_of_ratvar -= owner
-	if(owner in GLOB.human_servants_of_ratvar)
-		GLOB.human_servants_of_ratvar -= owner
-	if(owner in GLOB.cyborg_servants_of_ratvar)
-		GLOB.cyborg_servants_of_ratvar -= owner
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
 	SSticker.mode.update_clockcult_icons_removed(owner)
@@ -100,19 +112,30 @@
 		R.connected_ai = null
 		R.SetRatvar(TRUE)
 
-/datum/antagonist/servant_of_ratvar/create_team(datum/team/newteam)
-	if(!newteam)
-		if(GLOB.clockcult_team)
-			team = GLOB.clockcult_team
-		else
-			var/datum/team/clock_cult/clock_team = new()
-			GLOB.clockcult_team = clock_team
-			team = clock_team
-		return
-	team = newteam
+/datum/antagonist/servant_of_ratvar/proc/add_objectives()
+	objectives |= team.objectives
 
 /datum/antagonist/servant_of_ratvar/get_team()
 	return team
+
+/datum/antagonist/servant_of_ratvar/can_be_owned(datum/mind/new_owner)
+	. = ..()
+	if(.)
+		. = is_convertable_to_clockcult(new_owner.current)
+
+/datum/antagonist/servant_of_ratvar/create_team(datum/team/clock_cult/newteam)
+	if(!newteam)
+		for(var/datum/antagonist/servant_of_ratvar/H in GLOB.antagonists)
+			if(!H.owner)
+				continue
+			if(H.team)
+				team = H.team
+				return
+		team = new /datum/team/clock_cult
+		team.setup_objectives()
+	if(!istype(newteam))
+		stack_trace("Wrong team type passed to [type] initialization.")
+	team = newteam
 
 //==========================
 //==== Clock cult team  ====
@@ -120,4 +143,6 @@
 
 /datum/team/clock_cult
 	name = "Servants Of Ratvar"
-	var/list/objective
+
+/datum/team/clock_cult/proc/setup_objectives()
+	objectives = list(new /datum/objective/clockcult)
