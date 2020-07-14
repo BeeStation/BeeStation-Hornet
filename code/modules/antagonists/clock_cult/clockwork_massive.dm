@@ -15,6 +15,8 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	var/grace_period = 300
 	var/assault_time = 0
 
+	var/list/phase_messages = list()
+
 /obj/structure/destructible/clockwork/massive/celestial_gateway/Initialize()
 	. = ..()
 	GLOB.celestial_gateway = src
@@ -36,11 +38,16 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		to_chat(M, "<span class='reallybig hypnophrase'>Your mind is distorted by the distant sound of a thousand screams before suddenly everything falls silent.</span>")
 		to_chat(M, "<span class='hypnophrase'>The only thing you remember is suddenly feeling warm and safe.</span>")
 		M.forceMove(safe_place)
+	STOP_PROCESSING(SSobj, src)
 	. = ..()
 	for(var/i in 1 to 30)
 		explosion(pick(get_area_turfs(/area/reebe/city_of_cogs)), 0, 2, 4, 4, FALSE)
 		sleep(5)
 	explosion(pick(GLOB.servant_spawns), 50, 40, 30, 30, FALSE, TRUE)
+
+/obj/structure/destructible/clockwork/massive/celestial_gateway/process()
+	if(prob(5))
+		to_chat(world, pick(phase_messages))
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -130,13 +137,27 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	icon_state = "clockwork_gateway_active"
 	sound_to_playing_players(volume = 25, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_active.ogg', TRUE))
 	addtimer(CALLBACK(src, .proc/begin_ratvar_arrival), 2400)
+	START_PROCESSING(SSobj, src)
+	phase_messages = list(
+		"<span class='warning'>You hear otherworldly sounds from the north.</span>",
+		"<span class='warning'>You feel the fabric of reality twist and bend.</span>",
+		"<span class='warning'>Your mind buzzes with fear.</span>",
+		"<span class='warning'>You hear otherworldly screams from all around you.</span>"
+	)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_ratvar_arrival()
 	sound_to_playing_players(volume = 30, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_closing.ogg', TRUE))
 	icon_state = "clockwork_gateway_closing"
 	addtimer(CALLBACK(src, .proc/ratvar_approaches), 1200)
+	phase_messages = list(
+		"<span class='warning'>You hear otherworldly sounds from the north.</span>",
+		"<span class='brass'>The Celestial Gateway is feeding into the bluespace rift!</span>",
+		"<span class='warning'>You feel reality shudder for a moment...</span>",
+		"<span class='brass'>You feel time and space distorting around you...</span>"
+	)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/ratvar_approaches()
+	STOP_PROCESSING(SSobj, src)
 	hierophant_message("Ratvar approaches, you shall be eternally rewarded for your servitude!", null, "<span class='large_brass'>")
 	resistance_flags |= INDESTRUCTIBLE
 	for(var/mob/living/M in GLOB.servants_of_ratvar)
