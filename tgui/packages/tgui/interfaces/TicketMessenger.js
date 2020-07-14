@@ -31,22 +31,13 @@ export const TicketActionBar = (props, context) => {
     ticket_state,
     claimee,
     claimee_key,
-<<<<<<< HEAD
-=======
     antag_status,
->>>>>>> master
     id,
     sender,
   } = data;
   return (
     <Box>
       <Box
-<<<<<<< HEAD
-        bold>
-        Admin Help Ticket #{id} : {sender}
-      </Box>
-      <Box>
-=======
         bold
         inline>
         Admin Help Ticket #{id} : {sender}
@@ -74,7 +65,6 @@ export const TicketActionBar = (props, context) => {
       </Box>
       <Box
         inline>
->>>>>>> master
         {" |"}
         <Button
           color="transparent"
