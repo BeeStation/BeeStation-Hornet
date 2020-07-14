@@ -17,6 +17,17 @@
 	sharpness = IS_SHARP_ACCURATE
 	max_integrity = 200
 	var/clockwork_hint = ""
+	var/datum/action/innate/clockcult/summon_spear/SS
+
+/obj/item/twohanded/clockwork/Initialize()
+	. = ..()
+	SS = new
+	SS.marked_item = src
+
+/obj/item/twohanded/clockwork/pickup(mob/user)
+	. = ..()
+	if(is_servant_of_ratvar(user))
+		SS.Grant(user)
 
 /obj/item/twohanded/clockwork/examine(mob/user)
 	. = ..()
@@ -65,7 +76,7 @@
 
 /obj/item/twohanded/clockwork/brass_battlehammer/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
-	target.throw_at(throw_target, thrown ? 3 : 1, 4)
+	target.throw_at(throw_target, thrown ? 2 : 1, 4)
 
 /obj/item/twohanded/clockwork/brass_sword
 	name = "brass longsword"
