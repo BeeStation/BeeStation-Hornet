@@ -380,6 +380,9 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 
 	add_verbs_from_config()
 	var/cached_player_age = set_client_age_from_db(tdata) //we have to cache this because other shit may change it and we need it's current value now down below.
+	
+	if(QDELETED(src))
+		return null
 
 	if (isnum(cached_player_age) && cached_player_age == -1) //first connection
 		player_age = 0
@@ -621,7 +624,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		qdel(query_log_player)
 	if(!account_join_date)
 		account_join_date = "Error"
-	
+
 	var/ssqlname = CONFIG_GET(string/serversqlname)
 
 	var/datum/DBQuery/query_log_connection = SSdbcore.NewQuery({"
