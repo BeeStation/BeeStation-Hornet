@@ -9,9 +9,8 @@
 
 /datum/admin_ui_holder/proc/init_components()
 	for(var/comp in subtypesof(/datum/admin_ui_component))
-		var/datum/admin_ui_component/UI = new comp()
+		var/datum/admin_ui_component/UI = new comp
 		active_uis["[UI.unique_id]"] = UI
-		log_game("Intialised UI : [UI.unique_id]")
 
 /datum/admin_ui_holder/proc/display_ui(name, mob/user)
 	if(!active_uis[name])
