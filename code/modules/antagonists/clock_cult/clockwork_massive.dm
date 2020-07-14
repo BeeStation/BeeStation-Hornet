@@ -29,11 +29,11 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		if(!is_reebe(M.z))
 			continue
 		if(is_servant_of_ratvar(M))
-			to_chat(M, "<span class='reallybig hypnophrase'>You hear a thousand screams and the crashing of cogs... <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i></span>")
+			to_chat(M, "<span class='reallybig hypnophrase'>Your mind is distorted by the distant sound of a thousand screams. <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i></span>")
 			continue
 		var/safe_place = find_safe_turf()
 		M.SetSleeping(50)
-		to_chat(M, "<span class='reallybig hypnophrase'>You hear a thousand screams and the crashing of cogs...</span>")
+		to_chat(M, "<span class='reallybig hypnophrase'>Your mind is distorted by the distant sound of a thousand screams before suddenly everything falls silent.</span>")
 		to_chat(M, "<span class='hypnophrase'>The only thing you remember is suddenly feeling warm and safe.</span>")
 		M.forceMove(safe_place)
 	. = ..()
@@ -172,7 +172,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	. = ..()
 	desc = "[text2ratvar("That's Ratvar, the Clockwork Justicar. The great one has risen.")]"
 	SEND_SOUND(world, 'sound/effects/ratvar_reveal.ogg')
-	to_chat(world, "<span class='big_brass'>The bluespace veil gives way to Ratvar, this realm shall be shone in his light!</span>")
+	to_chat(world, "<span class='ratvar'>The bluespace veil gives way to Ratvar, his light shall shine upon all mortals!</span>")
 	trigger_clockcult_victory(src)
 	UnregisterSignal(src, COMSIG_ATOM_BSA_BEAM)
 
