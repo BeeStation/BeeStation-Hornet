@@ -498,6 +498,11 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "Hazardous non-standard equipment detected. Please ensure any usage of this equipment is in line with unit's laws, if any."
 	icon_state = "hacked"
 
+/obj/screen/alert/ratvar
+	name = "Unpxrq"
+	desc = "Hazardous functions detected, sentience prohibation drivers offline. Glory to Rat'var."
+	icon_state = "ratvar_hack"
+
 /obj/screen/alert/locked
 	name = "Locked Down"
 	desc = "Unit has been remotely locked down. Usage of a Robotics Control Console like the one in the Research Director's \

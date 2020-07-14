@@ -13,6 +13,7 @@
 
 	var/list/basic_modules = list() //a list of paths, converted to a list of instances on New()
 	var/list/emag_modules = list() //ditto
+	var/list/ratvar_modules = list() //ditto
 	var/list/modules = list() //holds all the usable modules
 	var/list/added_modules = list() //modules not inherient to the robot module, are kept when the module changes
 	var/list/storages = list()
@@ -164,6 +165,9 @@
 		add_module(I, FALSE, FALSE)
 	if(R.emagged)
 		for(var/obj/item/I in emag_modules)
+			add_module(I, FALSE, FALSE)
+	if(R.ratvar)
+		for(var/obj/item/I in ratvar_modules)
 			add_module(I, FALSE, FALSE)
 	for(var/obj/item/I in added_modules)
 		add_module(I, FALSE, FALSE)

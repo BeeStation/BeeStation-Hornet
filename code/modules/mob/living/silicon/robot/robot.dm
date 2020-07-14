@@ -20,6 +20,8 @@
 	var/mob/living/silicon/ai/mainframe = null
 	var/datum/action/innate/undeployment/undeployment_action = new
 
+	var/ratvar = FALSE
+
 //Hud stuff
 
 	var/obj/screen/inv1 = null
@@ -614,7 +616,7 @@
 		if(lamp_intensity > 2)
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
 		else
-			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_e"
+			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_e[ratvar ? "_r" : ""]"
 		eye_lights.icon = icon
 		add_overlay(eye_lights)
 
@@ -687,6 +689,15 @@
 		throw_alert("hacked", /obj/screen/alert/hacked)
 	else
 		clear_alert("hacked")
+
+/mob/living/silicon/robot/proc/SetRatvar(new_state)
+	ratvar = new_state
+	module.rebuild_modules()
+	update_icons()
+	if(ratvar)
+		throw_alert("ratvar", /obj/screen/alert/ratvar)
+	else
+		clear_alert("ratvar")
 
 /mob/living/silicon/robot/verb/outputlaws()
 	set category = "Robot Commands"
