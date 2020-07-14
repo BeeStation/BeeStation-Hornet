@@ -27,6 +27,8 @@
 		GLOB.servants_of_ratvar |= owner
 		if(ishuman(owner.current))
 			GLOB.human_servants_of_ratvar |= owner
+		else if(iscyborg(owner.current))
+			GLOB.cyborg_servants_of_ratvar |= owner
 	check_ark_status()
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
@@ -38,6 +40,8 @@
 	GLOB.servants_of_ratvar -= owner
 	if(owner in GLOB.human_servants_of_ratvar)
 		GLOB.human_servants_of_ratvar -= owner
+	if(owner in GLOB.cyborg_servants_of_ratvar)
+		GLOB.cyborg_servants_of_ratvar -= owner
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
 	SSticker.mode.update_clockcult_icons_removed(owner)

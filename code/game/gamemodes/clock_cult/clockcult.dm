@@ -1,5 +1,6 @@
 GLOBAL_LIST_EMPTY(servants_of_ratvar)	//List of minds in the cult
 GLOBAL_LIST_EMPTY(human_servants_of_ratvar)	//Humans in the cult
+GLOBAL_LIST_EMPTY(cyborg_servants_of_ratvar)
 
 GLOBAL_VAR(clockcult_team)
 
@@ -85,8 +86,28 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 	calculate_clockcult_values()
 	return ..()
 
-/datum/game_mode/clockcult/check_finished(force_ending)
-	return FALSE
+/datum/game_mode/clockcult/generate_report()
+	return "Central Command's higher dimensional affairs division has been recently investigating a huge, anomalous energy spike \
+	emanating from a neutron star close to your sector. It is currently theorised that an ancient group of fanatics praising an \
+	eldritch deity made from brass and other outdated materials are abusing the energy of the dying star to breach dimensional \
+	boundaries. The bluespace veil is faltering at your current location, making it a prime target for dangerous individuals to \
+	abuse dimensional interdiction. Any evidence of tampering with bluespace fields should be reported to your local chaplain and \
+	Central Command if a connection is still available at the time of discovery."
+
+/datum/game_mode/clockcult/set_round_result()
+	..()
+	if(check_cult_victory)
+		SSticker.mode_result = "win - clockcult win"
+		SSticker.news_report = CLOCK_SUMMON
+	else if(LAZYLEN(GLOB.cyborg_servants_of_ratvar))
+		SSticker.mode_result = "loss - staff destroyed the ark"
+		SSticker.news_report = CLOCK_SILICONS
+	else
+		SSticker.mode_result = "loss - staff destroyed the ark"
+		SSticker.news_report = CLOCK_PROSELYTIZATION
+
+/datum/game_mode/clockcult/proc/check_cult_victory()
+	return GLOB.ratvar_risen
 
 /datum/game_mode/clockcult/generate_credit_text()
 	var/list/round_credits = list()
