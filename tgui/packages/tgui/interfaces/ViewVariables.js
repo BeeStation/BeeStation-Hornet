@@ -201,7 +201,7 @@ export const ViewVariables = (props, context) => {
 
   const basicsnowflake = (
     <FlexItem grow={1}>
-      <Section>
+      <Section height={20}>
         <Flex inline direction="column">
           {Sprite}
           {BasicInfo}
