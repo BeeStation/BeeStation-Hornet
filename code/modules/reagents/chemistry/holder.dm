@@ -297,7 +297,7 @@
 	return amount
 
 /datum/reagents/proc/metabolize(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE)
-	if(NOREAGENTS in C.dna.species.species_traits)
+	if(C?.dna?.species && (NOREAGENTS in C.dna.species.species_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
 	var/list/cached_addictions = addiction_list

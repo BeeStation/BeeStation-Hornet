@@ -305,7 +305,7 @@
 	desc = "A hood attached to a bee costume."
 	icon_state = "bee"
 	body_parts_covered = HEAD
-	clothing_flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL | SNUG_FIT
 	flags_inv = HIDEHAIR|HIDEEARS
 	dynamic_hair_suffix = ""
 

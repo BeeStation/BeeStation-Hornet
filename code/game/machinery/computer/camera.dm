@@ -1,3 +1,5 @@
+#define DEFAULT_MAP_SIZE 15
+
 /obj/machinery/computer/security
 	name = "security camera console"
 	desc = "Used to access the various cameras on the station."
@@ -15,8 +17,7 @@
 
 	// Stuff needed to render the map
 	var/map_name
-	var/const/default_map_size = 15
-	var/obj/screen/cam_screen
+	var/obj/screen/map_view/cam_screen
 	var/obj/screen/plane_master/lighting/cam_plane_master
 	var/obj/screen/background/cam_background
 
@@ -126,7 +127,7 @@
 		var/list/visible_turfs = list()
 		for(var/turf/T in (C.isXRay() \
 				? range(C.view_range, C) \
-				: view(C.view_range, C)))
+				: view(C.view_range, get_turf(C))))
 			visible_turfs += T
 
 		var/list/bbox = get_bbox_of_atoms(visible_turfs)
@@ -155,7 +156,7 @@
 /obj/machinery/computer/security/proc/show_camera_static()
 	cam_screen.vis_contents.Cut()
 	cam_background.icon_state = "scanline2"
-	cam_background.fill_rect(1, 1, default_map_size, default_map_size)
+	cam_background.fill_rect(1, 1, DEFAULT_MAP_SIZE, DEFAULT_MAP_SIZE)
 
 // Returns the list of cameras accessible from this computer
 /obj/machinery/computer/security/proc/get_available_cameras()
@@ -183,7 +184,7 @@
 	name = "security camera monitor"
 	desc = "An old TV hooked into the station's camera network."
 	icon_state = "television"
-	icon_keyboard = null
+	icon_keyboard = "no_keyboard"
 	icon_screen = "detective_tv"
 	clockwork = TRUE //it'd look weird
 	pass_flags = PASSTABLE
@@ -336,3 +337,5 @@
 	name = "\improper AI upload monitor"
 	desc = "A telescreen that connects to the AI upload's camera network."
 	network = list("aiupload")
+
+#undef DEFAULT_MAP_SIZE

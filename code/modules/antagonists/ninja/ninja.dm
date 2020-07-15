@@ -3,6 +3,7 @@
 	antagpanel_category = "Ninja"
 	job_rank = ROLE_NINJA
 	show_name_in_check_antagonists = TRUE
+	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	var/helping_station = FALSE
 	var/give_equipment = TRUE

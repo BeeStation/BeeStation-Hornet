@@ -41,8 +41,7 @@ Difficulty: Hard
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("gurgles")
 	armour_penetration = 40
-	melee_damage_lower = 40
-	melee_damage_upper = 40
+	melee_damage = 40
 	speed = 5
 	move_to_delay = 5
 	retreat_distance = 5
