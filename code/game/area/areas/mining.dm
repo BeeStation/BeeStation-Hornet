@@ -3,6 +3,8 @@
 /area/mine
 	icon_state = "mining"
 	has_gravity = STANDARD_GRAVITY
+	lighting_colour_tube = "#ffe8d2"
+	lighting_colour_bulb = "#ffdcb7"
 
 /area/mine/explored
 	name = "Mine"
@@ -53,6 +55,8 @@
 
 /area/mine/maintenance
 	name = "Mining Station Communications"
+	lighting_colour_tube = "#edfdff"
+	lighting_colour_bulb = "#dafffd"
 
 /area/mine/cafeteria
 	name = "Mining Station Cafeteria"
