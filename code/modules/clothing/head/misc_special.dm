@@ -101,7 +101,6 @@
 	force_on = 18 //same as epen (but much more obvious)
 	brightness_on = 3
 	heat = 0
-	single_use = FALSE
 
 /obj/item/clothing/head/hardhat/cakehat/energycake/turn_on(mob/living/user)
 	playsound(user, 'sound/weapons/saberon.ogg', 5, TRUE)
