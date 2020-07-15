@@ -8,7 +8,7 @@
 #define ELEMENT_INCOMPATIBLE 1 //! Return value to cancel attaching
 
 // /datum/element flags
-/// Causes the detach proc to be called when the host object is being deleted 
+/// Causes the detach proc to be called when the host object is being deleted
 #define ELEMENT_DETACH		(1 << 0)
 /**
   * Only elements created with the same arguments given after `id_arg_index` share an element instance
@@ -74,6 +74,7 @@
 #define COMSIG_ATOM_RATVAR_ACT "atom_ratvar_act"				//! from base of atom/ratvar_act(): ()
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"						//! from base of atom/rcd_act(): (/mob, /obj/item/construction/rcd, passed_mode)
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"			//! from base of atom/teleport_act(): ()
+#define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"	//! from base of atom/Exited(): (mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"					//! from base of atom/singularity_pull(): (S, current_size)
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"				//from obj/machinery/bsa/full/proc/fire(): ()
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM 1
@@ -102,6 +103,7 @@
 
 /////////////////
 
+#define COMSIG_AREA_POWER_CHANGE "area_power_change"			//! from base of area/proc/power_change(): ()
 #define COMSIG_ENTER_AREA "enter_area" 							//! from base of area/Entered(): (/area)
 #define COMSIG_EXIT_AREA "exit_area" 							//! from base of area/Exited(): (/area)
 

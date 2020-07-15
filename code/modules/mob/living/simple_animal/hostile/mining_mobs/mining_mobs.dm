@@ -19,12 +19,9 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	mob_size = MOB_SIZE_LARGE
+	hardattacks = TRUE //nasty_blocks wont help you here
 	var/icon_aggro = null
 	var/crusher_drop_mod = 25
-
-/mob/living/simple_animal/hostile/asteroid/Initialize(mapload)
-	. = ..()
-	apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 
 /mob/living/simple_animal/hostile/asteroid/Aggro()
 	..()

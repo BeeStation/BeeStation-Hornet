@@ -92,6 +92,20 @@
 /obj/machinery/advanced_airlock_controller/mix_chamber
 	depressurization_margin = 0.15 // The minimum - We really don't want contamination.
 
+/obj/machinery/advanced_airlock_controller/directional //NSV13 makes directinal versions of advanced airlock controllers mapping QOL
+
+/obj/machinery/advanced_airlock_controller/directional/north
+	pixel_y = 24
+
+/obj/machinery/advanced_airlock_controller/directional/south
+	pixel_y = -24
+
+/obj/machinery/advanced_airlock_controller/directional/east
+	pixel_x = 24
+
+/obj/machinery/advanced_airlock_controller/directional/west
+	pixel_x = -24
+
 /obj/machinery/advanced_airlock_controller/New(loc, ndir, nbuild)
 	..()
 	wires = new /datum/wires/advanced_airlock_controller(src)
@@ -283,6 +297,10 @@
 /obj/machinery/advanced_airlock_controller/proc/unbolt_door(obj/machinery/door/airlock/door)
 	if(!door.wires.is_cut(WIRE_BOLTS))
 		door.unbolt()
+
+/obj/machinery/advanced_airlock_controller/process()
+	. = ..()
+	process_atmos()
 
 /obj/machinery/advanced_airlock_controller/process_atmos()
 	if((stat & (NOPOWER|BROKEN)) || shorted)
@@ -608,7 +626,8 @@
 		"vents" = list(),
 		"airlocks" = list(),
 		"skip_timer" = (world.time - skip_timer),
-		"skip_delay" = skip_delay
+		"skip_delay" = skip_delay,
+		"vis_target" = "\ref[vis_target]"
 	)
 
 	if((locked && !user.has_unlimited_silicon_privilege) || (user.has_unlimited_silicon_privilege && aidisabled))

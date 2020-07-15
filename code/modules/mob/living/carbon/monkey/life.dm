@@ -36,13 +36,13 @@
 			Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
 			to_chat(src, "<span class='danger'>You feel weak.</span>")
 		if(radiation > RAD_MOB_MUTATE)
-			if(prob(1))
+			if(prob(2))
 				to_chat(src, "<span class='danger'>You mutate!</span>")
 				easy_randmut(NEGATIVE+MINOR_NEGATIVE)
 				emote("gasp")
 				domutcheck()
 
-				if(radiation > RAD_MOB_MUTATE * 2 && prob(50))
+				if(radiation > RAD_MOB_MUTATE * 1.5)
 					gorillize()
 					return
 		if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))

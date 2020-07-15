@@ -196,6 +196,8 @@
 	
 /obj/item/clothing/head/that/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(!proximity_flag)
+		return
 	if(isliving(target))
 		var/mob/living/M = target
 		var/kidnaptime = max(10, (M.health * (M.mob_size / 2)))
@@ -249,7 +251,7 @@
 	for(var/atom/movable/A in contents)
 		A.forceMove(get_turf(src))
 		if(isliving(A))
-			to_chat(A, "<span class='notice'>You suddenly feel the space around you torn apart! You're free!</span>")
+			to_chat(A, "<span class='notice'>You suddenly feel the space around you tear apart! You're free!</span>")
 	return ..()
 
 /obj/item/clothing/head/that/bluespace/container_resist(mob/living/user)

@@ -295,7 +295,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cotton/cloth
-	pull_effort = 90
+	pull_effort = 50
 	loom_result = /obj/item/stack/sheet/silk
 
 /obj/item/stack/sheet/cotton/cloth/Initialize(mapload, new_amount, merge = TRUE)

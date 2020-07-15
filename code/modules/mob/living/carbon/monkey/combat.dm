@@ -139,7 +139,7 @@
 				blacklistItems[pickupTarget] ++
 				pickupTarget = null
 				pickupTimer = 0
-			else
+			else if(!IsDeadOrIncap())		
 				INVOKE_ASYNC(src, .proc/walk2derpless, pickupTarget.loc)
 				if(Adjacent(pickupTarget) || Adjacent(pickupTarget.loc)) // next to target
 					drop_all_held_items() // who cares about these items, i want that one!
