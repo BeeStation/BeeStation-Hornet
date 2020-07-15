@@ -48,10 +48,9 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	var/hitsound_on = 'sound/weapons/sear.ogg' //so we can differentiate between cakehat and energyhat
 	var/hitsound_off = 'sound/weapons/tap.ogg'
-	var/force_on = 15
-	var/throwforce_on = 15
+	var/force_on = 12
+	var/throwforce_on = 12
 	var/damtype_on = BURN
-	var/single_use = TRUE
 	flags_inv = HIDEEARS|HIDEHAIR
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	brightness_on = 2 //luminosity when on
@@ -88,32 +87,6 @@
 
 /obj/item/clothing/head/hardhat/cakehat/is_hot()
 	return on * heat
-
-/obj/item/clothing/head/hardhat/cakehat/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
-	. = ..()
-	if(ishuman(hit_atom) && single_use)
-		splat(hit_atom)
-
-/obj/item/clothing/head/hardhat/cakehat/attack(mob/M, mob/user, def_zone)
-	. = ..()
-	if(single_use)
-		splat(M)
-
-/obj/item/clothing/head/hardhat/cakehat/proc/splat(mob/M)
-	if(ishuman(M))
-		var/mob/living/carbon/human/C = M
-		var/mutable_appearance/overlay = mutable_appearance('icons/effects/creampie.dmi')
-		if(C.dna.species.limbs_id == "lizard")
-			overlay.icon_state = "creampie_lizard"
-		else
-			overlay.icon_state = "creampie_human"
-		if(!C.creamed)
-			C.add_overlay(overlay)
-			C.creamed = TRUE
-		C.Paralyze(20) //splat!
-	M.adjust_blurriness(1)
-	M.visible_message("<span class='warning'>[M] is smashed in the face by [src]!</span>", "<span class='userdanger'>You've been cake'd by [src]!</span>")
-	qdel(src)
 
 /obj/item/clothing/head/hardhat/cakehat/energycake
 	name = "energy cake"
