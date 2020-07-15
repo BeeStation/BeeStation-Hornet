@@ -16,6 +16,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	var/assault_time = 0
 
 	var/list/phase_messages = list()
+	var/recalled = FALSE
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/Initialize()
 	. = ..()
@@ -85,6 +86,12 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	addtimer(CALLBACK(src, .proc/announce_gateway), 300)
 	addtimer(CALLBACK(src, .proc/recall_sound), 270)
 
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_mass_recall()
+	if(recalled)
+		return
+	INVOKE_ASYNC(src, .proc/recall_sound)
+	addtimer(CALLBACK(src, .proc/mass_recall), 30)
+
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/recall_sound()
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
 		var/mob/living/servant = M.current
@@ -97,7 +104,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	set_security_level(SEC_LEVEL_DELTA)
 	SSshuttle.registerHostileEnvironment(src)
 	SSshuttle.lockdown = TRUE
-	mass_recall()
+	mass_recall(TRUE)
 	addtimer(CALLBACK(src, .proc/begin_assault), 3000)
 	priority_announce("Massive [Gibberish("bluespace", 100)] anomaly detected on all frequencies. All crew are directed to \
 	@!$, [text2ratvar("PURGE ALL UNTRUTHS")] <&. the anomalies and destroy their source to prevent further damage to corporate property. This is \
@@ -106,14 +113,14 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	sound_to_playing_players(volume = 10, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_charging.ogg', TRUE))
 	GLOB.ratvar_arrival_tick = world.time + 9000
 
-/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/mass_recall()
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/mass_recall(add_overlay = FALSE)
 	var/list/spawns = GLOB.servant_spawns.Copy()
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
 		var/mob/living/servant = M.current
 		if(!servant)
 			continue
 		servant.forceMove(pick_n_take(spawns))
-		if(ishuman(servant))
+		if(ishuman(servant) && add_overlay)
 			var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 			servant.add_overlay(forbearance)
 	for(var/mob/M in GLOB.player_list)

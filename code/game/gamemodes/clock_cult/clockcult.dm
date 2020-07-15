@@ -180,7 +180,7 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 //Transmits a message to everyone in the cult
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
 //TODO: SANITIZE MESSAGES WITH THE NORMAL SAY STUFF (punctuation)
-/proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE)
+/proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE, say=TRUE)
 	var/hierophant_message = "[span]"
 	if(sender?.reagents)
 		if(sender.reagents.has_reagent(/datum/reagent/water/holywater, 1))
@@ -193,7 +193,8 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 	if(use_sanitisation)
 		msg = sanitize(msg)
 	if(sender)
-		sender.say("#[text2ratvar(msg)]")
+		if(say)
+			sender.say("#[text2ratvar(msg)]")
 		hierophant_message += "<b>[sender.name]</b> transmits, \"[msg]\""
 	else
 		hierophant_message += msg
@@ -203,10 +204,11 @@ GLOBAL_VAR_INIT(clockcult_vitality, 200)
 		var/mob/M = mind.current
 		if((isliving(M) && !is_servant_of_ratvar(M)) || isnewplayer(M))
 			continue
-		if(M.reagents.has_reagent(/datum/reagent/water/holywater, 1))
-			if(pick(20))
-				to_chat(M, "<span class='nezbere'>You hear the cogs whispering to you, but cannot understand their words.</span>")
-			continue
+		if(M.reagents)
+			if(M.reagents.has_reagent(/datum/reagent/water/holywater, 1))
+				if(pick(20))
+					to_chat(M, "<span class='nezbere'>You hear the cogs whispering to you, but cannot understand their words.</span>")
+				continue
 		to_chat(M, hierophant_message)
 
 //====================================

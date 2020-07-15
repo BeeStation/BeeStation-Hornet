@@ -17,7 +17,7 @@
 	sharpness = IS_SHARP_ACCURATE
 	max_integrity = 200
 	var/clockwork_hint = ""
-	var/datum/action/innate/clockcult/summon_spear/SS
+	var/obj/effect/proc_holder/spell/targeted/summon_spear/SS
 
 /obj/item/twohanded/clockwork/Initialize()
 	. = ..()
@@ -27,7 +27,8 @@
 /obj/item/twohanded/clockwork/pickup(mob/user)
 	. = ..()
 	if(is_servant_of_ratvar(user))
-		SS.Grant(user)
+		user.mind.RemoveSpell(SS)
+		user.mind.AddSpell(SS)
 
 /obj/item/twohanded/clockwork/examine(mob/user)
 	. = ..()
