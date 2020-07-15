@@ -21555,23 +21555,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/theatre)
-"aQg" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/theatre)
 "aQh" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/window/reinforced,
@@ -23697,13 +23680,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/theatre)
-"aTx" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/theatre)
 "aTy" = (
@@ -123880,6 +123856,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
+"rFs" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/effect/landmark/event_spawn,
+/mob/living/simple_animal/pet/cat/mime,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/theatre)
 "rFt" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -125199,6 +125183,24 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"xpv" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/mob/living/simple_animal/pet/cat/clown,
+/turf/open/floor/plasteel,
+/area/crew_quarters/theatre)
 "xua" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -158635,9 +158637,9 @@ alg
 alg
 aMX
 aOx
-aQg
+xpv
 aRQ
-aTx
+rFs
 aVj
 aMX
 asK

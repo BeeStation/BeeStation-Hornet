@@ -41413,12 +41413,6 @@
 	},
 /turf/open/floor/carpet,
 /area/crew_quarters/theatre)
-"bAu" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/turf/open/floor/carpet,
-/area/crew_quarters/theatre)
 "bAv" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -44782,15 +44776,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/carpet,
-/area/crew_quarters/theatre)
-"bHi" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
-	},
 /turf/open/floor/carpet,
 /area/crew_quarters/theatre)
 "bHj" = (
@@ -85723,6 +85708,13 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
 /area/maintenance/port/aft)
+"tau" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/mob/living/simple_animal/pet/cat/mime,
+/turf/open/floor/carpet,
+/area/crew_quarters/theatre)
 "tjt" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -86033,6 +86025,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"uVa" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 9
+	},
+/mob/living/simple_animal/pet/cat/clown,
+/turf/open/floor/carpet,
+/area/crew_quarters/theatre)
 "uYk" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -124263,11 +124265,11 @@ btu
 buU
 byN
 dhV
-bAu
+tau
 bCb
 byJ
 bFx
-bHi
+uVa
 bIB
 bKq
 bLQ

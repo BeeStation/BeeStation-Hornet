@@ -25137,12 +25137,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
-"beZ" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
-	dir = 4
-	},
-/turf/open/floor/carpet,
-/area/crew_quarters/theatre)
 "bfa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
@@ -50990,6 +50984,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_room/external)
+"dlW" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 4
+	},
+/mob/living/simple_animal/pet/cat/clown,
+/turf/open/floor/carpet,
+/area/crew_quarters/theatre)
 "dmV" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
@@ -55115,6 +55116,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"riF" = (
+/mob/living/simple_animal/pet/cat/mime,
+/turf/open/floor/wood,
+/area/crew_quarters/theatre)
 "rmC" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -87008,11 +87013,11 @@ aqi
 ahT
 bvE
 aoh
-aoW
+riF
 aoW
 aKu
 aqj
-beZ
+dlW
 aKr
 aoh
 aBx

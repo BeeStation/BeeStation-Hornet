@@ -18296,36 +18296,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
-"aAX" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/structure/chair/stool/bar{
-	pixel_x = 4;
-	pixel_y = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
-	dir = 8
-	},
-/obj/effect/landmark/start/mime,
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel/showroomfloor,
-/area/crew_quarters/theatre)
 "aAY" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/engine,
@@ -48324,24 +48294,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/courtroom)
-"brd" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/structure/chair/stool/bar{
-	pixel_x = -4;
-	pixel_y = 6
-	},
-/obj/effect/landmark/start/clown,
-/turf/open/floor/plasteel/showroomfloor,
-/area/crew_quarters/theatre)
 "bre" = (
 /obj/structure/chair/sofa/right{
 	color = "#c45c57";
@@ -100536,6 +100488,25 @@
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"nnC" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/chair/stool/bar{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/effect/landmark/start/clown,
+/mob/living/simple_animal/pet/cat/clown,
+/turf/open/floor/plasteel/showroomfloor,
+/area/crew_quarters/theatre)
 "oOk" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral,
@@ -100544,6 +100515,37 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"oWi" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/chair/stool/bar{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
+	dir = 8
+	},
+/obj/effect/landmark/start/mime,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/mob/living/simple_animal/pet/cat/mime,
+/turf/open/floor/plasteel/showroomfloor,
+/area/crew_quarters/theatre)
 "sAg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/landmark/start/brig_phys,
@@ -133601,7 +133603,7 @@ cHR
 aGh
 aKT
 aST
-brd
+nnC
 bqV
 bwi
 aTC
@@ -133857,7 +133859,7 @@ aLb
 cfa
 aGh
 aPZ
-aAX
+oWi
 bac
 bqW
 ajt

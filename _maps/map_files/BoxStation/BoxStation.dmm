@@ -56058,6 +56058,10 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/quartermaster/storage)
+"qlL" = (
+/mob/living/simple_animal/pet/cat/clown,
+/turf/open/floor/wood,
+/area/crew_quarters/theatre)
 "qlR" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Fitness"
@@ -57045,6 +57049,10 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"rUn" = (
+/mob/living/simple_animal/pet/cat/mime,
+/turf/open/floor/wood,
+/area/crew_quarters/theatre)
 "rWq" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
@@ -95605,7 +95613,7 @@ aAh
 aAh
 aAh
 aMp
-aMr
+rUn
 aOH
 aPY
 aQc
@@ -96375,7 +96383,7 @@ aHK
 aHK
 aCr
 aKr
-aMr
+qlL
 bHF
 aOH
 aQc
