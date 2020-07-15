@@ -7,6 +7,9 @@
 	contraband = list(/obj/item/assembly/timer = 2,
 					  /obj/item/assembly/voice = 2,
 					  /obj/item/assembly/health = 2)
+	premium = list(/obj/item/price_tagger = 3,
+				   /obj/item/vending_refill/custom = 3,
+				   /obj/item/circuitboard/machine/vendor = 3)
 	refill_canister = /obj/item/vending_refill/assist
 	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
 	default_price = 10
