@@ -23658,6 +23658,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"bbV" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/theatre)
 "bbW" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -51629,13 +51635,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
-"fiA" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
-	},
-/mob/living/simple_animal/pet/cat/mime,
-/turf/open/floor/wood,
-/area/crew_quarters/theatre)
 "fiC" = (
 /obj/machinery/computer/teleporter,
 /obj/effect/turf_decal/tile/neutral,
@@ -52680,10 +52679,6 @@
 /obj/effect/landmark/start/station_engineer,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
-"iLN" = (
-/mob/living/simple_animal/pet/cat/clown,
-/turf/open/floor/wood,
-/area/crew_quarters/theatre)
 "iMs" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
@@ -85729,9 +85724,9 @@ bYK
 aUi
 aoh
 aoV
-fiA
+bbV
 aqd
-iLN
+aoW
 mlN
 aoh
 aBx
