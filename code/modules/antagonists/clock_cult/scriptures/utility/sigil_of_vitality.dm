@@ -79,8 +79,8 @@
 		addtimer(CALLBACK(src, .proc/try_restart, M), 5)
 		if(M.client)
 			M.visible_message("<span class='neovgre'>[src] looks weak as the color fades from their body.</span>", "<span class='neovgre'>You feel your soul faltering...</span>")
-			GLOB.clockcult_vitality += 15
-		GLOB.clockcult_vitality += 5
+			GLOB.clockcult_vitality += 30
+		GLOB.clockcult_vitality += 10
 	else
 		visible_message("<span class='neovgre'>\The [src] doesn't effect [M], their mind seems able to understand the glory of Rat'var.</span>")
 
