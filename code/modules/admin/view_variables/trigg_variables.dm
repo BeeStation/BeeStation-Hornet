@@ -149,6 +149,10 @@
 	if(!C)
 		message_admins("Erm what client is ded")
 		return
+	switch(action)
+		if("to_asay")
+			message_admins("[key_name_admin(usr)] has shared a VV window: [ADMIN_VV_LINK(D, usr)]")
+			return TRUE
 
 	if(view_var_Topic2(action, params))
 		return TRUE //quick reminder for anyone code diving: returning TRUE makes the UI update.

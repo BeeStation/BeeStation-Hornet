@@ -145,6 +145,10 @@ export const ViewVariables = (props, context) => {
             onClick={() => act("refresh")}
             icon="sync" />
 
+          <Button
+            onClick={() => act("to_asay")}
+            icon="share" />
+
         </Fragment>
       }>
       <LabeledList>
