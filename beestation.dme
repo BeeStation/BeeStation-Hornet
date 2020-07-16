@@ -1649,8 +1649,6 @@
 #include "code\modules\client\verbs\ping.dm"
 #include "code\modules\client\verbs\suicide.dm"
 #include "code\modules\client\verbs\who.dm"
-#include "code\modules\clockwork\clockwork_armor.dm"
-#include "code\modules\clockwork\ratvarian_spear.dm"
 #include "code\modules\clothing\chameleon.dm"
 #include "code\modules\clothing\clothing.dm"
 #include "code\modules\clothing\ears\_ears.dm"
