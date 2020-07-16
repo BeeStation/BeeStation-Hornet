@@ -39,6 +39,7 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	density = FALSE
 	layer = LOW_OBJ_LAYER
+	break_message = "<span class='warning'>The intricate looking device falls apart.</span>"
 	var/unwrench_path = /obj/item/wallframe/clocktrap
 	var/component_datum = /datum/component/clockwork_trap
 
