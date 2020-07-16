@@ -1,5 +1,17 @@
 #define INTERDICTION_LENS_RANGE 3
 
+/datum/clockcult/scripture/create_structure/interdiction
+	name = "Interdiction Lens"
+	desc = "Creates a device that will slow non servants in the area and damage mechanised exosuits."
+	tip = "Construct interdiction lens to slow down a hostile assault."
+	button_icon_state = "Interdiction Lens"
+	power_cost = 500
+	invokation_time = 80
+	invokation_text = list("Oh great lord...", "...may your divinity block the outsiders.")
+	summoned_structure = /obj/structure/destructible/clockwork/gear_base/interdiction_lens
+	cogs_required = 4
+	category = SPELLTYPE_STRUCTURES
+
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens
 	name = "interdiction lens"
 	desc = "A mesmerizing light that flashes to a rhythm that you just can't stop tapping to."

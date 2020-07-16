@@ -45,7 +45,7 @@
 			var/damage_healed = 20 + M.maxHealth - M.health
 			if(GLOB.clockcult_vitality >= damage_healed)
 				GLOB.clockcult_vitality -= damage_healed
-				M.revive(TRUE)
+				M.revive(TRUE, TRUE)
 				addtimer(CALLBACK(src, .proc/try_restart, M), 5)
 			else
 				visible_message("<span class='neovgre'>\The [src] fails to revive [M]!</span>")
@@ -65,7 +65,7 @@
 			addtimer(CALLBACK(src, .proc/try_restart, M), 5)
 		else
 			visible_message("<span class='neovgre'>\The [src] fails to heal [M]!</span>", "<span class='neovgre'>There is insufficient vitality to heal your wounds!</span>")
-	else
+	else if(!is_convertable_to_clockcult(M) || GLOB.gateway_opening)
 		M.Paralyze(10)
 		M.adjustCloneLoss(20)
 		playsound(loc, 'sound/magic/clockwork/ratvar_attack.ogg', 40)
@@ -81,6 +81,8 @@
 			M.visible_message("<span class='neovgre'>[src] looks weak as the color fades from their body.</span>", "<span class='neovgre'>You feel your soul faltering...</span>")
 			GLOB.clockcult_vitality += 15
 		GLOB.clockcult_vitality += 5
+	else
+		visible_message("<span class='neovgre'>\The [src] doesn't effect [M], their mind seems able to understand the glory of Rat'var.</span>")
 
 /obj/structure/destructible/clockwork/sigil/vitality/proc/try_restart(mob/living/M)
 	if(!active_timer)
