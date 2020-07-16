@@ -17,6 +17,8 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 GLOBAL_VAR_INIT(clockcult_power, 2500)
 GLOBAL_VAR_INIT(clockcult_vitality, 200)
 
+GLOBAL_VAR(clockcult_eminence)
+
 //==========================
 //===Clock cult Gamemode ===
 //==========================

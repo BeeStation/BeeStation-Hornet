@@ -49,6 +49,7 @@
 
 /mob/living/simple_animal/eminence/Initialize()
 	. = ..()
+	GLOB.clockcult_eminence = src
 	spell_reebe = new
 	AddSpell(spell_reebe)
 	spell_station = new

@@ -55,6 +55,11 @@
 	},
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
+"n" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clockwork/clockwork_slab,
+/turf/open/floor/clockwork/reebe,
+/area/reebe/city_of_cogs)
 "o" = (
 /obj/structure/grille/ratvar,
 /obj/structure/window/reinforced/clockwork/fulltile,
@@ -84,6 +89,10 @@
 /area/reebe/city_of_cogs)
 "x" = (
 /obj/structure/dresser,
+/turf/open/floor/clockwork/reebe,
+/area/reebe/city_of_cogs)
+"z" = (
+/obj/structure/destructible/clockwork/eminence_beacon,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "A" = (
@@ -32917,7 +32926,7 @@ R
 w
 o
 R
-R
+n
 R
 d
 R
@@ -33431,7 +33440,7 @@ R
 w
 o
 R
-R
+z
 R
 d
 R
