@@ -21,13 +21,13 @@
 
 /obj/item/twohanded/clockwork/Initialize()
 	. = ..()
-	SS = new
-	SS.marked_item = src
 
 /obj/item/twohanded/clockwork/pickup(mob/user)
 	. = ..()
+	user.mind.RemoveSpell(SS)
 	if(is_servant_of_ratvar(user))
-		user.mind.RemoveSpell(SS)
+		SS = new
+		SS.marked_item = src
 		user.mind.AddSpell(SS)
 
 /obj/item/twohanded/clockwork/examine(mob/user)

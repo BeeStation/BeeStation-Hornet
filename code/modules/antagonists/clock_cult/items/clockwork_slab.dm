@@ -59,6 +59,8 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		script.Remove(user)
 	if(active_scripture)
 		active_scripture.end_invokation()
+	if(buffer)
+		buffer = null
 	. = ..()
 
 /obj/item/clockwork/clockwork_slab/pickup(mob/user)
@@ -117,6 +119,10 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		return
 	if(active_scripture)
 		active_scripture.end_invokation()
+		return
+	if(buffer)
+		buffer = null
+		to_chat(user, "<span class='brass'>You clear the [src]'s buffer.</span>")
 		return
 	ui_interact(user)
 
