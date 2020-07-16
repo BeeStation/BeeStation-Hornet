@@ -148,7 +148,8 @@
 		/obj/item/pipe_dispenser,
 		/obj/item/inducer,
 		/obj/item/plunger,
-		/obj/item/clockwork/clockwork_slab
+		/obj/item/clockwork/clockwork_slab,
+		/obj/item/clockwork/replica_fabricator
 		))
 	STR.can_hold = can_hold
 
