@@ -18,6 +18,8 @@
 	flavortext = "<span class=brass>You are a cogscarab, an intricate machine that has been granted sentient by Rat'var.<br>\
 		After a long and destructive conflict, Reebe has been left mostly empty; you and the other cogscarabs like you were bought into existence to construct Reebe into the image of Rat'var.<br>\
 		Construct defences, traps and forgeries, for opening the Ark requires an unimaginable amount of power which is bound to get the attention of selfish lifeforms interested only in their own self-preservation.</span>"
+	laws = "You are have been granted the gift of sentience from Rat'var.<br>\
+		You are not bound by any laws, do whatever you must to serve Rat'var!"
 
 /mob/living/simple_animal/drone/cogscarab/do_after_coefficent() // This gets added to the delay on a do_after, default 1
 	return 0.6
@@ -35,10 +37,9 @@
 		return
 	if(CONFIG_GET(flag/use_age_restriction_for_jobs))
 		if(!isnum(user.client.player_age)) //apparently what happens when there's no DB connected. just don't let anybody be a drone without admin intervention
-			return
-		if(user.client.player_age < 14)
-			to_chat(user, "<span class='danger'>You're too new to play as a drone! Please try again in [14 - user.client.player_age] days.</span>")
-			return
+			if(user.client.player_age < 14)
+				to_chat(user, "<span class='danger'>You're too new to play as a drone! Please try again in [14 - user.client.player_age] days.</span>")
+				return
 	if(!SSticker.mode)
 		to_chat(user, "Can't become a cogscarab before the game has started.")
 		return
@@ -52,7 +53,7 @@
 		D.equip_to_slot_or_del(new_hat, SLOT_HEAD)
 	D.flags_1 |= (flags_1 & ADMIN_SPAWNED_1)
 	D.key = user.key
-	add_servant_of_ratvar(D)
+	add_servant_of_ratvar(D, silent=TRUE)
 	message_admins("[ADMIN_LOOKUPFLW(user)] has taken possession of \a [src] in [AREACOORD(src)].")
 	log_game("[key_name(user)] has taken possession of \a [src] in [AREACOORD(src)].")
 	qdel(src)
