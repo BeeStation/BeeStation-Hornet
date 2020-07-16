@@ -53,7 +53,6 @@
 //Not using datum.vv_do_topic for very basic/low level debug things, incase the datum's vv_do_topic is runtiming/whatnot.
 /client/proc/vv_do_basic2(datum/target, action, list/params)
 	var/target_var = GET_VV_VAR_TARGET2
-	message_admins("going through vv_do_basic2, target_var: [target_var]")
 	if(check_rights(R_VAREDIT))
 		if(target_var)
 			switch(action)

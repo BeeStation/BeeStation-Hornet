@@ -308,7 +308,6 @@
 /obj/vv_do_topic2(action, params)
 	if(!(. = ..()))
 		return
-	message_admins("Going through obj/vv_do_topic2")
 	switch(action)
 		if(VV_HK_OSAY)
 			if(check_rights(R_FUN, FALSE))

@@ -1408,7 +1408,6 @@
 	VV_DROPDOWN_OPTION2(VV_HK_SMITE, "Smite")
 
 /mob/living/vv_do_topic2(action, params)
-	message_admins("Going through mob/living/vv_do_topic2")
 	. = ..()
 	if(check_rights(R_ADMIN))
 		switch(action)

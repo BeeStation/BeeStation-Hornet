@@ -45,7 +45,6 @@
 //LISTS - CAN NOT DO VV_DO_TOPIC BECAUSE LISTS AREN'T DATUMS :(
 /client/proc/vv_do_list2(list/target, action, list/params)
 	var/target_index = text2num(GET_VV_VAR_TARGET2)
-	message_admins("going through vv_do_list2")
 	if(check_rights(R_VAREDIT))
 		if(target_index)
 			switch(action)

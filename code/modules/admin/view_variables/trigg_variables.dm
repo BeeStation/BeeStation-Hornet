@@ -1,9 +1,6 @@
 /client/proc/trigg_VV(datum/D in world)
 	set category = "Debug"
 	set name = "AAAVARIABLES"
-	if(!D)
-		message_admins("Oh fuck trigg_VV was called without a D what the fuck")
-		return
 
 	if(!usr.client || !usr.client.holder) //This is usr because admins can call the proc on other clients, even if they're not admins, to show them VVs.
 		to_chat(usr, "<span class='danger'>You need to be an administrator to access this.</span>")
@@ -28,14 +25,7 @@
 
 /datum/trigg_variables/New(mob/user, target)
 	C = user.client
-	if(!C)
-		CRASH("Uh... No client? What?")
-	if(!target)
-		CRASH("What the hell... No target?")
 	D = target
-
-	if(!D)
-		CRASH("Boi D is null I'm outta here")
 
 	islist = islist(D)
 	objtype = islist? /list : D.type
@@ -134,12 +124,6 @@
 
 /datum/trigg_variables/ui_close(mob/user)
 	message_admins("UI CLOSE!")
-	if(UI)
-		message_admins("Found ui.. Closing it..")
-	qdel(UI)
-	qdel(src)
-	if(UI)
-		message_admins("Uh... I think I'm still alive. What.")
 
 /datum/trigg_variables/ui_act(action, params)
 	if(..())
@@ -149,10 +133,11 @@
 	if(!C)
 		message_admins("Erm what client is ded")
 		return
+
 	switch(action)
 		if("to_asay")
 			message_admins("[key_name_admin(usr)] has shared a VV window: [ADMIN_VV_LINK(D)]")
-			return TRUE
+			return
 
 	if(view_var_Topic2(action, params))
 		return TRUE //quick reminder for anyone code diving: returning TRUE makes the UI update.
