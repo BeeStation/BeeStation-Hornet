@@ -1398,6 +1398,7 @@
 #include "code\modules\antagonists\clock_cult\structure\dimensional_rift.dm"
 #include "code\modules\antagonists\clock_cult\structure\gear_base.dm"
 #include "code\modules\antagonists\clock_cult\structure\wall_gear.dm"
+#include "code\modules\antagonists\clock_cult\traps\trap.dm"
 #include "code\modules\antagonists\clock_cult\traps\recievers\flipper.dm"
 #include "code\modules\antagonists\clock_cult\traps\recievers\skewer.dm"
 #include "code\modules\antagonists\clock_cult\traps\senders\delay.dm"
