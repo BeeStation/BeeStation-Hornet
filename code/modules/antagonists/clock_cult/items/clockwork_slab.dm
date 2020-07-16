@@ -38,6 +38,9 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		/datum/clockcult/scripture/integration_cog
 	)
 
+	//For trap linkage
+	var/datum/component/clockwork_trap/buffer
+
 /obj/item/clockwork/clockwork_slab/Initialize()
 	var/pos = 1
 	cogs = GLOB.installed_integration_cogs

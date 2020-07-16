@@ -124,19 +124,6 @@
 	C.begin_mass_recall()
 	user.RemoveSpell(src)
 
-//=====Mass Recall=====
-/obj/effect/proc_holder/spell/targeted/eminence/mass_recall
-	name = "Initiate Mass Recall"
-	desc = "Initiates a mass recall, warping everyone to the Ark."
-	action_icon_state = "Spatial Gateway"
-
-/obj/effect/proc_holder/spell/targeted/eminence/mass_recall/cast(list/targets, mob/living/user)
-	var/obj/structure/destructible/clockwork/massive/celestial_gateway/C = GLOB.celestial_gateway
-	if(!C)
-		return
-	C.begin_mass_recall()
-	user.RemoveSpell(src)
-
 //=====Purge Reagents=====
 /obj/effect/proc_holder/spell/targeted/eminence/reagent_purge
 	name = "Purge Reagents"

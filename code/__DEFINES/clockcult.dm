@@ -22,3 +22,7 @@
 #define SPELLTYPE_SERVITUDE "Servitude"
 #define SPELLTYPE_PRESERVATION "Preservation"
 #define SPELLTYPE_STRUCTURES "Structures"
+
+//Trap type
+#define TRAPMOUNT_WALL 1
+#define TRAPMOUNT_FLOOR 2

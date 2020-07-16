@@ -336,6 +336,9 @@
 // /datum/mind signals
 #define COMSIG_MIND_TRANSFER_TO	"mind_transfer_to"					// (mob/old, mob/new)
 
+// /datum/component/clockwork_trap signals
+#define COMSIG_CLOCKWORK_SIGNAL_RECIEVED "clock_recieved"			//! When anything the trap is attatched to is triggered
+
 /*******Non-Signal Component Related Defines*******/
 
 //Redirection component init flags
