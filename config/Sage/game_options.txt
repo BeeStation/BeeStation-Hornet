@@ -109,6 +109,7 @@ PROBABILITY WIZARD 1
 PROBABILITY CLOWNOPS 0
 PROBABILITY METEOR 0
 PROBABILITY DEVIL_AGENTS 0
+PROBABILITY CLOCKCULT 1
 
 ## You probably want to keep sandbox off by default for secret and random.
 PROBABILITY SANDBOX 0
@@ -131,6 +132,7 @@ CONTINUOUS CHANGELING
 CONTINUOUS WIZARD
 #CONTINUOUS MONKEY
 CONTINUOUS HIVEMIND
+CONTINUOUS CLOCKCULT
 
 ##Note: do not toggle continuous off for these modes, as they have no antagonists and would thus end immediately!
 
@@ -202,7 +204,8 @@ MAX_POP DEVIL_AGENTS -1
 #MIN_POP EXTENDED 0
 #MAX_POP EXTENDED -1
 
-
+#MIN_POP CLOCKCULT 24
+#MAX_POP CLOCKCULT -1
 
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000
