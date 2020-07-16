@@ -15,12 +15,12 @@
 /obj/structure/destructible/clockwork/trap/flipper/proc/flip()
 	if(cooldown > world.time)
 		return
-	cooldown = world.time + 300
+	cooldown = world.time + 200
 	flick("flipper", src)
 	for(var/atom/movable/AM in get_turf(src))
 		if(AM.anchored)
 			continue
-		AM.throw_at(get_edge_target_turf(src, dir), 3, 4)
+		AM.throw_at(get_edge_target_turf(src, dir), 6, 4)
 
 /datum/component/clockwork_trap/flipper
 	takes_input = TRUE

@@ -3,15 +3,17 @@
 	name = "trap"
 	desc = "don't trust it"
 	icon = 'icons/obj/clockwork_objects.dmi'
+	w_class = WEIGHT_CLASS_HUGE
 	var/result_path = /obj/structure/destructible/clockwork/trap
 
 /obj/item/clockwork/trap_placer/attack_self(mob/user)
 	. = ..()
 	if(!is_servant_of_ratvar(user))
 		return
-	for(var/obj/machinery/M in get_turf(user))
-		to_chat(user, "<span class='brass'>You cannot place [src] here, the space is occupied.</span>")
-		return
+	for(var/obj/structure/destructible/clockwork/trap/T in get_turf(src))
+		if(istype(T, type))
+			to_chat(user, "<span class='warning'>That space is occupied!</span>")
+			return
 	var/obj/new_obj = new result_path(get_turf(src))
 	new_obj.setDir(user.dir)
 	qdel(src)
@@ -22,6 +24,7 @@
 	desc = "It's a... wait what?"
 	icon = 'icons/obj/clockwork_objects.dmi'
 	pixel_shift = -24
+	w_class = WEIGHT_CLASS_HUGE
 	result_path = /obj/structure/destructible/clockwork/trap
 
 /obj/item/wallframe/clocktrap/examine(mob/user)
@@ -35,6 +38,7 @@
 	desc = "monkey noises"
 	icon = 'icons/obj/clockwork_objects.dmi'
 	density = FALSE
+	layer = LOW_OBJ_LAYER
 	var/unwrench_path = /obj/item/wallframe/clocktrap
 	var/component_datum = /datum/component/clockwork_trap
 

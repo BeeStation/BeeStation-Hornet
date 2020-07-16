@@ -18,4 +18,3 @@
 	trigger_connected()
 	to_chat(user, "<span class='notice'>You activate the switch.</span>")
 	playsound(user, 'sound/machines/click.ogg', 50)
-	message_admins("Button clicked")
