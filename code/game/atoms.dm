@@ -1045,7 +1045,7 @@
 
 /atom/proc/vv_trigg_rename(silent=FALSE)
 	var/new_name = input(usr, "What do you want to rename this to?", "Automatic Rename") as null|text
-	if(!new_name)
+	if(!new_name || !src)
 		return
 	if(!silent)
 		message_admins("Admin [key_name_admin(usr)] renamed [ADMIN_VV_LINK(src)] to [new_name].")

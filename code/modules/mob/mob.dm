@@ -1307,7 +1307,7 @@
 
 /mob/vv_trigg_rename(silent=FALSE)
 	var/new_name = stripped_input(usr, "What would you like to name this mob?", "Input a name", real_name, MAX_NAME_LEN)
-	if(!new_name)
+	if(!new_name || src)
 		return
 	if(!silent)
 		message_admins("Admin [key_name_admin(usr)] renamed [ADMIN_VV_LINK(src)] to [new_name].")
