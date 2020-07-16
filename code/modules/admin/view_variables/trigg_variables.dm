@@ -151,7 +151,7 @@
 		return
 	switch(action)
 		if("to_asay")
-			message_admins("[key_name_admin(usr)] has shared a VV window: [ADMIN_VV_LINK(D, usr)]")
+			message_admins("[key_name_admin(usr)] has shared a VV window: [ADMIN_VV_LINK(D)]")
 			return TRUE
 
 	if(view_var_Topic2(action, params))
