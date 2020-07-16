@@ -188,9 +188,9 @@
 
 				switch(params["dir"])
 					if("right")
-						A.setDir(turn(A.dir, -45))
+						A.setDir(turn(A.dir, -90))
 					if("left")
-						A.setDir(turn(A.dir, 45))
+						A.setDir(turn(A.dir, 90))
 				// C.vv_update_display(A, "dir", dir2text(A.dir))
 				return TRUE
 
