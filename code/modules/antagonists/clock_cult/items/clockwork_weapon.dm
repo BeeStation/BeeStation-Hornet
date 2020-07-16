@@ -40,11 +40,15 @@
 		to_chat(user, "<span class='large_brass'>You really thought you could get away with that?</span>")
 		return ..(user, user)
 	. = ..()
+	if(!is_reebe(z))
+		return
 	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(major=FALSE) && wielded)
 		hit_effect(target, user)
 
 /obj/item/twohanded/clockwork/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
+	if(!is_reebe(z))
+		return
 	if(isliving(hit_atom))
 		var/mob/living/target = hit_atom
 		if(!.)
@@ -62,7 +66,7 @@
 	force_wielded = 25
 	throwforce = 40
 	armour_penetration = 18
-	clockwork_hint = "Throwing the spear will deal bonus damage."
+	clockwork_hint = "Throwing the spear will deal bonus damage while on Reebe."
 
 /obj/item/twohanded/clockwork/brass_battlehammer
 	name = "brass battle-hammer"
@@ -73,7 +77,7 @@
 	armour_penetration = 6
 	sharpness = IS_BLUNT
 	attack_verb = list("bashed", "smitted", "hammered", "attacked")
-	clockwork_hint = "Enemies hit by this will be flung back."
+	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."
 
 /obj/item/twohanded/clockwork/brass_battlehammer/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
@@ -87,7 +91,7 @@
 	throwforce = 20
 	armour_penetration = 12
 	attack_verb = list("attacked", "slashed", "cut", "torn", "gored")
-	clockwork_hint = "Targets will be struck with a powerful electromagnetic pulse."
+	clockwork_hint = "Targets will be struck with a powerful electromagnetic pulse while on Reebe."
 	var/emp_cooldown = 0
 
 /obj/item/twohanded/clockwork/brass_sword/hit_effect(mob/living/target, mob/living/user, thrown)

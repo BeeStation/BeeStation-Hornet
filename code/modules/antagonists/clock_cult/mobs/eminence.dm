@@ -190,9 +190,10 @@
 		return TRUE
 	return FALSE
 
-/obj/effect/proc_holder/spell/targeted/eminence/reagentlinked_asbcond_purge/cast(list/targets, mob/living/user)
+/obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond/cast(list/targets, mob/living/user)
 	var/mob/living/simple_animal/eminence/E = user
 	if(!istype(E))
+		to_chat(E, "<span class='brass'>You are not the Eminence! (This is a bug)</span>")
 		revert_cast(user)
 		return FALSE
 	if(!E.selected_mob || !is_servant_of_ratvar(E.selected_mob))
@@ -202,17 +203,18 @@
 		return FALSE
 	var/mob/living/L = E.selected_mob
 	if(!istype(L))
+		to_chat(E, "<span class='brass'>You cannot do that on this mob!</span>")
 		revert_cast(user)
 		return FALSE
 	to_chat(E, "<span class='brass'>You begin recalling [L]...</span>")
 	to_chat(L, "<span class='brass'>The Eminence is summoning you...</span>")
-	L.visible_message("<span class='warning'>[L] flares for a moment.</span>")
-	if(do_after(L, 70, target=get_turf(L)))
+	L.visible_message("<span class='warning'>[L] flares briefly.</span>")
+	if(do_after(E, 70, target=L))
 		L.visible_message("<span class='warning'>[L] phases out of existance!</span>")
 		var/turf/T = get_turf(pick(GLOB.servant_spawns))
-		L.forceMove(T)
+		try_warp_servant(L, T, FALSE)
 		return TRUE
 	else
-		to_chat(E, "<span class='brass'>You fail to recal [L].</span>")
+		to_chat(E, "<span class='brass'>You fail to recall [L].</span>")
 		revert_cast(user)
 		return FALSE
