@@ -1,7 +1,7 @@
 import { Fragment, Component } from 'inferno';
 import { createSearch, capitalize } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Flex, Input, Section, Collapsible, LabeledList, Modal, ColorBox, Box, Icon, Dropdown } from '../components';
+import { Button, Flex, Input, Section, LabeledList, ColorBox, Box, Icon } from '../components';
 import { Window } from '../layouts';
 import { FlexItem } from '../components/Flex';
 import { isFalsy } from 'common/react';
@@ -58,23 +58,23 @@ export const ViewVariables = (props, context) => {
     if (islist) {
       LabelOnClick = e => {
         if (e.shiftKey && e.ctrlKey) {
-          act("listremove", { target: objectinfo.ref, targetvar: item.index });
+          act("listremove", { targetvar: item.index });
         }
         else if (e.shiftKey) {
-          act("listchange", { target: objectinfo.ref, targetvar: item.index });
+          act("listchange", { targetvar: item.index });
         }
         else {
-          act("listedit", { target: objectinfo.ref, targetvar: item.index });
+          act("listedit", { targetvar: item.index });
         }
       };
     }
     else {
       LabelOnClick = e => {
         if (e.shiftKey && e.ctrlKey) {
-          act("massedit", { target: objectinfo.ref, targetvar: item.name });
+          act("massedit", { targetvar: item.name });
         }
         else if (e.shiftKey) {
-          act("datumchange", { target: objectinfo.ref, targetvar: item.name });
+          act("datumchange", { targetvar: item.name });
         }
         /* nothing for now
         else if (e.ctrlKey) {
@@ -82,7 +82,7 @@ export const ViewVariables = (props, context) => {
         }
         */
         else {
-          act("datumedit", { target: objectinfo.ref, targetvar: item.name });
+          act("datumedit", { targetvar: item.name });
         }
       };
     }
@@ -106,7 +106,9 @@ export const ViewVariables = (props, context) => {
       <Fragment>
         <Button
           // color="transparent"
-          onClick={() => act("view", { target: item.ref })}>
+          onClick={item.ref
+            ? () => act("view", { target: item.ref })
+            : () => act("datumedit", { targetvar: item.name })}>
           {item.file && <Icon name="file" mr={1} />}
           {item.icon && <Icon name="image" mr={1} />}
           {matrixify(item) || colorboxify(item) || item.value}
@@ -142,12 +144,12 @@ export const ViewVariables = (props, context) => {
           />
 
           <Button
-            onClick={() => act("refresh")}
-            icon="sync" />
-
-          <Button
             onClick={() => act("to_asay")}
             icon="share" />
+
+          <Button
+            onClick={() => act("refresh")}
+            icon="sync" />
 
         </Fragment>
       }>
@@ -180,7 +182,7 @@ export const ViewVariables = (props, context) => {
           color="transparent"
           textColor="white"
           fontSize={1.5}
-          onClick={() => act("rename")}>
+          onClick={() => act("trigg_rename")}>
           {objectinfo.name}
         </Button>
       </FlexItem>
@@ -262,7 +264,7 @@ export const ViewVariables = (props, context) => {
             backgroundColor={color}
             content={`${content}: ${entry[1]}`||""}
             onClick={() => act("adjustdamage",
-              { target: objectinfo.ref, type: entry[0] })} />
+              { type: entry[0] })} />
         </FlexItem>
       );
     };
@@ -305,7 +307,7 @@ export const ViewVariables = (props, context) => {
       <Button
         fluid
         content={item[1]}
-        onClick={() => act(item[0], { target: objectinfo.ref })} />
+        onClick={() => act(item[0])} />
     );
   };
 

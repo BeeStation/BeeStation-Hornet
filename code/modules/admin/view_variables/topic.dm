@@ -133,6 +133,8 @@
 
 	params["admin_token"]=RawHrefToken() // Think there have already been enough permission and sanity checks to safely do this
 	var/target = GET_VV_TARGET2
+	if(!target)
+		target = D
 	C.vv_do_basic2(target, action, params)
 
 	// This goes only one of two ways, partner:

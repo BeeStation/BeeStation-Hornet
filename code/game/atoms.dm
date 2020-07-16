@@ -954,6 +954,11 @@
 	. = ..()
 	if(check_rights(R_VAREDIT))
 		switch(action)
+			if("trigg_rename")
+				if(!check_rights(R_VAREDIT))
+					return
+				vv_trigg_rename()
+
 			if(VV_HK_ADD_REAGENT)
 				if(!reagents)
 					var/amount = input(usr, "Specify the reagent size of [src]", "Set Reagent Size", 50) as num
@@ -1037,6 +1042,15 @@
 
 /atom/proc/vv_auto_rename(newname)
 	name = newname
+
+/atom/proc/vv_trigg_rename(silent=FALSE)
+	var/new_name = input(usr, "What do you want to rename this to?", "Automatic Rename") as null|text
+	if(!new_name)
+		return
+	if(!silent)
+		message_admins("Admin [key_name_admin(usr)] renamed [ADMIN_VV_LINK(src)] to [new_name].")
+	name = new_name
+	return TRUE
 
 /**
   * An atom has entered this atom's contents

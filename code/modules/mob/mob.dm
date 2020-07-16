@@ -1305,6 +1305,17 @@
 	//Do not do parent's actions, as we *usually* do this differently.
 	fully_replace_character_name(real_name, new_name)
 
+/mob/vv_trigg_rename(silent=FALSE)
+	var/new_name = stripped_input(usr, "What would you like to name this mob?", "Input a name", real_name, MAX_NAME_LEN)
+	if(!new_name)
+		return
+	if(!silent)
+		message_admins("Admin [key_name_admin(usr)] renamed [ADMIN_VV_LINK(src)] to [new_name].")
+	fully_replace_character_name(real_name,new_name)
+	// C.vv_update_display(M, "name", new_name)
+	// C.vv_update_display(M, "real_name", M.real_name || "No real name")
+	return TRUE
+
 ///Show the language menu for this mob
 /mob/verb/open_language_menu()
 	set name = "Open Language Menu"

@@ -34,7 +34,7 @@
 	if(!islist && !istype(D))
 		CRASH("Uhhhh what the fuck did you just give me?")
 
-/datum/trigg_variables/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
+/datum/trigg_variables/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.VV_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ViewVariables", "[REF(D)] ([objtype])", 700, 700, master_ui, state)
@@ -130,9 +130,6 @@
 		return
 
 	message_admins("UI act! Action: '[action]' | Params: '[english_list(params)]'")
-	if(!C)
-		message_admins("Erm what client is ded")
-		return
 
 	switch(action)
 		if("to_asay")

@@ -43,7 +43,9 @@
 #define GET_VV_TARGET locate(href_list[VV_HK_TARGET])
 #define GET_VV_TARGET2 locate(params[VV_HK_TARGET])
 #define GET_VV_VAR_TARGET href_list[VV_HK_VARNAME]
-#define GET_VV_VAR_TARGET2 params["targetvar"]
+#define GET_VV_VAR_TARGET2 params[VV_HK_VARNAME]
+
+#define ADMIN_VV_LINK(D) "<a href='?_src_=holder;[HrefToken(TRUE)];vv_panel_link=[REF(D)]'>[D]</a>"
 
 //Helper for getting something to vv_do_topic in general
 #define VV_TOPIC_LINK(datum, href_key, text) "<a href='?_src_=vars;[HrefToken()];[href_key]=TRUE;target=[REF(datum)]'>text</a>"
