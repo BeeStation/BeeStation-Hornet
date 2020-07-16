@@ -28,6 +28,9 @@
 	var/mob/living/M = owner
 	var/mob/camera/aiEye/remote/ratvar/cam = M.remote_control
 	var/target_loc = get_turf(cam)
+	if(isclosedturf(target_loc))
+		to_chat(owner, "<span class='brass'>You cannot warp into dense objects.</span>")
+		return
 	if(!get_area(target_loc).clockwork_warp_allowed)
 		to_chat(owner, "<span class='brass'>[get_area(target_loc).clockwork_warp_fail]</span>")
 		return
