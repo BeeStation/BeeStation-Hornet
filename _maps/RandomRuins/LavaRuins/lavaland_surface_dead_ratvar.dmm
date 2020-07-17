@@ -123,7 +123,7 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "B" = (
-/obj/item/clockwork/weapon/ratvarian_spear,
+/obj/item/twohanded/clockwork/brass_spear,
 /turf/open/floor/clockwork{
 	initial_gas_mix = "LAVALAND_ATMOS"
 	},
