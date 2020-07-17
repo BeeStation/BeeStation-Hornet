@@ -157,8 +157,8 @@
 					continue
 				last_char_group = SYMBOLS_DETECTED
 
-			// ~   |   @  :  #  $  %  &  *  +
-			if(126,124,64,58,35,36,37,38,42,43)			//Other symbols that we'll allow (mainly for AI)
+			// ~   |   @  :  #  $  %  &  *  + / \
+			if(126,124,64,58,35,36,37,38,42,43,47,92)			//Other symbols that we'll allow (mainly for AI)
 				if(last_char_group == NO_CHARS_DETECTED || !allow_numbers)
 					continue
 				last_char_group = SYMBOLS_DETECTED
