@@ -146,7 +146,7 @@
 
 			// 0  .. 9
 			if(48 to 57)			//Numbers
-				if(last_char_group == NO_CHARS_DETECTED || !allow_numbers) //do not suppress at start of string
+				if(last_char_group == NO_CHARS_DETECTED || !allow_numbers)
 					continue
 				number_of_alphanumeric++
 				last_char_group = NUMBERS_DETECTED
@@ -159,7 +159,7 @@
 
 			// ~   |   @  :  #  $  %  &  *  +
 			if(126,124,64,58,35,36,37,38,42,43)			//Other symbols that we'll allow (mainly for AI)
-				if(last_char_group == NO_CHARS_DETECTED || !allow_numbers) //do not suppress at start of string
+				if(last_char_group == NO_CHARS_DETECTED || !allow_numbers)
 					continue
 				last_char_group = SYMBOLS_DETECTED
 
