@@ -593,7 +593,7 @@
 	mutationtext = "<span class='danger'>The pain subsides. You feel... like you can take on anything.</span>"
 	process_flags = ORGANIC | SYNTHETIC
 	can_synth = FALSE
-	random_unrestricted = FALSE 
+	random_unrestricted = FALSE
 
 
 //DANGEROUS RACES
@@ -1945,6 +1945,24 @@
 		M.dizziness = CLAMP(M.dizziness + 3, 0, 5)
 	if(prob(20))
 		to_chat(M, "You feel confused and disorientated.")
+	..()
+
+/datum/reagent/peaceborg/inabizine
+	name = "Inabizine"
+	description = "Induces muscle relaxation causing the target to drop items and fall on the ground"
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	taste_description = "relaxing"
+	can_synth = TRUE
+	random_unrestricted = TRUE
+
+/datum/reagent/peaceborg/inabizine/on_mob_life(mob/living/carbon/M)
+	if(prob(33))
+		M.Stun(20, 0)
+		M.blur_eyes(5)
+	if(prob(33))
+		M.Knockdown(2 SECONDS)
+	if(prob(20))
+		to_chat(M, "Your muscles relax...")
 	..()
 
 /datum/reagent/peaceborg/tire
