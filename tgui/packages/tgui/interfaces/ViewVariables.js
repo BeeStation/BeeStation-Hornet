@@ -168,8 +168,8 @@ export const ViewVariables = (props, context) => {
   if (snowflake?.sprite_base64) {
     Sprite = (
       <img
-        height="100%"
-        width="100%"
+        height={256}
+        width={256}
         src={`data:image/jpeg;base64,${snowflake.sprite_base64}`} />
     );
   }
@@ -207,12 +207,9 @@ export const ViewVariables = (props, context) => {
 
   const basicsnowflake = (
     <FlexItem grow={1}>
-      <Section height={20}>
-        <Flex inline direction="column">
-          {Sprite}
-          {BasicInfo}
-        </Flex>
-      </Section>
+      {Sprite}
+      <Box mx={2}>{BasicInfo}</Box>
+      {LivingInfo}
     </FlexItem>
   );
 
@@ -270,12 +267,9 @@ export const ViewVariables = (props, context) => {
     };
 
     LivingInfo = (
-      <Section>
-        <Flex wrap="wrap" spacing={1} justify="center">
-          {Body.map(makedamagebutton)}
-        </Flex>
-      </Section>
-
+      <Flex mt={1} wrap="wrap" spacing={1} justify="center">
+        {Body.map(makedamagebutton)}
+      </Flex>
     );
   }
   // {Organ.map(makedamagebutton)}
@@ -312,35 +306,24 @@ export const ViewVariables = (props, context) => {
   };
 
   const DropdownMenu = (DropdownOpen && (
-    <FlexItem align="baseline">
-      <Section height={20} overflowY="scroll">
-        <Flex direction="column">
-          {dropdown.map(makeDropdown)}
-        </Flex>
-      </Section>
-    </FlexItem>
+    // I am literally unable to figure out how to make this thing's height
+    // Match basicsnowflake's height. Seriously. It's been two hours. I CAN'T.
+    <Flex ml={1} height={26} overflowY="scroll" direction="column">
+      {dropdown.map(makeDropdown)}
+    </Flex>
   ));
 
   const topSection = (
     <Section
       title={`${objectinfo.name} (${objectinfo.class})`}
       buttons={DropdownButton}>
-
-      <Flex
-        wrap="wrap"
-        justify="center"
-        textAlign="center"
-        align="center">
-
-        {basicsnowflake}
-
-        {DropdownMenu}
-
-        <FlexItem basis="100%">
-          {LivingInfo}
-        </FlexItem>
-
-      </Flex>
+      <Section
+        textAlign="center">
+        <Flex align="start">
+          {basicsnowflake}
+          {DropdownMenu}
+        </Flex>
+      </Section>
     </Section>
   );
 
