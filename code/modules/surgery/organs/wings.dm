@@ -1,7 +1,7 @@
 /obj/item/organ/wings
 	name = "Pair of wings"
 	desc = "A pair of wings. They look skinny and useless"
-	icon_state = "severedtail"
+	icon_state = "angelwings"
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_WINGS
 	var/flight_level = WINGS_COSMETIC
@@ -52,7 +52,7 @@
 /obj/item/organ/wings/moth
 	name = "pair of moth wings"
 	desc = "A pair of moth wings."
-	icon_state = "severedtail"
+	icon_state = "mothwings"
 	flight_level = WINGS_FLIGHTLESS
 	basewings = "moth_wings"
 	wing_type = "plain"
@@ -72,20 +72,19 @@
 /obj/item/organ/wings/angel
 	name = "pair of feathered wings"
 	desc = "A pair of feathered wings. They seem robust enough for flight"
-	icon_state = "severedtail"
 	flight_level = WINGS_FLYING
 
 /obj/item/organ/wings/dragon
 	name = "pair of dragon wings"
 	desc = "A pair of dragon wings. They seem robust enough for flight"
-	icon_state = "severedtail"
+	icon_state = "dragonwings"
 	flight_level = WINGS_FLYING
 	wing_type = "Dragon"
 
 /obj/item/organ/wings/bee
 	name = "pair of bee wings"
 	desc = "A pair of bee wings. They seem tiny and undergrown"
-	icon_state = "severedtail"
+	icon_state = "beewings"
 	flight_level = WINGS_FLIGHTLESS
 	wing_type = "Bee"
 
