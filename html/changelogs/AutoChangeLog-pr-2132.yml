@@ -1,4 +1,0 @@
-author: Trigg
-delete-after: true
-changes:
-  - bugfix: Nanite Programs now respect rules when triggered.
