@@ -1,0 +1,5 @@
+author: Autisem
+delete-after: true
+changes:
+  - tweak: Changed permited list for atmos fire suit to be any type of internals tank
+      rather then just the emergency one
