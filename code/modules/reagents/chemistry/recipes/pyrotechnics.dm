@@ -3,6 +3,7 @@
 	id = "reagent_explosion"
 	var/strengthdiv = 10
 	var/modifier = 0
+	mob_react = FALSE //noreact explosions are fucky as hell. even a power of 1, being the minimal reaction, will nearly insta-crit and will definitely delimb, depending on armor.
 
 /datum/chemical_reaction/reagent_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/power = modifier + round(created_volume/strengthdiv, 1)
