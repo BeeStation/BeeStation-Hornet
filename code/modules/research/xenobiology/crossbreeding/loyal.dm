@@ -302,8 +302,7 @@ Loyal extracts:
 	to_chat(user,"<span class='notice'>You begin compressing [src]...</span>")
 	if(do_mob(user, src, 20))
 		src.forceMove(compressed.loc)
-		if(!user.put_in_hands(compressed, forced = TRUE))
-			return
+		user.put_in_hands(compressed)
 		to_chat(user, "<span class='notice'>You successfully compress [src]!</span>")
 
 /obj/item/telescopic_item
@@ -323,8 +322,7 @@ Loyal extracts:
 	to_chat(user,"<span class='notice'>You begin uncompressing [src]...</span>")
 	if(do_mob(user,src,20))
 		src.forceMove(original.loc)
-		if(!user.put_in_hands(original, forced = TRUE))
-			return
+		user.put_in_hands(original)
 		to_chat(user, "<span class='notice'>You uncompress [src]!</span>")
 
 /obj/item/slimecross/loyal/sepia
@@ -572,7 +570,7 @@ Loyal extracts:
 		if(WEIGHT_CLASS_SMALL)
 			disguise_list = list(/obj/item/wrench,
 								 /obj/item/toy/cards/deck,
-								 /obj/item/clipboard,
+								 /obj/item/camera,
 								 /obj/item/instrument/harmonica
 								)
 		if(WEIGHT_CLASS_NORMAL)
@@ -613,7 +611,7 @@ Loyal extracts:
 		disguised_item.original = src
 		src.forceMove(disguised_item)
 		disguised_item.forceMove(src)
-		user.put_in_hands(disguised_item, forced = TRUE)
+		user.put_in_hands(disguised_item)
 	qdel(disguise)
 
 /obj/item/disguised_item
@@ -629,8 +627,7 @@ Loyal extracts:
 	to_chat(user,"<span class='notice'>You begin removing the disguise of [src]...</span>")
 	if(do_mob(user,src,20))
 		src.forceMove(original) //Just to get it out of our hands
-		if(!user.put_in_hands(original, forced = TRUE))
-			return
+		user.put_in_hands(original)
 		to_chat(user, "<span class='notice'>You reveal [original]!</span>")
 		qdel(src)
 
@@ -668,6 +665,13 @@ Loyal extracts:
 
 /datum/component/loyal_effect/gold
 	prefix = "responsive"
+
+/datum/component/loyal_effect/gold/Initialize(obj/item/attached_item)
+	. = ..()
+	RegisterSignal(attached_item, COMSIG_CLICK, .proc/fling_to_user)
+
+/datum/component/loyal_effect/gold/proc/fling_to_user(datum/source, location, control, params, mob/user)
+	attached.throw_at(user, 4, 3)
 
 /obj/item/slimecross/loyal/oil
 	colour = "oil"
@@ -716,7 +720,7 @@ Loyal extracts:
 	to_chat(user, "<span class='notice'>You offer [src] to [target]...</span>")
 	being_used = TRUE
 
-	var/list/candidates = pollCandidatesForMob("Do you want to play as [target.name]?", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, target, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm
+	var/list/candidates = pollCandidatesForMob("Do you want to play as [target]?", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, target, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		C.loc = target
