@@ -58,6 +58,10 @@
 	wing_type = "plain"
 	canopen = FALSE
 
+/obj/item/organ/wings/moth/robust
+	desc = "A pair of moth wings. They look robust enough to fly in an atmosphere"
+	flight_level = WINGS_FLYING
+
 /obj/item/organ/wings/moth/on_life()
 	. = ..()
 	if(ishuman(owner))
@@ -80,6 +84,10 @@
 	icon_state = "dragonwings"
 	flight_level = WINGS_FLYING
 	wing_type = "Dragon"
+
+/obj/item/organ/wings/dragon/fake
+	desc = "A pair of fake dragon wings. They're useless"
+	flight_level = WINGS_COSMETIC
 
 /obj/item/organ/wings/bee
 	name = "pair of bee wings"
