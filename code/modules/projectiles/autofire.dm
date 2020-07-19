@@ -18,7 +18,7 @@ This system lets you spray and pray with guns when dragging the mouse.
 	if(user.get_active_held_item() != src)
 		return FALSE
 
-	if(istype(target, /obj/screen))
+	if(istype(target, /obj/screen) || istype(target, /obj/machinery/recharger))
 		return FALSE
 
 	if(target in user.contents) //can't shoot stuff inside us.
@@ -34,6 +34,8 @@ This system lets you spray and pray with guns when dragging the mouse.
 		if(clumsy_check)//If theyre a clown, they can't autofire.
 			if (HAS_TRAIT(user, TRAIT_CLUMSY))
 				return FALSE
+		if(!isturf(user.loc)) //no shooting in a locker
+			return FALSE
 
 	if(!can_shoot()) //Just because you can pull the trigger doesn't mean it can shoot. (*CLICK*)
 		return FALSE
@@ -58,6 +60,7 @@ This system lets you spray and pray with guns when dragging the mouse.
 	while(autofire_target)  //While will only run while we have a user (loc) that is a mob, and we are being actively held by this mob, they have a client (as to prevent disconnecting mid-fight causing you to perma-fire) and of course, if we passed the previous check about autofiring.
 		if(can_fire_at(autofire_target, user))
 			afterattack(autofire_target, user)
+			user.face_atom(autofire_target)
 		else
 			autofire_target = null
 			return FALSE
