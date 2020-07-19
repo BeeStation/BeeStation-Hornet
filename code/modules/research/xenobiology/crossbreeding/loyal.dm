@@ -17,6 +17,7 @@ Loyal extracts:
 		return FALSE
 	var/datum/component/loyal_effect/new_effect = target.AddComponent(loyaleffect, target)
 	to_chat(user, "<span class='notice'>You smear the [target] with [src], making it [new_effect.prefix]!</span>")
+	target.name = "[new_effect.prefix] [target.name]"
 	qdel(src)
 	return TRUE
 
@@ -28,7 +29,6 @@ Loyal extracts:
 	if(!attached_item)
 		return
 	attached = attached_item
-	attached.name = "[prefix] [attached.name]"
 
 /obj/item/slimecross/loyal/grey
 	colour = "grey"
@@ -179,7 +179,7 @@ Loyal extracts:
 
 /datum/component/loyal_effect/metal/Initialize(obj/item/attached_item)
 	. = ..()
-	attached_item.armor.attachArmor(list("melee" = 10, "bullet" = 5, "bomb" = 5))
+	attached_item.armor = attached_item.armor.attachArmor(list("melee" = 10, "bullet" = 5, "bomb" = 5))
 
 /obj/item/slimecross/loyal/yellow
 	colour = "yellow"
@@ -195,11 +195,32 @@ Loyal extracts:
 
 /obj/item/slimecross/loyal/darkpurple
 	colour = "dark purple"
-	effect_desc = "Makes an item combustible and explosive."
+	effect_desc = "Makes an item combustible like plasma."
 	loyaleffect = /datum/component/loyal_effect/darkpurple
 
 /datum/component/loyal_effect/darkpurple
 	prefix = "combustible"
+
+/datum/component/loyal_effect/darkpurple/Initialize(obj/item/attached_item)
+	. = ..()
+	RegisterSignal(attached_item, COMSIG_ATOM_FIRE_ACT, .proc/fire_act_loyal)
+	RegisterSignal(attached_item, COMSIG_PARENT_ATTACKBY, .proc/hot_check)
+	attached_item.resistance_flags |= FLAMMABLE
+	attached_item.resistance_flags &= !FIRE_PROOF //There's gotta be a better way to bitwise this
+
+/datum/component/loyal_effect/darkpurple/proc/fire_act_loyal(datum/source, exposed_temperature, exposed_volume)
+	burn_up(exposed_temperature)
+
+/datum/component/loyal_effect/darkpurple/proc/hot_check(datum/source, obj/item/I, mob/user, params)
+	if(!I)
+		return
+	var/hotness = I.is_hot()
+	if(hotness)
+		burn_up(hotness)
+
+/datum/component/loyal_effect/darkpurple/proc/burn_up(exposed_temperature)
+	attached.atmos_spawn_air("plasma=[attached.w_class*30];TEMP=[exposed_temperature]") //Same as plasma sheets. bigger items make more plasma.
+	qdel(attached)
 
 /obj/item/slimecross/loyal/darkblue
 	colour = "dark blue"
@@ -229,7 +250,6 @@ Loyal extracts:
 		attached_user.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
 
 /datum/component/loyal_effect/darkblue/proc/cryo_attack(datum/source, mob/living/carbon/C, mob/user)
-	. = ..()
 	C.adjust_bodytemperature(150 - C.bodytemperature) //Stolen from cryo projectile code
 
 /datum/component/loyal_effect/darkblue/proc/equippedChanged(datum/source, mob/living/carbon/user, slot)
@@ -268,6 +288,8 @@ Loyal extracts:
 	compressed_item.forceMove(attached_item)
 
 /obj/item/proc/Compress(mob/user)
+	if(user.get_active_held_item() != src) //It's gotta be the active item
+		return
 	var/datum/component/loyal_effect/bluespace/compression_component = GetComponent(/datum/component/loyal_effect/bluespace)
 	if(!compression_component) //Inspired by compressionkit code
 		return
@@ -280,7 +302,8 @@ Loyal extracts:
 	to_chat(user,"<span class='notice'>You begin compressing [src]...</span>")
 	if(do_mob(user, src, 20))
 		src.forceMove(compressed.loc)
-		user.putItemFromInventoryInHandIfPossible(compressed, user.active_hand_index, TRUE)
+		if(!user.put_in_hands(compressed, forced = TRUE))
+			return
 		to_chat(user, "<span class='notice'>You successfully compress [src]!</span>")
 
 /obj/item/telescopic_item
@@ -300,7 +323,8 @@ Loyal extracts:
 	to_chat(user,"<span class='notice'>You begin uncompressing [src]...</span>")
 	if(do_mob(user,src,20))
 		src.forceMove(original.loc)
-		user.putItemFromInventoryInHandIfPossible(original, user.active_hand_index, TRUE)
+		if(!user.put_in_hands(original, forced = TRUE))
+			return
 		to_chat(user, "<span class='notice'>You uncompress [src]!</span>")
 
 /obj/item/slimecross/loyal/sepia
@@ -535,6 +559,8 @@ Loyal extracts:
 	attached_item.verbs += /obj/item/proc/Disguise
 
 /obj/item/proc/Disguise(mob/user)
+	if(user.get_active_held_item() != src)
+		return
 	var/disguise_list //Possible disguises. If there is a common file of items by weight, let me know.
 	switch(w_class)
 		if(WEIGHT_CLASS_TINY)
@@ -587,7 +613,7 @@ Loyal extracts:
 		disguised_item.original = src
 		src.forceMove(disguised_item)
 		disguised_item.forceMove(src)
-		user.putItemFromInventoryInHandIfPossible(disguised_item, user.active_hand_index, TRUE)
+		user.put_in_hands(disguised_item, forced = TRUE)
 	qdel(disguise)
 
 /obj/item/disguised_item
@@ -602,8 +628,9 @@ Loyal extracts:
 /obj/item/disguised_item/attack_self(mob/user)
 	to_chat(user,"<span class='notice'>You begin removing the disguise of [src]...</span>")
 	if(do_mob(user,src,20))
-		src.forceMove(original.loc) //Just to get it out of our hands
-		user.putItemFromInventoryInHandIfPossible(original, user.active_hand_index, TRUE)
+		src.forceMove(original) //Just to get it out of our hands
+		if(!user.put_in_hands(original, forced = TRUE))
+			return
 		to_chat(user, "<span class='notice'>You reveal [original]!</span>")
 		qdel(src)
 
@@ -729,7 +756,7 @@ Loyal extracts:
 /datum/component/loyal_effect/adamantine/Initialize(obj/item/attached_item)
 	. = ..()
 	attached_item.resistance_flags |= FIRE_PROOF
-	attached_item.armor.attachArmor(list("laser" = 10, "energy" = 10, "fire" = 50, "acid" = 20))
+	attached_item.armor = attached_item.armor.attachArmor(list("laser" = 10, "energy" = 10, "fire" = 50, "acid" = 20))
 
 /obj/item/slimecross/loyal/rainbow
 	colour = "rainbow"
