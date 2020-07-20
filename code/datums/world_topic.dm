@@ -189,6 +189,7 @@
 
 /datum/world_topic/identify_uuid/Run(list/input, addr)
 	var/uuid = input["uuid"]
+	. = list()
 
 	if(!SSdbcore.Connect())
 		return null
@@ -200,7 +201,11 @@
 	if(!query_ckey_lookup.Execute())
 		qdel(query_ckey_lookup)
 		return null
-	var/retrieved_ckey = query_ckey_lookup.item[1]
-	return retrieved_ckey
+
+	.["identified_ckey"] = null
+	if(query_ckey_lookup.NextRow())
+		.["identified_ckey"] = query_ckey_lookup.item[1]
+	qdel(query_ckey_lookup)
+	return .
 
 
