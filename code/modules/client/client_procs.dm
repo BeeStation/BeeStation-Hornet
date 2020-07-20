@@ -404,6 +404,9 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	check_ip_intel()
 	validate_key_in_db()
 
+	if(CONFIG_GET(flag/discord_verification))
+		verbs += /client/proc/discord_verify
+
 	send_resources()
 
 	generate_clickcatcher()
@@ -470,6 +473,40 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		GLOB.joined_player_list -= ckey
 	src << link("[redirect_address]")
 	qdel(src)
+
+/client/proc/generate_uuid()
+	var/fiftyfifty = prob(50) ? FEMALE : MALE
+	var/hashtext = "[ckey][world.realtime][rand(1, 100)][random_unique_name(fiftyfifty)]"
+	var/uuid = "[rustg_hash_string(RUSTG_HASH_SHA256, hashtext)]"
+
+	if(!SSdbcore.Connect())
+		return FALSE
+
+	var/datum/DBQuery/query_update_uuid = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("player")] SET uuid = :uuid WHERE ckey = :ckey",
+		list("uuid" = uuid, "ckey" = ckey)
+	)
+	query_update_uuid.Execute()
+	qdel(query_update_uuid)
+
+	return uuid
+
+/client/proc/fetch_uuid()
+	if(!SSdbcore.Connect())
+		return FALSE
+
+	var/datum/DBQuery/query_get_uuid = SSdbcore.NewQuery(
+		"SELECT uuid FROM [format_table_name("player")] WHERE ckey = :ckey",
+		list("ckey" = ckey)
+	)
+	if(!query_get_uuid.Execute())
+		qdel(query_get_uuid)
+		return FALSE
+	var/uuid = query_get_uuid.item[1]
+	if(uuid == null)
+		return generate_uuid()
+	else
+		return uuid
 
 //////////////
 //DISCONNECT//
@@ -973,3 +1010,28 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		screen -= S
 		qdel(S)
 	char_render_holders = null
+
+/client/proc/discord_verify()
+	set name = "Discord Verify"
+	set category = "OOC"
+	set desc ="Get your ID for Discord verification."
+
+	if(!CONFIG_GET(flag/discord_verification))
+		return
+
+	verbs -= /client/proc/discord_verify
+	addtimer(CALLBACK(src, .proc/restore_fucky_wucky), 20) //Don't DoS DB queries, asshole
+
+	var/confirm = alert("Do NOT share the verification ID in the following popup. Understand?", "Important Warning", "Yes", "Cancel")
+	if(confirm == "Cancel")
+		return
+	if(confirm == "Yes")
+		var/uuid = fetch_uuid()
+		if(!uuid)
+			alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Discord Verification", "Okay")
+			log_sql("Failed to fetch UUID for [key_name(src)]")
+		else
+			alert("Copy the following ID to paste into Discord: \n [uuid]", "Discord Verification", "Close")
+
+/client/proc/restore_discord_verify()
+	verbs += /client/proc/discord_verify

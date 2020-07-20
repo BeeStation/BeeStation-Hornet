@@ -37,6 +37,8 @@
 	integer = FALSE
 	min_val = 0
 
+/datum/config_entry/flag/discord_verification
+
 /datum/config_entry/flag/hub	// if the game appears on the hub or not
 
 /datum/config_entry/flag/log_ooc	// log OOC channel
