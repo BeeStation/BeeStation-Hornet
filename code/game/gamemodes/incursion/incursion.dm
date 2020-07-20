@@ -49,7 +49,6 @@
 	var/datum/team/incursion/team = pre_incursionist_team
 	team.forge_team_objectives()
 	for(var/datum/mind/M in team.members)
-		incursionists += M
 		M.add_antag_datum(/datum/antagonist/incursion, team)
 	incursion_team = pre_incursionist_team
 	return ..()
