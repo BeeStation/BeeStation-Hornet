@@ -12,6 +12,7 @@
 #define ROLE_CHANGELING			"Changeling"
 #define ROLE_WIZARD				"Wizard"
 #define ROLE_MALF				"Malf AI"
+#define ROLE_INCURSIONIST		"Incursionist"
 #define ROLE_REV				"Revolutionary"
 #define ROLE_REV_HEAD			"Head Revolutionary"
 #define ROLE_ALIEN				"Xenomorph"

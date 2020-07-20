@@ -188,6 +188,16 @@ GLOBAL_LIST_EMPTY(objectives)
 /datum/objective/assassinate/admin_edit(mob/admin)
 	admin_simple_target_pick(admin)
 
+/datum/objective/assassinate/incursion
+	name = "eliminate"
+
+/datum/objective/assassinate/incursion/update_explanation_text()
+	..()
+	if(target && target.current)
+		explanation_text = "[target.name], the [!target_role_type ? target.assigned_role : target.special_role] has been declared an ex-communicate of the syndicate. Eliminate them."
+	else
+		explanation_text = "Free Objective"
+
 /datum/objective/assassinate/internal
 	var/stolen = 0 		//Have we already eliminated this target?
 
@@ -377,6 +387,19 @@ GLOBAL_LIST_EMPTY(objectives)
 		if(!considered_escaped(M))
 			return FALSE
 	return TRUE
+
+/datum/objective/escape/single
+	name = "escape"
+	explanation_text = "Escape on the shuttle or an escape pod alive and without being in custody."
+	team_explanation_text = "Have at least one of your members escape on the shuttle or escape pod alive and without being in custody."
+
+/datum/objective/escape/single/check_completion()
+	// Require all owners escape safely.
+	var/list/datum/mind/owners = get_owners()
+	for(var/datum/mind/M in owners)
+		if(considered_escaped(M))
+			return TRUE
+	return FALSE
 
 /datum/objective/escape/escape_with_identity
 	name = "escape with identity"

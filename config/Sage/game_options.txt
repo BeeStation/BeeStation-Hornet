@@ -237,6 +237,16 @@ PROTECT_ROLES_FROM_ANTAGONIST
 ## If late-joining players have a chance to become a traitor/changeling
 ALLOW_LATEJOIN_ANTAGONISTS
 
+## Incursion Rules
+## The more incursion-traitors spawn, the most pop is required to spawn the next
+## Values of 6 and 2 will be 6 for 1 then (6) + (6 + 2) for 2
+## 6, 14, 24, 36, 50, 66, 84
+INCURSION_COST_BASE 6
+INCURSION_COST_INCREMENT 2
+INCURSION_COUNT_MAX 6
+INCURSION_COUNT_MIN 2
+INCURSION_OBJECTIVE_AMOUNT 4
+
 ## Comment this out to disable the antagonist reputation system. This system rewards players who participate in the game instead of greytiding by giving them slightly higher odds to
 ## roll antagonist in subsequent rounds until they get it.
 ##
