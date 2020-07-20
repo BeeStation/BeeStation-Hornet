@@ -12,7 +12,7 @@
 	<span class='danger'>Incursionists</span>: Accomplish your objectives.\n\
 	<span class='notice'>Crew</span>: Find and prevent the operatives from completing their goals!"
 
-	var/datum/team/incursion/pre_incursionist_teams
+	var/datum/team/incursion/pre_incursionist_team
 	var/const/team_amount = 1 //hard limit on brother teams if scaling is turned off
 	var/const/min_team_size = 2
 
@@ -21,11 +21,10 @@
 		restricted_jobs += protected_jobs
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
-	var/incursion_teams = team_amount
 
-	var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_INCURSIONIST)
+	var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_INCURSION)
 
-	var/datum/team/incursion_team/team = new
+	var/datum/team/incursion/team = new
 	var/cost_base = CONFIG_GET(number/incursion_cost_base)
 	var/cost_increment = CONFIG_GET(number/incursion_cost_increment)
 	var/pop = GLOB.player_details.len
@@ -33,25 +32,26 @@
 	team_size = CLAMP(team_size, CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 
 	for(var/k = 1 to team_size)
-		var/datum/mind/incursion = antag_pick(possible_traitors, ROLE_INCURSIONIST)
+		var/datum/mind/incursion = antag_pick(possible_traitors, ROLE_INCURSION)
 		if(!incursion)
-			return FALSE
+			message_admins("Ran out of people to put in an incursion team, wanted [team_size] but only got [k-1]")
+			break
 		possible_traitors -= incursion
 		antag_candidates -= incursion
 		team.add_member(incursion)
 		incursion.special_role = "incursionist"
 		incursion.restricted_roles = restricted_jobs
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")
-	pre_incursionist_teams = team
+	pre_incursionist_team = team
 	return TRUE
 
 /datum/game_mode/incursion/post_setup()
-	var/datum/team/incursion/team = pre_incursionist_teams
+	var/datum/team/incursion/team = pre_incursionist_team
 	team.forge_team_objectives()
 	for(var/datum/mind/M in team.members)
 		incursionists += M
 		M.add_antag_datum(/datum/antagonist/incursion, team)
-	incursion_team = pre_incursionist_teams
+	incursion_team = pre_incursionist_team
 	return ..()
 
 /datum/game_mode/incursion/generate_report()

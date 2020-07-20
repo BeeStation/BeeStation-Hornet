@@ -3,11 +3,11 @@
 	antagpanel_category = "Incursion"
 	job_rank = ROLE_INCURSION
 	var/special_role = ROLE_INCURSION
-	var/datum/team/incursion_team/team
+	var/datum/team/incursion/team
 	antag_moodlet = /datum/mood_event/focused
 	can_hijack = HIJACK_HIJACKER
 
-/datum/antagonist/incursion/create_team(datum/team/incursion_team/new_team)
+/datum/antagonist/incursion/create_team(datum/team/incursion/new_team)
 	if(!new_team)
 		return
 	if(!istype(new_team))
@@ -56,6 +56,7 @@
 /datum/antagonist/incursion/proc/finalize_incursion()
 	SSticker.mode.update_incursion_icons_added(owner)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
+	equip()
 
 /datum/antagonist/incursion/admin_add(datum/mind/new_owner,mob/admin)
 	//show list of possible brothers
@@ -73,17 +74,22 @@
 		SSticker.mode.incursion_team.forge_team_objectives()
 		new_owner.add_antag_datum(/datum/antagonist/incursion, SSticker.mode.incursion_team)
 		message_admins("New incursion team created by [key_name_admin(admin)]")
-	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] and [key_name_admin(bro)] into blood brothers.")
-	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(bro)] into blood brothers.")
+	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] and [key_name_admin(new_owner.current)] into blood brothers.")
+	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into blood brothers.")
 
-/datum/team/incursion_team
+/datum/antagonist/incursion/proc/equip(var/silent = FALSE)
+	owner.equip_traitor("The Syndicate", silent, src)
+	for(var/obj/item/radio/headset/H in owner.current.get_contents())
+		H.syndie = TRUE
+
+/datum/team/incursion
 	name = "syndicate incursion force"
 	member_name = "incursion member"
 
-/datum/team/incursion_team/is_solo()
+/datum/team/incursion/is_solo()
 	return FALSE
 
-/datum/team/incursion_team/roundend_report()
+/datum/team/incursion/roundend_report()
 	var/list/parts = list()
 
 	parts += "<span class='header'>The members of the Syndicate incursion were:</span>"
@@ -105,7 +111,7 @@
 
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
-/datum/team/incursion_team/proc/add_objective(datum/objective/O, needs_target = FALSE)
+/datum/team/incursion/proc/add_objective(datum/objective/O, needs_target = FALSE)
 	O.team = src
 	if(needs_target)
 		O.find_target(dupe_search_range = list(src))
@@ -114,7 +120,7 @@
 	for(var/datum/mind/member in members)
 		log_objective(member, O.explanation_text)
 
-/datum/team/incursion_team/proc/forge_team_objectives()
+/datum/team/incursion/proc/forge_team_objectives()
 	objectives = list()
 	var/is_hijacker = prob(30)
 	for(var/i = 1 to max(1, CONFIG_GET(number/incursion_objective_amount)))
@@ -125,7 +131,7 @@
 	else if(!(locate(/datum/objective/escape/single) in objectives))
 		add_objective(new/datum/objective/escape/single, FALSE)
 
-/datum/team/incursion_team/proc/forge_single_objective(difficulty=1)
+/datum/team/incursion/proc/forge_single_objective(difficulty=1)
 	difficulty = CLAMP(difficulty, 1, 3)
 	switch(difficulty)
 		if(3)
@@ -135,6 +141,7 @@
 			else if(prob(40))
 				//Kill head
 				var/datum/objective/assassinate/killchosen = new
+				var/current_heads = SSjob.get_all_heads()
 				var/datum/mind/selected = pick(current_heads)
 				killchosen.target = selected
 				add_objective(killchosen, FALSE)
@@ -143,18 +150,18 @@
 				generate_traitor_kill_objective()
 		if(2)
 			if(prob(30))
-			add_objective(new/datum/objective/maroon, TRUE)
-		else
-			add_objective(new/datum/objective/assassinate, TRUE)
+				add_objective(new/datum/objective/maroon, TRUE)
+			else
+				add_objective(new/datum/objective/assassinate, TRUE)
 		if(1)
 			if(prob(60))
 				add_objective(new/datum/objective/steal, TRUE)
 			else
 				add_objective(new/datum/objective/assassinate, TRUE)
 
-/datum/team/incursion_team/proc/generate_traitor_kill_objective()
+/datum/team/incursion/proc/generate_traitor_kill_objective()
 	//Spawn someone as a traitor
-	var/datum/mind/target = antag_pick(get_players_for_role(ROLE_INCURSIONIST), ROLE_INCURSIONIST)
+	var/datum/mind/target = SSticker.mode.antag_pick(SSticker.mode.get_players_for_role(ROLE_INCURSION), ROLE_INCURSION)
 	if(!target)
 		return
 	target.make_Traitor()
@@ -165,5 +172,7 @@
 	killchosen.target = target
 	add_objective(killchosen, FALSE)
 
-/datum/team/incursion_team/antag_listing_name()
+/datum/team/incursion/antag_listing_name()
 	return "[name]"
+
+
