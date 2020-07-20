@@ -93,8 +93,8 @@
 		if(client && mind)
 			var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling)
-				stat("Chemical Storage", "[changeling.chem_charges]/[changeling.chem_storage]")
-				stat("Absorbed DNA", changeling.absorbedcount)
+				stat(null, "Chemical Storage: [changeling.chem_charges]/[changeling.chem_storage]")
+				stat(null, "Absorbed DNA: [changeling.absorbedcount]")
 	return
 
 
