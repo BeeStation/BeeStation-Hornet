@@ -88,6 +88,9 @@ Loyal extracts:
 	if(istype(attached_item, /obj/item/clothing)) //We only care if it's clothes.
 		START_PROCESSING(SSobj,src)
 		RegisterSignal(attached_item, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), .proc/equippedChanged)
+		var/wearer = attached_item.loc
+		if(ishuman(wearer))
+			attached_user = wearer //This should make it start healing if applied directly to worn clothes
 
 /datum/component/loyal_effect/purple/Destroy()
 	STOP_PROCESSING(SSobj,src)
@@ -191,7 +194,11 @@ Loyal extracts:
 
 /datum/component/loyal_effect/yellow/Initialize(obj/item/attached_item)
 	. = ..()
-	attached_item.set_light(l_range = 5, l_power = 1) //A bit wider than a flashlight
+	var/datum/light_source/newlight = new(attached_item, attached_item)
+	newlight.light_power = 1
+	newlight.light_range = 5
+	newlight.light_color = "FFFFA0" //Off yellow
+	//attached_item.set_light(l_range = 5, l_power = 1) //A bit wider than a flashlight
 
 /obj/item/slimecross/loyal/darkpurple
 	colour = "dark purple"
@@ -671,7 +678,10 @@ Loyal extracts:
 	RegisterSignal(attached_item, COMSIG_CLICK, .proc/fling_to_user)
 
 /datum/component/loyal_effect/gold/proc/fling_to_user(datum/source, location, control, params, mob/user)
-	attached.throw_at(user, 4, 3)
+	var/list/modifiers = params2list(params)
+	if(modifiers["shift"] || modifiers["ctrl"] || modifiers["alt"] || modifiers["middle"]) //There's probably a better way to do this
+		return
+	attached.throw_at(user, 6, 2)
 
 /obj/item/slimecross/loyal/oil
 	colour = "oil"
@@ -688,20 +698,15 @@ Loyal extracts:
 
 /obj/item/slimecross/loyal/black
 	colour = "black"
-	effect_desc = "Transforms the item into an obediant black slime. Upon death, the slime will revert back into the object."
+	effect_desc = "Summons an obediant black slime, and places the target item inside. Upon death, the slime will drop the object."
 	loyaleffect = /datum/component/loyal_effect/black
 
 /obj/item/slimecross/loyal/black/afterattack(obj/item/target,mob/user,proximity)
-	if(!proximity || target.GetComponent(/datum/component/loyal_effect))
-		return
 	if(!..())
 		return
-	var/mob/living/simple_animal/slime/blackslime = new /mob/living/simple_animal/slime(target.loc,FALSE, "black", TRUE)
-	blackslime.Friends[user] = 10 //This should be obediant enough
-	target.forceMove(blackslime)
-	//target.RegisterSignal(blackslime, COMSIG_MOB_DEATH, .proc/drop_attached)
-
-//mob/living/simple_animal/slime/proc/drop_attached(datum/source, gibbed)
+	var/mob/living/simple_animal/slime/transformedslime/holding_slime = new(user.loc,mapload=FALSE, new_color="black", new_is_adult=TRUE) //Transformed so it can't reproduce
+	holding_slime.Friends[user] = 10 //This should be obediant enough
+	target.forceMove(holding_slime)
 
 /datum/component/loyal_effect/black
 	prefix = "transformative"
