@@ -1038,7 +1038,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			dat += "<br>"
 			dat += "[uuid]"
 
-			src << browse(dat, "window=accountidentifier;size=320x600")
+			src << browse(dat, "window=accountidentifier;size=600x320")
 			onclose(src, "accountidentifier")
 
 /client/proc/restore_account_identifier()
