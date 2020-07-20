@@ -185,6 +185,7 @@
 /datum/world_topic/identify_uuid
 	keyword = "identify_uuid"
 	require_comms_key = TRUE
+	log = FALSE
 
 /datum/world_topic/identify_uuid/Run(list/input, addr)
 	var/uuid = input["uuid"]
