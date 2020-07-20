@@ -182,3 +182,24 @@
 		.["shuttle_timer"] = SSshuttle.emergency.timeLeft()
 		// Shuttle timer, in seconds
 
+/datum/world_topic/identify_uuid
+	keyword = "identify_uuid"
+	require_comms_key = TRUE
+
+/datum/world_topic/identify_uuid/Run(list/input, addr)
+	var/uuid = input["uuid"]
+
+	if(!SSdbcore.Connect())
+		return null
+
+	var/datum/DBQuery/query_ckey_lookup = SSdbcore.NewQuery(
+		"SELECT ckey FROM [format_table_name("player")] WHERE uuid = :uuid",
+		list("uuid" = uuid)
+	)
+	if(!query_ckey_lookup.Execute())
+		qdel(query_ckey_lookup)
+		return null
+	var/retrieved_ckey = query_ckey_lookup.item[1]
+	return retrieved_ckey
+
+
