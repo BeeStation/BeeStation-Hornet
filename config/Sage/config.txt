@@ -86,9 +86,6 @@ USE_EXP_RESTRICTIONS_OTHER
 ## Allows admins to bypass job playtime requirements.
 USE_EXP_RESTRICTIONS_ADMIN_BYPASS
 
-## Uncomment this to enable discord verification
-#DISCORD_VERIFICATION
-
 ## log OOC channel
 LOG_OOC
 

@@ -404,8 +404,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	check_ip_intel()
 	validate_key_in_db()
 
-	if(CONFIG_GET(flag/discord_verification))
-		verbs += /client/proc/discord_verify
+	verbs += /client/proc/show_account_identifier
 
 	send_resources()
 
@@ -1011,16 +1010,13 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		qdel(S)
 	char_render_holders = null
 
-/client/proc/discord_verify()
-	set name = "Discord Verify"
+/client/proc/show_account_identifier()
+	set name = "Show Account Identifier"
 	set category = "OOC"
-	set desc ="Get your ID for Discord verification."
+	set desc ="Get your ID for account verification."
 
-	if(!CONFIG_GET(flag/discord_verification))
-		return
-
-	verbs -= /client/proc/discord_verify
-	addtimer(CALLBACK(src, .proc/restore_fucky_wucky), 20) //Don't DoS DB queries, asshole
+	verbs -= /client/proc/show_account_identifier
+	addtimer(CALLBACK(src, .proc/restore_account_identifier), 20) //Don't DoS DB queries, asshole
 
 	var/confirm = alert("Do NOT share the verification ID in the following popup. Understand?", "Important Warning", "Yes", "Cancel")
 	if(confirm == "Cancel")
@@ -1028,10 +1024,10 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	if(confirm == "Yes")
 		var/uuid = fetch_uuid()
 		if(!uuid)
-			alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Discord Verification", "Okay")
+			alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Account Verification", "Okay")
 			log_sql("Failed to fetch UUID for [key_name(src)]")
 		else
-			alert("Copy the following ID to paste into Discord: \n [uuid]", "Discord Verification", "Close")
+			alert("Copy the following ID to use for account verification: \n [uuid]", "Account Verification", "Close")
 
-/client/proc/restore_discord_verify()
-	verbs += /client/proc/discord_verify
+/client/proc/restore_account_identifier()
+	verbs += /client/proc/show_account_identifier
