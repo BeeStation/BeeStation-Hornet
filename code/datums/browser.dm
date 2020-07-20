@@ -440,7 +440,7 @@
 // Otherwise, the user mob's machine var will be reset directly.
 //
 /proc/onclose(user, windowid, atom/ref=null)
-	if(isnull(user) || (user != client && isnull(user.client))
+	if(isnull(user))
 		return
 	var/param = "null"
 	if(ref)
