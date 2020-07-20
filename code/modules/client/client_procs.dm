@@ -1036,9 +1036,8 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			dat += "<br>"
 			dat += "[uuid]"
 
-			var/datum/browser/popup = new(src, "accountidentifier", "Account Identifier", 600, 400)
-			popup.set_content(dat)
-			popup.open()
+			src << browse(dat, "window=accountidentifier;size=320x300")
+			onclose(src, "accountidentifier")
 
 /client/proc/restore_account_identifier()
 	verbs += /client/proc/show_account_identifier
