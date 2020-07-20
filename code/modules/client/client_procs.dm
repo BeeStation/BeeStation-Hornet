@@ -1032,11 +1032,13 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			log_sql("Failed to fetch UUID for [key_name(src)]")
 		else
 			var/dat
+			dat += "<h3>Account Identifier</h3>"
+			dat += "<br>"
 			dat += "<h3>Do NOT share this id:</h3>"
 			dat += "<br>"
 			dat += "[uuid]"
 
-			src << browse(dat, "window=accountidentifier;size=320x300")
+			src << browse(dat, "window=accountidentifier;size=320x600")
 			onclose(src, "accountidentifier")
 
 /client/proc/restore_account_identifier()
