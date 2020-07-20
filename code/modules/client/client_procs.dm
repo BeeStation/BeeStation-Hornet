@@ -404,6 +404,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	check_ip_intel()
 	validate_key_in_db()
 
+	fetch_uuid()
 	verbs += /client/proc/show_account_identifier
 
 	send_resources()
@@ -475,7 +476,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 
 /client/proc/generate_uuid()
 	var/fiftyfifty = prob(50) ? FEMALE : MALE
-	var/hashtext = "[ckey][world.realtime][rand(1, 100)][random_unique_name(fiftyfifty)]"
+	var/hashtext = "[ckey][rand(0,9999)][world.realtime][rand(0,9999)][random_unique_name(fiftyfifty)][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
 	var/uuid = "[rustg_hash_string(RUSTG_HASH_SHA256, hashtext)]"
 
 	if(!SSdbcore.Connect())
@@ -501,7 +502,10 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	if(!query_get_uuid.Execute())
 		qdel(query_get_uuid)
 		return FALSE
-	var/uuid = query_get_uuid.item[1]
+	var/uuid = null
+	if(query_get_uuid.NextRow())
+		uuid = query_get_uuid.item[1]
+	qdel(query_get_uuid)
 	if(uuid == null)
 		return generate_uuid()
 	else
@@ -1027,7 +1031,14 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Account Verification", "Okay")
 			log_sql("Failed to fetch UUID for [key_name(src)]")
 		else
-			alert("Copy the following ID to use for account verification: \n [uuid]", "Account Verification", "Close")
+			var/dat
+			dat += "<h3>Do NOT share this id:</h3>"
+			dat += "<br>"
+			dat += "[uuid]"
+
+			var/datum/browser/popup = new(src, "accountidentifier", "Account Identifier", 600, 400)
+			popup.set_content(dat)
+			popup.open()
 
 /client/proc/restore_account_identifier()
 	verbs += /client/proc/show_account_identifier
