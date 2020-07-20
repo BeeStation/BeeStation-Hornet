@@ -68,7 +68,7 @@
 	category = list("initial","Food")
 	
 /datum/design/sugar_sack
-	name = "Sugar sack"
+	name = "Sugar Sack"
 	id = "sugar_sack"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 200)
