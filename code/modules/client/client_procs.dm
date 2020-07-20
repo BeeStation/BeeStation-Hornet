@@ -475,6 +475,11 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	qdel(src)
 
 /client/proc/generate_uuid()
+	if(IsAdminAdvancedProcCall())
+		log_admin("Attempted admin generate_uuid() proc call blocked.")
+		message_admins("Attempted admin generate_uuid() proc call blocked.")
+		return FALSE
+
 	var/fiftyfifty = prob(50) ? FEMALE : MALE
 	var/hashtext = "[ckey][rand(0,9999)][world.realtime][rand(0,9999)][random_unique_name(fiftyfifty)][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
 	var/uuid = "[rustg_hash_string(RUSTG_HASH_SHA256, hashtext)]"
@@ -492,6 +497,11 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	return uuid
 
 /client/proc/fetch_uuid()
+	if(IsAdminAdvancedProcCall())
+		log_admin("Attempted admin fetch_uuid() proc call blocked.")
+		message_admins("Attempted admin fetch_uuid() proc call blocked.")
+		return FALSE
+
 	if(!SSdbcore.Connect())
 		return FALSE
 
