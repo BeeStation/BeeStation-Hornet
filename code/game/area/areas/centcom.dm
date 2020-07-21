@@ -29,7 +29,7 @@
 /area/centcom/holding
 	name = "Holding Facility"
 
-/area/centcom/supplypod/flyMeToTheMoon
+/area/centcom/supplypod/supplypod_temp_holding
 	name = "Supplypod Shipping lane"
 	icon_state = "supplypod_flight"
 
