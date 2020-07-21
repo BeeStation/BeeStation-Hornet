@@ -44,7 +44,7 @@
 		stylesheets["spritesheet_[sheet.name].css"] = "data/spritesheets/[sheet.name]"
 	else
 		var/asset_name = "[name].css"
-		
+
 		stylesheets[asset_name] = file
 
 		if (!SSassets.cache[asset_name])
@@ -439,8 +439,8 @@
 // to pass a "close=1" parameter to the atom's Topic() proc for special handling.
 // Otherwise, the user mob's machine var will be reset directly.
 //
-/proc/onclose(mob/user, windowid, atom/ref=null)
-	if(!user.client)
+/proc/onclose(user, windowid, atom/ref=null)
+	if(isnull(user))
 		return
 	var/param = "null"
 	if(ref)

@@ -298,6 +298,7 @@
 			var/species_holder = initial(mrace.species_language_holder)
 			language_holder = new species_holder(src)
 		update_atom_languages()
+		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	..()

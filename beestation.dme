@@ -391,6 +391,7 @@
 #include "code\datums\components\slippery.dm"
 #include "code\datums\components\snail_crawl.dm"
 #include "code\datums\components\spawner.dm"
+#include "code\datums\components\spikes.dm"
 #include "code\datums\components\spill.dm"
 #include "code\datums\components\spooky.dm"
 #include "code\datums\components\squeak.dm"

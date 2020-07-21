@@ -214,7 +214,8 @@
 		/obj/item/clothing/gloves,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/holosign_creator/security,
-		/obj/item/club
+		/obj/item/club,
+		/obj/item/shield/riot/tele
 		))
 
 /obj/item/storage/belt/security/full/PopulateContents()
