@@ -628,6 +628,7 @@
 	name = "Flight Potion"
 	description = "Strange mutagenic compound of unknown origins."
 	reagent_state = LIQUID
+	process_flags = ORGANIC | SYNTHETIC
 	color = "#FFEBEB"
 
 /datum/reagent/flightpotion/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
@@ -646,7 +647,10 @@
 					wings.flight_level += 1 //upgrade the flight level
 					wings.Insert(H) //they need to insert to get the flight emote
 			else
-				if(holycheck)
+				if(H.mob_biotypes & MOB_ROBOTIC)
+					var/obj/item/organ/wings/cybernetic/newwings = new()
+					newwings.Insert(H)
+				else if(holycheck)
 					var/obj/item/organ/wings/angel/newwings = new()
 					newwings.Insert(H)
 				else

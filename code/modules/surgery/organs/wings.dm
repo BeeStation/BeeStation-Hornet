@@ -8,6 +8,7 @@
 	var/basewings = "wings" //right now, this just determines whether the wings are normal wings or moth wings
 	var/wing_type = "Angel"
 	var/canopen = TRUE
+	var/wingsound = null
 	var/datum/action/innate/flight/fly
 
 /obj/item/organ/wings/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
@@ -36,6 +37,8 @@
 /obj/item/organ/wings/proc/toggleopen(mob/living/carbon/human/H) //opening and closing wings are purely cosmetic
 	if(!canopen)
 		return FALSE
+	if(wingsound)
+		playsound(H, wingsound, 100, 7)
 	if(basewings == "wings")
 		if("wings" in H.dna.species.mutant_bodyparts)
 			H.dna.species.mutant_bodyparts -= "wings"
@@ -48,6 +51,44 @@
 		H.update_body()
 		return TRUE
 	return FALSE
+
+/obj/item/organ/wings/cybernetic
+	name = "cybernetic wingpack"
+	desc = "A compact pair of mechanical wings, which use the atmosphere to create thrust."
+	icon_state = "wingpack"
+	flight_level = WINGS_FLYING
+	wing_type = "Robot"
+	wingsound = 'sound/items/change_jaws.ogg'
+
+/obj/item/organ/wings/cybernetic/emp_act(severity)
+	. = ..()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		var/datum/species/S = H.dna.species
+		var/outofcontrol = ((rand(1, 10)) * severity)
+		to_chat(H, "<span_class = 'userdanger'>You lose control of your [src]!</span>")
+		while(outofcontrol)
+			if(S.CanFly(H))
+				if(H.movement_type & FLYING)
+					var/throw_dir = pick(GLOB.alldirs)
+					var/atom/throw_target = get_edge_target_turf(H, throw_dir)
+					H.throw_at(throw_target, 5, 4)
+					if(prob(10))
+						S.toggle_flight(H)
+				else 
+					S.toggle_flight(H)
+					if(prob(50))
+						stoplag(5)
+						S.toggle_flight(H)
+			else 
+				H.Togglewings()
+			outofcontrol --
+			stoplag(5)
+
+/obj/item/organ/wings/cybernetic/ayy
+	name = "advanced cybernetic wingpack"
+	desc = "A compact pair of mechanical wings. They are equipped with miniaturized void engines, and can fly in any atmosphere, or lack thereof."
+	flight_level = WINGS_MAGIC	
 
 /obj/item/organ/wings/moth
 	name = "pair of moth wings"

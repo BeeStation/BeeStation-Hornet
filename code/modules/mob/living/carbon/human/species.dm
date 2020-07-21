@@ -1858,7 +1858,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
 	if(H.getorgan(/obj/item/organ/wings))
 		if(wings.flight_level >= WINGS_FLYING && H.movement_type & FLYING)
-			toggle_flight(H)
 			flyslip(H)
 	. = stunmod * H.physiology.stun_mod * amount
 
@@ -1915,9 +1914,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return FALSE
 	if(H.stat || !(H.mobility_flags & MOBILITY_STAND))
 		return FALSE
-	if(H.wear_suit && ((H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))	//Jumpsuits have tail holes, so it makes sense they have wing holes too
-		to_chat(H, "Your suit blocks your wings from extending!")
-		return FALSE
 	var/turf/T = get_turf(H)
 	if(!T)
 		return FALSE
@@ -1935,8 +1931,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		buckled_obj = H.buckled
 
 	to_chat(H, "<span class='notice'>Your wings spazz out and launch you!</span>")
-
-	playsound(H.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 
 	for(var/obj/item/I in H.held_items)
 		H.accident(I)
