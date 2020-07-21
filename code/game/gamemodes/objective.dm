@@ -329,6 +329,25 @@ GLOBAL_LIST_EMPTY(objectives)
 			return FALSE
 	return SSshuttle.emergency.is_hijacked()
 
+/datum/objective/hijack/single
+	name = "hijack"
+	explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive and out of custody."
+	team_explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive and out of custody. Team members lost is not a concern for this operation."
+	martyr_compatible = 0 //Technically you won't get both anyway.
+
+/datum/objective/hijack/single/check_completion() // Requires all owners to escape.
+	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
+		return FALSE
+	var/list/datum/mind/owners = get_owners()
+	var/single_escape = FALSE
+	for(var/datum/mind/M in owners)
+		if(considered_alive(M) && SSshuttle.emergency.shuttle_areas[get_area(M.current)])
+			single_escape = TRUE
+			break
+	if(!single_escape)
+		return FALSE
+	return SSshuttle.emergency.is_hijacked()
+
 /datum/objective/block
 	name = "no organics on shuttle"
 	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
