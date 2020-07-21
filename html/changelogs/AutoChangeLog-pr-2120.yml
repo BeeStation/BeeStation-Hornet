@@ -1,8 +1,0 @@
-author: zeskorion
-delete-after: true
-changes:
-  - tweak: spiked skin now works as intended, damaging mobs who touch the user instead
-      of just hitting those nearby
-  - balance: nerfed spike skin armor significantly
-  - code_imp: a few new comsigs (zesko has finally learned to use components. you
-      had better quiver in fear!)
