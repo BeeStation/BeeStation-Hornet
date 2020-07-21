@@ -404,6 +404,9 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	check_ip_intel()
 	validate_key_in_db()
 
+	fetch_uuid()
+	verbs += /client/proc/show_account_identifier
+
 	send_resources()
 
 	generate_clickcatcher()
@@ -470,6 +473,53 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		GLOB.joined_player_list -= ckey
 	src << link("[redirect_address]")
 	qdel(src)
+
+/client/proc/generate_uuid()
+	if(IsAdminAdvancedProcCall())
+		log_admin("Attempted admin generate_uuid() proc call blocked.")
+		message_admins("Attempted admin generate_uuid() proc call blocked.")
+		return FALSE
+
+	var/fiftyfifty = prob(50) ? FEMALE : MALE
+	var/hashtext = "[ckey][rand(0,9999)][world.realtime][rand(0,9999)][random_unique_name(fiftyfifty)][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)][GLOB.round_id]"
+	var/uuid = "[rustg_hash_string(RUSTG_HASH_SHA256, hashtext)]"
+
+	if(!SSdbcore.Connect())
+		return FALSE
+
+	var/datum/DBQuery/query_update_uuid = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("player")] SET uuid = :uuid WHERE ckey = :ckey",
+		list("uuid" = uuid, "ckey" = ckey)
+	)
+	query_update_uuid.Execute()
+	qdel(query_update_uuid)
+
+	return uuid
+
+/client/proc/fetch_uuid()
+	if(IsAdminAdvancedProcCall())
+		log_admin("Attempted admin fetch_uuid() proc call blocked.")
+		message_admins("Attempted admin fetch_uuid() proc call blocked.")
+		return FALSE
+
+	if(!SSdbcore.Connect())
+		return FALSE
+
+	var/datum/DBQuery/query_get_uuid = SSdbcore.NewQuery(
+		"SELECT uuid FROM [format_table_name("player")] WHERE ckey = :ckey",
+		list("ckey" = ckey)
+	)
+	if(!query_get_uuid.Execute())
+		qdel(query_get_uuid)
+		return FALSE
+	var/uuid = null
+	if(query_get_uuid.NextRow())
+		uuid = query_get_uuid.item[1]
+	qdel(query_get_uuid)
+	if(uuid == null)
+		return generate_uuid()
+	else
+		return uuid
 
 //////////////
 //DISCONNECT//
@@ -973,3 +1023,33 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		screen -= S
 		qdel(S)
 	char_render_holders = null
+
+/client/proc/show_account_identifier()
+	set name = "Show Account Identifier"
+	set category = "OOC"
+	set desc ="Get your ID for account verification."
+
+	verbs -= /client/proc/show_account_identifier
+	addtimer(CALLBACK(src, .proc/restore_account_identifier), 20) //Don't DoS DB queries, asshole
+
+	var/confirm = alert("Do NOT share the verification ID in the following popup. Understand?", "Important Warning", "Yes", "Cancel")
+	if(confirm == "Cancel")
+		return
+	if(confirm == "Yes")
+		var/uuid = fetch_uuid()
+		if(!uuid)
+			alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Account Verification", "Okay")
+			log_sql("Failed to fetch UUID for [key_name(src)]")
+		else
+			var/dat
+			dat += "<h3>Account Identifier</h3>"
+			dat += "<br>"
+			dat += "<h3>Do NOT share this id:</h3>"
+			dat += "<br>"
+			dat += "[uuid]"
+
+			src << browse(dat, "window=accountidentifier;size=600x320")
+			onclose(src, "accountidentifier")
+
+/client/proc/restore_account_identifier()
+	verbs += /client/proc/show_account_identifier

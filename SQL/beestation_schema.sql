@@ -302,12 +302,14 @@ CREATE TABLE IF NOT EXISTS `SS13_player` (
   `lastseen_round_id` int(11) unsigned NOT NULL,
   `ip` int(10) unsigned NOT NULL,
   `computerid` varchar(32) NOT NULL,
+  `uuid` varchar(64) DEFAULT NULL,
   `lastadminrank` varchar(32) NOT NULL DEFAULT 'Player',
   `accountjoindate` date DEFAULT NULL,
   `flags` smallint(5) unsigned NOT NULL DEFAULT '0',
   `antag_tokens` tinyint(4) unsigned DEFAULT '0',
   `metacoins` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`ckey`),
+  UNIQUE KEY (`uuid`),
   KEY `idx_player_cid_ckey` (`computerid`,`ckey`),
   KEY `idx_player_ip_ckey` (`ip`,`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -479,7 +481,7 @@ CREATE TABLE IF NOT EXISTS `SS13_schema_revision` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`major`,`minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 6);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 7);
 
 
 
