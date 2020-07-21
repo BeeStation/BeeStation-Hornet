@@ -123,7 +123,7 @@
 
 /datum/team/incursion/proc/forge_team_objectives()
 	objectives = list()
-	var/is_hijacker = prob(30)
+	var/is_hijacker = prob(20)
 	for(var/i = 1 to max(1, CONFIG_GET(number/incursion_objective_amount)))
 		forge_single_objective(CLAMP((4 + !is_hijacker)-i, 1, 3))	//Hijack = 3, 2, 1, 1 no hijack = 3, 3, 2, 1
 	if(is_hijacker)

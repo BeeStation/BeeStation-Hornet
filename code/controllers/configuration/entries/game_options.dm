@@ -116,7 +116,7 @@
 	min_val = 0
 
 /datum/config_entry/number/incursion_count_min	//Min number of players in the group
-	config_entry_value = 6
+	config_entry_value = 2
 	integer = TRUE
 	min_val = 1
 
