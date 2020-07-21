@@ -1,9 +1,11 @@
 /mob/living/simple_animal/slime
 	var/AIproc = 0 // determines if the AI loop is activated
-	var/Atkcool = 0 // attack cooldown
 	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
 	var/SStun = 0 // stun variable
 
+	var/monkey_bonus_damage = 2
+	var/attack_cooldown = 0
+	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
 
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
@@ -38,16 +40,15 @@
 		if(locate(/mob/living/simple_animal/slime) in Target.buckled_mobs)
 			slime_on_target = 1
 
-		if(Target in view(1,src))
-			if(CanFeedon(Target) && !slime_on_target && !Target.client)
-				Feedon(Target)
-			else if(CanFeedon(Target) && !slime_on_target && Target.client && (prob(20) || Target.health <= 20))
-				Feedon(Target)
-			else if(!Atkcool)
-				Atkcool = 1
-				spawn(45)
-					Atkcool = 0
-					Target.attack_slime(src)
+		if((Target in view(1,src)) && Target.Adjacent(src))
+			if(attack_cooldown < world.time && CanFeedon(Target) && !slime_on_target)
+				if(!Target.client || prob(20))
+					Feedon(Target)
+					AIproc = 0
+					return
+			if(attack_cooldown < world.time && (attacked || rabid))
+				Target.attack_slime(src)
+				attack_cooldown = world.time + attack_cooldown_time
 		else if(Target in view(7, src))
 			step_to(src, Target)
 		else
@@ -159,11 +160,10 @@
 
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		var/monkeydamage = 0
 		if(ismonkey(M))
-			monkeydamage = 2
+			C.adjustCloneLoss(monkey_bonus_damage)
 
-		C.adjustCloneLoss(4 + monkeydamage)
+		C.adjustCloneLoss(4)
 		C.adjustToxLoss(2)
 	else if(isanimal(M))
 		var/mob/living/simple_animal/SA = M
