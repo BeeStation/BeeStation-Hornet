@@ -1,0 +1,4 @@
+author: MrLostman
+delete-after: true
+changes:
+  - bugfix: fixed slimes attacking through windoors
