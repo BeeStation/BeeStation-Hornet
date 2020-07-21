@@ -1,0 +1,4 @@
+author: Dingo-Dongler
+delete-after: true
+changes:
+  - bugfix: Durathread and cotton bundles no longer stack together
