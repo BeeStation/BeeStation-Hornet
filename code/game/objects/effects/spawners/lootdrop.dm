@@ -216,7 +216,7 @@
 		/obj/effect/mob_spawn/human/corpse/assistant = 1,
 		/obj/effect/mob_spawn/teratomamonkey = 5,
 		/obj/item/organ/wings/moth/robust = 1,
-		/obj/item/organ/wings/dragon)
+		/obj/item/organ/wings/dragon = 1)
 
 /obj/effect/spawner/lootdrop/teratoma/major/clown
 	name = "funny teratoma spawner"
