@@ -1952,8 +1952,6 @@
 	description = "Induces muscle relaxation causing the target to drop items and fall on the ground"
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "relaxing"
-	can_synth = TRUE
-	random_unrestricted = TRUE
 
 /datum/reagent/peaceborg/inabizine/on_mob_life(mob/living/carbon/M)
 	if(prob(33))
