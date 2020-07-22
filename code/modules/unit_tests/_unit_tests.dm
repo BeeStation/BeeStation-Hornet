@@ -38,6 +38,7 @@
 #include "anchored_mobs.dm"
 #include "component_tests.dm"
 #include "dynamic_ruleset_sanity.dm"
+#include "keybinding_init.dm"
 #include "reagent_id_typos.dm"
 #include "reagent_recipe_collisions.dm"
 #include "spawn_humans.dm"
