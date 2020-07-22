@@ -54,8 +54,18 @@
 	to_chat(owner.current, "You have been implanted with a syndicate headset for communication with your team. This headset can only be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!")
 	owner.announce_objectives()
 
+/datum/antagonist/incursion/apply_innate_effects(mob/living/mob_override)
+	if(issilicon(owner))
+		var/mob/living/silicon/S = owner
+		if(istype(S.laws, /datum/ai_laws/syndicate_override))
+			SSticker.mode.update_incursion_icons_added(owner)
+	else
+		SSticker.mode.update_incursion_icons_added(owner)
+
+/datum/antagonist/incursion/remove_innate_effects(mob/living/mob_override)
+	SSticker.mode.update_incursion_icons_removed(owner)
+
 /datum/antagonist/incursion/proc/finalize_incursion()
-	SSticker.mode.update_incursion_icons_added(owner)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
 	equip()
 
