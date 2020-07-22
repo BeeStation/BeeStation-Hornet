@@ -51,7 +51,7 @@
 /datum/antagonist/incursion/greet()
 	to_chat(owner.current, "<span class='alertsyndie'>You are the member of a Syndicate incursion team!</span>")
 	to_chat(owner.current, "You are in a large undercover team determined to bring the fall of Nanotrasen.")
-	to_chat(owner.current, "You have been implanted with a syndicate headset for communication with your team.")
+	to_chat(owner.current, "You have been implanted with a syndicate headset for communication with your team. This headset can only be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!")
 	owner.announce_objectives()
 
 /datum/antagonist/incursion/proc/finalize_incursion()
@@ -80,7 +80,7 @@
 
 /datum/antagonist/incursion/proc/equip(var/silent = FALSE)
 	owner.equip_traitor("The Syndicate", silent, src)
-	var/obj/item/implant/radio/syndicate/syndio = new
+	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
 	syndio.implant(owner.current)
 
 /datum/team/incursion

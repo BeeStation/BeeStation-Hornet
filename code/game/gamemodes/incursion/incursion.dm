@@ -12,6 +12,8 @@
 	<span class='danger'>Incursionists</span>: Accomplish your objectives.\n\
 	<span class='notice'>Crew</span>: Find and prevent the operatives from completing their goals!"
 
+	required_enemies = 1
+
 	var/datum/team/incursion/pre_incursionist_team
 	var/const/team_amount = 1 //hard limit on brother teams if scaling is turned off
 	var/const/min_team_size = 2
