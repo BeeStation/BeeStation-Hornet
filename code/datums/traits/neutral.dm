@@ -20,13 +20,13 @@
 
 /datum/quirk/foreigner/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(ishumanbasic(H) || isfelinid(H) || islizard(H) || isplasmaman(H) || isflyperson(H) || ismoth(H) || isethereal(H))
+	if(ishumanbasic(H) || iscatperson(H) || islizard(H) || isplasmaman(H) || isflyperson(H) || ismoth(H) || isethereal(H))
 		H.add_blocked_language(/datum/language/common)
 		H.grant_language(/datum/language/uncommon)
 
 /datum/quirk/foreigner/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(ishumanbasic(H) || isfelinid(H) || islizard(H) || isplasmaman(H) || isflyperson(H) || ismoth(H) || isethereal(H))
+	if(ishumanbasic(H) || iscatperson(H) || islizard(H) || isplasmaman(H) || isflyperson(H) || ismoth(H) || isethereal(H))
 		H.remove_blocked_language(/datum/language/common)
 		H.remove_language(/datum/language/uncommon)
 
