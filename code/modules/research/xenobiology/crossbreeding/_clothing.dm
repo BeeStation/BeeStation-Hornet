@@ -143,8 +143,6 @@ Slimecrossing Armor
 /obj/item/clothing/suit/armor/heavy/adamantine/dropped(mob/user)
 	. = ..()
 	user.remove_movespeed_modifier(MOVESPEED_ID_SLOW_ARMOR, TRUE)
-	
-	
 
 /obj/item/clothing/suit/armor/heavy/adamantine/IsReflect(def_zone)
 	if(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) && prob(hit_reflect_chance))
