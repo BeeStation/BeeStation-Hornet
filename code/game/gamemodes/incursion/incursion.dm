@@ -7,6 +7,9 @@
 	config_tag = "incursion"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
+	antag_flag = ROLE_INCURSION
+	false_report_weight = 10
+	enemy_minimum_age = 0
 
 	announce_span = "danger"
 	announce_text = "A large force of syndicate operatives have infiltrated the ranks of the station and wish to take it by force!\n\
@@ -14,6 +17,8 @@
 	<span class='notice'>Crew</span>: Find and prevent the operatives from completing their goals!"
 
 	required_enemies = 1
+
+	title_icon = "traitor"
 
 	var/datum/team/incursion/pre_incursionist_team
 	var/const/team_amount = 1 //hard limit on brother teams if scaling is turned off
@@ -31,7 +36,7 @@
 	var/cost_base = CONFIG_GET(number/incursion_cost_base)
 	var/cost_increment = CONFIG_GET(number/incursion_cost_increment)
 	var/pop = GLOB.player_details.len
-	var/team_size = (pop * cost_base) + ((((0.5 * (pop * pop)) - (0.5 * pop)) * cost_increment))
+	var/team_size = (pop * cost_base) + (((0.5 * (pop * pop)) - (0.5 * pop)) * cost_increment)
 	log_game("Spawning [team_size] incursionists.")
 	team_size = CLAMP(team_size, CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 
@@ -56,8 +61,7 @@
 	for(var/datum/mind/M in team.members)
 		M.add_antag_datum(/datum/antagonist/incursion, team)
 	incursion_team = pre_incursionist_team
-	..()
-	return TRUE
+	return ..()
 
 /datum/game_mode/incursion/generate_report()
 	return "Intel suggests that the Syndicate have recently had high level meetings discussing your station, and are disgruntled due to recent classified events. A large terrorist force may wish to take the station by force."
