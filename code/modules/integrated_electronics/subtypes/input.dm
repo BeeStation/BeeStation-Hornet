@@ -939,7 +939,7 @@
 	var/translated = FALSE
 	if(speaker && message)
 		if(raw_message)
-			if(message_langs != get_default_language())
+			if(message_langs != get_selected_language())
 				translated = TRUE
 		set_pin_data(IC_OUTPUT, 1, speaker.GetVoice())
 		set_pin_data(IC_OUTPUT, 2, raw_message)

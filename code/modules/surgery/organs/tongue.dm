@@ -10,17 +10,24 @@
 	var/taste_sensitivity = 15 // lower is more sensitive.
 	var/modifies_speech = FALSE
 	var/static/list/languages_possible_base = typecacheof(list(
+		/datum/language/aphasia,
+		/datum/language/apidite,
+		/datum/language/beachbum,
+		/datum/language/buzzwords,
+		/datum/language/calcic,
+		/datum/language/codespeak,
 		/datum/language/common,
 		/datum/language/draconic,
-		/datum/language/codespeak,
+		/datum/language/moffic,
 		/datum/language/monkey,
 		/datum/language/narsie,
-		/datum/language/beachbum,
-		/datum/language/ratvar,
-		/datum/language/aphasia,
 		/datum/language/piratespeak,
+		/datum/language/ratvar,
 		/datum/language/rlyehian,
-		/datum/language/apidite,
+		/datum/language/shadowtongue,
+		/datum/language/sylvan,
+		/datum/language/terrum,
+		/datum/language/uncommon,
 	))
 
 /obj/item/organ/tongue/Initialize(mapload)
@@ -44,7 +51,7 @@
 	UnregisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 	M.RegisterSignal(M, COMSIG_MOB_SAY, /mob/living/carbon/.proc/handle_tongueless_speech)
 
-/obj/item/organ/tongue/could_speak_in_language(datum/language/dt)
+/obj/item/organ/tongue/could_speak_language(datum/language/dt)
 	return is_type_in_typecache(dt, languages_possible)
 
 /obj/item/organ/tongue/lizard
@@ -231,7 +238,7 @@
 	owner.emote("scream")
 	to_chat(owner, "<span class='warning'>Alert: Vocal cords are malfunctioning.</span>")
 
-/obj/item/organ/tongue/robot/can_speak_in_language(datum/language/dt)
+/obj/item/organ/tongue/robot/can_speak_language(datum/language/dt)
 	return TRUE // THE MAGIC OF ELECTRONICS
 
 /obj/item/organ/tongue/robot/handle_speech(datum/source, list/speech_args)
@@ -250,3 +257,11 @@
 		else
 			new_message += message[i]
 	speech_args[SPEECH_MESSAGE] = new_message
+
+/obj/item/organ/tongue/ethereal
+	name = "electric discharger"
+	desc = "A sophisticated ethereal organ, capable of synthesising speech via electrical discharge."
+	icon_state = "electrotongue"
+	say_mod = "crackles"
+	attack_verb = list("shocked", "jolted", "zapped")
+	taste_sensitivity = 101 // Not a tongue, they can't taste shit
