@@ -6,6 +6,7 @@
 	name = "incursion"
 	config_tag = "incursion"
 	restricted_jobs = list("AI", "Cyborg")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
 
 	announce_span = "danger"
 	announce_text = "A large force of syndicate operatives have infiltrated the ranks of the station and wish to take it by force!\n\
@@ -30,7 +31,8 @@
 	var/cost_base = CONFIG_GET(number/incursion_cost_base)
 	var/cost_increment = CONFIG_GET(number/incursion_cost_increment)
 	var/pop = GLOB.player_details.len
-	var/team_size = (pop * cost_base) + ((0.5 * (pop * pop) - 0.5 * pop) * cost_increment)
+	var/team_size = (pop * cost_base) + ((((0.5 * (pop * pop)) - (0.5 * pop)) * cost_increment))
+	log_game("Spawning [team_size] incursionists.")
 	team_size = CLAMP(team_size, CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 
 	for(var/k = 1 to team_size)
