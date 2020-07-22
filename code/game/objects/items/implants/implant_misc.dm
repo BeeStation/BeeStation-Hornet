@@ -90,15 +90,10 @@
 			healthstring = "ERROR"
 		return healthstring
 
-/obj/item/radio/implant
-	name = "internal radio headset"
-	desc = "A radio reciever inside of an implant."
-	canhear_range = -1
-
 /obj/item/implant/radio
 	name = "internal radio implant"
 	activated = TRUE
-	var/obj/item/radio/implant/radio
+	var/obj/item/radio/radio
 	var/radio_key
 	var/subspace_transmission = FALSE
 	icon = 'icons/obj/radio.dmi'
@@ -117,7 +112,7 @@
 	// "must be in ears to hear" restriction.
 	radio.name = "internal radio"
 	radio.subspace_transmission = subspace_transmission
-	radio.canhear_range = 0
+	radio.canhear_range = -1
 	if(radio_key)
 		radio.keyslot = new radio_key
 	radio.recalculateChannels()
