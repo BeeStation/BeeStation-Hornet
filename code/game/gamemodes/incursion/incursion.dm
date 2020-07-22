@@ -36,7 +36,7 @@
 	var/cost_base = CONFIG_GET(number/incursion_cost_base)
 	var/cost_increment = CONFIG_GET(number/incursion_cost_increment)
 	var/pop = GLOB.player_details.len
-	var/team_size = (pop * cost_base) + (((0.5 * (pop * pop)) - (0.5 * pop)) * cost_increment)
+	var/team_size = pop * (cost_base - (cost_increment / 2) + ((cost_increment / 2) * pop))
 	log_game("Spawning [team_size] incursionists.")
 	team_size = CLAMP(team_size, CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 
