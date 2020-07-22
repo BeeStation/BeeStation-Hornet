@@ -45,6 +45,7 @@
 		incursion.restricted_roles = restricted_jobs
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")
 	pre_incursionist_team = team
+	gamemode_ready = TRUE
 	return TRUE
 
 /datum/game_mode/incursion/post_setup()
@@ -53,7 +54,8 @@
 	for(var/datum/mind/M in team.members)
 		M.add_antag_datum(/datum/antagonist/incursion, team)
 	incursion_team = pre_incursionist_team
-	return ..()
+	..()
+	return TRUE
 
 /datum/game_mode/incursion/generate_report()
 	return "Intel suggests that the Syndicate have recently had high level meetings discussing your station, and are disgruntled due to recent classified events. A large terrorist force may wish to take the station by force."
