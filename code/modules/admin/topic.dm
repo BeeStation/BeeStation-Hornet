@@ -845,8 +845,10 @@
 	else if(href_list["messageedits"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/message_id = sanitizeSQL("[href_list["messageedits"]]")
-		var/datum/DBQuery/query_get_message_edits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("messages")] WHERE id = '[message_id]'")
+		var/datum/DBQuery/query_get_message_edits = SSdbcore.NewQuery(
+			"SELECT edits FROM [format_table_name("messages")] WHERE id = :message_id",
+			list("message_id" = href_list["messageedits"])
+		)
 		if(!query_get_message_edits.warn_execute())
 			qdel(query_get_message_edits)
 			return
@@ -1626,9 +1628,6 @@
 					message_admins("[key_name_admin(usr)] created [number]ea [english_list(paths)]")
 					break
 		return
-
-	else if(href_list["secrets"])
-		Secrets_topic(href_list["secrets"],href_list)
 
 	else if(href_list["ac_view_wanted"])            //Admin newscaster Topic() stuff be here
 		if(!check_rights(R_ADMIN))

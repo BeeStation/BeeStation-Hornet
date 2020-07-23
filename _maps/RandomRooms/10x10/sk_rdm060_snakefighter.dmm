@@ -261,13 +261,28 @@
 /obj/machinery/shieldwallgen/xenobiologyaccess,
 /turf/open/floor/plating,
 /area/template_noop)
+"W" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"X" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"Y" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/open/floor/plating,
+/area/template_noop)
 
 (1,1,1) = {"
 a
 j
 f
 t
-f
+W
 f
 H
 H
@@ -277,7 +292,7 @@ i
 (2,1,1) = {"
 b
 k
-k
+X
 u
 A
 H
@@ -317,7 +332,7 @@ r
 e
 D
 f
-f
+Y
 f
 O
 f
@@ -362,7 +377,7 @@ f
 h
 q
 f
-f
+W
 F
 H
 H

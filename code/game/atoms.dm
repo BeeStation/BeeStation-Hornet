@@ -680,11 +680,19 @@
 /**
   * Respond to our atom being teleported
   *
-  * Default behaviour is to send COMSIG_ATOM_TELEPORT_ACT and return
+  * Default behaviour is to send COMSIG_ATOM_TELEPORT_ACT
   */
 /atom/proc/teleport_act()
 	SEND_SIGNAL(src,COMSIG_ATOM_TELEPORT_ACT)
 
+/**
+  * Respond to our atom being checked by a virus extrapolator
+  *
+  * Default behaviour is to send COMSIG_ATOM_EXTRAPOLATOR_ACT and return FALSE
+  */
+/atom/proc/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	SEND_SIGNAL(src,COMSIG_ATOM_EXTRAPOLATOR_ACT, user, E, scan)
+	return FALSE
 /**
   * Implement the behaviour for when a user click drags a storage object to your atom
   *

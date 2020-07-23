@@ -298,6 +298,10 @@
 	if(!door.wires.is_cut(WIRE_BOLTS))
 		door.unbolt()
 
+/obj/machinery/advanced_airlock_controller/process()
+	. = ..()
+	process_atmos()
+
 /obj/machinery/advanced_airlock_controller/process_atmos()
 	if((stat & (NOPOWER|BROKEN)) || shorted)
 		update_icon(TRUE)
@@ -622,7 +626,8 @@
 		"vents" = list(),
 		"airlocks" = list(),
 		"skip_timer" = (world.time - skip_timer),
-		"skip_delay" = skip_delay
+		"skip_delay" = skip_delay,
+		"vis_target" = "\ref[vis_target]"
 	)
 
 	if((locked && !user.has_unlimited_silicon_privilege) || (user.has_unlimited_silicon_privilege && aidisabled))

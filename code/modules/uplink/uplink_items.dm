@@ -322,6 +322,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous
 	category = "Conspicuous Weapons"
 
+/datum/uplink_item/dangerous/poisonknife
+	name = "Poisoned Knife"
+	desc = "A knife that is made of two razor sharp blades, it has a secret compartment in the handle to store liquids which are injected when stabbing something."
+	item = /obj/item/kitchen/knife/poison
+	cost = 8 // all in all it's not super stealthy and you have to get some chemicals yourself
+
 /datum/uplink_item/dangerous/rawketlawnchair
 	name = "84mm Rocket Propelled Grenade Launcher"
 	desc = "A reusable rocket propelled grenade launcher preloaded with a low-yield 84mm HE round. \

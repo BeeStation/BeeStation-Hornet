@@ -180,7 +180,8 @@
 		/obj/item/holosign_creator/medical,
 		/obj/item/pipe_dispenser/plumbing,
 		/obj/item/construction/plumbing,
-		/obj/item/plunger
+		/obj/item/plunger,
+		/obj/item/extrapolator
 		))
 
 /obj/item/storage/belt/security
@@ -213,7 +214,8 @@
 		/obj/item/clothing/gloves,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/holosign_creator/security,
-		/obj/item/club
+		/obj/item/club,
+		/obj/item/shield/riot/tele
 		))
 
 /obj/item/storage/belt/security/full/PopulateContents()

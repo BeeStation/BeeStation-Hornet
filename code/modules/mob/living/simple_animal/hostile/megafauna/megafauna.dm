@@ -46,7 +46,6 @@
 	. = ..()
 	if(gps_name && true_spawn)
 		AddComponent(/datum/component/gps, gps_name)
-	apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 	ADD_TRAIT(src, TRAIT_NO_TELEPORT, MEGAFAUNA_TRAIT)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()

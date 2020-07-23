@@ -15,9 +15,10 @@
 
 /datum/symptom/heal/Start(datum/disease/advance/A)
 	if(!..())
-		return
+		return FALSE
 	if(A.properties["stage_rate"] >= 6) //stronger healing
 		power = 2
+	return TRUE //For super calls of subclasses
 
 /datum/symptom/heal/Activate(datum/disease/advance/A)
 	if(!..())
@@ -203,7 +204,7 @@
 		M.adjustFireLoss(-power)
 		healed = TRUE
 		scarcounter++
-	
+
 	if(M.getToxLoss() && M.getToxLoss() <= threshhold)
 		M.adjustToxLoss(-power)
 		healed = TRUE

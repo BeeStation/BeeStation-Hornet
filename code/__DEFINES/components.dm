@@ -8,7 +8,7 @@
 #define ELEMENT_INCOMPATIBLE 1 //! Return value to cancel attaching
 
 // /datum/element flags
-/// Causes the detach proc to be called when the host object is being deleted 
+/// Causes the detach proc to be called when the host object is being deleted
 #define ELEMENT_DETACH		(1 << 0)
 /**
   * Only elements created with the same arguments given after `id_arg_index` share an element instance
@@ -74,6 +74,7 @@
 #define COMSIG_ATOM_RATVAR_ACT "atom_ratvar_act"				//! from base of atom/ratvar_act(): ()
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"						//! from base of atom/rcd_act(): (/mob, /obj/item/construction/rcd, passed_mode)
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"			//! from base of atom/teleport_act(): ()
+#define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"	//! from base of atom/Exited(): (mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"					//! from base of atom/singularity_pull(): (S, current_size)
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"				//from obj/machinery/bsa/full/proc/fire(): ()
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM 1
@@ -102,6 +103,7 @@
 
 /////////////////
 
+#define COMSIG_AREA_POWER_CHANGE "area_power_change"			//! from base of area/proc/power_change(): ()
 #define COMSIG_ENTER_AREA "enter_area" 							//! from base of area/Entered(): (/area)
 #define COMSIG_EXIT_AREA "exit_area" 							//! from base of area/Exited(): (/area)
 
@@ -161,6 +163,7 @@
 	#define COMPONENT_BLOCK_MAGIC 1
 #define COMSIG_MOB_HUD_CREATED "mob_hud_created"				//! from base of mob/create_mob_hud(): ()
 #define COMSIG_MOB_ATTACK_HAND "mob_attack_hand"				//! from base of
+#define COMSIG_MOB_HAND_ATTACKED "mob_hand_attacked"			//! from base of
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"				//! from base of /obj/item/attack(): (mob/M, mob/user)
 	#define COMPONENT_ITEM_NO_ATTACK 1
 #define COMSIG_MOB_APPLY_DAMGE	"mob_apply_damage"				//! from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
@@ -187,6 +190,7 @@
 #define COMSIG_LIVING_EXTINGUISHED "living_extinguished"		//! from base of mob/living/ExtinguishMob() (/mob/living)
 #define COMSIG_LIVING_ELECTROCUTE_ACT "living_electrocute_act"	//! from base of mob/living/electrocute_act(): (shock_damage)
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"			//! sent by stuff like stunbatons and tasers: ()
+#define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"		//! sent from borg recharge stations: (amount, repairs)
 #define COMSIG_BORG_SAFE_DECONSTRUCT "borg_safe_decon"			//sent from borg mobs to itself, for tools to catch an upcoming destroy() due to safe decon (rather than detonation)
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
 
@@ -201,6 +205,7 @@
 
 // /mob/living/carbon signals
 #define COMSIG_CARBON_SOUNDBANG "carbon_soundbang"				//! from base of mob/living/carbon/soundbang_act(): (list(intensity))
+#define COMSIG_CARBON_SPECIESCHANGE "mob_carbon_specieschange"	//! from base of mob/living/carbon/set_species(): (new_race)
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
@@ -281,6 +286,9 @@
 
 //Gibs
 #define COMSIG_GIBS_STREAK "gibs_streak"						//! from base of /obj/effect/decal/cleanable/blood/gibs/streak(): (list/directions, list/diseases)
+
+//Diseases
+#define COMSIG_DISEASE_END "disease_end" 						//from the base of /datum/disease/advance/Destroy(): (GetDiseaseID)
 
 //Mood
 #define COMSIG_ADD_MOOD_EVENT "add_mood" //! Called when you send a mood event from anywhere in the code.
