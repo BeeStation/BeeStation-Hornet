@@ -50,7 +50,7 @@
 
 /datum/antagonist/incursion/greet()
 	to_chat(owner.current, "<span class='alertsyndie'>You are the member of a Syndicate incursion team!</span>")
-	to_chat(owner.current, "You are in a large undercover team determined to bring the fall of Nanotrasen.")
+	to_chat(owner.current, "You have formed a team of Syndicate members with a similar mindset and must infiltrate the ranks of the station!")
 	to_chat(owner.current, "You have been implanted with a syndicate headset for communication with your team. This headset can only be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!")
 	owner.announce_objectives()
 
@@ -89,7 +89,7 @@
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into incursion traitor team.")
 
 /datum/antagonist/incursion/proc/equip(var/silent = FALSE)
-	owner.equip_traitor("The Syndicate", silent, src)
+	owner.equip_traitor("The Syndicate", silent, src, telecrystals=15, gamemode=/datum/game_mode/incursion)
 	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
 	syndio.implant(owner.current)
 
@@ -133,7 +133,7 @@
 
 /datum/team/incursion/proc/forge_team_objectives()
 	objectives = list()
-	var/is_hijacker = prob(15)
+	var/is_hijacker = GLOB.player_details.len >= 35 ? prob(15) : 0
 	for(var/i = 1 to max(1, CONFIG_GET(number/incursion_objective_amount)))
 		forge_single_objective(CLAMP((5 + !is_hijacker)-i, 1, 3))	//Hijack = 3, 2, 1, 1 no hijack = 3, 3, 2, 1
 	if(is_hijacker)
@@ -146,10 +146,10 @@
 	difficulty = CLAMP(difficulty, 1, 3)
 	switch(difficulty)
 		if(3)
-			if(LAZYLEN(active_ais()) && prob(40))
+			if(LAZYLEN(active_ais()) && prob(25))	//25 %
 				//Kill AI
 				add_objective(new/datum/objective/destroy, TRUE)
-			else if(prob(40))
+			else if(prob(32))						//~26%
 				//Kill head
 				var/datum/objective/assassinate/killchosen = new
 				var/current_heads = SSjob.get_all_heads()
@@ -159,19 +159,19 @@
 					return
 				killchosen.target = selected
 				add_objective(killchosen, FALSE)
-			else
+			else									//~50%
 				//Kill traitor
 				generate_traitor_kill_objective()
 		if(2)
 			if(prob(30))
-				add_objective(new/datum/objective/maroon, TRUE)
-			else
-				add_objective(new/datum/objective/assassinate, TRUE)
-		if(1)
-			if(prob(60))
 				add_objective(new/datum/objective/steal, TRUE)
 			else
-				add_objective(new/datum/objective/assassinate, TRUE)
+				generate_traitor_kill_objective()
+		if(1)
+			if(prob(70))
+				add_objective(new/datum/objective/steal, TRUE)
+			else
+				generate_traitor_kill_objective()
 
 /datum/team/incursion/proc/generate_traitor_kill_objective()
 	//Spawn someone as a traitor
