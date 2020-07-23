@@ -660,6 +660,7 @@ Nothing else in the console has ID requirements.
 		var/list/avail = list()			//This could probably be optimized a bit later.
 		var/list/unavail = list()
 		var/list/res = list()
+		
 		for(var/v in stored_research.researched_nodes)
 			res += SSresearch.techweb_node_by_id(v)
 		for(var/v in stored_research.available_nodes)
@@ -698,7 +699,7 @@ Nothing else in the console has ID requirements.
 		display_name = "<A href='?src=[REF(src)];view_node=[node.id];back_screen=[screen]'>[display_name]</A>"
 	l += "<div class='statusDisplay technode'><b>[display_name]</b> [RDSCREEN_NOBREAK]"
 	if(minimal)
-		l += "<br>[node.description]"
+		l += ""
 	else
 		if(stored_research.researched_nodes[node.id])
 			l += "<span class='linkOff'>Researched</span>"
@@ -709,11 +710,11 @@ Nothing else in the console has ID requirements.
 				l += "<BR><span class='linkOff'>[node.price_display(stored_research)]</span>"  // gray - too expensive
 		else
 			l += "<BR><span class='linkOff bad'>[node.price_display(stored_research)]</span>"  // red - missing prereqs
-		if(ui_mode == RDCONSOLE_UI_MODE_NORMAL)
-			l += "[node.description]"
-			for(var/i in node.design_ids)
-				var/datum/design/D = SSresearch.techweb_design_by_id(i)
-				l += "<span data-tooltip='[D.name]' onclick='location=\"?src=[REF(src)];view_design=[i];back_screen=[screen]\"'>[D.icon_html(usr)]</span>[RDSCREEN_NOBREAK]"
+	if(ui_mode == RDCONSOLE_UI_MODE_NORMAL)
+		l += "[node.description]"
+		for(var/i in node.design_ids)
+			var/datum/design/D = SSresearch.techweb_design_by_id(i)
+			l += "<span data-tooltip='[D.name]' onclick='location=\"?src=[REF(src)];view_design=[i];back_screen=[screen]\"'>[D.icon_html(usr)]</span>[RDSCREEN_NOBREAK]"
 	l += "</div>[RDSCREEN_NOBREAK]"
 	return l
 
