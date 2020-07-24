@@ -348,7 +348,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Contains an assortment of syndicate medical equipment for you and your team.\
 			Comes with a variety of first-aid kits, pill bottles, a compact defibrillator and 4 stimpacks."
 	cost = 12
-	list/contents = list(
+	contents = list(
 		/obj/item/storage/firstaid/tactical = 2,	//8 TC
 		/obj/item/storage/firstaid/brute = 2,
 		/obj/item/storage/firstaid/fire = 2,
@@ -358,6 +358,29 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		/obj/item/storage/pill_bottle/neurine = 1,
 		/obj/item/defibrillator/compact/loaded = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpack/traitor = 4
+	)
+
+/datum/uplink_item/bundles_TC/crate/shuttle
+	name = "Stolen Shuttle Creation Kit"
+	desc = "Every syndicate team needs their own shuttle. It's a shame you weren't supplied with one, but thats not a problem\
+			if you can spare some TC! The all new shuttle creation kit (produced by the syndicate) contains everything you need\
+			to get flying! All syndicate agents are advised to ignore the Nanotrasen labels on products. Space proof suits not included."
+	cost = 15	//There are multiple uses for the RCD and plasma canister, but both are easilly accessible for items that cost less than all of their TC.
+	contents = list(
+		/obj/machinery/portable_atmospherics/canister/toxins = 1,
+		/obj/item/construction/rcd/combat = 1,
+		/obj/item/rcd_ammo/large = 2,
+		/obj/item/shuttle_creator = 1,
+		/obj/item/pipe_dispenser = 2,
+		/obj/item/storage/toolbox/syndicate = 2,
+		/obj/item/storage/toolbox/electrical = 1,
+		/obj/item/circuitboard/computer/shuttle/docker = 1,
+		/obj/item/circuitboard/computer/shuttle/flight_control = 1,
+		/obj/item/circuitboard/machine/shuttle/engine/plasma = 2,
+		/obj/item/circuitboard/machine/shuttle/heater = 2,
+		/obj/item/storage/part_replacer/cargo = 1,
+		/obj/item/electronics/apc = 1,
+		/obj/item/wallframe/apc = 1
 	)
 
 // Dangerous Items
