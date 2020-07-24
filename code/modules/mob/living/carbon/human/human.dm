@@ -210,7 +210,7 @@
 	var/obj/vehicle/sealed/car/C = AM
 	if(istype(MB))
 		MB.RunOver(src)
-	if(istype(C))
+	else if(istype(C))
 		C.RunOver(src)
 
 	. = ..()
