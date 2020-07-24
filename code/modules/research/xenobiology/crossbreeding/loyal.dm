@@ -273,6 +273,32 @@ Loyal extracts:
 /datum/component/loyal_effect/silver
 	prefix = "delicious"
 
+/datum/component/loyal_effect/silver/Initialize(obj/item/attached_item)
+	. = ..()
+	RegisterSignal(attached_item, COMSIG_ITEM_PRE_ATTACK, .proc/eat)
+
+/datum/component/loyal_effect/silver/proc/eat(datum/source, atom/target, mob/user, params)
+	if(user.a_intent != INTENT_HARM || iscarbon(target))
+		var/mob/M = target
+		var/obj/item/reagent_containers/food/snacks/silver_temporary/newfood = new
+		newfood.name = attached.name
+		if(newfood.attack(M, user))
+			var/datum/reagents/new_reagents = attached.reagents
+			if(new_reagents)
+				//newfood.reagents.maximum_volume = new_reagents.total_volume + 10
+				newfood.volume = new_reagents.total_volume + 10
+				newfood.bitesize = new_reagents.total_volume + 10
+				new_reagents.trans_to(newfood, new_reagents.total_volume, transfered_by = user)
+			qdel(attached)
+		qdel(newfood)
+
+/obj/item/reagent_containers/food/snacks/silver_temporary
+	name = "temporary loyal silver snack item"
+	desc = "If you're reading this it means I messed up."
+	bitesize = 10
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10)
+	tastes = list("a melt-in-your-mouth sensation" = 1)
+
 /obj/item/slimecross/loyal/bluespace
 	colour = "bluespace"
 	effect_desc = "Makes an item able to be compressed and decompressed. The item is unusable when compressed."
