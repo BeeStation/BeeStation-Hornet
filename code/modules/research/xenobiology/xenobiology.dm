@@ -262,7 +262,8 @@
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/yellow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
-	if(activating) return 0
+	if(activating)
+		return 0
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			if(istype(species,/datum/species/jelly/luminescent))
