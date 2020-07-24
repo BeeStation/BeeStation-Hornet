@@ -129,7 +129,7 @@ Slimecrossing Armor
 
 /obj/item/clothing/suit/armor/heavy/adamantine
 	name = "adamantine armor"
-	desc = "A full suit of adamantine plate armor. Impressively resistant to damage, but weighs about as much as you do. The locked joints appear to move under their own power, making this suit of armor impossible to speed up"
+	desc = "A full suit of adamantine plate armor. Impressively resistant to damage, but weighs about as much as you do. The locked joints appear to move under their own power, making this suit of armor impossible to speed up."
 	icon_state = "adamsuit"
 	item_state = "adamsuit"
 	flags_inv = NONE
