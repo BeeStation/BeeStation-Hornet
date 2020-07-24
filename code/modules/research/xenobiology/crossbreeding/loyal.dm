@@ -730,12 +730,23 @@ Loyal extracts:
 /obj/item/slimecross/loyal/black/afterattack(obj/item/target,mob/user,proximity)
 	if(!..())
 		return
-	var/mob/living/simple_animal/slime/transformedslime/holding_slime = new(user.loc,mapload=FALSE, new_color="black", new_is_adult=TRUE) //Transformed so it can't reproduce
+	var/mob/living/simple_animal/slime/transformedslime/holding_slime = new(get_turf(user),"black",TRUE) //Transformed so it can't reproduce
 	holding_slime.Friends[user] = 10 //This should be obediant enough
 	target.forceMove(holding_slime)
+	target.RegisterSignal(holding_slime, COMSIG_MOB_DEATH, /obj/item.proc/loyalblack_drop)
+
+/obj/item/proc/loyalblack_drop(datum/source, gibbed)
+	var/mob/deadslime = src.loc
+	if(!deadslime)
+		return
+	forceMove(get_turf(deadslime))
 
 /datum/component/loyal_effect/black
 	prefix = "transformative"
+
+/datum/component/loyal_effect/black/Initialize(obj/item/attached_item)
+	. = ..()
+	RegisterSignal(attached_item)
 
 /obj/item/slimecross/loyal/lightpink
 	colour = "light pink"
