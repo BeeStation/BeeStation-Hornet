@@ -1,0 +1,5 @@
+author: zeskorion
+delete-after: true
+changes:
+  - balance: clown car occupants are now restrained
+  - balance: clown car can no longer be cheesed by laying down
