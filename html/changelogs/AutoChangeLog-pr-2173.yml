@@ -1,0 +1,5 @@
+author: zeskorion
+delete-after: true
+changes:
+  - bugfix: adamantine armor can no longer be cheesed with things that undo armor
+      slowdown like morphine or red slime
