@@ -338,7 +338,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	for(var/I in contents)
 		var/count = contents[I]
 		for(var/index in 1 to count)
-			var/obj/goods = new I(C)
+			new I(C)
 	return C
 
 /datum/uplink_item/bundles_TC/crate/medical
