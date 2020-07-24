@@ -38,6 +38,7 @@
 	var/list/initial_species_traits //for getting these values back for assume_disguise()
 	var/list/initial_inherent_traits
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
+	species_language_holder = /datum/language_holder/synthetic
 
 	var/datum/action/innate/change_screen/change_screen
 
@@ -72,9 +73,6 @@ datum/species/ipc/on_species_loss(mob/living/carbon/C)
 
 /datum/species/ipc/proc/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
-
-/datum/species/ipc/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	H.grant_language(/datum/language/machine)
 
 /datum/species/ipc/spec_death(gibbed, mob/living/carbon/C)
 	saved_screen = C.dna.features["ipc_screen"]

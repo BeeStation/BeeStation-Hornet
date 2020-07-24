@@ -11,6 +11,9 @@
 	var/id
 	var/ordered = TRUE //If the button gets placed into the default bar
 
+/obj/screen/movable/action_button/Destroy()
+	. = ..()
+
 /obj/screen/movable/action_button/proc/can_use(mob/user)
 	if (linked_action)
 		return linked_action.owner == user
