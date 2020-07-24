@@ -800,6 +800,7 @@
 			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
 			if(do_after(user, 75, target = src))
 				if(cell.charge == cell.maxcharge || (stomach.crystal_charge < 10))
+					to_chat(H, "<span class='warning'>You can't transfer charge to the APC.</span>")
 					return
 				if(istype(stomach))
 					to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
