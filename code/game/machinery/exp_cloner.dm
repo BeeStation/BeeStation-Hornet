@@ -77,7 +77,7 @@
 				defect_chance = defect_chance + 10
 			var/datum/objective/O = new /datum/objective/custom
 			O.team = team
-			O.explanation_text = "Impersonate [clonename]."
+			O.explanation_text = "Impersonate [clonename]. There can only be one."
 			O.owner = H.mind
 
 			var/datum/antagonist/antag

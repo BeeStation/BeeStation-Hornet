@@ -2101,8 +2101,8 @@ datum/uplink_item/role_restricted/superior_honkrender
 	illegal_tech = FALSE
 
 /datum/uplink_item/role_restricted/traitorous_cloner
-	name = "Defective Cloner"
-	desc = "A box that cointains boards and tools to setup defective clone machinery for making defective clones."
+	name = "Syndicate Cloner"
+	desc = "A box that cointains boards and tools to setup syndicate clone machinery for making defective clones."
 	item = /obj/item/storage/box/syndicate/traitorous_cloner
 	cost = 4
 	restricted_roles = list("Geneticist", "Chief Medical Officer")

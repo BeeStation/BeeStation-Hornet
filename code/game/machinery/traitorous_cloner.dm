@@ -1,7 +1,7 @@
 //Experimental cloner; clones a body regardless of the owner's status, letting a ghost control it instead
 
 /obj/machinery/clonepod/traitorous
-	name = "experimental cloning pod traitorous"
+	name = "cloning pod"
 	desc = "An ancient cloning pod. It seems to be an early prototype of the experimental cloners used in Nanotrasen Stations."
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "pod_0"
@@ -85,7 +85,7 @@
 
 		var/datum/objective/O = new /datum/objective/custom
 		O.team = team
-		O.explanation_text = "Impersonate [clonename]."
+		O.explanation_text = "Impersonate [clonename]. There can only be one."
 		//O.owner = H.mind
 
 		antag.name = "Defective Clone"
@@ -118,7 +118,7 @@
 
 //Prototype cloning console, much more rudimental and lacks modern functions such as saving records, autocloning, or safety checks.
 /obj/machinery/computer/prototype_cloning_traitorous
-	name = "prototype cloning console traitorous"
+	name = "cloning console"
 	desc = "Used to operate an experimental cloner."
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
