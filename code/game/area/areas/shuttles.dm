@@ -12,6 +12,8 @@
 	icon_state = "shuttle"
 	// Loading the same shuttle map at a different time will produce distinct area instances.
 	unique = FALSE
+	lighting_colour_tube = "#fff0dd"
+	lighting_colour_bulb = "#ffe1c1"
 
 /area/shuttle/Initialize()
 	if(!canSmoothWithAreas)
