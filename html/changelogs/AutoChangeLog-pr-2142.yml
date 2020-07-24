@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Spells with cooldowns now have a timer effect.
