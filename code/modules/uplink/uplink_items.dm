@@ -337,10 +337,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		U.purchase_log.LogPurchase(C, src, cost)
 	for(var/I in contents)
 		var/count = contents[I]
-		for(var/index in 0 to count)
+		for(var/index in 1 to count)
 			var/obj/goods = new I(C)
-			if(U.purchase_log)
-				U.purchase_log.LogPurchase(goods, I, 0)
 	return C
 
 /datum/uplink_item/bundles_TC/crate/medical

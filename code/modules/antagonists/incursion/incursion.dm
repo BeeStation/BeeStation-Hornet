@@ -19,8 +19,8 @@
 
 /datum/antagonist/incursion/on_gain()
 	SSticker.mode.incursionists += owner
-	objectives += team.objectives
 	for(var/datum/objective/O in team.objectives)
+		objectives += O
 		log_objective(owner, O.explanation_text)
 	owner.special_role = special_role
 	finalize_incursion()
@@ -116,6 +116,18 @@
 			parts += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
 			win = FALSE
 		objective_count++
+
+	var/purchases = ""
+	var/TC_uses = 0
+	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
+	for(var/I in members)
+		var/datum/mind/syndicate = I
+		var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[syndicate.key]
+		if(H)
+			TC_uses += H.total_spent
+			purchases += H.generate_render(show_key = FALSE)
+	parts += "(Syndicates used [TC_uses] TC) [purchases]"
+
 	if(win)
 		parts += "<span class='greentext'>The Syndicate were successful with their operation!</span>"
 	else
