@@ -1145,7 +1145,7 @@
 	generate_items_inside(items_inside,src)
 
 obj/item/storage/box/syndicate/traitorous_cloner/
-	name = "traitorous cloner box"
+	name = "syndicate cloner box"
 	desc = "a very suspicious box"
 	icon_state = "syndiebox"
 	illustration = null
