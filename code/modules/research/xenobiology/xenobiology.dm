@@ -482,7 +482,8 @@
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/oil/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
-	if(activating) return 0
+	if(activating)
+		return 0
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='warning'>You vomit slippery oil.</span>")
