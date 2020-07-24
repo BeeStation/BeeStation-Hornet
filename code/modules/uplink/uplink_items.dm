@@ -335,7 +335,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/obj/structure/closet/crate/C = spawn_item(/obj/structure/closet/crate, user, U)
 	if(U.purchase_log)
 		U.purchase_log.LogPurchase(C, src, cost)
-	for(var/obj/I in contents)
+	for(var/I in contents)
 		var/count = contents[I]
 		for(var/index in 0 to count)
 			var/obj/goods = new I(C)
@@ -356,7 +356,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		/obj/item/storage/firstaid/o2 = 1,
 		/obj/item/storage/pill_bottle/mutadone = 1,
 		/obj/item/storage/pill_bottle/neurine = 1,
-		/obj/item/defibrillator/compact/loaded = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpack/traitor = 4
 	)
 
