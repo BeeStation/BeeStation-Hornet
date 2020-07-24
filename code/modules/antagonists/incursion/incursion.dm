@@ -89,7 +89,8 @@
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into incursion traitor team.")
 
 /datum/antagonist/incursion/proc/equip(var/silent = FALSE)
-	owner.equip_traitor("The Syndicate", silent, src, telecrystals=15, gamemode=/datum/game_mode/incursion)
+	var/obj/item/uplink/incursion/uplink = new(owner, owner.key, 15)
+	owner.current.equip_to_slot(uplink, SLOT_IN_BACKPACK)
 	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
 	syndio.implant(owner.current)
 

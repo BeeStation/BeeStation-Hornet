@@ -324,6 +324,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A crate containing 4 valueable syndicate hardsuits."
 	cost = 18
 	include_modes = list(/datum/game_mode/incursion)
+	item = /obj/effect/gibspawner/generic
 	var/list/contents = list(
 		/obj/item/clothing/suit/space/hardsuit/syndi = 4,
 		/obj/item/clothing/mask/gas/syndicate = 4,
@@ -331,9 +332,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	)
 
 /datum/uplink_item/bundles_TC/crate/purchase(mob/user, datum/component/uplink/U)
-	var/list/uplink_items = get_uplink_items(SSticker && SSticker.mode? SSticker.mode : null, FALSE)
-
-	var/crate_value = starting_crate_value
 	var/obj/structure/closet/crate/C = spawn_item(/obj/structure/closet/crate, user, U)
 	if(U.purchase_log)
 		U.purchase_log.LogPurchase(C, src, cost)
@@ -347,10 +345,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bundles_TC/crate/medical
 	name = "Syndicate Medical Bundle"
-	desc = "Contains an assortment of syndicate medical equipment for you and your team."
+	desc = "Contains an assortment of syndicate medical equipment for you and your team.\
+			Comes with a variety of first-aid kits, pill bottles, a compact defibrillator and 4 stimpacks."
 	cost = 12
-	var/list/contents = list(
-		/obj/item/storage/firstaid/tactical = 2,
+	list/contents = list(
+		/obj/item/storage/firstaid/tactical = 2,	//8 TC
 		/obj/item/storage/firstaid/brute = 2,
 		/obj/item/storage/firstaid/fire = 2,
 		/obj/item/storage/firstaid/toxin = 1,
