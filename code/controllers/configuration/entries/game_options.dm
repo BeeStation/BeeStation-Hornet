@@ -111,7 +111,7 @@
 	min_val = 0
 
 /datum/config_entry/number/incursion_cost_increment	//How much each member of the incursion's spawn price increases by
-	config_entry_value = 2
+	config_entry_value = 0.25
 	integer = FALSE
 	min_val = 0
 
