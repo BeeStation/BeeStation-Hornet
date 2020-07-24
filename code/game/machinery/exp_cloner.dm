@@ -7,6 +7,8 @@
 	req_access = null
 	circuit = /obj/item/circuitboard/machine/clonepod/experimental
 	internal_radio = FALSE
+	var/datum/team/team
+	var/defect_chance = 10
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/experimental/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance)
@@ -69,6 +71,24 @@
 		H.set_cloned_appearance()
 
 		H.set_suicide(FALSE)
+
+		if(!isnull(H.mind) && prob(defect_chance)) // If we don't have mind, don't set any objectives to it, or it will break the cloner with an infinite loop of exceptions.
+			if(defect_chance < 100)
+				defect_chance = defect_chance + 10
+			var/datum/objective/O = new /datum/objective/custom
+			O.team = team
+			O.explanation_text = "Impersonate [clonename]."
+			O.owner = H.mind
+
+			var/datum/antagonist/antag
+			if(!antag)
+				antag = new /datum/antagonist/custom
+			antag.name = "Defective Clone"
+			antag.objectives |= O
+
+			H.mind.add_antag_datum(antag, team)
+			H.mind.announce_objectives()
+
 	attempting = FALSE
 	return CLONING_DELETE_RECORD | CLONING_SUCCESS //so that we don't spam clones with autoprocess unless we leave a body in the scanner
 

@@ -9,6 +9,7 @@
 	circuit = /obj/item/circuitboard/machine/clonepod/traitorous
 	internal_radio = FALSE
 	var/emmaged = FALSE
+	var/datum/team/team
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/traitorous/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance)
@@ -21,13 +22,6 @@
 	countdown.start()
 
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src)
-
-	/*var/expl_text stripped_input(admin, "(Firstidk?)Custom objective:", "ObjectiveSecond", explanation_text)
-	var/datum/objective/custom/O
-		name = "custom"
-		explanation_text = expl_text
-
-	*/
 
 	H.hardset_dna(ui, mutation_index, H.real_name, null, mrace, features)
 
@@ -85,27 +79,28 @@
 		generate_admin_objective_list()
 
 	if(!isnull(H.mind)) // If we don't have mind, don't set any objectives to it, or it will break the cloner with an infinite loop of exceptions.
-		var/datum/objective/O = new /datum/objective/custom
-		O.team = src
-		O.explanation_text = "Impersonate [clonename]."
-		O.owner = H
+		var/datum/antagonist/antag
+		if(!antag)
+			antag = new /datum/antagonist/custom
 
-		var/datum/antagonist/team_antag
-		if(!team_antag)
-			team_antag = new /datum/antagonist/custom
-		team_antag.name = "Defective Clone"
-		H.mind.add_antag_datum(team_antag, src)
-		team_antag.objectives |= O
+		var/datum/objective/O = new /datum/objective/custom
+		O.team = team
+		O.explanation_text = "Impersonate [clonename]."
+		//O.owner = H.mind
+
+		antag.name = "Defective Clone"
+		antag.objectives |= O
 
 		if(emmaged)
 			var/expl_text = stripped_input(usr, "Enter additional objective", "Objective:", "Free objective.")
 			if(expl_text)
 				var/datum/objective/SecO = new /datum/objective/custom
-				SecO.team = src
+				SecO.team = team
 				SecO.explanation_text = expl_text
-				SecO.owner = H
-				team_antag.objectives |= SecO
+				//SecO.owner = H.mind
+				antag.objectives |= SecO
 
+		H.mind.add_antag_datum(antag, team)
 		H.mind.announce_objectives()
 
 	return CLONING_DELETE_RECORD | CLONING_SUCCESS //so that we don't spam clones with autoprocess unless we leave a body in the scanner
