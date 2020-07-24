@@ -25,7 +25,7 @@
 /obj/item/organ/liver/on_life()
 	if(HAS_TRAIT(owner, TRAIT_NOMETABOLISM))
 		return
-		
+
 	var/mob/living/carbon/C = owner
 	..()	//perform general on_life()
 	if(istype(C))
@@ -93,6 +93,7 @@
 	icon_state = "liver-c"
 	desc = "An electronic device designed to mimic the functions of a human liver. Handles toxins slightly better than an organic liver."
 	organ_flags = ORGAN_SYNTHETIC
+	status = ORGAN_ROBOTIC
 	maxHealth = 1.1 * STANDARD_ORGAN_THRESHOLD
 	toxTolerance = 3.3
 	toxLethality = 0.009
@@ -132,4 +133,4 @@
 		if(1)
 			owner.toxloss += 15
 		if(2)
-			owner.toxloss += 5 
+			owner.toxloss += 5
