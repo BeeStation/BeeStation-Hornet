@@ -40,7 +40,7 @@
 		cooldown = newcooldown/10 //activate gives cooldown in deciseconds
 
 /obj/item/slimecross/gentle/AltClick(mob/living/carbon/user, obj/item/I)
-	if(cooldown > 0)
+	if(cooldown > 0 || !user.canUseTopic(src, BE_CLOSE))
 		return
 	var/datum/species/species
 	if(ishuman(user))

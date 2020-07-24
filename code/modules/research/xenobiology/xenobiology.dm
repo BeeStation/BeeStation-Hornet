@@ -15,6 +15,7 @@
 	var/qdel_timer = null // deletion timer, for delayed reactions
 	var/effectmod
 	var/list/activate_reagents = list() //Reagents required for activation
+	var/activating = FALSE //So you can't spam activations. A classic semaphore.
 	var/recurring = FALSE
 
 /obj/item/slime_extract/examine(mob/user)
@@ -81,6 +82,7 @@
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/grey/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
+	if(activating) return 0
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/obj/item/reagent_containers/food/snacks/monkeycube/M = new
@@ -91,12 +93,15 @@
 			return 120
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, "<span class='notice'>Your [name] starts pulsing...</span>")
+			activating = TRUE
 			if(do_after(user, 40, target = user))
 				var/mob/living/simple_animal/slime/S = new(get_turf(user), "grey")
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				to_chat(user, "<span class='notice'>You spit out [S].</span>")
+				activating = FALSE
 				return 350
 			else
+				activating = FALSE
 				return 0
 
 /obj/item/slime_extract/gold
@@ -106,18 +111,25 @@
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/gold/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
+	if(activating) return 0
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			user.visible_message("<span class='warning'>[user] starts shaking!</span>","<span class='notice'>Your [name] starts pulsing gently...</span>")
+			activating = TRUE
 			if(do_after(user, 40, target = user))
 				var/mob/living/simple_animal/S = create_random_mob(user.drop_location(), FRIENDLY_SPAWN)
 				S.faction |= "neutral"
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				user.visible_message("<span class='warning'>[user] spits out [S]!</span>", "<span class='notice'>You spit out [S]!</span>")
+				activating = FALSE
 				return 300
+			else
+				activating = FALSE
+				return 0
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user] starts shaking violently!</span>","<span class='warning'>Your [name] starts pulsing violently...</span>")
+			activating = TRUE
 			if(do_after(user, 50, target = user))
 				var/mob/living/simple_animal/S = create_random_mob(user.drop_location(), HOSTILE_SPAWN)
 				if(user.a_intent != INTENT_HARM)
@@ -126,7 +138,11 @@
 					S.faction |= "slime"
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				user.visible_message("<span class='warning'>[user] spits out [S]!</span>", "<span class='warning'>You spit out [S]!</span>")
+				activating = FALSE
 				return 600
+			else
+				activating = FALSE
+				return 0
 
 /obj/item/slime_extract/silver
 	name = "silver slime extract"
@@ -246,6 +262,7 @@
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/yellow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
+	if(activating) return 0
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			if(istype(species,/datum/species/jelly/luminescent))
@@ -265,10 +282,15 @@
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user]'s skin starts flashing intermittently...</span>", "<span class='warning'>Your skin starts flashing intermittently...</span>")
+			activating = TRUE
 			if(do_after(user, 25, target = user))
 				empulse(user, 1, 2)
 				user.visible_message("<span class='warning'>[user]'s skin flashes!</span>", "<span class='warning'>Your skin flashes as you emit an electromagnetic pulse!</span>")
+				activating = FALSE
 				return 600
+			else
+				activating = FALSE
+				return 0
 
 /obj/item/slime_extract/red
 	name = "red slime extract"
@@ -372,22 +394,33 @@
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/uranium/radium)
 
 /obj/item/slime_extract/green/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
+	if(activating) return 0
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='warning'>You feel yourself reverting to human form...</span>")
+			activating = TRUE
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel human again!</span>")
 				user.set_species(/datum/species/human)
+				activating = FALSE
 				return 600 //This is only for gentle extracts
-			to_chat(user, "<span class='notice'>You stop the transformation.</span>")
+			else
+				to_chat(user, "<span class='notice'>You stop the transformation.</span>")
+				activating = FALSE
+				return 0
 
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, "<span class='warning'>You feel yourself radically changing your slime type...</span>")
+			activating = TRUE
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel different!</span>")
 				user.set_species(pick(/datum/species/jelly/slime, /datum/species/jelly/stargazer))
+				activating = FALSE
 				return 600
-			to_chat(user, "<span class='notice'>You stop the transformation.</span>")
+			else
+				to_chat(user, "<span class='notice'>You stop the transformation.</span>")
+				activating = FALSE
+				return 0
 
 /obj/item/slime_extract/lightpink
 	name = "light pink slime extract"
@@ -420,6 +453,7 @@
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/black/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
+	if(activating) return 0
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='userdanger'>You feel something <i>wrong</i> inside you...</span>")
@@ -428,11 +462,16 @@
 
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, "<span class='warning'>You feel your own light turning dark...</span>")
+			activating = TRUE
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel a longing for darkness.</span>")
 				user.set_species(pick(/datum/species/shadow))
+				activating = FALSE
 				return 600
-			to_chat(user, "<span class='notice'>You stop feeding [src].</span>")
+			else
+				to_chat(user, "<span class='notice'>You stop feeding [src].</span>")
+				activating = FALSE
+				return 0
 
 /obj/item/slime_extract/oil
 	name = "oil slime extract"
@@ -441,6 +480,7 @@
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/oil/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
+	if(activating) return 0
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='warning'>You vomit slippery oil.</span>")
@@ -450,12 +490,17 @@
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user]'s skin starts pulsing and glowing ominously...</span>", "<span class='userdanger'>You feel unstable...</span>")
+			activating = TRUE
 			if(do_after(user, 60, target = user))
 				to_chat(user, "<span class='userdanger'>You explode!</span>")
 				explosion(get_turf(user), 1 ,3, 6)
 				user.gib()
+				activating = FALSE
 				return 600
-			to_chat(user, "<span class='notice'>You stop feeding [src], and the feeling passes.</span>")
+			else
+				to_chat(user, "<span class='notice'>You stop feeding [src], and the feeling passes.</span>")
+				activating = FALSE
+				return 0
 
 /obj/item/slime_extract/adamantine
 	name = "adamantine slime extract"
@@ -464,6 +509,7 @@
 	activate_reagents = list(/datum/reagent/toxin/plasma)
 
 /obj/item/slime_extract/adamantine/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
+	if(activating) return 0
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			if(species.armor > 0)
@@ -476,11 +522,16 @@
 
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, "<span class='warning'>You feel your body rapidly crystallizing...</span>")
+			activating = TRUE
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel solid.</span>")
 				user.set_species(pick(/datum/species/golem/adamantine))
+				activating = FALSE
 				return 600
-			to_chat(user, "<span class='notice'>You stop feeding [src], and your body returns to its slimelike state.</span>")
+			else
+				to_chat(user, "<span class='notice'>You stop feeding [src], and your body returns to its slimelike state.</span>")
+				activating = FALSE
+				return 0
 
 /obj/item/slime_extract/adamantine/proc/reset_armor(datum/species/species)
 	if(istype(species))
@@ -497,13 +548,19 @@
 	var/teleport_z = 0
 
 /obj/item/slime_extract/bluespace/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
+	if(activating) return 0
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='warning'>You feel your body vibrating...</span>")
+			activating = TRUE
 			if(do_after(user, 25, target = user))
 				to_chat(user, "<span class='warning'>You teleport!</span>")
 				do_teleport(user, get_turf(user), 6, asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
+				activating = FALSE
 				return 300
+			else
+				activating = FALSE
+				return 0
 
 		if(SLIME_ACTIVATE_MAJOR)
 			if(!teleport_ready)
@@ -575,6 +632,7 @@
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
 
 /obj/item/slime_extract/sepia/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
+	if(activating) return 0
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/obj/item/camera/O = new(null, 1)
@@ -586,9 +644,14 @@
 
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, "<span class='warning'>You feel time slow down...</span>")
+			activating = TRUE
 			if(do_after(user, 30, target = user))
 				new /obj/effect/timestop(get_turf(user), 2, 50, list(user))
+				activating = FALSE
 				return 900
+			else
+				activating = FALSE
+				return 0
 
 /obj/item/slime_extract/rainbow
 	name = "rainbow slime extract"
