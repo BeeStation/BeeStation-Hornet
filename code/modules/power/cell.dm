@@ -158,6 +158,9 @@
 			to_chat(H, "<span class='warning'>The [src] doesn't have enough power!</span>")
 			return
 		var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+		if(!istype(stomach))
+			to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+			return
 		if(stomach.crystal_charge >= ETHEREAL_CHARGE_FULL)
 			to_chat(H, "<span class='warning'>Your charge is full!</span>")
 			return
