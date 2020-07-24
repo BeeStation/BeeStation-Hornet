@@ -1,0 +1,6 @@
+author: zeskorion
+delete-after: true
+changes:
+  - tweak: mass mindswap now checks antimagic
+  - tweak: tinfoil plasmaman helmet offers the same protection as other envirohelms
+  - balance: tinfoil hat is now way stronger
