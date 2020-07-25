@@ -184,13 +184,13 @@
 			color = wires.get_color_of_wire(WIRE_FAIL)
 			var/obj/item/assembly/S = wires.get_attached(color)
 			if(istype(S))
-			    S.activate()
+				S.activate()
 	else
 		if(!ignore_signals)
 			color = wires.get_color_of_wire(WIRE_PASS)
 			var/obj/item/assembly/S = wires.get_attached(color)
-          if(istype(S))
-			    S.activate()
+          	if(istype(S))
+		  		S.activate()
 
 	else
 		set_scanline("scanning", 10)
