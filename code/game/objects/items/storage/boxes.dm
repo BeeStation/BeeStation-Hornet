@@ -1157,8 +1157,8 @@ obj/item/storage/box/syndicate/traitorous_cloner/ComponentInitialize()
 
 obj/item/storage/box/syndicate/traitorous_cloner/PopulateContents()
 	var/static/items_inside = list(
-		/obj/item/circuitboard/machine/clonepod/traitorous = 1,
-		/obj/item/circuitboard/computer/prototype_cloning_traitorous = 1,
+		/obj/item/circuitboard/machine/clonepod/experimental/traitorous = 1,
+		/obj/item/circuitboard/computer/prototype_cloning/traitorous = 1,
 		/obj/item/crowbar = 1,
 		/obj/item/wirecutters = 1,
 		/obj/item/multitool = 1,

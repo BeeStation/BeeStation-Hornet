@@ -36,9 +36,9 @@
 	name = "Experimental Clone Pod (Machine Board)"
 	build_path = /obj/machinery/clonepod/experimental
 
-/obj/item/circuitboard/machine/clonepod/traitorous
-	name = "Traitorous Clone Pod (Machine Board)"
-	build_path = /obj/machinery/clonepod/traitorous
+/obj/item/circuitboard/machine/clonepod/experimental/traitorous
+	name = "Syndicate Clone Pod (Machine Board)"
+	build_path = /obj/machinery/clonepod/experimental/traitorous
 
 /obj/item/circuitboard/machine/abductor
 	name = "alien board (Report This)"

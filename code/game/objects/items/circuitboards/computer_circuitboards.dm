@@ -151,9 +151,9 @@
 	name = "Prototype Cloning (Computer Board)"
 	build_path = /obj/machinery/computer/prototype_cloning
 
-/obj/item/circuitboard/computer/prototype_cloning_traitorous
-	name = "Prototype Cloning (Computer Board)"
-	build_path = /obj/machinery/computer/prototype_cloning_traitorous
+/obj/item/circuitboard/computer/prototype_cloning/traitorous
+	name = "Syndicate Prototype Cloning (Computer Board)"
+	build_path = /obj/machinery/computer/prototype_cloning/traitorous
 
 /obj/item/circuitboard/computer/arcade/battle
 	name = "Arcade Battle (Computer Board)"
