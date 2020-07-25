@@ -121,7 +121,7 @@
 		return //Rejects the input if it is null
 
 	var/number_of_alphanumeric = 0
-	var/last_char_group = ""
+	var/last_char_group = NO_CHARS_DETECTED
 	var/t_out = ""
 	var/t_len = length(t_in)
 	var/charcount = 0
@@ -146,7 +146,7 @@
 
 			// 0  .. 9
 			if(48 to 57)			//Numbers
-				if(last_char_group == NO_CHARS_DETECTED || !allow_numbers) //suppress at start of string
+				if(!allow_numbers) //suppress at start of string
 					continue
 				number_of_alphanumeric++
 				last_char_group = NUMBERS_DETECTED
