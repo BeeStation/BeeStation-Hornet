@@ -457,7 +457,7 @@ obj/effect/sweatsplash/proc/splash()
 						new /obj/effect/gibspawner/human/bodypartless(M.loc)
 						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
 						for(var/obj/item/organ/O in M.loc)
-							if(O.organ_flags & (ORGAN_SYNTHETIC) && !MOB_ROBOTIC in A.infectable_biotypes) //if we can infect robots, we can implant cyber organs
+							if(O.organ_flags & (ORGAN_SYNTHETIC) && (!MOB_ROBOTIC in A.infectable_biotypes)) //if we can infect robots, we can implant cyber organs
 								continue
 							if(O.organ_flags & ORGAN_FAILING || O.organ_flags & ORGAN_VITAL) //dont use shitty organs or brains
 								continue
