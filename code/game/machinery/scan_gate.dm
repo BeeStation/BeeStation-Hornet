@@ -183,7 +183,8 @@
 		if(!ignore_signals)
 			color = wires.get_color_of_wire(WIRE_FAIL)
 			var/obj/item/assembly/S = wires.get_attached(color)
-			S.activate()
+			if(istype(S))
+			    S.activate()
 	else
 		if(!ignore_signals)
 			color = wires.get_color_of_wire(WIRE_PASS)
