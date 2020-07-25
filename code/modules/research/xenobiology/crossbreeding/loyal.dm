@@ -768,13 +768,16 @@ Loyal extracts:
 		var/mob/living/simple_animal/shade/S = new(target)
 		S.ckey = C.ckey
 		S.status_flags |= GODMODE
-		//S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
-		//S.update_atom_languages()
+		S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
+		S.update_atom_languages()
 		target.grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue
 		var/datum/component/loyal_effect/new_effect = target.AddComponent(loyaleffect, target)
 		to_chat(user, "<span class='notice'>You smear the [target] with [src], making it [new_effect.prefix]!</span>")
 		target.name = "[new_effect.prefix] [target.name]"
 		S.fully_replace_character_name(null, "[target.name]")
+		var/obj/effect/proc_holder/spell/aimed/throw_self/throwspell = new
+		throwspell.item_self = target
+		S.mind.AddSpell(throwspell)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[target] vibrates for a moment, but then settles back down. Maybe you should try again later.</span>")
@@ -782,6 +785,26 @@ Loyal extracts:
 
 /datum/component/loyal_effect/lightpink
 	prefix = "possessed"
+
+/obj/effect/proc_holder/spell/aimed/throw_self
+	name = "Throw Yourself"
+	desc = "Throws yourself. Should bust you out of bags or other containers."
+	charge_max = 100
+	clothes_req = FALSE
+	range = 3
+	cooldown_min = 60
+	projectile_type = null //Shouldn't need this with the fire_projectile override
+	base_icon_state = "repulse"
+	action_icon_state = "repulse"
+	active_msg = "You prepare to throw yourself!"
+	deactive_msg = "You settle back down."
+	active = FALSE
+	var/obj/item/item_self //The thing the shade is within
+
+/obj/effect/proc_holder/spell/aimed/throw_self/fire_projectile(mob/living/user, atom/target)
+	if(!item_self)
+		return
+	item_self.throw_at(target, 3, 3)
 
 /obj/item/slimecross/loyal/adamantine
 	colour = "adamantine"
