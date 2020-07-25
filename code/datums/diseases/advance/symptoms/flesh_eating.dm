@@ -115,15 +115,25 @@ Bonus
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(2,3)
-			if(prob(base_message_chance) && !suppress_warning)
+			if(prob(base_message_chance) && !suppress_warning && !MOB_UNDEAD in M.mob_biotypes)
 				to_chat(M, "<span class='warning'>[pick("You feel your body break apart.", "Your skin rubs off like dust.")]</span>")
 		if(4,5)
-			if(prob(base_message_chance / 2)) //reduce spam
+			if(prob(base_message_chance / 2) && !MOB_UNDEAD in M.mob_biotypes) //reduce spam
 				to_chat(M, "<span class='userdanger'>[pick("You feel your muscles weakening.", "Some of your skin detaches itself.", "You feel sandy.")]</span>")
 			Flesh_death(M, A)
 
 /datum/symptom/flesh_death/proc/Flesh_death(mob/living/M, datum/disease/advance/A)
 	var/get_damage = rand(6,10)
+	if(MOB_UNDEAD in M.mob_biotypes)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/S = H.dna.species
+			if(zombie && istype(S, /datum/species/zombie/infectious) && !istype(S, /datum/species/zombie/infectious/fast))
+				H.set_species(/datum/species/zombie/infectious/fast)
+				to_chat(M, "<span class='warning'>Your extraneous flesh sloughs off, giving you a boost of speed at the cost of a bit of padding!</span>")
+			else if(prob(base_message_chance))
+				to_chat(M, "<span class='warning'>Your body slowly decays... luckily, you're already dead!</span>")
+		return //this symptom wont work on the undead.
 	M.take_overall_damage(brute = get_damage, required_status = BODYPART_ORGANIC)
 	if(chems)
 		M.reagents.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))

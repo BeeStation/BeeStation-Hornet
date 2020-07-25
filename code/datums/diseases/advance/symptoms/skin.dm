@@ -108,8 +108,8 @@ BONUS
 	desc = "The virus replaces the melanin in the skin with reactive pigment."
 	stealth = 0
 	resistance = 1
-	stage_speed = 2
-	transmittable = 2
+	stage_speed = 4
+	transmittable = 1
 	level = 0
 	severity = 0
 	base_message_chance = 50

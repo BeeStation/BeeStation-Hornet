@@ -81,7 +81,7 @@
 				LAZYADD(cached_tentacle_turfs, T)
 		for(var/t in cached_tentacle_turfs)
 			if(isopenturf(t))
-				if(prob(10))
+				if(prob(5))
 					new /obj/effect/temp_visual/goliath_tentacle/necro(t, A.affected_mob)
 			else
 				cached_tentacle_turfs -= t
@@ -107,6 +107,8 @@
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(!ishuman(M)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
+		return
 	if(chest && A.stage == 5 && M.mind)
 		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
 		M.visible_message("<span class='danger'>An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")

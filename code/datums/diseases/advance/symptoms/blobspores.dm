@@ -80,7 +80,7 @@
 			for(var/datum/disease/D in B.disease)//don't let them farm diseases with this and monkeys
 				B.disease -= D
 			B.disease += A//instead, they contain the disease that was in this
-		if(prob(2))
+		if(prob(A.properties["resistance"]))
 			var/atom/blobbernaut = new /mob/living/simple_animal/hostile/blob/blobbernaut/(M.loc)
 			blobbernaut.add_atom_colour(pick(BLOB_STRAIN_COLOR_LIST), FIXED_COLOUR_PRIORITY)
 		var/atom/blob_tile = new pick_blob(M.loc)
