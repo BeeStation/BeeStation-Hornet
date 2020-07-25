@@ -127,7 +127,7 @@
 		if(istype(DAT, /datum) || istype(DAT, /client))
 			debug_variables(DAT)
 
-/datum/trigg_variables/proc/view_var_Topic2(action, list/params)
+/datum/vv_panel/proc/view_var_Topic2(action, list/params)
 	if( (usr.client != C) || !C.holder )
 		return //This is VV, not meant to be called by anything else.
 
@@ -154,7 +154,7 @@
 			return TRUE
 
 		if("view")
-			C.trigg_VV(target)
+			C.debug_variables2(target)
 
 	//Actions below aren't in dropdowns/etc.
 	if(check_rights(R_VAREDIT))

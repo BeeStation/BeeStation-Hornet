@@ -182,7 +182,7 @@ export const ViewVariables = (props, context) => {
           color="transparent"
           textColor="white"
           fontSize={1.5}
-          onClick={() => act("trigg_rename")}>
+          onClick={() => act("vv_rename")}>
           {objectinfo.name}
         </Button>
       </FlexItem>

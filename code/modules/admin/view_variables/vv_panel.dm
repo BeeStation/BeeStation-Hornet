@@ -1,18 +1,18 @@
-/client/proc/trigg_VV(datum/D in world)
+/client/proc/debug_variables2(datum/D in world)
 	set category = "Debug"
-	set name = "AAAVARIABLES"
+	set name = "New View Variables"
 
 	if(!usr.client || !usr.client.holder) //This is usr because admins can call the proc on other clients, even if they're not admins, to show them VVs.
 		to_chat(usr, "<span class='danger'>You need to be an administrator to access this.</span>")
 		return
 
-	var/datum/trigg_variables/UI = new(usr, D)
+	var/datum/vv_panel/UI = new(usr, D)
 	UI.ui_interact(usr)
 
 
 #define VV_TITLE(D) ("[D] [REF(D)] = [objtype]")
 
-/datum/trigg_variables
+/datum/vv_panel
 	var/client/C
 	var/datum/D
 	var/datum/tgui/UI
@@ -23,7 +23,7 @@
 	var/list/data = list()
 	var/list/staticdata = list()
 
-/datum/trigg_variables/New(mob/user, target)
+/datum/vv_panel/New(mob/user, target)
 	C = user.client
 	D = target
 
@@ -33,8 +33,9 @@
 
 	if(!islist && !istype(D))
 		CRASH("Uhhhh what the fuck did you just give me?")
+		return
 
-/datum/trigg_variables/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.VV_state)
+/datum/vv_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.VV_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ViewVariables", "[REF(D)] ([objtype])", 700, 700, master_ui, state)
@@ -42,16 +43,16 @@
 		ui.open()
 	UI = ui
 
-/datum/trigg_variables/ui_data(mob/user)
-	message_admins("UI data update!")
+/datum/vv_panel/ui_data(mob/user)
+	//message_admins("UI data update!")
 
 	data["flags"] = get_flags()
 	if(!islist) //no snowflakes for lists
 		data["snowflake"] = get_snowflake()
 	return data
 
-/datum/trigg_variables/ui_static_data(mob/user)
-	message_admins("UI static data update!")
+/datum/vv_panel/ui_static_data(mob/user)
+	//message_admins("UI static data update!")
 
 	staticdata["vars"] = get_vars()
 	staticdata["objectinfo"] = list(
@@ -64,11 +65,11 @@
 	staticdata["dropdown"] = get_dropdown()
 	return staticdata
 
-/datum/trigg_variables/proc/get_snowflake()
+/datum/vv_panel/proc/get_snowflake()
 	. = list()
 	. += D.vv_get_snowflake()
 
-/datum/trigg_variables/proc/get_flags()
+/datum/vv_panel/proc/get_flags()
 	.= list()
 	if(C.holder && C.holder.marked_datum && C.holder.marked_datum == D)
 		. += "MARKED"
@@ -77,7 +78,7 @@
 	if(!islist && D.gc_destroyed)
 		. += "DELETED"
 
-/datum/trigg_variables/proc/get_dropdown()
+/datum/vv_panel/proc/get_dropdown()
 	.= list()
 	if(islist)
 		. = list()
@@ -93,7 +94,7 @@
 
 //The part that matters, the VARIABLES!
 
-/datum/trigg_variables/proc/get_vars()
+/datum/vv_panel/proc/get_vars()
 	message_admins("GETTIN' VARS")
 	.= list()
 	var/list/names = list()
@@ -122,14 +123,15 @@
 				.+= list(item)
 
 
-/datum/trigg_variables/ui_close(mob/user)
-	message_admins("UI CLOSE!")
+/datum/vv_panel/ui_close(mob/user)
+	//message_admins("UI CLOSE!")
+	return
 
-/datum/trigg_variables/ui_act(action, params)
+/datum/vv_panel/ui_act(action, params)
 	if(..())
 		return
 
-	message_admins("UI act! Action: '[action]' | Params: '[english_list(params)]'")
+	//message_admins("UI act! Action: '[action]' | Params: '[english_list(params)]'")
 
 	switch(action)
 		if("to_asay")

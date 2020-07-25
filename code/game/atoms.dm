@@ -954,10 +954,10 @@
 	. = ..()
 	if(check_rights(R_VAREDIT))
 		switch(action)
-			if("trigg_rename")
+			if("vv_rename")
 				if(!check_rights(R_VAREDIT))
 					return
-				vv_trigg_rename()
+				vv_vv_rename()
 
 			if(VV_HK_ADD_REAGENT)
 				if(!reagents)
@@ -1043,7 +1043,7 @@
 /atom/proc/vv_auto_rename(newname)
 	name = newname
 
-/atom/proc/vv_trigg_rename(silent=FALSE)
+/atom/proc/vv_vv_rename(silent=FALSE)
 	var/new_name = input(usr, "What do you want to rename this to?", "Automatic Rename") as null|text
 	if(!new_name || !src)
 		return
