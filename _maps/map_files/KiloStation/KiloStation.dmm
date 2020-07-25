@@ -59792,10 +59792,6 @@
 /turf/open/floor/carpet,
 /area/security/brig)
 "ccO" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-02";
-	pixel_y = 3
-	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
