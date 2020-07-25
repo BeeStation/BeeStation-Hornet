@@ -66644,22 +66644,10 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
-<<<<<<< refs/remotes/BeeStation/master
-/area/engine/atmos)
-"cef" = (
-/obj/effect/landmark/start/ai/secondary,
-/obj/item/radio/intercom{
-	freerange = 1;
-	listening = 0;
-	name = "Custom Channel";
-	pixel_x = -10;
-	pixel_y = 22
-=======
 /area/hallway/secondary/exit/departure_lounge)
 "cov" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
->>>>>>> kilo is back
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
