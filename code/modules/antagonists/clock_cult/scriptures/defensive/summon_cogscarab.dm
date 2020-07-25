@@ -10,7 +10,7 @@
 	invokation_time = 120
 	invokation_text = list("Here you go, good coggy")
 	category = SPELLTYPE_PRESERVATION
-	cogs_required = 6
+	cogs_required = 5
 
 /datum/clockcult/scripture/cogscarab/invoke_success()
 	new /obj/item/drone_shell/cogscarab(get_turf(invoker))

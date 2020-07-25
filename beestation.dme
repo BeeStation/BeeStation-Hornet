@@ -1380,6 +1380,7 @@
 #include "code\modules\antagonists\clock_cult\scriptures\defensive\clockwork_armaments.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\defensive\ocular_warden.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\defensive\summon_cogscarab.dm"
+#include "code\modules\antagonists\clock_cult\scriptures\defensive\summon_marauder.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\structures\interdiction_lens.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\structures\prosperity_prism.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\structures\stargazer.dm"

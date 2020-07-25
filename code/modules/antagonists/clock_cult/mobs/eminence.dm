@@ -30,7 +30,7 @@
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	speed = 1
-	unique_name = TRUE
+	unique_name = FALSE
 	hud_possible = list(ANTAG_HUD)
 	hud_type = /datum/hud/revenant
 
@@ -172,7 +172,7 @@
 	name = "Linked Abscond"
 	desc = "Warps a target to Reebe if they are still for 7 seconds."
 	action_icon_state = "Linked Abscond"
-	charge_max = 1200
+	charge_max = 6000
 
 /obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond/can_cast(mob/user)
 	if(!..())
