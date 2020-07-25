@@ -417,7 +417,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 					if (!SSdbcore.Connect())
 						alert("Connection to Archive has been severed. Aborting.")
 					else if((length(scanner.cache.name) > 45) || (length(scanner.cache.author) > 45))
-						alert("The title and author fields must be fewer than 45 characters each. Check your entry and try again")
+						alert("The title and author fields must each be 45 characters or fewer. Check your entry and try again.")
 						return
 					else
 						var/msg = "[key_name(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs"
