@@ -146,7 +146,7 @@
 
 			// 0  .. 9
 			if(48 to 57)			//Numbers
-				if(!allow_numbers) //suppress at start of string
+				if(!allow_numbers)
 					continue
 				number_of_alphanumeric++
 				last_char_group = NUMBERS_DETECTED
