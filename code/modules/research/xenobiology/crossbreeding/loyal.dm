@@ -704,6 +704,8 @@ Loyal extracts:
 	RegisterSignal(attached_item, COMSIG_CLICK, .proc/fling_to_user)
 
 /datum/component/loyal_effect/gold/proc/fling_to_user(datum/source, location, control, params, mob/user)
+	if(user.canUseTopic(attached, BE_CLOSE))
+		return
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] || modifiers["ctrl"] || modifiers["alt"] || modifiers["middle"]) //There's probably a better way to do this
 		return
@@ -755,34 +757,24 @@ Loyal extracts:
 	var/being_used = FALSE
 
 /obj/item/slimecross/loyal/lightpink/afterattack(obj/item/target,mob/user,proximity)
-	if(being_used || !proximity || target.GetComponent(/datum/component/loyal_effect))
-		return
-	if(!..())
-		return
+	if(being_used || !istype(target, /obj/item) || !proximity || target.GetComponent(/datum/component/loyal_effect))
+		return //Can't use parent call because it'll qdel the extract regardless of success
 	to_chat(user, "<span class='notice'>You offer [src] to [target]...</span>")
 	being_used = TRUE
 
-	var/list/candidates = pollCandidatesForMob("Do you want to play as [target]?", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, target, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the possessed [target.name]?", ROLE_PAI, null, FALSE, 100, POLL_IGNORE_POSSESSED_BLADE) // see poll_ignore.dm
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
-		C.loc = target
-		C.real_name = target.name
-		C.name = target.name
-		C.reset_perspective(target)
-		C.control_object = target
-
-		/*
-		target.key = C.key
-		target.mind.enslave_mind_to_creator(user)
-		target.sentience_act()
-		*/
-		to_chat(target, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
-		to_chat(target, "<span class='userdanger'>You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
-		if(target.flags_1 & HOLOGRAM_1) //Check to see if it's a holodeck item
-			to_chat(target, "<span class='userdanger'>You also become depressingly aware that you are not a real object, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
-		to_chat(user, "<span class='notice'>[target] accepts [src] and suddenly becomes attentive and aware. It worked!</span>")
-		target.copy_known_languages_from(user, FALSE)
-		target.AddComponent(loyaleffect, target)
+		var/mob/living/simple_animal/shade/S = new(target)
+		S.ckey = C.ckey
+		S.status_flags |= GODMODE
+		//S.copy_languages(user, LANGUAGE_MASTER)	//Make sure the sword can understand and communicate with the user.
+		//S.update_atom_languages()
+		target.grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue
+		var/datum/component/loyal_effect/new_effect = target.AddComponent(loyaleffect, target)
+		to_chat(user, "<span class='notice'>You smear the [target] with [src], making it [new_effect.prefix]!</span>")
+		target.name = "[new_effect.prefix] [target.name]"
+		S.fully_replace_character_name(null, "[target.name]")
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[target] vibrates for a moment, but then settles back down. Maybe you should try again later.</span>")
