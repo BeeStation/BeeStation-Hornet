@@ -212,10 +212,11 @@
 	def_components = list(/obj/item/stack/ore/bluespace_crystal = /obj/item/stack/ore/bluespace_crystal/artificial)
 
 /obj/item/circuitboard/machine/vendor
-	name = "Booze-O-Mat Vendor (Machine Board)"
+	name = "Custom Vendor (Machine Board)"
 	desc = "You can turn the \"brand selection\" dial using a screwdriver."
-	build_path = /obj/machinery/vending/boozeomat
-	req_components = list(/obj/item/vending_refill/boozeomat = 1)
+	custom_premium_price = 30
+	build_path = /obj/machinery/vending/custom
+	req_components = list(/obj/item/vending_refill/custom = 1)
 
 	var/static/list/vending_names_paths = list(
 		/obj/machinery/vending/boozeomat = "Booze-O-Mat",
@@ -257,7 +258,8 @@
 		/obj/machinery/vending/engineering = "Robco Tool Maker",
 		/obj/machinery/vending/sovietsoda = "BODA",
 		/obj/machinery/vending/security = "SecTech",
-		/obj/machinery/vending/modularpc = "Deluxe Silicate Selections")
+		/obj/machinery/vending/modularpc = "Deluxe Silicate Selections",
+		/obj/machinery/vending/custom = "Custom Vendor")
 
 /obj/item/circuitboard/machine/vendor/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)

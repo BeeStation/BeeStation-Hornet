@@ -196,6 +196,8 @@
 	
 /obj/item/clothing/head/that/bluespace/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(!proximity_flag)
+		return
 	if(isliving(target))
 		var/mob/living/M = target
 		var/kidnaptime = max(10, (M.health * (M.mob_size / 2)))

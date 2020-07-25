@@ -48,8 +48,8 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	var/hitsound_on = 'sound/weapons/sear.ogg' //so we can differentiate between cakehat and energyhat
 	var/hitsound_off = 'sound/weapons/tap.ogg'
-	var/force_on = 15
-	var/throwforce_on = 15
+	var/force_on = 12
+	var/throwforce_on = 12
 	var/damtype_on = BURN
 	flags_inv = HIDEEARS|HIDEHAIR
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -310,6 +310,7 @@
 /obj/item/clothing/head/foilhat/equipped(mob/living/carbon/human/user, slot)
 	..()
 	if(slot == SLOT_HEAD)
+		user.sec_hud_set_implants()
 		if(paranoia)
 			QDEL_NULL(paranoia)
 		paranoia = new()
@@ -331,6 +332,9 @@
 	..()
 	if(paranoia)
 		QDEL_NULL(paranoia)
+	if(isliving(user))
+		var/mob/living/L = user
+		L.sec_hud_set_implants()
 
 /obj/item/clothing/head/foilhat/attack_hand(mob/user)
 	if(iscarbon(user))
@@ -356,6 +360,7 @@
 	dynamic_fhair_suffix = ""
 	flash_protect = 2
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	bang_protect = 1 //make this consistent with other plasmaman helmets
 	resistance_flags = NONE
 	dog_fashion = null
 
