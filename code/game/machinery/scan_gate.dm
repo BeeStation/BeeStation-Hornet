@@ -191,8 +191,6 @@
 			var/obj/item/assembly/S = wires.get_attached(color)
 			if(istype(S))
 		  		S.activate()
-
-	else
 		set_scanline("scanning", 10)
 
 /obj/machinery/scanner_gate/proc/alarm_beep()
