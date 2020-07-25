@@ -266,6 +266,7 @@
 						detect_nutrition = NUTRITION_LEVEL_FAT
 			. = TRUE
 
+
 #undef SCANGATE_NONE
 #undef SCANGATE_MINDSHIELD
 #undef SCANGATE_NANITES
