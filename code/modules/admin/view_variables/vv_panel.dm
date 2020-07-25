@@ -32,7 +32,7 @@
 	//Or, in English; '/list' if islist, else it's a datum so we can just 'D.type'
 
 	if(!islist && !istype(D))
-		CRASH("Uhhhh what the fuck did you just give me?")
+		//CRASH("Uhhhh what the fuck did you just give me?")
 		return
 
 /datum/vv_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.VV_state)
