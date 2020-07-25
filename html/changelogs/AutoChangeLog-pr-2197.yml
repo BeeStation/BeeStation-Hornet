@@ -1,5 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - bugfix: Krav maga now uses correct tenses when you punch or stomp someone (thanks
-      hotimep for making the issue).
