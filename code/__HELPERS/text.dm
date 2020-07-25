@@ -121,7 +121,7 @@
 		return //Rejects the input if it is null
 
 	var/number_of_alphanumeric = 0
-	var/last_char_group = NO_CHARS_DETECTED
+	var/last_char_group = ""
 	var/t_out = ""
 	var/t_len = length(t_in)
 	var/charcount = 0
