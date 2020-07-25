@@ -8155,11 +8155,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
-"sV" = (
-/obj/machinery/door/poddoor/shuttledock,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
-/area/centcom/evac)
 "sW" = (
 /obj/structure/showcase{
 	desc = "A strange machine supposedly from another world. The Wizard Federation has been meddling with it for years.";
@@ -17608,6 +17603,12 @@
 /obj/effect/spawner/xmastree,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
+"RC" = (
+/obj/machinery/door/poddoor/shuttledock,
+/obj/effect/turf_decal/delivery,
+/obj/structure/fans/tiny,
+/turf/open/floor/plasteel,
+/area/centcom/evac)
 "RF" = (
 /obj/structure/barricade/security/ctf,
 /obj/effect/turf_decal/tile/blue,
@@ -71408,19 +71409,19 @@ io
 qx
 qx
 qx
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
 qx
 qx
 qx
