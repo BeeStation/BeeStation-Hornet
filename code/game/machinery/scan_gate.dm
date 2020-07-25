@@ -65,7 +65,7 @@
 	auto_scan(AM)
 
 /obj/machinery/scanner_gate/proc/auto_scan(atom/movable/AM)
-	if(!(machine_stat & (BROKEN|NOPOWER)) && isliving(AM) & (!panel_open))
+	if(!(machine_stat & (BROKEN|NOPOWER)) && isliving(AM) & (!panel_open)
 		perform_scan(AM)
 
 /obj/machinery/scanner_gate/proc/set_scanline(type, duration)
@@ -189,7 +189,7 @@
 		if(!ignore_signals)
 			color = wires.get_color_of_wire(WIRE_PASS)
 			var/obj/item/assembly/S = wires.get_attached(color)
-          	if(istype(S))
+			if(istype(S))
 		  		S.activate()
 
 	else
