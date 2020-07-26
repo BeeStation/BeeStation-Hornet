@@ -2003,7 +2003,6 @@
 				dat += "<center><b>[bans.len] bans detected for [ckey]</b></center>"
 
 				for(var/ban in bans)
-					to_chat(usr, "Ban: [ban]")
 					var/list/bandata = json_decode(ban)
 					dat += "<b>Server: </b> [bandata["sourceName"]]<br>"
 					dat += "<b>Type: </b> [bandata["type"]]<br>"
