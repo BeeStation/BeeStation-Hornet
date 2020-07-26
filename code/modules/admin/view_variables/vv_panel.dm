@@ -132,12 +132,8 @@
 
 	//message_admins("UI act! Action: '[action]' | Params: '[english_list(params)]'")
 
-	switch(action)
-		if("to_asay")
-			message_admins("[key_name_admin(usr)] has shared a VV window: [ADMIN_VV_LINK(D)]")
-			return
-
 	if(view_var_Topic2(action, params, ui.user.client))
+		update_static_data(ui.user)
 		return TRUE //quick reminder for anyone code diving: returning TRUE makes the UI update.
 
 #undef VV_TITLE

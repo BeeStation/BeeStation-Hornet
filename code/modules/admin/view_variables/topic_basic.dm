@@ -57,27 +57,11 @@
 		if(target_var)
 			switch(action)
 				if(VV_HK_BASIC_EDIT)
-					if(!modify_variables(target, target_var, 1))
-						return
-					switch(target_var)
-						if("name")
-							vv_update_display(target, "name", "[target]")
-						if("dir")
-							var/atom/A = target
-							if(istype(A))
-								vv_update_display(target, "dir", dir2text(A.dir) || A.dir)
-						if("ckey")
-							var/mob/living/L = target
-							if(istype(L))
-								vv_update_display(target, "ckey", L.ckey || "No ckey")
-						if("real_name")
-							var/mob/living/L = target
-							if(istype(L))
-								vv_update_display(target, "real_name", L.real_name || "No real name")
+					return modify_variables(target, target_var, 1)
 				if(VV_HK_BASIC_CHANGE)
-					modify_variables(target, target_var, 0)
+					return modify_variables(target, target_var, 0)
 				if(VV_HK_BASIC_MASSEDIT)
-					cmd_mass_modify_object_variables(target, target_var)
+					return cmd_mass_modify_object_variables(target, target_var)
 
 	if(check_rights(R_ADMIN, FALSE))
 		switch(action)

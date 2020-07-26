@@ -135,7 +135,7 @@
 	var/target = GET_VV_TARGET2
 	if(!target)
 		target = D
-	C.vv_do_basic2(target, action, params)
+	. = C.vv_do_basic2(target, action, params)
 
 	// This goes only one of two ways, partner:
 	// Ya either gave me some type of datum,
@@ -144,39 +144,25 @@
 	// Or ya gave me a list, which ain't a datum.
 	if(istype(target, /datum))
 		var/datum/D = target
-		D.vv_do_topic2(action, params)
+		. = D.vv_do_topic2(action, params)
 	else if(islist(target))
-		C.vv_do_list2(target, action, params)
+		. = C.vv_do_list2(target, action, params)
 
 	switch(action)
 		if("refresh")
-			update_static_data(usr)
 			return TRUE
 
 		if("view")
 			C.debug_variables2(target)
+			return TRUE
+
+		if("to_asay")
+			message_admins("[key_name_admin(usr)] has shared a VV window: [ADMIN_VV_LINK(D)]")
+			return TRUE
 
 	//Actions below aren't in dropdowns/etc.
 	if(check_rights(R_VAREDIT))
 		switch(action)
-			//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and datacore records).
-			if("rename")
-				if(!check_rights(NONE))
-					return
-
-				var/mob/M = target
-				if(!istype(M))
-					to_chat(usr, "This can only be used on instances of type /mob")
-					return
-
-				var/new_name = stripped_input(usr,"What would you like to name this mob?","Input a name",M.real_name,MAX_NAME_LEN)
-				if( !new_name || !M )
-					return
-
-				message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
-				M.fully_replace_character_name(M.real_name,new_name)
-				return TRUE
-
 			if("rotate")
 				if(!check_rights(NONE))
 					return
@@ -246,12 +232,3 @@
 					log_admin(log_msg)
 					admin_ticket_log(L, "<font color='blue'>[log_msg]</font>")
 					return TRUE
-
-
-	//Finally, refresh if something modified the list.
-	/*
-	if(href_list["datumrefresh"])
-		var/datum/DAT = locate(href_list["datumrefresh"])
-		if(istype(DAT, /datum) || istype(DAT, /client))
-			debug_variables(DAT)
-	*/

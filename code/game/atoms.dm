@@ -955,8 +955,6 @@
 	if(check_rights(R_VAREDIT))
 		switch(action)
 			if("vv_rename")
-				if(!check_rights(R_VAREDIT))
-					return
 				vv_rename()
 
 			if(VV_HK_ADD_REAGENT)

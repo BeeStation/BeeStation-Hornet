@@ -1401,6 +1401,7 @@
 			"liver"     = getOrganLoss(ORGAN_SLOT_LIVER),
 		)
 	)
+
 /mob/living/vv_get_dropdown2()
 	. = ..()
 	VV_DROPDOWN_OPTION2("", "/mob/living options:")
