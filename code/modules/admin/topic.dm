@@ -1996,14 +1996,14 @@
 			if(query["body"] == "[]")
 				dat += "<center><b>0 bans detected for [ckey]</b></center>"
 			else
-				query["body"] = copytext(query["body"], 2, -1) //strip [ and ]
-				query["body"] = replacetext(query["body"], "},", "}},") //splittext strips the char you split so let's double it up
-				bans = splittext(query["body"], "},")
-
+				bans = splittext(query["body"], "},", 2, length(query["body"])-1) //We don't want the [] that wraps the query
 				dat += "<center><b>[bans.len] ban\s detected for [ckey]</b></center>"
 
 				for(var/ban in bans)
-					var/list/bandata = json_decode(ban)
+					//Okay so what's going on here is we intentionally removed }, in splittext so each ban entry wouldn't have a trailing comma (invalid json)
+					//But now we need to readd } so it's valid json.
+					//But not if it's the final entry because that retained its }
+					var/list/bandata = json_decode("[ban][ban == bans.len ? "" : "}"]")
 					dat += "<b>Server: </b> [bandata["sourceName"]]<br>"
 					dat += "<b>Type: </b> [bandata["type"]]<br>"
 					dat += "<b>Banned By: </b> [bandata["bannedBy"]]<br>"
