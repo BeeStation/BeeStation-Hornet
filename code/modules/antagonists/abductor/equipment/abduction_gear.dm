@@ -723,6 +723,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Abduct with style - spiky style. Prevents digital tracking."
 	icon_state = "alienhelmet"
 	item_state = "alienhelmet"
+	flash_protect = 1
 	blockTracking = TRUE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 
