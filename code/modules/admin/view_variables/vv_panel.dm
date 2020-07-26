@@ -72,11 +72,11 @@
 	if(islist)
 		return
 	if(C.holder && C.holder.marked_datum && C.holder.marked_datum == D)
-		. += "MARKED"
+		. += "Marked Object"
 	if(D.datum_flags & DF_VAR_EDITED)
-		. += "EDITED"
+		. += "Var Edited"
 	if(D.gc_destroyed)
-		. += "DELETED"
+		. += "Deleted"
 
 /datum/vv_panel/proc/get_dropdown()
 	.= list()

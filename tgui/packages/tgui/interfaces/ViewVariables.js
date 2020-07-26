@@ -40,7 +40,7 @@ const matrixify = item => {
 
 export const ViewVariables = (props, context) => {
   const { act, data } = useBackend(context);
-  const { objectinfo, vars, snowflake, dropdown } = data;
+  const { objectinfo, vars, snowflake, dropdown, flags } = data;
 
   // verSection first, it's the simplest.
   const [
@@ -258,7 +258,6 @@ export const ViewVariables = (props, context) => {
         <FlexItem grow={1}>
           <Button
             fluid
-
             backgroundColor={color}
             content={`${content}: ${entry[1]}`||""}
             onClick={() => act("adjustdamage",
@@ -322,12 +321,26 @@ export const ViewVariables = (props, context) => {
     </Flex>
   ));
 
+  const Flags = flags && (
+    <Flex position="absolute" direction="column">
+      {flags.map(flag => { return (
+        <FlexItem key={flag}>
+          <Button
+            color="red"
+            content={flag} />
+        </FlexItem>
+      ); })}
+    </Flex>
+  );
+
+
   const topSection = (
     <Section
       title={`${objectinfo.name} (${objectinfo.class})`}
       buttons={DropdownButton}>
       <Section
         textAlign="center">
+        {Flags}
         <Flex align="start">
           {basicsnowflake}
           {DropdownMenu}
