@@ -2000,7 +2000,7 @@
 				query["body"] = replacetext(query["body"], "},", "}},") //splittext strips the char you split so let's double it up
 				bans = splittext(query["body"], "},")
 
-				dat += "<center><b>[bans.len] bans detected for [ckey]</b></center>"
+				dat += "<center><b>[bans.len] ban\s detected for [ckey]</b></center>"
 
 				for(var/ban in bans)
 					var/list/bandata = json_decode(ban)
