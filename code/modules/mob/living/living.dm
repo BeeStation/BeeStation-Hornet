@@ -1389,7 +1389,7 @@
 			"toxin"   = getToxLoss(),
 			"oxygen"  = getOxyLoss(),
 			"clone"   = getCloneLoss(),
-			"stamina" = getStaminaLoss()
+			"stamina" = getStaminaLoss(),
 		),
 		"Organ" = list(
 			"brain"     = getOrganLoss(ORGAN_SLOT_BRAIN),
@@ -1398,7 +1398,7 @@
 			"eye_sight" = getOrganLoss(ORGAN_SLOT_EYES),
 			"lungs"     = getOrganLoss(ORGAN_SLOT_LUNGS),
 			"heart"     = getOrganLoss(ORGAN_SLOT_HEART),
-			"liver"     = getOrganLoss(ORGAN_SLOT_LIVER)
+			"liver"     = getOrganLoss(ORGAN_SLOT_LIVER),
 		)
 	)
 /mob/living/vv_get_dropdown2()

@@ -105,7 +105,6 @@ export const ViewVariables = (props, context) => {
     return (
       <Fragment>
         <Button
-          // color="transparent"
           onClick={item.ref
             ? () => act("view", { target: item.ref })
             : () => act("datumedit", { targetvar: item.name })}>
@@ -145,10 +144,12 @@ export const ViewVariables = (props, context) => {
 
           <Button
             onClick={() => act("to_asay")}
+            title="Share to admin chat"
             icon="share" />
 
           <Button
             onClick={() => act("refresh")}
+            title="Refresh"
             icon="sync" />
 
         </Fragment>
@@ -250,7 +251,7 @@ export const ViewVariables = (props, context) => {
   let LivingInfo;
   if (snowflake?.DamageStats) {
     const Body = Object.entries(snowflake.DamageStats.Body);
-    // const Organ = Object.entries(snowflake.DamageStats.Organ);
+    const Organ = Object.entries(snowflake.DamageStats.Organ);
     const makedamagebutton = entry => {
       let [color, content] = damagebuttonswitch(entry);
       return (
@@ -265,19 +266,27 @@ export const ViewVariables = (props, context) => {
         </FlexItem>
       );
     };
-
+    const [
+      OrganButtonsOpen,
+      SetDamageButtons,
+    ] = useLocalState(context, 'DamageButtons', false);
     LivingInfo = (
+      // Plan for the future is to make a complete health manipulation screen:
+      // Ability to add implants, change organs, specific limb damage too.
+      // Complete package.
+      // But for now... We'll stay simple.
       <Flex mt={1} wrap="wrap" spacing={1} justify="center">
-        {Body.map(makedamagebutton)}
+        {OrganButtonsOpen
+          ?Organ.map(makedamagebutton)
+          :Body.map(makedamagebutton)}
+        <Button
+          color="transparent"
+          textColor="#dd0000" // lil bit more red than the "red" preset
+          icon={OrganButtonsOpen?"heartbeat":"plus"}
+          onClick={() => SetDamageButtons(!OrganButtonsOpen)} />
       </Flex>
     );
   }
-  // {Organ.map(makedamagebutton)}
-  // Plan for the future is to make a complete health manipulation screen.
-  // Ability to add implants, change organs, specific limb damage too.
-  // Complete package.
-
-
 
 
   // Neither Dropdown or Checkbox or literally anything else served
@@ -323,6 +332,7 @@ export const ViewVariables = (props, context) => {
           {basicsnowflake}
           {DropdownMenu}
         </Flex>
+        {LivingInfo}
       </Section>
     </Section>
   );

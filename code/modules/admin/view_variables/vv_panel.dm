@@ -69,11 +69,13 @@
 
 /datum/vv_panel/proc/get_flags(client/C)
 	.= list()
+	if(islist)
+		return
 	if(C.holder && C.holder.marked_datum && C.holder.marked_datum == D)
 		. += "MARKED"
-	if(!islist && (D.datum_flags & DF_VAR_EDITED))
+	if(D.datum_flags & DF_VAR_EDITED)
 		. += "EDITED"
-	if(!islist && D.gc_destroyed)
+	if(D.gc_destroyed)
 		. += "DELETED"
 
 /datum/vv_panel/proc/get_dropdown()
@@ -91,9 +93,8 @@
 
 
 //The part that matters, the VARIABLES!
-
 /datum/vv_panel/proc/get_vars(client/C)
-	message_admins("GETTIN' VARS")
+	//message_admins("GETTIN' VARS")
 	.= list()
 	var/list/names = list()
 	if(!islist)

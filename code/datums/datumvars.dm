@@ -39,7 +39,7 @@
 
 /datum/proc/vv_get_dropdown2()
 	. = list()
-	VV_DROPDOWN_OPTION2("", "---")
+	VV_DROPDOWN_OPTION2("", "/datum options:")
 	VV_DROPDOWN_OPTION2(VV_HK_CALLPROC, "Call Proc")
 	VV_DROPDOWN_OPTION2(VV_HK_MARK, "Mark Object")
 	VV_DROPDOWN_OPTION2(VV_HK_DELETE, "Delete")
@@ -59,7 +59,7 @@
 	return TRUE
 
 /datum/proc/vv_do_topic2(action, list/params)
-	message_admins("Going through datum/vv_do_topic2")
+	//message_admins("Going through datum/vv_do_topic2")
 	if( !usr || !usr.client || !usr.client.holder || !check_rights(NONE) )
 		return FALSE //This is VV, not meant to be called by anything else.
 

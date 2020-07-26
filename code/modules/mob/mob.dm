@@ -1312,8 +1312,6 @@
 	if(!silent)
 		message_admins("Admin [key_name_admin(usr)] renamed [ADMIN_VV_LINK(src)] to [new_name].")
 	fully_replace_character_name(real_name,new_name)
-	// C.vv_update_display(M, "name", new_name)
-	// C.vv_update_display(M, "real_name", M.real_name || "No real name")
 	return TRUE
 
 ///Show the language menu for this mob

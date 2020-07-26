@@ -175,8 +175,6 @@
 
 				message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
 				M.fully_replace_character_name(M.real_name,new_name)
-				// C.vv_update_display(M, "name", new_name)
-				// C.vv_update_display(M, "real_name", M.real_name || "No real name")
 				return TRUE
 
 			if("rotate")
@@ -193,7 +191,6 @@
 						A.setDir(turn(A.dir, -90))
 					if("left")
 						A.setDir(turn(A.dir, 90))
-				// C.vv_update_display(A, "dir", dir2text(A.dir))
 				return TRUE
 
 			if("adjustdamage")
@@ -220,12 +217,25 @@
 						L.adjustToxLoss(amount, forced=TRUE)
 					if("oxygen")
 						L.adjustOxyLoss(amount, forced=TRUE)
-					if("brain")
-						L.adjustOrganLoss(ORGAN_SLOT_BRAIN, amount)
 					if("clone")
 						L.adjustCloneLoss(amount, forced=TRUE)
 					if("stamina")
 						L.adjustStaminaLoss(amount, forced=TRUE)
+
+					if("brain")
+						L.adjustOrganLoss(ORGAN_SLOT_BRAIN, amount)
+					if("stomach")
+						L.adjustOrganLoss(ORGAN_SLOT_STOMACH, amount)
+					if("ears")
+						L.adjustOrganLoss(ORGAN_SLOT_EARS, amount)
+					if("eye_sight")
+						L.adjustOrganLoss(ORGAN_SLOT_EYES, amount)
+					if("lungs")
+						L.adjustOrganLoss(ORGAN_SLOT_LUNGS, amount)
+					if("heart")
+						L.adjustOrganLoss(ORGAN_SLOT_HEART, amount)
+					if("liver")
+						L.adjustOrganLoss(ORGAN_SLOT_LIVER, amount)
 					else
 						to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
 						return
