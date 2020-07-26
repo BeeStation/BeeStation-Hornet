@@ -1996,7 +1996,7 @@
 			if(query["body"] == "[]")
 				dat += "<center><b>0 bans detected for [ckey]</b></center>"
 			else
-				query["body"] = copytext_char(query["body"], 2, -1) //strip [ and ]
+				query["body"] = copytext(query["body"], 2, -1) //strip [ and ]
 				query["body"] = replacetext(query["body"], "},", "}},") //splittext strips the char you split so let's double it up
 				bans = splittext(query["body"], "},")
 
