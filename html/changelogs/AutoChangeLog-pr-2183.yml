@@ -1,0 +1,5 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - rscadd: Added new warnings to prevent books from having titles/authors longer
+      than 45 characters
