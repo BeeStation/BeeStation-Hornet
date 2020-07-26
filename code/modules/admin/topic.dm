@@ -1988,8 +1988,10 @@
 
 		var/dat = "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><body>"
 
-		if(!query || query["status_code"] != 200)
-			dat += "Failed to connect to CentCom. Status code: [query["status_code"]]"
+		if(!query)
+			dat += "<br>Failed to connect to CentCom."
+		else if(query["status_code"] != 200)
+			dat += "<br>Failed to connect to CentCom. Status code: [query["status_code"]]"
 		else
 			if(query["body"] == "[]")
 				dat += "<center><b>0 bans detected for [ckey]</b></center>"
