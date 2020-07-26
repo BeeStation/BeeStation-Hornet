@@ -13,7 +13,6 @@
 #define VV_TITLE(D) ("[D] [REF(D)] = [objtype]")
 
 /datum/vv_panel
-	var/client/C
 	var/datum/D
 	var/datum/tgui/UI
 	var/islist
@@ -24,7 +23,6 @@
 	var/list/staticdata = list()
 
 /datum/vv_panel/New(mob/user, target)
-	C = user.client
 	D = target
 
 	islist = islist(D)
@@ -46,7 +44,7 @@
 /datum/vv_panel/ui_data(mob/user)
 	//message_admins("UI data update!")
 
-	data["flags"] = get_flags()
+	data["flags"] = get_flags(user.client)
 	if(!islist) //no snowflakes for lists
 		data["snowflake"] = get_snowflake()
 	return data
@@ -54,12 +52,12 @@
 /datum/vv_panel/ui_static_data(mob/user)
 	//message_admins("UI static data update!")
 
-	staticdata["vars"] = get_vars()
+	staticdata["vars"] = get_vars(user.client)
 	staticdata["objectinfo"] = list(
 		"name"  = islist ? "/list" : D,
 		"ref"   = REF(D),
 		"type"  = islist ? "" : objtype,
-		"class" = C.vv_get_class(D, D),
+		"class" = user.client.vv_get_class(D, D),
 		"title" = VV_TITLE(D),
 		)
 	staticdata["dropdown"] = get_dropdown()
@@ -69,7 +67,7 @@
 	. = list()
 	. += D.vv_get_snowflake()
 
-/datum/vv_panel/proc/get_flags()
+/datum/vv_panel/proc/get_flags(client/C)
 	.= list()
 	if(C.holder && C.holder.marked_datum && C.holder.marked_datum == D)
 		. += "MARKED"
@@ -94,7 +92,7 @@
 
 //The part that matters, the VARIABLES!
 
-/datum/vv_panel/proc/get_vars()
+/datum/vv_panel/proc/get_vars(client/C)
 	message_admins("GETTIN' VARS")
 	.= list()
 	var/list/names = list()
@@ -127,7 +125,7 @@
 	//message_admins("UI CLOSE!")
 	return
 
-/datum/vv_panel/ui_act(action, params)
+/datum/vv_panel/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 
@@ -138,7 +136,7 @@
 			message_admins("[key_name_admin(usr)] has shared a VV window: [ADMIN_VV_LINK(D)]")
 			return
 
-	if(view_var_Topic2(action, params))
+	if(view_var_Topic2(action, params, ui.user.client))
 		return TRUE //quick reminder for anyone code diving: returning TRUE makes the UI update.
 
 #undef VV_TITLE

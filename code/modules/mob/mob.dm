@@ -1305,7 +1305,7 @@
 	//Do not do parent's actions, as we *usually* do this differently.
 	fully_replace_character_name(real_name, new_name)
 
-/mob/vv_vv_rename(silent=FALSE)
+/mob/vv_rename(silent=FALSE)
 	var/new_name = stripped_input(usr, "What would you like to name this mob?", "Input a name", real_name, MAX_NAME_LEN)
 	if(!new_name || src)
 		return
