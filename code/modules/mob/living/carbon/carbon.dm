@@ -1006,7 +1006,7 @@
 
 /mob/living/carbon/vv_get_dropdown2()
 	. = ..()
-	VV_DROPDOWN_OPTION2("", "---------")
+	VV_DROPDOWN_OPTION2("", "/mob/living/carbon options:")
 	VV_DROPDOWN_OPTION2(VV_HK_MAKE_AI, "Make AI")
 	VV_DROPDOWN_OPTION2(VV_HK_MODIFY_BODYPART, "Modify bodypart")
 	VV_DROPDOWN_OPTION2(VV_HK_MODIFY_ORGANS, "Modify organs")
@@ -1136,7 +1136,7 @@
 		return FALSE
 	if(hallucinating())
 		return TRUE
-	
+
 	if(IsSleeping())
 		return TRUE
 	if(HAS_TRAIT(src, TRAIT_DUMB))

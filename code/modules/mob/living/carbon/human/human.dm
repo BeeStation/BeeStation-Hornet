@@ -615,7 +615,7 @@
 	//Agent cards lower threatlevel.
 	if(istype(idcard, /obj/item/card/id/syndicate))
 		threatcount -= 5
-	
+
 	//individuals wearing tinfoil hats are 30% more likely to be criminals
 	if(istype(get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		threatcount += 2
@@ -939,7 +939,7 @@
 
 /mob/living/carbon/human/vv_get_dropdown2()
 	. = ..()
-	VV_DROPDOWN_OPTION2("", "---------")
+	VV_DROPDOWN_OPTION2("", "/mob/living/carbon/human options:")
 	VV_DROPDOWN_OPTION2(VV_HK_COPY_OUTFIT, "Copy Outfit")
 	VV_DROPDOWN_OPTION2(VV_HK_MOD_QUIRKS, "Add/Remove Quirks")
 	VV_DROPDOWN_OPTION2(VV_HK_MAKE_MONKEY, "Make Monkey")

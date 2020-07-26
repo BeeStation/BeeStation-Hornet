@@ -1230,7 +1230,7 @@
 
 /mob/vv_get_dropdown2()
 	. = ..()
-	VV_DROPDOWN_OPTION2("", "/mob Options:")
+	VV_DROPDOWN_OPTION2("", "/mob options:")
 	VV_DROPDOWN_OPTION2(VV_HK_GIB, "Gib")
 	VV_DROPDOWN_OPTION2(VV_HK_GIVE_SPELL, "Give Spell")
 	VV_DROPDOWN_OPTION2(VV_HK_REMOVE_SPELL, "Remove Spell")
