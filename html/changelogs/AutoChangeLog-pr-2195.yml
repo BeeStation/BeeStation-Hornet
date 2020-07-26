@@ -1,7 +1,0 @@
-author: yorii
-delete-after: true
-changes:
-  - bugfix: beachbum language is no longer lost upon death
-  - bugfix: voltaic now works
-  - bugfix: foreigner trait now works
-  - bugfix: IPCs now actually speak the languages they have
