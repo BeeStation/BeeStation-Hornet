@@ -1597,8 +1597,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						preferred_map = maplist[pickedmap]
 
 				if ("clientfps")
-					var/desiredfps = input(user, "Choose your desired fps. (0 = synced with server tick rate (currently:[world.fps]))", "Character Preference", clientfps)  as null|num
+					var/desiredfps = input(user, "Please type in your Monitor Refresh Rate. Minimum Framerate is [world.fps])", "Character Preference", clientfps)  as null|num
 					if (!isnull(desiredfps))
+						if(desiredfps < world.fps)
+							desiredfps = world.fps
 						clientfps = desiredfps
 						parent.fps = desiredfps
 				if("ui")
