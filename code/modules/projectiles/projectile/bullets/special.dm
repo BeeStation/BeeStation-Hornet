@@ -35,6 +35,7 @@
 /obj/item/projectile/bullet/hos/hv
 	name = "3D printed .454 HV round"
 	speed = 0.2
+	armour_penetration = 60
 
 /obj/item/projectile/bullet/hos/heavy
 	name = "3D printed .454 heavy round"
