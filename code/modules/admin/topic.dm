@@ -1988,7 +1988,7 @@
 
 		// Make the request
 		var/datum/http_request/request = new()
-		request.prepare(RUSTG_HTTP_METHOD_GET, "[CONFIG_GET(string/centcom_ban_db)][ckey]", "", "")
+		request.prepare(RUSTG_HTTP_METHOD_GET, "[CONFIG_GET(string/centcom_ban_db)]/[ckey]", "", "")
 		request.begin_async()
 		UNTIL(request.is_complete())
 		var/datum/http_response/response = request.into_response()
@@ -2022,8 +2022,8 @@
 					dat += "<b>Expires: </b> [expiration ? "[sanitize(expiration)]" : "Permanent"]<br>"
 					if(bandata["type"] == "job")
 						dat += "<b>Jobs: </b> "
-						for(var/job in bandata["jobs"])
-							dat += "[sanitize(job)], "
+						var/list/jobs = bandata["jobs"]
+						dat += sanitize(jobs.Join(", "))
 						dat += "<br>"
 					dat += "<hr>"
 
