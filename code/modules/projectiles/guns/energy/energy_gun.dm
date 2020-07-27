@@ -62,7 +62,7 @@
 	force = 10
 	automatic = 1
 	fire_rate = 3
-	ammo_type = list(/obj/item/ammo_casing/energy/hos/hv, /obj/item/ammo_casing/energy/hos/heavy, /obj/item/ammo_casing/energy/hos/light, /obj/item/ammo_casing/energy/ion, /obj/item/ammo_casing/energy/temp/hos, /obj/item/ammo_casing/energy/hos/breach)
+	ammo_type = list(/obj/item/ammo_casing/energy/hos/hv, /obj/item/ammo_casing/energy/hos/heavy, /obj/item/ammo_casing/energy/hos/light, /obj/item/ammo_casing/energy/ion/hos, /obj/item/ammo_casing/energy/temp/hos, /obj/item/ammo_casing/energy/hos/breach)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 

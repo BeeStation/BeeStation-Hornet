@@ -29,9 +29,6 @@
 	e_cost = 100
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
-/obj/item/ammo_casing/energy/temp/hos
-	e_cost = 60
-
 /obj/item/ammo_casing/energy/temp/hot
 	projectile_type = /obj/item/projectile/temp/hot
 	select_name = "bake"
@@ -72,6 +69,7 @@
 // HoS ballistic gun settings
 
 /obj/item/ammo_casing/energy/hos
+	fire_sound = 'sound/weapons/gun_dry_fire.ogg'
 	name = "integrated miniature 3D printer"
 	desc = "A miniaturised 3D printer, capable of running off an energy gun cell to produce .454 bullets for immediate use."
 	select_name = "boolet"
@@ -95,4 +93,10 @@
 /obj/item/ammo_casing/energy/hos/breach
 	e_cost = 60
 	select_name = ".454B"
-	projectile_type = /obj/item/projectile/bullet/shotgun_breaching
+	projectile_type = /obj/item/projectile/bullet/shotgun_breaching/hos
+
+/obj/item/ammo_casing/energy/temp/hos
+	e_cost = 60
+
+/obj/item/ammo_casing/energy/ion/hos
+	e_cost = 200

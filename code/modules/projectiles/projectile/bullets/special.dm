@@ -34,17 +34,24 @@
 
 /obj/item/projectile/bullet/hos/hv
 	name = "3D printed .454 HV round"
-	speed = 0.4
+	speed = 0.2
 
 /obj/item/projectile/bullet/hos/heavy
 	name = "3D printed .454 heavy round"
 	damage = 35
 	knockdown = 50
 
+/obj/item/projectile/bullet/hos/heavy/on_hit(atom/target, blocked = FALSE)
+	. = ..()
+	if(ismovableatom(target))
+		var/atom/movable/M = target
+		var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
+		M.safe_throw_at(throw_target, 3, 2)
+
 /obj/item/projectile/bullet/hos/light
 	name = "3D printed .454 plastic round"
 	damage = 10
 	stamina = 15
 
-/obj/item/projectile/bullet/shotgun_breaching
+/obj/item/projectile/bullet/shotgun_breaching/hos
 	name = "3D printed .454 breaching round"
