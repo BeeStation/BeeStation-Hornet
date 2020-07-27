@@ -10,7 +10,8 @@
 		return
 	if(alert(src, "Confirm Heal All?","Are you sure?","Yes","No") == "No")
 		return
-	message_admins("[key_name_admin(usr)] healed all mobs")
+	message_admins("[key_name_admin(usr)] healed all living mobs")
+	log_admin("[key_name_admin(usr)] healed all living mobs")
 	to_chat(world, "<b>The gods have miraculously given everyone new life!</b>")
-	for(var/mob/living/M in world)
+	for(var/mob/living/M in GLOB.mob_living_list)
 		M.revive(TRUE, TRUE)
