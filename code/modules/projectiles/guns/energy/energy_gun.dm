@@ -56,13 +56,13 @@
 
 /obj/item/gun/energy/e_gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
-	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
+	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time. It can also use built in 3D printers to turn energy into ballistic rounds."
 	cell_type = /obj/item/stock_parts/cell{charge = 1200; maxcharge = 1200}
 	icon_state = "hoslaser"
 	force = 10
 	automatic = 1
 	fire_rate = 3
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler/hos)
+	ammo_type = list(/obj/item/ammo_casing/energy/hos/hv, /obj/item/ammo_casing/energy/hos/heavy, /obj/item/ammo_casing/energy/hos/light, /obj/item/ammo_casing/energy/ion, /obj/item/ammo_casing/energy/temp/hos, /obj/item/ammo_casing/energy/hos/breach)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 

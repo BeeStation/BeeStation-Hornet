@@ -29,6 +29,9 @@
 	e_cost = 100
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
+/obj/item/ammo_casing/energy/temp/hos
+	e_cost = 60
+
 /obj/item/ammo_casing/energy/temp/hot
 	projectile_type = /obj/item/projectile/temp/hot
 	select_name = "bake"
@@ -65,3 +68,31 @@
 	e_cost = 200
 	select_name = "stun"
 	projectile_type = /obj/item/projectile/energy/tesla/revolver
+
+// HoS ballistic gun settings
+
+/obj/item/ammo_casing/energy/hos
+	name = "integrated miniature 3D printer"
+	desc = "A miniaturised 3D printer, capable of running off an energy gun cell to produce .454 bullets for immediate use."
+	select_name = "boolet"
+	projectile_type = /obj/item/projectile/bullet/hos
+
+/obj/item/ammo_casing/energy/hos/hv
+	e_cost = 150
+	select_name = ".454HV"
+	projectile_type = /obj/item/projectile/bullet/hos/hv
+
+/obj/item/ammo_casing/energy/hos/heavy
+	e_cost = 400
+	select_name = ".454HI"
+	projectile_type = /obj/item/projectile/bullet/hos/heavy
+
+/obj/item/ammo_casing/energy/hos/light
+	e_cost = 30
+	select_name = ".454AR"
+	projectile_type = /obj/item/projectile/bullet/hos/light
+
+/obj/item/ammo_casing/energy/hos/breach
+	e_cost = 60
+	select_name = ".454B"
+	projectile_type = /obj/item/projectile/bullet/shotgun_breaching

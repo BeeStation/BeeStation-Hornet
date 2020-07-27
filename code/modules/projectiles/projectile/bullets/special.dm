@@ -25,3 +25,26 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		M.silent = max(M.silent, 10)
+
+// Special HoS "Bullets"
+
+/obj/item/projectile/bullet/hos
+	name = "3D printed .454 round"
+	damage = 25
+
+/obj/item/projectile/bullet/hos/hv
+	name = "3D printed .454 HV round"
+	speed = 0.4
+
+/obj/item/projectile/bullet/hos/heavy
+	name = "3D printed .454 heavy round"
+	damage = 35
+	knockdown = 50
+
+/obj/item/projectile/bullet/hos/light
+	name = "3D printed .454 plastic round"
+	damage = 10
+	stamina = 15
+
+/obj/item/projectile/bullet/shotgun_breaching
+	name = "3D printed .454 breaching round"
