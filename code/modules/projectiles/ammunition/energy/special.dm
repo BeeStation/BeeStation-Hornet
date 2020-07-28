@@ -76,19 +76,21 @@
 	projectile_type = /obj/item/projectile/bullet/hos
 
 /obj/item/ammo_casing/energy/hos/hv
-	e_cost = 200
+	e_cost = 120
 	select_name = ".454HV"
 	projectile_type = /obj/item/projectile/bullet/hos/hv
 
 /obj/item/ammo_casing/energy/hos/heavy
-	e_cost = 400
+	e_cost = 200
 	select_name = ".454HI"
 	projectile_type = /obj/item/projectile/bullet/hos/heavy
 
 /obj/item/ammo_casing/energy/hos/light
-	e_cost = 30
+	e_cost = 60
 	select_name = ".454AR"
-	projectile_type = /obj/item/projectile/bullet/hos/light
+	pellets = 3
+	variance = 20
+	projectile_type = /obj/item/projectile/bullet/pellet/hos
 
 /obj/item/ammo_casing/energy/hos/breach
 	e_cost = 60
