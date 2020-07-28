@@ -12,6 +12,9 @@
 	var/datum/admins/holder = null
 	var/datum/click_intercept = null // Needs to implement InterceptClickOn(user,params,atom) proc
 
+	//The badge state of the client. If this is null, the client does not have a badge rank.
+	var/datum/badges/bholder = null
+
 	/// Whether the client has ai interacting as a ghost enabled or not
 	var/AI_Interact		= 0
 

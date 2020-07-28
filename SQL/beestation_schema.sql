@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `SS13_admin_ranks` (
   `flags` smallint(5) unsigned NOT NULL,
   `exclude_flags` smallint(5) unsigned NOT NULL,
   `can_edit_flags` smallint(5) unsigned NOT NULL,
+  `badge_rank` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`rank`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -530,6 +531,26 @@ CREATE TABLE IF NOT EXISTS `SS13_stickyban_matched_ip` (
   `first_matched` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_matched` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`stickyban`,`matched_ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+-- Dumping structure for table ss13tgdb.SS13_badge_holders
+DROP TABLE IF EXISTS `SS13_badge_holders`;
+CREATE TABLE IF NOT EXISTS `SS13_badge_holders` (
+  `ckey` varchar(32) NOT NULL,
+  `rank` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+-- Dumping structure for table ss13tgdb.SS13_admin_ranks
+DROP TABLE IF EXISTS `SS13_badge_ranks`;
+CREATE TABLE IF NOT EXISTS `SS13_badge_ranks` (
+  `rank` varchar(32) NOT NULL,
+  `rank_group` varchar(32) NOT NULL,
+  `icon` varchar(32) NOT NULL,
+  PRIMARY KEY (`rank`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DELIMITER $$

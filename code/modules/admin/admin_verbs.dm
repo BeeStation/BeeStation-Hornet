@@ -18,7 +18,8 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
 	/client/proc/stop_sounds,
-	/client/proc/mark_datum_mapview
+	/client/proc/mark_datum_mapview,
+	/client/proc/reload_badges,
 	)
 GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
 GLOBAL_PROTECT(admin_verbs_admin)
@@ -178,7 +179,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, /proc/release))
 GLOBAL_PROTECT(admin_verbs_possess)
-GLOBAL_LIST_INIT(admin_verbs_permissions, list(/client/proc/edit_admin_permissions, /client/proc/edit_mentors))
+GLOBAL_LIST_INIT(admin_verbs_permissions, list(/client/proc/edit_admin_permissions, /client/proc/edit_mentors, /client/proc/edit_badge_holders))
 GLOBAL_PROTECT(admin_verbs_permissions)
 GLOBAL_LIST_INIT(admin_verbs_poll, list(/client/proc/poll_panel))
 GLOBAL_PROTECT(admin_verbs_poll)
@@ -233,6 +234,7 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/callproc_datum,
 	/client/proc/Debug2,
 	/client/proc/reload_admins,
+	/client/proc/reload_badges,
 	/client/proc/cmd_debug_make_powernets,
 	/client/proc/startSinglo,
 	/client/proc/cmd_debug_mob_lists,
@@ -240,7 +242,6 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/enable_debug_verbs,
 	/proc/possess,
 	/proc/release,
-	/client/proc/reload_admins,
 	/client/proc/panicbunker,
 	/client/proc/admin_change_sec_level,
 	/client/proc/toggle_nuke,

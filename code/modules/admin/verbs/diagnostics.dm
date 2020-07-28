@@ -79,3 +79,18 @@
 	load_admins()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reload All Admins") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	message_admins("[key_name_admin(usr)] manually reloaded admins")
+
+/client/proc/reload_badges()
+	set name = "Reload Badge Holders"
+	set category = "Server"
+
+	if(!src.holder)
+		return
+
+	var/confirm = alert(src, "Are you sure you want to reload all badge holder?", "Confirm", "Yes", "No")
+	if(confirm !="Yes")
+		return
+
+	load_badges()
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reload All Badge Holders") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	message_admins("[key_name_admin(usr)] manually reloaded badge holders")
