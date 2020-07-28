@@ -78,14 +78,11 @@
 		generate_admin_objective_list()
 
 	if(!isnull(H.mind)) // If we don't have mind, don't set any objectives to it, or it will break the cloner with an infinite loop of exceptions.
-		var/datum/antagonist/antag
-		if(!antag)
-			antag = new /datum/antagonist/custom
+		var/datum/antagonist/antag = new /datum/antagonist/custom
 
 		var/datum/objective/O = new /datum/objective/custom
 		O.team = team
 		O.explanation_text = "Impersonate [clonename]. There can only be one."
-		//O.owner = H.mind
 
 		antag.name = "Defective Clone"
 		antag.objectives |= O
@@ -96,11 +93,9 @@
 				var/datum/objective/SecO = new /datum/objective/custom
 				SecO.team = team
 				SecO.explanation_text = expl_text
-				//SecO.owner = H.mind
 				antag.objectives |= SecO
 
 		H.mind.add_antag_datum(antag, team)
-		H.mind.announce_objectives()
 
 	return CLONING_DELETE_RECORD | CLONING_SUCCESS //so that we don't spam clones with autoprocess unless we leave a body in the scanner
 

@@ -75,14 +75,13 @@
 		if(!isnull(H.mind) && prob(defect_chance)) // If we don't have mind, don't set any objectives to it, or it will break the cloner with an infinite loop of exceptions.
 			if(defect_chance < 100)
 				defect_chance = defect_chance + 10
+
 			var/datum/objective/O = new /datum/objective/custom
 			O.team = team
 			O.explanation_text = "Impersonate [clonename]. There can only be one."
 			O.owner = H.mind
 
-			var/datum/antagonist/antag
-			if(!antag)
-				antag = new /datum/antagonist/custom
+			var/datum/antagonist/antag = new /datum/antagonist/custom
 			antag.name = "Defective Clone"
 			antag.objectives |= O
 
