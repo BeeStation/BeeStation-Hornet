@@ -1380,6 +1380,13 @@
 		</font>
 	"}
 
+
+/mob/living/vv_get_dropdown2()
+	. = ..()
+	VV_DROPDOWN_OPTION2("", "/mob/living options:")
+	VV_DROPDOWN_OPTION2(VV_HK_AHEAL, "Instant Heal")
+	VV_DROPDOWN_OPTION2(VV_HK_SMITE, "Smite")
+
 /mob/living/vv_get_snowflake()
 	. = ..()
 	.["DamageStats"] = list(
@@ -1402,17 +1409,63 @@
 		)
 	)
 
-/mob/living/vv_get_dropdown2()
-	. = ..()
-	VV_DROPDOWN_OPTION2("", "/mob/living options:")
-	VV_DROPDOWN_OPTION2(VV_HK_AHEAL, "Instant Heal")
-	VV_DROPDOWN_OPTION2(VV_HK_SMITE, "Smite")
-
 /mob/living/vv_do_topic2(action, params)
 	. = ..()
-	if(check_rights(R_ADMIN))
-		switch(action)
-			if(VV_HK_AHEAL)
-				usr.client.cmd_admin_rejuvenate(src)
-			if(VV_HK_SMITE)
-				usr.client.smite(src)
+	switch(action)
+		if(VV_HK_AHEAL)
+			if(!check_rights(R_ADMIN))
+				return
+			usr.client.cmd_admin_rejuvenate(src)
+		if(VV_HK_SMITE)
+			if(!check_rights(R_ADMIN))
+				return
+			usr.client.smite(src)
+		if("adjustdamage")
+			if(!check_rights(R_VAREDIT))
+				return
+
+			var/Text = params["type"]
+			var/amount =  input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
+
+			if(!src)
+				to_chat(usr, "This Mob doesn't exist anymore.")
+				return
+
+			switch(Text)
+				if("brute")
+					adjustBruteLoss(amount, forced=TRUE)
+				if("fire")
+					adjustFireLoss(amount, forced=TRUE)
+				if("toxin")
+					adjustToxLoss(amount, forced=TRUE)
+				if("oxygen")
+					adjustOxyLoss(amount, forced=TRUE)
+				if("clone")
+					adjustCloneLoss(amount, forced=TRUE)
+				if("stamina")
+					adjustStaminaLoss(amount, forced=TRUE)
+
+				if("brain")
+					adjustOrganLoss(ORGAN_SLOT_BRAIN, amount)
+				if("stomach")
+					adjustOrganLoss(ORGAN_SLOT_STOMACH, amount)
+				if("ears")
+					adjustOrganLoss(ORGAN_SLOT_EARS, amount)
+				if("eye_sight")
+					adjustOrganLoss(ORGAN_SLOT_EYES, amount)
+				if("lungs")
+					adjustOrganLoss(ORGAN_SLOT_LUNGS, amount)
+				if("heart")
+					adjustOrganLoss(ORGAN_SLOT_HEART, amount)
+				if("liver")
+					adjustOrganLoss(ORGAN_SLOT_LIVER, amount)
+				else
+					to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[src]")
+					return
+
+			if(amount != 0)
+				var/log_msg = "[key_name(usr)] dealt [amount] amount of [Text] damage to [key_name(src)]"
+				message_admins("[key_name(usr)] dealt [amount] amount of [Text] damage to [ADMIN_LOOKUPFLW(src)]")
+				log_admin(log_msg)
+				admin_ticket_log(src, "<font color='blue'>[log_msg]</font>")
+				return TRUE

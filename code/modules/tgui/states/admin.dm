@@ -14,13 +14,14 @@ GLOBAL_DATUM_INIT(admin_state, /datum/ui_state/admin_state, new)
 /**
  * tgui state: VV_state
  *
- * If the user is an admin, allows interaction.
- * If not (an admin let them *see* the panel), no touchies, only seesies. or something.
+ * Allows interaction if user has a holder datum.
+ * This isn't so restrictive to leave room for view_var_Topic() to check permissions on its own terms.
+ * If user has no holder datum (an admin let them *see* the panel), no touchies, only seesies. or something.
  */
 
 GLOBAL_DATUM_INIT(VV_state, /datum/ui_state/VV_state, new)
 
 /datum/ui_state/VV_state/can_use_topic(src_object, mob/user)
-	if(check_rights_for(user.client, R_ADMIN))
+	if(check_rights_for(user.client))
 		return UI_INTERACTIVE
 	return UI_UPDATE

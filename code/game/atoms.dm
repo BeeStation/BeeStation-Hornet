@@ -950,12 +950,27 @@
 	VV_DROPDOWN_OPTION2(VV_HK_TRIGGER_EMP, "EMP Pulse")
 	VV_DROPDOWN_OPTION2(VV_HK_TRIGGER_EXPLOSION, "Explosion")
 
+/atom/vv_get_snowflake()
+	. = ..()
+	.["direction"] += list(dir2text(dir) || dir)
+	var/icon/sprite = getFlatIcon(src, no_anim = TRUE)
+	if(sprite)
+		.["sprite_base64"] = icon2base64(sprite, iconKey = "VV")
+
 /atom/vv_do_topic2(action, list/params)
 	. = ..()
 	if(check_rights(R_VAREDIT))
 		switch(action)
 			if("vv_rename")
-				vv_rename()
+				return vv_rename()
+
+			if("rotate")
+				switch(params["dir"])
+					if("right")
+						setDir(turn(dir, -90))
+					if("left")
+						setDir(turn(dir, 90))
+				return TRUE
 
 			if(VV_HK_ADD_REAGENT)
 				if(!reagents)
@@ -1000,15 +1015,18 @@
 						var/y = input(usr, "Choose y mod","Transform Mod") as null|num
 						if(!isnull(x) && !isnull(y))
 							transform = M.Scale(x,y)
+							return TRUE
 					if("Translate")
 						var/x = input(usr, "Choose x mod","Transform Mod") as null|num
 						var/y = input(usr, "Choose y mod","Transform Mod") as null|num
 						if(!isnull(x) && !isnull(y))
 							transform = M.Translate(x,y)
+							return TRUE
 					if("Rotate")
 						var/angle = input(usr, "Choose angle to rotate","Transform Mod") as null|num
 						if(!isnull(angle))
 							transform = M.Turn(angle)
+							return TRUE
 
 	if(check_rights(R_FUN))
 		switch(action)
@@ -1022,13 +1040,6 @@
 	var/refid = REF(src)
 	. += "[VV_HREF_TARGETREF(refid, VV_HK_AUTO_RENAME, "<b id='name'>[src]</b>")]"
 	. += "<br><font size='1'><a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=left'><<</a> <a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(dir) || dir]</a> <a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=right'>>></a></font>"
-
-/atom/vv_get_snowflake()
-	. = ..()
-	.["direction"] += list(dir2text(dir) || dir)
-	var/icon/sprite = getFlatIcon(src, no_anim = TRUE)
-	if(sprite)
-		.["sprite_base64"] = icon2base64(sprite, iconKey = "VV")
 
 
 ///Where atoms should drop if taken from this atom

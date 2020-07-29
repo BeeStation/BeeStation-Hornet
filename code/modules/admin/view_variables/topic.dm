@@ -129,24 +129,14 @@
 
 /datum/vv_panel/proc/view_var_Topic2(action, list/params, client/C)
 	if( (usr.client != C) || !C.holder )
-		return //This is VV, not meant to be called by anything else.
+		return
 
 	params["admin_token"]=RawHrefToken() // Think there have already been enough permission and sanity checks to safely do this
 	var/target = GET_VV_TARGET2
 	if(!target)
 		target = D
-	. = C.vv_do_basic2(target, action, params)
-
-	// This goes only one of two ways, partner:
-	// Ya either gave me some type of datum,
-	// in which case we take advantage of
-	// Object Oriented Programming...
-	// Or ya gave me a list, which ain't a datum.
-	if(istype(target, /datum))
-		var/datum/D = target
-		. = D.vv_do_topic2(action, params)
-	else if(islist(target))
-		. = C.vv_do_list2(target, action, params)
+	if(C.vv_do_basic2(target, action, params))
+		return TRUE
 
 	switch(action)
 		if("refresh")
@@ -160,75 +150,13 @@
 			message_admins("[key_name_admin(usr)] has shared a VV window: [ADMIN_VV_LINK(D)]")
 			return TRUE
 
-	//Actions below aren't in dropdowns/etc.
-	if(check_rights(R_VAREDIT))
-		switch(action)
-			if("rotate")
-				if(!check_rights(NONE))
-					return
-
-				var/atom/A = D
-				if(!istype(A))
-					to_chat(usr, "This can only be done to instances of type /atom")
-					return
-
-				switch(params["dir"])
-					if("right")
-						A.setDir(turn(A.dir, -90))
-					if("left")
-						A.setDir(turn(A.dir, 90))
-				return TRUE
-
-			if("adjustdamage")
-				if(!check_rights(NONE))
-					return
-
-				var/mob/living/L = target
-				if(!istype(L))
-					return
-
-				var/Text = params["type"]
-				var/amount =  input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
-
-				if(!L)
-					to_chat(usr, "This Mob doesn't exist anymore.")
-					return
-
-				switch(Text)
-					if("brute")
-						L.adjustBruteLoss(amount, forced=TRUE)
-					if("fire")
-						L.adjustFireLoss(amount, forced=TRUE)
-					if("toxin")
-						L.adjustToxLoss(amount, forced=TRUE)
-					if("oxygen")
-						L.adjustOxyLoss(amount, forced=TRUE)
-					if("clone")
-						L.adjustCloneLoss(amount, forced=TRUE)
-					if("stamina")
-						L.adjustStaminaLoss(amount, forced=TRUE)
-
-					if("brain")
-						L.adjustOrganLoss(ORGAN_SLOT_BRAIN, amount)
-					if("stomach")
-						L.adjustOrganLoss(ORGAN_SLOT_STOMACH, amount)
-					if("ears")
-						L.adjustOrganLoss(ORGAN_SLOT_EARS, amount)
-					if("eye_sight")
-						L.adjustOrganLoss(ORGAN_SLOT_EYES, amount)
-					if("lungs")
-						L.adjustOrganLoss(ORGAN_SLOT_LUNGS, amount)
-					if("heart")
-						L.adjustOrganLoss(ORGAN_SLOT_HEART, amount)
-					if("liver")
-						L.adjustOrganLoss(ORGAN_SLOT_LIVER, amount)
-					else
-						to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
-						return
-
-				if(amount != 0)
-					var/log_msg = "[key_name(usr)] dealt [amount] amount of [Text] damage to [key_name(L)]"
-					message_admins("[key_name(usr)] dealt [amount] amount of [Text] damage to [ADMIN_LOOKUPFLW(L)]")
-					log_admin(log_msg)
-					admin_ticket_log(L, "<font color='blue'>[log_msg]</font>")
-					return TRUE
+	// This goes only one of two ways, partner:
+	// Ya either gave me some type of datum,
+	// in which case we take advantage of
+	// Object Oriented Programming...
+	// Or ya gave me a list, which ain't a datum.
+	if(istype(target, /datum))
+		var/datum/D = target
+		. = D.vv_do_topic2(action, params)
+	else if(islist(target))
+		. = C.vv_do_list2(target, action, params)

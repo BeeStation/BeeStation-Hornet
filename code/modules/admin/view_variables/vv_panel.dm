@@ -6,15 +6,14 @@
 		to_chat(usr, "<span class='danger'>You need to be an administrator to access this.</span>")
 		return
 
-	var/datum/vv_panel/UI = new(usr, D)
-	UI.ui_interact(usr)
+	var/datum/vv_panel/UI = new(D)
+	UI.ui_interact(src.mob)
 
 
 #define VV_TITLE(D) ("[D] [REF(D)] = [objtype]")
 
 /datum/vv_panel
 	var/datum/D
-	var/datum/tgui/UI
 	var/islist
 	var/objtype
 
@@ -22,7 +21,7 @@
 	var/list/data = list()
 	var/list/staticdata = list()
 
-/datum/vv_panel/New(mob/user, target)
+/datum/vv_panel/New(target)
 	D = target
 
 	islist = islist(D)
@@ -39,7 +38,6 @@
 		ui = new(user, src, ui_key, "ViewVariables", "[REF(D)] ([objtype])", 700, 700, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
-	UI = ui
 
 /datum/vv_panel/ui_data(mob/user)
 	//message_admins("UI data update!")

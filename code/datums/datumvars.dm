@@ -44,7 +44,6 @@
 	VV_DROPDOWN_OPTION2(VV_HK_MARK, "Mark Object")
 	VV_DROPDOWN_OPTION2(VV_HK_DELETE, "Delete")
 	VV_DROPDOWN_OPTION2(VV_HK_EXPOSE, "Show VV To Player")
-	//VV_DROPDOWN_OPTION2(VV_HK_MODIFY_TRAITS, "Modify Traits")
 
 //This proc is only called if everything topic-wise is verified. The only verifications that should happen here is things like permission checks!
 //href_list is a reference, modifying it in these procs WILL change the rest of the proc in topic.dm of admin/view_variables!
@@ -59,15 +58,11 @@
 	return TRUE
 
 /datum/proc/vv_do_topic2(action, list/params)
-	//message_admins("Going through datum/vv_do_topic2")
+	// !!!WHEN IMPLEMENTING A TOPIC OPTION, REMEMBER TO CONSIDER GIVING IT A PERMISSIONS REQUIREMENT!!!
+	// (the user only needs holder to *get* here, due to GLOB.VV_state)
+	// Make your action return TRUE to make the UI update.
 	if( !usr || !usr.client || !usr.client.holder || !check_rights(NONE) )
 		return FALSE //This is VV, not meant to be called by anything else.
-
-	/* This was ported from /TG/, modify traits isn't a thing here. Keeping in case it becomes a thing.
-	switch(action)
-		if(VV_HK_MODIFY_TRAITS)
-			usr.client.holder.modify_traits(src)
-	*/
 	return TRUE
 
 /datum/proc/vv_get_header()
@@ -75,11 +70,11 @@
 	if(("name" in vars) && !isatom(src))
 		. += "<b>[vars["name"]]</b><br>"
 
-/datum/proc/vv_get_snowflake() //Just their name. Not much else to display, really.
-	//Though this proc will be added to
+/datum/proc/vv_get_snowflake()
 	. = list()
 	if(("name" in vars) && !isatom(src))
 		.["name"] = vars["name"]
+	//Further implemented in /atom and /mob/living
 
 /datum/proc/on_reagent_change(changetype)
 	return
