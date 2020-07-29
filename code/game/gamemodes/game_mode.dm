@@ -510,6 +510,36 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 
+/datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(role)
+	var/list/players = list()
+	var/list/candidates = list()
+	var/list/drafted = list()
+	var/datum/mind/applicant = null
+
+	// Ultimate randomizing code right here
+	for(var/mob/living/L in GLOB.player_list)
+		if(L.client && is_station_level(L.z))
+			players += player
+
+	// Shuffling, the players list is now ping-independent!!!
+	// Goodbye antag dante
+	players = shuffle(players)
+
+	for(var/mob/living/player in players)
+		if(player.client && player.ready == PLAYER_READY_TO_PLAY)
+			if(role in player.client.prefs.be_special)
+				if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
+					if(age_check(player.client) && !player.mind.special_role) //Must be older than the minimum age
+						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
+
+	if(restricted_jobs)
+		for(var/datum/mind/player in candidates)
+			for(var/job in restricted_jobs)					// Remove people who want to be antagonist but have a job already that precludes it
+				if(player.assigned_role == job)
+					candidates -= player
+
+	return candidates
+
 
 /datum/game_mode/proc/num_players()
 	. = 0

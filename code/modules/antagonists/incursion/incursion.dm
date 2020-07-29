@@ -189,11 +189,13 @@
 
 /datum/team/incursion/proc/generate_traitor_kill_objective()
 	//Spawn someone as a traitor
-	var/list/people = SSticker.mode.get_players_for_role(ROLE_INCURSION)
+	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(ROLE_TRAITOR)
 	if(!LAZYLEN(people))
+		log_game("Not enough players for incursion role. [LAZYLEN(people)]")
 		return
-	var/datum/mind/target = SSticker.mode.antag_pick(people, ROLE_INCURSION)
+	var/datum/mind/target = SSticker.mode.antag_pick(people, ROLE_TRAITOR)
 	if(!target)
+		log_game("No mind selected.")
 		return
 	target.make_Traitor()
 	to_chat(target, "<span class='userdanger'>You have been declared an ex-communicate of the syndicate and are being hunted down.</span>")
