@@ -22,6 +22,6 @@ GLOBAL_DATUM_INIT(admin_state, /datum/ui_state/admin_state, new)
 GLOBAL_DATUM_INIT(VV_state, /datum/ui_state/VV_state, new)
 
 /datum/ui_state/VV_state/can_use_topic(src_object, mob/user)
-	if(check_rights_for(user.client))
+	if(user.client.holder)
 		return UI_INTERACTIVE
 	return UI_UPDATE
