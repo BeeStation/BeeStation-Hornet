@@ -511,22 +511,10 @@
 
 
 /datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(role)
-	var/list/players = list()
 	var/list/candidates = list()
-	var/list/drafted = list()
-	var/datum/mind/applicant = null
 
-	// Ultimate randomizing code right here
-	for(var/mob/living/L in GLOB.player_list)
-		if(L.client && is_station_level(L.z))
-			players += player
-
-	// Shuffling, the players list is now ping-independent!!!
-	// Goodbye antag dante
-	players = shuffle(players)
-
-	for(var/mob/living/player in players)
-		if(player.client && player.ready == PLAYER_READY_TO_PLAY)
+	for(var/mob/living/player in GLOB.player_list)
+		if(player.client && is_station_level(player.z))
 			if(role in player.client.prefs.be_special)
 				if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
 					if(age_check(player.client) && !player.mind.special_role) //Must be older than the minimum age
