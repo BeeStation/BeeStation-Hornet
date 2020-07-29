@@ -798,11 +798,11 @@
 				return
 			E.drain_time = world.time + 75
 			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
-			if(do_after(user, 75, target = src))
+			if(istype(stomach))
 				if(cell.charge == cell.maxcharge || (stomach.crystal_charge < 10))
 					to_chat(H, "<span class='warning'>You can't transfer charge to the APC.</span>")
 					return
-				if(istype(stomach))
+				if(do_after(user, 75, target = src))
 					to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
 					stomach.adjust_charge(-10)
 					cell.charge += 10
