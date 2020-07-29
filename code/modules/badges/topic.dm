@@ -1,4 +1,5 @@
 /datum/badges/Topic(href, href_list)
+	message_admins("e uhhh e uhhh")
 	if(..())
 		return
 
