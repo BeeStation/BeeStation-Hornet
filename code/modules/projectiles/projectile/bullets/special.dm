@@ -45,7 +45,7 @@
 /obj/item/projectile/bullet/pellet/hos
 	name = "3D printed plastic pellet"
 	damage = 5
-	stamina = 20
+	stamina = 15
 
 /obj/item/projectile/bullet/shotgun_breaching/hos
 	name = "3D printed .454 breaching round"
