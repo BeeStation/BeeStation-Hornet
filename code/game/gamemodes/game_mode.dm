@@ -513,7 +513,7 @@
 /datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(role)
 	var/list/candidates = list()
 
-	for(var/mob/living/player in GLOB.player_list)
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player.client && is_station_level(player.z))
 			if(role in player.client.prefs.be_special)
 				if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
