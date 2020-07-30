@@ -76,6 +76,7 @@
 	projectile_type = /obj/item/projectile/bullet/hos
 
 /obj/item/ammo_casing/energy/hos/hv
+	fire_sound = 'sound/weapons/rifleshot.ogg'
 	e_cost = 120
 	select_name = ".454HV"
 	projectile_type = /obj/item/projectile/bullet/hos/hv
@@ -86,14 +87,16 @@
 	projectile_type = /obj/item/projectile/bullet/hos/heavy
 
 /obj/item/ammo_casing/energy/hos/light
-	e_cost = 60
+	fire_sound = 'sound/weapons/gunshot.ogg'
+	e_cost = 100
 	select_name = ".454AR"
 	pellets = 3
 	variance = 20
 	projectile_type = /obj/item/projectile/bullet/pellet/hos
 
 /obj/item/ammo_casing/energy/hos/breach
-	e_cost = 60
+	fire_sound = 'sound/weapons/gunshot.ogg'
+	e_cost = 120
 	select_name = ".454B"
 	projectile_type = /obj/item/projectile/bullet/shotgun_breaching/hos
 
