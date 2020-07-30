@@ -1,0 +1,19 @@
+author: Zeskorion, AzlanonPC, thatguythere03
+delete-after: true
+changes:
+  - rscadd: Wings are now organs!  they can be surgically removed and attached, allowing
+      doctors to create even more hideous abominations!
+  - rscadd: cybernetic wings, unlocked in shuttle technodes. A normal version, equivalent
+      to normal wings, and an alien version that works without atmosphere exist
+  - tweak: flight potion now works on all races, and no longer removes the backpack
+      slot. if the imbiber has wings already, their wings will be upgraded instead,
+      and keep their original look
+  - balance: apid wings now work like moth wings, instead of having a special dash
+      that has combat utility, and their downside has been reduced to 1.5X burn damage,
+      and keeping their flyswatter and pest spray penalties
+  - bugfix: apids can open and close their wings again. the *wing emote can be used
+      to toggle them, and the *flap and *aflap emotes make them flap
+  - code_imp: makes flight code less shtity and snowflaky
+  - imageadd: moth wing sprites by azlanonpc
+  - imageadd: shitty apid wing codersprites by zesko
+  - imageadd: cybernetic wings by thatguythere03
