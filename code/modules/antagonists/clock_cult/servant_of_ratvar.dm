@@ -22,6 +22,10 @@
 	if(!owner.current)
 		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', 60, FALSE, pressure_affected = FALSE)
+	to_chat(owner.current, "<span class='heavy_brass'><font size='18'>You feel a flash of light and the world spin around you!</font></span>")
+	to_chat(owner.current, "<span class='brass'><font size='12'>You suddenly understand so much more than you did before and are commited to a life of servitude.</font></span>")
+	to_chat(owner.current, "<span class='brass'><font size='12'>Using your clockwork slab you can invoke a variety of powers to help you complete Ratvar's will.</font></span>")
+	to_chat(owner.current, "<span class='nzcrentr'>After laying dorment for an indefinate amount of time, Rat'var has little control over this dimension; increase your control over this realm by placing integration cogs into APCs on the station and siphoning power!</span>")
 
 /datum/antagonist/servant_of_ratvar/on_gain()
 	. = ..()
@@ -60,9 +64,6 @@
 	. = ..()
 
 /datum/antagonist/servant_of_ratvar/proc/equip_servant_conversion()
-	to_chat(owner.current, "<span class='heavy_brass'>You feel a flash of light and the world spin around you!</span>")
-	to_chat(owner.current, "<span class='brass'>You suddenly understand so much more than you did before and are commited to a life of servitude.</span>")
-	to_chat(owner.current, "<span class='brass'>Using your clockwork slab you can invoke a variety of powers to help you complete Ratvar's will.</span>")
 	//Equipment apply
 	var/mob/living/H = owner.current
 	if(istype(H, /mob/living/carbon))
