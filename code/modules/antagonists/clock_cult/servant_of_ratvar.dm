@@ -124,19 +124,15 @@
 	if(.)
 		. = is_convertable_to_clockcult(new_owner.current)
 
-/datum/antagonist/servant_of_ratvar/create_team(datum/team/clock_cult/newteam)
-	if(!newteam)
-		for(var/datum/antagonist/servant_of_ratvar/H in GLOB.antagonists)
-			if(!H.owner)
-				continue
-			if(H.team)
-				team = H.team
-				return
-		team = new /datum/team/clock_cult
-		team.setup_objectives()
-	if(!istype(newteam))
-		stack_trace("Wrong team type passed to [type] initialization.")
-	team = newteam
+/datum/antagonist/servant_of_ratvar/create_team()
+	for(var/datum/antagonist/servant_of_ratvar/H in GLOB.antagonists)
+		if(!H.owner)
+			continue
+		if(H.team)
+			team = H.team
+			return
+	team = new /datum/team/clock_cult
+	team.setup_objectives()
 
 //==========================
 //==== Clock cult team  ====

@@ -2,6 +2,8 @@
 	name = "Clockwork Weapon"
 	desc = "Something"
 	icon = 'icons/obj/clockwork_objects.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
+	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
 	force_unwielded = 15
 	force_wielded = 5
 	block_power_wielded = 1
@@ -86,7 +88,7 @@
 /obj/item/twohanded/clockwork/brass_sword
 	name = "brass longsword"
 	desc = "A large sword made of brass."
-	icon_state = "ratvarian_spear"
+	icon_state = "ratvarian_sword"
 	force_wielded = 38
 	throwforce = 20
 	armour_penetration = 12
