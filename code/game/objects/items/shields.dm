@@ -87,7 +87,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
-	block_level = 2
+	block_level = 1
 	force = 10
 	throwforce = 5
 	throw_speed = 2

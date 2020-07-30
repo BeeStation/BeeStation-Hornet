@@ -70,7 +70,10 @@
 
 	var/list/power_usage
 
-
+	var/lighting_colour_tube = "#FFF6ED"
+	var/lighting_colour_bulb = "#FFE6CC"
+	var/lighting_colour_night = "#FFDBB5"
+	
 /**
   * A list of teleport locations
   *

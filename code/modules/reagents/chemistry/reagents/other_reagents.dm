@@ -1958,6 +1958,22 @@
 		to_chat(M, "You feel confused and disorientated.")
 	..()
 
+/datum/reagent/peaceborg/inabizine
+	name = "Inabizine"
+	description = "Induces muscle relaxation causing the target to drop items and fall on the ground"
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	taste_description = "relaxing"
+
+/datum/reagent/peaceborg/inabizine/on_mob_life(mob/living/carbon/M)
+	if(prob(33))
+		M.Stun(20, 0)
+		M.blur_eyes(5)
+	if(prob(33))
+		M.Knockdown(2 SECONDS)
+	if(prob(20))
+		to_chat(M, "Your muscles relax...")
+	..()
+
 /datum/reagent/peaceborg/tire
 	name = "Tiring Solution"
 	description = "An extremely weak stamina-toxin that tires out the target. Completely harmless."
