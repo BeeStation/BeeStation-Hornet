@@ -134,7 +134,7 @@
 	to_chat(user, "<span class='notice'>You begin to awaken the Killer Tomato...</span>")
 	awakening = TRUE
 	log_game("[key_name(user)] awakened a killer tomato at [AREACOORD(user)].")
-
+	log_botany("[key_name(user)] awakened a killer tomato at [AREACOORD(user)].")
 	spawn(30)
 		if(!QDELETED(src))
 			var/mob/living/simple_animal/hostile/killertomato/K = new /mob/living/simple_animal/hostile/killertomato(get_turf(src.loc))

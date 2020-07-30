@@ -219,6 +219,7 @@
 
 /datum/plant_gene/trait/squash/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	// Squash the plant on slip.
+	log_botany("[key_name(C)] slipped on [G.seed] causing it to squash at [AREACOORD(C)][get_plant_stats(G.seed)]")
 	G.squash(C)
 
 /datum/plant_gene/trait/slip
@@ -241,6 +242,7 @@
 	G.AddComponent(/datum/component/slippery, min(stun_len,140), NONE, CALLBACK(src, .proc/handle_slip, G))
 
 /datum/plant_gene/trait/slip/proc/handle_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/M)
+	log_botany("[M] slipped on [G] at [AREACOORD(M)][get_plant_stats(G.seed)]")
 	for(var/datum/plant_gene/trait/T in G.seed.genes)
 		T.on_slip(G, M)
 
@@ -255,6 +257,7 @@
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/power = G.seed.potency*rate
 	if(prob(power))
+		log_botany("[key_name(C)] was electrocuted by slipping on [G.seed] at [AREACOORD(C)][get_plant_stats(G.seed)]")
 		C.electrocute_act(round(power), G, 1, 1)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
@@ -263,6 +266,7 @@
 		var/power = G.seed.potency*rate
 		if(prob(power))
 			C.electrocute_act(round(power), G, 1, 1)
+			log_botany("[key_name(C)] was electrocuted by squashing [G.seed] at [AREACOORD(C)][get_plant_stats(G.seed)]")
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)
@@ -332,12 +336,14 @@
 		var/turf/T = get_turf(target)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 		do_teleport(target, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
+		log_botany("[key_name(target)] teleported from [AREACOORD(T)] to [AREACOORD(target)] by squashing [G.seed][get_plant_stats(G.seed)]")
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
 	to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
 	do_teleport(C, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
+	log_botany("[key_name(C)] teleported from [AREACOORD(T)] to [AREACOORD(C)] by slipping on [G.seed][get_plant_stats(G.seed)]")
 	if(prob(50))
 		do_teleport(G, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
 	else
@@ -356,6 +362,7 @@
 /datum/plant_gene/trait/noreact/on_squashreact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	DISABLE_BITFIELD(G.reagents.flags, NO_REACT)
 	G.reagents.handle_reactions()
+	log_botany("[G.seed] reagents [G.reagents.get_reagents()] reacted because of squashing at [AREACOORD(target)] (Separated Chemicals)[get_plant_stats(G.seed)]")
 
 /datum/plant_gene/trait/maxchem
 	// 2x to max reagents volume.
@@ -419,6 +426,7 @@
 			G.reagents.reaction(L, INJECT, fraction)
 			G.reagents.trans_to(L, injecting_amount)
 			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
+			log_botany("[key_name(target)] was pricked by [G.seed] injecting them with [injecting_amount] units of the mixture {[G.reagents.get_reagents()]} at [AREACOORD(target)][get_plant_stats(G.seed)]")
 
 /datum/plant_gene/trait/smoke
 	name = "Gaseous Decomposition"
@@ -430,6 +438,7 @@
 	S.attach(splat_location)
 	S.set_up(G.reagents, smoke_amount, splat_location, 0)
 	S.start()
+	log_botany("Smoke containing [G.reagents] created at [AREACOORD(target)] from plant [G.seed][get_plant_stats(G.seed)]")
 	G.reagents.clear_reagents()
 
 /datum/plant_gene/trait/fire_resistance // Lavaland

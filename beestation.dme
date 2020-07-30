@@ -117,6 +117,7 @@
 #include "code\__HELPERS\_string_lists.dm"
 #include "code\__HELPERS\areas.dm"
 #include "code\__HELPERS\AStar.dm"
+#include "code\__HELPERS\botany_log.dm"
 #include "code\__HELPERS\cmp.dm"
 #include "code\__HELPERS\dates.dm"
 #include "code\__HELPERS\dna.dm"

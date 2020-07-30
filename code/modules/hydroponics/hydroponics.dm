@@ -259,7 +259,9 @@
 		else if(prob(50))	//25%
 			hardmutate()
 		else if(prob(50))	//12.5%
+			var/old_seed = myseed
 			mutatespecie()
+			log_botany("[old_seed] changed species into [myseed] at [AREACOORD(src)] from natural mutation.\n=====Old Seed=====: [get_plant_stats(old_seed)]=====New Seed=====: [get_plant_stats(myseed)]")
 		return
 	return
 
@@ -388,6 +390,7 @@
 	pestlevel = 0 // Reset
 	update_icon()
 	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
+	log_botany("The [oldPlantName] was overtaken by [myseed.plantname] at [AREACOORD(src)]")
 	update_name()
 
 
@@ -475,12 +478,15 @@
 
 	// Requires 5 mutagen to possibly change species.// Poor man's mutagen.
 	if(S.has_reagent(/datum/reagent/toxin/mutagen, 5) || S.has_reagent(/datum/reagent/uranium/radium, 10) || S.has_reagent(/datum/reagent/uranium, 10))
+		log_botany("[S.get_reagents()] applied to [src] by [key_name(user)] at [AREACOORD(user)] using unstable mutagen.")
 		switch(rand(100))
 			if(91 to 100)
 				adjustHealth(-10)
 				to_chat(user, "<span class='warning'>The plant shrivels and burns.</span>")
 			if(81 to 90)
+				var/old_seed = myseed
 				mutatespecie()
+				log_botany("[old_seed] changed species into [myseed] by [key_name(user)] at [AREACOORD(user)] using unstable mutagen.\n=====Old Seed=====: [get_plant_stats(old_seed)]=====New seed:===== [get_plant_stats(myseed)]")
 			if(66 to 80)
 				hardmutate()
 			if(41 to 65)
@@ -528,6 +534,7 @@
 	if(S.has_reagent(/datum/reagent/medicine/earthsblood))
 		self_sufficiency_progress += S.get_reagent_amount(/datum/reagent/medicine/earthsblood)
 		if(self_sufficiency_progress >= self_sufficiency_req)
+			log_botany("[key_name(user)] made [myseed] self sustaining.[get_plant_stats(myseed)]")
 			become_self_sufficient()
 		else if(!self_sustaining)
 			to_chat(user, "<span class='notice'>[src] warms as it might on a spring day under a genuine Sun.</span>")
@@ -691,11 +698,13 @@
 		adjustWeeds(-rand(1,5))
 	if(S.has_reagent(/datum/reagent/medicine/adminordrazine, 5))
 		switch(rand(100))
-			if(66  to 100)
+			if(66 to 100)
+				var/old_seed = myseed
 				mutatespecie()
-			if(33	to 65)
+				log_botany("[old_seed] mutated into [myseed] by [key_name(user)] at [AREACOORD(user)] using adminordraznie.\n=====Old Seed===== Stats: [get_plant_stats(old_seed)]=====New seed stats:=====[get_plant_stats(myseed)]")
+			if(33 to 65)
 				mutateweed()
-			if(1   to 32)
+			if(1 to 32)
 				mutatepest(user)
 			else
 				to_chat(user, "<span class='warning'>Nothing happens...</span>")
@@ -844,6 +853,7 @@
 		if(O.use_tool(src, user, 50, volume=50) || (!myseed && !weedlevel))
 			user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
 			if(myseed) //Could be that they're just using it as a de-weeder
+				log_botany("[key_name(user)] removed [myseed] from [src] at [AREACOORD(src)][get_plant_stats(myseed)]")
 				age = 0
 				plant_health = 0
 				lastproduce = 0
@@ -894,10 +904,13 @@
 	lastproduce = age
 	if(istype(myseed, /obj/item/seeds/replicapod))
 		to_chat(user, "<span class='notice'>You harvest from the [myseed.plantname].</span>")
+		log_botany("[myseed] (Replica Pod) harvested by [key_name(user)] at [AREACOORD(user)][get_plant_stats(myseed)]")
 	else if(myseed.getYield() <= 0)
 		to_chat(user, "<span class='warning'>You fail to harvest anything useful!</span>")
+		log_botany("[key_name(user)] failed to harvest anything at [AREACOORD(user)]")
 	else
 		to_chat(user, "<span class='notice'>You harvest [myseed.getYield()] items from the [myseed.plantname].</span>")
+		log_botany("[myseed] harvested by [key_name(user)] at [AREACOORD(user)][get_plant_stats(myseed)]")
 	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
 		qdel(myseed)
 		myseed = null

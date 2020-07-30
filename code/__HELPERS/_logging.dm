@@ -202,6 +202,11 @@
 /proc/log_tgui(text)
 	WRITE_LOG(GLOB.tgui_log, text)
 
+/* botany logging */
+
+/proc/log_botany(text)
+	WRITE_LOG(GLOB.botany_log, text)
+
 /* For logging round startup. */
 /proc/start_log(log)
 	WRITE_LOG(log, "Starting up round ID [GLOB.round_id].\n-------------------------")

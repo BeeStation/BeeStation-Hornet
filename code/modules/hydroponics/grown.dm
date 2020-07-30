@@ -88,6 +88,7 @@
 // Various gene procs
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
+		log_botany("[key_name(user)] squashed [seed] at [AREACOORD(user)]\n[get_plant_stats(seed)]")
 		squash(user)
 	..()
 
@@ -97,6 +98,7 @@
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
 			if(seed.get_gene(/datum/plant_gene/trait/squash))
+				log_botany("[key_name(throwingdatum.thrower)] threw [seed] at [AREACOORD(hit_atom)]\n[get_plant_stats(seed)]")
 				squash(hit_atom)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target)
@@ -125,7 +127,7 @@
 	if(seed.get_gene(/datum/plant_gene/trait/noreact))
 		visible_message("<span class='warning'>[src] crumples, and bubbles ominously as its contents mix.</span>")
 		addtimer(CALLBACK(src, .proc/squashreact), 20)
-		
+
 /obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
 	for(var/datum/plant_gene/trait/trait in seed.genes)
 		trait.on_squashreact(src)
@@ -166,6 +168,10 @@
 			juice_results[juice_results[i]] = nutriment
 		reagents.del_reagent(/datum/reagent/consumable/nutriment)
 		reagents.del_reagent(/datum/reagent/consumable/nutriment/vitamin)
+
+/obj/item/reagent_containers/food/snacks/grown/dropped(mob/user)
+	. = ..()
+	log_botany("[key_name(user)] dropped [src] at [AREACOORD(src)][get_plant_stats(seed)]")
 
 /*
  * Attack self for growns

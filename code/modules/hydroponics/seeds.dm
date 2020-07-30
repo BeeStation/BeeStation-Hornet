@@ -177,8 +177,8 @@
 		product_name = t_prod.seed.plantname
 	if(getYield() >= 1)
 		SSblackbox.record_feedback("tally", "food_harvested", getYield(), product_name)
+	log_botany("[src] harvested by [key_name(user)] at [loc_name(get_turf(src))][get_plant_stats(src)]")
 	parent.update_tray(user)
-
 	return result
 
 
