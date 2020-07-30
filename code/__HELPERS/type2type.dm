@@ -494,7 +494,7 @@ Takes a string and a datum. The string is well, obviously the string being check
 	var/a = 1
 	if(length == 9)
 		a = hex2num(copytext(string, 8, 10))/255
-	if(!isnum(r) || !isnum(g) || !isnum(b) || !isnum(a))
+	if(!isnum_safe(r) || !isnum_safe(g) || !isnum_safe(b) || !isnum_safe(a))
 		return color_matrix_identity()
 	return list(r,0,0,0, 0,g,0,0, 0,0,b,0, 0,0,0,a, 0,0,0,0)
 
