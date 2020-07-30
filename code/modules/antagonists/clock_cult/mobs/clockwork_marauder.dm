@@ -6,6 +6,7 @@
 	desc = "A brass machine of destruction,"
 	icon = 'icons/mob/clockwork_mobs.dmi'
 	icon_state = "clockwork_marauder"
+	icon_dead = "anime_fragment"
 	possible_a_intents = list(INTENT_HARM)
 	health = 150
 	maxHealth = 150
@@ -29,6 +30,18 @@
 
 	var/shield_health = MARAUDER_SHIELD_MAX
 	var/next_shield_recharge = 0
+
+	var/debris = list(/obj/item/clockwork/alloy_shards/large = 1, \
+	/obj/item/clockwork/alloy_shards/medium = 2, \
+	/obj/item/clockwork/alloy_shards/small = 3) //Parts left behind when a structure breaks
+
+/mob/living/simple_animal/clockwork_marauder/death(gibbed)
+	. = ..()
+	for(var/item in debris)
+		var/count = debris[item]
+		for(var/i in 1 to count)
+			new item(get_turf(src))
+	qdel(src)
 
 /mob/living/simple_animal/clockwork_marauder/Life(seconds, times_fired)
 	//Check for shield regeneration
