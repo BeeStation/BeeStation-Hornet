@@ -42,7 +42,7 @@
 		to_chat(user, "<span class='large_brass'>You really thought you could get away with that?</span>")
 		return ..(user, user)
 	. = ..()
-	if(!is_reebe(z))
+	if(!is_reebe(user.z))
 		return
 	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(major=FALSE) && wielded)
 		hit_effect(target, user)
