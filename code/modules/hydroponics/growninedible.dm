@@ -59,3 +59,7 @@
 /obj/item/grown/on_grind()
 	for(var/i in 1 to grind_results.len)
 		grind_results[grind_results[i]] = round(seed.potency)
+
+/obj/item/grown/dropped(mob/user)
+	. = ..()
+	log_botany("[key_name(user)] dropped [src] at [AREACOORD(src)][get_plant_stats(seed, src)]")

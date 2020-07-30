@@ -88,7 +88,7 @@
 // Various gene procs
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
-		log_botany("[key_name(user)] squashed [seed] at [AREACOORD(user)][get_plant_stats(seed)]")
+		log_botany("[key_name(user)] squashed [seed] at [AREACOORD(user)][get_plant_stats(seed, src)]")
 		squash(user)
 	..()
 
@@ -98,7 +98,7 @@
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
 			if(seed.get_gene(/datum/plant_gene/trait/squash))
-				log_botany("[key_name(throwingdatum.thrower)] threw [seed] at [AREACOORD(hit_atom)][get_plant_stats(seed)]")
+				log_botany("[key_name(throwingdatum.thrower)] threw [seed] at [AREACOORD(hit_atom)][get_plant_stats(seed, src)]")
 				squash(hit_atom)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target)
@@ -171,7 +171,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/dropped(mob/user)
 	. = ..()
-	log_botany("[key_name(user)] dropped [src] at [AREACOORD(src)][get_plant_stats(seed)]")
+	log_botany("[key_name(user)] dropped [src] at [AREACOORD(src)][get_plant_stats(seed, src)]")
 
 /*
  * Attack self for growns
