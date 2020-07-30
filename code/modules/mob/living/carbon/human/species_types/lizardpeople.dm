@@ -23,8 +23,6 @@
 	liked_food = GROSS | MEAT
 	inert_mutation = FIREBREATH
 	deathsound = 'sound/voice/lizard/deathsound.ogg'
-	wings_icon = "Dragon"
-	species_language_holder = /datum/language_holder/lizard
 
 /datum/species/lizard/random_name(gender,unique,lastname)
 	if(unique)
