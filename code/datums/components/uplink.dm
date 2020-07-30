@@ -26,6 +26,7 @@
 	var/failsafe_code
 	var/compact_mode = FALSE
 	var/debug = FALSE
+	var/non_traitor_allowed = TRUE
 
 	var/list/previous_attempts
 
@@ -111,6 +112,8 @@
 
 /datum/component/uplink/proc/interact(datum/source, mob/user)
 	if(locked)
+		return
+	if(!non_traitor_allowed && !user.mind.special_role)
 		return
 	active = TRUE
 	if(user)
