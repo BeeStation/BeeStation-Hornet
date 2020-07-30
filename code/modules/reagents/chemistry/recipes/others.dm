@@ -773,7 +773,7 @@
 /datum/chemical_reaction/mutationtoxin/shadow
 	name = /datum/reagent/mutationtoxin/shadow
 	id = /datum/reagent/mutationtoxin/shadow
-	results = list(/datum/reagent/mutationtoxin/shadow = 5
+	results = list(/datum/reagent/mutationtoxin/shadow = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/liquid_dark_matter = 30, /datum/reagent/water/holywater = 10) //You need a tiny bit of thinking how to mix it
 
 /datum/chemical_reaction/mutationtoxin/plasma
