@@ -17,6 +17,15 @@
 	var/datum/antagonist/servant_of_ratvar/servant = is_servant_of_ratvar(M)
 	if(!servant)
 		return FALSE
+	var/choice = alert(user,"What weapon do you want to call upon?",,"Brass Spear","Brass Battlehammer","Brass Sword")
 	//Equip mob with gamer gear
-	var/static/datum/outfit/clockcult/armaments/armaments = new
-	armaments.equip(M)
+	var/static/datum/outfit/clockcult/armaments/armaments_spear = new
+	var/static/datum/outfit/clockcult/armaments/hammer/armaments_hammer = new
+	var/static/datum/outfit/clockcult/armaments/sword/armaments_sword = new
+	switch(choice)
+		if("Brass Spear")
+			armaments.equip(M)
+		if("Brass Battlehammer")
+			armaments_hammer.equip(M)
+		if("Brass Sword")
+			armaments_sword.equip(M)

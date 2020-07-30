@@ -145,3 +145,33 @@
 		wearer = null
 		applied_eye_damage = 0
 		STOP_PROCESSING(SSobj, src)
+
+/obj/item/clothing/head/helmet/clockcult
+	name = "brass helmet"
+	desc = "A strong, brass helmet worn by the soldiers of the Ratvarian armies."
+	icon = 'icons/obj/clothing/clockwork_garb.dmi'
+	icon_state = "clockwork_helmet"
+	armor = list("melee" = 40, "bullet" = 65, "laser" = 20, "energy" = 40, "bomb" = 40, "bio" = 70, "rad" = 100, "fire" = 100, "acid" = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/clothing/shoes/clockcult
+	name = "brass treads"
+	desc = "A strong pair of brass boots worn by the soldiers of the Ratvarian armies."
+	icon = 'icons/obj/clothing/clockwork_garb.dmi'
+	icon_state = "clockwork_treads"
+
+/obj/item/clothing/gloves/clockcult
+	name = "brass gauntlets"
+	desc = "A strong pair of brass gloves worn by the soldiers of the Ratvarian armies."
+	icon = 'icons/obj/clothing/clockwork_garb.dmi'
+	icon_state = "clockwork_gauntlets"
+	siemens_coefficient = 0
+	permeability_coefficient = 0
+	strip_delay = 80
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	resistance_flags = NONE
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)

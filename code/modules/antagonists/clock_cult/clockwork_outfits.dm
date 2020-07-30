@@ -14,3 +14,14 @@
 
 	suit = /obj/item/clothing/suit/clockwork
 	suit_store = /obj/item/twohanded/clockwork/brass_spear
+	head = /obj/item/clothing/head/helmet/clockcult
+	shoes = /obj/item/clothing/shoes/clockcult
+	gloves = /obj/item/clothing/gloves/clockcult
+
+/datum/outfit/clockcult/armaments/hammer
+	name = "Servant of Ratvar - Armaments (hammer)"
+	suit_store = /obj/item/twohanded/clockwork/brass_battlehammer
+
+/datum/outfit/clockcult/armaments/sword
+	name = "Servant of Ratvar - Armaments (sword)"
+	suit_store = /obj/item/twohanded/clockwork/brass_sword
