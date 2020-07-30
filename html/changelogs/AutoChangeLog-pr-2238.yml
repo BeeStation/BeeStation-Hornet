@@ -1,0 +1,4 @@
+author: alexkar598
+delete-after: true
+changes:
+  - code_imp: Fixes some shitcode in the Centcom ban db
