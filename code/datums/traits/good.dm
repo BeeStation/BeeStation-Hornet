@@ -107,12 +107,13 @@
 /datum/quirk/multilingual/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	var/datum/language_holder/LH
-	LH.add_blocked_language(/datum/language/narsie, LANGUAGE_ATOM)
-	LH.add_blocked_language(/datum/language/ratvar, LANGUAGE_ATOM)
-	LH.add_blocked_language(/datum/language/codespeak, LANGUAGE_ATOM)
-	LH.grant_all_languages(TRUE, TRUE, FALSE, LANGUAGE_ATOM)
+
 	var/datum/language/newLang
 	if(H.job != "Curator")
+		LH.add_blocked_language(/datum/language/narsie, LANGUAGE_ATOM)
+		LH.add_blocked_language(/datum/language/ratvar, LANGUAGE_ATOM)
+		LH.add_blocked_language(/datum/language/codespeak, LANGUAGE_ATOM)
+		LH.grant_all_languages(TRUE, TRUE, FALSE, LANGUAGE_ATOM)
 		do
 			newLang = LH.get_random_understood_language()
 		while(H.has_language(newLang, FALSE) == TRUE)
