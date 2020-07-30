@@ -63,18 +63,18 @@
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon_state = "ratvarian_spear"
 	embedding = list("embedded_impact_pain_multiplier" = 3)
-	force_wielded = 25
-	throwforce = 40
-	armour_penetration = 18
+	force_wielded = 32
+	throwforce = 50
+	armour_penetration = 24
 	clockwork_hint = "Throwing the spear will deal bonus damage while on Reebe."
 
 /obj/item/twohanded/clockwork/brass_battlehammer
 	name = "brass battle-hammer"
 	desc = "A brass hammer glowing with energy."
 	icon_state = "ratvarian_hammer"
-	force_wielded = 20
-	throwforce = 24
-	armour_penetration = 6
+	force_wielded = 25
+	throwforce = 35
+	armour_penetration = 18
 	sharpness = IS_BLUNT
 	attack_verb = list("bashed", "smitted", "hammered", "attacked")
 	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."
@@ -87,7 +87,7 @@
 	name = "brass longsword"
 	desc = "A large sword made of brass."
 	icon_state = "ratvarian_spear"
-	force_wielded = 25
+	force_wielded = 38
 	throwforce = 20
 	armour_penetration = 12
 	attack_verb = list("attacked", "slashed", "cut", "torn", "gored")
