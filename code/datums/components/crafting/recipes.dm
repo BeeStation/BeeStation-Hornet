@@ -782,6 +782,14 @@
 				/datum/reagent/medicine/silver_sulfadiazine = 10)
 	category = CAT_MISC
 
+/datum/crafting_recipe/lasso
+	name = "Bone Lasso"
+	reqs = list(
+            /obj/item/stack/sheet/bone = 1,
+            /obj/item/stack/sheet/sinew = 5)
+	result = /obj/item/key/lasso
+	category = CAT_PRIMAL
+
 // Shank - Makeshift weapon that can embed on throw
 /datum/crafting_recipe/shank
 	name = "Shank"
