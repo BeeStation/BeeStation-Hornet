@@ -69,79 +69,14 @@
 	physical = null
 	return ..()
 
-
-/obj/item/modular_computer/proc/add_computer_verbs(var/path)
-	switch(path)
-		if(MC_CARD)
-			add_verb(/obj/item/modular_computer/proc/eject_id)
-		if(MC_SDD)
-			add_verb(/obj/item/modular_computer/proc/eject_disk)
-		if(MC_AI)
-			add_verb(/obj/item/modular_computer/proc/eject_card)
-
-/obj/item/modular_computer/proc/remove_computer_verbs(path)
-	switch(path)
-		if(MC_CARD)
-			remove_verb(/obj/item/modular_computer/proc/eject_id)
-		if(MC_SDD)
-			remove_verb(/obj/item/modular_computer/proc/eject_disk)
-		if(MC_AI)
-			remove_verb(/obj/item/modular_computer/proc/eject_card)
-
-// Eject ID card from computer, if it has ID slot with card inside.
-/obj/item/modular_computer/proc/eject_id()
-	set name = "Eject ID"
-	set category = "Object"
-	set src in view(1)
-
-	if(issilicon(usr))
-		return
-	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
-	if(usr.canUseTopic(src, BE_CLOSE))
-		card_slot.try_eject(null, usr)
-
-// Ejects an intellicard from a computer, if there's a slot and an intellicard inside.
-/obj/item/modular_computer/proc/eject_card()
-	set name = "Eject Intellicard"
-	set category = "Object"
-
-	if(issilicon(usr))
-		return
-	var/obj/item/computer_hardware/ai_slot/ai_slot = all_components[MC_AI]
-	if(usr.canUseTopic(src, BE_CLOSE))
-		ai_slot.try_eject(null, usr,1)
-
-
-// Ejects a data disk from a computer, if there's a slot and a disk inside.
-/obj/item/modular_computer/proc/eject_disk()
-	set name = "Eject Data Disk"
-	set category = "Object"
-
-	if(issilicon(usr))
-		return
-
-	if(usr.canUseTopic(src, BE_CLOSE))
-		var/obj/item/computer_hardware/hard_drive/portable/portable_drive = all_components[MC_SDD]
-		if(uninstall_component(portable_drive, usr))
-			portable_drive.verb_pickup()
-
 /obj/item/modular_computer/AltClick(mob/user)
 	if(issilicon(user))
 		return
 
 	if(user.canUseTopic(src, BE_CLOSE))
 		var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
-		var/obj/item/computer_hardware/ai_slot/ai_slot = all_components[MC_AI]
-		var/obj/item/computer_hardware/hard_drive/portable/portable_drive = all_components[MC_SDD]
-		if(portable_drive)
-			if(uninstall_component(portable_drive, user))
-				portable_drive.verb_pickup()
-		else
-			if(card_slot && card_slot.try_eject(null, user))
-				return
-			if(ai_slot)
-				ai_slot.try_eject(null, user)
-
+		if(card_slot)
+			card_slot.try_eject(null, user)
 
 // Gets IDs/access levels from card slot. Would be useful when/if PDAs would become modular PCs.
 /obj/item/modular_computer/GetAccess()

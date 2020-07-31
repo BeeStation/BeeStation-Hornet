@@ -59,12 +59,6 @@
 		if(!try_eject(2))
 			return null
 
-/obj/item/computer_hardware/card_slot/on_install(obj/item/modular_computer/M, mob/living/user = null)
-	M.add_computer_verbs(device_type)
-
-/obj/item/computer_hardware/card_slot/on_remove(obj/item/modular_computer/M, mob/living/user = null)
-	M.remove_computer_verbs(device_type)
-
 /obj/item/computer_hardware/card_slot/try_insert(obj/item/I, mob/living/user = null)
 	if(!holder)
 		return FALSE
