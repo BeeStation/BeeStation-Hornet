@@ -369,6 +369,11 @@
 		id = result
 	return id
 
+//This proc is used when creating diseases, to call OnAdd for each symptom to make sure the symptoms work as they should
+/datum/disease/advance/proc/Finalize()
+	for(var/datum/symptom/S in symptoms)
+		S.OnAdd(src)
+
 
 // Add a symptom, if it is over the limit we take a random symptom away and add the new one.
 /datum/disease/advance/proc/AddSymptom(datum/symptom/S)
@@ -472,6 +477,7 @@
 			return
 		D.AssignName(new_name)
 		D.Refresh()
+		D.Finalize()
 
 		for(var/datum/disease/advance/AD in SSdisease.active_diseases)
 			AD.Refresh()

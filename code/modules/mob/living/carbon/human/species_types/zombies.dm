@@ -83,7 +83,7 @@
 /datum/species/zombie/infectious/fast
 	name = "Fast Infectious Zombie"
 	id = "memezombiesfast"
-	limbs_id = "zombie"
+	limbs_id = "fzombie"
 	armor = 0
 	speedmod = 0
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie

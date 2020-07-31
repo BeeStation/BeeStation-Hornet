@@ -416,6 +416,7 @@ obj/effect/sweatsplash/proc/splash()
 	var/tetsuo = FALSE
 	var/bruteheal = FALSE
 	var/sizemult = 1
+	var/datum/mind/ownermind
 	threshold_desc = "<b>Stage Speed 6:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors.<br>\
 					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced. The disease will also regenerate lost limbs and cause organ mutation."
 
@@ -434,6 +435,7 @@ obj/effect/sweatsplash/proc/splash()
 	if(A.properties["stage_rate"] >= 12)
 		tetsuo = TRUE
 	var/mob/living/carbon/M = A.affected_mob
+	ownermind = M.mind
 	sizemult = min(max(1.1, (0.5 + A.properties["stage_rate"] / 10)), 2.5)
 	M.resize = sizemult
 	M.update_transform()
@@ -447,19 +449,22 @@ obj/effect/sweatsplash/proc/splash()
 			if(prob(5) && bruteheal)
 				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet</span>")
 				M.Knockdown(10)
+				new /obj/effect/decal/cleanable/blood/(M.loc)
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
-				if(prob(80))
+				if(prob(60))
 					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
 				if(tetsuo)
 					var/list/organcantidates = list()
 					var/list/missing = M.get_missing_limbs()
-					if(prob(30))
-						new /obj/effect/gibspawner/human/bodypartless(M.loc)
+					if(prob(35))
+						new /obj/effect/gibspawner/human/bodypartless(M.loc) //yes. this is very messy. very, very messy.
 						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
 						for(var/obj/item/organ/O in M.loc)
-							if(O.organ_flags & (ORGAN_SYNTHETIC) && (!MOB_ROBOTIC in A.infectable_biotypes)) //if we can infect robots, we can implant cyber organs
-								continue
 							if(O.organ_flags & ORGAN_FAILING || O.organ_flags & ORGAN_VITAL) //dont use shitty organs or brains
+								continue
+							if(O.organ_flags & (ORGAN_SYNTHETIC)) //if we can infect robots, we can implant cyber organs
+								if(MOB_ROBOTIC in A.infectable_biotypes) //why do i have to do this this way? no idea, but it wont fucking work otherwise
+									organcantidates += O
 								continue
 							organcantidates += O
 						if(organcantidates.len)
@@ -478,6 +483,21 @@ obj/effect/sweatsplash/proc/splash()
 									"<span class='italics'>You hear organic matter ripping \
 									and tearing!</span>")
 								M.emote("scream")
+								if(Z == BODY_ZONE_HEAD) //if we regenerate the head, make sure the mob still owns us
+									if(isliving(ownermind.current))
+										var/mob/living/owner = ownermind.current
+										if(owner.stat && owner != M && !istype(owner, /mob/living/brain))//if they have a new mob, forget they exist
+											ownermind = null
+											break
+										if(owner == M) //they're already in control of this body, probably because their brain isn't in the head!
+											break
+									if(ishuman(M))
+										var/mob/living/carbon/human/H = M
+										H.dna.species.regenerate_organs(H, replace_current = FALSE) //get head organs, including the brain, back
+									ownermind.transfer_to(M)
+									if(isobserver(ownermind.current)) //force them back into their corpse to make sure they know they're still in the game
+										var/mob/dead/observer/G = ownermind.current
+										G.reenter_corpse()
 								break
 				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
 					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
