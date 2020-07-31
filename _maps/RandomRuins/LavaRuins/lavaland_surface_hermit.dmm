@@ -49,12 +49,6 @@
 	name = "dirt"
 	},
 /area/ruin/powered)
-"l" = (
-/obj/item/storage/toolbox/emergency,
-/turf/open/floor/plating/asteroid{
-	name = "dirt"
-	},
-/area/ruin/powered)
 "m" = (
 /obj/structure/rack,
 /obj/item/seeds/reishi,
@@ -171,6 +165,13 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating{
 	initial_gas_mix = "LAVALAND_ATMOS"
+	},
+/area/ruin/powered)
+"M" = (
+/obj/item/stack/sheet/iron/twenty,
+/obj/item/storage/toolbox/emergency,
+/turf/open/floor/plating/asteroid{
+	name = "dirt"
 	},
 /area/ruin/powered)
 "W" = (
@@ -363,7 +364,7 @@ c
 e
 h
 g
-l
+M
 c
 p
 r

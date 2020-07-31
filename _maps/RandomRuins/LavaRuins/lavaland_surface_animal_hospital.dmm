@@ -262,17 +262,6 @@
 /obj/machinery/chem_heater,
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
-"aX" = (
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/sheet/mineral/titanium{
-	amount = 30
-	},
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/turf/open/floor/plating,
-/area/ruin/powered/animal_hospital)
 "aY" = (
 /obj/structure/bodycontainer/morgue,
 /turf/open/floor/plating,
@@ -1255,6 +1244,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
+"QW" = (
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/sheet/mineral/titanium{
+	amount = 30
+	},
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/iron/twenty,
+/turf/open/floor/plating,
+/area/ruin/powered/animal_hospital)
 "Rp" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
 	dir = 1
@@ -1929,7 +1930,7 @@ FD
 Uf
 aK
 cm
-aX
+QW
 be
 bk
 ae
