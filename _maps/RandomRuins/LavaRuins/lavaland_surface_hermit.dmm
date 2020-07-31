@@ -173,6 +173,10 @@
 	initial_gas_mix = "LAVALAND_ATMOS"
 	},
 /area/ruin/powered)
+"R" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/open/floor/plating/asteroid/basalt,
+/area/ruin/powered)
 
 (1,1,1) = {"
 a
@@ -377,7 +381,7 @@ b
 b
 f
 k
-f
+R
 b
 b
 b
