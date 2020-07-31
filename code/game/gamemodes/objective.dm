@@ -188,6 +188,16 @@ GLOBAL_LIST_EMPTY(objectives)
 /datum/objective/assassinate/admin_edit(mob/admin)
 	admin_simple_target_pick(admin)
 
+/datum/objective/assassinate/incursion
+	name = "eliminate"
+
+/datum/objective/assassinate/incursion/update_explanation_text()
+	..()
+	if(target && target.current)
+		explanation_text = "[target.name], the [!target_role_type ? target.assigned_role : target.special_role] has been declared an ex-communicate of the syndicate. Eliminate them."
+	else
+		explanation_text = "Free Objective"
+
 /datum/objective/assassinate/internal
 	var/stolen = 0 		//Have we already eliminated this target?
 
@@ -319,6 +329,25 @@ GLOBAL_LIST_EMPTY(objectives)
 			return FALSE
 	return SSshuttle.emergency.is_hijacked()
 
+/datum/objective/hijack/single
+	name = "hijack"
+	explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive and out of custody."
+	team_explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive and out of custody. Team members lost is not a concern for this operation."
+	martyr_compatible = 0 //Technically you won't get both anyway.
+
+/datum/objective/hijack/single/check_completion() // Requires all owners to escape.
+	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
+		return FALSE
+	var/list/datum/mind/owners = get_owners()
+	var/single_escape = FALSE
+	for(var/datum/mind/M in owners)
+		if(considered_alive(M) && SSshuttle.emergency.shuttle_areas[get_area(M.current)])
+			single_escape = TRUE
+			break
+	if(!single_escape)
+		return FALSE
+	return SSshuttle.emergency.is_hijacked()
+
 /datum/objective/block
 	name = "no organics on shuttle"
 	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
@@ -377,6 +406,19 @@ GLOBAL_LIST_EMPTY(objectives)
 		if(!considered_escaped(M))
 			return FALSE
 	return TRUE
+
+/datum/objective/escape/single
+	name = "escape"
+	explanation_text = "Escape on the shuttle or an escape pod alive and without being in custody."
+	team_explanation_text = "Have at least one of your members escape on the shuttle or escape pod alive and without being in custody."
+
+/datum/objective/escape/single/check_completion()
+	// Require all owners escape safely.
+	var/list/datum/mind/owners = get_owners()
+	for(var/datum/mind/M in owners)
+		if(considered_escaped(M))
+			return TRUE
+	return FALSE
 
 /datum/objective/escape/escape_with_identity
 	name = "escape with identity"
