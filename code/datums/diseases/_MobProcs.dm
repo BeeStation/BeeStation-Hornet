@@ -18,7 +18,7 @@
 		return FALSE
 
 	var/can_infect = FALSE
-	for(var/host_type in D.infectable_biotypes)//only checks the first biotype
+	for(var/host_type in D.infectable_biotypes)
 		if(host_type in mob_biotypes)
 			can_infect = TRUE
 			break
