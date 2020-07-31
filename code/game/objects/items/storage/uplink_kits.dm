@@ -471,6 +471,7 @@
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pda/chameleon(src)
+	new /obj/item/handmirror(src)
 
 /obj/item/storage/box/syndie_kit/plasmachameleon
 	name = "plasmaman chameleon kit"
