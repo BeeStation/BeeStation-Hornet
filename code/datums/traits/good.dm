@@ -117,7 +117,7 @@
 		do
 			newLang = LH.get_random_understood_language()
 			i = i + 1
-		while(H.has_language(newLang, FALSE) == TRUE || i < 15)
+		while(H.has_language(newLang, FALSE) == TRUE && i < 15)
 		if(H.could_speak_language(newLang) == TRUE)
 			H.grant_language(newLang, TRUE, TRUE, LANGUAGE_MIND)
 		else
