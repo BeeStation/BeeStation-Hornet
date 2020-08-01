@@ -8,7 +8,7 @@
 	button_icon_state = "Cogscarab"
 	power_cost = 500
 	invokation_time = 120
-	invokation_text = list("Here you go, good coggy")
+	invokation_text = list("My fallen brothers,", "Now is the time we rise", "Protect our lord", "Achieve greatness!")
 	category = SPELLTYPE_PRESERVATION
 	cogs_required = 5
 
