@@ -34,7 +34,7 @@
 	M.adjustOxyLoss(-M.getOxyLoss(), FALSE)
 	M.adjustCloneLoss(-M.getCloneLoss(), TRUE)
 	M.reagents.remove_reagent(/datum/reagent/water/holywater, INFINITY)
-	M.set_nutrition(NUTRITION_LEVEL_FED + 50)
+	M.set_nutrition(NUTRITION_LEVEL_FULL)
 	M.bodytemperature = BODYTEMP_NORMAL
 	M.set_blindness(0)
 	M.set_blurriness(0)
