@@ -372,7 +372,7 @@
 			direct_target.bullet_act(src, def_zone)
 			qdel(src)
 			return
-	if(isnum(angle))
+	if(isnum_safe(angle))
 		setAngle(angle)
 	if(spread)
 		setAngle(Angle + ((rand() - 0.5) * spread))

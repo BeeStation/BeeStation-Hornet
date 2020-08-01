@@ -384,15 +384,15 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	if(QDELETED(src))
 		return null
 
-	if (isnum(cached_player_age) && cached_player_age == -1) //first connection
+	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
 		player_age = 0
 	var/nnpa = CONFIG_GET(number/notify_new_player_age)
-	if (isnum(cached_player_age) && cached_player_age == -1) //first connection
+	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
 		if (nnpa >= 0)
 			message_admins("New user: [key_name_admin(src)] is connecting here for the first time.")
 			if (CONFIG_GET(flag/irc_first_connection_alert))
 				send2irc_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
-	else if (isnum(cached_player_age) && cached_player_age < nnpa)
+	else if (isnum_safe(cached_player_age) && cached_player_age < nnpa)
 		message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(player_age==1?"":"s")]")
 	if(CONFIG_GET(flag/use_account_age_for_jobs) && account_age >= 0)
 		player_age = account_age

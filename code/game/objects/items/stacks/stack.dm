@@ -178,7 +178,7 @@
 			recipes_list = srl.recipes
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		var/multiplier = text2num(href_list["multiplier"])
-		if (!multiplier ||(multiplier <= 0)) //href protection
+		if (!isnum_safe(multiplier) || (multiplier <= 0)) //href protection
 			return
 		if(!building_checks(R, multiplier))
 			return
