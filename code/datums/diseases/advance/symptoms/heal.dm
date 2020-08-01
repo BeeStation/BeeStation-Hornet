@@ -437,7 +437,7 @@ obj/effect/sweatsplash/proc/splash()
 		tetsuo = TRUE
 	var/mob/living/carbon/M = A.affected_mob
 	ownermind = M.mind
-	sizemult = min(max(1.1, (0.5 + A.properties["stage_rate"] / 10)), 2.5)
+	sizemult = clamp((0.5 + A.properties["stage_rate"] / 10), 1.1, 2.5)
 	M.resize = sizemult
 	M.update_transform()
 
@@ -470,7 +470,7 @@ obj/effect/sweatsplash/proc/splash()
 							organcantidates += O
 						if(organcantidates.len)
 							for(var/I in 1 to min(rand(1, 3), organcantidates.len))
-								var/obj/item/organ/chosen = pick(organcantidates)
+								var/obj/item/organ/chosen = pick_n_take(organcantidates)
 								chosen.Insert(M, TRUE, FALSE)
 								to_chat(M, "<span class='userdanger'>As the [chosen] touches your skin, it is promptly absorbed.</span>")
 					if(missing.len) //we regrow one missing limb
