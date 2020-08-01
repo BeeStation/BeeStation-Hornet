@@ -15,7 +15,7 @@
 
 /datum/clockcult/scripture/marauder/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks)
 	. = ..()
-	selected = pollCandidates("Would you like to play as the Eminence?")
+	selected = pollCandidates("Would you like to play as a clockwork marauder?")
 
 /datum/clockcult/scripture/marauder/invoke()
 	if(!selected || !isobserver(selected))
