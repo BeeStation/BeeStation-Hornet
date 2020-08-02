@@ -907,7 +907,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/turf/T = get_turf(mob)
 	var/z_level = input("Z-Level to target?", "Z-Level", T?.z) as num|null
-	if(!isnum(z_level))
+	if(!isnum_safe(z_level))
 		return
 
 	SSweather.run_weather(weather_type, z_level)

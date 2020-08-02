@@ -23,7 +23,6 @@
 	liked_food = GROSS | MEAT
 	inert_mutation = FIREBREATH
 	deathsound = 'sound/voice/lizard/deathsound.ogg'
-	wings_icon = "Dragon"
 	species_language_holder = /datum/language_holder/lizard
 
 /datum/species/lizard/random_name(gender,unique,lastname)
@@ -78,3 +77,4 @@
 	limbs_id = "lizard"
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS,DIGITIGRADE)
 	inherent_traits = list(TRAIT_NOGUNS,TRAIT_NOBREATH)
+	species_language_holder = /datum/language_holder/lizard/ash

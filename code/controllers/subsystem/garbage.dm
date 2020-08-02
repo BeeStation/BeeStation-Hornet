@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(garbage)
 					state = SS_RUNNING
 				break
 
-	
+
 
 
 /datum/controller/subsystem/garbage/proc/HandleQueue(level = GC_QUEUE_CHECK)
@@ -422,7 +422,7 @@ SUBSYSTEM_DEF(garbage)
 			if (I == src)
 				testing("Found [src.type] \ref[src] in list [Xname].")
 
-			else if (I && !isnum(I) && normal && X[I] == src)
+			else if (I && !isnum_safe(I) && normal && X[I] == src)
 				testing("Found [src.type] \ref[src] in list [Xname]\[[I]\]")
 
 			else if (islist(I))

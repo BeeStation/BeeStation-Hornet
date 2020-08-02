@@ -1997,7 +1997,7 @@
 
 		var/list/bans
 
-		var/list/dat = list("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><body>")
+		var/list/dat = list()
 
 		if(response.errored)
 			dat += "<br>Failed to connect to CentCom."
@@ -2024,11 +2024,10 @@
 						dat += sanitize(jobs.Join(", "))
 						dat += "<br>"
 					dat += "<hr>"
-
-		dat += "<br></body>"
+					
 		var/datum/browser/popup = new(usr, "centcomlookup-[ckey]", "<div align='center'>Central Command Galactic Ban Database</div>", 700, 600)
 		popup.set_content(dat.Join())
-		popup.open(0)
+		popup.open(FALSE)
 
 	else if(href_list["modantagrep"])
 		if(!check_rights(R_ADMIN))

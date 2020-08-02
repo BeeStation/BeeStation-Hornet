@@ -7,7 +7,7 @@
 	var/needs_update_stat = FALSE
 
 /datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration, updating_canmove)
-	if(isnum(set_duration))
+	if(isnum_safe(set_duration))
 		duration = set_duration
 	. = ..()
 	if(.)
@@ -166,7 +166,7 @@
 
 
 /datum/status_effect/pacify/on_creation(mob/living/new_owner, set_duration)
-	if(isnum(set_duration))
+	if(isnum_safe(set_duration))
 		duration = set_duration
 	. = ..()
 
@@ -186,7 +186,7 @@
 	alert_type = null
 
 /datum/status_effect/pacify/on_creation(mob/living/new_owner, set_duration)
-	if(isnum(set_duration))
+	if(isnum_safe(set_duration))
 		duration = set_duration
 	. = ..()
 
