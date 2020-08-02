@@ -105,7 +105,7 @@
 
 	wires = new /datum/wires/robot(src)
 	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
-	
+
 	RegisterSignal(src, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
 
 	robot_modules_background = new()
@@ -693,9 +693,10 @@
 	else
 		clear_alert("hacked")
 
-/mob/living/silicon/robot/proc/SetRatvar(new_state)
+/mob/living/silicon/robot/proc/SetRatvar(new_state, rebuild-TRUE)
 	ratvar = new_state
-	module.rebuild_modules()
+	if(rebuild)
+		module.rebuild_modules()
 	update_icons()
 	if(ratvar)
 		internal_clock_slab = new(src)

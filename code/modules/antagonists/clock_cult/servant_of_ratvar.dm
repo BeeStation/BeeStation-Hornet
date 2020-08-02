@@ -15,9 +15,6 @@
 
 	var/counts_towards_total = TRUE//Counts towards the total number of servants.
 
-/datum/antagonist/servant_of_ratvar/New()
-	. = ..()
-
 /datum/antagonist/servant_of_ratvar/greet()
 	if(!owner.current)
 		return

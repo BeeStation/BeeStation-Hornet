@@ -590,6 +590,11 @@ GLOBAL_LIST_INIT(brass_recipes, list ( \
 /obj/item/stack/tile/brass/fifty
 	amount = 50
 
+/obj/item/stack/tile/brass/cyborg
+	materials = list()
+	is_cyborg = 1
+	cost = 500
+
 /*
  * Bronze
  */

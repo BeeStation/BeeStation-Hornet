@@ -170,6 +170,8 @@
 	if(R.emagged)
 		for(var/obj/item/I in emag_modules)
 			add_module(I, FALSE, FALSE)
+	if(is_servant_of_ratvar(R) && !R.ratvar)
+		R.SetRatvar(TRUE, FALSE)	//Don't ret
 	if(R.ratvar)
 		for(var/obj/item/I in ratvar_modules)
 			add_module(I, FALSE, FALSE)
@@ -328,7 +330,8 @@
 		/obj/item/clock_module/tinkerers_cache,
 		/obj/item/clock_module/stargazer,
 		/obj/item/clock_module/abstraction_crystal,
-		/obj/item/clockwork/replica_fabricator)
+		/obj/item/clockwork/replica_fabricator,
+		/obj/item/stack/tile/brass/cyborg)
 	cyborg_base_icon = "engineer"
 	moduleselect_icon = "engineer"
 	magpulsing = TRUE
