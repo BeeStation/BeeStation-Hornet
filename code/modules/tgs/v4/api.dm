@@ -202,7 +202,7 @@
 			del(world)
 
 		var/new_port = new_port_json[TGS4_PARAMETER_DATA]
-		if(!isnum(new_port) || new_port <= 0)
+		if(!isnum_safe(new_port) || new_port <= 0)
 			TGS_ERROR_LOG("Malformed new port json ([json_encode(new_port_json)])![TGS4_PORT_CRITFAIL_MESSAGE]")
 			del(world)
 
@@ -237,7 +237,7 @@
 	//okay so the standard TGS4 proceedure is: right before rebooting change the port to whatever was sent to us in the above json's data parameter
 
 	var/port = result[TGS4_PARAMETER_DATA]
-	if(!isnum(port))
+	if(!isnum_safe(port))
 		return	//this is valid, server may just want use to reboot
 
 	if(port == 0)

@@ -451,7 +451,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		else
 			var/orderid = input("Enter your order:") as num|null
 			if(orderid)
-				if(isnum(orderid) && ISINTEGER(orderid))
+				if(isnum_safe(orderid) && ISINTEGER(orderid))
 					href_list["targetid"] = num2text(orderid)
 
 	if(href_list["targetid"])
