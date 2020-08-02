@@ -1,0 +1,5 @@
+author: Atlas48
+delete-after: true
+changes:
+  - bugfix: Mulebots will no longer get stuck when trying to move through the access
+      port near cargo.
