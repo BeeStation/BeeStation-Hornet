@@ -1,0 +1,4 @@
+author: BettonnCZ
+delete-after: true
+changes:
+  - bugfix: Non-premium contraband correctly charges the listed price
