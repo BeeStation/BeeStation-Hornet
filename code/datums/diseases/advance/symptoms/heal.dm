@@ -437,7 +437,7 @@ obj/effect/sweatsplash/proc/splash()
 		tetsuo = TRUE
 	var/mob/living/carbon/M = A.affected_mob
 	ownermind = M.mind
-	sizemult = clamp((0.5 + A.properties["stage_rate"] / 10), 1.1, 2.5)
+	sizemult = CLAMP((0.5 + A.properties["stage_rate"] / 10), 1.1, 2.5)
 	M.resize = sizemult
 	M.update_transform()
 
