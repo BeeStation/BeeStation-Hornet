@@ -106,22 +106,29 @@
 
 /datum/quirk/multilingual/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	var/datum/language_holder/LH
-	var/datum/language/newLang
 	if(H.job != "Curator")
-		LH.add_blocked_language(/datum/language/narsie, LANGUAGE_ATOM)
-		LH.add_blocked_language(/datum/language/ratvar, LANGUAGE_ATOM)
-		LH.add_blocked_language(/datum/language/codespeak, LANGUAGE_ATOM)
-		LH.grant_all_languages(TRUE, TRUE, FALSE, LANGUAGE_ATOM)
+		var/datum/language/random_language
 		var/i = 0
+		H.add_blocked_language(/datum/language/narsie, LANGUAGE_MULTILINGUAL)
+		H.add_blocked_language(/datum/language/ratvar, LANGUAGE_MULTILINGUAL)
+		H.add_blocked_language(/datum/language/codespeak, LANGUAGE_MULTILINGUAL)
+		H.add_blocked_language(/datum/language/common, LANGUAGE_MULTILINGUAL)
+		H.add_blocked_language(/datum/language/uncommon, LANGUAGE_MULTILINGUAL)
+		H.grant_all_languages(TRUE, TRUE, FALSE, LANGUAGE_MULTILINGUAL)
 		do
-			newLang = LH.get_random_understood_language()
-			i = i + 1
-		while(H.has_language(newLang, FALSE) == TRUE || i < 15)
-		if(H.could_speak_language(newLang) == TRUE)
-			H.grant_language(newLang, TRUE, TRUE, LANGUAGE_MIND)
-		else
-			H.grant_language(newLang, TRUE, FALSE, LANGUAGE_MIND)
+			random_language = H.get_random_spoken_language()
+			i = i+1
+		while(H.has_language(random_language, FALSE) || i < 20)
+		H.remove_blocked_language(/datum/language/narsie, LANGUAGE_MULTILINGUAL)
+		H.remove_blocked_language(/datum/language/ratvar, LANGUAGE_MULTILINGUAL)
+		H.remove_blocked_language(/datum/language/codespeak, LANGUAGE_MULTILINGUAL)
+		H.remove_blocked_language(/datum/language/common, LANGUAGE_MULTILINGUAL)
+		H.remove_blocked_language(/datum/language/uncommon, LANGUAGE_MULTILINGUAL)
+		H.remove_all_languages(LANGUAGE_MULTILINGUAL, FALSE)
+		H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+	else
+		return
+//Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
 
 /datum/quirk/night_vision
 	name = "Night Vision"
