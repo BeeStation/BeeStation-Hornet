@@ -693,7 +693,7 @@
 	else
 		clear_alert("hacked")
 
-/mob/living/silicon/robot/proc/SetRatvar(new_state, rebuild-TRUE)
+/mob/living/silicon/robot/proc/SetRatvar(new_state, rebuild=TRUE)
 	ratvar = new_state
 	if(rebuild)
 		module.rebuild_modules()

@@ -1,7 +1,12 @@
 /obj/item/clock_module
-	name = "Ratvarian borg module"
+	name = "ratvarian borg module"
+	desc = "cool."
 	icon = 'icons/mob/actions/actions_clockcult.dmi'
 	icon_state = "Abscond"
+	item_flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = null
+	force = 0
 	var/scripture_datum
 
 /obj/item/clock_module/Initialize()

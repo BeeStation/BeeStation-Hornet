@@ -19,9 +19,6 @@
 
 	var/sound/recital_sound = null
 
-/datum/clockcult/scripture/New()
-	. = ..()
-
 /datum/clockcult/scripture/proc/invoke()
 	if(GLOB.clockcult_power < power_cost)
 		invoke_fail()

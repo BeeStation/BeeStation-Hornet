@@ -55,6 +55,7 @@
 /obj/item/robot_module/Destroy()
 	basic_modules.Cut()
 	emag_modules.Cut()
+	ratvar_modules.Cut()
 	modules.Cut()
 	added_modules.Cut()
 	storages.Cut()
@@ -103,6 +104,10 @@
 			G.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
 			G.glasource = get_or_create_estorage(/datum/robot_energy_storage/glass)
 
+		else if(istype(S, /obj/item/stack/tile/brass))
+			S.cost = 500
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/brass)
+
 		else if(istype(S, /obj/item/stack/medical))
 			S.cost = 250
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/medical)
@@ -134,6 +139,7 @@
 	basic_modules -= I
 	modules -= I
 	emag_modules -= I
+	ratvar_modules -= I
 	added_modules -= I
 	rebuild_modules()
 	if(delete_after)
@@ -170,8 +176,8 @@
 	if(R.emagged)
 		for(var/obj/item/I in emag_modules)
 			add_module(I, FALSE, FALSE)
-	if(is_servant_of_ratvar(R) && !R.ratvar)
-		R.SetRatvar(TRUE, FALSE)	//Don't ret
+	if(is_servant_of_ratvar(R) && !R.ratvar)	//It just works :^)
+		R.SetRatvar(TRUE, FALSE)
 	if(R.ratvar)
 		for(var/obj/item/I in ratvar_modules)
 			add_module(I, FALSE, FALSE)
@@ -744,6 +750,9 @@
 
 /datum/robot_energy_storage/glass
 	name = "Glass Synthesizer"
+
+/datum/robot_energy_storage/brass
+	name = "Brass Synthesizer"
 
 /datum/robot_energy_storage/wire
 	max_energy = 50
