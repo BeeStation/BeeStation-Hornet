@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(npcpool)
 		if(SA.special_process)
 			var/mob/living/simple_animal/slime/S = SA
 			if(istype(S))
-				special_process = FALSE
+				S.special_process = FALSE
 				S.AIprocess()
 			else
 				SA.process()
