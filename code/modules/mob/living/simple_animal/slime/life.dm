@@ -27,10 +27,6 @@
 		return
 	..()
 
-/mob/living/simple_animal/slime/process()
-	special_process = FALSE
-	AIprocess()
-
 /mob/living/simple_animal/slime/proc/AIprocess()
 	var/view_tracker = 3 // Needs to be 3 to ensure the view check runs at least once
 
