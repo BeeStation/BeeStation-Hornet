@@ -28,8 +28,10 @@
 		return
 	..()
 
-/mob/living/simple_animal/slime/proc/AIprocess()
+/mob/living/simple_animal/slime/proc/AIprocess() // TODO: Future optimization target: Queue slime processing in a subsystem.
 	AIproc = 1
+
+	var/view_tracker = 3 // Needs to be 3 to ensure the view check runs at least once
 
 	while(AIproc)
 		if(stat == DEAD || !Target || client || buckled)
@@ -37,19 +39,20 @@
 			return
 
 		var/slime_on_target = 0
-		if(locate(/mob/living/simple_animal/slime) in Target.buckled_mobs)
+		if(Target.buckled_mobs.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
 			slime_on_target = 1
 
-		if((Target in view(1,src)) && Target.Adjacent(src))
-			if(attack_cooldown < world.time && CanFeedon(Target) && !slime_on_target)
+		if(get_dist(Target, src) <= 1 && Target.z == src.z && attack_cooldown < world.time)
+			if(!slime_on_target && CanFeedon(Target))
 				if(!Target.client || prob(20))
 					Feedon(Target)
 					AIproc = 0
 					return
-			if(attack_cooldown < world.time && (attacked || rabid))
+			if(attacked || rabid)
 				Target.attack_slime(src)
 				attack_cooldown = world.time + attack_cooldown_time
-		else if(Target in view(7, src))
+		else if((view_tracker % 3 != 0) || (Target in view(7, src))) // Only bother to check if target is still in view every third time
+			view_tracker++
 			step_to(src, Target)
 		else
 			AIproc = 0
