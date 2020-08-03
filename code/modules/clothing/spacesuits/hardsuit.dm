@@ -511,6 +511,7 @@
 	icon_state = "hardsuit0-sec"
 	item_state = "sec_helm"
 	item_color = "sec"
+	bang_protect = 1
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30,"energy" = 40, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
 
 
@@ -532,6 +533,7 @@
 	desc = "A special bulky helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
 	icon_state = "hardsuit0-hos"
 	item_color = "hos"
+	bang_protect = 1
 	armor = list("melee" = 45, "bullet" = 25, "laser" = 30, "energy" = 40, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 95, "acid" = 95)
 
 
