@@ -28,7 +28,11 @@
 		return
 	..()
 
-/mob/living/simple_animal/slime/proc/AIprocess() // TODO: Future optimization target: Queue slime processing in a subsystem.
+/mob/living/simple_animal/slime/process()
+	special_process = FALSE
+	AIprocess()
+
+/mob/living/simple_animal/slime/proc/AIprocess()
 	AIproc = 1
 
 	var/view_tracker = 3 // Needs to be 3 to ensure the view check runs at least once
@@ -394,7 +398,7 @@
 			else if (findtext(phrase, "attack"))
 				if (rabid && prob(20))
 					Target = who
-					AIprocess() //Wake up the slime's Target AI, needed otherwise this doesn't work
+					special_process = TRUE
 					to_say = "ATTACK!?!?"
 				else if (Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
 					for (var/mob/living/L in view(7,src)-list(src,who))
@@ -404,7 +408,7 @@
 								--Friends[who] //Don't ask a slime to attack its friend
 							else if(!Friends[L] || Friends[L] < 1)
 								Target = L
-								AIprocess()//Wake up the slime's Target AI, needed otherwise this doesn't work
+								special_process = TRUE
 								to_say = "Ok... I attack [Target]"
 							else
 								to_say = "No... like [L] ..."
