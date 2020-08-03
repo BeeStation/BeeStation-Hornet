@@ -65,7 +65,6 @@
 	sleep(10 SECONDS)
 	if(!A && !M)
 		return
-	qdel(A)
 	var/list/blob_options = list(/obj/structure/blob/normal)
 	if(factory_blob)
 		blob_options += /obj/structure/blob/factory/lone

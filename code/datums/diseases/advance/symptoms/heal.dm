@@ -496,9 +496,7 @@ obj/effect/sweatsplash/proc/splash()
 										var/mob/living/carbon/human/H = M
 										H.dna.species.regenerate_organs(H, replace_current = FALSE) //get head organs, including the brain, back
 									ownermind.transfer_to(M)
-									if(isobserver(ownermind.current)) //force them back into their corpse to make sure they know they're still in the game
-										var/mob/dead/observer/G = ownermind.current
-										G.reenter_corpse()
+									M.grab_ghost()
 								break
 				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
 					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
