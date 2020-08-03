@@ -42,7 +42,7 @@
 		if(Target.buckled_mobs.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
 			slime_on_target = 1
 
-		if(get_dist(Target, src) <= 1 && Target.z == src.z && attack_cooldown < world.time)
+		if(Target.z == src.z && attack_cooldown < world.time && get_dist(Target, src) <= 1)
 			if(!slime_on_target && CanFeedon(Target))
 				if(!Target.client || prob(20))
 					Feedon(Target)
