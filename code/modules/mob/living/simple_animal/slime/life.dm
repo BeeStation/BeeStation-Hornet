@@ -43,7 +43,7 @@
 			return
 
 		var/slime_on_target = 0
-		if(Target.buckled_mobs.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
+		if(Target.buckled_mobs?.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
 			slime_on_target = 1
 
 		if(Target.z == src.z && attack_cooldown < world.time && get_dist(Target, src) <= 1)
