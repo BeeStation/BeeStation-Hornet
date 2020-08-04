@@ -21,5 +21,7 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/crossed)
 
 /datum/component/clockwork_trap/pressure_sensor/proc/crossed(atom/movable/AM)
+	if(ismob(AM) && !is_servant_of_ratvar(AM))
+		return
 	trigger_connected()
 	playsound(get_turf(parent), 'sound/machines/click.ogg', 50)
