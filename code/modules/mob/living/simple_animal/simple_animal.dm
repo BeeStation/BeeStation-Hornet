@@ -197,6 +197,10 @@
 	if(stat == DEAD)
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
 
+/mob/living/simple_animal/initialize_footstep()
+	if(do_footstep)
+		..()
+
 /mob/living/simple_animal/updatehealth()
 	..()
 	health = CLAMP(health, 0, maxHealth)
@@ -208,7 +212,7 @@
 		if(health <= 0)
 			death()
 		else
-			set_stat(CONSCIOUS)
+			set_stat = CONSCIOUS
 	med_hud_set_status()
 	if(footstep_type)
 		AddComponent(/datum/component/footstep, footstep_type)
@@ -270,14 +274,14 @@
 					else
 						emote("me", 2, pick(emote_hear))
 
-/mob/living/simple_animal/proc/environment_air_is_safe()
+/mob/living/simple_animal/proc/environment_is_safe(datum/gas_mixture/environment, check_temp = FALSE)
 	. = TRUE
 
 	if(pulledby && pulledby.grab_state >= GRAB_KILL && atmos_requirements["min_oxy"])
 		. = FALSE //getting choked
 
-	if(isturf(loc) && isopenturf(loc))
-		var/turf/open/ST = loc
+	if(isturf(src.loc) && isopenturf(src.loc))
+		var/turf/open/ST = src.loc
 		if(ST.air)
 			var/ST_gases = ST.air.gases
 			ST.air.assert_gases(arglist(GLOB.hardcoded_gases))
@@ -309,14 +313,13 @@
 			if(atmos_requirements["min_oxy"] || atmos_requirements["min_tox"] || atmos_requirements["min_n2"] || atmos_requirements["min_co2"])
 				. = FALSE
 
-/mob/living/simple_animal/proc/environment_temperature_is_safe(datum/gas_mixture/environment)
-	. = TRUE
-	var/areatemp = get_temperature(environment)
-	if((areatemp < minbodytemp) || (areatemp > maxbodytemp))
-		. = FALSE
+	if(check_temp)
+		var/areatemp = get_temperature(environment)
+		if((areatemp < minbodytemp) || (areatemp > maxbodytemp))
+			. = FALSE
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
-	var/atom/A = loc
+	var/atom/A = src.loc
 	if(isturf(A))
 		var/areatemp = get_temperature(environment)
 		if(abs(areatemp - bodytemperature) > 5)
@@ -324,7 +327,7 @@
 			diff = diff / 5
 			adjust_bodytemperature(diff)
 
-	if(!environment_air_is_safe())
+	if(!environment_is_safe(environment))
 		adjustHealth(unsuitable_atmos_damage)
 		if(unsuitable_atmos_damage > 0)
 			throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
@@ -379,8 +382,8 @@
 
 /mob/living/simple_animal/emote(act, m_type=1, message = null, intentional = FALSE)
 	if(stat)
-		return FALSE
-	return ..()
+		return
+	. = ..()
 
 /mob/living/simple_animal/proc/set_varspeed(var_value)
 	speed = var_value
@@ -453,21 +456,21 @@
 /mob/living/simple_animal/ExtinguishMob()
 	return
 
-/mob/living/simple_animal/revive(full_heal = FALSE, admin_revive = FALSE)
+/mob/living/simple_animal/revive(full_heal = 0, admin_revive = 0)
 	if(..()) //successfully ressuscitated from death
 		icon = initial(icon)
 		icon_state = icon_living
 		density = initial(density)
 		mobility_flags = MOBILITY_FLAGS_DEFAULT
 		update_mobility()
-		. = TRUE
+		. = 1
 		setMovetype(initial(movement_type))
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
 		return
 	next_scan_time = world.time + 400
-	var/alone = TRUE
+	var/alone = 1
 	var/mob/living/simple_animal/partner
 	var/children = 0
 	for(var/mob/M in view(7, src))
