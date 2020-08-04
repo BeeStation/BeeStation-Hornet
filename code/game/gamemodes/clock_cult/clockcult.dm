@@ -197,6 +197,7 @@ GLOBAL_VAR(clockcult_eminence)
 	if(sender)
 		if(say)
 			sender.say("#[text2ratvar(msg)]")
+		msg = sender.treat_message(msg)
 		hierophant_message += "<b>[sender.name]</b> transmits, \"[msg]\""
 	else
 		hierophant_message += msg
@@ -212,81 +213,3 @@ GLOBAL_VAR(clockcult_eminence)
 					to_chat(M, "<span class='nezbere'>You hear the cogs whispering to you, but cannot understand their words.</span>")
 				continue
 		to_chat(M, hierophant_message)
-
-//====================================
-//==== Reebe Pressure Calculation (Depreciated :( )) ====
-//====================================
-//If there was a pressure calculation too recently, the server will wait a few seconds instead
-//This makes it so if a bunch of walls are created they will all be processed under the same calc
-//This effect is minimal in game, since the cracking of walls has a random delay on it when triggered.
-//Assume the servant blockers are the edge of Reebe
-//Most of this proc is the queuing system that prevents it from running too often,
-//instead it queues itself up with a timer if it needs to update.
-//I know, it's a little weird but it prevents spamming this and breaking stuff.
-/*#define REEBE_PRESSURE_CALC_DELAY 50
-
-/proc/calculate_reebe_pressure(called_through_timer = FALSE)
-	set waitfor = FALSE
-	var/gateway = GLOB.celestial_gateway
-	if(!gateway)
-		log_runtime("Error, no celestial gateway found. Reebe pressure calculation failed!")
-		return
-	var/static/next_calculation_time = 0
-	var/static/wait_timer
-	var/static/was_blocked = TRUE
-	if(next_calculation_time > world.time)
-		//If we was called through timer, the previous timer expired, so requeue it
-		//If not and there is a timer already, we are already queued to update
-		if(wait_timer && !called_through_timer)
-			return
-		wait_timer = addtimer(CALLBACK(GLOBAL_PROC, /proc/calculate_reebe_pressure, TRUE), REEBE_PRESSURE_CALC_DELAY, TIMER_STOPPABLE | TIMER_UNIQUE)
-		return
-	//Run the actual calculation
-	wait_timer = null
-	//Send all requests to queue until we are done here.
-	next_calculation_time = world.time + INFINITY
-	//Find the gateway
-	var/gateway_loc = get_turf(gateway)
-	if(!gateway_loc)
-		log_runtime("Error, celestial gateway has no turf!")
-		next_calculation_time = world.time
-		return
-	//Calculate the Reebe area
-	var/list/room = detect_room(gateway_loc, list(/turf/open/indestructible/reebe_void))
-	var/pressure_good = FALSE
-	//Room must be good if we manage to find reebe_void, otherwise we must check to make sure it is good
-	if(!room)
-		pressure_good = TRUE
-	else
-		for(var/turf/T in room)
-			for(var/obj/effect/clockwork/servant_blocker/C in T)
-				pressure_good = TRUE
-				break
-			if(pressure_good)
-				break
-	//Regenerate Reebe
-	if(pressure_good)
-		//If the walls become good, make every wall on reebe good
-		for(var/turf/closed/wall/clockwork/CW in get_area_turfs(/area/reebe/city_of_cogs))
-			//Make the walls stronger
-			if(CW.reinforced)
-				continue
-			CW.reinforced = TRUE
-			addtimer(CALLBACK(CW, /turf/closed/wall/clockwork.proc/make_reinforced), rand(0, 50))
-			CHECK_TICK
-		was_blocked = FALSE
-		next_calculation_time = world.time + REEBE_PRESSURE_CALC_DELAY
-		return
-	if(!was_blocked)
-		hierophant_message("<b>The Ark has been enclosed causing pressure to build up!</b><br>Walls surrounding the Ark have become much weaker!", null, "<span class='brass'>")
-	was_blocked = TRUE
-	//Pressure is bad, to prevent exploiting make all walls weak
-	for(var/turf/closed/wall/clockwork/CW in get_area_turfs(/area/reebe/city_of_cogs))
-		//Make the walls stronger
-		if(!CW.reinforced)
-			continue
-		CW.reinforced = FALSE
-		addtimer(CALLBACK(CW, /turf/closed/wall/clockwork.proc/make_weak), rand(0, 80))
-		CHECK_TICK
-	next_calculation_time = world.time + REEBE_PRESSURE_CALC_DELAY
-#undef REEBE_PRESSURE_CALC_DELAY*/
