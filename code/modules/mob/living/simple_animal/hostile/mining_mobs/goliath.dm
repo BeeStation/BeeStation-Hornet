@@ -8,7 +8,7 @@
 	icon_aggro = "Goliath_alert"
 	icon_dead = "Goliath_dead"
 	icon_gib = "syndicate_gib"
-	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 40
 	ranged = 1
@@ -37,7 +37,7 @@
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
-	footstep_type = FOOTSTEP_MOB_HEAVY
+	do_footstep = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	. = ..()
@@ -50,11 +50,9 @@
 		return
 	icon_state = pre_attack_icon
 
-/mob/living/simple_animal/hostile/asteroid/goliath/revive(full_heal = FALSE, admin_revive = FALSE)//who the fuck anchors mobs
+/mob/living/simple_animal/hostile/asteroid/goliath/revive(full_heal = 0, admin_revive = 0)
 	if(..())
-		move_force = MOVE_FORCE_VERY_STRONG
-		move_resist = MOVE_FORCE_VERY_STRONG
-		pull_force = MOVE_FORCE_VERY_STRONG
+		anchored = TRUE
 		. = 1
 
 /mob/living/simple_animal/hostile/asteroid/goliath/death(gibbed)
