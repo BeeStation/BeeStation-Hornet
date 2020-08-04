@@ -1,5 +1,5 @@
 //==================================//
-// !      Stargazer     ! //
+// !      Prosperity Prism     ! //
 //==================================//
 /datum/clockcult/scripture/create_structure/prosperityprism
 	name = "Prosperity Prism"

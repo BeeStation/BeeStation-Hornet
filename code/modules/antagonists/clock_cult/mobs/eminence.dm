@@ -5,7 +5,7 @@
 	icon_state = "eminence"
 	mob_biotypes = list(MOB_SPIRIT)
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
-	invisibility = INVISIBILITY_OBSERVER	//This is visible to the stupid ghost goggles of the curator, so we have to do some magic shit like with clockwork turfs
+	invisibility = INVISIBILITY_OBSERVER
 	health = INFINITY
 	maxHealth = INFINITY
 	layer = GHOST_LAYER

@@ -95,7 +95,7 @@
 		sg_light.close()
 
 /obj/structure/destructible/clockwork/gear_base/stargazer/attackby(obj/item/I, mob/living/user, params)
-	if(!is_servant_of_ratvar(user) || user.a_intent != INTENT_HELP)
+	if(user.a_intent != INTENT_HELP)
 		. = ..()
 		return
 	if(!anchored)
@@ -115,7 +115,7 @@
 		if(HAS_TRAIT(I, TRAIT_STARGAZED))
 			to_chat(user, "<span class='brass'>[I] has already been enhanced!</span>")
 			return
-		if(istype(I, /obj/item/twohanded/clockwork))
+		if(istype(I, /obj/item))
 			upgrade_weapon(I, user)
 			cooldowntime = world.time + STARGAZER_COOLDOWN
 			return

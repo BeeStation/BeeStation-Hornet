@@ -45,7 +45,6 @@
 	girder_type = /obj/structure/destructible/clockwork/wall_gear
 	baseturfs = /turf/open/floor/clockwork/reebe
 	var/obj/effect/clockwork/overlay/wall/realappearence
-	var/reinforced = TRUE	//Walls will be reinforced if there is a direct path to the ark.
 	var/d_state = INTACT
 
 /turf/closed/wall/clockwork/Initialize()
@@ -103,24 +102,6 @@
 	for(var/i in 1 to 3)
 		new/obj/item/clockwork/alloy_shards/small(src)
 
-/turf/closed/wall/clockwork/proc/make_reinforced()
-	if(!reinforced)
-		return
-	new /obj/effect/temp_visual/ratvar/wall(get_turf(src))
-	visible_message("<span class='warning'>The [src] glows brightly, it's cracks dissapearing and it's structure seeming a lot stronger!</span>", vision_distance = 3)
-	update_icon()
-	return
-
-/turf/closed/wall/clockwork/proc/make_weak()
-	if(reinforced)
-		return
-	playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 30)
-	if(prob(10))
-		new /obj/effect/temp_visual/steam_release(get_turf(src))
-	visible_message("<span class='warning'>The [src] shudders slightly, cracking open and appearing much weaker than before!</span>", vision_distance = 3)
-	update_icon()
-	return
-
 //No cheesing it
 /turf/closed/wall/clockwork/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	return
@@ -129,67 +110,29 @@
 /turf/closed/wall/clockwork/deconstruction_hints(mob/user)
 	switch(d_state)
 		if(INTACT)
-			if(reinforced)
-				return "<span class='notice'>There seems to be a metal cover <b>welded</b> in place.</span>"
-			else
-				return "<span class='notice'>The wall looks weak enough to <b>weld</b> the brass plates off.</span>"
+			return "<span class='notice'>The wall looks weak enough to <b>weld</b> the brass plates off.</span>"
 		if(COG_COVER)
 			return "<span class='notice'>The outer cover has been <i>welded</i> open, and an inner plate secured by <b>screws</b> is visable.</span>"
 		if(COG_EXPOSED)
 			return "<span class='notice'>The inner plating has been <i>screwed</i> open. The exterior plating could be easily <b>pried</b> out.</span>"
 
 /turf/closed/wall/clockwork/try_decon(obj/item/I, mob/user, turf/T)
-	if(is_servant_of_ratvar(user) || !reinforced)
-		if(I.tool_behaviour != TOOL_WELDER)
+	if(I.tool_behaviour != TOOL_WELDER)
+		return 0
+	if(!I.tool_start_check(user, amount=0))
+		return 0
+	to_chat(user, "<span class='warning'>You begin to weld apart the [src].</span>")
+	if(I.use_tool(src, user, 40, volume=100))
+		if(!istype(src, /turf/closed/wall/clockwork) || d_state != INTACT)
 			return 0
-		if(!I.tool_start_check(user, amount=0))
-			return 0
-		to_chat(user, "<span class='warning'>You begin to weld apart the [src].</span>")
-		if(I.use_tool(src, user, 40, volume=100))
-			if(!istype(src, /turf/closed/wall/clockwork) || d_state != INTACT)
-				return 0
-			to_chat(user, "<span class='warning'>You weld the [src] apart!</span>")
-			dismantle_wall()
-			return 1
-		return
-	else
-		return do_tooluse(I, user, d_state, COGWALL_DECON_TOOLS[d_state+1], d_state+1, d_state != INTACT ? COGWALL_DECON_TOOLS[d_state] : "nothing", d_state-1)
-
-/turf/closed/wall/clockwork/proc/do_tooluse(obj/item/I, mob/user, wall_state, decon_tool, decon_state, recon_tool, recon_state)
-	if(I.tool_behaviour == decon_tool)
-		if(decon_tool == TOOL_WELDER && !I.tool_start_check(user, amount=0))
-			return 0
-		to_chat(user, "<span class='warning'>[COGWALL_START_DECON_MESSAGES[d_state+1]]</span>")
-		if(I.use_tool(src, user, 40, volume=100))
-			if(!istype(src, /turf/closed/wall/clockwork) || d_state != wall_state)
-				return 0
-			to_chat(user, "<span class='warning'>[COGWALL_END_DECON_MESSAGES[d_state+1]]</span>")
-			if(wall_state == COG_EXPOSED)
-				dismantle_wall()
-			d_state = decon_state
-			update_icon()
-			return 1
-	else if(I.tool_behaviour == recon_tool)
-		if(recon_tool == TOOL_WELDER && !I.tool_start_check(user, amount=0))
-			return 0
-		to_chat(user, "<span class='warning'>[COGWALL_START_RECON_MESSAGES[d_state]]</span>")
-		if(I.use_tool(src, user, 60, volume=100))
-			if(!istype(src, /turf/closed/wall/clockwork) || d_state != wall_state)
-				return 0
-			to_chat(user, "<span class='warning'>[COGWALL_END_RECON_MESSAGES[d_state]]</span>")
-			d_state = recon_state
-			update_icon()
-			return 1
-	return 0
+		to_chat(user, "<span class='warning'>You weld the [src] apart!</span>")
+		dismantle_wall()
+		return 1
+	return
 
 /turf/closed/wall/clockwork/update_icon()
 	. = ..()
-	if(!reinforced)
-		realappearence.icon_state = "clockwork_wall_crack"
-		smooth = SMOOTH_TRUE
-		queue_smooth_neighbors(src)
-		queue_smooth(src)
-	else if(d_state == INTACT)
+	if(d_state == INTACT)
 		realappearence.icon_state = "clockwork_wall"
 		smooth = SMOOTH_TRUE
 		queue_smooth_neighbors(src)
