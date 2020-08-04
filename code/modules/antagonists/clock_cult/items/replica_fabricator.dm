@@ -19,13 +19,14 @@
 	. = ..()
 	if(!proximity_flag || !is_servant_of_ratvar(user))
 		return
+	if(istype(target, /obj/item/stack/tile/brass/cyborg))	//nooooO!!!! you can't just suck up your cyborg brass!!! nooooo!!!!!!
+		return
 	if(istype(target, /obj/item/stack/tile/brass))
 		var/obj/item/stack/tile/brass/B = target
 		qdel(B)
 		GLOB.clockcult_power += B.amount * BRASS_POWER_COST
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, "<span class='nzcrentr'>You convert [B.amount] brass into [B.amount * BRASS_POWER_COST] watts of power.</span>")
-		return
 	else if(istype(target, /obj/item/stack))
 		var/obj/item/stack/S = target
 		var/obj/item/stack/tile/brass/B = new(get_turf(S))
@@ -33,10 +34,8 @@
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, "<span class='nzcrentr'>You convert [S.amount] [S] into [S.amount] brass.</span>")
 		qdel(target)
-		return
 	else if(isopenturf(target))
 		fabricate_sheets(target, user)
-		return
 	else if(istype(target, /obj/structure/destructible/clockwork))
 		var/obj/structure/destructible/clockwork/C = target
 		if(!C.can_be_repaired)
@@ -61,7 +60,6 @@
 			C.obj_integrity = CLAMP(C.obj_integrity + 15, 0, C.max_integrity)
 		else
 			to_chat(user, "<span class='nzcrentr'>You fail to repair the damage of \the [C]...</span>")
-		return
 
 /obj/item/clockwork/replica_fabricator/proc/fabricate_sheets(turf/target, mob/user)
 	var/sheets = FLOOR(CLAMP(GLOB.clockcult_power / BRASS_POWER_COST, 0, 50), 1)

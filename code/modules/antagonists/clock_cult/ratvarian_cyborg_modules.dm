@@ -3,10 +3,8 @@
 	desc = "cool."
 	icon = 'icons/mob/actions/actions_clockcult.dmi'
 	icon_state = "Replicant"
-	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = null
-	force = 0
+	item_flags = NOBLUDGEON
 	var/scripture_datum
 
 /obj/item/clock_module/Initialize()
@@ -16,6 +14,7 @@
 	icon_state = S.button_icon_state
 
 /obj/item/clock_module/attack_self(mob/user)
+	..()
 	if(!is_servant_of_ratvar(user))
 		return
 	var/mob/living/silicon/robot/R = user
