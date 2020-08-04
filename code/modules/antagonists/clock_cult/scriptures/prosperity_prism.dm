@@ -56,6 +56,7 @@
 			return
 		if(L.getToxLoss() > 0)
 			L.adjustToxLoss(-10)
+			L.setStaminaLoss(0)
 			GLOB.clockcult_power -= 4
 			new /obj/effect/temp_visual/heal(get_turf(L), "#45dd8a")
 
