@@ -284,7 +284,7 @@ INVOKE_YOUTUBEDL C:\youtubedl\youtube-dl.exe
 LOAD_JOBS_FROM_TXT
 
 ## Uncomment this to forbid admins from possessing the singularity.
-FORBID_SINGULO_POSSESSION
+#FORBID_SINGULO_POSSESSION
 
 ## Uncomment to show a popup 'reply to' window to every non-admin that receives an adminPM.
 ## The intention is to make adminPMs more visible. (although I fnd popups annoying so this defaults to off)
