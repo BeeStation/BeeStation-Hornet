@@ -298,8 +298,7 @@
 		/obj/item/organ/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon,
-		/obj/item/key/lasso
+		/obj/item/stack/marker_beacon
 		))
 
 
