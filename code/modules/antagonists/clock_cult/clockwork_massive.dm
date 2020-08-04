@@ -146,7 +146,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	addtimer(CALLBACK(src, .proc/begin_ratvar_arrival), 2400)
 	START_PROCESSING(SSobj, src)
 	phase_messages = list(
-		"<span class='warning'>You hear otherworldly sounds from the north.</span>",
+		"<span class='warning'>You hear other-worldly sounds from the north.</span>",
 		"<span class='warning'>You feel the fabric of reality twist and bend.</span>",
 		"<span class='warning'>Your mind buzzes with fear.</span>",
 		"<span class='warning'>You hear otherworldly screams from all around you.</span>"

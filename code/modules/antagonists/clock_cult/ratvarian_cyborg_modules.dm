@@ -2,7 +2,7 @@
 	name = "ratvarian borg module"
 	desc = "cool."
 	icon = 'icons/mob/actions/actions_clockcult.dmi'
-	icon_state = "Abscond"
+	icon_state = "Replicant"
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = null
@@ -14,7 +14,6 @@
 	name = S.name
 	desc = S.desc
 	icon_state = S.button_icon_state
-	qdel(S)
 
 /obj/item/clock_module/attack_self(mob/user)
 	if(!is_servant_of_ratvar(user))

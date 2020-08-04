@@ -217,7 +217,7 @@
 	var/uses_overlay = TRUE
 	var/obj/effect/clockwork/overlay/floor/realappearence
 
-/turf/open/floor/clockwork/Bless() //Who needs holy blessings when you have DADDY RATVAR?
+/turf/open/floor/clockwork/Bless() //Who needs holy blessings when you have DADDY RATVAR? <- I did not write this, just saying
 	return
 
 /turf/open/floor/clockwork/Initialize()
@@ -275,6 +275,12 @@
 /turf/open/floor/clockwork/ratvar_act(force, ignore_mobs)
 	return 0
 
+/turf/open/floor/clockwork/ex_act(severity, target)
+	return
+
+/turf/open/floor/clockwork/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
+	return
+
 /turf/open/floor/clockwork/reebe
 	name = "cogplate"
 	desc = "Warm brass plating. You can feel it gently vibrating, as if machinery is on the other side."
@@ -282,12 +288,35 @@
 	baseturfs = /turf/open/floor/clockwork/reebe
 	uses_overlay = FALSE
 	planetary_atmos = TRUE
+	var/list/heal_people
 
-/turf/open/floor/clockwork/ex_act(severity, target)
-	return
+/turf/open/floor/clockwork/reebe/Initialize()
+	. = ..()
+	heal_people = list()
 
-/turf/open/floor/clockwork/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
-	return
+/turf/open/floor/clockwork/reebe/Destroy()
+	if(LAZYLEN(heal_people))
+		STOP_PROCESSING(SSprocessing, src)
+	. = ..()
+
+/turf/open/floor/clockwork/reebe/Entered(atom/movable/A)
+	. = ..()
+	var/mob/living/M = A
+	if(istype(M) && is_servant_of_ratvar(M))
+		if(!LAZYLEN(heal_people))
+			START_PROCESSING(SSprocessing, src)
+		heal_people += M
+
+/turf/open/floor/clockwork/reebe/Exited(atom/movable/A, atom/newloc)
+	. = ..()
+	if(A in heal_people)
+		heal_people -= A
+		if(!LAZYLEN(heal_people))
+			STOP_PROCESSING(SSprocessing, src)
+
+/turf/open/floor/clockwork/reebe/process()
+	for(var/mob/living/M in heal_people)
+		M.adjustToxLoss(-2)
 
 //=================================================
 //Clockwork Lattice: It's a lattice for the ratvar
