@@ -21,6 +21,8 @@
 	default_icon_state = "prolonging_prism"
 	anchored = TRUE
 	break_message = "<span class='warning'>The prism falls apart, toxic liquid leaking out.</span>"
+	max_integrity = 150
+	obj_integrity = 150
 	var/powered = FALSE
 	var/toggled_on = TRUE
 

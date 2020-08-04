@@ -19,15 +19,21 @@
 	default_icon_state = "interdiction_lens_inactive"
 	anchored = TRUE
 	break_message = "<span class='warning'>The interdiction lens breaks into multiple fragments, which gently float to the ground.</span>"
+	max_integrity = 150
+	obj_integrity = 150
 	var/enabled = FALSE
+	var/datum/proximity_monitor/advanced/dampening_field
+	var/obj/item/borg/projectile_dampen/internal_dampener
+
+/obj/structure/destructible/clockwork/gear_base/interdiction_lens/Initialize()
+	internal_dampener = new
+	. = ..()
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/Destroy()
 	if(enabled)
 		STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(internal_dampener)
 	. = ..()
-
-/obj/structure/destructible/clockwork/gear_base/update_icon_state()
-	return
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/attack_hand(mob/user)
 	if(is_servant_of_ratvar(user))
@@ -37,10 +43,14 @@
 			START_PROCESSING(SSobj, src)
 			icon_state = "interdiction_lens_active"
 			flick("interdiction_lens_recharged", src)
+			if(istype(dampening_field))
+				QDEL_NULL(dampening_field)
+			dampening_field = make_field(/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork, list("current_range" = INTERDICTION_LENS_RANGE, "host" = internal_dampener, "projector" = internal_dampener))
 		else
 			STOP_PROCESSING(SSobj, src)
 			icon_state = "interdiction_lens_inactive"
 			flick("interdiction_lens_discharged", src)
+			QDEL_NULL(dampening_field)
 	else
 		. = ..()
 
@@ -79,3 +89,16 @@
 		M.use_power(1000)
 		M.take_damage(25)
 		do_sparks(4, TRUE, M)
+
+//Dampening field
+/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork
+	name = "\improper Reality Distortion Field"
+
+/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/capture_projectile(obj/item/projectile/P, track_projectile = TRUE)
+	if(P in tracked)
+		return
+	if(ismob(P.firer) && is_servant_of_ratvar(P.firer))
+		return
+	projector.dampen_projectile(P, track_projectile)
+	if(track_projectile)
+		tracked += P
