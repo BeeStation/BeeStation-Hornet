@@ -20,7 +20,7 @@
 	response_harm_continuous = "kicks"
 	response_harm_simple = "kick"
 	faction = list("neutral")
-	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	attack_same = 1
 	attack_verb_continuous = "kicks"
 	attack_verb_simple = "kick"
@@ -34,7 +34,10 @@
 	stop_automated_movement_when_pulled = 1
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
-	footstep_type = FOOTSTEP_MOB_SHOE
+	mobsay_color = "#B2CEB3"
+
+	do_footstep = TRUE
+
 /mob/living/simple_animal/hostile/retaliate/goat/Initialize()
 	udder = new()
 	. = ..()
@@ -104,7 +107,7 @@
 	icon_dead = "cow_dead"
 	icon_gib = "cow_gib"
 	gender = FEMALE
-	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak = list("moo?","moo","MOOOOOO")
 	speak_emote = list("moos","moos hauntingly")
 	emote_hear = list("brays.")
@@ -127,10 +130,10 @@
 	var/obj/item/udder/udder = null
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
-	food_type = list(/obj/item/reagent_containers/food/snacks/grown/wheat)
-	tame_chance = 25
-	bonus_tame_chance = 15
-	footstep_type = FOOTSTEP_MOB_SHOE
+	mobsay_color = "#FFFFFF"
+
+	do_footstep = TRUE
+
 /mob/living/simple_animal/cow/Initialize()
 	udder = new()
 	. = ..()
@@ -144,16 +147,6 @@
 		return 1
 	else
 		return ..()
-/mob/living/simple_animal/cow/tamed()
-	can_buckle = TRUE
-	buckle_lying = FALSE
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 8), TEXT_SOUTH = list(0, 8), TEXT_EAST = list(-2, 8), TEXT_WEST = list(2, 8)))
-	D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
-	D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
-	D.set_vehicle_dir_layer(EAST, OBJ_LAYER)
-	D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
-	D.drive_verb = "ride"
 
 /mob/living/simple_animal/cow/Life()
 	. = ..()
@@ -192,7 +185,7 @@
 	icon_dead = "chick_dead"
 	icon_gib = "chick_gib"
 	gender = FEMALE
-	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak = list("Cherp.","Cherp?","Chirrup.","Cheep!")
 	speak_emote = list("cheeps")
 	emote_hear = list("cheeps.")
@@ -216,11 +209,16 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = FRIENDLY_SPAWN
-	footstep_type = FOOTSTEP_MOB_CLAW
+	mobsay_color = "#FFDC9B"
+
+	do_footstep = TRUE
+
 /mob/living/simple_animal/chick/Initialize()
 	. = ..()
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
+	GLOB.total_chickens++
+
 /mob/living/simple_animal/chick/Life()
 	. =..()
 	if(!.)
@@ -230,6 +228,16 @@
 		if(amount_grown >= 100)
 			new /mob/living/simple_animal/chicken(src.loc)
 			qdel(src)
+
+/mob/living/simple_animal/chick/death(gibbed)
+	GLOB.total_chickens--
+	..()
+
+/mob/living/simple_animal/chick/Destroy()
+	if(stat != DEAD)
+		GLOB.total_chickens--
+	return ..()
+
 /mob/living/simple_animal/chick/holo/Life()
 	..()
 	amount_grown = 0
@@ -237,7 +245,7 @@
 	name = "\improper chicken"
 	desc = "Hopefully the eggs are good this season."
 	gender = FEMALE
-	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	icon_state = "chicken_brown"
 	icon_living = "chicken_brown"
 	icon_dead = "chicken_brown_dead"
@@ -273,7 +281,10 @@
 	var/list/validColors = list("brown","black","white")
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/static/chicken_count = 0
-	footstep_type = FOOTSTEP_MOB_CLAW
+	mobsay_color = "#FFDC9B"
+
+	do_footstep = TRUE
+
 /mob/living/simple_animal/chicken/Initialize()
 	. = ..()
 	if(!body_color)
@@ -283,12 +294,18 @@
 	icon_dead = "[icon_prefix]_[body_color]_dead"
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
-	++chicken_count
+	GLOB.total_chickens++
+
+/mob/living/simple_animal/chicken/death(gibbed)
+	GLOB.total_chickens--
+	..()
+
 /mob/living/simple_animal/chicken/Destroy()
-	--chicken_count
+	if(stat != DEAD)
+		GLOB.total_chickens--
 	return ..()
 /mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)
-	if(is_type_in_list(O, food_type)) //feedin' dem chickens
+	if(istype(O, food_type)) //feedin' dem chickens
 		if(!stat && eggsleft < 8)
 			var/feedmsg = "[user] feeds [O] to [name]! [pick(feedMessages)]"
 			user.visible_message(feedmsg)
@@ -302,26 +319,50 @@
 	. =..()
 	if(!.)
 		return
-	if((!stat && prob(3) && eggsleft > 0) && egg_type)
-		visible_message("<span class='alertalien'>[src] [pick(layMessage)]</span>")
+	if((!stat && prob(3) && eggsleft > 0) && egg_type && GLOB.total_chickens < CONFIG_GET(number/max_chickens))
+		visible_message("[src] [pick(layMessage)]")
 		eggsleft--
 		var/obj/item/E = new egg_type(get_turf(src))
 		E.pixel_x = rand(-6,6)
 		E.pixel_y = rand(-6,6)
 		if(eggsFertile)
-			if(chicken_count < MAX_CHICKENS && prob(25))
+			if(prob(25))
 				START_PROCESSING(SSobj, E)
 /obj/item/reagent_containers/food/snacks/egg/var/amount_grown = 0
 /obj/item/reagent_containers/food/snacks/egg/process()
 	if(isturf(loc))
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
-			visible_message("<span class='notice'>[src] hatches with a quiet cracking sound.</span>")
+			visible_message("[src] hatches with a quiet cracking sound.")
 			new /mob/living/simple_animal/chick(get_turf(src))
 			STOP_PROCESSING(SSobj, src)
 			qdel(src)
 	else
 		STOP_PROCESSING(SSobj, src)
+
+/mob/living/simple_animal/chicken/turkey
+	name = "\improper turkey"
+	desc = "it's that time again."
+	icon_state = "turkey_plain"
+	icon_living = "turkey_plain"
+	icon_dead = "turkey_plain_dead"
+	speak = list("Gobble!","GOBBLE GOBBLE GOBBLE!","Cluck.")
+	speak_emote = list("clucks","gobbles")
+	emote_hear = list("gobbles.")
+	emote_see = list("pecks at the ground.","flaps its wings viciously.")
+	density = FALSE
+	health = 15
+	maxHealth = 15
+	egg_type = null
+	attacktext = "pecks"
+	attack_sound = 'sound/creatures/turkey.ogg'
+	ventcrawler = VENTCRAWLER_ALWAYS
+	icon_prefix = "turkey"
+	feedMessages = list("It gobbles up the food voraciously.","It clucks happily.")
+	validColors = list("plain")
+	gold_core_spawnable = FRIENDLY_SPAWN
+	mobsay_color = "#FFDC9B"
+
 /obj/item/udder
 	name = "udder"
 /obj/item/udder/Initialize()
@@ -338,36 +379,6 @@
 		return
 	var/transfered = reagents.trans_to(O, rand(5,10))
 	if(transfered)
-		user.visible_message("<span class='notice'>[user] milks [src] using \the [O].</span>", "<span class='notice'>You milk [src] using \the [O].</span>")
+		user.visible_message("[user] milks [src] using \the [O].", "<span class='notice'>You milk [src] using \the [O].</span>")
 	else
-		to_chat(user, "<span class='warning'>The udder is dry. Wait a bit longer...</span>")
-/mob/living/simple_animal/deer
-	name = "doe"
-	desc = "A gentle, peaceful forest animal. How did this get into space?"
-	icon_state = "deer-doe"
-	icon_living = "deer-doe"
-	icon_dead = "deer-doe-dead"
-	gender = FEMALE
-	mob_biotypes = MOB_ORGANIC|MOB_BEAST
-	speak = list("Weeeeeeee?","Weeee","WEOOOOOOOOOO")
-	speak_emote = list("grunts","grunts lowly")
-	emote_hear = list("brays.")
-	emote_see = list("shakes its head.")
-	speak_chance = 1
-	turns_per_move = 5
-	see_in_dark = 6
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 3)
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently nudges"
-	response_disarm_simple = "gently nudges aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "bucks"
-	attack_verb_simple = "buck"
-	attack_sound = 'sound/weapons/punch1.ogg'
-	health = 75
-	maxHealth = 75
-	blood_volume = BLOOD_VOLUME_NORMAL
-	food_type = list(/obj/item/reagent_containers/food/snacks/grown/apple)
-	footstep_type = FOOTSTEP_MOB_SHOE
+		to_chat(user, "<span class='danger'>The udder is dry. Wait a bit longer...</span>")
