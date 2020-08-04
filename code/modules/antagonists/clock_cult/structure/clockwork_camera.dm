@@ -61,7 +61,18 @@
 
 /obj/machinery/computer/camera_advanced/ratvar/Initialize()
 	. = ..()
+	START_PROCESSING(SSobj, src)
 	warp_action = new
+
+/obj/machinery/computer/camera_advanced/ratvar/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
+
+/obj/machinery/computer/camera_advanced/ratvar/process()
+	if(prob(5))
+		new /obj/effect/temp_visual/steam_release(get_turf(src))
+	else if(prob(3))
+		playsound(get_turf(src), 'sound/machines/beep.ogg', 50, TRUE)
 
 /obj/machinery/computer/camera_advanced/ratvar/can_use(mob/living/user)
 	. = ..()
