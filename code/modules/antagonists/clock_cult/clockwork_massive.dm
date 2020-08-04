@@ -117,7 +117,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	var/list/spawns = GLOB.servant_spawns.Copy()
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
 		var/mob/living/servant = M.current
-		if(!servant)
+		if(!servant || QDELETED(servant))
 			continue
 		servant.forceMove(pick_n_take(spawns))
 		if(ishuman(servant) && add_overlay)
@@ -129,8 +129,8 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_assault()
 	priority_announce("Space-time anomalies detected near the station. Source determined to be a temporal\
 		energy pulse emanating from J1523-215. All crew are to enter [text2ratvar("prep#re %o di%")]\
-		and destroy the [text2ratvar("I'd *ik£ to s#e yo! try")], which has been determined to be the source of the\
-		pulse.\n Glory to Nanotrasen.", "Anomaly Alert", 'sound/ai/spanomalies.ogg')
+		and destroy the [text2ratvar("I'd like to see you try")], which has been determined to be the source of the\
+		pulse to prevent mass damage to Nanotrasen property.", "Anomaly Alert", 'sound/ai/spanomalies.ogg')
 	var/list/pick_turfs = list()
 	for(var/turf/open/floor/T in world)
 		if(is_station_level(T.z))

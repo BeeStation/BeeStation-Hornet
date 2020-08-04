@@ -24,10 +24,10 @@
 	if(option == "Cancel")
 		return
 	else if(option == "Yourself")
-		hierophant_message("[user] has elected themselves to become the Eminence. Interact with [src] to cancel.")
+		hierophant_message("[user] has elected themselves to become the Eminence. Interact with [src] to object.", span="<span=la>")
 		vote_timer = addtimer(CALLBACK(src, .proc/vote_succeed, user), 600, TIMER_STOPPABLE)
 	else if(option == "A ghost")
-		hierophant_message("[user] has elected for a ghost to become the Eminence. Interact with [src] to cancel.")
+		hierophant_message("[user] has elected for a ghost to become the Eminence. Interact with [src] to object.")
 		vote_timer = addtimer(CALLBACK(src, .proc/vote_succeed), 600, TIMER_STOPPABLE)
 	vote_active = TRUE
 

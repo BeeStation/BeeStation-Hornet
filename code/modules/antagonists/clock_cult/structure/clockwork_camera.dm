@@ -69,10 +69,10 @@
 	. = ..()
 
 /obj/machinery/computer/camera_advanced/ratvar/process()
-	if(prob(5))
+	if(prob(3))
 		new /obj/effect/temp_visual/steam_release(get_turf(src))
-	else if(prob(3))
-		playsound(get_turf(src), 'sound/machines/beep.ogg', 50, TRUE)
+	if(prob(7))
+		playsound(get_turf(src), 'sound/machines/beep.ogg', 20, TRUE)
 
 /obj/machinery/computer/camera_advanced/ratvar/can_use(mob/living/user)
 	. = ..()
