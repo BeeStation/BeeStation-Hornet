@@ -32,6 +32,8 @@
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/Destroy()
 	if(enabled)
 		STOP_PROCESSING(SSobj, src)
+	if(istype(dampening_field))
+		QDEL_NULL(dampening_field)
 	QDEL_NULL(internal_dampener)
 	. = ..()
 
@@ -45,7 +47,7 @@
 			flick("interdiction_lens_recharged", src)
 			if(istype(dampening_field))
 				QDEL_NULL(dampening_field)
-			dampening_field = make_field(/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork, list("current_range" = INTERDICTION_LENS_RANGE, "host" = internal_dampener, "projector" = internal_dampener))
+			dampening_field = make_field(/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork, list("current_range" = INTERDICTION_LENS_RANGE, "host" = src, "projector" = internal_dampener))
 		else
 			STOP_PROCESSING(SSobj, src)
 			icon_state = "interdiction_lens_inactive"
