@@ -645,7 +645,8 @@
 /datum/status_effect/interdiction/tick()
 	if(owner.m_intent == MOVE_INTENT_RUN)
 		owner.toggle_move_intent(owner)
-		owner.confused += 50
+		if(owner.confused < 10)
+			owner.confused = 10
 		to_chat(owner, "<span class='warning'>You know you shouldn't be running here...</span>")
 	owner.add_movespeed_modifier(MOVESPEED_ID_INTERDICTION, multiplicative_slowdown=1.5)
 

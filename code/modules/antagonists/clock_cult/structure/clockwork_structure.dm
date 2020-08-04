@@ -13,8 +13,8 @@
 	break_message = "<span class='warning'>The frog isn't a meme after all!</span>" //The message shown when a structure breaks
 	break_sound = 'sound/magic/clockwork/anima_fragment_death.ogg' //The sound played when a structure breaks
 	debris = list(/obj/item/clockwork/alloy_shards/large = 1, \
-	/obj/item/clockwork/alloy_shards/medium = 2, \
-	/obj/item/clockwork/alloy_shards/small = 3) //Parts left behind when a structure breaks
+		/obj/item/clockwork/alloy_shards/medium = 2, \
+		/obj/item/clockwork/alloy_shards/small = 3) //Parts left behind when a structure breaks
 	var/immune_to_servant_attacks = FALSE //if we ignore attacks from servants of ratvar instead of taking damage
 	var/datum/mind/owner = null	//The person who placed this structure
 

@@ -3,13 +3,17 @@
 	desc = "A large cog lying on the floor at feet level."
 	clockwork_desc = "A large cog lying on the floor at feet level."
 	anchored = FALSE
-	break_message = "<span class='warning'>Oh, the gear base broke.</span>"
+	break_message = "<span class='warning'>Oh, that broke. I guess you could report it to the coders, or just you know ignore this message and get on with killing those god damn heretics coming to break the Ark.</span>"
 	var/default_icon_state = "gear_base"
 	var/unwrenched_suffix = "_unwrenched"
+	var/list/transmission_sigils
+	var/depowered = FALSE	//Makes sure the depowered proc is only called when its depowered and not while its depowered
+	var/minimum_power = 0	//Minimum operation power
 
 /obj/structure/destructible/clockwork/gear_base/Initialize()
 	. = ..()
 	update_icon_state()
+	transmission_sigils = list()
 
 /obj/structure/destructible/clockwork/gear_base/wrench_act(mob/living/user, obj/item/I)
 	if(do_after(user, 40, target=src))
@@ -24,3 +28,49 @@
 	icon_state = default_icon_state
 	if(!anchored)
 		icon_state += unwrenched_suffix
+
+/obj/structure/destructible/clockwork/gear_base/proc/link_to_sigil(obj/structure/destructible/clockwork/sigil/transmission/T)
+	transmission_sigils |= T
+
+/obj/structure/destructible/clockwork/gear_base/proc/unlink_to_sigil(obj/structure/destructible/clockwork/sigil/transmission/T)
+	if(!(T in transmission_sigils))
+		return
+	transmission_sigils -= T
+
+//Power procs, for all your power needs, that is... if you have any
+
+/obj/structure/destructible/clockwork/gear_base/proc/update_power()
+	if(depowered)
+		if(GLOB.clockcult_power > minimum_power && LAZYLEN(transmission_sigils))
+			repowered()
+			depowered = FALSE
+			return
+	else
+		if(GLOB.clockcult_power <= minimum_power || !LAZYLEN(transmission_sigils))
+			depowered()
+			depowered = TRUE
+			return
+
+/obj/structure/destructible/clockwork/gear_base/proc/check_power(amount)
+	if(!LAZYLEN(transmission_sigils))
+		return FALSE
+	if(depowered)
+		return FALSE
+	if(GLOB.clockcult_power < amount)
+		return FALSE
+	return TRUE
+
+/obj/structure/destructible/clockwork/gear_base/proc/use_power(amount)
+	update_power()
+	if(!check_power(amount))
+		return FALSE
+	GLOB.clockcult_power -= amount
+	update_power()
+	return TRUE
+
+//We lost power
+/obj/structure/destructible/clockwork/gear_base/proc/depowered()
+	return
+
+/obj/structure/destructible/clockwork/gear_base/proc/repowered()
+	return
