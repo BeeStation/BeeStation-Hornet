@@ -8,6 +8,7 @@
 	var/scripture_datum
 
 /obj/item/clock_module/Initialize()
+	..()
 	var/datum/clockcult/scripture/S = new scripture_datum
 	name = S.name
 	desc = S.desc
