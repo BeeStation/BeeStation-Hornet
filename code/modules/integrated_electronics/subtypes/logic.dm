@@ -31,7 +31,7 @@
 	return FALSE
 
 /obj/item/integrated_circuit/logic/binary/proc/comparable(var/datum/integrated_io/A, var/datum/integrated_io/B)
-	return (isnum(A.data) && isnum(B.data)) || (istext(A.data) && istext(B.data))
+	return (isnum_safe(A.data) && isnum_safe(B.data)) || (istext(A.data) && istext(B.data))
 
 /obj/item/integrated_circuit/logic/unary
 	inputs = list("A" = IC_PINTYPE_ANY)

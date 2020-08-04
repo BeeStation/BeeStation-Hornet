@@ -434,7 +434,7 @@
 		if(position)
 			old_position = position + length(text[position])
 
-		if(equal_position && !isnum(left_constant))
+		if(equal_position && !isnum_safe(left_constant))
 			// Associative var, so do the association.
 			// Note that numbers cannot be keys - the RHS is dropped if so.
 			var/trim_right = trim_text(copytext(text, equal_position + length(text[equal_position]), position))
@@ -447,7 +447,7 @@
 /datum/parsed_map/proc/parse_constant(text)
 	// number
 	var/num = text2num(text)
-	if(isnum(num))
+	if(isnum_safe(num))
 		return num
 
 	// string

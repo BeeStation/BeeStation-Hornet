@@ -19343,7 +19343,7 @@
 /area/quartermaster/storage)
 "aKZ" = (
 /obj/machinery/door/window/northleft{
-	dir = 8;
+	dir = 4;
 	name = "MuleBot Supply Access";
 	req_access_txt = "50"
 	},
