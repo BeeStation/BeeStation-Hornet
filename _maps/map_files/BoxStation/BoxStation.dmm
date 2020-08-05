@@ -20451,7 +20451,7 @@
 	dir = 4
 	},
 /obj/structure/displaycase{
-	desc = A display case with a pestle straight from a museum. You might be in a big trouble if you need to use this.";
+	desc = "A display case with a pestle straight from a museum. You might be in a big trouble if you need to use this.";
 	name = "archaic tool display case";
 	start_showpiece_type = /obj/item/pestle
 	},
