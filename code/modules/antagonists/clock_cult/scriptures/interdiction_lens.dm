@@ -42,7 +42,10 @@
 		enabled = !enabled
 		to_chat(user, "<span class='brass'>You toggle [src] [enabled?"on":"off"].</span>")
 		if(enabled)
-			repowered()
+			if(check_power(5))
+				repowered()
+			else
+				to_chat(user, "<span class='warning'>[src] does not have enough power!</span>")
 		else
 			depowered()
 	else
