@@ -93,6 +93,8 @@
 
 	var/do_footstep = FALSE
 
+	var/special_process = FALSE
+
 /mob/living/simple_animal/Initialize()
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
