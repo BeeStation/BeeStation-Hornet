@@ -22,6 +22,7 @@
 	max_integrity = 150
 	obj_integrity = 150
 	var/enabled = FALSE
+	var/processing = FALSE
 	var/datum/proximity_monitor/advanced/dampening_field
 	var/obj/item/borg/projectile_dampen/internal_dampener
 
@@ -32,8 +33,7 @@
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/Destroy()
 	if(enabled)
 		STOP_PROCESSING(SSobj, src)
-	if(istype(dampening_field))
-		QDEL_NULL(dampening_field)
+	QDEL_NULL(dampening_field)
 	QDEL_NULL(internal_dampener)
 	. = ..()
 
@@ -42,17 +42,9 @@
 		enabled = !enabled
 		to_chat(user, "<span class='brass'>You toggle [src] [enabled?"on":"off"].</span>")
 		if(enabled)
-			START_PROCESSING(SSobj, src)
-			icon_state = "interdiction_lens_active"
-			flick("interdiction_lens_recharged", src)
-			if(istype(dampening_field))
-				QDEL_NULL(dampening_field)
-			dampening_field = make_field(/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork, list("current_range" = INTERDICTION_LENS_RANGE, "host" = src, "projector" = internal_dampener))
+			repowered()
 		else
-			STOP_PROCESSING(SSobj, src)
-			icon_state = "interdiction_lens_inactive"
-			flick("interdiction_lens_discharged", src)
-			QDEL_NULL(dampening_field)
+			depowered()
 	else
 		. = ..()
 
@@ -62,35 +54,44 @@
 		STOP_PROCESSING(SSobj, src)
 		icon_state = "interdiction_lens_unwrenched"
 		return
-	if(GLOB.clockcult_power < 5)
-		enabled = FALSE
-		STOP_PROCESSING(SSobj, src)
-		icon_state = "interdiction_lens_inactive"
-		flick("interdiction_lens_discharged", src)
+	if(!update_power())
 		return
 	if(prob(5))
 		new /obj/effect/temp_visual/steam_release(get_turf(src))
 	for(var/mob/living/L in range(INTERDICTION_LENS_RANGE, src))
 		if(!is_servant_of_ratvar(L))
-			if(GLOB.clockcult_power < 5)
-				return
-			GLOB.clockcult_power -= 5
-			L.apply_status_effect(STATUS_EFFECT_INTERDICTION)
+			if(use_power(5))
+				L.apply_status_effect(STATUS_EFFECT_INTERDICTION)
 	for(var/obj/item/projectile/P in range(INTERDICTION_LENS_RANGE, src))
 		if(isliving(P) || !is_servant_of_ratvar(P.firer))
-			if(GLOB.clockcult_power < 5)
-				return
-			GLOB.clockcult_power -= 5
-			P.speed *= 2
-			P.damage /= 1.4
-			P.visible_message("<span class='warning'>[P] appears to slow in midair!</span>")
+			if(use_power(5))
+				P.speed *= 2
+				P.damage /= 1.4
+				P.visible_message("<span class='warning'>[P] appears to slow in midair!</span>")
 	for(var/obj/mecha/M in range(INTERDICTION_LENS_RANGE, src))
-		if(GLOB.clockcult_power < 5)
-			return
-		GLOB.clockcult_power -= 5
-		M.use_power(1000)
-		M.take_damage(25)
-		do_sparks(4, TRUE, M)
+		if(use_power(5))
+			M.use_power(1000)
+			M.take_damage(25)
+			do_sparks(4, TRUE, M)
+
+/obj/structure/destructible/clockwork/gear_base/interdiction_lens/repowered()
+	if(enabled)
+		if(!processing)
+			START_PROCESSING(SSobj, src)
+			processing = TRUE
+		icon_state = "interdiction_lens_active"
+		flick("interdiction_lens_recharged", src)
+		if(istype(dampening_field))
+			QDEL_NULL(dampening_field)
+		dampening_field = make_field(/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork, list("current_range" = INTERDICTION_LENS_RANGE, "host" = src, "projector" = internal_dampener))
+
+/obj/structure/destructible/clockwork/gear_base/interdiction_lens/depowered()
+	if(processing)
+		STOP_PROCESSING(SSobj, src)
+		processing = FALSE
+	icon_state = "interdiction_lens_inactive"
+	flick("interdiction_lens_discharged", src)
+	QDEL_NULL(dampening_field)
 
 //Dampening field
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork

@@ -31,11 +31,13 @@
 
 /obj/structure/destructible/clockwork/gear_base/proc/link_to_sigil(obj/structure/destructible/clockwork/sigil/transmission/T)
 	transmission_sigils |= T
+	T.linked_structures |= src
 
 /obj/structure/destructible/clockwork/gear_base/proc/unlink_to_sigil(obj/structure/destructible/clockwork/sigil/transmission/T)
 	if(!(T in transmission_sigils))
 		return
 	transmission_sigils -= T
+	T.linked_structures -= src
 
 //Power procs, for all your power needs, that is... if you have any
 
@@ -44,12 +46,14 @@
 		if(GLOB.clockcult_power > minimum_power && LAZYLEN(transmission_sigils))
 			repowered()
 			depowered = FALSE
-			return
+			return TRUE
+		return FALSE
 	else
 		if(GLOB.clockcult_power <= minimum_power || !LAZYLEN(transmission_sigils))
 			depowered()
 			depowered = TRUE
-			return
+			return FALSE
+		return TRUE
 
 /obj/structure/destructible/clockwork/gear_base/proc/check_power(amount)
 	if(!LAZYLEN(transmission_sigils))
