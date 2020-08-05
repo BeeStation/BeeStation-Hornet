@@ -23,7 +23,8 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/crossed)
 
 /datum/component/clockwork_trap/pressure_sensor/proc/crossed(atom/movable/AM)
-	if(ismob(AM) && is_servant_of_ratvar(AM))
+	var/mob/M = AM
+	if(istype(M) && is_servant_of_ratvar(M))
 		return
 	trigger_connected()
 	for(var/obj/structure/destructible/clockwork/trap/T in get_turf(parent))
