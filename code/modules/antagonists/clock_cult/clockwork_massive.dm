@@ -77,6 +77,8 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 
 //==========Battle Phase===========
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/open_gateway()
+	SSshuttle.registerHostileEnvironment(src)
+	SSshuttle.lockdown = TRUE
 	if(GLOB.gateway_opening)
 		return
 	GLOB.gateway_opening = TRUE
@@ -104,8 +106,6 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/announce_gateway()
 	activated = TRUE
 	set_security_level(SEC_LEVEL_DELTA)
-	SSshuttle.registerHostileEnvironment(src)
-	SSshuttle.lockdown = TRUE
 	mass_recall(TRUE)
 	addtimer(CALLBACK(src, .proc/begin_assault), 3000)
 	priority_announce("Massive [Gibberish("bluespace", 100)] anomaly detected on all frequencies. All crew are directed to \

@@ -21,6 +21,9 @@
 /datum/component/clockwork_trap/pressure_sensor/Initialize()
 	. = ..()
 	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/crossed)
+	for(var/obj/structure/destructible/clockwork/trap/T in get_turf(src))
+		if(T.takes_input)
+			add_output(src)
 
 /datum/component/clockwork_trap/pressure_sensor/proc/crossed(atom/movable/AM)
 	if(ismob(AM) && !is_servant_of_ratvar(AM))
