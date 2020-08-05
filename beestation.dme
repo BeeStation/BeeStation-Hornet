@@ -1385,6 +1385,7 @@
 #include "code\modules\antagonists\clock_cult\scriptures\kindle.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\ocular_warden.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\prosperity_prism.dm"
+#include "code\modules\antagonists\clock_cult\scriptures\replicant.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\sentinels_compromise.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\sigil_of_submission.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\sigil_of_vitality.dm"
