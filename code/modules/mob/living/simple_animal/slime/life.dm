@@ -45,7 +45,6 @@
 			Target.attack_slime(src)
 			attack_cooldown = world.time + attack_cooldown_time
 	else if(Target in view(7, src))
-		view_tracker++
 		step_to(src, Target)
 	else
 		special_process = FALSE
