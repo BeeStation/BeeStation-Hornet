@@ -185,6 +185,10 @@ GLOBAL_VAR(clockcult_eminence)
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
 //TODO: SANITIZE MESSAGES WITH THE NORMAL SAY STUFF (punctuation)
 /proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE, say=TRUE)
+	if(CHAT_FILTER_CHECK(msg))
+		if(sender)
+			to_chat(sender, "<span class='warning'>You message contains forbidden words, please review the server rules and do not attempt to bypass this filter.</span>")
+		return
 	var/hierophant_message = "[span]"
 	if(sender?.reagents)
 		if(sender.reagents.has_reagent(/datum/reagent/water/holywater, 1))
@@ -215,3 +219,5 @@ GLOBAL_VAR(clockcult_eminence)
 					to_chat(M, "<span class='nezbere'>You hear the cogs whispering to you, but cannot understand their words.</span>")
 				continue
 		to_chat(M, hierophant_message)
+	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
+		to_chat(O, hierophant_message)

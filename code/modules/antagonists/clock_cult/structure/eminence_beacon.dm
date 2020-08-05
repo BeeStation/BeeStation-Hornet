@@ -35,15 +35,12 @@
 	vote_active = FALSE
 	used = TRUE
 	if(!eminence)
-		var/mob/selected = pollCandidates("Would you like to play as the Eminence?")
-		if(!selected)
-			hierophant_message("The Eminence remains in slumber, for now, try waking it again soon.")
-			used = FALSE
-			return
-		eminence = selected
+		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the eminence?", ROLE_SERVANT_OF_RATVAR, null, null, 100, POLL_IGNORE_PYROSLIME)
+		if(LAZYLEN(candidates))
+			eminence = pick(candidates)
 	else
 		eminence.dust()
-	if(!eminence.client)
+	if(!(eminence?.client))
 		hierophant_message("The Eminence remains in slumber, for now, try waking it again soon.")
 		used = FALSE
 		return

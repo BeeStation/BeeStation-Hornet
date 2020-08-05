@@ -16,7 +16,9 @@
 
 /datum/clockcult/scripture/marauder/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks)
 	. = ..()
-	selected = pollCandidates("Would you like to play as a clockwork marauder?", ROLE_SERVANT_OF_RATVAR, null, null, 120)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Would you like to play as a clockwork marauder?", ROLE_SERVANT_OF_RATVAR, null, null, 100, POLL_IGNORE_PYROSLIME)
+	if(LAZYLEN(candidates))
+		selected = pick(candidates)
 
 /datum/clockcult/scripture/marauder/invoke()
 	if(!selected || !isobserver(selected))
