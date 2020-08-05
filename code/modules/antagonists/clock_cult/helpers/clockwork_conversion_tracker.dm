@@ -2,7 +2,6 @@
 
 GLOBAL_VAR(ark_transport_triggered)
 
-GLOBAL_VAR(minimum_servant_count)
 GLOBAL_VAR(critical_servant_count)
 
 GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
@@ -47,7 +46,6 @@ GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
 
 /proc/calculate_clockcult_values()
 	var/playercount = get_active_player_count()
-	GLOB.minimum_servant_count = round(CLAMP((playercount/12)+4, 6, 9))
 	GLOB.critical_servant_count = round(max((playercount/6)+6,10))
 
 /proc/check_ark_status()

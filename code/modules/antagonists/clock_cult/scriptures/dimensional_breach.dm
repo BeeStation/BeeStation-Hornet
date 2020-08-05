@@ -3,19 +3,18 @@
 //==================================//
 /datum/clockcult/scripture/ark_activation
 	name = "Ark Invigoration"
-	desc = "Prepares the Ark for activation, alerting the crew of your existence."
+	desc = "Prepares the Ark for activation, alerting the crew of your existence. Requires 6 invokers."
 	tip = "Prepares the Ark for activation, alerting the crew of your existence."
 	button_icon_state = "Spatial Gateway"
 	power_cost = 10000
 	invokation_time = 140
 	invokation_text = list("Oh great Engine, take my soul...", "...it is time for you to rise...", "...through rifts you shall come...", "...to rise among the stars again!")
-	invokers_required = 2
+	invokers_required = 6
 	category = SPELLTYPE_SERVITUDE
 	recital_sound = 'sound/magic/clockwork/narsie_attack.ogg'
 
 /datum/clockcult/scripture/ark_activation/New()
 	. = ..()
-	invokers_required = GLOB.minimum_servant_count
 
 /datum/clockcult/scripture/ark_activation/check_special_requirements()
 	if(!..())

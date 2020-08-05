@@ -10,15 +10,15 @@
 	icon_state = "sigilvitality"
 	density = FALSE
 	alpha = 60
-	var/cooldown = 0
-	var/effect_stand_time = 0
-	var/currently_affecting
-	var/idle_color = "#FFFFFF"
-	var/invokation_color = "#F1A03B"
-	var/pulse_color = "#EBC670"
-	var/fail_color = "#d47433"
-	var/active_timer
-	var/next_use_time
+	var/effect_stand_time = 0	//How long you stand on the sigil before affect is applied
+	var/currently_affecting		//The atom/movable that this is currently affecting
+	var/idle_color = "#FFFFFF"			//Colour while not used
+	var/invokation_color = "#F1A03B"	//Colour faded to while someone stands on top
+	var/pulse_color = "#EBC670"			//Colour pulsed when effect applied
+	var/fail_color = "#d47433"			//Colour pulsed when effect fails
+	var/active_timer			//Active timer
+	var/looping = FALSE			//TRUE if the affect repeatedly applied an affect to the thing above it
+	var/living_only = TRUE		//FALSE if the rune can affect non-living atoms
 
 /obj/structure/destructible/clockwork/sigil/attack_hand(mob/user)
 	. = ..()
@@ -26,9 +26,7 @@
 
 /obj/structure/destructible/clockwork/sigil/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(world.time < next_use_time)
-		return
-	if(!isliving(AM))
+	if(!isliving(AM) && living_only)
 		return
 	if(currently_affecting)
 		return
@@ -52,10 +50,10 @@
 		deltimer(active_timer)
 		active_timer = null
 
-/obj/structure/destructible/clockwork/sigil/proc/can_affect(mob/living/M)
+//If the sigil does not affect living, do not inherit this
+/obj/structure/destructible/clockwork/sigil/proc/can_affect(atom/movable/AM)
+	var/mob/living/M = AM
 	if(!istype(M))
-		return FALSE
-	if(!isliving(M))
 		return FALSE
 	var/amc = M.anti_magic_check()
 	if(amc)
@@ -70,17 +68,20 @@
 	alpha = 140
 	animate(src, transform=matrix(), color=idle_color, alpha = initial(alpha), time=5)
 
-/obj/structure/destructible/clockwork/sigil/proc/apply_effects(mob/living/M)
-	if(!can_affect(M))
+/obj/structure/destructible/clockwork/sigil/proc/apply_effects(atom/movable/AM)
+	if(!can_affect(AM))
 		fail_invokation()
 		return FALSE
-	next_use_time = world.time + cooldown
-	active_timer = null
-	currently_affecting = null
 	color = pulse_color
 	transform = matrix() * 1.2
 	alpha = SIGIL_INVOKED_ALPHA
-	animate(src, transform=matrix(), color=idle_color, alpha = initial(alpha), time=5)
+	if(looping)
+		animate(src, transform=matrix(), color=invokation_color, alpha=SIGIL_INVOKATION_ALPHA, effect_stand_time)
+		active_timer = addtimer(CALLBACK(src, .proc/apply_effects, AM), effect_stand_time, TIMER_UNIQUE | TIMER_STOPPABLE)
+	else
+		active_timer = null
+		currently_affecting = null
+		animate(src, transform=matrix(), color=idle_color, alpha = initial(alpha), time=5)
 	return TRUE
 
 /obj/structure/destructible/clockwork/sigil/proc/dispell()
@@ -98,7 +99,6 @@
 	alpha = 25
 	effect_stand_time = 0
 	pulse_color = "#88278b"
-	cooldown = 80
 
 /obj/structure/destructible/clockwork/sigil/transgression/can_affect(mob/living/M)
 	if(!..())
@@ -115,3 +115,4 @@
 	var/mob/living/carbon/C = M
 	if(istype(C))
 		C.silent += 15
+	qdel(src)

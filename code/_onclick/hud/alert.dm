@@ -445,7 +445,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	if(GLOB.servants_of_ratvar)
 		desc += "There [GLOB.servants_of_ratvar.len == 1?"is" : "are"] currently [GLOB.servants_of_ratvar.len] loyal servant[GLOB.servants_of_ratvar.len == 1 ? "" : "s"].<br>"
 	if(GLOB.critical_servant_count)
-		desc += "Upon reaching [GLOB.critical_servant_count] the Ark will open, or it can be opened immediately by invoking Gateway Activation with [GLOB.minimum_servant_count] servants."
+		desc += "Upon reaching [GLOB.critical_servant_count] the Ark will open, or it can be opened immediately by invoking Gateway Activation with 6 servants."
 
 //GUARDIANS
 

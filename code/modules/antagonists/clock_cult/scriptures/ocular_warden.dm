@@ -4,13 +4,14 @@
 /datum/clockcult/scripture/create_structure/ocular_warden
 	name = "Ocular Warden"
 	desc = "An eye turret that will fire upon nearby targets."
-	tip = "Place these around to prevent crew from rushing past your defenses."
+	tip = "Place these around to prevent crew from rushing past your defenses. Requires 2 invokers."
 	button_icon_state = "Ocular Warden"
 	power_cost = 500
 	invokation_time = 50
 	invokation_text = list("Summon thee to defend our temple")
 	summoned_structure = /obj/structure/destructible/clockwork/ocular_warden
 	cogs_required = 3
+	invokers_required = 2
 	category = SPELLTYPE_STRUCTURES
 
 /datum/clockcult/scripture/create_structure/ocular_warden/check_special_requirements()

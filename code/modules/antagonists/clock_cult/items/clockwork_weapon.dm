@@ -21,9 +21,6 @@
 	var/clockwork_hint = ""
 	var/obj/effect/proc_holder/spell/targeted/summon_spear/SS
 
-/obj/item/twohanded/clockwork/Initialize()
-	. = ..()
-
 /obj/item/twohanded/clockwork/pickup(mob/user)
 	. = ..()
 	user.mind.RemoveSpell(SS)

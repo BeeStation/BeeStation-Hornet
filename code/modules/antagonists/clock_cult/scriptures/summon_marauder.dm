@@ -3,7 +3,7 @@
 //==================================//
 /datum/clockcult/scripture/marauder
 	name = "Summon Clockwork Marauder"
-	desc = "Summons a Clockwork Marauder, a powerful warrior that can deflect ranged attacks."
+	desc = "Summons a Clockwork Marauder, a powerful warrior that can deflect ranged attacks. Requires 3 invokers."
 	tip = "Use Clockwork Marauders as an expendable soldier to send into combat when the fighting gets rough."
 	button_icon_state = "Clockwork Marauder"
 	power_cost = 8000
@@ -11,6 +11,7 @@
 	invokation_text = list("Through the fires and flames...", "...nothing outshines Eng'Ine!")
 	category = SPELLTYPE_PRESERVATION
 	cogs_required = 6
+	invokers_required = 3
 	var/mob/selected
 
 /datum/clockcult/scripture/marauder/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks)

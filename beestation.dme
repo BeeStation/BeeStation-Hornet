@@ -1388,6 +1388,7 @@
 #include "code\modules\antagonists\clock_cult\scriptures\sentinels_compromise.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\sigil_of_submission.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\sigil_of_vitality.dm"
+#include "code\modules\antagonists\clock_cult\scriptures\sigil_transmission.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\stargazer.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\summon_cogscarab.dm"
 #include "code\modules\antagonists\clock_cult\scriptures\summon_marauder.dm"
