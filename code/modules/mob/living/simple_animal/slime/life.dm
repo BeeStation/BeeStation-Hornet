@@ -28,8 +28,6 @@
 	..()
 
 /mob/living/simple_animal/slime/proc/AIprocess()
-	var/view_tracker = 3 // Needs to be 3 to ensure the view check runs at least once
-
 	if(stat == DEAD || !Target || client || buckled)
 		return
 
@@ -46,7 +44,7 @@
 		if(attacked || rabid)
 			Target.attack_slime(src)
 			attack_cooldown = world.time + attack_cooldown_time
-	else if((view_tracker % 3 != 0) || (Target in view(7, src))) // Only bother to check if target is still in view every third time
+	else if(Target in view(7, src))
 		view_tracker++
 		step_to(src, Target)
 	else
