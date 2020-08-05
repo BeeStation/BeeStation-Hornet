@@ -6,8 +6,10 @@
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
 	force_unwielded = 15
 	force_wielded = 5
-	block_power_wielded = 1
-	block_power_unwielded = 0
+	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
+	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
+	block_power_wielded = 25
+	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 20

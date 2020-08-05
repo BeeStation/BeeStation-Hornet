@@ -4,7 +4,7 @@
 /datum/clockcult/scripture/marauder
 	name = "Summon Clockwork Marauder"
 	desc = "Summons a Clockwork Marauder, a powerful warrior that can deflect ranged attacks. Requires 3 invokers."
-	tip = "Use Clockwork Marauders as an expendable soldier to send into combat when the fighting gets rough."
+	tip = "Use Clockwork Marauders as a powerful soldier to send into combat when the fighting gets rough."
 	button_icon_state = "Clockwork Marauder"
 	power_cost = 8000
 	invokation_time = 300

@@ -641,17 +641,21 @@
 	status_type = STATUS_EFFECT_REFRESH
 	tick_interval = 1
 	alert_type = /obj/screen/alert/status_effect/interdiction
+	var/running_toggled = FALSE
 
 /datum/status_effect/interdiction/tick()
 	if(owner.m_intent == MOVE_INTENT_RUN)
 		owner.toggle_move_intent(owner)
 		if(owner.confused < 10)
 			owner.confused = 10
+		running_toggled = TRUE
 		to_chat(owner, "<span class='warning'>You know you shouldn't be running here...</span>")
 	owner.add_movespeed_modifier(MOVESPEED_ID_INTERDICTION, multiplicative_slowdown=1.5)
 
 /datum/status_effect/interdiction/on_remove()
 	owner.remove_movespeed_modifier(MOVESPEED_ID_INTERDICTION)
+	if(running_toggled && owner.m_intent == MOVE_INTENT_WALK)
+		owner.toggle_move_intent(owner)
 
 /obj/screen/alert/status_effect/interdiction
 	name = "Interdicted"
