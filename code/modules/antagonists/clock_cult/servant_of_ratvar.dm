@@ -20,9 +20,11 @@
 		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', 60, FALSE, pressure_affected = FALSE)
 	to_chat(owner.current, "<span class='heavy_brass'><font size='7'>You feel a flash of light and the world spin around you!</font></span>")
-	to_chat(owner.current, "<span class='brass'><font size='5'>You suddenly understand so much more than you did before and are commited to a life of servitude.</font></span>")
 	to_chat(owner.current, "<span class='brass'><font size='5'>Using your clockwork slab you can invoke a variety of powers to help you complete Ratvar's will.</font></span>")
-	to_chat(owner.current, "<span class='nzcrentr'>After laying dorment for an indefinate amount of time, Rat'var has little control over this dimension; increase your control over this realm by placing integration cogs into APCs on the station and siphoning power!</span>")
+	to_chat(owner.current, "<span class='brass'>Use Rat'varian observation consoles to monitor the crew and warp to the station.</span>")
+	to_chat(owner.current, "<span class='brass'>Use your Clockwork Slab to summon integration cogs to unlock more scriptures and siphon power.</span>")
+	to_chat(owner.current, "<span class='brass'>Unlock Kindle to stun targets, Hateful Manacles to restrain them and use a sigil of submission to convert them!</span>")
+	to_chat(owner.current, "<span class='brass'>When you are ready, gather 6 cultists around the Ark and activate it to summon Rat'var, but be prepared to fight for your life.</span>")
 
 /datum/antagonist/servant_of_ratvar/on_gain()
 	. = ..()
