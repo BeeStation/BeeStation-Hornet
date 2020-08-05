@@ -65,6 +65,11 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 			sound_to_playing_players('sound/effects/explosion_distant.ogg', volume = 50)
 			for(var/obj/effect/portal/wormhole/clockcult/CC in GLOB.all_wormholes)
 				qdel(CC)
+			SSshuttle.clearHostileEnvironment(src)
+			SSshuttle.lockdown = FALSE
+			set_security_level(SEC_LEVEL_RED)
+			sleep(300)
+			SSticker.force_ending = TRUE
 	qdel(src)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
