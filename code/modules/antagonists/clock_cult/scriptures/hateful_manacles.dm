@@ -11,7 +11,7 @@
 	invokation_text = list("Shackle the heretic...", "...Break them in body and spirit!")
 	slab_overlay = "hateful_manacles"
 	use_time = 200
-	cogs_required = 1
+	cogs_required = 0
 	category = SPELLTYPE_SERVITUDE
 
 /datum/clockcult/scripture/slab/hateful_manacles/apply_effects(atom/A)
