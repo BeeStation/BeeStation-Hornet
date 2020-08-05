@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - tweak: Optimized slime processing code.
