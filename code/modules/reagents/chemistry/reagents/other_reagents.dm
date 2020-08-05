@@ -202,7 +202,7 @@
 	REMOVE_TRAIT(L, TRAIT_HOLY, type)
 	if(HAS_TRAIT_FROM(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
 		REMOVE_TRAIT(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT)
-		to_chat("<span class='notice'>You cheer up, knowing that everything is going to be ok.</span>")
+		to_chat(L, "<span class='notice'>You cheer up, knowing that everything is going to be ok.</span>")
 	..()
 
 /datum/reagent/water/holywater/on_mob_life(mob/living/carbon/M)
