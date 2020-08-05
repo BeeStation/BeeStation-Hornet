@@ -14,6 +14,7 @@
 		if(istype(T, type))
 			to_chat(user, "<span class='warning'>That space is occupied!</span>")
 			return
+	to_chat(user, "<span class='brass'>You place [src], use a <b>clockwork slab</b> to link it to other traps.</span>")
 	var/obj/new_obj = new result_path(get_turf(src))
 	new_obj.setDir(user.dir)
 	qdel(src)

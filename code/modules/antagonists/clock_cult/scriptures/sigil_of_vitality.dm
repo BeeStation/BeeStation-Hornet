@@ -44,7 +44,7 @@
 		return FALSE
 	if(is_servant_of_ratvar(M))
 		if(M.stat == DEAD)
-			var/damage_healed = 20 + M.maxHealth - M.health
+			var/damage_healed = 20 + ((M.maxHealth - M.health) * 0.6)
 			if(GLOB.clockcult_vitality >= damage_healed)
 				GLOB.clockcult_vitality -= damage_healed
 				M.revive(TRUE, TRUE)
@@ -53,7 +53,7 @@
 			return
 		var/healing_performed = CLAMP(M.maxHealth - M.health, 0, 5)	//5 Vitality to heal 5 of all damage types at once
 		if(GLOB.clockcult_vitality >= healing_performed)
-			GLOB.clockcult_vitality -= healing_performed
+			GLOB.clockcult_vitality -= healing_performed * 0.6
 			//Do healing
 			M.adjustBruteLoss(-5, FALSE)
 			M.adjustFireLoss(-5, FALSE)

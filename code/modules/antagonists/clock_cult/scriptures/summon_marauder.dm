@@ -16,7 +16,7 @@
 
 /datum/clockcult/scripture/marauder/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks)
 	. = ..()
-	selected = pollCandidates("Would you like to play as a clockwork marauder?")
+	selected = pollCandidates("Would you like to play as a clockwork marauder?", ROLE_SERVANT_OF_RATVAR, null, null, 120)
 
 /datum/clockcult/scripture/marauder/invoke()
 	if(!selected || !isobserver(selected))
