@@ -2,7 +2,7 @@
 
 /datum/clockcult/scripture/create_structure/interdiction
 	name = "Interdiction Lens"
-	desc = "Creates a device that will slow non servants in the area and damage mechanised exosuits."
+	desc = "Creates a device that will slow non servants in the area and damage mechanised exosuits. Requires power from a sigil of transmission."
 	tip = "Construct interdiction lens to slow down a hostile assault."
 	button_icon_state = "Interdiction Lens"
 	power_cost = 500
@@ -21,10 +21,11 @@
 	break_message = "<span class='warning'>The interdiction lens breaks into multiple fragments, which gently float to the ground.</span>"
 	max_integrity = 150
 	obj_integrity = 150
-	var/enabled = FALSE
+	minimum_power = 5
+	var/enabled = FALSE			//Misnomer - Whether we want to be enabled or not, processing would be if we are enabled
 	var/processing = FALSE
 	var/datum/proximity_monitor/advanced/dampening_field
-	var/obj/item/borg/projectile_dampen/internal_dampener
+	var/obj/item/borg/projectile_dampen/clockcult/internal_dampener
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/Initialize()
 	internal_dampener = new
@@ -42,9 +43,10 @@
 		enabled = !enabled
 		to_chat(user, "<span class='brass'>You toggle [src] [enabled?"on":"off"].</span>")
 		if(enabled)
-			if(check_power(5))
+			if(update_power())
 				repowered()
 			else
+				enabled = FALSE
 				to_chat(user, "<span class='warning'>[src] does not have enough power!</span>")
 		else
 			depowered()
@@ -57,20 +59,12 @@
 		STOP_PROCESSING(SSobj, src)
 		icon_state = "interdiction_lens_unwrenched"
 		return
-	if(!update_power())
-		return
 	if(prob(5))
 		new /obj/effect/temp_visual/steam_release(get_turf(src))
 	for(var/mob/living/L in range(INTERDICTION_LENS_RANGE, src))
 		if(!is_servant_of_ratvar(L))
 			if(use_power(5))
 				L.apply_status_effect(STATUS_EFFECT_INTERDICTION)
-	for(var/obj/item/projectile/P in range(INTERDICTION_LENS_RANGE, src))
-		if(isliving(P) || !is_servant_of_ratvar(P.firer))
-			if(use_power(5))
-				P.speed *= 2
-				P.damage /= 1.4
-				P.visible_message("<span class='warning'>[P] appears to slow in midair!</span>")
 	for(var/obj/mecha/M in range(INTERDICTION_LENS_RANGE, src))
 		if(use_power(5))
 			M.use_power(1000)
@@ -103,8 +97,15 @@
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/capture_projectile(obj/item/projectile/P, track_projectile = TRUE)
 	if(P in tracked)
 		return
-	if(ismob(P.firer) && is_servant_of_ratvar(P.firer))
-		return
+	if(isliving(P.firer))
+		if(is_servant_of_ratvar(P.firer))
+			return
 	projector.dampen_projectile(P, track_projectile)
 	if(track_projectile)
 		tracked += P
+
+/obj/item/borg/projectile_dampen/clockcult
+	name = "internal clockcult projectile dampener"
+
+/obj/item/borg/projectile_dampen/clockcult/process_recharge()
+	energy = maxenergy

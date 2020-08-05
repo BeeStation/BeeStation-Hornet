@@ -14,6 +14,8 @@
 	. = ..()
 	update_icon_state()
 	transmission_sigils = list()
+	for(var/obj/structure/destructible/clockwork/sigil/transmission/ST in range(src, SIGIL_TRANSMISSION_RANGE))
+		link_to_sigil(ST)
 
 /obj/structure/destructible/clockwork/gear_base/wrench_act(mob/living/user, obj/item/I)
 	if(do_after(user, 40, target=src))
@@ -38,6 +40,9 @@
 		return
 	transmission_sigils -= T
 	T.linked_structures -= src
+	if(!LAZYLEN(transmission_sigils))
+		depowered()
+		depowered = TRUE
 
 //Power procs, for all your power needs, that is... if you have any
 

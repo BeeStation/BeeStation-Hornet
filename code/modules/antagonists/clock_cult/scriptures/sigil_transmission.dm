@@ -36,11 +36,19 @@
 	linked_structures = list()
 	for(var/obj/structure/destructible/clockwork/gear_base/GB in range(src, SIGIL_TRANSMISSION_RANGE))
 		GB.link_to_sigil(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/destructible/clockwork/sigil/transmission/Destroy()
-	. = ..()
+	STOP_PROCESSING(SSobj, src)
 	for(var/obj/structure/destructible/clockwork/gear_base/GB as anything in linked_structures)
 		GB.unlink_to_sigil(src)
+	. = ..()
+
+//We handle updating power, so you don't have to
+/obj/structure/destructible/clockwork/sigil/transmission/process()
+	for(var/obj/structure/destructible/clockwork/gear_base/GB as anything in linked_structures)
+		if(GB.transmission_sigils[1] == src)	//Make sure we are the master sigil
+			GB.update_power()
 
 /obj/structure/destructible/clockwork/sigil/transmission/can_affect(atom/movable/AM)
 	return (istype(AM, /obj/mecha) || iscyborg(AM) || ishuman(AM))
