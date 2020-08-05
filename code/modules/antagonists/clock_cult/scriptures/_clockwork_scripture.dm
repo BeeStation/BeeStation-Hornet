@@ -55,6 +55,8 @@
 	var/invokers_left = invokers_required
 	if(invokers_left > 1)
 		for(var/mob/living/M in view(invoker))
+			if(M.stat)
+				continue
 			if(!invokers_left)
 				break
 			if(is_servant_of_ratvar(M))
