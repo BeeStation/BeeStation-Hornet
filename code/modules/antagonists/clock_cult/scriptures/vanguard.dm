@@ -40,7 +40,9 @@
 	REMOVE_TRAIT(invoker, TRAIT_NOSTAMCRIT, VANGUARD_TRAIT)
 	REMOVE_TRAIT(invoker, TRAIT_NOLIMBDISABLE, VANGUARD_TRAIT)
 	to_chat(invoker, "<span class='sevtug'>You suddenly collapse from exhaustion!</span>")
-	if(total_stamina_damage > 100)
+	if(!ishuman(invoker))
+		invoker.Unconscious(50)
+	else if(total_stamina_damage > 100)
 		invoker.Unconscious(total_stamina_damage / 4)
 	else
 		invoker.Paralyze(total_stamina_damage / 2)

@@ -10,6 +10,8 @@
 	icon_state = "lever"
 	unwrench_path = /obj/item/wallframe/clocktrap/lever
 	component_datum = /datum/component/clockwork_trap/lever
+	max_integrity = 75
+	obj_integrity = 75
 
 /datum/component/clockwork_trap/lever
 	sends_input = TRUE

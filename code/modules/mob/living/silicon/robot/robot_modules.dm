@@ -265,7 +265,10 @@
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
 		/obj/item/clock_module/kindle,
-		/obj/item/clock_module/abstraction_crystal)
+		/obj/item/clock_module/abstraction_crystal,
+		/obj/item/clockwork/replica_fabricator,
+		/obj/item/stack/tile/brass/cyborg,
+		/obj/item/twohanded/clockwork/brass_spear)
 	moduleselect_icon = "standard"
 	hat_offset = -3
 
@@ -296,7 +299,8 @@
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
 		/obj/item/clock_module/sentinels_compromise,
-		/obj/item/clock_module/prosperity_prism)
+		/obj/item/clock_module/prosperity_prism,
+		/obj/item/clock_module/vanguard)
 	cyborg_base_icon = "medical"
 	moduleselect_icon = "medical"
 	can_be_pushed = FALSE
@@ -539,7 +543,9 @@
 		/obj/item/clock_module/abscond,
 		/obj/item/clock_module/vanguard,
 		/obj/item/clock_module/sigil_submission,
-		/obj/item/clock_module/kindle)
+		/obj/item/clock_module/kindle,
+		/obj/item/clock_module/sentinels_compromise,
+		/obj/item/clockwork/replica_fabricator)
 	moduleselect_icon = "service"
 	special_light_key = "service"
 	hat_offset = 0

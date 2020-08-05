@@ -76,7 +76,7 @@
 
 /obj/machinery/computer/camera_advanced/ratvar/can_use(mob/living/user)
 	. = ..()
-	if(!is_servant_of_ratvar(user))
+	if(!is_servant_of_ratvar(user) || iscogscarab(user))
 		return FALSE
 
 /obj/machinery/computer/camera_advanced/ratvar/GrantActions(mob/living/user)

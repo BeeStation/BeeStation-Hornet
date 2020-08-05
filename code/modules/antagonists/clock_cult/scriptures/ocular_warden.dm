@@ -3,8 +3,8 @@
 
 /datum/clockcult/scripture/create_structure/ocular_warden
 	name = "Ocular Warden"
-	desc = "An eye turret that will fire upon nearby targets."
-	tip = "Place these around to prevent crew from rushing past your defenses. Requires 2 invokers."
+	desc = "An eye turret that will fire upon nearby targets. Requires 2 invokers."
+	tip = "Place these around to prevent crew from rushing past your defenses."
 	button_icon_state = "Ocular Warden"
 	power_cost = 500
 	invokation_time = 50
