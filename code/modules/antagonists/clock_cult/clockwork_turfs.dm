@@ -485,6 +485,7 @@
 	density = FALSE
 	obj_integrity = 20
 	broken = TRUE
+	rods_type = /obj/item/stack/tile/brass
 	rods_amount = 1
 	rods_broken = FALSE
 	grille_type = /obj/structure/grille/ratvar
