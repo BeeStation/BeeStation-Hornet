@@ -24,14 +24,7 @@
 	var/obj/item_to_retrieve = marked_item
 	var/infinite_recursion = 0
 
-	if(!item_to_retrieve.loc)
-		if(isorgan(item_to_retrieve)) // Organs are usually stored in nullspace
-			var/obj/item/organ/organ = item_to_retrieve
-			if(organ.owner)
-				// If this code ever runs I will be happy
-				log_combat(user, organ.owner, "magically removed [organ.name] from", addition="INTENT: [uppertext(user.a_intent)]")
-				organ.Remove(organ.owner)
-	else
+	if(item_to_retrieve.loc)
 		while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10) //if it's in something you get the whole thing.
 			if(isitem(item_to_retrieve.loc))
 				var/obj/item/I = item_to_retrieve.loc
