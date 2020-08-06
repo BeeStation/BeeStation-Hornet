@@ -136,9 +136,9 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		SEND_SOUND(M, 'sound/magic/clockwork/invoke_general.ogg')
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_assault()
-	priority_announce("Space-time anomalies detected near the station. Source determined to be a temporal\
+	priority_announce("Space-time anomalies detected near the station. Source determined to be a temporal \
 		energy pulse emanating from J1523-215. All crew are to enter [text2ratvar("prep#re %o di%")]\
-		and destroy the [text2ratvar("I'd like to see you try")], which has been determined to be the source of the\
+		and destroy the [text2ratvar("I'd like to see you try")], which has been determined to be the source of the \
 		pulse to prevent mass damage to Nanotrasen property.", "Anomaly Alert", 'sound/ai/spanomalies.ogg')
 	var/list/pick_turfs = list()
 	for(var/turf/open/floor/T in world)
