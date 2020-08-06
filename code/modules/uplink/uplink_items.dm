@@ -2136,6 +2136,14 @@ datum/uplink_item/role_restricted/superior_honkrender
 	cant_discount = TRUE
 	illegal_tech = FALSE
 
+/datum/uplink_item/badass/syndiebeer
+	name = "Syndicate Beer"
+	desc = "Syndicate brand 'beer' designed to flush toxins out of your system. \
+			Warning: Do not consume more than one!"
+	item = /obj/item/reagent_containers/food/drinks/syndicatebeer
+	cost = 4
+	illegal_tech = FALSE
+
 /datum/uplink_item/badass/syndiecash
 	name = "Syndicate Briefcase Full of Cash"
 	desc = "A secure briefcase containing 5000 space credits. Useful for bribing personnel, or purchasing goods \
