@@ -46,6 +46,11 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		sleep(5)
 	explosion(pick(GLOB.servant_spawns), 50, 40, 30, 30, FALSE, TRUE)
 
+/obj/structure/destructible/clockwork/massive/celestial_gateway/examine(mob/user)
+	. = ..()
+	if(GLOB.ratvar_arrival_tick)
+		. += "It will open in [(GLOB.ratvar_arrival_tick - world.time)/10] seconds."
+
 /obj/structure/destructible/clockwork/massive/celestial_gateway/process()
 	if(prob(5))
 		to_chat(world, pick(phase_messages))
