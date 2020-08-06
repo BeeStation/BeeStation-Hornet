@@ -2,7 +2,7 @@
 	name = "Summon Weapon"
 	desc = "Summons your weapon from across time and space."
 
-	charge_max = 50
+	charge_max = 20
 	invocation = "none"
 	invocation_type = "none"
 	action_icon = 'icons/mob/actions/actions_clockcult.dmi'
