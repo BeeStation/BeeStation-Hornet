@@ -78,6 +78,8 @@
 		return FALSE
 	var/invokers
 	for(var/mob/living/M in view(invoker))
+		if(M.stat)
+			continue
 		if(is_servant_of_ratvar(M))
 			invokers++
 	if(invokers < invokers_required)
