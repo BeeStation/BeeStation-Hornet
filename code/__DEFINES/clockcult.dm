@@ -1,7 +1,4 @@
-#define CLOCKCULT_MIN_SERVANTS 4
-#define CLOCKCULT_MAX_SERVANTS 8
-
-#define CLOCKCULT_CREW_PER_CULT 12	//The amount of crew per each servant. 0-48: 4 | 49 - 60: 5 | 61 - 72:6 | 73 - 84: 7 | >85 : 8
+#define CLOCKCULT_SERVANTS 4
 
 //component id defines; sometimes these may not make sense in regards to their use in scripture but important ones are bright
 #define BELLIGERENT_EYE "belligerent_eye" //! Use this for offensive and damaging scripture!

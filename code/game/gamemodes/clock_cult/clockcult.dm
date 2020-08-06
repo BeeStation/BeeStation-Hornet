@@ -40,7 +40,7 @@ GLOBAL_VAR(clockcult_eminence)
 	<span class='danger'>Servants</span>: Convert more servants and defend the Ark of the Clockwork Justicar!\n\
 	<span class='notice'>Crew</span>: Prepare yourselfs and destroy the Ark of the Clockwork Justicar."
 
-	var/clock_cultists = CLOCKCULT_MIN_SERVANTS
+	var/clock_cultists = CLOCKCULT_SERVANTS
 	var/list/selected_servants = list()
 
 	var/datum/team/clock_cult/main_cult
@@ -55,12 +55,8 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	for(var/datum/parsed_map/map in reebe)
 		map.initTemplateBounds()
-	//How many cultists?
-	var/players = get_active_player_count()
-	players = round(players / CLOCKCULT_CREW_PER_CULT)
-	players = clamp(players, CLOCKCULT_MIN_SERVANTS, CLOCKCULT_MAX_SERVANTS)
 	//Generate cultists
-	for(var/i in 1 to players)
+	for(var/i in 1 to clock_cultists)
 		if(!antag_candidates.len)
 			break
 		var/datum/mind/clockie = antag_pick(antag_candidates, ROLE_SERVANT_OF_RATVAR)

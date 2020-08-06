@@ -185,7 +185,7 @@
 	ambientsounds = REEBE
 
 /area/reebe/city_of_cogs
-	name = "City of Cogs"
+	name = "Reebe - City of Cogs"
 	icon_state = "purple"
 	hidden = FALSE
 
