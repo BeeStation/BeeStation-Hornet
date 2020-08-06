@@ -55,7 +55,7 @@
 	new /obj/effect/temp_visual/ratvar/ocular_warden(get_turf(target))
 	new /obj/effect/temp_visual/ratvar/ocular_warden(get_turf(src))
 	playsound(get_turf(target), 'sound/machines/clockcult/ocularwarden-dot1.ogg', 60, TRUE)
-	cooldown = world.time + 60
+	cooldown = world.time + 20
 
 /obj/structure/destructible/clockwork/ocular_warden/Initialize()
 	. = ..()
