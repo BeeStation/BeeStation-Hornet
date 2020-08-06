@@ -28,6 +28,8 @@
 	var/target_stabbed = FALSE
 	density = TRUE
 	for(var/mob/living/M in get_turf(src))
+		if(M.incorporeal_move || M.is_flying())
+			continue
 		if(buckle_mob(M, TRUE))
 			target_stabbed = TRUE
 			to_chat(M, "<span class='userdanger'>You are impaled by [src]!</span>")
@@ -43,6 +45,10 @@
 		add_overlay(stab_overlay)
 
 /obj/structure/destructible/clockwork/trap/skewer/unbuckle_mob(mob/living/buckled_mob, force)
+	if(force)
+		return ..()
+	if(!buckled_mob.break_do_after_checks())
+		return
 	to_chat(buckled_mob, "<span class='warning'>You begin climbing out of [src].</span>")
 	if(do_after(buckled_mob, 50, target=src))
 		. = ..()
@@ -58,6 +64,8 @@
 	icon_state = "brass_skewer"
 	density = FALSE
 	cut_overlay(stab_overlay)
+	for(var/mob/living/M in buckled_mobs)
+		unbuckle_mob(M, TRUE)
 
 /datum/component/clockwork_trap/skewer
 	takes_input = TRUE

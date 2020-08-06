@@ -210,13 +210,13 @@ GLOBAL_VAR(clockcult_eminence)
 	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
 		to_chat(O, hierophant_message)
 
-/proc/send_hierophant_message_to(mind/mind, msg)
+/proc/send_hierophant_message_to(datum/mind/mind, hierophant_message)
 	var/mob/M = mind.current
-		if(!isliving(M) || QDELETED(M))
-			continue
-		if(M.reagents)
-			if(M.reagents.has_reagent(/datum/reagent/water/holywater, 1))
-				if(pick(20))
-					to_chat(M, "<span class='nezbere'>You hear the cogs whispering to you, but cannot understand their words.</span>")
-				continue
-		to_chat(M, hierophant_message)
+	if(!isliving(M) || QDELETED(M))
+		return
+	if(M.reagents)
+		if(M.reagents.has_reagent(/datum/reagent/water/holywater, 1))
+			if(pick(20))
+				to_chat(M, "<span class='nezbere'>You hear the cogs whispering to you, but cannot understand their words.</span>")
+			return
+	to_chat(M, hierophant_message)

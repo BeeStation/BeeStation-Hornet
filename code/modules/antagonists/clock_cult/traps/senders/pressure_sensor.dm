@@ -22,10 +22,13 @@
 	. = ..()
 	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/crossed)
 
-/datum/component/clockwork_trap/pressure_sensor/proc/crossed(atom/movable/AM)
-	var/mob/M = AM
-	if(istype(M) && is_servant_of_ratvar(M))
-		return
+/datum/component/clockwork_trap/pressure_sensor/proc/crossed(datum/source, atom/movable/AM)
+	var/mob/living/M = AM
+	if(istype(M))
+		if(is_servant_of_ratvar(M))
+			return
+		if(M.incorporeal_move || M.is_flying())
+			return
 	trigger_connected()
 	for(var/obj/structure/destructible/clockwork/trap/T in get_turf(parent))
 		if(T != parent)
