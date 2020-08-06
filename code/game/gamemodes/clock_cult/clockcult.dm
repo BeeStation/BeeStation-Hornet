@@ -206,7 +206,12 @@ GLOBAL_VAR(clockcult_eminence)
 	if(span)
 		hierophant_message += "</span>"
 	for(var/datum/mind/mind in GLOB.servants_of_ratvar)
-		var/mob/M = mind.current
+		send_hierophant_message_to(mind, hierophant_message)
+	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
+		to_chat(O, hierophant_message)
+
+/proc/send_hierophant_message_to(mind/mind, msg)
+	var/mob/M = mind.current
 		if(!isliving(M) || QDELETED(M))
 			continue
 		if(M.reagents)
@@ -215,5 +220,3 @@ GLOBAL_VAR(clockcult_eminence)
 					to_chat(M, "<span class='nezbere'>You hear the cogs whispering to you, but cannot understand their words.</span>")
 				continue
 		to_chat(M, hierophant_message)
-	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
-		to_chat(O, hierophant_message)
