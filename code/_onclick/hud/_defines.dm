@@ -13,8 +13,8 @@
 	screen borders. NORTH-1, for example, is the row just below the upper edge. Useful if you want your
 	UI to scale with screen size.
 
-	The size of the user's screen is defined by client.view (indirectly by world.view), in our case "15x15".
-	Therefore, the top right corner (except during admin shenanigans) is at "15,15"
+	The size of the user's screen is defined by client.view (indirectly by world.view), in our case "19x15".
+	Therefore, the top right corner (except during admin shenanigans) is at "19,15"
 */
 
 //Lower left, persistent menu
