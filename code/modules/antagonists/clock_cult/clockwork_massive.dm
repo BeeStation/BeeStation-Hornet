@@ -181,7 +181,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	STOP_PROCESSING(SSobj, src)
 	hierophant_message("Ratvar approaches, you shall be eternally rewarded for your servitude!", null, "<span class='large_brass'>")
 	resistance_flags |= INDESTRUCTIBLE
-	for(var/mob/living/M in GLOB.servants_of_ratvar)
+	for(var/mob/living/M in GLOB.all_servants_of_ratvar)
 		M.status_flags |= GODMODE
 	sound_to_playing_players(volume = 100, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/ratvar_rises.ogg')) //End the sounds
 	GLOB.ratvar_risen = TRUE

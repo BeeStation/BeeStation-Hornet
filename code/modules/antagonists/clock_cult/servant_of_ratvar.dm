@@ -30,6 +30,7 @@
 	. = ..()
 	create_team()
 	add_objectives()
+	GLOB.all_servants_of_ratvar |= owner
 	if(counts_towards_total)
 		GLOB.servants_of_ratvar |= owner
 		if(ishuman(owner.current))
@@ -42,6 +43,7 @@
 /datum/antagonist/servant_of_ratvar/on_removal()
 	. = ..()
 	GLOB.servants_of_ratvar -= owner
+	GLOB.all_servants_of_ratvar -= owner
 	if(owner in GLOB.human_servants_of_ratvar)
 		GLOB.human_servants_of_ratvar -= owner
 	if(owner in GLOB.cyborg_servants_of_ratvar)

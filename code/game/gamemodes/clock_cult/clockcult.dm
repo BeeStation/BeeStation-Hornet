@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(servants_of_ratvar)	//List of minds in the cult
+GLOBAL_LIST_EMPTY(all_servants_of_ratvar)	//List of minds in the cult
 GLOBAL_LIST_EMPTY(human_servants_of_ratvar)	//Humans in the cult
 GLOBAL_LIST_EMPTY(cyborg_servants_of_ratvar)
 
@@ -206,7 +207,7 @@ GLOBAL_VAR(clockcult_eminence)
 		hierophant_message += msg
 	if(span)
 		hierophant_message += "</span>"
-	for(var/datum/mind/mind in GLOB.servants_of_ratvar)
+	for(var/datum/mind/mind in GLOB.all_servants_of_ratvar)
 		send_hierophant_message_to(mind, hierophant_message)
 	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
 		to_chat(O, hierophant_message)
