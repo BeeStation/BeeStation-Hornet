@@ -172,7 +172,7 @@
 	name = "Linked Abscond"
 	desc = "Warps a target to Reebe if they are still for 7 seconds."
 	action_icon_state = "Linked Abscond"
-	charge_max = 6000
+	charge_max = 4500
 
 /obj/effect/proc_holder/spell/targeted/eminence/linked_asbcond/can_cast(mob/user)
 	if(!..())
