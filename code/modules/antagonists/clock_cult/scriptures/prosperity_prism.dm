@@ -3,7 +3,7 @@
 //==================================//
 /datum/clockcult/scripture/create_structure/prosperityprism
 	name = "Prosperity Prism"
-	desc = "Creates a prism that will remove toxin damage from nearby servants. Requires power from a sigil of transmission."
+	desc = "Creates a prism that will remove a large amount of toxin damage and a small amount of other forms of damage from nearby servants. Requires power from a sigil of transmission."
 	tip = "Create a prosperity prism to heal servants using sentinel's compromise without taking any damage."
 	button_icon_state = "Prolonging Prism"
 	power_cost = 300
@@ -66,10 +66,11 @@
 		if(!is_servant_of_ratvar(L))
 			continue
 		if(use_power(4))
-			if(L.getToxLoss() > 0)
-				L.adjustToxLoss(-10)
-				L.setStaminaLoss(0)
-				new /obj/effect/temp_visual/heal(get_turf(L), "#45dd8a")
+			L.adjustToxLoss(-10)
+			L.adjustStaminaLoss(-10)
+			L.adjustBruteLoss(-2)
+			L.adjustFireLoss(-2)
+			new /obj/effect/temp_visual/heal(get_turf(L), "#45dd8a")
 			for(var/datum/reagent/R in L.reagents.reagent_list)
 				if(istype(R, /datum/reagent/toxin))
 					L.reagents.remove_reagent(R.type, 10)
