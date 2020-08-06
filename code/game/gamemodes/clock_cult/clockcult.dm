@@ -77,6 +77,7 @@ GLOBAL_VAR(clockcult_eminence)
 	//Create team
 	for(var/datum/mind/servant_mind in selected_servants)
 		servant_mind.current.forceMove(pick_n_take(spawns))
+		servant_mind.current.set_species(/datum/species/human)
 		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
