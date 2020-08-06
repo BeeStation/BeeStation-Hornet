@@ -8,8 +8,9 @@
 	var/clockwork_desc = "A fabled artifact from beyond the stars. Contains concentrated meme essence." //Shown to clockwork cultists instead of the normal description
 
 /obj/item/clockwork/examine(mob/user)
-	if(is_servant_of_ratvar(user))
-		. = clockwork_desc
-	else
-		. = desc
-	. += "[gender == PLURAL ? "They are" : "It is"] a [weightclass2text(w_class)] item."
+	. = list("[get_examine_string(user, TRUE)].")
+
+	if(is_servant_of_ratvar(user) && clockwork_desc)
+		. += clockwork_desc
+	else if(desc)
+		. += desc

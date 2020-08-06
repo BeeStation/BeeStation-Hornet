@@ -207,7 +207,7 @@ GLOBAL_VAR(clockcult_eminence)
 		hierophant_message += "</span>"
 	for(var/datum/mind/mind in GLOB.servants_of_ratvar)
 		var/mob/M = mind.current
-		if((isliving(M) && !is_servant_of_ratvar(M)) || isnewplayer(M))
+		if(!isliving(M) || QDELETED(M))
 			continue
 		if(M.reagents)
 			if(M.reagents.has_reagent(/datum/reagent/water/holywater, 1))

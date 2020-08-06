@@ -19,10 +19,12 @@
 	var/datum/mind/owner = null	//The person who placed this structure
 
 /obj/structure/destructible/clockwork/examine(mob/user)
-	if(!is_servant_of_ratvar(user))
-		. = ..()
-	else
-		. = clockwork_desc
+	. = list("[get_examine_string(user, TRUE)].")
+
+	if(is_servant_of_ratvar(user) && clockwork_desc)
+		. += clockwork_desc
+	else if(desc)
+		. += desc
 
 /obj/structure/destructible/clockwork/attacked_by(obj/item/I, mob/living/user)
 	if(immune_to_servant_attacks && is_servant_of_ratvar(user))
