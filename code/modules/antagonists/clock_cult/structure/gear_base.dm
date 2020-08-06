@@ -17,6 +17,11 @@
 	for(var/obj/structure/destructible/clockwork/sigil/transmission/ST in range(src, SIGIL_TRANSMISSION_RANGE))
 		link_to_sigil(ST)
 
+/obj/structure/destructible/clockwork/gear_base/Destroy()
+	. = ..()
+	for(var/obj/structure/destructible/clockwork/sigil/transmission/ST in transmission_sigils)
+		ST.linked_structures -= src
+
 /obj/structure/destructible/clockwork/gear_base/wrench_act(mob/living/user, obj/item/I)
 	if(do_after(user, 40, target=src))
 		anchored = !anchored
