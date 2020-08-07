@@ -429,15 +429,16 @@
 				maroon_objective.find_target()
 			objectives += maroon_objective
 			log_objective(owner, maroon_objective.explanation_text)
-
+			
 			if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 				var/datum/objective/escape/escape_with_identity/identity_theft = new
 				identity_theft.owner = owner
 				identity_theft.target = maroon_objective.target
 				identity_theft.update_explanation_text()
-				objectives += identity_theft
-				log_objective(owner, identity_theft.explanation_text)
-				escape_objective_possible = FALSE
+				if(identity_theft.is_valid_target(target))
+					objectives += identity_theft
+					log_objective(owner, identity_theft.explanation_text)
+					escape_objective_possible = FALSE
 
 	if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 		if(prob(50))
