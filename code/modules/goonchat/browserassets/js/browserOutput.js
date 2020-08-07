@@ -747,7 +747,13 @@ $(function() {
 		internalOutput('<span class="internal boldnshit">Loaded line height setting of: '+savedConfig.slineHeight+'</span>', 'internal');
 	}
 	if(savedConfig.sdarkmode == 'false'){
+		//Darkmode default is true, so swap it to false and update
 		swap();
+	}
+	else{
+		//Default window layout is lightmode, so load darkmode up
+		document.getElementById("sheetofstyles").href = "browserOutput.css";
+		runByond('?_src_=chat&proc=swaptodarkmode');
 	}
 	if (savedConfig.spingDisabled) {
 		if (savedConfig.spingDisabled == 'true') {
