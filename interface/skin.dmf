@@ -59,6 +59,7 @@ window "mainwindow"
 		icon = 'icons\\ss13_64.png'
 		macro = "default"
 		menu = "menu"
+		background-color = #ffff00
 	elem "split"
 		type = CHILD
 		pos = 3,0

@@ -10,7 +10,7 @@ html, body {
 	color: #a4bad6;
 }
 body {
-	background: #171717;
+	background: #17181C;
     font-family: Verdana, sans-serif;
     font-size: 9pt;
 	font-color: #a4bad6;
@@ -18,9 +18,9 @@ body {
 	overflow-x: hidden;
 	overflow-y: scroll;
 	word-wrap: break-word;
-	scrollbar-face-color:#1A1A1A;
-	scrollbar-track-color:#171717;
-	scrollbar-highlight-color:#171717;
+	scrollbar-face-color:#202022;
+	scrollbar-track-color:#17181C;
+	scrollbar-highlight-color:#17181C;
 }
 
 em {
@@ -99,7 +99,7 @@ a.popt {text-decoration: none;}
     font-weight: bold;
 	color: #a4bad6;
 }
-#newMessages:hover {background: #171717;}
+#newMessages:hover {background: #17181C;}
 #newMessages i {vertical-align: middle; padding-left: 3px;}
 #ping {
 	position: fixed;
@@ -130,7 +130,7 @@ a.popt {text-decoration: none;}
 	color: #a4bad6;
 	text-decoration: none;
     line-height: 28px;
-    border-top: 1px solid #171717;
+    border-top: 1px solid #17181C;
 }
 #userBar .subCell:hover {background: #202020;}
 #userBar .toggle {
@@ -245,8 +245,8 @@ a.popt {text-decoration: none;}
 ******************************************/
 
 /* MOTD */
-.motd {color: #a4bad6;	font-family: Verdana, sans-serif;}
-.motd h1, .motd h2, .motd h3, .motd h4, .motd h5, .motd h6 {color: #a4bad6;	text-decoration: underline;}
+.motd {color: #a4bad6;}
+.motd h1, .motd h2, .motd h3, .motd h4, .motd h5, .motd h6 {color: #a4bad6; text-align: center;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover {color: #a4bad6;}
 
 /* ADD HERE FOR BOLD */
