@@ -435,7 +435,7 @@
 				identity_theft.owner = owner
 				identity_theft.target = maroon_objective.target
 				identity_theft.update_explanation_text()
-				if(identity_theft.is_valid_target(target))
+				if(identity_theft.is_valid_target(identity_theft.target))
 					objectives += identity_theft
 					log_objective(owner, identity_theft.explanation_text)
 					escape_objective_possible = FALSE
@@ -453,8 +453,14 @@
 				identity_theft.find_target_by_role(role = ROLE_CHANGELING, role_type = TRUE, invert = TRUE)
 			else
 				identity_theft.find_target()
-			objectives += identity_theft
-			log_objective(owner, identity_theft.explanation_text)
+			if(identity_theft.is_valid_target(identity_theft.target))
+				objectives += identity_theft
+				log_objective(owner, identity_theft.explanation_text)
+			else
+				var/datum/objective/escape/escape_objective = new
+				escape_objective.owner = owner
+				objectives += escape_objective
+				log_objective(owner, escape_objective.explanation_text)
 		escape_objective_possible = FALSE
 
 /datum/antagonist/changeling/proc/update_changeling_icons_added()
