@@ -384,7 +384,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 //Admin Preferences
 /client/proc/toggleadminhelpsound()
 	set name = "Hear/Silence Adminhelps"
-	set category = "Prefs - Admin"
+	set category = "Preferences"
 	set desc = "Toggle hearing a notification when admin PMs are received"
 	if(!holder)
 		return
@@ -395,7 +395,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/toggleannouncelogin()
 	set name = "Do/Don't Announce Login"
-	set category = "Prefs - Admin"
+	set category = "Preferences"
 	set desc = "Toggle if you want an announcement to admins when you login during a round"
 	if(!holder)
 		return
@@ -406,7 +406,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/toggle_hear_radio()
 	set name = "Show/Hide Radio Chatter"
-	set category = "Prefs - Admin"
+	set category = "Preferences"
 	set desc = "Toggle seeing radiochatter from nearby radios and speakers"
 	if(!holder)
 		return
@@ -417,7 +417,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/deadchat()
 	set name = "Show/Hide Deadchat"
-	set category = "Prefs - Admin"
+	set category = "Preferences"
 	set desc ="Toggles seeing deadchat"
 	if(!holder)
 		return
@@ -428,7 +428,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/toggleprayers()
 	set name = "Show/Hide Prayers"
-	set category = "Prefs - Admin"
+	set category = "Preferences"
 	set desc = "Toggles seeing prayers"
 	if(!holder)
 		return
@@ -439,7 +439,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/toggle_prayer_sound()
 	set name = "Hear/Silence Prayer Sounds"
-	set category = "Prefs - Admin"
+	set category = "Preferences"
 	set desc = "Hear Prayer Sounds"
 	if(!holder)
 		return
@@ -450,7 +450,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/colorasay()
 	set name = "Set Admin Say Color"
-	set category = "Prefs - Admin"
+	set category = "Preferences"
 	set desc = "Set the color of your ASAY messages"
 	if(!holder)
 		return
@@ -467,7 +467,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 /client/proc/resetasaycolor()
 	set name = "Reset your Admin Say Color"
 	set desc = "Returns your ASAY Color to default"
-	set category = "Prefs - Admin"
+	set category = "Preferences"
 	if(!holder)
 		return
 	if(!CONFIG_GET(flag/allow_admin_asaycolor))
