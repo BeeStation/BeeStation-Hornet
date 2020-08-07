@@ -35,12 +35,10 @@
 /obj/item/projectile/bullet/hos/hv
 	name = "3D printed .454 HV round"
 	speed = 0.2
-	armour_penetration = 60
+	armour_penetration = 10
 
-/obj/item/projectile/bullet/hos/heavy
-	name = "3D printed .454 heavy round"
-	damage = 30
-	knockdown = 50
+/obj/item/projectile/bullet/c38/trac/hos
+	name = "3D printed .454 TRAC"
 
 /obj/item/projectile/bullet/pellet/hos
 	name = "3D printed plastic pellet"

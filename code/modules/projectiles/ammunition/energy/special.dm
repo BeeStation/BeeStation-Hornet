@@ -77,14 +77,14 @@
 
 /obj/item/ammo_casing/energy/hos/hv
 	fire_sound = 'sound/weapons/rifleshot.ogg'
-	e_cost = 120
+	e_cost = 150
 	select_name = ".454HV"
 	projectile_type = /obj/item/projectile/bullet/hos/hv
 
-/obj/item/ammo_casing/energy/hos/heavy
-	e_cost = 200
-	select_name = ".454HI"
-	projectile_type = /obj/item/projectile/bullet/hos/heavy
+/obj/item/ammo_casing/energy/hos/trac
+	e_cost = 400
+	select_name = ".454TRAC"
+	projectile_type = /obj/item/projectile/bullet/c38/trac/hos
 
 /obj/item/ammo_casing/energy/hos/light
 	fire_sound = 'sound/weapons/gunshot.ogg'
