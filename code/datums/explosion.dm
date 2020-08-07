@@ -170,7 +170,10 @@ GLOBAL_LIST_EMPTY(explosions)
 	var/expBlockLen = cached_exp_block.len
 	for(var/TI in affected_turfs)
 		var/turf/T = TI
+		var/area/area = T.loc
 		++iteration
+		if(istype(area, /area/shuttle/arrival))
+			continue
 		var/init_dist = cheap_hypotenuse(T.x, T.y, x0, y0)
 		var/dist = init_dist
 

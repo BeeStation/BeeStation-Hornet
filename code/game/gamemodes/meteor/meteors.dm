@@ -110,6 +110,10 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 
 	if(.)//.. if did move, ram the turf we get in
 		var/turf/T = get_turf(loc)
+		var/area/A = T.loc
+		//Phase through the arrival shuttle
+		if(istype(A, /area/shuttle/arrival))
+			return
 		ram_turf(T)
 
 		if(prob(10) && !isspaceturf(T))//randomly takes a 'hit' from ramming
@@ -133,8 +137,12 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	chase_target(target)
 
 /obj/effect/meteor/Bump(atom/A)
+	var/turf/T = get_turf(A)
+	var/area/area = T.loc
+	if(istype(area, /area/shuttle/arrival))
+		return
 	if(A)
-		ram_turf(get_turf(A))
+		ram_turf(T)
 		playsound(src.loc, meteorsound, 40, 1)
 		get_hit()
 

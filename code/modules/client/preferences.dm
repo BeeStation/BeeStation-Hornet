@@ -107,7 +107,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	///What size should pixels be displayed as? 0 is strech to fit
 	var/pixel_size = 0
 	///What scaling method should we use?
-	var/scaling_method = "normal"
+	var/scaling_method = SCALING_METHOD_NORMAL
 	var/uplink_spawn_loc = UPLINK_PDA
 
 	var/list/exp = list()
