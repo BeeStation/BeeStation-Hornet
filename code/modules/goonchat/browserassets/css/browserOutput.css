@@ -10,7 +10,7 @@ html, body {
 	color: #a4bad6;
 }
 body {
-	background: #17181C;
+	background: #0F1018;
     font-family: Verdana, sans-serif;
     font-size: 9pt;
 	font-color: #a4bad6;
@@ -19,8 +19,8 @@ body {
 	overflow-y: scroll;
 	word-wrap: break-word;
 	scrollbar-face-color:#202022;
-	scrollbar-track-color:#17181C;
-	scrollbar-highlight-color:#17181C;
+	scrollbar-track-color:#0F1018;
+	scrollbar-highlight-color:#0F1018;
 }
 
 em {
@@ -51,7 +51,7 @@ img.icon {
 	font-size: 0.7em;
 	padding: 0.2em 0.3em;
 	line-height: 1;
-	color: white;
+	color: rgb(255, 255, 255);
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: middle;
@@ -99,7 +99,7 @@ a.popt {text-decoration: none;}
     font-weight: bold;
 	color: #a4bad6;
 }
-#newMessages:hover {background: #17181C;}
+#newMessages:hover {background: #0F1018;}
 #newMessages i {vertical-align: middle; padding-left: 3px;}
 #ping {
 	position: fixed;
@@ -130,7 +130,7 @@ a.popt {text-decoration: none;}
 	color: #a4bad6;
 	text-decoration: none;
     line-height: 28px;
-    border-top: 1px solid #17181C;
+    border-top: 1px solid #0F1018;
 }
 #userBar .subCell:hover {background: #202020;}
 #userBar .toggle {
