@@ -715,13 +715,14 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/target_key = href_list["addnote"]
-		create_message("note", target_key)
+		usr.client.holder.watchnote_panel(target_key)
+
 
 	else if(href_list["addwatch"])
 		if(!check_rights(R_ADMIN))
 			return
 		var/target_key = href_list["addwatch"]
-		create_message("watchlist entry", target_key, secret = 1)
+		usr.client.holder.watchnote_panel(target_key, "watchlist entry", 0, null, usr.client.ckey, TRUE)
 
 	else if(href_list["addmemo"])
 		if(!check_rights(R_ADMIN))
@@ -836,6 +837,7 @@
 		var/agegate = TRUE
 		if (href_list["showall"])
 			agegate = FALSE
+
 		browse_messages(target_ckey = target, agegate = agegate)
 
 	else if(href_list["showmessageckeylinkless"])
@@ -2024,7 +2026,7 @@
 						dat += sanitize(jobs.Join(", "))
 						dat += "<br>"
 					dat += "<hr>"
-					
+
 		var/datum/browser/popup = new(usr, "centcomlookup-[ckey]", "<div align='center'>Central Command Galactic Ban Database</div>", 700, 600)
 		popup.set_content(dat.Join())
 		popup.open(FALSE)

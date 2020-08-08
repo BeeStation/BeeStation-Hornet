@@ -218,6 +218,7 @@ GLOBAL_PROTECT(exp_to_update)
 
 	if(isliving(mob))
 		if(mob.stat != DEAD)
+			GLOB.playtime_tracking[ckey] += minutes
 			var/rolefound = FALSE
 			play_records[EXP_TYPE_LIVING] += minutes
 
@@ -297,3 +298,66 @@ GLOBAL_PROTECT(exp_to_update)
 		prefs.db_flags = 0	//This PROBABLY won't happen, but better safe than sorry.
 	qdel(flags_read)
 	return TRUE
+
+/proc/get_playerqualitypoints(var/ckey)
+	if(!ckey || IsAdminAdvancedProcCall())
+		return
+	var/datum/DBQuery/query_get_pqp = SSdbcore.NewQuery(
+		"SELECT playerqualitypoints FROM [format_table_name("player")] WHERE ckey = :ckey",
+		list("ckey" = ckey)
+	)
+	var/pqp = 0
+	if(query_get_pqp.warn_execute())
+		if(query_get_pqp.NextRow())
+			pqp = query_get_pqp.item[1]
+
+	qdel(query_get_pqp)
+	return text2num(pqp)
+
+/proc/set_playerqualitypoints(var/ckey, var/pqp)
+	if(!ckey || !isnum_safe(pqp) || IsAdminAdvancedProcCall())
+		return
+
+	pqp = CLAMP(-99, pqp, 99)
+	pqp = round(pqp, 0.01)
+
+	var/datum/DBQuery/query_set_pqp = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("player")] SET playerqualitypoints = :pqp WHERE ckey = :ckey",
+		list("pqp" = pqp, "ckey" = ckey)
+	)
+	query_set_pqp.warn_execute()
+	qdel(query_set_pqp)
+
+/client/proc/process_endround_playerqualitypoints()
+	if(!CONFIG_GET(flag/pqp_tracking))
+		return
+	if(GLOB.naughty_ckeys[ckey])
+		return
+
+	var/exp_total = get_exp_living(FALSE)
+	var/exp_round = GLOB.playtime_tracking[ckey]
+
+	var/current_pqp = get_playerqualitypoints(ckey)
+
+	var/pqp_per_hour
+
+	if(current_pqp < 0)
+		if(exp_total < 3000) //<50 hours
+			pqp_per_hour = CONFIG_GET(number/pqp_naughty_noob)
+		else if(exp_total < 7200) //50-120 hours
+			pqp_per_hour = CONFIG_GET(number/pqp_naughty_experienced)
+		else //120 hours or more
+			pqp_per_hour = CONFIG_GET(number/pqp_naughty_nolife)
+	else
+		if(exp_total < 600) //<10 hours
+			pqp_per_hour = CONFIG_GET(number/pqp_nice_noob)
+		else //10 hours or more
+			pqp_per_hour = CONFIG_GET(number/pqp_nice_experienced)
+
+	var/new_pqp = current_pqp + (exp_round * (pqp_per_hour / 60))
+	if(current_pqp < 0)
+		new_pqp = min(new_pqp, 0)
+	else
+		new_pqp = min(new_pqp, CONFIG_GET(number/pqp_max_points))
+
+	set_playerqualitypoints(ckey, new_pqp)

@@ -193,23 +193,6 @@
 			<input type='radio' id='role' name='radioban' value='role'[role == "Server" ? "" : " checked"][edit_id ? " disabled" : ""]>
 			<div class='inputbox'></div></label>
 		</div>
-		<div class='column middle'>
-			Severity
-			<br>
-			<label class='inputlabel radio'>None
-			<input type='radio' id='none' name='radioseverity' value='none'[edit_id ? " disabled" : ""]>
-			<div class='inputbox'></div></label>
-			<label class='inputlabel radio'>Medium
-			<input type='radio' id='medium' name='radioseverity' value='medium'[edit_id ? " disabled" : ""]>
-			<div class='inputbox'></div></label>
-			<br>
-			<label class='inputlabel radio'>Minor
-			<input type='radio' id='minor' name='radioseverity' value='minor'[edit_id ? " disabled" : ""]>
-			<div class='inputbox'></div></label>
-			<label class='inputlabel radio'>High
-			<input type='radio' id='high' name='radioseverity' value='high'[edit_id ? " disabled" : ""]>
-			<div class='inputbox'></div></label>
-		</div>
 		<div class='column right'>
 			Location
 			<br>
@@ -360,7 +343,7 @@
 	var/global_ban = FALSE
 	var/duration
 	var/interval
-	var/severity
+	var/pqp_change = 0
 	var/reason
 	var/mirror_edit
 	var/edit_id
@@ -445,9 +428,9 @@
 		if(!changes.len)
 			error_state += "No changes were detected."
 	else
-		severity = href_list["radioseverity"]
-		if(!severity)
-			error_state += "No severity was selected."
+		if(href_list["pqp_change"])
+			pqp_change = text2num(href_list["pqp_change"])
+
 		switch(href_list["radioban"])
 			if("server")
 				roles_to_ban += "Server"
@@ -468,9 +451,14 @@
 	if(edit_id)
 		edit_ban(edit_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, mirror_edit, old_key, old_ip, old_cid, old_applies, old_globalban, page, admin_key, changes)
 	else
-		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, roles_to_ban)
+		if(pqp_change != 0 && isnum_safe(pqp_change))
+			var/current_pqp = get_playerqualitypoints(player_key)
+			if(isnum_safe(current_pqp))
+				set_playerqualitypoints(player_key, current_pqp + pqp_change)
 
-/datum/admins/proc/create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, list/roles_to_ban)
+		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, roles_to_ban)
+
+/datum/admins/proc/create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, list/roles_to_ban)
 	if(!check_rights(R_BAN))
 		return
 	if(!SSdbcore.Connect())
@@ -581,7 +569,7 @@
 	if(applies_to_admins)
 		send2irc("BAN ALERT","[kn] [msg]")
 	if(player_ckey)
-		create_message("note", player_ckey, admin_ckey, note_reason, null, null, 0, 0, null, 0, severity)
+		create_message("note", player_ckey, admin_ckey, note_reason, null, null, 0, 0, null, 0)
 	var/client/C = GLOB.directory[player_ckey]
 	var/datum/admin_help/AH = admin_ticket_log(player_ckey, msg)
 	var/appeal_url = "No ban appeal url set!"
@@ -605,7 +593,7 @@
 			if(roles_to_ban[1] == "Server" && (!is_admin || (is_admin && applies_to_admins)))
 				qdel(i)
 
-/datum/admins/proc/unban_panel(player_key, admin_key, player_ip, player_cid, page = 0)
+/datum/admins/proc/unban_panel(player_key, admin_key, player_ip, player_cid, pqp_change, page = 0)
 	if(!check_rights(R_BAN))
 		return
 	if(!SSdbcore.Connect())
@@ -620,6 +608,7 @@
 	Admin Key:<input type='text' name='searchunbanadminkey' size='18' value='[admin_key]'>
 	IP:<input type='text' name='searchunbanip' size='12' value='[player_ip]'>
 	CID:<input type='text' name='searchunbancid' size='10' value='[player_cid]'>
+	PQP to add/remove:<input type='text' name='pqp_change' size='5' value='[pqp_change]'>
 	<input type='submit' value='Search'>
 	</form>
 	</div>

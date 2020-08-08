@@ -1,4 +1,4 @@
-/proc/create_message(type, target_key, admin_ckey, text, timestamp, server_name, secret, logged = 1, browse, expiry, note_severity)
+/proc/create_message(type, target_key, admin_ckey, text, timestamp, server_name, secret, logged = 1, browse, expiry)
 	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
@@ -73,10 +73,6 @@
 					return
 				expiry = query_validate_expire_time.item[1]
 			qdel(query_validate_expire_time)
-	if(type == "note" && isnull(note_severity))
-		note_severity = input("Set the severity of the note.", "Severity", null, null) as null|anything in list("High", "Medium", "Minor", "None")
-		if(!note_severity)
-			return
 	var/datum/DBQuery/query_create_message = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("messages")] (type, targetckey, adminckey, text, timestamp, server_name, server_ip, server_port, round_id, secret, expire_timestamp, severity)
 		VALUES (:type, :target_ckey, :admin_ckey, :text, :timestamp, :server_name, INET_ATON(:internet_address), :port, :round_id, :secret, :expiry, :note_severity)
@@ -92,7 +88,7 @@
 		"round_id" = GLOB.round_id,
 		"secret" = secret,
 		"expiry" = expiry,
-		"note_severity" = note_severity,
+		"note_severity" = "null",
 	))
 	var/pm = "[key_name(usr)] has created a [type][(type == "note" || type == "message" || type == "watchlist entry") ? " for [target_key]" : ""]: [text]"
 	var/header = "[key_name_admin(usr)] has created a [type][(type == "note" || type == "message" || type == "watchlist entry") ? " for [target_key]" : ""]"
@@ -720,3 +716,143 @@ this proc can take several minutes to execute fully if converting and cause DD t
 	fdel(NOTESFILE)
 	to_chat(world, "Finished mass note conversion, remember to turn off AUTOCONVERT_NOTES")*/
 #undef NOTESFILE
+
+/datum/admins/proc/watchnote_panel(player_key, type = "note", pqp_change = 0, message, admin_key, secret = 0)
+	var/panel_width = 400
+	var/panel_height = 500
+
+	var/current_pqp = get_playerqualitypoints(player_key)
+
+	var/pqp_status
+	if (!isnum_safe(current_pqp))
+		pqp_status = "Disabled"
+	else if(current_pqp >= CONFIG_GET(number/pqp_good_boy))
+		pqp_status = "Good"
+	else if (current_pqp <= CONFIG_GET(number/pqp_recommend_ban))
+		pqp_status = "Ban-worthy"
+	else
+		pqp_status = "Normal"
+
+	var/datum/browser/panel = new(usr, "watchnotepanel", "Note/Watchlist Panel", panel_width, panel_height)
+	panel.add_stylesheet("admin_panelscss", 'html/admin/admin_panels.css')
+	panel.add_stylesheet("banpanelcss", 'html/admin/banpanel.css')
+	if(usr.client.prefs.tgui_fancy) //some browsers (IE8) have trouble with unsupported css3 elements and DOM methods that break the panel's functionality, so we won't load those if a user is in no frills tgui mode since that's for similar compatability support
+		panel.add_stylesheet("admin_panelscss3", 'html/admin/admin_panels_css3.css')
+		panel.add_script("banpaneljs", 'html/admin/banpanel.js')
+	var/list/output = list("<form method='get' action='?src=[REF(src)]'>[HrefTokenFormField()]")
+	output += {"<input type='hidden' name='src' value='[REF(src)]'>
+	<input type='hidden' id='player_key' name='player_key' value='[player_key]'>
+	<b>Ckey:</b> [player_key]
+	<br>
+	<b>PQP Status: </b> [html_encode(pqp_status)]
+	<br>
+	<b>Current PQP:</b> [current_pqp]
+	<br><br>
+
+	<input type='submit' value='Submit'>
+	<br><br>
+	<div class='row'>
+		<div class='column left'>
+			<b>Type</b>
+			<br>
+			<label class='inputlabel radio'>Watchlist
+			<input type='radio' id='watchlist entry' name='radiowatchnote' value='watchlist entry'[type != "note" ? " checked" : ""]>
+			<div class='inputbox'></div></label>
+			<br>
+			<label class='inputlabel radio'>Note
+			<input type='radio' id='note' name='radiowatchnote' value='note'[type == "note" ? " checked" : ""]>
+			<div class='inputbox'></div></label>
+		</div>
+		<div class='column left'>
+			<b>Player Visibility</b>
+			<br>
+			<label class='inputlabel radio'>Visible
+			<input type='radio' id='visibility' name='radiovisibility' value='visible'[secret == 0 ? " checked" : ""]>
+			<div class='inputbox'></div></label>
+			<br>
+			<label class='inputlabel radio'>Hidden
+			<input type='radio' id='visibility' name='radiovisibility' value='hidden'[secret == 1 ? " checked" : ""]>
+			<div class='inputbox'></div></label>
+		</div>
+		<div class='column left'>
+			<b>PQP to add/subtract: </b>
+			<div class='inputbox'></div></label>
+			<input type='text' name='pqp_change' size='7' value='[pqp_change]'>
+			</div>
+		</div>
+
+	</div>
+	<div class='row'>
+			Message
+			<br>
+			<textarea class='reason' name='message'>[message]</textarea>
+	</div>
+	"}
+	output += "</form>"
+	panel.set_content(jointext(output, ""))
+	panel.open()
+
+/datum/admins/proc/watchnote_parse_href(list/href_list)
+	if(!check_rights(R_ADMIN))
+		return
+	if(!SSdbcore.Connect())
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		return
+	var/list/error_state = list()
+
+	var/player_key
+	var/type
+	var/hidden
+	var/message
+	var/pqp_change = 0
+	var/admin_key = href_list["adminkey"]
+
+	player_key = href_list["keytext"]
+
+	if(!player_key)
+		error_state += "No ckey detected."
+
+	type = href_list["radiowatchnote"]
+	if(type != "note" && type != "watchlist entry")
+		error_state += "Invalid type."
+
+	switch(href_list["radiovisibility"])
+		if("visible")
+			hidden = FALSE
+		if("hidden")
+			hidden = TRUE
+		else
+			error_state += "No visibility option was selected."
+
+	if(href_list["pqp_change"])
+		pqp_change = text2num(href_list["pqp_change"])
+	if(!isnum_safe(pqp_change))
+		pqp_change = 0
+
+	if(pqp_change != 0 && hidden)
+		var/choice = alert("You cannot make a hidden note/watchlist affect PQP.", "Invalid Note", "Make Visible", "Discard PQP Change", "Cancel")
+		if(choice == "Make Visible")
+			hidden = FALSE
+		else if(choice == "Cancel")
+			return
+		else
+			pqp_change = 0
+
+	message = href_list["message"]
+	if(!message)
+		error_state += "No reason was provided."
+	else
+		message = "[message][pqp_change != 0 ? "PQP Change: [pqp_change]" : ""]"
+
+	if(error_state.len)
+		to_chat(usr, "<span class='danger'>[type == "note" ? "Note" : "Watchlist"] not created because the following errors were present:\n[error_state.Join("\n")]</span>")
+		return
+	else
+		if(pqp_change != 0)
+			if(pqp_change < 0)
+				GLOB.naughty_ckeys += "[player_key]"
+			var/current_pqp = get_playerqualitypoints(player_key)
+			if(isnum_safe(current_pqp))
+				set_playerqualitypoints(player_key, current_pqp + pqp_change)
+
+		create_message(type, player_key, admin_key, message, null, null, hidden)

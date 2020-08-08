@@ -44,6 +44,19 @@
 			body += "<a href='?_src_=holder;[HrefToken()];centcomlookup=[M.client.ckey]'>Search</a>"
 		else
 			body += "<i>Disabled</i>"
+		body += "<br><br><b>Player Quality Points: </b> "
+		if(CONFIG_GET(flag/pqp_tracking))
+			var/pqp = get_playerqualitypoints(M.client.ckey)
+			body += "[pqp]"
+			body +="<br><b>PQP Status: </b> "
+			if(pqp >= CONFIG_GET(number/pqp_good_boy))
+				body += "Good"
+			else if (pqp <= CONFIG_GET(number/pqp_recommend_ban))
+				body += "Ban-worthy"
+			else
+				body += "Normal"
+		else
+			body += "<i>Disabled</i>"
 		body += "<br><br><b>Show related accounts by:</b> "
 		body += "<a href='?_src_=holder;[HrefToken()];showrelatedacc=cid;client=[REF(M.client)]'>CID</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];showrelatedacc=ip;client=[REF(M.client)]'>IP</a>"

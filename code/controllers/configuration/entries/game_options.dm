@@ -437,3 +437,37 @@
 	config_entry_value = 250
 
 /datum/config_entry/flag/restricted_suicide
+
+/* Player Quality Points */
+
+/datum/config_entry/flag/pqp_tracking
+
+/datum/config_entry/number/pqp_max_points
+	config_entry_value = 20
+	min_val = 0
+
+/datum/config_entry/number/pqp_recommend_ban
+	config_entry_value = -10
+
+/datum/config_entry/number/pqp_good_boy
+	config_entry_value = 5
+
+/datum/config_entry/number/pqp_naughty_noob
+	config_entry_value = 0.5
+	min_val = 0
+
+/datum/config_entry/number/pqp_naughty_experienced
+	config_entry_value = 0.35
+	min_val = 0
+
+/datum/config_entry/number/pqp_naughty_nolife
+	config_entry_value = 0.25
+	min_val = 0
+
+/datum/config_entry/number/pqp_nice_noob
+	config_entry_value = 0.1
+	min_val = 0
+
+/datum/config_entry/number/pqp_nice_experienced
+	config_entry_value = 0.05
+	min_val = 0

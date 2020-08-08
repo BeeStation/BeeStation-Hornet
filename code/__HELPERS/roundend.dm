@@ -195,6 +195,8 @@
 
 			C.playtitlemusic(40)
 			C.process_endround_metacoin()
+			if(CONFIG_GET(flag/pqp_tracking))
+				C.process_endround_playerqualitypoints()
 
 			if(CONFIG_GET(flag/allow_crew_objectives))
 				var/mob/M = C.mob
