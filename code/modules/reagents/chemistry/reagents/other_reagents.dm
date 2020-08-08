@@ -413,7 +413,7 @@
 	var/datum/species/race = /datum/species/human
 	var/mutationtext = "<span class='danger'>The pain subsides. You feel... human.</span>"
 	process_flags = ORGANIC | SYNTHETIC
-	can_synth = FALSE
+	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/on_mob_life(mob/living/carbon/human/H)
 	..()
@@ -470,6 +470,7 @@
 	race = /datum/species/human/felinid
 	mutationtext = "<span class='danger'>The pain subsides. You feel... like a degenerate.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/lizard
 	name = "Lizard Mutation Toxin"
@@ -478,6 +479,7 @@
 	race = /datum/species/lizard
 	mutationtext = "<span class='danger'>The pain subsides. You feel... scaly.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/fly
 	name = "Fly Mutation Toxin"
@@ -486,6 +488,7 @@
 	race = /datum/species/fly
 	mutationtext = "<span class='danger'>The pain subsides. You feel... buzzy.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/moth
 	name = "Moth Mutation Toxin"
@@ -494,6 +497,7 @@
 	race = /datum/species/moth
 	mutationtext = "<span class='danger'>The pain subsides. You feel... attracted to light.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/pod
 	name = "Podperson Mutation Toxin"
@@ -511,6 +515,7 @@
 	race = /datum/species/jelly
 	mutationtext = "<span class='danger'>The pain subsides. You feel... wobbly.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/golem
 	name = "Golem Mutation Toxin"
@@ -519,6 +524,7 @@
 	race = /datum/species/golem/random
 	mutationtext = "<span class='danger'>The pain subsides. You feel... rocky.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/abductor
 	name = "Abductor Mutation Toxin"
@@ -527,6 +533,7 @@
 	race = /datum/species/abductor
 	mutationtext = "<span class='danger'>The pain subsides. You feel... alien.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/android
 	name = "Android Mutation Toxin"
@@ -535,6 +542,7 @@
 	race = /datum/species/android
 	mutationtext = "<span class='danger'>The pain subsides. You feel... artificial.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/ipc
 	name = "IPC Mutation Toxin"
@@ -543,6 +551,7 @@
 	race = /datum/species/ipc
 	mutationtext = "<span class='danger'>The pain subsides. You feel... artificial.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/squid
 	name = "Squid Mutation Toxin"
@@ -551,6 +560,7 @@
 	race = /datum/species/squid
 	mutationtext = "<span class='danger'>The pain subsides. You feel... salty.</span>"
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = TRUE
 
 //BLACKLISTED RACES
 /datum/reagent/mutationtoxin/skeleton
