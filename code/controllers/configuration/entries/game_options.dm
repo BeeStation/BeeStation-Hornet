@@ -471,3 +471,27 @@
 /datum/config_entry/number/pqp_nice_experienced
 	config_entry_value = 0.05
 	min_val = 0
+
+/datum/config_entry/number/pqp_low_threshold
+	config_entry_value = -10
+
+/datum/config_entry/string/pqp_low_action
+	config_entry_value = "One day ban, 3 day roleban if applicable."
+
+/datum/config_entry/number/pqp_med_threshold
+	config_entry_value = -15
+
+/datum/config_entry/string/pqp_med_action
+	config_entry_value = "Two/Three day ban, 1 week roleban if applicable."
+
+/datum/config_entry/number/pqp_high_threshold
+	config_entry_value = -20
+
+/datum/config_entry/string/pqp_high_action
+	config_entry_value = "Ban for (points/3) days and/or (points) days roleban if applicable. If staff, flag for removal."
+
+/datum/config_entry/number/pqp_severe_threshold
+	config_entry_value = -40
+
+/datum/config_entry/string/pqp_severe_action
+	config_entry_value = "Ban for one month, with final warning. If final warning exists, perma until vouch. Perma roleban from important roles if applicable."

@@ -560,3 +560,16 @@ PQP_NAUGHTY_NOLIFE 0.25
 PQP_NICE_NOOB 0.1
 ## "Experienced" player point value. For every hour of living playtime above 10 hours total, they receive this many points.
 PQP_NICE_EXPERIENCED 0.05
+### Recommended actions based on point thresholds
+## Low
+PQP_LOW_THRESHOLD -10
+PQP_LOW_ACTION One day ban, 3 day roleban if applicable.
+## Med
+PQP_MED_THRESHOLD -15
+PQP_MED_ACTION Two/Three day ban, 1 week roleban if applicable.
+## High
+PQP_HIGH_THRESHOLD -20
+PQP_HIGH_ACTION Ban for (points/3) days and/or (points) days roleban if applicable. If staff, flag for removal.
+## Severe
+PQP_SEVERE_THRESHOLD -40
+PQP_SEVERE_ACTION Ban for one month, with final warning. If final warning exists, perma until vouch. Perma roleban from important roles if applicable.

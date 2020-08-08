@@ -361,3 +361,15 @@ GLOBAL_PROTECT(exp_to_update)
 		new_pqp = min(new_pqp, CONFIG_GET(number/pqp_max_points))
 
 	set_playerqualitypoints(ckey, new_pqp)
+
+/proc/playerqualitypoints_action(var/pqp)
+	if(!isnum_safe(pqp))
+		return
+	if(pqp < CONFIG_GET(number/pqp_severe_threshold))
+		return CONFIG_GET(string/pqp_severe_action)
+	if(pqp < CONFIG_GET(number/pqp_high_threshold))
+		return CONFIG_GET(string/pqp_high_action)
+	if(pqp < CONFIG_GET(number/pqp_med_threshold))
+		return CONFIG_GET(string/pqp_med_action)
+	if(pqp < CONFIG_GET(number/pqp_low_threshold))
+		return CONFIG_GET(string/pqp_low_action)
