@@ -2133,6 +2133,9 @@
 		else
 			ban_parse_href(href_list, TRUE)
 
+	else if(href_list["radiowatchnote"])
+		watchnote_parse_href(href_list)
+
 	else if(href_list["searchunbankey"] || href_list["searchunbanadminkey"] || href_list["searchunbanip"] || href_list["searchunbancid"])
 		var/player_key = href_list["searchunbankey"]
 		var/admin_key = href_list["searchunbanadminkey"]
