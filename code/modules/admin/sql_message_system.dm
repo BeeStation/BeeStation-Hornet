@@ -1,4 +1,4 @@
-/proc/create_message(type, target_key, admin_ckey, text, timestamp, server_name, secret, logged = 1, browse, expiry)
+/proc/create_message(type, target_key, admin_ckey, text, timestamp, server_name, secret, logged = 1, browse, expiry, show_popups = TRUE)
 	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
@@ -53,7 +53,7 @@
 				secret = 0
 			else
 				return
-	if(isnull(expiry))
+	if(isnull(expiry) && show_popups)
 		if(alert(usr, "Set an expiry time? Expired messages are hidden like deleted ones.", "Expiry time?", "Yes", "No", "Cancel") == "Yes")
 			var/expire_time = input("Set expiry time for [type] as format YYYY-MM-DD HH:MM:SS. All times in server time. HH:MM:SS is optional and 24-hour. Must be later than current time for obvious reasons.", "Set expiry time", SQLtime()) as null|text
 			if(!expire_time)
@@ -855,4 +855,4 @@ this proc can take several minutes to execute fully if converting and cause DD t
 			if(isnum_safe(current_pqp))
 				set_playerqualitypoints(player_key, current_pqp + pqp_change)
 
-		create_message(type, player_key, admin_key, message, null, null, hidden)
+		create_message(type, player_key, admin_key, message, null, null, hidden, show_popups = FALSE)
