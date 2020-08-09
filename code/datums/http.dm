@@ -65,7 +65,7 @@
 
 	return R
 
-/datum/http_request/proc/get_request(url, body = "", list/headers)
+/datum/http_request/proc/get_request(url, list/headers)
 	var/datum/http_request/request = new()
 
 	if (!length(headers))
