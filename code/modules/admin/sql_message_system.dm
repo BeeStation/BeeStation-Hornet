@@ -1,4 +1,4 @@
-/proc/create_message(type, target_key, admin_ckey, text, timestamp, server_name, secret, logged = 1, browse, expiry, show_popups = TRUE)
+/proc/create_message(type, target_key, admin_ckey, text, timestamp, server_name, secret, logged = 1, browse, expiry, note_severity, show_popups = TRUE)
 	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
@@ -73,6 +73,7 @@
 					return
 				expiry = query_validate_expire_time.item[1]
 			qdel(query_validate_expire_time)
+
 	var/datum/DBQuery/query_create_message = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("messages")] (type, targetckey, adminckey, text, timestamp, server_name, server_ip, server_port, round_id, secret, expire_timestamp, severity)
 		VALUES (:type, :target_ckey, :admin_ckey, :text, :timestamp, :server_name, INET_ATON(:internet_address), :port, :round_id, :secret, :expiry, :note_severity)
@@ -88,7 +89,7 @@
 		"round_id" = GLOB.round_id,
 		"secret" = secret,
 		"expiry" = expiry,
-		"note_severity" = "null",
+		"note_severity" = note_severity,
 	))
 	var/pm = "[key_name(usr)] has created a [type][(type == "note" || type == "message" || type == "watchlist entry") ? " for [target_key]" : ""]: [text]"
 	var/header = "[key_name_admin(usr)] has created a [type][(type == "note" || type == "message" || type == "watchlist entry") ? " for [target_key]" : ""]"
@@ -854,5 +855,14 @@ this proc can take several minutes to execute fully if converting and cause DD t
 			var/current_pqp = get_playerqualitypoints(player_key)
 			if(isnum_safe(current_pqp))
 				set_playerqualitypoints(player_key, current_pqp + pqp_change)
+		var/note_severity = pqp_severity(pqp_change)
+		create_message(type, player_key, admin_key, message, null, null, hidden, note_severity, show_popups = FALSE)
 
-		create_message(type, player_key, admin_key, message, null, null, hidden, show_popups = FALSE)
+/proc/pqp_severity(var/pqp = 0)
+	if(!isnum_safe(pqp) || pqp >= 0)
+		return "None"
+	if(pqp <= -7)
+		return "High"
+	if(pqp <= 4)
+		return "Medium"
+	return "Low"

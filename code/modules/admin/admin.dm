@@ -57,7 +57,7 @@
 				body += "Normal"
 			var/recommended_action = playerqualitypoints_action(pqp)
 			if(recommended_action)
-				body +="<br><b>PQP Recommended Action: </b> [recommended_action]"
+				body +="<br><b>PQP Recommended Action: </b> <small>[recommended_action]</small>"
 		else
 			body += "<i>Disabled</i>"
 		body += "<br><br><b>Show related accounts by:</b> "

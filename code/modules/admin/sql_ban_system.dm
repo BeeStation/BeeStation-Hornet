@@ -456,9 +456,9 @@
 			if(isnum_safe(current_pqp))
 				set_playerqualitypoints(player_key, current_pqp + pqp_change)
 
-		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, roles_to_ban)
+		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, roles_to_ban, pqp_change)
 
-/datum/admins/proc/create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, list/roles_to_ban)
+/datum/admins/proc/create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, list/roles_to_ban, pqp_change)
 	if(!check_rights(R_BAN))
 		return
 	if(!SSdbcore.Connect())
@@ -569,7 +569,8 @@
 	if(applies_to_admins)
 		send2irc("BAN ALERT","[kn] [msg]")
 	if(player_ckey)
-		create_message("note", player_ckey, admin_ckey, note_reason, null, null, 0, 0, null, 0)
+		var/note_severity = pqp_severity(pqp_change)
+		create_message("note", player_ckey, admin_ckey, note_reason, null, null, 0, 0, null, 0, note_severity)
 	var/client/C = GLOB.directory[player_ckey]
 	var/datum/admin_help/AH = admin_ticket_log(player_ckey, msg)
 	var/appeal_url = "No ban appeal url set!"
