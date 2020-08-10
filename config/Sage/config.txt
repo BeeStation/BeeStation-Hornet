@@ -535,3 +535,38 @@ VOTE_AUTOTRANSFER_ENABLED
 VOTE_AUTOTRANSFER_INITIAL 54000
 ## Time (in deciseconds) between subsequent transfer votes. Default: 30 minutes
 VOTE_AUTOTRANSFER_INTERVAL 18000
+
+#### Player Quality Points Settings
+## Uncomment to enable PQP
+PQP_TRACKING
+## Max possible points
+PQP_MAX_POINTS 20
+## Recommend ban threshold. If PQP is below this, the notes panel will suggest banning the player instead of giving them a note.
+PQP_RECOMMEND_BAN -10
+## Good boy threshold. If PQP is above this, their goodness will be noted in the notes panel and ban panel.
+PQP_GOOD_BOY 5
+### Naughty Players - If a player has a point value < 0, they get this many points.
+## "New" player point value. For every hour of living playtime below 50 hours total, they receive this many points.
+PQP_NAUGHTY_NOOB 0.5
+## "Experienced" player point value. For every hour of living playtime between 50 and 120 hours total.
+PQP_NAUGHTY_EXPERIENCED 0.35
+## "No life" player point value. For every hour of living playtime > 120h.
+PQP_NAUGHTY_NOLIFE 0.25
+### Nice Players - If a player has a point value > 0, they get this many points.
+## "New" player point value. For every hour of living playtime below 10 hours total, they receive this many points.
+PQP_NICE_NOOB 0.1
+## "Experienced" player point value. For every hour of living playtime above 10 hours total, they receive this many points.
+PQP_NICE_EXPERIENCED 0.05
+### Recommended actions based on point thresholds
+## Low
+PQP_LOW_THRESHOLD -10
+PQP_LOW_ACTION One day ban, 3 day roleban if applicable.
+## Med
+PQP_MED_THRESHOLD -15
+PQP_MED_ACTION Two/Three day ban, 1 week roleban if applicable.
+## High
+PQP_HIGH_THRESHOLD -20
+PQP_HIGH_ACTION Ban for (points/3) days and/or (points) days roleban if applicable. If staff, flag for removal.
+## Severe
+PQP_SEVERE_THRESHOLD -40
+PQP_SEVERE_ACTION Ban for one month, with final warning. If final warning exists, perma until vouch. Perma roleban from important roles if applicable.
