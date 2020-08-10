@@ -25,8 +25,7 @@
 	if(stat & NOPOWER)
 		return
 	if(reagents.total_volume >= patch_size)
-		var/obj/item/reagent_containers/pill/patch/P
-		P = new/obj/item/reagent_containers/pill/patch(drop_location())
+		var/obj/item/reagent_containers/pill/patch/P = new(src)
 		reagents.trans_to(P, patch_size)
 		P.name = patch_name
 		stored_patches += P

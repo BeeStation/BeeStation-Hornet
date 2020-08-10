@@ -25,8 +25,7 @@
 	if(stat & NOPOWER)
 		return
 	if(reagents.total_volume >= bottle_size)
-		var/obj/item/reagent_containers/glass/bottle/P
-		P = new/obj/item/reagent_containers/glass/bottle(drop_location())
+		var/obj/item/reagent_containers/glass/bottle/P = new(src)
 		reagents.trans_to(P, bottle_size)
 		P.name = bottle_name
 		stored_bottles += P
