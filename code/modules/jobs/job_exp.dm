@@ -331,12 +331,14 @@ GLOBAL_PROTECT(exp_to_update)
 /client/proc/process_endround_playerqualitypoints()
 	if(!CONFIG_GET(flag/pqp_tracking))
 		return
-	if(GLOB.naughty_ckeys[ckey])
+	if(GLOB.naughty_ckeys["[ckey]"])
 		to_chat(world, "Naughty ckey: [ckey]")
 		return
 
 	var/exp_total = get_exp_living(FALSE)
-	var/exp_round = GLOB.playtime_tracking[ckey]
+	to_chat(world, "[ckey] total time: [exp_total / 60]")
+	var/exp_round = GLOB.playtime_tracking["[ckey]"]
+	to_chat(world, "[ckey] round time: [exp_round]")
 
 	var/current_pqp = get_playerqualitypoints(ckey)
 
