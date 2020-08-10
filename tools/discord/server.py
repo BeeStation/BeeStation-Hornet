@@ -29,6 +29,7 @@ def url2msg(msg):
     "[qmark]": "?",
     "[space]": " ",
     "[quote]": "\"",
+    "[hash]" : "#",
     "@": "(a)", # no @ abuse
     "[nl]": "\n",
     }
