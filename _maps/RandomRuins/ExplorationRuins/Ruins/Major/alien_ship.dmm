@@ -1,0 +1,143 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"f" = (
+/obj/structure/closet/abductor,
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"i" = (
+/obj/structure/closet/abductor,
+/obj/effect/landmark/exploration_loot,
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"n" = (
+/obj/structure/table/abductor,
+/obj/effect/landmark/exploration_loot,
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"o" = (
+/obj/structure/bed/abductor,
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"p" = (
+/obj/item/paper/guides/antag/abductor,
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"q" = (
+/turf/closed/wall/mineral/abductor,
+/area/template_noop)
+"s" = (
+/obj/item/surgical_drapes,
+/obj/item/scalpel/alien,
+/obj/structure/table/abductor,
+/obj/item/cautery/alien,
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"w" = (
+/obj/structure/table/abductor,
+/obj/item/surgicaldrill/alien,
+/obj/item/circular_saw/alien,
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"z" = (
+/turf/template_noop,
+/area/template_noop)
+"A" = (
+/obj/machinery/abductor/experiment{
+	team_number = 2
+	},
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"C" = (
+/obj/structure/table/optable/abductor,
+/obj/effect/mob_spawn/human/corpse/assistant,
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"I" = (
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"K" = (
+/obj/machinery/abductor/gland_dispenser,
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"R" = (
+/obj/effect/landmark/exploration_objective_spawn,
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"S" = (
+/obj/structure/table/abductor,
+/obj/item/storage/box/alienhandcuffs,
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"U" = (
+/obj/machinery/abductor/pad{
+	team_number = 2
+	},
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+"X" = (
+/obj/item/retractor/alien,
+/turf/open/floor/plating/abductor,
+/area/template_noop)
+
+(1,1,1) = {"
+z
+q
+q
+q
+q
+q
+z
+"}
+(2,1,1) = {"
+q
+q
+X
+n
+s
+q
+q
+"}
+(3,1,1) = {"
+q
+A
+I
+I
+p
+K
+q
+"}
+(4,1,1) = {"
+q
+R
+X
+C
+I
+w
+q
+"}
+(5,1,1) = {"
+q
+U
+I
+I
+I
+o
+q
+"}
+(6,1,1) = {"
+q
+q
+i
+S
+f
+q
+q
+"}
+(7,1,1) = {"
+z
+q
+q
+q
+q
+q
+z
+"}

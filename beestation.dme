@@ -1631,6 +1631,8 @@
 #include "code\modules\bluespace_exploration\encounter\mapping\encounter_loadouts.dm"
 #include "code\modules\bluespace_exploration\encounter\mapping\mob_spawners.dm"
 #include "code\modules\bluespace_exploration\factions\_faction.dm"
+#include "code\modules\bluespace_exploration\ruins\landmarks.dm"
+#include "code\modules\bluespace_exploration\ruins\objective.dm"
 #include "code\modules\bluespace_exploration\starmap\bluespace_exploration_starmap_generation.dm"
 #include "code\modules\bluespace_exploration\starmap\star_link.dm"
 #include "code\modules\bluespace_exploration\starmap\star_system.dm"
