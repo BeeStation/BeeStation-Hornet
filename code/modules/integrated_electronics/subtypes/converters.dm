@@ -257,7 +257,7 @@
 	var/hue = get_pin_data(IC_INPUT, 1)
 	var/saturation = get_pin_data(IC_INPUT, 2)
 	var/value = get_pin_data(IC_INPUT, 3)
-	if(isnum(hue)&&isnum(saturation)&&isnum(value))
+	if(isnum_safe(hue)&&isnum_safe(saturation)&&isnum_safe(value))
 		result = HSVtoRGB(hsv(AngleToHue(hue),saturation,value))
 
 	set_pin_data(IC_OUTPUT, 1, result)
@@ -284,7 +284,7 @@
 	var/red = get_pin_data(IC_INPUT, 1)
 	var/green = get_pin_data(IC_INPUT, 2)
 	var/blue = get_pin_data(IC_INPUT, 3)
-	if(isnum(red)&&isnum(green)&&isnum(blue))
+	if(isnum_safe(red)&&isnum_safe(green)&&isnum_safe(blue))
 		result = rgb(red,green,blue)
 
 	set_pin_data(IC_OUTPUT, 1, result)
@@ -319,7 +319,7 @@
 		set_pin_data(IC_OUTPUT, 3, 0)
 	else
 		var/list/RGB = ReadRGB(HSVtoRGB(hsv(hue,sat,val)))
-	
+
 		set_pin_data(IC_OUTPUT, 1, RGB[1])
 		set_pin_data(IC_OUTPUT, 2, RGB[2])
 		set_pin_data(IC_OUTPUT, 3, RGB[3])
@@ -355,7 +355,7 @@
 		set_pin_data(IC_OUTPUT, 3, 0)
 	else
 		var/list/HSV = ReadHSV(RGBtoHSV(rgb(red,blue,green)))
-	
+
 		set_pin_data(IC_OUTPUT, 1, HSV[1])
 		set_pin_data(IC_OUTPUT, 2, HSV[2])
 		set_pin_data(IC_OUTPUT, 3, HSV[3])
@@ -416,7 +416,7 @@
 		set_pin_data(IC_OUTPUT, 3, 0)
 	else
 		var/list/RGB = ReadRGB(rgb)
-	
+
 		set_pin_data(IC_OUTPUT, 1, RGB[1])
 		set_pin_data(IC_OUTPUT, 2, RGB[2])
 		set_pin_data(IC_OUTPUT, 3, RGB[3])

@@ -181,7 +181,7 @@
 
 /datum/gear/uniform/suit/suit_jacket/female
 	display_name = "executive suit (female)"
-	path = /obj/item/clothing/under/suit/black/skirt
+	path = /obj/item/clothing/under/suit/black/female
 
 /datum/gear/uniform/suit/suit_jacket/green
 	display_name = "green suit"

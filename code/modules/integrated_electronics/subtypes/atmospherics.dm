@@ -71,7 +71,7 @@
 	update_target(amt)
 
 /obj/item/integrated_circuit/atmospherics/pump/proc/update_target(new_amount)
-	if(!isnum(new_amount))
+	if(!isnum_safe(new_amount))
 		new_amount = 0
 	// See in which direction the gas moves
 	if(new_amount < 0)
@@ -156,7 +156,7 @@
 	power_draw_per_use = 20
 
 /obj/item/integrated_circuit/atmospherics/pump/volume/update_target(new_amount)
-	if(!isnum(new_amount))
+	if(!isnum_safe(new_amount))
 		new_amount = 0
 	// See in which direction the gas moves
 	if(new_amount < 0)

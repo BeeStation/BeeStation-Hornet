@@ -213,7 +213,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndicate/contract_kit
 	cost = 20
 	player_minimum = 15
-	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/incursion)
 
 /datum/uplink_item/bundles_TC/bundle_A
 	name = "Syndi-kit Tactical"
@@ -249,6 +249,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 40
 	player_minimum = 30
 	starting_crate_value = 125
+	exclude_modes = list(/datum/game_mode/incursion)
 
 /datum/uplink_item/bundles_TC/surplus/purchase(mob/user, datum/component/uplink/U)
 	var/list/uplink_items = get_uplink_items(SSticker && SSticker.mode? SSticker.mode : null, FALSE)
@@ -318,9 +319,76 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/stack/telecrystal/twenty
 	cost = 20
 
+/datum/uplink_item/bundles_TC/crate
+	name = "Bulk Hardsuit Bundle"
+	desc = "A crate containing 4 valueable syndicate hardsuits."
+	cost = 18
+	include_modes = list(/datum/game_mode/incursion)
+	item = /obj/effect/gibspawner/generic
+	var/list/contents = list(
+		/obj/item/clothing/suit/space/hardsuit/syndi = 4,
+		/obj/item/clothing/mask/gas/syndicate = 4,
+		/obj/item/tank/internals/oxygen = 4
+	)
+
+/datum/uplink_item/bundles_TC/crate/purchase(mob/user, datum/component/uplink/U)
+	var/obj/structure/closet/crate/C = spawn_item(/obj/structure/closet/crate, user, U)
+	if(U.purchase_log)
+		U.purchase_log.LogPurchase(C, src, cost)
+	for(var/I in contents)
+		var/count = contents[I]
+		for(var/index in 1 to count)
+			new I(C)
+	return C
+
+/datum/uplink_item/bundles_TC/crate/medical
+	name = "Syndicate Medical Bundle"
+	desc = "Contains an assortment of syndicate medical equipment for you and your team.\
+			Comes with a variety of first-aid kits, pill bottles, a compact defibrillator and 4 stimpacks."
+	cost = 12
+	contents = list(
+		/obj/item/storage/firstaid/tactical = 2,	//8 TC
+		/obj/item/storage/firstaid/brute = 2,
+		/obj/item/storage/firstaid/fire = 2,
+		/obj/item/storage/firstaid/toxin = 1,
+		/obj/item/storage/firstaid/o2 = 1,
+		/obj/item/storage/pill_bottle/mutadone = 1,
+		/obj/item/storage/pill_bottle/neurine = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpack/traitor = 4
+	)
+
+/datum/uplink_item/bundles_TC/crate/shuttle
+	name = "Stolen Shuttle Creation Kit"
+	desc = "Every syndicate team needs their own shuttle. It's a shame you weren't supplied with one, but thats not a problem\
+			if you can spare some TC! The all new shuttle creation kit (produced by the syndicate) contains everything you need\
+			to get flying! All syndicate agents are advised to ignore the Nanotrasen labels on products. Space proof suits not included."
+	cost = 15	//There are multiple uses for the RCD and plasma canister, but both are easilly accessible for items that cost less than all of their TC.
+	contents = list(
+		/obj/machinery/portable_atmospherics/canister/toxins = 1,
+		/obj/item/construction/rcd/combat = 1,
+		/obj/item/rcd_ammo/large = 2,
+		/obj/item/shuttle_creator = 1,
+		/obj/item/pipe_dispenser = 2,
+		/obj/item/storage/toolbox/syndicate = 2,
+		/obj/item/storage/toolbox/electrical = 1,
+		/obj/item/circuitboard/computer/shuttle/docker = 1,
+		/obj/item/circuitboard/computer/shuttle/flight_control = 1,
+		/obj/item/circuitboard/machine/shuttle/engine/plasma = 2,
+		/obj/item/circuitboard/machine/shuttle/heater = 2,
+		/obj/item/storage/part_replacer/cargo = 1,
+		/obj/item/electronics/apc = 1,
+		/obj/item/wallframe/apc = 1
+	)
+
 // Dangerous Items
 /datum/uplink_item/dangerous
 	category = "Conspicuous Weapons"
+
+/datum/uplink_item/dangerous/poisonknife
+	name = "Poisoned Knife"
+	desc = "A knife that is made of two razor sharp blades, it has a secret compartment in the handle to store liquids which are injected when stabbing something."
+	item = /obj/item/kitchen/knife/poison
+	cost = 8 // all in all it's not super stealthy and you have to get some chemicals yourself
 
 /datum/uplink_item/dangerous/rawketlawnchair
 	name = "84mm Rocket Propelled Grenade Launcher"
@@ -625,7 +693,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	player_minimum = 20
 	surplus = 10
 	surplus_nullcrates = 0
-	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/incursion)
 
 /datum/uplink_item/stealthy_weapons/radbow
 	name = "Gamma-Bow"
@@ -1000,8 +1068,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A seemingly innocent rubber duck. When placed, it arms, and will violently explode when stepped on."
 	item = /obj/item/deployablemine/traitor
 	cost = 4
-	include_modes = list(/datum/game_mode/nuclear/clown_ops)
-	
+
 /datum/uplink_item/explosives/virus_grenade
 	name = "Fungal Tuberculosis Grenade"
 	desc = "A primed bio-grenade packed into a compact box. Comes with five Bio Virus Antidote Kit (BVAK) \
@@ -1027,7 +1094,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			This variant has been fitted with high yield X4 charges for a larger explosion."
 	item = /obj/item/deployablemine/traitor/bigboom
 	cost = 10
-	include_modes = list(/datum/game_mode/nuclear/clown_ops)
 
 /datum/uplink_item/explosives/pizza_bomb
 	name = "Pizza Bomb"
@@ -1830,6 +1896,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/vehicle/sealed/car/clowncar
 	cost = 20
 	restricted_roles = list("Clown")
+	exclude_modes = list(/datum/game_mode/incursion)
 
 /datum/uplink_item/role_restricted/taeclowndo_shoes
 	name = "Tae-clown-do Shoes"

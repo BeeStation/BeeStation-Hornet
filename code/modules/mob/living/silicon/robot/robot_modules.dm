@@ -243,7 +243,8 @@
 		/obj/item/t_scanner/adv_mining_scanner,
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/soap/nanotrasen,
-		/obj/item/borg/cyborghug)
+		/obj/item/borg/cyborghug,
+		/obj/item/instrument/piano_synth)
 	emag_modules = list(/obj/item/melee/transforming/energy/sword/cyborg)
 	moduleselect_icon = "standard"
 	hat_offset = -3
@@ -372,6 +373,7 @@
 		/obj/item/holosign_creator/cyborg,
 		/obj/item/borg/cyborghug/peacekeeper,
 		/obj/item/extinguisher,
+		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/borg/projectile_dampen)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
 	cyborg_base_icon = "peace"
@@ -473,13 +475,13 @@
 		/obj/item/borg/charger,
 		/obj/item/razor,
 		/obj/item/rsf,
-		/obj/item/instrument/guitar,
 		/obj/item/instrument/piano_synth,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/lighter,
 		/obj/item/storage/bag/tray,
-		/obj/item/reagent_containers/borghypo/borgshaker,
-		/obj/item/borg/lollipop)
+		/obj/item/borg/apparatus/beaker,
+		/obj/item/cookiesynth,
+		/obj/item/reagent_containers/borghypo/borgshaker)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
 	moduleselect_icon = "service"
 	special_light_key = "service"

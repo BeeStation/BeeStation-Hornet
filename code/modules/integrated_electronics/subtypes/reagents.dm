@@ -89,7 +89,7 @@
 		direction_mode = SYRINGE_DRAW
 	else
 		direction_mode = SYRINGE_INJECT
-	if(isnum(new_amount))
+	if(isnum_safe(new_amount))
 		new_amount = CLAMP(new_amount, 0, volume)
 		transfer_amount = new_amount
 
@@ -217,7 +217,7 @@
 		direction_mode = SYRINGE_DRAW
 	else
 		direction_mode = SYRINGE_INJECT
-	if(isnum(new_amount))
+	if(isnum_safe(new_amount))
 		new_amount = CLAMP(new_amount, 0, 50)
 		transfer_amount = new_amount
 
@@ -465,7 +465,7 @@
 		direction_mode = SYRINGE_DRAW
 	else
 		direction_mode = SYRINGE_INJECT
-	if(isnum(new_amount))
+	if(isnum_safe(new_amount))
 		new_amount = CLAMP(new_amount, 0, 50)
 		transfer_amount = new_amount
 
