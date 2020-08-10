@@ -347,21 +347,29 @@ GLOBAL_PROTECT(exp_to_update)
 	if(current_pqp < 0)
 		if(exp_total < 3000) //<50 hours
 			pqp_per_hour = CONFIG_GET(number/pqp_naughty_noob)
+			to_chat(world, "[ckey] PQP per hour: naughty noob")
 		else if(exp_total < 7200) //50-120 hours
 			pqp_per_hour = CONFIG_GET(number/pqp_naughty_experienced)
+			to_chat(world, "[ckey] PQP per hour: naughty exp")
 		else //120 hours or more
 			pqp_per_hour = CONFIG_GET(number/pqp_naughty_nolife)
+			to_chat(world, "[ckey] PQP per hour: naughty nolife")
 	else
 		if(exp_total < 600) //<10 hours
 			pqp_per_hour = CONFIG_GET(number/pqp_nice_noob)
+			to_chat(world, "[ckey] PQP per hour: nice noob")
 		else //10 hours or more
 			pqp_per_hour = CONFIG_GET(number/pqp_nice_experienced)
+			to_chat(world, "[ckey] PQP per hour: nice exp")
+
+	to_chat(world, "[ckey] PQP per hour: [pqp_per_hour]")
 
 	var/new_pqp = current_pqp + (exp_round * (pqp_per_hour / 60))
 	if(current_pqp < 0)
 		new_pqp = min(new_pqp, 0)
 	else
 		new_pqp = min(new_pqp, CONFIG_GET(number/pqp_max_points))
+		to_chat(world, "[ckey] max points: [CONFIG_GET(number/pqp_max_points)]")
 
 	to_chat(world, "Changing [ckey] PQP from [current_pqp] to [new_pqp]")
 
