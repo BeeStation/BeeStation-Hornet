@@ -308,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `SS13_player` (
   `flags` smallint(5) unsigned NOT NULL DEFAULT '0',
   `antag_tokens` tinyint(4) unsigned DEFAULT '0',
   `metacoins` int(10) unsigned NOT NULL DEFAULT '0',
-  `playerqualitypoints` double(4,2) ZEROFILL NOT NULL DEFAULT 0,
+  `playerqualitypoints` double(4,2) NOT NULL DEFAULT 0,
   PRIMARY KEY (`ckey`),
   UNIQUE KEY (`uuid`),
   KEY `idx_player_cid_ckey` (`computerid`,`ckey`),

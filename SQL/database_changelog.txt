@@ -14,7 +14,7 @@ Version 5.8 7 August 2020, by ike709
 Adds a new `playerqualitypoints` column in the `player` table that allows for quantifying bad behavior vs playtime.
 
 ALTER TABLE SS13_player
-ADD COLUMN `playerqualitypoints` double(4,2) ZEROFILL NOT NULL DEFAULT 0;
+ADD COLUMN `playerqualitypoints` double(4,2) NOT NULL DEFAULT 0;
 
 -----------------------------------------------------
 
