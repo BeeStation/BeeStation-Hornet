@@ -30,6 +30,8 @@ def url2msg(msg):
     "[space]": " ",
     "[quote]": "\"",
     "[hash]" : "#",
+    "[ocurly]" : "{",
+    "[ccurly]" : "}",
     "@": "(a)", # no @ abuse
     "[nl]": "\n",
     }
