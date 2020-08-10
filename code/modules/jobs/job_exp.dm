@@ -331,14 +331,11 @@ GLOBAL_PROTECT(exp_to_update)
 /client/proc/process_endround_playerqualitypoints()
 	if(!CONFIG_GET(flag/pqp_tracking))
 		return
-	if(GLOB.naughty_ckeys["[ckey]"])
-		to_chat(world, "Naughty ckey: [ckey]")
+	if(GLOB.naughty_keys.len && key in GLOB.naughty_keys)
 		return
 
 	var/exp_total = get_exp_living(FALSE)
-	to_chat(world, "[ckey] total time: [exp_total / 60]")
 	var/exp_round = GLOB.playtime_tracking["[ckey]"]
-	to_chat(world, "[ckey] round time: [exp_round]")
 
 	var/current_pqp = get_playerqualitypoints(ckey)
 
@@ -347,31 +344,21 @@ GLOBAL_PROTECT(exp_to_update)
 	if(current_pqp < 0)
 		if(exp_total < 3000) //<50 hours
 			pqp_per_hour = CONFIG_GET(number/pqp_naughty_noob)
-			to_chat(world, "[ckey] PQP per hour: naughty noob")
 		else if(exp_total < 7200) //50-120 hours
 			pqp_per_hour = CONFIG_GET(number/pqp_naughty_experienced)
-			to_chat(world, "[ckey] PQP per hour: naughty exp")
 		else //120 hours or more
 			pqp_per_hour = CONFIG_GET(number/pqp_naughty_nolife)
-			to_chat(world, "[ckey] PQP per hour: naughty nolife")
 	else
 		if(exp_total < 600) //<10 hours
 			pqp_per_hour = CONFIG_GET(number/pqp_nice_noob)
-			to_chat(world, "[ckey] PQP per hour: nice noob")
 		else //10 hours or more
 			pqp_per_hour = CONFIG_GET(number/pqp_nice_experienced)
-			to_chat(world, "[ckey] PQP per hour: nice exp")
-
-	to_chat(world, "[ckey] PQP per hour: [pqp_per_hour]")
 
 	var/new_pqp = current_pqp + (exp_round * (pqp_per_hour / 60))
 	if(current_pqp < 0)
 		new_pqp = min(new_pqp, 0)
 	else
 		new_pqp = min(new_pqp, CONFIG_GET(number/pqp_max_points))
-		to_chat(world, "[ckey] max points: [CONFIG_GET(number/pqp_max_points)]")
-
-	to_chat(world, "Changing [ckey] PQP from [current_pqp] to [new_pqp]")
 
 	set_playerqualitypoints(ckey, new_pqp)
 

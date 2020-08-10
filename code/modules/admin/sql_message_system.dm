@@ -843,7 +843,7 @@ this proc can take several minutes to execute fully if converting and cause DD t
 	if(!message)
 		error_state += "No reason was provided."
 	else
-		message = "[message][pqp_change != 0 ? "PQP Change: [pqp_change]" : ""]"
+		message = "[message][pqp_change != 0 ? " PQP Change: [pqp_change]" : ""]"
 
 	if(error_state.len)
 		to_chat(usr, "<span class='danger'>[type == "note" ? "Note" : "Watchlist"] not created because the following errors were present:\n[error_state.Join("\n")]</span>")
@@ -851,7 +851,7 @@ this proc can take several minutes to execute fully if converting and cause DD t
 	else
 		if(pqp_change != 0)
 			if(pqp_change < 0)
-				GLOB.naughty_ckeys += "[player_key]"
+				GLOB.naughty_keys += "[player_key]"
 			var/current_pqp = get_playerqualitypoints(player_key)
 			if(isnum_safe(current_pqp))
 				set_playerqualitypoints(player_key, current_pqp + pqp_change)

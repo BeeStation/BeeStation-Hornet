@@ -4,7 +4,7 @@ GLOBAL_PROTECT(admins)
 GLOBAL_LIST_EMPTY(deadmins)							//all ckeys who have used the de-admin verb.
 
 GLOBAL_LIST_EMPTY(playtime_tracking)					//List of ckeys and the number of living non-afk minutes this round. Updated every 10 minutes.
-GLOBAL_LIST_EMPTY(naughty_ckeys)						//List of ckeys that received a note during the round
+GLOBAL_LIST_EMPTY(naughty_keys)						//List of keys that received a note during the round
 
 GLOBAL_LIST_EMPTY(directory)							//all ckeys with associated client
 GLOBAL_LIST_EMPTY(stealthminID)						//reference list with IDs that store ckeys, for stealthmins
