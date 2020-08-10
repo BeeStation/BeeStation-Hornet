@@ -218,7 +218,7 @@ GLOBAL_PROTECT(exp_to_update)
 
 	if(isliving(mob))
 		if(mob.stat != DEAD)
-			GLOB.playtime_tracking[ckey] += minutes
+			GLOB.playtime_tracking["[ckey]"] += minutes
 			var/rolefound = FALSE
 			play_records[EXP_TYPE_LIVING] += minutes
 
@@ -332,6 +332,7 @@ GLOBAL_PROTECT(exp_to_update)
 	if(!CONFIG_GET(flag/pqp_tracking))
 		return
 	if(GLOB.naughty_ckeys[ckey])
+		to_chat(world, "Naughty ckey: [ckey]")
 		return
 
 	var/exp_total = get_exp_living(FALSE)
@@ -359,6 +360,8 @@ GLOBAL_PROTECT(exp_to_update)
 		new_pqp = min(new_pqp, 0)
 	else
 		new_pqp = min(new_pqp, CONFIG_GET(number/pqp_max_points))
+
+	to_chat(world, "Changing [ckey] PQP from [current_pqp] to [new_pqp]")
 
 	set_playerqualitypoints(ckey, new_pqp)
 
