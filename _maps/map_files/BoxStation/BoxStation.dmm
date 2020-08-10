@@ -20629,6 +20629,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/item/hand_labeler,
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
 "beZ" = (
@@ -21265,7 +21266,6 @@
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
-/obj/machinery/camera/autoname,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -22780,6 +22780,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/item/storage/box/medipens,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "blg" = (
@@ -22820,6 +22821,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/item/hand_labeler,
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
 "bll" = (
@@ -23749,6 +23751,9 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "bod" = (
@@ -23769,6 +23774,10 @@
 /obj/item/folder/white,
 /obj/item/pen,
 /obj/item/reagent_containers/glass/bottle/epinephrine,
+/obj/item/reagent_containers/glass/bottle/charcoal{
+	pixel_x = -4;
+	pixel_y = -3
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "boi" = (
@@ -24734,6 +24743,9 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/camera/autoname{
+	dir = 9
+	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
 "bri" = (
@@ -25251,6 +25263,16 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/table,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 8;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/bottle/charcoal{
+	pixel_x = -4;
+	pixel_y = -3
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "btm" = (
@@ -25472,9 +25494,13 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "btV" = (
-/obj/machinery/vending/medical{
-	pixel_x = -2
+/obj/structure/table,
+/obj/item/folder/white{
+	pixel_x = 4;
+	pixel_y = -3
 	},
+/obj/item/pen,
+/obj/item/reagent_containers/syringe,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "btZ" = (
@@ -25579,6 +25605,9 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high/plus,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "buy" = (
@@ -27307,9 +27336,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/vending/medical{
-	pixel_x = -2
-	},
+/obj/machinery/vending/cigarette,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bza" = (
@@ -31613,6 +31640,9 @@
 /obj/structure/table/reinforced,
 /obj/item/wrench/medical,
 /obj/machinery/computer/med_data/laptop,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bLI" = (
@@ -36421,7 +36451,8 @@
 	pixel_x = 8;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/glass/bottle/formaldehyde,
+/obj/item/storage/box/medsprays,
+/obj/item/hand_labeler,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "caT" = (
@@ -36761,7 +36792,6 @@
 	pixel_y = -22
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/formaldehyde,
 /obj/item/reagent_containers/glass/bottle/salglu_solution{
 	pixel_x = -5;
 	pixel_y = 10
@@ -36770,6 +36800,7 @@
 	dir = 4;
 	pixel_x = -24
 	},
+/obj/item/storage/box/pillbottles,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "cbR" = (
@@ -37444,7 +37475,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/vending/cigarette,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cdN" = (
@@ -41756,6 +41786,9 @@
 	dir = 1
 	},
 /obj/structure/closet/emcloset,
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "ctv" = (
@@ -41977,12 +42010,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/holopad,
-/obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/formaldehyde,
-/obj/item/reagent_containers/syringe,
-/obj/item/storage/pill_bottle/epinephrine{
-	pixel_x = 10;
-	pixel_y = 5
+/obj/structure/closet/secure_closet/medicaldanger{
+	anchored = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -41993,6 +42022,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/structure/closet/crate/freezer/surplus_limbs,
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
 "cue" = (
@@ -42086,15 +42116,16 @@
 	pixel_x = -5;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/hypospray/medipen/atropine,
-/obj/item/reagent_containers/hypospray/medipen/atropine{
-	pixel_x = 2;
-	pixel_y = 5
-	},
 /obj/item/reagent_containers/hypospray/medipen/dexalin{
 	pixel_x = 6;
 	pixel_y = 8
 	},
+/obj/item/storage/pill_bottle/epinephrine{
+	pixel_x = 10;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/dropper,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cux" = (
@@ -42166,7 +42197,10 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/turf/open/floor/plasteel/white,
+/obj/machinery/shower{
+	dir = 4
+	},
+/turf/open/floor/noslip/white,
 /area/medical/cryo)
 "cuI" = (
 /obj/structure/cable/yellow{
@@ -46079,6 +46113,7 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
+/obj/item/hand_labeler,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "cTX" = (
@@ -46181,6 +46216,13 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/port)
+"dfY" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/camera/autoname,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "dgn" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -48278,6 +48320,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/item/storage/pill_bottle/mannitol,
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
 "fWm" = (
@@ -48410,6 +48453,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
+"gbR" = (
+/obj/machinery/holopad,
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "gca" = (
 /obj/machinery/power/compressor{
 	comp_id = "incineratorturbine";
@@ -48480,13 +48527,20 @@
 "gjl" = (
 /turf/closed/wall,
 /area/quartermaster/warehouse)
+"gjw" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/structure/sink{
+	pixel_y = 30
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "gjH" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/formaldehyde,
-/obj/item/reagent_containers/glass/bottle/formaldehyde,
 /obj/item/reagent_containers/glass/bottle/epinephrine{
 	pixel_x = 8;
 	pixel_y = 6
@@ -48495,6 +48549,10 @@
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/storage/firstaid/regular{
 	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/reagent_containers/glass/bottle/charcoal{
+	pixel_x = -4;
 	pixel_y = -3
 	},
 /turf/open/floor/plasteel/white,
@@ -51789,6 +51847,13 @@
 	},
 /turf/open/floor/wood,
 /area/bridge/meeting_room)
+"kJH" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/bed/roller,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "kJQ" = (
 /obj/structure/sign/departments/minsky/research/robotics{
 	pixel_y = -32
@@ -54522,6 +54587,14 @@
 	pixel_y = -3
 	},
 /obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/bottle/charcoal{
+	pixel_x = -4;
+	pixel_y = -3
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "oau" = (
@@ -54746,6 +54819,20 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
+"ope" = (
+/obj/machinery/vending/wallmed{
+	pixel_x = -28
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
 "opn" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -54951,6 +55038,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"oEw" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/structure/bed/roller,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "oEK" = (
 /obj/structure/showcase/cyborg/old{
 	dir = 4;
@@ -55968,6 +56060,12 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/security/prison)
+"pXx" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "pXU" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -58284,6 +58382,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
+"tdz" = (
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "tgb" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -60489,6 +60593,13 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/camera/autoname{
+	dir = 9
+	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "vRS" = (
@@ -62440,6 +62551,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"xVV" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/structure/sink{
+	pixel_y = 30
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "xWa" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 1
@@ -96544,7 +96664,7 @@ aYV
 aYV
 cZK
 nQI
-bio
+ope
 bgF
 blf
 bmF
@@ -97067,7 +97187,7 @@ bqT
 cZK
 cZK
 cZK
-jIS
+dfY
 caT
 fsH
 fsH
@@ -97324,7 +97444,7 @@ bqS
 nYd
 gjH
 cZK
-jIS
+gjw
 bwy
 ceF
 bhh
@@ -98354,7 +98474,7 @@ bqX
 bof
 jIS
 kTx
-xQL
+oEw
 bof
 clk
 bAp
@@ -98858,8 +98978,8 @@ bet
 bfG
 bdb
 bhh
-bjV
-bhh
+tdz
+pXx
 oGY
 bog
 bCG
@@ -98868,7 +98988,7 @@ bLH
 bof
 jIS
 kTx
-xQL
+oEw
 bof
 amB
 bAp
@@ -99899,7 +100019,7 @@ bwI
 bxT
 bzh
 bAs
-oGY
+kJH
 bIr
 vFk
 cud
@@ -102464,7 +102584,7 @@ brY
 bFN
 diD
 jLS
-jLS
+gbR
 but
 xJf
 bzm
@@ -102969,7 +103089,7 @@ aYV
 aYV
 xJf
 xJf
-bvu
+xVV
 jLS
 jLS
 blg
