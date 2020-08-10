@@ -813,7 +813,7 @@
 	// Check area validity.
 	// Reject space, player-created areas, and non-station z-levels.
 	var/area/A = get_area(target)
-	if(!A || (!is_station_level(A.z)) || !A.valid_territory)
+	if(!A || (!is_station_level(A.z)) || !(A.area_flags & VALID_TERRITORY))
 		to_chat(user, "<span class='warning'>[A] is unsuitable for tagging.</span>")
 		return FALSE
 

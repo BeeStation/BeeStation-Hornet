@@ -402,7 +402,7 @@
 	for(var/z in SSmapping.levels_by_trait(ZTRAIT_STATION)) //First, collect all area types on the station zlevel
 		for(var/ar in SSmapping.areas_in_z["[z]"])
 			var/area/A = ar
-			if(!(A.type in valid_territories) && A.valid_territory)
+			if(!(A.type in valid_territories) && A.area_flags & VALID_TERRITORY)
 				valid_territories |= A.type
 	return valid_territories.len
 

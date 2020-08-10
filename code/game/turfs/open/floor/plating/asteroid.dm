@@ -139,7 +139,8 @@
 	var/list/megafauna_spawn_list
 	var/list/flora_spawn_list
 	var/list/terrain_spawn_list
-	var/sanity = 1
+	/// If the tunnel should keep being created
+	var/sanity = TRUE
 	var/forward_cave_dir = 1
 	var/backward_cave_dir = 2
 	var/going_backwards = TRUE
@@ -224,9 +225,11 @@
 		if(istype(tunnel))
 			// Small chance to have forks in our tunnel; otherwise dig our tunnel.
 			if(i > 3 && prob(20))
-				if(istype(tunnel.loc, /area/mine/explored) || (istype(tunnel.loc, /area/lavaland/surface/outdoors) && !istype(tunnel.loc, /area/lavaland/surface/outdoors/unexplored)))
-					sanity = 0
-					break
+				if(isarea(tunnel.loc))
+					var/area/A = tunnel.loc
+					if(!(A.area_flags & TUNNELS_ALLOWED))
+						sanity = FALSE
+						break
 				var/turf/open/floor/plating/asteroid/airless/cave/C = tunnel.ChangeTurf(data_having_type, null, CHANGETURF_IGNORE_AIR)
 				C.going_backwards = FALSE
 				C.produce_tunnel_from_data(rand(10, 15), dir)
@@ -243,10 +246,13 @@
 
 
 /turf/open/floor/plating/asteroid/airless/cave/proc/SpawnFloor(turf/T)
-	for(var/turf/NT as() in RANGE_TURFS(1, src))
-		if(!NT || isspaceturf(NT) || istype(NT.loc, /area/mine/explored) || (istype(NT.loc, /area/lavaland/surface/outdoors) && !istype(NT.loc, /area/lavaland/surface/outdoors/unexplored)))
+	if(!T)
+		sanity = 0
+		return
+	if(isarea(T.loc))
+		var/area/A = T.loc
+		if(!(A.area_flags & TUNNELS_ALLOWED))
 			sanity = 0
-			break
 	if(!sanity)
 		return
 	SpawnFlora(T)
@@ -255,12 +261,15 @@
 	T.ChangeTurf(turf_type, null, CHANGETURF_IGNORE_AIR)
 
 /turf/open/floor/plating/asteroid/airless/cave/proc/SpawnMonster(turf/T)
+	if(!isarea(loc))
+		return
 	if(prob(30))
-		if(istype(loc, /area/mine/explored) || !istype(loc, /area/lavaland/surface/outdoors/unexplored))
+		var/area/A = loc
+		if(!(A.area_flags & MOB_SPAWN_ALLOWED))
 			return
 		var/randumb = pickweight(mob_spawn_list)
 		while(randumb == SPAWN_MEGAFAUNA)
-			if(istype(loc, /area/lavaland/surface/outdoors/unexplored/danger)) //this is danger. it's boss time.
+			if((A.area_flags & MEGAFAUNA_SPAWN_ALLOWED) && megafauna_spawn_list && megafauna_spawn_list.len) //this is danger. it's boss time.
 				var/maybe_boss = pickweight(megafauna_spawn_list)
 				if(megafauna_spawn_list[maybe_boss])
 					randumb = maybe_boss
@@ -285,9 +294,13 @@
 
 /turf/open/floor/plating/asteroid/airless/cave/proc/SpawnFlora(turf/T)
 	if(prob(12))
-		if(istype(loc, /area/mine/explored) || istype(loc, /area/lavaland/surface/outdoors/explored))
-			return
+		if(isarea(loc))
+			var/area/A = loc
+			if(!(A.area_flags & FLORA_ALLOWED))
+				return
 		var/randumb = pickweight(flora_spawn_list)
+		if(!randumb)
+			return
 		for(var/obj/structure/flora/ash/F in range(4, T)) //Allows for growing patches, but not ridiculous stacks of flora
 			if(!istype(F, randumb))
 				return
@@ -295,9 +308,13 @@
 
 /turf/open/floor/plating/asteroid/airless/cave/proc/SpawnTerrain(turf/T)
 	if(prob(2))
-		if(istype(loc, /area/mine/explored) || istype(loc, /area/lavaland/surface/outdoors/explored))
-			return
+		if(isarea(loc))
+			var/area/A = loc
+			if(!(A.area_flags & FLORA_ALLOWED))
+				return
 		var/randumb = pickweight(terrain_spawn_list)
+		if(!randumb)
+			return
 		for(var/obj/structure/geyser/F in range(7, T))
 			if(istype(F, randumb))
 				return
