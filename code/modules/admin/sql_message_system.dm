@@ -808,7 +808,7 @@ this proc can take several minutes to execute fully if converting and cause DD t
 	var/pqp_change = 0
 	var/admin_key = href_list["adminkey"]
 
-	player_key = href_list["keytext"]
+	player_key = href_list["player_key"]
 
 	if(!player_key)
 		error_state += "No ckey detected."

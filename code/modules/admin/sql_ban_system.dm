@@ -150,6 +150,9 @@
 	<div class='inputbox'></div></label>
 	<input type='text' name='cidtext' size='14' value='[player_cid]'>
 	<br>
+	<label class='inputlabel'>PQP to add/remove:</label>
+	<input type='text' name='pqp_change' size='5' value='0'>
+	<br>
 	<label class='inputlabel checkbox'>Use IP and CID from last connection of key
 	<input type='checkbox' id='lastconn' name='lastconn' value='1' [(isnull(duration) && !player_ip) || (!player_cid) ? " checked": ""]>
 	<div class='inputbox'></div></label>
@@ -609,7 +612,6 @@
 	Admin Key:<input type='text' name='searchunbanadminkey' size='18' value='[admin_key]'>
 	IP:<input type='text' name='searchunbanip' size='12' value='[player_ip]'>
 	CID:<input type='text' name='searchunbancid' size='10' value='[player_cid]'>
-	PQP to add/remove:<input type='text' name='pqp_change' size='5' value='[pqp_change]'>
 	<input type='submit' value='Search'>
 	</form>
 	</div>
