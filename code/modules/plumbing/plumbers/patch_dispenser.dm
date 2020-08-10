@@ -7,6 +7,7 @@
 	var/patch_size = 40
 	///the icon_state number for the patch.
 	var/list/stored_patches = list()
+	var/max_stored_patches = 3
 	///max amount of patches allowed on our tile before we start storing them instead
 	var/max_floor_patches = 10
 
@@ -24,7 +25,7 @@
 /obj/machinery/plumbing/patch_dispenser/process()
 	if(stat & NOPOWER)
 		return
-	if(reagents.total_volume >= patch_size)
+	if((reagents.total_volume >= patch_size) && (stored_patches.len < max_stored_patches))
 		var/obj/item/reagent_containers/pill/patch/P = new(src)
 		reagents.trans_to(P, patch_size)
 		P.name = patch_name
