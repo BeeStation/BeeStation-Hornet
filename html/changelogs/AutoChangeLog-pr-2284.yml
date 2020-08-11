@@ -1,4 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - bugfix: Radio uplinks will no longer use registered frequencies
