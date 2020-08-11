@@ -65,16 +65,10 @@
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, TRAIT_DESYNC)
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
-<<<<<<< Updated upstream
-/obj/item/desynchronizer/proc/resync()
+/obj/item/desynchronizer/proc/resync(mob/living/user)
 	if(sync_holder)
 		new /obj/effect/temp_visual/desynchronizer(sync_holder.drop_location())
 		QDEL_NULL(sync_holder)
-=======
-/obj/item/desynchronizer/proc/resync(mob/living/user)
-	new /obj/effect/temp_visual/desynchronizer(sync_holder.drop_location())
-	QDEL_NULL(sync_holder)
->>>>>>> Stashed changes
 	icon_state = initial(icon_state)
 	next_use = world.time + (world.time - last_use) // Could be 2*world.time-last_use but that would just be confusing
 	REMOVE_TRAIT(user, TRAIT_DESYNC, TRAIT_DESYNC)
