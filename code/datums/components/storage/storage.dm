@@ -510,6 +510,8 @@
 		return
 	if(ismecha(M.loc)) // stops inventory actions in a mech
 		return
+	if(HAS_TRAIT(M, TRAIT_DESYNC)) //prevents doing stuff while desynced
+		return
 	if(M.incapacitated() || !M.canUseStorage())
 		return
 	A.add_fingerprint(M)

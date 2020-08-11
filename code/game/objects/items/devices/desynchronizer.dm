@@ -22,14 +22,14 @@
 	if(!sync_holder)
 		desync(user)
 	else
-		resync()
+		resync(user)
 
 /obj/item/desynchronizer/examine(mob/user)
 	. = ..()
 	if(world.time < next_use)
 		. += "<span class='warning'>Time left to recharge: [DisplayTimeText(next_use - world.time)]</span>"
 	. += "<span class='notice'>Alt-click to customize the duration. Current duration: [DisplayTimeText(duration)].</span>"
-	. += "<span class='notice'>Can be used again to interrupt the effect early. The recharge time is the same as the time spent in desync.</span>"
+	. += "<span class='notice'>Use the verb Activate held object to interrupt the effect early. Recharge time is the same as the time spent in desync.</span>"
 
 /obj/item/desynchronizer/AltClick(mob/living/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -54,17 +54,41 @@
 		SEND_SIGNAL(AM, COMSIG_MOVABLE_SECLUDED_LOCATION)
 	last_use = world.time
 	icon_state = "desynchronizer-on"
-	addtimer(CALLBACK(src, .proc/resync), duration)
+	addtimer(CALLBACK(src, .proc/resync, user), duration)
+	ADD_TRAIT(user, TRAIT_DESYNC, TRAIT_DESYNC)
+	ADD_TRAIT(user, TRAIT_NOBREATH, TRAIT_DESYNC)
+	ADD_TRAIT(user, TRAIT_SHOCKIMMUNE, TRAIT_DESYNC)
+	ADD_TRAIT(user, TRAIT_RADIMMUNE, TRAIT_DESYNC)
+	ADD_TRAIT(user, TRAIT_RESISTLOWPRESSURE, TRAIT_DESYNC)
+	ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, TRAIT_DESYNC)
+	ADD_TRAIT(user, TRAIT_RESISTCOLD, TRAIT_DESYNC)
+	ADD_TRAIT(user, TRAIT_RESISTHEAT, TRAIT_DESYNC)
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
+<<<<<<< Updated upstream
 /obj/item/desynchronizer/proc/resync()
 	if(sync_holder)
 		new /obj/effect/temp_visual/desynchronizer(sync_holder.drop_location())
 		QDEL_NULL(sync_holder)
+=======
+/obj/item/desynchronizer/proc/resync(mob/living/user)
+	new /obj/effect/temp_visual/desynchronizer(sync_holder.drop_location())
+	QDEL_NULL(sync_holder)
+>>>>>>> Stashed changes
 	icon_state = initial(icon_state)
 	next_use = world.time + (world.time - last_use) // Could be 2*world.time-last_use but that would just be confusing
+	REMOVE_TRAIT(user, TRAIT_DESYNC, TRAIT_DESYNC)
+	REMOVE_TRAIT(user, TRAIT_NOBREATH, TRAIT_DESYNC)
+	REMOVE_TRAIT(user, TRAIT_SHOCKIMMUNE, TRAIT_DESYNC)
+	REMOVE_TRAIT(user, TRAIT_RADIMMUNE, TRAIT_DESYNC)
+	REMOVE_TRAIT(user, TRAIT_RESISTLOWPRESSURE, TRAIT_DESYNC)
+	REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, TRAIT_DESYNC)
+	REMOVE_TRAIT(user, TRAIT_RESISTCOLD, TRAIT_DESYNC)
+	REMOVE_TRAIT(user, TRAIT_RESISTHEAT, TRAIT_DESYNC)
+	REMOVE_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/desynchronizer/Destroy()
-	resync()
+	resync(usr)
 	return ..()
 
 /obj/effect/abstract/sync_holder

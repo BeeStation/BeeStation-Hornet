@@ -55,6 +55,8 @@
 
 	if(ismecha(M.loc)) // stops inventory actions in a mech
 		return
+	if(HAS_TRAIT(M, TRAIT_DESYNC)) //prevents doing stuff while desynced
+		return
 
 	if(!M.incapacitated() && loc == M && istype(over_object, /obj/screen/inventory/hand))
 		var/obj/screen/inventory/hand/H = over_object
