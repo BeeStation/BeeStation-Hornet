@@ -107,6 +107,10 @@
 	},
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
+"C" = (
+/obj/effect/clockwork/servant_blocker,
+/turf/closed/wall/clockwork,
+/area/reebe/city_of_cogs)
 "D" = (
 /obj/structure/lattice/catwalk/clockwork,
 /obj/effect/clockwork/servant_blocker,
@@ -28307,11 +28311,11 @@ b
 b
 b
 b
-H
-H
-H
-H
-q
+b
+b
+b
+b
+C
 D
 D
 D
@@ -38073,11 +38077,11 @@ b
 b
 b
 b
-H
-H
-H
-H
-q
+b
+b
+b
+b
+C
 D
 D
 D
