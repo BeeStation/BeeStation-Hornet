@@ -12,16 +12,17 @@
 	category = SPELLTYPE_PRESERVATION
 	cogs_required = 6
 	invokers_required = 3
-	var/mob/selected
+	var/list/mob/dead/observer/candidates
 
 /datum/clockcult/scripture/marauder/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks)
 	. = ..()
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Would you like to play as a clockwork marauder?", ROLE_SERVANT_OF_RATVAR, null, null, 100, POLL_IGNORE_PYROSLIME)
-	if(LAZYLEN(candidates))
-		selected = pick(candidates)
+	candidates = pollGhostCandidates("Would you like to play as a clockwork marauder?", ROLE_SERVANT_OF_RATVAR, null, null, 100, POLL_IGNORE_CLOCKWORK)
 
 /datum/clockcult/scripture/marauder/invoke()
-	if(!selected || !isobserver(selected))
+	var/mob/dead/observer/selected
+	if(LAZYLEN(candidates))
+		selected = pick(candidates)
+	if(!selected)
 		to_chat(invoker, "<span class='brass'><i>There are no ghosts willing to be a Clockwork Marauder!</i></span>")
 		invoke_fail()
 		if(invokation_chant_timer)
@@ -30,7 +31,6 @@
 		end_invoke()
 		return
 	..()
-
 
 /datum/clockcult/scripture/marauder/invoke_success()
 	var/mob/new_mob = new /mob/living/simple_animal/clockwork_marauder(get_turf(invoker))
