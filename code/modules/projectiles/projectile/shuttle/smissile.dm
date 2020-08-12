@@ -30,7 +30,7 @@
 /obj/item/projectile/bullet/shuttle/missile/fire
 	name = "incediary missile"
 	desc = "an anti personnel weapon, for roasting your enemies"
-	light_r = 3
+	light_r = 2
 	flash = 3
 	fire = 4
 
