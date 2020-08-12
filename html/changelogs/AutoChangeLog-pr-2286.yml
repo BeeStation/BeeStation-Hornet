@@ -1,0 +1,4 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - bugfix: Liver failure is actually deadly again
