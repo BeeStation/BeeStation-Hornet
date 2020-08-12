@@ -57,7 +57,7 @@
 			qdel(src)
 		to_chat(AM,"<span class='danger'>The implant's anti-escape mechanisms activate!")
 		AM.dust() // Nice try hotel staff
-		message_admins("[ADMIN_LOOKUPFLW(source)] tried to enter the station as hotel staff and was dusted.")
+		message_admins("[ADMIN_LOOKUPFLW(AM)] tried to enter the station as hotel staff and was dusted.")
 	else
 		qdel(src) // This should only ever be applied to mobs
 	
