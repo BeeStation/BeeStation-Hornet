@@ -33,6 +33,8 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	var/offset_turf_x = 0
 	var/offset_turf_y = 0
 
+	var/weapon_desc = "This weapon has had no dsecription set."
+
 /obj/machinery/shuttle_weapon/Initialize()
 	. = ..()
 	var/static/weapon_systems = 0
