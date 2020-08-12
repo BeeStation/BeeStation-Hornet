@@ -31,10 +31,10 @@
 /obj/item/implant/exile/hotel/on_implanted(mob/user)
 	user.AddComponent(/datum/component/stationloving/hotelloving)
 
-/obj/item/implant/exile/hotel/removed(mob/source) // Incase they try self surgery
+/obj/item/implant/exile/hotel/removed(mob/unimplanted) // Incase they try self surgery
 	visible_message("<span class='danger'>The implant's anti-removal mechanisms activate!")
-	source.dust()
-	message_admins("[ADMIN_LOOKUPFLW(source)] tried to remove their hotel staff implant to enter the station and was dusted.")
+	unimplanted.dust()
+	message_admins("[ADMIN_LOOKUPFLW(unimplanted)] tried to remove their hotel staff implant to enter the station and was dusted.")
 	if(!QDELETED(src)) //If you try to qdel when the implant is removed without an implant case it causes a loop of qdels and gibbing
 		qdel(src)
 
@@ -51,13 +51,13 @@
 //Override to plop the disk back to a syndie crew spawn rather than somewhere on the station.
 
 /datum/component/stationloving/hotelloving/relocate()
-	var/mob/AM = parent
-	if(ismob(AM))
+	var/mob/Hotelstaff = parent
+	if(ismob(Hotelstaff))
 		if(!QDELETED(src)) // if you don't do this the body gets continuously dusted forever. While this is funny, an infinitely large pile of remains that crashes clients on right click isn't.
 			qdel(src)
-		to_chat(AM,"<span class='danger'>The implant's anti-escape mechanisms activate!")
-		AM.dust() // Nice try hotel staff
-		message_admins("[ADMIN_LOOKUPFLW(AM)] tried to enter the station as hotel staff and was dusted.")
+		to_chat(Hotelstaff,"<span class='danger'>The implant's anti-escape mechanisms activate!")
+		Hotelstaff.dust() // Nice try hotel staff
+		message_admins("[ADMIN_LOOKUPFLW(Hotelstaff)] tried to enter the station as hotel staff and was dusted.")
 	else
 		qdel(src) // This should only ever be applied to mobs
 	
