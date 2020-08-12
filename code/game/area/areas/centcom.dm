@@ -194,7 +194,7 @@
 	. = ..()
 	if(!playing_ambience)
 		//Start the ambience replay loop
-		addtimer(CALLBACK(M.client, .proc/replay_ambience), 900)
+		addtimer(CALLBACK(src, .proc/replay_ambience), 900)
 		playing_ambience = TRUE
 
 /area/reebe/city_of_cogs/Exited(atom/movable/M)
@@ -213,4 +213,4 @@
 			SEND_SOUND(M, sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE))
 			M.client.played = TRUE
 			addtimer(CALLBACK(M.client, /client/proc/ResetAmbiencePlayed), 600)
-	addtimer(CALLBACK(M.client, .proc/replay_ambience), 900)
+	addtimer(CALLBACK(src, .proc/replay_ambience), 900)
