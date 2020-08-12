@@ -197,7 +197,7 @@
 		addtimer(CALLBACK(src, .proc/replay_ambience), 900)
 		playing_ambience = TRUE
 
-/area/reebe/city_of_cogs/Exited(atom/movable/M)
+/area/reebe/city_of_cogs/Exited(atom/movable/AM)
 	. = ..()
 	//Stop ambience replay loop if mobs inside have left
 	playing_ambience = FALSE
