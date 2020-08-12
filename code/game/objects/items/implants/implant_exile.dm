@@ -34,6 +34,7 @@
 /obj/item/implant/exile/hotel/removed(mob/source) // Incase they try self surgery
 	visible_message("<span class='danger'>The implant's anti-removal mechanisms activate!")
 	source.dust()
+	message_admins("[ADMIN_LOOKUPFLW(source)] tried to remove their hotel staff implant to enter the station and was dusted.")
 	if(!QDELETED(src)) //If you try to qdel when the implant is removed without an implant case it causes a loop of qdels and gibbing
 		qdel(src)
 
@@ -56,6 +57,7 @@
 			qdel(src)
 		to_chat(AM,"<span class='danger'>The implant's anti-escape mechanisms activate!")
 		AM.dust() // Nice try hotel staff
+		message_admins("[ADMIN_LOOKUPFLW(source)] tried to enter the station as hotel staff and was dusted.")
 	else
 		qdel(src) // This should only ever be applied to mobs
 	
