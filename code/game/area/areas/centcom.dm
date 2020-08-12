@@ -188,4 +188,29 @@
 	name = "Reebe - City of Cogs"
 	icon_state = "purple"
 	hidden = FALSE
+	var/playing_ambience = FALSE
 
+/area/reebe/city_of_cogs/Entered(atom/movable/M)
+	. = ..()
+	if(!playing_ambience)
+		//Start the ambience replay loop
+		addtimer(CALLBACK(M.client, ./proc/replay_ambience), 900)
+		playing_ambience = TRUE
+
+/area/reebe/city_of_cogs/Exited(atom/movable/M)
+	. = ..()
+	//Stop ambience replay loop if mobs inside have left
+	playing_ambience = FALSE
+	for(var/mob/M in get_turf(src))
+		playing_ambience = TRUE
+
+/area/reebe/city_of_cogs/proc/replay_ambience()
+	if(!playing_ambience)
+		return
+	for(var/mob/M in get_turf(src))
+		var/sound = pick(ambientsounds)
+		if(!M.client.played)
+			SEND_SOUND(M, sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE))
+			M.client.played = TRUE
+			addtimer(CALLBACK(M.client, /client/proc/ResetAmbiencePlayed), 600)
+	addtimer(CALLBACK(M.client, ./proc/replay_ambience), 900)
