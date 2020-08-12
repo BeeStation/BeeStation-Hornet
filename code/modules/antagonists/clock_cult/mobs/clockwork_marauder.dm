@@ -35,6 +35,10 @@
 	/obj/item/clockwork/alloy_shards/medium = 2, \
 	/obj/item/clockwork/alloy_shards/small = 3) //Parts left behind when a structure breaks
 
+/mob/living/simple_animal/clockwork_marauder/Login()
+	. = ..()
+	add_servant_of_ratvar(src)
+
 /mob/living/simple_animal/clockwork_marauder/death(gibbed)
 	. = ..()
 	for(var/item in debris)
