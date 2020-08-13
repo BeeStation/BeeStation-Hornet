@@ -207,4 +207,5 @@
 	if(!played)
 		SEND_SOUND(src, sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE))
 		played = TRUE
+		addtimer(CALLBACK(src, /client/proc/ResetAmbiencePlayed), 600)
 	addtimer(CALLBACK(src, /client/proc/play_reebe_ambience), 900)
