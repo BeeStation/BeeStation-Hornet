@@ -19,7 +19,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "e" = (
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/brass,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "g" = (
@@ -56,7 +56,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "n" = (
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/brass,
 /obj/item/clockwork/clockwork_slab,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
@@ -79,7 +79,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "v" = (
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/brass,
 /obj/item/drone_shell/cogscarab,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
@@ -117,7 +117,7 @@
 /turf/open/indestructible/reebe_void,
 /area/reebe/city_of_cogs)
 "E" = (
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/brass,
 /obj/item/clockwork/clockwork_slab,
 /obj/item/clockwork/clockwork_slab,
 /turf/open/floor/clockwork/reebe,
@@ -142,12 +142,12 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "N" = (
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/brass,
 /obj/item/toy/plush/plushvar,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "O" = (
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/brass,
 /obj/item/clockwork/clockwork_slab,
 /obj/item/clockwork/clockwork_slab,
 /obj/item/clockwork/clockwork_slab,
@@ -161,7 +161,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "U" = (
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/brass,
 /obj/item/clockwork/replica_fabricator,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
@@ -180,12 +180,12 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "Y" = (
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/brass,
 /obj/item/storage/firstaid/regular,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "Z" = (
-/obj/structure/table/reinforced/brass,
+/obj/structure/table/brass,
 /obj/item/radio/intercom,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
