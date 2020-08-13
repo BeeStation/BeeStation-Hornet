@@ -56,7 +56,6 @@
 	icon_state = "desynchronizer-on"
 	addtimer(CALLBACK(src, .proc/resync, user), duration)
 	ADD_TRAIT(user, TRAIT_DESYNC, TRAIT_DESYNC)
-	ADD_TRAIT(user, TRAIT_NOBREATH, TRAIT_DESYNC)
 	ADD_TRAIT(user, TRAIT_SHOCKIMMUNE, TRAIT_DESYNC)
 	ADD_TRAIT(user, TRAIT_RADIMMUNE, TRAIT_DESYNC)
 	ADD_TRAIT(user, TRAIT_RESISTLOWPRESSURE, TRAIT_DESYNC)
@@ -72,7 +71,6 @@
 	icon_state = initial(icon_state)
 	next_use = world.time + (world.time - last_use) // Could be 2*world.time-last_use but that would just be confusing
 	REMOVE_TRAIT(user, TRAIT_DESYNC, TRAIT_DESYNC)
-	REMOVE_TRAIT(user, TRAIT_NOBREATH, TRAIT_DESYNC)
 	REMOVE_TRAIT(user, TRAIT_SHOCKIMMUNE, TRAIT_DESYNC)
 	REMOVE_TRAIT(user, TRAIT_RADIMMUNE, TRAIT_DESYNC)
 	REMOVE_TRAIT(user, TRAIT_RESISTLOWPRESSURE, TRAIT_DESYNC)
