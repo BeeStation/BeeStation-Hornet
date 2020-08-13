@@ -38,6 +38,12 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	GLOB.cogscarabs -= src
 	. = ..()
 
+/mob/living/simple_animal/drone/cogscarab/Life(seconds, times_fired)
+	. = ..()
+	if(!is_reebe(get_turf(src).z))
+		var/turf/T = get_turf(pick(GLOB.servant_spawns))
+		try_warp_servant(src, T, FALSE)
+
 //====Shell====
 
 /obj/item/drone_shell/cogscarab
