@@ -428,7 +428,7 @@
 	else
 		. = ..()
 
-/obj/structure/table/reinforced/brass
+/obj/structure/table/brass
 	name = "brass table"
 	desc = "A solid, slightly beveled brass table."
 	icon = 'icons/obj/smooth_structures/brass_table.dmi'
@@ -441,11 +441,11 @@
 	buildstackamount = 1
 	canSmoothWith = list(/obj/structure/table/reinforced/brass, /obj/structure/table/bronze)
 
-/obj/structure/table/reinforced/brass/tablepush(mob/living/user, mob/living/pushed_mob)
-	.= ..()
+/obj/structure/table/brass/tablepush(mob/living/user, mob/living/pushed_mob)
+	. = ..()
 	playsound(src, 'sound/magic/clockwork/fellowship_armory.ogg', 50, TRUE)
 
-/obj/structure/table/reinforced/brass/narsie_act()
+/obj/structure/table/brass/narsie_act()
 	take_damage(rand(15, 45), BRUTE)
 	if(src) //do we still exist?
 		var/previouscolor = color
