@@ -23,6 +23,9 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/crossed)
 
 /datum/component/clockwork_trap/pressure_sensor/proc/crossed(datum/source, atom/movable/AM)
+	//Item's in hands or boxes shouldn't trigger it
+	if(!istype(AM.loc, /turf))
+		return
 	var/mob/living/M = AM
 	if(istype(M))
 		if(is_servant_of_ratvar(M))
