@@ -71,5 +71,10 @@
 	if(shield_health == 0)
 		to_chat(src, "<span class='userdanger'>Your shield breaks!</span>")
 
+/mob/living/simple_animal/clockwork_marauder/welder_act(mob/living/user, obj/item/I)
+	if(do_after(user, 25, target=src))
+		health = min(health + 10, maxHealth)
+		to_chat(user, "<span class='notice'>You repair some [src]'s damage.</span>")
+
 #undef MARAUDER_SHIELD_RECHARGE
 #undef MARAUDER_SHIELD_MAX

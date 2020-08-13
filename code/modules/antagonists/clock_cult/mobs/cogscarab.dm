@@ -1,6 +1,6 @@
 #define CLOCKDRONE	"drone_clock"
 
-GLOBAL_LIST_INIT(cogscarabs)
+GLOBAL_LIST_INIT(cogscarabs, list())
 
 //====Cogscarab====
 
