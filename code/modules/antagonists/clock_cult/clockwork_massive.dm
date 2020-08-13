@@ -10,6 +10,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	density = TRUE
 	can_be_repaired = FALSE
 	immune_to_servant_attacks = TRUE
+	layer = BELOW_MOB_LAYER
 
 	var/activated = FALSE
 	var/grace_period = 300
