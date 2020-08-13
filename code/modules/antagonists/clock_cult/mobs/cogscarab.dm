@@ -39,10 +39,10 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	. = ..()
 
 /mob/living/simple_animal/drone/cogscarab/Life(seconds, times_fired)
-	. = ..()
-	if(!is_reebe(get_turf(src).z))
+	if(!is_reebe(z))
 		var/turf/T = get_turf(pick(GLOB.servant_spawns))
 		try_warp_servant(src, T, FALSE)
+	. = ..()
 
 //====Shell====
 

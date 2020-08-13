@@ -16,7 +16,7 @@
 
 /datum/clockcult/scripture/cogscarab/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks)
 	invokation_time = 120 + (60 * GLOB.cogscarabs.len)
-	if(!is_reebe(get_turf(M).z))
+	if(!is_reebe(M.z))
 		to_chat(M, "<span class='warning'>You must do this on Reebe!</span>")
 		return
 	if(GLOB.cogscarabs.len > 8)
