@@ -267,7 +267,7 @@
 
 /obj/item/reagent_containers/food/drinks/syndicatebeer
 	name = "syndicate beer"
-	desc = "Consumed only by the finest syndicate agents. Only drink one per sitting!"
+	desc = "Consumed only by the finest syndicate agents. There is a round warning label stating 'Don't drink more than one in quick succession!'"
 	icon_state = "syndicatebeer"
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 10, /datum/reagent/medicine/antitoxin = 20)
 	foodtype = GRAIN | ALCOHOL
