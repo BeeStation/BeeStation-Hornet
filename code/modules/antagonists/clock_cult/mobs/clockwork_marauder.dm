@@ -1,5 +1,5 @@
-#define MARAUDER_SHIELD_RECHARGE 150
-#define MARAUDER_SHIELD_MAX 5
+#define MARAUDER_SHIELD_RECHARGE 600
+#define MARAUDER_SHIELD_MAX 4
 
 /mob/living/simple_animal/clockwork_marauder
 	name = "clockwork marauder"
@@ -8,8 +8,8 @@
 	icon_state = "clockwork_marauder"
 	icon_dead = "anime_fragment"
 	possible_a_intents = list(INTENT_HARM)
-	health = 110
-	maxHealth = 110
+	health = 80
+	maxHealth = 80
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -25,7 +25,7 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	mobsay_color = "#CAA25B"
 	obj_damage = 80
-	melee_damage = 20
+	melee_damage = 18
 	faction = list("ratvar")
 
 	var/shield_health = MARAUDER_SHIELD_MAX

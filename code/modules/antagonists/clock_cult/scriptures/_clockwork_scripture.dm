@@ -3,6 +3,7 @@
 	var/desc = ""
 	var/tip = ""
 	var/power_cost = 0
+	var/vitality_cost = 0
 	var/cogs_required = 0
 	var/invokation_time = 0
 	var/list/invokation_text = list()	//This is all translated to rat'var so doesn't matter if its cringey or doesn't make sense, since most people can't read it
@@ -20,7 +21,7 @@
 	var/sound/recital_sound = null
 
 /datum/clockcult/scripture/proc/invoke()
-	if(GLOB.clockcult_power < power_cost)
+	if(GLOB.clockcult_power < power_cost || GLOB.clockcult_vitality < vitality_cost)
 		invoke_fail()
 		if(invokation_chant_timer)
 			deltimer(invokation_chant_timer)
