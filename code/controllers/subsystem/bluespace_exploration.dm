@@ -1,5 +1,8 @@
 #define CLEAR_TURF_PROCESSING_TIME 600
 
+// TODO:
+// WHY THE FUCK ARE WE USING TIMERS WHEN WE HAVE OUR OWN SUBSYSTEM LOL??????????
+
 SUBSYSTEM_DEF(bluespace_exploration)
 	name = "Bluespace Exploration"
 	wait = 5 SECONDS

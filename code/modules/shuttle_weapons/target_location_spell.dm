@@ -15,10 +15,6 @@
 	antimagic_allowed = TRUE
 	var/obj/machinery/computer/weapons/linked_console
 
-/obj/effect/proc_holder/spell/set_weapon_target/Destroy()
-	message_admins("PROC TRACKER TO PREVENT MEMORY OVERFLOW: DESTROYED SUCCESSFULLY")
-	. = ..()
-
 /obj/effect/proc_holder/spell/set_weapon_target/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(!linked_console)
 		to_chat(caller, "<span class='warning'>No linked console.</span>")

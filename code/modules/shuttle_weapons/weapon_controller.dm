@@ -168,7 +168,7 @@
 			spell.add_ranged_ability(user, "", TRUE)
 			to_chat(usr, "<span class='notice'>Weapon targetting enabled, select target location.</span>")
 			return TRUE
-		if("fire")	//Unused atm
+		if("fire")
 			var/id = params["id"]
 			var/obj/machinery/shuttle_weapon/found_weapon = GLOB.shuttle_weapons["[id]"]
 			if(!found_weapon)

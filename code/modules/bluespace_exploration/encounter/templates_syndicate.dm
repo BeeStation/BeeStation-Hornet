@@ -10,7 +10,7 @@
 	difficulty = 1	//These are super easy and super small
 	allowed_weapons = list()
 
-/datum/map_template/shuttle/ship/syndicate/fighter
+/datum/map_template/shuttle/ship/syndicate/cutter
 	name = "Pirate Cutter"
 	id = "pirate_cutter"
 	suffix = "pirate_cutter"
