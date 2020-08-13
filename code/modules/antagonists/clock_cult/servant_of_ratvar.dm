@@ -39,6 +39,7 @@
 			GLOB.cyborg_servants_of_ratvar |= owner
 	check_ark_status()
 	owner.announce_objectives()
+	owner.language_holder.grant_language(/datum/language/ratvar)
 
 /datum/antagonist/servant_of_ratvar/on_removal()
 	. = ..()
