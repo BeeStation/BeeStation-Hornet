@@ -266,8 +266,8 @@
 	foodtype = GRAIN | ALCOHOL
 
 /obj/item/reagent_containers/food/drinks/syndicatebeer
-	name = "suspicous looking beer"
-	desc = "The bottle is painted black with an S on the label. Looks like some sort of enemy corporation."
+	name = "syndicate beer"
+	desc = "Consumed only by the finest syndicate agents."
 	icon_state = "syndicatebeer"
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 10, /datum/reagent/medicine/antitoxin = 20)
 	foodtype = GRAIN | ALCOHOL
