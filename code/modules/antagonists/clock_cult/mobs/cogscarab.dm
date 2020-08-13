@@ -1,5 +1,7 @@
 #define CLOCKDRONE	"drone_clock"
 
+GLOBAL_LIST_INIT(cogscarabs)
+
 //====Cogscarab====
 
 /mob/living/simple_animal/drone/cogscarab
@@ -25,6 +27,16 @@
 
 /mob/living/simple_animal/drone/cogscarab/do_after_coefficent() // This gets added to the delay on a do_after, default 1
 	return 0.6
+
+//No you can't go weilding guns like that.
+/mob/living/simple_animal/drone/cogscarab/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NOGUNS, "cogscarab")
+	GLOB.cogscarabs += src
+
+/mob/living/simple_animal/drone/cogscarab/death(gibbed)
+	GLOB.cogscarabs -= src
+	. = ..()
 
 //====Shell====
 
