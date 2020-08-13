@@ -190,27 +190,21 @@
 	hidden = FALSE
 	var/playing_ambience = FALSE
 
-/area/reebe/city_of_cogs/Entered(atom/movable/M)
+/area/reebe/city_of_cogs/Entered(atom/movable/AM)
 	. = ..()
-	if(!playing_ambience)
-		//Start the ambience replay loop
-		addtimer(CALLBACK(src, .proc/replay_ambience), 900)
-		playing_ambience = TRUE
+	if(ismob(AM))
+		var/mob/M = AM
+		if(M.client)
+			addtimer(CALLBACK(M.client, /client/proc/play_reebe_ambience), 900)
 
-/area/reebe/city_of_cogs/Exited(atom/movable/AM)
-	. = ..()
-	//Stop ambience replay loop if mobs inside have left
-	playing_ambience = FALSE
-	for(var/mob/M in get_turf(src))
-		playing_ambience = TRUE
+//Reebe ambience replay
 
-/area/reebe/city_of_cogs/proc/replay_ambience()
-	if(!playing_ambience)
+/client/proc/play_reebe_ambience()
+	var/area/A = get_area(mob)
+	if(!istype(A, /area/reebe/city_of_cogs))
 		return
-	for(var/mob/M in get_turf(src))
-		var/sound = pick(ambientsounds)
-		if(!M.client.played)
-			SEND_SOUND(M, sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE))
-			M.client.played = TRUE
-			addtimer(CALLBACK(M.client, /client/proc/ResetAmbiencePlayed), 600)
-	addtimer(CALLBACK(src, .proc/replay_ambience), 900)
+	var/sound = pick(REEBE)
+	if(!played)
+		SEND_SOUND(src, sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE))
+		played = TRUE
+		addtimer(CALLBACK(src, /client/proc/play_reebe_ambience), 900)
