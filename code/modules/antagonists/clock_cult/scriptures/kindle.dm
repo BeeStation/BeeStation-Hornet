@@ -4,7 +4,7 @@
 //==================================//
 /datum/clockcult/scripture/slab/kindle
 	name = "Kindle"
-	desc = "Stuns and mutes a target from a short range."
+	desc = "Stuns and mutes a target from a short range. Significantly less effective on Reebe."
 	tip = "Stuns and mutes a target from a short range."
 	button_icon_state = "Kindle"
 	power_cost = 125
@@ -49,11 +49,12 @@
 		return TRUE
 	//Successful Invokation
 	invoker.mob_light(_color = LIGHT_COLOR_CLOCKWORK, _range = 2, _duration = 10)
-	if(!HAS_TRAIT(M, TRAIT_MINDSHIELD))
-		M.Paralyze(150)
-	else
-		to_chat(invoker, "<span class='brass'>[M] seems somewhat resistant to your powers!</span>")
-		M.confused = CLAMP(M.confused, 50, INFINITY)
+	if(!is_reebe(get_turf(invoker).z))
+		if(!HAS_TRAIT(M, TRAIT_MINDSHIELD))
+			M.Paralyze(150)
+		else
+			to_chat(invoker, "<span class='brass'>[M] seems somewhat resistant to your powers!</span>")
+			M.confused = CLAMP(M.confused, 50, INFINITY)
 	if(issilicon(M))
 		var/mob/living/silicon/S = M
 		S.emp_act(EMP_HEAVY)
