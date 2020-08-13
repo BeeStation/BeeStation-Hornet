@@ -1,6 +1,7 @@
 /obj/machinery/shuttle_weapon/missile
 	name = "Centaur I Missile Launcher"
 	weapon_desc = "A large tubular missile launcher that fires low powered missiles with a long reload time."
+	icon_state = "missile_left"
 	projectile_type = /obj/item/projectile/bullet/shuttle/missile/mini
 	cooldown = 180
 	innaccuracy = 1

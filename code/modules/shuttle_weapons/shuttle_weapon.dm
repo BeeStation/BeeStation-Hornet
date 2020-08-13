@@ -9,6 +9,8 @@ GLOBAL_LIST_EMPTY(shuttle_weapons)
 	desc = "A weapon system mounted onto a shuttle system."
 	icon = 'icons/obj/shuttle_weapons.dmi'
 	icon_state = "cannon_left"
+	var/icon_state_left = "cannon_left"
+	var/icon_state_right = "cannon_left"
 	anchored = TRUE
 	var/unique_id
 	var/projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser

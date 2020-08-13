@@ -162,11 +162,11 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		if(selected_ruin.limited)
 			valid_ruins -= selected_ruin
 		//Subtract Cost
-		cost_limit -= selected_ruin.cost
 		selected_ruin.try_to_place(reserved_bs_level.z_value, /area/space)
+		cost_limit -= selected_ruin.cost
 		CHECK_TICK
 	//Debug, spawn syndie fighter
-	spawn_and_register_shuttle(spawnable_ships["Syndicate Fighter"])
+	spawn_and_register_shuttle(spawnable_ships["Pirate Cutter"])
 	addtimer(CALLBACK(src, .proc/on_generation_complete, data_holder), 0)
 
 /datum/controller/subsystem/bluespace_exploration/proc/on_generation_complete(datum/data_holder/bluespace_exploration/data_holder)

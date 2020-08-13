@@ -3008,6 +3008,7 @@
 #include "code\modules\shuttle_weapons\shuttle_weapon.dm"
 #include "code\modules\shuttle_weapons\target_location_spell.dm"
 #include "code\modules\shuttle_weapons\weapon_controller.dm"
+#include "code\modules\shuttle_weapons\weapons_mapping.dm"
 #include "code\modules\shuttle_weapons\weapons\laser.dm"
 #include "code\modules\shuttle_weapons\weapons\missile.dm"
 #include "code\modules\spells\spell.dm"
