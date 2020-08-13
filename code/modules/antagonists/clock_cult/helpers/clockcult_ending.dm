@@ -21,9 +21,10 @@
 			SEND_SOUND(M, sound(null))
 			SEND_SOUND(M, sound('sound/magic/fireball.ogg'))
 		if(!is_servant_of_ratvar(M) && isliving(M))
-			M.fire_stacks = INFINITY
-			M.IgniteMob()
-			M.emote("scream")
+			var/mob/living/L = M
+			L.fire_stacks = INFINITY
+			L.IgniteMob()
+			L.emote("scream")
 
 /proc/clockcult_gg()
 	SSticker.force_ending = TRUE

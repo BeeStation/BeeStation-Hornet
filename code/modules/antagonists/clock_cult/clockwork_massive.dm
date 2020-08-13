@@ -246,3 +246,10 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	if(T == loc)
 		T = get_step(A, A.dir) //please don't slam into a window like a bird, Ratvar
 	forceMove(T)
+
+/obj/singularity/ratvar/attack_ghost(mob/user)
+	. = ..()
+	var/mob/living/simple_animal/drone/D = new /mob/living/simple_animal/drone/cogscarab(get_turf(src))
+	D.flags_1 |= (flags_1 & ADMIN_SPAWNED_1)
+	D.key = user.key
+	add_servant_of_ratvar(D, silent=TRUE)
