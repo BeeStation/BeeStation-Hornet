@@ -61,14 +61,14 @@
 	icon_state = "botany_envirosuit"
 	item_state = "botany_envirosuit"
 	item_color = "botany_envirosuit"
-	
+
 /obj/item/clothing/under/plasmaman/command //fun fact, captains uniforms don't get the sec uniform defense buff, pretty stupid
 	name = "captains plasma envirosuit"
 	desc = "A blue envirosuit with gold trimmings. A suit made for those who demand respect from their subordinates."
 	icon_state = "command_envirosuit"
 	item_state = "command_envirosuit"
 	item_color = "command_envirosuit"
-	
+
 /obj/item/clothing/under/plasmaman/hop
 	name = "head of personnel plasma envirosuit"
 	desc = "The head of personnels blue envirosuit, complete with red trimmings and adorned with various medals."
@@ -89,3 +89,10 @@
 	icon_state = "honk_envirosuit"
 	item_state = "honk_envirosuit"
 	item_color = "honk_envirosuit"
+
+/obj/item/clothing/under/plasmaman/prisoner
+	name = "prisoner envirosuit"
+	desc = "An orange envirosuit identifying and protecting a criminal plasmaman."
+	icon_state = "prisoner_envirosuit"
+	item_state = "prisoner_envirosuit"
+	item_color = "prisoner_envirosuit"
