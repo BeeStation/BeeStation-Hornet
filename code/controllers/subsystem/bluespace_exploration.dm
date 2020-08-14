@@ -5,7 +5,7 @@
 
 SUBSYSTEM_DEF(bluespace_exploration)
 	name = "Bluespace Exploration"
-	wait = 5 SECONDS
+	wait = 1
 	priority = FIRE_PRIORITY_EXPLORATION
 	init_order = INIT_ORDER_BS_EXPLORATION
 
@@ -25,16 +25,42 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/list/spawnable_ships = list()
 	var/list/tracked_ships = list()
 
+	//=====Z-Level Wiping=====
+	//Are we currently processing a z-level wipe
+	var/wiping_z_level = FALSE
+	//The target z-level of the wipe
+	var/target_z_level = 0
+	//A list of all turfs on the z-leves divided into equal parts depending on how many ticks we have to wipe
+	var/list/wiping_divided_turfs
+	//The turf group we are currently wiping
+	var/wipe_process_num  = 0
+	//Data holder for turf wiping
+	var/datum/data_holder/bluespace_exploration/wipe_data_holder
+	//The queue for z-levels to wipe
+	var/list/z_level_queue
+
 /datum/controller/subsystem/bluespace_exploration/Initialize(start_timeofday)
+	z_level_queue = list()
 	generate_starmap()
 	. = ..()
 
 /datum/controller/subsystem/bluespace_exploration/fire(resumed = 0)
-	for(var/ship_key in tracked_ships)
-		var/datum/ship_datum/SD = tracked_ships[ship_key]
-		SD.update_ship()
-		if(QDELETED(SD))
-			tracked_ships -= ship_key
+	if(times_fired % 50 == 0)
+		for(var/ship_key in tracked_ships)
+			var/datum/ship_datum/SD = tracked_ships[ship_key]
+			SD.update_ship()
+			if(QDELETED(SD))
+				tracked_ships -= ship_key
+			CHECK_TICK
+	if(!wiping_z_level && LAZYLEN(z_level_queue))
+		for(var/z_level_id in z_level_queue)	//There is probably a better way to do this
+			var/z_level = text2num(z_level_id)
+			wipe_z_level(z_level, z_level_queue[z_level_id])
+			break
+		CHECK_TICK
+	if(wiping_z_level)
+		continue_wipe(wipe_data_holder, wiping_divided_turfs, wipe_process_num)
+		wipe_process_num += 1
 		CHECK_TICK
 
 /datum/controller/subsystem/bluespace_exploration/proc/register_new_ship(shuttle_id, override_type = /datum/ship_datum, faction = /datum/faction/station)
@@ -70,8 +96,10 @@ SUBSYSTEM_DEF(bluespace_exploration)
 //Under low load, this wont push the server to the tick limit, since it is spread out and done evenly.
 //More time reliable at low and high tickrates than using CHECK_TICK
 
-/datum/controller/subsystem/bluespace_exploration/proc/wipe_z_level(datum/data_holder/bluespace_exploration/data_holder)
-	var/list/turfs = get_area_turfs(/area, reserved_bs_level.z_value, TRUE)
+/datum/controller/subsystem/bluespace_exploration/proc/wipe_z_level(z_level, datum/data_holder/bluespace_exploration/data_holder)
+	wiping_z_level = TRUE
+	z_level_queue.Remove("[z_level]")
+	var/list/turfs = get_area_turfs(/area, z_level, TRUE)
 	var/list/divided_turfs = list()
 	var/section_process_time = CLEAR_TURF_PROCESSING_TIME / 2	//There are 3 processes, cleaing atoms, cleaing turfs and then reseting atmos
 
@@ -85,11 +113,22 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			divided_turfs += list(current_group)
 			current_group = list()
 	divided_turfs += list(current_group)
+	prep_wipe(data_holder, divided_turfs)
 
-	var/i = 0
-	continue_wipe(data_holder, divided_turfs, i)
+//Adds a z-level to the wipe queue for wiping
+/datum/controller/subsystem/bluespace_exploration/proc/add_to_wipe_queue(z_level_num, datum/data_holder/bluespace_exploration/data_holder)
+	if(z_level_queue["[z_level_num]"])
+		return
+	if(!data_holder)
+		data_holder = new()
+	z_level_queue["[z_level_num]"] = data_holder
 
-/datum/controller/subsystem/bluespace_exploration/proc/continue_wipe(datum/data_holder/bluespace_exploration/data_holder, list/divided_turfs, process_num, spawn_ruins = FALSE)
+/datum/controller/subsystem/bluespace_exploration/proc/prep_wipe(datum/data_holder/bluespace_exploration/data_holder, list/divided_turfs)
+	wipe_data_holder = data_holder
+	wiping_divided_turfs = divided_turfs
+	wipe_process_num = 0
+
+/datum/controller/subsystem/bluespace_exploration/proc/continue_wipe(datum/data_holder/bluespace_exploration/data_holder, list/divided_turfs, process_num)
 	var/list_element = (process_num % (CLEAR_TURF_PROCESSING_TIME/2)) + 1
 	switch(process_num)
 		if(0 to (CLEAR_TURF_PROCESSING_TIME/2)-1)
@@ -100,12 +139,13 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			var/datum/data_holder/bluespace_exploration/data = data_holder
 			if(data.spawn_ruins)
 				addtimer(CALLBACK(src, .proc/place_ruins, data_holder), 0)
+			wiping_z_level = FALSE	//Done :)
 			return
-	addtimer(CALLBACK(src, .proc/continue_wipe, data_holder, divided_turfs, process_num + 1, spawn_ruins), 1, TIMER_UNIQUE)
 
 /datum/controller/subsystem/bluespace_exploration/proc/clear_turf_atoms(list/turfs)
 	//Clear atoms
 	for(var/turf/T in turfs)
+		SSair.remove_from_active(T)
 		// Remove all atoms except observers
 		var/static/list/ignored_atoms = typecacheof(list(/mob/dead))
 		var/list/allowed_contents = typecache_filter_list_reverse(T.GetAllContents(), ignored_atoms)
@@ -113,7 +153,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		for(var/i in 1 to allowed_contents.len)
 			var/thing = allowed_contents[i]
 			qdel(thing, force=TRUE)
-		SSair.remove_from_active(T)
 
 /datum/controller/subsystem/bluespace_exploration/proc/reset_turfs(list/turfs)
 	var/list/new_turfs = list()
@@ -211,7 +250,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	generating = FALSE
 
 /datum/controller/subsystem/bluespace_exploration/proc/generate_z_level(datum/data_holder/bluespace_exploration/data_holder)
-	wipe_z_level(data_holder, TRUE)
+	add_to_wipe_queue(reserved_bs_level.z_value, data_holder)
 
 /datum/controller/subsystem/bluespace_exploration/proc/shuttle_translation(shuttle_id, datum/star_system/system)
 	if(!check_z_level())
