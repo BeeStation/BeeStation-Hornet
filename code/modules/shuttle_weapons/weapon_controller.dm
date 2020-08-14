@@ -152,6 +152,7 @@
 			return TRUE
 		if("set_weapon_target")
 			//Select the weapon system
+			//This seems highly exploitable
 			var/id = params["id"]
 			var/found_weapon = GLOB.shuttle_weapons["[id]"]
 			if(!found_weapon)
