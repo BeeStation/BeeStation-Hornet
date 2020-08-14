@@ -35,7 +35,7 @@ Bonus
 					  <b>Stage Speed 14:</b> Mutations will be beneficial.<br>\
 					  <b>Stealth 5:</b> The mutations persist even if the virus is cured."
 
-/datum/symptom/genetics/severityset(datum/disease/advance/A)
+/datum/symptom/genetic_mutation/severityset(datum/disease/advance/A)
 	. = ..()
 	if(A.properties["stage_rate"] >= 14)
 		severity = 0

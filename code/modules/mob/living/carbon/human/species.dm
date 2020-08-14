@@ -322,6 +322,15 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		for(var/datum/disease/A in C.diseases)
 			A.cure(FALSE)
 
+	for(var/datum/disease/A in C.diseases)//if we can't have the disease, dont keep it
+		var/curedisease = TRUE
+		for(var/host_type in A.infectable_biotypes)
+			if(host_type in inherent_biotypes)
+				curedisease = FALSE
+				break
+		if(curedisease)
+			A.cure(FALSE)
+
 	if(TRAIT_TOXIMMUNE in inherent_traits)
 		C.setToxLoss(0, TRUE, TRUE)
 
