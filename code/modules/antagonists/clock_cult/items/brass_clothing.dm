@@ -148,12 +148,14 @@
 
 /obj/item/clothing/head/helmet/clockcult
 	name = "brass helmet"
-	desc = "A strong, brass helmet worn by the soldiers of the Ratvarian armies."
+	desc = "A strong, brass helmet worn by the soldiers of the Ratvarian armies. Includes an integrated light-dimmer for flash protection, as well as occult-grade muffling for factory based environments."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_helmet"
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 20, "energy" = 40, "bomb" = 40, "bio" = 70, "rad" = 100, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
+	flash_protect = 1
+	bang_protect = 3
 
 /obj/item/clothing/shoes/clockcult
 	name = "brass treads"
