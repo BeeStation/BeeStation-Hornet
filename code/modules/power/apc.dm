@@ -778,12 +778,11 @@
 				if(cell.charge <= (cell.maxcharge / 2) || (stomach.crystal_charge >= ETHEREAL_CHARGE_FULL))
 					to_chat(H, "<span class='warning'>You can't receive charge from the APC.</span>")
 					return
-				if(istype(stomach))
-					to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
-					stomach.adjust_charge(10)
-					cell.charge -= 10
-				else
-					to_chat(H, "<span class='warning'>You can't receive charge from the APC!</span>")
+				to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
+				stomach.adjust_charge(10)
+				cell.charge -= 10
+			else
+				to_chat(H, "<span class='warning'>You can't receive charge from the APC!</span>")
 			return
 		if((H.a_intent == INTENT_GRAB) && (E.drain_time < world.time))
 			if(cell.charge == cell.maxcharge)
@@ -798,16 +797,15 @@
 				return
 			E.drain_time = world.time + 75
 			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
-			if(istype(stomach))
-				if(cell.charge == cell.maxcharge || (stomach.crystal_charge < 10))
-					to_chat(H, "<span class='warning'>You can't transfer charge to the APC.</span>")
-					return
-				if(do_after(user, 75, target = src))
-					to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
-					stomach.adjust_charge(-10)
-					cell.charge += 10
-				else
-					to_chat(H, "<span class='warning'>You can't transfer power to the APC!</span>")
+			if(cell.charge == cell.maxcharge || (stomach.crystal_charge < 10))
+				to_chat(H, "<span class='warning'>You can't transfer charge to the APC.</span>")
+				return
+			if(do_after(user, 75, target = src))
+				to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
+				stomach.adjust_charge(-10)
+				cell.charge += 10
+			else
+				to_chat(H, "<span class='warning'>You can't transfer power to the APC!</span>")
 			return
 
 	if(opened && (!issilicon(user)))
