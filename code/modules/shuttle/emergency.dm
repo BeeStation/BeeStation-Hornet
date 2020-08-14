@@ -355,7 +355,6 @@
 			//Check if the gamemode is clockcult and the clockies are utter failures
 			if(GLOB.celestial_gateway && !GLOB.gateway_opening)
 				SSshuttle.registerHostileEnvironment(GLOB.celestial_gateway)
-				SSshuttle.lockdown = TRUE
 			SSshuttle.checkHostileEnvironment()
 			if(mode == SHUTTLE_STRANDED)
 				return
