@@ -153,6 +153,12 @@
 	item_state = "security_envirohelm"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75)
 
+/obj/item/clothing/head/helmet/space/plasmaman/prisoner
+	name = "prisoner's plasma envirosuit helmet"
+	desc = "A plasmaman containment helmet for prisoners."
+	icon_state = "prisoner_envirohelm"
+	item_state = "prisoner_envirohelm"
+
 /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	name = "warden's plasma envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for the warden, a pair of white stripes being added to differeciate them from other members of security."

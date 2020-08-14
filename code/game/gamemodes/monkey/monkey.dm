@@ -13,7 +13,7 @@
 	required_enemies = 1
 	recommended_enemies = 1
 
-	restricted_jobs = list("Cyborg", "AI")
+	restricted_jobs = list("Cyborg", "AI", "Prisoner")
 
 	var/carriers_to_make = 1
 	var/list/carriers = list()
