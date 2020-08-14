@@ -6947,10 +6947,10 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
-/area/security/prison)
+/area/security/prison/toilet)
 "arq" = (
 /turf/open/floor/plasteel/freezer,
-/area/security/prison)
+/area/security/prison/toilet)
 "arr" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -11986,7 +11986,7 @@
 	},
 /obj/item/soap/nanotrasen,
 /turf/open/floor/plasteel/freezer,
-/area/security/prison)
+/area/security/prison/toilet)
 "aCB" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -12568,11 +12568,11 @@
 	name = "Unisex Restroom"
 	},
 /turf/open/floor/plasteel/freezer,
-/area/security/prison)
+/area/security/prison/toilet)
 "aDS" = (
 /obj/structure/toilet,
 /turf/open/floor/plasteel/freezer,
-/area/security/prison)
+/area/security/prison/toilet)
 "aDT" = (
 /obj/structure/sink{
 	dir = 4;
@@ -12680,7 +12680,7 @@
 	pixel_x = 11
 	},
 /turf/open/floor/plasteel/freezer,
-/area/security/prison)
+/area/security/prison/toilet)
 "aEf" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -20030,7 +20030,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
-/area/security/prison)
+/area/security/prison/toilet)
 "aUQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -26219,7 +26219,7 @@
 "bhp" = (
 /obj/machinery/light/small,
 /turf/open/floor/plasteel/freezer,
-/area/security/prison)
+/area/security/prison/toilet)
 "bhq" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -54986,6 +54986,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/fitness/locker_room)
+"qJn" = (
+/obj/structure/chair/stool,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/open/floor/plasteel,
+/area/security/prison)
 "qKO" = (
 /obj/structure/grille,
 /obj/structure/cable/yellow{
@@ -108572,7 +108578,7 @@ ajB
 ajB
 ajB
 bRo
-ajR
+qJn
 ajB
 ajB
 aZD
@@ -109341,7 +109347,7 @@ acU
 ajB
 ajB
 ajB
-ajR
+qJn
 anY
 ajB
 ajB
