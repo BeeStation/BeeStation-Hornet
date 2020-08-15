@@ -1,13 +1,13 @@
 /datum/job/exploration_crew
 	title = "Exploration Crew"
 	flag = EXPLORATIONTEAM
-	department_head = list("Research Director")
+	department_head = list("Expansion Director")
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
-	supervisors = "the research director"
-	selection_color = "#ffeeff"
+	supervisors = "the expansion director and research director"
+	selection_color = "#C8FDF4"
 	chat_color = "#AC71FA"
 	exp_type = EXP_TYPE_CREW
 
@@ -16,7 +16,7 @@
 	access = list(ACCESS_RESEARCH, ACCESS_EVA, ACCESS_EXPLORATION)
 	minimal_access = list(ACCESS_RESEARCH, ACCESS_EVA, ACCESS_EXPLORATION)
 	paycheck = PAYCHECK_MEDIUM
-	paycheck_department = ACCOUNT_SCI
+	paycheck_department = ACCOUNT_EXP
 
 	display_order = JOB_DISPLAY_ORDER_EXPLORATION_TEAM
 

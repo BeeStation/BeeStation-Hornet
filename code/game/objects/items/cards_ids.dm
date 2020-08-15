@@ -699,6 +699,11 @@ update_label("John Doe", "Clowny")
 	department_name = ACCOUNT_SEC_NAME
 	icon_state = "budget_sec"
 
+/obj/item/card/id/departmental_budget/exp
+	department_ID = ACCOUNT_EXP
+	department_name = ACCOUNT_EXP_NAME
+	icon_state = "budget_sec"
+
 ///Job Specific ID Cards///
 
 /obj/item/card/id/job/ce

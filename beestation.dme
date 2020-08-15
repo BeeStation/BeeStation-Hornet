@@ -2086,6 +2086,7 @@
 #include "code\modules\jobs\job_types\deputy.dm"
 #include "code\modules\jobs\job_types\detective.dm"
 #include "code\modules\jobs\job_types\emt.dm"
+#include "code\modules\jobs\job_types\expansion_director.dm"
 #include "code\modules\jobs\job_types\exploration_crew.dm"
 #include "code\modules\jobs\job_types\geneticist.dm"
 #include "code\modules\jobs\job_types\gimmick.dm"
