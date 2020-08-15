@@ -67,8 +67,8 @@
 				L.apply_status_effect(STATUS_EFFECT_INTERDICTION)
 	for(var/obj/mecha/M in range(INTERDICTION_LENS_RANGE, src))
 		if(use_power(5))
-			M.use_power(3000)
-			M.take_damage(40)
+			M.use_power(8000)
+			M.take_damage(80)
 			do_sparks(4, TRUE, M)
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/repowered()
@@ -93,6 +93,7 @@
 //Dampening field
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork
 	name = "\improper Reality Distortion Field"
+	alpha = 20
 
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/capture_projectile(obj/item/projectile/P, track_projectile = TRUE)
 	if(P in tracked)
