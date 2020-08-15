@@ -107,6 +107,9 @@
 	return
 
 /turf/closed/wall/clockwork/attack_hulk(mob/user, does_attack_animation)
+	if(prob(10))
+		return ..()
+	to_chat(user, "<span class='warning'>Your slightly dent [src].</span>")
 	return
 
 //========Deconstruction Handled Here=======
@@ -134,6 +137,8 @@
 	return
 
 /turf/closed/wall/clockwork/mech_melee_attack(obj/mecha/M)
+	M.take_damage(5)
+	to_chat(M.user)
 	return
 
 /turf/closed/wall/clockwork/update_icon()
