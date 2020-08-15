@@ -331,7 +331,7 @@ GLOBAL_PROTECT(exp_to_update)
 /client/proc/process_endround_playerqualitypoints()
 	if(!CONFIG_GET(flag/pqp_tracking))
 		return
-	if(GLOB.naughty_keys.len && key in GLOB.naughty_keys)
+	if(GLOB.naughty_keys.len && (key in GLOB.naughty_keys))
 		return
 
 	var/exp_total = get_exp_living(FALSE)
