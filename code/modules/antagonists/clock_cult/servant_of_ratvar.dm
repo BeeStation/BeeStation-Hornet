@@ -46,10 +46,8 @@
 	team.remove_member(owner)
 	GLOB.servants_of_ratvar -= owner
 	GLOB.all_servants_of_ratvar -= owner
-	if(owner in GLOB.human_servants_of_ratvar)
-		GLOB.human_servants_of_ratvar -= owner
-	if(owner in GLOB.cyborg_servants_of_ratvar)
-		GLOB.cyborg_servants_of_ratvar -= owner
+	GLOB.human_servants_of_ratvar -= owner
+	GLOB.cyborg_servants_of_ratvar -= owner
 
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
