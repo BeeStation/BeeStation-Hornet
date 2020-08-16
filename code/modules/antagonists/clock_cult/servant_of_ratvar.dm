@@ -43,6 +43,7 @@
 
 /datum/antagonist/servant_of_ratvar/on_removal()
 	. = ..()
+	team.remove_member(owner)
 	GLOB.servants_of_ratvar -= owner
 	GLOB.all_servants_of_ratvar -= owner
 	if(owner in GLOB.human_servants_of_ratvar)

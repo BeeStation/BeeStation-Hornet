@@ -32,6 +32,8 @@
 			return
 		if(M.incorporeal_move || M.is_flying())
 			return
+	else
+		return
 	trigger_connected()
 	for(var/obj/structure/destructible/clockwork/trap/T in get_turf(parent))
 		if(T != parent)

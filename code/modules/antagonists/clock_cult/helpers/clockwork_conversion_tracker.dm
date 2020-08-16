@@ -40,6 +40,7 @@ GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
 		to_chat(cult_mind, "<span class='warning'>The quiet ticking in the back of your mind slowly fades away...</span>")
 		cult_datum.silent = silent
 		cult_datum.on_removal()
+		cult_mind.special_role = null
 		if(stun)
 			cult_mind.current.Unconscious(100)
 		return TRUE
