@@ -137,8 +137,6 @@
 	return
 
 /turf/closed/wall/clockwork/mech_melee_attack(obj/mecha/M)
-	M.take_damage(5)
-	to_chat(M.user)
 	return
 
 /turf/closed/wall/clockwork/update_icon()

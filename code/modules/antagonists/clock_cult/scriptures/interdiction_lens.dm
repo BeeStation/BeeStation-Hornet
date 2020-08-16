@@ -93,7 +93,6 @@
 //Dampening field
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork
 	name = "\improper Reality Distortion Field"
-	alpha = 20
 
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/capture_projectile(obj/item/projectile/P, track_projectile = TRUE)
 	if(P in tracked)
