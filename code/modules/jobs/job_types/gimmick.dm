@@ -76,7 +76,7 @@
 	ears = null //hobos dont start with a headset
 	uniform = /obj/item/clothing/under/pants/jeans
 	suit = /obj/item/clothing/suit/jacket
-	
+
 
 /datum/outfit/job/gimmick/hobo/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -109,3 +109,20 @@
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/suit/black
 	shoes = /obj/item/clothing/shoes/laceup
+
+/datum/job/gimmick/prisoner
+	title = "Prisoner"
+	flag = PRISONER
+	supervisors = "the security team"
+	outfit = /datum/outfit/job/gimmick/prisoner
+	gimmick = TRUE
+
+/datum/outfit/job/gimmick/prisoner
+	name = "Prisoner"
+	jobtype = /datum/job/gimmick/prisoner
+
+	uniform = /obj/item/clothing/under/rank/prisoner
+	shoes = /obj/item/clothing/shoes/sneakers/orange
+	id = /obj/item/card/id/prisoner
+	ears = null
+	belt = null
