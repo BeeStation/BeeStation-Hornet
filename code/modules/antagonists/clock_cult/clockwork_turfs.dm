@@ -441,6 +441,10 @@
 		return 1
 	return 0
 
+//No, you can't weld them shut.
+/obj/machinery/door/airlock/clockwork/try_to_weld(obj/item/weldingtool/W, mob/user)
+	return
+
 /obj/machinery/door/airlock/clockwork/glass
 	glass = TRUE
 	opacity = 0
