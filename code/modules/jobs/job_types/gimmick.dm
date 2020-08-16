@@ -115,6 +115,8 @@
 	flag = PRISONER
 	supervisors = "the security team"
 	outfit = /datum/outfit/job/gimmick/prisoner
+	total_positions = 0
+	spawn_positions = 2
 	gimmick = TRUE
 
 /datum/outfit/job/gimmick/prisoner
