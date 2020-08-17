@@ -1,0 +1,4 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - bugfix: Skull Echo now correctly encodes its speech.
