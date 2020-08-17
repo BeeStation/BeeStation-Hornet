@@ -213,6 +213,22 @@
 	. = ..()
 	REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 
+/obj/item/clothing/glasses/sunglasses/advanced/reagent_2
+	name = "science sunglasses"
+	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion. Has enhanced shielding which blocks flashes."
+	icon_state = "sunhudscience"
+	item_state = "sunhudscience"
+	scan_reagents = TRUE
+
+/obj/item/clothing/glasses/sunglasses/advanced/reagent_2/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && slot == SLOT_GLASSES)
+		ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
+
+/obj/item/clothing/glasses/sunglasses/advanced/reagent_2/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
+
 /obj/item/clothing/glasses/sunglasses/advanced/garb
 	name = "black gar glasses"
 	desc = "Go beyond impossible and kick reason to the curb!  Has enhanced shielding which blocks flashes."
