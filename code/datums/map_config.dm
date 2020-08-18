@@ -110,14 +110,14 @@
 		return
 
 	var/temp = json["space_ruin_levels"]
-	if (isnum(temp))
+	if (isnum_safe(temp))
 		space_ruin_levels = temp
 	else if (!isnull(temp))
 		log_world("map_config space_ruin_levels is not a number!")
 		return
 
 	temp = json["space_empty_levels"]
-	if (isnum(temp))
+	if (isnum_safe(temp))
 		space_empty_levels = temp
 	else if (!isnull(temp))
 		log_world("map_config space_empty_levels is not a number!")
@@ -143,6 +143,6 @@
 	var/below_max = !(config_max_users) || GLOB.clients.len <= config_max_users
 	var/above_min = !(config_min_users) || GLOB.clients.len >= config_min_users
 	return votable && below_max && above_min
-	
+
 /datum/map_config/proc/MakeNextMap()
 	return config_filename == "data/next_map.json" || fcopy(config_filename, "data/next_map.json")

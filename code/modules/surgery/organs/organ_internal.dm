@@ -128,13 +128,20 @@
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(status == ORGAN_ORGANIC)
-			var/obj/item/reagent_containers/food/snacks/S = prepare_eat(H)
-			if(S)
-				qdel(src)
-				if(H.put_in_active_hand(S))
-					S.attack(H, H)
+			if(!check_for_surgery(H))
+				var/obj/item/reagent_containers/food/snacks/S = prepare_eat(H)
+				if(S)
+					qdel(src)
+					if(H.put_in_active_hand(S))
+						S.attack(H, H)
 	else
 		..()
+
+/obj/item/organ/proc/check_for_surgery(mob/living/carbon/human/H)
+	for(var/datum/surgery/S in H.surgeries)
+		if(S.location == H.zone_selected)
+			return	TRUE			//no snacks mid surgery
+	return FALSE
 
 /obj/item/organ/item_action_slot_check(slot,mob/user)
 	return //so we don't grant the organ's action to mobs who pick up the organ.

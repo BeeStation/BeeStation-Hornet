@@ -237,7 +237,7 @@
 
 /obj/item/clothing/head/beret/corpwarden
 	name = "corporate warden beret"
-	desc = "A special black beret with a Warden's insignia in the middle. This one is commonly warn by wardens of the corporation."
+	desc = "A special black beret with the Warden's insignia in the middle. This one is commonly worn by wardens of the corporation."
 	icon_state = "beret_corporate_warden"
 	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 25, bio = 0, rad = 0, fire = 30, acid = 60)
 	strip_delay = 60
@@ -246,7 +246,7 @@
 	name = "security beret"
 	desc = "A robust beret with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "beret_badge"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 40, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	strip_delay = 60
 	dog_fashion = null
 

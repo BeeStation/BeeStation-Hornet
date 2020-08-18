@@ -88,7 +88,7 @@ D [1]/  ||
 /datum/integrated_io/proc/scramble()
 	if(isnull(data))
 		return
-	if(isnum(data))
+	if(isnum_safe(data))
 		write_data_to_pin(rand(-10000, 10000))
 	if(istext(data))
 		write_data_to_pin("ERROR")
@@ -129,7 +129,7 @@ D [1]/  ||
 	return FALSE
 
 /datum/integrated_io/proc/write_data_to_pin(new_data)
-	if(isnull(new_data) || isnum(new_data) || istext(new_data) || isweakref(new_data))
+	if(isnull(new_data) || isnum_safe(new_data) || istext(new_data) || isweakref(new_data))
 		data = new_data
 		holder.on_data_written()
 	else if(islist(new_data))
@@ -185,8 +185,8 @@ D [1]/  ||
 				to_chat(user, "<span class='notice'>You input "+new_data+" into the pin.</span>")
 				return new_data
 		if("number")
-			new_data = input("Now type in a number.","[src] number writing", isnum(default) ? default : null) as null|num
-			if(isnum(new_data) && holder.check_interactivity(user) )
+			new_data = input("Now type in a number.","[src] number writing", isnum_safe(default) ? default : null) as null|num
+			if(isnum_safe(new_data) && holder.check_interactivity(user) )
 				to_chat(user, "<span class='notice'>You input [new_data] into the pin.</span>")
 				return new_data
 		if("null")

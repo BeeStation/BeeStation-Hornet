@@ -18,7 +18,7 @@ BONUS
 	name = "Alopecia"
 	desc = "The virus causes rapid shedding of head and body hair."
 	stealth = 0
-	resistance = 1
+	resistance = 3
 	stage_speed = 2
 	transmittable = 2
 	level = 4

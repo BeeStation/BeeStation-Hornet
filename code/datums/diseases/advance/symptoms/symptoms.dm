@@ -56,6 +56,8 @@
 	return TRUE
 
 /datum/symptom/proc/Activate(datum/disease/advance/A)
+	if(!A)
+		return FALSE //prevents a niche runtime where a disease procs on the same tick it is cured
 	if(neutered)
 		return FALSE
 	if(world.time < next_activation)

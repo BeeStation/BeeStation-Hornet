@@ -76,7 +76,7 @@
 
 /datum/emote/living/carbon/sign/select_param(mob/user, params)
 	. = ..()
-	if(!isnum(text2num(params)))
+	if(!isnum_safe(text2num(params)))
 		return message
 
 /datum/emote/living/carbon/sign/signal
