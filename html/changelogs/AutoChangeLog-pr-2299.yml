@@ -1,0 +1,6 @@
+author: zeskorion
+delete-after: true
+changes:
+  - tweak: aheal no longer replaces all organs
+  - bugfix: fixed apid wing sprites
+  - bugfix: fixed flight potion
