@@ -101,8 +101,8 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
-   if(slot == SLOT_GLASSES)
-       return 1
+	if(slot == SLOT_GLASSES)
+		return 1
 
 /obj/item/clothing/glasses/science/sciencesun
 	name = "science sunglasses"
