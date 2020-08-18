@@ -124,8 +124,6 @@
 	icon_living = "behemoth"
 	maxHealth = 150
 	health = 150
-	response_harm = "harmlessly punches"
-	harm_intent_damage = 0
 	obj_damage = 90
 	melee_damage = 25
 	attacktext = "smashes their armored gauntlet into"

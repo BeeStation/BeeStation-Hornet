@@ -809,7 +809,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	return
 
-/obj/item/attack_hulk(mob/living/carbon/human/user)
+/obj/item/hulk_damage()
 	return 0
 
 /obj/item/attack_animal(mob/living/simple_animal/M)

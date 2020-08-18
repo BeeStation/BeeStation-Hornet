@@ -16,7 +16,7 @@
 		pipe_astar_cost = 35\
 	)
 
-	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
+	var/hardness = 50 //this is essentially health for walls, and determines how hard they are to smash, if smashable at all
 	var/slicing_duration = 100  //default time taken to slice the wall
 	var/sheet_type = /obj/item/stack/sheet/iron
 	var/sheet_amount = 2
@@ -135,34 +135,41 @@
 /turf/closed/wall/attack_animal(mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
-	if((M.environment_smash & ENVIRONMENT_SMASH_WALLS) || (M.environment_smash & ENVIRONMENT_SMASH_RWALLS))
-		playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-		dismantle_wall(1)
-		return
+	if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
+		attacked(M, 100) //5 hits to wreck an rwall, 1 hit for a normal wall
+	else if(M.environment_smash & ENVIRONMENT_SMASH_WALLS)
+		attacked(M, 10) //50 hits for an rwall, 5 hits for a normal wall
+	else if(M.melee_damage >= 5)
+		attacked (M, 1) //50 hits for a normal wall, too many hits to matter for an rwall
 
-/turf/closed/wall/attack_hulk(mob/user, does_attack_animation = 0)
-	..(user, 1)
-	if(prob(hardness))
+/turf/closed/wall/proc/attacked(mob/user, damage = 25)
+	hardness -= damage 
+	if(hardness <= 0)
 		playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
 		dismantle_wall(1)
+		return TRUE
 	else
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
 		add_dent(WALL_DENT_HIT)
-		user.visible_message("<span class='danger'>[user] smashes \the [src]!</span>", \
-					"<span class='danger'>You smash \the [src]!</span>", \
-					"<span class='italics'>You hear a booming smash!</span>")
+		return FALSE
 
-	return TRUE
 
 /turf/closed/wall/attack_hand(mob/user)
 	. = ..()
 	if(.)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
+	if(ishuman(user) && user.a_intent == INTENT_HARM)
+		var/mob/living/carbon/human/H = user
+		if(H.has_dna())
+			if(H.dna.check_mutation(HULK))
+				add_fingerprint(user)
+				attacked(user, 20) //3 hits normal wall, 25 hits rwall. should stem the tide a bit
+				return
 	to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
 	playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 	add_fingerprint(user)
+	
 
 /turf/closed/wall/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -241,11 +248,12 @@
 			return TRUE
 		if(user.loc == T)
 			I.play_tool_sound(src)
-			dismantle_wall()
-			user.visible_message("<span class='warning'>[user] smashes through [src] with [I]!</span>", \
-								"<span class='warning'>You smash through [src] with [I]!</span>", \
-								"<span class='italics'>You hear the grinding of metal.</span>")
-			return TRUE
+			if(attacked(25))//2 hits for normal, 20 for reinforced. no more supersmashing
+				user.visible_message("<span class='warning'>[user] smashes through [src] with [I]!</span>", \
+									"<span class='warning'>You smash through [src] with [I]!</span>", \
+									"<span class='italics'>You hear the grinding of metal.</span>")
+				return TRUE
+			return FALSE
 	return FALSE
 
 /turf/closed/wall/singularity_pull(S, current_size)

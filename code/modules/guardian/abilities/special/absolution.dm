@@ -83,16 +83,6 @@
 		return M.attack_animal(M)
 	return ..()
 
-/mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user)
-	if(HAS_TRAIT(src, TRAIT_ONEWAYROAD))
-		return user.attack_hulk(user)
-	return ..()
-
-/mob/living/simple_animal/hostile/guardian/attack_hulk(mob/living/carbon/human/user)
-	if(HAS_TRAIT(src, TRAIT_ONEWAYROAD))
-		return user.attack_hulk(user)
-	return ..()
-
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(HAS_TRAIT(src, TRAIT_ONEWAYROAD))
 		return M.attack_alien(M)

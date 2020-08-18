@@ -36,9 +36,6 @@
 /obj/structure/signpost/attack_paw(mob/user)
 	return interact(user)
 
-/obj/structure/signpost/attack_hulk(mob/user, does_attack_animation = 0)
-	return interact(user)
-
 /obj/structure/signpost/attack_larva(mob/user)
 	return interact(user)
 

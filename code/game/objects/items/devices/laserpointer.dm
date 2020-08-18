@@ -80,11 +80,6 @@
 	if(HAS_TRAIT(user, TRAIT_NOGUNS))
 		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
 		return
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.dna.check_mutation(HULK))
-			to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
-			return
 
 	add_fingerprint(user)
 

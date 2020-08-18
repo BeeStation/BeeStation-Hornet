@@ -360,11 +360,6 @@
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/carbon/human/user)
-	if(user.has_dna())
-		if(user.dna.check_mutation(HULK))
-			to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally close it!</span>")
-			unwield()
-			return
 	..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && (wielded) && prob(40))
 		impale(user)
@@ -387,16 +382,7 @@
 		return 0
 	return ..()
 
-/obj/item/twohanded/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
-	if(wielded)
-		to_chat(user, "<span class='warning'>You can't pick up such dangerous item with your meaty hands without losing fingers, better not to!</span>")
-		return 1
-
-/obj/item/twohanded/dualsaber/wield(mob/living/carbon/M) //Specific wield () hulk checks due to reflection chance for balance issues and switches hitsounds.
-	if(M.has_dna())
-		if(M.dna.check_mutation(HULK))
-			to_chat(M, "<span class='warning'>You lack the grace to wield this!</span>")
-			return
+/obj/item/twohanded/dualsaber/wield(mob/living/carbon/M)
 	..()
 	if(wielded)
 		sharpness = IS_SHARP

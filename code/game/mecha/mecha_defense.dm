@@ -93,13 +93,7 @@
 
 
 /obj/mecha/hulk_damage()
-	return 15
-
-/obj/mecha/attack_hulk(mob/living/carbon/human/user)
-	. = ..()
-	if(.)
-		log_message("Attack by hulk. Attacker - [user].", LOG_MECHA, color="red")
-		log_combat(user, src, "punched", "hulk powers")
+	return 30
 
 /obj/mecha/blob_act(obj/structure/blob/B)
 	log_message("Attack by blob. Attacker - [B].", LOG_MECHA, color="red")

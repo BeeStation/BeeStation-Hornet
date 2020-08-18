@@ -28,7 +28,7 @@
 	var/response_help   = "pokes"
 	var/response_disarm = "shoves"
 	var/response_harm   = "hits"
-	var/harm_intent_damage = 6 //the damage dealt to a mob when punched. default is default punch damage
+	var/harm_intent_damage = 0 //the damage dealt to a mob when punched. if at 0, uses base attack number
 	var/force_threshold = 0 //Minimum force required to deal any damage
 
 	//Temperature effect

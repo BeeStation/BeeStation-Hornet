@@ -16,8 +16,6 @@
 	maxHealth = 45
 	health = 45
 	speak_emote = list("telepathically cries")
-
-	harm_intent_damage = 15
 	obj_damage = 60
 	melee_damage = 20
 	attacktext = "blinks at"

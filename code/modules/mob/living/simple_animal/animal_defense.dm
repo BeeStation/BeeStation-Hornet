@@ -13,6 +13,9 @@
 			grabbedby(M)
 
 		if("harm", "disarm")
+			var/damage = M.dna.species.punchdamage
+			if(harm_intent_damage)
+				damage = harm_intent_damage
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
 				to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
 				return
@@ -20,22 +23,10 @@
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>",\
 				"<span class='userdanger'>[M] [response_harm] you!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(loc, attacked_sound, 25, 1, -1)
-			attack_threshold_check(harm_intent_damage)
+			attack_threshold_check(damage)
 			log_combat(M, src, "attacked")
 			updatehealth()
 			return TRUE
-
-/mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='notice'>You don't want to hurt [src]!</span>")
-			return FALSE
-		..(user, 1)
-		playsound(loc, "punch", 25, 1, -1)
-		visible_message("<span class='danger'>[user] punches [src]!</span>", \
-			"<span class='userdanger'>[user] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
-		adjustBruteLoss(15)
-		return TRUE
 
 /mob/living/simple_animal/attack_paw(mob/living/carbon/monkey/M)
 	if(..()) //successful monkey bite.

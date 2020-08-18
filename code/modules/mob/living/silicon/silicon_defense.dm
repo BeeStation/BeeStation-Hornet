@@ -54,16 +54,6 @@
 	if(L.a_intent == INTENT_HELP)
 		visible_message("[L.name] rubs its head against [src].")
 
-/mob/living/silicon/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
-	if(user.a_intent == INTENT_HARM)
-		..(user, 1)
-		adjustBruteLoss(rand(10, 15))
-		playsound(loc, "punch", 25, 1, -1)
-		visible_message("<span class='danger'>[user] punches [src]!</span>", \
-				"<span class='userdanger'>[user] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
-		return 1
-	return 0
-
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /mob/living/silicon/attack_hand(mob/living/carbon/human/M)
 	. = FALSE
@@ -76,10 +66,17 @@
 		if("grab")
 			grabbedby(M)
 		else
-			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			playsound(src.loc, 'sound/effects/bang.ogg', 10, 1)
-			visible_message("<span class='danger'>[M] punches [src], but doesn't leave a dent!</span>", \
-				"<span class='warning'>[M] punches you, but doesn't leave a dent!</span>", null, COMBAT_MESSAGE_RANGE)
+			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)	
+			var/damage = M.dna.species.punchdamage
+			if(damage <= 10)
+				playsound(src.loc, 'sound/effects/bang.ogg', 10, 1)
+				visible_message("<span class='danger'>[M] punches [src], but doesn't leave a dent!</span>", \
+					"<span class='warning'>[M] punches you, but doesn't leave a dent!</span>", null, COMBAT_MESSAGE_RANGE)
+			else
+				adjustBruteLoss(damage)
+				playsound(loc, "punch", 25, 1, -1)
+				visible_message("<span class='danger'>[M] punches [src]!</span>", \
+					"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
 
 /mob/living/silicon/attack_drone(mob/living/simple_animal/drone/M)
 	if(M.a_intent == INTENT_HARM)
