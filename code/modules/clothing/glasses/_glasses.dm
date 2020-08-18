@@ -101,8 +101,15 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
-	if(slot == SLOT_GLASSES)
-		return 1
+   if(slot == SLOT_GLASSES)
+       return 1
+
+/obj/item/clothing/glasses/science/sciencesun
+	name = "science sunglasses"
+	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion. Has enhanced shielding which blocks flashes."
+	icon_state = "sunhudscience"
+	item_state = "sunhudscience"
+	flash_protect = 1
 
 /obj/item/clothing/glasses/night
 	name = "night vision goggles"
@@ -210,26 +217,6 @@
 		ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent/dropped(mob/user)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
-
-/obj/item/clothing/glasses/sunglasses/advanced/reagent_2
-	name = "science sunglasses"
-	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion. Has enhanced shielding which blocks flashes."
-	icon_state = "sunhudscience"
-	item_state = "sunhudscience"
-	scan_reagents = TRUE
-	actions_types = list(/datum/action/item_action/toggle_research_scanner)
-	glass_colour_type = /datum/client_colour/glass_colour/purple
-	resistance_flags = ACID_PROOF
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
-
-/obj/item/clothing/glasses/sunglasses/advanced/reagent_2/equipped(mob/user, slot)
-	. = ..()
-	if(ishuman(user) && slot == SLOT_GLASSES)
-		ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
-
-/obj/item/clothing/glasses/sunglasses/advanced/reagent_2/dropped(mob/user)
 	. = ..()
 	REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 

@@ -116,7 +116,7 @@
 
 /datum/crafting_recipe/sunhudscience
 	name = "Science Sunglasses"
-	result = /obj/item/clothing/glasses/sunglasses/advanced/reagent_2
+	result = /obj/item/clothing/glasses/science/sciencesun
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/science = 1,
