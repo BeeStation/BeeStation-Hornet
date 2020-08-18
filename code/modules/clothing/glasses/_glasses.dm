@@ -219,6 +219,10 @@
 	icon_state = "sunhudscience"
 	item_state = "sunhudscience"
 	scan_reagents = TRUE
+	actions_types = list(/datum/action/item_action/toggle_research_scanner)
+	glass_colour_type = /datum/client_colour/glass_colour/purple
+	resistance_flags = ACID_PROOF
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent_2/equipped(mob/user, slot)
 	. = ..()
