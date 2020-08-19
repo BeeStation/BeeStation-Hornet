@@ -139,7 +139,7 @@
 		attacked(M, 100) //5 hits to wreck an rwall, 1 hit for a normal wall
 	else if(M.environment_smash & ENVIRONMENT_SMASH_WALLS)
 		attacked(M, 10) //50 hits for an rwall, 5 hits for a normal wall
-	else if(M.melee_damage >= 5)
+	else if(M.obj_damage >= 20)
 		attacked (M, 1) //50 hits for a normal wall, too many hits to matter for an rwall
 
 /turf/closed/wall/proc/attacked(mob/user, damage = 25)
