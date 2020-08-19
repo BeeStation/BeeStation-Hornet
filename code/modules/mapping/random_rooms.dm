@@ -688,7 +688,7 @@
 	template_height = 3
 	template_width = 3
 	weight = 3
-	
+
 /datum/map_template/random_room/sk_rdm082
 	name = "Maint Chemistry"
 	room_id = "sk_rdm_082_maintmedical"
@@ -908,3 +908,21 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
+
+/datum/map_template/random_room/engines/box/supermatter
+	name = "Box Super Matter"
+	room_id = "box_supermatter"
+	mappath = "_maps/RandomRooms/engines/BoxStation/supermatter.dmm"
+	centerspawner = FALSE
+	template_height = 21
+	template_width = 27
+	weight = 10
+
+/datum/map_template/random_room/engines/box/particle_accelerator
+	name = "Box Particle Accelerator"
+	room_id = "box_particle_accelerator"
+	mappath = "_maps/RandomRooms/engines/BoxStation/particle_accelerator.dmm"
+	centerspawner = FALSE
+	template_height = 21
+	template_width = 27
+	weight = 10
