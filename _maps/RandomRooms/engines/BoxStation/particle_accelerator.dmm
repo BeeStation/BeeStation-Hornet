@@ -329,7 +329,6 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aL" = (
