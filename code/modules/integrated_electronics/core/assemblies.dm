@@ -459,7 +459,7 @@
 
 	if(IC.max_allowed)
 		var/current_components
-		for(var/obj/item/integrated_circuit/component in assembly_components)
+		for(var/obj/item/integrated_circuit/component as anything in assembly_components)
 			if(component.type == IC.type)
 				current_components++
 		if(current_components >= IC.max_allowed)
