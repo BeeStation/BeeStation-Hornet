@@ -457,10 +457,10 @@
 
 // Spawners for randomized engines, Station can only make the Singulo or Tesla
 
-/obj/effect/spawner/lootdrop/techstorage/Engines
+/obj/effect/spawner/lootdrop/Engines
 	name = "singulo and tesla spawner"
 	loot = list(
-				/obj/machinery/the_singularitygen,
-				/obj/machinery/the_singularitygen/tesla
+				/obj/machinery/the_singularitygen = 25,
+				/obj/machinery/the_singularitygen/tesla = 75
 				)
 	lootcount = 1
