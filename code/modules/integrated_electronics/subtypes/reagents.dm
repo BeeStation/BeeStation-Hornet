@@ -161,9 +161,21 @@
 		var/tramount = abs(transfer_amount)
 
 		if(isliving(AM))
-			acting_object.visible_message("<span class='notice'>[acting_object] failed to draw from [AM]!</span>")
-			activate_pin(3)
-			return
+			var/mob/living/L = AM
+			L.visible_message("<span class='danger'>[acting_object] is trying to take a blood sample from [L]!</span>", \
+								"<span class='userdanger'>[acting_object] is trying to take a blood sample from you!</span>")
+			busy = TRUE
+			if(do_atom(src, L, extra_checks=CALLBACK(L, /mob/living/proc/can_inject,null,0)))
+				if(L.transfer_blood_to(src, tramount))
+					L.visible_message("<span class='danger'>[acting_object] takes a blood sample from [L]!</span>", \
+					"<span class='userdanger'>[acting_object] takes a blood sample from you!</span>")
+				else
+					L.visible_message("<span class='warning'>[acting_object] fails to take a blood sample from [L].</span>", \
+								"<span class='userdanger'>[acting_object] fails to take a blood sample from you!</span>")
+					busy = FALSE
+					activate_pin(3)
+					return
+			busy = FALSE
 
 		else
 			if(!AM.reagents.total_volume)
