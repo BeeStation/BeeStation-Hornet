@@ -684,7 +684,6 @@
 	id = "engsm";
 	name = "Particle Accelerator Shutters Control";
 	pixel_x = 24;
-	pixel_y = 0;
 	req_access_txt = "10"
 	},
 /obj/effect/turf_decal/tile/yellow,
@@ -842,7 +841,6 @@
 	id = "engsm";
 	name = "Particle Accelerator Shutters Control";
 	pixel_x = -24;
-	pixel_y = 0;
 	req_access_txt = "10"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -951,7 +949,6 @@
 	id = "engsm";
 	name = "Particle Accelerator Shutters Control";
 	pixel_x = 24;
-	pixel_y = 0;
 	req_access_txt = "10"
 	},
 /obj/item/weldingtool,
@@ -1006,7 +1003,6 @@
 	id = "engsm";
 	name = "Particle Accelerator Shutters Control";
 	pixel_x = -24;
-	pixel_y = 0;
 	req_access_txt = "10"
 	},
 /obj/effect/turf_decal/tile/yellow{
