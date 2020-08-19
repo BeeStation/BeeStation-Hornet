@@ -268,6 +268,10 @@
 
 /turf/open/floor/clockwork/reebe/process()
 	for(var/mob/living/M in heal_people)
+		if(iscarbon(M))
+			var/mob/living/carbon/C = M
+			if(C.dna.species.toxmod < 0)
+				continue
 		M.adjustToxLoss(-2)
 
 //=================================================
