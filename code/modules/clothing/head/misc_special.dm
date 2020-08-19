@@ -309,7 +309,6 @@
 	var/datum/brain_trauma/mild/phobia/conspiracies/paranoia_lizard
 
 /obj/item/clothing/head/foilhat/equipped(mob/living/carbon/human/user, slot)
-	..()
 		if(!is_species(/datum/species/lizard))
 			if(paranoia_lizard)
 				QDEL_NULL(paranoia_lizard)
@@ -338,6 +337,8 @@
 	..()
 	if(paranoia)
 		QDEL_NULL(paranoia)
+	if(paranoia_lizard)
+		QDEL_NULL(paranoia_lizard)
 	if(isliving(user))
 		var/mob/living/L = user
 		L.sec_hud_set_implants()
