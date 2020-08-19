@@ -397,10 +397,15 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "aS" = (
-/obj/structure/cable{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aT" = (
@@ -726,7 +731,15 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "bI" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "bJ" = (
@@ -782,7 +795,12 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "bQ" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "bR" = (
@@ -1409,16 +1427,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
-"dQ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
-/turf/open/floor/plasteel,
-/area/engine/engineering)
 "dR" = (
 /obj/machinery/power/rad_collector,
 /obj/machinery/light/small,
@@ -1474,30 +1482,6 @@
 	},
 /obj/machinery/power/grounding_rod,
 /turf/open/floor/plasteel/dark,
-/area/engine/engineering)
-"dX" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer1,
-/turf/open/floor/plasteel,
-/area/engine/engineering)
-"dY" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer1,
-/turf/open/floor/plasteel,
-/area/engine/engineering)
-"dZ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
-/turf/open/floor/plasteel,
 /area/engine/engineering)
 
 (1,1,1) = {"
@@ -1686,8 +1670,8 @@ bS
 "}
 (9,1,1) = {"
 aj
+bB
 aS
-dQ
 aI
 al
 al
@@ -1755,8 +1739,8 @@ aa
 "}
 (12,1,1) = {"
 ak
+ak
 bI
-dX
 bg
 cf
 co
@@ -1985,8 +1969,8 @@ bt
 "}
 (22,1,1) = {"
 ak
-bI
-dY
+ak
+bQ
 cS
 cf
 co
@@ -2054,8 +2038,8 @@ aa
 "}
 (25,1,1) = {"
 ak
-bQ
-dZ
+ak
+aF
 dS
 dT
 al
