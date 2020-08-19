@@ -1427,7 +1427,6 @@
 "dE" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/structure/sign/warning/vacuum/external{
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /turf/open/floor/plating,
@@ -1473,7 +1472,6 @@
 /area/engine/engineering)
 "dN" = (
 /obj/structure/sign/warning/vacuum/external{
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
