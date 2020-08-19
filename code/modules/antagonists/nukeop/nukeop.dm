@@ -25,8 +25,7 @@
 	var/mob/living/M = mob_override || owner.current
 	update_synd_icons_added(M)
 	ADD_TRAIT(owner, TRAIT_DISK_VERIFIER, NUKEOP_TRAIT)
-	if(owner && owner.current)
-		owner.current.remove_quirk(/datum/quirk/nonviolent)
+	M.remove_quirk(/datum/quirk/nonviolent)
 
 /datum/antagonist/nukeop/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/M = mob_override || owner.current
