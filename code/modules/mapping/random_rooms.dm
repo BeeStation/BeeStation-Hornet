@@ -1233,3 +1233,22 @@
 	template_height = 21
 	template_width = 27
 	weight = 10
+
+/datum/map_template/random_room/engines/meta/supermatter
+	name = "Meta Super Matter"
+	room_id = "meta_supermatter"
+	mappath = "_maps/RandomRooms/engines/MetaStation/supermatter.dmm"
+	centerspawner = FALSE
+	template_height = 23
+	template_width = 25
+	weight = 10
+
+
+/datum/map_template/random_room/engines/meta/particle_accelerator
+	name = "Meta Particle Accelerator"
+	room_id = "meta_particle_accelerator"
+	mappath = "_maps/RandomRooms/engines/MetaStation/particle_accelerator.dmm"
+	centerspawner = FALSE
+	template_height = 24
+	template_width = 25
+	weight = 10
