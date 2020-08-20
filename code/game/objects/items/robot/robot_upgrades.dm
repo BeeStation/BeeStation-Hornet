@@ -38,15 +38,18 @@
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
 	heldname = sanitize_name(stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN))
+	log_game("[key_name(user)] have set \"[heldname]\" as a name in a cyborg reclassification board at [loc_name(user)]")
 
-/obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		var/oldname = R.real_name
+		var/oldkeyname = key_name(R)
 		R.custom_name = heldname
 		R.updatename()
 		if(oldname == R.real_name)
 			R.notify_ai(RENAME, oldname, R.real_name)
+		log_game("[key_name(user)] have used a cyborg reclassification board to rename [oldkeyname] to [key_name(R)] at [loc_name(user)]")
 
 /obj/item/borg/upgrade/restart
 	name = "cyborg emergency reboot module"
@@ -697,4 +700,4 @@
 	if (.)
 		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
 		if (E)
-			R.module.remove_module(E, TRUE) 
+			R.module.remove_module(E, TRUE)
