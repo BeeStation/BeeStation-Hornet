@@ -441,7 +441,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/rum_coke
 	name = "Rum and Coke"
 	description = "Rum, mixed with cola."
-	taste_description = "cola"
+	taste_description = "joy"
 	boozepwr = 40
 	quality = DRINK_NICE
 	color = "#3E1B00"
@@ -475,11 +475,21 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	color = "#3E1B00" // rgb: 62, 27, 0
 	boozepwr = 70
 	quality = DRINK_NICE
-	taste_description = "cola"
+	taste_description = "well done job"
 	glass_icon_state = "whiskeycolaglass"
-	glass_name = "whiskey cola"
+	glass_name = "Whiskey Cola"
 	glass_desc = "An innocent-looking mixture of cola and Whiskey. Delicious."
 
+/datum/reagent/consumable/ethanol/vodka_cola
+	name = "Vodka Cola"
+	description = "Vodka, mixed with cola"
+	color = "#3f2410" // rgb: 62, 27, 0
+	boozepwr = 60
+	quality = DRINK_NICE
+	taste_description = "depression"
+	glass_icon_state = "whiskeycolaglass"
+	glass_name = "Vodka Cola"
+	glass_desc = "You don't like rum ? Fine, there is Whiskey, wha.. You don't like that too ? Man.. Well, Vodka I guess ?"
 
 /datum/reagent/consumable/ethanol/martini
 	name = "Classic Martini"
@@ -520,7 +530,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	color = "#A68310" // rgb: 166, 131, 16
 	boozepwr = 55
 	quality = DRINK_NICE
-	taste_description = "oranges"
+	taste_description = "radioactive oranges"
 	glass_icon_state = "screwdriverglass"
 	glass_name = "Screwdriver"
 	glass_desc = "A simple, yet superb mixture of Vodka and orange juice. Just the thing for the tired engineer."
