@@ -1,17 +1,67 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/computer/emergency_shuttle{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/mineral/titanium,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape/backup)
+"d" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/structure/sign/departments/medbay/alt{
+	pixel_y = -32
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape/backup)
+"e" = (
+/obj/structure/sign/nanotrasen,
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/escape/backup)
 "f" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/random,
-/turf/open/floor/mineral/titanium,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/shuttle/escape/backup)
 "g" = (
-/turf/open/floor/mineral/titanium,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/shuttle/escape/backup)
 "i" = (
 /obj/machinery/door/airlock/titanium,
@@ -19,45 +69,269 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape/backup)
+"j" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/stasis,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = 32
+	},
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/white,
+/area/shuttle/escape/backup)
+"l" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape/backup)
 "m" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape/backup)
+"o" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel,
+/area/shuttle/escape/backup)
 "p" = (
-/turf/open/floor/mineral/plastitanium/red,
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/comfy/shuttle,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape/backup)
 "q" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape/backup)
 "u" = (
-/obj/structure/chair/office/light{
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape/backup)
+"v" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/plasteel/white,
 /area/shuttle/escape/backup)
 "x" = (
-/obj/machinery/light{
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape/backup)
+"D" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/plasteel/white,
 /area/shuttle/escape/backup)
 "F" = (
-/obj/structure/table/wood,
-/obj/item/paper/fluff/stations/centcom/broken_evac,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/escape/backup)
-"P" = (
-/obj/machinery/light{
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/plasteel,
+/area/shuttle/escape/backup)
+"H" = (
+/obj/effect/turf_decal/tile/blue{
+	color = "#4169E1";
+	dir = 1;
+	name = "Command blue corner"
+	},
+/obj/effect/turf_decal/tile/blue{
+	color = "#4169E1";
+	dir = 8;
+	name = "Command blue corner"
+	},
+/obj/effect/turf_decal/tile/blue{
+	color = "#4169E1";
+	dir = 4;
+	name = "Command blue corner"
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape/backup)
+"L" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape/backup)
+"N" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/machinery/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_x = 26;
+	use_power = 0
+	},
+/turf/open/floor/plasteel/white,
+/area/shuttle/escape/backup)
+"O" = (
+/obj/effect/turf_decal/tile/blue{
+	color = "#4169E1";
+	dir = 8;
+	name = "Command blue corner"
+	},
+/obj/effect/turf_decal/tile/blue{
+	color = "#4169E1";
+	name = "Command blue corner"
+	},
+/obj/effect/turf_decal/tile/blue{
+	color = "#4169E1";
+	dir = 4;
+	name = "Command blue corner"
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper/fluff/stations/centcom/broken_evac,
+/obj/machinery/recharger,
+/obj/item/storage/firstaid/regular,
+/obj/item/crowbar,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape/backup)
+"P" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Infirmary"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/shuttle/escape/backup)
+"Q" = (
+/obj/effect/turf_decal/tile/blue{
+	color = "#4169E1";
+	dir = 8;
+	name = "Command blue corner"
+	},
+/obj/effect/turf_decal/tile/blue{
+	color = "#4169E1";
+	name = "Command blue corner"
+	},
+/obj/effect/turf_decal/tile/blue{
+	color = "#4169E1";
+	dir = 1;
+	name = "Command blue corner"
+	},
+/obj/machinery/computer/emergency_shuttle{
+	dir = 1
+	},
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape/backup)
+"U" = (
+/obj/effect/turf_decal/tile/blue{
+	color = "#4169E1";
+	name = "Command blue corner"
+	},
+/obj/effect/turf_decal/tile/blue{
+	color = "#4169E1";
+	dir = 4;
+	name = "Command blue corner"
+	},
+/obj/effect/turf_decal/tile/blue{
+	color = "#4169E1";
+	dir = 1;
+	name = "Command blue corner"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape/backup)
+"W" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/storage/firstaid/fire{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/firstaid/regular,
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/white,
+/area/shuttle/escape/backup)
+"X" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/hemostat,
+/obj/item/scalpel{
+	pixel_y = 16
+	},
+/obj/item/circular_saw,
+/turf/open/floor/plasteel/white,
+/area/shuttle/escape/backup)
+"Y" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Cockpit";
+	req_access_txt = "19"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
 /area/shuttle/escape/backup)
 
 (1,1,1) = {"
 m
-m
+e
 i
-m
+e
 m
 m
 m
@@ -66,52 +340,52 @@ m
 (2,1,1) = {"
 q
 g
-g
-g
+L
+l
+m
+H
+Q
 x
-g
-g
-q
 "}
 (3,1,1) = {"
-m
-g
-g
-g
-g
-g
-g
-m
+x
+p
+u
+o
+Y
+U
+O
+x
 "}
 (4,1,1) = {"
 m
 p
-p
-p
-p
-g
-p
+u
+o
+m
+m
+m
 m
 "}
 (5,1,1) = {"
 m
 p
-p
-p
-p
-g
-p
+u
+o
+m
+X
+W
 m
 "}
 (6,1,1) = {"
-m
-g
+x
+p
 u
-g
-g
-g
-g
+d
 m
+v
+D
+x
 "}
 (7,1,1) = {"
 q
@@ -119,14 +393,14 @@ a
 F
 f
 P
-g
-g
-q
+N
+j
+x
 "}
 (8,1,1) = {"
 m
 m
-m
+x
 m
 m
 m
