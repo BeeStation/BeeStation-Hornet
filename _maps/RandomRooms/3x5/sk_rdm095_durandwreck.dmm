@@ -6,6 +6,7 @@
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "c" = (
@@ -79,6 +80,7 @@
 	brightness = 3;
 	dir = 8
 	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel,
 /area/template_noop)
 

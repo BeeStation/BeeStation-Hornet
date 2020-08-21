@@ -34,6 +34,7 @@
 	status_flags = CANPUSH
 	del_on_death = 1
 	var/impatience = 0
+	rapid_melee = 2 //this lets him attack nearly as fast as a normal player, instead of half as fast as one. Without this, due to mood differences, a greytider in melee can actually facetank and beat him to death with only fists
 	hardattacks = TRUE
 	dodging = TRUE
 
@@ -87,7 +88,7 @@
 			say("I'm a genius!!")
 			if(L.mind && maxHealth <= 300) //if he robusts a tider, he becomes stronger
 				maxHealth += 20
-			L.health = maxHealth //he heals whenever he finishes
+			adjustHealth(-(maxHealth)) //he heals whenever he finishes
 		else if(L.stat) //quickly heal them up and move on to our next target! 
 			visible_message("[src] injects [L] with an unknown medicine!", "<span class='notice'>You inject [L] with medicine.</span>")
 			L.SetSleeping(0, FALSE)

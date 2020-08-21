@@ -274,6 +274,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 				qdel(M)
 
 		for(var/obj/O in conts) //conts defined above, ignores crematorium and tray
+			CHECK_TICK
+			log_game("[key_name(user)] has cremated [O.name] ([O.type]) at [AREACOORD(src)].")
+			if(user)
+				user.log_message("cremated [O.name] ([O.type]) at [AREACOORD(src)]", LOG_ATTACK) //Logged in their attack log for consistency with mobs, see above
 			qdel(O)
 
 		if(!locate(/obj/effect/decal/cleanable/ash) in get_step(src, dir))//prevent pile-up

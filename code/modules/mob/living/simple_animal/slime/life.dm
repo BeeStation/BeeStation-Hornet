@@ -1,4 +1,3 @@
-
 /mob/living/simple_animal/slime
 	var/AIproc = 0 // determines if the AI loop is activated
 	var/Atkcool = 0 // attack cooldown
@@ -8,6 +7,7 @@
 
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
+
 	if (notransform)
 		return
 	if(..())
@@ -16,7 +16,7 @@
 		if(!stat) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
 			handle_nutrition()
 			handle_targets()
-			if (!ckey)
+			if(!ckey)
 				handle_mood()
 				handle_speech()
 
@@ -26,76 +26,34 @@
 		return
 	..()
 
-/mob/living/simple_animal/slime/proc/AIprocess()  // the master AI process
-
-	if(AIproc || stat || client)
-		return
-
-	var/hungry = 0
-	if (nutrition < get_starve_nutrition())
-		hungry = 2
-	else if (nutrition < get_grow_nutrition() && prob(25) || nutrition < get_hunger_nutrition())
-		hungry = 1
-
+/mob/living/simple_animal/slime/proc/AIprocess()
 	AIproc = 1
 
-	while(AIproc && stat != DEAD && (attacked || hungry || rabid || buckled))
-		if(!(mobility_flags & MOBILITY_MOVE)) //also covers buckling. Not sure why buckled is in the while condition if we're going to immediately break, honestly
-			break
-
-		if(!Target || client)
-			break
-
-		if(Target.health <= -70 || Target.stat == DEAD)
-			Target = null
+	while(AIproc)
+		if(stat == DEAD || !Target || client || buckled)
 			AIproc = 0
-			break
+			return
 
-		if(Target)
-			if(locate(/mob/living/simple_animal/slime) in Target.buckled_mobs)
-				Target = null
-				AIproc = 0
-				break
-			if(!AIproc)
-				break
+		var/slime_on_target = 0
+		if(locate(/mob/living/simple_animal/slime) in Target.buckled_mobs)
+			slime_on_target = 1
 
-			if(Target in view(1,src))
-				if(!CanFeedon(Target)) //If they're not able to be fed upon, ignore them.
-					if(!Atkcool)
-						Atkcool = 1
-						spawn(45)
-							Atkcool = 0
-
-						if(Target.Adjacent(src))
-							Target.attack_slime(src)
-					break
-				if((Target.mobility_flags & MOBILITY_STAND) && prob(80))
-
-					if(Target.client && Target.health >= 20)
-						if(!Atkcool)
-							Atkcool = 1
-							spawn(45)
-								Atkcool = 0
-
-							if(Target.Adjacent(src))
-								Target.attack_slime(src)
-
-					else
-						if(!Atkcool && Target.Adjacent(src))
-							Feedon(Target)
-
-				else
-					if(!Atkcool && Target.Adjacent(src))
-						Feedon(Target)
-
-			else if(Target in view(7, src))
-				if(!Target.Adjacent(src))
-				// Bug of the month candidate: slimes were attempting to move to target only if it was directly next to them, which caused them to target things, but not approach them
-					step_to(src, Target)
-			else
-				Target = null
-				AIproc = 0
-				break
+		if(Target in view(1,src))
+			if(CanFeedon(Target) && !slime_on_target && !Target.client)
+				Feedon(Target)
+			else if(CanFeedon(Target) && !slime_on_target && Target.client && (prob(20) || Target.health <= 20))
+				Feedon(Target)
+			else if(!Atkcool)
+				Atkcool = 1
+				spawn(45)
+					Atkcool = 0
+					Target.attack_slime(src)
+		else if(Target in view(7, src))
+			step_to(src, Target)
+		else
+			AIproc = 0
+			Target = null
+			return
 
 		var/sleeptime = movement_delay()
 		if(sleeptime <= 0)
@@ -170,65 +128,52 @@
 /mob/living/simple_animal/slime/proc/handle_feeding()
 	if(!ismob(buckled))
 		return
+
 	var/mob/M = buckled
 
-	if(stat)
-		Feedstop(silent = TRUE)
-
-	if(M.stat == DEAD) // our victim died
-		if(!client)
-			if(!rabid && !attacked)
-				if(M.LAssailant && M.LAssailant != M)
-					if(prob(50))
-						if(!(M.LAssailant in Friends))
-							Friends[M.LAssailant] = 1
-						else
-							++Friends[M.LAssailant]
-		else
+	if(M.stat == DEAD)
+		if(client)
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
-
+		else if(!rabid && !attacked && M.LAssailant && prob(50))
+			if(M.LAssailant in Friends)
+				++Friends[M.LAssailant]
+			else
+				Friends[M.LAssailant] = 1
+		//we go rabid after finishing to feed on a human with a client.
 		if(M.client && ishuman(M))
-			rabid = 1 //we go rabid after finishing to feed on a human with a client.
+			rabid = 1
 
+		Target = null
+		AIproc = 0
 		Feedstop()
 		return
 
+	if(prob(10) && M.client)
+		to_chat(M, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
+		"You feel like you're about to die!", \
+		"You feel every part of your body screaming in agony!", \
+		"A low, rolling pain passes through your body!", \
+		"Your body feels as if it's falling apart!", \
+		"You feel extremely weak!", \
+		"A sharp, deep pain bathes every inch of your body!")]</span>")
+
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustCloneLoss(4)
+		var/monkeydamage = 0
+		if(ismonkey(M))
+			monkeydamage = 2
+
+		C.adjustCloneLoss(4 + monkeydamage)
 		C.adjustToxLoss(2)
-
-		if(prob(10) && C.client)
-			to_chat(C, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
-			"You feel like you're about to die!", \
-			"You feel every part of your body screaming in agony!", \
-			"A low, rolling pain passes through your body!", \
-			"Your body feels as if it's falling apart!", \
-			"You feel extremely weak!", \
-			"A sharp, deep pain bathes every inch of your body!")]</span>")
-
 	else if(isanimal(M))
 		var/mob/living/simple_animal/SA = M
+		SA.adjustCloneLoss(4)
+		SA.adjustToxLoss(2)
 
-		var/totaldamage = 0 //total damage done to this unfortunate animal
-		totaldamage += SA.adjustCloneLoss(2)
-		totaldamage += SA.adjustToxLoss(2)
-
-		if(totaldamage <= 0) //if we did no(or negative!) damage to it, stop
-			Feedstop(0, 0)
-			return
-
-	else
-		Feedstop(0, 0)
-		return
-
-	add_nutrition((11 * CONFIG_GET(number/damage_multiplier)))
-
-	//Heal yourself.
+	add_nutrition((15 * CONFIG_GET(number/damage_multiplier)))
 	adjustBruteLoss(-5)
 
 /mob/living/simple_animal/slime/proc/handle_nutrition()
-
 	if(docile) //God as my witness, I will never go hungry again
 		set_nutrition(700) //fuck you for using the base nutrition var
 		return
@@ -239,7 +184,6 @@
 	if(nutrition <= 0)
 		set_nutrition(0)
 		adjustBruteLoss(1)
-
 	else if (nutrition >= get_grow_nutrition() && amount_grown < SLIME_EVOLUTION_THRESHOLD)
 		adjust_nutrition(-20)
 		amount_grown++
@@ -275,113 +219,77 @@
 		attacked--
 
 	if(Discipline > 0)
-
-		if(Discipline >= 5 && rabid)
-			if(prob(60))
-				rabid = 0
-
-		if(prob(10))
+		if(Discipline >= 5 && rabid && prob(60))
+			rabid = 0
+		if(prob(5))
 			Discipline--
 
-	if(!client)
-		if(!(mobility_flags & MOBILITY_MOVE))
-			return
+	if(buckled || client)
+		return
 
-		if(buckled)
-			return // if it's eating someone already, continue eating!
+	if(Target)
+		--target_patience
+		if (target_patience <= 0 || SStun > world.time || Discipline || attacked || docile)
+			target_patience = 0
+			Target = null
+			AIproc = 0
 
-		if(Target)
-			--target_patience
-			if (target_patience <= 0 || SStun > world.time || Discipline || attacked || docile) // Tired of chasing or something draws out attention
-				target_patience = 0
-				Target = null
+	var/hungry = 0
 
-		if(AIproc && SStun > world.time)
-			return
+	if (nutrition < get_starve_nutrition())
+		hungry = 2
+	else if (nutrition < get_grow_nutrition() || nutrition < get_hunger_nutrition())
+		hungry = 1
 
-		var/hungry = 0 // determines if the slime is hungry
+	if(hungry == 2)
+		if(Friends.len > 0 && prob(1))
+			var/mob/nofriend = pick(Friends)
+			--Friends[nofriend]
 
-		if (nutrition < get_starve_nutrition())
-			hungry = 2
-		else if (nutrition < get_grow_nutrition() && prob(25) || nutrition < get_hunger_nutrition())
-			hungry = 1
+	if(!Target)
+		if(will_hunt() && hungry || attacked || rabid)
+			for(var/mob/living/L in view(7,src))
+				if(isslime(L) || L.stat == DEAD)
+					continue
 
-		if(hungry == 2 && !client) // if a slime is starving, it starts losing its friends
-			if(Friends.len > 0 && prob(1))
-				var/mob/nofriend = pick(Friends)
-				--Friends[nofriend]
+				if(L in Friends)
+					continue
 
-		if(!Target)
-			if(will_hunt() && hungry || attacked || rabid) // Only add to the list if we need to
-				var/list/targets = list()
+				if((locate(/mob/living/simple_animal/slime) in L.buckled_mobs || issilicon(L)) && !(attacked || rabid))
+					continue
 
-				for(var/mob/living/L in view(7,src))
+				if(ishuman(L))
+					if(!Discipline && prob(5) || attacked || rabid)
+						Target = L
+				else
+					Target = L
 
-					if(isslime(L) || L.stat == DEAD) // Ignore other slimes and dead mobs
-						continue
+				if(Target)
+					target_patience = rand(5,7)
+					if(is_adult)
+						target_patience += 3
+					break
 
-					if(L in Friends) // No eating friends!
-						continue
-
-					var/ally = FALSE
-					for(var/F in faction)
-						if(F == "neutral") //slimes are neutral so other mobs not target them, but they can target neutral mobs
-							continue
-						if(F in L.faction)
-							ally = TRUE
-							break
-					if(ally)
-						continue
-
-					if(issilicon(L) && (rabid || attacked)) // They can't eat silicons, but they can glomp them in defence
-						targets += L // Possible target found!
-
-					if(locate(/mob/living/simple_animal/slime) in L.buckled_mobs) // Only one slime can latch on at a time.
-						continue
-
-					targets += L // Possible target found!
-
-				if(targets.len > 0)
-					if(attacked || rabid || hungry == 2)
-						Target = targets[1] // I am attacked and am fighting back or so hungry I don't even care
-					else
-						for(var/mob/living/carbon/C in targets)
-							if(!Discipline && prob(5))
-								if(ishuman(C) || isalienadult(C))
-									Target = C
-									break
-
-							if(islarva(C) || ismonkey(C))
-								Target = C
-								break
-
-			if (Target)
-				target_patience = rand(5,7)
-				if (is_adult)
-					target_patience += 3
-
-		if(!Target) // If we have no target, we are wandering or following orders
-			if (Leader)
-				if(holding_still)
-					holding_still = max(holding_still - 1, 0)
-				else if((mobility_flags & MOBILITY_MOVE) && isturf(loc))
-					step_to(src, Leader)
-
-			else if(hungry)
-				if (holding_still)
-					holding_still = max(holding_still - hungry, 0)
-				else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(50))
-					step(src, pick(GLOB.cardinals))
-
-			else
-				if(holding_still)
-					holding_still = max(holding_still - 1, 0)
-				else if (docile && pulledby)
-					holding_still = 10
-				else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(33))
-					step(src, pick(GLOB.cardinals))
-		else if(!AIproc)
-			INVOKE_ASYNC(src, .proc/AIprocess)
+	if(!Target) // If we have no target, we are wandering or following orders
+		if (Leader)
+			if(holding_still)
+				holding_still = max(holding_still - 1, 0)
+			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc))
+				step_to(src, Leader)
+		else if(hungry)
+			if (holding_still)
+				holding_still = max(holding_still - hungry, 0)
+			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(50))
+				step(src, pick(GLOB.cardinals))
+		else
+			if(holding_still)
+				holding_still = max(holding_still - 1, 0)
+			else if (docile && pulledby)
+				holding_still = 10
+			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(33))
+				step(src, pick(GLOB.cardinals))
+	else if(!AIproc)
+		INVOKE_ASYNC(src, .proc/AIprocess)
 
 /mob/living/simple_animal/slime/handle_automated_movement()
 	return //slime random movement is currently handled in handle_targets()

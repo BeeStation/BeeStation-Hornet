@@ -26,6 +26,10 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"k" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plating,
+/area/template_noop)
 "r" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/pill/floorpill{
@@ -72,13 +76,13 @@
 
 (1,1,1) = {"
 C
-C
+k
 a
 "}
 (2,1,1) = {"
 a
 f
-C
+k
 "}
 (3,1,1) = {"
 C

@@ -1,0 +1,110 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/open/floor/plasteel/vaporwave,
+/area/template_noop)
+"e" = (
+/turf/open/floor/light/colour_cycle/dancefloor_a,
+/area/template_noop)
+"g" = (
+/turf/template_noop,
+/area/template_noop)
+"h" = (
+/obj/machinery/jukebox/disco,
+/obj/machinery/light/floor,
+/turf/open/floor/light/colour_cycle/dancefloor_b,
+/area/template_noop)
+"l" = (
+/obj/structure/table/wood/poker,
+/turf/template_noop,
+/area/template_noop)
+"n" = (
+/obj/structure/table/wood/bar,
+/turf/template_noop,
+/area/template_noop)
+"y" = (
+/obj/structure/table/wood/bar,
+/turf/open/floor/plasteel/vaporwave,
+/area/template_noop)
+"O" = (
+/turf/open/floor/light/colour_cycle/dancefloor_b,
+/area/template_noop)
+"Q" = (
+/obj/structure/chair/wood,
+/turf/open/floor/plasteel/vaporwave,
+/area/template_noop)
+"Y" = (
+/turf/open/floor/plasteel/vaporwave,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+Y
+Y
+Y
+Y
+Q
+l
+"}
+(2,1,1) = {"
+y
+Y
+O
+O
+O
+Y
+b
+"}
+(3,1,1) = {"
+b
+O
+e
+e
+e
+O
+Y
+"}
+(4,1,1) = {"
+Y
+O
+e
+h
+e
+O
+Y
+"}
+(5,1,1) = {"
+Y
+O
+e
+e
+e
+O
+y
+"}
+(6,1,1) = {"
+Y
+Y
+O
+O
+O
+Y
+y
+"}
+(7,1,1) = {"
+g
+Y
+Y
+Y
+Y
+y
+n
+"}

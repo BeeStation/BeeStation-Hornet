@@ -1021,10 +1021,17 @@
 
 /datum/reagent/space_cleaner
 	name = "Space cleaner"
-	description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
+	description = "A compound used to clean things. Now with 50% more sodium hypochlorite! Not safe for consumption. If ingested, contact poison control immediately"
 	color = "#A5F0EE" // rgb: 165, 240, 238
 	taste_description = "sourness"
 	reagent_weight = 0.6 //so it sprays further
+	var/toxic = FALSE //turn to true if someone drinks this, so it won't poison people who are simply getting sprayed down
+
+/datum/reagent/space_cleaner/on_mob_life(mob/living/carbon/M)
+	if(toxic)//don't drink space cleaner, dumbass
+		M.adjustToxLoss(1, 0)
+	..()
+	return TRUE
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, reac_volume)
 	if(istype(O, /obj/effect/decal/cleanable))
@@ -1076,6 +1083,8 @@
 						H.update_inv_shoes()
 				H.wash_cream()
 			SEND_SIGNAL(M, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
+	else if(method == INGEST || method == INJECT) //why the fuck did you drink space cleaner you fucking buffoon
+		toxic = TRUE
 
 /datum/reagent/space_cleaner/ez_clean
 	name = "EZ Clean"

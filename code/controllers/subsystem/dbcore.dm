@@ -3,7 +3,6 @@ SUBSYSTEM_DEF(dbcore)
 	flags = SS_BACKGROUND
 	wait = 1 MINUTES
 	init_order = INIT_ORDER_DBCORE
-	var/const/FAILED_DB_CONNECTION_CUTOFF = 5
 
 	var/schema_mismatch = 0
 	var/db_minor = 0
@@ -30,7 +29,6 @@ SUBSYSTEM_DEF(dbcore)
 	for(var/I in active_queries)
 		var/datum/DBQuery/Q = I
 		if(world.time - Q.last_activity_time > (5 MINUTES))
-			message_admins("Found undeleted query, please check the server logs and notify coders.")
 			log_sql("Undeleted query: \"[Q.sql]\" ARGS: \"[list2params(Q.arguments)]\" LA: [Q.last_activity] LAT: [Q.last_activity_time]")
 			qdel(Q)
 		if(MC_TICK_CHECK)
@@ -64,7 +62,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(IsConnected())
 		return TRUE
 
-	if(failed_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to connect anymore.
+	if(failed_connections > 5)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to connect anymore.
 		return FALSE
 
 	if(!CONFIG_GET(flag/sql_enabled))

@@ -883,3 +883,20 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		return
 	if(alert(usr, "Are you absolutely sure you want to reload the configuration from the default path on the disk, wiping any in-round modificatoins?", "Really reset?", "No", "Yes") == "Yes")
 		config.admin_reload()
+
+/client/proc/modify_canister_gas(obj/machinery/portable_atmospherics/canister/C)
+	if(!check_rights(R_DEBUG) || !C)
+		return
+
+	var/gas_to_add = input(usr, "Choose a gas to modify.", "Choose a gas.") as null|anything in (subtypesof(/datum/gas) - /datum/gas/unobtanium) //nice try
+	var/amount = input(usr, "Choose the amount of moles.", "Choose the amount.", 0) as num
+	var/temp = input(usr, "Choose the temperature (Kelvin).", "Choose the temp (K).", 0) as num
+
+
+	C.air_contents.set_moles(gas_to_add, amount)
+	C.air_contents.set_temperature(temp)
+	C.update_icon()
+
+	message_admins("<span class='adminnotice'>[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].</span>")
+	log_admin("[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].")
+

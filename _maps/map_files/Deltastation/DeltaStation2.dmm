@@ -2593,6 +2593,7 @@
 	dir = 1
 	},
 /obj/structure/closet/l3closet/virology,
+/obj/item/extrapolator,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aeq" = (
@@ -44770,7 +44771,6 @@
 	icon_state = "1-8"
 	},
 /obj/item/radio/intercom{
-	anyai = 1;
 	frequency = 1423;
 	name = "Interrogation Intercom";
 	pixel_y = -58
@@ -45977,7 +45977,6 @@
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
 /obj/item/radio/intercom{
-	anyai = 1;
 	broadcasting = 1;
 	frequency = 1423;
 	listening = 0;
@@ -47552,7 +47551,6 @@
 /area/security/brig)
 "bEf" = (
 /obj/item/radio/intercom{
-	anyai = 1;
 	freerange = 1;
 	listening = 0;
 	name = "Custom Channel";
@@ -47565,7 +47563,6 @@
 	pixel_x = -27
 	},
 /obj/item/radio/intercom{
-	anyai = 1;
 	freerange = 1;
 	frequency = 1447;
 	name = "Private Channel";
@@ -47697,7 +47694,6 @@
 /area/ai_monitored/turret_protected/ai)
 "bEm" = (
 /obj/item/radio/intercom{
-	anyai = 1;
 	freerange = 1;
 	listening = 0;
 	name = "Custom Channel";
@@ -47710,7 +47706,6 @@
 	pixel_x = 27
 	},
 /obj/item/radio/intercom{
-	anyai = 1;
 	freerange = 1;
 	frequency = 1447;
 	name = "Private Channel";
@@ -48952,14 +48947,12 @@
 	pixel_y = -7
 	},
 /obj/item/radio/intercom{
-	anyai = 1;
 	freerange = 1;
 	listening = 0;
 	name = "Custom Channel";
 	pixel_y = -27
 	},
 /obj/item/radio/intercom{
-	anyai = 1;
 	freerange = 1;
 	frequency = 1447;
 	name = "Private Channel";
@@ -64450,6 +64443,7 @@
 	name = "Lawyer's Privacy Control";
 	pixel_y = 24
 	},
+/obj/item/cartridge/lawyer,
 /turf/open/floor/wood,
 /area/lawoffice)
 "cdh" = (
@@ -116274,6 +116268,7 @@
 "dYa" = (
 /obj/structure/closet/l3closet/virology,
 /obj/effect/turf_decal/bot,
+/obj/item/extrapolator,
 /turf/open/floor/plasteel,
 /area/medical/virology)
 "dYb" = (

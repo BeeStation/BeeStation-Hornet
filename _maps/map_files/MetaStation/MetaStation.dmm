@@ -44820,17 +44820,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"bHn" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=13.3-Engineering-Central";
-	location = "13.2-Tcommstore"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plasteel,
-/area/hallway/primary/starboard)
 "bHo" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -71463,6 +71452,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/extrapolator,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "cIy" = (
@@ -73091,6 +73081,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
+/obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cLR" = (
@@ -73385,7 +73376,6 @@
 	dir = 1;
 	name = "virology air connector port"
 	},
-/obj/machinery/portable_atmospherics/canister/air,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -73400,10 +73390,13 @@
 	dir = 8
 	},
 /obj/machinery/light,
+/obj/machinery/computer/pandemic{
+	layer = 2.5;
+	pixel_x = -4
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "cMz" = (
-/obj/item/trash/popcorn,
 /obj/structure/table/glass,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -73418,10 +73411,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/dropper,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "cMA" = (
-/obj/item/reagent_containers/food/snacks/sosjerky,
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -73447,6 +73441,7 @@
 	dir = 8
 	},
 /obj/item/twohanded/required/kirbyplants/random,
+/obj/machinery/smartfridge/chemistry/virology/preloaded,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "cMC" = (
@@ -85622,6 +85617,17 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"sJB" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=14-Starboard-Central";
+	location = "13.2-Tcommstore"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "sJW" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/engine/break_room)
@@ -126060,7 +126066,7 @@ bAy
 bAy
 bDN
 bFD
-bHn
+sJB
 bIG
 bKt
 bLV
