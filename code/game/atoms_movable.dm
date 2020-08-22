@@ -583,7 +583,11 @@
 	TT.callback = callback
 	if(!QDELETED(thrower))
 		TT.target_zone = thrower.zone_selected
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> 1e6d19c7c2438903bad67a077a7dbaa139c0150f
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
 	var/dx = (target.x > src.x) ? EAST : WEST

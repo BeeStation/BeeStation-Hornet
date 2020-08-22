@@ -48,7 +48,7 @@
 
 /datum/status_effect/cyborg_power_regen/on_creation(mob/living/new_owner, new_power_per_tick)
 	. = ..()
-	if(. && isnum(new_power_per_tick))
+	if(. && isnum_safe(new_power_per_tick))
 		power_to_give = new_power_per_tick
 
 /obj/screen/alert/status_effect/power_regen

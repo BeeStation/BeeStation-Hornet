@@ -189,14 +189,18 @@
 		/obj/item/organ/tail/lizard = 1,
 		/obj/item/organ/tongue/snail = 1,
 		/obj/item/organ/appendix = 5,
-		/obj/effect/gibspawner/human = 1)
+		/obj/effect/gibspawner/human = 1,
+		/obj/item/organ/wings = 1, 
+		/obj/item/organ/wings/moth = 1,
+		/obj/item/organ/wings/bee = 1,
+		/obj/item/organ/wings/dragon/fake = 1)
 
 /obj/effect/spawner/lootdrop/teratoma/major
 	name = "advanced teratoma spawner"
 	loot = list(
-		/obj/item/organ/adamantine_resonator = 2,,
+		/obj/item/organ/adamantine_resonator = 2,
 		/obj/item/organ/ears/penguin = 2,
-		/obj/item/organ/heart/gland/viral = 1,
+		/obj/item/organ/alien/plasmavessel/small = 1,
 		/obj/item/organ/eyes/night_vision = 1,
 		/obj/item/organ/liver/plasmaman = 3,
 		/obj/item/organ/liver/alien = 3,
@@ -210,7 +214,9 @@
 		/obj/item/organ/vocal_cords/adamantine = 1,
 		/obj/effect/gibspawner/xeno = 1,
 		/obj/effect/mob_spawn/human/corpse/assistant = 1,
-		/obj/effect/mob_spawn/teratomamonkey = 5)
+		/obj/effect/mob_spawn/teratomamonkey = 2,
+		/obj/item/organ/wings/moth/robust = 1,
+		/obj/item/organ/wings/dragon = 1)
 
 /obj/effect/spawner/lootdrop/teratoma/major/clown
 	name = "funny teratoma spawner"

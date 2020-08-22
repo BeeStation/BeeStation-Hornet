@@ -22,7 +22,7 @@
 	return time2text(station_time(TRUE, wtime), format)
 
 /proc/station_time_debug(force_set)
-	if(isnum(force_set))
+	if(isnum_safe(force_set))
 		SSticker.gametime_offset = force_set
 		return
 	SSticker.gametime_offset = rand(0, 864000)		//hours in day * minutes in hour * seconds in minute * deciseconds in second
@@ -33,7 +33,7 @@
 
 /// Returns 1 if it is the selected month and day
 /proc/isDay(month, day)
-	if(isnum(month) && isnum(day))
+	if(isnum_safe(month) && isnum_safe(day))
 		var/MM = text2num(time2text(world.timeofday, "MM")) // get the current month
 		var/DD = text2num(time2text(world.timeofday, "DD")) // get the current day
 		if(month == MM && day == DD)

@@ -30,7 +30,7 @@
 #define VV_SPECIAL_LIST_NO_EXPAND_THRESHOLD 150
 
 //#define IS_VALID_ASSOC_KEY(V) (istext(V) || ispath(V) || isdatum(V) || islist(V))
-#define IS_VALID_ASSOC_KEY(V) (!isnum(V))		//hhmmm..
+#define IS_VALID_ASSOC_KEY(V) (!isnum_safe(V))		//hhmmm..
 
 //General helpers
 #define VV_HREF_TARGET_INTERNAL(target, href_key) "?_src_=vars;[HrefToken()];[href_key]=TRUE;[VV_HK_TARGET]=[REF(target)]"
