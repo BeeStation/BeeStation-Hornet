@@ -10,7 +10,8 @@
 	layer = BELOW_MOB_LAYER//icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
-	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 	var/can_move = 0 //time of next allowed movement
 	var/mob/living/carbon/occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
