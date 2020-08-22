@@ -2003,3 +2003,34 @@
 	color = "#ED2939"
 	taste_description = "upside down"
 	can_synth = FALSE
+
+/datum/reagent/consumable/ratlight
+	name = "Ratvarian Light"
+	description = "A special concoction said to have been blessed by an ancient god. Makes the consumer glow with literal enlightenment."
+	color = "#B5A642"
+	taste_description = "enlightenment"
+	metabolization_rate = 0.8 * REAGENTS_METABOLISM
+	var/datum/language_holder/mob_language
+	var/datum/language_holder/prev_language
+
+/datum/reagent/consumable/ratlight/reaction_mob(mob/living/M)
+	M.set_light(2)
+	..()
+
+/datum/reagent/consumable/ratlight/on_mob_life(mob/living/carbon/M)
+	playsound(M, "scripture_tier_up", 50, 1)
+	..()
+
+/datum/reagent/consumable/ratlight/on_mob_metabolize(mob/living/L)
+   mob_language = L.get_language_holder()
+   prev_language = mob_language.copy()
+   mob_language.remove_all_languages()
+   mob_language.grant_language(/datum/language/ratvar)
+   ..()
+/datum/reagent/consumable/ratlight/on_mob_end_metabolize(mob/living/M)
+    mob_language.remove_language(/datum/language/ratvar)
+    mob_language.copy_known_languages_from(prev_language) //this will also preserve languages learned during the trauma
+    QDEL_NULL(prev_language)
+    mob_language = null
+   	M.set_light(-1)
+   	..()

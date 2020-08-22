@@ -77,3 +77,8 @@
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
 		. = B.cure_all_traumas(resilience)
+
+/mob/living/carbon/proc/cure_trauma(specific_trauma = /datum/brain_trauma, resilience)
+	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
+	if(B)
+		. = B.cure_trauma(specific_trauma, resilience)

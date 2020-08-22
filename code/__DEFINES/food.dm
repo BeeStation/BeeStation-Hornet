@@ -14,6 +14,7 @@
 #define BREAKFAST	(1<<13)
 #define CLOTH 		(1<<14)
 
+#define DRINK_BAD -1
 #define DRINK_NICE	1
 #define DRINK_GOOD	2
 #define DRINK_VERYGOOD	3
