@@ -2182,7 +2182,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	..()
 
 /datum/reagent/consumable/ethanol/plasmaflood/on_mob_end_metabolize(mob/living/L)
-	to_chat(L, "<span class='notice'>You no longer feel immune to burning!</span>")
+	to_chat(L, "<span class='warning'>You no longer feel immune to burning!</span>")
 	. = ..()
 
 /datum/reagent/consumable/ethanol/fourthwall
