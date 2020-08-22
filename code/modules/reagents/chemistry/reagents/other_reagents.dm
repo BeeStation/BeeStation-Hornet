@@ -2010,7 +2010,6 @@
 	color = "#B5A642"
 	taste_description = "enlightenment"
 	metabolization_rate = 0.8 * REAGENTS_METABOLISM
-	var/datum/language_holder/mob_language
 	var/datum/language_holder/prev_language
 
 /datum/reagent/consumable/ratlight/reaction_mob(mob/living/M)
@@ -2022,15 +2021,12 @@
 	..()
 
 /datum/reagent/consumable/ratlight/on_mob_metabolize(mob/living/L)
-   mob_language = L.get_language_holder()
-   prev_language = mob_language.copy()
-   mob_language.remove_all_languages()
-   mob_language.grant_language(/datum/language/ratvar)
-   ..()
-/datum/reagent/consumable/ratlight/on_mob_end_metabolize(mob/living/M)
-    mob_language.remove_language(/datum/language/ratvar)
-    mob_language.copy_known_languages_from(prev_language) //this will also preserve languages learned during the trauma
-    QDEL_NULL(prev_language)
-    mob_language = null
-   	M.set_light(-1)
-   	..()
+	L.add_blocked_language(subtypesof(/datum/language/) - /datum/language/ratvar, LANGUAGE_REAGENT)
+	L.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_REAGENT)
+	..()
+
+/datum/reagent/consumable/ratlight/on_mob_end_metabolize(mob/living/L)
+	L.remove_blocked_language(subtypesof(/datum/language/), LANGUAGE_REAGENT)
+	L.remove_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_REAGENT)
+	L.set_light(-1)
+	..()
