@@ -2278,7 +2278,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "Sarsaparillian Sunset"
 	glass_desc = "The view of a sunset over an irradiated wasteland. Calms your burns, but don't drink too much."
 	var/power = /obj/effect/proc_holder/spell/aimed/firebreath/weak
-	overdose_threshold = 30
+	overdose_threshold = 50
 	metabolization_rate = 0.5
 
 /datum/reagent/consumable/ethanol/sarsaparilliansunset/on_mob_life(mob/living/carbon/M)
