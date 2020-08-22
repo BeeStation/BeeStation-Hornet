@@ -18,7 +18,7 @@
 
 /obj/item/reagent_containers/Initialize(mapload, vol)
 	. = ..()
-	if(isnum(vol) && vol > 0)
+	if(isnum_safe(vol) && vol > 0)
 		volume = vol
 	create_reagents(volume, reagent_flags)
 	if(spawned_disease)
@@ -162,6 +162,6 @@
 	if(scan)
 		E.scan(src, B.get_diseases(), user)
 		return TRUE
-	else 
+	else
 		E.extrapolate(src, B.get_diseases(), user, TRUE)
 		return TRUE

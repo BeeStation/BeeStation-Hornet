@@ -88,7 +88,7 @@
 	/// Internals box. Will be inserted at the start of backpack_contents
 	var/box
 
-	/** 
+	/**
 	  * Any implants the mob should start implanted with
 	  *
 	  * Format of this list is (typepath, typepath, typepath)
@@ -206,7 +206,7 @@
 		if(backpack_contents)
 			for(var/path in backpack_contents)
 				var/number = backpack_contents[path]
-				if(!isnum(number))//Default to 1
+				if(!isnum_safe(number))//Default to 1
 					number = 1
 				for(var/i in 1 to number)
 					H.equip_to_slot_or_del(new path(H),SLOT_IN_BACKPACK)
@@ -317,7 +317,7 @@
 	var/stored_data = get_json_data()
 	var/json = json_encode(stored_data)
 	//Kinda annoying but as far as i can tell you need to make actual file.
-	var/f = file("data/TempOutfitUpload") 
+	var/f = file("data/TempOutfitUpload")
 	fdel(f)
 	WRITE_FILE(f,json)
 	admin << ftp(f,"[name].json")

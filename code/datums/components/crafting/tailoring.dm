@@ -114,6 +114,16 @@
 				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/sunhudscience
+	name = "Science Sunglasses"
+	result = /obj/item/clothing/glasses/science/sciencesun
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/science = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/beergogglesremoval
 	name = "Beer Goggles removal"
 	result = /obj/item/clothing/glasses/sunglasses

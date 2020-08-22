@@ -97,6 +97,7 @@ PROBABILITY CULT 6
 PROBABILITY NUCLEAR 6
 PROBABILITY TRAITORCHAN 5
 PROBABILITY CHANGELING 5
+PROBABILITY INCURSION 4
 PROBABILITY REVOLUTION 4
 PROBABILITY INTERNAL_AFFAIRS 3
 PROBABILITY TRAITORBRO 3
@@ -123,6 +124,7 @@ REPEATED_MODE_ADJUST 45 30 10
 CONTINUOUS TRAITOR
 CONTINUOUS TRAITORBRO
 CONTINUOUS TRAITORCHAN
+CONTINUOUS INCURSION
 CONTINUOUS INTERNAL_AFFAIRS
 #CONTINUOUS NUCLEAR
 #CONTINUOUS REVOLUTION
@@ -143,6 +145,7 @@ CONTINUOUS SECRET_EXTENDED
 ## In modes that are continuous, if all antagonists should die then a new set of antagonists will be created.
 
 MIDROUND_ANTAG TRAITOR
+#MIDROUND_ANTAG INCURSION
 #MIDROUND_ANTAG TRAITORBRO
 MIDROUND_ANTAG TRAITORCHAN
 MIDROUND_ANTAG INTERNAL_AFFAIRS
@@ -198,6 +201,9 @@ MIDROUND_ANTAG WIZARD
 #MIN_POP DEVIL_AGENTS 25
 #MAX_POP DEVIL_AGENTS -1
 
+MIN_POP INCURSION 22
+MAX_POP INCURSION -1
+
 ## Setting at least one mode to be playable at 0/1 players is required.
 #MIN_POP EXTENDED 0
 #MAX_POP EXTENDED -1
@@ -231,11 +237,24 @@ PROTECT_ROLES_FROM_ANTAGONIST
 ## Uncomment to prohibit assistants from becoming most antagonists.
 #PROTECT_ASSISTANT_FROM_ANTAGONIST
 
+## Uncomment to prohibit head roles from becoming most antagonists.
+#PROTECT_HEADS_FROM_ANTAGONIST
+
 ## If non-human species are barred from joining as a head of staff
 #ENFORCE_HUMAN_AUTHORITY
 
 ## If late-joining players have a chance to become a traitor/changeling
 ALLOW_LATEJOIN_ANTAGONISTS
+
+## Incursion Rules
+## The more incursion-traitors spawn, the most pop is required to spawn the next
+## Values of 6 and 2 will be 6 for 1 then (6) + (6 + 2) for 2
+## 6, 14, 24, 36, 50, 66, 84
+INCURSION_COST_BASE 6
+INCURSION_COST_INCREMENT 0.25
+INCURSION_COUNT_MAX 6
+INCURSION_COUNT_MIN 2
+INCURSION_OBJECTIVE_AMOUNT 4
 
 ## Comment this out to disable the antagonist reputation system. This system rewards players who participate in the game instead of greytiding by giving them slightly higher odds to
 ## roll antagonist in subsequent rounds until they get it.

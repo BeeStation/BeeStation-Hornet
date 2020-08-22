@@ -359,8 +359,6 @@ GENE SCANNER
 			mutant = TRUE
 		else if (S.mutantstomach != initial(S.mutantstomach))
 			mutant = TRUE
-		else if (S.flying_species != initial(S.flying_species))
-			mutant = TRUE
 
 		to_chat(user, "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>")
 	to_chat(user, "<span class='info'>Body temperature: [round(M.bodytemperature-T0C,0.1)] &deg;C ([round(M.bodytemperature*1.8-459.67,0.1)] &deg;F)</span>")
@@ -937,6 +935,8 @@ GENE SCANNER
 			return
 		symptomholder.name = chosen.name
 		symptomholder.symptoms += chosen
+		symptomholder.Finalize()
+		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
 		if(do_mob(user, AM, (600 / scanner.rating)))
 			create_culture(symptomholder, user)

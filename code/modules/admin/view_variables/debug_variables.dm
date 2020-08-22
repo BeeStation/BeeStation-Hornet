@@ -62,7 +62,7 @@
 			for (var/i in 1 to L.len)
 				var/key = L[i]
 				var/val
-				if (IS_NORMAL_LIST(L) && !isnum(key))
+				if (IS_NORMAL_LIST(L) && !isnum_safe(key))
 					val = L[key]
 				if (isnull(val))	// we still want to display non-null false values, such as 0 or ""
 					val = key

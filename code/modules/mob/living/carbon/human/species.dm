@@ -54,10 +54,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/species_gibs = "human"
 	var/allow_numbers_in_name // Can this species use numbers in its name?
 	var/datum/outfit/outfit_important_for_life /// A path to an outfit that is important for species life e.g. plasmaman outfit
-
-	var/flying_species = FALSE //is a flying species, just a check for some things
 	var/datum/action/innate/flight/fly //the actual flying ability given to flying species
-	var/wings_icon = "Angel" //the icon used for the wings
 
 	// species-only traits. Can be found in DNA.dm
 	var/list/species_traits = list()
@@ -82,6 +79,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/mutanthands
 	var/obj/item/organ/tongue/mutanttongue = /obj/item/organ/tongue
 	var/obj/item/organ/tail/mutanttail = null
+	var/obj/item/organ/wings/mutantwings = null
 
 	var/obj/item/organ/liver/mutantliver
 	var/obj/item/organ/stomach/mutantstomach
@@ -156,6 +154,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/organ/liver/liver = C.getorganslot(ORGAN_SLOT_LIVER)
 	var/obj/item/organ/stomach/stomach = C.getorganslot(ORGAN_SLOT_STOMACH)
 	var/obj/item/organ/tail/tail = C.getorganslot(ORGAN_SLOT_TAIL)
+	var/obj/item/organ/wings/wings = C.getorganslot(ORGAN_SLOT_WINGS)
 
 	var/should_have_brain = TRUE
 	var/should_have_heart = !(NOBLOOD in species_traits)
@@ -167,6 +166,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/should_have_liver = !(TRAIT_NOMETABOLISM in inherent_traits)
 	var/should_have_stomach = !(NOSTOMACH in species_traits)
 	var/should_have_tail = mutanttail
+	var/should_have_wings = mutantwings
 
 	if(heart && (!should_have_heart || replace_current))
 		heart.Remove(C,1)
@@ -218,6 +218,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(should_have_tail && !tail)
 		tail = new mutanttail()
 		tail.Insert(C)
+	
+	if(wings && (!should_have_wings || replace_current))
+		wings.Remove(C,1)
+		QDEL_NULL(wings)
+	if(should_have_wings && !wings)
+		wings = new mutantwings()
+		wings.Insert(C)
 
 	if(C.get_bodypart(BODY_ZONE_HEAD))
 		if(brain && (replace_current || !should_have_brain))
@@ -315,6 +322,15 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		for(var/datum/disease/A in C.diseases)
 			A.cure(FALSE)
 
+	for(var/datum/disease/A in C.diseases)//if we can't have the disease, dont keep it
+		var/curedisease = TRUE
+		for(var/host_type in A.infectable_biotypes)
+			if(host_type in inherent_biotypes)
+				curedisease = FALSE
+				break
+		if(curedisease)
+			A.cure(FALSE)
+
 	if(TRAIT_TOXIMMUNE in inherent_traits)
 		C.setToxLoss(0, TRUE, TRUE)
 
@@ -324,10 +340,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			C.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
-
-	if(flying_species && isnull(fly))
-		fly = new
-		fly.Grant(C)
 
 	C.add_movespeed_modifier(MOVESPEED_ID_SPECIES, TRUE, 100, override=TRUE, multiplicative_slowdown=speedmod, movetypes=(~FLYING))
 
@@ -360,18 +372,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			C.faction -= i
-
-	if(flying_species)
-		fly.Remove(C)
-		QDEL_NULL(fly)
-		if(C.movement_type & FLYING)
-			toggle_flight(C)
-	if(C.dna && C.dna.species && (C.dna.features["wings"] == wings_icon))
-		if("wings" in C.dna.species.mutant_bodyparts)
-			C.dna.species.mutant_bodyparts -= "wings"
-		C.dna.features["wings"] = "None"
-		C.update_body()
-
 	C.remove_movespeed_modifier(MOVESPEED_ID_SPECIES)
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
@@ -816,7 +816,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/takes_crit_damage = (!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
 		if((H.health < H.crit_threshold) && takes_crit_damage)
 			H.adjustBruteLoss(1)
-	if(flying_species)
+	if(H.getorgan(/obj/item/organ/wings))
 		handle_flight(H)
 
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
@@ -1864,9 +1864,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 ////////////
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
-	if(flying_species && H.movement_type & FLYING)
-		toggle_flight(H)
-		flyslip(H)
+	var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+	if(H.getorgan(/obj/item/organ/wings))
+		if(wings.flight_level >= WINGS_FLYING && H.movement_type & FLYING)
+			flyslip(H)
 	. = stunmod * H.physiology.stun_mod * amount
 
 //////////////
@@ -1874,6 +1875,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 //////////////
 
 /datum/species/proc/space_move(mob/living/carbon/human/H)
+	if(H.loc && !isspaceturf(H.loc) && H.getorgan(/obj/item/organ/wings))
+		var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+		if(wings.flight_level == WINGS_FLIGHTLESS)
+			var/datum/gas_mixture/current = H.loc.return_air()
+			if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
+				return TRUE
 	if(H.movement_type & FLYING)
 		return TRUE
 	return FALSE
@@ -1901,18 +1908,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 //FLIGHT SHIT//
 ///////////////
 
-/datum/species/proc/give_species_flight(mob/living/carbon/human/H)
-	if(flying_species) //species that already have flying traits should not work with this proc
-		return
-	flying_species = TRUE
-	if(isnull(fly))
-		fly = new
-		fly.Grant(H)
-	if(H.dna.features["wings"] != wings_icon)
-		mutant_bodyparts |= "wings"
-		H.dna.features["wings"] = wings_icon
-		H.update_body()
-
 /datum/species/proc/handle_flight(mob/living/carbon/human/H)
 	if(H.movement_type & FLYING)
 		if(!CanFly(H))
@@ -1923,17 +1918,17 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return FALSE
 
 /datum/species/proc/CanFly(mob/living/carbon/human/H)
-	if(H.stat || !(H.mobility_flags & MOBILITY_STAND))
+	var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+	if(!H.getorgan(/obj/item/organ/wings))
 		return FALSE
-	if(H.wear_suit && ((H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))	//Jumpsuits have tail holes, so it makes sense they have wing holes too
-		to_chat(H, "Your suit blocks your wings from extending!")
+	if(H.stat || !(H.mobility_flags & MOBILITY_STAND))
 		return FALSE
 	var/turf/T = get_turf(H)
 	if(!T)
 		return FALSE
 
 	var/datum/gas_mixture/environment = T.return_air()
-	if(environment && !(environment.return_pressure() > 30))
+	if(environment && !(environment.return_pressure() > 30) && wings.flight_level <= WINGS_FLYING)
 		to_chat(H, "<span class='warning'>The atmosphere is too thin for you to fly!</span>")
 		return FALSE
 	else
@@ -1945,8 +1940,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		buckled_obj = H.buckled
 
 	to_chat(H, "<span class='notice'>Your wings spazz out and launch you!</span>")
-
-	playsound(H.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 
 	for(var/obj/item/I in H.held_items)
 		H.accident(I)
@@ -1969,29 +1962,17 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		H.setMovetype(H.movement_type | FLYING)
 		override_float = TRUE
 		H.pass_flags |= PASSTABLE
-		H.OpenWings()
 		H.update_mobility()
+		if("wings" in H.dna.species.mutant_bodyparts)
+			H.Togglewings()
 	else
 		stunmod *= 0.5
 		speedmod += 0.35
 		H.setMovetype(H.movement_type & ~FLYING)
 		override_float = FALSE
 		H.pass_flags &= ~PASSTABLE
-		H.CloseWings()
-
-/datum/action/innate/flight
-	name = "Toggle Flight"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_STUN
-	icon_icon = 'icons/mob/actions/actions_items.dmi'
-	button_icon_state = "flight"
-
-/datum/action/innate/flight/Activate()
-	var/mob/living/carbon/human/H = owner
-	var/datum/species/S = H.dna.species
-	if(S.CanFly(H))
-		S.toggle_flight(H)
-		if(!(H.movement_type & FLYING))
-			to_chat(H, "<span class='notice'>You settle gently back onto the ground...</span>")
-		else
-			to_chat(H, "<span class='notice'>You beat your wings and begin to hover gently above the ground...</span>")
-			H.set_resting(FALSE, TRUE)
+		if("wingsopen" in H.dna.species.mutant_bodyparts)
+			H.Togglewings()
+		if(isturf(H.loc))
+			var/turf/T = H.loc
+			T.Entered(H)

@@ -32,7 +32,8 @@ GLOBAL_LIST_INIT(huds, list(
 	ANTAG_HUD_FUGITIVE = new/datum/atom_hud/antag(),
 	ANTAG_HUD_HIVEAWAKE = new/datum/atom_hud/antag(),
 	ANTAG_HUD_BRAINWASHED = new/datum/atom_hud/antag/hidden(),
-	ANTAG_HUD_SURVIVALIST = new/datum/atom_hud/antag/hidden()
+	ANTAG_HUD_SURVIVALIST = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_INCURSION = new/datum/atom_hud/antag()
 	))
 
 /datum/atom_hud

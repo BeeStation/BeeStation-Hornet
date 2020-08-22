@@ -237,6 +237,7 @@
 			var/datum/symptom/S = new chosen_symptom
 			A.symptoms += S
 	A.Refresh() //just in case someone already made and named the same disease
+	A.Finalize()
 	return A
 
 /obj/item/organ/heart/gland/trauma
