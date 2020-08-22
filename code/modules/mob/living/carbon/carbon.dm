@@ -1136,11 +1136,6 @@
 		return FALSE
 	if(hallucinating())
 		return TRUE
-<<<<<<< HEAD
-
-=======
-
->>>>>>> 1e6d19c7c2438903bad67a077a7dbaa139c0150f
 	if(IsSleeping())
 		return TRUE
 	if(HAS_TRAIT(src, TRAIT_DUMB))
