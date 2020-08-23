@@ -226,8 +226,8 @@
 	var/obj/item/stock_parts/cell/cell
 	var/start_with_cell = TRUE	// if true, this fixture generates a very weak cell at roundstart
 
-	var/nightshift_enabled = TRUE	//Currently in night shift mode?
-	var/nightshift_allowed = FALSE	//Set to FALSE to never let this light get switched to night mode.
+	var/nightshift_enabled = FALSE	//Currently in night shift mode?
+	var/nightshift_allowed = TRUE	//Set to FALSE to never let this light get switched to night mode.
 	var/nightshift_brightness = 8
 	var/nightshift_light_power = 0.45
 	var/nightshift_light_color = "#FFDBB5" //qwerty's more cozy light
