@@ -18,7 +18,6 @@
 	var/painmult = 0
 	var/impactmult = 1
 
-
 /obj/item/stack/sticky_tape/afterattack(obj/item/I, mob/living/user)
 	if(!istype(I))
 		return
@@ -39,7 +38,6 @@
 		to_chat(user, "<span class='notice'>You finish wrapping [I] with [src].</span>")
 		I.name = "[prefix] [I.name]"
 
-
 		// Need to investigate what the fug point of this is
 		//if(istype(I, /obj/item/grenade))
 		//	var/obj/item/grenade/sticky_bomb = I
@@ -56,7 +54,6 @@
 	painchance = 0
 	painmult = 0
 	impactmult = 1
-
 
 /obj/item/stack/sticky_tape/pointy
 	name = "pointy tape"
