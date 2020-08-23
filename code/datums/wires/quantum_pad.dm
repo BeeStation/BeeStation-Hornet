@@ -9,6 +9,9 @@
 	var/obj/machinery/quantumpad/Q = holder
 	switch(wire)
 		if(WIRE_ACTIVATE)
-			Q.interact()
-			holder.visible_message("<span class='notice'>[icon2html(Q, viewers(holder))] The activation light flickers.</span>")
+			if(Q.cover_open)
+				holder.visible_message("<span class='notice'>[icon2html(Q, viewers(holder))] The activation light flickers.</span>")
+				return
+			else
+				Q.interact()
 	..()
