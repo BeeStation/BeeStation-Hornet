@@ -955,6 +955,14 @@
 	category = list("initial", "Misc", "Equipment")
 	maxstack = 30
 
+/datum/design/sticky_tape
+	name = "Sticky Tape"
+	id = "sticky_tape"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/plastic = 500)
+	build_path = /obj/item/stack/sticky_tape
+	category = list("initial", "Misc", "Equipment")
+
 /datum/design/holodisk
 	name = "Holodisk"
 	id = "holodisk"
