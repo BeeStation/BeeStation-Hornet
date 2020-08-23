@@ -1,0 +1,5 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - bugfix: fixes normal wingpack not showing up in the techweb/techfab
+  - bugfix: fixes jellypeople not getting the slime language
