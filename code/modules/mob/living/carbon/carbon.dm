@@ -72,6 +72,8 @@
 /mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	var/hurt = TRUE
+	if(throwingdatum.force <= MOVE_FORCE_WEAK)
+		hurt = FALSE
 	if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum
 		if(iscyborg(D.thrower))
@@ -1017,7 +1019,7 @@
 		return FALSE
 	if(hallucinating())
 		return TRUE
-	
+
 	if(IsSleeping())
 		return TRUE
 	if(HAS_TRAIT(src, TRAIT_DUMB))
