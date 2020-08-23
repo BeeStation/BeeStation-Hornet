@@ -1,0 +1,5 @@
+author: St0rmC4st3r
+delete-after: true
+changes:
+  - bugfix: Patch and bottle dispensers no longer spew out products despite the maximum
+      being dispensed.
