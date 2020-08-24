@@ -17,6 +17,7 @@
 	var/list/pill_styles
 	///list of pills stored in the machine, so we dont have 610 pills on one tile
 	var/list/stored_pills = list()
+	var/max_stored_pills = 3
 	///max amount of pills allowed on our tile before we start storing them instead
 	var/max_floor_pills = 10
 
@@ -43,7 +44,7 @@
 /obj/machinery/plumbing/pill_press/process()
 	if(stat & NOPOWER)
 		return
-	if(reagents.total_volume >= pill_size)
+	if((reagents.total_volume >= pill_size) && (stored_pills.len < max_stored_pills))
 		var/obj/item/reagent_containers/pill/P = new(src)
 		reagents.trans_to(P, pill_size)
 		P.name = pill_name
