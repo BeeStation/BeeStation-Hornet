@@ -50,23 +50,25 @@
 /obj/structure/fluff/drake_statue,
 /turf/open/indestructible/necropolis/air,
 /area/shuttle/escape/arena)
-"n" = (
-/obj/effect/forcefield/arena_shuttle_entrance,
-/turf/open/indestructible/necropolis/air,
-/area/shuttle/escape/arena)
-"o" = (
-/obj/effect/forcefield/arena_shuttle_entrance,
-/obj/docking_port/mobile/emergency{
-	name = "The Arena"
-	},
-/turf/open/indestructible/necropolis/air,
-/area/shuttle/escape/arena)
 "p" = (
 /obj/structure/healingfountain,
 /turf/open/indestructible/necropolis/air,
 /area/shuttle/escape/arena)
 "z" = (
 /obj/effect/landmark/shuttle_arena_safe,
+/turf/open/indestructible/necropolis/air,
+/area/shuttle/escape/arena)
+"L" = (
+/obj/effect/forcefield/arena_shuttle_entrance,
+/obj/docking_port/mobile/emergency{
+	name = "The Arena"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/open/indestructible/necropolis/air,
+/area/shuttle/escape/arena)
+"N" = (
+/obj/effect/forcefield/arena_shuttle_entrance,
+/obj/structure/fans/tiny/invisible,
 /turf/open/indestructible/necropolis/air,
 /area/shuttle/escape/arena)
 
@@ -106,17 +108,17 @@ g
 g
 g
 g
-n
+N
 g
-o
-g
-g
+L
 g
 g
 g
-n
 g
-n
+g
+N
+g
+N
 g
 g
 g

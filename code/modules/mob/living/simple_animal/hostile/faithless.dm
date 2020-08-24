@@ -20,10 +20,8 @@
 	stat_attack = UNCONSCIOUS
 	robust_searching = 1
 
-	harm_intent_damage = 10
 	obj_damage = 50
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	attacktext = "grips"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 	speak_emote = list("growls")
@@ -35,6 +33,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 
 	do_footstep = TRUE
+	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/faithless/AttackingTarget()
 	. = ..()

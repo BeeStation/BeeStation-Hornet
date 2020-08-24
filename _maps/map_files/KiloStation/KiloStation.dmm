@@ -57173,8 +57173,7 @@
 	environment_smash = 0;
 	health = 60;
 	maxHealth = 60;
-	melee_damage_lower = 5;
-	melee_damage_upper = 10;
+	melee_damage = 10;
 	name = "scrawny spider"
 	},
 /turf/open/floor/plasteel/dark,
@@ -75409,14 +75408,12 @@
 	pixel_y = 6
 	},
 /obj/item/radio/intercom{
-	anyai = 1;
 	freerange = 1;
 	listening = 0;
 	name = "Custom Channel";
 	pixel_y = 22
 	},
 /obj/item/radio/intercom{
-	anyai = 1;
 	freerange = 1;
 	frequency = 1447;
 	name = "Private Channel";
@@ -75461,7 +75458,6 @@
 "cef" = (
 /obj/effect/landmark/start/ai/secondary,
 /obj/item/radio/intercom{
-	anyai = 1;
 	freerange = 1;
 	listening = 0;
 	name = "Custom Channel";
@@ -75474,7 +75470,6 @@
 	pixel_x = -27
 	},
 /obj/item/radio/intercom{
-	anyai = 1;
 	freerange = 1;
 	frequency = 1447;
 	name = "Private Channel";
@@ -75596,7 +75591,6 @@
 "ceo" = (
 /obj/effect/landmark/start/ai/secondary,
 /obj/item/radio/intercom{
-	anyai = 1;
 	freerange = 1;
 	listening = 0;
 	name = "Custom Channel";
@@ -75609,7 +75603,6 @@
 	pixel_x = 27
 	},
 /obj/item/radio/intercom{
-	anyai = 1;
 	freerange = 1;
 	frequency = 1447;
 	name = "Private Channel";
@@ -88272,8 +88265,7 @@
 	environment_smash = 0;
 	health = 160;
 	maxHealth = 160;
-	melee_damage_lower = 15;
-	melee_damage_upper = 25;
+	melee_damage = 20;
 	name = "hungry show bear"
 	},
 /turf/open/floor/wood,
@@ -92977,8 +92969,7 @@
 	environment_smash = 0;
 	health = 60;
 	maxHealth = 60;
-	melee_damage_lower = 5;
-	melee_damage_upper = 10;
+	melee_damage = 10;
 	name = "scrawny spider"
 	},
 /turf/open/floor/plating,

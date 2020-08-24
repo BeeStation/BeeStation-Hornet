@@ -775,3 +775,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"alienorgan.png"= 'html/img/alienorgan.png',
 		"abaton.png"= 'html/img/abaton.png'
 	)
+
+
+/datum/asset/simple/vv
+	assets = list(
+		"view_variables.css" = 'html/admin/view_variables.css'
+	)

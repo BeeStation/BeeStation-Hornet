@@ -18,10 +18,8 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	maxHealth = 100
 	health = 100
-	harm_intent_damage = 5
 	obj_damage = 0
-	melee_damage_lower = 10
-	melee_damage_upper = 10
+	melee_damage = 10
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM

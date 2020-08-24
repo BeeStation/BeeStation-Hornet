@@ -134,6 +134,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/overlay_icon_state = "spell"
 	var/overlay_lifespan = 0
 
+	var/mutable_appearance/timer_overlay
+	var/timer_overlay_active = FALSE
+	var/timer_icon = 'icons/effects/cooldown.dmi'
+	var/timer_icon_state_active = "second"
+
 	var/sparks_spread = 0
 	var/sparks_amt = 0 //cropped at 10
 	var/smoke_spread = 0 //1 - harmless, 2 - harmful
@@ -292,7 +297,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/process()
 	if(recharging && charge_type == "recharge" && (charge_counter < charge_max))
 		charge_counter += 2	//processes 5 times per second instead of 10.
+		update_timer_animation()
 		if(charge_counter >= charge_max)
+			end_timer_animation()
 			action.UpdateButtonIcon()
 			charge_counter = charge_max
 			recharging = FALSE
@@ -307,6 +314,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	if(sound)
 		playMagSound()
 	cast(targets,user=user)
+	begin_timer_animation()
 	after_cast(targets)
 	if(action)
 		action.UpdateButtonIcon()
@@ -363,6 +371,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			charge_counter++
 		if("holdervar")
 			adjust_var(user, holder_var_type, -holder_var_amount)
+	end_timer_animation()
 	if(action)
 		action.UpdateButtonIcon()
 
@@ -428,7 +437,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 				//Adds a safety check post-input to make sure those targets are actually in range.
 				var/mob/M
 				if(!random_target)
-					M = input("Choose the target for the spell.", "Targeting") as null|mob in possible_targets
+					M = input("Choose the target for the spell.", "Targeting") as null|mob in sortNames(possible_targets)
 				else
 					switch(random_target_priority)
 						if(TARGET_RANDOM)
@@ -524,6 +533,43 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		if(nonabstract_req && (isbrain(user) || ispAI(user)))
 			return FALSE
 	return TRUE
+
+//===Timer animation===
+
+/obj/effect/proc_holder/spell/update_icon()
+	. = ..()
+	if(timer_overlay_active && !recharging)
+		end_timer_animation()
+		if(action)
+			action.UpdateButtonIcon()
+
+/obj/effect/proc_holder/spell/proc/begin_timer_animation()
+	if(!(action?.button) || timer_overlay_active)
+		return
+	timer_overlay_active = TRUE
+	timer_overlay = mutable_appearance(timer_icon, timer_icon_state_active)
+	timer_overlay.alpha = 180
+	action.button.add_overlay(timer_overlay)
+	action.button.maptext_x = 8
+	action.button.maptext_y = -6
+	action.has_cooldown_timer = TRUE
+	update_timer_animation()
+
+/obj/effect/proc_holder/spell/proc/update_timer_animation()
+	//Update map text (todo)
+	if(!(action?.button))
+		return
+	action.button.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR((charge_max-charge_counter)/10, 1)]</span></center>"
+
+/obj/effect/proc_holder/spell/proc/end_timer_animation()
+	if(!(action?.button) || !timer_overlay_active)
+		return
+	timer_overlay_active = FALSE
+	action.button.cut_overlay(timer_overlay)
+	action.button.maptext = null
+	action.has_cooldown_timer = FALSE
+
+//=====================
 
 /obj/effect/proc_holder/spell/self //Targets only the caster. Good for buffs and heals, but probably not wise for fireballs (although they usually fireball themselves anyway, honke)
 	range = -1 //Duh

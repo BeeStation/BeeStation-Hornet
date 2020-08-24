@@ -14,6 +14,7 @@
 	var/proj_piercing = 0 //does it pierce through thick clothes when shot with syringe gun
 	materials = list(/datum/material/iron=10, /datum/material/glass=20)
 	reagent_flags = TRANSPARENT
+	var/list/syringediseases = list()
 
 /obj/item/reagent_containers/syringe/Initialize()
 	. = ..()
@@ -47,6 +48,15 @@
 /obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
 	return
 
+/obj/item/reagent_containers/syringe/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(!syringediseases.len)
+		return FALSE
+	if(scan)
+		E.scan(src, syringediseases, user)
+	else
+		E.extrapolate(src, syringediseases, user)
+	return TRUE
+
 /obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
 	. = ..()
 	if(busy)
@@ -59,15 +69,12 @@
 	var/mob/living/L
 	if(isliving(target))
 		L = target
-		if(!L.can_inject(user, 1))
-			return
 
 	// chance of monkey retaliation
 	if(ismonkey(target) && prob(MONKEY_SYRINGE_RETALIATION_PROB))
 		var/mob/living/carbon/monkey/M
 		M = target
 		M.retaliate(user)
-
 	switch(mode)
 		if(SYRINGE_DRAW)
 
@@ -91,6 +98,7 @@
 					user.visible_message("[user] takes a blood sample from [L].")
 				else
 					to_chat(user, "<span class='warning'>You are unable to draw any blood from [L]!</span>")
+				transfer_diseases(L)
 
 			else //if not mob
 				if(!target.reagents.total_volume)
@@ -144,6 +152,7 @@
 					log_combat(user, L, "injected", src, addition="which had [contained]")
 				else
 					L.log_message("injected themselves ([contained]) with [src.name]", LOG_ATTACK, color="orange")
+				transfer_diseases(L)
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 			reagents.reaction(L, INJECT, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
@@ -176,6 +185,27 @@
 		add_overlay(injoverlay)
 		M.update_inv_hands()
 
+/obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/L)
+	for(var/datum/disease/D in syringediseases)
+		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+			continue
+		L.ForceContractDisease(D)
+	for(var/datum/disease/D in L.diseases)
+		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+			continue
+		syringediseases += D
+
+/obj/item/reagent_containers/syringe/used
+	name = "used syringe"
+	desc = "A syringe that can hold up to 15 units. This one is old, and it's probably a bad idea to use it"
+
+
+/obj/item/reagent_containers/syringe/used/Initialize()
+	. = ..()
+	if(prob(50))
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 5), rand(6, 9))
+		syringediseases += R
+
 /obj/item/reagent_containers/syringe/epinephrine
 	name = "syringe (epinephrine)"
 	desc = "Contains epinephrine - used to stabilize patients."
@@ -195,7 +225,7 @@
 	name = "syringe (diphenhydramine)"
 	desc = "Contains diphenhydramine, an antihistamine agent."
 	list_reagents = list(/datum/reagent/medicine/diphenhydramine = 15)
-	
+
 /obj/item/reagent_containers/syringe/calomel
 	name = "syringe (calomel)"
 	desc = "Contains calomel."

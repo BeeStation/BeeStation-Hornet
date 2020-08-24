@@ -19,6 +19,8 @@
 /datum/antagonist/fugitive_hunter/on_gain()
 	forge_objectives()
 	. = ..()
+	for(var/datum/objective/O in objectives)
+		log_objective(owner, O.explanation_text)
 
 /datum/antagonist/fugitive_hunter/proc/forge_objectives() //this isn't an actual objective because it's about round end rosters
 	var/datum/objective/capture = new /datum/objective
@@ -68,6 +70,8 @@
 	var/datum/objective/O = new()
 	O.team = src
 	objectives += O
+	for(var/datum/mind/M in members)
+		log_objective(M, O.explanation_text)
 
 /datum/team/fugitive_hunters/proc/assemble_fugitive_results()
 	var/list/fugitives_counted = list()

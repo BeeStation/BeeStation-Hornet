@@ -679,7 +679,11 @@
 		/datum/reagent/drug/space_drugs,
 		/datum/reagent/toxin,
 		/datum/reagent/toxin/plasma,
-		/datum/reagent/uranium
+		/datum/reagent/uranium,
+		/datum/reagent/toxin/carpotoxin,
+		/datum/reagent/medicine/rezadone,
+		/datum/reagent/medicine/silibinin,
+		/datum/reagent/medicine/polypyr	
 	)
 
 /obj/machinery/chem_dispenser/abductor/Initialize()

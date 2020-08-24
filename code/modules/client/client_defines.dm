@@ -107,3 +107,7 @@
 	var/next_keysend_reset = 0
 	var/next_keysend_trip_reset = 0
 	var/keysend_tripped = FALSE
+
+	var/datum/viewData/view_size
+	/// rate limiting for the crew manifest
+	var/crew_manifest_delay

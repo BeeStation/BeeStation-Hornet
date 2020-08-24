@@ -29,7 +29,7 @@
 		M.confused += (max(20/max(1,distance), 6))
 //Bang
 	if(!distance || loc == M || loc == M.loc)	//Stop allahu akbarring rooms with this.
-		var/protection = M.get_ear_protection()
+		var/protection = max(1, M.get_ear_protection())
 		M.adjustEarDamage(15/protection, 30/protection)
 		M.soundbang_act(1, 200, 10, 15)
 	else

@@ -35,8 +35,7 @@
 	maxHealth = 200
 	health = 200
 	obj_damage = 60
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage = 15
 	faction = list("spiders")
 	var/busy = SPIDER_IDLE
 	pass_flags = PASSTABLE
@@ -107,8 +106,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8, /obj/item/reagent_containers/food/snacks/spidereggs = 4)
 	maxHealth = 40
 	health = 40
-	melee_damage_lower = 5
-	melee_damage_upper = 10
+	melee_damage = 10
 	poison_per_bite = 3
 	var/atom/movable/cocoon_target
 	var/fed = 0
@@ -140,8 +138,7 @@
 	icon_dead = "hunter_dead"
 	maxHealth = 120
 	health = 120
-	melee_damage_lower = 10
-	melee_damage_upper = 20
+	melee_damage = 20
 	poison_per_bite = 5
 	move_to_delay = 5
 
@@ -154,8 +151,7 @@
 	icon_dead = "viper_dead"
 	maxHealth = 40
 	health = 40
-	melee_damage_lower = 1
-	melee_damage_upper = 1
+	melee_damage = 1
 	poison_per_bite = 12
 	move_to_delay = 4
 	poison_type = /datum/reagent/toxin/venom //all in venom, glass cannon. you bite 5 times and they are DEFINITELY dead, but 40 health and you are extremely obvious. Ambush, maybe?
@@ -171,8 +167,7 @@
 	icon_dead = "tarantula_dead"
 	maxHealth = 300 // woah nelly
 	health = 300
-	melee_damage_lower = 35
-	melee_damage_upper = 40
+	melee_damage = 40
 	poison_per_bite = 0
 	move_to_delay = 8
 	speed = 7
@@ -329,6 +324,7 @@
 					if(L.blood_volume && (L.stat != DEAD || !consumed_mobs[L.tag])) //if they're not dead, you can consume them anyway
 						consumed_mobs[L.tag] = TRUE
 						fed++
+						health = maxHealth //heal up from feeding.
 						lay_eggs.UpdateButtonIcon(TRUE)
 						visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>","<span class='notice'>You suck the nutriment out of [L], feeding you enough to lay a cluster of eggs.</span>")
 						L.death() //you just ate them, they're dead.
@@ -544,8 +540,12 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(20)
+		throw_alert("temp", /obj/screen/alert/cold, 3)
 	else if(bodytemperature > maxbodytemp)
 		adjustBruteLoss(20)
+		throw_alert("temp", /obj/screen/alert/hot, 3)
+	else
+		clear_alert("temp")
 
 #undef SPIDER_IDLE
 #undef SPINNING_WEB

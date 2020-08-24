@@ -496,7 +496,7 @@
 			threatcount += 4
 
 	if(shoot_unloyal)
-		if (!HAS_TRAIT(perp, TRAIT_MINDSHIELD))
+		if (!HAS_TRAIT(perp, TRAIT_MINDSHIELD) ||  istype(perp.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			threatcount += 4
 
 	return threatcount
@@ -793,14 +793,24 @@
 	icon = 'icons/obj/machines/turret_control.dmi'
 	icon_state = "control_standby"
 	density = FALSE
-	var/enabled = 1
-	var/lethal = 0
-	var/locked = TRUE
-	var/control_area = null //can be area name, path or nothing.
-	var/ailock = 0 // AI cannot use this
 	req_access = list(ACCESS_AI_UPLOAD)
-	var/list/obj/machinery/porta_turret/turrets = list()
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	ui_x = 305
+	ui_y = 172
+	/// Variable dictating if linked turrets are active and will shoot targets
+	var/enabled = TRUE
+	/// Variable dictating if linked turrets will shoot lethal projectiles
+	var/lethal = FALSE
+	/// Variable dictating if the panel is locked, preventing changes to turret settings
+	var/locked = TRUE
+	 /// An area in which linked turrets are located, it can be an area name, path or nothing
+	var/control_area = null
+	 /// AI is unable to use this machine if set to TRUE
+	var/ailock = FALSE
+	/// Variable dictating if linked turrets will shoot cyborgs
+	var/shoot_cyborgs = FALSE
+	/// List of all linked turrets
+	var/list/turrets = list()
 
 /obj/machinery/turretid/Initialize(mapload, ndir = 0, built = 0)
 	. = ..()
@@ -862,13 +872,6 @@
 
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>")
-			if (locked)
-				if (user.machine==src)
-					user.unset_machine()
-					user << browse(null, "window=turretid")
-			else
-				if (user.machine==src)
-					attack_hand(user)
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
@@ -878,8 +881,6 @@
 	to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
 	obj_flags |= EMAGGED
 	locked = FALSE
-	if(user && user.machine == src)
-		attack_hand(user)
 
 /obj/machinery/turretid/attack_ai(mob/user)
 	if(!ailock || IsAdminGhost(user))
@@ -887,42 +888,45 @@
 	else
 		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 
-/obj/machinery/turretid/ui_interact(mob/user)
+/obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
+									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "TurretControl", name, ui_x, ui_y, master_ui, state)
+		ui.open()
+
+/obj/machinery/turretid/ui_data(mob/user)
+	var/list/data = list()
+	data["locked"] = locked
+	data["siliconUser"] = user.has_unlimited_silicon_privilege
+	data["enabled"] = enabled
+	data["lethal"] = lethal
+	data["shootCyborgs"] = shoot_cyborgs
+	return data
+
+/obj/machinery/turretid/ui_act(action, list/params)
 	. = ..()
-	if ( get_dist(src, user) > 0 )
-		if ( !(issilicon(user) || IsAdminGhost(user)) )
-			to_chat(user, "<span class='notice'>You are too far away.</span>")
-			user.unset_machine()
-			user << browse(null, "window=turretid")
-			return
-
-	var/t = ""
-
-	if(locked && !(issilicon(user) || IsAdminGhost(user)))
-		t += "<div class='notice icon'>Swipe ID card to unlock interface</div>"
-	else
-		if(!issilicon(user) && !IsAdminGhost(user))
-			t += "<div class='notice icon'>Swipe ID card to lock interface</div>"
-		t += "Turrets [enabled?"activated":"deactivated"] - <A href='?src=[REF(src)];toggleOn=1'>[enabled?"Disable":"Enable"]?</a><br>"
-		t += "Currently set for [lethal?"lethal":"stun repeatedly"] - <A href='?src=[REF(src)];toggleLethal=1'>Change to [lethal?"Stun repeatedly":"Lethal"]?</a><br>"
-
-	var/datum/browser/popup = new(user, "turretid", "Turret Control Panel ([get_area_name(src, TRUE)])")
-	popup.set_content(t)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
-	popup.open()
-
-/obj/machinery/turretid/Topic(href, href_list)
-	if(..())
+	if(.)
 		return
-	if (locked)
-		if(!(issilicon(usr) || IsAdminGhost(usr)))
-			to_chat(usr, "Control panel is locked!")
-			return
-	if (href_list["toggleOn"])
-		toggle_on(usr)
-	else if (href_list["toggleLethal"])
-		toggle_lethal(usr)
-	attack_hand(usr)
+
+	switch(action)
+		if("lock")
+			if(!usr.has_unlimited_silicon_privilege)
+				return
+			if((obj_flags & EMAGGED) || (stat & BROKEN))
+				to_chat(usr, "<span class='warning'>The turret control is unresponsive!</span>")
+				return
+			locked = !locked
+			return TRUE
+		if("power")
+			toggle_on(usr)
+			return TRUE
+		if("mode")
+			toggle_lethal(usr)
+			return TRUE
+		if("shoot_silicons")
+			shoot_silicons(usr)
+			return TRUE
 
 /obj/machinery/turretid/proc/toggle_lethal(mob/user)
 	lethal = !lethal
@@ -934,6 +938,12 @@
 	enabled = !enabled
 	add_hiddenprint(user)
 	log_combat(user, src, "[enabled ? "enabled" : "disabled"]")
+	updateTurrets()
+
+/obj/machinery/turretid/proc/shoot_silicons(mob/user)
+	shoot_cyborgs = !shoot_cyborgs
+	add_hiddenprint(user)
+	log_combat(user, src, "[shoot_cyborgs ? "Shooting Borgs" : "Not Shooting Borgs"]")
 	updateTurrets()
 
 /obj/machinery/turretid/proc/updateTurrets()

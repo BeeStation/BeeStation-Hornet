@@ -52,7 +52,7 @@
 
 /obj/item/integrated_circuit/input/numberpad/ask_for_input(mob/user)
 	var/new_input = input(user, "Enter a number, please.",displayed_name) as null|num
-	if(isnum(new_input) && user.IsAdvancedToolUser())
+	if(isnum_safe(new_input) && user.IsAdvancedToolUser())
 		set_pin_data(IC_OUTPUT, 1, new_input)
 		push_data()
 		activate_pin(1)
@@ -603,7 +603,7 @@
 /obj/item/integrated_circuit/input/advanced_locator_list/on_data_written()
 	var/rad = get_pin_data(IC_INPUT, 2)
 
-	if(isnum(rad))
+	if(isnum_safe(rad))
 		rad = CLAMP(rad, 0, 8)
 		radius = rad
 
@@ -618,7 +618,7 @@
 		var/list/nearby_things = view(radius,T)
 		var/list/valid_things = list()
 		for(var/item in input_list)
-			if(!isnull(item) && !isnum(item))
+			if(!isnull(item) && !isnum_safe(item))
 				if(istext(item))
 					for(var/i in nearby_things)
 						var/atom/thing = i
@@ -665,7 +665,7 @@
 
 /obj/item/integrated_circuit/input/advanced_locator/on_data_written()
 	var/rad = get_pin_data(IC_INPUT, 2)
-	if(isnum(rad))
+	if(isnum_safe(rad))
 		rad = CLAMP(rad, 0, 8)
 		radius = rad
 
@@ -743,9 +743,9 @@
 /obj/item/integrated_circuit/input/signaler/on_data_written()
 	var/new_freq = get_pin_data(IC_INPUT, 1)
 	var/new_code = get_pin_data(IC_INPUT, 2)
-	if(isnum(new_freq) && new_freq > 0)
+	if(isnum_safe(new_freq) && new_freq > 0)
 		set_frequency(new_freq)
-	if(isnum(new_code))
+	if(isnum_safe(new_code))
 		code = new_code
 
 
@@ -768,7 +768,7 @@
 	var/new_code = get_pin_data(IC_INPUT, 2)
 	var/code = 0
 
-	if(isnum(new_code))
+	if(isnum_safe(new_code))
 		code = new_code
 	if(!signal)
 		return 0
@@ -939,7 +939,7 @@
 	var/translated = FALSE
 	if(speaker && message)
 		if(raw_message)
-			if(message_langs != get_default_language())
+			if(message_langs != get_selected_language())
 				translated = TRUE
 		set_pin_data(IC_OUTPUT, 1, speaker.GetVoice())
 		set_pin_data(IC_OUTPUT, 2, raw_message)
@@ -1236,12 +1236,12 @@
 		activate_pin(3)
 		return
 
-	var/list/gases = air_contents.gases
+	var/list/gases = air_contents.get_gases()
 	var/list/gas_names = list()
 	var/list/gas_amounts = list()
 	for(var/id in gases)
-		var/name = gases[id][GAS_META][META_GAS_NAME]
-		var/amt = round(gases[id][MOLES], 0.001)
+		var/name = GLOB.meta_gas_info[id][META_GAS_NAME]
+		var/amt = round(air_contents.get_moles(id), 0.001)
 		gas_names.Add(name)
 		gas_amounts.Add(amt)
 
@@ -1249,7 +1249,7 @@
 	set_pin_data(IC_OUTPUT, 2, gas_amounts)
 	set_pin_data(IC_OUTPUT, 3, round(air_contents.total_moles(), 0.001))
 	set_pin_data(IC_OUTPUT, 4, round(air_contents.return_pressure(), 0.001))
-	set_pin_data(IC_OUTPUT, 5, round(air_contents.temperature, 0.001))
+	set_pin_data(IC_OUTPUT, 5, round(air_contents.return_temperature(), 0.001))
 	set_pin_data(IC_OUTPUT, 6, round(air_contents.return_volume(), 0.001))
 	push_data()
 	activate_pin(2)

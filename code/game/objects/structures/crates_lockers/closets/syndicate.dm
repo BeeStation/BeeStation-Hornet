@@ -110,7 +110,8 @@
 	/obj/item/stack/sheet/bluespace_crystal,
 	/obj/item/stack/sheet/mineral/abductor,
 	/obj/item/stack/sheet/plastic,
-	/obj/item/stack/sheet/mineral/wood
+	/obj/item/stack/sheet/mineral/wood,
+	/obj/item/stack/sheet/mineral/copper
 	)
 
 	for(var/i = 0, i<2, i++)

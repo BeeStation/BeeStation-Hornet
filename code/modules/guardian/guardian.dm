@@ -35,8 +35,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.5, TOX = 0.5, CLONE = 0.5, STAMINA = 0, OXY = 0.5) //how much damage from each damage type we transfer to the owner
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	obj_damage = 40
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	AIStatus = AI_OFF
 	hud_type = /datum/hud/guardian
 	mobsay_color = "#ffffff"
@@ -55,7 +54,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/summoner_visible = TRUE
 	var/battlecry = "AT"
 	var/do_the_cool_invisible_thing = TRUE
-	var/erased_time = FALSE
 	var/berserk = FALSE
 	var/requiem = FALSE
 	// ability stuff below
@@ -198,12 +196,14 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(berserk || stat == DEAD)
 		return
 	if(!QDELETED(summoner) && !QDELETED(summoner.current))
-		if(summoner.current.stat == DEAD)
+		if(summoner.current.stat == DEAD || (HAS_TRAIT(summoner.current, TRAIT_NODEATH) && summoner.current.health <= -100))
 			if(transforming)
 				GoBerserk()
 			else
 				forceMove(summoner.current)
 				to_chat(src, "<span class='danger'>Your summoner has died!</span>")
+				to_chat(summoner, "<span class='userdanger'>'No...' you think to yourself as your bones crumple to dust.</span>")
+				summoner.current.dust()
 				visible_message("<span class='danger'><B>\The [src] dies along with its user!</B></span>")
 				death(TRUE)
 	else
@@ -236,6 +236,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		O.completed = TRUE
 		O.explanation_text = "AVENGE YOUR MASTER."
 		S.objectives |= O
+		log_objective(mind, O.explanation_text)
 		mind.announce_objectives()
 	if(stats.ability)
 		stats.ability.Berserk()
@@ -362,9 +363,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(transforming)
 		to_chat(src, "<span class='holoparasite italics'>No... no... you can't!</span>")
 		return
-	if(erased_time)
-		to_chat(src, "<span class='danger'>There is no time, and you cannot intefere!</span>")
-		return
 	if(stats.ability && stats.ability.RangedAttack(A))
 		return
 	return ..()
@@ -372,9 +370,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/AttackingTarget()
 	if(transforming)
 		to_chat(src, "<span class='holoparasite italics'>No... no... you can't!</span>")
-		return FALSE
-	if(erased_time)
-		to_chat(src, "<span class='danger'>There is no time, and you cannot intefere!</span>")
 		return FALSE
 	if(stats.ability && stats.ability.Attack(target))
 		return FALSE
@@ -402,8 +397,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/death()
 	. = ..()
 	if(summoner?.current && summoner.current.stat != DEAD)
-		to_chat(summoner, "<span class='danger'><B>Your [name] died somehow!</span></B>")
-		summoner.current.death()
+		to_chat(summoner, "<span class='userdanger'>'No...' you think to yourself as your bones crumple to dust, as you watch your stand somehow die.</span>")
+		summoner.current.dust()
 	ghostize(FALSE)
 	nullspace() // move ourself into nullspace for the time being
 
@@ -462,7 +457,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	death()
 	if(summoner?.current)
 		to_chat(summoner.current, "<span class='danger'><B>Your [src] was blown up!</span></B>")
-		summoner.current.gib()
+		summoner.current.dust()
 
 /mob/living/simple_animal/hostile/guardian/AltClickOn(atom/A)
 	if(stats.ability && stats.ability.AltClickOn(A))

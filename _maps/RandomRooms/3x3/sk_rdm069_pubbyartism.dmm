@@ -20,6 +20,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (

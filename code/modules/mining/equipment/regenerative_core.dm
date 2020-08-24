@@ -85,6 +85,8 @@
 				if(do_mob(user, H, 30))
 					H.visible_message("[user] forces [H] to apply [src]... [H.p_they()] quickly regenerates all injuries!")
 					SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
+				else
+					return
 			else
 				to_chat(user, "<span class='notice'>You start to smear [src] on yourself. It feels and smells disgusting, but you feel amazingly refreshed in mere moments.</span>")
 				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))

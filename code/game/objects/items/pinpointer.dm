@@ -67,8 +67,12 @@
 		return
 	var/turf/here = get_turf(src)
 	var/turf/there = get_turf(target)
+
 	if(here.z != there.z)
-		add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
+		if(here.z > there.z)
+			add_overlay("pinon_below[icon_suffix]")
+		else
+			add_overlay("pinon_above[icon_suffix]")
 		return
 	if(get_dist_euclidian(here,there) <= minimum_range)
 		add_overlay("pinon[alert ? "alert" : ""]direct[icon_suffix]")
@@ -140,7 +144,7 @@
 		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
 		return
 
-	var/A = input(user, "Person to track", "Pinpoint") in names
+	var/A = input(user, "Person to track", "Pinpoint") in sortList(names)
 	if(!A || QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated())
 		return
 

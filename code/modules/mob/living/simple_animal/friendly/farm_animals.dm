@@ -24,8 +24,7 @@
 	health = 40
 	maxHealth = 40
 	minbodytemp = 180
-	melee_damage_lower = 1
-	melee_damage_upper = 2
+	melee_damage = 5
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	stop_automated_movement_when_pulled = 1
 	blood_volume = BLOOD_VOLUME_NORMAL

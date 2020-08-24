@@ -194,7 +194,7 @@ SUBSYSTEM_DEF(research)
 			var/list/points = N.boost_item_paths[p]
 			if(islist(points))
 				for(var/i in points)
-					if(!isnum(points[i]))
+					if(!isnum_safe(points[i]))
 						node_boost_error(N.id, "[points[i]] is not a valid number.")
 					else if(!point_types[i])
 						node_boost_error(N.id, "[i] is not a valid point type.")

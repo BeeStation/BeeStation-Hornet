@@ -30,6 +30,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug_mapping, list(
 	/client/proc/count_objects_on_z_level,
 	/client/proc/count_objects_all,
 	/client/proc/cmd_assume_direct_control,	//-errorage
+	/client/proc/cmd_give_direct_control,
 	/client/proc/startSinglo,
 	/client/proc/set_server_fps,	//allows you to set the ticklag.
 	/client/proc/cmd_admin_grantfullaccess,
@@ -224,7 +225,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 	var/num_level = text2num(level)
 	if(!num_level)
 		return
-	if(!isnum(num_level))
+	if(!isnum_safe(num_level))
 		return
 
 	var/type_text = input("Which type path?","Path?") as text

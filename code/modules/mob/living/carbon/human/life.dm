@@ -30,18 +30,69 @@
 
 	if(!IsInStasis())
 		if(.) //not dead
-			handle_active_genes()
+			//Handle active genes
+			for(var/datum/mutation/human/HM in dna.mutations)
+				HM.on_life()
 
-		if(stat != DEAD)
+		if(stat != DEAD && undergoing_cardiac_arrest())
 			//heart attack stuff
-			handle_heart()
+			var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
+
+			if(we_breath)
+				adjustOxyLoss(8)
+				Unconscious(80)
+			// Tissues die without blood circulation
+			adjustBruteLoss(2)
 
 		if(stat != DEAD)
+			//handle embedded objects
 			//Stuff jammed in your limbs hurts
-			handle_embedded_objects()
+			for(var/X in bodyparts)
+				var/obj/item/bodypart/BP = X
+				for(var/obj/item/I in BP.embedded_objects)
+					if(prob(I.embedding.embedded_pain_chance))
+						BP.receive_damage(I.w_class*I.embedding.embedded_pain_multiplier)
+						to_chat(src, "<span class='userdanger'>[I] embedded in your [BP.name] hurts!</span>")
+
+					if(prob(I.embedding.embedded_fall_chance))
+						BP.receive_damage(I.w_class*I.embedding.embedded_fall_pain_multiplier)
+						BP.embedded_objects -= I
+						I.forceMove(drop_location())
+						visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
+						if(!has_embedded_objects())
+							clear_alert("embeddedobject")
+							SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "embedded")
 
 		if(stat != DEAD)
-			handle_hygiene()
+			//Handle hygiene
+			if(HAS_TRAIT(src, TRAIT_ALWAYS_CLEAN))
+				set_hygiene(HYGIENE_LEVEL_CLEAN)
+
+			else
+				var/hygiene_loss = -HYGIENE_FACTOR * 0.25 //Small loss per life
+
+				//If you're covered in blood, you'll start smelling like shit faster.
+				var/obj/item/head = get_item_by_slot(SLOT_HEAD)
+				if(head && HAS_BLOOD_DNA(head))
+					hygiene_loss -= 1 * HYGIENE_FACTOR
+
+				var/obj/item/mask = get_item_by_slot(SLOT_HEAD)
+				if(mask && HAS_BLOOD_DNA(mask))
+					hygiene_loss -= 1 * HYGIENE_FACTOR
+
+				var/obj/item/uniform = get_item_by_slot(SLOT_W_UNIFORM)
+				if(uniform && HAS_BLOOD_DNA(uniform))
+					hygiene_loss -= 4 * HYGIENE_FACTOR
+
+				var/obj/item/suit = get_item_by_slot(SLOT_WEAR_SUIT)
+				if(suit && HAS_BLOOD_DNA(suit))
+					hygiene_loss -= 3 * HYGIENE_FACTOR
+
+				var/obj/item/feet = get_item_by_slot(SLOT_SHOES)
+				if(feet && HAS_BLOOD_DNA(feet))
+					hygiene_loss -= 0.5 * HYGIENE_FACTOR
+
+				adjust_hygiene(hygiene_loss)
 
 		dna.species.spec_life(src) // for mutantraces
 
@@ -291,71 +342,6 @@
 		if(CH.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
 			return TRUE
 	return ..()
-
-
-/mob/living/carbon/human/proc/handle_embedded_objects()
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/BP = X
-		for(var/obj/item/I in BP.embedded_objects)
-			if(prob(I.embedding.embedded_pain_chance))
-				BP.receive_damage(I.w_class*I.embedding.embedded_pain_multiplier)
-				to_chat(src, "<span class='userdanger'>[I] embedded in your [BP.name] hurts!</span>")
-
-			if(prob(I.embedding.embedded_fall_chance))
-				BP.receive_damage(I.w_class*I.embedding.embedded_fall_pain_multiplier)
-				BP.embedded_objects -= I
-				I.forceMove(drop_location())
-				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
-				if(!has_embedded_objects())
-					clear_alert("embeddedobject")
-					SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "embedded")
-
-/mob/living/carbon/human/proc/handle_active_genes()
-	for(var/datum/mutation/human/HM in dna.mutations)
-		HM.on_life()
-
-/mob/living/carbon/human/proc/handle_heart()
-	var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
-
-	if(!undergoing_cardiac_arrest())
-		return
-
-	if(we_breath)
-		adjustOxyLoss(8)
-		Unconscious(80)
-	// Tissues die without blood circulation
-	adjustBruteLoss(2)
-
-/mob/living/carbon/human/proc/handle_hygiene()
-	if(HAS_TRAIT(src, TRAIT_ALWAYS_CLEAN))
-		set_hygiene(HYGIENE_LEVEL_CLEAN)
-		return
-
-	var/hygiene_loss = -HYGIENE_FACTOR * 0.25 //Small loss per life
-
-	//If you're covered in blood, you'll start smelling like shit faster.
-	var/obj/item/head = get_item_by_slot(SLOT_HEAD)
-	if(head && HAS_BLOOD_DNA(head))
-		hygiene_loss -= 1 * HYGIENE_FACTOR
-
-	var/obj/item/mask = get_item_by_slot(SLOT_HEAD)
-	if(mask && HAS_BLOOD_DNA(mask))
-		hygiene_loss -= 1 * HYGIENE_FACTOR
-
-	var/obj/item/uniform = get_item_by_slot(SLOT_W_UNIFORM)
-	if(uniform && HAS_BLOOD_DNA(uniform))
-		hygiene_loss -= 4 * HYGIENE_FACTOR
-
-	var/obj/item/suit = get_item_by_slot(SLOT_WEAR_SUIT)
-	if(suit && HAS_BLOOD_DNA(suit))
-		hygiene_loss -= 3 * HYGIENE_FACTOR
-
-	var/obj/item/feet = get_item_by_slot(SLOT_SHOES)
-	if(feet && HAS_BLOOD_DNA(feet))
-		hygiene_loss -= 0.5 * HYGIENE_FACTOR
-
-	adjust_hygiene(hygiene_loss)
-
 
 #undef THERMAL_PROTECTION_HEAD
 #undef THERMAL_PROTECTION_CHEST

@@ -105,13 +105,6 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"au" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
 "av" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall/mineral/titanium,
@@ -158,13 +151,6 @@
 "aC" = (
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"aD" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Containment Cell";
-	req_access_txt = "2"
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
 "aE" = (
 /obj/machinery/light{
 	dir = 4
@@ -209,13 +195,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"aL" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Brig";
-	req_access_txt = "2"
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
 "aM" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -235,34 +214,11 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"aP" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "aQ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"aR" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"aS" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/docking_port/mobile/emergency{
-	name = "Donut emergency shuttle";
-	width = 34
-	},
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "aT" = (
 /obj/structure/extinguisher_cabinet,
@@ -312,12 +268,6 @@
 /area/shuttle/escape)
 "bb" = (
 /turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/escape)
-"bc" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Infirmary"
-	},
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "bd" = (
 /obj/structure/tank_dispenser/oxygen,
@@ -493,6 +443,84 @@
 /obj/structure/table/optable,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
+"fg" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Infirmary"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"hl" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Cockpit";
+	req_access_txt = "19"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"pk" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock";
+	req_access_txt = "2"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"uu" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"Dr" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"FX" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/docking_port/mobile/emergency{
+	name = "Donut emergency shuttle";
+	width = 34
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"Ia" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Containment Cell";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"JF" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Brig";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -508,17 +536,17 @@ aa
 aa
 ab
 ab
-aP
+pk
 ab
-aS
+FX
 ab
 aa
 aa
 aa
 ab
-aR
-ac
-aR
+uu
+Dr
+uu
 ab
 aa
 ab
@@ -548,9 +576,9 @@ aC
 ab
 ak
 ab
-ac
-ac
-ac
+Dr
+Dr
+Dr
 ad
 ak
 ak
@@ -569,8 +597,8 @@ ab
 (3,1,1) = {"
 aa
 ab
-ac
-ac
+Dr
+Dr
 ab
 ab
 ab
@@ -647,7 +675,7 @@ am
 aq
 av
 ac
-aD
+Ia
 ac
 ad
 aI
@@ -675,7 +703,7 @@ bs
 bt
 "}
 (6,1,1) = {"
-ac
+Dr
 af
 al
 am
@@ -687,7 +715,7 @@ aC
 aF
 ab
 ac
-aL
+JF
 ac
 aH
 ak
@@ -702,7 +730,7 @@ am
 aW
 aX
 am
-bc
+fg
 bg
 bg
 bg
@@ -711,7 +739,7 @@ bs
 bt
 "}
 (7,1,1) = {"
-ac
+Dr
 ag
 al
 am
@@ -747,7 +775,7 @@ bs
 bt
 "}
 (8,1,1) = {"
-ac
+Dr
 ah
 al
 am
@@ -783,7 +811,7 @@ bs
 bt
 "}
 (9,1,1) = {"
-ac
+Dr
 ai
 al
 am
@@ -810,7 +838,7 @@ am
 aW
 aX
 am
-bc
+fg
 bg
 bg
 bg
@@ -860,7 +888,7 @@ ad
 ak
 ak
 ak
-au
+hl
 am
 am
 am
@@ -893,8 +921,8 @@ bt
 (12,1,1) = {"
 aa
 ab
-ac
-ac
+Dr
+Dr
 ab
 ad
 ax
@@ -944,9 +972,9 @@ ak
 ak
 ak
 ad
-ac
-ac
-ac
+Dr
+Dr
+Dr
 ad
 ak
 ak
@@ -976,17 +1004,17 @@ aa
 aa
 ab
 ab
-aR
-ac
-aR
+uu
+Dr
+uu
 ab
 aa
 aa
 aa
 ab
-aR
-ac
-aR
+uu
+Dr
+uu
 ab
 aa
 ab

@@ -14,6 +14,7 @@
 	var/datum/objective/survive/survive = new
 	survive.owner = owner
 	objectives += survive
+	log_objective(owner, survive.explanation_text)
 
 /datum/antagonist/blood_contract/greet()
 	. = ..()

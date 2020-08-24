@@ -248,18 +248,22 @@
 		var/datum/objective/hivemind/hivesize/size_objective = new
 		size_objective.owner = owner
 		objectives += size_objective
+		log_objective(owner, size_objective.explanation_text)
 	else if(prob(70))
 		var/datum/objective/hivemind/hiveescape/hive_escape_objective = new
 		hive_escape_objective.owner = owner
 		objectives += hive_escape_objective
+		log_objective(owner, hive_escape_objective.explanation_text)
 	else
 		var/datum/objective/hivemind/biggest/biggest_objective = new
 		biggest_objective.owner = owner
 		objectives += biggest_objective
+		log_objective(owner, biggest_objective.explanation_text)
 
 	var/datum/objective/escape/escape_objective = new
 	escape_objective.owner = owner
 	objectives += escape_objective
+	log_objective(owner, escape_objective.explanation_text)
 
 	return
 

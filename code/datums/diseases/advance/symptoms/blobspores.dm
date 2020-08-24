@@ -65,7 +65,6 @@
 	sleep(10 SECONDS)
 	if(!A && !M)
 		return
-	qdel(A)
 	var/list/blob_options = list(/obj/structure/blob/normal)
 	if(factory_blob)
 		blob_options += /obj/structure/blob/factory/lone
@@ -76,8 +75,11 @@
 	var/pick_blob = pick(blob_options)
 	if(ready_to_pop)
 		for(var/i in 1 to rand(1, 6))
-			new /mob/living/simple_animal/hostile/blob/blobspore/(M.loc)//Spores update their health on update_icon, we cant change their colour
-		if(prob(2))
+			var/mob/living/simple_animal/hostile/blob/blobspore/B = new(M.loc)//Spores update their health on update_icon, we cant change their colour
+			for(var/datum/disease/D in B.disease)//don't let them farm diseases with this and monkeys
+				B.disease -= D
+			B.disease += A//instead, they contain the disease that was in this
+		if(prob(A.properties["resistance"]))
 			var/atom/blobbernaut = new /mob/living/simple_animal/hostile/blob/blobbernaut/(M.loc)
 			blobbernaut.add_atom_colour(pick(BLOB_STRAIN_COLOR_LIST), FIXED_COLOUR_PRIORITY)
 		var/atom/blob_tile = new pick_blob(M.loc)

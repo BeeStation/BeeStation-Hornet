@@ -44,8 +44,7 @@
 			mode = FALSE
 			Mode()
 			return
-		guardian.melee_damage_lower = 50
-		guardian.melee_damage_upper = 50
+		guardian.melee_damage = 50
 		guardian.armour_penetration = 100
 		guardian.obj_damage = 0
 		guardian.environment_smash = ENVIRONMENT_SMASH_NONE
@@ -53,8 +52,7 @@
 		guardian.alpha = 15
 		updatestealthalert()
 	else
-		guardian.melee_damage_lower = initial(guardian.melee_damage_lower)
-		guardian.melee_damage_upper = initial(guardian.melee_damage_upper)
+		guardian.melee_damage = initial(guardian.melee_damage)
 		guardian.armour_penetration = initial(guardian.armour_penetration)
 		guardian.obj_damage = initial(guardian.obj_damage)
 		guardian.environment_smash = initial(guardian.environment_smash)

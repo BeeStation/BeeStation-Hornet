@@ -30,30 +30,6 @@
 "f" = (
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"g" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"h" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"i" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/docking_port/mobile/emergency/shuttle_build{
-	dwidth = 6;
-	height = 15;
-	name = "Shuttle Under Construction";
-	port_direction = 4;
-	preferred_direction = 2;
-	width = 23
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "j" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -175,23 +151,50 @@
 "p" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
+"B" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"J" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/docking_port/mobile/emergency/shuttle_build{
+	dwidth = 6;
+	height = 15;
+	name = "Shuttle Under Construction";
+	port_direction = 4;
+	preferred_direction = 2;
+	width = 23
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"U" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 a
 c
 e
 e
-g
+B
 e
-i
-e
-e
+J
 e
 e
 e
-g
 e
-g
+e
+B
+e
+B
 e
 p
 a
@@ -271,9 +274,9 @@ f
 f
 e
 e
-h
-h
-h
+U
+U
+U
 a
 "}
 (5,1,1) = {"
@@ -298,8 +301,8 @@ f
 f
 f
 f
-h
-h
+U
+U
 "}
 (6,1,1) = {"
 b
@@ -324,7 +327,7 @@ f
 f
 f
 f
-h
+U
 "}
 (7,1,1) = {"
 b
@@ -349,7 +352,7 @@ f
 f
 f
 f
-h
+U
 "}
 (8,1,1) = {"
 c
@@ -374,7 +377,7 @@ f
 f
 f
 f
-h
+U
 "}
 (9,1,1) = {"
 b
@@ -399,7 +402,7 @@ f
 f
 f
 f
-h
+U
 "}
 (10,1,1) = {"
 b
@@ -424,7 +427,7 @@ f
 f
 f
 f
-h
+U
 "}
 (11,1,1) = {"
 b
@@ -448,8 +451,8 @@ f
 f
 f
 f
-h
-h
+U
+U
 "}
 (12,1,1) = {"
 c
@@ -471,9 +474,9 @@ f
 f
 e
 e
-h
-h
-h
+U
+U
+U
 a
 "}
 (13,1,1) = {"
@@ -531,17 +534,17 @@ a
 c
 e
 e
-h
+U
 e
 e
 e
 e
-h
+U
 e
 e
 e
 e
-h
+U
 e
 p
 a

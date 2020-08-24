@@ -4,6 +4,7 @@
 	antagpanel_category = "NukeOp"
 	job_rank = ROLE_OPERATIVE
 	antag_moodlet = /datum/mood_event/focused
+	show_to_ghosts = TRUE
 	var/datum/team/nuclear/nuke_team
 	var/always_new_team = FALSE //If not assigned a team by default ops will try to join existing ones, set this to TRUE to always create new team.
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
@@ -75,7 +76,8 @@
 			else //Already set by admins/something else?
 				nuke_team.memorized_code = nuke.r_code
 			for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
-				beernuke.r_code = nuke_team.memorized_code
+				if(beernuke.r_code == "ADMIN")
+					beernuke.r_code = nuke_team.memorized_code
 		else
 			stack_trace("Syndicate nuke not found during nuke team creation.")
 			nuke_team.memorized_code = null
@@ -261,6 +263,8 @@
 		var/datum/objective/O = new core_objective
 		O.team = src
 		objectives += O
+		for(var/datum/mind/M in members)
+			log_objective(M, O.explanation_text)
 
 /datum/team/nuclear/proc/disk_rescued()
 	for(var/obj/item/disk/nuclear/D in GLOB.poi_list)

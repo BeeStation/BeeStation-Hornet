@@ -159,7 +159,7 @@
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner
 	name = "space cleaner"
-	desc = "BLAM!-brand non-foaming space cleaner!"
+	desc = "BLAM!-brand non-foaming space cleaner! A warning label reads 'CAUTION! NOT SAFE FOR INGESTION'"
 	volume = 100
 	list_reagents = list(/datum/reagent/space_cleaner = 100)
 	amount_per_transfer_from_this = 2
@@ -337,6 +337,14 @@
 		return
 	last_generate = world.time
 	reagents.add_reagent(generate_type, generate_amount)
+
+/obj/item/reagent_containers/spray/chemsprayer/janitor/clown
+	name = "lubinator 8000"
+	desc = "A modified industrial cleaning sprayer, capable of coating entire hallways in high performance lubricant, honk!"
+	icon_state = "chemsprayer"
+	item_state = "chemsprayer"
+	list_reagents = list(/datum/reagent/lube = 1000)
+	generate_type = /datum/reagent/lube
 
 // Plant-B-Gone
 /obj/item/reagent_containers/spray/plantbgone // -- Skie

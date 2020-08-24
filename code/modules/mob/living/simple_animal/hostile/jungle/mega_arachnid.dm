@@ -8,8 +8,7 @@
 	icon_living = "arachnid"
 	icon_dead = "arachnid_dead"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
-	melee_damage_lower = 30
-	melee_damage_upper = 30
+	melee_damage = 30
 	maxHealth = 300
 	health = 300
 	speed = 1

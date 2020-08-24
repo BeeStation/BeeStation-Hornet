@@ -204,7 +204,7 @@
 /obj/item/reagent_containers/blood/random,
 /obj/item/reagent_containers/blood/lizard,
 /obj/item/reagent_containers/blood/lizard,
-/obj/item/stack/sheet/cloth/ten,
+/obj/item/stack/sheet/cotton/cloth/ten,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "aF" = (
@@ -277,8 +277,8 @@
 /area/ruin/unpowered/ash_walkers)
 "aO" = (
 /obj/structure/stone_tile/surrounding/cracked{
-	icon_state = "cracked_surrounding1";
-	dir = 1
+	dir = 1;
+	icon_state = "cracked_surrounding1"
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -341,19 +341,6 @@
 	dir = 1
 	},
 /turf/open/indestructible/boss/air,
-/area/ruin/unpowered/ash_walkers)
-"aY" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "aZ" = (
 /obj/structure/stone_tile/cracked{
@@ -993,8 +980,8 @@
 /area/ruin/unpowered/ash_walkers)
 "cA" = (
 /obj/structure/stone_tile/slab/cracked{
-	icon_state = "cracked_slab1";
-	dir = 4
+	dir = 4;
+	icon_state = "cracked_slab1"
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -1062,22 +1049,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"cL" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/obj/structure/table/wood,
-/obj/item/twohanded/spear,
-/obj/item/scythe,
-/turf/open/indestructible/boss,
-/area/ruin/unpowered/ash_walkers)
 "cM" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -1393,6 +1364,38 @@
 	},
 /turf/closed/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Jn" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/twohanded/spear,
+/obj/item/scythe,
+/obj/item/cultivator,
+/turf/open/indestructible/boss,
+/area/ruin/unpowered/ash_walkers)
+"Ur" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/item/seeds/cotton,
+/obj/item/seeds/cotton,
+/turf/open/indestructible/boss,
+/area/ruin/unpowered/ash_walkers)
 
 (1,1,1) = {"
 aa
@@ -1489,7 +1492,7 @@ ac
 as
 aB
 aN
-aY
+Ur
 am
 bw
 ak
@@ -1742,7 +1745,7 @@ dj
 as
 cz
 cD
-cL
+Jn
 as
 ah
 "}

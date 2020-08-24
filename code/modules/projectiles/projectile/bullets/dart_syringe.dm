@@ -39,7 +39,7 @@
 
 /obj/item/projectile/bullet/dart/tranq/Initialize()
 	. = ..()
-	reagents.add_reagent(/datum/reagent/medicine/morphine, 7)
+	reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 4) //these'll get the victim wallslamming and then sleep em, but it will take awhile before it puts the victim to sleep
 
 /obj/item/projectile/bullet/dart/syringe
 	name = "syringe"

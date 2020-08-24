@@ -174,15 +174,6 @@
 /obj/item/toy/sword,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"aI" = (
-/obj/machinery/door/airlock/bananium{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/docking_port/mobile/emergency{
-	name = "Snappop(tm)!"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "aJ" = (
 /obj/item/toy/snappop/phoenix,
 /obj/machinery/light/small{
@@ -237,12 +228,6 @@
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"aQ" = (
-/obj/machinery/door/airlock/bananium{
-	name = "Emergency Shuttle Airlock"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "aR" = (
 /obj/item/toy/snappop/phoenix,
 /obj/machinery/light/small,
@@ -253,18 +238,6 @@
 	pixel_y = -30
 	},
 /obj/item/toy/snappop/phoenix,
-/turf/open/floor/bluespace,
-/area/shuttle/escape)
-"aT" = (
-/obj/machinery/door/airlock/bananium{
-	name = "Emergency Shuttle Cargo"
-	},
-/turf/open/floor/bluespace,
-/area/shuttle/escape)
-"aU" = (
-/obj/machinery/door/airlock/bananium/glass{
-	name = "Emergency Shuttle Infirmary"
-	},
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "aV" = (
@@ -340,6 +313,48 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
+"eU" = (
+/obj/machinery/door/airlock/bananium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"oM" = (
+/obj/machinery/door/airlock/bananium/glass{
+	name = "Emergency Shuttle Infirmary"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/bluespace,
+/area/shuttle/escape)
+"KO" = (
+/obj/machinery/door/airlock/bananium{
+	name = "Emergency Shuttle Cargo"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/bluespace,
+/area/shuttle/escape)
+"LN" = (
+/obj/machinery/door/airlock/bananium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/docking_port/mobile/emergency{
+	name = "Snappop(tm)!"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"Nn" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "Zf" = (
 /obj/structure/closet/emcloset,
 /obj/item/toy/sword,
@@ -356,15 +371,15 @@ ab
 ab
 ab
 ab
-aI
+LN
 ab
-ac
-ac
-ac
+Nn
+Nn
+Nn
 ab
-aQ
+eU
 ab
-aQ
+eU
 ab
 ab
 ab
@@ -419,7 +434,7 @@ bf
 bg
 "}
 (4,1,1) = {"
-ac
+Nn
 ae
 aj
 ao
@@ -435,7 +450,7 @@ aN
 aN
 aN
 ak
-aT
+KO
 aV
 aV
 bd
@@ -443,7 +458,7 @@ bf
 bg
 "}
 (5,1,1) = {"
-ac
+Nn
 af
 ak
 ap
@@ -467,7 +482,7 @@ bf
 bg
 "}
 (6,1,1) = {"
-ac
+Nn
 ag
 ak
 aq
@@ -491,7 +506,7 @@ bf
 bg
 "}
 (7,1,1) = {"
-ac
+Nn
 af
 ak
 ak
@@ -515,7 +530,7 @@ bf
 bg
 "}
 (8,1,1) = {"
-ac
+Nn
 ah
 al
 al
@@ -531,7 +546,7 @@ aO
 aO
 aO
 ak
-aU
+oM
 aV
 aV
 aV
@@ -592,21 +607,21 @@ aa
 aa
 aa
 ab
-ac
+Nn
 ab
-ac
-ab
-ab
-ab
-ac
-ac
-ac
+Nn
 ab
 ab
 ab
-ac
+Nn
+Nn
+Nn
 ab
-ac
+ab
+ab
+Nn
+ab
+Nn
 ab
 aa
 "}

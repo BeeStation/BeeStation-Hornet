@@ -265,6 +265,20 @@
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 30)
 	foodtype = GRAIN | ALCOHOL
 
+/obj/item/reagent_containers/food/drinks/syndicatebeer
+	name = "syndicate beer"
+	desc = "Consumed only by the finest syndicate agents. There is a round warning label stating 'Don't drink more than one in quick succession!'"
+	icon_state = "syndicatebeer"
+	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 10, /datum/reagent/medicine/antitoxin = 20)
+	foodtype = GRAIN | ALCOHOL
+
+/obj/item/reagent_containers/food/drinks/ftliver
+	name = "Faster-Than-Liver"
+	desc = "They've gone into plaid!"
+	icon_state = "ftliver"
+	list_reagents = list(/datum/reagent/consumable/ethanol/ftliver = 30)
+	foodtype = ALCOHOL
+
 /obj/item/reagent_containers/food/drinks/beer/light
 	name = "Carp Lite"
 	desc = "Brewed with \"Pure Ice Asteroid Spring Water\"."

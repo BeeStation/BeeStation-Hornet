@@ -114,6 +114,7 @@
 				var/datum/objective/O = new/datum/objective(objective)
 				O.owner = MM
 				A.objectives += O
+				log_objective(O.owner, O.explanation_text)
 		if(assignedrole)
 			M.mind.assigned_role = assignedrole
 		special(M, name)
@@ -198,7 +199,7 @@
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)
 			var/T = vars[slot]
-			if(!isnum(T))
+			if(!isnum_safe(T))
 				outfit.vars[slot] = T
 		H.equipOutfit(outfit)
 		if(disable_pda)
@@ -532,6 +533,7 @@
 /obj/effect/mob_spawn/human/skeleton/alive/equip(mob/living/carbon/human/H)
 	var/obj/item/implant/exile/implant = new/obj/item/implant/exile(H)
 	implant.implant(H)
+	H.set_species(/datum/species/skeleton)
 
 /obj/effect/mob_spawn/human/zombie
 	name = "rotting corpse"

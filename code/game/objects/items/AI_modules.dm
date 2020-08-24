@@ -65,12 +65,19 @@ AI MODULES
 	else
 		to_chat(user, "<span class='notice'>Upload complete.</span>")
 
+	if(law_datum.owner?.mind)
+		for(var/a in law_datum.owner.mind.antag_datums)	//Makes sure all antag datums effects are applied in the new body
+			var/datum/antagonist/A = a
+			A.on_body_transfer(law_datum.owner, law_datum.owner)
+
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	var/ainame = law_datum.owner ? law_datum.owner.name : "empty AI core"
 	var/aikey = law_datum.owner ? law_datum.owner.ckey : "null"
 	GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) used [src.name] on [ainame]([aikey]).[law2log ? " The law specified [law2log]" : ""]")
 	log_law("[user.key]/[user.name] used [src.name] on [aikey]/([ainame]) from [AREACOORD(user)].[law2log ? " The law specified [law2log]" : ""]")
 	message_admins("[ADMIN_LOOKUPFLW(user)] used [src.name] on [ADMIN_LOOKUPFLW(law_datum.owner)] from [AREACOORD(user)].[law2log ? " The law specified [law2log]" : ""]")
+	if(law_datum.owner)
+		deadchat_broadcast("<span class='deadsay'><span class='name'>[user.name]</span> changed <span class='name'>[ainame]</span>'s laws at <b>[get_area_name(user, TRUE)].</b></span>", "<span class='name'>[user]</span>", follow_target=user, message_type=DEADCHAT_LAWCHANGE)
 
 //The proc that actually changes the silicon's laws.
 /obj/item/aiModule/proc/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow = FALSE)

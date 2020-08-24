@@ -18,10 +18,8 @@
 	maxHealth = 50
 	health = 50
 	pixel_x = -16
-	harm_intent_damage = 5
 	obj_damage = 0
-	melee_damage_lower = 0
-	melee_damage_upper = 0
+	melee_damage = 0
 	attacktext = "chomps"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "is avoided by the"
@@ -34,6 +32,7 @@
 	var/inflate_cooldown = 0
 	var/datum/action/innate/fugu/expand/E
 	loot = list(/obj/item/fugu_gland{layer = ABOVE_MOB_LAYER})
+	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/fugu/Initialize()
 	. = ..()
@@ -82,8 +81,7 @@
 	F.wumbo = 1
 	F.icon_state = "Fugu1"
 	F.obj_damage = 60
-	F.melee_damage_lower = 15
-	F.melee_damage_upper = 20
+	F.melee_damage = 20
 	F.harm_intent_damage = 0
 	F.throw_message = "is absorbed by the girth of the"
 	F.retreat_distance = null
@@ -100,9 +98,8 @@
 		wumbo = 0
 		icon_state = "Fugu0"
 		obj_damage = 0
-		melee_damage_lower = 0
-		melee_damage_upper = 0
-		harm_intent_damage = 5
+		melee_damage = 0
+		harm_intent_damage = 6
 		throw_message = "is avoided by the"
 		retreat_distance = 9
 		minimum_distance = 9
@@ -136,9 +133,17 @@
 		A.buffed++
 		A.maxHealth *= 1.5
 		A.health = min(A.maxHealth,A.health*1.5)
-		A.melee_damage_lower = max((A.melee_damage_lower * 2), 10)
-		A.melee_damage_upper = max((A.melee_damage_upper * 2), 10)
+		A.melee_damage = max((A.melee_damage * 2), 10)
 		A.transform *= 2
 		A.environment_smash |= ENVIRONMENT_SMASH_STRUCTURES | ENVIRONMENT_SMASH_RWALLS
 		to_chat(user, "<span class='info'>You increase the size of [A], giving it a surge of strength!</span>")
 		qdel(src)
+
+/obj/item/fugu_gland/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(scan)
+		to_chat(user, "<span class='info'>[src] has potential for extrapolation.</span>")
+	else
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 4+(rand(1, 5)), /datum/symptom/growth)
+		if(E.create_culture(R, user))
+			qdel(src)
+	return TRUE

@@ -82,6 +82,7 @@
 	if(give_objectives)
 		forge_objectives()
 	remove_clownmut()
+	owner.current.grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue. We are able to transform our body after all.
 	. = ..()
 
 /datum/antagonist/changeling/on_removal()
@@ -376,14 +377,17 @@
 			absorb_objective.owner = owner
 			absorb_objective.gen_amount_goal(6, 8)
 			objectives += absorb_objective
+			log_objective(owner, absorb_objective.explanation_text)
 		if(2)
 			var/datum/objective/absorb_most/ac = new
 			ac.owner = owner
 			objectives += ac
+			log_objective(owner, ac.explanation_text)
 		if(3) //only give the murder other changelings goal if they're not in a team.
 			var/datum/objective/absorb_changeling/ac = new
 			ac.owner = owner
 			objectives += ac
+			log_objective(owner, ac.explanation_text)
 
 	if(prob(60))
 		if(prob(85))
@@ -391,11 +395,13 @@
 			steal_objective.owner = owner
 			steal_objective.find_target()
 			objectives += steal_objective
+			log_objective(owner, steal_objective.explanation_text)
 		else
 			var/datum/objective/download/download_objective = new
 			download_objective.owner = owner
 			download_objective.gen_amount_goal()
 			objectives += download_objective
+			log_objective(owner, download_objective.explanation_text)
 
 	var/list/active_ais = active_ais()
 	if(active_ais.len && prob(100/GLOB.joined_player_list.len))
@@ -403,6 +409,7 @@
 		destroy_objective.owner = owner
 		destroy_objective.find_target()
 		objectives += destroy_objective
+		log_objective(owner, destroy_objective.explanation_text)
 	else
 		if(prob(70))
 			var/datum/objective/assassinate/kill_objective = new
@@ -412,6 +419,7 @@
 			else
 				kill_objective.find_target()
 			objectives += kill_objective
+			log_objective(owner, kill_objective.explanation_text)
 		else
 			var/datum/objective/maroon/maroon_objective = new
 			maroon_objective.owner = owner
@@ -420,6 +428,7 @@
 			else
 				maroon_objective.find_target()
 			objectives += maroon_objective
+			log_objective(owner, maroon_objective.explanation_text)
 
 			if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 				var/datum/objective/escape/escape_with_identity/identity_theft = new
@@ -427,6 +436,7 @@
 				identity_theft.target = maroon_objective.target
 				identity_theft.update_explanation_text()
 				objectives += identity_theft
+				log_objective(owner, identity_theft.explanation_text)
 				escape_objective_possible = FALSE
 
 	if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
@@ -434,6 +444,7 @@
 			var/datum/objective/escape/escape_objective = new
 			escape_objective.owner = owner
 			objectives += escape_objective
+			log_objective(owner, escape_objective.explanation_text)
 		else
 			var/datum/objective/escape/escape_with_identity/identity_theft = new
 			identity_theft.owner = owner
@@ -442,6 +453,7 @@
 			else
 				identity_theft.find_target()
 			objectives += identity_theft
+			log_objective(owner, identity_theft.explanation_text)
 		escape_objective_possible = FALSE
 
 /datum/antagonist/changeling/proc/update_changeling_icons_added()

@@ -34,16 +34,16 @@
 /mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime shock
 		flash_act()
-		var/stunprob = M.powerlevel * 7 + 10
-		if(prob(stunprob) && M.powerlevel >= 8)
-			adjustBruteLoss(M.powerlevel * rand(6,10))
+		if(M.powerlevel)
+			adjustBruteLoss(M.powerlevel * 4)
+			M.powerlevel --
 
-	var/damage = rand(1, 3)
+	var/damage = rand(3)
 
 	if(M.is_adult)
-		damage = rand(20, 40)
+		damage = 30
 	else
-		damage = rand(5, 35)
+		damage = 20
 	damage = round(damage / 2) // borgs receive half damage
 	adjustBruteLoss(damage)
 	updatehealth()

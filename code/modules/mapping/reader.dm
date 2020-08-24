@@ -21,6 +21,7 @@
 	var/list/parsed_bounds
 	/// Offset bounds. Same as parsed_bounds until load().
 	var/list/bounds
+	var/did_expand = FALSE
 
 	// raw strings used to represent regexes more accurately
 	// '' used to avoid confusing syntax highlighting
@@ -150,6 +151,7 @@
 		var/zcrd = gset.zcrd + z_offset - 1
 		if(!cropMap && ycrd > world.maxy)
 			world.maxy = ycrd // Expand Y here.  X is expanded in the loop below
+			did_expand = TRUE
 		var/zexpansion = zcrd > world.maxz
 		if(zexpansion)
 			if(cropMap)
@@ -157,6 +159,7 @@
 			else
 				while (zcrd > world.maxz) //create a new z_level if needed
 					world.incrementMaxZ()
+					did_expand = FALSE
 			if(!no_changeturf)
 				WARNING("Z-level expansion occurred without no_changeturf set, this may cause problems when /turf/AfterChange is called")
 
@@ -175,6 +178,7 @@
 							break
 						else
 							world.maxx = xcrd
+							did_expand = TRUE
 
 					if(xcrd >= 1)
 						var/model_key = copytext(line, tpos, tpos + key_len)
@@ -213,6 +217,9 @@
 		testing("Skipped loading [turfsSkipped] default turfs")
 	#endif
 
+	if(did_expand)
+		world.refresh_atmos_grid()
+
 	return TRUE
 
 /datum/parsed_map/proc/build_cache(no_changeturf, bad_paths=null)
@@ -241,7 +248,8 @@
 			var/variables_start = findtext(full_def, "{")
 			var/path_text = trim_text(copytext(full_def, 1, variables_start))
 			var/atom_def = text2path(path_text) //path definition, e.g /obj/foo/bar
-			old_position = dpos + 1
+			if(dpos)
+				old_position = dpos + length(model[dpos])
 
 			if(!ispath(atom_def, /atom)) // Skip the item if the path does not exist.  Fix your crap, mappers!
 				if(bad_paths)
@@ -253,7 +261,7 @@
 			var/list/fields = list()
 
 			if(variables_start)//if there's any variable
-				full_def = copytext(full_def,variables_start+1,length(full_def))//removing the last '}'
+				full_def = copytext(full_def, variables_start + length(full_def[variables_start]), -length(copytext_char(full_def, -1))) //removing the last '}'
 				fields = readlist(full_def, ";")
 				if(fields.len)
 					if(!trim(fields[fields.len]))
@@ -305,7 +313,7 @@
 	//The next part of the code assumes there's ALWAYS an /area AND a /turf on a given tile
 	//first instance the /area and remove it from the members list
 	index = members.len
-	if(members[index] != /area/template_noop)		
+	if(members[index] != /area/template_noop)
 		var/atype = members[index]
 		world.preloader_setup(members_attributes[index], atype)//preloader for assigning  set variables on atom creation
 		var/atom/instance = areaCache[atype]
@@ -423,12 +431,13 @@
 
 		var/trim_left = trim_text(copytext(text,old_position,(equal_position ? equal_position : position)))
 		var/left_constant = delimiter == ";" ? trim_left : parse_constant(trim_left)
-		old_position = position + 1
+		if(position)
+			old_position = position + length(text[position])
 
-		if(equal_position && !isnum(left_constant))
+		if(equal_position && !isnum_safe(left_constant))
 			// Associative var, so do the association.
 			// Note that numbers cannot be keys - the RHS is dropped if so.
-			var/trim_right = trim_text(copytext(text,equal_position+1,position))
+			var/trim_right = trim_text(copytext(text, equal_position + length(text[equal_position]), position))
 			var/right_constant = parse_constant(trim_right)
 			.[left_constant] = right_constant
 
@@ -438,16 +447,16 @@
 /datum/parsed_map/proc/parse_constant(text)
 	// number
 	var/num = text2num(text)
-	if(isnum(num))
+	if(isnum_safe(num))
 		return num
 
 	// string
-	if(findtext(text,"\"",1,2))
-		return copytext(text,2,findtext(text,"\"",3,0))
+	if(text[1] == "\"")
+		return copytext(text, length(text[1]) + 1, findtext(text, "\"", length(text[1]) + 1))
 
 	// list
-	if(copytext(text,1,6) == "list(")
-		return readlist(copytext(text,6,length(text)))
+	if(copytext(text, 1, 6) == "list(")//6 == length("list(") + 1
+		return readlist(copytext(text, 6, -1))
 
 	// typepath
 	var/path = text2path(text)
@@ -455,8 +464,8 @@
 		return path
 
 	// file
-	if(copytext(text,1,2) == "'")
-		return file(copytext(text,2,length(text)))
+	if(text[1] == "'")
+		return file(copytext_char(text, 2, -1))
 
 	// null
 	if(text == "null")

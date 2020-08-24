@@ -5,11 +5,6 @@
 "ab" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ac" = (
-/obj/structure/grille,
-/obj/structure/window/shuttle/tinted,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -81,11 +76,6 @@
 "ai" = (
 /obj/structure/sign/warning/biohazard,
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/escape)
-"aj" = (
-/obj/structure/barricade/wooden,
-/obj/machinery/door/airlock/titanium,
-/turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "ak" = (
 /obj/structure/chair/comfy/shuttle{
@@ -161,13 +151,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
-"ax" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ay" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -187,26 +170,6 @@
 /obj/structure/table,
 /obj/item/coin/mythril,
 /turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"aB" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Brig";
-	req_access_txt = "2"
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"aC" = (
-/obj/machinery/door/airlock/titanium,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"aD" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/docking_port/mobile/emergency{
-	name = "NT Lepton Violet"
-	},
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "aF" = (
 /obj/machinery/door/window/eastleft,
@@ -297,16 +260,6 @@
 	},
 /obj/item/reagent_containers/glass/bottle/charcoal,
 /turf/open/floor/mineral/titanium/white,
-/area/shuttle/escape)
-"aU" = (
-/obj/machinery/door/airlock/public/glass,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"aV" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "aW" = (
 /obj/effect/turf_decal/stripes/line{
@@ -515,11 +468,60 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
+"bK" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Brig";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"el" = (
+/obj/machinery/door/airlock/titanium,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"ft" = (
+/obj/structure/grille,
+/obj/structure/window/shuttle/tinted,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "ji" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"oh" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"uR" = (
+/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock/titanium,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cult,
+/area/shuttle/escape)
+"AO" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock";
+	req_access_txt = "2"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "Ec" = (
 /obj/structure/chair/comfy/shuttle{
@@ -530,9 +532,32 @@
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
+"JM" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/docking_port/mobile/emergency{
+	name = "NT Lepton Violet"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "MK" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"Re" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"RB" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -543,17 +568,17 @@ aa
 ab
 ab
 ab
-ax
+AO
 ab
-aD
+JM
 ab
-as
-as
-as
+RB
+RB
+RB
 ab
-aV
+oh
 ab
-aV
+oh
 ab
 ab
 ab
@@ -592,7 +617,7 @@ ab
 bj
 al
 al
-aB
+bK
 aq
 aq
 aq
@@ -608,7 +633,7 @@ bf
 bg
 "}
 (4,1,1) = {"
-ac
+ft
 ad
 ae
 ad
@@ -622,7 +647,7 @@ aJ
 aJ
 aJ
 aq
-aU
+Re
 aq
 aq
 aq
@@ -632,7 +657,7 @@ bf
 bg
 "}
 (5,1,1) = {"
-ac
+ft
 ae
 ad
 ae
@@ -656,7 +681,7 @@ bf
 bg
 "}
 (6,1,1) = {"
-ac
+ft
 af
 ad
 bi
@@ -680,11 +705,11 @@ bf
 bg
 "}
 (7,1,1) = {"
-ac
+ft
 ae
 ad
 ae
-aj
+uR
 ao
 au
 az
@@ -704,7 +729,7 @@ bf
 bg
 "}
 (8,1,1) = {"
-ac
+ft
 ad
 ae
 ad
@@ -718,7 +743,7 @@ aL
 aO
 aL
 aq
-aU
+Re
 aq
 aq
 aq
@@ -736,7 +761,7 @@ aH
 aq
 aq
 aq
-aC
+el
 aq
 aq
 aP
@@ -781,19 +806,19 @@ aa
 aa
 aa
 ab
-as
+RB
 ab
-as
-ab
-ab
-ab
-as
-as
-as
+RB
 ab
 ab
 ab
-as
+RB
+RB
+RB
+ab
+ab
+ab
+RB
 ab
 ab
 ab

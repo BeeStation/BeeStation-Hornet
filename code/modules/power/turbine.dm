@@ -63,6 +63,10 @@
 	var/turf/outturf
 	var/lastgen
 	var/productivity = 1
+	var/destroy_output = FALSE //Destroy the output gas instead of actually outputting it. Used on lavaland to prevent cooking the zlevel
+
+/obj/machinery/power/turbine/lavaland
+	destroy_output = TRUE
 
 /obj/machinery/power/turbine/Destroy()
 	if (compressor && compressor.turbine == src)
@@ -215,7 +219,7 @@
 
 	// Weird function but it works. Should be something else...
 
-	var/newrpm = ((compressor.gas_contained.temperature) * compressor.gas_contained.total_moles())/4
+	var/newrpm = ((compressor.gas_contained.return_temperature()) * compressor.gas_contained.total_moles())/4
 
 	newrpm = max(0, newrpm)
 
@@ -224,8 +228,11 @@
 
 	if(compressor.gas_contained.total_moles()>0)
 		var/oamount = min(compressor.gas_contained.total_moles(), (compressor.rpm+100)/35000*compressor.capacity)
-		var/datum/gas_mixture/removed = compressor.gas_contained.remove(oamount)
-		outturf.assume_air(removed)
+		if(destroy_output)
+			compressor.gas_contained.set_moles(compressor.gas_contained.get_moles() - oamount)
+		else
+			var/datum/gas_mixture/removed = compressor.gas_contained.remove(oamount)
+			outturf.assume_air(removed)
 
 // If it works, put an overlay that it works!
 
@@ -266,7 +273,7 @@
 	data["online"] = compressor?.starter
 	data["power"] = DisplayPower(compressor?.turbine?.lastgen)
 	data["rpm"] = compressor?.rpm
-	data["temp"] = compressor?.gas_contained.temperature
+	data["temp"] = compressor?.gas_contained.return_temperature()
 	return data
 
 /obj/machinery/power/turbine/ui_act(action, params)
@@ -331,7 +338,7 @@
 	data["online"] = compressor?.starter
 	data["power"] = DisplayPower(compressor?.turbine?.lastgen)
 	data["rpm"] = compressor?.rpm
-	data["temp"] = compressor?.gas_contained.temperature
+	data["temp"] = compressor?.gas_contained.return_temperature()
 	return data
 
 /obj/machinery/computer/turbine_computer/ui_act(action, params)

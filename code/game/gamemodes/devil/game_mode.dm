@@ -14,6 +14,7 @@
 			validtypes -= type //prevent duplicate objectives, EXCEPT for buy_target.
 		else
 			objective.find_target()
+		log_objective(D, objective.explanation_text)
 
 /datum/game_mode/proc/update_devil_icons_added(datum/mind/devil_mind)
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_DEVIL]

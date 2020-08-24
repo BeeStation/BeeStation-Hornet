@@ -27,12 +27,16 @@
 
 	var/pressure_checks = EXT_BOUND
 
+	var/obj/machinery/advanced_airlock_controller/aac = null
+
 	//EXT_BOUND: Do not pass external_pressure_bound
 	//INPUT_MIN: Do not pass input_pressure_min
 	//OUTPUT_MAX: Do not pass output_pressure_max
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/Destroy()
 	SSradio.remove_object(src, frequency)
+	if(aac)
+		aac.vents -= src
 	return ..()
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/update_icon_nopipes()
@@ -66,8 +70,8 @@
 			pressure_delta = min(pressure_delta, (air1.return_pressure() - input_pressure_min))
 
 		if(pressure_delta > 0)
-			if(air1.temperature > 0)
-				var/transfer_moles = pressure_delta*environment.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+			if(air1.return_temperature() > 0)
+				var/transfer_moles = pressure_delta*environment.return_volume()/(air1.return_temperature() * R_IDEAL_GAS_EQUATION)
 
 				var/datum/gas_mixture/removed = air1.remove(transfer_moles)
 				//Removed can be null if there is no atmosphere in air1
@@ -81,20 +85,17 @@
 				parent1.update = 1
 
 	else //external -> output
-		var/pressure_delta = 10000
+		if(environment.return_pressure() > 0)
+			var/our_multiplier = air2.return_volume() / (environment.return_temperature() * R_IDEAL_GAS_EQUATION)
+			var/moles_delta = 10000 * our_multiplier
+			if(pressure_checks&EXT_BOUND)
+				moles_delta = min(moles_delta, (environment_pressure - output_pressure_max) * environment.return_volume() / (environment.return_temperature() * R_IDEAL_GAS_EQUATION))
+			if(pressure_checks&INPUT_MIN)
+				moles_delta = min(moles_delta, (input_pressure_min - air2.return_pressure()) * our_multiplier)
 
-		if(pressure_checks&EXT_BOUND)
-			pressure_delta = min(pressure_delta, (environment_pressure - external_pressure_bound))
-		if(pressure_checks&INPUT_MIN)
-			pressure_delta = min(pressure_delta, (output_pressure_max - air2.return_pressure()))
-
-		if(pressure_delta > 0)
-			if(environment.temperature > 0)
-				var/transfer_moles = pressure_delta*air2.volume/(environment.temperature * R_IDEAL_GAS_EQUATION)
-
-				var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
-				//removed can be null if there is no air in the location
-				if(!removed)
+			if(moles_delta > 0)
+				var/datum/gas_mixture/removed = loc.remove_air(moles_delta)
+				if (isnull(removed)) // in space
 					return
 
 				air2.merge(removed)
@@ -182,8 +183,8 @@
 	..()
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
-	air1.volume = 1000
-	air2.volume = 1000
+	air1.set_volume(1000)
+	air2.set_volume(1000)
 
 // Mapping
 

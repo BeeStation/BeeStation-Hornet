@@ -9,12 +9,14 @@
 		for(var/O in directives)
 			var/datum/objective/brainwashing/objective = new(O)
 			B.objectives += objective
+			log_objective(M, objective.explanation_text)
 		B.greet()
 	else
 		B = new()
 		for(var/O in directives)
 			var/datum/objective/brainwashing/objective = new(O)
 			B.objectives += objective
+			log_objective(M, objective.explanation_text)
 		M.add_antag_datum(B)
 
 	var/begin_message = "<span class='deadsay'><b>[L]</b> has been brainwashed with the following objectives: "
@@ -70,6 +72,7 @@
 		var/objective = stripped_input(admin, "Add an objective, or leave empty to finish.", "Brainwashing", null, MAX_MESSAGE_LEN)
 		if(objective)
 			objectives += objective
+			log_objective(C, objective, admin)
 	while(alert(admin,"Add another objective?","More Brainwashing","Yes","No") == "Yes")
 
 	if(alert(admin,"Confirm Brainwashing?","Are you sure?","Yes","No") == "No")

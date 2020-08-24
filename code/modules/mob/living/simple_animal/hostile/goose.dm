@@ -18,9 +18,7 @@
 	speed = 0
 	maxHealth = 25
 	health = 25
-	harm_intent_damage = 5
-	melee_damage_lower = 5
-	melee_damage_upper = 5
+	melee_damage = 5
 	attacktext = "pecks"
 	attack_sound = "goose"
 	speak_emote = list("honks")

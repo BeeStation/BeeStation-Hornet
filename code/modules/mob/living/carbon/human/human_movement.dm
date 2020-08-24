@@ -24,11 +24,14 @@
 				return 0
 	return ..()
 
-/mob/living/carbon/human/experience_pressure_difference()
-	playsound(src, 'sound/effects/space_wind.ogg', 50, 1)
+/mob/living/carbon/human/experience_pressure_difference(pressure_difference)
+	if(pressure_difference > 100)
+		playsound_local(null, 'sound/effects/space_wind_big.ogg', CLAMP(pressure_difference / 50, 10, 100), 1)
+	else
+		playsound_local(null, 'sound/effects/space_wind.ogg', CLAMP(pressure_difference, 10, 100), 1)
 	if(shoes && istype(shoes, /obj/item/clothing))
 		var/obj/item/clothing/S = shoes
-		if (S.clothing_flags & NOSLIP)
+		if((S.clothing_flags & NOSLIP))
 			return 0
 	return ..()
 

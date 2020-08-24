@@ -11,7 +11,7 @@
 	open_sound_volume = 15
 	close_sound_volume = 15
 	integrity_failure = 0
-	material_drop = /obj/item/stack/sheet/cloth
+	material_drop = /obj/item/stack/sheet/cotton/cloth
 	delivery_icon = null //unwrappable
 	anchorable = FALSE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER

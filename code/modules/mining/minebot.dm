@@ -18,8 +18,7 @@
 	move_to_delay = 10
 	health = 125
 	maxHealth = 125
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	obj_damage = 10
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	check_friendly_fire = TRUE
@@ -276,11 +275,10 @@
 	upgrade_bot(M, user)
 
 /obj/item/mine_bot_upgrade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
-	if(M.melee_damage_upper != initial(M.melee_damage_upper))
+	if(M.melee_damage != initial(M.melee_damage))
 		to_chat(user, "[src] already has a combat upgrade installed!")
 		return
-	M.melee_damage_lower += 7
-	M.melee_damage_upper += 7
+	M.melee_damage += 7
 	qdel(src)
 
 //Health
@@ -313,8 +311,7 @@
 	if(istype(SM, /mob/living/simple_animal/hostile/mining_drone))
 		var/mob/living/simple_animal/hostile/mining_drone/M = SM
 		M.maxHealth = initial(M.maxHealth) + base_health_add
-		M.melee_damage_lower = initial(M.melee_damage_lower) + base_damage_add
-		M.melee_damage_upper = initial(M.melee_damage_upper) + base_damage_add
+		M.melee_damage = initial(M.melee_damage) + base_damage_add
 		M.move_to_delay = initial(M.move_to_delay) + base_speed_add
 		if(M.stored_gun)
 			M.stored_gun.overheat_time += base_cooldown_add

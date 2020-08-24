@@ -8,6 +8,7 @@
 	O.completed = TRUE //YES!
 	O.owner = owner
 	objectives += O
+	log_objective(owner, O.explanation_text)
 
 /datum/antagonist/greentext/on_gain()
 	forge_objectives()

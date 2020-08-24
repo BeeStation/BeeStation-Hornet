@@ -12,8 +12,7 @@
 	aggro_vision_range = 20
 	maxHealth = 40 //easy to kill, but oh, will you be seeing a lot of them.
 	health = 40
-	melee_damage_lower = 10
-	melee_damage_upper = 10
+	melee_damage = 10
 	melee_damage_type = BURN
 	attacktext = "slashes"
 	attack_sound = 'sound/effects/curseattack.ogg'
