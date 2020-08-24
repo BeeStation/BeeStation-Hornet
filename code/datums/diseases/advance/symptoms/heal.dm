@@ -487,7 +487,7 @@ obj/effect/sweatsplash/proc/splash()
 								if(Z == BODY_ZONE_HEAD) //if we regenerate the head, make sure the mob still owns us
 									if(isliving(ownermind.current))
 										var/mob/living/owner = ownermind.current
-										if(!owner.stat == DEAD)//if they have a new mob, forget they exist
+										if(owner.stat != DEAD)//if they have a new mob, forget they exist
 											ownermind = null
 											break
 										if(owner == M) //they're already in control of this body, probably because their brain isn't in the head!
