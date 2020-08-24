@@ -52,7 +52,7 @@
 	icon_state = "tape_y"
 	prefix = "super sticky"
 	chance = 100
-	fallchance = 0
+	fallchance = 0.1
 	painchance = 0
 	painmult = 0
 	impactmult = 0
@@ -81,7 +81,7 @@
 	icon_state = "tape_spikes"
 	prefix = "super pointy"
 	chance = 100
-	fallchance = 0
+	fallchance = 0.1
 	painchance = 20
 	painmult = 2
 	impactmult = 2
