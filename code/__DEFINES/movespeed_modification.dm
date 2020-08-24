@@ -82,4 +82,4 @@
 
 #define MOVESPEED_ID_SLOW_ARMOR		                    	"SLOW_ARMOR "
 
-#define MOVESPEED_ID_INTERDICTION						"INTERDICTION_LENS"
+#define MOVESPEED_ID_INTERDICTION						"interdiction"

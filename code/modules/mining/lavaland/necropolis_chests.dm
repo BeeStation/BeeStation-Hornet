@@ -645,9 +645,9 @@
 			if(H.getorgan(/obj/item/organ/wings))
 				if(wings.flight_level <= WINGS_FLIGHTLESS)
 					wings.flight_level += 1 //upgrade the flight level
-					wings.Insert(H) //they need to insert to get the flight emote
+					wings.Refresh(H) //they need to insert to get the flight emote
 			else
-				if(H.mob_biotypes & MOB_ROBOTIC)
+				if(MOB_ROBOTIC in H.mob_biotypes)
 					var/obj/item/organ/wings/cybernetic/newwings = new()
 					newwings.Insert(H)
 				else if(holycheck)

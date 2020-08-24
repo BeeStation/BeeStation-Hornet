@@ -51,6 +51,8 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(HAS_TRAIT(M, TRAIT_NOBREATH)) //if they don't breath, why would being unable to breath kill them?
+		return
 	switch(A.stage)
 		if(3, 4)
 			to_chat(M, "<span class='warning'><b>[pick("Your windpipe feels thin.", "Your lungs feel small.")]</span>")
