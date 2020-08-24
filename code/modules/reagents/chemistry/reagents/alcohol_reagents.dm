@@ -2211,7 +2211,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_life(mob/living/carbon/M)
 	var/OD_trauma
 	M.Jitter(2)
-	if(prob(5) && !(current_cycle <= 10))
+	if(prob(5) && current_cycle > 10)
 		switch(current_cycle) //The longer they're on this stuff, the higher the chance for worse brain trauma
 			if(10 to 50)
 				to_chat(M, "<span class='warning'>Your mind cracks.</span>")
