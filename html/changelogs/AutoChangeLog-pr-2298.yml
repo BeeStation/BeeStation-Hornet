@@ -1,0 +1,4 @@
+author: thelaughingbomb
+delete-after: true
+changes:
+  - tweak: Wall slamming now checks if you are standing
