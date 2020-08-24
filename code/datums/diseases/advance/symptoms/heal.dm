@@ -254,7 +254,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/EMP/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 4)
+	if(A.properties["stealth"] >= 2)
 		cellheal = TRUE
 	if(A.properties["transmittable"] >= 8)
 		bigemp = TRUE
