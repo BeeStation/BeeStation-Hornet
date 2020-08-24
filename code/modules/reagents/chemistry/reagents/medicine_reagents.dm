@@ -116,12 +116,14 @@
 
 /datum/reagent/medicine/inacusiate
 	name = "Inacusiate"
-	description = "Instantly restores all hearing to the patient, but does not cure deafness."
-	color = "#6600FF" // rgb: 100, 165, 255
+	description = "Rapidly repairs damage to the patient's ears to cure deafness, assuming the source of said deafness isn't from genetic mutations, chronic deafness, or a total defecit of ears." //by "chronic" deafness, we mean people with the "deaf" quirk
+	color = "#606060" // ditto
 
 /datum/reagent/medicine/inacusiate/on_mob_life(mob/living/carbon/M)
-	M.restoreEars()
+	var/obj/item/organ/ears/ears = M.getorganslot(ORGAN_SLOT_EARS)
+	ears.adjustEarDamage(-4, -4)
 	..()
+
 
 /datum/reagent/medicine/cryoxadone
 	name = "Cryoxadone"
@@ -397,25 +399,30 @@
 
 /datum/reagent/medicine/synthflesh
 	name = "Synthflesh"
-	description = "Has a 100% chance of instantly healing brute and burn damage. One unit of the chemical will heal one point of damage. Touch application only."
+	description = "Heals brute and burn damage at the cost of toxicity (66% of damage healed). Touch application only."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
 
 /datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, reac_volume,show_message = 1)
 	if(iscarbon(M))
-		if (M.stat == DEAD)
+		var/mob/living/carbon/carbies = M
+		if (carbies.stat == DEAD)
 			show_message = 0
-		if(method in list(PATCH, TOUCH))
-			M.adjustBruteLoss(-1.25 * reac_volume)
-			M.adjustFireLoss(-1.25 * reac_volume)
+		if(method in list(PATCH, TOUCH, VAPOR))
+			var/harmies = min(carbies.getBruteLoss(),carbies.adjustBruteLoss(-1.25 * reac_volume)*-1)
+			var/burnies = min(carbies.getFireLoss(),carbies.adjustFireLoss(-1.25 * reac_volume)*-1)
+			//for(var/i in carbies.all_wounds)
+				//var/datum/wound/iter_wound = i
+				//iter_wound.on_synthflesh(reac_volume)
+			carbies.adjustToxLoss((harmies+burnies)*0.66)
 			if(show_message)
-				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-			//Has to be at less than THRESHOLD_UNHUSK burn damage and have 100 isntabitaluri before unhusking. Corpses dont metabolize.
-			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 100))
-				M.cure_husk("burn")
-				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
+				to_chat(carbies, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
+			SEND_SIGNAL(carbies, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && carbies.getFireLoss() < THRESHOLD_UNHUSK && (carbies.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume >= 100))
+				carbies.cure_husk("burn")
+				carbies.visible_message("<span class='nicegreen'>A rubbery liquid coats [carbies]'s burns. [carbies] looks a lot healthier!") //we're avoiding using the phrases "burnt flesh" and "burnt skin" here because carbies could be a skeleton or a golem or something
 	..()
+	return TRUE
 
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
