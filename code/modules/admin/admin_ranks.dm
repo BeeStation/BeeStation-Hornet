@@ -173,7 +173,7 @@ GLOBAL_PROTECT(protected_ranks)
 	//load ranks from backup file
 	if(dbfail)
 		var/backup_file = file2text("data/admins_backup.json")
-		if(backup_file == null)
+		if(!backup_file)
 			log_world("Unable to locate admins backup file.")
 			return FALSE
 		var/list/json = json_decode(backup_file)
@@ -252,7 +252,7 @@ GLOBAL_PROTECT(protected_ranks)
 				//already tried
 				return
 			var/backup_file = file2text("data/admins_backup.json")
-			if(backup_file == null)
+			if(!backup_file)
 				log_world("Unable to locate admins backup file.")
 				return
 			backup_file_json = json_decode(backup_file)

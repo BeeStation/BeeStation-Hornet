@@ -689,11 +689,13 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	. = player_age
 
 /client/proc/findJoinDate()
-	var/list/http = world.Export("http://byond.com/members/[ckey]?format=text")
+	var/datum/http_request/http = new()
+	http = http.get_request("http://byond.com/members/[ckey]?format=text")
+
 	if(!http)
 		log_world("Failed to connect to byond member page to age check [ckey]")
 		return
-	var/F = file2text(http["CONTENT"])
+	var/F = http.body
 	if(F)
 		var/regex/R = regex("joined = \"(\\d{4}-\\d{2}-\\d{2})\"")
 		if(R.Find(F))
@@ -714,11 +716,13 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		sql_key = query_check_byond_key.item[1]
 	qdel(query_check_byond_key)
 	if(key != sql_key)
-		var/list/http = world.Export("http://byond.com/members/[ckey]?format=text")
+		var/datum/http_request/http = new()
+		http = http.get_request("http://byond.com/members/[ckey]?format=text")
+		
 		if(!http)
 			log_world("Failed to connect to byond member page to get changed key for [ckey]")
 			return
-		var/F = file2text(http["CONTENT"])
+		var/F = http.body
 		if(F)
 			var/regex/R = regex("\\tkey = \"(.+)\"")
 			if(R.Find(F))
