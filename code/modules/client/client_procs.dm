@@ -107,10 +107,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		cmd_admin_pm(href_list["priv_msg"],null)
 		return
 
-	// hippie start -- Mentor PM
-	if (hippie_client_procs(href_list))
-		return
-	// hippie end
 
 	switch(href_list["_src_"])
 		if("holder")
@@ -225,13 +221,19 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
 	//Admin Authorisation
 	holder = GLOB.admin_datums[ckey]
+	//BEESTATION Only R_ADMIN holders are in GLOB.admins, ditto for R_MENTOR and GLOB.mentors
 	if(holder)
-		GLOB.admins |= src
+		if(check_rights_for(src, R_ADMIN))
+			GLOB.admins |= src
+			connecting_admin = TRUE
+		if(check_rights_for(src, R_MENTOR))
+			GLOB.mentors |= src
 		holder.owner = src
-		connecting_admin = TRUE
 	else if(GLOB.deadmins[ckey])
+		if(GLOB.deadmins[ckey].check_for_rights(R_ADMIN))
+			connecting_admin = TRUE
 		verbs += /client/proc/readmin
-		connecting_admin = TRUE
+
 	if(CONFIG_GET(flag/autoadmin))
 		if(!GLOB.admin_datums[ckey])
 			var/datum/admin_rank/autorank
@@ -718,7 +720,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	if(key != sql_key)
 		var/datum/http_request/http = new()
 		http = http.get_request("http://byond.com/members/[ckey]?format=text")
-		
+
 		if(!http)
 			log_world("Failed to connect to byond member page to get changed key for [ckey]")
 			return

@@ -107,6 +107,13 @@
 		msg += "<span class='info'>Adminhelps are also sent to IRC. If no admins are available in game adminhelp anyways and an admin on IRC will see it and respond.</span>"
 	to_chat(src, msg)
 
+//The fact this verb exists is stupid.
+/client/verb/mentorwho()
+	set category = "Mentor"
+	set name = "Mentorwho"
+	staffwho()
+
+/*
 /client/verb/mentorwho()  // redundant with staffwho, but people wont check the admin tab for if there are mentors on
 	set category = "Mentor"
 	set name = "Mentorwho"
@@ -158,3 +165,5 @@
 		msg += "<span class='info'>Adminhelps are also sent to IRC. If no admins are available in game adminhelp anyways and an admin on IRC will see it and respond.</span>"
 	to_chat(src, msg)
 
+*/
+#warn Clean up old Mentorwho code.

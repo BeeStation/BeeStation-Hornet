@@ -168,6 +168,10 @@
 		. += "[seperator]AUTOLOGIN"
 	if(rights & R_DBRANKS)
 		. += "[seperator]DBRANKS"
+	if(rights & R_MENTOR)
+		. += "[seperator]MENTOR"
+	if(rights & R_TELEPORT)
+		. += "[seperator]TELEPORT"
 	if(!.)
 		. = "NONE"
 	return .

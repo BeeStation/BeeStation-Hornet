@@ -183,6 +183,21 @@ GLOBAL_PROTECT(admin_verbs_permissions)
 GLOBAL_LIST_INIT(admin_verbs_poll, list(/client/proc/poll_panel))
 GLOBAL_PROTECT(admin_verbs_poll)
 
+//BEE START - MENTOR2 AND TELEPORT FLAG
+GLOBAL_LIST_INIT(admin_verbs_mentor, list(
+	/client/proc/cmd_mentor_say
+))
+GLOBAL_PROTECT(admin_verbs_mentor)
+
+GLOBAL_LIST_INIT(admin_verbs_teleport, list(world.AVerbsTeleport()))
+GLOBAL_PROTECT(admin_verbs_teleport)
+/world/proc/AVerbsTeleport()
+	return list(
+
+	)
+
+//BEE END
+
 //verbs which can be hidden - needs work
 GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/set_ooc,
@@ -274,7 +289,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			verbs += GLOB.admin_verbs_permissions
 		if(rights & R_STEALTH)
 			verbs += /client/proc/stealth
-		if(rights & R_ADMIN)
+		if(rights & R_POLL)
 			verbs += GLOB.admin_verbs_poll
 		if(rights & R_SOUND)
 			verbs += GLOB.admin_verbs_sounds
@@ -282,6 +297,10 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 				verbs += /client/proc/play_web_sound
 		if(rights & R_SPAWN)
 			verbs += GLOB.admin_verbs_spawn
+		if(rights & R_MENTOR)
+			verbs += GLOB.admin_verbs_mentor
+		if(rights & R_TELEPORT)
+			verbs += GLOB.admin_verbs_teleport
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(
