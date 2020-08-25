@@ -17,6 +17,7 @@
 	var/painchance = 0
 	var/painmult = 0
 	var/impactmult = 0
+	var/removalpain = 0
 	var/removaltime = 30
 	var/blood = 0
 	var/warning = 2
@@ -35,7 +36,7 @@
 	if(do_after(user, 30, target=I))
 		use(1)
 
-		I.embedding = embedding.setRating(embed_chance = chance, embedded_fall_chance = fallchance, embedded_pain_chance = painchance, embedded_pain_multiplier = painmult, embedded_impact_pain_multiplier = impactmult, embedded_unsafe_removal_time = removaltime, embedded_ignore_throwspeed_threshold = TRUE, embedded_blood = blood, embedded_warning = warning, embedded_taped = taped)
+		I.embedding = embedding.setRating(embed_chance = chance, embedded_fall_chance = fallchance, embedded_pain_chance = painchance, embedded_pain_multiplier = painmult, embedded_impact_pain_multiplier = impactmult, embedded_unsafe_removal_pain_multiplier = removalpain, embedded_unsafe_removal_time = removaltime, embedded_ignore_throwspeed_threshold = TRUE, embedded_blood = blood, embedded_warning = warning, embedded_taped = taped)
 
 		to_chat(user, "<span class='notice'>You finish wrapping [I] with [src].</span>")
 		I.name = "[prefix] [I.name]"
@@ -56,6 +57,7 @@
 	painchance = 0
 	painmult = 0
 	impactmult = 0
+	removalpain = 0
 	removaltime = 60
 	blood = 0
 	warning = 2
@@ -101,5 +103,6 @@
 	painmult = 0
 	impactmult = 0
 	blood = 0
+	removalpain = 0
 	warning = 2
 	custom_price = 500
