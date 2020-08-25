@@ -69,16 +69,6 @@
 	var/mob/living/L
 	if(isliving(target))
 		L = target
-		if(!L.can_inject(user, 1))
-			return
-		for(var/datum/disease/D in syringediseases)
-			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
-				continue
-			L.ForceContractDisease(D)
-		for(var/datum/disease/D in L.diseases)
-			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
-				continue
-			syringediseases += D
 
 	// chance of monkey retaliation
 	if(ismonkey(target) && prob(MONKEY_SYRINGE_RETALIATION_PROB))
@@ -108,6 +98,7 @@
 					user.visible_message("[user] takes a blood sample from [L].")
 				else
 					to_chat(user, "<span class='warning'>You are unable to draw any blood from [L]!</span>")
+				transfer_diseases(L)
 
 			else //if not mob
 				if(!target.reagents.total_volume)
@@ -161,6 +152,7 @@
 					log_combat(user, L, "injected", src, addition="which had [contained]")
 				else
 					L.log_message("injected themselves ([contained]) with [src.name]", LOG_ATTACK, color="orange")
+				transfer_diseases(L)
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 			reagents.reaction(L, INJECT, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
@@ -193,10 +185,20 @@
 		add_overlay(injoverlay)
 		M.update_inv_hands()
 
+/obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/L)
+	for(var/datum/disease/D in syringediseases)
+		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+			continue
+		L.ForceContractDisease(D)
+	for(var/datum/disease/D in L.diseases)
+		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+			continue
+		syringediseases += D
+
 /obj/item/reagent_containers/syringe/used
 	name = "used syringe"
 	desc = "A syringe that can hold up to 15 units. This one is old, and it's probably a bad idea to use it"
-	
+
 
 /obj/item/reagent_containers/syringe/used/Initialize()
 	. = ..()
@@ -223,7 +225,7 @@
 	name = "syringe (diphenhydramine)"
 	desc = "Contains diphenhydramine, an antihistamine agent."
 	list_reagents = list(/datum/reagent/medicine/diphenhydramine = 15)
-	
+
 /obj/item/reagent_containers/syringe/calomel
 	name = "syringe (calomel)"
 	desc = "Contains calomel."

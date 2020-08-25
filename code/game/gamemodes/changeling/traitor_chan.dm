@@ -1,10 +1,11 @@
+
 /datum/game_mode/traitor/changeling
 	name = "traitor+changeling"
 	config_tag = "traitorchan"
 	report_type = "traitorchan"
 	false_report_weight = 10
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
-	restricted_jobs = list("Prisoner", "AI", "Cyborg")
+	restricted_jobs = list("AI", "Cyborg", "Prisoner")
 	required_players = 25
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3

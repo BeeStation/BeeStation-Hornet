@@ -1,3 +1,4 @@
+
 /datum/game_mode
 	var/list/datum/mind/brothers = list()
 	var/list/datum/team/brother_team/brother_teams = list()
