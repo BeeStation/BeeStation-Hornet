@@ -1,4 +1,3 @@
-
 /datum/species/plasmaman
 	name = "Plasmaman"
 	id = "plasmaman"
@@ -91,7 +90,7 @@
 		if("Security Officer")
 			O = new /datum/outfit/plasmaman/security
 
-    if("Prisoner")
+		if("Prisoner")
 			O = new /datum/outfit/plasmaman/prisoner
 
 		if("Deputy")
