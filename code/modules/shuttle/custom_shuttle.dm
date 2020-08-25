@@ -68,7 +68,6 @@
 
 	popup = new(user, "computer", M ? M.name : "shuttle", 350, 450)
 	popup.set_content("<center>[dat]</center>")
-	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/computer/custom_shuttle/Topic(href, href_list)

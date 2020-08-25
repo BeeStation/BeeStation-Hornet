@@ -10,7 +10,7 @@
 	return GLOB.observer_state
 
 /datum/spawners_menu/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SpawnersMenu")
 		ui.open()

@@ -11,7 +11,7 @@ import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import marked from 'marked';
 import DOMPurify from 'dompurify';
-import { classes, isFalsy } from "common/react";
+import { classes } from 'common/react';
 // There is a sanatize option in marked but they say its deprecated.
 // Might as well use a proper one then
 
@@ -266,12 +266,10 @@ const PaperSheetView = (props, context) => {
     stamps,
     backgroundColor,
     readOnly,
-    ...rest
   } = props;
-  const readonly = !isFalsy(readOnly);
   const stamp_list = stamps || [];
   const text_html = { __html: "<span class='paper-text'>"
-    + setInputReadonly(value, readonly) + "</span>" };
+    + setInputReadonly(value, readOnly) + "</span>" };
   return (
     <Box position="relative"
       backgroundColor={backgroundColor} width="100%" height="100%" >
@@ -371,7 +369,7 @@ class PaperSheetStamper extends Component {
         onMouseMove={this.handleMouseMove.bind(this)}
         onwheel={this.handleWheel.bind(this)} {...rest}>
         <PaperSheetView
-          readOnly={1}
+          readOnly
           value={value}
           stamps={stamp_list} />
         <Stamp
@@ -782,7 +780,7 @@ export const PaperSheet = (props, context) => {
         return (<PaperSheetView
           value={text}
           stamps={stamp_list}
-          readOnly={1} />);
+          readOnly />);
       case 1:
         return (<PaperSheetEdit value={text}
           textColor={pen_color}

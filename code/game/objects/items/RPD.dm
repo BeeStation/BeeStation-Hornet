@@ -260,14 +260,17 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		get_asset_datum(/datum/asset/spritesheet/pipes),
 	)
 
-/obj/item/pipe_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/item/pipe_dispenser/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/item/pipe_dispenser/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/pipes)
 		assets.send(user)
 
-		ui = new(user, src, ui_key, "RapidPipeDispenser", name, 425, 515, master_ui, state)
+		ui = new(user, src, "RapidPipeDispenser")
 		ui.open()
 
 /obj/item/pipe_dispenser/ui_data(mob/user)

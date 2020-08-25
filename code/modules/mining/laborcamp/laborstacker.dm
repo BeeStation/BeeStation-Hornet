@@ -35,11 +35,14 @@ GLOBAL_LIST(labor_sheet_values)
 /proc/cmp_sheet_list(list/a, list/b)
 	return a["value"] - b["value"]
 
-/obj/machinery/mineral/labor_claim_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/mineral/labor_claim_console/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/mineral/labor_claim_console/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "LaborClaimConsole", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "LaborClaimConsole")
 		ui.open()
 
 /obj/machinery/mineral/labor_claim_console/ui_data(mob/user)

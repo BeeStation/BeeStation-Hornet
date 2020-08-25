@@ -339,7 +339,7 @@
 // Again, we have to do this as autoupdate is off
 /obj/item/paper/proc/update_all_ui()
 	for(var/datum/tgui/ui in viewing_ui)
-		ui.update()
+		ui.send_update()		//Needs test since this was changed from .update() with TGUI 4 port -Bacon
 
 // Again, we have to do this as autoupdate is off
 /obj/item/paper/proc/close_all_ui()

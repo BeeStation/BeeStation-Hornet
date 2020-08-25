@@ -102,11 +102,15 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	admin_datum.admin_interface.ui_interact(user)
 
 //TGUI TICKET THINGS
-/datum/admin_help_ui/ui_interact(mob/user, ui_key = "ticket_panel", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/datum/admin_help_ui/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/admin_help_ui/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		log_admin_private("[user.ckey] opened the ticket panel.")
-		ui = new(user, src, ui_key, "TicketBrowser", "ticket browser", 720, 480, master_ui, state)
+		ui = new(user, src, "TicketBrowser")
 		ui.set_autoupdate(TRUE)
 		ui.open()
 

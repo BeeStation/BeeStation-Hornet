@@ -2,13 +2,17 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 
 /datum/admin_secrets
 
-/datum/admin_secrets/ui_interact(mob/user, ui_key = "secrets_panel", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
+
+/datum/admin_secrets/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/admin_secrets/ui_interact(mob/user, datum/tgui/ui)
 	if(!check_rights(0))
 		return
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		log_admin_private("[user.ckey] opened the Secrets panel.")
-		ui = new(user, src, ui_key, "AdminSecretsPanel", "Secrets", 720, 480, master_ui, state)
+		ui = new(user, src, "AdminSecretsPanel")
 		ui.open()
 
 /datum/admin_secrets/ui_data(mob/user)

@@ -88,11 +88,10 @@
 			))
 	else
 		window.send_message("ping")
-	var/flush_queue = window.send_asset(get_asset_datum(
-		/datum/asset/simple/namespaced/fontawesome))
+	var/flushqueue = window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))
 	for(var/datum/asset/asset in src_object.ui_assets(user))
-		flush_queue |= window.send_asset(asset)
-	if (flush_queue)
+		flushqueue |= window.send_asset(asset)
+	if (flushqueue)
 		user.client.browse_queue_flush()
 	window.send_message("update", get_payload(
 		with_data = TRUE,

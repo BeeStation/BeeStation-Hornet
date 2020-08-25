@@ -206,10 +206,14 @@
 		to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
 		return TRUE
 
-/obj/machinery/mineral/ore_redemption/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/mineral/ore_redemption/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/mineral/ore_redemption/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "OreRedemptionMachine", "Ore Redemption Machine", ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "OreRedemptionMachine")
 		ui.open()
 
 /obj/machinery/mineral/ore_redemption/ui_data(mob/user)

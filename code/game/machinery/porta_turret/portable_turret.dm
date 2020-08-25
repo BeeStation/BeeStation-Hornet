@@ -158,7 +158,11 @@
 	remove_control()
 	return ..()
 
-/obj/machinery/porta_turret/ui_interact(mob/user)
+
+/obj/machinery/porta_turret/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/porta_turret/ui_interact(mob/user, datum/tgui/ui)
 	. = ..()
 	var/dat
 	dat += "Status: <a href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</a><br>"
@@ -890,9 +894,9 @@
 
 /obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
 									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TurretControl", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "TurretControl")
 		ui.open()
 
 /obj/machinery/turretid/ui_data(mob/user)

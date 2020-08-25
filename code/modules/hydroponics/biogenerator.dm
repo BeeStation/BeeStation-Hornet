@@ -256,13 +256,16 @@
 		get_asset_datum(/datum/asset/spritesheet/research_designs),
 	)
 
-/obj/machinery/biogenerator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/biogenerator/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/biogenerator/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/research_designs)
 		assets.send(user)
-		ui = new(user, src, ui_key, "Biogenerator", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Biogenerator")
 		ui.open()
 
 /obj/machinery/biogenerator/ui_data(mob/user)
