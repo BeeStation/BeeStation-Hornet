@@ -2017,7 +2017,8 @@
 	..()
 
 /datum/reagent/consumable/ratlight/on_mob_life(mob/living/carbon/M)
-	playsound(M, "scripture_tier_up", 50, 1)
+	if(prob(10))
+		playsound(M, "scripture_tier_up", 50, 1)
 	..()
 
 /datum/reagent/consumable/ratlight/on_mob_metabolize(mob/living/L)
