@@ -1,4 +1,3 @@
-
 /datum/game_mode
 	var/traitor_name = "traitor"
 	var/list/datum/mind/traitors = list()
