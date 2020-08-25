@@ -109,11 +109,15 @@
 	if(H.job != "Curator")
 		var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
 		var/list/languages_possible = T.languages_possible
-		languages_possible = languages_possible - typecacheof(/datum/language/common) - typecacheof(/datum/language/uncommon) - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
-		var/datum/language/random_language = pick(languages_possible)
-		while(random_language == H.can_speak_language(random_language))
-			random_language = pick(languages_possible)
-		H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+		languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
+		languages_possible = languages_possible - H.language_holder.understood_languages
+		languages_possible = languages_possible - H.language_holder.spoken_languages
+		languages_possible = languages_possible - H.language_holder.blocked_languages
+		if(languages_possible.len > 0)
+			var/datum/language/random_language = pick(languages_possible)
+			H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+		else
+			return
 	else
 		return
 //Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
