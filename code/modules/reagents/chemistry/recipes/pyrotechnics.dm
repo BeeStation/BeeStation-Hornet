@@ -245,6 +245,9 @@
 	var/location = get_turf(holder.my_atom)
 	do_sparks(2, TRUE, location)
 	var/range = created_volume/3
+	if (created_volume >= 15)
+		for(var/mob/living/carbon/C in get_hearers_in_view(created_volume/3, location))
+			C.adjustOrganLoss(ORGAN_SLOT_EYES,created_volume*1.5)
 	if(isatom(holder.my_atom))
 		var/atom/A = holder.my_atom
 		A.flash_lighting_fx(_range = (range + 2), _reset_lighting = FALSE)
@@ -266,6 +269,9 @@
 	var/location = get_turf(holder.my_atom)
 	do_sparks(2, TRUE, location)
 	var/range = created_volume/10
+	if (created_volume >= 15)
+		for(var/mob/living/carbon/C in get_hearers_in_view(created_volume/3, location))
+			C.adjustOrganLoss(ORGAN_SLOT_EYES,created_volume*1.5)
 	if(isatom(holder.my_atom))
 		var/atom/A = holder.my_atom
 		A.flash_lighting_fx(_range = (range + 2), _reset_lighting = FALSE)
@@ -328,6 +334,9 @@
 	holder.remove_reagent(/datum/reagent/sonic_powder, created_volume*3)
 	var/location = get_turf(holder.my_atom)
 	playsound(location, 'sound/effects/bang.ogg', 25, 1)
+	if (created_volume >= 15)
+		for(var/mob/living/carbon/C in get_hearers_in_view(created_volume/3, location))
+			C.adjustOrganLoss(ORGAN_SLOT_EARS,created_volume*2)
 	for(var/mob/living/carbon/C in get_hearers_in_view(created_volume/3, location))
 		C.soundbang_act(1, 100, rand(0, 5))
 
@@ -340,6 +349,9 @@
 /datum/chemical_reaction/sonic_powder_deafen/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	playsound(location, 'sound/effects/bang.ogg', 25, 1)
+	if (created_volume >= 15)
+		for(var/mob/living/carbon/C in get_hearers_in_view(created_volume/3, location))
+			C.adjustOrganLoss(ORGAN_SLOT_EARS,created_volume*2)
 	for(var/mob/living/carbon/C in get_hearers_in_view(created_volume/10, location))
 		C.soundbang_act(1, 100, rand(0, 5))
 
