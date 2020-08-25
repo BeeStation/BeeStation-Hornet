@@ -219,89 +219,13 @@
 	var/shock_timer = 0
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/teslium/on_mob_add(mob/living/carbon/H)
-	var/total_burn	= 0
-	var/total_brute	= 0
-	var/tplus = world.time - H.timeofdeath	//length of time spent dead
-	var/tlimit = 9000
-	var/obj/item/organ/heart = H.getorgan(/obj/item/organ/heart)
-	var/HALFWAYCRITDEATH = ((HEALTH_THRESHOLD_CRIT + HEALTH_THRESHOLD_DEAD) * 0.5)
-
-	if(H.stat == DEAD)
-		H.visible_message("<span class='warning'>[H]'s body convulses a bit.</span>")
-		playsound(src, "bodyfall", 50, 1)
-		playsound(src, 'sound/machines/defib_zap.ogg', 75, 1, -1)
-		total_brute	= H.getBruteLoss()
-		total_burn	= H.getFireLoss()
-		if(isliving(H.pulledby))		//CLEAR!
-			var/mob/living/M = H.pulledby
-			if(M.electrocute_act(30, H))
-				M.visible_message("<span class='danger'>[M] is electrocuted by [M.p_their()] contact with [H]!</span>")
-				M.emote("scream")
-
-
-		var/failed = 0
-
-		if (H.suiciding)
-			failed = 1
-		else if (H.hellbound)
-			failed = 1
-		else if (tplus > tlimit)
-			failed = 1
-		else if (!heart)
-			failed = 1
-		else if (heart.organ_flags & ORGAN_FAILING)
-			failed = 1
-		else if(total_burn >= MAX_REVIVE_FIRE_DAMAGE || total_brute >= MAX_REVIVE_BRUTE_DAMAGE || HAS_TRAIT(H, TRAIT_HUSK))
-			failed = 1
-		else if(H.get_ghost())
-			failed = 1
-		else
-			var/obj/item/organ/brain/BR = H.getorgan(/obj/item/organ/brain)
-			if(BR)
-				if(BR.organ_flags & ORGAN_FAILING)
-					failed = 1
-				if(BR.brain_death)
-					failed = 1
-				if(BR.suicided || BR.brainmob?.suiciding)
-					failed = 1
-			else
-				failed = 1
-
-
-
-		if(failed == 0)
-			if (H.health > HALFWAYCRITDEATH)
-				H.adjustOxyLoss(H.health - HALFWAYCRITDEATH, 0)
-			else
-				var/overall_damage = total_brute + total_burn + H.getToxLoss() + H.getOxyLoss()
-				var/mobhealth = H.health
-				H.adjustOxyLoss((mobhealth - HALFWAYCRITDEATH) * (H.getOxyLoss() / overall_damage), 0)
-				H.adjustToxLoss((mobhealth - HALFWAYCRITDEATH) * (H.getToxLoss() / overall_damage), 0)
-				H.adjustFireLoss((mobhealth - HALFWAYCRITDEATH) * (total_burn / overall_damage), 0)
-				H.adjustBruteLoss((mobhealth - HALFWAYCRITDEATH) * (total_brute / overall_damage), 0)
-			H.updatehealth() // Previous "adjust" procs don't update health, so we do it manually.
-			playsound(src, 'sound/machines/defib_success.ogg', 50, 0)
-			H.set_heartattack(FALSE)
-			H.revive()
-			H.emote("gasp")
-			H.Jitter(100)
-			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK)
-
-
-
-
-
-
 /datum/reagent/teslium/on_mob_life(mob/living/carbon/H)
-
-
-
-	shock_timer++
-	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
-		shock_timer = 0
-		H.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
-		playsound(H, "sparks", 50, 1)
+	if(H.stat != DEAD)
+		shock_timer++
+		if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
+			shock_timer = 0
+			H.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
+			playsound(H, "sparks", 50, 1)
 	..()
 
 /datum/reagent/teslium/energized_jelly
