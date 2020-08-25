@@ -129,7 +129,7 @@
 	var/list/occupant_status = list("<div class='line'><div class='statusLabel'>Subject Status:</div><div class='statusValue'>")
 	var/scanner_status
 	var/list/temp_html = list()
-	if(connected && connected.is_operational())
+	if(connected && connected.is_operational)
 		if(connected.occupant)	//set occupant_status message
 			viable_occupant = connected.occupant
 			if(viable_occupant.has_dna() && !HAS_TRAIT(viable_occupant, TRAIT_RADIMMUNE) && !HAS_TRAIT(viable_occupant, TRAIT_BADDNA) || (connected.scan_level == 3)) //occupant is viable for dna modification

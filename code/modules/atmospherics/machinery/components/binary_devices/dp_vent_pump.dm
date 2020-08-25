@@ -39,19 +39,19 @@
 	SSradio.remove_object(src, frequency)
 	if(aac)
 		aac.vents -= src
-	return ..()	
+	return ..()
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/update_icon_nopipes()
 	cut_overlays()
 	if(showpipe)
 		var/image/cap = getpipeimage(icon, "dpvent_cap", dir, piping_layer = piping_layer)
 		add_overlay(cap)
-	
+
 	if(welded)
 		icon_state = "vent_welded"
 		return
-	
-	if(!on || !is_operational())
+
+	if(!on || !is_operational)
 		icon_state = "vent_off"
 	else
 		icon_state = pump_direction ? "vent_out" : "vent_in"
