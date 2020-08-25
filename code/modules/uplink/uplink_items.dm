@@ -286,7 +286,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	player_minimum = 30
 
 /datum/uplink_item/bundles_TC/surplus/random/purchase(mob/user, datum/component/uplink/U)
-	var/value_index = rand(1, 20)
 	starting_crate_value = max(FLOOR(0.1 * (rand(1, 20) ** 2.3), 1), 5)
 	var/obj/item/implant/weapons_auth/W = new
 	W.implant(user)	//Gives them the ability to use restricted weapons
