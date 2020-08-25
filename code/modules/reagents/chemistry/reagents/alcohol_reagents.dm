@@ -2199,17 +2199,18 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	var/trauma_list[0]
 
 /datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(var/mild,var/severe,var/special)
-	return pick(pickweight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) = severe, subtypesof(/datum/brain_trauma/special) = special)))
+	return pick(pickweight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality = severe, subtypesof(/datum/brain_trauma/special) - /datum/brain_trauma/special/imaginary_friend = special)))
 
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_metabolize(mob/living/carbon/M)
 	to_chat(M, "<span class='warning'>Your mind breaks, as you realize your reality is just some comupter game.</span>")
-	var/trauma = traumaweightpick(60,40,0)
+	var/datum/brain_trauma/trauma = traumaweightpick(60,40,0)
+	trauma = new trauma()
 	trauma_list += trauma
 	M.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
 	..()
 
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_life(mob/living/carbon/M)
-	var/OD_trauma
+	var/datum/brain_trauma/OD_trauma
 	M.Jitter(2)
 	if(prob(5) && current_cycle > 10)
 		switch(current_cycle) //The longer they're on this stuff, the higher the chance for worse brain trauma
@@ -2222,6 +2223,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			if(100 to INFINITY)
 				to_chat(M, "<span class='warning'>Your mind shatters.</span>")
 				OD_trauma = traumaweightpick(20,50,30)
+		OD_trauma = new OD_trauma()
 		trauma_list += OD_trauma
 		M.gain_trauma(OD_trauma, TRAUMA_RESILIENCE_ABSOLUTE)
 	..()
@@ -2229,7 +2231,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_end_metabolize(mob/living/carbon/M)
 	to_chat(M, "<span class='notice'>You know that you figured out something important, but can't quite remember what it is. Your head feels a lot better.</span>")
 	for(var/T in trauma_list)
-		M.cure_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE) // I had to fucking add this proc because it didn't exist, holy fuck
+		QDEL_NULL(T)
 	return ..()
 
 /datum/reagent/consumable/ethanol/ratvander
@@ -2332,7 +2334,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/beesknees/on_mob_life(mob/living/carbon/M)
 	if(is_species(M, /datum/species/apid))
-		M.adjustBruteLoss(-2, 0)
-		M.adjustFireLoss(-2, 0)
-		M.adjustToxLoss(-2, 0)
+		M.adjustBruteLoss(-1.5, 0)
+		M.adjustFireLoss(-1.5, 0)
+		M.adjustToxLoss(-1, 0)
 	. = ..()

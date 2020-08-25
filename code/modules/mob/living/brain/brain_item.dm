@@ -380,9 +380,3 @@
 	for(var/X in traumas)
 		qdel(X)
 
-/obj/item/organ/brain/proc/cure_trauma(var/datum/brain_trauma/specific_trauma = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_BASIC)
-	var/list/traumas = get_traumas_type(resilience = resilience)
-	for(var/X in traumas)
-		if(istype(X,specific_trauma))
-			qdel(X)
-		return
