@@ -274,7 +274,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			U.purchase_log.LogPurchase(goods, I, 0)
 	return C
 
-#define RANDOM_VALUES list(5, 6, 8, 10, 12, 14, 16, 18, 20, 25, 28, 32, 36, 40, 45, 50, 55, 60, 65, 100)	//Nat 20 used to be a nuke op creator so uhhh thats better at least
+#define RANDOM_KIT_TC_VALUES list(5, 6, 8, 10, 12, 14, 16, 18, 20, 25, 28, 32, 36, 40, 45, 50, 55, 60, 65, 100)	//Nat 20 used to be a nuke op creator so uhhh thats better at least
 
 //Will either give you complete crap or overpowered as fuck gear
 /datum/uplink_item/bundles_TC/surplus/random
@@ -289,7 +289,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bundles_TC/surplus/random/purchase(mob/user, datum/component/uplink/U)
 	var/value_index = rand(1, 20)
-	starting_crate_value = RANDOM_VALUES[value_index]
+	starting_crate_value = RANDOM_KIT_TC_VALUES[value_index]
 	var/obj/item/implant/weapons_auth/W = new
 	W.implant(user)	//Gives them the ability to use restricted weapons
 	. = ..()
