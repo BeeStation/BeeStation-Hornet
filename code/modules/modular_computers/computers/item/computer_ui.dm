@@ -41,8 +41,7 @@
 		assets.send(user)
 		ui = new(user, src, ui_key, "NtosMain", "NtOS Main menu", 400, 500, master_ui, state)
 		ui.open()
-		ui.set_autoupdate(state = 1)
-
+		ui.set_autoupdate(TRUE)
 
 /obj/item/modular_computer/ui_data(mob/user)
 	var/list/data = get_header_data()

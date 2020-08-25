@@ -163,11 +163,10 @@
 	if(info && show_written_words)
 		icon_state = "[initial(icon_state)]_words"
 
-/obj/item/paper/ui_base_html(html)
-	/// This might change in a future PR
-	var/datum/asset/spritesheet/assets = get_asset_datum(/datum/asset/spritesheet/simple/paper)
-	. = replacetext(html, "<!--customheadhtml-->", assets.css_tag())
-
+/obj/item/paper/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/simple/paper),
+	)
 
 /obj/item/paper/verb/rename()
 	set name = "Rename paper"

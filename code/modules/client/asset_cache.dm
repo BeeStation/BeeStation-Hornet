@@ -389,6 +389,11 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 //DEFINITIONS FOR ASSET DATUMS START HERE.
 
+/datum/asset/simple/tgui_common
+	assets = list(
+		"tgui-common.chunk.js" = 'tgui/public/tgui-common.chunk.js',
+	)
+
 /datum/asset/simple/tgui
 	assets = list(
 		"tgui.bundle.js" = 'tgui/packages/tgui/public/tgui.bundle.js',

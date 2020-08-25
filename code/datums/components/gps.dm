@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		ui = new(user, src, ui_key, "Gps", "Global Positioning System", 470, gps_window_height, master_ui, state) //width, height
 		ui.open()
 
-	ui.set_autoupdate(state = updating)
+	ui.set_autoupdate(updating)
 
 /datum/component/gps/item/ui_data(mob/user)
 	var/list/data = list()

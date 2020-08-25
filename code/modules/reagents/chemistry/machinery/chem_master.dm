@@ -149,10 +149,10 @@
 		ui = new(user, src, ui_key, "ChemMaster", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
-//Insert our custom spritesheet css link into the html
-/obj/machinery/chem_master/ui_base_html(html)
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
-	. = replacetext(html, "<!--customheadhtml-->", assets.css_tag())
+/obj/machinery/chem_master/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/simple/pills)
+	)
 
 /obj/machinery/chem_master/ui_data(mob/user)
 	var/list/data = list()
