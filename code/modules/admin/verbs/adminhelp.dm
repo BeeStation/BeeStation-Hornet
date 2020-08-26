@@ -123,6 +123,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	if(check_rights(R_ADMIN))
 		tier += 2
 	if(check_rights(R_MENTOR))
+	#warn Something is wrong with tiers. Investigate it.
 		tier += 1
 	if(!admin_datum)
 		log_admin_private("[user] sent a request to interact with the ticket browser without sufficient rights.")
