@@ -110,8 +110,6 @@
 		return TRUE
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
-	if(HAS_TRAIT(usr, TRAIT_DESYNC)) //prevents doing stuff while desynced
-		return TRUE
 
 	//This is where putting stuff into hands is handled
 	if(hud?.mymob && slot_id)
@@ -224,8 +222,6 @@
 	if(user.incapacitated())
 		return TRUE
 	if (ismecha(user.loc)) // stops inventory actions in a mech
-		return TRUE
-	if(HAS_TRAIT(user, TRAIT_DESYNC)) //prevents doing stuff while desynced
 		return TRUE
 
 	if(user.active_hand_index == held_index)
@@ -444,8 +440,6 @@
 	if(usr.incapacitated())
 		return TRUE
 	if (ismecha(usr.loc)) // stops inventory actions in a mech
-		return TRUE
-	if(HAS_TRAIT(usr, TRAIT_DESYNC)) //prevents doing stuff while desynced
 		return TRUE
 	if(master)
 		var/obj/item/I = usr.get_active_held_item()

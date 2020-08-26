@@ -30,8 +30,6 @@
 /obj/screen/human/equip/Click()
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return 1
-	if(HAS_TRAIT(usr, TRAIT_DESYNC)) //prevents doing stuff while desynced
-		return 1
 	var/mob/living/carbon/human/H = usr
 	H.quick_equip()
 
