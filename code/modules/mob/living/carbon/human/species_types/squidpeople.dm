@@ -11,7 +11,7 @@
     coldmod = 1.5
     punchdamage = 7 // Lower max damage in melee. It's just a tentacle
     changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | SLIME_EXTRACT
-    attack_verb = list("whipped", "lashed", "disciplined")
+    attack_verb = "lash"
     attack_sound = 'sound/weapons/whip.ogg'
     miss_sound = 'sound/weapons/etherealmiss.ogg'
     grab_sound = 'sound/weapons/whipgrab.ogg'

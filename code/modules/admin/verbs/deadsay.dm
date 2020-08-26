@@ -1,5 +1,5 @@
 /client/proc/dsay(msg as text)
-	set category = "Special Verbs"
+	set category = "Adminbus"
 	set name = "Dsay"
 	set hidden = 1
 	if(!holder)

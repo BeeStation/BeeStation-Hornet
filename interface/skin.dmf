@@ -157,26 +157,16 @@ window "mapwindow"
 window "infowindow"
 	elem "infowindow"
 		type = MAIN
-		pos = 372,0
+		pos = 281,0
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
 		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-	elem "current-map"
-		type = BUTTON
-		pos = 445,3
-		size = 133x20
-		anchor1 = 70,0
-		anchor2 = 90,0
-		background-color = none
-		saved-params = "is-checked"
-		text = "Current Map:"
-		command = "map"
 	elem "discord"
 		type = BUTTON
-		pos = 603,3
+		pos = 607,5
 		size = 20x20
 		anchor1 = 94,0
 		anchor2 = 97,0
@@ -187,7 +177,7 @@ window "infowindow"
 		command = "discord"
 	elem "donate"
 		type = BUTTON
-		pos = 579,3
+		pos = 574,5
 		size = 20x20
 		anchor1 = 90,0
 		anchor2 = 94,0
@@ -210,7 +200,7 @@ window "infowindow"
 	elem "changelog"
 		type = BUTTON
 		pos = 16,5
-		size = 104x20
+		size = 88x20
 		anchor1 = 3,0
 		anchor2 = 19,0
 		background-color = none
@@ -219,8 +209,8 @@ window "infowindow"
 		command = "changelog"
 	elem "rules"
 		type = BUTTON
-		pos = 120,5
-		size = 100x20
+		pos = 104,5
+		size = 88x20
 		anchor1 = 19,0
 		anchor2 = 34,0
 		background-color = none
@@ -229,8 +219,8 @@ window "infowindow"
 		command = "rules"
 	elem "wiki"
 		type = BUTTON
-		pos = 220,5
-		size = 100x20
+		pos = 192,5
+		size = 88x20
 		anchor1 = 34,0
 		anchor2 = 50,0
 		background-color = none
@@ -239,8 +229,8 @@ window "infowindow"
 		command = "wiki"
 	elem "forum"
 		type = BUTTON
-		pos = 320,5
-		size = 100x20
+		pos = 280,5
+		size = 88x20
 		anchor1 = 50,0
 		anchor2 = 66,0
 		background-color = none
@@ -249,8 +239,8 @@ window "infowindow"
 		command = "forum"
 	elem "github"
 		type = BUTTON
-		pos = 420,5
-		size = 100x20
+		pos = 368,5
+		size = 88x20
 		anchor1 = 66,0
 		anchor2 = 81,0
 		background-color = none
@@ -259,8 +249,8 @@ window "infowindow"
 		command = "github"
 	elem "report-issue"
 		type = BUTTON
-		pos = 520,5
-		size = 100x20
+		pos = 466,5
+		size = 78x20
 		anchor1 = 81,0
 		anchor2 = 97,0
 		background-color = none

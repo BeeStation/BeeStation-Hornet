@@ -6,7 +6,7 @@
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/blood/footprints,
-/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
@@ -40,8 +40,8 @@
 	},
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised,
 /obj/effect/mob_spawn/human/corpse/assistant,
-/obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/gibs/core,
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
@@ -60,6 +60,12 @@
 /obj/effect/decal/cleanable/blood/gibs/up,
 /turf/open/floor/plating,
 /area/template_noop)
+"T" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -72,7 +78,7 @@ c
 b
 e
 h
-d
+T
 c
 "}
 (3,1,1) = {"

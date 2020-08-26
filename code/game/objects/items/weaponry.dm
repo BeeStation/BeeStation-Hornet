@@ -901,3 +901,17 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 14
 	breakforce = 25
 	stamforce = 5
+
+/obj/item/melee/hydraulic_blade
+	name = "hydraulic blade"
+	desc = "Extremely sharp and dangerous weapon."
+	icon_state = "hydraulic_blade"
+	item_state = "hydraulic_blade"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	force = 18
+	block_upgrade_walk = 1
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	sharpness = IS_SHARP
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'

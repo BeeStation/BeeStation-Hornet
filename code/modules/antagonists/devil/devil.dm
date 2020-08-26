@@ -91,6 +91,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	job_rank = ROLE_DEVIL
 	//Don't delete upon mind destruction, otherwise soul re-selling will break.
 	delete_on_mind_deletion = FALSE
+	show_to_ghosts = TRUE
 	var/obligation
 	var/ban
 	var/bane

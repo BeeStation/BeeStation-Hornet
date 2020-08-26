@@ -46,8 +46,7 @@
 	P.info = "<center><font size='6'><B>Scanner Report</B></font></center><HR><BR>"
 	P.info += jointext(log, "<BR>")
 	P.info += "<HR><B>Notes:</B><BR>"
-	P.info_links = P.info
-	P.updateinfolinks()
+	P.update_icon()
 
 	if(ismob(loc))
 		var/mob/M = loc
@@ -67,9 +66,11 @@
 	set waitfor = 0
 	if(!scanning)
 		// Can remotely scan objects and mobs.
-		if((get_dist(A, user) > range) || (!(A in view(range, user)) && view_check) || (loc != user))
+		if((get_dist(A, user) > range) || (loc != user))
 			return
-
+		if(!can_see(A, user, range))
+			to_chat(user, "<span class='notice'>You can't scan \the [A] through solid material.</span>")
+			return
 		scanning = 1
 
 		user.visible_message("\The [user] points the [src.name] at \the [A] and performs a forensic scan.")

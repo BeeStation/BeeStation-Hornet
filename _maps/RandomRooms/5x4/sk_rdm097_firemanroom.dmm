@@ -74,6 +74,7 @@
 	pixel_y = 2
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "k" = (
@@ -91,6 +92,10 @@
 	name = "fireman pole";
 	pixel_x = -16
 	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"s" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plasteel,
 /area/template_noop)
 
@@ -120,7 +125,7 @@ c
 "}
 (5,1,1) = {"
 e
-f
+s
 i
 l
 "}

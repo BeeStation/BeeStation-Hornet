@@ -231,6 +231,23 @@
 		/obj/effect/decal/remains/xeno = 49,
 		/obj/effect/spawner/xeno_egg_delivery = 1)
 
+/obj/effect/spawner/lootdrop/sanitarium
+	name = "patient spawner"
+	loot = list(
+		/obj/effect/decal/remains/human = 10,
+		/mob/living/simple_animal/hostile/cat_butcherer = 2,
+		/mob/living/simple_animal/hostile/stickman = 2,
+		/mob/living/simple_animal/hostile/netherworld/blankbody = 2,
+		/mob/living/simple_animal/cluwne = 1,
+		/mob/living/simple_animal/hostile/retaliate/clown = 1,
+		/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/honcmunculus = 1,
+		/mob/living/simple_animal/hostile/retaliate/clown/longface = 1,
+		/mob/living/simple_animal/pet/gondola = 2,
+		/mob/living/simple_animal/hostile/macrophage/aggro/vector = 2,
+		/mob/living/simple_animal/hostile/retaliate/spaceman = 2,
+		/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection = 1,
+		/mob/living/simple_animal/hostile/retaliate/frog = 2)
+	
 /obj/effect/spawner/lootdrop/costume
 	name = "random costume spawner"
 

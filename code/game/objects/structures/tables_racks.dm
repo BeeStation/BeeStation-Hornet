@@ -29,6 +29,7 @@
 	var/buildstackamount = 1
 	var/framestackamount = 2
 	var/deconstruction_ready = 1
+	var/last_bump = 0
 	max_integrity = 100
 	integrity_failure = 30
 	smooth = SMOOTH_TRUE
@@ -38,7 +39,8 @@
 	. = ..()
 	if(!istype(H) || H.shoes || !(H.mobility_flags & MOBILITY_STAND))
 		return ..()
-	if(prob(5))
+	if((world.time >= last_bump + 100) && prob(5))
+		last_bump = world.time
 		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")
 		H.emote("scream")
 		H.apply_damage(2, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))

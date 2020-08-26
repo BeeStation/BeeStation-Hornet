@@ -65,6 +65,7 @@
 /area/template_noop)
 "g" = (
 /obj/item/wrench,
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
@@ -217,6 +218,20 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/template_noop)
+"X" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -232,7 +247,7 @@ o
 "}
 (3,1,1) = {"
 c
-h
+X
 l
 p
 "}
