@@ -1,0 +1,4 @@
+author: totallynotkatfood
+delete-after: true
+changes:
+  - bugfix: Zombie claw infections now check for blocks
