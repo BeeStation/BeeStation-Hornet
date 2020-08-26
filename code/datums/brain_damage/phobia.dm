@@ -205,6 +205,10 @@
 	phobia_type = "anime"
 	random_gain = FALSE
 
+/datum/brain_trauma/mild/phobia/conspiraciesandlizards
+	phobia_type = "conspiracies and lizards"
+	random_gain = FALSE
+
 /datum/brain_trauma/mild/phobia/conspiracies
 	phobia_type = "conspiracies"
 	random_gain = FALSE
