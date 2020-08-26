@@ -108,62 +108,8 @@
 	to_chat(src, msg)
 
 //The fact this verb exists is stupid.
+//The way it was *originally* made is even worse.
 /client/verb/mentorwho()
 	set category = "Mentor"
 	set name = "Mentorwho"
 	staffwho()
-
-/*
-/client/verb/mentorwho()  // redundant with staffwho, but people wont check the admin tab for if there are mentors on
-	set category = "Mentor"
-	set name = "Mentorwho"
-
-	var/msg = "<b>Current Admins:</b>\n"
-	if(holder)
-		for(var/client/C in GLOB.admins)
-			msg += "\t[C] is a [C.holder.rank]"
-
-			if(C.holder.fakekey)
-				msg += " <i>(as [C.holder.fakekey])</i>"
-
-			if(isobserver(C.mob))
-				msg += " - Observing"
-			else if(isnewplayer(C.mob))
-				msg += " - Lobby"
-			else
-				msg += " - Playing"
-
-			if(C.is_afk())
-				msg += " (AFK)"
-			msg += "\n"
-		msg += "<b>Current Mentors:</b>\n"
-		for(var/client/C in GLOB.mentors)
-			msg += "\t[C] is a mentor"
-
-			if(isobserver(C.mob))
-				msg += " - Observing"
-			else if(isnewplayer(C.mob))
-				msg += " - Lobby"
-			else
-				msg += " - Playing"
-
-			if(C.is_afk())
-				msg += " (AFK)"
-			msg += "\n"
-	else
-		for(var/client/C in GLOB.admins)
-			if(C.is_afk())
-				continue //Don't show afk admins to adminwho
-			if(!C.holder.fakekey)
-				msg += "\t[C] is a [C.holder.rank]\n"
-		msg += "<b>Current Mentors:</b>\n"
-		for(var/client/C in GLOB.mentors)
-			if(C.is_afk())
-				continue //Don't show afk admins to adminwho
-			msg += "\t[C] is a mentor\n"
-
-		msg += "<span class='info'>Adminhelps are also sent to IRC. If no admins are available in game adminhelp anyways and an admin on IRC will see it and respond.</span>"
-	to_chat(src, msg)
-
-*/
-#warn Clean up old Mentorwho code.

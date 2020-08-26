@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 ))
 GLOBAL_PROTECT(admin_verbs_mentor)
 
-GLOBAL_LIST_INIT(admin_verbs_teleport, list(world.AVerbsTeleport()))
+GLOBAL_LIST_INIT(admin_verbs_teleport, world.AVerbsTeleport())
 GLOBAL_PROTECT(admin_verbs_teleport)
 /world/proc/AVerbsTeleport()
 	return list(

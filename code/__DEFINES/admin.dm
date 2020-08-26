@@ -76,6 +76,9 @@
 #define AHELP_CLOSED 3
 #define AHELP_RESOLVED 4
 
+#define TICKET_ADMIN	"admin"
+#define TICKET_MENTOR	"mentor"
+
 #define ROUNDSTART_LOGOUT_REPORT_TIME	6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 
 #define SPAM_TRIGGER_WARNING	5	//Number of identical messages required before the spam-prevention will warn you to stfu

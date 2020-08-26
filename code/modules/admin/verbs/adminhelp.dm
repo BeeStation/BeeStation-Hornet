@@ -274,6 +274,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/id
 	var/name
 	var/state = AHELP_UNCLAIMED
+	var/class = TICKET_ADMIN
 
 	var/opened_at
 	var/closed_at
@@ -498,24 +499,47 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	if(claim_ticket == CLAIM_OVERRIDE || (claim_ticket == CLAIM_CLAIMIFNONE && !claimed_admin))
 		Claim()
 
-/datum/admin_help/proc/MessageNoRecipient(msg)
+/datum/admin_help/proc/MessageNoRecipient(msg, reclassed = FALSE)
 	var/ref_src = "[REF(src)]"
 
 	//Message to be sent to all admins
 	var/admin_msg = "<span class='adminnotice'><span class='adminhelp'>Ticket [TicketHref("#[id]", ref_src)]</span><b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> <span class='linkify'>[keywords_lookup(msg)]</span></span>"
 
-	AddInteraction("red", msg, initiator_key_name, claimed_admin_key_name)
-	log_admin_private("Ticket #[id]: [key_name(initiator)]: [msg]")
+	if(!reclassed)
+		AddInteraction("red", msg, initiator_key_name, claimed_admin_key_name)
+		log_admin_private("Ticket #[id]([class]): [key_name(initiator)]: [msg]")
 
+
+	var/notifysound
+		if(reclassed)
+			notifysound = sound('sound/effects/yeet.ogg')		//yeeting the ticket around
+		else(class == TICKET_MENTOR)
+			notifysound = sound('sound/misc/server-ready.ogg')	//less aggressive mentor sound
+		else
+			notifysound = sound('sound/effects/adminhelp.ogg')	//hey got a sec?
 	//send this msg to all admins
-	for(var/client/X in GLOB.admins)
-		if(X.prefs.toggles & SOUND_ADMINHELP)
-			SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
-		window_flash(X, ignorepref = TRUE)
-		to_chat(X, admin_msg)
+	switch(class)
+		if(TICKET_ADMIN)
+			for(var/client/X in GLOB.admins)
+				if(reclassed && X in GLOB.mentors)
+					continue //Spare mentormins the double scream.
+				if(X.prefs.toggles & SOUND_ADMINHELP)
+					SEND_SOUND(X, notifysound)
+				window_flash(X, ignorepref = TRUE)
+				to_chat(X, admin_msg)
+		if(TICKET_MENTOR)
+			for(var/client/X in GLOB.mentors)
+				if(reclassed && X in GLOB.admins)
+					continue //Spare mentormins the double scream.
+				if(X.prefs.toggles & SOUND_ADMINHELP)
+					SEND_SOUND(X, notifysound)
+				window_flash(X, ignorepref = TRUE)
+				to_chat(X, admin_msg)
 
 	//show it to the person adminhelping too
-	to_chat(initiator, "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>")
+	//Unless we've reclassed the ticket.
+	if(!reclassed)
+		to_chat(initiator, "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>")
 
 //Reopen a closed ticket
 /datum/admin_help/proc/Reopen()
@@ -670,25 +694,28 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		discordsendmsg("ahelp", "Ticket #[id] marked as IC by [key_name(usr, include_link=0)]")
 
 /datum/admin_help/proc/MHelpThis(key_name = key_name_admin(usr))
-	if(state > AHELP_ACTIVE)
+	if(class == TICKET_MENTOR)
 		return
 
 	if(initiator)
 		initiator.giveadminhelpverb()
 
-		SEND_SOUND(initiator, sound('sound/effects/adminhelp.ogg'))
+		SEND_SOUND(initiator, sound('sound/misc/compiler-stage1.ogg'))
+		//I wanted this to be yeet but I realized I have to play a sound on reclass anyways. Best to keep it less memey on the frontend side.
 
-		to_chat(initiator, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
-		to_chat(initiator, "<font color='red'>This question may regard <b>game mechanics or how-tos</b>. Such questions should be asked with <b>Mentorhelp</b>.</font>")
+		to_chat(initiator, "<font color='blue' size='4'><b>- AdminHelp Redirected! -</b></font>")
+		to_chat(initiator, "<font color='lightblue'>This question may regard <b>game mechanics or how-tos</b>. Such questions should be asked with <b>Mentorhelp</b>.</font>")
+		to_chat(initiator, "<font color='blue'>Your question has been forwarded to the mentors automatically.</font>")
 
 	SSblackbox.record_feedback("tally", "ahelp_stats", 1, "mhelp this")
-	var/msg = "Ticket [TicketHref("#[id]")] told to mentorhelp by [key_name]"
+	var/msg = "Ticket [TicketHref("#[id]")] redirected to mentors by [key_name]"
 	message_admins(msg)
 	log_admin_private(msg)
-	AddInteraction("red", "Told to mentorhelp by [key_name].")
+	AddInteraction("red", "redirected to mentors by [key_name].")
 	if(!bwoink)
-		discordsendmsg("ahelp", "Ticket #[id] told to mentorhelp by [key_name(usr, include_link=0)]")
-	Close(silent = TRUE)
+		discordsendmsg("ahelp", "Ticket #[id] redirected to mentors by [key_name(usr, include_link=0)]")
+	Reclass_internal(TICKET_MENTOR, key_name, TRUE)
+
 
 /datum/admin_help/proc/Retitle()
 	var/new_title = input(usr, "Enter a title for the ticket", "Rename Ticket", name) as text|null
@@ -699,6 +726,25 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		message_admins(msg)
 		log_admin_private(msg)
 	TicketPanel()	//we have to be here to do this
+
+datum/admin_help/proc/Reclass_internal(newclass = TICKET_ADMIN, key_name = key_name_admin(usr), silent = FALSE)
+
+	if(class == newclass)
+		return
+	//TODO: Down the line if more classes get added, you'll have to make this proc more complex.
+	//...Thank god that poor sap isn't gonna be me.
+	class = newclass
+
+	AddInteraction("red", "Reclasses to [class] by [key_name].")
+	MessageNoRecipient(name, TRUE)
+	if(!silent)
+		SSblackbox.record_feedback("tally", "ahelp_stats", 1, "closed")
+		var/msg = "Ticket [TicketHref("#[id]")] reclassed to [class] by [key_name]."
+		message_admins(msg)
+		log_admin_private(msg)
+
+	if(!bwoink && !silent)
+		discordsendmsg("ahelp", "Ticket #[id] reclassed to [class] by [key_name(usr, include_link=0)]")
 
 //Forwarded action from admin/Topic
 /datum/admin_help/proc/Action(action)
