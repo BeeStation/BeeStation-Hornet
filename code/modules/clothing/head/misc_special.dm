@@ -401,7 +401,7 @@
 	desc = "You feel ashamed about what you had to do to get this hat"
 	icon_state = "cowboy"
 	item_state = "cowboy"
-=======
+
 /*
  * Contents:
  *		Welding mask
