@@ -1,5 +1,5 @@
 GLOBAL_LIST_EMPTY(clients)							//all clients
-GLOBAL_LIST_EMPTY_TYPED(admins, /datum/admins)							//all clients whom are admins
+GLOBAL_LIST_EMPTY(admins)							//all clients whom are admins
 GLOBAL_PROTECT(admins)
 GLOBAL_LIST_EMPTY_TYPED(deadmins, /datum/admins)							//all ckeys who have used the de-admin verb.
 GLOBAL_LIST_EMPTY(directory)							//all ckeys with associated client
