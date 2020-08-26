@@ -3,7 +3,7 @@ GLOBAL_LIST_EMPTY(admins)							//all clients whom are admins
 GLOBAL_PROTECT(admins)
 GLOBAL_LIST_EMPTY_TYPED(deadmins, /datum/admins)							//all ckeys who have used the de-admin verb.
 
-GLOBAL_LIST_EMPTY(staff)							//clients WITHOUT R_MENTOR /OR/ R_ADMIN
+GLOBAL_LIST_EMPTY(staff)							//clients with a holder period.
 
 GLOBAL_LIST_EMPTY(directory)							//all ckeys with associated client
 GLOBAL_LIST_EMPTY(stealthminID)						//reference list with IDs that store ckeys, for stealthmins

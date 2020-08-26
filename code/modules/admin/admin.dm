@@ -8,6 +8,13 @@
 	msg = "<span class=\"admin\"><span class=\"prefix\">RELAY:</span> <span class=\"message linkify\">[msg]</span></span>"
 	to_chat(GLOB.admins, msg)
 
+/proc/message_mentors(msg)
+	msg = "<span class=\"admin\"><span class=\"prefix\">MENTOR LOG:</span> <span class=\"message linkify\">[msg]</span></span>"
+	to_chat(GLOB.mentors, msg)
+
+/proc/message_staff(msg)
+	msg = "<span class=\"admin\"><span class=\"prefix\">STAFF LOG:</span> <span class=\"message linkify\">[msg]</span></span>"
+	to_chat(GLOB.staff, msg)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 

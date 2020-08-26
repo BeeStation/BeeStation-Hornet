@@ -221,15 +221,14 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
 	//Admin Authorisation
 	holder = GLOB.admin_datums[ckey]
-	//BEESTATION Only R_ADMIN holders are in GLOB.admins, ditto for R_MENTOR and GLOB.mentors, Others are stored in GLOB.staff
+	//BEESTATION Only R_ADMIN holders are in GLOB.admins, ditto for R_MENTOR and GLOB.mentors, All staff are in GLOB.staff
 	if(holder)
 		if(check_rights_for(src, R_ADMIN))
 			GLOB.admins |= src
 			connecting_admin = TRUE
 		if(check_rights_for(src, R_MENTOR))
 			GLOB.mentors |= src
-		else if(!check_rights_for(src, R_ADMIN|R_MENTOR)) //Other Staff
-			GLOB.staff |= src
+		GLOB.staff |= src
 		holder.owner = src
 	else if(GLOB.deadmins[ckey])
 		if(GLOB.deadmins[ckey].check_for_rights(R_ADMIN))

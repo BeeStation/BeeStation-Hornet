@@ -74,12 +74,13 @@ export const TicketMenu = (props, context) => {
                 bold
                 collapsing>
                 <Button
-                  color="transparent"
+                  color={ticket.class = "admin" ? "bad" : "violet"}
+
                   onClick={() => act("view", {
                     id: ticket.id,
                   })}>
                   <u>
-                    {"#" + ticket.id}
+                    {"#" + ticket.id}/{ticket.class = "admin" ? "A" : "M"}
                   </u>
                 </Button>
               </Table.Cell>
@@ -90,8 +91,8 @@ export const TicketMenu = (props, context) => {
                     id: ticket.id,
                   })}>
                   <u>
-                    {ticket.initiator_key_name} \
-                    {ticket.disconnected ? "[DC]" : ""}
+                    {ticket.initiator_key_name}
+                    {ticket.disconnected ? " \\ [DC]" : ""}
                   </u>
                 </Button>
               </Table.Cell>

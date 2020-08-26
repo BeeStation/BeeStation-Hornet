@@ -102,7 +102,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	admin_datum.admin_interface.ui_interact(user)
 
 //TGUI TICKET THINGS
-/datum/admin_help_ui/ui_interact(mob/user, ui_key = "ticket_panel", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
+/datum/admin_help_ui/ui_interact(mob/user, ui_key = "ticket_panel", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.staff_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		log_admin_private("[user.ckey] opened the ticket panel.")
@@ -110,18 +110,30 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
+	//This is dirty and magic numbery but it's less expensive in the long run.
+	//T0 - Staff, No tickets
+	//T1 - Mentor Tickets
+	//T2 - Admin Tickets
+	//T3 - All Tickets
 /datum/admin_help_ui/ui_data(mob/user)
 	var/datum/admins/admin_datum = GLOB.admin_datums[user.ckey]
+	var/tier
+
+	usr = user
+	if(check_rights(R_ADMIN))
+		tier += 2
+	if(check_rights(R_MENTOR))
+		tier += 1
 	if(!admin_datum)
 		log_admin_private("[user] sent a request to interact with the ticket browser without sufficient rights.")
 		message_admins("[user] sent a request to interact with the ticket browser without sufficient rights.")
 		return
 	var/list/data = list()
 	data["admin_ckey"] = user.ckey
-	data["unclaimed_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_UNCLAIMED)
-	data["open_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_ACTIVE)
-	data["closed_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_CLOSED)
-	data["resolved_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_RESOLVED)
+	data["unclaimed_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_UNCLAIMED, tier)
+	data["open_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_ACTIVE, tier)
+	data["closed_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_CLOSED, tier)
+	data["resolved_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_RESOLVED, tier)
 	return data
 
 /datum/admin_help_ui/ui_act(action, params)
@@ -148,7 +160,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			claim_ticket = CLAIM_OVERRIDE
 			ticket.ICIssue()
 		if("mhelp")
-			claim_ticket = CLAIM_OVERRIDE
 			ticket.MHelpThis()
 		if("resolve")
 			claim_ticket = CLAIM_OVERRIDE
@@ -166,10 +177,15 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		if("pm")
 			usr.client.cmd_ahelp_reply(ticket.initiator)
 			claim_ticket = CLAIM_CLAIMIFNONE
+		if("reclass")
+			ticket.Reclass()
+
 	if(claim_ticket == CLAIM_OVERRIDE || (claim_ticket == CLAIM_CLAIMIFNONE && !ticket.claimed_admin))
 		ticket.Claim()
 
-/datum/admin_help_tickets/proc/get_ui_ticket_data(state)
+/datum/admin_help_tickets/proc/get_ui_ticket_data(state, tier = 0)
+	if(!tier)
+		return list()
 	var/list/l2b
 	switch(state)
 		if(AHELP_UNCLAIMED)
@@ -185,13 +201,18 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/list/dat = list()
 	for(var/I in l2b)
 		var/datum/admin_help/AH = I
+		if(AH.class == TICKET_ADMIN && (tier < 2))
+			continue
+		if(AH.class == TICKET_MENTOR && (tier % 2))
+			continue
 		var/list/ticket = list(
 			"id" = AH.id,
 			"initiator_key_name" = AH.initiator_key_name,
 			"name" = AH.name,
 			"claimed_key_name" = AH.claimed_admin_key_name,
 			"disconnected" = AH.initiator ? FALSE : TRUE,
-			"state" = AH.state
+			"state" = AH.state,
+			"class" = AH.class
 		)
 		dat += list(ticket)
 	return dat
@@ -727,6 +748,14 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		message_admins(msg)
 		log_admin_private(msg)
 	TicketPanel()	//we have to be here to do this
+
+datum/admin_help/proc/Reclass()
+	//This'll need to be made a tree if more classes get added.
+	switch(class)
+		if(TICKET_ADMIN)
+			return Reclass_internal(TICKET_MENTOR)
+		if(TICKET_MENTOR)
+			return Reclass_internal(TICKET_ADMIN)
 
 datum/admin_help/proc/Reclass_internal(newclass = TICKET_ADMIN, key_name = key_name_admin(usr), silent = FALSE)
 
