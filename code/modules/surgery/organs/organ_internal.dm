@@ -197,7 +197,7 @@
 
 /mob/living/carbon/regenerate_organs()
 	if(dna?.species)
-		dna.species.regenerate_organs(src)
+		dna.species.regenerate_organs(src, replace_current = FALSE)
 		return
 
 	else
