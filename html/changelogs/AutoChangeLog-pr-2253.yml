@@ -1,5 +1,0 @@
-author: Isy232
-delete-after: true
-changes:
-  - rscadd: Abductor ship now has a recharger.
-  - rscadd: Abductor gun can now fire ion shots and freeze shots.
