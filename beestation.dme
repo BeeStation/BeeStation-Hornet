@@ -572,6 +572,7 @@
 #include "code\datums\wires\microwave.dm"
 #include "code\datums\wires\mulebot.dm"
 #include "code\datums\wires\particle_accelerator.dm"
+#include "code\datums\wires\quantum_pad.dm"
 #include "code\datums\wires\r_n_d.dm"
 #include "code\datums\wires\radio.dm"
 #include "code\datums\wires\robot.dm"
