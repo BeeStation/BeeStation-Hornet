@@ -119,6 +119,8 @@ GLOBAL_PROTECT(href_token)
 			GLOB.admins |= C
 		if(src.check_for_rights(R_MENTOR))
 			GLOB.mentors |= C
+		else if(!src.check_for_rights(R_ADMIN|R_MENTOR)) //Other Staff
+			GLOB.staff |= C
 
 /datum/admins/proc/disassociate()
 	if(IsAdminAdvancedProcCall())
@@ -129,6 +131,7 @@ GLOBAL_PROTECT(href_token)
 	if(owner)
 		GLOB.admins -= owner
 		GLOB.mentors -= owner
+		GLOB.staff -= owner
 		owner.remove_admin_verbs()
 		owner.holder = null
 		owner = null

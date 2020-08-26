@@ -511,17 +511,18 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 
 	var/notifysound
-		if(reclassed)
-			notifysound = sound('sound/effects/yeet.ogg')		//yeeting the ticket around
-		else(class == TICKET_MENTOR)
-			notifysound = sound('sound/misc/server-ready.ogg')	//less aggressive mentor sound
-		else
-			notifysound = sound('sound/effects/adminhelp.ogg')	//hey got a sec?
+
+	if(reclassed)
+		notifysound = sound('sound/effects/yeet.ogg')		//yeeting the ticket around
+	else if(class == TICKET_MENTOR)
+		notifysound = sound('sound/misc/server-ready.ogg')	//less aggressive mentor sound
+	else
+		notifysound = sound('sound/effects/adminhelp.ogg')	//hey got a sec?
 	//send this msg to all admins
 	switch(class)
 		if(TICKET_ADMIN)
 			for(var/client/X in GLOB.admins)
-				if(reclassed && X in GLOB.mentors)
+				if(reclassed && (X in GLOB.mentors))
 					continue //Spare mentormins the double scream.
 				if(X.prefs.toggles & SOUND_ADMINHELP)
 					SEND_SOUND(X, notifysound)
@@ -529,7 +530,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 				to_chat(X, admin_msg)
 		if(TICKET_MENTOR)
 			for(var/client/X in GLOB.mentors)
-				if(reclassed && X in GLOB.admins)
+				if(reclassed && (X in GLOB.admins))
 					continue //Spare mentormins the double scream.
 				if(X.prefs.toggles & SOUND_ADMINHELP)
 					SEND_SOUND(X, notifysound)

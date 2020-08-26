@@ -80,7 +80,25 @@
 			msg += "\n"
 		msg += "<b>Current Mentors:</b>\n"
 		for(var/client/C in GLOB.mentors)
-			msg += "\t[C] is a mentor"
+			if(check_rights_for(C, R_ADMIN))
+				continue //You're sorted into your highest group.
+			msg += "\t[C] is a [C.holder.rank]"
+
+			if(isobserver(C.mob))
+				msg += " - Observing"
+			else if(isnewplayer(C.mob))
+				msg += " - Lobby"
+			else
+				msg += " - Playing"
+
+			if(C.is_afk())
+				msg += " (AFK)"
+			msg += "\n"
+		msg += "<b>Current Staff:</b>\n"
+		for(var/client/C in GLOB.staff)
+			if(check_rights_for(C, R_ADMIN|R_MENTOR))
+				continue //You're sorted into your highest group.
+			msg += "\t[C] is a [C.holder.rank]"
 
 			if(isobserver(C.mob))
 				msg += " - Observing"
