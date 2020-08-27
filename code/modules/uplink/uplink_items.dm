@@ -1194,7 +1194,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	refundable = TRUE
 	cost = 64
-    surplus_nullcrates = 1 
 	restricted = TRUE
 
 /datum/uplink_item/support/reinforcement/medical_borg
@@ -1205,7 +1204,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	refundable = TRUE
 	cost = 32
-    surplus_nullcrates = 1
 	restricted = TRUE
 
 /datum/uplink_item/support/reinforcement/saboteur_borg
@@ -1216,7 +1214,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	refundable = TRUE
 	cost = 32
-    surplus_nullcrates = 1
 	restricted = TRUE
 
 /datum/uplink_item/support/gygax
