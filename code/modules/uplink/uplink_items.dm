@@ -413,6 +413,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	item = /obj/item/pneumatic_cannon/pie/selfcharge
 	surplus = 0
+    surplus_nullcrates = 1 // the honkmother blessed you with luck.
 	include_modes = list(/datum/game_mode/nuclear/clown_ops)
 
 /datum/uplink_item/dangerous/bananashield
@@ -527,7 +528,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/guardiancreator/tech
 	cost = 18
 	surplus = 10
-	surplus_nullcrates = 0
+	surplus_nullcrates = 1 // gotta have luck 100.
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	player_minimum = 25
 	restricted = TRUE
@@ -2151,6 +2152,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			manufactured to pack a little bit more of a punch if your client needs some convincing."
 	item = /obj/item/storage/secure/briefcase/syndie
 	cost = 1
+    surplus_nullcrates = 40 // now you can self fund your null cate addiction
 	restricted = TRUE
 
 /datum/uplink_item/badass/syndiecards
