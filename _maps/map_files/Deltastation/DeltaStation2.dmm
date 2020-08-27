@@ -120916,6 +120916,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"gxs" = (
+/obj/structure/closet/secure_closet/miner/unlocked,
+/turf/closed/mineral,
+/area/asteroid)
 "gxy" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -121170,6 +121174,10 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
+"hiu" = (
+/obj/effect/baseturf_helper/asteroid/airless,
+/turf/open/floor/plating/asteroid,
+/area/asteroid)
 "hjv" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
@@ -121281,6 +121289,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"hDg" = (
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	icon_state = "shadyjim"
+	},
+/obj/item/lighter/greyscale{
+	pixel_x = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/asteroid)
 "hEv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -121644,6 +121662,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/fore)
+"jcG" = (
+/obj/structure/closet/secure_closet/miner/unlocked,
+/turf/open/floor/plasteel/cafeteria,
+/area/asteroid)
 "jdO" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -122881,6 +122903,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
+"npi" = (
+/turf/open/floor/plasteel/cafeteria,
+/area/asteroid)
 "npR" = (
 /obj/structure/table,
 /obj/item/storage/secure/safe{
@@ -123336,6 +123361,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
+"pim" = (
+/turf/closed/wall/rust,
+/area/asteroid)
 "pjx" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -123488,6 +123516,9 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"pHo" = (
+/turf/open/floor/plating/asteroid,
+/area/asteroid)
 "pNu" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
@@ -123618,6 +123649,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"quz" = (
+/obj/structure/table,
+/turf/open/floor/plasteel/cafeteria,
+/area/asteroid)
 "qvG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
@@ -123914,6 +123949,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
+"rGo" = (
+/obj/machinery/door/airlock/maintenance/external,
+/turf/open/floor/plating/asteroid,
+/area/asteroid)
 "rOf" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/effect/turf_decal/delivery,
@@ -124934,6 +124973,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port/aft)
+"vWS" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plasteel/cafeteria,
+/area/asteroid)
 "wbe" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -125019,6 +125062,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/maintenance/department/science)
+"wCS" = (
+/obj/machinery/door/airlock/maintenance/external/glass,
+/turf/open/floor/plasteel/cafeteria,
+/area/asteroid)
 "wEB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/electrical,
@@ -125084,6 +125131,20 @@
 	},
 /turf/open/floor/plating/airless,
 /area/maintenance/port)
+"wSy" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/beer/light{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/asteroid)
 "wTa" = (
 /obj/machinery/computer/nanite_cloud_controller,
 /obj/effect/turf_decal/bot,
@@ -125185,6 +125246,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"xmp" = (
+/obj/effect/decal/remains/human,
+/obj/item/clothing/mask/cigarette/rollie{
+	desc = "Who knew this was your last puff?";
+	list_reagents = list(/datum/reagent/toxin/cyanide = 10);
+	name = "crumbled rollie";
+	pixel_x = 7;
+	pixel_y = -2
+	},
+/obj/item/pickaxe/mini,
+/turf/open/floor/plasteel/cafeteria,
+/area/asteroid)
 "xmt" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
@@ -125247,6 +125320,9 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
+"xHp" = (
+/turf/closed/mineral,
+/area/asteroid)
 "xHS" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -129542,8 +129618,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+hiu
+pHo
 aaa
 aaa
 aaa
@@ -129798,9 +129874,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+gxs
+xHp
+pHo
 aaa
 aaa
 aaa
@@ -130054,11 +130130,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+xHp
+xHp
+xHp
+xHp
+xHp
 aaa
 aaa
 aaa
@@ -130310,13 +130386,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+pim
+rGo
+pim
+pim
+pim
+pim
+pim
 aaa
 aaa
 aaa
@@ -130567,13 +130643,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+pim
+npi
+npi
+wCS
+npi
+quz
+vWS
 aaa
 aaa
 aaa
@@ -130823,14 +130899,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+pHo
+pHo
+pHo
+npi
+pim
+xmp
+hDg
+vWS
 aaa
 aaa
 aaa
@@ -131080,14 +131156,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+pHo
+pHo
+pHo
+pHo
+pim
+jcG
+wSy
+vWS
 aaa
 aaa
 aaa
@@ -131338,13 +131414,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+pHo
+pHo
+pHo
+pim
+pim
+pim
+pim
 aaa
 aaa
 aaa
@@ -131596,11 +131672,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+pHo
+xHp
+xHp
+xHp
+xHp
 aaa
 aaa
 aaa
@@ -131854,9 +131930,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+xHp
+xHp
+xHp
 aaa
 aaa
 aaa
