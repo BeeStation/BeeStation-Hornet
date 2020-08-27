@@ -29,7 +29,7 @@
 	if(world.time < next_use)
 		. += "<span class='warning'>Time left to recharge: [DisplayTimeText(next_use - world.time)]</span>"
 	. += "<span class='notice'>Alt-click to customize the duration. Current duration: [DisplayTimeText(duration)].</span>"
-	. += "<span class='notice'>Use the verb Activate held object to interrupt the effect early. Recharge time is the same as the time spent in desync.</span>"
+	. += "<span class='notice'>Can be used again to interrupt the effect early. The recharge time is the same as the time spent in desync.</span>"
 
 /obj/item/desynchronizer/AltClick(mob/living/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -56,6 +56,13 @@
 	icon_state = "desynchronizer-on"
 	addtimer(CALLBACK(src, .proc/resync, user), duration)
 	ADD_TRAIT(user, TRAIT_DESYNC, TRAIT_DESYNC)
+	if(user.active_hand_index == 1)
+		ADD_TRAIT(user, TRAIT_PARALYSIS_R_ARM, TRAIT_DESYNC)
+	else
+		ADD_TRAIT(user, TRAIT_PARALYSIS_L_ARM, TRAIT_DESYNC)
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.update_disabled_bodyparts()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/desynchronizer/proc/resync(mob/living/user)
@@ -65,6 +72,11 @@
 	icon_state = initial(icon_state)
 	next_use = world.time + (world.time - last_use) // Could be 2*world.time-last_use but that would just be confusing
 	REMOVE_TRAIT(user, TRAIT_DESYNC, TRAIT_DESYNC)
+	REMOVE_TRAIT(user, TRAIT_PARALYSIS_L_ARM, TRAIT_DESYNC)
+	REMOVE_TRAIT(user, TRAIT_PARALYSIS_R_ARM, TRAIT_DESYNC)
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.update_disabled_bodyparts()
 	REMOVE_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/desynchronizer/Destroy()
