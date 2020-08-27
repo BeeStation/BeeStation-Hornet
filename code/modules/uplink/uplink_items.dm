@@ -1804,7 +1804,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	cost = 11
 	item = /obj/item/pneumatic_cannon/pie/selfcharge
 	restricted_roles = list("Clown")
-	surplus = 5 //No fun unless you're the clown or just plain lucky.
+    surplus = 5 //No fun unless you're the clown or just plain lucky.
 
 /datum/uplink_item/role_restricted/blastcannon
 	name = "Blast Cannon"
@@ -1953,7 +1953,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/his_grace
 	cost = 20
 	restricted_roles = list("Chaplain")
-	surplus = 5 //Very low chance to get it in a surplus crate even without being the chaplain
+	surplus = 5 //If you get this then i hope you don't die to it.
 
 /datum/uplink_item/role_restricted/cultconstructkit
 	name = "Cult Construct Kit"
