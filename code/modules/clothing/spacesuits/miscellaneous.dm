@@ -425,7 +425,6 @@ Contains:
 	heat_protection = NONE
 	flash_protect = 0
 	bang_protect = 0
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY | SNUG_FIT
 	max_heat_protection_temperature = 100
 
