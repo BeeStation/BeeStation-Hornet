@@ -48,7 +48,7 @@
 //Effect when activated by a Luminescent. Separated into a minor and major effect. Returns cooldown in deciseconds.
 /obj/item/slime_extract/proc/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	to_chat(user, "<span class='notice'>Nothing happened... This slime extract cannot be activated this way.</span>")
-	return 0
+	return FALSE
 
 //Core-crossing: Feeding adult slimes extracts to obtain a much more powerful, single extract.
 /obj/item/slime_extract/attack(mob/living/simple_animal/slime/M, mob/user)
@@ -83,7 +83,7 @@
 
 /obj/item/slime_extract/grey/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	if(activating)
-		return 0
+		return FALSE
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/obj/item/reagent_containers/food/snacks/monkeycube/M = new
@@ -103,7 +103,7 @@
 				return 350
 			else
 				activating = FALSE
-				return 0
+				return FALSE
 
 /obj/item/slime_extract/gold
 	name = "gold slime extract"
@@ -113,7 +113,7 @@
 
 /obj/item/slime_extract/gold/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	if(activating)
-		return 0
+		return FALSE
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			user.visible_message("<span class='warning'>[user] starts shaking!</span>","<span class='notice'>Your [name] starts pulsing gently...</span>")
@@ -127,7 +127,7 @@
 				return 300
 			else
 				activating = FALSE
-				return 0
+				return FALSE
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user] starts shaking violently!</span>","<span class='warning'>Your [name] starts pulsing violently...</span>")
@@ -144,7 +144,7 @@
 				return 600
 			else
 				activating = FALSE
-				return 0
+				return FALSE
 
 /obj/item/slime_extract/silver
 	name = "silver slime extract"
@@ -265,7 +265,7 @@
 
 /obj/item/slime_extract/yellow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	if(activating)
-		return 0
+		return FALSE
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			if(istype(species,/datum/species/jelly/luminescent))
@@ -293,7 +293,7 @@
 				return 600
 			else
 				activating = FALSE
-				return 0
+				return FALSE
 
 /obj/item/slime_extract/red
 	name = "red slime extract"
@@ -398,7 +398,7 @@
 
 /obj/item/slime_extract/green/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	if(activating)
-		return 0
+		return FALSE
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='warning'>You feel yourself reverting to human form...</span>")
@@ -411,7 +411,7 @@
 			else
 				to_chat(user, "<span class='notice'>You stop the transformation.</span>")
 				activating = FALSE
-				return 0
+				return FALSE
 
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, "<span class='warning'>You feel yourself radically changing your slime type...</span>")
@@ -424,7 +424,7 @@
 			else
 				to_chat(user, "<span class='notice'>You stop the transformation.</span>")
 				activating = FALSE
-				return 0
+				return FALSE
 
 /obj/item/slime_extract/lightpink
 	name = "light pink slime extract"
@@ -458,7 +458,7 @@
 
 /obj/item/slime_extract/black/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	if(activating)
-		return 0
+		return FALSE
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='userdanger'>You feel something <i>wrong</i> inside you...</span>")
@@ -476,7 +476,7 @@
 			else
 				to_chat(user, "<span class='notice'>You stop feeding [src].</span>")
 				activating = FALSE
-				return 0
+				return FALSE
 
 /obj/item/slime_extract/oil
 	name = "oil slime extract"
@@ -486,7 +486,7 @@
 
 /obj/item/slime_extract/oil/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	if(activating)
-		return 0
+		return FALSE
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='warning'>You vomit slippery oil.</span>")
@@ -506,7 +506,7 @@
 			else
 				to_chat(user, "<span class='notice'>You stop feeding [src], and the feeling passes.</span>")
 				activating = FALSE
-				return 0
+				return FALSE
 
 /obj/item/slime_extract/adamantine
 	name = "adamantine slime extract"
@@ -516,7 +516,7 @@
 
 /obj/item/slime_extract/adamantine/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	if(activating)
-		return 0
+		return FALSE
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			if(species.armor > 0)
@@ -538,7 +538,7 @@
 			else
 				to_chat(user, "<span class='notice'>You stop feeding [src], and your body returns to its slimelike state.</span>")
 				activating = FALSE
-				return 0
+				return FALSE
 
 /obj/item/slime_extract/adamantine/proc/reset_armor(datum/species/species)
 	if(istype(species))
@@ -556,7 +556,7 @@
 
 /obj/item/slime_extract/bluespace/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	if(activating)
-		return 0
+		return FALSE
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='warning'>You feel your body vibrating...</span>")
@@ -568,7 +568,7 @@
 				return 300
 			else
 				activating = FALSE
-				return 0
+				return FALSE
 
 		if(SLIME_ACTIVATE_MAJOR)
 			if(!teleport_ready)
@@ -641,7 +641,7 @@
 
 /obj/item/slime_extract/sepia/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	if(activating)
-		return 0
+		return FALSE
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/obj/item/camera/O = new(null, 1)
@@ -660,7 +660,7 @@
 				return 900
 			else
 				activating = FALSE
-				return 0
+				return FALSE
 
 /obj/item/slime_extract/rainbow
 	name = "rainbow slime extract"
