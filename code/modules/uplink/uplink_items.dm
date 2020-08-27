@@ -527,7 +527,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/guardiancreator/tech
 	cost = 18
 	surplus = 10
-	surplus_nullcrates = 0
+	surplus_nullcrates = 1
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	player_minimum = 25
 	restricted = TRUE
@@ -1462,7 +1462,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/disk/nuclear/fake
 	cost = 1
 	surplus = 1
-	surplus_nullcrates = 0
+	surplus_nullcrates = 30
 
 /datum/uplink_item/device_tools/frame
 	name = "F.R.A.M.E. PDA Cartridge"
@@ -2142,6 +2142,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			Warning: Do not consume more than one!"
 	item = /obj/item/reagent_containers/food/drinks/syndicatebeer
 	cost = 4
+	surplus_nullcrates = 40
 	illegal_tech = FALSE
 
 /datum/uplink_item/badass/syndiecash
@@ -2151,6 +2152,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			manufactured to pack a little bit more of a punch if your client needs some convincing."
 	item = /obj/item/storage/secure/briefcase/syndie
 	cost = 1
+	surplus_nullcrates = 10
 	restricted = TRUE
 
 /datum/uplink_item/badass/syndiecards
@@ -2167,4 +2169,5 @@ datum/uplink_item/role_restricted/superior_honkrender
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
+	surplus_nullcrates = 40
 	illegal_tech = FALSE
