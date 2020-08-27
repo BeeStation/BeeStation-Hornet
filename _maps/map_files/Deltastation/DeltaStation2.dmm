@@ -119409,6 +119409,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/escape)
+"eeZ" = (
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space)
 "efe" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -120916,10 +120919,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"gxs" = (
-/obj/structure/closet/secure_closet/miner/unlocked,
-/turf/closed/mineral,
-/area/asteroid)
 "gxy" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -121174,10 +121173,6 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
-"hiu" = (
-/obj/effect/baseturf_helper/asteroid/airless,
-/turf/open/floor/plating/asteroid,
-/area/asteroid)
 "hjv" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
@@ -121289,16 +121284,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
-"hDg" = (
-/obj/structure/table,
-/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
-	icon_state = "shadyjim"
-	},
-/obj/item/lighter/greyscale{
-	pixel_x = 8
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/asteroid)
 "hEv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -121564,6 +121549,9 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"iHH" = (
+/turf/closed/mineral,
+/area/ruin/space)
 "iJE" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -121662,10 +121650,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/fore)
-"jcG" = (
-/obj/structure/closet/secure_closet/miner/unlocked,
-/turf/open/floor/plasteel/cafeteria,
-/area/asteroid)
 "jdO" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -121846,6 +121830,14 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"jDY" = (
+/obj/effect/baseturf_helper/asteroid/airless,
+/turf/open/floor/plating/asteroid,
+/area/ruin/space)
+"jEF" = (
+/obj/structure/table,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space)
 "jIk" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -122802,6 +122794,10 @@
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
+"mXp" = (
+/obj/structure/closet/secure_closet/miner/unlocked,
+/turf/closed/mineral,
+/area/ruin/space)
 "mYV" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -122903,9 +122899,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
-"npi" = (
-/turf/open/floor/plasteel/cafeteria,
-/area/asteroid)
 "npR" = (
 /obj/structure/table,
 /obj/item/storage/secure/safe{
@@ -123347,6 +123340,9 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"pgk" = (
+/turf/open/floor/plating/asteroid,
+/area/ruin/space)
 "phI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -123361,9 +123357,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
-"pim" = (
-/turf/closed/wall/rust,
-/area/asteroid)
 "pjx" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -123459,6 +123452,9 @@
 	heat_capacity = 1e+006
 	},
 /area/vacant_room/commissary)
+"pAU" = (
+/turf/closed/wall/rust,
+/area/ruin/space)
 "pCE" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -123516,9 +123512,6 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
-"pHo" = (
-/turf/open/floor/plating/asteroid,
-/area/asteroid)
 "pNu" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
@@ -123649,10 +123642,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"quz" = (
-/obj/structure/table,
-/turf/open/floor/plasteel/cafeteria,
-/area/asteroid)
 "qvG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
@@ -123744,6 +123733,20 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"qIA" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/beer/light{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space)
 "qKq" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -123949,10 +123952,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
-"rGo" = (
-/obj/machinery/door/airlock/maintenance/external,
-/turf/open/floor/plating/asteroid,
-/area/asteroid)
 "rOf" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/effect/turf_decal/delivery,
@@ -123968,6 +123967,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"rSc" = (
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	icon_state = "shadyjim"
+	},
+/obj/item/lighter/greyscale{
+	pixel_x = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space)
 "rTl" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -124059,6 +124068,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
+"sdt" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space)
 "sfo" = (
 /obj/effect/decal/remains/xeno,
 /turf/open/floor/engine/vacuum,
@@ -124613,6 +124626,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
+"uuw" = (
+/obj/machinery/door/airlock/maintenance/external/glass,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space)
 "uwl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -124765,6 +124782,18 @@
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
+"uZR" = (
+/obj/effect/decal/remains/human,
+/obj/item/clothing/mask/cigarette/rollie{
+	desc = "Who knew this was your last puff?";
+	list_reagents = list(/datum/reagent/toxin/cyanide = 20);
+	name = "crumbled rollie";
+	pixel_x = 7;
+	pixel_y = -2
+	},
+/obj/item/pickaxe/mini,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space)
 "vgM" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -124887,6 +124916,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"vzd" = (
+/obj/machinery/door/airlock/maintenance/external,
+/turf/open/floor/plating/asteroid,
+/area/ruin/space)
 "vAb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -124973,10 +125006,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port/aft)
-"vWS" = (
-/obj/effect/spawner/structure/window/reinforced,
+"vZL" = (
+/obj/structure/closet/secure_closet/miner/unlocked,
 /turf/open/floor/plasteel/cafeteria,
-/area/asteroid)
+/area/ruin/space)
 "wbe" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -125062,10 +125095,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/maintenance/department/science)
-"wCS" = (
-/obj/machinery/door/airlock/maintenance/external/glass,
-/turf/open/floor/plasteel/cafeteria,
-/area/asteroid)
 "wEB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/electrical,
@@ -125131,20 +125160,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/maintenance/port)
-"wSy" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/beer/light{
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
-	pixel_x = 8
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
-	pixel_x = -6;
-	pixel_y = 3
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/asteroid)
 "wTa" = (
 /obj/machinery/computer/nanite_cloud_controller,
 /obj/effect/turf_decal/bot,
@@ -125246,18 +125261,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"xmp" = (
-/obj/effect/decal/remains/human,
-/obj/item/clothing/mask/cigarette/rollie{
-	desc = "Who knew this was your last puff?";
-	list_reagents = list(/datum/reagent/toxin/cyanide = 10);
-	name = "crumbled rollie";
-	pixel_x = 7;
-	pixel_y = -2
-	},
-/obj/item/pickaxe/mini,
-/turf/open/floor/plasteel/cafeteria,
-/area/asteroid)
 "xmt" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
@@ -125320,9 +125323,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
-"xHp" = (
-/turf/closed/mineral,
-/area/asteroid)
 "xHS" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -129618,8 +129618,8 @@ aaa
 aaa
 aaa
 aaa
-hiu
-pHo
+jDY
+pgk
 aaa
 aaa
 aaa
@@ -129874,9 +129874,9 @@ aaa
 aaa
 aaa
 aaa
-gxs
-xHp
-pHo
+mXp
+iHH
+pgk
 aaa
 aaa
 aaa
@@ -130130,11 +130130,11 @@ aaa
 aaa
 aaa
 aaa
-xHp
-xHp
-xHp
-xHp
-xHp
+iHH
+iHH
+iHH
+iHH
+iHH
 aaa
 aaa
 aaa
@@ -130386,13 +130386,13 @@ aaa
 aaa
 aaa
 aaa
-pim
-rGo
-pim
-pim
-pim
-pim
-pim
+pAU
+vzd
+pAU
+pAU
+pAU
+pAU
+pAU
 aaa
 aaa
 aaa
@@ -130643,13 +130643,13 @@ aaa
 aaa
 aaa
 aaa
-pim
-npi
-npi
-wCS
-npi
-quz
-vWS
+pAU
+eeZ
+eeZ
+uuw
+eeZ
+jEF
+sdt
 aaa
 aaa
 aaa
@@ -130899,14 +130899,14 @@ aaa
 aaa
 aaa
 aaa
-pHo
-pHo
-pHo
-npi
-pim
-xmp
-hDg
-vWS
+pgk
+pgk
+pgk
+eeZ
+pAU
+uZR
+rSc
+sdt
 aaa
 aaa
 aaa
@@ -131156,14 +131156,14 @@ aaa
 aaa
 aaa
 aaa
-pHo
-pHo
-pHo
-pHo
-pim
-jcG
-wSy
-vWS
+pgk
+pgk
+pgk
+pgk
+pAU
+vZL
+qIA
+sdt
 aaa
 aaa
 aaa
@@ -131414,13 +131414,13 @@ aaa
 aaa
 aaa
 aaa
-pHo
-pHo
-pHo
-pim
-pim
-pim
-pim
+pgk
+pgk
+pgk
+pAU
+pAU
+pAU
+pAU
 aaa
 aaa
 aaa
@@ -131672,11 +131672,11 @@ aaa
 aaa
 aaa
 aaa
-pHo
-xHp
-xHp
-xHp
-xHp
+pgk
+iHH
+iHH
+iHH
+iHH
 aaa
 aaa
 aaa
@@ -131930,9 +131930,9 @@ aaa
 aaa
 aaa
 aaa
-xHp
-xHp
-xHp
+iHH
+iHH
+iHH
 aaa
 aaa
 aaa
