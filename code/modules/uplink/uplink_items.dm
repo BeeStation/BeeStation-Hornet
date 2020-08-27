@@ -1802,6 +1802,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/pneumatic_cannon/pie/selfcharge
 	restricted_roles = list("Clown")
 	surplus = 0 //No fun unless you're the clown!
+	surplus_nullcrates = 5 // or lucky!
 
 /datum/uplink_item/role_restricted/blastcannon
 	name = "Blast Cannon"
@@ -1895,6 +1896,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 			Premium features can be unlocked with a cryptographic sequencer!"
 	item = /obj/vehicle/sealed/car/clowncar
 	cost = 20
+	surplus_nullcrates = 5 // lucky honk
 	restricted_roles = list("Clown")
 	exclude_modes = list(/datum/game_mode/incursion)
 
@@ -1949,13 +1951,14 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/his_grace
 	cost = 20
 	restricted_roles = list("Chaplain")
-	surplus = 5 //Very low chance to get it in a surplus crate even without being the chaplain
+	// surplus chance was a leftover from TG
 
 /datum/uplink_item/role_restricted/cultconstructkit
 	name = "Cult Construct Kit"
 	desc = "Recovered from an abandoned Nar'sie cult lair two construct shells and a stash of empty soulstones was found. These were purified to prevent occult contamination and have been put in a belt so they may be used as an accessible source of disposable minions. The construct shells have been packaged into two beacons for rapid and portable deployment."
 	item = /obj/item/storage/box/syndie_kit/cultconstructkit
 	cost = 20
+	surplus_nullcrates = 5
 	restricted_roles = list("Chaplain")
 
 /datum/uplink_item/role_restricted/spanish_flu
@@ -2142,7 +2145,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			Warning: Do not consume more than one!"
 	item = /obj/item/reagent_containers/food/drinks/syndicatebeer
 	cost = 4
-	surplus_nullcrates = 40
+	surplus_nullcrates = 40 // made the same value as syndiecards as a nerf
 	illegal_tech = FALSE
 
 /datum/uplink_item/badass/syndiecash
@@ -2162,12 +2165,12 @@ datum/uplink_item/role_restricted/superior_honkrender
 			You can also play card games with them or leave them on your victims."
 	item = /obj/item/toy/cards/deck/syndicate
 	cost = 1
-	surplus = 40
+	surplus = 40 // made the same value as syndiecards as a nerf
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
-	surplus_nullcrates = 40
+	surplus_nullcrates = 40 // made the same value as syndiecards as a nerf
 	illegal_tech = FALSE
