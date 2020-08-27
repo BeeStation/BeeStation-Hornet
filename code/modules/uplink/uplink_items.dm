@@ -413,7 +413,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	item = /obj/item/pneumatic_cannon/pie/selfcharge
 	surplus = 0
-    surplus_nullcrates = 1 // the honkmother blessed you with luck.
 	include_modes = list(/datum/game_mode/nuclear/clown_ops)
 
 /datum/uplink_item/dangerous/bananashield
@@ -1195,6 +1194,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	refundable = TRUE
 	cost = 64
+    surplus_nullcrates = 1 
 	restricted = TRUE
 
 /datum/uplink_item/support/reinforcement/medical_borg
@@ -1205,6 +1205,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	refundable = TRUE
 	cost = 32
+    surplus_nullcrates = 1
 	restricted = TRUE
 
 /datum/uplink_item/support/reinforcement/saboteur_borg
@@ -1215,6 +1216,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	refundable = TRUE
 	cost = 32
+    surplus_nullcrates = 1
 	restricted = TRUE
 
 /datum/uplink_item/support/gygax
@@ -1802,7 +1804,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	cost = 11
 	item = /obj/item/pneumatic_cannon/pie/selfcharge
 	restricted_roles = list("Clown")
-	surplus = 0 //No fun unless you're the clown!
+	surplus = 5 //No fun unless you're the clown or just plain lucky.
 
 /datum/uplink_item/role_restricted/blastcannon
 	name = "Blast Cannon"
@@ -1896,6 +1898,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 			Premium features can be unlocked with a cryptographic sequencer!"
 	item = /obj/vehicle/sealed/car/clowncar
 	cost = 20
+    surplus_nullcrates = 5 // i mean you can get it discounted as non clowns.
 	restricted_roles = list("Clown")
 	exclude_modes = list(/datum/game_mode/incursion)
 
@@ -1957,6 +1960,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	desc = "Recovered from an abandoned Nar'sie cult lair two construct shells and a stash of empty soulstones was found. These were purified to prevent occult contamination and have been put in a belt so they may be used as an accessible source of disposable minions. The construct shells have been packaged into two beacons for rapid and portable deployment."
 	item = /obj/item/storage/box/syndie_kit/cultconstructkit
 	cost = 20
+    surplus_nullcrates = 5 // enslave your victims or make a neat cult base.
 	restricted_roles = list("Chaplain")
 
 /datum/uplink_item/role_restricted/spanish_flu
