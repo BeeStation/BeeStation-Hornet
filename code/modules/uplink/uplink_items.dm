@@ -2152,7 +2152,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			manufactured to pack a little bit more of a punch if your client needs some convincing."
 	item = /obj/item/storage/secure/briefcase/syndie
 	cost = 1
-    surplus_nullcrates = 1 // now you can self fund your null cate addiction
+    surplus_nullcrates = 69 // now you can self fund your null cate addiction
 	restricted = TRUE
 
 /datum/uplink_item/badass/syndiecards
