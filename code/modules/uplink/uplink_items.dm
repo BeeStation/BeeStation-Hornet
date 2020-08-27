@@ -1949,8 +1949,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	To activate His Grace, simply unlatch Him."
 	item = /obj/item/his_grace
 	cost = 20
-	restricted_roles = list("Chaplain")
-	surplus = 5 //If you get this then i hope you don't die to it.
+	restricted_roles = list("Chaplain"}
 
 /datum/uplink_item/role_restricted/cultconstructkit
 	name = "Cult Construct Kit"
