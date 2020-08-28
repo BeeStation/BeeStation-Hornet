@@ -150,7 +150,6 @@
 		assigned += picked_candidate.mind
 		picked_candidate.mind.restricted_roles = restricted_roles
 		picked_candidate.mind.special_role = ROLE_HERETIC
-		GLOB.pre_setup_antags += picked_candidate.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/heretics/execute()
@@ -159,7 +158,6 @@
 		var/datum/mind/cultie = c
 		var/datum/antagonist/heretic/new_antag = new antag_datum()
 		cultie.add_antag_datum(new_antag)
-		GLOB.pre_setup_antags -= cultie
 
 	return TRUE
 
