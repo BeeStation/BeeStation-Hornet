@@ -84,7 +84,6 @@ export const CameraConsole = (props, context) => {
           className="CameraConsole__map"
           params={{
             id: mapRef,
-            parent: config.window,
             type: 'map',
           }} />
       </div>
