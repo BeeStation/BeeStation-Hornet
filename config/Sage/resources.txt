@@ -3,7 +3,7 @@
 # If you set this mutiple times, the server will rotate between the links.
 # To use this, the compile option PRELOAD_RSC must be set to 0 to keep byond from preloading resources
 
-EXTERNAL_RSC_URLS https://rsc.beestation13.com/beestation13.zip
+EXTERNAL_RSC_URLS https://rsc.beestation13.com/beestation.zip
 
 
 ########################
