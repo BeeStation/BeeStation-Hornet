@@ -1802,6 +1802,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/pneumatic_cannon/pie/selfcharge
 	restricted_roles = list("Clown")
 	surplus = 0 //No fun unless you're the clown!
+	surplus_nullcrates = 5 // Or you're lucky
 
 /datum/uplink_item/role_restricted/blastcannon
 	name = "Blast Cannon"
@@ -1895,6 +1896,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 			Premium features can be unlocked with a cryptographic sequencer!"
 	item = /obj/vehicle/sealed/car/clowncar
 	cost = 20
+	surplus_nullcrates = 5
 	restricted_roles = list("Clown")
 	exclude_modes = list(/datum/game_mode/incursion)
 
@@ -2142,7 +2144,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			Warning: Do not consume more than one!"
 	item = /obj/item/reagent_containers/food/drinks/syndicatebeer
 	cost = 4
-	surplus_nullcrates = 40
+	surplus_nullcrates = 40 // brought inline with syndiecards
 	illegal_tech = FALSE
 
 /datum/uplink_item/badass/syndiecash
@@ -2169,5 +2171,5 @@ datum/uplink_item/role_restricted/superior_honkrender
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
-	surplus_nullcrates = 40
+	surplus_nullcrates = 40 // brought inline with syndiecards
 	illegal_tech = FALSE
