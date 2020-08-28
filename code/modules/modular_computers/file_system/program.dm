@@ -138,7 +138,10 @@
 		generate_network_log("Connection to [network_destination] closed.")
 	return 1
 
-
+/datum/computer_file/program/ui_assets(mob/user)
+	return list(
+		/datum/asset/simple/headers,
+	)
 
 /datum/computer_file/program/ui_state(mob/user)
 	return GLOB.default_state
@@ -150,8 +153,6 @@
 
 		ui.set_autoupdate(TRUE)
 		ui.open()
-		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
-		assets.send(user)
 
 // CONVENTIONS, READ THIS WHEN CREATING NEW PROGRAM AND OVERRIDING THIS PROC:
 // Topic calls are automagically forwarded from NanoModule this program contains.

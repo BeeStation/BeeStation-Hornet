@@ -267,9 +267,6 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 /obj/item/pipe_dispenser/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/pipes)
-		assets.send(user)
-
 		ui = new(user, src, "RapidPipeDispenser")
 		ui.open()
 

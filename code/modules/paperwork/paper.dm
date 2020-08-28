@@ -316,8 +316,6 @@
 	ui_key = "main-[REF(user)]"
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/simple/paper)
-		assets.send(user)
 		// The x size is because we double the width for the editor
 		ui = new(user, src, ui_key, "PaperSheet", name, ui_x, ui_y, master_ui, state)
 		ui.set_autoupdate(FALSE)

@@ -7,6 +7,12 @@
 /obj/item/modular_computer/ui_state(mob/user)
 	return GLOB.default_state
 
+/obj/item/modular_computer/ui_assets(mob/user)
+	return list(
+		/datum/asset/simple/headers,
+		/datum/asset/simple/arcade,
+	)
+
 /obj/item/modular_computer/ui_interact(mob/user, datum/tgui/ui)
 	if(!enabled)
 		if(ui)
@@ -41,10 +47,6 @@
 	if (!ui)
 		ui = new(user, src, "NtosMain")
 		ui.open()
-		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
-		assets.send(user)
-		assets = get_asset_datum(/datum/asset/simple/arcade)
-		assets.send(user)
 		ui.set_autoupdate(TRUE)
 
 /obj/item/modular_computer/ui_data(mob/user)

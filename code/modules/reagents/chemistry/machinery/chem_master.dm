@@ -146,9 +146,6 @@
 /obj/machinery/chem_master/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
-		assets.send(user)
-
 		ui = new(user, src, "ChemMaster")
 		ui.open()
 

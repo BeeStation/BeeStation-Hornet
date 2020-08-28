@@ -116,14 +116,16 @@
 	else
 		. += "<span class='notice'>JOKER algorithm available in about [round(0.00166666667 * (jokerready - world.time))] minutes.</span>"
 
+/obj/machinery/computer/scan_consolenew/ui_assets(mob/user)
+	return list(
+		/datum/asset/simple/genetics,
+	)
+
 /obj/machinery/computer/scan_consolenew/ui_interact(mob/user, last_change)
 	. = ..()
 	if(!user)
 		return
 	var/datum/browser/popup = new(user, "scannernew", "DNA Modifier Console", 800, 630) // Set up the popup browser window
-	if(user.client)
-		var/datum/asset/simple/assets =  get_asset_datum(/datum/asset/simple/genetics)
-		assets.send(user.client)
 	if(!(in_range(src, user) || issilicon(user)))
 		popup.close()
 		return
