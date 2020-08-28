@@ -163,12 +163,6 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	dangerous = TRUE
 	rarity = 700
 
-/datum/gas/unobtanium //You can delete if you want I left for old times sake.
-	id = "unobtanium"
-	specific_heat = 20
-	name = "Unobtanium"
-	rarity = 2500
-
 /obj/effect/overlay/gas
 	icon = 'icons/effects/atmospherics.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
