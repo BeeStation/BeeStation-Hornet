@@ -100,7 +100,7 @@
 
 
 	burned_fuel = max(0,0.00002*(temperature-(0.00001*(temperature**2))))*air.get_moles(/datum/gas/nitrous_oxide)
-	air.set_moles(/datum/gas/nitrous_oxide, air.get_moles(/datum/gas/nitrous_oxide) - burned_fuel)
+	air.adjust_moles(/datum/gas/nitrous_oxide, -burned_fuel)
 
 	if(burned_fuel)
 		energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)
@@ -172,6 +172,106 @@
 			location.temperature_expose(air, temperature, CELL_VOLUME)
 
 	return cached_results["fire"] ? REACTING : NO_REACTION
+
+// hydrogen combustion
+/datum/gas_reaction/h2fire
+	priority = -3 //fire should ALWAYS be last, but tritium fires happen before plasma fires
+	name = "Hydrogen Combustion"
+	id = "h2fire"
+
+/datum/gas_reaction/h2fire/init_reqs()
+	min_requirements = list(
+		"TEMP" = FIRE_MINIMUM_TEMPERATURE_TO_EXIST,
+		/datum/gas/hydrogen = MINIMUM_MOLE_COUNT,
+		/datum/gas/oxygen = MINIMUM_MOLE_COUNT
+	)
+
+/datum/gas_reaction/h2fire/react(datum/gas_mixture/air, datum/holder)
+	var/energy_released = 0
+	var/old_heat_capacity = air.heat_capacity()
+	var/temperature = air.return_temperature()
+	var/list/cached_results = air.reaction_results
+	cached_results["fire"] = 0
+	var/turf/open/location = isturf(holder) ? holder : null
+	//Handle hydrogen burning
+	var/hydrogen_burn_rate = 0
+	var/oxygen_burn_rate = 0
+	//more hydrogen released at higher temperatures
+	var/temperature_scale = 0
+
+	if(temperature > HYDROGEN_UPPER_TEMPERATURE)
+		temperature_scale = 1
+	else
+		temperature_scale = (temperature-HYDROGEN_MINIMUM_BURN_TEMPERATURE)/(HYDROGEN_UPPER_TEMPERATURE-HYDROGEN_MINIMUM_BURN_TEMPERATURE)
+	if(temperature_scale > 0)
+		oxygen_burn_rate = OXYGEN_BURN_RATE_BASE - temperature_scale
+		if(air.get_moles(/datum/gas/oxygen) > air.get_moles(/datum/gas/hydrogen)*HYDROGEN_OXYGEN_FULLBURN)
+			hydrogen_burn_rate = (air.get_moles(/datum/gas/hydrogen)*temperature_scale)/HYDROGEN_BURN_RATE_DELTA
+		else
+			hydrogen_burn_rate = (temperature_scale*(air.get_moles(/datum/gas/oxygen)/HYDROGEN_OXYGEN_FULLBURN))/HYDROGEN_BURN_RATE_DELTA
+
+		if(hydrogen_burn_rate > MINIMUM_HEAT_CAPACITY)
+			hydrogen_burn_rate = min(hydrogen_burn_rate,air.get_moles(/datum/gas/hydrogen),air.get_moles(/datum/gas/oxygen)/oxygen_burn_rate) //Ensures matter is conserved properly
+
+			air.set_moles(/datum/gas/hydrogen, QUANTIZE(air.get_moles(/datum/gas/hydrogen) - hydrogen_burn_rate))
+			air.set_moles(/datum/gas/oxygen, QUANTIZE(air.get_moles(/datum/gas/oxygen) - (hydrogen_burn_rate * oxygen_burn_rate)))
+		else
+			hydrogen_burn_rate = air.get_moles(/datum/gas/hydrogen)*HYDROGEN_BURN_H2_FACTOR
+			air.set_moles(/datum/gas/hydrogen, QUANTIZE(air.get_moles(/datum/gas/hydrogen) - (air.get_moles(/datum/gas/hydrogen) / HYDROGEN_BURN_H2_FACTOR)))
+			air.set_moles(/datum/gas/oxygen, QUANTIZE(air.get_moles(/datum/gas/oxygen) - air.get_moles(/datum/gas/hydrogen)))
+
+		if(hydrogen_burn_rate > 0)
+			energy_released += (FIRE_HYDROGEN_ENERGY_RELEASED * hydrogen_burn_rate)
+			air.adjust_moles(/datum/gas/water_vapor, hydrogen_burn_rate)
+			cached_results["fire"] += (hydrogen_burn_rate)*(1+oxygen_burn_rate)
+
+	if(energy_released > 0)
+		var/new_heat_capacity = air.heat_capacity()
+		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+			air.set_temperature((temperature*old_heat_capacity + energy_released)/new_heat_capacity)
+
+	//let the floor know a fire is happening
+	if(istype(location))
+		temperature = air.return_temperature()
+		if(temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+			location.hotspot_expose(temperature, CELL_VOLUME)
+			for(var/I in location)
+				var/atom/movable/item = I
+				item.temperature_expose(air, temperature, CELL_VOLUME)
+			location.temperature_expose(air, temperature, CELL_VOLUME)
+
+	return cached_results["fire"] ? REACTING : NO_REACTION
+
+
+/datum/gas_reaction/ammoniacrystals
+	priority = 8
+	name = "Ammonia crystals formation"
+	id = "nh4crystals"
+
+/datum/gas_reaction/ammoniacrystals/init_reqs()
+	min_requirements = list(
+		/datum/gas/hydrogen = MINIMUM_MOLE_COUNT,
+		/datum/gas/nitrogen = MINIMUM_MOLE_COUNT
+	)
+
+/datum/gas_reaction/ammoniacrystals/react(datum/gas_mixture/air, datum/holder)
+	var/energy_released = 0
+	var/old_heat_capacity = air.heat_capacity()
+	var/temperature = air.return_temperature()
+	var/turf/open/location = isturf(holder) ? holder : null
+	var/consumed_fuel = 0
+	if(temperature > 150 && temperature < T0C && air.get_moles(/datum/gas/nitrogen) > air.get_moles(/datum/gas/hydrogen))
+		consumed_fuel = (air.get_moles(/datum/gas/hydrogen) / AMMONIA_FORMATION_FACTOR)
+		air.adjust_moles(/datum/gas/nitrogen, -consumed_fuel)
+		air.adjust_moles(/datum/gas/hydrogen, -(consumed_fuel * 4))
+		if(prob(30 * consumed_fuel))
+			new /obj/item/stack/ammonia_crystals(location)
+		energy_released += consumed_fuel * AMMONIA_FORMATION_ENERGY
+
+	if(energy_released > 0)
+		var/new_heat_capacity = air.heat_capacity()
+		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+			air.set_temperature((temperature*old_heat_capacity + energy_released)/new_heat_capacity)
 
 //plasma combustion: combustion of oxygen and plasma (treated as hydrocarbons). creates hotspots. exothermic
 /datum/gas_reaction/plasmafire
@@ -260,7 +360,7 @@
 		"TEMP" = FUSION_TEMPERATURE_THRESHOLD,
 		/datum/gas/tritium = FUSION_TRITIUM_MOLES_USED,
 		/datum/gas/plasma = FUSION_MOLE_THRESHOLD,
-		/datum/gas/carbon_dioxide = FUSION_MOLE_THRESHOLD)
+		/datum/gas/hydrogen = FUSION_MOLE_THRESHOLD)
 
 /datum/gas_reaction/fusion/react(datum/gas_mixture/air, datum/holder)
 	var/turf/open/location
@@ -275,7 +375,7 @@
 	var/old_heat_capacity = air.heat_capacity()
 	var/reaction_energy = 0 //Reaction energy can be negative or positive, for both exothermic and endothermic reactions.
 	var/initial_plasma = air.get_moles(/datum/gas/plasma)
-	var/initial_carbon = air.get_moles(/datum/gas/carbon_dioxide)
+	var/initial_hydrogen = air.get_moles(/datum/gas/hydrogen)
 	var/scale_factor = (air.return_volume())/(PI) //We scale it down by volume/Pi because for fusion conditions, moles roughly = 2*volume, but we want it to be based off something constant between reactions.
 	var/toroidal_size = (2*PI)+TORADIANS(arctan((air.return_volume()-TOROID_VOLUME_BREAKEVEN)/TOROID_VOLUME_BREAKEVEN)) //The size of the phase space hypertorus
 	var/gas_power = 0
@@ -284,16 +384,16 @@
 	var/instability = MODULUS((gas_power*INSTABILITY_GAS_POWER_FACTOR)**2,toroidal_size) //Instability effects how chaotic the behavior of the reaction is
 	cached_scan_results[id] = instability//used for analyzer feedback
 
-	var/plasma = (initial_plasma-FUSION_MOLE_THRESHOLD)/(scale_factor) //We have to scale the amounts of carbon and plasma down a significant amount in order to show the chaotic dynamics we want
-	var/carbon = (initial_carbon-FUSION_MOLE_THRESHOLD)/(scale_factor) //We also subtract out the threshold amount to make it harder for fusion to burn itself out.
+	var/plasma = (initial_plasma-FUSION_MOLE_THRESHOLD)/(scale_factor) //We have to scale the amounts of hydrogen and plasma down a significant amount in order to show the chaotic dynamics we want
+	var/hydrogen = (initial_hydrogen-FUSION_MOLE_THRESHOLD)/(scale_factor) //We also subtract out the threshold amount to make it harder for fusion to burn itself out.
 
 	//The reaction is a specific form of the Kicked Rotator system, which displays chaotic behavior and can be used to model particle interactions.
-	plasma = MODULUS(plasma - (instability*sin(TODEGREES(carbon))), toroidal_size)
-	carbon = MODULUS(carbon - plasma, toroidal_size)
+	plasma = MODULUS(plasma - (instability*sin(TODEGREES(hydrogen))), toroidal_size)
+	hydrogen = MODULUS(hydrogen - plasma, toroidal_size)
 
 
 	air.set_moles(/datum/gas/plasma, plasma*scale_factor + FUSION_MOLE_THRESHOLD )//Scales the gases back up
-	air.set_moles(/datum/gas/carbon_dioxide, carbon*scale_factor + FUSION_MOLE_THRESHOLD)
+	air.set_moles(/datum/gas/hydrogen, hydrogen*scale_factor + FUSION_MOLE_THRESHOLD)
 	var/delta_plasma = initial_plasma - air.get_moles(/datum/gas/plasma)
 
 	reaction_energy += delta_plasma*PLASMA_BINDING_ENERGY //Energy is gained or lost corresponding to the creation or destruction of mass.
@@ -304,7 +404,7 @@
 
 	if(air.thermal_energy() + reaction_energy < 0) //No using energy that doesn't exist.
 		air.set_moles(/datum/gas/plasma, initial_plasma)
-		air.set_moles(/datum/gas/carbon_dioxide, initial_carbon)
+		air.set_moles(/datum/gas/hydrogen, initial_hydrogen)
 		return NO_REACTION
 	air.adjust_moles(/datum/gas/tritium, -FUSION_TRITIUM_MOLES_USED)
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
@@ -327,6 +427,45 @@
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 			air.set_temperature(CLAMP(((air.return_temperature()*old_heat_capacity + reaction_energy)/new_heat_capacity),TCMB,INFINITY))
 		return REACTING
+
+datum/gas_reaction/metalhydrogen
+	priority = 9
+	name = "Metal Hydrogen formation"
+	id = "metalhydrogen"
+
+/datum/gas_reaction/metalhydrogen/init_reqs()
+	min_requirements = list(
+		/datum/gas/hydrogen = 100,
+		/datum/gas/bz		= 5,
+		"TEMP" = METAL_HYDROGEN_MINIMUM_HEAT
+		)
+
+
+/datum/gas_reaction/metalhydrogen/react(datum/gas_mixture/air, datum/holder)
+	var/temperature = air.return_temperature()
+	var/old_heat_capacity = air.heat_capacity()
+	///the more heat you use the higher is this factor
+	var/increase_factor = min((temperature / METAL_HYDROGEN_MINIMUM_HEAT), 5)
+	///the more moles you use and the higher the heat, the higher is the efficiency
+	var/heat_efficency = air.get_moles(/datum/gas/hydrogen) * 0.01 * increase_factor
+	var/pressure = air.return_pressure()
+	var/reaction_energy = heat_efficency * METAL_HYDROGEN_FORMATION_ENERGY
+	var/turf/open/location = isturf(holder) ? holder : null
+
+	if(pressure >= METAL_HYDROGEN_MINIMUM_PRESSURE && temperature >= METAL_HYDROGEN_MINIMUM_HEAT)
+		air.adjust_moles(/datum/gas/bz,  -(heat_efficency * 0.01))
+		if (prob(20 * increase_factor))
+			air.adjust_moles(/datum/gas/hydrogen, -(heat_efficency * 10))
+			if (prob(50 / increase_factor))
+				new /obj/item/stack/sheet/mineral/metal_hydrogen(location)
+				SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min((heat_efficency * increase_factor), METAL_HYDROGEN_RESEARCH_MAX_AMOUNT))
+
+	if(reaction_energy > 0)
+		var/new_heat_capacity = air.heat_capacity()
+		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+			air.set_temperature(CLAMP(((air.return_temperature()*old_heat_capacity + reaction_energy)/new_heat_capacity),TCMB,INFINITY))
+		return REACTING
+
 
 /datum/gas_reaction/nitrylformation //The formation of nitryl. Endothermic. Requires N2O as a catalyst.
 	priority = 3

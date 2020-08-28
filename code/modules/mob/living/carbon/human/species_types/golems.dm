@@ -178,6 +178,25 @@
 /datum/species/golem/silver/on_species_loss(mob/living/carbon/C)
 	REMOVE_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
 	..()
+
+/datum/species/golem/mhydrogen
+	name = "Metallic Hydrogen Golem"
+	id = "Metallic Hydrogen golem"
+	fixed_mut_color = "ddd"
+	meat = /obj/item/stack/sheet/mineral/metal_hydrogen
+	info_text = "As a <span class='danger'>Metallic Hydrogen Golem</span>, you were forged in the greatest pressures and heat. Your unique mineral makeup makes you immune to most types of damages."
+	prefix = "Metallic Hydrogen"
+	special_names = null
+	inherent_traits = list(TRAIT_RESISTHEAT,TRAIT_NOBREATH,TRAIT_RESISTHIGHPRESSURE,TRAIT_NOFIRE,TRAIT_RADIMMUNE,TRAIT_NODISMEMBER)
+
+/datum/species/golem/mhydrogen/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+	. = ..()
+	ADD_TRAIT(C, TRAIT_ANTIMAGIC, SPECIES_TRAIT)
+
+/datum/species/golem/mhydrogen/on_species_loss(mob/living/carbon/C)
+	REMOVE_TRAIT(C, TRAIT_ANTIMAGIC, SPECIES_TRAIT)
+	return ..()
+
 // Softer and faster, but conductive
 /datum/species/golem/copper
 	name = "Copper Golem"

@@ -15,11 +15,29 @@
 #define N2O_DECOMPOSITION_ENERGY_RELEASED	200000
 
 #define NITRYL_FORMATION_ENERGY				100000
+
+//Tritium Reactions
 #define TRITIUM_BURN_OXY_FACTOR				100
 #define TRITIUM_BURN_TRIT_FACTOR			10
 #define TRITIUM_BURN_RADIOACTIVITY_FACTOR	50000 	//! The neutrons gotta go somewhere. Completely arbitrary number.
 #define TRITIUM_MINIMUM_RADIATION_ENERGY	0.1  	//! minimum 0.01 moles trit or 10 moles oxygen to start producing rads
 #define MINIMUM_TRIT_OXYBURN_ENERGY 		2000000	//! This is calculated to help prevent singlecap bombs(Overpowered tritium/oxygen single tank bombs)
+
+//Hydrogen Reaction
+#define HYDROGEN_BURN_RATE_DELTA			14 //hydrogen burns incredibly fast irl
+#define HYDROGEN_BURN_OXY_FACTOR			10
+#define HYDROGEN_BURN_H2_FACTOR				20
+#define MINIMUM_H2_OXYBURN_ENERGY			2000000
+
+//Ammonia Reaction
+#define AMMONIA_FORMATION_FACTOR			250
+#define AMMONIA_FORMATION_ENERGY			1000
+
+//Metallic Hydrogen
+#define METAL_HYDROGEN_MINIMUM_HEAT			1e7
+#define METAL_HYDROGEN_MINIMUM_PRESSURE		1e7
+#define METAL_HYDROGEN_FORMATION_ENERGY		20000000
+
 #define SUPER_SATURATION_THRESHOLD			96
 #define STIMULUM_HEAT_SCALE					100000
 #define STIMULUM_FIRST_RISE					0.65
@@ -31,6 +49,7 @@
 #define STIM_BALL_GAS_AMOUNT				5
 //Research point amounts
 #define NOBLIUM_RESEARCH_AMOUNT				1000
+#define METAL_HYDROGEN_RESEARCH_MAX_AMOUNT	3000
 #define BZ_RESEARCH_SCALE					4
 #define BZ_RESEARCH_MAX_AMOUNT				400
 #define MIASMA_RESEARCH_AMOUNT				40

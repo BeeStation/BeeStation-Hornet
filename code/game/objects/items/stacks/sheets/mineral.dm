@@ -434,6 +434,33 @@ GLOBAL_LIST_INIT(abductor_recipes, list ( \
 	recipes = GLOB.abductor_recipes
 	. = ..()
 
+//Metallic Hydrogen
+GLOBAL_LIST_INIT(metalhydrogen_recipes, list(
+	new /datum/stack_recipe("incomplete servant golem shell", /obj/item/golem_shell/servant, req_amount=20, res_amount=1),
+	))
+
+/obj/item/stack/sheet/mineral/metal_hydrogen
+	name = "metallic hydrogen"
+	icon_state = "sheet-metalhydrogen"
+	item_state = "sheet-metalhydrogen"
+	singular_name = "metallic hydrogen sheet"
+	w_class = WEIGHT_CLASS_NORMAL
+	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF | INDESTRUCTIBLE
+	point_value = 100
+	custom_materials = list(/datum/material/metalhydrogen=MINERAL_MATERIAL_AMOUNT)
+	merge_type = /obj/item/stack/sheet/mineral/metal_hydrogen
+
+/obj/item/stack/sheet/mineral/metal_hydrogen/Initialize(mapload, new_amount, merge = TRUE)
+	recipes = GLOB.metalhydrogen_recipes
+	. = ..()
+
+/obj/item/stack/sheet/mineral/metal_hydrogen/thirty
+	amount = 30
+
+/obj/item/stack/sheet/mineral/metal_hydrogen/fifty
+	amount = 50
+
+
 /*
  * Coal
  */

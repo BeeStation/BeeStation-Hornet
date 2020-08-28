@@ -162,6 +162,13 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	name = "Unobtanium"
 	rarity = 2500
 
+/datum/gas/hydrogen
+	id = "hydrogen"
+	specific_heat = 15
+	name = "Hydrogen"
+	dangerous = TRUE
+	rarity = 700
+
 /obj/effect/overlay/gas
 	icon = 'icons/effects/atmospherics.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

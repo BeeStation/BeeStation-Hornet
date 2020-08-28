@@ -51,6 +51,7 @@
 		"hyper-noblium" = /obj/machinery/portable_atmospherics/canister/nob,
 		"stimulum" = /obj/machinery/portable_atmospherics/canister/stimulum,
 		"pluoxium" = /obj/machinery/portable_atmospherics/canister/pluoxium,
+		"hydrogen" = /obj/machinery/portable_atmospherics/canister/hydrogen,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 		"miasma" = /obj/machinery/portable_atmospherics/canister/miasma
 	)
@@ -132,6 +133,13 @@
 	desc = "Pluoxium. Like oxygen, but more bang for your buck."
 	icon_state = "darkblue"
 	gas_type = /datum/gas/pluoxium
+
+/obj/machinery/portable_atmospherics/canister/hydrogen
+	name = "hydrogen canister"
+	desc = "Hydrogen. highly flammable and can't be seen."
+	icon_state = "greycaution"
+	gas_type = /datum/gas/hydrogen
+	filled = 1
 
 /obj/machinery/portable_atmospherics/canister/water_vapor
 	name = "water vapor canister"

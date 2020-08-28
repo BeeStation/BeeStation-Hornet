@@ -106,3 +106,8 @@
 	message = "of adamantine"
 	export_types = list(/obj/item/stack/sheet/mineral/adamantine)
 
+/datum/export/stack/ammonia_crystals
+	cost = 25
+	unit_name = "of ammonia crystal"
+	export_types = list(/obj/item/stack/ammonia_crystals)
+

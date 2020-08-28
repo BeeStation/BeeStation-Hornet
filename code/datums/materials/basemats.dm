@@ -91,6 +91,16 @@
 	source.RemoveElement(/datum/element/firestacker, 1)
 	qdel(source.GetComponent(/datum/component/explodable))
 
+/datum/material/metalhydrogen
+	name = "Metal Hydrogen"
+	id = "metal hydrogen"
+	desc = "Solid metallic hydrogen. Some say it should be impossible"
+	color = "#f2d5d7"
+	alpha = 150
+	categories = list(MAT_CATEGORY_RIGID = TRUE)
+	sheet_type = /obj/item/stack/sheet/mineral/metal_hydrogen
+	strength_modifier = 1.2
+
 ///Can cause bluespace effects on use. (Teleportation) (Not yet implemented)
 /datum/material/bluespace
 	name = "bluespace crystal"

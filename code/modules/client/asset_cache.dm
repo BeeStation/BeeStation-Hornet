@@ -392,7 +392,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/simple/tgui
 	assets = list(
 		"tgui.bundle.js" = 'tgui/packages/tgui/public/tgui.bundle.js',
-		"tgui.bundle.css" = 'tgui/packages/tgui/public/tgui.bundle.css',
+		"tgui.bundle.css" = 'tgui/packages/tgui/public/tgui.bundle.css'
 	)
 
 /datum/asset/group/tgui
