@@ -39,12 +39,12 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
+		ui = new(user, src, "NtosMain")
+		ui.open()
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)
 		assets = get_asset_datum(/datum/asset/simple/arcade)
 		assets.send(user)
-		ui = new(user, src, "NtosMain")
-		ui.open()
 		ui.set_autoupdate(TRUE)
 
 /obj/item/modular_computer/ui_data(mob/user)

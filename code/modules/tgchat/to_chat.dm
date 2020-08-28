@@ -13,8 +13,7 @@
 		avoid_highlighting = FALSE,
 		// FIXME: These flags are now pointless and have no effect
 		handle_whitespace = TRUE,
-		trailing_newline = TRUE,
-		confidential = FALSE)
+		trailing_newline = TRUE)
 	if(!target || (!html && !text))
 		return
 	if(target == world)
@@ -57,8 +56,7 @@
 		avoid_highlighting = FALSE,
 		// FIXME: These flags are now pointless and have no effect
 		handle_whitespace = TRUE,
-		trailing_newline = TRUE,
-		confidential = FALSE)
+		trailing_newline = TRUE)
 	if(Master.current_runlevel == RUNLEVEL_INIT || !SSchat?.initialized)
 		to_chat_immediate(target, html, type, text)
 		return
