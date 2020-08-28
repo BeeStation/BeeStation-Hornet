@@ -263,7 +263,7 @@
 	owner.underlays -= marked_underlay //if this is being called, we should have an owner at this point.
 	..()
 
-/datum/status_effect/stacking/saw_bleed
+/datum/status_effect/saw_bleed
 	id = "saw_bleed"
 	duration = -1 //removed under specific conditions
 	tick_interval = 6
