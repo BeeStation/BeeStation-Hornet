@@ -25,7 +25,7 @@
 //Can still metabolize milk through meme magic
 /datum/species/skeleton/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	. = ..()
-	if(chem.type == /datum/reagent/consumable/milk)
+	if(chem.type == /datum/reagent/consumable/milk || /datum/reagent/consumable/cream)
 		if(chem.volume > 10)
 			H.reagents.remove_reagent(chem.type, chem.volume - 10)
 			to_chat(H, "<span class='warning'>The excess milk is dripping off your bones!</span>")
