@@ -527,7 +527,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/guardiancreator/tech
 	cost = 18
 	surplus = 10
-	surplus_nullcrates = 1
+	surplus_nullcrates = null
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	player_minimum = 25
 	restricted = TRUE
@@ -1801,8 +1801,8 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	cost = 11
 	item = /obj/item/pneumatic_cannon/pie/selfcharge
 	restricted_roles = list("Clown")
-	surplus = 0 //No fun unless you're the clown!
-	surplus_nullcrates = 5 // Or you're lucky
+	surplus = 10 //No fun unless you're the clown!
+	surplus_nullcrates = null // Or you're lucky
 
 /datum/uplink_item/role_restricted/blastcannon
 	name = "Blast Cannon"
@@ -1896,7 +1896,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 			Premium features can be unlocked with a cryptographic sequencer!"
 	item = /obj/vehicle/sealed/car/clowncar
 	cost = 20
-	surplus_nullcrates = 5
+	surplus_nullcrates = 10
 	restricted_roles = list("Clown")
 	exclude_modes = list(/datum/game_mode/incursion)
 
@@ -1950,14 +1950,15 @@ datum/uplink_item/role_restricted/superior_honkrender
 	To activate His Grace, simply unlatch Him."
 	item = /obj/item/his_grace
 	cost = 20
+	surplus = 0 // replaced with cult construct kit.
 	restricted_roles = list("Chaplain")
-	surplus = 5 //Very low chance to get it in a surplus crate even without being the chaplain
 
 /datum/uplink_item/role_restricted/cultconstructkit
 	name = "Cult Construct Kit"
 	desc = "Recovered from an abandoned Nar'sie cult lair two construct shells and a stash of empty soulstones was found. These were purified to prevent occult contamination and have been put in a belt so they may be used as an accessible source of disposable minions. The construct shells have been packaged into two beacons for rapid and portable deployment."
 	item = /obj/item/storage/box/syndie_kit/cultconstructkit
 	cost = 20
+	surplus = 10 // replaces his grace's old chance
 	restricted_roles = list("Chaplain")
 
 /datum/uplink_item/role_restricted/spanish_flu
@@ -1998,7 +1999,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			The only way to get rid of it if you are holding it is to attack someone else with it, causing it to latch to that person instead."
 	item = /obj/item/hot_potato/syndicate
 	cost = 3
-	surplus = 0
+	surplus = 40
 	restricted_roles = list("Cook", "Botanist", "Clown", "Mime")
 
 /datum/uplink_item/role_restricted/echainsaw
@@ -2015,7 +2016,8 @@ datum/uplink_item/role_restricted/superior_honkrender
 			to act as a servent and guardian to their host."
 	item = /obj/item/guardiancreator/carp
 	cost = 18
-	surplus = 5
+	surplus = 10
+	surplus_nullcrates = null
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	player_minimum = 25
 	restricted = TRUE
@@ -2145,7 +2147,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/reagent_containers/food/drinks/syndicatebeer
 	cost = 4
 	surplus = 40
-	surplus_nullcrates = 60 // nerfs nullcrates without having to change every item.
+	surplus_nullcrates = 80
 	illegal_tech = FALSE
 
 /datum/uplink_item/badass/syndiecash
@@ -2156,7 +2158,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/storage/secure/briefcase/syndie
 	cost = 1
 	surplus = 10
-	surplus_nullcrates = 10
+	surplus_nullcrates = null
 	restricted = TRUE
 
 /datum/uplink_item/badass/syndiecards
@@ -2167,7 +2169,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/toy/cards/deck/syndicate
 	cost = 1
 	surplus = 40
-	surplus_nullcrates = 60 // nerfs nullcrates without having to change every item.
+	surplus_nullcrates = 80
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
@@ -2175,5 +2177,5 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 	surplus = 40
-	surplus_nullcrates = 60 // nerfs nullcrates without having to change every item.
+	surplus_nullcrates = 80
 	illegal_tech = FALSE
