@@ -4,8 +4,8 @@
 	icon_state = "prox"
 	custom_materials = list(/datum/material/iron=800, /datum/material/glass=200)
 	attachable = TRUE
-	var/ui_x = 250
-	var/ui_y = 185
+
+
 	var/scanning = FALSE
 	var/timing = FALSE
 	var/time = 10

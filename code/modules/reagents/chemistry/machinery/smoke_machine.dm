@@ -7,8 +7,8 @@
 	icon_state = "smoke0"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/smoke_machine
-	ui_x = 350
-	ui_y = 350
+
+
 
 	var/efficiency = 10
 	var/on = FALSE

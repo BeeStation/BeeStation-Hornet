@@ -4,8 +4,8 @@
 	icon_state = "timer"
 	custom_materials = list(/datum/material/iron=500, /datum/material/glass=50)
 	attachable = TRUE
-	var/ui_x = 275
-	var/ui_y = 115
+
+
 	var/timing = FALSE
 	var/time = 5
 	var/saved_time = 5

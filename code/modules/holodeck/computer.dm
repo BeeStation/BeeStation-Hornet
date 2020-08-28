@@ -24,8 +24,8 @@
 	icon_screen = "holocontrol"
 	idle_power_usage = 10
 	active_power_usage = 50
-	ui_x = 400
-	ui_y = 500
+
+
 
 	var/area/holodeck/linked
 	var/area/holodeck/program

@@ -7,8 +7,8 @@
 	anchored = TRUE
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/nanite_program_hub
-	ui_x = 500
-	ui_y = 700
+
+
 
 	var/obj/item/disk/nanite_program/disk
 	var/datum/techweb/linked_techweb

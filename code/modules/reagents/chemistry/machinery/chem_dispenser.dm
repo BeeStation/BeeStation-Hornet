@@ -22,8 +22,8 @@
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
-	ui_x = 565
-	ui_y = 620
+
+
 
 	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
@@ -686,7 +686,7 @@
 		/datum/reagent/toxin/carpotoxin,
 		/datum/reagent/medicine/rezadone,
 		/datum/reagent/medicine/silibinin,
-		/datum/reagent/medicine/polypyr	
+		/datum/reagent/medicine/polypyr
 	)
 
 /obj/machinery/chem_dispenser/abductor/Initialize()

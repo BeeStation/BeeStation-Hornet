@@ -14,9 +14,9 @@
 	var/transfer_side = 5
 	//the maximum you can set the transfer to
 	var/max_transfer = 9
-	
-	ui_x = 220
-	ui_y = 105
+
+
+
 
 /obj/machinery/plumbing/splitter/Initialize(mapload, bolt)
 	. = ..()

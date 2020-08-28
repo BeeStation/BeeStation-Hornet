@@ -91,8 +91,8 @@
 	var/burnt = FALSE
 
 	// ui stuff
-	var/ui_x = 600
-	var/ui_y = 800
+
+
 	// Ok, so WHY are we caching the ui's?
 	// Since we are not using autoupdate we
 	// need some way to update the ui's of
@@ -317,7 +317,7 @@
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// The x size is because we double the width for the editor
-		ui = new(user, src, ui_key, "PaperSheet", name, ui_x, ui_y, master_ui, state)
+
 		ui.set_autoupdate(FALSE)
 		viewing_ui[user] = ui
 		ui.open()

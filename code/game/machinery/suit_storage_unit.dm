@@ -9,8 +9,8 @@
 	power_channel = AREA_USAGE_EQUIP
 	density = TRUE
 	max_integrity = 250
-	ui_x = 400
-	ui_y = 305
+
+
 
 	var/obj/item/clothing/suit/space/suit = null
 	var/obj/item/clothing/head/helmet/space/helmet = null

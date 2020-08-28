@@ -11,8 +11,8 @@
 	///max amount of patches allowed on our tile before we start storing them instead
 	var/max_floor_patches = 10
 
-	ui_x = 300
-	ui_y = 120
+
+
 
 /obj/machinery/plumbing/patch_dispenser/examine(mob/user)
 	. = ..()

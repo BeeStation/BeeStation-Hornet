@@ -5,8 +5,8 @@
 	icon_keyboard = "tech_key"
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/computer/mecha_control
-	ui_x = 500
-	ui_y = 500
+
+
 
 
 /obj/machinery/computer/mecha/ui_state(mob/user)

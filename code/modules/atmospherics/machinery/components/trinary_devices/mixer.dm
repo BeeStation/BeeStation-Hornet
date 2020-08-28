@@ -14,8 +14,8 @@
 	construction_type = /obj/item/pipe/trinary/flippable
 	pipe_state = "mixer"
 
-	ui_x = 370
-	ui_y = 165
+
+
 
 	//node 3 is the outlet, nodes 1 & 2 are intakes
 

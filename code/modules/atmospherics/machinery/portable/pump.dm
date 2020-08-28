@@ -8,8 +8,8 @@
 	name = "portable air pump"
 	icon_state = "psiphon:0"
 	density = TRUE
-	ui_x = 300
-	ui_y = 315
+
+
 
 	var/on = FALSE
 	var/direction = PUMP_OUT

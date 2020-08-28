@@ -27,8 +27,8 @@
 	var/dev_printer = 0						// 0: None, 1: Standard
 	var/dev_card = 0						// 0: None, 1: Standard
 
-	ui_x = 500
-	ui_y = 400
+
+
 
 // Removes all traces of old order and allows you to begin configuration from scratch.
 /obj/machinery/lapvend/proc/reset_order()
@@ -253,7 +253,7 @@
 		credits += HC.credits
 		visible_message("<span class='info'>[user] inserts a $[HC.credits] holocredit chip into [src].</span>")
 		qdel(HC)
-		return		
+		return
 	else if(istype(I, /obj/item/card/id))
 		if(state != 2)
 			return

@@ -11,8 +11,8 @@
 	///max amount of bottles allowed on our tile before we start storing them instead
 	var/max_floor_bottles = 10
 
-	ui_x = 300
-	ui_y = 120
+
+
 
 /obj/machinery/plumbing/bottle_dispenser/examine(mob/user)
 	. = ..()

@@ -10,8 +10,8 @@
 	active_power_usage = 10000
 	dir = NORTH
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
-	ui_x = 350
-	ui_y = 185
+
+
 	var/strength_upper_limit = 2
 	var/interface_control = TRUE
 	var/list/obj/structure/particle_accelerator/connected_parts

@@ -58,7 +58,10 @@ export const PersonalCrafting = (props, context) => {
   const shownRecipes = recipes
     .filter(recipe => recipe.category === tab);
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={700}
+      height={800}>
       <Window.Content scrollable>
         {!!busy && (
           <Dimmer fontSize="32px">

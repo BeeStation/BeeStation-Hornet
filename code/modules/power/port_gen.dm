@@ -7,8 +7,8 @@
 	density = TRUE
 	anchored = FALSE
 	use_power = NO_POWER_USE
-	ui_x = 450
-	ui_y = 340
+
+
 
 	var/active = FALSE
 	var/power_gen = 5000

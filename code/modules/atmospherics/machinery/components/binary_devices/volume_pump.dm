@@ -28,8 +28,8 @@
 	construction_type = /obj/item/pipe/directional
 	pipe_state = "volumepump"
 
-	ui_x = 335
-	ui_y = 115
+
+
 
 /obj/machinery/atmospherics/components/binary/volume_pump/CtrlClick(mob/user)
 	if(can_interact(user))

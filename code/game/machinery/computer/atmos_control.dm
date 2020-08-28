@@ -95,8 +95,8 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/computer/atmos_control
-	ui_x = 400
-	ui_y = 925
+
+
 
 	var/frequency = FREQ_ATMOS_STORAGE
 	var/list/sensors = list(
@@ -184,8 +184,8 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	var/list/input_info
 	var/list/output_info
 
-	ui_x = 500
-	ui_y = 315
+
+
 
 /obj/machinery/computer/atmos_control/tank/oxygen_tank
 	name = "Oxygen Supply Control"

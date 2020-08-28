@@ -37,7 +37,10 @@ export const Gps = (props, context) => {
       signal => signal.entrytag),
   ])(data.signals || []);
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={470}
+      height={Math.clamp(325 + data.signals.len * 14, 325, 700)}>
       <Window.Content scrollable>
         <Section
           title="Control"

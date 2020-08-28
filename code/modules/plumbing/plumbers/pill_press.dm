@@ -21,8 +21,8 @@
 	///max amount of pills allowed on our tile before we start storing them instead
 	var/max_floor_pills = 10
 
-	ui_x = 300
-	ui_y = 199
+
+
 
 /obj/machinery/plumbing/pill_press/examine(mob/user)
 	. = ..()

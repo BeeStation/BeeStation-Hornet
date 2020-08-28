@@ -7,8 +7,8 @@
 	network_destination = "arcade network"
 	size = 6
 	tgui_id = "NtosArcade"
-	ui_x = 450
-	ui_y = 350
+
+
 
 	///Returns TRUE if the game is being played.
 	var/game_active = TRUE

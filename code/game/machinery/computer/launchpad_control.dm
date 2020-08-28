@@ -4,8 +4,8 @@
 	icon_screen = "teleport"
 	icon_keyboard = "teleport_key"
 	circuit = /obj/item/circuitboard/computer/launchpad_console
-	ui_x = 475
-	ui_y = 260
+
+
 
 	var/selected_id
 	var/list/obj/machinery/launchpad/launchpads

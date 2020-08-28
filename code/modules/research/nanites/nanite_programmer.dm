@@ -10,8 +10,8 @@
 	density = TRUE
 	flags_1 = HEAR_1
 	circuit = /obj/item/circuitboard/machine/nanite_programmer
-	ui_x = 420
-	ui_y = 550
+
+
 
 /obj/machinery/nanite_programmer/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/disk/nanite_program))

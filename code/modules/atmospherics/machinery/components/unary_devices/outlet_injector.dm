@@ -23,8 +23,8 @@
 
 	pipe_state = "injector"
 
-	ui_x = 310
-	ui_y = 115
+
+
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/CtrlClick(mob/user)
 	if(can_interact(user))

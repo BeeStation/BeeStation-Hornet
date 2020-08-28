@@ -7,8 +7,8 @@
 	icon_state = "coinpress0"
 	density = TRUE
 	input_dir = EAST
-	ui_x = 300
-	ui_y = 250
+
+
 	var/obj/item/storage/bag/money/bag_to_use
 	var/produced_coins = 0 // how many coins the machine has made in it's last cycle
 	var/processing = FALSE

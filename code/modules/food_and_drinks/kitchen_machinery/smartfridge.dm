@@ -12,8 +12,8 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/smartfridge
-	ui_x = 440
-	ui_y = 550
+
+
 
 	var/max_n_of_items = 1500
 	var/allow_ai_retrieve = FALSE

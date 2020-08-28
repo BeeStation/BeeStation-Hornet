@@ -50,7 +50,10 @@ export const CameraConsole = (props, context) => {
     nextCameraName,
   ] = prevNextCamera(cameras, activeCamera);
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={870}
+      height={708}>
       <div className="CameraConsole__left">
         <Window.Content scrollable>
           <CameraConsoleContent />

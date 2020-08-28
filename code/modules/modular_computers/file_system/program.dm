@@ -18,8 +18,8 @@
 	var/available_on_syndinet = 0			// Whether the program can be downloaded from SyndiNet (accessible via emagging the computer). Set to 1 to enable.
 	var/tgui_id								// ID of TGUI interface
 	var/ui_style							// ID of custom TGUI style (optional)
-	var/ui_x = 575							// Default size of TGUI window, in pixels
-	var/ui_y = 700
+
+
 	var/ui_header = null					// Example: "something.gif" - a header image that will be rendered in computer's UI when this program is running at background. Images are taken from /icons/program_icons. Be careful not to use too large images!
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)

@@ -56,8 +56,8 @@
 	resistance_flags = FIRE_PROOF
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	circuit = /obj/item/circuitboard/machine/power_turbine
-	ui_x = 310
-	ui_y = 150
+
+
 	var/opened = 0
 	var/obj/machinery/power/compressor/compressor
 	var/turf/outturf
@@ -304,8 +304,8 @@
 	icon_screen = "turbinecomp"
 	icon_keyboard = "tech_key"
 	circuit = /obj/item/circuitboard/computer/turbine_computer
-	ui_x = 310
-	ui_y = 150
+
+
 	var/obj/machinery/power/compressor/compressor
 	var/id = 0
 
@@ -329,7 +329,7 @@
 									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "TurbineComputer", name, ui_x, ui_y, master_ui, state)
+
 		ui.open()
 
 /obj/machinery/computer/turbine_computer/ui_data(mob/user)

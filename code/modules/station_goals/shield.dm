@@ -40,8 +40,8 @@
 	name = "satellite control"
 	desc = "Used to control the satellite network."
 	circuit = /obj/item/circuitboard/computer/sat_control
-	ui_x = 400
-	ui_y = 305
+
+
 
 	var/notice
 

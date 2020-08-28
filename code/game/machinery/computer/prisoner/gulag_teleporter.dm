@@ -6,8 +6,8 @@
 	icon_keyboard = "security_key"
 	req_access = list(ACCESS_ARMORY)
 	circuit = /obj/item/circuitboard/computer/gulag_teleporter_console
-	ui_x = 350
-	ui_y = 295
+
+
 
 	var/default_goal = 200
 	var/obj/machinery/gulag_teleporter/teleporter = null

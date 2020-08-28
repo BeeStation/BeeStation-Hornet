@@ -9,8 +9,6 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	icon_state = "tdoppler"
 	density = TRUE
 	verb_say = "states coldly"
-	ui_x = 500
-	ui_y = 225
 	var/cooldown = 10
 	var/next_announce = 0
 	var/integrated = FALSE

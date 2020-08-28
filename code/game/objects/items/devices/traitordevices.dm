@@ -70,8 +70,8 @@ effective or pretty fucking useless.
 
 /obj/item/healthanalyzer/rad_laser
 	custom_materials = list(/datum/material/iron=400)
-	var/ui_x = 320
-	var/ui_y = 335
+
+
 	var/irradiate = TRUE
 	var/stealth = FALSE
 	var/used = FALSE // is it cooling down?

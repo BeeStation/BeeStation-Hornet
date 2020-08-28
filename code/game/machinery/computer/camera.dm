@@ -7,8 +7,8 @@
 	icon_keyboard = "security_key"
 	circuit = /obj/item/circuitboard/computer/security
 	light_color = LIGHT_COLOR_RED
-	ui_x = 870
-	ui_y = 708
+
+
 
 	var/list/network = list("ss13")
 	var/obj/machinery/camera/active_camera

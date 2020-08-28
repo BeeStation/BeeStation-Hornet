@@ -7,8 +7,8 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	circuit = /obj/item/circuitboard/machine/biogenerator
-	ui_x = 550
-	ui_y = 380
+
+
 	var/processing = FALSE
 	var/obj/item/reagent_containers/glass/beaker = null
 	var/points = 0

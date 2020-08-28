@@ -179,8 +179,8 @@
 	icon_keyboard = "rd_key"
 	req_access = list(ACCESS_RD)
 	circuit = /obj/item/circuitboard/computer/rdservercontrol
-	ui_x = 900
-	ui_y = 750
+
+
 
 
 /obj/machinery/computer/rdservercontrol/ui_state(mob/user)

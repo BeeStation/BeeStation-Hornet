@@ -127,7 +127,10 @@ export const SampleInterface = (props, context) => {
     color,
   } = data;
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={370}
+      height={360}>
       <Window.Content scrollable>
         <Section title="Health status">
           <LabeledList>
@@ -253,7 +256,10 @@ import { Window } from '../layouts';
 
 export const SampleInterface = (props, context) => {
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={370}
+      height={360}>
       <Window.Content scrollable>
         <HealthStatus user="Jerry" />
       </Window.Content>
@@ -330,7 +336,10 @@ export const SampleInterface = (props, context) => {
     color,
   } = data;
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={370}
+      height={360}>
       <Window.Content scrollable>
         <Section title="Health status">
           <LabeledList>

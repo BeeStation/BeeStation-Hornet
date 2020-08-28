@@ -48,8 +48,8 @@
 		/datum/reagent/fuel
 	)
 
-	ui_x = 300
-	ui_y = 375
+
+
 
 /obj/machinery/plumbing/synthesizer/Initialize(mapload, bolt)
 	. = ..()

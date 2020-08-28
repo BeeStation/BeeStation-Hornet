@@ -131,8 +131,8 @@
 	light_range = 3
 	light_power = 1.5
 	light_color = LIGHT_COLOR_CYAN
-	ui_x = 350
-	ui_y = 400
+
+
 
 
 	//High defaults so it's not completed automatically if there's no station goal

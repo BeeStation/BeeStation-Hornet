@@ -2,8 +2,8 @@
 	name = "atmospheric alert console"
 	desc = "Used to monitor the station's air alarms."
 	circuit = /obj/item/circuitboard/computer/atmos_alert
-	ui_x = 350
-	ui_y = 300
+
+
 	icon_screen = "alert:0"
 	icon_keyboard = "atmos_key"
 	var/list/priority_alarms = list()
