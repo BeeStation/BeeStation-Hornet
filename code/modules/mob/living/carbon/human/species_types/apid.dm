@@ -46,5 +46,5 @@
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
 
 mob/living/carbon/human/species/apid/mind_initialize()
+	..()
 	mind.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
-	. = ..()
