@@ -5,18 +5,15 @@
 	gender = NEUTER
 	mob_biotypes = NONE
 	speak_emote = list("screams")
-	response_help_continuous = "thinks better of touching"
-	response_help_simple = "think better of touching"
-	response_disarm_continuous = "flails at"
-	response_disarm_simple = "flail at"
-	response_harm_continuous = "reaps"
-	response_harm_simple = "tears"
+	response_help = "think better of touching"
+	response_disarm = "flail at"
+	response_harm = "tears"
 	speak_chance = 1
 	icon = 'icons/mob/eldritch_mobs.dmi'
 	speed = 0
 	a_intent = INTENT_HARM
 	stop_automated_movement = 1
-	AIStatus = AI_ON
+	AIStatus = AI_OFF
 	attack_sound = 'sound/weapons/punch1.ogg'
 	see_in_dark = 7
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -30,14 +27,13 @@
 	del_on_death = TRUE
 	deathmessage = "implodes into itself"
 	faction = list("heretics")
+	simple_mob_flags = SILENCE_RANGED_MESSAGE
 	///Innate spells that are supposed to be added when a beast is created
 	var/list/spells_to_add
 
 /mob/living/simple_animal/hostile/eldritch/Initialize()
 	. = ..()
 	add_spells()
-	//by default
-	mind.add_antag_datum(/datum/antagonist/heretic_monster)
 
 /**
   * Add_spells
@@ -55,8 +51,7 @@
 	icon_state = "raw_prophet"
 	status_flags = CANPUSH
 	icon_living = "raw_prophet"
-	melee_damage_lower = 5
-	melee_damage_upper = 10
+	melee_damage = 10
 	maxHealth = 50
 	health = 50
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
@@ -74,10 +69,13 @@
 	icon_living = "armsy_start"
 	maxHealth = 200
 	health = 200
-	melee_damage_lower = 10
-	melee_damage_upper = 15
+	melee_damage = 15
 	move_resist = MOVE_FORCE_OVERPOWERING+1
+	movement_type = GROUND
 	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/worm_contract)
+	ranged_cooldown_time = 5
+	ranged = TRUE
+	rapid = 1
 	///Previous segment in the chain
 	var/mob/living/simple_animal/hostile/eldritch/armsy/back
 	///Next segment in the chain
@@ -131,6 +129,11 @@
 			prev.front = next
 			prev.AIStatus = AI_OFF
 		next = prev
+
+//we are literally a vessel of otherworldly destruction, we bring our own gravity unto this plane
+/mob/living/simple_animal/hostile/eldritch/armsy/has_gravity(turf/T)
+	return TRUE
+
 
 /mob/living/simple_animal/hostile/eldritch/armsy/can_be_pulled()
 	return FALSE
@@ -190,6 +193,12 @@
 	adjustBruteLoss(-maxHealth * 0.5, FALSE)
 	adjustFireLoss(-maxHealth * 0.5 ,FALSE)
 
+
+/mob/living/simple_animal/hostile/eldritch/armsy/Shoot(atom/targeted_atom)
+	target = targeted_atom
+	AttackingTarget()
+
+
 /mob/living/simple_animal/hostile/eldritch/armsy/AttackingTarget()
 	if(istype(target,/obj/item/bodypart/r_arm) || istype(target,/obj/item/bodypart/l_arm))
 		qdel(target)
@@ -229,8 +238,7 @@
 	real_name = "Master of Decay"
 	maxHealth = 400
 	health = 400
-	melee_damage_lower = 20
-	melee_damage_upper = 25
+	melee_damage = 25
 
 /mob/living/simple_animal/hostile/eldritch/armsy/prime/Initialize(mapload,spawn_more = TRUE,len = 9)
 	. = ..()
@@ -247,8 +255,7 @@
 	icon_living = "rust_walker_s"
 	maxHealth = 75
 	health = 75
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage = 20
 	sight = SEE_TURFS
 	spells_to_add = list(/obj/effect/proc_holder/spell/aoe_turf/rust_conversion/small,/obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave/short)
 
@@ -282,10 +289,9 @@
 	icon_living = "ash_walker"
 	maxHealth = 75
 	health = 75
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage = 20
 	sight = SEE_TURFS
-	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,/obj/effect/proc_holder/spell/pointed/ash_cleave/long,/obj/effect/proc_holder/spell/aoe_turf/fire_cascade)
+	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,/obj/effect/proc_holder/spell/pointed/cleave/long,/obj/effect/proc_holder/spell/aoe_turf/fire_cascade)
 
 /mob/living/simple_animal/hostile/eldritch/stalker
 	name = "Flesh Stalker"
@@ -296,7 +302,6 @@
 	icon_living = "stalker"
 	maxHealth = 150
 	health = 150
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage = 20
 	sight = SEE_MOBS
 	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,/obj/effect/proc_holder/spell/targeted/shapeshift/eldritch,/obj/effect/proc_holder/spell/targeted/emplosion/eldritch)

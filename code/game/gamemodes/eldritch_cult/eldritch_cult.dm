@@ -51,8 +51,6 @@
 		setup_error = "Not enough heretic candidates"
 		return FALSE
 	else
-		for(var/antag in culties)
-			GLOB.pre_setup_antags += antag
 		return TRUE
 
 /datum/game_mode/heretics/post_setup()
@@ -61,7 +59,6 @@
 		log_game("[key_name(cultie)] has been selected as a heretic!")
 		var/datum/antagonist/heretic/new_antag = new()
 		cultie.add_antag_datum(new_antag)
-		GLOB.pre_setup_antags -= cultie
 	return ..()
 
 /datum/game_mode/heretics/generate_report()

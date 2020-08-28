@@ -39,6 +39,7 @@
 #define ROLE_INTERNAL_AFFAIRS	"Internal Affairs Agent"
 #define ROLE_GANG				"Gangster"
 #define ROLE_HOLOPARASITE		"Holoparasite"
+#define ROLE_HERETIC			"Heretic"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough

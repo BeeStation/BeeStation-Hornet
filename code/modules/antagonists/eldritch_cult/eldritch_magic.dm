@@ -3,7 +3,7 @@
 	desc = "Low range spell allowing you to pass through a few walls."
 	school = "transmutation"
 	invocation = "ASH'N P'SSG'"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	charge_max = 150
 	range = -1
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -44,29 +44,38 @@
 	name = "Mansus Grasp"
 	desc = "A sinister looking aura that distorts the flow of reality around it. Causes knockdown, major stamina damage aswell as some Brute. It gains additional beneficial effects with certain knowledges you can research."
 	icon_state = "disintegrate"
-	inhand_icon_state = "disintegrate"
+	item_state = "disintegrate"
 	catchphrase = "R'CH T'H TR'TH"
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
+	if(!proximity_flag || target == user)
+		return
 	playsound(user, 'sound/items/welder.ogg', 75, TRUE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
+		if(tar.check_shields(src,10, "the [tar.name]"))
+			return ..()
 		if(tar.anti_magic_check())
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
-			return
+			return ..()
 	var/datum/mind/M = user.mind
 	var/datum/antagonist/heretic/cultie = M.has_antag_datum(/datum/antagonist/heretic)
 
+	var/use_charge = FALSE
 	if(iscarbon(target))
+		use_charge = TRUE
 		var/mob/living/carbon/C = target
 		C.adjustBruteLoss(10)
 		C.AdjustKnockdown(5 SECONDS)
 		C.adjustStaminaLoss(80)
 	var/list/knowledge = cultie.get_all_knowledge()
+
 	for(var/X in knowledge)
 		var/datum/eldritch_knowledge/EK = knowledge[X]
-		EK.on_mansus_grasp(target, user, proximity_flag, click_parameters)
+		if(EK.on_mansus_grasp(target, user, proximity_flag, click_parameters))
+			use_charge = TRUE
+	if(use_charge)
+		return ..()
 
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	name = "Aggressive Spread"
@@ -75,7 +84,7 @@
 	charge_max = 300 //twice as long as mansus grasp
 	clothes_req = FALSE
 	invocation = "A'GRSV SPR'D"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	range = 3
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "corrode"
@@ -95,69 +104,63 @@
 	desc = "Spreads rust onto nearby turfs."
 	range = 2
 
-/obj/effect/proc_holder/spell/targeted/touch/ash_leech
+/obj/effect/proc_holder/spell/targeted/touch/blood_siphon
 	name = "Blood Siphon"
-	desc = "Touch spell that heals you while damaging the enemy, has a chance to transfer wounds between you and your enemy."
-	hand_path = /obj/item/melee/touch_attack/ash_leech
+	desc = "Touch spell that heals you while damaging the enemy."
+	hand_path = /obj/item/melee/touch_attack/blood_siphon
 	school = "evocation"
 	charge_max = 150
 	clothes_req = FALSE
 	invocation = "FL'MS O'ET'RN'ITY"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "blood_siphon"
 	action_background_icon_state = "bg_ecult"
 
-/obj/item/melee/touch_attack/ash_leech
+/obj/item/melee/touch_attack/blood_siphon
 	name = "Blood Siphon"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon_state = "disintegrate"
-	inhand_icon_state = "disintegrate"
+	item_state = "disintegrate"
 	catchphrase = "R'BRTH"
 
-/obj/item/melee/touch_attack/ash_leech/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
+/obj/item/melee/touch_attack/blood_siphon/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!proximity_flag)
+		return
 	playsound(user, 'sound/magic/demon_attack1.ogg', 75, TRUE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
 		if(tar.anti_magic_check())
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
-			return
-	var/mob/living/carbon/C2 = user
+			return ..()
+	var/mob/living/carbon/human/C2 = user
 	if(isliving(target))
 		var/mob/living/L = target
 		L.adjustBruteLoss(20)
 		C2.adjustBruteLoss(-20)
-	if(iscarbon(target))
-		var/mob/living/carbon/C1 = target
-		for(var/obj/item/bodypart/bodypart in C2.bodyparts)
-			for(var/datum/wound/wound in bodypart.wounds)
-				if(prob(50))
-					continue
-				var/obj/item/bodypart/target_bodypart = locate(bodypart.type) in C1.bodyparts
-				if(!target_bodypart)
-					continue
-				wound.remove_wound()
-				wound.apply_wound(target_bodypart)
 
+	if(ishuman(target))
+		var/mob/living/carbon/human/C1 = target
+		C1.bleed_rate -= 5
+		C2.bleed_rate += 5
 		C1.blood_volume -= 20
 		if(C2.blood_volume < BLOOD_VOLUME_MAXIMUM) //we dont want to explode after all
 			C2.blood_volume += 20
-		return
+		return ..()
 
 /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave
 	name = "Patron's Reach"
 	desc = "Channels energy into your gauntlet - firing it results in a wave of rust being created in it's wake."
-	proj_type = /obj/projectile/magic/spell/rust_wave
+	proj_type = /obj/item/projectile/magic/spell/rust_wave
 	charge_max = 350
 	clothes_req = FALSE
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "rust_wave"
 	action_background_icon_state = "bg_ecult"
 	invocation = "SPR'D TH' WO'D"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 
-/obj/projectile/magic/spell/rust_wave
+/obj/item/projectile/magic/spell/rust_wave
 	name = "Patron's Reach"
 	icon_state = "eldritch_projectile"
 	alpha = 180
@@ -169,7 +172,7 @@
 	range = 15
 	speed = 1
 
-/obj/projectile/magic/spell/rust_wave/Moved(atom/OldLoc, Dir)
+/obj/item/projectile/magic/spell/rust_wave/Moved(atom/OldLoc, Dir)
 	. = ..()
 	playsound(src, 'sound/items/welder.ogg', 75, TRUE)
 	var/list/turflist = list()
@@ -189,26 +192,26 @@
 
 /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/rust_wave/short
 	name = "Small Patron's Reach"
-	proj_type = /obj/projectile/magic/spell/rust_wave/short
+	proj_type = /obj/item/projectile/magic/spell/rust_wave/short
 
-/obj/projectile/magic/spell/rust_wave/short
+/obj/item/projectile/magic/spell/rust_wave/short
 	range = 7
 	speed = 2
 
-/obj/effect/proc_holder/spell/pointed/ash_cleave
+/obj/effect/proc_holder/spell/pointed/cleave
 	name = "Cleave"
 	desc = "Causes severe bleeding on a target and people around them"
 	school = "transmutation"
 	charge_max = 350
 	clothes_req = FALSE
 	invocation = "CL'VE"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	range = 9
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "cleave"
 	action_background_icon_state = "bg_ecult"
 
-/obj/effect/proc_holder/spell/pointed/ash_cleave/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/pointed/cleave/cast(list/targets, mob/user)
 	if(!targets.len)
 		to_chat(user, "<span class='warning'>No target found in range!</span>")
 		return FALSE
@@ -231,14 +234,11 @@
 
 		target.visible_message("<span class='danger'>[target]'s veins are shredded from within as an unholy blaze erupts from their blood!</span>", \
 							"<span class='danger'>Your veins burst from within and unholy flame erupts from your blood!</span>")
-		for(var/repetition in 0 to 2)
-			var/obj/item/bodypart/bodypart = pick(target.bodyparts)
-			var/datum/wound/brute/cut/critical/crit_wound = new
-			crit_wound.apply_wound(bodypart)
+		target.bleed_rate += 10
 		target.adjustFireLoss(20)
 		new /obj/effect/temp_visual/cleave(target.drop_location())
 
-/obj/effect/proc_holder/spell/pointed/ash_cleave/can_target(atom/target, mob/user, silent)
+/obj/effect/proc_holder/spell/pointed/cleave/can_target(atom/target, mob/user, silent)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -248,49 +248,15 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/pointed/ash_cleave/long
+/obj/effect/proc_holder/spell/pointed/cleave/long
 	charge_max = 650
-
-/obj/effect/proc_holder/spell/pointed/touch/mad_touch
-	name = "Touch of madness"
-	desc = "Touch spell that drains your enemies sanity."
-	school = "transmutation"
-	charge_max = 150
-	clothes_req = FALSE
-	invocation_type = "none"
-	range = 2
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
-	action_icon_state = "mad_touch"
-	action_background_icon_state = "bg_ecult"
-
-/obj/effect/proc_holder/spell/pointed/touch/mad_touch/can_target(atom/target, mob/user, silent)
-	. = ..()
-	if(!.)
-		return FALSE
-	if(!istype(target,/mob/living/carbon/human))
-		if(!silent)
-			to_chat(user, "<span class='warning'>You are unable to touch [target]!</span>")
-		return FALSE
-	return TRUE
-
-/obj/effect/proc_holder/spell/pointed/touch/mad_touch/cast(list/targets, mob/user)
-	. = ..()
-	for(var/mob/living/carbon/target in targets)
-		if(ishuman(targets))
-			var/mob/living/carbon/human/tar = target
-			if(tar.anti_magic_check())
-				tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
-				return
-		if(target.mind && !target.mind.has_antag_datum(/datum/antagonist/heretic))
-			to_chat(user,"<span class='warning'>[target.name] has been cursed!</span>")
-			SEND_SIGNAL(target, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
 
 /obj/effect/proc_holder/spell/pointed/ash_final
 	name = "Nightwatcher's Rite"
 	desc = "Powerful spell that releases 5 streams of fire away from you."
 	school = "transmutation"
 	invocation = "F'RE"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	charge_max = 300
 	range = 15
 	clothes_req = FALSE
@@ -353,7 +319,7 @@
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/eldritch
 	invocation = "SH'PE"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	possible_shapes = list(/mob/living/simple_animal/mouse,\
@@ -366,7 +332,7 @@
 /obj/effect/proc_holder/spell/targeted/emplosion/eldritch
 	name = "Energetic Pulse"
 	invocation = "E'P"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
@@ -382,7 +348,7 @@
 	charge_max = 300 //twice as long as mansus grasp
 	clothes_req = FALSE
 	invocation = "C'SC'DE"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	range = 4
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "fire_ring"
@@ -406,7 +372,7 @@
 
 /obj/effect/proc_holder/spell/targeted/telepathy/eldritch
 	invocation = ""
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 
@@ -414,7 +380,7 @@
 	name = "Oath of Fire"
 	desc = "For a minute you will passively create a ring of fire around you."
 	invocation = "FL'MS"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
@@ -471,3 +437,39 @@
 	icon_state = "cleave"
 	duration = 6
 
+/obj/effect/temp_visual/eldritch_smoke
+	icon = 'icons/effects/eldritch.dmi'
+	icon_state = "smoke"
+	duration = 10
+
+/obj/effect/proc_holder/spell/targeted/fiery_rebirth
+	name = "Nightwatcher's Rebirth"
+	desc = "Drains nearby alive people that are engulfed in flames. It heals 10 of each damage type per person. If a person is in critical condition it finishes them off."
+	invocation = "GL'RY T' TH' N'GHT'W'TCH'ER"
+	invocation_type = INVOCATION_WHISPER
+	clothes_req = FALSE
+	action_background_icon_state = "bg_ecult"
+	range = -1
+	include_user = TRUE
+	charge_max = 600
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "smoke"
+
+/obj/effect/proc_holder/spell/targeted/fiery_rebirth/cast(list/targets, mob/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	for(var/mob/living/carbon/target in view(7,user))
+		if(target.stat == DEAD || !target.on_fire)
+			continue
+		//This is essentially a death mark, use this to finish your opponent quicker.
+		if(target.InCritical())
+			target.death()
+		target.adjustFireLoss(20)
+		new /obj/effect/temp_visual/eldritch_smoke(target.drop_location())
+		human_user.ExtinguishMob()
+		human_user.adjustBruteLoss(-10, FALSE)
+		human_user.adjustFireLoss(-10, FALSE)
+		human_user.adjustStaminaLoss(-10, FALSE)
+		human_user.adjustToxLoss(-10, FALSE)
+		human_user.adjustOxyLoss(-10)
