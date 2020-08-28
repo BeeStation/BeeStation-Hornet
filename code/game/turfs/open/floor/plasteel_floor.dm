@@ -8,6 +8,9 @@
 	. = ..()
 	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
 
+/turf/open/floor/plasteel/rust_heretic_act()
+	ChangeTurf(/turf/open/floor/plating/rust)
+
 /turf/open/floor/plasteel/update_icon()
 	if(!..())
 		return 0
@@ -21,7 +24,6 @@
 	initial_gas_mix = AIRLESS_ATMOS
 /turf/open/floor/plasteel/telecomms
 	initial_gas_mix = TCOMMS_ATMOS
-
 
 /turf/open/floor/plasteel/dark
 	icon_state = "darkfull"

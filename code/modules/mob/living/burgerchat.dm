@@ -101,7 +101,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	for(var/client/C in show_to)
 		if(C.mob.can_hear() && C.prefs.overhead_chat)
-			if(C.mob.can_speak_in_language(message_language))
+			if(C.mob.can_speak_language(message_language))
 				C.images += I
 			else
 				C.images += O
@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 /proc/delete_overhead_messages(image/I, image/O, list/show_to, mob/living/target, message_language)
 	for(var/client/C in show_to)
 		if(C.mob.can_hear() && C.prefs.overhead_chat)
-			if(C.mob.can_speak_in_language(message_language))
+			if(C.mob.can_speak_language(message_language))
 				C.images -= I
 			else
 				C.images -= O

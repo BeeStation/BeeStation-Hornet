@@ -26,14 +26,10 @@ Thresholds
 	severity = 1
 	base_message_chance = 5
 	var/Power = 1
-	var/get_damage = 0
-	var/ closrf = 0
-	var/armour = FALSE
+	var/armor = 0
 	var/done = FALSE
-	var/mob/living/C = null
-	var/mob/living/carbon/affected_mob = null
-	threshold_desc = "<b>Transmission 6:</b> Gives the host some armor against brute damage.<br>\
-					  <b>Resistance 6: Spikes grow faster and hurt you more often</b> ."
+	threshold_desc = "<b>Transmission 6:</b> Spikes deal more damage.<br>\
+					  <b>Resistance 6:</b> Hard spines give the host armor, scaling with resistance."
 
 /datum/symptom/spiked/severityset(datum/disease/advance/A)
 	. = ..()
@@ -43,57 +39,42 @@ Thresholds
 /datum/symptom/spiked/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 6) //armor
-		armour = TRUE
+	if(A.properties["resistance"] >= 6) //armor. capped at 20, but scaling with resistance, so if you want to max out spiked skin armor, you'll have to make several sacrifices
+		armor = min(20, A.properties["resistance"])
 	if(A.properties["transmittable"] >= 6) //higher damage
-		Power = 2
+		Power = 1.4  //the typical +100% is waaaay too strong here when the symptom is stacked. +40% is sufficient
 
 /datum/symptom/spiked/Activate(var/datum/disease/advance/A)
-	var/mob/living/M = A.affected_mob
 	var/mob/living/carbon/human/H = A.affected_mob
-
 	if(!..())
 		return
-
-	if(prob(20*power))
-		closrf = 1
-	else
-		closrf = 0
-
-	for (var/mob/living/C in oview(closrf, M))
-		var/def_check = C.getarmor(type = "melee")
-		C.apply_damage(A.stage, BRUTE, blocked = def_check)
-		to_chat(M, "<span class='warning'>[C.name] is pricked on [M.name]'s spines.</span>")
-		playsound(get_turf(M), 'sound/weapons/slice.ogg', 50, 1)
 	switch(A.stage)
 		if(1)
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='warning'>You feel goosebumps pop up on your skin.</span>")
+				to_chat(H, "<span class='warning'>You feel goosebumps pop up on your skin.</span>")
 		if(2)
-			if (done == FALSE)
-				if (armour == TRUE)
-					H.dna.species.armor +=20
-					to_chat(M, "<span class='warning'>Your goosebumps become small spines.</span>")
-					done = TRUE
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='warning'>The small spines spread to cover your entire body.</span>")
+				to_chat(H, "<span class='warning'>Small spines spread to cover your entire body.</span>")
 		if(3)
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='warning'> Your spines pierce your jumpsuit.</span>")
-		if(4)
-			if(prob(base_message_chance))
-				to_chat(M, "<span class='warning'> You see the spikes getting sharper and elongated.</span>")
-		if(5)
-			if(prob(base_message_chance))
-				to_chat(M, "<span class='warning'>You look like a human hedgehog</span>")
-
-/datum/symptom/spiked/End(datum/disease/advance/A)
-	var/mob/living/carbon/human/H = A.affected_mob
-	if(!..() && A.stage >= 2)
-		if (armour == TRUE)
-			H.dna.species.armor -=20
-		return
-
+				to_chat(H, "<span class='warning'> Your spines pierce your jumpsuit.</span>")
+		if(4, 5)
+			if(!done)
+				H.AddComponent(/datum/component/spikes, 5*power, armor, A.GetDiseaseID()) //removal is handled by the component
+				to_chat(H, "<span class='warning'> Your spines harden, growing sharp and lethal.</span>")
+				done = TRUE
+			if(H.pulling && iscarbon(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
+				var/mob/living/carbon/C = H.pulling
+				var/def_check = C.getarmor(type = "melee")
+				C.apply_damage(1*power, BRUTE, blocked = def_check)
+				C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
+				playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
+			for(var/mob/living/carbon/C in oview(1, H))
+				if(C.pulling && C.pulling == H)
+					var/def_check = C.getarmor(type = "melee")
+					C.apply_damage(3*power, BRUTE, blocked = def_check)
+					C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
+					playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 
 
 

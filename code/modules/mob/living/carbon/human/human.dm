@@ -207,8 +207,11 @@
 // this could be made more general, but for now just handle mulebot
 /mob/living/carbon/human/Crossed(atom/movable/AM)
 	var/mob/living/simple_animal/bot/mulebot/MB = AM
+	var/obj/vehicle/sealed/car/C = AM
 	if(istype(MB))
 		MB.RunOver(src)
+	else if(istype(C))
+		C.RunOver(src)
 
 	. = ..()
 	spreadFire(AM)
@@ -612,7 +615,10 @@
 	//Agent cards lower threatlevel.
 	if(istype(idcard, /obj/item/card/id/syndicate))
 		threatcount -= 5
-
+	
+	//individuals wearing tinfoil hats are 30% more likely to be criminals
+	if(istype(get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		threatcount += 2
 	return threatcount
 
 

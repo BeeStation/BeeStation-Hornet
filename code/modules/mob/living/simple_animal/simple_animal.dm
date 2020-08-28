@@ -95,6 +95,8 @@
 	///Generic flags
 	var/simple_mob_flags = NONE
 
+	var/special_process = FALSE
+
 /mob/living/simple_animal/Initialize()
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src

@@ -264,6 +264,8 @@
 				if(!newauthor)
 					to_chat(user, "The name is invalid.")
 					return
+				else if(length(newauthor) > 45)
+					to_chat(user, "That name is too long!")
 				else
 					author = newauthor
 			else

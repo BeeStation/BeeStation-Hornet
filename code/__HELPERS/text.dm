@@ -726,7 +726,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 
 /// Replacement for the \th macro when you want the whole word output as text (first instead of 1st)
 /proc/thtotext(number)
-	if(!isnum(number))
+	if(!isnum_safe(number))
 		return
 	switch(number)
 		if(1)
