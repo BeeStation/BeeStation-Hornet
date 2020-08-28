@@ -42,7 +42,7 @@
 	if(tool)
 		if(IC || tool.w_class > WEIGHT_CLASS_NORMAL || HAS_TRAIT(tool, TRAIT_NODROP) || istype(tool, /obj/item/organ))
 			to_chat(user, span_warning("You can't seem to fit [tool] in [target]'s [surgery.location]!"))
-			return 0
+			return FALSE
 		else
 			display_results(user, target, span_notice("You stuff [tool] into [target]'s [surgery.location]."),
 				"[user] stuffs [tool] into [target]'s [surgery.location]!",
@@ -64,4 +64,4 @@
 			return 1
 		else
 			to_chat(user, span_warning("You don't find anything in [target]'s [surgery.location]."))
-			return 0
+			return FALSE

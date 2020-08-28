@@ -219,18 +219,18 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 
 /turf/open/handle_slip(mob/living/carbon/slipper, knockdown_amount, obj/O, lube, paralyze_amount, force_drop)
 	if(slipper.movement_type & (FLOATING|FLYING))
-		return 0
+		return FALSE
 	if(has_gravity(src))
 		var/obj/buckled_obj
 		if(slipper.buckled)
 			buckled_obj = slipper.buckled
 			if(!(lube&GALOSHES_DONT_HELP)) //can't slip while buckled unless it's lube.
-				return 0
+				return FALSE
 		else
 			if(!(lube & SLIP_WHEN_CRAWLING) && slipper.body_position == LYING_DOWN || !(slipper.status_flags & CANKNOCKDOWN)) // can't slip unbuckled mob if they're lying or can't fall.
-				return 0
+				return FALSE
 			if(slipper.m_intent == MOVE_INTENT_WALK && (lube&NO_SLIP_WHEN_WALKING))
-				return 0
+				return FALSE
 		if(!(lube&SLIDE_ICE))
 			to_chat(slipper, span_notice("You slipped[ O ? " on the [O.name]" : ""]!"))
 			playsound(slipper.loc, 'sound/misc/slip.ogg', 50, 1, -3)

@@ -268,12 +268,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 		for(var/M in invokers)
 			to_chat(M, span_danger("You need at least two invokers to convert [convertee]!"))
 		log_game("Offer rune failed - tried conversion with one invoker")
-		return 0
+		return FALSE
 	if(convertee.can_block_magic(MAGIC_RESISTANCE_HOLY) || istype(convertee.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat)) //Not major because it can be spammed
 		for(var/M in invokers)
 			to_chat(M, span_warning("Something is shielding [convertee]'s mind!"))
 		log_game("Offer rune failed - convertee had anti-magic")
-		return 0
+		return FALSE
 	var/brutedamage = convertee.getBruteLoss()
 	var/burndamage = convertee.getFireLoss()
 	if(brutedamage || burndamage)
@@ -291,7 +291,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 		H.uncuff()
 		H.stuttering = 0
 		H.cultslurring = 0
-	return 1
+	return TRUE
 
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/sacrificial, list/invokers)
 	var/mob/living/first_invoker = invokers[1]

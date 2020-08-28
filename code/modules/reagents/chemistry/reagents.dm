@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	// What can process this? ORGANIC, SYNTHETIC, or ORGANIC | SYNTHETIC?. We'll assume by default that it affects organics.
 	var/process_flags = ORGANIC
 	/// You fucked up and this is now triggering its overdose effects, purge that shit quick.
-	var/overdosed = 0
+	var/overdosed = FALSE
 	///if false stops metab in liverless mobs
 	var/self_consuming = FALSE
 	///affects how far it travels when sprayed

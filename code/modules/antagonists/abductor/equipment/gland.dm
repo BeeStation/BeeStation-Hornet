@@ -77,8 +77,8 @@
 	owner.clear_alert("mind_control")
 	active_mind_control = FALSE
 
-/obj/item/organ/heart/gland/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	active = 0
+/obj/item/organ/heart/gland/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
+	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
@@ -86,7 +86,7 @@
 	clear_mind_control()
 	..()
 
-/obj/item/organ/heart/gland/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/gland/Insert(mob/living/carbon/M, special = FALSE)
 	..()
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
@@ -101,14 +101,14 @@
 	if(!active)
 		return
 	if(!ownerCheck())
-		active = 0
+		active = FALSE
 		return
 	if(COOLDOWN_FINISHED(src, activation_cooldown))
 		activate()
 		uses--
 		COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 	if(!uses)
-		active = 0
+		active = FALSE
 
 /obj/item/organ/heart/gland/proc/activate()
 	return

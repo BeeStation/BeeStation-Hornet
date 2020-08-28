@@ -4,7 +4,7 @@
 	icon_state = "magboots0"
 	item_state = "magboots"
 	var/magboot_state = "magboots"
-	var/magpulse = 0
+	var/magpulse = FALSE
 	var/slowdown_active = 2
 	armor_type = /datum/armor/shoes_magboots
 	actions_types = list(/datum/action/item_action/toggle)

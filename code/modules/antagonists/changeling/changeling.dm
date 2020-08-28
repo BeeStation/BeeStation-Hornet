@@ -24,8 +24,8 @@
 	var/changelingID = "Changeling"
 	var/geneticdamage = 0
 	var/was_absorbed = FALSE //if they were absorbed by another ling already.
-	var/isabsorbing = 0
-	var/islinking = 0
+	var/isabsorbing = FALSE
+	var/islinking = FALSE
 	var/geneticpoints = 10
 	var/purchasedpowers = list()
 
@@ -223,13 +223,13 @@
 	if(canrespec)
 		to_chat(owner.current, span_notice("We have removed our evolutions from this form, and are now ready to readapt."))
 		reset_powers()
-		canrespec = 0
+		canrespec = FALSE
 		SSblackbox.record_feedback("tally", "changeling_power_purchase", 1, "Readapt")
 		log_game("Genetic powers refunded by [owner.current.ckey]/[owner.current.name] the [owner.current.job], [geneticpoints] GP remaining.")
-		return 1
+		return TRUE
 	else
 		to_chat(owner.current, span_danger("You lack the power to readapt your evolutions!"))
-		return 0
+		return FALSE
 
 //Called in life()
 /datum/antagonist/changeling/proc/regenerate(delta_time, times_fired)//grants the HuD in life.dm
@@ -288,7 +288,7 @@
 		if(verbose)
 			to_chat(user, span_warning("[target] is not compatible with our biology."))
 		return
-	return 1
+	return TRUE
 
 
 /datum/antagonist/changeling/proc/create_profile(mob/living/carbon/human/H, protect = 0)
@@ -360,8 +360,8 @@
 	var/datum/changelingprofile/removeprofile = get_profile_to_remove()
 	if(removeprofile)
 		stored_profiles -= removeprofile
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /datum/antagonist/changeling/proc/create_initial_profile()
@@ -593,9 +593,9 @@
 /datum/antagonist/changeling/roundend_report()
 	var/list/parts = list()
 
-	var/changelingwin = 1
+	var/changelingwin = TRUE
 	if(!owner.current)
-		changelingwin = 0
+		changelingwin = FALSE
 
 	parts += printplayer(owner)
 
@@ -610,7 +610,7 @@
 				parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_greentext("Success!</b>")]"
 			else
 				parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_redtext("Fail.")]"
-				changelingwin = 0
+				changelingwin = FALSE
 			count++
 
 	if(changelingwin)

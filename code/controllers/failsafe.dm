@@ -31,7 +31,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	Initialize()
 
 /datum/controller/failsafe/Initialize()
-	set waitfor = 0
+	set waitfor = FALSE
 	Failsafe.Loop()
 	if (!Master || defcon == 0) //Master is gone/not responding and Failsafe just exited its loop
 		defcon = 3 //Reset defcon level as its used inside the emergency loop

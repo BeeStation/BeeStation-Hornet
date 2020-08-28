@@ -129,7 +129,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	var/hits = 4
 	var/hitpwr = 2 //Level of ex_act to be called on hit.
 	pass_flags = PASSTABLE
-	var/heavy = 0
+	var/heavy = FALSE
 	var/meteorsound = 'sound/effects/meteorimpact.ogg'
 	var/z_original
 	var/threat = 0 // used for determining which meteors are most interesting
@@ -287,7 +287,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 	name = "big meteor"
 	icon_state = "large"
 	hits = 6
-	heavy = 1
+	heavy = TRUE
 	dropamt = 4
 	threat = 10
 
@@ -300,7 +300,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 	name = "flaming meteor"
 	icon_state = "flaming"
 	hits = 5
-	heavy = 1
+	heavy = TRUE
 	meteorsound = 'sound/effects/bamf.ogg'
 	meteordrop = list(/obj/item/stack/ore/plasma)
 	threat = 20
@@ -313,7 +313,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 /obj/effect/meteor/irradiated
 	name = "glowing meteor"
 	icon_state = "glowing"
-	heavy = 1
+	heavy = TRUE
 	meteordrop = list(/obj/item/stack/ore/uranium)
 	threat = 15
 
@@ -330,7 +330,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 	icon_state = "meateor"
 	desc = "Just... don't think too hard about where this thing came from."
 	hits = 2
-	heavy = 1
+	heavy = TRUE
 	meteorsound = 'sound/effects/blobattack.ogg'
 	meteordrop = list(/obj/item/food/meat/slab/human, /obj/item/food/meat/slab/human/mutant, /obj/item/organ/heart, /obj/item/organ/lungs, /obj/item/organ/tongue, /obj/item/organ/appendix/)
 	var/meteorgibs = /obj/effect/gibspawner/generic
@@ -382,7 +382,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 	desc = "Your life briefly passes before your eyes the moment you lay them on this monstrosity."
 	hits = 30
 	hitpwr = 1
-	heavy = 1
+	heavy = TRUE
 	meteorsound = 'sound/effects/bamf.ogg'
 	meteordrop = list(/obj/item/stack/ore/plasma)
 	threat = 50
@@ -413,7 +413,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	icon = 'icons/obj/meteor_spooky.dmi'
 	icon_state = "pumpkin"
 	hits = 10
-	heavy = 1
+	heavy = TRUE
 	dropamt = 1
 	meteordrop = list(/obj/item/clothing/head/utility/hardhat/pumpkinhead, /obj/item/food/grown/pumpkin)
 	threat = 100

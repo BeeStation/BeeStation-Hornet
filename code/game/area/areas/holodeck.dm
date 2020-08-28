@@ -36,7 +36,7 @@
 
 /area/holodeck/use_power(var/amount, var/chan)
 	if(!linked)
-		return 0
+		return FALSE
 	var/area/A = get_area(linked)
 	ASSERT(!istype(A, /area/holodeck))
 	return ..()

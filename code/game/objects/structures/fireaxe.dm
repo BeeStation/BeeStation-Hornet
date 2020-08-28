@@ -58,7 +58,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 			return
 		to_chat(user, span_notice("You start fixing [src]..."))
 		if(do_after(user, 20, target = src) && G.use(2))
-			broken = 0
+			broken = FALSE
 			atom_integrity = max_integrity
 			update_appearance()
 	else if(open || broken)
@@ -88,7 +88,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/fireaxecabinet/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
+/obj/structure/fireaxecabinet/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	if(open)
 		return
 	. = ..()

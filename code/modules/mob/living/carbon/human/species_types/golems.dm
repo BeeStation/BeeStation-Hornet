@@ -558,10 +558,12 @@
 	var/last_teleport = 0
 
 /datum/action/innate/unstable_teleport/is_available()
-	if(..())
-		if(world.time > last_teleport + cooldown)
-			return 1
-		return 0
+	. = ..()
+	if(!.)
+		return
+	if(world.time > last_teleport + cooldown)
+		return TRUE
+	return FALSE
 
 /datum/action/innate/unstable_teleport/on_activate()
 	var/mob/living/carbon/human/H = owner

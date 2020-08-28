@@ -357,11 +357,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/process(delta_time)
 	if(!enabled) // The computer is turned off
 		last_power_usage = 0
-		return 0
+		return
 
 	if(atom_integrity <= integrity_failure * max_integrity)
 		shutdown_computer()
-		return 0
+		return
 
 	if(active_program && active_program.requires_ntnet && !get_ntnet_status(active_program.requires_ntnet_feature))
 		active_program.event_networkfailure(0) // Active program requires NTNet to run but we've just lost connection. Crash.

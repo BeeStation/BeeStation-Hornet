@@ -5,7 +5,7 @@
 	icon = 'icons/effects/effects.dmi'
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
-	obj_flags = 0
+	obj_flags = NONE
 	vis_flags = VIS_INHERIT_PLANE
 	var/forensic_protected = FALSE
 
@@ -42,7 +42,6 @@
 
 /obj/effect/singularity_act()
 	qdel(src)
-	return 0
 
 /obj/effect/abstract/singularity_pull()
 	return

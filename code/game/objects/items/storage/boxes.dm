@@ -78,7 +78,7 @@
 
 /obj/item/storage/box/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/package_wrap))
-		return 0
+		return FALSE
 	return ..()
 
 //Locker overloading issue solving boxes

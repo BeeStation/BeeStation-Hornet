@@ -13,7 +13,7 @@
 	type_of_meat = /obj/item/food/meat/slab/xeno
 	status_flags = CANUNCONSCIOUS|CANPUSH
 	gib_type = /obj/effect/decal/cleanable/xenoblood/xgibs
-	unique_name = 1
+	unique_name = TRUE
 	mobchatspan = "alienmobsay"
 
 	var/static/regex/alien_name_regex = new("alien (larva|sentinel|drone|hunter|praetorian|queen)( \\(\\d+\\))?")

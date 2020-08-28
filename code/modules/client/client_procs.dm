@@ -184,8 +184,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/AllowUpload(filename, filelength)
 	if(filelength > UPLOAD_LIMIT)
 		to_chat(src, "<font color='red'>Error: AllowUpload(): File Upload too large. Upload Limit: [UPLOAD_LIMIT/1024]KiB.</font>")
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 
 	///////////
@@ -410,11 +410,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if (!CONFIG_GET(flag/allow_webclient))
 			to_chat_immediate(src, "Web client is disabled")
 			qdel(src)
-			return 0
+			return
 		if (CONFIG_GET(flag/webclient_only_byond_members) && !IsByondMember())
 			to_chat_immediate(src, "Sorry, but the web client is restricted to byond members only.")
 			qdel(src)
-			return 0
+			return
 
 	if( (world.address == address || !address) && !GLOB.host )
 		GLOB.host = key

@@ -121,10 +121,10 @@
   */
 /mob/proc/Cell()
 	set category = "Admin"
-	set hidden = 1
+	set hidden = TRUE
 
 	if(!loc)
-		return 0
+		return
 
 	var/datum/gas_mixture/environment = loc.return_air()
 
@@ -1092,7 +1092,7 @@
 /mob/proc/fully_replace_character_name(oldname,newname)
 	log_message("[src] name changed from [oldname] to [newname]", LOG_OWNERSHIP)
 	if(!newname)
-		return 0
+		return FALSE
 
 	log_played_names(ckey,newname)
 
@@ -1115,7 +1115,7 @@
 				// Only update if this player is a target
 				if(obj.target && obj.target.current && obj.target.current.real_name == name)
 					obj.update_explanation_text()
-	return 1
+	return TRUE
 
 ///Updates GLOB.manifest records with new name , see mob/living/carbon/human
 /mob/proc/replace_records_name(oldname,newname)

@@ -102,10 +102,10 @@
 
 /mob/dead/new_player/Topic(href, href_list[])
 	if(src != usr)
-		return 0
+		return
 
 	if(!client)
-		return 0
+		return
 
 	if(client.interviewee)
 		return FALSE
@@ -124,7 +124,7 @@
 		preferences.current_window = PREFERENCE_TAB_CHARACTER_PREFERENCES
 		preferences.update_static_data(usr)
 		preferences.ui_interact(usr)
-		return 1
+		return TRUE
 
 	if(href_list["ready"])
 		var/tready = text2num(href_list["ready"])
@@ -451,7 +451,7 @@
 	if(mind)
 		if(transfer_after)
 			mind.late_joiner = TRUE
-		mind.active = 0					//we wish to transfer the key manually
+		mind.active = FALSE					//we wish to transfer the key manually
 		mind.transfer_to(H)					//won't transfer key since the mind is not active
 
 	H.name = real_name

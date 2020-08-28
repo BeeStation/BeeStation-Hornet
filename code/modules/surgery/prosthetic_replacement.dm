@@ -9,11 +9,11 @@
 
 /datum/surgery/prosthetic_replacement/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(!iscarbon(target))
-		return 0
+		return FALSE
 	var/mob/living/carbon/C = target
 	if(!isoozeling(target))
 		if(!C.get_bodypart(target_zone)) //can only start if limb is missing
-			return 1
+			return TRUE
 
 
 /datum/surgery_step/add_prosthetic

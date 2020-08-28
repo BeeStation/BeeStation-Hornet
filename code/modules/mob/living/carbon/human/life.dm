@@ -19,12 +19,12 @@
 #define THERMAL_PROTECTION_HAND_RIGHT	0.025
 
 /mob/living/carbon/human/Life(delta_time = SSMOBS_DT, times_fired)
-	set invisibility = 0
-	if(notransform)
+	if (notransform)
 		return
 
 	. = ..()
-	if(QDELETED(src))
+
+	if (QDELETED(src))
 		return FALSE
 
 	if(!IS_IN_STASIS(src))
@@ -53,7 +53,7 @@
 	name = get_visible_name()
 
 	if(stat != DEAD)
-		return 1
+		return TRUE
 
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)

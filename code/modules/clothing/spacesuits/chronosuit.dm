@@ -207,7 +207,7 @@
 				to_chat(user, "<span style='color: #ff0000;'><b>FATAL: </b>Unable to locate /dev/helm. <b>Aborting...</b></span>")
 			teleport_now.Grant(user)
 		cooldown = world.time + cooldowntime
-		activating = 0
+		activating = FALSE
 
 /obj/item/clothing/suit/space/chronos/proc/deactivate(force = 0, silent = FALSE)
 	if(activated && (!teleporting || force))

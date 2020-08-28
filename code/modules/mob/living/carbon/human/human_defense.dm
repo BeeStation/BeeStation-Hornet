@@ -165,7 +165,7 @@
 
 /mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user)
 	if(!I || !user)
-		return 0
+		return FALSE
 
 	var/obj/item/bodypart/affecting
 	if(user == src)
@@ -313,11 +313,11 @@
 			damage *= 1.1
 
 		if(check_shields(M, damage, "the [M.name]"))
-			return 0
+			return FALSE
 
 		var/dam_zone = dismembering_strike(M, pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		if(!dam_zone) //Dismemberment successful
-			return 1
+			return TRUE
 
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
 		if(!affecting)

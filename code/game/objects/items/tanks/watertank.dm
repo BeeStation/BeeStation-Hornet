@@ -180,7 +180,7 @@
 	can_toggle_range = FALSE
 	volume = 500
 	item_flags = NOBLUDGEON | ABSTRACT | ISWEAPON  // don't put in storage
-	slot_flags = 0
+	slot_flags = NONE
 
 	var/obj/item/watertank/tank
 

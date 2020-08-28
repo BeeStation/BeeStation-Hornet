@@ -8,7 +8,7 @@
 	force = 0
 	throwforce = 0
 	can_suppress = TRUE
-	clumsy_check = 0
+	clumsy_check = FALSE
 	item_flags = NONE
 	casing_ejector = FALSE
 	fire_rate = 3

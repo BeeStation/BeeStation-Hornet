@@ -26,7 +26,7 @@
 		D.visible_message(span_warning("[A]'s [atk_verb] misses [D]!"), \
 			span_userdanger("[A]'s [atk_verb] misses you!"), null, COMBAT_MESSAGE_RANGE)
 		log_combat(A, D, "attempted to hit", atk_verb, important = FALSE)
-		return 0
+		return FALSE
 
 
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.get_combat_bodyzone(D)))

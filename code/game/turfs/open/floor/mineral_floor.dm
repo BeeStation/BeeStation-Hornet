@@ -25,8 +25,9 @@
 
 
 /turf/open/floor/mineral/update_icon()
-	if(!..())
-		return 0
+	. = ..()
+	if(!.)
+		return
 	if(!broken && !burnt)
 		if( !(icon_state in icons) )
 			icon_state = initial(icon_state)
@@ -194,7 +195,7 @@
 	custom_materials = list(/datum/material/bananium = 500)
 	material_flags = NONE //The slippery comp makes it unpractical for good clown decor. The custom mat one should still slip.
 	max_integrity = 100
-	var/spam_flag = 0
+	var/sound_cooldown = 0
 
 /turf/open/floor/mineral/bananium/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -219,14 +220,14 @@
 		honk()
 
 /turf/open/floor/mineral/bananium/proc/honk()
-	if(spam_flag < world.time)
-		playsound(src, 'sound/items/bikehorn.ogg', 50, 1)
-		spam_flag = world.time + 20
+	if(sound_cooldown < world.time)
+		playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
+		sound_cooldown = world.time + 20
 
 /turf/open/floor/mineral/bananium/proc/squeak()
-	if(spam_flag < world.time)
-		playsound(src, "clownstep", 50, 1)
-		spam_flag = world.time + 10
+	if(sound_cooldown < world.time)
+		playsound(src, "clownstep", 50, TRUE)
+		sound_cooldown = world.time + 10
 
 /turf/open/floor/mineral/bananium/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -279,12 +280,12 @@
 /turf/open/floor/mineral/uranium/proc/radiate()
 	if(!active)
 		if(world.time > last_event+15)
-			active = 1
+			active = TRUE
 			radiation_pulse(src, 10)
 			for(var/turf/open/floor/mineral/uranium/T in (RANGE_TURFS(1,src)-src))
 				T.radiate()
 			last_event = world.time
-			active = 0
+			active = FALSE
 			return
 
 // ALIEN ALLOY

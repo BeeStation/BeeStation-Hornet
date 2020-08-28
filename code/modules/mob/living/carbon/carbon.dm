@@ -877,7 +877,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/can_be_revived()
 	. = ..()
 	if(!getorgan(/obj/item/organ/brain) && (!mind || !mind.has_antag_datum(/datum/antagonist/changeling)))
-		return 0
+		return FALSE
 
 /mob/living/carbon/harvest(mob/living/user)
 	if(QDELETED(src))

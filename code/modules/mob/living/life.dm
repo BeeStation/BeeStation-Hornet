@@ -11,7 +11,6 @@
  */
 /mob/living/proc/Life(delta_time = SSMOBS_DT, times_fired)
 	set waitfor = FALSE
-	set invisibility = 0
 
 	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, delta_time, times_fired)
 

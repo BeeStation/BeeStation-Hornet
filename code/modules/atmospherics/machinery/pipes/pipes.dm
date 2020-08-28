@@ -17,8 +17,8 @@
 	var/has_gas_visuals = TRUE
 
 	//Buckling
-	can_buckle = 1
-	buckle_requires_restraints = 1
+	can_buckle = TRUE
+	buckle_requires_restraints = TRUE
 	buckle_lying = NO_BUCKLE_LYING
 
 	vis_flags = VIS_INHERIT_PLANE

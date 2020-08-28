@@ -392,7 +392,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/window)
 	if(fulltile || (dir == to_dir))
 		return 0
 
-	return 1
+	return TRUE
 
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0

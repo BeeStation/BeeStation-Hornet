@@ -21,7 +21,7 @@
 	var/spawn_amt = 1
 	var/activate_descriptor = "reality"
 	var/rend_desc = "You should run now."
-	var/spawn_fast = 0 //if 1, ignores checking for mobs on loc before spawning
+	var/spawn_fast = FALSE //if TRUE, ignores checking for mobs on loc before spawning
 
 /obj/item/veilrender/attack_self(mob/user)
 	if(charges > 0)
@@ -40,7 +40,7 @@
 	anchored = TRUE
 	var/spawn_path = /mob/living/basic/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
-	var/spawn_fast = 0
+	var/spawn_fast = FALSE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 

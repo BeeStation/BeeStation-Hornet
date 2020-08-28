@@ -21,7 +21,7 @@
 	path_image_color = "#FF69B4"
 
 	var/honksound = 'sound/items/bikehorn.ogg' //customizable sound
-	var/spam_flag = FALSE
+	var/limiting_spam = FALSE
 	var/cooldowntime = 30
 	var/cooldowntimehorn = 10
 	var/mob/living/carbon/target
@@ -51,8 +51,8 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/mob/living/simple_animal/bot/honkbot/proc/spam_flag_false() //used for addtimer
-	spam_flag = FALSE
+/mob/living/simple_animal/bot/honkbot/proc/limiting_spam_false() //used for addtimer
+	limiting_spam = FALSE
 
 /mob/living/simple_animal/bot/honkbot/proc/sensor_blink()
 	icon_state = "honkbot-c"
@@ -61,9 +61,9 @@
 //honkbots react with sounds.
 /mob/living/simple_animal/bot/honkbot/proc/react_ping()
 	playsound(src, 'sound/machines/ping.ogg', 50, TRUE, -1) //the first sound upon creation!
-	spam_flag = TRUE
+	limiting_spam = TRUE
 	sensor_blink()
-	addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), 18) // calibrates before starting the honk
+	addtimer(CALLBACK(src, PROC_REF(limiting_spam_false)), 18) // calibrates before starting the honk
 
 /mob/living/simple_animal/bot/honkbot/proc/react_buzz()
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
@@ -76,7 +76,7 @@
 	anchored = FALSE
 	SSmove_manager.stop_looping(src)
 	last_found = world.time
-	spam_flag = FALSE
+	limiting_spam = FALSE
 
 /mob/living/simple_animal/bot/honkbot/set_custom_texts()
 
@@ -141,7 +141,7 @@
 			if(!C.IsParalyzed() || arrest_type)
 				stun_attack(A)
 		..()
-	else if (!spam_flag) //honking at the ground
+	else if (!limiting_spam) //honking at the ground
 		bike_horn(A)
 
 
@@ -157,31 +157,31 @@
 
 /mob/living/simple_animal/bot/honkbot/proc/bike_horn() //use bike_horn
 	if (emagged <= 1)
-		if (!spam_flag)
+		if (!limiting_spam)
 			playsound(src, honksound, 50, TRUE, -1)
-			spam_flag = TRUE //prevent spam
+			limiting_spam = TRUE //prevent spam
 			sensor_blink()
-			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntimehorn)
+			addtimer(CALLBACK(src, PROC_REF(limiting_spam_false)), cooldowntimehorn)
 	else if (emagged == 2) //emagged honkbots will spam short and memorable sounds.
-		if (!spam_flag)
-			playsound(src, "honkbot_e", 50, 0)
-			spam_flag = TRUE // prevent spam
+		if (!limiting_spam)
+			playsound(src, "honkbot_e", 50, FALSE)
+			limiting_spam = TRUE // prevent spam
 			icon_state = "honkbot-e"
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 30, TIMER_OVERRIDE|TIMER_UNIQUE)
-		addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntimehorn)
+		addtimer(CALLBACK(src, PROC_REF(limiting_spam_false)), cooldowntimehorn)
 
 /mob/living/simple_animal/bot/honkbot/proc/honk_attack(mob/living/carbon/C) // horn attack
-	if(!spam_flag)
+	if(!limiting_spam)
 		playsound(loc, honksound, 50, TRUE, -1)
-		spam_flag = TRUE // prevent spam
+		limiting_spam = TRUE // prevent spam
 		sensor_blink()
-		addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntimehorn)
+		addtimer(CALLBACK(src, PROC_REF(limiting_spam_false)), cooldowntimehorn)
 
 /mob/living/simple_animal/bot/honkbot/proc/stun_attack(mob/living/carbon/C) // airhorn stun
-	if(!spam_flag)
+	if(!limiting_spam)
 		playsound(src, 'sound/items/AirHorn.ogg', 100, TRUE, -1) //HEEEEEEEEEEEENK!!
 		sensor_blink()
-	if(spam_flag == 0)
+	if(limiting_spam == 0)
 		if(ishuman(C))
 			C.stuttering = 20
 			C.adjustEarDamage(0, 5) //far less damage than the H.O.N.K.
@@ -189,7 +189,7 @@
 			C.Paralyze(60)
 			var/mob/living/carbon/human/H = C
 			if(client) //prevent spam from players..
-				spam_flag = TRUE
+				limiting_spam = TRUE
 			if (emagged <= 1) //HONK once, then leave
 				var/judgment_criteria = judgment_criteria()
 				threatlevel = H.assess_threat(judgment_criteria)
@@ -197,7 +197,7 @@
 				target = oldtarget_name
 			else // you really don't want to hit an emagged honkbot
 				threatlevel = 6 // will never let you go
-			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntime)
+			addtimer(CALLBACK(src, PROC_REF(limiting_spam_false)), cooldowntime)
 
 			log_combat(src,C,"honked", src)
 
@@ -206,7 +206,7 @@
 		else
 			C.stuttering = 20
 			C.Paralyze(80)
-			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntime)
+			addtimer(CALLBACK(src, PROC_REF(limiting_spam_false)), cooldowntime)
 
 
 /mob/living/simple_animal/bot/honkbot/handle_automated_action()
@@ -290,14 +290,14 @@
 		var/judgment_criteria = judgment_criteria()
 		threatlevel = C.assess_threat(judgment_criteria)
 
-		if(threatlevel <= 3 && get_dist(C, src) <= 4 && !spam_flag)
+		if(threatlevel <= 3 && get_dist(C, src) <= 4 && !limiting_spam)
 			bike_horn()
 
 		else if(threatlevel >= 10)
 			bike_horn() //just spam the shit outta this
 
 		else if(threatlevel >= 4)
-			if(!spam_flag)
+			if(!limiting_spam)
 				target = C
 				oldtarget_name = C.name
 				bike_horn()

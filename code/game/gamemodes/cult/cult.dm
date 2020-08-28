@@ -53,8 +53,6 @@
 	title_icon = "cult"
 
 
-	var/finished = 0
-
 	var/acolytes_needed = 10 //for the survive objective
 	var/acolytes_survived = 0
 
@@ -167,9 +165,9 @@
 			if(cult_mind.current.onCentCom() || cult_mind.current.onSyndieBase())
 				acolytes_survived++
 	if(acolytes_survived>=acolytes_needed)
-		return 0
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 
 /datum/game_mode/cult/generate_report()

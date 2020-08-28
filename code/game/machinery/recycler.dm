@@ -12,7 +12,7 @@
 	active_power_usage = 200
 	var/safety_mode = FALSE // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
-	var/blood = 0
+	var/bloody = FALSE
 	var/emagged_by = null // Used for logging
 	var/eat_dir = WEST
 	var/amount_produced = 50
@@ -96,12 +96,12 @@
 	if(user)
 		emagged_by = key_name(user) // key_name is collected here instead of when it's logged so that it gets their current mob name, not whatever future mob they may have
 
-/obj/machinery/recycler/update_icon()
-	..()
+/obj/machinery/recycler/update_icon_state()
 	var/is_powered = !(machine_stat & (BROKEN|NOPOWER))
 	if(safety_mode)
 		is_powered = FALSE
-	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
+	icon_state = icon_name + "[is_powered]" + "[(bloody ? "bld" : "")]" // add the blood tag at the end
+	return ..()
 
 /obj/machinery/recycler/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -206,8 +206,8 @@
 			L.say("ARRRRRRRRRRRGH!!!", forced="recycler grinding")
 		add_mob_blood(L)
 
-	if(!blood && !issilicon(L))
-		blood = TRUE
+	if(!bloody && !issilicon(L))
+		bloody = TRUE
 		update_icon()
 
 	// Remove and recycle the equipped items

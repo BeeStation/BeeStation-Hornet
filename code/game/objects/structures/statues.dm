@@ -218,7 +218,7 @@
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/bananium
 	desc = "A bananium statue with a small engraving:'HOOOOOOONK'."
-	var/spam_flag = FALSE
+	var/limiting_spam = FALSE
 	impressiveness = 50
 
 /obj/structure/statue/bananium/clown
@@ -242,10 +242,10 @@
 	..()
 
 /obj/structure/statue/bananium/proc/honk()
-	if(!spam_flag)
-		spam_flag = TRUE
-		playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
-		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 2 SECONDS)
+	if(!limiting_spam)
+		limiting_spam = TRUE
+		playsound(src.loc, 'sound/items/bikehorn.ogg', 50, TRUE)
+		addtimer(VARSET_CALLBACK(src, limiting_spam, FALSE), 2 SECONDS)
 
 /////////////////////sandstone/////////////////////////////////////////
 

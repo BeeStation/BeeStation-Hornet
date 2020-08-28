@@ -73,17 +73,16 @@
 //Checks for and Rejects bad region coordinates
 //Returns 1/0
 /datum/mapGenerator/proc/checkRegion(turf/Start, turf/End)
-	. = 1
-
 	if(!Start || !End)
-		return 0 //Just bail
+		return FALSE //Just bail
 
 	if(Start.x > world.maxx || End.x > world.maxx)
-		. = 0
+		return FALSE
 	if(Start.y > world.maxy || End.y > world.maxy)
-		. = 0
+		return FALSE
 	if(Start.z > world.maxz || End.z > world.maxz)
-		. = 0
+		return FALSE
+	return TRUE
 
 
 //Requests the mapGeneratorModule(s) to (re)generate

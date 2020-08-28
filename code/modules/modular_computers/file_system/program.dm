@@ -87,8 +87,8 @@
 	if(!(hardware_flag & usage_flags))
 		if(loud && computer && user)
 			to_chat(user, span_danger("\The [computer] flashes an \"Hardware Error - Incompatible software\" warning."))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/computer_file/program/proc/get_signal(specific_action = 0)
 	if(computer)
@@ -97,7 +97,7 @@
 
 // Called by Process() on device that runs us, once every tick.
 /datum/computer_file/program/proc/process_tick(delta_time)
-	return 1
+	return TRUE
 
 /**
   *Check if the user can run program. Only humans and silicons can operate computer. Automatically called in on_start()

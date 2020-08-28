@@ -96,7 +96,7 @@
 			pAI.hostscan.attack(holder, pAI)
 	else
 		to_chat(usr, span_warning("You are not being carried by anyone!"))
-		return 0
+		return FALSE
 
 /atom/movable/screen/pai/crew_manifest
 	name = "Crew Manifest"

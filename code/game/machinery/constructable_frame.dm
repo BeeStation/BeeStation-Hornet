@@ -31,7 +31,7 @@
 /obj/structure/frame/machine/examine(user)
 	. = ..()
 	if(state == 3 && req_components && req_component_names)
-		var/hasContent = 0
+		var/hasContent = FALSE
 		var/requires = "It requires"
 
 		for(var/i = 1 to req_components.len)
@@ -41,7 +41,7 @@
 				continue
 			var/use_and = i == req_components.len
 			requires += "[(hasContent ? (use_and ? ", and" : ",") : "")] [amt] [amt == 1 ? req_component_names[tname] : "[req_component_names[tname]]\s"]"
-			hasContent = 1
+			hasContent = TRUE
 
 		if(hasContent)
 			. +=  "[requires]."
@@ -279,9 +279,9 @@
 						to_chat(user, span_notice("You add [P] to [src]."))
 						components += P
 						req_components[I]--
-						return 1
+						return TRUE
 				to_chat(user, span_warning("You cannot add that to the machine!"))
-				return 0
+				return FALSE
 	if(user.combat_mode)
 		return ..()
 

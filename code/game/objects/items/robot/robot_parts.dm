@@ -280,8 +280,8 @@
 				return
 
 			if(M.laws && M.laws.id != DEFAULT_AI_LAWID)
-				aisync = 0
-				lawsync = 0
+				aisync = FALSE
+				lawsync = FALSE
 				O.laws = M.laws
 				M.laws.associate(O)
 
@@ -290,7 +290,7 @@
 			O.custom_name = created_name
 			O.locked = panel_locked
 			if(!aisync)
-				lawsync = 0
+				lawsync = FALSE
 				O.connected_ai = null
 			else
 				O.notify_ai(NEW_BORG)

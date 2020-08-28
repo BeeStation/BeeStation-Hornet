@@ -25,7 +25,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	///Triggering ID card relayed to auth devices to make sure two keycards are used.
 	var/obj/item/card/id/triggering_card
 	var/mob/triggerer = null
-	var/waiting = 0
+	var/waiting = FALSE
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 
@@ -120,7 +120,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 	triggerer = usr
 	triggering_card = swipe_id //Shouldn't need qdel registering due to very short time before this var resets.
 	event = event_type
-	waiting = 1
+	waiting = TRUE
 	GLOB.keycard_events.fireEvent("triggerEvent", src, event)
 	addtimer(CALLBACK(src, PROC_REF(eventSent)), 5 SECONDS)
 
@@ -128,7 +128,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 	triggerer = null
 	triggering_card = null
 	event = ""
-	waiting = 0
+	waiting = FALSE
 
 /obj/machinery/keycard_auth/proc/triggerEvent(source, event_trigered)
 	event_source = source

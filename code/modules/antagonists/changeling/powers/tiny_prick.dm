@@ -85,7 +85,8 @@
 	..()
 
 /datum/action/changeling/sting/transformation/can_sting(mob/user, mob/living/carbon/target)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	if((HAS_TRAIT(target, TRAIT_HUSK)) || !iscarbon(target) || (NOTRANSSTING in target.dna.species.species_traits))
 		to_chat(user, span_warning("Our sting appears ineffective against its DNA."))
@@ -128,8 +129,8 @@
 		var/mob/living/L = target
 		if((HAS_TRAIT(L, TRAIT_HUSK)) || !L.has_dna())
 			to_chat(user, span_warning("Our sting appears ineffective against its DNA."))
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /datum/action/changeling/sting/false_armblade/sting_action(mob/user, mob/target)
 	log_combat(user, target, "stung", object="false armblade sting")
