@@ -48,7 +48,7 @@ const SUFFIXES = [
   "Jr.",
 ];
 
-// TODO: refactor the backend of this it's a trainwreck <--- and doesn't even work lmao
+// TODO: refactor the backend of this it's a trainwreck
 export const CodexGigas = (props, context) => {
   const { act, data } = useBackend(context);
   return (

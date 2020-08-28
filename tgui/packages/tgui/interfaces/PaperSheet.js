@@ -12,6 +12,7 @@ import { Window } from '../layouts';
 import marked from 'marked';
 import DOMPurify from 'dompurify';
 import { classes } from 'common/react';
+import { isFalsy } from 'common/react';
 // There is a sanatize option in marked but they say its deprecated.
 // Might as well use a proper one then
 
