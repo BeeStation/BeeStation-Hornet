@@ -2144,7 +2144,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			Warning: Do not consume more than one!"
 	item = /obj/item/reagent_containers/food/drinks/syndicatebeer
 	cost = 4
-	surplus_nullcrates = 40 // brought inline with syndiecards
+	surplus_nullcrates = 60 // nerfs nullcrates without having to change every item.
 	illegal_tech = FALSE
 
 /datum/uplink_item/badass/syndiecash
@@ -2165,11 +2165,12 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/toy/cards/deck/syndicate
 	cost = 1
 	surplus = 40
+	surplus_nullcrates = 60 // nerfs nullcrates without having to change every item.
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
-	surplus_nullcrates = 40 // brought inline with syndiecards
+	surplus_nullcrates = 60 // nerfs nullcrates without having to change every item.
 	illegal_tech = FALSE
