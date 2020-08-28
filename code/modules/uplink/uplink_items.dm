@@ -2147,7 +2147,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/reagent_containers/food/drinks/syndicatebeer
 	cost = 4
 	surplus = 40
-	surplus_nullcrates = 80
+	surplus_nullcrates = 80 // cheers.
 	illegal_tech = FALSE
 
 /datum/uplink_item/badass/syndiecash
