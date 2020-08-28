@@ -2144,6 +2144,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			Warning: Do not consume more than one!"
 	item = /obj/item/reagent_containers/food/drinks/syndicatebeer
 	cost = 4
+	surplus = 40
 	surplus_nullcrates = 60 // nerfs nullcrates without having to change every item.
 	illegal_tech = FALSE
 
@@ -2154,6 +2155,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			manufactured to pack a little bit more of a punch if your client needs some convincing."
 	item = /obj/item/storage/secure/briefcase/syndie
 	cost = 1
+	surplus = 10
 	surplus_nullcrates = 10
 	restricted = TRUE
 
@@ -2172,5 +2174,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
+	surplus = 40
 	surplus_nullcrates = 60 // nerfs nullcrates without having to change every item.
 	illegal_tech = FALSE
