@@ -322,7 +322,8 @@
 			if (super_saturation)
 				air.adjust_moles(/datum/gas/tritium, plasma_burn_rate)
 			else
-				air.adjust_moles(/datum/gas/carbon_dioxide, plasma_burn_rate)
+				air.adjust_moles(/datum/gas/carbon_dioxide, plasma_burn_rate * 0.75)
+				air.adjust_moles(/datum/gas/water_vapor, plasma_burn_rate * 0.25)
 
 			energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
