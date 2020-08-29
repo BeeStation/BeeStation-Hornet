@@ -3240,10 +3240,6 @@
 	},
 /turf/closed/wall,
 /area/mine/laborcamp)
-"kb" = (
-/obj/machinery/door/firedoor/window,
-/turf/closed/wall/r_wall,
-/area/mine/laborcamp/security)
 "kg" = (
 /obj/structure/fluff/drake_statue,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -10023,7 +10019,7 @@ ie
 cc
 cc
 cc
-kb
+cc
 cc
 cR
 cR
