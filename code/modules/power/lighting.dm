@@ -661,7 +661,7 @@
 						to_chat(H, "<span class='notice'>You receive some charge from the [fitting].</span>")
 						stomach.adjust_charge(2)
 					else
-						to_chat(H, "<span class='warning'>You can't receive charge from the [fitting]!</span>")
+						to_chat(H, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
 				return
 
 			if(H.gloves)

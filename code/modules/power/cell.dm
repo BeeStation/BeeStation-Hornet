@@ -174,7 +174,7 @@
 				stomach.adjust_charge(3)
 				charge -= 100 //you waste way more than you receive, so that ethereals cant just steal one cell and forget about hunger
 			else
-				to_chat(H, "<span class='warning'>You can't receive charge from the [src]!</span>")
+				to_chat(H, "<span class='warning'>You fail to receive charge from the [src]!</span>")
 		return
 
 
