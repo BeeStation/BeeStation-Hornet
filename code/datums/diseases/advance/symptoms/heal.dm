@@ -197,12 +197,12 @@
 	var/healed = FALSE
 
 	if(M.getBruteLoss() && M.getBruteLoss() <= threshhold)
-		M.adjustBruteLoss(-power)
+		M.heal_overall_damage(power, required_status = BODYPART_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
 	if(M.getFireLoss() && M.getFireLoss() <= threshhold)
-		M.adjustFireLoss(-power)
+		M.heal_overall_damage(burn = power, required_status = BODYPART_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
@@ -382,7 +382,7 @@ obj/effect/sweatsplash/proc/splash()
 	switch(A.stage)
 		if(4, 5)
 			if(burnheal)
-				M.adjustFireLoss(-1 * power)
+				M.adjustFireLoss(-1 * power) //we don't care about bodypart type here, because this is rolling back time or some shit
 			if(prob(5) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
 				if(prob(50))
@@ -435,6 +435,7 @@ obj/effect/sweatsplash/proc/splash()
 		bruteheal = TRUE
 	if(A.properties["stage_rate"] >= 12)
 		tetsuo = TRUE
+		power = 3 //should make this symptom actually worth it
 	var/mob/living/carbon/M = A.affected_mob
 	ownermind = M.mind
 	sizemult = CLAMP((0.5 + A.properties["stage_rate"] / 10), 1.1, 2.5)
@@ -499,13 +500,11 @@ obj/effect/sweatsplash/proc/splash()
 									M.grab_ghost()
 								break
 				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
-					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
-			if(tetsuo)
-				M.adjustBruteLoss(-4)
-				if(prob(20))
+					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)				
+			if(bruteheal)
+				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
+				if(prob(11 * power))
 					M.adjustCloneLoss(1)
-			else if(bruteheal)
-				M.adjustBruteLoss(-1)
 		else
 			if(prob(5))
 				to_chat(M, "<span class='notice'>[pick("You feel bloated.", "The station seems small", "You are the strongest")]</span>")
