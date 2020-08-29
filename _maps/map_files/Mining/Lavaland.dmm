@@ -81,11 +81,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
-"ap" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/mine/laborcamp)
 "aq" = (
 /turf/closed/wall,
 /area/mine/laborcamp)
@@ -328,7 +323,7 @@
 	req_access_txt = "2"
 	},
 /obj/machinery/advanced_airlock_controller/lavaland{
-	pixel_y = -29
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /turf/open/floor/plasteel,
@@ -530,7 +525,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Labor Camp APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -611,7 +606,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller/lavaland{
-	pixel_y = 29
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
@@ -834,7 +829,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "Labor Camp Security APC";
-	pixel_y = 24
+	pixel_x = 24
 	},
 /obj/machinery/camera{
 	c_tag = "Labor Camp Monitoring";
@@ -902,8 +897,7 @@
 "co" = (
 /obj/machinery/power/apc{
 	name = "Mining EVA APC";
-	pixel_x = 1;
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable,
 /obj/machinery/recharge_station,
@@ -1062,10 +1056,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
-"cG" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/mine/laborcamp/security)
 "cH" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
@@ -1192,8 +1182,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Mining Station Starboard Wing APC";
-	pixel_x = -25;
-	pixel_y = 2
+	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -1415,8 +1404,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Mining Communications APC";
-	pixel_x = 1;
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/plasteel/dark,
@@ -1743,8 +1731,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Mining Station Port Wing APC";
-	pixel_x = 1;
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -3253,6 +3240,10 @@
 	},
 /turf/closed/wall,
 /area/mine/laborcamp)
+"kb" = (
+/obj/machinery/door/firedoor/window,
+/turf/closed/wall/r_wall,
+/area/mine/laborcamp/security)
 "kg" = (
 /obj/structure/fluff/drake_statue,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -3988,7 +3979,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller/lavaland{
-	pixel_y = -29
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 1
@@ -4043,11 +4034,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
-"qD" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/mine/laborcamp/security)
 "qY" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -4266,7 +4252,7 @@
 /area/mine/laborcamp)
 "Do" = (
 /obj/machinery/advanced_airlock_controller/lavaland{
-	pixel_y = -29
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
@@ -4574,7 +4560,7 @@
 "Ww" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /obj/machinery/advanced_airlock_controller/lavaland{
-	pixel_y = 29
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
@@ -10019,9 +10005,9 @@ an
 an
 an
 an
-ap
-ap
-ap
+aq
+aq
+aq
 aq
 aq
 aq
@@ -10037,7 +10023,7 @@ ie
 cc
 cc
 cc
-qD
+kb
 cc
 cR
 cR
@@ -10276,7 +10262,7 @@ an
 an
 an
 an
-ap
+aq
 ar
 ar
 aq
@@ -11066,7 +11052,7 @@ cd
 bM
 cy
 dm
-cG
+cc
 ea
 dZ
 PL
@@ -11580,7 +11566,7 @@ pa
 bM
 zu
 YT
-cG
+cc
 ec
 dZ
 QV
@@ -12089,7 +12075,7 @@ aD
 aD
 aD
 aD
-qD
+cc
 LA
 rE
 zV
@@ -12346,10 +12332,10 @@ aD
 aD
 aD
 aD
-qD
-qD
-qD
-qD
+cc
+cc
+cc
+cc
 cc
 cQ
 dx
