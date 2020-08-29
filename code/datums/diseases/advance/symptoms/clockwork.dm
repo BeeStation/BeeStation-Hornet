@@ -14,7 +14,7 @@
 	var/robustbits = FALSE
 	threshold_desc = "<b>Stage Speed 4:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
                       <b>Stage Speed 10:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
-                      <b>Stage Speed 14:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
+                      <b>Stage Speed 13:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 
 /datum/symptom/robotic_adaptation/OnAdd(datum/disease/advance/A)
 	A.infectable_biotypes |= MOB_ROBOTIC
@@ -51,6 +51,7 @@
 					return
 				else if(replacebody)
 					H.adjustCloneLoss(-20) //we're fully mechanical, repair integrity. This symptom has a soft synergy with overclocked pituitary, so we want that to be useable. OFI is obviously out
+					ADD_TRAIT(M, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 	return
 
 /datum/symptom/robotic_adaptation/proc/Replace(mob/living/carbon/human/H)
@@ -199,6 +200,11 @@
 					qdel(O)
 					return TRUE
 	return FALSE
+
+/datum/symptom/robotic_adaptation/End(datum/disease/advance/A)
+	if(!..())
+		return
+	REMOVE_TRAIT(M, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 
 /datum/symptom/robotic_adaptation/OnRemove(datum/disease/advance/A)
 	A.infectable_biotypes -= MOB_ROBOTIC
