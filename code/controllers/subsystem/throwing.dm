@@ -111,7 +111,7 @@ SUBSYSTEM_DEF(throwing)
 			finalize()
 			return
 
-		AM.Move(step, get_dir(AM, step))
+		AM.Move(step, get_dir(AM, step), DELAY_TO_GLIDE_SIZE(1 / speed))
 
 		if (!AM.throwing) // we hit something during our move
 			finalize(hit = TRUE)
@@ -147,7 +147,7 @@ SUBSYSTEM_DEF(throwing)
 
 	if (callback)
 		callback.Invoke()
-	
+
 	if(!thrownthing.zfalling) // I don't think you can zfall while thrown but hey, just in case.
 		var/turf/T = get_turf(thrownthing)
 		if(T && thrownthing.has_gravity(T))
