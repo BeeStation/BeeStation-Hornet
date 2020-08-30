@@ -51,9 +51,6 @@
 	take_damage(AM.throwforce, BRUTE, "melee", 1, get_dir(src, AM))
 
 /obj/ex_act(severity, target)
-	if(target == null) // probably got deleted in an existing explosion already
-		return
-
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
 	..() //contents explosion
@@ -250,8 +247,9 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 //the obj is deconstructed into pieces, whether through careful disassembly or when destroyed.
 /obj/proc/deconstruct(disassembled = TRUE)
-	SEND_SIGNAL(src, COMSIG_OBJ_DECONSTRUCT, disassembled)
-	qdel(src)
+	if(src != null) // most likely deleted from a previous explosion
+		SEND_SIGNAL(src, COMSIG_OBJ_DECONSTRUCT, disassembled)
+		qdel(src)
 
 //what happens when the obj's health is below integrity_failure level.
 /obj/proc/obj_break(damage_flag)
