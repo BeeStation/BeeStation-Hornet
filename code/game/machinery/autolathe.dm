@@ -104,13 +104,23 @@
 	for(var/v in stored_research.researched_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(v)
 		for(var/cat in D.category)
+			//Check if printable
 			if(!(cat in categories))
 				continue
 			if(!islist(categories_associative[cat]))
 				categories_associative[cat] = list()
+			//Calculate cost
+			var/list/material_cost = list()
+			for(var/material_id in D.materials)
+				material_cost += list(list(
+					"name" = material_id,
+					"amount" = D.materials[material_id],
+				))
+			//Add
 			categories_associative[cat] += list(list(
 				"name" = D.name,
 				"design_id" = D.id,
+				"material_cost" = material_cost,
 			))
 	for(var/category in categories_associative)
 		data["items"] += list(list(

@@ -69,10 +69,18 @@ export const amountToSheet = amount => {
  *            list(
  *              name = "Battery"                //Display name of the item
  *              design_id = "battery"           //Design ID of the object
+ *              material_cost = list(
+ *               list("name" = "iron", "amount" = "2000"),
+ *               list("name" = "copper", "amount" = "5000"),
+ *              )
  *            ),
  *            list(
  *              name = "Battery2"               //Display name of the item
  *              design_id = "battery2"          //Design ID of the object
+ *              material_cost = list(
+ *               list("name" = "iron", "amount" = "2000"),
+ *               list("name" = "copper", "amount" = "5000"),
+ *              )
  *            ),
  *          ),
  *        ))
@@ -245,31 +253,49 @@ export const ModFabCategoryItems = (props, context) => {
         onClick={() => {
           setCategory("");
         }} />
-      <Table>
+      <Table height="100%">
         {items.map(item => (
           <Table.Row
+            height="100%"
             key={item}>
             <Table.Cell>
               {item.name}
             </Table.Cell>
-            <Table.Cell collapsing>
+            <Table.Cell>
+              {item.material_cost.map(mat => (
+                <Box
+                  key={mat.name}>
+                  {mat.name} ({mat.amount})
+                </Box>
+              ))}
+              <Divider />
+            </Table.Cell>
+            <Table.Cell
+              collapsing
+              verticalAlign="middle">
               <Button
                 icon="minus"
                 onClick={() => setAmount(amount-1)} />
             </Table.Cell>
-            <Table.Cell collapsing>
+            <Table.Cell
+              collapsing
+              verticalAlign="middle">
               <NumberInput
                 value={amount}
                 minValue={0}
                 maxValue={50}
                 onChange={(e, value) => setAmount(value)} />
             </Table.Cell>
-            <Table.Cell collapsing>
+            <Table.Cell
+              collapsing
+              verticalAlign="middle">
               <Button
                 icon="plus"
                 onClick={() => setAmount(amount+1)} />
             </Table.Cell>
-            <Table.Cell collapsing>
+            <Table.Cell
+              collapsing
+              verticalAlign="middle">
               <Button
                 icon="hammer"
                 content="Create"
@@ -279,7 +305,9 @@ export const ModFabCategoryItems = (props, context) => {
                   item_name: item.name,
                 })} />
             </Table.Cell>
-            <Table.Cell collapsing>
+            <Table.Cell
+              collapsing
+              verticalAlign="middle">
               <Button
                 icon="plus-circle"
                 content="Queue"
