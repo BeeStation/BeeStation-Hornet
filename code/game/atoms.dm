@@ -511,15 +511,6 @@
 	contents_explosion(severity, target)
 	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
 
-/atom/proc/fastex_act(severity)
-	switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.highobj += MT
-			if(EXPLODE_HEAVY)
-				SSexplosions.medobj += MT
-			if(EXPLODE_LIGHT)
-				SSexplosions.lowobj += MT
-
 /**
   * React to a hit by a blob objecd
   *

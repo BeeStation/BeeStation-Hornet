@@ -142,11 +142,11 @@
 		var/obj/item/mecha_parts/mecha_tracking/MT = Y
 		switch(severity)
 			if(EXPLODE_DEVASTATE)
-				SSexplosions.highobj += ME
+				SSexplosions.highobj += MT
 			if(EXPLODE_HEAVY)
-				SSexplosions.medobj += ME
+				SSexplosions.medobj += MT
 			if(EXPLODE_LIGHT)
-				SSexplosions.lowobj += ME
+				SSexplosions.lowobj += MT
 	if(occupant)
 		occupant.ex_act(severity,target)
 

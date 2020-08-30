@@ -6,6 +6,7 @@
 #define SSAIR_HIGHPRESSURE 6
 #define SSAIR_HOTSPOTS 7
 #define SSAIR_SUPERCONDUCTIVITY 8
+#define SSAIR_REBUILD_PIPENETS 9
 
 SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
@@ -21,12 +22,14 @@ SUBSYSTEM_DEF(air)
 	var/cost_hotspots = 0
 	var/cost_superconductivity = 0
 	var/cost_pipenets = 0
+	var/cost_rebuilds = 0
 	var/cost_atmos_machinery = 0
 	var/cost_equalize = 0
 
 	var/list/active_turfs = list()
 	var/list/hotspots = list()
 	var/list/networks = list()
+	var/list/pipenets_needing_rebuilt = list()
 	var/list/obj/machinery/atmos_machinery = list()
 	var/list/pipe_init_dirs_cache = list()
 
@@ -40,7 +43,7 @@ SUBSYSTEM_DEF(air)
 
 
 	var/list/currentrun = list()
-	var/currentpart = SSAIR_PIPENETS
+	var/currentpart = SSAIR_REBUILD_PIPENETS
 
 	var/map_loading = TRUE
 	var/list/queued_for_activation
