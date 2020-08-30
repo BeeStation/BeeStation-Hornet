@@ -22,7 +22,7 @@
 	<B>The old ones gave you these tasks to fulfill:</B>")
 	owner.announce_objectives()
 	to_chat(owner, "<span class='cult'>The book whispers, the forbidden knowledge walks once again!<br>\
-	Your book allows you to research abilities, read it very carefully! you cannot undo what has been done!<br>\
+	Your book allows you to research abilities, read it very carefully! You cannot undo what has been done!<br>\
 	You gain charges by either collecitng influences or sacrifcing people tracked by the living heart<br> \
 	You can find a basic guide at : https://tgstation13.org/wiki/Heresy_101 </span>")
 
@@ -33,7 +33,7 @@
 		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
 		gain_knowledge(/datum/eldritch_knowledge/living_heart)
 		gain_knowledge(/datum/eldritch_knowledge/codex_cicatrix)
-	current.log_message("has been converted to the cult of the forgotten ones!", LOG_ATTACK, color="#960000")
+	current.log_message("has become a heretic", LOG_ATTACK, color="#960000")
 	GLOB.reality_smash_track.AddMind(owner)
 	START_PROCESSING(SSprocessing,src)
 	if(give_equipment)
@@ -47,9 +47,8 @@
 		EK.on_lose(owner.current)
 
 	if(!silent)
-		owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] just reverted to [owner.current.p_their()] old faith!</span>", null, null, null, owner.current)
 		to_chat(owner.current, "<span class='userdanger'>Your mind begins to flare as the otherwordly knowledge escapes your grasp!</span>")
-		owner.current.log_message("has renounced the cult of the old ones!", LOG_ATTACK, color="#960000")
+		owner.current.log_message("has become a non-heretic", LOG_ATTACK, color="#960000")
 	GLOB.reality_smash_track.RemoveMind(owner)
 	STOP_PROCESSING(SSprocessing,src)
 
