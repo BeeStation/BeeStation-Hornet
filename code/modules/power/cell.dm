@@ -151,8 +151,8 @@
 /obj/item/stock_parts/cell/attack_self(mob/user)
 	var/mob/living/carbon/human/H = user
 	var/datum/species/ethereal/eth_species = H.dna?.species
-	
-	if(istype(H) && istype(eth_species))			
+
+	if(istype(H) && istype(eth_species))
 		if(charge < 100)
 			to_chat(H, "<span class='warning'>The [src] doesn't have enough power!</span>")
 			return
@@ -169,12 +169,12 @@
 				to_chat(H, "<span class='warning'>You can't receive charge from the [src]!</span>")
 			return
 
-		
+
 	..()
 
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
-	ex_act(EXPLODE_DEVASTATE)
+	SSexplosions.highobj += src
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
 	if(charge >= 1000)

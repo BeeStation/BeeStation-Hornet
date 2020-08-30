@@ -20,7 +20,13 @@
 
 /obj/structure/bigDelivery/contents_explosion(severity, target)
 	for(var/atom/movable/AM in contents)
-		AM.ex_act()
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.highobj += AM
+			if(EXPLODE_HEAVY)
+				SSexplosions.medobj += AM
+			if(EXPLODE_LIGHT)
+				SSexplosions.lowobj += AM
 
 /obj/structure/bigDelivery/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/destTagger))
@@ -85,7 +91,13 @@
 
 /obj/item/smallDelivery/contents_explosion(severity, target)
 	for(var/atom/movable/AM in contents)
-		AM.ex_act()
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.highobj += AM
+			if(EXPLODE_HEAVY)
+				SSexplosions.medobj += AM
+			if(EXPLODE_LIGHT)
+				SSexplosions.lowobj += AM
 
 /obj/item/smallDelivery/attack_self(mob/user)
 	user.temporarilyRemoveItemFromInventory(src, TRUE)

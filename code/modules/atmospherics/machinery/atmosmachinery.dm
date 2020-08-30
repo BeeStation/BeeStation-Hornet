@@ -63,6 +63,7 @@
 		nullifyNode(i)
 
 	SSair.atmos_machinery -= src
+	SSair.pipenets_needing_rebuilt -= src
 
 	dropContents()
 	if(pipe_vision_img)
@@ -212,11 +213,11 @@
 		if(unsafe_wrenching)
 			unsafe_pressure_release(user, internal_pressure)
 
-			
+
 			if (user.client)
 				SSmedals.UnlockMedal(MEDAL_UNWRENCH_HIGH_PRESSURE,user.client)
-			
-			
+
+
 		deconstruct(TRUE)
 	return TRUE
 

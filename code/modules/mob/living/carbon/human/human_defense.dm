@@ -237,7 +237,7 @@
 	if(M.a_intent == INTENT_DISARM) //the fact that this fucking works is hilarious to me
 		dna.species.disarm(M, src)
 		return 1
-	
+
 	if(M.limb_destroyer)
 		dismembering_strike(M, affecting.body_zone)
 
@@ -390,7 +390,13 @@
 			if(bomb_armor < EXPLODE_GIB_THRESHOLD) //gibs the mob if their bomb armor is lower than EXPLODE_GIB_THRESHOLD
 				for(var/I in contents)
 					var/atom/A = I
-					A.ex_act(severity)
+					switch(severity)
+							if(EXPLODE_DEVASTATE)
+								SSexplosions.highobj += A
+							if(EXPLODE_HEAVY)
+								SSexplosions.medobj += A
+							if(EXPLODE_LIGHT)
+								SSexplosions.lowobj += A
 				gib()
 				return
 			else
@@ -891,7 +897,7 @@
 
 	for(var/obj/item/I in torn_items)
 		I.take_damage(damage_amount, damage_type, damage_flag, 0)
-	
+
 /mob/living/carbon/human/proc/blockbreak()
 	to_chat(src, "<span class ='userdanger'>Your block was broken!</span>")
 	ADD_TRAIT(src, TRAIT_NOBLOCK, type)
