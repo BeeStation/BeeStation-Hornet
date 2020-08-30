@@ -34,7 +34,7 @@
 		return 0
 	var/gulp_amount = gulp_size
 	if(M == user)
-		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH && beingChugged == FALSE)
+		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH && !beingChugged)
 			beingChugged = TRUE
 			user.visible_message("<span class='notice'>[user] starts chugging [src].</span>", \
 				"<span class='notice'>You start chugging [src].</span>")

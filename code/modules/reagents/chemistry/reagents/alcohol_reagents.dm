@@ -2196,12 +2196,13 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "fourthwallglass"
 	glass_name = "Fourth Wall"
 	glass_desc = "Just looking at this makes your head hurt."
-	var/trauma_list[0]
+	var/list/trauma_list
 
 /datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(var/mild,var/severe,var/special)
 	return pick(pickweight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality = severe, subtypesof(/datum/brain_trauma/special) - /datum/brain_trauma/special/imaginary_friend = special)))
 
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_metabolize(mob/living/carbon/M)
+	trauma_list = list()
 	to_chat(M, "<span class='warning'>Your mind breaks, as you realize your reality is just some comupter game.</span>")
 	var/datum/brain_trauma/trauma = traumaweightpick(60,40,0)
 	trauma = new trauma()
