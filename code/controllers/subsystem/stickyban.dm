@@ -52,7 +52,7 @@ SUBSYSTEM_DEF(stickyban)
 	return ..()
 
 /datum/controller/subsystem/stickyban/proc/Populatedbcache()
-	var/newdbcache = list() //so if we runtime or the db connection dies we don't kill the existing cache
+	var/newdbcache = list() //so if we runtime or the db connection dies we don't kill the existing cache.
 
 	var/datum/DBQuery/query_stickybans = SSdbcore.NewQuery("SELECT ckey, reason, banning_admin, datetime FROM [format_table_name("stickyban")] ORDER BY ckey")
 	var/datum/DBQuery/query_ckey_matches = SSdbcore.NewQuery("SELECT stickyban, matched_ckey, first_matched, last_matched, exempt FROM [format_table_name("stickyban_matched_ckey")] ORDER BY first_matched")
