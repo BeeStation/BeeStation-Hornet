@@ -55,14 +55,16 @@
 
 	//Viewing mobs of the UI to update
 	var/list/viewing_mobs = list()
-	//Associative list: item_queue[design_id] = list("amount" = int, "repeating" = bool)
+	//Associative list: item_queue[design_id] = list("amount" = int, "repeating" = bool, "build_mat" = something)
 	//These are the items in the build queue. (It's a queue that takes priority over item_queue)
 	var/list/build_queue = list()
-	//Associative list: item_queue[design_id] = list("amount" = int, "repeating" = bool)
+	//Associative list: item_queue[design_id] = list("amount" = int, "repeating" = bool, "build_mat" = something)
 	//The items in the item queue
 	var/list/item_queue = list()
 	//If true, once an item is processed it will be stuck right back on again
 	var/queue_repeating = FALSE
+	//The amount to readd to the queue when processing is done
+	var/stored_item_amount
 
 /obj/machinery/autolathe/Initialize()
 	AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/gold, /datum/material/gold, /datum/material/silver, /datum/material/diamond, /datum/material/uranium, /datum/material/plasma, /datum/material/bluespace, /datum/material/bananium, /datum/material/titanium), 0, TRUE, null, null, CALLBACK(src, .proc/AfterMaterialInsert))
@@ -254,9 +256,25 @@
 		return
 	if(amount <= 0)
 		return
+	//Check if the item uses custom materials
+	var/datum/design/requested_item = stored_research.isDesignResearchedID(design_id)
+	var/datum/material/used_material = null
+	for(var/MAT in requested_item.materials)
+		used_material = MAT
+		if(istext(used_material)) //This means its a category
+			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+			var/list/list_to_show = list()
+			for(var/i in SSmaterials.materials_by_category[used_material])
+				if(materials.materials[i] > 0)
+					list_to_show += i
+			used_material = input("Choose [used_material]", "Custom Material") as null|anything in sortList(list_to_show, /proc/cmp_typepaths_asc)
+			if(!used_material)
+				return //Didn't pick any material, so you can't build shit either.
+
 	queue_list["[design_id]"] = list(
 		"amount" = amount,
 		"repeating" = repeat,
+		"build_mat" = used_material,
 	)
 
 /obj/machinery/autolathe/proc/get_release_direction()
@@ -365,11 +383,13 @@
 		return
 
 	var/multiplier = 1
-	if(from_build_queue)
-		multiplier = build_queue[requested_design_id]["amount"]
-	else
-		multiplier = item_queue[requested_design_id]["amount"]
 	var/is_stack = ispath(being_built.build_path, /obj/item/stack)
+	//Only items that can stack should be build en mass, since we now have queues.
+	if(is_stack)
+		if(from_build_queue)
+			multiplier = build_queue[requested_design_id]["amount"]
+		else
+			multiplier = item_queue[requested_design_id]["amount"]
 	multiplier = CLAMP(multiplier,1,50)
 
 	/////////////////
@@ -391,14 +411,11 @@
 		var/datum/material/used_material = MAT
 		var/amount_needed = being_built.materials[MAT] * coeff * multiplier
 		if(istext(used_material)) //This means its a category
-			var/list/list_to_show = list()
-			for(var/i in SSmaterials.materials_by_category[used_material])
-				if(materials.materials[i] > 0)
-					list_to_show += i
-
-			used_material = input("Choose [used_material]", "Custom Material") as null|anything in sortList(list_to_show, /proc/cmp_typepaths_asc)
+			used_material = build_queue[requested_design_id]["build_mat"]
 			if(!used_material)
-				operating = FALSE
+				build_queue -= requested_design_id
+				item_queue -= requested_design_id
+				addtimer(CALLBACK(src, .proc/restart_process), 50)
 				return //Didn't pick any material, so you can't build shit either.
 			custom_materials[used_material] += amount_needed
 
@@ -418,11 +435,16 @@
 		else
 			var/list/queue_data = item_queue[requested_design_id]
 			item_queue[requested_design_id]["amount"] -= multiplier
+			var/removed = FALSE
 			if(item_queue[requested_design_id]["amount"] <= 0)
 				item_queue -= requested_design_id
+				removed = TRUE
 			//Requeue if necessary
 			if(queue_repeating || queue_data["repeating"])
-				add_to_queue(item_queue, requested_design_id, multiplier, queue_data["repeating"])
+				stored_item_amount ++
+				if(removed)
+					add_to_queue(item_queue, requested_design_id, stored_item_amount, queue_data["repeating"])
+					stored_item_amount = 0
 		//Create item and restart
 		being_build_finish_time = world.time + time
 		total_build_time = time
