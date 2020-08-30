@@ -120,10 +120,10 @@
 		return
 
 	// Those are supposed to be list indexes, check them for sanity
-	if(!isnum(parameters[1]) || parameters[1] % 1 || parameters[1] < 1)
+	if(!isnum_safe(parameters[1]) || parameters[1] % 1 || parameters[1] < 1)
 		return
 
-	if(!isnum(parameters[3]) || parameters[3] % 1 || parameters[3] < 1)
+	if(!isnum_safe(parameters[3]) || parameters[3] % 1 || parameters[3] < 1)
 		return
 
 	return get_pin_ref(parameters[1], parameters[2], parameters[3], components)

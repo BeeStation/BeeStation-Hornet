@@ -11,6 +11,9 @@
 	var/id
 	var/ordered = TRUE //If the button gets placed into the default bar
 
+/obj/screen/movable/action_button/Destroy()
+	. = ..()
+
 /obj/screen/movable/action_button/proc/can_use(mob/user)
 	if (linked_action)
 		return linked_action.owner == user
@@ -60,6 +63,10 @@
 		return
 	usr.next_click = world.time + 1
 	linked_action.Trigger()
+	SEND_SOUND(usr, get_sfx("terminal_type"))
+	transform = turn(matrix() * 0.9, pick(-8, 8))
+	alpha = 200
+	animate(src, transform = matrix(), time=4, alpha=255)
 	return TRUE
 
 //Hide/Show Action Buttons ... Button

@@ -1017,6 +1017,7 @@
 		return FALSE
 	if(hallucinating())
 		return TRUE
+	
 	if(IsSleeping())
 		return TRUE
 	if(HAS_TRAIT(src, TRAIT_DUMB))

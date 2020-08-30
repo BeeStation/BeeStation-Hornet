@@ -401,7 +401,10 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	if(href_list["setauthor"])
 		var/newauthor = stripped_input(usr, "Enter the author's name: ")
 		if(newauthor)
-			scanner.cache.author = newauthor
+			if(length(newauthor) <= 45)
+				scanner.cache.author = newauthor
+			else
+				alert("Unable to set author. The field must be fewer than 45 characters.")
 	if(href_list["setcategory"])
 		var/newcategory = input("Choose a category: ") in list("Fiction", "Non-Fiction", "Adult", "Reference", "Religion","Technical")
 		if(newcategory)
@@ -413,6 +416,9 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 				if(choice == "Confirm")
 					if (!SSdbcore.Connect())
 						alert("Connection to Archive has been severed. Aborting.")
+					else if((length(scanner.cache.name) > 45) || (length(scanner.cache.author) > 45))
+						alert("The title and author fields must each be 45 characters or fewer. Check your entry and try again.")
+						return
 					else
 						var/msg = "[key_name(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs"
 						var/datum/DBQuery/query_library_upload = SSdbcore.NewQuery({"
@@ -445,7 +451,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		else
 			var/orderid = input("Enter your order:") as num|null
 			if(orderid)
-				if(isnum(orderid) && ISINTEGER(orderid))
+				if(isnum_safe(orderid) && ISINTEGER(orderid))
 					href_list["targetid"] = num2text(orderid)
 
 	if(href_list["targetid"])

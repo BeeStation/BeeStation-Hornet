@@ -4145,11 +4145,6 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
-"lG" = (
-/obj/structure/table/abductor,
-/obj/item/storage/box/alienhandcuffs,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "lH" = (
 /turf/closed/indestructible/abductor{
 	icon_state = "alien13"
@@ -8153,11 +8148,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
-/area/centcom/evac)
-"sV" = (
-/obj/machinery/door/poddoor/shuttledock,
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/centcom/evac)
 "sW" = (
@@ -16751,6 +16741,11 @@
 "Mm" = (
 /turf/open/floor/grass,
 /area/centcom/holding)
+"Mp" = (
+/obj/structure/closet/abductor,
+/obj/item/storage/box/alienhandcuffs,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "Ms" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-10"
@@ -17608,6 +17603,12 @@
 /obj/effect/spawner/xmastree,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
+"RC" = (
+/obj/machinery/door/poddoor/shuttledock,
+/obj/effect/turf_decal/delivery,
+/obj/structure/fans/tiny,
+/turf/open/floor/plasteel,
+/area/centcom/evac)
 "RF" = (
 /obj/structure/barricade/security/ctf,
 /obj/effect/turf_decal/tile/blue,
@@ -18304,6 +18305,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/four)
+"WB" = (
+/obj/structure/table/abductor,
+/obj/machinery/recharger,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "WJ" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Administration";
@@ -20766,8 +20772,8 @@ aa
 ks
 kP
 lj
-lG
-lj
+WB
+Mp
 mw
 nf
 aa
@@ -20793,8 +20799,8 @@ aa
 ks
 kP
 lj
-lG
-lj
+WB
+Mp
 mw
 nf
 aa
@@ -20823,8 +20829,8 @@ aa
 ks
 kP
 lj
-lG
-lj
+WB
+Mp
 mw
 nf
 aa
@@ -20850,8 +20856,8 @@ aa
 ks
 kP
 lj
-lG
-lj
+WB
+Mp
 mw
 nf
 aa
@@ -71408,19 +71414,19 @@ io
 qx
 qx
 qx
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
-sV
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
+RC
 qx
 qx
 qx
