@@ -5999,6 +5999,10 @@
 	freerange = 1;
 	name = "Syndicate Radio Intercom"
 	},
+/obj/item/paper {
+	name = "paper - 'Comunication Frequencies'"
+	info = "Greeting, Agent. I see you have awaken from your cryogenic slumber. This either means that the new Nanotransen space project is complete and operational in a nearby sector, or that Ashlanders have launched an assault on our base. We recommend you get rid of any pests and do not treat them as human.<br><br>In case you don't remember how to do your job, all you need is your Chameleon Mask, your Agent ID, and that intercom that is nearby. Before you begin, in the shelf you have all the names and jobs of the current Nanotransen employees. Assign their name and job to your ID, and your Mask will mimic the voice of whoever you are impersonating. Feel free to impersonate whoever you feel like and cause chaos.<br><br>Oh, one more thing. Here is a list of frequencies for you to troll on:<br><ul><li>145.9 - Common Channel</li><li>144.7 - Private AI Channel</li><li>135.9 - Security Channel</li><li>135.7 - Engineering Channel</li><li>135.5 - Medical Channel</li><li>135.3 - Command Channel</li><li>135.1 - Science Channel</li><li>134.9 - Service Channel</li><li>134.7 - Supply Channel</li>"
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
