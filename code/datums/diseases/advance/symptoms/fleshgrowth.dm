@@ -96,7 +96,6 @@
 					H.dna.features["mcolor"] = "D37" //pinkish red
 					H.visible_message("<span class='warning'>a film of pinkish material grows over [H]'s skin!</span>", "<span class='userdanger'>Your skin is completely covered by a film of pinkish, fleshy mass!</span>")
 					H.regenerate_icons()
-			else
 				
 
 /datum/symptom/flesh/End(datum/disease/advance/A)

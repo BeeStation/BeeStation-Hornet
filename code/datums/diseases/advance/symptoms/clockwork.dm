@@ -51,7 +51,7 @@
 					return
 				else if(replacebody)
 					H.adjustCloneLoss(-20) //we're fully mechanical, repair integrity. This symptom has a soft synergy with overclocked pituitary, so we want that to be useable. OFI is obviously out
-					ADD_TRAIT(M, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
+					ADD_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 	return
 
 /datum/symptom/robotic_adaptation/proc/Replace(mob/living/carbon/human/H)
@@ -204,7 +204,8 @@
 /datum/symptom/robotic_adaptation/End(datum/disease/advance/A)
 	if(!..())
 		return
-	REMOVE_TRAIT(M, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
+	var/mob/living/carbon/human/H = A.affected_mob
+	REMOVE_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 
 /datum/symptom/robotic_adaptation/OnRemove(datum/disease/advance/A)
 	A.infectable_biotypes -= MOB_ROBOTIC
@@ -268,7 +269,7 @@
 /obj/item/organ/brain/clockwork/on_life()
 	. = ..()
 	if(prob(25))
-		SEND_SOUND(owner, pick(list('sound/effects/clock_tick.ogg', 'sound/effects/clock_tick.ogg', 'sound/effects/clock_tick.ogg', 'sound/effects/clock_tick.ogg', 'sound/effects/clock_tick.ogg', 'sound/effects/smoke.ogg', 'sound/effects/smoke.ogg', 'sound/spookoween/chain_rattling.ogg', 'sound/ambience/ambiruin3.ogg')))
+		SEND_SOUND(owner, pickweight(list('sound/effects/clock_tick.ogg' = 6, 'sound/effects/smoke.ogg' = 2, 'sound/spookoween/chain_rattling.ogg' = 1, 'sound/ambience/ambiruin3.ogg' = 1)))
 
 /obj/item/organ/liver/clockwork
 	name = "biometallic alembic"
