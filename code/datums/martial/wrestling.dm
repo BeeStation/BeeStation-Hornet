@@ -298,11 +298,11 @@
 				if (2)
 					D.adjustBruteLoss(rand(20,30))
 				if (3)
-					D.ex_act(EXPLODE_LIGHT)
+					SSexplosions.lowturf += D
 				else
 					D.adjustBruteLoss(rand(10,20))
 		else
-			D.ex_act(EXPLODE_LIGHT)
+			SSexplosions.lowturf += D
 
 	else
 		if (A)
@@ -417,7 +417,7 @@
 
 		if (falling == 1)
 			if (prob(33) || D.stat)
-				D.ex_act(EXPLODE_LIGHT)
+				SSexplosions.lowturf += D
 			else
 				D.adjustBruteLoss(rand(20,30))
 		else

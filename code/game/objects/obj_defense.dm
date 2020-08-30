@@ -51,6 +51,9 @@
 	take_damage(AM.throwforce, BRUTE, "melee", 1, get_dir(src, AM))
 
 /obj/ex_act(severity, target)
+	if(target == null) // probably got deleted in an existing explosion already
+		return
+
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
 	..() //contents explosion
