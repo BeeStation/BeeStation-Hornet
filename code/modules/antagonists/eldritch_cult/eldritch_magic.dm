@@ -209,6 +209,7 @@
 	range = 9
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "cleave"
+	base_icon_state = "cleave"
 	action_background_icon_state = "bg_ecult"
 
 /obj/effect/proc_holder/spell/pointed/cleave/cast(list/targets, mob/user)
