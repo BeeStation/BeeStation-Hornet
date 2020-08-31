@@ -560,3 +560,9 @@
 	new /obj/item/storage/belt/soulstone/full/purified(src)
 	new /obj/item/sbeacondrop/constructshell(src)
 	new /obj/item/sbeacondrop/constructshell(src)
+
+/obj/item/storage/box/syndie_kit/imp_escape
+	name = "fake tooth implant box"
+
+/obj/item/storage/box/syndie_kit/imp_escape/PopulateContents()
+	new /obj/item/implanter/escape(src)

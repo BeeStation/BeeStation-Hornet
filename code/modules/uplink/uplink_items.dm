@@ -2168,3 +2168,10 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 	illegal_tech = FALSE
+
+/datum/uplink_item/race_restricted/esc_implant
+	name = "Fake Tooth Implant"
+	desc = "Having disposable teeth can put you at an advantage compared to other races. Implant this fake tooth into your mouth and bite really hard, and it will release a combination of toxins that will put you into a fake death-like state, which will even fool most machines and advanced scanners!"
+	cost = 2
+	item = /obj/item/storage/box/syndie_kit/imp_escape
+	restricted_species = list("human")
