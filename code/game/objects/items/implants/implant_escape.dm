@@ -20,7 +20,8 @@
 	. = ..()
 	to_chat(imp_in, "<span class='notice'>You bite into your fake tooth and suddenly feel dizzy...</span>")
 
-	imp_in.reagents.add_reagent(/datum/reagent/toxin/zombiepowder, 30)
+	imp_in.reagents.add_reagent(/datum/reagent/toxin/zombiepowder, 10)
+	imp_in.reagents.add_reagent(/datum/reagent/medical/omnizine, 10)
 	if(!uses)
 		qdel(src)
 
