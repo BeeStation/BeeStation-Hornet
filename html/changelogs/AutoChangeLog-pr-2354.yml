@@ -1,0 +1,6 @@
+author: yorii
+delete-after: true
+changes:
+  - imageadd: Added missing hud icons for the gimmick jobs.
+  - imageadd: Service job icons are now green.
+  - imageadd: Slight tweaking of a few pixels to make mime icon look more like a mime.
