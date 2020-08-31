@@ -254,7 +254,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/EMP/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 4)
+	if(A.properties["stealth"] >= 2)
 		cellheal = TRUE
 	if(A.properties["transmittable"] >= 8)
 		bigemp = TRUE
@@ -488,7 +488,7 @@ obj/effect/sweatsplash/proc/splash()
 								if(Z == BODY_ZONE_HEAD) //if we regenerate the head, make sure the mob still owns us
 									if(isliving(ownermind.current))
 										var/mob/living/owner = ownermind.current
-										if(owner.stat && owner != M && !istype(owner, /mob/living/brain))//if they have a new mob, forget they exist
+										if(owner.stat != DEAD)//if they have a new mob, forget they exist
 											ownermind = null
 											break
 										if(owner == M) //they're already in control of this body, probably because their brain isn't in the head!
