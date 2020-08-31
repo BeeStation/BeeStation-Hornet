@@ -1,0 +1,4 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - bugfix: Updates our external RSC url to be actually functional
