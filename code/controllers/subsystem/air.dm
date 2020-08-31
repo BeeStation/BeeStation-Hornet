@@ -306,7 +306,7 @@ SUBSYSTEM_DEF(air)
 	var/list/active_turfs = src.active_turfs
 	var/times_fired = ++src.times_fired
 
-	// Clear active turfs - faster than removing every single turf in the world
+	// Clear active turfs - faster than removing every single turf in the world.
 	// one-by-one, and Initalize_Atmos only ever adds `src` back in.
 	active_turfs.Cut()
 
