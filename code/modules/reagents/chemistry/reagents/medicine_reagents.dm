@@ -267,10 +267,10 @@
 	overdose_threshold = 25
 
 /datum/reagent/medicine/oxandrolone/on_mob_life(mob/living/carbon/M)
-	if(M.getFireLoss() > 50)
-		M.adjustFireLoss(-4*REM, 0) //Twice as effective as silver sulfadiazine for severe burns
+	if(M.getFireLoss() > 20)
+		M.adjustFireLoss(-5*REM, 0) //2.5x as effective as silver sulfadiazine for severe burns
 	else
-		M.adjustFireLoss(-0.5*REM, 0) //But only a quarter as effective for more minor ones
+		M.adjustFireLoss(-1*REM, 0) //But only half as effective for more minor ones
 	..()
 	. = 1
 
@@ -546,10 +546,10 @@
 
 
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/carbon/M)
-	if(M.getBruteLoss() > 50)
-		M.adjustBruteLoss(-4*REM, 0) //Twice as effective as styptic powder for severe bruising
+	if(M.getBruteLoss() > 20)
+		M.adjustBruteLoss(-5*REM, 0) //2.5x as effective as styptic powder for severe bruising
 	else
-		M.adjustBruteLoss(-0.5*REM, 0) //But only a quarter as effective for more minor ones
+		M.adjustBruteLoss(-1*REM, 0) //But only half as effective for more minor ones
 	..()
 	. = 1
 
@@ -799,10 +799,10 @@
 	overdose_threshold = 35
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/M)
-	if(M.health <= M.crit_threshold)
-		M.adjustToxLoss(-2*REM, 0)
-		M.adjustBruteLoss(-2*REM, 0)
-		M.adjustFireLoss(-2*REM, 0)
+	if(M.health <= 60)
+		M.adjustToxLoss(-3*REM, 0)
+		M.adjustBruteLoss(-3*REM, 0)
+		M.adjustFireLoss(-3*REM, 0)
 		M.adjustOxyLoss(-5*REM, 0)
 		. = 1
 	M.losebreath = 0
