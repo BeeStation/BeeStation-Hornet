@@ -2393,7 +2393,8 @@
 	pixel_x = -32
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = 26;
+	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
@@ -6438,7 +6439,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -8201,7 +8202,8 @@
 /area/crew_quarters/dorms)
 "atk" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = -26;
+	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
@@ -8994,7 +8996,8 @@
 /area/bridge)
 "auV" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = 26;
+	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 8
@@ -9229,7 +9232,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -11387,7 +11390,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -20456,7 +20459,7 @@
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = -26
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
@@ -21472,7 +21475,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
@@ -24441,7 +24444,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard)
@@ -24487,7 +24490,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
@@ -25756,7 +25759,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plating,
 /area/quartermaster/miningdock)
@@ -30021,32 +30024,6 @@
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"bqg" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/robotics_cyborgs{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/storage/belt/utility,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/radio/intercom{
-	pixel_x = -27
-	},
-/obj/item/radio/headset/headset_sci{
-	pixel_x = -3
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/robotics/lab)
 "bqh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -30073,20 +30050,6 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel,
-/area/science/robotics/lab)
-"bqk" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bql" = (
 /obj/machinery/power/apc{
@@ -30746,20 +30709,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"brw" = (
-/obj/machinery/vending/wardrobe/robo_wardrobe,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/robotics/lab)
 "brx" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -31416,33 +31365,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"bsW" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plasteel/dark,
-/area/science/robotics/lab)
 "bsX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
-"bsY" = (
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -38962,7 +38890,8 @@
 /area/space/nearstation)
 "bHJ" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = -26;
+	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
@@ -48758,7 +48687,8 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = -26;
+	pixel_y = 2
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -51549,7 +51479,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 1
@@ -54105,6 +54035,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/explab)
+"cNb" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "cNN" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -54261,6 +54199,23 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
+"dcT" = (
+/obj/item/radio/intercom{
+	pixel_x = -27
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/aug_manipulator,
+/turf/open/floor/plasteel/dark,
+/area/science/robotics/lab)
 "dcV" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -54440,7 +54395,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
@@ -54468,6 +54423,29 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/department/science)
+"dtT" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/storage/belt/utility,
+/obj/item/radio/headset/headset_sci{
+	pixel_x = -3
+	},
+/obj/item/book/manual/wiki/robotics_cyborgs{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/robotics/lab)
 "duF" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -55394,6 +55372,22 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
+"fuO" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/bodycontainer/morgue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/robotics/lab)
 "fuP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -56844,7 +56838,7 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
@@ -57924,7 +57918,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
@@ -58674,7 +58668,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = -26
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
@@ -59620,6 +59614,20 @@
 "mVM" = (
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"mVU" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/vending/wardrobe/robo_wardrobe,
+/turf/open/floor/plasteel/dark,
+/area/science/robotics/lab)
 "mXq" = (
 /obj/item/taperecorder,
 /obj/item/cartridge/lawyer,
@@ -59967,7 +59975,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "nGr" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon,
 /turf/open/floor/plating,
@@ -60671,7 +60679,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon{
 	dir = 4
@@ -62228,7 +62236,8 @@
 /area/maintenance/solars/port)
 "rkw" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = 26;
+	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
@@ -62773,7 +62782,7 @@
 /area/maintenance/disposal)
 "sqW" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
@@ -63411,7 +63420,7 @@
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -64780,7 +64789,8 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = 26;
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -64900,7 +64910,8 @@
 "wKa" = (
 /obj/machinery/light/small,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = 26;
+	pixel_y = 2
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
@@ -101924,9 +101935,9 @@ blE
 bmL
 bnO
 boX
-bqg
-brw
-bsW
+dcT
+dtT
+mVU
 bku
 cqp
 bxm
@@ -102440,7 +102451,7 @@ bnP
 bnP
 bqi
 bmM
-bsY
+cNb
 bku
 bvF
 bxo
@@ -103723,7 +103734,7 @@ blL
 bmR
 bnS
 boZ
-bqk
+fuO
 brC
 btd
 bkt

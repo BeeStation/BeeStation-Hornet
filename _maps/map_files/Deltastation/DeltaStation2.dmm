@@ -911,7 +911,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
@@ -1525,7 +1525,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/starboard/fore)
@@ -14272,7 +14272,7 @@
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = -26
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -17045,7 +17045,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/port/fore)
@@ -25985,7 +25985,8 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = 26;
+	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 8
@@ -31687,7 +31688,7 @@
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
@@ -40998,7 +40999,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
 /area/security/execution/transfer)
@@ -43898,7 +43899,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
@@ -55505,7 +55506,8 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = -26;
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/transit_tube)
@@ -63729,7 +63731,8 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = -26;
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -81710,7 +81713,8 @@
 /obj/machinery/light/small,
 /obj/effect/turf_decal/bot,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = -26;
+	pixel_y = 2
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon{
 	dir = 4
@@ -105770,7 +105774,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/starboard/aft)
@@ -105982,13 +105986,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
-"dCv" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
@@ -106603,23 +106600,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
-"dDF" = (
-/obj/structure/noticeboard{
-	dir = 8;
-	pixel_x = 32
-	},
-/obj/machinery/camera{
-	c_tag = "Science - Robotics Lab";
-	dir = 8;
-	name = "science camera";
-	network = list("ss13","rd")
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/aug_manipulator,
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
 "dDG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -107201,13 +107181,6 @@
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
-"dEO" = (
-/obj/machinery/computer/rdconsole/robotics{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dEP" = (
@@ -107889,15 +107862,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
-"dGe" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/rnd/production/circuit_imprinter/department/science,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dGf" = (
@@ -117940,7 +117904,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = -26
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/port/aft)
@@ -119382,7 +119346,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/escape)
@@ -120009,7 +119973,8 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = 26;
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
@@ -120322,7 +120287,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -120369,7 +120334,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
@@ -121168,6 +121133,17 @@
 	},
 /turf/closed/wall,
 /area/security/prison)
+"hjR" = (
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/bodycontainer/morgue{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "hrP" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -122371,7 +122347,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 30
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -123527,6 +123503,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"qaR" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/aug_manipulator,
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "qcx" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -123864,7 +123845,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = -26
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
@@ -124169,6 +124150,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
+"sQL" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/rnd/production/circuit_imprinter/department/science,
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "sTs" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -124353,6 +124341,25 @@
 "tCh" = (
 /turf/closed/wall,
 /area/science/misc_lab)
+"tCn" = (
+/obj/structure/noticeboard{
+	dir = 8;
+	pixel_x = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Science - Robotics Lab";
+	dir = 8;
+	name = "science camera";
+	network = list("ss13","rd")
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/computer/rdconsole/robotics{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "tGq" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -124865,7 +124872,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -124922,7 +124929,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = -26
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port/aft)
@@ -125278,7 +125285,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -163361,8 +163368,8 @@ dwB
 dyd
 dzK
 dAO
-dCv
-dDF
+sQL
+tCn
 dEN
 dGd
 dHA
@@ -163620,8 +163627,8 @@ dyd
 dAP
 dyd
 dyg
-dEO
-dGe
+qaR
+hjR
 dHB
 dIS
 dyg
