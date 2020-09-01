@@ -24,7 +24,7 @@
 /datum/asset_cache_item/New(name, file)
 	if (!isfile(file))
 		file = fcopy_rsc(file)
-	hash = md5(file)
+	hash = md5("[file]")	//Bee edit: md5 rust override assumes the input is a string.
 	if (!hash)
 		hash = md5(fcopy_rsc(file))
 		if (!hash)
