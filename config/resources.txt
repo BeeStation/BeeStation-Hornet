@@ -23,7 +23,7 @@ ASSET_TRANSPORT webroot
 
 # Uncomment this to have the server passively send all browser assets to each client in the background. (instead of waiting for them to be needed)
 # This should be uncommented in production and commented in development
-#ASSET_SIMPLE_PRELOAD
+ASSET_SIMPLE_PRELOAD
 
 
 # Webroot asset transport configurable values.
