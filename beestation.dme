@@ -29,6 +29,7 @@
 #include "code\__DEFINES\atmospherics.dm"
 #include "code\__DEFINES\atom_hud.dm"
 #include "code\__DEFINES\balloon_alert.dm"
+#include "code\__DEFINES\bitfields.dm"
 #include "code\__DEFINES\callbacks.dm"
 #include "code\__DEFINES\cargo.dm"
 #include "code\__DEFINES\chat.dm"
