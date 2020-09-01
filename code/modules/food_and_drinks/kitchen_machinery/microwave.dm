@@ -256,8 +256,8 @@
 		break
 	start()
 
-/obj/machinery/microwave/proc/turn_on()
-	visible_message("\The [src] turns on.", "<span class='italics'>You hear a microwave humming.</span>")
+/obj/machinery/microwave/proc/wzhzhzh()
+	visible_message("<span class='notice'>\The [src] turns on.</span>", null, "<span class='hear'>You hear a microwave humming.</span>")
 	operating = TRUE
 
 	set_light(1.5)
@@ -275,21 +275,21 @@
 #define MICROWAVE_PRE 2
 
 /obj/machinery/microwave/proc/start()
-	turn_on()
+	wzhzhzh()
 	loop(MICROWAVE_NORMAL, 10)
 
 /obj/machinery/microwave/proc/start_can_fail()
-	turn_on()
+	wzhzhzh()
 	loop(MICROWAVE_PRE, 4)
 
 /obj/machinery/microwave/proc/muck()
+<<<<<<< HEAD
 	turn_on()
 	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
-	dirty_anim_playing = TRUE
-	update_icon()
+=======
+	wzhzhzh()
 	loop(MICROWAVE_MUCK, 4)
 
-/obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2)) // standard wait is 10
 	if(stat & (NOPOWER|BROKEN))
 		if(type == MICROWAVE_PRE)
 			pre_fail()
