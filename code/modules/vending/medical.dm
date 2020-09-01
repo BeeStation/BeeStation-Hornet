@@ -10,8 +10,8 @@
 					/obj/item/reagent_containers/syringe = 12,
 					/obj/item/reagent_containers/dropper = 3,
 					/obj/item/healthanalyzer = 4,
-					/obj/item/reagent_containers/pill/patch/styptic = 5,
-					/obj/item/reagent_containers/pill/patch/silver_sulf = 5,
+					/obj/item/reagent_containers/pill/patch/styptic = 8,
+					/obj/item/reagent_containers/pill/patch/silver_sulf = 8,
 					/obj/item/reagent_containers/pill/salbutamol = 2,
 					/obj/item/reagent_containers/pill/insulin = 5,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 4,
@@ -21,8 +21,6 @@
 					/obj/item/reagent_containers/glass/bottle/salglu_solution = 3,
 					/obj/item/reagent_containers/glass/bottle/toxin = 3,
 					/obj/item/reagent_containers/syringe/antiviral = 6,
-					/obj/item/reagent_containers/medspray/styptic = 2,
-					/obj/item/reagent_containers/medspray/silver_sulf = 2,
 					/obj/item/reagent_containers/medspray/sterilizine = 3,
 					/obj/item/sensor_device = 2,
 					/obj/item/pinpointer/crew = 2)
@@ -31,7 +29,7 @@
 		              /obj/item/reagent_containers/pill/charcoal = 6,
 		              /obj/item/storage/box/hug/medical = 1,
 					  /obj/item/reagent_containers/glass/bottle/random_virus = 1)
-	premium = list(/obj/item/reagent_containers/medspray/synthflesh = 2,
+	premium = list(/obj/item/reagent_containers/pill/patch/synthflesh = 4,
 		           /obj/item/storage/pill_bottle/psicodine = 2,
 		           /obj/item/reagent_containers/hypospray/medipen = 3,
 		           /obj/item/storage/belt/medical = 3,
