@@ -22,3 +22,4 @@
 #define LANGUAGE_STONER			"stoner"
 #define LANGUAGE_DRUGGY			"druggy"
 #define LANGUAGE_VOICECHANGE	"voicechange"
+#define LANGUAGE_REAGENT    	"reagent"
