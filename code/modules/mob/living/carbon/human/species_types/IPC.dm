@@ -4,7 +4,7 @@
 	say_mod = "states" //inherited from a user's real species
 	sexes = 0
 	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_VIRUSIMMUNE,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
+	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -22,9 +22,9 @@
 	limbs_id = "synth"
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
 	default_features = list("ipc_screen" = "BSOD", "ipc_antenna" = "None")
-	burnmod = 2
-	heatmod = 1.5
-	brutemod = 1
+	burnmod = 1.5
+	heatmod = 1.25
+	brutemod = 1.5
 	toxmod = 0
 	clonemod = 0
 	staminamod = 0.8
