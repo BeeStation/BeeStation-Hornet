@@ -109,7 +109,7 @@
 	new /obj/item/storage/box/medsprays(src)
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)
+	new /obj/item/stack/ducts/fifty(src)			
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/construction/plumbing(src)
 	new /obj/item/construction/plumbing(src)
