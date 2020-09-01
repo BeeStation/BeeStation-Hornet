@@ -59,6 +59,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for (var/asset_name in assets)
 		.[asset_name] = SSassets.transport.get_asset_url(asset_name, assets[asset_name])
 
+
 // For registering or sending multiple others at once
 /datum/asset/group
 	_abstract = /datum/asset/group
@@ -116,6 +117,15 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		all += "[name]_[size_id].png"
 	. = SSassets.transport.send_assets(C, all)
 
+/datum/asset/spritesheet/get_url_mappings()
+	if (!name)
+		return
+	. = list("spritesheet_[name].css" = SSassets.transport.get_asset_url("spritesheet_[name].css"))
+	for(var/size_id in sizes)
+		.["[name]_[size_id].png"] = SSassets.transport.get_asset_url("[name]_[size_id].png")
+
+
+
 /datum/asset/spritesheet/proc/ensure_stripped(sizes_to_strip = sizes)
 	for(var/size_id in sizes_to_strip)
 		var/size = sizes[size_id]
@@ -137,7 +147,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for (var/size_id in sizes)
 		var/size = sizes[size_id]
 		var/icon/tiny = size[SPRSZ_ICON]
-		out += ".[name][size_id]{display:inline-block;width:[tiny.Width()]px;height:[tiny.Height()]px;background:url('[name]_[size_id].png') no-repeat;}"
+		out += ".[name][size_id]{display:inline-block;width:[tiny.Width()]px;height:[tiny.Height()]px;background:url('[SSassets.transport.get_asset_url("[name]_[size_id].png")]') no-repeat;}"
 
 	for (var/sprite_id in sprites)
 		var/sprite = sprites[sprite_id]
@@ -188,7 +198,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 			Insert("[prefix][prefix2][icon_state_name]", I, icon_state=icon_state_name, dir=direction)
 
 /datum/asset/spritesheet/proc/css_tag()
-	return {"<link rel="stylesheet" href="spritesheet_[name].css" />"}
+	return {"<link rel="stylesheet" href="[css_filename()]" />"}
 
 /datum/asset/spritesheet/proc/css_filename()
 	return SSassets.transport.get_asset_url("spritesheet_[name].css")

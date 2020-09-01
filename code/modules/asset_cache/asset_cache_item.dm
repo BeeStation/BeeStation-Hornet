@@ -8,7 +8,7 @@
 	var/hash
 	var/resource
 	var/ext = ""
-	/// Should this file also be sent via the legacy browse_rsc system
+	/// Should this file alsobut  be sent via the legacy browse_rsc system
 	/// when cdn transports are enabled?
 	var/legacy = FALSE
 	/// Used by the cdn system to keep legacy css assets with their parent
@@ -24,7 +24,7 @@
 /datum/asset_cache_item/New(name, file)
 	if (!isfile(file))
 		file = fcopy_rsc(file)
-	hash = md5("[file]")	//Bee edit: md5 rust override assumes the input is a string.
+	hash = md5(file)
 	if (!hash)
 		hash = md5(fcopy_rsc(file))
 		if (!hash)

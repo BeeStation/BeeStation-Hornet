@@ -23,7 +23,7 @@ ASSET_TRANSPORT webroot
 
 # Uncomment this to have the server passively send all browser assets to each client in the background. (instead of waiting for them to be needed)
 # This should be uncommented in production and commented in development
-ASSET_SIMPLE_PRELOAD
+#ASSET_SIMPLE_PRELOAD
 
 
 # Webroot asset transport configurable values.
@@ -34,6 +34,6 @@ ASSET_CDN_WEBROOT data/asset-store/
 
 # URL the folder from above can be accessed from.
 # for best results the webserver powering this should return a long cache validity time, as all assets sent via this transport use hash based urls
-# if you want to test this locally, you simpily run the `localhost-asset-webroot-server.py` python3 script to host assets stored in `data/asset-store/` via http://localhost:58715/
-ASSET_CDN_URL http://localhost:58715/
+# if you want to test this locally, you simpily run the `localhost-asset-webroot-server.py` python3 script to host assets stored in `data/asset-store/` via http://localhost:7123/
+ASSET_CDN_URL http://localhost:7123/
 

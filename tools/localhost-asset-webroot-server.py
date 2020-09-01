@@ -9,7 +9,7 @@ class CORSRequestHandler(SimpleHTTPRequestHandler):
         self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate')
         return super(CORSRequestHandler, self).end_headers()
 
-os.makedirs('../data/asset-store/', exist_ok=True)
-os.chdir('../data/asset-store/')
-httpd = HTTPServer(('localhost', 58715), CORSRequestHandler)
+os.makedirs('./data/asset-store/', exist_ok=True)
+os.chdir('./data/asset-store/')
+httpd = HTTPServer(('localhost', 7123), CORSRequestHandler)
 httpd.serve_forever()
