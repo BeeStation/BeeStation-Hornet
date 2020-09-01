@@ -224,10 +224,10 @@
 //Goon Chems. Ported mainly from Goonstation. Easily mixable (or not so easily) and provide a variety of effects.
 /datum/reagent/medicine/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
-	description = "If used in touch-based applications, immediately restores burn wounds as well as restoring more over time. If ingested through other means, deals minor toxin damage."
+	description = "If used in patch-based applications, immediately restores burn wounds as well as restoring more over time. If ingested through other means, deals minor toxin damage."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	overdose_threshold = 40
+	overdose_threshold = 50
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -246,12 +246,12 @@
 	..()
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(-2*REM, 0)
+	M.adjustFireLoss(-1*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/silver_sulfadiazine/overdose_process(mob/living/M)
-	M.adjustFireLoss(2*REM, FALSE, FALSE, BODYPART_ORGANIC)
+	M.adjustFireLoss(1*REM, FALSE, FALSE, BODYPART_ORGANIC)
 	if(volume > overdose_threshold+10)
 		if(prob(33))
 			M.adjustToxLoss(1*REM, FALSE, FALSE, BODYPART_ORGANIC)
@@ -267,10 +267,10 @@
 	overdose_threshold = 25
 
 /datum/reagent/medicine/oxandrolone/on_mob_life(mob/living/carbon/M)
-	if(M.getFireLoss() > 50)
+	if(M.getFireLoss() > 20)
 		M.adjustFireLoss(-4*REM, 0) //Twice as effective as silver sulfadiazine for severe burns
 	else
-		M.adjustFireLoss(-0.5*REM, 0) //But only a quarter as effective for more minor ones
+		M.adjustFireLoss(-1*REM, 0) //But only a quarter as effective for more minor ones
 	..()
 	. = 1
 
@@ -282,10 +282,10 @@
 
 /datum/reagent/medicine/styptic_powder
 	name = "Styptic Powder"
-	description = "If used in touch-based applications, immediately restores bruising as well as restoring more over time. If ingested through other means, deals minor toxin damage."
+	description = "If used in patch-based applications, immediately restores bruising as well as restoring more over time. If ingested through other means, deals minor toxin damage."
 	reagent_state = LIQUID
 	color = "#FF9696"
-	overdose_threshold = 40
+	overdose_threshold = 50
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -305,12 +305,12 @@
 
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-2*REM, 0)
+	M.adjustBruteLoss(-1*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/styptic_powder/overdose_process(mob/living/M)
-	M.adjustBruteLoss(2*REM, 0)
+	M.adjustBruteLoss(1*REM, 0)
 	if(volume > overdose_threshold+10)
 		if(prob(33))
 			M.adjustToxLoss(1*REM, FALSE, FALSE, BODYPART_ORGANIC)
@@ -405,7 +405,7 @@
 	if(iscarbon(M))
 		if (M.stat == DEAD)
 			show_message = 0
-		if(method in list(PATCH, TOUCH))
+		if(method in list(PATCH))
 			M.adjustBruteLoss(-1.25 * reac_volume)
 			M.adjustFireLoss(-1.25 * reac_volume)
 			if(show_message)
@@ -546,10 +546,10 @@
 
 
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/carbon/M)
-	if(M.getBruteLoss() > 50)
+	if(M.getBruteLoss() > 20)
 		M.adjustBruteLoss(-4*REM, 0) //Twice as effective as styptic powder for severe bruising
 	else
-		M.adjustBruteLoss(-0.5*REM, 0) //But only a quarter as effective for more minor ones
+		M.adjustBruteLoss(-1*REM, 0) //But only a quarter as effective for more minor ones
 	..()
 	. = 1
 
@@ -799,10 +799,10 @@
 	overdose_threshold = 35
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/M)
-	if(M.health <= M.crit_threshold)
-		M.adjustToxLoss(-2*REM, 0)
-		M.adjustBruteLoss(-2*REM, 0)
-		M.adjustFireLoss(-2*REM, 0)
+	if(M.health <= 80)
+		M.adjustToxLoss(-4*REM, 0)
+		M.adjustBruteLoss(-4*REM, 0)
+		M.adjustFireLoss(-4*REM, 0)
 		M.adjustOxyLoss(-5*REM, 0)
 		. = 1
 	M.losebreath = 0
@@ -1120,8 +1120,6 @@
 
 /datum/reagent/medicine/antitoxin/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(-2*REM, 0)
-	for(var/datum/reagent/toxin/R in M.reagents.reagent_list)
-		M.reagents.remove_reagent(R.type,1)
 	..()
 	. = 1
 

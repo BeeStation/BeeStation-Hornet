@@ -31,4 +31,3 @@
 
 /datum/symptom/inorganic_adaptation/OnRemove(datum/disease/advance/A)
 	A.infectable_biotypes -= MOB_INORGANIC
-

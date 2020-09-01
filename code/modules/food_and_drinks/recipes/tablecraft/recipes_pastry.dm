@@ -522,3 +522,14 @@ datum/crafting_recipe/food/donut/meat
 	)
 	result = /obj/item/reagent_containers/food/snacks/honeybun
 	subcategory = CAT_PASTRY
+
+/datum/crafting_recipe/food/ravtart
+	name = "Rav'tart"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
+		/obj/item/stack/tile/bronze = 1,
+		/obj/item/reagent_containers/food/snacks/grown/berries = 2,
+		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/ravtart
+	subcategory = CAT_PASTRY
