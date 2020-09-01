@@ -152,6 +152,48 @@
 		. += newletter
 	return sanitize(.)
 
+/proc/clockslur(phrase) // cultslur but for clock
+	phrase = html_decode(phrase)
+	var/leng = length(phrase)
+	. = ""
+	var/newletter = ""
+	var/rawchar = ""
+	for(var/i = 1, i <= leng, i += length(rawchar))
+		rawchar = newletter = phrase[i]
+		if(rand(1, 2) == 2)
+			var/lowerletter = lowertext(newletter)
+			if(lowerletter == "o")
+				newletter = "u"
+			else if(lowerletter == "t")
+				newletter = "tch"
+			else if(lowerletter == "a")
+				newletter = "ah"
+			else if(lowerletter == "u")
+				newletter = "oo"
+			else if(lowerletter == "r")
+				newletter = " RAT "
+			else if(lowerletter == "e")
+				newletter = " VAR "
+		if(rand(1, 4) == 4)
+			if(newletter == " ")
+				newletter = " the brass... "
+			else if(newletter == "H")
+				newletter = " CLOCK TICKS... "
+
+		switch(rand(1, 15))
+			if(1)
+				newletter = "'"
+			if(2)
+				newletter += "cht"
+			if(3)
+				newletter = "tik"
+			if(4)
+				newletter = "kth"
+			if(5)
+				newletter = "toc"
+		. += newletter
+	return sanitize(.)
+
 ///Adds stuttering to the message passed in
 /proc/stutter(phrase)
 	phrase = html_decode(phrase)

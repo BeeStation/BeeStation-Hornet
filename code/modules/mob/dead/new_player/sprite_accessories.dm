@@ -1575,6 +1575,18 @@
 	name = "Spikes"
 	icon_state = "spikes"
 
+/datum/sprite_accessory/tails/lizard/spikes
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+	color_src = null
+
+/datum/sprite_accessory/tails_animated/lizard/spikes
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+	color_src = null
+
 /datum/sprite_accessory/tails/human/none
 	name = "None"
 	icon_state = "none"
@@ -1855,6 +1867,11 @@
 /datum/sprite_accessory/moth_wings/whitefly
 	name = "White Fly"
 	icon_state = "whitefly"
+
+/datum/sprite_accessory/moth_wings/clockwork
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
 
 /datum/sprite_accessory/moth_wings/punished
 	name = "Burnt Off"

@@ -243,3 +243,49 @@
 	build_path = /obj/item/computer_hardware/processor_unit/photonic/small
 	category = list("Computer Parts")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+
+//antivirus. While not a computer bit, it makes more flavor-sense in here
+
+/datum/design/antivirus1
+	name = "Basic Antivirus"
+	desc = "A licensed copy of NTOS defender"
+	id = "antivirus"
+	build_type = PROTOLATHE | AUTOLATHE
+	materials = list(/datum/material/iron = 100, /datum/material/glass = 50, /datum/material/copper = 50)
+	build_path = /obj/item/disk/antivirus
+	category = list("Computer Parts","Machinery","initial")
+	lathe_time_factor = 0.2
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/antivirus2
+	name = "Upgraded Antivirus"
+	desc = "A licensed copy of Ahoy antivirus."
+	id = "antivirus2"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 150, /datum/material/glass = 100, /datum/material/copper = 100)
+	build_path = /obj/item/disk/antivirus/tier2
+	category = list("Computer Parts")
+	lathe_time_factor = 0.2
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/antivirus3
+	name = "Robust Antivirus"
+	desc = "A licensed copy of McValosk antivirus."
+	id = "antivirus3"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 200, /datum/material/glass = 150, /datum/material/silver = 60, /datum/material/copper = 100)
+	build_path = /obj/item/disk/antivirus/tier3
+	category = list("Computer Parts")
+	lathe_time_factor = 0.2
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/antivirus4
+	name = "Luxury Antivirus"
+	desc = "A licensed copy of Nano-Ton antivirus."
+	id = "antivirus4"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 200, /datum/material/glass = 200, /datum/material/diamond = 30, /datum/material/bluespace = 30, /datum/material/copper = 100)
+	build_path = /obj/item/disk/antivirus/tier4
+	category = list("Computer Parts")
+	lathe_time_factor = 0.2
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_MEDICAL
