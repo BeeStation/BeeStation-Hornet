@@ -9,7 +9,7 @@
 	var/appearance_cache
 
 	var/id
-	var/ordered = TRUE //If the button gets placed into the default bar
+	var/ordered = TRUE //If the button gets placed into the default bar.
 
 /obj/screen/movable/action_button/Destroy()
 	. = ..()
