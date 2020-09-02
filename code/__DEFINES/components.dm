@@ -173,6 +173,8 @@
 #define COMSIG_MOB_UPDATE_SIGHT "mob_update_sight"				//! from base of /mob/update_sight(): ()
 #define COMSIG_MOB_EXAMINATE "mob_examinate"					//from base of /mob/verb/examinate(): (atom/target)
 #define COMSIG_MOB_SAY "mob_say" // from /mob/living/say(): (proc args list)
+#define COMSIG_MOB_ITEM_EQUIPPED "mob_item_equipped" //Used for aiming component, tells you when a mob equips ANY item
+#define COMSIG_MOB_ITEM_DROPPED "mob_item_dropped"
 	#define COMPONENT_UPPERCASE_SPEECH 1
 	// used to access COMSIG_MOB_SAY argslist
 	#define SPEECH_MESSAGE 1

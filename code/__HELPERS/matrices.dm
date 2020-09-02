@@ -176,3 +176,13 @@ round(cos_inv_third+sqrt3_sin, 0.001), round(cos_inv_third-sqrt3_sin, 0.001), ro
 		for(x in 1 to 4)
 			output[offset+x] = round(A[offset+1]*B[x] + A[offset+2]*B[x+4] + A[offset+3]*B[x+8] + A[offset+4]*B[x+12]+(y==5?B[x+16]:0), 0.001)
 	return output
+
+/atom/proc/shake_animation(var/intensity = 8) //Makes the object visibly shake
+	var/initial_transform = new/matrix(transform)
+	var/init_px = pixel_x
+	var/shake_dir = pick(-1, 1)
+	var/rotation = 2+soft_cap(intensity, 1, 1, 0.94)
+	var/offset = 1+soft_cap(intensity*0.3, 1, 1, 0.8)
+	var/time = 2+soft_cap(intensity*0.3, 2, 1, 0.92)
+	animate(src, transform=turn(transform, rotation*shake_dir), pixel_x=init_px + offset*shake_dir, time=1)
+	animate(transform=initial_transform, pixel_x=init_px, time=time, easing=ELASTIC_EASING)

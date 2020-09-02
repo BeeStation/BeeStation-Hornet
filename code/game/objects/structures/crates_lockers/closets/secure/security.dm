@@ -111,6 +111,7 @@
 	new /obj/item/megaphone/sec(src)
 	new /obj/item/holosign_creator/security(src)
 	new /obj/item/storage/lockbox/loyalty(src)
+	new /obj/item/book/granter/martial/jujitsu(src)
 	new /obj/item/clothing/mask/gas/sechailer/swat(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/shield/riot/tele(src)
@@ -156,12 +157,13 @@
 
 /obj/structure/closet/secure_closet/security/PopulateContents()
 	..()
-	new /obj/item/clothing/suit/armor/vest(src)
+	new /obj/item/clothing/suit/armor/vest/alt(src)
 	new /obj/item/clothing/head/helmet/sec(src)
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/flashlight/seclite(src)
+	new /obj/item/book/granter/martial/jujitsu(src)
 
 /obj/structure/closet/secure_closet/security/sec
 
