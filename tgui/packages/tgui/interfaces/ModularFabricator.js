@@ -7,10 +7,6 @@ import { round } from 'common/math';
 
 const MAX_SEARCH_RESULTS = 25;
 
-export const amountToSheet = amount => {
-  return amount / 2000;
-};
-
 /*
  * Modular Fabricator Interface By PowerfulBacon
  * ---------------------------------------------
@@ -440,12 +436,12 @@ export const MaterialData = (props, context) => {
               {capitalize(material.name)}
             </Table.Cell>
             <Table.Cell>
-              {amountToSheet(material.amount)} sheets
+              {material.amount} sheets
             </Table.Cell>
             <Table.Cell>
               <Button
                 color="green"
-                disabled={material.amount < 2000 * 1}
+                disabled={material.amount < 1}
                 content="x1"
                 onClick={() => act("eject_material", {
                   material_datum: material.datum,
@@ -455,7 +451,7 @@ export const MaterialData = (props, context) => {
             <Table.Cell>
               <Button
                 color="green"
-                disabled={material.amount < 2000 * 10}
+                disabled={material.amount < 10}
                 content="x10"
                 onClick={() => act("eject_material", {
                   material_datum: material.datum,
@@ -465,7 +461,7 @@ export const MaterialData = (props, context) => {
             <Table.Cell>
               <Button
                 color="green"
-                disabled={material.amount < 2000 * 50}
+                disabled={material.amount < 50}
                 content="x50"
                 onClick={() => act("eject_material", {
                   material_datum: material.datum,

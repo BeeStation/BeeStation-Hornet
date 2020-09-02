@@ -1,6 +1,4 @@
-#define AUTOLATHE_MAIN_MENU       1
-#define AUTOLATHE_CATEGORY_MENU   2
-#define AUTOLATHE_SEARCH_MENU     3
+#define AUTOLATHE_MAX_POWER_USE 2000
 
 /obj/machinery/autolathe
 	name = "autolathe"
@@ -29,7 +27,7 @@
 	var/prod_coeff = 1
 
 	var/datum/design/being_built
-	var/being_build_finish_time = 0
+	var/process_completion_world_tick = 0
 	var/total_build_time = 0
 	var/datum/techweb/stored_research
 
@@ -47,14 +45,14 @@
 							)
 
 	var/output_direction = "center"
-	var/inserted_disk
+	var/obj/item/disk/design_disk/inserted_disk
 
 	//A list of all the printable items
 
 	//Queue items
 
 	//Viewing mobs of the UI to update
-	var/list/viewing_mobs = list()
+	var/list/mob/viewing_mobs = list()
 	//Associative list: item_queue[design_id] = list("amount" = int, "repeating" = bool, "build_mat" = something)
 	//These are the items in the build queue. (It's a queue that takes priority over item_queue)
 	var/list/build_queue = list()
@@ -114,7 +112,7 @@
 			for(var/material_id in D.materials)
 				material_cost += list(list(
 					"name" = material_id,
-					"amount" = D.materials[material_id],
+					"amount" = D.materials[material_id] / MINERAL_MATERIAL_AMOUNT,
 				))
 			//Add
 			categories_associative[cat] += list(list(
@@ -170,11 +168,11 @@
 			"datum" = M.type
 		))
 	//Thing being made
-	if(being_built && total_build_time && being_build_finish_time)
+	if(being_built && total_build_time && process_completion_world_tick)
 		data["being_build"] = list(
 			"design_id" = being_built.id,
 			"name" = being_built.name,
-			"progress" = 100-(100*((being_build_finish_time - world.time)/total_build_time)),
+			"progress" = 100-(100*((process_completion_world_tick - world.time)/total_build_time)),
 		)
 	//Security interface
 	data["sec_interface_unlock"] = !security_interface_locked
@@ -193,8 +191,7 @@
 		if("toggle_lock")
 			if(obj_flags & EMAGGED)
 				return
-			if(!security_interface_locked)
-				security_interface_locked = TRUE
+			security_interface_locked = TRUE
 		if("output_dir")
 			output_direction = params["direction"]
 		if("upload_disk")
@@ -208,7 +205,7 @@
 		if("eject_disk")
 			if(!inserted_disk)
 				return
-			var/obj/disk = inserted_disk
+			var/obj/item/disk/design_disk/disk = inserted_disk
 			disk.forceMove(get_turf(src))
 			update_viewer_statics()
 		if("eject_material")
@@ -220,12 +217,12 @@
 			for(var/mat in materials.materials)
 				var/datum/material/M = mat
 				if("[M.type]" == material_datum)
-					materials.retrieve_sheets(amount, M, get_release_direction())
-					return
+					materials.retrieve_sheets(amount, M, get_release_turf())
+					break
 		if("queue_repeat")
 			queue_repeating = text2num(params["repeating"])
 		if("clear_queue")
-			item_queue = list()
+			item_queue.Cut()
 		if("item_repeat")
 			var/design_id = params["design_id"]
 			var/repeating_mode = text2num(params["repeating"])
@@ -268,7 +265,7 @@
 		return
 	//Check if the item uses custom materials
 	var/datum/design/requested_item = stored_research.isDesignResearchedID(design_id)
-	var/datum/material/used_material = null
+	var/datum/material/used_material
 	for(var/MAT in requested_item.materials)
 		used_material = MAT
 		if(istext(used_material)) //This means its a category
@@ -287,19 +284,20 @@
 		"build_mat" = used_material,
 	)
 
-/obj/machinery/autolathe/proc/get_release_direction()
-	. = get_turf(src)
+/obj/machinery/autolathe/proc/get_release_turf()
+	var/turf/T = get_turf(src)
 	switch(output_direction)
 		if("up")
-			. = get_offset_target_turf(src, 0, 1)
+			T = get_offset_target_turf(src, 0, 1)
 		if("down")
-			. = get_offset_target_turf(src, 0, -1)
+			T = get_offset_target_turf(src, 0, -1)
 		if("right")
-			. = get_offset_target_turf(src, 1, 0)
+			T = get_offset_target_turf(src, 1, 0)
 		if("left")
-			. = get_offset_target_turf(src, -1, 0)
-	if(is_blocked_turf(., TRUE))
-		. = get_turf(src)
+			T = get_offset_target_turf(src, -1, 0)
+	if(is_blocked_turf(T, TRUE))
+		T = get_turf(src)
+	return T
 
 /obj/machinery/autolathe/on_deconstruction()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -368,10 +366,8 @@
 	var/requested_design_id = null
 	var/from_build_queue = FALSE
 	if(LAZYLEN(build_queue))
-		for(var/design_id in build_queue)
-			requested_design_id = design_id
-			from_build_queue = TRUE
-			break
+		requested_design_id = build_queue[1]
+		from_build_queue = TRUE
 	else if(LAZYLEN(item_queue))
 		for(var/design_id in item_queue)
 			requested_design_id = design_id
@@ -410,7 +406,7 @@
 	for(var/MAT in being_built.materials)
 		total_amount += being_built.materials[MAT]
 
-	var/power = max(2000, (total_amount)*multiplier/5) //Change this to use all materials
+	var/power = max(AUTOLATHE_MAX_POWER_USE, (total_amount)*multiplier/5) //Change this to use all materials
 
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 
@@ -456,7 +452,7 @@
 					add_to_queue(item_queue, requested_design_id, stored_item_amount, queue_data["repeating"])
 					stored_item_amount = 0
 		//Create item and restart
-		being_build_finish_time = world.time + time
+		process_completion_world_tick = world.time + time
 		total_build_time = time
 		addtimer(CALLBACK(src, .proc/make_item, power, materials_used, custom_materials, multiplier, coeff, is_stack), time)
 		addtimer(CALLBACK(src, .proc/restart_process), time + 5)
@@ -480,7 +476,7 @@
 		operating = FALSE
 		return
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	var/turf/A = get_release_direction()
+	var/turf/A = get_release_turf()
 	use_power(power)
 	materials.use_materials(materials_used)
 	if(is_stack)
