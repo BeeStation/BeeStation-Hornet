@@ -11,16 +11,25 @@
 	var/wingsound = null
 	var/datum/action/innate/flight/fly
 
+/obj/item/organ/wings/Initialize()
+	. = ..()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		Refresh(H)
+
 /obj/item/organ/wings/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
 	..()
 	if(istype(H))
-		if(!(basewings in H.dna.species.mutant_bodyparts))
-			H.dna.species.mutant_bodyparts |= basewings
-			H.dna.features[basewings] = wing_type
-			H.update_body()
-		if(flight_level >= WINGS_FLYING)
-			fly = new
-			fly.Grant(H)
+		Refresh(H)
+
+/obj/item/organ/wings/proc/Refresh(mob/living/carbon/human/H)	
+	if(!(basewings in H.dna.species.mutant_bodyparts))
+		H.dna.species.mutant_bodyparts |= basewings
+		H.dna.features[basewings] = wing_type
+		H.update_body()
+	if(flight_level >= WINGS_FLYING)
+		fly = new
+		fly.Grant(H)
 
 /obj/item/organ/wings/Remove(mob/living/carbon/human/H,  special = 0)
 	..()
@@ -47,7 +56,7 @@
 			H.dna.species.mutant_bodyparts -= "wingsopen"
 			H.dna.species.mutant_bodyparts |= "wings"
 		else //it appears we don't actually have wing icons. apply them!!
-			Insert(H)
+			Refresh(H)
 		H.update_body()
 		return TRUE
 	return FALSE
@@ -59,6 +68,8 @@
 	flight_level = WINGS_FLYING
 	wing_type = "Robot"
 	wingsound = 'sound/items/change_jaws.ogg'
+	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/wings/cybernetic/emp_act(severity)
 	. = ..()
