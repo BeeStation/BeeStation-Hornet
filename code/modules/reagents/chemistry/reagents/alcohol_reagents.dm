@@ -668,6 +668,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(!HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		M.gain_trauma(/datum/brain_trauma/mild/phobia/security, TRAUMA_RESILIENCE_BASIC)
 
+
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Irish Cream"
 	description = "Whiskey-imbued cream, what else would you expect from the Irish?"
@@ -1413,7 +1414,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	color = RUNE_COLOR_DARKRED
 	boozepwr = 10
 	quality = DRINK_FANTASTIC
-	taste_description = "bloody"
+	taste_description = "blood"
 	glass_icon_state = "narsour"
 	glass_name = "Nar'Sour"
 	glass_desc = "A new hit cocktail inspired by THE ARM Breweries will have you shouting Fuu ma'jin in no time!"
@@ -2165,6 +2166,10 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "Plasma Flood"
 	glass_desc = "A favorite of the grey tide. Ironically, not recommended to stand in plasma while drinking this."
 
+/datum/reagent/consumable/ethanol/plasmaflood/on_mob_metabolize(mob/living/L)
+	to_chat(L, "<span class='notice'>You feel immune to the fire!</span>")
+	. = ..()
+
 /datum/reagent/consumable/ethanol/plasmaflood/on_mob_life(mob/living/M)
 	if(prob(80))
 		M.IgniteMob()
@@ -2175,3 +2180,162 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			M.adjustFireLoss(-16, 0)
 
 	..()
+
+/datum/reagent/consumable/ethanol/plasmaflood/on_mob_end_metabolize(mob/living/L)
+	to_chat(L, "<span class='warning'>You no longer feel immune to burning!</span>")
+	. = ..()
+
+/datum/reagent/consumable/ethanol/fourthwall
+	name = "Fourth Wall"
+	description = "This substance seems like it shouldn't exist."
+	color = "#0b43a3"
+	boozepwr = 0 //I feel like brain traumas is enough
+	quality = DRINK_GOOD
+	metabolization_rate = 0.3
+	taste_description = "binary"
+	glass_icon_state = "fourthwallglass"
+	glass_name = "Fourth Wall"
+	glass_desc = "Just looking at this makes your head hurt."
+	var/list/trauma_list
+
+/datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(var/mild,var/severe,var/special)
+	return pick(pickweight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality = severe, subtypesof(/datum/brain_trauma/special) - /datum/brain_trauma/special/imaginary_friend = special)))
+
+/datum/reagent/consumable/ethanol/fourthwall/on_mob_metabolize(mob/living/carbon/M)
+	trauma_list = list()
+	to_chat(M, "<span class='warning'>Your mind breaks, as you realize your reality is just some comupter game.</span>")
+	var/datum/brain_trauma/trauma = traumaweightpick(60,40,0)
+	trauma = new trauma()
+	trauma_list += trauma
+	M.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
+	..()
+
+/datum/reagent/consumable/ethanol/fourthwall/on_mob_life(mob/living/carbon/M)
+	var/datum/brain_trauma/OD_trauma
+	M.Jitter(2)
+	if(prob(5) && current_cycle > 10)
+		switch(current_cycle) //The longer they're on this stuff, the higher the chance for worse brain trauma
+			if(10 to 50)
+				to_chat(M, "<span class='warning'>Your mind cracks.</span>")
+				OD_trauma = traumaweightpick(50,40,10)
+			if(50 to 100)
+				to_chat(M, "<span class='warning'>Your mind splinters.</span>")
+				OD_trauma = traumaweightpick(30,50,20)
+			if(100 to INFINITY)
+				to_chat(M, "<span class='warning'>Your mind shatters.</span>")
+				OD_trauma = traumaweightpick(20,50,30)
+		OD_trauma = new OD_trauma()
+		trauma_list += OD_trauma
+		M.gain_trauma(OD_trauma, TRAUMA_RESILIENCE_ABSOLUTE)
+	..()
+
+/datum/reagent/consumable/ethanol/fourthwall/on_mob_end_metabolize(mob/living/carbon/M)
+	to_chat(M, "<span class='notice'>You know that you figured out something important, but can't quite remember what it is. Your head feels a lot better.</span>")
+	for(var/T in trauma_list)
+		QDEL_NULL(T)
+	return ..()
+
+/datum/reagent/consumable/ethanol/ratvander
+	name = "Rat'vander Cocktail"
+	description = "Side effects include hoarding brass and hatred of blood."
+	boozepwr = 10
+	quality = DRINK_FANTASTIC
+	taste_description = "sweet brass"
+	glass_icon_state = "ratvander"
+	glass_name = "Rat'vander Cocktail"
+	glass_desc = "A new cocktail originally mixed by TRNE Corp. Said to be embued with eldritch magic."
+	random_unrestricted = TRUE
+
+/datum/reagent/consumable/ethanol/ratvander/on_mob_life(mob/living/carbon/M)
+	if(prob(10))
+		to_chat(M, "<span class = 'warning'>[pick("You can faintly hear the sound of gears.","You can feel an unnatural hatred towards exposed blood.","You swear you can feel steam eminating from the drink.","You hear faint, pleasant whispers.","You can see a white void within your mind.")]</span>")
+	M.clockslurring = min(M.clockslurring + 3, 3)
+	M.stuttering = min(M.stuttering + 3, 3)
+	..()
+	. = 1
+
+/datum/reagent/consumable/ethanol/icewing
+	name = "Icewing"
+	description = "A frost beam on ice."
+	boozepwr = 50
+	quality = DRINK_FANTASTIC
+	taste_description = "frostburn"
+	glass_icon_state = "icewing"
+	glass_name = "Icewing"
+	glass_desc = "A watcher hunter's drink of choice. Will heal your frostburns, or cool you down."
+	random_unrestricted = TRUE
+
+/datum/reagent/consumable/ethanol/icewing/on_mob_life(mob/living/carbon/M)
+	M.adjust_bodytemperature(-8 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	if(M.bodytemperature <= BODYTEMP_COLD_DAMAGE_LIMIT) //heals burn if freezing
+		M.adjustFireLoss(-5, 0)
+	..()
+
+/datum/reagent/consumable/ethanol/sarsaparilliansunset
+	name = "Sarsaparillian Sunset"
+	description = "The taste of the waste."
+	boozepwr = 70
+	quality = DRINK_FANTASTIC
+	taste_description = "pleasant burning"
+	glass_icon_state = "sarsaparilliansunset"
+	glass_name = "Sarsaparillian Sunset"
+	glass_desc = "The view of a sunset over an irradiated wasteland. Calms your burns, but don't drink too much."
+	var/power = /obj/effect/proc_holder/spell/aimed/firebreath/weak
+	overdose_threshold = 50
+	metabolization_rate = 0.5
+
+/datum/reagent/consumable/ethanol/sarsaparilliansunset/on_mob_life(mob/living/carbon/M)
+	M.adjustFireLoss(-3, 0)
+	..()
+
+/datum/reagent/consumable/ethanol/sarsaparilliansunset/overdose_start(mob/living/M)
+	to_chat(M, "<span class='warning'>You feel a heat from your abdomen, burning you from the inside!</span>")
+	power = new power()
+	M.AddSpell(power)
+	. = ..()
+
+/datum/reagent/consumable/ethanol/sarsaparilliansunset/overdose_process(mob/living/M)
+	M.adjustFireLoss(7, 0)
+	. = ..()
+
+/datum/reagent/consumable/ethanol/sarsaparilliansunset/on_mob_end_metabolize(mob/living/M)
+	to_chat(M, "<span class='notice'>The fire inside of you calms down.</span>")
+	M.RemoveSpell(power)
+	return ..()
+
+/obj/effect/proc_holder/spell/aimed/firebreath/weak
+	name = "Fire Upchuck"
+	desc = "You can feel heat rising from your stomach"
+	range = 20
+	charge_max = 300
+	projectile_type = /obj/item/projectile/magic/aoe/fireball/firebreath/weak
+
+/obj/item/projectile/magic/aoe/fireball/firebreath/weak
+	exp_fire = 1
+
+/datum/reagent/consumable/ethanol/beesknees
+	name = "Bee's Knees"
+	description = "This has way too much honey."
+	boozepwr = 35
+	quality = 0
+	taste_description = "sweeter mead"
+	glass_icon_state = "beesknees"
+	glass_name = "Bee's Knees"
+	glass_desc = "This glass is oozing with honey. A bit too much honey to look appealing for anyone but a certain insect."
+
+/datum/reagent/consumable/ethanol/beesknees/on_mob_metabolize(mob/living/M)
+	if(is_species(M, /datum/species/apid))
+		to_chat(M, "<span class='notice'>What a good drink! Reminds you of the honey back home.</span>")
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
+	else
+		to_chat(M, "<span class='warning'>That drink was way too sweet! You feel sick.</span>")
+		M.adjust_disgust(10)
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+	. = ..()
+
+/datum/reagent/consumable/ethanol/beesknees/on_mob_life(mob/living/carbon/M)
+	if(is_species(M, /datum/species/apid))
+		M.adjustBruteLoss(-1.5, 0)
+		M.adjustFireLoss(-1.5, 0)
+		M.adjustToxLoss(-1, 0)
+	. = ..()
