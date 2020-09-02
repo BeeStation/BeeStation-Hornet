@@ -54395,7 +54395,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
@@ -56838,7 +56838,7 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
@@ -59975,7 +59975,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "nGr" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon,
 /turf/open/floor/plating,
@@ -62782,7 +62782,7 @@
 /area/maintenance/disposal)
 "sqW" = (
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
@@ -64789,8 +64789,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26;
-	pixel_y = 2
+	pixel_x = 26
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -64910,8 +64909,7 @@
 "wKa" = (
 /obj/machinery/light/small,
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26;
-	pixel_y = 2
+	pixel_x = 24
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
@@ -65016,7 +65014,8 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 24
+	pixel_x = 26;
+	pixel_y = 2
 	},
 /turf/open/floor/plating,
 /area/science/mixing)

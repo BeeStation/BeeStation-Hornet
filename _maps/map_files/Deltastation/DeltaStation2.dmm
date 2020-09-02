@@ -122347,7 +122347,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 30
+	pixel_x = 30
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
