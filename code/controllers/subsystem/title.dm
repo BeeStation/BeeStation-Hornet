@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(title)
 		return
 
 	if(fexists("data/previous_title.dat"))
-		var/previous_path = file2text("data/previous_title.dat")
+		var/previous_path = rustg_file_read("data/previous_title.dat")
 		if(istext(previous_path))
 			previous_icon = new(previous_icon)
 	fdel("data/previous_title.dat")

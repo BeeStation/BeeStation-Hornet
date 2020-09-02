@@ -1130,7 +1130,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 			register_asset(name, thing)
 			for (var/thing2 in targets)
 				send_asset(thing2, key, FALSE)
-			return "<img class='icon icon-misc' src=\"[url_encode(name)]\">"
+			return "<img class='icon icon-misc' src=\"[rustg_url_encode(name)]\">"
 		var/atom/A = thing
 		if (isnull(dir))
 			dir = A.dir
@@ -1155,7 +1155,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 	for (var/thing2 in targets)
 		send_asset(thing2, key, FALSE)
 
-	return "<img class='icon icon-[icon_state]' src=\"[url_encode(key)]\">"
+	return "<img class='icon icon-[icon_state]' src=\"[rustg_url_encode(key)]\">"
 
 /proc/icon2base64html(thing)
 	if (!thing)

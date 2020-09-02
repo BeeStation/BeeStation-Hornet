@@ -648,7 +648,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 	var/list/oldjson = list()
 	var/list/oldentries = list()
 	if(fexists(log))
-		oldjson = json_decode(file2text(log))
+		oldjson = json_decode(rustg_file_read(log))
 		oldentries = oldjson["data"]
 	if(!isemptylist(oldentries))
 		for(var/string in accepted)

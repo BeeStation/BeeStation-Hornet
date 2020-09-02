@@ -442,7 +442,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		if (topmenuname == "[topmenu.type]")
 			var/list/tree = splittext(topmenuname, "/")
 			topmenuname = tree[tree.len]
-		winset(src, "[topmenu.type]", "parent=menu;name=[url_encode(topmenuname)]")
+		winset(src, "[topmenu.type]", "parent=menu;name=[rustg_url_encode(topmenuname)]")
 		var/list/entries = topmenu.Generate_list(src)
 		for (var/child in entries)
 			winset(src, "[child]", "[entries[child]]")
