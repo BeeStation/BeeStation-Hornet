@@ -131,7 +131,7 @@
 		initial_data = src_object.ui_data(user)
 	if(!initial_static_data)
 		initial_static_data = src_object.ui_static_data(user)
-	_initial_update = url_encode(get_json(initial_data, initial_static_data))
+	_initial_update = rustg_url_encode(get_json(initial_data, initial_static_data))
 
 	SStgui.on_open(src)
 
@@ -306,7 +306,7 @@
 		return
 	// Send the new JSON to the update() Javascript function.
 	user << output(
-		url_encode(get_json(data, static_data)),
+		rustg_url_encode(get_json(data, static_data)),
 		"[window_id].browser:update")
 
 /**
