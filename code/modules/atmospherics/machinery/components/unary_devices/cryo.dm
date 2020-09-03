@@ -83,13 +83,7 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/contents_explosion(severity, target)
 	..()
 	if(beaker)
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.highobj += beaker
-			if(EXPLODE_HEAVY)
-				SSexplosions.medobj += beaker
-			if(EXPLODE_LIGHT)
-				SSexplosions.lowobj += beaker
+		beaker.ex_act(severity, target)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/handle_atom_del(atom/A)
 	..()

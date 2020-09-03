@@ -394,13 +394,7 @@ Class Procs:
 
 /obj/machinery/contents_explosion(severity, target)
 	if(occupant)
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.highobj += target
-			if(EXPLODE_HEAVY)
-				SSexplosions.medobj += target
-			if(EXPLODE_LIGHT)
-				SSexplosions.lowobj += target
+		occupant.ex_act(severity);
 
 /obj/machinery/handle_atom_del(atom/A)
 	if(A == occupant)

@@ -174,7 +174,7 @@
 
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
-	SSexplosions.highobj += src
+	src.ex_act(EXPLODE_HEAVY)
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
 	if(charge >= 1000)

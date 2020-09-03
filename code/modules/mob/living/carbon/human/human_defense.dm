@@ -390,13 +390,7 @@
 			if(bomb_armor < EXPLODE_GIB_THRESHOLD) //gibs the mob if their bomb armor is lower than EXPLODE_GIB_THRESHOLD
 				for(var/I in contents)
 					var/atom/A = I
-					switch(severity)
-						if(EXPLODE_DEVASTATE)
-							SSexplosions.highobj += A
-						if(EXPLODE_HEAVY)
-							SSexplosions.medobj += A
-						if(EXPLODE_LIGHT)
-							SSexplosions.lowobj += A
+					A.ex_act(severity)
 				gib()
 				return
 			else

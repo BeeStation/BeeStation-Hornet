@@ -33,13 +33,7 @@
 
 /obj/structure/extinguisher_cabinet/contents_explosion(severity, target)
 	if(stored_extinguisher)
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.highobj += stored_extinguisher
-			if(EXPLODE_HEAVY)
-				SSexplosions.medobj += stored_extinguisher
-			if(EXPLODE_LIGHT)
-				SSexplosions.lowobj += stored_extinguisher
+		stored_extinguisher.ex_act(severity, target)
 
 /obj/structure/extinguisher_cabinet/handle_atom_del(atom/A)
 	if(A == stored_extinguisher)

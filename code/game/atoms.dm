@@ -499,6 +499,25 @@
 
 /// Handle what happens when your contents are exploded by a bomb
 /atom/proc/contents_explosion(severity, target)
+	if(target == null)
+		target = src
+	if(isturf(target))
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.highturf += target
+			if(EXPLODE_HEAVY)
+				SSexplosions.medturf += target
+			if(EXPLODE_LIGHT)
+				SSexplosions.lowturf += target
+
+	if(isobj(target))
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.highobj += target
+			if(EXPLODE_HEAVY)
+				SSexplosions.medobj += target
+			if(EXPLODE_LIGHT)
+				SSexplosions.lowobj += target
 	return //For handling the effects of explosions on contents that would not normally be effected
 
 /**

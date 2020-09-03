@@ -32,13 +32,7 @@
 /obj/machinery/biogenerator/contents_explosion(severity, target)
 	..()
 	if(beaker)
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.highobj += beaker
-			if(EXPLODE_HEAVY)
-				SSexplosions.medobj += beaker
-			if(EXPLODE_LIGHT)
-				SSexplosions.lowobj += beaker
+		beaker.ex_act(severity, target)
 
 /obj/machinery/biogenerator/handle_atom_del(atom/A)
 	..()
