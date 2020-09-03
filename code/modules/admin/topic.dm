@@ -23,7 +23,6 @@
 		return
 
 	if(href_list["ahelp"]) //BEE CHANGE, Tickets should check their own permissions on ui_state.
-	#warn breaking here, you'll need to check the rest of this shit as part of the refactor anyways. gl fuckface.
 		var/ahelp_ref = href_list["ahelp"]
 		var/datum/admin_help/AH = locate(ahelp_ref)
 		if(AH)
@@ -2182,6 +2181,8 @@
 
 
 	else if(href_list["retrieveboh"])
+		if(!check_rights(R_ADMIN, TRUE))
+			return
 		var/obj/singularity/boh_tear/tear = locate(href_list["retrieveboh"])
 		if(!tear)
 			to_chat(usr, "Either items were already retrieved or 10 minutes have passed and they were deleted.")

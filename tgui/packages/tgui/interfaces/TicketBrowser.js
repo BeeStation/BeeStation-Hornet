@@ -2,7 +2,6 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Collapsible, BlockQuote } from '../components';
 import { Window } from '../layouts';
 import { capitalize } from 'common/string';
-import { Fragment } from 'inferno';
 
 export const TicketBrowser = (props, context) => {
   const { data } = useBackend(context);
@@ -35,15 +34,15 @@ export const TicketBrowser = (props, context) => {
             name={"Unclaimed Tickets"}
             actions={[["flw", "blue"], ["claim", "good"], ["reject", "bad"],
               ["ic", "label"]]}
-              show_xfer = {1}/>
-          <TicketMenu //XFER commands have shifted to the TM itself, controlled by the show_xfer arg.
+            show_xfer={1} />
+          <TicketMenu // XFER moved lower. 80 char max is dumb.
             ticket_list={open_tickets}
             name={"Claimed Tickets"}
             actions={[["flw", "blue"], ["claim", "average"],
               ["resolve", "good"],
               ["reject", "bad"], ["close", "label"],
               ["ic", "label"]]}
-            show_xfer = {1}/>
+            show_xfer={1} />
           <TicketMenu
             ticket_list={resolved_tickets}
             name={"Resolved Tickets"}
@@ -78,12 +77,12 @@ export const TicketMenu = (props, context) => {
                 bold
                 collapsing>
                 <Button
-                  color={ticket.tier == "admin" ? "bad" : "violet"}
+                  color={ticket.tier === "admin" ? "bad" : "violet"}
                   onClick={() => act("view", {
                     id: ticket.id,
                   })}>
                   <u>
-                    {"#" + ticket.id}/{ticket.tier == "admin" ? "A" : "M"}
+                    {"#" + ticket.id}/{ticket.tier === "admin" ? "A" : "M"}
                   </u>
                 </Button>
               </Table.Cell>
@@ -99,6 +98,7 @@ export const TicketMenu = (props, context) => {
                   </u>
                 </Button>
               </Table.Cell>
+
               {actions.map(action => (
                 <Table.Cell key={action[0]} collapsing>
                   <Button
@@ -110,42 +110,34 @@ export const TicketMenu = (props, context) => {
                 </Table.Cell>
               ))}
 
-              {show_xfer ?
-
-                <Fragment><Fragment>{
-                  ticket.tier == "mentor"?
-                  //Class-Dependent
-                    <Table.Cell key={"ahelp"} collapsing>
-                      <Button
-                        content={"Ahelp"}
-                        onClick={() => act("ahelp", {
-                          id: ticket.id,
-                        })}
-                        color={"bad"} />
-                    </Table.Cell>
-                  :
-                    <Table.Cell key={"mhelp"} collapsing>
-                    <Button
-                      content={"Mhelp"}
-                      onClick={() => act("mhelp", {
-                        id: ticket.id,
-                      })}
-                      color={"violet"} />
-                    </Table.Cell>
-                }</Fragment>
-
+              <Table.Cell key={"ahelp"} collapsing
+                hidden={ticket.tier === "admin" && show_xfer? true : false}>
+                <Button
+                  content={"Ahelp"}
+                  onClick={() => act("ahelp", {
+                    id: ticket.id,
+                  })}
+                  color={"bad"} />
+              </Table.Cell>
+              <Table.Cell key={"mhelp"} collapsing
+                hidden={ticket.tier === "mentor" && show_xfer? true : false}>
+                <Button
+                  content={"Mhelp"}
+                  onClick={() => act("mhelp", {
+                    id: ticket.id,
+                  })}
+                  color={"violet"} />
+              </Table.Cell>
               <Table.Cell
-              key={"transfer"}
-              collapsing>
-              <Button
-                content={"Transfer"}
-                onClick={() => act("transfer", {
-                  id: ticket.id,
-                })}
-                color={"label"} />
-              </Table.Cell></Fragment>
-
-              :null}
+                key={"transfer"} collapsing
+                hidden={show_xfer? true : false}>
+                <Button
+                  content={"Transfer"}
+                  onClick={() => act("transfer", {
+                    id: ticket.id,
+                  })}
+                  color={"label"} />
+              </Table.Cell>
             </Table.Row>
             <BlockQuote>
               {ticket.name}
@@ -166,3 +158,4 @@ export const TicketMenu = (props, context) => {
     </Section>
   );
 };
+

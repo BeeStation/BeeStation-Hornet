@@ -33,7 +33,7 @@
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/effect/fun_balloon/attack_ghost(mob/user)
-	if(!user.client || !user.client.holder || popped)
+	if(!user.client || !user.client.holder?.check_for_rights(R_FUN) || popped)
 		return
 	var/confirmation = alert("Pop [src]?","Fun Balloon","Yes","No")
 	if(confirmation == "Yes" && !popped)

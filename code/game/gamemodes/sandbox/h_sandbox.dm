@@ -7,7 +7,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 /mob/proc/CanBuild()
 	sandbox = new/datum/hSB
 	sandbox.owner = src.ckey
-	if(src.client.holder)
+	if(src.client.holder.check_for_rights(R_ADMIN))
 		sandbox.admin = 1
 	verbs += new/mob/proc/sandbox_panel
 /mob/proc/sandbox_panel()

@@ -725,7 +725,7 @@
 				stat(null, "[ETA] [SSshuttle.emergency.getTimerStr()]")
 
 	if(client?.holder)
-		if(statpanel("MC"))
+		if(client.holder.check_rights_for(R_DEBUG) && statpanel("MC"))
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
 			stat("CPU:", "[world.cpu]")
@@ -749,7 +749,7 @@
 			GLOB.cameranet.stat_entry()
 		if(statpanel("Tickets"))
 			GLOB.ahelp_tickets.stat_entry()
-		if(length(GLOB.sdql2_queries))
+		if(length(GLOB.sdql2_queries) && client.holder.check_rights_for(R_DEBUG))
 			if(statpanel("SDQL2"))
 				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
 				for(var/i in GLOB.sdql2_queries)

@@ -273,7 +273,7 @@
 		return
 	var/mob/user = usr
 
-	if(!user.client.holder) // Should it require specific perm ?
+	if(!user.client.holder.check_for_rights(R_FUN)) // Should it require specific perm ?
 		return
 
 	if(href_list["upload"])

@@ -4,6 +4,7 @@ import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Collapsible,
 import { Window, Layout } from '../layouts';
 import { round } from 'common/math';
 import { KEY_SPACE } from '../hotkeys';
+import { EMPTY_OBJ } from 'inferno';
 
 export const TicketMessenger = (props, context) => {
   return (
@@ -35,7 +36,7 @@ export const TicketActionBar = (props, context) => {
     antag_status,
     id,
     sender,
-    tier
+    tier,
   } = data;
   return (
     <Box>
@@ -44,16 +45,13 @@ export const TicketActionBar = (props, context) => {
         inline>
         {capitalize(tier)} Ticket #{id} : {sender}
       </Box>
-      {tier == "mentor"
-      ? null
-      :
-        <Box
-          inline
-          bold
-          color={antag_status==="None"?"green":"red"}>
-          /Antag: {antag_status}
-        </Box>
-      }
+      <Box
+        inline
+        bold
+        hidden={tier !== "admin" ? true : null}
+        color={antag_status==="None"?"green":"red"}>
+        /Antag: {antag_status}
+      </Box>
       <Box />
       <Box
         inline
@@ -89,7 +87,7 @@ export const TicketActionBar = (props, context) => {
         {disconnected
           ? <Box inline bold color="bad">DISCONNECTED</Box>
           : <TicketFullMonty /> }
-          |
+        |
         <TicketClosureStates />
       </Box>
     </Box>
@@ -139,7 +137,7 @@ export const TicketFullMonty = (props, context) => {
 export const TicketClosureStates = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    tier
+    tier,
   } = data;
   return (
     <Box inline>
@@ -156,23 +154,20 @@ export const TicketClosureStates = (props, context) => {
         content="RSLVE"
         onClick={() => act("resolve")} />
       |
-      {tier == "admin"
-      ?
-        <Button
-        content="MHELP"
-        color = "violet"
-        onClick={() => act("mentorhelp")} />
-      :
-        <Button
-        content="ADMIN"
-        color = "bad"
-        onClick={() => act("adminhelp")} />
-      }
+      {tier === "admin"
+        ? <Button
+          content="MHELP"
+          color="violet"
+          onClick={() => act("mentorhelp")} />
+        : <Button
+          content="ADMIN"
+          color="bad"
+          onClick={() => act("adminhelp")} />}
       <Button
         content="TRANSFER"
-        color = "average"
+        color="average"
         onClick={() => act("transfer")} />
-      </Box>
+    </Box>
   );
 };
 

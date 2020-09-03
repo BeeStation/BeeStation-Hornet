@@ -58,7 +58,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 		stat(null, "Time To Start: SOON")
 
 	stat(null, "Players: [SSticker.totalPlayers]")
-	if(client.holder)
+	if(client.holder?.check_for_rights(R_ADMIN))//Sorry mentors, actual admins only.
 		stat(null, "Players Ready: [SSticker.totalPlayersReady]")
 
 /mob/dead/proc/server_hop()
