@@ -97,6 +97,9 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	if(!admin_datum)
 		message_admins("[C.ckey] attempted to browse tickets, but had no admin datum")
 		return
+	if(!admin_datum.check_for_rights(R_ADMIN, FALSE) || !admin_datum.check_for_rights(R_MENTOR, FALSE))
+		to_chat(C, "<span class='boldwarning'>You do not have access to any tickets.</span>")
+		return
 	if(!admin_datum.admin_interface)
 		admin_datum.admin_interface = new(user)
 	admin_datum.admin_interface.ui_interact(user)
@@ -110,31 +113,26 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
-	//This is dirty and magic numbery but it's less expensive in the long run.
-	//T0 - Staff, No tickets
-	//T1 - Mentor Tickets
-	//T2 - Admin Tickets
-	//T3 - All Tickets
 /datum/admin_help_ui/ui_data(mob/user)
 	var/datum/admins/admin_datum = GLOB.admin_datums[user.ckey]
-	var/tier
+	var/csa = FALSE
+	var/csm = FALSE
 
 	usr = user
-	if(check_rights(R_ADMIN))
-		tier += 2
-	if(check_rights(R_MENTOR))
-	#warn Something is wrong with tiers. Investigate it.
-		tier += 1
+	if(check_rights(R_ADMIN, FALSE))
+		csa = TRUE
+	if(check_rights(R_MENTOR, FALSE))
+		csm = TRUE
 	if(!admin_datum)
 		log_admin_private("[user] sent a request to interact with the ticket browser without sufficient rights.")
 		message_admins("[user] sent a request to interact with the ticket browser without sufficient rights.")
 		return
 	var/list/data = list()
 	data["admin_ckey"] = user.ckey
-	data["unclaimed_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_UNCLAIMED, tier)
-	data["open_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_ACTIVE, tier)
-	data["closed_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_CLOSED, tier)
-	data["resolved_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_RESOLVED, tier)
+	data["unclaimed_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_UNCLAIMED, csa, csm)
+	data["open_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_ACTIVE, csa, csm)
+	data["closed_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_CLOSED, csa, csm)
+	data["resolved_tickets"] = GLOB.ahelp_tickets.get_ui_ticket_data(AHELP_RESOLVED, csa, csm)
 	return data
 
 /datum/admin_help_ui/ui_act(action, params)
@@ -147,6 +145,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/datum/admin_help/ticket = GLOB.ahelp_tickets.TicketByID(ticket_id)
 	//Doing action on a ticket claims it
 	var/claim_ticket = CLAIM_DONTCLAIM
+	to_chat(world, "TBUIACT: [action]")
 	switch(action)
 		if("claim")
 			if(ticket.claimed_admin)
@@ -161,7 +160,23 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			claim_ticket = CLAIM_OVERRIDE
 			ticket.ICIssue()
 		if("mhelp")
+			if(!admin_datum.check_for_rights(R_ADMIN & R_MENTOR, FALSE))
+				claim_ticket = CLAIM_DONTCLAIM
+			else
+				claim_ticket = CLAIM_OVERRIDE
 			ticket.MHelpThis()
+		if("ahelp")
+			if(!admin_datum.check_for_rights(R_ADMIN & R_MENTOR, FALSE))
+				claim_ticket = CLAIM_DONTCLAIM
+			else
+				claim_ticket = CLAIM_OVERRIDE
+			ticket.AHelpThis()
+		if("transfer")
+			if(!admin_datum.check_for_rights(R_ADMIN & R_MENTOR, FALSE))
+				claim_ticket = CLAIM_DONTCLAIM
+			else
+				claim_ticket = CLAIM_OVERRIDE
+			ticket.Reclass()
 		if("resolve")
 			claim_ticket = CLAIM_OVERRIDE
 			ticket.Resolve()
@@ -178,14 +193,12 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		if("pm")
 			usr.client.cmd_ahelp_reply(ticket.initiator)
 			claim_ticket = CLAIM_CLAIMIFNONE
-		if("reclass")
-			ticket.Reclass()
 
 	if(claim_ticket == CLAIM_OVERRIDE || (claim_ticket == CLAIM_CLAIMIFNONE && !ticket.claimed_admin))
 		ticket.Claim()
 
-/datum/admin_help_tickets/proc/get_ui_ticket_data(state, tier = 0)
-	if(!tier)
+/datum/admin_help_tickets/proc/get_ui_ticket_data(state, csa = FALSE, csm = FALSE) //This is stupid ugly.
+	if(!csa && !csm)
 		return list()
 	var/list/l2b
 	switch(state)
@@ -202,9 +215,9 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/list/dat = list()
 	for(var/I in l2b)
 		var/datum/admin_help/AH = I
-		if(AH.class == TICKET_ADMIN && (tier < 2))
+		if(AH.class == TICKET_ADMIN && !csa)
 			continue
-		if(AH.class == TICKET_MENTOR && (tier % 2))
+		if(AH.class == TICKET_MENTOR && !csm)
 			continue
 		var/list/ticket = list(
 			"id" = AH.id,
@@ -213,7 +226,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			"claimed_key_name" = AH.claimed_admin_key_name,
 			"disconnected" = AH.initiator ? FALSE : TRUE,
 			"state" = AH.state,
-			"class" = AH.class
+			"tier" = AH.class
 		)
 		dat += list(ticket)
 	return dat
@@ -229,7 +242,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		for(var/I in l)
 			var/datum/admin_help/AH = I
 			if(AH.initiator)
-				stat("#[AH.id]. [AH.initiator_key_name]:", AH.statclick.update())
+				//stat("#[AH.id]. [AH.initiator_key_name]:", AH.statclick.update()) //BEE EDIT - No leaking detailed information. I could check rank here...
+				// But this is a stat call. That sounds like a great way to cause horrific lag.
 			else
 				++num_disconnected
 	if(num_disconnected)
@@ -421,7 +435,15 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 /datum/admin_help/proc/TicketPanel()
 	ui_interact(usr)
 
-/datum/admin_help/ui_interact(mob/user, ui_key = "ticket", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
+/datum/admin_help/ui_interact(mob/user, ui_key = "ticket", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.staff_state)
+	//There's probably a cleaner way to check this with a fancy state but screw it
+	switch(class)
+		if(TICKET_ADMIN)
+			state = GLOB.admin_state
+		if(TICKET_MENTOR)
+			state = GLOB.mentor_state
+		else
+			CRASH("Ticket UI interacted with without a class!")
 	//Support multiple tickets open at once
 	ui_key = "ticket[id]"
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -449,6 +471,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	data["sender"] = initiator_key_name
 	data["world_time"] = world.time
 	data["antag_status"] = "None"
+	data["tier"] = class //BEE EDIT
 	if(initiator)
 		var/mob/living/M = initiator.mob
 		if(M?.mind?.antag_datums)
@@ -469,15 +492,20 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 /datum/admin_help/ui_act(action, params)
 	var/datum/admins/admin_datum = GLOB.admin_datums[usr.ckey]
 	if(!admin_datum)
-		message_admins("[usr] sent a request to interact with the ticket window without sufficient rights.")
+		message_staff("[usr] sent a request to interact with the ticket window without a rights holder at all!")
+		log_admin_private("[usr] sent a request to interact with the ticket window without a rights holder at all!")
+		return
+	if(!check_rights(R_ADMIN) && class == "admin")
+		message_admins("[usr] sent a request to interact with the ticket window without sufficient rights. (Requires: R_ADMIN)")
 		log_admin_private("[usr] sent a request to interact with the ticket window without sufficient rights.")
 		return
-	if(!check_rights(R_ADMIN))
-		message_admins("[usr] sent a request to interact with the ticket window without sufficient rights. (Requires: R_ADMIN)")
+	if(!check_rights(R_MENTOR) && class == "mentor")
+		message_mentors("[usr] sent a request to interact with the ticket window without sufficient rights. (Requires: R_MENTOR)")
 		log_admin_private("[usr] sent a request to interact with the ticket window without sufficient rights.")
 		return
 	//Doing action on a ticket claims it
 	var/claim_ticket = CLAIM_DONTCLAIM
+	to_chat(world, "AHUIACT: [action]")
 	switch(action)
 		if("sendpm")
 			usr.client.cmd_ahelp_reply_instant(initiator, params["text"])
@@ -486,8 +514,23 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			Reject()
 			claim_ticket = CLAIM_OVERRIDE
 		if("mentorhelp")
+			if(!admin_datum.check_for_rights(R_ADMIN & R_MENTOR, FALSE))
+				claim_ticket = CLAIM_DONTCLAIM
+			else
+				claim_ticket = CLAIM_OVERRIDE
 			MHelpThis()
-			claim_ticket = CLAIM_OVERRIDE
+		if("adminhelp")
+			if(!admin_datum.check_for_rights(R_ADMIN & R_MENTOR, FALSE))
+				claim_ticket = CLAIM_DONTCLAIM
+			else
+				claim_ticket = CLAIM_OVERRIDE
+			AHelpThis()
+		if("transfer")
+			if(!admin_datum.check_for_rights(R_ADMIN & R_MENTOR, FALSE))
+				claim_ticket = CLAIM_DONTCLAIM
+			else
+				claim_ticket = CLAIM_OVERRIDE
+			Reclass()
 		if("close")
 			Close()
 			claim_ticket = CLAIM_OVERRIDE
@@ -535,11 +578,14 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/notifysound
 
 	if(reclassed)
-		notifysound = sound('sound/effects/yeet.ogg')		//yeeting the ticket around
+		notifysound = 'sound/effects/yeet.ogg'		//yeeting the ticket around
+		to_chat(world, "RC_YEET USR: [usr.name]")
+		if(usr)
+			SEND_SOUND(usr, sound(notifysound))
 	else if(class == TICKET_MENTOR)
-		notifysound = sound('sound/misc/server-ready.ogg')	//less aggressive mentor sound
+		notifysound = 'sound/misc/server-ready.ogg'	//less aggressive mentor sound
 	else
-		notifysound = sound('sound/effects/adminhelp.ogg')	//hey got a sec?
+		notifysound = 'sound/effects/adminhelp.ogg'	//hey got a sec?
 	//send this msg to all admins
 	switch(class)
 		if(TICKET_ADMIN)
@@ -547,7 +593,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 				if(reclassed && (X in GLOB.mentors))
 					continue //Spare mentormins the double scream.
 				if(X.prefs.toggles & SOUND_ADMINHELP)
-					SEND_SOUND(X, notifysound)
+					SEND_SOUND(X, sound(notifysound))
 				window_flash(X, ignorepref = TRUE)
 				to_chat(X, admin_msg)
 		if(TICKET_MENTOR)
@@ -555,7 +601,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 				if(reclassed && (X in GLOB.admins))
 					continue //Spare mentormins the double scream.
 				if(X.prefs.toggles & SOUND_ADMINHELP)
-					SEND_SOUND(X, notifysound)
+					SEND_SOUND(X, sound(notifysound))
 				window_flash(X, ignorepref = TRUE)
 				to_chat(X, admin_msg)
 
@@ -734,11 +780,34 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/msg = "Ticket [TicketHref("#[id]")] redirected to mentors by [key_name]"
 	message_admins(msg)
 	log_admin_private(msg)
-	AddInteraction("red", "redirected to mentors by [key_name].")
+	AddInteraction("purple", "redirected to mentors by [key_name].")
 	if(!bwoink)
 		discordsendmsg("ahelp", "Ticket #[id] redirected to mentors by [key_name(usr, include_link=0)]")
 	Reclass_internal(TICKET_MENTOR, key_name, TRUE)
+//aaaAAA I literally just got on someone's case for this but fuck it.
 
+/datum/admin_help/proc/AHelpThis(key_name = key_name_admin(usr))
+	if(class == TICKET_ADMIN)
+		return
+
+	if(initiator)
+		initiator.giveadminhelpverb()
+
+		SEND_SOUND(initiator, sound('sound/effects/adminhelp.ogg'))
+		//I wanted this to be yeet but I realized I have to play a sound on reclass anyways. Best to keep it less memey on the frontend side.
+
+		to_chat(initiator, "<font color='red' size='4'><b>- MentorHelp Redirected! -</b></font>")
+		to_chat(initiator, "<font color='red'>This question may regard <b>administrative or policy questions</b>. Such questions should be asked with <b>Adminhelp</b>.</font>")
+		to_chat(initiator, "<font color='red'>Your question has been forwarded to the admins automatically.</font>")
+
+	SSblackbox.record_feedback("tally", "ahelp_stats", 1, "ahelp this")
+	var/msg = "Ticket [TicketHref("#[id]")] redirected to admins by [key_name]"
+	message_admins(msg)
+	log_admin_private(msg)
+	AddInteraction("darkred", "redirected to mentors by [key_name].")
+	if(!bwoink)
+		discordsendmsg("ahelp", "Ticket #[id] redirected to admins by [key_name(usr, include_link=0)]")
+	Reclass_internal(TICKET_ADMIN, key_name, TRUE)
 
 /datum/admin_help/proc/Retitle()
 	var/new_title = input(usr, "Enter a title for the ticket", "Rename Ticket", name) as text|null
@@ -799,6 +868,8 @@ datum/admin_help/proc/Reclass_internal(newclass = TICKET_ADMIN, key_name = key_n
 			Reopen()
 		if("mhelp")
 			MHelpThis()
+		if("ahelp")
+			AHelpThis()
 
 //
 // TICKET STATCLICK

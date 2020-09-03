@@ -2,6 +2,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Collapsible, BlockQuote } from '../components';
 import { Window } from '../layouts';
 import { capitalize } from 'common/string';
+import { Fragment } from 'inferno';
 
 export const TicketBrowser = (props, context) => {
   const { data } = useBackend(context);
@@ -33,14 +34,16 @@ export const TicketBrowser = (props, context) => {
             ticket_list={unclaimed_tickets}
             name={"Unclaimed Tickets"}
             actions={[["flw", "blue"], ["claim", "good"], ["reject", "bad"],
-              ["ic", "label"], ["mhelp", "label"]]} />
-          <TicketMenu
+              ["ic", "label"]]}
+              show_xfer = {1}/>
+          <TicketMenu //XFER commands have shifted to the TM itself, controlled by the show_xfer arg.
             ticket_list={open_tickets}
             name={"Claimed Tickets"}
             actions={[["flw", "blue"], ["claim", "average"],
               ["resolve", "good"],
-              ["reject", "bad"], ["close", "label"], ["mhelp", "label"],
-              ["ic", "label"]]} />
+              ["reject", "bad"], ["close", "label"],
+              ["ic", "label"]]}
+            show_xfer = {1}/>
           <TicketMenu
             ticket_list={resolved_tickets}
             name={"Resolved Tickets"}
@@ -59,6 +62,7 @@ export const TicketMenu = (props, context) => {
   const {
     ticket_list,
     name,
+    show_xfer,
     actions = [],
   } = props;
   const { act } = useBackend(context);
@@ -74,13 +78,12 @@ export const TicketMenu = (props, context) => {
                 bold
                 collapsing>
                 <Button
-                  color={ticket.class = "admin" ? "bad" : "violet"}
-
+                  color={ticket.tier == "admin" ? "bad" : "violet"}
                   onClick={() => act("view", {
                     id: ticket.id,
                   })}>
                   <u>
-                    {"#" + ticket.id}/{ticket.class = "admin" ? "A" : "M"}
+                    {"#" + ticket.id}/{ticket.tier == "admin" ? "A" : "M"}
                   </u>
                 </Button>
               </Table.Cell>
@@ -97,9 +100,7 @@ export const TicketMenu = (props, context) => {
                 </Button>
               </Table.Cell>
               {actions.map(action => (
-                <Table.Cell
-                  key={action[0]}
-                  collapsing>
+                <Table.Cell key={action[0]} collapsing>
                   <Button
                     content={capitalize(action[0])}
                     onClick={() => act(action[0], {
@@ -108,6 +109,43 @@ export const TicketMenu = (props, context) => {
                     color={action[1]} />
                 </Table.Cell>
               ))}
+
+              {show_xfer ?
+
+                <Fragment><Fragment>{
+                  ticket.tier == "mentor"?
+                  //Class-Dependent
+                    <Table.Cell key={"ahelp"} collapsing>
+                      <Button
+                        content={"Ahelp"}
+                        onClick={() => act("ahelp", {
+                          id: ticket.id,
+                        })}
+                        color={"bad"} />
+                    </Table.Cell>
+                  :
+                    <Table.Cell key={"mhelp"} collapsing>
+                    <Button
+                      content={"Mhelp"}
+                      onClick={() => act("mhelp", {
+                        id: ticket.id,
+                      })}
+                      color={"violet"} />
+                    </Table.Cell>
+                }</Fragment>
+
+              <Table.Cell
+              key={"transfer"}
+              collapsing>
+              <Button
+                content={"Transfer"}
+                onClick={() => act("transfer", {
+                  id: ticket.id,
+                })}
+                color={"label"} />
+              </Table.Cell></Fragment>
+
+              :null}
             </Table.Row>
             <BlockQuote>
               {ticket.name}

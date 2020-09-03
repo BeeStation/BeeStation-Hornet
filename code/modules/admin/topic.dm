@@ -22,10 +22,8 @@
 	if(!CheckAdminHref(href, href_list))
 		return
 
-	if(href_list["ahelp"])
-		if(!check_rights(R_ADMIN, TRUE))
-			return
-
+	if(href_list["ahelp"]) //BEE CHANGE, Tickets should check their own permissions on ui_state.
+	#warn breaking here, you'll need to check the rest of this shit as part of the refactor anyways. gl fuckface.
 		var/ahelp_ref = href_list["ahelp"]
 		var/datum/admin_help/AH = locate(ahelp_ref)
 		if(AH)
@@ -2024,7 +2022,7 @@
 						dat += sanitize(jobs.Join(", "))
 						dat += "<br>"
 					dat += "<hr>"
-					
+
 		var/datum/browser/popup = new(usr, "centcomlookup-[ckey]", "<div align='center'>Central Command Galactic Ban Database</div>", 700, 600)
 		popup.set_content(dat.Join())
 		popup.open(FALSE)

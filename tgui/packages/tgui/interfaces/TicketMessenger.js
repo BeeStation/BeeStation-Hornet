@@ -1,8 +1,9 @@
-import { multiline, decodeHtmlEntities } from 'common/string';
+import { multiline, decodeHtmlEntities, capitalize } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Collapsible, BlockQuote, Slider, Divider } from '../components';
 import { Window, Layout } from '../layouts';
 import { round } from 'common/math';
+import { KEY_SPACE } from '../hotkeys';
 
 export const TicketMessenger = (props, context) => {
   return (
@@ -34,19 +35,25 @@ export const TicketActionBar = (props, context) => {
     antag_status,
     id,
     sender,
+    tier
   } = data;
   return (
     <Box>
       <Box
         bold
         inline>
-        Admin Help Ticket #{id} : {sender}
+        {capitalize(tier)} Ticket #{id} : {sender}
       </Box>
-      <Box
-        inline
-        color={antag_status==="None"?"green":"red"}>
-        Antag: {antag_status}
-      </Box>
+      {tier == "mentor"
+      ? null
+      :
+        <Box
+          inline
+          bold
+          color={antag_status==="None"?"green":"red"}>
+          /Antag: {antag_status}
+        </Box>
+      }
       <Box />
       <Box
         inline
@@ -80,8 +87,9 @@ export const TicketActionBar = (props, context) => {
       <Divider />
       <Box>
         {disconnected
-          ? "DISCONNECTED"
+          ? <Box inline bold color="bad">DISCONNECTED</Box>
           : <TicketFullMonty /> }
+          |
         <TicketClosureStates />
       </Box>
     </Box>
@@ -129,7 +137,10 @@ export const TicketFullMonty = (props, context) => {
 };
 
 export const TicketClosureStates = (props, context) => {
-  const { act } = useBackend(context);
+  const { act, data } = useBackend(context);
+  const {
+    tier
+  } = data;
   return (
     <Box inline>
       <Button
@@ -144,10 +155,24 @@ export const TicketClosureStates = (props, context) => {
       <Button
         content="RSLVE"
         onClick={() => act("resolve")} />
-      <Button
+      |
+      {tier == "admin"
+      ?
+        <Button
         content="MHELP"
+        color = "violet"
         onClick={() => act("mentorhelp")} />
-    </Box>
+      :
+        <Button
+        content="ADMIN"
+        color = "bad"
+        onClick={() => act("adminhelp")} />
+      }
+      <Button
+        content="TRANSFER"
+        color = "average"
+        onClick={() => act("transfer")} />
+      </Box>
   );
 };
 
