@@ -570,3 +570,107 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	ban = randomdevilban()
 	banish = randomdevilbanish()
 	ascendable = prob(25)
+
+
+/obj/item/dice/d6/deviled
+	name = "\improper Hellish D6"
+	desc = "Care to gamble your soul away?"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/datum/antagonist/devil/devil_datum
+
+/obj/item/dice/d6/deviled/New(atom/loc, mob/living/nTarget)
+	..()
+	devil_datum = owner.has_antag_datum(/datum/antagonist/devil)
+	
+
+/obj/item/dice/d6/deviled/accept_soul(mob/living/carbon/human/user)
+	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans!</span>")
+		return 0
+	if(!user.IsAdvancedToolUser() || !user.is_literate())
+		to_chat(user, "<span class='notice'>You don't know how to read or write.</span>")
+		return 0
+	if(!user.mind.hasSoul || user.mind.soulOwner != null)
+		to_chat(user, "<span class='notice'>You do not possess a soul.</span>")
+		return 0
+
+	return 1
+	
+/obj/item/dice/d6/deviled/take_soul(mob/living/carbon/human/user)
+
+	user.mind.soulOwner = owner
+	user.hellbound = CONTRACT_UNWILLING
+	user.mind.damnation_type = CONTRACT_UNWILLING
+	var/datum/antagonist/devil/devilInfo = owner.has_antag_datum(/datum/antagonist/devil)
+	devilInfo.add_soul(user.mind)
+	return TRUE
+
+/obj/item/dice/d6/deviled/diceroll(mob/user)
+	. = ..()
+	
+	var/turf/T = get_turf(src)
+	T.visible_message("<span class='userdanger'>[src] flares briefly.</span>")
+
+	addtimer(CALLBACK(src, .proc/effect, user, .), 1 SECONDS)
+
+/obj/item/dice/d6/devil_weapons/equipped(mob/user, slot)
+	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans! You should leave it alone.</span>")
+		user.dropItemToGround(src)
+
+/obj/item/dice/d6/deviled/weapons
+	desc = "A devilish D6 that has all its sides engraved with weapons. Care to gamble your soul away?"
+	
+/obj/item/dice/d6/deviled/weapons/proc/effect(var/mob/living/carbon/human/user,roll)
+	if (!accept_soul(user))
+		return
+	take_soul(user)
+	to_chat(user, "<span class='notice'>A profound emptiness washes over you as you lose ownership of your soul.</span>")
+	to_chat(user, "<span class='boldnotice'>This does NOT make you an antagonist if you were not already.</span>")
+
+	var/turf/T = get_turf(src)
+	switch(roll)
+		if(1)
+			T.visible_message("<span class='userdanger'>A hand comes out of the ground and hands [user] a banana!</span>")	
+			do_smoke(0, drop_location())		
+			new /obj/item/reagent_containers/food/snacks/grown/banana(drop_location())
+		if(2)
+			T.visible_message("<span class='userdanger'>A hand comes out of the ground and hands [user] a spear!</span>")	
+			do_smoke(0, drop_location())
+			new /obj/item/twohanded/spear(drop_location())
+		if(3)
+			T.visible_message("<span class='userdanger'>A hand comes out of the ground and hands [user] a sword!</span>")	
+			do_smoke(0, drop_location())
+			new /obj/item/claymore/highlander/sword(drop_location())			
+		if(4)
+			T.visible_message("<span class='userdanger'>A hand comes out of the ground and hands [user] a revolver!</span>")	
+			do_smoke(0, drop_location())
+			new /obj/item/gun/ballistic/revolver/detective(drop_location())
+		if(5)
+			T.visible_message("<span class='userdanger'>A hand comes out of the ground and hands [user] a shotgun!</span>")	
+			do_smoke(0, drop_location())
+			new /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn(drop_location())
+		if(6)
+			T.visible_message("<span class='userdanger'>A hand comes out of the ground and hands [user] a machine gun!</span>")	
+			do_smoke(0, drop_location())
+			new /obj/item/gun/ballistic/automatic/wt550(drop_location())
+
+/obj/item/dice/d6/deviled/rigged
+	desc = "A devilish D6 that has- Hold on a second. All the sides on this die are ones!"
+	rigged = DICE_TOTALLY_RIGGED
+	rigged_value = 1
+	
+/obj/item/dice/d6/deviled/rigged/proc/effect(var/mob/living/carbon/human/user,roll)
+	if (!accept_soul(user))
+		return
+	take_soul(user)
+	to_chat(user, "<span class='boldnotice'>You have been fooled! You lost your soul AND your sanity.</span>")
+	
+	T.visible_message("<span class='userdanger'>[user] turns to dust!</span>")
+	if(!H.mind)
+		continue
+	if(H.mind.has_antag_datum(/datum/antagonist/sintouched))
+		continue
+	if(H.anti_magic_check(FALSE, TRUE))
+		continue
+	H.mind.add_antag_datum(/datum/antagonist/sintouched)

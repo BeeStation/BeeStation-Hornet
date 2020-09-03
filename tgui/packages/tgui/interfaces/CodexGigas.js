@@ -96,7 +96,7 @@ export const CodexGigas = (props, context) => {
             <LabeledList.Item label="Submit">
               <Button
                 content="Search"
-                disabled={data.currentSection < 4}
+                disabled={data.currentSection > 0}
                 onClick={() => act('search')} />
             </LabeledList.Item>
           </LabeledList>

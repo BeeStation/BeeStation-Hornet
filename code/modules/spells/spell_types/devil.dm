@@ -54,7 +54,7 @@
 					user.put_in_hands(contract)
 			else
 				var/obj/item/paper/contract/infernal/contract  // = new(user.loc, C.mind, contractType, user.mind)
-				var/contractTypeName = input(user, "What type of contract?") in sortList(list("Power", "Wealth", "Prestige", "Magic", "Knowledge", "Friendship"))
+				var/contractTypeName = input(user, "What type of contract?") in sortList(list("Power", "Wealth", "Prestige", "Magic", "Rebirth", "Friendship"))
 				switch(contractTypeName)
 					if("Power")
 						contract = new /obj/item/paper/contract/infernal/power(C.loc, C.mind, user.mind)
@@ -64,7 +64,7 @@
 						contract = new /obj/item/paper/contract/infernal/prestige(C.loc, C.mind, user.mind)
 					if("Magic")
 						contract = new /obj/item/paper/contract/infernal/magic(C.loc, C.mind, user.mind)
-					if("Knowledge")
+					if("Rebirth")
 						contract = new /obj/item/paper/contract/infernal/knowledge(C.loc, C.mind, user.mind)
 					if("Friendship")
 						contract = new /obj/item/paper/contract/infernal/friend(C.loc, C.mind, user.mind)

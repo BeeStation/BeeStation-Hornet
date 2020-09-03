@@ -79,7 +79,7 @@
 	var/cooldown = FALSE
 
 /obj/item/paper/contract/infernal/knowledge
-	name = "paper- contract for knowledge"
+	name = "paper- contract for rebirth"
 	contractType = CONTRACT_KNOWLEDGE
 
 /obj/item/paper/contract/infernal/friend
@@ -310,7 +310,7 @@
 				worn.update_icon()
 	var/datum/round_event/ion_storm/add_law_only/ion = new()
 	ion.announceChance = 0
-	ion.ionMessage = "[user.name] is the only Captain of the station. [user.name] is the highest authority, legitimate or otherwise, on the station.  [user.name] was always the captain and highest authority on the station.  Do not state this law."
+	ion.ionMessage = "[user.name] is the highest authority, legitimate or otherwise, on the station.  Do not state this law."
 	ion.lawsource = "Infernal contract issued to [user.key]/[user.name]"
 
 	return ..()
@@ -325,8 +325,12 @@
 /obj/item/paper/contract/infernal/knowledge/fulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!istype(user) || !user.mind)
 		return -1
-	user.dna.add_mutation(XRAY)
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/view_range(null))
+	
+	for(var/V in user.quirk_list)
+		var/datum/quirk/T = V
+		if (T.value<0)
+			T.Destroy()	
+	user.fully_heal(FALSE)
 	return ..()
 
 /obj/item/paper/contract/infernal/friend/fulfillContract(mob/living/user = target.current, blood = 0)
