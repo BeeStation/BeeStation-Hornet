@@ -364,7 +364,7 @@ export const ModFabData = (props, context) => {
 
 export const OutputDir = (props, context) => {
   const { act, data } = useBackend(context);
-  const { outputDir = "center" } = data;
+  const { outputDir = 0 } = data;
   return (
     <Table width="80px" align="center">
       <Table.Row>
@@ -372,9 +372,9 @@ export const OutputDir = (props, context) => {
         <Table.Cell>
           <Button
             icon="arrow-up"
-            color={outputDir==="up"?"green":"red"}
+            color={outputDir===1?"green":"red"}
             onClick={() => act("output_dir", {
-              direction: "up",
+              direction: 1,
             })} />
         </Table.Cell>
         <Table.Cell />
@@ -383,25 +383,25 @@ export const OutputDir = (props, context) => {
         <Table.Cell>
           <Button
             icon="arrow-left"
-            color={outputDir==="left"?"green":"red"}
+            color={outputDir===8?"green":"red"}
             onClick={() => act("output_dir", {
-              direction: "left",
+              direction: 8,
             })} />
         </Table.Cell>
         <Table.Cell>
           <Button
             icon="circle"
-            color={outputDir==="center"?"green":"red"}
+            color={outputDir===0?"green":"red"}
             onClick={() => act("output_dir", {
-              direction: "center",
+              direction: 0,
             })} />
         </Table.Cell>
         <Table.Cell>
           <Button
             icon="arrow-right"
-            color={outputDir==="right"?"green":"red"}
+            color={outputDir===4?"green":"red"}
             onClick={() => act("output_dir", {
-              direction: "right",
+              direction: 4,
             })} />
         </Table.Cell>
       </Table.Row>
@@ -410,9 +410,9 @@ export const OutputDir = (props, context) => {
         <Table.Cell>
           <Button
             icon="arrow-down"
-            color={outputDir==="down"?"green":"red"}
+            color={outputDir===2?"green":"red"}
             onClick={() => act("output_dir", {
-              direction: "down",
+              direction: 2,
             })} />
         </Table.Cell>
         <Table.Cell />

@@ -44,7 +44,7 @@
 							"Imported"
 							)
 
-	var/output_direction = "center"
+	var/output_direction = 0
 	var/obj/item/disk/design_disk/inserted_disk
 
 	//A list of all the printable items
@@ -96,6 +96,7 @@
 /obj/machinery/autolathe/ui_static_data(mob/user)
 	var/list/data = list()
 	data["acceptsDisk"] = TRUE
+
 	//Items
 	data["items"] = list()
 	var/list/categories_associative = list()
@@ -107,6 +108,7 @@
 				continue
 			if(!islist(categories_associative[cat]))
 				categories_associative[cat] = list()
+
 			//Calculate cost
 			var/list/material_cost = list()
 			for(var/material_id in D.materials)
@@ -114,17 +116,22 @@
 					"name" = material_id,
 					"amount" = D.materials[material_id] / MINERAL_MATERIAL_AMOUNT,
 				))
+
 			//Add
 			categories_associative[cat] += list(list(
 				"name" = D.name,
 				"design_id" = D.id,
 				"material_cost" = material_cost,
 			))
+
+	//Categories and their items
 	for(var/category in categories_associative)
 		data["items"] += list(list(
 			"category_name" = category,
 			"category_items" = categories_associative[category],
 		))
+
+	//Inserted data disk
 	data["diskInserted"] = inserted_disk
 	return data
 
@@ -132,8 +139,10 @@
 	var/list/data = list()
 	//Output direction
 	data["outputDir"] = output_direction
+
 	//Queue
 	data["queue"] = list()
+
 	//Build queue at the top
 	for(var/item_design_id in build_queue)
 		var/datum/design/D = SSresearch.techweb_design_by_id(item_design_id)
@@ -145,6 +154,7 @@
 			"design_id" = item_design_id,
 			"build_queue" = 1,
 		))
+
 	//Real queue at the bottom
 	for(var/item_design_id in item_queue)
 		var/datum/design/D = SSresearch.techweb_design_by_id(item_design_id)
@@ -156,6 +166,7 @@
 			"design_id" = item_design_id,
 			"build_queue" = 0,
 		))
+
 	//Materials
 	data["materials"] = list()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -167,6 +178,7 @@
 			"amount" = mineral_amount,
 			"datum" = M.type
 		))
+
 	//Thing being made
 	if(being_built && total_build_time && process_completion_world_tick)
 		data["being_build"] = list(
@@ -174,26 +186,32 @@
 			"name" = being_built.name,
 			"progress" = 100-(100*((process_completion_world_tick - world.time)/total_build_time)),
 		)
+
 	//Security interface
 	data["sec_interface_unlock"] = !security_interface_locked
 	data["hacked"] = hacked
+
 	//Being Build
 	return data
 
 /obj/machinery/autolathe/ui_act(action, params)
 	if(..())
 		return
+
 	switch(action)
 		if("toggle_safety")
 			if(security_interface_locked)
 				return
 			adjust_hacked(!hacked)
+
 		if("toggle_lock")
 			if(obj_flags & EMAGGED)
 				return
 			security_interface_locked = TRUE
+
 		if("output_dir")
-			output_direction = params["direction"]
+			output_direction = text2num(params["direction"])
+
 		if("upload_disk")
 			var/obj/item/disk/design_disk/D = inserted_disk
 			if(!istype(D))
@@ -202,12 +220,14 @@
 				if(B)
 					stored_research.add_design(B)
 			update_viewer_statics()
+
 		if("eject_disk")
 			if(!inserted_disk)
 				return
 			var/obj/item/disk/design_disk/disk = inserted_disk
 			disk.forceMove(get_turf(src))
 			update_viewer_statics()
+
 		if("eject_material")
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			var/material_datum = params["material_datum"]	//Comes out as text
@@ -219,16 +239,20 @@
 				if("[M.type]" == material_datum)
 					materials.retrieve_sheets(amount, M, get_release_turf())
 					break
+
 		if("queue_repeat")
 			queue_repeating = text2num(params["repeating"])
+
 		if("clear_queue")
 			item_queue.Cut()
+
 		if("item_repeat")
 			var/design_id = params["design_id"]
 			var/repeating_mode = text2num(params["repeating"])
 			if(!item_queue["[design_id]"])
 				return
 			item_queue["[design_id]"]["repeating"] = repeating_mode
+
 		if("clear_item")
 			var/design_id = params["design_id"]
 			var/queue_type = text2num(params["build_queue"])
@@ -236,16 +260,20 @@
 				build_queue -= design_id
 			else
 				item_queue -= design_id
+
 		if("queue_item")
 			var/design_id = params["design_id"]
 			var/amount = text2num(params["amount"])
 			add_to_queue(item_queue, design_id, amount)
+
 		if("build_item")
 			var/design_id = params["design_id"]
 			var/amount = text2num(params["amount"])
 			add_to_queue(build_queue, design_id, amount)
+
 		if("begin_process")
 			begin_process()
+
 	//Update the UI for them so it's smooth
 	ui_interact(usr)
 
@@ -285,17 +313,12 @@
 	)
 
 /obj/machinery/autolathe/proc/get_release_turf()
-	var/turf/T = get_turf(src)
-	switch(output_direction)
-		if("up")
-			T = get_offset_target_turf(src, 0, 1)
-		if("down")
-			T = get_offset_target_turf(src, 0, -1)
-		if("right")
-			T = get_offset_target_turf(src, 1, 0)
-		if("left")
-			T = get_offset_target_turf(src, -1, 0)
-	if(is_blocked_turf(T, TRUE))
+	var/turf/T
+	if(output_direction)
+		T = get_step(src, output_direction)
+		if(is_blocked_turf(T, TRUE))
+			T = get_turf(src)
+	else
 		T = get_turf(src)
 	return T
 
