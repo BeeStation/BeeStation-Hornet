@@ -42,7 +42,7 @@ export const TicketBrowser = (props, context) => {
               ["resolve", "good"],
               ["reject", "bad"], ["close", "label"],
               ["ic", "label"]]}
-            show_xfer={1} />
+            show_xfer />
           <TicketMenu
             ticket_list={resolved_tickets}
             name={"Resolved Tickets"}
@@ -61,7 +61,7 @@ export const TicketMenu = (props, context) => {
   const {
     ticket_list,
     name,
-    show_xfer,
+    show_xfer = false,
     actions = [],
   } = props;
   const { act } = useBackend(context);
@@ -110,34 +110,42 @@ export const TicketMenu = (props, context) => {
                 </Table.Cell>
               ))}
 
-              <Table.Cell key={"ahelp"} collapsing
-                hidden={ticket.tier === "admin" && show_xfer? true : false}>
-                <Button
-                  content={"Ahelp"}
-                  onClick={() => act("ahelp", {
-                    id: ticket.id,
-                  })}
-                  color={"bad"} />
-              </Table.Cell>
-              <Table.Cell key={"mhelp"} collapsing
-                hidden={ticket.tier === "mentor" && show_xfer? true : false}>
-                <Button
-                  content={"Mhelp"}
-                  onClick={() => act("mhelp", {
-                    id: ticket.id,
-                  })}
-                  color={"violet"} />
-              </Table.Cell>
-              <Table.Cell
-                key={"transfer"} collapsing
-                hidden={show_xfer? true : false}>
-                <Button
-                  content={"Transfer"}
-                  onClick={() => act("transfer", {
-                    id: ticket.id,
-                  })}
-                  color={"label"} />
-              </Table.Cell>
+              {/* eslint-disable-next-line operator-linebreak*/}
+              {ticket.tier !== "admin" && show_xfer?
+                <Table.Cell key={"ahelp"} collapsing>
+                  <Button
+                    content={"Ahelp"}
+                    onClick={() => act("ahelp", {
+                      id: ticket.id,
+                    })}
+                    color={"bad"} />
+                </Table.Cell>
+                :null}
+              {/* eslint-disable-next-line operator-linebreak*/}
+              {ticket.tier !== "mentor" && show_xfer?
+                <Table.Cell key={"mhelp"} collapsing>
+                  <Button
+                    content={"Mhelp"}
+                    onClick={() => act("mhelp", {
+                      id: ticket.id,
+                    })}
+                    color={"violet"} />
+                </Table.Cell>
+                :null}
+
+              {/* eslint-disable-next-line operator-linebreak*/}
+              {show_xfer === true?
+                <Table.Cell
+                  key={"transfer"} collapsing>
+                  <Button
+                    content={"Transfer"}
+                    onClick={() => act("transfer", {
+                      id: ticket.id,
+                    })}
+                    color={"label"} />
+                </Table.Cell>
+                :null}
+
             </Table.Row>
             <BlockQuote>
               {ticket.name}
