@@ -3,6 +3,8 @@
 //defaults to box
 //  -Cyberboss
 
+#define FORCE_MAP "_maps/corgstation.json"
+
 /datum/map_config
 	// Metadata
 	var/config_filename = "_maps/boxstation.json"
@@ -13,7 +15,7 @@
 	var/voteweight = 1
 	var/votable = FALSE
 
-	// Config actually from the JSON - should default to Box
+	// Config actually from the JSON - should default to Box CHANGE: EDITTED TO CORGSTATION
 	var/map_name = "Box Station"
 	var/map_path = "map_files/BoxStation"
 	var/map_file = "BoxStation.dmm"
