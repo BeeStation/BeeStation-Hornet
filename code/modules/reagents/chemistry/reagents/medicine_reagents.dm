@@ -400,22 +400,31 @@
 	description = "Has a 100% chance of instantly healing brute and burn damage. One unit of the chemical will heal one point of damage. Touch application only."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
+	overdose_threshold = 30
 
 /datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, reac_volume,show_message = 1)
 	if(iscarbon(M))
 		if (M.stat == DEAD)
 			show_message = 0
-		if(method in list(PATCH, TOUCH))
-			M.adjustBruteLoss(-1.25 * reac_volume)
-			M.adjustFireLoss(-1.25 * reac_volume)
-			if(show_message)
-				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
+		if(method in list(PATCH))
+			if(M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 30) && !HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn"))
+				if(show_message)
+					to_chat(M, "<span class='danger'>Synthflesh foams as it fails to mend your wounds!</span>")
+			else
+				M.adjustBruteLoss(-1.25 * reac_volume)
+				M.adjustFireLoss(-1.25 * reac_volume)
+				if(show_message)
+					to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
 			//Has to be at less than THRESHOLD_UNHUSK burn damage and have 100 isntabitaluri before unhusking. Corpses dont metabolize.
 			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 100))
 				M.cure_husk("burn")
 				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
 	..()
+
+/datum/reagent/medicine/synthflesh/overdose_process(mob/living/M)
+	if(prob(33))
+		M.adjustToxLoss(1*REM, FALSE, FALSE, BODYPART_ORGANIC)
 
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
