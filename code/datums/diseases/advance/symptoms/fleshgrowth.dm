@@ -1,5 +1,5 @@
 /datum/symptom/flesh
-	name = "exolocomotive xenomitosis"
+	name = "Exolocomotive Xenomitosis"
 	desc = "The virus will grow on any surfaces it can, such as the host's skin, or even the ground, should the host remain stationary"
 	stealth = -2
 	resistance = 3
