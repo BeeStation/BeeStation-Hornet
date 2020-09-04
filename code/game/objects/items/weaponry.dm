@@ -870,12 +870,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	force = 5 //no more lethal stick, use the maglite
+	force = 10
 	throwforce = 5
 	block_upgrade_walk = 1
 	attack_verb = list("clubbed", "bludgeoned")
 	var/breakforce = 30
-	var/stamforce = 17
+	var/stamforce = 15
 
 /obj/item/club/attack(mob/living/M, mob/living/user)
 	if(ishuman(M))
