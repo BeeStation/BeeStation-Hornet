@@ -416,7 +416,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
 		/*Try and locate a record for the person being respawned through GLOB.data_core.
 		This isn't an exact science but it does the trick more often than not.*/
-		var/id = md5("[G_found.real_name][G_found.mind.assigned_role]")
+		var/id = rustg_hash_string(RUSTG_HASH_MD5, "[G_found.real_name][G_found.mind.assigned_role]")
 
 		record_found = find_record("id", id, GLOB.data_core.locked)
 

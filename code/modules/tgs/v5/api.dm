@@ -233,7 +233,7 @@
 	data[DMAPI5_PARAMETER_ACCESS_IDENTIFIER] = access_identifier
 
 	var/json = json_encode(data)
-	var/encoded_json = url_encode(json)
+	var/encoded_json = rustg_url_encode(json)
 
 	// This is an infinite sleep until we get a response
 	var/datum/http_request/export_response = new()
