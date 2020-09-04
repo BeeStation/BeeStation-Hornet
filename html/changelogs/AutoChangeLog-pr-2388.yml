@@ -1,0 +1,5 @@
+author: BeloneX
+delete-after: true
+changes:
+  - bugfix: fixed the paper wizard den so everything doesnt instantly die from low
+      pressure anymore.
