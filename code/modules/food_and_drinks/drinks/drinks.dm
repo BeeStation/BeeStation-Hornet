@@ -570,5 +570,6 @@
 /obj/item/reagent_containers/food/drinks/honeycomb
 	name = "Honeycomb"
 	desc = "Overflowing with honey."
-	icon_state = "starkist" //placeholder
+	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "honeycomb"
 	list_reagents = list(/datum/reagent/consumable/honey = 25)
