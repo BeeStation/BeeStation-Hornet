@@ -153,7 +153,7 @@
 
 	var/cooldown = 20 // Default wait time until can stun again.
 	var/stun_time_silicon = (5 SECONDS) // If enabled, how long do we stun silicons.
-	var/stamina_damage = 55 // Do we deal stamina damage.
+	var/stamina_damage = 65 // Do we deal stamina damage.
 	var/affect_silicon = FALSE // Does it stun silicons.
 	var/on_sound // "On" sound, played when switching between able to stun or not.
 	var/on_stun_sound = "sound/effects/woodhit.ogg" // Default path to sound for when we stun.
@@ -306,7 +306,7 @@
 	name = "deputy baton"
 	force = 12
 	cooldown = 10
-	stamina_damage = 20
+	stamina_damage = 35
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
@@ -394,7 +394,7 @@
 	on = FALSE
 	var/knockdown_time_carbon = (1.5 SECONDS) // Knockdown length for carbons.
 
-	stamina_damage = 85
+	stamina_damage = 95
 	affect_silicon = TRUE
 	on_sound = 'sound/weapons/contractorbatonextend.ogg'
 	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
