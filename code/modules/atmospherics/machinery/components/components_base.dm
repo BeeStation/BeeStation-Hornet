@@ -144,8 +144,12 @@
 	for(var/i in 1 to device_type)
 		var/datum/pipeline/parent = parents[i]
 		if(!parent)
-			WARNING("Component is missing a pipenet! Rebuilding...")
+			//WARNING("Component is missing a pipenet! Rebuilding...") why spam the server console with this?
 			SSair.add_to_rebuild_queue(src)
+
+			if(!parent) //parent still missing probably got deleted by explosion
+				return
+
 		parent.update = 1
 
 /obj/machinery/atmospherics/components/returnPipenets()
