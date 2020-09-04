@@ -45,7 +45,7 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/process_atmos()
-	if(!connected_port) // Pipe network handles reactions if connected.
+	if(!connected_port && air_contents != null && src != null) // Pipe network handles reactions if connected.
 		air_contents.react(src)
 
 /obj/machinery/portable_atmospherics/return_air()

@@ -464,6 +464,7 @@ SUBSYSTEM_DEF(explosions)
 			if(thing)
 				var/obj/O = thing
 				O.ex_act(EXPLODE_DEVASTATE)
+				highobj.Remove(thing)
 		cost_highobj = MC_AVERAGE(cost_highobj, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
 		timer = TICK_USAGE_REAL
@@ -473,6 +474,7 @@ SUBSYSTEM_DEF(explosions)
 			if(thing)
 				var/obj/O = thing
 				O.ex_act(EXPLODE_HEAVY)
+				medobj.Remove(thing)
 		cost_medobj = MC_AVERAGE(cost_medobj, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
 		timer = TICK_USAGE_REAL
@@ -482,6 +484,7 @@ SUBSYSTEM_DEF(explosions)
 			if(thing)
 				var/obj/O = thing
 				O.ex_act(EXPLODE_LIGHT)
+				lowobj.Remove(thing)
 		cost_lowobj = MC_AVERAGE(cost_lowobj, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 
 
