@@ -1314,6 +1314,17 @@
 	crate_name = "rusty freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
+/datum/supply_pack/medical/cloning
+	name = "Cloning Suite pack"
+	desc = "Contains the boards needed for setting up an emergency cloning suite plus one complimentary carton of Synthflesh."
+	cost = 30000
+	contains = list(/obj/item/circuitboard/computer/cloning,
+					/obj/item/circuitboard/machine/clonepod,
+					/obj/item/circuitboard/machine/clonescanner,
+					/obj/item/reagent_containers/food/drinks/bottle/synthflesh)
+	crate_name = "rusty freezer"
+	crate_type = /obj/structure/closet/crate/freezer
+
 /datum/supply_pack/medical/firstaidbruises_single
 	name = "Bruise Treatment Kit Single-Pack"
 	desc = "Contains one first aid kit focused on healing bruises and broken bones."
