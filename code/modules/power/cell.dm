@@ -174,7 +174,7 @@
 
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
-	src.ex_act(EXPLODE_HEAVY)
+	ex_act(EXPLODE_DEVASTATE)
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
 	if(charge >= 1000)
