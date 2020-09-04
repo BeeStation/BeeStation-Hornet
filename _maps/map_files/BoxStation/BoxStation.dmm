@@ -28111,45 +28111,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
-"bzl" = (
-/obj/machinery/dna_scannernew,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/genetics)
-"bzm" = (
-/obj/machinery/clonepod/prefilled,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/genetics)
-"bzn" = (
-/obj/machinery/computer/cloning{
-	dir = 1
-	},
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/genetics)
 "bzo" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -47434,6 +47395,17 @@
 	},
 /turf/open/floor/plating,
 /area/storage/emergency/port)
+"cXT" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/frame,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics)
 "cYY" = (
 /obj/effect/landmark/blobstart,
 /obj/effect/landmark/xeno_spawn,
@@ -50319,6 +50291,20 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
+"hun" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/structure/frame,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics)
 "hvw" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /obj/effect/spawner/structure/window/reinforced,
@@ -51470,6 +51456,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"jCR" = (
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/computer,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics)
 "jEA" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -100773,7 +100771,7 @@ wZY
 ldc
 fhH
 bvo
-bzl
+cXT
 bua
 bzd
 bhh
@@ -101030,7 +101028,7 @@ bpE
 btk
 sza
 bvq
-bzn
+jCR
 bua
 bBL
 bhh
@@ -101287,7 +101285,7 @@ bpE
 bti
 bsL
 bvp
-bzm
+hun
 bua
 bBK
 bwz

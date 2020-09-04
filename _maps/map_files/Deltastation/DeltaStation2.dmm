@@ -911,7 +911,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
@@ -1525,7 +1525,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/starboard/fore)
@@ -14272,7 +14272,7 @@
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = -26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -17045,7 +17045,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/port/fore)
@@ -25985,8 +25985,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26;
-	pixel_y = 2
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 8
@@ -31688,7 +31687,7 @@
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
@@ -40999,7 +40998,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/security/execution/transfer)
@@ -43899,7 +43898,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon,
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
@@ -55506,8 +55505,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = -26;
-	pixel_y = 2
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/transit_tube)
@@ -63731,8 +63729,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = -26;
-	pixel_y = 2
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -81713,8 +81710,7 @@
 /obj/machinery/light/small,
 /obj/effect/turf_decal/bot,
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = -26;
-	pixel_y = 2
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon{
 	dir = 4
@@ -98548,50 +98544,6 @@
 	icon_state = "platingdmg2"
 	},
 /area/maintenance/department/medical/central)
-"dnl" = (
-/obj/machinery/clonepod/prefilled,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/status_display/evac{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/end,
-/turf/open/floor/plasteel/dark,
-/area/medical/genetics/cloning)
-"dnm" = (
-/obj/machinery/computer/cloning,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/sign/warning/nosmoking{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/genetics/cloning)
-"dnn" = (
-/obj/machinery/dna_scannernew,
-/obj/machinery/airalarm{
-	pixel_y = 22
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/genetics/cloning)
 "dno" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/effect/turf_decal/tile/purple{
@@ -105774,7 +105726,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/starboard/aft)
@@ -117944,7 +117896,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = -26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/port/aft)
@@ -119386,7 +119338,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/escape)
@@ -120013,8 +119965,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26;
-	pixel_y = 2
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
@@ -120327,7 +120278,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -120374,7 +120325,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
@@ -122376,7 +122327,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 30
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -123706,6 +123657,27 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"qDZ" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/status_display/evac{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/end,
+/obj/structure/frame,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics/cloning)
 "qKq" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -123869,7 +123841,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = -26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
@@ -124000,6 +123972,16 @@
 "saw" = (
 /turf/closed/wall/r_wall,
 /area/science/misc_lab/range)
+"scv" = (
+/obj/machinery/airalarm{
+	pixel_y = 22
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/structure/frame,
+/turf/open/floor/plasteel/white,
+/area/medical/genetics/cloning)
 "scS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -124870,7 +124852,7 @@
 	dir = 4
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -124927,7 +124909,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = -26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port/aft)
@@ -124960,6 +124942,19 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/dorms)
+"wjq" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/sign/warning/nosmoking{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/computer,
+/turf/open/floor/plasteel/white,
+/area/medical/genetics/cloning)
 "wjF" = (
 /obj/structure/chair/office/light{
 	dir = 1;
@@ -125283,7 +125278,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -166697,7 +166692,7 @@ dha
 dit
 dkl
 dlV
-dnl
+qDZ
 dpm
 dqZ
 dst
@@ -166954,7 +166949,7 @@ dhb
 diu
 dkm
 dlV
-dnm
+wjq
 dpn
 dra
 dsu
@@ -167211,7 +167206,7 @@ dhc
 div
 dkn
 dlV
-dnn
+scv
 dpo
 drb
 dsv

@@ -18645,18 +18645,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
-"aBA" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/computer/cloning,
-/obj/item/radio/intercom{
-	pixel_y = 22
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/genetics/cloning)
 "aBB" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/beebox,
@@ -26491,15 +26479,6 @@
 "aNu" = (
 /turf/closed/wall,
 /area/medical/morgue)
-"aNv" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/clonepod/prefilled,
-/turf/open/floor/plasteel/dark,
-/area/medical/genetics/cloning)
 "aNw" = (
 /obj/machinery/door/firedoor/heavy,
 /obj/effect/turf_decal/caution/stand_clear,
@@ -32670,18 +32649,6 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hor)
-"aVK" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/dna_scannernew,
-/obj/machinery/airalarm{
-	pixel_y = 24
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/genetics/cloning)
 "aVL" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -100536,6 +100503,18 @@
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"fNa" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/obj/item/radio/intercom{
+	pixel_y = 22
+	},
+/obj/machinery/computer,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics/cloning)
 "oOk" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral,
@@ -100544,6 +100523,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"rNF" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/airalarm{
+	pixel_y = 24
+	},
+/obj/structure/frame,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics/cloning)
 "sAg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/landmark/start/brig_phys,
@@ -100579,6 +100570,15 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
+"wXX" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
+/obj/structure/frame,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics/cloning)
 
 (1,1,1) = {"
 aaa
@@ -121511,7 +121511,7 @@ aWe
 aIB
 aWu
 aNL
-aNv
+wXX
 aHW
 aFx
 aJU
@@ -121768,7 +121768,7 @@ aut
 awr
 aWv
 aNL
-aBA
+fNa
 aOI
 aOv
 aWo
@@ -122025,7 +122025,7 @@ aWg
 aws
 aWw
 aNP
-aVK
+rNF
 aOK
 aOB
 aPr
