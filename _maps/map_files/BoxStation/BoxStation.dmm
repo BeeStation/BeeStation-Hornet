@@ -20033,6 +20033,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 8
 	},
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
 "bds" = (
@@ -21024,7 +21027,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/area/maintenance/aft)
 "bgr" = (
 /obj/machinery/door/airlock{
 	name = "Unit 4"
@@ -21828,6 +21831,9 @@
 "biw" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
+	},
+/obj/structure/chair{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
@@ -22897,7 +22903,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/area/maintenance/aft)
 "bls" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -23295,9 +23301,6 @@
 /area/hallway/primary/central)
 "bmF" = (
 /obj/structure/bed/roller,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -27
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -23753,6 +23756,9 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -27
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
@@ -24335,7 +24341,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/area/maintenance/aft)
 "bpR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -26270,12 +26276,14 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bwv" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Main Hall";
-	req_access_txt = "5"
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/structure/chair{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
+/area/medical/apothecary)
 "bww" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -29184,6 +29192,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "bEf" = (
@@ -30009,16 +30018,11 @@
 /area/science/mixing)
 "bGN" = (
 /obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -31251,6 +31255,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "bKM" = (
@@ -31305,6 +31312,9 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
@@ -31425,10 +31435,14 @@
 /turf/closed/wall,
 /area/science/xenobiology)
 "bLf" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/machinery/microwave{
+	desc = "Cooks and boils stuff, somehow.";
+	pixel_x = -3;
+	pixel_y = 5
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -37475,6 +37489,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/table,
+/obj/item/storage/pill_bottle/dice,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cdN" = (
@@ -42013,6 +42029,7 @@
 /obj/structure/closet/secure_closet/medicaldanger{
 	anchored = 1
 	},
+/obj/item/gun/syringe,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cud" = (
@@ -42489,6 +42506,8 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "cvp" = (
@@ -42686,6 +42705,9 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cvJ" = (
@@ -42707,6 +42729,9 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
@@ -42742,12 +42767,14 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "cvN" = (
-/obj/structure/closet/l3closet,
-/obj/machinery/light{
-	dir = 8
+/obj/structure/table,
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/storage)
+/area/medical/medbay/central)
 "cvO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -42816,6 +42843,9 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
@@ -45168,7 +45198,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/area/maintenance/aft)
 "cHE" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Mech Bay Maintenance";
@@ -46096,18 +46126,22 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/area/maintenance/aft)
 "cTK" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 1
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/aft)
 "cTO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -47174,6 +47208,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -31
 	},
+/obj/item/gun/syringe,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "esU" = (
@@ -48112,9 +48147,6 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/atmos)
 "fJH" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
@@ -48126,6 +48158,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Medbay Maintenance";
+	req_access_txt = "5"
 	},
 /turf/open/floor/plating,
 /area/medical/medbay/central)
@@ -54102,13 +54138,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
 	},
+/obj/structure/disposalpipe/junction/flip,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "nkW" = (
@@ -54899,6 +54935,11 @@
 	name = "Main Hall";
 	req_access_txt = "5"
 	},
+/obj/effect/mapping_helpers/airlock/unres,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "owq" = (
@@ -56861,6 +56902,13 @@
 	},
 /turf/open/floor/plating,
 /area/security/main)
+"qSE" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Medbay Maintenance";
+	req_access_txt = "5"
+	},
+/turf/open/floor/plating,
+/area/medical/storage)
 "qSR" = (
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
@@ -57723,7 +57771,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
+/area/maintenance/aft)
 "smu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -91802,7 +91850,7 @@ kmz
 kmz
 wII
 bGN
-bHj
+cTK
 bNN
 bHj
 bHj
@@ -96416,8 +96464,8 @@ cZK
 cZK
 cZK
 cZK
-bwv
-bwv
+bof
+bof
 bof
 bof
 bof
@@ -96673,8 +96721,8 @@ bpF
 bio
 bqR
 cZK
-jIS
-bhh
+bLf
+cvN
 cdI
 bAl
 bxa
@@ -100521,7 +100569,7 @@ bok
 bhj
 biw
 blj
-bkP
+bwv
 bmN
 bok
 xJf
@@ -100541,7 +100589,7 @@ bFA
 bIm
 bRO
 bKK
-bRO
+qSE
 bRO
 bRO
 bRO
@@ -100798,7 +100846,7 @@ cuJ
 cvf
 bRO
 cvE
-cvN
+bII
 cwa
 bVa
 bPo
@@ -102344,7 +102392,7 @@ bIa
 tKm
 bIL
 bOq
-bLf
+tKm
 tKm
 bSW
 bMH
@@ -104632,13 +104680,13 @@ bdl
 cTJ
 cHD
 bgo
-cTK
-cTK
+hfA
+hfA
 blq
-cTK
-cTK
+hfA
+hfA
 bpQ
-cTK
+hfA
 slk
 btm
 buy
