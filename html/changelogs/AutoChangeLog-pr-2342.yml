@@ -1,5 +1,0 @@
-author: super12pl
-delete-after: true
-changes:
-  - rscadd: Adds sterilizer spray to robodrobe
-  - rscadd: Adds morgue to robotics on DeltaStation and PubbyStation
