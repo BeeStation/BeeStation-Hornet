@@ -11,7 +11,7 @@
 	var/charge_cost = 30
 
 /obj/item/borg/stun/attack(mob/living/M, mob/living/user)
-	var/armor_block = (M.run_armor_check(affecting, "melee") * 2)
+	var/armor_block = (M.run_armor_check(attack_flag = "melee") * 2)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(src, 0, "[M]'s [name]", MELEE_ATTACK))
@@ -23,7 +23,7 @@
 			return
 
 	user.do_attack_animation(M)
-	M.apply_damage(80, STAMINA, affecting, armor_block)
+	M.apply_damage(80, STAMINA, blocked = armor_block)
 	M.apply_effect(EFFECT_STUTTER, 5)
 
 	M.visible_message("<span class='danger'>[user] has prodded [M] with [src]!</span>", \
