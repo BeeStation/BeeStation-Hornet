@@ -77,14 +77,6 @@
 				return
 		else if(!L.can_inject(user, TRUE))
 			return
-		for(var/datum/disease/D in syringediseases)
-			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
-				continue
-			L.ForceContractDisease(D)
-		for(var/datum/disease/D in L.diseases)
-			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
-				continue
-			syringediseases += D
 
 	// chance of monkey retaliation
 	if(ismonkey(target) && prob(MONKEY_SYRINGE_RETALIATION_PROB))
@@ -307,7 +299,7 @@
 /obj/item/reagent_containers/syringe/noreact
 	name = "cryo syringe"
 	desc = "An advanced syringe that stops reagents inside from reacting. It can hold up to 20 units."
-	volume = 15
+	volume = 20
 	reagent_flags = TRANSPARENT | NO_REACT
 
 /obj/item/reagent_containers/syringe/piercing

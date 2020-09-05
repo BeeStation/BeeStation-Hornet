@@ -89,10 +89,6 @@
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
 		squash(user)
-		if(seed.get_gene(/datum/plant_gene/trait/noreact))
-			if(iscarbon(user))
-				var/mob/living/carbon/C = user
-				C.throw_mode_on()
 	..()
 
 /obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -133,7 +129,6 @@
 /obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
 	for(var/datum/plant_gene/trait/trait in seed.genes)
 		trait.on_squashreact(src)
-		playsound(src, 'sound/effects/fuse.ogg', seed.potency, 0)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/On_Consume()
@@ -188,4 +183,3 @@
 		qdel(src)
 		user.putItemFromInventoryInHandIfPossible(T, user.active_hand_index, TRUE)
 		to_chat(user, "<span class='notice'>You open [src]\'s shell, revealing \a [T].</span>")
-		
