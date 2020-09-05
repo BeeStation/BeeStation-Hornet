@@ -545,26 +545,20 @@
 /datum/design/beanbag_slug
 	name = "Beanbag Slug"
 	id = "beanbag_slug"
-	build_type = AUTOLATHE
+	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 2000)
 	build_path = /obj/item/ammo_casing/shotgun/beanbag
-	category = list("initial", "Security")
+	category = list("initial", "Security", "Ammo", "initial")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/rubbershot
 	name = "Rubber Shot"
 	id = "rubber_shot"
-	build_type = AUTOLATHE
+	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/rubbershot
-	category = list("initial", "Security")
-
-/datum/design/c38
-	name = "Speed Loader (.38)"
-	id = "c38"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 20000)
-	build_path = /obj/item/ammo_box/c38
-	category = list("initial", "Security")
+	category = list("initial", "Security", "Ammo", "initial")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/recorder
 	name = "Universal Recorder"
@@ -761,85 +755,32 @@
 	build_path = /obj/item/weaponcrafting/receiver
 	category = list("hacked", "Security")
 
-/datum/design/shotgun_slug
-	name = "Shotgun Slug"
-	id = "shotgun_slug"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
-	build_path = /obj/item/ammo_casing/shotgun
-	category = list("hacked", "Security")
-
-/datum/design/buckshot_shell
-	name = "Buckshot Shell"
-	id = "buckshot_shell"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
-	build_path = /obj/item/ammo_casing/shotgun/buckshot
-	category = list("hacked", "Security")
-
-/datum/design/shotgun_dart
-	name = "Shotgun Dart"
-	id = "shotgun_dart"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
-	build_path = /obj/item/ammo_casing/shotgun/dart
-	category = list("hacked", "Security")
-
-/datum/design/incendiary_slug
-	name = "Incendiary Slug"
-	id = "incendiary_slug"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
-	build_path = /obj/item/ammo_casing/shotgun/incendiary
-	category = list("hacked", "Security")
+/datum/design/shotgun_hull
+	name = "Empty Shotgun Shell"
+	id = "shotgun_hull"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 500)
+	build_path = /obj/item/ammo_casing/shotgun/hull
+	category = list("hacked", "Security", "Ammo", "initial")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/riot_dart
 	name = "Foam Riot Dart"
 	id = "riot_dart"
-	build_type = AUTOLATHE
+	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 1000) //Discount for making individually - no box = less metal!
 	build_path = /obj/item/ammo_casing/caseless/foam_dart/riot
-	category = list("hacked", "Security")
+	category = list("hacked", "Security", "Ammo", "initial")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/riot_darts
 	name = "Foam Riot Dart Box"
 	id = "riot_darts"
-	build_type = AUTOLATHE
+	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 50000) //Comes with 40 darts
 	build_path = /obj/item/ammo_box/foambox/riot
-	category = list("hacked", "Security")
-
-/datum/design/a357
-	name = ".357 Casing"
-	id = "a357"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
-	build_path = /obj/item/ammo_casing/a357
-	category = list("hacked", "Security")
-
-/datum/design/c10mm
-	name = "Ammo Box (10mm)"
-	id = "c10mm"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 30000)
-	build_path = /obj/item/ammo_box/c10mm
-	category = list("hacked", "Security")
-
-/datum/design/c45
-	name = "Ammo Box (.45)"
-	id = "c45"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 30000)
-	build_path = /obj/item/ammo_box/c45
-	category = list("hacked", "Security")
-
-/datum/design/c9mm
-	name = "Ammo Box (9mm)"
-	id = "c9mm"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 30000)
-	build_path = /obj/item/ammo_box/c9mm
-	category = list("hacked", "Security")
+	category = list("hacked", "Security", "Ammo", "initial")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/cleaver
 	name = "Butcher's Cleaver"
