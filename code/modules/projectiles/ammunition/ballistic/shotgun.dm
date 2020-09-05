@@ -114,12 +114,6 @@
 	pellets = 6
 	variance = 35
 
-/obj/item/ammo_casing/shotgun/hull
-	name = "unloaded shotgun shell"
-	desc = "A basic shotgun's shell casing, full of potential."
-	icon_state = "gshell"
-	projectile_type = null
-
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"
 	desc = "A high-tech shotgun shell which can be loaded with materials to produce unique effects."

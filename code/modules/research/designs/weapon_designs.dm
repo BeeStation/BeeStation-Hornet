@@ -44,7 +44,6 @@
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	materials = list(/datum/material/iron = 4000, /datum/material/silver = 400, /datum/material/copper = 400)
-	reagents_list = list(/datum/reagent/blackpowder = 10)
 	build_path = /obj/item/ammo_casing/shotgun/sleepytime
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -324,7 +323,6 @@
 	id = "mag_oldsmg"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 4000)
-	reagents_list = list(/datum/reagent/blackpowder = 30)
 	build_path = /obj/item/ammo_box/magazine/wt550m9
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -334,7 +332,6 @@
 	desc = "A 20 round armour piercing magazine for the out of date security WT-550 Auto Rifle"
 	id = "mag_oldsmg_ap"
 	materials = list(/datum/material/iron = 6000, /datum/material/silver = 600)
-	reagents_list = list(/datum/reagent/blackpowder = 30)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wtap
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -343,7 +340,6 @@
 	desc = "A 20 round armour piercing magazine for the out of date security WT-550 Auto Rifle"
 	id = "mag_oldsmg_ic"
 	materials = list(/datum/material/iron = 6000, /datum/material/silver = 600, /datum/material/glass = 1000)
-	reagents_list = list(/datum/reagent/blackpowder = 30)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wtic
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -354,7 +350,6 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 200)
 	build_path = /obj/item/ammo_casing/shotgun/stunslug
-	reagents_list = list(/datum/reagent/blackpowder = 10)
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -364,7 +359,6 @@
 	id = "techshotshell"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1000, /datum/material/glass = 200)
-	reagents_list = list(/datum/reagent/blackpowder = 10)
 	build_path = /obj/item/ammo_casing/shotgun/techshell
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
@@ -405,7 +399,6 @@
 	id = "shotgundartcryostasis"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3500)
-	reagents_list = list(/datum/reagent/blackpowder = 10)
 	build_path = /obj/item/ammo_casing/shotgun/dart/noreact
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
@@ -418,55 +411,4 @@
 	materials = list(/datum/material/iron = 300, /datum/material/glass = 150)
 	build_path = /obj/item/flashbulb
 	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-
-//moved autolathe designs
-/datum/design/a357
-	name = ".357 Casing"
-	id = "a357"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 4000)
-	build_path = /obj/item/ammo_casing/a357
-	category = list("Ammo", "initial")
-	reagents_list = list(/datum/reagent/blackpowder = 10)//expensive as a slug
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-
-/datum/design/c10mm
-	name = "Ammo Box (10mm)"
-	id = "c10mm"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 30000)
-	reagents_list = list(/datum/reagent/blackpowder = 50) //full box is pricey
-	build_path = /obj/item/ammo_box/c10mm
-	category = list("Ammo", "initial")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-
-/datum/design/c45
-	name = "Ammo Box (.45)"
-	id = "c45"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 30000)
-	reagents_list = list(/datum/reagent/blackpowder = 50) //full box is pricey
-	build_path = /obj/item/ammo_box/c45
-	category = list("Ammo", "initial")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-
-/datum/design/c9mm
-	name = "Ammo Box (9mm)"
-	id = "c9mm"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 30000)
-	reagents_list = list(/datum/reagent/blackpowder = 50) //full box is pricey
-	build_path = /obj/item/ammo_box/c9mm
-	category = list("Ammo", "initial")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-
-/datum/design/c38
-	name = "Speed Loader (.38)"
-	id = "c38"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 20000)
-	reagents_list = list(/datum/reagent/blackpowder = 20) //speedloader needs a bit more
-	build_path = /obj/item/ammo_box/c38
-	category = list("Ammo", "initial")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

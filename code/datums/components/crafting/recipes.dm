@@ -346,60 +346,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/slug
-	name = "Shotgun Slug"
-	result = /obj/item/ammo_casing/shotgun
-	reqs = list(/obj/item/ammo_casing/shotgun/hull = 1,
-				/obj/item/stack/sheet/iron = 1,
-				/datum/reagent/blackpowder = 10)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
-/datum/crafting_recipe/buckshot
-	name = "Buckshot"
-	result = /obj/item/ammo_casing/shotgun/buckshot
-	reqs = list(/obj/item/ammo_casing/shotgun/hull = 1,
-				/obj/item/stack/sheet/iron = 1,
-				/datum/reagent/blackpowder = 10)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
-/datum/crafting_recipe/dart
-	name = "Shotgun Dart"
-	result = /obj/item/ammo_casing/shotgun/dart
-	reqs = list(/obj/item/ammo_casing/shotgun/hull = 1,
-				/obj/item/reagent_containers/syringe = 2,
-				/datum/reagent/blackpowder = 10)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
-/datum/crafting_recipe/incendiary
-	name = "Incendiary Shotgun Round"
-	result = /obj/item/ammo_casing/shotgun/incendiary
-	reqs = list(/obj/item/ammo_casing/shotgun/hull = 1,
-				/datum/reagent/fuel = 5,
-				/datum/reagent/blackpowder = 5)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
-/datum/crafting_recipe/hull
-	name = "Empty Shotgun Shell"
-	result = /obj/item/ammo_casing/shotgun/hull
-	reqs = list(/obj/item/grenade/chem_grenade = 1,
-				/datum/reagent/fuel = 10)//still needs a primer
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
 /datum/crafting_recipe/arrow
 	name = "Arrow"
 	result = /obj/item/ammo_casing/caseless/arrow/wood
