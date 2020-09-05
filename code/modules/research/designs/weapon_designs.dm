@@ -6,6 +6,7 @@
 	id = "sec_38"
 	build_type = PROTOLATHE
 	category = list("Ammo")
+	reagents_list = list(/datum/reagent/blackpowder = 5)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/c38_trac
@@ -14,6 +15,7 @@
 	id = "c38_trac"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 20000, /datum/material/silver = 5000, /datum/material/gold = 1000)
+	reagents_list = list(/datum/reagent/blackpowder = 5)
 	build_path = /obj/item/ammo_box/c38/trac
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -24,6 +26,7 @@
 	id = "c38_hotshot"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 20000, /datum/material/plasma = 5000)
+	reagents_list = list(/datum/reagent/blackpowder = 5)
 	build_path = /obj/item/ammo_box/c38/hotshot
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -34,6 +37,7 @@
 	id = "c38_iceblox"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 20000, /datum/material/plasma = 5000)
+	reagents_list = list(/datum/reagent/blackpowder = 5) 
 	build_path = /obj/item/ammo_box/c38/iceblox
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -64,24 +68,28 @@
 	id = "sec_slug"
 	build_type = PROTOLATHE
 	category = list("Ammo")
+	reagents_list = list(/datum/reagent/blackpowder = 10)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/buckshot_shell/sec
 	id = "sec_bshot"
 	build_type = PROTOLATHE
 	category = list("Ammo")
+	reagents_list = list(/datum/reagent/blackpowder = 10)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/shotgun_dart/sec
 	id = "sec_dart"
 	build_type = PROTOLATHE
 	category = list("Ammo")
+	reagents_list = list(/datum/reagent/blackpowder = 10)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/incendiary_slug/sec
 	id = "sec_Islug"
 	build_type = PROTOLATHE
 	category = list("Ammo")
+	reagents_list = list(/datum/reagent/blackpowder = 10)
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/breaching_slug/sec

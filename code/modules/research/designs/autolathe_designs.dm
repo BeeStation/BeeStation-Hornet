@@ -545,20 +545,26 @@
 /datum/design/beanbag_slug
 	name = "Beanbag Slug"
 	id = "beanbag_slug"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 2000)
 	build_path = /obj/item/ammo_casing/shotgun/beanbag
-	category = list("initial", "Security", "Ammo", "initial")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	category = list("initial", "Security")
 
 /datum/design/rubbershot
 	name = "Rubber Shot"
 	id = "rubber_shot"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/rubbershot
-	category = list("initial", "Security", "Ammo", "initial")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	category = list("initial", "Security")
+
+/datum/design/c38
+	name = "Speed Loader (.38)"
+	id = "c38"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 20000)
+	build_path = /obj/item/ammo_box/c38
+	category = list("initial", "Security")
 
 /datum/design/recorder
 	name = "Universal Recorder"
@@ -758,29 +764,26 @@
 /datum/design/shotgun_hull
 	name = "Empty Shotgun Shell"
 	id = "shotgun_hull"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 500)
 	build_path = /obj/item/ammo_casing/shotgun/hull
-	category = list("hacked", "Security", "Ammo", "initial")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	category = list("hacked", "Security")
 
 /datum/design/riot_dart
 	name = "Foam Riot Dart"
 	id = "riot_dart"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 1000) //Discount for making individually - no box = less metal!
 	build_path = /obj/item/ammo_casing/caseless/foam_dart/riot
-	category = list("hacked", "Security", "Ammo", "initial")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	category = list("hacked", "Security")
 
 /datum/design/riot_darts
 	name = "Foam Riot Dart Box"
 	id = "riot_darts"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 50000) //Comes with 40 darts
 	build_path = /obj/item/ammo_box/foambox/riot
-	category = list("hacked", "Security", "Ammo", "initial")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	category = list("hacked", "Security")
 
 /datum/design/cleaver
 	name = "Butcher's Cleaver"
