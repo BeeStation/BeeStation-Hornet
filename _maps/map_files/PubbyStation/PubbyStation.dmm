@@ -64789,7 +64789,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 26
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -64909,7 +64909,7 @@
 "wKa" = (
 /obj/machinery/light/small,
 /obj/machinery/advanced_airlock_controller{
-	pixel_x = 24
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
