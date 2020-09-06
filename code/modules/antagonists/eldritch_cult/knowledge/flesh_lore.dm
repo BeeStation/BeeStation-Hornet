@@ -220,7 +220,7 @@
 			message_admins("[summoned.name] is being summoned by [user.real_name] in [loc]")
 			var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [summoned.real_name]", ROLE_HERETIC, null, ROLE_HERETIC, 100,summoned)
 			user.SetImmobilized(0)
-			if(LAZYLEN(candidates) == 0)
+			if(!LAZYLEN(candidates))
 				to_chat(user,"<span class='warning'>No ghost could be found...</span>")
 				qdel(summoned)
 				return FALSE
