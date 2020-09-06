@@ -392,9 +392,7 @@
 		requested_design_id = build_queue[1]
 		from_build_queue = TRUE
 	else if(LAZYLEN(item_queue))
-		for(var/design_id in item_queue)
-			requested_design_id = design_id
-			break
+		requested_design_id = item_queue[1]
 	//Queue processing done
 	if(!requested_design_id)
 		say("Queue processing completed.")
@@ -440,7 +438,10 @@
 		var/datum/material/used_material = MAT
 		var/amount_needed = being_built.materials[MAT] * coeff * multiplier
 		if(istext(used_material)) //This means its a category
-			used_material = build_queue[requested_design_id]["build_mat"]
+			if(from_build_queue)
+				used_material = build_queue[requested_design_id]["build_mat"]
+			else
+				used_material = item_queue[requested_design_id]["build_mat"]
 			if(!used_material)
 				build_queue -= requested_design_id
 				item_queue -= requested_design_id
