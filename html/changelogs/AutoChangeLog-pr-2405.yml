@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - bugfix: The ashwalker's bonfire does not require oxygen to burn anymore.
