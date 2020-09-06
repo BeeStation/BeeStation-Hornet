@@ -9,7 +9,6 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/species/selected_species
-	var/valid_species = list()
 
 /obj/item/debug/human_spawner/afterattack(atom/target, mob/user, proximity)
 	..()
