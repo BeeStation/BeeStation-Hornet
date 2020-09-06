@@ -238,7 +238,7 @@ obj/item/seeds/bamboo
 	return FALSE
 
 /obj/structure/bonfire/proc/StartBurning()
-	if(!burning && CheckOxygen() || !burning && needs_oxygen == FALSE)
+	if(!burning && (!needs_oxygen || CheckOxygen()))
 		icon_state = burn_icon
 		burning = TRUE
 		set_light(6)
@@ -280,7 +280,7 @@ obj/item/seeds/bamboo
 			O.microwave_act()
 
 /obj/structure/bonfire/process()
-	if(!CheckOxygen() && needs_oxygen == TRUE)
+	if(needs_oxygen && !CheckOxygen())
 		extinguish()
 		return
 	if(!grill)
