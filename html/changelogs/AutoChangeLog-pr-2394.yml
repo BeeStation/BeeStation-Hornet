@@ -1,0 +1,4 @@
+author: zeskorion
+delete-after: true
+changes:
+  - tweak: organs take three times as long to decay
