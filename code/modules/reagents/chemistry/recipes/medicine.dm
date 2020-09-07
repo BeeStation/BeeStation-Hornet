@@ -66,7 +66,7 @@
 	name = "Synthflesh"
 	id = /datum/reagent/medicine/synthflesh
 	results = list(/datum/reagent/medicine/synthflesh = 3)
-	required_reagents = list(/datum/reagent/blood = 1, /datum/reagent/carbon = 1, /datum/reagent/medicine/styptic_powder = 1, /datum/chemical_reaction/silver_sulfadiazine = 1)
+	required_reagents = list(/datum/reagent/blood = 1, /datum/reagent/carbon = 1, /datum/reagent/medicine/styptic_powder = 1, /datum/reagent/medicine/silver_sulfadiazine = 1)
 
 /datum/chemical_reaction/styptic_powder
 	name = "Styptic Powder"
