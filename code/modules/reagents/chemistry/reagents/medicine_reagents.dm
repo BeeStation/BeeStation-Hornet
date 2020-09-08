@@ -416,13 +416,16 @@
 					to_chat(M, "<span class='danger'>Synthflesh foams as it fails to mend your wounds!</span>")
 			else
 				var/synthflesh_volume = M.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh)
+				var/healing_diminish = 0.01
+				if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn"))
+					healing_diminish = 0.0025
 				if(method in list (PATCH))
 					//The more reagent is in your bloodstream the less it will heal you
-					M.adjustBruteLoss(-1.25 * reac_volume * (1 - synthflesh_volume * 0.01))
-					M.adjustFireLoss(-1.25 * reac_volume * (1 - synthflesh_volume * 0.01))
+					M.adjustBruteLoss(-1.25 * reac_volume * (1 - synthflesh_volume * healing_diminish))
+					M.adjustFireLoss(-1.25 * reac_volume * (1 - synthflesh_volume * healing_diminish))
 				else
-					M.adjustBruteLoss(-1 * reac_volume * (1 - synthflesh_volume * 0.01))
-					M.adjustFireLoss(-1 * reac_volume * (1 - synthflesh_volume * 0.01))
+					M.adjustBruteLoss(-1 * reac_volume * (1 - synthflesh_volume * healing_diminish))
+					M.adjustFireLoss(-1 * reac_volume * (1 - synthflesh_volume * healing_diminish))
 					M.reagents.add_reagent(/datum/reagent/medicine/synthflesh, reac_volume) //adds reagent to bloodstream on splashing
 				if(show_message)
 					to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
