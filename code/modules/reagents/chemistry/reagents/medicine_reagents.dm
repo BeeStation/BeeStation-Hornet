@@ -243,6 +243,8 @@
 				to_chat(M, "<span class='danger'>You feel your burns healing! It stings like hell!</span>")
 			M.emote("scream")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+		if(method == TOUCH)
+			M.reagents.add_reagent(/datum/reagent/medicine/silver_sulfadiazine, reac_volume) //adds reagent to bloodstream on splashing
 	..()
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/M)
@@ -301,6 +303,8 @@
 				to_chat(M, "<span class='danger'>You feel your bruises healing! It stings like hell!</span>")
 			M.emote("scream")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+		if(method == TOUCH)
+			M.reagents.add_reagent(/datum/reagent/medicine/styptic_powder, reac_volume) //adds reagent to bloodstream on splashing
 	..()
 
 
@@ -400,19 +404,26 @@
 	description = "Has a 100% chance of instantly healing brute and burn damage. One unit of the chemical will heal one point of damage. Touch application only."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
-	overdose_threshold = 30
+	overdose_threshold = 100
 
 /datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, reac_volume,show_message = 1)
 	if(iscarbon(M))
 		if (M.stat == DEAD)
 			show_message = 0
-		if(method in list(PATCH))
-			if(M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 30) && !HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn"))
+		if(method in list (PATCH, TOUCH))
+			if(M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 100) && !HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn"))
 				if(show_message)
 					to_chat(M, "<span class='danger'>Synthflesh foams as it fails to mend your wounds!</span>")
 			else
-				M.adjustBruteLoss(-1.25 * reac_volume)
-				M.adjustFireLoss(-1.25 * reac_volume)
+				var/synthflesh_volume = M.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh)
+				if(method in list (PATCH))
+					//The more reagent is in your bloodstream the less it will heal you
+					M.adjustBruteLoss(-1.25 * reac_volume * (1 - synthflesh_volume * 0.01))
+					M.adjustFireLoss(-1.25 * reac_volume * (1 - synthflesh_volume * 0.01))
+				else
+					M.adjustBruteLoss(-1 * reac_volume * (1 - synthflesh_volume * 0.01))
+					M.adjustFireLoss(-1 * reac_volume * (1 - synthflesh_volume * 0.01))
+					M.reagents.add_reagent(/datum/reagent/medicine/synthflesh, reac_volume) //adds reagent to bloodstream on splashing
 				if(show_message)
 					to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
