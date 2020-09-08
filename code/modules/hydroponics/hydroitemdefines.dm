@@ -141,8 +141,9 @@
 		swiping = FALSE
 
 /obj/item/hatchet/cyborg
-	name = "kitchen knife module"
-	force = 20
+	name = "hatchet module"
+	force = 12
+	armour_penetration = 30
 	
 /obj/item/hatchet/cyborg/attack(mob/living/target, mob/living/carbon/human/user)
 	if (!iscyborg(user))

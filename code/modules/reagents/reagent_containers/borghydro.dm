@@ -179,8 +179,8 @@ Borg Shaker
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "shaker"
 	possible_transfer_amounts = list(5,10,20)
-	charge_cost = 10 //Lots of reagents all regenerating at once, so the charge cost is lower. They also regenerate faster.
-	recharge_time = 3
+	charge_cost = 20 //Lots of reagents all regenerating at once, so the charge cost is lower. They also regenerate faster.
+	recharge_time = 1
 	accepts_reagent_upgrades = FALSE
 
 	reagent_ids = list(

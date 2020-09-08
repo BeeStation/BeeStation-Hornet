@@ -230,7 +230,7 @@
 
 /obj/item/kitchen/rollingpin/cyborg
 	name = "rolling pin module"
-	force = 20
+	force = 15
 	
 /obj/item/kitchen/rollingpin/cyborg/attack(mob/living/target, mob/living/carbon/human/user)
 	if (!iscyborg(user))
@@ -245,7 +245,7 @@
 
 /obj/item/kitchen/knife/cyborg
 	name = "kitchen knife module"
-	force = 20
+	force = 15
 	
 /obj/item/kitchen/knife/cyborg/attack(mob/living/target, mob/living/carbon/human/user)
 	if (!iscyborg(user))
