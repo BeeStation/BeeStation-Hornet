@@ -475,21 +475,17 @@
 		/obj/item/borg/charger,
 		/obj/item/hand_labeler/borg,
 		/obj/item/lighter,
+		/obj/item/pen,
 		/obj/item/rsf,
 		/obj/item/toy/crayon/spraycan/borg,
 		/obj/item/instrument/piano_synth,
 		/obj/item/kitchen/knife/cyborg,
 		/obj/item/kitchen/rollingpin/cyborg,
-		//obj/item/rsf/raw,
-		//obj/item/cookiesynth,
-		/obj/item/pen,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/borg/apparatus/beaker,
+		/obj/item/reagent_containers/food/drinks/drinkingglass,
+		/obj/item/borg/apparatus/beaker/service,
 		/obj/item/reagent_containers/borghypo/borgshaker,
-		/obj/item/plant_analyzer,
-		/obj/item/hatchet/cyborg,
-		/obj/item/cultivator,
-		/obj/item/storage/bag/plants/portaseeder
+		/obj/item/plant_analyzer
 		)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
 	moduleselect_icon = "service"

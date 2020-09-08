@@ -952,7 +952,7 @@
 //versatile service holder//
 ////////////////////
 
-/obj/item/borg/apparatus/circuit/service
+/obj/item/borg/apparatus/beaker/service
 	name = "versatile service grasper"
 	desc = "Specially designed for carrying food and seeds. Alt-Z or right-click to drop the stored object."
 	storable = list(/obj/item/reagent_containers/food,
@@ -960,10 +960,12 @@
 	/obj/item/storage/fancy/donut_box,
 	/obj/item/storage/fancy/egg_box,
 	/obj/item/storage/fancy/cigarettes,
+	/obj/item/reagent_containers/glass/beaker,
+	/obj/item/reagent_containers/glass/bottle,
 	/obj/item/reagent_containers/food/drinks/drinkingglass
 	)
 
-/obj/item/borg/apparatus/circuit/service/examine()
+/obj/item/borg/apparatus/beaker/service/examine()
 	. = ..()
 	if(stored)
 		. += "You are currently holding [stored]."
@@ -972,5 +974,5 @@
 //ambidexterous//
 ////////////////////
 
-/obj/item/borg/apparatus/circuit/service/secondary
-	name = "versatile service grasper 2 Electric Boogaloo"
+/obj/item/borg/apparatus/beaker/service/secondary
+	name = "versatile service grasper 2: Electric Boogaloo"

@@ -592,58 +592,99 @@
 			R.module.remove_module(RPED, TRUE)
 
 /obj/item/borg/upgrade/btcf
-	name = "behind the counter fabricator"
-	desc = "A service cyborg upgrade allowing for synthesizing basic ingredients."
+	name = "Food Synthesizer Module"
+	desc = "A service cyborg upgrade allowing for basic ingredients snythesizing."
 	icon_state = "cyborg_upgrade3"
 	require_module = TRUE
-	module_type = /obj/item/robot_module/service
+	module_type = /obj/item/robot_module/butler
 
 /obj/item/borg/upgrade/btcf/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-
-		var/obj/item/rsf/raw = locate() in R
-		if(RPED)
-			to_chat(user, "<span class='warning'>This unit is already equipped with a behind the counter fabricator module.</span>")
+		var/obj/item/rsf/raw/foodfab = locate() in R
+		if(foodfab)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a grasper module.</span>")
 			return FALSE
 
-		RPED = new(R.module)
-		R.module.basic_modules += RPED
-		R.module.add_module(RPED, FALSE, TRUE)
+		foodfab = new(R.module)
+		R.module.basic_modules += foodfab
+		R.module.add_module(foodfab, FALSE, TRUE)
 
 /obj/item/borg/upgrade/btcf/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		var/obj/item/rsf/raw = locate() in R.module
-		if (RPED)
-			R.module.remove_module(RPED, TRUE)
+		var/obj/item/rsf/raw/foodfab = locate() in R
+		if (foodfab)
+			R.module.remove_module(foodfab, TRUE)
 
 /obj/item/borg/upgrade/ambidexterous
-	name = "ambidexterity"
+	name = "Versatile Grasper Module"
 	desc = "A service cyborg upgrade allowing for advanced manipulation of objects."
 	icon_state = "cyborg_upgrade3"
 	require_module = TRUE
-	module_type = /obj/item/robot_module/service
+	module_type = /obj/item/robot_module/butler
 
 /obj/item/borg/upgrade/ambidexterous/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-
-		var/obj/item/borg/apparatus/circuit/service/secondary = locate() in R
-		if(RPED)
-			to_chat(user, "<span class='warning'>This unit is already equipped with a secondary grasper module.</span>")
+		var/obj/item/borg/apparatus/beaker/service/secondary/grasper = locate() in R
+		if(grasper)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a grasper module.</span>")
 			return FALSE
 
-		RPED = new(R.module)
-		R.module.basic_modules += RPED
-		R.module.add_module(RPED, FALSE, TRUE)
+		grasper = new(R.module)
+		R.module.basic_modules += grasper
+		R.module.add_module(grasper, FALSE, TRUE)
 
 /obj/item/borg/upgrade/ambidexterous/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		var/obj/item/borg/apparatus/circuit/service/secondary = locate() in R.module
-		if (RPED)
-			R.module.remove_module(RPED, TRUE)
+		var/obj/item/borg/apparatus/beaker/service/secondary/grasper = locate() in R.module
+		if (grasper)
+			R.module.remove_module(grasper, TRUE)
+
+/obj/item/borg/upgrade/botany
+	name = "Botany Module Pack"
+	desc = "A service cyborg upgrade allowing for plant tending and manipulation."
+	icon_state = "cyborg_upgrade3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/butler
+
+/obj/item/borg/upgrade/botany/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/hatchet/cyborg/A, = locate() in R
+		var/obj/item/cultivator/B, = locate() in R
+		var/obj/item/storage/bag/plants/portaseeder/C, = locate() in R
+		if(A && B && C)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a botany module.</span>")
+			return FALSE
+
+		if (!A)
+			A = new(R.module)
+			R.module.basic_modules += A
+			R.module.add_module(A, FALSE, TRUE)
+		if (!B)
+			B = new(R.module)
+			R.module.basic_modules += B
+			R.module.add_module(B, FALSE, TRUE)
+		if (!C)
+			C = new(R.module)
+			R.module.basic_modules += C
+			R.module.add_module(C, FALSE, TRUE)
+
+/obj/item/borg/upgrade/botany/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/hatchet/cyborg/A, = locate() in R
+		var/obj/item/cultivator/B, = locate() in R
+		var/obj/item/storage/bag/plants/portaseeder/C, = locate() in R
+		if (A)
+			R.module.remove_module(A, TRUE)
+		if (B)
+			R.module.remove_module(B, TRUE)
+		if (C)
+			R.module.remove_module(C, TRUE)
 
 /obj/item/borg/upgrade/pinpointer
 	name = "medical cyborg crew pinpointer"

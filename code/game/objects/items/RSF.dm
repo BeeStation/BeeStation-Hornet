@@ -182,7 +182,7 @@ RSF
 	cooldown = world.time + cooldowndelay
 	
 /obj/item/rsf/raw
-	name = "\improper Behind The Counter Fabricator"
+	name = "\improper Behind The Counter Synthesizer"
 	desc = "A complex synthesizer able to print basic ingredients."
 	matter = 30
 
