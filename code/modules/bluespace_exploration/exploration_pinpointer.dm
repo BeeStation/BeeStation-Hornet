@@ -4,8 +4,8 @@
 
 /obj/item/pinpointer/exploration/Initialize()
 	. = ..()
-	if(LAZYLEN(GLOB.bluespace_drives))
-		target = GLOB.bluespace_drives[1]
+	if(GLOB.main_bluespace_drive)
+		target = GLOB.main_bluespace_drive
 
 /obj/item/pinpointer/exploration/attack_obj(obj/O, mob/living/user)
 	. = ..()

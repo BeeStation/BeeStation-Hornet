@@ -7,10 +7,10 @@
 
 	var/visited = FALSE
 	var/star_color = "#ffffff"
-	var/star_difficulty = 3	//The further away from safe space you go, the scarier it gets
 
 	var/is_station_z = FALSE
 
+	//572 possible names
 	var/static/list/first_symbols = list(
 		"h", "v", "c", "e", "g", "d", "r", "n", "h", "o", "p",
 		"ra", "so", "at", "il", "ta", "sh", "ya", "te", "sh", "ol", "ma", "om", "ig", "ni", "in"
@@ -22,6 +22,8 @@
 	)
 
 	var/distance_from_center = 0
+
+	var/datum/star_system_data/system_data
 
 /datum/star_system/New(distance)
 	. = ..()

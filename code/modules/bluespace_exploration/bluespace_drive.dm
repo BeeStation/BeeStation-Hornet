@@ -1,13 +1,21 @@
 GLOBAL_LIST_INIT(bluespace_drives, list())
+GLOBAL_VAR(main_bluespace_drive)
+
 
 /obj/machinery/bluespace_drive
 	name = "bluespace drive"
 	var/cooldown_world_time
 	var/shuttle_id = "exploration"
+	var/type = BLUESPACE_DRIVE_BSLEVEL
+
+/obj/machinery/bluespace_drive/regular
+	type = BLUESPACE_DRIVE_SPACELEVEL
 
 /obj/machinery/bluespace_drive/Initialize()
 	. = ..()
 	GLOB.bluespace_drives += src
+	if(istype(get_area(src), /area/shuttle/exploration))
+		GLOB.main_bluespace_drive = src
 
 /obj/machinery/bluespace_drive/proc/engage(datum/star_system/target)
 	if(world.time < cooldown_world_time)

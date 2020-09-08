@@ -6,3 +6,8 @@
 #define FACTION_STATUS_HOSTILE "hostile"
 
 #define STAR_COLORS list("#9db4ff", "#a2b9ff","#a7bcff","#aabfff","#afc4ff","#c0d1ff","#cad8ff","#e4e8ff","#efeeff","#fbf8ff","#fff9f9","#fff5ec","#fff4e8","#fff1df","#ffebd1","#ffd7ae", "#ffc690","#ffbe7f","#ffbb7b","#ffbb7b")
+
+//Bluespace drive types
+
+#define BLUESPACE_DRIVE_BSLEVEL 0
+#define BLUESPACE_DRIVE_SPACELEVEL 1

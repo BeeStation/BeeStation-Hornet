@@ -25,6 +25,12 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/list/spawnable_ships = list()
 	var/list/tracked_ships = list()
 
+	//=====Ship Processing Queue=====
+	// ! Tracks a list of all the ships requesting transit
+	// ! Key (string) - shuttle_id
+	// ! Value (/datum/data_holder/bluespace_exploration) - generation settings
+	var/list/ship_traffic_queue = list()	//The queue for generation is disguised as 'bluespace traffic control'
+
 	//=====Z-Level Wiping=====
 	//Are we currently processing a z-level wipe
 	var/wiping_z_level = FALSE
@@ -62,6 +68,28 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		continue_wipe(wipe_data_holder, wiping_divided_turfs, wipe_process_num)
 		wipe_process_num += 1
 		CHECK_TICK
+
+//====================================
+// Queue handling
+//====================================
+
+//Adds a shuttle to the transit queue, returns the ticks until we will launch.
+/datum/controller/subsystem/bluespace_exploration/proc/request_ship_transit(shuttle_id, extra_data)
+	if(!shuttle_id)
+		message_admins("Bluespace exploration error: ship transit requested with no shuttle_id, check runtimes")
+		CRASH("Bluespace exploration error: ship transit requested with no shuttle_id, check runtimes")
+		return
+	if(!extra_data)
+		extra_data = new /datum/data_holder/bluespace_exploration
+	extra_data.shuttle_id = shuttle_id
+	ship_traffic_queue[shuttle_id] = extra_data
+
+//Starts the next ship in the queue for warping
+/datum/controller/subsystem/bluespace_exploration/proc/initiate_queued_warp()
+
+//====================================
+// Ship procs
+//====================================
 
 /datum/controller/subsystem/bluespace_exploration/proc/register_new_ship(shuttle_id, override_type = /datum/ship_datum, faction = /datum/faction/station)
 	if(shuttle_id in tracked_ships)
@@ -146,8 +174,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	//Clear atoms
 	for(var/turf/T in turfs)
 		SSair.remove_from_active(T)
-		// Remove all atoms except observers
-		var/static/list/ignored_atoms = typecacheof(list(/mob/dead))
+		// Remove all atoms except abstract mobs
+		var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview))
 		var/list/allowed_contents = typecache_filter_list_reverse(T.GetAllContents(), ignored_atoms)
 		allowed_contents -= T
 		for(var/i in 1 to allowed_contents.len)
@@ -241,10 +269,10 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		docking_failed = FALSE
 	if(!docking_failed)
 		shuttle.destination = away_mission_port
-		message_admins("Docking successful, sending shuttle to location")
 	else
 		shuttle.destination = shuttle.previous
-		message_admins("Docking failed, return shuttle to home")
+		message_admins("Bluespace exploration docking failed, returning shuttle to home (Sanity check failed to place shuttle)")
+		log_runtime("Bluespace exploration docking failed, returning shuttle to home (Sanity check failed to place shuttle)")
 	shuttle.setTimer(shuttle.ignitionTime)
 	current_system = data_holder.target_star_system
 	generating = FALSE
@@ -278,7 +306,17 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	//Clear the z-level after the shuttle leaves
 	addtimer(CALLBACK(src, .proc/generate_z_level, data_holder), shuttle.ignitionTime + 50, TIMER_UNIQUE)
 
-//data holder for passing down the line
+//====================================
+// Utility
+//====================================
+
+/datum/controller/subsystem/bluespace_exploration/proc/get_bse_level_data()
+	return current_system.system_data
+
+//====================================
+// Data holder - Simplifys what gets sent as paramaters so we don't have tons of variables some of which won't be used in that proc
+//====================================
+
 /datum/data_holder/bluespace_exploration
 	var/shuttle_id
 	var/spawn_ruins = FALSE
