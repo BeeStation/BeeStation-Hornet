@@ -183,7 +183,7 @@ RSF
 	
 /obj/item/rsf/raw
 	name = "\improper Behind The Counter Fabricator"
-	desc = "A complex synthesizer able to print basic food."
+	desc = "A complex synthesizer able to print basic ingredients."
 	matter = 30
 
 /obj/item/rsf/raw/attack_self(mob/user)
@@ -191,19 +191,19 @@ RSF
 	switch(mode)
 		if(5)
 			mode = 1
-			to_chat(user, "Changed dispensing mode to 'Meat'")
+			to_chat(user, "Changed synthesizing mode to 'Meat'")
 		if(1)
 			mode = 2
-			to_chat(user, "Changed dispensing mode to 'Bread Dough'")
+			to_chat(user, "Changed synthesizing mode to 'Bread Dough'")
 		if(2)
 			mode = 3
-			to_chat(user, "Changed dispensing mode to 'Pie Dough'")
+			to_chat(user, "Changed synthesizing mode to 'Pie Dough'")
 		if(3)
 			mode = 4
-			to_chat(user, "Changed dispensing mode to 'Rice Bowl'")
+			to_chat(user, "Changed synthesizing mode to 'Rice Bowl'")
 		if(4)
 			mode = 5
-			to_chat(user, "Changed dispensing mode to 'Tortilla'")
+			to_chat(user, "Changed synthesizing mode to 'Tortilla'")
 	// Change mode
 
 /obj/item/rsf/raw/afterattack(atom/A, mob/user, proximity)
@@ -226,22 +226,22 @@ RSF
 	playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
 	switch(mode)
 		if(1)
-			to_chat(user, "Dispensing Meat...")
+			to_chat(user, "Synthesizing Meat...")
 			new list(/obj/item/reagent_containers/food/snacks/meat/slab(T)
 			use_matter(40, user)
 		if(2)
-			to_chat(user, "Dispensing Bread Dough...")
+			to_chat(user, "Synthesizing Bread Dough...")
 			new /obj/item/reagent_containers/food/snacks/dough(T)
 			use_matter(50, user)
 		if(3)
-			to_chat(user, "Dispensing Pie Dough...")
+			to_chat(user, "Synthesizing Pie Dough...")
 			new /obj/item/reagent_containers/food/snacks/piedough(T)
-			use_matter(50, user)
+			use_matter(75, user)
 		if(4)
-			to_chat(user, "Dispensing Rice Bowl...")
+			to_chat(user, "Synthesizing Rice Bowl...")
 			new /obj/item/reagent_containers/food/snacks/salad/ricebowl(T)
 			use_matter(100, user)
 		if(4)
-			to_chat(user, "Dispensing Rice Bowl...")
+			to_chat(user, "Synthesizing Tortilla...")
 			new /obj/item/reagent_containers/food/snacks/tortilla(T)
 			use_matter(100, user)

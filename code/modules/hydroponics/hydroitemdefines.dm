@@ -149,8 +149,10 @@
 		..()	
 	var/mob/living/silicon/robot/R = user	
 	if(!R.emagged)
+		playsound(src, 'sound/machines/buzz-sigh.ogg',  50, 1, -1)
 		user.visible_message("<span class='notice'>Safety check failed! Action aborted.</span>")
 	else
+		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg',  50, 1, -1)
 		..()
 
 // *************************************
