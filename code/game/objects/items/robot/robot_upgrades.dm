@@ -627,7 +627,7 @@
 /obj/item/borg/upgrade/ambidexterous/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-		var/obj/item/borg/apparatus/beaker/service/secondary/grasper = locate() in R
+		var/obj/item/borg/apparatus/beaker/service/extra/grasper = locate() in R
 		if(grasper)
 			to_chat(user, "<span class='warning'>This unit is already equipped with a grasper module.</span>")
 			return FALSE
@@ -639,7 +639,7 @@
 /obj/item/borg/upgrade/ambidexterous/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		var/obj/item/borg/apparatus/beaker/service/secondary/grasper = locate() in R.module
+		var/obj/item/borg/apparatus/beaker/service/extra/grasper = locate() in R.module
 		if (grasper)
 			R.module.remove_module(grasper, TRUE)
 

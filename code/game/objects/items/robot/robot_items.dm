@@ -954,11 +954,12 @@
 
 /obj/item/borg/apparatus/beaker/service
 	name = "versatile service grasper"
-	desc = "Specially designed for carrying food and seeds. Alt-Z or right-click to drop the stored object."
+	desc = "Specially designed for carrying glasses, food and seeds. Alt-Z or right-click to drop the stored object."
 	storable = list(/obj/item/reagent_containers/food,
 	/obj/item/seeds,
 	/obj/item/storage/fancy/donut_box,
 	/obj/item/storage/fancy/egg_box,
+	/obj/item/clothing/mask/cigarette,
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/reagent_containers/glass/beaker,
 	/obj/item/reagent_containers/glass/bottle,
@@ -975,5 +976,5 @@
 //ambidexterous//
 ////////////////////
 
-/obj/item/borg/apparatus/beaker/service/secondary
+/obj/item/borg/apparatus/beaker/service/extra
 	name = "versatile service grasper 2: Electric Boogaloo"

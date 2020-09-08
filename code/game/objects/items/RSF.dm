@@ -1,7 +1,8 @@
 /*
 CONTAINS:
 RSF
-
+Cookie Dispenser
+Borg RSF
 */
 /obj/item/rsf
 	name = "\improper Rapid-Service-Fabricator"
