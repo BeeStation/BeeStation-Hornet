@@ -58,6 +58,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			if(QDELETED(SD))
 				tracked_ships -= ship_key
 			CHECK_TICK
+		//Keep doing this just in case
+		initiate_queued_warp()
+		CHECK_TICK
 	if(!wiping_z_level && LAZYLEN(z_level_queue))
 		for(var/z_level_id in z_level_queue)	//There is probably a better way to do this
 			var/z_level = text2num(z_level_id)
@@ -73,8 +76,14 @@ SUBSYSTEM_DEF(bluespace_exploration)
 // Queue handling
 //====================================
 
+/datum/controller/subsystem/bluespace_exploration/proc/request_ship_transit_to(shuttle_id, datum/star_system/SS, datum/data_holder/bluespace_exploration/extra_data)
+	if(!extra_data)
+		extra_data = new /datum/data_holder/bluespace_exploration
+	extra_data.target_star_system = SS
+	request_ship_transit(shuttle_id, extra_data)
+
 //Adds a shuttle to the transit queue, returns the ticks until we will launch.
-/datum/controller/subsystem/bluespace_exploration/proc/request_ship_transit(shuttle_id, extra_data)
+/datum/controller/subsystem/bluespace_exploration/proc/request_ship_transit(shuttle_id, datum/data_holder/bluespace_exploration/extra_data)
 	if(!shuttle_id)
 		message_admins("Bluespace exploration error: ship transit requested with no shuttle_id, check runtimes")
 		CRASH("Bluespace exploration error: ship transit requested with no shuttle_id, check runtimes")
@@ -86,6 +95,13 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 //Starts the next ship in the queue for warping
 /datum/controller/subsystem/bluespace_exploration/proc/initiate_queued_warp()
+	if(generating)
+		return
+	if(!LAZYLEN(ship_traffic_queue))
+		return
+	var/first_shuttle_id = ship_traffic_queue[1]
+	shuttle_translation(first_shuttle_id, ship_traffic_queue[first_shuttle_id])
+	ship_traffic_queue.remove(first_shuttle_id)
 
 //====================================
 // Ship procs
@@ -280,7 +296,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 /datum/controller/subsystem/bluespace_exploration/proc/generate_z_level(datum/data_holder/bluespace_exploration/data_holder)
 	add_to_wipe_queue(reserved_bs_level.z_value, data_holder)
 
-/datum/controller/subsystem/bluespace_exploration/proc/shuttle_translation(shuttle_id, datum/star_system/system)
+/datum/controller/subsystem/bluespace_exploration/proc/shuttle_translation(shuttle_id, datum/data_holder/bluespace_exploration/data_holder)
 	if(!check_z_level())
 		return FALSE
 	var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttle_id)
@@ -298,11 +314,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	shuttle.destination = null
 	shuttle.mode = SHUTTLE_IGNITING
 	shuttle.setTimer(shuttle.ignitionTime)
-	//Generate the z_level, sending the shuttle to it on completion
-	var/datum/data_holder/bluespace_exploration/data_holder = new()
-	data_holder.shuttle_id = shuttle_id
-	data_holder.spawn_ruins = TRUE
-	data_holder.target_star_system = system
 	//Clear the z-level after the shuttle leaves
 	addtimer(CALLBACK(src, .proc/generate_z_level, data_holder), shuttle.ignitionTime + 50, TIMER_UNIQUE)
 
@@ -319,5 +330,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 /datum/data_holder/bluespace_exploration
 	var/shuttle_id
-	var/spawn_ruins = FALSE
+	var/spawn_ruins = TRUE
+	var/ruin_spawn_type = BLUESPACE_DRIVE_BSLEVEL
 	var/target_star_system

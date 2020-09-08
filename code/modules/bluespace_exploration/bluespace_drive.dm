@@ -6,10 +6,10 @@ GLOBAL_VAR(main_bluespace_drive)
 	name = "bluespace drive"
 	var/cooldown_world_time
 	var/shuttle_id = "exploration"
-	var/type = BLUESPACE_DRIVE_BSLEVEL
+	var/drive_type = BLUESPACE_DRIVE_BSLEVEL
 
 /obj/machinery/bluespace_drive/regular
-	type = BLUESPACE_DRIVE_SPACELEVEL
+	drive_type = BLUESPACE_DRIVE_SPACELEVEL
 
 /obj/machinery/bluespace_drive/Initialize()
 	. = ..()
@@ -26,4 +26,4 @@ GLOBAL_VAR(main_bluespace_drive)
 		return
 	//Find what shuttle we are on
 	say("Initiating bluespace translation protocols...")
-	SSbluespace_exploration.shuttle_translation(shuttle_id, target)
+	SSbluespace_exploration.request_ship_transit_to(shuttle_id, target)
