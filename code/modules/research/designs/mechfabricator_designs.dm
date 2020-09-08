@@ -768,7 +768,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_ambidexterous
-	name = "Cyborg Upgrade (Food Fabricator)"
+	name = "Cyborg Upgrade (Ambidexterous)"
 	id = "borg_upgrade_ambidexterous"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/ambidexterous

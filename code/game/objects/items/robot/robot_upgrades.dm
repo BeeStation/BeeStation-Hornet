@@ -593,7 +593,7 @@
 
 /obj/item/borg/upgrade/btcf
 	name = "behind the counter fabricator"
-	desc = "An engineering cyborg upgrade allowing for manipulation of circuit boards."
+	desc = "A service cyborg upgrade allowing for synthesizing basic ingredients."
 	icon_state = "cyborg_upgrade3"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/service
@@ -620,7 +620,7 @@
 
 /obj/item/borg/upgrade/ambidexterous
 	name = "ambidexterity"
-	desc = "An engineering cyborg upgrade allowing for manipulation of circuit boards."
+	desc = "A service cyborg upgrade allowing for advanced manipulation of objects."
 	icon_state = "cyborg_upgrade3"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/service
@@ -631,7 +631,7 @@
 
 		var/obj/item/borg/apparatus/circuit/service/secondary = locate() in R
 		if(RPED)
-			to_chat(user, "<span class='warning'>This unit is already equipped with a RPED module.</span>")
+			to_chat(user, "<span class='warning'>This unit is already equipped with a secondary grasper module.</span>")
 			return FALSE
 
 		RPED = new(R.module)

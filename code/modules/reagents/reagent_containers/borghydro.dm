@@ -209,7 +209,7 @@ Borg Shaker
 			/datum/reagent/consumable/orangejuice,
 			/datum/reagent/consumable/sodawater,
 			/datum/reagent/consumable/space_cola,
-			/datum/reagent/consumable/tomato	juice,
+			/datum/reagent/consumable/tomatojuice,
 			/datum/reagent/consumable/tonic)
 
 /obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)
