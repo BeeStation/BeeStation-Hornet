@@ -13,6 +13,7 @@
 					/obj/item/reagent_containers/food/snacks/donut = 12,
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
+					/obj/item/club = 4,
 					/obj/item/restraints/legcuffs/bola/energy = 7)
 	contraband = list(/obj/item/clothing/glasses/sunglasses/advanced = 2,
 					  /obj/item/storage/fancy/donut_box = 2)

@@ -17,6 +17,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
 /obj/item/storage/secure/briefcase,
+/obj/item/club,
 /obj/item/restraints/handcuffs,
 /obj/item/grenade/smokebomb,
 /turf/open/floor/plating,

@@ -865,7 +865,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/club
 	name = "Billy club"
-	desc = "Used to bash heads and break down defenses."
+	desc = "Excelent at breaking down shields."
 	icon_state = "billyclub"
 	item_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
