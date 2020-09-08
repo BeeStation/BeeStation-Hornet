@@ -591,6 +591,60 @@
 		if (RPED)
 			R.module.remove_module(RPED, TRUE)
 
+/obj/item/borg/upgrade/btcf
+	name = "behind the counter fabricator"
+	desc = "An engineering cyborg upgrade allowing for manipulation of circuit boards."
+	icon_state = "cyborg_upgrade3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/service
+
+/obj/item/borg/upgrade/btcf/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+
+		var/obj/item/rsf/raw = locate() in R
+		if(RPED)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a behind the counter fabricator module.</span>")
+			return FALSE
+
+		RPED = new(R.module)
+		R.module.basic_modules += RPED
+		R.module.add_module(RPED, FALSE, TRUE)
+
+/obj/item/borg/upgrade/btcf/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/rsf/raw = locate() in R.module
+		if (RPED)
+			R.module.remove_module(RPED, TRUE)
+
+/obj/item/borg/upgrade/ambidexterous
+	name = "ambidexterity"
+	desc = "An engineering cyborg upgrade allowing for manipulation of circuit boards."
+	icon_state = "cyborg_upgrade3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/service
+
+/obj/item/borg/upgrade/ambidexterous/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+
+		var/obj/item/borg/apparatus/circuit/service/secondary = locate() in R
+		if(RPED)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a RPED module.</span>")
+			return FALSE
+
+		RPED = new(R.module)
+		R.module.basic_modules += RPED
+		R.module.add_module(RPED, FALSE, TRUE)
+
+/obj/item/borg/upgrade/ambidexterous/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/borg/apparatus/circuit/service/secondary = locate() in R.module
+		if (RPED)
+			R.module.remove_module(RPED, TRUE)
+
 /obj/item/borg/upgrade/pinpointer
 	name = "medical cyborg crew pinpointer"
 	desc = "A crew pinpointer module for the medical cyborg. Permits remote access to the crew monitor."

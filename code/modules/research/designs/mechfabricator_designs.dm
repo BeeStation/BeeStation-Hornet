@@ -755,6 +755,24 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/circuit_app
 	materials = list(/datum/material/iron = 2000, /datum/material/titanium = 500)
+	construction_time = 90
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_btcf
+	name = "Cyborg Upgrade (Food Fabricator)"
+	id = "borg_upgrade_btcf"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/btcf
+	materials = list(/datum/material/iron = 2300, /datum/material/titanium = 200)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_ambidexterous
+	name = "Cyborg Upgrade (Food Fabricator)"
+	id = "borg_upgrade_ambidexterous"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/ambidexterous
+	materials = list(/datum/material/iron = 2000, /datum/material/titanium = 500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
