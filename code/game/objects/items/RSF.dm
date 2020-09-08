@@ -210,9 +210,9 @@ RSF
 				if(!R.emagged)
 					mode = 6
 			if (mode==1)
-				to_chat(user, "Changed dispensing mode to 'Meat'")
+				to_chat(user, "Changed synthesizing mode to 'Meat'")
 			else
-				to_chat(user, "Changed dispensing mode to 'Mint'")
+				to_chat(user, "Changed synthesizing mode to 'Mint'")
 		if(6)
 			mode = 1
 			to_chat(user, "Changed synthesizing mode to 'Meat'")

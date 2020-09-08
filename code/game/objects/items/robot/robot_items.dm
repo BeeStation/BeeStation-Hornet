@@ -962,7 +962,8 @@
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/reagent_containers/glass/beaker,
 	/obj/item/reagent_containers/glass/bottle,
-	/obj/item/reagent_containers/food/drinks/drinkingglass
+	/obj/item/reagent_containers/food/drinks/drinkingglass,
+	/obj/structure/mopbucket
 	)
 
 /obj/item/borg/apparatus/beaker/service/examine()
