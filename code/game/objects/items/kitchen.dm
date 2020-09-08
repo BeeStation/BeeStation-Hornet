@@ -226,3 +226,30 @@
 	user.visible_message("<span class='suicide'>[user] begins flattening [user.p_their()] head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 /* Trays  moved to /obj/item/storage/bag */
+
+
+/obj/item/kitchen/rollingpin/cyborg
+	name = "rolling pin module"
+	force = 20
+	
+/obj/item/kitchen/rollingpin/cyborg/attack(mob/living/target, mob/living/carbon/human/user)
+	if (!iscyborg(user))
+		..()	
+	var/mob/living/silicon/robot/R = user	
+	if(!R.emagged)
+		user.visible_message("<span class='notice'>Safety check failed! Action aborted.</span>")
+	else
+		..()
+
+/obj/item/kitchen/knife/cyborg
+	name = "kitchen knife module"
+	force = 20
+	
+/obj/item/kitchen/knife/cyborg/attack(mob/living/target, mob/living/carbon/human/user)
+	if (!iscyborg(user))
+		..()	
+	var/mob/living/silicon/robot/R = user	
+	if(!R.emagged)
+		user.visible_message("<span class='notice'>Safety check failed! Action aborted.</span>")
+	else
+		..()

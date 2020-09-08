@@ -140,6 +140,19 @@
 					melee_attack_chain(user, V)
 		swiping = FALSE
 
+/obj/item/hatchet/cyborg
+	name = "kitchen knife module"
+	force = 20
+	
+/obj/item/hatchet/cyborg/attack(mob/living/target, mob/living/carbon/human/user)
+	if (!iscyborg(user))
+		..()	
+	var/mob/living/silicon/robot/R = user	
+	if(!R.emagged)
+		user.visible_message("<span class='notice'>Safety check failed! Action aborted.</span>")
+	else
+		..()
+
 // *************************************
 // Nutrient defines for hydroponics
 // *************************************
