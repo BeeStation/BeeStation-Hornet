@@ -244,7 +244,8 @@
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/soap/nanotrasen,
 		/obj/item/borg/cyborghug,
-		/obj/item/instrument/piano_synth)
+		/obj/item/instrument/piano_synth,
+		/obj/item/roller/robo)
 	emag_modules = list(/obj/item/melee/transforming/energy/sword/cyborg)
 	moduleselect_icon = "standard"
 	hat_offset = -3
@@ -340,7 +341,8 @@
 		/obj/item/borg/charger,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/clothing/mask/gas/sechailer/cyborg,
-		/obj/item/extinguisher/mini)
+		/obj/item/extinguisher/mini,
+		/obj/item/healthanalyzer)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	cyborg_base_icon = "sec"
 	moduleselect_icon = "security"
@@ -375,7 +377,9 @@
 		/obj/item/borg/cyborghug/peacekeeper,
 		/obj/item/extinguisher,
 		/obj/item/reagent_containers/spray/pepper,
-		/obj/item/borg/projectile_dampen)
+		/obj/item/borg/projectile_dampen,
+		/obj/item/crowbar/cyborg,
+		/obj/item/healthanalyzer)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
 	cyborg_base_icon = "peace"
 	moduleselect_icon = "standard"
@@ -467,22 +471,24 @@
 	name = "Service"
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
-		/obj/item/reagent_containers/food/drinks/drinkingglass,
-		/obj/item/reagent_containers/food/condiment/enzyme,
-		/obj/item/pen,
-		/obj/item/toy/crayon/spraycan/borg,
 		/obj/item/extinguisher/mini,
-		/obj/item/hand_labeler/borg,
 		/obj/item/borg/charger,
-		/obj/item/razor,
-		/obj/item/rsf,
-		/obj/item/instrument/piano_synth,
-		/obj/item/reagent_containers/dropper,
+		/obj/item/hand_labeler/borg,
 		/obj/item/lighter,
-		/obj/item/storage/bag/tray,
-		/obj/item/borg/apparatus/beaker,
+		/obj/item/rsf,
+		/obj/item/toy/crayon/spraycan/borg,
+		/obj/item/instrument/piano_synth,
+		/obj/item/kitchen/knife,
+		/obj/item/kitchen/rollingpin,
+		/obj/item/rsf/raw,
 		/obj/item/cookiesynth,
-		/obj/item/reagent_containers/borghypo/borgshaker)
+		/obj/item/pen,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/borg/apparatus/beaker,
+		/obj/item/reagent_containers/borghypo/borgshaker,
+		/obj/item/plant_analyzer,
+		/obj/item/storage/bag/plants/portaseeder,
+		)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
 	moduleselect_icon = "service"
 	special_light_key = "service"

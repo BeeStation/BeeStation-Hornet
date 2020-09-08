@@ -179,7 +179,7 @@ Borg Shaker
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "shaker"
 	possible_transfer_amounts = list(5,10,20)
-	charge_cost = 20 //Lots of reagents all regenerating at once, so the charge cost is lower. They also regenerate faster.
+	charge_cost = 10 //Lots of reagents all regenerating at once, so the charge cost is lower. They also regenerate faster.
 	recharge_time = 3
 	accepts_reagent_upgrades = FALSE
 
@@ -200,6 +200,7 @@ Borg Shaker
 			/datum/reagent/consumable/banana,
 			/datum/reagent/consumable/coffee,
 			/datum/reagent/consumable/cream,
+			/datum/reagent/consumable/enzyme
 			/datum/reagent/consumable/grenadine,
 			/datum/reagent/consumable/ice,
 			/datum/reagent/consumable/lemonjuice,
@@ -208,7 +209,7 @@ Borg Shaker
 			/datum/reagent/consumable/orangejuice,
 			/datum/reagent/consumable/sodawater,
 			/datum/reagent/consumable/space_cola,
-			/datum/reagent/consumable/tomatojuice,
+			/datum/reagent/consumable/tomato	juice,
 			/datum/reagent/consumable/tonic)
 
 /obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)

@@ -180,3 +180,68 @@ RSF
 	else
 		matter--
 	cooldown = world.time + cooldowndelay
+	
+/obj/item/rsf/raw
+	name = "\improper Behind The Counter Fabricator"
+	desc = "A complex synthesizer able to print basic food."
+	matter = 30
+
+/obj/item/rsf/raw/attack_self(mob/user)
+	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
+	switch(mode)
+		if(5)
+			mode = 1
+			to_chat(user, "Changed dispensing mode to 'Meat'")
+		if(1)
+			mode = 2
+			to_chat(user, "Changed dispensing mode to 'Bread Dough'")
+		if(2)
+			mode = 3
+			to_chat(user, "Changed dispensing mode to 'Pie Dough'")
+		if(3)
+			mode = 4
+			to_chat(user, "Changed dispensing mode to 'Rice Bowl'")
+		if(4)
+			mode = 5
+			to_chat(user, "Changed dispensing mode to 'Tortilla'")
+	// Change mode
+
+/obj/item/rsf/raw/afterattack(atom/A, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if (!(istype(A, /obj/structure/table) || isfloorturf(A)))
+		return
+
+	if(iscyborg(user))
+		var/mob/living/silicon/robot/R = user
+		if(!R.cell || R.cell.charge < 200)
+			to_chat(user, "<span class='warning'>You do not have enough power to use [src].</span>")
+			return
+	else if (matter < 1)
+		to_chat(user, "<span class='warning'>\The [src] doesn't have enough matter left.</span>")
+		return
+
+	var/turf/T = get_turf(A)
+	playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+	switch(mode)
+		if(1)
+			to_chat(user, "Dispensing Meat...")
+			new list(/obj/item/reagent_containers/food/snacks/meat/slab(T)
+			use_matter(40, user)
+		if(2)
+			to_chat(user, "Dispensing Bread Dough...")
+			new /obj/item/reagent_containers/food/snacks/dough(T)
+			use_matter(50, user)
+		if(3)
+			to_chat(user, "Dispensing Pie Dough...")
+			new /obj/item/reagent_containers/food/snacks/piedough(T)
+			use_matter(50, user)
+		if(4)
+			to_chat(user, "Dispensing Rice Bowl...")
+			new /obj/item/reagent_containers/food/snacks/salad/ricebowl(T)
+			use_matter(100, user)
+		if(4)
+			to_chat(user, "Dispensing Rice Bowl...")
+			new /obj/item/reagent_containers/food/snacks/tortilla(T)
+			use_matter(100, user)

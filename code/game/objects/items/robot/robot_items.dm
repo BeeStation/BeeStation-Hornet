@@ -847,7 +847,8 @@
 	desc = "A special apparatus for carrying beakers without spilling the contents. Alt-Z or right-click to drop the beaker."
 	icon_state = "borg_beaker_apparatus"
 	storable = list(/obj/item/reagent_containers/glass/beaker,
-				/obj/item/reagent_containers/glass/bottle)
+				/obj/item/reagent_containers/glass/bottle,,
+				/obj/item/reagent_containers/food/drinks/drinkingglass)
 
 /obj/item/borg/apparatus/beaker/Initialize()
 	. = ..()
@@ -946,3 +947,22 @@
 	. = ..()
 	if(istype(A, /obj/item/aiModule) && !stored) //If an admin wants a borg to upload laws, who am I to stop them? Otherwise, we can hint that it fails
 		to_chat(user, "<span class='warning'>This circuit board doesn't seem to have standard robot apparatus pin holes. You're unable to pick it up.</span>")
+
+////////////////////
+//versatile service holder//
+////////////////////
+
+/obj/item/borg/apparatus/circuit/service
+	name = "versatile service grasper"
+	desc = "Specially designed for carrying food items and seeds. Alt-Z or right-click to drop the stored object."
+	storable = list(/obj/item/reagent_containers/food,
+	/obj/item/seeds,
+	/obj/item/storage/fancy/donut_box,
+	/obj/item/storage/fancy/egg_box,
+	/obj/item/storage/fancy/cigarettes,
+	)
+
+/obj/item/borg/apparatus/circuit/service/examine()
+	. = ..()
+	if(stored)
+		. += "You are currently holding [stored]."
