@@ -414,7 +414,8 @@
 			var/synthflesh_volume = M.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh)
 			var/healing_diminish = 0.01
 			if(M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 100) && !HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn"))
-				M.overeatduration += reac_volume * 3 //getting TRAIT_FAT if overeatduration > 100
+				if(M.overeatduration < 600)
+					M.overeatduration += reac_volume * 3 //getting TRAIT_FAT if overeatduration > 100
 				if(show_message)
 					to_chat(M, "<span class='danger'>Synthflesh foams as it fails to mend your wounds!</span>")
 			else
