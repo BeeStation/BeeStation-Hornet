@@ -754,6 +754,11 @@
 		cooldown = world.time
 
 /obj/item/toy/cards/deck/attackby(obj/item/I, mob/living/user, params)
+
+	if(istype(I, /obj/item/borg/apparatus/cards))
+		if (!I.stored)
+			I = I.stored
+
 	if(istype(I, /obj/item/toy/cards/singlecard))
 		var/obj/item/toy/cards/singlecard/SC = I
 		if(SC.parentdeck == src)
@@ -1014,6 +1019,70 @@
 	card_throw_range = 7
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
 	resistance_flags = NONE
+			
+/*
+|| Cyborg playing cards module. ||
+*/
+
+/obj/item/toy/cards/deck/cyborg
+	name = "dealer module"
+	desc = "A module for handling, fabricating cards and tricking suckers into gambling their money."
+
+/obj/item/toy/cards/deck/cyborg/update_icon()
+	icon_state = "deck_[deckstyle]_full"
+
+/obj/item/toy/cards/deck/cyborg/attack_self(mob/user)
+	..()
+	if(iscyborg(user))
+		var/mob/living/silicon/robot/R = user
+		if(R.cell && R.cell.use(300))
+			populate_deck()
+			to_chat(user, "<span class='notice'>You fabricate a new set of cards.</span>")
+			return
+
+/obj/item/toy/cards/deck/cyborg/afterattack(atom/A, mob/user, proximity)
+	. = ..()		
+	if (istype(A, /obj/item/toy/cards/singlecard))
+		var/obj/item/toy/cards/singlecard/SC = I
+		if(SC.parentdeck == src)
+			if(!user.temporarilyRemoveItemFromInventory(SC))
+				to_chat(user, "<span class='warning'>The card is stuck to your hand, you can't add it to the deck!</span>")
+				return
+			cards += SC.cardname
+			user.visible_message("[user] adds a card to the bottom of the deck.","<span class='notice'>You add the card to the bottom of the deck.</span>")
+			qdel(SC)
+		else
+			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
+		update_icon()
+	else if (istype(A, /obj/item/toy/cards/cardhand))
+		var/obj/item/toy/cards/cardhand/CH = A
+		if(CH.parentdeck == src)
+			cards += CH.currenthand
+			user.visible_message("[user] puts [user.p_their()] hand of cards in the deck.", "<span class='notice'>You put the hand of cards in the deck.</span>")
+			qdel(CH)
+		else
+			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
+		update_icon()
+	else if (!(istype(A, /obj/structure/table) || isfloorturf(A)) && !proximity)
+		return
+		
+	var/choice = null
+	if(cards.len == 0)
+		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")
+		return
+	
+	choice = cards[1]
+	var/obj/item/toy/cards/singlecard/H = new/obj/item/toy/cards/singlecard(get_turf(A))
+	H.cardname = choice
+	H.parentdeck = src
+	var/O = src
+	H.apply_card_vars(H,O)
+	src.cards.Cut(1,2) //Removes the top card from the list
+		
+	if(!proximity)
+		tank.forceMove(get_turf(src))
+		I.throw_at(get_turf(A), 10 , 1 , user)
+		return
 
 /*
  * Fake nuke

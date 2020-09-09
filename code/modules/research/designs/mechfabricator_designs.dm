@@ -758,30 +758,30 @@
 	construction_time = 90
 	category = list("Cyborg Upgrade Modules")
 
-/datum/design/borg_upgrade_ambidexterous
-	name = "Cyborg Upgrade (Versatile Grasper)"
-	id = "borg_upgrade_ambidexterous"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/ambidexterous
-	materials = list(/datum/material/iron = 2000, /datum/material/titanium = 500)
-	construction_time = 60
-	category = list("Cyborg Upgrade Modules")
-
-/datum/design/borg_upgrade_btcf"
-	name = "Cyborg Upgrade (Basic Ingredients Synthesizer)"
-	id = "borg_upgrade_btcf"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/btcf
-	materials = list(/datum/material/iron = 3000)
-	construction_time = 60
-	category = list("Cyborg Upgrade Modules")
-
 /datum/design/borg_upgrade_botany
 	name = "Cyborg Upgrade (Botany)"
 	id = "borg_upgrade_botany"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/botany
-	materials = list(/datum/material/iron = 2500)
+	materials = list(/datum/material/iron = 10000)
+	construction_time = 30
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_cooking
+	name = "Cyborg Upgrade (Cooking)"
+	id = "borg_upgrade_cooking"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/cooking
+	materials = list(/datum/material/iron = 10000)
+	construction_time = 30
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_casino
+	name = "Cyborg Upgrade (Casino)"
+	id = "borg_upgrade_casino"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/casino
+	materials = list(/datum/material/iron = 10000)
 	construction_time = 30
 	category = list("Cyborg Upgrade Modules")
 

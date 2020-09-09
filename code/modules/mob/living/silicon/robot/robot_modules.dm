@@ -479,8 +479,6 @@
 		/obj/item/rsf,
 		/obj/item/toy/crayon/spraycan/borg,
 		/obj/item/instrument/piano_synth,
-		/obj/item/kitchen/knife/cyborg,
-		/obj/item/kitchen/rollingpin/cyborg,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/food/drinks/drinkingglass,
 		/obj/item/borg/apparatus/beaker/service,
@@ -528,6 +526,7 @@
 		/obj/item/borg/cyborghug/peacekeeper)
 	cyborg_base_icon = "borgi"
 	moduleselect_icon = "standard"
+	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 
 /obj/item/robot_module/miner
 	name = "Miner"

@@ -973,8 +973,67 @@
 		. += "You are currently holding [stored]."
 		
 ////////////////////
-//ambidexterous//
+//money eater/maker//
 ////////////////////
+			
+/obj/item/roulette
+	name = "Coin Gobbler"
+	desc = "Feed it credits, and activate it, with a chance to spit out DOUBLE the amount! For ages 18 and up."
+	icon = 'icons/obj/plushes.dmi'
+	icon_state = "debug"
+	var/money = 0
+	var/moneyeaten = 0
+	var/cooldown = 0
+	var/cooldowndelay = 20
+	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/borg/apparatus/beaker/service/extra
-	name = "versatile service grasper 2: Electric Boogaloo"
+/obj/item/roulette/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The Coin Gobbler holds [money] credits.</span>"
+
+/obj/item/roulette/attackby()
+	return
+
+/obj/item/roulette/attack_self(mob/user)
+	if(cooldown > world.time)
+		return
+	cooldown = world.time + cooldowndelay
+		
+	playsound(src.loc, 'sound/creatures/rattle.ogg', 10, 1)
+	user.visible_message("<span class='notice'>[src] starts spinning! What will happen?</span>", \
+		"<span class='notice'>You activate [src].</span>")
+	sleep(10)
+
+	if(prob(33*(1500+moneyeaten)/1500))
+		playsound(src.loc, 'sound/arcade/win.ogg', 10, 1)
+		user.visible_message("<span class='warning'>[src] cashes out! [user] starts spitting credits!</span>", \
+		"<span class='notice'>[src] cashes out!</span>")		
+		var/obj/item/holochip/payout = new (user.drop_location(), money*2)
+		payout.throw_at( get_step(loc,user.dir) ,3,1,user)		
+		moneyeaten-=money
+		money=0				
+	else
+		user.visible_message("<span class='notice'>[src] gobbles up all the money!</span>", \
+		"<span class='notice'>[src] gobbles up all the money!</span>")
+		moneyeaten+=money
+		money=0
+		playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 10, 1)	
+
+/obj/item/roulette/afterattack(atom/A, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if(istype(A, /obj/item/holochip) ||  istype(A, /obj/item/stack/spacecash) || istype(A, /obj/item/coin))
+		var/cash_money = A.get_item_credit_value()
+		if(!cash_money)
+			to_chat(user, "<span class='warning'>[src] spits out [A] as it is not worth anything!</span>")
+			return
+
+		money+=cash_money
+		to_chat(user, "<span class='notice'>[src] quicky gobbles up [A], and the value goes up by [cash_money].</span>")
+		qdel(A)
+	else
+		return ..()			
+		
+//shitcode
+	

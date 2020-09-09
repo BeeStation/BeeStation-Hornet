@@ -40,6 +40,13 @@
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicecup"
 
+/obj/item/storage/pill_bottle/dice_cup/cyborg
+	desc = "The house always wins..."
+/obj/item/storage/pill_bottle/dice_cup/cyborg/Initialize()
+	. = ..()
+	new /obj/item/dice/d6(src)
+	new /obj/item/dice/d6(src)
+
 /obj/item/storage/pill_bottle/dice_cup/attack_self(mob/user)
 	var/turf/throw_target = get_step(loc,user.dir) //with telekinesis, throws the direction the user is facing
 	for(var/obj/item/dice/die in src)

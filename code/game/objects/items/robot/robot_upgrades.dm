@@ -591,58 +591,6 @@
 		if (RPED)
 			R.module.remove_module(RPED, TRUE)
 
-/obj/item/borg/upgrade/btcf
-	name = "Food Synthesizer Module"
-	desc = "A service cyborg upgrade allowing for basic ingredients snythesizing."
-	icon_state = "cyborg_upgrade3"
-	require_module = TRUE
-	module_type = /obj/item/robot_module/butler
-
-/obj/item/borg/upgrade/btcf/action(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if(.)
-		var/obj/item/rsf/raw/foodfab = locate() in R
-		if(foodfab)
-			to_chat(user, "<span class='warning'>This unit is already equipped with a grasper module.</span>")
-			return FALSE
-
-		foodfab = new(R.module)
-		R.module.basic_modules += foodfab
-		R.module.add_module(foodfab, FALSE, TRUE)
-
-/obj/item/borg/upgrade/btcf/deactivate(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if (.)
-		var/obj/item/rsf/raw/foodfab = locate() in R
-		if (foodfab)
-			R.module.remove_module(foodfab, TRUE)
-
-/obj/item/borg/upgrade/ambidexterous
-	name = "Versatile Grasper Module"
-	desc = "A service cyborg upgrade allowing for advanced manipulation of objects."
-	icon_state = "cyborg_upgrade3"
-	require_module = TRUE
-	module_type = /obj/item/robot_module/butler
-
-/obj/item/borg/upgrade/ambidexterous/action(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if(.)
-		var/obj/item/borg/apparatus/beaker/service/extra/grasper = locate() in R
-		if(grasper)
-			to_chat(user, "<span class='warning'>This unit is already equipped with a grasper module.</span>")
-			return FALSE
-
-		grasper = new(R.module)
-		R.module.basic_modules += grasper
-		R.module.add_module(grasper, FALSE, TRUE)
-
-/obj/item/borg/upgrade/ambidexterous/deactivate(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if (.)
-		var/obj/item/borg/apparatus/beaker/service/extra/grasper = locate() in R.module
-		if (grasper)
-			R.module.remove_module(grasper, TRUE)
-
 /obj/item/borg/upgrade/botany
 	name = "Botany Module Pack"
 	desc = "A service cyborg upgrade allowing for plant tending and manipulation."
@@ -652,13 +600,23 @@
 
 /obj/item/borg/upgrade/botany/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if(.)
-		var/obj/item/hatchet/cyborg/A, = locate() in R
-		var/obj/item/cultivator/B, = locate() in R
-		var/obj/item/storage/bag/plants/portaseeder/C, = locate() in R
-		if(A && B && C)
+	if(.)	
+		var/obj/item/rsf/raw/XA  = locate() in R		//HACK - check for already existing modules
+		if(XA)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a cooking upgrade.</span>")
+			return FALSE			
+		var/obj/item/roulette/XB  = locate() in R
+		if(XA)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a casino upgrade.</span>")
+			return FALSE			
+		var/obj/item/storage/bag/plants/portaseeder/A, = locate() in R
+		if(D)
 			to_chat(user, "<span class='warning'>This unit is already equipped with a botany module.</span>")
 			return FALSE
+	
+		//PASS - add existing modules
+		var/obj/item/hatchet/cyborg/B, = locate() in R
+		var/obj/item/cultivator/C, = locate() in R
 
 		if (!A)
 			A = new(R.module)
@@ -676,9 +634,118 @@
 /obj/item/borg/upgrade/botany/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		var/obj/item/hatchet/cyborg/A, = locate() in R
-		var/obj/item/cultivator/B, = locate() in R
-		var/obj/item/storage/bag/plants/portaseeder/C, = locate() in R
+		//Remove existing modules indiscriminately
+		var/obj/item/hatchet/cyborg/B, = locate() in R
+		var/obj/item/cultivator/C, = locate() in R
+		var/obj/item/storage/bag/plants/portaseeder/A, = locate() in R
+		if (A)
+			R.module.remove_module(A, TRUE)
+		if (B)
+			R.module.remove_module(B, TRUE)
+		if (C)
+			R.module.remove_module(C, TRUE)
+
+/obj/item/borg/upgrade/cooking
+	name = "Cooking Module Pack"
+	desc = "A service cyborg upgrade allowing preparation of vegetables, meat and cowo-NOT COWORKERS."
+	icon_state = "cyborg_upgrade3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/butler
+
+/obj/item/borg/upgrade/cooking/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)	
+		var/obj/item/storage/bag/plants/portaseeder/XA  = locate() in R		//HACK - check for already existing modules
+		if(XA)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a botany upgrade.</span>")
+			return FALSE			
+		var/obj/item/roulette/XB  = locate() in R
+		if(XA)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a casino upgrade.</span>")
+			return FALSE			
+		var/obj/item/rsf/raw/A, = locate() in R
+		if(D)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a cooking module.</span>")
+			return FALSE
+	
+		//PASS - add existing modules
+		var/obj/item/kitchen/knife/cyborg/B, = locate() in R
+		var/obj/item/kitchen/rollingpin/cyborg/C, = locate() in R
+
+		if (!A)
+			A = new(R.module)
+			R.module.basic_modules += A
+			R.module.add_module(A, FALSE, TRUE)
+		if (!B)
+			B = new(R.module)
+			R.module.basic_modules += B
+			R.module.add_module(B, FALSE, TRUE)
+		if (!C)
+			C = new(R.module)
+			R.module.basic_modules += C
+			R.module.add_module(C, FALSE, TRUE)
+
+/obj/item/borg/upgrade/cooking/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		//Remove existing modules indiscriminately
+		var/obj/item/rsf/raw/A, = locate() in R
+		var/obj/item/kitchen/knife/cyborg/B, = locate() in R
+		var/obj/item/kitchen/rollingpin/cyborg/C, = locate() in R
+		if (A)
+			R.module.remove_module(A, TRUE)
+		if (B)
+			R.module.remove_module(B, TRUE)
+		if (C)
+			R.module.remove_module(C, TRUE)
+
+/obj/item/borg/upgrade/casino
+	name = "Casino Module Pack"
+	desc = "Gambling equivalent of One Man Army."
+	icon_state = "cyborg_upgrade3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/butler
+
+/obj/item/borg/upgrade/casino/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)	
+		var/obj/item/storage/bag/plants/portaseeder/XA  = locate() in R		//HACK - check for already existing modules
+		if(XA)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a botany upgrade.</span>")
+			return FALSE			
+		var/obj/item/rsf/raw/XB  = locate() in R
+		if(XA)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a cooking upgrade.</span>")
+			return FALSE			
+		var/obj/item/roulette/A, = locate() in R
+		if(D)
+			to_chat(user, "<span class='warning'>This unit is already equipped with a casino module.</span>")
+			return FALSE
+	
+		//PASS - add existing modules
+		var/obj/item/storage/pill_bottle/dice_cup/cyborg/B, = locate() in R
+		var/obj/item/toy/cards/deck/cyborg/C, = locate() in R
+
+		if (!A)
+			A = new(R.module)
+			R.module.basic_modules += A
+			R.module.add_module(A, FALSE, TRUE)
+		if (!B)
+			B = new(R.module)
+			R.module.basic_modules += B
+			R.module.add_module(B, FALSE, TRUE)
+		if (!C)
+			C = new(R.module)
+			R.module.basic_modules += C
+			R.module.add_module(C, FALSE, TRUE)
+
+/obj/item/borg/upgrade/casino/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		//Remove existing modules indiscriminately
+		var/obj/item/roulette/A, = locate() in R
+		var/obj/item/storage/pill_bottle/dice_cup/cyborg/B, = locate() in R
+		var/obj/item/toy/cards/deck/cyborg/C, = locate() in R
 		if (A)
 			R.module.remove_module(A, TRUE)
 		if (B)
