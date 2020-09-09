@@ -65,6 +65,18 @@
 
 	return R
 
+/datum/http_request/proc/get_request(url, list/headers)
+	var/datum/http_request/request = new()
+
+	if (!length(headers))
+		headers = ""
+	request.prepare(RUSTG_HTTP_METHOD_GET, url, body, headers)
+	request.begin_async()
+	UNTIL(request.is_complete())
+	var/datum/http_response/results = request.into_response()
+
+	return results
+
 /datum/http_response
 	var/status_code
 	var/body

@@ -1,5 +1,4 @@
 /mob/living/simple_animal/slime
-	var/AIproc = 0 // determines if the AI loop is activated
 	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
 	var/SStun = 0 // stun variable
 
@@ -29,40 +28,34 @@
 	..()
 
 /mob/living/simple_animal/slime/proc/AIprocess()
-	AIproc = 1
+	if(stat == DEAD || !Target || client || buckled)
+		return
 
-	while(AIproc)
-		if(stat == DEAD || !Target || client || buckled)
-			AIproc = 0
-			return
+	var/slime_on_target = 0
+	if(Target.buckled_mobs?.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
+		slime_on_target = 1
 
-		var/slime_on_target = 0
-		if(locate(/mob/living/simple_animal/slime) in Target.buckled_mobs)
-			slime_on_target = 1
+	if(Target.z == src.z && attack_cooldown < world.time && get_dist(Target, src) <= 1)
+		if(!slime_on_target && CanFeedon(Target))
+			if(!Target.client || prob(20))
+				Feedon(Target)
+				special_process = FALSE
+				return
+		if(attacked || rabid)
+			Target.attack_slime(src)
+			attack_cooldown = world.time + attack_cooldown_time
+	else if(Target in view(7, src))
+		step_to(src, Target)
+	else
+		special_process = FALSE
+		Target = null
+		return
 
-		if((Target in view(1,src)) && Target.Adjacent(src))
-			if(attack_cooldown < world.time && CanFeedon(Target) && !slime_on_target)
-				if(!Target.client || prob(20))
-					Feedon(Target)
-					AIproc = 0
-					return
-			if(attack_cooldown < world.time && (attacked || rabid))
-				Target.attack_slime(src)
-				attack_cooldown = world.time + attack_cooldown_time
-		else if(Target in view(7, src))
-			step_to(src, Target)
-		else
-			AIproc = 0
-			Target = null
-			return
+	var/sleeptime = movement_delay()
+	if(sleeptime <= 0)
+		sleeptime = 1
 
-		var/sleeptime = movement_delay()
-		if(sleeptime <= 0)
-			sleeptime = 1
-
-		sleep(sleeptime + 2) // this is about as fast as a player slime can go
-
-	AIproc = 0
+	addtimer(VARSET_CALLBACK(src, special_process, TRUE), (sleeptime + 2), TIMER_UNIQUE)
 
 /mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
 	if(!environment)
@@ -145,7 +138,7 @@
 			rabid = 1
 
 		Target = null
-		AIproc = 0
+		special_process = FALSE
 		Feedstop()
 		return
 
@@ -232,7 +225,7 @@
 		if (target_patience <= 0 || SStun > world.time || Discipline || attacked || docile)
 			target_patience = 0
 			Target = null
-			AIproc = 0
+			special_process = FALSE
 
 	var/hungry = 0
 
@@ -288,8 +281,8 @@
 				holding_still = 10
 			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(33))
 				step(src, pick(GLOB.cardinals))
-	else if(!AIproc)
-		INVOKE_ASYNC(src, .proc/AIprocess)
+	else if(!special_process)
+		special_process = TRUE
 
 /mob/living/simple_animal/slime/handle_automated_movement()
 	return //slime random movement is currently handled in handle_targets()
@@ -391,7 +384,7 @@
 			else if (findtext(phrase, "attack"))
 				if (rabid && prob(20))
 					Target = who
-					AIprocess() //Wake up the slime's Target AI, needed otherwise this doesn't work
+					special_process = TRUE
 					to_say = "ATTACK!?!?"
 				else if (Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
 					for (var/mob/living/L in view(7,src)-list(src,who))
@@ -401,7 +394,7 @@
 								--Friends[who] //Don't ask a slime to attack its friend
 							else if(!Friends[L] || Friends[L] < 1)
 								Target = L
-								AIprocess()//Wake up the slime's Target AI, needed otherwise this doesn't work
+								special_process = TRUE
 								to_say = "Ok... I attack [Target]"
 							else
 								to_say = "No... like [L] ..."

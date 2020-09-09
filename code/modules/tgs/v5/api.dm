@@ -233,15 +233,17 @@
 	data[DMAPI5_PARAMETER_ACCESS_IDENTIFIER] = access_identifier
 
 	var/json = json_encode(data)
-	var/encoded_json = url_encode(json)
+	var/encoded_json = rustg_url_encode(json)
 
 	// This is an infinite sleep until we get a response
-	var/export_response = world.Export("http://127.0.0.1:[server_port]/Bridge?[DMAPI5_BRIDGE_DATA]=[encoded_json]")
+	var/datum/http_request/export_response = new()
+	export_response = export_response.get_request("http://127.0.0.1:[server_port]/Bridge?[DMAPI5_BRIDGE_DATA]=[encoded_json]")
+
 	if(!export_response)
 		TGS_ERROR_LOG("Failed export request: [json]")
 		return
 
-	var/response_json = file2text(export_response["CONTENT"])
+	var/response_json = export_response.body
 	if(!response_json)
 		TGS_ERROR_LOG("Failed export request, missing content!")
 		return
