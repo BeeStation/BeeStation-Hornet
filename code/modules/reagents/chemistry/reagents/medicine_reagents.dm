@@ -231,6 +231,10 @@
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
+		if(method == TOUCH && M.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine) <= overdose_threshold)
+			if(reac_volume > 50) //prevents people from getting splashed with large amounts of reagent at once
+				reac_volume = 50
+			M.reagents.add_reagent(/datum/reagent/medicine/silver_sulfadiazine, reac_volume) //adds reagent to bloodstream on splashing
 		if(method in list(INGEST, VAPOR, INJECT))
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
@@ -243,8 +247,6 @@
 				to_chat(M, "<span class='danger'>You feel your burns healing! It stings like hell!</span>")
 			M.emote("scream")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-		if(method == TOUCH)
-			M.reagents.add_reagent(/datum/reagent/medicine/silver_sulfadiazine, reac_volume) //adds reagent to bloodstream on splashing
 	..()
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/M)
@@ -291,6 +293,10 @@
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
+		if(method == TOUCH && M.reagents.get_reagent_amount(/datum/reagent/medicine/styptic_powder) <= overdose_threshold)
+			if(reac_volume > 50) //prevents people from getting splashed with large amounts of reagent at once
+				reac_volume = 50
+			M.reagents.add_reagent(/datum/reagent/medicine/styptic_powder, reac_volume) //adds reagent to bloodstream on splashing
 		if(method in list(INGEST, VAPOR, INJECT))
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
@@ -303,8 +309,6 @@
 				to_chat(M, "<span class='danger'>You feel your bruises healing! It stings like hell!</span>")
 			M.emote("scream")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-		if(method == TOUCH)
-			M.reagents.add_reagent(/datum/reagent/medicine/styptic_powder, reac_volume) //adds reagent to bloodstream on splashing
 	..()
 
 
@@ -426,6 +430,8 @@
 					M.adjustBruteLoss(-1.25 * reac_volume * (1 - synthflesh_volume * healing_diminish))
 					M.adjustFireLoss(-1.25 * reac_volume * (1 - synthflesh_volume * healing_diminish))
 				else
+					if (reac_volume > 50) //prevents people from getting splashed with large amounts of reagent at once
+						reac_volume = 50
 					M.adjustBruteLoss(-1 * reac_volume * (1 - synthflesh_volume * healing_diminish))
 					M.adjustFireLoss(-1 * reac_volume * (1 - synthflesh_volume * healing_diminish))
 					M.reagents.add_reagent(/datum/reagent/medicine/synthflesh, reac_volume) //adds reagent to bloodstream on splashing
