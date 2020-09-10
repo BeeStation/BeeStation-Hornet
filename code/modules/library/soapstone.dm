@@ -152,7 +152,7 @@
 
 /obj/structure/chisel_message/update_icon()
 	..()
-	var/hash = md5(hidden_message)
+	var/hash = rustg_hash_string(RUSTG_HASH_MD5, hidden_message)
 	var/newcolor = copytext_char(hash, 1, 7)
 	add_atom_colour("#[newcolor]", FIXED_COLOUR_PRIORITY)
 	light_color = "#[newcolor]"

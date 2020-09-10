@@ -34,7 +34,7 @@ GLOBAL_LIST(admin_antag_list)
 	stuff.send(owner.current.client)
 	var/datum/browser/popup = new(owner.current, "antagTips", null, 600, 400)
 	popup.set_window_options("titlebar=1;can_minimize=0;can_resize=0")
-	popup.set_content(file2text(file))
+	popup.set_content(rustg_file_read(file))
 	popup.open(FALSE)
 
 /datum/antagonist/New()
