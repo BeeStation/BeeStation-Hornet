@@ -267,5 +267,9 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isinf(x) (isnum((x)) && (((x) == text2num("inf")) || ((x) == text2num("-inf"))))
 
+#define isProbablyWallMounted(O) (O.pixel_x > 20 || O.pixel_x < -20 || O.pixel_y > 20 || O.pixel_y < -20)
+
+#define isbook(O) (is_type_in_typecache(O, GLOB.book_types))
+
 /// NaN isn't a number, damn it. Infinity is a problem too.
 #define isnum_safe(x) ( isnum((x)) && !isnan((x)) && !isinf((x)) )
