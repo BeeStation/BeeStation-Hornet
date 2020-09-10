@@ -30,3 +30,16 @@
 # Exclude: achievements.dm
 Exclude: _readme.dm
 Exclude: unit_tests
+
+Exclude: guardian\types\
+Exclude: \simple_animal\guardian\guardian.dm
+Exclude: \silicon\robot\dogborg_equipment.dm
+Exclude: modules\VR
+Exclude: unused.dm
+Exclude: datums\components\archaeology.dm
+Exclude: objects\items\cursed_necklace.dm
+Exclude: holiday\halloween.dm
+Exclude: spells\spell_types\cluwnecurse.dm
+
+# Exclude: admin\create_poll.dm
+# Exclude: \tgs\v5\
