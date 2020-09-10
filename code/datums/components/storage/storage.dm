@@ -2,6 +2,11 @@
 #define COLLECT_EVERYTHING 1
 #define COLLECT_SAME 2
 
+#define DROP_NOTHING 0
+#define DROP_AT_PARENT 1
+#define DROP_AT_LOCATION 2
+
+
 // External storage-related logic:
 // /mob/proc/ClickOn() in /_onclick/click.dm - clicking items in storages
 // /mob/living/Move() in /modules/mob/living/living.dm - hiding storage boxes on mob movement
@@ -109,6 +114,16 @@
 
 /datum/component/storage/PreTransfer()
 	update_actions()
+
+
+/datum/component/storage/proc/generate_hold_desc(can_hold_list)
+	var/list/desc = list()
+
+	for(var/valid_type in can_hold_list)
+		var/obj/item/valid_item = valid_type
+		desc += "\a [initial(valid_item.name)]"
+
+	return "\n\t<span class='notice'>[desc.Join("\n\t")]</span>"
 
 /datum/component/storage/proc/update_actions()
 	QDEL_NULL(modeswitch_action)

@@ -218,7 +218,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(should_have_tail && !tail)
 		tail = new mutanttail()
 		tail.Insert(C)
-	
+
 	if(wings && (!should_have_wings || replace_current))
 		wings.Remove(C,1)
 		QDEL_NULL(wings)
@@ -1331,7 +1331,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/damage = user.dna.species.punchdamage
 
 		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
-	
+
 		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
 			target.visible_message("<span class='danger'>[user]'s [atk_verb] misses [target]!</span>",\
@@ -1514,6 +1514,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 	// Allows you to put in item-specific reactions based on species
+
+	if(H.checkbuttinsert(I, user)) //hippie edit -- adds butt check
+		return FALSE //hippie edit -- adds butt check
+
+
 	if(user != H)
 		if(H.check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
 			return 0

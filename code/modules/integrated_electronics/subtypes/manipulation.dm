@@ -482,52 +482,53 @@
 
 /obj/item/integrated_circuit/manipulation/activator
 	name = "activator"
-	desc = "Circuit which activate things!"
+	desc = "Circuit which can activate things remotely!"
 	icon_state = "pull_claw"
-	extended_desc = "This circuit accepts a reference to a thing to be pulled. Modes: 0 for release. 1 for pull."
+	extended_desc = "This circuit needs a reference to a thing to activate."
 	w_class = WEIGHT_CLASS_SMALL
 	size = 3
-	cooldown_per_use = 5
+	cooldown_per_use = 1
 	complexity = 10
-	inputs = list("target" = IC_PINTYPE_REF,"mode" = IC_PINTYPE_INDEX,"dir" = IC_PINTYPE_DIR)
-	outputs = list("is pulling" = IC_PINTYPE_BOOLEAN)
-	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT,"released" = IC_PINTYPE_PULSE_OUT,"pull to dir" = IC_PINTYPE_PULSE_OUT)
+	inputs = list("target" = IC_PINTYPE_REF)
+	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
+	spawn_flags = IC_SPAWN_RESEARCH
+	power_draw_per_use = 50
+	ext_cooldown = 1
+
+/obj/item/integrated_circuit/manipulation/activator/do_work(ord)
+	var/obj/acting_object = get_pin_data_as_type(IC_INPUT, 1, /obj/)
+	acting_object.interact(null)
+	activate_pin(1)
+
+
+/obj/item/integrated_circuit/manipulation/advactivator
+	name = "advactivator"
+	desc = "Circuit which can UI elements remotely!"
+	icon_state = "pull_claw"
+	extended_desc = "This circuit needs a reference to a to activate, as well as action and parems to pass! Use mode 1 for lists or 0 for single values."
+	w_class = WEIGHT_CLASS_SMALL
+	size = 3
+	cooldown_per_use = 1
+	complexity = 10
+
+	//inputs = list("target" = IC_PINTYPE_REF, "action" = IC_PINTYPE_STRING, "params" = IC_PINTYPE_STRING)
+	inputs = list("target" = IC_PINTYPE_REF, "action" = IC_PINTYPE_STRING, "mode" = IC_PINTYPE_NUMBER, "params" = IC_PINTYPE_STRING, "listparams" = IC_PINTYPE_LIST)
+	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
 	spawn_flags = IC_SPAWN_RESEARCH
 	power_draw_per_use = 50
 	ext_cooldown = 1
 	var/max_grab = GRAB_PASSIVE
 
-/obj/item/integrated_circuit/manipulation/activator/do_work(ord)
-	var/obj/acting_object = get_object()
-	var/atom/movable/AM = get_pin_data_as_type(IC_INPUT, 1, /atom/movable)
-	var/mode = get_pin_data(IC_INPUT, 2)
-	switch(ord)
-		if(1)
-			mode = CLAMP(mode, GRAB_PASSIVE, max_grab)
-			if(AM)
-				if(check_target(AM, exclude_contents = TRUE))
-					acting_object.investigate_log("grabbed ([AM]) using [src].", INVESTIGATE_CIRCUIT)
-					acting_object.start_pulling(AM,mode)
-					if(acting_object.pulling)
-						set_pin_data(IC_OUTPUT, 1, TRUE)
-					else
-						set_pin_data(IC_OUTPUT, 1, FALSE)
-			push_data()
+/obj/item/integrated_circuit/manipulation/advactivator/do_work(ord)
+	var/obj/acting_object = get_pin_data_as_type(IC_INPUT, 1, /obj/)
+	var/action = get_pin_data(IC_INPUT, 2)
+	var/mode = get_pin_data(IC_INPUT, 3)
+	var/params = get_pin_data(IC_INPUT, 4)
+	if(mode == 1)
+		params = get_pin_data(IC_INPUT, 5)
 
-		if(4)
-			if(acting_object.pulling)
-				var/dir = get_pin_data(IC_INPUT, 3)
-				var/turf/G =get_step(get_turf(acting_object),dir)
-				var/atom/movable/pullee = acting_object.pulling
-				var/turf/Pl = get_turf(pullee)
-				var/turf/F = get_step_towards(Pl,G)
-				if(acting_object.Adjacent(F))
-					if(!step_towards(pullee, F))
-						F = get_step_towards2(Pl,G)
-						if(acting_object.Adjacent(F))
-							step_towards(pullee, F)
-	activate_pin(2)
-
+	acting_object.ui_act(action, params)
+	activate_pin(1)
 
 
 /obj/item/integrated_circuit/manipulation/matman
