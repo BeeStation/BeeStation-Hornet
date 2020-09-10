@@ -65,7 +65,7 @@
 		return
 	if(on)
 		if(beaker && beaker.reagents.total_volume)
-			//keep constant with the chemical acclimator please
+			
 			beaker.reagents.adjust_thermal_energy((target_temperature - beaker.reagents.chem_temp) * heater_coefficient * SPECIFIC_HEAT_DEFAULT * beaker.reagents.total_volume)
 			beaker.reagents.handle_reactions()
 
@@ -77,7 +77,7 @@
 		return
 
 	if(istype(I, /obj/item/reagent_containers) && !(I.item_flags & ABSTRACT) && I.is_open_container())
-		. = TRUE //no afterattack
+		. = TRUE 
 		var/obj/item/reagent_containers/B = I
 		if(!user.transferItemToLoc(B, src))
 			return
@@ -112,7 +112,7 @@
 	var beakerContents[0]
 	if(beaker)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
+			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) 
 	data["beakerContents"] = beakerContents
 	return data
 

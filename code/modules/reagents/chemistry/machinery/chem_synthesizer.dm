@@ -1,4 +1,4 @@
-/obj/machinery/chem_dispenser/chem_synthesizer //formerly SCP-294 made by mrty, but now only for testing purposes
+/obj/machinery/chem_dispenser/chem_synthesizer 
 	name = "\improper debug chemical synthesizer"
 	desc = "If you see this, yell at adminbus."
 	icon = 'icons/obj/chemical.dmi'
@@ -34,7 +34,7 @@
 				beaker = null
 				. = TRUE
 		if("input")
-			var/input_reagent = replacetext(lowertext(input("Enter the name of any reagent", "Input") as text|null), " ", "") //95% of the time, the reagent id is a lowercase/no spaces version of the name
+			var/input_reagent = replacetext(lowertext(input("Enter the name of any reagent", "Input") as text|null), " ", "") 
 
 			if (isnull(input_reagent))
 				return
@@ -65,7 +65,7 @@
 
 /obj/machinery/chem_dispenser/chem_synthesizer/proc/find_reagent(input)
 	. = FALSE
-	if(GLOB.chemical_reagents_list[input]) //prefer IDs!
+	if(GLOB.chemical_reagents_list[input]) 
 		return input
 	else
 		return get_chem_id(input)

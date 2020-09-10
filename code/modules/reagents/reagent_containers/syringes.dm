@@ -10,15 +10,15 @@
 	possible_transfer_amounts = list()
 	volume = 15
 	var/mode = SYRINGE_DRAW
-	var/busy = FALSE		// needed for delayed drawing of blood
-	var/proj_piercing = 0 //does it pierce through thick clothes when shot with syringe gun
+	var/busy = FALSE		
+	var/proj_piercing = 0 
 	materials = list(/datum/material/iron=10, /datum/material/glass=20)
 	reagent_flags = TRANSPARENT
 	var/list/syringediseases = list()
 
 /obj/item/reagent_containers/syringe/Initialize()
 	. = ..()
-	if(list_reagents) //syringe starts in inject mode if its already got something inside
+	if(list_reagents) 
 		mode = SYRINGE_INJECT
 		update_icon()
 
@@ -37,7 +37,7 @@
 	mode = !mode
 	update_icon()
 
-//ATTACK HAND IGNORING PARENT RETURN VALUE
+
 /obj/item/reagent_containers/syringe/attack_hand()
 	. = ..()
 	update_icon()
@@ -70,7 +70,7 @@
 	if(isliving(target))
 		L = target
 
-	// chance of monkey retaliation
+	
 	if(ismonkey(target) && prob(MONKEY_SYRINGE_RETALIATION_PROB))
 		var/mob/living/carbon/monkey/M
 		M = target
@@ -82,7 +82,7 @@
 				to_chat(user, "<span class='notice'>The syringe is full.</span>")
 				return
 
-			if(L) //living mob
+			if(L) 
 				var/drawn_amount = reagents.maximum_volume - reagents.total_volume
 				if(target != user)
 					target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
@@ -100,7 +100,7 @@
 					to_chat(user, "<span class='warning'>You are unable to draw any blood from [L]!</span>")
 				transfer_diseases(L)
 
-			else //if not mob
+			else 
 				if(!target.reagents.total_volume)
 					to_chat(user, "<span class='warning'>[target] is empty!</span>")
 					return
@@ -109,7 +109,7 @@
 					to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target]!</span>")
 					return
 
-				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user) // transfer from, transfer to - who cares?
+				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user) 
 
 				to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units.</span>")
 			if (reagents.total_volume >= reagents.maximum_volume)
@@ -117,7 +117,7 @@
 				update_icon()
 
 		if(SYRINGE_INJECT)
-			// Always log attemped injections for admins
+			
 			var/contained = reagents.log_list()
 			log_combat(user, target, "attempted to inject", src, addition="which had [contained]")
 
@@ -125,7 +125,7 @@
 				to_chat(user, "<span class='notice'>[src] is empty.</span>")
 				return
 
-			if(!L && !target.is_injectable(user)) //only checks on non-living mobs, due to how can_inject() handles
+			if(!L && !target.is_injectable(user)) 
 				to_chat(user, "<span class='warning'>You cannot directly fill [target]!</span>")
 				return
 
@@ -133,7 +133,7 @@
 				to_chat(user, "<span class='notice'>[target] is full.</span>")
 				return
 
-			if(L) //living mob
+			if(L) 
 				if(!L.can_inject(user, TRUE))
 					return
 				if(L != user)

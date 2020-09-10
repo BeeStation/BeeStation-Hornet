@@ -22,14 +22,14 @@ Borg Hypospray
 	var/mode = 1
 	var/charge_cost = 50
 	var/charge_tick = 0
-	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
-	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
+	var/recharge_time = 5 
+	var/bypass_protection = 0 
 
 	var/list/datum/reagents/reagent_list = list()
 	var/list/reagent_ids = list(/datum/reagent/medicine/dexalin, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/bicaridine, /datum/reagent/medicine/antitoxin, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/salglu_solution)
-	var/accepts_reagent_upgrades = TRUE //If upgrades can increase number of reagents dispensed.
-	var/list/modes = list() //Basically the inverse of reagent_ids. Instead of having numbers as "keys" and strings as values it has strings as keys and numbers as values.
-								//Used as list for input() in shakers.
+	var/accepts_reagent_upgrades = TRUE 
+	var/list/modes = list() 
+								
 	var/list/reagent_names = list()
 
 
@@ -47,16 +47,16 @@ Borg Hypospray
 	return ..()
 
 
-/obj/item/reagent_containers/borghypo/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
+/obj/item/reagent_containers/borghypo/process() 
 	charge_tick++
 	if(charge_tick >= recharge_time)
 		regenerate_reagents()
 		charge_tick = 0
 
-	//update_icon()
+	
 	return 1
 
-// Use this to add more chemicals for the borghypo to produce.
+
 /obj/item/reagent_containers/borghypo/proc/add_reagent(datum/reagent/reagent)
 	reagent_ids |= reagent
 	var/datum/reagents/RG = new(30)
@@ -91,9 +91,9 @@ Borg Hypospray
 		if(R && R.cell)
 			for(var/i in 1 to reagent_ids.len)
 				var/datum/reagents/RG = reagent_list[i]
-				if(RG.total_volume < RG.maximum_volume) 	//Don't recharge reagents and drain power if the storage is full.
-					R.cell.use(charge_cost) 					//Take power from borg...
-					RG.add_reagent(reagent_ids[i], 5)		//And fill hypo with reagent.
+				if(RG.total_volume < RG.maximum_volume) 	
+					R.cell.use(charge_cost) 					
+					RG.add_reagent(reagent_ids[i], 5)		
 
 /obj/item/reagent_containers/borghypo/attack(mob/living/carbon/M, mob/user)
 	var/datum/reagents/R = reagent_list[mode]
@@ -128,7 +128,7 @@ Borg Hypospray
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
 	. = ..()
-	. += DescribeContents()	//Because using the standardized reagents datum was just too cool for whatever fuckwit wrote this
+	. += DescribeContents()	
 
 /obj/item/reagent_containers/borghypo/proc/DescribeContents()
 	. = list()
@@ -179,7 +179,7 @@ Borg Shaker
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "shaker"
 	possible_transfer_amounts = list(5,10,20)
-	charge_cost = 20 //Lots of reagents all regenerating at once, so the charge cost is lower. They also regenerate faster.
+	charge_cost = 20 
 	recharge_time = 3
 	accepts_reagent_upgrades = FALSE
 
@@ -212,13 +212,13 @@ Borg Shaker
 			/datum/reagent/consumable/tonic)
 
 /obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)
-	return //Can't inject stuff with a shaker, can we? //not with that attitude
+	return 
 
 /obj/item/reagent_containers/borghypo/borgshaker/regenerate_reagents()
 	if(iscyborg(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
 		if(R?.cell)
-			for(var/i in modes) //Lots of reagents in this one, so it's best to regenrate them all at once to keep it from being tedious.
+			for(var/i in modes) 
 				var/valueofi = modes[i]
 				var/datum/reagents/RG = reagent_list[valueofi]
 				if(RG.total_volume < RG.maximum_volume)
@@ -257,7 +257,7 @@ Borg Shaker
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "threemileislandglass"
 	possible_transfer_amounts = list(5,10,20)
-	charge_cost = 20 //Lots of reagents all regenerating at once, so the charge cost is lower. They also regenerate faster.
+	charge_cost = 20 
 	recharge_time = 3
 	accepts_reagent_upgrades = FALSE
 

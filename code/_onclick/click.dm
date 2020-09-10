@@ -147,7 +147,12 @@
 	//Standard reach turf to turf or reaching inside storage
 	if(CanReach(A,W))
 		if(W)
-			W.melee_attack_chain(src, A, params)
+			if(ishuman(src) && src.a_intent == INTENT_HARM)
+				for(var/obj/item/B in src.held_items)
+					B.melee_attack_chain(src, A, params)
+					sleep(3)
+			else
+				W.melee_attack_chain(src, A, params)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
@@ -157,6 +162,9 @@
 			W.afterattack(A,src,0,params)
 		else
 			RangedAttack(A,params)
+
+
+
 
 //Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
 /atom/proc/IsObscured()

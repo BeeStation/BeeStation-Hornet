@@ -491,3 +491,39 @@
 	build_path = /obj/item/construction/plumbing
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/super_sticky_tape
+	name = "Super Sticky Tape"
+	id = "super_sticky_tape"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 3000)
+	build_path = /obj/item/stack/sticky_tape/super
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_CARGO
+
+/datum/design/pointy_tape
+	name = "Pointy Tape"
+	id = "pointy_tape"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 1500, /datum/material/plastic = 1000)
+	build_path = /obj/item/stack/sticky_tape/pointy
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_CARGO
+
+/datum/design/surgical_tape
+	name = "Surgical tape"
+	id = "surgical_tape"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 500)
+	build_path = /obj/item/stack/sticky_tape/surgical
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/superpointy_tape
+	name = "Super Pointy Tape"
+	id = "superpointy_tape"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 2000, /datum/material/plastic = 3000)
+	build_path = /obj/item/stack/sticky_tape/pointy/super
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_CARGO

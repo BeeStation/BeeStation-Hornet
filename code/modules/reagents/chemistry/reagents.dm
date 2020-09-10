@@ -36,23 +36,25 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/overdose_threshold = 0
 	var/addiction_threshold = 0
 	var/addiction_stage = 0
-	var/random_unrestricted = TRUE
-	var/process_flags = ORGANIC // What can process this? ORGANIC, SYNTHETIC, or ORGANIC | SYNTHETIC?. We'll assume by default that it affects organics.
 	var/overdosed = 0 // You fucked up and this is now triggering its overdose effects, purge that shit quick.
 	var/self_consuming = FALSE
 	var/reagent_weight = 1 //affects how far it travels when sprayed
 	var/metabolizing = FALSE
 
+	var/random_unrestricted = TRUE
+	var/process_flags = ORGANIC
+
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
 	. = ..()
 	holder = null
+	data = null
 
 /datum/reagent/proc/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0)
 	if(!istype(M))
 		return 0
 	if(method == VAPOR) //smoke, foam, spray
 		if(M.reagents)
-			var/modifier = CLAMP((1 - touch_protection), 0, 1)
+			var/modifier = clamp((1 - touch_protection), 0, 1)
 			var/amount = round(reac_volume*modifier, 0.1)
 			if(amount >= 0.5)
 				M.reagents.add_reagent(type, amount)
@@ -68,34 +70,6 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	current_cycle++
 	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
 	return
-
-/datum/reagent/proc/on_transfer(atom/A, method=TOUCH, trans_volume) //Called after a reagent is transfered
-	return
-
-/datum/reagents/proc/react_single(datum/reagent/R, atom/A, method = TOUCH, volume_modifier = 1, show_message = TRUE)
-	var/react_type
-	if(isliving(A))
-		react_type = "LIVING"
-		if(method == INGEST)
-			var/mob/living/L = A
-			L.taste(src)
-	else if(isturf(A))
-		react_type = "TURF"
-	else if(isobj(A))
-		react_type = "OBJ"
-	else
-		return
-	switch(react_type)
-		if("LIVING")
-			var/touch_protection = 0
-			if(method == VAPOR)
-				var/mob/living/L = A
-				touch_protection = L.get_permeability_protection()
-			R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection)
-		if("TURF")
-			R.reaction_turf(A, R.volume * volume_modifier, show_message)
-		if("OBJ")
-			R.reaction_obj(A, R.volume * volume_modifier, show_message)
 
 // Called when this reagent is first added to a mob
 /datum/reagent/proc/on_mob_add(mob/living/L)

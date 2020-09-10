@@ -766,6 +766,8 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 		return 1
 	if(is_pointed(W))
 		return 1
+	if(!W.embedding.embedded_taped == 0)
+		return 1
 
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
 		return 1

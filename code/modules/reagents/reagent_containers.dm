@@ -13,8 +13,8 @@
 	var/disease_amount = 20
 	var/spillable = FALSE
 	var/list/fill_icon_thresholds = null
-	var/fill_icon_state = null // Optional custom name for reagent fill icon_state prefix
-	var/prevent_grinding = FALSE //used for ungrindable stuff
+	var/fill_icon_state = null 
+	var/prevent_grinding = FALSE 
 
 /obj/item/reagent_containers/Initialize(mapload, vol)
 	. = ..()
@@ -96,7 +96,7 @@
 
 	if(ismob(target) && target.reagents)
 		if(thrown)
-			reagents.total_volume *= rand(5,10) * 0.1 //Not all of it makes contact with the target
+			reagents.total_volume *= rand(5,10) * 0.1 
 		var/mob/M = target
 		var/R
 		target.visible_message("<span class='danger'>[M] has been splashed with something!</span>", \

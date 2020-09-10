@@ -12,7 +12,7 @@
 	var/apply_type = INGEST
 	var/apply_method = "swallow"
 	var/rename_with_volume = FALSE
-	var/self_delay = 0 //pills are instant, this is because patches inheret their aplication from pills
+	var/self_delay = 0 
 	var/dissolvable = TRUE
 
 /obj/item/reagent_containers/pill/Initialize()
@@ -50,7 +50,7 @@
 							"<span class='userdanger'>[user] forces you to [apply_method] [src].</span>")
 
 	var/makes_me_think = pick(strings(REDPILL_FILE, "redpill_questions"))
-	if(icon_state == "pill4" && prob(5)) //you take the red pill - you stay in Wonderland, and I show you how deep the rabbit hole goes
+	if(icon_state == "pill4" && prob(5)) 
 		sleep(50)
 		to_chat(M, "<span class='notice'>[makes_me_think]</span>")
 
@@ -207,7 +207,7 @@
 	list_reagents = list(/datum/reagent/medicine/potass_iodide = 30)
 	
 
-///////////////////////////////////////// this pill is used only in a legion mob drop
+
 /obj/item/reagent_containers/pill/shadowtoxin
 	name = "black pill"
 	desc = "I wouldn't eat this if I were you."
@@ -215,7 +215,7 @@
 	color = "#454545"
 	list_reagents = list(/datum/reagent/mutationtoxin/shadow = 1)
 
-//////////////////////////////////////// drugs
+
 /obj/item/reagent_containers/pill/zoom
 	name = "yellow pill"
 	desc = "A poorly made canary-yellow pill; it is slightly crumbly."

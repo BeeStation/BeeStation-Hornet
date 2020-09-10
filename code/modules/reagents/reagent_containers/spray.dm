@@ -13,11 +13,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
-	var/stream_mode = 0 //whether we use the more focused mode
-	var/current_range = 3 //the range of tiles the sprayer will reach.
-	var/spray_range = 3 //the range of tiles the sprayer will reach when in spray mode.
-	var/stream_range = 1 //the range of tiles the sprayer will reach when in stream mode.
-	var/stream_amount = 10 //the amount of reagents transfered when in stream mode.
+	var/stream_mode = 0 
+	var/current_range = 3 
+	var/spray_range = 3 
+	var/stream_range = 1 
+	var/stream_amount = 10 
 	var/can_fill_from_container = TRUE
 	amount_per_transfer_from_this = 5
 	volume = 250
@@ -37,7 +37,7 @@
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
 
-		var/trans = A.reagents.trans_to(src, 50, transfered_by = user) //transfer 50u , using the spray's transfer amount would take too long to refill
+		var/trans = A.reagents.trans_to(src, 50, transfered_by = user) 
 		to_chat(user, "<span class='notice'>You fill \the [src] with [trans] units of the contents of \the [A].</span>")
 		return
 
@@ -55,7 +55,7 @@
 	var/contained = reagents.log_list()
 
 	log_combat(user, T, "sprayed", src, addition="which had [contained]")
-	log_game("[key_name(user)] fired [contained] from \a [src] at [AREACOORD(T)].") //copypasta falling out of my pockets
+	log_game("[key_name(user)] fired [contained] from \a [src] at [AREACOORD(T)].") 
 	return
 
 
@@ -63,7 +63,7 @@
 	var/range = max(min(current_range, get_dist(src, A)), 1)
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
 	D.create_reagents(amount_per_transfer_from_this)
-	var/puff_reagent_left = range //how many turf, mob or dense objet we can react with before we consider the chem puff consumed
+	var/puff_reagent_left = range 
 	if(stream_mode)
 		reagents.trans_to(D, amount_per_transfer_from_this)
 		puff_reagent_left = 1
@@ -82,7 +82,7 @@
 		sleep(wait_step)
 
 		for(var/atom/T in get_turf(D))
-			if(T == D || T.invisibility) //we ignore the puff itself and stuff below the floor
+			if(T == D || T.invisibility) 
 				continue
 			if(puff_reagent_left <= 0)
 				break
@@ -93,7 +93,7 @@
 					if((M.mobility_flags & MOBILITY_STAND) || !range_left)
 						D.reagents.reaction(M, VAPOR)
 						puff_reagent_left -= 1
-						var/contained = D.reagents.log_list() // looks like more copypasta but now the reagents are in a different place fuck you old coder
+						var/contained = D.reagents.log_list() 
 						log_combat(user, M,  "sprayed with", src, addition="which had [contained]")
 				else if(!range_left)
 					D.reagents.reaction(T, VAPOR)
@@ -106,7 +106,7 @@
 			D.reagents.reaction(get_turf(D), VAPOR)
 			puff_reagent_left -= 1
 
-		if(puff_reagent_left <= 0) // we used all the puff so we delete it.
+		if(puff_reagent_left <= 0) 
 			qdel(D)
 			return
 	qdel(D)
@@ -148,15 +148,15 @@
 		total_reagent_weight = total_reagent_weight + R.reagent_weight
 		amount_of_reagents++
 
-	if(total_reagent_weight && amount_of_reagents) //don't bother if the container is empty - DIV/0
+	if(total_reagent_weight && amount_of_reagents) 
 		var/average_reagent_weight = total_reagent_weight / amount_of_reagents
-		spray_range = CLAMP(round((initial(spray_range) / average_reagent_weight) - ((amount_of_reagents - 1) * 1)), 3, 5) //spray distance between 3 and 5 tiles rounded down; extra reagents lose a tile
+		spray_range = CLAMP(round((initial(spray_range) / average_reagent_weight) - ((amount_of_reagents - 1) * 1)), 3, 5) 
 	else
 		spray_range = initial(spray_range)
 	if(stream_mode == 0)
 		current_range = spray_range
 
-//space cleaner
+
 /obj/item/reagent_containers/spray/cleaner
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner! A warning label reads 'CAUTION! NOT SAFE FOR INGESTION'"
@@ -168,7 +168,7 @@
 /obj/item/reagent_containers/spray/cleaner/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the nozzle of \the [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(do_mob(user,user,30))
-		if(reagents.total_volume >= amount_per_transfer_from_this)//if not empty
+		if(reagents.total_volume >= amount_per_transfer_from_this)
 			user.visible_message("<span class='suicide'>[user] pulls the trigger!</span>")
 			src.spray(user)
 			return BRUTELOSS
@@ -179,7 +179,7 @@
 		user.visible_message("<span class='suicide'>[user] decided life was worth living.</span>")
 		return
 
-//spray tan
+
 /obj/item/reagent_containers/spray/spraytan
 	name = "spray tan"
 	volume = 50
@@ -187,7 +187,7 @@
 	list_reagents = list(/datum/reagent/spraytan = 50)
 
 
-//pepperspray
+
 /obj/item/reagent_containers/spray/pepper
 	name = "pepperspray"
 	desc = "Manufactured by UhangInc, used to blind and down an opponent quickly."
@@ -201,20 +201,20 @@
 	amount_per_transfer_from_this = 5
 	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 50)
 
-/obj/item/reagent_containers/spray/pepper/empty //for protolathe printing
+/obj/item/reagent_containers/spray/pepper/empty 
 	list_reagents = null
 
 /obj/item/reagent_containers/spray/pepper/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins huffing \the [src]! It looks like [user.p_theyre()] getting a dirty high!</span>")
 	return OXYLOSS
 
-// Fix pepperspraying yourself
+
 /obj/item/reagent_containers/spray/pepper/afterattack(atom/A as mob|obj, mob/user)
 	if (A.loc == user)
 		return
 	. = ..()
 
-//water flower
+
 /obj/item/reagent_containers/spray/waterflower
 	name = "water flower"
 	desc = "A seemingly innocent sunflower...with a twist."
@@ -225,7 +225,7 @@
 	volume = 10
 	list_reagents = list(/datum/reagent/water = 10)
 
-/obj/item/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
+/obj/item/reagent_containers/spray/waterflower/attack_self(mob/user) 
 	return
 
 /obj/item/reagent_containers/spray/waterflower/cyborg
@@ -235,7 +235,7 @@
 	var/generate_amount = 5
 	var/generate_type = /datum/reagent/water
 	var/last_generate = 0
-	var/generate_delay = 10	//deciseconds
+	var/generate_delay = 10	
 	can_fill_from_container = FALSE
 
 /obj/item/reagent_containers/spray/waterflower/cyborg/hacked
@@ -245,7 +245,7 @@
 	volume = 3
 	generate_type = /datum/reagent/clf3
 	generate_amount = 1
-	generate_delay = 40		//deciseconds
+	generate_delay = 40		
 
 /obj/item/reagent_containers/spray/waterflower/cyborg/Initialize()
 	. = ..()
@@ -268,7 +268,7 @@
 /obj/item/reagent_containers/spray/waterflower/cyborg/proc/generate_reagents()
 	reagents.add_reagent(generate_type, generate_amount)
 
-//chemsprayer
+
 /obj/item/reagent_containers/spray/chemsprayer
 	name = "chem sprayer"
 	desc = "A utility used to spray large amounts of reagents in a given area."
@@ -287,7 +287,7 @@
 	volume = 600
 
 /obj/item/reagent_containers/spray/chemsprayer/afterattack(atom/A as mob|obj, mob/user)
-	// Make it so the bioterror spray doesn't spray yourself when you click your inventory items
+	
 	if (A.loc == user)
 		return
 	. = ..()
@@ -299,7 +299,7 @@
 	var/turf/T2 = get_step(T,turn(direction, -90))
 	var/list/the_targets = list(T,T1,T2)
 
-	for(var/i=1, i<=3, i++) // intialize sprays
+	for(var/i=1, i<=3, i++) 
 		if(reagents.total_volume < 1)
 			return
 		..(the_targets[i], user)
@@ -322,7 +322,7 @@
 	var/generate_amount = 50
 	var/generate_type = /datum/reagent/space_cleaner
 	var/last_generate = 0
-	var/generate_delay = 10	//deciseconds
+	var/generate_delay = 10	
 
 /obj/item/reagent_containers/spray/chemsprayer/janitor/Initialize()
 	. = ..()
@@ -346,8 +346,8 @@
 	list_reagents = list(/datum/reagent/lube = 1000)
 	generate_type = /datum/reagent/lube
 
-// Plant-B-Gone
-/obj/item/reagent_containers/spray/plantbgone // -- Skie
+
+/obj/item/reagent_containers/spray/plantbgone 
 	name = "Plant-B-Gone"
 	desc = "Kills those pesky weeds!"
 	icon = 'icons/obj/hydroponics/equipment.dmi'

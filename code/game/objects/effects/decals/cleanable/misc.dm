@@ -17,6 +17,22 @@
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
+
+
+/obj/effect/decal/cleanable/ash
+	name = "ashes"
+	desc = "Ashes to ashes, dust to dust, and into space."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "ash"
+	mergeable_decal = FALSE
+
+/obj/effect/decal/cleanable/ash/Initialize()
+	. = ..()
+	reagents.add_reagent(/datum/reagent/ash, 30)
+	pixel_x = rand(-5, 5)
+	pixel_y = rand(-5, 5)
+
+
 /obj/effect/decal/cleanable/ash/crematorium
 //crematoriums need their own ash cause default ash deletes itself if created in an obj
 	turf_loc_check = FALSE

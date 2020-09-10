@@ -7,8 +7,8 @@
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	max_integrity = 300
-	var/tank_volume = 1000 //In units, how much the dispenser can hold
-	var/reagent_id = /datum/reagent/water //The ID of the reagent that the dispenser uses
+	var/tank_volume = 1000 
+	var/reagent_id = /datum/reagent/water 
 
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
@@ -18,7 +18,7 @@
 
 /obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, params)
 	if(W.is_refillable())
-		return 0 //so we can refill them via their afterattack.
+		return 0 
 	else
 		return ..()
 
@@ -48,7 +48,7 @@
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
 	desc = "A highly pressurized water tank made to hold gargantuan amounts of water."
-	icon_state = "water_high" //I was gonna clean my room...
+	icon_state = "water_high" 
 	tank_volume = 100000
 
 /obj/structure/reagent_dispensers/foamtank
@@ -78,12 +78,12 @@
 	boom()
 
 /obj/structure/reagent_dispensers/fueltank/tesla_act()
-	..() //extend the zap
+	..() 
 	boom()
 
 /obj/structure/reagent_dispensers/fueltank/bullet_act(obj/item/projectile/P)
 	. = ..()
-	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
+	if(!QDELETED(src)) 
 		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
 			log_bomber(P.firer, "detonated a", src, "via projectile")
 			boom()
@@ -135,7 +135,7 @@
 	icon_state = "water_cooler"
 	anchored = TRUE
 	tank_volume = 500
-	var/paper_cups = 25 //Paper cups left from the cooler
+	var/paper_cups = 25 
 
 /obj/structure/reagent_dispensers/water_cooler/examine(mob/user)
 	. = ..()
@@ -202,7 +202,7 @@
 /obj/structure/reagent_dispensers/plumbed/storage
 	name = "stationairy storage tank"
 	icon_state = "tank_stationairy"
-	reagent_id = null //start empty
+	reagent_id = null 
 
 /obj/structure/reagent_dispensers/plumbed/storage/ComponentInitialize()
 	AddComponent(/datum/component/plumbing/tank)

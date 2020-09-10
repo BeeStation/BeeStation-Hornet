@@ -1,0 +1,32 @@
+# Config
+# Use this to configure the 'Update DME.py' and 'SS13 Merge Tool.py'
+
+# Replacements 
+# Replace: "hairstyle" "hair-styles"
+# Replace: "///" "//"
+# Replace: "///" "//"
+# Replace: "///" "//"
+# Replace: "// " "//"
+# Replace: "// " "//"
+# Replace: "// " "//"
+
+# Removes all line breaks in general
+# Replace: "linebreakdestroyer" ""
+
+# Removes any double linebreaks
+# Replace: "doublelinebreakdestroyer" ""
+
+# Removes Comments
+# Replace: "regex//.+" ""
+
+# General Cleanups
+# Replace: "HAIR_STYLE" "HAIRSTYLE"
+# Replace: "aint" "ain't"
+
+# Update 'DME.py' Exclude list
+# Exclude: /folder/
+# Exclude: /folder
+# Exclude: folder
+# Exclude: achievements.dm
+Exclude: _readme.dm
+Exclude: unit_tests

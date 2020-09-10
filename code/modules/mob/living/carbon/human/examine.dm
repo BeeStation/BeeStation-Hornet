@@ -134,7 +134,10 @@
 			disabled += BP
 		missing -= BP.body_zone
 		for(var/obj/item/I in BP.embedded_objects)
-			msg += "<B>[t_He] [t_has] \a [icon2html(I, user)] [I] embedded in [t_his] [BP.name]!</B>\n"
+			if(I.embedding.embedded_warning == 1)
+				msg += "<B><a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(BP)]' class='warning'>[BP.name] has \a [I] embedded in it!</a><B>\n"
+			if(I.embedding.embedded_warning == 2)
+				msg += "<B><a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(BP)]' class='warning'>[BP.name] has \a [I] stuck to it!</a><B>\n"
 
 	for(var/X in disabled)
 		var/obj/item/bodypart/BP = X

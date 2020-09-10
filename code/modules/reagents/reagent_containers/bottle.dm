@@ -1,4 +1,4 @@
-//Not to be confused with /obj/item/reagent_containers/food/drinks/bottle
+
 
 /obj/item/reagent_containers/glass/bottle
 	name = "bottle"
@@ -248,13 +248,13 @@
 
 /obj/item/reagent_containers/glass/bottle/gbs
 	name = "GBS culture bottle"
-	desc = "A small bottle. Contains Gravitokinetic Bipotential SADS+ culture in synthblood medium."//Or simply - General BullShit
+	desc = "A small bottle. Contains Gravitokinetic Bipotential SADS+ culture in synthblood medium."
 	amount_per_transfer_from_this = 5
 	spawned_disease = /datum/disease/gbs
 
 /obj/item/reagent_containers/glass/bottle/fake_gbs
 	name = "GBS culture bottle"
-	desc = "A small bottle. Contains Gravitokinetic Bipotential SADS- culture in synthblood medium."//Or simply - General BullShit
+	desc = "A small bottle. Contains Gravitokinetic Bipotential SADS- culture in synthblood medium."
 	spawned_disease = /datum/disease/fake_gbs
 
 /obj/item/reagent_containers/glass/bottle/brainrot
@@ -309,7 +309,7 @@
 	desc = "A small bottle. Contains a sample of nano-feline toxoplasma in synthblood medium"
 	spawned_disease = /datum/disease/transformation/felinid/contagious
 
-//Oldstation.dmm chemical storage bottles
+
 
 /obj/item/reagent_containers/glass/bottle/hydrogen
 	name = "hydrogen bottle"

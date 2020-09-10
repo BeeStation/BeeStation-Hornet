@@ -42,7 +42,7 @@
 				if(!do_mob(user, M))
 					return
 				if(!reagents || !reagents.total_volume)
-					return // The drink might be empty after the delay, such as by spam-feeding
+					return 
 				M.visible_message("<span class='danger'>[user] feeds [M] something.</span>", \
 							"<span class='userdanger'>[user] feeds you something.</span>")
 				log_combat(user, M, "fed", reagents.log_list())
@@ -61,7 +61,7 @@
 	if(!spillable)
 		return
 
-	if(target.is_refillable()) //Something like a glass. Player probably wants to transfer TO it.
+	if(target.is_refillable()) 
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src] is empty!</span>")
 			return
@@ -73,7 +73,7 @@
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
 		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution to [target].</span>")
 
-	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
+	else if(target.is_drainable()) 
 		if(!target.reagents.total_volume)
 			to_chat(user, "<span class='warning'>[target] is empty and can't be refilled!</span>")
 			return
@@ -98,7 +98,7 @@
 		reagents.expose_temperature(hotness)
 		to_chat(user, "<span class='notice'>You heat [name] with [I]!</span>")
 
-	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
+	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) 
 		var/obj/item/reagent_containers/food/snacks/egg/E = I
 		if(reagents)
 			if(reagents.total_volume >= reagents.maximum_volume)
@@ -152,7 +152,7 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,60,120)
 
 /obj/item/reagent_containers/glass/beaker/plastic/update_icon()
-	icon_state = "beakerlarge" // hack to lets us reuse the large beaker reagent fill states
+	icon_state = "beakerlarge" 
 	..()
 	icon_state = "beakerwhite"
 
@@ -230,7 +230,7 @@
 	flags_inv = HIDEHAIR
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 50) //Weak melee protection, because you can wear it on your head
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 50) 
 	slot_equipment_priority = list( \
 		SLOT_BACK, SLOT_WEAR_ID,\
 		SLOT_W_UNIFORM, SLOT_WEAR_SUIT,\
@@ -272,7 +272,7 @@
 	reagents.flags = initial(reagent_flags)
 
 /obj/item/reagent_containers/glass/bucket/equip_to_best_slot(var/mob/M)
-	if(reagents.total_volume) //If there is water in a bucket, don't quick equip it to the head
+	if(reagents.total_volume) 
 		var/index = slot_equipment_priority.Find(SLOT_HEAD)
 		slot_equipment_priority.Remove(SLOT_HEAD)
 		. = ..()
@@ -286,13 +286,13 @@
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "smallbottle"
 	item_state = "bottle"
-	list_reagents = list(/datum/reagent/water = 49.5, /datum/reagent/fluorine = 0.5)//see desc, don't think about it too hard
+	list_reagents = list(/datum/reagent/water = 49.5, /datum/reagent/fluorine = 0.5)
 	materials = list(/datum/material/glass=0)
 	volume = 50
 	amount_per_transfer_from_this = 10
 	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
 
-	// The 2 bottles have separate cap overlay icons because if the bottle falls over while bottle flipping the cap stays fucked on the moved overlay
+	
 	var/cap_icon_state = "bottle_cap_small"
 	var/cap_on = TRUE
 	var/cap_lost = FALSE
@@ -366,14 +366,14 @@
 			to_chat(user, "<span class='warning'>[WB] has a cap firmly twisted on!</span>")
 	. = ..()
 
-// heehoo bottle flipping
+
 /obj/item/reagent_containers/glass/waterbottle/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(cap_on && reagents.total_volume)
-		if(prob(flip_chance)) // landed upright
+		if(prob(flip_chance)) 
 			src.visible_message("<span class='notice'>[src] lands upright!</span>")
 			SEND_SIGNAL(throwingdatum.thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
-		else // landed on it's side
+		else 
 			animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 
 /obj/item/reagent_containers/glass/waterbottle/pickup(mob/user)
@@ -431,9 +431,9 @@
 			to_chat(user, "You start grinding...")
 			if((do_after(user, 25, target = src)) && grinded)
 				user.adjustStaminaLoss(40)
-				if(grinded.reagents) //food and pills
+				if(grinded.reagents) 
 					grinded.reagents.trans_to(src, grinded.reagents.total_volume, transfered_by = user)
-				if(grinded.juice_results) //prioritize juicing
+				if(grinded.juice_results) 
 					grinded.on_juice()
 					reagents.add_reagent_list(grinded.juice_results)
 					to_chat(user, "You juice [grinded] into a fine liquid.")

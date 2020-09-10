@@ -19,7 +19,7 @@
 /datum/reagent/nitroglycerin
 	name = "Nitroglycerin"
 	description = "Nitroglycerin is a heavy, colorless, oily, explosive liquid obtained by nitrating glycerol."
-	color = "#808080" // rgb: 128, 128, 128
+	color = "#808080" 
 	taste_description = "oil"
 
 /datum/reagent/stabilizing_agent
@@ -49,7 +49,7 @@
 /datum/reagent/clf3/reaction_turf(turf/T, reac_volume)
 	if(isplatingturf(T))
 		var/turf/open/floor/plating/F = T
-		if(prob(10 + F.burnt + 5*F.broken)) //broken or burnt plating is more susceptible to being destroyed
+		if(prob(10 + F.burnt + 5*F.broken)) 
 			F.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 	if(isfloorturf(T))
 		var/turf/open/floor/F = T
@@ -181,7 +181,7 @@
 	random_unrestricted = FALSE
 
 
-/datum/reagent/cryostylane/on_mob_life(mob/living/carbon/M) //TODO: code freezing into an ice cube
+/datum/reagent/cryostylane/on_mob_life(mob/living/carbon/M) 
 	if(M.reagents.has_reagent(/datum/reagent/oxygen))
 		M.reagents.remove_reagent(/datum/reagent/oxygen, 0.5)
 		M.adjust_bodytemperature(-15)
@@ -208,11 +208,11 @@
 		M.adjust_bodytemperature(15)
 	..()
 
-/datum/reagent/teslium //Teslium. Causes periodic shocks, and makes shocks against the target much more effective.
+/datum/reagent/teslium 
 	name = "Teslium"
 	description = "An unstable, electrically-charged metallic slurry. Periodically electrocutes its victim, and makes electrocutions against them more deadly. Excessively heating teslium results in dangerous destabilization. Do not allow to come into contact with water."
 	reagent_state = LIQUID
-	color = "#20324D" //RGB: 32, 50, 77
+	color = "#20324D" 
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "charged metal"
 	self_consuming = TRUE
@@ -221,9 +221,9 @@
 
 /datum/reagent/teslium/on_mob_life(mob/living/carbon/M)
 	shock_timer++
-	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
+	if(shock_timer >= rand(5,30)) 
 		shock_timer = 0
-		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
+		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) 
 		playsound(M, "sparks", 50, 1)
 	..()
 
@@ -236,7 +236,7 @@
 
 /datum/reagent/teslium/energized_jelly/on_mob_life(mob/living/carbon/M)
 	if(isjellyperson(M))
-		shock_timer = 0 //immune to shocks
+		shock_timer = 0 
 		M.AdjustAllImmobility(-40, FALSE)
 		M.adjustStaminaLoss(-2, 0)
 		if(isluminescent(M))
@@ -261,7 +261,7 @@
 		if(!F)
 			F = new(T)
 		else if(istype(F))
-			F.lifetime = initial(F.lifetime) //reduce object churn a little bit when using smoke by keeping existing foam alive a bit longer
+			F.lifetime = initial(F.lifetime) 
 
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot && !isspaceturf(T))

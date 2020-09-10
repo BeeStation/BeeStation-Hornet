@@ -1,4 +1,4 @@
-#define REAGENTS_BASE_VOLUME 100 // actual volume is REAGENTS_BASE_VOLUME plus REAGENTS_BASE_VOLUME * rating for each matterbin
+#define REAGENTS_BASE_VOLUME 100 
 
 /obj/machinery/smoke_machine
 	name = "smoke machine"
@@ -14,9 +14,9 @@
 	var/on = FALSE
 	var/cooldown = 0
 	var/screen = "home"
-	var/useramount = 30 // Last used amount
-	var/setting = 1 // displayed range is 3 * setting
-	var/max_range = 3 // displayed max range is 3 * max range
+	var/useramount = 30 
+	var/setting = 1 
+	var/max_range = 3 
 
 /datum/effect_system/smoke_spread/chem/smoke_machine/set_up(datum/reagents/carry, setting=1, efficiency=10, loc, silent=FALSE)
 	amount = setting
@@ -56,7 +56,7 @@
 		create_reagents(new_volume)
 	reagents.maximum_volume = new_volume
 	if(new_volume < reagents.total_volume)
-		reagents.reaction(loc, TOUCH) // if someone manages to downgrade it without deconstructing
+		reagents.reaction(loc, TOUCH) 
 		reagents.clear_reagents()
 	efficiency = 9
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
@@ -116,7 +116,7 @@
 	var/TankContents[0]
 	var/TankCurrentVolume = 0
 	for(var/datum/reagent/R in reagents.reagent_list)
-		TankContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
+		TankContents.Add(list(list("name" = R.name, "volume" = R.volume))) 
 		TankCurrentVolume += R.volume
 	data["TankContents"] = TankContents
 	data["isTankLoaded"] = reagents.total_volume ? TRUE : FALSE

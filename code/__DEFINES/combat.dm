@@ -134,6 +134,9 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define EMBED_THROWSPEED_THRESHOLD				4	//! The minimum value of an item's throw_speed for it to embed (Unless it has embedded_ignore_throwspeed_threshold set to 1)
 #define EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER 8	//! Coefficient of multiplication for the damage the item does when removed without a surgery `(this*item.w_class)`
 #define EMBEDDED_UNSAFE_REMOVAL_TIME			30	//! A Time in ticks, total removal `time = (this*item.w_class)`
+#define EMBEDDED_BLOOD							1	//! Decides if blood should be created on embed hit
+#define EMBEDDED_WARNING						1	//! Decides message + hud elements on embed hit
+#define EMBEDDED_TAPED							0	//! Handles logic for self sticking and tape reapplication check
 
 // Gun weapon weight
 #define WEAPON_LIGHT 1

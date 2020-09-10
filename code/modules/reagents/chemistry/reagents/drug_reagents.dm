@@ -2,7 +2,7 @@
 	name = "Drug"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "bitterness"
-	var/trippy = TRUE //Does this drug make you trip?
+	var/trippy = TRUE 
 
 /datum/reagent/drug/on_mob_end_metabolize(mob/living/M)
 	if(trippy)
@@ -11,7 +11,7 @@
 /datum/reagent/drug/space_drugs
 	name = "Space drugs"
 	description = "An illegal chemical compound used as drug."
-	color = "#60A584" // rgb: 96, 165, 132
+	color = "#60A584" 
 	overdose_threshold = 30
 
 /datum/reagent/drug/space_drugs/on_mob_life(mob/living/carbon/M)
@@ -37,7 +37,7 @@
 	name = "Nicotine"
 	description = "Slightly reduces stun times. If overdosed it will deal toxin and oxygen damage."
 	reagent_state = LIQUID
-	color = "#60A584" // rgb: 96, 165, 132
+	color = "#60A584" 
 	addiction_threshold = 10
 	taste_description = "smoke"
 	trippy = FALSE
@@ -168,7 +168,7 @@
 	CHECK_DNA_AND_SPECIES(M)
 	if(!istype(M.dna.species, /datum/species/krokodil_addict))
 		to_chat(M, "<span class='userdanger'>Your skin falls off easily!</span>")
-		M.adjustBruteLoss(50*REM, 0) // holy shit your skin just FELL THE FUCK OFF
+		M.adjustBruteLoss(50*REM, 0) 
 		M.set_species(/datum/species/krokodil_addict)
 	else
 		M.adjustBruteLoss(5*REM, 0)
@@ -270,7 +270,7 @@
 	color = "#FAFAFA"
 	overdose_threshold = 20
 	addiction_threshold = 10
-	taste_description = "salt" // because they're bathsalts?
+	taste_description = "salt" 
 	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
 
 /datum/reagent/drug/bath_salts/on_mob_metabolize(mob/living/L)
@@ -439,7 +439,7 @@
 	..()
 	. = 1
 
-/datum/reagent/drug/happiness/addiction_act_stage1(mob/living/M)// all work and no play makes jack a dull boy
+/datum/reagent/drug/happiness/addiction_act_stage1(mob/living/M)
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	mood.setSanity(min(mood.sanity, SANITY_DISTURBED))
 	M.Jitter(5)

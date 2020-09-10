@@ -60,7 +60,7 @@
 	name = "Miner's Salve"
 	id = /datum/reagent/medicine/mine_salve
 	results = list(/datum/reagent/medicine/mine_salve = 15)
-	required_reagents = list(/datum/reagent/toxin/plasma = 5, /datum/reagent/iron = 5, /datum/reagent/consumable/sugar = 1) // A sheet of plasma, a twinkie and a sheet of metal makes four of these
+	required_reagents = list(/datum/reagent/toxin/plasma = 5, /datum/reagent/iron = 5, /datum/reagent/consumable/sugar = 1) 
 
 /datum/chemical_reaction/synthflesh
 	name = "Synthflesh"
@@ -270,7 +270,7 @@
 	id = /datum/reagent/medicine/modafinil
 	results = list(/datum/reagent/medicine/modafinil = 5)
 	required_reagents = list(/datum/reagent/diethylamine = 1, /datum/reagent/ammonia = 1, /datum/reagent/phenol = 1, /datum/reagent/acetone = 1, /datum/reagent/toxin/acid = 1)
-	required_catalysts = list(/datum/reagent/bromine = 1) // as close to the real world synthesis as possible
+	required_catalysts = list(/datum/reagent/bromine = 1) 
 
 /datum/chemical_reaction/psicodine
 	name = "Psicodine"

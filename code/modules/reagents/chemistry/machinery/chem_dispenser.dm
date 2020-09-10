@@ -35,7 +35,7 @@
 	var/nopower_state = "dispenser_nopower"
 	var/has_panel_overlay = TRUE
 	var/obj/item/reagent_containers/beaker = null
-	//dispensable_reagents is copypasted in plumbing synthesizers. Please update accordingly. (I didn't make it global because that would limit custom chem dispensers)
+	
 	var/list/dispensable_reagents = list(
 		/datum/reagent/aluminium,
 		/datum/reagent/bromine,
@@ -64,7 +64,7 @@
 		/datum/reagent/water,
 		/datum/reagent/fuel
 	)
-	//these become available once the manipulator has been upgraded to tier 4 (femto)
+	
 	var/list/upgrade_reagents = list(
 		/datum/reagent/acetone,
 		/datum/reagent/ammonia,
@@ -148,7 +148,7 @@
 		to_chat(user, "<span class='warning'>[src] has no functional safeties to emag.</span>")
 		return
 	to_chat(user, "<span class='notice'>You short out [src]'s safeties.</span>")
-	dispensable_reagents |= emagged_reagents//add the emagged reagents to the dispensable ones
+	dispensable_reagents |= emagged_reagents
 	obj_flags |= EMAGGED
 
 /obj/machinery/chem_dispenser/ex_act(severity, target)
@@ -172,13 +172,13 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "ChemDispenser", name, ui_x, ui_y, master_ui, state)
 		if(user.hallucinating())
-			ui.set_autoupdate(FALSE) //to not ruin the immersion by constantly changing the fake chemicals
+			ui.set_autoupdate(FALSE) 
 		ui.open()
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
 	var/data = list()
 	data["amount"] = amount
-	data["energy"] = cell.charge ? cell.charge * powerefficiency : "0" //To prevent NaN in the UI.
+	data["energy"] = cell.charge ? cell.charge * powerefficiency : "0" 
 	data["maxEnergy"] = cell.maxcharge * powerefficiency
 	data["isBeakerLoaded"] = beaker ? 1 : 0
 
@@ -186,7 +186,7 @@
 	var/beakerCurrentVolume = 0
 	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
+			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) 
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
@@ -331,7 +331,7 @@
 		return
 	if(istype(I, /obj/item/reagent_containers) && !(I.item_flags & ABSTRACT) && I.is_open_container())
 		var/obj/item/reagent_containers/B = I
-		. = TRUE //no afterattack
+		. = TRUE 
 		if(!user.transferItemToLoc(B, src))
 			return
 		replace_beaker(user, B)
@@ -413,7 +413,7 @@
 	var/old = dir
 	. = ..()
 	if(dir != old)
-		update_icon()  // the beaker needs to be re-positioned if we rotate
+		update_icon()  
 
 /obj/machinery/chem_dispenser/drinks/display_beaker()
 	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
@@ -427,7 +427,7 @@
 		if(WEST)
 			b_o.pixel_x = -5
 			b_o.pixel_y = rand(-5, 7)
-		else//SOUTH
+		else
 			b_o.pixel_y = -7
 			b_o.pixel_x = rand(-9, 9)
 	return b_o
@@ -477,14 +477,14 @@
 		/datum/reagent/toxin/staminatoxin
 	)
 
-/obj/machinery/chem_dispenser/drinks/fullupgrade //fully ugpraded stock parts, emagged
+/obj/machinery/chem_dispenser/drinks/fullupgrade 
 	desc = "Contains a large reservoir of soft drinks. This model has had its safeties shorted out."
 	obj_flags = CAN_BE_HIT | EMAGGED
 	flags_1 = NODECONSTRUCT_1
 
 /obj/machinery/chem_dispenser/drinks/fullupgrade/Initialize()
 	. = ..()
-	dispensable_reagents |= emagged_reagents //adds emagged reagents
+	dispensable_reagents |= emagged_reagents 
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/chem_dispenser/drinks(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
@@ -530,14 +530,14 @@
 		/datum/reagent/consumable/ethanol/fernet
 	)
 
-/obj/machinery/chem_dispenser/drinks/beer/fullupgrade //fully ugpraded stock parts, emagged
+/obj/machinery/chem_dispenser/drinks/beer/fullupgrade 
 	desc = "Contains a large reservoir of the good stuff. This model has had its safeties shorted out."
 	obj_flags = CAN_BE_HIT | EMAGGED
 	flags_1 = NODECONSTRUCT_1
 
 /obj/machinery/chem_dispenser/drinks/beer/fullupgrade/Initialize()
 	. = ..()
-	dispensable_reagents |= emagged_reagents //adds emagged reagents
+	dispensable_reagents |= emagged_reagents 
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/chem_dispenser/drinks/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
@@ -614,14 +614,14 @@
 
 
 
-/obj/machinery/chem_dispenser/fullupgrade //fully ugpraded stock parts, emagged
+/obj/machinery/chem_dispenser/fullupgrade 
 	desc = "Creates and dispenses chemicals. This model has had its safeties shorted out."
 	obj_flags = CAN_BE_HIT | EMAGGED
 	flags_1 = NODECONSTRUCT_1
 
 /obj/machinery/chem_dispenser/fullupgrade/Initialize()
 	. = ..()
-	dispensable_reagents |= emagged_reagents //adds emagged reagents
+	dispensable_reagents |= emagged_reagents 
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)

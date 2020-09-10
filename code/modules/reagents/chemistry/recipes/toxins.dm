@@ -63,7 +63,7 @@
 	results = list(/datum/reagent/toxin/chloralhydrate = 1)
 	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/chlorine = 3, /datum/reagent/water = 1)
 
-/datum/chemical_reaction/mutetoxin //i'll just fit this in here snugly between other unfun chemicals :v
+/datum/chemical_reaction/mutetoxin 
 	name = "Mute Toxin"
 	id = /datum/reagent/toxin/mutetoxin
 	results = list(/datum/reagent/toxin/mutetoxin = 2)

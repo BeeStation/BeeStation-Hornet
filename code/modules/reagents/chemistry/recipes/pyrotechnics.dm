@@ -17,7 +17,7 @@
 		if(lastkey)
 			var/mob/toucher = get_mob_by_key(lastkey)
 			touch_msg = "[ADMIN_LOOKUPFLW(toucher)]"
-		if(!istype(holder.my_atom, /obj/machinery/plumbing)) //excludes standard plumbing equipment from spamming admins with this shit
+		if(!istype(holder.my_atom, /obj/machinery/plumbing)) 
 			message_admins("Reagent explosion reaction occurred at [ADMIN_VERBOSEJMP(T)][inside_msg]. Last Fingerprint: [touch_msg].")
 		log_game("Reagent explosion reaction occurred at [AREACOORD(T)]. Last Fingerprint: [lastkey ? lastkey : "N/A"]." )
 		var/datum/effect_system/reagents_explosion/e = new()
@@ -110,12 +110,12 @@
 /datum/chemical_reaction/emp_pulse
 	name = "EMP Pulse"
 	id = "emp_pulse"
-	required_reagents = list(/datum/reagent/uranium = 1, /datum/reagent/iron = 1) // Yes, laugh, it's the best recipe I could think of that makes a little bit of sense
+	required_reagents = list(/datum/reagent/uranium = 1, /datum/reagent/iron = 1) 
 
 /datum/chemical_reaction/emp_pulse/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	// 100 created volume = 4 heavy range & 7 light range. A few tiles smaller than traitor EMP grandes.
-	// 200 created volume = 8 heavy range & 14 light range. 4 tiles larger than traitor EMP grenades.
+	
+	
 	empulse(location, round(created_volume / 12), round(created_volume / 7), 1)
 	holder.clear_reagents()
 
@@ -160,12 +160,12 @@
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf in range(1,T))
 		new /obj/effect/hotspot(turf)
-	holder.chem_temp = 1000 // hot as shit
+	holder.chem_temp = 1000 
 
 /datum/chemical_reaction/reagent_explosion/methsplosion
 	name = "Meth explosion"
 	id = "methboom1"
-	required_temp = 380 //slightly above the meth mix time.
+	required_temp = 380 
 	required_reagents = list(/datum/reagent/drug/methamphetamine = 1)
 	strengthdiv = 6
 	modifier = 1
@@ -175,13 +175,13 @@
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf in range(1,T))
 		new /obj/effect/hotspot(turf)
-	holder.chem_temp = 1000 // hot as shit
+	holder.chem_temp = 1000 
 	..()
 
 /datum/chemical_reaction/reagent_explosion/methsplosion/methboom2
 	id = "methboom2"
-	required_reagents = list(/datum/reagent/diethylamine = 1, /datum/reagent/iodine = 1, /datum/reagent/phosphorus = 1, /datum/reagent/hydrogen = 1) //diethylamine is often left over from mixing the ephedrine.
-	required_temp = 300 //room temperature, chilling it even a little will prevent the explosion
+	required_reagents = list(/datum/reagent/diethylamine = 1, /datum/reagent/iodine = 1, /datum/reagent/phosphorus = 1, /datum/reagent/hydrogen = 1) 
+	required_temp = 300 
 
 /datum/chemical_reaction/sorium
 	name = "Sorium"
@@ -371,7 +371,7 @@
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/stable_plasma = 1, /datum/reagent/nitrogen = 1)
 
 /datum/chemical_reaction/cryostylane/on_reaction(datum/reagents/holder, created_volume)
-	holder.chem_temp = 20 // cools the fuck down
+	holder.chem_temp = 20 
 	return
 
 /datum/chemical_reaction/cryostylane_oxygen
@@ -401,7 +401,7 @@
 	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/phosphorus = 1)
 
 /datum/chemical_reaction/pyrosium/on_reaction(datum/reagents/holder, created_volume)
-	holder.chem_temp = 20 // also cools the fuck down
+	holder.chem_temp = 20 
 	return
 
 /datum/chemical_reaction/teslium
@@ -430,7 +430,7 @@
 	var/tesla_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE | TESLA_MOB_STUN
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning/on_reaction(datum/reagents/holder, created_volume)
-	var/T1 = created_volume * 20		//100 units : Zap 3 times, with powers 2000/5000/12000. Tesla revolvers have a power of 10000 for comparison.
+	var/T1 = created_volume * 20		
 	var/T2 = created_volume * 50
 	var/T3 = created_volume * 120
 	sleep(5)
@@ -442,7 +442,7 @@
 		tesla_zap(holder.my_atom, 7, T2, tesla_flags)
 		playsound(holder.my_atom, 'sound/machines/defib_zap.ogg', 50, 1)
 		sleep(15)
-	if(created_volume >= 10)			//10 units minimum for lightning, 40 units for secondary blast, 75 units for tertiary blast.
+	if(created_volume >= 10)			
 		tesla_zap(holder.my_atom, 7, T3, tesla_flags)
 		playsound(holder.my_atom, 'sound/machines/defib_zap.ogg', 50, 1)
 	..()

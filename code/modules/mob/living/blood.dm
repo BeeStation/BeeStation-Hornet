@@ -78,9 +78,13 @@
 			var/obj/item/bodypart/BP = X
 			var/brutedamage = BP.brute_dam
 
-			//We want an accurate reading of .len
+			var/validembed = 0
 			listclearnulls(BP.embedded_objects)
-			temp_bleed += 0.5*BP.embedded_objects.len
+			for(var/Y in BP.embedded_objects)
+				var/obj/item/EO = Y
+				if(!EO.embedding.embedded_blood == 0)
+					validembed = validembed + 1
+			temp_bleed += 0.5*validembed
 
 			if(brutedamage >= 20)
 				temp_bleed += (brutedamage * 0.013)

@@ -30,7 +30,7 @@
 	. = ..()
 	if(beaker)
 		var/is_close
-		if(Adjacent(user)) //don't reveal exactly what's inside unless they're close enough to see the UI anyway.
+		if(Adjacent(user)) 
 			. += "It contains \a [beaker]."
 			is_close = TRUE
 		else
@@ -236,7 +236,7 @@
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers) && !(I.item_flags & ABSTRACT) && I.is_open_container())
-		. = TRUE //no afterattack
+		. = TRUE 
 		if(stat & (NOPOWER|BROKEN))
 			return
 		if(beaker)

@@ -19,13 +19,13 @@
 	var/chosenPillStyle = 1
 	var/screen = "home"
 	var/analyzeVars[0]
-	var/useramount = 30 // Last used amount
+	var/useramount = 30 
 	var/list/pillStyles = null
 
 /obj/machinery/chem_master/Initialize()
 	create_reagents(100)
 
-	//Calculate the span tags and ids fo all the available pill icons
+	
 	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
 	pillStyles = list()
 	for (var/x in 1 to PILL_STYLE_COUNT)
@@ -89,12 +89,12 @@
 	if(default_unfasten_wrench(user, I))
 		return
 	if(istype(I, /obj/item/reagent_containers) && !(I.item_flags & ABSTRACT) && I.is_open_container())
-		. = TRUE // no afterattack
+		. = TRUE 
 		if(panel_open)
 			to_chat(user, "<span class='warning'>You can't use the [src.name] while its panel is opened!</span>")
 			return
 		var/obj/item/reagent_containers/B = I
-		. = TRUE // no afterattack
+		. = TRUE 
 		if(!user.transferItemToLoc(B, src))
 			return
 		replace_beaker(user, B)
@@ -149,7 +149,7 @@
 		ui = new(user, src, ui_key, "ChemMaster", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
-//Insert our custom spritesheet css link into the html
+
 /obj/machinery/chem_master/ui_base_html(html)
 	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
 	. = replacetext(html, "<!--customheadhtml-->", assets.css_tag())
@@ -173,16 +173,16 @@
 	var/beakerContents[0]
 	if(beaker)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "id" = ckey(R.name), "volume" = R.volume))) // list in a list because Byond merges the first list...
+			beakerContents.Add(list(list("name" = R.name, "id" = ckey(R.name), "volume" = R.volume))) 
 	data["beakerContents"] = beakerContents
 
 	var/bufferContents[0]
 	if(reagents.total_volume)
 		for(var/datum/reagent/N in reagents.reagent_list)
-			bufferContents.Add(list(list("name" = N.name, "id" = ckey(N.name), "volume" = N.volume))) // ^
+			bufferContents.Add(list(list("name" = N.name, "id" = ckey(N.name), "volume" = N.volume))) 
 	data["bufferContents"] = bufferContents
 
-	//Calculated at init time as it never changes
+	
 	data["pillStyles"] = pillStyles
 	return data
 
@@ -208,7 +208,7 @@
 		var/reagent = GLOB.name2reagent[params["id"]]
 		var/amount = text2num(params["amount"])
 		var/to_container = params["to"]
-		// Custom amount
+		
 		if (amount == -1)
 			amount = text2num(input(
 				"Enter the amount you want to transfer:",
@@ -239,7 +239,7 @@
 		if(reagents.total_volume == 0)
 			return FALSE
 		var/item_type = params["type"]
-		// Get amount of items
+		
 		var/amount = text2num(params["amount"])
 		if(amount == null)
 			amount = text2num(input(usr,
@@ -248,7 +248,7 @@
 		amount = clamp(round(amount), 0, 10)
 		if (amount <= 0)
 			return FALSE
-		// Get units per item
+		
 		var/vol_each = text2num(params["volume"])
 		var/vol_each_text = params["volume"]
 		var/vol_each_max = reagents.total_volume / amount
@@ -274,7 +274,7 @@
 		vol_each = clamp(vol_each, 0, vol_each_max)
 		if(vol_each <= 0)
 			return FALSE
-		// Get item name
+		
 		var/name = params["name"]
 		var/name_has_units = item_type == "pill" || item_type == "patch"
 		if(!name)
@@ -288,7 +288,7 @@
 				MAX_NAME_LEN)
 		if(!name || !reagents.total_volume || !src || QDELETED(src) || !usr.canUseTopic(src, !issilicon(usr)))
 			return FALSE
-		// Start filling
+		
 		if(item_type == "pill")
 			var/obj/item/reagent_containers/pill/P
 			var/target_loc = drop_location()
@@ -358,7 +358,7 @@
 				state = "Liquid"
 			else if(initial(R.reagent_state) == 3)
 				state = "Gas"
-			var/const/P = 3 //The number of seconds between life ticks
+			var/const/P = 3 
 			var/T = initial(R.metabolization_rate) * (60 / P)
 			analyzeVars = list("name" = initial(R.name), "state" = state, "color" = initial(R.color), "description" = initial(R.description), "metaRate" = T, "overD" = initial(R.overdose_threshold), "addicD" = initial(R.addiction_threshold))
 			screen = "analyze"
@@ -384,7 +384,7 @@
 		return 0
 
 
-/obj/machinery/chem_master/adjust_item_drop_location(atom/movable/AM) // Special version for chemmasters and condimasters
+/obj/machinery/chem_master/adjust_item_drop_location(atom/movable/AM) 
 	if (AM == beaker)
 		AM.pixel_x = -8
 		AM.pixel_y = 8
