@@ -1,5 +1,5 @@
 /datum/symptom/flesh
-	name = "exolocomotive xenomitosis"
+	name = "Exolocomotive Xenomitosis"
 	desc = "The virus will grow on any surfaces it can, such as the host's skin, or even the ground, should the host remain stationary"
 	stealth = -2
 	resistance = 3
@@ -45,14 +45,14 @@
 	var/mob/living/M = A.affected_mob
 	var/list/diseases = list(A)
 	var/healfactor = 0
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
 		switch(A.stage)
 			if(5)
-				if(currentloc == H.loc)
+				if(currentloc == C.loc)
 					cycles += 1
-				else if(isturf(H.loc) && !isspaceturf(H.loc))
-					currentloc = H.loc
+				else if(isturf(C.loc) && !isspaceturf(C.loc))
+					currentloc = C.loc
 					cycles = 0
 					lastcycle = 0
 				var/obj/structure/alien/flesh/W = locate(/obj/structure/alien/flesh) in currentloc
@@ -64,7 +64,7 @@
 						if(round(cycles / requiredcycles) >= lastcycle && node.node_range < maxradius)
 							node.node_range += 1
 							lastcycle += 1
-					if(!(H.mobility_flags & MOBILITY_STAND))
+					if(!(C.mobility_flags & MOBILITY_STAND))
 						healfactor *= 2
 				else if(round(cycles / requiredcycles) >= 1)
 					if(A.properties["transmittable"] >= 10)
@@ -79,25 +79,33 @@
 						N.node_range = 0
 					else
 						new /obj/structure/alien/flesh(currentloc, diseases)
-					H.visible_message("<span class='warning'>the film on [H]'s skin grows onto the floor!</span>", "<span class='userdanger'>The film creeping along your skin secretes onto the floor!</span>")
+					C.visible_message("<span class='warning'>the film on [C]'s skin grows onto the floor!</span>", "<span class='userdanger'>The film creeping along your skin secretes onto the floor!</span>")
 					lastcycle += 1
 				if(A.properties["stage_rate"] >= 8)
 					healfactor += 0.5
-					M.heal_overall_damage(healfactor, required_status = BODYPART_ORGANIC)//max passive healing is 4.5, whilst laying down on a node.
-				if(H.skin_tone == "pink")
-					return
-				else if(H.dna.features["mcolor"] == "D37")
-					return
-				if(H.dna.species.use_skintones)
-					H.skin_tone = "pink"
-					H.visible_message("<span class='warning'>a film of pinkish material grows over [H]'s skin!</span>", "<span class='userdanger'>Your skin is completely covered by a film of pinkish, fleshy mass!</span>")
-					H.regenerate_icons()
-				else if(MUTCOLORS in H.dna.species.species_traits)
-					H.dna.features["mcolor"] = "D37" //pinkish red
-					H.visible_message("<span class='warning'>a film of pinkish material grows over [H]'s skin!</span>", "<span class='userdanger'>Your skin is completely covered by a film of pinkish, fleshy mass!</span>")
-					H.regenerate_icons()
+					C.heal_overall_damage(healfactor, required_status = BODYPART_ORGANIC)//max passive healing is 4.5, whilst laying down on a node.
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					if(istype(H.dna.species, /datum/species/zombie/infectious))
+						var/datum/species/zombie/infectious/Z = H.dna.species
+						if(Z.limbs_id == "pinkzombie")
+							return 
+						else
+							Z.limbs_id = "pinkzombie"
+							H.regenerate_icons()
+					if(H.skin_tone == "pink")
+						return
+					else if(H.dna.features["mcolor"] == "D37")
+						return
+					if(H.dna.species.use_skintones)
+						H.skin_tone = "pink"
+						H.visible_message("<span class='warning'>a film of pinkish material grows over [H]'s skin!</span>", "<span class='userdanger'>Your skin is completely covered by a film of pinkish, fleshy mass!</span>")
+						H.regenerate_icons()
+					else if(MUTCOLORS in H.dna.species.species_traits)
+						H.dna.features["mcolor"] = "D37" //pinkish red
+						H.visible_message("<span class='warning'>a film of pinkish material grows over [H]'s skin!</span>", "<span class='userdanger'>Your skin is completely covered by a film of pinkish, fleshy mass!</span>")
+						H.regenerate_icons()
 				
-
 /datum/symptom/flesh/End(datum/disease/advance/A)
 	. = ..()
 	var/mob/living/M = A.affected_mob
