@@ -147,10 +147,29 @@
 	//Standard reach turf to turf or reaching inside storage
 	if(CanReach(A,W))
 		if(W)
-			if(ishuman(src) && src.a_intent == INTENT_HARM)
+			var/itemcount = LAZYLEN(src.held_items)
+
+			if(ishuman(src) && src.a_intent == INTENT_HARM && itemcount > 1)
+				var/original = src.get_active_held_item()
+				var/attackcount = 0
+
+
+				// This should probably account for attack speed or something
 				for(var/obj/item/B in src.held_items)
-					B.melee_attack_chain(src, A, params)
-					sleep(3)
+					if(attackcount == 0)
+						B.melee_attack_chain(src, A, params)
+						sleep(3)
+						attackcount = 1
+
+					if(B != original)
+						src.activate_hand(src.get_held_index_of_item(B))
+						B.melee_attack_chain(src, A, params)
+						attackcount = attackcount + 1
+						if(attackcount < itemcount)
+							sleep(3)
+
+				src.activate_hand(src.get_held_index_of_item(original))
+
 			else
 				W.melee_attack_chain(src, A, params)
 		else

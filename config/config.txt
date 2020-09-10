@@ -237,16 +237,16 @@ CHECK_RANDOMIZER
 SERVER  byond://golden.beestation13.com:7777
 
 ## forum address
-FORUMURL http://forums.beestation13.com
+FORUMURL https://discord.gg/BPauwGM
 
 ## Wiki address
 WIKIURL https://wiki.beestation13.com/view
 
 ## Rules address
-RULESURL http://beestation13.com/rules?server=bs_golden
+RULESURL https://discord.gg/BPauwGM
 
 ## Github address
-GITHUBURL https://www.github.com/beestation/beestation-hornet
+GITHUBURL https://github.com/CarpStation/CarpStation
 
 ## Label to tag ingame-registered issues with.
 ## Uncomment this to enable them.
@@ -256,7 +256,7 @@ GITHUBURL https://www.github.com/beestation/beestation-hornet
 DONATEURL https://www.patreon.com/user?u=10639001
 
 ## Discord Invite
-DISCORDURL https://discord.gg/zUe34rs
+DISCORDURL https://discord.gg/BPauwGM
 
 ## Round specific stats address
 ## Link to round specific parsed logs; IE statbus. It is appended with the RoundID automatically by ticker/Reboot()

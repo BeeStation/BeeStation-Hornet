@@ -410,7 +410,7 @@
 		else
 			E.extrapolate(src, diseases, user)
 		return TRUE
-	else 
+	else
 		return FALSE
 
 
