@@ -542,3 +542,8 @@
 		log_attack("[log_msg] [loc_name(user)]")
 		return TRUE
 	return FALSE
+
+/obj/item/dnainjector/activator/elementx
+	name = "\improper Element X Injector"
+	desc = "For when the spiders crawling out of xenobiology just aren't radioactive enough. "
+	add_mutations = list(XRAY,TK,CHAMELEON,LASEREYES,ANTENNA,MINDREAD,OLFACTION,INSULATED,SHOCKTOUCH,GIGANTISM,GELADIKINESIS,CRYOKINESIS,THERMAL,GLOWY,ANTIGLOWY,SPACEMUT,TELEPATHY,FIREBREATH,STRONG)

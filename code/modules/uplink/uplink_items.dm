@@ -1847,6 +1847,14 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	cost = 6
 	restricted_roles = list("Geneticist", "Chief Medical Officer")
 
+/datum/uplink_item/stealthy_tools/elementx
+	name = "Element X"
+	desc = "While reading those comic books, I'm sure you wondered what it's like to have super powers of your favorite comic hero or villain. \ Well dream no longer! Unlock your true potential with Element X, and become the supervillain of your story! \ The Syndicate does not supply a costume... Or a superhero nemesis."
+	item = /obj/item/dnainjector/activator/elementx
+	cost = 3
+	surplus = 30
+	restricted_roles = list("Curator")
+
 /datum/uplink_item/role_restricted/rad_laser
 	name = "Radioactive Microlaser"
 	desc = "A radioactive microlaser disguised as a standard Nanotrasen health analyzer. When used, it emits a \
