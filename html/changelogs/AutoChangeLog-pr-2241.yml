@@ -1,5 +1,0 @@
-author: Victor239
-delete-after: true
-changes:
-  - bugfix: Security webbing has +1 slot compared to sec belts again, and sec belts
-      allow you to use all slots again.
