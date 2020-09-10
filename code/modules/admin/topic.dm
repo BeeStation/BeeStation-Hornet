@@ -1976,59 +1976,6 @@
 
 		usr << browse(dat.Join("<br>"), "window=related_[C];size=420x300")
 
-	else if(href_list["centcomlookup"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		if(!CONFIG_GET(string/centcom_ban_db))
-			to_chat(usr, "<span class='warning'>Centcom Galactic Ban DB is disabled!</span>")
-			return
-
-		var/ckey = href_list["centcomlookup"]
-
-		// Make the request
-		var/datum/http_request/request = new()
-		request.prepare(RUSTG_HTTP_METHOD_GET, "[CONFIG_GET(string/centcom_ban_db)]/[ckey]", "", "")
-		request.begin_async()
-		UNTIL(request.is_complete() || !usr)
-		if (!usr)
-			return
-		var/datum/http_response/response = request.into_response()
-
-		var/list/bans
-
-		var/list/dat = list()
-
-		if(response.errored)
-			dat += "<br>Failed to connect to CentCom."
-		else if(response.status_code != 200)
-			dat += "<br>Failed to connect to CentCom. Status code: [response.status_code]"
-		else
-			if(response.body == "[]")
-				dat += "<center><b>0 bans detected for [ckey]</b></center>"
-			else
-				bans = json_decode(response["body"])
-				dat += "<center><b>[bans.len] ban\s detected for [ckey]</b></center>"
-				for(var/list/ban in bans)
-					dat += "<b>Server: </b> [sanitize(ban["sourceName"])]<br>"
-					dat += "<b>RP Level: </b> [sanitize(ban["sourceRoleplayLevel"])]<br>"
-					dat += "<b>Type: </b> [sanitize(ban["type"])]<br>"
-					dat += "<b>Banned By: </b> [sanitize(ban["bannedBy"])]<br>"
-					dat += "<b>Reason: </b> [sanitize(ban["reason"])]<br>"
-					dat += "<b>Datetime: </b> [sanitize(ban["bannedOn"])]<br>"
-					var/expiration = ban["expires"]
-					dat += "<b>Expires: </b> [expiration ? "[sanitize(expiration)]" : "Permanent"]<br>"
-					if(ban["type"] == "job")
-						dat += "<b>Jobs: </b> "
-						var/list/jobs = ban["jobs"]
-						dat += sanitize(jobs.Join(", "))
-						dat += "<br>"
-					dat += "<hr>"
-					
-		var/datum/browser/popup = new(usr, "centcomlookup-[ckey]", "<div align='center'>Central Command Galactic Ban Database</div>", 700, 600)
-		popup.set_content(dat.Join())
-		popup.open(FALSE)
-
 	else if(href_list["modantagrep"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2247,6 +2194,36 @@
 		var/datum/poll_option/option = locate(href_list["submitoption"]) in GLOB.poll_options
 		var/datum/poll_question/poll = locate(href_list["submitoptionpoll"]) in GLOB.polls
 		poll_option_parse_href(href_list, poll, option)
+
+	if(href_list["editbadgepage"])
+		if(!check_rights(R_PERMISSIONS))
+			message_admins("[usr.key] has attempted to override the badges panel.")
+			log_admin("[usr.key] has attempted to override the badges panel.")
+			return
+		usr.client.open_badge_panel(href_list["editbadgepage"])
+
+	else if(href_list["editbadgenewbadge"])
+		if(!check_rights(R_PERMISSIONS))
+			message_admins("[usr.key] has attempted to override the badges panel.")
+			log_admin("[usr.key] has attempted to override the badges panel.")
+			return
+		var/new_badge_name = stripped_input(usr, "What do you want the rank to be called?", "Rank name", max_length=16)
+		if(!new_badge_name)
+			return
+		if(get_rank_from_name(new_badge_name))
+			to_chat(usr, "<span class='warning'>There is already a badge named [new_badge_name]!</span>")
+			return
+		var/new_badge_group = stripped_input(usr, "What group do you want to put the rank in? (Only 1 rank per group will display at a time).", "Rank group", max_length=16)
+		if(!new_badge_group)
+			return
+		var/list/valid_states = icon_states('icons/badges.dmi')
+		if(!LAZYLEN(valid_states))
+			to_chat(usr, "<span class='warning'>No valid icon states found in file 'icons/badges.dmi'</span>")
+			return
+		var/new_badge_icon = input(usr, "Badge Icon") as anything in valid_states
+		if(!new_badge_icon || !(new_badge_icon in valid_states))
+			return
+		create_new_badge(new_badge_name, new_badge_group, new_badge_icon)
 
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))

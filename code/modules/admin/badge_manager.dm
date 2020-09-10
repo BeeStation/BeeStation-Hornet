@@ -80,7 +80,9 @@
 		return
 	usr << browse(data, "window=editbadge;size=850x650")
 
-/datum/badges/proc/create_new_badge(new_name, new_group, new_icon)
+/proc/create_new_badge(new_name, new_group, new_icon)
+	if(!check_rights(R_PERMISSIONS))
+		return
 	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='warning'>Could not establish database connection.</span>")
 		return
