@@ -249,7 +249,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
 			new /datum/admins(localhost_rank, ckey, 1, 1)
 	//Donator badge
-	if(prefs.unlock_content && get_rank_from_name("donator"))
+	if(prefs.unlock_content && GLOB.badge_ranks.Find("donator"))
 		add_badge_to(get_rank_from_name("donator"), ckey)
 	//Badge Authorisation
 	bholder = GLOB.badge_datums[ckey]
