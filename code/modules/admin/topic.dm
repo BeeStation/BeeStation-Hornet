@@ -1976,7 +1976,7 @@
 
 		usr << browse(dat.Join("<br>"), "window=related_[C];size=420x300")
 
-		else if(href_list["centcomlookup"])
+	else if(href_list["centcomlookup"])
 		if(!check_rights(R_ADMIN))
 			return
 
