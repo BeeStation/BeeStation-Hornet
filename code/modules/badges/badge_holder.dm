@@ -26,6 +26,36 @@ GLOBAL_PROTECT(badge_datums)
 	QDEL_LIST(badges)
 	. = ..()
 
+
+/datum/badges/proc/update()
+	for(var/datum/badge_rank/badge as anything in badges)
+		if(!(badge.name in GLOB.badge_ranks))
+			badges.Remove(badge)	//Badge no longer exists
+
+/datum/badges/proc/reload_from_db()
+	var/datum/DBQuery/query_reload_badge_holder = SSdbcore.NewQuery("SELECT rank FROM [format_table_name("badge_holders")] WHERE ckey = :ckey",
+		list("ckey" = target))
+	if(!query_reload_badge_holder.Execute())
+		to_chat(usr, "<span class='warning'>An error occured loading badge holders!</span>")
+		log_sql("Error loading holders from database (source: Badge manager)")
+		return
+	//Hard reset our badges
+	badges.Cut()
+	//Find badges
+	while(query_reload_badge_holder.NextRow())
+		var/badge_rank = query_reload_badge_holder.item[1]
+		var/skip
+		if(!GLOB.badge_ranks[badge_rank])
+			message_admins("[target] loaded with an invalid badge rank [badge_rank]")
+			skip = 1
+		if(!skip)
+			add_badge_to(GLOB.badge_ranks[badge_rank], target)
+	qdel(query_reload_badge_holder)
+	//Re-apply mentor badges
+	if(GLOB.badge_ranks["mentor"])
+		if(GLOB.directory[target] in GLOB.mentors + GLOB.admins + GLOB.deadmins)
+			add_badge_to(GLOB.badge_ranks["mentor"], target)
+
 /proc/add_badge_to(datum/badge_rank/R, ckey)
 	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name_admin(usr)] has tried to add a badge to [ckey] through the use of proc calls.")
@@ -34,6 +64,14 @@ GLOBAL_PROTECT(badge_datums)
 	if(!GLOB.badge_datums.Find(ckey))
 		GLOB.badge_datums[ckey] = new /datum/badges(ckey)
 	if(R)
+		for(var/datum/badge_rank/B in GLOB.badge_datums[ckey].badges)
+			if(B.group == R.group)
+				if(B.priority > R.priority)
+					//Don't add ourselves if there is a higher priority badge
+					return
+				else
+					//Remove lower priority badges to ourself.
+					GLOB.badge_datums[ckey].badges.Remove(B)
 		GLOB.badge_datums[ckey].badges += R
 	if(GLOB.directory[ckey])
 		var/client/C = GLOB.directory[ckey]

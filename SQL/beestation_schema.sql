@@ -37,7 +37,6 @@ CREATE TABLE IF NOT EXISTS `SS13_admin_ranks` (
   `flags` smallint(5) unsigned NOT NULL,
   `exclude_flags` smallint(5) unsigned NOT NULL,
   `can_edit_flags` smallint(5) unsigned NOT NULL,
-  `badge_rank` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`rank`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -550,6 +549,7 @@ CREATE TABLE IF NOT EXISTS `SS13_badge_ranks` (
   `rank` varchar(32) NOT NULL,
   `rank_group` varchar(32) NOT NULL,
   `icon` varchar(32) NOT NULL,
+  `priority` smallint(5) unsigned DEFAULT 0,
   PRIMARY KEY (`rank`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

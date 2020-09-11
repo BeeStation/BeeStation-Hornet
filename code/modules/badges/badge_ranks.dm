@@ -6,8 +6,9 @@ GLOBAL_PROTECT(badge_ranks)
 	var/name = "NoBadgeRank"
 	var/group = "NoGroup"
 	var/badge_icon = "badge_null"
+	var/priority = 0
 
-/datum/badge_rank/New(init_name, init_group, init_icon)
+/datum/badge_rank/New(init_name, init_group, init_icon, badge_priority)
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevator their badge level!"
 		message_admins("[key_name_admin(usr)][msg]")
@@ -19,6 +20,7 @@ GLOBAL_PROTECT(badge_ranks)
 	name = init_name
 	group = init_group
 	badge_icon = init_icon
+	priority = badge_priority
 	if(!name)
 		qdel(src)
 		CRASH("Badge rank created without name.")
@@ -48,7 +50,8 @@ GLOBAL_PROTECT(badge_ranks)
 		return
 
 	var/list/sql_badges = list()
-	for(var/datum/badge_rank/R in GLOB.badge_ranks)
+	for(var/brank_name in GLOB.badge_ranks)
+		var/datum/badge_rank/R = GLOB.badge_ranks[brank_name]
 		sql_badges += list(list("rank" = R.name, "group" = R.group, "icon" = R.badge_icon))
 	SSdbcore.MassInsert(format_table_name("badge_ranks"), sql_badges, duplicate_key = TRUE)
 
@@ -59,7 +62,7 @@ GLOBAL_PROTECT(badge_ranks)
 	GLOB.badge_ranks.Cut()
 	// Load from database
 	if(CONFIG_GET(flag/badges))
-		var/datum/DBQuery/query_load_badge_ranks = SSdbcore.NewQuery("SELECT rank, rank_group, icon FROM [format_table_name("badge_ranks")]")
+		var/datum/DBQuery/query_load_badge_ranks = SSdbcore.NewQuery("SELECT rank, rank_group, icon, priority FROM [format_table_name("badge_ranks")]")
 		if(!query_load_badge_ranks.Execute())
 			message_admins("Error loading badge ranks from database.")
 			log_sql("Error loading badge ranks from database.")
@@ -68,17 +71,19 @@ GLOBAL_PROTECT(badge_ranks)
 		while(query_load_badge_ranks.NextRow())
 			var/skip = FALSE
 			var/rank_name = query_load_badge_ranks.item[1]
-			for(var/datum/badge_rank/R in GLOB.badge_ranks)
+			for(var/brank_name in GLOB.badge_ranks)
+				var/datum/badge_rank/R = GLOB.badge_ranks[brank_name]
 				if(R.name == rank_name)
 					skip = TRUE
 					break
 			if(!skip)
 				var/rank_group = query_load_badge_ranks.item[2]
 				var/rank_icon = query_load_badge_ranks.item[3]
-				var/datum/badge_rank/R = new(rank_name, rank_group, rank_icon)
+				var/priority = query_load_badge_ranks.item[4]
+				var/datum/badge_rank/R = new(rank_name, rank_group, rank_icon, priority)
 				if(!R)
 					continue
-				GLOB.badge_ranks += R
+				GLOB.badge_ranks[R.name] = R
 		qdel(query_load_badge_ranks)
 
 /proc/load_badges()
@@ -94,9 +99,7 @@ GLOBAL_PROTECT(badge_ranks)
 		QDEL_NULL(C.bholder)
 	GLOB.badgers.Cut()
 	load_badge_ranks()
-	var/list/badge_names = list()
-	for(var/datum/badge_rank/R in GLOB.badge_ranks)
-		badge_names[R.name] = R
+	var/list/badge_names = GLOB.badge_ranks
 	var/datum/DBQuery/query_load_badgers = SSdbcore.NewQuery("SELECT ckey, rank FROM [format_table_name("badge_holders")] ORDER BY `rank`")
 	if(!query_load_badgers.Execute())
 		message_admins("Error loading badge holders from database.")
@@ -117,8 +120,15 @@ GLOBAL_PROTECT(badge_ranks)
 		var/list/mentor_clients = GLOB.mentors + GLOB.admins + GLOB.deadmins
 		for(var/client/C in mentor_clients)
 			add_badge_to(badge_names["mentor"], C.ckey)
+	//Add permission rank badges
+	for(var/client/C in (GLOB.admins + GLOB.deadmins))
+		if(badge_names.Find(C.holder.rank.name))
+			add_badge_to(badge_names[C.holder.rank.name], C.ckey)
 
 /proc/get_rank_from_name(rank_name)
-	for(var/datum/badge_rank/R in GLOB.badge_ranks)
-		if(R.name == rank_name)
-			return R
+	return GLOB.badge_ranks[rank_name]
+
+//Removes invalid badges from bholders.
+/proc/check_invalid_badges()
+	for(var/datum/badges/B as anything in GLOB.badge_datums)
+		B.update()

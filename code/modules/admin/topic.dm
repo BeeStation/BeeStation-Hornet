@@ -2200,7 +2200,7 @@
 			message_admins("[usr.key] has attempted to override the badges panel.")
 			log_admin("[usr.key] has attempted to override the badges panel.")
 			return
-		usr.client.open_badge_panel(href_list["editbadgepage"])
+		usr.client.open_badge_panel(text2num(href_list["editbadgepage"]))
 
 	else if(href_list["editbadgenewbadge"])
 		if(!check_rights(R_PERMISSIONS))
@@ -2223,7 +2223,66 @@
 		var/new_badge_icon = input(usr, "Badge Icon") as anything in valid_states
 		if(!new_badge_icon || !(new_badge_icon in valid_states))
 			return
-		create_new_badge(new_badge_name, new_badge_group, new_badge_icon)
+		var/new_badge_priority = input(usr, "Badge Priority") as num
+		create_new_badge(new_badge_name, new_badge_group, new_badge_icon, new_badge_priority)
+		usr.client.open_badge_panel(PAGE_EDIT_BADGES)
+
+	else if(href_list["editbadgedeletebadge"])
+		if(!check_rights(R_PERMISSIONS))
+			message_admins("[usr.key] has attempted to override the badges panel.")
+			log_admin("[usr.key] has attempted to override the badges panel.")
+			return
+		var/deleted_badge_name = href_list["editbadgedeletebadge"]
+		if(alert(usr, "Are you sure you want to delete the badge [deleted_badge_name]?", "Delete Badge", "Delete it", "Abort") == "Abort")
+			return
+		delete_badge_name(deleted_badge_name)
+		usr.client.open_badge_panel(PAGE_EDIT_BADGES)
+
+	else if(href_list["editbadgenewholder"])
+		if(!check_rights(R_PERMISSIONS))
+			message_admins("[usr.key] has attempted to override the badges panel.")
+			log_admin("[usr.key] has attempted to override the badges panel.")
+			return
+		var/badge_holder_ckey = stripped_input(usr, "Who do you want to add the badge to (CKEY)?", "Ckey", max_length=32)
+		if(!badge_holder_ckey)
+			return
+		var/badge_name = input(usr, "Badge Rank") as anything in GLOB.badge_ranks
+		if(!badge_name || !get_rank_from_name(badge_name))
+			return
+		//Insert into database
+		var/datum/DBQuery/query_add_badge_holder = SSdbcore.NewQuery("INSERT INTO [format_table_name("badge_holders")] (ckey, rank) VALUES (:ckey, :rank)",
+			list("ckey" = badge_holder_ckey, "rank" = badge_name))
+		if(!query_add_badge_holder.Execute())
+			to_chat(usr, "<span class='warning'>An error occured adding a badge holder!</span>")
+			log_sql("Error adding holders to database.")
+			return
+		//If successful give them the badge.
+		add_badge_to(get_rank_from_name(badge_name), badge_holder_ckey)
+		message_admins("[key_name_admin(usr)] added a badge ([badge_name] to [badge_holder_ckey]).")
+		log_admin("[key_name(usr)] added a badge ([badge_name] to [badge_holder_ckey]).")
+		usr.client.open_badge_panel(PAGE_EDIT_HOLDERS)
+
+	else if(href_list["editbadgedeleteholder"])
+		if(!check_rights(R_PERMISSIONS))
+			message_admins("[usr.key] has attempted to override the badges panel.")
+			log_admin("[usr.key] has attempted to override the badges panel.")
+			return
+		var/remove_ckey = href_list["editbadgedeleteholder"]
+		var/remove_badge_rank = href_list["editbadgedeleteholder_rank"]
+		//Remove from database
+		var/datum/DBQuery/query_add_badge_holder = SSdbcore.NewQuery("DELETE FROM [format_table_name("badge_holders")] WHERE ckey = :ckey AND rank = :rank",
+			list("ckey" = remove_ckey, "rank" = remove_badge_rank))
+		if(!query_add_badge_holder.Execute())
+			to_chat(usr, "<span class='warning'>An error occured adding a badge holder!</span>")
+			log_sql("Error adding holders to database.")
+			return
+		//Reload their badges (Must do a full reload, due to badges with lower priorities than the removed badge being hidden)
+		//Check to make sure there is a badge datum that needs reloading, since the client removed might be offline.
+		if(!GLOB.badge_datums.Find(remove_ckey))
+			return
+		var/datum/badges/badge_holder = GLOB.badge_datums[remove_ckey]
+		badge_holder.reload_from_db()
+		usr.client.open_badge_panel(PAGE_EDIT_HOLDERS)
 
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))

@@ -10,9 +10,8 @@ GLOBAL_PROTECT(protected_ranks)
 	var/exclude_rights = 0
 	var/include_rights = 0
 	var/can_edit_rights = 0
-	var/datum/badge_rank/badge_rank
 
-/datum/admin_rank/New(init_name, init_rights, init_exclude_rights, init_edit_rights, badge_rank_name)
+/datum/admin_rank/New(init_name, init_rights, init_exclude_rights, init_edit_rights)
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
@@ -33,11 +32,6 @@ GLOBAL_PROTECT(protected_ranks)
 		rights &= ~exclude_rights
 	if(init_edit_rights)
 		can_edit_rights = init_edit_rights
-	if(badge_rank_name)
-		for(var/datum/badge_rank/rank in GLOB.badge_ranks)
-			if(rank.name == badge_rank_name)
-				badge_rank = rank
-				break
 
 /datum/admin_rank/Destroy()
 	if(IsAdminAdvancedProcCall())
@@ -123,7 +117,7 @@ GLOBAL_PROTECT(protected_ranks)
 
 	var/list/sql_ranks = list()
 	for(var/datum/admin_rank/R in GLOB.protected_ranks)
-		sql_ranks += list(list("rank" = R.name, "flags" = R.include_rights, "exclude_flags" = R.exclude_rights, "can_edit_flags" = R.can_edit_rights, "badge_rank" = R.badge_rank.name))
+		sql_ranks += list(list("rank" = R.name, "flags" = R.include_rights, "exclude_flags" = R.exclude_rights, "can_edit_flags" = R.can_edit_rights))
 	SSdbcore.MassInsert(format_table_name("admin_ranks"), sql_ranks, duplicate_key = TRUE)
 
 //load our rank - > rights associations
@@ -154,7 +148,7 @@ GLOBAL_PROTECT(protected_ranks)
 			if(!no_update)
 				sync_ranks_with_db()
 		else
-			var/datum/DBQuery/query_load_admin_ranks = SSdbcore.NewQuery("SELECT `rank`, flags, exclude_flags, can_edit_flags, badge_rank FROM [format_table_name("admin_ranks")]")
+			var/datum/DBQuery/query_load_admin_ranks = SSdbcore.NewQuery("SELECT `rank`, flags, exclude_flags, can_edit_flags FROM [format_table_name("admin_ranks")]")
 			if(!query_load_admin_ranks.Execute())
 				message_admins("Error loading admin ranks from database. Loading from backup.")
 				log_sql("Error loading admin ranks from database. Loading from backup.")
@@ -171,8 +165,7 @@ GLOBAL_PROTECT(protected_ranks)
 						var/rank_flags = text2num(query_load_admin_ranks.item[2])
 						var/rank_exclude_flags = text2num(query_load_admin_ranks.item[3])
 						var/rank_can_edit_flags = text2num(query_load_admin_ranks.item[4])
-						var/rank_badge_rank = query_load_admin_ranks.item[5]
-						var/datum/admin_rank/R = new(rank_name, rank_flags, rank_exclude_flags, rank_can_edit_flags, rank_badge_rank)
+						var/datum/admin_rank/R = new(rank_name, rank_flags, rank_exclude_flags, rank_can_edit_flags)
 						if(!R)
 							continue
 						GLOB.admin_ranks += R

@@ -75,7 +75,7 @@
 			output += "<hr style='background:#000000; border:0; height:1px'>"
 		qdel(query_check_admin_errors)
 		output += "<h3>Unused ranks</h3>"
-		var/datum/DBQuery/query_check_unused_rank = SSdbcore.NewQuery("SELECT [format_table_name("admin_ranks")].`rank`, flags, exclude_flags, can_edit_flags, badge_rank FROM [format_table_name("admin_ranks")] LEFT JOIN [format_table_name("admin")] ON [format_table_name("admin")].`rank` = [format_table_name("admin_ranks")].`rank` WHERE [format_table_name("admin")].`rank` IS NULL")
+		var/datum/DBQuery/query_check_unused_rank = SSdbcore.NewQuery("SELECT [format_table_name("admin_ranks")].`rank`, flags, exclude_flags, can_edit_flags FROM [format_table_name("admin_ranks")] LEFT JOIN [format_table_name("admin")] ON [format_table_name("admin")].`rank` = [format_table_name("admin_ranks")].`rank` WHERE [format_table_name("admin")].`rank` IS NULL")
 		if(!query_check_unused_rank.warn_execute())
 			qdel(query_check_unused_rank)
 			return
@@ -346,8 +346,8 @@
 		if(!query_rank_in_db.NextRow())
 			QDEL_NULL(query_rank_in_db)
 			var/datum/DBQuery/query_add_rank = SSdbcore.NewQuery({"
-				INSERT INTO [format_table_name("admin_ranks")] (`rank`, flags, exclude_flags, can_edit_flags, badge_rank)
-				VALUES (:new_rank, '0', '0', '0', 'null')
+				INSERT INTO [format_table_name("admin_ranks")] (`rank`, flags, exclude_flags, can_edit_flags)
+				VALUES (:new_rank, '0', '0', '0')
 			"}, list("new_rank" = new_rank))
 			if(!query_add_rank.warn_execute())
 				qdel(query_add_rank)
@@ -398,10 +398,6 @@
 	var/new_can_edit_flags = input_bitfield(usr, "Editable permission flags<br>These are the flags this rank is allowed to edit if they have access to the permissions panel.<br>They will be unable to modify admins to a rank that has a flag not included here.<br>[use_db ? "This will affect ALL admins with this rank." : "This will affect only the current admin [admin_key]"]", "admin_flags", D.rank.can_edit_rights, 350, 710, allowed_edit_list = usr.client.holder.rank.can_edit_rights)
 	if(isnull(new_can_edit_flags))
 		return
-	var/list/rank_names = list()
-	for(var/datum/badge_rank/R in GLOB.badge_ranks)
-		rank_names += R.name
-	var/new_badge_rank = input(usr, "Default badge rank for holders of this rank.", "OOC Badge", null) as anything in rank_names
 	var/m1 = "[key_name_admin(usr)] edited the permissions of [use_db ? " rank [D.rank.name] permanently" : "[admin_key] temporarily"]"
 	var/m2 = "[key_name(usr)] edited the permissions of [use_db ? " rank [D.rank.name] permanently" : "[admin_key] temporarily"]"
 	if(use_db || legacy_only)
@@ -422,8 +418,8 @@
 			old_can_edit_flags = text2num(query_get_rank_flags.item[3])
 		qdel(query_get_rank_flags)
 		var/datum/DBQuery/query_change_rank_flags = SSdbcore.NewQuery(
-			"UPDATE [format_table_name("admin_ranks")] SET flags = :new_flags, exclude_flags = :new_exclude_flags, can_edit_flags = :new_can_edit_flags, badge_rank = :new_badge_rank WHERE `rank` = :rank_name",
-			list("new_flags" = new_flags, "new_exclude_flags" = new_exclude_flags, "new_can_edit_flags" = new_can_edit_flags, "new_badge_rank" = new_badge_rank, "rank_name" = rank_name)
+			"UPDATE [format_table_name("admin_ranks")] SET flags = :new_flags, exclude_flags = :new_exclude_flags, can_edit_flags = :new_can_edit_flags WHERE `rank` = :rank_name",
+			list("new_flags" = new_flags, "new_exclude_flags" = new_exclude_flags, "new_can_edit_flags" = new_can_edit_flags, "rank_name" = rank_name)
 		)
 		if(!query_change_rank_flags.warn_execute())
 			qdel(query_change_rank_flags)
@@ -445,10 +441,6 @@
 			R.exclude_rights = new_exclude_flags
 			R.include_rights = new_flags
 			R.can_edit_rights = new_can_edit_flags
-			for(var/datum/badge_rank/B in GLOB.badge_ranks)
-				if(B.name == new_badge_rank)
-					R.badge_rank = B
-					break
 		for(var/i in GLOB.admin_datums+GLOB.deadmins)
 			var/datum/admins/A = GLOB.admin_datums[i]
 			if(!A)
@@ -470,10 +462,6 @@
 			D.rank.include_rights = new_flags
 			D.rank.exclude_rights = new_exclude_flags
 			D.rank.can_edit_rights = new_can_edit_flags
-			for(var/datum/badge_rank/R in GLOB.badge_ranks)
-				if(R.name == new_badge_rank)
-					D.rank.badge_rank = R
-					break
 		var/client/C = GLOB.directory[admin_ckey] //find the client with the specified ckey (if they are logged in)
 		D.associate(C) //link up with the client and add verbs
 	message_admins(m1)

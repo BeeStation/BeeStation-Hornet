@@ -60,6 +60,9 @@ GLOBAL_PROTECT(href_token)
 		activate()
 	else
 		deactivate()
+	//Check badges to see if there is one to auto add
+	if(get_rank_from_name(R.name))
+		add_badge_to(get_rank_from_name(R.name), ckey)
 
 /datum/admins/Destroy()
 	if(IsAdminAdvancedProcCall())
