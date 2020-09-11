@@ -545,5 +545,6 @@
 
 /obj/item/dnainjector/activator/elementx
 	name = "\improper Element X Injector"
-	desc = "For when the spiders crawling out of xenobiology just aren't radioactive enough. "
+	desc = "For when the spiders crawling out of xenobiology just aren't radioactive enough."
+	damage_coeff = 0
 	add_mutations = list(XRAY,TK,CHAMELEON,LASEREYES,ANTENNA,MINDREAD,OLFACTION,INSULATED,SHOCKTOUCH,GIGANTISM,GELADIKINESIS,CRYOKINESIS,THERMAL,GLOWY,ANTIGLOWY,SPACEMUT,TELEPATHY,FIREBREATH,STRONG)

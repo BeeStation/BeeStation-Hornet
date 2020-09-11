@@ -1849,7 +1849,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 
 /datum/uplink_item/role_restricted/elementx
 	name = "Element X"
-	desc = "While reading those comic books, I'm sure you wondered what it's like to have super powers like your favorite comic hero or villain. \ Well dream no longer! Unlock your true potential with Element X, and become the supervillain of your story! \ The Syndicate does not supply a costume... Or a superhero nemesis."
+	desc = "While reading those comic books, I'm sure you wondered what it's like to have super powers like your favorite comic hero or villain. \ Well, dream no longer! Unlock your true potential with Element X, and become the supervillain of your story! \ Disclaimer: The Syndicate does not supply a costume, or a superhero nemesis."
 	item = /obj/item/dnainjector/activator/elementx
 	cost = 3
 	surplus = 30
