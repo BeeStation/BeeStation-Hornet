@@ -71,7 +71,8 @@ GLOBAL_PROTECT(badge_datums)
 					return
 				else
 					//Remove lower priority badges to ourself.
-					GLOB.badge_datums[ckey].badges.Remove(B)
+					var/datum/badges/badge = GLOB.badge_datums[ckey]
+					badge.badges.Remove(B)
 		GLOB.badge_datums[ckey].badges += R
 	if(GLOB.directory[ckey])
 		var/client/C = GLOB.directory[ckey]
