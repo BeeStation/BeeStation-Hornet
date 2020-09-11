@@ -446,7 +446,7 @@ GENE SCANNER
 
 /obj/item/analyzer
 	desc = "A hand-held environmental scanner which reports current gas levels. Alt-Click to use the built in barometer function."
-	name = "analyzer"
+	name = "air analyzer"
 	custom_price = 10
 	icon = 'icons/obj/device.dmi'
 	icon_state = "analyzer"

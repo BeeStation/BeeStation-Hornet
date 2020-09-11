@@ -245,7 +245,8 @@
 		/obj/item/soap/nanotrasen,
 		/obj/item/borg/cyborghug,
 		/obj/item/instrument/piano_synth,
-		/obj/item/roller/robo)
+		/obj/item/roller/robo,
+		/obj/item/analyzer)
 	emag_modules = list(/obj/item/melee/transforming/energy/sword/cyborg)
 	moduleselect_icon = "standard"
 	hat_offset = -3
@@ -272,7 +273,8 @@
 		/obj/item/borg/cyborghug/medical,
 		/obj/item/stack/medical/gauze/cyborg,
 		/obj/item/organ_storage,
-		/obj/item/borg/lollipop)
+		/obj/item/borg/lollipop,
+		/obj/item/analyzer)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/hacked)
 	cyborg_base_icon = "medical"
 	moduleselect_icon = "medical"
@@ -306,7 +308,8 @@
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
-		/obj/item/holosign_creator/atmos)
+		/obj/item/holosign_creator/atmos,
+		/obj/item/analyzer)
 	emag_modules = list(/obj/item/borg/stun)
 	cyborg_base_icon = "engineer"
 	moduleselect_icon = "engineer"
@@ -342,7 +345,8 @@
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/clothing/mask/gas/sechailer/cyborg,
 		/obj/item/extinguisher/mini,
-		/obj/item/healthanalyzer)
+		/obj/item/healthanalyzer,
+		/obj/item/analyzer)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	cyborg_base_icon = "sec"
 	moduleselect_icon = "security"
@@ -379,7 +383,8 @@
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/borg/projectile_dampen,
 		/obj/item/crowbar/cyborg,
-		/obj/item/healthanalyzer)
+		/obj/item/healthanalyzer,
+		/obj/item/analyzer)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
 	cyborg_base_icon = "peace"
 	moduleselect_icon = "standard"
@@ -408,7 +413,8 @@
 		/obj/item/paint/paint_remover,
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/holosign_creator/janibarrier,
-		/obj/item/reagent_containers/spray/cyborg_drying)
+		/obj/item/reagent_containers/spray/cyborg_drying,
+		/obj/item/analyzer)
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
 	cyborg_base_icon = "janitor"
 	moduleselect_icon = "janitor"
@@ -459,7 +465,8 @@
 		/obj/item/borg/lollipop/clown,
 		/obj/item/picket_sign/cyborg,
 		/obj/item/reagent_containers/borghypo/clown,
-		/obj/item/extinguisher/mini)
+		/obj/item/extinguisher/mini,
+		/obj/item/analyzer)
 	emag_modules = list(
 		/obj/item/reagent_containers/borghypo/clown/hacked,
 		/obj/item/reagent_containers/spray/waterflower/cyborg/hacked)
@@ -483,7 +490,8 @@
 		/obj/item/reagent_containers/food/drinks/drinkingglass,
 		/obj/item/borg/apparatus/beaker/service,
 		/obj/item/reagent_containers/borghypo/borgshaker,
-		/obj/item/plant_analyzer
+		/obj/item/plant_analyzer,
+		/obj/item/analyzer
 		)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
 	moduleselect_icon = "service"
@@ -523,10 +531,12 @@
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/borg/charger,
-		/obj/item/borg/cyborghug/peacekeeper)
+		/obj/item/borg/cyborghug/peacekeeper,		
+		/obj/item/extinguisher/mini,
+		/obj/item/analyzer)
 	cyborg_base_icon = "borgi"
 	moduleselect_icon = "standard"
-	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
+	emag_modules = list(/obj/item/gun/energy/laser/cyborg, /obj/item/card/emag)
 
 /obj/item/robot_module/miner
 	name = "Miner"
@@ -543,7 +553,8 @@
 		/obj/item/storage/bag/sheetsnatcher/borg,
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
 		/obj/item/gps/cyborg,
-		/obj/item/stack/marker_beacon)
+		/obj/item/stack/marker_beacon,
+		/obj/item/analyzer)
 	emag_modules = list(/obj/item/borg/stun)
 	cyborg_base_icon = "miner"
 	moduleselect_icon = "miner"
