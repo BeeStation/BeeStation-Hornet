@@ -286,7 +286,7 @@
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
-	dat += "<tt><b>Floor Repairer Controls v1.1</b></tt><br><br>"
+	dat += "<tt><b>Atmospheric Stabalizer Controls v1.1</b></tt><br><br>"
 	dat += "Status: <a href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</a><br>"
 	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<br>"
 	if(!locked || issilicon(user) || IsAdminGhost(user))
