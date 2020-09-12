@@ -781,3 +781,9 @@
 	id = /datum/reagent/mutationtoxin/plasma
 	results = list(/datum/reagent/mutationtoxin/plasma = 1)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 1, /datum/reagent/toxin/plasma = 60, /datum/reagent/uranium = 20)
+
+/datum/chemical_reaction/invisium
+	name = "invisium"
+	id = "invisium"
+	results = list(/datum/reagent/invisium = 1)
+	required_reagents = list(/datum/reagent/teslium = 2, /datum/reagent/space_cleaner = 1, /datum/reagent/medicine/strange_reagent = 1, /datum/reagent/drug/methamphetamine = 1)
