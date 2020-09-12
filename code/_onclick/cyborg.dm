@@ -112,7 +112,7 @@
 
 
 /atom/proc/BorgShiftClick(mob/living/silicon/robot/user) //forward to human click if not overridden
-	ShiftClick(user)
+	ShiftMiddleClickOn(user)
 
 /obj/machinery/door/airlock/BorgShiftClick(mob/living/silicon/robot/user)  // Opens and closes doors! Forwards to AI code.
 	if(get_dist(src,user) <= user.interaction_range)

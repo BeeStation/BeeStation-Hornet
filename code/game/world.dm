@@ -296,8 +296,8 @@ GLOBAL_VAR(restart_counter)
 		hostedby = CONFIG_GET(string/hostedby)
 
 	s += "<b>[station_name()]</b>";
-	s += "(<a href='https://discord.gg/zUe34rs'>Discord</a>|<a href='https://discord.gg/zUe34rs'>Website</a>)"
-	s += "<img src=\"https://www.thisiscolossal.com/wp-content/uploads/2018/08/Isopoly_01.gif\">" //Banner image
+	s += "(<a href='https://discord.gg/BPauwGM'>Discord</a>|<a href='https://discord.gg/BPauwGM'>Website</a>)"
+	s += "<img src=\"https://i.imgur.com/SiaZkZu.png\">" //Banner image
 
 	var/players = GLOB.clients.len
 

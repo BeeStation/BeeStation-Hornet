@@ -4,7 +4,7 @@
 
 
 /datum/keybinding/mob/face_north
-	key = "Ctrl-W"
+	key = ""
 	name = "face_north"
 	full_name = "Face North"
 	description = ""
@@ -17,7 +17,7 @@
 
 
 /datum/keybinding/mob/face_east
-	key = "Ctrl-D"
+	key = ""
 	name = "face_east"
 	full_name = "Face East"
 	description = ""
@@ -30,7 +30,7 @@
 
 
 /datum/keybinding/mob/face_south
-	key = "Ctrl-S"
+	key = ""
 	name = "face_south"
 	full_name = "Face South"
 	description = ""
@@ -42,7 +42,7 @@
 	return TRUE
 
 /datum/keybinding/mob/face_west
-	key = "Ctrl-A"
+	key = ""
 	name = "face_west"
 	full_name = "Face West"
 	description = ""
@@ -114,6 +114,61 @@
 	var/mob/M = user.mob
 	M.mode()
 	return TRUE
+
+/datum/keybinding/mob/mainuse
+	key = "C"
+	name = "mainuse"
+	full_name = "Main Use"
+	description = "Will use item in your active hand on the item in your inactive hand"
+
+/datum/keybinding/mob/mainuse/down(client/user)
+	if (!ishuman(user.mob)) return
+	var/mob/M = user.mob
+	M.mainuse()
+	return TRUE
+
+/datum/keybinding/mob/inactiveuse
+	key = "Shift-C"
+	name = "inactiveuse"
+	full_name = "Inactive Use"
+	description = "Will use item in your inactive hand on the item in your active hand"
+
+/datum/keybinding/mob/inactiveuse/down(client/user)
+	if (!ishuman(user.mob)) return
+	var/mob/M = user.mob
+	M.inactiveuse()
+	return TRUE
+
+
+
+
+
+
+// NEW
+/datum/keybinding/mob/quicklefthand
+	key = "Ctrl-A"
+	name = "quicklefthand"
+	full_name = "Quick Left Hand"
+	description = "Will use item in your active hand on the item in your inactive hand"
+
+/datum/keybinding/mob/quicklefthand/down(client/user)
+	if (!ishuman(user.mob)) return
+	var/mob/M = user.mob
+	M.lefthand()
+	return TRUE
+
+/datum/keybinding/mob/quickrighthand
+	key = "Ctrl-D"
+	name = "quickrighthand"
+	full_name = "Quick Right Hand"
+	description = "Will switch to your right hand"
+
+/datum/keybinding/mob/quickrighthand/down(client/user)
+	if (!ishuman(user.mob)) return
+	var/mob/M = user.mob
+	M.righthand()
+	return TRUE
+
 
 /datum/keybinding/mob/drop_item
 	key = "Q"

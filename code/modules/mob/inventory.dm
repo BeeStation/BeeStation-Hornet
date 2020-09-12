@@ -441,6 +441,33 @@
 	return FALSE
 
 
+/obj/item/proc/equipother_to_best_slot(mob/M)
+	if(src != M.get_inactive_held_item())
+		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
+		return FALSE
+
+	if(M.equip_to_appropriate_slot(src))
+		M.update_inv_hands()
+		return TRUE
+	else
+		if(equip_delay_self)
+			return
+
+	if(M.active_storage && M.active_storage.parent && SEND_SIGNAL(M.active_storage.parent, COMSIG_TRY_STORAGE_INSERT, src,M))
+		return TRUE
+
+	var/list/obj/item/possible = list(M.get_inactive_held_item(), M.get_item_by_slot(SLOT_BELT), M.get_item_by_slot(SLOT_GENERC_DEXTROUS_STORAGE), M.get_item_by_slot(SLOT_BACK))
+	for(var/i in possible)
+		if(!i)
+			continue
+		var/obj/item/I = i
+		if(SEND_SIGNAL(I, COMSIG_TRY_STORAGE_INSERT, src, M))
+			return TRUE
+
+	to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
+	return FALSE
+
+
 /mob/verb/quick_equip()
 	set name = "quick-equip"
 	set hidden = 1
@@ -448,6 +475,58 @@
 	var/obj/item/I = get_active_held_item()
 	if (I)
 		I.equip_to_best_slot(src)
+
+/mob/verb/quick_equipother()
+	set name = "quick-equipother"
+	set hidden = 1
+
+	var/obj/item/I = get_inactive_held_item()
+	if (I)
+		I.equipother_to_best_slot(src)
+
+/mob/verb/quickleftpocket()
+	set name = "quickleftpocket"
+	set hidden = 0
+	var/S = src.get_item_by_slot(SLOT_L_STORE)
+	var/obj/item/I = get_active_held_item()
+
+	if(S)
+		src.dropItemToGround(S)
+
+	if (I)
+		if(src.equip_to_slot_if_possible(I, SLOT_L_STORE))
+			src.equip_to_slot(I, SLOT_L_STORE)
+		else
+			src.equip_to_slot(S, SLOT_L_STORE)
+			return
+	if(S)
+		src.put_in_active_hand(S, TRUE, TRUE)
+
+
+
+/mob/verb/quickrightpocket()
+	set name = "quickrightpocket"
+	set hidden = 0
+
+	var/S = src.get_item_by_slot(SLOT_R_STORE)
+	var/obj/item/I = get_active_held_item()
+
+
+
+	if(S)
+		src.dropItemToGround(S)
+
+	if (I)
+		if(src.equip_to_slot_if_possible(I, SLOT_R_STORE))
+			src.equip_to_slot(I, SLOT_R_STORE)
+		else
+			src.equip_to_slot(S, SLOT_R_STORE)
+			return
+	if(S)
+		src.put_in_active_hand(S, TRUE, TRUE)
+
+
+
 
 //used in code for items usable by both carbon and drones, this gives the proper back slot for each mob.(defibrillator, backpack watertank, ...)
 /mob/proc/getBackSlot()

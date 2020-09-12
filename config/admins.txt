@@ -9,8 +9,13 @@
 # If SQL-based admin loading is enabled, admins listed here will always be loaded first		  #
 # and will override any duplicate entries in the database.									  #
 ###############################################################################################
-Ike709 = Host
-Crossedfall = Host
-CthulhuOnIce = Host
+# Ike709 = Host
+# Crossedfall = Host
+# CthulhuOnIce = Host
 
 # the rest are in the db
+Blurbo = Badmin
+NuclearMayehm1 = Badmin
+Kate Bishop = Badmin
+Kryyto = Badmin
+TinyBrian = Badmin

@@ -15,9 +15,46 @@
 	H.quick_equip()
 	return TRUE
 
+/datum/keybinding/human/quick_equipother
+	key = "Shift-E"
+	name = "quick_equipother"
+	full_name = "Quick Equip Other"
+	description = "Equip item in non-selected hand"
+
+/datum/keybinding/human/quick_equipother/down(client/user)
+	if (!ishuman(user.mob)) return
+	var/mob/living/carbon/human/H = user.mob
+	H.quick_equipother()
+	return TRUE
+
+
+
+/datum/keybinding/mob/quickleftpocket
+	key = "Ctrl-Q"
+	name = "quickleftpocket"
+	full_name = "Quick Left Pocket"
+	description = "Switch items in and out of your left pocket"
+
+/datum/keybinding/mob/quickleftpocket/down(client/user)
+	if (!ishuman(user.mob)) return
+	var/mob/living/carbon/human/H = user.mob
+	H.quickleftpocket()
+	return TRUE
+
+/datum/keybinding/mob/quickrightpocket
+	key = "Ctrl-E"
+	name = "quickrightpocket"
+	full_name = "Quick Right Pocket"
+	description = "Switch items in and out of your right pocket"
+
+/datum/keybinding/mob/quickrightpocket/down(client/user)
+	if (!ishuman(user.mob)) return
+	var/mob/living/carbon/human/H = user.mob
+	H.quickrightpocket()
+	return TRUE
 
 /datum/keybinding/human/quick_equip_belt
-	key = "Shift-E"
+	key = "Shift-Q"
 	name = "quick_equip_belt"
 	full_name = "Put Item In Belt"
 	description = ""
@@ -55,7 +92,7 @@
 
 
 /datum/keybinding/human/quick_equip_backpack
-	key = "Shift-B"
+	key = "Shift-R"
 	name = "quick_equip_backpack"
 	full_name = "Put Item In Backpack"
 	description = ""

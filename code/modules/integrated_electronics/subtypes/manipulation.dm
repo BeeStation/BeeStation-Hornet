@@ -484,12 +484,12 @@
 	name = "activator"
 	desc = "Circuit which can activate things remotely!"
 	icon_state = "pull_claw"
-	extended_desc = "This circuit needs a reference to a thing to activate."
+	extended_desc = "This circuit needs a reference to a thing to activate, it also needs to know who is activating said item."
 	w_class = WEIGHT_CLASS_SMALL
 	size = 3
 	cooldown_per_use = 1
 	complexity = 10
-	inputs = list("target" = IC_PINTYPE_REF)
+	inputs = list("target" = IC_PINTYPE_REF, "person" = IC_PINTYPE_REF)
 	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
 	spawn_flags = IC_SPAWN_RESEARCH
 	power_draw_per_use = 50
@@ -497,7 +497,8 @@
 
 /obj/item/integrated_circuit/manipulation/activator/do_work(ord)
 	var/obj/acting_object = get_pin_data_as_type(IC_INPUT, 1, /obj/)
-	acting_object.interact(null)
+	var/mob/person = get_pin_data_as_type(IC_INPUT, 2, /mob/)
+	acting_object.interact(person)
 	activate_pin(1)
 
 

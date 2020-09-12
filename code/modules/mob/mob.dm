@@ -523,6 +523,67 @@
 		I.attack_self(src)
 		update_inv_hands()
 
+
+
+/mob/verb/mainuse()
+	if(ismecha(loc))
+		return
+
+	if(incapacitated())
+		return
+
+
+	var/obj/item/M = src.get_active_held_item()
+	var/obj/item/S = src.get_inactive_held_item()
+
+	if((M) && (S) && (M != S))
+		S.attackby(M, src)
+		M.afterattack(S, src)
+
+
+/mob/verb/inactiveuse()
+	if(ismecha(loc))
+		return
+
+	if(incapacitated())
+		return
+
+
+	var/obj/item/M = src.get_active_held_item()
+	var/obj/item/S = src.get_inactive_held_item()
+
+	if((M) && (S) && (M != S))
+		M.attackby(S, src)
+		S.afterattack(M, src)
+
+
+
+
+/mob/verb/lefthand()
+	if(ismecha(loc))
+		return
+
+	if(incapacitated())
+		return
+
+	var/handcheck = src.held_index_to_dir(src.get_inactive_hand_index())
+	if(handcheck == "r")
+		src.swap_hand()
+		update_inv_hands()
+
+/mob/verb/righthand()
+	if(ismecha(loc))
+		return
+
+	if(incapacitated())
+		return
+
+	var/handcheck = src.held_index_to_dir(src.get_inactive_hand_index())
+	if(handcheck == "l")
+		src.swap_hand()
+		update_inv_hands()
+
+
 /**
   * Get the notes of this mob
   *

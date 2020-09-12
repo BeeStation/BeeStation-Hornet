@@ -89,7 +89,7 @@
 		MiddleClickOn(A)
 		return
 	if(modifiers["shift"])
-		ShiftClickOn(A)
+		ShiftClickOn(A, params)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
 		AltClickOn(A)
@@ -149,7 +149,7 @@
 		if(W)
 			var/itemcount = LAZYLEN(src.held_items)
 
-			if(ishuman(src) && src.a_intent == INTENT_HARM && itemcount > 1)
+			if(ishuman(src) && src.a_intent == INTENT_HARM && itemcount > 1 && src.get_active_held_item() != src.get_inactive_held_item())
 				var/original = src.get_active_held_item()
 				var/attackcount = 0
 
@@ -313,19 +313,22 @@
 	Only used for swapping hands
 */
 /mob/proc/MiddleClickOn(atom/A)
+	src.pointed(A)
 	return
 
-/mob/living/carbon/MiddleClickOn(atom/A)
-	if(!stat && mind && iscarbon(A) && A != src)
-		var/datum/antagonist/changeling/C = mind.has_antag_datum(/datum/antagonist/changeling)
-		if(C?.chosen_sting)
-			C.chosen_sting.try_to_sting(src,A)
-			next_click = world.time + 5
-			return
-	swap_hand()
+// /mob/living/carbon/MiddleClickOn(atom/A)
+// 	if(!stat && mind && iscarbon(A) && A != src)
+// 		var/datum/antagonist/changeling/C = mind.has_antag_datum(/datum/antagonist/changeling)
+// 		if(C?.chosen_sting)
+// 			C.chosen_sting.try_to_sting(src,A)
+// 			next_click = world.time + 5
+// 			return
+// 	swap_hand()
 
-/mob/living/simple_animal/drone/MiddleClickOn(atom/A)
-	swap_hand()
+// /mob/living/simple_animal/drone/MiddleClickOn(atom/A)
+// 	swap_hand()
+
+
 
 // In case of use break glass
 /*
@@ -338,15 +341,120 @@
 	For most mobs, examine.
 	This is overridden in ai.dm
 */
-/mob/proc/ShiftClickOn(atom/A)
-	A.ShiftClick(src)
-	return
-/atom/proc/ShiftClick(mob/user)
-	SEND_SIGNAL(src, COMSIG_CLICK_SHIFT, user)
-	if(user.client && user.client.eye == user || user.client.eye == user.loc)
-		user.examinate(src)
-	return
+/mob/proc/ShiftClickOn(atom/A, params)
+	// What the fuck does this do?
+	//if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
+	//	return
+	var/itemcount = LAZYLEN(src.held_items)
+	var/original = src.get_inactive_held_item()
+	src.swap_hand()
+	next_click = world.time + 1
 
+	if(check_click_intercept(params,A))
+		src.swap_hand()
+		return
+
+	if(notransform)
+		return
+
+	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
+		src.swap_hand()
+		return
+
+	if(incapacitated(ignore_restraints = 1))
+		return
+
+	face_atom(A)
+
+	if(next_move > world.time) // in the year 2000...
+		return
+
+	if(A.IsObscured())
+		return
+
+	if(ismecha(loc))
+		var/obj/mecha/M = loc
+		return M.click_action(A,src,params)
+
+	if(restrained())
+		changeNext_move(CLICK_CD_HANDCUFFED)   //Doing shit in cuffs shall be vey slow
+		//RestrainedClickOn(A)
+		return
+
+	// Whoa have it throw secondary item?
+	if(in_throw_mode)
+		throw_item(A)
+		src.swap_hand()
+		return
+
+	var/obj/item/W = get_active_held_item()
+
+	if(W == A)
+		W.attack_self(src)
+		update_inv_hands()
+		return
+
+	//These are always reachable.
+	//User itself, current loc, and user inventory
+
+
+	if(A in DirectAccess())
+		if(W)
+			W.melee_attack_chain(src, A, params)
+			src.swap_hand()
+		else
+			if(ismob(A))
+				changeNext_move(CLICK_CD_MELEE)
+				src.swap_hand()
+
+			UnarmedAttack(A)
+			src.swap_hand()
+		return
+
+	//Can't reach anything else in lockers or other weirdness
+	if(!loc.AllowClick())
+		return
+
+	//Standard reach turf to turf or reaching inside storage
+	if(CanReach(A,W))
+		if(W)
+			// Prob do if(src.get_inactive_held_item() && src.get_active_held_item()) ?
+
+			if((src.get_inactive_held_item()) && src.get_active_held_item())
+
+				if(ishuman(src) && src.a_intent == INTENT_HARM && src.get_inactive_held_item() != src.get_active_held_item())
+					var/attackcount = 0
+
+					// This should probably account for attack speed or something
+					for(var/obj/item/B in src.held_items)
+						if(attackcount == 0)
+							B.melee_attack_chain(src, A, params)
+							sleep(3)
+							attackcount = 1
+
+						if(B != original)
+							src.activate_hand(src.get_held_index_of_item(B))
+							B.melee_attack_chain(src, A, params)
+							attackcount = attackcount + 1
+							if(attackcount < itemcount)
+								sleep(3)
+
+					return
+
+			else
+				W.melee_attack_chain(src, A, params)
+		else
+			if(ismob(A))
+				changeNext_move(CLICK_CD_MELEE)
+			UnarmedAttack(A,1)
+	else
+		if(W)
+			W.afterattack(A,src,0,params)
+		else
+			RangedAttack(A,params)
+	src.swap_hand()
+
+// /atom/proc/ShiftMiddleClickOn(mob/user)
 /*
 	Ctrl click
 	For most objects, pull
@@ -413,9 +521,12 @@
 	A.CtrlShiftClick(src)
 	return
 
-/mob/proc/ShiftMiddleClickOn(atom/A)
-	src.pointed(A)
+/atom/proc/ShiftMiddleClickOn(mob/user)
+	SEND_SIGNAL(src, COMSIG_CLICK_SHIFT, user)
+	if(user.client && user.client.eye == user || user.client.eye == user.loc)
+		user.examinate(src)
 	return
+
 
 /atom/proc/CtrlShiftClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL_SHIFT)
