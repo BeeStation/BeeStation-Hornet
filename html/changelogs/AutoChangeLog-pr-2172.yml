@@ -1,7 +1,0 @@
-author: St0rmC4st3r
-delete-after: true
-changes:
-  - rscdel: A clearly illegal slaughterhouse to the west of the research division
-      on boxstation has been permanently removed.
-  - rscadd: An actual medbay with treatment separation and more than one surgery room
-      has been installed in the place of the removed slaughterhouse.
