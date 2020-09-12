@@ -104,7 +104,7 @@
 		return
 
 	if(prob(5))
-		audible_message("[src] makes an excited booping whirring sound!")
+		audible_message("[src] makes an excited whirring sound!")
 
 	action = ATMOSBOT_NOTHING
 	if(!isspaceturf(get_turf(src)))
