@@ -544,7 +544,7 @@
 	return FALSE
 
 /obj/item/dnainjector/activator/elementx
-	name = "\improper Element X Injector"
-	desc = "For when the spiders crawling out of xenobiology just aren't radioactive enough."
+	name = "\improper Energy X Activator"
+	desc = "Contains a rare sample of Energy X, a mysterious material that, when injected, alters one's DNA and activates all positive mutations."
 	damage_coeff = 0
 	add_mutations = list(XRAY,TK,CHAMELEON,LASEREYES,ANTENNA,MINDREAD,OLFACTION,INSULATED,SHOCKTOUCH,GIGANTISM,GELADIKINESIS,CRYOKINESIS,THERMAL,GLOWY,ANTIGLOWY,SPACEMUT,TELEPATHY,FIREBREATH,STRONG)

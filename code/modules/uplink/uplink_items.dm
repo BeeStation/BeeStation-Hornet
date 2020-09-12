@@ -1848,8 +1848,8 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	restricted_roles = list("Geneticist", "Chief Medical Officer")
 
 /datum/uplink_item/role_restricted/elementx
-	name = "Element X"
-	desc = "While reading those comic books, I'm sure you wondered what it's like to have super powers like your favorite comic hero or villain. \ Well, dream no longer! Unlock your true potential with Element X, and become the supervillain of your story! \ Contains an Element X activator; a single use injector that activates all your positive mutations."
+	name = "Energy X"
+	desc = "While reading those comic books, I'm sure you wondered what it's like to have super powers like your favorite comic hero or villain. \ Well, dream no longer! Unlock your true potential with Energy X, and become the supervillain of your story! \ Contains an Energy X activator; a single use injector that activates all your positive mutations."
 	item = /obj/item/dnainjector/activator/elementx
 	cost = 3
 	surplus = 30
