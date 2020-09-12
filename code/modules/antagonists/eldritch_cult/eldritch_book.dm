@@ -10,6 +10,8 @@
 	var/charge = 1
 	///Where we cannot create the rune?
 	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
+	///Is it in use?
+	var/in_use = FALSE
 
 /obj/item/forbidden_book/Destroy()
 	last_user = null
@@ -27,14 +29,16 @@
 
 /obj/item/forbidden_book/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!proximity_flag || !IS_HERETIC(user))
+	if(!proximity_flag || !IS_HERETIC(user) || in_use)
 		return
+	in_use = TRUE
 	if(istype(target,/obj/effect/eldritch))
 		remove_rune(target,user)
 	if(istype(target,/obj/effect/reality_smash))
 		get_power_from_influence(target,user)
 	if(istype(target,/turf/open))
 		draw_rune(target,user)
+	in_use = FALSE
 
 ///Gives you a charge and destroys a corresponding influence
 /obj/item/forbidden_book/proc/get_power_from_influence(atom/target, mob/user)
@@ -54,9 +58,10 @@
 	var/A = get_turf(target)
 	to_chat(user, "<span class='danger'>You start drawing a rune...</span>")
 
-	if(do_after(user,30 SECONDS,A))
+	if(do_after(user,30 SECONDS,FALSE,A))
 
 		new /obj/effect/eldritch/big(A)
+
 
 ///Removes runes from the selected turf
 /obj/item/forbidden_book/proc/remove_rune(atom/target,mob/user)
