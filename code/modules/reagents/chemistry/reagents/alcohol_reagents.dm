@@ -726,7 +726,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	taste_description = "bitterness"
 	glass_icon_state = "glass_clear"
 	glass_name = "Moonshine"
-	glass_desc = "You've really hit rock bottom now Your liver packed its bags and left last night."
+	glass_desc = "You've really hit rock bottom now. Your liver packed its bags and left last night."
 
 /datum/reagent/consumable/ethanol/b52
 	name = "B-52"
