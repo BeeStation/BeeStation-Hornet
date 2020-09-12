@@ -908,7 +908,14 @@ datum/admin_help/proc/Reclass_internal(newclass = TICKET_ADMIN, key_name = key_n
 /client/verb/adminhelp(msg as text)
 	set category = "Admin"
 	set name = "Adminhelp"
+	ticket_internal(msg, TICKET_ADMIN)
 
+/client/verb/mentorhelp(msg as text)
+	set category = "Admin"
+	set name = "Mentorhelp"
+	ticket_internal(msg, TICKET_MENTOR)
+
+/client/proc/ticket_internal(msg, class = TICKET_ADMIN)
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
 		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
 		return
@@ -938,7 +945,7 @@ datum/admin_help/proc/Reclass_internal(newclass = TICKET_ADMIN, key_name = key_n
 			current_ticket.AddInteraction("yellow", "[usr] opened a new ticket.")
 			current_ticket.Close()
 
-	new /datum/admin_help(msg, src, FALSE)
+	new /datum/admin_help(msg, src, FALSE, class)
 
 //
 // LOGGING
