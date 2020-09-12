@@ -175,7 +175,7 @@ GLOBAL_PROTECT(admin_verbs_permissions)
 GLOBAL_LIST_INIT(admin_verbs_poll, list(/client/proc/poll_panel))
 GLOBAL_PROTECT(admin_verbs_poll)
 
-//BEE START - MENTOR2 AND TELEPORT FLAG
+//Mentor Rework and Teleport flag.
 GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_mentor_say
 ))

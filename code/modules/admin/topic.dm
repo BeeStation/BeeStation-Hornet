@@ -22,7 +22,7 @@
 	if(!CheckAdminHref(href, href_list))
 		return
 
-	if(href_list["ahelp"]) //BEE CHANGE, Tickets should check their own permissions on ui_state.
+	if(href_list["ahelp"]) //Tickets should check their own permissions on ui_state.
 		var/ahelp_ref = href_list["ahelp"]
 		var/datum/admin_help/AH = locate(ahelp_ref)
 		if(AH)

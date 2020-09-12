@@ -241,10 +241,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	for(var/l in list(active_tickets, unclaimed_tickets))
 		for(var/I in l)
 			var/datum/admin_help/AH = I
-			if(AH.initiator)
-				//stat("#[AH.id]. [AH.initiator_key_name]:", AH.statclick.update()) //BEE EDIT - No leaking detailed information. I could check rank here...
-				// But this is a stat call. That sounds like a great way to cause horrific lag.
-			else
+			if(!AH.initiator)
 				++num_disconnected
 	if(num_disconnected)
 		stat("Disconnected:", astatclick.update("[num_disconnected]"))
@@ -471,7 +468,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	data["sender"] = initiator_key_name
 	data["world_time"] = world.time
 	data["antag_status"] = "None"
-	data["tier"] = class //BEE EDIT
+	data["tier"] = class
 	if(initiator)
 		var/mob/living/M = initiator.mob
 		if(M?.mind?.antag_datums)
