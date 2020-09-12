@@ -2,10 +2,34 @@
 "a" = (
 /turf/open/floor/circuit/green,
 /area/space)
+"b" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/circuit/green,
+/area/space)
+"c" = (
+/obj/machinery/computer{
+	dir = 1
+	},
+/obj/machinery/door/window/brigdoor/northright,
+/turf/open/floor/plasteel/techmaint,
+/area/space)
+"d" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/circuit/green,
+/area/space)
 "e" = (
 /obj/structure/table/reinforced,
 /obj/item/aicard,
 /obj/item/aiModule/core/freeformcore,
+/obj/machinery/door/window/brigdoor/southright,
+/turf/open/floor/plasteel/techmaint,
+/area/space)
+"f" = (
+/obj/machinery/computer,
 /obj/machinery/door/window/brigdoor/southright,
 /turf/open/floor/plasteel/techmaint,
 /area/space)
@@ -33,12 +57,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
-"m" = (
-/obj/machinery/computer{
-	dir = 1
-	},
-/turf/open/floor/circuit/green,
-/area/space)
 "o" = (
 /obj/structure/table/reinforced,
 /obj/item/aicard,
@@ -47,10 +65,6 @@
 /obj/effect/temp_visual/ratvar/door,
 /obj/machinery/door/window/brigdoor/northright,
 /turf/open/floor/plasteel/techmaint,
-/area/space)
-"q" = (
-/obj/machinery/computer,
-/turf/open/floor/circuit/green,
 /area/space)
 "v" = (
 /obj/effect/turf_decal/tile/green{
@@ -237,8 +251,8 @@ x
 W
 a
 a
-a
-a
+b
+b
 a
 a
 R
@@ -247,8 +261,8 @@ R
 e
 a
 T
-m
-q
+c
+f
 T
 w
 o
@@ -257,8 +271,8 @@ o
 B
 a
 a
-a
-a
+d
+d
 a
 a
 i
