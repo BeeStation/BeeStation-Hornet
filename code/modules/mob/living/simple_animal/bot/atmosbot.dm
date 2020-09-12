@@ -313,8 +313,9 @@
 		temperature_control = temperature_control ? FALSE : TRUE
 	else if(href_list["toggle_gas"])
 		var/gas_datum = href_list["toggle_gas"]
-		if(gasses.Find(gas_datum))
-			gasses[gas_datum] = gasses[gas_datum] ? FALSE : TRUE
+		for(var/G in gasses)
+			if("[G]" == gas_datum)
+				gasses[G] = gasses[G] ? FALSE : TRUE
 	else if(href_list["set_ideal_temperature"])
 		var/new_temp = input(usr, "Set Target Temperature ([T0C] to [T20C + 20])", "Target Temperature") as num
 		if(!isnum(new_temp) || new_temp < T0C || new_temp > T20C + 20)
