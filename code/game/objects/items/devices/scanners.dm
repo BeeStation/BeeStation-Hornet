@@ -476,7 +476,6 @@ GENE SCANNER
 	return BRUTELOSS
 
 /obj/item/analyzer/attacked_by(obj/O, mob/living/user)
-	. = ..()
 	if(istype(O, /obj/item/bodypart/l_arm/robot) || istype(O, /obj/item/bodypart/r_arm/robot))
 		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
 		qdel(O)

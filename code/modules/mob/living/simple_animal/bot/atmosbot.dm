@@ -107,31 +107,32 @@
 		audible_message("[src] makes an excited booping whirring sound!")
 
 	action = ATMOSBOT_NOTHING
-	switch(check_area_atmos())
-		if(ATMOSBOT_CHECK_BREACH)
-			if(last_barrier_tick + ATMOSBOT_HOLOBARRIER_COOLDOWN < world.time)
-				target = return_nearest_breach()
-				action = ATMOSBOT_DEPLOY_BARRIER
-				if(!target)
+	if(!isspaceturf(get_turf(src))
+		switch(check_area_atmos())
+			if(ATMOSBOT_CHECK_BREACH)
+				if(last_barrier_tick + ATMOSBOT_HOLOBARRIER_COOLDOWN < world.time)
+					target = return_nearest_breach()
+					action = ATMOSBOT_DEPLOY_BARRIER
+					if(!target)
+						target = get_vent_turf()
+						action = ATMOSBOT_VENT_AIR
+				else
 					target = get_vent_turf()
 					action = ATMOSBOT_VENT_AIR
-			else
+			if(ATMOSBOT_LOW_OXYGEN)
 				target = get_vent_turf()
 				action = ATMOSBOT_VENT_AIR
-		if(ATMOSBOT_LOW_OXYGEN)
-			target = get_vent_turf()
-			action = ATMOSBOT_VENT_AIR
-		if(ATMOSBOT_HIGH_TOXINS)
-			target = get_vent_turf()
-			action = ATMOSBOT_SCRUB_TOXINS
-		if(ATMOSBOT_BAD_TEMP)
-			target = get_vent_turf()
-			action = ATMOSBOT_TEMPERATURE_CONTROL
-		if(ATMOSBOT_AREA_STABLE)
-			if(emagged == 2)
-				if(prob(20))
-					target = get_vent_turf()
-					action = ATMOSBOT_VENT_AIR
+			if(ATMOSBOT_HIGH_TOXINS)
+				target = get_vent_turf()
+				action = ATMOSBOT_SCRUB_TOXINS
+			if(ATMOSBOT_BAD_TEMP)
+				target = get_vent_turf()
+				action = ATMOSBOT_TEMPERATURE_CONTROL
+			if(ATMOSBOT_AREA_STABLE)
+				if(emagged == 2)
+					if(prob(20))
+						target = get_vent_turf()
+						action = ATMOSBOT_VENT_AIR
 	update_icon()
 
 	if(!target)
@@ -160,9 +161,6 @@
 					scrub_toxins()
 				if(ATMOSBOT_TEMPERATURE_CONTROL)
 					change_temperature()
-				if(ATMOSBOT_NOTHING)
-					//We reached our target but we aren't doing anything anymore
-					target = null
 			return
 
 		if(!LAZYLEN(path))
@@ -311,7 +309,7 @@
 		if(!isnum(new_breach_pressure) || new_breach_pressure < 0 || new_breach_pressure > 100)
 			return
 		breached_pressure = new_breach_pressure
-	else if(href_list["set_breach_pressure"])
+	else if(href_list["toggle_temp_control"])
 		temperature_control = !temperature_control
 	else if(href_list["toggle_gas"])
 		var/gas_datum = href_list["toggle_gas"]
