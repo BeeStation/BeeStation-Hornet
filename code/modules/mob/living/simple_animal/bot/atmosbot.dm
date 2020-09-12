@@ -132,8 +132,6 @@
 				if(prob(20))
 					target = get_vent_turf()
 					action = ATMOSBOT_VENT_AIR
-			else
-				target = null
 	update_icon()
 
 	if(!target)
@@ -155,12 +153,15 @@
 			switch(action)
 				if(ATMOSBOT_DEPLOY_BARRIER)
 					deploy_holobarrier()
+					target = get_vent_turf()
 				if(ATMOSBOT_VENT_AIR)
 					vent_air()
 				if(ATMOSBOT_SCRUB_TOXINS)
 					scrub_toxins()
 				if(ATMOSBOT_TEMPERATURE_CONTROL)
 					change_temperature()
+				if(ATMOSBOT_NOTHING)
+					target = null
 			return
 
 		if(!LAZYLEN(path))
@@ -222,9 +223,10 @@
 	if(gas_mix.return_pressure() < breached_pressure)
 		return ATMOSBOT_CHECK_BREACH
 	//Toxins in the air
-	for(var/G in gasses)
-		if(gas_mix.get_moles(G) > 0.2)
-			return ATMOSBOT_HIGH_TOXINS
+	if(emagged != 2)
+		for(var/G in gasses)
+			if(gas_mix.get_moles(G) > 0.2)
+				return ATMOSBOT_HIGH_TOXINS
 	//Too little oxygen or too little pressure
 	var/partial_pressure = R_IDEAL_GAS_EQUATION * gas_mix.return_temperature() / gas_mix.return_volume()
 	var/oxygen_moles = gas_mix.get_moles(/datum/gas/oxygen) * partial_pressure
@@ -295,7 +297,8 @@
 		for(var/gas_typepath in gasses)
 			var/gas_enabled = gasses[gas_typepath]
 			var/datum/gas/gas_type = gas_typepath
-			dat += "[initial(gas_type.name)]: <a href='src=[REF(src)];toggle_gas=[gas_typepath]'>[gas_enabled?"Scrubbing":"Not Scrubbing"]</a><br>"
+			dat += "[initial(gas_type.name)]: <a href='?src=[REF(src)];toggle_gas=[gas_typepath]'>[gas_enabled?"Scrubbing":"Not Scrubbing"]</a><br>"
+		dat += "Patrol Station: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
 	return dat
 
 /mob/living/simple_animal/bot/atmosbot/Topic(href, href_list)
@@ -327,6 +330,11 @@
 		icon_state = "atmosbot[on][on?"_5":""]"
 		return
 	icon_state = "atmosbot[on][on?"_[action]":""]"
+
+/mob/living/simple_animal/bot/atmosbot/UnarmedAttack(atom/A, proximity)
+	if(isturf(A) && A == get_turf(src))
+		return deploy_holobarrier()
+	return ..()
 
 /mob/living/simple_animal/bot/atmosbot/explode()
 	on = FALSE
