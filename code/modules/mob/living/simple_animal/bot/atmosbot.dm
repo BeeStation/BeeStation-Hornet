@@ -107,7 +107,7 @@
 		audible_message("[src] makes an excited booping whirring sound!")
 
 	action = ATMOSBOT_NOTHING
-	if(!isspaceturf(get_turf(src))
+	if(!isspaceturf(get_turf(src)))
 		switch(check_area_atmos())
 			if(ATMOSBOT_CHECK_BREACH)
 				if(last_barrier_tick + ATMOSBOT_HOLOBARRIER_COOLDOWN < world.time)
@@ -310,11 +310,11 @@
 			return
 		breached_pressure = new_breach_pressure
 	else if(href_list["toggle_temp_control"])
-		temperature_control = !temperature_control
+		temperature_control = temperature_control ? FALSE : TRUE
 	else if(href_list["toggle_gas"])
 		var/gas_datum = href_list["toggle_gas"]
 		if(gasses.Find(gas_datum))
-			gasses[gas_datum] = !gasses[gas_datum]
+			gasses[gas_datum] = gasses[gas_datum] ? FALSE : TRUE
 	else if(href_list["set_ideal_temperature"])
 		var/new_temp = input(usr, "Set Target Temperature ([T0C] to [T20C + 20])", "Target Temperature") as num
 		if(!isnum(new_temp) || new_temp < T0C || new_temp > T20C + 20)
