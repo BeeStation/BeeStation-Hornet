@@ -7,7 +7,7 @@
 	density = TRUE
 
 	var/d_state = INTACT
-	hardness = 10
+	hardness = 5
 	sheet_type = /obj/item/stack/sheet/plasteel
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
