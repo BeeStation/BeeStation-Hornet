@@ -337,10 +337,10 @@
 
 /datum/disease/transformation/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis"
-	cure_text = "Something that would kill off the tiny cats." 
+	cure_text = "Something that would kill off the tiny cats."
 	spread_text = "Acute"
 	disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
-	cures = list(/datum/reagent/consumable/coco) //kills all the tiny cats that infected your organism
+	cures = list(/datum/reagent/consumable/cocoa) //kills all the tiny cats that infected your organism
 	cure_chance = 25
 	stage_prob = 3
 	agent = "Nano-feline Toxoplasmosis"

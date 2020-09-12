@@ -24,7 +24,7 @@
 /datum/chemical_reaction/chocolate_bar
 	name = "Chocolate Bar"
 	id = "chocolate_bar"
-	required_reagents = list(/datum/reagent/consumable/soymilk = 2, /datum/reagent/consumable/coco = 2, /datum/reagent/consumable/sugar = 2)
+	required_reagents = list(/datum/reagent/consumable/soymilk = 2, /datum/reagent/consumable/cocoa = 2, /datum/reagent/consumable/sugar = 2)
 
 /datum/chemical_reaction/chocolate_bar/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -45,11 +45,11 @@
 		new /obj/item/reagent_containers/food/snacks/chocolatebar(location)
 	return
 
-/datum/chemical_reaction/hot_coco
-	name = "Hot Coco"
-	id = /datum/reagent/consumable/hot_coco
-	results = list(/datum/reagent/consumable/hot_coco = 5)
-	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/coco = 1)
+/datum/chemical_reaction/hot_cocoa
+	name = "Hot Cocoa"
+	id = /datum/reagent/consumable/hot_cocoa
+	results = list(/datum/reagent/consumable/hot_cocoa = 5)
+	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/cocoa = 1)
 
 /datum/chemical_reaction/coffee
 	name = "Coffee"

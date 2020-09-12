@@ -308,16 +308,16 @@
 /obj/item/reagent_containers/food/snacks/store/cake/bscc // blackbarry strawberries chocolate cake
 	name = "blackberry and strawberry chocolate cake"
 	desc = "A chocolate cake, filled with assortment of blackberries and strawberries!"
-	icon_state = "blackbarry_strawberries_cake_coco_cake"
+	icon_state = "blackbarry_strawberries_cake_cocoa_cake"
 	slice_path = /obj/item/reagent_containers/food/snacks/cakeslice/bscc
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 14, /datum/reagent/consumable/nutriment/vitamin = 4, /datum/reagent/consumable/coco = 5)
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 14, /datum/reagent/consumable/nutriment/vitamin = 4, /datum/reagent/consumable/cocoa = 5)
 	tastes = list("blackberry" = 2, "strawberries" = 2, "chocolate" = 2, "sweetness" = 2,"cake" = 3)
 	foodtype = GRAIN | DAIRY | FRUIT | SUGAR
 
 /obj/item/reagent_containers/food/snacks/cakeslice/bscc
 	name = "blackberry and strawberry chocolate cake slice"
 	desc = "Just a slice of cake  filled with assortment of blackberries and strawberries!"
-	icon_state = "blackbarry_strawberries_cake_coco_slice"
+	icon_state = "blackbarry_strawberries_cake_cocoa_slice"
 	filling_color = "#FFD700"
 	tastes = list("blackberry" = 2, "strawberries" = 2, "chocolate" = 2, "sweetness" = 2,"cake" = 3)
 	foodtype = GRAIN | DAIRY | FRUIT | SUGAR

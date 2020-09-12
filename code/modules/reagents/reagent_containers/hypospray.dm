@@ -172,8 +172,8 @@
 	list_reagents = list(/datum/reagent/medicine/ephedrine = 10, /datum/reagent/consumable/coffee = 10)
 
 /obj/item/reagent_containers/hypospray/medipen/stimpack/traitor
-	desc = "A modified stimulants autoinjector for use in combat situations. Has a mild healing effect."
-	list_reagents = list(/datum/reagent/medicine/stimulants = 10, /datum/reagent/medicine/omnizine = 10)
+	desc = "A modified amphetamine autoinjector for use in combat situations. Has a mild healing effect."
+	list_reagents = list(/datum/reagent/medicine/amphetamine = 10, /datum/reagent/medicine/omnizine = 10)
 
 /obj/item/reagent_containers/hypospray/medipen/pumpup
 	name = "pumpup medipen"
@@ -197,7 +197,7 @@
 	item_state = "dexpen"
 	desc = "A autoinjector containing dexalin, used to heal oxygen damage quickly."
 	list_reagents = list(/datum/reagent/medicine/dexalin = 10)
-	
+
 /obj/item/reagent_containers/hypospray/medipen/tuberculosiscure
 	name = "BVAK autoinjector"
 	desc = "Bio Virus Antidote Kit autoinjector. Has a two use system for yourself, and someone else. Inject when infected."

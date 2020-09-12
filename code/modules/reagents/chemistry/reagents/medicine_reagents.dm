@@ -957,22 +957,22 @@
 	. = 1
 
 //Stimulants. Used in Adrenal Implant
-/datum/reagent/medicine/stimulants
-	name = "Stimulants"
+/datum/reagent/medicine/amphetamine
+	name = "Amphetamine"
 	description = "Increases stun resistance and movement speed in addition to restoring minor damage and weakness. Overdose causes weakness and toxin damage."
 	color = "#78008C"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 
-/datum/reagent/medicine/stimulants/on_mob_metabolize(mob/living/L)
+/datum/reagent/medicine/amphetamine/on_mob_metabolize(mob/living/L)
 	..()
 	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
 
-/datum/reagent/medicine/stimulants/on_mob_end_metabolize(mob/living/L)
+/datum/reagent/medicine/amphetamine/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(type)
 	..()
 
-/datum/reagent/medicine/stimulants/on_mob_life(mob/living/carbon/M)
+/datum/reagent/medicine/amphetamine/on_mob_life(mob/living/carbon/M)
 	if(M.health < 50 && M.health > 0)
 		M.adjustOxyLoss(-1*REM, 0)
 		M.adjustToxLoss(-1*REM, 0)
@@ -983,7 +983,7 @@
 	..()
 	. = 1
 
-/datum/reagent/medicine/stimulants/overdose_process(mob/living/M)
+/datum/reagent/medicine/amphetamine/overdose_process(mob/living/M)
 	if(prob(33))
 		M.adjustStaminaLoss(2.5*REM, 0)
 		M.adjustToxLoss(1*REM, 0)
@@ -1496,7 +1496,7 @@
 
 /datum/reagent/medicine/polypyr  //This is intended to be an ingredient in advanced chems.
 	name = "Polypyrylium Oligomers"
-	description = "A�purple mixture of short polyelectrolyte chains not easily synthesized in the laboratory. It is valued as an intermediate in the synthesis of the cutting edge pharmaceuticals."
+	description = "A purple mixture of short polyelectrolyte chains not easily synthesized in the laboratory. It is valued as an intermediate in the synthesis of the cutting edge pharmaceuticals."
 	reagent_state = SOLID
 	color = "#9423FF"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
