@@ -78,7 +78,7 @@
 	. = ..()
 	update_icon()
 
-/mob/living/simple_animal/bot/atmosbot/turf_off()
+/mob/living/simple_animal/bot/atmosbot/turn_off()
 	. = ..()
 	update_icon()
 
