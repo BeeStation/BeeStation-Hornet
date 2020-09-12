@@ -565,3 +565,12 @@
 	new /obj/item/storage/belt/soulstone/full/purified(src)
 	new /obj/item/sbeacondrop/constructshell(src)
 	new /obj/item/sbeacondrop/constructshell(src)
+
+/obj/item/storage/box/syndie_kit/superhero
+	name = "superhero kit"
+	desc = "For when the spiders crawling out of Xenobiology just aren't radioactive enough."
+
+/obj/item/storage/box/syndie_kit/superhero/PopulateContents()
+	new /obj/item/dnainjector/activator/elementx(src)
+	new /obj/item/sequence_scanner(src)
+	new /obj/item/bedsheet/random(src)
