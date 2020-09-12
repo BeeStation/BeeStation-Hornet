@@ -161,6 +161,7 @@
 				if(ATMOSBOT_TEMPERATURE_CONTROL)
 					change_temperature()
 				if(ATMOSBOT_NOTHING)
+					//We reached our target but we aren't doing anything anymore
 					target = null
 			return
 
@@ -353,8 +354,6 @@
 		new /obj/effect/temp_visual/vent_wind(Tsec)
 	if(deployed_holobarrier)
 		qdel(deployed_holobarrier.resolve())
-
-	var/turf/T = get_turf(Tsec)
 
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
