@@ -331,3 +331,9 @@
 
 /obj/screen/parallax_layer/planet/update_o()
 	return //Shit wont move
+
+/obj/screen/plane_master/emissive_blocker
+	name = "emissive blocker plane master"
+	plane = EMISSIVE_BLOCKER_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_target = EMISSIVE_BLOCKER_RENDER_TARGET

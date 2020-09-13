@@ -38,7 +38,7 @@
 	if (!light_power || !light_range) // We won't emit light anyways, destroy the light source.
 		QDEL_NULL(light)
 	else
-		if (!ismovableatom(loc)) // We choose what atom should be the top atom of the light here.
+		if (!ismovable(loc)) // We choose what atom should be the top atom of the light here.
 			. = src
 		else
 			. = loc
@@ -89,17 +89,17 @@
 
 /atom/vv_edit_var(var_name, var_value)
 	switch (var_name)
-		if ("light_range")
+		if (NAMEOF(src, light_range))
 			set_light(l_range=var_value)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
 
-		if ("light_power")
+		if (NAMEOF(src, light_power))
 			set_light(l_power=var_value)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
 
-		if ("light_color")
+		if (NAMEOF(src, light_color))
 			set_light(l_color=var_value)
 			datum_flags |= DF_VAR_EDITED
 			return TRUE
