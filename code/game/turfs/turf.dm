@@ -128,6 +128,15 @@
 	..()
 
 /turf/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HARM && user.m_intent == MOVE_INTENT_WALK)//if you swing carefully without blocking, you click easier
+		for(var/mob/living/L in src)
+			if(L.stat)
+				continue
+			if(user == L)
+				continue
+			L.attack_hand(user)
+			user.changeNext_move(CLICK_CD_MELEE)
+			return
 	. = ..()
 	if(.)
 		return
