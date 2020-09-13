@@ -49,7 +49,7 @@
 
 /obj/item/reagent_containers/food/snacks/chocolatebar
 	name = "chocolate bar"
-	desc = "Such, sweet, fattening food."
+	desc = "Such sweet, fattening food."
 	icon_state = "chocolatebar"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/cocoa = 2)
 	filling_color = "#A0522D"
@@ -142,7 +142,7 @@
 
 /obj/item/reagent_containers/food/snacks/carrotfries
 	name = "carrot fries"
-	desc = "Tasty fries from fresh Carrots."
+	desc = "Tasty fries from fresh carrots."
 	icon_state = "carrotfries"
 	trash = /obj/item/trash/plate
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/medicine/oculine = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
