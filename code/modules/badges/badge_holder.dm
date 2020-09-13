@@ -64,7 +64,8 @@ GLOBAL_PROTECT(badge_datums)
 	if(!GLOB.badge_datums.Find(ckey))
 		GLOB.badge_datums[ckey] = new /datum/badges(ckey)
 	if(R)
-		for(var/datum/badge_rank/B in GLOB.badge_datums[ckey].badges)
+		var/datum/badges/badge_holder = GLOB.badge_datums[ckey]
+		for(var/datum/badge_rank/B in badge_holder.badges)
 			if(B.group == R.group)
 				if(B.priority > R.priority)
 					//Don't add ourselves if there is a higher priority badge
@@ -73,7 +74,7 @@ GLOBAL_PROTECT(badge_datums)
 					//Remove lower priority badges to ourself.
 					var/datum/badges/badge = GLOB.badge_datums[ckey]
 					badge.badges.Remove(B)
-		GLOB.badge_datums[ckey].badges += R
+		badge_holder.badges += R
 	if(GLOB.directory[ckey])
 		var/client/C = GLOB.directory[ckey]
 		if(!C.bholder)
