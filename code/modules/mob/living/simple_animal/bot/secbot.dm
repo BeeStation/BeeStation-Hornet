@@ -254,14 +254,15 @@ Auto Patrol: []"},
 	icon_state = "[initial(icon_state)]-c"
 	addtimer(CALLBACK(src, /atom/.proc/update_icon), 2)
 	var/threat = 5
+	var/armor_block = C.getarmor("melee")
 	if(ishuman(C))
-		C.stuttering = 5
-		C.Paralyze(100)
+		target.apply_damage(75, STAMINA, blocked = armor_block)
+		target.apply_effect(EFFECT_STUTTER, 75)
 		var/mob/living/carbon/human/H = C
 		threat = H.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 	else
-		C.Paralyze(100)
-		C.stuttering = 5
+		target.apply_damage(75, STAMINA, blocked = armor_block)
+		target.apply_effect(EFFECT_STUTTER, 75)
 		threat = C.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 
 	log_combat(src,C,"stunned")
