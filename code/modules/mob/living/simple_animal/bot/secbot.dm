@@ -16,10 +16,12 @@
 	model = "Securitron"
 	bot_core_type = /obj/machinery/bot_core/secbot
 	window_id = "autosec"
-	window_name = "Automatic Security Unit v1.6"
+	window_name = "Automatic Security Unit v1.7"
 	allow_pai = 0
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	path_image_color = "#FF0000"
+	base_speed = 3
+	speed = 0
 
 	var/noloot = TRUE
 	var/baton_type = /obj/item/melee/baton
@@ -256,15 +258,16 @@ Auto Patrol: []"},
 	var/threat = 5
 	var/armor_block = C.getarmor("melee")
 	if(ishuman(C))
-		target.apply_damage(75, STAMINA, blocked = armor_block)
+		target.apply_damage(80, STAMINA, blocked = armor_block)
 		target.apply_effect(EFFECT_STUTTER, 75)
 		var/mob/living/carbon/human/H = C
 		threat = H.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 	else
-		target.apply_damage(75, STAMINA, blocked = armor_block)
+		target.apply_damage(80, STAMINA, blocked = armor_block)
 		target.apply_effect(EFFECT_STUTTER, 75)
 		threat = C.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
-
+	if(C.getStaminaLoss() >= 100) //couldn't get the ai to work without this for some odd reason, though isparalyzed should do fine without it
+		C.Paralyze(80) 
 	log_combat(src,C,"stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)

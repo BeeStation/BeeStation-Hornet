@@ -487,6 +487,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(!dest || !path || path.len == 0) //A-star failed or a path/destination was not set.
 		set_path(null)
 		return FALSE
+	if(!Process_Spacemove())
+		return 0
 	dest = get_turf(dest) //We must always compare turfs, so get the turf of the dest var if dest was originally something else.
 	var/turf/last_node = get_turf(path[path.len]) //This is the turf at the end of the path, it should be equal to dest.
 	if(get_turf(src) == dest) //We have arrived, no need to move again.

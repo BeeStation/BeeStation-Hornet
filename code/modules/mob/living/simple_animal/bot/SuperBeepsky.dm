@@ -24,6 +24,7 @@
 	desc = "The Syndicate sends their regards."
 	emagged = 2
 	noloot = TRUE
+	spacewalk = TRUE
 
 /mob/living/simple_animal/bot/secbot/grievous/nullcrate/emp_act(severity)
 	. = ..()
@@ -38,10 +39,10 @@
 		ejectpai(0)
 	if(on)
 		turn_off()
-	stoplag(severity*20)//no, not gonna fucking use spawn. anyways, this gives you long enough to ESCAPE, but won't kill the thing. he's gonna fuck you up.
-		stat &= ~EMPED
-		if(was_on)
-			turn_on()
+	stoplag(severity*rand(1, 40)) //no, not gonna fucking use spawn. anyways, this gives you long enough to ESCAPE, but won't guarantee its death. unreliability prevents cheesing
+	stat &= ~EMPED
+	if(was_on)
+		turn_on()
 
 /mob/living/simple_animal/bot/secbot/grievous/bullet_act(obj/item/projectile/P)
 	visible_message("[src] deflects [P] with its energy swords!")
