@@ -53,6 +53,7 @@
 #define AALARM_MODE_FLOOD 6 //Emagged mode; turns off scrubbers and pressure checks on vents
 #define AALARM_MODE_SIPHON 7 //Scrubbers suck air
 #define AALARM_MODE_CONTAMINATED 8 //Turns on all filtering and widenet scrubbing.
+#define AALARM_MODE_REFILL 9 //just like normal, but with triple the air output
 
 #define AALARM_REPORT_TIMEOUT 100
 
@@ -328,6 +329,7 @@
 		data["modes"] += list(list("name" = "Filtering - Scrubs out contaminants", 				"mode" = AALARM_MODE_SCRUBBING,		"selected" = mode == AALARM_MODE_SCRUBBING, 	"danger" = 0))
 		data["modes"] += list(list("name" = "Contaminated - Scrubs out ALL contaminants quickly","mode" = AALARM_MODE_CONTAMINATED,	"selected" = mode == AALARM_MODE_CONTAMINATED,	"danger" = 0))
 		data["modes"] += list(list("name" = "Draught - Siphons out air while replacing",		"mode" = AALARM_MODE_VENTING,		"selected" = mode == AALARM_MODE_VENTING,		"danger" = 0))
+		data["modes"] += list(list("name" = "Refill - Triple vent output",						"mode" = AALARM_MODE_REFILL,		"selected" = mode == AALARM_MODE_REFILL,		"danger" = 1))
 		data["modes"] += list(list("name" = "Cycle - Siphons air before replacing", 			"mode" = AALARM_MODE_REPLACEMENT,	"selected" = mode == AALARM_MODE_REPLACEMENT, 	"danger" = 1))
 		data["modes"] += list(list("name" = "Siphon - Siphons air out of the room", 			"mode" = AALARM_MODE_SIPHON,		"selected" = mode == AALARM_MODE_SIPHON, 		"danger" = 1))
 		data["modes"] += list(list("name" = "Panic Siphon - Siphons air out of the room quickly","mode" = AALARM_MODE_PANIC,		"selected" = mode == AALARM_MODE_PANIC, 		"danger" = 1))
@@ -480,6 +482,8 @@
 			return "Contaminated"
 		if(AALARM_MODE_VENTING)
 			return "Draught"
+		if(AALARM_MODE_REFILL)
+			return "Refill"
 		if(AALARM_MODE_PANIC)
 			return "Panic Siphon"
 		if(AALARM_MODE_REPLACEMENT)
@@ -546,6 +550,20 @@
 					"power" = 1,
 					"checks" = 1,
 					"set_external_pressure" = ONE_ATMOSPHERE*2
+				), signal_source)
+		if(AALARM_MODE_REFILL)
+			for(var/device_id in A.air_scrub_names)
+				send_signal(device_id, list(
+					"power" = 1,
+					"set_filters" = list(/datum/gas/carbon_dioxide, /datum/gas/bz),
+					"scrubbing" = 1,
+					"widenet" = 0
+				), signal_source)
+			for(var/device_id in A.air_vent_names)
+				send_signal(device_id, list(
+					"power" = 1,
+					"checks" = 1,
+					"set_external_pressure" = ONE_ATMOSPHERE * 3
 				), signal_source)
 		if(AALARM_MODE_PANIC,
 			AALARM_MODE_REPLACEMENT)
@@ -822,4 +840,5 @@
 #undef AALARM_MODE_FLOOD
 #undef AALARM_MODE_SIPHON
 #undef AALARM_MODE_CONTAMINATED
+#undef AALARM_MODE_REFILL
 #undef AALARM_REPORT_TIMEOUT
