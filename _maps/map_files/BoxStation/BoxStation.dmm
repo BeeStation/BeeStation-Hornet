@@ -71,6 +71,23 @@
 	},
 /turf/closed/wall/r_wall,
 /area/security/prison)
+"aak" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/closet/firecloset,
+/obj/effect/mapping_helpers/dead_body_placer,
+/turf/open/floor/plating,
+/area/storage/emergency/starboard)
+"aal" = (
+/obj/effect/landmark/start/chemist,
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
+"aam" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/landmark/start/chemist,
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "aan" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/ambrosia,
@@ -21881,13 +21898,6 @@
 "biD" = (
 /obj/item/storage/box/lights/mixed,
 /obj/machinery/airalarm/directional/west,
-/turf/open/floor/plating,
-/area/storage/emergency/starboard)
-"biE" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/storage/emergency/starboard)
 "biF" = (
@@ -101055,10 +101065,10 @@ ceI
 uqz
 aiR
 bip
-bip
+aal
 ams
 bjL
-bjL
+aam
 bjL
 bjL
 aEw
@@ -102553,7 +102563,7 @@ aYV
 sYn
 beE
 bfS
-biE
+aak
 bkf
 bfS
 cTO
