@@ -21,7 +21,7 @@
 /obj/item/reagent_containers/food/snacks/grown/cocoapod
 	seed = /obj/item/seeds/cocoapod
 	name = "cocoa pod"
-	desc = "Fattening... Mmmmm... chucklate."
+	desc = "Fattening... Mmmmm... Chocolate."
 	icon_state = "cocoapod"
 	filling_color = "#FFD700"
 	bitesize_mod = 2
@@ -44,7 +44,7 @@
 /obj/item/reagent_containers/food/snacks/grown/vanillapod
 	seed = /obj/item/seeds/cocoapod/vanillapod
 	name = "vanilla pod"
-	desc = "Fattening... Mmmmm... vanilla."
+	desc = "Fattening... Mmmmm... Vanilla."
 	icon_state = "vanillapod"
 	filling_color = "#FFD700"
 	foodtype = FRUIT
