@@ -31,6 +31,75 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	if(user.a_intent != INTENT_HELP)
 		return ..(M, user)
 
+/obj/item/melee/bokken // parrying stick
+	name = "bokken"
+	desc = "A space-Japanese training sword made of wood and shaped like a katana."
+	icon_state = "bokken"
+	item_state = "bokken"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
+	w_class = WEIGHT_CLASS_BULKY
+	force = 7 //how much harm mode damage we do
+	var/stamina_damage_increment = 4 //how much extra damage do we do when in non-harm mode
+	throwforce = 10
+	damtype = STAMINA
+	attack_verb = list("whacked", "smacked", "struck")
+	hitsound = 'sound/weapons/grenadelaunch.ogg' // no good wood thunk sounds
+	var/harm = FALSE // TRUE = brute, FALSE = stam
+	var/reinforced = FALSE
+	var/burnt = FALSE
+	var/burned_in // text you burned in (with a welder)
+
+/obj/item/melee/bokken/Initialize()
+	. = ..()
+	if(!harm) //if initialised in non-harm mode, setup force accordingly
+		force = force + stamina_damage_increment
+
+/obj/item/melee/bokken/attack_self(mob/user)
+	harm = !harm
+	if(harm)
+		force -= stamina_damage_increment
+		damtype = BRUTE
+		attack_verb = list("bashed", "smashed", "attacked")
+	else
+		force += stamina_damage_increment
+		damtype = STAMINA
+		attack_verb = list("whacked", "smacked", "struck")
+	to_chat(user, "<span class='notice'>[src] is now [harm ? "harmful" : "not quite as harmful"].</span>")
+
+/obj/item/melee/bokken/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/pen))
+		var/new_name = stripped_input(user, "What do you wish to name [src]?", "New Name", "bokken", 30)
+		if(new_name)
+			name = new_name
+	if(I.tool_behaviour == TOOL_WELDER)
+		var/new_burn = stripped_input(user, "What do you wish to burn into [src]?", "Burnt Inscription","", 140)
+		if(new_burn)
+			burned_in = new_burn
+			if(!burnt)
+				icon_state += "_burnt"
+				item_state += "_burnt"
+				burnt = TRUE
+			update_icon()
+			update_icon_state()
+	if(istype(I, /obj/item/stack/rods))
+		var/obj/item/stack/rods/R = I
+		if(!reinforced)
+			if(R.use(1))
+				force++
+				reinforced = TRUE
+				to_chat(user, "<span class='notice'>You slide a metal rod into [src]\'s hilt. It feels a little heftier in your hands.")
+		else
+			to_chat(user, "<span class='notice'>[src] already has a weight slid into the hilt.")
+
+/obj/item/melee/bokken/examine(mob/user)
+	. = ..()
+	if(reinforced)
+		. += " There's a metal rod shoved into the base."
+	if(burnt)
+		. += " Burned into the \"blade\" is [burned_in]."
+
 /obj/item/sord
 	name = "\improper SORD"
 	desc = "This thing is so unspeakably shitty you are having a hard time even holding it."
