@@ -212,7 +212,14 @@
 
 	else if(istype(C, /obj/item/twohanded/rcl))
 		handleRCL(C, user)
-
+	if(user.a_intent == INTENT_HARM && user.m_intent == MOVE_INTENT_WALK)//if you swing carefully without blocking, you click easier
+		for(var/mob/living/L in src)
+			if(L.stat)
+				continue
+			if(user == L)
+				continue
+			L.attackby(C, user)
+			return FALSE
 	return FALSE
 
 /turf/CanPass(atom/movable/mover, turf/target)
