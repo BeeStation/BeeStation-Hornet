@@ -6,8 +6,14 @@
 
 	var/tmp/list/datum/light_source/affecting_lights       // List of light sources affecting this turf.
 	var/tmp/atom/movable/lighting_object/lighting_object // Our lighting object.
-	var/tmp/list/datum/lighting_corner/corners
+	var/tmp/datum/lighting_corner/lc_topleft
+	var/tmp/datum/lighting_corner/lc_topright
+	var/tmp/datum/lighting_corner/lc_bottomleft
+	var/tmp/datum/lighting_corner/lc_bottomright
 	var/tmp/has_opaque_atom = FALSE // Not to be confused with opacity, this will be TRUE if there's any opaque atom on the tile.
+
+// counterclockwisse 0 to 360
+#define PROC_ON_CORNERS(operation) lc_topright?.##operation;lc_bottomright?.##operation;lc_bottomleft?.##operation;lc_topleft?.##operation
 
 // Causes any affecting light sources to be queued for a visibility update, for example a door got opened.
 /turf/proc/reconsider_lights()
@@ -21,13 +27,7 @@
 	if (lighting_object)
 		qdel(lighting_object, TRUE)
 
-	var/datum/lighting_corner/C
-	var/thing
-	for (thing in corners)
-		if(!thing)
-			continue
-		C = thing
-		C.update_active()
+	PROC_ON_CORNERS(update_active())
 
 // Builds a lighting object for us, but only if our area is dynamic.
 /turf/proc/lighting_build_overlay()
@@ -43,32 +43,31 @@
 
 	new/atom/movable/lighting_object(src)
 
-	var/thing
-	var/datum/lighting_corner/C
 	var/datum/light_source/S
-	for (thing in corners)
-		if(!thing)
-			continue
-		C = thing
-		if (!C.active) // We would activate the corner, calculate the lighting for it.
-			for (thing in C.affecting)
-				S = thing
-				S.recalc_corner(C)
-			C.active = TRUE
+	var/i
+#define OPERATE(corner) \
+	if(corner && !corner.active) { \
+		for(i in corner.affecting) { \
+			S = i ; \
+			S.recalc_corner(corner) \
+		} \
+		corner.active = TRUE \
+	}
+	OPERATE(lc_topright)
+	OPERATE(lc_bottomright)
+	OPERATE(lc_bottomleft)
+	OPERATE(lc_topleft)
+#undef OPERATE
 
 // Used to get a scaled lumcount.
 /turf/proc/get_lumcount(var/minlum = 0, var/maxlum = 1)
-	if (!lighting_object)
+	if(!lighting_object)
 		return 1
 
-	var/totallums = 0
-	var/thing
-	var/datum/lighting_corner/L
-	for (thing in corners)
-		if(!thing)
-			continue
-		L = thing
-		totallums += L.lum_r + L.lum_b + L.lum_g
+	var/totallums = (lc_topright? (lc_topright.lum_r + lc_topright.lum_g + lc_topright.lum_b) : 0) \
+	+ (lc_bottomright? (lc_bottomright.lum_r + lc_bottomright.lum_g + lc_bottomright.lum_b) : 0) \
+	+ (lc_bottomleft? (lc_bottomleft.lum_r + lc_bottomleft.lum_g + lc_bottomleft.lum_b) : 0) \
+	+ (lc_topleft? (lc_topleft.lum_r + lc_topleft.lum_g + lc_topleft.lum_b) : 0)
 
 	totallums /= 12 // 4 corners, each with 3 channels, get the average.
 
@@ -98,7 +97,7 @@
 /turf/Exited(atom/movable/Obj, atom/newloc)
 	. = ..()
 
-	if (Obj?.opacity)
+	if (Obj && Obj.opacity)
 		recalc_atom_opacity() // Make sure to do this before reconsider_lights(), incase we're on instant updates.
 		reconsider_lights()
 
@@ -114,11 +113,14 @@
 	if (!IS_DYNAMIC_LIGHTING(src) && !light_sources)
 		return
 	lighting_corners_initialised = TRUE
-	if (!corners)
-		corners = list(null, null, null, null)
+	// counterclockwise from 0 to 360.
+	if(!lc_topright)
+		new /datum/lighting_corner(src, NORTHEAST)
+	if(!lc_bottomright)
+		new /datum/lighting_corner(src, SOUTHEAST)
+	if(!lc_bottomleft)
+		new /datum/lighting_corner(src, SOUTHWEST)
+	if(!lc_topleft)
+		new /datum/lighting_corner(src, NORTHWEST)
 
-	for (var/i = 1 to 4)
-		if (corners[i]) // Already have a corner on this direction.
-			continue
-
-		corners[i] = new/datum/lighting_corner(src, GLOB.LIGHTING_CORNER_DIAGONAL[i])
+#undef PROC_ON_CORNERS
