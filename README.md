@@ -1,12 +1,12 @@
-<h1 align="center">BeeStation 13 Codebase</h1>
-
+<h1 align="center">QuorbusStation Codebase</h1>
+<h2 align="center>Based on <a href="https://github.com/BeeStation/BeeStation-Hornet">BeeStation</a></h1>
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-resentment.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/contains-technical-debt.svg)](https://user-images.githubusercontent.com/8171642/50290880-ffef5500-043a-11e9-8270-a2e5b697c86c.png) [![forinfinityandbyond](https://user-images.githubusercontent.com/5211576/29499758-4efff304-85e6-11e7-8267-62919c3688a9.gif)](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a)
-[![Build Status](https://travis-ci.com/BeeStation/BeeStation-Hornet.svg?branch=master)](https://travis-ci.com/BeeStation/BeeStation-Hornet) ![Open Issues](https://isitmaintained.com/badge/open/BeeStation/BeeStation-Hornet.svg)
+[![Build Status](https://travis-ci.com/MrQueeba/QuorbusStation.svg?branch=master)](https://travis-ci.com/MrQueeba/QuorbusStation) ![Open Issues](https://isitmaintained.com/badge/open/MrQueeba/QuorbusStation.svg)
 
-**Website:** http://beestation13.com
-**Code:** https://github.com/beestation/beestation-hornet
-**Wiki:** https://wiki.beestation13.com/view/Main_Page
+**Website:** http://mrqueeba.live/ss13/ss13.html
+**Code:** https://github.com/mrqueeba/quorbusstation
+**Wiki (from BeeStation):** https://wiki.beestation13.com/view/Main_Page
 
 
 ## DOWNLOADING
@@ -17,15 +17,9 @@ Option 1:
 Follow this: https://wiki.beestation13.com/view/Setting_up_git
 
 Option 2: Download the source code as a zip by clicking the ZIP button in the
-code tab of https://github.com/beestation/beestation-hornet
+code tab of https://github.com/mrqueeba/quorbusstation
 (note: this will use a lot of bandwidth if you wish to update and is a lot of
 hassle if you want to make any changes at all, so it's not recommended.)
-
-Option 3: Use our docker image that tracks the master branch (See commits for build status. Again, same caveats as option 2)
-
-```
-docker run -d -p <your port>:1337 -v /path/to/your/config:/beestation/config -v /path/to/your/data:/beestation/data beestation/beestation <dream daemon options i.e. -public or -params>
-```
 
 ## INSTALLATION
 
@@ -98,7 +92,7 @@ https://github.com/tgstation/tgstation-server
 
 ## MAPS
 
-BeeStation currently comes equipped with these maps.
+QuorbusStation currently comes equipped with these maps.
 
 * [DeltaStation (default)](https://wiki.beestation13.com/view/DeltaStation)
 * [BoxStation](https://wiki.beestation13.com/view/Boxstation)
