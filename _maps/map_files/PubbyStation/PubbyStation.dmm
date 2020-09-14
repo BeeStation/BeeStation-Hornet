@@ -2045,7 +2045,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 10
 	},
-/obj/effect/landmark/start/prisoner,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "afE" = (
@@ -2070,7 +2069,6 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden{
 	dir = 4
 	},
-/obj/effect/landmark/start/prisoner,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "afH" = (
@@ -2185,14 +2183,14 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/freezer,
-/area/security/prison/toilet)
+/area/security/prison)
 "agd" = (
 /obj/machinery/shower{
 	dir = 8
 	},
 /obj/item/bikehorn/rubberducky,
 /turf/open/floor/plasteel/freezer,
-/area/security/prison/toilet)
+/area/security/prison)
 "age" = (
 /obj/machinery/teleport/station,
 /obj/effect/turf_decal/stripes/line{
@@ -2257,11 +2255,11 @@
 	req_access_txt = "0"
 	},
 /turf/open/floor/plasteel/freezer,
-/area/security/prison/toilet)
+/area/security/prison)
 "agp" = (
 /obj/item/soap/nanotrasen,
 /turf/open/floor/plasteel/freezer,
-/area/security/prison/toilet)
+/area/security/prison)
 "agq" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -2386,7 +2384,7 @@
 	req_access_txt = "0"
 	},
 /turf/open/floor/plasteel/freezer,
-/area/security/prison/toilet)
+/area/security/prison)
 "agD" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
@@ -2527,7 +2525,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/freezer,
-/area/security/prison/toilet)
+/area/security/prison)
 "agP" = (
 /turf/closed/wall,
 /area/security/main)
@@ -2623,7 +2621,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/freezer,
-/area/security/prison/toilet)
+/area/security/prison)
 "ahd" = (
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/delivery,

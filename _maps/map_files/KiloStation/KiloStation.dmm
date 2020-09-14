@@ -8467,7 +8467,7 @@
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/prison/toilet)
+/area/security/prison)
 "anb" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -8751,7 +8751,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/prison/toilet)
+/area/security/prison)
 "anv" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -54575,7 +54575,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/prison/toilet)
+/area/security/prison)
 "bAl" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -60572,7 +60572,7 @@
 	pixel_y = -22
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/prison/toilet)
+/area/security/prison)
 "bIU" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics Tank - O2";
@@ -68341,7 +68341,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/landmark/start/prisoner,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "bTR" = (
@@ -69716,7 +69715,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/landmark/start/prisoner,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "bVW" = (
@@ -76578,7 +76576,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/prison/toilet)
+/area/security/prison)
 "cfT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -76637,7 +76635,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/prison/toilet)
+/area/security/prison)
 "cfX" = (
 /obj/structure/sign/departments/security,
 /turf/closed/wall/r_wall/rust,
@@ -95297,7 +95295,7 @@
 	network = list("ss13","prison")
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/prison/toilet)
+/area/security/prison)
 "cIU" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
@@ -95360,7 +95358,7 @@
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/prison/toilet)
+/area/security/prison)
 "cIY" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -95500,7 +95498,7 @@
 	pixel_y = -22
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/prison/toilet)
+/area/security/prison)
 "cJe" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -95526,7 +95524,7 @@
 	network = list("ss13","prison")
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/prison/toilet)
+/area/security/prison)
 "cJf" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 2";
@@ -95826,7 +95824,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/prison/toilet)
+/area/security/prison)
 "cJA" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
@@ -95853,7 +95851,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/prison/toilet)
+/area/security/prison)
 "cJB" = (
 /obj/machinery/button/flasher{
 	id = "PCell 3";
