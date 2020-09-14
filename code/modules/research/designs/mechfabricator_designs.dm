@@ -731,6 +731,24 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_crowbar
+	name = "Cyborg Upgrade (Crowbar)"
+	id = "borg_upgrade_crowbar"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/crowbar
+	materials = list(/datum/material/iron = 2500)
+	construction_time = 30
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_healthanalyzer
+	name = "Cyborg Upgrade (Health Analyzer)"
+	id = "borg_upgrade_healthanalyzer"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/healthanalyzer
+	materials = list(/datum/material/iron = 2500)
+	construction_time = 30
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/boris_ai_controller
 	name = "B.O.R.I.S. AI-Cyborg Remote Control Module"
 	id = "borg_ai_control"

@@ -701,3 +701,55 @@
 		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
 		if (E)
 			R.module.remove_module(E, TRUE)
+
+/obj/item/borg/upgrade/crowbar
+	name = "cyborg crowbar module"
+	desc = "A crowbar module that allows the cyborg to \
+		open powered down doors and \
+		deal with pests."
+	icon_state = "cyborg_upgrade3"
+
+/obj/item/borg/upgrade/crowbar/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/crowbar/cyborg/E = locate() in R.module.modules
+		if(E)
+			to_chat(user, "<span class='warning'>This is already equipted with a crowbar.</span>")
+			return FALSE
+
+		E = new(R.module)
+		R.module.basic_modules += E
+		R.module.add_module(E, FALSE, TRUE)
+
+/obj/item/borg/upgrade/crowbar/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/crowbar/cyborg/E = locate() in R.module.modules
+		if (E)
+			R.module.remove_module(E, TRUE)
+
+
+/obj/item/borg/upgrade/healthanalyzer
+	name = "cyborg health analyzer module"
+	desc = "Allows the cyborg to analyze / 
+	the health and well being of crewmembers."
+	icon_state = "cyborg_upgrade3"
+
+/obj/item/borg/upgrade/healthanalyzer/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/healthanalyzer/E = locate() in R.module.modules
+		if(E)
+			to_chat(user, "<span class='warning'>This is already equipted with a health analyzer.</span>")
+			return FALSE
+
+		E = new(R.module)
+		R.module.basic_modules += E
+		R.module.add_module(E, FALSE, TRUE)
+
+/obj/item/borg/upgrade/healthanalyzer/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/healthanalyzer/E = locate() in R.module.modules
+		if (E)
+			R.module.remove_module(E, TRUE)
