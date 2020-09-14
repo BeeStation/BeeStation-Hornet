@@ -55,4 +55,5 @@ endmap
 map chapelstation
 	maxplayers 100
 	votable
+	voteweight 0
 endmap
