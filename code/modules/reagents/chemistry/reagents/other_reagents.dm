@@ -2032,14 +2032,14 @@
 	L.set_light(-1)
 	..()
 
-/datum/reagent/medicine/elementx
+/datum/reagent/elementx
 	name = "Element X"	//Sorry for the PPG refference
 	description = "Gets quickly absorbed into the bloodstream, and activates one's positive mutations."
 	color = "#000000"
 	metabolization_rate = 5 * REAGENTS_METABOLISM
 	taste_description = "empowered"
 
-/datum/reagent/medicine/elementx/on_mob_end_metabolize(mob/living/M)
+/datum/reagent/elementx/on_mob_end_metabolize(mob/living/M)
 	if(M.has_dna())
 		var/add_mutations = list(XRAY,TK,CHAMELEON,LASEREYES,ANTENNA,MINDREAD,OLFACTION,INSULATED,SHOCKTOUCH,GIGANTISM,GELADIKINESIS,CRYOKINESIS,THERMAL,GLOWY,ANTIGLOWY,SPACEMUT,TELEPATHY,FIREBREATH,STRONG)
 		
