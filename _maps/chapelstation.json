@@ -1,0 +1,11 @@
+{
+    "map_name": "Chapel Station",
+    "map_path": "map_files/debug/",
+    "map_file": "ChapelStation.dmm",
+    "shuttles": {
+	    "cargo": "cargo_box",
+	    "ferry": "ferry_fancy",
+	    "whiteship": "whiteship_box",
+	    "emergency": "emergency_box"
+    }
+}

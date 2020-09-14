@@ -726,12 +726,6 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/hallway/secondary/entry)
-"bV" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/open/floor/plasteel,
-/area/engine/engineering)
 "bW" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -755,14 +749,8 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "bZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/open/floor/plasteel,
-/area/engine/engineering)
+/turf/closed/wall/r_wall,
+/area/engine/gravity_generator)
 "ca" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -1056,11 +1044,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"cK" = (
-/obj/machinery/power/smes,
-/obj/structure/cable,
-/turf/open/floor/plasteel,
-/area/engine/engineering)
 "cL" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
@@ -1225,12 +1208,20 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "dk" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/smes{
+	charge = 5e+006
+	},
+/obj/machinery/airalarm/unlocked{
+	pixel_y = 23
+	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/open/floor/plasteel,
-/area/engine/engineering)
+/area/engine/gravity_generator)
 "dl" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -1674,17 +1665,22 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "eo" = (
-/obj/structure/rack,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Gravity Generator APC";
+	pixel_y = 23
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/open/floor/plasteel,
-/area/engine/engineering)
+/area/engine/gravity_generator)
 "ep" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1934,13 +1930,12 @@
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/entry)
 "eW" = (
-/obj/structure/cable{
-	icon_state = "1-4"
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/sign/warning/radiation/rad_area{
+	pixel_y = 32
 	},
-/obj/structure/table/reinforced,
-/obj/item/stack/rods/fifty,
-/turf/open/floor/plasteel,
-/area/engine/engineering)
+/turf/open/floor/plating,
+/area/engine/gravity_generator)
 "eX" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2198,6 +2193,9 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = -25
+	},
 /turf/open/floor/plasteel/white/corner{
 	dir = 1
 	},
@@ -2349,17 +2347,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/closed/wall,
 /area/chapel/main)
-"ga" = (
-/obj/item/radio/intercom{
-	pixel_x = -25
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white/corner{
-	dir = 1
-	},
-/area/hallway/secondary/exit)
 "gb" = (
 /obj/structure/chair{
 	dir = 8
@@ -3450,9 +3437,8 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "iK" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
+/turf/open/floor/plasteel/dark,
+/area/engine/gravity_generator)
 "iL" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating,
@@ -3810,10 +3796,9 @@
 /turf/open/floor/plating,
 /area/science)
 "jC" = (
-/obj/machinery/chem_dispenser/chem_synthesizer,
-/obj/effect/turf_decal/stripes/line,
+/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/dark,
-/area/science)
+/area/engine/gravity_generator)
 "jD" = (
 /obj/machinery/chem_master,
 /obj/effect/turf_decal/stripes/line,
@@ -3848,9 +3833,18 @@
 /turf/open/floor/plasteel/white,
 /area/science)
 "jH" = (
-/obj/machinery/telecomms/allinone/indestructable,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/closet/radiation,
 /turf/open/floor/plasteel,
-/area/science)
+/area/engine/gravity_generator)
 "jI" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3871,10 +3865,14 @@
 /turf/open/floor/plasteel/dark,
 /area/science)
 "jL" = (
-/obj/machinery/computer/rdconsole/core,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/dark,
-/area/science)
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/engine/gravity_generator)
 "jM" = (
 /obj/machinery/rnd/destructive_analyzer,
 /obj/effect/turf_decal/stripes/line,
@@ -3898,10 +3896,9 @@
 /turf/open/floor/plasteel/dark,
 /area/science)
 "jQ" = (
-/obj/machinery/mineral/ore_redemption,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/dark,
-/area/science)
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/engine/gravity_generator)
 "jR" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
@@ -4050,31 +4047,46 @@
 /turf/open/floor/plasteel,
 /area/science)
 "kg" = (
-/obj/structure/table/reinforced,
-/turf/open/floor/plasteel,
-/area/science)
-"kh" = (
-/obj/structure/rack,
-/obj/item/compressionkit,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
-/area/science)
+/area/engine/gravity_generator)
 "ki" = (
 /obj/machinery/wish_granter,
 /turf/open/floor/plasteel/dark,
 /area/science)
 "kj" = (
-/obj/structure/rack,
-/obj/item/crowbar/power,
-/obj/item/screwdriver/power,
-/turf/open/floor/plasteel/dark,
-/area/science)
-"kk" = (
-/obj/machinery/rnd/production/techfab/department,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Gravity Generator"
 	},
-/turf/open/floor/plasteel/dark,
-/area/science)
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/engine/gravity_generator)
+"kk" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/engine/gravity_generator)
 "kl" = (
 /obj/machinery/autolathe/hacked,
 /obj/effect/turf_decal/stripes/line{
@@ -4094,12 +4106,14 @@
 /turf/open/floor/plasteel/dark,
 /area/science)
 "ko" = (
-/obj/machinery/rnd/production/protolathe/department,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
-/turf/open/floor/plasteel/dark,
-/area/science)
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/engine/gravity_generator)
 "kp" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Test Chambers"
@@ -4125,6 +4139,203 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel,
+/area/science)
+"ks" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Gravity Generator"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/engine/gravity_generator)
+"kt" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/engine/gravity_generator)
+"kv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/engine/gravity_generator)
+"kw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/engine/gravity_generator)
+"kx" = (
+/obj/machinery/gravity_generator/main/station,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/engine/gravity_generator)
+"ky" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/light,
+/obj/machinery/telecomms/allinone/indestructable,
+/turf/open/floor/plasteel,
+/area/engine/gravity_generator)
+"kz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/announcement_system,
+/turf/open/floor/plasteel,
+/area/engine/gravity_generator)
+"kA" = (
+/turf/closed/wall/r_wall,
+/area/maintenance/starboard/fore)
+"kB" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"kC" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"kD" = (
+/obj/machinery/power/smes{
+	charge = 5e+006
+	},
+/obj/structure/cable,
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"kE" = (
+/obj/machinery/power/smes{
+	charge = 5e+006
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"kF" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 50
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"kG" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/table/reinforced,
+/obj/item/stack/rods/fifty,
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"kH" = (
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"kI" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
+"kJ" = (
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
+"kK" = (
+/obj/machinery/chem_dispenser/chem_synthesizer,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/science)
+"kL" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/science)
+"kM" = (
+/obj/machinery/computer/rdconsole/core,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/science)
+"kN" = (
+/obj/machinery/mineral/ore_redemption,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/science)
+"kO" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/science)
+"kP" = (
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/science)
+"kQ" = (
+/obj/structure/rack,
+/obj/item/compressionkit,
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark,
+/area/science)
+"kR" = (
+/obj/structure/rack,
+/obj/item/crowbar/power,
+/obj/item/screwdriver/power,
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark,
+/area/science)
+"kS" = (
+/obj/machinery/rnd/production/techfab/department,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark,
+/area/science)
+"kT" = (
+/obj/machinery/rnd/production/protolathe/department,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark,
 /area/science)
 
 (1,1,1) = {"
@@ -7507,12 +7718,12 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+ab
+ab
+ab
 ab
 ai
 as
@@ -7609,28 +7820,28 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
 ab
-aj
+al
+ac
+ai
+as
+as
+as
+aH
 ac
 ab
 aj
 ab
 bq
-bV
+kB
 cE
 cE
 dL
 ek
 eI
-eW
+kG
 bq
-cC
+kI
 cC
 cC
 gA
@@ -7639,7 +7850,7 @@ ho
 hG
 cC
 cC
-cC
+kJ
 il
 is
 is
@@ -7711,13 +7922,13 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
+bZ
+bZ
+bZ
+kj
+bZ
+bZ
+kA
 aj
 ac
 ab
@@ -7813,13 +8024,13 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
+bZ
+dk
+jH
+kk
+kv
+ky
+kA
 aj
 ac
 ab
@@ -7915,13 +8126,13 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
+bZ
+eo
+jL
+ko
+kw
+kz
+kA
 aj
 ac
 ab
@@ -8017,13 +8228,13 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
+bZ
+eW
+jQ
+ks
+jQ
+jQ
+kA
 aj
 ab
 ab
@@ -8050,7 +8261,7 @@ cC
 cC
 il
 is
-iK
+il
 is
 is
 is
@@ -8119,13 +8330,13 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
+bZ
+iK
+iK
+iK
+iK
+iK
+kA
 aj
 ab
 ac
@@ -8221,22 +8432,22 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
+bZ
+iK
+kg
+kg
+kg
+iK
+kA
 aj
 ae
 ac
 ac
 ac
 bq
-bZ
-cK
-dk
+kC
+kD
+kE
 bq
 en
 cF
@@ -8323,13 +8534,13 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
+bZ
+jC
+kg
+iK
+kx
+iK
+kA
 aj
 ab
 ac
@@ -8340,11 +8551,11 @@ ca
 cE
 dl
 bq
-eo
+kF
 cF
-cF
+kH
 bq
-cC
+kI
 gh
 fM
 fM
@@ -8353,7 +8564,7 @@ fM
 fM
 gf
 cC
-cC
+kJ
 il
 is
 il
@@ -8425,13 +8636,13 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
+bZ
+iK
+kg
+kg
+kg
+iK
+kA
 aj
 ab
 ab
@@ -8527,13 +8738,13 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
+bZ
+iK
+iK
+kt
+iK
+iK
+kA
 ak
 at
 ac
@@ -8629,13 +8840,13 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
+bZ
+bZ
+bZ
+bZ
+bZ
+bZ
+kA
 ac
 au
 as
@@ -9067,11 +9278,11 @@ cC
 cC
 ib
 jy
-jC
+kK
 jF
 jT
 kb
-kg
+kO
 jy
 aa
 aa
@@ -9573,15 +9784,15 @@ dO
 dO
 gK
 aB
-cC
+kI
 cC
 gg
 jy
-jH
+kL
 jJ
 jJ
 jJ
-jJ
+kP
 jy
 aa
 aa
@@ -9785,7 +9996,7 @@ kq
 jJ
 jJ
 ke
-kh
+kQ
 jy
 aa
 aa
@@ -9989,7 +10200,7 @@ jK
 jJ
 jJ
 ke
-kj
+kR
 jy
 aa
 aa
@@ -10189,11 +10400,11 @@ cC
 cC
 ic
 jy
-jL
+kM
 jJ
 jJ
 jJ
-kk
+kS
 jy
 aa
 aa
@@ -10699,11 +10910,11 @@ hx
 hM
 ie
 jy
-jQ
+kN
 jS
 jJ
 jJ
-ko
+kT
 jy
 aa
 aa
@@ -10792,7 +11003,7 @@ am
 am
 fj
 fF
-ga
+go
 go
 go
 gL
