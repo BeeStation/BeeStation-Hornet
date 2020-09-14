@@ -48,3 +48,7 @@ map kilostation
     maxplayers 100
 	votable
 endmap
+
+map chapelstation
+	minplayers 0
+	maxplayers 0
