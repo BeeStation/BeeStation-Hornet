@@ -143,7 +143,7 @@
 /area/template_noop)
 "wC" = (
 /obj/machinery/camera{
-	c_tag = Maint Prison 1;
+	c_tag = "Maint Prison 1";
 	name = "prison camera";
 	network = list("ss13","prison")
 	},
@@ -186,7 +186,7 @@
 /area/template_noop)
 "AH" = (
 /obj/machinery/camera{
-	c_tag = Maint Prison 2;
+	c_tag = "Maint Prison 2";
 	dir = 1;
 	name = "prison camera";
 	network = list("ss13","prison")
