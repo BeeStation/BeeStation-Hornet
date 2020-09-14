@@ -688,7 +688,7 @@
 	template_height = 3
 	template_width = 3
 	weight = 3
-	
+
 /datum/map_template/random_room/sk_rdm082
 	name = "Maint Chemistry"
 	room_id = "sk_rdm_082_maintmedical"
@@ -905,6 +905,14 @@
 	name = "Psychiatrist's Office"
 	room_id = "sk_rdm106_sanitarium"
 	mappath = "_maps/RandomRooms/10x10/sk_rdm106_sanitarium.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+
+/datum/map_template/random_room/sk_rdm060
+	name = "Secondary Perma"
+	room_id = "sk_rdm107_prisoner"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm107_prisoner.dmm"
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10

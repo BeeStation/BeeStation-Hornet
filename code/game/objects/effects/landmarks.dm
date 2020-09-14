@@ -127,10 +127,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Warden"
 	icon_state = "Warden"
 
-/obj/effect/landmark/start/prisoner
-	name = "Prisoner"
-	icon_state = "Prisoner"
-
 /obj/effect/landmark/start/chief_engineer
 	name = "Chief Engineer"
 	icon_state = "Chief Engineer"
@@ -224,7 +220,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/randommaint/New() //automatically opens up a job slot when the job's spawner loads in
 	..()
 	var/datum/job/J = SSjob.GetJob(job)
-	J.total_positions += 1
+	if(J.title != "Prisoner")
+		J.total_positions += 1
 	J.spawn_positions += 1
 
 /obj/effect/landmark/start/randommaint/backalley_doc
@@ -242,6 +239,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/randommaint/shrink
 	name = "Psychiatrist"
 	job = "Psychiatrist"
+
+/obj/effect/landmark/start/randommaint/prisoner
+	name = "Prisoner"
+	job = "Prisoner"
 
 //Department Security spawns
 

@@ -1,0 +1,506 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"dx" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/item/seeds/ambrosia,
+/obj/item/seeds/carrot,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"fJ" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/structure/table,
+/obj/machinery/computer/libraryconsole/bookmanagement,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"gO" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/open/floor/plasteel/freezer,
+/area/template_noop)
+"he" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"hD" = (
+/obj/machinery/vending/sustenance,
+/obj/effect/turf_decal/stripes/red/line,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"lL" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/chair/stool,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"ni" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"nO" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/bed,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"nQ" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/door/window{
+	dir = 1
+	},
+/turf/open/floor/plasteel/freezer,
+/area/template_noop)
+"rX" = (
+/obj/machinery/computer/arcade,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"sz" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/machinery/light,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 7
+	},
+/turf/open/floor/plasteel/freezer,
+/area/template_noop)
+"uS" = (
+/obj/structure/window/reinforced/fulltile,
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/template_noop)
+"wg" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/obj/structure/bed,
+/obj/item/toy/plush/beeplushie,
+/obj/item/radio/intercom{
+	pixel_x = -26
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"wC" = (
+/obj/machinery/camera{
+	c_tag = Maint Prison 1;
+	name = "prison camera";
+	network = list("ss13","prison")
+	},
+/obj/structure/easel,
+/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/twentythreeXtwentythree,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"wH" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/item/cultivator,
+/obj/item/plant_analyzer,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"yb" = (
+/obj/structure/chair/stool,
+/obj/effect/landmark/start/randommaint/prisoner,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Ab" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/machinery/light,
+/obj/machinery/biogenerator,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"AH" = (
+/obj/machinery/camera{
+	c_tag = Maint Prison 2;
+	dir = 1;
+	name = "prison camera";
+	network = list("ss13","prison")
+	},
+/obj/machinery/vending/cola/random,
+/obj/effect/turf_decal/stripes/red/line,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Gz" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"GC" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/machinery/seed_extractor,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"GW" = (
+/obj/effect/turf_decal/stripes/red/line,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Jd" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Jg" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/obj/machinery/shower{
+	dir = 4
+	},
+/obj/item/soap/nanotrasen,
+/obj/item/bikehorn/rubberducky,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/plasteel/freezer,
+/area/template_noop)
+"KL" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "innerbrig";
+	name = "Secondary Perma";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Mg" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/item/seeds/glowshroom,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"NA" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"PQ" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/paper/guides/jobs/hydroponics,
+/obj/item/storage/crayons,
+/obj/item/storage/pill_bottle/dice,
+/obj/item/toy/cards/deck,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Qs" = (
+/obj/machinery/holopad,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"RY" = (
+/turf/open/floor/plasteel,
+/area/template_noop)
+"VC" = (
+/obj/effect/turf_decal/delivery/red,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"VT" = (
+/turf/closed/wall/r_wall,
+/area/template_noop)
+"WC" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "innerbrig";
+	name = "Secondary Perma";
+	req_access_txt = "2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"XI" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/item/cultivator,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Za" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+
+(1,1,1) = {"
+VT
+VT
+VT
+VT
+VC
+VC
+VT
+VT
+VT
+VT
+"}
+(2,1,1) = {"
+VT
+Gz
+wg
+uS
+KL
+KL
+uS
+Jg
+gO
+VT
+"}
+(3,1,1) = {"
+VT
+nO
+RY
+he
+he
+he
+he
+nQ
+sz
+VT
+"}
+(4,1,1) = {"
+VT
+uS
+rX
+yb
+RY
+Qs
+RY
+AH
+uS
+VT
+"}
+(5,1,1) = {"
+VC
+WC
+Za
+RY
+Mg
+XI
+RY
+GW
+WC
+VC
+"}
+(6,1,1) = {"
+VC
+WC
+Za
+RY
+wH
+dx
+RY
+GW
+WC
+VC
+"}
+(7,1,1) = {"
+VT
+uS
+wC
+RY
+RY
+RY
+RY
+hD
+uS
+VT
+"}
+(8,1,1) = {"
+VT
+lL
+yb
+ni
+NA
+NA
+NA
+RY
+Ab
+VT
+"}
+(9,1,1) = {"
+VT
+fJ
+PQ
+uS
+KL
+KL
+uS
+Jd
+GC
+VT
+"}
+(10,1,1) = {"
+VT
+VT
+VT
+VT
+VC
+VC
+VT
+VT
+VT
+VT
+"}
