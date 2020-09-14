@@ -739,6 +739,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Medbay Treatment Center"
 	icon_state = "exam_room"
 
+/area/medical/chemistry/plumbing
+	name = "Plumbing lab"
+	icon_state = "plumbing"
+
 
 //Security
 
