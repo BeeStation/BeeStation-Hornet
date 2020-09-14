@@ -2034,18 +2034,22 @@
 
 /datum/reagent/invisium
 	name = "Invisium"
-	description = "a close to magic substance that turns the user invisible when consumed, clothes are unaffected however."
+	description = "a close to magic substance that turns the user invisible when consumed, your body will start whithering due to loss of reality"
 	color = "#85E3E9"
 	taste_description = "vanishing"
-	metabolization_rate = 1 * REAGENTS_METABOLISM
+	metabolization_rate = 2 * REAGENTS_METABOLISM
 
 /datum/reagent/invisium/on_mob_life(mob/living/carbon/M)
-	M.alpha = 0
+	M.alpha = 1
+	M.adjustBruteLoss(0.5,0)
+	M.adjustFireLoss(0.5,0)
+	M.adjustToxLoss(0.5,0)
+	M.adjustCloneLoss(0.5,0)
 	. = ..()
 
 /datum/reagent/invisium/on_mob_end_metabolize(mob/living/L)
 	L.alpha = 255
-	L.Sleeping(200,0)
+	L.Sleeping(20,0)
 	. = ..()
 
 	
