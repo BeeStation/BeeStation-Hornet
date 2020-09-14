@@ -142,8 +142,8 @@
 	toxpwr = 2
 	taste_description = "fish"
 
-/datum/reagent/toxin/carpotoxin/on_mob_life(mob/living/carbon/M)
-	if(iscatperson(M))
+/datum/reagent/toxin/carpotoxin/on_mob_metabolize(mob/living/carbon/L)
+	if(iscatperson(L))
 		toxpwr = 0
 	..()
 
