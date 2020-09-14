@@ -544,6 +544,8 @@
 	CHECK_DNA_AND_SPECIES(H)
 
 	if(species.current_extract)
+		if(species.current_extract.activating)
+			return
 		species.extract_cooldown = world.time + 100
 		var/cooldown = species.current_extract.activate(H, species, activation_type)
 		species.extract_cooldown = world.time + cooldown
