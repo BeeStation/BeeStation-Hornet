@@ -1,0 +1,5 @@
+author: zeskorion
+delete-after: true
+changes:
+  - tweak: vehicles no longer block bullets for you
+  - tweak: mobs which pass tables can move past vehicles
