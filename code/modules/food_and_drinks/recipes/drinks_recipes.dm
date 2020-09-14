@@ -313,9 +313,6 @@
 	results = list(/datum/reagent/consumable/ethanol/ftliver = 3)
 	required_reagents = list(/datum/reagent/consumable/ethanol/vodka = 1, /datum/reagent/stable_plasma = 1, /datum/reagent/consumable/ethanol/screwdrivercocktail = 1)
 
-
-////DRINKS THAT REQUIRED IMPROVED SPRITES BELOW:: -Agouri/////
-
 /datum/chemical_reaction/sbiten
 	name = "Sbiten"
 	id = /datum/reagent/consumable/ethanol/sbiten
@@ -508,6 +505,27 @@
 	id = /datum/reagent/consumable/grape_soda
 	results = list(/datum/reagent/consumable/grape_soda = 2)
 	required_reagents = list(/datum/reagent/consumable/grapejuice = 1, /datum/reagent/consumable/sodawater = 1)
+
+/datum/chemical_reaction/black_roulette
+	name = /datum/reagent/consumable/ethanol/black_roulette
+	id = /datum/reagent/consumable/ethanol/black_roulette
+	results = list(/datum/reagent/consumable/ethanol/black_roulette = 5)
+	required_reagents = list(/datum/reagent/consumable/ethanol/black_russian = 5, /datum/reagent/medicine/strange_reagent = 1)	//holy water + omninize and mutagen
+	mix_message = "Don't forget to warn the customer about the effect, before they start to die in your bar!"
+
+/datum/chemical_reaction/triple_coke
+	name = /datum/reagent/consumable/ethanol/triple_coke
+	id = /datum/reagent/consumable/ethanol/triple_coke
+	results = list(/datum/reagent/consumable/ethanol/triple_coke = 15)
+	required_reagents = list(/datum/reagent/consumable/ethanol/whiskey_cola = 5, /datum/reagent/consumable/ethanol/rum_coke = 5, /datum/reagent/consumable/ethanol/vodka_cola = 5, /datum/reagent/consumable/cream = 1, /datum/reagent/consumable/ice = 1)
+	mix_message = "The granular mixture surprisingly smells like cola."
+
+/datum/chemical_reaction/salty_water
+	name = /datum/reagent/consumable/salty_water
+	id = /datum/reagent/consumable/salty_water
+	results = list(/datum/reagent/consumable/salty_water = 5)
+	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/medicine/salglu_solution = 1)
+	mix_message = "Nothing special happened"
 
 /datum/chemical_reaction/grappa
 	name = /datum/reagent/consumable/ethanol/grappa
