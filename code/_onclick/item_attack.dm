@@ -41,7 +41,6 @@
 	return FALSE
 
 /obj/attackby(obj/item/I, mob/living/user, params)
-	var/turf/T = (get_turf(src))
 	if(user.a_intent == INTENT_HARM && user.m_intent == MOVE_INTENT_WALK)//if you swing carefully without blocking, you click easier
 		for(var/mob/living/L in get_turf(src))
 			if(L.stat)
