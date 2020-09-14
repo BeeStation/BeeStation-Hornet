@@ -13,10 +13,6 @@
 "c" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"d" = (
-/obj/structure/table,
-/turf/open/floor/plating,
-/area/template_noop)
 "e" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating,
@@ -24,12 +20,12 @@
 
 (1,1,1) = {"
 a
-d
+c
 c
 "}
 (2,1,1) = {"
-b
 c
+b
 c
 "}
 (3,1,1) = {"
