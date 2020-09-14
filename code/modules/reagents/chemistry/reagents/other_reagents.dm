@@ -2048,10 +2048,10 @@
 			var/datum/mutation/human/HM = mutation
 			if(istype(HM, /datum/mutation/human))
 				mutation = HM.type
-				M.dna.activate_mutation(HM)
-				if (log_msg!="")
-					log_msg+=", "
-				log_msg += "[mutation]"
+				if (M.dna.activate_mutation(HM))
+					if (log_msg!="")
+						log_msg+=", "
+					log_msg += "[mutation]"
 		if (log_msg!="")
 			to_chat(M, "<span class='notice'>As your DNA changes, you gain new powers: [log_msg].</span>")
 		else //A little hack, would be unfair to not gain a mutation because herpaderp RNG fucked me up on a TC item

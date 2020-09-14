@@ -1848,11 +1848,11 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	restricted_roles = list("Geneticist", "Chief Medical Officer")
 
 /datum/uplink_item/role_restricted/superhero
-	name = "Superhero Kit"
-	desc = "While reading those comic books, I'm sure you wondered what it's like to have super powers like your favorite comic hero or villain. \ Well, dream no longer! Unlock your true potential with Energy X, and become the supervillain of your story! \ Contains a Energy X Activator; a single use injector that activates all your positive mutations."
+	name = "Element X"
+	desc = "While reading those comic books, I'm sure you wondered what it's like to have super powers like your favorite comic hero or villain. \ Well, dream no longer! Unlock your true potential with Element X, and become the supervillain of your story! \ Contains an Element X Medipen; a single use injector that activates all your positive mutations."
 	item = /obj/item/reagent_containers/hypospray/medipen/stimpack/elemetx
 	cost = 3
-	surplus = 30
+	surplus = 3
 	restricted_roles = list("Curator")
 
 /datum/uplink_item/role_restricted/rad_laser
