@@ -542,9 +542,3 @@
 		log_attack("[log_msg] [loc_name(user)]")
 		return TRUE
 	return FALSE
-
-/obj/item/dnainjector/activator/elementx
-	name = "\improper Energy X Activator"
-	desc = "Contains a rare sample of Energy X, a mysterious substance that, when injected into the bloodstream, alters one's DNA and activates all positive mutations."
-	damage_coeff = 0
-	add_mutations = list(XRAY,TK,CHAMELEON,LASEREYES,ANTENNA,MINDREAD,OLFACTION,INSULATED,SHOCKTOUCH,GIGANTISM,GELADIKINESIS,CRYOKINESIS,THERMAL,GLOWY,ANTIGLOWY,SPACEMUT,TELEPATHY,FIREBREATH,STRONG)

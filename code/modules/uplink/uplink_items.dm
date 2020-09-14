@@ -1849,8 +1849,8 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 
 /datum/uplink_item/role_restricted/superhero
 	name = "Superhero Kit"
-	desc = "While reading those comic books, I'm sure you wondered what it's like to have super powers like your favorite comic hero or villain. \ Well, dream no longer! Unlock your true potential with Energy X, and become the supervillain of your story! \ Contains an intimidating cape, a gene scanner, and an Energy X Activator; a single use injector that activates all your positive mutations."
-	item = /obj/item/storage/box/syndie_kit/superhero
+	desc = "While reading those comic books, I'm sure you wondered what it's like to have super powers like your favorite comic hero or villain. \ Well, dream no longer! Unlock your true potential with Energy X, and become the supervillain of your story! \ Contains a Energy X Activator; a single use injector that activates all your positive mutations."
+	item = /obj/item/reagent_containers/hypospray/medipen/stimpack/elemetx
 	cost = 3
 	surplus = 30
 	restricted_roles = list("Curator")
