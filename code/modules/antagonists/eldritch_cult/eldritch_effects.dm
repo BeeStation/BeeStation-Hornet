@@ -233,7 +233,7 @@
 	. = ..()
 
 /obj/effect/reality_smash
-	name = "/improper reality smash"
+	name = "\improper reality smash"
 	icon = 'icons/effects/eldritch.dmi'
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF

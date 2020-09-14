@@ -69,19 +69,19 @@
 		eldritch_knowledge_datum.on_eldritch_blade(target,user,proximity_flag,click_parameters)
 
 /obj/item/melee/sickly_blade/rust
-	name = "/improper Rusted Blade"
+	name = "\improper Rusted Blade"
 	desc = "This crescent blade is decrepit, wasting to dust. Yet still it bites, catching flesh with jagged, rotten teeth."
 	icon_state = "rust_blade"
 	item_state = "rust_blade"
 
 /obj/item/melee/sickly_blade/ash
-	name = "/improper Ashen Blade"
+	name = "\improper Ashen Blade"
 	desc = "Molten and unwrought, a hunk of metal warped to cinders and slag. Unmade, it aspires to be more than it is, and shears soot-filled wounds with a blunt edge."
 	icon_state = "ash_blade"
 	item_state = "ash_blade"
 
 /obj/item/melee/sickly_blade/flesh
-	name = "/improper Flesh Blade"
+	name = "\improper Flesh Blade"
 	desc = "A crescent blade born from a fleshwarped creature. Keenly aware, it seeks to spread to others the excruitations it has endured from dread origins."
 	icon_state = "flesh_blade"
 	item_state = "flesh_blade"
