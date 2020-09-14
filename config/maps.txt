@@ -29,6 +29,7 @@ endmap
 
 map deltastation
 	votable
+	maxplayers 100
 endmap
 
 map donutstation
@@ -51,4 +52,5 @@ endmap
 
 map chapelstation
 	minplayers 0
-	maxplayers 0
+	maxplayers 100
+endmap
