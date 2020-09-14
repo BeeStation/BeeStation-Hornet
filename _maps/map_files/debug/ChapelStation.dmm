@@ -3792,77 +3792,124 @@
 /turf/open/space/basic,
 /area/space)
 "jy" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Library"
-	},
-/turf/open/floor/plasteel,
-/area/maintenance/port/aft)
+/turf/closed/wall,
+/area/science)
 "jz" = (
 /obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/science)
+"jA" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Test Chambers"
+	},
+/turf/open/floor/plasteel,
+/area/science)
+"jB" = (
+/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
-/area/maintenance/port/aft)
-"jA" = (
-/obj/machinery/chem_dispenser/chem_synthesizer,
-/turf/open/floor/plasteel,
-/area/space)
-"jB" = (
-/obj/machinery/chem_master,
-/turf/open/floor/plasteel,
-/area/space)
+/area/science)
 "jC" = (
-/obj/machinery/chem_dispenser/fullupgrade,
-/turf/open/floor/plasteel,
-/area/space)
+/obj/machinery/chem_dispenser/chem_synthesizer,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/dark,
+/area/science)
 "jD" = (
-/turf/open/floor/plasteel,
-/area/space)
+/obj/machinery/chem_master,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/dark,
+/area/science)
 "jE" = (
-/obj/structure/table/reinforced,
-/turf/open/floor/plasteel,
-/area/space)
+/obj/machinery/chem_dispenser/fullupgrade,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plasteel/dark,
+/area/science)
 "jF" = (
+/turf/open/floor/plasteel/white,
+/area/science)
+"jG" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/storage/box/stockparts/deluxe,
+/obj/item/storage/box/stockparts/deluxe,
+/obj/item/storage/box/stockparts/deluxe,
+/obj/item/storage/box/stockparts/deluxe,
+/obj/item/storage/fancy/cigarettes/cigpack_xeno,
+/obj/item/storage/part_replacer/bluespace/tier4,
+/obj/item/storage/part_replacer/bluespace/tier4,
+/obj/item/lighter/slime,
+/turf/open/floor/plasteel/white,
+/area/science)
+"jH" = (
 /obj/machinery/telecomms/allinone/indestructable,
 /turf/open/floor/plasteel,
-/area/space)
-"jG" = (
-/turf/closed/wall,
-/area/space)
-"jH" = (
-/obj/machinery/sleeper/syndie/fullupgrade,
-/turf/open/floor/plasteel,
-/area/space)
+/area/science)
 "jI" = (
-/obj/machinery/computer/rdconsole/core,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel,
-/area/space)
+/area/hallway/secondary/entry)
 "jJ" = (
-/obj/machinery/rnd/destructive_analyzer,
 /turf/open/floor/plasteel,
-/area/space)
+/area/science)
 "jK" = (
+/obj/machinery/sleeper/syndie/fullupgrade,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel/dark,
+/area/science)
+"jL" = (
+/obj/machinery/computer/rdconsole/core,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/dark,
+/area/science)
+"jM" = (
+/obj/machinery/rnd/destructive_analyzer,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/dark,
+/area/science)
+"jN" = (
 /obj/structure/table/reinforced,
 /obj/item/disk/tech_disk/debug,
-/turf/open/floor/plasteel,
-/area/space)
-"jL" = (
-/obj/machinery/ore_silo,
-/turf/open/floor/plasteel,
-/area/space)
-"jM" = (
-/obj/machinery/mineral/ore_redemption,
-/turf/open/floor/plasteel,
-/area/space)
-"jN" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space)
+/obj/effect/turf_decal/stripes/line,
+/obj/item/storage/box/firingpins,
+/turf/open/floor/plasteel/dark,
+/area/science)
 "jO" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/space)
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/dark,
+/area/science)
 "jP" = (
+/obj/machinery/ore_silo,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/dark,
+/area/science)
+"jQ" = (
+/obj/machinery/mineral/ore_redemption,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/dark,
+/area/science)
+"jR" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/science)
+"jS" = (
 /obj/item/stack/ore/bluespace_crystal{
 	amount = 50
 	},
@@ -3897,12 +3944,24 @@
 	amount = 50
 	},
 /turf/open/floor/plasteel,
-/area/space)
-"jQ" = (
+/area/science)
+"jT" = (
 /obj/machinery/chem_heater,
-/turf/open/floor/plasteel,
-/area/space)
-"jR" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/window/reinforced,
+/turf/open/floor/plasteel/dark,
+/area/science)
+"jU" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/window/reinforced,
+/turf/open/floor/plasteel/dark,
+/area/science)
+"jV" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/white,
+/area/science)
+"jW" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/syndicate{
 	pixel_x = -6;
@@ -3913,55 +3972,160 @@
 	pixel_y = 3
 	},
 /obj/item/storage/toolbox/syndicate,
-/turf/open/floor/plasteel,
-/area/space)
-"jS" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Library"
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
 	},
-/turf/open/floor/plasteel,
-/area/space)
-"jT" = (
-/obj/machinery/autodoc,
-/turf/open/floor/plasteel,
-/area/space)
-"jU" = (
-/obj/machinery/mecha_part_fabricator,
-/turf/open/floor/plasteel,
-/area/space)
-"jV" = (
-/obj/item/station_charter/flag,
-/turf/open/floor/plasteel,
-/area/space)
-"jW" = (
-/obj/structure/rack,
-/turf/open/floor/plasteel,
-/area/space)
+/obj/item/switchblade/plastitanium,
+/obj/item/syndie_glue,
+/turf/open/floor/plasteel/white,
+/area/science)
 "jX" = (
-/obj/machinery/wish_granter,
-/turf/open/floor/plasteel,
-/area/space)
+/obj/machinery/autodoc,
+/obj/effect/turf_decal/stripes/box,
+/turf/open/floor/plasteel/dark,
+/area/science)
 "jY" = (
-/obj/machinery/rnd/production/techfab/department,
-/turf/open/floor/plasteel,
-/area/space)
+/obj/structure/closet,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 50
+	},
+/obj/item/stack/sheet/mineral/gold{
+	amount = 50
+	},
+/obj/item/stack/sheet/mineral/diamond{
+	amount = 50
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 50
+	},
+/obj/item/stack/sheet/mineral/plastitanium{
+	amount = 50
+	},
+/obj/item/stack/sheet/mineral/silver{
+	amount = 50
+	},
+/obj/item/stack/sheet/mineral/uranium{
+	amount = 50
+	},
+/obj/item/stack/sheet/mineral/titanium/fifty,
+/obj/item/stack/sheet/mineral/bananium{
+	amount = 50
+	},
+/obj/item/stack/sheet/mineral/adamantine{
+	amount = 50
+	},
+/obj/item/stack/sheet/mineral/abductor{
+	amount = 50
+	},
+/turf/open/floor/plasteel/dark,
+/area/science)
 "jZ" = (
-/obj/machinery/autolathe/hacked,
-/turf/open/floor/plasteel,
-/area/space)
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/dark,
+/area/science)
 "ka" = (
-/obj/machinery/rnd/production/circuit_imprinter/department,
-/turf/open/floor/plasteel,
-/area/space)
+/obj/machinery/mecha_part_fabricator,
+/turf/open/floor/plasteel/dark,
+/area/science)
 "kb" = (
-/obj/machinery/rnd/production/protolathe/department,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/cyber_implants,
 /turf/open/floor/plasteel,
-/area/space)
+/area/science)
 "kc" = (
 /obj/structure/closet,
 /obj/item/storage/belt/security/full,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"kd" = (
+/obj/item/station_charter/flag,
+/turf/open/floor/plasteel,
+/area/science)
+"ke" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/science)
+"kf" = (
+/obj/effect/turf_decal/loading_area,
+/turf/open/floor/plasteel,
+/area/science)
+"kg" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel,
+/area/science)
+"kh" = (
+/obj/structure/rack,
+/obj/item/compressionkit,
+/turf/open/floor/plasteel/dark,
+/area/science)
+"ki" = (
+/obj/machinery/wish_granter,
+/turf/open/floor/plasteel/dark,
+/area/science)
+"kj" = (
+/obj/structure/rack,
+/obj/item/crowbar/power,
+/obj/item/screwdriver/power,
+/turf/open/floor/plasteel/dark,
+/area/science)
+"kk" = (
+/obj/machinery/rnd/production/techfab/department,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/science)
+"kl" = (
+/obj/machinery/autolathe/hacked,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/science)
+"km" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/science)
+"kn" = (
+/obj/machinery/rnd/production/circuit_imprinter/department,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark,
+/area/science)
+"ko" = (
+/obj/machinery/rnd/production/protolathe/department,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/science)
+"kp" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Test Chambers"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel,
+/area/science)
+"kq" = (
+/obj/machinery/sleeper/syndie/fullupgrade,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/power/apc/auto_name/west,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plasteel/dark,
+/area/science)
+"kr" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plasteel,
+/area/science)
 
 (1,1,1) = {"
 aa
@@ -8800,18 +8964,18 @@ ha
 cC
 cC
 ia
-il
-il
-il
-il
-il
-il
-jG
-jG
-jG
-jG
-jG
-jG
+jy
+jy
+jy
+jy
+jy
+jy
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -8902,18 +9066,18 @@ aB
 cC
 cC
 ib
-il
-jA
-jD
-jQ
-jD
-jD
-jG
-jD
-jD
-jD
-jD
-jG
+jy
+jC
+jF
+jT
+kb
+kg
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -9004,18 +9168,18 @@ ha
 cC
 cC
 gg
-il
-jB
+jy
 jD
-jE
-jD
-jD
-jG
-jD
-jD
-jD
-jD
-jG
+jF
+jU
+jJ
+jJ
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -9106,18 +9270,18 @@ aB
 cC
 cC
 gg
-iK
-jC
-jD
-jQ
-jD
-jD
-jS
-jD
-jD
-jD
-jD
-jG
+jz
+jE
+jF
+jT
+jJ
+jJ
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -9208,18 +9372,18 @@ ha
 cC
 cC
 gg
-iK
-jD
-jD
-jD
-jD
-jD
-jS
-jD
-jD
-jD
-jD
-jG
+jz
+jF
+jF
+jV
+jJ
+jJ
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -9310,18 +9474,18 @@ aB
 cC
 cC
 gg
-il
-jE
-jE
+jy
+jG
 jR
-jV
-jD
-jG
-jD
-jD
-jD
-jD
-jG
+jW
+kd
+jJ
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -9412,18 +9576,18 @@ aB
 cC
 cC
 gg
-il
-jF
-jD
-jD
-jD
-jD
-jG
-jD
-jD
-jD
-jD
-jG
+jy
+jH
+jJ
+jJ
+jJ
+jJ
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -9514,18 +9678,18 @@ am
 hu
 cC
 gg
-il
-jG
-jN
-jS
-jN
-jG
-jG
-jD
-jD
-jD
-jD
-jG
+jy
+jy
+jz
+jA
+jz
+jy
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -9616,18 +9780,18 @@ am
 hv
 cC
 gg
-il
-jH
-jD
-jD
-jD
-jW
-jG
-jD
-jD
-jD
-jD
-jG
+jy
+kq
+jJ
+jJ
+ke
+kh
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -9717,19 +9881,19 @@ ao
 hb
 cC
 cC
-gg
-jy
-jD
-jD
-jT
-jD
+jI
+kp
+kr
+jJ
 jX
-jG
-jD
-jD
-jD
-jD
-jG
+ke
+ki
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -9820,18 +9984,18 @@ hb
 cC
 cC
 ic
-il
-jH
-jD
-jD
-jD
-jW
-jG
-jD
-jD
-jD
-jD
-jG
+jy
+jK
+jJ
+jJ
+ke
+kj
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -9922,18 +10086,18 @@ hb
 cC
 cC
 ic
-il
-jG
-jO
-jS
-jO
-jG
-jG
-jD
-jD
-jD
-jD
-jG
+jy
+jy
+jB
+jA
+jB
+jy
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -10024,18 +10188,18 @@ hb
 cC
 cC
 ic
-il
-jI
-jD
-jD
-jD
-jY
-jG
-jG
-jO
-jO
-jG
-jG
+jy
+jL
+jJ
+jJ
+jJ
+kk
+jy
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -10126,13 +10290,13 @@ hb
 cC
 cC
 ic
-il
+jy
+jM
 jJ
-jD
-jE
-jD
-jZ
-jG
+jY
+jJ
+kl
+jy
 aa
 aa
 aa
@@ -10228,13 +10392,13 @@ hb
 cC
 hL
 ic
-jz
-jK
-jD
-jE
-jD
-jD
-jO
+jB
+jN
+jJ
+jZ
+jJ
+km
+jB
 aa
 aa
 aa
@@ -10330,13 +10494,13 @@ hb
 cC
 cC
 ic
-jz
-jE
-jD
-jE
-jD
-jD
+jB
 jO
+jJ
+jZ
+jJ
+km
+jB
 aa
 aa
 aa
@@ -10432,13 +10596,13 @@ am
 hw
 ea
 id
-il
-jL
-jD
-jU
-jD
+jy
+jP
+jJ
 ka
-jG
+kf
+kn
+jy
 aa
 aa
 aa
@@ -10534,13 +10698,13 @@ am
 hx
 hM
 ie
-il
-jM
-jP
-jD
-jD
-kb
-jG
+jy
+jQ
+jS
+jJ
+jJ
+ko
+jy
 aa
 aa
 aa
@@ -10636,13 +10800,13 @@ hc
 ea
 ea
 if
-il
-il
-jG
-jO
-jO
-jG
-jG
+jy
+jy
+jy
+jB
+jB
+jy
+jy
 aa
 aa
 aa
@@ -10739,7 +10903,7 @@ hy
 hd
 ig
 in
-il
+cW
 aa
 aa
 aa
@@ -10841,7 +11005,7 @@ hz
 ea
 ea
 io
-il
+cW
 aa
 aa
 aa
