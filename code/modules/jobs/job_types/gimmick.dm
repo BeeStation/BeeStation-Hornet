@@ -117,6 +117,7 @@
 	outfit = /datum/outfit/job/gimmick/prisoner
 	total_positions = 0
 	spawn_positions = 2
+	prisoner_announce = list(RADIO_CHANNEL_SECURITY)
 	gimmick = TRUE
 
 /datum/outfit/job/gimmick/prisoner

@@ -11,6 +11,7 @@
 
 	//Tells the given channels that the given mob is the new department head. See communications.dm for valid channels.
 	var/list/head_announce = null
+	var/list/prisoner_announce = null
 
 	//Bitflags for the job
 	var/flag = NONE //Deprecated
@@ -143,6 +144,8 @@
 		qdel(gear_leftovers)
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
+	if(prisoner_announce)
+		announce_prisoner(H, prisoner_announce)
 	if(head_announce)
 		announce_head(H, head_announce)
 
@@ -205,6 +208,10 @@
 	if(H && GLOB.announcement_systems.len)
 		//timer because these should come after the captain announcement
 		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, .proc/addtimer, CALLBACK(pick(GLOB.announcement_systems), /obj/machinery/announcement_system/proc/announce, "NEWHEAD", H.real_name, H.job, channels), 1))
+
+/datum/job/proc/announce_prisoner(var/mob/living/carbon/human/H, var/channels)
+	if(H && GLOB.announcement_systems.len)
+		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, .proc/addtimer, CALLBACK(pick(GLOB.announcement_systems), /obj/machinery/announcement_system/proc/announce, "NEWPRISONERS", H.real_name, H.job, channels), 1))
 
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
 /datum/job/proc/player_old_enough(client/C)

@@ -21,6 +21,8 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	var/arrivalToggle = 1
 	var/newhead = "%PERSON, %RANK, is the department head."
 	var/newheadToggle = 1
+	var/newprisoner = "%PERSON is the secondary perma prisoner."
+	var/newprisonerToggle = 1
 
 	var/greenlight = "Light_Green"
 	var/pinklight = "Light_Pink"
@@ -88,6 +90,8 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 		message = CompileText(arrival, user, rank)
 	else if(message_type == "NEWHEAD" && newheadToggle)
 		message = CompileText(newhead, user, rank)
+	else if(message_type == "NEWPRISONER" && newprisonerToggle)
+		message = CompileText(newprisoner, user, rank)
 	else if(message_type == "AIWIPE" && newheadToggle)
 		message = CompileText("%PERSON has been moved to intelligence storage.", user, rank)
 	else if(message_type == "CRYOSTORAGE")
