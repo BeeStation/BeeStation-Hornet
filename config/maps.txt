@@ -38,7 +38,9 @@ map donutstation
 endmap
 
 map runtimestation
-	disabled
+	maxplayers 20
+	votable
+	voteweight 0
 endmap
 
 map multiz_debug
@@ -51,6 +53,6 @@ map kilostation
 endmap
 
 map chapelstation
-	minplayers 0
 	maxplayers 100
+	votable
 endmap
