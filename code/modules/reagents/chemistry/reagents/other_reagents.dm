@@ -293,25 +293,6 @@
 	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
 	overdose_threshold = 150
 
-/datum/reagent/medicine/omnizine/godblood/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-4 * REM, 0)
-	M.adjustFireLoss(-4 * REM, 0)
-	M.adjustOxyLoss(-15 * REM, 0)
-	M.adjustToxLoss(-4 * REM, 0)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM, 150) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
-	M.adjustCloneLoss(-2 * REM, 0)
-	M.adjustStaminaLoss(-30 * REM, 0)
-	M.jitteriness = min(max(0, M.jitteriness + 3), 30)
-	M.druggy = min(max(0, M.druggy + 10), 15) //See above
-	..()
-	. = 1
-
-/datum/reagent/medicine/omnizine/godblood/overdose_process(mob/living/M)
-	M.hallucination = min(max(0, M.hallucination + 5), 60)
-	M.adjustToxLoss(5 * REM, 0)
-	..()
-	. = 1
-
 /datum/reagent/lube
 	name = "Space Lube"
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
