@@ -767,10 +767,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Prison Wing"
 	icon_state = "sec_prison"
 
-/area/security/prison/toilet
-	name = "Prison Toilet"
-	icon_state = "sec_prison"
-
 /area/security/processing
 	name = "Labor Shuttle Dock"
 	icon_state = "sec_prison"
