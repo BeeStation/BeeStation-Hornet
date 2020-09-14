@@ -244,7 +244,8 @@
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/soap/nanotrasen,
 		/obj/item/borg/cyborghug,
-		/obj/item/instrument/piano_synth)
+		/obj/item/instrument/piano_synth,
+		/obj/item/analyzer)
 	emag_modules = list(/obj/item/melee/transforming/energy/sword/cyborg)
 	moduleselect_icon = "standard"
 	hat_offset = -3
@@ -375,7 +376,10 @@
 		/obj/item/borg/cyborghug/peacekeeper,
 		/obj/item/extinguisher,
 		/obj/item/reagent_containers/spray/pepper,
-		/obj/item/borg/projectile_dampen)
+		/obj/item/borg/projectile_dampen,		
+		/obj/item/crowbar/cyborg,
+		/obj/item/healthanalyzer
+		)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
 	cyborg_base_icon = "peace"
 	moduleselect_icon = "standard"
@@ -521,9 +525,11 @@
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/borg/charger,
-		/obj/item/borg/cyborghug/peacekeeper)
+		/obj/item/borg/cyborghug/peacekeeper,	
+		/obj/item/extinguisher/mini)
 	cyborg_base_icon = "borgi"
 	moduleselect_icon = "standard"
+	emag_modules = list(/obj/item/gun/energy/laser/cyborg, /obj/item/card/emag)
 
 /obj/item/robot_module/miner
 	name = "Miner"
