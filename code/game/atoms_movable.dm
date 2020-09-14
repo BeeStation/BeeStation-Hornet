@@ -54,8 +54,8 @@
 			update_emissive_block()
 		if(EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
-			em_block = new(src, render_target)
-			vis_contents += em_block
+			//em_block = new(src, render_target)
+			//vis_contents += em_block
 
 /atom/movable/proc/update_emissive_block()
 	if(blocks_emissive != EMISSIVE_BLOCK_GENERIC)
