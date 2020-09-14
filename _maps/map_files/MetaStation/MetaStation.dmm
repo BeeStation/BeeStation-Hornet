@@ -937,6 +937,10 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
+"acj" = (
+/obj/machinery/atmospherics/miner/n2o,
+/turf/open/floor/engine/n2o,
+/area/engine/atmos)
 "ack" = (
 /obj/structure/lattice/catwalk,
 /turf/open/space,
@@ -2331,6 +2335,10 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/starboard/fore)
+"aeG" = (
+/obj/machinery/atmospherics/miner/toxins,
+/turf/open/floor/engine/plasma,
+/area/engine/atmos)
 "aeH" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -5042,6 +5050,10 @@
 /mob/living/simple_animal/kalo,
 /turf/open/floor/plating,
 /area/janitor)
+"ajl" = (
+/obj/machinery/atmospherics/miner/carbon_dioxide,
+/turf/open/floor/engine/co2,
+/area/engine/atmos)
 "ajm" = (
 /turf/closed/wall/r_wall,
 /area/security/brig)
@@ -5424,6 +5436,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/range)
+"ajO" = (
+/obj/machinery/atmospherics/miner/nitrogen,
+/turf/open/floor/engine/n2,
+/area/engine/atmos)
 "ajP" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -7070,6 +7086,10 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"amu" = (
+/obj/machinery/atmospherics/miner/oxygen,
+/turf/open/floor/engine/o2,
+/area/engine/atmos)
 "amv" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/tile/neutral{
@@ -19323,7 +19343,7 @@
 /area/quartermaster/storage)
 "aKZ" = (
 /obj/machinery/door/window/northleft{
-	dir = 8;
+	dir = 4;
 	name = "MuleBot Supply Access";
 	req_access_txt = "50"
 	},
@@ -46470,12 +46490,6 @@
 /obj/machinery/air_sensor/atmos/nitrous_tank,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
-"bKI" = (
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
-	valve_open = 1
-	},
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
 "bKJ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -49365,10 +49379,6 @@
 /obj/machinery/air_sensor/atmos/toxin_tank,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
-"bQY" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
-/turf/open/floor/engine/plasma,
-/area/engine/atmos)
 "bQZ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -51739,10 +51749,6 @@
 /area/engine/atmos)
 "bVN" = (
 /obj/machinery/air_sensor/atmos/carbon_tank,
-/turf/open/floor/engine/co2,
-/area/engine/atmos)
-"bVO" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "bVP" = (
@@ -58221,10 +58227,6 @@
 "cjc" = (
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
-"cjd" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/open/floor/engine/n2,
-/area/engine/atmos)
 "cje" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics Tank - N2";
@@ -58233,10 +58235,6 @@
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "cjf" = (
-/turf/open/floor/engine/o2,
-/area/engine/atmos)
-"cjg" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "cjh" = (
@@ -128399,7 +128397,7 @@ iRA
 aaf
 gJs
 chO
-cjd
+ajO
 ckG
 bAR
 aLw
@@ -129427,7 +129425,7 @@ iRA
 aaf
 gJs
 chR
-cjg
+amu
 ckH
 bAR
 aLw
@@ -132493,15 +132491,15 @@ bCC
 bCC
 bAR
 bJd
-bKI
+acj
 bJd
 bAR
 bPy
-bQY
+aeG
 bPy
 bAR
 bUJ
-bVO
+ajl
 bUJ
 bAR
 aaf
