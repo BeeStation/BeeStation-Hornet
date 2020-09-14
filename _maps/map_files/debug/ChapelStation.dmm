@@ -2193,6 +2193,9 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = -25
+	},
 /turf/open/floor/plasteel/white/corner{
 	dir = 1
 	},
@@ -2344,17 +2347,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/closed/wall,
 /area/chapel/main)
-"ga" = (
-/obj/item/radio/intercom{
-	pixel_x = -25
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white/corner{
-	dir = 1
-	},
-/area/hallway/secondary/exit)
 "gb" = (
 /obj/structure/chair{
 	dir = 8
@@ -11011,7 +11003,7 @@ am
 am
 fj
 fF
-ga
+go
 go
 go
 gL
