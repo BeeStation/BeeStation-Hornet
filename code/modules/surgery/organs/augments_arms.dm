@@ -242,6 +242,7 @@
 
 /obj/item/organ/cyberimp/arm/esaw
 	name = "arm-mounted energy saw"
+	desc = "An illegal and highly dangerous implanted carbon-fiber blade with a toggleable hard-light edge."
 	icon_state = "esaw_0"
 	contents = newlist(/obj/item/melee/transforming/energy/sword/esaw)
 
