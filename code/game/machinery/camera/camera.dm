@@ -214,7 +214,7 @@
 	to_chat(user, "<span class='notice'>You start to weld [src]...</span>")
 	if(I.use_tool(src, user, 100, volume=50))
 		user.visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
-			"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
+			"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall.</span>")
 		deconstruct(TRUE)
 
 	return TRUE

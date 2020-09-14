@@ -380,7 +380,7 @@
 									allowed_access = H.get_authentification_name()
 
 						if(!allowed_access)
-							to_chat(H, "<span class='warning'>ERROR: Invalid Access</span>")
+							to_chat(H, "<span class='warning'>ERROR: Invalid Access.</span>")
 							return
 
 						if(perpname)
@@ -615,7 +615,7 @@
 	//Agent cards lower threatlevel.
 	if(istype(idcard, /obj/item/card/id/syndicate))
 		threatcount -= 5
-	
+
 	//individuals wearing tinfoil hats are 30% more likely to be criminals
 	if(istype(get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		threatcount += 2
@@ -1103,7 +1103,7 @@
 	remove_movespeed_modifier(MOVESPEED_ID_SHOVE)
 	var/active_item = get_active_held_item()
 	if(is_type_in_typecache(active_item, GLOB.shove_disarming_types))
-		visible_message("<span class='warning'>[src.name] regains their grip on \the [active_item]!</span>", "<span class='warning'>You regain your grip on \the [active_item]</span>", null, COMBAT_MESSAGE_RANGE)
+		visible_message("<span class='warning'>[src.name] regains their grip on \the [active_item]!</span>", "<span class='warning'>You regain your grip on \the [active_item].</span>", null, COMBAT_MESSAGE_RANGE)
 
 /mob/living/carbon/human/do_after_coefficent()
 	. = ..()

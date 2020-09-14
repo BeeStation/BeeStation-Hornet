@@ -608,7 +608,7 @@
 		if("scramble")
 			if(viable_occupant && (scrambleready < world.time))
 				if(prob(1) && prob(1))
-					to_chat(usr,"<span class='bad'>Error: Musa acuminata transformation detected</span>") //Actually we only share 1% of our functional protein-coding DNA with bananas, but this is mildly amusing so whatever
+					to_chat(usr,"<span class='bad'>Error: Musa acuminata transformation detected.</span>") //Actually we only share 1% of our functional protein-coding DNA with bananas, but this is mildly amusing so whatever
 					if(viable_occupant.client && viable_occupant.ckey)
 						message_admins("[key_name(viable_occupant)] has been turned into a banana by [key_name(usr)]")
 						log_game("[key_name(viable_occupant)] has been turned into a banana by [key_name(usr)]")
@@ -754,7 +754,7 @@
 			current_screen = "info"
 		if("savemut")
 			if(viable_occupant)
-				var/succes
+				var/success
 				if(LAZYLEN(stored_mutations) < max_storage)
 					var/mutation = text2path(href_list["path"])
 					if(ispath(mutation, /datum/mutation/human)) //sanity checks
@@ -762,10 +762,10 @@
 						if(HM)
 							var/datum/mutation/human/A = new HM.type()
 							A.copy_mutation(HM)
-							succes = TRUE
+							success = TRUE
 							stored_mutations += A
 							to_chat(usr,"<span class='notice'>Mutation succesfully stored.</span>")
-				if(!succes) //we can exactly return here
+				if(!success) //we can exactly return here
 					to_chat(usr,"<span class='warning'>Mutation storage is full.</span>")
 		if("deletemut")
 			var/datum/mutation/human/HM = stored_mutations[num]
@@ -883,7 +883,7 @@
 						var/result_path = get_mixed_mutation(combine, path)
 						if(result_path)
 							stored_mutations += new result_path()
-							to_chat(usr, "<span class='boldnotice'>Succes! New mutation has been added to storage</span>")
+							to_chat(usr, "<span class='boldnotice'>Success! New mutation has been added to storage.</span>")
 							discover(result_path)
 							combine = null
 						else
@@ -891,7 +891,7 @@
 							combine = null
 					else
 						combine = path
-						to_chat(usr,"<span class='notice'>Selected [A.name] for combining</span>")
+						to_chat(usr,"<span class='notice'>Selected [A.name] for combining.</span>")
 				else
 					to_chat(usr, "<span class='warning'>Not enough space to store potential mutation.</span>")
 		if("ejectchromosome")

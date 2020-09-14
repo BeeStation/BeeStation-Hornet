@@ -79,7 +79,7 @@
 		return FALSE
 	chassis = choice
 	update_resting()
-	to_chat(src, "<span class='boldnotice'>You switch your holochassis projection composite to [chassis]</span>")
+	to_chat(src, "<span class='boldnotice'>You switch your holochassis projection composite to [chassis].</span>")
 
 /mob/living/silicon/pai/update_resting()
 	. = ..()
@@ -88,7 +88,7 @@
 	else
 		icon_state = "[chassis]"
 	if(loc != card)
-		visible_message("<span class='notice'>[src] [resting? "lays down for a moment..." : "perks up from the ground"]</span>")
+		visible_message("<span class='notice'>[src] [resting? "lays down for a moment..." : "perks up from the ground."]</span>")
 
 /mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	return FALSE

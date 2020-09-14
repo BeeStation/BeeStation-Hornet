@@ -26,7 +26,7 @@
 				to_chat(affected_mob, "<span class='danger'>You feel a cold sweat form.</span>")
 		if(4)
 			if(prob(2))
-				to_chat(affected_mob, "<span class='userdanger'>You see four of everything</span>")
+				to_chat(affected_mob, "<span class='userdanger'>You see four of everything!</span>")
 				affected_mob.Dizzy(5)
 			if(prob(2))
 				to_chat(affected_mob, "<span class='danger'>You feel a sharp pain from your lower chest!</span>")

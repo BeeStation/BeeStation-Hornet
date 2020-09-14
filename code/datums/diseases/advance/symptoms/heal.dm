@@ -211,7 +211,7 @@
 
 	if(healed)
 		if(prob(10))
-			to_chat(M, "<span class='notice'>Your wounds heal, granting you a new scar</span>")
+			to_chat(M, "<span class='notice'>Your wounds heal, granting you a new scar.</span>")
 		if(scarcounter >= 200 && !HAS_TRAIT(M, TRAIT_DISFIGURED))
 			ADD_TRAIT(M, TRAIT_DISFIGURED, DISEASE_TRAIT)
 			M.visible_message("<span class='warning'>[M]'s face becomes unrecognizeable </span>", "<span class='userdanger'>Your scars have made your face unrecognizeable.</span>")
@@ -449,7 +449,7 @@ obj/effect/sweatsplash/proc/splash()
 	switch(A.stage)
 		if(4, 5)
 			if(prob(5) && bruteheal)
-				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet</span>")
+				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet!</span>")
 				M.Knockdown(10)
 				new /obj/effect/decal/cleanable/blood/(M.loc)
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
@@ -475,7 +475,7 @@ obj/effect/sweatsplash/proc/splash()
 								chosen.Insert(M, TRUE, FALSE)
 								to_chat(M, "<span class='userdanger'>As the [chosen] touches your skin, it is promptly absorbed.</span>")
 					if(missing.len) //we regrow one missing limb
-						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling. 
+						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
 							if(M.regenerate_limb(Z, TRUE))
 								playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
 								M.visible_message("<span class='warning'>[M]'s missing limbs \
@@ -500,7 +500,7 @@ obj/effect/sweatsplash/proc/splash()
 									M.grab_ghost()
 								break
 				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
-					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)				
+					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
 			if(bruteheal)
 				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
 				if(prob(11 * power))
@@ -551,7 +551,7 @@ obj/effect/sweatsplash/proc/splash()
 	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
 		user.visible_message("<span class='warning'>[usr.name] destroys [src].</span>",
 			"<span class='notice'>You hold the welder to [src], and it violently bursts!</span>",
-			"<span class='italics'>You hear a gurgling noise</span>")
+			"<span class='italics'>You hear a gurgling noise.</span>")
 		new /obj/effect/gibspawner/human(get_turf(src))
 		qdel(src)
 	else

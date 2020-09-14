@@ -117,7 +117,7 @@
 		return
 	var/datum/map_template/M = arena_templates[arena_template]
 	if(!M)
-		to_chat(user,"<span class='warning'>No such arena</span>")
+		to_chat(user,"<span class='warning'>No such arena.</span>")
 		return
 	clear_arena() //Clear current arena
 	var/turf/A = get_landmark_turf(ARENA_CORNER_A)
@@ -314,7 +314,7 @@
 
 /obj/machinery/computer/arena/proc/load_random_arena(mob/user)
 	if(!length(arena_templates))
-		to_chat(user,"<span class='warning'>No arenas present</span>")
+		to_chat(user,"<span class='warning'>No arenas present.</span>")
 		return
 	var/picked = pick(arena_templates)
 	load_arena(picked,user)
