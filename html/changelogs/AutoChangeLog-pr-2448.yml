@@ -1,0 +1,5 @@
+author: ike709
+delete-after: true
+changes:
+  - rscadd: PanDEMIC 2200 UI now includes severity for the overall disease and each
+      symptom.
