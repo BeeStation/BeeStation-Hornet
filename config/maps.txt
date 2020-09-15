@@ -26,7 +26,6 @@ endmap
 
 map deltastation
 	votable
-	maxplayers 100
 endmap
 
 map donutstation
@@ -37,27 +36,15 @@ map kilostation
 	votable
 endmap
 
-map runtimestation
-	maxplayers 20
+map chapelstation
 	votable
-	voteweight 0
+endmap
+
+map runtimestation
+	disabled
 endmap
 
 map multiz_debug
 	disabled
 endmap
 
-<<<<<<< HEAD
-
-=======
-map kilostation
-    maxplayers 100
-	votable
-endmap
-
-map chapelstation
-	maxplayers 100
-	votable
-	voteweight 0
-endmap
->>>>>>> master
