@@ -9,6 +9,7 @@
 	var/give_equipment = TRUE
 	var/list/researched_knowledge = list()
 	var/total_sacrifices = 0
+	var/ascended = FALSE
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
 	give_equipment = FALSE
@@ -159,12 +160,15 @@
 				cultiewin = FALSE
 			count++
 
-	if(cultiewin)
-		parts += "<span class='greentext'>The heretic was successful!</span>"
+	if(ascended)
+		//Ascension isnt technically finishing the objectives, buut it is to be considered a great win.
+		owner.current.client.process_greentext()
+		parts += "<span class='greentext big'>HERETIC HAS ASCENDED!</span>"
 	else
-		parts += "<span class='redtext'>The heretic has failed.</span>"
-
-	parts += "<b>Knowledge Researched:</b> "
+		if(cultiewin)
+			parts += "<span class='greentext'>The heretic was successful!</span>"
+		else
+			parts += "<span class='redtext'>The heretic has failed.</span>"
 
 	var/list/knowledge_message = list()
 	var/list/knowledge = get_all_knowledge()

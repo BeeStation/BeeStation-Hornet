@@ -55,11 +55,54 @@
 	maxHealth = 50
 	health = 50
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
-	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash/long,/obj/effect/proc_holder/spell/targeted/telepathy/eldritch)
+	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash/long,/obj/effect/proc_holder/spell/pointed/manse_link,/obj/effect/proc_holder/spell/targeted/telepathy/eldritch,/obj/effect/proc_holder/spell/pointed/trigger/blind/eldritch)
+
+	var/list/linked_mobs = list()
+
+/mob/living/simple_animal/hostile/eldritch/raw_prophet/Initialize()
+	. = ..()
+	link_mob(src)
 
 /mob/living/simple_animal/hostile/eldritch/raw_prophet/Login()
 	. = ..()
-	client?.view_size.setTo(11)
+	client?.view_size.setTo(10)
+
+/mob/living/simple_animal/hostile/eldritch/raw_prophet/proc/link_mob(mob/living/mob_linked)
+	if(QDELETED(mob_linked) || mob_linked.stat == DEAD)
+		return FALSE
+	if(HAS_TRAIT(mob_linked, TRAIT_MINDSHIELD)) //mindshield implant, no dice
+		return FALSE
+	if(mob_linked.anti_magic_check(FALSE, FALSE, TRUE, 0))
+		return FALSE
+	if(linked_mobs[mob_linked])
+		return FALSE
+
+	to_chat(mob_linked, "<span class='notice'>You feel something new enter your sphere of mind, you hear whispers of people far away, screeches of horror and a huming of welcome to [src]'s Mansus Link.</span>")
+	var/datum/action/innate/mansus_speech/action = new(src)
+	linked_mobs[mob_linked] = action
+	action.Grant(mob_linked)
+	RegisterSignal(mob_linked, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), .proc/unlink_mob)
+	return TRUE
+
+/mob/living/simple_animal/hostile/eldritch/raw_prophet/proc/unlink_mob(mob/living/mob_linked)
+
+	if(!linked_mobs[mob_linked])
+		return
+	UnregisterSignal(mob_linked, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING))
+	var/datum/action/innate/mansus_speech/action = linked_mobs[mob_linked]
+	action.Remove(mob_linked)
+	qdel(action)
+	to_chat(mob_linked, "<span class='notice'>Your mind shatters as the [src]'s Mansus Link leaves your mind.</span>")
+	mob_linked.emote("Scream")
+	//micro stun
+	mob_linked.AdjustParalyzed(0.5 SECONDS)
+	linked_mobs -= mob_linked
+
+/mob/living/simple_animal/hostile/eldritch/raw_prophet/death(gibbed)
+	for(var/linked_mob in linked_mobs)
+		unlink_mob(linked_mob)
+	return ..()
+
 
 /mob/living/simple_animal/hostile/eldritch/armsy
 	name = "Terror of the night"
@@ -73,7 +116,7 @@
 	move_resist = MOVE_FORCE_OVERPOWERING+1
 	movement_type = GROUND
 	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/worm_contract)
-	ranged_cooldown_time = 5
+	ranged_cooldown_time = 2
 	ranged = TRUE
 	rapid = 1
 	///Previous segment in the chain
@@ -173,25 +216,25 @@
 
 
 /mob/living/simple_animal/hostile/eldritch/armsy/proc/heal()
-	if(health == maxHealth)
-		if(back)
-			back.heal()
-			return
-		else
-			current_stacks++
-			if(current_stacks >= stacks_to_grow)
-				var/mob/living/simple_animal/hostile/eldritch/armsy/prev = new type(drop_location(),spawn_more = FALSE)
-				icon_state = "armsy_mid"
-				icon_living =  "armsy_mid"
-				back = prev
-				prev.icon_state = "armsy_end"
-				prev.icon_living = "armsy_end"
-				prev.front = src
-				prev.AIStatus = AI_OFF
-				current_stacks = 0
+	if(back)
+		back.heal()
 
 	adjustBruteLoss(-maxHealth * 0.5, FALSE)
 	adjustFireLoss(-maxHealth * 0.5 ,FALSE)
+
+	if(health == maxHealth)
+		current_stacks++
+		if(current_stacks >= stacks_to_grow)
+			var/mob/living/simple_animal/hostile/eldritch/armsy/prev = new type(drop_location(),spawn_more = FALSE)
+			icon_state = "armsy_mid"
+			icon_living =  "armsy_mid"
+			back = prev
+			prev.icon_state = "armsy_end"
+			prev.icon_living = "armsy_end"
+			prev.front = src
+			prev.AIStatus = AI_OFF
+			current_stacks = 0
+			return
 
 
 /mob/living/simple_animal/hostile/eldritch/armsy/Shoot(atom/targeted_atom)
@@ -233,12 +276,30 @@
 
 	return ..()
 
+/mob/living/simple_animal/hostile/eldritch/armsy/adjustBruteLoss(amount, updating_health, forced)
+	if(back)
+		back.adjustBruteLoss(amount, updating_health, forced)
+	else
+		return ..()
+
+/mob/living/simple_animal/hostile/eldritch/armsy/adjustFireLoss(amount, updating_health, forced)
+	if(back)
+		back.adjustFireLoss(amount, updating_health, forced)
+	else
+		return ..()
+
+/mob/living/simple_animal/hostile/eldritch/armsy/proc/get_length()
+	. += 1
+	if(back)
+		. += back.get_length()
+
 /mob/living/simple_animal/hostile/eldritch/armsy/prime
 	name = "Lord of the Night"
 	real_name = "Master of Decay"
 	maxHealth = 400
 	health = 400
 	melee_damage = 25
+	speed = -1
 
 /mob/living/simple_animal/hostile/eldritch/armsy/prime/Initialize(mapload,spawn_more = TRUE,len = 9)
 	. = ..()
@@ -305,3 +366,4 @@
 	melee_damage = 20
 	sight = SEE_MOBS
 	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,/obj/effect/proc_holder/spell/targeted/shapeshift/eldritch,/obj/effect/proc_holder/spell/targeted/emplosion/eldritch)
+

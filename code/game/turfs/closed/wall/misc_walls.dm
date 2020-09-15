@@ -155,6 +155,8 @@
 	hardness = 45
 
 /turf/closed/wall/rust/rust_heretic_act()
+	if(prob(70))
+		new /obj/effect/temp_visual/glowing_rune(src)
 	ScrapeAway()
 
 /turf/closed/wall/r_wall/rust
@@ -166,6 +168,8 @@
 /turf/closed/wall/r_wall/rust/rust_heretic_act()
 	if(prob(50))
 		return
+	if(prob(70))
+		new /obj/effect/temp_visual/glowing_rune(src)
 	ScrapeAway()
 
 /turf/closed/wall/mineral/bronze

@@ -111,6 +111,8 @@
 	return TRUE
 
 /turf/open/floor/plating/rust_heretic_act()
+	if(prob(70))
+		new /obj/effect/temp_visual/glowing_rune(src)
 	ChangeTurf(/turf/open/floor/plating/rust)
 
 	return
@@ -170,5 +172,3 @@
 		return 0
 	return 1
 
-/turf/open/floor/plating/rust_heretic_act()
-	ChangeTurf(/turf/open/floor/plating/rust)

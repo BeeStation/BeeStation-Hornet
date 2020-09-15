@@ -474,3 +474,133 @@
 		human_user.adjustStaminaLoss(-10, FALSE)
 		human_user.adjustToxLoss(-10, FALSE)
 		human_user.adjustOxyLoss(-10)
+
+/obj/effect/proc_holder/spell/targeted/shed_human_form
+	name = "Shed form"
+	desc = "Shed your fragile form, become one with the arms, become one with the emperor."
+	invocation_type = INVOCATION_SHOUT
+	invocation = "REALITY UNCOIL!"
+	clothes_req = FALSE
+	action_background_icon_state = "bg_ecult"
+	range = -1
+	include_user = TRUE
+	charge_max = 100
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "worm_ascend"
+	var/segment_length = 10
+
+/obj/effect/proc_holder/spell/targeted/shed_human_form/cast(list/targets, mob/user)
+	. = ..()
+	var/mob/living/target = user
+	var/mob/living/mob_inside = locate() in target.contents - target
+
+	if(!mob_inside)
+		var/mob/living/simple_animal/hostile/eldritch/armsy/prime/outside = new(user.loc,TRUE,segment_length)
+		target.mind.transfer_to(outside, TRUE)
+		target.forceMove(outside)
+		target.apply_status_effect(STATUS_EFFECT_STASIS,STASIS_ASCENSION_EFFECT)
+		for(var/mob/living/carbon/human/humie in view(9,outside)-target)
+			if(IS_HERETIC(humie) || IS_HERETIC_MONSTER(humie))
+				continue
+			SEND_SIGNAL(humie, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
+			///They see the very reality uncoil before their eyes.
+			if(prob(25))
+				var/trauma = pick(subtypesof(BRAIN_TRAUMA_MILD) + subtypesof(BRAIN_TRAUMA_SEVERE))
+				humie.gain_trauma(new trauma(), TRAUMA_RESILIENCE_LOBOTOMY)
+		return
+
+	if(iscarbon(mob_inside))
+		var/mob/living/simple_animal/hostile/eldritch/armsy/prime/armsy = target
+		if(mob_inside.remove_status_effect(STATUS_EFFECT_STASIS,STASIS_ASCENSION_EFFECT))
+			mob_inside.forceMove(armsy.loc)
+		armsy.mind.transfer_to(mob_inside, TRUE)
+		segment_length = armsy.get_length()
+		qdel(armsy)
+		return
+
+/obj/effect/temp_visual/glowing_rune
+	icon = 'icons/effects/eldritch.dmi'
+	icon_state = "small_rune_1"
+	duration = 1 MINUTES
+	layer = LOW_SIGIL_LAYER
+
+/obj/effect/temp_visual/glowing_rune/Initialize()
+	. = ..()
+	pixel_y = rand(-6,6)
+	pixel_x = rand(-6,6)
+	icon_state = "small_rune_[rand(12)]"
+	update_icon()
+
+/obj/effect/proc_holder/spell/pointed/manse_link
+	name = "Mansus Link"
+	desc = "Piercing through reality, connecting minds. This spell allows you to add people to a mansus net, allowing them to communicate with eachother"
+	school = "transmutation"
+	charge_max = 300
+	clothes_req = FALSE
+	invocation = "PI'RC' TH' M'ND"
+	invocation_type = "whisper"
+	range = 10
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "mansus_link"
+	action_background_icon_state = "bg_ecult"
+
+/obj/effect/proc_holder/spell/pointed/manse_link/can_target(atom/target, mob/user, silent)
+	if(!isliving(target))
+		return FALSE
+	return TRUE
+
+/obj/effect/proc_holder/spell/pointed/manse_link/cast(list/targets, mob/user)
+	var/mob/living/simple_animal/hostile/eldritch/raw_prophet/originator = user
+
+	var/mob/living/target = targets[1]
+
+	to_chat(originator, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
+	to_chat(target, "<span class='warning'>You feel your mind being pulled... connected... intertwined with the very fabric of reality...</span>")
+	if(!do_after(originator, 6 SECONDS, target))
+		return
+	if(!originator.link_mob(target))
+		to_chat(originator, "<span class='warning'>You can't seem to link [target]'s mind...</span>")
+		to_chat(target, "<span class='warning'>The foreign presence leaves your mind.</span>")
+		return
+	to_chat(originator, "<span class='notice'>You connect [target]'s mind to your mansus link!</span>")
+
+
+/datum/action/innate/mansus_speech
+	name = "Mansus Link"
+	desc = "Send a psychic message to everyone connected to your mansus link."
+	button_icon_state = "link_speech"
+	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	background_icon_state = "bg_ecult"
+	var/mob/living/simple_animal/hostile/eldritch/raw_prophet/originator
+
+/datum/action/innate/mansus_speech/New(_originator)
+	. = ..()
+	originator = _originator
+
+/datum/action/innate/mansus_speech/Activate()
+	var/mob/living/living_owner = owner
+	if(!originator?.linked_mobs[living_owner])
+		CRASH("Uh oh the mansus link got somehow activated without it being linked to a raw prophet or the mob not being in a list of mobs that should be able to do it.")
+
+	var/message = sanitize(input("Message:", "Telepathy from the Manse") as text|null)
+
+	if(QDELETED(living_owner))
+		return
+
+	if(!originator?.linked_mobs[living_owner])
+		to_chat(living_owner, "<span class='warning'>The link seems to have been severed...</span>")
+		Remove(living_owner)
+		return
+	if(message)
+		var/msg = "<i><font color=#568b00>\[Mansus Link\] <b>[living_owner]:</b> [message]</font></i>"
+		log_directed_talk(living_owner, originator, msg, LOG_SAY, "Mansus Link")
+		to_chat(originator.linked_mobs, msg)
+
+		for(var/dead_mob in GLOB.dead_mob_list)
+			var/link = FOLLOW_LINK(dead_mob, living_owner)
+			to_chat(dead_mob, "[link] [msg]")
+
+/obj/effect/proc_holder/spell/pointed/trigger/blind/eldritch
+	range = 10
+	invocation = "E'E'S"
+	action_background_icon_state = "bg_ecult"

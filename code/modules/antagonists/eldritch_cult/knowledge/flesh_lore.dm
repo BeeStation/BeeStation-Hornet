@@ -204,41 +204,23 @@
 
 /datum/eldritch_knowledge/final/flesh_final
 	name = "Priest's Final Hymn"
-	gain_text = "Man of this world. Hear me! For the time of the lord of arms has come!"
-	desc = "Bring 3 bodies onto a transmutation rune to either ascend as a terror of the night prime or you can summon a regular terror of the night."
+	gain_text = "Man of this world. Hear me! For the time of the lord of arms has come! Emperor of Flesh guides my army!"
+	desc = "Bring 3 bodies onto a transmutation rune to gain the ability of shedding your human form, and gaining untold power."
 	required_atoms = list(/mob/living/carbon/human)
 	cost = 3
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/atoms, loc)
-	var/alert_ = alert(user,"Do you want to ascend or summon a terror of the night?","...","Yes","No")
-	user.SetImmobilized(10 HOURS) // no way someone will stand 10 hours in a spot, just so he can move while the alert is still showing.
-	switch(alert_)
-		if("No")
-			var/mob/living/summoned = new /mob/living/simple_animal/hostile/eldritch/armsy(loc)
-			message_admins("[summoned.name] is being summoned by [user.real_name] in [loc]")
-			var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [summoned.real_name]", ROLE_HERETIC, null, ROLE_HERETIC, 100,summoned)
-			user.SetImmobilized(0)
-			if(!LAZYLEN(candidates))
-				to_chat(user,"<span class='warning'>No ghost could be found...</span>")
-				qdel(summoned)
-				return FALSE
-			var/mob/dead/observer/ghost_candidate = pick(candidates)
-			priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Fear the dark, for vassal of arms has ascended! Terror of the night has come! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", 'sound/ai/spanomalies.ogg')
-			log_game("[key_name_admin(ghost_candidate)] has taken control of ([key_name_admin(summoned)]).")
-			summoned.ghostize(FALSE)
-			summoned.key = ghost_candidate.key
-			summoned.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-			var/datum/antagonist/heretic_monster/monster = summoned.mind.has_antag_datum(/datum/antagonist/heretic_monster)
-			var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
-			monster.set_owner(master)
-		if("Yes")
-			var/mob/living/summoned = new /mob/living/simple_animal/hostile/eldritch/armsy/prime(loc,TRUE,10)
-			summoned.ghostize(0)
-			user.SetImmobilized(0)
-			priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Fear the dark, for king of arms has ascended! Lord of the night has come! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", 'sound/ai/spanomalies.ogg')
-			log_game("[user.real_name] ascended as [summoned.real_name]")
-			var/mob/living/carbon/carbon_user = user
-			carbon_user.mind.transfer_to(summoned, TRUE)
-			carbon_user.gib()
-	return ..()
+	. = ..()
+	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Ever coiling vortex, Reality unfoiled. KING OF ARMS [user.real_name] has come! Fear the ever twisting hand! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", 'sound/ai/spanomalies.ogg')
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shed_human_form)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	H.physiology.brute_mod *= 0.5
+	H.physiology.burn_mod *= 0.5
+	var/datum/antagonist/heretic/heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/eldritch_knowledge/flesh_grasp/ghoul1 = heretic.get_knowledge(/datum/eldritch_knowledge/flesh_grasp)
+	ghoul1.ghoul_amt *= 3
+	var/datum/eldritch_knowledge/flesh_ghoul/ghoul2 = heretic.get_knowledge(/datum/eldritch_knowledge/flesh_ghoul)
+	ghoul2.max_amt *= 3
