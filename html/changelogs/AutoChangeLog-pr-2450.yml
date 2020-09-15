@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - bugfix: The old science research station ghost roles now have a proper title
