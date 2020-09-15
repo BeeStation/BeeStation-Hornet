@@ -120,18 +120,19 @@ REPEATED_MODE_ADJUST 45 30 10
 
 ## Toggles for continuous modes.
 ## Modes that aren't continuous will end the instant all antagonists are dead.
+## Disabled insta-end for all types.
 
 CONTINUOUS TRAITOR
 CONTINUOUS TRAITORBRO
 CONTINUOUS TRAITORCHAN
 CONTINUOUS INCURSION
 CONTINUOUS INTERNAL_AFFAIRS
-#CONTINUOUS NUCLEAR
-#CONTINUOUS REVOLUTION
+CONTINUOUS NUCLEAR
+CONTINUOUS REVOLUTION
 CONTINUOUS CULT
 CONTINUOUS CHANGELING
 CONTINUOUS WIZARD
-#CONTINUOUS MONKEY
+CONTINUOUS MONKEY
 CONTINUOUS HIVEMIND
 
 ##Note: do not toggle continuous off for these modes, as they have no antagonists and would thus end immediately!
@@ -143,6 +144,7 @@ CONTINUOUS SECRET_EXTENDED
 
 ## Toggles for allowing midround antagonists (aka mulligan antagonists).
 ## In modes that are continuous, if all antagonists should die then a new set of antagonists will be created.
+## Unsure - feel like they should either all be on or all be off
 
 MIDROUND_ANTAG TRAITOR
 #MIDROUND_ANTAG INCURSION
@@ -161,6 +163,7 @@ MIDROUND_ANTAG WIZARD
 ## will still be actively rebalanced around the SUGGESTED populations, not your overrides.
 ## Notes: For maximum number of players a value of -1 means no maximum. Setting minimums to
 ## VERY low numbers (< 5) can lead to errors if the roundtypes were not designed for that.
+## Unsure
 
 #MIN_POP TRAITOR 0
 #MAX_POP TRAITOR -1
@@ -566,7 +569,7 @@ IC_PRINTING
 ROUNDSTART_TRAITS
 
 ## Uncomment to disable human moods.
-#DISABLE_HUMAN_MOOD
+DISABLE_HUMAN_MOOD
 
 ## Enable night shifts ##
 #ENABLE_NIGHT_SHIFTS

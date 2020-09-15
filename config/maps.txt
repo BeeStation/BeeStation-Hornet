@@ -13,17 +13,14 @@ Format:
 endmap
 
 map boxstation
-	maxplayers 100
 	votable
 endmap
 
 map metastation
-	maxplayers 100
 	votable
 endmap
 
 map pubbystation
-	maxplayers 100
 	votable
 endmap
 
@@ -32,7 +29,10 @@ map deltastation
 endmap
 
 map donutstation
-	maxplayers 120
+	votable
+endmap
+
+map kilostation
 	votable
 endmap
 
@@ -44,7 +44,4 @@ map multiz_debug
 	disabled
 endmap
 
-map kilostation
-    maxplayers 100
-	votable
-endmap
+

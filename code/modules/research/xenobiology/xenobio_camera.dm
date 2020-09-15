@@ -350,7 +350,7 @@
 	..()
 
 //Place slimes
-/turf/open/ShiftMiddleClickOn(mob/user)
+/turf/open/ShiftMiddleClick(mob/user)
 	SEND_SIGNAL(user, COMSIG_XENO_TURF_CLICK_SHIFT, src)
 	..()
 

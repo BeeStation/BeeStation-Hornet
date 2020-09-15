@@ -115,6 +115,20 @@
 	M.mode()
 	return TRUE
 
+
+/datum/keybinding/mob/activate_althand
+	key = "Shift-Z"
+	name = "activate_althand"
+	full_name = "Activate alt-hand"
+	description = "Uses whatever item you have in althand"
+
+/datum/keybinding/mob/activate_inhand/down(client/user)
+	if(!user.mob) return
+	var/mob/M = user.mob
+	M.altmode()
+	return TRUE
+
+
 /datum/keybinding/mob/mainuse
 	key = "C"
 	name = "mainuse"

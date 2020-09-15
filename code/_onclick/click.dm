@@ -147,31 +147,7 @@
 	//Standard reach turf to turf or reaching inside storage
 	if(CanReach(A,W))
 		if(W)
-			var/itemcount = LAZYLEN(src.held_items)
-
-			if(ishuman(src) && src.a_intent == INTENT_HARM && itemcount > 1 && src.get_active_held_item() != src.get_inactive_held_item())
-				var/original = src.get_active_held_item()
-				var/attackcount = 0
-
-
-				// This should probably account for attack speed or something
-				for(var/obj/item/B in src.held_items)
-					if(attackcount == 0)
-						B.melee_attack_chain(src, A, params)
-						sleep(3)
-						attackcount = 1
-
-					if(B != original)
-						src.activate_hand(src.get_held_index_of_item(B))
-						B.melee_attack_chain(src, A, params)
-						attackcount = attackcount + 1
-						if(attackcount < itemcount)
-							sleep(3)
-
-				src.activate_hand(src.get_held_index_of_item(original))
-
-			else
-				W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, params)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
@@ -181,6 +157,45 @@
 			W.afterattack(A,src,0,params)
 		else
 			RangedAttack(A,params)
+
+
+	// Dual weild logic Currently disabled
+	// if(CanReach(A,W))
+	// 	if(W)
+	// 		var/itemcount = LAZYLEN(src.held_items)
+
+	// 		if(ishuman(src) && src.a_intent == INTENT_HARM && itemcount > 1 && src.get_active_held_item() != src.get_inactive_held_item())
+	// 			var/original = src.get_active_held_item()
+	// 			var/attackcount = 0
+
+
+	// 			// This should probably account for attack speed or something
+	// 			for(var/obj/item/B in src.held_items)
+	// 				if(attackcount == 0)
+	// 					B.melee_attack_chain(src, A, params)
+	// 					sleep(3)
+	// 					attackcount = 1
+
+	// 				if(B != original)
+	// 					src.activate_hand(src.get_held_index_of_item(B))
+	// 					B.melee_attack_chain(src, A, params)
+	// 					attackcount = attackcount + 1
+	// 					if(attackcount < itemcount)
+	// 						sleep(3)
+
+	// 			src.activate_hand(src.get_held_index_of_item(original))
+
+	// 		else
+	// 			W.melee_attack_chain(src, A, params)
+	// 	else
+	// 		if(ismob(A))
+	// 			changeNext_move(CLICK_CD_MELEE)
+	// 		UnarmedAttack(A,1)
+	// else
+	// 	if(W)
+	// 		W.afterattack(A,src,0,params)
+	// 	else
+	// 		RangedAttack(A,params)
 
 
 
@@ -342,11 +357,9 @@
 	This is overridden in ai.dm
 */
 /mob/proc/ShiftClickOn(atom/A, params)
-	// What the fuck does this do?
-	//if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
-	//	return
-	var/itemcount = LAZYLEN(src.held_items)
-	var/original = src.get_inactive_held_item()
+	// For dual weilding - Currently Disabled
+	//var/itemcount = LAZYLEN(src.held_items)
+	//var/original = src.get_inactive_held_item()
 	src.swap_hand()
 	next_click = world.time + 1
 
@@ -418,31 +431,7 @@
 	//Standard reach turf to turf or reaching inside storage
 	if(CanReach(A,W))
 		if(W)
-			// Prob do if(src.get_inactive_held_item() && src.get_active_held_item()) ?
-
-			if((src.get_inactive_held_item()) && src.get_active_held_item())
-
-				if(ishuman(src) && src.a_intent == INTENT_HARM && src.get_inactive_held_item() != src.get_active_held_item())
-					var/attackcount = 0
-
-					// This should probably account for attack speed or something
-					for(var/obj/item/B in src.held_items)
-						if(attackcount == 0)
-							B.melee_attack_chain(src, A, params)
-							sleep(3)
-							attackcount = 1
-
-						if(B != original)
-							src.activate_hand(src.get_held_index_of_item(B))
-							B.melee_attack_chain(src, A, params)
-							attackcount = attackcount + 1
-							if(attackcount < itemcount)
-								sleep(3)
-
-					return
-
-			else
-				W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, params)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
@@ -452,7 +441,49 @@
 			W.afterattack(A,src,0,params)
 		else
 			RangedAttack(A,params)
+
 	src.swap_hand()
+
+
+
+	// Dual Weild Logic currently disabled
+	// if(CanReach(A,W))
+	// 	if(W)
+	// 		// Prob do if(src.get_inactive_held_item() && src.get_active_held_item()) ?
+
+	// 		if((src.get_inactive_held_item()) && src.get_active_held_item())
+
+	// 			if(ishuman(src) && src.a_intent == INTENT_HARM && src.get_inactive_held_item() != src.get_active_held_item())
+	// 				var/attackcount = 0
+
+	// 				// This should probably account for attack speed or something
+	// 				for(var/obj/item/B in src.held_items)
+	// 					if(attackcount == 0)
+	// 						B.melee_attack_chain(src, A, params)
+	// 						sleep(3)
+	// 						attackcount = 1
+
+	// 					if(B != original)
+	// 						src.activate_hand(src.get_held_index_of_item(B))
+	// 						B.melee_attack_chain(src, A, params)
+	// 						attackcount = attackcount + 1
+	// 						if(attackcount < itemcount)
+	// 							sleep(3)
+
+	// 				return
+
+	// 		else
+	// 			W.melee_attack_chain(src, A, params)
+	// 	else
+	// 		if(ismob(A))
+	// 			changeNext_move(CLICK_CD_MELEE)
+	// 		UnarmedAttack(A,1)
+	// else
+	// 	if(W)
+	// 		W.afterattack(A,src,0,params)
+	// 	else
+	// 		RangedAttack(A,params)
+	// src.swap_hand()
 
 // /atom/proc/ShiftMiddleClickOn(mob/user)
 /*
@@ -521,11 +552,17 @@
 	A.CtrlShiftClick(src)
 	return
 
-/atom/proc/ShiftMiddleClickOn(mob/user)
+
+/mob/proc/ShiftMiddleClickOn(atom/A)
+	A.ShiftMiddleClick(src)
+	return
+
+/atom/proc/ShiftMiddleClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_SHIFT, user)
 	if(user.client && user.client.eye == user || user.client.eye == user.loc)
 		user.examinate(src)
 	return
+
 
 
 /atom/proc/CtrlShiftClick(mob/user)

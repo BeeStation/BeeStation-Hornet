@@ -524,6 +524,22 @@
 		update_inv_hands()
 
 
+/mob/verb/altmode()
+	set name = "Activate Other hand Object"
+	set category = "Object"
+	set src = usr
+
+	if(ismecha(loc))
+		return
+
+	if(incapacitated())
+		return
+
+	var/obj/item/I = get_inactive_held_item()
+	if(I)
+		I.attack_self(src)
+		update_inv_hands()
+
 
 /mob/verb/mainuse()
 	if(ismecha(loc))

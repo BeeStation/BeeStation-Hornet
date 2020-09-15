@@ -218,3 +218,5 @@ tools/MapAtmosFixer/MapAtmosFixer/bin/*
 !/config/title_music/sounds/exclude
 
 beestation.dme
+
+config/dbconfig.txt
