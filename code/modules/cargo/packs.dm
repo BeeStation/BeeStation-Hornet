@@ -1541,7 +1541,7 @@
 /datum/supply_pack/science/recharging
 	name = "Recharging Station Crate"
 	desc = "If you are looking for an improvement that makes your station more suitable for silicons, this is the pack for you! Contains all the materials required to put together a recharging station. Tools not included."
-	cost = 5000
+	cost = 2500
 	access = ACCESS_ROBOTICS
 	contains = list(/obj/item/stack/sheet/iron/five,
 					/obj/item/stack/cable_coil/random/five,
