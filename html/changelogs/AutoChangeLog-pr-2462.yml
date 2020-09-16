@@ -1,0 +1,6 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - bugfix: Acid properly degrades armor
+  - bugfix: You can empty storage containers/boxes directly into disposals again
+  - bugfix: The mutations overlay will update correctly now
