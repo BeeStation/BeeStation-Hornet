@@ -543,7 +543,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		L.ForceContractDisease(D)
 		to_chat(L, "<span class='userdanger'>You're pretty sure you just felt your heart stop for a second there..</span>")
 		L.playsound_local(L, 'sound/effects/singlebeat.ogg', 100, 0)
-	..()	
+	..()
 
 /datum/reagent/consumable/ethanol/triple_coke
 	name = "Triple Coke"
@@ -561,7 +561,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.emote("flip")
 	M.emote("collapse")
 	..()
-	
+
 /datum/reagent/consumable/salty_water
 	name = "Salty Water"
 	description = "Water and, hmm, salt?"
@@ -1649,15 +1649,15 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "Fringe Weaver"
 	glass_desc = "It's a wonder it doesn't spill out of the glass."
 
-/datum/reagent/consumable/ethanol/fringe_weaver/on_mob_add(mob/living/L)
+/datum/reagent/consumable/ethanol/fringe_weaver/on_mob_life(mob/living/carbon/M)
 	if(prob(50))
-		L.vomit()	
+		M.vomit()
 	if(prob(33))
-		L.emote("collapse")
+		M.emote("collapse")
 	if(prob(15))
-		L.drop_all_held_items()
-		L.set_drugginess(50)
-	..()	
+		M.drop_all_held_items()
+		M.set_drugginess(50)
+	..()
 
 /datum/reagent/consumable/ethanol/sugar_rush
 	name = "Sugar Rush"

@@ -6,7 +6,7 @@
 
 // The default UI style is the first one in the list
 GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
-	"Default" = 'icons/mob/screen_operative.dmi',
+	"Default" = 'icons/mob/screen_default.dmi',
 	"Operative" = 'icons/mob/screen_operative.dmi',
 	"Midnight" = 'icons/mob/screen_midnight.dmi',
 	"Retro" = 'icons/mob/screen_retro.dmi',
