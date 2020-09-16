@@ -566,7 +566,7 @@
 	if(suicide_count < 3)
 		desc = "A plushie depicting an unsettling mothperson. After killing [suicide_count] [suicide_count == 1 ? "person" : "people"] it's not looking so huggable now..."
 	else
-		desc = "A plushie depicting a creepy mothperson. It's killed [suicide_count] people! I don't think I want to hug it any more!"
+		desc = "A creepy mothperson plushy. It has killed [suicide_count] people! I don't think I want to hug it any more!"
 		divine = TRUE
 		resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF | LAVA_PROOF
 	playsound(src, 'sound/hallucinations/wail.ogg', 50, TRUE, -1)
