@@ -521,7 +521,6 @@
 	var/obj/item/I = get_active_held_item()
 	if(I)
 		I.attack_self(src)
-		update_inv_hands()
 
 
 /mob/verb/altmode()
@@ -538,7 +537,6 @@
 	var/obj/item/I = get_inactive_held_item()
 	if(I)
 		I.attack_self(src)
-		update_inv_hands()
 
 
 /mob/verb/mainuse()

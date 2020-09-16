@@ -12,11 +12,11 @@ Format:
 	disabled (disables the map)
 endmap
 
-map boxstation
+map metastation
 	votable
 endmap
 
-map metastation
+map boxstation
 	votable
 endmap
 
@@ -38,6 +38,7 @@ endmap
 
 map chapelstation
 	votable
+	disabled
 endmap
 
 map runtimestation
