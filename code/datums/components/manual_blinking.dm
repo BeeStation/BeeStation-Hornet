@@ -9,6 +9,17 @@
 	var/grace_period = 6 SECONDS
 	var/damage_rate = 1 // organ damage taken per tick
 	var/list/valid_emotes = list(/datum/emote/living/carbon/blink, /datum/emote/living/carbon/blink_r)
+	var/datum/action/blink/button = new
+
+/datum/action/blink
+	name = "Blink"
+	icon_icon = 'icons/mob/actions/actions_hive.dmi'
+	button_icon_state = "see"						//Feel free to replace
+
+/datum/action/blink/Trigger()
+	if(owner.stat != CONSCIOUS)
+		return FALSE
+	owner.emote("blink")
 
 /datum/component/manual_blinking/Initialize()
 	if(!iscarbon(parent))
@@ -20,12 +31,14 @@
 	if(E)
 		START_PROCESSING(SSdcs, src)
 		last_blink = world.time
-		to_chat(C, "<span class='notice'>You suddenly realize you're blinking manually.</span>")
+		button.Grant(parent)
+		to_chat(C, "<span class='userdanger'>You suddenly realize you're blinking manually.</span>")
 
 /datum/component/manual_blinking/Destroy(force, silent)
 	E = null
 	STOP_PROCESSING(SSdcs, src)
-	to_chat(parent, "<span class='notice'>You revert back to automatic blinking.</span>")
+	to_chat(parent, "<span class='userdanger'>You revert back to automatic blinking.</span>")
+	button.Remove()
 	return ..()
 
 /datum/component/manual_blinking/RegisterWithParent()

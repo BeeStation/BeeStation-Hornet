@@ -9,6 +9,28 @@
 	var/grace_period = 6 SECONDS
 	var/damage_rate = 1 // organ damage taken per tick
 	var/datum/emote/next_breath_type = /datum/emote/inhale
+	var/datum/action/breathe/button = new
+
+/datum/action/breathe
+	name = "Inhale"
+	icon_icon = 'icons/mob/actions/actions_hive.dmi'
+	button_icon_state = "add"									//Feel free to replace
+	var/datum/emote/next_emote = "inhale"
+
+/datum/action/breathe/Trigger()
+	if(owner.stat != CONSCIOUS)
+		return FALSE
+	owner.emote(next_emote)
+
+/datum/action/breathe/proc/update_status(emote)
+	next_emote = emote
+	if(next_emote == "inhale")
+		name = "Inhale"
+		button_icon_state = "add"
+	else
+		name = "Exhale"
+		button_icon_state = "remove"
+	UpdateButtonIcon()
 
 /datum/component/manual_breathing/Initialize()
 	if(!iscarbon(parent))
@@ -20,12 +42,13 @@
 	if(L)
 		START_PROCESSING(SSdcs, src)
 		last_breath = world.time
-		to_chat(C, "<span class='notice'>You suddenly realize you're breathing manually.</span>")
+		button.Grant(C)
+		to_chat(C, "<span class='userdanger'>You suddenly realize you're breathing manually.</span>")
 
 /datum/component/manual_breathing/Destroy(force, silent)
 	L = null
 	STOP_PROCESSING(SSdcs, src)
-	to_chat(parent, "<span class='notice'>You revert back to automatic breathing.</span>")
+	to_chat(parent, "<span class='userdanger'>You revert back to automatic breathing.</span>")
 	return ..()
 
 /datum/component/manual_breathing/RegisterWithParent()
@@ -82,8 +105,10 @@
 	if(emote.type == next_breath_type)
 		if(next_breath_type == /datum/emote/inhale)
 			next_breath_type = /datum/emote/exhale
+			button.update_status("exhale")
 		else
 			next_breath_type = /datum/emote/inhale
+			button.update_status("inhale")
 
 		warn_grace = FALSE
 		warn_dying = FALSE
