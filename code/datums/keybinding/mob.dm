@@ -122,7 +122,7 @@
 	full_name = "Activate alt-hand"
 	description = "Uses whatever item you have in althand"
 
-/datum/keybinding/mob/activate_inhand/down(client/user)
+/datum/keybinding/mob/activate_althand/down(client/user)
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.altmode()

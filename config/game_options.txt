@@ -204,7 +204,7 @@ MAX_POP DEVIL -1
 MIN_POP DEVIL_AGENTS 5
 MAX_POP DEVIL_AGENTS -1
 
-MIN_POP INCURSION 22
+MIN_POP INCURSION 10
 MAX_POP INCURSION -1
 
 ## Setting at least one mode to be playable at 0/1 players is required.
