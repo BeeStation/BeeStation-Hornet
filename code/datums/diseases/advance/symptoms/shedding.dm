@@ -39,11 +39,11 @@ BONUS
 		switch(A.stage)
 			if(3, 4)
 				if(!(H.hair_style == "Bald") && !(H.hair_style == "Balding Hair"))
-					to_chat(H, "<span class='warning'>Your hair starts to fall out in clumps...</span>")
+					to_chat(H, "<span class='notice'>Your hair starts to fall out in clumps.</span>")
 					addtimer(CALLBACK(src, .proc/Shed, H, FALSE), 50)
 			if(5)
 				if(!(H.facial_hair_style == "Shaved") || !(H.hair_style == "Bald"))
-					to_chat(H, "<span class='warning'>Your hair starts to fall out in clumps...</span>")
+					to_chat(H, "<span class='notice'>Your hair starts to fall out in clumps.</span>")
 					addtimer(CALLBACK(src, .proc/Shed, H, TRUE), 50)
 
 /datum/symptom/shedding/proc/Shed(mob/living/carbon/human/H, fullbald)
