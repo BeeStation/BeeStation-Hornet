@@ -542,3 +542,7 @@
 	config_entry_value = 18000
 	integer = FALSE
 	min_val = 0
+
+/datum/config_entry/flag/respect_upstream_bans
+
+/datum/config_entry/flag/respect_upstream_permabans
