@@ -8,7 +8,7 @@
 //Modified a lot by Kokojo and Tortellini Tony.
 //Modified even more and completely rebuilt ui by YoYoBatty.
 /obj/machinery/poolcontroller
-	name = "\improper Pool Controller"
+	name = "Pool Controller"
 	desc = "A controller for the nearby pool."
 	icon = 'hippiestation/icons/turf/pool.dmi'
 	icon_state = "poolc_3"
@@ -289,10 +289,10 @@
 	return (drainable || issilicon(user) || IsAdminGhost(user))
 
 /obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-												datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "pool_controller", "[name]", 300, 450, master_ui, state)
+		ui = new(user, src, ui_key, "Pool", name, 300, 450, master_ui, state)
 		ui.set_autoupdate(TRUE)
 		ui.open()
 

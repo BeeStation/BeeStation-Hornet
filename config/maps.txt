@@ -12,18 +12,15 @@ Format:
 	disabled (disables the map)
 endmap
 
-map boxstation
-	maxplayers 100
+map metastation
 	votable
 endmap
 
-map metastation
-	maxplayers 100
+map boxstation
 	votable
 endmap
 
 map pubbystation
-	maxplayers 100
 	votable
 endmap
 
@@ -32,8 +29,15 @@ map deltastation
 endmap
 
 map donutstation
-	maxplayers 120
 	votable
+endmap
+
+map kilostation
+	votable
+endmap
+
+map chapelstation
+	disabled
 endmap
 
 map runtimestation
@@ -44,7 +48,3 @@ map multiz_debug
 	disabled
 endmap
 
-map kilostation
-    maxplayers 100
-	votable
-endmap

@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/outline_enabled = TRUE
 	var/outline_color = COLOR_BLUE_GRAY
 	var/buttons_locked = FALSE
-	var/hotkeys = FALSE
+	var/hotkeys = TRUE
 	var/tgui_fancy = TRUE
 	var/tgui_lock = TRUE
 	var/windowflashing = TRUE
@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/allow_midround_antag = 1
 	var/preferred_map = null
 	var/pda_style = MONO
-	var/pda_color = "#808000"
+	var/pda_color = "#9933FF"
 	var/show_credits = TRUE
 
 	// Custom Keybindings
@@ -103,11 +103,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/ambientocclusion = TRUE
 	///Should we automatically fit the viewport?
-	var/auto_fit_viewport = FALSE
+	var/auto_fit_viewport = TRUE
 	///What size should pixels be displayed as? 0 is strech to fit
 	var/pixel_size = 0
 	///What scaling method should we use?
-	var/scaling_method = "normal"
+	var/scaling_method = "distort"
 	var/uplink_spawn_loc = UPLINK_PDA
 
 	var/list/exp = list()

@@ -101,6 +101,7 @@ if g == 'Y' or g == 'y':
                                             gaschems = gaschems + '\n	gas_overlay = "plasma_old"'
                                             gaschems = gaschems + '\n	moles_visible = MOLES_GAS_VISIBLE * 60'
                                             gaschems = gaschems + '\n	rarity = 250'
+                                            gaschems = gaschems + '\n	chemgas = 1'
 
                                             chemcans = chemcans + '/obj/machinery/portable_atmospherics/canister/' + new_line
                                             chemcans = chemcans + '\n	name = "' + new_line + ' canister"'
