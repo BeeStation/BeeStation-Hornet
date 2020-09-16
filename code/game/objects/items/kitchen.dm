@@ -234,7 +234,7 @@
 	if (!iscyborg(user))
 		..()	
 	var/mob/living/silicon/robot/R = user	
-	if(!R.emagged)
+	if(!R.emagged && target.stat != DEAD))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 1, -1)
 		user.visible_message("<span class='notice'>Safety check failed! Action aborted.</span>")
 	else
@@ -248,7 +248,7 @@
 	if (!iscyborg(user))
 		..()	
 	var/mob/living/silicon/robot/R = user	
-	if(!R.emagged)
+	if(!R.emagged && target.stat != DEAD))
 		playsound(src, 'sound/machines/buzz-sigh.ogg',  50, 1, -1)
 		user.visible_message("<span class='notice'>Safety check failed! Action aborted.</span>")
 	else
