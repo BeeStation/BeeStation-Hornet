@@ -472,6 +472,7 @@
 		/obj/item/toy/crayon/spraycan/borg,
 		/obj/item/extinguisher/mini,
 		/obj/item/hand_labeler/borg,
+		/obj/item/razor,
 		/obj/item/borg/charger,
 		/obj/item/rsf,
 		/obj/item/instrument/piano_synth,
