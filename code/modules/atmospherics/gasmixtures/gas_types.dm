@@ -1,5 +1,6 @@
 GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/carbon_dioxide, /datum/gas/plasma)) //the main four gases, which were at one time hardcoded
 GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/carbon_dioxide, /datum/gas/pluoxium, /datum/gas/stimulum, /datum/gas/nitryl))) //unable to react amongst themselves
+GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /datum/gas/carbon_dioxide, /datum/gas/plasma, /datum/gas/water_vapor, /datum/gas/hypernoblium, /datum/gas/tritium, /datum/gas/nitrous_oxide, /datum/gas/pluoxium, /datum/gas/bz, /datum/gas/miasma, /datum/gas/stimulum, /datum/gas/nitryl)) //unable to react amongst themselves
 
 /proc/meta_gas_list()
 	. = subtypesof(/datum/gas)
@@ -50,6 +51,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	var/fusion_power = 0 //How much the gas accelerates a fusion reaction
 	var/rarity = 0 // relative rarity compared to other gases, used when setting up the reactions list.
 	var/color = null
+	var/chemgas = 0
 // If you add or remove gases, update TOTAL_NUM_GASES in the extools code to match! Extools currently expects 14 gas types to exist.
 
 /datum/gas/oxygen
@@ -167,6 +169,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#404030"
 
 /datum/gas/beer
@@ -176,6 +179,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/ftliver
@@ -185,6 +189,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#0D0D0D"
 
 /datum/gas/light
@@ -194,6 +199,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/green
@@ -203,6 +209,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A8E61D"
 
 /datum/gas/kahlua
@@ -212,6 +219,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/whiskey
@@ -221,6 +229,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/thirteenloko
@@ -230,6 +239,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#102000"
 
 /datum/gas/vodka
@@ -239,6 +249,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#0064C8"
 
 /datum/gas/bilk
@@ -248,6 +259,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#895C4C"
 
 /datum/gas/threemileisland
@@ -257,6 +269,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#666340"
 
 /datum/gas/gin
@@ -266,6 +279,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/rum
@@ -275,6 +289,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/tequila
@@ -284,6 +299,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFF91"
 
 /datum/gas/vermouth
@@ -293,6 +309,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#91FF91"
 
 /datum/gas/wine
@@ -302,6 +319,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#7E4043"
 
 /datum/gas/lizardwine
@@ -311,6 +329,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#7E4043"
 
 /datum/gas/grappa
@@ -320,6 +339,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#F8EBF1"
 
 /datum/gas/cognac
@@ -329,6 +349,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#AB3C05"
 
 /datum/gas/absinthe
@@ -338,6 +359,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = rgb(10, 206, 0)
 
 /datum/gas/hooch
@@ -347,6 +369,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/ale
@@ -356,6 +379,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/goldschlager
@@ -365,6 +389,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFF91"
 
 /datum/gas/patron
@@ -374,6 +399,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#585840"
 
 /datum/gas/gintonic
@@ -383,6 +409,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/rum_coke
@@ -392,6 +419,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#3E1B00"
 
 /datum/gas/cuba_libre
@@ -401,6 +429,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#3E1B00"
 
 /datum/gas/whiskey_cola
@@ -410,6 +439,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#3E1B00"
 
 /datum/gas/martini
@@ -419,6 +449,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/vodkamartini
@@ -428,6 +459,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/white_russian
@@ -437,7 +469,48 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A68340"
+
+/datum/gas/vodka_cola
+	id = "vodka_cola"
+	specific_heat = 20
+	name = "vodka_cola"
+	gas_overlay = "plasma_old"
+	moles_visible = MOLES_GAS_VISIBLE * 60
+	rarity = 250
+	chemgas = 1
+	color = "#3f2410" // rgb: 62, 27, 0
+
+/datum/gas/black_roulette
+	id = "black_roulette"
+	specific_heat = 20
+	name = "black_roulette"
+	gas_overlay = "plasma_old"
+	moles_visible = MOLES_GAS_VISIBLE * 60
+	rarity = 250
+	chemgas = 1
+	color = "#7c550bbe" // rgb: 102, 67, 0
+
+/datum/gas/triple_coke
+	id = "triple_coke"
+	specific_heat = 20
+	name = "triple_coke"
+	gas_overlay = "plasma_old"
+	moles_visible = MOLES_GAS_VISIBLE * 60
+	rarity = 250
+	chemgas = 1
+	color = "#7c550bbe" // rgb: 102, 67, 0
+
+/datum/gas/salty_water
+	id = "salty_water"
+	specific_heat = 20
+	name = "salty_water"
+	gas_overlay = "plasma_old"
+	moles_visible = MOLES_GAS_VISIBLE * 60
+	rarity = 250
+	chemgas = 1
+	color = "#ffe65b"
 
 /datum/gas/screwdrivercocktail
 	id = "screwdrivercocktail"
@@ -446,6 +519,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A68310"
 
 /datum/gas/booger
@@ -455,6 +529,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#8CFF8C"
 
 /datum/gas/bloody_mary
@@ -464,6 +539,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/brave_bull
@@ -473,6 +549,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/tequila_sunrise
@@ -482,6 +559,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFE48C"
 
 /datum/gas/toxins_special
@@ -491,6 +569,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/beepsky_smash
@@ -500,6 +579,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/irish_cream
@@ -509,6 +589,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/manly_dorf
@@ -518,6 +599,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/longislandicedtea
@@ -527,6 +609,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/moonshine
@@ -536,6 +619,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#AAAAAA77"
 
 /datum/gas/b52
@@ -545,6 +629,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/irishcoffee
@@ -554,6 +639,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/margarita
@@ -563,6 +649,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#8CFF8C"
 
 /datum/gas/black_russian
@@ -572,6 +659,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#360000"
 
 /datum/gas/manhattan
@@ -581,6 +669,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/manhattan_proj
@@ -590,6 +679,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/whiskeysoda
@@ -599,6 +689,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/antifreeze
@@ -608,6 +699,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/barefoot
@@ -617,6 +709,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/snowwhite
@@ -626,6 +719,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF"
 
 /datum/gas/demonsblood
@@ -635,6 +729,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#820000"
 
 /datum/gas/devilskiss
@@ -644,6 +739,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A68310"
 
 /datum/gas/vodkatonic
@@ -653,6 +749,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#0064C8"
 
 /datum/gas/ginfizz
@@ -662,6 +759,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/bahama_mama
@@ -671,6 +769,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FF7F3B"
 
 /datum/gas/singulo
@@ -680,6 +779,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#2E6671"
 
 /datum/gas/sbiten
@@ -689,6 +789,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/red_mead
@@ -698,6 +799,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C73C00"
 
 /datum/gas/mead
@@ -707,6 +809,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/iced_beer
@@ -716,6 +819,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/grog
@@ -725,6 +829,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/aloe
@@ -734,6 +839,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/andalusia
@@ -743,6 +849,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/alliescocktail
@@ -752,6 +859,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/acid_spit
@@ -761,6 +869,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#365000"
 
 /datum/gas/amasec
@@ -770,6 +879,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/changelingsting
@@ -779,6 +889,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#2E6671"
 
 /datum/gas/irishcarbomb
@@ -788,6 +899,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#2E6671"
 
 /datum/gas/syndicatebomb
@@ -797,6 +909,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#2E6671"
 
 /datum/gas/erikasurprise
@@ -806,6 +919,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#2E6671"
 
 /datum/gas/driestmartini
@@ -815,6 +929,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#2E6671"
 
 /datum/gas/bananahonk
@@ -824,6 +939,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFF91"
 
 /datum/gas/silencer
@@ -833,6 +949,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/drunkenblumpkin
@@ -842,6 +959,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#1EA0FF"
 
 /datum/gas/whiskey_sour
@@ -851,6 +969,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = rgb(255, 201, 49)
 
 /datum/gas/hcider
@@ -860,6 +979,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#CD6839"
 
 /datum/gas/fetching_fizz
@@ -869,6 +989,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = rgb(255, 91, 15)
 
 /datum/gas/hearty_punch
@@ -878,6 +999,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = rgb(140, 0, 0)
 
 /datum/gas/bacchus_blessing
@@ -887,6 +1009,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = rgb(51, 19, 3)
 
 /datum/gas/atomicbomb
@@ -896,6 +1019,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#666300"
 
 /datum/gas/gargle_blaster
@@ -905,6 +1029,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/neurotoxin
@@ -914,6 +1039,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#2E2E61"
 
 /datum/gas/hippies_delight
@@ -923,6 +1049,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/eggnog
@@ -932,6 +1059,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#fcfdc6"
 
 /datum/gas/narsour
@@ -941,6 +1069,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = RUNE_COLOR_DARKRED
 
 /datum/gas/triple_sec
@@ -950,6 +1079,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ffcc66"
 
 /datum/gas/creme_de_menthe
@@ -959,6 +1089,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00cc00"
 
 /datum/gas/creme_de_cacao
@@ -968,6 +1099,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#996633"
 
 /datum/gas/quadruple_sec
@@ -977,6 +1109,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#cc0000"
 
 /datum/gas/quintuple_sec
@@ -986,6 +1119,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ff3300"
 
 /datum/gas/grasshopper
@@ -995,6 +1129,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "00ff00"
 
 /datum/gas/stinger
@@ -1004,6 +1139,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "ccff99"
 
 /datum/gas/bastion_bourbon
@@ -1013,6 +1149,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00FFFF"
 
 /datum/gas/squirt_cider
@@ -1022,6 +1159,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FF0000"
 
 /datum/gas/fringe_weaver
@@ -1031,6 +1169,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFEAC4"
 
 /datum/gas/sugar_rush
@@ -1040,6 +1179,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FF226C"
 
 /datum/gas/crevice_spike
@@ -1049,6 +1189,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5BD231"
 
 /datum/gas/sake
@@ -1058,6 +1199,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#DDDDDD"
 
 /datum/gas/peppermint_patty
@@ -1067,6 +1209,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#45ca7a"
 
 /datum/gas/alexander
@@ -1076,6 +1219,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#F5E9D3"
 
 /datum/gas/sidecar
@@ -1085,6 +1229,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFC55B"
 
 /datum/gas/between_the_sheets
@@ -1094,6 +1239,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#F4C35A"
 
 /datum/gas/kamikaze
@@ -1103,6 +1249,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#EEF191"
 
 /datum/gas/mojito
@@ -1112,6 +1259,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#DFFAD9"
 
 /datum/gas/fernet
@@ -1121,6 +1269,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#1B2E24"
 
 /datum/gas/fernet_cola
@@ -1130,6 +1279,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#390600"
 
 /datum/gas/fanciulli
@@ -1139,6 +1289,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/branca_menta
@@ -1148,6 +1299,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#4B5746"
 
 /datum/gas/blank_paper
@@ -1157,6 +1309,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#DCDCDC"
 
 /datum/gas/fruit_wine
@@ -1166,6 +1319,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF"
 
 /datum/gas/champagne
@@ -1175,6 +1329,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ffffc1"
 
 /datum/gas/wizz_fizz
@@ -1184,6 +1339,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#4235d0"
 
 /datum/gas/bug_spray
@@ -1193,6 +1349,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#33ff33"
 
 /datum/gas/applejack
@@ -1202,6 +1359,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ff6633"
 
 /datum/gas/jack_rose
@@ -1211,6 +1369,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ff6633"
 
 /datum/gas/turbo
@@ -1220,6 +1379,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#e94c3a"
 
 /datum/gas/old_timer
@@ -1229,6 +1389,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#996835"
 
 /datum/gas/rubberneck
@@ -1238,6 +1399,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ffe65b"
 
 /datum/gas/duplex
@@ -1247,6 +1409,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#50e5cf"
 
 /datum/gas/trappist
@@ -1256,6 +1419,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#390c00"
 
 /datum/gas/blazaam
@@ -1265,6 +1429,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/planet_cracker
@@ -1274,6 +1439,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/mauna_loa
@@ -1283,6 +1449,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#fe8308"
 
 /datum/gas/plasmaflood
@@ -1292,6 +1459,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#630480"
 
 /datum/gas/fourthwall
@@ -1301,6 +1469,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#0b43a3"
 
 /datum/gas/ratvander
@@ -1310,6 +1479,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/icewing
@@ -1319,6 +1489,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/sarsaparilliansunset
@@ -1328,6 +1499,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/beesknees
@@ -1337,6 +1509,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/orangejuice
@@ -1346,6 +1519,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#E78108"
 
 /datum/gas/tomatojuice
@@ -1355,6 +1529,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#731008"
 
 /datum/gas/limejuice
@@ -1364,6 +1539,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#365E30"
 
 /datum/gas/carrotjuice
@@ -1373,6 +1549,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#973800"
 
 /datum/gas/berryjuice
@@ -1382,6 +1559,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#863333"
 
 /datum/gas/applejuice
@@ -1391,6 +1569,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ECFF56"
 
 /datum/gas/poisonberryjuice
@@ -1400,6 +1579,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#863353"
 
 /datum/gas/watermelonjuice
@@ -1409,6 +1589,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#863333"
 
 /datum/gas/lemonjuice
@@ -1418,6 +1599,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#863333"
 
 /datum/gas/banana
@@ -1427,6 +1609,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#863333"
 
 /datum/gas/nothing
@@ -1436,6 +1619,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/laughter
@@ -1445,6 +1629,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FF4DD2"
 
 /datum/gas/superlaughter
@@ -1454,6 +1639,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FF4DD2"
 
 /datum/gas/potato_juice
@@ -1463,6 +1649,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#302000"
 
 /datum/gas/grapejuice
@@ -1472,6 +1659,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#290029"
 
 /datum/gas/milk
@@ -1481,6 +1669,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#DFDFDF"
 
 /datum/gas/soymilk
@@ -1490,6 +1679,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#DFDFC7"
 
 /datum/gas/cream
@@ -1499,6 +1689,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#DFD7AF"
 
 /datum/gas/coffee
@@ -1508,6 +1699,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#482000"
 
 /datum/gas/tea
@@ -1517,6 +1709,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#101000"
 
 /datum/gas/lemonade
@@ -1526,6 +1719,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/arnold_palmer
@@ -1535,6 +1729,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFB766"
 
 /datum/gas/icecoffee
@@ -1544,6 +1739,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#102838"
 
 /datum/gas/icetea
@@ -1553,6 +1749,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#104038"
 
 /datum/gas/space_cola
@@ -1562,6 +1759,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#100800"
 
 /datum/gas/nuka_cola
@@ -1571,6 +1769,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#100800"
 
 /datum/gas/grey_bull
@@ -1580,6 +1779,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#EEFF00"
 
 /datum/gas/spacemountainwind
@@ -1589,6 +1789,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#102000"
 
 /datum/gas/dr_gibb
@@ -1598,6 +1799,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#102000"
 
 /datum/gas/space_up
@@ -1607,6 +1809,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00FF00"
 
 /datum/gas/lemon_lime
@@ -1616,6 +1819,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#8CFF00"
 
 /datum/gas/pwr_game
@@ -1625,6 +1829,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#9385bf"
 
 /datum/gas/shamblers
@@ -1634,6 +1839,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#f00060"
 
 /datum/gas/sodawater
@@ -1643,6 +1849,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#619494"
 
 /datum/gas/tonic
@@ -1652,6 +1859,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#0064C8"
 
 /datum/gas/monkey_energy
@@ -1661,6 +1869,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#f39b03"
 
 /datum/gas/ice
@@ -1670,6 +1879,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#619494"
 
 /datum/gas/soy_latte
@@ -1679,6 +1889,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/cafe_latte
@@ -1688,6 +1899,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/doctor_delight
@@ -1697,6 +1909,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FF8CFF"
 
 /datum/gas/chocolatepudding
@@ -1706,6 +1919,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#800000"
 
 /datum/gas/vanillapudding
@@ -1715,6 +1929,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FAFAD2"
 
 /datum/gas/cherryshake
@@ -1724,6 +1939,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFB6C1"
 
 /datum/gas/bluecherryshake
@@ -1733,6 +1949,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00F1FF"
 
 /datum/gas/pumpkin_latte
@@ -1742,6 +1959,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#F4A460"
 
 /datum/gas/gibbfloats
@@ -1751,6 +1969,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#B22222"
 
 /datum/gas/pumpkinjuice
@@ -1760,6 +1979,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFA500"
 
 /datum/gas/blumpkinjuice
@@ -1769,6 +1989,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00BFFF"
 
 /datum/gas/triple_citrus
@@ -1778,6 +1999,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/grape_soda
@@ -1787,6 +2009,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#E6CDFF"
 
 /datum/gas/chocolate_milk
@@ -1796,6 +2019,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#7D4E29"
 
 /datum/gas/menthol
@@ -1805,6 +2029,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#80AF9C"
 
 /datum/gas/grenadine
@@ -1814,6 +2039,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#EA1D26"
 
 /datum/gas/parsnipjuice
@@ -1823,6 +2049,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFA500"
 
 /datum/gas/peachjuice
@@ -1832,6 +2059,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#E78108"
 
 /datum/gas/cream_soda
@@ -1841,6 +2069,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#dcb137"
 
 /datum/gas/red_queen
@@ -1850,6 +2079,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#e6ddc3"
 
 /datum/gas/bungojuice
@@ -1859,6 +2089,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#F9E43D"
 
 /datum/gas/drug
@@ -1868,6 +2099,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/space_drugs
@@ -1877,6 +2109,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#60A584"
 
 /datum/gas/nicotine
@@ -1886,6 +2119,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#60A584"
 
 /datum/gas/crank
@@ -1895,6 +2129,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FA00C8"
 
 /datum/gas/krokodil
@@ -1904,6 +2139,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#0064B4"
 
 /datum/gas/methamphetamine
@@ -1913,6 +2149,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FAFAFA"
 
 /datum/gas/bath_salts
@@ -1922,6 +2159,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FAFAFA"
 
 /datum/gas/aranesp
@@ -1931,6 +2169,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#78FFF0"
 
 /datum/gas/happiness
@@ -1940,6 +2179,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFF378"
 
 /datum/gas/nutriment
@@ -1949,6 +2189,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664330"
 
 /datum/gas/vitamin
@@ -1958,6 +2199,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/cooking_oil
@@ -1967,6 +2209,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#EADD6B"
 
 /datum/gas/sugar
@@ -1976,6 +2219,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF"
 
 /datum/gas/virus_food
@@ -1985,6 +2229,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#899613"
 
 /datum/gas/soysauce
@@ -1994,6 +2239,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#792300"
 
 /datum/gas/ketchup
@@ -2003,6 +2249,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#731008"
 
 /datum/gas/capsaicin
@@ -2012,6 +2259,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#B31008"
 
 /datum/gas/frostoil
@@ -2021,6 +2269,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#8BA6E9"
 
 /datum/gas/condensedcapsaicin
@@ -2030,6 +2279,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#B31008"
 
 /datum/gas/sodiumchloride
@@ -2039,6 +2289,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF"
 
 /datum/gas/blackpepper
@@ -2048,6 +2299,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/coco
@@ -2057,6 +2309,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#302000"
 
 /datum/gas/hot_coco
@@ -2066,6 +2319,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#403010"
 
 /datum/gas/mushroomhallucinogen
@@ -2075,6 +2329,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#E700E7"
 
 /datum/gas/garlic
@@ -2084,6 +2339,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FEFEFE"
 
 /datum/gas/sprinkles
@@ -2093,6 +2349,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FF00FF"
 
 /datum/gas/cornoil
@@ -2102,6 +2359,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#302000"
 
 /datum/gas/enzyme
@@ -2111,6 +2369,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#365E30"
 
 /datum/gas/dry_ramen
@@ -2120,6 +2379,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#302000"
 
 /datum/gas/hot_ramen
@@ -2129,6 +2389,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#302000"
 
 /datum/gas/hell_ramen
@@ -2138,6 +2399,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#302000"
 
 /datum/gas/flour
@@ -2147,6 +2409,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF"
 
 /datum/gas/cherryjelly
@@ -2156,6 +2419,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#801E28"
 
 /datum/gas/bluecherryjelly
@@ -2165,6 +2429,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00F0FF"
 
 /datum/gas/rice
@@ -2174,6 +2439,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF"
 
 /datum/gas/vanilla
@@ -2183,6 +2449,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFACD"
 
 /datum/gas/eggyolk
@@ -2192,6 +2459,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFB500"
 
 /datum/gas/corn_starch
@@ -2201,6 +2469,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/corn_syrup
@@ -2210,6 +2479,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/honey
@@ -2219,6 +2489,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#d3a308"
 
 /datum/gas/special
@@ -2228,6 +2499,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/mayonnaise
@@ -2237,6 +2509,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#DFDFDF"
 
 /datum/gas/tearjuice
@@ -2246,6 +2519,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#c0c9a0"
 
 /datum/gas/stabilized
@@ -2255,6 +2529,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664330"
 
 /datum/gas/entpoly
@@ -2264,6 +2539,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#1d043d"
 
 /datum/gas/tinlux
@@ -2273,6 +2549,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#b5a213"
 
 /datum/gas/vitfro
@@ -2282,6 +2559,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#d3a308"
 
 /datum/gas/clownstears
@@ -2291,6 +2569,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#eef442"
 
 /datum/gas/liquidelectricity
@@ -2300,6 +2579,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#97ee63"
 
 /datum/gas/astrotame
@@ -2309,6 +2589,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF"
 
 /datum/gas/caramel
@@ -2318,6 +2599,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C65A00"
 
 /datum/gas/bbqsauce
@@ -2327,6 +2609,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#78280A"
 
 /datum/gas/char
@@ -2336,6 +2619,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8C8C8"
 
 /datum/gas/medicine
@@ -2345,6 +2629,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/leporazine
@@ -2354,6 +2639,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/adminordrazine
@@ -2363,6 +2649,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/quantum_heal
@@ -2372,6 +2659,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/synaptizine
@@ -2381,6 +2669,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FF00FF"
 
 /datum/gas/synaphydramine
@@ -2390,6 +2679,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#EC536D"
 
 /datum/gas/inacusiate
@@ -2399,6 +2689,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#6600FF"
 
 /datum/gas/cryoxadone
@@ -2408,6 +2699,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#0000C8"
 
 /datum/gas/clonexadone
@@ -2417,6 +2709,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#0000C8"
 
 /datum/gas/pyroxadone
@@ -2426,6 +2719,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#f7832a"
 
 /datum/gas/rezadone
@@ -2435,6 +2729,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#669900"
 
 /datum/gas/spaceacillin
@@ -2444,6 +2739,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/silver_sulfadiazine
@@ -2453,6 +2749,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/oxandrolone
@@ -2462,6 +2759,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#f7ffa5"
 
 /datum/gas/styptic_powder
@@ -2471,6 +2769,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FF9696"
 
 /datum/gas/salglu_solution
@@ -2480,6 +2779,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#DCDCDC"
 
 /datum/gas/mine_salve
@@ -2489,6 +2789,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#6D6374"
 
 /datum/gas/synthflesh
@@ -2498,6 +2799,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFEBEB"
 
 /datum/gas/charcoal
@@ -2507,6 +2809,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#000000"
 
 /datum/gas/system_cleaner
@@ -2516,6 +2819,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#F1C40F"
 
 /datum/gas/liquid_solder
@@ -2525,6 +2829,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#727272"
 
 /datum/gas/omnizine
@@ -2534,6 +2839,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#DCDCDC"
 
 /datum/gas/calomel
@@ -2543,6 +2849,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#19C832"
 
 /datum/gas/potass_iodide
@@ -2552,6 +2859,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#14FF3C"
 
 /datum/gas/pen_acid
@@ -2561,6 +2869,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#E6FFF0"
 
 /datum/gas/sal_acid
@@ -2570,6 +2879,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#D2D2D2"
 
 /datum/gas/salbutamol
@@ -2579,6 +2889,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00FFFF"
 
 /datum/gas/perfluorodecalin
@@ -2588,6 +2899,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FF6464"
 
 /datum/gas/ephedrine
@@ -2597,6 +2909,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#D2FFFA"
 
 /datum/gas/diphenhydramine
@@ -2606,6 +2919,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#64FFE6"
 
 /datum/gas/morphine
@@ -2615,6 +2929,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A9FBFB"
 
 /datum/gas/oculine
@@ -2624,6 +2939,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF"
 
 /datum/gas/atropine
@@ -2633,6 +2949,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#000000"
 
 /datum/gas/epinephrine
@@ -2642,6 +2959,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#D2FFFA"
 
 /datum/gas/strange_reagent
@@ -2651,6 +2969,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A0E85E"
 
 /datum/gas/mannitol
@@ -2660,6 +2979,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#DCDCFF"
 
 /datum/gas/neurine
@@ -2669,6 +2989,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#EEFF8F"
 
 /datum/gas/mutadone
@@ -2678,6 +2999,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5096C8"
 
 /datum/gas/antihol
@@ -2687,6 +3009,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00B4C8"
 
 /datum/gas/stimulants
@@ -2696,6 +3019,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#78008C"
 
 /datum/gas/pumpup
@@ -2705,6 +3029,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#78008C"
 
 /datum/gas/insulin
@@ -2714,6 +3039,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFF0"
 
 /datum/gas/bicaridine
@@ -2723,6 +3049,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/kelotane
@@ -2732,6 +3059,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/antitoxin
@@ -2741,6 +3069,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/carthatoline
@@ -2750,6 +3079,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#225722"
 
 /datum/gas/hepanephrodaxon
@@ -2759,6 +3089,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#D2691E"
 
 /datum/gas/inaprovaline
@@ -2768,6 +3099,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/tricordrazine
@@ -2777,6 +3109,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/regen_jelly
@@ -2786,6 +3119,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#91D865"
 
 /datum/gas/syndicate_nanites
@@ -2795,6 +3129,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#555555"
 
 /datum/gas/earthsblood
@@ -2804,6 +3139,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = rgb(255, 175, 0)
 
 /datum/gas/haloperidol
@@ -2813,6 +3149,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#27870a"
 
 /datum/gas/lavaland_extract
@@ -2822,6 +3159,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/changelingadrenaline
@@ -2831,6 +3169,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/changelinghaste
@@ -2840,6 +3179,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/corazone
@@ -2849,6 +3189,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#F5F5F5"
 
 /datum/gas/muscle_stimulant
@@ -2858,6 +3199,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/modafinil
@@ -2867,6 +3209,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#BEF7D8"
 
 /datum/gas/psicodine
@@ -2876,6 +3219,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#07E79E"
 
 /datum/gas/silibinin
@@ -2885,6 +3229,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFD0"
 
 /datum/gas/polypyr
@@ -2894,6 +3239,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#9423FF"
 
 /datum/gas/blood
@@ -2903,6 +3249,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C80000"
 
 /datum/gas/liquidgibs
@@ -2912,6 +3259,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FF9966"
 
 /datum/gas/vaccine
@@ -2921,6 +3269,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C81040"
 
 /datum/gas/water
@@ -2930,6 +3279,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#AAAAAA77"
 
 /datum/gas/holywater
@@ -2939,6 +3289,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#E0E8EF"
 
 /datum/gas/unholywater
@@ -2948,6 +3299,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/hellwater
@@ -2957,6 +3309,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/godblood
@@ -2966,6 +3319,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/lube
@@ -2975,6 +3329,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#009CA8"
 
 /datum/gas/spraytan
@@ -2984,6 +3339,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFC080"
 
 /datum/gas/mutationtoxin
@@ -2993,6 +3349,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/classic
@@ -3002,6 +3359,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#13BC5E"
 
 /datum/gas/unstable
@@ -3011,6 +3369,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#13BC5E"
 
 /datum/gas/felinid
@@ -3020,6 +3379,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/lizard
@@ -3029,6 +3389,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/fly
@@ -3038,6 +3399,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/moth
@@ -3047,6 +3409,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/pod
@@ -3056,6 +3419,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/jelly
@@ -3065,6 +3429,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/golem
@@ -3074,6 +3439,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/abductor
@@ -3083,6 +3449,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/android
@@ -3092,6 +3459,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/ipc
@@ -3101,6 +3469,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/squid
@@ -3110,6 +3479,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/skeleton
@@ -3119,6 +3489,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/zombie
@@ -3128,6 +3499,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/goofzombie
@@ -3137,6 +3509,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/ash
@@ -3146,6 +3519,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/supersoldier
@@ -3155,6 +3529,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/shadow
@@ -3164,6 +3539,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/slime_toxin
@@ -3173,6 +3549,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/mulligan
@@ -3182,6 +3559,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/aslimetoxin
@@ -3191,6 +3569,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#13BC5E"
 
 /datum/gas/gluttonytoxin
@@ -3200,6 +3579,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5EFF3B"
 
 /datum/gas/serotrotium
@@ -3209,6 +3589,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#202040"
 
 /datum/gas/copper
@@ -3218,6 +3599,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#6E3B08"
 
 /datum/gas/hydrogen
@@ -3227,6 +3609,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#808080"
 
 /datum/gas/potassium
@@ -3236,6 +3619,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A0A0A0"
 
 /datum/gas/mercury
@@ -3245,6 +3629,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#484848"
 
 /datum/gas/sulfur
@@ -3254,6 +3639,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#BF8C00"
 
 /datum/gas/carbon
@@ -3263,6 +3649,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#1C1300"
 
 /datum/gas/chlorine
@@ -3272,6 +3659,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#808080"
 
 /datum/gas/fluorine
@@ -3281,6 +3669,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#808080"
 
 /datum/gas/sodium
@@ -3290,6 +3679,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#808080"
 
 /datum/gas/phosphorus
@@ -3299,6 +3689,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#832828"
 
 /datum/gas/lithium
@@ -3308,6 +3699,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#808080"
 
 /datum/gas/glycerol
@@ -3317,6 +3709,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#808080"
 
 /datum/gas/sterilizine
@@ -3326,6 +3719,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/iron
@@ -3335,6 +3729,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/gold
@@ -3344,6 +3739,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#F7C430"
 
 /datum/gas/silver
@@ -3353,6 +3749,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#D0D0D0"
 
 /datum/gas/uranium
@@ -3362,6 +3759,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#B8B8C0"
 
 /datum/gas/radium
@@ -3371,6 +3769,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C7C7C7"
 
 /datum/gas/bluespace
@@ -3380,6 +3779,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#0000CC"
 
 /datum/gas/aluminium
@@ -3389,6 +3789,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A8A8A8"
 
 /datum/gas/silicon
@@ -3398,6 +3799,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A8A8A8"
 
 /datum/gas/fuel
@@ -3407,6 +3809,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#660000"
 
 /datum/gas/space_cleaner
@@ -3416,6 +3819,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A5F0EE"
 
 /datum/gas/ez_clean
@@ -3425,6 +3829,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/cryptobiolin
@@ -3434,6 +3839,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/impedrezene
@@ -3443,6 +3849,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/nanomachines
@@ -3452,6 +3859,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#535E66"
 
 /datum/gas/xenomicrobes
@@ -3461,6 +3869,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#535E66"
 
 /datum/gas/fungalspores
@@ -3470,6 +3879,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#92D17D"
 
 /datum/gas/snail
@@ -3479,6 +3889,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#003300"
 
 /datum/gas/fluorosurfactant
@@ -3488,6 +3899,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#9E6B38"
 
 /datum/gas/foaming_agent
@@ -3497,6 +3909,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664B63"
 
 /datum/gas/smart_foaming_agent
@@ -3506,6 +3919,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664B63"
 
 /datum/gas/ammonia
@@ -3515,6 +3929,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#404030"
 
 /datum/gas/diethylamine
@@ -3524,6 +3939,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#604030"
 
 /datum/gas/carbondioxide
@@ -3533,6 +3949,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#B0B0B0"
 
 /datum/gas/powder
@@ -3542,6 +3959,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF"
 
 /datum/gas/red
@@ -3551,6 +3969,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#DA0000"
 
 /datum/gas/orange
@@ -3560,6 +3979,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FF9300"
 
 /datum/gas/yellow
@@ -3569,6 +3989,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFF200"
 
 /datum/gas/blue
@@ -3578,6 +3999,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00B7EF"
 
 /datum/gas/purple
@@ -3587,6 +4009,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#DA00FF"
 
 /datum/gas/invisible
@@ -3596,6 +4019,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF00"
 
 /datum/gas/black
@@ -3605,6 +4029,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#1C1C1C"
 
 /datum/gas/white
@@ -3614,6 +4039,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF"
 
 /datum/gas/plantnutriment
@@ -3623,6 +4049,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#000000"
 
 /datum/gas/eznutriment
@@ -3632,6 +4059,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#376400"
 
 /datum/gas/left4zednutriment
@@ -3641,6 +4069,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#1A1E4D"
 
 /datum/gas/robustharvestnutriment
@@ -3650,6 +4079,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#9D9D00"
 
 /datum/gas/oil
@@ -3659,6 +4089,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/stable_plasma
@@ -3668,6 +4099,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/iodine
@@ -3677,6 +4109,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/carpet
@@ -3686,6 +4119,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/bromine
@@ -3695,6 +4129,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/phenol
@@ -3704,6 +4139,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/acetone
@@ -3713,6 +4149,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/colorful_reagent
@@ -3722,6 +4159,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/hair_dye
@@ -3731,6 +4169,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/barbers_aid
@@ -3740,6 +4179,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/concentrated_barbers_aid
@@ -3749,6 +4189,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8A5DC"
 
 /datum/gas/saltpetre
@@ -3758,6 +4199,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#60A584"
 
 /datum/gas/lye
@@ -3767,6 +4209,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFD6"
 
 /datum/gas/drying_agent
@@ -3776,6 +4219,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A70FFF"
 
 /datum/gas/mutagenvirusfood
@@ -3785,6 +4229,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A3C00F"
 
 /datum/gas/synaptizinevirusfood
@@ -3794,6 +4239,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#D18AA5"
 
 /datum/gas/plasmavirusfood
@@ -3803,6 +4249,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A69DA9"
 
 /datum/gas/weak
@@ -3812,6 +4259,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#CEC3C6"
 
 /datum/gas/uraniumvirusfood
@@ -3821,6 +4269,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#67ADBA"
 
 /datum/gas/stable
@@ -3830,6 +4279,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#04506C"
 
 /datum/gas/laughtervirusfood
@@ -3839,6 +4289,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ffa6ff"
 
 /datum/gas/advvirusfood
@@ -3848,6 +4299,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ffffff"
 
 /datum/gas/viralbase
@@ -3857,6 +4309,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#fff0da"
 
 /datum/gas/royal_bee_jelly
@@ -3866,6 +4319,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00ff80"
 
 /datum/gas/romerol
@@ -3875,6 +4329,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#123524"
 
 /datum/gas/magillitis
@@ -3884,6 +4339,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00f041"
 
 /datum/gas/growthserum
@@ -3893,6 +4349,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ff0000"
 
 /datum/gas/plastic_polymers
@@ -3902,6 +4359,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#f7eded"
 
 /datum/gas/glitter
@@ -3911,6 +4369,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF"
 
 /datum/gas/pink
@@ -3920,6 +4379,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ff8080"
 
 /datum/gas/pax
@@ -3929,6 +4389,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#AAAAAA55"
 
 /datum/gas/bz_metabolites
@@ -3938,6 +4399,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FAFF00"
 
 /datum/gas/concentrated_bz
@@ -3947,6 +4409,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FAFF00"
 
 /datum/gas/fake_cbz
@@ -3956,6 +4419,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FAFF00"
 
 /datum/gas/peaceborg
@@ -3965,6 +4429,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/confuse
@@ -3974,6 +4439,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/inabizine
@@ -3983,6 +4449,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/tire
@@ -3992,6 +4459,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/tranquility
@@ -4001,6 +4469,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#9A6750"
 
 /datum/gas/liquidadamantine
@@ -4010,6 +4479,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#10cca6"
 
 /datum/gas/spider_extract
@@ -4019,6 +4489,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ED2939"
 
 /datum/gas/ratlight
@@ -4028,7 +4499,18 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#B5A642"
+
+/datum/gas/invisium
+	id = "invisium"
+	specific_heat = 20
+	name = "invisium"
+	gas_overlay = "plasma_old"
+	moles_visible = MOLES_GAS_VISIBLE * 60
+	rarity = 250
+	chemgas = 1
+	color = "#85E3E9"
 
 /datum/gas/thermite
 	id = "thermite"
@@ -4037,6 +4519,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#550000"
 
 /datum/gas/nitroglycerin
@@ -4046,6 +4529,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#808080"
 
 /datum/gas/stabilizing_agent
@@ -4055,6 +4539,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFF00"
 
 /datum/gas/clf3
@@ -4064,6 +4549,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFC8C8"
 
 /datum/gas/sorium
@@ -4073,6 +4559,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5A64C8"
 
 /datum/gas/liquid_dark_matter
@@ -4082,6 +4569,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#210021"
 
 /datum/gas/blackpowder
@@ -4091,6 +4579,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#000000"
 
 /datum/gas/flash_powder
@@ -4100,6 +4589,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8C8C8"
 
 /datum/gas/smoke_powder
@@ -4109,6 +4599,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8C8C8"
 
 /datum/gas/sonic_powder
@@ -4118,6 +4609,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8C8C8"
 
 /datum/gas/phlogiston
@@ -4127,6 +4619,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FA00AF"
 
 /datum/gas/napalm
@@ -4136,6 +4629,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FA00AF"
 
 /datum/gas/cryostylane
@@ -4145,6 +4639,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#0000DC"
 
 /datum/gas/pyrosium
@@ -4154,6 +4649,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#64FAC8"
 
 /datum/gas/teslium
@@ -4163,6 +4659,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#20324D"
 
 /datum/gas/energized_jelly
@@ -4172,6 +4669,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#CAFF43"
 
 /datum/gas/firefighting_foam
@@ -4181,6 +4679,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#A6FAFF55"
 
 /datum/gas/toxin
@@ -4190,6 +4689,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#CF3600"
 
 /datum/gas/amatoxin
@@ -4199,6 +4699,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#792300"
 
 /datum/gas/mutagen
@@ -4208,6 +4709,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00FF00"
 
 /datum/gas/lexorin
@@ -4217,6 +4719,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#7DC3A0"
 
 /datum/gas/slimejelly
@@ -4226,6 +4729,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#801E28"
 
 /datum/gas/minttoxin
@@ -4235,6 +4739,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#CF3600"
 
 /datum/gas/carpotoxin
@@ -4244,6 +4749,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#003333"
 
 /datum/gas/zombiepowder
@@ -4253,6 +4759,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#669900"
 
 /datum/gas/ghoulpowder
@@ -4262,6 +4769,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664700"
 
 /datum/gas/mindbreaker
@@ -4271,6 +4779,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#B31008"
 
 /datum/gas/plantbgone
@@ -4280,6 +4789,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#49002E"
 
 /datum/gas/weedkiller
@@ -4289,6 +4799,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#4B004B"
 
 /datum/gas/pestkiller
@@ -4298,6 +4809,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#4B004B"
 
 /datum/gas/spore
@@ -4307,6 +4819,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#9ACD32"
 
 /datum/gas/spore_burning
@@ -4316,6 +4829,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#9ACD32"
 
 /datum/gas/chloralhydrate
@@ -4325,6 +4839,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#000067"
 
 /datum/gas/fakebeer
@@ -4334,6 +4849,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#664300"
 
 /datum/gas/coffeepowder
@@ -4343,6 +4859,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5B2E0D"
 
 /datum/gas/teapowder
@@ -4352,6 +4869,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#7F8400"
 
 /datum/gas/mutetoxin
@@ -4361,6 +4879,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#F0F8FF"
 
 /datum/gas/staminatoxin
@@ -4370,6 +4889,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#6E2828"
 
 /datum/gas/polonium
@@ -4379,6 +4899,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#787878"
 
 /datum/gas/histamine
@@ -4388,6 +4909,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FA6464"
 
 /datum/gas/formaldehyde
@@ -4397,6 +4919,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#B4004B"
 
 /datum/gas/venom
@@ -4406,6 +4929,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#F0FFF0"
 
 /datum/gas/fentanyl
@@ -4415,6 +4939,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#64916E"
 
 /datum/gas/cyanide
@@ -4424,6 +4949,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00B4FF"
 
 /datum/gas/bad_food
@@ -4433,6 +4959,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#d6d6d8"
 
 /datum/gas/itching_powder
@@ -4442,6 +4969,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8C8C8"
 
 /datum/gas/initropidril
@@ -4451,6 +4979,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#7F10C0"
 
 /datum/gas/pancuronium
@@ -4460,6 +4989,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#195096"
 
 /datum/gas/sodium_thiopental
@@ -4469,6 +4999,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#6496FA"
 
 /datum/gas/sulfonal
@@ -4478,6 +5009,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#7DC3A0"
 
 /datum/gas/amanitin
@@ -4487,6 +5019,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#FFFFFF"
 
 /datum/gas/lipolicide
@@ -4496,6 +5029,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#F0FFF0"
 
 /datum/gas/coniine
@@ -4505,6 +5039,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#7DC3A0"
 
 /datum/gas/spewium
@@ -4514,6 +5049,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#2f6617"
 
 /datum/gas/curare
@@ -4523,6 +5059,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#191919"
 
 /datum/gas/heparin
@@ -4532,6 +5069,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#C8C8C8"
 
 /datum/gas/rotatium
@@ -4541,6 +5079,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#AC88CA"
 
 /datum/gas/skewium
@@ -4550,6 +5089,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#ADBDCD"
 
 /datum/gas/anacea
@@ -4559,6 +5099,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#3C5133"
 
 /datum/gas/acid
@@ -4568,6 +5109,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#00FF32"
 
 /datum/gas/fluacid
@@ -4577,6 +5119,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#5050FF"
 
 /datum/gas/delayed
@@ -4586,6 +5129,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 
 
 /datum/gas/mimesbane
@@ -4595,6 +5139,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#F0F8FF"
 
 /datum/gas/bonehurtingjuice
@@ -4604,6 +5149,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#AAAAAA77"
 
 /datum/gas/bungotoxin
@@ -4613,6 +5159,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 	gas_overlay = "plasma_old"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
+	chemgas = 1
 	color = "#EBFF8E"
 
 // END

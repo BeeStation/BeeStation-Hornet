@@ -21,17 +21,17 @@
 	QDEL_NULL(watertop)
 	return ..()
 
-///turf/open/pool/proc/update_icon()
-//	if(!filled)
-//		name = "drained pool"
-//		desc = "No diving!"
-//		QDEL_NULL(watereffect)
-//		QDEL_NULL(watertop)
-//	else
-//		name = "poolwater"
-//		desc = "You're safer here than in the deep."
-//		watereffect = new /obj/effect/overlay/water(src)
-//		watertop = new /obj/effect/overlay/water/top(src)
+/turf/open/pool/update_icon()
+	if(!filled)
+		name = "drained pool"
+		desc = "No diving!"
+		QDEL_NULL(watereffect)
+		QDEL_NULL(watertop)
+	else
+		name = "poolwater"
+		desc = "You're safer here than in the deep."
+		watereffect = new /obj/effect/overlay/water(src)
+		watertop = new /obj/effect/overlay/water/top(src)
 
 /obj/effect/overlay/water
 	name = "water"

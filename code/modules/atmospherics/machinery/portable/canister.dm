@@ -118,6 +118,7 @@
 		"stabilizing_agent" = /obj/machinery/portable_atmospherics/canister/stabilizing_agent,
 		"nitroglycerin" = /obj/machinery/portable_atmospherics/canister/nitroglycerin,
 		"thermite" = /obj/machinery/portable_atmospherics/canister/thermite,
+		"invisium" = /obj/machinery/portable_atmospherics/canister/invisium,
 		"ratlight" = /obj/machinery/portable_atmospherics/canister/ratlight,
 		"spider_extract" = /obj/machinery/portable_atmospherics/canister/spider_extract,
 		"liquidadamantine" = /obj/machinery/portable_atmospherics/canister/liquidadamantine,
@@ -517,6 +518,10 @@
 		"bloody_mary" = /obj/machinery/portable_atmospherics/canister/bloody_mary,
 		"booger" = /obj/machinery/portable_atmospherics/canister/booger,
 		"screwdrivercocktail" = /obj/machinery/portable_atmospherics/canister/screwdrivercocktail,
+		"salty_water" = /obj/machinery/portable_atmospherics/canister/salty_water,
+		"triple_coke" = /obj/machinery/portable_atmospherics/canister/triple_coke,
+		"black_roulette" = /obj/machinery/portable_atmospherics/canister/black_roulette,
+		"vodka_cola" = /obj/machinery/portable_atmospherics/canister/vodka_cola,
 		"white_russian" = /obj/machinery/portable_atmospherics/canister/white_russian,
 		"vodkamartini" = /obj/machinery/portable_atmospherics/canister/vodkamartini,
 		"martini" = /obj/machinery/portable_atmospherics/canister/martini,
@@ -861,6 +866,34 @@
 	desc = "Miasma. Makes you wish your nose were blocked."
 	icon_state = "miasma"
 	gas_type = /datum/gas/white_russian
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/vodka_cola
+	name = "vodka_cola canister"
+	desc = "Miasma. Makes you wish your nose were blocked."
+	icon_state = "miasma"
+	gas_type = /datum/gas/vodka_cola
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/black_roulette
+	name = "black_roulette canister"
+	desc = "Miasma. Makes you wish your nose were blocked."
+	icon_state = "miasma"
+	gas_type = /datum/gas/black_roulette
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/triple_coke
+	name = "triple_coke canister"
+	desc = "Miasma. Makes you wish your nose were blocked."
+	icon_state = "miasma"
+	gas_type = /datum/gas/triple_coke
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/salty_water
+	name = "salty_water canister"
+	desc = "Miasma. Makes you wish your nose were blocked."
+	icon_state = "miasma"
+	gas_type = /datum/gas/salty_water
 	filled = 1
 
 /obj/machinery/portable_atmospherics/canister/screwdrivercocktail
@@ -3654,6 +3687,13 @@
 	desc = "Miasma. Makes you wish your nose were blocked."
 	icon_state = "miasma"
 	gas_type = /datum/gas/ratlight
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/invisium
+	name = "invisium canister"
+	desc = "Miasma. Makes you wish your nose were blocked."
+	icon_state = "miasma"
+	gas_type = /datum/gas/invisium
 	filled = 1
 
 /obj/machinery/portable_atmospherics/canister/thermite

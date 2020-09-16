@@ -2737,6 +2737,37 @@
 	air.adjust_moles(/datum/gas/water, -remove_air)
 	air.adjust_moles(/datum/gas/pax, cleaned_air)
 
+/datum/gas_reaction/invisium
+    priority = 1
+    name = "invisium"
+    id = "invisium"
+
+
+/datum/gas_reaction/invisium/init_reqs()
+	min_requirements = list(
+		/datum/gas/teslium = 4,
+		/datum/gas/space_cleaner = 4,
+		/datum/gas/strange_reagent = 4,
+		/datum/gas/methamphetamine = 4,
+		/datum/gas/bluespace = 4
+	)
+
+
+/datum/gas_reaction/invisium/react(datum/gas_mixture/air, datum/holder)
+	var/remove_air = 0
+	var/cleaned_air = air.get_moles(/datum/gas/teslium) + air.get_moles(/datum/gas/space_cleaner) + air.get_moles(/datum/gas/strange_reagent) + air.get_moles(/datum/gas/methamphetamine) + air.get_moles(/datum/gas/bluespace)
+	remove_air = air.get_moles(/datum/gas/teslium)
+	air.adjust_moles(/datum/gas/teslium, -remove_air)
+	remove_air = air.get_moles(/datum/gas/space_cleaner)
+	air.adjust_moles(/datum/gas/space_cleaner, -remove_air)
+	remove_air = air.get_moles(/datum/gas/strange_reagent)
+	air.adjust_moles(/datum/gas/strange_reagent, -remove_air)
+	remove_air = air.get_moles(/datum/gas/methamphetamine)
+	air.adjust_moles(/datum/gas/methamphetamine, -remove_air)
+	remove_air = air.get_moles(/datum/gas/bluespace)
+	air.adjust_moles(/datum/gas/bluespace, -remove_air)
+	air.adjust_moles(/datum/gas/invisium, cleaned_air)
+
 /datum/gas_reaction/blackpowder
     priority = 1
     name = "blackpowder"

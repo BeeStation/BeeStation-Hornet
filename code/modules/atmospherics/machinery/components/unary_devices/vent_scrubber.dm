@@ -96,11 +96,15 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/broadcast_status()
 	if(!radio_connection)
 		return FALSE
-
+	var/count = 0
 	var/list/f_types = list()
+
+	// This is probably the worst way to do this
 	for(var/path in GLOB.meta_gas_info)
-		var/list/gas = GLOB.meta_gas_info[path]
-		f_types += list(list("gas_id" = gas[META_GAS_ID], "gas_name" = gas[META_GAS_NAME], "enabled" = (path in filter_types)))
+		if(count < 13)
+			count += 1
+			var/list/gas = GLOB.meta_gas_info[path]
+			f_types += list(list("gas_id" = gas[META_GAS_ID], "gas_name" = gas[META_GAS_NAME], "enabled" = (path in filter_types)))
 
 	var/datum/signal/signal = new(list(
 		"tag" = id_tag,
