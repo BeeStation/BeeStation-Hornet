@@ -4145,11 +4145,6 @@
 	},
 /turf/open/floor/plating/abductor,
 /area/abductor_ship)
-"lG" = (
-/obj/structure/table/abductor,
-/obj/item/storage/box/alienhandcuffs,
-/turf/open/floor/plating/abductor,
-/area/abductor_ship)
 "lH" = (
 /turf/closed/indestructible/abductor{
 	icon_state = "alien13"
@@ -16746,6 +16741,11 @@
 "Mm" = (
 /turf/open/floor/grass,
 /area/centcom/holding)
+"Mp" = (
+/obj/structure/closet/abductor,
+/obj/item/storage/box/alienhandcuffs,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "Ms" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-10"
@@ -18305,6 +18305,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/four)
+"WB" = (
+/obj/structure/table/abductor,
+/obj/machinery/recharger,
+/turf/open/floor/plating/abductor,
+/area/abductor_ship)
 "WJ" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Administration";
@@ -20767,8 +20772,8 @@ aa
 ks
 kP
 lj
-lG
-lj
+WB
+Mp
 mw
 nf
 aa
@@ -20794,8 +20799,8 @@ aa
 ks
 kP
 lj
-lG
-lj
+WB
+Mp
 mw
 nf
 aa
@@ -20824,8 +20829,8 @@ aa
 ks
 kP
 lj
-lG
-lj
+WB
+Mp
 mw
 nf
 aa
@@ -20851,8 +20856,8 @@ aa
 ks
 kP
 lj
-lG
-lj
+WB
+Mp
 mw
 nf
 aa

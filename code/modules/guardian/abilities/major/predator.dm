@@ -38,7 +38,7 @@
 			var/list/prints = O.return_fingerprints()
 			if(LAZYLEN(prints))
 				for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-					if(H.dna && prints[md5(H.dna.uni_identity)])
+					if(H.dna && prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)])
 						if(!(H in can_track))
 							to_chat(guardian, "<span class='notice italics'>We learn the identity of [H.real_name].</span>")
 							can_track += H
