@@ -37,7 +37,6 @@ map kilostation
 endmap
 
 map chapelstation
-	votable
 	disabled
 endmap
 
