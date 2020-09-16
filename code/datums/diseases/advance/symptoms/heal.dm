@@ -83,7 +83,7 @@
 	transmittable = -3
 	level = 8
 	severity = -2
-	passive_message = "<span class='notice'>The pain from your wounds makes you feel oddly sleepy...</span>"
+	passive_message = "<span class='notice'>The pain from your wounds makes you feel oddly sleepy.</span>"
 	var/deathgasp = FALSE
 	var/stabilize = FALSE
 	var/active_coma = FALSE //to prevent multiple coma procs
@@ -127,7 +127,7 @@
 	else if(M.IsSleeping())
 		return power * 0.25
 	else if(M.getBruteLoss() + M.getFireLoss() >= 70 && !active_coma)
-		to_chat(M, "<span class='warning'>You feel yourself slip into a regenerative coma...</span>")
+		to_chat(M, "<span class='warning'>You feel yourself slip into a deep, regenerative slumber.</span>")
 		active_coma = TRUE
 		addtimer(CALLBACK(src, .proc/coma, M), 60)
 
@@ -214,7 +214,7 @@
 			to_chat(M, "<span class='notice'>Your wounds heal, granting you a new scar.</span>")
 		if(scarcounter >= 200 && !HAS_TRAIT(M, TRAIT_DISFIGURED))
 			ADD_TRAIT(M, TRAIT_DISFIGURED, DISEASE_TRAIT)
-			M.visible_message("<span class='warning'>[M]'s face becomes unrecognizeable </span>", "<span class='userdanger'>Your scars have made your face unrecognizeable.</span>")
+			M.visible_message("<span class='warning'>[M]'s face becomes unrecognizeable.</span>", "<span class='userdanger'>Your scars have made your face unrecognizeable.</span>")
 	return healed
 
 
@@ -242,7 +242,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/bigemp = FALSE
 	var/cellheal = FALSE
 	threshold_desc = "<b>Stealth 2:</b> The disease resets cell DNA, quickly curing cell damage and mutations<br>\
-					<b>transmission 8:</b> The EMP affects electronics adjacent to the subject as well."
+					<b>Transmission 8:</b> The EMP affects electronics adjacent to the subject as well."
 
 /datum/symptom/EMP/severityset(datum/disease/advance/A)
 	. = ..()
@@ -271,9 +271,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				M.reagents.add_reagent(/datum/reagent/medicine/mutadone = 1)
 			if(bigemp)
 				empulse(M.loc, 0, 1)
-			to_chat(M, "<span class='userdanger'>[pick("Your mind fills with static!.", "You feel a jolt!", "Your sense of direction flickers out!")]</span>")
+			to_chat(M, "<span class='userdanger'>[pick("Your mind fills with static!", "You feel a jolt!", "Your sense of direction flickers out!")]</span>")
 		else
-			to_chat(M, "<span class='notice'>[pick("You feel a slight tug toward the station's wall.", "Nearby electronics flicker", "Your hair stands on end")]</span>")
+			to_chat(M, "<span class='notice'>[pick("You feel a slight tug toward the station's wall.", "Nearby electronics flicker.", "Your hair stands on end.")]</span>")
 	return
 
 /datum/symptom/sweat
@@ -289,8 +289,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	symptom_delay_max = 30
 	var/bigsweat = FALSE
 	var/toxheal = FALSE
-	threshold_desc = "<b>transmission 6:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity<br>\
-					<b>transmission 8:</b> The symptom heals toxin damage and purges chemicals."
+	threshold_desc = "<b>Transmission 6:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity.<br>\
+					<b>Transmission 8:</b> The symptom heals toxin damage and purges chemicals."
 
 /datum/symptom/sweat/severityset(datum/disease/advance/A)
 	. = ..()
@@ -327,7 +327,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				S.splash()
 				to_chat(M, "<span class='userdanger'>You sweat out nearly everything in your body!</span>")
 		else
-			to_chat(M, "<span class='notice'>[pick("You feel moist.", "Your clothes are soaked", "You're sweating buckets")]</span>")
+			to_chat(M, "<span class='notice'>[pick("You feel moist.", "Your clothes are soaked.", "You're sweating buckets!")]</span>")
 	return
 
 /obj/effect/sweatsplash
@@ -356,7 +356,7 @@ obj/effect/sweatsplash/proc/splash()
 	var/burnheal = FALSE
 	var/turf/open/location_return = null
 	var/cooldowntimer = 0
-	threshold_desc = "<b>Resistance 6:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health<br>\
+	threshold_desc = "<b>Resistance 6:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health.<br>\
 					<b>Transmission 8:</b> The disease becomes more active, activating in a smaller temperature range."
 
 /datum/symptom/teleport/severityset(datum/disease/advance/A)
@@ -545,12 +545,12 @@ obj/effect/sweatsplash/proc/splash()
 	. = ..()
 	if(.)
 		return
-	to_chat(user, "<span class='notice'>Ew... It would be a bad idea to touch this. It could probably be destroyed with the extreme heat of a welder.</span>")
+	to_chat(user, "<span class='notice'>Ew. It would be a bad idea to touch this. It could probably be destroyed with the extreme heat of a welder.</span>")
 
 /obj/effect/mob_spawn/teratomamonkey/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
 		user.visible_message("<span class='warning'>[usr.name] destroys [src].</span>",
-			"<span class='notice'>You hold the welder to [src], and it violently bursts!</span>",
+			"<span class='notice'>You hold the welder to [src] and it violently bursts!</span>",
 			"<span class='italics'>You hear a gurgling noise.</span>")
 		new /obj/effect/gibspawner/human(get_turf(src))
 		qdel(src)
