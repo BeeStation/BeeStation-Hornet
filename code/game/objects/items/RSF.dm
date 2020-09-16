@@ -180,3 +180,83 @@ RSF
 	else
 		matter--
 	cooldown = world.time + cooldowndelay
+	
+/obj/item/rsf/food
+	name = "\improper Behind The Counter Synthesizer"
+	desc = "A complex synthesizer able to print basic ingredients."
+	matter = 30
+
+/obj/item/rsf/food/attack_self(mob/user)
+	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
+	switch(mode)
+		if(5)
+			mode = 1
+			if(iscyborg(user))
+				var/mob/living/silicon/robot/R = user
+				if(!R.emagged)
+					mode = 6
+			if (mode==1)
+				to_chat(user, "Changed synthesizing mode to 'Meat'")
+			else
+				to_chat(user, "Changed synthesizing mode to 'Mint'")
+		if(6)
+			mode = 1
+			to_chat(user, "Changed synthesizing mode to 'Meat'")
+		if(1)
+			mode = 2
+			to_chat(user, "Changed synthesizing mode to 'Bread Dough'")
+		if(2)
+			mode = 3
+			to_chat(user, "Changed synthesizing mode to 'Pie Dough'")
+		if(3)
+			mode = 4
+			to_chat(user, "Changed synthesizing mode to 'Rice Bowl'")
+		if(4)
+			mode = 5
+			to_chat(user, "Changed synthesizing mode to 'Tortilla'")
+	// Change mode
+
+/obj/item/rsf/food/afterattack(atom/A, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if (!(istype(A, /obj/structure/table) || isfloorturf(A)))
+		return
+
+	if(iscyborg(user))
+		var/mob/living/silicon/robot/R = user
+		if(!R.cell || R.cell.charge < 200)
+			to_chat(user, "<span class='warning'>You do not have enough power to use [src].</span>")
+			return
+	else if (matter < 1)
+		to_chat(user, "<span class='warning'>\The [src] doesn't have enough matter left.</span>")
+		return
+
+	var/turf/T = get_turf(A)
+	playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+	switch(mode)
+		if(1)
+			to_chat(user, "Synthesizing Meat...")
+			new list(/obj/item/reagent_containers/food/snacks/meat/slab(T)
+			use_matter(40, user)
+		if(2)
+			to_chat(user, "Synthesizing Bread Dough...")
+			new /obj/item/reagent_containers/food/snacks/dough(T)
+			use_matter(50, user)
+		if(3)
+			to_chat(user, "Synthesizing Pie Dough...")
+			new /obj/item/reagent_containers/food/snacks/piedough(T)
+			use_matter(75, user)
+		if(4)
+			to_chat(user, "Synthesizing Rice Bowl...")
+			new /obj/item/reagent_containers/food/snacks/salad/ricebowl(T)
+			use_matter(100, user)
+		if(5)
+			to_chat(user, "Synthesizing Tortilla...")
+			new /obj/item/reagent_containers/food/snacks/tortilla(T)
+			use_matter(100, user)
+		if(6)
+			to_chat(user, "Dispensing Mint...")
+			new /obj/item/reagent_containers/food/snacks/mint(T)
+			use_matter(20, user)
+

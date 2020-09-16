@@ -776,6 +776,33 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_botany
+	name = "Cyborg Speciality (Botany)"
+	id = "borg_upgrade_botany"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/speciality/botany
+	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000)
+	construction_time = 40
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_kitchen
+	name = "Cyborg Speciality (Cooking)"
+	id = "borg_upgrade_kitchen"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/speciality/kitchen
+	materials = list(/datum/material/iron = 2500)
+	construction_time = 40
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_casino
+	name = "Cyborg Speciality (Casino)"
+	id = "borg_upgrade_casino"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/speciality/casino
+	materials = list(/datum/material/iron = 2000, /datum/material/gold = 500, /datum/material/silver = 500)
+	construction_time = 40
+	category = list("Cyborg Upgrade Modules")
+
 //Misc
 /datum/design/mecha_tracking
 	name = "Exosuit Tracking Beacon"

@@ -1435,3 +1435,133 @@
 
 /obj/item/toy/dummy/GetVoice()
 	return doll_name
+	
+
+/*
+|| Cyborg playing cards module. ||
+*/
+
+/obj/item/toy/cards/deck/cyborg
+	name = "dealer module"
+	desc = "A module for handling, fabricating cards and tricking suckers into gambling awaya their money."
+
+/obj/item/toy/cards/deck/cyborg/update_icon()
+	icon_state = "deck_[deckstyle]_full"
+
+/obj/item/toy/cards/deck/cyborg/attack_self(mob/user)
+	..()
+	if(iscyborg(user))
+		var/mob/living/silicon/robot/R = user
+		if(R.cell && R.cell.use(300))
+			populate_deck()
+			to_chat(user, "<span class='notice'>You fabricate a new set of cards.</span>")
+			return
+
+/obj/item/toy/cards/deck/cyborg/afterattack(atom/A, mob/user, proximity)
+	. = ..()		
+	if (istype(A, /obj/item/toy/cards/singlecard))
+		var/obj/item/toy/cards/singlecard/SC = I
+		if(SC.parentdeck == src)
+			if(!user.temporarilyRemoveItemFromInventory(SC))
+				to_chat(user, "<span class='warning'>The card is stuck to your hand, you can't add it to the deck!</span>")
+				return
+			cards += SC.cardname
+			user.visible_message("[user] adds a card to the bottom of the deck.","<span class='notice'>You add the card to the bottom of the deck.</span>")
+			qdel(SC)
+		else
+			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
+		update_icon()
+	else if (istype(A, /obj/item/toy/cards/cardhand))
+		var/obj/item/toy/cards/cardhand/CH = A
+		if(CH.parentdeck == src)
+			cards += CH.currenthand
+			user.visible_message("[user] puts [user.p_their()] hand of cards in the deck.", "<span class='notice'>You put the hand of cards in the deck.</span>")
+			qdel(CH)
+		else
+			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
+		update_icon()
+	else if (!(istype(A, /obj/structure/table) || isfloorturf(A)) && !proximity)
+		return
+
+	var/choice = null
+	if(cards.len == 0)
+		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")
+		return
+
+	choice = cards[1]
+	var/obj/item/toy/cards/singlecard/H = new/obj/item/toy/cards/singlecard(get_turf(A))
+	H.cardname = choice
+	H.parentdeck = src
+	var/O = src
+	H.apply_card_vars(H,O)
+	src.cards.Cut(1,2) //Removes the top card from the list
+
+	if(!proximity)
+		tank.forceMove(get_turf(src))
+		I.throw_at(get_turf(A), 10 , 1 , user)
+		return
+
+////////////////////
+//money eater/maker//
+////////////////////
+
+/obj/item/roulette
+	name = "Coin Gobbler"
+	desc = "Feed it credits, and activate it, with a chance to spit out DOUBLE the amount! For ages 18 and up."
+	icon = 'icons/obj/plushes.dmi'
+	icon_state = "debug"
+	var/money = 0
+	var/moneyeaten = 0
+	var/cooldown = 0
+	var/cooldowndelay = 20
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/roulette/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The Coin Gobbler holds [money] credits.</span>"
+
+/obj/item/roulette/attackby()
+	return
+
+/obj/item/roulette/attack_self(mob/user)
+	if(cooldown > world.time)
+		return
+	cooldown = world.time + cooldowndelay
+
+	playsound(src.loc, 'sound/creatures/rattle.ogg', 10, 1)
+	user.visible_message("<span class='notice'>[src] starts spinning! What will happen?</span>", \
+		"<span class='notice'>You activate [src].</span>")
+	sleep(10)
+
+	if(prob(33*(1500+moneyeaten)/1500))
+		playsound(src.loc, 'sound/arcade/win.ogg', 10, 1)
+		user.visible_message("<span class='warning'>[src] cashes out! [user] starts spitting credits!</span>", \
+		"<span class='notice'>[src] cashes out!</span>")		
+		var/obj/item/holochip/payout = new (user.drop_location(), money*2)
+		payout.throw_at( get_step(loc,user.dir) ,3,1,user)		
+		moneyeaten-=money
+		money=0				
+	else
+		user.visible_message("<span class='notice'>[src] gobbles up all the money!</span>", \
+		"<span class='notice'>[src] gobbles up all the money!</span>")
+		moneyeaten+=money
+		money=0
+		playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 10, 1)	
+
+/obj/item/roulette/afterattack(atom/A, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if(istype(A, /obj/item/holochip) ||  istype(A, /obj/item/stack/spacecash) || istype(A, /obj/item/coin))
+		var/cash_money = A.get_item_credit_value()
+		if(!cash_money)
+			to_chat(user, "<span class='warning'>[src] spits out [A] as it is not worth anything!</span>")
+			return
+
+		money+=cash_money
+		to_chat(user, "<span class='notice'>[src] quicky gobbles up [A], and the value goes up by [cash_money].</span>")
+		qdel(A)
+	else
+		return ..()			
+
+//shitcode

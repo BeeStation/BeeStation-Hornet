@@ -60,6 +60,13 @@
 	var/rigged = DICE_NOT_RIGGED
 	var/rigged_value
 
+/obj/item/storage/pill_bottle/dice_cup/cyborg
+	desc = "The house always wins..."
+/obj/item/storage/pill_bottle/dice_cup/cyborg/Initialize()
+	. = ..()
+	new /obj/item/dice/d6(src)
+	new /obj/item/dice/d6(src)
+
 /obj/item/dice/Initialize()
 	. = ..()
 	if(!result)

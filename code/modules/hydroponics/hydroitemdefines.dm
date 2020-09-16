@@ -92,6 +92,19 @@
 	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(src, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return (BRUTELOSS)
+	
+/obj/item/hatchet/cyborg
+	name = "hatchet module"
+
+/obj/item/hatchet/cyborg/attack(mob/living/target, mob/living/carbon/human/user)
+	if (!iscyborg(user))
+		..()	
+	var/mob/living/silicon/robot/R = user	
+	if(!R.emagged)
+		playsound(src, 'sound/machines/buzz-sigh.ogg',  50, 1, -1)
+		user.visible_message("<span class='notice'>Safety check failed! Action aborted.</span>")
+	else
+		..()
 
 /obj/item/scythe
 	icon_state = "scythe0"
