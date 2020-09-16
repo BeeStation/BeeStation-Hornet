@@ -131,6 +131,9 @@ LOG_LAW
 ## log viruses
 LOG_VIRUS
 
+## log ID changes
+LOG_ID
+
 ## log crew manifest to seperate file
 LOG_MANIFEST
 

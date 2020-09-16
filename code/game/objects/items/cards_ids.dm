@@ -380,6 +380,7 @@ update_label("John Doe", "Clowny")
 	if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/I = O
 		src.access |= I.access
+		log_id("[key_name(user)] copied all avaliable access from [I] to agent ID [src] at [AREACOORD(user)].")
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role || anyone)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over the ID, copying its access.</span>")
@@ -411,6 +412,7 @@ update_label("John Doe", "Clowny")
 			var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", assignment ? assignment : "Assistant", MAX_MESSAGE_LEN)
 			if(!target_occupation)
 				return
+			log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation] at [AREACOORD(user)].")
 			registered_name = input_name
 			assignment = target_occupation
 			update_label()
@@ -433,6 +435,7 @@ update_label("John Doe", "Clowny")
 		else if (popup_input == "Forge/Reset" && forged)
 			registered_name = initial(registered_name)
 			assignment = initial(assignment)
+			log_id("[key_name(user)] reset agent ID [src] name to default at [AREACOORD(user)].")
 			log_game("[key_name(user)] has reset \the [initial(name)] named \"[src]\" to default.")
 			update_label()
 			forged = FALSE
