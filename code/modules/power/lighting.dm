@@ -403,10 +403,6 @@
 			removeStaticPower(static_power_used, AREA_USAGE_STATIC_LIGHT)
 
 	broken_sparks(start_only=TRUE)
-	
-/obj/machinery/light/update_atom_colour()
-	..()
-	update()
 
 /obj/machinery/light/update_atom_colour()
 	..()
