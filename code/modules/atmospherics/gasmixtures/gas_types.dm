@@ -76,7 +76,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "plasma"
 	specific_heat = 200
 	name = "Plasma"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE
 	dangerous = TRUE
 	rarity = 800
@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ethanol"
 	specific_heat = 20
 	name = "ethanol"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -176,7 +176,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "beer"
 	specific_heat = 20
 	name = "beer"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -186,7 +186,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ftliver"
 	specific_heat = 20
 	name = "ftliver"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -196,7 +196,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "light"
 	specific_heat = 20
 	name = "light"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -206,7 +206,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "green"
 	specific_heat = 20
 	name = "green"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -216,7 +216,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "kahlua"
 	specific_heat = 20
 	name = "kahlua"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "whiskey"
 	specific_heat = 20
 	name = "whiskey"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "thirteenloko"
 	specific_heat = 20
 	name = "thirteenloko"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "vodka"
 	specific_heat = 20
 	name = "vodka"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -256,7 +256,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bilk"
 	specific_heat = 20
 	name = "bilk"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -266,7 +266,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "threemileisland"
 	specific_heat = 20
 	name = "threemileisland"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -276,7 +276,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "gin"
 	specific_heat = 20
 	name = "gin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "rum"
 	specific_heat = 20
 	name = "rum"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -296,7 +296,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "tequila"
 	specific_heat = 20
 	name = "tequila"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -306,7 +306,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "vermouth"
 	specific_heat = 20
 	name = "vermouth"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -316,7 +316,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "wine"
 	specific_heat = 20
 	name = "wine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -326,7 +326,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "lizardwine"
 	specific_heat = 20
 	name = "lizardwine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -336,7 +336,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "grappa"
 	specific_heat = 20
 	name = "grappa"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -346,7 +346,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cognac"
 	specific_heat = 20
 	name = "cognac"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -356,7 +356,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "absinthe"
 	specific_heat = 20
 	name = "absinthe"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -366,7 +366,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "hooch"
 	specific_heat = 20
 	name = "hooch"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -376,7 +376,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ale"
 	specific_heat = 20
 	name = "ale"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -386,7 +386,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "goldschlager"
 	specific_heat = 20
 	name = "goldschlager"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -396,7 +396,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "patron"
 	specific_heat = 20
 	name = "patron"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -406,7 +406,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "gintonic"
 	specific_heat = 20
 	name = "gintonic"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -416,7 +416,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "rum_coke"
 	specific_heat = 20
 	name = "rum_coke"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -426,7 +426,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cuba_libre"
 	specific_heat = 20
 	name = "cuba_libre"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -436,7 +436,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "whiskey_cola"
 	specific_heat = 20
 	name = "whiskey_cola"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -446,7 +446,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "martini"
 	specific_heat = 20
 	name = "martini"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -456,7 +456,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "vodkamartini"
 	specific_heat = 20
 	name = "vodkamartini"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -466,7 +466,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "white_russian"
 	specific_heat = 20
 	name = "white_russian"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -476,7 +476,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "vodka_cola"
 	specific_heat = 20
 	name = "vodka_cola"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -486,7 +486,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "black_roulette"
 	specific_heat = 20
 	name = "black_roulette"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -496,7 +496,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "triple_coke"
 	specific_heat = 20
 	name = "triple_coke"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -506,7 +506,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "salty_water"
 	specific_heat = 20
 	name = "salty_water"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -516,7 +516,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "screwdrivercocktail"
 	specific_heat = 20
 	name = "screwdrivercocktail"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -526,7 +526,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "booger"
 	specific_heat = 20
 	name = "booger"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -536,7 +536,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bloody_mary"
 	specific_heat = 20
 	name = "bloody_mary"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -546,7 +546,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "brave_bull"
 	specific_heat = 20
 	name = "brave_bull"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -556,7 +556,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "tequila_sunrise"
 	specific_heat = 20
 	name = "tequila_sunrise"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -566,7 +566,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "toxins_special"
 	specific_heat = 20
 	name = "toxins_special"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -576,7 +576,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "beepsky_smash"
 	specific_heat = 20
 	name = "beepsky_smash"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -586,7 +586,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "irish_cream"
 	specific_heat = 20
 	name = "irish_cream"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -596,7 +596,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "manly_dorf"
 	specific_heat = 20
 	name = "manly_dorf"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -606,7 +606,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "longislandicedtea"
 	specific_heat = 20
 	name = "longislandicedtea"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -616,7 +616,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "moonshine"
 	specific_heat = 20
 	name = "moonshine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -626,7 +626,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "b52"
 	specific_heat = 20
 	name = "b52"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -636,7 +636,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "irishcoffee"
 	specific_heat = 20
 	name = "irishcoffee"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -646,7 +646,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "margarita"
 	specific_heat = 20
 	name = "margarita"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -656,7 +656,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "black_russian"
 	specific_heat = 20
 	name = "black_russian"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -666,7 +666,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "manhattan"
 	specific_heat = 20
 	name = "manhattan"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -676,7 +676,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "manhattan_proj"
 	specific_heat = 20
 	name = "manhattan_proj"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -686,7 +686,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "whiskeysoda"
 	specific_heat = 20
 	name = "whiskeysoda"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -696,7 +696,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "antifreeze"
 	specific_heat = 20
 	name = "antifreeze"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -706,7 +706,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "barefoot"
 	specific_heat = 20
 	name = "barefoot"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -716,7 +716,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "snowwhite"
 	specific_heat = 20
 	name = "snowwhite"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -726,7 +726,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "demonsblood"
 	specific_heat = 20
 	name = "demonsblood"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -736,7 +736,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "devilskiss"
 	specific_heat = 20
 	name = "devilskiss"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -746,7 +746,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "vodkatonic"
 	specific_heat = 20
 	name = "vodkatonic"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -756,7 +756,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ginfizz"
 	specific_heat = 20
 	name = "ginfizz"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -766,7 +766,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bahama_mama"
 	specific_heat = 20
 	name = "bahama_mama"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -776,7 +776,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "singulo"
 	specific_heat = 20
 	name = "singulo"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -786,7 +786,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sbiten"
 	specific_heat = 20
 	name = "sbiten"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -796,7 +796,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "red_mead"
 	specific_heat = 20
 	name = "red_mead"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -806,7 +806,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mead"
 	specific_heat = 20
 	name = "mead"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -816,7 +816,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "iced_beer"
 	specific_heat = 20
 	name = "iced_beer"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -826,7 +826,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "grog"
 	specific_heat = 20
 	name = "grog"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -836,7 +836,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "aloe"
 	specific_heat = 20
 	name = "aloe"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -846,7 +846,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "andalusia"
 	specific_heat = 20
 	name = "andalusia"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -856,7 +856,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "alliescocktail"
 	specific_heat = 20
 	name = "alliescocktail"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -866,7 +866,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "acid_spit"
 	specific_heat = 20
 	name = "acid_spit"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -876,7 +876,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "amasec"
 	specific_heat = 20
 	name = "amasec"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -886,7 +886,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "changelingsting"
 	specific_heat = 20
 	name = "changelingsting"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -896,7 +896,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "irishcarbomb"
 	specific_heat = 20
 	name = "irishcarbomb"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -906,7 +906,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "syndicatebomb"
 	specific_heat = 20
 	name = "syndicatebomb"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -916,7 +916,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "erikasurprise"
 	specific_heat = 20
 	name = "erikasurprise"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -926,7 +926,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "driestmartini"
 	specific_heat = 20
 	name = "driestmartini"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -936,7 +936,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bananahonk"
 	specific_heat = 20
 	name = "bananahonk"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -946,7 +946,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "silencer"
 	specific_heat = 20
 	name = "silencer"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -956,7 +956,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "drunkenblumpkin"
 	specific_heat = 20
 	name = "drunkenblumpkin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -966,7 +966,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "whiskey_sour"
 	specific_heat = 20
 	name = "whiskey_sour"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -976,7 +976,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "hcider"
 	specific_heat = 20
 	name = "hcider"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -986,7 +986,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fetching_fizz"
 	specific_heat = 20
 	name = "fetching_fizz"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -996,7 +996,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "hearty_punch"
 	specific_heat = 20
 	name = "hearty_punch"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1006,7 +1006,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bacchus_blessing"
 	specific_heat = 20
 	name = "bacchus_blessing"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1016,7 +1016,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "atomicbomb"
 	specific_heat = 20
 	name = "atomicbomb"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1026,7 +1026,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "gargle_blaster"
 	specific_heat = 20
 	name = "gargle_blaster"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1036,7 +1036,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "neurotoxin"
 	specific_heat = 20
 	name = "neurotoxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1046,7 +1046,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "hippies_delight"
 	specific_heat = 20
 	name = "hippies_delight"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1056,7 +1056,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "eggnog"
 	specific_heat = 20
 	name = "eggnog"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1066,7 +1066,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "narsour"
 	specific_heat = 20
 	name = "narsour"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1076,7 +1076,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "triple_sec"
 	specific_heat = 20
 	name = "triple_sec"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1086,7 +1086,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "creme_de_menthe"
 	specific_heat = 20
 	name = "creme_de_menthe"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1096,7 +1096,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "creme_de_cacao"
 	specific_heat = 20
 	name = "creme_de_cacao"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1106,7 +1106,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "quadruple_sec"
 	specific_heat = 20
 	name = "quadruple_sec"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1116,7 +1116,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "quintuple_sec"
 	specific_heat = 20
 	name = "quintuple_sec"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1126,7 +1126,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "grasshopper"
 	specific_heat = 20
 	name = "grasshopper"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1136,7 +1136,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "stinger"
 	specific_heat = 20
 	name = "stinger"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1146,7 +1146,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bastion_bourbon"
 	specific_heat = 20
 	name = "bastion_bourbon"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1156,7 +1156,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "squirt_cider"
 	specific_heat = 20
 	name = "squirt_cider"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1166,7 +1166,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fringe_weaver"
 	specific_heat = 20
 	name = "fringe_weaver"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1176,7 +1176,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sugar_rush"
 	specific_heat = 20
 	name = "sugar_rush"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1186,7 +1186,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "crevice_spike"
 	specific_heat = 20
 	name = "crevice_spike"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1196,7 +1196,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sake"
 	specific_heat = 20
 	name = "sake"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1206,7 +1206,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "peppermint_patty"
 	specific_heat = 20
 	name = "peppermint_patty"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1216,7 +1216,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "alexander"
 	specific_heat = 20
 	name = "alexander"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1226,7 +1226,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sidecar"
 	specific_heat = 20
 	name = "sidecar"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1236,7 +1236,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "between_the_sheets"
 	specific_heat = 20
 	name = "between_the_sheets"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1246,7 +1246,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "kamikaze"
 	specific_heat = 20
 	name = "kamikaze"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1256,7 +1256,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mojito"
 	specific_heat = 20
 	name = "mojito"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1266,7 +1266,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fernet"
 	specific_heat = 20
 	name = "fernet"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1276,7 +1276,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fernet_cola"
 	specific_heat = 20
 	name = "fernet_cola"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1286,7 +1286,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fanciulli"
 	specific_heat = 20
 	name = "fanciulli"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1296,7 +1296,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "branca_menta"
 	specific_heat = 20
 	name = "branca_menta"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1306,7 +1306,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "blank_paper"
 	specific_heat = 20
 	name = "blank_paper"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1316,7 +1316,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fruit_wine"
 	specific_heat = 20
 	name = "fruit_wine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1326,7 +1326,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "champagne"
 	specific_heat = 20
 	name = "champagne"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1336,7 +1336,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "wizz_fizz"
 	specific_heat = 20
 	name = "wizz_fizz"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1346,7 +1346,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bug_spray"
 	specific_heat = 20
 	name = "bug_spray"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1356,7 +1356,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "applejack"
 	specific_heat = 20
 	name = "applejack"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1366,7 +1366,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "jack_rose"
 	specific_heat = 20
 	name = "jack_rose"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1376,7 +1376,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "turbo"
 	specific_heat = 20
 	name = "turbo"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1386,7 +1386,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "old_timer"
 	specific_heat = 20
 	name = "old_timer"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1396,7 +1396,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "rubberneck"
 	specific_heat = 20
 	name = "rubberneck"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1406,7 +1406,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "duplex"
 	specific_heat = 20
 	name = "duplex"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1416,7 +1416,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "trappist"
 	specific_heat = 20
 	name = "trappist"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1426,7 +1426,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "blazaam"
 	specific_heat = 20
 	name = "blazaam"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1436,7 +1436,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "planet_cracker"
 	specific_heat = 20
 	name = "planet_cracker"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1446,7 +1446,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mauna_loa"
 	specific_heat = 20
 	name = "mauna_loa"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1456,7 +1456,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "plasmaflood"
 	specific_heat = 20
 	name = "plasmaflood"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1466,7 +1466,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fourthwall"
 	specific_heat = 20
 	name = "fourthwall"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1476,7 +1476,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ratvander"
 	specific_heat = 20
 	name = "ratvander"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1486,7 +1486,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "icewing"
 	specific_heat = 20
 	name = "icewing"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1496,7 +1496,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sarsaparilliansunset"
 	specific_heat = 20
 	name = "sarsaparilliansunset"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1506,7 +1506,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "beesknees"
 	specific_heat = 20
 	name = "beesknees"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1516,7 +1516,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "orangejuice"
 	specific_heat = 20
 	name = "orangejuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1526,7 +1526,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "tomatojuice"
 	specific_heat = 20
 	name = "tomatojuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1536,7 +1536,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "limejuice"
 	specific_heat = 20
 	name = "limejuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1546,7 +1546,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "carrotjuice"
 	specific_heat = 20
 	name = "carrotjuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1556,7 +1556,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "berryjuice"
 	specific_heat = 20
 	name = "berryjuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1566,7 +1566,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "applejuice"
 	specific_heat = 20
 	name = "applejuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1576,7 +1576,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "poisonberryjuice"
 	specific_heat = 20
 	name = "poisonberryjuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1586,7 +1586,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "watermelonjuice"
 	specific_heat = 20
 	name = "watermelonjuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1596,7 +1596,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "lemonjuice"
 	specific_heat = 20
 	name = "lemonjuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1606,7 +1606,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "banana"
 	specific_heat = 20
 	name = "banana"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1616,7 +1616,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "nothing"
 	specific_heat = 20
 	name = "nothing"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1626,7 +1626,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "laughter"
 	specific_heat = 20
 	name = "laughter"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1636,7 +1636,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "superlaughter"
 	specific_heat = 20
 	name = "superlaughter"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1646,7 +1646,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "potato_juice"
 	specific_heat = 20
 	name = "potato_juice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1656,7 +1656,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "grapejuice"
 	specific_heat = 20
 	name = "grapejuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1666,7 +1666,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "milk"
 	specific_heat = 20
 	name = "milk"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1676,7 +1676,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "soymilk"
 	specific_heat = 20
 	name = "soymilk"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1686,7 +1686,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cream"
 	specific_heat = 20
 	name = "cream"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1696,7 +1696,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "coffee"
 	specific_heat = 20
 	name = "coffee"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1706,7 +1706,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "tea"
 	specific_heat = 20
 	name = "tea"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1716,7 +1716,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "lemonade"
 	specific_heat = 20
 	name = "lemonade"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1726,7 +1726,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "arnold_palmer"
 	specific_heat = 20
 	name = "arnold_palmer"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1736,7 +1736,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "icecoffee"
 	specific_heat = 20
 	name = "icecoffee"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1746,7 +1746,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "icetea"
 	specific_heat = 20
 	name = "icetea"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1756,7 +1756,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "space_cola"
 	specific_heat = 20
 	name = "space_cola"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1766,7 +1766,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "nuka_cola"
 	specific_heat = 20
 	name = "nuka_cola"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1776,7 +1776,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "grey_bull"
 	specific_heat = 20
 	name = "grey_bull"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1786,7 +1786,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "spacemountainwind"
 	specific_heat = 20
 	name = "spacemountainwind"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1796,7 +1796,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "dr_gibb"
 	specific_heat = 20
 	name = "dr_gibb"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1806,7 +1806,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "space_up"
 	specific_heat = 20
 	name = "space_up"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1816,7 +1816,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "lemon_lime"
 	specific_heat = 20
 	name = "lemon_lime"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1826,7 +1826,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "pwr_game"
 	specific_heat = 20
 	name = "pwr_game"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1836,7 +1836,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "shamblers"
 	specific_heat = 20
 	name = "shamblers"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1846,7 +1846,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sodawater"
 	specific_heat = 20
 	name = "sodawater"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1856,7 +1856,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "tonic"
 	specific_heat = 20
 	name = "tonic"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1866,7 +1866,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "monkey_energy"
 	specific_heat = 20
 	name = "monkey_energy"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1876,7 +1876,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ice"
 	specific_heat = 20
 	name = "ice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1886,7 +1886,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "soy_latte"
 	specific_heat = 20
 	name = "soy_latte"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1896,7 +1896,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cafe_latte"
 	specific_heat = 20
 	name = "cafe_latte"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1906,7 +1906,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "doctor_delight"
 	specific_heat = 20
 	name = "doctor_delight"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1916,7 +1916,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "chocolatepudding"
 	specific_heat = 20
 	name = "chocolatepudding"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1926,7 +1926,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "vanillapudding"
 	specific_heat = 20
 	name = "vanillapudding"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1936,7 +1936,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cherryshake"
 	specific_heat = 20
 	name = "cherryshake"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1946,7 +1946,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bluecherryshake"
 	specific_heat = 20
 	name = "bluecherryshake"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1956,7 +1956,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "pumpkin_latte"
 	specific_heat = 20
 	name = "pumpkin_latte"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1966,7 +1966,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "gibbfloats"
 	specific_heat = 20
 	name = "gibbfloats"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1976,7 +1976,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "pumpkinjuice"
 	specific_heat = 20
 	name = "pumpkinjuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1986,7 +1986,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "blumpkinjuice"
 	specific_heat = 20
 	name = "blumpkinjuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -1996,7 +1996,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "triple_citrus"
 	specific_heat = 20
 	name = "triple_citrus"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2006,7 +2006,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "grape_soda"
 	specific_heat = 20
 	name = "grape_soda"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2016,7 +2016,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "chocolate_milk"
 	specific_heat = 20
 	name = "chocolate_milk"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2026,7 +2026,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "menthol"
 	specific_heat = 20
 	name = "menthol"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2036,7 +2036,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "grenadine"
 	specific_heat = 20
 	name = "grenadine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2046,7 +2046,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "parsnipjuice"
 	specific_heat = 20
 	name = "parsnipjuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2056,7 +2056,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "peachjuice"
 	specific_heat = 20
 	name = "peachjuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2066,7 +2066,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cream_soda"
 	specific_heat = 20
 	name = "cream_soda"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2076,7 +2076,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "red_queen"
 	specific_heat = 20
 	name = "red_queen"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2086,7 +2086,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bungojuice"
 	specific_heat = 20
 	name = "bungojuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2096,7 +2096,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "drug"
 	specific_heat = 20
 	name = "drug"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2106,7 +2106,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "space_drugs"
 	specific_heat = 20
 	name = "space_drugs"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2116,7 +2116,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "nicotine"
 	specific_heat = 20
 	name = "nicotine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2126,7 +2126,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "crank"
 	specific_heat = 20
 	name = "crank"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2136,7 +2136,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "krokodil"
 	specific_heat = 20
 	name = "krokodil"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2146,7 +2146,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "methamphetamine"
 	specific_heat = 20
 	name = "methamphetamine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2156,7 +2156,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bath_salts"
 	specific_heat = 20
 	name = "bath_salts"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2166,7 +2166,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "aranesp"
 	specific_heat = 20
 	name = "aranesp"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2176,7 +2176,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "happiness"
 	specific_heat = 20
 	name = "happiness"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2186,7 +2186,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "nutriment"
 	specific_heat = 20
 	name = "nutriment"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2196,7 +2196,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "vitamin"
 	specific_heat = 20
 	name = "vitamin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2206,7 +2206,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cooking_oil"
 	specific_heat = 20
 	name = "cooking_oil"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2216,7 +2216,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sugar"
 	specific_heat = 20
 	name = "sugar"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2226,7 +2226,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "virus_food"
 	specific_heat = 20
 	name = "virus_food"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2236,7 +2236,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "soysauce"
 	specific_heat = 20
 	name = "soysauce"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2246,7 +2246,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ketchup"
 	specific_heat = 20
 	name = "ketchup"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2256,7 +2256,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "capsaicin"
 	specific_heat = 20
 	name = "capsaicin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2266,7 +2266,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "frostoil"
 	specific_heat = 20
 	name = "frostoil"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2276,7 +2276,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "condensedcapsaicin"
 	specific_heat = 20
 	name = "condensedcapsaicin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2286,7 +2286,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sodiumchloride"
 	specific_heat = 20
 	name = "sodiumchloride"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2296,7 +2296,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "blackpepper"
 	specific_heat = 20
 	name = "blackpepper"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2306,7 +2306,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "coco"
 	specific_heat = 20
 	name = "coco"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2316,7 +2316,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "hot_coco"
 	specific_heat = 20
 	name = "hot_coco"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2326,7 +2326,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mushroomhallucinogen"
 	specific_heat = 20
 	name = "mushroomhallucinogen"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2336,7 +2336,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "garlic"
 	specific_heat = 20
 	name = "garlic"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2346,7 +2346,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sprinkles"
 	specific_heat = 20
 	name = "sprinkles"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2356,7 +2356,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cornoil"
 	specific_heat = 20
 	name = "cornoil"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2366,7 +2366,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "enzyme"
 	specific_heat = 20
 	name = "enzyme"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2376,7 +2376,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "dry_ramen"
 	specific_heat = 20
 	name = "dry_ramen"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2386,7 +2386,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "hot_ramen"
 	specific_heat = 20
 	name = "hot_ramen"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2396,7 +2396,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "hell_ramen"
 	specific_heat = 20
 	name = "hell_ramen"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2406,7 +2406,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "flour"
 	specific_heat = 20
 	name = "flour"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2416,7 +2416,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cherryjelly"
 	specific_heat = 20
 	name = "cherryjelly"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2426,7 +2426,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bluecherryjelly"
 	specific_heat = 20
 	name = "bluecherryjelly"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2436,7 +2436,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "rice"
 	specific_heat = 20
 	name = "rice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2446,7 +2446,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "vanilla"
 	specific_heat = 20
 	name = "vanilla"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2456,7 +2456,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "eggyolk"
 	specific_heat = 20
 	name = "eggyolk"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2466,7 +2466,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "corn_starch"
 	specific_heat = 20
 	name = "corn_starch"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2476,7 +2476,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "corn_syrup"
 	specific_heat = 20
 	name = "corn_syrup"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2486,7 +2486,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "honey"
 	specific_heat = 20
 	name = "honey"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2496,7 +2496,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "special"
 	specific_heat = 20
 	name = "special"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2506,7 +2506,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mayonnaise"
 	specific_heat = 20
 	name = "mayonnaise"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2516,7 +2516,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "tearjuice"
 	specific_heat = 20
 	name = "tearjuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2526,7 +2526,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "stabilized"
 	specific_heat = 20
 	name = "stabilized"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2536,7 +2536,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "entpoly"
 	specific_heat = 20
 	name = "entpoly"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2546,7 +2546,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "tinlux"
 	specific_heat = 20
 	name = "tinlux"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2556,7 +2556,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "vitfro"
 	specific_heat = 20
 	name = "vitfro"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2566,7 +2566,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "clownstears"
 	specific_heat = 20
 	name = "clownstears"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2576,7 +2576,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "liquidelectricity"
 	specific_heat = 20
 	name = "liquidelectricity"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2586,7 +2586,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "astrotame"
 	specific_heat = 20
 	name = "astrotame"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2596,7 +2596,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "caramel"
 	specific_heat = 20
 	name = "caramel"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2606,7 +2606,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bbqsauce"
 	specific_heat = 20
 	name = "bbqsauce"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2616,7 +2616,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "char"
 	specific_heat = 20
 	name = "char"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2626,7 +2626,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "medicine"
 	specific_heat = 20
 	name = "medicine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2636,7 +2636,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "leporazine"
 	specific_heat = 20
 	name = "leporazine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2646,7 +2646,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "adminordrazine"
 	specific_heat = 20
 	name = "adminordrazine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2656,7 +2656,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "quantum_heal"
 	specific_heat = 20
 	name = "quantum_heal"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2666,7 +2666,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "synaptizine"
 	specific_heat = 20
 	name = "synaptizine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2676,7 +2676,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "synaphydramine"
 	specific_heat = 20
 	name = "synaphydramine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2686,7 +2686,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "inacusiate"
 	specific_heat = 20
 	name = "inacusiate"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2696,7 +2696,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cryoxadone"
 	specific_heat = 20
 	name = "cryoxadone"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2706,7 +2706,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "clonexadone"
 	specific_heat = 20
 	name = "clonexadone"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2716,7 +2716,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "pyroxadone"
 	specific_heat = 20
 	name = "pyroxadone"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2726,7 +2726,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "rezadone"
 	specific_heat = 20
 	name = "rezadone"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2736,7 +2736,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "spaceacillin"
 	specific_heat = 20
 	name = "spaceacillin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2746,7 +2746,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "silver_sulfadiazine"
 	specific_heat = 20
 	name = "silver_sulfadiazine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2756,7 +2756,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "oxandrolone"
 	specific_heat = 20
 	name = "oxandrolone"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2766,7 +2766,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "styptic_powder"
 	specific_heat = 20
 	name = "styptic_powder"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2776,7 +2776,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "salglu_solution"
 	specific_heat = 20
 	name = "salglu_solution"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2786,7 +2786,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mine_salve"
 	specific_heat = 20
 	name = "mine_salve"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2796,7 +2796,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "synthflesh"
 	specific_heat = 20
 	name = "synthflesh"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2806,7 +2806,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "charcoal"
 	specific_heat = 20
 	name = "charcoal"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2816,7 +2816,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "system_cleaner"
 	specific_heat = 20
 	name = "system_cleaner"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2826,7 +2826,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "liquid_solder"
 	specific_heat = 20
 	name = "liquid_solder"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2836,7 +2836,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "omnizine"
 	specific_heat = 20
 	name = "omnizine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2846,7 +2846,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "calomel"
 	specific_heat = 20
 	name = "calomel"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2856,7 +2856,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "potass_iodide"
 	specific_heat = 20
 	name = "potass_iodide"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2866,7 +2866,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "pen_acid"
 	specific_heat = 20
 	name = "pen_acid"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2876,7 +2876,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sal_acid"
 	specific_heat = 20
 	name = "sal_acid"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2886,7 +2886,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "salbutamol"
 	specific_heat = 20
 	name = "salbutamol"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2896,7 +2896,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "perfluorodecalin"
 	specific_heat = 20
 	name = "perfluorodecalin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2906,7 +2906,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ephedrine"
 	specific_heat = 20
 	name = "ephedrine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2916,7 +2916,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "diphenhydramine"
 	specific_heat = 20
 	name = "diphenhydramine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2926,7 +2926,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "morphine"
 	specific_heat = 20
 	name = "morphine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2936,7 +2936,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "oculine"
 	specific_heat = 20
 	name = "oculine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2946,7 +2946,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "atropine"
 	specific_heat = 20
 	name = "atropine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2956,7 +2956,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "epinephrine"
 	specific_heat = 20
 	name = "epinephrine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2966,7 +2966,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "strange_reagent"
 	specific_heat = 20
 	name = "strange_reagent"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2976,7 +2976,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mannitol"
 	specific_heat = 20
 	name = "mannitol"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2986,7 +2986,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "neurine"
 	specific_heat = 20
 	name = "neurine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -2996,7 +2996,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mutadone"
 	specific_heat = 20
 	name = "mutadone"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3006,7 +3006,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "antihol"
 	specific_heat = 20
 	name = "antihol"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3016,7 +3016,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "stimulants"
 	specific_heat = 20
 	name = "stimulants"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3026,7 +3026,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "pumpup"
 	specific_heat = 20
 	name = "pumpup"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3036,7 +3036,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "insulin"
 	specific_heat = 20
 	name = "insulin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3046,7 +3046,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bicaridine"
 	specific_heat = 20
 	name = "bicaridine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3056,7 +3056,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "kelotane"
 	specific_heat = 20
 	name = "kelotane"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3066,7 +3066,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "antitoxin"
 	specific_heat = 20
 	name = "antitoxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3076,7 +3076,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "carthatoline"
 	specific_heat = 20
 	name = "carthatoline"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3086,7 +3086,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "hepanephrodaxon"
 	specific_heat = 20
 	name = "hepanephrodaxon"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3096,7 +3096,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "inaprovaline"
 	specific_heat = 20
 	name = "inaprovaline"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3106,7 +3106,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "tricordrazine"
 	specific_heat = 20
 	name = "tricordrazine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3116,7 +3116,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "regen_jelly"
 	specific_heat = 20
 	name = "regen_jelly"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3126,7 +3126,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "syndicate_nanites"
 	specific_heat = 20
 	name = "syndicate_nanites"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3136,7 +3136,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "earthsblood"
 	specific_heat = 20
 	name = "earthsblood"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3146,7 +3146,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "haloperidol"
 	specific_heat = 20
 	name = "haloperidol"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3156,7 +3156,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "lavaland_extract"
 	specific_heat = 20
 	name = "lavaland_extract"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3166,7 +3166,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "changelingadrenaline"
 	specific_heat = 20
 	name = "changelingadrenaline"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3176,7 +3176,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "changelinghaste"
 	specific_heat = 20
 	name = "changelinghaste"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3186,7 +3186,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "corazone"
 	specific_heat = 20
 	name = "corazone"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3196,7 +3196,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "muscle_stimulant"
 	specific_heat = 20
 	name = "muscle_stimulant"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3206,7 +3206,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "modafinil"
 	specific_heat = 20
 	name = "modafinil"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3216,7 +3216,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "psicodine"
 	specific_heat = 20
 	name = "psicodine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3226,7 +3226,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "silibinin"
 	specific_heat = 20
 	name = "silibinin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3236,7 +3236,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "polypyr"
 	specific_heat = 20
 	name = "polypyr"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3246,7 +3246,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "blood"
 	specific_heat = 20
 	name = "blood"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3256,7 +3256,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "liquidgibs"
 	specific_heat = 20
 	name = "liquidgibs"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3266,7 +3266,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "vaccine"
 	specific_heat = 20
 	name = "vaccine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3276,7 +3276,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "water"
 	specific_heat = 20
 	name = "water"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3286,7 +3286,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "holywater"
 	specific_heat = 20
 	name = "holywater"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3296,7 +3296,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "unholywater"
 	specific_heat = 20
 	name = "unholywater"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3306,7 +3306,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "hellwater"
 	specific_heat = 20
 	name = "hellwater"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3316,7 +3316,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "godblood"
 	specific_heat = 20
 	name = "godblood"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3326,7 +3326,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "lube"
 	specific_heat = 20
 	name = "lube"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3336,7 +3336,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "spraytan"
 	specific_heat = 20
 	name = "spraytan"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3346,7 +3346,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mutationtoxin"
 	specific_heat = 20
 	name = "mutationtoxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3356,7 +3356,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "classic"
 	specific_heat = 20
 	name = "classic"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3366,7 +3366,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "unstable"
 	specific_heat = 20
 	name = "unstable"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3376,7 +3376,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "felinid"
 	specific_heat = 20
 	name = "felinid"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3386,7 +3386,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "lizard"
 	specific_heat = 20
 	name = "lizard"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3396,7 +3396,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fly"
 	specific_heat = 20
 	name = "fly"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3406,7 +3406,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "moth"
 	specific_heat = 20
 	name = "moth"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3416,7 +3416,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "pod"
 	specific_heat = 20
 	name = "pod"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3426,7 +3426,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "jelly"
 	specific_heat = 20
 	name = "jelly"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3436,7 +3436,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "golem"
 	specific_heat = 20
 	name = "golem"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3446,7 +3446,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "abductor"
 	specific_heat = 20
 	name = "abductor"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3456,7 +3456,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "android"
 	specific_heat = 20
 	name = "android"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3466,7 +3466,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ipc"
 	specific_heat = 20
 	name = "ipc"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3476,7 +3476,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "squid"
 	specific_heat = 20
 	name = "squid"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3486,7 +3486,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "skeleton"
 	specific_heat = 20
 	name = "skeleton"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3496,7 +3496,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "zombie"
 	specific_heat = 20
 	name = "zombie"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3506,7 +3506,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "goofzombie"
 	specific_heat = 20
 	name = "goofzombie"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3516,7 +3516,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ash"
 	specific_heat = 20
 	name = "ash"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3526,7 +3526,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "supersoldier"
 	specific_heat = 20
 	name = "supersoldier"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3536,7 +3536,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "shadow"
 	specific_heat = 20
 	name = "shadow"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3546,7 +3546,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "slime_toxin"
 	specific_heat = 20
 	name = "slime_toxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3556,7 +3556,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mulligan"
 	specific_heat = 20
 	name = "mulligan"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3566,7 +3566,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "aslimetoxin"
 	specific_heat = 20
 	name = "aslimetoxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3576,7 +3576,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "gluttonytoxin"
 	specific_heat = 20
 	name = "gluttonytoxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3586,7 +3586,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "serotrotium"
 	specific_heat = 20
 	name = "serotrotium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3596,7 +3596,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "copper"
 	specific_heat = 20
 	name = "copper"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3606,7 +3606,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "hydrogen"
 	specific_heat = 20
 	name = "hydrogen"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3616,7 +3616,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "potassium"
 	specific_heat = 20
 	name = "potassium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3626,7 +3626,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mercury"
 	specific_heat = 20
 	name = "mercury"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3636,7 +3636,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sulfur"
 	specific_heat = 20
 	name = "sulfur"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3646,7 +3646,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "carbon"
 	specific_heat = 20
 	name = "carbon"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3656,7 +3656,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "chlorine"
 	specific_heat = 20
 	name = "chlorine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3666,7 +3666,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fluorine"
 	specific_heat = 20
 	name = "fluorine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3676,7 +3676,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sodium"
 	specific_heat = 20
 	name = "sodium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3686,7 +3686,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "phosphorus"
 	specific_heat = 20
 	name = "phosphorus"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3696,7 +3696,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "lithium"
 	specific_heat = 20
 	name = "lithium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3706,7 +3706,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "glycerol"
 	specific_heat = 20
 	name = "glycerol"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3716,7 +3716,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sterilizine"
 	specific_heat = 20
 	name = "sterilizine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3726,7 +3726,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "iron"
 	specific_heat = 20
 	name = "iron"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3736,7 +3736,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "gold"
 	specific_heat = 20
 	name = "gold"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3746,7 +3746,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "silver"
 	specific_heat = 20
 	name = "silver"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3756,7 +3756,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "uranium"
 	specific_heat = 20
 	name = "uranium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3766,7 +3766,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "radium"
 	specific_heat = 20
 	name = "radium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3776,7 +3776,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bluespace"
 	specific_heat = 20
 	name = "bluespace"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3786,7 +3786,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "aluminium"
 	specific_heat = 20
 	name = "aluminium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3796,7 +3796,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "silicon"
 	specific_heat = 20
 	name = "silicon"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3806,7 +3806,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fuel"
 	specific_heat = 20
 	name = "fuel"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3816,7 +3816,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "space_cleaner"
 	specific_heat = 20
 	name = "space_cleaner"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3826,7 +3826,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ez_clean"
 	specific_heat = 20
 	name = "ez_clean"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3836,7 +3836,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cryptobiolin"
 	specific_heat = 20
 	name = "cryptobiolin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3846,7 +3846,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "impedrezene"
 	specific_heat = 20
 	name = "impedrezene"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3856,7 +3856,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "nanomachines"
 	specific_heat = 20
 	name = "nanomachines"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3866,7 +3866,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "xenomicrobes"
 	specific_heat = 20
 	name = "xenomicrobes"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3876,7 +3876,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fungalspores"
 	specific_heat = 20
 	name = "fungalspores"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3886,7 +3886,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "snail"
 	specific_heat = 20
 	name = "snail"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3896,7 +3896,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fluorosurfactant"
 	specific_heat = 20
 	name = "fluorosurfactant"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3906,7 +3906,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "foaming_agent"
 	specific_heat = 20
 	name = "foaming_agent"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3916,7 +3916,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "smart_foaming_agent"
 	specific_heat = 20
 	name = "smart_foaming_agent"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3926,7 +3926,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ammonia"
 	specific_heat = 20
 	name = "ammonia"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3936,7 +3936,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "diethylamine"
 	specific_heat = 20
 	name = "diethylamine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3946,7 +3946,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "carbondioxide"
 	specific_heat = 20
 	name = "carbondioxide"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3956,7 +3956,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "powder"
 	specific_heat = 20
 	name = "powder"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3966,7 +3966,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "red"
 	specific_heat = 20
 	name = "red"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3976,7 +3976,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "orange"
 	specific_heat = 20
 	name = "orange"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3986,7 +3986,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "yellow"
 	specific_heat = 20
 	name = "yellow"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -3996,7 +3996,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "blue"
 	specific_heat = 20
 	name = "blue"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4006,7 +4006,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "purple"
 	specific_heat = 20
 	name = "purple"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4016,7 +4016,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "invisible"
 	specific_heat = 20
 	name = "invisible"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4026,7 +4026,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "black"
 	specific_heat = 20
 	name = "black"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4036,7 +4036,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "white"
 	specific_heat = 20
 	name = "white"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4046,7 +4046,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "plantnutriment"
 	specific_heat = 20
 	name = "plantnutriment"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4056,7 +4056,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "eznutriment"
 	specific_heat = 20
 	name = "eznutriment"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4066,7 +4066,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "left4zednutriment"
 	specific_heat = 20
 	name = "left4zednutriment"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4076,7 +4076,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "robustharvestnutriment"
 	specific_heat = 20
 	name = "robustharvestnutriment"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4086,7 +4086,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "oil"
 	specific_heat = 20
 	name = "oil"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4096,7 +4096,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "stable_plasma"
 	specific_heat = 20
 	name = "stable_plasma"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4106,7 +4106,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "iodine"
 	specific_heat = 20
 	name = "iodine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4116,7 +4116,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "carpet"
 	specific_heat = 20
 	name = "carpet"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4126,7 +4126,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bromine"
 	specific_heat = 20
 	name = "bromine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4136,7 +4136,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "phenol"
 	specific_heat = 20
 	name = "phenol"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4146,7 +4146,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "acetone"
 	specific_heat = 20
 	name = "acetone"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4156,7 +4156,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "colorful_reagent"
 	specific_heat = 20
 	name = "colorful_reagent"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4166,7 +4166,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "hair_dye"
 	specific_heat = 20
 	name = "hair_dye"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4176,7 +4176,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "barbers_aid"
 	specific_heat = 20
 	name = "barbers_aid"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4186,7 +4186,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "concentrated_barbers_aid"
 	specific_heat = 20
 	name = "concentrated_barbers_aid"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4196,7 +4196,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "saltpetre"
 	specific_heat = 20
 	name = "saltpetre"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4206,7 +4206,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "lye"
 	specific_heat = 20
 	name = "lye"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4216,7 +4216,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "drying_agent"
 	specific_heat = 20
 	name = "drying_agent"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4226,7 +4226,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mutagenvirusfood"
 	specific_heat = 20
 	name = "mutagenvirusfood"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4236,7 +4236,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "synaptizinevirusfood"
 	specific_heat = 20
 	name = "synaptizinevirusfood"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4246,7 +4246,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "plasmavirusfood"
 	specific_heat = 20
 	name = "plasmavirusfood"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4256,7 +4256,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "weak"
 	specific_heat = 20
 	name = "weak"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4266,7 +4266,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "uraniumvirusfood"
 	specific_heat = 20
 	name = "uraniumvirusfood"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4276,7 +4276,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "stable"
 	specific_heat = 20
 	name = "stable"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4286,7 +4286,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "laughtervirusfood"
 	specific_heat = 20
 	name = "laughtervirusfood"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4296,7 +4296,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "advvirusfood"
 	specific_heat = 20
 	name = "advvirusfood"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4306,7 +4306,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "viralbase"
 	specific_heat = 20
 	name = "viralbase"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4316,7 +4316,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "royal_bee_jelly"
 	specific_heat = 20
 	name = "royal_bee_jelly"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4326,7 +4326,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "romerol"
 	specific_heat = 20
 	name = "romerol"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4336,7 +4336,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "magillitis"
 	specific_heat = 20
 	name = "magillitis"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4346,7 +4346,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "growthserum"
 	specific_heat = 20
 	name = "growthserum"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4356,7 +4356,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "plastic_polymers"
 	specific_heat = 20
 	name = "plastic_polymers"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4366,7 +4366,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "glitter"
 	specific_heat = 20
 	name = "glitter"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4376,7 +4376,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "pink"
 	specific_heat = 20
 	name = "pink"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4386,7 +4386,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "pax"
 	specific_heat = 20
 	name = "pax"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4396,7 +4396,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bz_metabolites"
 	specific_heat = 20
 	name = "bz_metabolites"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4406,7 +4406,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "concentrated_bz"
 	specific_heat = 20
 	name = "concentrated_bz"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4416,7 +4416,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fake_cbz"
 	specific_heat = 20
 	name = "fake_cbz"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4426,7 +4426,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "peaceborg"
 	specific_heat = 20
 	name = "peaceborg"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4436,7 +4436,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "confuse"
 	specific_heat = 20
 	name = "confuse"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4446,7 +4446,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "inabizine"
 	specific_heat = 20
 	name = "inabizine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4456,7 +4456,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "tire"
 	specific_heat = 20
 	name = "tire"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4466,7 +4466,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "tranquility"
 	specific_heat = 20
 	name = "tranquility"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4476,7 +4476,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "liquidadamantine"
 	specific_heat = 20
 	name = "liquidadamantine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4486,7 +4486,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "spider_extract"
 	specific_heat = 20
 	name = "spider_extract"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4496,7 +4496,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ratlight"
 	specific_heat = 20
 	name = "ratlight"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4506,7 +4506,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "invisium"
 	specific_heat = 20
 	name = "invisium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4516,7 +4516,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "thermite"
 	specific_heat = 20
 	name = "thermite"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4526,7 +4526,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "nitroglycerin"
 	specific_heat = 20
 	name = "nitroglycerin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4536,7 +4536,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "stabilizing_agent"
 	specific_heat = 20
 	name = "stabilizing_agent"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4546,7 +4546,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "clf3"
 	specific_heat = 20
 	name = "clf3"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4556,7 +4556,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sorium"
 	specific_heat = 20
 	name = "sorium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4566,7 +4566,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "liquid_dark_matter"
 	specific_heat = 20
 	name = "liquid_dark_matter"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4576,7 +4576,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "blackpowder"
 	specific_heat = 20
 	name = "blackpowder"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4586,7 +4586,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "flash_powder"
 	specific_heat = 20
 	name = "flash_powder"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4596,7 +4596,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "smoke_powder"
 	specific_heat = 20
 	name = "smoke_powder"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4606,7 +4606,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sonic_powder"
 	specific_heat = 20
 	name = "sonic_powder"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4616,7 +4616,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "phlogiston"
 	specific_heat = 20
 	name = "phlogiston"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4626,7 +4626,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "napalm"
 	specific_heat = 20
 	name = "napalm"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4636,7 +4636,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cryostylane"
 	specific_heat = 20
 	name = "cryostylane"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4646,7 +4646,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "pyrosium"
 	specific_heat = 20
 	name = "pyrosium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4656,7 +4656,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "teslium"
 	specific_heat = 20
 	name = "teslium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4666,7 +4666,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "energized_jelly"
 	specific_heat = 20
 	name = "energized_jelly"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4676,7 +4676,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "firefighting_foam"
 	specific_heat = 20
 	name = "firefighting_foam"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4686,7 +4686,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "toxin"
 	specific_heat = 20
 	name = "toxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4696,7 +4696,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "amatoxin"
 	specific_heat = 20
 	name = "amatoxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4706,7 +4706,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mutagen"
 	specific_heat = 20
 	name = "mutagen"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4716,7 +4716,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "lexorin"
 	specific_heat = 20
 	name = "lexorin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4726,7 +4726,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "slimejelly"
 	specific_heat = 20
 	name = "slimejelly"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4736,7 +4736,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "minttoxin"
 	specific_heat = 20
 	name = "minttoxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4746,7 +4746,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "carpotoxin"
 	specific_heat = 20
 	name = "carpotoxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4756,7 +4756,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "zombiepowder"
 	specific_heat = 20
 	name = "zombiepowder"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4766,7 +4766,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "ghoulpowder"
 	specific_heat = 20
 	name = "ghoulpowder"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4776,7 +4776,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mindbreaker"
 	specific_heat = 20
 	name = "mindbreaker"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4786,7 +4786,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "plantbgone"
 	specific_heat = 20
 	name = "plantbgone"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4796,7 +4796,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "weedkiller"
 	specific_heat = 20
 	name = "weedkiller"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4806,7 +4806,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "pestkiller"
 	specific_heat = 20
 	name = "pestkiller"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4816,7 +4816,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "spore"
 	specific_heat = 20
 	name = "spore"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4826,7 +4826,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "spore_burning"
 	specific_heat = 20
 	name = "spore_burning"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4836,7 +4836,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "chloralhydrate"
 	specific_heat = 20
 	name = "chloralhydrate"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4846,7 +4846,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fakebeer"
 	specific_heat = 20
 	name = "fakebeer"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4856,7 +4856,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "coffeepowder"
 	specific_heat = 20
 	name = "coffeepowder"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4866,7 +4866,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "teapowder"
 	specific_heat = 20
 	name = "teapowder"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4876,7 +4876,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mutetoxin"
 	specific_heat = 20
 	name = "mutetoxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4886,7 +4886,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "staminatoxin"
 	specific_heat = 20
 	name = "staminatoxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4896,7 +4896,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "polonium"
 	specific_heat = 20
 	name = "polonium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4906,7 +4906,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "histamine"
 	specific_heat = 20
 	name = "histamine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4916,7 +4916,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "formaldehyde"
 	specific_heat = 20
 	name = "formaldehyde"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4926,7 +4926,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "venom"
 	specific_heat = 20
 	name = "venom"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4936,7 +4936,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fentanyl"
 	specific_heat = 20
 	name = "fentanyl"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4946,7 +4946,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "cyanide"
 	specific_heat = 20
 	name = "cyanide"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4956,7 +4956,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bad_food"
 	specific_heat = 20
 	name = "bad_food"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4966,7 +4966,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "itching_powder"
 	specific_heat = 20
 	name = "itching_powder"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4976,7 +4976,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "initropidril"
 	specific_heat = 20
 	name = "initropidril"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4986,7 +4986,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "pancuronium"
 	specific_heat = 20
 	name = "pancuronium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -4996,7 +4996,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sodium_thiopental"
 	specific_heat = 20
 	name = "sodium_thiopental"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5006,7 +5006,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "sulfonal"
 	specific_heat = 20
 	name = "sulfonal"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5016,7 +5016,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "amanitin"
 	specific_heat = 20
 	name = "amanitin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5026,7 +5026,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "lipolicide"
 	specific_heat = 20
 	name = "lipolicide"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5036,7 +5036,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "coniine"
 	specific_heat = 20
 	name = "coniine"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5046,7 +5046,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "spewium"
 	specific_heat = 20
 	name = "spewium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5056,7 +5056,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "curare"
 	specific_heat = 20
 	name = "curare"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5066,7 +5066,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "heparin"
 	specific_heat = 20
 	name = "heparin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5076,7 +5076,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "rotatium"
 	specific_heat = 20
 	name = "rotatium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5086,7 +5086,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "skewium"
 	specific_heat = 20
 	name = "skewium"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5096,7 +5096,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "anacea"
 	specific_heat = 20
 	name = "anacea"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5106,7 +5106,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "acid"
 	specific_heat = 20
 	name = "acid"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5116,7 +5116,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "fluacid"
 	specific_heat = 20
 	name = "fluacid"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5126,7 +5126,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "delayed"
 	specific_heat = 20
 	name = "delayed"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5136,7 +5136,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "mimesbane"
 	specific_heat = 20
 	name = "mimesbane"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5146,7 +5146,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bonehurtingjuice"
 	specific_heat = 20
 	name = "bonehurtingjuice"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
@@ -5156,7 +5156,7 @@ GLOBAL_LIST_INIT(standard_gasses, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	id = "bungotoxin"
 	specific_heat = 20
 	name = "bungotoxin"
-	gas_overlay = "plasma_old"
+	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE * 60
 	rarity = 250
 	chemgas = 1
