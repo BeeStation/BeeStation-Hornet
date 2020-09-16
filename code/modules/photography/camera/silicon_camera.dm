@@ -26,7 +26,7 @@
 	var/list/nametemp = list()
 	var/find
 	if(!stored.len)
-		to_chat(usr, "<span class='boldannounce'>No images saved</span>")
+		to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
 		return
 	var/list/temp = list()
 	for(var/i in stored)

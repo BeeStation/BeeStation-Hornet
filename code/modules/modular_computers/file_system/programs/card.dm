@@ -211,7 +211,7 @@
 							job = J
 							break
 					if(!job)
-						to_chat(user, "<span class='warning'>No class exists for this job: [target]</span>")
+						to_chat(user, "<span class='warning'>No class exists for this job: [target].</span>")
 						return
 					new_access = job.get_access()
 				id_card.access -= get_all_centcom_access() + get_all_accesses()
