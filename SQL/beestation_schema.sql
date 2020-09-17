@@ -230,29 +230,6 @@ CREATE TABLE IF NOT EXISTS `SS13_library` (
 
 
 
--- Dumping structure for table ss13tgdb.SS13_mentor
-DROP TABLE IF EXISTS `SS13_mentor`;
-CREATE TABLE IF NOT EXISTS `SS13_mentor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ckey` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4;
-
-
-
--- Dumping structure for table ss13tgdb.SS13_mentor_memo
-DROP TABLE IF EXISTS `SS13_mentor_memo`;
-CREATE TABLE IF NOT EXISTS `SS13_mentor_memo` (
-  `ckey` varchar(32) NOT NULL,
-  `memotext` text NOT NULL,
-  `timestamp` datetime NOT NULL,
-  `last_editor` varchar(32) DEFAULT NULL,
-  `edits` text,
-  PRIMARY KEY (`ckey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
-
-
 -- Dumping structure for table ss13tgdb.SS13_messages
 DROP TABLE IF EXISTS `SS13_messages`;
 CREATE TABLE IF NOT EXISTS `SS13_messages` (
@@ -481,7 +458,7 @@ CREATE TABLE IF NOT EXISTS `SS13_schema_revision` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`major`,`minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 7);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 8);
 
 
 
