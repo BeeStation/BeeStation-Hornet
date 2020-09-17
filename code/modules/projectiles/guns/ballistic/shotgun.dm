@@ -44,7 +44,7 @@
 	desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
 	icon_state = "riotshotgun"
 	item_state = "shotgun"
-	fire_delay = 7
+	fire_rate = 0.9
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	sawn_desc = "Come with me if you want to live."
 
@@ -68,7 +68,7 @@
 	desc = "A semi automatic shotgun with tactical furniture and a six-shell capacity underneath."
 	icon_state = "cshotgun"
 	item_state = "shotgun_combat"
-	fire_delay = 5
+	fire_rate = 1.2
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
 
@@ -76,6 +76,7 @@
 	name = "compact combat shotgun"
 	desc = "A compact version of the semi automatic combat shotgun. For close encounters."
 	icon_state = "cshotgunc"
+	fire_rate = 1.2
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com/compact
 	w_class = WEIGHT_CLASS_BULKY
 
@@ -143,7 +144,6 @@
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	can_suppress = FALSE
 	burst_size = 1
-	fire_delay = 0
 	pin = /obj/item/firing_pin/implant/pindicate
 	actions_types = list()
 	mag_display = TRUE
