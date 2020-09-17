@@ -397,6 +397,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 /datum/admin_help/proc/TimeoutVerb()
 	initiator.verbs -= /client/verb/adminhelp
+	initiator.verbs -= /client/verb/mentorhelp
 	initiator.adminhelptimerid = addtimer(CALLBACK(initiator, /client/proc/giveadminhelpverb), 1200, TIMER_STOPPABLE)
 
 //private
@@ -897,6 +898,7 @@ datum/admin_help/proc/Reclass_internal(newclass = TICKET_ADMIN, key_name = key_n
 	if(!src)
 		return
 	src.verbs |= /client/verb/adminhelp
+	src.verbs |= /client/verb/mentorhelp
 	deltimer(adminhelptimerid)
 	adminhelptimerid = 0
 
