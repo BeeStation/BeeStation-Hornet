@@ -6,13 +6,11 @@
 /obj/item/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
 	damage = 5
-	stamina = 50
-	armour_penetration = -10
+	stamina = 55
 
 /obj/item/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
 	damage = 20
-	armour_penetration = -10
 
 /obj/item/projectile/bullet/sleepy
 	name = "soporific slug"
@@ -68,19 +66,18 @@
 	return BULLET_ACT_HIT
 
 /obj/item/projectile/bullet/pellet
-	var/tile_dropoff = 0.9
-	var/tile_dropoff_s = 0.65
+	var/tile_dropoff = 0.75
+	var/tile_dropoff_s = 0.5
 
 /obj/item/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
 	damage = 11
-	armour_penetration = -20
+	armour_penetration = -10
 
 /obj/item/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
 	damage = 3
-	stamina = 9.5
-	armour_penetration = -20
+	stamina = 11
 
 /obj/item/projectile/bullet/pellet/shotgun_incapacitate
 	name = "incapacitating pellet"
@@ -97,9 +94,8 @@
 		qdel(src)
 
 /obj/item/projectile/bullet/pellet/shotgun_improvised
-	tile_dropoff = 0.55
-	damage = 4.5
-	armour_penetration = -20
+	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
+	damage = 6
 
 /obj/item/projectile/bullet/pellet/shotgun_improvised/Initialize()
 	. = ..()
