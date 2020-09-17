@@ -24,7 +24,7 @@
 	say(message, language) //only living mobs actually whisper, everything else just talks
 
 ///The me emote verb
-/mob/verb/me_verb(message as text)
+/mob/verb/me_verb(message as message)
 	set name = "Me"
 	set category = "IC"
 
