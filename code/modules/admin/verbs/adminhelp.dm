@@ -331,7 +331,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 //call this on its own to create a ticket, don't manually assign current_ticket
 //msg is the title of the ticket: usually the ahelp text
 //is_bwoink is TRUE if this ticket was started by an admin PM
-/datum/admin_help/New(msg, client/C, is_bwoink)
+/datum/admin_help/New(msg, client/C, is_bwoink, start_class=TICKET_ADMIN)
 	//Clean the input message
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg || !C || !C.mob)
@@ -342,7 +342,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	opened_at = world.time
 
 	name = msg
-
+	class = start_class
 	initiator = C
 	initiator_ckey = initiator.ckey
 	initiator_key_name = key_name(initiator, FALSE, TRUE)
