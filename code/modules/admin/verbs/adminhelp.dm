@@ -97,7 +97,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	if(!admin_datum)
 		message_admins("[C.ckey] attempted to browse tickets, but had no admin datum")
 		return
-	if(!admin_datum.check_for_rights(R_ADMIN, FALSE) || !admin_datum.check_for_rights(R_MENTOR, FALSE))
+	if(!admin_datum.check_for_rights(R_ADMIN, FALSE) && !admin_datum.check_for_rights(R_MENTOR, FALSE))
 		to_chat(C, "<span class='boldwarning'>You do not have access to any tickets.</span>")
 		return
 	if(!admin_datum.admin_interface)
@@ -145,7 +145,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/datum/admin_help/ticket = GLOB.ahelp_tickets.TicketByID(ticket_id)
 	//Doing action on a ticket claims it
 	var/claim_ticket = CLAIM_DONTCLAIM
-	to_chat(world, "TBUIACT: [action]")
 	switch(action)
 		if("claim")
 			if(ticket.claimed_admin)
@@ -363,7 +362,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		AddInteraction("blue", name, usr.ckey, initiator_key_name)
 		message_admins("<font color='blue'>Ticket [TicketHref("#[id]")] created</font>")
 		Claim()	//Auto claim bwoinks
-	else
+	else if(start_class == TICKET_ADMIN)//We don't give a shit about your mentorhelps.
 		MessageNoRecipient(msg)
 
 		//send it to irc if nobody is on and tell us how many were on
@@ -503,7 +502,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		return
 	//Doing action on a ticket claims it
 	var/claim_ticket = CLAIM_DONTCLAIM
-	to_chat(world, "AHUIACT: [action]")
 	switch(action)
 		if("sendpm")
 			usr.client.cmd_ahelp_reply_instant(initiator, params["text"])
@@ -577,7 +575,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 	if(reclassed)
 		notifysound = 'sound/effects/yeet.ogg'		//yeeting the ticket around
-		to_chat(world, "RC_YEET USR: [usr.name]")
 		if(usr)
 			SEND_SOUND(usr, sound(notifysound))
 	else if(class == TICKET_MENTOR)
@@ -606,7 +603,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	//show it to the person adminhelping too
 	//Unless we've reclassed the ticket.
 	if(!reclassed)
-		to_chat(initiator, "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>")
+		to_chat(initiator, "<span class='adminnotice'>PM to-<b>Staff</b>: <span class='linkify'>[msg]</span></span>")
 
 //Reopen a closed ticket
 /datum/admin_help/proc/Reopen()
@@ -717,7 +714,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 //Close and return ahelp verb, use if ticket is incoherent
 /datum/admin_help/proc/Reject(key_name = key_name_admin(usr))
-	if(state > AHELP_ACTIVE)
+	if(state > AHELP_ACTIVE && class == TICKET_ADMIN)
 		return
 
 	if(initiator)
@@ -741,7 +738,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 //Resolve ticket with IC Issue message
 /datum/admin_help/proc/ICIssue(key_name = key_name_admin(usr))
-	if(state > AHELP_ACTIVE)
+	if(state > AHELP_ACTIVE && class == TICKET_ADMIN)
 		return
 
 	var/msg = "<font color='red' size='4'><b>- AdminHelp marked as IC issue! -</b></font><br>"
@@ -924,7 +921,7 @@ datum/admin_help/proc/Reclass_internal(newclass = TICKET_ADMIN, key_name = key_n
 
 	//handle muting and automuting
 	if(prefs.muted & MUTE_ADMINHELP)
-		to_chat(src, "<span class='danger'>Error: Admin-PM: You cannot send adminhelps (Muted).</span>")
+		to_chat(src, "<span class='danger'>Error: Staff-PM: You cannot send adminhelps or mentorhelps (Muted).</span>")
 		return
 	if(handle_spam_prevention(msg,MUTE_ADMINHELP))
 		return
