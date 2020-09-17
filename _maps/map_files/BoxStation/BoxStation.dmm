@@ -2882,6 +2882,22 @@
 	dir = 8;
 	pixel_x = 24
 	},
+/obj/item/clothing/glasses/sunglasses/advanced{
+	pixel_x = 5;
+	pixel_y = 10
+	},
+/obj/item/clothing/glasses/sunglasses/advanced{
+	pixel_x = 5;
+	pixel_y = 10
+	},
+/obj/item/clothing/ears/earmuffs{
+	pixel_x = -3;
+	pixel_y = -5
+	},
+/obj/item/clothing/ears/earmuffs{
+	pixel_x = -3;
+	pixel_y = -5
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "agv" = (
@@ -5848,23 +5864,8 @@
 /turf/open/floor/plasteel,
 /area/security/processing)
 "amN" = (
-/obj/structure/table,
-/obj/item/clothing/glasses/sunglasses/advanced{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/clothing/glasses/sunglasses/advanced{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/clothing/ears/earmuffs{
-	pixel_x = -3;
-	pixel_y = -2
-	},
-/obj/item/clothing/ears/earmuffs{
-	pixel_x = -3;
-	pixel_y = -2
-	},
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/obj/structure/bed/dogbed/walter,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "amQ" = (
