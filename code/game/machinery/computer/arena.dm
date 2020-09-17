@@ -358,7 +358,7 @@
 	dat += "Current arena: [current_arena_template]"
 	dat += "<h2>Arena List:</h2>"
 	for(var/A in arena_templates)
-		dat += "<a href='?src=[REF(src)];change_arena=[url_encode(A)]'>[A]</a><br>"
+		dat += "<a href='?src=[REF(src)];change_arena=[rustg_url_encode(A)]'>[A]</a><br>"
 	dat += "<hr>"
 	dat += "<a href='?src=[REF(src)];upload=1'>Upload new arena</a><br>"
 	dat += "<hr>"

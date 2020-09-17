@@ -1,4 +1,5 @@
-//#define LOWMEMORYMODE //uncomment this to load centcom and runtime station and thats it.
+#define LOWMEMORYMODE //uncomment this to load centcom and runtime station and thats it.
+#warn !!LOWMEM ENABLED!!
 
 #include "map_files\generic\CentCom.dmm"
 

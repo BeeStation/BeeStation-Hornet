@@ -1,3 +1,7 @@
 {
 	"dreammaker.extoolsDLL": "byond-extools.dll",
+	"eslint.packageManager": "yarn",
+	"eslint.workingDirectories": [
+		"tgui"
+	],
 }
