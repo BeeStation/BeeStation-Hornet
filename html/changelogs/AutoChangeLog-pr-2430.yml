@@ -1,0 +1,4 @@
+author: BeloneX
+delete-after: true
+changes:
+  - tweak: All projectiles now move 1.25 times as fast.
