@@ -216,7 +216,7 @@ GLOBAL_VAR(clockcult_eminence)
 			var/role = sender.mind?.assigned_role
 			//Ew, this could be done better with a dictionary list, but this isn't much slower
 			if(role in GLOB.command_positions)
-				prefix = "High priest"
+				prefix = "High Priest"
 			else if(role in GLOB.engineering_positions)
 				prefix = "Cogturner"
 			else if(role in GLOB.medical_positions)
