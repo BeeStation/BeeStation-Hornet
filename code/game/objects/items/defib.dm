@@ -22,7 +22,7 @@
 	var/obj/item/twohanded/shockpaddles/paddles
 	var/obj/item/stock_parts/cell/high/cell
 	var/combat = FALSE //if true, revive through hardsuits, allow for combat shocking, and tint paddles syndicate colors
-	var/grab_ghost = FALSE // Do we pull the ghost back into their body?
+	var/grab_ghost = TRUE // Do we pull the ghost back into their body?
 	var/cooldown_duration = 5 SECONDS//how long does it take to recharge
 
 /obj/item/defibrillator/get_cell()
@@ -308,7 +308,7 @@
 	var/obj/item/defibrillator/defib
 	var/req_defib = TRUE
 	var/combat = FALSE //If it penetrates armor and gives additional functionality
-	var/grab_ghost = FALSE
+	var/grab_ghost = TRUE
 	var/tlimit = DEFIB_TIME_LIMIT * 10
 
 	var/mob/listeningTo
