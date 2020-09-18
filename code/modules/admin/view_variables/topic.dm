@@ -142,6 +142,7 @@
 
 	switch(action)
 		if("refresh")
+			refresh_vars(C)
 			return TRUE
 
 		if("view")
