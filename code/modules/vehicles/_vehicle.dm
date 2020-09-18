@@ -24,6 +24,13 @@
 	var/obj/vehicle/trailer
 	var/are_legs_exposed = FALSE
 
+/obj/vehicle/CanPass(atom/movable/mover, turf/target)
+	if(istype(mover, /obj/item)) //thrown objects and projectiles bypass vehicles
+		return 1
+	if(HAS_TRAIT(mover, TRAIT_PASSTABLE)) 
+		return 1
+	return ..()
+
 /obj/vehicle/Initialize(mapload)
 	. = ..()
 	occupants = list()
