@@ -13,7 +13,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	layer = BELOW_MOB_LAYER
 
 	var/activated = FALSE
-	var/grace_period = 300
+	var/grace_period = 180
 	var/assault_time = 0
 
 	var/list/phase_messages = list()
@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		. += "It will open in [(GLOB.ratvar_arrival_tick - world.time)/10] seconds."
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/process()
-	if(prob(5))
+	if(prob(10))
 		to_chat(world, pick(phase_messages))
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/deconstruct(disassembled = TRUE)
@@ -96,6 +96,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
 		SEND_SOUND(M.current, s)
 		to_chat(M, "<span class='big_brass'>The Ark has been activated, you will be transported soon!</span>")
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/hierophant_message, "Invoke 'Clockwork Armaments' using your Clockwork Slab to get powerful armour and weapons.", "Nezbere", "nezbere", FALSE, FALSE), 10)
 	addtimer(CALLBACK(src, .proc/announce_gateway), 300)
 	addtimer(CALLBACK(src, .proc/recall_sound), 270)
 
@@ -116,7 +117,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	activated = TRUE
 	set_security_level(SEC_LEVEL_DELTA)
 	mass_recall(TRUE)
-	addtimer(CALLBACK(src, .proc/begin_assault), 3000)
+	addtimer(CALLBACK(src, .proc/begin_assault), 180)
 	priority_announce("Massive [Gibberish("bluespace", 100)] anomaly detected on all frequencies. All crew are directed to \
 	@!$, [text2ratvar("PURGE ALL UNTRUTHS")] <&. the anomalies and destroy their source to prevent further damage to corporate property. This is \
 	not a drill.[grace_period ? " Estimated time of appearance: [grace_period] seconds. Use this time to prepare for an attack on [station_name()]." : ""]"\
@@ -134,8 +135,10 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		if(!LAZYLEN(spawns))	//Just in case :^)
 			spawns = GLOB.servant_spawns.Copy()
 		if(ishuman(servant) && add_overlay)
-			var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
-			servant.add_overlay(forbearance)
+			var/datum/antagonist/servant_of_ratvar/servant_antag = is_servant_of_ratvar(servant)
+			if(servant_antag)
+				servant_antag.forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+				servant.add_overlay(servant_antag.forbearance)
 	for(var/mob/M in GLOB.player_list)
 		SEND_SOUND(M, 'sound/magic/clockwork/invoke_general.ogg')
 

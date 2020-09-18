@@ -82,6 +82,7 @@ GLOBAL_VAR(clockcult_eminence)
 		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
+		S.prefix = CLOCKCULT_MASTER
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return ..()
@@ -202,7 +203,41 @@ GLOBAL_VAR(clockcult_eminence)
 		if(say)
 			sender.say("#[text2ratvar(msg)]")
 		msg = sender.treat_message(msg)
-		hierophant_message += "<b>[sender.name]</b> transmits, \"[msg]\""
+		var/datum/antagonist/servant_of_ratvar/SoR = is_servant_of_ratvar(sender)
+		var/prefix = "Clockbrother"
+		if(SoR.prefix)
+			prefix = sender.gender == MALE\
+				? "Clockfather"\
+				: sender.gender == FEMALE\
+					? "Clockmother"\
+					: "Clockmaster"
+			hierophant_message = "<span class='heavy_brass'>"
+		else
+			var/role = sender.mind?.assigned_role
+			//Ew, this could be done better with a dictionary list, but this isn't much slower
+			if(role in GLOB.command_positions)
+				prefix = "High priest"
+			else if(role in GLOB.engineering_positions)
+				prefix = "Cogturner"
+			else if(role in GLOB.medical_positions)
+				prefix = "Rejuvinator"
+			else if(role in GLOB.science_positions)
+				prefix = "Calculator"
+			else if(role in GLOB.supply_positions)
+				prefix = "Pathfinder"
+			else if(role in "Assistant")
+				prefix = "Helper"
+			else if(role in "Mime")
+				prefix = "Cogwatcher"
+			else if(role in "Clown")
+				prefix = "Clonker"
+			else if(role in GLOB.civilian_positions)
+				prefix = "Cogworker"
+			else if(role in GLOB.security_positions)
+				prefix = "Warrior"
+			else if(role in GLOB.nonhuman_positions)
+				prefix = "CPU"
+		hierophant_message += "<b>[prefix] [sender.name]</b> transmits, \"[msg]\""
 	else
 		hierophant_message += msg
 	if(span)

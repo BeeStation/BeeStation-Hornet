@@ -13,7 +13,11 @@
 	var/datum/action/innate/clockcult/transmit/transmit_spell
 	var/datum/team/clock_cult/team
 
+	var/prefix = CLOCKCULT_RECRUIT
+
 	var/counts_towards_total = TRUE//Counts towards the total number of servants.
+
+	var/mutable_appearance/forbearance
 
 /datum/antagonist/servant_of_ratvar/greet()
 	if(!owner.current)
@@ -56,12 +60,20 @@
 	transmit_spell.Grant(owner.current)
 	owner.current.throw_alert("clockinfo", /obj/screen/alert/clockwork/clocksense)
 	SSticker.mode.update_clockcult_icons_added(owner)
+	if(GLOB.gateway_opening && ishuman(owner.current))
+		var/mob/living/carbon/owner_mob = owner.current
+		forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+		owner_mob.add_overlay(forbearance)
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
 	owner.current.faction -= "ratvar"
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
 	SSticker.mode.update_clockcult_icons_removed(owner)
+	if(forbearance && ishuman(owner.current))
+		var/mob/living/carbon/owner_mob = owner.current
+		owner_mob.remove_overlay(forbearance)
+		qdel(forbearance)
 	. = ..()
 
 /datum/antagonist/servant_of_ratvar/proc/equip_servant_conversion()

@@ -25,3 +25,7 @@
 /datum/outfit/clockcult/armaments/sword
 	name = "Servant of Ratvar - Armaments (sword)"
 	suit_store = /obj/item/twohanded/clockwork/brass_sword
+
+/datum/outfit/clockcult/armaments/bow
+	name = "Servant of Ratvar - Armaments (sword)"
+	suit_store = /obj/item/gun/ballistic/bow/clockwork

@@ -3,7 +3,7 @@
 	desc = "A strong, brass suit worn by the soldiers of the Ratvarian armies."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass"
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 20, "energy" = 40, "bomb" = 40, "bio" = 70, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 50, "bullet" = 60, "laser" = 40, "energy" = 80, "bomb" = 40, "bio" = 70, "rad" = 100, "fire" = 100, "acid" = 100)
 	slowdown = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
@@ -33,14 +33,14 @@
 	icon_state = "clockwork_cuirass_speed"
 	slowdown = -0.3
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = -10, "bullet" = 10, "laser" = 25, "energy" = -20, "bomb" = 0, "bio" = 70, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 20, "bullet" = 30, "laser" = 20, "energy" = -20, "bomb" = 0, "bio" = 70, "rad" = 100, "fire" = 100, "acid" = 100)
 
 /obj/item/clothing/suit/clockwork/cloak
 	name = "shrouding cloak"
 	desc = "A faltering cloak that bends light around it, distorting the user's appearance, making it hard to see them with the naked eye. However, it provides very little protection."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cloak"
-	armor = list("melee" = 15, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	slowdown = 0.4
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/shroud_active = FALSE

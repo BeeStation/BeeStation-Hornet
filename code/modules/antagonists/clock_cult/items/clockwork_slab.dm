@@ -35,7 +35,8 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	//The default scriptures that get auto-assigned.
 	var/list/default_scriptures = list(
 		/datum/clockcult/scripture/abscond,
-		/datum/clockcult/scripture/integration_cog
+		/datum/clockcult/scripture/integration_cog,
+		/datum/clockcult/scripture/clockwork_armaments
 	)
 
 	//For trap linkage

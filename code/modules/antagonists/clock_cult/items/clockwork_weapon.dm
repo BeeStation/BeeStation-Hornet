@@ -37,9 +37,6 @@
 		. += clockwork_hint
 
 /obj/item/twohanded/clockwork/attack(mob/living/target, mob/living/user)
-	if(!is_servant_of_ratvar(user))
-		to_chat(user, "<span class='large_brass'>You really thought you could get away with that?</span>")
-		return ..(user, user)
 	. = ..()
 	if(!is_reebe(user.z))
 		return
@@ -65,7 +62,7 @@
 	icon_state = "ratvarian_spear"
 	embedding = list("embedded_impact_pain_multiplier" = 3)
 	force_wielded = 24
-	throwforce = 28
+	throwforce = 36
 	armour_penetration = 24
 	clockwork_hint = "Throwing the spear will deal bonus damage while on Reebe."
 
@@ -105,3 +102,41 @@
 
 /obj/item/twohanded/clockwork/brass_sword/proc/send_message(mob/living/target)
 	to_chat(target, "<span class='brass'>[src] glows, indicating the next attack will disrupt electronics of the target.</span>")
+
+/obj/item/gun/ballistic/bow/clockwork
+	name = "Brass Bow"
+	desc = "A bow made from brass and other components that you can't quite understand. It glows with a deep energy and frabricates arrows by itself."
+	icon_state = "bow_clockwork"
+	item_state = "bow_clockwork"
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockcult
+	var/recharge_tick = 0
+	var/recharge_time = 20
+
+/obj/item/gun/ballistic/bow/clockwork/get_ammo(countchambered)
+	return recharge_tick < world.time
+
+/obj/item/gun/ballistic/bow/clockwork/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
+	. = ..()
+	recharge_tick = world.time + recharge_time
+	to_chat(user, "<span class='warning'>[src] begins reforming an energy bolt.</span>")
+
+/obj/item/ammo_casing/caseless/arrow/clockbolt
+	name = "energy bolt"
+	desc = "An arrow made from a strange energy."
+	icon_state = "arrow_redlight"
+	projectile_type = /obj/item/projectile/energy/clockbolt
+
+/obj/item/projectile/energy/clockbolt //ebow bolts
+	name = "energy bolt"
+	icon_state = "arrow_energy"
+	damage = 24
+	damage_type = BURN
+	nodamage = FALSE
+	stamina = 30
+	eyeblur = 10
+	dismemberment = 5
+
+/obj/item/ammo_box/magazine/internal/bow/clockcult
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/clockbolt
+

@@ -28,3 +28,4 @@
 	desc = "An arrow made from wood. tipped with bronze."
 	icon_state = "bronzearrow"
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow/bronze
+
