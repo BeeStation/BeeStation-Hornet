@@ -153,4 +153,3 @@
 	damage = 38
 	damage_type = BURN
 	nodamage = FALSE
-	dismemberment = 5
