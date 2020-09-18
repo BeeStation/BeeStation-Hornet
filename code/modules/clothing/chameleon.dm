@@ -358,7 +358,7 @@
 	desc = "Protects the eyes from welders; approved by the mad scientist association."
 	icon_state = "welding-g"
 	item_state = "welding-g"
-	flash_protect = 2
+	flash_protect = 3
 
 /obj/item/clothing/gloves/chameleon
 	desc = "These gloves will protect the wearer from electric shock."
@@ -636,7 +636,7 @@
 	name = "bowman headset"
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
-	bang_protect = 1
+	bang_protect = 3
 
 /obj/item/pda/chameleon
 	name = "PDA"
