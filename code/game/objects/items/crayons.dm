@@ -683,6 +683,8 @@
 					target.set_opacity(initial(target.opacity))
 
 		. = use_charges(user, 2)
+		if(!.)
+			return FALSE
 		var/fraction = min(1, . / reagents.maximum_volume)
 		reagents.reaction(target, TOUCH, fraction * volume_multiplier)
 		reagents.trans_to(target, ., volume_multiplier, transfered_by = user)
