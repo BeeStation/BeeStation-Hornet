@@ -19,6 +19,8 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	var/list/phase_messages = list()
 	var/recalled = FALSE
 
+	var/destroyed = FALSE
+
 /obj/structure/destructible/clockwork/massive/celestial_gateway/Initialize()
 	. = ..()
 	GLOB.celestial_gateway = src
@@ -26,9 +28,8 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 /obj/structure/destructible/clockwork/massive/celestial_gateway/Destroy()
 	if(GLOB.ratvar_risen)
 		return
+	destroyed = TRUE
 	hierophant_message("The Ark has been destroyed, Reebe is becomming unstable!", null, "<span class='large_brass'>")
-	if(GLOB.ratvar_risen)
-		return
 	for(var/mob/living/M in GLOB.mob_list)
 		if(!is_reebe(M.z))
 			continue
@@ -180,6 +181,8 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/ratvar_approaches()
+	if(destroyed)
+		return
 	STOP_PROCESSING(SSobj, src)
 	hierophant_message("Ratvar approaches, you shall be eternally rewarded for your servitude!", null, "<span class='large_brass'>")
 	resistance_flags |= INDESTRUCTIBLE
