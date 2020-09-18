@@ -46,7 +46,7 @@
 	return data
 
 /datum/vv_panel/ui_static_data(mob/user)
-	if(!staticdata["vars"].len)
+	if(!length(staticdata["vars"]))
 		staticdata["vars"] = get_vars(user.client)
 	staticdata["objectinfo"] = list(
 		"name"  = islist ? "/list" : D,
