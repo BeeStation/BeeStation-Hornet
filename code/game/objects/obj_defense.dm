@@ -185,7 +185,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/acid_processing()
 	. = 1
 	if(!(resistance_flags & ACID_PROOF))
-		for(var/armour_value in armor)
+		for(var/armour_value in armor.getList())
 			if(armour_value != "acid" && armour_value != "fire")
 				armor = armor.modifyAllRatings(0 - round(sqrt(acid_level)*0.1))
 		if(prob(33))
