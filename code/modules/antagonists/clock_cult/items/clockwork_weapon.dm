@@ -110,16 +110,37 @@
 	item_state = "bow_clockwork"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockcult
-	var/recharge_tick = 0
-	var/recharge_time = 20
-
-/obj/item/gun/ballistic/bow/clockwork/get_ammo(countchambered)
-	return recharge_tick < world.time
+	var/recharge_time = 15
 
 /obj/item/gun/ballistic/bow/clockwork/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
 	. = ..()
-	recharge_tick = world.time + recharge_time
-	to_chat(user, "<span class='warning'>[src] begins reforming an energy bolt.</span>")
+	addtimer(CALLBACK(src, .proc/recharge_bolt), recharge_time)
+
+/obj/item/gun/ballistic/bow/clockwork/attack_self(mob/living/user)
+	if (chambered)
+		chambered = null
+		to_chat(user, "<span class='notice'>You dispell the arrow.</span>")
+	else if (get_ammo())
+		var/obj/item/I = user.get_active_held_item()
+		if (do_mob(user,I,10))
+			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
+			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies
+			chamber_round()
+	update_icon()
+
+/obj/item/gun/ballistic/bow/clockwork/proc/recharge_bolt()
+	if(magazine.get_round(TRUE))
+		return
+	var/obj/item/ammo_casing/caseless/arrow/clockbolt/CB = new
+	magazine.give_round(CB)
+	update_icon()
+
+/obj/item/gun/ballistic/bow/clockbolt/attackby(obj/item/I, mob/user, params)
+	return
+
+/obj/item/ammo_box/magazine/internal/bow/clockcult
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/clockbolt
+	start_empty = FALSE
 
 /obj/item/ammo_casing/caseless/arrow/clockbolt
 	name = "energy bolt"
@@ -127,16 +148,12 @@
 	icon_state = "arrow_redlight"
 	projectile_type = /obj/item/projectile/energy/clockbolt
 
-/obj/item/projectile/energy/clockbolt //ebow bolts
+/obj/item/projectile/energy/clockbolt
 	name = "energy bolt"
 	icon_state = "arrow_energy"
-	damage = 24
+	damage = 45
 	damage_type = BURN
 	nodamage = FALSE
-	stamina = 30
+	stamina = 50
 	eyeblur = 10
 	dismemberment = 5
-
-/obj/item/ammo_box/magazine/internal/bow/clockcult
-	ammo_type = /obj/item/ammo_casing/caseless/arrow/clockbolt
-
