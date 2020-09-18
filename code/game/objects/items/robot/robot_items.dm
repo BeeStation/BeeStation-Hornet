@@ -962,7 +962,7 @@
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/reagent_containers/glass/beaker,
 	/obj/item/reagent_containers/glass/bottle,
-	/obj/structure/mopbucket
+	/obj/item/reagent_containers/glass/bucket
 	)
 
 /obj/item/borg/apparatus/beaker/service/examine()
