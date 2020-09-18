@@ -292,3 +292,13 @@
 	underlay_appearance.icon_state = SPACE_ICON_STATE
 	underlay_appearance.plane = PLANE_SPACE
 	return TRUE
+
+/turf/open/floor/eighties
+	name = "aesthetic 80s carpet"
+	desc = "Staylish 80s arcade carpet, smells like pizza and dropped soda.."
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "eighties"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
