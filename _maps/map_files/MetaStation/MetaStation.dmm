@@ -3744,6 +3744,7 @@
 /obj/item/storage/fancy/donut_box,
 /obj/item/gun/energy/e_gun/dragnet,
 /obj/item/gun/energy/e_gun/dragnet,
+/obj/effect/nettingportal,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
