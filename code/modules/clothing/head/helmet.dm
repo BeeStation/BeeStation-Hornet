@@ -15,6 +15,7 @@
 	flags_inv = HIDEHAIR
 	bang_protect = 1
 
+
 	dog_fashion = /datum/dog_fashion/head/helmet
 
 	var/can_flashlight = FALSE //if a flashlight can be mounted. if it has a flashlight and this is false, it is permanently attached.
@@ -49,6 +50,7 @@
 
 /obj/item/clothing/head/helmet/sec
 	can_flashlight = TRUE
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/head/helmet/sec/attackby(obj/item/I, mob/user, params)
 	if(issignaler(I))
@@ -74,11 +76,13 @@
 	armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 15, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	can_flashlight = TRUE
 	dog_fashion = null
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/head/helmet/old
 	name = "degrading helmet"
 	desc = "Standard issue security helmet. Due to degradation the helmet's visor obstructs the users ability to see long distances."
 	tint = 2
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/head/helmet/blueshirt
 	name = "blue helmet"
@@ -104,6 +108,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
 	dog_fashion = null
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/head/helmet/attack_self(mob/user)
 	if(can_toggle && !user.incapacitated())
@@ -158,6 +163,7 @@
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	strip_delay = 80
 	dog_fashion = null
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/head/helmet/police
 	name = "police officer's hat"
@@ -184,6 +190,7 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
 	dog_fashion = null
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/head/helmet/roman
 	name = "\improper Roman helmet"
@@ -229,6 +236,7 @@
 	armor = list("melee" = 15, "bullet" = 10, "laser" = 20,"energy" = 30, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
 	// Offer about the same protection as a hardhat.
 	dog_fashion = null
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/head/helmet/bluetaghelm
 	name = "blue laser tag helmet"
@@ -239,6 +247,7 @@
 	armor = list("melee" = 15, "bullet" = 10, "laser" = 20,"energy" = 30, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
 	// Offer about the same protection as a hardhat.
 	dog_fashion = null
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/head/helmet/knight
 	name = "medieval helmet"
@@ -251,6 +260,7 @@
 	strip_delay = 80
 	dog_fashion = null
 	bang_protect = 1
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/head/helmet/knight/blue
 	icon_state = "knight_blue"
@@ -273,6 +283,7 @@
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"

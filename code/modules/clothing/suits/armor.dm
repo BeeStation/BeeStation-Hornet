@@ -23,6 +23,7 @@
 	item_state = "armoralt"
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/vest/alt
 	desc = "An alternate style Type I-B armored vest that provides decent protection against most types of damage. They perform identically in the field."
@@ -53,6 +54,7 @@
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	strip_delay = 80
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/hos/trenchcoat
 	name = "armored trenchoat"
@@ -123,6 +125,7 @@
 	strip_delay = 80
 	equip_delay_other = 60
 	slowdown = 0.05
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
@@ -132,6 +135,7 @@
 	blood_overlay_type = "armor"
 	armor = list("melee" = 35, "bullet" = 25, "laser" = 25, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "bulletproof armor"
@@ -142,6 +146,7 @@
 	armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	strip_delay = 70
 	equip_delay_other = 50
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "reflector vest"
@@ -152,6 +157,7 @@
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 60, "energy" = 80, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 40
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect(def_zone)
 	if(!(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))) //If not shot where ablative is covering you, you don't get the reflection bonus!
