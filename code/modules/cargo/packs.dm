@@ -542,7 +542,8 @@
 	cost = 1500
 	contains = list(/obj/item/gun/energy/e_gun/dragnet,
 					/obj/item/gun/energy/e_gun/dragnet,
-					/obj/item/gun/energy/e_gun/dragnet)
+					/obj/item/gun/energy/e_gun/dragnet,
+					/obj/item/beacon/nettingportal)
 	crate_name = "\improper DRAGnet crate"
 
 /datum/supply_pack/security/armory/energy_single

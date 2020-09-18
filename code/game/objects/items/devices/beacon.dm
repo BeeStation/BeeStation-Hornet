@@ -8,6 +8,7 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	var/enabled = TRUE
 	var/renamed = FALSE
+	var/nettingportal = FALSE
 
 /obj/item/beacon/Initialize()
 	. = ..()
@@ -42,3 +43,9 @@
 		return
 	else	
 		return ..()
+		
+/obj/item/beacon/nettingportal
+	//dragnet location beacon
+	name = "\improper DRAGnet beacon"
+	desc = "A beacon designated for DRAGnets, where all captured targets will teleport. Also acts as a regular beacon."	
+	nettingportal = TRUE
