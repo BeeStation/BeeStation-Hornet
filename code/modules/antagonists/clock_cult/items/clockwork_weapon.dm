@@ -153,5 +153,4 @@
 	damage = 38
 	damage_type = BURN
 	nodamage = FALSE
-	eyeblur = 10
 	dismemberment = 5
