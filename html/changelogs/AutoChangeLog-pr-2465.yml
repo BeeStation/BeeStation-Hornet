@@ -1,0 +1,4 @@
+author: Moccha-Bee
+delete-after: true
+changes:
+  - rscadd: Renamed bubblegum and blood-drunk gps signals.
