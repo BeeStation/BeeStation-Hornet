@@ -13,7 +13,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	layer = BELOW_MOB_LAYER
 
 	var/activated = FALSE
-	var/grace_period = 180
+	var/grace_period = 1800
 	var/assault_time = 0
 
 	var/list/phase_messages = list()
@@ -117,13 +117,13 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	activated = TRUE
 	set_security_level(SEC_LEVEL_DELTA)
 	mass_recall(TRUE)
-	addtimer(CALLBACK(src, .proc/begin_assault), 180)
+	addtimer(CALLBACK(src, .proc/begin_assault), 1800)
 	priority_announce("Massive [Gibberish("bluespace", 100)] anomaly detected on all frequencies. All crew are directed to \
 	@!$, [text2ratvar("PURGE ALL UNTRUTHS")] <&. the anomalies and destroy their source to prevent further damage to corporate property. This is \
 	not a drill.[grace_period ? " Estimated time of appearance: [grace_period] seconds. Use this time to prepare for an attack on [station_name()]." : ""]"\
 	,"Central Command Higher Dimensional Affairs", 'sound/magic/clockwork/ark_activation.ogg')
 	sound_to_playing_players(volume = 10, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_charging.ogg', TRUE))
-	GLOB.ratvar_arrival_tick = world.time + 9000
+	GLOB.ratvar_arrival_tick = world.time + 6000+1800
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/mass_recall(add_overlay = FALSE)
 	var/list/spawns = GLOB.servant_spawns.Copy()
