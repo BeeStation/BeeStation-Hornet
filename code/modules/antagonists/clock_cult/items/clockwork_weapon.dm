@@ -107,7 +107,6 @@
 	name = "Brass Bow"
 	desc = "A bow made from brass and other components that you can't quite understand. It glows with a deep energy and frabricates arrows by itself."
 	icon_state = "bow_clockwork"
-	item_state = "bow_clockwork"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockcult
 	var/recharge_time = 15
