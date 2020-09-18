@@ -704,9 +704,7 @@
 
 /obj/item/borg/upgrade/crowbar
 	name = "cyborg crowbar module"
-	desc = "A crowbar module that allows the cyborg to \
-		open powered down doors and \
-		deal with pests."
+	desc = "A crowbar module that allows the cyborg to \ open powered down doors and \ deal with pests."
 	icon_state = "cyborg_upgrade3"
 
 /obj/item/borg/upgrade/crowbar/action(mob/living/silicon/robot/R, user = usr)
@@ -731,8 +729,7 @@
 
 /obj/item/borg/upgrade/healthanalyzer
 	name = "cyborg health analyzer module"
-	desc = "Allows the cyborg to analyze / 
-	the health and well being of crewmembers."
+	desc = "Allows the cyborg to analyze / the health and well being of crewmembers."
 	icon_state = "cyborg_upgrade3"
 
 /obj/item/borg/upgrade/healthanalyzer/action(mob/living/silicon/robot/R, user = usr)
