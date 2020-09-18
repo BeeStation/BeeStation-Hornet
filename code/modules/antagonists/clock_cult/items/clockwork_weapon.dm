@@ -150,9 +150,8 @@
 /obj/item/projectile/energy/clockbolt
 	name = "energy bolt"
 	icon_state = "arrow_energy"
-	damage = 45
+	damage = 38
 	damage_type = BURN
 	nodamage = FALSE
-	stamina = 50
 	eyeblur = 10
 	dismemberment = 5
