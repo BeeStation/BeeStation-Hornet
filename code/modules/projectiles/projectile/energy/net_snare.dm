@@ -54,7 +54,7 @@
 	if(!T)
 		return FALSE
 		
-	if(get_turf(src).z != T.z)	//cannot teleport to another Zlevel
+	if (get_turf(src).z != T.z)	//cannot teleport to another Zlevel
 		return FALSE
 	var/area/A = get_area(T)
 	if(!A || A.noteleport)
