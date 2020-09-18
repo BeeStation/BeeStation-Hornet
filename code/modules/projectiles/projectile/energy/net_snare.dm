@@ -37,14 +37,6 @@
 		if(is_eligible(bea) && bea.nettingportal) //is it quick dragnet beacon?
 			teletarget = bea
 
-	// --- THINKING OF REMOVING THIS CODE ENTIRELY
-	if (teletarget==null) //revert to old timer
-		for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
-			if(com.target)
-				if(com.power_station && com.power_station.teleporter_hub && com.power_station.engaged)
-					teletarget = com.target
-	// --- END COMMENT
-
 	addtimer(CALLBACK(src, .proc/pop, teletarget), 30)
 
 /obj/effect/nettingportal/proc/is_eligible(atom/movable/AM)

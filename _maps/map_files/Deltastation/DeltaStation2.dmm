@@ -63605,7 +63605,7 @@
 /obj/structure/table/reinforced,
 /obj/item/gun/energy/e_gun/dragnet,
 /obj/item/gun/energy/e_gun/dragnet,
-/obj/effect/nettingportal,
+/obj/item/beacon/nettingportal,
 /obj/item/gun/grenadelauncher,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
