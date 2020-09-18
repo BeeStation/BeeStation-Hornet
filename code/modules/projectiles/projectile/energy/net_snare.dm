@@ -49,10 +49,12 @@
 
 /obj/effect/nettingportal/proc/is_eligible(atom/movable/AM)
 	//this code has to be ported in so it is not abused
+	
 	var/turf/T = get_turf(AM)
 	if(!T)
 		return FALSE
-	if(is_centcom_level(T.z) || is_away_level(T.z))
+		
+	if(get_turf(src).z != T.z)	//cannot teleport to another Zlevel
 		return FALSE
 	var/area/A = get_area(T)
 	if(!A || A.noteleport)

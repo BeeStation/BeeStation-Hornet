@@ -14,7 +14,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/dragnetbeacon
-	name = "DRAGnet Beacon"
+	name = "DROPnet"
 	desc = "A beacon marking the location where criminals will be teleported via DRAGnet devices."
 	id = "dragnetbeacon"
 	build_type = PROTOLATHE

@@ -46,6 +46,7 @@
 		
 /obj/item/beacon/nettingportal
 	//dragnet location beacon
-	name = "\improper DRAGnet beacon"
-	desc = "A beacon designated for DRAGnets, where all captured targets will teleport. Also acts as a regular beacon."	
+	name = "\improper DROPnet"
+	desc = "A beacon designated for DRAGnets; all captured targets will teleport to it. Also acts as a regular beacon."
 	nettingportal = TRUE
+	enabled = FALSE	//can no longer teleport to Warden's office
