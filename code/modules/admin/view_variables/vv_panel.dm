@@ -40,17 +40,14 @@
 		ui.open()
 
 /datum/vv_panel/ui_data(mob/user)
-	//message_admins("UI data update!")
-
 	data["flags"] = get_flags(user.client)
 	if(!islist) //no snowflakes for lists
 		data["snowflake"] = get_snowflake()
 	return data
 
 /datum/vv_panel/ui_static_data(mob/user)
-	//message_admins("UI static data update!")
-
-	staticdata["vars"] = get_vars(user.client)
+	if(!staticdata["vars"].len)
+		staticdata["vars"] = get_vars(user.client)
 	staticdata["objectinfo"] = list(
 		"name"  = islist ? "/list" : D,
 		"ref"   = REF(D),
@@ -92,7 +89,6 @@
 
 //The part that matters, the VARIABLES!
 /datum/vv_panel/proc/get_vars(client/C)
-	//message_admins("GETTIN' VARS")
 	.= list()
 	var/list/names = list()
 	if(!islist)
@@ -119,16 +115,27 @@
 				item += list("type" = C.vv_get_class(item["name"], item["value"]))
 				.+= list(item)
 
+/datum/vv_panel/proc/refresh_vars(client/C)
+	staticdata["vars"] = get_vars(C)
+
+/datum/vv_panel/proc/update_var(name, client/C)
+	var/newentry = list()
+	if(D.can_vv_get(name))
+		newentry = D.vv_get_var2(name)
+		newentry += list("type" = C.vv_get_class(newentry["name"], newentry["value"]))
+
+	for(var/list/entry in staticdata["vars"])
+		if(entry["name"] == name)
+			entry += newentry //yes, += to overwrite it. I love byond.
+			return TRUE
 
 /datum/vv_panel/ui_close(mob/user)
-	//message_admins("UI CLOSE!")
 	return
 
 /datum/vv_panel/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 
-	//message_admins("UI act! Action: '[action]' | Params: '[english_list(params)]'")
 
 	if(view_var_Topic2(action, params, ui.user.client))
 		update_static_data(ui.user)

@@ -136,6 +136,8 @@
 	if(!target)
 		target = D
 	if(C.vv_do_basic2(target, action, params))
+		if(action in list(VV_HK_BASIC_EDIT, VV_HK_BASIC_CHANGE, VV_HK_BASIC_MASSEDIT))
+			update_var(GET_VV_VAR_TARGET2, C)
 		return TRUE
 
 	switch(action)
