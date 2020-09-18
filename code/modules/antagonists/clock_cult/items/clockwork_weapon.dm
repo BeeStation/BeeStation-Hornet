@@ -122,7 +122,7 @@
 		to_chat(user, "<span class='notice'>You dispell the arrow.</span>")
 	else if (get_ammo())
 		var/obj/item/I = user.get_active_held_item()
-		if (do_mob(user,I,10))
+		if (do_mob(user,I,5))
 			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
 			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies
 			chamber_round()
