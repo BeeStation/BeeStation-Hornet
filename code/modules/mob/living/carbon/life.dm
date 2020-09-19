@@ -89,7 +89,7 @@
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe()
-	var/obj/item/organ/lungs = getorganslot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/lungs/L = getorganslot(ORGAN_SLOT_LUNGS)
 	if(reagents.has_reagent(/datum/reagent/toxin/lexorin, needs_metabolizing = TRUE))
 		return
 	if(istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
@@ -102,7 +102,7 @@
 	var/datum/gas_mixture/breath
 
 	if(!getorganslot(ORGAN_SLOT_BREATHING_TUBE))
-		if(health <= HEALTH_THRESHOLD_FULLCRIT || (pulledby && pulledby.grab_state >= GRAB_KILL) || HAS_TRAIT(src, TRAIT_MAGIC_CHOKE) || !lungs || lungs.organ_flags & ORGAN_FAILING)
+		if(health <= HEALTH_THRESHOLD_FULLCRIT || (pulledby && pulledby.grab_state >= GRAB_KILL) || HAS_TRAIT(src, TRAIT_MAGIC_CHOKE) || !L || L.organ_flags & ORGAN_FAILING)
 			losebreath++  //You can't breath at all when in critical or when being choked, so you're going to miss a breath
 
 		else if(health <= crit_threshold)
@@ -118,18 +118,18 @@
 			loc_as_obj.handle_internal_lifeform(src,0)
 	else
 		//Breathe from internal
-		breath = get_breath_from_internal(BREATH_VOLUME)
+		breath = get_breath_from_internal(BREATH_VOLUME*L.breath_depth)
 
 		if(isnull(breath)) //in case of 0 pressure internals
 
 			if(isobj(loc)) //Breathe from loc as object
 				var/obj/loc_as_obj = loc
-				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME)
+				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME*L.breath_depth)
 
 			else if(isturf(loc)) //Breathe from loc as turf
 				var/breath_moles = 0
 				if(environment)
-					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
+					breath_moles = environment.total_moles()*BREATH_PERCENTAGE*L.breath_depth
 
 				breath = loc.remove_air(breath_moles)
 		else //Breathe from loc as obj again
@@ -156,13 +156,13 @@
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		return
 
-	var/obj/item/organ/lungs = getorganslot(ORGAN_SLOT_LUNGS)
-	if(!lungs)
+	var/obj/item/organ/lungs/L = getorganslot(ORGAN_SLOT_LUNGS)
+	if(!L)
 		adjustOxyLoss(2)
 
 	//CRIT
-	if(!breath || (breath.total_moles() == 0) || !lungs)
-		if(reagents.has_reagent(/datum/reagent/medicine/epinephrine, needs_metabolizing = TRUE) && lungs)
+	if(!breath || (breath.total_moles() == 0) || !L)
+		if(reagents.has_reagent(/datum/reagent/medicine/epinephrine, needs_metabolizing = TRUE) && L)
 			return
 		adjustOxyLoss(1)
 
