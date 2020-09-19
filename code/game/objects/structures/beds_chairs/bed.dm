@@ -195,6 +195,11 @@
 	name = "Vector's bed"
 	anchored = TRUE
 
+/obj/structure/bed/dogbed/walter
+	desc = "Walter's bed! It reeks of testosterone and motor oil."
+	name = "Walter's bed"
+	anchored = TRUE
+
 /obj/structure/bed/dogbed/proc/update_owner(mob/living/M)
 	owner = M
 	name = "[M]'s bed"

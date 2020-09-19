@@ -76,6 +76,10 @@
 	if(CONFIG_GET(flag/log_cloning))
 		WRITE_LOG(GLOB.world_cloning_log, "CLONING: [text]")
 
+/proc/log_id(text)
+	if(CONFIG_GET(flag/log_id))
+		WRITE_LOG(GLOB.world_id_log, "ID: [text]")
+
 /proc/log_paper(text)
 	WRITE_LOG(GLOB.world_paper_log, "PAPER: [text]")
 
