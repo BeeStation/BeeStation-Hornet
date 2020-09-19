@@ -11,7 +11,7 @@
 	default_features = list("mcolor" = "FFF", "tail_human" = "Cat", "ears" = "Cat", "wings" = "None")
 
 	mutantears = /obj/item/organ/ears/cat
-	mutanttail = /obj/item/organ/tail/cat
+	mutanttail = /obj/item/organ/tail/human/cat
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 /datum/species/human/felinid/qualifies_for_rank(rank, list/features)
@@ -59,7 +59,7 @@
 		else
 			mutantears = /obj/item/organ/ears
 		if(H.dna.features["tail_human"] == "Cat")
-			var/obj/item/organ/tail/cat/tail = new
+			var/obj/item/organ/tail/human/cat/tail = new
 			tail.Insert(H, drop_if_replaced = FALSE)
 		else
 			mutanttail = null
@@ -67,7 +67,7 @@
 
 /datum/species/human/felinid/on_species_loss(mob/living/carbon/H, datum/species/new_species, pref_load)
 	var/obj/item/organ/ears/cat/ears = H.getorgan(/obj/item/organ/ears/cat)
-	var/obj/item/organ/tail/cat/tail = H.getorgan(/obj/item/organ/tail/cat)
+	var/obj/item/organ/tail/human/cat/tail = H.getorgan(/obj/item/organ/tail/human/cat)
 
 	if(ears)
 		var/obj/item/organ/ears/NE

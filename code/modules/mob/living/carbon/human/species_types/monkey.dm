@@ -10,7 +10,7 @@
 	species_traits = list(NOEYESPRITES) //monkeys have beady little black eyes, and nothing else
 
 	mutant_organs = list(/obj/item/organ/vocal_cords/monkey)
-	mutanttail = /obj/item/organ/tail/monkey/
+	mutanttail = /obj/item/organ/tail/human/monkey
 	species_language_holder = /datum/language_holder/monkey
 	outfit_important_for_life = /datum/outfit/monkeyhat
 	disliked_food = GRAIN | DAIRY | JUNKFOOD //reject modernity
