@@ -114,6 +114,7 @@
 		if("teleport")
 			if(!teleporter || !beacon)
 				return
+			teleporter.locked = TRUE	//autolocks
 			addtimer(CALLBACK(src, .proc/teleport, usr), 5)
 			return TRUE
 
@@ -142,7 +143,7 @@
 		contained_id.goal = default_goal
 		say("[contained_id]'s ID card goal defaulting to [contained_id.goal] points.")
 	log_game("[key_name(user)] teleported [key_name(prisoner)] to the Labor Camp [COORD(beacon)] for [id_goal_not_set ? "default goal of ":""][contained_id.goal] points.")
-	teleporter.handle_prisoner(contained_id, temporary_record)
+	teleporter.handle_prisoner(contained_id, temporary_record,prisoner)	//check if the prisoner we send is the same one 
 	playsound(src, 'sound/weapons/emitter.ogg', 50, TRUE)
 	prisoner.forceMove(get_turf(beacon))
 	prisoner.Paralyze(40) // small travel dizziness
