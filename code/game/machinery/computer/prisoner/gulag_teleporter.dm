@@ -115,7 +115,7 @@
 			if(!teleporter || !beacon)
 				return
 			teleporter.locked = TRUE	//autolocks
-			addtimer(CALLBACK(src, .proc/teleport, usr), 5)
+			addtimer(CALLBACK(src, .proc/teleport, usr), 5)	//this timer is the whole reason this issue exists, but it could be to prevent another issue so I won't remove it
 			return TRUE
 
 /obj/machinery/computer/prisoner/gulag_teleporter_computer/proc/scan_machinery()
