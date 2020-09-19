@@ -458,6 +458,7 @@ ROUNDSTART_RACES felinid
 ROUNDSTART_RACES squid
 #ROUNDSTART_RACES shadow
 ROUNDSTART_RACES ipc
+ROUNDSTART_RACES monkeyman
 
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES ethereal
