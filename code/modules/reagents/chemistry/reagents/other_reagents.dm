@@ -2039,9 +2039,10 @@
 	metabolization_rate = 5 * REAGENTS_METABOLISM
 	taste_description = "empowered"
 
-/datum/reagent/elementx/on_mob_end_metabolize(mob/living/M)
-	if(M.has_dna())
+/datum/reagent/elementx/on_mob_end_metabolize(mob/living/target)
+	if(target.has_dna())
 		var/add_mutations = list(XRAY,TK,CHAMELEON,LASEREYES,ANTENNA,MINDREAD,OLFACTION,INSULATED,SHOCKTOUCH,GIGANTISM,GELADIKINESIS,CRYOKINESIS,THERMAL,GLOWY,ANTIGLOWY,SPACEMUT,TELEPATHY,FIREBREATH,STRONG)
+		var/mob/living/carbon/M = target
 		
 		var/log_msg = ""
 		for(var/mutation in add_mutations)
