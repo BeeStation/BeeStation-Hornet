@@ -13,27 +13,6 @@
 	if(H?.dna?.species)
 		H.dna.species.stop_wagging_tail(H)
 
-/obj/item/organ/tail/cat
-	name = "cat tail"
-	desc = "A severed cat tail. Who's wagging now?"
-	tail_type = "Cat"
-
-/obj/item/organ/tail/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
-	..()
-	if(istype(H))
-		if(!("tail_human" in H.dna.species.mutant_bodyparts))
-			H.dna.species.mutant_bodyparts |= "tail_human"
-			H.dna.features["tail_human"] = tail_type
-			H.update_body()
-
-/obj/item/organ/tail/cat/Remove(mob/living/carbon/human/H,  special = 0)
-	..()
-	if(istype(H))
-		H.dna.features["tail_human"] = "None"
-		H.dna.species.mutant_bodyparts -= "tail_human"
-		color = H.hair_color
-		H.update_body()
-
 /obj/item/organ/tail/lizard
 	name = "lizard tail"
 	desc = "A severed lizard tail. Somewhere, no doubt, a lizard hater is very pleased with themselves."
@@ -64,13 +43,11 @@
 		spines = H.dna.features["spines"]
 		H.update_body()
 
-/obj/item/organ/tail/monkey
-	name = "monkey tail"
-	desc = "A severed monkey tail. Return this to a monkey."
-	tail_type = "Monkey"
-	icon_state = "monkeytail"
+/obj/item/organ/tail/human
+	name = "human tail"
+	desc = "this shouldn't exist"
 
-/obj/item/organ/tail/monkey/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
+/obj/item/organ/tail/human/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
 	..()
 	if(istype(H))
 		if(("tail_human" in H.dna.species.mutant_bodyparts))
@@ -80,9 +57,20 @@
 		H.dna.features["tail_human"] = tail_type
 		H.update_body()
 
-/obj/item/organ/tail/monkey/Remove(mob/living/carbon/human/H,  special = 0)
+/obj/item/organ/tail/human/Remove(mob/living/carbon/human/H,  special = 0)
 	..()
 	if(istype(H))
 		H.dna.features["tail_human"] = "None"
 		H.dna.species.mutant_bodyparts -= "tail_human"
 		H.update_body()
+	
+/obj/item/organ/tail/human/monkey
+	name = "monkey tail"
+	desc = "A severed monkey tail. Return this to a monkey."
+	tail_type = "Monkey"
+	icon_state = "monkeytail"
+
+/obj/item/organ/tail/human/cat
+	name = "cat tail"
+	desc = "A severed cat tail. Who's wagging now?"
+	tail_type = "Cat"

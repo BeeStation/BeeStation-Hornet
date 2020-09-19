@@ -48,7 +48,7 @@
 /mob/living/simple_animal/hostile/cat_butcherer/CanAttack(atom/the_target)
 	if(iscarbon(target))
 		var/mob/living/carbon/human/C = target
-		if(C.getorgan(/obj/item/organ/ears/cat) && C.getorgan(/obj/item/organ/tail/cat) && C.has_trauma_type(/datum/brain_trauma/severe/pacifism))//he wont attack his creations
+		if(C.getorgan(/obj/item/organ/ears/cat) && C.getorgan(/obj/item/organ/tail/human/cat) && C.has_trauma_type(/datum/brain_trauma/severe/pacifism))//he wont attack his creations
 			if(C.stat && (!HAS_TRAIT(C, TRAIT_NOMETABOLISM) || !istype(C.dna.species, /datum/species/ipc)))//unless they need healing
 				return ..()
 			else
@@ -69,7 +69,7 @@
 				var/obj/item/organ/ears/cat/newears = new
 				newears.Insert(L, drop_if_replaced = FALSE)
 				return
-		else if(!L.getorgan(/obj/item/organ/tail/cat) && L.stat)
+		else if(!L.getorgan(/obj/item/organ/tail/human/cat) && L.stat)
 			if(L.getorgan(/obj/item/organ/tail)) //cut off the tail if they have one already
 				var/obj/item/organ/tail/tail = L.getorgan(/obj/item/organ/tail)
 				visible_message("[src] severs [L]'s tail in one swift swipe!", "<span class='notice'>You sever [L]'s tail in one swift swipe.</span>")
@@ -77,10 +77,10 @@
 				tail.forceMove(get_turf(L))
 			else //put a cat tail on
 				visible_message("[src] attaches a cat tail to [L]!", "<span class='notice'>You attach a tail to [L].</span>")
-				var/obj/item/organ/tail/cat/newtail = new
+				var/obj/item/organ/tail/human/cat/newtail = new
 				newtail.Insert(L, drop_if_replaced = FALSE)
 				return
-		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat)) //still does damage. This also lacks a Stat check- felinids beware.
+		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/human/cat)) //still does damage. This also lacks a Stat check- felinids beware.
 			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
 			if(!L.stat)
 				L.emote("scream")

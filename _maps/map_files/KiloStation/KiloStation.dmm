@@ -92824,8 +92824,8 @@
 /obj/structure/closet/crate/freezer{
 	name = "organ storage"
 	},
-/obj/item/organ/tail/cat,
-/obj/item/organ/tail/cat,
+/obj/item/organ/tail/human/cat,
+/obj/item/organ/tail/human/cat,
 /obj/item/organ/ears/cat,
 /obj/item/organ/ears/cat,
 /obj/item/organ/heart,

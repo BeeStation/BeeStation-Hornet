@@ -151,7 +151,7 @@
 /datum/crafting_recipe/catwhip
 	name = "Cat O' Nine Tails"
 	result = /obj/item/melee/chainofcommand/tailwhip/kitty
-	reqs = list(/obj/item/organ/tail/cat = 1,
+	reqs = list(/obj/item/organ/tail/human/cat = 1,
 	            /obj/item/stack/cable_coil = 1)
 	time = 40
 	category = CAT_WEAPONRY
@@ -491,7 +491,7 @@
 	name = "Kitty Ears"
 	result = /obj/item/clothing/head/kitty/genuine
 	time = 10
-	reqs = list(/obj/item/organ/tail/cat = 1,
+	reqs = list(/obj/item/organ/tail/human/cat = 1,
 				/obj/item/organ/ears/cat = 1)
 	category = CAT_MISC
 

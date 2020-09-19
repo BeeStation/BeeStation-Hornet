@@ -162,7 +162,7 @@
 	loot = list(
 		/obj/item/organ/tongue = 5,
 		/obj/item/organ/tongue/lizard = 1,
-		/obj/item/organ/tail/cat = 1,
+		/obj/item/organ/tail/human/cat = 1,
 		/obj/item/organ/stomach = 5,
 		/obj/item/organ/tongue/zombie = 1,
 		/obj/item/organ/tongue/fly = 1,
