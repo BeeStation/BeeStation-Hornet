@@ -149,8 +149,11 @@ The console is located at computer/gulag_teleporter.dm
 					W.forceMove(src)
 
 /obj/machinery/gulag_teleporter/proc/handle_prisoner(obj/item/id, datum/data/record/R)
-	if(!ishuman(occupant))
+	if (!occupant)
 		return FALSE
+	else if (!ishuman(occupant))
+		return TRUE
+	var/mob/living/carbon/human/prisoner = occupant
 	strip_occupant()
 	if(!isplasmaman(prisoner) && jumpsuit_type)
 		prisoner.equip_to_appropriate_slot(new jumpsuit_type)
