@@ -1,6 +1,0 @@
-author: eeSPee
-delete-after: true
-changes:
-  - tweak: DRAGnets will now teleport targets at beacons designated for Dragnet portals.
-  - rscadd: Dragnet beacons printable at secfab.
-  - rscadd: Dragnet beacons in armory on every map.
