@@ -148,14 +148,9 @@ The console is located at computer/gulag_teleporter.dm
 				else
 					W.forceMove(src)
 
-/obj/machinery/gulag_teleporter/proc/handle_prisoner(obj/item/id, datum/data/record/R, mob/living/doublecheck)
-	var/mob/living/carbon/human/prisoner = occupant
-	if (!occupant)
-		prisoner = doublecheck	//fallback rely on the mob data sent by the console
-	else if (occupant!=doublecheck)
-		return	//dont send out someone else	
-	if(prisoner && !ishuman(prisoner))
-		return
+/obj/machinery/gulag_teleporter/proc/handle_prisoner(obj/item/id, datum/data/record/R)
+	if(!ishuman(occupant))
+		return FALSE
 	strip_occupant()
 	if(!isplasmaman(prisoner) && jumpsuit_type)
 		prisoner.equip_to_appropriate_slot(new jumpsuit_type)
@@ -165,6 +160,7 @@ The console is located at computer/gulag_teleporter.dm
 		prisoner.equip_to_appropriate_slot(id)
 	if(R)
 		R.fields["criminal"] = "Incarcerated"
+	return TRUE
 
 /obj/item/circuitboard/machine/gulag_teleporter
 	name = "labor camp teleporter (Machine Board)"
