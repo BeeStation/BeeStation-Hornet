@@ -106,6 +106,8 @@
 
 
 /mob/living/carbon/monkey/IsAdvancedToolUser()//Unless its monkey mode monkeys cant use advanced tools
+	if(istype(get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/helmet/monkeytranslator)) //or if they have an uplifter device
+		return TRUE
 	if(mind && is_monkey(mind))
 		return TRUE
 	return FALSE

@@ -22,6 +22,28 @@
 /obj/item/organ/vocal_cords/proc/handle_speech(message) //actually say the message
 	owner.say(message, spans = spans, sanitize = FALSE)
 
+/obj/item/organ/vocal_cords/monkey
+	name = "monkey throat"
+	desc = "A monkey's overdeveloped vocal chords."
+	actions_types = list(/datum/action/item_action/organ_action/use/monkey_vocal_cords)
+	spans = list("monkeylead", "yell", "big")
+	icon_state = "lungs"
+
+/datum/action/item_action/organ_action/use/monkey_vocal_cords/Trigger()
+	if(!IsAvailable())
+		return
+	if(istype(owner.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/helmet/monkeytranslator))
+		to_chat(owner, "<span class ='resonate'>You're far too civilized to howl like an ape!</span>")
+		return
+	var/message = input(owner, "Howl to assert your dominance.", "Howl")
+	if(QDELETED(src) || QDELETED(owner) || !message)
+		return
+	owner.say(".x[message]")
+
+/obj/item/organ/vocal_cords/monkey/handle_speech(message)
+	.=..()
+	playsound(get_turf(owner), 'sound/creatures/gorilla.ogg', 50) //OOGA BOOGA
+
 /obj/item/organ/adamantine_resonator
 	name = "adamantine resonator"
 	desc = "Fragments of adamantine exist in all golems, stemming from their origins as purely magical constructs. These are used to \"hear\" messages from their leaders."
