@@ -182,7 +182,6 @@
 	#define SPEECH_LANGUAGE 5
 	#define SPEECH_IGNORE_SPAM 6
 	#define SPEECH_FORCED 7 */
-#define COMSIG_MOB_EMOTE "mob_emote" // from /mob/living/emote(): ()
 
 // /mob/living signals
 #define COMSIG_LIVING_REVIVE "living_revive"					//! from base of mob/living/revive() (/mob/living, full_heal, admin_revive)
@@ -207,8 +206,6 @@
 // /mob/living/carbon signals
 #define COMSIG_CARBON_SOUNDBANG "carbon_soundbang"				//! from base of mob/living/carbon/soundbang_act(): (list(intensity))
 #define COMSIG_CARBON_SPECIESCHANGE "mob_carbon_specieschange"	//! from base of mob/living/carbon/set_species(): (new_race)
-#define COMSIG_CARBON_GAIN_ORGAN "carbon_gain_organ"			//from /item/organ/proc/Insert() (/obj/item/organ/)
-#define COMSIG_CARBON_LOSE_ORGAN "carbon_lose_organ"			//from /item/organ/proc/Remove() (/obj/item/organ/)
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"

@@ -95,11 +95,7 @@
 				var/obj/item/reagent_containers/food/snacks/grown/rainbow_flower/RF = WM.color_source
 				add_atom_colour(RF.color, WASHABLE_COLOUR_PRIORITY)
 
-/obj/item/clothing/head/mob_holder/machine_wash(obj/machinery/washing_machine/WM)
-	..()
-	held_mob.machine_wash(WM)
-
-/mob/living/simple_animal/pet/machine_wash(obj/machinery/washing_machine/WM)
+/mob/living/simple_animal/pet/dog/corgi/machine_wash(obj/machinery/washing_machine/WM)
 	WM.bloody_mess = TRUE
 	gib()
 
@@ -290,7 +286,7 @@
 		if(L.buckled || L.has_buckled_mobs())
 			return
 		if(state_open)
-			if(istype(L, /mob/living/simple_animal/pet))
+			if(iscorgi(L))
 				L.forceMove(src)
 				update_icon()
 		return
