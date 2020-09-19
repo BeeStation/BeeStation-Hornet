@@ -293,7 +293,7 @@
 	underlay_appearance.plane = PLANE_SPACE
 	return TRUE
 
-/turf/open/floor/eighties
+/turf/open/floor/carpet/eighties
 	name = "retro floor"
 	desc = "This one takes you back."
 	icon_state = "eighties"
