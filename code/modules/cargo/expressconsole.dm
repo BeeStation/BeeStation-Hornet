@@ -130,9 +130,6 @@
 	return data
 
 /obj/machinery/computer/cargo/express/ui_act(action, params, datum/tgui/ui)
-	. = ..()
-	if(!isliving(usr))
-		return
 	switch(action)
 		if("LZCargo")
 			usingBeacon = FALSE
