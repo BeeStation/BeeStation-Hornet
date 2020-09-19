@@ -3744,6 +3744,7 @@
 /obj/item/storage/fancy/donut_box,
 /obj/item/gun/energy/e_gun/dragnet,
 /obj/item/gun/energy/e_gun/dragnet,
+/obj/item/beacon/nettingportal,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -8766,6 +8767,10 @@
 /obj/machinery/airalarm{
 	pixel_y = 28
 	},
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = 10;
+	pixel_y = 3
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "apN" = (
@@ -10021,15 +10026,10 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "ass" = (
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/obj/structure/bed/dogbed/walter,
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -30
-	},
-/obj/item/folder/red,
-/obj/item/folder/red,
-/obj/structure/table,
-/obj/item/book/manual/wiki/security_space_law{
-	pixel_x = -3;
-	pixel_y = 5
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
@@ -19825,9 +19825,8 @@
 /turf/open/floor/plasteel,
 /area/hydroponics/garden)
 "aLX" = (
-/obj/machinery/door/firedoor/border_only/closed{
-	dir = 8;
-	name = "Animal Pen A"
+/obj/machinery/door/window/westright{
+	name = "Garden A"
 	},
 /turf/open/floor/grass,
 /area/hydroponics/garden)
@@ -22421,9 +22420,8 @@
 /turf/open/floor/plasteel,
 /area/hydroponics/garden)
 "aRg" = (
-/obj/machinery/door/firedoor/border_only/closed{
-	dir = 8;
-	name = "Animal Pen B"
+/obj/machinery/door/window/westright{
+	name = "Garden B"
 	},
 /turf/open/floor/grass,
 /area/hydroponics/garden)
@@ -84237,9 +84235,17 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
-/obj/item/pen,
+/obj/item/pen{
+	pixel_x = -3
+	},
 /obj/machinery/keycard_auth{
 	pixel_y = -24
+	},
+/obj/item/folder/red{
+	pixel_x = 8
+	},
+/obj/item/folder/red{
+	pixel_x = 8
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)

@@ -83,7 +83,9 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Reset movement directions to default", "resetmovement"),
 			list("Change bomb cap", "changebombcap"),
 			list("Mass Purrbation", "masspurrbation"),
-			list("Mass Remove Purrbation", "massremovepurrbation")
+			list("Mass Remove Purrbation", "massremovepurrbation"),
+			list("Fully Immerse Everyone", "massimmerse"),
+			list("Un-Fully Immerse Everyone", "unmassimmerse")
 			)
 
 	if(check_rights(R_DEBUG,0))
@@ -659,6 +661,21 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			message_admins("[key_name_admin(usr)] has removed everyone from \
 				purrbation.")
 			log_admin("[key_name(usr)] has removed everyone from purrbation.")
+
+		if("massimmerse")
+			if(!check_rights(R_FUN))
+				return
+			mass_immerse()
+			message_admins("[key_name_admin(usr)] has Fully Immersed \
+				everyone!")
+			log_admin("[key_name(usr)] has Fully Immersed everyone.")
+		if("unmassimmerse")
+			if(!check_rights(R_FUN))
+				return
+			mass_immerse(remove=TRUE)
+			message_admins("[key_name_admin(usr)] has Un-Fully Immersed \
+				everyone!")
+			log_admin("[key_name(usr)] has Un-Fully Immersed everyone.")
 
 		if("flipmovement")
 			if(!check_rights(R_FUN))
