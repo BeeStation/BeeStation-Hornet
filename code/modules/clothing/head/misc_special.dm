@@ -400,3 +400,35 @@
 	desc = "You feel ashamed about what you had to do to get this hat"
 	icon_state = "cowboy"
 	item_state = "cowboy"
+
+/obj/item/clothing/head/helmet/monkeytranslator
+	name = "\improper Uplift-O-Matic V1"
+	desc = "A complex array of machinery designed to boost the intelligence of monkeys. Nanotrasen is not responsible for misuse of this device. "
+	icon_state = "monkeyhat"
+	item_state = "monkeyhat"
+
+/obj/item/clothing/head/helmet/monkeytranslator/equipped(mob/user, slot)
+	..()
+	if(slot == SLOT_HEAD)
+		if(ismonkey(user) || ismonkeyman(user))
+			to_chat(user, "<span class ='big bold resonate'>As the electrodes on [src] touch your scalp, intelligence and civility enters your brain, and you embrace modern society.</span>")
+			user.grant_language(/datum/language/common, TRUE, TRUE, LANGUAGE_MONKEYHAT)
+			user.language_holder.selected_language = /datum/language/common
+			to_chat(user, "<span class ='notice'>You can now use advanced machinery!</span>")
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				var/datum/species/S = H.dna.species
+				S.say_mod = "articulates"
+
+
+/obj/item/clothing/head/helmet/monkeytranslator/dropped(mob/user)
+	..()
+	if(ismonkey(user) || ismonkeyman(user))
+		to_chat(user, "<span class ='big bold monkeylead'>As the electrodes on [src] stop touching your scalp, you feel your mind slipping... returning to monkey.</span>")
+		user.remove_language(/datum/language/common, TRUE, TRUE, LANGUAGE_MONKEYHAT)
+		to_chat(user, "<span class ='warning'>You can no longer use advanced machinery!</span>")
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			var/datum/species/S = H.dna.species
+			S.say_mod = initial(S.say_mod)
+		

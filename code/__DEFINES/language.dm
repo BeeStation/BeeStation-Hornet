@@ -23,4 +23,8 @@
 #define LANGUAGE_DRUGGY			"druggy"
 #define LANGUAGE_VOICECHANGE	"voicechange"
 #define LANGUAGE_REAGENT    	"reagent"
+<<<<<<< refs/remotes/origin/master
 #define LANGUAGE_MULTILINGUAL	"multilingual"
+=======
+#define LANGUAGE_MONKEYHAT    	"monkeyhat"
+>>>>>>> EMBRACETRADITION

@@ -1593,6 +1593,7 @@
 	icon_state = "cat"
 	color_src = HAIR
 
+<<<<<<< refs/remotes/origin/master
 /datum/sprite_accessory/tails/human/clock
 	name = "Clockwork"
 	icon_state = "clockwork"
@@ -1603,6 +1604,11 @@
 	name = "Clockwork"
 	icon_state = "clockwork"
 	locked = TRUE
+=======
+/datum/sprite_accessory/tails/human/monkey
+	name = "Monkey"
+	icon_state = "monkey"
+>>>>>>> EMBRACETRADITION
 	color_src = null
 
 /datum/sprite_accessory/snouts

@@ -356,7 +356,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["feature_ipc_antenna"]				>> features["ipc_antenna"]
 	S["feature_ipc_chassis"]				>> features["ipc_chassis"]
 	S["feature_insect_type"]				>> features["insect_type"]
-	if(!CONFIG_GET(flag/join_with_mutant_humans)  && !species_id != "felinid") // felinids arent mutant humans anymore i guess
+	if(!CONFIG_GET(flag/join_with_mutant_humans))
 		features["tail_human"] = "none"
 		features["ears"] = "none"
 	else
@@ -427,7 +427,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	features["mcolor"]	= sanitize_hexcolor(features["mcolor"], 3, 0)
 	features["ethcolor"]	= copytext_char(features["ethcolor"], 1, 7)
 	features["tail_lizard"]	= sanitize_inlist(features["tail_lizard"], GLOB.tails_list_lizard)
-	features["tail_human"] 	= sanitize_inlist(features["tail_human"], GLOB.tails_list_human, "None")
+	//features["tail_human"] 	= sanitize_inlist(features["tail_human"], GLOB.tails_list_human, "None")
 	features["snout"]	= sanitize_inlist(features["snout"], GLOB.snouts_list)
 	features["horns"] 	= sanitize_inlist(features["horns"], GLOB.horns_list)
 	features["ears"]	= sanitize_inlist(features["ears"], GLOB.ears_list, "None")
