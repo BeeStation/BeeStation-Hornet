@@ -4,6 +4,9 @@
 	id = "felinid"
 	limbs_id = "human"
 
+	disliked_food = VEGETABLES | SUGAR
+	liked_food = DAIRY | MEAT
+
 	mutant_bodyparts = list("ears", "tail_human")
 	default_features = list("mcolor" = "FFF", "tail_human" = "Cat", "ears" = "Cat", "wings" = "None")
 
