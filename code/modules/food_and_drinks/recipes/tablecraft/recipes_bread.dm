@@ -108,7 +108,7 @@
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/store/bread/plain = 1,
 		/obj/item/organ/ears/cat = 1,
-		/obj/item/organ/tail/cat = 1,
+		/obj/item/organ/tail/human/cat = 1,
 		/obj/item/reagent_containers/food/snacks/meat/slab = 3,
 		/datum/reagent/blood = 50,
 		/datum/reagent/medicine/strange_reagent = 5
