@@ -36,7 +36,7 @@
 	var/faltered = FALSE //used if a disease has been made non-contagious
 	// The order goes from easy to cure to hard to cure.
 	var/static/list/advance_cures = 	list(
-																/datum/reagent/water, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride, 
+																/datum/reagent/water, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride,
 									/datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/mine_salve,
 									/datum/reagent/medicine/leporazine, /datum/reagent/concentrated_barbers_aid, /datum/reagent/toxin/lipolicide,
 									/datum/reagent/medicine/haloperidol, /datum/reagent/drug/krokodil
@@ -203,18 +203,18 @@
 		S.severityset(src)
 		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
 			properties["severity"] += S.severity
-	for(var/datum/symptom/S in symptoms) 
+	for(var/datum/symptom/S in symptoms)
 		S.severityset(src)
 		if(!S.neutered)
 			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
 				if(1 to 2)
 					properties["severity"] = max(properties["severity"], min(3, (S.severity + properties["severity"])))
 				if(3 to 4)
-					properties["severity"] = max(properties["severity"], min(4, (S.severity + properties["severity"])))		
+					properties["severity"] = max(properties["severity"], min(4, (S.severity + properties["severity"])))
 	for(var/datum/symptom/S in symptoms) //benign and beneficial symptoms go last
 		S.severityset(src)
 		if(!S.neutered && S.severity <= 0)
-			properties["severity"] += S.severity		
+			properties["severity"] += S.severity
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
@@ -507,3 +507,6 @@
 
 /datum/disease/advance/proc/totalTransmittable()
 	return properties["transmittable"]
+
+/datum/disease/advance/proc/totalSeverity()
+	return properties["severity"]
