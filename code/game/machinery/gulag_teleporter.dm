@@ -150,7 +150,7 @@ The console is located at computer/gulag_teleporter.dm
 
 /obj/machinery/gulag_teleporter/proc/handle_prisoner(obj/item/id, datum/data/record/R)
 	if (!occupant || !ishuman(occupant))
-		return TRUE
+		return FALSE
 	var/mob/living/carbon/human/prisoner = occupant
 	strip_occupant()
 	if(!isplasmaman(prisoner) && jumpsuit_type)
