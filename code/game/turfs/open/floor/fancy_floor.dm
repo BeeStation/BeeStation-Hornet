@@ -294,11 +294,8 @@
 	return TRUE
 
 /turf/open/floor/eighties
-	name = "aesthetic 80s carpet"
-	desc = "Staylish 80s arcade carpet, smells like pizza and dropped soda.."
-	icon = 'icons/turf/floors.dmi'
+	name = "retro floor"
+	desc = "This one takes you back."
 	icon_state = "eighties"
-	footstep = FOOTSTEP_SAND
-	barefootstep = FOOTSTEP_SAND
-	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	floor_tile = /obj/item/stack/tile/eighties
+	broken_states = list("damaged")
