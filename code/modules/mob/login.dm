@@ -46,6 +46,8 @@
 	if(loc)
 		loc.on_log(TRUE)
 
+	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
+
 	//readd this mob's HUDs (antag, med, etc)
 	reload_huds()
 

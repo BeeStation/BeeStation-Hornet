@@ -16,7 +16,6 @@
 /obj/machinery/cell_charger/update_icon()
 	cut_overlays()
 	if(charging)
-		add_overlay(image(charging.icon, charging.icon_state))
 		add_overlay("ccharger-on")
 		if(!(stat & (BROKEN|NOPOWER)))
 			var/newlevel = 	round(charging.percent() * 4 / 100)

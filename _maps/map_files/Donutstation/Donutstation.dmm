@@ -4631,7 +4631,8 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "alx" = (
-/obj/structure/closet/secure_closet/warden,
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/obj/structure/bed/dogbed/walter,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "alA" = (
@@ -6687,6 +6688,7 @@
 	departmentType = 5;
 	pixel_x = -30
 	},
+/obj/structure/closet/secure_closet/warden,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "aqO" = (
@@ -47499,6 +47501,7 @@
 	},
 /obj/item/gun/energy/e_gun/dragnet,
 /obj/item/gun/energy/e_gun/dragnet,
+/obj/item/beacon/nettingportal,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "bXH" = (
