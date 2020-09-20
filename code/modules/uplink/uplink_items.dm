@@ -545,7 +545,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			organic host as a home base and source of fuel. Holoparasites come in various types and share damage with their host."
 	item = /obj/item/guardiancreator/tech
 	cost = 18
-	surplus = 20
+	surplus = 10
+	surplus_nullcrates = 0
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	player_minimum = 25
 	restricted = TRUE
@@ -1913,7 +1914,6 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 			Premium features can be unlocked with a cryptographic sequencer!"
 	item = /obj/vehicle/sealed/car/clowncar
 	cost = 20
-	surplus = 20
 	restricted_roles = list("Clown")
 	exclude_modes = list(/datum/game_mode/incursion)
 
@@ -1976,6 +1976,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/storage/box/syndie_kit/cultconstructkit
 	cost = 12 // constructs can't do much and it's not a round remover
 	surplus = 30
+
 	restricted_roles = list("Chaplain")
 
 /datum/uplink_item/role_restricted/spanish_flu
@@ -2033,7 +2034,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			to act as a servent and guardian to their host."
 	item = /obj/item/guardiancreator/carp
 	cost = 18
-	surplus = 25
+	surplus = 5
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	player_minimum = 25
 	restricted = TRUE
