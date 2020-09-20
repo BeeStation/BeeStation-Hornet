@@ -126,6 +126,44 @@
 
 //////////////////////////////////////////////
 //                                          //
+//              ELDRITCH CULT               //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/heretics
+	name = "Heretics"
+	antag_flag = ROLE_HERETIC
+	antag_datum = /datum/antagonist/heretic
+	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
+	restricted_roles = list("AI", "Cyborg")
+	required_candidates = 1
+	weight = 3
+	cost = 20
+	requirements = list(50,45,45,40,35,20,20,15,10,10)
+
+/datum/dynamic_ruleset/roundstart/heretics/pre_execute()
+	. = ..()
+	var/num_ecult = min(round(mode.candidates.len / 10) + 1, candidates.len)
+
+	for (var/i = 1 to num_ecult)
+		var/mob/picked_candidate = pick_n_take(candidates)
+		assigned += picked_candidate.mind
+		picked_candidate.mind.restricted_roles = restricted_roles
+		picked_candidate.mind.special_role = ROLE_HERETIC
+	return TRUE
+
+/datum/dynamic_ruleset/roundstart/heretics/execute()
+
+	for(var/c in assigned)
+		var/datum/mind/cultie = c
+		var/datum/antagonist/heretic/new_antag = new antag_datum()
+		cultie.add_antag_datum(new_antag)
+
+	return TRUE
+
+
+//////////////////////////////////////////////
+//                                          //
 //               WIZARDS                    //
 //                                          //
 //////////////////////////////////////////////

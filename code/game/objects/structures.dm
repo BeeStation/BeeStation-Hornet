@@ -4,7 +4,7 @@
 	max_integrity = 300
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	layer = BELOW_OBJ_LAYER
-	
+
 	var/climb_time = 20
 	var/climb_stun = 20
 	var/climbable = FALSE
@@ -111,3 +111,6 @@
 		if(0 to 25)
 			if(!broken)
 				return  "<span class='warning'>It's falling apart!</span>"
+
+/obj/structure/rust_heretic_act()
+	take_damage(500, BRUTE, "melee", 1)
