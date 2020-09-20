@@ -328,7 +328,7 @@
 	req_access_txt = "2"
 	},
 /obj/machinery/advanced_airlock_controller/lavaland{
-	pixel_y = -29
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /turf/open/floor/plasteel,
@@ -530,7 +530,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Labor Camp APC";
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -611,7 +611,7 @@
 	dir = 8
 	},
 /obj/machinery/advanced_airlock_controller/lavaland{
-	pixel_y = 29
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
@@ -834,7 +834,7 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "Labor Camp Security APC";
-	pixel_y = 24
+	pixel_x = 24
 	},
 /obj/machinery/camera{
 	c_tag = "Labor Camp Monitoring";
@@ -902,8 +902,7 @@
 "co" = (
 /obj/machinery/power/apc{
 	name = "Mining EVA APC";
-	pixel_x = 1;
-	pixel_y = -23
+	pixel_y = -24
 	},
 /obj/structure/cable,
 /obj/machinery/recharge_station,
@@ -1192,8 +1191,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Mining Station Starboard Wing APC";
-	pixel_x = -25;
-	pixel_y = 2
+	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -1415,8 +1413,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Mining Communications APC";
-	pixel_x = 1;
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/plasteel/dark,
@@ -1743,8 +1740,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Mining Station Port Wing APC";
-	pixel_x = 1;
-	pixel_y = 23
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -3988,7 +3984,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller/lavaland{
-	pixel_y = -29
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 1
@@ -4266,7 +4262,7 @@
 /area/mine/laborcamp)
 "Do" = (
 /obj/machinery/advanced_airlock_controller/lavaland{
-	pixel_y = -29
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
@@ -4574,7 +4570,7 @@
 "Ww" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /obj/machinery/advanced_airlock_controller/lavaland{
-	pixel_y = 29
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)

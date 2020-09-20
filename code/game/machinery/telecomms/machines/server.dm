@@ -49,7 +49,7 @@
 
 	// Give the log a name and store it
 	var/identifier = num2text( rand(-1000,1000) + world.time )
-	log.name = "data packet ([md5(identifier)])"
+	log.name = "data packet ([rustg_hash_string(RUSTG_HASH_MD5, identifier)])"
 	log_entries.Add(log)
 
 	var/can_send = relay_information(signal, /obj/machinery/telecomms/hub)

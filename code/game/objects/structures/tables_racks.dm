@@ -37,14 +37,22 @@
 
 /obj/structure/table/Bumped(mob/living/carbon/human/H)
 	. = ..()
-	if(!istype(H) || H.shoes || !(H.mobility_flags & MOBILITY_STAND))
-		return ..()
+	if(!istype(H))
+		return
+	var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
+	if(H.shoes || feetCover || !(H.mobility_flags & MOBILITY_STAND) || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || H.m_intent == MOVE_INTENT_WALK)
+		return
 	if((world.time >= last_bump + 100) && prob(5))
-		last_bump = world.time
 		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")
-		H.emote("scream")
-		H.apply_damage(2, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
-		H.Paralyze(20)
+		var/power = 2
+		if(HAS_TRAIT(H, TRAIT_LIGHT_STEP))
+			power = 1
+			H.emote("gasp")
+		else
+			H.emote("scream")
+		H.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+		H.Paralyze(10 * power)
+	last_bump = world.time //do the cooldown here so walking into a table only checks toestubs once
 
 /obj/structure/table/examine(mob/user)
 	. = ..()

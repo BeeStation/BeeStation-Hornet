@@ -113,3 +113,21 @@
 	new_head = M.mind.add_antag_datum(new_head)
 	new_head.rev_team.max_headrevs = 1 // Only one revhead if it is latejoin.
 	return TRUE
+
+//////////////////////////////////////////////
+//                                          //
+//           HERETIC SMUGGLER          		//
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/latejoin/heretic_smuggler
+	name = "Heretic Smuggler"
+	antag_datum = /datum/antagonist/heretic
+	antag_flag = ROLE_HERETIC
+	protected_roles = list("Security Officer", "Warden", "Head of Personnel", "Detective", "Head of Security", "Captain","Prisoner")
+	restricted_roles = list("AI","Cyborg")
+	required_candidates = 1
+	weight = 4
+	cost = 10
+	requirements = list(40,30,20,10,10,10,10,10,10,10)
+	repeatable = TRUE
