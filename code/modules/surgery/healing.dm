@@ -200,13 +200,13 @@
 	time = 10
 
 /datum/surgery_step/heal/combo/upgraded
-	brutehealing = 5
-	burnhealing = 5
+	brutehealing = 7.5
+	burnhealing = 7.5
 	missinghpbonus = 10
 
 /datum/surgery_step/heal/combo/upgraded/femto
-	brutehealing = 5
-	burnhealing = 5
+	brutehealing = 7.5
+	burnhealing = 7.5
 	missinghpbonus = 2.5
 
 /datum/surgery_step/heal/combo/upgraded/femto/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
