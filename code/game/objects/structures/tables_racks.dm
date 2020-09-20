@@ -38,10 +38,10 @@
 /obj/structure/table/Bumped(mob/living/carbon/human/H)
 	. = ..()
 	if(!istype(H))
-		return ..()
+		return
 	var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
 	if(!istype(H) || H.shoes || feetCover || !(H.mobility_flags & MOBILITY_STAND) || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || H.m_intent == MOVE_INTENT_WALK)
-		return ..()
+		return
 	if((world.time >= last_bump + 100) && prob(5))
 		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")
 		var/power = 2
