@@ -185,10 +185,19 @@
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
 	dangerous = TRUE
-	
+	var/beepsky_chance = null
+	var/level = null
+
 /datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
 	var/crate_value = 30
 	var/list/uplink_items = get_uplink_items(SSticker.mode)
+	beepsky_chance += min(level, 5) //1% chance per crate an item will be replaced with a beepsky and the crate stops spawning items. Doesnt act as a hardcap, making nullcrates far riskier and less predictable
+	while(crate_value)
+		if(prob(beepsky_chance) && prob(50))
+			new /mob/living/simple_animal/bot/secbot/grievous/nullcrate(C)
+			crate_value = null
+			beepsky_chance = null
+			level += null
 		var/category = pick(uplink_items)
 		var/item = pick(uplink_items[category])
 		var/datum/uplink_item/I = uplink_items[category][item]
