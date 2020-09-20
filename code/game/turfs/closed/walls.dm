@@ -318,4 +318,9 @@
 
 	add_overlay(dent_decals)
 
+/turf/closed/wall/rust_heretic_act()
+	if(prob(70))
+		new /obj/effect/temp_visual/glowing_rune(src)
+	ChangeTurf(/turf/closed/wall/rust)
+
 #undef MAX_DENT_DECALS

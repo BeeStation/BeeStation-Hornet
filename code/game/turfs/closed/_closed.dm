@@ -41,6 +41,9 @@
 /turf/closed/indestructible/singularity_act()
 	return
 
+/turf/closed/indestructible/rust_heretic_act()
+	return
+
 /turf/closed/indestructible/oldshuttle
 	name = "strange shuttle wall"
 	icon = 'icons/turf/shuttleold.dmi'
