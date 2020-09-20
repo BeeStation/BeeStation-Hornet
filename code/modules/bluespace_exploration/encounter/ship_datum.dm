@@ -2,14 +2,23 @@
 	var/ship_name = "cringelord"
 	var/ship_faction = /datum/faction/station
 
+	//Integrity calculations
 	var/max_ship_integrity	//The ship integrity at it's highest
 	var/current_ship_integrity	//The ships current ingerity
 
 	var/integrity_remaining
 
+	//The mobile port ID
 	var/mobile_port_id = ""
 
+	//Are we in critical status and about to blow up?
 	var/critical = FALSE
+
+	//Does the ship show up on weapons console, and is it allowed to use weapons
+	var/combat_allowed = TRUE
+
+	//Do we use bluespace or normal generation
+	var/bluespace = TRUE
 
 /datum/ship_datum/New()
 	. = ..()

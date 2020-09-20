@@ -4,7 +4,7 @@ import { classes } from 'common/react';
 import { createSearch } from 'common/string';
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Button, ByondUi, Input, Section, Box, Divider, ProgressBar, NoticeBox, Flex, Table, Icon, Grid } from '../components';
+import { Button, ByondUi, Input, Section, Box, Divider, ProgressBar, NoticeBox, Flex, Table, Icon, Grid, Tabs } from '../components';
 import { refocusLayout, Window } from '../layouts';
 import { GridColumn } from '../components/Grid';
 
@@ -16,204 +16,157 @@ export const SystemMap = (props, context) => {
   return (
     <Window
       resizable>
-      <div className="SystemMap__left">
-        <Window.Content scrollable>
-          { jump_state
-            ? <StarMapStarList />
-            : <StarMapNoJump />}
-        </Window.Content>
-      </div>
-      <div className="SystemMap__right">
-        <div className="SystemMap__map">
-          <Box
-            height="660px"
-            width="660px">
-            <StarMapSvg />
-          </Box>
-        </div>
-      </div>
-    </Window>
-  );
-};
-
-export const StarMapNoJump = (props, context) => {
-  const { act } = useBackend(context);
-  return (
-    <Section>
-      <Box
-        className={classes([
-          'Button',
-          'Button--fluid',
-          'Button--color--transparent',
-          'Button--ellipsis',
-          'Button--selected',
-        ])}
-        onClick={() => act('subjump', {
-          target: "system",
-        })}>
+      <Section
+        textAlign="center">
         <b>
-          Sol
+          N.T.T. Pathfinder
         </b>
-        <Divider />
-        Current Location
-      </Box>
-      <Box
-        className={classes([
-          'Button',
-          'Button--fluid',
-          'Button--color--grey',
-          'Button--ellipsis',
-        ])}
-        onClick={() => act('subjump', {
-          target: "hyperspace",
-        })}>
-        <b>
-          Hyperspace Travel
-        </b>
-        <Divider />
-        Emergency jump into hyperspace, allowing you
-        time to repair for the next fight.
-      </Box>
-    </Section>
-  );
-};
-
-export const StarMapStarList = (props, context) => {
-  const { data, act } = useBackend(context);
-  const {
-    jump_locations,
-  } = data;
-  return (
-    <Section>
-      {jump_locations.map(jump_destination => (
         <Box
-          key={jump_destination.id}
-          className={classes([
-            'Button',
-            'Button--fluid',
-            'Button--color--transparent',
-            'Button--ellipsis',
-            'Button--selected',
-          ])}
-          onClick={() => act('jump', {
-            id: jump_destination.id,
-          })} >
-          <b>
-            {jump_destination.name}
-            {jump_destination.dist}
-          </b>
-          <Divider />
-          Distance: 0ly
+          textAlign="center">
+          Faction: Nanotrasen
         </Box>
-      ))}
-    </Section>
-  );
-};
-
-/*
- * The star map is an SVG element with a bunch of
- * circles and lines representing the stars
- * It is a way way way overcomplicated thing to just
- * draw a bunch of planets, but as far as I know, it works
-*/
-export const StarMapSvg = (props, context) => {
-  const { data } = useBackend(context);
-  const {
-    stars = [],
-    links = [],
-    icon_cache = [],
-    current_star_loc,
-  } = data;
-  return (
-    <Fragment>
-      <svg
-        height="1000"
-        width="1000"
-        backgroundCol
-        or="black">
-        <StarMapBackground />
-        {links.map(link => (
-          <line
-            key={link}
-            x1={link.x1}
-            y1={link.y1}
-            x2={link.x2}
-            y2={link.y2}
-            stroke="#CEF0FF" />
-        ))}
-        {stars.map(star => (
-          <Star
-            key={star.name}
-            starName={star.name}
-            map_x={star.x}
-            map_y={star.y}
-            color="red" />
-        ))}
-      </svg>
-      {stars.map(star => (
-        <Fragment
-          key={star.id}>
-          <Box
-            position="absolute"
-            className={icon_cache[2].class_name}
-            style={{
-              'transform': 'scale(2, 2);',
-            }}
-            top={(star.y-16)+"px"}
-            left={(star.x-16)+"px"} />
-          {star.id === current_star_loc
-            ? (
+        <Box
+          textAlign="center"
+          bold>
+          Status: ENGINES IDLE - AWAITING INPUT
+        </Box>
+      </Section>
+      <Divider />
+      <Section>
+        <b>
+          System Diagnostics
+        </b>
+        <Divider />
+        <Table>
+          <Table.Row>
+            <Table.Cell>
+              Bluespace Traffic Control:
+            </Table.Cell>
+            <Table.Cell
+              bold
+              color="green">
+              Connection Stable
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>
+              Active Bluespace Hyperlanes
+            </Table.Cell>
+            <Table.Cell
+              bold
+              color="average">
+              3/4
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>
+              Hyperdrive Queue Length
+            </Table.Cell>
+            <Table.Cell
+              bold
+              color="green">
+              2
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>
+              Estimated Departure Time
+            </Table.Cell>
+            <Table.Cell
+              bold
+              color="green">
+              300 seconds
+            </Table.Cell>
+          </Table.Row>
+        </Table>
+      </Section>
+      <Divider />
+      <Section>
+        <Table>
+          <Table.Row>
+            <Table.Cell bold>
+              Selected System:
+            </Table.Cell>
+            <Table.Cell bold>
+              None
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>
+              System Alignment
+            </Table.Cell>
+            <Table.Cell bold>
+              Neutral
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>
+              Threat Level
+            </Table.Cell>
+            <Table.Cell bold>
+              Low
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>
+              Research Value
+            </Table.Cell>
+            <Table.Cell bold>
+              High
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>
+              Distance From Station
+            </Table.Cell>
+            <Table.Cell bold>
+              4 BSU
+            </Table.Cell>
+          </Table.Row>
+        </Table>
+        <Divider />
+        <Box bold
+          textAlign="center">
+          Detected Signals
+        </Box>
+        <Box
+          textAlign="center">
+          Hostile Signal
+        </Box>
+        <Divider />
+        <Box
+          textAlign="center">
+          <Button
+            content="Request Jump" />
+        </Box>
+      </Section>
+      <Divider />
+      <Section>
+        <Table>
+          <Table.Row>
+            <Table.Cell>
               <Box
-                position="absolute"
-                className={icon_cache[0].class_name}
-                style={{
-                  'transform': 'scale(1.5, 1.5);',
-                }}
-                top={(star.y-16)+"px"}
-                left={(star.x-16)+"px"} />
-            )
-            : ""}
-        </Fragment>
-      ))}
-    </Fragment>
-  );
-};
-
-export const StarMapBackground = (props, context) => {
-  const gridRows = [100, 200, 300, 400, 500, 600, 700, 800, 900];
-  return (
-    <Box>
-      {gridRows.map(row => (
-        <Box
-          key={row}>
-          <line x1={row} x2={row} y1={0} y2={1000} stroke="#333333" />
-          <line y1={row} y2={row} x1={0} x2={1000} stroke="#333333" />
-        </Box>
-      ))}
-    </Box>
-  );
-};
-
-export const Star = (props, context) => {
-  const { data } = useBackend(context);
-  const {
-    icon_cache = [],
-  } = data;
-  const {
-    starName,
-    map_x,
-    map_y,
-    color,
-  } = props;
-  return (
-    <Box>
-      <text
-        x={map_x}
-        y={map_y+30}
-        fill="white"
-        text-anchor="middle">
-        {starName}
-      </text>
-    </Box>
+                bold>
+                System Name
+              </Box>
+            </Table.Cell>
+            <Table.Cell>
+              <Box>
+                Alignment: Neutral
+              </Box>
+            </Table.Cell>
+            <Table.Cell>
+              <Box>
+                Threat: Low
+              </Box>
+            </Table.Cell>
+            <Table.Cell>
+              <Button
+                content="Select System" />
+            </Table.Cell>
+          </Table.Row>
+        </Table>
+      </Section>
+    </Window>
   );
 };

@@ -5,14 +5,13 @@
 	icon_keyboard = "security_key"
 	circuit = /obj/item/circuitboard/computer/security
 	light_color = LIGHT_COLOR_RED
-	ui_x = 870
+	ui_x = 480
 	ui_y = 708
 
 	var/bs_drive_name = "Bluespace Drive"
 	var/datum/weakref/linked_bluespace_drive
 
 	//A list of all the icons used on the starmap
-	var/static/list/starmap_icons_cache
 	var/shuttle_id
 
 /obj/machinery/computer/system_map/exploration
@@ -35,14 +34,6 @@
 				break
 	//Locate the bluespace drive
 	addtimer(CALLBACK(src, .proc/locate_bluespace_drive), 10)
-	//expertly copypasted from pill_press, with some minor altercations to make use of staticness
-	starmap_icons_cache = list()
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/starmap)
-	for(var/key in assets.assets)
-		var/list/asset = list()
-		asset["id"] = key
-		asset["class_name"] = assets.icon_class_name(key)
-		starmap_icons_cache += list(asset)
 
 /obj/machinery/computer/system_map/ui_base_html(html)
 	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/starmap)
@@ -102,40 +93,25 @@
 
 /obj/machinery/computer/system_map/ui_data(mob/user)
 	var/list/data = list()
-	data["jump_locations"] = list()
-	data["current_star_loc"] = SSbluespace_exploration.current_system.unique_id
-	for(var/datum/star_system/star as anything in SSbluespace_exploration.current_system.linked_stars)
-		data["jump_locations"] += list(list(
-			"name" = star.name,
-			"id" = star.unique_id,
-			"dist" = star.distance_from_center,
-		))
+	data["ship_status"] = list()
+	data["active_lanes"]
+	data["queue_length"]
+	data["departure_time"]
 	return data
 
 /obj/machinery/computer/system_map/ui_static_data(mob/user)
 	var/list/data = list()
-	data["icon_cache"] = starmap_icons_cache
-	data["stars"] = list()
-	data["links"] = list()
-	data["jump_state"] = linked_bluespace_drive ? TRUE : FALSE
+	data["ship_name"] = starmap_icons_cache
+	data["ship_faction"] = list()
 	for(var/star_id in SSbluespace_exploration.star_systems)
-		var/datum/star_system/star = SSbluespace_exploration.star_systems[star_id]
 		var/list/formatted_star = list(
-			"name" = star.name,
-			"x" = star.map_x,
-			"y" = star.map_y,
-			"id" = star.unique_id,
-			"can_jump" = SSbluespace_exploration.current_system ? (star in SSbluespace_exploration.current_system.linked_stars) : FALSE,
+			"name" = ,
+			"alignment" = ,
+			"threat" = ,
+			"research_value" = ,
+			"distance" = ,
 		)
 		data["stars"] += list(formatted_star)
-	for(var/datum/star_link/link as anything in SSbluespace_exploration.star_links)
-		var/list/formatted_link = list(
-			"x1" = link.x1,
-			"y1" = link.y1,
-			"x2" = link.x2,
-			"y2" = link.y2
-		)
-		data["links"] += list(formatted_link)
 	return data
 
 //Do this a few frames after loading everything, since if it loads at the same time as the drive it can fail to be located

@@ -21,8 +21,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/list/ruin_templates = list()
 	var/obj/docking_port/stationary/away_mission_port
 
-	//Ship combat
+	//=====Ship Tracking=====
 	var/list/spawnable_ships = list()
+	//All ships that are able to use the random generation must be tracked
 	var/list/tracked_ships = list()
 
 	//=====Ship Processing Queue=====
