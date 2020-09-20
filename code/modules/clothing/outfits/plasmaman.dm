@@ -16,6 +16,12 @@
 	head = /obj/item/clothing/head/foilhat/plasmaman
 	uniform = /obj/item/clothing/under/plasmaman
 
+/datum/outfit/plasmaman/radio
+	name = "Radiohost Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/hat
+	uniform = /obj/item/clothing/under/plasmaman/tux
+
 /datum/outfit/plasmaman/chef
 	name = "Chef Plasmaman"
 
@@ -139,22 +145,22 @@
 
 /datum/outfit/plasmaman/command
 	name = "Command Plasmamand"
-	
+
 	head = /obj/item/clothing/head/helmet/space/plasmaman/command
 	uniform = /obj/item/clothing/under/plasmaman/command
 
 /datum/outfit/plasmaman/ce
 	name = "CE plasmaman"
-	
+
 	head = /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce
 	uniform = /obj/item/clothing/under/plasmaman/engineering/ce
-	
+
 /datum/outfit/plasmaman/cmo
 	name = "CMO plasmaman"
-	
+
 	head = /obj/item/clothing/head/helmet/space/plasmaman/cmo
 	uniform = /obj/item/clothing/under/plasmaman/cmo
-	
+
 /datum/outfit/plasmaman/hos
 	name = "HoS plasmaman"
 
@@ -166,19 +172,19 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/rd
 	uniform = /obj/item/clothing/under/plasmaman/rd
-	
+
 /datum/outfit/plasmaman/hop
 	name = "Hop plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/hop
 	uniform = /obj/item/clothing/under/plasmaman/hop
-	
+
 /datum/outfit/plasmaman/mime
 	name = "Mime plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/mime
 	uniform = /obj/item/clothing/under/plasmaman/mime
-	
+
 /datum/outfit/plasmaman/honk
 	name = "Clown plasmaman"
 

@@ -84,6 +84,9 @@
 		if("Debtor")
 			O = new /datum/outfit/plasmaman/hobo
 
+		if("Radio Host")
+			O = new /datum/outfit/plasmaman/radio
+
 		if("Cook")
 			O = new /datum/outfit/plasmaman/chef
 

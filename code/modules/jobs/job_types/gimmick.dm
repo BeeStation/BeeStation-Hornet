@@ -76,7 +76,7 @@
 	ears = null //hobos dont start with a headset
 	uniform = /obj/item/clothing/under/pants/jeans
 	suit = /obj/item/clothing/suit/jacket
-	
+
 
 /datum/outfit/job/gimmick/hobo/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -91,6 +91,24 @@
 	junkie.teach(H)
 	ADD_TRAIT(H, TRAIT_APPRAISAL, JOB_TRAIT)
 
+/datum/job/gimmick/radiohost
+	title = "Radio Host"
+	flag = RADIOHOST
+	outfit = /datum/outfit/job/gimmick/radiohost
+	access = list(ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_MAINT_TUNNELS)
+	gimmick = TRUE
+
+/datum/outfit/job/gimmick/radiohost
+	name = "Radio Host"
+	jobtype = /datum/job/gimmick/radiohost
+	belt = /obj/item/storage/belt/utility/full
+	l_pocket = /obj/item/pda
+	ears = /obj/item/radio/headset/headset_srv
+	uniform = /obj/item/clothing/under/suit/black_really
+	suit = /obj/item/clothing/suit/jacket
+	back = /obj/item/storage/backpack/satchel/leather
+	backpack_contents = list(/obj/item/camera=1)
 
 /datum/job/gimmick/shrink
 	title = "Psychiatrist"
