@@ -1,0 +1,9 @@
+author: zeskorion
+delete-after: true
+changes:
+  - bugfix: lizards no longer get cockwork tails
+  - bugfix: macrophage works again
+  - bugfix: pink macrophages work again
+  - bugfix: biometallic replication and organic flux induction should scale with pituitary
+      disruption again
+  - bugfix: antivirus no longer works on humans. (why do biotypes suck ass)
