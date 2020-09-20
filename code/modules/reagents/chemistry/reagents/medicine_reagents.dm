@@ -397,24 +397,9 @@
 
 /datum/reagent/medicine/synthflesh
 	name = "Synthflesh"
-	description = "Has a 100% chance of instantly healing brute and burn damage. One unit of the chemical will heal one point of damage. Touch application only."
+	description = "A reagent used to grow biological tissue, it doesn't have any useful applications beyond that."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
-
-/datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, reac_volume,show_message = 1)
-	if(iscarbon(M))
-		if (M.stat == DEAD)
-			show_message = 0
-		if(method in list(PATCH, TOUCH))
-			M.adjustBruteLoss(-1.25 * reac_volume)
-			M.adjustFireLoss(-1.25 * reac_volume)
-			if(show_message)
-				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-			//Has to be at less than THRESHOLD_UNHUSK burn damage and have 100 isntabitaluri before unhusking. Corpses dont metabolize.
-			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 100))
-				M.cure_husk("burn")
-				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
 	..()
 
 /datum/reagent/medicine/charcoal

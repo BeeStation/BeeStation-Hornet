@@ -80,13 +80,6 @@
 	icon_state = "burnspray"
 	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 60)
 
-/obj/item/reagent_containers/medspray/synthflesh
-	name = "medical spray (synthflesh)"
-	desc = "A medical spray bottle, designed for precision application, with an unscrewable cap. This one contains synthflesh, an apex brute and burn healing agent."
-	icon_state = "synthspray"
-	list_reagents = list(/datum/reagent/medicine/synthflesh = 60)
-	custom_price = 80
-
 /obj/item/reagent_containers/medspray/sterilizine
 	name = "sterilizer spray"
 	desc = "Spray bottle loaded with non-toxic sterilizer. Useful in preparation for surgery."
