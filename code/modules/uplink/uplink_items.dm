@@ -1819,7 +1819,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	cost = 11
 	item = /obj/item/pneumatic_cannon/pie/selfcharge
 	restricted_roles = list("Clown")
-	surplus = 20 //hjonk!
+	surplus = 20 //hjonk
 
 /datum/uplink_item/role_restricted/blastcannon
 	name = "Blast Cannon"
@@ -1948,7 +1948,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 			Only one can fit on a mecha."
 	item = /obj/item/mecha_parts/concealed_weapon_bay
 	cost = 3
-	surplus = 40
 	restricted_roles = list("Roboticist", "Research Director")
 
 /datum/uplink_item/role_restricted/haunted_magic_eightball
@@ -1969,14 +1968,14 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/his_grace
 	cost = 20
 	restricted_roles = list("Chaplain")
-	surplus = 0 //just why was this a chance
+	surplus = 0 //my god
 
 /datum/uplink_item/role_restricted/cultconstructkit
 	name = "Cult Construct Kit"
 	desc = "Recovered from an abandoned Nar'sie cult lair two construct shells and a stash of empty soulstones was found. These were purified to prevent occult contamination and have been put in a belt so they may be used as an accessible source of disposable minions. The construct shells have been packaged into two beacons for rapid and portable deployment."
 	item = /obj/item/storage/box/syndie_kit/cultconstructkit
-	cost = 20
-	surplus = 20
+	cost = 12 // constructs can't do much and it's not a round remover
+	surplus = 30
 	restricted_roles = list("Chaplain")
 
 /datum/uplink_item/role_restricted/spanish_flu
@@ -2017,7 +2016,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 			The only way to get rid of it if you are holding it is to attack someone else with it, causing it to latch to that person instead."
 	item = /obj/item/hot_potato/syndicate
 	cost = 3
-	surplus = 50
+	surplus = 0
 	restricted_roles = list("Cook", "Botanist", "Clown", "Mime")
 
 /datum/uplink_item/role_restricted/echainsaw
@@ -2163,7 +2162,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 			Warning: Do not consume more than one!"
 	item = /obj/item/reagent_containers/food/drinks/syndicatebeer
 	cost = 4
-	surplus = 60
 	illegal_tech = FALSE
 
 /datum/uplink_item/badass/syndiecash
@@ -2173,7 +2171,6 @@ datum/uplink_item/role_restricted/superior_honkrender
 			manufactured to pack a little bit more of a punch if your client needs some convincing."
 	item = /obj/item/storage/secure/briefcase/syndie
 	cost = 1
-	surplus = 10
 	restricted = TRUE
 
 /datum/uplink_item/badass/syndiecards
@@ -2183,12 +2180,11 @@ datum/uplink_item/role_restricted/superior_honkrender
 			You can also play card games with them or leave them on your victims."
 	item = /obj/item/toy/cards/deck/syndicate
 	cost = 1
-	surplus = 60
+	surplus = 40
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
-	surplus = 60
 	illegal_tech = FALSE
