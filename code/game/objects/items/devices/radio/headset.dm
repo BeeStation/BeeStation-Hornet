@@ -235,6 +235,12 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "srv_headset"
 	keyslot = new /obj/item/encryptionkey/headset_service
 
+/obj/item/radio/headset/headset_radhost
+	name = "radio host headset"
+	desc = "A headset used by the radio host, to get a special flair over the communication channels."
+	icon_state = "srv_headset"
+	keyslot = new /obj/item/encryptionkey/headset_radio
+
 /obj/item/radio/headset/headset_cent
 	name = "\improper CentCom headset"
 	desc = "A headset used by the upper echelons of Nanotrasen."

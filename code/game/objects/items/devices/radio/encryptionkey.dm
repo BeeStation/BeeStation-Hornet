@@ -124,6 +124,11 @@
 	icon_state = "srv_cypherkey"
 	channels = list(RADIO_CHANNEL_SERVICE = 1)
 
+/obj/item/encryptionkey/headset_radio
+	name = "radio host encryption key"
+	icon_state = "srv_cypherkey"
+	channels = list(RADIO_CHANNEL_SERVICE = 1)
+
 /obj/item/encryptionkey/headset_cent
 	name = "\improper CentCom radio encryption key"
 	icon_state = "cent_cypherkey"

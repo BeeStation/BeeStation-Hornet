@@ -214,6 +214,9 @@
 	if(use_command)
 		spans |= SPAN_COMMAND
 
+	if(istype(keyslot, /obj/item/encryptionkey/headset_radio))
+		spans |= SPAN_RADIOHOST
+
 	/*
 	Roughly speaking, radios attempt to make a subspace transmission (which
 	is received, processed, and rebroadcast by the telecomms satellite) and

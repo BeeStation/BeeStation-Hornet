@@ -104,7 +104,7 @@
 	jobtype = /datum/job/gimmick/radiohost
 	belt = /obj/item/storage/belt/utility/full
 	l_pocket = /obj/item/pda
-	ears = /obj/item/radio/headset/headset_srv
+	ears = /obj/item/radio/headset/headset_radhost
 	uniform = /obj/item/clothing/under/suit/black_really
 	suit = /obj/item/clothing/suit/jacket
 	back = /obj/item/storage/backpack/satchel/leather

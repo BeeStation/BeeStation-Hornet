@@ -160,6 +160,7 @@ h1.alert, h2.alert		{color: #000000;}
 .singing				{font-family: "Trebuchet MS", cursive, sans-serif; font-style: italic;}
 .his_grace				{color: #15D512;	font-family: "Courier New", cursive, sans-serif; font-style: italic;}
 .hypnophrase			{color: #3bb5d3;	font-weight: bold; animation: hypnocolor 1500ms infinite;}
+.radiohost				{color: #85dbb0;	font-weight: bold;}
 @keyframes hypnocolor {
     0% { color: #0d0d0d; }
     25% { color: #410194; }
