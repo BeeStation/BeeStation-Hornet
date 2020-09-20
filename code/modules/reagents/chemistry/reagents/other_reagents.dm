@@ -439,7 +439,7 @@
 			filter = MUT_MSG_EXTENDED
 		else
 			filter = MUT_MSG_ABOUT2TURN
-			
+
 		for(var/i in mutationtexts)
 			if(mutationtexts[i] == filter)
 				pick_ur_fav += i
@@ -587,7 +587,7 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/krokodil_addict //Not the infectious kind. The days of xenobio zombie outbreaks are long past.
 	taste_description = "krokodil"
-	
+
 
 /datum/reagent/mutationtoxin/ash
 	name = "Ash Mutation Toxin"
@@ -605,7 +605,7 @@
 	can_synth = FALSE
 	random_unrestricted = FALSE
 
-	
+
 
 //DANGEROUS RACES
 /datum/reagent/mutationtoxin/shadow
@@ -2004,6 +2004,7 @@
 		M.adjustFireLoss(2, FALSE)
 		M.adjustOxyLoss(2, FALSE)
 		M.adjustBruteLoss(2, FALSE)
+	return ..()
 
 /datum/reagent/consumable/ratlight
 	name = "Ratvarian Light"
