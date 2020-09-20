@@ -87,7 +87,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	if(!shuttle_id)
 		message_admins("Bluespace exploration error: ship transit requested with no shuttle_id, check runtimes")
 		CRASH("Bluespace exploration error: ship transit requested with no shuttle_id, check runtimes")
-		return
 	if(!extra_data)
 		extra_data = new /datum/data_holder/bluespace_exploration
 	extra_data.shuttle_id = shuttle_id
@@ -101,7 +100,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		return
 	var/first_shuttle_id = ship_traffic_queue[1]
 	shuttle_translation(first_shuttle_id, ship_traffic_queue[first_shuttle_id])
-	ship_traffic_queue.remove(first_shuttle_id)
+	ship_traffic_queue.Remove(first_shuttle_id)
 
 //====================================
 // Ship procs
