@@ -7,8 +7,7 @@
 	icon_living = "173"
 	icon_dead = "173"
 	obj_damage = 500
-	melee_damage_lower = 1000
-	melee_damage_upper = 1000
+	melee_damage = 1000
 	attacktext = "crushes"
 	attack_sound = 'sound/scpsounds/scp/spook/NeckSnap1.ogg'
 	spacewalk = TRUE //Move in space
