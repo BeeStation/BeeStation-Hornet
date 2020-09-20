@@ -210,7 +210,7 @@
 /obj/item/stack/tile/carpet/royalblue/fifty
 	amount = 50
 
-/obj/item/stack/tile/carpet/eighties
+/obj/item/stack/tile/eighties
 	amount = 50
 
 /obj/item/stack/tile/fakespace
