@@ -10,5 +10,7 @@
 # and will override any duplicate entries in the database.									  #
 ###############################################################################################
 Ro5490 = Host
-
+bettonncz = Coder
+lordsaladin = Coder
+nuclearmayhem1 = Headmin
 # the rest are in the db
