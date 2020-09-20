@@ -573,6 +573,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		qdel(src)
 	item_flags &= ~IN_INVENTORY
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	if(item_flags & SLOWS_WHILE_IN_HAND)
+		user.update_equipment_speed_mods()
 	remove_outline()
 
 // called just as an item is picked up (loc is not yet changed)
@@ -595,6 +597,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
 			A.Grant(user)
+	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
+		user.update_equipment_speed_mods()
 	item_flags |= IN_INVENTORY
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
@@ -895,7 +899,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	remove_outline()
 
 /obj/item/proc/apply_outline(colour = null)
-	if(!(item_flags & IN_INVENTORY || item_flags & IN_STORAGE) || QDELETED(src))
+	if(!(item_flags & IN_INVENTORY || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
 		return
 	if(usr.client)
 		if(!usr.client.prefs.outline_enabled)
@@ -1014,3 +1018,20 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
 	return owner.dropItemToGround(src)
+
+/obj/item/ex_act(severity, target)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+	..() //contents explosion
+	if(QDELETED(src))
+		return
+	if(target == src)
+		take_damage(INFINITY, BRUTE, "bomb", 0)
+		return
+	switch(severity)
+		if(1)
+			take_damage(250, BRUTE, "bomb", 0)
+		if(2)
+			take_damage(75, BRUTE, "bomb", 0)
+		if(3)
+			take_damage(20, BRUTE, "bomb", 0)
