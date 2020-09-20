@@ -126,7 +126,7 @@
 	missinghpbonus = 10
 
 /datum/surgery_step/heal/brute/upgraded/femto
-	brutehealing = 10
+	brutehealing = 15
 	missinghpbonus = 5
 
 /***************************BURN***************************/
