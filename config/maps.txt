@@ -22,6 +22,11 @@ map metastation
 	votable
 endmap
 
+map babylon
+	minplayers 65
+	votable
+endmap
+
 map pubbystation
 	minplayers 50
 	maxplayers 100
