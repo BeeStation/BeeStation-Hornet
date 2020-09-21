@@ -6,6 +6,7 @@
 	icon = 'icons/obj/doors/airlocks/station/command.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_com
 	normal_integrity = 450
+	security_level = 6
 
 /obj/machinery/door/airlock/security
 	icon = 'icons/obj/doors/airlocks/station/security.dmi'
@@ -85,6 +86,7 @@
 	opacity = 0
 	glass = TRUE
 	normal_integrity = 400
+	security_level =  6
 
 /obj/machinery/door/airlock/engineering/glass
 	opacity = 0
