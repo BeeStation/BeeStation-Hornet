@@ -1,0 +1,11 @@
+{
+    "map_name": "Babylon",
+    "map_path": "map_files/Babylon",
+    "map_file": "Babylon.dmm",
+    "shuttles": {
+	    "cargo": "cargo_box",
+	    "ferry": "ferry_fancy",
+	    "whiteship": "whiteship_delta",
+	    "emergency": "emergency_meta"
+    }
+}
