@@ -246,7 +246,9 @@ export const ClockworkHelp = (props, context) => {
               Clockwork Marauder:&nbsp;
             </font>
           </b>
-          (Not implemented)
+          A powerful shell that can deflect ranged
+          attacks and delivers a strong blow in close
+          quarter combat.<br />
           <br />
         </Section>
       </Collapsible>
