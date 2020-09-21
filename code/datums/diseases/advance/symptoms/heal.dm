@@ -267,7 +267,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(4, 5)
 			M.emp_act(EMP_HEAVY)
 			if(cellheal)
-				M.adjustCloneLoss(-20)
+				M.adjustCloneLoss(-30)
 				M.reagents.add_reagent(/datum/reagent/medicine/mutadone = 1)
 			if(bigemp)
 				empulse(M.loc, 0, 1)
