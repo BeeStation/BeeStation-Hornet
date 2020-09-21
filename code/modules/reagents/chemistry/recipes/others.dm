@@ -48,7 +48,7 @@
 	id = "Fake CBZ"
 	results = list(/datum/reagent/fake_cbz = 1)
 	required_reagents = list(/datum/reagent/concentrated_bz = 1, /datum/reagent/medicine/neurine = 3)
-	
+
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"
 	id = /datum/reagent/cryptobiolin
@@ -262,10 +262,10 @@
 		if(D)
 			D.Evolve(level_min, level_max)
 
-
 /datum/chemical_reaction/mix_virus/mix_virus_2
 	name = "Mix Virus 2"
 	id = "mixvirus2"
+	results = null
 	required_reagents = list(/datum/reagent/toxin/mutagen = 1)
 	level_min = 2
 	level_max = 4
