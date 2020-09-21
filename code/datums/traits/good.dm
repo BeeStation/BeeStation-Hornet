@@ -116,10 +116,6 @@
 		if(LAZYLEN(languages_possible))
 			var/datum/language/random_language = pick(languages_possible)
 			H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
-		else
-			return
-	else
-		return
 //Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
 
 /datum/quirk/night_vision
