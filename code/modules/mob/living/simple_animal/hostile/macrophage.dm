@@ -62,14 +62,14 @@
 		if(M.can_inject(src))
 			for(var/datum/disease/D in infections)
 				if(M.ForceContractDisease(D)) //we already check spread type in the macrophage creation proc
-					to_chat(src, "<span class ='notice'>You infect [M] with [D]</span>")
+					to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")
 		else if(aggressive)
 			M.visible_message("<span class='danger'>the [src] begins penetrating [M]' protection!</span>", \
 	 				 "<span class='danger'>[src] begins penetrating your protection!</span>")
 			if(do_mob(src, M, 15))
 				for(var/datum/disease/D in infections)
 					if(M.ForceContractDisease(D))
-						to_chat(src, "<span class ='notice'>You infect [M] with [D]</span>")
+						to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")
 				to_chat(M, "<span class ='userdanger'>[src] pierces your protection, and you feel a sharp stab!</span>")
 
 /mob/living/simple_animal/hostile/macrophage/proc/shrivel()
@@ -80,12 +80,12 @@
 	for(var/datum/disease/advance/A in infections)
 		for(var/datum/symptom/S in A.symptoms)
 			if(istype(S, /datum/symptom/flesh))//yes, we do a check for if we have exolocomotive xenomitosis just to turn the phage pink
-				if(istype(src, /mob/living/simple_animal/hostile/macrophage/aggro)) 
+				if(istype(src, /mob/living/simple_animal/hostile/macrophage/aggro))
 					icon_state = "pinkvirus_large"
 				else
 					icon_state = "pinkvirus_small"
 				break
-		
+
 
 /mob/living/simple_animal/hostile/macrophage/aggro
 	name = "Giant Germ"
