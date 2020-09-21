@@ -262,6 +262,8 @@
 			vol_each_max = min(10, vol_each_max)
 		else if (item_type == "condimentBottle")
 			vol_each_max = min(50, vol_each_max)
+		else if (item_type == "medipen")
+			vol_each_max = min(50, vol_each_max)
 		else
 			return FALSE
 		if(vol_each_text == "auto")
@@ -336,6 +338,14 @@
 				P.originalname = name
 				P.name = trim("[name] pack")
 				P.desc = "A small condiment pack. The label says it contains [name]."
+				reagents.trans_to(P, vol_each, transfered_by = usr)
+			return TRUE
+		if(item_type == "H")
+			var/obj/item/reagent_containers/hypospray/medipen/medipen/P
+			for(var/i = 0; i < amount; i++)
+				P = new/obj/item/reagent_containers/medipen(drop_location())
+				P.originalname = name
+				P.name = trim("[name] bottle")
 				reagents.trans_to(P, vol_each, transfered_by = usr)
 			return TRUE
 		if(item_type == "condimentBottle")
