@@ -33,6 +33,11 @@ map deltastation
 	votable
 endmap
 
+map babylon
+	minplayers 65
+	votable
+endmap
+
 map donutstation
 	minplayers 80
 	maxplayers 120
