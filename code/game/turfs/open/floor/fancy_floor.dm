@@ -241,6 +241,13 @@
 	floor_tile = /obj/item/stack/tile/carpet/royalblue
 	canSmoothWith = list(/turf/open/floor/carpet/royalblue)
 
+/turf/open/floor/carpet/eighties
+	name = "retro floor"
+	desc = "This one takes you back."
+	icon_state = "Stylish 80s arcade carpet, smells like pizza and dropped soda.."
+	floor_tile = /obj/item/stack/tile/eighties
+	broken_states = list("damaged")
+
 /turf/open/floor/carpet/narsie_act(force, ignore_mobs, probability = 20)
 	. = (prob(probability) || force)
 	for(var/I in src)
