@@ -1,6 +1,6 @@
 <!-- Most valid html will work in here, excluding images. -->
 
-<h1>Welcome to BeeStation!</h1>
+<h1>Welcome to Oasis!</h1>
 
 <br><b>Website: 	<a href="http://beestation13.com">Click Me!</a></b>
 <br><b>Discord: 	<a href="https://discord.gg/z9ttAvA">Click Me!</a></b>
