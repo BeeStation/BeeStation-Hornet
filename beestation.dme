@@ -3107,5 +3107,4 @@
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
-#include "Oasis\backpack.dm"
 // END_INCLUDE
