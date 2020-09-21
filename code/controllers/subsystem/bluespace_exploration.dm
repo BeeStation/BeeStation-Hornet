@@ -1,8 +1,5 @@
 #define CLEAR_TURF_PROCESSING_TIME 600
 
-// TODO:
-// WHY THE FUCK ARE WE USING TIMERS WHEN WE HAVE OUR OWN SUBSYSTEM LOL??????????
-
 SUBSYSTEM_DEF(bluespace_exploration)
 	name = "Bluespace Exploration"
 	wait = 1
@@ -48,7 +45,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 /datum/controller/subsystem/bluespace_exploration/Initialize(start_timeofday)
 	z_level_queue = list()
-	generate_starmap()
 	. = ..()
 
 /datum/controller/subsystem/bluespace_exploration/fire(resumed = 0)
@@ -318,11 +314,16 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	addtimer(CALLBACK(src, .proc/generate_z_level, data_holder), shuttle.ignitionTime + 50, TIMER_UNIQUE)
 
 //====================================
+// Starsystem Grabbing
+//====================================
+
+//====================================
 // Utility
 //====================================
 
 /datum/controller/subsystem/bluespace_exploration/proc/get_bse_level_data()
 	return current_system.system_data
+
 
 //====================================
 // Data holder - Simplifys what gets sent as paramaters so we don't have tons of variables some of which won't be used in that proc

@@ -35,10 +35,6 @@
 	//Locate the bluespace drive
 	addtimer(CALLBACK(src, .proc/locate_bluespace_drive), 10)
 
-/obj/machinery/computer/system_map/ui_base_html(html)
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/starmap)
-	. = replacetext(html, "<!--customheadhtml-->", assets.css_tag())
-
 /obj/machinery/computer/system_map/ui_interact(\
 		mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
 		datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -105,11 +101,11 @@
 	data["ship_faction"] = list()
 	for(var/star_id in SSbluespace_exploration.star_systems)
 		var/list/formatted_star = list(
-			"name" = ,
-			"alignment" = ,
-			"threat" = ,
-			"research_value" = ,
-			"distance" = ,
+			"name" = 0,
+			"alignment" = 0,
+			"threat" = 0,
+			"research_value" = 0,
+			"distance" = 0,
 		)
 		data["stars"] += list(formatted_star)
 	return data

@@ -20,8 +20,15 @@
 	//Do we use bluespace or normal generation
 	var/bluespace = TRUE
 
+	//The star systems we can go to (We can choose 1 and new ones are generated after we jump)
+	var/list/star_systems
+
+	//For difficulty calculation
+	var/jumps = 0
+
 /datum/ship_datum/New()
 	. = ..()
+	//TODO: Make it share a faction for gods sake
 	ship_faction = new ship_faction
 
 /datum/ship_datum/proc/update_ship()
@@ -107,3 +114,17 @@
 	if(mobile_port_id == "exploration")
 		print_command_report("Sensors of your station's exploration shuttle, The Pathfinder have gone dark. The ship and its crew are assumed lost. Their bodies could potentially be recovered, however their last known sector is known to be dangerous.")
 	qdel(src)
+
+//Removes all the star systems we could jump to, and generates new ones
+//Called: on ship jump
+/datum/ship_datum/proc/recalculate_star_systems()
+	//Don't initialize until we need it, byond memory doesn't come cheap
+	if(!islist(star_systems))
+		star_systems = list()
+	else
+		star_systems.Cut()
+	for(var/i = 0 to 5)
+		//Generate star systems
+		var/datum/star_system/system = new
+
+	jumps ++
