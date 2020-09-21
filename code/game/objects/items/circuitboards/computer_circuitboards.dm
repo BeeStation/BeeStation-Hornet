@@ -48,6 +48,16 @@
 
 //Engineering
 
+/obj/item/circuitboard/computer/shuttle/flight_control
+	name = "Shuttle Flight Control (Computer Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/custom_shuttle
+
+/obj/item/circuitboard/computer/shuttle/docker
+	name = "Shuttle Navigation Computer (Computer Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/camera_advanced/shuttle_docker/custom
+
 /obj/item/circuitboard/computer/apc_control
 	name = "\improper Power Flow Control Console (Computer Board)"
 	icon_state = "engineering"
@@ -172,6 +182,11 @@
 
 //Generic
 
+/obj/item/circuitboard/computer/advanced_camera
+	name = "Advanced Camera Console (Computer Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/computer/camera_advanced/syndie
+
 /obj/item/circuitboard/computer/arcade/amputation
 	name = "Mediborg's Amputation Adventure (Computer Board)"
 	icon_state = "generic"
@@ -274,10 +289,10 @@
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/cloning
 
-	/obj/item/circuitboard/computer/crew
-	name = "Crew Monitoring Console (Computer Board)"
-	icon_state = "medical"
-	build_path = /obj/machinery/computer/crew
+/obj/item/circuitboard/computer/crew
+    name = "Crew Monitoring Console (Computer Board)"
+    icon_state = "medical"
+    build_path = /obj/machinery/computer/crew
 
 /obj/item/circuitboard/computer/med_data
 	name = "Medical Records Console (Computer Board)"
@@ -381,6 +396,11 @@
 
 //Security
 
+/obj/item/circuitboard/computer/warrant
+	name = "Security Warrant Viewer (Computer Board)"
+	icon_state = "security"
+	build_path = /obj/machinery/computer/warrant
+
 /obj/item/circuitboard/computer/labor_shuttle
 	name = "Labor Shuttle (Computer Board)"
 	icon_state = "security"
@@ -394,7 +414,7 @@
 /obj/item/circuitboard/computer/gulag_teleporter_console
 	name = "Labor Camp teleporter console (Computer Board)"
 	icon_state = "security"
-	build_path = /obj/machinery/computer/gulag_teleporter_computer
+	build_path = /obj/machinery/computer/prisoner/gulag_teleporter_computer
 
 /obj/item/circuitboard/computer/prisoner
 	name = "Prisoner Management Console (Computer Board)"
@@ -477,7 +497,3 @@
 	name = "Mining Shuttle (Computer Board)"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/shuttle/mining
-
-/obj/item/circuitboard/computer/mining_shuttle/common
-	name = "Lavaland Shuttle (Computer Board)"
-	build_path = /obj/machinery/computer/shuttle/mining/common

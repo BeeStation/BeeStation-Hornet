@@ -35,6 +35,35 @@
 
 //Engineering
 
+/obj/item/circuitboard/machine/shuttle/engine
+	name = "Thruster (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/shuttle/engine
+	req_components = list()
+
+/obj/item/circuitboard/machine/shuttle/engine/plasma
+	name = "Plasma Thruster (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/shuttle/engine/plasma
+	req_components = list(/obj/item/stock_parts/capacitor = 2,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/micro_laser = 1)
+
+/obj/item/circuitboard/machine/shuttle/engine/void
+	name = "Void Thruster (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/shuttle/engine/void
+	req_components = list(/obj/item/stock_parts/capacitor/quadratic = 2,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/micro_laser/quadultra = 1)
+
+/obj/item/circuitboard/machine/shuttle/heater
+	name = "Electronic Engine Heater (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/atmospherics/components/unary/shuttle/heater
+	req_components = list(/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stock_parts/matter_bin = 1)
+
 /obj/item/circuitboard/machine/announcement_system
 	name = "Announcement System (Machine Board)"
 	icon_state = "engineering"
@@ -337,6 +366,7 @@
 	name = "Thermomachine (Machine Board)"
 	icon_state = "engineering"
 	desc = "You can use a screwdriver to switch between heater and freezer."
+	var/pipe_layer = PIPING_LAYER_DEFAULT
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/micro_laser = 2,
@@ -371,8 +401,18 @@
 		build_path = initial(new_type.build_path)
 		I.play_tool_sound(src)
 		to_chat(user, "<span class='notice'>You change the circuitboard setting to \"[new_setting]\".</span>")
-	else
-		return ..()
+		return
+
+	if(I.tool_behaviour == TOOL_MULTITOOL)
+		pipe_layer = (pipe_layer >= PIPING_LAYER_MAX) ? PIPING_LAYER_MIN : (pipe_layer + 1)
+		to_chat(user, "<span class='notice'>You change the circuitboard to layer [pipe_layer].</span>")
+		return
+
+	. = ..()
+
+/obj/item/circuitboard/machine/thermomachine/examine()
+	. = ..()
+	. += "<span class='notice'>It is set to layer [pipe_layer].</span>"
 
 /obj/item/circuitboard/machine/thermomachine/heater
 	name = "Heater (Machine Board)"
@@ -586,7 +626,7 @@
 			break
 	return ..()
 
-	/obj/item/circuitboard/machine/vending/donksofttoyvendor
+/obj/item/circuitboard/machine/vending/donksofttoyvendor
 	name = "Donksoft Toy Vendor (Machine Board)"
 	build_path = /obj/machinery/vending/donksofttoyvendor
 	req_components = list(
@@ -601,6 +641,17 @@
 		/obj/item/vending_refill/donksoft = 1)
 
 //Medical
+
+/obj/item/circuitboard/machine/autodoc
+	name = "Autodoc (Machine Board)"
+	icon_state = "medical"
+	build_path = /obj/machinery/autodoc
+	req_components = list(/obj/item/scalpel/advanced = 1,
+		/obj/item/retractor/advanced = 1,
+		/obj/item/surgicaldrill/advanced = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/micro_laser = 3,
+		/obj/item/stock_parts/matter_bin = 1)
 
 /obj/item/circuitboard/machine/chem_dispenser
 	name = "Chem Dispenser (Machine Board)"
@@ -748,6 +799,18 @@
 	build_path = /obj/machinery/rnd/production/techfab/department/medical
 
 //Science
+
+/obj/item/circuitboard/machine/bluespace_miner
+	name = "Bluespace Miner (Machine Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/mineral/bluespace_miner
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 3,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 3,
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stack/ore/bluespace_crystal = 3)
+	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/circuit_imprinter/department/science
 	name = "Departmental Circuit Imprinter - Science (Machine Board)"
@@ -909,6 +972,19 @@
 
 //Service
 
+/obj/item/circuitboard/machine/chem_dispenser/botany
+	name = "Minor Botanical Chem Dispenser (Machine Board)"
+	icon_state = "service"
+	build_path = /obj/machinery/chem_dispenser/mutagensaltpetersmall
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/cell = 1)
+	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
+	needs_anchored = FALSE
+
 /obj/item/circuitboard/machine/biogenerator
 	name = "Biogenerator (Machine Board)"
 	icon_state = "service"
@@ -1061,6 +1137,15 @@
 
 //Supply
 
+/obj/item/circuitboard/machine/pump
+	name = "Portable Liquid Pump (Machine Board)"
+	icon_state = "supply"
+	build_path = /obj/machinery/power/liquid_pump
+	needs_anchored = FALSE
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/matter_bin = 2)
+
 /obj/item/circuitboard/machine/mining_equipment_vendor
 	name = "Mining Equipment Vendor (Machine Board)"
 	icon_state = "supply"
@@ -1118,6 +1203,13 @@
 	build_path = /obj/machinery/rnd/production/techfab/department/cargo
 
 //Misc
+
+/obj/item/circuitboard/machine/chem_dispenser/abductor
+	name = "Reagent Synthesizer (Abductor Machine Board)"
+	icon_state = "abductor_mod"
+	build_path = /obj/machinery/chem_dispenser/abductor
+	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
+	needs_anchored = FALSE
 
 
 /obj/item/circuitboard/machine/abductor
