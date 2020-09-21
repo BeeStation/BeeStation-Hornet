@@ -230,10 +230,6 @@ const PackagingControls = (props, context) => {
     setBottleAmount,
   ] = useSharedState(context, 'bottleAmount', 1);
   const [
-    medipenAmount,
-    setMedipenAmount,
-  ] = useSharedState(context, 'medipenAmount', 1);
-  const [
     packAmount,
     setPackAmount,
   ] = useSharedState(context, 'packAmount', 1);
@@ -308,19 +304,6 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'condimentPack',
             amount: packAmount,
-            volume: 'auto',
-          })} />
-      )}
-      {!condi && (
-        <PackagingControlsItem
-          label="Medipen"
-          amount={medipenAmount}
-          amountUnit="medipen"
-          sideNote="max 50u"
-          onChangeAmount={(e, value) => setMedipenAmount(value)}
-          onCreate={() => act('create', {
-            type: 'medipen',
-            amount: medipenAmount,
             volume: 'auto',
           })} />
       )}
