@@ -92,6 +92,8 @@
 	var/my_z // I don't want to confuse this with client registered_z
 
 	var/do_footstep = FALSE
+	///Generic flags
+	var/simple_mob_flags = NONE
 
 	var/special_process = FALSE
 

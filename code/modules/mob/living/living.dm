@@ -57,7 +57,7 @@
 /mob/living/Bump(atom/A)
 	if(..()) //we are thrown onto something
 		return
-	if (buckled || now_pushing)
+	if(buckled || now_pushing)
 		return
 	if(!ismovableatom(A) || is_blocked_turf(A))  // ported from VORE, sue me
 		if((confused || is_blind()) && stat == CONSCIOUS && m_intent=="run" && mobility_flags & MOBILITY_STAND)
