@@ -1,0 +1,34 @@
+"a" = (/obj/structure/shuttle/engine/propulsion,/turf/closed/wall/mineral/titanium,/area/shuttle/science)
+"c" = (/obj/machinery/button/door{id = "sciencecargo"; name = "Cargo Blast Door Toggle"; pixel_x = -24},/obj/structure/table/reinforced,/obj/machinery/light{dir = 8; light_color = "#e8eaff"},/obj/item/storage/toolbox/mechanical,/obj/item/clothing/glasses/science,/turf/open/floor/mineral/titanium/purple,/area/shuttle/science)
+"d" = (/obj/effect/spawner/structure/window/shuttle,/turf/open/floor/plating,/area/shuttle/science)
+"f" = (/obj/effect/turf_decal/box,/turf/open/floor/mineral/titanium/white,/area/shuttle/science)
+"g" = (/obj/machinery/computer/shuttle/science,/turf/open/floor/mineral/titanium/white,/area/shuttle/science)
+"n" = (/turf/open/floor/mineral/titanium/white,/area/shuttle/science)
+"o" = (/obj/effect/turf_decal/box,/turf/open/floor/mineral/titanium/purple,/area/shuttle/science)
+"p" = (/obj/machinery/portable_atmospherics/canister/air,/turf/open/floor/mineral/titanium/white,/area/shuttle/science)
+"q" = (/turf/open/floor/mineral/titanium/purple,/area/shuttle/science)
+"r" = (/obj/machinery/door/airlock/titanium,/obj/docking_port/mobile{dir = 8; dwidth = 6; height = 6; id = "science"; name = "science shuttle"; port_direction = 4; width = 9},/obj/structure/cable/yellow{icon_state = "4-8"},/turf/open/floor/mineral/titanium/white,/area/shuttle/science)
+"s" = (/obj/machinery/power/terminal{dir = 4},/obj/structure/cable/yellow,/obj/machinery/power/apc/auto_name/east,/obj/effect/mapping_helpers/apc/discharged,/obj/structure/janitorialcart,/obj/item/mop,/turf/open/floor/mineral/titanium/purple,/area/shuttle/science)
+"t" = (/turf/closed/wall/mineral/titanium/nodiagonal,/area/shuttle/science)
+"u" = (/obj/machinery/light{dir = 8; light_color = "#e8eaff"},/obj/effect/turf_decal/box,/turf/open/floor/mineral/titanium/white,/area/shuttle/science)
+"x" = (/obj/structure/cable/yellow{icon_state = "2-4"},/turf/open/floor/mineral/titanium/white,/area/shuttle/science)
+"y" = (/turf/closed/wall/mineral/titanium,/area/shuttle/science)
+"z" = (/obj/effect/spawner/structure/window/plasma/reinforced,/turf/open/floor/mineral/titanium/white,/area/shuttle/science)
+"A" = (/obj/machinery/modular_computer/console/preset/research,/turf/open/floor/mineral/titanium/white,/area/shuttle/science)
+"B" = (/obj/structure/tank_dispenser,/turf/open/floor/mineral/titanium/purple,/area/shuttle/science)
+"H" = (/obj/machinery/door/poddoor{id = "sciencecargo"},/turf/open/floor/mineral/titanium/white,/area/shuttle/science)
+"I" = (/obj/structure/shuttle/engine/heater,/turf/closed/wall/mineral/titanium,/area/shuttle/science)
+"M" = (/obj/structure/chair/comfy/shuttle{dir = 1},/turf/open/floor/mineral/titanium/white,/area/shuttle/science)
+"T" = (/obj/structure/table/reinforced,/obj/machinery/light{dir = 4},/turf/open/floor/mineral/titanium/purple,/area/shuttle/science)
+
+(1,1,1) = {"
+yddddy
+ycgATy
+yMMMxr
+yBpnsy
+yyzzyt
+yqnnqH
+yufffH
+IoffoI
+ayyyya
+"}
