@@ -22,18 +22,11 @@
 	icon_state = "labcoat_emt"
 	item_state = "labcoat_cmo"
 
-//Brig Phys
-/obj/item/clothing/suit/toggle/labcoat/brigphys
+/obj/item/clothing/suit/toggle/labcoat/brig_phys
 	name = "security medic's labcoat"
 	icon_state = "labcoat_sec"
 	item_state = "labcoat_sec"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 50, acid = 50)
-
-/obj/item/clothing/suit/toggle/labcoat/brigphys/vest
-	name = "brig physician's vest"
-	desc = "A lightweight vest worn by the Brig Physician."
-	icon_state = "brig_phys_vest"
-	item_state = "sec_helm"//looks kinda similar, I guess
 
 /obj/item/clothing/suit/toggle/labcoat/mad
 	name = "\proper The Mad's labcoat"

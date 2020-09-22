@@ -9,9 +9,9 @@
 /datum/gear/suit/labcoat
 	subtype_path = /datum/gear/suit/labcoat
 
-/datum/gear/suit/labcoat/brig_doc_vest
-	display_name = "brig physician's vest"
-	path = /obj/item/clothing/suit/toggle/labcoat/brigphys/vest
+/datum/gear/suit/labcoat/brig_doc_hazard
+	display_name = "brig physician's hazard vest"
+	path = /obj/item/clothing/suit/hazardvest/brig_phys
 	allowed_roles = list("Brig Physician")
 
 /datum/gear/suit/labcoat/brig_doc
