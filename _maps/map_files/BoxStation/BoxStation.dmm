@@ -19318,13 +19318,6 @@
 "bbm" = (
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
-"bbn" = (
-/obj/structure/table,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/ai_upload)
 "bbo" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -57630,6 +57623,16 @@
 /obj/structure/disposalpipe/segment,
 /turf/closed/wall,
 /area/maintenance/port)
+"rQc" = (
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/aiModule/core/full/asimov{
+	name = "'Crewsimov' Core AI Module"
+	},
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/turret_protected/ai_upload)
 "rQC" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -93025,7 +93028,7 @@ aVo
 aWW
 bfv
 bfv
-bbn
+rQc
 bcg
 aZU
 beg

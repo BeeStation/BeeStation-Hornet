@@ -53781,13 +53781,6 @@
 	luminosity = 2
 	},
 /area/ai_monitored/turret_protected/ai_upload)
-"bzb" = (
-/obj/structure/table,
-/obj/item/aiModule/supplied/freeform,
-/turf/open/floor/circuit/green{
-	luminosity = 2
-	},
-/area/ai_monitored/turret_protected/ai_upload)
 "bzc" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -100537,6 +100530,16 @@
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"ini" = (
+/obj/structure/table,
+/obj/item/aiModule/supplied/freeform,
+/obj/item/aiModule/core/full/asimov{
+	name = "'Crewsimov' Core AI Module"
+	},
+/turf/open/floor/circuit/green{
+	luminosity = 2
+	},
+/area/ai_monitored/turret_protected/ai_upload)
 "oOk" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral,
@@ -131038,7 +131041,7 @@ bAw
 byR
 bas
 bzg
-bzb
+ini
 bze
 cOe
 auy

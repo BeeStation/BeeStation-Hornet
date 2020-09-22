@@ -5468,13 +5468,6 @@
 "anR" = (
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
-"anS" = (
-/obj/structure/table,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/ai_upload)
 "anT" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/techstorage/medical,
@@ -53837,6 +53830,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"nhK" = (
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/aiModule/core/full/asimov{
+	name = "'Crewsimov' Core AI Module"
+	},
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/turret_protected/ai_upload)
 "njx" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
@@ -104948,7 +104951,7 @@ bXE
 bQZ
 bQH
 aiV
-anS
+nhK
 byL
 bAu
 arO
