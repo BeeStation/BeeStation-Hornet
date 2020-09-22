@@ -4,6 +4,8 @@ GLOBAL_VAR(main_bluespace_drive)
 
 /obj/machinery/bluespace_drive
 	name = "bluespace drive"
+	icon = 'icons/obj/bluespace_drive.dmi'
+	icon_state = "bluespace_drive"
 	var/cooldown_world_time
 	var/shuttle_id = "exploration"
 	var/drive_type = BLUESPACE_DRIVE_BSLEVEL

@@ -8,15 +8,14 @@
 	ui_x = 480
 	ui_y = 708
 
-	var/bs_drive_name = "Bluespace Drive"
+	// Note: Not all shuttles have a bluespace drive
 	var/datum/weakref/linked_bluespace_drive
 
-	//A list of all the icons used on the starmap
+	// Shuttle_ID as seen in SSshuttles
 	var/shuttle_id
 
 /obj/machinery/computer/system_map/exploration
 	shuttle_id = "exploration"
-	bs_drive_name = "Nanotrasen Bluespace Drive"
 
 /obj/machinery/computer/system_map/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
@@ -44,9 +43,6 @@
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		//Send assets
-		var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/simple/starmap)
-		assets.send(user)
 		// Open UI
 		ui = new(user, src, ui_key, "SystemMap", name, ui_x, ui_y, master_ui, state)
 		ui.open()
@@ -58,7 +54,7 @@
 			if(linked_bluespace_drive)
 				bs_drive = linked_bluespace_drive.resolve()
 			if(!bs_drive || QDELETED(bs_drive))
-				say("Your [bs_drive_name] is experiencing issues. Please contact your ships engineer, or report to a repair depot in the sector.")
+				say("Your drive is experiencing issues. Please contact your ships engineer, or report to a repair depot in the sector.")
 				return
 			//Locate Star
 			var/star_id = params["id"]
@@ -89,25 +85,35 @@
 
 /obj/machinery/computer/system_map/ui_data(mob/user)
 	var/list/data = list()
-	data["ship_status"] = list()
-	data["active_lanes"]
-	data["queue_length"]
-	data["departure_time"]
+	data["ship_status"] = "eek"
+	data["active_lanes"] = 0
+	data["queue_length"] = 0
+	data["departure_time"] = 0
 	return data
 
 /obj/machinery/computer/system_map/ui_static_data(mob/user)
 	var/list/data = list()
-	data["ship_name"] = starmap_icons_cache
-	data["ship_faction"] = list()
-	for(var/star_id in SSbluespace_exploration.star_systems)
-		var/list/formatted_star = list(
-			"name" = 0,
-			"alignment" = 0,
-			"threat" = 0,
-			"research_value" = 0,
-			"distance" = 0,
-		)
-		data["stars"] += list(formatted_star)
+	var/datum/ship_datum/SD = SSbluespace_exploration.tracked_ships[shuttle_id]
+	if(SD)
+		data["ship_name"] = SD.ship_name
+		var/datum/faction/faction = SD.ship_faction
+		data["ship_faction"] = faction.name
+		//Initial setup
+		if(!islist(SD.star_systems))
+			SD.recalculate_star_systems()
+		for(var/star_id in SD.star_systems)
+			var/datum/star_system/system = star_id
+			var/list/formatted_star = list(
+				"name" = system.name,
+				"alignment" = system.system_alignment,
+				"threat" = system.calculated_threat,
+				"research_value" = system.calculated_research_potential,
+				"distance" = system.distance_from_center,
+			)
+			data["stars"] += list(formatted_star)
+	else
+		data["ship_name"] = "Unknown"
+		data["ship_faction"] = "independant"
 	return data
 
 //Do this a few frames after loading everything, since if it loads at the same time as the drive it can fail to be located

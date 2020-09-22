@@ -25,6 +25,11 @@
 
 	var/datum/star_system_data/system_data
 
+	//After generation
+	var/system_alignment
+	var/calculated_threat
+	var/calculated_research_potential = 0
+
 /datum/star_system/New(distance)
 	. = ..()
 	var/static/stars = 0

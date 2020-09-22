@@ -52,7 +52,7 @@
 	name = "Exploration Crew Leader"
 	jobtype = /datum/job/exploration_crew
 
-	id = /obj/item/card/id/job/sci
+	id = /obj/item/card/id/job/exploration_crew/captain
 	l_pocket = /obj/item/pinpointer/exploration
 	ears = /obj/item/radio/headset/headset_exp
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
@@ -68,7 +68,7 @@
 	name = "Exploration Crew Scientist"
 	jobtype = /datum/job/exploration_crew
 
-	id = /obj/item/card/id/job/sci
+	id = /obj/item/card/id/job/exploration_crew/scientist
 	l_pocket = /obj/item/pinpointer/exploration
 	ears = /obj/item/radio/headset/headset_exp
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
@@ -84,7 +84,7 @@
 	name = "Exploration Crew Engineer"
 	jobtype = /datum/job/exploration_crew
 
-	id = /obj/item/card/id/job/sci
+	id = /obj/item/card/id/job/exploration_crew/engineer
 	l_pocket = /obj/item/pinpointer/exploration
 	ears = /obj/item/radio/headset/headset_exp
 	uniform = /obj/item/clothing/under/rank/rnd/scientist

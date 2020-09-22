@@ -1633,7 +1633,6 @@
 #include "code\modules\bluespace_exploration\factions\_faction.dm"
 #include "code\modules\bluespace_exploration\ruins\landmarks.dm"
 #include "code\modules\bluespace_exploration\ruins\objective.dm"
-#include "code\modules\bluespace_exploration\shuttle_tracking\tracked_shuttle.dm"
 #include "code\modules\bluespace_exploration\starmap\star_system.dm"
 #include "code\modules\bluespace_exploration\starmap\star_system_level_data.dm"
 #include "code\modules\buildmode\bm_mode.dm"

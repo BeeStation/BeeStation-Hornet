@@ -762,3 +762,21 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/lawyer
 	icon_state = "lawyer"
+
+/obj/item/card/id/job/expansion_director
+	icon_state = "ed"
+
+/obj/item/card/id/job/colonist
+	icon_state = "colonist"
+
+/obj/item/card/id/job/exploration_crew
+	icon_state = "id"
+
+/obj/item/card/id/job/exploration_crew/captain
+	icon_state = "exp_cap"
+
+/obj/item/card/id/job/exploration_crew/engineer
+	icon_state = "exp_eng"
+
+/obj/item/card/id/job/exploration_crew/scientist
+	icon_state = "exp_sci"

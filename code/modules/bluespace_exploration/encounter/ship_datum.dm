@@ -126,5 +126,5 @@
 	for(var/i = 0 to 5)
 		//Generate star systems
 		var/datum/star_system/system = new
-
+		star_systems.Add(system)
 	jumps ++

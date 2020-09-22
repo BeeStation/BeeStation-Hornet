@@ -11,24 +11,34 @@ import { GridColumn } from '../components/Grid';
 export const SystemMap = (props, context) => {
   const { data } = useBackend(context);
   const {
-    jump_state,
+    ship_status,
+    active_lanes,
+    queue_length,
+    departure_time,
+    ship_name,
+    ship_faction,
+    stars = [],
   } = data;
+  const {
+    system,
+    setSystem,
+  } = useLocalState(context, 'system', null);
   return (
     <Window
       resizable>
       <Section
         textAlign="center">
         <b>
-          N.T.T. Pathfinder
+          {ship_name}
         </b>
         <Box
           textAlign="center">
-          Faction: Nanotrasen
+          Faction: {ship_faction}
         </Box>
         <Box
           textAlign="center"
           bold>
-          Status: ENGINES IDLE - AWAITING INPUT
+          Status: {ship_status}
         </Box>
       </Section>
       <Divider />
@@ -55,7 +65,7 @@ export const SystemMap = (props, context) => {
             <Table.Cell
               bold
               color="average">
-              3/4
+              {active_lanes}
             </Table.Cell>
           </Table.Row>
           <Table.Row>
@@ -65,7 +75,7 @@ export const SystemMap = (props, context) => {
             <Table.Cell
               bold
               color="green">
-              2
+              {queue_length}
             </Table.Cell>
           </Table.Row>
           <Table.Row>
@@ -75,7 +85,7 @@ export const SystemMap = (props, context) => {
             <Table.Cell
               bold
               color="green">
-              300 seconds
+              {departure_time} seconds
             </Table.Cell>
           </Table.Row>
         </Table>
@@ -88,7 +98,7 @@ export const SystemMap = (props, context) => {
               Selected System:
             </Table.Cell>
             <Table.Cell bold>
-              None
+              {system ? system.name : "N/A"}
             </Table.Cell>
           </Table.Row>
           <Table.Row>
@@ -96,7 +106,7 @@ export const SystemMap = (props, context) => {
               System Alignment
             </Table.Cell>
             <Table.Cell bold>
-              Neutral
+              {system ? system.alignment : "N/A"}
             </Table.Cell>
           </Table.Row>
           <Table.Row>
@@ -104,7 +114,7 @@ export const SystemMap = (props, context) => {
               Threat Level
             </Table.Cell>
             <Table.Cell bold>
-              Low
+              {system ? system.threat : "N/A"}
             </Table.Cell>
           </Table.Row>
           <Table.Row>
@@ -112,7 +122,7 @@ export const SystemMap = (props, context) => {
               Research Value
             </Table.Cell>
             <Table.Cell bold>
-              High
+              {system ? system.research_value : "N/A"}
             </Table.Cell>
           </Table.Row>
           <Table.Row>
@@ -120,7 +130,7 @@ export const SystemMap = (props, context) => {
               Distance From Station
             </Table.Cell>
             <Table.Cell bold>
-              4 BSU
+              {system ? system.distance + " BSU" : "N/A"}
             </Table.Cell>
           </Table.Row>
         </Table>
@@ -142,30 +152,34 @@ export const SystemMap = (props, context) => {
       </Section>
       <Divider />
       <Section>
-        <Table>
-          <Table.Row>
-            <Table.Cell>
-              <Box
-                bold>
-                System Name
-              </Box>
-            </Table.Cell>
-            <Table.Cell>
-              <Box>
-                Alignment: Neutral
-              </Box>
-            </Table.Cell>
-            <Table.Cell>
-              <Box>
-                Threat: Low
-              </Box>
-            </Table.Cell>
-            <Table.Cell>
-              <Button
-                content="Select System" />
-            </Table.Cell>
-          </Table.Row>
-        </Table>
+        {stars.map(star => (
+          <Table
+            key={star}>
+            <Table.Row>
+              <Table.Cell>
+                <Box
+                  bold>
+                  {star.name}
+                </Box>
+              </Table.Cell>
+              <Table.Cell>
+                <Box>
+                  Alignment: {star.alignment}
+                </Box>
+              </Table.Cell>
+              <Table.Cell>
+                <Box>
+                  Threat: {star.threat}
+                </Box>
+              </Table.Cell>
+              <Table.Cell>
+                <Button
+                  content="Select System"
+                  onClick={() => setSystem(star)} />
+              </Table.Cell>
+            </Table.Row>
+          </Table>
+        ))}
       </Section>
     </Window>
   );
