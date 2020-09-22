@@ -245,7 +245,10 @@ GLOBAL_VAR(clockcult_eminence)
 	for(var/datum/mind/mind in GLOB.all_servants_of_ratvar)
 		send_hierophant_message_to(mind, hierophant_message)
 	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
-		to_chat(O, hierophant_message)
+		if(istype(sender))
+			to_chat(O, "[FOLLOW_LINK(O, sender)][hierophant_message]")
+		else
+			to_chat(O, hierophant_message)
 
 /proc/send_hierophant_message_to(datum/mind/mind, hierophant_message)
 	var/mob/M = mind.current
