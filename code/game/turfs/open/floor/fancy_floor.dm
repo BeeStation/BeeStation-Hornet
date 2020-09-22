@@ -244,7 +244,7 @@
 /turf/open/floor/carpet/eighties
 	name = "retro floor"
 	desc = "This one takes you back."
-	icon_state = "Stylish 80s arcade carpet, smells like pizza and dropped soda.."
+	icon_state = "eighties"
 	floor_tile = /obj/item/stack/tile/eighties
 	broken_states = list("damaged")
 
