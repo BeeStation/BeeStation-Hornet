@@ -52,6 +52,8 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	. = ..()
 	if(GLOB.ratvar_arrival_tick)
 		. += "It will open in [(GLOB.ratvar_arrival_tick - world.time)/10] seconds."
+	else
+		. += "It doesn't seem to be doing much right now, maybe one day it will serve its purpose."
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/process()
 	if(prob(10))
