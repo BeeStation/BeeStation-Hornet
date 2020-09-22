@@ -504,6 +504,14 @@
 	for(var/i in 1 to 7)
 		new /obj/item/card/id(src)
 
+/obj/item/storage/box/ids/deputy
+	name = "box of deputy IDs"
+	desc = "Has so many deputy IDs."
+
+/obj/item/storage/box/ids/deputy/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/card/id/job/deputy(src)
+
 //Some spare PDAs in a box
 /obj/item/storage/box/PDAs
 	name = "spare PDAs"

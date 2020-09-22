@@ -751,3 +751,10 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/lawyer
 	icon_state = "lawyer"
+
+/obj/item/card/id/job/deputy
+	name = "Deputy ID card"
+	desc = "An unassigned Deputy ID card. Give these temporary IDs out when deputising crew."
+	assignment = "Deputy"
+	icon_state = "deputy"
+	access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)

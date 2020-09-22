@@ -26,6 +26,7 @@
 	name = "Deputy"
 	jobtype = /datum/job/deputy
 
+	id = /obj/item/card/id/job/deputy
 	belt = /obj/item/storage/belt/security/deputy
 	ears = /obj/item/radio/headset/headset_sec
 	uniform = /obj/item/clothing/under/rank/security/officer/mallcop/deputy
