@@ -24,7 +24,7 @@ GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
 				send_sound_to_servants(sound('sound/magic/clockwork/scripture_tier_up.ogg'))
 				hierophant_message("You feel the boundary between reality and fiction lessen as the Ark sparks with an arcane energy.<br> The Ark will be torn open if [GLOB.critical_servant_count - GLOB.human_servants_of_ratvar.len] more minds are converted to the faith of Rat'var.", span="<span class='large_brass'>", use_sanitisation=FALSE)
 				GLOB.conversion_warning_stage = CONVERSION_WARNING_THREEQUARTERS
-		else if(GLOB.critical_servant_count-1 >= GLOB.human_servants_of_ratvar.len)
+		else if(GLOB.critical_servant_count-1 == GLOB.human_servants_of_ratvar.len)
 			if(GLOB.conversion_warning_stage < CONVERSION_WARNING_CRITIAL)
 				send_sound_to_servants(sound('sound/magic/clockwork/scripture_tier_up.ogg'))
 				hierophant_message("The internal cogs of the Ark begin spinning, ready for activation.<br> Upon the next conversion, the dimensional barrier will become too weak for the Celestial Gateway to remain closed and it will be forced open.", span="<span class='large_brass'>", use_sanitisation=FALSE)
