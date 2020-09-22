@@ -2752,7 +2752,6 @@
 #include "code\modules\reagents\chemistry\recipes\others.dm"
 #include "code\modules\reagents\chemistry\recipes\pyrotechnics.dm"
 #include "code\modules\reagents\chemistry\recipes\slime_extracts.dm"
-#include "code\modules\reagents\chemistry\recipes\special.dm"
 #include "code\modules\reagents\chemistry\recipes\toxins.dm"
 #include "code\modules\reagents\reagent_containers\blood_pack.dm"
 #include "code\modules\reagents\reagent_containers\borghydro.dm"
