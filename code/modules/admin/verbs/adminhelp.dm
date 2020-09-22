@@ -326,6 +326,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	GLOB.ahelp_tickets.unclaimed_tickets += src
 
 	if(is_bwoink)
+		SSredbot.send_discord_message("admin", "Ticket #[id] created by [usr.ckey] ([usr.real_name]): [name]", "ticket")
 		AddInteraction("blue", name, usr.ckey, initiator_key_name)
 		message_admins("<font color='blue'>Ticket [TicketHref("#[id]")] created</font>")
 		Claim()	//Auto claim bwoinks
