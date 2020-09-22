@@ -4262,6 +4262,12 @@
 /obj/item/mop,
 /turf/open/floor/engine,
 /area/mine/science)
+"Bz" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "BE" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
 	dir = 4
@@ -6137,6 +6143,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
+"UL" = (
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "UN" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 8
@@ -21220,7 +21230,7 @@ Xz
 WE
 WE
 ab
-ab
+UL
 EA
 EA
 EA
@@ -23788,7 +23798,7 @@ nH
 cs
 de
 bq
-ab
+Bz
 FE
 FE
 FE
