@@ -50,6 +50,11 @@
 	desc = "Worn by the Head of Personnel. It smells faintly of bureaucracy."
 	icon_state = "hopcloak"
 
+/obj/item/clothing/neck/cloak/exp
+	name = "expansion director's cloak"
+	desc = "Worn by the Expansion Director, whose work knows no bounds."
+	icon_state = "expcloak"
+
 /obj/item/clothing/neck/cloak/syndcap
 	name = "syndicate captain's cloak"
 	desc = "A cloak that inspires fear among Nanotrasen employees, worn by the greatest Syndicate captains."
