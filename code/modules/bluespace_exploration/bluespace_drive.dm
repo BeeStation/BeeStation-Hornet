@@ -9,6 +9,7 @@ GLOBAL_VAR(main_bluespace_drive)
 	var/cooldown_world_time
 	var/shuttle_id = "exploration"
 	var/drive_type = BLUESPACE_DRIVE_BSLEVEL
+	var/cooldown = 900
 
 /obj/machinery/bluespace_drive/regular
 	drive_type = BLUESPACE_DRIVE_SPACELEVEL
@@ -27,5 +28,6 @@ GLOBAL_VAR(main_bluespace_drive)
 		say("Bluespace instability detected. Cannot return to selected sector.")
 		return
 	//Find what shuttle we are on
+	cooldown_world_time = world.time + cooldown
 	say("Initiating bluespace translation protocols...")
 	SSbluespace_exploration.request_ship_transit_to(shuttle_id, target)

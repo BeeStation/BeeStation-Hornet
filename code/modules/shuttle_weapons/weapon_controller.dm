@@ -203,5 +203,5 @@
 		log_runtime("[usr] attempted to target a location, but somehow managed to not have the weapon system targetted.")
 		return
 	weapon.target_turf = T
-	weapon.fire()
-	to_chat(usr, "<span class='notice'>Weapon target selected successfully</span>")
+	INVOKE_ASYNC(weapon, /obj/machinery/shuttle_weapon.proc/fire)
+	to_chat(usr, "<span class='notice'>Weapon target selected successfully.</span>")

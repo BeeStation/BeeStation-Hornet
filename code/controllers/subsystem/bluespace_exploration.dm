@@ -97,7 +97,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		return
 	var/first_shuttle_id = ship_traffic_queue[1]
 	shuttle_translation(first_shuttle_id, ship_traffic_queue[first_shuttle_id])
-	ship_traffic_queue.Remove(first_shuttle_id)
+	ship_traffic_queue.Remove(ship_traffic_queue[first_shuttle_id])
 
 //====================================
 // Ship procs
@@ -172,9 +172,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/list_element = (process_num % (CLEAR_TURF_PROCESSING_TIME/2)) + 1
 	switch(process_num)
 		if(0 to (CLEAR_TURF_PROCESSING_TIME/2)-1)
-			clear_turf_atoms(divided_turfs[list_element])
-		if((CLEAR_TURF_PROCESSING_TIME/2) to (CLEAR_TURF_PROCESSING_TIME-1))
 			reset_turfs(divided_turfs[list_element])
+		if((CLEAR_TURF_PROCESSING_TIME/2) to (CLEAR_TURF_PROCESSING_TIME-1))
+			clear_turf_atoms(divided_turfs[list_element])
 		else
 			var/datum/data_holder/bluespace_exploration/data = data_holder
 			if(data.spawn_ruins)
@@ -212,8 +212,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	//(Temp) get randomly created level
 	var/datum/exploration_location/location = new()
 	location.sector_features = list(FEATURE_ASTEROIDS)
-	//Get Valid Ruins
-	var/list/valid_ruins = list()
+	//===Generate bluespace ruins===
+	var/list/bluespace_valid_ruins = list()
 	for(var/template_name in ruin_templates)
 		var/datum/map_template/ruin/exploration/ruin/R = ruin_templates[template_name]
 		var/valid = TRUE
@@ -223,16 +223,25 @@ SUBSYSTEM_DEF(bluespace_exploration)
 				break
 		if(!valid)
 			continue
-		valid_ruins += R
+		bluespace_valid_ruins += R
+	//======
 	//Generate Ruins
 	var/cost_limit = 20
 	while(cost_limit > 0)
-		if(!LAZYLEN(valid_ruins))
+		if(!LAZYLEN(bluespace_valid_ruins))
 			break
 		var/list/selectable_ruins = list()
-		for(var/datum/map_template/ruin/exploration/ruin/R in valid_ruins)
-			if(R.cost < cost_limit)
-				selectable_ruins += R
+		//TODO: Ruin weighting based on difficulty
+		//TODO: Bluespace ruins
+		var/datum/star_system/target_level = data_holder.target_star_system
+		if(target_level?.bluespace_ruins)
+			for(var/datum/map_template/ruin/exploration/ruin/R in bluespace_valid_ruins)
+				if(R.cost < cost_limit)
+					selectable_ruins += R
+		else
+			for(var/datum/map_template/ruin/exploration/ruin/R in bluespace_valid_ruins)
+				if(R.cost < cost_limit)
+					selectable_ruins += R
 		if(!LAZYLEN(selectable_ruins))
 			log_game("Ran out of selectable ruins, with [cost_limit] spawn points left.")
 			break
@@ -242,7 +251,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			log_runtime("Warning, invalid ruin")
 			continue
 		if(selected_ruin.limited)
-			valid_ruins -= selected_ruin
+			bluespace_valid_ruins -= selected_ruin
 		//Subtract Cost
 		selected_ruin.try_to_place(reserved_bs_level.z_value, /area/space)
 		cost_limit -= selected_ruin.cost

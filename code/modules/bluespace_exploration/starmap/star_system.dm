@@ -30,6 +30,9 @@
 	var/calculated_threat
 	var/calculated_research_potential = 0
 
+	//Which ruin pool to pull from
+	var/bluespace_ruins = FALSE
+
 /datum/star_system/New(distance)
 	. = ..()
 	var/static/stars = 0

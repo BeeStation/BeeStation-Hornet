@@ -53,35 +53,29 @@
 			var/obj/machinery/bluespace_drive/bs_drive = null
 			if(linked_bluespace_drive)
 				bs_drive = linked_bluespace_drive.resolve()
-			if(!bs_drive || QDELETED(bs_drive))
-				say("Your drive is experiencing issues. Please contact your ships engineer, or report to a repair depot in the sector.")
+			//Locate attached ship.
+			var/datum/ship_datum/attached_ship = SSbluespace_exploration.tracked_ships[shuttle_id]
+			if(!attached_ship)
+				say("Console not linked to a ship, please rebuild this console on a bluespace capable shuttle.")
 				return
 			//Locate Star
-			var/star_id = params["id"]
-			var/star = SSbluespace_exploration.star_systems[star_id]
+			var/star_name = params["system_name"]
+			if(!star_name)
+				return
+			var/star = attached_ship.star_systems[star_name]
 			if(!star)
 				return
-			//Locate the BS drive and then trigger jump
-			bs_drive.engage(star)
-			return
-		if("subjump")
-			switch(params["target"])
-				if("hyperspace")
-					var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttle_id)
-					if(!shuttle)
-						return FALSE
-					//Send the shuttle to the transit level
-					shuttle.destination = null
-					shuttle.mode = SHUTTLE_IGNITING
-					shuttle.setTimer(shuttle.ignitionTime)
-				if("system")
-					var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttle_id)
-					if(!shuttle)
-						return FALSE
-					//Send the shuttle to the transit level
-					shuttle.destination = null
-					shuttle.mode = SHUTTLE_IGNITING
-					shuttle.setTimer(shuttle.ignitionTime)
+			//Check for jumping actions
+			if(attached_ship.bluespace)
+				if(!bs_drive || QDELETED(bs_drive))
+					say("Your drive is experiencing issues, or cannot be located. Please contact your ship's engineer.")
+					return
+				//Locate the BS drive and then trigger jump
+				say("Sending engagement request to bluespace drive...")
+				bs_drive.engage(star)
+			else
+				say("Calculating hyperlane, please stand back from the doors...")
+				SSbluespace_exploration.request_ship_transit_to(shuttle_id, star)
 
 /obj/machinery/computer/system_map/ui_data(mob/user)
 	var/list/data = list()
@@ -102,7 +96,7 @@
 		if(!islist(SD.star_systems))
 			SD.recalculate_star_systems()
 		for(var/star_id in SD.star_systems)
-			var/datum/star_system/system = star_id
+			var/datum/star_system/system = SD.star_systems[star_id]
 			var/list/formatted_star = list(
 				"name" = system.name,
 				"alignment" = system.system_alignment,

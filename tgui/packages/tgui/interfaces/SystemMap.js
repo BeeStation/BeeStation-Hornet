@@ -9,7 +9,7 @@ import { refocusLayout, Window } from '../layouts';
 import { GridColumn } from '../components/Grid';
 
 export const SystemMap = (props, context) => {
-  const { data } = useBackend(context);
+  const { act, data } = useBackend(context);
   const {
     ship_status,
     active_lanes,
@@ -19,10 +19,10 @@ export const SystemMap = (props, context) => {
     ship_faction,
     stars = [],
   } = data;
-  const {
+  const [
     system,
     setSystem,
-  } = useLocalState(context, 'system', null);
+  ] = useLocalState(context, 'system', {});
   return (
     <Window
       resizable>
@@ -147,7 +147,10 @@ export const SystemMap = (props, context) => {
         <Box
           textAlign="center">
           <Button
-            content="Request Jump" />
+            content="Request Jump"
+            onClick={() => act('jump', {
+              'system_name': system ? system.name : "",
+            })} />
         </Box>
       </Section>
       <Divider />
