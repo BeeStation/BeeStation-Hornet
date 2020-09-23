@@ -335,3 +335,57 @@
 			message = replacetextEx(message,regex(capitalize(key),"g"), "[capitalize(value)]")
 			message = replacetextEx(message,regex(key,"g"), "[value]")
 	speech_args[SPEECH_MESSAGE] = trim(message)
+	
+/obj/item/clothing/mask/translator
+	name = "galactic translator"
+	desc = "Allows you to speak and understand galactic common and uncommon."
+	icon_state = "tonguerobot"
+	item_state = "sechailer"
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
+	flags_inv = HIDEFACIALHAIR|HIDEFACE
+	w_class = WEIGHT_CLASS_SMALL
+	visor_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
+	visor_flags_inv = HIDEFACE
+	flags_cover = MASKCOVERSMOUTH
+	visor_flags_cover = MASKCOVERSMOUTH
+	var/list/languages = list(/datum/language/common, /datum/language/uncommon)
+
+/obj/item/clothing/mask/translator/equipped(mob/user, slot)
+	if(!ishuman(user))
+		return
+	if(slot == SLOT_HEAD)
+	for(/datum/language/l in languages)
+		user.grant_language(l, TRUE, TRUE, LANGUAGE_HAT)
+		user.grant_language(/datum/language/uncommon/, TRUE, TRUE, LANGUAGE_HAT)
+	
+/obj/item/clothing/mask/translator/dropped(mob/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(SLOT_HEAD) == src)
+		for(/datum/language/l in languages)
+			user.remove_language(l, TRUE, TRUE, LANGUAGE_HAT)
+	
+/obj/item/clothing/mask/translator/universal
+	name = "universal translator"
+	desc = "Allows you to speak and understand all known languages."
+	languages = list(
+		/datum/language/aphasia,
+		/datum/language/apidite,
+		/datum/language/beachbum,
+		/datum/language/buzzwords,
+		/datum/language/calcic,
+		/datum/language/codespeak,
+		/datum/language/common,
+		/datum/language/draconic,
+		/datum/language/moffic,
+		/datum/language/monkey,
+		/datum/language/narsie,
+		//datum/language/piratespeak,	Don't want funny interactions with pirate hat
+		/datum/language/ratvar,
+		/datum/language/rlyehian,
+		/datum/language/shadowtongue,
+		/datum/language/slime,
+		/datum/language/sylvan,
+		/datum/language/terrum,
+		/datum/language/uncommon)

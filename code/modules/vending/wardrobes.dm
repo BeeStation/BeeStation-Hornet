@@ -230,7 +230,9 @@
 					/obj/item/clothing/glasses/regular/jamjar = 1,
 					/obj/item/storage/bag/books = 1,
 					/obj/item/clothing/under/plasmaman/curator = 1,
-					/obj/item/clothing/head/helmet/space/plasmaman/replacement/curator = 1)
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/curator = 1,
+					/obj/item/clothing/mask/translator = 3)
+	premium = list(/obj/item/clothing/mask/translator/universal = 1)	//a little treat for powergaming Curators
 	refill_canister = /obj/item/vending_refill/wardrobe/curator_wardrobe
 	payment_department = ACCOUNT_CIV
 /obj/item/vending_refill/wardrobe/curator_wardrobe
