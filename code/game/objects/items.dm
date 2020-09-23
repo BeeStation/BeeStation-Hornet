@@ -1066,13 +1066,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 ///In case we want to do something special (like self delete) upon failing to embed in something, return true
 /obj/item/proc/failedEmbed()
 	if(item_flags & DROPDEL)
-		QDEL_NULL(src)
-		return TRUE
+		qdel(src)
 
 /**
   * tryEmbed() is for when you want to try embedding something without dealing with the damage + hit messages of calling hitby() on the item while targetting the target.
   *
   * Really, this is used mostly with projectiles with shrapnel payloads, from [/datum/element/embed/proc/checkEmbedProjectile], and called on said shrapnel. Mostly acts as an intermediate between different embed elements.
+  *
+  * Returns TRUE if it embedded successfully, nothing otherwise
   *
   * Arguments:
   * * target- Either a body part or a carbon. What are we hitting?
