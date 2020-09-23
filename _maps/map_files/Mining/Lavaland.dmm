@@ -1576,10 +1576,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/computer{
-	desc = "They had money only for one proper console. Too bad!";
-	name = "broken shuttle console"
-	},
+/obj/machinery/computer/shuttle/science,
 /turf/open/floor/plasteel,
 /area/mine/science)
 "gR" = (
