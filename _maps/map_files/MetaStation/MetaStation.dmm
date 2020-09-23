@@ -82666,16 +82666,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "fZG" = (
-/obj/machinery/computer{
-	desc = "They had money only for one proper console. Too bad!";
-	dir = 8;
-	name = "broken shuttle console"
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
+/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
 /area/science/shuttledock)
 "gbU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -82829,12 +82823,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
-"gza" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/science/shuttledock)
 "gzP" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -84718,8 +84706,14 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "nZy" = (
+/obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
+	},
+/obj/structure/frame/computer{
+	desc = "Looks like the board never made it to this one.";
+	dir = 8;
+	name = "shuttle console frame"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
@@ -126197,9 +126191,9 @@ osW
 osW
 osW
 ctl
-mjJ
+nYJ
 fZG
-mjJ
+nYJ
 xlJ
 xHp
 mjJ
@@ -126454,9 +126448,9 @@ cpM
 crc
 aaf
 lrF
-nYJ
-gza
-nYJ
+aaa
+aaa
+aaa
 ybQ
 wcC
 jbz

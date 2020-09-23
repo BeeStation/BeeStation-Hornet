@@ -47282,6 +47282,11 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
+/obj/structure/frame/computer{
+	desc = "Looks like the board never made it to this one.";
+	dir = 8;
+	name = "shuttle console frame"
+	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
 "euk" = (
@@ -57441,17 +57446,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"rks" = (
-/obj/machinery/computer{
-	desc = "They had money only for one proper console. Too bad!";
-	dir = 8;
-	name = "broken shuttle console"
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/science/shuttledock)
 "rlD" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = 32
@@ -115977,7 +115971,7 @@ aaa
 aaa
 aaa
 aaa
-xzo
+nMn
 ete
 cNT
 vBU
@@ -116234,8 +116228,8 @@ aaa
 aaa
 gXs
 gXs
-cNT
-rks
+xzo
+xzo
 cNT
 vBU
 pWV
@@ -116491,8 +116485,8 @@ aaa
 aaa
 aaa
 aaa
-cNT
-cNT
+aaa
+aaa
 cNT
 oeU
 tmc

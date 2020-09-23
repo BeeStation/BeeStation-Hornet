@@ -105787,13 +105787,13 @@
 /turf/open/space,
 /area/solar/starboard/aft)
 "dBT" = (
-/obj/machinery/computer{
-	desc = "They had money only for one proper console. Too bad!";
-	dir = 1;
-	name = "broken shuttle console"
-	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
+	},
+/obj/structure/frame/computer{
+	desc = "Looks like the board never made it to this one.";
+	dir = 1;
+	name = "shuttle console frame"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
@@ -150681,9 +150681,9 @@ saw
 lJW
 kcF
 hVM
-hVM
 dBT
-piD
+yhB
+aaa
 aaa
 aaa
 aaa

@@ -54783,6 +54783,11 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
+/obj/structure/frame/computer{
+	desc = "Looks like the board never made it to this one.";
+	dir = 8;
+	name = "shuttle console frame"
+	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
 "ekU" = (
@@ -55179,17 +55184,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
-"eYM" = (
-/obj/machinery/computer{
-	desc = "They had money only for one proper console. Too bad!";
-	dir = 8;
-	name = "broken shuttle console"
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/science/shuttledock)
 "eZr" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -116866,7 +116860,7 @@ lGS
 pyY
 aaa
 vuQ
-eYM
+vuQ
 vuQ
 rnh
 fDs
@@ -117122,9 +117116,9 @@ mMz
 dmT
 bkF
 aaa
-vuQ
-vuQ
-vuQ
+aaa
+aaa
+aaa
 tqD
 fwB
 rbC
