@@ -1585,6 +1585,47 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "Fringe Weaver"
 	glass_desc = "It's a wonder it doesn't spill out of the glass."
 
+/datum/reagent/consumable/ethanol/fringe_weaver/on_mob_life(mob/living/carbon/M)
+	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE) && (prob(10)))
+		M.vomit()
+	if(prob(5))
+		M.emote("collapse")
+	if(prob(5))
+		M.drop_all_held_items()
+	..()
+
+/datum/reagent/consumable/ethanol/pina_colada
+	name = "Piña Colada"
+	description = "Sweet, strained, and fruity. Loveable."
+	color = "#e9eb6b"
+	boozepwr = 30
+	quality = DRINK_GOOD
+	taste_description = "coconut, pineapple and some lime"
+	glass_icon_state = "pina_colada"
+	glass_name = "Piña Colada"
+	glass_desc = "Smells like pineapple, oh there is rum too, seems good."
+
+/datum/reagent/consumable/ethanol/death_afternoon
+	name = "Death in the afternoon"
+	description = "Icy, milky, scary"
+	color = "#c4ffa9"
+	boozepwr = 50
+	quality = DRINK_GOOD
+	taste_description = "bravery and life"
+	glass_icon_state = "death_afternoon"
+	glass_name = "Death in the afternoon"
+	glass_desc = "You gotta drink it fast!"
+
+/datum/reagent/consumable/ethanol/death_afternoon/on_mob_life(mob/living/carbon/M)
+	if(!HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
+		M.adjustFireLoss(-3, 0)
+	..()
+	M.hallucination += 4
+	..()
+
+/datum/reagent/consumable/death_afternoon/on_mob_add(mob/living/L)
+	L.hallucination = /datum/hallucination/death 
+
 /datum/reagent/consumable/ethanol/sugar_rush
 	name = "Sugar Rush"
 	description = "Sweet, light, and fruity - as girly as it gets."

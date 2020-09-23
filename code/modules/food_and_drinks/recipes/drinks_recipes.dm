@@ -516,6 +516,34 @@
 	required_reagents = list (/datum/reagent/consumable/ethanol/wine = 10)
 	required_catalysts = list (/datum/reagent/consumable/enzyme = 5)
 
+/datum/chemical_reaction/triple_coke
+	name = /datum/reagent/consumable/ethanol/triple_coke
+	id = /datum/reagent/consumable/ethanol/triple_coke
+	results = list(/datum/reagent/consumable/ethanol/triple_coke = 15)
+	required_reagents = list(/datum/reagent/consumable/ethanol/whiskey_cola = 5, /datum/reagent/consumable/ethanol/rum_coke = 5, /datum/reagent/consumable/ethanol/vodka_cola = 5, /datum/reagent/consumable/cream = 1, /datum/reagent/consumable/ice = 1)
+	mix_message = "The granular mixture surprisingly smells like cola."
+
+/datum/chemical_reaction/pina_colada
+	name = /datum/reagent/consumable/ethanol/pina_colada
+	id = /datum/reagent/consumable/ethanol/pina_colada
+	results = list(/datum/reagent/consumable/ethanol/pina_colada = 15)
+	required_reagents = list(/datum/reagent/consumable/pineapplejuice = 5, /datum/reagent/consumable/ethanol/rum = 5, /datum/reagent/consumable/ice = 5)
+	mix_message = "Smells like pineapple, who would hate it ?"
+
+/datum/chemical_reaction/death_afternoon
+	name = /datum/reagent/consumable/ethanol/death_afternoon
+	id = /datum/reagent/consumable/ethanol/death_afternoon
+	results = list(/datum/reagent/consumable/ethanol/death_afternoon = 4)
+	required_reagents = list(/datum/reagent/consumable/ethanol/champagne = 3, /datum/reagent/consumable/ethanol/absinthe = 1)
+	mix_message = "It's pretty fresh!"
+
+/datum/chemical_reaction/salty_water
+	name = /datum/reagent/consumable/salty_water
+	id = /datum/reagent/consumable/salty_water
+	results = list(/datum/reagent/consumable/salty_water = 5)
+	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/consumable/sodiumchloride = 1)
+	mix_message = "Nothing special happened?"
+
 /datum/chemical_reaction/whiskey_sour
 	name = "Whiskey Sour"
 	id = /datum/reagent/consumable/ethanol/whiskey_sour

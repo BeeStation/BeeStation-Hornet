@@ -85,6 +85,12 @@
 	color = "#ECFF56" // rgb: 236, 255, 86
 	taste_description = "apples"
 
+/datum/reagent/consumable/pineapplejuice
+	name = "Pineapple Juice"
+	description = "Either you love it or you hate it."
+	color = "#e9eb6b"
+	taste_description = "pineapples"
+
 /datum/reagent/consumable/poisonberryjuice
 	name = "Poison Berry Juice"
 	description = "A tasty juice blended from various kinds of very deadly and toxic berries."
