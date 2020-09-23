@@ -48,6 +48,14 @@
 			if(GLOB.clockcult_vitality >= damage_healed)
 				GLOB.clockcult_vitality -= damage_healed
 				M.revive(TRUE, TRUE)
+				if(M.mind)
+					M.mind.grab_ghost(TRUE)
+				else
+					var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [M.name], an inactive clock cultist?", ROLE_SERVANT_OF_RATVAR, null, ROLE_SERVANT_OF_RATVAR, 50, M)
+					if(LAZYLEN(candidates))
+						var/mob/dead/observer/C = pick(candidates)
+						message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(M)]) to replace an AFK player.")
+						M.key = C.key
 			else
 				visible_message("<span class='neovgre'>\The [src] fails to revive [M]!</span>")
 			return
