@@ -352,7 +352,7 @@
 	if(!ishuman(user))
 		return
 	if(slot == SLOT_HEAD)
-	for(/datum/language/l in languages)
+	for(var/datum/language/l in languages)
 		user.grant_language(l, TRUE, TRUE, LANGUAGE_HAT)
 		user.grant_language(/datum/language/uncommon/, TRUE, TRUE, LANGUAGE_HAT)
 	
