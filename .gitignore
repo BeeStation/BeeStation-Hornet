@@ -216,3 +216,9 @@ tools/MapAtmosFixer/MapAtmosFixer/bin/*
 !/config/jukebox_music/sounds/exclude
 /config/title_music/sounds/*
 !/config/title_music/sounds/exclude
+
+config/*
+!config/jukebox_music/
+!config/Sage/
+!config/title_music/
+!config/title_screens/
