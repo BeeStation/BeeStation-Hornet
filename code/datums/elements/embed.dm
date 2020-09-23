@@ -181,5 +181,4 @@
 		hit_zone = limb.body_zone
 		C = limb.owner
 
-	checkEmbed(I, C, hit_zone, forced=TRUE)
-	return TRUE
+	return checkEmbed(I, C, hit_zone, forced=TRUE)

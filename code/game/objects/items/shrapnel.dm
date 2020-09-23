@@ -56,6 +56,7 @@
 	ricochet_auto_aim_angle = 10
 	ricochet_auto_aim_range = 2
 	ricochet_incidence_leeway = 0
+	embed_falloff_tile = -2
 	shrapnel_type = /obj/item/shrapnel/stingball
 	embedding = list(embed_chance=55, fall_chance=2, jostle_chance=7, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.7, pain_mult=3, jostle_pain_mult=3, rip_time=15)
 
@@ -76,6 +77,7 @@
 	ricochet_chance = 140
 	shrapnel_type = /obj/item/shrapnel/capmine
 	embedding = list(embed_chance=90, fall_chance=3, jostle_chance=7, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.7, pain_mult=5, jostle_pain_mult=6, rip_time=15)
+	embed_falloff_tile = 0
 
 /obj/item/shrapnel/capmine
 	name = "\improper AP shrapnel shard"
