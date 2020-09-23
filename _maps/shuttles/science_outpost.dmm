@@ -34,6 +34,15 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
+"l" = (
+/obj/structure/closet/crate/science,
+/obj/item/circuitboard/computer/science_shuttle,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/cable_coil/orange,
+/obj/item/storage/toolbox/electrical,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
 "n" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light{
@@ -141,7 +150,7 @@ a
 (2,1,1) = {"
 d
 c
-S
+l
 N
 y
 K
