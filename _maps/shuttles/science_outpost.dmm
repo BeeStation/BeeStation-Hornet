@@ -34,7 +34,7 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
-"l" = (
+"i" = (
 /obj/structure/closet/crate/science,
 /obj/item/circuitboard/computer/science_shuttle,
 /obj/item/stack/sheet/glass,
@@ -71,9 +71,6 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "s" = (
-/obj/machinery/power/terminal{
-	dir = 4
-	},
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/east,
 /obj/effect/mapping_helpers/apc/discharged,
@@ -150,7 +147,7 @@ a
 (2,1,1) = {"
 d
 c
-l
+i
 N
 y
 K

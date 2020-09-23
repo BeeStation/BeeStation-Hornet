@@ -4347,7 +4347,6 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "De" = (
-/obj/machinery/power/terminal,
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/south{
 	cell_type = /obj/item/stock_parts/cell/high/empty;
@@ -5263,12 +5262,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
-"LU" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/mine/living_quarters)
 "LX" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -19425,7 +19418,7 @@ aj
 aj
 ie
 cH
-ie
+fo
 ab
 aj
 aj
@@ -19682,7 +19675,7 @@ aj
 aj
 ie
 cH
-LU
+fo
 aj
 aj
 fo
