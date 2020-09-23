@@ -361,7 +361,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(SLOT_HEAD) == src)
-		for(/datum/language/l in languages)
+		for(var/datum/language/l in languages)
 			user.remove_language(l, TRUE, TRUE, LANGUAGE_HAT)
 	
 /obj/item/clothing/mask/translator/universal
