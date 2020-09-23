@@ -92,7 +92,7 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 ## Default probablity is 1, increase to make that mode more likely to be picked.
 ## Set to 0 to disable that mode.
 
-PROBABILITY TRAITOR 9
+PROBABILITY TRAITOR 7
 PROBABILITY CULT 6
 PROBABILITY NUCLEAR 6
 PROBABILITY TRAITORCHAN 5
@@ -102,14 +102,14 @@ PROBABILITY REVOLUTION 4
 PROBABILITY INTERNAL_AFFAIRS 3
 PROBABILITY TRAITORBRO 3
 PROBABILITY GANG 3
-PROBABILITY WIZARD 2
+PROBABILITY WIZARD 4
 PROBABILITY CLOWNOPS 2
 PROBABILITY MONKEY 1
 PROBABILITY METEOR 0
 PROBABILITY EXTENDED 0
 PROBABILITY SECRET_EXTENDED 0
-PROBABILITY DEVIL 0
-PROBABILITY DEVIL_AGENTS 0
+PROBABILITY DEVIL 1
+PROBABILITY DEVIL_AGENTS 1
 
 ## You probably want to keep sandbox off by default for secret and random.
 PROBABILITY SANDBOX 0
@@ -227,8 +227,8 @@ SECURITY_SCALING_COEFF 10
 
 ## The number of objectives traitors get.
 ## Not including escaping/hijacking.
-TRAITOR_OBJECTIVES_AMOUNT 2
-BROTHER_OBJECTIVES_AMOUNT 2
+TRAITOR_OBJECTIVES_AMOUNT 3
+BROTHER_OBJECTIVES_AMOUNT 3
 
 ## Uncomment to prohibit jobs that start with loyalty
 ## implants from being most antagonists.
