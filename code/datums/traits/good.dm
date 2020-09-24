@@ -99,7 +99,7 @@
 /datum/quirk/multilingual
 	name = "Multilingual"
 	desc = "You spent a portion of your life learning to understand an additional language. You may or may not be able to speak it based on your anatomy."
-	value = 2
+	value = 1
 	mob_trait = TRAIT_MULTILINGUAL
 	gain_text = "<span class='notice'>You have learned to understand an additional language.</span>"
 	lose_text = "<span class='danger'>You have forgotten how to understand a language.</span>"
