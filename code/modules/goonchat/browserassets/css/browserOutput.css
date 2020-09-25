@@ -361,6 +361,7 @@ em						{font-style: normal;	font-weight: bold;}
 .brass					{color: #BE8700;}
 .heavy_brass			{color: #BE8700; font-weight: bold; font-style: italic;}
 .large_brass			{color: #BE8700; font-size: 24px;}
+.leader_brass			{color: #BE8700; font-size: 16px;}
 .big_brass				{color: #BE8700; font-size: 24px; font-weight: bold; font-style: italic;}
 .ratvar					{color: #BE8700; font-size: 48px; font-weight: bold; font-style: italic; animation: ratvarcolor 5000ms infinite;}
 .alloy					{color: #42474D;}

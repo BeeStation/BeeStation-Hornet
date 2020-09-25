@@ -211,7 +211,7 @@ GLOBAL_VAR(clockcult_eminence)
 				: sender.gender == FEMALE\
 					? "Clockmother"\
 					: "Clockmaster"
-			hierophant_message = "<span class='heavy_brass'>"
+			hierophant_message = "<span class='leader_brass'>"
 		else
 			var/role = sender.mind?.assigned_role
 			//Ew, this could be done better with a dictionary list, but this isn't much slower

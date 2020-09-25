@@ -111,6 +111,7 @@ h1.alert, h2.alert		{color: #000000;}
 .brass					{color: #BE8700;}
 .heavy_brass			{color: #BE8700; font-weight: bold; font-style: italic;}
 .large_brass			{color: #BE8700; font-size: 3;}
+.leader_brass			{color: #BE8700; font-size: 16px;}
 .big_brass				{color: #BE8700; font-size: 3; font-weight: bold; font-style: italic;}
 .ratvar					{color: #BE8700; font-size: 6; font-weight: bold; font-style: italic; animation: ratvarcolor 5000ms infinite;}
 .alloy					{color: #42474D;}
