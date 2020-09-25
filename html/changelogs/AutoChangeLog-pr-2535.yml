@@ -1,0 +1,4 @@
+author: Vivalas
+delete-after: true
+changes:
+  - admin: Claiming a ticket now works directly through a reply.
