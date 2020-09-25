@@ -138,7 +138,7 @@
 	..()
 	switch(stage)
 		if(1)
-			H.add_hud_to(new/datum/atom_hud/data/human/medical/advanced())
+			affected_mob.add_hud_to(new/datum/atom_hud/data/human/medical/advanced())
 		if(2)
 			if(prob(2))
 				to_chat(affected_mob, "<span class='notice'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")
@@ -152,7 +152,7 @@
 
 /datum/disease/transformation/jungle_fever/cure()
 	remove_monkey(affected_mob.mind)
-	H.remove_hud_from(new/datum/atom_hud/data/human/medical/advanced())
+	affected_mob.remove_hud_from(new/datum/atom_hud/data/human/medical/advanced())
 	..()
 
 /datum/disease/transformation/jungle_fever/monkeymode
