@@ -246,7 +246,7 @@ GLOBAL_VAR(clockcult_eminence)
 		send_hierophant_message_to(mind, hierophant_message)
 	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
 		if(istype(sender))
-			to_chat(O, "[FOLLOW_LINK(O, sender)][hierophant_message]")
+			to_chat(O, "[FOLLOW_LINK(O, sender)] [hierophant_message]")
 		else
 			to_chat(O, hierophant_message)
 
