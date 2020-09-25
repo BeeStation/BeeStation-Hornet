@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 /obj/structure/destructible/clockwork/massive/celestial_gateway/examine(mob/user)
 	. = ..()
 	if(GLOB.ratvar_arrival_tick)
-		. += "It will open in [(GLOB.ratvar_arrival_tick - world.time)/10] seconds."
+		. += "It will open in [max((GLOB.ratvar_arrival_tick - world.time)/10, 0)] seconds."
 	else
 		. += "It doesn't seem to be doing much right now, maybe one day it will serve its purpose."
 
