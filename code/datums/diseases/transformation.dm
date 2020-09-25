@@ -128,7 +128,7 @@
 		add_monkey(affected_mob.mind)
 	if(ishuman(affected_mob))
 		H.add_hud_to(new/datum/atom_hud/data/human/medical/advanced())
-		if(affected_mob && !is_monkey_leader(affected_mob.mind) && prob(96))
+		if(affected_mob && !is_monkey_leader(affected_mob.mind) && prob(4))
 			var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPVIRUS | TR_KEEPSE)
 			M.ventcrawler = VENTCRAWLER_ALWAYS
 		else
