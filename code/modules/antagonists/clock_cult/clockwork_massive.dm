@@ -241,7 +241,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 				var/atom/movable/X = thing
 				consume(X)
 			CHECK_TICK
-	if(range < 50)
+	if(range < 20)
 		range ++
 	return
 
