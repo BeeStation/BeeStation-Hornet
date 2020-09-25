@@ -242,6 +242,9 @@ CHECK_RANDOMIZER
 ## Don't set this to the same server, BYOND will automatically restart players to the server when it has restarted.
 SERVER  byond://sage.beestation13.com:7878
 
+## community portal address
+SITEURL https://beestation13.com/
+
 ## forum address
 FORUMURL https://forums.beestation13.com
 
