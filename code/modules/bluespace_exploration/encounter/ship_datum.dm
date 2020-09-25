@@ -65,7 +65,6 @@
 				calculated_health += 2
 	if(calculated_health > max_ship_integrity)
 		max_ship_integrity = calculated_health
-	message_admins("Ship has [calculated_health] integrity")
 	current_ship_integrity = calculated_health
 	var/difference = max_ship_integrity - current_ship_integrity
 	var/used_health_pool = max_ship_integrity * SHIP_INTEGRITY_FACTOR
@@ -130,3 +129,6 @@
 		//Note: If another system has the same name, it will be overwritten which is fine.
 		star_systems[system.name] = system
 	jumps ++
+
+/datum/ship_datum/custom_shuttle
+	bluespace = FALSE

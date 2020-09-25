@@ -97,7 +97,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		return
 	var/first_shuttle_id = ship_traffic_queue[1]
 	shuttle_translation(first_shuttle_id, ship_traffic_queue[first_shuttle_id])
-	ship_traffic_queue.Remove(ship_traffic_queue[first_shuttle_id])
+	ship_traffic_queue.Remove(first_shuttle_id)
 
 //====================================
 // Ship procs
@@ -106,7 +106,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 /datum/controller/subsystem/bluespace_exploration/proc/register_new_ship(shuttle_id, override_type = /datum/ship_datum, faction = /datum/faction/station)
 	if(shuttle_id in tracked_ships)
 		return tracked_ships[shuttle_id]
-	var/datum/ship_datum/SD = new override_type()
+	var/datum/ship_datum/SD = override_type
+	if(!istype(SD))
+		SD = new override_type()
 	SD.mobile_port_id = shuttle_id
 	SD.ship_faction = new faction
 	SD.update_ship()
@@ -224,7 +226,11 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		if(!valid)
 			continue
 		bluespace_valid_ruins += R
-	//======
+	//===Calculate standard ruins
+	var/list/standard_valid_ruins = list()
+	for(var/template_name in SSmapping.space_ruins_templates)
+		var/datum/map_template/ruin/space/R = SSmapping.space_ruins_templates[template_name]
+		standard_valid_ruins += R
 	//Generate Ruins
 	var/cost_limit = 20
 	while(cost_limit > 0)
@@ -239,19 +245,25 @@ SUBSYSTEM_DEF(bluespace_exploration)
 				if(R.cost < cost_limit)
 					selectable_ruins += R
 		else
-			for(var/datum/map_template/ruin/exploration/ruin/R in bluespace_valid_ruins)
+			for(var/datum/map_template/ruin/space/R in standard_valid_ruins)
 				if(R.cost < cost_limit)
 					selectable_ruins += R
 		if(!LAZYLEN(selectable_ruins))
 			log_game("Ran out of selectable ruins, with [cost_limit] spawn points left.")
 			break
 		//Pick a ruin
-		var/datum/map_template/ruin/exploration/ruin/selected_ruin = pick(selectable_ruins)
+		var/datum/map_template/ruin/selected_ruin = pick(selectable_ruins)
 		if(!selected_ruin)
 			log_runtime("Warning, invalid ruin")
 			continue
-		if(selected_ruin.limited)
-			bluespace_valid_ruins -= selected_ruin
+		if(target_level?.bluespace_ruins)
+			var/datum/map_template/ruin/exploration/ruin/BS_Ruin = selected_ruin
+			if(BS_Ruin.limited)
+				bluespace_valid_ruins -= BS_Ruin
+		else
+			var/datum/map_template/ruin/space/Space_ruin = selected_ruin
+			if(!Space_ruin.allow_duplicates)
+				standard_valid_ruins -= Space_ruin
 		//Subtract Cost
 		selected_ruin.try_to_place(reserved_bs_level.z_value, /area/space)
 		cost_limit -= selected_ruin.cost

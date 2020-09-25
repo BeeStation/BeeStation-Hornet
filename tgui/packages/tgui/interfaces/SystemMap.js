@@ -18,6 +18,7 @@ export const SystemMap = (props, context) => {
     ship_name,
     ship_faction,
     stars = [],
+    extra_data = [],
   } = data;
   const [
     system,
@@ -88,6 +89,19 @@ export const SystemMap = (props, context) => {
               {departure_time} seconds
             </Table.Cell>
           </Table.Row>
+          {extra_data.map(extra_data_peice => (
+            <Table.Row
+              key={extra_data_peice}>
+              <Table.Cell>
+                {extra_data_peice[0]}
+              </Table.Cell>
+              <Table.Cell
+                bold
+                color="green">
+                {extra_data_peice[1]}
+              </Table.Cell>
+            </Table.Row>
+          ))}
         </Table>
       </Section>
       <Divider />
@@ -155,10 +169,10 @@ export const SystemMap = (props, context) => {
       </Section>
       <Divider />
       <Section>
-        {stars.map(star => (
-          <Table
-            key={star}>
-            <Table.Row>
+        <Table>
+          {stars.map(star => (
+            <Table.Row
+              key={star}>
               <Table.Cell>
                 <Box
                   bold>
@@ -181,8 +195,8 @@ export const SystemMap = (props, context) => {
                   onClick={() => setSystem(star)} />
               </Table.Cell>
             </Table.Row>
-          </Table>
-        ))}
+          ))}
+        </Table>
       </Section>
     </Window>
   );

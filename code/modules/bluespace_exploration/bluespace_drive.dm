@@ -1,7 +1,6 @@
 GLOBAL_LIST_INIT(bluespace_drives, list())
 GLOBAL_VAR(main_bluespace_drive)
 
-
 /obj/machinery/bluespace_drive
 	name = "bluespace drive"
 	icon = 'icons/obj/bluespace_drive.dmi'

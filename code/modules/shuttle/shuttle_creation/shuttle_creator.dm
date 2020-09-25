@@ -38,6 +38,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/datum/shuttle_creator_overlay_holder/overlay_holder
 	//After designation
 	var/linkedShuttleId
+	var/shuttle_Name
 
 /obj/item/shuttle_creator/Initialize()
 	. = ..()
@@ -250,6 +251,10 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	GLOB.custom_shuttle_count ++
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a new shuttle with a [src] at [ADMIN_VERBOSEJMP(user)] ([GLOB.custom_shuttle_count] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
 	log_game("[key_name(user)] created a new shuttle with a [src] at [AREACOORD(user)] ([GLOB.custom_shuttle_count] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
+	//Begin tracking with bluespace exploration
+	var/datum/ship_datum/custom_shuttle/bluespace_tracking_datum = new
+	bluespace_tracking_datum.ship_name = shuttle_Name
+	SSbluespace_exploration.register_new_ship(port.id, bluespace_tracking_datum, /datum/faction/independant)
 	return TRUE
 
 /obj/item/shuttle_creator/proc/create_shuttle_area(mob/user)
@@ -275,6 +280,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	if(OOC_FILTER_CHECK(str))
 		to_chat(user, "<span class='warning'>Nanotrasen prohibited words are in use in this shuttle name, blares the [src] in a slightly offended tone.</span>")
 		return FALSE
+	shuttle_Name = str
 	newS = new /area/shuttle/custom/powered()
 	newS.setup(str)
 	newS.set_dynamic_lighting()

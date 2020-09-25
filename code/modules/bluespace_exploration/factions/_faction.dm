@@ -86,3 +86,9 @@
 
 /datum/faction/syndicate/waffle
 	name = "Waffle Corporation"
+
+/datum/faction/independant
+	name = "Independant"
+	//Faction alignment
+	friendly_factions = list(/datum/faction/nanotrasen, /datum/faction/station)
+	hostile_factions = list(/datum/faction/syndicate)

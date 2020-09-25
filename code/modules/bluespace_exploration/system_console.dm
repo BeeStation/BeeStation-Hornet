@@ -21,16 +21,7 @@
 	. = ..()
 	//Locate the shuttle ID we are attatched to (if we are attatched)
 	if(!shuttle_id)
-		var/turf/our_turf = get_turf(src)
-		for(var/shuttle_dock_id in SSbluespace_exploration.tracked_ships)
-			var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_dock_id)
-			if(!M)
-				continue
-			if(M.z != z)
-				continue
-			if(our_turf in M.return_turfs())
-				shuttle_id = M.id
-				break
+		get_attached_shuttle()
 	//Locate the bluespace drive
 	addtimer(CALLBACK(src, .proc/locate_bluespace_drive), 10)
 
@@ -74,6 +65,7 @@
 				say("Sending engagement request to bluespace drive...")
 				bs_drive.engage(star)
 			else
+				//Calculate fuel cost
 				say("Calculating hyperlane, please stand back from the doors...")
 				SSbluespace_exploration.request_ship_transit_to(shuttle_id, star)
 
@@ -118,3 +110,18 @@
 			if(get_turf(BSD) in M.return_turfs())
 				linked_bluespace_drive = WEAKREF(BSD)
 				return
+
+/obj/machinery/computer/system_map/proc/get_attached_shuttle()
+	var/turf/our_turf = get_turf(src)
+	for(var/shuttle_dock_id in SSbluespace_exploration.tracked_ships)
+		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_dock_id)
+		if(!M)
+			continue
+		if(M.z != z)
+			continue
+		if(our_turf in M.return_turfs())
+			shuttle_id = M.id
+			break
+
+/obj/machinery/computer/system_map/proc/can_jump(/datum/star_system/target)
+	return TRUE

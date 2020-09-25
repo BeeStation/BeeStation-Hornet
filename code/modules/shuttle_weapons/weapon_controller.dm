@@ -9,7 +9,7 @@
 	ui_y = 708
 
 	var/list/weapon_weakrefs = list()	//A list of weakrefs to the weapon systems
-	var/shuttle_id = "exploration"	//The shuttle we are connected to
+	var/shuttle_id						//The shuttle we are connected to
 	var/selected_ship_id = null
 	var/list/concurrent_users = list()
 
@@ -42,6 +42,17 @@
 	cam_background = new
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = FALSE
+	if(!shuttle_id)
+		var/turf/our_turf = get_turf(src)
+		for(var/shuttle_dock_id in SSbluespace_exploration.tracked_ships)
+			var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_dock_id)
+			if(!M)
+				continue
+			if(M.z != z)
+				continue
+			if(our_turf in M.return_turfs())
+				shuttle_id = M.id
+				break
 
 /obj/machinery/computer/weapons/Destroy()
 	qdel(cam_screen)
