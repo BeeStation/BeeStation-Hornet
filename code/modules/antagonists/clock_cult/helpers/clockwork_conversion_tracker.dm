@@ -13,7 +13,7 @@ GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
 	if(!silent)
 		hierophant_message("<b>[M]</b> has been successfully converted!", span = "<span class='sevtug'>", use_sanitisation=FALSE)
 	var/datum/antagonist/servant_of_ratvar/antagdatum = servant_type
-	if(ishuman(M) && (servant_type == /datum/antagonist/servant_of_ratvar) && GLOB.critical_servant_count != -1)
+	if(ishuman(M) && (servant_type == /datum/antagonist/servant_of_ratvar) && GLOB.critical_servant_count)
 		if((GLOB.critical_servant_count)/2 < GLOB.human_servants_of_ratvar.len)
 			if(GLOB.conversion_warning_stage < CONVERSION_WARNING_HALFWAY)
 				send_sound_to_servants(sound('sound/magic/clockwork/scripture_tier_up.ogg'))
