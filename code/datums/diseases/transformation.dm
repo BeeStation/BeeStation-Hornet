@@ -131,14 +131,13 @@
 		if(affected_mob && !is_monkey_leader(affected_mob.mind) && prob(96))
 			var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPVIRUS | TR_KEEPSE)
 			M.ventcrawler = VENTCRAWLER_ALWAYS
+			GLOB.huds[DATA_HUD_MEDICAL_ADVANCED].add_hud_to(M)
 		else
 			affected_mob.junglegorillize()
 
 /datum/disease/transformation/jungle_fever/stage_act()
 	..()
 	switch(stage)
-		if(1)
-			GLOB.huds[DATA_HUD_MEDICAL_ADVANCED].add_hud_to(affected_mob)
 		if(2)
 			if(prob(2))
 				to_chat(affected_mob, "<span class='notice'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")
@@ -152,7 +151,6 @@
 
 /datum/disease/transformation/jungle_fever/cure()
 	remove_monkey(affected_mob.mind)
-	GLOB.huds[DATA_HUD_MEDICAL_ADVANCED].remove_hud_from(affected_mob)
 	..()
 
 /datum/disease/transformation/jungle_fever/monkeymode
