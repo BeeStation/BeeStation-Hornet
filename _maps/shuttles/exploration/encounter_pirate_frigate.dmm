@@ -1,0 +1,471 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"c" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/pod/dark,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"e" = (
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"f" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"g" = (
+/turf/closed/wall/mineral/titanium/interior,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"h" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"j" = (
+/obj/machinery/holopad/transmission,
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"k" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"l" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/handcuffs,
+/obj/item/melee/baton/loaded,
+/turf/open/floor/pod/dark,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"m" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "Diablo";
+	paint_colour = "#FF4444"
+	},
+/obj/effect/landmark/exploration_weapon_spawner/left{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"n" = (
+/obj/machinery/suit_storage_unit/pirate,
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"o" = (
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"p" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "Diablo";
+	paint_colour = "#FF4444"
+	},
+/obj/effect/landmark/exploration_weapon_spawner/right{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"q" = (
+/mob/living/simple_animal/hostile/pirate/melee,
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"r" = (
+/obj/machinery/rnd/production/circuit_imprinter,
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"s" = (
+/turf/open/floor/pod/dark,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"t" = (
+/obj/machinery/suit_storage_unit/pirate,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"v" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "Diablo";
+	paint_colour = "#FF4444"
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"w" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"x" = (
+/obj/structure/shuttle/engine/heater,
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"y" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium,
+/obj/docking_port/mobile{
+	callTime = 150;
+	dir = 8;
+	dwidth = 4;
+	height = 11;
+	id = "set_by_code";
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
+	name = "Pirate Frigate";
+	port_direction = 8;
+	preferred_direction = 4;
+	width = 15
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"z" = (
+/obj/machinery/door/airlock/titanium,
+/turf/open/floor/pod/dark,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"A" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/pirate/ranged,
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"B" = (
+/turf/closed/wall/mineral/titanium/nosmooth,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"C" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"D" = (
+/obj/machinery/rnd/production/protolathe/department/science,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"E" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"H" = (
+/obj/effect/landmark/exploration_weapon_spawner/right{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"I" = (
+/obj/machinery/computer/rdconsole/production{
+	dir = 1
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"J" = (
+/obj/machinery/computer/security{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"K" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"L" = (
+/obj/machinery/autolathe/hacked,
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"M" = (
+/obj/machinery/computer/weapons{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"P" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/flashes,
+/obj/item/grenade/syndieminibomb,
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"Q" = (
+/obj/effect/landmark/exploration_weapon_spawner/left{
+	dir = 1
+	},
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"R" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "Diablo";
+	paint_colour = "#FF4444"
+	},
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"S" = (
+/obj/machinery/computer/system_map,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"T" = (
+/turf/template_noop,
+/area/template_noop)
+"U" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"W" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"Y" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/frigate)
+"Z" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/exploration/ruin/pirate/frigate)
+
+(1,1,1) = {"
+T
+T
+T
+T
+T
+T
+W
+T
+T
+T
+W
+T
+T
+W
+T
+T
+"}
+(2,1,1) = {"
+T
+T
+T
+T
+T
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+"}
+(3,1,1) = {"
+T
+T
+T
+T
+T
+T
+W
+T
+T
+W
+T
+T
+T
+T
+W
+T
+"}
+(4,1,1) = {"
+T
+T
+T
+T
+T
+T
+W
+T
+R
+Q
+U
+K
+U
+U
+W
+T
+"}
+(5,1,1) = {"
+T
+T
+T
+T
+T
+T
+w
+U
+U
+t
+e
+e
+e
+U
+U
+T
+"}
+(6,1,1) = {"
+T
+a
+a
+w
+m
+w
+w
+l
+g
+Y
+e
+e
+e
+D
+w
+w
+"}
+(7,1,1) = {"
+a
+a
+M
+P
+s
+Z
+E
+s
+g
+g
+q
+o
+e
+I
+x
+f
+"}
+(8,1,1) = {"
+a
+S
+A
+o
+s
+s
+s
+s
+s
+z
+o
+j
+o
+r
+x
+f
+"}
+(9,1,1) = {"
+a
+a
+J
+k
+s
+h
+h
+s
+g
+g
+o
+o
+o
+C
+x
+f
+"}
+(10,1,1) = {"
+T
+a
+a
+v
+H
+w
+w
+c
+g
+k
+o
+o
+q
+L
+w
+w
+"}
+(11,1,1) = {"
+T
+T
+T
+T
+T
+T
+w
+w
+w
+n
+o
+o
+o
+w
+w
+T
+"}
+(12,1,1) = {"
+T
+T
+T
+T
+T
+T
+T
+T
+w
+p
+B
+y
+B
+w
+T
+T
+"}

@@ -124,7 +124,7 @@
 		star_systems.Cut()
 	for(var/i = 0 to 5)
 		//Generate star systems
-		var/datum/star_system/system = new
+		var/datum/star_system/system = new(jumps)
 		system.bluespace_ruins = bluespace
 		//Note: If another system has the same name, it will be overwritten which is fine.
 		star_systems[system.name] = system

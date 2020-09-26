@@ -43,16 +43,7 @@
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = FALSE
 	if(!shuttle_id)
-		var/turf/our_turf = get_turf(src)
-		for(var/shuttle_dock_id in SSbluespace_exploration.tracked_ships)
-			var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_dock_id)
-			if(!M)
-				continue
-			if(M.z != z)
-				continue
-			if(our_turf in M.return_turfs())
-				shuttle_id = M.id
-				break
+		addtimer(CALLBACK(src, .proc/get_attached_ship), 10)
 
 /obj/machinery/computer/weapons/Destroy()
 	qdel(cam_screen)
@@ -216,3 +207,15 @@
 	weapon.target_turf = T
 	INVOKE_ASYNC(weapon, /obj/machinery/shuttle_weapon.proc/fire)
 	to_chat(usr, "<span class='notice'>Weapon target selected successfully.</span>")
+
+/obj/machinery/computer/weapons/proc/get_attached_ship()
+	var/turf/our_turf = get_turf(src)
+	for(var/shuttle_dock_id in SSbluespace_exploration.tracked_ships)
+		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_dock_id)
+		if(!M)
+			continue
+		if(M.z != z)
+			continue
+		if(our_turf in M.return_turfs())
+			shuttle_id = M.id
+			break

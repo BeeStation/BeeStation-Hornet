@@ -8,18 +8,27 @@
 	//AI controller types
 	var/battle_mode = BATTLE_POLICY_SUSTAINED
 
+	//If not hostile, will not attack until attacked first
+	var/hostile = TRUE
+
 	//AI actions
 	var/wants_to_flee = FALSE
+
+	//Mobs on the ship
+	var/list/mobs
 
 /datum/ship_datum/npc/New()
 	. = ..()
 	locate_weapons()
+	locate_mobs()
 
 /datum/ship_datum/npc/update_ship()
 	. = ..()
 	if(!LAZYLEN(.) || critical)
 		return
-
+	//Don't do anything if the mobs are dead
+	if(!check_mobs_alive())
+		return
 	find_target()
 	update_flee()
 	update_weapons()
@@ -72,3 +81,18 @@
 			weapon_systems |= weapon
 	if(!LAZYLEN(weapon_systems))
 		message_admins("failed to locate weapons on ship")
+
+/datum/ship_datum/npc/proc/check_mobs_alive()
+	for(var/mob/living/L in mobs)
+		if(!QDELETED(L) && !L.stat)
+			return TRUE
+	return FALSE
+
+/datum/ship_datum/npc/proc/locate_mobs()
+	mobs = list()
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(mobile_port_id, FALSE)
+	if(!M)
+		return
+	for(var/turf/T in M.return_turfs())
+		for(var/mob/living/L in T)
+			mobs += L

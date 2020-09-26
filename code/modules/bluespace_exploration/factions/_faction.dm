@@ -43,7 +43,7 @@
 	hostile_factions = list(/datum/faction/syndicate)
 
 /datum/faction/syndicate
-	name = "Syndicate High Command"
+	name = "The Syndicate"
 	//Faction alignment
 	neutral_factions = list(/datum/faction/spider_clan, /datum/faction/syndicate)
 	hostile_factions = list(/datum/faction/nanotrasen, /datum/faction/station)
@@ -86,6 +86,10 @@
 
 /datum/faction/syndicate/waffle
 	name = "Waffle Corporation"
+
+// Oh god oh fuck
+/datum/faction/syndicate/elite
+	name = "Syndicate High Command"
 
 /datum/faction/independant
 	name = "Independant"

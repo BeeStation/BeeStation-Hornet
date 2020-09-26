@@ -18,3 +18,21 @@
 
 	difficulty = 3	//A little bit more strong,
 	allowed_weapons = list()
+
+/datum/map_template/shuttle/ship/syndicate/cruiser
+	name = "Pirate Cruiser"
+	id = "pirate_cruiser"
+	suffix = "pirate_cruiser"
+	port_id = "encounter"
+
+	difficulty = 5	//A little bit more strong,
+	allowed_weapons = list()
+
+/datum/map_template/shuttle/ship/syndicate/frigate
+	name = "Pirate Frigate"
+	id = "pirate_frigate"
+	suffix = "pirate_frigate"
+	port_id = "encounter"
+
+	difficulty = 3	//A little bit more strong,
+	allowed_weapons = list()

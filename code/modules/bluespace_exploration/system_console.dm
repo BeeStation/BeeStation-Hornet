@@ -5,7 +5,7 @@
 	icon_keyboard = "security_key"
 	circuit = /obj/item/circuitboard/computer/security
 	light_color = LIGHT_COLOR_RED
-	ui_x = 480
+	ui_x = 540
 	ui_y = 708
 
 	// Note: Not all shuttles have a bluespace drive
@@ -61,9 +61,10 @@
 			SD.recalculate_star_systems()
 		for(var/star_id in SD.star_systems)
 			var/datum/star_system/system = SD.star_systems[star_id]
+			var/datum/faction/system_faction = system.system_alignment
 			var/list/formatted_star = list(
 				"name" = system.name,
-				"alignment" = system.system_alignment,
+				"alignment" = system_faction ? system_faction.name : "Error",
 				"threat" = system.calculated_threat,
 				"research_value" = system.calculated_research_potential,
 				"distance" = system.distance_from_center,
@@ -90,7 +91,7 @@
 
 /obj/machinery/computer/system_map/ui_act(action, params)
 	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttle_id)
-	if(!linkedShuttle || linkedShuttle.launch_status != SHUTTLE_IDLE)
+	if(!linkedShuttle || linkedShuttle.mode != SHUTTLE_IDLE)
 		say("Jump already in progress.")
 		return
 	switch(action)
@@ -124,6 +125,7 @@
 				bs_drive.engage(star)
 			else
 				handle_space_jump(star)
+			attached_ship.recalculate_star_systems()
 
 //Do this a few frames after loading everything, since if it loads at the same time as the drive it can fail to be located
 /obj/machinery/computer/system_map/proc/locate_bluespace_drive()

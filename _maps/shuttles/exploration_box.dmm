@@ -1187,6 +1187,17 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/circuit,
 /area/shuttle/exploration/warp_drive)
+"GI" = (
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/exploration/command)
 "GL" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -1350,17 +1361,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/exploration/engineering)
-"LT" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/effect/turf_decal/box,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/plasteel/dark,
-/area/shuttle/exploration/command)
 "LZ" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -2339,7 +2339,7 @@ oj
 va
 bo
 TV
-LT
+GI
 UU
 Mv
 va

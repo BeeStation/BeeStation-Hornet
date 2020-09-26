@@ -18,6 +18,10 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	var/list/ruin_templates = list()
 	var/obj/docking_port/stationary/away_mission_port
 
+	//=====Factions=====
+	// factions[datum] = new datum
+	var/list/factions = list()
+
 	//=====Ship Tracking=====
 	var/list/spawnable_ships = list()
 	//All ships that are able to use the random generation must be tracked
@@ -46,6 +50,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 /datum/controller/subsystem/bluespace_exploration/Initialize(start_timeofday)
 	z_level_queue = list()
 	. = ..()
+	//Create factions
+	for(var/faction_datum in subtypesof(/datum/faction))
+		factions[faction_datum] = new faction_datum
 
 /datum/controller/subsystem/bluespace_exploration/fire(resumed = 0)
 	if(times_fired % 50 == 0)
@@ -227,6 +234,7 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			continue
 		bluespace_valid_ruins += R
 	//===Calculate standard ruins
+	var/datum/star_system/target_level = data_holder.target_star_system
 	var/list/standard_valid_ruins = list()
 	for(var/template_name in SSmapping.space_ruins_templates)
 		var/datum/map_template/ruin/space/R = SSmapping.space_ruins_templates[template_name]
@@ -239,7 +247,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		var/list/selectable_ruins = list()
 		//TODO: Ruin weighting based on difficulty
 		//TODO: Bluespace ruins
-		var/datum/star_system/target_level = data_holder.target_star_system
 		if(target_level?.bluespace_ruins)
 			for(var/datum/map_template/ruin/exploration/ruin/R in bluespace_valid_ruins)
 				if(R.cost < cost_limit)
@@ -268,8 +275,27 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		selected_ruin.try_to_place(reserved_bs_level.z_value, /area/space)
 		cost_limit -= selected_ruin.cost
 		CHECK_TICK
-	//Debug, spawn syndie fighter
-	spawn_and_register_shuttle(spawnable_ships["Pirate Cutter"])
+	//=== Spawn Hostile Ships ===
+	var/max_ships = 5
+	var/threat_left = target_level.calculated_threat
+	while(threat_left > 0 && max_ships > 0)
+		//Pick a ship to spawn
+		var/list/valid_ships = list()
+		for(var/ship_name in spawnable_ships)
+			var/datum/map_template/shuttle/ship/spawnable_ship = spawnable_ships[ship_name]
+			var/datum/faction/system_faction = target_level.system_alignment
+			var/valid_faction = FALSE
+			//Is the ship of the faction of the system?
+			for(var/factions in typesof(system_faction.type))
+				if(factions in spawnable_ship.faction)
+					valid_faction = TRUE
+					break
+			if(valid_faction && spawnable_ship.difficulty < threat_left)
+				valid_ships += ship_name
+		if(!LAZYLEN(valid_ships))
+			break
+		spawn_and_register_shuttle(spawnable_ships[pick(valid_ships)])
+		max_ships --
 	addtimer(CALLBACK(src, .proc/on_generation_complete, data_holder), 0)
 
 /datum/controller/subsystem/bluespace_exploration/proc/on_generation_complete(datum/data_holder/bluespace_exploration/data_holder)
@@ -333,6 +359,13 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	shuttle.setTimer(shuttle.ignitionTime)
 	//Clear the z-level after the shuttle leaves
 	addtimer(CALLBACK(src, .proc/generate_z_level, data_holder), shuttle.ignitionTime + 50, TIMER_UNIQUE)
+
+//====================================
+// Factions
+//====================================
+
+/datum/controller/subsystem/bluespace_exploration/proc/get_faction(faction_datum)
+	return factions[faction_datum]
 
 //====================================
 // Starsystem Grabbing

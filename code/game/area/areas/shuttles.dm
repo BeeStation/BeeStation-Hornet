@@ -128,6 +128,49 @@
 /area/shuttle/exploration/medical
 	name = "Pathfinder Medical"
 
+/area/shuttle/exploration/ruin
+	name = "Unknown Vessel"
+	canSmoothWithAreas = null
+
+/area/shuttle/exploration/ruin/golem
+	name = "Golem Cruiser"
+
+/area/shuttle/exploration/ruin/felinid/bakery
+	name = "Hyperspace Bakery"
+
+/area/shuttle/exploration/ruin/felinid/scrap
+	name = "Scrapheap Ship"
+
+/area/shuttle/exploration/ruin/felinid/research
+	name = "Free Felinid Research Vessel"
+
+/area/shuttle/exploration/ruin/syndicate/interceptor
+	name = "Syndicate Interceptor"
+
+/area/shuttle/exploration/ruin/syndicate/destroyer
+	name = "Syndicate Destroyer"
+
+/area/shuttle/exploration/ruin/syndicate/cruiser
+	name = "Syndicate Cruiser"
+
+/area/shuttle/exploration/ruin/syndicate/fighter
+	name = "Syndicate Fighter"
+
+/area/shuttle/exploration/ruin/syndicate/hunter
+	name = "Syndicate Hunter"
+
+/area/shuttle/exploration/ruin/syndicate/boarder
+	name = "Syndicate Boarder"
+
+/area/shuttle/exploration/ruin/pirate/cutter
+	name = "Pirate Cutter"
+
+/area/shuttle/exploration/ruin/pirate/frigate
+	name = "Pirate Frigate"
+
+/area/shuttle/exploration/ruin/pirate/cruiser
+	name = "Pirate Cruiser"
+
 ////////////////////////////Single-area shuttles////////////////////////////
 
 /area/shuttle/transit

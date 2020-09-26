@@ -1,0 +1,560 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bX" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"fr" = (
+/obj/structure/bed/pod,
+/obj/item/bedsheet/syndie,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"fD" = (
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/hatch,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"ge" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1
+	},
+/obj/item/wrench,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"gw" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/pirate/ranged,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"ib" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"jx" = (
+/obj/machinery/suit_storage_unit/open,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"kt" = (
+/obj/effect/landmark/exploration_weapon_spawner/left{
+	dir = 1
+	},
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"mA" = (
+/obj/machinery/door/airlock/hatch,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"oc" = (
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/closet/crate,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 20
+	},
+/obj/item/flashlight{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"oi" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/handcuffs,
+/obj/item/gun/ballistic/automatic/pistol,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"oF" = (
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"pc" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"qs" = (
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"qA" = (
+/obj/machinery/computer/system_map,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"rd" = (
+/obj/machinery/power/smes{
+	charge = 5e+006
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"sj" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 9;
+	faction = list("pirate")
+	},
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"wp" = (
+/obj/structure/table/optable,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"xn" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/structure/reagent_dispensers/fueltank,
+/obj/item/weldingtool/largetank,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"ya" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"yD" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"yI" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"zJ" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/backpack/duffelbag/syndie/surgery,
+/obj/machinery/airalarm/all_access{
+	dir = 8;
+	pixel_x = 24
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Ar" = (
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"At" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 5;
+	faction = list("pirate")
+	},
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"AV" = (
+/obj/structure/shuttle/engine/heater,
+/obj/effect/spawner/structure/window/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"BI" = (
+/mob/living/simple_animal/hostile/pirate/melee,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"CI" = (
+/obj/machinery/sleeper{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Er" = (
+/obj/effect/landmark/exploration_weapon_spawner/right{
+	dir = 1
+	},
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Hb" = (
+/obj/machinery/airalarm/all_access{
+	pixel_y = 24
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Hm" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/armor/vest,
+/obj/item/kitchen/knife/combat/survival,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"JK" = (
+/obj/machinery/door/airlock/hatch,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"MA" = (
+/obj/effect/turf_decal/stripes/corner,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/flashes,
+/obj/item/flashlight/seclite,
+/obj/item/melee/classic_baton/police,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"MF" = (
+/obj/structure/closet/crate/secure/loot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Ni" = (
+/obj/machinery/stasis,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Nw" = (
+/obj/structure/rack,
+/obj/item/melee/transforming/energy/sword/saber/purple,
+/mob/living/simple_animal/parrot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"NW" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/pirate/ranged/space,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"NX" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/pirate/melee/space,
+/obj/machinery/airalarm/all_access{
+	dir = 4;
+	pixel_x = -24
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Oc" = (
+/obj/structure/bed/pod,
+/obj/item/bedsheet/syndie,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Om" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"OU" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Pa" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"PR" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/machinery/airalarm/all_access{
+	dir = 4;
+	pixel_x = -24
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Qh" = (
+/obj/machinery/power/apc{
+	name = "Pirate Cutter APC";
+	pixel_y = -24;
+	req_access = null
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/space_heater,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Rk" = (
+/obj/machinery/airalarm/all_access{
+	pixel_y = 24
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Tq" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"UB" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 6;
+	faction = list("pirate")
+	},
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"VP" = (
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/hatch,
+/obj/docking_port/mobile{
+	callTime = 150;
+	dir = 4;
+	dwidth = 9;
+	height = 8;
+	id = "set_by_code";
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
+	name = "Pirate Cruiser";
+	port_direction = 8;
+	preferred_direction = 4;
+	width = 21
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"VQ" = (
+/obj/effect/spawner/structure/window/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Wv" = (
+/obj/machinery/computer/camera_advanced,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Wz" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"WG" = (
+/obj/machinery/computer/operating{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"WY" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"XH" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/reagent_dispensers/watertank,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/mop,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Ye" = (
+/turf/template_noop,
+/area/template_noop)
+"Ym" = (
+/obj/machinery/computer/weapons,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"YC" = (
+/obj/machinery/suit_storage_unit/open,
+/turf/open/floor/plating,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+"Zb" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 10;
+	faction = list("pirate")
+	},
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/exploration/ruin/pirate/cruiser)
+
+(1,1,1) = {"
+Ye
+Ye
+Ye
+Ye
+Ye
+sj
+Wz
+Wz
+Wz
+VP
+Wz
+Wz
+Wz
+Wz
+Wz
+Ye
+"}
+(2,1,1) = {"
+Ye
+Ye
+Ye
+Ye
+Wz
+Wz
+Pa
+Wz
+CI
+bX
+Ni
+Wz
+qs
+ge
+Wz
+Zb
+"}
+(3,1,1) = {"
+VQ
+VQ
+Wz
+kt
+Wz
+Hb
+Ar
+mA
+Ar
+BI
+Ar
+mA
+qs
+oc
+AV
+OU
+"}
+(4,1,1) = {"
+VQ
+Ym
+PR
+MA
+Wz
+WY
+Oc
+Wz
+WG
+wp
+zJ
+Wz
+qs
+rd
+AV
+OU
+"}
+(5,1,1) = {"
+VQ
+qA
+gw
+ya
+JK
+ib
+MF
+Wz
+Wz
+Wz
+Wz
+Wz
+Rk
+Qh
+Wz
+Ye
+"}
+(6,1,1) = {"
+VQ
+Wv
+Om
+Hm
+Wz
+yD
+fr
+Wz
+NX
+Tq
+NW
+Wz
+qs
+xn
+AV
+OU
+"}
+(7,1,1) = {"
+VQ
+VQ
+Wz
+Er
+Wz
+Ar
+Ar
+mA
+oF
+oF
+oF
+mA
+qs
+XH
+AV
+OU
+"}
+(8,1,1) = {"
+Ye
+Ye
+Ye
+Ye
+Wz
+Wz
+Nw
+Wz
+oi
+yI
+pc
+Wz
+YC
+jx
+Wz
+UB
+"}
+(9,1,1) = {"
+Ye
+Ye
+Ye
+Ye
+Ye
+At
+Wz
+Wz
+Wz
+fD
+Wz
+Wz
+Wz
+Wz
+Wz
+Ye
+"}
