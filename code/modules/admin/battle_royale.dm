@@ -378,7 +378,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	else
 		new item_path(pod)
 	if(force_time)
-		pod.fallDuration = force_time
+		pod.delays[POD_FALLING]= force_time
 	new /obj/effect/pod_landingzone(target, pod)
 	if(announce)
 		priority_announce("[announce] \nExpected Drop Location: [get_area(target)]\n ETA: [force_time/10] Seconds.", "High Command Supply Control")
