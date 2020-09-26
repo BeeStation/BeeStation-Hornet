@@ -97,8 +97,8 @@
 			new_mob.ghostize(can_reenter_corpse = FALSE)
 			new_mob.key = null
 
-	name = "Jungle Fever"
 /datum/disease/transformation/jungle_fever
+	name = "Jungle Fever"
 	cure_text = "Death."
 	cures = list(/datum/reagent/medicine/adminordrazine)
 	spread_text = "Monkey Bites"
@@ -127,7 +127,7 @@
 	if(affected_mob.mind && !is_monkey(affected_mob.mind))
 		add_monkey(affected_mob.mind)
 	if(ishuman(affected_mob))
-		H.add_hud_to(new/datum/atom_hud/data/human/medical/advanced())
+		GLOB.huds[DATA_HUD_MEDICAL_ADVANCED].add_hud_to(affected_mob)
 		if(affected_mob && !is_monkey_leader(affected_mob.mind) && prob(4))
 			var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPVIRUS | TR_KEEPSE)
 			M.ventcrawler = VENTCRAWLER_ALWAYS
@@ -138,7 +138,7 @@
 	..()
 	switch(stage)
 		if(1)
-			affected_mob.add_hud_to(new/datum/atom_hud/data/human/medical/advanced())
+			GLOB.huds[DATA_HUD_MEDICAL_ADVANCED].add_hud_to(affected_mob)
 		if(2)
 			if(prob(2))
 				to_chat(affected_mob, "<span class='notice'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")
@@ -152,7 +152,7 @@
 
 /datum/disease/transformation/jungle_fever/cure()
 	remove_monkey(affected_mob.mind)
-	affected_mob.remove_hud_from(new/datum/atom_hud/data/human/medical/advanced())
+	GLOB.huds[DATA_HUD_MEDICAL_ADVANCED].remove_hud_from(affected_mob)
 	..()
 
 /datum/disease/transformation/jungle_fever/monkeymode
