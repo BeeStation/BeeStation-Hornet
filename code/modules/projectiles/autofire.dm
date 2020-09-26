@@ -23,7 +23,7 @@ Everything else should be handled for you. Good luck soldier.
 					autofire_component = AddComponent(/datum/component/full_auto)
 					if(fire_rate)
 						autofire_component.default_fire_delay = (10 / fire_rate)
-					return ..()
+					return
 			else //They're trying to disable the full auto of a gun. Remove the relevent component
 				if(autofire_component)
 					autofire_component.RemoveComponent()
@@ -31,9 +31,7 @@ Everything else should be handled for you. Good luck soldier.
 					return ..()
 		if(NAMEOF(src, fire_rate))
 			autofire_component?.default_fire_delay = (10 / var_value)
-			return ..()
-		else
-			return ..()
+			return
 
 //Place any guns that you want to be fully automatic here (for record-keeping and so NSV can avoid conflicts please and thank.)
 /obj/item/gun/ballistic/automatic/l6_saw
