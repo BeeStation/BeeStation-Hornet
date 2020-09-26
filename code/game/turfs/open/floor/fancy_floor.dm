@@ -292,3 +292,17 @@
 	underlay_appearance.icon_state = SPACE_ICON_STATE
 	underlay_appearance.plane = PLANE_SPACE
 	return TRUE
+
+/turf/open/floor/grass/wax
+	name = "wax"
+	icon = 'icons/turf/floors.dmi'
+	icon_state = 'honeyfloor'
+	desc = "Looks shiny."
+	ore_type = /obj/item/stack/sheet/mineral/wax
+	floor_tile = null
+	slowdown = 1.5
+	bullet_sizzle = TRUE
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
