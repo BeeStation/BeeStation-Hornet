@@ -809,12 +809,6 @@
 "cc" = (
 /turf/closed/wall/r_wall,
 /area/mine/laborcamp/security)
-"cd" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/mine/laborcamp/security)
 "ce" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /mob/living/simple_animal/bot/secbot/beepsky{
@@ -831,11 +825,6 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "cf" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Labor Camp Security APC";
-	pixel_x = 24
-	},
 /obj/machinery/camera{
 	c_tag = "Labor Camp Monitoring";
 	network = list("labor")
@@ -845,6 +834,11 @@
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "Labor Camp Security APC";
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
@@ -1062,7 +1056,7 @@
 /turf/open/floor/plasteel,
 /area/mine/production)
 "cG" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/mine/laborcamp/security)
 "cH" = (
@@ -4040,8 +4034,8 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "qD" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/mine/laborcamp/security)
 "qY" = (
@@ -11058,7 +11052,7 @@ bl
 bz
 bz
 bz
-cd
+bM
 bM
 cy
 dm
