@@ -473,7 +473,7 @@
 	emagged_reagents = list(
 		/datum/reagent/consumable/ethanol/thirteenloko,
 		/datum/reagent/consumable/ethanol/whiskey_cola,
-		/datum/reagent/toxin/mindbreaker,
+		/datum/reagent/toxin/LSD,
 		/datum/reagent/toxin/staminatoxin
 	)
 

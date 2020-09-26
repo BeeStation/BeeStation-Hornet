@@ -28,7 +28,7 @@
 	plantname = "Rainbow Weed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/toxin/mindbreaker = 0.15, /datum/reagent/toxin/lipolicide = 0.35)
+	reagents_add = list(/datum/reagent/toxin/LSD = 0.15, /datum/reagent/toxin/lipolicide = 0.35)
 	rarity = 40
 
 /obj/item/seeds/cannabis/death
@@ -63,7 +63,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/ultimate
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/drug/space_drugs = 0.3,
-						/datum/reagent/toxin/mindbreaker = 0.3,
+						/datum/reagent/toxin/LSD = 0.3,
 						/datum/reagent/mercury = 0.15,
 						/datum/reagent/lithium = 0.15,
 						/datum/reagent/medicine/atropine = 0.15,

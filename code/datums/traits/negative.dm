@@ -392,7 +392,7 @@
 
 /datum/quirk/insanity
 	name = "Reality Dissociation Syndrome"
-	desc = "You suffer from a severe disorder that causes very vivid hallucinations. Mindbreaker toxin can suppress its effects, and you are immune to mindbreaker's hallucinogenic properties. <b>This is not a license to grief.</b>"
+	desc = "You suffer from a severe disorder that causes very vivid hallucinations. LSD can suppress its effects, and you are immune to LSD's hallucinogenic properties. <b>This is not a license to grief.</b>"
 	value = -2
 	//no mob trait because it's handled uniquely
 	gain_text = "<span class='userdanger'>...</span>"
@@ -400,7 +400,7 @@
 	medical_record_text = "Patient suffers from acute Reality Dissociation Syndrome and experiences vivid hallucinations."
 
 /datum/quirk/insanity/on_process()
-	if(quirk_holder.reagents.has_reagent(/datum/reagent/toxin/mindbreaker, needs_metabolizing = TRUE))
+	if(quirk_holder.reagents.has_reagent(/datum/reagent/toxin/LSD, needs_metabolizing = TRUE))
 		quirk_holder.hallucination = 0
 		return
 	if(prob(2)) //we'll all be mad soon enough

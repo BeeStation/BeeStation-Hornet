@@ -259,11 +259,11 @@
 	icon_state = "midori"
 	spawn_type = /obj/item/clothing/mask/cigarette/rollie/cannabis
 
-/obj/item/storage/fancy/cigarettes/cigpack_mindbreaker
+/obj/item/storage/fancy/cigarettes/cigpack_LSD
 	name = "\improper Leary's Delight packet"
 	desc = "Banned in over 36 galaxies."
 	icon_state = "shadyjim"
-	spawn_type = /obj/item/clothing/mask/cigarette/rollie/mindbreaker
+	spawn_type = /obj/item/clothing/mask/cigarette/rollie/LSD
 
 /obj/item/storage/fancy/rollingpapers
 	name = "rolling paper pack"

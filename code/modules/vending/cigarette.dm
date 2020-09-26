@@ -48,7 +48,7 @@
 					/obj/item/storage/box/matches = 10,
 					/obj/item/lighter/greyscale = 4,
 					/obj/item/storage/fancy/rollingpapers = 5)
-	premium = list(/obj/item/storage/fancy/cigarettes/cigpack_mindbreaker = 5,
+	premium = list(/obj/item/storage/fancy/cigarettes/cigpack_LSD = 5,
 					/obj/item/clothing/mask/vape = 5,
 					/obj/item/lighter = 3)
 

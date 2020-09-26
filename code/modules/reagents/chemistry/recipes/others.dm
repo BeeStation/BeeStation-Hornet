@@ -679,7 +679,7 @@
 	name = /datum/reagent/pax
 	id = /datum/reagent/pax
 	results = list(/datum/reagent/pax = 3)
-	required_reagents  = list(/datum/reagent/toxin/mindbreaker = 1, /datum/reagent/medicine/synaptizine = 1, /datum/reagent/water = 1)
+	required_reagents  = list(/datum/reagent/toxin/LSD = 1, /datum/reagent/medicine/synaptizine = 1, /datum/reagent/water = 1)
 
 
 //////////////////EXPANDED MUTATION TOXINS/////////////////////

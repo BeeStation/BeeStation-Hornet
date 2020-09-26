@@ -81,10 +81,10 @@
 	results = list(/datum/reagent/toxin/ghoulpowder = 2)
 	required_reagents = list(/datum/reagent/toxin/zombiepowder = 1, /datum/reagent/medicine/epinephrine = 1)
 
-/datum/chemical_reaction/mindbreaker
-	name = "Mindbreaker Toxin"
-	id = /datum/reagent/toxin/mindbreaker
-	results = list(/datum/reagent/toxin/mindbreaker = 5)
+/datum/chemical_reaction/LSD
+	name = "LSD"
+	id = /datum/reagent/toxin/LSD
+	results = list(/datum/reagent/toxin/LSD = 5)
 	required_reagents = list(/datum/reagent/silicon = 1, /datum/reagent/hydrogen = 1, /datum/reagent/medicine/charcoal = 1)
 
 /datum/chemical_reaction/heparin
@@ -98,8 +98,8 @@
 	name = "Rotatium"
 	id = "Rotatium"
 	results = list(/datum/reagent/toxin/rotatium = 3)
-	required_reagents = list(/datum/reagent/toxin/mindbreaker = 1, /datum/reagent/teslium = 1, /datum/reagent/toxin/fentanyl = 1)
-	mix_message = "<span class='danger'>After sparks, fire, and the smell of mindbreaker, the mix is constantly spinning with no stop in sight.</span>"
+	required_reagents = list(/datum/reagent/toxin/LSD = 1, /datum/reagent/teslium = 1, /datum/reagent/toxin/fentanyl = 1)
+	mix_message = "<span class='danger'>After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.</span>"
 
 /datum/chemical_reaction/skewium
 	name = "Skewium"
