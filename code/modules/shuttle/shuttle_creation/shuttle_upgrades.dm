@@ -28,12 +28,12 @@
 	. = ..()
 	if(!istype(O, /obj/machinery/computer))
 		return
-	if(!istype(O, /obj/machinery/computer/custom_shuttle))
+	if(!istype(O, /obj/machinery/computer/system_map/custom_shuttle))
 		to_chat(user, "<span class='warning'>This upgrade only works on a custom shuttle flight console.</span>")
 		return
 	if (!user.transferItemToLoc(src, get_turf(O)))
 		return
-	var/obj/machinery/computer/custom_shuttle/link_comp = O
+	var/obj/machinery/computer/system_map/custom_shuttle/link_comp = O
 	link_comp.distance_multiplier = CLAMP(link_comp.distance_multiplier, 0, upgrade_amount)
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	to_chat(usr, "<span class='notice'>You insert the disk into the flight computer, allowing for routes to be [upgrade_amount]x the original distance.</span>")

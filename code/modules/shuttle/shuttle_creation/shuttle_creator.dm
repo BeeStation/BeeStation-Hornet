@@ -75,11 +75,25 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return
 	if(!proximity_flag)
 		return
-	if(istype(target, /obj/machinery/computer/custom_shuttle))
+	if(istype(target, /obj/machinery/door/airlock))
+		if(get_area(target) != loggedOldArea)
+			to_chat(user, "<span class='warning'>Caution, airlock must be on the shuttle to function as a dock.</span>")
+			return
+		if(linkedShuttleId)
+			return
+		if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT)
+			to_chat(user, "<span class='warning'>Shuttle limit reached, sorry.</span>")
+			return
+		if(!create_shuttle_area(user))
+			return
+		if(shuttle_create_docking_port(target, user))
+			to_chat(user, "<span class='notice'>Shuttle created!</span>")
+		return
+	else if(istype(target, /obj/machinery/computer/system_map/custom_shuttle))
 		if(!linkedShuttleId)
 			to_chat(user, "<span class='warning'>Error, no defined shuttle linked to device.</span>")
 			return
-		var/obj/machinery/computer/custom_shuttle/console = target
+		var/obj/machinery/computer/system_map/custom_shuttle/console = target
 		console.linkShuttle(linkedShuttleId)
 		to_chat(user, "<span class='notice'>Console linked successfully!</span>")
 		return
@@ -243,7 +257,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 	icon_state = "rsd_used"
 
-	//Select shuttle fly direction. 
+	//Select shuttle fly direction.
 	select_preferred_direction(user)
 
 	//Clear highlights
@@ -304,7 +318,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		FD.CalculateAffectingAreas()
 	return TRUE
 
-//Select shuttle fly direction. 
+//Select shuttle fly direction.
 /obj/item/shuttle_creator/proc/select_preferred_direction(mob/user)
 	var/obj/docking_port/mobile/port = SSshuttle.getShuttle(linkedShuttleId)
 	if(!port || !istype(port, /obj/docking_port/mobile))

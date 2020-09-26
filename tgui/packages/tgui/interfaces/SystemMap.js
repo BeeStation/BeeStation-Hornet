@@ -19,6 +19,7 @@ export const SystemMap = (props, context) => {
     ship_faction,
     stars = [],
     extra_data = [],
+    custom_shuttle,
   } = data;
   const [
     system,
@@ -103,6 +104,17 @@ export const SystemMap = (props, context) => {
             </Table.Row>
           ))}
         </Table>
+        {custom_shuttle
+          ?(
+            <Box
+              textAlign="center">
+              <Divider />
+              <Button
+                content="Calculate Stats"
+                onClick={() => act('calculate_custom_shuttle')} />
+            </Box>
+          )
+          : ""}
       </Section>
       <Divider />
       <Section>
@@ -163,7 +175,11 @@ export const SystemMap = (props, context) => {
           <Button
             content="Request Jump"
             onClick={() => act('jump', {
-              'system_name': system ? system.name : "",
+              'system_name': system
+                ? system.id
+                  ? system.id
+                  : system.name
+                : "",
             })} />
         </Box>
       </Section>
