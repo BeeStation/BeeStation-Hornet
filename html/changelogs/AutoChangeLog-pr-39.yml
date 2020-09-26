@@ -1,0 +1,7 @@
+author: Kryyto
+delete-after: true
+changes:
+  - rscadd: Added new folder called "Factorycargo"
+  - rscadd: Added ballistic guns parts in Guns_part.dmi (factory folder)
+  - rscadd: Added plate of ore and all ressources in components.dmi (factory folder)
+  - rscadd: Added plate bulb in components.dmi too (factory folder)
