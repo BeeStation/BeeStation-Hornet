@@ -154,11 +154,23 @@
 	icon = 'icons/turf/walls/rusty_wall.dmi'
 	hardness = 45
 
+/turf/closed/wall/rust/rust_heretic_act()
+	if(prob(70))
+		new /obj/effect/temp_visual/glowing_rune(src)
+	ScrapeAway()
+
 /turf/closed/wall/r_wall/rust
 	name = "rusted reinforced wall"
 	desc = "A huge chunk of rusted reinforced metal."
 	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
 	hardness = 15
+
+/turf/closed/wall/r_wall/rust/rust_heretic_act()
+	if(prob(50))
+		return
+	if(prob(70))
+		new /obj/effect/temp_visual/glowing_rune(src)
+	ScrapeAway()
 
 /turf/closed/wall/mineral/bronze
 	name = "clockwork wall"
@@ -168,3 +180,4 @@
 	sheet_type = /obj/item/stack/tile/bronze
 	sheet_amount = 2
 	girder_type = /obj/structure/girder/bronze
+

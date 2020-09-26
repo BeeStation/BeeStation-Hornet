@@ -5999,6 +5999,7 @@
 	freerange = 1;
 	name = "Syndicate Radio Intercom"
 	},
+/obj/item/paper/fluff/ruins/syndicomms,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},

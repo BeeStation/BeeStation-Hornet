@@ -159,7 +159,7 @@
 	. = ""
 	if(istype(holder))
 		real_name = holder.real_name
-		. += md5(holder.real_name)
+		. += rustg_hash_string(RUSTG_HASH_MD5, holder.real_name)
 	else
 		. += random_string(DNA_UNIQUE_ENZYMES_LEN, GLOB.hex_characters)
 	return .
