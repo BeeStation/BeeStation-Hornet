@@ -148,9 +148,9 @@
 	wing_type = "Bee"
 
 /datum/action/item_action/organ_action/use/bee_dash
-	var/jumpdistance = 5
+	var/jumpdistance = 3
 	var/jumpspeed = 3
-	var/recharging_rate = 70
+	var/recharging_rate = 100
 	var/recharging_time = 0
 
 /datum/action/item_action/organ_action/use/bee_dash/Trigger()
@@ -180,10 +180,12 @@
 	var/hoppingtable = FALSE
 	var/jumpdistancemoved = jumpdistance
 	var/turf/checkjump = L.loc
-	for(var/I = 1; I <= jumpdistance; I++) // Checks the next five tiles for a table, and shortens the jump if there's one in the way
-		if(locate(/obj/structure/table, get_step(checkjump, L.dir))) // Please tell me/fix it if there's a better way to do this
+	for(var/i in 1 to jumpdistance)
+		if(locate(/obj/structure/table, get_step(checkjump, L.dir)))
 			hoppingtable = TRUE
-			jumpdistancemoved = I
+			jumpdistancemoved = i
+			break
+		if(locate(/obj/structure/, get_step(checkjump, L.dir)))
 			break
 		checkjump = get_step(checkjump, L.dir)
 
