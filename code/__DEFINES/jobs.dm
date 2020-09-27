@@ -15,7 +15,6 @@
 #define BRIG_PHYS		(1<<11)
 #define DEPUTY  		(1<<12)
 
-
 #define MEDSCI			(1<<1)
 
 #define RD_JF			(1<<0)
@@ -40,6 +39,7 @@
 #define CARGOTECH		(1<<7)
 #define MINER			(1<<8)
 #define LAWYER			(1<<9)
+#define BLUESHIELD (1<<14)
 #define CHAPLAIN		(1<<10)
 #define CLOWN			(1<<11)
 #define MIME			(1<<12)

@@ -149,3 +149,11 @@
 	item_color = "durathread"
 	can_adjust = FALSE
 	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5)
+
+/obj/item/clothing/under/rank/blueshield
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" on the left shoulder."
+	name = "\improper Blueshield Uniform"
+	icon_state = "ert_uniform"
+	item_state = "bl_suit"
+	item_color = "ert_uniform"
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)

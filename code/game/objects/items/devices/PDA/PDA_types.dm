@@ -193,6 +193,11 @@
 	silent = TRUE //Quiet in the library!
 	overlays_x_offset = -3
 
+/obj/item/device/pda/blueshield
+	name = "blueshield PDA"
+	var/default_cartridge = /obj/item/cartridge/hos
+	icon_state = "pda-warden"
+
 /obj/item/pda/clear
 	name = "clear PDA"
 	icon_state = "pda-clear"

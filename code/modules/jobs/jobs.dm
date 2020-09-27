@@ -45,7 +45,8 @@ GLOBAL_LIST_INIT(civilian_positions, list(
 	"Chaplain",
 	"Clown",
 	"Mime",
-	"Assistant"))
+	"Assistant",
+	"Blueshield"))
 
 
 GLOBAL_LIST_INIT(security_positions, list(

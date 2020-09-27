@@ -60,9 +60,10 @@
 #define ACCESS_SEC_DOORS 63 //! Outer brig doors, department security posts
 #define ACCESS_MINERAL_STOREROOM 64 //! For releasing minerals from the ORM
 #define ACCESS_MINISAT 65
-#define ACCESS_WEAPONS 66 //! Weapon authorization for secbots
-#define ACCESS_NETWORK 67 //! NTnet diagnostics/monitoring software
-#define ACCESS_CLONING 68 //! Cloning room and clone pod ejection
+#define ACCESS_WEAPONS 66 //Weapon authorization for secbots
+#define ACCESS_NETWORK 67
+#define ACCESS_CLONING 68 //Cloning room
+#define ACCESS_BLUESHIELD 69 // Blueshield Office
 
 	//BEGIN CENTCOM ACCESS
 	/*Should leave plenty of room if we need to add more access levels.

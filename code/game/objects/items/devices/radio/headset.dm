@@ -217,11 +217,22 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "com_headset"
 	keyslot = new /obj/item/encryptionkey/heads/hop
 
-/obj/item/radio/headset/headset_cargo
+/obj/item/device/radio/headset/heads/blueshield
+	name = "\proper the blueshield's headset"
+	desc = "The headset of the Blueshield."
+	icon_state = "com_headset"
+	var/keyslot = new /obj/item/encryptionkey/heads/blueshield
+
+/obj/item/device/radio/headset/heads/blueshield/alt
+	name = "\proper the blueshield's bowman headset"
+	desc = "The headset of the Blueshield. Protects ears from flashbangs."
+	icon_state = "com_headset_alt"
+
+/obj/item/device/radio/headset/headset_cargo
 	name = "supply radio headset"
 	desc = "A headset used by the QM and his slaves."
 	icon_state = "cargo_headset"
-	keyslot = new /obj/item/encryptionkey/headset_cargo
+	var/keyslot = new /obj/item/encryptionkey/headset_cargo
 
 /obj/item/radio/headset/headset_cargo/mining
 	name = "mining radio headset"
