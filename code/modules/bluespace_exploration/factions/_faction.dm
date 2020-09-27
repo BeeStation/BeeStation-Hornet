@@ -53,6 +53,18 @@
 	//Faction alignment
 	neutral_factions = list(/datum/faction/nanotrasen, /datum/faction/station, /datum/faction/syndicate)
 
+/datum/faction/pirates
+	name = "Pirates"
+	friendly_factions = list()
+	neutral_factions = list(/datum/faction/spider_clan, /datum/faction/syndicate)
+	hostile_factions = list(/datum/faction/nanotrasen, /datum/faction/station, /datum/faction/independant)
+
+/datum/faction/golems
+	name = "Free Golems"
+	friendly_factions = list(/datum/faction/nanotrasen, /datum/faction/station)
+	neutral_factions = list(/datum/faction/independant)
+	hostile_factions = list(/datum/faction/spider_clan, /datum/faction/syndicate)
+
 /datum/faction/syndicate/cybersun
 	name = "Cybersun Industries"
 	friendly_factions = list(/datum/faction/syndicate/mi_thirteen)

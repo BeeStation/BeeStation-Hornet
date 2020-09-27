@@ -11,10 +11,15 @@
 
 	can_be_bought = FALSE
 
+	var/amount_left = INFINITY
+
 /datum/map_template/shuttle/ship/New()
 	if(!islist(faction))
 		faction = subtypesof(faction)
 	. = ..()
+
+/datum/map_template/shuttle/ship/proc/can_place()
+	return amount_left > 0
 
 /datum/map_template/shuttle/ship/proc/try_to_place(z,allowed_areas)
 	//To give unique ids to all the spawned ships
@@ -63,10 +68,9 @@
 			for(var/obj/docking_port/mobile/port in T)
 				port.id = "[port.id][shuttles_spawned++]"
 				located_port = port
-				message_admins("Located docking port :)")
 			// Initialize shuttle weapons
 			for(var/obj/effect/landmark/exploration_weapon_spawner/weapon_spawner in T)
 				weapon_spawner.do_weapon_spawn()
-		message_admins("Spawned [name]")
+		amount_left --
 		return located_port
 	return null

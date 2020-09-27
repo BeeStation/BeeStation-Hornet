@@ -56,15 +56,14 @@
 		if(0 to 20)
 			system_alignment = SSbluespace_exploration.get_faction(/datum/faction/nanotrasen)
 		if(20 to 50)
-			system_alignment = SSbluespace_exploration.get_faction(pick(/datum/faction/spider_clan, /datum/faction/independant))
+			system_alignment = SSbluespace_exploration.get_faction(pick(/datum/faction/spider_clan, /datum/faction/independant, /datum/faction/pirates, /datum/faction/golems))
 		if(50 to 70)
-			system_alignment = SSbluespace_exploration.get_faction(pick(subtypesof(/datum/faction/syndicate) - /datum/faction/syndicate/elite))
+			system_alignment = SSbluespace_exploration.get_faction(pick(subtypesof(/datum/faction/syndicate) - /datum/faction/syndicate/elite + /datum/faction/pirates))
 		if(70 to 100)
 			system_alignment = SSbluespace_exploration.get_faction(/datum/faction/syndicate/elite)
 	//Set other factors
 	calculated_threat = CLAMP(rand(0, zerotoonehundred) + rand(-40, 20), 0, 40)
 	calculated_research_potential = CLAMP(rand(0, zerotoonehundred), 0, 50) - rand(0, 10)
-	message_admins("Distance = [distance_from_center] | Zerotohundred = [zerotoonehundred]")
 
 /datum/star_system/proc/normalize_difficulty()
-	return 100 * (1 - sin(1 / (abs(distance_from_center / 5) + (1 / 1.57))))
+	return 100 * (1 - sin(TODEGREES(1 / ((distance_from_center / 5) + (0.6369)))))

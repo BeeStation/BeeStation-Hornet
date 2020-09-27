@@ -285,6 +285,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			var/datum/map_template/shuttle/ship/spawnable_ship = spawnable_ships[ship_name]
 			var/datum/faction/system_faction = target_level.system_alignment
 			var/valid_faction = FALSE
+			if(!spawnable_ship.can_place())
+				continue
 			//Is the ship of the faction of the system?
 			for(var/factions in typesof(system_faction.type))
 				if(factions in spawnable_ship.faction)
@@ -299,7 +301,6 @@ SUBSYSTEM_DEF(bluespace_exploration)
 	addtimer(CALLBACK(src, .proc/on_generation_complete, data_holder), 0)
 
 /datum/controller/subsystem/bluespace_exploration/proc/on_generation_complete(datum/data_holder/bluespace_exploration/data_holder)
-	message_admins("generating shuttle dock")
 	var/datum/data_holder/bluespace_exploration/data = data_holder
 	var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(data.shuttle_id)
 	//Place a dock somewhere in the new place

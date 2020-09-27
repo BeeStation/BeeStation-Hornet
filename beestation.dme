@@ -1629,6 +1629,8 @@
 #include "code\modules\bluespace_exploration\encounter\ship_npc_controller.dm"
 #include "code\modules\bluespace_exploration\encounter\shiploader.dm"
 #include "code\modules\bluespace_exploration\encounter\subsystem_spawner.dm"
+#include "code\modules\bluespace_exploration\encounter\templates_golem.dm"
+#include "code\modules\bluespace_exploration\encounter\templates_pirates.dm"
 #include "code\modules\bluespace_exploration\encounter\templates_syndicate.dm"
 #include "code\modules\bluespace_exploration\encounter\mapping\encounter_loadouts.dm"
 #include "code\modules\bluespace_exploration\encounter\mapping\mob_spawners.dm"
