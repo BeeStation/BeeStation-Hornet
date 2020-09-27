@@ -241,7 +241,7 @@
 	floor_tile = /obj/item/stack/tile/carpet/royalblue
 	canSmoothWith = list(/turf/open/floor/carpet/royalblue)
 
-/turf/open/floor/carpet/eighties
+/turf/open/floor/eighties
 	name = "retro floor"
 	desc = "This one takes you back."
 	icon_state = "eighties"
