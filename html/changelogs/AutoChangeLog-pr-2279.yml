@@ -1,0 +1,5 @@
+author: Kmc2000 with Gun Jesus
+delete-after: true
+changes:
+  - rscadd: Fully automatic firing for guns, except this time it isn't horribly coded
+      and broken.
