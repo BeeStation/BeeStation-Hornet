@@ -12,7 +12,7 @@
 	//Technology don't care about your stupid magic
 	has_action = FALSE
 	clothes_req = FALSE
-	antimagic_allowed = TRUE
+	antimagic_allowed = TRUE	//Why would magic stop you from shooting guns
 	var/obj/machinery/computer/weapons/linked_console
 
 /obj/effect/proc_holder/spell/set_weapon_target/InterceptClickOn(mob/living/caller, params, atom/target)

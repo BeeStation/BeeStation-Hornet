@@ -284,15 +284,13 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		for(var/ship_name in spawnable_ships)
 			var/datum/map_template/shuttle/ship/spawnable_ship = spawnable_ships[ship_name]
 			var/datum/faction/system_faction = target_level.system_alignment
-			var/valid_faction = FALSE
 			if(!spawnable_ship.can_place())
 				continue
 			//Is the ship of the faction of the system?
-			for(var/factions in typesof(system_faction.type))
-				if(factions in spawnable_ship.faction)
-					valid_faction = TRUE
-					break
-			if(valid_faction && spawnable_ship.difficulty < threat_left)
+			//10% chance for ships to spawn anyway
+			if(!is_type_in_list(spawnable_ship.faction, typesof(system_faction.type)) && prob(90))
+				continue
+			if(spawnable_ship.difficulty < threat_left)
 				valid_ships += ship_name
 		if(!LAZYLEN(valid_ships))
 			break
@@ -317,12 +315,14 @@ SUBSYSTEM_DEF(bluespace_exploration)
 			away_mission_port.width = shuttle.width
 			away_mission_port.dheight = shuttle.dheight
 			away_mission_port.dwidth = shuttle.dwidth
-		away_mission_port.forceMove(locate(rand(10, world.maxx - 10), rand(10, world.maxx - 10), reserved_bs_level.z_value))
+		var/max_size = max(away_mission_port.width, away_mission_port.height)
+		away_mission_port.forceMove(locate(rand(max_size, world.maxx - max_size), rand(max_size, world.maxx - max_size), reserved_bs_level.z_value))
 		//Check if blocked
 		var/blocked = FALSE
-		for(var/turf/closed/T in away_mission_port.return_turfs())
-			blocked = TRUE
-			break
+		for(var/turf/T in away_mission_port.return_turfs())
+			if(T.density)
+				blocked = TRUE
+				break
 		if(blocked)
 			CHECK_TICK
 			continue

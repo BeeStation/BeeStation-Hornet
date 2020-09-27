@@ -140,8 +140,12 @@
 
 			//Target.return_turfs() but with added range
 			var/list/L = target.return_coords()
-			var/turf/T0 = locate(CLAMP(L[1]-extra_range, 1, world.maxx), CLAMP(L[2]+extra_range, 1, world.maxy), target.z)
-			var/turf/T1 = locate(CLAMP(L[3]+extra_range, 1, world.maxx), CLAMP(L[4]-extra_range, 1, world.maxy), target.z)
+			var/left = min(L[1], L[3])
+			var/right = max(L[1], L[3])
+			var/top = max(L[2], L[4])
+			var/bottom = min(L[2], L[4])
+			var/turf/T0 = locate(CLAMP(left-extra_range, 1, world.maxx), CLAMP(top+extra_range, 1, world.maxy), target.z)
+			var/turf/T1 = locate(CLAMP(right+extra_range, 1, world.maxx), CLAMP(bottom-extra_range, 1, world.maxy), target.z)
 			var/list/visible_turfs = block(T0,T1)
 
 			cam_screen.vis_contents = visible_turfs

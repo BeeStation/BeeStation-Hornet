@@ -20,7 +20,6 @@
 /datum/ship_datum/npc/New()
 	. = ..()
 	locate_weapons()
-	locate_mobs()
 
 /datum/ship_datum/npc/update_ship()
 	. = ..()
@@ -83,6 +82,8 @@
 		message_admins("failed to locate weapons on ship")
 
 /datum/ship_datum/npc/proc/check_mobs_alive()
+	if(!islist(mobs))
+		locate_mobs()
 	for(var/mob/living/L in mobs)
 		if(!QDELETED(L) && !L.stat)
 			return TRUE
