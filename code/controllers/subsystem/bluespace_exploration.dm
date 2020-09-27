@@ -66,7 +66,9 @@ SUBSYSTEM_DEF(bluespace_exploration)
 		initiate_queued_warp()
 		CHECK_TICK
 	if(!wiping_z_level && LAZYLEN(z_level_queue))
-		wipe_z_level(z_level, text2num(z_level_queue[1]))
+		var/first = z_level_queue[1]
+		var/value = z_level_queue[first]
+		wipe_z_level(first, value)
 		CHECK_TICK
 	if(wiping_z_level)
 		continue_wipe(wipe_data_holder, wiping_divided_turfs, wipe_process_num)
