@@ -39,7 +39,6 @@
 #define CARGOTECH		(1<<7)
 #define MINER			(1<<8)
 #define LAWYER			(1<<9)
-#define BLUESHIELD (1<<14)
 #define CHAPLAIN		(1<<10)
 #define CLOWN			(1<<11)
 #define MIME			(1<<12)
@@ -50,6 +49,7 @@
 #define HOBO            (1<<17)
 #define SHRINK          (1<<18)
 #define CELEBRITY       (1<<19)
+#define BLUESHIELD      (1<<20)
 
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1
