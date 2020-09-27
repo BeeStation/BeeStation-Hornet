@@ -67,12 +67,12 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/gun/energy/e_gun/blueshield
-	name = "advanced stun revolver"
-	desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers."
+	name = "advanced disabler revolver"
+	desc = "An advanced disabler revolver with the capacity to shoot both disablers and lasers."
 	icon_state = "bsgun"
 	item_state = "gun"
 	force = 7
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
 
 /obj/item/gun/energy/e_gun/dragnet
