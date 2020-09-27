@@ -191,6 +191,11 @@
 	. = ..()
 	radio = new(src)
 
+/obj/item/cartridge/annoyance //the only purpose of this cartridge is to allow the VIP to be annoying
+	name = "\improper TWIT cartridge"
+	icon_state = "cart-c"
+	spam_enabled = 1
+
 /obj/item/cartridge/proc/post_status(command, data1, data2)
 
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
