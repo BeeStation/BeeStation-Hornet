@@ -1,0 +1,13 @@
+author: Zeskorion, GizkaFreechman, thatguythere03
+delete-after: true
+changes:
+  - rscadd: 28 random maint rooms by GizkaFreechman, edited by myself
+  - rscadd: Random maint traps
+  - rscadd: cluwne rune, which can be used by cultists in a manner similar to an invocation
+      rune, if the Honkmother has blessed one of the invokers with her presence
+  - rscadd: new random maint job, the VIP. he's rich, apparently important, and actually
+      probably quite useless.
+  - imageadd: sprites for new job and cluwne rune by thatguythere03
+  - tweak: edited most random maint maps to make maint easier to get through (changing
+      table placements and such)
+  - balance: faithless no longer has a 12% chance to stun for 6 seconds on hit
