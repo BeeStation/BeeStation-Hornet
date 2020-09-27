@@ -6,6 +6,9 @@
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/vomit/old,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
@@ -69,11 +72,11 @@
 
 (1,1,1) = {"
 a
-b
+f
 i
 "}
 (2,1,1) = {"
-f
+b
 g
 j
 "}
@@ -85,10 +88,10 @@ Y
 (4,1,1) = {"
 d
 c
-h
+c
 "}
 (5,1,1) = {"
 e
-c
+h
 h
 "}

@@ -258,15 +258,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"z" = (
-/obj/effect/trap/trigger/all,
-/turf/open/floor/plating,
-/area/template_noop)
-"A" = (
-/obj/effect/trap/nexus/trickyspawner/catbutcher,
-/obj/effect/trap/nexus/doorbolt,
-/turf/open/floor/plating,
-/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -292,14 +283,14 @@ c
 (4,1,1) = {"
 d
 e
-z
+e
 q
 u
 "}
 (5,1,1) = {"
 e
 e
-A
+e
 e
 e
 "}

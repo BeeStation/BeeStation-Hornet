@@ -11,6 +11,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating,
@@ -24,6 +27,12 @@
 /obj/item/taperecorder,
 /turf/open/floor/plating,
 /area/template_noop)
+"g" = (
+/obj/structure/table,
+/obj/item/storage/box/matches,
+/obj/item/storage/fancy/cigarettes,
+/turf/open/floor/plating,
+/area/template_noop)
 "h" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -32,13 +41,13 @@
 
 (1,1,1) = {"
 a
-b
+d
 f
 "}
 (2,1,1) = {"
 b
 e
-b
+g
 "}
 (3,1,1) = {"
 c

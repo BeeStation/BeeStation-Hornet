@@ -18,8 +18,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/effect/trap/nexus/trickyspawner/catbutcher,
-/obj/effect/spawner/lootdrop/trap,
+/obj/structure/rack,
+/obj/item/clothing/suit/apron,
+/obj/item/clothing/mask/surgical,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -74,6 +75,11 @@
 /obj/item/clothing/glasses/hud/health,
 /turf/open/floor/plating,
 /area/template_noop)
+"i" = (
+/obj/machinery/iv_drip,
+/obj/item/roller,
+/turf/open/floor/plating,
+/area/template_noop)
 "j" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -104,6 +110,12 @@
 /obj/item/gun/syringe,
 /turf/open/floor/plating,
 /area/template_noop)
+"o" = (
+/obj/structure/rack,
+/obj/item/hatchet,
+/obj/item/reagent_containers/blood/random,
+/turf/open/floor/plating,
+/area/template_noop)
 "p" = (
 /obj/machinery/chem_master{
 	pixel_x = -4
@@ -118,7 +130,7 @@
 (1,1,1) = {"
 a
 f
-h
+i
 m
 "}
 (2,1,1) = {"
@@ -128,10 +140,10 @@ j
 n
 "}
 (3,1,1) = {"
-j
 c
 f
-j
+f
+o
 "}
 (4,1,1) = {"
 d
@@ -141,7 +153,7 @@ p
 "}
 (5,1,1) = {"
 e
-j
+h
 l
 q
 "}
