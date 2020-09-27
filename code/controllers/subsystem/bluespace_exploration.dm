@@ -204,7 +204,8 @@ SUBSYSTEM_DEF(bluespace_exploration)
 
 /datum/controller/subsystem/bluespace_exploration/proc/reset_turfs(list/turfs)
 	var/list/new_turfs = list()
-	for(var/turf/T in turfs)
+	for(var/i in turfs)
+		var/turf/T = i
 		var/turf/newT
 		if(istype(T, /turf/open/space))
 			newT = T
