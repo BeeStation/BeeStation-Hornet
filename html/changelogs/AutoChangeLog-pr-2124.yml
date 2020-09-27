@@ -1,0 +1,22 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Clockcult gamemode
+  - rscadd: Clockwork slab
+  - rscadd: Brass armory
+  - rscadd: brass spear
+  - rscadd: brass battlehammer
+  - rscadd: brass sword
+  - rscadd: The Eminence simplemob
+  - rscadd: Cogscarab drone subtype
+  - rscadd: TGUI clockwork menu
+  - rscadd: Clockwork traps
+  - rscadd: Clockwork scriptures, structures and slab powers
+  - rscadd: replica fabricator
+  - rscadd: integration cog
+  - rscadd: Rat'var the clockwork justicar
+  - rscadd: New Reebe
+  - bugfix: Clockcult has been completely rewritten from scratch, Reebe has been completely
+      redesigned and it no longer crashes upon using camera consoles, winning, doing
+      anything etc.
+  - config: Adds clockcult to the config
