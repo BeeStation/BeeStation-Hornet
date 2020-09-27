@@ -8,24 +8,31 @@
 	ears = /obj/item/radio/headset/chameleon
 	id = /obj/item/card/id/syndicate/ratvar
 	belt = /obj/item/storage/belt/utility/servant
+	var/weapon = null
+
+/datum/outfit/clockcult/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	if(weapon)
+		weapon = new weapon(get_turf(H))
+		H.put_in_inactive_hand(weapon)
 
 /datum/outfit/clockcult/armaments
 	name = "Servant of Ratvar - Armaments"
 
 	suit = /obj/item/clothing/suit/clockwork
-	suit_store = /obj/item/twohanded/clockwork/brass_spear
+	weapon = /obj/item/twohanded/clockwork/brass_spear
 	head = /obj/item/clothing/head/helmet/clockcult
 	shoes = /obj/item/clothing/shoes/clockcult
 	gloves = /obj/item/clothing/gloves/clockcult
 
 /datum/outfit/clockcult/armaments/hammer
 	name = "Servant of Ratvar - Armaments (hammer)"
-	suit_store = /obj/item/twohanded/clockwork/brass_battlehammer
+	weapon = /obj/item/twohanded/clockwork/brass_battlehammer
 
 /datum/outfit/clockcult/armaments/sword
 	name = "Servant of Ratvar - Armaments (sword)"
-	suit_store = /obj/item/twohanded/clockwork/brass_sword
+	weapon = /obj/item/twohanded/clockwork/brass_sword
 
 /datum/outfit/clockcult/armaments/bow
 	name = "Servant of Ratvar - Armaments (sword)"
-	suit_store = /obj/item/gun/ballistic/bow/clockwork
+	weapon = /obj/item/gun/ballistic/bow/clockwork
