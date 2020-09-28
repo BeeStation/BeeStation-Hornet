@@ -253,11 +253,7 @@
 		/mob/living/simple_animal/hostile/retaliate/spaceman = 2,
 		/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection = 1,
 		/mob/living/simple_animal/hostile/retaliate/frog = 2)
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> randomengines
 /obj/effect/spawner/lootdrop/costume
 	name = "random costume spawner"
 
