@@ -156,6 +156,10 @@
 "R" = (
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
+"T" = (
+/obj/machinery/telecomms/relay/preset/reebe,
+/turf/open/floor/clockwork/reebe,
+/area/reebe/city_of_cogs)
 "U" = (
 /obj/structure/table/brass,
 /obj/item/clockwork/replica_fabricator,
@@ -31905,7 +31909,7 @@ x
 Y
 q
 Z
-R
+T
 Z
 R
 R
