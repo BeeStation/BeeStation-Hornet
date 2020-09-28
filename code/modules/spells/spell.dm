@@ -560,6 +560,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	if(!(action?.button))
 		return
 	action.button.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR((charge_max-charge_counter)/10, 1)]</span></center>"
+	if(charge_counter >= charge_max)
+		end_timer_animation()
 
 /obj/effect/proc_holder/spell/proc/end_timer_animation()
 	if(!(action?.button) || !timer_overlay_active)
