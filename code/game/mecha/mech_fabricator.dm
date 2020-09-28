@@ -196,7 +196,7 @@
 	return queue.len
 
 /obj/machinery/mecha_part_fabricator/proc/remove_from_queue(index)
-	if(!isnum(index) || !ISINTEGER(index) || !istype(queue) || (index<1 || index>queue.len))
+	if(!isnum_safe(index) || !ISINTEGER(index) || !istype(queue) || (index<1 || index>queue.len))
 		return FALSE
 	queue.Cut(index,++index)
 	return TRUE
@@ -290,8 +290,9 @@
 				left_part += output_parts_list(part_set)
 				left_part += "<hr><a href='?src=[REF(src)];screen=main'>Return</a>"
 	dat = {"<html>
-			  <head>
-			  <title>[name]</title>
+			<head>
+			<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+			<title>[name]</title>
 				<style>
 				.res_name {font-weight: bold; text-transform: capitalize;}
 				.red {color: #f00;}
@@ -374,7 +375,7 @@
 	if(href_list["queue_move"] && href_list["index"])
 		var/index = text2num(href_list["index"])
 		var/new_index = index + text2num(href_list["queue_move"])
-		if(isnum(index) && isnum(new_index) && ISINTEGER(index) && ISINTEGER(new_index))
+		if(isnum_safe(index) && isnum_safe(new_index) && ISINTEGER(index) && ISINTEGER(new_index))
 			if(ISINRANGE(new_index,1,queue.len))
 				queue.Swap(index,new_index)
 		return update_queue_on_page()
@@ -403,11 +404,11 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/mecha_part_fabricator/proc/do_process_queue()		
-	if(processing_queue || being_built)		
-		return FALSE		
+/obj/machinery/mecha_part_fabricator/proc/do_process_queue()
+	if(processing_queue || being_built)
+		return FALSE
 	processing_queue = 1
-	process_queue()		
+	process_queue()
 	processing_queue = 0
 
 /obj/machinery/mecha_part_fabricator/proc/eject_sheets(eject_sheet, eject_amt)

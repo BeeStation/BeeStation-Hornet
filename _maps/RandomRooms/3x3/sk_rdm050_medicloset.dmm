@@ -9,12 +9,6 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "b" = (
-/obj/structure/table,
-/obj/item/storage/backpack/duffelbag/med,
-/obj/item/flashlight/pen{
-	pixel_x = 4;
-	pixel_y = 3
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -34,6 +28,7 @@
 /area/template_noop)
 "d" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "e" = (
@@ -51,14 +46,6 @@
 /obj/item/reagent_containers/blood,
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/dropper,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"g" = (
-/obj/structure/bed/roller,
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/obj/machinery/iv_drip,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -80,7 +67,7 @@
 (1,1,1) = {"
 a
 d
-g
+f
 "}
 (2,1,1) = {"
 b
@@ -89,6 +76,6 @@ h
 "}
 (3,1,1) = {"
 c
-f
+h
 i
 "}

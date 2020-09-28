@@ -116,7 +116,7 @@
 		return TopicResponse("Failed to decode [DMAPI5_PARAMETER_ACCESS_IDENTIFIER] from: [json]!");
 
 	var/command = topic_parameters[DMAPI5_TOPIC_PARAMETER_COMMAND_TYPE]
-	if(!isnum(command))
+	if(!isnum_safe(command))
 		return TopicResponse("Failed to decode [DMAPI5_TOPIC_PARAMETER_COMMAND_TYPE] from: [json]!")
 
 	switch(command)
@@ -132,7 +132,7 @@
 				return TopicResponse("Invalid [DMAPI5_TOPIC_PARAMETER_EVENT_NOTIFICATION]!")
 
 			var/event_type = event_notification[DMAPI5_EVENT_NOTIFICATION_TYPE]
-			if(!isnum(event_type))
+			if(!isnum_safe(event_type))
 				return TopicResponse("Invalid or missing [DMAPI5_EVENT_NOTIFICATION_TYPE]!")
 
 			var/list/event_parameters = event_notification[DMAPI5_EVENT_NOTIFICATION_PARAMETERS]
@@ -152,7 +152,7 @@
 			return json_encode(response)
 		if(DMAPI5_TOPIC_COMMAND_CHANGE_PORT)
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
-			if (!isnum(new_port) || !(new_port > 0))
+			if (!isnum_safe(new_port) || !(new_port > 0))
 				return TopicResponse("Invalid or missing [DMAPI5_TOPIC_PARAMETER_NEW_PORT]]")
 
 			if(event_handler != null)
@@ -166,7 +166,7 @@
 			return TopicResponse()
 		if(DMAPI5_TOPIC_COMMAND_CHANGE_REBOOT_STATE)
 			var/new_reboot_mode = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_REBOOT_STATE]
-			if(!isnum(new_reboot_mode))
+			if(!isnum_safe(new_reboot_mode))
 				return TopicResponse("Invalid or missing [DMAPI5_TOPIC_PARAMETER_NEW_REBOOT_STATE]!")
 
 			if(event_handler != null)
@@ -193,7 +193,7 @@
 			return TopicResponse()
 		if(DMAPI5_TOPIC_COMMAND_SERVER_PORT_UPDATE)
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
-			if (!isnum(new_port) || !(new_port > 0))
+			if (!isnum_safe(new_port) || !(new_port > 0))
 				return TopicResponse("Invalid or missing [DMAPI5_TOPIC_PARAMETER_NEW_PORT]]")
 
 			server_port = new_port
@@ -204,7 +204,7 @@
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
 			var/error_message = null
 			if (new_port != null)
-				if (!isnum(new_port) || !(new_port > 0))
+				if (!isnum_safe(new_port) || !(new_port > 0))
 					error_message = "Invalid [DMAPI5_TOPIC_PARAMETER_NEW_PORT]]"
 				else
 					server_port = new_port
@@ -233,15 +233,17 @@
 	data[DMAPI5_PARAMETER_ACCESS_IDENTIFIER] = access_identifier
 
 	var/json = json_encode(data)
-	var/encoded_json = url_encode(json)
+	var/encoded_json = rustg_url_encode(json)
 
 	// This is an infinite sleep until we get a response
-	var/export_response = world.Export("http://127.0.0.1:[server_port]/Bridge?[DMAPI5_BRIDGE_DATA]=[encoded_json]")
+	var/datum/http_request/export_response = new()
+	export_response = export_response.get_request("http://127.0.0.1:[server_port]/Bridge?[DMAPI5_BRIDGE_DATA]=[encoded_json]")
+
 	if(!export_response)
 		TGS_ERROR_LOG("Failed export request: [json]")
 		return
 
-	var/response_json = file2text(export_response["CONTENT"])
+	var/response_json = export_response.body
 	if(!response_json)
 		TGS_ERROR_LOG("Failed export request, missing content!")
 		return
@@ -266,7 +268,7 @@
 	//okay so the standard TGS4 proceedure is: right before rebooting change the port to whatever was sent to us in the above json's data parameter
 
 	var/port = result[DMAPI5_BRIDGE_RESPONSE_NEW_PORT]
-	if(!isnum(port))
+	if(!isnum_safe(port))
 		return	//this is valid, server may just want use to reboot
 
 	if(port == 0)

@@ -65,11 +65,11 @@ Key procs
 /mob/vv_edit_var(var_name, var_value)
 	var/slowdown_edit = (var_name == NAMEOF(src, cached_multiplicative_slowdown))
 	var/diff
-	if(slowdown_edit && isnum(cached_multiplicative_slowdown) && isnum(var_value))
+	if(slowdown_edit && isnum_safe(cached_multiplicative_slowdown) && isnum_safe(var_value))
 		remove_movespeed_modifier(MOVESPEED_ID_ADMIN_VAREDIT)
 		diff = var_value - cached_multiplicative_slowdown
 	. = ..()
-	if(. && slowdown_edit && isnum(diff))
+	if(. && slowdown_edit && isnum_safe(diff))
 		add_movespeed_modifier(MOVESPEED_ID_ADMIN_VAREDIT, TRUE, 100, override = TRUE, multiplicative_slowdown = diff)
 
 ///Is there a movespeed modifier for this mob

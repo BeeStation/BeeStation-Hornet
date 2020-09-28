@@ -21,8 +21,7 @@
 	health = 300
 	harm_intent_damage = 0
 	obj_damage = 100
-	melee_damage_lower = 25
-	melee_damage_upper = 25
+	melee_damage = 25
 	attacktext = "pulverizes"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"

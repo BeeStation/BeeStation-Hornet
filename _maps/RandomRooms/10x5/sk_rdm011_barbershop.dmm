@@ -73,7 +73,6 @@
 /obj/item/cautery,
 /obj/effect/spawner/lootdrop/teratoma/major,
 /obj/item/surgical_drapes,
-/obj/item/implant/radio,
 /obj/item/storage/firstaid,
 /obj/item/storage/firstaid/toxin,
 /obj/item/storage/box/syringes,
@@ -87,6 +86,7 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/clothing/head/wig/random,
 /obj/item/reagent_containers/medspray/spraytan,
+/obj/item/radio,
 /turf/open/floor/plating,
 /area/template_noop)
 "m" = (

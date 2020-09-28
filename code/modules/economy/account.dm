@@ -3,6 +3,10 @@
 /datum/bank_account
 	var/account_holder = "Rusty Venture"
 	var/account_balance = 0
+	//Amount payed on each payday
+	var/paycheck_amount = 0
+	//Bonus amount for a single payday
+	var/paycheck_bonus = 0
 	var/datum/job/account_job
 	var/list/bank_cards = list()
 	var/add_to_accounts = TRUE
@@ -17,6 +21,7 @@
 	account_holder = newname
 	account_job = job
 	account_id = rand(111111,999999)
+	paycheck_amount = account_job.paycheck
 
 /datum/bank_account/Destroy()
 	if(add_to_accounts)
@@ -49,11 +54,18 @@
 	return FALSE
 
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
-	var/money_to_transfer = account_job.paycheck * amt_of_paychecks
+	var/money_to_transfer = paycheck_amount * amt_of_paychecks
 	if(welfare)
 		money_to_transfer += PAYCHECK_WELFARE
+	if((money_to_transfer + paycheck_bonus) < 0) //Check if the bonus is docking more pay than possible
+		paycheck_bonus -= money_to_transfer //Remove the debt with the payday
+		money_to_transfer = 0 //No money for you
+	else
+		money_to_transfer += paycheck_bonus
 	if(free)
 		adjust_money(money_to_transfer)
+		if(paycheck_bonus > 0) //Get rid of bonus if we have one
+			paycheck_bonus = 0
 	else
 		var/datum/bank_account/D = SSeconomy.get_dep_account(account_job.paycheck_department)
 		if(D)
@@ -62,6 +74,9 @@
 				return FALSE
 			else
 				bank_card_talk("Payday processed, account now holds $[account_balance].")
+				//The bonus only resets once it goes through.
+				if(paycheck_bonus > 0) //And we're not getting rid of debt
+					paycheck_bonus = 0
 				return TRUE
 	bank_card_talk("ERROR: Payday aborted, unable to contact departmental account.")
 	return FALSE
@@ -103,5 +118,5 @@
 	account_balance = budget
 	account_holder = SSeconomy.department_accounts[dep_id]
 	SSeconomy.generated_accounts += src
-	
+
 #undef DUMPTIME

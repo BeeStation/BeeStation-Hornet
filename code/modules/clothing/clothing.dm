@@ -79,8 +79,8 @@
 		return ..()
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
-	if(damaged_clothes && istype(W, /obj/item/stack/sheet/cloth))
-		var/obj/item/stack/sheet/cloth/C = W
+	if(damaged_clothes && istype(W, /obj/item/stack/sheet/cotton/cloth))
+		var/obj/item/stack/sheet/cotton/cloth/C = W
 		C.use(1)
 		update_clothes_damaged_state(FALSE)
 		obj_integrity = max_integrity
@@ -224,6 +224,12 @@ BLIND     // can't see anything
 		var/mob/living/carbon/human/H = loc
 		if(H.w_uniform == src)
 			H.update_suit_sensors()
+
+/obj/item/clothing/under/attack_hand(mob/user)
+	if(attached_accessory && ispath(attached_accessory.pocket_storage_component_path) && loc == user)
+		attached_accessory.attack_hand(user)
+		return
+	..()
 
 /obj/item/clothing/under/AltClick(mob/user)
 	if(..())

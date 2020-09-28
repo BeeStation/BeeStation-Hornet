@@ -57,7 +57,7 @@
 	var/success = FALSE
 
 	if(target.mind && target.client && target.stat != DEAD)
-		if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield)
+		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && !istype(target.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			if(HAS_TRAIT(target, TRAIT_MINDSHIELD) && ignore_mindshield)
 				to_chat(user, "<span class='notice'>We bruteforce our way past the mental barriers of [target.name] and begin linking our minds!</span>")
 			else
@@ -938,6 +938,7 @@
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='assimilator'>There is no you...</span>"), 110)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='bigassimilator'>...there is only us.</span>"), 130)
 		addtimer(CALLBACK(C, /mob/living/proc/hive_awaken, new_objective, one_mind_team), 150)
+		log_objective(M, new_objective.explanation_text)
 
 /obj/effect/proc_holder/spell/self/hive_comms
 	name = "Hive Communication"

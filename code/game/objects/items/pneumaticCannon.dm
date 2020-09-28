@@ -288,6 +288,11 @@
 	charge_type = /obj/item/reagent_containers/food/snacks/pie/cream
 	maxWeightClass = 60	//20 pies.
 
+/obj/item/pneumatic_cannon/pie/selfcharge/compact
+	name = "honkinator-4 compact pie cannon"
+	desc = "A compact, self loading pie cannon for tactical pranking action."
+	w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/pneumatic_cannon/pie/selfcharge/cyborg
 	name = "low velocity pie cannon"
 	automatic = FALSE
@@ -311,7 +316,7 @@
 	throw_amount = 1
 	maxWeightClass = 4 //a single magspear or spear
 	spin_item = FALSE
-	var/static/list/magspear_typecache = typecacheof(list(/obj/item/throwing_star/magspear, /obj/item/twohanded/spear, /obj/item/stack/rods/fifty, /obj/item/stack/rods, /obj/item/stack/rods/twentyfive, /obj/item/stack/rods/ten, /obj/item/katana, /obj/item/katana/cursed, /obj/item/toy/katana, /obj/item/twohanded/spear/explosive, /obj/item/clockwork/weapon/ratvarian_spear))
+	var/static/list/magspear_typecache = typecacheof(list(/obj/item/throwing_star/magspear, /obj/item/twohanded/spear, /obj/item/stack/rods/fifty, /obj/item/stack/rods, /obj/item/stack/rods/twentyfive, /obj/item/stack/rods/ten, /obj/item/katana, /obj/item/katana/cursed, /obj/item/toy/katana, /obj/item/twohanded/spear/explosive, /obj/item/twohanded/clockwork/brass_spear))
 
 /obj/item/pneumatic_cannon/speargun/Initialize()
 	. = ..()

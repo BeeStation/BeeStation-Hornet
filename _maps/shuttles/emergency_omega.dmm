@@ -113,19 +113,6 @@
 "al" = (
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"am" = (
-/obj/machinery/door/airlock/command{
-	name = "Emergency Recovery Airlock";
-	req_access_txt = "19"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
 "an" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -173,19 +160,6 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/shuttle/escape)
-"aq" = (
-/obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "ar" = (
 /obj/structure/table/reinforced,
@@ -246,48 +220,9 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
-"av" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Holding Area";
-	req_access_txt = "2"
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
 "aw" = (
 /obj/machinery/status_display/ai,
 /turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/escape)
-"ax" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Cockpit";
-	req_access_txt = "19"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"ay" = (
-/obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/docking_port/mobile/emergency{
-	dheight = 0;
-	dwidth = 5;
-	height = 11;
-	name = "Omega emergency shuttle";
-	width = 19
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "az" = (
 /obj/effect/turf_decal/delivery,
@@ -499,18 +434,6 @@
 /obj/structure/flora/ausbushes/pointybush,
 /turf/open/floor/grass,
 /area/shuttle/escape)
-"aP" = (
-/obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/shuttle/escape)
 "aQ" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -538,33 +461,9 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
-"aT" = (
-/obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Cargo"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
 "aU" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/escape)
-"aV" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/shuttle/escape)
 "aW" = (
 /obj/effect/turf_decal/stripes/line{
@@ -867,22 +766,154 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
+"fg" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Holding Area";
+	req_access_txt = "2"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"sC" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Cockpit";
+	req_access_txt = "19"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"wN" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plasteel/white,
+/area/shuttle/escape)
+"Dr" = (
+/obj/structure/window/shuttle,
+/obj/structure/grille,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"Eg" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Ls" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Emergency Shuttle Airlock";
+	req_access_txt = "2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plasteel/white,
+/area/shuttle/escape)
+"Mg" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Emergency Shuttle Airlock"
+	},
+/obj/docking_port/mobile/emergency{
+	dheight = 0;
+	dwidth = 5;
+	height = 11;
+	name = "Omega emergency shuttle";
+	width = 19
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plasteel/white,
+/area/shuttle/escape)
+"Rm" = (
+/obj/machinery/door/airlock/command{
+	name = "Emergency Recovery Airlock";
+	req_access_txt = "19"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Ui" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Emergency Shuttle Cargo"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
 aa
 aa
-aq
+Ls
 ac
-ay
+Mg
 aa
-ab
-ab
-ab
+Dr
+Dr
+Dr
 aa
-aP
+wN
 ac
-aP
+wN
 aa
 aa
 aZ
@@ -911,11 +942,11 @@ br
 bv
 "}
 (3,1,1) = {"
-ab
+Dr
 ae
 al
 al
-av
+fg
 aA
 aE
 aE
@@ -923,16 +954,16 @@ aE
 aE
 aE
 aQ
-aT
+Ui
 aW
 be
 bk
-ab
+Dr
 bs
 bv
 "}
 (4,1,1) = {"
-ab
+Dr
 ae
 al
 al
@@ -944,11 +975,11 @@ aF
 aF
 aF
 aQ
-aT
+Ui
 aX
 bf
 bl
-ab
+Dr
 bt
 bv
 "}
@@ -976,7 +1007,7 @@ bv
 (6,1,1) = {"
 ac
 ab
-am
+Rm
 ab
 aw
 aB
@@ -1016,11 +1047,11 @@ bt
 bv
 "}
 (8,1,1) = {"
-ab
+Dr
 ah
 ao
 an
-ax
+sC
 aA
 aJ
 aN
@@ -1028,16 +1059,16 @@ aJ
 aJ
 aJ
 aQ
-aV
+Eg
 bb
 bb
 bo
-ab
+Dr
 bt
 bv
 "}
 (9,1,1) = {"
-ab
+Dr
 ai
 an
 at
@@ -1049,16 +1080,16 @@ aE
 aE
 aE
 aQ
-aV
+Eg
 bb
 bb
 bp
-ab
+Dr
 bt
 bv
 "}
 (10,1,1) = {"
-ab
+Dr
 aj
 ap
 au
@@ -1080,16 +1111,16 @@ bv
 "}
 (11,1,1) = {"
 aa
-ab
-ab
+Dr
+Dr
 aa
 ac
 aa
-ab
-ab
-ab
-ab
-ab
+Dr
+Dr
+Dr
+Dr
+Dr
 aa
 ac
 aa

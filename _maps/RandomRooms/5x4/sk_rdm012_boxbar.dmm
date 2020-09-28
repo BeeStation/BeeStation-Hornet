@@ -21,12 +21,6 @@
 	icon_state = "wood-broken7"
 	},
 /area/template_noop)
-"f" = (
-/obj/structure/table/wood,
-/turf/open/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/template_noop)
 "g" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance/four,
@@ -45,10 +39,19 @@
 	icon_state = "wood-broken5"
 	},
 /area/template_noop)
+"j" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/wood,
+/area/template_noop)
+"u" = (
+/obj/structure/chair/stool,
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/wood,
+/area/template_noop)
 
 (1,1,1) = {"
 a
-a
+j
 c
 h
 "}
@@ -60,19 +63,19 @@ a
 "}
 (3,1,1) = {"
 a
-b
+u
 e
 i
 "}
 (4,1,1) = {"
 a
 b
-f
+g
 a
 "}
 (5,1,1) = {"
 a
-b
-g
+a
+a
 a
 "}

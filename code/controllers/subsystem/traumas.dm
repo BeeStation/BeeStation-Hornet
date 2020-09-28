@@ -12,9 +12,9 @@ SUBSYSTEM_DEF(traumas)
 
 /datum/controller/subsystem/traumas/Initialize()
 	//phobia types is to pull from randomly for brain traumas, e.g. conspiracies is for special assignment only
-	phobia_types = list("spiders", "space", "security", "clowns", "greytide", "lizards",
+	phobia_types = sortList(list("spiders", "space", "security", "clowns", "greytide", "lizards",
 						"skeletons", "snakes", "robots", "doctors", "authority", "the supernatural",
-						"aliens", "strangers", "birds", "falling", "anime")
+						"aliens", "strangers", "birds", "falling", "anime"))
 
 	phobia_words = list("spiders"   = strings(PHOBIA_FILE, "spiders"),
 						"space"     = strings(PHOBIA_FILE, "space"),
@@ -113,8 +113,7 @@ SUBSYSTEM_DEF(traumas)
 						/obj/item/clothing/suit/cultrobes, /obj/item/clothing/suit/space/hardsuit/cult,
 						/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/head/hooded/cult_hoodie, /obj/effect/rune,
 						/obj/item/stack/sheet/runed_metal, /obj/machinery/door/airlock/cult, /obj/singularity/narsie,
-						/obj/item/soulstone,
-						/obj/item/clockwork, /obj/item/clothing/suit/armor/clockwork,
+						/obj/item/soulstone, /obj/item/clockwork,
 						/obj/item/stack/tile/brass,
 						/obj/machinery/door/airlock/clockwork,
 						/obj/item/clothing/suit/wizrobe, /obj/item/clothing/head/wizard, /obj/item/spellbook, /obj/item/staff,

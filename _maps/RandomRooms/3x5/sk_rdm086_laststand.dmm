@@ -6,7 +6,8 @@
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/blood/footprints,
-/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
@@ -31,6 +32,7 @@
 /area/template_noop)
 "g" = (
 /obj/item/ammo_casing/shotgun/improvised,
+/obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
@@ -40,14 +42,16 @@
 	},
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised,
 /obj/effect/mob_spawn/human/corpse/assistant,
-/obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/gibs/core,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/trap/nexus/trickyspawner/shitsec,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "i" = (
 /obj/item/trash/raisins,
+/obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -59,6 +63,16 @@
 "k" = (
 /obj/effect/decal/cleanable/blood/gibs/up,
 /turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/effect/spawner/lootdrop/trap,
+/turf/open/floor/plating,
+/area/template_noop)
+"T" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
 /area/template_noop)
 
 (1,1,1) = {"
@@ -72,8 +86,8 @@ c
 b
 e
 h
-d
-c
+T
+l
 "}
 (3,1,1) = {"
 c

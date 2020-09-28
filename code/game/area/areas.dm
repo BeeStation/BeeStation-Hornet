@@ -26,6 +26,7 @@
 	var/atmosalm = FALSE
 	var/poweralm = TRUE
 	var/lightswitch = TRUE
+	var/vacuum = null
 
 	var/requires_power = TRUE
 	var/always_unpowered = FALSE	// This gets overridden to 1 for space in area/Initialize().
@@ -69,7 +70,10 @@
 
 	var/list/power_usage
 
-
+	var/lighting_colour_tube = "#FFF6ED"
+	var/lighting_colour_bulb = "#FFE6CC"
+	var/lighting_colour_night = "#FFDBB5"
+	
 /**
   * A list of teleport locations
   *
@@ -100,7 +104,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if (picked && is_station_level(picked.z))
 			GLOB.teleportlocs[AR.name] = AR
 
-	sortTim(GLOB.teleportlocs, /proc/cmp_text_dsc)
+	sortTim(GLOB.teleportlocs, /proc/cmp_text_asc)
 
 /**
   * Called when an area loads
@@ -432,6 +436,18 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	for(var/obj/machinery/light/L in src)
 		L.update()
 
+/area/proc/set_vacuum_alarm_effect() //Just like fire alarm but blue
+	vacuum = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	for(var/obj/machinery/light/L in src)
+		L.update()
+
+/area/proc/unset_vacuum_alarm_effect()
+	vacuum = FALSE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	for(var/obj/machinery/light/L in src)
+		L.update()
+
 /**
   * Update the icon state of the area
   *
@@ -486,11 +502,12 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /**
   * Called when the area power status changes
   *
-  * Updates the area icon and calls power change on all machinees in the area
+  * Updates the area icon, calls power change on all machinees in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
   */
 /area/proc/power_change()
 	for(var/obj/machinery/M in src)	// for each machine in the area
 		M.power_change()				// reverify power status (to update icons etc.)
+	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
 	update_icon()
 
 

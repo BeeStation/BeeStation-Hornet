@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		var/atom/parent = mats.parent
 		var/hold_key = "[get_area(parent)]/[mats.category]"
 		ui += "<a href='?src=[REF(src)];remove=[REF(mats)]'>Remove</a>"
-		ui += "<a href='?src=[REF(src)];hold[!holds[hold_key]]=[url_encode(hold_key)]'>[holds[hold_key] ? "Allow" : "Hold"]</a>"
+		ui += "<a href='?src=[REF(src)];hold[!holds[hold_key]]=[rustg_url_encode(hold_key)]'>[holds[hold_key] ? "Allow" : "Hold"]</a>"
 		ui += " <b>[parent.name]</b> in [get_area_name(parent, TRUE)]<br>"
 	if(!connected.len)
 		ui += "Nothing!"
@@ -245,8 +245,9 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	var/list/msg = list("([timestamp]) <b>[machine_name]</b> in [area_name]<br>[action] [abs(amount)]x [noun]<br>")
 	var/sep = ""
 	for(var/key in materials)
+		var/datum/material/M = key
 		var/val = round(materials[key]) / MINERAL_MATERIAL_AMOUNT
 		msg += sep
 		sep = ", "
-		msg += "[amount < 0 ? "-" : "+"][val] [copytext(key, 2)]"
+		msg += "[amount < 0 ? "-" : "+"][val] [M.name]"
 	formatted = msg.Join()

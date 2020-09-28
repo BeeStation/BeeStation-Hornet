@@ -13,9 +13,7 @@
 	maxHealth = 24
 	health = 24
 	speed = -1
-	harm_intent_damage = 5
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	response_help = "touches"
 	response_disarm = "beats"
 	response_harm = "breaks"

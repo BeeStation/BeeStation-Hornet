@@ -3,6 +3,7 @@
 	antagpanel_category = "Ninja"
 	job_rank = ROLE_NINJA
 	show_name_in_check_antagonists = TRUE
+	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	var/helping_station = FALSE
 	var/give_equipment = TRUE
@@ -49,11 +50,13 @@
 				O.owner = owner
 				O.gen_amount_goal()
 				objectives += O
+				log_objective(owner, O.explanation_text)
 
 			if(2)	//steal
 				var/datum/objective/steal/special/O = new /datum/objective/steal/special()
 				O.owner = owner
 				objectives += O
+				log_objective(owner, O.explanation_text)
 
 			if(3)	//protect/kill
 				if(!possible_targets.len)	continue
@@ -68,12 +71,14 @@
 					O.target = M
 					O.explanation_text = "Slay \the [M.current.real_name], the [M.assigned_role]."
 					objectives += O
+					log_objective(owner, O.explanation_text)
 				else										//protect
 					var/datum/objective/protect/O = new /datum/objective/protect()
 					O.owner = owner
 					O.target = M
 					O.explanation_text = "Protect \the [M.current.real_name], the [M.assigned_role], from harm."
 					objectives += O
+					log_objective(owner, O.explanation_text)
 			if(4)	//debrain/capture
 				if(!possible_targets.len)	continue
 				var/selected = rand(1,possible_targets.len)
@@ -87,16 +92,19 @@
 					O.target = M
 					O.explanation_text = "Steal the brain of [M.current.real_name]."
 					objectives += O
+					log_objective(owner, O.explanation_text)
 				else										//capture
 					var/datum/objective/capture/O = new /datum/objective/capture()
 					O.owner = owner
 					O.gen_amount_goal()
 					objectives += O
+					log_objective(owner, O.explanation_text)
 			else
 				break
 	var/datum/objective/O = new /datum/objective/survive()
 	O.owner = owner
 	objectives += O
+	log_objective(owner, O.explanation_text)
 
 /proc/remove_ninja(mob/living/L)
 	if(!L || !L.mind)

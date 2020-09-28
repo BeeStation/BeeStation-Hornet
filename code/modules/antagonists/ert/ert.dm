@@ -12,6 +12,7 @@
 	var/list/name_source
 	var/random_names = TRUE
 	show_in_antagpanel = FALSE
+	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	can_hijack = HIJACK_PREVENT
 
@@ -35,6 +36,10 @@
 /datum/antagonist/ert/deathsquad/New()
 	. = ..()
 	name_source = GLOB.commando_names
+
+/datum/antagonist/ert/clown/New()
+	. = ..()
+	name_source = GLOB.clown_names
 
 /datum/antagonist/ert/deathsquad/apply_innate_effects(mob/living/mob_override)
 	ADD_TRAIT(owner, TRAIT_DISK_VERIFIER, DEATHSQUAD_TRAIT)
@@ -127,6 +132,16 @@
 	random_names = FALSE
 	role = "The Juggernaut"
 
+/datum/antagonist/ert/clown
+	name = "Comedy Response Officer"
+	outfit = /datum/outfit/centcom_clown
+	role = "Prankster"
+
+/datum/antagonist/ert/clown/honk
+	name = "HONK Squad Trooper"
+	outfit = /datum/outfit/centcom_clown/honk_squad
+	role = "HONKER"
+
 /datum/antagonist/ert/create_team(datum/team/ert/new_team)
 	if(istype(new_team))
 		ert_team = new_team
@@ -184,6 +199,23 @@
 		missiondesc += " Take stock of your equipment and teammates (if any) and board the transit shuttle when you are ready."
 	else
 		missiondesc += " Rip and tear."
+
+	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
+	to_chat(owner,missiondesc)
+
+/datum/antagonist/ert/clown/greet()
+	if(!ert_team)
+		return
+
+	to_chat(owner, "<B><font size=3 color=red>You are the [name].</font></B>")
+
+	var/missiondesc = "Your squad is being sent on a mission to [station_name()] by Nanotrasen's Comedy Division."
+	if(leader) //If Squad Leader
+		missiondesc += " You are the worst clown here. As such, you were able to stop slipping the admiral for long enough to be given command. Good luck, honk!"
+	else
+		missiondesc += " Follow orders given to you by your squad leader, or ignore them if it's funnier."
+
+		missiondesc += " Slip as many civilians as possible."
 
 	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
 	to_chat(owner,missiondesc)

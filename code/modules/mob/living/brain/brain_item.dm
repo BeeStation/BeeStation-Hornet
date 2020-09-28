@@ -126,7 +126,7 @@
 
 	if(brainmob) //if we aren't trying to heal the brain, pass the attack onto the brainmob.
 		O.attack(brainmob, user) //Oh noooeeeee
-    
+
   if(O.force != 0 && !(O.item_flags & NOBLUDGEON))
 	  setOrganDamage(maxHealth) //fails the brain as the brain was attacked, they're pretty fragile.
 
@@ -246,7 +246,7 @@
 	slot = "brain"
 	zone = "chest"
 	status = ORGAN_ROBOTIC
-	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top."
+	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-occupied"
 	organ_flags = ORGAN_SYNTHETIC
@@ -270,7 +270,7 @@
 			to_chat(owner, "<span class='warning'>Alert: Posibrain heavily damaged.</span>")
 		if(2)
 			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25)
-			to_chat(owner, "<span class='warning'>Alert: Posibrain damaged.</span>") 
+			to_chat(owner, "<span class='warning'>Alert: Posibrain damaged.</span>")
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 
@@ -379,3 +379,4 @@
 	var/list/traumas = get_traumas_type(resilience = resilience)
 	for(var/X in traumas)
 		qdel(X)
+

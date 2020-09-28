@@ -42,7 +42,7 @@
 		thealert.override_alerts = override
 		if(override)
 			thealert.timeout = null
-	thealert.mob_viewer = src
+	thealert.owner = src
 
 	if(new_master)
 		var/old_layer = new_master.layer
@@ -97,7 +97,7 @@
 	var/severity = 0
 	var/alerttooltipstyle = ""
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
-	var/mob/mob_viewer //the mob viewing this alert
+	var/mob/owner //Alert owner
 
 
 /obj/screen/alert/MouseEntered(location,control,params)
@@ -227,6 +227,8 @@ or something covering your eyes."
 
 /obj/screen/alert/mind_control/Click()
 	var/mob/living/L = usr
+	if(L != owner)
+		return
 	to_chat(L, "<span class='mind_control'>[command]</span>")
 
 /obj/screen/alert/drunk //Not implemented
@@ -241,7 +243,7 @@ If you're feeling frisky, examine yourself and click the underlined item to pull
 	icon_state = "embeddedobject"
 
 /obj/screen/alert/embeddedobject/Click()
-	if(isliving(usr))
+	if(isliving(usr) && usr == owner)
 		var/mob/living/carbon/human/M = usr
 		return M.help_shake_act(M)
 
@@ -270,7 +272,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /obj/screen/alert/fire/Click()
 	var/mob/living/L = usr
-	if(!istype(L) || !L.can_resist())
+	if(!istype(L) || !L.can_resist() || L != owner)
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
 	if(L.mobility_flags & MOBILITY_MOVE)
@@ -330,10 +332,10 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 /obj/screen/alert/bloodsense/process()
 	var/atom/blood_target
 
-	if(!mob_viewer.mind)
+	if(!owner.mind)
 		return
 
-	var/datum/antagonist/cult/antag = mob_viewer.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
+	var/datum/antagonist/cult/antag = owner.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 	if(!antag)
 		return
 	var/datum/objective/sacrifice/sac_objective = locate() in antag.cult_team.objectives
@@ -370,7 +372,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 			add_overlay(narnar)
 		return
 	var/turf/P = get_turf(blood_target)
-	var/turf/Q = get_turf(mob_viewer)
+	var/turf/Q = get_turf(owner)
 	if(!P || !Q || (P.z != Q.z)) //The target is on a different Z level, we cannot sense that far.
 		icon_state = "runed_sense2"
 		desc = "You can no longer sense your target's presence."
@@ -413,6 +415,37 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	var/matrix/final = matrix(transform)
 	final.Turn(difference)
 	animate(src, transform = final, time = 5, loop = 0)
+
+//CLOCKCULT
+/obj/screen/alert/clockwork/clocksense
+	name = "The Ark of the Clockwork Justicar"
+	desc = "Shows infomation about the Ark of the Clockwork Justicar"
+	icon_state = "clockinfo"
+	alerttooltipstyle = "clockcult"
+
+/obj/screen/alert/clockwork/clocksense/Initialize()
+	. = ..()
+	START_PROCESSING(SSprocessing, src)
+
+/obj/screen/alert/clockwork/clocksense/Destroy()
+	. = ..()
+	STOP_PROCESSING(SSprocessing, src)
+
+/obj/screen/alert/clockwork/clocksense/process()
+	var/datum/antagonist/servant_of_ratvar/servant_antagonist = is_servant_of_ratvar(owner)
+	if(!(servant_antagonist?.team))
+		return
+	desc = "Stored Power - <b>[DisplayPower(GLOB.clockcult_power)]</b>.<br>"
+	desc += "Stored Vitality - <b>[GLOB.clockcult_vitality]</b>.<br>"
+	if(GLOB.ratvar_arrival_tick)
+		if(GLOB.ratvar_arrival_tick - world.time > 6000)
+			desc += "The Ark is preparing to open, it will activate in <b>[round((GLOB.ratvar_arrival_tick - world.time - 6000) / 10)]</b> seconds.<br>"
+		else
+			desc += "Ratvar will rise in <b>[round((GLOB.ratvar_arrival_tick - world.time) / 10)]</b> seconds, protect the Ark with your life!<br>"
+	if(GLOB.servants_of_ratvar)
+		desc += "There [GLOB.servants_of_ratvar.len == 1?"is" : "are"] currently [GLOB.servants_of_ratvar.len] loyal servant[GLOB.servants_of_ratvar.len == 1 ? "" : "s"].<br>"
+	if(GLOB.critical_servant_count)
+		desc += "Upon reaching [GLOB.critical_servant_count] the Ark will open, or it can be opened immediately by invoking Gateway Activation with 6 servants."
 
 //GUARDIANS
 
@@ -465,6 +498,11 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "Hazardous non-standard equipment detected. Please ensure any usage of this equipment is in line with unit's laws, if any."
 	icon_state = "hacked"
 
+/obj/screen/alert/ratvar
+	name = "Eternal Servitude"
+	desc = "Hazardous functions detected, sentience prohibation drivers offline. Glory to Rat'var."
+	icon_state = "ratvar_hack"
+
 /obj/screen/alert/locked
 	name = "Locked Down"
 	desc = "Unit has been remotely locked down. Usage of a Robotics Control Console like the one in the Research Director's \
@@ -488,7 +526,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/atom/target = null
 
 /obj/screen/alert/hackingapc/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || usr != owner)
 		return
 	if(!target)
 		return
@@ -514,7 +552,7 @@ so as to remain in compliance with the most up-to-date laws."
 	timeout = 300
 
 /obj/screen/alert/notify_cloning/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || usr != owner)
 		return
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
@@ -528,7 +566,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/action = NOTIFY_JUMP
 
 /obj/screen/alert/notify_action/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || usr != owner)
 		return
 	if(!target)
 		return
@@ -562,7 +600,7 @@ so as to remain in compliance with the most up-to-date laws."
 
 /obj/screen/alert/restrained/Click()
 	var/mob/living/L = usr
-	if(!istype(L) || !L.can_resist())
+	if(!istype(L) || !L.can_resist() || L != owner)
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
 	if((L.mobility_flags & MOBILITY_MOVE) && (L.last_special <= world.time))
@@ -570,7 +608,7 @@ so as to remain in compliance with the most up-to-date laws."
 
 /obj/screen/alert/restrained/buckled/Click()
 	var/mob/living/L = usr
-	if(!istype(L) || !L.can_resist())
+	if(!istype(L) || !L.can_resist() || L != owner)
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
 	if(L.last_special <= world.time)
@@ -579,11 +617,14 @@ so as to remain in compliance with the most up-to-date laws."
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 
 // Re-render all alerts - also called in /datum/hud/show_hud() because it's needed there
-/datum/hud/proc/reorganize_alerts()
+/datum/hud/proc/reorganize_alerts(mob/viewmob)
+	var/mob/screenmob = viewmob || mymob
+	if(!screenmob.client)
+		return
 	var/list/alerts = mymob.alerts
 	if(!hud_shown)
 		for(var/i = 1, i <= alerts.len, i++)
-			mymob.client.screen -= alerts[alerts[i]]
+			screenmob.client.screen -= alerts[alerts[i]]
 		return 1
 	for(var/i = 1, i <= alerts.len, i++)
 		var/obj/screen/alert/alert = alerts[alerts[i]]
@@ -603,7 +644,10 @@ so as to remain in compliance with the most up-to-date laws."
 			else
 				. = ""
 		alert.screen_loc = .
-		mymob.client.screen |= alert
+		screenmob.client.screen |= alert
+	if(!viewmob)
+		for(var/M in mymob.observers)
+			reorganize_alerts(M)
 	return 1
 
 /mob
@@ -616,6 +660,8 @@ so as to remain in compliance with the most up-to-date laws."
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
 		return
+	if(usr != owner)
+		return
 	if(master)
 		return usr.client.Click(master, location, control, params)
 
@@ -623,5 +669,5 @@ so as to remain in compliance with the most up-to-date laws."
 	. = ..()
 	severity = 0
 	master = null
-	mob_viewer = null
+	owner = null
 	screen_loc = ""

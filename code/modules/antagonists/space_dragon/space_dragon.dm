@@ -2,6 +2,7 @@
 	name = "Space Dragon"
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
+	show_to_ghosts = TRUE
 
 /datum/antagonist/space_dragon/greet()
 	to_chat(owner, "<b>I am Space Dragon, ex-space carp, and defender of the secrets of constellation, Draco.</b>")
@@ -24,9 +25,11 @@
 	killchosen.target = selected
 	killchosen.update_explanation_text()
 	objectives += killchosen
+	log_objective(owner, killchosen.explanation_text)
 	var/datum/objective/survive/survival = new
 	survival.owner = owner
 	objectives += survival
+	log_objective(owner, survival.explanation_text)
 
 /datum/antagonist/space_dragon/on_gain()
 	forge_objectives()

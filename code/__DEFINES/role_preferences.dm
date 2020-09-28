@@ -12,11 +12,14 @@
 #define ROLE_CHANGELING			"Changeling"
 #define ROLE_WIZARD				"Wizard"
 #define ROLE_MALF				"Malf AI"
+#define ROLE_INCURSION			"Incursion Team"
 #define ROLE_REV				"Revolutionary"
 #define ROLE_REV_HEAD			"Head Revolutionary"
 #define ROLE_ALIEN				"Xenomorph"
 #define ROLE_PAI				"pAI"
 #define ROLE_CULTIST			"Cultist"
+#define ROLE_SERVANT_OF_RATVAR	"Servant of Ratvar"
+#define ROLE_HERETIC			"Heretic"
 #define ROLE_BLOB				"Blob"
 #define ROLE_NINJA				"Space Ninja"
 #define ROLE_MONKEY				"Monkey"
@@ -44,6 +47,7 @@
 GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_TRAITOR = /datum/game_mode/traitor,
 	ROLE_BROTHER = /datum/game_mode/traitor/bros,
+	ROLE_INCURSION = /datum/game_mode/incursion,
 	ROLE_OPERATIVE = /datum/game_mode/nuclear,
 	ROLE_CHANGELING = /datum/game_mode/changeling,
 	ROLE_WIZARD = /datum/game_mode/wizard,
@@ -52,6 +56,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ALIEN,
 	ROLE_PAI,
 	ROLE_CULTIST = /datum/game_mode/cult,
+	ROLE_SERVANT_OF_RATVAR = /datum/game_mode/clockcult,
 	ROLE_BLOB,
 	ROLE_NINJA,
 	ROLE_OBSESSED,
@@ -64,7 +69,8 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_INTERNAL_AFFAIRS = /datum/game_mode/traitor/internal_affairs,
 	ROLE_SENTIENCE,
 	ROLE_GANG = /datum/game_mode/gang,
-	ROLE_HOLOPARASITE
+	ROLE_HOLOPARASITE,
+	ROLE_HERETIC = /datum/game_mode/heretics
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection

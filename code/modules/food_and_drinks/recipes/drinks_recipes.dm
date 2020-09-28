@@ -307,6 +307,12 @@
 	results = list(/datum/reagent/consumable/ethanol/barefoot = 3)
 	required_reagents = list(/datum/reagent/consumable/berryjuice = 1, /datum/reagent/consumable/cream = 1, /datum/reagent/consumable/ethanol/vermouth = 1)
 
+/datum/chemical_reaction/ftliver
+	name = "Faster-Than-Liver"
+	id = /datum/reagent/consumable/ethanol/ftliver
+	results = list(/datum/reagent/consumable/ethanol/ftliver = 3)
+	required_reagents = list(/datum/reagent/consumable/ethanol/vodka = 1, /datum/reagent/stable_plasma = 1, /datum/reagent/consumable/ethanol/screwdrivercocktail = 1)
+
 
 ////DRINKS THAT REQUIRED IMPROVED SPRITES BELOW:: -Agouri/////
 
@@ -799,3 +805,38 @@
 	id = /datum/reagent/consumable/ethanol/plasmaflood
 	results = list(/datum/reagent/consumable/ethanol/plasmaflood = 4)
 	required_reagents = list(/datum/reagent/toxin/plasma = 1, /datum/reagent/napalm = 1, /datum/reagent/consumable/ethanol/tequila = 1, /datum/reagent/consumable/ethanol/demonsblood = 1)
+
+/datum/chemical_reaction/fourthwall
+	name = "Fourth Wall"
+	id = /datum/reagent/consumable/ethanol/fourthwall
+	results = list(/datum/reagent/consumable/ethanol/fourthwall = 10)
+	required_reagents = list(/datum/reagent/consumable/ethanol/gargle_blaster = 10, /datum/reagent/bluespace = 1)
+
+/datum/chemical_reaction/ratvander
+	name = "Rat'vander Cocktail"
+	id = /datum/reagent/consumable/ethanol/ratvander
+	results = list(/datum/reagent/consumable/ethanol/ratvander = 10)
+	required_reagents = list(/datum/reagent/consumable/ethanol/wine = 5, /datum/reagent/consumable/ethanol/triple_sec = 5, /datum/reagent/consumable/sugar = 1, /datum/reagent/iron = 1, /datum/reagent/copper = 0.6)
+	mix_message = "The mixture develops a golden glow."
+	mix_sound = 'sound/magic/clockwork/scripture_tier_up.ogg'
+
+/datum/chemical_reaction/icewing
+	name = "Icewing"
+	id = /datum/reagent/consumable/ethanol/icewing
+	results = list(/datum/reagent/consumable/ethanol/icewing = 3)
+	required_reagents = list(/datum/reagent/consumable/ethanol/antifreeze = 1, /datum/reagent/medicine/mine_salve = 1, /datum/reagent/consumable/ice = 1)
+
+/datum/chemical_reaction/sarsaparilliansunset
+	name = "Sarsaparillian Sunset"
+	id = /datum/reagent/consumable/ethanol/sarsaparilliansunset
+	results = list(/datum/reagent/consumable/ethanol/sarsaparilliansunset = 5)
+	required_reagents = list(/datum/reagent/consumable/ethanol/tequila_sunrise = 5, /datum/reagent/consumable/nuka_cola = 1, /datum/reagent/napalm = 1)
+	required_temp = 320
+	mix_message = "The mixture ignites."
+	mix_sound = 'sound/items/lighter_on.ogg'
+
+/datum/chemical_reaction/beesknees
+	name = "Bee's Knees"
+	id = /datum/reagent/consumable/ethanol/beesknees
+	results = list(/datum/reagent/consumable/ethanol/beesknees = 4)
+	required_reagents = list(/datum/reagent/consumable/ethanol/mead = 1, /datum/reagent/consumable/honey = 1, /datum/reagent/consumable/ethanol/whiskey = 1, /datum/reagent/consumable/lemonjuice = 1)

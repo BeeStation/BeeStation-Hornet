@@ -44,6 +44,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	jobs["Virologist"] = 23
 	jobs["Medical Doctor"] = 24
 	jobs["Paramedic"] = 25
+	jobs["Psychiatrist"] = 26 //psychiatrist will count as medical, even being gimmick
 	jobs["Research Director"] = 30
 	jobs["Scientist"] = 31
 	jobs["Roboticist"] = 32
@@ -64,6 +65,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	jobs["Lawyer"] = 69
 	jobs["Barber"] = 70
 	jobs["Stage Magician"] = 71
+	jobs["VIP"] = 72
 	jobs["Admiral"] = 200
 	jobs["CentCom Commander"] = 210
 	jobs["Custodian"] = 211

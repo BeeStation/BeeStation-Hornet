@@ -150,8 +150,8 @@
 	if(active)
 		return sequence
 	while(difficulty)
-		var/randnum = rand(1, length(sequence))
-		sequence = copytext(sequence, 1, randnum) + "X" + copytext(sequence, randnum+1, length(sequence)+1)
+		var/randnum = rand(1, length_char(sequence))
+		sequence = copytext_char(sequence, 1, randnum) + "X" + copytext_char(sequence, randnum + 1)
 		difficulty--
 	return sequence
 
@@ -159,7 +159,7 @@
 	. = ""
 	if(istype(holder))
 		real_name = holder.real_name
-		. += md5(holder.real_name)
+		. += rustg_hash_string(RUSTG_HASH_MD5, holder.real_name)
 	else
 		. += random_string(DNA_UNIQUE_ENZYMES_LEN, GLOB.hex_characters)
 	return .
@@ -293,6 +293,12 @@
 		var/datum/species/old_species = dna.species
 		dna.species = new_race
 		dna.species.on_species_gain(src, old_species, pref_load)
+		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
+		if(ishuman(src))
+			qdel(language_holder)
+			var/species_holder = initial(mrace.species_language_holder)
+			language_holder = new species_holder(src)
+		update_atom_languages()
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	..()
@@ -437,14 +443,14 @@
 
 /proc/getleftblocks(input,blocknumber,blocksize)
 	if(blocknumber > 1)
-		return copytext(input,1,((blocksize*blocknumber)-(blocksize-1)))
+		return copytext_char(input,1,((blocksize*blocknumber)-(blocksize-1)))
 
 /proc/getrightblocks(input,blocknumber,blocksize)
 	if(blocknumber < (length(input)/blocksize))
-		return copytext(input,blocksize*blocknumber+1,length(input)+1)
+		return copytext_char(input,blocksize*blocknumber+1,length(input)+1)
 
 /proc/getblock(input, blocknumber, blocksize=DNA_BLOCK_SIZE)
-	return copytext(input, blocksize*(blocknumber-1)+1, (blocksize*blocknumber)+1)
+	return copytext_char(input, blocksize*(blocknumber-1)+1, (blocksize*blocknumber)+1)
 
 /proc/setblock(istring, blocknumber, replacement, blocksize=DNA_BLOCK_SIZE)
 	if(!istring || !blocknumber || !replacement || !blocksize)

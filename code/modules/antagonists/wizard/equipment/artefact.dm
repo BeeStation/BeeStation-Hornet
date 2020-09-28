@@ -320,7 +320,7 @@
 
 /obj/item/voodoo/attack_self(mob/user)
 	if(!target && possible.len)
-		target = input(user, "Select your victim!", "Voodoo") as null|anything in possible
+		target = input(user, "Select your victim!", "Voodoo") as null|anything in sortNames(possible)
 		return
 
 	if(user.zone_selected == BODY_ZONE_CHEST)
@@ -366,7 +366,7 @@
 	if(!length(prints))
 		return FALSE
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		if(prints[md5(H.dna.uni_identity)])
+		if(prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)])
 			possible |= H
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)

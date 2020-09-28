@@ -22,8 +22,7 @@
 	health = 150
 	healable = 0
 	obj_damage = 50
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage = 20
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
@@ -33,7 +32,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
 
 	var/morphed = FALSE
-	var/melee_damage_disguised = 0
+	var/melee_damage_disguised = 5
 	var/eat_while_disguised = FALSE
 	var/atom/movable/form = null
 	var/morph_time = 0
@@ -42,6 +41,7 @@
 	/obj/singularity,
 	/mob/living/simple_animal/hostile/morph,
 	/obj/effect))
+	var/atom/movable/throwatom = null
 
 	var/playstyle_string = "<span class='big bold'>You are a morph,</span></b> an abomination of science created primarily with changeling cells. \
 							You may take the form of anything nearby by shift-clicking it. This process will alert any nearby \
@@ -49,6 +49,109 @@
 							less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you. \
 							You can attack any item or dead creature to consume it - creatures will restore your health. \
 							Finally, you can restore yourself to your original form while morphed by shift-clicking yourself.</b>"
+
+/mob/living/simple_animal/hostile/morph/Initialize(mapload)
+	var/datum/action/innate/morph/stomach/S = new
+	S.Grant(src)
+	. = ..()
+
+/datum/action/innate/morph/stomach
+	name = "Stomach Contents"
+	button_icon_state = "morph"
+
+/datum/action/innate/morph/stomach/Activate()
+	var/mob/living/simple_animal/hostile/morph/M = owner
+	M.manipulate(M)
+
+/mob/living/simple_animal/hostile/morph/proc/manipulate(var/mob/living/simple_animal/hostile/morph/M)
+	var/list/choices = list()
+	var/list/mobfunctions = list("Drop", "Digest", "Disguise as", "Throw", "Strip")
+	var/list/itemfunctions = list("Use", "Throw", "Drop", "Use and Throw", "Digest", "Disguise as")
+	for(var/atom/movable/A in contents)
+		choices += A
+	var/atom/movable/target = input(src,"What do you wish to use") in null|choices
+	if(isliving(target))
+		var/mob/living/L = target
+		var/action = input(src,"What do you wish to do with [L]") in null|mobfunctions
+		switch(action)
+			if("Drop")
+				if(throwatom == L)
+					throwatom = null
+				L.forceMove(loc)
+				visible_message("<span class='warning'>[src] spits [L] out!</span>")
+				playsound(src, 'sound/effects/splat.ogg', 50, 1)
+			if("Digest")
+				if(throwatom == L)
+					throwatom = null
+				to_chat(src, "<span class ='danger'> You begin digesting [L]</span>")
+				if(do_mob(src, src, L.maxHealth))
+					for(var/atom/movable/AM in L.contents)
+						src.contents += AM
+					L.dust()
+					adjustHealth(-(L.maxHealth / 2))
+					to_chat(src, "<span class ='danger'> You digest [L], restoring some health</span>")
+					playsound(src, 'sound/effects/splat.ogg', 50, 1)
+			if("Disguise as")
+				ShiftClickOn(L)
+			if("Throw")
+				if(throwatom)
+					to_chat(src, "<span class ='danger'> You are already preparing to throw [throwatom]</span>")
+				else
+					throwatom = L
+					to_chat(src, "<span class ='danger'> You prepare to throw [L]</span>")
+			if("Strip")
+				to_chat(src, "<span class ='danger'> You start removing [L]'s possessions</span>")
+				if(do_mob(src, L, 30))
+					for(var/atom/movable/AM in L.contents)
+						src.contents += AM
+					to_chat(src, "<span class ='danger'> You place [L]'s possessions into your stomach</span>")
+	else if(isitem(target))
+		var/obj/item/I = target
+		var/action = input(src,"What do you wish to do with [I]") in null|itemfunctions
+		switch(action)
+			if("Drop")
+				if(throwatom == I)
+					throwatom = null
+				I.forceMove(loc)
+				visible_message("<span class='warning'>[src] spits [I] out!</span>")
+				playsound(src, 'sound/effects/splat.ogg', 50, 1)
+			if("Disguise as")
+				ShiftClickOn(I)
+			if("Throw")
+				if(throwatom)
+					to_chat(src, "<span class ='danger'> You are already preparing to throw [throwatom]</span>")
+				else
+					throwatom = I
+					to_chat(src, "<span class ='danger'> You prepare to throw [I]</span>")
+			if("Use")
+				I.attack_self(src)
+			if("Use and Throw")
+				if(throwatom)
+					to_chat(src, "<span class ='danger'> You are already preparing to throw [throwatom]</span>")
+				else
+					throwatom = I
+					to_chat(src, "<span class ='danger'> You prepare to throw [I]</span>")
+					I.attack_self(src)
+			if("Digest")
+				if(throwatom == I)
+					throwatom = null
+				if((I.resistance_flags & UNACIDABLE) || (I.resistance_flags & ACID_PROOF) || (I.resistance_flags & INDESTRUCTIBLE))
+					to_chat(src, "<span class ='danger'>[I] cannot be digested.</span>")
+				else
+					playsound(src, 'sound/items/welder.ogg', 150, 1)
+					qdel(I)
+					to_chat(src, "<span class ='danger'>You digest [I].</span>")
+
+
+/mob/living/simple_animal/hostile/morph/ClickOn(atom/A)
+	if(throwatom)
+		throwatom.forceMove(loc)
+		throwatom.safe_throw_at(A, throwatom.throw_range, throwatom.throw_speed, src, null, null, null, move_force)
+		visible_message("<span class='warning'>[src] spits [throwatom] at [A]!</span>")
+		throwatom = null
+		playsound(src, 'sound/effects/splat.ogg', 50, 1)
+	. = ..()
+	
 
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)
@@ -111,10 +214,10 @@
 	transform = initial(transform)
 	pixel_y = initial(pixel_y)
 	pixel_x = initial(pixel_x)
+	density = target.density
 
 	//Morphed is weaker
-	melee_damage_lower = melee_damage_disguised
-	melee_damage_upper = melee_damage_disguised
+	melee_damage = melee_damage_disguised
 	set_varspeed(0)
 
 	morph_time = world.time + MORPH_COOLDOWN
@@ -132,6 +235,7 @@
 	color = initial(color)
 	animate_movement = SLIDE_STEPS
 	maptext = null
+	density = initial(density)
 
 	visible_message("<span class='warning'>[src] suddenly collapses in on itself, dissolving into a pile of green flesh!</span>", \
 					"<span class='notice'>You reform to your normal body.</span>")
@@ -141,8 +245,7 @@
 	cut_overlays()
 
 	//Baseline stats
-	melee_damage_lower = initial(melee_damage_lower)
-	melee_damage_upper = initial(melee_damage_upper)
+	melee_damage = initial(melee_damage)
 	set_varspeed(initial(speed))
 
 	morph_time = world.time + MORPH_COOLDOWN
@@ -193,18 +296,17 @@
 	if(morphed && !melee_damage_disguised)
 		to_chat(src, "<span class='warning'>You can not attack while disguised!</span>")
 		return
-	if(isliving(target)) //Eat Corpses to regen health
+	if(isliving(target)) //Eat living beings to store them for a snack, or other uses
 		var/mob/living/L = target
-		if(L.stat == DEAD)
-			if(do_after(src, 30, target = L))
-				if(eat(L))
-					adjustHealth(-50)
-			return
-	else if(isitem(target)) //Eat items just to be annoying
+		if(L.stat)
+			if(L.stat == DEAD)
+				eat(L)
+			else if(do_after(src, 30, target = L)) //Don't Return after this, it's important that the morph can attack softcrit targets to bring them into hardcrit
+				eat(L)
+	else if(isitem(target)) //Eat items for later use
 		var/obj/item/I = target
 		if(!I.anchored)
-			if(do_after(src, 20, target = I))
-				eat(I)
+			eat(I)
 			return
 	return ..()
 
@@ -213,7 +315,7 @@
 /datum/round_event_control/morph
 	name = "Spawn Morph"
 	typepath = /datum/round_event/ghost_role/morph
-	weight = 0 //Admin only
+	weight = 2
 	max_occurrences = 1
 
 /datum/round_event/ghost_role/morph

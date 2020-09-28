@@ -208,7 +208,7 @@
 	M.AdjustImmobilized(-40, FALSE)
 	M.adjustStaminaLoss(-30, 0)
 	M.Jitter(2)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(1,4))
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 	if(prob(5))
 		M.emote(pick("twitch", "shiver"))
 	..()

@@ -92,6 +92,9 @@ God bless America.
 	if(istype(I, /obj/item/reagent_containers/food/snacks/deepfryholder))
 		to_chat(user, "<span class='userdanger'>Your cooking skills are not up to the legendary Doublefry technique.</span>")
 		return
+	if(istype(I, /obj/item/clothing/head/mob_holder))
+		var/obj/item/clothing/head/mob_holder/P = I
+		QDEL_NULL(P.held_mob)	//just so the pet doesn't escape his incoming death
 	if(default_unfasten_wrench(user, I))
 		return
 	else if(default_deconstruction_screwdriver(user, "fryer_off", "fryer_off" ,I))	//where's the open maint panel icon?!
@@ -101,6 +104,8 @@ God bless America.
 			return ..()
 		else if(!frying && user.transferItemToLoc(I, src))
 			to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+			log_game("[key_name(user)] deep fried [I.name] ([I.type]) at [AREACOORD(src)].")
+			user.log_message("deep fried [I.name] ([I.type]) at [AREACOORD(src)].", LOG_GAME)
 			frying = new/obj/item/reagent_containers/food/snacks/deepfryholder(src, I)
 			icon_state = "fryer_on"
 			fry_loop.start()

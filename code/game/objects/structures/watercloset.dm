@@ -287,7 +287,7 @@
 	if(istype(O, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = O
 		if(B.cell)
-			if(B.cell.charge > 0 && B.status == 1)
+			if(B.cell.charge > 0 && B.turned_on)
 				flick("baton_active", src)
 				var/stunforce = B.stunforce
 				user.Paralyze(stunforce)
@@ -432,7 +432,7 @@
 	toggle()
 
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/cloth (loc, 2)
+	new /obj/item/stack/sheet/cotton/cloth (loc, 2)
 	new /obj/item/stack/sheet/plastic (loc, 2)
 	new /obj/item/stack/rods (loc, 1)
 	qdel(src)

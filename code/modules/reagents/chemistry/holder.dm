@@ -297,7 +297,7 @@
 	return amount
 
 /datum/reagents/proc/metabolize(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE)
-	if(NOREAGENTS in C.dna.species.species_traits)
+	if(C?.dna?.species && (NOREAGENTS in C.dna.species.species_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
 	var/list/cached_addictions = addiction_list
@@ -656,7 +656,7 @@
 	chem_temp = CLAMP(chem_temp + (J / (S * total_volume)), 2.7, 1000)
 
 /datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
-	if(!isnum(amount) || !amount)
+	if(!isnum_safe(amount) || !amount)
 		return FALSE
 
 	if(amount <= 0)
@@ -731,7 +731,7 @@
 		amount = 0
 		CRASH("null amount passed to reagent code")
 
-	if(!isnum(amount))
+	if(!isnum_safe(amount))
 		return FALSE
 
 	if(amount < 0)
@@ -793,7 +793,7 @@
 	return jointext(names, ",")
 
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = 0, safety = 1) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
-	if(!isnum(amount))
+	if(!isnum_safe(amount))
 		return 1
 	var/list/cached_reagents = reagent_list
 	var/has_removed_reagent = 0

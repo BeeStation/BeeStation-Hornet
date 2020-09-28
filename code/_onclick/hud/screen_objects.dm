@@ -111,11 +111,13 @@
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
 
+	//This is where putting stuff into hands is handled
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
 			return inv_item.Click(location, control, params)
 
+	//Putting into something (if its not in us)
 	if(usr.attack_ui(slot_id))
 		usr.update_inv_hands()
 	return TRUE
@@ -123,11 +125,29 @@
 /obj/screen/inventory/MouseEntered()
 	..()
 	add_overlays()
+	//Apply the outline affect
+	add_stored_outline()
 
 /obj/screen/inventory/MouseExited()
 	..()
 	cut_overlay(object_overlays)
 	object_overlays.Cut()
+	remove_stored_outline()
+
+/obj/screen/inventory/proc/add_stored_outline()
+	if(hud?.mymob && slot_id)
+		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
+		if(inv_item)
+			if(hud?.mymob.incapacitated())
+				inv_item.apply_outline(COLOR_RED_GRAY)
+			else
+				inv_item.apply_outline()
+
+/obj/screen/inventory/proc/remove_stored_outline()
+	if(hud?.mymob && slot_id)
+		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
+		if(inv_item)
+			inv_item.remove_outline()
 
 /obj/screen/inventory/update_icon_state()
 	if(!icon_empty)
@@ -397,7 +417,7 @@
 	var/mob/living/user = hud?.mymob
 	if(!istype(user))
 		return
-	
+
 	if(!user.resting)
 		icon_state = "act_rest"
 	else
@@ -541,7 +561,7 @@
 	if(choice != selecting)
 		selecting = choice
 		update_icon()
-	
+
 	return TRUE
 
 /obj/screen/zone_sel/update_icon()
@@ -648,7 +668,7 @@
 	icon_state = "slime_health0"
 	screen_loc = ui_slime_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	
+
 /obj/screen/healths/lavaland_elite
 	icon = 'icons/mob/screen_elite.dmi'
 	icon_state = "elite_health0"

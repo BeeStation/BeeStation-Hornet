@@ -156,9 +156,13 @@ obj/item/seeds/bamboo
 	var/burn_icon = "bonfire_on_fire" //for a softer more burning embers icon, use "bonfire_warm"
 	var/grill = FALSE
 	var/fire_stack_strength = 5
+	var/needs_oxygen = TRUE
 
 /obj/structure/bonfire/dense
 	density = TRUE
+
+/obj/structure/bonfire/dense/askwalker
+	needs_oxygen = FALSE
 
 /obj/structure/bonfire/prelit/Initialize()
 	. = ..()
@@ -229,13 +233,12 @@ obj/item/seeds/bamboo
 	if(isopenturf(loc))
 		var/turf/open/O = loc
 		if(O.air)
-			var/loc_gases = O.air.gases
-			if(loc_gases[/datum/gas/oxygen][MOLES] >= 5)
+			if(O.air.get_moles(/datum/gas/oxygen) > 13)
 				return TRUE
 	return FALSE
 
 /obj/structure/bonfire/proc/StartBurning()
-	if(!burning && CheckOxygen())
+	if(!burning && (!needs_oxygen || CheckOxygen()))
 		icon_state = burn_icon
 		burning = TRUE
 		set_light(6)
@@ -277,7 +280,7 @@ obj/item/seeds/bamboo
 			O.microwave_act()
 
 /obj/structure/bonfire/process()
-	if(!CheckOxygen())
+	if(needs_oxygen && !CheckOxygen())
 		extinguish()
 		return
 	if(!grill)

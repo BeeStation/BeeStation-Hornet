@@ -14,8 +14,8 @@
 //returns an empty list if the file doesn't exist
 /world/proc/file2list(filename, seperator="\n", trim = TRUE)
 	if (trim)
-		return splittext(trim(file2text(filename)),seperator)
-	return splittext(file2text(filename),seperator)
+		return splittext(trim(rustg_file_read(filename)),seperator)
+	return splittext(rustg_file_read(filename),seperator)
 
 //Turns a direction into text
 /proc/dir2text(direction)
@@ -476,17 +476,17 @@ Takes a string and a datum. The string is well, obviously the string being check
 
 /// Converts a hex code to a number
 /proc/color_hex2num(A)
-	if(!A)
+	if(!A || length(A) != length_char(A))
 		return 0
-	var/R = hex2num(copytext(A,2,4))
-	var/G = hex2num(copytext(A,4,6))
-	var/B = hex2num(copytext(A,6,0))
+	var/R = hex2num(copytext(A, 2, 4))
+	var/G = hex2num(copytext(A, 4, 6))
+	var/B = hex2num(copytext(A, 6, 8))
 	return R+G+B
 
 //word of warning: using a matrix like this as a color value will simplify it back to a string after being set
 /proc/color_hex2color_matrix(string)
 	var/length = length(string)
-	if(length != 7 && length != 9)
+	if((length != 7 && length != 9) || length != length_char(string))
 		return color_matrix_identity()
 	var/r = hex2num(copytext(string, 2, 4))/255
 	var/g = hex2num(copytext(string, 4, 6))/255
@@ -494,7 +494,7 @@ Takes a string and a datum. The string is well, obviously the string being check
 	var/a = 1
 	if(length == 9)
 		a = hex2num(copytext(string, 8, 10))/255
-	if(!isnum(r) || !isnum(g) || !isnum(b) || !isnum(a))
+	if(!isnum_safe(r) || !isnum_safe(g) || !isnum_safe(b) || !isnum_safe(a))
 		return color_matrix_identity()
 	return list(r,0,0,0, 0,g,0,0, 0,0,b,0, 0,0,0,a, 0,0,0,0)
 

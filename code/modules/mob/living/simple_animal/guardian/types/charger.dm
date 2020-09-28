@@ -1,7 +1,6 @@
 //Charger
 /mob/living/simple_animal/hostile/guardian/charger
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	ranged = 1 //technically
 	ranged_message = "charges"
 	ranged_cooldown_time = 40

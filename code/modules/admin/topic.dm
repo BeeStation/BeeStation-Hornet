@@ -594,21 +594,7 @@
 	else if(href_list["delay_round_end"])
 		if(!check_rights(R_ADMIN))
 			return
-		if(!SSticker.delay_end)
-			SSticker.admin_delay_notice = input(usr, "Enter a reason for delaying the round end", "Round Delay Reason") as null|text
-			if(isnull(SSticker.admin_delay_notice))
-				return
-		else
-			if(alert(usr, "Really cancel current round end delay? The reason for the current delay is: \"[SSticker.admin_delay_notice]\"", "Undelay round end", "Yes", "No") != "Yes")
-				return
-			SSticker.admin_delay_notice = null
-		SSticker.delay_end = !SSticker.delay_end
-		var/reason = SSticker.delay_end ? "for reason: [SSticker.admin_delay_notice]" : "."//laziness
-		var/msg = "[SSticker.delay_end ? "delayed" : "undelayed"] the round end [reason]"
-		log_admin("[key_name(usr)] [msg]")
-		message_admins("[key_name_admin(usr)] [msg]")
-		if(SSticker.ready_for_reboot && !SSticker.delay_end) //we undelayed after standard reboot would occur
-			SSticker.standard_reboot()
+		delay_round_end()
 
 	else if(href_list["end_round"])
 		if(!check_rights(R_ADMIN))
@@ -859,8 +845,10 @@
 	else if(href_list["messageedits"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/message_id = sanitizeSQL("[href_list["messageedits"]]")
-		var/datum/DBQuery/query_get_message_edits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("messages")] WHERE id = '[message_id]'")
+		var/datum/DBQuery/query_get_message_edits = SSdbcore.NewQuery(
+			"SELECT edits FROM [format_table_name("messages")] WHERE id = :message_id",
+			list("message_id" = href_list["messageedits"])
+		)
 		if(!query_get_message_edits.warn_execute())
 			qdel(query_get_message_edits)
 			return
@@ -1641,9 +1629,6 @@
 					break
 		return
 
-	else if(href_list["secrets"])
-		Secrets_topic(href_list["secrets"],href_list)
-
 	else if(href_list["ac_view_wanted"])            //Admin newscaster Topic() stuff be here
 		if(!check_rights(R_ADMIN))
 			return
@@ -1689,15 +1674,13 @@
 		var/list/available_channels = list()
 		for(var/datum/newscaster/feed_channel/F in GLOB.news_network.network_channels)
 			available_channels += F.channel_name
-		src.admincaster_feed_channel.channel_name = adminscrub(input(usr, "Choose receiving Feed Channel.", "Network Channel Handler") in available_channels )
+		src.admincaster_feed_channel.channel_name = adminscrub(input(usr, "Choose receiving Feed Channel.", "Network Channel Handler") in sortList(available_channels) )
 		src.access_news_network()
 
 	else if(href_list["ac_set_new_message"])
 		if(!check_rights(R_ADMIN))
 			return
-		src.admincaster_feed_message.body = adminscrub(input(usr, "Write your Feed story.", "Network Channel Handler", ""))
-		while (findtext(src.admincaster_feed_message.returnBody(-1)," ") == 1)
-			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.returnBody(-1),2,length(src.admincaster_feed_message.returnBody(-1))+1)
+		src.admincaster_feed_message.body = adminscrub(stripped_input(usr, "Write your Feed story.", "Network Channel Handler", ""))
 		src.access_news_network()
 
 	else if(href_list["ac_submit_new_message"])
@@ -1756,17 +1739,13 @@
 	else if(href_list["ac_set_wanted_name"])
 		if(!check_rights(R_ADMIN))
 			return
-		src.admincaster_wanted_message.criminal = adminscrub(input(usr, "Provide the name of the Wanted person.", "Network Security Handler", ""))
-		while(findtext(src.admincaster_wanted_message.criminal," ") == 1)
-			src.admincaster_wanted_message.criminal = copytext(admincaster_wanted_message.criminal,2,length(admincaster_wanted_message.criminal)+1)
+		src.admincaster_wanted_message.criminal = adminscrub(stripped_input(usr, "Provide the name of the Wanted person.", "Network Security Handler", ""))
 		src.access_news_network()
 
 	else if(href_list["ac_set_wanted_desc"])
 		if(!check_rights(R_ADMIN))
 			return
-		src.admincaster_wanted_message.body = adminscrub(input(usr, "Provide the a description of the Wanted person and any other details you deem important.", "Network Security Handler", ""))
-		while (findtext(src.admincaster_wanted_message.body," ") == 1)
-			src.admincaster_wanted_message.body = copytext(src.admincaster_wanted_message.body,2,length(src.admincaster_wanted_message.body)+1)
+		src.admincaster_wanted_message.body = adminscrub(stripped_input(usr, "Provide the a description of the Wanted person and any other details you deem important.", "Network Security Handler", ""))
 		src.access_news_network()
 
 	else if(href_list["ac_submit_wanted"])
@@ -1997,6 +1976,59 @@
 
 		usr << browse(dat.Join("<br>"), "window=related_[C];size=420x300")
 
+	else if(href_list["centcomlookup"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		if(!CONFIG_GET(string/centcom_ban_db))
+			to_chat(usr, "<span class='warning'>Centcom Galactic Ban DB is disabled!</span>")
+			return
+
+		var/ckey = href_list["centcomlookup"]
+
+		// Make the request
+		var/datum/http_request/request = new()
+		request.prepare(RUSTG_HTTP_METHOD_GET, "[CONFIG_GET(string/centcom_ban_db)]/[ckey]", "", "")
+		request.begin_async()
+		UNTIL(request.is_complete() || !usr)
+		if (!usr)
+			return
+		var/datum/http_response/response = request.into_response()
+
+		var/list/bans
+
+		var/list/dat = list()
+
+		if(response.errored)
+			dat += "<br>Failed to connect to CentCom."
+		else if(response.status_code != 200)
+			dat += "<br>Failed to connect to CentCom. Status code: [response.status_code]"
+		else
+			if(response.body == "[]")
+				dat += "<center><b>0 bans detected for [ckey]</b></center>"
+			else
+				bans = json_decode(response["body"])
+				dat += "<center><b>[bans.len] ban\s detected for [ckey]</b></center>"
+				for(var/list/ban in bans)
+					dat += "<b>Server: </b> [sanitize(ban["sourceName"])]<br>"
+					dat += "<b>RP Level: </b> [sanitize(ban["sourceRoleplayLevel"])]<br>"
+					dat += "<b>Type: </b> [sanitize(ban["type"])]<br>"
+					dat += "<b>Banned By: </b> [sanitize(ban["bannedBy"])]<br>"
+					dat += "<b>Reason: </b> [sanitize(ban["reason"])]<br>"
+					dat += "<b>Datetime: </b> [sanitize(ban["bannedOn"])]<br>"
+					var/expiration = ban["expires"]
+					dat += "<b>Expires: </b> [expiration ? "[sanitize(expiration)]" : "Permanent"]<br>"
+					if(ban["type"] == "job")
+						dat += "<b>Jobs: </b> "
+						var/list/jobs = ban["jobs"]
+						dat += sanitize(jobs.Join(", "))
+						dat += "<br>"
+					dat += "<hr>"
+					
+		var/datum/browser/popup = new(usr, "centcomlookup-[ckey]", "<div align='center'>Central Command Galactic Ban Database</div>", 700, 600)
+		popup.set_content(dat.Join())
+		popup.open(FALSE)
+
 	else if(href_list["modantagrep"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2060,6 +2092,13 @@
 				var/datum/team/T = locate(href_list["team"]) in GLOB.antagonist_teams
 				if(T)
 					T.admin_add_objective(usr)
+			if("edit_objective")
+				var/datum/team/T = locate(href_list["team"]) in GLOB.antagonist_teams
+				if(!T)
+					return
+				var/datum/objective/O = locate(href_list["tobjective"]) in T.objectives
+				if(O)
+					T.admin_edit_objective(usr,O)
 			if("remove_objective")
 				var/datum/team/T = locate(href_list["team"]) in GLOB.antagonist_teams
 				if(!T)
@@ -2115,7 +2154,7 @@
 		var/role = href_list["editbanrole"]
 		var/duration = href_list["editbanduration"]
 		var/applies_to_admins = text2num(href_list["editbanadmins"])
-		var/reason = url_decode(href_list["editbanreason"])
+		var/reason = rustg_url_decode(href_list["editbanreason"])
 		var/page = href_list["editbanpage"]
 		var/admin_key = href_list["editbanadminkey"]
 		ban_panel(player_key, player_ip, player_cid, role, duration, applies_to_admins, reason, edit_id, page, admin_key)
@@ -2159,6 +2198,55 @@
 
 	else if(href_list["beakerpanel"])
 		beaker_panel_act(href_list)
+
+	else if(href_list["reloadpolls"])
+		GLOB.polls.Cut()
+		GLOB.poll_options.Cut()
+		load_poll_data()
+		poll_list_panel()
+
+	else if(href_list["newpoll"])
+		poll_management_panel()
+
+	else if(href_list["editpoll"])
+		var/datum/poll_question/poll = locate(href_list["editpoll"]) in GLOB.polls
+		poll_management_panel(poll)
+
+	else if(href_list["deletepoll"])
+		var/datum/poll_question/poll = locate(href_list["deletepoll"]) in GLOB.polls
+		poll.delete_poll()
+		poll_list_panel()
+
+	else if(href_list["initializepoll"])
+		poll_parse_href(href_list)
+
+	else if(href_list["submitpoll"])
+		var/datum/poll_question/poll = locate(href_list["submitpoll"]) in GLOB.polls
+		poll_parse_href(href_list, poll)
+
+	else if(href_list["clearpollvotes"])
+		var/datum/poll_question/poll = locate(href_list["clearpollvotes"]) in GLOB.polls
+		poll.clear_poll_votes()
+		poll_management_panel(poll)
+
+	else if(href_list["addpolloption"])
+		var/datum/poll_question/poll = locate(href_list["addpolloption"]) in GLOB.polls
+		poll_option_panel(poll)
+
+	else if(href_list["editpolloption"])
+		var/datum/poll_option/option = locate(href_list["editpolloption"]) in GLOB.poll_options
+		var/datum/poll_question/poll = locate(href_list["parentpoll"]) in GLOB.polls
+		poll_option_panel(poll, option)
+
+	else if(href_list["deletepolloption"])
+		var/datum/poll_option/option = locate(href_list["deletepolloption"]) in GLOB.poll_options
+		var/datum/poll_question/poll = option.delete_option()
+		poll_management_panel(poll)
+
+	else if(href_list["submitoption"])
+		var/datum/poll_option/option = locate(href_list["submitoption"]) in GLOB.poll_options
+		var/datum/poll_question/poll = locate(href_list["submitoptionpoll"]) in GLOB.polls
+		poll_option_parse_href(href_list, poll, option)
 
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))

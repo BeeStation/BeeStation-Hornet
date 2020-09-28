@@ -34,12 +34,14 @@
 @include meta.load-css('./components/Slider.scss');
 @include meta.load-css('./components/Table.scss');
 @include meta.load-css('./components/Tabs.scss');
+@include meta.load-css('./components/TextArea.scss');
 @include meta.load-css('./components/Tooltip.scss');
 
 // Interfaces
 @include meta.load-css('./interfaces/CameraConsole.scss');
 @include meta.load-css('./interfaces/NuclearBomb.scss');
 @include meta.load-css('./interfaces/Roulette.scss');
+@include meta.load-css('./interfaces/ClockworkSlab.scss');
 
 // Layouts
 @include meta.load-css('./layouts/Layout.scss');

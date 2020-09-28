@@ -15,7 +15,8 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	"Shift" = 1, "Ctrl" = 1, "Numlock" = 1, "Scroll" = 1, "Alt" = 1, "'" = 1, ";" = 1, "#" = 1, "GamepadUp" = 1, "GamepadDown" = 1, "GamepadLeft" = 1,
 	"GamepadRight" = 1, "GamepadDownLeft" = 1, "GamepadDownRight" = 1, "GamepadUpLeft" = 1, "GamepadUpRight" = 1, "GamepadFace1" = 1, "GamepadFace2" = 1,
 	"GamepadFace3" = 1, "GamepadFace4" = 1, "GamepadR1" = 1, "GamepadR2" = 1, "GamepadR3" = 1, "GamepadL1" = 1, "GamepadL2" = 1, "GamepadL3" = 1,
-	"GamepadStart" = 1, "GamepadSelect" = 1
+	"GamepadStart" = 1, "GamepadSelect" = 1, "VolumeUp" = 1, "VolumeDown" = 1, "VolumeMute" = 1, "MediaPlayPause" = 1, "MediaStop" = 1, "MediaNext" = 1,
+	"MediaPrev" = 1
 ))
 
 /proc/input_sanity_check(client/C, key)

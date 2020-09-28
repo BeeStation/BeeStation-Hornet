@@ -1,7 +1,6 @@
 //gravitokinetic
 /mob/living/simple_animal/hostile/guardian/gravitokinetic
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage = 15
 	damage_coeff = list(BRUTE = 0.75, BURN = 0.75, TOX = 0.75, CLONE = 0.75, STAMINA = 0, OXY = 0.75)
 	playstyle_string = "<span class='holoparasite'>As a <b>gravitokinetic</b> type, you can alt click to make the gravity on the ground stronger, and punching applies this effect to a target.</span>"
 	magic_fluff_string = "<span class='holoparasite'>..And draw the Singularity, an anomalous force of terror.</span>"

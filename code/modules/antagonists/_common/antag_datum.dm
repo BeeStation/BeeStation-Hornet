@@ -25,6 +25,7 @@ GLOBAL_LIST(admin_antag_list)
 	var/show_in_antagpanel = TRUE	//This will hide adding this antag type in antag panel, use only for internal subtypes that shouldn't be added directly but still show if possessed by mind
 	var/antagpanel_category = "Uncategorized"	//Antagpanel will display these together, REQUIRED
 	var/show_name_in_check_antagonists = FALSE //Will append antagonist name in admin listings - use for categories that share more than one antag type
+	var/show_to_ghosts = FALSE // Should this antagonist be shown as antag to ghosts? Shouldn't be used for stealthy antagonists like traitors
 
 /datum/antagonist/proc/show_tips(file)
 	if(!owner || !owner.current || !owner.current.client)
@@ -33,7 +34,7 @@ GLOBAL_LIST(admin_antag_list)
 	stuff.send(owner.current.client)
 	var/datum/browser/popup = new(owner.current, "antagTips", null, 600, 400)
 	popup.set_window_options("titlebar=1;can_minimize=0;can_resize=0")
-	popup.set_content(file2text(file))
+	popup.set_content(rustg_file_read(file))
 	popup.open(FALSE)
 
 /datum/antagonist/New()
@@ -228,7 +229,7 @@ GLOBAL_LIST(admin_antag_list)
 			return
 
 /datum/antagonist/proc/edit_memory(mob/user)
-	var/new_memo = copytext(trim(input(user,"Write new memory", "Memory", antag_memory) as null|message),1,MAX_MESSAGE_LEN)
+	var/new_memo = stripped_multiline_input(user, "Write new memory", "Memory", antag_memory, MAX_MESSAGE_LEN)
 	if (isnull(new_memo))
 		return
 	antag_memory = new_memo
@@ -269,3 +270,27 @@ datum/antagonist/custom/create_team(datum/team/team)
 	for(var/T in allowed_types)
 		var/datum/antagonist/A = T
 		GLOB.admin_antag_list[initial(A.name)] = T
+
+// Adds the specified antag hud to the player. Usually called in an antag datum file
+/datum/antagonist/proc/add_antag_hud(antag_hud_type, antag_hud_name, mob/living/mob_override)
+	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
+	hud.join_hud(mob_override)
+	set_antag_hud(mob_override, antag_hud_name)
+
+
+// Removes the specified antag hud from the player. Usually called in an antag datum file
+/datum/antagonist/proc/remove_antag_hud(antag_hud_type, mob/living/mob_override)
+	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
+	hud.leave_hud(mob_override)
+	set_antag_hud(mob_override, null)
+
+// Handles adding and removing the clumsy mutation from clown antags. Gets called in apply/remove_innate_effects
+/datum/antagonist/proc/handle_clown_mutation(mob/living/mob_override, message, removing = TRUE)
+	var/mob/living/carbon/human/H = mob_override
+	if(H && istype(H) && owner.assigned_role == "Clown")
+		if(removing) // They're a clown becoming an antag, remove clumsy
+			H.dna.remove_mutation(CLOWNMUT)
+			if(!silent && message)
+				to_chat(H, "<span class='boldnotice'>[message]</span>")
+		else
+			H.dna.add_mutation(CLOWNMUT) // We're removing their antag status, add back clumsy

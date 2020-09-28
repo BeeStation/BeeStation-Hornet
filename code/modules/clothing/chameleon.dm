@@ -179,7 +179,7 @@
 /datum/action/item_action/chameleon/change/proc/select_look(mob/user)
 	var/obj/item/picked_item
 	var/picked_name
-	picked_name = input("Select [chameleon_name] to change into", "Chameleon [chameleon_name]", picked_name) as null|anything in chameleon_list
+	picked_name = input("Select [chameleon_name] to change into", "Chameleon [chameleon_name]", picked_name) as null|anything in sortList(chameleon_list, /proc/cmp_typepaths_asc)
 	if(!picked_name)
 		return
 	picked_item = chameleon_list[picked_name]
@@ -385,6 +385,7 @@
 /obj/item/clothing/head/chameleon
 	name = "grey cap"
 	desc = "It's a baseball hat in a tasteful grey colour."
+	clothing_flags = SNUG_FIT
 	icon_state = "greysoft"
 	item_color = "grey"
 
@@ -418,7 +419,7 @@
 	item_state = "plasmaman-helm"
 	resistance_flags = FIRE_PROOF
 	strip_delay = 80
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY | SNUG_FIT
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -431,6 +432,7 @@
 /obj/item/clothing/head/chameleon/drone
 	// The camohat, I mean, holographic hat projection, is part of the
 	// drone itself.
+	clothing_flags = SNUG_FIT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	// which means it offers no protection, it's just air and light
 

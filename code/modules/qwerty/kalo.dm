@@ -24,7 +24,6 @@
 	faction = list("Lizard")
 	health = 15
 	maxHealth = 15
-	harm_intent_damage = 5
 	minbodytemp = 50
 	maxbodytemp = 800
 	var/turns_since_scan = 0

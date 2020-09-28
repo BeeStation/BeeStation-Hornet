@@ -20,6 +20,8 @@
 /datum/antagonist/brother/on_gain()
 	SSticker.mode.brothers += owner
 	objectives += team.objectives
+	for(var/datum/objective/O in team.objectives)
+		log_objective(owner, O.explanation_text)
 	owner.special_role = special_role
 	finalize_brother()
 	return ..()
@@ -71,7 +73,7 @@
 			continue
 		candidates[L.mind.name] = L.mind
 
-	var/choice = input(admin,"Choose the blood brother.", "Brother") as null|anything in candidates
+	var/choice = input(admin,"Choose the blood brother.", "Brother") as null|anything in sortNames(candidates)
 	if(!choice)
 		return
 	var/datum/mind/bro = candidates[choice]
@@ -135,6 +137,8 @@
 		O.find_target(dupe_search_range = list(src))
 	O.update_explanation_text()
 	objectives += O
+	for(var/datum/mind/member in members)
+		log_objective(member, O.explanation_text)
 
 /datum/team/brother_team/proc/forge_brother_objectives()
 	objectives = list()

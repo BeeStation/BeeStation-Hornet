@@ -144,10 +144,23 @@
 /obj/effect/decal/cleanable/vomit/old
 	name = "crusty dried vomit"
 	desc = "You try not to look at the chunks, and fail."
+	var/list/disease = list()
 
 /obj/effect/decal/cleanable/vomit/old/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	icon_state += "-old"
+	if(prob(90))//vomit is much more likely to be diseased than blood is
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 6), 6+(rand(1, 3)))
+		disease += R
+
+/obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	if(!disease.len)
+		return FALSE
+	if(scan)
+		E.scan(src, disease, user)
+	else
+		E.extrapolate(src, disease, user)
+	return TRUE
 
 /obj/effect/decal/cleanable/chem_pile
 	name = "chemical pile"

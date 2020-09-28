@@ -38,6 +38,7 @@
 	var/output_level = 50000 // amount of power the SMES attempts to output
 	var/output_level_max = 200000 // cap on output_level
 	var/output_used = 0 // amount of power actually outputted. may be less than output_level if the powernet returns excess power
+	var/process_cells = FALSE //We have self-recharging cells
 
 	var/obj/machinery/power/terminal/terminal = null
 
@@ -70,9 +71,13 @@
 		IO += CP.rating
 	input_level_max = initial(input_level_max) * IO
 	output_level_max = initial(output_level_max) * IO
+	var/recharging_cells = FALSE
 	for(var/obj/item/stock_parts/cell/PC in component_parts)
 		MC += PC.maxcharge
 		C += PC.charge
+		if(PC.self_recharge)
+			recharging_cells = TRUE
+	process_cells = recharging_cells
 	capacity = MC / (15000) * 1e6
 	if(!initial(charge) && !charge)
 		charge = C / 15000 * 1e6
@@ -243,7 +248,15 @@
 	if(terminal && input_attempt)
 		input_available = terminal.surplus()
 
+		if(process_cells) //We have self-charging cells
+			for(var/obj/item/stock_parts/cell/cell in component_parts)
+				if(cell.self_recharge)
+					cell.process()
+					charge += min((capacity-charge)/SMESRATE, ((cell.charge / 15000 * 1e6) * SMESRATE))
+					cell.charge = 0 //SMES power math is weird so let's just zero it to simplify things
+
 		if(inputting)
+
 			if(input_available > 0)		// if there's power available, try to charge
 
 				var/load = min(min((capacity-charge)/SMESRATE, input_level), input_available)		// charge at set rate, limited to spare capacity

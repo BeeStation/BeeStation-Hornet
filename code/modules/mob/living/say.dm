@@ -94,7 +94,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		ic_blocked = TRUE
 
 	if(sanitize)
-		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+		message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 	if(!message || message == "")
 		return
 
@@ -109,11 +109,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/in_critical = InCritical()
 
 	if(one_character_prefix[message_mode])
-		message = copytext(message, 2)
+		message = copytext_char(message, 2)
 	else if(message_mode || saymode)
-		message = copytext(message, 3)
-	if(findtext(message, " ", 1, 2))
-		message = copytext(message, 2)
+		message = copytext_char(message, 3)
+	message = trim_left(message)
 
 	if(message_mode == MODE_ADMIN)
 		if(client)
@@ -143,16 +142,15 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/datum/language/message_language = get_message_language(message)
 	if(message_language)
 		// No, you cannot speak in xenocommon just because you know the key
-		if(can_speak_in_language(message_language))
+		if(can_speak_language(message_language))
 			language = message_language
-		message = copytext(message, 3)
+		message = copytext_char(message, 3)
 
 		// Trim the space if they said ",0 I LOVE LANGUAGES"
-		if(findtext(message, " ", 1, 2))
-			message = copytext(message, 2)
+		message = trim_left(message)
 
 	if(!language)
-		language = get_default_language()
+		language = get_selected_language()
 
 	// Detection of language needs to be before inherent channels, because
 	// AIs use inherent channels for the holopad. Most inherent channels
@@ -177,8 +175,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(fullcrit)
 			var/health_diff = round(-HEALTH_THRESHOLD_DEAD + health)
 			// If we cut our message short, abruptly end it with a-..
-			var/message_len = length(message)
-			message = copytext(message, 1, health_diff) + "[message_len > health_diff ? "-.." : "..."]"
+			var/message_len = length_char(message)
+			message = copytext_char(message, 1, health_diff) + "[message_len > health_diff ? "-.." : "..."]"
 			message = Ellipsis(message, 10, 1)
 			last_words = message
 			message_mode = MODE_WHISPER_CRIT
@@ -200,11 +198,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		spans |= L.spans
 
 	if(message_mode == MODE_SING)
-	#if DM_VERSION < 513
-		var/randomnote = "~"
-	#else
 		var/randomnote = pick("\u2669", "\u266A", "\u266B")
-	#endif
 		spans |= SPAN_SINGING
 		message = "[randomnote] [message] [randomnote]"
 
@@ -350,13 +344,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return 1
 
 /mob/living/proc/get_key(message)
-	var/key = copytext(message, 1, 2)
+	var/key = message[1]
 	if(key in GLOB.department_radio_prefixes)
-		return lowertext(copytext(message, 2, 3))
+		return lowertext(message[1 + length(key)])
 
 /mob/living/proc/get_message_language(message)
-	if(copytext(message, 1, 2) == ",")
-		var/key = copytext(message, 2, 3)
+	if(message[1] == ",")
+		var/key = message[1 + length(message[1])]
 		for(var/ld in GLOB.all_languages)
 			var/datum/language/LD = ld
 			if(initial(LD.key) == key)
@@ -380,6 +374,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(cultslurring)
 		message = cultslur(message)
 
+	if(clockslurring)
+		message = clockslur(message)
+   
 	// check for and apply punctuation
 	var/end = copytext(message, length(message))
 	if(!(end in list("!", ".", "?", ":", "\"", "-")))
@@ -414,7 +411,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				return ITALICS | REDUCE_RANGE
 
 		if(MODE_INTERCOM)
-			for (var/obj/item/radio/intercom/I in view(1, null))
+			for (var/obj/item/radio/intercom/I in view(MODE_RANGE_INTERCOM, null))
 				I.talk_into(src, message, , spans, language)
 			return ITALICS | REDUCE_RANGE
 

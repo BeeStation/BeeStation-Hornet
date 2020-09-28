@@ -2,6 +2,7 @@
 	name = "monkey"
 	verb_say = "chimpers"
 	initial_language_holder = /datum/language_holder/monkey
+	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_HARM)
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = null
 	gender = NEUTER
@@ -92,8 +93,8 @@
 		if(client && mind)
 			var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling)
-				stat("Chemical Storage", "[changeling.chem_charges]/[changeling.chem_storage]")
-				stat("Absorbed DNA", changeling.absorbedcount)
+				stat(null, "Chemical Storage: [changeling.chem_charges]/[changeling.chem_storage]")
+				stat(null, "Absorbed DNA: [changeling.absorbedcount]")
 	return
 
 

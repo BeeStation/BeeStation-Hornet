@@ -153,7 +153,7 @@
 
 /datum/spellbook_entry/blind
 	name = "Blind"
-	spell_type = /obj/effect/proc_holder/spell/targeted/trigger/blind
+	spell_type = /obj/effect/proc_holder/spell/pointed/trigger/blind
 	cost = 1
 
 /datum/spellbook_entry/mindswap
@@ -641,7 +641,7 @@
 
 /obj/item/spellbook/proc/wrap(content)
 	var/dat = ""
-	dat +="<html><head><title>Spellbook</title></head>"
+	dat +="<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Spellbook</title></head>"
 	dat += {"
 	<head>
 		<style type="text/css">

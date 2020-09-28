@@ -42,9 +42,9 @@
 	if(!isnull(block_power_unwielded))
 		block_power = block_power_unwielded
 
-	var/sf = findtext(name," (Wielded)")
+	var/sf = findtext(name, " (Wielded)", -10)//10 == length(" (Wielded)")
 	if(sf)
-		name = copytext(name,1,sf)
+		name = copytext(name, 1, sf)
 	else //something wrong
 		name = "[initial(name)]"
 	update_icon()
@@ -239,7 +239,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 5
 	force_wielded = 24
-	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
+	attack_verb = list("attacked", "chopped", "cleaved", "tore", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	max_integrity = 200
@@ -296,7 +296,7 @@
 	armour_penetration = 35
 	item_color = "green"
 	light_color = "#00ff00"//green
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	block_level = 2
 	block_upgrade_walk = 1
 	block_power = 70
@@ -484,7 +484,7 @@
 	armour_penetration = 10
 	materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharpness = IS_SHARP
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
@@ -593,7 +593,7 @@
 	throw_speed = 2
 	throw_range = 4
 	materials = list(/datum/material/iron=13000)
-	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
+	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = "swing_hit"
 	sharpness = IS_SHARP
 	actions_types = list(/datum/action/item_action/startchainsaw)
@@ -883,7 +883,7 @@
 	embedding = list("embedded_impact_pain_multiplier" = 3)
 	armour_penetration = 15				//Enhanced armor piercing
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharpness = IS_SHARP
 
 /obj/item/twohanded/bonespear/update_icon()
@@ -965,8 +965,82 @@
 	embedding = list("embedded_impact_pain_multiplier" = 2)
 	armour_penetration = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharpness = IS_SHARP
 
 /obj/item/twohanded/bamboospear/update_icon()
 	icon_state = "bamboo_spear[wielded]"
+
+/obj/item/twohanded/pushbroom
+	name = "push broom"
+	desc = "This is my BROOMSTICK! It can be used manually or braced with two hands to sweep items as you move. It has a telescopic handle for compact storage."
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "broom0"
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	force = 8
+	throwforce = 10
+	throw_speed = 3
+	throw_range = 7
+	w_class = WEIGHT_CLASS_NORMAL
+	force_unwielded = 8
+	force_wielded = 12
+	attack_verb = list("swept", "brushed off", "bludgeoned", "whacked")
+	resistance_flags = FLAMMABLE
+
+/obj/item/twohanded/pushbroom/update_icon_state()
+	icon_state = "broom[wielded]"
+
+/obj/item/twohanded/pushbroom/wield(mob/user)
+	. = ..()
+	if(!wielded)
+		return
+	to_chat(user, "<span class='notice'>You brace the [src] against the ground in a firm sweeping stance.</span>")
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/sweep)
+
+/obj/item/twohanded/pushbroom/unwield(mob/user)
+	. = ..()
+	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+
+/obj/item/twohanded/pushbroom/afterattack(atom/A, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if(wielded)
+		sweep(user, A, FALSE)
+	else
+		to_chat(user, "<span class='warning'>You need to wield \the [src] in both hands to sweep!</span>")
+
+/obj/item/twohanded/pushbroom/proc/sweep(mob/user, atom/A, moving = TRUE)
+	var/turf/target
+	if (!moving)
+		if (isturf(A))
+			target = A
+		else
+			target = get_turf(A)
+	else
+		target = get_turf(user)
+	if (locate(/obj/structure/table) in target.contents)
+		return
+	var/i = 0
+	var/turf/target_turf = get_step(target, user.dir)
+	var/obj/machinery/disposal/bin/target_bin = locate(/obj/machinery/disposal/bin) in target_turf.contents
+	for(var/obj/item/garbage in target.contents)
+		if(!garbage.anchored)
+			if (target_bin)
+				garbage.forceMove(target_bin)
+			else
+				garbage.Move(target_turf, user.dir)
+			i++
+		if(i > 19)
+			break
+	if(i > 0)
+		if (target_bin)
+			target_bin.update_icon()
+			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [target_bin].</span>")
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 30, TRUE, -1)
+
+/obj/item/twohanded/pushbroom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	J.put_in_cart(src, user)
+	J.mybroom=src
+	J.update_icon()

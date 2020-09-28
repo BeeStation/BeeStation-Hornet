@@ -65,6 +65,8 @@
 #define ADMIN_PUNISHMENT_MAZING "Puzzle"
 #define ADMIN_PUNISHMENT_FLOORCLUWNE "Floor Cluwne"
 #define ADMIN_PUNISHMENT_CLUWNE "Make Cluwne"
+#define ADMIN_PUNISHMENT_NUGGET "Nugget"
+#define ADMIN_PUNISHMENT_IMMERSE "Fully Immerse"
 
 #define AHELP_UNCLAIMED 1
 #define AHELP_ACTIVE 2

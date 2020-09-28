@@ -4,7 +4,8 @@
 	icon = 'icons/mecha/mecha.dmi'
 	density = TRUE //Dense. To raise the heat.
 	opacity = 1 ///opaque. Menacing.
-	move_resist = MOVE_FORCE_OVERPOWERING //no pulling around.
+	move_force = MOVE_FORCE_VERY_STRONG
+	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	layer = BELOW_MOB_LAYER//icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
@@ -153,6 +154,9 @@
 /obj/mecha/get_cell()
 	return cell
 
+/obj/mecha/rust_heretic_act()
+	take_damage(500,  BRUTE)
+
 /obj/mecha/Destroy()
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
@@ -262,11 +266,10 @@
 
 /obj/mecha/proc/add_cabin()
 	cabin_air = new
-	cabin_air.temperature = T20C
-	cabin_air.volume = 200
-	cabin_air.add_gases(/datum/gas/oxygen, /datum/gas/nitrogen)
-	cabin_air.gases[/datum/gas/oxygen][MOLES] = O2STANDARD*cabin_air.volume/(R_IDEAL_GAS_EQUATION*cabin_air.temperature)
-	cabin_air.gases[/datum/gas/nitrogen][MOLES] = N2STANDARD*cabin_air.volume/(R_IDEAL_GAS_EQUATION*cabin_air.temperature)
+	cabin_air.set_temperature(T20C)
+	cabin_air.set_volume(200)
+	cabin_air.set_moles(/datum/gas/oxygen, O2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
+	cabin_air.set_moles(/datum/gas/nitrogen, N2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
 	return cabin_air
 
 /obj/mecha/proc/add_radio()
@@ -332,9 +335,9 @@
 				if(int_tank_air.return_pressure() > internal_tank.maximum_pressure && !(internal_damage & MECHA_INT_TANK_BREACH))
 					setInternalDamage(MECHA_INT_TANK_BREACH)
 				if(int_tank_air && int_tank_air.return_volume() > 0) //heat the air_contents
-					int_tank_air.temperature = min(6000+T0C, int_tank_air.temperature+rand(10,15))
+					int_tank_air.set_temperature(min(6000+T0C, int_tank_air.return_temperature()+rand(10,15)))
 			if(cabin_air && cabin_air.return_volume()>0)
-				cabin_air.temperature = min(6000+T0C, cabin_air.return_temperature()+rand(10,15))
+				cabin_air.set_temperature(min(6000+T0C, cabin_air.return_temperature()+rand(10,15)))
 				if(cabin_air.return_temperature() > max_temperature/2)
 					take_damage(4/round(max_temperature/cabin_air.return_temperature(),0.1), BURN, 0, 0)
 
@@ -359,8 +362,8 @@
 
 	if(internal_temp_regulation)
 		if(cabin_air && cabin_air.return_volume() > 0)
-			var/delta = cabin_air.temperature - T20C
-			cabin_air.temperature -= max(-10, min(10, round(delta/4,0.1)))
+			var/delta = cabin_air.return_temperature() - T20C
+			cabin_air.set_temperature(cabin_air.return_temperature() - max(-10, min(10, round(delta/4,0.1))))
 
 	if(internal_tank)
 		var/datum/gas_mixture/tank_air = internal_tank.return_air()
@@ -660,11 +663,11 @@
 					step(src,dir)
 		if(isobj(obstacle))
 			var/obj/O = obstacle
-			if(!O.anchored)
+			if(!O.anchored && O.move_resist <= move_force)
 				step(obstacle, dir)
 		else if(ismob(obstacle))
 			var/mob/M = obstacle
-			if(!M.anchored)
+			if(M.move_resist <= move_force)
 				step(obstacle, dir)
 
 
@@ -1015,7 +1018,7 @@
 /obj/mecha/Exited(atom/movable/M, atom/newloc)
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
 		go_out(TRUE, newloc)
-	
+
 	if(cell && cell == M)
 		cell = null
 		return
@@ -1084,7 +1087,7 @@
 
 	if(L?.client)
 		L.update_mouse_pointer()
-		L.client.change_view(CONFIG_GET(string/default_view))
+		L.client.view_size.resetToDefault()
 		zoom_mode = 0
 
 /////////////////////////
@@ -1146,3 +1149,6 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 	if(occupant_sight_flags)
 		if(user == occupant)
 			user.sight |= occupant_sight_flags
+
+/obj/mecha/rust_heretic_act()
+	take_damage(500,  BRUTE)

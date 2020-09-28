@@ -30,10 +30,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
+"N" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plasteel,
+/area/template_noop)
 
 (1,1,1) = {"
 a
-c
+b
 e
 "}
 (2,1,1) = {"
@@ -43,6 +48,6 @@ b
 "}
 (3,1,1) = {"
 b
-b
-b
+N
+c
 "}

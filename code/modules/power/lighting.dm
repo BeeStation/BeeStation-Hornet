@@ -239,6 +239,9 @@
 	var/bulb_emergency_pow_mul = 0.75	// the multiplier for determining the light's power in emergency mode
 	var/bulb_emergency_pow_min = 0.5	// the minimum value for the light's power in emergency mode
 
+	var/bulb_vacuum_colour = "#4F82FF"	// colour of the light when air alarm is set to severe
+	var/bulb_vacuum_brightness = 8
+
 /obj/machinery/light/broken
 	status = LIGHT_BROKEN
 	icon_state = "tube-broken"
@@ -250,7 +253,6 @@
 	base_state = "bulb"
 	fitting = "bulb"
 	brightness = 6
-	bulb_colour = "#FFDDBB"
 	desc = "A small lighting fixture."
 	bulb_colour = "#FFE6CC" //little less cozy, bit more industrial, but still cozy.. -qwerty
 	light_type = /obj/item/light/bulb
@@ -288,8 +290,17 @@
 /obj/machinery/light/Initialize(mapload)
 	. = ..()
 
+	//Setup area colours -pb
+	var/area/A = get_area(src)
+	if(bulb_colour == initial(bulb_colour))
+		if(istype(src, /obj/machinery/light/small))
+			bulb_colour = A.lighting_colour_bulb
+		else
+			bulb_colour = A.lighting_colour_tube
+	if(nightshift_light_color == initial(nightshift_light_color))
+		nightshift_light_color = A.lighting_colour_night
+
 	if(!mapload) //sync up nightshift lighting for player made lights
-		var/area/A = get_area(src)
 		var/obj/machinery/power/apc/temp_apc = A.get_apc()
 		nightshift_enabled = temp_apc?.nightshift_lights
 
@@ -321,8 +332,10 @@
 	switch(status)		// set icon_states
 		if(LIGHT_OK)
 			var/area/A = get_area(src)
-			if(emergency_mode || (A && A.fire))
+			if(emergency_mode || (A?.fire))
 				icon_state = "[base_state]_emergency"
+			else if (A?.vacuum)
+				icon_state = "[base_state]_vacuum"
 			else
 				icon_state = "[base_state]"
 				if(on)
@@ -347,9 +360,14 @@
 		var/BR = brightness
 		var/PO = bulb_power
 		var/CO = bulb_colour
+		if(color)
+			CO = color
 		var/area/A = get_area(src)
 		if (A?.fire)
 			CO = bulb_emergency_colour
+		else if (A?.vacuum)
+			CO = bulb_vacuum_colour
+			BR = bulb_vacuum_brightness
 		else if (nightshift_enabled)
 			BR = nightshift_brightness
 			PO = nightshift_light_power
@@ -391,7 +409,7 @@
 	update()
 
 /obj/machinery/light/proc/broken_sparks(start_only=FALSE)
-	if(status == LIGHT_BROKEN && has_power())
+	if(!QDELETED(src) && status == LIGHT_BROKEN && has_power())
 		if(!start_only)
 			do_sparks(3, TRUE, src)
 		var/delay = rand(BROKEN_SPARKS_MIN, BROKEN_SPARKS_MAX)
@@ -634,14 +652,18 @@
 		if(istype(H))
 			var/datum/species/ethereal/eth_species = H.dna?.species
 			if(istype(eth_species))
+				var/datum/species/ethereal/E = H.dna.species
+				if(E.drain_time > world.time)
+					return
 				to_chat(H, "<span class='notice'>You start channeling some power through the [fitting] into your body.</span>")
-				while(do_after(user, 20, target = src))
-					if(eth_species.ethereal_charge >= ETHEREAL_CHARGE_FULL)
-						to_chat(H, "<span class='notice'>You are now fully charged.</span>")
-						break
-					else
+				E.drain_time = world.time + 30
+				if(do_after(user, 30, target = src))
+					var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+					if(istype(stomach))
 						to_chat(H, "<span class='notice'>You receive some charge from the [fitting].</span>")
-						eth_species.adjust_charge(5)
+						stomach.adjust_charge(2)
+					else
+						to_chat(H, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
 				return
 
 			if(H.gloves)

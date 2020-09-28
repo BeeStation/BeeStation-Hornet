@@ -1,19 +1,8 @@
-#if DM_VERSION > 513
-#warn 513 is definitely stable now, remove the 513 version checks from this file.
-#endif
-
 // simple is_type and similar inline helpers
-#if DM_VERSION < 513
-#define islist(L) (istype(L, /list))
-#endif
 
 #define in_range(source, user) (get_dist(source, user) <= 1 && (get_step(source, 0)?:z) == (get_step(user, 0)?:z))
 
-#if DM_VERSION < 513
-#define ismovableatom(A) (istype(A, /atom/movable))
-#else
 #define ismovableatom(A) ismovable(A)
-#endif
 
 #define isatom(A) (isloc(A))
 
@@ -150,6 +139,10 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isclown(A) (istype(A, /mob/living/simple_animal/hostile/retaliate/clown))
 
+#define iseminence(A) (istype(A, /mob/living/simple_animal/eminence))
+
+#define iscogscarab(A) (istype(A, /mob/living/simple_animal/drone/cogscarab))
+
 GLOBAL_LIST_INIT(shoefootmob, typecacheof(list(
 	/mob/living/carbon/human/,
 	/mob/living/simple_animal/cow,
@@ -266,3 +259,11 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isblobmonster(O) (istype(O, /mob/living/simple_animal/hostile/blob))
 
 #define isshuttleturf(T) (length(T.baseturfs) && (/turf/baseturf_skipover/shuttle in T.baseturfs))
+
+/// isnum() returns TRUE for NaN. Also, NaN != NaN. Checkmate, BYOND.
+#define isnan(x) ( (x) != (x) )
+
+#define isinf(x) (isnum((x)) && (((x) == text2num("inf")) || ((x) == text2num("-inf"))))
+
+/// NaN isn't a number, damn it. Infinity is a problem too.
+#define isnum_safe(x) ( isnum((x)) && !isnan((x)) && !isinf((x)) )

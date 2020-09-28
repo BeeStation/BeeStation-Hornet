@@ -20,6 +20,15 @@
 	category = list("initial","Tools","Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
+/datum/design/broom
+	name="Push Broom"
+	id="pushbroom"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 2000)
+	build_path = /obj/item/twohanded/pushbroom
+	category = list("initial","Tools","Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/crowbar
 	name = "Pocket Crowbar"
 	id = "crowbar"
@@ -192,6 +201,15 @@
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
 	build_path = /obj/item/electronics/airalarm
+	category = list("initial", "Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/aac_electronics
+	name = "Airlock Controller Electronics"
+	id = "aac_electronics"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
+	build_path = /obj/item/electronics/advanced_airlock_controller
 	category = list("initial", "Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
@@ -437,7 +455,7 @@
 /datum/design/scalpel
 	name = "Scalpel"
 	id = "scalpel"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 4000, /datum/material/glass = 1000)
 	build_path = /obj/item/scalpel
 	category = list("initial", "Medical", "Tool Designs")
@@ -446,7 +464,7 @@
 /datum/design/circular_saw
 	name = "Circular Saw"
 	id = "circular_saw"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 10000, /datum/material/glass = 6000)
 	build_path = /obj/item/circular_saw
 	category = list("initial", "Medical", "Tool Designs")
@@ -455,7 +473,7 @@
 /datum/design/surgicaldrill
 	name = "Surgical Drill"
 	id = "surgicaldrill"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 10000, /datum/material/glass = 6000)
 	build_path = /obj/item/surgicaldrill
 	category = list("initial", "Medical", "Tool Designs")
@@ -464,7 +482,7 @@
 /datum/design/retractor
 	name = "Retractor"
 	id = "retractor"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 6000, /datum/material/glass = 3000)
 	build_path = /obj/item/retractor
 	category = list("initial", "Medical", "Tool Designs")
@@ -473,7 +491,7 @@
 /datum/design/cautery
 	name = "Cautery"
 	id = "cautery"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2500, /datum/material/glass = 750)
 	build_path = /obj/item/cautery
 	category = list("initial", "Medical", "Tool Designs")
@@ -482,7 +500,7 @@
 /datum/design/hemostat
 	name = "Hemostat"
 	id = "hemostat"
-	build_type = AUTOLATHE | PROTOLATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500)
 	build_path = /obj/item/hemostat
 	category = list("initial", "Medical", "Tool Designs")
@@ -676,7 +694,7 @@
 	build_path = /obj/item/reagent_containers/syringe
 	category = list("initial", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
-	
+
 /datum/design/dropper
 	name = "Dropper"
 	id = "dropper"
@@ -971,6 +989,22 @@
 	build_path = /obj/item/stack/tile/circuit/red
 	category = list("initial", "Misc")
 	maxstack = 50
+
+/datum/design/price_tagger
+	name = "Price Tagger"
+	id = "price_tagger"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 1500, /datum/material/glass = 500)
+	build_path = /obj/item/price_tagger
+	category = list("initial", "Misc")
+
+/datum/design/custom_vendor_refill
+	name = "Custom Vendor Refill"
+	id = "custom_vendor_refill"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2000)
+	build_path = /obj/item/vending_refill/custom
+	category = list("initial", "Misc")
 
 /datum/design/toygun
 	name = "Cap Gun"

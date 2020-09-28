@@ -153,7 +153,7 @@ function linkify_fallback(text) {
 }
 
 function byondDecode(message) {
-	// Basically we url_encode twice server side so we can manually read the encoded version and actually do UTF-8.
+	// Basically we rustg_url_encode twice server side so we can manually read the encoded version and actually do UTF-8.
 	// The replace for + is because FOR SOME REASON, BYOND replaces spaces with a + instead of %20, and a plus with %2b.
 	// Marvelous.
 	message = message.replace(/\+/g, "%20");

@@ -1,3 +1,5 @@
+// DO NOT CHANGE DISPLAY NAME
+
 /datum/gear/accessory
 	subtype_path = /datum/gear/accessory
 	slot = SLOT_NECK
@@ -69,6 +71,11 @@
 
 /datum/gear/accessory/necklace
 	display_name = "dope necklace"
+	path = /obj/item/clothing/neck/necklace/dope
+	cost = 25000
+
+/datum/gear/accessory/oldnecklace
+	display_name = "necklace, gold"
 	path = /obj/item/clothing/neck/necklace/dope
 	cost = 25000
 

@@ -117,7 +117,7 @@ Borg Hypospray
 	log_combat(user, M, "injected", src, "(CHEMICALS: [english_list(injected)])")
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
-	var/chosen_reagent = modes[reagent_names[input(user, "What reagent do you want to dispense?") as null|anything in reagent_names]]
+	var/chosen_reagent = modes[reagent_names[input(user, "What reagent do you want to dispense?") as null|anything in sortList(reagent_names)]]
 	if(!chosen_reagent)
 		return
 	mode = chosen_reagent
@@ -185,8 +185,8 @@ Borg Shaker
 
 	reagent_ids = list(
 			/datum/reagent/consumable/ethanol/absinthe,
-			/datum/reagent/consumable/ethanol/ale, 
-			/datum/reagent/consumable/ethanol/beer, 
+			/datum/reagent/consumable/ethanol/ale,
+			/datum/reagent/consumable/ethanol/beer,
 			/datum/reagent/consumable/ethanol/cognac,
 			/datum/reagent/consumable/ethanol/gin,
 			/datum/reagent/consumable/ethanol/kahlua,
@@ -205,10 +205,10 @@ Borg Shaker
 			/datum/reagent/consumable/lemonjuice,
 			/datum/reagent/consumable/limejuice,
 			/datum/reagent/consumable/milk,
-			/datum/reagent/consumable/orangejuice, 
-			/datum/reagent/consumable/sodawater, 
-			/datum/reagent/consumable/space_cola, 
-			/datum/reagent/consumable/tomatojuice, 
+			/datum/reagent/consumable/orangejuice,
+			/datum/reagent/consumable/sodawater,
+			/datum/reagent/consumable/space_cola,
+			/datum/reagent/consumable/tomatojuice,
 			/datum/reagent/consumable/tonic)
 
 /obj/item/reagent_containers/borghypo/borgshaker/attack(mob/M, mob/user)
@@ -266,13 +266,13 @@ Borg Shaker
 /obj/item/reagent_containers/borghypo/peace
 	name = "Peace Hypospray"
 
-	reagent_ids = list(/datum/reagent/peaceborg/confuse,/datum/reagent/peaceborg/tire,/datum/reagent/pax/peaceborg)
+	reagent_ids = list(/datum/reagent/peaceborg/inabizine,/datum/reagent/peaceborg/tire,/datum/reagent/pax/peaceborg)
 	accepts_reagent_upgrades = FALSE
 
 /obj/item/reagent_containers/borghypo/peace/hacked
 	desc = "Everything's peaceful in death!"
 	icon_state = "borghypo_s"
-	reagent_ids = list(/datum/reagent/peaceborg/confuse,/datum/reagent/peaceborg/tire,/datum/reagent/pax/peaceborg,/datum/reagent/toxin/staminatoxin,/datum/reagent/toxin/sulfonal,/datum/reagent/toxin/sodium_thiopental,/datum/reagent/toxin/cyanide,/datum/reagent/toxin/fentanyl)
+	reagent_ids = list(/datum/reagent/peaceborg/inabizine,/datum/reagent/peaceborg/tire,/datum/reagent/pax/peaceborg,/datum/reagent/toxin/staminatoxin,/datum/reagent/toxin/sulfonal,/datum/reagent/toxin/sodium_thiopental,/datum/reagent/toxin/cyanide,/datum/reagent/toxin/fentanyl)
 	accepts_reagent_upgrades = FALSE
 
 /obj/item/reagent_containers/borghypo/epi

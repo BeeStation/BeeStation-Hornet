@@ -9,8 +9,7 @@
 /mob/living/simple_animal/hostile/guardian/ranged
 	a_intent = INTENT_HELP
 	friendly = "quietly assesses"
-	melee_damage_lower = 10
-	melee_damage_upper = 10
+	melee_damage = 10
 	damage_coeff = list(BRUTE = 0.9, BURN = 0.9, TOX = 0.9, CLONE = 0.9, STAMINA = 0, OXY = 0.9)
 	projectiletype = /obj/item/projectile/guardian
 	ranged_cooldown_time = 1 //fast!
@@ -32,8 +31,7 @@
 	if(src.loc == summoner)
 		if(toggle)
 			ranged = initial(ranged)
-			melee_damage_lower = initial(melee_damage_lower)
-			melee_damage_upper = initial(melee_damage_upper)
+			melee_damage = initial(melee_damage)
 			obj_damage = initial(obj_damage)
 			environment_smash = initial(environment_smash)
 			alpha = 255
@@ -42,8 +40,7 @@
 			toggle = FALSE
 		else
 			ranged = 0
-			melee_damage_lower = 0
-			melee_damage_upper = 0
+			melee_damage = 0
 			obj_damage = 0
 			environment_smash = ENVIRONMENT_SMASH_NONE
 			alpha = 45
@@ -97,7 +94,7 @@
 	set name = "Remove Surveillance Snare"
 	set category = "Guardian"
 	set desc = "Disarm unwanted surveillance snares."
-	var/picked_snare = input(src, "Pick which snare to remove", "Remove Snare") as null|anything in src.snares
+	var/picked_snare = input(src, "Pick which snare to remove", "Remove Snare") as null|anything in sortNames(src.snares)
 	if(picked_snare)
 		src.snares -= picked_snare
 		qdel(picked_snare)

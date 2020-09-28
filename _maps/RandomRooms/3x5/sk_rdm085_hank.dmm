@@ -19,12 +19,11 @@
 /turf/open/floor/mineral/bananium,
 /area/template_noop)
 "e" = (
-/obj/machinery/door/airlock/bananium/glass,
-/turf/open/floor/plasteel/stairs/old,
+/obj/effect/spawner/lootdrop/clowntrap,
+/turf/open/floor/mineral/bananium,
 /area/template_noop)
 "f" = (
-/obj/structure/falsewall/bananium,
-/turf/open/space/basic,
+/turf/closed/wall/mineral/bananium,
 /area/template_noop)
 "g" = (
 /turf/open/floor/carpet/orange,
@@ -46,17 +45,22 @@
 	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
+"j" = (
+/obj/machinery/door/airlock/bananium/glass,
+/obj/effect/trap/trigger/random,
+/turf/open/floor/plasteel/stairs/old,
+/area/template_noop)
 
 (1,1,1) = {"
 a
 b
 b
-e
+j
 g
 "}
 (2,1,1) = {"
 b
-b
+e
 b
 f
 h

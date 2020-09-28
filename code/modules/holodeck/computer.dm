@@ -128,6 +128,11 @@
 
 			var/area/A = locate(program_to_load) in GLOB.sortedAreas
 			if(A)
+				if(istype(A, /area/holodeck)) //Admins could technically load a non-holodeck area with some varediting
+					var/area/holodeck/H = A
+					if(H.restricted)
+						message_admins("[key_name(usr)] is loading a restricted (and potentially dangerous) holodeck area: [H.name]")
+						log_game("[key_name(usr)] is loading a restricted (and potentially dangerous) holodeck area: [H.name]")
 				load_program(A)
 		if("safety")
 			if((obj_flags & EMAGGED) && program)

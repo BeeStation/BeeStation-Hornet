@@ -16,7 +16,7 @@
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
-	GLOB.ahelp_tickets.BrowseTickets(src)
+	GLOB.ahelp_tickets.BrowseTickets(usr)
 
 //
 // Ticket manager
@@ -299,7 +299,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 //is_bwoink is TRUE if this ticket was started by an admin PM
 /datum/admin_help/New(msg, client/C, is_bwoink)
 	//Clean the input message
-	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
+	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg || !C || !C.mob)
 		qdel(src)
 		return
@@ -749,6 +749,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 //
 
 /client/proc/giveadminhelpverb()
+	if(!src)
+		return
 	src.verbs |= /client/verb/adminhelp
 	deltimer(adminhelptimerid)
 	adminhelptimerid = 0

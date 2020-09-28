@@ -5,18 +5,18 @@
 	resistance = 2
 	stage_speed = 1
 	transmittable = 1
-	level = 9
-	severity = 3
+	level = 0
+	severity = 2
 	symptom_delay_min = 5
 	symptom_delay_max = 20
 	var/honey = FALSE
 	var/toxic_bees= FALSE
-	threshold_desc = "<b>Resistance 14:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host.<br>\
-					  <b>Transmission 10:</b> Bees now contain a completely random toxin, unless resistance exceeds 14"
+	threshold_desc = "<b>Resistance 12:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds 10.<br>\
+					  <b>Transmission 10:</b> Bees now contain a completely random toxin."
 
 /datum/symptom/beesease/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 14)
+	if(A.properties["resistance"] >= 12)
 		severity -= 4
 	if(A.properties["transmittable"] >= 10)
 		severity += 2
@@ -71,6 +71,9 @@
 								  "<span class='userdanger'>You cough up a bee!</span>")
 				if(toxic_bees)
 					new /mob/living/simple_animal/hostile/poison/bees/toxin(M.loc)
+				else if(honey)
+					var/mob/living/simple_animal/hostile/poison/bees/newbee = new /mob/living/simple_animal/hostile/poison/bees(M.loc) //Heh, newbee
+					newbee.assign_reagent(GLOB.chemical_reagents_list[/datum/reagent/consumable/honey])
 				else
 					new /mob/living/simple_animal/hostile/poison/bees(M.loc)
 

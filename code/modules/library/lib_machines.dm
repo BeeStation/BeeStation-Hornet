@@ -82,21 +82,21 @@
 			title = sanitize(newtitle)
 		else
 			title = null
-		title = sanitizeSQL(title)
+		title = sanitize(title)
 	if(href_list["setcategory"])
 		var/newcategory = input("Choose a category to search for:") in list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion")
 		if(newcategory)
 			category = sanitize(newcategory)
 		else
 			category = "Any"
-		category = sanitizeSQL(category)
+		category = sanitize(category)
 	if(href_list["setauthor"])
 		var/newauthor = capped_input(usr, "Enter an author to search for:")
 		if(newauthor)
 			author = sanitize(newauthor)
 		else
 			author = null
-		author = sanitizeSQL(author)
+		author = sanitize(author)
 	if(href_list["search"])
 		SQLquery = "SELECT author, title, category, id FROM [format_table_name("library")] WHERE isnull(deleted) AND "
 		if(category == "Any")
@@ -401,7 +401,10 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	if(href_list["setauthor"])
 		var/newauthor = stripped_input(usr, "Enter the author's name: ")
 		if(newauthor)
-			scanner.cache.author = newauthor
+			if(length(newauthor) <= 45)
+				scanner.cache.author = newauthor
+			else
+				alert("Unable to set author. The field must be fewer than 45 characters.")
 	if(href_list["setcategory"])
 		var/newcategory = input("Choose a category: ") in list("Fiction", "Non-Fiction", "Adult", "Reference", "Religion","Technical")
 		if(newcategory)
@@ -413,15 +416,15 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 				if(choice == "Confirm")
 					if (!SSdbcore.Connect())
 						alert("Connection to Archive has been severed. Aborting.")
+					else if((length(scanner.cache.name) > 45) || (length(scanner.cache.author) > 45))
+						alert("The title and author fields must each be 45 characters or fewer. Check your entry and try again.")
+						return
 					else
-
-						var/sqltitle = sanitizeSQL(scanner.cache.name)
-						var/sqlauthor = sanitizeSQL(scanner.cache.author)
-						var/sqlcontent = sanitizeSQL(scanner.cache.dat)
-						var/sqlcategory = sanitizeSQL(upload_category)
-						var/sqlckey = sanitizeSQL(usr.ckey)
 						var/msg = "[key_name(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs"
-						var/datum/DBQuery/query_library_upload = SSdbcore.NewQuery("INSERT INTO [format_table_name("library")] (author, title, content, category, ckey, datetime, round_id_created) VALUES ('[sqlauthor]', '[sqltitle]', '[sqlcontent]', '[sqlcategory]', '[sqlckey]', Now(), '[GLOB.round_id]')")
+						var/datum/DBQuery/query_library_upload = SSdbcore.NewQuery({"
+							INSERT INTO [format_table_name("library")] (author, title, content, category, ckey, datetime, round_id_created)
+							VALUES (:author, :title, :content, :category, :ckey, Now(), :round_id)
+						"}, list("title" = scanner.cache.name, "author" = scanner.cache.author, "content" = scanner.cache.dat, "category" = upload_category, "ckey" = usr.ckey, "round_id" = GLOB.round_id))
 						if(!query_library_upload.Execute())
 							qdel(query_library_upload)
 							alert("Database error encountered uploading to Archive")
@@ -448,18 +451,21 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		else
 			var/orderid = input("Enter your order:") as num|null
 			if(orderid)
-				if(isnum(orderid) && ISINTEGER(orderid))
+				if(isnum_safe(orderid) && ISINTEGER(orderid))
 					href_list["targetid"] = num2text(orderid)
 
 	if(href_list["targetid"])
-		var/sqlid = sanitizeSQL(href_list["targetid"])
+		var/id = href_list["targetid"]
 		if (!SSdbcore.Connect())
 			alert("Connection to Archive has been severed. Aborting.")
 		if(cooldown > world.time)
 			say("Printer unavailable. Please allow a short time before attempting to print.")
 		else
 			cooldown = world.time + PRINTER_COOLDOWN
-			var/datum/DBQuery/query_library_print = SSdbcore.NewQuery("SELECT * FROM [format_table_name("library")] WHERE id=[sqlid] AND isnull(deleted)")
+			var/datum/DBQuery/query_library_print = SSdbcore.NewQuery(
+				"SELECT * FROM [format_table_name("library")] WHERE id=:id AND isnull(deleted)",
+				list("id" = id)
+			)
 			if(!query_library_print.Execute())
 				qdel(query_library_print)
 				say("PRINTER ERROR! Failed to print document (0x0000000F)")

@@ -122,14 +122,8 @@
 	. = ..()
 	if(. && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/open = FALSE
-		if(H.dna.features["wings"] != "None")
-			if("wingsopen" in H.dna.species.mutant_bodyparts)
-				open = TRUE
-				H.CloseWings()
-			else
-				H.OpenWings()
-			addtimer(CALLBACK(H, open ? /mob/living/carbon/human.proc/OpenWings : /mob/living/carbon/human.proc/CloseWings), wing_time)
+		if(H.Togglewings())
+			addtimer(CALLBACK(H,/mob/living/carbon/human.proc/Togglewings), wing_time)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"
@@ -407,17 +401,11 @@
 	message = null
 
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
-	. = TRUE
-	if(copytext(input,1,5) == "says")
+	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
+	if(stop_bad_mime.Find(input, 1, 1))
 		to_chat(user, "<span class='danger'>Invalid emote.</span>")
-	else if(copytext(input,1,9) == "exclaims")
-		to_chat(user, "<span class='danger'>Invalid emote.</span>")
-	else if(copytext(input,1,6) == "yells")
-		to_chat(user, "<span class='danger'>Invalid emote.</span>")
-	else if(copytext(input,1,5) == "asks")
-		to_chat(user, "<span class='danger'>Invalid emote.</span>")
-	else
-		. = FALSE
+		return TRUE
+	return FALSE
 
 /datum/emote/living/custom/can_run_emote(mob/user, status_check, intentional)
 	. = ..() && intentional
@@ -561,3 +549,13 @@
 	else
 		qdel(N)
 		to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
+
+/datum/emote/inhale
+	key = "inhale"
+	key_third_person = "inhales"
+	message = "breathes in."
+
+/datum/emote/exhale
+	key = "exhale"
+	key_third_person = "exhales"
+	message = "breathes out."

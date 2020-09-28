@@ -70,7 +70,7 @@
 		return
 
 
-	var/transfer_ratio = transfer_rate/air1.volume
+	var/transfer_ratio = transfer_rate/air1.return_volume()
 
 	var/datum/gas_mixture/removed = air1.remove_ratio(transfer_ratio)
 
@@ -163,7 +163,7 @@
 
 	if("set_transfer_rate" in signal.data)
 		var/datum/gas_mixture/air1 = airs[1]
-		transfer_rate = clamp(text2num(signal.data["set_transfer_rate"]),0,air1.volume)
+		transfer_rate = CLAMP(text2num(signal.data["set_transfer_rate"]),0,air1.return_volume())
 
 	if(on != old_on)
 		investigate_log("was turned [on ? "on" : "off"] by a remote signal", INVESTIGATE_ATMOS)

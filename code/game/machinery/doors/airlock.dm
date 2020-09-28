@@ -92,7 +92,6 @@
 	var/shuttledocked = 0
 	var/delayed_close_requested = FALSE // TRUE means the door will automatically close the next time it's opened.
 
-	var/air_tight = FALSE	//TRUE means density will be set as soon as the door begins to close
 	var/prying_so_hard = FALSE
 	var/protected_door = FALSE // Protects the door against any form of power outage, AI control, screwdrivers and welders.
 
@@ -286,11 +285,24 @@
 /obj/machinery/door/airlock/ratvar_act() //Airlocks become pinion airlocks that only allow servants
 	var/obj/machinery/door/airlock/clockwork/A
 	if(glass)
-		A = new/obj/machinery/door/airlock/clockwork/brass(get_turf(src))
+		A = new/obj/machinery/door/airlock/clockwork/glass(get_turf(src))
 	else
 		A = new/obj/machinery/door/airlock/clockwork(get_turf(src))
 	A.name = name
 	qdel(src)
+
+/obj/machinery/door/airlock/eminence_act(mob/living/simple_animal/eminence/eminence)
+	..()
+	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
+	if(do_after(eminence, 20, target=get_turf(eminence)))
+		if(welded)
+			to_chat(eminence, text("The airlock has been welded shut!"))
+		else if(locked)
+			to_chat(eminence, text("The door bolts are down!"))
+		else if(!density)
+			close()
+		else
+			open()
 
 /obj/machinery/door/airlock/Destroy()
 	QDEL_NULL(wires)
@@ -338,6 +350,9 @@
 				cyclelinkedairlock.delayed_close_requested = TRUE
 			else
 				addtimer(CALLBACK(cyclelinkedairlock, .proc/close), 2)
+	if(locked && allowed(user) && aac)
+		aac.request_from_door(src)
+		return
 	..()
 
 /obj/machinery/door/airlock/proc/isElectrified()
@@ -753,7 +768,11 @@
 	return attack_hand(user)
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
-	. = ..()
+	if(locked && allowed(user) && aac)
+		aac.request_from_door(src)
+		. = TRUE
+	else
+		. = ..()
 	if(.)
 		return
 	if(!(issilicon(user) || IsAdminGhost(user)))
@@ -1149,7 +1168,7 @@
 			return
 	if(safe)
 		for(var/atom/movable/M in get_turf(src))
-			if(M.density && M != src) //something is blocking the door
+			if(M.density && !(M.flags_1 & ON_BORDER_1) && M != src) //something is blocking the door
 				autoclose_in(60)
 				return
 
@@ -1209,7 +1228,7 @@
 	else
 		optionlist = list("Standard", "Public", "Engineering", "Atmospherics", "Security", "Command", "Medical", "Research", "Freezer", "Science", "Virology", "Mining", "Maintenance", "External", "External Maintenance")
 
-	var/paintjob = input(user, "Please select a paintjob for this airlock.") in optionlist
+	var/paintjob = input(user, "Please select a paintjob for this airlock.") in sortList(optionlist)
 	if((!in_range(src, usr) && loc != usr) || !W.use_paint(user))
 		return
 	switch(paintjob)

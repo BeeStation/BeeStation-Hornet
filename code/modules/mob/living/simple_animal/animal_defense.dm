@@ -77,14 +77,14 @@
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M)
 	. = ..()
 	if(.)
-		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+		var/damage = M.melee_damage
 		return attack_threshold_check(damage, M.melee_damage_type)
 
 /mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
-		var/damage = rand(15, 25)
+		var/damage = 20
 		if(M.is_adult)
-			damage = rand(20, 35)
+			damage = 30
 		return attack_threshold_check(damage)
 
 /mob/living/simple_animal/attack_drone(mob/living/simple_animal/drone/M)
@@ -142,8 +142,8 @@
 	return
 
 /mob/living/simple_animal/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
-	if(!no_effect && !visual_effect_icon && melee_damage_upper)
-		if(melee_damage_upper < 10)
+	if(!no_effect && !visual_effect_icon && melee_damage)
+		if(melee_damage < 10)
 			visual_effect_icon = ATTACK_EFFECT_PUNCH
 		else
 			visual_effect_icon = ATTACK_EFFECT_SMASH

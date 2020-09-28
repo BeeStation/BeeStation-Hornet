@@ -142,7 +142,7 @@
 	display_name = "skirt, purple"
 	path = /obj/item/clothing/under/dress/skirt/purple
 
-/datum/gear/uniform/dress/skirt/red
+/datum/gear/uniform/skirt/red
 	display_name = "skirt, red"
 	path = /obj/item/clothing/under/dress/skirt/red
 
@@ -181,7 +181,7 @@
 
 /datum/gear/uniform/suit/suit_jacket/female
 	display_name = "executive suit (female)"
-	path = /obj/item/clothing/under/suit/black/skirt
+	path = /obj/item/clothing/under/suit/black/female
 
 /datum/gear/uniform/suit/suit_jacket/green
 	display_name = "green suit"

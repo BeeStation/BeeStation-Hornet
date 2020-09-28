@@ -191,6 +191,11 @@
 	. = ..()
 	radio = new(src)
 
+/obj/item/cartridge/annoyance //the only purpose of this cartridge is to allow the VIP to be annoying
+	name = "\improper TWIT cartridge"
+	icon_state = "cart-c"
+	spam_enabled = 1
+
 /obj/item/cartridge/proc/post_status(command, data1, data2)
 
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
@@ -300,10 +305,14 @@ Code:
 
 					var/list/S = list(" Off","AOff","  On", " AOn")
 					var/list/chg = list("N","C","F")
-
+//Neither copytext nor copytext_char is appropriate here; neither 30 UTF-8 code units nor 30 code points equates to 30 columns of output.
+//Some glyphs are very tall or very wide while others are small or even take up no space at all.
+//Emojis can take modifiers which are many characters but render as only one glyph.
+//A proper solution here (as far as Unicode goes, maybe not ideal as far as markup goes, a table would be better)
+//would be to use <span style="width: NNNpx; overflow: none;">[A.area.name]</span>
 					for(var/obj/machinery/power/apc/A in L)
-						menu += copytext(add_tspace(A.area.name, 30), 1, 30)
-						menu += " [S[A.equipment+1]] [S[A.lighting+1]] [S[A.environ+1]] [add_lspace(DisplayPower(A.lastused_total), 6)]  [A.cell ? "[add_lspace(round(A.cell.percent()), 3)]% [chg[A.charging+1]]" : "  N/C"]<BR>"
+						menu += copytext_char(add_trailing(A.area.name, 30, " "), 1, 30)
+						menu += " [S[A.equipment+1]] [S[A.lighting+1]] [S[A.environ+1]] [add_leading(DisplayPower(A.lastused_total), 6, " ")]  [A.cell ? "[add_leading(round(A.cell.percent()), 3, " ")]% [chg[A.charging+1]]" : "  N/C"]<BR>"
 
 				menu += "</FONT></PRE>"
 

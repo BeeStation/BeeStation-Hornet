@@ -17,6 +17,7 @@
 	name = "welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
+	clothing_flags = SNUG_FIT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "welding"
 	materials = list(/datum/material/iron=1750, /datum/material/glass=400)
@@ -47,8 +48,8 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	var/hitsound_on = 'sound/weapons/sear.ogg' //so we can differentiate between cakehat and energyhat
 	var/hitsound_off = 'sound/weapons/tap.ogg'
-	var/force_on = 15
-	var/throwforce_on = 15
+	var/force_on = 12
+	var/throwforce_on = 12
 	var/damtype_on = BURN
 	flags_inv = HIDEEARS|HIDEHAIR
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -147,6 +148,7 @@
 	item_state = "hardhat0_pumpkin"
 	item_color = "pumpkin"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	clothing_flags = SNUG_FIT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	brightness_on = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
@@ -158,6 +160,7 @@
 	name = "kitty ears"
 	desc = "A pair of kitty ears. Meow!"
 	icon_state = "kitty"
+	clothing_flags = SNUG_FIT
 	color = "#999999"
 	dynamic_hair_suffix = ""
 
@@ -180,6 +183,7 @@
 /obj/item/clothing/head/hardhat/reindeer
 	name = "novelty reindeer hat"
 	desc = "Some fake antlers and a very fake red nose."
+	clothing_flags = SNUG_FIT
 	icon_state = "hardhat0_reindeer"
 	item_state = "hardhat0_reindeer"
 	item_color = "reindeer"
@@ -195,6 +199,7 @@
 	desc = "A helmet made out of a box."
 	icon_state = "cardborg_h"
 	item_state = "cardborg_h"
+	clothing_flags = SNUG_FIT
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 
@@ -297,6 +302,7 @@
 	desc = "Thought control rays, psychotronic scanning. Don't mind that, I'm protected cause I made this hat."
 	icon_state = "foilhat"
 	item_state = "foilhat"
+	clothing_flags = EFFECT_HAT | SNUG_FIT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = -5,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = -5, "fire" = 0, "acid" = 0)
 	equip_delay_other = 140
 	var/datum/brain_trauma/mild/phobia/conspiracies/paranoia
@@ -304,6 +310,7 @@
 /obj/item/clothing/head/foilhat/equipped(mob/living/carbon/human/user, slot)
 	..()
 	if(slot == SLOT_HEAD)
+		user.sec_hud_set_implants()
 		if(paranoia)
 			QDEL_NULL(paranoia)
 		paranoia = new()
@@ -325,6 +332,9 @@
 	..()
 	if(paranoia)
 		QDEL_NULL(paranoia)
+	if(isliving(user))
+		var/mob/living/L = user
+		L.sec_hud_set_implants()
 
 /obj/item/clothing/head/foilhat/attack_hand(mob/user)
 	if(iscarbon(user))
@@ -340,7 +350,7 @@
 	icon_state = "tinfoil_envirohelm"
 	item_state = "tinfoil_envirohelm"
 	strip_delay = 150
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY | EFFECT_HAT | SNUG_FIT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 50, "acid" = 50)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	var/brightness_on = 4 //luminosity when the light is on
@@ -350,6 +360,7 @@
 	dynamic_fhair_suffix = ""
 	flash_protect = 2
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	bang_protect = 1 //make this consistent with other plasmaman helmets
 	resistance_flags = NONE
 	dog_fashion = null
 

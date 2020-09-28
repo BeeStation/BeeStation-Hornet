@@ -181,6 +181,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// A reagent list containing the reagents this item produces when JUICED in a grinder!
 	var/list/juice_results
 
+	//the outline filter on hover
+	var/outline_filter
+
 /obj/item/Initialize()
 
 	materials =	typelist("materials", materials)
@@ -206,6 +209,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(force_string)
 		item_flags |= FORCE_STRING_OVERRIDE
+
+	if(istype(loc, /obj/item/storage))
+		item_flags |= IN_STORAGE
+
+	if(istype(loc, /obj/item/robot_module))
+		item_flags |= IN_INVENTORY
 
 	if(!hitsound)
 		if(damtype == "fire")
@@ -390,6 +399,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
+	remove_outline()
 	pickup(user)
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
@@ -477,7 +487,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			if(P.movement_type & UNSTOPPABLE) //you can't block piercing rounds!
 				return 0
 		else
-			return 0 
+			return 0
 	if(owner.m_intent == MOVE_INTENT_WALK)
 		final_block_level += block_upgrade_walk
 	switch(relative_dir)
@@ -485,7 +495,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			if(final_block_level >= 1)
 				playsound(src, block_sound, 50, 1)
 				owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-				return 1		
+				return 1
 		if(135, 225, -135, -225)
 			if(final_block_level >= 2)
 				playsound(src, block_sound, 50, 1)
@@ -532,17 +542,22 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			attackforce = 0
 	else if(attack_type == UNARMED_ATTACK && isliving(hitby))
 		var/mob/living/L = hitby
-		attackforce = damage
-		if(block_flags & BLOCKING_NASTY)
+		if(block_flags & BLOCKING_NASTY && !HAS_TRAIT(L, TRAIT_PIERCEIMMUNE))
 			L.attackby(src, owner)
 			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 	else if(isliving(hitby))
 		var/mob/living/L = hitby
 		attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
 		if(block_flags & BLOCKING_NASTY)
-			L.attackby(src, owner)
-			owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
-	owner.apply_damage(attackforce, STAMINA, blockhand, block_power) 
+			if(istype(L, /mob/living/simple_animal))
+				var/mob/living/simple_animal/S = L
+				if(!S.hardattacks)
+					S.attackby(src, owner)
+					owner.visible_message("<span class='danger'>[S] injures themselves on [owner]'s [src]!</span>")
+			else
+				L.attackby(src, owner)
+				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
+	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
 	return TRUE
@@ -558,6 +573,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		qdel(src)
 	item_flags &= ~IN_INVENTORY
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	if(item_flags & SLOWS_WHILE_IN_HAND)
+		user.update_equipment_speed_mods()
+	remove_outline()
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -579,6 +597,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
 			A.Grant(user)
+	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
+		user.update_equipment_speed_mods()
 	item_flags |= IN_INVENTORY
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
@@ -863,11 +883,43 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/timedelay = usr.client.prefs.tip_delay/100
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
+	var/mob/living/L = usr
+	if(istype(L) && L.incapacitated())
+		apply_outline(COLOR_RED_GRAY)
+	else
+		apply_outline()
+
+/obj/item/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
+	. = ..()
+	remove_outline()
 
 /obj/item/MouseExited()
 	deltimer(tip_timer)//delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
+	remove_outline()
 
+/obj/item/proc/apply_outline(colour = null)
+	if(!(item_flags & IN_INVENTORY || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
+		return
+	if(usr.client)
+		if(!usr.client.prefs.outline_enabled)
+			return
+	if(!colour)
+		if(usr.client)
+			colour = usr.client.prefs.outline_color
+			if(!colour)
+				colour = COLOR_BLUE_GRAY
+		else
+			colour = COLOR_BLUE_GRAY
+	if(outline_filter)
+		filters -= outline_filter
+	outline_filter = filter(type="outline", size=1, color=colour)
+	filters += outline_filter
+
+/obj/item/proc/remove_outline()
+	if(outline_filter)
+		filters -= outline_filter
+		outline_filter = null
 
 // Called when a mob tries to use the item as a tool.
 // Handles most checks.
@@ -966,3 +1018,20 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
 	return owner.dropItemToGround(src)
+
+/obj/item/ex_act(severity, target)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+	..() //contents explosion
+	if(QDELETED(src))
+		return
+	if(target == src)
+		take_damage(INFINITY, BRUTE, "bomb", 0)
+		return
+	switch(severity)
+		if(1)
+			take_damage(250, BRUTE, "bomb", 0)
+		if(2)
+			take_damage(75, BRUTE, "bomb", 0)
+		if(3)
+			take_damage(20, BRUTE, "bomb", 0)

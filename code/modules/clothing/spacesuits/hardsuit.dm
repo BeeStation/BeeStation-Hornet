@@ -860,6 +860,22 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
 
+/obj/item/clothing/suit/space/hardsuit/shielded/swat/honk
+	name = "honk squad spacesuit"
+	desc = "A hilarious hardsuit favored by HONK squad troopers for use in special pranks."
+	icon_state = "hardsuit-clown"
+	item_state = "clown_hardsuit"
+	item_color = "clown"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat/honk
+
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/swat/honk
+	name = "honk squad helmet"
+	desc = "A hilarious helmet with built in anti-mime propaganda shielding."
+	icon_state = "hardsuit0-clown"
+	item_state = "hardsuit0-clown"
+	item_color = "clown"
+	
+
 // Doomguy ERT version
 /obj/item/clothing/suit/space/hardsuit/shielded/doomguy
 	name = "juggernaut armor"

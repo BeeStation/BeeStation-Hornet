@@ -90,3 +90,43 @@
 	var/datum/martial_art/psychotic_brawling/junkie = new //this fits well, but i'm unsure about it, cuz this martial art is so fucking rng dependent i swear...
 	junkie.teach(H)
 	ADD_TRAIT(H, TRAIT_APPRAISAL, JOB_TRAIT)
+
+
+/datum/job/gimmick/shrink
+	title = "Psychiatrist"
+	flag = SHRINK
+	outfit = /datum/outfit/job/gimmick/shrink
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
+	paycheck = PAYCHECK_EASY
+	gimmick = TRUE
+
+/datum/outfit/job/gimmick/shrink //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
+	name = "Psychiatrist"
+	jobtype = /datum/job/gimmick/shrink
+
+	belt = /obj/item/pda/medical
+	ears = /obj/item/radio/headset/headset_med
+	uniform = /obj/item/clothing/under/suit/black
+	shoes = /obj/item/clothing/shoes/laceup
+
+/datum/job/gimmick/celebrity
+	title = "VIP"
+	flag = CELEBRITY
+	outfit = /datum/outfit/job/gimmick/celebrity
+	access = list(ACCESS_HEADS, ACCESS_MAINT_TUNNELS) //there is no way whatsoever this could go wrong
+	minimal_access = list(ACCESS_HEADS, ACCESS_MAINT_TUNNELS)
+	gimmick = TRUE
+	paycheck = PAYCHECK_VIP //our power is being fucking rich
+
+/datum/outfit/job/gimmick/celebrity
+	name = "VIP"
+	jobtype = /datum/job/gimmick/celebrity
+
+	belt = /obj/item/pda/celebrity
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced
+	ears = /obj/item/radio/headset/heads //VIP can talk loud for no reason
+	uniform = /obj/item/clothing/under/suit/black_really
+	shoes = /obj/item/clothing/shoes/laceup
+
+	implants = list(/obj/item/implant/mindshield) //this fuck gets a mindshield, but he isn't necessarily antag-proof

@@ -103,7 +103,7 @@
 	if(mob_override)
 		current = mob_override
 	current.faction |= "cult"
-	current.grant_language(/datum/language/narsie)
+	current.grant_language(/datum/language/narsie, TRUE, TRUE, LANGUAGE_CULTIST)
 	if(!cult_team.cult_master)
 		vote.Grant(current)
 	communion.Grant(current)
@@ -121,7 +121,7 @@
 	if(mob_override)
 		current = mob_override
 	current.faction -= "cult"
-	current.remove_language(/datum/language/narsie)
+	current.remove_language(/datum/language/narsie, TRUE, TRUE, LANGUAGE_CULTIST)
 	vote.Remove(current)
 	communion.Remove(current)
 	magic.Remove(current)
@@ -339,10 +339,20 @@
 	summon_objective.team = src
 	objectives += summon_objective
 
+	for(var/datum/mind/M in members)
+		log_objective(M, sac_objective.explanation_text)
+		log_objective(M, summon_objective.explanation_text)
+
 
 /datum/objective/sacrifice
 	var/sacced = FALSE
 	var/sac_image
+
+/datum/objective/sacrifice/is_valid_target(possible_target)
+	. = ..()
+	var/datum/mind/M = possible_target
+	if(istype(M) && isIPC(M.current))
+		return FALSE
 
 /datum/objective/sacrifice/check_completion()
 	return sacced || completed

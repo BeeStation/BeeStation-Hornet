@@ -140,15 +140,20 @@
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/reopen_roundstart_suicide_roles), delay)
 
 	if(SSdbcore.Connect())
-		var/sql
+		var/list/to_set = list()
+		var/arguments = list()
 		if(SSticker.mode)
-			sql += "game_mode = '[SSticker.mode]'"
+			to_set += "game_mode = :game_mode"
+			arguments["game_mode"] = SSticker.mode
 		if(GLOB.revdata.originmastercommit)
-			if(sql)
-				sql += ", "
-			sql += "commit_hash = '[GLOB.revdata.originmastercommit]'"
-		if(sql)
-			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET [sql] WHERE id = [GLOB.round_id]")
+			to_set += "commit_hash = :commit_hash"
+			arguments["commit_hash"] = GLOB.revdata.originmastercommit
+		if(to_set.len)
+			arguments["round_id"] = GLOB.round_id
+			var/datum/DBQuery/query_round_game_mode = SSdbcore.NewQuery(
+				"UPDATE [format_table_name("round")] SET [to_set.Join(", ")] WHERE id = :round_id",
+				arguments
+			)
 			query_round_game_mode.Execute()
 			qdel(query_round_game_mode)
 	if(report)
@@ -505,6 +510,24 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 
+/datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(role)
+	var/list/candidates = list()
+
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(player.client && is_station_level(player.z))
+			if(role in player.client.prefs.be_special)
+				if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
+					if(age_check(player.client) && !player.mind.special_role) //Must be older than the minimum age
+						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
+
+	if(restricted_jobs)
+		for(var/datum/mind/player in candidates)
+			for(var/job in restricted_jobs)					// Remove people who want to be antagonist but have a job already that precludes it
+				if(player.assigned_role == job)
+					candidates -= player
+
+	return candidates
+
 
 /datum/game_mode/proc/num_players()
 	. = 0
@@ -667,15 +690,16 @@
 		return 0
 	if(!CONFIG_GET(flag/use_age_restriction_for_jobs))
 		return 0
-	if(!isnum(C.player_age))
+	if(!isnum_safe(C.player_age))
 		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
-	if(!isnum(enemy_minimum_age))
+	if(!isnum_safe(enemy_minimum_age))
 		return 0
 
 	return max(0, enemy_minimum_age - C.player_age)
 
 /datum/game_mode/proc/remove_antag_for_borging(datum/mind/newborgie)
 	SSticker.mode.remove_cultist(newborgie, 0, 0)
+	remove_servant_of_ratvar(newborgie)
 	var/datum/antagonist/rev/rev = newborgie.has_antag_datum(/datum/antagonist/rev)
 	if(rev)
 		rev.remove_revolutionary(TRUE)

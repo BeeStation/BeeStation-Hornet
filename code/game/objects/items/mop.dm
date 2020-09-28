@@ -122,3 +122,13 @@
 
 /obj/item/mop/advanced/cyborg
 	insertable = FALSE
+
+/obj/item/mop/sharp //Basically a slightly worse spear.
+	desc = "A mop with a sharpened handle. Careful!"
+	name = "sharpened mop"
+	force = 10
+	throwforce = 15
+	throw_speed = 4
+	attack_verb = list("mopped", "stabbed", "shanked", "jousted")
+	sharpness = IS_SHARP
+	embedding = list("embedded_impact_pain_multiplier" = 3)

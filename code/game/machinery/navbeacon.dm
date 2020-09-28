@@ -62,7 +62,7 @@
 		var/index = findtext(e, "=")		// format is "key=value"
 		if(index)
 			var/key = copytext(e, 1, index)
-			var/val = copytext(e, index+1)
+			var/val = copytext(e, index + length(e[index]))
 			codes[key] = val
 		else
 			codes[e] = "1"

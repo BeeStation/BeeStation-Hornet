@@ -47,9 +47,19 @@ SUBSYSTEM_DEF(blackbox)
 			playercount += 1
 	var/admincount = GLOB.admins.len
 
-	var/ssqlname = sanitizeSQL(CONFIG_GET(string/serversqlname))
 
-	var/datum/DBQuery/query_record_playercount = SSdbcore.NewQuery("INSERT INTO [format_table_name("legacy_population")] (playercount, admincount, time, server_name, server_ip, server_port, round_id) VALUES ([playercount], [admincount], '[SQLtime()]', '[ssqlname]', INET_ATON(IF('[world.internet_address]' LIKE '', '0', '[world.internet_address]')), '[world.port]', '[GLOB.round_id]')")
+	var/datum/DBQuery/query_record_playercount = SSdbcore.NewQuery({"
+		INSERT INTO [format_table_name("legacy_population")] (playercount, admincount, time, server_name, server_ip, server_port, round_id)
+		VALUES (:playercount, :admincount, :time, :server_name, INET_ATON(:server_ip), :server_port, :round_id)
+	"}, list(
+		"playercount" = playercount,
+		"admincount" = admincount,
+		"time" = SQLtime(),
+		"server_name" = CONFIG_GET(string/serversqlname),
+		"server_ip" = world.internet_address || "0",
+		"server_port" = "[world.port]",
+		"round_id" = GLOB.round_id,
+	))
 	query_record_playercount.Execute()
 	qdel(query_record_playercount)
 
@@ -93,18 +103,23 @@ SUBSYSTEM_DEF(blackbox)
 	if (!SSdbcore.Connect())
 		return
 
+	var/list/special_columns = list(
+		"datetime" = "NOW()"
+	)
 	var/list/sqlrowlist = list()
-
 	for (var/datum/feedback_variable/FV in feedback)
-		var/sqlversion = 1
-		if(FV.key in versions)
-			sqlversion = versions[FV.key]
-		sqlrowlist += list(list("datetime" = "Now()", "round_id" = GLOB.round_id, "key_name" =  "'[sanitizeSQL(FV.key)]'", "key_type" = "'[FV.key_type]'", "version" = "[sqlversion]", "json" = "'[sanitizeSQL(json_encode(FV.json))]'"))
+		sqlrowlist += list(list(
+			"round_id" = GLOB.round_id,
+			"key_name" = FV.key,
+			"key_type" = FV.key_type,
+			"version" = versions[FV.key] || 1,
+			"json" = json_encode(FV.json)
+		))
 
 	if (!length(sqlrowlist))
 		return
 
-	SSdbcore.MassInsert(format_table_name("feedback"), sqlrowlist, ignore_errors = TRUE, delayed = TRUE)
+	SSdbcore.MassInsert(format_table_name("feedback"), sqlrowlist, ignore_errors = TRUE, delayed = TRUE, special_columns = special_columns)
 
 /datum/controller/subsystem/blackbox/proc/Seal()
 	if(sealed)
@@ -213,7 +228,7 @@ Versioning
 						"gun_fired" = 2)
 */
 /datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite)
-	if(sealed || !key_type || !istext(key) || !isnum(increment || !data))
+	if(sealed || !key_type || !istext(key) || !isnum_safe(increment || !data))
 		return
 	var/datum/feedback_variable/FV = find_feedback_datum(key, key_type)
 	switch(key_type)
@@ -276,6 +291,19 @@ Versioning
 	key = new_key
 	key_type = new_key_type
 
+/* Ticket logging
+/datum/controller/subsystem/blackbox/proc/LogAhelp(ticket, action, message, recipient, sender)
+	if(!SSdbcore.Connect())
+		return
+
+	var/datum/DBQuery/query_log_ahelp = SSdbcore.NewQuery({"
+		INSERT INTO [format_table_name("ticket")] (ticket, action, message, recipient, sender, server_ip, server_port, round_id, timestamp)
+		VALUES (:ticket, :action, :message, :recipient, :sender, INET_ATON(:server_ip), :server_port, :round_id, :time)
+	"}, list("ticket" = ticket, "action" = action, "message" = message, "recipient" = recipient, "sender" = sender, "server_ip" = world.internet_address || "0", "server_port" = world.port, "round_id" = GLOB.round_id, "time" = SQLtime()))
+	query_log_ahelp.Execute()
+	qdel(query_log_ahelp)
+*/
+
 /datum/controller/subsystem/blackbox/proc/ReportDeath(mob/living/L)
 	set waitfor = FALSE
 	if(sealed)
@@ -290,54 +318,40 @@ Versioning
 		first_death["area"] = "[AREACOORD(L)]"
 		first_death["damage"] = "<font color='#FF5555'>[L.getBruteLoss()]</font>/<font color='orange'>[L.getFireLoss()]</font>/<font color='lightgreen'>[L.getToxLoss()]</font>/<font color='lightblue'>[L.getOxyLoss()]</font>/<font color='pink'>[L.getCloneLoss()]</font>"
 		first_death["last_words"] = L.last_words
-	var/sqlname = L.real_name
-	var/sqlkey = L.ckey
-	var/sqljob = L.mind.assigned_role
-	var/sqlspecial = L.mind.special_role
-	var/sqlpod = get_area_name(L, TRUE)
-	var/laname = L.lastattacker
-	var/lakey = L.lastattackerckey
-	var/sqlbrute = L.getBruteLoss()
-	var/sqlfire = L.getFireLoss()
-	var/sqlbrain = L.getOrganLoss(ORGAN_SLOT_BRAIN)
-	var/sqloxy = L.getOxyLoss()
-	var/sqltox = L.getToxLoss()
-	var/sqlclone = L.getCloneLoss()
-	var/sqlstamina = L.getStaminaLoss()
-	var/x_coord = L.x
-	var/y_coord = L.y
-	var/z_coord = L.z
-	var/last_words = L.last_words
-	var/suicide = L.suiciding
-	var/map = SSmapping.config.map_name
-	var/ssqlname = CONFIG_GET(string/serversqlname)
 
 	if(!SSdbcore.Connect())
 		return
 
-	sqlname = sanitizeSQL(sqlname)
-	sqlkey = sanitizeSQL(sqlkey)
-	sqljob = sanitizeSQL(sqljob)
-	sqlspecial = sanitizeSQL(sqlspecial)
-	sqlpod = sanitizeSQL(sqlpod)
-	laname = sanitizeSQL(laname)
-	lakey = sanitizeSQL(lakey)
-	sqlbrute = sanitizeSQL(sqlbrute)
-	sqlfire = sanitizeSQL(sqlfire)
-	sqlbrain = sanitizeSQL(sqlbrain)
-	sqloxy = sanitizeSQL(sqloxy)
-	sqltox = sanitizeSQL(sqltox)
-	sqlclone = sanitizeSQL(sqlclone)
-	sqlstamina = sanitizeSQL(sqlstamina)
-	x_coord = sanitizeSQL(x_coord)
-	y_coord = sanitizeSQL(y_coord)
-	z_coord = sanitizeSQL(z_coord)
-	last_words = sanitizeSQL(last_words)
-	suicide = sanitizeSQL(suicide)
-	map = sanitizeSQL(map)
-	ssqlname = sanitizeSQL(ssqlname)
-
-	var/datum/DBQuery/query_report_death = SSdbcore.NewQuery("INSERT INTO [format_table_name("death")] (pod, x_coord, y_coord, z_coord, mapname, server_name, server_ip, server_port, round_id, tod, job, special, name, byondkey, laname, lakey, bruteloss, fireloss, brainloss, oxyloss, toxloss, cloneloss, staminaloss, last_words, suicide) VALUES ('[sqlpod]', '[x_coord]', '[y_coord]', '[z_coord]', '[map]', '[ssqlname]', INET_ATON(IF('[world.internet_address]' LIKE '', '0', '[world.internet_address]')), '[world.port]', [GLOB.round_id], '[SQLtime()]', '[sqljob]', '[sqlspecial]', '[sqlname]', '[sqlkey]', '[laname]', '[lakey]', [sqlbrute], [sqlfire], [sqlbrain], [sqloxy], [sqltox], [sqlclone], [sqlstamina], '[last_words]', [suicide])")
+	var/datum/DBQuery/query_report_death = SSdbcore.NewQuery({"
+		INSERT INTO [format_table_name("death")] (pod, x_coord, y_coord, z_coord, mapname, server_name, server_ip, server_port, round_id, tod, job, special, name, byondkey, laname, lakey, bruteloss, fireloss, brainloss, oxyloss, toxloss, cloneloss, staminaloss, last_words, suicide)
+		VALUES (:pod, :x_coord, :y_coord, :z_coord, :map, :server_name, INET_ATON(:internet_address), :port, :round_id, :time, :job, :special, :name, :key, :laname, :lakey, :brute, :fire, :brain, :oxy, :tox, :clone, :stamina, :last_words, :suicide)
+	"}, list(
+		"name" = L.real_name,
+		"key" = L.ckey,
+		"job" = L.mind.assigned_role,
+		"special" = L.mind.special_role,
+		"pod" = get_area_name(L, TRUE),
+		"laname" = L.lastattacker,
+		"lakey" = L.lastattackerckey,
+		"brute" = L.getBruteLoss(),
+		"fire" = L.getFireLoss(),
+		"brain" = L.getOrganLoss(ORGAN_SLOT_BRAIN) || BRAIN_DAMAGE_DEATH, //getOrganLoss returns null without a brain but a value is required for this column
+		"oxy" = L.getOxyLoss(),
+		"tox" = L.getToxLoss(),
+		"clone" = L.getCloneLoss(),
+		"stamina" = L.getStaminaLoss(),
+		"x_coord" = L.x,
+		"y_coord" = L.y,
+		"z_coord" = L.z,
+		"last_words" = L.last_words,
+		"suicide" = L.suiciding,
+		"map" = SSmapping.config.map_name,
+		"internet_address" = world.internet_address || "0",
+		"port" = "[world.port]",
+		"server_name" = CONFIG_GET(string/serversqlname),
+		"round_id" = GLOB.round_id,
+		"time" = SQLtime(),
+	))
 	if(query_report_death)
 		query_report_death.Execute(async = TRUE)
 		qdel(query_report_death)

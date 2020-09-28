@@ -95,6 +95,14 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"P" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/circuit,
+/area/template_noop)
+"T" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -104,13 +112,13 @@ j
 "}
 (2,1,1) = {"
 b
-b
+P
 b
 k
 "}
 (3,1,1) = {"
 c
-c
+T
 c
 l
 "}

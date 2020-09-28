@@ -451,6 +451,12 @@
 	if(grinded)
 		to_chat(user, "<span class='danger'>There is something inside already!</span>")
 		return
+	if(istype(I,/obj/item/reagent_containers))
+		var/obj/item/reagent_containers/p = I
+		if(p.prevent_grinding)
+			to_chat(user, "<span class='danger'>You can't grind this!</span>")
+			return
+
 	if(I.juice_results || I.grind_results)
 		I.forceMove(src)
 		grinded = I

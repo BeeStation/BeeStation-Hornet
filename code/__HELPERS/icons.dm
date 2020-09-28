@@ -976,7 +976,7 @@ world
 	var/icon/atom_icon = new(A.icon, A.icon_state)
 
 	if(!letter)
-		letter = copytext(A.name, 1, 2)
+		letter = A.name[1]
 		if(uppercase == 1)
 			letter = uppertext(letter)
 		else if(uppercase == -1)
@@ -1104,7 +1104,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 	WRITE_FILE(GLOB.iconCache[iconKey], icon)
 	var/iconData = GLOB.iconCache.ExportText(iconKey)
 	var/list/partial = splittext(iconData, "{")
-	return replacetext(copytext(partial[2], 3, -5), "\n", "")
+	return replacetext(copytext_char(partial[2], 3, -5), "\n", "")
 
 /proc/icon2html(thing, target, icon_state, dir, frame = 1, moving = FALSE)
 	if (!thing)
@@ -1130,7 +1130,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 			register_asset(name, thing)
 			for (var/thing2 in targets)
 				send_asset(thing2, key, FALSE)
-			return "<img class='icon icon-misc' src=\"[url_encode(name)]\">"
+			return "<img class='icon icon-misc' src=\"[rustg_url_encode(name)]\">"
 		var/atom/A = thing
 		if (isnull(dir))
 			dir = A.dir
@@ -1155,7 +1155,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 	for (var/thing2 in targets)
 		send_asset(thing2, key, FALSE)
 
-	return "<img class='icon icon-[icon_state]' src=\"[url_encode(key)]\">"
+	return "<img class='icon icon-[icon_state]' src=\"[rustg_url_encode(key)]\">"
 
 /proc/icon2base64html(thing)
 	if (!thing)
@@ -1166,7 +1166,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 		var/icon_base64 = icon2base64(I)
 
 		if (I.Height() > world.icon_size || I.Width() > world.icon_size)
-			var/icon_md5 = md5(icon_base64)
+			var/icon_md5 = rustg_hash_string(RUSTG_HASH_MD5, icon_base64)
 			icon_base64 = bicon_cache[icon_md5]
 			if (!icon_base64) // Doesn't exist yet, make it.
 				bicon_cache[icon_md5] = icon_base64 = icon2base64(I)

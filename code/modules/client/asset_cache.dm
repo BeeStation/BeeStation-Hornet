@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/res_name = "spritesheet_[name].css"
 	var/fname = "data/spritesheets/[res_name]"
 	fdel(fname)
-	text2file(generate_css(), fname)
+	rustg_file_append(generate_css(), fname)
 	register_asset(res_name, fcopy_rsc(fname))
 	fdel(fname)
 
@@ -774,4 +774,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"scitool.png" = 'html/img/scitool.png',
 		"alienorgan.png"= 'html/img/alienorgan.png',
 		"abaton.png"= 'html/img/abaton.png'
+	)
+
+
+/datum/asset/simple/vv
+	assets = list(
+		"view_variables.css" = 'html/admin/view_variables.css'
 	)

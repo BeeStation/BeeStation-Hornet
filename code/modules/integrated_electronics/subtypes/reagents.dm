@@ -89,7 +89,7 @@
 		direction_mode = SYRINGE_DRAW
 	else
 		direction_mode = SYRINGE_INJECT
-	if(isnum(new_amount))
+	if(isnum_safe(new_amount))
 		new_amount = CLAMP(new_amount, 0, volume)
 		transfer_amount = new_amount
 
@@ -217,7 +217,7 @@
 		direction_mode = SYRINGE_DRAW
 	else
 		direction_mode = SYRINGE_INJECT
-	if(isnum(new_amount))
+	if(isnum_safe(new_amount))
 		new_amount = CLAMP(new_amount, 0, 50)
 		transfer_amount = new_amount
 
@@ -340,6 +340,10 @@
 		return FALSE
 	var/obj/item/I = get_pin_data_as_type(IC_INPUT, 1, /obj/item)
 	if(istype(I)&&(I.grind_results)&&check_target(I)&&(I.on_grind(src) != -1))
+		if(istype(I, /obj/item/reagent_containers))
+			var/obj/item/reagent_containers/p = I
+			if(p.prevent_grinding)
+				return FALSE
 		reagents.add_reagent_list(I.grind_results)
 		if(I.reagents)
 			I.reagents.trans_to(src, I.reagents.total_volume)
@@ -461,7 +465,7 @@
 		direction_mode = SYRINGE_DRAW
 	else
 		direction_mode = SYRINGE_INJECT
-	if(isnum(new_amount))
+	if(isnum_safe(new_amount))
 		new_amount = CLAMP(new_amount, 0, 50)
 		transfer_amount = new_amount
 

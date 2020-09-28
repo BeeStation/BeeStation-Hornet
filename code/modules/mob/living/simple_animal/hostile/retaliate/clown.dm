@@ -18,9 +18,7 @@
 	maxHealth = 75
 	health = 75
 	speed = 1
-	harm_intent_damage = 8
-	melee_damage_lower = 10
-	melee_damage_upper = 10
+	melee_damage = 10
 	attacktext = "attacks"
 	attack_sound = 'sound/items/bikehorn.ogg'
 	obj_damage = 0
@@ -33,6 +31,7 @@
 	maxbodytemp = 370
 	unsuitable_atmos_damage = 10
 	do_footstep = TRUE
+	hardattacks = TRUE
 	var/banana_time = 0 // If there's no time set it won't spawn.
 	var/banana_type = /obj/item/grown/bananapeel
 	var/attack_reagent
@@ -40,8 +39,12 @@
 /mob/living/simple_animal/hostile/retaliate/clown/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(10)
+		throw_alert("temp", /obj/screen/alert/cold, 2)
 	else if(bodytemperature > maxbodytemp)
 		adjustBruteLoss(15)
+		throw_alert("temp", /obj/screen/alert/hot, 3)
+	else
+		clear_alert("temp")
 
 /mob/living/simple_animal/hostile/retaliate/clown/attack_hand(mob/living/carbon/human/M)
 	..()
@@ -60,7 +63,7 @@
 	if(attack_reagent && . && isliving(target))
 		var/mob/living/L = target
 		if(L.reagents)
-			L.reagents.add_reagent(attack_reagent, rand(1,5))
+			L.reagents.add_reagent(attack_reagent, 5)
 
 /mob/living/simple_animal/hostile/retaliate/clown/lube
 	name = "Living Lube"
@@ -103,9 +106,7 @@
 	icon_living = "honkling"
 	turns_per_move = 1
 	speed = -10
-	harm_intent_damage = 1
-	melee_damage_lower = 1
-	melee_damage_upper = 1
+	melee_damage = 1
 	attacktext = "cheers up"
 	loot = list(/obj/item/clothing/mask/gas/clown_hat, /obj/effect/gibspawner/human, /obj/item/soap, /obj/item/seeds/banana/bluespace)
 	banana_type = /obj/item/grown/bananapeel
@@ -127,7 +128,7 @@
 	maxHealth = 140
 	health = 140
 	speed = -5
-	melee_damage_upper = 15
+	melee_damage = 15
 	attacktext = "limply slaps"
 	obj_damage = 5
 	loot = list(/obj/item/clothing/suit/hooded/bloated_human, /obj/item/clothing/mask/gas/clown_hat, /obj/effect/gibspawner/human, /obj/item/soap)
@@ -149,8 +150,7 @@
 	health = 150
 	pixel_x = -16
 	speed = 10
-	harm_intent_damage = 5
-	melee_damage_lower = 5
+	melee_damage = 5
 	attacktext = "YA-HONKs"
 	loot = list(/obj/item/clothing/mask/gas/clown_hat, /obj/effect/gibspawner/human, /obj/item/soap)
 
@@ -171,9 +171,7 @@
 	health = 400
 	pixel_x = -16
 	speed = 2
-	harm_intent_damage = 15
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage = 17
 	attacktext = "pummels"
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_WALLS
@@ -210,9 +208,7 @@
 	maxHealth = 200
 	health = 200
 	speed = -5
-	harm_intent_damage = 5
-	melee_damage_lower = 5
-	melee_damage_upper = 10
+	melee_damage = 10
 	attacktext = "ferociously mauls"
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	loot = list(/obj/item/clothing/mask/gas/clown_hat, /obj/effect/gibspawner/xeno/bodypartless, /obj/effect/particle_effect/foam, /obj/item/soap)
@@ -229,9 +225,7 @@
 	maxHealth = 400
 	health = 400
 	speed = 5
-	harm_intent_damage = 30
-	melee_damage_lower = 20
-	melee_damage_upper = 40
+	melee_damage = 30
 	armour_penetration = 30
 	stat_attack = UNCONSCIOUS
 	attacktext = "acts out divine vengeance on"
@@ -256,9 +250,7 @@
 	health = 130
 	pixel_x = -16
 	speed = -5
-	harm_intent_damage = 10
-	melee_damage_lower = 10
-	melee_damage_upper = 20
+	melee_damage = 15
 	attacktext = "awkwardly flails at"
 	loot = list(/obj/item/clothing/mask/gas/clown_hat, /obj/effect/gibspawner/xeno/bodypartless, /obj/item/soap, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic/animal, /obj/effect/gibspawner/human/bodypartless, /obj/effect/gibspawner/human)
 

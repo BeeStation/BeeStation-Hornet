@@ -71,6 +71,7 @@
 
 /obj/item/clothing/head/hooded
 	var/obj/item/clothing/suit/hooded/suit
+	clothing_flags = SNUG_FIT
 	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/hooded/Destroy()

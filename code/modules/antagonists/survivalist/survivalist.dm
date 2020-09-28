@@ -10,6 +10,7 @@
 	var/datum/objective/survive/survive = new
 	survive.owner = owner
 	objectives += survive
+	log_objective(owner, survive.explanation_text)
 
 /datum/antagonist/survivalist/on_gain()
 	owner.special_role = "survivalist"
@@ -41,6 +42,7 @@
 	var/datum/objective/steal_five_of_type/summon_guns/guns = new
 	guns.owner = owner
 	objectives += guns
+	log_objective(owner, guns.explanation_text)
 	..()
 
 /datum/antagonist/survivalist/magic
@@ -55,4 +57,5 @@
 	var/datum/objective/steal_five_of_type/summon_magic/magic = new
 	magic.owner = owner
 	objectives += magic
+	log_objective(owner, magic.explanation_text)
 	..()

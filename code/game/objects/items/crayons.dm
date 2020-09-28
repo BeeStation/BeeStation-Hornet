@@ -394,7 +394,7 @@
 		to_chat(user, "<span class='notice'>You spray a [temp] on \the [target.name]</span>")
 
 	if(length(text_buffer) > 1)
-		text_buffer = copytext(text_buffer,2)
+		text_buffer = copytext(text_buffer, length(text_buffer[1]) + 1)
 		SStgui.update_uis(src)
 
 	if(post_noise)
@@ -683,6 +683,8 @@
 					target.set_opacity(initial(target.opacity))
 
 		. = use_charges(user, 2)
+		if(!.)
+			return FALSE
 		var/fraction = min(1, . / reagents.maximum_volume)
 		reagents.reaction(target, TOUCH, fraction * volume_multiplier)
 		reagents.trans_to(target, ., volume_multiplier, transfered_by = user)
