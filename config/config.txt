@@ -246,7 +246,7 @@ FORUMURL http://forums.
 WIKIURL https://wiki.beestation13.com/view
 
 ## Rules address
-RULESURL http://www.google.com
+RULESURL https://docs.google.com/document/d/1NxZNIjoG-Ei6cZLc85E_PL1mAFSzMFxDaTy0KmrDAr4/edit?usp=sharing
 
 ## Github address
 GITHUBURL https://github.com/Oasis-SS13/Oasis-SS13
