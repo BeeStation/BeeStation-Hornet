@@ -633,3 +633,199 @@
 	name = "TO THE STARS AND BEYOND!"
 	desc = "I must go, my people need me!"
 	icon_state = "high"
+
+//Clock cult
+/datum/status_effect/interdiction
+	id = "interdicted"
+	duration = 25
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 1
+	alert_type = /obj/screen/alert/status_effect/interdiction
+	var/running_toggled = FALSE
+
+/datum/status_effect/interdiction/tick()
+	if(owner.m_intent == MOVE_INTENT_RUN)
+		owner.toggle_move_intent(owner)
+		if(owner.confused < 10)
+			owner.confused = 10
+		running_toggled = TRUE
+		to_chat(owner, "<span class='warning'>You know you shouldn't be running here...</span>")
+	owner.add_movespeed_modifier(MOVESPEED_ID_INTERDICTION, multiplicative_slowdown=1.5)
+
+/datum/status_effect/interdiction/on_remove()
+	owner.remove_movespeed_modifier(MOVESPEED_ID_INTERDICTION)
+	if(running_toggled && owner.m_intent == MOVE_INTENT_WALK)
+		owner.toggle_move_intent(owner)
+
+/obj/screen/alert/status_effect/interdiction
+	name = "Interdicted"
+	desc = "I don't think I am meant to go this way..."
+	icon_state = "inathneqs_endowment"
+
+/datum/status_effect/fake_virus
+	id = "fake_virus"
+	duration = 1800//3 minutes
+	status_type = STATUS_EFFECT_REPLACE
+	tick_interval = 1
+	alert_type = null
+	var/msg_stage = 0//so you dont get the most intense messages immediately
+
+/datum/status_effect/fake_virus/tick()
+	var/fake_msg = ""
+	var/fake_emote = ""
+	switch(msg_stage)
+		if(0 to 300)
+			if(prob(1))
+				fake_msg = pick("<span class='warning'>[pick("Your head hurts.", "Your head pounds.")]</span>",
+				"<span class='warning'>[pick("You're having difficulty breathing.", "Your breathing becomes heavy.")]</span>",
+				"<span class='warning'>[pick("You feel dizzy.", "Your head spins.")]</span>",
+				"<span notice='warning'>[pick("You swallow excess mucus.", "You lightly cough.")]</span>",
+				"<span class='warning'>[pick("Your head hurts.", "Your mind blanks for a moment.")]</span>",
+				"<span class='warning'>[pick("Your throat hurts.", "You clear your throat.")]</span>")
+		if(301 to 600)
+			if(prob(2))
+				fake_msg = pick("<span class='warning'>[pick("Your head hurts a lot.", "Your head pounds incessantly.")]</span>",
+				"<span class='warning'>[pick("Your windpipe feels like a straw.", "Your breathing becomes tremendously difficult.")]</span>",
+				"<span class='warning'>You feel very [pick("dizzy","woozy","faint")].</span>",
+				"<span class='warning'>[pick("You hear a ringing in your ear.", "Your ears pop.")]</span>",
+				"<span class='warning'>You nod off for a moment.</span>")
+		else
+			if(prob(3))
+				if(prob(50))// coin flip to throw a message or an emote
+					fake_msg = pick("<span class='userdanger'>[pick("Your head hurts!", "You feel a burning knife inside your brain!", "A wave of pain fills your head!")]</span>",
+					"<span class='userdanger'>[pick("Your lungs hurt!", "It hurts to breathe!")]</span>",
+					"<span class='warning'>[pick("You feel nauseated.", "You feel like you're going to throw up!")]</span>")
+				else
+					fake_emote = pick("cough", "sniff", "sneeze")
+
+	if(fake_emote)
+		owner.emote(fake_emote)
+	else if(fake_msg)
+		to_chat(owner, fake_msg)
+
+	msg_stage++
+
+/datum/status_effect/eldritch
+	duration = 15 SECONDS
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	on_remove_on_mob_delete = TRUE
+	///underlay used to indicate that someone is marked
+	var/mutable_appearance/marked_underlay
+	///path for the underlay
+	var/effect_sprite = ""
+
+/datum/status_effect/eldritch/on_creation(mob/living/new_owner, ...)
+	marked_underlay = mutable_appearance('icons/effects/effects.dmi', effect_sprite,BELOW_MOB_LAYER)
+	return ..()
+
+/datum/status_effect/eldritch/on_apply()
+	if(owner.mob_size >= MOB_SIZE_HUMAN)
+		owner.add_overlay(marked_underlay)
+		owner.update_icon()
+		return TRUE
+	return FALSE
+
+/datum/status_effect/eldritch/on_remove()
+	owner.cut_overlay(marked_underlay)
+	owner.update_icon()
+	return ..()
+
+/datum/status_effect/eldritch/Destroy()
+	QDEL_NULL(marked_underlay)
+	return ..()
+
+/**
+  * What happens when this mark gets poppedd
+  *
+  * Adds actual functionality to each mark
+  */
+/datum/status_effect/eldritch/proc/on_effect()
+	playsound(owner, 'sound/magic/repulse.ogg', 75, TRUE)
+	qdel(src) //what happens when this is procced.
+
+//Each mark has diffrent effects when it is destroyed that combine with the mansus grasp effect.
+/datum/status_effect/eldritch/flesh
+	id = "flesh_mark"
+	effect_sprite = "emark1"
+
+/datum/status_effect/eldritch/flesh/on_effect()
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/H = owner
+	H.bleed_rate += 5
+	return ..()
+
+/datum/status_effect/eldritch/ash
+	id = "ash_mark"
+	effect_sprite = "emark2"
+	///Dictates how much damage and stamina loss this mark will cause.
+	var/repetitions = 1
+
+/datum/status_effect/eldritch/ash/on_creation(mob/living/new_owner, _repetition = 5)
+	. = ..()
+	repetitions = min(1,_repetition)
+
+/datum/status_effect/eldritch/ash/on_effect()
+	if(iscarbon(owner))
+		var/mob/living/carbon/carbon_owner = owner
+		carbon_owner.adjustStaminaLoss(10 * repetitions)
+		carbon_owner.adjustFireLoss(5 * repetitions)
+		for(var/mob/living/carbon/victim in range(1,carbon_owner))
+			if(IS_HERETIC(victim) || victim == carbon_owner)
+				continue
+			victim.apply_status_effect(type,repetitions-1)
+			break
+	return ..()
+
+/datum/status_effect/eldritch/rust
+	id = "rust_mark"
+	effect_sprite = "emark3"
+
+/datum/status_effect/eldritch/rust/on_effect()
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/carbon_owner = owner
+	for(var/obj/item/I in carbon_owner.get_all_gear())
+		//Affects roughly 75% of items
+		if(!QDELETED(I) && prob(75)) //Just in case
+			I.take_damage(100)
+	return ..()
+
+/datum/status_effect/corrosion_curse
+	id = "corrosion_curse"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	tick_interval = 1 SECONDS
+
+/datum/status_effect/corrosion_curse/on_creation(mob/living/new_owner, ...)
+	. = ..()
+	to_chat(owner, "<span class='danger'>Your feel your body starting to break apart...</span>")
+
+/datum/status_effect/corrosion_curse/tick()
+	. = ..()
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/H = owner
+	var/chance = rand(0,100)
+	switch(chance)
+		if(0 to 19)
+			H.vomit()
+		if(20 to 29)
+			H.Dizzy(10)
+		if(30 to 39)
+			H.adjustOrganLoss(ORGAN_SLOT_LIVER,5)
+		if(40 to 49)
+			H.adjustOrganLoss(ORGAN_SLOT_HEART,5)
+		if(50 to 59)
+			H.adjustOrganLoss(ORGAN_SLOT_STOMACH,5)
+		if(60 to 69)
+			H.adjustOrganLoss(ORGAN_SLOT_EYES,10)
+		if(70 to 79)
+			H.adjustOrganLoss(ORGAN_SLOT_EARS,10)
+		if(80 to 89)
+			H.adjustOrganLoss(ORGAN_SLOT_LUNGS,10)
+		if(90 to 99)
+			H.adjustOrganLoss(ORGAN_SLOT_TONGUE,10)
+		if(100)
+			H.adjustOrganLoss(ORGAN_SLOT_BRAIN,20)

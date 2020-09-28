@@ -1,5 +1,5 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
-/proc/get_uplink_items(var/datum/game_mode/gamemode = null, allow_sales = TRUE, allow_restricted = TRUE)
+/proc/get_uplink_items(var/datum/game_mode/gamemode = null, allow_sales = TRUE, allow_restricted = TRUE, check_include_modes = TRUE)
 	var/list/filtered_uplink_items = list()
 	var/list/sale_items = list()
 
@@ -7,12 +7,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		var/datum/uplink_item/I = new path
 		if(!I.item)
 			continue
-		if(I.include_modes.len)
+		if(I.include_modes.len && check_include_modes)
 			if(!gamemode && SSticker.mode && !(SSticker.mode.type in I.include_modes))
 				continue
 			if(gamemode && !(gamemode in I.include_modes))
 				continue
-		if(I.exclude_modes.len)
+		if(I.exclude_modes.len && check_include_modes)
 			if(!gamemode && SSticker.mode && (SSticker.mode.type in I.exclude_modes))
 				continue
 			if(gamemode && (gamemode in I.exclude_modes))
@@ -241,6 +241,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	player_minimum = 20
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	var/starting_crate_value = 50
+	var/check_include_modes = TRUE
 
 /datum/uplink_item/bundles_TC/surplus/super
 	name = "Super Surplus Crate"
@@ -249,10 +250,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 40
 	player_minimum = 30
 	starting_crate_value = 125
-	exclude_modes = list(/datum/game_mode/incursion)
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/incursion)
 
 /datum/uplink_item/bundles_TC/surplus/purchase(mob/user, datum/component/uplink/U)
-	var/list/uplink_items = get_uplink_items(SSticker && SSticker.mode? SSticker.mode : null, FALSE)
+	var/list/uplink_items = get_uplink_items(SSticker && SSticker.mode? SSticker.mode : null, FALSE, !check_include_modes, check_include_modes)	//If we are allowing all gamemodes, don't get items from nukeops that can't be used
 
 	var/crate_value = starting_crate_value
 	var/obj/structure/closet/crate/C = spawn_item(/obj/structure/closet/crate, user, U)
@@ -272,6 +273,24 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(U.purchase_log)
 			U.purchase_log.LogPurchase(goods, I, 0)
 	return C
+
+//Will either give you complete crap or overpowered as fuck gear
+/datum/uplink_item/bundles_TC/surplus/random
+	name = "Syndicate Lootbox"
+	desc = "A dusty crate from the back of the Syndicate warehouse. Rumored to contain a valuable assortment of items, \
+			With their all new kit, codenamed 'scam' the syndicate attempted to extract the energy of the die of fate to \
+			make a loot-box style system but failed, so instead just fake their randomness using a corgi to sniff out the items to shove in it.\
+			Item price not guaranteed. Can contain normally unobtainable items."
+	check_include_modes = FALSE
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/incursion)
+	player_minimum = 30
+
+/datum/uplink_item/bundles_TC/surplus/random/purchase(mob/user, datum/component/uplink/U)
+	var/index = rand(1, 20)
+	starting_crate_value = FLOOR((0.1 * (index ** 2.1)) + index + 5, 1)
+	var/obj/item/implant/weapons_auth/W = new
+	W.implant(user)	//Gives them the ability to use restricted weapons
+	. = ..()
 
 /datum/uplink_item/bundles_TC/random
 	name = "Random Item"

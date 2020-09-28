@@ -8,18 +8,21 @@
 	. = ..()
 	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
 
+/turf/open/floor/plasteel/rust_heretic_act()
+	if(prob(70))
+		new /obj/effect/temp_visual/glowing_rune(src)
+	ChangeTurf(/turf/open/floor/plating/rust)
+
 /turf/open/floor/plasteel/update_icon()
 	if(!..())
 		return 0
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
 
-
 /turf/open/floor/plasteel/airless
 	initial_gas_mix = AIRLESS_ATMOS
 /turf/open/floor/plasteel/telecomms
 	initial_gas_mix = TCOMMS_ATMOS
-
 
 /turf/open/floor/plasteel/dark
 	icon_state = "darkfull"
@@ -156,7 +159,7 @@
 /turf/open/floor/plasteel/tech
 	icon_state = "techfloor_grey"
 	floor_tile = /obj/item/stack/tile/
-	
+
 /turf/open/floor/plasteel/tech/grid
 	icon_state = "techfloor_grid"
 	floor_tile = /obj/item/stack/tile/
@@ -175,7 +178,7 @@
 /turf/open/floor/plasteel/grid
 	icon_state = "grid"
 	floor_tile = /obj/item/stack/tile/grid
-	
+
 /turf/open/floor/plasteel/grid/steel
 	icon_state = "steel_grid"
 
@@ -190,11 +193,11 @@
 /turf/open/floor/plasteel/tech
 	icon_state = "techfloor_grey"
 	floor_tile = /obj/item/stack/tile/techgrey
-	
+
 /turf/open/floor/plasteel/tech/grid
 	icon_state = "techfloor_grid"
 	floor_tile = /obj/item/stack/tile/techgrid
-	
+
 /turf/open/floor/plasteel/techmaint
 	icon_state = "techmaint"
 	floor_tile = /obj/item/stack/tile/techmaint

@@ -467,3 +467,9 @@
 	required_reagents = list(/datum/reagent/stabilizing_agent = 1,/datum/reagent/fluorosurfactant = 1,/datum/reagent/carbon = 1)
 	required_temp = 200
 	is_cold_recipe = 1
+
+/datum/chemical_reaction/reagent_explosion/cults_explosion
+	name = "Cults Explosion"
+	id = "cults_explosion"
+	required_reagents = list(/datum/reagent/consumable/ethanol/ratvander = 1, /datum/reagent/consumable/ethanol/narsour = 1)
+	strengthdiv = 10

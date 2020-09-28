@@ -251,6 +251,12 @@
 	icon_state = "hat_envirohelm"
 	item_state = "hat_envirohelm"
 
+/obj/item/clothing/head/helmet/space/plasmaman/gold
+	name = "designer envirosuit helmet"
+	desc = "A Plasmi-Deluxe envirosuit helmet with gold woven into the fabric. A designer model like this is probably worth a pretty penny"
+	icon_state = "gold_envirohelm"
+	item_state = "gold_envirohelm"
+
 /obj/item/clothing/head/helmet/space/plasmaman/curator
 	name = "curator's plasma envirosuit helmet"
 	desc = "A slight modification on a tradiational voidsuit helmet, this helmet was Nano-Trasen's first solution to the *logistical problems* that come with employing plasmamen. Despite their limitations, these helmets still see use by historian and old-styled plasmamen alike."

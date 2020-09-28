@@ -501,7 +501,7 @@ SUBSYSTEM_DEF(job)
 
 
 /datum/controller/subsystem/job/proc/LoadJobs()
-	var/jobstext = file2text("[global.config.directory]/jobs.txt")
+	var/jobstext = rustg_file_read("[global.config.directory]/jobs.txt")
 	for(var/datum/job/J in occupations)
 		if(J.flag == GIMMICK || J.gimmick) //gimmick job slots are dependant on random maint
 			continue

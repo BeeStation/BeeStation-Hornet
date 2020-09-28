@@ -111,14 +111,62 @@
 	new /obj/item/t_scanner(src)
 	new /obj/item/extinguisher/mini(src)
 
+/obj/item/storage/belt/utility/servant
+	var/slab = null
+	var/replicator = null
+
+/obj/item/storage/belt/utility/servant/drone
+	slab = /obj/item/clockwork/clockwork_slab
+	replicator = /obj/item/clockwork/replica_fabricator
+
+/obj/item/storage/belt/utility/servant/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 25
+	STR.max_items = 7
+	var/static/list/can_hold = typecacheof(list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool,
+		/obj/item/flashlight,
+		/obj/item/stack/cable_coil,
+		/obj/item/t_scanner,
+		/obj/item/analyzer,
+		/obj/item/geiger_counter,
+		/obj/item/extinguisher/mini,
+		/obj/item/radio,
+		/obj/item/clothing/gloves,
+		/obj/item/holosign_creator/atmos,
+		/obj/item/holosign_creator/engineering,
+		/obj/item/forcefield_projector,
+		/obj/item/assembly/signaler,
+		/obj/item/lightreplacer,
+		/obj/item/construction/rcd,
+		/obj/item/pipe_dispenser,
+		/obj/item/inducer,
+		/obj/item/plunger,
+		/obj/item/clockwork/clockwork_slab,
+		/obj/item/clockwork/replica_fabricator
+		))
+	STR.can_hold = can_hold
+
 /obj/item/storage/belt/utility/servant/PopulateContents()
+	if(slab)
+		new slab(src)
+	else
+		new/obj/item/multitool(src)
+	if(replicator)
+		new replicator(src)
+	else
+		new /obj/item/stack/cable_coil/orange(src)
 	new /obj/item/screwdriver/brass(src)
 	new /obj/item/wirecutters/brass(src)
 	new /obj/item/wrench/brass(src)
 	new /obj/item/crowbar/brass(src)
 	new /obj/item/weldingtool/experimental/brass(src)
-	new /obj/item/multitool(src)
-	new /obj/item/stack/cable_coil(src, 30, "yellow")
 
 /obj/item/storage/belt/medical
 	name = "medical belt"
@@ -195,6 +243,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
+	STR.max_combined_w_class = 18
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.can_hold = typecacheof(list(
 		/obj/item/melee/baton,
@@ -249,7 +298,8 @@
 /obj/item/storage/belt/security/webbing/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 6
+	STR.max_items = 7
+	STR.max_combined_w_class = 21
 
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"
@@ -576,31 +626,6 @@
 	STR.can_hold = typecacheof(list(
 		/obj/item/ammo_casing/shotgun
 		))
-
-/obj/item/storage/belt/holster
-	name = "shoulder holster"
-	desc = "A holster to carry a handgun and ammo. WARNING: Badasses only."
-	icon_state = "holster"
-	item_state = "holster"
-	alternate_worn_layer = UNDER_SUIT_LAYER
-
-/obj/item/storage/belt/holster/ComponentInitialize()
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 3
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.can_hold = typecacheof(list(
-		/obj/item/gun/ballistic/automatic/pistol,
-		/obj/item/gun/ballistic/revolver,
-		/obj/item/ammo_box,
-		/obj/item/gun/energy/e_gun/mini
-		))
-
-/obj/item/storage/belt/holster/full/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/gun/ballistic/revolver/detective = 1,
-		/obj/item/ammo_box/c38 = 2)
-	generate_items_inside(items_inside,src)
 
 /obj/item/storage/belt/quiver
 	name = "leather quiver"

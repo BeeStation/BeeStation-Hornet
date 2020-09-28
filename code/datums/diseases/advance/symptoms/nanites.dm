@@ -1,6 +1,6 @@
 /datum/symptom/nano_boost
 	name = "Nano-symbiosis"
-	desc = "The virus reacts to nanites in the host's bloodstream by enhancing their replication cycle. May cause unpredictable nanite behaviour"
+	desc = "The virus reacts to nanites in the host's bloodstream by enhancing their replication cycle. May cause unpredictable nanite behaviour. Heals the host's mechanical limbs"
 	stealth = 0
 	resistance = 2
 	stage_speed = 2
@@ -34,10 +34,12 @@
 			var/datum/nanite_program/NP = X
 			if(prob(2 * power))
 				NP.software_error(rand(3, 4)) //activate, deactivate, or trigger the nanites
+	if(A.stage >= 4)
+		M.heal_overall_damage((0.5 * power), (0.5 * power), required_status = BODYPART_ROBOTIC)
 			
 /datum/symptom/nano_destroy
 	name = "Silicolysis"
-	desc = "The virus reacts to nanites in the host's bloodstream by attacking and consuming them. May also cause nanites to go haywire."
+	desc = "The virus reacts to nanites in the host's bloodstream by attacking and consuming them. May also cause nanites to go haywire. Damages the host's mechanical limbs"
 	stealth = 0
 	resistance = 4
 	stage_speed = -1
@@ -73,3 +75,5 @@
 				NP.on_emp(power)
 			else if(prob(2))
 				NP.software_error()
+	if(A.stage >= 4)
+		M.take_overall_damage((1 * power), required_status = BODYPART_ROBOTIC)

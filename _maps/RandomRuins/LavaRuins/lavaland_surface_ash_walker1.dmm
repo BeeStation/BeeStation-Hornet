@@ -1168,7 +1168,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "dg" = (
-/obj/structure/bonfire/dense,
+/obj/structure/bonfire/dense/askwalker,
 /obj/structure/stone_tile/center,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,

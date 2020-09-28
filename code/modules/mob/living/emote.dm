@@ -549,3 +549,13 @@
 	else
 		qdel(N)
 		to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
+
+/datum/emote/inhale
+	key = "inhale"
+	key_third_person = "inhales"
+	message = "breathes in."
+
+/datum/emote/exhale
+	key = "exhale"
+	key_third_person = "exhales"
+	message = "breathes out."
