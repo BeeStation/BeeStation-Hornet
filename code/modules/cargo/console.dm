@@ -200,7 +200,7 @@
 
 			var/reason = ""
 			if(requestonly && !self_paid)
-				reason = stripped_input("Reason:", name, "")
+				reason = stripped_input(usr, "Reason:", name, "")
 				if(isnull(reason) || ..())
 					return
 

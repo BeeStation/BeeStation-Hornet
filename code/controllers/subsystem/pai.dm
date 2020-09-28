@@ -43,17 +43,17 @@ SUBSYSTEM_DEF(pai)
 				if(t)
 					candidate.name = copytext(sanitize_name(t),1,MAX_NAME_LEN)
 			if("desc")
-				t = input("Enter a description for your pAI", "pAI Description", candidate.description) as message
+				t = stripped_multiline_input(usr, "Enter a description for your pAI", "pAI Description", candidate.description)
 				if(t)
-					candidate.description = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+					candidate.description = t
 			if("role")
-				t = input("Enter a role for your pAI", "pAI Role", candidate.role) as text
+				t = stripped_input(usr, "Enter a role for your pAI", "pAI Role", candidate.role)
 				if(t)
-					candidate.role = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+					candidate.role = t
 			if("ooc")
-				t = input("Enter any OOC comments", "pAI OOC Comments", candidate.comments) as message
+				t = stripped_multiline_input(usr, "Enter any OOC comments", "pAI OOC Comments", candidate.comments)
 				if(t)
-					candidate.comments = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
+					candidate.comments = t
 			if("save")
 				candidate.savefile_save(usr)
 			if("load")

@@ -6,7 +6,7 @@
 		return
 
 	msg = emoji_parse(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
-	if(!msg)	
+	if(!msg)
 		return
 
 	log_mentor("MSAY: [key_name(src)] : [msg]")

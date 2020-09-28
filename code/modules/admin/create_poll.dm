@@ -31,7 +31,7 @@
 		else
 			return 0
 	var/starttime = SQLtime()
-	var/endtime = input("Set end time for poll as format YYYY-MM-DD HH:MM:SS. All times in server time. HH:MM:SS is optional and 24-hour. Must be later than starting time for obvious reasons.", "Set end time", SQLtime()) as text
+	var/endtime = capped_input(usr, "Set end time for poll as format YYYY-MM-DD HH:MM:SS. All times in server time. HH:MM:SS is optional and 24-hour. Must be later than starting time for obvious reasons.", "Set end time", SQLtime())
 	if(!endtime)
 		return
 	endtime = sanitizeSQL(endtime)
@@ -64,7 +64,7 @@
 		else
 			return
 	var/sql_ckey = sanitizeSQL(ckey)
-	var/question = input("Write your question","Question") as message|null
+	var/question = capped_multiline_input(usr, "Write your question","Question")
 	if(!question)
 		return
 	question = sanitizeSQL(question)
@@ -72,7 +72,7 @@
 	if(polltype != POLLTYPE_TEXT)
 		var/add_option = 1
 		while(add_option)
-			var/option = input("Write your option","Option") as message|null
+			var/option = capped_multiline_input(usr, "Write your option","Option")
 			if(!option)
 				return
 			option = sanitizeSQL(option)
@@ -104,17 +104,17 @@
 					continue
 				else if(maxval == null)
 					return
-				descmin = input("Optional: Set description for minimum rating","Minimum rating description") as message|null
+				descmin = capped_multiline_input(src, "Optional: Set description for minimum rating","Minimum rating description")
 				if(descmin)
 					descmin = sanitizeSQL(descmin)
 				else if(descmin == null)
 					return
-				descmid = input("Optional: Set description for median rating","Median rating description") as message|null
+				descmid = capped_multiline_input(src, "Optional: Set description for median rating","Median rating description")
 				if(descmid)
 					descmid = sanitizeSQL(descmid)
 				else if(descmid == null)
 					return
-				descmax = input("Optional: Set description for maximum rating","Maximum rating description") as message|null
+				descmax = capped_multiline_input(src, "Optional: Set description for maximum rating","Maximum rating description")
 				if(descmax)
 					descmax = sanitizeSQL(descmax)
 				else if(descmax == null)
