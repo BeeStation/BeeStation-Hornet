@@ -1,7 +1,7 @@
 /obj/item/integrated_circuit/output
 	category_text = "Output"
 	speech_span = SPAN_ROBOT
-	
+
 /obj/item/integrated_circuit/output/screen
 	name = "small screen"
 	extended_desc = " use &lt;br&gt; to start a new line"
@@ -112,7 +112,7 @@
 	var/new_color = get_pin_data(IC_INPUT, 1)
 	var/brightness = get_pin_data(IC_INPUT, 2)
 
-	if(new_color && isnum(brightness))
+	if(new_color && isnum_safe(brightness))
 		brightness = CLAMP(brightness, 0, 4)
 		light_rgb = new_color
 		light_brightness = brightness

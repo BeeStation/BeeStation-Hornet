@@ -54,7 +54,7 @@
 	if(!json_path)
 		TGS_ERROR_LOG("Missing [TGS4_PARAM_INFO_JSON] world parameter!")
 		return
-	var/json_file = file2text(json_path)
+	var/json_file = rustg_file_read(json_path)
 	if(!json_file)
 		TGS_ERROR_LOG("Missing specified json file: [json_path]")
 		return
@@ -202,7 +202,7 @@
 			del(world)
 
 		var/new_port = new_port_json[TGS4_PARAMETER_DATA]
-		if(!isnum(new_port) || new_port <= 0)
+		if(!isnum_safe(new_port) || new_port <= 0)
 			TGS_ERROR_LOG("Malformed new port json ([json_encode(new_port_json)])![TGS4_PORT_CRITFAIL_MESSAGE]")
 			del(world)
 
@@ -217,7 +217,7 @@
 
 	last_interop_response = null
 	fdel(server_commands_json_path)
-	text2file(json, server_commands_json_path)
+	rustg_file_append(json, server_commands_json_path)
 
 	for(var/I = 0; I < EXPORT_TIMEOUT_DS && !last_interop_response; ++I)
 		sleep(1)
@@ -237,7 +237,7 @@
 	//okay so the standard TGS4 proceedure is: right before rebooting change the port to whatever was sent to us in the above json's data parameter
 
 	var/port = result[TGS4_PARAMETER_DATA]
-	if(!isnum(port))
+	if(!isnum_safe(port))
 		return	//this is valid, server may just want use to reboot
 
 	if(port == 0)
@@ -294,7 +294,7 @@
 /datum/tgs_api/v4/ChatChannelInfo()
 	. = list()
 	//no caching cause tgs may change this
-	var/list/json = json_decode(file2text(chat_channels_json_path))
+	var/list/json = json_decode(rustg_file_read(chat_channels_json_path))
 	for(var/I in json)
 		. += DecodeChannel(I)
 

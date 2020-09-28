@@ -134,6 +134,9 @@ LOG_LAW
 ## log viruses
 LOG_VIRUS
 
+## log ID changes
+LOG_ID
+
 ## log crew manifest to seperate file
 LOG_MANIFEST
 
@@ -502,7 +505,6 @@ RESPECT_GLOBAL_BANS
 MAX_SHUTTLE_COUNT 6
 MAX_SHUTTLE_SIZE 300
 
-
 ### Fail2Topic settings
 ### fail2topic is a system for automating IP bans for abusers of the world/Topic API.
 ### Note that this subsystem respects the IPs listed in topic_rate_limit_whitelist.txt. They will not be considered for a ban.
@@ -516,6 +518,10 @@ TOPIC_RULE_NAME "_DD_Fail2topic"
 TOPIC_MAX_SIZE 500
 ## Uncomment to enable Fail2Topic, comment-out to disable
 #TOPIC_ENABLED
+
+## Uncomment to enable global ban DB using the provided URL. The API should expect to receive a ckey at the end of the URL.
+## More API details can be found here: https://centcom.melonmesa.com
+CENTCOM_BAN_DB https://centcom.melonmesa.com/ban/search
 
 ## Enable IC/OOC Hard Filtering. Comment to disable one or both of them
 #IC_FILTER_ENABLED

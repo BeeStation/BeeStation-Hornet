@@ -12,7 +12,7 @@
 	pipe_flags = PIPING_ONE_PER_TURF
 
 	var/volume = 10000 //in liters
-	var/gas_type = 0
+	var/gas_type = null
 
 /obj/machinery/atmospherics/components/unary/tank/New()
 	..()
@@ -20,7 +20,7 @@
 	air_contents.set_volume(volume)
 	air_contents.set_temperature(T20C)
 	if(gas_type)
-		air_contents.set_moles(AIR_CONTENTS)
+		air_contents.set_moles(gas_type, AIR_CONTENTS)
 		name = "[name] ([GLOB.meta_gas_info[gas_type][META_GAS_NAME]])"
 	setPipingLayer(piping_layer)
 

@@ -213,7 +213,7 @@
 
 	. = ..()
 
-	if(. && isnum(prev_stat))
+	if(. && isnum_safe(prev_stat))
 		var/mob/living/L = target
 		var/refund = 0
 		if(QDELETED(L) || (L.stat == DEAD && prev_stat != DEAD)) //they're dead, you killed them

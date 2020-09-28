@@ -26,6 +26,7 @@
 	var/failsafe_code
 	var/compact_mode = FALSE
 	var/debug = FALSE
+	var/non_traitor_allowed = TRUE
 
 	var/list/previous_attempts
 
@@ -111,6 +112,8 @@
 
 /datum/component/uplink/proc/interact(datum/source, mob/user)
 	if(locked)
+		return
+	if(!non_traitor_allowed && !user.mind.special_role)
 		return
 	active = TRUE
 	if(user)
@@ -298,7 +301,7 @@
 	if(istype(parent,/obj/item/pda))
 		return "[rand(100,999)] [pick(GLOB.phonetic_alphabet)]"
 	else if(istype(parent,/obj/item/radio))
-		return sanitize_frequency(rand(MIN_FREQ, MAX_FREQ))
+		return sanitize_frequency(rand(MIN_FREQ, MAX_FREQ), TRUE)
 	else if(istype(parent,/obj/item/pen))
 		var/list/L = list()
 		for(var/i in 1 to PEN_ROTATIONS)

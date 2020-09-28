@@ -20,4 +20,7 @@
 #define LANGUAGE_MASTER			"master"
 #define LANGUAGE_SOFTWARE		"software"
 #define LANGUAGE_STONER			"stoner"
+#define LANGUAGE_DRUGGY			"druggy"
 #define LANGUAGE_VOICECHANGE	"voicechange"
+#define LANGUAGE_REAGENT    	"reagent"
+#define LANGUAGE_MULTILINGUAL	"multilingual"

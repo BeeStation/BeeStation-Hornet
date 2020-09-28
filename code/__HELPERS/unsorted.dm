@@ -266,7 +266,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/mob/living/silicon/ai/selected
 	var/list/active = active_ais()
 	for(var/mob/living/silicon/ai/A in active)
-		if(!selected || (selected.connected_robots.len > A.connected_robots.len))
+		if((!selected || (selected.connected_robots.len > A.connected_robots.len)) && !is_servant_of_ratvar(A))
 			selected = A
 
 	return selected
@@ -1415,7 +1415,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/GUID()
 	var/const/GUID_VERSION = "b"
 	var/const/GUID_VARIANT = "d"
-	var/node_id = copytext_char(md5("[rand()*rand(1,9999999)][world.name][world.hub][world.hub_password][world.internet_address][world.address][world.contents.len][world.status][world.port][rand()*rand(1,9999999)]"), 1, 13)
+	var/node_id = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, "[rand()*rand(1,9999999)][world.name][world.hub][world.hub_password][world.internet_address][world.address][world.contents.len][world.status][world.port][rand()*rand(1,9999999)]"), 1, 13)
 
 	var/time_high = "[num2hex(text2num(time2text(world.realtime,"YYYY")), 2)][num2hex(world.realtime, 6)]"
 
@@ -1439,7 +1439,7 @@ If it ever becomes necesary to get a more performant REF(), this lies here in wa
 /proc/REF(datum/input)
 	if(istype(input) && (input.datum_flags & DF_USE_TAG))
 		if(input.tag)
-			return "\[[url_encode(input.tag)]\]"
+			return "\[[rustg_url_encode(input.tag)]\]"
 		stack_trace("A ref was requested of an object with DF_USE_TAG set but no tag: [input]")
 		input.datum_flags &= ~DF_USE_TAG
 	return "\ref[input]"

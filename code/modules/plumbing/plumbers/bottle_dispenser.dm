@@ -7,6 +7,7 @@
 	var/bottle_size = 30
 	///the icon_state number for the bottle.
 	var/list/stored_bottles = list()
+	var/max_stored_bottles = 3
 	///max amount of bottles allowed on our tile before we start storing them instead
 	var/max_floor_bottles = 10
 
@@ -24,9 +25,8 @@
 /obj/machinery/plumbing/bottle_dispenser/process()
 	if(stat & NOPOWER)
 		return
-	if(reagents.total_volume >= bottle_size)
-		var/obj/item/reagent_containers/glass/bottle/P
-		P = new/obj/item/reagent_containers/glass/bottle(drop_location())
+	if((reagents.total_volume >= bottle_size) && (stored_bottles.len < max_stored_bottles))
+		var/obj/item/reagent_containers/glass/bottle/P = new(src)
 		reagents.trans_to(P, bottle_size)
 		P.name = bottle_name
 		stored_bottles += P

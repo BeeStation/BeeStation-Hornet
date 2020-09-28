@@ -2,7 +2,7 @@
 	if(isnull(var_value))
 		. = VV_NULL
 
-	else if(isnum(var_value))
+	else if(isnum_safe(var_value))
 		if(var_name in GLOB.bitfields)
 			. = VV_BITFIELD
 		else

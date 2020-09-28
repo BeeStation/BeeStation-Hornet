@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(weather)
 
 	if (isnull(z_levels))
 		z_levels = SSmapping.levels_by_trait(initial(weather_datum_type.target_trait))
-	else if (isnum(z_levels))
+	else if (isnum_safe(z_levels))
 		z_levels = list(z_levels)
 	else if (!islist(z_levels))
 		CRASH("run_weather called with invalid z_levels: [z_levels || "null"]")

@@ -386,8 +386,8 @@
 
 /obj/item/gun/energy/alien
 	name = "alien pistol"
-	desc = "A complicated gun that fires bursts of high-intensity radiation."
-	ammo_type = list(/obj/item/ammo_casing/energy/declone)
+	desc = "A complicated gun that fires bursts of high-intensity radiation, electromagnetic disruption bolts or freezing shots."
+	ammo_type = list(/obj/item/ammo_casing/energy/declone, /obj/item/ammo_casing/energy/ion, /obj/item/ammo_casing/energy/temp)
 	pin = /obj/item/firing_pin/abductor
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
@@ -723,6 +723,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Abduct with style - spiky style. Prevents digital tracking."
 	icon_state = "alienhelmet"
 	item_state = "alienhelmet"
+	flash_protect = 1
 	blockTracking = TRUE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 

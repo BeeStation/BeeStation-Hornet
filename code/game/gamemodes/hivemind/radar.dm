@@ -65,7 +65,7 @@
 	. = ..()
 	if(.)
 		tracked_by = hunter
-		if(isnum(set_duration))
+		if(isnum_safe(set_duration))
 			duration = world.time + set_duration
 
 //Screen alert

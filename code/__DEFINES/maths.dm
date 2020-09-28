@@ -113,7 +113,7 @@
 
 /// Finds the shortest angle that angle A has to change to get to angle B. Aka, whether to move clock or counterclockwise.
 /proc/closer_angle_difference(a, b)
-	if(!isnum(a) || !isnum(b))
+	if(!isnum_safe(a) || !isnum_safe(b))
 		return
 	a = SIMPLIFY_DEGREES(a)
 	b = SIMPLIFY_DEGREES(b)

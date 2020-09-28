@@ -669,7 +669,8 @@ RLD
 	name = "admin RCD"
 	max_matter = INFINITY
 	matter = INFINITY
-
+	delay_mod = 0.1
+	upgrade = 1
 
 // Ranged RCD
 

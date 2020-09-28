@@ -416,7 +416,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
 		/*Try and locate a record for the person being respawned through GLOB.data_core.
 		This isn't an exact science but it does the trick more often than not.*/
-		var/id = md5("[G_found.real_name][G_found.mind.assigned_role]")
+		var/id = rustg_hash_string(RUSTG_HASH_MD5, "[G_found.real_name][G_found.mind.assigned_role]")
 
 		record_found = find_record("id", id, GLOB.data_core.locked)
 
@@ -907,7 +907,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/turf/T = get_turf(mob)
 	var/z_level = input("Z-Level to target?", "Z-Level", T?.z) as num|null
-	if(!isnum(z_level))
+	if(!isnum_safe(z_level))
 		return
 
 	SSweather.run_weather(weather_type, z_level)
@@ -1044,13 +1044,28 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggled Hub Visibility", "[GLOB.hub_visibility ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/proc/immerse_player(mob/living/carbon/target, toggle=TRUE, remove=FALSE)
+	var/list/immersion_components = list(/datum/component/manual_breathing, /datum/component/manual_blinking)
+
+	for(var/immersies in immersion_components)
+		var/has_component = target.GetComponent(immersies)
+
+		if(has_component && (toggle || remove))
+			qdel(has_component)
+		else if(toggle || !remove)
+			target.AddComponent(immersies)
+
+/proc/mass_immerse(remove=FALSE)
+	for(var/mob/living/carbon/M in GLOB.mob_list)
+		immerse_player(M, toggle=FALSE, remove=remove)
+
 /client/proc/smite(mob/living/target as mob)
 	set name = "Smite"
 	set category = "Fun"
 	if(!check_rights(R_ADMIN) || !check_rights(R_FUN))
 		return
 
-	var/list/punishment_list = list(ADMIN_PUNISHMENT_LIGHTNING, ADMIN_PUNISHMENT_BRAINDAMAGE, ADMIN_PUNISHMENT_GIB, ADMIN_PUNISHMENT_BSA, ADMIN_PUNISHMENT_FIREBALL, ADMIN_PUNISHMENT_ROD, ADMIN_PUNISHMENT_SUPPLYPOD_QUICK, ADMIN_PUNISHMENT_SUPPLYPOD, ADMIN_PUNISHMENT_MAZING, ADMIN_PUNISHMENT_FLOORCLUWNE, ADMIN_PUNISHMENT_CLUWNE)
+	var/list/punishment_list = list(ADMIN_PUNISHMENT_LIGHTNING, ADMIN_PUNISHMENT_BRAINDAMAGE, ADMIN_PUNISHMENT_GIB, ADMIN_PUNISHMENT_BSA, ADMIN_PUNISHMENT_FIREBALL, ADMIN_PUNISHMENT_ROD, ADMIN_PUNISHMENT_SUPPLYPOD_QUICK, ADMIN_PUNISHMENT_SUPPLYPOD, ADMIN_PUNISHMENT_MAZING, ADMIN_PUNISHMENT_FLOORCLUWNE, ADMIN_PUNISHMENT_CLUWNE, ADMIN_PUNISHMENT_IMMERSE)
 	if(istype(target, /mob/living/carbon))
 		punishment_list += ADMIN_PUNISHMENT_NUGGET
 	var/punishment = input("Choose a punishment", "DIVINE SMITING") as null|anything in sortList(punishment_list)
@@ -1140,6 +1155,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				if(BP.body_part != HEAD && BP.body_part != CHEST)
 					if(BP.dismemberable)
 						BP.dismember()
+
+		if(ADMIN_PUNISHMENT_IMMERSE)
+			immerse_player(target)
 
 	punish_log(target, punishment)
 

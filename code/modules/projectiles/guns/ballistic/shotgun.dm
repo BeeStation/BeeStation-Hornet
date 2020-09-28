@@ -22,6 +22,7 @@
 	tac_reloads = FALSE
 	fire_rate = 1 //reee
 	block_upgrade_walk = 1
+	pb_knockback = 2
 
 /obj/item/gun/ballistic/shotgun/blow_up(mob/user)
 	. = 0
@@ -52,7 +53,7 @@
 
 // Automatic Shotguns//
 
-/obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user)
+/obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	..()
 	rack()
 
@@ -178,6 +179,7 @@
 	semi_auto = TRUE
 	bolt_type = BOLT_TYPE_NO_BOLT
 	fire_rate = 2 //being double barrelled, you don't rely on internal mechanisms.
+	pb_knockback = 3
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/AltClick(mob/user)
 	. = ..()

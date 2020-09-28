@@ -25,10 +25,10 @@
 		/datum/language/ratvar,
 		/datum/language/rlyehian,
 		/datum/language/shadowtongue,
+		/datum/language/slime,
 		/datum/language/sylvan,
 		/datum/language/terrum,
-		/datum/language/uncommon,
-	))
+		/datum/language/uncommon))
 
 /obj/item/organ/tongue/Initialize(mapload)
 	. = ..()
@@ -185,6 +185,13 @@
 /obj/item/organ/tongue/alien/handle_speech(datum/source, list/speech_args)
 	playsound(owner, "hiss", 25, 1, 1)
 
+/obj/item/organ/tongue/bee
+	name = "proboscis"
+	desc = "A freakish looking meat tube that apparently can take in liquids, this one smells slighlty like flowers."
+	icon_state = "tonguefly"
+	say_mod = "buzzes"
+	taste_sensitivity = 5
+
 /obj/item/organ/tongue/bone
 	name = "bone \"tongue\""
 	desc = "Apparently skeletons alter the sounds they produce through oscillation of their teeth, hence their characteristic rattling."
@@ -226,20 +233,14 @@
 	modifies_speech = TRUE
 	taste_sensitivity = 25 // not as good as an organic tongue
 
-/obj/item/organ/tongue/bee
-	name = "proboscis"
-	desc = "A freakish looking meat tube that apparently can take in liquids, this one smells slighlty like flowers."
-	icon_state = "tonguefly"
-	say_mod = "buzzes"
-	taste_sensitivity = 5
+/obj/item/organ/tongue/robot/Initialize(mapload)
+	. = ..()
+	languages_possible = languages_possible_base += typecacheof(/datum/language/machine) + typecacheof(/datum/language/voltaic)
 
 /obj/item/organ/tongue/robot/emp_act(severity)
 	owner.apply_effect(EFFECT_STUTTER, 120)
 	owner.emote("scream")
 	to_chat(owner, "<span class='warning'>Alert: Vocal cords are malfunctioning.</span>")
-
-/obj/item/organ/tongue/robot/can_speak_language(datum/language/dt)
-	return TRUE // THE MAGIC OF ELECTRONICS
 
 /obj/item/organ/tongue/robot/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT
@@ -265,3 +266,7 @@
 	say_mod = "crackles"
 	attack_verb = list("shocked", "jolted", "zapped")
 	taste_sensitivity = 101 // Not a tongue, they can't taste shit
+
+/obj/item/organ/tongue/ethereal/Initialize(mapload)
+	. = ..()
+	languages_possible = languages_possible_base += typecacheof(/datum/language/voltaic)

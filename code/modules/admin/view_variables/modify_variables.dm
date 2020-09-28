@@ -125,7 +125,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 	for (var/i in 1 to L.len)
 		var/key = L[i]
 		var/value
-		if (is_normal_list && !isnum(key))
+		if (is_normal_list && !isnum_safe(key))
 			value = L[key]
 		if (value == null)
 			value = "null"

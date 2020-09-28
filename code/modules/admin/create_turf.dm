@@ -3,7 +3,7 @@
 	if (!create_turf_html)
 		var/turfjs = null
 		turfjs = jointext(typesof(/turf), ";")
-		create_turf_html = file2text('html/create_object.html')
+		create_turf_html = rustg_file_read('html/create_object.html')
 		create_turf_html = replacetext(create_turf_html, "Create Object", "Create Turf")
 		create_turf_html = replacetext(create_turf_html, "null /* object types */", "\"[turfjs]\"")
 

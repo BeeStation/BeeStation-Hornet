@@ -203,7 +203,7 @@
 	. = ..()
 
 /obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, area/signalOrigin, reason, redAlert, set_coefficient=null)
-	if(!isnum(set_coefficient))
+	if(!isnum_safe(set_coefficient))
 		var/security_num = seclevel2num(get_security_level())
 		switch(security_num)
 			if(SEC_LEVEL_GREEN)
@@ -295,7 +295,7 @@
 			has_xenos = TRUE
 
 	return has_xenos
-	
+
 /obj/docking_port/mobile/emergency/proc/ShuttleDBStuff()
 	set waitfor = FALSE
 	if(!SSdbcore.Connect())
@@ -352,6 +352,11 @@
 
 		if(SHUTTLE_IGNITING)
 			var/success = TRUE
+			//Check if the gamemode is clockcult and the clockies are utter failures
+			if(GLOB.celestial_gateway && !GLOB.gateway_opening)
+				SSshuttle.registerHostileEnvironment(GLOB.celestial_gateway)
+				var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
+				gateway.open_gateway()
 			SSshuttle.checkHostileEnvironment()
 			if(mode == SHUTTLE_STRANDED)
 				return

@@ -250,7 +250,7 @@
 	remove_rev()
 	SSticker.mode.update_cult_icons_removed(src)
 
-/datum/mind/proc/equip_traitor(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner)
+/datum/mind/proc/equip_traitor(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = 20, datum/game_mode/gamemode)
 	if(!current)
 		return
 	var/mob/living/carbon/human/traitor_mob = current
@@ -304,7 +304,7 @@
 		. = 0
 	else
 		. = uplink_loc
-		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key)
+		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
 		if(!U)
 			CRASH("Uplink creation failed.")
 		U.setup_unlock_code()
@@ -326,6 +326,9 @@
 /datum/mind/proc/enslave_mind_to_creator(mob/living/creator)
 	if(iscultist(creator))
 		SSticker.mode.add_cultist(src)
+
+	else if(is_servant_of_ratvar(creator))
+		add_servant_of_ratvar(src)
 
 	else if(is_revolutionary(creator))
 		var/datum/antagonist/rev/converter = creator.mind.has_antag_datum(/datum/antagonist/rev,TRUE)

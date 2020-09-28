@@ -125,6 +125,12 @@
 
 #define BRAIN_DAMAGE_INTEGRITY_MULTIPLIER 0.5
 
+//wing defines
+#define WINGS_COSMETIC 0 //Absolutely fucking useless
+#define WINGS_FLIGHTLESS 1 //can't generate lift, will only fly in 0-G, while atmos is present
+#define WINGS_FLYING 2 //can generate lift and fly if atmos is present
+#define WINGS_MAGIC 3 //can fly regardless of atmos
+
 //Surgery Defines
 #define BIOWARE_GENERIC "generic"
 #define BIOWARE_NERVES "nerves"
@@ -327,3 +333,5 @@
 #define WABBAJACK     (1<<6)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+
+#define SILENCE_RANGED_MESSAGE (1<<0)

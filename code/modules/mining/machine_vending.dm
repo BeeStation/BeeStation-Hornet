@@ -278,6 +278,7 @@
 		I.access |= ACCESS_MINERAL_STOREROOM
 		I.access |= ACCESS_CARGO
 		to_chat(user, "You upgrade [I] with mining access.")
+		log_id("[key_name(user)] added mining access to '[I]' using [src] at [AREACOORD(user)].")
 		qdel(src)
 
 /obj/item/storage/backpack/duffelbag/mining_conscript

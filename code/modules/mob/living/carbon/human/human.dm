@@ -89,7 +89,7 @@
 				stat(null, "Energy Charge: [round(SN.cell.charge/100)]%")
 				stat(null, "Smoke Bombs: \Roman [SN.s_bombs]")
 				//Ninja status
-				stat(null, "Fingerprints: [md5(dna.uni_identity)]")
+				stat(null, "Fingerprints: [rustg_hash_string(RUSTG_HASH_MD5, dna.uni_identity)]")
 				stat(null, "Unique Identity: [dna.unique_enzymes]")
 				stat(null, "Overall Status: [stat > 1 ? "dead" : "[health]% healthy"]")
 				stat(null, "Nutrition Status: [nutrition]")
@@ -207,8 +207,11 @@
 // this could be made more general, but for now just handle mulebot
 /mob/living/carbon/human/Crossed(atom/movable/AM)
 	var/mob/living/simple_animal/bot/mulebot/MB = AM
+	var/obj/vehicle/sealed/car/C = AM
 	if(istype(MB))
 		MB.RunOver(src)
+	else if(istype(C))
+		C.RunOver(src)
 
 	. = ..()
 	spreadFire(AM)

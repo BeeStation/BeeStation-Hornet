@@ -59,38 +59,37 @@
 		for(var/symptom in D.symptoms)
 			var/datum/symptom/S = symptom
 			S.OnDeath(D)
-	if(mind && mind.name && mind.active && !istype(T.loc, /area/ctf))
-		var/rendered = "<span class='deadsay'><b>[mind.name]</b> has died at <b>[get_area_name(T)]</b>.</span>"
-		deadchat_broadcast(rendered, follow_target = src, turf_target = T, message_type=DEADCHAT_DEATHRATTLE)
 	if(mind)
+		if(mind.name && mind.active && !istype(T.loc, /area/ctf))
+			var/rendered = "<span class='deadsay'><b>[mind.name]</b> has died at <b>[get_area_name(T)]</b>.</span>"
+			deadchat_broadcast(rendered, follow_target = src, turf_target = T, message_type=DEADCHAT_DEATHRATTLE)
 		mind.store_memory("Time of death: [tod]", 0)
 	GLOB.alive_mob_list -= src
 	if(!gibbed && !was_dead_before)
 		GLOB.dead_mob_list += src
-	set_drugginess(0)
-	set_disgust(0)
+
 	SetSleeping(0, 0)
 	blind_eyes(1)
-	reset_perspective(null)
-	reload_fullscreen()
+
 	update_action_buttons_icon()
-	update_damage_hud()
 	update_health_hud()
 	update_mobility()
+
 	med_hud_set_health()
 	med_hud_set_status()
-	if(!gibbed && !QDELETED(src))
-		addtimer(CALLBACK(src, .proc/med_hud_set_status), (DEFIB_TIME_LIMIT * 10) + 1)
+
+
 	stop_pulling()
 
 	. = ..()
 
 	if (client)
+		reset_perspective(null)
+		reload_fullscreen()
 		client.move_delay = initial(client.move_delay)
-		
-		
+
+
 		SSmedals.UnlockMedal(MEDAL_GHOSTS,client)
-		
 
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
@@ -100,3 +99,14 @@
 		S.sharerDies(gibbed)
 
 	return TRUE
+
+/mob/living/carbon/death(gibbed)
+	. = ..()
+
+	set_drugginess(0)
+	set_disgust(0)
+	update_damage_hud()
+
+	if(!gibbed && !QDELETED(src))
+		addtimer(CALLBACK(src, .proc/med_hud_set_status), (DEFIB_TIME_LIMIT * 10) + 10)
+

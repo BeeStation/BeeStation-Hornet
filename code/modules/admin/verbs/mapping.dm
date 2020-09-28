@@ -225,7 +225,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 	var/num_level = text2num(level)
 	if(!num_level)
 		return
-	if(!isnum(num_level))
+	if(!isnum_safe(num_level))
 		return
 
 	var/type_text = input("Which type path?","Path?") as text

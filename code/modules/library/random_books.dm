@@ -32,13 +32,13 @@
 
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
-	if(books_to_load && isnum(books_to_load))
+	if(books_to_load && isnum_safe(books_to_load))
 		books_to_load += pick(-1,-1,0,1,1)
 	update_icon()
 
 /proc/create_random_books(amount, location, fail_loud = FALSE, category = null, obj/item/book/existing_book)
 	. = list()
-	if(!isnum(amount) || amount<1)
+	if(!isnum_safe(amount) || amount<1)
 		return
 	if (!SSdbcore.Connect())
 		if(existing_book && (fail_loud || prob(5)))

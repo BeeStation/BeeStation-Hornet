@@ -65,6 +65,11 @@ AI MODULES
 	else
 		to_chat(user, "<span class='notice'>Upload complete.</span>")
 
+	if(law_datum.owner?.mind)
+		for(var/a in law_datum.owner.mind.antag_datums)	//Makes sure all antag datums effects are applied in the new body
+			var/datum/antagonist/A = a
+			A.on_body_transfer(law_datum.owner, law_datum.owner)
+
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	var/ainame = law_datum.owner ? law_datum.owner.name : "empty AI core"
 	var/aikey = law_datum.owner ? law_datum.owner.ckey : "null"

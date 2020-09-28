@@ -112,6 +112,9 @@
 	var/icon_update_needed = FALSE
 	var/obj/machinery/computer/apc_control/remote_control = null
 
+	var/clock_cog_rewarded = FALSE	//Clockcult - Has the reward for converting an APC been given?
+	var/integration_cog = null		//Clockcult - The integration cog inserted inside of us
+
 /obj/machinery/power/apc/unlocked
 	locked = FALSE
 
@@ -272,6 +275,8 @@
 		else
 			. += {"It's [ !terminal ? "not" : "" ] wired up.\n
 			The electronics are[!has_electronics?"n't":""] installed."}
+		if(integration_cog || (user.hallucinating() && prob(20)))
+			. += "A small cogwheel is inside of it."
 
 	else
 		if (stat & MAINT)
@@ -429,7 +434,13 @@
 /obj/machinery/power/apc/crowbar_act(mob/user, obj/item/W)
 	. = TRUE
 	if (opened)
-		if (has_electronics == APC_ELECTRONICS_INSTALLED)
+		if(integration_cog)
+			to_chat(user, "<span class='notice'>You begin prying something out of the APC...</span>")
+			W.play_tool_sound(src)
+			if(W.use_tool(src, user, 50))
+				to_chat(user, "<span class='warning'>You screw up breaking whatever was inside!</span>")
+				QDEL_NULL(integration_cog)
+		else if (has_electronics == APC_ELECTRONICS_INSTALLED)
 			if (terminal)
 				to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 				return
@@ -757,40 +768,55 @@
 	. = ..()
 	if(.)
 		return
-	var/mob/living/carbon/human/H = user
-	var/datum/species/ethereal/eth_species = H.dna?.species
-	if(istype(H) && istype(eth_species))
-		if(H.a_intent == INTENT_HARM)
-			if(eth_species.ethereal_charge >= ETHEREAL_CHARGE_FULL - 19)
+
+	if(isethereal(user))
+		var/mob/living/carbon/human/H = user
+		var/datum/species/ethereal/E = H.dna.species
+		if((H.a_intent == INTENT_HARM) && (E.drain_time < world.time))
+			if(cell.charge <= (cell.maxcharge / 2)) // if charge is under 50% you shouldn't drain it
+				to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain any.</span>")
+				return
+			var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+			if(!istype(stomach))
+				to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+				return
+			if(stomach.crystal_charge >= ETHEREAL_CHARGE_FULL)
 				to_chat(H, "<span class='warning'>Your charge is full!</span>")
 				return
-			if(cell.charge < 100)
-				to_chat(H, "<span class='warning'>The cell has no charge!</span>")
-				return
+			E.drain_time = world.time + 75
 			to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
-			if(do_after(user, 30, target = src))
-				if(cell.charge >= 100 && eth_species.ethereal_charge < ETHEREAL_CHARGE_FULL - 19)
-					to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
-					eth_species.adjust_charge(20)
-					cell.charge -= 50 //Charging is inefficient
-				else
-					to_chat(H, "<span class='warning'>You can't receive charge from the APC!</span>")
+			if(do_after(user, 75, target = src))
+				if(cell.charge <= (cell.maxcharge / 2) || (stomach.crystal_charge >= ETHEREAL_CHARGE_FULL))
+					to_chat(H, "<span class='warning'>You can't receive more charge from the APC.</span>")
+					return
+				to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
+				stomach.adjust_charge(10)
+				cell.charge -= 10
+			else
+				to_chat(H, "<span class='warning'>You fail to receive charge from the APC!</span>")
 			return
-		if(H.a_intent == INTENT_GRAB)
-			if(cell.charge >= cell.maxcharge)
+		if((H.a_intent == INTENT_GRAB) && (E.drain_time < world.time))
+			if(cell.charge == cell.maxcharge)
 				to_chat(H, "<span class='warning'>The APC is full!</span>")
 				return
-			if(eth_species.ethereal_charge < 20)
+			var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+			if(!istype(stomach))
+				to_chat(H, "<span class='warning'>You can't transfer charge!</span>")
+				return
+			if(stomach.crystal_charge < 10)
 				to_chat(H, "<span class='warning'>Your charge is too low!</span>")
 				return
+			E.drain_time = world.time + 75
 			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
-			if(do_after(user, 30, target = src))
-				if(cell.charge + 20 <= cell.maxcharge && (eth_species.ethereal_charge > 20))
-					to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
-					eth_species.adjust_charge(-20)
-					cell.charge += 20
-				else
-					to_chat(H, "<span class='warning'>You can't transfer power to the APC!</span>")
+			if(cell.charge == cell.maxcharge || (stomach.crystal_charge < 10))
+				to_chat(H, "<span class='warning'>You can't transfer more charge to the APC.</span>")
+				return
+			if(do_after(user, 75, target = src))
+				to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
+				stomach.adjust_charge(-10)
+				cell.charge += 10
+			else
+				to_chat(H, "<span class='warning'>You fail to transfer power to the APC!</span>")
 			return
 
 	if(opened && (!issilicon(user)))
@@ -1256,6 +1282,12 @@
 		else // chargemode off
 			charging = 0
 			chargecount = 0
+
+		//=====Clock Cult=====
+		if(integration_cog && cell.charge >= cell.maxcharge/2)
+			var/power_delta = CLAMP(cell.charge - 20, 0, 20)
+			GLOB.clockcult_power += power_delta
+			cell.charge -= power_delta
 
 	else // no cell, switch everything off
 

@@ -62,6 +62,8 @@
 
 /datum/config_entry/flag/log_cloning // log cloning actions.
 
+/datum/config_entry/flag/log_id		//log ID changes
+
 /datum/config_entry/flag/log_vote	// log voting
 
 /datum/config_entry/flag/log_whisper	// log client whisper
@@ -521,6 +523,8 @@
 /datum/config_entry/flag/topic_enabled
 
 /datum/config_entry/flag/auto_profile
+
+/datum/config_entry/string/centcom_ban_db	// URL for the CentCom Galactic Ban DB API
 
 /datum/config_entry/flag/ic_filter_enabled
 

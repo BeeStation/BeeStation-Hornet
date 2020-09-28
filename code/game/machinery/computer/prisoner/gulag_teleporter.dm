@@ -93,7 +93,7 @@
 			return TRUE
 		if("set_goal")
 			var/new_goal = text2num(params["value"])
-			if(!isnum(new_goal))
+			if(!isnum_safe(new_goal))
 				return
 			if(!new_goal)
 				new_goal = default_goal

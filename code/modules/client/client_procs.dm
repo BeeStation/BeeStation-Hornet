@@ -298,6 +298,10 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 
 
 	. = ..()	//calls mob.Login()
+	if (length(GLOB.stickybanadminexemptions))
+		GLOB.stickybanadminexemptions -= ckey
+		if (!length(GLOB.stickybanadminexemptions))
+			restore_stickybans()
 
 	if (byond_version >= 512)
 		if (!byond_build || byond_build < 1386)
@@ -384,15 +388,15 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	if(QDELETED(src))
 		return null
 
-	if (isnum(cached_player_age) && cached_player_age == -1) //first connection
+	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
 		player_age = 0
 	var/nnpa = CONFIG_GET(number/notify_new_player_age)
-	if (isnum(cached_player_age) && cached_player_age == -1) //first connection
+	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
 		if (nnpa >= 0)
 			message_admins("New user: [key_name_admin(src)] is connecting here for the first time.")
 			if (CONFIG_GET(flag/irc_first_connection_alert))
 				send2irc_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
-	else if (isnum(cached_player_age) && cached_player_age < nnpa)
+	else if (isnum_safe(cached_player_age) && cached_player_age < nnpa)
 		message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(player_age==1?"":"s")]")
 	if(CONFIG_GET(flag/use_account_age_for_jobs) && account_age >= 0)
 		player_age = account_age
@@ -442,7 +446,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		if (topmenuname == "[topmenu.type]")
 			var/list/tree = splittext(topmenuname, "/")
 			topmenuname = tree[tree.len]
-		winset(src, "[topmenu.type]", "parent=menu;name=[url_encode(topmenuname)]")
+		winset(src, "[topmenu.type]", "parent=menu;name=[rustg_url_encode(topmenuname)]")
 		var/list/entries = topmenu.Generate_list(src)
 		for (var/child in entries)
 			winset(src, "[child]", "[entries[child]]")
@@ -689,11 +693,13 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	. = player_age
 
 /client/proc/findJoinDate()
-	var/list/http = world.Export("http://byond.com/members/[ckey]?format=text")
+	var/datum/http_request/http = new()
+	http = http.get_request("http://byond.com/members/[ckey]?format=text")
+
 	if(!http)
 		log_world("Failed to connect to byond member page to age check [ckey]")
 		return
-	var/F = file2text(http["CONTENT"])
+	var/F = http.body
 	if(F)
 		var/regex/R = regex("joined = \"(\\d{4}-\\d{2}-\\d{2})\"")
 		if(R.Find(F))
@@ -714,11 +720,13 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		sql_key = query_check_byond_key.item[1]
 	qdel(query_check_byond_key)
 	if(key != sql_key)
-		var/list/http = world.Export("http://byond.com/members/[ckey]?format=text")
+		var/datum/http_request/http = new()
+		http = http.get_request("http://byond.com/members/[ckey]?format=text")
+		
 		if(!http)
 			log_world("Failed to connect to byond member page to get changed key for [ckey]")
 			return
-		var/F = file2text(http["CONTENT"])
+		var/F = http.body
 		if(F)
 			var/regex/R = regex("\\tkey = \"(.+)\"")
 			if(R.Find(F))
@@ -809,7 +817,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		return TRUE
 
 /client/proc/cid_check_reconnect()
-	var/token = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
+	var/token = rustg_hash_string(RUSTG_HASH_MD5, "[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
 	. = token
 	log_access("Failed Login: [key] [computer_id] [address] - CID randomizer check")
 	var/url = winget(src, null, "url")

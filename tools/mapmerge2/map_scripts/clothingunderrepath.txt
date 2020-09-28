@@ -119,7 +119,7 @@
 /obj/item/clothing/under/lawyer/blacksuit : /obj/item/clothing/under/suit/black
 /obj/item/clothing/under/lawyer/blacksuit/skirt : /obj/item/clothing/under/suit/black/skirt
 /obj/item/clothing/under/lawyer/really_black : /obj/item/clothing/under/suit/black_really
-/obj/item/clothing/under/lawyer/really_black/skirt : /obj/item/clothing/under/suit/black_really/skirt
+/obj/item/clothing/under/lawyer/black/female : /obj/item/clothing/under/suit/black/female
 /obj/item/clothing/under/rank/head_of_personnel : /obj/item/clothing/under/rank/civilian/head_of_personnel
 /obj/item/clothing/under/rank/head_of_personnel/skirt : /obj/item/clothing/under/rank/civilian/head_of_personnel/skirt
 /obj/item/clothing/under/gimmick/rank/head_of_personnel/suit : /obj/item/clothing/under/rank/civilian/head_of_personnel/suit

@@ -84,39 +84,36 @@
 	if (!SSipintel.enabled)
 		return
 
-	var/list/http[] = world.Export("http://[CONFIG_GET(string/ipintel_domain)]/check.php?ip=[ip]&contact=[CONFIG_GET(string/ipintel_email)]&format=json&flags=f")
+	var/datum/http_request/http = new()
+	var/datum/http_response/results = http.get_request("http://[CONFIG_GET(string/ipintel_domain)]/check.php?ip=[ip]&contact=[CONFIG_GET(string/ipintel_email)]&format=json&flags=f")
 
-	if (http)
-		var/status = text2num(http["STATUS"])
-
-		if (status == 200)
-			var/response = json_decode(file2text(http["CONTENT"]))
-			if (response)
-				if (response["status"] == "success")
-					var/intelnum = text2num(response["result"])
-					if (isnum(intelnum))
-						return text2num(response["result"])
-					else
-						ipintel_handle_error("Bad intel from server: [response["result"]].", ip, retryed)
-						if (!retryed)
-							sleep(25)
-							return .(ip, 1)
+	if(results.errored)
+		ipintel_handle_error("Unable to connect to API.", ip, retryed)
+		if (!retryed)
+			sleep(25)
+			return .(ip, 1)
+	else if(results.status_code == 200)
+		var/response = json_decode(results["body"])
+		if (response)
+			if (response["status"] == "success")
+				var/intelnum = text2num(response["result"])
+				if (isnum_safe(intelnum))
+					return text2num(response["result"])
 				else
-					ipintel_handle_error("Bad response from server: [response["status"]].", ip, retryed)
+					ipintel_handle_error("Bad intel from server: [response["result"]].", ip, retryed)
 					if (!retryed)
 						sleep(25)
 						return .(ip, 1)
-
-		else if (status == 429)
-			ipintel_handle_error("Error #429: We have exceeded the rate limit.", ip, 1)
-			return
-		else
-			ipintel_handle_error("Unknown status code: [status].", ip, retryed)
-			if (!retryed)
-				sleep(25)
-				return .(ip, 1)
+			else
+				ipintel_handle_error("Bad response from server: [response["status"]].", ip, retryed)
+				if (!retryed)
+					sleep(25)
+					return .(ip, 1)
+	else if(results.status_code == 429)
+		ipintel_handle_error("Error #429: We have exceeded the rate limit.", ip, 1)
+		return
 	else
-		ipintel_handle_error("Unable to connect to API.", ip, retryed)
+		ipintel_handle_error("Unknown status code: [results.status_code].", ip, retryed)
 		if (!retryed)
 			sleep(25)
 			return .(ip, 1)

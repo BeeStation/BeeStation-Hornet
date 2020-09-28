@@ -52,7 +52,7 @@
 
 /obj/item/integrated_circuit/input/numberpad/ask_for_input(mob/user)
 	var/new_input = input(user, "Enter a number, please.",displayed_name) as null|num
-	if(isnum(new_input) && user.IsAdvancedToolUser())
+	if(isnum_safe(new_input) && user.IsAdvancedToolUser())
 		set_pin_data(IC_OUTPUT, 1, new_input)
 		push_data()
 		activate_pin(1)
@@ -603,7 +603,7 @@
 /obj/item/integrated_circuit/input/advanced_locator_list/on_data_written()
 	var/rad = get_pin_data(IC_INPUT, 2)
 
-	if(isnum(rad))
+	if(isnum_safe(rad))
 		rad = CLAMP(rad, 0, 8)
 		radius = rad
 
@@ -618,7 +618,7 @@
 		var/list/nearby_things = view(radius,T)
 		var/list/valid_things = list()
 		for(var/item in input_list)
-			if(!isnull(item) && !isnum(item))
+			if(!isnull(item) && !isnum_safe(item))
 				if(istext(item))
 					for(var/i in nearby_things)
 						var/atom/thing = i
@@ -665,7 +665,7 @@
 
 /obj/item/integrated_circuit/input/advanced_locator/on_data_written()
 	var/rad = get_pin_data(IC_INPUT, 2)
-	if(isnum(rad))
+	if(isnum_safe(rad))
 		rad = CLAMP(rad, 0, 8)
 		radius = rad
 
@@ -743,9 +743,9 @@
 /obj/item/integrated_circuit/input/signaler/on_data_written()
 	var/new_freq = get_pin_data(IC_INPUT, 1)
 	var/new_code = get_pin_data(IC_INPUT, 2)
-	if(isnum(new_freq) && new_freq > 0)
+	if(isnum_safe(new_freq) && new_freq > 0)
 		set_frequency(new_freq)
-	if(isnum(new_code))
+	if(isnum_safe(new_code))
 		code = new_code
 
 
@@ -768,7 +768,7 @@
 	var/new_code = get_pin_data(IC_INPUT, 2)
 	var/code = 0
 
-	if(isnum(new_code))
+	if(isnum_safe(new_code))
 		code = new_code
 	if(!signal)
 		return 0
