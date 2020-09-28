@@ -275,7 +275,7 @@
 			playsong(usr)
 
 	else if(href_list["newline"])
-		var/newline = stripped_input(usr, "Enter your line: ", instrumentObj.name)
+		var/newline = stripped_input(usr, "Enter your line: ", instrumentObj.name, max_length=MUSIC_MAXLINECHARS)
 		if(!newline || !usr.canUseTopic(instrumentObj, BE_CLOSE, FALSE, NO_TK))
 			return
 		if(lines.len > MUSIC_MAXLINES)
