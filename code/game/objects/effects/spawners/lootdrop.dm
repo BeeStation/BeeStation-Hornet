@@ -436,7 +436,6 @@
 				/obj/item/circuitboard/computer/robotics
 				)
 
-<<<<<<< HEAD
 /obj/effect/spawner/lootdrop/trap
 	name = "10% pressure plate spawner"
 	loot = list(
@@ -456,8 +455,6 @@
 		/obj/effect/trap/nexus/trickyspawner/honkling = 3,
 		/obj/effect/trap/nexus/cluwnecurse = 1)
 
-=======
->>>>>>> randomengines
 // Spawners for randomized engines, Station can only make the Singulo or Tesla
 
 /obj/effect/spawner/lootdrop/Engines
@@ -466,8 +463,4 @@
 				/obj/machinery/the_singularitygen = 25,
 				/obj/machinery/the_singularitygen/tesla = 75
 				)
-<<<<<<< HEAD
 	lootcount = 1
-=======
-	lootcount = 1
->>>>>>> randomengines
