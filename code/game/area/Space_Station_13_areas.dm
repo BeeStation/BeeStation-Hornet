@@ -237,8 +237,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //Hallway
 
 /area/hallway
-	lighting_colour_tube = "#fdf3ea"
-	lighting_colour_bulb = "#ffebd6"
+	lighting_colour_tube = "#ffce99"
+	lighting_colour_bulb = "#ffdbb4"
+	lighting_brightness_tube = 8
+
 
 /area/hallway/primary/aft
 	name = "Aft Primary Hallway"
@@ -290,6 +292,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Bridge"
 	icon_state = "bridge"
 	ambientsounds = list('sound/ambience/signal.ogg')
+
+	lighting_colour_tube = "#ffce99"
+	lighting_colour_bulb = "#ffdbb4"
+	lighting_brightness_tube = 8
 
 /area/bridge/meeting_room
 	name = "Heads of Staff Meeting Room"
@@ -343,14 +349,17 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //Crew
 
+/area/crew_quarters
+	lighting_colour_tube = "#ffce99"
+	lighting_colour_bulb = "#ffdbb4"
+	lighting_brightness_tube = 8
+
 /area/crew_quarters/dorms
 	name = "Dormitories"
 	icon_state = "Sleep"
 	safe = TRUE
 	mood_bonus = 3
 	mood_message = "<span class='nicegreen'>There's no place like the dorms!\n</span>"
-	lighting_colour_tube = "#fff4d6"
-	lighting_colour_bulb = "#ffebc1"
 
 /area/crew_quarters/cryopods
 	name = "Cryopod Room"
@@ -446,8 +455,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Library"
 	icon_state = "library"
 	flags_1 = NONE
-	lighting_colour_tube = "#fff1cc"
-	lighting_colour_bulb = "#ffe9b9"
+
+	lighting_colour_tube = "#ffce99"
+	lighting_colour_bulb = "#ffdbb4"
+	lighting_brightness_tube = 8
 
 /area/library/lounge
 	name = "Library Lounge"
