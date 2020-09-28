@@ -72,6 +72,13 @@
 	toggled = FALSE
 	autolinkers = list("r_relay")
 
+/obj/machinery/telecomms/relay/preset/reebe
+	id = "Hierophant Relay"
+	hide = 1
+	autolinkers = list("h_relay")
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "relay"
+
 //Generic preset relay
 /obj/machinery/telecomms/relay/preset/auto
 	hide = TRUE
