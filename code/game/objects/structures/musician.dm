@@ -292,7 +292,7 @@
 
 	else if(href_list["modifyline"])
 		var/num = round(text2num(href_list["modifyline"]),1)
-		var/content = stripped_input(usr, "Enter your line: ", instrumentObj.name, lines[num])
+		var/content = stripped_input(usr, "Enter your line: ", instrumentObj.name, lines[num], max_length=MUSIC_MAXLINECHARS)
 		if(!content || !usr.canUseTopic(instrumentObj, BE_CLOSE, FALSE, NO_TK))
 			return
 		if(num > lines.len || num < 1)
