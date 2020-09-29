@@ -88,10 +88,11 @@
 			))
 	else
 		window.send_message("ping")
-	var/flushqueue = window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))
+	var/flush_queue = window.send_asset(get_asset_datum(
+		/datum/asset/simple/namespaced/fontawesome))
 	for(var/datum/asset/asset in src_object.ui_assets(user))
-		flushqueue |= window.send_asset(asset)
-	if (flushqueue)
+		flush_queue |= window.send_asset(asset)
+	if (flush_queue)
 		user.client.browse_queue_flush()
 	window.send_message("update", get_payload(
 		with_data = TRUE,
@@ -121,6 +122,7 @@
 		SStgui.on_close(src)
 	state = null
 	qdel(src)
+
 /**
  * public
  *
@@ -261,6 +263,7 @@
 		return
 	if(needs_update)
 		window.send_message("update", get_payload())
+
 /**
  * private
  *
