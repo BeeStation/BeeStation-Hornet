@@ -380,9 +380,6 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 
 	add_verbs_from_config()
 	var/cached_player_age = set_client_age_from_db(tdata) //we have to cache this because other shit may change it and we need it's current value now down below.
-	
-	if(QDELETED(src))
-		return null
 
 	if(QDELETED(src))
 		return null
